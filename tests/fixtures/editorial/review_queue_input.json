@@ -1,0 +1,104 @@
+{
+    "packets": [
+        {
+            "source_fixture_id": "review_demo_clean",
+            "content_type": "post",
+            "target_platforms": ["linkedin"],
+            "audience_modes": ["quant_systematic_trader"],
+            "style_modes": ["professional"],
+            "research": {
+                "is_current_events": false,
+                "topic": "Evergreen note on research workflow discipline",
+                "freshness_window": "evergreen",
+                "source_items": [
+                    {
+                        "source_id": "rq_src_1",
+                        "title": "Local Fixture Snapshot",
+                        "publisher_or_origin": "synthetic_fixture_tool",
+                        "source_type": "synthetic_fixture",
+                        "synthetic_fixture": true,
+                        "claim_summary": "Workflow discipline matters, with caveats.",
+                        "limitations": ["Synthetic source - not for live use"]
+                    }
+                ]
+            },
+            "seo": {
+                "topic": "research workflow",
+                "platform": "linkedin",
+                "is_synthetic": true,
+                "suggested_keywords": ["workflow", "research"],
+                "suggested_hashtags": ["#research"]
+            },
+            "prompt": {
+                "task_intent": "Draft an educational post",
+                "is_synthetic": true,
+                "target_platforms": ["linkedin"],
+                "citation_requirements": "Required for all claims",
+                "freshness_requirements": "evergreen",
+                "source_context": {
+                    "is_current_events": false,
+                    "source_items": [
+                        {"source_id": "rq_src_1", "synthetic_fixture": true, "claim_summary": "Workflow discipline matters."}
+                    ]
+                }
+            },
+            "qa": {
+                "text": "How do practitioners keep research workflows disciplined?\n\nCaveat: this is a fixture note. Source: http://example.com/data",
+                "platform": "linkedin",
+                "audience": "quant_systematic_trader",
+                "is_synthetic_demo": true
+            },
+            "preview": {
+                "source_fixture_id": "review_demo_clean",
+                "text": "How do practitioners keep research workflows disciplined?\n\nCaveat: this is a fixture note. Source: http://example.com/data",
+                "platforms": ["linkedin"],
+                "audience_modes": ["quant_systematic_trader"],
+                "style_modes": ["professional"],
+                "is_synthetic_demo": true
+            }
+        },
+        {
+            "source_fixture_id": "review_demo_blocked",
+            "content_type": "post",
+            "target_platforms": ["x"],
+            "audience_modes": ["general_finance_reader"],
+            "style_modes": ["concise"],
+            "research": {
+                "is_current_events": true,
+                "topic": "Breaking current-event topic with no sources",
+                "source_items": []
+            },
+            "seo": {
+                "topic": "breaking topic",
+                "platform": "x",
+                "is_synthetic": true,
+                "suggested_keywords": ["news"],
+                "suggested_hashtags": ["#news"]
+            },
+            "prompt": {
+                "task_intent": "Draft a current-event post",
+                "is_synthetic": true,
+                "target_platforms": ["x"],
+                "citation_requirements": "Required for all claims",
+                "source_context": {
+                    "is_current_events": true,
+                    "source_items": []
+                }
+            },
+            "qa": {
+                "text": "Breaking: something happened today.",
+                "platform": "x",
+                "audience": "general_finance_reader",
+                "is_synthetic_demo": true
+            },
+            "preview": {
+                "source_fixture_id": "review_demo_blocked",
+                "text": "Breaking: something happened today.",
+                "platforms": ["x"],
+                "audience_modes": ["general_finance_reader"],
+                "style_modes": ["concise"],
+                "is_synthetic_demo": true
+            }
+        }
+    ]
+}
