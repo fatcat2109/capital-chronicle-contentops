@@ -22,6 +22,8 @@ from . import seo_metadata
 from . import prompt_injection
 from . import editorial_packet_export
 from . import packet_review_queue
+from . import artifact_packet_bridge
+
 from . import real_artifact_intake
 
 from . import next_phase_selection
@@ -497,6 +499,9 @@ def bundle_refresh_next_phase_summary():
     print(json.dumps(next_phase_selection.build_summary(), indent=2))
 def real_artifact_intake_summary():
     print(json.dumps(real_artifact_intake.build_summary(), indent=2))
+def artifact_packet_bridge_summary():
+    print(json.dumps(artifact_packet_bridge.build_summary(), indent=2))
+
 
 
 
@@ -558,6 +563,8 @@ COMMANDS = {
     "review-ledger-registry-summary": review_ledger_registry_summary,
     "packet-registry-dashboard-summary": packet_registry_dashboard_summary,
     "project-source-export-summary": project_source_export_summary,
+    "artifact-packet-bridge-summary": artifact_packet_bridge_summary,
+
     "real-artifact-intake-summary": real_artifact_intake_summary,
 
     "bundle-refresh-next-phase-summary": bundle_refresh_next_phase_summary,
