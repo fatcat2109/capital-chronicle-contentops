@@ -11,6 +11,16 @@ generator, no provider/search/platform/credential/scheduler/publisher work.
 - Created: docs/PRE_ALPHA_GENERAL_PROCESS_AND_GROUNDED_NEWS_MASTER_PLAN_AFTER_0075.md
 - Created: docs/TASK_CONTENTOPS_0075_PRE_ALPHA_GENERAL_PROCESS_AND_GROUNDED_NEWS_MASTER_PLAN_DOCS_V0.md (this report)
 
+## 0075A canonical content + path-naming repair
+- Verified tracked 0075 doc paths already use the canonical underscore convention
+  (AFTER_0075 / TASK_CONTENTOPS_0075). No non-underscore duplicates existed; no
+  rename was required.
+- Repaired the master plan doc to carry the FULL canonical content supplied by the
+  operator: "Pre-Alpha General/Process Content Master Plan v1" (sections 0-11) plus
+  "Addendum - Grounded News / Research Context Lane" (section 12). All internal
+  references use the underscore convention.
+- No runtime capability added; terminal wait-state preserved.
+
 ## What remains disabled
 Provider/LLM API calls; network/search; platform APIs; credentials/env reads;
 scheduling; live posting; autonomous replies/DMs; browser automation/scraping;
