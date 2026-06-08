@@ -14,4 +14,4 @@ def test_cli_status():
     assert data["scheduler"] == "disabled"
     assert data["publishing"] == "disabled"
     assert data["autonomous_replies"] == "disabled"
-    assert data["next_task"] == "TASK_CONTENTOPS_0059_LOCAL_EDITORIAL_SELECTION_PACKET_AND_VARIANT_COMPARISON_V0"
+    assert data["next_task"] == "TASK_CONTENTOPS_0060_LOCAL_EDITORIAL_HASHTAG_SEO_METADATA_PACK_V0"

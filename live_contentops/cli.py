@@ -16,6 +16,7 @@ from .adapters import linkedin
 from .adapters import instagram
 from . import editorial_quality
 from . import editorial_preview
+from . import editorial_selection
 import uuid
 
 def print_status():
@@ -391,6 +392,21 @@ def editorial_preview_summary():
         "all_fixture_outputs_not_public_postable": True
     }, indent=2))
 
+def editorial_selection_summary():
+    print(json.dumps({
+        "status": "deterministic local editorial selection packet generator active",
+        "number_of_packets_supported": 1,
+        "variants_compared": "dynamic based on preview inputs",
+        "manual_selection_required": True,
+        "auto_selected": False,
+        "approval_granted": False,
+        "publish_ready": False,
+        "live_actions_disabled": True,
+        "advisory_only": True,
+        "all_fixture_outputs_not_public_postable": True
+    }, indent=2))
+
+
 
 COMMANDS = {
     "status": print_status,
@@ -429,7 +445,8 @@ COMMANDS = {
     "telegram-live-no-go-status": telegram_live_no_go_status,
     "live-project-sources-bundle": live_project_sources_bundle,
     "editorial-qa-summary": editorial_qa_summary,
-    "editorial-preview-summary": editorial_preview_summary
+    "editorial-preview-summary": editorial_preview_summary,
+    "editorial-selection-summary": editorial_selection_summary
 }
 
 def main():
