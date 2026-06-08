@@ -1,0 +1,10 @@
+"""Configuration defaults (all live capabilities disabled)."""
+ENVIRONMENT = "local"
+NETWORK_ENABLED = False
+PROVIDER_CALLS_ENABLED = False
+PLATFORM_APIS_ENABLED = False
+SCHEDULER_ENABLED = False
+PUBLISHING_ENABLED = False
+AUTONOMOUS_REPLIES_ENABLED = False
+REQUIRE_HUMAN_APPROVAL = True
+KILL_SWITCH_DEFAULT = True  # HALT state by default

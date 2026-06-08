@@ -1,0 +1,8 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cc-live-contentops"
+version = "0.0.1"
+description = "Capital Chronicle Live ContentOps Control Plane Skeleton"
