@@ -15,6 +15,7 @@ from .adapters import x_adapter
 from .adapters import linkedin
 from .adapters import instagram
 from . import editorial_quality
+from . import editorial_preview
 import uuid
 
 def print_status():
@@ -378,6 +379,18 @@ def editorial_qa_summary():
         "advisory_only": True
     }, indent=2))
 
+def editorial_preview_summary():
+    print(json.dumps({
+        "status": "deterministic local editorial variant preview active",
+        "number_of_preview_fixtures_supported": 1,
+        "platforms_supported": editorial_quality.PLATFORMS,
+        "audience_modes": editorial_quality.AUDIENCE_MODES,
+        "style_modes": editorial_preview.STYLE_MODES,
+        "live_actions_disabled": True,
+        "advisory_only": True,
+        "all_fixture_outputs_not_public_postable": True
+    }, indent=2))
+
 
 COMMANDS = {
     "status": print_status,
@@ -415,7 +428,8 @@ COMMANDS = {
     "telegram-staging-operator-rollback-drill": telegram_staging_operator_rollback_drill,
     "telegram-live-no-go-status": telegram_live_no_go_status,
     "live-project-sources-bundle": live_project_sources_bundle,
-    "editorial-qa-summary": editorial_qa_summary
+    "editorial-qa-summary": editorial_qa_summary,
+    "editorial-preview-summary": editorial_preview_summary
 }
 
 def main():
