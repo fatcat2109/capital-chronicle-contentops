@@ -145,7 +145,7 @@ def run_operator_rollback_drill(operator_id: str = "operator_jim_local") -> Dict
     human_audit = operator_decision["audit_event"]
     
     audit_events.append({
-        "event_id": human_audit["event_id"],
+        "event_id": human_audit["audit_event_id"],
         "event_type": human_audit["event_type"],
         "target_id": queue_item["queue_item_id"],
         "result": "REJECTED_AND_QUARANTINED",
@@ -158,7 +158,7 @@ def run_operator_rollback_drill(operator_id: str = "operator_jim_local") -> Dict
         "telegram_api_used": False,
         "publishing_enabled": False,
         "scheduler_enabled": False,
-        "created_at": human_audit["timestamp"]
+        "created_at": human_audit["created_at"]
     })
 
     return {
