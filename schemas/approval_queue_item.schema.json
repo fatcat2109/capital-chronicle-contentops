@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "audit_event_id": {
+    "queue_item_id": {
       "type": [
         "string",
         "object",
@@ -12,7 +12,7 @@
         "integer"
       ]
     },
-    "event_type": {
+    "source_policy_decision_id": {
       "type": [
         "string",
         "object",
@@ -22,7 +22,7 @@
         "integer"
       ]
     },
-    "actor_id": {
+    "policy_status": {
       "type": [
         "string",
         "object",
@@ -32,7 +32,7 @@
         "integer"
       ]
     },
-    "action": {
+    "queue_status": {
       "type": [
         "string",
         "object",
@@ -42,7 +42,17 @@
         "integer"
       ]
     },
-    "result": {
+    "human_approval_required": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "safe_for_publish": {
       "type": [
         "string",
         "object",
@@ -63,11 +73,12 @@
     }
   },
   "required": [
-    "audit_event_id",
-    "event_type",
-    "actor_id",
-    "action",
-    "result"
+    "queue_item_id",
+    "source_policy_decision_id",
+    "policy_status",
+    "queue_status",
+    "human_approval_required",
+    "safe_for_publish"
   ],
   "additionalProperties": true
 }

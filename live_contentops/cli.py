@@ -7,6 +7,9 @@ from . import contracts
 from . import contract_validation
 from . import policy_engine
 from . import policy_rules
+from . import approval_queue
+from . import audit_log
+import uuid
 
 def print_status():
     s = status.get_status()
@@ -74,6 +77,37 @@ def evaluate_sample_policy():
 
     print(json.dumps({"evaluations": results}, indent=2))
 
+
+def approval_queue_summary():
+    print(json.dumps({
+        "status": "deterministic local approval queue",
+        "allowed_statuses": approval_queue.ALLOWED_QUEUE_STATUSES,
+        "allowed_operator_actions": approval_queue.ALLOWED_OPERATOR_ACTIONS,
+        "forbidden_operator_actions": approval_queue.FORBIDDEN_OPERATOR_ACTIONS,
+        "live_actions_disabled": True
+    }, indent=2))
+
+def build_sample_approval_queue():
+    samples = [
+        {"status": policy_rules.PASS_REVIEW_REQUIRED, "decision_id": "d1"},
+        {"status": policy_rules.BLOCKED_SOURCE_REQUIRED, "decision_id": "d2"},
+        {"status": policy_rules.BLOCKED_FORBIDDEN_FINANCIAL_ADVICE, "decision_id": "d3"}
+    ]
+    items = []
+    for s in samples:
+        items.append(approval_queue.build_queue_item_from_policy_decision(s))
+
+    summary = approval_queue.summarize_queue(items)
+    print(json.dumps({"items_built": len(items), "summary": summary}, indent=2))
+
+def audit_log_summary():
+    print(json.dumps({
+        "status": "deterministic local audit log",
+        "allowed_event_types": audit_log.ALLOWED_EVENT_TYPES,
+        "redaction_required": True,
+        "live_actions_disabled": True
+    }, indent=2))
+
 def main():
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
@@ -92,8 +126,17 @@ def main():
         elif cmd == "evaluate-sample-policy":
             evaluate_sample_policy()
             return 0
+        elif cmd == "approval-queue-summary":
+            approval_queue_summary()
+            return 0
+        elif cmd == "build-sample-approval-queue":
+            build_sample_approval_queue()
+            return 0
+        elif cmd == "audit-log-summary":
+            audit_log_summary()
+            return 0
 
-    print("Usage: python -m live_contentops.cli [status|contracts-summary|validate-sample-contracts|policy-summary|evaluate-sample-policy]")
+    print("Usage: python -m live_contentops.cli [status|contracts-summary|validate-sample-contracts|policy-summary|evaluate-sample-policy|approval-queue-summary|build-sample-approval-queue|audit-log-summary]")
     return 1
 
 if __name__ == "__main__":

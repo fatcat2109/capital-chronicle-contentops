@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "actor_id": {
+    "total": {
       "type": [
         "string",
         "object",
@@ -12,17 +12,7 @@
         "integer"
       ]
     },
-    "action": {
-      "type": [
-        "string",
-        "object",
-        "array",
-        "boolean",
-        "number",
-        "integer"
-      ]
-    },
-    "queue_item_id": {
+    "status_counts": {
       "type": [
         "string",
         "object",
@@ -34,9 +24,8 @@
     }
   },
   "required": [
-    "actor_id",
-    "action",
-    "queue_item_id"
+    "total",
+    "status_counts"
   ],
   "additionalProperties": true
 }
