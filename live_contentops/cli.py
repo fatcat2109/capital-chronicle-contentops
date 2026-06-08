@@ -17,6 +17,7 @@ from .adapters import instagram
 from . import editorial_quality
 from . import editorial_preview
 from . import editorial_selection
+from . import grounded_research
 import uuid
 
 def print_status():
@@ -406,6 +407,33 @@ def editorial_selection_summary():
         "all_fixture_outputs_not_public_postable": True
     }, indent=2))
 
+def grounded_research_summary():
+    print(json.dumps({
+        "status": "deterministic local grounded research contract active",
+        "local_only": True,
+        "search_performed": False,
+        "live_actions_disabled": True,
+        "advisory_only": True,
+        "supported_source_types": grounded_research.SOURCE_TYPES,
+        "supported_platforms": editorial_quality.PLATFORMS,
+        "cost_policy_enabled": True,
+        "all_fixture_outputs_not_public_postable": True
+    }, indent=2))
+
+def seo_metadata_summary():
+    print(json.dumps({
+        "status": "deterministic local SEO metadata generator active",
+        "local_only": True,
+        "search_performed": False,
+        "live_actions_disabled": True,
+        "advisory_only": True,
+        "supported_source_types": grounded_research.SOURCE_TYPES,
+        "supported_platforms": editorial_quality.PLATFORMS,
+        "cost_policy_enabled": True,
+        "all_fixture_outputs_not_public_postable": True
+    }, indent=2))
+
+
 
 
 COMMANDS = {
@@ -446,7 +474,9 @@ COMMANDS = {
     "live-project-sources-bundle": live_project_sources_bundle,
     "editorial-qa-summary": editorial_qa_summary,
     "editorial-preview-summary": editorial_preview_summary,
-    "editorial-selection-summary": editorial_selection_summary
+    "editorial-selection-summary": editorial_selection_summary,
+    "grounded-research-summary": grounded_research_summary,
+    "seo-metadata-summary": seo_metadata_summary
 }
 
 def main():

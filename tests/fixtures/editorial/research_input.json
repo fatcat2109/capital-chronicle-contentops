@@ -1,0 +1,13 @@
+{
+    "is_current_events": true,
+    "topic": "Fed Rate Hike Predictions",
+    "source_items": [
+        {
+            "title": "Local Fixture News Snapshot",
+            "publisher_or_origin": "synthetic_fixture_tool",
+            "source_type": "synthetic_fixture",
+            "synthetic_fixture": true,
+            "claim_summary": "Rates might go up or down."
+        }
+    ]
+}
