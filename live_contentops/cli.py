@@ -295,14 +295,48 @@ def meta_capability_review_checklist():
     checklist = instagram.build_meta_capability_review_checklist()
     print(json.dumps({"meta_capability_review_checklist": checklist, "message": "Real Meta/Graph permission names are not verified in this task."}, indent=2))
 
+def pilot_prerequisites_status():
+    import json
+    import os
+    prereq_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'LIVE_PILOT_OPERATOR_PREREQUISITES_V1.json')
+    if not os.path.exists(prereq_path):
+        print("Prerequisites missing.")
+        return
+    with open(prereq_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    print("Live pilot credential GO allowed now: False")
+    print("Network allowed now: False")
+    print("Publish allowed now: False")
+    print("Top Blockers:")
+    for entry in data.get("prerequisites", []):
+        if entry.get("blocker_if_missing") and entry.get("status") in ["MISSING_OPERATOR_INPUT", "FUTURE_VERIFICATION_REQUIRED"]:
+            print(f"- {entry.get('title')}: {entry.get('notes')}")
+    print("Recommended next task: TASK_CONTENTOPS_0047_TELEGRAM_PRIVATE_STAGING_DRY_RUN_OPERATOR_PACKET")
+
+def telegram_private_staging_packet_status():
+    import json
+    import os
+    packet_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'TELEGRAM_PRIVATE_STAGING_DRY_RUN_OPERATOR_PACKET_V1.json')
+    if not os.path.exists(packet_path):
+        print("Telegram packet missing.")
+        return
+    with open(packet_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    print("Live credentials allowed now: False")
+    print("Network allowed now: False")
+    print("Telegram API allowed now: False")
+    print("Publish allowed now: False")
+    print("Top Blockers:")
+    for b in data.get("blocker_list", []):
+        print(f"- {b}")
+    print(f"Exact next task: {data.get('exact_next_task')}")
+
+def telegram_staging_flow_dry_run():
+    from . import telegram_staging_flow
+    res = telegram_staging_flow.run_cli_flow()
+    print(json.dumps(res, indent=2))
+
 def main():
-    if len(sys.argv) > 1 and sys.argv[1] == 'pilot-prerequisites-status':
-        pilot_prerequisites_status()
-            elif len(sys.argv) > 1 and sys.argv[1] == 'telegram-private-staging-packet-status':
-        telegram_private_staging_packet_status()
-        sys.exit(0)
-    else:
-        sys.exit(0)
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
         if cmd == "status":
@@ -392,47 +426,18 @@ def main():
         elif cmd == "meta-capability-review-checklist":
             meta_capability_review_checklist()
             return 0
+        elif cmd == "pilot-prerequisites-status":
+            pilot_prerequisites_status()
+            return 0
+        elif cmd == "telegram-private-staging-packet-status":
+            telegram_private_staging_packet_status()
+            return 0
+        elif cmd == "telegram-staging-flow-dry-run":
+            telegram_staging_flow_dry_run()
+            return 0
 
-    print("Usage: python -m live_contentops.cli [status|contracts-summary|validate-sample-contracts|policy-summary|evaluate-sample-policy|approval-queue-summary|build-sample-approval-queue|audit-log-summary|provider-gateway-status|provider-dry-run|validate-provider-dry-run-fixtures|telegram-adapter-status|telegram-dry-run|validate-telegram-dry-run-fixtures|telegram-staging-contract|x-adapter-status|x-dry-run|validate-x-dry-run-fixtures|x-staging-contract|linkedin-adapter-status|linkedin-dry-run|validate-linkedin-dry-run-fixtures|linkedin-staging-contract|linkedin-scope-verification-checklist|instagram-asset-export-status|instagram-asset-dry-run|validate-instagram-asset-fixtures|instagram-staging-contract|meta-capability-review-checklist]")
+    print("Usage: python -m live_contentops.cli [status|...|telegram-staging-flow-dry-run]")
     return 1
 
 if __name__ == "__main__":
     sys.exit(main())
-
-def pilot_prerequisites_status():
-    import json
-    import os
-    prereq_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'LIVE_PILOT_OPERATOR_PREREQUISITES_V1.json')
-    if not os.path.exists(prereq_path):
-        print("Prerequisites missing.")
-        return
-    with open(prereq_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    print("Live pilot credential GO allowed now: False")
-    print("Network allowed now: False")
-    print("Publish allowed now: False")
-    print("Top Blockers:")
-    for entry in data.get("prerequisites", []):
-        if entry.get("blocker_if_missing") and entry.get("status") in ["MISSING_OPERATOR_INPUT", "FUTURE_VERIFICATION_REQUIRED"]:
-            print(f"- {entry.get('title')}: {entry.get('notes')}")
-    print("Recommended next task: TASK_CONTENTOPS_0047_TELEGRAM_PRIVATE_STAGING_DRY_RUN_OPERATOR_PACKET")
-
-
-def telegram_private_staging_packet_status():
-    import json
-    import os
-    packet_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'TELEGRAM_PRIVATE_STAGING_DRY_RUN_OPERATOR_PACKET_V1.json')
-    if not os.path.exists(packet_path):
-        print("Telegram packet missing.")
-        return
-    with open(packet_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    print("Live credentials allowed now: False")
-    print("Network allowed now: False")
-    print("Telegram API allowed now: False")
-    print("Publish allowed now: False")
-    print("Top Blockers:")
-    for b in data.get("blocker_list", []):
-        print(f"- {b}")
-    print(f"Exact next task: {data.get('exact_next_task')}")
-

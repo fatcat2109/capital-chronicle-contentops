@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Telegram Staging Dry Run Flow",
+  "type": "object",
+  "properties": {
+    "flow_id": {
+      "type": "string"
+    },
+    "flow_status": {
+      "type": "string"
+    },
+    "audit_trail": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "event_id": {
+            "type": "string"
+          },
+          "event_type": {
+            "type": "string"
+          },
+          "secrets_redacted": {
+            "type": "boolean",
+            "const": true
+          },
+          "network_used": {
+            "type": "boolean",
+            "const": false
+          },
+          "telegram_api_used": {
+            "type": "boolean",
+            "const": false
+          }
+        },
+        "required": [
+          "event_id",
+          "event_type",
+          "secrets_redacted",
+          "network_used",
+          "telegram_api_used"
+        ]
+      }
+    },
+    "live_credentials_allowed_now": {
+      "type": "boolean",
+      "const": false
+    },
+    "network_used": {
+      "type": "boolean",
+      "const": false
+    },
+    "telegram_api_used": {
+      "type": "boolean",
+      "const": false
+    },
+    "safe_for_publish": {
+      "type": "boolean",
+      "const": false
+    },
+    "human_approval_required": {
+      "type": "boolean",
+      "const": true
+    }
+  },
+  "required": [
+    "flow_id",
+    "flow_status",
+    "audit_trail",
+    "live_credentials_allowed_now",
+    "network_used",
+    "telegram_api_used",
+    "safe_for_publish",
+    "human_approval_required"
+  ]
+}
