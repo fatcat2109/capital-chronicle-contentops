@@ -341,6 +341,24 @@ def telegram_staging_operator_rollback_drill():
     res = operator_rollback_drill.run_cli_drill()
     print(json.dumps(res, indent=2))
 
+def telegram_live_no_go_status():
+    import json
+    import os
+    matrix_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'TELEGRAM_STAGING_LIVE_BLOCKER_MATRIX_V1.json')
+    if not os.path.exists(matrix_path):
+        print("Blocker matrix missing.")
+        return
+    with open(matrix_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    print(f"Decision Status: {data.get('decision_status')}")
+    print("Live keys allowed now: False")
+    print("Network allowed now: False")
+    print("Telegram send allowed now: False")
+    print("Top Blockers:")
+    for b in data.get('top_blockers', []):
+        print(f"- {b}")
+    print(f"Exact next task: {data.get('exact_next_task')}")
+
 def main():
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
@@ -442,6 +460,9 @@ def main():
             return 0
         elif cmd == "telegram-staging-operator-rollback-drill":
             telegram_staging_operator_rollback_drill()
+            return 0
+        elif cmd == "telegram-live-no-go-status":
+            telegram_live_no_go_status()
             return 0
 
     print("Usage: python -m live_contentops.cli [status|...|telegram-staging-flow-dry-run]")
