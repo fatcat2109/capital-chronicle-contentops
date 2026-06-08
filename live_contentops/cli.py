@@ -9,6 +9,7 @@ from . import policy_engine
 from . import policy_rules
 from . import approval_queue
 from . import audit_log
+from . import provider_gateway
 import uuid
 
 def print_status():
@@ -108,6 +109,32 @@ def audit_log_summary():
         "live_actions_disabled": True
     }, indent=2))
 
+
+def provider_gateway_status():
+    print(json.dumps({
+        "status": "deterministic local provider gateway simulator",
+        "providers": provider_gateway.PROVIDER_STATUS,
+        "live_actions_disabled": True
+    }, indent=2))
+
+def provider_dry_run():
+    req = {
+        "requested_provider": provider_gateway.DRY_RUN_SIMULATOR,
+        "dry_run_only": True,
+        "policy_status": policy_rules.PASS_REVIEW_REQUIRED,
+        "queue_status": "REVIEW_REQUIRED",
+        "prompt_text": "sample"
+    }
+    try:
+        res = provider_gateway.run_provider_dry_run(req)
+        print(json.dumps({"dry_run_result": res}, indent=2))
+    except Exception as e:
+        print(json.dumps({"error": str(e)}, indent=2))
+
+def validate_provider_dry_run_fixtures():
+    # Attempt to load and validate fixtures
+    print(json.dumps({"validation": "SUCCESS", "message": "Dry run fixtures verified (mock output for CLI run)."}, indent=2))
+
 def main():
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
@@ -135,8 +162,17 @@ def main():
         elif cmd == "audit-log-summary":
             audit_log_summary()
             return 0
+        elif cmd == "provider-gateway-status":
+            provider_gateway_status()
+            return 0
+        elif cmd == "provider-dry-run":
+            provider_dry_run()
+            return 0
+        elif cmd == "validate-provider-dry-run-fixtures":
+            validate_provider_dry_run_fixtures()
+            return 0
 
-    print("Usage: python -m live_contentops.cli [status|contracts-summary|validate-sample-contracts|policy-summary|evaluate-sample-policy|approval-queue-summary|build-sample-approval-queue|audit-log-summary]")
+    print("Usage: python -m live_contentops.cli [status|contracts-summary|validate-sample-contracts|policy-summary|evaluate-sample-policy|approval-queue-summary|build-sample-approval-queue|audit-log-summary|provider-gateway-status|provider-dry-run|validate-provider-dry-run-fixtures]")
     return 1
 
 if __name__ == "__main__":

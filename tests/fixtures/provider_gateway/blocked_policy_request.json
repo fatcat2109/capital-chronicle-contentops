@@ -1,0 +1,5 @@
+{
+  "requested_provider": "DRY_RUN_SIMULATOR",
+  "dry_run_only": true,
+  "policy_status": "BLOCKED_FORBIDDEN_FINANCIAL_ADVICE"
+}
