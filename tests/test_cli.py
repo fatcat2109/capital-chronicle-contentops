@@ -14,4 +14,4 @@ def test_cli_status():
     assert data["scheduler"] == "disabled"
     assert data["publishing"] == "disabled"
     assert data["autonomous_replies"] == "disabled"
-    assert data["next_task"] == "TASK_CONTENTOPS_0070_LOCAL_REAL_ARTIFACT_INTAKE_CONTRACT_AND_READINESS_GATE_V0"
+    assert data["next_task"] == "TASK_CONTENTOPS_0071_LOCAL_REAL_ARTIFACT_TO_PACKET_BRIDGE_AND_SYNTHETIC_ROUTE_GUARD_V0"

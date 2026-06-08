@@ -1,0 +1,130 @@
+{
+  "fixtures": [
+    {
+      "label": "valid_synthetic_product_update",
+      "expected_gate": "READY_FOR_LOCAL_REVIEW_ONLY",
+      "input": {
+        "intake_id": "intake_demo_product_update",
+        "artifact_id": "CC-PU-0001",
+        "artifact_family": "product_update",
+        "artifact_type": "product_update_note",
+        "artifact_origin": "synthetic_fixture",
+        "artifact_status": "DRAFT",
+        "limitation_summary": "Synthetic demo content; not a real product announcement.",
+        "freshness_as_of": "2026-01-01",
+        "data_sufficiency_status": "SUFFICIENT",
+        "dqr_status": "PASS",
+        "forecast_readiness_status": "NOT_READY",
+        "missing_data_status": "NONE",
+        "proxy_data_status": "NONE",
+        "degradation_status": "NONE",
+        "educational_general_only": true,
+        "raw_text": "Demo: we shipped a local-only review queue improvement."
+      }
+    },
+    {
+      "label": "future_real_artifact_placeholder",
+      "expected_gate": "NEEDS_OPERATOR_REVIEW",
+      "input": {
+        "intake_id": "intake_future_placeholder",
+        "artifact_id": "CC-PLACEHOLDER-0001",
+        "artifact_family": "build_in_public",
+        "artifact_type": "progress_note",
+        "artifact_origin": "future_real_artifact_placeholder",
+        "artifact_status": "PLACEHOLDER",
+        "limitation_summary": "Placeholder for a future approved artifact; no real content yet.",
+        "freshness_as_of": "2026-01-01",
+        "data_sufficiency_status": "UNKNOWN",
+        "dqr_status": "UNKNOWN",
+        "forecast_readiness_status": "NOT_READY",
+        "missing_data_status": "NONE",
+        "proxy_data_status": "NONE",
+        "degradation_status": "NONE",
+        "educational_general_only": true
+      }
+    },
+    {
+      "label": "blocked_market_note_missing_freshness",
+      "expected_gate": "BLOCKED",
+      "input": {
+        "intake_id": "intake_market_note_bad",
+        "artifact_id": "CC-MN-0001",
+        "artifact_family": "market_note",
+        "artifact_type": "market_note",
+        "artifact_origin": "synthetic_fixture",
+        "source_artifact_ids": ["src-1"],
+        "data_sufficiency_status": "SUFFICIENT",
+        "dqr_status": "PASS",
+        "forecast_readiness_status": "NOT_READY",
+        "missing_data_status": "NONE",
+        "proxy_data_status": "NONE",
+        "degradation_status": "NONE",
+        "educational_general_only": false
+      }
+    },
+    {
+      "label": "blocked_forecast_readiness_dqr_blocking",
+      "expected_gate": "BLOCKED",
+      "input": {
+        "intake_id": "intake_forecast_bad",
+        "artifact_id": "CC-FR-0001",
+        "artifact_family": "forecast_readiness",
+        "artifact_type": "forecast_readiness_report",
+        "artifact_origin": "synthetic_fixture",
+        "source_artifact_ids": ["src-2"],
+        "limitation_summary": "Synthetic demo.",
+        "freshness_as_of": "2026-01-01",
+        "data_sufficiency_status": "BLOCKING",
+        "dqr_status": "FAILED",
+        "forecast_readiness_status": "READY",
+        "missing_data_status": "NONE",
+        "proxy_data_status": "NONE",
+        "degradation_status": "NONE",
+        "educational_general_only": true
+      }
+    },
+    {
+      "label": "blocked_synthetic_claims_approved_real",
+      "expected_gate": "BLOCKED",
+      "input": {
+        "intake_id": "intake_fake_approved",
+        "artifact_id": "CC-FAKE-0001",
+        "artifact_family": "product_update",
+        "artifact_type": "product_update_note",
+        "artifact_origin": "synthetic_fixture",
+        "approved_for_contentops": true,
+        "publish_ready": true,
+        "limitation_summary": "Synthetic demo.",
+        "freshness_as_of": "2026-01-01",
+        "data_sufficiency_status": "SUFFICIENT",
+        "dqr_status": "PASS",
+        "forecast_readiness_status": "NOT_READY",
+        "missing_data_status": "NONE",
+        "proxy_data_status": "NONE",
+        "degradation_status": "NONE",
+        "educational_general_only": true
+      }
+    },
+    {
+      "label": "blocked_forbidden_trading_language",
+      "expected_gate": "BLOCKED",
+      "input": {
+        "intake_id": "intake_forbidden_lang",
+        "artifact_id": "CC-BAD-0001",
+        "artifact_family": "macro_education",
+        "artifact_type": "education_note",
+        "artifact_origin": "synthetic_fixture",
+        "limitation_summary": "Synthetic demo.",
+        "freshness_as_of": "2026-01-01",
+        "data_sufficiency_status": "SUFFICIENT",
+        "dqr_status": "PASS",
+        "forecast_readiness_status": "NOT_READY",
+        "missing_data_status": "NONE",
+        "proxy_data_status": "NONE",
+        "degradation_status": "NONE",
+        "educational_general_only": true,
+        "raw_text": "This is a guaranteed signal service from a trading bot; use broker order routing."
+      }
+    }
+  ]
+}
