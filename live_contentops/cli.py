@@ -22,6 +22,8 @@ from . import seo_metadata
 from . import prompt_injection
 from . import editorial_packet_export
 from . import packet_review_queue
+from . import ide_cli_document_bundle
+
 from . import alpha_wait_state
 
 from . import pipeline_trace
@@ -509,6 +511,9 @@ def real_artifact_pipeline_trace_summary():
     print(json.dumps(pipeline_trace.build_summary(), indent=2))
 def alpha_wait_state_summary():
     print(json.dumps(alpha_wait_state.build_summary(), indent=2))
+def ide_cli_document_bundle_summary():
+    print(json.dumps(ide_cli_document_bundle.build_summary(), indent=2))
+
 
 
 
@@ -573,6 +578,7 @@ COMMANDS = {
     "review-ledger-registry-summary": review_ledger_registry_summary,
     "packet-registry-dashboard-summary": packet_registry_dashboard_summary,
     "project-source-export-summary": project_source_export_summary,
+    "ide-cli-document-bundle-summary": ide_cli_document_bundle_summary,
     "real-artifact-pipeline-trace-summary": real_artifact_pipeline_trace_summary,
     "alpha-wait-state-summary": alpha_wait_state_summary,
 
