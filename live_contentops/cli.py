@@ -14,6 +14,7 @@ from .adapters import telegram
 from .adapters import x_adapter
 from .adapters import linkedin
 from .adapters import instagram
+from . import editorial_quality
 import uuid
 
 def print_status():
@@ -363,6 +364,21 @@ def live_project_sources_bundle():
     from . import project_sources_bundle
     project_sources_bundle.run_cli_bundle()
 
+def editorial_qa_summary():
+    print(json.dumps({
+        "status": "deterministic local editorial QA harness active",
+        "dimensions": [
+            "hook_strength", "clarity", "audience_fit", "platform_fit",
+            "specificity", "repetition_risk", "wedge_alignment",
+            "limitation_visibility", "source_discipline", "safety_risk"
+        ],
+        "platforms_supported": editorial_quality.PLATFORMS,
+        "audience_modes": editorial_quality.AUDIENCE_MODES,
+        "live_actions_disabled": True,
+        "advisory_only": True
+    }, indent=2))
+
+
 COMMANDS = {
     "status": print_status,
     "contracts-summary": contracts_summary,
@@ -398,7 +414,8 @@ COMMANDS = {
     "telegram-staging-flow-dry-run": telegram_staging_flow_dry_run,
     "telegram-staging-operator-rollback-drill": telegram_staging_operator_rollback_drill,
     "telegram-live-no-go-status": telegram_live_no_go_status,
-    "live-project-sources-bundle": live_project_sources_bundle
+    "live-project-sources-bundle": live_project_sources_bundle,
+    "editorial-qa-summary": editorial_qa_summary
 }
 
 def main():
