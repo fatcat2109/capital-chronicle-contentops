@@ -22,6 +22,8 @@ from . import seo_metadata
 from . import prompt_injection
 from . import editorial_packet_export
 from . import packet_review_queue
+from . import operator_dashboard
+
 from . import review_ledger
 
 from . import review_history
@@ -477,6 +479,9 @@ def operator_decision_history_summary():
     print(json.dumps(review_history.build_summary(), indent=2))
 def review_ledger_registry_summary():
     print(json.dumps(review_ledger.build_summary(), indent=2))
+def packet_registry_dashboard_summary():
+    print(json.dumps(operator_dashboard.build_summary(), indent=2))
+
 
 
 
@@ -531,6 +536,8 @@ COMMANDS = {
     "grounded-packet-review-queue-summary": grounded_packet_review_queue_summary,
     "operator-decision-history-summary": operator_decision_history_summary,
     "review-ledger-registry-summary": review_ledger_registry_summary,
+    "packet-registry-dashboard-summary": packet_registry_dashboard_summary,
+
 
 
 
