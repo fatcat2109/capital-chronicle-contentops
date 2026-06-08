@@ -1,0 +1,6 @@
+{
+  "target_account_label": "PLACEHOLDER_STG",
+  "dry_run_only": true,
+  "staging_only": true,
+  "policy_status": "BLOCKED_SOURCE_REQUIRED"
+}

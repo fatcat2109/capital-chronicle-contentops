@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "contract_id": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "platform": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "prerequisites_required": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "is_ready_for_credentials": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    }
+  },
+  "required": [
+    "contract_id",
+    "platform",
+    "prerequisites_required",
+    "is_ready_for_credentials"
+  ],
+  "additionalProperties": true
+}

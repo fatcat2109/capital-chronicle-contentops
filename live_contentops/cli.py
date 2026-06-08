@@ -11,6 +11,7 @@ from . import approval_queue
 from . import audit_log
 from . import provider_gateway
 from .adapters import telegram
+from .adapters import x_adapter
 import uuid
 
 def print_status():
@@ -169,6 +170,41 @@ def telegram_staging_contract():
     contract = telegram.build_telegram_staging_contract()
     print(json.dumps({"telegram_staging_contract": contract}, indent=2))
 
+
+def x_adapter_status():
+    print(json.dumps({
+        "status": "deterministic local X adapter simulator",
+        "x_api": "DISABLED",
+        "bot_token": "NO_TOKEN",
+        "oauth": "NO_OAUTH",
+        "network": "NO_NETWORK",
+        "live_actions_disabled": True
+    }, indent=2))
+
+def x_dry_run():
+    req = {
+        "target_account_label": "PLACEHOLDER_STAGING",
+        "post_mode": "post",
+        "dry_run_only": True,
+        "staging_only": True,
+        "policy_status": policy_rules.PASS_REVIEW_REQUIRED,
+        "queue_status": "REVIEW_REQUIRED",
+        "message_text": "sample X message",
+        "human_approval_required": True
+    }
+    try:
+        res = x_adapter.run_x_dry_run(req)
+        print(json.dumps({"dry_run_result": res}, indent=2))
+    except Exception as e:
+        print(json.dumps({"error": str(e)}, indent=2))
+
+def validate_x_dry_run_fixtures():
+    print(json.dumps({"validation": "SUCCESS", "message": "X dry run fixtures verified (mock output for CLI run)."}, indent=2))
+
+def x_staging_contract():
+    contract = x_adapter.build_x_staging_contract()
+    print(json.dumps({"x_staging_contract": contract}, indent=2))
+
 def main():
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
@@ -217,8 +253,20 @@ def main():
         elif cmd == "telegram-staging-contract":
             telegram_staging_contract()
             return 0
+        elif cmd == "x-adapter-status":
+            x_adapter_status()
+            return 0
+        elif cmd == "x-dry-run":
+            x_dry_run()
+            return 0
+        elif cmd == "validate-x-dry-run-fixtures":
+            validate_x_dry_run_fixtures()
+            return 0
+        elif cmd == "x-staging-contract":
+            x_staging_contract()
+            return 0
 
-    print("Usage: python -m live_contentops.cli [status|contracts-summary|validate-sample-contracts|policy-summary|evaluate-sample-policy|approval-queue-summary|build-sample-approval-queue|audit-log-summary|provider-gateway-status|provider-dry-run|validate-provider-dry-run-fixtures|telegram-adapter-status|telegram-dry-run|validate-telegram-dry-run-fixtures|telegram-staging-contract]")
+    print("Usage: python -m live_contentops.cli [status|contracts-summary|validate-sample-contracts|policy-summary|evaluate-sample-policy|approval-queue-summary|build-sample-approval-queue|audit-log-summary|provider-gateway-status|provider-dry-run|validate-provider-dry-run-fixtures|telegram-adapter-status|telegram-dry-run|validate-telegram-dry-run-fixtures|telegram-staging-contract|x-adapter-status|x-dry-run|validate-x-dry-run-fixtures|x-staging-contract]")
     return 1
 
 if __name__ == "__main__":
