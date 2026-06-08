@@ -12,5 +12,5 @@ def get_status() -> dict:
         "autonomous_replies": "disabled" if not config.AUTONOMOUS_REPLIES_ENABLED else "enabled",
         "human_approval": "required" if config.REQUIRE_HUMAN_APPROVAL else "bypassed",
         "kill_switch_halt": "active" if config.KILL_SWITCH_DEFAULT else "inactive",
-        "next_task": "TASK_CONTENTOPS_0067_LOCAL_PACKET_DASHBOARD_EXPORT_AND_OPERATOR_HANDOFF_V0",
+        "next_task": "TASK_CONTENTOPS_0068_LOCAL_REVIEW_PACKET_BUNDLE_MANIFEST_AND_PROJECT_SOURCE_EXPORT_V0",
     }

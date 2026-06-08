@@ -22,6 +22,8 @@ from . import seo_metadata
 from . import prompt_injection
 from . import editorial_packet_export
 from . import packet_review_queue
+from . import dashboard_handoff
+
 from . import operator_dashboard
 
 from . import review_ledger
@@ -481,6 +483,9 @@ def review_ledger_registry_summary():
     print(json.dumps(review_ledger.build_summary(), indent=2))
 def packet_registry_dashboard_summary():
     print(json.dumps(operator_dashboard.build_summary(), indent=2))
+def packet_dashboard_handoff_summary():
+    print(json.dumps(dashboard_handoff.build_summary(), indent=2))
+
 
 
 
@@ -537,6 +542,8 @@ COMMANDS = {
     "operator-decision-history-summary": operator_decision_history_summary,
     "review-ledger-registry-summary": review_ledger_registry_summary,
     "packet-registry-dashboard-summary": packet_registry_dashboard_summary,
+    "packet-dashboard-handoff-summary": packet_dashboard_handoff_summary,
+
 
 
 
