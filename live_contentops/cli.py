@@ -298,6 +298,10 @@ def meta_capability_review_checklist():
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == 'pilot-prerequisites-status':
         pilot_prerequisites_status()
+            elif len(sys.argv) > 1 and sys.argv[1] == 'telegram-private-staging-packet-status':
+        telegram_private_staging_packet_status()
+        sys.exit(0)
+    else:
         sys.exit(0)
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
@@ -412,4 +416,23 @@ def pilot_prerequisites_status():
         if entry.get("blocker_if_missing") and entry.get("status") in ["MISSING_OPERATOR_INPUT", "FUTURE_VERIFICATION_REQUIRED"]:
             print(f"- {entry.get('title')}: {entry.get('notes')}")
     print("Recommended next task: TASK_CONTENTOPS_0047_TELEGRAM_PRIVATE_STAGING_DRY_RUN_OPERATOR_PACKET")
+
+
+def telegram_private_staging_packet_status():
+    import json
+    import os
+    packet_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'TELEGRAM_PRIVATE_STAGING_DRY_RUN_OPERATOR_PACKET_V1.json')
+    if not os.path.exists(packet_path):
+        print("Telegram packet missing.")
+        return
+    with open(packet_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    print("Live credentials allowed now: False")
+    print("Network allowed now: False")
+    print("Telegram API allowed now: False")
+    print("Publish allowed now: False")
+    print("Top Blockers:")
+    for b in data.get("blocker_list", []):
+        print(f"- {b}")
+    print(f"Exact next task: {data.get('exact_next_task')}")
 

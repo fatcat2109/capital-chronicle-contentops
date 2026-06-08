@@ -1,0 +1,47 @@
+{
+  "packet_id": "telegram_dry_run_001",
+  "task_label": "TASK_CONTENTOPS_0047_TELEGRAM_PRIVATE_STAGING_DRY_RUN_OPERATOR_PACKET",
+  "decision_status": "NO_GO_DRY_RUN_ONLY",
+  "live_credentials_allowed_now": false,
+  "network_allowed_now": false,
+  "telegram_api_allowed_now": false,
+  "publish_allowed_now": false,
+  "autonomous_replies_allowed_now": false,
+  "recommended_platform": "telegram_private_staging",
+  "required_prerequisites": [
+    "Create private staging channel offline",
+    "Create bot token offline",
+    "Add bot to channel offline",
+    "Secure tokens in local secret manager"
+  ],
+  "required_local_validations": [
+    "Policy engine pass",
+    "Provider dry-run pass",
+    "Telegram dry-run payload generation pass",
+    "Approval queue logging pass"
+  ],
+  "operator_review_steps": [
+    "Verify simulated payload length",
+    "Verify source citations present",
+    "Manually approve payload"
+  ],
+  "content_scope_allowed": [
+    "Source bundle summaries"
+  ],
+  "content_scope_forbidden": [
+    "Financial advice",
+    "Partisan persuasion",
+    "Autonomous replies"
+  ],
+  "simulated_message_requirements": [
+    "Under 4096 chars",
+    "Valid markdown"
+  ],
+  "blocker_list": [
+    "Bot token not yet securely injected",
+    "Chat ID not yet securely injected",
+    "Operator manual GO string not yet provided"
+  ],
+  "future_go_requirements": "Explicit operator GO and secure offline secret injection",
+  "exact_next_task": "TASK_CONTENTOPS_0048_TELEGRAM_STAGING_DRY_RUN_ARTIFACT_FLOW_AND_AUDIT_TRAIL"
+}
