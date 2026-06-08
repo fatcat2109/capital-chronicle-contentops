@@ -1,0 +1,218 @@
+{
+  "readiness_matrix": [
+    {
+      "component": "provider_gateway",
+      "status": "READY_LOCAL_DRY_RUN",
+      "evidence": "Dry-run simulator implemented and tested",
+      "blockers": [
+        "Missing real keys",
+        "Missing secret manager"
+      ],
+      "required_next_action": "Inject keys via secret manager",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    },
+    {
+      "component": "policy_engine",
+      "status": "READY_LOCAL_DRY_RUN",
+      "evidence": "Deterministic local gating implemented",
+      "blockers": [],
+      "required_next_action": "None",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": false
+    },
+    {
+      "component": "approval_queue",
+      "status": "READY_LOCAL_DRY_RUN",
+      "evidence": "Local queue and state tracking implemented",
+      "blockers": [],
+      "required_next_action": "None",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    },
+    {
+      "component": "audit_log",
+      "status": "READY_LOCAL_DRY_RUN",
+      "evidence": "Append-only local JSON log implemented",
+      "blockers": [],
+      "required_next_action": "None",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": false
+    },
+    {
+      "component": "kill_switch",
+      "status": "READY_LOCAL_DRY_RUN",
+      "evidence": "Global halt state verified",
+      "blockers": [],
+      "required_next_action": "Verify state periodically",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": false
+    },
+    {
+      "component": "telegram_adapter",
+      "status": "READY_FOR_STAGING_DESIGN",
+      "evidence": "Staging contract and dry-run output implemented",
+      "blockers": [
+        "Bot token",
+        "Staging channel ID"
+      ],
+      "required_next_action": "Create Telegram bot and staging channel",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    },
+    {
+      "component": "x_adapter",
+      "status": "READY_LOCAL_DRY_RUN",
+      "evidence": "Staging contract and dry-run implemented",
+      "blockers": [
+        "Developer portal approval",
+        "OAuth tokens"
+      ],
+      "required_next_action": "Acquire X credentials",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    },
+    {
+      "component": "linkedin_adapter",
+      "status": "READY_LOCAL_DRY_RUN",
+      "evidence": "Scope verification contract implemented",
+      "blockers": [
+        "LinkedIn scope approval",
+        "Page admin access"
+      ],
+      "required_next_action": "Perform LinkedIn app verification",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    },
+    {
+      "component": "instagram_asset_export",
+      "status": "READY_LOCAL_DRY_RUN",
+      "evidence": "Asset export and capability checklist implemented",
+      "blockers": [
+        "Meta App Review",
+        "Page Linkage"
+      ],
+      "required_next_action": "Perform Meta capability review",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    },
+    {
+      "component": "secret_manager",
+      "status": "NOT_BUILT",
+      "evidence": "No implementation present",
+      "blockers": [
+        "Architecture decision for key storage"
+      ],
+      "required_next_action": "Build offline/secure secret manager",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    },
+    {
+      "component": "platform_credentials",
+      "status": "BLOCKED_OPERATOR_PREREQ",
+      "evidence": "All adapters return NO_TOKEN",
+      "blockers": [
+        "Operator must provide keys"
+      ],
+      "required_next_action": "Acquire keys",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    },
+    {
+      "component": "staging_channels_or_accounts",
+      "status": "BLOCKED_OPERATOR_PREREQ",
+      "evidence": "No valid staging IDs present",
+      "blockers": [
+        "Operator must create sandbox environments"
+      ],
+      "required_next_action": "Create sandbox environments",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    },
+    {
+      "component": "platform_scope_verification",
+      "status": "BLOCKED_FUTURE_VERIFICATION",
+      "evidence": "Checklists implemented, not verified",
+      "blockers": [
+        "Operator must verify portal settings"
+      ],
+      "required_next_action": "Verify portal settings",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    },
+    {
+      "component": "observability",
+      "status": "NOT_BUILT",
+      "evidence": "Audit log exists, but no live telemetry",
+      "blockers": [
+        "No metric ingestion design"
+      ],
+      "required_next_action": "Design telemetry",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": false
+    },
+    {
+      "component": "incident_response",
+      "status": "BLOCKED_OPERATOR_PREREQ",
+      "evidence": "Kill switch exists, no delete/rollback flow",
+      "blockers": [
+        "Platform delete API not defined"
+      ],
+      "required_next_action": "Define rollback APIs",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    },
+    {
+      "component": "content_source_pipeline",
+      "status": "READY_LOCAL_DRY_RUN",
+      "evidence": "Contracts allow valid bundle payloads",
+      "blockers": [],
+      "required_next_action": "Integrate with real live crawler safely",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    },
+    {
+      "component": "human_approval_workflow",
+      "status": "READY_LOCAL_DRY_RUN",
+      "evidence": "Approval queue requires operator CLI execution",
+      "blockers": [],
+      "required_next_action": "Create operator daily runbook",
+      "can_use_live_keys_now": false,
+      "can_call_network_now": false,
+      "can_publish_now": false,
+      "human_approval_required": true
+    }
+  ]
+}
