@@ -1,0 +1,8 @@
+{
+  "target_account_label": "PLACEHOLDER_STG",
+  "target_surface": "placeholder",
+  "dry_run_only": true,
+  "staging_only": true,
+  "scope_verification_required": true,
+  "policy_status": "BLOCKED_FORBIDDEN_FINANCIAL_ADVICE"
+}

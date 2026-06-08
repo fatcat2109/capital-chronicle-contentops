@@ -1,0 +1,7 @@
+{
+  "target_account_label": "https://www.linkedin.com/company/abc",
+  "target_surface": "placeholder",
+  "dry_run_only": true,
+  "staging_only": true,
+  "scope_verification_required": true
+}

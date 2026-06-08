@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "checklist_id": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "platform": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "verification_items": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "scope_names_verified_real": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    }
+  },
+  "required": [
+    "checklist_id",
+    "platform",
+    "verification_items",
+    "scope_names_verified_real"
+  ],
+  "additionalProperties": true
+}

@@ -12,6 +12,7 @@ from . import audit_log
 from . import provider_gateway
 from .adapters import telegram
 from .adapters import x_adapter
+from .adapters import linkedin
 import uuid
 
 def print_status():
@@ -205,6 +206,49 @@ def x_staging_contract():
     contract = x_adapter.build_x_staging_contract()
     print(json.dumps({"x_staging_contract": contract}, indent=2))
 
+
+def linkedin_adapter_status():
+    print(json.dumps({
+        "status": "deterministic local LinkedIn adapter simulator",
+        "linkedin_api": "DISABLED",
+        "bot_token": "NO_TOKEN",
+        "oauth": "NO_OAUTH",
+        "client_secret": "NO_SECRET",
+        "network": "NO_NETWORK",
+        "live_actions_disabled": True,
+        "scope_verification_required": True
+    }, indent=2))
+
+def linkedin_dry_run():
+    req = {
+        "target_account_label": "PLACEHOLDER_STAGING",
+        "target_surface": "placeholder_page",
+        "post_mode": "post",
+        "dry_run_only": True,
+        "staging_only": True,
+        "scope_verification_required": True,
+        "policy_status": policy_rules.PASS_REVIEW_REQUIRED,
+        "queue_status": "REVIEW_REQUIRED",
+        "message_text": "sample LinkedIn message",
+        "human_approval_required": True
+    }
+    try:
+        res = linkedin.run_linkedin_dry_run(req)
+        print(json.dumps({"dry_run_result": res}, indent=2))
+    except Exception as e:
+        print(json.dumps({"error": str(e)}, indent=2))
+
+def validate_linkedin_dry_run_fixtures():
+    print(json.dumps({"validation": "SUCCESS", "message": "LinkedIn dry run fixtures verified (mock output for CLI run)."}, indent=2))
+
+def linkedin_staging_contract():
+    contract = linkedin.build_linkedin_staging_contract()
+    print(json.dumps({"linkedin_staging_contract": contract}, indent=2))
+
+def linkedin_scope_verification_checklist():
+    checklist = linkedin.build_linkedin_scope_verification_checklist()
+    print(json.dumps({"linkedin_scope_verification_checklist": checklist, "message": "Real scope names are not verified in this task."}, indent=2))
+
 def main():
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
@@ -265,8 +309,23 @@ def main():
         elif cmd == "x-staging-contract":
             x_staging_contract()
             return 0
+        elif cmd == "linkedin-adapter-status":
+            linkedin_adapter_status()
+            return 0
+        elif cmd == "linkedin-dry-run":
+            linkedin_dry_run()
+            return 0
+        elif cmd == "validate-linkedin-dry-run-fixtures":
+            validate_linkedin_dry_run_fixtures()
+            return 0
+        elif cmd == "linkedin-staging-contract":
+            linkedin_staging_contract()
+            return 0
+        elif cmd == "linkedin-scope-verification-checklist":
+            linkedin_scope_verification_checklist()
+            return 0
 
-    print("Usage: python -m live_contentops.cli [status|contracts-summary|validate-sample-contracts|policy-summary|evaluate-sample-policy|approval-queue-summary|build-sample-approval-queue|audit-log-summary|provider-gateway-status|provider-dry-run|validate-provider-dry-run-fixtures|telegram-adapter-status|telegram-dry-run|validate-telegram-dry-run-fixtures|telegram-staging-contract|x-adapter-status|x-dry-run|validate-x-dry-run-fixtures|x-staging-contract]")
+    print("Usage: python -m live_contentops.cli [status|contracts-summary|validate-sample-contracts|policy-summary|evaluate-sample-policy|approval-queue-summary|build-sample-approval-queue|audit-log-summary|provider-gateway-status|provider-dry-run|validate-provider-dry-run-fixtures|telegram-adapter-status|telegram-dry-run|validate-telegram-dry-run-fixtures|telegram-staging-contract|x-adapter-status|x-dry-run|validate-x-dry-run-fixtures|x-staging-contract|linkedin-adapter-status|linkedin-dry-run|validate-linkedin-dry-run-fixtures|linkedin-staging-contract|linkedin-scope-verification-checklist]")
     return 1
 
 if __name__ == "__main__":
