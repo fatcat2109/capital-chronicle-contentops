@@ -14,3 +14,4 @@ def test_cli_status():
     assert data["scheduler"] == "disabled"
     assert data["publishing"] == "disabled"
     assert data["autonomous_replies"] == "disabled"
+    assert data["next_task"] == "TASK_CONTENTOPS_0057_LOCAL_PROMPT_QUALITY_POLICY_STYLE_QA_HARNESS_V0"
