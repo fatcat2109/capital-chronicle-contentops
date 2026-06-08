@@ -336,6 +336,11 @@ def telegram_staging_flow_dry_run():
     res = telegram_staging_flow.run_cli_flow()
     print(json.dumps(res, indent=2))
 
+def telegram_staging_operator_rollback_drill():
+    from . import operator_rollback_drill
+    res = operator_rollback_drill.run_cli_drill()
+    print(json.dumps(res, indent=2))
+
 def main():
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
@@ -434,6 +439,9 @@ def main():
             return 0
         elif cmd == "telegram-staging-flow-dry-run":
             telegram_staging_flow_dry_run()
+            return 0
+        elif cmd == "telegram-staging-operator-rollback-drill":
+            telegram_staging_operator_rollback_drill()
             return 0
 
     print("Usage: python -m live_contentops.cli [status|...|telegram-staging-flow-dry-run]")
