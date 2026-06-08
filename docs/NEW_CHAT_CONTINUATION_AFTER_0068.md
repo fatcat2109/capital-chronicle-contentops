@@ -5,8 +5,14 @@ LOCAL ONLY | ADVISORY ONLY | HUMAN REVIEW REQUIRED | NOT PUBLIC POSTABLE
 ## Repo
 A:\Capital Chronicle\tools\cc-live-contentops
 
-## Accepted HEAD
-68b041c (TASK_CONTENTOPS_0067 accepted PASS; 0068 builds on it)
+## Accepted HEAD (state after 0068)
+- bundle_base_head / previous_completed_head: 68b041c (TASK_CONTENTOPS_0067 accepted PASS; 0068 was built on this)
+- task_0068_completed_head: cd72ee4 (TASK_CONTENTOPS_0068 functionally completed here)
+- current accepted state after 0068: cd72ee4
+
+Task 0068 is COMPLETED at cd72ee4. The repo state already includes the 0068
+export/manifest work. Future chats must NOT resume from 68b041c as current
+accepted state; that is only the pre-0068 base head.
 
 ## Current next task
 TASK_CONTENTOPS_0069_LOCAL_BUNDLE_REFRESH_AND_NEXT_PHASE_SELECTION_V0

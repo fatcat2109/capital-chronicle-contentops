@@ -11,7 +11,14 @@ manifest is public-postable or grants publishing authority.
 
 from . import status
 
-ACCEPTED_HEAD = "68b041c"
+# Head that 0068 was built on top of (previous completed task head).
+BUNDLE_BASE_HEAD = "68b041c"
+# Head at which task 0068 itself functionally completed.
+TASK_0068_COMPLETED_HEAD = "cd72ee4"
+# Backward-compatible alias: after 0068, the accepted head is the 0068 completed
+# head, NOT the pre-task base head. Never expose 68b041c as the current accepted
+# state after 0068.
+ACCEPTED_HEAD = TASK_0068_COMPLETED_HEAD
 
 # Local-only accepted chain summary (advisory continuation context).
 ACCEPTED_CHAIN_SUMMARY = [
@@ -134,7 +141,10 @@ def build_manifest() -> dict:
     return {
         "manifest_id": "review_bundle_manifest_after_0068",
         "generated_at": "DETERMINISTIC_TIMESTAMP",
+        "bundle_base_head": BUNDLE_BASE_HEAD,
+        "task_0068_completed_head": TASK_0068_COMPLETED_HEAD,
         "accepted_head": ACCEPTED_HEAD,
+        "current_next_task": status.get_status().get("next_task"),
         "next_task": status.get_status().get("next_task"),
         "accepted_chain_summary": list(ACCEPTED_CHAIN_SUMMARY),
         "hard_boundaries": list(HARD_BOUNDARIES),
@@ -233,7 +243,10 @@ def build_summary() -> dict:
         "recommended_upload_count": sum(
             1 for f in manifest["included_files"] if f.get("upload_recommended")),
         "excluded_category_count": len(manifest["excluded_categories"]),
-        "accepted_head": manifest["accepted_head"],
+        "bundle_base_head": BUNDLE_BASE_HEAD,
+        "task_0068_completed_head": TASK_0068_COMPLETED_HEAD,
+        "accepted_head": ACCEPTED_HEAD,
+        "current_next_task": manifest["next_task"],
         "next_task": manifest["next_task"],
         "contains_secrets": False,
         "contains_live_ids": False,

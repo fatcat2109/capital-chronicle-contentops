@@ -6,8 +6,9 @@ This manifest lists which local files are recommended for upload to ChatGPT
 Project Sources and which categories must be excluded. It does not upload
 anything. It supersedes older continuation/source bundles.
 
-## Accepted HEAD
-68b041c
+## Accepted HEAD (state after 0068)
+- bundle_base_head: 68b041c (pre-0068 base; do not resume from this as current)
+- task_0068_completed_head: cd72ee4 (0068 completed here; current accepted state)
 
 ## Next task
 TASK_CONTENTOPS_0069_LOCAL_BUNDLE_REFRESH_AND_NEXT_PHASE_SELECTION_V0

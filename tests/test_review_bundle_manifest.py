@@ -66,6 +66,47 @@ def test_accepted_head_and_next_task_present():
     assert man["next_task"]
     assert man["next_task"].startswith("TASK_CONTENTOPS_")
 
+def test_task_0068_completed_head_is_cd72ee4():
+    man = m.build_manifest()
+    assert man["task_0068_completed_head"] == "cd72ee4"
+    assert m.build_summary()["task_0068_completed_head"] == "cd72ee4"
+
+
+def test_bundle_base_head_is_not_current_accepted():
+    man = m.build_manifest()
+    assert man["bundle_base_head"] == "68b041c"
+    # The base head must never be presented as the current accepted head.
+    assert man["accepted_head"] != "68b041c"
+    assert man["accepted_head"] == "cd72ee4"
+
+
+def test_current_next_task_is_0069():
+    man = m.build_manifest()
+    assert man["current_next_task"] == \
+        "TASK_CONTENTOPS_0069_LOCAL_BUNDLE_REFRESH_AND_NEXT_PHASE_SELECTION_V0"
+
+
+def test_continuation_doc_states_0068_completed_at_cd72ee4():
+    path = os.path.join(REPO_DOCS, "NEW_CHAT_CONTINUATION_AFTER_0068.md")
+    with open(path, "r", encoding="utf-8") as f:
+        text = f.read()
+    assert "cd72ee4" in text
+    assert "COMPLETED at cd72ee4" in text
+    assert "must NOT resume from 68b041c" in text
+
+
+def test_recommended_upload_paths_exist_and_unique():
+    man = m.build_manifest()
+    paths = [f["path"] for f in man["included_files"] if f.get("upload_recommended")]
+    # No stale duplicate paths.
+    assert len(paths) == len(set(paths))
+    # Each recommended doc exists on disk.
+    repo_root = os.path.join(os.path.dirname(__file__), "..")
+    for p in paths:
+        assert os.path.isfile(os.path.join(repo_root, p)), f"missing doc: {p}"
+
+
+
 
 def test_manifest_supersedes_older_bundles():
     man = m.build_manifest()

@@ -23,8 +23,11 @@ a future chat resumes from clean authority.
 
 ## Accepted state for the next chat
 - repo: A:\Capital Chronicle\tools\cc-live-contentops
-- accepted_head: 68b041c
+- bundle_base_head: 68b041c (pre-0068 base; not the current accepted state)
+- task_0068_completed_head: cd72ee4 (0068 completed here; current accepted state)
 - next_task: TASK_CONTENTOPS_0069_LOCAL_BUNDLE_REFRESH_AND_NEXT_PHASE_SELECTION_V0
+
+Task 0068 is COMPLETED at cd72ee4. Do not resume from 68b041c as current state.
 
 ## Safety posture
 No secrets. No live API. No posting. approval_granted=false. publish_ready=false.
