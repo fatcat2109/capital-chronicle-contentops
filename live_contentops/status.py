@@ -12,5 +12,5 @@ def get_status() -> dict:
         "autonomous_replies": "disabled" if not config.AUTONOMOUS_REPLIES_ENABLED else "enabled",
         "human_approval": "required" if config.REQUIRE_HUMAN_APPROVAL else "bypassed",
         "kill_switch_halt": "active" if config.KILL_SWITCH_DEFAULT else "inactive",
-        "next_task": "TASK_CONTENTOPS_0037_LIVE_PROMPT_OUTPUT_AUDIT_CONTRACTS",
+        "next_task": "TASK_CONTENTOPS_0056_POST_REFRESH_NEW_CHAT_VALIDATION_AND_LOCAL_ONLY_NEXT_TASK_SELECTION",
     }
