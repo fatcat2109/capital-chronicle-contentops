@@ -22,6 +22,8 @@ from . import seo_metadata
 from . import prompt_injection
 from . import editorial_packet_export
 from . import packet_review_queue
+from . import review_history
+
 
 
 import uuid
@@ -469,6 +471,10 @@ def grounded_editorial_packet_summary():
 
 def grounded_packet_review_queue_summary():
     print(json.dumps(packet_review_queue.build_summary(), indent=2))
+def operator_decision_history_summary():
+    print(json.dumps(review_history.build_summary(), indent=2))
+
+
 
 
 
@@ -517,6 +523,8 @@ COMMANDS = {
     "prompt-injection-summary": prompt_injection_summary,
     "grounded-editorial-packet-summary": grounded_editorial_packet_summary,
     "grounded-packet-review-queue-summary": grounded_packet_review_queue_summary,
+    "operator-decision-history-summary": operator_decision_history_summary,
+
 
 
 }

@@ -1,0 +1,26 @@
+{
+    "decisions": [
+        {
+            "decision_type": "REQUEST_REVISION",
+            "operator_id": "operator_demo",
+            "operator_notes": "Tighten the hook and add one more source caveat.",
+            "selected_preview_id": null
+        },
+        {
+            "decision_type": "HOLD_FOR_REAL_ARTIFACT",
+            "operator_id": "operator_demo",
+            "operator_notes": "Wait for a real Capital Chronicle alpha artifact before revisiting."
+        },
+        {
+            "decision_type": "ACCEPT_FOR_MANUAL_EXPORT_PACKET_ONLY",
+            "operator_id": "operator_demo",
+            "operator_notes": "Acceptable as a local manual-review artifact only; not public approval."
+        }
+    ],
+    "forbidden_decision": {
+        "decision_type": "ACCEPT_FOR_MANUAL_EXPORT_PACKET_ONLY",
+        "operator_id": "operator_demo",
+        "approve_public_post": true,
+        "operator_notes": "please publish and schedule this to the platform"
+    }
+}
