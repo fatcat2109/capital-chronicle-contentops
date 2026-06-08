@@ -80,10 +80,12 @@ def test_bundle_base_head_is_not_current_accepted():
     assert man["accepted_head"] == "cd72ee4"
 
 
-def test_current_next_task_is_0069():
+def test_current_next_task_tracks_status_pointer():
+    from live_contentops import status
     man = m.build_manifest()
-    assert man["current_next_task"] == \
-        "TASK_CONTENTOPS_0069_LOCAL_BUNDLE_REFRESH_AND_NEXT_PHASE_SELECTION_V0"
+    # current_next_task mirrors the live status pointer (advances across tasks).
+    assert man["current_next_task"] == status.get_status()["next_task"]
+    assert man["current_next_task"].startswith("TASK_CONTENTOPS_")
 
 
 def test_continuation_doc_states_0068_completed_at_cd72ee4():

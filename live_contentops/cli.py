@@ -22,6 +22,8 @@ from . import seo_metadata
 from . import prompt_injection
 from . import editorial_packet_export
 from . import packet_review_queue
+from . import next_phase_selection
+
 from . import review_bundle_manifest
 
 from . import dashboard_handoff
@@ -489,6 +491,9 @@ def packet_dashboard_handoff_summary():
     print(json.dumps(dashboard_handoff.build_summary(), indent=2))
 def project_source_export_summary():
     print(json.dumps(review_bundle_manifest.build_summary(), indent=2))
+def bundle_refresh_next_phase_summary():
+    print(json.dumps(next_phase_selection.build_summary(), indent=2))
+
 
 
 
@@ -548,6 +553,8 @@ COMMANDS = {
     "review-ledger-registry-summary": review_ledger_registry_summary,
     "packet-registry-dashboard-summary": packet_registry_dashboard_summary,
     "project-source-export-summary": project_source_export_summary,
+    "bundle-refresh-next-phase-summary": bundle_refresh_next_phase_summary,
+
 
     "packet-dashboard-handoff-summary": packet_dashboard_handoff_summary,
 
