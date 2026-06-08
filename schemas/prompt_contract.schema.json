@@ -1,5 +1,46 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
+  "properties": {
+    "prompt_id": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "system_instruction": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "user_context": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "parameters": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "network_used": {
+      "type": "boolean"
+    },
+    "human_approval_required": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "prompt_id",
+    "system_instruction",
+    "user_context",
+    "parameters"
+  ],
   "additionalProperties": true
 }

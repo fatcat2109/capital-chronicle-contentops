@@ -1,5 +1,53 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
+  "properties": {
+    "approval_id": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "target_id": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "operator_id": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "timestamp": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "action": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "network_used": {
+      "type": "boolean"
+    },
+    "human_approval_required": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "approval_id",
+    "target_id",
+    "operator_id",
+    "timestamp",
+    "action"
+  ],
   "additionalProperties": true
 }

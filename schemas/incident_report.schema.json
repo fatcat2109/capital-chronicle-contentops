@@ -2,25 +2,25 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "state_id": {
+    "incident_id": {
       "type": [
         "string",
         "object"
       ]
     },
-    "status": {
+    "severity": {
       "type": [
         "string",
         "object"
       ]
     },
-    "triggered_by": {
+    "description": {
       "type": [
         "string",
         "object"
       ]
     },
-    "timestamp": {
+    "mitigation_steps": {
       "type": [
         "string",
         "object"
@@ -37,10 +37,10 @@
     }
   },
   "required": [
-    "state_id",
-    "status",
-    "triggered_by",
-    "timestamp"
+    "incident_id",
+    "severity",
+    "description",
+    "mitigation_steps"
   ],
   "additionalProperties": true
 }

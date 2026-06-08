@@ -2,25 +2,31 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
-    "state_id": {
+    "job_id": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "approval_id": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "platform": {
+      "type": [
+        "string",
+        "object"
+      ]
+    },
+    "payload": {
       "type": [
         "string",
         "object"
       ]
     },
     "status": {
-      "type": [
-        "string",
-        "object"
-      ]
-    },
-    "triggered_by": {
-      "type": [
-        "string",
-        "object"
-      ]
-    },
-    "timestamp": {
       "type": [
         "string",
         "object"
@@ -37,10 +43,11 @@
     }
   },
   "required": [
-    "state_id",
-    "status",
-    "triggered_by",
-    "timestamp"
+    "job_id",
+    "approval_id",
+    "platform",
+    "payload",
+    "status"
   ],
   "additionalProperties": true
 }
