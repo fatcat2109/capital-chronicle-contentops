@@ -363,116 +363,57 @@ def live_project_sources_bundle():
     from . import project_sources_bundle
     project_sources_bundle.run_cli_bundle()
 
+COMMANDS = {
+    "status": print_status,
+    "contracts-summary": contracts_summary,
+    "validate-sample-contracts": validate_samples,
+    "policy-summary": policy_summary,
+    "evaluate-sample-policy": evaluate_sample_policy,
+    "approval-queue-summary": approval_queue_summary,
+    "build-sample-approval-queue": build_sample_approval_queue,
+    "audit-log-summary": audit_log_summary,
+    "provider-gateway-status": provider_gateway_status,
+    "provider-dry-run": provider_dry_run,
+    "validate-provider-dry-run-fixtures": validate_provider_dry_run_fixtures,
+    "telegram-adapter-status": telegram_adapter_status,
+    "telegram-dry-run": telegram_dry_run,
+    "validate-telegram-dry-run-fixtures": validate_telegram_dry_run_fixtures,
+    "telegram-staging-contract": telegram_staging_contract,
+    "x-adapter-status": x_adapter_status,
+    "x-dry-run": x_dry_run,
+    "validate-x-dry-run-fixtures": validate_x_dry_run_fixtures,
+    "x-staging-contract": x_staging_contract,
+    "linkedin-adapter-status": linkedin_adapter_status,
+    "linkedin-dry-run": linkedin_dry_run,
+    "validate-linkedin-dry-run-fixtures": validate_linkedin_dry_run_fixtures,
+    "linkedin-staging-contract": linkedin_staging_contract,
+    "linkedin-scope-verification-checklist": linkedin_scope_verification_checklist,
+    "instagram-asset-export-status": instagram_asset_export_status,
+    "instagram-asset-dry-run": instagram_asset_dry_run,
+    "validate-instagram-asset-fixtures": validate_instagram_asset_fixtures,
+    "instagram-staging-contract": instagram_staging_contract,
+    "meta-capability-review-checklist": meta_capability_review_checklist,
+    "pilot-prerequisites-status": pilot_prerequisites_status,
+    "telegram-private-staging-packet-status": telegram_private_staging_packet_status,
+    "telegram-staging-flow-dry-run": telegram_staging_flow_dry_run,
+    "telegram-staging-operator-rollback-drill": telegram_staging_operator_rollback_drill,
+    "telegram-live-no-go-status": telegram_live_no_go_status,
+    "live-project-sources-bundle": live_project_sources_bundle
+}
+
 def main():
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
-        if cmd == "status":
-            print_status()
+        if cmd in COMMANDS:
+            COMMANDS[cmd]()
             return 0
-        elif cmd == "contracts-summary":
-            contracts_summary()
-            return 0
-        elif cmd == "validate-sample-contracts":
-            validate_samples()
-            return 0
-        elif cmd == "policy-summary":
-            policy_summary()
-            return 0
-        elif cmd == "evaluate-sample-policy":
-            evaluate_sample_policy()
-            return 0
-        elif cmd == "approval-queue-summary":
-            approval_queue_summary()
-            return 0
-        elif cmd == "build-sample-approval-queue":
-            build_sample_approval_queue()
-            return 0
-        elif cmd == "audit-log-summary":
-            audit_log_summary()
-            return 0
-        elif cmd == "provider-gateway-status":
-            provider_gateway_status()
-            return 0
-        elif cmd == "provider-dry-run":
-            provider_dry_run()
-            return 0
-        elif cmd == "validate-provider-dry-run-fixtures":
-            validate_provider_dry_run_fixtures()
-            return 0
-        elif cmd == "telegram-adapter-status":
-            telegram_adapter_status()
-            return 0
-        elif cmd == "telegram-dry-run":
-            telegram_dry_run()
-            return 0
-        elif cmd == "validate-telegram-dry-run-fixtures":
-            validate_telegram_dry_run_fixtures()
-            return 0
-        elif cmd == "telegram-staging-contract":
-            telegram_staging_contract()
-            return 0
-        elif cmd == "x-adapter-status":
-            x_adapter_status()
-            return 0
-        elif cmd == "x-dry-run":
-            x_dry_run()
-            return 0
-        elif cmd == "validate-x-dry-run-fixtures":
-            validate_x_dry_run_fixtures()
-            return 0
-        elif cmd == "x-staging-contract":
-            x_staging_contract()
-            return 0
-        elif cmd == "linkedin-adapter-status":
-            linkedin_adapter_status()
-            return 0
-        elif cmd == "linkedin-dry-run":
-            linkedin_dry_run()
-            return 0
-        elif cmd == "validate-linkedin-dry-run-fixtures":
-            validate_linkedin_dry_run_fixtures()
-            return 0
-        elif cmd == "linkedin-staging-contract":
-            linkedin_staging_contract()
-            return 0
-        elif cmd == "linkedin-scope-verification-checklist":
-            linkedin_scope_verification_checklist()
-            return 0
-        elif cmd == "instagram-asset-export-status":
-            instagram_asset_export_status()
-            return 0
-        elif cmd == "instagram-asset-dry-run":
-            instagram_asset_dry_run()
-            return 0
-        elif cmd == "validate-instagram-asset-fixtures":
-            validate_instagram_asset_fixtures()
-            return 0
-        elif cmd == "instagram-staging-contract":
-            instagram_staging_contract()
-            return 0
-        elif cmd == "meta-capability-review-checklist":
-            meta_capability_review_checklist()
-            return 0
-        elif cmd == "pilot-prerequisites-status":
-            pilot_prerequisites_status()
-            return 0
-        elif cmd == "telegram-private-staging-packet-status":
-            telegram_private_staging_packet_status()
-            return 0
-        elif cmd == "telegram-staging-flow-dry-run":
-            telegram_staging_flow_dry_run()
-            return 0
-        elif cmd == "telegram-staging-operator-rollback-drill":
-            telegram_staging_operator_rollback_drill()
-            return 0
-        elif cmd == "telegram-live-no-go-status":
-            telegram_live_no_go_status()
-            return 0
-        elif cmd == "live-project-sources-bundle":
-            live_project_sources_bundle()
-            return 0
+        else:
+            print(f"Unknown command: {cmd}")
 
-    print("Usage: python -m live_contentops.cli [status|...|telegram-staging-flow-dry-run]")
+    print("Usage: python -m live_contentops.cli <command>")
+    print("Available commands:")
+    for key in COMMANDS:
+        print(f"  {key}")
     return 1
 
 if __name__ == "__main__":
