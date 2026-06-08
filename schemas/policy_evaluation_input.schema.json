@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "target_id": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean"
+      ]
+    },
+    "payload": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean"
+      ]
+    }
+  },
+  "required": [
+    "target_id",
+    "payload"
+  ],
+  "additionalProperties": true
+}

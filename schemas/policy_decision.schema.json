@@ -5,25 +5,105 @@
     "decision_id": {
       "type": [
         "string",
-        "object"
+        "object",
+        "array",
+        "boolean"
       ]
     },
     "target_id": {
       "type": [
         "string",
-        "object"
+        "object",
+        "array",
+        "boolean"
       ]
     },
     "policy_version": {
       "type": [
         "string",
-        "object"
+        "object",
+        "array",
+        "boolean"
       ]
     },
     "status": {
       "type": [
         "string",
-        "object"
+        "object",
+        "array",
+        "boolean"
+      ]
+    },
+    "severity": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean"
+      ]
+    },
+    "risk_flags": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean"
+      ]
+    },
+    "block_reasons": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean"
+      ]
+    },
+    "review_reasons": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean"
+      ]
+    },
+    "required_human_actions": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean"
+      ]
+    },
+    "safe_to_continue_to_human_review": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean"
+      ]
+    },
+    "safe_for_provider_generation": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean"
+      ]
+    },
+    "safe_for_adapter_dry_run": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean"
+      ]
+    },
+    "safe_for_publish": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean"
       ]
     },
     "schema_version": {
@@ -34,13 +114,25 @@
     },
     "human_approval_required": {
       "type": "boolean"
+    },
+    "created_at": {
+      "type": "string"
     }
   },
   "required": [
     "decision_id",
     "target_id",
     "policy_version",
-    "status"
+    "status",
+    "severity",
+    "risk_flags",
+    "block_reasons",
+    "review_reasons",
+    "required_human_actions",
+    "safe_to_continue_to_human_review",
+    "safe_for_provider_generation",
+    "safe_for_adapter_dry_run",
+    "safe_for_publish"
   ],
   "additionalProperties": true
 }
