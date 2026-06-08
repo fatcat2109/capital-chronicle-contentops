@@ -359,6 +359,10 @@ def telegram_live_no_go_status():
         print(f"- {b}")
     print(f"Exact next task: {data.get('exact_next_task')}")
 
+def live_project_sources_bundle():
+    from . import project_sources_bundle
+    project_sources_bundle.run_cli_bundle()
+
 def main():
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
@@ -463,6 +467,9 @@ def main():
             return 0
         elif cmd == "telegram-live-no-go-status":
             telegram_live_no_go_status()
+            return 0
+        elif cmd == "live-project-sources-bundle":
+            live_project_sources_bundle()
             return 0
 
     print("Usage: python -m live_contentops.cli [status|...|telegram-staging-flow-dry-run]")
