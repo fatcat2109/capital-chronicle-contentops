@@ -296,6 +296,9 @@ def meta_capability_review_checklist():
     print(json.dumps({"meta_capability_review_checklist": checklist, "message": "Real Meta/Graph permission names are not verified in this task."}, indent=2))
 
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] == 'pilot-prerequisites-status':
+        pilot_prerequisites_status()
+        sys.exit(0)
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
         if cmd == "status":
@@ -391,3 +394,22 @@ def main():
 
 if __name__ == "__main__":
     sys.exit(main())
+
+def pilot_prerequisites_status():
+    import json
+    import os
+    prereq_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'LIVE_PILOT_OPERATOR_PREREQUISITES_V1.json')
+    if not os.path.exists(prereq_path):
+        print("Prerequisites missing.")
+        return
+    with open(prereq_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    print("Live pilot credential GO allowed now: False")
+    print("Network allowed now: False")
+    print("Publish allowed now: False")
+    print("Top Blockers:")
+    for entry in data.get("prerequisites", []):
+        if entry.get("blocker_if_missing") and entry.get("status") in ["MISSING_OPERATOR_INPUT", "FUTURE_VERIFICATION_REQUIRED"]:
+            print(f"- {entry.get('title')}: {entry.get('notes')}")
+    print("Recommended next task: TASK_CONTENTOPS_0047_TELEGRAM_PRIVATE_STAGING_DRY_RUN_OPERATOR_PACKET")
+
