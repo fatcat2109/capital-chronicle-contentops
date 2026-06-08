@@ -1,0 +1,47 @@
+{
+  "brief_id": "grb_invalid_market_signal_0003",
+  "lane": "pre_alpha_general_process",
+  "subtype": "macro_education_from_news",
+  "title": "Brief that smuggles a market call",
+  "created_at": "2026-06-01",
+  "operator_supplied": true,
+  "source_collection_method": "manual operator-supplied context",
+  "sources": [
+    {
+      "source_id": "src_news",
+      "title": "Central bank speech coverage",
+      "url": "https://example.com/cb-speech",
+      "publisher_or_author": "Reputable News",
+      "publication_date": "2026-05-30",
+      "source_type": "news_outlet",
+      "credibility_note": "Event context only.",
+      "freshness_note": "Recent.",
+      "limitation_note": "Commentary, not primary data."
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_1",
+      "claim_text": "The Fed is clearly preparing to cut, so buy duration and go long bonds now.",
+      "claim_type": "market_sensitive_context",
+      "source_ids": ["src_news"],
+      "claim_risk": "high",
+      "requires_citation": true,
+      "has_citation": true,
+      "educational_framing": false
+    }
+  ],
+  "safety_review": {
+    "public_postable": false,
+    "artifact_backed": false,
+    "manual_review_required": true,
+    "publish_ready": false,
+    "provider_call_used_by_repo": false,
+    "search_call_used_by_repo": false,
+    "platform_action_used_by_repo": false,
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "no_execution_language": true
+  },
+  "allowed_output_use": ["research_context_only", "local_review_only", "not_public_postable"]
+}

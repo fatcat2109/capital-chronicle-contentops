@@ -1,0 +1,59 @@
+{
+  "brief_id": "grb_valid_minimal_0001",
+  "lane": "pre_alpha_general_process",
+  "subtype": "grounded_news_context",
+  "title": "Why a single CPI print is not a regime model",
+  "created_at": "2026-06-01",
+  "research_date": "2026-06-01",
+  "operator_supplied": true,
+  "source_collection_method": "manual operator-supplied context gathered outside the repo",
+  "sources": [
+    {
+      "source_id": "src_bls_cpi",
+      "title": "Consumer Price Index Summary",
+      "url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+      "publisher_or_author": "U.S. Bureau of Labor Statistics",
+      "publication_date": "2026-05-13",
+      "accessed_date": "2026-06-01",
+      "source_type": "official_statistical_agency",
+      "credibility_note": "Primary official release.",
+      "freshness_note": "Latest monthly print as of access date.",
+      "limitation_note": "Single print; subject to revision; does not establish a regime."
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_1",
+      "claim_text": "A serious macro workflow checks inflation trend, revisions, and cross-asset confirmation before treating one print as thesis-ready.",
+      "claim_type": "evergreen_education",
+      "source_ids": [],
+      "claim_risk": "low",
+      "requires_citation": false,
+      "has_citation": false,
+      "educational_framing": true
+    },
+    {
+      "claim_id": "clm_2",
+      "claim_text": "The latest CPI release reported a monthly change that markets discussed widely.",
+      "claim_type": "current_factual_claim",
+      "source_ids": ["src_bls_cpi"],
+      "claim_risk": "medium",
+      "requires_citation": true,
+      "has_citation": true,
+      "educational_framing": true
+    }
+  ],
+  "safety_review": {
+    "public_postable": false,
+    "artifact_backed": false,
+    "manual_review_required": true,
+    "publish_ready": false,
+    "provider_call_used_by_repo": false,
+    "search_call_used_by_repo": false,
+    "platform_action_used_by_repo": false,
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "no_execution_language": true
+  },
+  "allowed_output_use": ["research_context_only", "local_review_only", "not_public_postable"]
+}

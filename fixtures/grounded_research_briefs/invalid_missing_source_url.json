@@ -1,0 +1,47 @@
+{
+  "brief_id": "grb_invalid_missing_url_0002",
+  "lane": "pre_alpha_general_process",
+  "subtype": "official_data_explainer",
+  "title": "Official data explainer with a broken source record",
+  "created_at": "2026-06-01",
+  "operator_supplied": true,
+  "source_collection_method": "manual operator-supplied context",
+  "sources": [
+    {
+      "source_id": "src_missing_url",
+      "title": "Some official release",
+      "url": "",
+      "publisher_or_author": "Some Agency",
+      "publication_date": "2026-05-13",
+      "source_type": "official_statistical_agency",
+      "credibility_note": "Primary official release.",
+      "freshness_note": "Recent.",
+      "limitation_note": "Single release."
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm_1",
+      "claim_text": "The release shows an official figure that needs careful interpretation.",
+      "claim_type": "current_factual_claim",
+      "source_ids": ["src_missing_url"],
+      "claim_risk": "medium",
+      "requires_citation": true,
+      "has_citation": true,
+      "educational_framing": true
+    }
+  ],
+  "safety_review": {
+    "public_postable": false,
+    "artifact_backed": false,
+    "manual_review_required": true,
+    "publish_ready": false,
+    "provider_call_used_by_repo": false,
+    "search_call_used_by_repo": false,
+    "platform_action_used_by_repo": false,
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "no_execution_language": true
+  },
+  "allowed_output_use": ["research_context_only", "local_review_only", "not_public_postable"]
+}

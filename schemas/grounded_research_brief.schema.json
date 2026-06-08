@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GroundedResearchBrief",
+  "description": "Local-only, operator-supplied grounded research brief contract for the pre-alpha Grounded News / Research Context Lane. The repo never fetches sources; briefs are supplied manually. No public-ready content, no artifact-backed claims, no live calls.",
+  "type": "object",
+  "properties": {
+    "brief_id": { "type": "string" },
+    "lane": { "type": "string", "const": "pre_alpha_general_process" },
+    "subtype": {
+      "type": "string",
+      "enum": [
+        "grounded_news_context",
+        "official_data_explainer",
+        "policy_process_commentary",
+        "macro_education_from_news",
+        "forecast_readiness_from_news",
+        "data_sufficiency_from_news",
+        "failure_forensics_from_news"
+      ]
+    },
+    "title": { "type": "string" },
+    "created_at": { "type": "string" },
+    "research_date": { "type": "string" },
+    "operator_supplied": { "type": "boolean", "const": true },
+    "source_collection_method": { "type": "string" },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_id": { "type": "string" },
+          "title": { "type": "string" },
+          "url": { "type": "string" },
+          "publisher_or_author": { "type": "string" },
+          "publication_date": { "type": "string" },
+          "accessed_date": { "type": "string" },
+          "source_type": { "type": "string" },
+          "credibility_note": { "type": "string" },
+          "freshness_note": { "type": "string" },
+          "limitation_note": { "type": "string" }
+        },
+        "required": [
+          "source_id", "title", "url", "publisher_or_author",
+          "source_type", "credibility_note", "freshness_note", "limitation_note"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim_id": { "type": "string" },
+          "claim_text": { "type": "string" },
+          "claim_type": {
+            "type": "string",
+            "enum": [
+              "first_party_philosophy",
+              "evergreen_education",
+              "cited_factual_claim",
+              "current_factual_claim",
+              "market_sensitive_context",
+              "forbidden_claim"
+            ]
+          },
+          "source_ids": { "type": "array", "items": { "type": "string" } },
+          "claim_risk": { "type": "string", "enum": ["low", "medium", "high", "blocked"] },
+          "requires_citation": { "type": "boolean" },
+          "has_citation": { "type": "boolean" },
+          "educational_framing": { "type": "boolean" }
+        },
+        "required": ["claim_id", "claim_text", "claim_type", "claim_risk"],
+        "additionalProperties": true
+      }
+    },
+    "safety_review": {
+      "type": "object",
+      "properties": {
+        "public_postable": { "type": "boolean", "const": false },
+        "artifact_backed": { "type": "boolean", "const": false },
+        "manual_review_required": { "type": "boolean", "const": true },
+        "publish_ready": { "type": "boolean", "const": false },
+        "provider_call_used_by_repo": { "type": "boolean", "const": false },
+        "search_call_used_by_repo": { "type": "boolean", "const": false },
+        "platform_action_used_by_repo": { "type": "boolean", "const": false },
+        "no_financial_advice": { "type": "boolean", "const": true },
+        "no_signal_language": { "type": "boolean", "const": true },
+        "no_execution_language": { "type": "boolean", "const": true }
+      },
+      "required": [
+        "public_postable", "artifact_backed", "manual_review_required",
+        "publish_ready", "provider_call_used_by_repo", "search_call_used_by_repo",
+        "platform_action_used_by_repo", "no_financial_advice",
+        "no_signal_language", "no_execution_language"
+      ],
+      "additionalProperties": true
+    },
+    "allowed_output_use": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["research_context_only", "local_review_only", "not_public_postable"]
+      }
+    }
+  },
+  "required": [
+    "brief_id", "lane", "subtype", "title", "operator_supplied",
+    "source_collection_method", "sources", "claims", "safety_review",
+    "allowed_output_use"
+  ],
+  "additionalProperties": true
+}
