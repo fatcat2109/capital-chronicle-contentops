@@ -22,6 +22,8 @@ from . import seo_metadata
 from . import prompt_injection
 from . import editorial_packet_export
 from . import packet_review_queue
+from . import alpha_wait_state
+
 from . import pipeline_trace
 
 from . import artifact_packet_bridge
@@ -505,6 +507,9 @@ def artifact_packet_bridge_summary():
     print(json.dumps(artifact_packet_bridge.build_summary(), indent=2))
 def real_artifact_pipeline_trace_summary():
     print(json.dumps(pipeline_trace.build_summary(), indent=2))
+def alpha_wait_state_summary():
+    print(json.dumps(alpha_wait_state.build_summary(), indent=2))
+
 
 
 
@@ -569,6 +574,8 @@ COMMANDS = {
     "packet-registry-dashboard-summary": packet_registry_dashboard_summary,
     "project-source-export-summary": project_source_export_summary,
     "real-artifact-pipeline-trace-summary": real_artifact_pipeline_trace_summary,
+    "alpha-wait-state-summary": alpha_wait_state_summary,
+
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,
 

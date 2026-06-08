@@ -64,7 +64,8 @@ def test_accepted_head_and_next_task_present():
     man = m.build_manifest()
     assert man["accepted_head"]
     assert man["next_task"]
-    assert man["next_task"].startswith("TASK_CONTENTOPS_")
+    assert (man["next_task"].startswith("TASK_CONTENTOPS_")
+            or man["next_task"] == "WAIT_FOR_REAL_CAPITAL_CHRONICLE_ALPHA_ARTIFACTS_OR_OPERATOR_SELECTED_LOCAL_MAINTENANCE")
 
 def test_task_0068_completed_head_is_cd72ee4():
     man = m.build_manifest()
@@ -85,7 +86,8 @@ def test_current_next_task_tracks_status_pointer():
     man = m.build_manifest()
     # current_next_task mirrors the live status pointer (advances across tasks).
     assert man["current_next_task"] == status.get_status()["next_task"]
-    assert man["current_next_task"].startswith("TASK_CONTENTOPS_")
+    assert (man["current_next_task"].startswith("TASK_CONTENTOPS_")
+            or man["current_next_task"] == "WAIT_FOR_REAL_CAPITAL_CHRONICLE_ALPHA_ARTIFACTS_OR_OPERATOR_SELECTED_LOCAL_MAINTENANCE")
 
 
 def test_continuation_doc_states_0068_completed_at_cd72ee4():

@@ -14,4 +14,4 @@ def test_cli_status():
     assert data["scheduler"] == "disabled"
     assert data["publishing"] == "disabled"
     assert data["autonomous_replies"] == "disabled"
-    assert data["next_task"] == "TASK_CONTENTOPS_0073_LOCAL_ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_AND_FINAL_BUNDLE_V0"
+    assert data["next_task"] == "WAIT_FOR_REAL_CAPITAL_CHRONICLE_ALPHA_ARTIFACTS_OR_OPERATOR_SELECTED_LOCAL_MAINTENANCE"
