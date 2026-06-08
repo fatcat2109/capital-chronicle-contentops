@@ -1,0 +1,60 @@
+{
+    "packets": [
+        {
+            "source_fixture_id": "registry_demo_clean",
+            "content_type": "post",
+            "target_platforms": ["linkedin"],
+            "research": {
+                "is_current_events": false,
+                "topic": "Evergreen workflow note",
+                "freshness_window": "evergreen",
+                "source_items": [
+                    {
+                        "source_id": "reg_src_1",
+                        "title": "Local Fixture Snapshot",
+                        "publisher_or_origin": "synthetic_fixture_tool",
+                        "source_type": "synthetic_fixture",
+                        "synthetic_fixture": true,
+                        "claim_summary": "Workflow discipline matters, with caveats.",
+                        "limitations": ["Synthetic source - not for live use"]
+                    }
+                ]
+            },
+            "seo": {
+                "topic": "workflow",
+                "platform": "linkedin",
+                "is_synthetic": true,
+                "suggested_keywords": ["workflow"],
+                "suggested_hashtags": ["#workflow"]
+            },
+            "prompt": {
+                "task_intent": "Draft an educational post",
+                "is_synthetic": true,
+                "target_platforms": ["linkedin"],
+                "citation_requirements": "Required for all claims",
+                "freshness_requirements": "evergreen",
+                "source_context": {
+                    "is_current_events": false,
+                    "source_items": [
+                        {"source_id": "reg_src_1", "synthetic_fixture": true, "claim_summary": "Workflow discipline matters."}
+                    ]
+                }
+            },
+            "qa": {
+                "text": "How do practitioners keep research workflows disciplined?\n\nCaveat: fixture note. Source: http://example.com/data",
+                "platform": "linkedin",
+                "is_synthetic_demo": true
+            },
+            "preview": {
+                "source_fixture_id": "registry_demo_clean",
+                "text": "How do practitioners keep research workflows disciplined?\n\nCaveat: fixture note. Source: http://example.com/data",
+                "platforms": ["linkedin"],
+                "is_synthetic_demo": true
+            },
+            "decisions": [
+                {"decision_type": "REQUEST_REVISION", "operator_id": "operator_demo", "operator_notes": "Tighten hook."},
+                {"decision_type": "ACCEPT_FOR_MANUAL_EXPORT_PACKET_ONLY", "operator_id": "operator_demo", "operator_notes": "Local manual artifact only."}
+            ]
+        }
+    ]
+}
