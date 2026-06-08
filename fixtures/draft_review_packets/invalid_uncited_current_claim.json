@@ -1,0 +1,54 @@
+{
+  "packet_id": "drp_invalid_uncited_current_claim_0003",
+  "lane": "pre_alpha_general_process",
+  "subtype": "macro_education_from_news",
+  "draft_origin": "llm_assisted_outside_repo",
+  "created_at": "2026-06-02",
+  "draft_text": "Recent data shifted the macro conversation, but one print rarely settles a thesis.",
+  "linked_research_brief": {
+    "brief_id": "grb_valid_minimal_0001",
+    "brief_validated": true
+  },
+  "source_references_used": [
+    { "source_id": "src_bls_cpi", "claim_ids_supported": [] }
+  ],
+  "claim_reviews": [
+    {
+      "claim_id": "clm_1",
+      "claim_text": "The latest release reported a specific monthly inflation figure.",
+      "claim_type": "current_factual_claim",
+      "source_ids": [],
+      "has_citation": false,
+      "citation_required": true,
+      "source_present_in_brief": false,
+      "risk_level": "medium",
+      "reviewer_note": "Current factual claim with no citation."
+    }
+  ],
+  "platform_fit": {
+    "linkedin": { "suitable": false, "note": "Needs citation first." },
+    "x": { "suitable": false, "note": "Needs citation first." },
+    "threads": { "suitable": false, "note": "Needs citation first." },
+    "substack": { "suitable": false, "note": "Needs citation first." }
+  },
+  "safety_review": {
+    "review_only": true,
+    "public_postable": false,
+    "publish_ready": false,
+    "manual_review_required": true,
+    "jim_final_review_required": true,
+    "artifact_backed": false,
+    "provider_call_used_by_repo": false,
+    "search_call_used_by_repo": false,
+    "platform_action_used_by_repo": false,
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "no_execution_language": true
+  },
+  "verdict": {
+    "status": "local_review_block",
+    "reasons": ["Current factual claim lacks citation."],
+    "required_operator_actions": ["Add a cited source from a validated brief."]
+  },
+  "allowed_output_use": ["local_review_only", "not_public_postable"]
+}

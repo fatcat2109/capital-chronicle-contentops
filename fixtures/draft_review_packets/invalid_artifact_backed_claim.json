@@ -1,0 +1,52 @@
+{
+  "packet_id": "drp_invalid_artifact_backed_0005",
+  "lane": "pre_alpha_general_process",
+  "subtype": "forecast_readiness_from_news",
+  "draft_origin": "llm_assisted_outside_repo",
+  "created_at": "2026-06-02",
+  "draft_text": "Capital Chronicle alpha says the regime has shifted, per artifact_id CC-2026-001 with a passing dqr_status.",
+  "linked_research_brief": {
+    "brief_id": "grb_valid_minimal_0001",
+    "brief_validated": true
+  },
+  "source_references_used": [],
+  "claim_reviews": [
+    {
+      "claim_id": "clm_1",
+      "claim_text": "Our model predicts the shift; the alpha output confirms it.",
+      "claim_type": "current_factual_claim",
+      "source_ids": [],
+      "has_citation": false,
+      "citation_required": true,
+      "source_present_in_brief": false,
+      "risk_level": "high",
+      "reviewer_note": "Falsely implies Capital Chronicle alpha output exists."
+    }
+  ],
+  "platform_fit": {
+    "linkedin": { "suitable": false, "note": "Blocked: implies alpha output." },
+    "x": { "suitable": false, "note": "Blocked: implies alpha output." },
+    "threads": { "suitable": false, "note": "Blocked: implies alpha output." },
+    "substack": { "suitable": false, "note": "Blocked: implies alpha output." }
+  },
+  "safety_review": {
+    "review_only": true,
+    "public_postable": false,
+    "publish_ready": false,
+    "manual_review_required": true,
+    "jim_final_review_required": true,
+    "artifact_backed": false,
+    "provider_call_used_by_repo": false,
+    "search_call_used_by_repo": false,
+    "platform_action_used_by_repo": false,
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "no_execution_language": true
+  },
+  "verdict": {
+    "status": "local_review_block",
+    "reasons": ["Draft implies Capital Chronicle alpha output exists before real approved artifacts."],
+    "required_operator_actions": ["Remove all artifact-backed/alpha-output claims; artifact-backed content remains blocked."]
+  },
+  "allowed_output_use": ["local_review_only", "not_public_postable"]
+}

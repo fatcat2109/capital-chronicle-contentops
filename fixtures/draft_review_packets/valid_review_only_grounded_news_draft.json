@@ -1,0 +1,67 @@
+{
+  "packet_id": "drp_valid_review_only_0001",
+  "lane": "pre_alpha_general_process",
+  "subtype": "grounded_news_context",
+  "draft_origin": "llm_assisted_outside_repo",
+  "created_at": "2026-06-02",
+  "review_date": "2026-06-02",
+  "draft_text": "Central bank speeches are useful context, but they are not a forecast by themselves. A serious macro workflow still checks inflation trend, labor-market cooling, financial conditions, and revision risk before treating a speech as thesis-ready.",
+  "linked_research_brief": {
+    "brief_id": "grb_valid_minimal_0001",
+    "brief_path": "fixtures/grounded_research_briefs/valid_minimal_grounded_news_context.json",
+    "brief_validated": true
+  },
+  "source_references_used": [
+    { "source_id": "src_bls_cpi", "claim_ids_supported": ["clm_2"] }
+  ],
+  "claim_reviews": [
+    {
+      "claim_id": "clm_1",
+      "claim_text": "A serious macro workflow checks trend, revisions, and cross-asset confirmation before treating one event as thesis-ready.",
+      "claim_type": "evergreen_education",
+      "source_ids": [],
+      "has_citation": false,
+      "citation_required": false,
+      "source_present_in_brief": true,
+      "risk_level": "low",
+      "reviewer_note": "Evergreen process education; no citation required."
+    },
+    {
+      "claim_id": "clm_2",
+      "claim_text": "The latest official release reported a monthly change that markets discussed widely.",
+      "claim_type": "current_factual_claim",
+      "source_ids": ["src_bls_cpi"],
+      "has_citation": true,
+      "citation_required": true,
+      "source_present_in_brief": true,
+      "risk_level": "medium",
+      "reviewer_note": "Cited to declared source."
+    }
+  ],
+  "platform_fit": {
+    "linkedin": { "suitable": true, "note": "Professional process insight." },
+    "x": { "suitable": true, "note": "Short educational thread hook." },
+    "threads": { "suitable": true, "note": "Softer conversational version." },
+    "substack": { "suitable": true, "note": "Expandable into a full explainer." }
+  },
+  "safety_review": {
+    "review_only": true,
+    "public_postable": false,
+    "publish_ready": false,
+    "manual_review_required": true,
+    "jim_final_review_required": true,
+    "artifact_backed": false,
+    "provider_call_used_by_repo": false,
+    "search_call_used_by_repo": false,
+    "platform_action_used_by_repo": false,
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "no_execution_language": true
+  },
+  "verdict": {
+    "status": "local_review_pass",
+    "reasons": ["All claims cited where required; no forbidden language; not public-postable."],
+    "required_operator_actions": ["Jim manual rewrite/review before any public use."]
+  },
+  "allowed_output_use": ["local_review_only", "operator_rewrite_context", "not_public_postable"]
+}

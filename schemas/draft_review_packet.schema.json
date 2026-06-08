@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DraftReviewPacket",
+  "description": "Local-only, review-only safety packet for pre-alpha general/process and grounded-news drafts written OUTSIDE the repo (by operator / LLM-assisted / Deep Research). The repo reviews drafts; it never generates final public copy, never posts, never fetches, and never marks anything publish-ready or public-postable.",
+  "type": "object",
+  "properties": {
+    "packet_id": { "type": "string" },
+    "lane": { "type": "string", "const": "pre_alpha_general_process" },
+    "subtype": {
+      "type": "string",
+      "enum": [
+        "grounded_news_context",
+        "official_data_explainer",
+        "policy_process_commentary",
+        "macro_education_from_news",
+        "forecast_readiness_from_news",
+        "data_sufficiency_from_news",
+        "failure_forensics_from_news",
+        "build_in_public",
+        "product_philosophy"
+      ]
+    },
+    "draft_origin": {
+      "type": "string",
+      "enum": [
+        "manually_supplied_by_operator",
+        "llm_assisted_outside_repo",
+        "chatgpt_deep_research_context_outside_repo"
+      ]
+    },
+    "created_at": { "type": "string" },
+    "review_date": { "type": "string" },
+    "draft_text": { "type": "string" },
+    "linked_research_brief": {
+      "type": "object",
+      "properties": {
+        "brief_id": { "type": "string" },
+        "brief_path": { "type": "string" },
+        "brief_reference": { "type": "string" },
+        "brief_validated": { "type": "boolean", "const": true }
+      },
+      "required": ["brief_id", "brief_validated"],
+      "additionalProperties": true
+    },
+    "source_references_used": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_id": { "type": "string" },
+          "claim_ids_supported": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["source_id"],
+        "additionalProperties": true
+      }
+    },
+    "claim_reviews": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim_id": { "type": "string" },
+          "claim_text": { "type": "string" },
+          "claim_type": {
+            "type": "string",
+            "enum": [
+              "first_party_philosophy",
+              "evergreen_education",
+              "cited_factual_claim",
+              "current_factual_claim",
+              "market_sensitive_context",
+              "forbidden_claim"
+            ]
+          },
+          "source_ids": { "type": "array", "items": { "type": "string" } },
+          "has_citation": { "type": "boolean" },
+          "citation_required": { "type": "boolean" },
+          "source_present_in_brief": { "type": "boolean" },
+          "risk_level": { "type": "string", "enum": ["low", "medium", "high", "blocked"] },
+          "reviewer_note": { "type": "string" }
+        },
+        "required": ["claim_id", "claim_text", "claim_type", "risk_level"],
+        "additionalProperties": true
+      }
+    }
+  },
+  "required": [
+    "packet_id", "lane", "subtype", "draft_origin", "draft_text",
+    "linked_research_brief", "source_references_used", "claim_reviews",
+    "platform_fit", "safety_review", "verdict", "allowed_output_use"
+  ],
+  "additionalProperties": true
+}
