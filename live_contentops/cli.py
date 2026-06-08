@@ -18,6 +18,8 @@ from . import editorial_quality
 from . import editorial_preview
 from . import editorial_selection
 from . import grounded_research
+from . import seo_metadata
+from . import prompt_injection
 import uuid
 
 def print_status():
@@ -435,6 +437,28 @@ def seo_metadata_summary():
 
 
 
+def prompt_injection_summary():
+    print(json.dumps({
+        "status": "deterministic local prompt packet builder active",
+        "local_only": True,
+        "provider_call_allowed": False,
+        "search_call_allowed": False,
+        "platform_action_allowed": False,
+        "advisory_only": True,
+        "citation_guardrail_enabled": True,
+        "cost_policy_enabled": True,
+        "all_fixture_outputs_not_public_postable": True,
+        "supported_prompt_sections": [
+            "system_boundary_section",
+            "grounded_context_section",
+            "source_and_citation_section",
+            "freshness_and_limitations_section",
+            "editorial_style_section",
+            "safety_guardrail_section",
+            "output_contract_section",
+            "no_public_post_section"
+        ]
+    }, indent=2))
 
 COMMANDS = {
     "status": print_status,
@@ -476,7 +500,8 @@ COMMANDS = {
     "editorial-preview-summary": editorial_preview_summary,
     "editorial-selection-summary": editorial_selection_summary,
     "grounded-research-summary": grounded_research_summary,
-    "seo-metadata-summary": seo_metadata_summary
+    "seo-metadata-summary": seo_metadata_summary,
+    "prompt-injection-summary": prompt_injection_summary
 }
 
 def main():

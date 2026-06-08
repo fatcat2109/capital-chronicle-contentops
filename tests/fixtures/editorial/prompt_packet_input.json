@@ -1,0 +1,16 @@
+{
+    "task_intent": "Draft post about macro trends",
+    "is_synthetic": true,
+    "target_platforms": ["linkedin"],
+    "citation_requirements": "Required for all claims",
+    "source_context": {
+        "is_current_events": true,
+        "source_items": [
+            {
+                "source_id": "fixture_1",
+                "synthetic_fixture": true,
+                "claim_summary": "Macro is doing macro things"
+            }
+        ]
+    }
+}

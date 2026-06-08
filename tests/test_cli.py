@@ -14,4 +14,4 @@ def test_cli_status():
     assert data["scheduler"] == "disabled"
     assert data["publishing"] == "disabled"
     assert data["autonomous_replies"] == "disabled"
-    assert data["next_task"] == "TASK_CONTENTOPS_0061_GROUNDED_LLM_PROMPT_INJECTION_AND_CITATION_GUARDRAIL_V0"
+    assert data["next_task"] == "TASK_CONTENTOPS_0062_LOCAL_GROUNDED_EDITORIAL_PACKET_EXPORT_V0"
