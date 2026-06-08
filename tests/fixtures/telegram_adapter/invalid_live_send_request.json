@@ -1,0 +1,5 @@
+{
+  "target_channel_label": "PLACEHOLDER_STG",
+  "dry_run_only": false,
+  "staging_only": true
+}

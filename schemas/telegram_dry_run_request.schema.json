@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "request_id": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "target_channel_label": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "message_mode": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "message_text": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "dry_run_only": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "staging_only": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "human_approval_required": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "telegram_api_used": {
+      "type": "boolean"
+    },
+    "platform_api_used": {
+      "type": "boolean"
+    },
+    "created_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "request_id",
+    "target_channel_label",
+    "message_mode",
+    "message_text",
+    "dry_run_only",
+    "staging_only",
+    "human_approval_required"
+  ],
+  "additionalProperties": true
+}

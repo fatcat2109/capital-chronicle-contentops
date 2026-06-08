@@ -1,0 +1,6 @@
+{
+  "target_channel_label": "PLACEHOLDER_STG",
+  "dry_run_only": true,
+  "staging_only": true,
+  "telegram_api_used": true
+}
