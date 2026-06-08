@@ -20,6 +20,8 @@ from . import editorial_selection
 from . import grounded_research
 from . import seo_metadata
 from . import prompt_injection
+from . import editorial_packet_export
+
 import uuid
 
 def print_status():
@@ -460,6 +462,10 @@ def prompt_injection_summary():
         ]
     }, indent=2))
 
+def grounded_editorial_packet_summary():
+    print(json.dumps(editorial_packet_export.build_summary(), indent=2))
+
+
 COMMANDS = {
     "status": print_status,
     "contracts-summary": contracts_summary,
@@ -501,7 +507,9 @@ COMMANDS = {
     "editorial-selection-summary": editorial_selection_summary,
     "grounded-research-summary": grounded_research_summary,
     "seo-metadata-summary": seo_metadata_summary,
-    "prompt-injection-summary": prompt_injection_summary
+    "prompt-injection-summary": prompt_injection_summary,
+    "grounded-editorial-packet-summary": grounded_editorial_packet_summary,
+
 }
 
 def main():

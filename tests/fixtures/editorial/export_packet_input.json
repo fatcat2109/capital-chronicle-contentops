@@ -1,0 +1,67 @@
+{
+    "source_fixture_id": "export_demo_001",
+    "content_type": "post",
+    "target_platforms": ["linkedin", "x"],
+    "audience_modes": ["quant_systematic_trader"],
+    "style_modes": ["professional", "concise"],
+    "research": {
+        "is_current_events": false,
+        "topic": "How macro practitioners read AI tooling shifts",
+        "content_type": "post",
+        "intended_platforms": ["linkedin", "x"],
+        "freshness_window": "evergreen",
+        "source_items": [
+            {
+                "source_id": "fixture_src_1",
+                "title": "Local Fixture Research Snapshot",
+                "publisher_or_origin": "synthetic_fixture_tool",
+                "source_type": "synthetic_fixture",
+                "synthetic_fixture": true,
+                "claim_summary": "Practitioners increasingly evaluate NLP tooling, with caveats.",
+                "limitations": ["Synthetic source - not for live use", "No real-time market data"]
+            }
+        ]
+    },
+    "seo": {
+        "topic": "AI tooling for macro research",
+        "platform": "linkedin",
+        "content_type": "post",
+        "is_synthetic": true,
+        "suggested_keywords": ["macro research", "ai tooling", "workflow"],
+        "suggested_hashtags": ["#macro", "#research"]
+    },
+    "prompt": {
+        "task_intent": "Draft an educational post about AI tooling in macro research",
+        "is_synthetic": true,
+        "content_type": "post",
+        "target_platforms": ["linkedin", "x"],
+        "audience_modes": ["quant_systematic_trader"],
+        "style_modes": ["professional", "concise"],
+        "citation_requirements": "Required for all claims",
+        "freshness_requirements": "evergreen",
+        "source_context": {
+            "is_current_events": false,
+            "source_items": [
+                {
+                    "source_id": "fixture_src_1",
+                    "synthetic_fixture": true,
+                    "claim_summary": "Practitioners increasingly evaluate NLP tooling, with caveats."
+                }
+            ]
+        }
+    },
+    "qa": {
+        "text": "Are large language models shifting macro research workflows?\n\nRecent fixture data suggests rising NLP adoption.\n\nCaveat: this model bias requires strict normalization. Source: http://example.com/data",
+        "platform": "linkedin",
+        "audience": "quant_systematic_trader",
+        "is_synthetic_demo": true
+    },
+    "preview": {
+        "source_fixture_id": "export_demo_001",
+        "text": "Are large language models shifting macro research workflows?\n\nRecent fixture data suggests rising NLP adoption.\n\nCaveat: this model bias requires strict normalization. Source: http://example.com/data",
+        "platforms": ["linkedin", "x"],
+        "audience_modes": ["quant_systematic_trader"],
+        "style_modes": ["professional", "concise"],
+        "is_synthetic_demo": true
+    }
+}
