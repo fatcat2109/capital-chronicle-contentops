@@ -1,0 +1,11 @@
+{
+  "safe_for_publish": false,
+  "upload_enabled": false,
+  "instagram_api_used": false,
+  "meta_api_used": false,
+  "graph_api_used": false,
+  "platform_api_used": false,
+  "meta_capability_review_required": true,
+  "caption_preview": "mock",
+  "visual_asset_manifest": {}
+}

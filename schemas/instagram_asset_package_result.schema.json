@@ -1,0 +1,148 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "result_id": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "request_id": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "platform": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "adapter_mode": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "caption_preview": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "visual_asset_manifest": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "dry_run_only": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "staging_only": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "asset_export_only": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "meta_capability_review_required": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "safe_for_publish": {
+      "type": [
+        "string",
+        "object",
+        "array",
+        "boolean",
+        "number",
+        "integer"
+      ]
+    },
+    "instagram_api_used": {
+      "type": "boolean"
+    },
+    "meta_api_used": {
+      "type": "boolean"
+    },
+    "graph_api_used": {
+      "type": "boolean"
+    },
+    "platform_api_used": {
+      "type": "boolean"
+    },
+    "upload_enabled": {
+      "type": "boolean"
+    },
+    "created_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "result_id",
+    "request_id",
+    "platform",
+    "adapter_mode",
+    "caption_preview",
+    "visual_asset_manifest",
+    "dry_run_only",
+    "staging_only",
+    "asset_export_only",
+    "meta_capability_review_required",
+    "safe_for_publish"
+  ],
+  "additionalProperties": true
+}

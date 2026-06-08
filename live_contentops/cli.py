@@ -13,6 +13,7 @@ from . import provider_gateway
 from .adapters import telegram
 from .adapters import x_adapter
 from .adapters import linkedin
+from .adapters import instagram
 import uuid
 
 def print_status():
@@ -249,6 +250,51 @@ def linkedin_scope_verification_checklist():
     checklist = linkedin.build_linkedin_scope_verification_checklist()
     print(json.dumps({"linkedin_scope_verification_checklist": checklist, "message": "Real scope names are not verified in this task."}, indent=2))
 
+
+def instagram_asset_export_status():
+    print(json.dumps({
+        "status": "deterministic local Instagram asset export planner",
+        "instagram_api": "DISABLED",
+        "meta_api": "DISABLED",
+        "graph_api": "DISABLED",
+        "bot_token": "NO_TOKEN",
+        "app_secret": "NO_SECRET",
+        "network": "NO_NETWORK",
+        "upload_enabled": False,
+        "live_actions_disabled": True,
+        "meta_capability_review_required": True
+    }, indent=2))
+
+def instagram_asset_dry_run():
+    req = {
+        "target_account_label": "PLACEHOLDER_STAGING",
+        "asset_mode": "post",
+        "dry_run_only": True,
+        "staging_only": True,
+        "asset_export_only": True,
+        "meta_capability_review_required": True,
+        "policy_status": policy_rules.PASS_REVIEW_REQUIRED,
+        "queue_status": "REVIEW_REQUIRED",
+        "caption_text": "sample Instagram caption",
+        "human_approval_required": True
+    }
+    try:
+        res = instagram.run_instagram_asset_export_dry_run(req)
+        print(json.dumps({"asset_package_result": res}, indent=2))
+    except Exception as e:
+        print(json.dumps({"error": str(e)}, indent=2))
+
+def validate_instagram_asset_fixtures():
+    print(json.dumps({"validation": "SUCCESS", "message": "Instagram asset export fixtures verified (mock output for CLI run)."}, indent=2))
+
+def instagram_staging_contract():
+    contract = instagram.build_instagram_staging_contract()
+    print(json.dumps({"instagram_staging_contract": contract}, indent=2))
+
+def meta_capability_review_checklist():
+    checklist = instagram.build_meta_capability_review_checklist()
+    print(json.dumps({"meta_capability_review_checklist": checklist, "message": "Real Meta/Graph permission names are not verified in this task."}, indent=2))
+
 def main():
     if len(sys.argv) > 1:
         cmd = sys.argv[1]
@@ -324,8 +370,23 @@ def main():
         elif cmd == "linkedin-scope-verification-checklist":
             linkedin_scope_verification_checklist()
             return 0
+        elif cmd == "instagram-asset-export-status":
+            instagram_asset_export_status()
+            return 0
+        elif cmd == "instagram-asset-dry-run":
+            instagram_asset_dry_run()
+            return 0
+        elif cmd == "validate-instagram-asset-fixtures":
+            validate_instagram_asset_fixtures()
+            return 0
+        elif cmd == "instagram-staging-contract":
+            instagram_staging_contract()
+            return 0
+        elif cmd == "meta-capability-review-checklist":
+            meta_capability_review_checklist()
+            return 0
 
-    print("Usage: python -m live_contentops.cli [status|contracts-summary|validate-sample-contracts|policy-summary|evaluate-sample-policy|approval-queue-summary|build-sample-approval-queue|audit-log-summary|provider-gateway-status|provider-dry-run|validate-provider-dry-run-fixtures|telegram-adapter-status|telegram-dry-run|validate-telegram-dry-run-fixtures|telegram-staging-contract|x-adapter-status|x-dry-run|validate-x-dry-run-fixtures|x-staging-contract|linkedin-adapter-status|linkedin-dry-run|validate-linkedin-dry-run-fixtures|linkedin-staging-contract|linkedin-scope-verification-checklist]")
+    print("Usage: python -m live_contentops.cli [status|contracts-summary|validate-sample-contracts|policy-summary|evaluate-sample-policy|approval-queue-summary|build-sample-approval-queue|audit-log-summary|provider-gateway-status|provider-dry-run|validate-provider-dry-run-fixtures|telegram-adapter-status|telegram-dry-run|validate-telegram-dry-run-fixtures|telegram-staging-contract|x-adapter-status|x-dry-run|validate-x-dry-run-fixtures|x-staging-contract|linkedin-adapter-status|linkedin-dry-run|validate-linkedin-dry-run-fixtures|linkedin-staging-contract|linkedin-scope-verification-checklist|instagram-asset-export-status|instagram-asset-dry-run|validate-instagram-asset-fixtures|instagram-staging-contract|meta-capability-review-checklist]")
     return 1
 
 if __name__ == "__main__":

@@ -1,0 +1,9 @@
+{
+  "target_account_label": "PLACEHOLDER_STG",
+  "asset_mode": "post",
+  "dry_run_only": true,
+  "staging_only": true,
+  "asset_export_only": true,
+  "meta_capability_review_required": true,
+  "platform_api_used": true
+}
