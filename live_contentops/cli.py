@@ -44,6 +44,7 @@ from . import review_ledger
 
 from . import review_history
 from . import pre_alpha_manual_performance_record
+from . import pre_alpha_content_performance_review
 
 import uuid
 
@@ -741,6 +742,10 @@ def pre_alpha_manual_performance_record_summary():
     import json
     print(json.dumps(pre_alpha_manual_performance_record.summary(), indent=2))
 
+def pre_alpha_content_performance_review_summary():
+    import json
+    print(json.dumps(pre_alpha_content_performance_review.summary(), indent=2))
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -751,7 +756,8 @@ def operator_command_summary():
         "pre-alpha-manual-publish-record-summary"
     ]
     optional_cmds = [
-        "pre-alpha-manual-performance-record-summary"
+        "pre-alpha-manual-performance-record-summary",
+        "pre-alpha-content-performance-review-summary"
     ]
     doc_cmds = ["ide-cli-document-bundle-summary"]
 
@@ -861,6 +867,7 @@ COMMANDS = {
     "packet-dashboard-handoff-summary": packet_dashboard_handoff_summary,
     "operator-command-summary": operator_command_summary,
     "pre-alpha-manual-performance-record-summary": pre_alpha_manual_performance_record_summary,
+    "pre-alpha-content-performance-review-summary": pre_alpha_content_performance_review_summary,
 }
 
 def main():

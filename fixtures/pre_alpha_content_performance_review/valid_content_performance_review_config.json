@@ -1,0 +1,40 @@
+{
+  "source_manual_performance_record_packet_id": "manual_perf_packet_001",
+  "review_scope": "weekly_review",
+  "statistical_significance_claimed": false,
+  "records": [
+    {
+      "performance_record_id": "perf_rec_001",
+      "linked_manual_publish_record_id": "manual_pub_001",
+      "platform_family": "x",
+      "content_type": "market_note",
+      "metrics_source_type": "operator_entered",
+      "metrics": {
+        "impressions": 1500,
+        "likes": 42
+      }
+    },
+    {
+      "performance_record_id": "perf_rec_002",
+      "linked_manual_publish_record_id": "manual_pub_002",
+      "platform_family": "linkedin",
+      "content_type": "market_note",
+      "metrics_source_type": "operator_entered",
+      "metrics": {
+        "impressions": 2000,
+        "likes": 55
+      }
+    },
+    {
+      "performance_record_id": "perf_rec_003",
+      "linked_manual_publish_record_id": "manual_pub_003",
+      "platform_family": "linkedin",
+      "content_type": "deep_dive",
+      "metrics_source_type": "operator_entered",
+      "metrics": {
+        "impressions": 3000,
+        "likes": 120
+      }
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaContentPerformanceReviewPacket",
+  "type": "object",
+  "required": [
+    "content_performance_review_packet_id",
+    "created_at",
+    "source_refs",
+    "review_scope",
+    "record_count",
+    "included_record_count",
+    "excluded_record_count",
+    "missing_metric_count",
+    "insufficient_sample",
+    "sample_size_warning",
+    "platform_family_summary",
+    "content_type_summary",
+    "metric_availability_summary",
+    "conservative_findings",
+    "editorial_hypotheses",
+    "excluded_records",
+    "limitations",
+    "hard_boundary_flags",
+    "safety_audit",
+    "packet_status"
+  ],
+  "properties": {
+    "content_performance_review_packet_id": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "source_refs": {
+      "type": "object",
+      "properties": {
+        "source_manual_performance_record_packet_id": { "type": ["string", "null"] },
+        "source_manual_publish_packet_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "review_scope": { "type": "string" },
+    "record_count": { "type": "integer" },
+    "included_record_count": { "type": "integer" },
+    "excluded_record_count": { "type": "integer" },
+    "missing_metric_count": { "type": "integer" },
+    "insufficient_sample": { "type": "boolean" },
+    "sample_size_warning": { "type": ["string", "null"] },
+    "platform_family_summary": {
+      "type": "object",
+      "additionalProperties": { "type": "integer" }
+    },
+    "content_type_summary": {
+      "type": "object",
+      "additionalProperties": { "type": "integer" }
+    },
+    "metric_availability_summary": {
+      "type": "object",
+      "additionalProperties": { "type": "integer" }
+    },
+    "conservative_findings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "editorial_hypotheses": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "excluded_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "performance_record_id": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "packet_status": { "type": "string", "enum": ["pass", "blocked"] },
+    "blocked_reasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "hard_boundary_flags": {
+      "type": "object",
+      "properties": {
+        "local_only": { "type": "boolean", "const": true },
+        "deterministic_review_only": { "type": "boolean", "const": true },
+        "manual_operator_entry_only": { "type": "boolean", "const": true },
+        "fixture_only": { "type": "boolean", "const": true },
+        "network_call_allowed_now": { "type": "boolean", "const": false },
+        "provider_call_allowed_now": { "type": "boolean", "const": false },
+        "platform_api_call_allowed_now": { "type": "boolean", "const": false },
+        "scraping_allowed": { "type": "boolean", "const": false },
+        "automatic_metrics_ingestion_allowed": { "type": "boolean", "const": false },
+        "credential_or_env_read_allowed": { "type": "boolean", "const": false },
+        "auto_publish": { "type": "boolean", "const": false },
+        "public_postable": { "type": "boolean", "const": false },
+        "llm_generation_used": { "type": "boolean", "const": false },
+        "statistical_significance_claimed": { "type": "boolean", "const": false }
+      }
+    },
+    "safety_audit": { "type": "object" }
+  }
+}

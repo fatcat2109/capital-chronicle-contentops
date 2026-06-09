@@ -1,0 +1,19 @@
+{
+  "source_manual_performance_record_packet_id": "manual_perf_packet_002",
+  "review_scope": "daily_review",
+  "statistical_significance_claimed": false,
+  "records": [
+    {
+      "performance_record_id": "perf_rec_004",
+      "linked_manual_publish_record_id": "manual_pub_004",
+      "platform_family": "x",
+      "content_type": "market_note",
+      "metrics_source_type": "operator_entered",
+      "metrics": {
+        "impressions": 1500,
+        "likes": null
+      },
+      "metric_null_reason": "Likes not visible at time of capture"
+    }
+  ]
+}

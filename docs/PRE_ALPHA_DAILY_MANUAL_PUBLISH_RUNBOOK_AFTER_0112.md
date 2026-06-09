@@ -186,9 +186,11 @@ Never copy/paste or post a blocked or not-ready item. Resolve it upstream
 - When a manual publish actually happens, record the publish URL, timestamp,
   and any hand-observed metrics through the manual publish record stage.
 - **Manual Performance Records**: You can record post-publication performance metrics (impressions, likes, etc.) using the manual performance record fixture. This is strictly operator-entered.
-- **No Scraping/APIs**: The system never fetches, scrapes, or ingests metrics automatically. It is not platform API integration.
+- **Local Performance Review**: After recording metrics, you can run an optional local performance review to get conservative editorial observations. This uses manual metrics only.
+- **No Scraping/APIs/LLMs**: The system never fetches, scrapes, or ingests metrics automatically. It does not use LLMs for analysis. It is not platform API integration.
 - **Missing Metrics**: Missing metrics stay missing/null. If you cannot observe a metric, leave it null and provide a reason.
 - **Operator Entry Only**: Enter metrics only after manual external posting. It cannot prove publication by itself.
+- **Conservative Observations**: Reviews do not claim statistical significance and only offer conservative hypotheses based on available small samples.
 - Never paste credentials, private channel IDs, tokens, or raw platform responses into the repo, into commits, or into chat.
 - This contract prepares for future compare-to-improve review without compromising the local-only safety boundary.
 

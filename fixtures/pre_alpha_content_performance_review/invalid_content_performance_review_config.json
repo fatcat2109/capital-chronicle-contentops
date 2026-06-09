@@ -1,0 +1,17 @@
+{
+  "source_manual_performance_record_packet_id": "manual_perf_packet_003",
+  "review_scope": "weekly_review",
+  "statistical_significance_claimed": true,
+  "records": [
+    {
+      "performance_record_id": "perf_rec_005",
+      "linked_manual_publish_record_id": "manual_pub_005",
+      "platform_family": "x",
+      "metrics_source_type": "scraped",
+      "metrics": {
+        "impressions": 5000,
+        "likes": -10
+      }
+    }
+  ]
+}
