@@ -1,0 +1,41 @@
+{
+  "rendered_packet_id": "rendered_packet_seed_macro_001",
+  "review_item": {
+    "review_queue_item_id": "rendered_packet_seed_macro_001_rqi_0",
+    "rendered_packet_id": "rendered_packet_seed_macro_001",
+    "draft_id": "seed_macro_001_draft_linkedin_0",
+    "platform_family": "linkedin",
+    "content_type": "macro_education",
+    "title_or_hook": "What a single data print can and cannot tell you",
+    "body": "- One release rarely settles a macro question on its own.\n- Revisions, methodology, and context all matter.\n\nLimitations:\n- Educational and general; not investment advice.",
+    "limitations": ["Educational and general; not investment advice."],
+    "source_artifact_ids": [],
+    "is_general_process_content": true,
+    "review_status": "needs_manual_review",
+    "reviewer_required": true,
+    "publish_allowed_now": false,
+    "manual_publish_only": true,
+    "approval_required_for_future_publish": true,
+    "guardrail_findings": []
+  },
+  "decision": {
+    "review_decision_id": "rd_macro_001",
+    "review_queue_item_id": "rendered_packet_seed_macro_001_rqi_0",
+    "reviewer_id_placeholder": "operator_reviewer_1",
+    "decision": "request_revision",
+    "decision_reason": "Solid base, but the hook needs tightening before prep.",
+    "unresolved_guardrail_findings": [],
+    "required_revision_notes": [
+      "Tighten the hook to a single idea.",
+      "Add one concrete example of a data revision."
+    ],
+    "approval_scope": "manual_publish_prep_only",
+    "manual_publish_only": true,
+    "publish_allowed_now": false,
+    "platform_publish_allowed_now": false,
+    "live_execution_allowed_now": false,
+    "auto_approval": false,
+    "reviewer_required": true,
+    "review_timestamp": "2026-01-01T00:00:00Z"
+  }
+}

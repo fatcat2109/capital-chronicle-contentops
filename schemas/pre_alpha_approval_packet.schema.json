@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaApprovalPacket",
+  "description": "Local-only approval packet emitted from a 0098 manual review decision. Approval means 'ready for future MANUAL publish prep', NOT live posting. Never public-postable, never publish-now, never live, never auto-approved.",
+  "type": "object",
+  "properties": {
+    "approval_packet_id": { "type": "string" },
+    "rendered_packet_id": { "type": "string" },
+    "review_decision_id": { "type": "string" },
+    "draft_id": { "type": "string" },
+    "platform_family": {
+      "type": "string",
+      "enum": ["x", "linkedin", "threads", "newsletter", "generic"]
+    },
+    "approved_text": { "type": "string" },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "source_artifact_ids": { "type": "array", "items": { "type": "string" } },
+    "is_general_process_content": { "type": "boolean" },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "data_sufficiency",
+        "forecast_readiness",
+        "failure_forensics",
+        "build_in_public",
+        "macro_education",
+        "product_update",
+        "market_note"
+      ]
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": ["approved_manual_publish_prep", "revision_requested", "rejected"]
+    },
+    "manual_publish_prep_ready": { "type": "boolean" },
+    "approval_scope": { "type": "string" },
+    "reviewer_id_placeholder": { "type": "string" },
+    "approval_audit_trail": { "type": "array", "items": { "type": "string" } },
+    "public_postable": { "type": "boolean", "const": false },
+    "publish_allowed_now": { "type": "boolean", "const": false },
+    "platform_publish_allowed_now": { "type": "boolean", "const": false },
+    "live_execution_allowed_now": { "type": "boolean", "const": false },
+    "final_operator_check_required": { "type": "boolean", "const": true },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "approval_packet_id",
+    "rendered_packet_id",
+    "review_decision_id",
+    "draft_id",
+    "approval_status",
+    "manual_publish_prep_ready",
+    "reviewer_id_placeholder",
+    "approval_audit_trail",
+    "public_postable",
+    "publish_allowed_now",
+    "platform_publish_allowed_now",
+    "live_execution_allowed_now",
+    "final_operator_check_required",
+    "blocked_reasons"
+  ],
+  "additionalProperties": true
+}

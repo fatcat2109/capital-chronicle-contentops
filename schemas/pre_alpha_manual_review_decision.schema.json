@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaManualReviewDecision",
+  "description": "Local-only human review decision over a 0097 review queue item. Records a MANUAL reviewer's verdict. Never auto-approves, never enables publishing or live execution, never produces public-postable output.",
+  "type": "object",
+  "properties": {
+    "review_decision_id": { "type": "string" },
+    "review_queue_item_id": { "type": "string" },
+    "reviewer_id_placeholder": { "type": "string", "minLength": 1 },
+    "decision": {
+      "type": "string",
+      "enum": ["approve_manual_publish_prep", "request_revision", "reject"]
+    },
+    "decision_reason": { "type": "string" },
+    "unresolved_guardrail_findings": { "type": "array", "items": { "type": "string" } },
+    "required_revision_notes": { "type": "array", "items": { "type": "string" } },
+    "approval_scope": { "type": "string" },
+    "approved_platform_family": {
+      "type": "string",
+      "enum": ["x", "linkedin", "threads", "newsletter", "generic"]
+    },
+    "manual_publish_only": { "type": "boolean", "const": true },
+    "publish_allowed_now": { "type": "boolean", "const": false },
+    "platform_publish_allowed_now": { "type": "boolean", "const": false },
+    "live_execution_allowed_now": { "type": "boolean", "const": false },
+    "auto_approval": { "type": "boolean", "const": false },
+    "reviewer_required": { "type": "boolean", "const": true },
+    "review_timestamp": { "type": "string" }
+  },
+  "required": [
+    "review_decision_id",
+    "review_queue_item_id",
+    "reviewer_id_placeholder",
+    "decision",
+    "decision_reason",
+    "unresolved_guardrail_findings",
+    "manual_publish_only",
+    "publish_allowed_now",
+    "platform_publish_allowed_now",
+    "live_execution_allowed_now",
+    "auto_approval",
+    "reviewer_required",
+    "review_timestamp"
+  ],
+  "additionalProperties": true
+}

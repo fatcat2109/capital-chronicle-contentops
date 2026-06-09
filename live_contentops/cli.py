@@ -582,6 +582,12 @@ def pre_alpha_draft_renderer_summary():
     print(json.dumps(pre_alpha_draft_renderer.summary(), indent=2))
 
 
+def pre_alpha_manual_review_summary():
+    import json
+    from live_contentops import pre_alpha_manual_review
+    print(json.dumps(pre_alpha_manual_review.summary(), indent=2))
+
+
 
 def telegram_second_sandbox_dry_run_prep_summary():
     import json
@@ -733,6 +739,7 @@ COMMANDS = {
     "pre-alpha-content-engine-summary": pre_alpha_content_engine_summary,
     "pre-alpha-prompt-pack-summary": pre_alpha_prompt_pack_summary,
     "pre-alpha-draft-renderer-summary": pre_alpha_draft_renderer_summary,
+    "pre-alpha-manual-review-summary": pre_alpha_manual_review_summary,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,
