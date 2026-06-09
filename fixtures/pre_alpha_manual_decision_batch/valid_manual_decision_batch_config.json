@@ -1,0 +1,105 @@
+{
+  "source_refs": ["valid_manual_decision_batch_config.json"],
+  "batch_review_packet": {
+    "batch_review_packet_id": "batch_demo_library_001",
+    "packet_status": "pass",
+    "rendered_packets": [
+      {"rendered_packet_id": "rendered_packet_seed_macro_edu_001"}
+    ],
+    "review_queue_items": [
+      {
+        "review_queue_item_id": "rendered_packet_seed_macro_edu_001_rqi_0",
+        "draft_id": "seed_macro_edu_001_draft_0",
+        "platform_family": "generic",
+        "content_type": "macro_education",
+        "title_or_hook": "How official data revisions reshape a macro read",
+        "body": "Official statistics get revised. A first print is a draft, not a verdict. This is general educational context only and not investment guidance.",
+        "limitations": ["educational_general_only", "no_current_market_claim"],
+        "source_artifact_ids": [],
+        "is_general_process_content": true,
+        "review_status": "needs_manual_review",
+        "guardrail_findings": []
+      },
+      {
+        "review_queue_item_id": "rendered_packet_seed_build_in_public_001_rqi_0",
+        "draft_id": "seed_build_in_public_001_draft_0",
+        "platform_family": "generic",
+        "content_type": "build_in_public",
+        "title_or_hook": "What we are building this week",
+        "body": "A short build-in-public note about our local-first review tooling. General process content, no market claims.",
+        "limitations": ["educational_general_only"],
+        "source_artifact_ids": [],
+        "is_general_process_content": true,
+        "review_status": "needs_manual_review",
+        "guardrail_findings": []
+      },
+      {
+        "review_queue_item_id": "rendered_packet_seed_data_sufficiency_001_rqi_0",
+        "draft_id": "seed_data_sufficiency_001_draft_0",
+        "platform_family": "generic",
+        "content_type": "data_sufficiency",
+        "title_or_hook": "Why data sufficiency gates matter",
+        "body": "A process note on how we decide whether evidence is sufficient before forming a view. General educational content only.",
+        "limitations": ["educational_general_only"],
+        "source_artifact_ids": [],
+        "is_general_process_content": true,
+        "review_status": "needs_manual_review",
+        "guardrail_findings": []
+      }
+    ]
+  },
+  "decisions": [
+    {
+      "review_decision_id": "decision_macro_edu_001",
+      "review_queue_item_id": "rendered_packet_seed_macro_edu_001_rqi_0",
+      "reviewer_id_placeholder": "operator_placeholder",
+      "decision": "approve_manual_publish_prep",
+      "decision_reason": "Clean general educational content, ready for future manual publish prep.",
+      "unresolved_guardrail_findings": [],
+      "required_revision_notes": [],
+      "approval_scope": "manual_publish_prep_only",
+      "approved_platform_family": "generic",
+      "manual_publish_only": true,
+      "publish_allowed_now": false,
+      "platform_publish_allowed_now": false,
+      "live_execution_allowed_now": false,
+      "auto_approval": false,
+      "reviewer_required": true,
+      "review_timestamp": "2026-01-01T00:00:00Z"
+    },
+    {
+      "review_decision_id": "decision_build_in_public_001",
+      "review_queue_item_id": "rendered_packet_seed_build_in_public_001_rqi_0",
+      "reviewer_id_placeholder": "operator_placeholder",
+      "decision": "request_revision",
+      "decision_reason": "Needs a clearer hook before review can complete.",
+      "unresolved_guardrail_findings": [],
+      "required_revision_notes": ["Tighten the opening line and add concrete detail."],
+      "approval_scope": "",
+      "manual_publish_only": true,
+      "publish_allowed_now": false,
+      "platform_publish_allowed_now": false,
+      "live_execution_allowed_now": false,
+      "auto_approval": false,
+      "reviewer_required": true,
+      "review_timestamp": "2026-01-01T00:00:00Z"
+    },
+    {
+      "review_decision_id": "decision_data_sufficiency_001",
+      "review_queue_item_id": "rendered_packet_seed_data_sufficiency_001_rqi_0",
+      "reviewer_id_placeholder": "operator_placeholder",
+      "decision": "reject",
+      "decision_reason": "Out of scope for the current planning window.",
+      "unresolved_guardrail_findings": [],
+      "required_revision_notes": [],
+      "approval_scope": "",
+      "manual_publish_only": true,
+      "publish_allowed_now": false,
+      "platform_publish_allowed_now": false,
+      "live_execution_allowed_now": false,
+      "auto_approval": false,
+      "reviewer_required": true,
+      "review_timestamp": "2026-01-01T00:00:00Z"
+    }
+  ]
+}

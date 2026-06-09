@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaManualDecisionBatchPacket",
+  "description": "Local-only pre-alpha manual decision batch packet schema for task 0106. Prepares deterministic operator review decision placeholders for each 0105 review queue item. Never auto-approves, never exports, never creates content ledger entries, never enables publishing or live execution.",
+  "type": "object",
+  "required": [
+    "manual_decision_batch_packet_id",
+    "created_at",
+    "source_refs",
+    "source_batch_review_packet_id",
+    "review_queue_item_count",
+    "decision_records",
+    "approval_packets",
+    "blocked_decision_records",
+    "operator_decision_summary",
+    "hard_boundary_flags",
+    "safety_audit",
+    "packet_status"
+  ],
+  "properties": {
+    "manual_decision_batch_packet_id": {"type": "string"},
+    "created_at": {"type": "string"},
+    "source_refs": {"type": "array", "items": {"type": "string"}},
+    "source_batch_review_packet_id": {"type": ["string", "null"]},
+    "review_queue_item_count": {"type": "integer", "minimum": 0},
+    "decision_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "review_queue_item_id",
+          "draft_id",
+          "platform_family",
+          "content_type",
+          "proposed_decision",
+          "reviewer_id_placeholder",
+          "decision_reason",
+          "unresolved_guardrail_findings",
+          "required_revision_notes",
+          "manual_publish_only",
+          "auto_approval",
+          "reviewer_required",
+          "publish_allowed_now",
+          "platform_publish_allowed_now",
+          "live_execution_allowed_now",
+          "decision_status"
+        ],
+        "properties": {
+          "review_queue_item_id": {"type": ["string", "null"]},
+          "draft_id": {"type": ["string", "null"]},
+          "platform_family": {"type": ["string", "null"]},
+          "content_type": {"type": ["string", "null"]},
+          "proposed_decision": {"type": "string"},
+          "reviewer_id_placeholder": {"type": ["string", "null"]},
+          "decision_reason": {"type": "string"},
+          "unresolved_guardrail_findings": {"type": "array", "items": {"type": "string"}},
+          "required_revision_notes": {"type": "array", "items": {"type": "string"}},
+          "manual_publish_only": {"const": true},
+          "auto_approval": {"const": false},
+          "reviewer_required": {"const": true},
+          "publish_allowed_now": {"const": false},
+          "platform_publish_allowed_now": {"const": false},
+          "live_execution_allowed_now": {"const": false},
+          "decision_status": {"type": "string"},
+          "blocked_reasons": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "approval_packets": {"type": "array", "items": {"type": "object"}},
+    "blocked_decision_records": {"type": "array", "items": {"type": "object"}},
+    "operator_decision_summary": {
+      "type": "object",
+      "required": [
+        "approved_count",
+        "revision_requested_count",
+        "rejected_count",
+        "blocked_count"
+      ],
+      "properties": {
+        "approved_count": {"type": "integer", "minimum": 0},
+        "revision_requested_count": {"type": "integer", "minimum": 0},
+        "rejected_count": {"type": "integer", "minimum": 0},
+        "blocked_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "hard_boundary_flags": {
+      "type": "object",
+      "required": [
+        "local_only",
+        "fixture_only",
+        "manual_review_required",
+        "reviewer_required",
+        "auto_approval",
+        "public_postable",
+        "manual_export_packet_created",
+        "content_ledger_created",
+        "content_ledger_publish_status_changed",
+        "provider_call_allowed_now",
+        "network_call_allowed_now",
+        "platform_api_call_allowed_now",
+        "scheduler_allowed",
+        "metrics_ingestion_allowed",
+        "live_execution_allowed_now",
+        "credential_or_env_read_allowed"
+      ],
+      "properties": {
+        "local_only": {"const": true},
+        "fixture_only": {"const": true},
+        "manual_review_required": {"const": true},
+        "reviewer_required": {"const": true},
+        "auto_approval": {"const": false},
+        "public_postable": {"const": false},
+        "manual_export_packet_created": {"const": false},
+        "content_ledger_created": {"const": false},
+        "content_ledger_publish_status_changed": {"const": false},
+        "provider_call_allowed_now": {"const": false},
+        "network_call_allowed_now": {"const": false},
+        "platform_api_call_allowed_now": {"const": false},
+        "scheduler_allowed": {"const": false},
+        "metrics_ingestion_allowed": {"const": false},
+        "live_execution_allowed_now": {"const": false},
+        "credential_or_env_read_allowed": {"const": false}
+      }
+    },
+    "safety_audit": {
+      "type": "object",
+      "required": ["violations", "unsafe_flag_count"],
+      "properties": {
+        "violations": {"type": "array", "items": {"type": "string"}},
+        "unsafe_flag_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "packet_status": {"type": "string", "enum": ["pass", "blocked"]}
+  }
+}

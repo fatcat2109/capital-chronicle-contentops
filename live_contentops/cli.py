@@ -618,6 +618,13 @@ def pre_alpha_editorial_batch_review_summary():
     print(json.dumps(pre_alpha_editorial_batch_review.summary(), indent=2))
 
 
+def pre_alpha_manual_decision_batch_summary():
+    import json
+    from live_contentops import pre_alpha_manual_decision_batch
+    print(json.dumps(pre_alpha_manual_decision_batch.summary(), indent=2))
+
+
+
 
 def telegram_second_sandbox_dry_run_prep_summary():
     import json
@@ -775,6 +782,7 @@ COMMANDS = {
     "content-seed-calendar-summary": content_seed_calendar_summary,
     "pre-alpha-operator-dashboard-summary": pre_alpha_operator_dashboard_summary,
     "pre-alpha-editorial-batch-review-summary": pre_alpha_editorial_batch_review_summary,
+    "pre-alpha-manual-decision-batch-summary": pre_alpha_manual_decision_batch_summary,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,
