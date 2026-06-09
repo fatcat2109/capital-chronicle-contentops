@@ -642,6 +642,12 @@ def pre_alpha_platform_manual_templates_summary():
     print(json.dumps(pre_alpha_platform_manual_templates.summary(), indent=2))
 
 
+def pre_alpha_daily_operator_content_run_summary():
+    import json
+    from live_contentops import pre_alpha_daily_operator_content_run
+    print(json.dumps(pre_alpha_daily_operator_content_run.summary(), indent=2))
+
+
 
 
 def telegram_second_sandbox_dry_run_prep_summary():
@@ -804,6 +810,7 @@ COMMANDS = {
     "pre-alpha-manual-export-batch-summary": pre_alpha_manual_export_batch_summary,
     "pre-alpha-manual-publish-record-summary": pre_alpha_manual_publish_record_summary,
     "pre-alpha-platform-manual-templates-summary": pre_alpha_platform_manual_templates_summary,
+    "pre-alpha-daily-operator-content-run-summary": pre_alpha_daily_operator_content_run_summary,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,

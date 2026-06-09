@@ -1,0 +1,5 @@
+{
+  "run_label": "default_daily_run",
+  "manual_records": [],
+  "source_refs": ["valid_daily_operator_content_run_config.json"]
+}
