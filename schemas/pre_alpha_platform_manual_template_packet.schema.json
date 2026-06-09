@@ -1,0 +1,138 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaPlatformManualTemplatePacket",
+  "description": "Local-only platform-specific manual export templates built from CLEAN 0107 manual export packets. Platform-specific copy/paste formatting ONLY. NEVER posts, schedules, calls a platform API, scrapes, ingests metrics, reads credentials, or verifies current platform specs. Operator final check remains mandatory.",
+  "type": "object",
+  "properties": {
+    "platform_manual_template_packet_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "source_refs": { "type": "array", "items": { "type": "string" } },
+    "source_manual_export_batch_packet_id": { "type": ["string", "null"] },
+    "platform_template_records": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/platform_template_record" }
+    },
+    "unsupported_or_blocked_exports": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "operator_final_checklist": { "type": "array", "items": { "type": "string" } },
+    "platform_family_summary": { "type": "object" },
+    "hard_boundary_flags": { "$ref": "#/definitions/hard_boundary_flags" },
+    "safety_audit": { "type": "object" },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } },
+    "packet_status": { "type": "string", "enum": ["pass", "blocked"] }
+  },
+  "required": [
+    "platform_manual_template_packet_id",
+    "created_at",
+    "source_manual_export_batch_packet_id",
+    "platform_template_records",
+    "unsupported_or_blocked_exports",
+    "operator_final_checklist",
+    "platform_family_summary",
+    "hard_boundary_flags",
+    "safety_audit",
+    "blocked_reasons",
+    "packet_status"
+  ],
+  "additionalProperties": true,
+  "definitions": {
+    "platform_template_record": {
+      "type": "object",
+      "properties": {
+        "manual_export_packet_id": { "type": "string" },
+        "draft_id": { "type": "string" },
+        "platform_family": {
+          "type": "string",
+          "enum": ["x", "linkedin", "threads", "newsletter", "generic"]
+        },
+        "content_type": { "type": ["string", "null"] },
+        "source_export_format": {
+          "type": "string",
+          "enum": ["copy_paste_text", "newsletter_markdown", "generic_markdown"]
+        },
+        "manual_template_format": {
+          "type": "string",
+          "enum": [
+            "short_form_plain_text",
+            "professional_long_form",
+            "newsletter_markdown",
+            "generic_markdown"
+          ]
+        },
+        "copy_paste_text": { "type": "string" },
+        "formatting_notes": { "type": "array", "items": { "type": "string" } },
+        "source_artifact_ids": { "type": "array", "items": { "type": "string" } },
+        "is_general_process_content": { "type": "boolean" },
+        "limitations": { "type": "array", "items": { "type": "string" } },
+        "operator_final_check_required": { "type": "boolean", "const": true },
+        "manual_publish_only": { "type": "boolean", "const": true },
+        "public_postable": { "type": "boolean", "const": false },
+        "publish_allowed_now": { "type": "boolean", "const": false },
+        "platform_publish_allowed_now": { "type": "boolean", "const": false },
+        "platform_api_call_allowed": { "type": "boolean", "const": false },
+        "scheduler_allowed": { "type": "boolean", "const": false },
+        "metrics_ingestion_allowed": { "type": "boolean", "const": false },
+        "live_execution_allowed_now": { "type": "boolean", "const": false },
+        "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": [
+        "manual_export_packet_id",
+        "draft_id",
+        "platform_family",
+        "source_export_format",
+        "manual_template_format",
+        "copy_paste_text",
+        "formatting_notes",
+        "operator_final_check_required",
+        "manual_publish_only",
+        "public_postable",
+        "publish_allowed_now",
+        "platform_publish_allowed_now",
+        "platform_api_call_allowed",
+        "scheduler_allowed",
+        "metrics_ingestion_allowed",
+        "live_execution_allowed_now",
+        "blocked_reasons"
+      ],
+      "additionalProperties": true
+    },
+    "hard_boundary_flags": {
+      "type": "object",
+      "properties": {
+        "local_only": { "type": "boolean", "const": true },
+        "fixture_only": { "type": "boolean", "const": true },
+        "manual_copy_paste_only": { "type": "boolean", "const": true },
+        "operator_final_check_required": { "type": "boolean", "const": true },
+        "platform_api_call_allowed_now": { "type": "boolean", "const": false },
+        "provider_call_allowed_now": { "type": "boolean", "const": false },
+        "network_call_allowed_now": { "type": "boolean", "const": false },
+        "scheduler_allowed": { "type": "boolean", "const": false },
+        "automatic_metrics_ingestion_allowed": { "type": "boolean", "const": false },
+        "scraping_allowed": { "type": "boolean", "const": false },
+        "credential_or_env_read_allowed": { "type": "boolean", "const": false },
+        "live_execution_allowed_now": { "type": "boolean", "const": false },
+        "auto_publish": { "type": "boolean", "const": false },
+        "public_postable": { "type": "boolean", "const": false }
+      },
+      "required": [
+        "local_only",
+        "fixture_only",
+        "manual_copy_paste_only",
+        "operator_final_check_required",
+        "platform_api_call_allowed_now",
+        "provider_call_allowed_now",
+        "network_call_allowed_now",
+        "scheduler_allowed",
+        "automatic_metrics_ingestion_allowed",
+        "scraping_allowed",
+        "credential_or_env_read_allowed",
+        "live_execution_allowed_now",
+        "auto_publish",
+        "public_postable"
+      ],
+      "additionalProperties": true
+    }
+  }
+}

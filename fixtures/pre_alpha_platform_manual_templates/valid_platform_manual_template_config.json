@@ -1,0 +1,6 @@
+{
+  "_comment": "Local-only 0110 platform manual template config. With no inline export_batch_packet, the builder constructs the accepted 0107 manual export batch packet from its own default fixture, so this chains deterministically off 0107 -> 0106 -> ... Platform-specific manual copy/paste formatting only: no publish, no platform API, no provider, no network, no scheduler, no metrics ingestion, no scraping, no current-spec verification.",
+  "source_refs": [
+    "pre_alpha_manual_export_batch:valid_manual_export_batch_config.json"
+  ]
+}
