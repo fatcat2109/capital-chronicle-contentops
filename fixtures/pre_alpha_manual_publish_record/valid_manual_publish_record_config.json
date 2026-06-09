@@ -1,0 +1,12 @@
+{
+  "_comment": "Local-only 0108 manual publish record config. References the 0107 export batch via its own default fixture (built at runtime when export_batch_packet is absent). manual_records are operator-supplied recordkeeping entries ONLY, entered by hand AFTER manual publishing. This system never posts, schedules, scrapes, or fetches metrics. manual_metrics, when present, are hand-entered.",
+  "source_refs": ["valid_manual_publish_record_config.json"],
+  "manual_records": [
+    {
+      "manual_export_packet_id": "manual_export_approval_build_in_public_seed_001",
+      "manual_publish_url": "https://example.invalid/operator-manually-posted/build-in-public-001",
+      "manual_publish_timestamp": "2026-01-02T09:00:00Z",
+      "manual_metrics": null
+    }
+  ]
+}

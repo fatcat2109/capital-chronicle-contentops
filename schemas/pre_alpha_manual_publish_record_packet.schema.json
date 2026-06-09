@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaManualPublishRecordPacket",
+  "description": "Local-only manual publish RECORDKEEPING packet. Consumes a 0107 manual export batch packet plus operator-supplied manual records and advances eligible clean export packets to lifecycle_status=manually_published ONLY when an explicit, valid manual record is supplied. It NEVER posts, schedules, calls a platform/provider/network, scrapes, ingests metrics automatically, reads credentials, or infers publication. Missing records stay export_prepared/not_recorded; invalid/duplicate records are surfaced as blocked.",
+  "type": "object",
+  "properties": {
+    "manual_publish_record_packet_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "source_refs": { "type": "array", "items": { "type": "string" } },
+    "source_manual_export_batch_packet_id": { "type": ["string", "null"] },
+    "eligible_export_packet_count": { "type": "integer", "minimum": 0 },
+    "manual_record_count": { "type": "integer", "minimum": 0 },
+    "recorded_publish_count": { "type": "integer", "minimum": 0 },
+    "not_recorded_count": { "type": "integer", "minimum": 0 },
+    "blocked_record_count": { "type": "integer", "minimum": 0 },
+    "manual_records": { "type": "array", "items": { "type": "object" } },
+    "updated_content_ledger_entries": { "type": "array", "items": { "type": "object" } },
+    "not_recorded_export_report": { "type": "array", "items": { "type": "object" } },
+    "blocked_record_report": { "type": "array", "items": { "type": "object" } },
+    "operator_audit_checklist": { "type": "array", "items": { "type": "string" } },
+    "hard_boundary_flags": {
+      "type": "object",
+      "properties": {
+        "local_only": { "type": "boolean", "const": true },
+        "fixture_only": { "type": "boolean", "const": true },
+        "manual_recordkeeping_only": { "type": "boolean", "const": true },
+        "platform_api_call_allowed_now": { "type": "boolean", "const": false },
+        "provider_call_allowed_now": { "type": "boolean", "const": false },
+        "network_call_allowed_now": { "type": "boolean", "const": false },
+        "scheduler_allowed": { "type": "boolean", "const": false },
+        "automatic_metrics_ingestion_allowed": { "type": "boolean", "const": false },
+        "scraping_allowed": { "type": "boolean", "const": false },
+        "credential_or_env_read_allowed": { "type": "boolean", "const": false },
+        "live_execution_allowed_now": { "type": "boolean", "const": false },
+        "auto_publish": { "type": "boolean", "const": false },
+        "manual_operator_record_required": { "type": "boolean", "const": true }
+      },
+      "required": [
+        "local_only",
+        "fixture_only",
+        "manual_recordkeeping_only",
+        "platform_api_call_allowed_now",
+        "provider_call_allowed_now",
+        "network_call_allowed_now",
+        "scheduler_allowed",
+        "automatic_metrics_ingestion_allowed",
+        "scraping_allowed",
+        "credential_or_env_read_allowed",
+        "live_execution_allowed_now",
+        "auto_publish",
+        "manual_operator_record_required"
+      ],
+      "additionalProperties": true
+    },
+    "safety_audit": {
+      "type": "object",
+      "properties": {
+        "violations": { "type": "array", "items": { "type": "string" } },
+        "unsafe_flag_count": { "type": "integer", "minimum": 0 },
+        "automatic_metrics_ingestion_count": { "type": "integer", "minimum": 0 }
+      },
+      "required": ["violations", "unsafe_flag_count", "automatic_metrics_ingestion_count"],
+      "additionalProperties": true
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } },
+    "packet_status": { "type": "string", "enum": ["pass", "blocked"] }
+  },
+  "required": [
+    "manual_publish_record_packet_id",
+    "created_at",
+    "source_refs",
+    "source_manual_export_batch_packet_id",
+    "eligible_export_packet_count",
+    "manual_record_count",
+    "recorded_publish_count",
+    "not_recorded_count",
+    "blocked_record_count",
+    "manual_records",
+    "updated_content_ledger_entries",
+    "not_recorded_export_report",
+    "blocked_record_report",
+    "operator_audit_checklist",
+    "hard_boundary_flags",
+    "safety_audit",
+    "packet_status"
+  ],
+  "additionalProperties": true
+}
