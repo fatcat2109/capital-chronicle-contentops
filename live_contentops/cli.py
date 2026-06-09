@@ -603,6 +603,23 @@ def telegram_one_shot_execution_packet_summary():
     }
     print(json.dumps(summary, indent=2))
 
+
+def telegram_one_shot_go_gate_summary():
+    import json
+    summary = {
+        "status": "telegram one-shot GO gate active",
+        "local_only": True,
+        "design_only": True,
+        "active_schemas": 1,
+        "active_validators": 1,
+        "live_capability_exposed": False,
+        "network_call_made": False,
+        "credential_read": False,
+        "go_phrase_required": "ACTIVE",
+        "kill_switch_required": "ACTIVE"
+    }
+    print(json.dumps(summary, indent=2))
+
 COMMANDS = {
     "status": print_status,
     "contracts-summary": contracts_summary,
@@ -659,6 +676,7 @@ COMMANDS = {
     "automation-policy-modes-summary": automation_policy_modes_summary,
     "telegram-supervised-post-queue-summary": telegram_supervised_post_queue_summary,
     "telegram-one-shot-execution-packet-summary": telegram_one_shot_execution_packet_summary,
+    "telegram-one-shot-go-gate-summary": telegram_one_shot_go_gate_summary,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,
