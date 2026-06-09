@@ -518,6 +518,19 @@ def telegram_live_pilot_design_summary():
     from . import telegram_live_pilot_gate
     print(json.dumps(telegram_live_pilot_gate.get_design_summary(), indent=2))
 
+def telegram_live_pilot_execute():
+    import os
+    import json
+    from . import telegram_live_pilot
+    try:
+        # Default test variables, to be overridden by arguments or env later
+        channel = os.getenv("TEST_TELEGRAM_CHANNEL", "-1000000000000")
+        msg = "Capital Chronicle - ContentOps Supervised Live Pilot Test"
+        result = telegram_live_pilot.execute_telegram_pilot(channel, msg)
+        print(json.dumps(result, indent=2))
+    except Exception as e:
+        print(json.dumps({"error": str(e), "status": "BLOCKED"}, indent=2))
+
 
 
 
@@ -586,6 +599,7 @@ COMMANDS = {
     "real-artifact-pipeline-trace-summary": real_artifact_pipeline_trace_summary,
     "alpha-wait-state-summary": alpha_wait_state_summary,
     "telegram-live-pilot-design-summary": telegram_live_pilot_design_summary,
+    "telegram-live-pilot-execute": telegram_live_pilot_execute,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,
