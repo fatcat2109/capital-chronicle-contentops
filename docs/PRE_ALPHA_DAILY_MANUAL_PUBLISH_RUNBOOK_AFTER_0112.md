@@ -10,6 +10,9 @@ This is an operator-facing runbook. It documents how to drive the accepted
 adds no automation. Every external publish is done by the operator by hand,
 outside this repo, and only after a mandatory final operator check.
 
+> [!NOTE]
+> **See the [Pre-Alpha Operator Workflow Consolidation](PRE_ALPHA_OPERATOR_WORKFLOW_CONSOLIDATION_AFTER_0118.md) for the most current, streamlined daily sequence.**
+
 ---
 
 ## 1. Current baseline
