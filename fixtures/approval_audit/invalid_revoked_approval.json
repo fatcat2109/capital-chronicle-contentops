@@ -1,0 +1,16 @@
+{
+  "approval_id": "appr_0003",
+  "source_post_id": "post_0003",
+  "source_draft_packet_id": "draft_pkt_0003",
+  "platform_ids": ["telegram"],
+  "approval_state": "revoked",
+  "operator_label": "operator_jim",
+  "approval_timestamp_utc": "2026-06-09T00:00:00Z",
+  "scope": "revoked prior mock approval",
+  "limitations": "Revoked. Must fail closed for all publish paths.",
+  "revocation_of": "appr_0001",
+  "required_manual_review": true,
+  "live_posting_enabled": false,
+  "credential_accessed": false,
+  "network_accessed": false
+}

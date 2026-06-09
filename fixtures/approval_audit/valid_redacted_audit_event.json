@@ -1,0 +1,19 @@
+{
+  "audit_event_id": "audit_0001",
+  "event_type": "would_post_dry_run",
+  "source_post_id": "post_0001",
+  "platform_id": "telegram",
+  "approval_id": "appr_0001",
+  "dry_run_payload_id": "dryrun_0001",
+  "decision": "blocked_pending_mock_flow_0080",
+  "redaction_status": "redacted",
+  "contains_secret": false,
+  "raw_secret_detected": false,
+  "credential_accessed": false,
+  "network_accessed": false,
+  "live_posting_enabled": false,
+  "request_payload_redacted": "authorization: [REDACTED]",
+  "response_payload_redacted": "mock://telegram/dry_run ok",
+  "warnings": ["mock publish flow not implemented yet (0080)"],
+  "blocking_errors": []
+}

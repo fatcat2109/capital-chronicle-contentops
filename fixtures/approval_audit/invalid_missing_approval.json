@@ -1,0 +1,15 @@
+{
+  "approval_id": "",
+  "source_post_id": "post_0002",
+  "source_draft_packet_id": "draft_pkt_0002",
+  "platform_ids": ["x"],
+  "approval_state": "operator_review_required",
+  "operator_label": "operator_jim",
+  "approval_timestamp_utc": "2026-06-09T00:00:00Z",
+  "scope": "review only",
+  "limitations": "Not approved for any publish path.",
+  "required_manual_review": true,
+  "live_posting_enabled": false,
+  "credential_accessed": false,
+  "network_accessed": false
+}

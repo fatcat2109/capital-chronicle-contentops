@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ApprovalLedgerRecord",
+  "description": "Local-only append-only approval ledger record. No state enables live posting now.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "approval_id",
+    "source_post_id",
+    "source_draft_packet_id",
+    "platform_ids",
+    "approval_state",
+    "operator_label",
+    "approval_timestamp_utc",
+    "scope",
+    "limitations",
+    "required_manual_review",
+    "live_posting_enabled",
+    "credential_accessed",
+    "network_accessed"
+  ],
+  "properties": {
+    "approval_id": { "type": "string", "minLength": 1 },
+    "source_post_id": { "type": "string", "minLength": 1 },
+    "source_draft_packet_id": { "type": "string", "minLength": 1 },
+    "platform_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "approval_state": {
+      "type": "string",
+      "enum": [
+        "draft_review_only",
+        "platform_dry_run_ready",
+        "operator_review_required",
+        "operator_approved_for_mock_publish",
+        "operator_approved_for_live_publish_later",
+        "blocked",
+        "revoked"
+      ]
+    },
+    "operator_label": { "type": "string", "minLength": 1 },
+    "approval_timestamp_utc": { "type": "string", "minLength": 1 },
+    "scope": { "type": "string" },
+    "limitations": { "type": "string" },
+    "revocation_of": { "type": "string" },
+    "required_manual_review": { "type": "boolean", "const": true },
+    "live_posting_enabled": { "type": "boolean", "const": false },
+    "credential_accessed": { "type": "boolean", "const": false },
+    "network_accessed": { "type": "boolean", "const": false }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RedactedAuditEvent",
+  "description": "Local-only redacted audit event (Task 0079). Evidence only, never authority to post. Must never persist raw secrets.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "audit_event_id",
+    "event_type",
+    "source_post_id",
+    "decision",
+    "redaction_status",
+    "contains_secret",
+    "raw_secret_detected",
+    "credential_accessed",
+    "network_accessed",
+    "live_posting_enabled",
+    "warnings",
+    "blocking_errors"
+  ],
+  "properties": {
+    "audit_event_id": { "type": "string", "minLength": 1 },
+    "event_type": { "type": "string", "minLength": 1 },
+    "source_post_id": { "type": "string", "minLength": 1 },
+    "platform_id": { "type": "string" },
+    "approval_id": { "type": "string" },
+    "dry_run_payload_id": { "type": "string" },
+    "decision": { "type": "string", "minLength": 1 },
+    "redaction_status": {
+      "type": "string",
+      "enum": ["redacted", "clean_no_secret_found"]
+    },
+    "contains_secret": { "type": "boolean", "const": false },
+    "raw_secret_detected": { "type": "boolean", "const": false },
+    "credential_accessed": { "type": "boolean", "const": false },
+    "network_accessed": { "type": "boolean", "const": false },
+    "live_posting_enabled": { "type": "boolean", "const": false },
+    "request_payload_redacted": { "type": "string" },
+    "response_payload_redacted": { "type": "string" },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "blocking_errors": { "type": "array", "items": { "type": "string" } }
+  }
+}

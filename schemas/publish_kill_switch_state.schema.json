@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PublishKillSwitchState",
+  "description": "Local-only publish kill-switch state (Task 0079). Defaults to disabled/blocking and fails closed. Distinct from the legacy kill_switch_state schema.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kill_switch_id",
+    "enabled",
+    "blocks_mock_publish",
+    "blocks_live_publish",
+    "reason",
+    "updated_timestamp_utc",
+    "updated_by_operator_label",
+    "fail_closed"
+  ],
+  "properties": {
+    "kill_switch_id": { "type": "string", "minLength": 1 },
+    "enabled": { "type": "boolean" },
+    "blocks_mock_publish": { "type": "boolean" },
+    "blocks_live_publish": { "type": "boolean", "const": true },
+    "reason": { "type": "string" },
+    "updated_timestamp_utc": { "type": "string", "minLength": 1 },
+    "updated_by_operator_label": { "type": "string", "minLength": 1 },
+    "fail_closed": { "type": "boolean", "const": true }
+  }
+}
