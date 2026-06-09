@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaOperatorDashboardPacket",
+  "description": "Local-only, fixture-driven operator control-plane packet that summarizes the pre-alpha ContentOps system state. Review-only. Not a UI, not a publisher, not a scheduler, not metrics ingestion, not LLM/provider execution.",
+  "type": "object",
+  "required": [
+    "dashboard_packet_id",
+    "created_at",
+    "source_refs",
+    "repo_posture",
+    "seed_library_summary",
+    "editorial_calendar_summary",
+    "blocked_content_summary",
+    "pipeline_demo_summary",
+    "manual_export_ledger_summary",
+    "operator_next_actions",
+    "hard_boundary_flags",
+    "safety_audit",
+    "packet_status"
+  ],
+  "properties": {
+    "dashboard_packet_id": {"type": "string"},
+    "created_at": {"type": "string"},
+    "source_refs": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "repo_posture": {
+      "type": "object",
+      "required": ["mode", "phase"],
+      "properties": {
+        "mode": {"type": "string"},
+        "phase": {"type": "string"}
+      }
+    },
+    "seed_library_summary": {
+      "type": "object",
+      "required": ["library_id", "total_seeds", "safe_seed_count", "blocked_seed_count", "supported_content_zones"],
+      "properties": {
+        "library_id": {"type": ["string", "null"]},
+        "total_seeds": {"type": "integer", "minimum": 0},
+        "safe_seed_count": {"type": "integer", "minimum": 0},
+        "blocked_seed_count": {"type": "integer", "minimum": 0},
+        "supported_content_zones": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "editorial_calendar_summary": {
+      "type": "object",
+      "required": ["calendar_plan_id", "planned_item_count", "safe_item_count", "blocked_item_count", "manual_review_queue_count"],
+      "properties": {
+        "calendar_plan_id": {"type": ["string", "null"]},
+        "planned_item_count": {"type": "integer", "minimum": 0},
+        "safe_item_count": {"type": "integer", "minimum": 0},
+        "blocked_item_count": {"type": "integer", "minimum": 0},
+        "manual_review_queue_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "blocked_content_summary": {
+      "type": "object",
+      "required": ["blocked_item_count", "blocked_items"],
+      "properties": {
+        "blocked_item_count": {"type": "integer", "minimum": 0},
+        "blocked_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["seed_id", "content_zone", "blocked_reasons"],
+            "properties": {
+              "seed_id": {"type": ["string", "null"]},
+              "content_zone": {"type": ["string", "null"]},
+              "blocked_reasons": {"type": "array", "items": {"type": "string"}}
+            }
+          }
+        }
+      }
+    },
+    "pipeline_demo_summary": {
+      "type": "object",
+      "required": ["demo_status", "stages_reached", "safety_violations"],
+      "properties": {
+        "demo_status": {"type": "string"},
+        "stages_reached": {"type": "array", "items": {"type": "string"}},
+        "safety_violations": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "manual_export_ledger_summary": {
+      "type": "object",
+      "required": ["manual_publish_only", "auto_publish_allowed"],
+      "properties": {
+        "manual_publish_only": {"type": "boolean"},
+        "auto_publish_allowed": {"type": "boolean"}
+      }
+    },
+    "operator_next_actions": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "hard_boundary_flags": {
+      "type": "object",
+      "required": [
+        "local_only",
+        "fixture_only",
+        "manual_review_required",
+        "auto_approval",
+        "public_postable",
+        "provider_call_allowed_now",
+        "network_call_allowed_now",
+        "platform_api_call_allowed_now",
+        "scheduler_allowed",
+        "metrics_ingestion_allowed",
+        "live_execution_allowed_now",
+        "credential_or_env_read_allowed"
+      ],
+      "properties": {
+        "local_only": {"const": true},
+        "fixture_only": {"const": true},
+        "manual_review_required": {"const": true},
+        "auto_approval": {"const": false},
+        "public_postable": {"const": false},
+        "provider_call_allowed_now": {"const": false},
+        "network_call_allowed_now": {"const": false},
+        "platform_api_call_allowed_now": {"const": false},
+        "scheduler_allowed": {"const": false},
+        "metrics_ingestion_allowed": {"const": false},
+        "live_execution_allowed_now": {"const": false},
+        "credential_or_env_read_allowed": {"const": false}
+      }
+    },
+    "safety_audit": {
+      "type": "object",
+      "required": ["violations", "unsafe_flag_count"],
+      "properties": {
+        "violations": {"type": "array", "items": {"type": "string"}},
+        "unsafe_flag_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "packet_status": {
+      "type": "string",
+      "enum": ["pass", "blocked"]
+    }
+  }
+}
