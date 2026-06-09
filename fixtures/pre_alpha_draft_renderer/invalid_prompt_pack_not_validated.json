@@ -1,0 +1,80 @@
+{
+  "editorial_packet": {
+    "editorial_packet_id": "packet_invalid_pp_not_validated",
+    "input_seed_id": "seed_invalid_pp_not_validated_001",
+    "content_type": "build_in_public",
+    "content_source_type": "general_process",
+    "is_general_process_content": true,
+    "forecast_readiness_claim_allowed": false,
+    "draft_candidates": [
+      {
+        "draft_id": "d0",
+        "platform_family": "x",
+        "hook": "Build update",
+        "body": "- A clean process note.",
+        "cta": "Manual review required before any use.",
+        "content_type": "build_in_public",
+        "source_artifact_ids": [],
+        "limitations": [],
+        "public_postable": false,
+        "requires_manual_review": true
+      }
+    ],
+    "review_required": true,
+    "manual_publish_only": true,
+    "platform_publish_allowed_now": false,
+    "live_execution_allowed_now": false,
+    "guardrail_status": "pass",
+    "blocked_reasons": []
+  },
+  "prompt_pack": {
+    "prompt_pack_id": "pp_invalid_001",
+    "intended_content_types": ["build_in_public"],
+    "allowed_source_types": ["general_process"],
+    "system_instructions": "Educational only.",
+    "user_prompt_template": "Draft from context: {{context}}.",
+    "required_context_fields": ["title"],
+    "forbidden_claims": ["no trade direction"],
+    "required_disclaimers": ["Educational and general; not investment advice."],
+    "style_profile_id": "sp_build_in_public_001",
+    "editorial_rubric_id": "er_pre_alpha_001",
+    "output_contract": {
+      "produces": "draft_candidate",
+      "platform_families": ["x"],
+      "public_postable": false,
+      "requires_manual_review": true
+    },
+    "requires_manual_review": true,
+    "provider_call_allowed_now": true,
+    "public_postable_default": false,
+    "live_execution_allowed_now": false
+  },
+  "style_profile": {
+    "style_profile_id": "sp_build_in_public_001",
+    "audience": "Macro-curious professionals.",
+    "tone": "calm, grounded",
+    "allowed_voice": ["evidence-first reasoning"],
+    "forbidden_voice": ["directional market calls"],
+    "hook_patterns": ["Lead with a question."],
+    "body_patterns": ["Explain, then limit."],
+    "cta_patterns": ["Invite reflection."],
+    "platform_family_adaptations": { "x": "Tighten to one idea." },
+    "max_risk_level": "low",
+    "default_limitations_language": "Educational and general; not investment advice.",
+    "no_signal_service_framing": true,
+    "no_financial_advice": true
+  },
+  "editorial_rubric": {
+    "editorial_rubric_id": "er_pre_alpha_001",
+    "requires_content_type_classification": true,
+    "requires_source_artifact_ids_or_general_process_marker": true,
+    "requires_limitations_and_freshness_for_market_note": true,
+    "requires_educational_only_for_market_content": true,
+    "rejects_fake_alpha_claims": true,
+    "rejects_unverified_numeric_claims": true,
+    "rejects_financial_advice_or_signal_language": true,
+    "requires_manual_review_before_publish": true,
+    "public_postable_until_manual_approval": false,
+    "checklist": ["Manual human review required before any publish."]
+  }
+}

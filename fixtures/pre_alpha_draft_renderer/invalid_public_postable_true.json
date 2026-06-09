@@ -1,0 +1,33 @@
+{
+  "editorial_packet": {
+    "editorial_packet_id": "packet_invalid_pp_true",
+    "input_seed_id": "seed_invalid_pp_001",
+    "content_type": "build_in_public",
+    "content_source_type": "general_process",
+    "is_general_process_content": true,
+    "forecast_readiness_claim_allowed": false,
+    "draft_candidates": [
+      {
+        "draft_id": "d0",
+        "platform_family": "x",
+        "hook": "Build update",
+        "body": "- A clean process note.",
+        "cta": "Manual review required before any use.",
+        "content_type": "build_in_public",
+        "source_artifact_ids": [],
+        "limitations": [],
+        "public_postable": true,
+        "requires_manual_review": true
+      }
+    ],
+    "review_required": true,
+    "manual_publish_only": true,
+    "platform_publish_allowed_now": false,
+    "live_execution_allowed_now": false,
+    "guardrail_status": "pass",
+    "blocked_reasons": []
+  },
+  "prompt_pack": null,
+  "style_profile": null,
+  "editorial_rubric": null
+}

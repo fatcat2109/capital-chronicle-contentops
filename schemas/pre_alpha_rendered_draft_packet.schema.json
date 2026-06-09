@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaRenderedDraftPacket",
+  "description": "Local-only rendered draft packet produced deterministically by the pre-alpha draft renderer (Task 0097). It connects a validated 0095 editorial packet with a validated 0096 prompt pack / style profile / editorial rubric and emits review queue items. It is never public-postable, never publish-ready, never posted, performs no provider/network call, and never claims forecast readiness.",
+  "type": "object",
+  "properties": {
+    "rendered_packet_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "source_editorial_packet_id": { "type": "string" },
+    "source_seed_id": { "type": ["string", "null"] },
+    "prompt_pack_id": { "type": ["string", "null"] },
+    "style_profile_id": { "type": ["string", "null"] },
+    "editorial_rubric_id": { "type": ["string", "null"] },
+    "content_type": {
+      "type": ["string", "null"],
+      "enum": [
+        "data_sufficiency",
+        "forecast_readiness",
+        "failure_forensics",
+        "build_in_public",
+        "macro_education",
+        "product_update",
+        "market_note",
+        null
+      ]
+    },
+    "draft_candidates": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "review_queue_items": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "guardrail_status": {
+      "type": "string",
+      "enum": ["pass", "blocked"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } },
+    "manual_review_required": { "type": "boolean", "const": true },
+    "public_postable": { "type": "boolean", "const": false },
+    "platform_publish_allowed_now": { "type": "boolean", "const": false },
+    "live_execution_allowed_now": { "type": "boolean", "const": false },
+    "provider_call_made": { "type": "boolean", "const": false },
+    "network_call_made": { "type": "boolean", "const": false }
+  },
+  "required": [
+    "rendered_packet_id",
+    "source_editorial_packet_id",
+    "draft_candidates",
+    "review_queue_items",
+    "guardrail_status",
+    "blocked_reasons",
+    "manual_review_required",
+    "public_postable",
+    "platform_publish_allowed_now",
+    "live_execution_allowed_now",
+    "provider_call_made",
+    "network_call_made"
+  ],
+  "additionalProperties": true
+}

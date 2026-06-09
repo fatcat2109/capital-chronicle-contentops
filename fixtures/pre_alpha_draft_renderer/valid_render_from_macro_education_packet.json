@@ -1,0 +1,93 @@
+{
+  "editorial_packet": {
+    "editorial_packet_id": "packet_seed_macro_001",
+    "created_at": "2026-01-01T00:00:00Z",
+    "input_seed_id": "seed_macro_001",
+    "content_type": "macro_education",
+    "content_source_type": "general_process",
+    "source_artifact_ids": [],
+    "is_general_process_content": true,
+    "limitations": ["Evergreen educational framing; not a current market view."],
+    "freshness_label": "evergreen",
+    "data_sufficiency_status": "not_applicable",
+    "forecast_readiness_claim_allowed": false,
+    "draft_candidates": [
+      {
+        "draft_id": "seed_macro_001_draft_linkedin_0",
+        "platform_family": "linkedin",
+        "hook": "A single data print is not a regime model",
+        "body": "- One observation rarely settles a macro thesis.\n- Revisions and base effects can change the picture later.\n- Separating observation from thesis from conclusion is the discipline.\n\nLimitations:\n- Evergreen educational framing; not a current market view.",
+        "cta": "Manual review required before any use.",
+        "content_type": "macro_education",
+        "source_artifact_ids": [],
+        "limitations": ["Evergreen educational framing; not a current market view."],
+        "educational_only": true,
+        "public_postable": false,
+        "requires_manual_review": true
+      }
+    ],
+    "review_required": true,
+    "manual_publish_only": true,
+    "platform_publish_allowed_now": false,
+    "live_execution_allowed_now": false,
+    "guardrail_status": "pass",
+    "blocked_reasons": []
+  },
+  "prompt_pack": {
+    "prompt_pack_id": "pp_macro_education_001",
+    "intended_content_types": ["macro_education"],
+    "allowed_source_types": ["general_process"],
+    "system_instructions": "You are an editorial assistant for Capital Chronicle pre-alpha macro education. Explain evergreen macro reasoning without directional views. Use only facts present in the supplied context. Omit anything not supplied. Output is educational, general, and for manual human review only.",
+    "user_prompt_template": "Using only the supplied context fields, draft a brief educational explainer. Context: {{context}}. State limitations plainly.",
+    "required_context_fields": ["title", "key_points", "limitations"],
+    "forbidden_claims": [
+      "no trade direction or price targets",
+      "no signal-service framing",
+      "do not invent numbers, prices, forecasts, or sources"
+    ],
+    "required_disclaimers": ["Educational and general; not investment advice."],
+    "style_profile_id": "sp_build_in_public_001",
+    "editorial_rubric_id": "er_pre_alpha_001",
+    "output_contract": {
+      "produces": "draft_candidate",
+      "platform_families": ["linkedin", "newsletter"],
+      "public_postable": false,
+      "requires_manual_review": true
+    },
+    "requires_manual_review": true,
+    "provider_call_allowed_now": false,
+    "public_postable_default": false,
+    "live_execution_allowed_now": false
+  },
+  "style_profile": {
+    "style_profile_id": "sp_build_in_public_001",
+    "audience": "Macro-curious professionals and serious retail readers.",
+    "tone": "calm, grounded, plain-spoken, non-hype",
+    "allowed_voice": ["evidence-first reasoning", "honest about uncertainty"],
+    "forbidden_voice": ["urgency or FOMO", "directional market calls"],
+    "hook_patterns": ["Lead with a tension between certainty and evidence."],
+    "body_patterns": ["Explain the reasoning, then the limitation."],
+    "cta_patterns": ["Ask what evidence would change the view."],
+    "platform_family_adaptations": {
+      "linkedin": "Professional, calm, explicit about limitations.",
+      "newsletter": "Extended room to show the full reasoning."
+    },
+    "max_risk_level": "low",
+    "default_limitations_language": "Educational and general; not investment advice.",
+    "no_signal_service_framing": true,
+    "no_financial_advice": true
+  },
+  "editorial_rubric": {
+    "editorial_rubric_id": "er_pre_alpha_001",
+    "requires_content_type_classification": true,
+    "requires_source_artifact_ids_or_general_process_marker": true,
+    "requires_limitations_and_freshness_for_market_note": true,
+    "requires_educational_only_for_market_content": true,
+    "rejects_fake_alpha_claims": true,
+    "rejects_unverified_numeric_claims": true,
+    "rejects_financial_advice_or_signal_language": true,
+    "requires_manual_review_before_publish": true,
+    "public_postable_until_manual_approval": false,
+    "checklist": ["Classify content_type before review.", "Manual human review required before any publish."]
+  }
+}

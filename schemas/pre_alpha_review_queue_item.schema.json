@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaReviewQueueItem",
+  "description": "Local-only review queue item emitted by the pre-alpha draft renderer (Task 0097). Each item represents one draft candidate awaiting MANUAL human review. It is never public-postable, never publish-ready, never auto-approved, and never posted. Any future publish requires explicit manual approval.",
+  "type": "object",
+  "properties": {
+    "review_queue_item_id": { "type": "string" },
+    "rendered_packet_id": { "type": "string" },
+    "draft_id": { "type": "string" },
+    "platform_family": {
+      "type": "string",
+      "enum": ["x", "linkedin", "threads", "newsletter", "generic"]
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "data_sufficiency",
+        "forecast_readiness",
+        "failure_forensics",
+        "build_in_public",
+        "macro_education",
+        "product_update",
+        "market_note"
+      ]
+    },
+    "title_or_hook": { "type": "string" },
+    "body": { "type": "string" },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "source_artifact_ids": { "type": "array", "items": { "type": "string" } },
+    "is_general_process_content": { "type": "boolean" },
+    "review_status": {
+      "type": "string",
+      "enum": ["needs_manual_review", "blocked"]
+    },
+    "reviewer_required": { "type": "boolean", "const": true },
+    "publish_allowed_now": { "type": "boolean", "const": false },
+    "manual_publish_only": { "type": "boolean", "const": true },
+    "approval_required_for_future_publish": { "type": "boolean", "const": true },
+    "guardrail_findings": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "review_queue_item_id",
+    "rendered_packet_id",
+    "draft_id",
+    "platform_family",
+    "content_type",
+    "title_or_hook",
+    "body",
+    "review_status",
+    "reviewer_required",
+    "publish_allowed_now",
+    "manual_publish_only",
+    "approval_required_for_future_publish",
+    "guardrail_findings"
+  ],
+  "additionalProperties": true
+}
