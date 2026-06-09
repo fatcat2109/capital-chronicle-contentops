@@ -66,6 +66,34 @@ def validate_record(record):
             if not ev.isupper() or not re.match(r"^[A-Z0-9_]+$", ev):
                 errors.append("invalid_env_var_name_format:%s" % ev)
 
+    vstat = record.get("verification_status")
+    vsrc = record.get("credential_requirement_source")
+    is_placeholder = record.get("placeholder_until_official_docs_verified")
+
+    if not vstat or vstat not in ("not_verified", "partially_verified", "verified"):
+        errors.append("invalid_or_missing_verification_status")
+    if not vsrc or vsrc not in ("local_placeholder_until_0081_official_docs_verified", "operator_supplied_docs_verified"):
+        errors.append("invalid_or_missing_credential_requirement_source")
+    if is_placeholder is None:
+        errors.append("missing_placeholder_until_official_docs_verified")
+
+    # If status is not_verified, source must be placeholder and is_placeholder must be True
+    if vstat == "not_verified":
+        if vsrc != "local_placeholder_until_0081_official_docs_verified":
+            errors.append("unverified_platform_must_use_placeholder_source")
+        if is_placeholder is not True:
+            errors.append("unverified_platform_must_set_placeholder_flag_to_true")
+
+    # Non-telegram platforms cannot be verified/partially_verified yet
+    if vstat in ("partially_verified", "verified"):
+        if pid != "telegram":
+            errors.append("non_telegram_platforms_cannot_be_verified_yet")
+        else:
+            if vsrc != "operator_supplied_docs_verified":
+                errors.append("telegram_must_use_operator_supplied_docs_source")
+            if is_placeholder is not False:
+                errors.append("telegram_must_set_placeholder_flag_to_false")
+
     return {"valid": not errors, "errors": errors}
 
 

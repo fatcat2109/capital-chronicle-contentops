@@ -26,40 +26,57 @@ credentials or environment variables.
 ## Platform Credential Envelopes
 
 ### X
-- **Credential Kind**: `oauth2_user_context`
-- **Environment Variables**: `CC_X_CLIENT_ID`, `CC_X_CLIENT_SECRET`
-- **Required Scopes**: `tweet.read`, `tweet.write`, `users.read`, `offline.access`
+- **Verification Status**: `not_verified`
+- **Source**: `local_placeholder_until_0081_official_docs_verified`
+- **Is Placeholder**: Yes
+- **Credential Kind**: `oauth2_user_context` (Advisory Placeholder)
+- **Environment Variables**: `CC_X_CLIENT_ID`, `CC_X_CLIENT_SECRET` (Advisory Placeholder)
+- **Required Scopes**: `tweet.read`, `tweet.write`, `users.read`, `offline.access` (Advisory Placeholder)
 - **Least Privilege Notes**: Authorized only to publish tweets to first-party accounts.
 
 ### LinkedIn
-- **Credential Kind**: `oauth2_user_context`
-- **Environment Variables**: `CC_LI_CLIENT_ID`, `CC_LI_CLIENT_SECRET`
-- **Required Scopes**: `w_member_social`, `w_organization_social`
+- **Verification Status**: `not_verified`
+- **Source**: `local_placeholder_until_0081_official_docs_verified`
+- **Is Placeholder**: Yes
+- **Credential Kind**: `oauth2_user_context` (Advisory Placeholder)
+- **Environment Variables**: `CC_LI_CLIENT_ID`, `CC_LI_CLIENT_SECRET` (Advisory Placeholder)
+- **Required Scopes**: `w_member_social`, `w_organization_social` (Advisory Placeholder)
 - **Least Privilege Notes**: Only authorized to publish posts to the authenticated user's profile and company feed.
 
 ### Telegram
-- **Credential Kind**: `bot_token`
-- **Environment Variables**: `CC_TG_BOT_TOKEN`
-- **Required Scopes**: `can_post_messages`, `can_edit_messages`
+- **Verification Status**: `partially_verified` (Operator-supplied documentation verified)
+- **Source**: `operator_supplied_docs_verified`
+- **Is Placeholder**: No
+- **Credential Kind**: `bot_token` (Verified requirement)
+- **Environment Variables**: `CC_TG_BOT_TOKEN` (Verified requirement)
+- **Required Scopes**: `can_post_messages`, `can_edit_messages` (Verified requirements)
 - **Least Privilege Notes**: Bot is authorized as channel admin to post text/photos to a designated public/private channel feed.
 
-
 ### Facebook Page
-- **Credential Kind**: `page_access_token`
-- **Environment Variables**: `CC_FB_PAGE_TOKEN`
-- **Required Scopes**: `pages_manage_posts`, `pages_read_engagement`
+- **Verification Status**: `not_verified`
+- **Source**: `local_placeholder_until_0081_official_docs_verified`
+- **Is Placeholder**: Yes
+- **Credential Kind**: `page_access_token` (Advisory Placeholder)
+- **Environment Variables**: `CC_FB_PAGE_TOKEN` (Advisory Placeholder)
+- **Required Scopes**: `pages_manage_posts`, `pages_read_engagement` (Advisory Placeholder)
 - **Least Privilege Notes**: Page-scoped access; only authorized to publish feed posts.
 
 ### Instagram
-- **Credential Kind**: `user_access_token`
-- **Environment Variables**: `CC_IG_USER_TOKEN`
-- **Required Scopes**: `instagram_basic`, `instagram_content_publish`
+- **Verification Status**: `not_verified`
+- **Source**: `local_placeholder_until_0081_official_docs_verified`
+- **Is Placeholder**: Yes
+- **Credential Kind**: `user_access_token` (Advisory Placeholder)
+- **Environment Variables**: `CC_IG_USER_TOKEN` (Advisory Placeholder)
+- **Required Scopes**: `instagram_basic`, `instagram_content_publish` (Advisory Placeholder)
 - **Least Privilege Notes**: Restricted to Professional/Business Account publishing.
 
 ### TikTok
-- **Credential Kind**: `oauth2_user_context`
-- **Environment Variables**: `CC_TT_CLIENT_KEY`, `CC_TT_CLIENT_SECRET`
-- **Required Scopes**: `video.publish`, `video.upload`
+- **Verification Status**: `not_verified`
+- **Source**: `local_placeholder_until_0081_official_docs_verified`
+- **Is Placeholder**: Yes
+- **Credential Kind**: `oauth2_user_context` (Advisory Placeholder)
+- **Environment Variables**: `CC_TT_CLIENT_KEY`, `CC_TT_CLIENT_SECRET` (Advisory Placeholder)
+- **Required Scopes**: `video.publish`, `video.upload` (Advisory Placeholder)
 - **Least Privilege Notes**: Restricted to sandbox/test account direct video posting.
 
 ## Rotation and Revocation Checklists
