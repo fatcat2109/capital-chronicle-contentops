@@ -1,0 +1,134 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "packet_id": {
+      "type": "string"
+    },
+    "platform_id": {
+      "type": "string",
+      "enum": [
+        "telegram"
+      ]
+    },
+    "packet_mode": {
+      "type": "string",
+      "enum": [
+        "dry_run_only"
+      ]
+    },
+    "source_queue_item_id": {
+      "type": "string"
+    },
+    "source_queue_item_validated": {
+      "type": "boolean"
+    },
+    "idempotency_key": {
+      "type": "string"
+    },
+    "automation_policy_decision": {
+      "type": "string",
+      "enum": [
+        "allowed_for_dry_run_packet_only"
+      ]
+    },
+    "requested_future_mode": {
+      "type": "string",
+      "enum": [
+        "sandbox_one_shot_live"
+      ]
+    },
+    "approval_state": {
+      "type": "string",
+      "enum": [
+        "operator_approved_for_one_shot_later"
+      ]
+    },
+    "approval_ledger_required": {
+      "type": "boolean"
+    },
+    "kill_switch_required": {
+      "type": "boolean"
+    },
+    "kill_switch_state_required": {
+      "type": "string",
+      "enum": [
+        "permit_only_scoped_telegram_live_pilot"
+      ]
+    },
+    "redaction_required": {
+      "type": "boolean"
+    },
+    "audit_preview_redacted": {
+      "type": "boolean"
+    },
+    "target_channel_placeholder": {
+      "type": "string"
+    },
+    "credential_source_required_later": {
+      "type": "string",
+      "enum": [
+        "process_env_only"
+      ]
+    },
+    "env_file_read_allowed": {
+      "type": "boolean"
+    },
+    "live_execution_allowed_now": {
+      "type": "boolean"
+    },
+    "telegram_api_called": {
+      "type": "boolean"
+    },
+    "live_post_sent": {
+      "type": "boolean"
+    },
+    "network_accessed": {
+      "type": "boolean"
+    },
+    "credential_accessed_by_repo": {
+      "type": "boolean"
+    },
+    "env_read_performed": {
+      "type": "boolean"
+    },
+    "scheduling_enabled": {
+      "type": "boolean"
+    },
+    "replies_or_dms_enabled": {
+      "type": "boolean"
+    },
+    "scraping_enabled": {
+      "type": "boolean"
+    },
+    "metrics_fetched": {
+      "type": "boolean"
+    },
+    "post_text_non_advisory": {
+      "type": "boolean"
+    },
+    "operator_final_check_required": {
+      "type": "boolean"
+    },
+    "rollback_instructions_present": {
+      "type": "boolean"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "packet_id",
+    "platform_id",
+    "packet_mode",
+    "source_queue_item_id",
+    "idempotency_key",
+    "automation_policy_decision",
+    "requested_future_mode",
+    "approval_state",
+    "target_channel_placeholder"
+  ]
+}

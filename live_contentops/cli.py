@@ -585,6 +585,24 @@ def telegram_supervised_post_queue_summary():
     }
     print(json.dumps(summary, indent=2))
 
+
+def telegram_one_shot_execution_packet_summary():
+    import json
+    summary = {
+        "status": "telegram one-shot execution packet dry-run active",
+        "local_only": True,
+        "design_only": True,
+        "active_schemas": 1,
+        "active_validators": 1,
+        "live_capability_exposed": False,
+        "network_call_made": False,
+        "credential_read": False,
+        "policy_gated": "ACTIVE",
+        "approval_ledger_gated": "ACTIVE",
+        "redacted_target_enforcement": "ACTIVE"
+    }
+    print(json.dumps(summary, indent=2))
+
 COMMANDS = {
     "status": print_status,
     "contracts-summary": contracts_summary,
@@ -640,6 +658,7 @@ COMMANDS = {
     "telegram-live-pilot-execute": telegram_live_pilot_execute,
     "automation-policy-modes-summary": automation_policy_modes_summary,
     "telegram-supervised-post-queue-summary": telegram_supervised_post_queue_summary,
+    "telegram-one-shot-execution-packet-summary": telegram_one_shot_execution_packet_summary,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,
