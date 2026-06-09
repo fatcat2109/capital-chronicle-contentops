@@ -1,0 +1,26 @@
+{
+  "post_id": "post_invalid_publish_ready",
+  "source_draft_packet_id": "packet_0002",
+  "lane": "pre_alpha_general_process",
+  "content_type": "social_post",
+  "subtype": "build_in_public",
+  "title": "Build-in-public note",
+  "summary": "Process note.",
+  "body": "A note about why the system refuses weak forecasts.",
+  "media": [{ "media_type": "none" }],
+  "source_references_used": [],
+  "limitations": "General process content.",
+  "freshness_note": "Evergreen.",
+  "safety_flags": {
+    "public_postable": true,
+    "live_posting_enabled": false,
+    "artifact_backed": false,
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "no_execution_language": true
+  },
+  "allowed_output_use": ["local_review_only"],
+  "approval_state": "platform_dry_run_ready",
+  "public_postable": true,
+  "live_posting_enabled": false
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PlatformDryRunPayload",
+  "type": "object",
+  "properties": {
+    "dry_run": { "type": "boolean", "enum": [true] },
+    "platform_id": { "type": "string" },
+    "post_id": { "type": "string" },
+    "payload_preview": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "blocking_errors": { "type": "array", "items": { "type": "string" } },
+    "render_status": {
+      "type": "string",
+      "enum": ["rendered", "blocked"]
+    },
+    "constraint_source": { "type": "string" },
+    "requires_operator_approval": { "type": "boolean", "enum": [true] },
+    "not_public_postable": { "type": "boolean", "enum": [true] },
+    "live_posting_enabled": { "type": "boolean", "enum": [false] },
+    "credential_accessed": { "type": "boolean", "enum": [false] },
+    "network_accessed": { "type": "boolean", "enum": [false] },
+    "mock_endpoint_name": { "type": "string" }
+  },
+  "required": [
+    "dry_run", "platform_id", "post_id", "payload_preview", "warnings",
+    "blocking_errors", "render_status", "constraint_source",
+    "requires_operator_approval", "not_public_postable",
+    "live_posting_enabled", "credential_accessed", "network_accessed"
+  ],
+  "additionalProperties": true
+}

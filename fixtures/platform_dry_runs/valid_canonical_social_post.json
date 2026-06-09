@@ -1,0 +1,26 @@
+{
+  "post_id": "post_0001",
+  "source_draft_packet_id": "packet_0001",
+  "lane": "pre_alpha_general_process",
+  "content_type": "social_post",
+  "subtype": "macro_education_from_news",
+  "title": "Why one data print is not a regime model",
+  "summary": "A brief note on evidence discipline.",
+  "body": "A single macro print rarely settles a thesis. Good research checks revisions, cross-asset confirmation, and what evidence would be required before drawing a conclusion.",
+  "media": [{ "media_type": "none" }],
+  "source_references_used": [{ "source_id": "src_bls", "url": "https://www.bls.gov/" }],
+  "limitations": "General education only; not a forecast.",
+  "freshness_note": "Evergreen framing.",
+  "safety_flags": {
+    "public_postable": false,
+    "live_posting_enabled": false,
+    "artifact_backed": false,
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "no_execution_language": true
+  },
+  "allowed_output_use": ["local_review_only", "not_public_postable"],
+  "approval_state": "platform_dry_run_ready",
+  "public_postable": false,
+  "live_posting_enabled": false
+}

@@ -1,0 +1,26 @@
+{
+  "post_id": "post_invalid_media",
+  "source_draft_packet_id": "packet_0004",
+  "lane": "pre_alpha_general_process",
+  "content_type": "social_post",
+  "subtype": "product_philosophy",
+  "title": "Product philosophy doc",
+  "summary": "A document-only artifact.",
+  "body": "Why evidence discipline is the product wedge.",
+  "media": [{ "media_type": "document", "ref": "philosophy.pdf" }],
+  "source_references_used": [],
+  "limitations": "General process content.",
+  "freshness_note": "Evergreen.",
+  "safety_flags": {
+    "public_postable": false,
+    "live_posting_enabled": false,
+    "artifact_backed": false,
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "no_execution_language": true
+  },
+  "allowed_output_use": ["local_review_only", "not_public_postable"],
+  "approval_state": "platform_dry_run_ready",
+  "public_postable": false,
+  "live_posting_enabled": false
+}

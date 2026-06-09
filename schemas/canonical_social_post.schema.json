@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CanonicalSocialPost",
+  "type": "object",
+  "properties": {
+    "post_id": { "type": "string" },
+    "source_draft_packet_id": { "type": "string" },
+    "lane": { "type": "string", "enum": ["pre_alpha_general_process"] },
+    "content_type": { "type": "string" },
+    "subtype": { "type": "string" },
+    "title": { "type": "string" },
+    "summary": { "type": "string" },
+    "body": { "type": "string" },
+    "media": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "media_type": { "type": "string", "enum": ["none", "image", "video", "document", "link"] },
+          "ref": { "type": "string" }
+        },
+        "required": ["media_type"],
+        "additionalProperties": true
+      }
+    },
+    "source_references_used": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_id": { "type": "string" },
+          "url": { "type": "string" }
+        },
+        "required": ["source_id"],
+        "additionalProperties": true
+      }
+    },
+    "limitations": { "type": "string" },
+    "freshness_note": { "type": "string" },
+    "safety_flags": {
+      "type": "object",
+      "properties": {
+        "public_postable": { "type": "boolean", "enum": [false] },
+        "live_posting_enabled": { "type": "boolean", "enum": [false] },
+        "artifact_backed": { "type": "boolean", "enum": [false] },
+        "no_financial_advice": { "type": "boolean", "enum": [true] },
+        "no_signal_language": { "type": "boolean", "enum": [true] },
+        "no_execution_language": { "type": "boolean", "enum": [true] }
+      },
+      "required": [
+        "public_postable", "live_posting_enabled", "artifact_backed",
+        "no_financial_advice", "no_signal_language", "no_execution_language"
+      ],
+      "additionalProperties": true
+    },
+    "allowed_output_use": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "approval_state": {
+      "type": "string",
+      "enum": ["operator_review_required", "platform_dry_run_ready"]
+    },
+    "public_postable": { "type": "boolean", "enum": [false] },
+    "live_posting_enabled": { "type": "boolean", "enum": [false] }
+  },
+  "required": [
+    "post_id", "source_draft_packet_id", "lane", "content_type", "subtype",
+    "title", "body", "source_references_used", "safety_flags",
+    "allowed_output_use", "approval_state", "public_postable",
+    "live_posting_enabled"
+  ],
+  "additionalProperties": true
+}
