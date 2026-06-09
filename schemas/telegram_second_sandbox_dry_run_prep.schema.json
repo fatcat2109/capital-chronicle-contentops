@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Telegram Second Sandbox Dry Run Prep",
+  "type": "object",
+  "properties": {
+    "precheck_passed": {
+      "type": "boolean",
+      "description": "Must be true. The telegram_live_precheck state must be valid."
+    },
+    "operator_go_present": {
+      "type": "boolean",
+      "description": "Must be true. The exact explicit GO phrase must be present."
+    },
+    "wrapper_script_requested": {
+      "type": "boolean",
+      "description": "Must be false. Using ad-hoc python scripts to read .env is forbidden."
+    },
+    "live_attempt_count": {
+      "type": "integer",
+      "description": "Must be exactly 0 before execution starts."
+    },
+    "process_env_variables_present": {
+      "type": "boolean",
+      "description": "Must be true. Required TELEGRAM_BOT_TOKEN and TEST_TELEGRAM_CHANNEL must exist in env."
+    }
+  },
+  "required": [
+    "precheck_passed",
+    "operator_go_present",
+    "wrapper_script_requested",
+    "live_attempt_count",
+    "process_env_variables_present"
+  ],
+  "additionalProperties": false
+}

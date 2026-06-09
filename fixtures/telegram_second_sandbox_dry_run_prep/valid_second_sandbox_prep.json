@@ -1,0 +1,7 @@
+{
+  "precheck_passed": true,
+  "operator_go_present": true,
+  "wrapper_script_requested": false,
+  "live_attempt_count": 0,
+  "process_env_variables_present": true
+}
