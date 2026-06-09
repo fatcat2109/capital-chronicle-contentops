@@ -1,0 +1,6 @@
+{
+  "_comment": "Local-only 0107 manual export batch config. With no inline decision_batch_packet, the builder constructs the accepted 0106 decision batch packet from its own default fixture, so this batch chains deterministically off 0106. Manual copy/paste prep only: no publish, no platform, no provider, no network, no metrics, no manually_published ledger state.",
+  "source_refs": [
+    "pre_alpha_manual_decision_batch:valid_manual_decision_batch_config.json"
+  ]
+}

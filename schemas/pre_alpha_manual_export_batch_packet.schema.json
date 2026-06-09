@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaManualExportBatchPacket",
+  "description": "Local-only pre-alpha manual export batch packet (Task 0107). Consumes a 0106 manual decision batch packet and prepares manual export packets + export_prepared/blocked content ledger entries for clean approvals only. Manual copy/paste prep only: never publishes, schedules, calls platforms/providers, ingests metrics, reads credentials, or creates manually_published ledger state by default.",
+  "type": "object",
+  "required": [
+    "manual_export_batch_packet_id",
+    "created_at",
+    "source_refs",
+    "source_manual_decision_batch_packet_id",
+    "approved_decision_count",
+    "revision_requested_count",
+    "rejected_count",
+    "blocked_decision_count",
+    "manual_export_packets",
+    "content_ledger_entries",
+    "non_exported_decision_report",
+    "operator_final_checklist",
+    "hard_boundary_flags",
+    "safety_audit",
+    "packet_status"
+  ],
+  "properties": {
+    "manual_export_batch_packet_id": {"type": "string"},
+    "created_at": {"type": "string"},
+    "source_refs": {"type": "array", "items": {"type": "string"}},
+    "source_manual_decision_batch_packet_id": {"type": ["string", "null"]},
+    "approved_decision_count": {"type": "integer", "minimum": 0},
+    "revision_requested_count": {"type": "integer", "minimum": 0},
+    "rejected_count": {"type": "integer", "minimum": 0},
+    "blocked_decision_count": {"type": "integer", "minimum": 0},
+    "manual_export_packets": {"type": "array", "items": {"type": "object"}},
+    "content_ledger_entries": {"type": "array", "items": {"type": "object"}},
+    "non_exported_decision_report": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["review_queue_item_id", "decision_status", "reason"],
+        "properties": {
+          "review_queue_item_id": {"type": ["string", "null"]},
+          "draft_id": {"type": ["string", "null"]},
+          "platform_family": {"type": ["string", "null"]},
+          "content_type": {"type": ["string", "null"]},
+          "decision_status": {"type": "string"},
+          "reason": {"type": "string"}
+        }
+      }
+    },
+    "operator_final_checklist": {"type": "array", "items": {"type": "string"}},
+    "hard_boundary_flags": {
+      "type": "object",
+      "required": [
+        "local_only",
+        "fixture_only",
+        "manual_review_required",
+        "final_operator_check_required",
+        "auto_publish",
+        "public_postable",
+        "platform_api_call_allowed_now",
+        "scheduler_allowed",
+        "metrics_ingestion_allowed",
+        "provider_call_allowed_now",
+        "network_call_allowed_now",
+        "live_execution_allowed_now",
+        "credential_or_env_read_allowed",
+        "manually_published_created",
+        "manual_publish_url_default_null",
+        "manual_metrics_default_null"
+      ],
+      "properties": {
+        "local_only": {"const": true},
+        "fixture_only": {"const": true},
+        "manual_review_required": {"const": true},
+        "final_operator_check_required": {"const": true},
+        "auto_publish": {"const": false},
+        "public_postable": {"const": false},
+        "platform_api_call_allowed_now": {"const": false},
+        "scheduler_allowed": {"const": false},
+        "metrics_ingestion_allowed": {"const": false},
+        "provider_call_allowed_now": {"const": false},
+        "network_call_allowed_now": {"const": false},
+        "live_execution_allowed_now": {"const": false},
+        "credential_or_env_read_allowed": {"const": false},
+        "manually_published_created": {"const": false},
+        "manual_publish_url_default_null": {"const": true},
+        "manual_metrics_default_null": {"const": true}
+      }
+    },
+    "safety_audit": {
+      "type": "object",
+      "required": ["violations", "unsafe_flag_count"],
+      "properties": {
+        "violations": {"type": "array", "items": {"type": "string"}},
+        "unsafe_flag_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "blocked_reasons": {"type": "array", "items": {"type": "string"}},
+    "packet_status": {"type": "string", "enum": ["pass", "blocked"]}
+  }
+}
