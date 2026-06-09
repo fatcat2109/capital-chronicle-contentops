@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PlatformOfficialDocsVerificationPack",
+  "description": "Local advisory verification pack across platforms (Task 0081). Advisory only; adds no runtime capability.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pack_id", "generated_at_utc", "scope", "platforms",
+    "global_live_gate_requirements", "explicit_unknowns",
+    "no_runtime_capability_added"
+  ],
+  "properties": {
+    "pack_id": { "type": "string", "minLength": 1 },
+    "generated_at_utc": { "type": "string", "minLength": 1 },
+    "scope": { "type": "string", "minLength": 1 },
+    "platforms": {
+      "type": "array",
+      "items": { "$ref": "platform_official_docs_verification_record.schema.json" }
+    },
+    "global_live_gate_requirements": {
+      "type": "array", "items": { "type": "string" }
+    },
+    "explicit_unknowns": { "type": "array", "items": { "type": "string" } },
+    "no_runtime_capability_added": { "type": "boolean", "const": true }
+  }
+}

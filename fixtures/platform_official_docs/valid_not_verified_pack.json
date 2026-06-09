@@ -1,0 +1,202 @@
+{
+  "pack_id": "pack_0081_not_verified_baseline",
+  "generated_at_utc": "2026-06-09T00:00:00Z",
+  "scope": "Advisory baseline verification pack with zero operator docs supplied.",
+  "no_runtime_capability_added": true,
+  "global_live_gate_requirements": [
+    "explicit operator GO for one platform",
+    "new task label naming the platform and live scope",
+    "credential policy and secret handling tested",
+    "dry-run adapter contracts passing",
+    "approval ledger passing",
+    "kill switch defaulting to disabled"
+  ],
+  "explicit_unknowns": [
+    "official platform write endpoints and payload schemas",
+    "required developer credentials, app-review permissions and token lifespans",
+    "rate-limits, throttling and platform write/upload pricing models",
+    "acceptable content and spam policies per platform"
+  ],
+  "platforms": [
+    {
+      "platform_id": "x",
+      "verification_status": "not_verified",
+      "source_collection_method": "not_supplied",
+      "source_documents": [],
+      "official_doc_urls": [],
+      "write_endpoint_requirements": null,
+      "media_requirements": null,
+      "identity_account_requirements": null,
+      "app_review_or_access_requirements": null,
+      "permissions_or_scopes": null,
+      "rate_limit_or_quota_notes": null,
+      "security_or_credential_notes": null,
+      "analytics_or_metrics_notes": null,
+      "live_gate_blockers": [
+        "missing official platform documentation evidence"
+      ],
+      "unknowns": [
+        "write_endpoints",
+        "media_upload_limits",
+        "required_developer_scopes",
+        "rate_limits_and_pricing",
+        "app_review_process"
+      ],
+      "last_verified_date": null,
+      "docs_runtime_authority": false,
+      "network_accessed_by_repo": false,
+      "credential_accessed_by_repo": false,
+      "live_posting_enabled": false
+    },
+    {
+      "platform_id": "linkedin",
+      "verification_status": "not_verified",
+      "source_collection_method": "not_supplied",
+      "source_documents": [],
+      "official_doc_urls": [],
+      "write_endpoint_requirements": null,
+      "media_requirements": null,
+      "identity_account_requirements": null,
+      "app_review_or_access_requirements": null,
+      "permissions_or_scopes": null,
+      "rate_limit_or_quota_notes": null,
+      "security_or_credential_notes": null,
+      "analytics_or_metrics_notes": null,
+      "live_gate_blockers": [
+        "missing official platform documentation evidence"
+      ],
+      "unknowns": [
+        "write_endpoints",
+        "media_upload_limits",
+        "required_developer_scopes",
+        "rate_limits_and_pricing",
+        "app_review_process"
+      ],
+      "last_verified_date": null,
+      "docs_runtime_authority": false,
+      "network_accessed_by_repo": false,
+      "credential_accessed_by_repo": false,
+      "live_posting_enabled": false
+    },
+    {
+      "platform_id": "telegram",
+      "verification_status": "not_verified",
+      "source_collection_method": "not_supplied",
+      "source_documents": [],
+      "official_doc_urls": [],
+      "write_endpoint_requirements": null,
+      "media_requirements": null,
+      "identity_account_requirements": null,
+      "app_review_or_access_requirements": null,
+      "permissions_or_scopes": null,
+      "rate_limit_or_quota_notes": null,
+      "security_or_credential_notes": null,
+      "analytics_or_metrics_notes": null,
+      "live_gate_blockers": [
+        "missing official platform documentation evidence"
+      ],
+      "unknowns": [
+        "write_endpoints",
+        "media_upload_limits",
+        "required_developer_scopes",
+        "rate_limits_and_pricing",
+        "app_review_process"
+      ],
+      "last_verified_date": null,
+      "docs_runtime_authority": false,
+      "network_accessed_by_repo": false,
+      "credential_accessed_by_repo": false,
+      "live_posting_enabled": false
+    },
+    {
+      "platform_id": "facebook_page",
+      "verification_status": "not_verified",
+      "source_collection_method": "not_supplied",
+      "source_documents": [],
+      "official_doc_urls": [],
+      "write_endpoint_requirements": null,
+      "media_requirements": null,
+      "identity_account_requirements": null,
+      "app_review_or_access_requirements": null,
+      "permissions_or_scopes": null,
+      "rate_limit_or_quota_notes": null,
+      "security_or_credential_notes": null,
+      "analytics_or_metrics_notes": null,
+      "live_gate_blockers": [
+        "missing official platform documentation evidence"
+      ],
+      "unknowns": [
+        "write_endpoints",
+        "media_upload_limits",
+        "required_developer_scopes",
+        "rate_limits_and_pricing",
+        "app_review_process"
+      ],
+      "last_verified_date": null,
+      "docs_runtime_authority": false,
+      "network_accessed_by_repo": false,
+      "credential_accessed_by_repo": false,
+      "live_posting_enabled": false
+    },
+    {
+      "platform_id": "instagram",
+      "verification_status": "not_verified",
+      "source_collection_method": "not_supplied",
+      "source_documents": [],
+      "official_doc_urls": [],
+      "write_endpoint_requirements": null,
+      "media_requirements": null,
+      "identity_account_requirements": null,
+      "app_review_or_access_requirements": null,
+      "permissions_or_scopes": null,
+      "rate_limit_or_quota_notes": null,
+      "security_or_credential_notes": null,
+      "analytics_or_metrics_notes": null,
+      "live_gate_blockers": [
+        "missing official platform documentation evidence"
+      ],
+      "unknowns": [
+        "write_endpoints",
+        "media_upload_limits",
+        "required_developer_scopes",
+        "rate_limits_and_pricing",
+        "app_review_process"
+      ],
+      "last_verified_date": null,
+      "docs_runtime_authority": false,
+      "network_accessed_by_repo": false,
+      "credential_accessed_by_repo": false,
+      "live_posting_enabled": false
+    },
+    {
+      "platform_id": "tiktok",
+      "verification_status": "not_verified",
+      "source_collection_method": "not_supplied",
+      "source_documents": [],
+      "official_doc_urls": [],
+      "write_endpoint_requirements": null,
+      "media_requirements": null,
+      "identity_account_requirements": null,
+      "app_review_or_access_requirements": null,
+      "permissions_or_scopes": null,
+      "rate_limit_or_quota_notes": null,
+      "security_or_credential_notes": null,
+      "analytics_or_metrics_notes": null,
+      "live_gate_blockers": [
+        "missing official platform documentation evidence"
+      ],
+      "unknowns": [
+        "write_endpoints",
+        "media_upload_limits",
+        "required_developer_scopes",
+        "rate_limits_and_pricing",
+        "app_review_process"
+      ],
+      "last_verified_date": null,
+      "docs_runtime_authority": false,
+      "network_accessed_by_repo": false,
+      "credential_accessed_by_repo": false,
+      "live_posting_enabled": false
+    }
+  ]
+}

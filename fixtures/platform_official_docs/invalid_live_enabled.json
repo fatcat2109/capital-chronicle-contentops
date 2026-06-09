@@ -1,0 +1,12 @@
+{
+  "platform_id": "telegram",
+  "verification_status": "partially_verified",
+  "source_collection_method": "operator_supplied",
+  "source_documents": ["Telegram Bot API Guidelines"],
+  "unknowns": ["metrics"],
+  "live_gate_blockers": [],
+  "docs_runtime_authority": false,
+  "network_accessed_by_repo": false,
+  "credential_accessed_by_repo": false,
+  "live_posting_enabled": true
+}

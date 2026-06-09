@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PlatformOfficialDocsVerificationRecord",
+  "description": "Local advisory record of what must be verified from official platform docs before any live/API work (Task 0081). Advisory only; never grants runtime authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "platform_id", "verification_status", "source_collection_method",
+    "source_documents", "unknowns", "live_gate_blockers",
+    "docs_runtime_authority", "network_accessed_by_repo",
+    "credential_accessed_by_repo", "live_posting_enabled"
+  ],
+  "properties": {
+    "platform_id": { "type": "string", "minLength": 1 },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "not_verified",
+        "partially_verified",
+        "verified_from_operator_supplied_docs"
+      ]
+    },
+    "source_collection_method": {
+      "type": "string",
+      "enum": [
+        "operator_supplied",
+        "separately_gathered_outside_repo",
+        "not_supplied"
+      ]
+    },
+    "source_documents": { "type": "array", "items": { "type": "string" } },
+    "official_doc_urls": { "type": "array", "items": { "type": "string" } },
+    "write_endpoint_requirements": { "type": ["string", "null"] },
+    "media_requirements": { "type": ["string", "null"] },
+    "identity_account_requirements": { "type": ["string", "null"] },
+    "app_review_or_access_requirements": { "type": ["string", "null"] },
+    "permissions_or_scopes": { "type": ["string", "null"] },
+    "rate_limit_or_quota_notes": { "type": ["string", "null"] },
+    "security_or_credential_notes": { "type": ["string", "null"] },
+    "analytics_or_metrics_notes": { "type": ["string", "null"] },
+    "live_gate_blockers": { "type": "array", "items": { "type": "string" } },
+    "unknowns": { "type": "array", "items": { "type": "string" } },
+    "last_verified_date": { "type": ["string", "null"] },
+    "docs_runtime_authority": { "type": "boolean", "const": false },
+    "network_accessed_by_repo": { "type": "boolean", "const": false },
+    "credential_accessed_by_repo": { "type": "boolean", "const": false },
+    "live_posting_enabled": { "type": "boolean", "const": false }
+  }
+}

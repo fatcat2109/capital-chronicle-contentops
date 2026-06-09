@@ -1,0 +1,202 @@
+{
+  "pack_id": "pack_0081_partially_verified_operator_supplied",
+  "generated_at_utc": "2026-06-09T00:00:00Z",
+  "scope": "Advisory pack reflecting partial operator verification (Telegram channel posting verified; others remain not_verified).",
+  "no_runtime_capability_added": true,
+  "global_live_gate_requirements": [
+    "explicit operator GO for one platform",
+    "new task label naming the platform and live scope",
+    "credential policy and secret handling tested",
+    "dry-run adapter contracts passing",
+    "approval ledger passing",
+    "kill switch defaulting to disabled"
+  ],
+  "explicit_unknowns": [
+    "X endpoint pricing and write structures",
+    "LinkedIn posts permissions and organization vs member review process",
+    "Meta page business verification and Instagram hosting requirements",
+    "TikTok video direct-post app-audit details"
+  ],
+  "platforms": [
+    {
+      "platform_id": "telegram",
+      "verification_status": "partially_verified",
+      "source_collection_method": "operator_supplied",
+      "source_documents": [
+        "Telegram Bot API - Channels & Groups Posting Guides v2026"
+      ],
+      "official_doc_urls": [
+        "https://core.telegram.org/bots/api"
+      ],
+      "write_endpoint_requirements": "sendMessage for text, sendPhoto for photo media. chat_id can be a channel username (@channel) or private numeric ID.",
+      "media_requirements": "Supports JPG, PNG, GIF, MP4, MP3. sendPhoto photo limit 10MB; sendVideo video limit 50MB.",
+      "identity_account_requirements": "Bot must be added as an Administrator to the Channel with can_post_messages permission.",
+      "app_review_or_access_requirements": "No app review required. Bot created via @BotFather immediately accessible.",
+      "permissions_or_scopes": "Administrator privileges: can_post_messages, can_edit_messages.",
+      "rate_limit_or_quota_notes": "Rate limit: 30 messages per second across all channels/chats; 20 messages per minute per group.",
+      "security_or_credential_notes": "Requires bot token: 46-character string. Never log or print the token.",
+      "analytics_or_metrics_notes": "No native fetch metrics API for bots; message views and subscriber count are manual-only placeholder context.",
+      "live_gate_blockers": [
+        "metrics integration API unknowns"
+      ],
+      "unknowns": [
+        "metrics_read_api_for_bots_if_any"
+      ],
+      "last_verified_date": "2026-06-09",
+      "docs_runtime_authority": false,
+      "network_accessed_by_repo": false,
+      "credential_accessed_by_repo": false,
+      "live_posting_enabled": false
+    },
+    {
+      "platform_id": "x",
+      "verification_status": "not_verified",
+      "source_collection_method": "not_supplied",
+      "source_documents": [],
+      "official_doc_urls": [],
+      "write_endpoint_requirements": null,
+      "media_requirements": null,
+      "identity_account_requirements": null,
+      "app_review_or_access_requirements": null,
+      "permissions_or_scopes": null,
+      "rate_limit_or_quota_notes": null,
+      "security_or_credential_notes": null,
+      "analytics_or_metrics_notes": null,
+      "live_gate_blockers": [
+        "missing official platform documentation evidence"
+      ],
+      "unknowns": [
+        "write_endpoints",
+        "media_upload_limits",
+        "required_developer_scopes",
+        "rate_limits_and_pricing",
+        "app_review_process"
+      ],
+      "last_verified_date": null,
+      "docs_runtime_authority": false,
+      "network_accessed_by_repo": false,
+      "credential_accessed_by_repo": false,
+      "live_posting_enabled": false
+    },
+    {
+      "platform_id": "linkedin",
+      "verification_status": "not_verified",
+      "source_collection_method": "not_supplied",
+      "source_documents": [],
+      "official_doc_urls": [],
+      "write_endpoint_requirements": null,
+      "media_requirements": null,
+      "identity_account_requirements": null,
+      "app_review_or_access_requirements": null,
+      "permissions_or_scopes": null,
+      "rate_limit_or_quota_notes": null,
+      "security_or_credential_notes": null,
+      "analytics_or_metrics_notes": null,
+      "live_gate_blockers": [
+        "missing official platform documentation evidence"
+      ],
+      "unknowns": [
+        "write_endpoints",
+        "media_upload_limits",
+        "required_developer_scopes",
+        "rate_limits_and_pricing",
+        "app_review_process"
+      ],
+      "last_verified_date": null,
+      "docs_runtime_authority": false,
+      "network_accessed_by_repo": false,
+      "credential_accessed_by_repo": false,
+      "live_posting_enabled": false
+    },
+    {
+      "platform_id": "facebook_page",
+      "verification_status": "not_verified",
+      "source_collection_method": "not_supplied",
+      "source_documents": [],
+      "official_doc_urls": [],
+      "write_endpoint_requirements": null,
+      "media_requirements": null,
+      "identity_account_requirements": null,
+      "app_review_or_access_requirements": null,
+      "permissions_or_scopes": null,
+      "rate_limit_or_quota_notes": null,
+      "security_or_credential_notes": null,
+      "analytics_or_metrics_notes": null,
+      "live_gate_blockers": [
+        "missing official platform documentation evidence"
+      ],
+      "unknowns": [
+        "write_endpoints",
+        "media_upload_limits",
+        "required_developer_scopes",
+        "rate_limits_and_pricing",
+        "app_review_process"
+      ],
+      "last_verified_date": null,
+      "docs_runtime_authority": false,
+      "network_accessed_by_repo": false,
+      "credential_accessed_by_repo": false,
+      "live_posting_enabled": false
+    },
+    {
+      "platform_id": "instagram",
+      "verification_status": "not_verified",
+      "source_collection_method": "not_supplied",
+      "source_documents": [],
+      "official_doc_urls": [],
+      "write_endpoint_requirements": null,
+      "media_requirements": null,
+      "identity_account_requirements": null,
+      "app_review_or_access_requirements": null,
+      "permissions_or_scopes": null,
+      "rate_limit_or_quota_notes": null,
+      "security_or_credential_notes": null,
+      "analytics_or_metrics_notes": null,
+      "live_gate_blockers": [
+        "missing official platform documentation evidence"
+      ],
+      "unknowns": [
+        "write_endpoints",
+        "media_upload_limits",
+        "required_developer_scopes",
+        "rate_limits_and_pricing",
+        "app_review_process"
+      ],
+      "last_verified_date": null,
+      "docs_runtime_authority": false,
+      "network_accessed_by_repo": false,
+      "credential_accessed_by_repo": false,
+      "live_posting_enabled": false
+    },
+    {
+      "platform_id": "tiktok",
+      "verification_status": "not_verified",
+      "source_collection_method": "not_supplied",
+      "source_documents": [],
+      "official_doc_urls": [],
+      "write_endpoint_requirements": null,
+      "media_requirements": null,
+      "identity_account_requirements": null,
+      "app_review_or_access_requirements": null,
+      "permissions_or_scopes": null,
+      "rate_limit_or_quota_notes": null,
+      "security_or_credential_notes": null,
+      "analytics_or_metrics_notes": null,
+      "live_gate_blockers": [
+        "missing official platform documentation evidence"
+      ],
+      "unknowns": [
+        "write_endpoints",
+        "media_upload_limits",
+        "required_developer_scopes",
+        "rate_limits_and_pricing",
+        "app_review_process"
+      ],
+      "last_verified_date": null,
+      "docs_runtime_authority": false,
+      "network_accessed_by_repo": false,
+      "credential_accessed_by_repo": false,
+      "live_posting_enabled": false
+    }
+  ]
+}
