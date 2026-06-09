@@ -746,11 +746,20 @@ def pre_alpha_content_performance_review_summary():
     import json
     print(json.dumps(pre_alpha_content_performance_review.summary(), indent=2))
 
+def pre_alpha_daily_operator_markdown_export():
+    import sys
+    from live_contentops import pre_alpha_operator_markdown_export
+    md, is_safe = pre_alpha_operator_markdown_export.generate_markdown_export()
+    print(md)
+    if not is_safe:
+        sys.exit(1)
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
     operator_cmds = [
         "status",
+        "pre-alpha-daily-operator-markdown-export",
         "pre-alpha-daily-operator-content-run-summary",
         "pre-alpha-platform-manual-templates-summary",
         "pre-alpha-manual-publish-record-summary"
@@ -769,6 +778,7 @@ def operator_command_summary():
         "categories": {
             "operator_daily": [
                 "status",
+                "pre-alpha-daily-operator-markdown-export",
                 "pre-alpha-daily-operator-content-run-summary",
                 "pre-alpha-platform-manual-templates-summary"
             ],
@@ -854,6 +864,7 @@ COMMANDS = {
     "pre-alpha-manual-export-batch-summary": pre_alpha_manual_export_batch_summary,
     "pre-alpha-manual-publish-record-summary": pre_alpha_manual_publish_record_summary,
     "pre-alpha-platform-manual-templates-summary": pre_alpha_platform_manual_templates_summary,
+    "pre-alpha-daily-operator-markdown-export": pre_alpha_daily_operator_markdown_export,
     "pre-alpha-daily-operator-content-run-summary": pre_alpha_daily_operator_content_run_summary,
 
 

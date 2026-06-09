@@ -13,5 +13,6 @@ For the authoritative guide on the daily manual publish sequence and performance
 [PRE_ALPHA_OPERATOR_WORKFLOW_CONSOLIDATION_AFTER_0118.md](docs/PRE_ALPHA_OPERATOR_WORKFLOW_CONSOLIDATION_AFTER_0118.md)
 
 **Minimal Commands:**
+- `python -m live_contentops.cli pre-alpha-daily-operator-markdown-export` : (PREFERRED) View the daily readable workbench.
 - `python -m live_contentops.cli operator-command-summary` : View all available operator commands.
 - `python -m live_contentops.cli status` : Show local skeleton status.

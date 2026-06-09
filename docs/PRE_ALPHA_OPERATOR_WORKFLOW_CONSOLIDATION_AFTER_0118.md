@@ -15,11 +15,10 @@ The workflow is designed to be highly conservative and entirely local. No publis
 
 1. **Check Status**: Ensure the system is safe and ready.
    `python -m live_contentops.cli status`
-2. **Run Daily Operator Content Run**: Generate and review the daily local editorial packet and prompt variables.
-   `python -m live_contentops.cli pre-alpha-daily-operator-content-run-summary`
-3. **Inspect Platform Manual Templates**: Review the text generated for specific platform requirements.
-   `python -m live_contentops.cli pre-alpha-platform-manual-templates-summary`
-4. **Manually Publish**: Take the output from the templates, open the platform (e.g., LinkedIn, X) manually in your own browser, paste the content, and hit "Post". The system will **never** do this for you.
+2. **Review the Daily Workbench**: Generate the Markdown export to view what is ready, what is blocked, and any copy/paste text.
+   `python -m live_contentops.cli pre-alpha-daily-operator-markdown-export`
+   *(Note: The JSON summary commands `pre-alpha-daily-operator-content-run-summary` and `pre-alpha-platform-manual-templates-summary` remain available for deeper auditing).*
+3. **Manually Publish**: Take the output from the templates, open the platform (e.g., LinkedIn, X) manually in your own browser, paste the content, and hit "Post". The system will **never** do this for you.
 5. **Manually Record Publish Record**: After posting, save the URL, timestamp, and metadata locally as a manual publish record so the system knows the content went out.
    `python -m live_contentops.cli pre-alpha-manual-publish-record-summary`
 6. **Manually Record Performance Metrics (Optional, Later)**: Wait 24-72 hours. Observe the public metrics manually. Input them into the manual performance record fixture.
