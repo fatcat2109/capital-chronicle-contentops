@@ -1,0 +1,22 @@
+{
+  "prompt_pack_id": "pp_invalid_public_postable_001",
+  "intended_content_types": ["build_in_public"],
+  "allowed_source_types": ["general_process"],
+  "system_instructions": "Draft a safe build-in-public update using only supplied context. Educational and general.",
+  "user_prompt_template": "From the supplied context only, draft a short build-in-public note. Context: {{context}}.",
+  "required_context_fields": ["title", "key_points"],
+  "forbidden_claims": ["no trade actions", "no invented data"],
+  "required_disclaimers": ["Manual review required before any use."],
+  "style_profile_id": "sp_build_in_public_001",
+  "editorial_rubric_id": "er_pre_alpha_001",
+  "output_contract": {
+    "produces": "draft_candidate",
+    "platform_families": ["x"],
+    "public_postable": false,
+    "requires_manual_review": true
+  },
+  "requires_manual_review": true,
+  "provider_call_allowed_now": false,
+  "public_postable_default": true,
+  "live_execution_allowed_now": false
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaPromptPack",
+  "description": "Local-only static prompt pack for future LLM-assisted pre-alpha drafting. Validated deterministically NOW. It does not call any LLM/provider/network. Its output_contract must align with the Task 0095 draft candidate / editorial packet shape and never permit public-postable, publish-ready, provider-call, or live-execution states.",
+  "type": "object",
+  "properties": {
+    "prompt_pack_id": { "type": "string" },
+    "intended_content_types": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "data_sufficiency",
+          "forecast_readiness",
+          "failure_forensics",
+          "build_in_public",
+          "macro_education",
+          "product_update",
+          "market_note"
+        ]
+      },
+      "minItems": 1
+    },
+    "allowed_source_types": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["general_process", "product_update", "artifact_backed"]
+      },
+      "minItems": 1
+    },
+    "system_instructions": { "type": "string" },
+    "user_prompt_template": { "type": "string" },
+    "required_context_fields": { "type": "array", "items": { "type": "string" } },
+    "forbidden_claims": { "type": "array", "items": { "type": "string" } },
+    "required_disclaimers": { "type": "array", "items": { "type": "string" } },
+    "style_profile_id": { "type": "string" },
+    "editorial_rubric_id": { "type": "string" },
+    "output_contract": {
+      "type": "object",
+      "properties": {
+        "produces": { "type": "string", "enum": ["draft_candidate", "editorial_packet_input"] },
+        "platform_families": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["x", "linkedin", "threads", "newsletter", "generic"] }
+        },
+        "public_postable": { "type": "boolean", "const": false },
+        "requires_manual_review": { "type": "boolean", "const": true }
+      },
+      "required": ["produces", "public_postable", "requires_manual_review"],
+      "additionalProperties": true
+    },
+    "requires_manual_review": { "type": "boolean", "const": true },
+    "provider_call_allowed_now": { "type": "boolean", "const": false },
+    "public_postable_default": { "type": "boolean", "const": false },
+    "live_execution_allowed_now": { "type": "boolean", "const": false }
+  },
+  "required": [
+    "prompt_pack_id",
+    "intended_content_types",
+    "allowed_source_types",
+    "system_instructions",
+    "user_prompt_template",
+    "required_context_fields",
+    "forbidden_claims",
+    "required_disclaimers",
+    "style_profile_id",
+    "editorial_rubric_id",
+    "output_contract",
+    "requires_manual_review",
+    "provider_call_allowed_now",
+    "public_postable_default",
+    "live_execution_allowed_now"
+  ],
+  "additionalProperties": true
+}

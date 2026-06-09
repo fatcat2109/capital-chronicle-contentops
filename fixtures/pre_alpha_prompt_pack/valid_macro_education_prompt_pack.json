@@ -1,0 +1,30 @@
+{
+  "prompt_pack_id": "pp_macro_education_001",
+  "intended_content_types": ["macro_education", "data_sufficiency"],
+  "allowed_source_types": ["general_process"],
+  "system_instructions": "You are an editorial assistant for Capital Chronicle pre-alpha macro education. Explain evergreen macro reasoning without directional views. Use only facts present in the supplied context. Omit anything not supplied. Output is educational, general, and for manual human review only.",
+  "user_prompt_template": "From the supplied context only, draft an evergreen macro education piece that teaches reasoning, not a call. Context: {{context}}. Emphasize that observation, thesis, and conclusion differ.",
+  "required_context_fields": ["title", "key_points", "limitations"],
+  "forbidden_claims": [
+    "no directional market view",
+    "no buy/sell/hold",
+    "no unverified numeric market claims",
+    "no claim Capital Chronicle alpha exists"
+  ],
+  "required_disclaimers": [
+    "Evergreen educational framing only.",
+    "Not investment advice. Manual review required."
+  ],
+  "style_profile_id": "sp_build_in_public_001",
+  "editorial_rubric_id": "er_pre_alpha_001",
+  "output_contract": {
+    "produces": "editorial_packet_input",
+    "platform_families": ["newsletter", "linkedin", "x"],
+    "public_postable": false,
+    "requires_manual_review": true
+  },
+  "requires_manual_review": true,
+  "provider_call_allowed_now": false,
+  "public_postable_default": false,
+  "live_execution_allowed_now": false
+}

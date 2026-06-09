@@ -1,0 +1,21 @@
+{
+  "editorial_rubric_id": "er_pre_alpha_001",
+  "requires_content_type_classification": true,
+  "requires_source_artifact_ids_or_general_process_marker": true,
+  "requires_limitations_and_freshness_for_market_note": true,
+  "requires_educational_only_for_market_content": true,
+  "rejects_fake_alpha_claims": true,
+  "rejects_unverified_numeric_claims": true,
+  "rejects_financial_advice_or_signal_language": true,
+  "requires_manual_review_before_publish": true,
+  "public_postable_until_manual_approval": false,
+  "checklist": [
+    "Classify content_type before review.",
+    "Confirm source_artifact_ids OR is_general_process_content marker.",
+    "Market notes carry limitations + freshness + educational_only.",
+    "No fake Capital Chronicle alpha claims.",
+    "No unverified numeric market claims.",
+    "No buy/sell/hold/signal/execution language.",
+    "Manual human review required before any publish."
+  ]
+}

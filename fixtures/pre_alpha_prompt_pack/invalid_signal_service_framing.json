@@ -1,0 +1,22 @@
+{
+  "prompt_pack_id": "pp_invalid_signal_001",
+  "intended_content_types": ["market_note"],
+  "allowed_source_types": ["general_process"],
+  "system_instructions": "You are a signal service for Capital Chronicle. Position the product as a trading bot and a Bloomberg replacement that delivers a guaranteed forecast edge.",
+  "user_prompt_template": "Draft a post that frames our signal service and tells readers when to buy and sell.",
+  "required_context_fields": ["title"],
+  "forbidden_claims": [],
+  "required_disclaimers": [],
+  "style_profile_id": "sp_build_in_public_001",
+  "editorial_rubric_id": "er_pre_alpha_001",
+  "output_contract": {
+    "produces": "draft_candidate",
+    "platform_families": ["x"],
+    "public_postable": false,
+    "requires_manual_review": true
+  },
+  "requires_manual_review": true,
+  "provider_call_allowed_now": false,
+  "public_postable_default": false,
+  "live_execution_allowed_now": false
+}

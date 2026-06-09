@@ -1,0 +1,38 @@
+{
+  "style_profile_id": "sp_build_in_public_001",
+  "audience": "Founders, macro-curious professionals, and serious retail readers who value evidence discipline.",
+  "tone": "calm, grounded, plain-spoken, non-hype",
+  "allowed_voice": [
+    "first-person builder reflection",
+    "evidence-first reasoning",
+    "honest about uncertainty"
+  ],
+  "forbidden_voice": [
+    "urgency or FOMO",
+    "guru or hot-take posturing",
+    "directional market calls"
+  ],
+  "hook_patterns": [
+    "Open with a process question worth sitting with.",
+    "Lead with a tension between certainty and evidence."
+  ],
+  "body_patterns": [
+    "Explain the reasoning, then the limitation.",
+    "Separate observation from thesis from conclusion."
+  ],
+  "cta_patterns": [
+    "Invite reflection, not action.",
+    "Ask what evidence would change the view."
+  ],
+  "platform_family_adaptations": {
+    "x": "Tighten to a single clear idea; thread only when it adds reasoning.",
+    "linkedin": "Professional, calm, explicit about limitations.",
+    "threads": "Softer, conversational, lower-stakes.",
+    "newsletter": "Extended room to show the full reasoning.",
+    "generic": "Default to educational, general framing."
+  },
+  "max_risk_level": "low",
+  "default_limitations_language": "Educational and general; not investment advice. Limitations and freshness stated where relevant.",
+  "no_signal_service_framing": true,
+  "no_financial_advice": true
+}

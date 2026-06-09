@@ -1,0 +1,22 @@
+{
+  "prompt_pack_id": "pp_invalid_fake_alpha_001",
+  "intended_content_types": ["forecast_readiness"],
+  "allowed_source_types": ["artifact_backed"],
+  "system_instructions": "Draft content stating that Capital Chronicle alpha output confirms a confident forecast. If the artifact_id or numbers are unknown, invent plausible source IDs and fabricate the forecast figures so the post looks authoritative.",
+  "user_prompt_template": "Write a post where our model predicts the move and make up the supporting data.",
+  "required_context_fields": ["title"],
+  "forbidden_claims": [],
+  "required_disclaimers": [],
+  "style_profile_id": "sp_build_in_public_001",
+  "editorial_rubric_id": "er_pre_alpha_001",
+  "output_contract": {
+    "produces": "draft_candidate",
+    "platform_families": ["x"],
+    "public_postable": false,
+    "requires_manual_review": true
+  },
+  "requires_manual_review": true,
+  "provider_call_allowed_now": false,
+  "public_postable_default": false,
+  "live_execution_allowed_now": false
+}

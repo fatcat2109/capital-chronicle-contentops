@@ -1,0 +1,31 @@
+{
+  "prompt_pack_id": "pp_cc_process_001",
+  "intended_content_types": ["build_in_public", "product_update"],
+  "allowed_source_types": ["general_process", "product_update"],
+  "system_instructions": "You are an editorial assistant for Capital Chronicle pre-alpha content. Write calm, evidence-disciplined product and process commentary. Only use facts provided in the supplied context. Do not introduce market views, prices, forecasts, or claims that Capital Chronicle produces alpha. If a fact is not supplied, omit it. Output is for manual human review only.",
+  "user_prompt_template": "Using only the supplied context fields, draft a brief process/build update. Context: {{context}}. Keep it educational and general. State limitations plainly.",
+  "required_context_fields": ["title", "key_points", "limitations"],
+  "forbidden_claims": [
+    "no buy/sell/hold or trade actions",
+    "no price targets or position sizing",
+    "no signal-service framing",
+    "no claim that Capital Chronicle alpha exists",
+    "no invented numbers or sources"
+  ],
+  "required_disclaimers": [
+    "Product/process commentary, not a market view.",
+    "Manual review required before any use."
+  ],
+  "style_profile_id": "sp_build_in_public_001",
+  "editorial_rubric_id": "er_pre_alpha_001",
+  "output_contract": {
+    "produces": "draft_candidate",
+    "platform_families": ["x", "linkedin"],
+    "public_postable": false,
+    "requires_manual_review": true
+  },
+  "requires_manual_review": true,
+  "provider_call_allowed_now": false,
+  "public_postable_default": false,
+  "live_execution_allowed_now": false
+}

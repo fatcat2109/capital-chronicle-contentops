@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaEditorialRubric",
+  "description": "Local-only editorial review rubric for pre-alpha content. Encodes the deterministic checks a draft must satisfy before MANUAL review approval.",
+  "type": "object",
+  "properties": {
+    "editorial_rubric_id": { "type": "string" },
+    "requires_content_type_classification": { "type": "boolean", "const": true },
+    "requires_source_artifact_ids_or_general_process_marker": { "type": "boolean", "const": true },
+    "requires_limitations_and_freshness_for_market_note": { "type": "boolean", "const": true },
+    "requires_educational_only_for_market_content": { "type": "boolean", "const": true },
+    "rejects_fake_alpha_claims": { "type": "boolean", "const": true },
+    "rejects_unverified_numeric_claims": { "type": "boolean", "const": true },
+    "rejects_financial_advice_or_signal_language": { "type": "boolean", "const": true },
+    "requires_manual_review_before_publish": { "type": "boolean", "const": true },
+    "public_postable_until_manual_approval": { "type": "boolean", "const": false },
+    "checklist": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "editorial_rubric_id",
+    "requires_content_type_classification",
+    "requires_source_artifact_ids_or_general_process_marker",
+    "requires_limitations_and_freshness_for_market_note",
+    "requires_educational_only_for_market_content",
+    "rejects_fake_alpha_claims",
+    "rejects_unverified_numeric_claims",
+    "rejects_financial_advice_or_signal_language",
+    "requires_manual_review_before_publish",
+    "public_postable_until_manual_approval",
+    "checklist"
+  ],
+  "additionalProperties": true
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaStyleProfile",
+  "description": "Local-only style profile for Capital Chronicle pre-alpha content. Defines voice, tone, and platform adaptations. Never permits signal-service framing or financial advice.",
+  "type": "object",
+  "properties": {
+    "style_profile_id": { "type": "string" },
+    "audience": { "type": "string" },
+    "tone": { "type": "string" },
+    "allowed_voice": { "type": "array", "items": { "type": "string" } },
+    "forbidden_voice": { "type": "array", "items": { "type": "string" } },
+    "hook_patterns": { "type": "array", "items": { "type": "string" } },
+    "body_patterns": { "type": "array", "items": { "type": "string" } },
+    "cta_patterns": { "type": "array", "items": { "type": "string" } },
+    "platform_family_adaptations": {
+      "type": "object",
+      "properties": {
+        "x": { "type": "string" },
+        "linkedin": { "type": "string" },
+        "threads": { "type": "string" },
+        "newsletter": { "type": "string" },
+        "generic": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "max_risk_level": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "default_limitations_language": { "type": "string" },
+    "no_signal_service_framing": { "type": "boolean", "const": true },
+    "no_financial_advice": { "type": "boolean", "const": true }
+  },
+  "required": [
+    "style_profile_id",
+    "audience",
+    "tone",
+    "allowed_voice",
+    "forbidden_voice",
+    "hook_patterns",
+    "body_patterns",
+    "cta_patterns",
+    "platform_family_adaptations",
+    "max_risk_level",
+    "default_limitations_language",
+    "no_signal_service_framing",
+    "no_financial_advice"
+  ],
+  "additionalProperties": true
+}
