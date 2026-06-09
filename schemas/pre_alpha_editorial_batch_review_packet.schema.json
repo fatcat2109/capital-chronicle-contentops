@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaEditorialBatchReviewPacket",
+  "description": "Local-only pre-alpha editorial batch review packet schema for task 0105. Captures the safe review queue items and preserved blocked seeds.",
+  "type": "object",
+  "required": [
+    "batch_review_packet_id",
+    "created_at",
+    "source_refs",
+    "planning_window",
+    "seed_library_summary",
+    "calendar_plan_summary",
+    "selected_safe_seed_ids",
+    "blocked_seed_ids",
+    "blocked_content_report",
+    "rendered_packets",
+    "review_queue_items",
+    "operator_review_checklist",
+    "hard_boundary_flags",
+    "safety_audit",
+    "packet_status"
+  ],
+  "properties": {
+    "batch_review_packet_id": {"type": "string"},
+    "created_at": {"type": "string"},
+    "source_refs": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "planning_window": {
+      "type": "object",
+      "required": ["start_date", "end_date", "cadence"],
+      "properties": {
+        "start_date": {"type": "string"},
+        "end_date": {"type": "string"},
+        "cadence": {"type": "string"}
+      }
+    },
+    "seed_library_summary": {
+      "type": "object",
+      "required": ["total_seeds", "safe_seed_count", "blocked_seed_count"],
+      "properties": {
+        "total_seeds": {"type": "integer", "minimum": 0},
+        "safe_seed_count": {"type": "integer", "minimum": 0},
+        "blocked_seed_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "calendar_plan_summary": {
+      "type": "object",
+      "required": ["planned_item_count", "safe_item_count", "blocked_item_count"],
+      "properties": {
+        "planned_item_count": {"type": "integer", "minimum": 0},
+        "safe_item_count": {"type": "integer", "minimum": 0},
+        "blocked_item_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "selected_safe_seed_ids": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "blocked_seed_ids": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "blocked_content_report": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["seed_id", "content_zone", "blocked_reasons"],
+        "properties": {
+          "seed_id": {"type": ["string", "null"]},
+          "content_zone": {"type": ["string", "null"]},
+          "blocked_reasons": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "rendered_packets": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "review_queue_items": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "operator_review_checklist": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "hard_boundary_flags": {
+      "type": "object",
+      "required": [
+        "local_only",
+        "fixture_only",
+        "manual_review_required",
+        "reviewer_required",
+        "auto_approval",
+        "public_postable",
+        "approval_packet_created",
+        "manual_export_packet_created",
+        "content_ledger_publish_status_changed",
+        "provider_call_allowed_now",
+        "network_call_allowed_now",
+        "platform_api_call_allowed_now",
+        "scheduler_allowed",
+        "metrics_ingestion_allowed",
+        "live_execution_allowed_now",
+        "credential_or_env_read_allowed"
+      ],
+      "properties": {
+        "local_only": {"const": true},
+        "fixture_only": {"const": true},
+        "manual_review_required": {"const": true},
+        "reviewer_required": {"const": true},
+        "auto_approval": {"const": false},
+        "public_postable": {"const": false},
+        "approval_packet_created": {"const": false},
+        "manual_export_packet_created": {"const": false},
+        "content_ledger_publish_status_changed": {"const": false},
+        "provider_call_allowed_now": {"const": false},
+        "network_call_allowed_now": {"const": false},
+        "platform_api_call_allowed_now": {"const": false},
+        "scheduler_allowed": {"const": false},
+        "metrics_ingestion_allowed": {"const": false},
+        "live_execution_allowed_now": {"const": false},
+        "credential_or_env_read_allowed": {"const": false}
+      }
+    },
+    "safety_audit": {
+      "type": "object",
+      "required": ["violations", "unsafe_flag_count"],
+      "properties": {
+        "violations": {"type": "array", "items": {"type": "string"}},
+        "unsafe_flag_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "packet_status": {
+      "type": "string",
+      "enum": ["pass", "blocked"]
+    }
+  }
+}
