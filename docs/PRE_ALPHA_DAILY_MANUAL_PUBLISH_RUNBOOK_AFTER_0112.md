@@ -92,27 +92,37 @@ local summaries; none of them publish anything.
 
 ---
 
-## 3. Required commands
+## 3. Required commands and CLI UX
 
+The system registers 17 local CLI commands, but only 4 are **operator-facing daily commands**. The remaining 13 are **internal/debug** commands used to inspect intermediate data boundaries (e.g., `pre-alpha-content-engine-summary`) or test core components without wrapping them. You do not need to run internal commands daily.
+
+To see how all commands are categorized, run:
+```
+python -m live_contentops.cli operator-command-summary
+```
+
+The 4 recommended daily operator commands are:
 ```
 python -m live_contentops.cli status
 python -m live_contentops.cli pre-alpha-daily-operator-content-run-summary
 python -m live_contentops.cli pre-alpha-platform-manual-templates-summary
 python -m live_contentops.cli pre-alpha-manual-publish-record-summary
-python -m pytest -q tests/test_security_scans.py
 ```
 
 - `status` - repo/workflow posture check.
-- `pre-alpha-daily-operator-content-run-summary` - the composed daily workbench
-  (0111). Start here each day.
-- `pre-alpha-platform-manual-templates-summary` - per-platform copy/paste
-  templates (0110).
-- `pre-alpha-manual-publish-record-summary` - manual publish recordkeeping
-  posture (0108).
-- `pytest tests/test_security_scans.py` - confirms no forbidden
-  network/provider/platform/scheduler/scraping/credential capability slipped in.
+- `pre-alpha-daily-operator-content-run-summary` - the composed daily workbench (0111). Start here each day.
+- `pre-alpha-platform-manual-templates-summary` - per-platform copy/paste templates (0110).
+- `pre-alpha-manual-publish-record-summary` - manual publish recordkeeping posture (0108).
 
 All commands are local and read-only. Running them publishes nothing.
+
+### Manual Publish Record Fixture Behavior
+
+The manual publish record workflow uses fixtures to safely configure your recordkeeping state.
+
+- **Default Operator Path**: By default, the config contains no manual records. This correctly leaves your export batches in an `export_prepared` state and reports `not_recorded`. The daily packet status will safely `pass` because not having published yet is a completely normal daily state.
+- **Negative Fixture Path**: There is an explicit `fail_closed_negative_fixture_config.json` that tests fail-closed behavior (e.g. attempting to submit an incomplete or duplicate record). When tested against this fixture, the packet status becomes `blocked`.
+- **Why Fail-Closed Exists**: This strict behavior exists to defend the content ledger. If a manual publish record lacks a URL, lacks a timestamp, or targets an unknown export, the system fails closed rather than inferring a successful publication or storing bad ledger data.
 
 ---
 

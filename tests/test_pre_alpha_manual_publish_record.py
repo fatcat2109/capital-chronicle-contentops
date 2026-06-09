@@ -268,4 +268,17 @@ def test_static_scan_no_forbidden_imports_or_calls():
     for token in forbidden:
         assert token not in src, "forbidden token in module: %s" % token
 
+def test_operator_safe_default_fixture_is_not_alarming():
+    packet = mpr.build_from_config_file()
+    assert packet["packet_status"] == "pass"
+    assert packet["not_recorded_count"] >= 0
+    assert packet["blocked_record_count"] == 0
+    assert packet["recorded_publish_count"] == 0
+
+
+def test_negative_fixture_remains_fail_closed():
+    config_path = os.path.join(mpr.FIXTURE_DIR, "fail_closed_negative_fixture_config.json")
+    packet = mpr.build_from_config_file(config_path)
+    assert packet["packet_status"] == "blocked"
+    assert packet["blocked_record_count"] > 0
 

@@ -738,6 +738,36 @@ def telegram_one_shot_go_gate_summary():
     }
     print(json.dumps(summary, indent=2))
 
+def operator_command_summary():
+    import json
+    # Determine debug commands at runtime by excluding known operator/doc commands
+    operator_cmds = [
+        "status",
+        "pre-alpha-daily-operator-content-run-summary",
+        "pre-alpha-platform-manual-templates-summary",
+        "pre-alpha-manual-publish-record-summary"
+    ]
+    doc_cmds = ["ide-cli-document-bundle-summary"]
+
+    debug_cmds = [c for c in COMMANDS.keys() if c not in operator_cmds and c not in doc_cmds and c != "operator-command-summary"]
+
+    summary = {
+        "recommended_daily_commands": operator_cmds,
+        "categories": {
+            "operator_daily": [
+                "status",
+                "pre-alpha-daily-operator-content-run-summary",
+                "pre-alpha-platform-manual-templates-summary"
+            ],
+            "operator_manual_publish_record": [
+                "pre-alpha-manual-publish-record-summary"
+            ],
+            "docs/context": doc_cmds,
+            "internal_debug": debug_cmds
+        }
+    }
+    print(json.dumps(summary, indent=2))
+
 COMMANDS = {
     "status": print_status,
     "contracts-summary": contracts_summary,
@@ -821,12 +851,7 @@ COMMANDS = {
 
 
     "packet-dashboard-handoff-summary": packet_dashboard_handoff_summary,
-
-
-
-
-
-
+    "operator-command-summary": operator_command_summary,
 }
 
 def main():

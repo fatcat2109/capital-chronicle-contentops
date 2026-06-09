@@ -1,0 +1,5 @@
+{
+  "_comment": "Local-only 0108 manual publish record config. References the 0107 export batch via its own default fixture. manual_records are operator-supplied ONLY. By default, it is empty, meaning the exports remain 'export_prepared' and not recorded, which is the normal daily state before publishing. This system never posts, schedules, scrapes, or fetches metrics.",
+  "source_refs": ["operator_safe_default_config.json"],
+  "manual_records": []
+}

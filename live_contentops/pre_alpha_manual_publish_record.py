@@ -32,7 +32,7 @@ RECORD_SCHEMA_PATH = os.path.join(
 FIXTURE_DIR = os.path.join(
     os.path.dirname(__file__), "..", "fixtures", "pre_alpha_manual_publish_record"
 )
-DEFAULT_CONFIG = os.path.join(FIXTURE_DIR, "valid_manual_publish_record_config.json")
+DEFAULT_CONFIG = os.path.join(FIXTURE_DIR, "operator_safe_default_config.json")
 
 # Hard-boundary flags pinned on every record packet, independent of input.
 _REQUIRED_FLAGS = {
