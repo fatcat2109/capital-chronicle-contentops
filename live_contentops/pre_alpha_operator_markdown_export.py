@@ -9,6 +9,7 @@ from live_contentops import pre_alpha_platform_manual_templates
 from live_contentops import pre_alpha_manual_publish_record
 from live_contentops import pre_alpha_manual_performance_record
 from live_contentops import pre_alpha_content_performance_review
+from live_contentops import pre_alpha_approved_cc_artifact_intake
 
 def generate_markdown_export():
     """Generate the Operator Workbench Markdown export string."""
@@ -17,10 +18,11 @@ def generate_markdown_export():
     pub_packet = pre_alpha_manual_publish_record.build_from_config_file()
     perf_packet = pre_alpha_manual_performance_record.build_from_config_file()
     rev_packet = pre_alpha_content_performance_review.build_from_config_file()
+    intake_packet = pre_alpha_approved_cc_artifact_intake.summary()
 
     # Determine overall safety
     is_safe = True
-    for p in [run_packet, tmpl_packet, pub_packet, perf_packet, rev_packet]:
+    for p in [run_packet, tmpl_packet, pub_packet, perf_packet, rev_packet, intake_packet]:
         if p.get("packet_status") == "blocked":
             is_safe = False
 
@@ -41,6 +43,33 @@ def generate_markdown_export():
     lines.append("- No scraping")
     lines.append("- No automatic metrics ingestion")
     lines.append("- No inferred publication or metrics")
+    lines.append("")
+
+    lines.append("## Approved Capital Chronicle Artifact Intake Queue")
+    lines.append("- WARNING: Artifacts are accepted only for local ContentOps review, not public-postable or publish-ready output.")
+    lines.append(f"- packet_status: {intake_packet.get('packet_status')}")
+    lines.append(f"- accepted_artifact_count: {intake_packet.get('accepted_artifact_count', 0)}")
+    lines.append(f"- blocked_artifact_count: {intake_packet.get('blocked_artifact_count', 0)}")
+    
+    accepted = intake_packet.get('accepted_artifacts', [])
+    if accepted:
+        lines.append("\n**Accepted Artifacts:**")
+        for a in accepted:
+            lines.append(f"- ID: {a.get('source_artifact_id', 'unknown')}")
+            lines.append(f"  - Content Type: {a.get('content_type', 'unknown')}")
+            fresh = ", ".join(a.get("freshness", [])) if a.get("freshness") else "None"
+            limits = ", ".join(a.get("limitations", [])) if a.get("limitations") else "None"
+            lines.append(f"  - Freshness: {fresh} | Limitations: {limits}")
+            lines.append(f"  - Data Sufficiency: {a.get('data_sufficiency_status', 'unknown')} | DQR: {a.get('dqr_status', 'unknown')} | Forecast Readiness: {a.get('forecast_readiness_status', 'unknown')}")
+    
+    blocked = intake_packet.get('blocked_artifacts', [])
+    if blocked:
+        lines.append("\n**Blocked Artifacts:**")
+        for b in blocked:
+            lines.append(f"- ID/Ref: {b.get('source_artifact_id', 'unknown')} / {b.get('operator_approval_ref', 'unknown')}")
+            reasons = b.get('blocked_reasons', [])
+            for r in reasons:
+                lines.append(f"  - Blocked Reason: {r}")
     lines.append("")
 
     lines.append("## Run Summary")

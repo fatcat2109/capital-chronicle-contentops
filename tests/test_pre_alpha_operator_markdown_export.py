@@ -15,6 +15,7 @@ def test_markdown_export_safety_and_structure():
     assert "No platform API payload" in md
 
     # Check for required sections
+    assert "## Approved Capital Chronicle Artifact Intake Queue" in md
     assert "## Run Summary" in md
     assert "## Ready for Operator Review" in md
     assert "## Blocked or Not Ready" in md
@@ -23,6 +24,14 @@ def test_markdown_export_safety_and_structure():
     assert "## Manual Performance Record Reminder" in md
     assert "## Content Performance Review" in md
     assert "## Next Operator Actions" in md
+
+    # Check for intake queue specifics based on fixtures
+    assert "Accepted Artifacts:" in md
+    assert "Blocked Artifacts:" in md
+    assert "ID: cc_art_101" in md  # The accepted fixture
+    assert "ID/Ref: cc_art_102" in md # One of the blocked fixtures
+    assert "artifact is not explicitly operator-approved" in md # Block reason for cc_art_102
+    assert "not public-postable or publish-ready output" in md.lower()
 
     # Check forbidden claims
     assert "no inferred publication" in md.lower()
