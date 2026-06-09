@@ -185,12 +185,12 @@ Never copy/paste or post a blocked or not-ready item. Resolve it upstream
 
 - When a manual publish actually happens, record the publish URL, timestamp,
   and any hand-observed metrics through the manual publish record stage.
-- Records are operator-supplied only. The system never fetches or scrapes
-  metrics.
-- Never paste secrets, tokens, channel IDs, or credentials into the repo, into
-  commits, or into chat.
-- Do not use auto-scraping for metrics. If you want metrics, enter them by hand
-  from what you observed in the platform UI.
+- **Manual Performance Records**: You can record post-publication performance metrics (impressions, likes, etc.) using the manual performance record fixture. This is strictly operator-entered.
+- **No Scraping/APIs**: The system never fetches, scrapes, or ingests metrics automatically. It is not platform API integration.
+- **Missing Metrics**: Missing metrics stay missing/null. If you cannot observe a metric, leave it null and provide a reason.
+- **Operator Entry Only**: Enter metrics only after manual external posting. It cannot prove publication by itself.
+- Never paste credentials, private channel IDs, tokens, or raw platform responses into the repo, into commits, or into chat.
+- This contract prepares for future compare-to-improve review without compromising the local-only safety boundary.
 
 ---
 

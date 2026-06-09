@@ -1,0 +1,23 @@
+{
+  "source_manual_publish_packet_id": "manual_publish_packet_0108_default",
+  "records": [
+    {
+      "performance_record_id": "perf_rec_001",
+      "linked_manual_publish_record_id": "manual_pub_001",
+      "platform_family": "x",
+      "manual_post_url": "https://example.invalid/operator-manually-posted/123",
+      "metric_capture_timestamp": "2026-06-10T12:00:00Z",
+      "metrics_source_type": "operator_entered",
+      "metrics_freshness_label": "operator_entered_manual_snapshot",
+      "metrics": {
+        "impressions": 1500,
+        "likes": 42,
+        "comments": 3,
+        "reposts_or_shares": 5,
+        "saves_or_bookmarks": 10,
+        "clicks": 15
+      },
+      "operator_notes": "Strong initial engagement"
+    }
+  ]
+}

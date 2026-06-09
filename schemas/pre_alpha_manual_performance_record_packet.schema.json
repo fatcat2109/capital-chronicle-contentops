@@ -1,0 +1,107 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaManualPerformanceRecordPacket",
+  "type": "object",
+  "required": [
+    "manual_performance_record_packet_id",
+    "created_at",
+    "source_refs",
+    "performance_records",
+    "record_count",
+    "missing_metric_count",
+    "invalid_record_count",
+    "unsafe_flag_count",
+    "packet_status",
+    "hard_boundary_flags",
+    "safety_audit"
+  ],
+  "properties": {
+    "manual_performance_record_packet_id": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "source_refs": {
+      "type": "object",
+      "properties": {
+        "source_manual_publish_packet_id": { "type": ["string", "null"] },
+        "linked_manual_publish_record_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "performance_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "performance_record_id",
+          "linked_manual_publish_record_id",
+          "platform_family",
+          "metric_capture_timestamp",
+          "metrics_source_type",
+          "metrics_freshness_label",
+          "metrics",
+          "public_postable",
+          "auto_publish",
+          "automatic_metrics_ingestion",
+          "platform_api_payload_generated"
+        ],
+        "properties": {
+          "performance_record_id": { "type": "string" },
+          "linked_manual_publish_record_id": { "type": "string" },
+          "platform_family": {
+            "type": "string",
+            "enum": ["x", "linkedin", "threads", "newsletter", "generic", "unknown"]
+          },
+          "manual_post_url": { "type": ["string", "null"] },
+          "manual_post_ref": { "type": ["string", "null"] },
+          "metric_capture_timestamp": { "type": "string", "format": "date-time" },
+          "metrics_source_type": { "type": "string", "enum": ["operator_entered"] },
+          "metrics_freshness_label": { "type": "string", "enum": ["operator_entered_manual_snapshot"] },
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "impressions": { "type": ["integer", "null"], "minimum": 0 },
+              "likes": { "type": ["integer", "null"], "minimum": 0 },
+              "comments": { "type": ["integer", "null"], "minimum": 0 },
+              "reposts_or_shares": { "type": ["integer", "null"], "minimum": 0 },
+              "saves_or_bookmarks": { "type": ["integer", "null"], "minimum": 0 },
+              "follows_or_subscribers": { "type": ["integer", "null"], "minimum": 0 },
+              "clicks": { "type": ["integer", "null"], "minimum": 0 },
+              "newsletter_opens": { "type": ["integer", "null"], "minimum": 0 },
+              "newsletter_clicks": { "type": ["integer", "null"], "minimum": 0 },
+              "replies": { "type": ["integer", "null"], "minimum": 0 },
+              "other_engagements": { "type": ["integer", "null"], "minimum": 0 }
+            }
+          },
+          "metric_null_reason": { "type": ["string", "null"] },
+          "limitations": { "type": "array", "items": { "type": "string" } },
+          "operator_notes": { "type": ["string", "null"] },
+          "public_postable": { "type": "boolean", "const": false },
+          "auto_publish": { "type": "boolean", "const": false },
+          "automatic_metrics_ingestion": { "type": "boolean", "const": false },
+          "platform_api_payload_generated": { "type": "boolean", "const": false }
+        }
+      }
+    },
+    "record_count": { "type": "integer" },
+    "missing_metric_count": { "type": "integer" },
+    "invalid_record_count": { "type": "integer" },
+    "unsafe_flag_count": { "type": "integer" },
+    "packet_status": { "type": "string", "enum": ["pass", "blocked"] },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } },
+    "hard_boundary_flags": {
+      "type": "object",
+      "properties": {
+        "local_only": { "type": "boolean", "const": true },
+        "manual_operator_entry_only": { "type": "boolean", "const": true },
+        "fixture_only": { "type": "boolean", "const": true },
+        "network_call_allowed_now": { "type": "boolean", "const": false },
+        "provider_call_allowed_now": { "type": "boolean", "const": false },
+        "platform_api_call_allowed_now": { "type": "boolean", "const": false },
+        "scraping_allowed": { "type": "boolean", "const": false },
+        "automatic_metrics_ingestion_allowed": { "type": "boolean", "const": false },
+        "credential_or_env_read_allowed": { "type": "boolean", "const": false },
+        "auto_publish": { "type": "boolean", "const": false },
+        "public_postable": { "type": "boolean", "const": false }
+      }
+    },
+    "safety_audit": { "type": "object" }
+  }
+}

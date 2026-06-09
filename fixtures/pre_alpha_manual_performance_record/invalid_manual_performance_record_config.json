@@ -1,0 +1,18 @@
+{
+  "source_manual_publish_packet_id": "manual_publish_packet_0108_default",
+  "records": [
+    {
+      "performance_record_id": "perf_rec_invalid_001",
+      "linked_manual_publish_record_id": "manual_pub_003",
+      "platform_family": "threads",
+      "manual_post_url": "https://example.invalid/operator-manually-posted/789",
+      "metric_capture_timestamp": "2026-06-10T12:00:00Z",
+      "metrics_source_type": "scraped",
+      "metrics_freshness_label": "operator_entered_manual_snapshot",
+      "metrics": {
+        "likes": -5
+      },
+      "operator_notes": "Negative metric and scraped source to trigger block"
+    }
+  ]
+}

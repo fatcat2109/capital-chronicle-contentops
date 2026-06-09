@@ -43,8 +43,7 @@ from . import operator_dashboard
 from . import review_ledger
 
 from . import review_history
-
-
+from . import pre_alpha_manual_performance_record
 
 import uuid
 
@@ -738,6 +737,10 @@ def telegram_one_shot_go_gate_summary():
     }
     print(json.dumps(summary, indent=2))
 
+def pre_alpha_manual_performance_record_summary():
+    import json
+    print(json.dumps(pre_alpha_manual_performance_record.summary(), indent=2))
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -747,12 +750,16 @@ def operator_command_summary():
         "pre-alpha-platform-manual-templates-summary",
         "pre-alpha-manual-publish-record-summary"
     ]
+    optional_cmds = [
+        "pre-alpha-manual-performance-record-summary"
+    ]
     doc_cmds = ["ide-cli-document-bundle-summary"]
 
-    debug_cmds = [c for c in COMMANDS.keys() if c not in operator_cmds and c not in doc_cmds and c != "operator-command-summary"]
+    debug_cmds = [c for c in COMMANDS.keys() if c not in operator_cmds and c not in optional_cmds and c not in doc_cmds and c != "operator-command-summary"]
 
     summary = {
         "recommended_daily_commands": operator_cmds,
+        "optional_post_publish_commands": optional_cmds,
         "categories": {
             "operator_daily": [
                 "status",
@@ -762,6 +769,7 @@ def operator_command_summary():
             "operator_manual_publish_record": [
                 "pre-alpha-manual-publish-record-summary"
             ],
+            "operator_optional_post_publish": optional_cmds,
             "docs/context": doc_cmds,
             "internal_debug": debug_cmds
         }
@@ -852,6 +860,7 @@ COMMANDS = {
 
     "packet-dashboard-handoff-summary": packet_dashboard_handoff_summary,
     "operator-command-summary": operator_command_summary,
+    "pre-alpha-manual-performance-record-summary": pre_alpha_manual_performance_record_summary,
 }
 
 def main():

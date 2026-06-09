@@ -1,0 +1,21 @@
+{
+  "source_manual_publish_packet_id": "manual_publish_packet_0108_default",
+  "records": [
+    {
+      "performance_record_id": "perf_rec_missing_001",
+      "linked_manual_publish_record_id": "manual_pub_002",
+      "platform_family": "linkedin",
+      "manual_post_url": "https://example.invalid/operator-manually-posted/456",
+      "metric_capture_timestamp": "2026-06-10T12:00:00Z",
+      "metrics_source_type": "operator_entered",
+      "metrics_freshness_label": "operator_entered_manual_snapshot",
+      "metrics": {
+        "impressions": null,
+        "likes": 12,
+        "comments": null
+      },
+      "metric_null_reason": "Impressions and comments not visible on basic account",
+      "operator_notes": "Partial metrics available"
+    }
+  ]
+}
