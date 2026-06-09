@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": [
+        "allowed",
+        "blocked",
+        "design_only_not_currently_allowed"
+      ]
+    },
+    "reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_next_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "forbidden_scope_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "decision",
+    "reasons"
+  ]
+}

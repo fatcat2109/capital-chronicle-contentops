@@ -1,0 +1,8 @@
+{
+  "platform_id": "x",
+  "requested_mode": "local_dry_run",
+  "credential_source": "none",
+  "live_attempt_count": 0,
+  "public_target_requested": false,
+  "target_identifier_committed": false
+}

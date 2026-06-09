@@ -547,6 +547,26 @@ def telegram_live_pilot_execute():
 
 
 
+
+def automation_policy_modes_summary():
+    import json
+    summary = {
+        "status": "automation policy gated mode framework initialized",
+        "local_only": True,
+        "design_only": True,
+        "active_mode_schemas": 3,
+        "active_mode_validators": 1,
+        "live_capability_exposed": False,
+        "network_call_made": False,
+        "credential_read": False,
+        "telegram_sandbox_one_shot_live_status": "ALLOWED_IF_STRICTLY_MET",
+        "supervised_live_status": "DESIGN_ONLY_NOT_CURRENTLY_ALLOWED",
+        "non_telegram_live_status": "BLOCKED",
+        "autonomous_live_status": "PERMANENTLY_FORBIDDEN",
+        "public_channel_live_status": "BLOCKED"
+    }
+    print(json.dumps(summary, indent=2))
+
 COMMANDS = {
     "status": print_status,
     "contracts-summary": contracts_summary,
@@ -600,6 +620,7 @@ COMMANDS = {
     "alpha-wait-state-summary": alpha_wait_state_summary,
     "telegram-live-pilot-design-summary": telegram_live_pilot_design_summary,
     "telegram-live-pilot-execute": telegram_live_pilot_execute,
+    "automation-policy-modes-summary": automation_policy_modes_summary,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,

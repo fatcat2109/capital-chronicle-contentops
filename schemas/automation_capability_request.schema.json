@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "platform_id": {
+      "type": "string"
+    },
+    "requested_mode": {
+      "type": "string"
+    },
+    "requested_action": {
+      "type": "string"
+    },
+    "authorization_phrase_present": {
+      "type": "boolean"
+    },
+    "credential_source": {
+      "type": "string",
+      "enum": [
+        "none",
+        "process_env",
+        "env_file",
+        "secret_manager"
+      ]
+    },
+    "target_type": {
+      "type": "string"
+    },
+    "target_identifier_committed": {
+      "type": "boolean"
+    },
+    "approval_state": {
+      "type": "boolean"
+    },
+    "kill_switch_state": {
+      "type": "boolean"
+    },
+    "idempotency_state": {
+      "type": "boolean"
+    },
+    "redaction_state": {
+      "type": "boolean"
+    },
+    "audit_state": {
+      "type": "boolean"
+    },
+    "live_attempt_count": {
+      "type": "integer"
+    },
+    "scheduler_requested": {
+      "type": "boolean"
+    },
+    "replies_or_dms_requested": {
+      "type": "boolean"
+    },
+    "scraping_requested": {
+      "type": "boolean"
+    },
+    "metrics_requested": {
+      "type": "boolean"
+    },
+    "public_target_requested": {
+      "type": "boolean"
+    },
+    "artifact_backed_claim_present": {
+      "type": "boolean"
+    },
+    "financial_advice_language_present": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "platform_id",
+    "requested_mode"
+  ]
+}

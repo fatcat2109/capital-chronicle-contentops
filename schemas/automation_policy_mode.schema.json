@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "mode_id": {
+      "type": "string",
+      "enum": [
+        "local_dry_run",
+        "mock_publish",
+        "sandbox_one_shot_live",
+        "supervised_live",
+        "approved_batch_live",
+        "scheduled_approved_live",
+        "autonomous_live"
+      ]
+    },
+    "env_read_allowed": {
+      "type": "boolean"
+    },
+    "env_file_read_allowed": {
+      "type": "boolean"
+    },
+    "network_allowed": {
+      "type": "boolean"
+    },
+    "live_post_allowed": {
+      "type": "boolean"
+    },
+    "scheduler_allowed": {
+      "type": "boolean"
+    },
+    "autonomous_allowed": {
+      "type": "boolean"
+    },
+    "approval_required": {
+      "type": "boolean"
+    },
+    "kill_switch_required": {
+      "type": "boolean"
+    },
+    "redaction_required": {
+      "type": "boolean"
+    },
+    "audit_required": {
+      "type": "boolean"
+    },
+    "exact_go_phrase_required": {
+      "type": "boolean"
+    },
+    "private_sandbox_required": {
+      "type": "boolean"
+    },
+    "idempotency_required": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "mode_id",
+    "env_read_allowed",
+    "env_file_read_allowed",
+    "network_allowed",
+    "live_post_allowed",
+    "scheduler_allowed",
+    "autonomous_allowed"
+  ]
+}

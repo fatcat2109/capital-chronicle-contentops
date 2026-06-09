@@ -1,0 +1,5 @@
+{
+  "platform_id": "telegram",
+  "requested_mode": "local_dry_run",
+  "scheduler_requested": true
+}

@@ -1,0 +1,15 @@
+{
+  "platform_id": "telegram",
+  "requested_mode": "sandbox_one_shot_live",
+  "authorization_phrase_present": true,
+  "credential_source": "process_env",
+  "target_identifier_committed": false,
+  "approval_state": true,
+  "kill_switch_state": true,
+  "redaction_state": true,
+  "audit_state": true,
+  "live_attempt_count": 1,
+  "public_target_requested": false,
+  "scheduler_requested": false,
+  "autonomous_requested": false
+}
