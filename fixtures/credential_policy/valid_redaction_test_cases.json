@@ -1,0 +1,26 @@
+{
+  "redaction_policy_id": "redact_policy_0082",
+  "secret_like_patterns": [
+    "sk-[a-zA-Z0-9]{20}",
+    "bot[0-9]+:[a-zA-Z0-9_-]{35}",
+    "bearer\\s+[a-zA-Z0-9_-]{16}"
+  ],
+  "replacement_token": "[REDACTED_SECRET]",
+  "audit_safe": true,
+  "blocks_unredacted_secret": true,
+  "fake_token_test_only": true,
+  "test_cases": [
+    {
+      "input_text": "The OpenAI secret key is sk-1234567890abcdefghij",
+      "expected_output": "The OpenAI secret key is [REDACTED_SECRET]"
+    },
+    {
+      "input_text": "Our Telegram Bot Token is bot123456:ABC-def_123456XYZ-789abc_MOCK_TOKEN",
+      "expected_output": "Our Telegram Bot Token is [REDACTED_SECRET]"
+    },
+    {
+      "input_text": "Header contains Bearer abcdef1234567890",
+      "expected_output": "Header contains [REDACTED_SECRET]"
+    }
+  ]
+}
