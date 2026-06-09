@@ -1,0 +1,30 @@
+{
+  "approval_packet": {
+    "approval_packet_id": "approval_rd_ds_003",
+    "rendered_packet_id": "rendered_packet_seed_ds_001",
+    "review_decision_id": "rd_ds_003",
+    "draft_id": "seed_ds_001_draft_generic_0",
+    "platform_family": "generic",
+    "approved_text": "- Missing inputs should stay visible, not get smoothed over.\n\nLimitations:\n- General process commentary.",
+    "limitations": ["General process commentary."],
+    "source_artifact_ids": [],
+    "is_general_process_content": true,
+    "content_type": "data_sufficiency",
+    "approval_status": "approved_manual_publish_prep",
+    "manual_publish_prep_ready": true,
+    "approval_scope": "manual_publish_prep_only",
+    "reviewer_id_placeholder": "operator_reviewer_1",
+    "approval_audit_trail": ["status:approved_manual_publish_prep"],
+    "public_postable": false,
+    "publish_allowed_now": false,
+    "platform_publish_allowed_now": false,
+    "live_execution_allowed_now": false,
+    "final_operator_check_required": true,
+    "blocked_reasons": []
+  },
+  "manual_record": {
+    "manual_publish_url": "https://operator-recorded.example/post/abc123",
+    "manual_publish_timestamp": "2026-01-02T00:00:00Z",
+    "manual_metrics": {"likes": 0, "note": "operator-entered placeholder"}
+  }
+}

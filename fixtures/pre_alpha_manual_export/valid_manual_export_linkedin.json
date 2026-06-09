@@ -1,0 +1,25 @@
+{
+  "approval_packet": {
+    "approval_packet_id": "approval_rd_macro_002",
+    "rendered_packet_id": "rendered_packet_seed_macro_001",
+    "review_decision_id": "rd_macro_002",
+    "draft_id": "seed_macro_001_draft_linkedin_0",
+    "platform_family": "linkedin",
+    "approved_text": "- One release rarely settles a macro question on its own.\n- Revisions, methodology, and context all matter.\n\nLimitations:\n- Educational and general; not investment advice.",
+    "limitations": ["Educational and general; not investment advice."],
+    "source_artifact_ids": [],
+    "is_general_process_content": true,
+    "content_type": "macro_education",
+    "approval_status": "approved_manual_publish_prep",
+    "manual_publish_prep_ready": true,
+    "approval_scope": "manual_publish_prep_only",
+    "reviewer_id_placeholder": "operator_reviewer_1",
+    "approval_audit_trail": ["status:approved_manual_publish_prep"],
+    "public_postable": false,
+    "publish_allowed_now": false,
+    "platform_publish_allowed_now": false,
+    "live_execution_allowed_now": false,
+    "final_operator_check_required": true,
+    "blocked_reasons": []
+  }
+}

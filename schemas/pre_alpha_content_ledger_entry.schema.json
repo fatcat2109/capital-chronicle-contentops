@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaContentLedgerEntry",
+  "description": "Local-only content ledger entry tracking the lifecycle of a pre-alpha content item for operator review/copy-paste tracking. NO API posting, scheduling, or metrics ingestion. manual_publish_url/timestamp/metrics stay null unless the operator manually records them. Never public-postable, never publish-now, never live.",
+  "type": "object",
+  "properties": {
+    "content_ledger_entry_id": { "type": "string" },
+    "manual_export_packet_id": { "type": "string" },
+    "approval_packet_id": { "type": "string" },
+    "draft_id": { "type": "string" },
+    "platform_family": {
+      "type": "string",
+      "enum": ["x", "linkedin", "threads", "newsletter", "generic"]
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "data_sufficiency",
+        "forecast_readiness",
+        "failure_forensics",
+        "build_in_public",
+        "macro_education",
+        "product_update",
+        "market_note"
+      ]
+    },
+    "source_artifact_ids": { "type": "array", "items": { "type": "string" } },
+    "is_general_process_content": { "type": "boolean" },
+    "lifecycle_status": {
+      "type": "string",
+      "enum": [
+        "draft_rendered",
+        "manual_reviewed",
+        "export_prepared",
+        "manually_published",
+        "blocked"
+      ]
+    },
+    "manual_publish_url": { "type": ["string", "null"] },
+    "manual_publish_timestamp": { "type": ["string", "null"] },
+    "manual_metrics": { "type": ["object", "null"] },
+    "public_postable": { "type": "boolean", "const": false },
+    "publish_allowed_now": { "type": "boolean", "const": false },
+    "platform_publish_allowed_now": { "type": "boolean", "const": false },
+    "live_execution_allowed_now": { "type": "boolean", "const": false },
+    "scheduler_allowed": { "type": "boolean", "const": false },
+    "created_at": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "audit_trail": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "content_ledger_entry_id",
+    "manual_export_packet_id",
+    "approval_packet_id",
+    "draft_id",
+    "lifecycle_status",
+    "manual_publish_url",
+    "manual_publish_timestamp",
+    "manual_metrics",
+    "public_postable",
+    "publish_allowed_now",
+    "platform_publish_allowed_now",
+    "live_execution_allowed_now",
+    "scheduler_allowed",
+    "created_at",
+    "updated_at",
+    "audit_trail"
+  ],
+  "additionalProperties": true
+}

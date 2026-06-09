@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaManualExportPacket",
+  "description": "Local-only manual export packet built from a clean 0098 approval packet. For operator review and manual copy/paste only. NEVER implies API posting, scheduling, metrics ingestion, or live execution. Never public-postable, never publish-now, never live.",
+  "type": "object",
+  "properties": {
+    "manual_export_packet_id": { "type": "string" },
+    "approval_packet_id": { "type": "string" },
+    "draft_id": { "type": "string" },
+    "platform_family": {
+      "type": "string",
+      "enum": ["x", "linkedin", "threads", "newsletter", "generic"]
+    },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "data_sufficiency",
+        "forecast_readiness",
+        "failure_forensics",
+        "build_in_public",
+        "macro_education",
+        "product_update",
+        "market_note"
+      ]
+    },
+    "export_status": {
+      "type": "string",
+      "enum": ["prepared_for_operator_review", "blocked"]
+    },
+    "export_text": { "type": "string" },
+    "export_format": {
+      "type": "string",
+      "enum": ["copy_paste_text", "newsletter_markdown", "generic_markdown"]
+    },
+    "source_artifact_ids": { "type": "array", "items": { "type": "string" } },
+    "is_general_process_content": { "type": "boolean" },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "manual_publish_only": { "type": "boolean", "const": true },
+    "final_operator_check_required": { "type": "boolean", "const": true },
+    "manual_copy_ready": { "type": "boolean" },
+    "public_postable": { "type": "boolean", "const": false },
+    "publish_allowed_now": { "type": "boolean", "const": false },
+    "platform_publish_allowed_now": { "type": "boolean", "const": false },
+    "live_execution_allowed_now": { "type": "boolean", "const": false },
+    "platform_api_call_allowed": { "type": "boolean", "const": false },
+    "scheduler_allowed": { "type": "boolean", "const": false },
+    "metrics_ingestion_allowed": { "type": "boolean", "const": false },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } },
+    "audit_refs": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "manual_export_packet_id",
+    "approval_packet_id",
+    "draft_id",
+    "export_status",
+    "export_format",
+    "manual_publish_only",
+    "final_operator_check_required",
+    "manual_copy_ready",
+    "public_postable",
+    "publish_allowed_now",
+    "platform_publish_allowed_now",
+    "live_execution_allowed_now",
+    "platform_api_call_allowed",
+    "scheduler_allowed",
+    "metrics_ingestion_allowed",
+    "blocked_reasons",
+    "audit_refs"
+  ],
+  "additionalProperties": true
+}

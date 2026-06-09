@@ -1,0 +1,25 @@
+{
+  "approval_packet": {
+    "approval_packet_id": "approval_invalid_foc_001",
+    "rendered_packet_id": "rendered_packet_seed_bip_001",
+    "review_decision_id": "rd_invalid_foc_001",
+    "draft_id": "seed_bip_001_draft_x_0",
+    "platform_family": "x",
+    "approved_text": "- Process note about building review gates.\n\nLimitations:\n- General process commentary.",
+    "limitations": ["General process commentary."],
+    "source_artifact_ids": [],
+    "is_general_process_content": true,
+    "content_type": "build_in_public",
+    "approval_status": "approved_manual_publish_prep",
+    "manual_publish_prep_ready": true,
+    "approval_scope": "manual_publish_prep_only",
+    "reviewer_id_placeholder": "operator_reviewer_1",
+    "approval_audit_trail": ["status:approved_manual_publish_prep"],
+    "public_postable": false,
+    "publish_allowed_now": false,
+    "platform_publish_allowed_now": false,
+    "live_execution_allowed_now": false,
+    "final_operator_check_required": false,
+    "blocked_reasons": []
+  }
+}
