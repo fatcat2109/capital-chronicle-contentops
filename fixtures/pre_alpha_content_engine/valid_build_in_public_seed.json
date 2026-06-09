@@ -1,0 +1,19 @@
+{
+  "seed_id": "seed_bip_001",
+  "created_at": "2026-01-01T00:00:00Z",
+  "content_type": "build_in_public",
+  "content_source_type": "general_process",
+  "is_general_process_content": true,
+  "title": "Why we are building a refusal mode before a forecast mode",
+  "key_points": [
+    "A serious research system needs the discipline to say evidence is not enough yet.",
+    "We are building review gates and guardrails before any public output.",
+    "Local-first and human-in-the-loop are deliberate design choices."
+  ],
+  "limitations": [
+    "This is product/process commentary, not a market view."
+  ],
+  "freshness_label": "evergreen",
+  "data_sufficiency_status": "not_applicable",
+  "target_platform_families": ["x", "linkedin"]
+}

@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaDraftCandidate",
+  "description": "Local-only draft candidate produced deterministically by the pre-alpha content engine (Task 0095). A draft candidate is review-only material for future MANUAL review. It is never public-postable, never publish-ready, and never posted. content_type market_note is held to stricter educational/general guardrails.",
+  "type": "object",
+  "properties": {
+    "draft_id": { "type": "string" },
+    "platform_family": {
+      "type": "string",
+      "enum": ["x", "linkedin", "threads", "newsletter", "generic"]
+    },
+    "hook": { "type": "string" },
+    "body": { "type": "string" },
+    "cta": { "type": "string" },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "data_sufficiency",
+        "forecast_readiness",
+        "failure_forensics",
+        "build_in_public",
+        "macro_education",
+        "product_update",
+        "market_note"
+      ]
+    },
+    "source_artifact_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "educational_only": { "type": "boolean" },
+    "public_postable": { "type": "boolean", "const": false },
+    "requires_manual_review": { "type": "boolean", "const": true }
+  },
+  "required": [
+    "draft_id",
+    "platform_family",
+    "hook",
+    "body",
+    "content_type",
+    "public_postable",
+    "requires_manual_review"
+  ],
+  "additionalProperties": true
+}

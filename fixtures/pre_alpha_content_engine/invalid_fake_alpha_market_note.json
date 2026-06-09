@@ -1,0 +1,16 @@
+{
+  "seed_id": "seed_invalid_fake_alpha_001",
+  "created_at": "2026-01-01T00:00:00Z",
+  "content_type": "market_note",
+  "content_source_type": "artifact_backed",
+  "is_general_process_content": false,
+  "title": "Capital Chronicle alpha says equities will rally into year end",
+  "key_points": [
+    "Our alpha output confirms a confident forecast readiness signal.",
+    "The model predicts a durable move higher."
+  ],
+  "limitations": [],
+  "freshness_label": "",
+  "data_sufficiency_status": "sufficient",
+  "target_platform_families": ["x"]
+}

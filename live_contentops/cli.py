@@ -564,6 +564,13 @@ def telegram_live_precheck_summary():
     }
     print(json.dumps(summary, indent=2))
 
+def pre_alpha_content_engine_summary():
+    import json
+    from live_contentops import pre_alpha_content_engine
+    print(json.dumps(pre_alpha_content_engine.summary(), indent=2))
+
+
+
 def telegram_second_sandbox_dry_run_prep_summary():
     import json
     summary = {
@@ -711,6 +718,7 @@ COMMANDS = {
     "telegram-supervised-post-queue-summary": telegram_supervised_post_queue_summary,
     "telegram-one-shot-execution-packet-summary": telegram_one_shot_execution_packet_summary,
     "telegram-one-shot-go-gate-summary": telegram_one_shot_go_gate_summary,
+    "pre-alpha-content-engine-summary": pre_alpha_content_engine_summary,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,

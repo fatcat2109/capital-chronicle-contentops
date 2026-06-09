@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaEditorialPacket",
+  "description": "Local-only editorial packet produced deterministically by the pre-alpha content engine (Task 0095) from a single content seed. The packet bundles draft candidates for future MANUAL review. It is never public-postable, never publish-ready, never posted, and never claims forecast readiness unless explicitly supported by a source artifact flag.",
+  "type": "object",
+  "properties": {
+    "editorial_packet_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "input_seed_id": { "type": "string" },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "data_sufficiency",
+        "forecast_readiness",
+        "failure_forensics",
+        "build_in_public",
+        "macro_education",
+        "product_update",
+        "market_note"
+      ]
+    },
+    "content_source_type": {
+      "type": "string",
+      "enum": ["general_process", "product_update", "artifact_backed"]
+    },
+    "source_artifact_ids": { "type": "array", "items": { "type": "string" } },
+    "is_general_process_content": { "type": "boolean" },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "freshness_label": { "type": "string" },
+    "data_sufficiency_status": { "type": "string" },
+    "forecast_readiness_claim_allowed": { "type": "boolean", "const": false },
+    "draft_candidates": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "review_required": { "type": "boolean", "const": true },
+    "manual_publish_only": { "type": "boolean", "const": true },
+    "platform_publish_allowed_now": { "type": "boolean", "const": false },
+    "live_execution_allowed_now": { "type": "boolean", "const": false },
+    "guardrail_status": {
+      "type": "string",
+      "enum": ["pass", "blocked"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "editorial_packet_id",
+    "input_seed_id",
+    "content_type",
+    "content_source_type",
+    "is_general_process_content",
+    "draft_candidates",
+    "review_required",
+    "manual_publish_only",
+    "platform_publish_allowed_now",
+    "live_execution_allowed_now",
+    "guardrail_status",
+    "blocked_reasons"
+  ],
+  "additionalProperties": true
+}

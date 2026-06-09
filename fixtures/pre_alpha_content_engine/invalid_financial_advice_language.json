@@ -1,0 +1,18 @@
+{
+  "seed_id": "seed_invalid_advice_001",
+  "created_at": "2026-01-01T00:00:00Z",
+  "content_type": "macro_education",
+  "content_source_type": "general_process",
+  "is_general_process_content": true,
+  "title": "How to trade the next CPI print",
+  "key_points": [
+    "Buy equities before the release and sell into strength afterward.",
+    "Use a tight stop and size your position for a leveraged long."
+  ],
+  "limitations": [
+    "Educational framing."
+  ],
+  "freshness_label": "evergreen",
+  "data_sufficiency_status": "not_applicable",
+  "target_platform_families": ["x"]
+}

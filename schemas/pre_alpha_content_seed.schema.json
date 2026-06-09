@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaContentSeed",
+  "description": "Local-only safe input seed for the pre-alpha content engine (Task 0095). A seed is operator/fixture-supplied source material from which the engine deterministically builds an editorial packet with draft candidates. The engine performs NO network/provider/LLM/platform/credential access, NEVER posts, NEVER fetches, and NEVER produces public-postable or publish-ready output.",
+  "type": "object",
+  "properties": {
+    "seed_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "content_type": {
+      "type": "string",
+      "enum": [
+        "data_sufficiency",
+        "forecast_readiness",
+        "failure_forensics",
+        "build_in_public",
+        "macro_education",
+        "product_update",
+        "market_note"
+      ]
+    },
+    "content_source_type": {
+      "type": "string",
+      "enum": [
+        "general_process",
+        "product_update",
+        "artifact_backed"
+      ]
+    },
+    "is_general_process_content": { "type": "boolean" },
+    "source_artifact_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "title": { "type": "string" },
+    "key_points": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "freshness_label": { "type": "string" },
+    "data_sufficiency_status": {
+      "type": "string",
+      "enum": ["sufficient", "partial", "insufficient", "proxy_only", "missing", "not_applicable"]
+    },
+    "forecast_readiness_claim_requested": { "type": "boolean" },
+    "forecast_readiness_supported_by_source": { "type": "boolean" },
+    "target_platform_families": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["x", "linkedin", "threads", "newsletter", "generic"]
+      }
+    }
+  },
+  "required": [
+    "seed_id",
+    "content_type",
+    "content_source_type",
+    "is_general_process_content",
+    "title",
+    "key_points"
+  ],
+  "additionalProperties": true
+}
