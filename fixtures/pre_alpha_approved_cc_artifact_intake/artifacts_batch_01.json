@@ -1,0 +1,107 @@
+[
+  {
+    "artifact_type": "economic_report_summary",
+    "source_artifact_id": "cc_art_101",
+    "source_system": "cc_core_analytics",
+    "source_export_timestamp": "2026-06-10T00:00:00Z",
+    "operator_approval_ref": "op_app_001",
+    "approval_status": "approved",
+    "content_type": "market_note",
+    "freshness": ["Data as of June 9, 2026"],
+    "limitations": ["Subject to revision"],
+    "data_sufficiency_status": "sufficient",
+    "forecast_readiness_status": "not_forecastable",
+    "dqr_status": "pass",
+    "missing_data_flags": [],
+    "proxy_data_flags": [],
+    "degraded_data_flags": [],
+    "raw_vendor_data_included": false,
+    "redistribution_allowed": false,
+    "public_postable": false,
+    "auto_publish": false,
+    "platform_api_payload_generated": false
+  },
+  {
+    "artifact_type": "yield_curve_analysis",
+    "source_artifact_id": "cc_art_102",
+    "operator_approval_ref": "op_app_002",
+    "approval_status": "pending",
+    "content_type": "deep_dive",
+    "freshness": ["Data as of June 9, 2026"],
+    "limitations": ["Educational only"]
+  },
+  {
+    "artifact_type": "missing_id_artifact",
+    "operator_approval_ref": "op_app_003",
+    "approval_status": "approved",
+    "content_type": "macro_education",
+    "freshness": ["2026 Q1"],
+    "limitations": ["Stale data"]
+  },
+  {
+    "source_artifact_id": "cc_art_104",
+    "operator_approval_ref": "op_app_004",
+    "approval_status": "approved",
+    "content_type": "macro_education",
+    "freshness": [],
+    "limitations": []
+  },
+  {
+    "source_artifact_id": "cc_art_105",
+    "operator_approval_ref": "op_app_005",
+    "approval_status": "approved",
+    "content_type": "market_note",
+    "freshness": ["2026 Q1"],
+    "limitations": ["Educational"],
+    "data_sufficiency_status": "blocked",
+    "forecast_readiness_status": "confident_forecast",
+    "dqr_status": "blocked"
+  },
+  {
+    "source_artifact_id": "cc_art_106",
+    "operator_approval_ref": "op_app_006",
+    "approval_status": "approved",
+    "content_type": "data_primer",
+    "freshness": ["2026"],
+    "limitations": ["proxy_used", "has_proxy"],
+    "proxy_data_flags": []
+  },
+  {
+    "source_artifact_id": "cc_art_107",
+    "operator_approval_ref": "op_app_007",
+    "approval_status": "approved",
+    "content_type": "market_note",
+    "freshness": ["2026"],
+    "limitations": ["missing_source", "missing data included"],
+    "degraded_data_flags": [],
+    "missing_data_flags": []
+  },
+  {
+    "source_artifact_id": "cc_art_108",
+    "operator_approval_ref": "op_app_008",
+    "approval_status": "approved",
+    "content_type": "deep_dive",
+    "freshness": ["2026"],
+    "limitations": ["None"],
+    "raw_vendor_data_included": true,
+    "redistribution_allowed": true
+  },
+  {
+    "source_artifact_id": "cc_art_109",
+    "operator_approval_ref": "op_app_009",
+    "approval_status": "approved",
+    "content_type": "market_note",
+    "freshness": ["2026"],
+    "limitations": ["None"],
+    "text": "We recommend to \"buy\" this."
+  },
+  {
+    "source_artifact_id": "cc_art_110",
+    "operator_approval_ref": "op_app_010",
+    "approval_status": "approved",
+    "content_type": "market_note",
+    "freshness": ["2026"],
+    "limitations": ["None"],
+    "public_postable": true
+  }
+]

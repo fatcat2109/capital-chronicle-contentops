@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Pre-Alpha Approved Capital Chronicle Artifact Intake Packet",
+  "description": "Deterministic intake packet for operator-approved Capital Chronicle artifacts.",
+  "type": "object",
+  "properties": {
+    "approved_cc_artifact_intake_packet_id": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "source_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "operator_supplied_artifact_records": { "type": "integer" },
+    "accepted_artifact_count": { "type": "integer" },
+    "blocked_artifact_count": { "type": "integer" },
+    "accepted_artifacts": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/intake_artifact" }
+    },
+    "blocked_artifacts": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/intake_artifact" }
+    },
+    "hard_boundary_flags": {
+      "type": "object",
+      "properties": {
+        "local_only": { "type": "boolean", "const": true },
+        "operator_supplied_artifacts_only": { "type": "boolean", "const": true },
+        "approved_artifact_intake_only": { "type": "boolean", "const": true },
+        "manual_review_required": { "type": "boolean", "const": true },
+        "operator_final_check_required": { "type": "boolean", "const": true },
+        "fixture_only": { "type": "boolean" },
+        "public_postable": { "type": "boolean", "const": false },
+        "auto_approval": { "type": "boolean", "const": false },
+        "auto_publish": { "type": "boolean", "const": false },
+        "platform_api_call_allowed_now": { "type": "boolean", "const": false },
+        "provider_call_allowed_now": { "type": "boolean", "const": false },
+        "network_call_allowed_now": { "type": "boolean", "const": false },
+        "scheduler_allowed": { "type": "boolean", "const": false },
+        "scraping_allowed": { "type": "boolean", "const": false },
+        "automatic_metrics_ingestion_allowed": { "type": "boolean", "const": false },
+        "credential_or_env_read_allowed": { "type": "boolean", "const": false },
+        "live_execution_allowed_now": { "type": "boolean", "const": false },
+        "core_repo_read_allowed_now": { "type": "boolean", "const": false },
+        "core_repo_mutation_allowed_now": { "type": "boolean", "const": false }
+      },
+      "required": [
+        "local_only", "operator_supplied_artifacts_only", "approved_artifact_intake_only",
+        "manual_review_required", "operator_final_check_required",
+        "public_postable", "auto_approval", "auto_publish", "platform_api_call_allowed_now",
+        "provider_call_allowed_now", "network_call_allowed_now", "scheduler_allowed", "scraping_allowed",
+        "automatic_metrics_ingestion_allowed", "credential_or_env_read_allowed",
+        "live_execution_allowed_now", "core_repo_read_allowed_now", "core_repo_mutation_allowed_now"
+      ]
+    },
+    "safety_audit": {
+      "type": "object",
+      "properties": {
+        "unsafe_flag_count": { "type": "integer", "maximum": 0 }
+      },
+      "required": ["unsafe_flag_count"]
+    },
+    "packet_status": { "type": "string", "enum": ["pass", "blocked"] }
+  },
+  "required": [
+    "approved_cc_artifact_intake_packet_id",
+    "created_at",
+    "source_refs",
+    "operator_supplied_artifact_records",
+    "accepted_artifact_count",
+    "blocked_artifact_count",
+    "accepted_artifacts",
+    "blocked_artifacts",
+    "hard_boundary_flags",
+    "safety_audit",
+    "packet_status"
+  ],
+  "definitions": {
+    "intake_artifact": {
+      "type": "object",
+      "properties": {
+        "artifact_type": { "type": "string" },
+        "source_artifact_id": { "type": "string" },
+        "source_system": { "type": "string" },
+        "source_export_timestamp": { "type": "string" },
+        "operator_approval_ref": { "type": "string" },
+        "approval_status": { "type": "string" },
+        "content_type": { "type": "string" },
+        "freshness": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "limitations": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "data_sufficiency_status": { "type": "string" },
+        "forecast_readiness_status": { "type": "string" },
+        "dqr_status": { "type": "string" },
+        "missing_data_flags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "proxy_data_flags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "degraded_data_flags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "raw_vendor_data_included": { "type": "boolean" },
+        "redistribution_allowed": { "type": "boolean" },
+        "public_postable": { "type": "boolean", "const": false },
+        "auto_publish": { "type": "boolean", "const": false },
+        "platform_api_payload_generated": { "type": "boolean", "const": false },
+        "blocked_reasons": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "packet_status": { "type": "string", "enum": ["accepted_for_local_contentops_review", "blocked"] }
+      },
+      "required": [
+        "source_artifact_id",
+        "operator_approval_ref",
+        "approval_status",
+        "content_type",
+        "freshness",
+        "limitations",
+        "public_postable",
+        "auto_publish",
+        "platform_api_payload_generated",
+        "packet_status"
+      ]
+    }
+  }
+}

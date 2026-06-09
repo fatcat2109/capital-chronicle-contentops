@@ -754,6 +754,11 @@ def pre_alpha_daily_operator_markdown_export():
     if not is_safe:
         sys.exit(1)
 
+def pre_alpha_approved_cc_artifact_intake_summary():
+    import json
+    from live_contentops import pre_alpha_approved_cc_artifact_intake
+    print(json.dumps(pre_alpha_approved_cc_artifact_intake.summary(), indent=2))
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -762,7 +767,8 @@ def operator_command_summary():
         "pre-alpha-daily-operator-markdown-export",
         "pre-alpha-daily-operator-content-run-summary",
         "pre-alpha-platform-manual-templates-summary",
-        "pre-alpha-manual-publish-record-summary"
+        "pre-alpha-manual-publish-record-summary",
+        "pre-alpha-approved-cc-artifact-intake-summary"
     ]
     optional_cmds = [
         "pre-alpha-manual-performance-record-summary",
@@ -879,6 +885,7 @@ COMMANDS = {
     "operator-command-summary": operator_command_summary,
     "pre-alpha-manual-performance-record-summary": pre_alpha_manual_performance_record_summary,
     "pre-alpha-content-performance-review-summary": pre_alpha_content_performance_review_summary,
+    "pre-alpha-approved-cc-artifact-intake-summary": pre_alpha_approved_cc_artifact_intake_summary,
 }
 
 def main():
