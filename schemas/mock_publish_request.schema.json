@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MockPublishRequest",
+  "description": "Local-only mock publish request (Task 0080). Mock transport only; never real posting.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "request_id", "source_post_id", "platform_id", "dry_run_payload_id",
+    "approval_id", "kill_switch_id", "mock_only", "dry_run",
+    "not_public_postable", "live_posting_enabled", "credential_accessed",
+    "network_accessed"
+  ],
+  "properties": {
+    "request_id": { "type": "string", "minLength": 1 },
+    "source_post_id": { "type": "string", "minLength": 1 },
+    "platform_id": { "type": "string", "minLength": 1 },
+    "dry_run_payload_id": { "type": "string", "minLength": 1 },
+    "approval_id": { "type": "string", "minLength": 1 },
+    "kill_switch_id": { "type": "string", "minLength": 1 },
+    "mock_only": { "type": "boolean", "const": true },
+    "dry_run": { "type": "boolean", "const": true },
+    "not_public_postable": { "type": "boolean", "const": true },
+    "live_posting_enabled": { "type": "boolean", "const": false },
+    "credential_accessed": { "type": "boolean", "const": false },
+    "network_accessed": { "type": "boolean", "const": false }
+  }
+}

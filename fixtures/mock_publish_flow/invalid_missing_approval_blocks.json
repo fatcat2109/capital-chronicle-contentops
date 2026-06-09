@@ -1,0 +1,15 @@
+{
+  "note": "Missing/absent approval must block mock publish. No approval_id present.",
+  "approval_record": null,
+  "kill_switch": {
+    "kill_switch_id": "publish_kill_switch_mock_permissive",
+    "enabled": true,
+    "blocks_mock_publish": false,
+    "blocks_live_publish": true,
+    "reason": "mock permissive",
+    "updated_timestamp_utc": "2026-06-09T00:00:00Z",
+    "updated_by_operator_label": "operator_jim",
+    "fail_closed": true
+  },
+  "expected_status": "blocked"
+}

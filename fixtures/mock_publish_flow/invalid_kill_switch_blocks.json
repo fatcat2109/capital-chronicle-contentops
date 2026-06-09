@@ -1,0 +1,15 @@
+{
+  "note": "Default kill switch (disabled, blocks mock) must block mock publish.",
+  "approval_record_ref": "fixtures/approval_audit/valid_approval_for_mock_publish.json",
+  "kill_switch": {
+    "kill_switch_id": "publish_kill_switch_default",
+    "enabled": false,
+    "blocks_mock_publish": true,
+    "blocks_live_publish": true,
+    "reason": "default safe state: publishing paths blocked until operator enables",
+    "updated_timestamp_utc": "1970-01-01T00:00:00Z",
+    "updated_by_operator_label": "system_default",
+    "fail_closed": true
+  },
+  "expected_status": "blocked"
+}

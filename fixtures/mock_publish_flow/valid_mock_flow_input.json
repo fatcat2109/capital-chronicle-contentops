@@ -1,0 +1,21 @@
+{
+  "note": "Local mock-flow input. References sibling fixtures by path; mock-only, not public postable.",
+  "canonical_social_post_ref": "fixtures/platform_dry_runs/valid_canonical_social_post.json",
+  "approval_record_ref": "fixtures/approval_audit/valid_approval_for_mock_publish.json",
+  "kill_switch": {
+    "kill_switch_id": "publish_kill_switch_mock_permissive",
+    "enabled": true,
+    "blocks_mock_publish": false,
+    "blocks_live_publish": true,
+    "reason": "operator enabled mock publish for local dry-run only",
+    "updated_timestamp_utc": "2026-06-09T00:00:00Z",
+    "updated_by_operator_label": "operator_jim",
+    "fail_closed": true
+  },
+  "mock_only": true,
+  "dry_run": true,
+  "not_public_postable": true,
+  "live_posting_enabled": false,
+  "network_accessed": false,
+  "credential_accessed": false
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MockPublishResult",
+  "description": "Local-only mock publish result (Task 0080). Mock transport only; never real posting.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "result_id", "request_id", "platform_id", "status",
+    "warnings", "blocking_errors",
+    "live_posting_enabled", "credential_accessed", "network_accessed"
+  ],
+  "properties": {
+    "result_id": { "type": "string", "minLength": 1 },
+    "request_id": { "type": "string", "minLength": 1 },
+    "platform_id": { "type": "string", "minLength": 1 },
+    "status": { "type": "string", "enum": ["mock_published", "blocked"] },
+    "mock_post_url": { "type": ["string", "null"] },
+    "mock_platform_post_id": { "type": ["string", "null"] },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "blocking_errors": { "type": "array", "items": { "type": "string" } },
+    "live_posting_enabled": { "type": "boolean", "const": false },
+    "credential_accessed": { "type": "boolean", "const": false },
+    "network_accessed": { "type": "boolean", "const": false }
+  }
+}

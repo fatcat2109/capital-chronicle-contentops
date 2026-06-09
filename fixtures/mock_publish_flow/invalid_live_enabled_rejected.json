@@ -1,0 +1,30 @@
+{
+  "note": "An approval/kill-switch that tries to enable live posting must be rejected by the contracts. Live publish is impossible in this task regardless.",
+  "approval_record": {
+    "approval_id": "appr_live_bad",
+    "source_post_id": "post_0001",
+    "source_draft_packet_id": "draft_pkt_0001",
+    "platform_ids": ["telegram"],
+    "approval_state": "operator_approved_for_live_publish_later",
+    "operator_label": "operator_jim",
+    "approval_timestamp_utc": "2026-06-09T00:00:00Z",
+    "scope": "future-intent only; not live now",
+    "limitations": "Live remains disabled.",
+    "required_manual_review": true,
+    "live_posting_enabled": false,
+    "credential_accessed": false,
+    "network_accessed": false
+  },
+  "kill_switch": {
+    "kill_switch_id": "publish_kill_switch_bad_live",
+    "enabled": true,
+    "blocks_mock_publish": false,
+    "blocks_live_publish": false,
+    "reason": "attempt to unblock live (must be rejected by validator)",
+    "updated_timestamp_utc": "2026-06-09T00:00:00Z",
+    "updated_by_operator_label": "operator_jim",
+    "fail_closed": true
+  },
+  "expected_status": "blocked",
+  "expected_live_proceed_allowed": false
+}
