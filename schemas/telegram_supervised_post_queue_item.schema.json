@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "queue_item_id": {
+      "type": "string"
+    },
+    "platform_id": {
+      "type": "string",
+      "enum": [
+        "telegram"
+      ]
+    },
+    "queue_status": {
+      "type": "string",
+      "enum": [
+        "PENDING",
+        "APPROVED",
+        "BLOCKED",
+        "DUPLICATE",
+        "SENT"
+      ]
+    },
+    "content_source_type": {
+      "type": "string"
+    },
+    "post_text": {
+      "type": "string"
+    },
+    "content_hash": {
+      "type": "string"
+    },
+    "idempotency_key": {
+      "type": "string"
+    },
+    "duplicate_of_queue_item_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "target_channel_policy": {
+      "type": "string"
+    },
+    "target_channel_id_present": {
+      "type": "boolean"
+    },
+    "real_channel_id_committed": {
+      "type": "boolean"
+    },
+    "public_channel_target": {
+      "type": "boolean"
+    },
+    "public_postable": {
+      "type": "boolean"
+    },
+    "publish_ready": {
+      "type": "boolean"
+    },
+    "live_execution_allowed_now": {
+      "type": "boolean"
+    },
+    "credential_accessed_by_repo": {
+      "type": "boolean"
+    },
+    "env_read_performed": {
+      "type": "boolean"
+    },
+    "network_accessed": {
+      "type": "boolean"
+    },
+    "telegram_api_called": {
+      "type": "boolean"
+    },
+    "live_post_sent": {
+      "type": "boolean"
+    },
+    "scheduling_enabled": {
+      "type": "boolean"
+    },
+    "replies_or_dms_enabled": {
+      "type": "boolean"
+    },
+    "scraping_enabled": {
+      "type": "boolean"
+    },
+    "metrics_fetched": {
+      "type": "boolean"
+    },
+    "approval_required": {
+      "type": "boolean"
+    },
+    "kill_switch_required": {
+      "type": "boolean"
+    },
+    "redaction_required": {
+      "type": "boolean"
+    },
+    "manual_operator_final_check_required": {
+      "type": "boolean"
+    },
+    "audit_preview_redacted": {
+      "type": "boolean"
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "queue_item_id",
+    "platform_id",
+    "post_text",
+    "approval_required",
+    "kill_switch_required",
+    "redaction_required",
+    "manual_operator_final_check_required"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "items": [
+    {
+      "queue_item_id": "item-123",
+      "platform_id": "telegram",
+      "queue_status": "PENDING",
+      "content_source_type": "mock_report",
+      "post_text": "Sample valid dry run content",
+      "content_hash": "bb3547e532cf89a9d31423a2ade214528b760c4621024e26bd226fcd5c1043a0",
+      "idempotency_key": "telegram-bb3547e532cf89a9d31423a2ade214528b760c4621024e26bd226fcd5c1043a0",
+      "duplicate_of_queue_item_id": null,
+      "target_channel_policy": "sandbox_only",
+      "target_channel_id_present": false,
+      "real_channel_id_committed": false,
+      "public_channel_target": false,
+      "public_postable": false,
+      "publish_ready": false,
+      "live_execution_allowed_now": true,
+      "credential_accessed_by_repo": false,
+      "env_read_performed": false,
+      "network_accessed": false,
+      "telegram_api_called": false,
+      "live_post_sent": false,
+      "scheduling_enabled": false,
+      "replies_or_dms_enabled": false,
+      "scraping_enabled": false,
+      "metrics_fetched": false,
+      "approval_required": true,
+      "kill_switch_required": true,
+      "redaction_required": true,
+      "manual_operator_final_check_required": true,
+      "audit_preview_redacted": true,
+      "limitations": []
+    }
+  ]
+}

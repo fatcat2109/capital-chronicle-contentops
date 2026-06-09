@@ -567,6 +567,24 @@ def automation_policy_modes_summary():
     }
     print(json.dumps(summary, indent=2))
 
+
+def telegram_supervised_post_queue_summary():
+    import json
+    summary = {
+        "status": "telegram supervised post queue dry-run active",
+        "local_only": True,
+        "design_only": True,
+        "active_schemas": 2,
+        "active_validators": 1,
+        "live_capability_exposed": False,
+        "network_call_made": False,
+        "credential_read": False,
+        "duplicate_detection": "ACTIVE",
+        "idempotency_enforcement": "ACTIVE",
+        "public_channel_live_status": "BLOCKED"
+    }
+    print(json.dumps(summary, indent=2))
+
 COMMANDS = {
     "status": print_status,
     "contracts-summary": contracts_summary,
@@ -621,6 +639,7 @@ COMMANDS = {
     "telegram-live-pilot-design-summary": telegram_live_pilot_design_summary,
     "telegram-live-pilot-execute": telegram_live_pilot_execute,
     "automation-policy-modes-summary": automation_policy_modes_summary,
+    "telegram-supervised-post-queue-summary": telegram_supervised_post_queue_summary,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,
