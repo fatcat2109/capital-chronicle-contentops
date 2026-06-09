@@ -1,0 +1,86 @@
+{
+  "library_id": "lib_pre_alpha_001",
+  "created_at": "2026-01-01T00:00:00Z",
+  "description": "Safe pre-alpha seed library: general/process/educational seeds only. No fake alpha, no public market claims.",
+  "seeds": [
+    {
+      "seed_id": "seed_macro_edu_001",
+      "content_zone": "macro_education",
+      "content_type": "macro_education",
+      "content_source_type": "general_process",
+      "is_general_process_content": true,
+      "intended_platforms": ["x", "linkedin", "newsletter"],
+      "audience": "Macro-curious professionals and serious retail readers.",
+      "thesis_or_angle": "A single data print is not a regime model.",
+      "title": "Why one CPI print is not a forecast",
+      "key_points": [
+        "A single data release rarely settles a macro thesis.",
+        "Revisions, base effects, and cross-asset confirmation all matter.",
+        "Observation, thesis, and actionable conclusion are different things."
+      ],
+      "limitations": [
+        "Educational and general; not investment advice."
+      ],
+      "freshness_label": "evergreen",
+      "data_sufficiency_status": "not_applicable"
+    },
+    {
+      "seed_id": "seed_build_in_public_001",
+      "content_zone": "build_in_public",
+      "content_type": "build_in_public",
+      "content_source_type": "general_process",
+      "is_general_process_content": true,
+      "intended_platforms": ["x", "linkedin"],
+      "audience": "Founders and builders who value evidence discipline.",
+      "thesis_or_angle": "Build the refusal mode before the forecast.",
+      "title": "Building review gates before we build a forecast",
+      "key_points": [
+        "We wire guardrails and human review before any public output exists.",
+        "A serious research system needs a refusal mode.",
+        "Local-first and human-in-the-loop are deliberate choices."
+      ],
+      "limitations": [
+        "Product and process commentary, not a market view."
+      ],
+      "freshness_label": "evergreen",
+      "data_sufficiency_status": "not_applicable"
+    },
+    {
+      "seed_id": "seed_data_sufficiency_001",
+      "content_zone": "data_sufficiency",
+      "content_type": "data_sufficiency",
+      "content_source_type": "general_process",
+      "is_general_process_content": true,
+      "intended_platforms": ["linkedin", "newsletter"],
+      "audience": "Readers who want to understand evidence thresholds.",
+      "thesis_or_angle": "Missing stays missing; proxy is not official truth.",
+      "title": "What has to be true before a forecast is worth drafting",
+      "key_points": [
+        "Confidence is invalid if required inputs are absent.",
+        "Proxy-only data should be labeled, not hidden.",
+        "Forecast readiness is a gate, not a marketing badge."
+      ],
+      "limitations": [
+        "General methodology discussion; no proprietary research output exists yet."
+      ],
+      "freshness_label": "evergreen",
+      "data_sufficiency_status": "not_applicable"
+    },
+    {
+      "seed_id": "seed_blocked_signal_001",
+      "content_zone": "macro_education",
+      "content_type": "market_note",
+      "content_source_type": "general_process",
+      "is_general_process_content": true,
+      "intended_platforms": ["x"],
+      "audience": "n/a",
+      "thesis_or_angle": "unsafe example",
+      "title": "S&P 5000 buy signal before the rally",
+      "key_points": [
+        "Our model says buy now and target a 12% gain."
+      ],
+      "limitations": [],
+      "data_sufficiency_status": "missing"
+    }
+  ]
+}

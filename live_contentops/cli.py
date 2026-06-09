@@ -600,6 +600,12 @@ def pre_alpha_pipeline_demo_summary():
     print(json.dumps(pre_alpha_pipeline_demo.summary(), indent=2))
 
 
+def content_seed_calendar_summary():
+    import json
+    from live_contentops import pre_alpha_seed_library
+    print(json.dumps(pre_alpha_seed_library.summary(), indent=2))
+
+
 
 def telegram_second_sandbox_dry_run_prep_summary():
     import json
@@ -754,6 +760,7 @@ COMMANDS = {
     "pre-alpha-manual-review-summary": pre_alpha_manual_review_summary,
     "pre-alpha-manual-export-summary": pre_alpha_manual_export_summary,
     "pre-alpha-pipeline-demo-summary": pre_alpha_pipeline_demo_summary,
+    "content-seed-calendar-summary": content_seed_calendar_summary,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,

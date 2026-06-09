@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PreAlphaEditorialCalendarPlan",
+  "description": "Local-only editorial calendar/planner for the pre-alpha content engine (Task 0103). A plan is deterministic and fixture-driven; it sequences SAFE/reviewable seeds into planned slots. It performs NO network/provider/LLM/platform/credential access, NEVER posts, NEVER schedules live, and defaults every item to not_published/manual_only with null metrics. Blocked seeds are preserved as blocked items, never silently dropped.",
+  "type": "object",
+  "properties": {
+    "calendar_plan_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "source_library_id": { "type": "string" },
+    "planning_window": {
+      "type": "object",
+      "properties": {
+        "start_date": { "type": "string" },
+        "end_date": { "type": "string" },
+        "cadence": {
+          "type": "string",
+          "enum": ["daily", "weekly", "biweekly", "monthly", "adhoc"]
+        }
+      },
+      "required": ["start_date", "end_date", "cadence"],
+      "additionalProperties": true
+    },
+    "planned_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "planned_item_id": { "type": "string" },
+          "seed_id": { "type": "string" },
+          "content_zone": { "type": "string" },
+          "content_type": { "type": "string" },
+          "intended_platforms": { "type": "array", "items": { "type": "string" } },
+          "slot_index": { "type": "integer" },
+          "intended_day_or_slot": { "type": "string" },
+          "review_status": {
+            "type": "string",
+            "enum": ["needs_manual_review", "blocked"]
+          },
+          "publish_status": {
+            "type": "string",
+            "enum": ["not_published", "manual_only"]
+          },
+          "blocked_reasons": { "type": "array", "items": { "type": "string" } },
+          "manual_publish_url": { "type": ["string", "null"] },
+          "manual_publish_timestamp": { "type": ["string", "null"] },
+          "manual_metrics": { "type": ["object", "null"] }
+        },
+        "required": [
+          "planned_item_id",
+          "seed_id",
+          "content_zone",
+          "review_status",
+          "publish_status"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "blocked_items": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "local_only": { "type": "boolean" },
+    "manual_publish_only": { "type": "boolean" },
+    "platform_publish_allowed_now": { "type": "boolean" },
+    "live_execution_allowed_now": { "type": "boolean" },
+    "scheduler_allowed": { "type": "boolean" },
+    "metrics_ingestion_allowed": { "type": "boolean" }
+  },
+  "required": ["calendar_plan_id", "planning_window", "planned_items"],
+  "additionalProperties": true
+}
