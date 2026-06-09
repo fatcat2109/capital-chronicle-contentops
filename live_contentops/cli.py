@@ -548,6 +548,22 @@ def telegram_live_pilot_execute():
 
 
 
+def telegram_live_precheck_summary():
+    import json
+    summary = {
+        "status": "telegram live precheck active",
+        "local_only": True,
+        "design_only": True,
+        "active_schemas": 1,
+        "active_validators": 1,
+        "live_capability_exposed": False,
+        "network_call_made": False,
+        "credential_read": False,
+        "process_env_only": "ACTIVE",
+        "no_wrapper_policy": "ACTIVE"
+    }
+    print(json.dumps(summary, indent=2))
+
 def automation_policy_modes_summary():
     import json
     summary = {
@@ -673,6 +689,7 @@ COMMANDS = {
     "alpha-wait-state-summary": alpha_wait_state_summary,
     "telegram-live-pilot-design-summary": telegram_live_pilot_design_summary,
     "telegram-live-pilot-execute": telegram_live_pilot_execute,
+    "telegram-live-precheck-summary": telegram_live_precheck_summary,
     "automation-policy-modes-summary": automation_policy_modes_summary,
     "telegram-supervised-post-queue-summary": telegram_supervised_post_queue_summary,
     "telegram-one-shot-execution-packet-summary": telegram_one_shot_execution_packet_summary,

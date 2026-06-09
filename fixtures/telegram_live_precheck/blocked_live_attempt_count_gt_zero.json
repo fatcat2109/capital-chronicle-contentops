@@ -1,0 +1,7 @@
+{
+  "exact_operator_go_present": true,
+  "process_env_variables_present": true,
+  "untracked_env_file_present": false,
+  "wrapper_script_requested": false,
+  "live_attempt_count": 1
+}

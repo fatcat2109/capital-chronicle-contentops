@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Telegram Live Precheck",
+  "type": "object",
+  "properties": {
+    "exact_operator_go_present": {
+      "type": "boolean",
+      "description": "Must be true. Operator must exactly state their approval."
+    },
+    "process_env_variables_present": {
+      "type": "boolean",
+      "description": "Must be true. Required TELEGRAM_BOT_TOKEN and TEST_TELEGRAM_CHANNEL must exist in env."
+    },
+    "untracked_env_file_present": {
+      "type": "boolean",
+      "description": "Can be true or false. Indicates if an untracked .env file exists locally without reading it."
+    },
+    "wrapper_script_requested": {
+      "type": "boolean",
+      "description": "Must be false. Using ad-hoc wrapper scripts is strictly forbidden."
+    },
+    "live_attempt_count": {
+      "type": "integer",
+      "description": "Must be exactly 0. Retries require explicit reset and new operator approval."
+    }
+  },
+  "required": [
+    "exact_operator_go_present",
+    "process_env_variables_present",
+    "untracked_env_file_present",
+    "wrapper_script_requested",
+    "live_attempt_count"
+  ],
+  "additionalProperties": false
+}
