@@ -514,6 +514,10 @@ def alpha_wait_state_summary():
 def ide_cli_document_bundle_summary():
     print(json.dumps(ide_cli_document_bundle.build_summary(), indent=2))
 
+def telegram_live_pilot_design_summary():
+    from . import telegram_live_pilot_gate
+    print(json.dumps(telegram_live_pilot_gate.get_design_summary(), indent=2))
+
 
 
 
@@ -581,6 +585,7 @@ COMMANDS = {
     "ide-cli-document-bundle-summary": ide_cli_document_bundle_summary,
     "real-artifact-pipeline-trace-summary": real_artifact_pipeline_trace_summary,
     "alpha-wait-state-summary": alpha_wait_state_summary,
+    "telegram-live-pilot-design-summary": telegram_live_pilot_design_summary,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,

@@ -1,0 +1,36 @@
+{
+  "gate_id": "tg_pilot_gate_001",
+  "platform_id": "telegram",
+  "gate_status": "ready_for_explicit_live_go",
+  "live_execution_allowed_now": false,
+  "credential_accessed_by_repo": false,
+  "env_read_performed": false,
+  "network_accessed": false,
+  "telegram_api_called": false,
+  "live_post_sent": false,
+  "scheduling_enabled": false,
+  "replies_or_dms_enabled": false,
+  "scraping_enabled": false,
+  "metrics_fetched": false,
+  "public_postable": true,
+  "requires_explicit_operator_go": true,
+  "exact_live_go_phrase": "I APPROVE TELEGRAM SUPERVISED LIVE PILOT FOR ONE CHANNEL POST ONLY",
+  "allowed_live_scope_later": "Telegram supervised channel post only",
+  "forbidden_live_scope": "No autonomous replies, no DMs, no scheduling, no metrics fetching",
+  "required_preflight_evidence": [
+    "Verified Telegram credential policy"
+  ],
+  "required_dry_run_evidence": [
+    "Dry-run payload rendered"
+  ],
+  "required_approval_ledger_state": "operator_approved_for_live_publish_later",
+  "required_kill_switch_state": "permit_only_scoped_telegram_live_pilot",
+  "required_credential_policy_state": "no secret printing/logging, redaction tests passing",
+  "required_redaction_state": "verified active",
+  "rollback_plan": "Delete post manually if sent in error",
+  "manual_fallback_plan": "Post via official Telegram app",
+  "operator_final_checklist": [
+    "Bot token in external env only",
+    "Minimum required admin permissions"
+  ]
+}
