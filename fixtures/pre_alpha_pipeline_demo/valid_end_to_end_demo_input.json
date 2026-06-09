@@ -1,0 +1,81 @@
+{
+  "seed_id": "seed_demo_e2e_001",
+  "created_at": "2026-01-01T00:00:00Z",
+  "content_type": "build_in_public",
+  "content_source_type": "general_process",
+  "is_general_process_content": true,
+  "title": "Building review gates before we build a forecast",
+  "key_points": [
+    "We are wiring guardrails and human review before any public output exists.",
+    "A serious research system needs a refusal mode when evidence is not enough.",
+    "Local-first and human-in-the-loop are deliberate, not accidental."
+  ],
+  "limitations": [
+    "This is product/process commentary, not a market view."
+  ],
+  "freshness_label": "evergreen",
+  "data_sufficiency_status": "not_applicable",
+  "target_platform_families": ["x", "linkedin"],
+  "prompt_pack": {
+    "prompt_pack_id": "pp_build_in_public_001",
+    "intended_content_types": ["build_in_public"],
+    "allowed_source_types": ["general_process"],
+    "system_instructions": "You are an editorial assistant for Capital Chronicle pre-alpha build-in-public content. Use only facts present in the supplied context. Keep it educational and general. State limitations plainly. Output is for manual human review only.",
+    "user_prompt_template": "Using only the supplied context fields, draft a brief process/build update. Context: {{context}}. State limitations plainly.",
+    "required_context_fields": ["title", "key_points", "limitations"],
+    "forbidden_claims": [
+      "no buy/sell/hold or trade direction",
+      "no price targets or position sizing",
+      "no signal-service framing",
+      "do not invent numbers, prices, forecasts, or sources",
+      "do not imply Capital Chronicle alpha output exists"
+    ],
+    "required_disclaimers": ["Educational and general; not investment advice."],
+    "style_profile_id": "sp_build_in_public_001",
+    "editorial_rubric_id": "er_pre_alpha_001",
+    "output_contract": {
+      "produces": "draft_candidate",
+      "platform_families": ["x", "linkedin"],
+      "public_postable": false,
+      "requires_manual_review": true
+    },
+    "requires_manual_review": true,
+    "provider_call_allowed_now": false,
+    "public_postable_default": false,
+    "live_execution_allowed_now": false
+  },
+  "style_profile": {
+    "style_profile_id": "sp_build_in_public_001",
+    "audience": "Founders, macro-curious professionals, and serious retail readers who value evidence discipline.",
+    "tone": "calm, grounded, plain-spoken, non-hype",
+    "allowed_voice": ["first-person builder reflection", "evidence-first reasoning", "honest about uncertainty"],
+    "forbidden_voice": ["urgency or FOMO", "guru or hot-take posturing", "directional market calls"],
+    "hook_patterns": ["Open with a process question worth sitting with."],
+    "body_patterns": ["Explain the reasoning, then the limitation."],
+    "cta_patterns": ["Invite reflection, not action."],
+    "platform_family_adaptations": {
+      "x": "Tighten to a single clear idea.",
+      "linkedin": "Professional, calm, explicit about limitations.",
+      "threads": "Softer, conversational, lower-stakes.",
+      "newsletter": "Extended room to show the full reasoning.",
+      "generic": "Default to educational, general framing."
+    },
+    "max_risk_level": "low",
+    "default_limitations_language": "Educational and general; not investment advice.",
+    "no_signal_service_framing": true,
+    "no_financial_advice": true
+  },
+  "editorial_rubric": {
+    "editorial_rubric_id": "er_pre_alpha_001",
+    "requires_content_type_classification": true,
+    "requires_source_artifact_ids_or_general_process_marker": true,
+    "requires_limitations_and_freshness_for_market_note": true,
+    "requires_educational_only_for_market_content": true,
+    "rejects_fake_alpha_claims": true,
+    "rejects_unverified_numeric_claims": true,
+    "rejects_financial_advice_or_signal_language": true,
+    "requires_manual_review_before_publish": true,
+    "public_postable_until_manual_approval": false,
+    "checklist": ["Classify content_type before review.", "Manual human review required before any publish."]
+  }
+}

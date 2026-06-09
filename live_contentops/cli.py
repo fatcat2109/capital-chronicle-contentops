@@ -594,6 +594,12 @@ def pre_alpha_manual_export_summary():
     print(json.dumps(pre_alpha_manual_export.summary(), indent=2))
 
 
+def pre_alpha_pipeline_demo_summary():
+    import json
+    from live_contentops import pre_alpha_pipeline_demo
+    print(json.dumps(pre_alpha_pipeline_demo.summary(), indent=2))
+
+
 
 def telegram_second_sandbox_dry_run_prep_summary():
     import json
@@ -747,6 +753,7 @@ COMMANDS = {
     "pre-alpha-draft-renderer-summary": pre_alpha_draft_renderer_summary,
     "pre-alpha-manual-review-summary": pre_alpha_manual_review_summary,
     "pre-alpha-manual-export-summary": pre_alpha_manual_export_summary,
+    "pre-alpha-pipeline-demo-summary": pre_alpha_pipeline_demo_summary,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,
