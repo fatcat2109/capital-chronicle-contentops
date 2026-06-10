@@ -1,0 +1,213 @@
+{
+  "packet_id": "rpal-1",
+  "created_at": "2026-06-10T00:00:00Z",
+  "runtime_authority": false,
+  "audit_mode": "redacted_audit_and_secret_evidence_guard_only",
+  "linked_credential_secret_policy_packet_id": "pacsp-1",
+  "linked_dry_run_publish_batch_manifest_packet_id": "dpbm-1",
+  "audit_log_model_only": true,
+  "evidence_guard_model_only": true,
+  "platform_api_key_token_needed_from_operator_now": false,
+  "platform_api_key_token_needed_from_operator_later": true,
+  "credentials_requested_now": false,
+  "env_read_allowed_now": false,
+  "os_env_read_allowed_now": false,
+  "credential_validation_enabled_now": false,
+  "credential_storage_enabled_now": false,
+  "credential_logging_allowed": false,
+  "credential_commit_allowed": false,
+  "credential_printing_allowed": false,
+  "unredacted_secret_allowed_in_audit": false,
+  "unredacted_secret_allowed_in_evidence": false,
+  "platform_response_logging_future_only": true,
+  "platform_response_redaction_required_later": true,
+  "secret_redaction_required": true,
+  "never_commit_secrets_required": true,
+  "no_secret_scan_required": true,
+  "kill_switch_audit_required": true,
+  "platform_api_allowed_now": false,
+  "live_adapter_enabled_now": false,
+  "oauth_flow_enabled_now": false,
+  "live_posting_enabled_now": false,
+  "scheduler_allowed_now": false,
+  "provider_llm_api_allowed_now": false,
+  "repo_web_search_allowed_now": false,
+  "scraping_allowed_now": false,
+  "newsletter_or_cms_api_allowed_now": false,
+  "backend_server_required": false,
+  "publish_all_button_enabled_now": false,
+  "one_button_publish_all_enabled_now": false,
+  "publish_approval_system_created": true,
+  "public_ready_approval_allowed_now": false,
+  "final_social_copy_generated": false,
+  "manual_review_required": true,
+  "not_public_postable": true,
+  "audit_event_taxonomy": {
+    "allowed_event_types": [
+      "dry_run_publish_manifest_created",
+      "dry_run_payload_preview_validated",
+      "manual_review_gate_checked",
+      "kill_switch_status_checked",
+      "credential_policy_checked_no_values",
+      "no_secret_scan_completed",
+      "redaction_policy_checked",
+      "blocked_live_action_detected",
+      "future_platform_response_redaction_planned",
+      "evidence_packet_export_checked"
+    ],
+    "forbidden_event_types": [
+      "live_post_succeeded",
+      "live_post_failed",
+      "platform_api_called",
+      "credential_value_read",
+      "credential_value_validated",
+      "oauth_flow_completed",
+      "token_refreshed",
+      "publish_all_executed",
+      "scheduled_post_created"
+    ]
+  },
+  "audit_events": [
+    {
+      "event_id": "ev-1",
+      "event_type": "dry_run_publish_manifest_created",
+      "linked_packet_id": "dpbm-1",
+      "redaction_status": "no_secrets_present",
+      "secret_values_present": false,
+      "credential_values_present": false,
+      "platform_response_values_present": false,
+      "evidence_safe": true,
+      "kill_switch_status": "active",
+      "live_action_performed": false,
+      "platform_api_called": false,
+      "created_at": "2026-06-10T00:00:00Z",
+      "notes": "dry-run manifest modeled only"
+    },
+    {
+      "event_id": "ev-2",
+      "event_type": "no_secret_scan_completed",
+      "linked_packet_id": "pacsp-1",
+      "redaction_status": "no_secrets_present",
+      "secret_values_present": false,
+      "credential_values_present": false,
+      "platform_response_values_present": false,
+      "evidence_safe": true,
+      "kill_switch_status": "active",
+      "live_action_performed": false,
+      "platform_api_called": false,
+      "created_at": "2026-06-10T00:00:00Z",
+      "notes": "scan found no real secrets"
+    },
+    {
+      "event_id": "ev-3",
+      "event_type": "future_platform_response_redaction_planned",
+      "linked_packet_id": "dpbm-1",
+      "redaction_status": "redacted_future_only",
+      "secret_values_present": false,
+      "credential_values_present": false,
+      "platform_response_values_present": true,
+      "evidence_safe": true,
+      "kill_switch_status": "active",
+      "live_action_performed": false,
+      "platform_api_called": false,
+      "created_at": "2026-06-10T00:00:00Z",
+      "notes": "future platform response logging will be redacted and opt-in only"
+    },
+    {
+      "event_id": "ev-4",
+      "event_type": "kill_switch_status_checked",
+      "linked_packet_id": "dpbm-1",
+      "redaction_status": "no_secrets_present",
+      "secret_values_present": false,
+      "credential_values_present": false,
+      "platform_response_values_present": false,
+      "evidence_safe": true,
+      "kill_switch_status": "active",
+      "live_action_performed": false,
+      "platform_api_called": false,
+      "created_at": "2026-06-10T00:00:00Z",
+      "notes": "kill switch verified active; live execution disabled"
+    }
+  ],
+  "evidence_packet_policy": {
+    "may_include_slot_names_only": true,
+    "may_include_redaction_status_only": true,
+    "may_include_no_secret_scan_results_only": true,
+    "must_not_include_secret_values": true,
+    "must_not_include_partial_token_values": true,
+    "allow_env_contents": false,
+    "allow_os_env_values": false,
+    "allow_token_snippets": false,
+    "allow_screenshots_with_secrets": false,
+    "allow_logs_with_secrets": false,
+    "allow_oauth_callback_values": false,
+    "allow_platform_response_bodies_with_credentials": false
+  },
+  "secret_redaction_policy": {
+    "redact_all_credential_values": true,
+    "never_print_secrets": true,
+    "never_log_secrets": true,
+    "never_commit_secrets": true,
+    "evidence_may_include_slot_names_only": true
+  },
+  "credential_event_redaction_policy": {
+    "credential_events_redacted": true,
+    "credential_values_present_forbidden": true,
+    "slot_names_only": true
+  },
+  "platform_response_redaction_policy_future_only": {
+    "platform_response_logging_future_only": true,
+    "platform_response_redaction_required_later": true,
+    "opt_in_only": true,
+    "no_response_bodies_logged_now": true
+  },
+  "no_secret_scan_result_model": {
+    "scan_id": "scan-1",
+    "scanned_scope_label": "task_changed_files_only",
+    "scan_command_label": "Select-String over changed files for private-key/AWS/GitHub/Slack/Telegram token patterns",
+    "scan_result_status": "no_real_secrets_found",
+    "real_secret_patterns_found": false,
+    "secret_like_value_detected_count": 0,
+    "false_positive_notes": "detector regex literals in source are expected and not real secrets",
+    "detector_patterns_redacted": true,
+    "evidence_safe": true,
+    "created_at": "2026-06-10T00:00:00Z"
+  },
+  "kill_switch_audit_model": {
+    "kill_switch_audit_required": true,
+    "kill_switch_status_checked": true,
+    "kill_switch_halt_active": true,
+    "live_execution_blocked_when_active": true,
+    "current_live_execution_status": "disabled"
+  },
+  "blocked_action_policy": {
+    "blocked_actions": [
+      "read_env",
+      "read_os_env",
+      "print_credentials",
+      "log_credentials",
+      "commit_credentials",
+      "call_platform_api",
+      "create_oauth_flow",
+      "enable_live_adapter",
+      "one_button_publish_all",
+      "log_unredacted_platform_response"
+    ]
+  },
+  "safety_policy": {
+    "real_approved_artifacts_present": false,
+    "no_financial_advice": true,
+    "no_signal_language": true
+  },
+  "future_live_handoff": {
+    "requires_one_platform_live_pilot_gate": true,
+    "requires_approved_only_publish_all_gate": true,
+    "requires_redacted_audit_log_active_before_live": true
+  },
+  "blocked_reasons": [
+    "live_adapter_not_implemented",
+    "credentials_future_only",
+    "audit_evidence_guard_model_only"
+  ],
+  "packet_status": "pass"
+}
