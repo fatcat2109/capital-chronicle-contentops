@@ -921,6 +921,13 @@ def pre_alpha_daily_content_studio_static_frontend_summary():
     }
     print(json.dumps(summary, indent=2))
 
+def pre_alpha_publish_automation_readiness_summary():
+    import json
+    from live_contentops import publish_automation_readiness
+    print(json.dumps(publish_automation_readiness.summary(), indent=2))
+
+
+
 
 
 
@@ -1096,6 +1103,7 @@ COMMANDS = {
     "pre-alpha-seo-newsletter-architecture-summary": pre_alpha_seo_newsletter_architecture_summary,
     "pre-alpha-daily-content-studio-ui-data-contract-summary": pre_alpha_daily_content_studio_ui_data_contract_summary,
     "pre-alpha-daily-content-studio-static-frontend-summary": pre_alpha_daily_content_studio_static_frontend_summary,
+    "pre-alpha-publish-automation-readiness-summary": pre_alpha_publish_automation_readiness_summary,
 
 
     "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,

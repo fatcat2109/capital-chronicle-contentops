@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "platform_capability_registry_packet.schema.json",
+  "title": "Platform Capability Registry Packet",
+  "type": "object",
+  "required": ["packet_id", "registry_mode", "platforms", "packet_status"],
+  "properties": {
+    "packet_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "registry_mode": { "type": "string" },
+    "runtime_authority": { "type": "boolean" },
+    "platforms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "platform_id",
+          "display_name",
+          "adapter_status",
+          "requires_future_official_docs_verification",
+          "credentials_requested_now",
+          "credential_read_allowed_now",
+          "live_api_enabled_now",
+          "live_posting_enabled_now",
+          "scheduling_enabled_now",
+          "manual_review_required",
+          "not_public_postable"
+        ],
+        "properties": {
+          "platform_id": { "type": "string" },
+          "display_name": { "type": "string" },
+          "intended_future_use": { "type": "string" },
+          "adapter_status": { "type": "string" },
+          "capability_status": { "type": "string" },
+          "requires_future_official_docs_verification": { "type": "boolean" },
+          "supported_content_shapes_placeholder": { "type": "array", "items": { "type": "string" } },
+          "known_constraint_categories": { "type": "array", "items": { "type": "string" } },
+          "credential_requirement_future_only": { "type": "object" },
+          "credential_setup_status": { "type": "string" },
+          "credentials_requested_now": { "type": "boolean" },
+          "credential_read_allowed_now": { "type": "boolean" },
+          "credentials_available": { "type": "boolean" },
+          "live_api_enabled_now": { "type": "boolean" },
+          "live_posting_enabled_now": { "type": "boolean" },
+          "scheduling_enabled_now": { "type": "boolean" },
+          "dry_run_render_supported_now": { "type": "boolean" },
+          "manual_review_required": { "type": "boolean" },
+          "not_public_postable": { "type": "boolean" },
+          "publish_ready": { "type": "boolean" },
+          "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "packet_status": { "type": "string" }
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "packet_id": "par-1",
+  "created_at": "2026-06-10T00:00:00Z",
+  "runtime_authority": false,
+  "readiness_mode": "dry_run_readiness_only",
+  "dry_run_only": true,
+  "linked_ui_workflow_baseline": "TASK_CONTENTOPS_0147_DAILY_CONTENT_STUDIO_STATIC_UI_REVIEW_WORKFLOW_V0",
+  "platform_capability_registry_ref": "pcr-1",
+  "credentials_requested_now": false,
+  "credential_read_allowed_now": false,
+  "platform_api_allowed_now": false,
+  "live_posting_enabled_now": false,
+  "scheduler_allowed_now": false,
+  "provider_llm_api_allowed_now": false,
+  "repo_web_search_allowed_now": false,
+  "scraping_allowed_now": false,
+  "newsletter_or_cms_api_allowed_now": false,
+  "backend_server_required": false,
+  "publish_all_button_enabled_now": false,
+  "one_button_publish_all_enabled_now": false,
+  "publish_approval_system_created": false,
+  "public_ready_approval_allowed_now": false,
+  "final_social_copy_generated": false,
+  "manual_review_required": true,
+  "not_public_postable": true,
+  "kill_switch_required": true,
+  "redacted_audit_log_required": true,
+  "operator_action_required_now_for_credentials": false,
+  "operator_action_required_later_for_credentials": true,
+  "publish_batch_model": {
+    "publish_batch_id": "batch_placeholder",
+    "approved_draft_refs": [],
+    "target_platform_ids": [],
+    "per_platform_payload_preview_refs": [],
+    "manual_approval_gate_ref": "gate_placeholder",
+    "kill_switch_ref": "kill_switch_placeholder",
+    "idempotency_key_required_later": true,
+    "partial_failure_policy_required_later": true,
+    "live_execution_status": "disabled",
+    "dry_run_status": "modeled_only"
+  },
+  "dry_run_payload_model": {
+    "source_references_visible": true,
+    "limitations_visible": true,
+    "content_type_visible": true,
+    "platform_target_visible": true,
+    "not_public_postable_visible": true,
+    "no_signal_language": true,
+    "no_unsupported_numeric_claims": true,
+    "no_fake_artifact_claims": true,
+    "no_final_public_ready_copy": true
+  },
+  "kill_switch_model": {
+    "required": true,
+    "halts_all_future_live_action": true,
+    "default_state": "active"
+  },
+  "credential_policy_future_only": {
+    "credential_setup_status": "future_only_not_requested",
+    "env_read_allowed_now": false,
+    "never_commit_secrets": true,
+    "redaction_required": true,
+    "operator_action_required_now": false,
+    "operator_action_required_later": true
+  },
+  "audit_log_policy": {
+    "redacted_audit_log_required": true,
+    "secrets_never_logged": true,
+    "future_only": true
+  },
+  "idempotency_policy": {
+    "idempotency_key_required_later": true,
+    "duplicate_publish_guard_required_later": true
+  },
+  "partial_failure_policy": {
+    "partial_failure_handling_required_later": true,
+    "no_silent_failure_allowed": true
+  },
+  "blocked_action_policy": {
+    "blocked_actions": [
+      "auto_publish",
+      "schedule_post",
+      "live_publish",
+      "send_newsletter",
+      "call_platform_api",
+      "call_provider_api",
+      "one_button_publish_all",
+      "mark_public_ready_final",
+      "load_credentials"
+    ]
+  },
+  "safety_policy": {
+    "real_approved_artifacts_present": false,
+    "no_financial_advice": true,
+    "no_signal_language": true
+  },
+  "readiness_gates": {
+    "static_ui_review_workflow_complete": true,
+    "external_draft_review_complete": true,
+    "operator_decision_ledger_complete": true,
+    "dry_run_publish_manifest_not_yet_complete": true,
+    "credential_policy_not_yet_complete": true,
+    "live_adapter_not_yet_complete": true,
+    "one_platform_live_pilot_not_yet_complete": true,
+    "one_button_publish_all_not_enabled": true
+  },
+  "future_task_sequence": [
+    "dry_run_publish_manifest",
+    "credential_and_secret_policy",
+    "redacted_audit_log",
+    "one_platform_live_pilot_gate",
+    "first_platform_live_adapter",
+    "multi_platform_dry_run_orchestrator",
+    "approved_only_publish_all_gate"
+  ],
+  "blocked_reasons": [
+    "live_adapter_not_implemented",
+    "credentials_future_only",
+    "one_button_publish_all_not_enabled"
+  ],
+  "packet_status": "pass"
+}
