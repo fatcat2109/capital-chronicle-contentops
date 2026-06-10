@@ -1,0 +1,296 @@
+{
+  "packet_id": "dcs-ui-1",
+  "created_at": "2026-06-10T00:00:00Z",
+  "operator_supplied": true,
+  "runtime_authority": false,
+  "ui_contract_mode": "local_static_fixture_contract_only",
+  "local_fixture_only": true,
+  "backend_server_required": false,
+  "frontend_implementation_included": false,
+  "live_posting_enabled_now": false,
+  "platform_api_allowed_now": false,
+  "provider_llm_api_allowed_now": false,
+  "repo_web_search_allowed_now": false,
+  "scraping_allowed_now": false,
+  "scheduler_allowed_now": false,
+  "newsletter_or_cms_api_allowed_now": false,
+  "credential_read_allowed_now": false,
+  "public_ready_allowed_now": true,
+  "publish_ready": false,
+  "final_social_copy_generated": false,
+  "manual_review_required": true,
+  "not_public_postable": true,
+  "source_contracts": {
+    "social_platform_foundation": "spf-1",
+    "llm_content_writer_workbench": "llmcw-1",
+    "grounded_news_angle_workbench": "gnaw-1",
+    "daily_content_studio_run": "dcsr-1",
+    "daily_content_studio_markdown_export": "dcsr-1-review-export",
+    "daily_content_studio_operator_decision_ledger": "dcs-ledger-1",
+    "daily_content_studio_external_draft_review": "dcs-extdraft-1"
+  },
+  "view_model": {
+    "headline": "Daily Content Studio review surface",
+    "summary": "Local review-only view of the daily content workflow. Process content only; limitations visible; sources required.",
+    "represents_final_social_copy": false
+  },
+  "screen_sections": [
+    {
+      "section_id": "safety_header",
+      "title": "Safety Header",
+      "visible": true,
+      "data_source": "ui_contract",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    },
+    {
+      "section_id": "daily_run_overview",
+      "title": "Daily Run Overview",
+      "visible": true,
+      "data_source": "daily_content_studio_run",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    },
+    {
+      "section_id": "source_context_panel",
+      "title": "Source Context",
+      "visible": true,
+      "data_source": "grounded_news_angle_workbench",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    },
+    {
+      "section_id": "angle_cards_panel",
+      "title": "Angle Cards",
+      "visible": true,
+      "data_source": "grounded_news_angle_workbench",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    },
+    {
+      "section_id": "llm_prompt_handoff_panel",
+      "title": "LLM Prompt Handoff",
+      "visible": true,
+      "data_source": "llm_content_writer_workbench",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    },
+    {
+      "section_id": "markdown_review_export_panel",
+      "title": "Markdown Review Export",
+      "visible": true,
+      "data_source": "daily_content_studio_markdown_export",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    },
+    {
+      "section_id": "external_draft_review_panel",
+      "title": "External Draft Review",
+      "visible": true,
+      "data_source": "daily_content_studio_external_draft_review",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    },
+    {
+      "section_id": "operator_decision_ledger_panel",
+      "title": "Operator Decision Ledger",
+      "visible": true,
+      "data_source": "daily_content_studio_operator_decision_ledger",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    },
+    {
+      "section_id": "platform_fit_panel",
+      "title": "Platform Fit",
+      "visible": true,
+      "data_source": "social_platform_foundation",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    },
+    {
+      "section_id": "blockers_and_limitations_panel",
+      "title": "Blockers and Limitations",
+      "visible": true,
+      "data_source": "ui_contract",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    },
+    {
+      "section_id": "manual_actions_panel",
+      "title": "Manual Actions",
+      "visible": true,
+      "data_source": "ui_contract",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    },
+    {
+      "section_id": "audit_status_panel",
+      "title": "Audit Status",
+      "visible": true,
+      "data_source": "ui_contract",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    },
+    {
+      "section_id": "future_frontend_handoff_panel",
+      "title": "Future Frontend Handoff",
+      "visible": true,
+      "data_source": "ui_contract",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "limitations_visible": true,
+      "source_references_visible": true,
+      "blocked_actions_visible": true
+    }
+  ],
+  "safety_banners": [
+    "LOCAL ONLY",
+    "REVIEW ONLY",
+    "NOT PUBLIC-POSTABLE",
+    "MANUAL REVIEW REQUIRED",
+    "NO LIVE POSTING",
+    "NO PLATFORM API",
+    "NO PROVIDER/LLM API",
+    "NO WEB SEARCH / SCRAPING / NEWS API",
+    "NO FINANCIAL ADVICE",
+    "NO SIGNAL LANGUAGE",
+    "NO CREDENTIALS LOADED"
+  ],
+  "status_badges": [
+    {
+      "badge_id": "manual_review",
+      "label": "Manual Review Required",
+      "state": "active"
+    },
+    {
+      "badge_id": "not_public_postable",
+      "label": "Not Public-Postable",
+      "state": "active"
+    },
+    {
+      "badge_id": "local_only",
+      "label": "Local Only",
+      "state": "active"
+    }
+  ],
+  "workflow_cards": [
+    {
+      "card_id": "run",
+      "title": "Daily Run Overview",
+      "review_only": true
+    },
+    {
+      "card_id": "angles",
+      "title": "Grounded News Angles",
+      "review_only": true
+    },
+    {
+      "card_id": "draft",
+      "title": "External Draft Review",
+      "review_only": true
+    }
+  ],
+  "allowed_operator_actions": [
+    "review_source_context",
+    "choose_angle_card",
+    "copy_prompt_template_for_external_llm",
+    "paste_external_draft_for_review",
+    "review_draft_flags",
+    "record_manual_decision",
+    "rerun_local_validation",
+    "manually_record_public_url_later_if_jim_independently_posts_outside_repo"
+  ],
+  "forbidden_operator_actions": [
+    "auto_publish",
+    "schedule_post",
+    "live_publish",
+    "send_newsletter",
+    "call_platform_api",
+    "call_provider_api",
+    "scrape_metrics",
+    "fetch_market_data",
+    "auto_reply_or_dm",
+    "mark_public_ready_final",
+    "convert_to_trading_signal",
+    "load_credentials"
+  ],
+  "data_refresh_policy": {
+    "refresh_mode": "manual_local_fixture_reload_only",
+    "network_refresh_allowed": false
+  },
+  "output_policy": {
+    "local_fixture_only": true,
+    "manual_review_required": true,
+    "not_public_postable": true,
+    "publish_ready": false,
+    "public_ready_allowed_now": false,
+    "final_social_copy_generated": false,
+    "backend_server_required": false,
+    "frontend_implementation_included": false
+  },
+  "safety_policy": {
+    "no_financial_advice_required": true,
+    "no_signal_language_required": true,
+    "no_guaranteed_prediction": true,
+    "no_ai_trading_bot_framing": true,
+    "no_bloomberg_replacement_framing": true,
+    "no_signal_service_framing": true,
+    "real_approved_artifacts_present": false
+  },
+  "future_frontend_handoff": {
+    "frontend_implementation_included": false,
+    "static_ui_planned_later": true,
+    "data_contract_only": true
+  },
+  "blocked_reasons": [],
+  "packet_status": "blocked"
+}

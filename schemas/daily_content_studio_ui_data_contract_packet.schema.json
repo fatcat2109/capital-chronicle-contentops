@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Daily Content Studio UI Data Contract Packet",
+  "type": "object",
+  "properties": {
+    "packet_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "operator_supplied": { "type": "boolean" },
+    "runtime_authority": { "type": "boolean" },
+    "ui_contract_mode": { "type": "string" },
+    "source_contracts": { "type": "object" },
+    "view_model": { "type": "object" },
+    "screen_sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "section_id": { "type": "string" },
+          "title": { "type": "string" },
+          "visible": { "type": "boolean" },
+          "data_source": { "type": "string" },
+          "review_only": { "type": "boolean" },
+          "manual_review_required": { "type": "boolean" },
+          "not_public_postable": { "type": "boolean" },
+          "limitations_visible": { "type": "boolean" },
+          "source_references_visible": { "type": "boolean" },
+          "blocked_actions_visible": { "type": "boolean" }
+        },
+        "required": [
+          "section_id",
+          "title",
+          "visible",
+          "data_source",
+          "review_only",
+          "manual_review_required",
+          "not_public_postable",
+          "limitations_visible",
+          "source_references_visible",
+          "blocked_actions_visible"
+        ]
+      }
+    },
+    "safety_banners": { "type": "array", "items": { "type": "string" } },
+    "status_badges": { "type": "array", "items": { "type": "object" } },
+    "workflow_cards": { "type": "array", "items": { "type": "object" } },
+    "allowed_operator_actions": { "type": "array", "items": { "type": "string" } },
+    "forbidden_operator_actions": { "type": "array", "items": { "type": "string" } },
+    "data_refresh_policy": { "type": "object" },
+    "output_policy": { "type": "object" },
+    "safety_policy": { "type": "object" },
+    "future_frontend_handoff": { "type": "object" },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } },
+    "packet_status": { "type": "string" }
+  },
+  "required": [
+    "packet_id",
+    "created_at",
+    "operator_supplied",
+    "runtime_authority",
+    "ui_contract_mode",
+    "source_contracts",
+    "view_model",
+    "screen_sections",
+    "safety_banners",
+    "status_badges",
+    "workflow_cards",
+    "allowed_operator_actions",
+    "forbidden_operator_actions",
+    "data_refresh_policy",
+    "output_policy",
+    "safety_policy",
+    "future_frontend_handoff",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}

@@ -863,6 +863,12 @@ def pre_alpha_daily_content_studio_external_draft_review_summary():
     import json
     from live_contentops import daily_content_studio_external_draft_review
     print(json.dumps(daily_content_studio_external_draft_review.summary(), indent=2))
+def pre_alpha_daily_content_studio_ui_data_contract_summary():
+    import json
+    from live_contentops import daily_content_studio_ui_data_contract
+    print(json.dumps(daily_content_studio_ui_data_contract.summary(), indent=2))
+
+
 
 
 
@@ -1033,6 +1039,8 @@ COMMANDS = {
     "pre-alpha-operator-ui-ux-summary": pre_alpha_operator_ui_ux_summary,
     "pre-alpha-frontend-static-prototype-summary": pre_alpha_frontend_static_prototype_summary,
     "pre-alpha-seo-newsletter-architecture-summary": pre_alpha_seo_newsletter_architecture_summary,
+    "pre-alpha-daily-content-studio-ui-data-contract-summary": pre_alpha_daily_content_studio_ui_data_contract_summary,
+
     "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,
     "pre-alpha-daily-content-studio-external-draft-review-summary": pre_alpha_daily_content_studio_external_draft_review_summary,
 
