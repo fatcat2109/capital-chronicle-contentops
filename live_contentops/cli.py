@@ -976,6 +976,83 @@ def pre_alpha_telegram_redacted_credential_presence_check_summary():
     print(json.dumps(chk.summary(env_text=env_text, source_label=source_label), indent=2))
 
 
+def pre_alpha_telegram_official_docs_credential_validation_gate_summary():
+    import json
+    import os
+    import sys
+    from live_contentops import telegram_official_docs_credential_validation_gate as gate
+    # Official getMe docs facts are verified out-of-band from core.telegram.org and
+    # supplied as redacted notes (no live fetch performed inside the repo process).
+    fetched_docs = {
+        "source_domain": "core.telegram.org",
+        "verified": True,
+        "fetch_count": 1,
+        "notes": gate.DEFAULT_OFFICIAL_DOCS_NOTES,
+    }
+    # Approved local env source supplied ONLY via explicit out-of-band CLI path arg
+    # (redacted, never printed/committed). The live getMe credential validation runs
+    # ONLY when --live-getme-credential-validation is passed; otherwise dry/no-call.
+    args = sys.argv[2:]
+    live = "--live-getme-credential-validation" in args
+    approved_path = None
+    for a in args:
+        if not a.startswith("--"):
+            approved_path = a
+            break
+    env_text = None
+    source_label = None
+    if approved_path and os.path.isfile(approved_path):
+        with open(approved_path, "r", encoding="utf-8") as f:
+            env_text = f.read()
+        source_label = "OPERATOR_LOCAL_ENV_FILE_PROVIDED_OUT_OF_BAND"
+
+    api_caller = None
+    if live and env_text is not None:
+        api_caller = _telegram_getme_caller
+
+    print(json.dumps(
+        gate.summary(
+            env_text=env_text,
+            api_caller=api_caller,
+            source_label=source_label,
+            fetched_docs=fetched_docs,
+        ),
+        indent=2,
+    ))
+
+
+def _telegram_getme_caller(method_name, token):
+    """Perform at most one bounded getMe request. Returns redacted-safe dict only.
+
+    Never returns the token, the request URL, or raw headers. Only getMe is allowed;
+    any other method name is refused without a network call.
+    """
+    import json as _json
+    from urllib import request as _request
+    from urllib import error as _error
+
+    if method_name != "getMe":
+        return {"ok": False, "result": None, "error_code": None, "description": "method_not_allowed"}
+    # Build URL locally; never print/log it.
+    url = "https://api.telegram.org/bot" + token + "/getMe"
+    req = _request.Request(url, method="GET")
+    try:
+        with _request.urlopen(req, timeout=10) as resp:
+            body = resp.read().decode("utf-8")
+        data = _json.loads(body)
+        return {
+            "ok": bool(data.get("ok")),
+            "result": data.get("result"),
+            "error_code": data.get("error_code"),
+            "description": None,
+        }
+    except _error.HTTPError as e:
+        return {"ok": False, "result": None, "error_code": e.code, "description": "http_error_redacted"}
+    except Exception:
+        return {"ok": False, "result": None, "error_code": None, "description": "request_error_redacted"}
+
+
+
 
 
 
@@ -1159,6 +1236,7 @@ COMMANDS = {
     "pre-alpha-telegram-live-pilot-gate-summary": pre_alpha_telegram_live_pilot_gate_summary,
     "pre-alpha-telegram-credential-setup-guide-summary": pre_alpha_telegram_credential_setup_guide_summary,
     "pre-alpha-telegram-redacted-credential-presence-check-summary": pre_alpha_telegram_redacted_credential_presence_check_summary,
+    "pre-alpha-telegram-official-docs-credential-validation-gate-summary": pre_alpha_telegram_official_docs_credential_validation_gate_summary,
 
 
     "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,
