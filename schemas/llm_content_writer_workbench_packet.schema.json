@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LLM Content Writer Workbench Packet",
+  "type": "object",
+  "properties": {
+    "packet_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "operator_supplied": {
+      "type": "boolean"
+    },
+    "runtime_authority": {
+      "type": "boolean"
+    },
+    "workbench_mode": {
+      "type": "string"
+    },
+    "content_lane": {
+      "type": "string"
+    },
+    "allowed_content_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "prompt_pack_templates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "template_id": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "template_only": {
+            "type": "boolean"
+          },
+          "external_llm_use_only": {
+            "type": "boolean"
+          },
+          "provider_call_allowed_by_repo": {
+            "type": "boolean"
+          },
+          "repo_executes_prompt": {
+            "type": "boolean"
+          },
+          "manual_review_required": {
+            "type": "boolean"
+          },
+          "not_public_postable": {
+            "type": "boolean"
+          },
+          "public_ready_allowed_now": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "template_id",
+          "template_only",
+          "external_llm_use_only",
+          "provider_call_allowed_by_repo",
+          "repo_executes_prompt",
+          "manual_review_required",
+          "not_public_postable",
+          "public_ready_allowed_now"
+        ]
+      }
+    },
+    "angle_taxonomy": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "draft_input_contract": {
+      "type": "object"
+    },
+    "claim_classification_policy": {
+      "type": "object"
+    },
+    "source_requirement_policy": {
+      "type": "object"
+    },
+    "platform_fit_policy": {
+      "type": "object"
+    },
+    "social_platform_foundation_linkage": {
+      "type": "object"
+    },
+    "review_policy": {
+      "type": "object"
+    },
+    "safety_policy": {
+      "type": "object"
+    },
+    "output_policy": {
+      "type": "object"
+    },
+    "future_handoff": {
+      "type": "object"
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "packet_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "packet_id",
+    "created_at",
+    "operator_supplied",
+    "runtime_authority",
+    "workbench_mode",
+    "content_lane",
+    "allowed_content_types",
+    "prompt_pack_templates",
+    "angle_taxonomy",
+    "draft_input_contract",
+    "claim_classification_policy",
+    "source_requirement_policy",
+    "platform_fit_policy",
+    "social_platform_foundation_linkage",
+    "review_policy",
+    "safety_policy",
+    "output_policy",
+    "future_handoff",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}

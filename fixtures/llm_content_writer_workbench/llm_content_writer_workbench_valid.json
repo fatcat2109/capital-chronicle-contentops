@@ -1,0 +1,191 @@
+{
+  "packet_id": "lcww-1",
+  "created_at": "2026-06-10T00:00:00Z",
+  "operator_supplied": true,
+  "runtime_authority": false,
+  "workbench_mode": "external_llm_assisted_draft_review_only",
+  "content_lane": "general_process",
+  "allowed_content_types": [
+    "build_in_public",
+    "macro_education",
+    "data_sufficiency",
+    "forecast_readiness",
+    "failure_forensics",
+    "product_update",
+    "market_note_review_only",
+    "grounded_news_context_review_only",
+    "official_data_explainer_review_only",
+    "policy_process_commentary_review_only"
+  ],
+  "prompt_pack_templates": [
+    {
+      "template_id": "macro_education_explainer",
+      "display_name": "Macro Education Explainer",
+      "template_only": true,
+      "external_llm_use_only": true,
+      "provider_call_allowed_by_repo": false,
+      "repo_executes_prompt": false,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "public_ready_allowed_now": false
+    },
+    {
+      "template_id": "build_in_public_log",
+      "display_name": "Build in Public Log",
+      "template_only": true,
+      "external_llm_use_only": true,
+      "provider_call_allowed_by_repo": false,
+      "repo_executes_prompt": false,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "public_ready_allowed_now": false
+    },
+    {
+      "template_id": "data_sufficiency_note",
+      "display_name": "Data Sufficiency Note",
+      "template_only": true,
+      "external_llm_use_only": true,
+      "provider_call_allowed_by_repo": false,
+      "repo_executes_prompt": false,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "public_ready_allowed_now": false
+    },
+    {
+      "template_id": "forecast_readiness_state",
+      "display_name": "Forecast Readiness State",
+      "template_only": true,
+      "external_llm_use_only": true,
+      "provider_call_allowed_by_repo": false,
+      "repo_executes_prompt": false,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "public_ready_allowed_now": false
+    },
+    {
+      "template_id": "failure_forensics_retro",
+      "display_name": "Failure Forensics Retrospective",
+      "template_only": true,
+      "external_llm_use_only": true,
+      "provider_call_allowed_by_repo": false,
+      "repo_executes_prompt": false,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "public_ready_allowed_now": false
+    },
+    {
+      "template_id": "official_data_explainer",
+      "display_name": "Official Data Explainer (Review Only)",
+      "template_only": true,
+      "external_llm_use_only": true,
+      "provider_call_allowed_by_repo": false,
+      "repo_executes_prompt": false,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "public_ready_allowed_now": false
+    }
+  ],
+  "angle_taxonomy": [
+    {
+      "angle_id": "process_transparency",
+      "lane": "general_process"
+    },
+    {
+      "angle_id": "data_gap_awareness",
+      "lane": "analysis"
+    },
+    {
+      "angle_id": "forecast_humility",
+      "lane": "analysis"
+    },
+    {
+      "angle_id": "official_source_explainer",
+      "lane": "educational"
+    },
+    {
+      "angle_id": "engineering_build_log",
+      "lane": "educational"
+    },
+    {
+      "angle_id": "retrospective_learning",
+      "lane": "analysis"
+    }
+  ],
+  "draft_input_contract": {
+    "external_draft_required": true,
+    "draft_source": "external_llm_or_human",
+    "repo_generates_draft": false,
+    "metadata_fields": [
+      "draft_id",
+      "author_mode",
+      "intended_content_type",
+      "claims",
+      "sources"
+    ]
+  },
+  "claim_classification_policy": {
+    "classifications": [
+      "first_party_product_process",
+      "evergreen_macro_education",
+      "cited_factual_claim",
+      "current_factual_claim_requires_source",
+      "market_sensitive_claim_review_only",
+      "unsupported_numeric_claim_blocked",
+      "signal_or_trade_claim_blocked",
+      "artifact_backed_claim_blocked_until_real_artifact"
+    ],
+    "real_approved_artifacts_present": false
+  },
+  "source_requirement_policy": {
+    "source_references_required": true,
+    "current_factual_claim_requires_source": true,
+    "numeric_market_claim_requires_source": true
+  },
+  "platform_fit_policy": {
+    "fit_notes_only": true,
+    "no_final_platform_export_now": true,
+    "linked_platforms": [
+      "x",
+      "linkedin",
+      "telegram",
+      "substack_newsletter"
+    ]
+  },
+  "social_platform_foundation_linkage": {
+    "linked_spec": "TASK_CONTENTOPS_0138_SOCIAL_PLATFORM_FOUNDATION_CONTROL_PLANE_V0",
+    "real_approved_artifacts_present": false
+  },
+  "review_policy": {
+    "manual_review_required": true,
+    "auto_approval_allowed": false,
+    "operator_in_loop_required": true
+  },
+  "safety_policy": {
+    "no_financial_advice_required": true,
+    "no_signal_language_required": true,
+    "no_guaranteed_prediction": true,
+    "no_ai_trading_bot_framing": true,
+    "no_bloomberg_replacement_framing": true,
+    "no_signal_service_framing": true,
+    "no_fake_alpha_performance_claims": true,
+    "no_unsupported_numeric_market_claims": true,
+    "no_hiding_degraded_or_proxy_data": true,
+    "no_public_ready_synthetic_fixture_content": true
+  },
+  "output_policy": {
+    "manual_review_required": true,
+    "not_public_postable": true,
+    "publish_ready": false,
+    "auto_approval_allowed": false,
+    "public_ready_allowed_now": false,
+    "platform_export_final_allowed_now": false,
+    "newsletter_send_enabled_now": false,
+    "cms_integration_enabled_now": false
+  },
+  "future_handoff": {
+    "grounded_news_angle_workbench_handoff_ready": true,
+    "no_capability_enabled_now": true
+  },
+  "blocked_reasons": [],
+  "packet_status": "pass"
+}

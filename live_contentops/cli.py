@@ -841,6 +841,12 @@ def pre_alpha_seo_newsletter_architecture_summary():
     from live_contentops import seo_newsletter_architecture
     print(json.dumps(seo_newsletter_architecture.summary(), indent=2))
 
+def pre_alpha_llm_content_writer_workbench_summary():
+    import json
+    from live_contentops import llm_content_writer_workbench
+    print(json.dumps(llm_content_writer_workbench.summary(), indent=2))
+
+
 def pre_alpha_social_platform_foundation_summary():
     import json
     from live_contentops import social_platform_foundation
@@ -986,6 +992,8 @@ COMMANDS = {
     "pre-alpha-frontend-static-prototype-summary": pre_alpha_frontend_static_prototype_summary,
     "pre-alpha-seo-newsletter-architecture-summary": pre_alpha_seo_newsletter_architecture_summary,
     "pre-alpha-social-platform-foundation-summary": pre_alpha_social_platform_foundation_summary,
+    "pre-alpha-llm-content-writer-workbench-summary": pre_alpha_llm_content_writer_workbench_summary,
+
 
 }
 

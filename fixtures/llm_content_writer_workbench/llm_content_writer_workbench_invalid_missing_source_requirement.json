@@ -1,0 +1,63 @@
+{
+  "packet_id": "lcww-invalid-missing-source",
+  "created_at": "2026-06-10T00:00:00Z",
+  "operator_supplied": true,
+  "runtime_authority": false,
+  "workbench_mode": "external_llm_assisted_draft_review_only",
+  "content_lane": "general_process",
+  "allowed_content_types": [
+    "build_in_public"
+  ],
+  "prompt_pack_templates": [
+    {
+      "template_id": "macro_education_explainer",
+      "template_only": true,
+      "external_llm_use_only": true,
+      "provider_call_allowed_by_repo": false,
+      "repo_executes_prompt": false,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "public_ready_allowed_now": false
+    }
+  ],
+  "angle_taxonomy": [],
+  "draft_input_contract": {
+    "repo_generates_draft": false
+  },
+  "claim_classification_policy": {
+    "real_approved_artifacts_present": false
+  },
+  "source_requirement_policy": {
+    "source_references_required": false,
+    "current_factual_claim_requires_source": false
+  },
+  "platform_fit_policy": {
+    "fit_notes_only": true
+  },
+  "social_platform_foundation_linkage": {
+    "real_approved_artifacts_present": false
+  },
+  "review_policy": {
+    "manual_review_required": true,
+    "auto_approval_allowed": false
+  },
+  "safety_policy": {
+    "no_financial_advice_required": true,
+    "no_signal_language_required": true
+  },
+  "output_policy": {
+    "manual_review_required": true,
+    "not_public_postable": true,
+    "publish_ready": false,
+    "auto_approval_allowed": false,
+    "public_ready_allowed_now": false,
+    "platform_export_final_allowed_now": false,
+    "newsletter_send_enabled_now": false,
+    "cms_integration_enabled_now": false
+  },
+  "future_handoff": {
+    "no_capability_enabled_now": true
+  },
+  "blocked_reasons": [],
+  "packet_status": "blocked"
+}
