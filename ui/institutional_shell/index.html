@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Capital Chronicle ContentOps — Institutional Shell (Local Static Prototype)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Global safety ribbon -->
+  <div id="safety-ribbon" class="safety-ribbon" role="region" aria-label="Global safety ribbon"></div>
+
+  <!-- Top status bar -->
+  <div id="status-bar" class="status-bar" role="region" aria-label="System status"></div>
+
+  <div class="app-body">
+    <!-- Left navigation -->
+    <nav id="left-nav" class="left-nav" aria-label="Screen navigation"></nav>
+
+    <!-- Main content -->
+    <main id="main" class="main" aria-live="polite"></main>
+  </div>
+
+  <!-- Local-only fixture (no network, no fetch). -->
+  <script src="fixture_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

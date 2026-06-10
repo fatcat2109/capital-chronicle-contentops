@@ -994,6 +994,12 @@ def pre_alpha_institutional_ui_view_model_contract_v2_summary():
     print(json.dumps(vm.summary(), indent=2))
 
 
+def pre_alpha_institutional_shell_prototype_summary():
+    import json
+    from live_contentops import institutional_shell_prototype as shell
+    print(json.dumps(shell.summary(), indent=2))
+
+
 
 def pre_alpha_telegram_official_docs_credential_validation_gate_summary():
     import json
@@ -1259,6 +1265,7 @@ COMMANDS = {
     "pre-alpha-institutional-ui-ux-rebuild-plan-summary": pre_alpha_institutional_ui_ux_rebuild_plan_summary,
     "pre-alpha-institutional-design-system-summary": pre_alpha_institutional_design_system_summary,
     "pre-alpha-institutional-ui-view-model-contract-v2-summary": pre_alpha_institutional_ui_view_model_contract_v2_summary,
+    "pre-alpha-institutional-shell-prototype-summary": pre_alpha_institutional_shell_prototype_summary,
 
 
     "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,
