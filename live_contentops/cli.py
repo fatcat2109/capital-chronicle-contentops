@@ -841,6 +841,12 @@ def pre_alpha_seo_newsletter_architecture_summary():
     from live_contentops import seo_newsletter_architecture
     print(json.dumps(seo_newsletter_architecture.summary(), indent=2))
 
+def pre_alpha_social_platform_foundation_summary():
+    import json
+    from live_contentops import social_platform_foundation
+    print(json.dumps(social_platform_foundation.summary(), indent=2))
+
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -979,6 +985,8 @@ COMMANDS = {
     "pre-alpha-operator-ui-ux-summary": pre_alpha_operator_ui_ux_summary,
     "pre-alpha-frontend-static-prototype-summary": pre_alpha_frontend_static_prototype_summary,
     "pre-alpha-seo-newsletter-architecture-summary": pre_alpha_seo_newsletter_architecture_summary,
+    "pre-alpha-social-platform-foundation-summary": pre_alpha_social_platform_foundation_summary,
+
 }
 
 

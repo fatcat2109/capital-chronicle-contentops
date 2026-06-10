@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Social Platform Foundation Packet",
+  "type": "object",
+  "properties": {
+    "packet_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "operator_supplied": {
+      "type": "boolean"
+    },
+    "runtime_authority": {
+      "type": "boolean"
+    },
+    "supported_platforms": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "platform_fit_matrix": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "live_posting_enabled_now": {
+            "type": "boolean"
+          },
+          "platform_api_allowed_now": {
+            "type": "boolean"
+          },
+          "credential_required_now": {
+            "type": "boolean"
+          },
+          "credential_read_allowed_now": {
+            "type": "boolean"
+          },
+          "scheduler_allowed_now": {
+            "type": "boolean"
+          },
+          "scraping_allowed_now": {
+            "type": "boolean"
+          },
+          "autonomous_reply_or_dm_allowed_now": {
+            "type": "boolean"
+          },
+          "manual_review_required": {
+            "type": "boolean"
+          },
+          "not_public_postable": {
+            "type": "boolean"
+          },
+          "public_ready_allowed_now": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "platform",
+          "live_posting_enabled_now",
+          "platform_api_allowed_now",
+          "credential_required_now",
+          "credential_read_allowed_now",
+          "scheduler_allowed_now",
+          "scraping_allowed_now",
+          "autonomous_reply_or_dm_allowed_now",
+          "manual_review_required",
+          "not_public_postable",
+          "public_ready_allowed_now"
+        ]
+      }
+    },
+    "content_lane_policy": {
+      "type": "object"
+    },
+    "safety_policy": {
+      "type": "object"
+    },
+    "approval_policy": {
+      "type": "object"
+    },
+    "manual_export_policy": {
+      "type": "object"
+    },
+    "seo_newsletter_policy_linkage": {
+      "type": "object"
+    },
+    "future_handoff": {
+      "type": "object"
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "packet_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "packet_id",
+    "created_at",
+    "operator_supplied",
+    "runtime_authority",
+    "supported_platforms",
+    "platform_fit_matrix",
+    "content_lane_policy",
+    "safety_policy",
+    "approval_policy",
+    "manual_export_policy",
+    "seo_newsletter_policy_linkage",
+    "future_handoff",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}

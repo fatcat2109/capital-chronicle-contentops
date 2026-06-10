@@ -1,0 +1,51 @@
+{
+  "packet_id": "spf-invalid-public-ready",
+  "created_at": "2026-06-10T00:00:00Z",
+  "operator_supplied": true,
+  "runtime_authority": false,
+  "supported_platforms": [
+    "x"
+  ],
+  "platform_fit_matrix": [
+    {
+      "platform": "x",
+      "display_name": "X",
+      "live_posting_enabled_now": false,
+      "platform_api_allowed_now": false,
+      "credential_required_now": false,
+      "credential_read_allowed_now": false,
+      "scheduler_allowed_now": false,
+      "scraping_allowed_now": false,
+      "autonomous_reply_or_dm_allowed_now": false,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "public_ready_allowed_now": true
+    }
+  ],
+  "content_lane_policy": {
+    "allowed_lanes": [
+      "general"
+    ]
+  },
+  "safety_policy": {
+    "no_financial_advice_required": true,
+    "no_signal_language_required": true,
+    "source_references_required": true
+  },
+  "approval_policy": {
+    "manual_review_required": true,
+    "auto_approval_allowed_now": false
+  },
+  "manual_export_policy": {
+    "manual_export_only": true,
+    "live_dispatch_allowed_now": false
+  },
+  "seo_newsletter_policy_linkage": {
+    "real_approved_artifacts_present": false
+  },
+  "future_handoff": {
+    "no_capability_enabled_now": true
+  },
+  "blocked_reasons": [],
+  "packet_status": "blocked"
+}
