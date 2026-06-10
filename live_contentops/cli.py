@@ -957,6 +957,25 @@ def pre_alpha_telegram_credential_setup_guide_summary():
     print(json.dumps(telegram_credential_setup_operator_guide.summary(), indent=2))
 
 
+def pre_alpha_telegram_redacted_credential_presence_check_summary():
+    import json
+    import os
+    import sys
+    from live_contentops import telegram_redacted_credential_presence_check as chk
+    # Approved local env source is supplied ONLY via an explicit out-of-band CLI
+    # path argument (redacted, never printed/committed). No OS environment or .env
+    # auto-read is performed. If unavailable, the checker returns a fail-closed
+    # BLOCKED summary containing no values, snippets, lengths, hashes, or paths.
+    approved_path = sys.argv[2] if len(sys.argv) > 2 else None
+    env_text = None
+    source_label = None
+    if approved_path and os.path.isfile(approved_path):
+        with open(approved_path, "r", encoding="utf-8") as f:
+            env_text = f.read()
+        source_label = "OPERATOR_LOCAL_ENV_FILE_PROVIDED_OUT_OF_BAND"
+    print(json.dumps(chk.summary(env_text=env_text, source_label=source_label), indent=2))
+
+
 
 
 
@@ -1139,6 +1158,7 @@ COMMANDS = {
     "pre-alpha-redacted-publish-audit-log-summary": pre_alpha_redacted_publish_audit_log_summary,
     "pre-alpha-telegram-live-pilot-gate-summary": pre_alpha_telegram_live_pilot_gate_summary,
     "pre-alpha-telegram-credential-setup-guide-summary": pre_alpha_telegram_credential_setup_guide_summary,
+    "pre-alpha-telegram-redacted-credential-presence-check-summary": pre_alpha_telegram_redacted_credential_presence_check_summary,
 
 
     "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,
