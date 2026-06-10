@@ -1,0 +1,94 @@
+{
+  "packet_id": "gnaw-invalid-news-api",
+  "created_at": "2026-06-10T00:00:00Z",
+  "operator_supplied": true,
+  "runtime_authority": false,
+  "workbench_mode": "operator_supplied_news_to_review_only_angles",
+  "input_policy": {
+    "operator_supplied_context_only": true,
+    "repo_web_search_allowed": false,
+    "repo_scraping_allowed": false,
+    "repo_news_api_allowed": true,
+    "repo_rss_fetch_allowed": false,
+    "repo_market_data_api_allowed": false,
+    "provider_llm_api_allowed": false,
+    "credential_read_allowed": false,
+    "platform_api_allowed": false
+  },
+  "source_metadata_policy": {
+    "source_references_required": true
+  },
+  "source_items": [
+    {
+      "source_id": "src-1",
+      "source_title": "Placeholder Source",
+      "source_type": "statistical_agency",
+      "source_date": "2026-06-05",
+      "access_date_or_operator_observed_date": "2026-06-09",
+      "source_url_or_reference_label": "operator_reference_label",
+      "source_summary": "Operator-supplied summary used as an educational hook.",
+      "limitation_note": "Single release; revisions possible.",
+      "freshness_label": "recent_within_week",
+      "redistribution_allowed": false,
+      "authority_role": "primary_official_data"
+    }
+  ],
+  "freshness_policy": {
+    "freshness_label_required": true
+  },
+  "limitation_policy": {
+    "limitations_required": true
+  },
+  "claim_risk_policy": {
+    "real_approved_artifacts_present": false
+  },
+  "angle_taxonomy": [
+    { "angle_type": "macro_education_from_news" }
+  ],
+  "angle_cards": [
+    {
+      "angle_card_id": "card-1",
+      "angle_type": "macro_education_from_news",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "publish_ready": false,
+      "public_ready_allowed_now": false,
+      "source_references_required": true,
+      "limitations_required": true,
+      "no_signal_language_required": true,
+      "no_financial_advice_required": true,
+      "downstream_llm_prompt_allowed": true,
+      "downstream_llm_repo_execution_allowed": false
+    }
+  ],
+  "social_platform_foundation_linkage": {
+    "real_approved_artifacts_present": false
+  },
+  "llm_content_writer_workbench_linkage": {
+    "downstream_review_only": true
+  },
+  "review_policy": {
+    "manual_review_required": true,
+    "auto_approval_allowed": false
+  },
+  "safety_policy": {
+    "no_financial_advice_required": true,
+    "no_signal_language_required": true
+  },
+  "output_policy": {
+    "manual_review_required": true,
+    "not_public_postable": true,
+    "publish_ready": false,
+    "auto_approval_allowed": false,
+    "public_ready_allowed_now": false,
+    "platform_export_final_allowed_now": false,
+    "newsletter_send_enabled_now": false,
+    "cms_integration_enabled_now": false
+  },
+  "future_handoff": {
+    "no_capability_enabled_now": true
+  },
+  "blocked_reasons": [],
+  "packet_status": "blocked"
+}

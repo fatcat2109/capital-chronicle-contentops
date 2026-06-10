@@ -1,0 +1,207 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Grounded News Angle Workbench Packet",
+  "type": "object",
+  "properties": {
+    "packet_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "operator_supplied": {
+      "type": "boolean"
+    },
+    "runtime_authority": {
+      "type": "boolean"
+    },
+    "workbench_mode": {
+      "type": "string"
+    },
+    "input_policy": {
+      "type": "object"
+    },
+    "source_metadata_policy": {
+      "type": "object"
+    },
+    "source_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "source_title": {
+            "type": "string"
+          },
+          "source_type": {
+            "type": "string"
+          },
+          "source_date": {
+            "type": "string"
+          },
+          "access_date_or_operator_observed_date": {
+            "type": "string"
+          },
+          "source_url_or_reference_label": {
+            "type": "string"
+          },
+          "source_summary": {
+            "type": "string"
+          },
+          "limitation_note": {
+            "type": "string"
+          },
+          "freshness_label": {
+            "type": "string"
+          },
+          "redistribution_allowed": {
+            "type": "boolean"
+          },
+          "authority_role": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_id",
+          "source_title",
+          "source_type",
+          "source_date",
+          "access_date_or_operator_observed_date",
+          "source_url_or_reference_label",
+          "source_summary",
+          "limitation_note",
+          "freshness_label",
+          "redistribution_allowed",
+          "authority_role"
+        ]
+      }
+    },
+    "freshness_policy": {
+      "type": "object"
+    },
+    "limitation_policy": {
+      "type": "object"
+    },
+    "claim_risk_policy": {
+      "type": "object"
+    },
+    "angle_taxonomy": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "angle_cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "angle_card_id": {
+            "type": "string"
+          },
+          "angle_type": {
+            "type": "string"
+          },
+          "review_only": {
+            "type": "boolean"
+          },
+          "manual_review_required": {
+            "type": "boolean"
+          },
+          "not_public_postable": {
+            "type": "boolean"
+          },
+          "publish_ready": {
+            "type": "boolean"
+          },
+          "public_ready_allowed_now": {
+            "type": "boolean"
+          },
+          "source_references_required": {
+            "type": "boolean"
+          },
+          "limitations_required": {
+            "type": "boolean"
+          },
+          "no_signal_language_required": {
+            "type": "boolean"
+          },
+          "no_financial_advice_required": {
+            "type": "boolean"
+          },
+          "downstream_llm_prompt_allowed": {
+            "type": "boolean"
+          },
+          "downstream_llm_repo_execution_allowed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "angle_card_id",
+          "angle_type",
+          "review_only",
+          "manual_review_required",
+          "not_public_postable",
+          "publish_ready",
+          "public_ready_allowed_now",
+          "source_references_required",
+          "limitations_required",
+          "no_signal_language_required",
+          "no_financial_advice_required"
+        ]
+      }
+    },
+    "social_platform_foundation_linkage": {
+      "type": "object"
+    },
+    "llm_content_writer_workbench_linkage": {
+      "type": "object"
+    },
+    "review_policy": {
+      "type": "object"
+    },
+    "safety_policy": {
+      "type": "object"
+    },
+    "output_policy": {
+      "type": "object"
+    },
+    "future_handoff": {
+      "type": "object"
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "packet_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "packet_id",
+    "created_at",
+    "operator_supplied",
+    "runtime_authority",
+    "workbench_mode",
+    "input_policy",
+    "source_metadata_policy",
+    "source_items",
+    "freshness_policy",
+    "limitation_policy",
+    "claim_risk_policy",
+    "angle_taxonomy",
+    "angle_cards",
+    "social_platform_foundation_linkage",
+    "llm_content_writer_workbench_linkage",
+    "review_policy",
+    "safety_policy",
+    "output_policy",
+    "future_handoff",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}

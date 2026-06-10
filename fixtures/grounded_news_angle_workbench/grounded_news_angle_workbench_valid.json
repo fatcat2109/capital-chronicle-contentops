@@ -1,0 +1,217 @@
+{
+  "packet_id": "gnaw-1",
+  "created_at": "2026-06-10T00:00:00Z",
+  "operator_supplied": true,
+  "runtime_authority": false,
+  "workbench_mode": "operator_supplied_news_to_review_only_angles",
+  "input_policy": {
+    "operator_supplied_context_only": true,
+    "repo_web_search_allowed": false,
+    "repo_scraping_allowed": false,
+    "repo_news_api_allowed": false,
+    "repo_rss_fetch_allowed": false,
+    "repo_market_data_api_allowed": false,
+    "provider_llm_api_allowed": false,
+    "credential_read_allowed": false,
+    "platform_api_allowed": false
+  },
+  "source_metadata_policy": {
+    "source_references_required": true,
+    "operator_must_supply_all_sources": true
+  },
+  "source_items": [
+    {
+      "source_id": "src-1",
+      "source_title": "Official Statistical Agency Monthly Release (placeholder)",
+      "source_type": "statistical_agency",
+      "source_date": "2026-06-05",
+      "access_date_or_operator_observed_date": "2026-06-09",
+      "source_url_or_reference_label": "operator_reference_label_official_stats_release",
+      "source_summary": "Operator-supplied summary of a routine statistical release used as an educational hook.",
+      "limitation_note": "Single release; revisions possible; not forecast-ready on its own.",
+      "freshness_label": "recent_within_week",
+      "redistribution_allowed": false,
+      "authority_role": "primary_official_data"
+    },
+    {
+      "source_id": "src-2",
+      "source_title": "Central Bank Statement Context (placeholder)",
+      "source_type": "central_bank",
+      "source_date": "2026-06-04",
+      "access_date_or_operator_observed_date": "2026-06-09",
+      "source_url_or_reference_label": "operator_reference_label_central_bank_statement",
+      "source_summary": "Operator-supplied context noting a policy statement, used to explain process not direction.",
+      "limitation_note": "Statement language is qualitative; no numeric market claim implied.",
+      "freshness_label": "recent_within_week",
+      "redistribution_allowed": false,
+      "authority_role": "policy_process_context"
+    },
+    {
+      "source_id": "src-3",
+      "source_title": "Reputable News Recap (context only)",
+      "source_type": "reputable_news_context",
+      "source_date": "2026-06-06",
+      "access_date_or_operator_observed_date": "2026-06-09",
+      "source_url_or_reference_label": "operator_reference_label_news_recap",
+      "source_summary": "Operator-supplied news recap used only as a hook to discuss data sufficiency.",
+      "limitation_note": "Secondary reporting; treat as context, not authority.",
+      "freshness_label": "recent_within_week",
+      "redistribution_allowed": false,
+      "authority_role": "secondary_context_not_authority"
+    }
+  ],
+  "freshness_policy": {
+    "freshness_label_required": true,
+    "stale_context_must_be_flagged": true
+  },
+  "limitation_policy": {
+    "limitations_required": true,
+    "must_note_revisions_and_uncertainty": true
+  },
+  "claim_risk_policy": {
+    "claim_risk_classes": [
+      "safe_evergreen_process",
+      "safe_official_data_explainer",
+      "current_factual_claim_requires_source",
+      "macro_context_requires_limitations",
+      "market_sensitive_review_only",
+      "unsupported_numeric_claim_blocked",
+      "signal_or_trade_claim_blocked",
+      "artifact_backed_claim_blocked_until_real_artifact"
+    ],
+    "real_approved_artifacts_present": false
+  },
+  "angle_taxonomy": [
+    {
+      "angle_type": "macro_education_from_news"
+    },
+    {
+      "angle_type": "data_sufficiency_from_news"
+    },
+    {
+      "angle_type": "forecast_readiness_from_news"
+    },
+    {
+      "angle_type": "failure_forensics_from_news"
+    },
+    {
+      "angle_type": "official_data_explainer"
+    },
+    {
+      "angle_type": "policy_process_commentary"
+    },
+    {
+      "angle_type": "product_philosophy_from_news"
+    },
+    {
+      "angle_type": "build_in_public_from_news"
+    }
+  ],
+  "angle_cards": [
+    {
+      "angle_card_id": "card-1",
+      "angle_type": "macro_education_from_news",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "publish_ready": false,
+      "public_ready_allowed_now": false,
+      "source_references_required": true,
+      "limitations_required": true,
+      "no_signal_language_required": true,
+      "no_financial_advice_required": true,
+      "downstream_llm_prompt_allowed": true,
+      "downstream_llm_repo_execution_allowed": false
+    },
+    {
+      "angle_card_id": "card-2",
+      "angle_type": "data_sufficiency_from_news",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "publish_ready": false,
+      "public_ready_allowed_now": false,
+      "source_references_required": true,
+      "limitations_required": true,
+      "no_signal_language_required": true,
+      "no_financial_advice_required": true,
+      "downstream_llm_prompt_allowed": true,
+      "downstream_llm_repo_execution_allowed": false
+    },
+    {
+      "angle_card_id": "card-3",
+      "angle_type": "forecast_readiness_from_news",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "publish_ready": false,
+      "public_ready_allowed_now": false,
+      "source_references_required": true,
+      "limitations_required": true,
+      "no_signal_language_required": true,
+      "no_financial_advice_required": true,
+      "downstream_llm_prompt_allowed": true,
+      "downstream_llm_repo_execution_allowed": false
+    },
+    {
+      "angle_card_id": "card-4",
+      "angle_type": "official_data_explainer",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "publish_ready": false,
+      "public_ready_allowed_now": false,
+      "source_references_required": true,
+      "limitations_required": true,
+      "no_signal_language_required": true,
+      "no_financial_advice_required": true,
+      "downstream_llm_prompt_allowed": true,
+      "downstream_llm_repo_execution_allowed": false
+    }
+  ],
+  "social_platform_foundation_linkage": {
+    "linked_spec": "TASK_CONTENTOPS_0138_SOCIAL_PLATFORM_FOUNDATION_CONTROL_PLANE_V0",
+    "real_approved_artifacts_present": false
+  },
+  "llm_content_writer_workbench_linkage": {
+    "linked_spec": "TASK_CONTENTOPS_0139_LLM_ASSISTED_CONTENT_WRITER_WORKBENCH_V0",
+    "downstream_review_only": true
+  },
+  "review_policy": {
+    "manual_review_required": true,
+    "auto_approval_allowed": false,
+    "operator_in_loop_required": true
+  },
+  "safety_policy": {
+    "no_financial_advice_required": true,
+    "no_signal_language_required": true,
+    "news_is_a_hook_not_a_signal": true,
+    "no_market_direction_claims": true,
+    "no_guaranteed_prediction": true,
+    "no_ai_trading_bot_framing": true,
+    "no_bloomberg_replacement_framing": true,
+    "no_signal_service_framing": true,
+    "no_fake_alpha_performance_claims": true,
+    "no_unsupported_numeric_market_claims": true,
+    "no_hiding_degraded_or_proxy_data": true,
+    "no_public_ready_synthetic_fixture_content": true,
+    "no_political_persuasion_without_source_and_limitation": true
+  },
+  "output_policy": {
+    "manual_review_required": true,
+    "not_public_postable": true,
+    "publish_ready": false,
+    "auto_approval_allowed": false,
+    "public_ready_allowed_now": false,
+    "platform_export_final_allowed_now": false,
+    "newsletter_send_enabled_now": false,
+    "cms_integration_enabled_now": false
+  },
+  "future_handoff": {
+    "llm_content_writer_workbench_handoff_ready": true,
+    "social_platform_foundation_handoff_ready": true,
+    "no_capability_enabled_now": true
+  },
+  "blocked_reasons": [],
+  "packet_status": "pass"
+}
