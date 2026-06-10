@@ -945,6 +945,12 @@ def pre_alpha_redacted_publish_audit_log_summary():
     print(json.dumps(redacted_publish_audit_log.summary(), indent=2))
 
 
+def pre_alpha_telegram_live_pilot_gate_summary():
+    import json
+    from live_contentops import telegram_one_platform_live_pilot_gate
+    print(json.dumps(telegram_one_platform_live_pilot_gate.summary(), indent=2))
+
+
 
 
 
@@ -1125,6 +1131,7 @@ COMMANDS = {
     "pre-alpha-dry-run-publish-batch-manifest-summary": pre_alpha_dry_run_publish_batch_manifest_summary,
     "pre-alpha-publish-adapter-credential-secret-policy-summary": pre_alpha_publish_adapter_credential_secret_policy_summary,
     "pre-alpha-redacted-publish-audit-log-summary": pre_alpha_redacted_publish_audit_log_summary,
+    "pre-alpha-telegram-live-pilot-gate-summary": pre_alpha_telegram_live_pilot_gate_summary,
 
 
     "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,
