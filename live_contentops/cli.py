@@ -841,6 +841,12 @@ def pre_alpha_seo_newsletter_architecture_summary():
     from live_contentops import seo_newsletter_architecture
     print(json.dumps(seo_newsletter_architecture.summary(), indent=2))
 
+def pre_alpha_daily_content_studio_run_summary():
+    import json
+    from live_contentops import daily_content_studio_run
+    print(json.dumps(daily_content_studio_run.summary(), indent=2))
+
+
 def pre_alpha_grounded_news_angle_workbench_summary():
     import json
     from live_contentops import grounded_news_angle_workbench
@@ -998,6 +1004,8 @@ COMMANDS = {
     "pre-alpha-frontend-static-prototype-summary": pre_alpha_frontend_static_prototype_summary,
     "pre-alpha-seo-newsletter-architecture-summary": pre_alpha_seo_newsletter_architecture_summary,
     "pre-alpha-social-platform-foundation-summary": pre_alpha_social_platform_foundation_summary,
+    "pre-alpha-daily-content-studio-run-summary": pre_alpha_daily_content_studio_run_summary,
+
     "pre-alpha-grounded-news-angle-workbench-summary": pre_alpha_grounded_news_angle_workbench_summary,
 
     "pre-alpha-llm-content-writer-workbench-summary": pre_alpha_llm_content_writer_workbench_summary,

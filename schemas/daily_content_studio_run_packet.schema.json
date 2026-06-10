@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Daily Content Studio Run Packet",
+  "type": "object",
+  "properties": {
+    "packet_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "operator_supplied": { "type": "boolean" },
+    "runtime_authority": { "type": "boolean" },
+    "run_mode": { "type": "string" },
+    "input_policy": { "type": "object" },
+    "source_context_summary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "source_id": { "type": "string" },
+          "source_label": { "type": "string" },
+          "source_type": { "type": "string" },
+          "limitation_note": { "type": "string" },
+          "freshness_label": { "type": "string" }
+        },
+        "required": [
+          "source_id",
+          "source_label",
+          "source_type",
+          "limitation_note",
+          "freshness_label"
+        ]
+      }
+    },
+    "selected_angle_cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "angle_card_id": { "type": "string" },
+          "angle_type": { "type": "string" },
+          "review_only": { "type": "boolean" },
+          "manual_review_required": { "type": "boolean" },
+          "not_public_postable": { "type": "boolean" },
+          "publish_ready": { "type": "boolean" },
+          "public_ready_allowed_now": { "type": "boolean" },
+          "source_references_required": { "type": "boolean" },
+          "limitations_required": { "type": "boolean" },
+          "no_signal_language_required": { "type": "boolean" },
+          "no_financial_advice_required": { "type": "boolean" }
+        },
+        "required": [
+          "angle_card_id",
+          "angle_type",
+          "review_only",
+          "manual_review_required",
+          "not_public_postable",
+          "publish_ready",
+          "public_ready_allowed_now",
+          "source_references_required",
+          "limitations_required",
+          "no_signal_language_required",
+          "no_financial_advice_required"
+        ]
+      }
+    },
+    "content_lane_selection": { "type": "object" },
+    "llm_writer_handoff": { "type": "object" },
+    "platform_foundation_handoff": { "type": "object" },
+    "grounded_news_workbench_handoff": { "type": "object" },
+    "source_lineage_policy": { "type": "object" },
+    "freshness_and_limitations_policy": { "type": "object" },
+    "review_policy": { "type": "object" },
+    "output_policy": { "type": "object" },
+    "safety_policy": { "type": "object" },
+    "manual_operator_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "packet_status": { "type": "string" }
+  },
+  "required": [
+    "packet_id",
+    "created_at",
+    "operator_supplied",
+    "runtime_authority",
+    "run_mode",
+    "input_policy",
+    "source_context_summary",
+    "selected_angle_cards",
+    "content_lane_selection",
+    "llm_writer_handoff",
+    "platform_foundation_handoff",
+    "grounded_news_workbench_handoff",
+    "source_lineage_policy",
+    "freshness_and_limitations_policy",
+    "review_policy",
+    "output_policy",
+    "safety_policy",
+    "manual_operator_actions",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}

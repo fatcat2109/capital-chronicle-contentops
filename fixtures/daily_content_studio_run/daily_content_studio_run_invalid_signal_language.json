@@ -1,0 +1,103 @@
+{
+  "packet_id": "dcsr-invalid-signal",
+  "created_at": "2026-06-10T00:00:00Z",
+  "operator_supplied": true,
+  "runtime_authority": false,
+  "run_mode": "daily_review_only_studio_run",
+  "input_policy": {
+    "operator_supplied_context_only": true,
+    "repo_web_search_allowed": false,
+    "repo_scraping_allowed": false,
+    "repo_news_api_allowed": false,
+    "repo_rss_fetch_allowed": false,
+    "repo_market_data_api_allowed": false,
+    "provider_llm_api_allowed": false,
+    "credential_read_allowed": false,
+    "platform_api_allowed": false,
+    "scheduler_allowed": false,
+    "newsletter_or_cms_api_allowed": false
+  },
+  "source_context_summary": [
+    {
+      "source_id": "src-1",
+      "source_label": "Placeholder Source",
+      "source_type": "statistical_agency",
+      "limitation_note": "Single release; revisions possible.",
+      "freshness_label": "recent_within_week"
+    }
+  ],
+  "selected_angle_cards": [
+    {
+      "angle_card_id": "card-1",
+      "angle_type": "macro_education_from_news",
+      "example_caption": "our model predicts a buy signal; this means the asset will move higher",
+      "review_only": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "publish_ready": false,
+      "public_ready_allowed_now": false,
+      "source_references_required": true,
+      "limitations_required": true,
+      "no_signal_language_required": true,
+      "no_financial_advice_required": true
+    }
+  ],
+  "content_lane_selection": { "content_lane": "macro_education", "review_only": true },
+  "llm_writer_handoff": {
+    "external_llm_use_only": true,
+    "repo_executes_prompt": false,
+    "provider_call_allowed_by_repo": false,
+    "prompt_template_only": true,
+    "generated_copy_final_allowed_now": false,
+    "manual_review_required": true,
+    "not_public_postable": true
+  },
+  "platform_foundation_handoff": {
+    "platform_preview_allowed": true,
+    "platform_export_final_allowed_now": false,
+    "platform_api_allowed_now": false,
+    "live_posting_enabled_now": false,
+    "credential_read_allowed_now": false,
+    "scheduler_allowed_now": false,
+    "manual_review_required": true,
+    "not_public_postable": true
+  },
+  "grounded_news_workbench_handoff": {
+    "operator_supplied_source_only": true,
+    "repo_web_search_allowed": false
+  },
+  "source_lineage_policy": {
+    "source_lineage_required": true
+  },
+  "freshness_and_limitations_policy": {
+    "source_references_required": true,
+    "limitations_required": true
+  },
+  "review_policy": {
+    "manual_review_required": true,
+    "auto_approval_allowed": false,
+    "real_approved_artifacts_present": false
+  },
+  "output_policy": {
+    "manual_review_required": true,
+    "not_public_postable": true,
+    "publish_ready": false,
+    "auto_approval_allowed": false,
+    "public_ready_allowed_now": false,
+    "platform_export_final_allowed_now": false,
+    "newsletter_send_enabled_now": false,
+    "cms_integration_enabled_now": false,
+    "manual_publish_recording_optional_later": true,
+    "manual_metrics_entry_optional_later": true
+  },
+  "safety_policy": {
+    "news_is_a_hook_not_a_signal": true,
+    "no_signal_language_required": true
+  },
+  "manual_operator_actions": [
+    "review_source_context",
+    "choose_angle_card"
+  ],
+  "blocked_reasons": [],
+  "packet_status": "blocked"
+}
