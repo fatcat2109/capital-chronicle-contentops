@@ -17,6 +17,45 @@
       No live posting. No platform/provider/web calls.
     </p>
 
+    <p class="api-key-note">
+      No platform API keys or tokens are needed for this static UI.
+      Credential/API setup belongs to a later explicitly approved live-adapter task.
+    </p>
+
+    <nav id="section-nav" class="section-nav" aria-label="Section navigation">
+      <a class="nav-link" href="#safety-header">Safety</a>
+      <a class="nav-link" href="#daily-run-overview">Run Overview</a>
+      <a class="nav-link" href="#source-context-panel">Source Context</a>
+      <a class="nav-link" href="#angle-cards-panel">Angle Cards</a>
+      <a class="nav-link" href="#llm-prompt-handoff-panel">Prompt Handoff</a>
+      <a class="nav-link" href="#markdown-review-export-panel">Markdown Review</a>
+      <a class="nav-link" href="#external-draft-review-panel">External Draft Review</a>
+      <a class="nav-link" href="#operator-decision-ledger-panel">Decision Ledger</a>
+      <a class="nav-link" href="#platform-fit-panel">Platform Fit</a>
+      <a class="nav-link" href="#blockers-and-limitations-panel">Blockers &amp; Limitations</a>
+      <a class="nav-link" href="#manual-actions-panel">Manual Actions</a>
+      <a class="nav-link" href="#audit-status-panel">Audit Status</a>
+      <a class="nav-link" href="#future-frontend-handoff-panel">Future Handoff</a>
+    </nav>
+
+    <div id="review-filters" class="review-filters" aria-label="Review status filters">
+      <span class="filter-label">Review filters (local only):</span>
+      <button type="button" class="filter-chip" data-filter="all">all</button>
+      <button type="button" class="filter-chip" data-filter="needs_review">needs_review</button>
+      <button type="button" class="filter-chip" data-filter="blocked">blocked</button>
+      <button type="button" class="filter-chip" data-filter="safe_for_manual_review">safe_for_manual_review</button>
+      <button type="button" class="filter-chip" data-filter="source_required">source_required</button>
+      <button type="button" class="filter-chip" data-filter="limitation_required">limitation_required</button>
+      <button type="button" class="filter-chip" data-filter="not_public_postable">not_public_postable</button>
+    </div>
+
+    <section id="item-inspector" class="panel inspector" data-panel="item_inspector" aria-live="polite">
+      <h2>Selected Item Inspector</h2>
+      <div class="inspector-body">
+        <p class="note">Select an item from any panel to inspect its review-only details.</p>
+      </div>
+    </section>
+
     <section id="daily-run-overview" class="panel" data-panel="daily_run_overview">
       <h2>Daily Run Overview</h2>
       <div class="panel-body"></div>

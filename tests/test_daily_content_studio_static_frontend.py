@@ -131,8 +131,28 @@ def test_forbidden_actions_rendered_disabled():
 
 
 def test_no_active_live_action_buttons():
-    html = _read(INDEX)
-    assert "<button" not in html.lower()
+    html = _read(INDEX).lower()
+    # Local-only filter chips are allowed (non-mutating, no network), but no
+    # button may carry a forbidden live-action label.
+    forbidden_button_labels = [
+        ">publish<",
+        ">schedule<",
+        ">send newsletter<",
+        ">connect account<",
+        ">load api key<",
+        ">authorize oauth<",
+        ">post to all platforms<",
+        ">approve public-ready final<",
+        ">call api<",
+        ">fetch market data<",
+        ">scrape metrics<",
+    ]
+    for lab in forbidden_button_labels:
+        assert lab not in html, f"forbidden button label present: {lab}"
+    # Any <button> present must be a local review-only filter chip.
+    import re
+    for m in re.finditer(r"<button[^>]*>(.*?)</button>", html, re.DOTALL):
+        assert "filter-chip" in m.group(0), f"non-filter button found: {m.group(0)[:80]}"
 
 
 def test_no_remote_url_cdn_external_script():
@@ -200,4 +220,87 @@ def test_existing_cli_summaries_still_run():
         )
         assert r.returncode == 0, f"{c} failed: {r.stderr}"
         assert "packet_status" in r.stdout or "validation_valid" in r.stdout
+
+def test_section_navigation_present():
+    html = _read(INDEX)
+    assert 'id="section-nav"' in html
+    for target in [
+        "#safety-header",
+        "#daily-run-overview",
+        "#source-context-panel",
+        "#angle-cards-panel",
+        "#llm-prompt-handoff-panel",
+        "#markdown-review-export-panel",
+        "#external-draft-review-panel",
+        "#operator-decision-ledger-panel",
+        "#platform-fit-panel",
+        "#blockers-and-limitations-panel",
+        "#manual-actions-panel",
+        "#audit-status-panel",
+        "#future-frontend-handoff-panel",
+    ]:
+        assert f'href="{target}"' in html, f"missing nav target: {target}"
+
+
+def test_review_status_filters_present():
+    html = _read(INDEX)
+    assert 'id="review-filters"' in html
+    for f in [
+        "all",
+        "needs_review",
+        "blocked",
+        "safe_for_manual_review",
+        "source_required",
+        "limitation_required",
+        "not_public_postable",
+    ]:
+        assert f'data-filter="{f}"' in html, f"missing filter: {f}"
+
+
+def test_selected_item_inspector_present():
+    html = _read(INDEX)
+    assert 'id="item-inspector"' in html
+    assert "inspector-body" in html
+    js = _read(APP)
+    assert "renderInspector" in js
+    assert "wireInspectLinks" in js
+
+
+def test_structured_detail_or_inspect_affordance():
+    js = _read(APP)
+    # Inspect links provide structured per-item detail (local selection only).
+    assert "inspect-link" in js
+    css = _read(STYLES)
+    assert ".inspect-link" in css or ".detail-card" in css
+
+
+def test_api_key_note_present():
+    html = _read(INDEX).lower()
+    assert "no platform api keys or tokens are needed" in html
+    assert "later explicitly approved live-adapter task" in html
+
+
+def test_no_clipboard_write_automation():
+    js = _read(APP)
+    assert "navigator.clipboard" not in js
+    assert "execCommand" not in js
+    assert "clipboardData" not in js
+
+
+def test_no_websocket_eventsource_xhr():
+    js = _read(APP)
+    assert "WebSocket" not in js
+    assert "EventSource" not in js
+    assert "XMLHttpRequest" not in js
+    assert "fetch(" not in js
+    assert "import(" not in js
+
+
+def test_filters_are_view_only_no_mutation():
+    js = _read(APP)
+    # Filters only toggle a CSS class; no file/network/storage writes.
+    assert "filtered-out" in js
+    assert "writeFile" not in js
+    assert "localStorage" not in js.replace("localStorage/sessionStorage", "")
+
 

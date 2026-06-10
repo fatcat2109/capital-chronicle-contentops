@@ -910,6 +910,14 @@ def pre_alpha_daily_content_studio_static_frontend_summary():
         "not_public_postable": True,
         "manual_review_required": True,
         "review_only": True,
+        "section_navigation_present": True,
+        "review_status_filters_present": True,
+        "selected_item_inspector_present": True,
+        "detail_cards_present": True,
+        "clipboard_write_automation_present": False,
+        "websocket_or_eventsource_used": False,
+        "post_to_all_platforms_button_present": False,
+        "approve_public_ready_button_present": False,
     }
     print(json.dumps(summary, indent=2))
 

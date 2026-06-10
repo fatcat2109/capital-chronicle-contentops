@@ -64,6 +64,7 @@ function renderSectionFlags(panelSel, sec) {
   kv(body, "limitations_visible", sec.limitations_visible);
   kv(body, "source_references_visible", sec.source_references_visible);
   kv(body, "blocked_actions_visible", sec.blocked_actions_visible);
+}
 
 function renderManualActions(data) {
   const allowedHost = document.querySelector("#manual-actions-panel .allowed-actions");
@@ -148,6 +149,123 @@ function render(data) {
 
 document.addEventListener("DOMContentLoaded", function () {
   render(FIXTURE);
+  wireWorkflow(FIXTURE);
 });
 
+/* ---- 0147 local review workflow affordances (view-only, no mutation) ---- */
+
+/* Build a small list of inspectable items from the fixture (local only). */
+function buildInspectableItems(data) {
+  const items = [];
+  (data.screen_sections || []).forEach((s) => {
+    items.push({
+      kind: "section",
+      id: s.section_id,
+      title: s.title || s.section_id,
+      review_only: s.review_only,
+      manual_review_required: s.manual_review_required,
+      not_public_postable: s.not_public_postable,
+      source_references_visible: s.source_references_visible,
+      limitations_visible: s.limitations_visible,
+      blocked_actions_visible: s.blocked_actions_visible,
+    });
+  });
+  return items;
 }
+
+/* Render the selected-item inspector (local in-memory only). */
+function renderInspector(item) {
+  const body = document.querySelector("#item-inspector .inspector-body");
+  body.innerHTML = "";
+  if (!item) {
+    body.appendChild(el("p", "note", "Select an item from any panel to inspect its review-only details."));
+    return;
+  }
+  body.appendChild(el("h3", null, item.title));
+  kv(body, "kind", item.kind);
+  kv(body, "review_only", item.review_only);
+  kv(body, "manual_review_required", item.manual_review_required);
+  kv(body, "not_public_postable", item.not_public_postable);
+  kv(body, "source_references_visible", item.source_references_visible);
+  kv(body, "limitations_visible", item.limitations_visible);
+  kv(body, "blocked_actions_visible", item.blocked_actions_visible);
+}
+
+/* Add an inspect link into each section header (local selection only). */
+function wireInspectLinks(data) {
+  const items = buildInspectableItems(data);
+  items.forEach((item) => {
+    const sec = document.getElementById(sectionIdToElementId(item.id));
+    if (!sec) return;
+    const link = el("span", "inspect-link", "inspect");
+    link.setAttribute("role", "button");
+    link.setAttribute("tabindex", "0");
+    link.addEventListener("click", () => renderInspector(item));
+    link.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") renderInspector(item);
+    });
+    const h2 = sec.querySelector("h2");
+    if (h2) h2.appendChild(link);
+  });
+}
+
+function sectionIdToElementId(sectionId) {
+  const map = {
+    source_context_panel: "source-context-panel",
+    angle_cards_panel: "angle-cards-panel",
+    llm_prompt_handoff_panel: "llm-prompt-handoff-panel",
+    markdown_review_export_panel: "markdown-review-export-panel",
+    external_draft_review_panel: "external-draft-review-panel",
+    operator_decision_ledger_panel: "operator-decision-ledger-panel",
+    platform_fit_panel: "platform-fit-panel",
+    blockers_and_limitations_panel: "blockers-and-limitations-panel",
+    daily_run_overview: "daily-run-overview",
+    audit_status_panel: "audit-status-panel",
+    future_frontend_handoff_panel: "future-frontend-handoff-panel",
+  };
+  return map[sectionId] || sectionId;
+}
+
+/* Local-only review filters: hide/show rendered panels in memory. No mutation. */
+function applyFilter(filter) {
+  const panels = document.querySelectorAll("main .panel");
+  panels.forEach((p) => {
+    if (filter === "all") {
+      p.classList.remove("filtered-out");
+      return;
+    }
+    const text = p.textContent.toLowerCase();
+    let keep = false;
+    if (filter === "blocked") keep = text.includes("block");
+    else if (filter === "needs_review") keep = text.includes("manual_review_required");
+    else if (filter === "safe_for_manual_review") keep = text.includes("review_only");
+    else if (filter === "source_required") keep = text.includes("source_references_visible");
+    else if (filter === "limitation_required") keep = text.includes("limitations_visible");
+    else if (filter === "not_public_postable") keep = text.includes("not_public_postable");
+    // Always keep the inspector visible.
+    if (p.id === "item-inspector") keep = true;
+    p.classList.toggle("filtered-out", !keep);
+  });
+}
+
+function wireFilters() {
+  const chips = document.querySelectorAll(".filter-chip");
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      chips.forEach((c) => c.classList.remove("active"));
+      chip.classList.add("active");
+      applyFilter(chip.getAttribute("data-filter"));
+    });
+  });
+  const allChip = document.querySelector('.filter-chip[data-filter="all"]');
+  if (allChip) allChip.classList.add("active");
+}
+
+function wireWorkflow(data) {
+  if (!data) return;
+  wireInspectLinks(data);
+  wireFilters();
+  renderInspector(null);
+}
+
+
