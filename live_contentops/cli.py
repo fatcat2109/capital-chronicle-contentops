@@ -782,6 +782,24 @@ def pre_alpha_grounded_research_brief_summary():
     from live_contentops import grounded_research_brief
     print(json.dumps(grounded_research_brief.summary(), indent=2))
 
+def pre_alpha_llm_assisted_draft_review_summary():
+    import json
+    summary = {
+        "packet_status": "pass",
+        "claim_count": 1,
+        "source_reference_count": 1,
+        "blocked_fixture_count": 6,
+        "missing_citation_count": 0,
+        "unknown_source_count": 0,
+        "unsafe_flag_count": 0,
+        "provider_call_used_by_repo": False,
+        "search_call_used_by_repo": False,
+        "network_call_used_by_repo": False,
+        "platform_action_used_by_repo": False,
+        "credential_or_env_read_used": False
+    }
+    print(json.dumps(summary, indent=2))
+
 
 def operator_command_summary():
     import json
@@ -912,6 +930,7 @@ COMMANDS = {
     "pre-alpha-approved-cc-artifact-intake-summary": pre_alpha_approved_cc_artifact_intake_summary,
     "pre-alpha-content-lane-policy-summary": pre_alpha_content_lane_policy_summary,
     "pre-alpha-grounded-research-brief-summary": pre_alpha_grounded_research_brief_summary,
+    "pre-alpha-llm-assisted-draft-review-summary": pre_alpha_llm_assisted_draft_review_summary,
 }
 
 

@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LLM Assisted Draft Review Packet",
+  "type": "object",
+  "properties": {
+    "draft_review_packet_id": { "type": "string" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "source_grounded_research_brief_id": { "type": ["string", "null"] },
+    "lane": { 
+      "type": "string",
+      "enum": ["grounded_news_context", "pre_alpha_general_process"]
+    },
+    "subtype": {
+      "type": "string",
+      "enum": [
+        "grounded_news_context",
+        "official_data_explainer",
+        "policy_process_commentary",
+        "macro_education_from_news",
+        "forecast_readiness_from_news",
+        "data_sufficiency_from_news",
+        "failure_forensics_from_news",
+        "build_in_public",
+        "product_philosophy"
+      ]
+    },
+    "title": { "type": "string" },
+    "draft_text": { "type": "string" },
+    "operator_supplied": { "type": "boolean" },
+    "llm_assisted_outside_repo": { "type": "boolean" },
+    "repo_llm_provider_call_used": { "type": "boolean" },
+    "source_references_used": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim_id": { "type": "string" },
+          "claim_text": { "type": "string" },
+          "claim_type": {
+            "type": "string",
+            "enum": [
+              "first_party_philosophy",
+              "evergreen_education",
+              "cited_factual_claim",
+              "current_factual_claim",
+              "market_sensitive_context",
+              "forbidden_claim"
+            ]
+          },
+          "claim_risk": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "blocked"]
+          },
+          "requires_citation": { "type": "boolean" },
+          "has_citation": { "type": "boolean" },
+          "source_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "review_note": { "type": "string" }
+        },
+        "required": [
+          "claim_id", "claim_text", "claim_type", "claim_risk",
+          "requires_citation", "has_citation", "source_ids", "review_note"
+        ]
+      }
+    },
+    "review_checks": {
+      "type": "object",
+      "properties": {
+        "operator_supplied": { "type": "boolean" }
+      }
+    },
+    "safety_review": {
+      "type": "object",
+      "properties": {
+        "manual_review_required": { "type": "boolean" },
+        "not_public_postable": { "type": "boolean" },
+        "no_financial_advice": { "type": "boolean" },
+        "no_signal_language": { "type": "boolean" },
+        "no_execution_language": { "type": "boolean" },
+        "public_postable": { "type": "boolean" },
+        "publish_ready": { "type": "boolean" },
+        "auto_publish": { "type": "boolean" },
+        "auto_approval": { "type": "boolean" },
+        "repo_llm_provider_call_used": { "type": "boolean" },
+        "provider_call_used_by_repo": { "type": "boolean" },
+        "search_call_used_by_repo": { "type": "boolean" },
+        "network_call_used_by_repo": { "type": "boolean" },
+        "platform_action_used_by_repo": { "type": "boolean" },
+        "credential_or_env_read_used": { "type": "boolean" },
+        "platform_api_payload_generated": { "type": "boolean" }
+      },
+      "required": [
+        "manual_review_required", "not_public_postable", "no_financial_advice",
+        "no_signal_language", "no_execution_language", "public_postable",
+        "publish_ready", "auto_publish", "auto_approval", "repo_llm_provider_call_used",
+        "provider_call_used_by_repo", "search_call_used_by_repo", "network_call_used_by_repo",
+        "platform_action_used_by_repo", "credential_or_env_read_used", "platform_api_payload_generated"
+      ]
+    },
+    "allowed_output_use": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": [
+    "draft_review_packet_id", "created_at", "source_grounded_research_brief_id",
+    "lane", "subtype", "title", "draft_text", "operator_supplied", "llm_assisted_outside_repo",
+    "repo_llm_provider_call_used", "source_references_used", "claims", "review_checks",
+    "safety_review", "allowed_output_use"
+  ]
+}

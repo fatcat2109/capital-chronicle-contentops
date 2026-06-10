@@ -1,0 +1,53 @@
+{
+  "draft_review_packet_id": "drp-100",
+  "created_at": "2026-06-10T00:00:00Z",
+  "source_grounded_research_brief_id": "grb-99",
+  "lane": "grounded_news_context",
+  "subtype": "macro_education_from_news",
+  "title": "Macro Education Outline",
+  "draft_text": "This is a safe educational draft about macro economic trends.",
+  "operator_supplied": true,
+  "llm_assisted_outside_repo": true,
+  "repo_llm_provider_call_used": false,
+  "source_references_used": [
+    "src-1"
+  ],
+  "claims": [
+    {
+      "claim_id": "clm-1",
+      "claim_text": "Macro trends suggest inflation is persistent based on recent CPI.",
+      "claim_type": "current_factual_claim",
+      "claim_risk": "low",
+      "requires_citation": true,
+      "has_citation": true,
+      "source_ids": [
+        "src-unknown"
+      ],
+      "review_note": "Cited properly."
+    }
+  ],
+  "review_checks": {
+    "operator_supplied": true
+  },
+  "safety_review": {
+    "manual_review_required": true,
+    "not_public_postable": true,
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "no_execution_language": true,
+    "public_postable": false,
+    "publish_ready": false,
+    "auto_publish": false,
+    "auto_approval": false,
+    "repo_llm_provider_call_used": false,
+    "provider_call_used_by_repo": false,
+    "search_call_used_by_repo": false,
+    "network_call_used_by_repo": false,
+    "platform_action_used_by_repo": false,
+    "credential_or_env_read_used": false,
+    "platform_api_payload_generated": false
+  },
+  "allowed_output_use": [
+    "internal_review_only"
+  ]
+}
