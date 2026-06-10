@@ -67,6 +67,7 @@
       btn.addEventListener("click", function () { renderScreen(s.screen_id); });
       host.appendChild(btn);
     });
+  }
 
   /* Helpers for building cards */
   function chipRow(tokens) {
@@ -151,6 +152,104 @@
     return bar;
   }
 
+  /* Command Center hero band */
+  function ccHero(d) {
+    var h = d.hero_status_band || {};
+    var band = el("div", "cc-hero");
+    band.appendChild(el("div", "cc-hero-title", h.title || "Command Center"));
+    var rows = [
+      ["System mode", h.system_mode], ["Accepted HEAD", h.accepted_head],
+      ["Kill switch", h.kill_switch], ["Public state", h.public_state],
+      ["Live / API", h.live_api_state], ["Current gate", h.current_gate],
+      ["Next allowed action", h.next_allowed_action]
+    ];
+    var wrap = el("div", "cc-hero-grid");
+    rows.forEach(function (r) {
+      var cell = el("div", "cc-hero-cell");
+      cell.appendChild(el("span", "label", r[0]));
+      cell.appendChild(el("span", "value", r[1] || "unknown"));
+      wrap.appendChild(cell);
+    });
+    band.appendChild(wrap);
+    return band;
+  }
+
+  function ccCardGrid(title, mapper, items, cls) {
+    var section = el("div", "cc-section");
+    section.appendChild(el("h2", "cc-section-title", title));
+    var grid = el("div", cls || "card-grid");
+    (items || []).forEach(function (it) { grid.appendChild(mapper(it)); });
+    section.appendChild(grid);
+    return section;
+  }
+
+  function ccKvSection(title, obj) {
+    var section = el("div", "cc-section");
+    section.appendChild(el("h2", "cc-section-title", title));
+    var card = el("div", "card full");
+    var ul = el("ul", "kv");
+    Object.keys(obj || {}).forEach(function (k) {
+      var li = el("li");
+      li.appendChild(el("span", "k", k.replace(/_/g, " ") + ":"));
+      li.appendChild(el("span", "v", String(obj[k])));
+      ul.appendChild(li);
+    });
+    card.appendChild(ul);
+    section.appendChild(card);
+    return section;
+  }
+
+  function renderCommandCenter(main) {
+    var d = F.command_center_detail || {};
+    main.appendChild(screenshotSafeBar());
+    main.appendChild(ccHero(d));
+    main.appendChild(bannerRow((F.global_safety_banners || []).map(function (b) { return b.id; })));
+
+    main.appendChild(ccCardGrid("Executive Status", function (c) {
+      var card = el("div", "card");
+      var head = el("h3", null, c.title);
+      card.appendChild(head);
+      var chip = el("span", "chip", String(c.state).replace(/_/g, " "));
+      chip.setAttribute("data-tone", tokenTone(c.state));
+      card.appendChild(chip);
+      card.appendChild(el("div", "note", c.detail || ""));
+      return card;
+    }, d.executive_status_cards));
+
+    main.appendChild(ccCardGrid("Gate Timeline", function (g) {
+      var card = el("div", "card cc-gate");
+      card.appendChild(el("h3", null, g.gate));
+      var chip = el("span", "chip", String(g.state).replace(/_/g, " "));
+      chip.setAttribute("data-tone", tokenTone(g.state));
+      card.appendChild(chip);
+      card.appendChild(el("div", "note", g.label || ""));
+      return card;
+    }, d.gate_timeline));
+
+    var bam = el("div", "cc-section");
+    bam.appendChild(el("h2", "cc-section-title", "Blocked Action Matrix"));
+    var bcard = el("div", "card full");
+    (d.blocked_action_matrix || []).forEach(function (b) {
+      var item = el("span", "disabled-control", b.action.replace(/_/g, " ") + " — " + b.state);
+      item.setAttribute("aria-disabled", "true");
+      item.setAttribute("title", "Disabled by safety policy.");
+      bcard.appendChild(item);
+    });
+    bcard.appendChild(el("div", "forbidden-note",
+      "All actions above are disabled, read-only. No live capability is wired."));
+    bam.appendChild(bcard);
+    main.appendChild(bam);
+
+    main.appendChild(ccKvSection("Evidence / Audit Summary", d.evidence_summary));
+    main.appendChild(ccKvSection("Telegram Pilot Gate State (Read-Only)", d.telegram_gate_state));
+    main.appendChild(ccKvSection("Publish Automation State", d.publish_automation_state));
+    main.appendChild(ccKvSection("Content Studio State", d.content_studio_state));
+    main.appendChild(ccKvSection("UI Rebuild State", d.ui_rebuild_state));
+    main.appendChild(ccKvSection("Residual Drift (Untouched)", d.residual_drift_panel));
+    main.appendChild(ccKvSection("Next Allowed Action", d.next_allowed_action_panel));
+  }
+
+
   /* Main screen render */
   function renderScreen(screenId) {
     var screens = F.screens || [];
@@ -164,6 +263,11 @@
     var main = document.getElementById("main");
     if (!main) { return; }
     main.textContent = "";
+
+    if (screen.screen_id === "command_center" && F.command_center_detail) {
+      renderCommandCenter(main);
+      return;
+    }
 
     main.appendChild(screenshotSafeBar());
     main.appendChild(el("h1", "screen-title", screen.title));
@@ -263,5 +367,3 @@
     init();
   }
 })();
-
-  }

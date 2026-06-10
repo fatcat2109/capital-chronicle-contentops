@@ -26,6 +26,7 @@ window.CC_INSTITUTIONAL_SHELL_FIXTURE = {
     { id: "LOCAL_ONLY", tone: "locked" },
     { id: "DRY_RUN_ONLY", tone: "locked" },
     { id: "REVIEW_ONLY", tone: "review" },
+    { id: "MANUAL_REVIEW_REQUIRED", tone: "review" },
     { id: "NOT_PUBLIC_POSTABLE", tone: "locked" },
     { id: "LIVE_DISABLED", tone: "locked" },
     { id: "KILL_SWITCH_ACTIVE", tone: "blocked" },
@@ -77,6 +78,111 @@ window.CC_INSTITUTIONAL_SHELL_FIXTURE = {
     "not_public_postable_banner", "manual_review_required_banner",
     "kill_switch_indicator", "forbidden_action_tooltip"
   ],
+  command_center_detail: {
+    hero_status_band: {
+      title: "Capital Chronicle ContentOps Command Center",
+      system_mode: "local / static / fixture-driven",
+      accepted_head: "1c03ca0",
+      kill_switch: "active",
+      public_state: "not_public_postable",
+      live_api_state: "disabled",
+      current_gate: "0161 command center screen implementation",
+      next_allowed_action: "AWAIT OPERATOR/CHATGPT AUDIT_OF_0161_EVIDENCE_BEFORE_ANY_NEXT_TASK"
+    },
+    executive_status_cards: [
+      { id: "system_safety", title: "System Safety", state: "PASS", detail: "Kill switch active. Live disabled. Review-only. Not public-postable." },
+      { id: "build_baseline", title: "Build Baseline", state: "PASS", detail: "Accepted HEAD 1c03ca0. 0160 static shell prototype accepted." },
+      { id: "publish_automation", title: "Publish Automation", state: "LIVE_DISABLED", detail: "Dry-run only. Platform API disabled. One-button publish-all disabled." },
+      { id: "telegram_pilot_gate", title: "Telegram Pilot Gate", state: "API_VALIDATED_NO_POST", detail: "Credentials redacted. sendMessage disabled. Channel permission unvalidated." },
+      { id: "evidence_audit", title: "Evidence / Audit", state: "PASS", detail: "Full suite green at fixture baseline. Secret scan clean. Forbidden scope clean." },
+      { id: "ui_rebuild_track", title: "UI Rebuild Track", state: "REVIEW_REQUIRED", detail: "0157-0160 accepted. 0161 current. Antigravity future-only." },
+      { id: "content_studio_track", title: "Content Studio Track", state: "REVIEW_REQUIRED", detail: "Review-only. Source/evidence required. No final social copy." },
+      { id: "residual_drift", title: "Residual Drift", state: "MANUAL_ONLY", detail: "Local env file and strategy docs untouched/untracked. No cleanup allowed." }
+    ],
+    gate_timeline: [
+      { gate: "0157", label: "UI/UX master plan", state: "PASS" },
+      { gate: "0158", label: "design system", state: "PASS" },
+      { gate: "0159", label: "view-model contract", state: "PASS" },
+      { gate: "0160", label: "static shell prototype", state: "PASS" },
+      { gate: "0161", label: "command center screen", state: "REVIEW_REQUIRED" },
+      { gate: "0162", label: "content studio rebuild", state: "UNKNOWN" },
+      { gate: "0163", label: "publish readiness tower", state: "UNKNOWN" },
+      { gate: "0164", label: "evidence vault", state: "UNKNOWN" },
+      { gate: "0165", label: "calendar/workflow board", state: "UNKNOWN" },
+      { gate: "0166", label: "visual export/screenshot-safe mode", state: "UNKNOWN" },
+      { gate: "0167", label: "Antigravity browser QA", state: "UNKNOWN" },
+      { gate: "0168", label: "Cline polish pass", state: "UNKNOWN" }
+    ],
+    blocked_action_matrix: [
+      { action: "live_posting", state: "disabled" },
+      { action: "scheduler", state: "disabled" },
+      { action: "platform_api", state: "disabled" },
+      { action: "provider_llm_api", state: "disabled" },
+      { action: "scraping", state: "disabled" },
+      { action: "autonomous_replies_dms", state: "disabled" },
+      { action: "one_button_publish_all", state: "disabled" },
+      { action: "public_ready_final_copy", state: "disabled" },
+      { action: "credential_display", state: "disabled" },
+      { action: "raw_env_paths", state: "disabled" },
+      { action: "raw_request_urls", state: "disabled" },
+      { action: "raw_platform_responses", state: "disabled" },
+      { action: "broker_execution_order_routing", state: "disabled" }
+    ],
+    evidence_summary: {
+      full_suite_result: "1402 passed, 28 skipped (fixture baseline)",
+      focused_tests_result: "shell + command center focused tests passing (fixture baseline)",
+      cli_summaries: "passing",
+      secret_scan_status: "clean (0 secrets)",
+      forbidden_scope_status: "clean",
+      git_status_summary: "only known residual drift untouched",
+      known_residual_drift: "untouched",
+      evidence_packet_required: true
+    },
+    telegram_gate_state: {
+      credential_presence: "redacted_presence_only",
+      official_docs_gate: "implemented",
+      live_getme: "not_run_unless_explicitly_executed_later",
+      channel_write_permission: "unvalidated",
+      send_message: "disabled",
+      live_adapter: "disabled",
+      posting: "disabled",
+      next_step: "requires separate audit/gate"
+    },
+    publish_automation_state: {
+      mode: "dry_run_only",
+      platform_capability_registry: "modeled",
+      dry_run_batch_manifest: "modeled",
+      redacted_audit: "modeled",
+      manual_approval_required: true,
+      live: "disabled",
+      one_button_publish_all: "disabled"
+    },
+    content_studio_state: {
+      content_lanes: "process lane + grounded-news context lane",
+      grounded_news: "hook_not_signal",
+      review_only: true,
+      source_evidence_required: true,
+      not_public_postable: true,
+      final_social_copy_generated_by_repo: false
+    },
+    ui_rebuild_state: {
+      accepted: ["0157", "0158", "0159", "0160"],
+      current: "0161",
+      antigravity: "future_only",
+      browser_qa: "none_yet",
+      screenshots: "none_yet"
+    },
+    residual_drift_panel: {
+      env_local: "exists locally; must remain untouched/untracked",
+      strategy_docs_pdfs: "untracked if present; untouched",
+      old_bundles: "project_sources_bundle_AFTER_0074 and recovered_strategy_docs untouched",
+      cleanup_commands_allowed: false
+    },
+    next_allowed_action_panel: {
+      directive: "AWAIT OPERATOR/CHATGPT AUDIT_OF_0161_EVIDENCE_BEFORE_ANY_NEXT_TASK",
+      future_task: "0162 Content Studio Rebuild only after audit"
+    }
+  },
   screens: [
     {
       screen_id: "command_center",

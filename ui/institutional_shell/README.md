@@ -1,10 +1,17 @@
-# Institutional Shell Prototype (Static, Local, After 0160)
+# Institutional Shell Prototype (Static, Local — Shell 0160, Command Center 0161)
 
-Task: TASK_CONTENTOPS_0160_INSTITUTIONAL_SHELL_PROTOTYPE_STATIC_LOCAL_V0
+Tasks:
+- TASK_CONTENTOPS_0160_INSTITUTIONAL_SHELL_PROTOTYPE_STATIC_LOCAL_V0 (shell frame)
+- TASK_CONTENTOPS_0161_INSTITUTIONAL_COMMAND_CENTER_SCREEN_V0 (Command Center)
 
-This is the first static local institutional shell prototype for Capital Chronicle
+This is the static local institutional shell prototype for Capital Chronicle
 ContentOps. It implements the institutional fintech control-terminal frame defined
-by the accepted 0158 design system and the 0159 UI view-model contract V2.
+by the accepted 0158 design system and the 0159 UI view-model contract V2. The
+Command Center is now the first institutional-grade operational screen (0161): it
+renders a hero status band, the global safety ribbon, executive status cards, a
+gate timeline (0157-0168), a read-only blocked action matrix, an evidence summary,
+and read-only state panels for Telegram, publish automation, content studio, UI
+rebuild, and residual drift. No live controls.
 
 ## How To Open
 
