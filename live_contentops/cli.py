@@ -800,6 +800,11 @@ def pre_alpha_llm_assisted_draft_review_summary():
     }
     print(json.dumps(summary, indent=2))
 
+def pre_alpha_platform_dry_run_summary():
+    import json
+    from live_contentops import platform_dry_run_renderer
+    print(json.dumps(platform_dry_run_renderer.summary(), indent=2))
+
 
 def operator_command_summary():
     import json
@@ -931,6 +936,7 @@ COMMANDS = {
     "pre-alpha-content-lane-policy-summary": pre_alpha_content_lane_policy_summary,
     "pre-alpha-grounded-research-brief-summary": pre_alpha_grounded_research_brief_summary,
     "pre-alpha-llm-assisted-draft-review-summary": pre_alpha_llm_assisted_draft_review_summary,
+    "pre-alpha-platform-dry-run-summary": pre_alpha_platform_dry_run_summary,
 }
 
 

@@ -1,0 +1,21 @@
+{
+  "dry_run": true,
+  "platform_id": "threads",
+  "post_id": "post-100",
+  "payload_preview": {
+    "title": "Macro Trends",
+    "body": "Safe content about macro trends."
+  },
+  "warnings": [],
+  "blocking_errors": [],
+  "render_status": "rendered",
+  "constraint_source": "local_placeholder_until_official_docs_verification",
+  "requires_operator_approval": true,
+  "not_public_postable": true,
+  "live_posting_enabled": false,
+  "platform_api_payload_generated": false,
+  "credential_accessed": false,
+  "network_accessed": false,
+  "scheduler_accessed": false,
+  "mock_endpoint_name": "local_mock_threads_endpoint"
+}

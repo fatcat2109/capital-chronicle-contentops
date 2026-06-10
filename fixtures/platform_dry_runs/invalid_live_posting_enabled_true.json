@@ -29,7 +29,7 @@
   "approval_state": "platform_dry_run_ready",
   "public_postable": false,
   "publish_ready": false,
-  "live_posting_enabled": false,
+  "live_posting_enabled": true,
   "platform_api_payload_generated": false,
   "packet_status": "pass",
   "blocked_reasons": []

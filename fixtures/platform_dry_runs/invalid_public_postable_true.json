@@ -27,7 +27,7 @@
     "platform_dry_run"
   ],
   "approval_state": "platform_dry_run_ready",
-  "public_postable": false,
+  "public_postable": true,
   "publish_ready": false,
   "live_posting_enabled": false,
   "platform_api_payload_generated": false,

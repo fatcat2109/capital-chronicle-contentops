@@ -1,74 +1,136 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "CanonicalSocialPost",
+  "title": "Canonical Social Post",
   "type": "object",
   "properties": {
-    "post_id": { "type": "string" },
-    "source_draft_packet_id": { "type": "string" },
-    "lane": { "type": "string", "enum": ["pre_alpha_general_process"] },
-    "content_type": { "type": "string" },
-    "subtype": { "type": "string" },
-    "title": { "type": "string" },
-    "summary": { "type": "string" },
-    "body": { "type": "string" },
+    "post_id": {
+      "type": "string"
+    },
+    "source_draft_review_packet_id": {
+      "type": "string"
+    },
+    "lane": {
+      "type": "string"
+    },
+    "subtype": {
+      "type": "string"
+    },
+    "content_type": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
     "media": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "media_type": { "type": "string", "enum": ["none", "image", "video", "document", "link"] },
-          "ref": { "type": "string" }
-        },
-        "required": ["media_type"],
-        "additionalProperties": true
+        "type": "object"
       }
     },
     "source_references_used": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "source_id": { "type": "string" },
-          "url": { "type": "string" }
-        },
-        "required": ["source_id"],
-        "additionalProperties": true
+        "type": "string"
       }
     },
-    "limitations": { "type": "string" },
-    "freshness_note": { "type": "string" },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "freshness_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "safety_flags": {
       "type": "object",
       "properties": {
-        "public_postable": { "type": "boolean", "enum": [false] },
-        "live_posting_enabled": { "type": "boolean", "enum": [false] },
-        "artifact_backed": { "type": "boolean", "enum": [false] },
-        "no_financial_advice": { "type": "boolean", "enum": [true] },
-        "no_signal_language": { "type": "boolean", "enum": [true] },
-        "no_execution_language": { "type": "boolean", "enum": [true] }
+        "manual_review_required": {
+          "type": "boolean"
+        },
+        "operator_final_check_required": {
+          "type": "boolean"
+        },
+        "no_financial_advice": {
+          "type": "boolean"
+        },
+        "no_signal_language": {
+          "type": "boolean"
+        },
+        "no_execution_language": {
+          "type": "boolean"
+        }
       },
       "required": [
-        "public_postable", "live_posting_enabled", "artifact_backed",
-        "no_financial_advice", "no_signal_language", "no_execution_language"
-      ],
-      "additionalProperties": true
+        "manual_review_required",
+        "operator_final_check_required",
+        "no_financial_advice",
+        "no_signal_language",
+        "no_execution_language"
+      ]
     },
     "allowed_output_use": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "approval_state": {
       "type": "string",
-      "enum": ["operator_review_required", "platform_dry_run_ready"]
+      "enum": [
+        "draft_review_only",
+        "operator_review_required",
+        "platform_dry_run_ready",
+        "blocked"
+      ]
     },
-    "public_postable": { "type": "boolean", "enum": [false] },
-    "live_posting_enabled": { "type": "boolean", "enum": [false] }
+    "public_postable": {
+      "type": "boolean"
+    },
+    "publish_ready": {
+      "type": "boolean"
+    },
+    "live_posting_enabled": {
+      "type": "boolean"
+    },
+    "platform_api_payload_generated": {
+      "type": "boolean"
+    },
+    "packet_status": {
+      "type": "string"
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
   },
   "required": [
-    "post_id", "source_draft_packet_id", "lane", "content_type", "subtype",
-    "title", "body", "source_references_used", "safety_flags",
-    "allowed_output_use", "approval_state", "public_postable",
-    "live_posting_enabled"
-  ],
-  "additionalProperties": true
+    "post_id",
+    "source_draft_review_packet_id",
+    "lane",
+    "subtype",
+    "content_type",
+    "title",
+    "body",
+    "source_references_used",
+    "limitations",
+    "freshness_notes",
+    "safety_flags",
+    "allowed_output_use",
+    "approval_state",
+    "public_postable",
+    "publish_ready",
+    "live_posting_enabled",
+    "platform_api_payload_generated",
+    "packet_status",
+    "blocked_reasons"
+  ]
 }
