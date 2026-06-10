@@ -1,0 +1,235 @@
+{
+  "packet_id": "dcs-ledger-1",
+  "created_at": "2026-06-10T00:00:00Z",
+  "operator_supplied": true,
+  "runtime_authority": false,
+  "ledger_mode": "local_review_decision_only",
+  "linked_daily_content_studio_run_packet_id": "dcsr-1",
+  "linked_markdown_review_export_id": "dcsr-1-review-export",
+  "decision_policy": {
+    "manual_review_required": true,
+    "not_public_postable": true,
+    "live_publish_approval_allowed_now": false,
+    "platform_api_allowed_now": false,
+    "provider_llm_api_allowed_now": false,
+    "repo_web_search_allowed_now": false,
+    "scraping_allowed_now": false,
+    "scheduler_allowed_now": true,
+    "newsletter_or_cms_api_allowed_now": false,
+    "credential_read_allowed_now": false,
+    "auto_approval_allowed": false,
+    "public_ready_allowed_now": false,
+    "publish_ready": false,
+    "final_social_copy_generated": false
+  },
+  "allowed_decision_states": [
+    "pending_review",
+    "approved_for_manual_external_llm_prompting",
+    "approved_for_manual_rewrite_outside_repo",
+    "needs_revision",
+    "needs_source_or_limitation_fix",
+    "held_for_operator_review",
+    "rejected_by_operator",
+    "blocked_by_safety_policy",
+    "archived_no_public_action"
+  ],
+  "decision_reason_taxonomy": [
+    "source_context_sufficient_for_review",
+    "source_context_missing",
+    "limitation_note_missing",
+    "claim_risk_too_high",
+    "signal_language_detected",
+    "unsupported_numeric_claim",
+    "artifact_claim_without_real_artifact",
+    "platform_fit_needs_revision",
+    "prompt_template_needs_revision",
+    "safe_for_manual_external_drafting_only",
+    "safe_for_manual_rewrite_only",
+    "no_public_action"
+  ],
+  "decision_records": [
+    {
+      "decision_id": "dec-1",
+      "reviewed_run_packet_id": "dcsr-1",
+      "reviewed_markdown_export_id": "dcsr-1-review-export",
+      "decision_state": "approved_for_manual_external_llm_prompting",
+      "decision_reasons": [
+        "source_context_sufficient_for_review",
+        "safe_for_manual_external_drafting_only"
+      ],
+      "operator_notes": "Reviewed locally; manual review only; no public action.",
+      "source_lineage_confirmed": true,
+      "limitations_confirmed": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "publish_ready": false,
+      "public_ready_allowed_now": false,
+      "live_publish_approval_granted": false,
+      "platform_api_approval_granted": false,
+      "provider_call_approval_granted": false,
+      "scheduler_approval_granted": false,
+      "newsletter_or_cms_send_approval_granted": false,
+      "allowed_manual_next_actions": [
+        "review_source_context",
+        "choose_or_reject_angle_card",
+        "copy_prompt_template_for_external_llm",
+        "rerun_local_validation"
+      ],
+      "forbidden_next_actions": [
+        "auto_publish",
+        "schedule_post",
+        "live_publish",
+        "send_newsletter",
+        "call_platform_api",
+        "call_provider_api",
+        "scrape_metrics",
+        "fetch_market_data",
+        "auto_reply_or_dm",
+        "mark_public_ready_final",
+        "convert_to_trading_signal"
+      ],
+      "created_at": "2026-06-10T00:00:00Z"
+    },
+    {
+      "decision_id": "dec-2",
+      "reviewed_run_packet_id": "dcsr-1",
+      "reviewed_markdown_export_id": "dcsr-1-review-export",
+      "decision_state": "needs_source_or_limitation_fix",
+      "decision_reasons": [
+        "limitation_note_missing"
+      ],
+      "operator_notes": "Reviewed locally; manual review only; no public action.",
+      "source_lineage_confirmed": true,
+      "limitations_confirmed": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "publish_ready": false,
+      "public_ready_allowed_now": false,
+      "live_publish_approval_granted": false,
+      "platform_api_approval_granted": false,
+      "provider_call_approval_granted": false,
+      "scheduler_approval_granted": false,
+      "newsletter_or_cms_send_approval_granted": false,
+      "allowed_manual_next_actions": [
+        "review_source_context",
+        "choose_or_reject_angle_card",
+        "copy_prompt_template_for_external_llm",
+        "rerun_local_validation"
+      ],
+      "forbidden_next_actions": [
+        "auto_publish",
+        "schedule_post",
+        "live_publish",
+        "send_newsletter",
+        "call_platform_api",
+        "call_provider_api",
+        "scrape_metrics",
+        "fetch_market_data",
+        "auto_reply_or_dm",
+        "mark_public_ready_final",
+        "convert_to_trading_signal"
+      ],
+      "created_at": "2026-06-10T00:00:00Z"
+    },
+    {
+      "decision_id": "dec-3",
+      "reviewed_run_packet_id": "dcsr-1",
+      "reviewed_markdown_export_id": "dcsr-1-review-export",
+      "decision_state": "held_for_operator_review",
+      "decision_reasons": [
+        "no_public_action"
+      ],
+      "operator_notes": "Reviewed locally; manual review only; no public action.",
+      "source_lineage_confirmed": true,
+      "limitations_confirmed": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "publish_ready": false,
+      "public_ready_allowed_now": false,
+      "live_publish_approval_granted": false,
+      "platform_api_approval_granted": false,
+      "provider_call_approval_granted": false,
+      "scheduler_approval_granted": false,
+      "newsletter_or_cms_send_approval_granted": false,
+      "allowed_manual_next_actions": [
+        "review_source_context",
+        "choose_or_reject_angle_card",
+        "copy_prompt_template_for_external_llm",
+        "rerun_local_validation"
+      ],
+      "forbidden_next_actions": [
+        "auto_publish",
+        "schedule_post",
+        "live_publish",
+        "send_newsletter",
+        "call_platform_api",
+        "call_provider_api",
+        "scrape_metrics",
+        "fetch_market_data",
+        "auto_reply_or_dm",
+        "mark_public_ready_final",
+        "convert_to_trading_signal"
+      ],
+      "created_at": "2026-06-10T00:00:00Z"
+    }
+  ],
+  "source_lineage_policy": {
+    "source_lineage_required": true,
+    "limitations_required": true
+  },
+  "review_policy": {
+    "manual_review_required": true,
+    "auto_approval_allowed": false,
+    "operator_in_loop_required": true,
+    "real_approved_artifacts_present": false
+  },
+  "manual_action_policy": {
+    "allowed_manual_next_actions": [
+      "review_source_context",
+      "choose_or_reject_angle_card",
+      "copy_prompt_template_for_external_llm",
+      "manually_rewrite_draft_outside_repo",
+      "revise_source_or_limitation_notes",
+      "rerun_local_validation",
+      "manually_record_public_url_later_if_jim_independently_posts_outside_repo"
+    ],
+    "forbidden_next_actions": [
+      "auto_publish",
+      "schedule_post",
+      "live_publish",
+      "send_newsletter",
+      "call_platform_api",
+      "call_provider_api",
+      "scrape_metrics",
+      "fetch_market_data",
+      "auto_reply_or_dm",
+      "mark_public_ready_final",
+      "convert_to_trading_signal"
+    ]
+  },
+  "output_policy": {
+    "manual_review_required": true,
+    "not_public_postable": true,
+    "publish_ready": false,
+    "public_ready_allowed_now": false,
+    "final_social_copy_generated": false
+  },
+  "safety_policy": {
+    "no_financial_advice_required": true,
+    "no_signal_language_required": true,
+    "no_guaranteed_prediction": true,
+    "no_ai_trading_bot_framing": true,
+    "no_bloomberg_replacement_framing": true,
+    "no_signal_service_framing": true,
+    "no_fake_alpha_performance_claims": true,
+    "no_unsupported_numeric_market_claims": true,
+    "no_hiding_degraded_or_proxy_data": true
+  },
+  "audit_summary": {
+    "decision_record_count": 3,
+    "all_manual_review_required": true,
+    "all_not_public_postable": true
+  },
+  "blocked_reasons": [],
+  "packet_status": "blocked"
+}

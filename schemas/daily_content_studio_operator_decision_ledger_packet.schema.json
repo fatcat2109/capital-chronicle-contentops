@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Daily Content Studio Operator Decision Ledger Packet",
+  "type": "object",
+  "properties": {
+    "packet_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "operator_supplied": { "type": "boolean" },
+    "runtime_authority": { "type": "boolean" },
+    "ledger_mode": { "type": "string" },
+    "linked_daily_content_studio_run_packet_id": { "type": "string" },
+    "linked_markdown_review_export_id": { "type": "string" },
+    "decision_policy": { "type": "object" },
+    "allowed_decision_states": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "decision_reason_taxonomy": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "decision_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "decision_id": { "type": "string" },
+          "reviewed_run_packet_id": { "type": "string" },
+          "reviewed_markdown_export_id": { "type": "string" },
+          "decision_state": { "type": "string" },
+          "decision_reasons": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "operator_notes": { "type": "string" },
+          "source_lineage_confirmed": { "type": "boolean" },
+          "limitations_confirmed": { "type": "boolean" },
+          "manual_review_required": { "type": "boolean" },
+          "not_public_postable": { "type": "boolean" },
+          "publish_ready": { "type": "boolean" },
+          "public_ready_allowed_now": { "type": "boolean" },
+          "live_publish_approval_granted": { "type": "boolean" },
+          "platform_api_approval_granted": { "type": "boolean" },
+          "provider_call_approval_granted": { "type": "boolean" },
+          "scheduler_approval_granted": { "type": "boolean" },
+          "newsletter_or_cms_send_approval_granted": { "type": "boolean" },
+          "allowed_manual_next_actions": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "forbidden_next_actions": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "created_at": { "type": "string" }
+        },
+        "required": [
+          "decision_id",
+          "reviewed_run_packet_id",
+          "reviewed_markdown_export_id",
+          "decision_state",
+          "decision_reasons",
+          "source_lineage_confirmed",
+          "limitations_confirmed",
+          "manual_review_required",
+          "not_public_postable",
+          "publish_ready",
+          "public_ready_allowed_now",
+          "live_publish_approval_granted",
+          "platform_api_approval_granted",
+          "provider_call_approval_granted",
+          "scheduler_approval_granted",
+          "newsletter_or_cms_send_approval_granted",
+          "allowed_manual_next_actions",
+          "forbidden_next_actions",
+          "created_at"
+        ]
+      }
+    },
+    "source_lineage_policy": { "type": "object" },
+    "review_policy": { "type": "object" },
+    "manual_action_policy": { "type": "object" },
+    "output_policy": { "type": "object" },
+    "safety_policy": { "type": "object" },
+    "audit_summary": { "type": "object" },
+    "blocked_reasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "packet_status": { "type": "string" }
+  },
+  "required": [
+    "packet_id",
+    "created_at",
+    "operator_supplied",
+    "runtime_authority",
+    "ledger_mode",
+    "linked_daily_content_studio_run_packet_id",
+    "linked_markdown_review_export_id",
+    "decision_policy",
+    "allowed_decision_states",
+    "decision_reason_taxonomy",
+    "decision_records",
+    "source_lineage_policy",
+    "review_policy",
+    "manual_action_policy",
+    "output_policy",
+    "safety_policy",
+    "audit_summary",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}
