@@ -820,6 +820,11 @@ def pre_alpha_platform_official_docs_verification_summary():
     from live_contentops import platform_official_docs_verification
     print(json.dumps(platform_official_docs_verification.summary(), indent=2))
 
+def pre_alpha_credential_envelope_policy_summary():
+    import json
+    from live_contentops import credential_envelope_policy
+    print(json.dumps(credential_envelope_policy.summary(), indent=2))
+
 
 def operator_command_summary():
     import json
@@ -955,6 +960,7 @@ COMMANDS = {
     "pre-alpha-approval-ledger-summary": pre_alpha_approval_ledger_summary,
     "pre-alpha-mock-publish-flow-summary": pre_alpha_mock_publish_flow_summary,
     "pre-alpha-platform-official-docs-verification-summary": pre_alpha_platform_official_docs_verification_summary,
+    "pre-alpha-credential-envelope-policy-summary": pre_alpha_credential_envelope_policy_summary,
 }
 
 
