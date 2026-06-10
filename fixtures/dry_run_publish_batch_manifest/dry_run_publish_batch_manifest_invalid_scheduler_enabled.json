@@ -1,0 +1,213 @@
+{
+  "packet_id": "dpbm-1",
+  "created_at": "2026-06-10T00:00:00Z",
+  "runtime_authority": false,
+  "manifest_mode": "dry_run_publish_batch_manifest_only",
+  "dry_run_only": true,
+  "linked_publish_automation_readiness_packet_id": "par-1",
+  "linked_platform_capability_registry_id": "pcr-1",
+  "linked_daily_content_studio_run_packet_id": "dcsr-1",
+  "linked_external_draft_review_packet_id": "edr-1",
+  "linked_operator_decision_ledger_packet_id": "odl-1",
+  "credentials_requested_now": false,
+  "credential_read_allowed_now": false,
+  "credential_operator_action_required_now": false,
+  "credential_operator_action_required_later": true,
+  "platform_api_allowed_now": false,
+  "live_posting_enabled_now": false,
+  "scheduler_allowed_now": true,
+  "provider_llm_api_allowed_now": false,
+  "repo_web_search_allowed_now": false,
+  "scraping_allowed_now": false,
+  "newsletter_or_cms_api_allowed_now": false,
+  "backend_server_required": false,
+  "publish_all_button_enabled_now": false,
+  "one_button_publish_all_enabled_now": false,
+  "publish_approval_system_created": false,
+  "public_ready_approval_allowed_now": false,
+  "final_social_copy_generated": false,
+  "manual_review_required": true,
+  "not_public_postable": true,
+  "kill_switch_required": true,
+  "redacted_audit_log_required": true,
+  "idempotency_policy_required": true,
+  "partial_failure_policy_required": true,
+  "manual_approval_gate_required": true,
+  "target_platform_ids": [
+    "telegram",
+    "linkedin",
+    "manual_external_posting"
+  ],
+  "draft_refs": [
+    "draft-review-edr-1"
+  ],
+  "per_platform_payload_previews": [
+    {
+      "payload_preview_id": "pv-telegram-1",
+      "platform_id": "telegram",
+      "platform_adapter_status": "not_implemented",
+      "dry_run_preview_only": true,
+      "live_execution_status": "disabled",
+      "credentials_required_later": true,
+      "credentials_requested_now": false,
+      "credential_read_allowed_now": false,
+      "platform_api_allowed_now": false,
+      "live_posting_enabled_now": false,
+      "scheduler_allowed_now": false,
+      "source_refs_visible": true,
+      "limitations_visible": true,
+      "content_type_visible": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "publish_ready": false,
+      "public_ready_allowed_now": false,
+      "final_payload": false,
+      "payload_text_preview_status": "placeholder_or_review_summary_only",
+      "blocked_reasons": [
+        "adapter_not_implemented",
+        "credentials_future_only"
+      ]
+    },
+    {
+      "payload_preview_id": "pv-linkedin-1",
+      "platform_id": "linkedin",
+      "platform_adapter_status": "not_implemented",
+      "dry_run_preview_only": true,
+      "live_execution_status": "disabled",
+      "credentials_required_later": true,
+      "credentials_requested_now": false,
+      "credential_read_allowed_now": false,
+      "platform_api_allowed_now": false,
+      "live_posting_enabled_now": false,
+      "scheduler_allowed_now": false,
+      "source_refs_visible": true,
+      "limitations_visible": true,
+      "content_type_visible": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "publish_ready": false,
+      "public_ready_allowed_now": false,
+      "final_payload": false,
+      "payload_text_preview_status": "placeholder_or_review_summary_only",
+      "blocked_reasons": [
+        "adapter_not_implemented",
+        "credentials_future_only"
+      ]
+    },
+    {
+      "payload_preview_id": "pv-manual-1",
+      "platform_id": "manual_external_posting",
+      "platform_adapter_status": "not_implemented",
+      "dry_run_preview_only": true,
+      "live_execution_status": "disabled",
+      "credentials_required_later": false,
+      "credentials_requested_now": false,
+      "credential_read_allowed_now": false,
+      "platform_api_allowed_now": false,
+      "live_posting_enabled_now": false,
+      "scheduler_allowed_now": false,
+      "source_refs_visible": true,
+      "limitations_visible": true,
+      "content_type_visible": true,
+      "manual_review_required": true,
+      "not_public_postable": true,
+      "publish_ready": false,
+      "public_ready_allowed_now": false,
+      "final_payload": false,
+      "payload_text_preview_status": "placeholder_or_review_summary_only",
+      "blocked_reasons": [
+        "manual_only",
+        "no_repo_automation"
+      ]
+    }
+  ],
+  "manual_approval_gate_model": {
+    "operator_review_required": true,
+    "dry_run_validation_required": true,
+    "source_refs_required": true,
+    "limitations_required": true,
+    "safety_validation_required": true,
+    "public_ready_approval_allowed_now": false,
+    "publish_approval_system_created": false,
+    "live_approval_allowed_now": false,
+    "approved_for_live_publish": false
+  },
+  "kill_switch_model": {
+    "kill_switch_required": true,
+    "kill_switch_status_required_before_live": "active_or_verified_later",
+    "live_execution_blocked_when_kill_switch_active": true,
+    "current_live_execution_status": "disabled"
+  },
+  "credential_policy_future_only": {
+    "credential_setup_status": "future_only_not_requested",
+    "env_read_allowed_now": false,
+    "never_commit_secrets": true,
+    "redaction_required": true,
+    "operator_action_required_now": false,
+    "operator_action_required_later": true
+  },
+  "dry_run_validation_policy": {
+    "dry_run_validation_required": true,
+    "source_refs_required": true,
+    "limitations_required": true,
+    "safety_validation_required": true
+  },
+  "source_lineage_policy": {
+    "source_lineage_required": true,
+    "linked_review_chain_required": true
+  },
+  "limitation_visibility_policy": {
+    "limitations_required": true,
+    "hide_missing_or_degraded_data": false
+  },
+  "redacted_audit_log_policy": {
+    "redacted_audit_log_required": true,
+    "secrets_never_logged": true,
+    "platform_response_logging_future_only": true,
+    "credentials_redacted_required_later": true
+  },
+  "idempotency_policy": {
+    "idempotency_policy_required": true,
+    "idempotency_key_required_later": true,
+    "duplicate_publish_prevention_future_only": true,
+    "no_live_idempotency_key_generated_now": true
+  },
+  "partial_failure_policy": {
+    "partial_failure_policy_required": true,
+    "per_platform_result_tracking_future_only": true,
+    "retry_policy_future_only": true,
+    "no_live_retry_now": true
+  },
+  "blocked_action_policy": {
+    "blocked_actions": [
+      "auto_publish",
+      "live_publish",
+      "call_platform_api",
+      "call_provider_api",
+      "one_button_publish_all",
+      "mark_public_ready_final",
+      "load_credentials"
+    ]
+  },
+  "safety_policy": {
+    "real_approved_artifacts_present": false,
+    "no_financial_advice": true,
+    "no_signal_language": true
+  },
+  "readiness_status": {
+    "dry_run_validation_status": "modeled_only",
+    "live_adapter_not_yet_complete": true,
+    "one_button_publish_all_not_enabled": true
+  },
+  "future_live_handoff": {
+    "requires_credential_and_secret_policy": true,
+    "requires_one_platform_live_pilot_gate": true,
+    "requires_approved_only_publish_all_gate": true
+  },
+  "blocked_reasons": [
+    "live_adapter_not_implemented",
+    "credentials_future_only",
+    "one_button_publish_all_not_enabled"
+  ],
+  "packet_status": "pass"
+}

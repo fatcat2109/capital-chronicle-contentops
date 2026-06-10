@@ -927,6 +927,12 @@ def pre_alpha_publish_automation_readiness_summary():
     print(json.dumps(publish_automation_readiness.summary(), indent=2))
 
 
+def pre_alpha_dry_run_publish_batch_manifest_summary():
+    import json
+    from live_contentops import dry_run_publish_batch_manifest
+    print(json.dumps(dry_run_publish_batch_manifest.summary(), indent=2))
+
+
 
 
 
@@ -1104,6 +1110,7 @@ COMMANDS = {
     "pre-alpha-daily-content-studio-ui-data-contract-summary": pre_alpha_daily_content_studio_ui_data_contract_summary,
     "pre-alpha-daily-content-studio-static-frontend-summary": pre_alpha_daily_content_studio_static_frontend_summary,
     "pre-alpha-publish-automation-readiness-summary": pre_alpha_publish_automation_readiness_summary,
+    "pre-alpha-dry-run-publish-batch-manifest-summary": pre_alpha_dry_run_publish_batch_manifest_summary,
 
 
     "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,
