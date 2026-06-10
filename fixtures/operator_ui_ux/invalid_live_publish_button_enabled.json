@@ -1,0 +1,90 @@
+{
+  "operator_ui_ux_spec_packet_id": "uiux-1",
+  "created_at": "2026-06-10T00:00:00Z",
+  "operator_supplied": true,
+  "runtime_authority": false,
+  "ui_surface": "web_browser",
+  "navigation_model": {},
+  "screen_specs": [
+    {
+      "name": "home_status_console"
+    },
+    {
+      "name": "content_intake_queue"
+    },
+    {
+      "name": "grounded_research_brief_review"
+    },
+    {
+      "name": "draft_review_queue"
+    },
+    {
+      "name": "platform_dry_run_preview"
+    },
+    {
+      "name": "approval_ledger_panel"
+    },
+    {
+      "name": "mock_publish_readiness_panel"
+    },
+    {
+      "name": "manual_metrics_panel"
+    },
+    {
+      "name": "platform_docs_verification_panel"
+    },
+    {
+      "name": "credential_envelope_panel"
+    },
+    {
+      "name": "content_calendar_board"
+    },
+    {
+      "name": "blocked_items_review"
+    },
+    {
+      "name": "runbook_and_export_panel"
+    }
+  ],
+  "card_specs": [
+    {
+      "name": "source/brief card"
+    }
+  ],
+  "safety_banner_specs": [
+    "local_only",
+    "not_public_postable",
+    "publish_ready_false",
+    "manual_review_required",
+    "no_financial_advice",
+    "no_signal_language",
+    "no_live_posting",
+    "no_platform_api",
+    "no_credentials_loaded",
+    "no_auto_schedule",
+    "no_auto_metrics_ingestion",
+    "telegram_stopped",
+    "unknowns_visible"
+  ],
+  "action_policy": {
+    "live_publish": true,
+    "auto_publish": false,
+    "schedule_post": false,
+    "platform_api_call": false,
+    "credential_read": false,
+    "credential_presence_check": false,
+    "load_secret": false,
+    "scrape_metrics": false,
+    "fetch_metrics": false,
+    "auto_ingest_metrics": false,
+    "reply_or_dm": false,
+    "broker_execution": false,
+    "order_routing": false,
+    "view_packet": true
+  },
+  "front_end_handoff": {
+    "ready": true
+  },
+  "blocked_reasons": [],
+  "packet_status": "blocked"
+}

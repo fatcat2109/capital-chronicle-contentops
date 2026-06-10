@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Operator UI UX Spec Packet",
+  "type": "object",
+  "properties": {
+    "operator_ui_ux_spec_packet_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "operator_supplied": {
+      "type": "boolean"
+    },
+    "runtime_authority": {
+      "type": "boolean"
+    },
+    "ui_surface": {
+      "type": "string"
+    },
+    "navigation_model": {
+      "type": "object"
+    },
+    "screen_specs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "card_specs": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "safety_banner_specs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "action_policy": {
+      "type": "object"
+    },
+    "front_end_handoff": {
+      "type": "object"
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "packet_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "operator_ui_ux_spec_packet_id",
+    "created_at",
+    "operator_supplied",
+    "runtime_authority",
+    "ui_surface",
+    "navigation_model",
+    "screen_specs",
+    "card_specs",
+    "safety_banner_specs",
+    "action_policy",
+    "front_end_handoff",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}

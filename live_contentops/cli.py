@@ -826,6 +826,11 @@ def pre_alpha_credential_envelope_policy_summary():
     print(json.dumps(credential_envelope_policy.summary(), indent=2))
 
 
+def pre_alpha_operator_ui_ux_summary():
+    import json
+    from live_contentops import operator_ui_ux_spec
+    print(json.dumps(operator_ui_ux_spec.summary(), indent=2))
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -961,6 +966,7 @@ COMMANDS = {
     "pre-alpha-mock-publish-flow-summary": pre_alpha_mock_publish_flow_summary,
     "pre-alpha-platform-official-docs-verification-summary": pre_alpha_platform_official_docs_verification_summary,
     "pre-alpha-credential-envelope-policy-summary": pre_alpha_credential_envelope_policy_summary,
+    "pre-alpha-operator-ui-ux-summary": pre_alpha_operator_ui_ux_summary,
 }
 
 
