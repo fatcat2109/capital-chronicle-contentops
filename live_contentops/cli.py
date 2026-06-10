@@ -867,6 +867,53 @@ def pre_alpha_daily_content_studio_ui_data_contract_summary():
     import json
     from live_contentops import daily_content_studio_ui_data_contract
     print(json.dumps(daily_content_studio_ui_data_contract.summary(), indent=2))
+def pre_alpha_daily_content_studio_static_frontend_summary():
+    import json
+    import os
+    ui_dir = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)),
+        "ui",
+        "daily_content_studio",
+    )
+    assets = [
+        "index.html",
+        "styles.css",
+        "app.js",
+        "fixture_data.js",
+        "daily_content_studio_ui_data_contract_fixture.json",
+        "README.md",
+    ]
+    inventory = {a: os.path.isfile(os.path.join(ui_dir, a)) for a in assets}
+    summary = {
+        "static_frontend_mode": "local_static_fixture_only",
+        "ui_dir": "ui/daily_content_studio",
+        "asset_inventory": inventory,
+        "asset_count_present": sum(1 for v in inventory.values() if v),
+        "backend_server_required": False,
+        "api_keys_required": False,
+        "credentials_loaded": False,
+        "network_calls_used": False,
+        "remote_cdn_or_external_scripts_used": False,
+        "publish_button_present": False,
+        "schedule_button_present": False,
+        "connect_account_button_present": False,
+        "api_key_button_present": False,
+        "oauth_button_present": False,
+        "live_posting_enabled": False,
+        "platform_api_enabled": False,
+        "provider_llm_api_enabled": False,
+        "scheduler_enabled": False,
+        "scraping_enabled": False,
+        "newsletter_or_cms_enabled": False,
+        "publish_approval_present": False,
+        "final_public_ready_copy_generated": False,
+        "not_public_postable": True,
+        "manual_review_required": True,
+        "review_only": True,
+    }
+    print(json.dumps(summary, indent=2))
+
+
 
 
 
@@ -1040,6 +1087,8 @@ COMMANDS = {
     "pre-alpha-frontend-static-prototype-summary": pre_alpha_frontend_static_prototype_summary,
     "pre-alpha-seo-newsletter-architecture-summary": pre_alpha_seo_newsletter_architecture_summary,
     "pre-alpha-daily-content-studio-ui-data-contract-summary": pre_alpha_daily_content_studio_ui_data_contract_summary,
+    "pre-alpha-daily-content-studio-static-frontend-summary": pre_alpha_daily_content_studio_static_frontend_summary,
+
 
     "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,
     "pre-alpha-daily-content-studio-external-draft-review-summary": pre_alpha_daily_content_studio_external_draft_review_summary,

@@ -1,0 +1,121 @@
+:root {
+  --bg: #0f1419;
+  --panel: #1a2129;
+  --text: #e6edf3;
+  --muted: #9aa7b4;
+  --ok: #2ea043;
+  --warn: #d29922;
+  --block: #f85149;
+  --border: #30363d;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.safety-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 20px;
+  background: #2d1416;
+  border-bottom: 2px solid var(--block);
+}
+
+.safety-banner {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #fff;
+  background: var(--block);
+  border-radius: 4px;
+}
+
+.studio {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 20px 64px;
+}
+
+h1 { font-size: 24px; margin-bottom: 4px; }
+h2 { font-size: 18px; margin: 0 0 12px; }
+
+.intro {
+  color: var(--muted);
+  margin-bottom: 24px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+
+.panel .kv {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed var(--border);
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+.panel .kv .key { color: var(--muted); }
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 11px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+.badge.ok { background: rgba(46,160,67,0.2); color: var(--ok); }
+.badge.block { background: rgba(248,81,73,0.2); color: var(--block); }
+
+ul { margin: 8px 0; padding-left: 20px; }
+
+/* Allowed manual actions */
+.allowed-actions h3 { color: var(--ok); font-size: 14px; }
+.action-allowed {
+  display: inline-block;
+  margin: 4px 6px 4px 0;
+  padding: 6px 12px;
+  background: rgba(46,160,67,0.12);
+  border: 1px solid var(--ok);
+  border-radius: 6px;
+  color: var(--ok);
+  font-size: 13px;
+}
+
+/* Forbidden actions rendered disabled/blocked, non-interactive */
+.forbidden-actions h3 { color: var(--block); font-size: 14px; margin-top: 16px; }
+.action-forbidden {
+  display: inline-block;
+  margin: 4px 6px 4px 0;
+  padding: 6px 12px;
+  background: rgba(248,81,73,0.08);
+  border: 1px dashed var(--block);
+  border-radius: 6px;
+  color: var(--block);
+  font-size: 13px;
+  text-decoration: line-through;
+  opacity: 0.6;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+.action-forbidden::after { content: " (disabled / forbidden)"; font-size: 11px; }
+
+.note {
+  color: var(--warn);
+  font-size: 13px;
+  margin-top: 12px;
+}

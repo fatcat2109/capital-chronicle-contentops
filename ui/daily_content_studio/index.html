@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Capital Chronicle ContentOps — Daily Content Studio (Local, Review-Only)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header id="safety-header" class="safety-header" aria-label="Safety banners"></header>
+
+  <main class="studio">
+    <h1>Daily Content Studio — Local Review Surface</h1>
+    <p class="intro">
+      Local-only, fixture-driven, review-only. Not public-postable. Manual
+      review required. No backend server. No API keys. No credentials loaded.
+      No live posting. No platform/provider/web calls.
+    </p>
+
+    <section id="daily-run-overview" class="panel" data-panel="daily_run_overview">
+      <h2>Daily Run Overview</h2>
+      <div class="panel-body"></div>
+    </section>
+
+    <section id="source-context-panel" class="panel" data-panel="source_context_panel">
+      <h2>Source Context</h2>
+      <div class="panel-body"></div>
+    </section>
+
+    <section id="angle-cards-panel" class="panel" data-panel="angle_cards_panel">
+      <h2>Angle Cards</h2>
+      <div class="panel-body"></div>
+    </section>
+
+    <section id="llm-prompt-handoff-panel" class="panel" data-panel="llm_prompt_handoff_panel">
+      <h2>External LLM Prompt Handoff</h2>
+      <div class="panel-body"></div>
+    </section>
+
+    <section id="markdown-review-export-panel" class="panel" data-panel="markdown_review_export_panel">
+      <h2>Markdown Review Export</h2>
+      <div class="panel-body"></div>
+    </section>
+
+    <section id="external-draft-review-panel" class="panel" data-panel="external_draft_review_panel">
+      <h2>External Draft Review</h2>
+      <div class="panel-body"></div>
+    </section>
+
+    <section id="operator-decision-ledger-panel" class="panel" data-panel="operator_decision_ledger_panel">
+      <h2>Operator Decision Ledger</h2>
+      <div class="panel-body"></div>
+    </section>
+
+    <section id="platform-fit-panel" class="panel" data-panel="platform_fit_panel">
+      <h2>Platform Fit</h2>
+      <div class="panel-body"></div>
+    </section>
+
+    <section id="blockers-and-limitations-panel" class="panel" data-panel="blockers_and_limitations_panel">
+      <h2>Blockers and Limitations</h2>
+      <div class="panel-body"></div>
+    </section>
+
+    <section id="manual-actions-panel" class="panel" data-panel="manual_actions_panel">
+      <h2>Manual Actions</h2>
+      <div class="allowed-actions"></div>
+      <div class="forbidden-actions"></div>
+    </section>
+
+    <section id="audit-status-panel" class="panel" data-panel="audit_status_panel">
+      <h2>Audit / Status</h2>
+      <div class="panel-body"></div>
+    </section>
+
+    <section id="future-frontend-handoff-panel" class="panel" data-panel="future_frontend_handoff_panel">
+      <h2>Future Frontend Handoff</h2>
+      <div class="panel-body"></div>
+      <p class="note">
+        API key / OAuth / credential / live-adapter setup is NOT part of this UI v0.
+      </p>
+    </section>
+  </main>
+
+  <script src="fixture_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
