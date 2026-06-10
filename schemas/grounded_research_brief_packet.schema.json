@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Grounded Research Brief Packet",
+  "type": "object",
+  "required": [
+    "brief_id",
+    "created_at",
+    "lane",
+    "subtype",
+    "title",
+    "operator_supplied",
+    "source_collection_method",
+    "sources",
+    "claims",
+    "safety_review",
+    "allowed_output_use",
+    "packet_status",
+    "blocked_reasons"
+  ],
+  "properties": {
+    "brief_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "lane": { 
+      "type": "string",
+      "enum": ["grounded_news_context", "pre_alpha_general_process"]
+    },
+    "subtype": {
+      "type": "string",
+      "enum": [
+        "grounded_news_context",
+        "official_data_explainer",
+        "policy_process_commentary",
+        "macro_education_from_news",
+        "forecast_readiness_from_news",
+        "data_sufficiency_from_news",
+        "failure_forensics_from_news"
+      ]
+    },
+    "title": { "type": "string" },
+    "operator_supplied": { "type": "boolean" },
+    "source_collection_method": { "type": "string" },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "source_id", "title", "publisher_or_author", "source_type",
+          "credibility_note", "freshness_note", "limitation_note"
+        ],
+        "properties": {
+          "source_id": { "type": "string" },
+          "title": { "type": "string" },
+          "url": { "type": "string" },
+          "publisher_or_author": { "type": "string" },
+          "source_type": {
+            "type": "string",
+            "enum": [
+              "official_source",
+              "regulator_or_exchange",
+              "reputable_news",
+              "company_or_government_release",
+              "public_research",
+              "platform_native_context_only"
+            ]
+          },
+          "publication_date": { "type": "string" },
+          "accessed_date": { "type": "string" },
+          "credibility_note": { "type": "string" },
+          "freshness_note": { "type": "string" },
+          "limitation_note": { "type": "string" }
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "claim_id", "claim_text", "claim_type", "claim_risk",
+          "requires_citation", "has_citation", "source_ids"
+        ],
+        "properties": {
+          "claim_id": { "type": "string" },
+          "claim_text": { "type": "string" },
+          "claim_type": {
+            "type": "string",
+            "enum": [
+              "first_party_philosophy",
+              "evergreen_education",
+              "cited_factual_claim",
+              "current_factual_claim",
+              "market_sensitive_context",
+              "forbidden_claim"
+            ]
+          },
+          "claim_risk": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "blocked"]
+          },
+          "requires_citation": { "type": "boolean" },
+          "has_citation": { "type": "boolean" },
+          "source_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "safety_review": {
+      "type": "object",
+      "required": [
+        "manual_review_required", "not_public_postable", "no_financial_advice",
+        "no_signal_language", "no_execution_language", "public_postable",
+        "publish_ready", "provider_call_used_by_repo", "search_call_used_by_repo",
+        "platform_action_used_by_repo", "credential_or_env_read_used"
+      ],
+      "properties": {
+        "manual_review_required": { "type": "boolean" },
+        "not_public_postable": { "type": "boolean" },
+        "no_financial_advice": { "type": "boolean" },
+        "no_signal_language": { "type": "boolean" },
+        "no_execution_language": { "type": "boolean" },
+        "public_postable": { "type": "boolean" },
+        "publish_ready": { "type": "boolean" },
+        "provider_call_used_by_repo": { "type": "boolean" },
+        "search_call_used_by_repo": { "type": "boolean" },
+        "platform_action_used_by_repo": { "type": "boolean" },
+        "credential_or_env_read_used": { "type": "boolean" },
+        "auto_publish": { "type": "boolean" },
+        "auto_approval": { "type": "boolean" }
+      }
+    },
+    "allowed_output_use": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "packet_status": {
+      "type": "string"
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

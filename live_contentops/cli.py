@@ -777,6 +777,11 @@ def pre_alpha_content_lane_policy_summary():
     }
     print(json.dumps(summary, indent=2))
 
+def pre_alpha_grounded_research_brief_summary():
+    import json
+    from live_contentops import grounded_research_brief
+    print(json.dumps(grounded_research_brief.summary(), indent=2))
+
 
 def operator_command_summary():
     import json
@@ -906,7 +911,9 @@ COMMANDS = {
     "pre-alpha-content-performance-review-summary": pre_alpha_content_performance_review_summary,
     "pre-alpha-approved-cc-artifact-intake-summary": pre_alpha_approved_cc_artifact_intake_summary,
     "pre-alpha-content-lane-policy-summary": pre_alpha_content_lane_policy_summary,
+    "pre-alpha-grounded-research-brief-summary": pre_alpha_grounded_research_brief_summary,
 }
+
 
 
 def main():

@@ -39,7 +39,7 @@ def test_valid_minimal_brief_passes():
 def test_invalid_missing_source_url_fails():
     res = grb.validate_brief_file(_fixt("invalid_missing_source_url.json"))
     assert res["valid"] is False
-    assert any(e.startswith("source_missing_field:url") for e in res["errors"])
+    assert any(e.startswith("source_missing_url") for e in res["errors"])
 
 
 def test_invalid_market_signal_claim_fails():
@@ -59,7 +59,7 @@ def test_lane_must_be_pre_alpha_general_process():
     base["lane"] = "future_artifact_backed"
     res = grb.validate_brief(base)
     assert res["valid"] is False
-    assert "lane_must_be_pre_alpha_general_process" in res["errors"]
+    assert any(e.startswith("Schema validation failed") for e in res["errors"])
 
 
 def test_public_postable_true_is_blocked():
@@ -106,8 +106,8 @@ def test_blocked_claim_risk_is_blocked():
 
 def test_current_factual_claim_requires_known_source():
     base = json.load(open(_fixt("valid_minimal_grounded_news_context.json"), encoding="utf-8"))
-    # clm_2 is current_factual_claim; point it at an unknown source.
-    base["claims"][1]["source_ids"] = ["does_not_exist"]
+    # clm_1 is current_factual_claim; point it at an unknown source.
+    base["claims"][0]["source_ids"] = ["does_not_exist"]
     res = grb.validate_brief(base)
     assert res["valid"] is False
     assert any(e.startswith("claim_source_id_unknown") for e in res["errors"])

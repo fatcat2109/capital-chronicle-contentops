@@ -1,47 +1,57 @@
 {
-  "brief_id": "grb_invalid_market_signal_0003",
+  "brief_id": "brief-1",
+  "created_at": "2026-06-10T00:00:00Z",
   "lane": "pre_alpha_general_process",
-  "subtype": "macro_education_from_news",
-  "title": "Brief that smuggles a market call",
-  "created_at": "2026-06-01",
+  "subtype": "grounded_news_context",
+  "title": "Invalid Market Signal Claim",
   "operator_supplied": true,
-  "source_collection_method": "manual operator-supplied context",
+  "source_collection_method": "manual operator supplied",
   "sources": [
     {
-      "source_id": "src_news",
-      "title": "Central bank speech coverage",
-      "url": "https://example.com/cb-speech",
-      "publisher_or_author": "Reputable News",
-      "publication_date": "2026-05-30",
-      "source_type": "news_outlet",
-      "credibility_note": "Event context only.",
-      "freshness_note": "Recent.",
-      "limitation_note": "Commentary, not primary data."
+      "source_id": "src-1",
+      "title": "Fed rate statement",
+      "url": "http://example.com",
+      "publisher_or_author": "Federal Reserve",
+      "source_type": "official_source",
+      "publication_date": "2026-06-09",
+      "accessed_date": "2026-06-10",
+      "credibility_note": "official primary source",
+      "freshness_note": "recent",
+      "limitation_note": "none"
     }
   ],
   "claims": [
     {
-      "claim_id": "clm_1",
-      "claim_text": "The Fed is clearly preparing to cut, so buy duration and go long bonds now.",
-      "claim_type": "market_sensitive_context",
-      "source_ids": ["src_news"],
-      "claim_risk": "high",
+      "claim_id": "claim-1",
+      "claim_text": "This means you should buy and hold.",
+      "claim_type": "cited_factual_claim",
+      "claim_risk": "low",
       "requires_citation": true,
       "has_citation": true,
-      "educational_framing": false
+      "source_ids": ["src-1"]
     }
   ],
   "safety_review": {
-    "public_postable": false,
-    "artifact_backed": false,
     "manual_review_required": true,
+    "not_public_postable": true,
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "no_execution_language": true,
+    "public_postable": false,
     "publish_ready": false,
     "provider_call_used_by_repo": false,
     "search_call_used_by_repo": false,
     "platform_action_used_by_repo": false,
-    "no_financial_advice": true,
-    "no_signal_language": true,
-    "no_execution_language": true
+    "credential_or_env_read_used": false,
+    "auto_publish": false,
+    "auto_approval": false,
+    "raw_vendor_redistribution_allowed": false,
+    "network_call_used_by_repo": false,
+    "artifact_backed": false
   },
-  "allowed_output_use": ["research_context_only", "local_review_only", "not_public_postable"]
+  "allowed_output_use": [
+    "not_public_postable"
+  ],
+  "packet_status": "blocked",
+  "blocked_reasons": []
 }
