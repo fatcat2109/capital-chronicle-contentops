@@ -982,6 +982,12 @@ def pre_alpha_institutional_ui_ux_rebuild_plan_summary():
     print(json.dumps(plan.summary(), indent=2))
 
 
+def pre_alpha_institutional_design_system_summary():
+    import json
+    from live_contentops import institutional_design_system as ds
+    print(json.dumps(ds.summary(), indent=2))
+
+
 
 def pre_alpha_telegram_official_docs_credential_validation_gate_summary():
     import json
@@ -1245,6 +1251,7 @@ COMMANDS = {
     "pre-alpha-telegram-redacted-credential-presence-check-summary": pre_alpha_telegram_redacted_credential_presence_check_summary,
     "pre-alpha-telegram-official-docs-credential-validation-gate-summary": pre_alpha_telegram_official_docs_credential_validation_gate_summary,
     "pre-alpha-institutional-ui-ux-rebuild-plan-summary": pre_alpha_institutional_ui_ux_rebuild_plan_summary,
+    "pre-alpha-institutional-design-system-summary": pre_alpha_institutional_design_system_summary,
 
 
     "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,
