@@ -859,6 +859,12 @@ def pre_alpha_daily_content_studio_decision_ledger_summary():
     import json
     from live_contentops import daily_content_studio_operator_decision_ledger
     print(json.dumps(daily_content_studio_operator_decision_ledger.summary(), indent=2))
+def pre_alpha_daily_content_studio_external_draft_review_summary():
+    import json
+    from live_contentops import daily_content_studio_external_draft_review
+    print(json.dumps(daily_content_studio_external_draft_review.summary(), indent=2))
+
+
 
 
 
@@ -1028,6 +1034,8 @@ COMMANDS = {
     "pre-alpha-frontend-static-prototype-summary": pre_alpha_frontend_static_prototype_summary,
     "pre-alpha-seo-newsletter-architecture-summary": pre_alpha_seo_newsletter_architecture_summary,
     "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,
+    "pre-alpha-daily-content-studio-external-draft-review-summary": pre_alpha_daily_content_studio_external_draft_review_summary,
+
 
     "pre-alpha-social-platform-foundation-summary": pre_alpha_social_platform_foundation_summary,
     "pre-alpha-daily-content-studio-markdown-export": pre_alpha_daily_content_studio_markdown_export,

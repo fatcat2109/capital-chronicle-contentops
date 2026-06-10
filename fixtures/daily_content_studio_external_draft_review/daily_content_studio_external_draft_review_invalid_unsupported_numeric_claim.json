@@ -1,0 +1,147 @@
+{
+  "packet_id": "dcs-extdraft-1",
+  "created_at": "2026-06-10T00:00:00Z",
+  "operator_supplied": true,
+  "runtime_authority": false,
+  "review_mode": "external_draft_review_only",
+  "linked_daily_content_studio_run_packet_id": "dcsr-1",
+  "linked_markdown_review_export_id": "dcsr-1-review-export",
+  "linked_operator_decision_ledger_packet_id": "dcs-ledger-1",
+  "external_draft_input": {
+    "draft_id": "draft-1",
+    "draft_text": "this note contains fake alpha performance numbers",
+    "draft_origin_label": "external_llm_manual_paste",
+    "generated_outside_repo": true,
+    "operator_pasted": true,
+    "source_context_ids": [
+      "src-1",
+      "src-2"
+    ],
+    "selected_angle_card_ids": [
+      "card-1"
+    ],
+    "intended_content_type": "macro_education",
+    "intended_platform_fit": [
+      "x",
+      "linkedin"
+    ],
+    "limitation_notes_visible": true,
+    "source_references_visible": true,
+    "manual_review_required": true,
+    "not_public_postable": true
+  },
+  "draft_origin_policy": {
+    "external_draft_supplied_by_operator": true,
+    "repo_generated_draft": false,
+    "repo_executes_prompt": false,
+    "provider_call_allowed_by_repo": false,
+    "provider_llm_api_allowed_now": false
+  },
+  "source_reference_policy": {
+    "source_references_required_for_factual_claims": true,
+    "source_references_required_for_current_claims": true
+  },
+  "limitation_visibility_policy": {
+    "limitation_notes_required": true,
+    "freshness_visibility_required": true
+  },
+  "claim_classification_policy": {
+    "supported_classifications": [
+      "first_party_product_process",
+      "evergreen_macro_education",
+      "cited_factual_claim",
+      "current_factual_claim_requires_source",
+      "market_sensitive_review_only",
+      "unsupported_numeric_claim_blocked",
+      "signal_or_trade_claim_blocked",
+      "artifact_backed_claim_blocked_until_real_artifact"
+    ]
+  },
+  "angle_alignment_policy": {
+    "angle_alignment_required": true,
+    "news_is_hook_not_signal": true
+  },
+  "platform_fit_review_policy": {
+    "platform_preview_only": true,
+    "platform_export_final_allowed_now": false
+  },
+  "review_policy": {
+    "manual_review_required": true,
+    "auto_approval_allowed": false,
+    "real_approved_artifacts_present": false,
+    "operator_in_loop_required": true
+  },
+  "review_result": {
+    "claims": [
+      {
+        "claim_id": "c1",
+        "classification": "evergreen_macro_education",
+        "source_reference_present": true,
+        "limitation_note_present": true
+      },
+      {
+        "claim_id": "c2",
+        "classification": "current_factual_claim_requires_source",
+        "source_reference_present": true,
+        "limitation_note_present": true
+      }
+    ],
+    "represented_as_final_social_copy": false,
+    "manual_revision_required": true
+  },
+  "output_policy": {
+    "manual_review_required": true,
+    "not_public_postable": true,
+    "publish_ready": false,
+    "public_ready_allowed_now": false,
+    "final_social_copy_generated": false,
+    "auto_approval_allowed": false,
+    "platform_export_final_allowed_now": false,
+    "platform_api_allowed_now": false,
+    "live_posting_enabled_now": false,
+    "scheduler_allowed_now": false,
+    "newsletter_or_cms_api_allowed_now": false,
+    "credential_read_allowed_now": false,
+    "repo_web_search_allowed_now": false,
+    "scraping_allowed_now": false,
+    "news_or_rss_api_allowed_now": false,
+    "market_data_api_allowed_now": false
+  },
+  "safety_policy": {
+    "no_financial_advice_required": true,
+    "no_signal_language_required": true,
+    "no_guaranteed_prediction": true,
+    "no_ai_trading_bot_framing": true,
+    "no_bloomberg_replacement_framing": true,
+    "no_signal_service_framing": true,
+    "no_fake_alpha_performance_claims": true,
+    "no_unsupported_numeric_market_claims": true,
+    "no_hiding_degraded_or_proxy_data": true
+  },
+  "manual_operator_actions": {
+    "allowed_manual_next_actions": [
+      "revise_draft_outside_repo",
+      "add_source_reference",
+      "add_limitation_note",
+      "choose_different_angle_card",
+      "rerun_local_validation",
+      "send_back_to_external_llm_manually",
+      "manually_record_public_url_later_if_jim_independently_posts_outside_repo"
+    ],
+    "forbidden_next_actions": [
+      "auto_publish",
+      "schedule_post",
+      "live_publish",
+      "send_newsletter",
+      "call_platform_api",
+      "call_provider_api",
+      "scrape_metrics",
+      "fetch_market_data",
+      "auto_reply_or_dm",
+      "mark_public_ready_final",
+      "convert_to_trading_signal"
+    ]
+  },
+  "blocked_reasons": [],
+  "packet_status": "blocked"
+}
