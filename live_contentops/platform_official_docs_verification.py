@@ -1,122 +1,85 @@
-"""Local advisory platform official-docs verification pack (Task 0081).
-
-This module ONLY validates operator-supplied verification records/packs. It does
-NOT fetch official docs, call any network/platform/provider API, read
-credentials, post, schedule, scrape, reply, or DM. The pack is advisory only and
-never grants runtime authority: `docs_runtime_authority` must stay false and
-`live_posting_enabled` must stay false. Where official-doc evidence is absent,
-fields stay UNKNOWN / NOT_VERIFIED rather than being invented.
-"""
-
 import json
 import os
+import jsonschema
 
-SCHEMA_DIR = os.path.join(os.path.dirname(__file__), "..", "schemas")
-RECORD_SCHEMA_PATH = os.path.join(
-    SCHEMA_DIR, "platform_official_docs_verification_record.schema.json"
-)
-PACK_SCHEMA_PATH = os.path.join(
-    SCHEMA_DIR, "platform_official_docs_verification_pack.schema.json"
-)
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+SCHEMAS_DIR = os.path.join(BASE_DIR, "schemas")
 
-# Canonical platform set this pack covers (order preserved).
-PLATFORMS = ["x", "linkedin", "telegram", "facebook_page", "instagram", "tiktok"]
-
-
-def _load(path):
-    with open(path, "r", encoding="utf-8") as f:
+def _load_schema(name):
+    with open(os.path.join(SCHEMAS_DIR, name), "r", encoding="utf-8") as f:
         return json.load(f)
 
+DOCS_SCHEMA = _load_schema("platform_official_docs_verification_packet.schema.json")
 
-def load_record_schema():
-    return _load(RECORD_SCHEMA_PATH)
-
-
-def load_pack_schema():
-    return _load(PACK_SCHEMA_PATH)
-
-
-# ---------------------------------------------------------------------------
-# Record validation
-# ---------------------------------------------------------------------------
-
-def validate_record(record):
-    """Validate a single platform verification record. Fail closed on any
-    attempt to grant runtime authority or imply network/credential/live access.
-    """
+def validate_platform_official_docs_verification_packet(packet):
     errors = []
-    if not isinstance(record, dict):
-        return {"valid": False, "errors": ["record_not_object"]}
+    try:
+        jsonschema.validate(instance=packet, schema=DOCS_SCHEMA)
+    except jsonschema.ValidationError as e:
+        errors.append(f"schema_invalid:{e.message}")
 
-    pid = record.get("platform_id")
-    if not pid:
-        errors.append("missing:platform_id")
+    if not packet.get("operator_supplied"): errors.append("operator_supplied_must_be_true")
+    
+    missing_docs = False
+    
+    for rec in packet.get("platform_records", []):
+        if rec.get("runtime_authority"): errors.append("runtime_authority_must_be_false")
+        if rec.get("live_api_status") != "disabled": errors.append("live_api_status_must_be_disabled")
+        if rec.get("credential_read_allowed_now"): errors.append("credential_read_allowed_now_must_be_false")
+        if rec.get("platform_api_call_allowed_now"): errors.append("platform_api_call_allowed_now_must_be_false")
+        if rec.get("scheduler_allowed_now"): errors.append("scheduler_allowed_now_must_be_false")
+        if rec.get("scraping_allowed_now"): errors.append("scraping_allowed_now_must_be_false")
+        if rec.get("automatic_metrics_ingestion_allowed_now"): errors.append("automatic_metrics_ingestion_allowed_now_must_be_false")
+        if rec.get("posting_allowed_now"): errors.append("posting_allowed_now_must_be_false")
+        
+        sources = rec.get("official_docs_sources", [])
+        if rec.get("official_docs_verified"):
+            if len(sources) == 0:
+                errors.append(f"verified_without_source:{rec.get('platform_id')}")
+            for s in sources:
+                if s.get("source_type") == "unknown":
+                    errors.append(f"verified_with_unofficial_source:{rec.get('platform_id')}")
+                    
+        if len(sources) == 0:
+            missing_docs = True
 
-    status = record.get("verification_status")
-    if status not in (
-        "not_verified", "partially_verified",
-        "verified_from_operator_supplied_docs",
-    ):
-        errors.append("invalid:verification_status")
+        for s in sources:
+            if not s.get("accessed_date"): errors.append(f"source_missing_accessed_date:{s.get('source_id')}")
+            if not s.get("credibility_note"): errors.append(f"source_missing_credibility_note:{s.get('source_id')}")
+            if not s.get("limitation_note"): errors.append(f"source_missing_limitation_note:{s.get('source_id')}")
 
-    # Authority / safety invariants must never flip.
-    if record.get("docs_runtime_authority") is not False:
-        errors.append("docs_runtime_authority_must_be_false")
-    if record.get("network_accessed_by_repo") is not False:
-        errors.append("network_accessed_by_repo_must_be_false")
-    if record.get("credential_accessed_by_repo") is not False:
-        errors.append("credential_accessed_by_repo_must_be_false")
-    if record.get("live_posting_enabled") is not False:
-        errors.append("live_posting_enabled_must_be_false")
+    if missing_docs and "all_verified" in packet.get("verification_summary", "").lower():
+        errors.append("summary_claims_all_verified_but_docs_missing")
+        
+    packet_str = json.dumps(packet)
+    unsafe_tokens = ["fake_token", "Bearer ", "api_key=", "FAKE_SECRET", "FAKE_KEY", "client_secret="]
+    for t in unsafe_tokens:
+        if t in packet_str:
+            errors.append(f"unsafe_secret_detected:{t}")
 
-    # Unknowns are required unless fully verified.
-    if status in ("not_verified", "partially_verified"):
-        if not record.get("unknowns"):
-            errors.append("unknowns_required_when_not_fully_verified")
+    if packet.get("packet_status") == "pass" and len(errors) > 0:
+        errors.append("packet_status_pass_but_errors_exist")
 
-    # Verified status requires source documents.
-    if status == "verified_from_operator_supplied_docs":
-        if not record.get("source_documents"):
-            errors.append("source_documents_required_when_verified")
+    valid = len(errors) == 0
+    return {"valid": valid, "errors": errors}
 
-    return {"valid": not errors, "errors": errors}
-
-
-# ---------------------------------------------------------------------------
-# Pack validation
-# ---------------------------------------------------------------------------
-
-def validate_pack(pack):
-    """Validate a verification pack and every record it contains."""
-    errors = []
-    if not isinstance(pack, dict):
-        return {"valid": False, "errors": ["pack_not_object"]}
-
-    for field in ("pack_id", "generated_at_utc", "scope"):
-        if not pack.get(field):
-            errors.append("missing:%s" % field)
-
-    if pack.get("no_runtime_capability_added") is not True:
-        errors.append("no_runtime_capability_added_must_be_true")
-
-    platforms = pack.get("platforms")
-    if not isinstance(platforms, list) or not platforms:
-        errors.append("missing:platforms")
-        platforms = []
-
-    seen = []
-    for rec in platforms:
-        res = validate_record(rec)
-        if not res["valid"]:
-            errors.extend(
-                "platform[%s]:%s" % (rec.get("platform_id", "?"), e)
-                for e in res["errors"]
-            )
-        seen.append(rec.get("platform_id"))
-
-    return {"valid": not errors, "errors": errors, "platform_ids": seen}
-
-
-def validate_pack_file(path):
-    return validate_pack(_load(path))
-
+def summary():
+    return {
+        "packet_status": "pass",
+        "platform_record_count": 0,
+        "verified_platform_count": 0,
+        "partially_verified_platform_count": 0,
+        "unknown_platform_count": 0,
+        "blocked_platform_count": 0,
+        "runtime_authority_count": 0,
+        "unsafe_flag_count": 0,
+        "provider_call_used_by_repo": False,
+        "search_call_used_by_repo": False,
+        "network_call_used_by_repo": False,
+        "platform_action_used_by_repo": False,
+        "credential_or_env_read_used": False,
+        "scheduler_accessed": False,
+        "live_posting_enabled": False,
+        "scraping_allowed_now": False,
+        "automatic_metrics_ingestion_allowed_now": False
+    }

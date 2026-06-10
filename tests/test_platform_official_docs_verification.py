@@ -1,95 +1,50 @@
-"""Tests for the local platform official-docs verification pack (0081).
-
-Advisory only; never grants runtime authority or live publishing.
-"""
-
-import json
 import os
+import json
+from live_contentops.platform_official_docs_verification import validate_platform_official_docs_verification_packet
 
-import live_contentops.platform_official_docs_verification as v
+FIX_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "fixtures", "platform_official_docs")
 
-ROOT = os.path.join(os.path.dirname(__file__), "..")
-FIX = os.path.join(ROOT, "fixtures", "platform_official_docs")
+def _load(name):
+    with open(os.path.join(FIX_DIR, name), "r", encoding="utf-8") as f:
+        return json.load(f)
 
-
-def _load(path):
-    with open(path, "r", encoding="utf-8") as fh:
-        return json.load(fh)
-
-
-def _load_fix(name):
-    return _load(os.path.join(FIX, name))
-
-
-# --- schemas load -----------------------------------------------------------
-
-def test_schemas_load():
-    assert v.load_record_schema()["title"] == "PlatformOfficialDocsVerificationRecord"
-    assert v.load_pack_schema()["title"] == "PlatformOfficialDocsVerificationPack"
-
-
-# --- positive flows ---------------------------------------------------------
-
-def test_valid_not_verified_pack():
-    res = v.validate_pack_file(
-        os.path.join(FIX, "valid_not_verified_pack.json")
-    )
+def test_valid_operator_supplied_official_docs_packet():
+    res = validate_platform_official_docs_verification_packet(_load("valid_operator_supplied_official_docs_packet.json"))
     assert res["valid"] is True
-    assert set(res["platform_ids"]) == set(v.PLATFORMS)
 
-
-def test_valid_partially_verified_pack():
-    res = v.validate_pack_file(
-        os.path.join(FIX, "valid_partially_verified_pack_with_operator_supplied_sources.json")
-    )
+def test_valid_unknowns_marked_packet():
+    res = validate_platform_official_docs_verification_packet(_load("valid_unknowns_marked_packet.json"))
     assert res["valid"] is True
-    assert "telegram" in res["platform_ids"]
 
-
-# --- negative flows (fail closed) -------------------------------------------
-
-def test_invalid_live_enabled():
-    rec = _load_fix("invalid_live_enabled.json")
-    res = v.validate_record(rec)
+def test_invalid_unofficial_source_marked_verified():
+    res = validate_platform_official_docs_verification_packet(_load("invalid_unofficial_source_marked_verified.json"))
     assert res["valid"] is False
-    assert "live_posting_enabled_must_be_false" in res["errors"]
+    assert any("verified_with_unofficial_source" in e for e in res["errors"])
 
-
-def test_invalid_network_accessed():
-    rec = _load_fix("invalid_network_accessed.json")
-    res = v.validate_record(rec)
+def test_invalid_missing_accessed_date():
+    res = validate_platform_official_docs_verification_packet(_load("invalid_missing_accessed_date.json"))
     assert res["valid"] is False
-    assert "network_accessed_by_repo_must_be_false" in res["errors"]
+    assert any("source_missing_accessed_date" in e for e in res["errors"])
 
-
-def test_invalid_docs_runtime_authority():
-    rec = _load_fix("invalid_docs_runtime_authority_true.json")
-    res = v.validate_record(rec)
+def test_invalid_live_api_enabled_from_docs():
+    res = validate_platform_official_docs_verification_packet(_load("invalid_live_api_enabled_from_docs.json"))
     assert res["valid"] is False
-    assert "docs_runtime_authority_must_be_false" in res["errors"]
+    assert "live_api_status_must_be_disabled" in res["errors"]
 
-
-def test_invalid_verified_without_sources():
-    rec = _load_fix("invalid_verified_without_sources.json")
-    res = v.validate_record(rec)
+def test_invalid_credentials_required_but_unredacted():
+    res = validate_platform_official_docs_verification_packet(_load("invalid_credentials_required_but_unredacted.json"))
     assert res["valid"] is False
-    assert "source_documents_required_when_verified" in res["errors"]
+    assert any("unsafe_secret_detected" in e for e in res["errors"])
 
-
-def test_missing_unknowns_when_not_verified():
-    # If status is not_verified but unknowns list is empty, validation must fail.
-    rec = {
-        "platform_id": "telegram",
-        "verification_status": "not_verified",
-        "source_collection_method": "not_supplied",
-        "source_documents": [],
-        "unknowns": [],  # missing
-        "live_gate_blockers": ["missing"],
-        "docs_runtime_authority": False,
-        "network_accessed_by_repo": False,
-        "credential_accessed_by_repo": False,
-        "live_posting_enabled": False
-    }
-    res = v.validate_record(rec)
+def test_invalid_official_docs_verified_without_source():
+    res = validate_platform_official_docs_verification_packet(_load("invalid_official_docs_verified_without_source.json"))
     assert res["valid"] is False
-    assert "unknowns_required_when_not_fully_verified" in res["errors"]
+    assert any("verified_without_source" in e for e in res["errors"])
+
+def test_packet_status_pass_but_errors_exist():
+    p = _load("valid_operator_supplied_official_docs_packet.json")
+    p["platform_records"][0]["runtime_authority"] = True
+    res = validate_platform_official_docs_verification_packet(p)
+    assert res["valid"] is False
+    assert "packet_status_pass_but_errors_exist" in res["errors"]
+    assert "runtime_authority_must_be_false" in res["errors"]

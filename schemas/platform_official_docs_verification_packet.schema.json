@@ -1,0 +1,239 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Platform Official Docs Verification Packet",
+  "type": "object",
+  "properties": {
+    "platform_docs_verification_packet_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "operator_supplied": {
+      "type": "boolean"
+    },
+    "source_collection_method": {
+      "type": "string"
+    },
+    "platform_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "platform_id": {
+            "type": "string"
+          },
+          "display_name": {
+            "type": "string"
+          },
+          "official_docs_sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source_id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "publisher": {
+                  "type": "string"
+                },
+                "source_type": {
+                  "type": "string",
+                  "enum": [
+                    "official_platform_docs",
+                    "official_developer_blog",
+                    "official_changelog",
+                    "official_support_article",
+                    "operator_supplied_official_doc_excerpt",
+                    "unknown"
+                  ]
+                },
+                "source_url_or_operator_ref": {
+                  "type": "string"
+                },
+                "accessed_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "publication_or_version_date": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "credibility_note": {
+                  "type": "string"
+                },
+                "limitation_note": {
+                  "type": "string"
+                },
+                "operator_supplied_excerpt_or_summary": {
+                  "type": "string"
+                },
+                "redistribution_safe_summary_only": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "source_id",
+                "title",
+                "publisher",
+                "source_type",
+                "source_url_or_operator_ref",
+                "accessed_date",
+                "publication_or_version_date",
+                "credibility_note",
+                "limitation_note",
+                "operator_supplied_excerpt_or_summary",
+                "redistribution_safe_summary_only"
+              ]
+            }
+          },
+          "docs_access_status": {
+            "type": "string"
+          },
+          "docs_freshness_label": {
+            "type": "string"
+          },
+          "accessed_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "official_docs_verified": {
+            "type": "boolean"
+          },
+          "verification_status": {
+            "type": "string",
+            "enum": [
+              "verified_from_operator_supplied_official_docs",
+              "partially_verified",
+              "not_verified_docs_missing",
+              "unknown_requires_operator_review",
+              "blocked"
+            ]
+          },
+          "write_api_documented": {
+            "type": "boolean"
+          },
+          "media_requirements_documented": {
+            "type": "boolean"
+          },
+          "auth_requirements_documented": {
+            "type": "boolean"
+          },
+          "app_review_or_access_requirements_documented": {
+            "type": "boolean"
+          },
+          "rate_limit_or_quota_documented": {
+            "type": "boolean"
+          },
+          "analytics_or_metrics_api_documented": {
+            "type": "boolean"
+          },
+          "known_unknowns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "operator_notes": {
+            "type": "string"
+          },
+          "runtime_authority": {
+            "type": "boolean"
+          },
+          "live_api_status": {
+            "type": "string"
+          },
+          "credential_read_allowed_now": {
+            "type": "boolean"
+          },
+          "platform_api_call_allowed_now": {
+            "type": "boolean"
+          },
+          "scheduler_allowed_now": {
+            "type": "boolean"
+          },
+          "scraping_allowed_now": {
+            "type": "boolean"
+          },
+          "automatic_metrics_ingestion_allowed_now": {
+            "type": "boolean"
+          },
+          "posting_allowed_now": {
+            "type": "boolean"
+          },
+          "blocked_reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "platform_id",
+          "display_name",
+          "official_docs_sources",
+          "docs_access_status",
+          "docs_freshness_label",
+          "accessed_date",
+          "official_docs_verified",
+          "verification_status",
+          "write_api_documented",
+          "media_requirements_documented",
+          "auth_requirements_documented",
+          "app_review_or_access_requirements_documented",
+          "rate_limit_or_quota_documented",
+          "analytics_or_metrics_api_documented",
+          "known_unknowns",
+          "operator_notes",
+          "runtime_authority",
+          "live_api_status",
+          "credential_read_allowed_now",
+          "platform_api_call_allowed_now",
+          "scheduler_allowed_now",
+          "scraping_allowed_now",
+          "automatic_metrics_ingestion_allowed_now",
+          "posting_allowed_now",
+          "blocked_reasons"
+        ]
+      }
+    },
+    "verification_summary": {
+      "type": "string"
+    },
+    "hard_boundary_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "packet_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "platform_docs_verification_packet_id",
+    "created_at",
+    "operator_supplied",
+    "source_collection_method",
+    "platform_records",
+    "verification_summary",
+    "hard_boundary_flags",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}
