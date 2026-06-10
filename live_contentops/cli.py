@@ -845,6 +845,24 @@ def pre_alpha_daily_content_studio_run_summary():
     import json
     from live_contentops import daily_content_studio_run
     print(json.dumps(daily_content_studio_run.summary(), indent=2))
+def pre_alpha_daily_content_studio_markdown_export():
+    import sys
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+    from live_contentops import daily_content_studio_markdown_export
+    packet = daily_content_studio_markdown_export._load_valid_packet()
+    md = daily_content_studio_markdown_export.render_daily_content_studio_markdown_review(packet)
+    print(md)
+
+
+def pre_alpha_daily_content_studio_markdown_export_summary():
+    import json
+    from live_contentops import daily_content_studio_markdown_export
+    print(json.dumps(daily_content_studio_markdown_export.summary(), indent=2))
+
+
 
 
 def pre_alpha_grounded_news_angle_workbench_summary():
@@ -1004,6 +1022,9 @@ COMMANDS = {
     "pre-alpha-frontend-static-prototype-summary": pre_alpha_frontend_static_prototype_summary,
     "pre-alpha-seo-newsletter-architecture-summary": pre_alpha_seo_newsletter_architecture_summary,
     "pre-alpha-social-platform-foundation-summary": pre_alpha_social_platform_foundation_summary,
+    "pre-alpha-daily-content-studio-markdown-export": pre_alpha_daily_content_studio_markdown_export,
+    "pre-alpha-daily-content-studio-markdown-export-summary": pre_alpha_daily_content_studio_markdown_export_summary,
+
     "pre-alpha-daily-content-studio-run-summary": pre_alpha_daily_content_studio_run_summary,
 
     "pre-alpha-grounded-news-angle-workbench-summary": pre_alpha_grounded_news_angle_workbench_summary,
