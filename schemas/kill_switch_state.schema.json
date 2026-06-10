@@ -1,46 +1,63 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PublishKillSwitchState",
   "type": "object",
   "properties": {
-    "state_id": {
-      "type": [
-        "string",
-        "object"
-      ]
-    },
-    "status": {
-      "type": [
-        "string",
-        "object"
-      ]
-    },
-    "triggered_by": {
-      "type": [
-        "string",
-        "object"
-      ]
-    },
-    "timestamp": {
-      "type": [
-        "string",
-        "object"
-      ]
-    },
-    "schema_version": {
+    "kill_switch_id": {
       "type": "string"
     },
-    "network_used": {
+    "created_at": {
+      "type": "string"
+    },
+    "kill_switch_enabled": {
       "type": "boolean"
     },
-    "human_approval_required": {
+    "default_posting_blocked": {
       "type": "boolean"
+    },
+    "mock_publish_allowed_when_enabled": {
+      "type": "boolean"
+    },
+    "live_publish_allowed_now": {
+      "type": "boolean"
+    },
+    "platform_api_allowed_now": {
+      "type": "boolean"
+    },
+    "scheduler_allowed_now": {
+      "type": "boolean"
+    },
+    "credential_read_allowed_now": {
+      "type": "boolean"
+    },
+    "network_allowed_now": {
+      "type": "boolean"
+    },
+    "operator_override_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   },
   "required": [
-    "state_id",
-    "status",
-    "triggered_by",
-    "timestamp"
-  ],
-  "additionalProperties": true
+    "kill_switch_id",
+    "created_at",
+    "kill_switch_enabled",
+    "default_posting_blocked",
+    "mock_publish_allowed_when_enabled",
+    "live_publish_allowed_now",
+    "platform_api_allowed_now",
+    "scheduler_allowed_now",
+    "credential_read_allowed_now",
+    "network_allowed_now",
+    "operator_override_ref",
+    "blocked_reasons"
+  ]
 }

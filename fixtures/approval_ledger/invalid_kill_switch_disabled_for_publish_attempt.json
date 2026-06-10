@@ -1,0 +1,14 @@
+{
+  "kill_switch_id": "ks-1",
+  "created_at": "2026-06-10T00:00:00Z",
+  "kill_switch_enabled": false,
+  "default_posting_blocked": false,
+  "mock_publish_allowed_when_enabled": true,
+  "live_publish_allowed_now": true,
+  "platform_api_allowed_now": true,
+  "scheduler_allowed_now": true,
+  "credential_read_allowed_now": true,
+  "network_allowed_now": true,
+  "operator_override_ref": "ov-1",
+  "blocked_reasons": []
+}

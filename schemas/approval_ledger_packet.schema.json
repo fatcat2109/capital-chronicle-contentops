@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ApprovalLedgerRecord",
+  "type": "object",
+  "properties": {
+    "approval_record_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "operator_approval_ref": {
+      "type": "string"
+    },
+    "operator_id_or_label": {
+      "type": "string"
+    },
+    "source_platform_dry_run_payload_id": {
+      "type": "string"
+    },
+    "source_post_id": {
+      "type": "string"
+    },
+    "platform_id": {
+      "type": "string"
+    },
+    "approval_state": {
+      "type": "string",
+      "enum": [
+        "draft_review_only",
+        "platform_dry_run_ready",
+        "operator_review_required",
+        "operator_approved_for_mock_publish",
+        "operator_approved_for_live_publish_later",
+        "blocked",
+        "revoked"
+      ]
+    },
+    "approval_scope": {
+      "type": "string"
+    },
+    "manual_review_completed": {
+      "type": "boolean"
+    },
+    "operator_final_check_completed": {
+      "type": "boolean"
+    },
+    "limitations_acknowledged": {
+      "type": "boolean"
+    },
+    "freshness_acknowledged": {
+      "type": "boolean"
+    },
+    "not_financial_advice_acknowledged": {
+      "type": "boolean"
+    },
+    "no_signal_language_acknowledged": {
+      "type": "boolean"
+    },
+    "revocation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": [
+    "approval_record_id",
+    "created_at",
+    "operator_approval_ref",
+    "operator_id_or_label",
+    "source_platform_dry_run_payload_id",
+    "source_post_id",
+    "platform_id",
+    "approval_state",
+    "approval_scope",
+    "manual_review_completed",
+    "operator_final_check_completed",
+    "limitations_acknowledged",
+    "freshness_acknowledged",
+    "not_financial_advice_acknowledged",
+    "no_signal_language_acknowledged",
+    "revocation",
+    "blocked_reasons"
+  ]
+}
