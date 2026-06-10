@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Frontend Static Prototype Packet",
+  "type": "object",
+  "properties": {
+    "prototype_packet_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "source_ui_ux_spec_packet_id": {
+      "type": "string"
+    },
+    "routes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "views": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fixture_cards": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "safety_banners": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "placeholder_controls": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "offline_static_only": {
+      "type": "boolean"
+    },
+    "external_assets_used": {
+      "type": "boolean"
+    },
+    "script_references": {
+      "type": "boolean"
+    },
+    "network_required": {
+      "type": "boolean"
+    },
+    "credential_values_visible": {
+      "type": "boolean"
+    },
+    "live_actions_enabled": {
+      "type": "boolean"
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "packet_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "prototype_packet_id",
+    "created_at",
+    "source_ui_ux_spec_packet_id",
+    "routes",
+    "views",
+    "components",
+    "fixture_cards",
+    "safety_banners",
+    "placeholder_controls",
+    "offline_static_only",
+    "external_assets_used",
+    "script_references",
+    "network_required",
+    "credential_values_visible",
+    "live_actions_enabled",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}

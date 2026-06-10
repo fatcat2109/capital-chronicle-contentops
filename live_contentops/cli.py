@@ -831,6 +831,11 @@ def pre_alpha_operator_ui_ux_summary():
     from live_contentops import operator_ui_ux_spec
     print(json.dumps(operator_ui_ux_spec.summary(), indent=2))
 
+def pre_alpha_frontend_static_prototype_summary():
+    import json
+    from live_contentops import frontend_static_prototype
+    print(json.dumps(frontend_static_prototype.summary(), indent=2))
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -967,6 +972,7 @@ COMMANDS = {
     "pre-alpha-platform-official-docs-verification-summary": pre_alpha_platform_official_docs_verification_summary,
     "pre-alpha-credential-envelope-policy-summary": pre_alpha_credential_envelope_policy_summary,
     "pre-alpha-operator-ui-ux-summary": pre_alpha_operator_ui_ux_summary,
+    "pre-alpha-frontend-static-prototype-summary": pre_alpha_frontend_static_prototype_summary,
 }
 
 
