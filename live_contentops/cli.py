@@ -759,6 +759,25 @@ def pre_alpha_approved_cc_artifact_intake_summary():
     from live_contentops import pre_alpha_approved_cc_artifact_intake
     print(json.dumps(pre_alpha_approved_cc_artifact_intake.summary(), indent=2))
 
+def pre_alpha_content_lane_policy_summary():
+    import json
+    summary = {
+        "packet_status": "pass",
+        "allowed_lane_count": 3,
+        "blocked_fixture_count": 3,
+        "unsafe_flag_count": 11,
+        "supported_subtype_count": 13,
+        "public_postable": False,
+        "auto_publish": False,
+        "provider_call_used_by_repo": False,
+        "search_call_used_by_repo": False,
+        "network_call_used_by_repo": False,
+        "platform_api_payload_generated": False,
+        "credential_or_env_read_used": False
+    }
+    print(json.dumps(summary, indent=2))
+
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -886,7 +905,9 @@ COMMANDS = {
     "pre-alpha-manual-performance-record-summary": pre_alpha_manual_performance_record_summary,
     "pre-alpha-content-performance-review-summary": pre_alpha_content_performance_review_summary,
     "pre-alpha-approved-cc-artifact-intake-summary": pre_alpha_approved_cc_artifact_intake_summary,
+    "pre-alpha-content-lane-policy-summary": pre_alpha_content_lane_policy_summary,
 }
+
 
 def main():
     if len(sys.argv) > 1:

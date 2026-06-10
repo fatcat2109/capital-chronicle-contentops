@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Pre-Alpha Content Lane Policy Packet",
+  "type": "object",
+  "required": [
+    "lane",
+    "content_subtype",
+    "text_content",
+    "public_postable",
+    "publish_ready",
+    "auto_publish",
+    "auto_approval",
+    "platform_api_payload_generated",
+    "provider_call_used_by_repo",
+    "search_call_used_by_repo",
+    "network_call_used_by_repo",
+    "credential_or_env_read_used",
+    "claims_artifact_backed",
+    "source_artifact_ids",
+    "raw_vendor_redistribution_allowed",
+    "hidden_missing_proxy_degraded_data"
+  ],
+  "properties": {
+    "lane": {
+      "type": "string",
+      "enum": [
+        "pre_alpha_general_process",
+        "grounded_news_context",
+        "future_artifact_backed_cc"
+      ]
+    },
+    "content_subtype": {
+      "type": "string",
+      "enum": [
+        "build_in_public",
+        "macro_education",
+        "data_sufficiency",
+        "forecast_readiness",
+        "failure_forensics",
+        "product_philosophy",
+        "official_data_explainer",
+        "policy_process_commentary",
+        "macro_education_from_news",
+        "forecast_readiness_from_news",
+        "data_sufficiency_from_news",
+        "failure_forensics_from_news",
+        "product_update"
+      ]
+    },
+    "text_content": {
+      "type": "string"
+    },
+    "public_postable": {
+      "type": "boolean"
+    },
+    "publish_ready": {
+      "type": "boolean"
+    },
+    "auto_publish": {
+      "type": "boolean"
+    },
+    "auto_approval": {
+      "type": "boolean"
+    },
+    "platform_api_payload_generated": {
+      "type": "boolean"
+    },
+    "provider_call_used_by_repo": {
+      "type": "boolean"
+    },
+    "search_call_used_by_repo": {
+      "type": "boolean"
+    },
+    "network_call_used_by_repo": {
+      "type": "boolean"
+    },
+    "credential_or_env_read_used": {
+      "type": "boolean"
+    },
+    "claims_artifact_backed": {
+      "type": "boolean"
+    },
+    "source_artifact_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "raw_vendor_redistribution_allowed": {
+      "type": "boolean"
+    },
+    "hidden_missing_proxy_degraded_data": {
+      "type": "boolean"
+    }
+  }
+}

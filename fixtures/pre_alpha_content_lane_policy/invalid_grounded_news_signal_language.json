@@ -1,0 +1,18 @@
+{
+  "lane": "grounded_news_context",
+  "content_subtype": "macro_education_from_news",
+  "text_content": "The Fed's recent announcement means you should buy stocks now. This is a clear signal to go long.",
+  "public_postable": false,
+  "publish_ready": false,
+  "auto_publish": false,
+  "auto_approval": false,
+  "platform_api_payload_generated": false,
+  "provider_call_used_by_repo": false,
+  "search_call_used_by_repo": false,
+  "network_call_used_by_repo": false,
+  "credential_or_env_read_used": false,
+  "claims_artifact_backed": false,
+  "source_artifact_ids": [],
+  "raw_vendor_redistribution_allowed": false,
+  "hidden_missing_proxy_degraded_data": false
+}

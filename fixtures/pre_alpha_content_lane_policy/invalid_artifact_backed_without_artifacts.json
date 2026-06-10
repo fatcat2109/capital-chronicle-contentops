@@ -1,0 +1,18 @@
+{
+  "lane": "future_artifact_backed_cc",
+  "content_subtype": "product_update",
+  "text_content": "Check out our latest artifact backing this analysis.",
+  "public_postable": false,
+  "publish_ready": false,
+  "auto_publish": false,
+  "auto_approval": false,
+  "platform_api_payload_generated": false,
+  "provider_call_used_by_repo": false,
+  "search_call_used_by_repo": false,
+  "network_call_used_by_repo": false,
+  "credential_or_env_read_used": false,
+  "claims_artifact_backed": true,
+  "source_artifact_ids": [],
+  "raw_vendor_redistribution_allowed": false,
+  "hidden_missing_proxy_degraded_data": false
+}
