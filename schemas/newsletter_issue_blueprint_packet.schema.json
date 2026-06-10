@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Newsletter Issue Blueprint Packet",
+  "type": "object",
+  "properties": {
+    "newsletter_issue_blueprint_packet_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "issue_label_placeholder": {
+      "type": "string"
+    },
+    "source_content_items": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_disclaimers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "source_references_required": {
+      "type": "boolean"
+    },
+    "manual_review_required": {
+      "type": "boolean"
+    },
+    "not_public_postable": {
+      "type": "boolean"
+    },
+    "publish_ready": {
+      "type": "boolean"
+    },
+    "newsletter_send_enabled_now": {
+      "type": "boolean"
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "packet_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "newsletter_issue_blueprint_packet_id",
+    "created_at",
+    "issue_label_placeholder",
+    "source_content_items",
+    "sections",
+    "required_disclaimers",
+    "source_references_required",
+    "manual_review_required",
+    "not_public_postable",
+    "publish_ready",
+    "newsletter_send_enabled_now",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}

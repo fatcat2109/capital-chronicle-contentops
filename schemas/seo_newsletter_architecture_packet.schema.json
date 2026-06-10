@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SEO Newsletter Architecture Packet",
+  "type": "object",
+  "properties": {
+    "seo_newsletter_architecture_packet_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "operator_supplied": {
+      "type": "boolean"
+    },
+    "runtime_authority": {
+      "type": "boolean"
+    },
+    "content_pillars": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "seo_metadata_policy": {
+      "type": "object"
+    },
+    "newsletter_architecture": {
+      "type": "object"
+    },
+    "archive_policy": {
+      "type": "object"
+    },
+    "internal_linking_policy": {
+      "type": "object"
+    },
+    "distribution_policy": {
+      "type": "object"
+    },
+    "safety_policy": {
+      "type": "object"
+    },
+    "future_handoff": {
+      "type": "object"
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "packet_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "seo_newsletter_architecture_packet_id",
+    "created_at",
+    "operator_supplied",
+    "runtime_authority",
+    "content_pillars",
+    "seo_metadata_policy",
+    "newsletter_architecture",
+    "archive_policy",
+    "internal_linking_policy",
+    "distribution_policy",
+    "safety_policy",
+    "future_handoff",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}

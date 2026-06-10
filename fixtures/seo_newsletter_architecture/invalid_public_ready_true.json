@@ -1,0 +1,264 @@
+{
+  "seo_newsletter_architecture_packet_id": "arch-1",
+  "created_at": "2026-06-10T00:00:00Z",
+  "operator_supplied": true,
+  "runtime_authority": false,
+  "content_pillars": [
+    {
+      "pillar_id": "macro_education",
+      "display_name": "Macro Education",
+      "lane": "educational",
+      "allowed_content_types": [
+        "post",
+        "article"
+      ],
+      "allowed_claim_types": [
+        "historical_fact",
+        "policy_observation"
+      ],
+      "required_source_policy": "required",
+      "required_safety_disclaimers": [
+        "no_financial_advice"
+      ],
+      "forbidden_claims": [
+        "price_targets",
+        "directional_bets"
+      ],
+      "public_ready_allowed_now": false,
+      "blocked_reasons": []
+    },
+    {
+      "pillar_id": "data_sufficiency",
+      "display_name": "Data Sufficiency Gap",
+      "lane": "analysis",
+      "allowed_content_types": [
+        "post",
+        "article"
+      ],
+      "allowed_claim_types": [
+        "statistical_gap_note"
+      ],
+      "required_source_policy": "required",
+      "required_safety_disclaimers": [
+        "no_financial_advice"
+      ],
+      "forbidden_claims": [
+        "price_targets"
+      ],
+      "public_ready_allowed_now": false,
+      "blocked_reasons": []
+    },
+    {
+      "pillar_id": "forecast_readiness",
+      "display_name": "Forecast Readiness",
+      "lane": "analysis",
+      "allowed_content_types": [
+        "post"
+      ],
+      "allowed_claim_types": [
+        "model_state"
+      ],
+      "required_source_policy": "required",
+      "required_safety_disclaimers": [
+        "no_financial_advice"
+      ],
+      "forbidden_claims": [
+        "price_targets"
+      ],
+      "public_ready_allowed_now": false,
+      "blocked_reasons": []
+    },
+    {
+      "pillar_id": "failure_forensics",
+      "display_name": "Failure Forensics",
+      "lane": "analysis",
+      "allowed_content_types": [
+        "post"
+      ],
+      "allowed_claim_types": [
+        "retrospective"
+      ],
+      "required_source_policy": "required",
+      "required_safety_disclaimers": [
+        "no_financial_advice"
+      ],
+      "forbidden_claims": [
+        "blame",
+        "price_targets"
+      ],
+      "public_ready_allowed_now": false,
+      "blocked_reasons": []
+    },
+    {
+      "pillar_id": "build_in_public",
+      "display_name": "Build in Public",
+      "lane": "educational",
+      "allowed_content_types": [
+        "post"
+      ],
+      "allowed_claim_types": [
+        "engineering_note"
+      ],
+      "required_source_policy": "required",
+      "required_safety_disclaimers": [
+        "no_financial_advice"
+      ],
+      "forbidden_claims": [
+        "price_targets"
+      ],
+      "public_ready_allowed_now": false,
+      "blocked_reasons": []
+    },
+    {
+      "pillar_id": "official_data_explainer",
+      "display_name": "Official Data Explainer",
+      "lane": "educational",
+      "allowed_content_types": [
+        "article"
+      ],
+      "allowed_claim_types": [
+        "statistical_fact"
+      ],
+      "required_source_policy": "required",
+      "required_safety_disclaimers": [
+        "no_financial_advice"
+      ],
+      "forbidden_claims": [
+        "price_targets"
+      ],
+      "public_ready_allowed_now": false,
+      "blocked_reasons": []
+    },
+    {
+      "pillar_id": "policy_process_commentary",
+      "display_name": "Policy Process",
+      "lane": "analysis",
+      "allowed_content_types": [
+        "article"
+      ],
+      "allowed_claim_types": [
+        "process_observation"
+      ],
+      "required_source_policy": "required",
+      "required_safety_disclaimers": [
+        "no_financial_advice"
+      ],
+      "forbidden_claims": [
+        "price_targets"
+      ],
+      "public_ready_allowed_now": false,
+      "blocked_reasons": []
+    },
+    {
+      "pillar_id": "product_philosophy",
+      "display_name": "Product Philosophy",
+      "lane": "educational",
+      "allowed_content_types": [
+        "post"
+      ],
+      "allowed_claim_types": [
+        "opinion"
+      ],
+      "required_source_policy": "required",
+      "required_safety_disclaimers": [
+        "no_financial_advice"
+      ],
+      "forbidden_claims": [
+        "price_targets"
+      ],
+      "public_ready_allowed_now": false,
+      "blocked_reasons": []
+    },
+    {
+      "pillar_id": "weekly_operator_digest",
+      "display_name": "Weekly Digest",
+      "lane": "educational",
+      "allowed_content_types": [
+        "newsletter"
+      ],
+      "allowed_claim_types": [
+        "summary"
+      ],
+      "required_source_policy": "required",
+      "required_safety_disclaimers": [
+        "no_financial_advice"
+      ],
+      "forbidden_claims": [
+        "price_targets"
+      ],
+      "public_ready_allowed_now": false,
+      "blocked_reasons": []
+    },
+    {
+      "pillar_id": "market_note_context_only",
+      "display_name": "Market Note (Context)",
+      "lane": "educational",
+      "allowed_content_types": [
+        "post"
+      ],
+      "allowed_claim_types": [
+        "context"
+      ],
+      "required_source_policy": "required",
+      "required_safety_disclaimers": [
+        "no_financial_advice"
+      ],
+      "forbidden_claims": [
+        "price_targets",
+        "directional_bets"
+      ],
+      "public_ready_allowed_now": false,
+      "blocked_reasons": []
+    }
+  ],
+  "seo_metadata_policy": {
+    "title_policy": "strict_length",
+    "description_policy": "required_summary",
+    "slug_policy": "placeholder_slugs_only",
+    "canonical_url_policy": "placeholder_domains_only",
+    "tag_policy": "controlled_vocabulary",
+    "category_policy": "single_category",
+    "indexing_policy": "noindex_in_pre_alpha",
+    "open_graph_policy": "standard_og",
+    "schema_markup_policy": "article_schema_placeholder",
+    "source_citation_policy": "required",
+    "freshness_policy": "timestamp_required",
+    "no_financial_advice_disclaimer_required": true,
+    "no_signal_language_required": true,
+    "public_ready_allowed_now": true,
+    "sitemap_generation_enabled": false,
+    "rss_generation_enabled": false,
+    "real_domain_required": false,
+    "blocked_reasons": []
+  },
+  "newsletter_architecture": {
+    "newsletter_name_placeholder": "Capital Chronicle Digest Placeholder",
+    "issue_frequency_placeholder": "Weekly",
+    "sections": [
+      "opening_context",
+      "official_data_watch",
+      "forecast_readiness_corner",
+      "data_sufficiency_gap",
+      "failure_forensics_note",
+      "build_log",
+      "manual_review_queue",
+      "links_and_sources"
+    ],
+    "manual_send_only": true,
+    "newsletter_send_enabled_now": false,
+    "mailing_list_integration_enabled_now": false,
+    "email_provider_api_allowed_now": false,
+    "subscriber_data_allowed_now": false,
+    "tracking_pixels_allowed_now": false,
+    "utm_generation_allowed_now": false,
+    "manual_metrics_entry_only": true,
+    "blocked_reasons": []
+  },
+  "archive_policy": {},
+  "internal_linking_policy": {},
+  "distribution_policy": {},
+  "safety_policy": {},
+  "future_handoff": {},
+  "blocked_reasons": [],
+  "packet_status": "blocked"
+}
