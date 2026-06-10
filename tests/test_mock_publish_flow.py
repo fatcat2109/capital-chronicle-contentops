@@ -1,4 +1,4 @@
-﻿import pytest
+import pytest
 """Tests for the local mock publish flow + metrics capture dry-run (0080).
 
 No network/credential/platform access. Mock transport only. Live publishing is
@@ -46,9 +46,8 @@ def _permissive_kill_switch():
 # --- schemas load -----------------------------------------------------------
 
 def test_schemas_load():
-    assert f.load_request_schema()["title"] == "MockPublishRequest"
-    assert f.load_result_schema()["title"] == "MockPublishResult"
-    assert f.load_metrics_schema()["title"] == "MockMetricsPlaceholder"
+    assert f.MOCK_PUBLISH_SCHEMA["title"] == "Mock Publish Result Packet"
+    assert f.MANUAL_METRICS_SCHEMA["title"] == "Manual Metrics Readiness Packet"
 
 
 # --- positive flow ----------------------------------------------------------

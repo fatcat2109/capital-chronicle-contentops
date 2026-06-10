@@ -1,0 +1,19 @@
+{
+  "manual_metrics_readiness_packet_id": "mmr-100",
+  "created_at": "2026-06-10T00:00:00Z",
+  "source_mock_publish_result_packet_id": "mpr-100",
+  "platform_id": "x",
+  "manual_metrics_entry_required": true,
+  "automatic_metrics_ingestion": false,
+  "scraping_allowed": false,
+  "platform_metrics_api_allowed": false,
+  "operator_entered_only": true,
+  "metric_fields_expected": [
+    "impressions",
+    "likes"
+  ],
+  "metric_null_policy": "leave_missing_as_null",
+  "freshness_policy": "check_at_24h",
+  "blocked_reasons": [],
+  "packet_status": "pass"
+}

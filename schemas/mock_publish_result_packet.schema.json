@@ -1,0 +1,102 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Mock Publish Result Packet",
+  "type": "object",
+  "properties": {
+    "mock_publish_result_packet_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "source_platform_dry_run_payload_id": {
+      "type": "string"
+    },
+    "source_approval_record_id": {
+      "type": "string"
+    },
+    "source_kill_switch_id": {
+      "type": "string"
+    },
+    "platform_id": {
+      "type": "string"
+    },
+    "mock_only": {
+      "type": "boolean"
+    },
+    "dry_run": {
+      "type": "boolean"
+    },
+    "mock_publish_attempted": {
+      "type": "boolean"
+    },
+    "mock_publish_allowed": {
+      "type": "boolean"
+    },
+    "mock_post_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "mock_post_url": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "live_execution": {
+      "type": "boolean"
+    },
+    "platform_api_call_used": {
+      "type": "boolean"
+    },
+    "platform_api_payload_generated": {
+      "type": "boolean"
+    },
+    "network_accessed": {
+      "type": "boolean"
+    },
+    "credential_accessed": {
+      "type": "boolean"
+    },
+    "scheduler_accessed": {
+      "type": "boolean"
+    },
+    "audit_event_id": {
+      "type": "string"
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "packet_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "mock_publish_result_packet_id",
+    "created_at",
+    "source_platform_dry_run_payload_id",
+    "source_approval_record_id",
+    "source_kill_switch_id",
+    "platform_id",
+    "mock_only",
+    "dry_run",
+    "mock_publish_attempted",
+    "mock_publish_allowed",
+    "mock_post_ref",
+    "mock_post_url",
+    "live_execution",
+    "platform_api_call_used",
+    "platform_api_payload_generated",
+    "network_accessed",
+    "credential_accessed",
+    "scheduler_accessed",
+    "audit_event_id",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}

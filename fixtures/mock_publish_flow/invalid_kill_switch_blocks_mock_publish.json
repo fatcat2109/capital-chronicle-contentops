@@ -1,0 +1,4 @@
+{
+  "kill_switch_enabled": true,
+  "mock_publish_allowed_when_enabled": false
+}

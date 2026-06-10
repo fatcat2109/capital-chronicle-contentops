@@ -1,0 +1,23 @@
+{
+  "mock_publish_result_packet_id": "mpr-100",
+  "created_at": "2026-06-10T00:00:00Z",
+  "source_platform_dry_run_payload_id": "dry-100",
+  "source_approval_record_id": "appr-100",
+  "source_kill_switch_id": "ks-1",
+  "platform_id": "x",
+  "mock_only": true,
+  "dry_run": true,
+  "mock_publish_attempted": true,
+  "mock_publish_allowed": true,
+  "mock_post_ref": "mock-ref-123",
+  "mock_post_url": "https://localhost/mock/123",
+  "live_execution": true,
+  "platform_api_call_used": false,
+  "platform_api_payload_generated": false,
+  "network_accessed": false,
+  "credential_accessed": false,
+  "scheduler_accessed": false,
+  "audit_event_id": "aud-100",
+  "blocked_reasons": [],
+  "packet_status": "blocked"
+}

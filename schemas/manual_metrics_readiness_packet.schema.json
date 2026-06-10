@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Manual Metrics Readiness Packet",
+  "type": "object",
+  "properties": {
+    "manual_metrics_readiness_packet_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "source_mock_publish_result_packet_id": {
+      "type": "string"
+    },
+    "platform_id": {
+      "type": "string"
+    },
+    "manual_metrics_entry_required": {
+      "type": "boolean"
+    },
+    "automatic_metrics_ingestion": {
+      "type": "boolean"
+    },
+    "scraping_allowed": {
+      "type": "boolean"
+    },
+    "platform_metrics_api_allowed": {
+      "type": "boolean"
+    },
+    "operator_entered_only": {
+      "type": "boolean"
+    },
+    "metric_fields_expected": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "metric_null_policy": {
+      "type": "string"
+    },
+    "freshness_policy": {
+      "type": "string"
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "packet_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "manual_metrics_readiness_packet_id",
+    "created_at",
+    "source_mock_publish_result_packet_id",
+    "platform_id",
+    "manual_metrics_entry_required",
+    "automatic_metrics_ingestion",
+    "scraping_allowed",
+    "platform_metrics_api_allowed",
+    "operator_entered_only",
+    "metric_fields_expected",
+    "metric_null_policy",
+    "freshness_policy",
+    "blocked_reasons",
+    "packet_status"
+  ]
+}
