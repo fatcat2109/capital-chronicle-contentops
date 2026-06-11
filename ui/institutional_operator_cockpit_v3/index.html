@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capital Chronicle ContentOps — Operator Cockpit V3</title>
+  <!--
+    Local static only. No runtime network of any kind: no remote requests,
+    sockets, or event streams; no remote dependency, font, icon, or script.
+    Renders entirely from the local canonical view model
+    (window.CC_COCKPIT_V3_VIEW_MODEL).
+  -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="cockpit-root">
+  <div id="safety-ribbon" class="safety-ribbon" role="status" aria-label="Global safety rail"></div>
+  <header id="system-header" class="system-header" aria-label="Canonical system state"></header>
+  <nav id="left-nav" class="left-nav" aria-label="Cockpit navigation"></nav>
+  <main id="main" class="main" tabindex="-1"></main>
+  <footer id="directive-bar" class="directive-bar" aria-label="Next allowed action"></footer>
+
+  <script src="view_model.js"></script>
+  <script src="cockpit.js"></script>
+</body>
+</html>
