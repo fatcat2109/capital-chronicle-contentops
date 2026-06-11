@@ -451,6 +451,117 @@
 
 
 
+  function evTableSection(title, rows, cols) {
+    var section = el("div", "cc-section");
+    section.appendChild(el("h2", "cc-section-title", title));
+    var card = el("div", "card full");
+    var table = el("table", "ev-table");
+    var thead = el("tr");
+    cols.forEach(function (c) { thead.appendChild(el("th", null, c.label)); });
+    table.appendChild(thead);
+    (rows || []).forEach(function (r) {
+      var tr = el("tr");
+      cols.forEach(function (c) {
+        tr.appendChild(el("td", null, String(r[c.key] === undefined ? "" : r[c.key])));
+      });
+      table.appendChild(tr);
+    });
+    card.appendChild(table);
+    section.appendChild(card);
+    return section;
+  }
+
+  function evListSection(title, items) {
+    var section = el("div", "cc-section");
+    section.appendChild(el("h2", "cc-section-title", title));
+    var card = el("div", "card full");
+    var ul = el("ul", "kv");
+    (items || []).forEach(function (it) {
+      ul.appendChild(el("li", null, String(it)));
+    });
+    card.appendChild(ul);
+    section.appendChild(card);
+    return section;
+  }
+
+  function renderEvidenceVault(main) {
+    var d = F.evidence_vault_detail || {};
+    main.appendChild(screenshotSafeBar());
+    var h = d.hero_status_band || {};
+    var band = el("div", "cc-hero");
+    band.appendChild(el("div", "cc-hero-title", h.title || "Evidence Vault"));
+    var wrap = el("div", "cc-hero-grid");
+    [["Evidence mode", h.evidence_mode], ["Public state", h.public_state],
+     ["Live state", h.live_state], ["Evidence mutation", h.evidence_mutation_state],
+     ["Current gate", h.current_gate], ["Next allowed action", h.next_allowed_action]
+    ].forEach(function (r) {
+      var cell = el("div", "cc-hero-cell");
+      cell.appendChild(el("span", "label", r[0]));
+      cell.appendChild(el("span", "value", r[1] || "unknown"));
+      wrap.appendChild(cell);
+    });
+    band.appendChild(wrap);
+    main.appendChild(band);
+    main.appendChild(bannerRow(d.safety_banners));
+
+    main.appendChild(evTableSection("Task Evidence Packet Index", d.task_evidence_packet_index, [
+      { key: "task_id", label: "Task" }, { key: "classification", label: "Classification" },
+      { key: "final_head", label: "HEAD" }, { key: "artifact_category", label: "Artifact" },
+      { key: "focused_tests", label: "Focused" }, { key: "full_suite", label: "Full Suite" },
+      { key: "forbidden_scope_status", label: "Forbidden Scope" }
+    ]));
+
+    main.appendChild(evTableSection("Commit Timeline", d.commit_timeline, [
+      { key: "task_id", label: "Task" }, { key: "head", label: "HEAD" }, { key: "state", label: "State" }
+    ]));
+
+    main.appendChild(evTableSection("Validation Command Timeline", d.validation_command_timeline, [
+      { key: "command", label: "Command" }, { key: "result", label: "Result" }, { key: "note", label: "Note" }
+    ]));
+
+    main.appendChild(evTableSection("Test Result History", d.test_result_history, [
+      { key: "task_id", label: "Task" }, { key: "result", label: "Result" }, { key: "source", label: "Source" }
+    ]));
+
+    main.appendChild(evTableSection("CLI Summary Snapshot Matrix", d.cli_summary_snapshot_matrix, [
+      { key: "summary", label: "Summary" }, { key: "state", label: "State" }, { key: "note", label: "Note" }
+    ]));
+
+    main.appendChild(ccKvSection("Secret Scan Summary", d.secret_scan_summary_panel));
+
+    main.appendChild(evTableSection("Forbidden-Scope Matrix", d.forbidden_scope_matrix, [
+      { key: "scope", label: "Scope" }, { key: "state", label: "State" }
+    ]));
+
+    main.appendChild(evTableSection("Residual Drift Registry", d.residual_drift_registry, [
+      { key: "item", label: "Item" }, { key: "state", label: "State" }, { key: "note", label: "Note" }
+    ]));
+
+    main.appendChild(evListSection("Active Blockers", d.active_blockers_panel));
+    main.appendChild(evListSection("Evidence Packet Standard (Required Fields)", d.evidence_packet_standard_panel));
+
+    main.appendChild(evTableSection("Audit Classification Legend", d.audit_classification_legend, [
+      { key: "classification", label: "Classification" }, { key: "meaning", label: "Meaning" }
+    ]));
+
+    main.appendChild(evTableSection("Minor Evidence Gap Registry", d.minor_evidence_gap_registry, [
+      { key: "task_id", label: "Task" }, { key: "gap", label: "Gap" }, { key: "status", label: "Status" }, { key: "followup", label: "Follow-up" }
+    ]));
+
+    main.appendChild(ccKvSection("Next-Task Discipline", d.next_task_discipline_panel));
+
+    main.appendChild(evTableSection("Audit Timeline", d.audit_timeline_visualization, [
+      { key: "task_id", label: "Task" }, { key: "head", label: "HEAD" },
+      { key: "classification", label: "Classification" }, { key: "evidence_status", label: "Evidence" },
+      { key: "blocked_scopes", label: "Blocked Scopes" }, { key: "validation_summary", label: "Validation" },
+      { key: "next_pointer", label: "Next" }
+    ]));
+
+    main.appendChild(ccKvSection("Evidence Summary", d.evidence_summary));
+    main.appendChild(ccKvSection("Next Allowed Action", d.next_allowed_action_panel));
+  }
+
+
 
   /* Main screen render */
   function renderScreen(screenId) {
@@ -478,6 +589,11 @@
 
     if (screen.screen_id === "publish_readiness_tower" && F.publish_readiness_tower_detail) {
       renderPublishReadinessTower(main);
+      return;
+    }
+
+    if (screen.screen_id === "evidence_vault" && F.evidence_vault_detail) {
+      renderEvidenceVault(main);
       return;
     }
 

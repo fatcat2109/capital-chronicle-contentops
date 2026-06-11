@@ -360,3 +360,15 @@ body {
 .cs-lane { border-left: 3px solid var(--border); }
 .cs-lane .chip { margin: var(--space-1) 0; }
 
+
+/* Evidence Vault audit tables */
+.ev-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+.ev-table th, .ev-table td {
+  text-align: left;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border, #243042);
+  vertical-align: top;
+}
+.ev-table th { color: var(--muted, #8aa0b6); font-weight: 600; white-space: nowrap; }
+.ev-table tr:last-child td { border-bottom: none; }
+

@@ -472,6 +472,50 @@ window.CC_INSTITUTIONAL_SHELL_FIXTURE = {
       future_task: "0164 Evidence Vault only after audit"
     }
   },
+  evidence_vault_detail: {
+    hero_status_band: {
+      title: "Capital Chronicle Evidence Vault + Audit Timeline",
+      evidence_mode: "static / local / fixture-driven",
+      public_state: "not_public_postable",
+      live_state: "disabled",
+      evidence_mutation_state: "read_only",
+      current_gate: "0164 Evidence Vault + Audit Timeline screen",
+      next_allowed_action: "AWAIT OPERATOR/CHATGPT AUDIT_OF_0164_EVIDENCE_BEFORE_ANY_NEXT_TASK"
+    },
+    safety_banners: [
+      "LOCAL_ONLY", "REVIEW_ONLY", "MANUAL_REVIEW_REQUIRED", "NOT_PUBLIC_POSTABLE",
+      "LIVE_DISABLED", "KILL_SWITCH_ACTIVE", "SECRET_REDACTED", "NO_FINANCIAL_ADVICE",
+      "NO_SIGNAL_LANGUAGE", "MISSING_DATA_VISIBLE", "EVIDENCE_REQUIRED", "AUDIT_READ_ONLY"
+    ],
+    task_evidence_packet_index: [
+      { task_id: "0157", classification: "PASS", final_head: "260ae89", commit_message: "docs: add institutional ui ux rebuild master plan", artifact_category: "planning/spec", focused_tests: "n/a", full_suite: "1306 passed, 28 skipped", forbidden_scope_status: "preserved", next_task_discipline: "ok" },
+      { task_id: "0158", classification: "PASS", final_head: "1ae6e62", commit_message: "docs: add institutional design system visual contract", artifact_category: "design-system", focused_tests: "n/a", full_suite: "1332 passed, 28 skipped", forbidden_scope_status: "preserved", next_task_discipline: "ok" },
+      { task_id: "0159", classification: "PASS", final_head: "15b87ff", commit_message: "feat: add institutional ui view model contract", artifact_category: "view-model contract", focused_tests: "n/a", full_suite: "1369 passed, 28 skipped", forbidden_scope_status: "preserved", next_task_discipline: "ok" },
+      { task_id: "0160", classification: "PASS", final_head: "1c03ca0", commit_message: "feat: add institutional shell prototype", artifact_category: "static shell", focused_tests: "33", full_suite: "1402 passed, 28 skipped", forbidden_scope_status: "preserved", next_task_discipline: "ok" },
+      { task_id: "0161", classification: "PASS", final_head: "1b0f34a", commit_message: "feat: build institutional command center screen", artifact_category: "command center screen", focused_tests: "39", full_suite: "1444 passed, 28 skipped", forbidden_scope_status: "preserved", next_task_discipline: "ok" },
+      { task_id: "0162", classification: "PASS", final_head: "85f7627", commit_message: "feat: rebuild institutional content studio screen", artifact_category: "content studio screen", focused_tests: "58", full_suite: "1502 passed, 28 skipped", forbidden_scope_status: "preserved", next_task_discipline: "ok" },
+      { task_id: "0163", classification: "PASS_WITH_MINOR_EVIDENCE_GAP", final_head: "a7989ea", commit_message: "feat: build institutional publish readiness tower", artifact_category: "publish readiness tower screen", focused_tests: "59", full_suite: "1561 passed, 28 skipped", forbidden_scope_status: "preserved", next_task_discipline: "ok" }
+    ],
+    commit_timeline: [
+      { task_id: "0157", head: "260ae89", state: "accepted" },
+      { task_id: "0158", head: "1ae6e62", state: "accepted" },
+      { task_id: "0159", head: "15b87ff", state: "accepted" },
+      { task_id: "0160", head: "1c03ca0", state: "accepted" },
+      { task_id: "0161", head: "1b0f34a", state: "accepted" },
+      { task_id: "0162", head: "85f7627", state: "accepted" },
+      { task_id: "0163", head: "a7989ea", state: "current_baseline" },
+      { task_id: "0164", head: "pending", state: "in_progress" },
+      { task_id: "0165", head: "future", state: "future_placeholder" },
+      { task_id: "0166", head: "future", state: "future_placeholder" },
+      { task_id: "0167", head: "future", state: "future_placeholder" },
+      { task_id: "0168", head: "future", state: "future_placeholder" }
+    ],
+    evidence_mutation_controls_active_count: 0,
+    next_allowed_action_panel: {
+      directive: "AWAIT OPERATOR/CHATGPT AUDIT_OF_0164_EVIDENCE_BEFORE_ANY_NEXT_TASK",
+      future_task: "0165 Calendar + Workflow Board only after audit"
+    }
+  },
   screens: [
     {
       screen_id: "command_center",
