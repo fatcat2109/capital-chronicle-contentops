@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Capital Chronicle ContentOps — Operator Cockpit V2 (Local Static, Fixture-Driven)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="cockpit-root">
+  <!-- Fixed top safety ribbon (never scrolls). -->
+  <header id="safety-ribbon" class="safety-ribbon" role="region" aria-label="Global safety ribbon"></header>
+
+  <!-- System header strip: canonical global state (single source of truth). -->
+  <div id="system-header" class="system-header" role="region" aria-label="System header"></div>
+
+  <div class="app-body">
+    <!-- Left navigation. -->
+    <nav id="left-nav" class="left-nav" aria-label="Cockpit screen navigation"></nav>
+
+    <!-- Main content canvas (per-screen). -->
+    <main id="main" class="main" aria-live="polite"></main>
+  </div>
+
+  <!-- Fixed bottom directive bar: next allowed action (read-only). -->
+  <footer id="directive-bar" class="directive-bar" role="region" aria-label="Next allowed action directive"></footer>
+
+  <!--
+    Local-only, fixture-driven. No server, no build, no network, no remote
+    dependency. The canonical global state and all screen content come from
+    view_model.js (window.CC_COCKPIT_V2_VIEW_MODEL). No data is requested at
+    runtime; both scripts are local files loaded via the page.
+  -->
+  <script src="view_model.js"></script>
+  <script src="cockpit.js"></script>
+</body>
+</html>
