@@ -139,14 +139,27 @@ def test_pass_never_means_publish_ready():
 
 # 6. Forbidden controls must not be enabled runtime actions.
 def test_no_enabled_forbidden_controls():
-    # cockpit.js must not wire click handlers to forbidden verbs.
-    js = _read(V3_DIR, "cockpit.js").lower()
-    # Only the nav buttons are interactive; assert no action handlers for verbs.
-    for verb in ("publish", "post", "send", "schedule", "dispatch"):
-        assert 'addeventlistener("click"' not in js or (verb + '"') not in js or True
-    # Stronger: no onclick attributes in HTML.
+    js = _read(V3_DIR, "cockpit.js")
+    # The only click handlers permitted are the nav screen-switch buttons,
+    # added inside renderNav. Assert exactly one click handler is wired.
+    assert js.count('addEventListener("click"') == 1, "exactly one click handler (nav) expected"
+    # That single handler must live in renderNav.
+    nav_start = js.index("function renderNav()")
+    nav_end = js.index("function renderDirective()")
+    nav_block = js[nav_start:nav_end]
+    assert 'addEventListener("click"' in nav_block, "the click handler must be in renderNav"
+
+    # cockpit.js must not define action handlers/functions for forbidden verbs.
+    js_lower = js.lower()
+    for ident in ("callapi", "readenv", "readcredential", "validatecredential",
+                  "function publish", "function post", "function send",
+                  "function schedule", "function dispatch"):
+        assert ident not in js_lower, "forbidden action identifier: " + ident
+
+    # HTML must not include action-looking controls.
     html = _read(V3_DIR, "index.html").lower()
     assert "onclick" not in html
+
 
 
 def test_html_has_no_form_submit_or_buttons_for_actions():
@@ -211,3 +224,50 @@ def test_all_seven_screens_present():
     for sid in ("command_center", "content_studio", "publish_readiness",
                 "evidence_vault", "content_calendar", "visual_export", "settings"):
         assert sid + ":" in vm, sid
+
+
+# 11. CSS syntax / brace-balance / no-gradient guards (0174B1 repair).
+def test_css_braces_balanced():
+    css = _read(V3_DIR, "styles.css")
+    assert css.count("{") == css.count("}"), "CSS braces must balance"
+
+
+def test_css_no_negative_brace_depth():
+    css = _read(V3_DIR, "styles.css")
+    depth = 0
+    for ch in css:
+        if ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            assert depth >= 0, "CSS closing brace without matching opener"
+    assert depth == 0
+
+
+def test_ribbon_sev_block_closes_before_system_header():
+    css = _read(V3_DIR, "styles.css")
+    start = css.index(".ribbon-chip.sev-block")
+    nxt = css.index(".system-header", start)
+    block = css[start:nxt]
+    # the sev-block rule must close with a brace before .system-header begins.
+    assert block.count("{") == block.count("}") == 1, "sev-block must open and close exactly once"
+    assert "}" in block, "sev-block must close before .system-header"
+
+
+GRADIENT_PATTERNS = [
+    "gradient(", "linear-gradient", "radial-gradient", "conic-gradient",
+    "repeating-linear-gradient", "repeating-radial-gradient",
+]
+
+
+def test_css_has_no_gradient_functions():
+    css = _read(V3_DIR, "styles.css").lower()
+    for pat in GRADIENT_PATTERNS:
+        assert pat not in css, "runtime gradient forbidden: " + pat
+
+
+def test_safety_ribbon_max_width_contained():
+    css = _read(V3_DIR, "styles.css")
+    idx = css.index(".safety-ribbon")
+    block = css[idx:idx + 700]
+    assert "max-width: 100vw" in block

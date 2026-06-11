@@ -59,9 +59,7 @@ html, body {
 }
 
 body.cockpit-root {
-  background:
-    radial-gradient(1400px 520px at 78% -8%, rgba(92, 200, 255, 0.05), transparent 60%),
-    var(--surface-base);
+  background-color: var(--surface-base);
   color: var(--on-surface);
   font-family: var(--font-ui);
   font-size: 13px;
@@ -82,7 +80,7 @@ body.cockpit-root {
   align-items: center;
   gap: 6px;
   padding: 5px var(--gutter);
-  background: linear-gradient(180deg, #0b0f17 0%, #080b11 100%);
+  background-color: var(--surface-rail);
   border-bottom: 1px solid var(--border-technical);
   box-shadow: inset 0 -1px 0 var(--border-cool);
   z-index: 60;
@@ -129,6 +127,7 @@ body.cockpit-root {
 .ribbon-chip.sev-block {
   color: var(--accent-block);
   background-color: rgba(255, 122, 122, 0.08);
+}
 
 /* ---- System header (canonical current truth) ---- */
 .system-header {
@@ -141,7 +140,7 @@ body.cockpit-root {
   align-items: center;
   gap: 0;
   padding: 0 var(--gutter);
-  background: linear-gradient(180deg, var(--surface-panel-2) 0%, var(--surface-rail) 100%);
+  background-color: var(--surface-panel-2);
   border-bottom: 1px solid var(--border-technical);
   z-index: 40;
   overflow: hidden;
@@ -177,7 +176,7 @@ body.cockpit-root {
   display: flex;
   flex-direction: column;
   padding: 0 0 var(--gutter);
-  background: linear-gradient(180deg, var(--surface-nav) 0%, var(--surface-base) 100%);
+  background-color: var(--surface-nav);
   border-right: 1px solid var(--border-technical);
   z-index: 45;
   overflow-y: auto;
@@ -203,8 +202,8 @@ body.cockpit-root {
   color: var(--accent-info);
   font-weight: 700;
   border-left-color: var(--accent-info);
-  background: linear-gradient(90deg, rgba(92, 200, 255, 0.12) 0%, rgba(92, 200, 255, 0.02) 100%);
-  box-shadow: inset 0 0 0 1px var(--border-cool), -2px 0 9px -4px var(--accent-glow);
+  background-color: rgba(92, 200, 255, 0.10);
+  box-shadow: inset 0 0 0 1px var(--border-cool);
 }
 
 /* ---- Main workspace ---- */
@@ -233,7 +232,7 @@ body.cockpit-root {
   align-items: center;
   gap: var(--gutter);
   padding: 0 var(--gutter);
-  background: linear-gradient(180deg, #0c1118 0%, #080b10 100%);
+  background-color: var(--surface-rail);
   border-top: 1px solid var(--accent-info);
   box-shadow: 0 -1px 12px -6px var(--accent-glow);
   z-index: 50;
@@ -264,7 +263,7 @@ body.cockpit-root {
   color: var(--on-surface-variant);
   border: 1px solid var(--border-technical);
   border-left: 2px solid var(--accent-info);
-  background: repeating-linear-gradient(45deg, transparent, transparent 9px, rgba(255,255,255,0.015) 9px, rgba(255,255,255,0.015) 18px);
+  background-color: var(--surface-inset);
   padding: 7px 12px;
   margin-bottom: 14px;
 }
@@ -284,7 +283,7 @@ body.cockpit-root {
 }
 
 .panel {
-  background: linear-gradient(180deg, var(--surface-panel-2) 0%, var(--surface-panel) 100%);
+  background-color: var(--surface-panel-2);
   border: 1px solid var(--border-technical);
   border-top: 1px solid var(--border-cool);
   border-radius: var(--radius);
@@ -307,9 +306,7 @@ body.cockpit-root {
   margin-bottom: 1.4rem;
 }
 .hero-decision {
-  background:
-    radial-gradient(700px 220px at 0% 0%, rgba(92,200,255,0.07), transparent 60%),
-    linear-gradient(180deg, var(--surface-panel-2) 0%, var(--surface-panel) 100%);
+  background-color: var(--surface-panel-2);
   border: 1px solid var(--border-cool);
   border-radius: var(--radius);
   padding: 1.4rem;
@@ -437,6 +434,4 @@ body.cockpit-root {
 }
 @media (max-width: 900px) {
   .grid-2, .grid-3, .grid-4 { grid-template-columns: minmax(0, 1fr); }
-}
-
 }
