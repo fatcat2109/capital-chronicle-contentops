@@ -198,6 +198,3 @@ list; [GUTTER] reserved bottom space; all controls are inspect-only/disabled-wit
 - may move below fold: lower policies, future gate detail.
 - forbidden controls: display of real token/API key/chat ID/env path/raw response.
 - expected status objects: per-policy status; never-display entries as SECRET_REDACTED.
-```
-
-```

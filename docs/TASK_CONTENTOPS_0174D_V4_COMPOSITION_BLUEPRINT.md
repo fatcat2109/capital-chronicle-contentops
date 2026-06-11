@@ -103,6 +103,7 @@ or market-positive.
 Every critical status object carries: status, severity, label, reason,
 evidence_ref_ids, allowed_actions, blocked_actions, current_truth (bool),
 historical_provenance (bool), and an optional caveat. A status with no reason and
+no evidence_ref_ids is invalid and must fail tests.
 
 ## 11. Screen-by-Screen Composition Blueprint
 
@@ -201,5 +202,3 @@ Primary question: "What are the hard boundaries and what is never displayed?"
 - Platform-cards-first Publish Readiness ordering.
 - Any copied V3 CSS skeleton that reproduces the terminal/table-dump grammar.
 V4 is a clean-room rebuild; V3 is reference-for-what-failed only.
-
-no evidence_ref_ids is invalid and must fail tests.

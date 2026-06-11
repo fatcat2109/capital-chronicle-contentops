@@ -39,11 +39,12 @@ def test_all_blueprint_docs_exist():
         assert os.path.isfile(path), path
 
 
-# 2. Every doc mentions all seven screens.
-def test_docs_mention_all_seven_screens():
-    corpus = " ".join(_read_lower(p) for p in ALL_DOCS)
-    for screen in SCREENS:
-        assert screen in corpus, "doc set missing screen: " + screen
+# 2. Every doc mentions all seven screens (per-document, not just combined corpus).
+def test_each_doc_mentions_all_seven_screens():
+    for path in ALL_DOCS:
+        text = _read_lower(path)
+        for screen in SCREENS:
+            assert screen in text, "doc " + os.path.basename(path) + " missing screen: " + screen
 
 
 # 3. Required north-star concepts must appear across the doc set.
@@ -156,3 +157,88 @@ def test_regression_plan_concrete():
     for token in ("stale metadata", "forbidden control", "bottom directive",
                   "safety ribbon", "acceptance criteria", "visual acceptance rubric"):
         assert token in tp, "missing regression section: " + token
+
+
+# 10. Strict north-star contract phrases (not weakened tokens).
+STRICT_PHRASES = [
+    "state before action",
+    "evidence is the interface",
+    "local-only",
+    "not public-postable",
+    "live disabled",
+    "no financial advice",
+    "no signal language",
+    "no platform api",
+    "no credential read",
+    "no bottom overlap",
+    "no generic terminal/table dashboard",
+    "compliance room",
+    "gate-matrix-first",
+    "lane separation",
+    "screenshot-safe",
+    "never-display registry",
+]
+
+
+def test_strict_north_star_phrases_present():
+    corpus = " ".join(_read_lower(p) for p in ALL_DOCS)
+    for phrase in STRICT_PHRASES:
+        assert phrase in corpus, "missing strict north-star phrase: " + phrase
+
+
+def test_current_vs_historical_strict_phrase():
+    corpus = " ".join(_read_lower(p) for p in ALL_DOCS)
+    assert "current-vs-historical provenance" in corpus or \
+        "current vs historical provenance" in corpus
+
+
+def test_no_stale_0174b_current_gate_strict():
+    corpus = " ".join(_read_lower(p) for p in ALL_DOCS)
+    assert "no stale 0174b current gate" in corpus or \
+        "no stale 0174b gate" in corpus
+
+
+# 11. Gap Map must name the required raw Stitch HTML references.
+REQUIRED_RAW_HTML = [
+    "command_center_capital_chronicle.html",
+    "publish_readiness_tower_capital_chronicle.html",
+    "evidence_vault_capital_chronicle.html",
+]
+
+
+def test_gap_map_names_required_raw_stitch_html():
+    gap = _read_lower(GAP_MAP)
+    for html in REQUIRED_RAW_HTML:
+        assert html in gap, "Gap Map missing raw Stitch HTML reference: " + html
+
+
+def test_gap_map_names_design_md_and_quarantine_status():
+    gap = _read_lower(GAP_MAP)
+    assert "design.md" in gap
+    assert "quarantine" in gap or "quarantined" in gap
+    assert "reference only" in gap or "reference-only" in gap
+    assert "not runtime authority" in gap or "not copied into runtime" in gap
+
+
+# 12. Composition Blueprint must not contain the broken section-10 sentence.
+def test_blueprint_section10_sentence_repaired():
+    bp = _read(BLUEPRINT)
+    # the split defect: section 10 ending mid-sentence right before section 11.
+    assert "A status with no reason and\n\n## 11" not in bp
+    # the stray continuation must not be dangling at EOF.
+    assert not bp.rstrip().endswith("no evidence_ref_ids is invalid and must fail tests.") or \
+        "A status with no reason and\nno evidence_ref_ids is invalid and must fail tests." in bp
+    # the full clean sentence must be present and intact.
+    assert "A status with no reason and\nno evidence_ref_ids is invalid and must fail tests." in bp
+
+
+# 13. Wireframe Contract must have balanced Markdown code fences.
+def test_wireframe_fences_balanced():
+    lines = _read(WIREFRAME).splitlines()
+    fence_lines = [ln for ln in lines if ln.strip() == "```"]
+    assert len(fence_lines) % 2 == 0, "unbalanced Markdown code fences"
+    # the file must not end with two consecutive fence lines.
+    stripped = [ln for ln in lines if ln.strip() != ""]
+    assert not (len(stripped) >= 2 and stripped[-1].strip() == "```"
+                and stripped[-2].strip() == "```"), "duplicate trailing code fence"
+

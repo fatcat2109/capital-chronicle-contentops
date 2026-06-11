@@ -91,6 +91,23 @@ hierarchy, state-before-action, current/historical clarity, brandkit fidelity
 absence of SaaS/terminal-dump/social-scheduler/trading-terminal cues. Any BLOCKER
 from the gap-map requirement matrix that remains unresolved fails acceptance.
 
+## 12. Seven-Screen Coverage (per-doc requirement)
+
+Every blueprint doc must name all seven screens: Command Center, Content Studio,
+Publish Readiness Tower, Evidence Vault, Content Calendar / Workflow, Visual Export
+/ Screenshot-Safe, and Settings / Safety Policy.
+
+## 13. Strict North-Star Contract Phrases (verbatim, not weakened tokens)
+
+Doc-validation must check these exact phrases, not broad tokens like "local" or
+"platform": state before action; evidence is the interface;
+current-vs-historical provenance; local-only; not public-postable; live disabled;
+no financial advice; no signal language; no platform API; no credential read; no
+bottom overlap; no stale 0174B current gate; no generic terminal/table dashboard;
+compliance room; gate-matrix-first; lane separation; screenshot-safe;
+never-display registry.
+
+
 ## 12. 0174D Doc-Validation Test
 
 tests/test_operator_cockpit_v4_blueprint_docs.py validates that all four blueprint
@@ -99,3 +116,15 @@ include the V3 rejected findings and target-capture verification, specify V4
 composition differences, identify V3 as not accepted, and explicitly forbid
 runtime code in 0174D. The test must be non-superficial: it asserts concrete V4
 requirements, not just file existence.
+
+Doc-validation tests must additionally:
+- check that the required raw Stitch HTML references are documented in the Gap Map
+  (command_center_capital_chronicle.html, publish_readiness_tower_capital_chronicle.html,
+  evidence_vault_capital_chronicle.html) and that DESIGN.md plus the quarantine /
+  reference-only status are mentioned;
+- check strict safety / north-star contract phrases (e.g. "local-only", "no platform API",
+  "not public-postable"), not broad weakened tokens like just "local" or "platform";
+- detect a dangling Markdown code fence or a broken section sentence (e.g. the split
+  "A status with no reason and" / "no evidence_ref_ids is invalid" defect, or a file
+  ending with two consecutive code-fence lines);
+- enforce seven-screen coverage per document, not only across the combined corpus.

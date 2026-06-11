@@ -23,9 +23,44 @@ V3 implementation and docs:
 - docs/browser_qa/TASK_CONTENTOPS_0174C_OPERATOR_COCKPIT_V3_VISIBLE_ANTIGRAVITY_BROWSER_QA_V0/visible_qa_manifest.json
 - docs/browser_qa/TASK_CONTENTOPS_0174C_OPERATOR_COCKPIT_V3_VISIBLE_ANTIGRAVITY_BROWSER_QA_V0/screenshots/ (28 PNGs, listed in manifest)
 
-Brandkit / Stitch references:
+Brandkit / Stitch references (raw Stitch references read directly in 0174D1):
+- docs/design_references/STITCH_OPERATOR_COCKPIT_CLINE_README.md
+- docs/design_references/stitch_institutional_ai_operator_cockpit/manifest.json
 - docs/design_references/stitch_institutional_ai_operator_cockpit/raw/technical_matte_operator/DESIGN.md
-- docs/design_references/STITCH_OPERATOR_COCKPIT_CLINE_README.md (referenced)
+- docs/design_references/stitch_institutional_ai_operator_cockpit/raw/command_center_capital_chronicle/command_center_capital_chronicle.html
+- docs/design_references/stitch_institutional_ai_operator_cockpit/raw/publish_readiness_tower_capital_chronicle/publish_readiness_tower_capital_chronicle.html
+- docs/design_references/stitch_institutional_ai_operator_cockpit/raw/evidence_vault_capital_chronicle/evidence_vault_capital_chronicle.html
+- docs/design_references/stitch_institutional_ai_operator_cockpit/notes/extraction_notes.md
+- docs/design_references/stitch_institutional_ai_operator_cockpit/notes/quarantine_policy.md
+- docs/TASK_CONTENTOPS_0174R_STITCH_REFERENCE_EXTRACTION.md
+### Raw Stitch Direct Read Summary
+
+The required raw Stitch HTML/design reference files listed above were read
+directly in 0174D1 (not merely referenced):
+- command_center_capital_chronicle.html, publish_readiness_tower_capital_chronicle.html,
+  and evidence_vault_capital_chronicle.html were opened and inspected directly.
+- manifest.json, DESIGN.md, extraction_notes.md, quarantine_policy.md, the
+  STITCH_OPERATOR_COCKPIT_CLINE_README.md, and TASK_CONTENTOPS_0174R_STITCH_REFERENCE_EXTRACTION.md
+  were read directly.
+
+Quarantine / reference-only status (unchanged):
+- Raw Stitch HTML remains quarantined reference only and is NOT runtime authority.
+- No raw HTML was copied into runtime (ui/). No raw HTML is reachable as a product
+  entrypoint. The raw references carry remote CDN/Google Fonts/Material Symbols links
+  that are forbidden in runtime; V4 must translate tokens into local CSS only.
+- This is a text/markup read only. No pixel/image inspection of the PNG screenshots
+  is claimed; the .png reference images were intentionally skipped per the manifest.
+
+High-level design implications extracted (carried into the blueprint):
+- Command Center should be mission-control (verdict-first), not a generic card grid.
+- Publish Readiness should be gate-matrix-first, not platform-card-first.
+- Evidence Vault should be a compliance-room / evidence-room, not a lineage list only.
+- DESIGN.md should drive the technical-matte aesthetic: flat tonal depth (no shadows),
+  sharp 0px corners, 1px gridline structure, mono data typography (JetBrains Mono for
+  IDs/hashes/evidence refs), and status semantics where color communicates governance
+  safety only and never market direction.
+
+
 
 North-star / strategy docs:
 - docs/INSTITUTIONAL_UI_UX_FRONTEND_REBUILD_MASTER_PLAN_AFTER_0157.md
