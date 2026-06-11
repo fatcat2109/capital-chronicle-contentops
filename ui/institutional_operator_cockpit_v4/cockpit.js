@@ -60,9 +60,10 @@
   function renderFooter() {
     var footer = document.getElementById("cockpit-footer");
     clear(footer);
+    footer.classList.add("audit-footer");
     var next = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];
-    footer.appendChild(el("span", "muted", "Next Allowed Action: "));
-    footer.appendChild(el("span", "next-action", next ? next.value : ""));
+    footer.appendChild(el("span", "footer-label", "next allowed action"));
+    footer.appendChild(el("span", "footer-action", next ? next.value : ""));
   }
 
   /* --- shared band renderer for evidence-backed status objects --- */
@@ -93,7 +94,7 @@
 
     /* Integrated mission-control decision band: verdict token + next action +
        blocker count + evidence count in one scan-fast grid. */
-    var mission = el("div", "mission-grid section-gap");
+    var mission = el("div", "mission-grid primary-command-board section-gap");
     var nextAction = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];
     var cells = [
       ["Current Verdict", s.verdict.status, "verdict"],
@@ -129,7 +130,7 @@
     changed.appendChild(ledger);
     body.appendChild(changed);
 
-    var blk = el("div", "instrument-panel section-gap");
+    var blk = el("div", "instrument-panel incident-board section-gap");
     var blkHead = el("div", "instrument-head");
     blkHead.appendChild(el("span", "instrument-title", "Active Blocker Stack"));
     blkHead.appendChild(el("span", "data-label", "ordered by severity"));
@@ -145,7 +146,7 @@
     blk.appendChild(rail);
     body.appendChild(blk);
 
-    var dep = el("div", "instrument-panel proof-graph section-gap");
+    var dep = el("div", "instrument-panel proof-graph proof-ledger-board section-gap");
     var depHead = el("div", "instrument-head");
     depHead.appendChild(el("span", "instrument-title", "Evidence Dependency Map"));
     depHead.appendChild(el("span", "data-label", "proof ledger"));
@@ -161,7 +162,7 @@
     body.appendChild(dep);
 
     var counters = panel("Safety Counters");
-    var wrap = el("div", "counters");
+    var wrap = el("div", "counters counter-strip");
     var c = s.safety_counters;
     [["locks active", c.locks_active], ["gates open", c.gates_open], ["blockers", c.blockers], ["review items", c.review_items]].forEach(function (pair) {
       var cc = el("div", "counter");
@@ -178,11 +179,22 @@
     body.appendChild(renderBand(s.studio_state));
     var grid = el("div", "grid grid-2 lane-control-grid");
     s.lanes.forEach(function (lane) {
-      var p = el("div", "lane" + (lane.status === "BLOCKED" ? " blocked" : ""));
+      var p = el("div", "lane lane-control-board" + (lane.status === "BLOCKED" ? " blocked" : ""));
       var head = el("div", "lane-name");
       head.appendChild(document.createTextNode(lane.name + " "));
       head.appendChild(el("span", "token " + lane.status, lane.status));
       p.appendChild(head);
+
+      var gate = el("div", "lane-gate-rail");
+      var verdict = el("div", "lane-verdict-cell sev-" + (lane.status === "BLOCKED" ? "blocked" : "review"));
+      verdict.appendChild(el("span", "data-label", "Lane Verdict"));
+      verdict.appendChild(el("span", "token " + lane.status, lane.status));
+      gate.appendChild(verdict);
+      var ready = el("div", "lane-readiness-strip");
+      ready.appendChild(el("span", "data-label", "Readiness"));
+      ready.appendChild(el("span", "mono-value", lane.status === "BLOCKED" ? "blocked / future-only" : "review-only / not public-postable"));
+      gate.appendChild(ready);
+      p.appendChild(gate);
 
       var ig = el("div", "lane-instrument-grid");
       [["lane-metric lane-metric-risk", "Claim Risk", lane.claim_risk],
@@ -264,7 +276,7 @@
     body.appendChild(renderBand(s.evidence_state));
 
     var mp = panel("Validation Matrix");
-    var wrap = el("div", "matrix-wrap");
+    var wrap = el("div", "matrix-wrap audit-room-grid");
     var table = el("table", "matrix");
     var thead = el("thead"), htr = el("tr");
     ["check", "expected", "observed", "status", "evidence ref"].forEach(function (c) { htr.appendChild(el("th", null, c)); });
@@ -293,7 +305,7 @@
     tl.classList.add("section-gap");
     body.appendChild(tl);
 
-    var grid = el("div", "grid grid-3 audit-registry section-gap");
+    var grid = el("div", "grid grid-3 audit-registry audit-triad section-gap");
     var cav = panel("Caveat Registry");
     s.caveat_registry.forEach(function (c) {
       cav.appendChild(el("div", "reg-row", null));
@@ -460,6 +472,44 @@
   }
 
 
+  /* --- Secondary inspection / screen summary rail (sparse-screen governor) ---
+     Uses only existing model data. No fake metrics, no market data, no
+     public-ready content. Fills lower dead-zone with governed inspection. */
+  function renderScreenSummaryRail(screen, body) {
+    var rail = el("div", "secondary-inspection-rail screen-summary-rail empty-space-governor section-gap");
+
+    var purpose = el("div", "summary-cell");
+    purpose.appendChild(el("div", "data-label", "Screen Purpose"));
+    purpose.appendChild(el("div", "summary-text", screen.primary_question || screen.title));
+    rail.appendChild(purpose);
+
+    var blk = el("div", "summary-cell");
+    blk.appendChild(el("div", "data-label", "Current Blockers"));
+    var bl = el("div", "summary-text mono-value",
+      MODEL.blocker_stack.map(function (b) { return b.id; }).join(" / "));
+    blk.appendChild(bl);
+    rail.appendChild(blk);
+
+    var ev = el("div", "summary-cell");
+    ev.appendChild(el("div", "data-label", "Evidence Refs"));
+    ev.appendChild(el("div", "summary-text mono-value",
+      MODEL.evidence_refs.slice(0, 6).join(" / ")));
+    rail.appendChild(ev);
+
+    var nextAction = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];
+    var na = el("div", "summary-cell");
+    na.appendChild(el("div", "data-label", "Manual Next Action"));
+    na.appendChild(el("div", "summary-text", nextAction ? nextAction.value : ""));
+    rail.appendChild(na);
+
+    var caveat = el("div", "summary-cell");
+    caveat.appendChild(el("div", "data-label", "Safety Caveat"));
+    caveat.appendChild(el("div", "summary-text", "Local-only, review-only, not public-postable. Live posting, scheduler, and platform API disabled."));
+    rail.appendChild(caveat);
+
+    body.appendChild(rail);
+  }
+
   /* --- Screen dispatcher --- */
   function renderScreen(screenId) {
     var screen = MODEL.screens.filter(function (s) { return s.screen_id === screenId; })[0];
@@ -479,6 +529,13 @@
       case "visual_export": renderVisualExport(screen, body); break;
       case "settings_safety_policy": renderSettings(screen, body); break;
       default: break;
+    }
+
+    /* Sparse screens get a governed summary rail to remove lower dead-zone
+       without inventing content. */
+    var sparse = ["content_calendar", "visual_export", "settings_safety_policy", "publish_readiness"];
+    if (sparse.indexOf(screen.screen_id) !== -1) {
+      renderScreenSummaryRail(screen, body);
     }
   }
 
