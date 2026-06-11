@@ -47,8 +47,7 @@ def test_command_center_hierarchy_classes_defined():
 
 def test_command_center_hierarchy_classes_used():
     cockpit = _cockpit()
-    for cls in ["primary-command-board", "incident-board",
-                "proof-ledger-board", "counter-strip"]:
+    for cls in ["incident-board", "proof-ledger-board", "counter-strip"]:
         assert cls in cockpit, "CC class not used: " + cls
 
 

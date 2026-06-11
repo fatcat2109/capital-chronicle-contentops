@@ -98,30 +98,9 @@
 
   /* --- Command Center --- */
   function renderCommandCenter(s, body) {
-    body.appendChild(renderBand(s.verdict));
-
-    /* Integrated mission-control decision band: verdict token + next action +
-       blocker count + evidence count in one scan-fast grid. */
-    var mission = el("div", "mission-grid primary-command-board section-gap");
-    var nextAction = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];
-    var cells = [
-      ["Current Verdict", s.verdict.status, "verdict"],
-      ["Next Allowed Action", nextAction ? nextAction.value : "", "next"],
-      ["Active Blockers", String(MODEL.blocker_stack.length), "count"],
-      ["Evidence Refs", String(MODEL.evidence_refs.length), "count"],
-      ["Provenance", "current vs historical (labeled)", "prov"]
-    ];
-    cells.forEach(function (cdef) {
-      var cell = el("div", "decision-stack kind-" + cdef[2]);
-      cell.appendChild(el("div", "data-label", cdef[0]));
-      if (cdef[2] === "verdict") {
-        cell.appendChild(el("span", "token " + cdef[1], cdef[1]));
-      } else {
-        cell.appendChild(el("div", "decision-value", cdef[1]));
-      }
-      mission.appendChild(cell);
-    });
-    body.appendChild(mission);
+    /* Primary state is the operator scan layer (rendered by the dispatcher
+       above). No duplicate dominant verdict band or mission-grid summary row;
+       those values are already covered by the scan layer + safety counters. */
 
     var changed = el("div", "instrument-panel section-gap");
     var chHead = el("div", "instrument-head");
@@ -184,7 +163,6 @@
 
   /* --- Content Studio --- */
   function renderContentStudio(s, body) {
-    body.appendChild(renderBand(s.studio_state));
     var grid = el("div", "grid grid-2 lane-control-grid");
     s.lanes.forEach(function (lane) {
       var p = el("div", "lane lane-control-board" + (lane.status === "BLOCKED" ? " blocked" : ""));
@@ -243,7 +221,6 @@
 
   /* --- Publish Readiness Tower (gate matrix first) --- */
   function renderPublishReadiness(s, body) {
-    body.appendChild(renderBand(s.readiness_verdict));
     var mp = panel("Gate Matrix");
     var wrap = el("div", "gate-matrix gate-control-surface");
     var table = el("table", "matrix");
@@ -281,7 +258,6 @@
 
   /* --- Evidence Vault (compliance room) --- */
   function renderEvidenceVault(s, body) {
-    body.appendChild(renderBand(s.evidence_state));
 
     var mp = panel("Validation Matrix");
     var wrap = el("div", "matrix-wrap audit-room-grid");
@@ -352,7 +328,6 @@
 
   /* --- Content Calendar / Workflow --- */
   function renderContentCalendar(s, body) {
-    body.appendChild(renderBand(s.plan_state));
 
     var leg = panel("Allowed Manual States");
     s.allowed_states.forEach(function (st) { leg.appendChild(el("span", "token PASS", st)); leg.appendChild(document.createTextNode(" ")); });
@@ -386,7 +361,6 @@
 
   /* --- Visual Export / Screenshot-Safe --- */
   function renderVisualExport(s, body) {
-    body.appendChild(renderBand(s.export_state));
 
     var cards = el("div", "grid grid-2 screenshot-prep-grid section-gap");
     s.report_cards.forEach(function (rc) {
@@ -433,7 +407,6 @@
 
   /* --- Settings / Safety Policy --- */
   function renderSettings(s, body) {
-    body.appendChild(renderBand(s.policy_state));
 
     var mp = panel("Policy Matrix");
     var wrap = el("div", "matrix-wrap policy-inspection-grid");
@@ -536,6 +509,14 @@
     pa.appendChild(document.createTextNode(verdict && verdict.label ? verdict.label : screen.title));
     if (verdict && verdict.status) pa.appendChild(el("span", "token " + verdict.status, verdict.status));
     board.appendChild(pa);
+
+    /* Primary reason: why the screen is in this state (verdict.reason). */
+    if (verdict && verdict.reason) {
+      var pr = el("div", "primary-reason scan-reason readable-body-copy");
+      pr.appendChild(el("span", "scan-label", "Reason"));
+      pr.appendChild(el("span", "scan-value", verdict.reason));
+      board.appendChild(pr);
+    }
 
     /* Next action card. */
     var nextAction = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];

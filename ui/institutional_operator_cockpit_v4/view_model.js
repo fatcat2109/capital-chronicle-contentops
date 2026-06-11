@@ -63,19 +63,19 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
     },
     {
       role_label: "Current Gate",
-      value: "0174K browser QA found targeted V4 visual defects; 0174L patch applied, awaiting targeted browser recheck. Live posting, scheduler, and platform API remain disabled.",
+      value: "0174U final milestone browser QA found redundant state declarations, stale truth metadata, and a safety-chip clipping defect; 0174V targeted cleanup patch is applied and awaiting final browser recheck. Live posting, scheduler, and platform API remain disabled.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Next Allowed Action",
-      value: "Targeted browser recheck of the 0174L visual-defect patch (Evidence Vault, Content Studio, Command Center). No Antigravity, no Project Sources refresh, no live behavior in the Cline patch task.",
+      value: "Final milestone browser recheck of the 0174V targeted cleanup patch across all seven screens. No Antigravity, no Project Sources refresh, no live behavior in the Cline patch task.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "V4 Build Status",
-      value: "Clean-room build (batch 1 at 0174E, historical); root layout stabilized at 0174I; visual defects patched at 0174L",
+      value: "Clean-room build (batch 1 at 0174E, historical); root layout stabilized at 0174I; readable scan layer at 0174S; truth/redundancy cleanup at 0174V",
       kind: "current",
       runtime_authority: true
     },
@@ -121,7 +121,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
 
   /* Ordered active blocker stack (by severity). */
   blocker_stack: [
-    { id: "BLK-VISUAL", severity: "review_required", label: "V4 visual defects under targeted patch (0174L)", reason: "0174K browser QA flagged Evidence Vault registry omission, Content Studio instrumentation, header real-estate, and matrix readability; 0174L patch awaits targeted browser recheck.", evidence_ref_ids: ["EV-0174D", "EV-TESTS-V4"] },
+    { id: "BLK-VISUAL", severity: "review_required", label: "V4 visual polish under final milestone cleanup (0174V)", reason: "0174U final milestone browser QA flagged redundant state declarations, stale truth metadata, and a safety-chip clipping defect; 0174V targeted cleanup patch awaits final browser recheck.", evidence_ref_ids: ["EV-0174D", "EV-TESTS-V4"] },
     { id: "BLK-LIVE", severity: "blocked", label: "Supervised publishing blocked", reason: "Live adapter, platform API, scheduler, and posting are all disabled by policy and kill switch.", evidence_ref_ids: ["EV-MASTER-PLAN"] },
     { id: "BLK-ARTIFACT", severity: "review_required", label: "Artifact-backed content lane blocked", reason: "No real approved Capital Chronicle artifacts, lineage, freshness, or DQR state exist yet.", evidence_ref_ids: ["EV-MASTER-PLAN"] }
   ],
@@ -258,7 +258,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
       ],
       forbidden_scope_registry: ["live posting", "scheduler", "platform API", "provider API", "scraping", "credential/env read", "evidence mutation", "export/upload"],
       active_blocker_registry: [
-        { id: "BLK-AUDIT", status: "BLOCKED", label: "Awaiting 0174E audit" },
+        { id: "BLK-VISUAL", status: "REVIEW_REQUIRED", label: "0174V truth/redundancy cleanup awaiting final browser recheck" },
         { id: "BLK-LIVE", status: "LIVE_DISABLED", label: "Supervised publishing blocked" }
       ],
       confidence_legend: ["PASS = validation-safe", "DEGRADED = usable with caveat", "BLOCKED = cannot proceed", "REVIEW_REQUIRED = human decision needed"],

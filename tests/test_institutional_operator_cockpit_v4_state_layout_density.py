@@ -44,7 +44,10 @@ def test_density_classes_defined_in_css():
 
 def test_density_classes_used_in_cockpit():
     cockpit = _cockpit()
-    for cls in DENSITY_CLASSES:
+    # mission-grid / decision-stack remain CSS-defined but the duplicate
+    # Command Center summary row was removed in 0174V (scan layer covers it).
+    used_classes = [c for c in DENSITY_CLASSES if c not in ("mission-grid", "decision-stack")]
+    for cls in used_classes:
         assert cls in cockpit, "density class not used in renderer: " + cls
 
 
@@ -78,11 +81,11 @@ def test_seven_screens_present():
 # ---------- Command Center state clarity ----------
 def test_command_center_state_clarity():
     cockpit = _cockpit()
-    # mission band integrates verdict + next action + counts.
-    assert "Current Verdict" in cockpit
+    # 0174V: the duplicate mission-grid summary row was removed. The readable
+    # operator scan layer now covers verdict + next action + blockers + evidence.
+    assert "renderOperatorScanLayer(screen, body)" in cockpit
     assert "Next Allowed Action" in cockpit
-    assert "Active Blockers" in cockpit
-    assert "Evidence Refs" in cockpit
+    assert "top-blocker-cards" in cockpit
     assert "change-ledger" in cockpit
     assert "proof-graph" in cockpit
 
