@@ -63,5 +63,23 @@ capture is accepted as evidence; the worker visual judgment is rejected.
 ## QA status
 
 No browser QA, screenshots, or Antigravity were run in this task. Static
-deterministic tests live in `tests/test_institutional_operator_cockpit_v4.py`.
+deterministic tests live in `tests/test_institutional_operator_cockpit_v4.py`
+and `tests/test_institutional_operator_cockpit_v4_brandkit_taste.py`.
 Visible browser QA is a future Antigravity task after the next build milestone.
+
+## Brandkit / taste authority (0174F)
+
+No dedicated repo "taste skill" doc was found (searched: taste, taste skill,
+brandkit, Technical Matte, typography, block grammar, matte operator). Taste
+authority for the 0174F hardening pass is therefore the accepted chain:
+Institutional Cockpit Master Plan + DESIGN.md (Technical Matte Operator) + raw
+Stitch HTML references + V3 failure evidence.
+
+Typography follows DESIGN.md: Inter for UI/labels, JetBrains Mono for variable
+data / hash IDs / evidence refs, compact 10-20px scale, hierarchy via color and
+mono-spacing more than weight. Fonts are local preference stacks only
+(`--font-ui`, `--font-mono`) with safe system fallback — no remote fonts, no
+`@import`, no font links, no content networks. Surfaces use DESIGN.md tonal
+layers (surface #141313, outline-variant #45474a), flat depth (no shadows/glow),
+1px gridlines, and zero border radius. Color communicates governance safety
+only — never market direction.

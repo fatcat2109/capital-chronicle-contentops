@@ -98,25 +98,35 @@
     changed.classList.add("section-gap");
     body.appendChild(changed);
 
-    var blk = panel("Active Blocker Stack");
+    var blk = el("div", "instrument-panel section-gap");
+    var blkHead = el("div", "instrument-head");
+    blkHead.appendChild(el("span", "instrument-title", "Active Blocker Stack"));
+    blkHead.appendChild(el("span", "data-label", "ordered by severity"));
+    blk.appendChild(blkHead);
+    var rail = el("div", "blocker-rail");
     MODEL.blocker_stack.forEach(function (b) {
-      var row = el("div", "blocker sev-" + b.severity);
+      var row = el("div", "rail-item sev-" + b.severity);
       row.appendChild(el("div", "blocker-label", b.label));
       row.appendChild(el("div", "blocker-reason", b.reason));
       row.appendChild(el("div", "evref", "evidence: " + b.evidence_ref_ids.join(", ")));
-      blk.appendChild(row);
+      rail.appendChild(row);
     });
-    blk.classList.add("section-gap");
+    blk.appendChild(rail);
     body.appendChild(blk);
 
-    var dep = panel("Evidence Dependency Map");
+    var dep = el("div", "instrument-panel section-gap");
+    var depHead = el("div", "instrument-head");
+    depHead.appendChild(el("span", "instrument-title", "Evidence Dependency Map"));
+    depHead.appendChild(el("span", "data-label", "proof ledger"));
+    dep.appendChild(depHead);
+    var proof = el("div", "proof-strip");
     s.evidence_dependency_map.forEach(function (n) {
-      var row = el("div", "reg-row");
-      row.appendChild(el("span", "reg-key", n.node));
-      row.appendChild(el("span", "reg-val mono", "<- " + n.depends_on.join(", ")));
-      dep.appendChild(row);
+      var row = el("div", "proof-row");
+      row.appendChild(el("span", "proof-node", n.node));
+      row.appendChild(el("span", "proof-dep", "<- " + n.depends_on.join(", ")));
+      proof.appendChild(row);
     });
-    dep.classList.add("section-gap");
+    dep.appendChild(proof);
     body.appendChild(dep);
 
     var counters = panel("Safety Counters");
@@ -160,7 +170,7 @@
   function renderPublishReadiness(s, body) {
     body.appendChild(renderBand(s.readiness_verdict));
     var mp = panel("Gate Matrix");
-    var wrap = el("div", "matrix-wrap");
+    var wrap = el("div", "gate-matrix");
     var table = el("table", "matrix");
     var thead = el("thead"), htr = el("tr");
     s.gate_columns.forEach(function (col) { htr.appendChild(el("th", null, col)); });
