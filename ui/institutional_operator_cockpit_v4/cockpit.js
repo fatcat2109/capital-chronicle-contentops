@@ -183,14 +183,38 @@
       head.appendChild(document.createTextNode(lane.name + " "));
       head.appendChild(el("span", "token " + lane.status, lane.status));
       p.appendChild(head);
-      p.appendChild(el("div", "muted", "Claim risk: " + lane.claim_risk));
-      p.appendChild(el("div", "muted", "Forbidden-language: " + lane.forbidden_language));
-      p.appendChild(el("div", "muted", "Platform fit: " + lane.platform_fit));
-      var lim = el("ul");
-      lane.limitations.forEach(function (l) { lim.appendChild(el("li", null, "limitation: " + l)); });
-      lane.checklist.forEach(function (l) { lim.appendChild(el("li", null, "checklist: " + l)); });
+
+      var ig = el("div", "lane-instrument-grid");
+      [["lane-metric lane-metric-risk", "Claim Risk", lane.claim_risk],
+       ["lane-metric lane-metric-forbidden", "Forbidden-Language", lane.forbidden_language],
+       ["lane-metric lane-metric-platform", "Platform Fit", lane.platform_fit]
+      ].forEach(function (m) {
+        var cell = el("div", m[0]);
+        cell.appendChild(el("div", "data-label", m[1]));
+        cell.appendChild(el("div", "lane-metric-value", m[2]));
+        ig.appendChild(cell);
+      });
+      p.appendChild(ig);
+
+      var lim = el("div", "lane-limits");
+      lim.appendChild(el("div", "data-label", "Limitations"));
+      var limUl = el("ul");
+      lane.limitations.forEach(function (l) { limUl.appendChild(el("li", null, l)); });
+      lim.appendChild(limUl);
       p.appendChild(lim);
-      p.appendChild(el("div", "evref", "evidence: " + lane.evidence_ref_ids.join(", ")));
+
+      var chk = el("div", "lane-checklist");
+      chk.appendChild(el("div", "data-label", "Manual Checklist"));
+      var chkUl = el("ul");
+      lane.checklist.forEach(function (l) { chkUl.appendChild(el("li", null, l)); });
+      chk.appendChild(chkUl);
+      p.appendChild(chk);
+
+      var ev = el("div", "lane-evidence-strip");
+      ev.appendChild(el("span", "data-label", "Evidence"));
+      ev.appendChild(el("span", "mono-value", lane.evidence_ref_ids.join(", ")));
+      p.appendChild(ev);
+
       p.appendChild(el("div", "token NOT_PUBLIC_POSTABLE", "NOT_PUBLIC_POSTABLE"));
       grid.appendChild(p);
     });
@@ -270,6 +294,7 @@
     body.appendChild(tl);
 
     var grid = el("div", "grid grid-3 audit-registry section-gap");
+    var cav = panel("Caveat Registry");
     s.caveat_registry.forEach(function (c) {
       cav.appendChild(el("div", "reg-row", null));
       var r = cav.lastChild;

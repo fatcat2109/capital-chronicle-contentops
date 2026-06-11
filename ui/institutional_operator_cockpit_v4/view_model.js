@@ -57,25 +57,25 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
   truth_rail: [
     {
       role_label: "Current Product HEAD",
-      value: "set-at-build (V4 clean-room build commit)",
+      value: "set-at-build (V4 frontend; visual remediation in progress)",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Current Gate",
-      value: "Awaiting ChatGPT audit of 0174E V4 clean-room frontend build evidence. No browser QA or next task until accepted.",
+      value: "0174K browser QA found targeted V4 visual defects; 0174L patch applied, awaiting targeted browser recheck. Live posting, scheduler, and platform API remain disabled.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Next Allowed Action",
-      value: "Inspect this V4 build locally and await ChatGPT audit of the 0174E evidence packet. No Antigravity, no browser QA, no Project Sources refresh in this task.",
+      value: "Targeted browser recheck of the 0174L visual-defect patch (Evidence Vault, Content Studio, Command Center). No Antigravity, no Project Sources refresh, no live behavior in the Cline patch task.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "V4 Build Status",
-      value: "Clean-room build batch 1 (0174E)",
+      value: "Clean-room build (batch 1 at 0174E, historical); root layout stabilized at 0174I; visual defects patched at 0174L",
       kind: "current",
       runtime_authority: true
     },
@@ -121,7 +121,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
 
   /* Ordered active blocker stack (by severity). */
   blocker_stack: [
-    { id: "BLK-AUDIT", severity: "blocked", label: "Awaiting ChatGPT audit of 0174E V4 build evidence", reason: "V4 clean-room build must be audited before browser QA or any next task.", evidence_ref_ids: ["EV-0174D", "EV-TESTS-V4"] },
+    { id: "BLK-VISUAL", severity: "review_required", label: "V4 visual defects under targeted patch (0174L)", reason: "0174K browser QA flagged Evidence Vault registry omission, Content Studio instrumentation, header real-estate, and matrix readability; 0174L patch awaits targeted browser recheck.", evidence_ref_ids: ["EV-0174D", "EV-TESTS-V4"] },
     { id: "BLK-LIVE", severity: "blocked", label: "Supervised publishing blocked", reason: "Live adapter, platform API, scheduler, and posting are all disabled by policy and kill switch.", evidence_ref_ids: ["EV-MASTER-PLAN"] },
     { id: "BLK-ARTIFACT", severity: "review_required", label: "Artifact-backed content lane blocked", reason: "No real approved Capital Chronicle artifacts, lineage, freshness, or DQR state exist yet.", evidence_ref_ids: ["EV-MASTER-PLAN"] }
   ],
