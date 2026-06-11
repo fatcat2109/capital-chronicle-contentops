@@ -48,6 +48,7 @@ from . import pre_alpha_content_performance_review
 from . import institutional_pre_antigravity_static_qa_hardening
 from . import institutional_antigravity_browser_qa_strategy
 from . import institutional_browser_qa_evidence_metadata_reconciliation
+from . import institutional_static_polish_ui_consistency_hardening
 
 import uuid
 
@@ -1314,6 +1315,7 @@ COMMANDS = {
     "pre-alpha-institutional-pre-antigravity-static-qa-hardening-summary": lambda: print(json.dumps(institutional_pre_antigravity_static_qa_hardening.build_summary(), indent=2)),
     "pre-alpha-institutional-antigravity-browser-qa-strategy-summary": lambda: print(json.dumps(institutional_antigravity_browser_qa_strategy.build_summary(), indent=2)),
     "pre-alpha-institutional-browser-qa-evidence-metadata-reconciliation-summary": lambda: print(json.dumps(institutional_browser_qa_evidence_metadata_reconciliation.build_summary(), indent=2)),
+    "pre-alpha-institutional-static-polish-ui-consistency-hardening-summary": lambda: print(json.dumps(institutional_static_polish_ui_consistency_hardening.build_summary(), indent=2)),
 
 
     "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,

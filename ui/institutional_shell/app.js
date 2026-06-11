@@ -158,9 +158,9 @@
     var band = el("div", "cc-hero");
     band.appendChild(el("div", "cc-hero-title", h.title || "Command Center"));
     var rows = [
-      ["System mode", h.system_mode], ["Accepted HEAD", h.accepted_head],
+      ["System mode", h.system_mode], ["Screen Baseline (historical)", h.accepted_head],
       ["Kill switch", h.kill_switch], ["Public state", h.public_state],
-      ["Live / API", h.live_api_state], ["Current gate", h.current_gate],
+      ["Live / API", h.live_api_state], ["Screen Gate (historical)", h.current_gate],
       ["Next allowed action", h.next_allowed_action]
     ];
     var wrap = el("div", "cc-hero-grid");
@@ -256,7 +256,7 @@
     band.appendChild(el("div", "cc-hero-title", h.title || "Content Studio"));
     var rows = [
       ["Content mode", h.content_mode], ["Public state", h.public_state],
-      ["Generation state", h.generation_state], ["Current gate", h.current_gate],
+      ["Generation state", h.generation_state], ["Screen Gate (historical)", h.current_gate],
       ["Next allowed action", h.next_allowed_action]
     ];
     var wrap = el("div", "cc-hero-grid");
@@ -362,7 +362,7 @@
     var rows = [
       ["Publish mode", h.publish_mode], ["Public state", h.public_state],
       ["Live state", h.live_state], ["Platform API", h.platform_api_state],
-      ["Scheduler", h.scheduler_state], ["Current gate", h.current_gate],
+      ["Scheduler", h.scheduler_state], ["Screen Gate (historical)", h.current_gate],
       ["Next allowed action", h.next_allowed_action]
     ];
     var wrap = el("div", "cc-hero-grid");
@@ -493,7 +493,7 @@
     var wrap = el("div", "cc-hero-grid");
     [["Evidence mode", h.evidence_mode], ["Public state", h.public_state],
      ["Live state", h.live_state], ["Evidence mutation", h.evidence_mutation_state],
-     ["Current gate", h.current_gate], ["Next allowed action", h.next_allowed_action]
+     ["Screen Gate (historical)", h.current_gate], ["Next allowed action", h.next_allowed_action]
     ].forEach(function (r) {
       var cell = el("div", "cc-hero-cell");
       cell.appendChild(el("span", "label", r[0]));
