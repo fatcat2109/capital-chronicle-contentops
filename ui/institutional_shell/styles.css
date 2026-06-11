@@ -383,3 +383,12 @@ body {
 .wf-card-blocked { font-size: 0.72rem; color: var(--warn, #d98a3a); margin-top: 4px; }
 .wf-card-next { font-size: 0.72rem; color: var(--muted, #8aa0b6); margin-top: 4px; }
 
+
+/* Visual Export + Screenshot-Safe Mode */
+.vx-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.vx-card { background: var(--card, #0d1521); border: 1px solid var(--border, #243042); border-radius: 6px; padding: 10px; }
+.vx-card-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; }
+.vx-card-meta { font-size: 0.72rem; color: var(--muted, #8aa0b6); margin-bottom: 6px; }
+.vx-watermark { font-size: 0.7rem; font-style: italic; color: var(--muted, #8aa0b6); margin: 6px 0; }
+.vx-label { display: inline-block; font-size: 0.68rem; background: var(--panel, #131c2b); border: 1px solid var(--border, #243042); border-radius: 3px; padding: 1px 6px; margin: 2px 4px 2px 0; }
+

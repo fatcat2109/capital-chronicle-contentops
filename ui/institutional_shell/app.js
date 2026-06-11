@@ -671,6 +671,105 @@
   }
 
 
+  function renderVisualExport(main) {
+    var d = F.visual_export_detail || {};
+    main.appendChild(screenshotSafeBar());
+    var h = d.hero_status_band || {};
+    var band = el("div", "cc-hero");
+    band.appendChild(el("div", "cc-hero-title", h.title || "Visual Export + Screenshot-Safe Mode"));
+    var wrap = el("div", "cc-hero-grid");
+    [["Export mode", h.export_mode], ["Screenshot capture", h.screenshot_capture_state],
+     ["File export", h.file_export_state], ["Upload/posting", h.upload_posting_state],
+     ["Browser automation", h.browser_automation_state], ["Antigravity", h.antigravity_state],
+     ["Current gate", h.current_gate], ["Next allowed action", h.next_allowed_action]
+    ].forEach(function (r) {
+      var cell = el("div", "cc-hero-cell");
+      cell.appendChild(el("span", "label", r[0]));
+      cell.appendChild(el("span", "value", r[1] || "unknown"));
+      wrap.appendChild(cell);
+    });
+    band.appendChild(wrap);
+    main.appendChild(band);
+    main.appendChild(bannerRow(d.safety_banners));
+
+    main.appendChild(ccFlagsCard("Screenshot-Safe Mode", d.screenshot_safe_mode_panel));
+
+    // Export-safe card gallery
+    var gallSection = el("div", "cc-section");
+    gallSection.appendChild(el("h2", "cc-section-title", "Export-Safe Card Gallery"));
+    var gall = el("div", "vx-gallery");
+    (d.export_safe_card_gallery || []).forEach(function (c) {
+      var card = el("div", "vx-card");
+      card.appendChild(el("div", "vx-card-title", c.card_id));
+      card.appendChild(el("div", "vx-card-meta", "source: " + c.source_screen));
+      var chip = el("span", "chip", (c.export_safe_status || "").replace(/_/g, " "));
+      chip.setAttribute("data-tone", c.blocked_export_reason ? "blocked" : "pass");
+      card.appendChild(chip);
+      card.appendChild(el("div", "vx-watermark", c.required_watermark));
+      (c.required_labels || []).forEach(function (l) {
+        card.appendChild(el("span", "vx-label", l));
+      });
+      gall.appendChild(card);
+    });
+    gallSection.appendChild(gall);
+    main.appendChild(gallSection);
+
+    main.appendChild(ccCardGrid("Redaction Overlay (never displayed)", function (r) {
+      var li = el("li");
+      li.appendChild(el("span", "k", r.field + ":"));
+      var chip = el("span", "chip", "redacted");
+      chip.setAttribute("data-tone", "blocked");
+      li.appendChild(chip);
+      return li;
+    }, d.redaction_overlay_panel, null));
+
+    main.appendChild(ccCardGrid("Watermark / Status Labels", function (l) {
+      return el("li", null, l);
+    }, (d.watermark_status_label_panel || []).map(function (x) { return x; }), null));
+
+    main.appendChild(ccFlagsCard("Limitations & Freshness Visibility", d.limitations_freshness_visibility_panel));
+    main.appendChild(ccFlagsCard("Evidence Reference Visibility", d.evidence_reference_visibility_panel));
+
+    main.appendChild(ccCardGrid("Export Eligibility Checklist", function (c) {
+      return el("li", null, c.replace(/_/g, " "));
+    }, (d.export_eligibility_checklist || []).map(function (x) { return x; }), null));
+
+    main.appendChild(ccCardGrid("Blocked Export / Action Matrix (Read-Only)", function (a) {
+      var li = el("li");
+      li.appendChild(el("span", "k", a.action + ":"));
+      var chip = el("span", "chip", a.state);
+      chip.setAttribute("data-tone", "blocked");
+      li.appendChild(chip);
+      return li;
+    }, d.blocked_export_action_matrix, null));
+
+    // Preview states
+    var prevSection = el("div", "cc-section");
+    prevSection.appendChild(el("h2", "cc-section-title", "Screenshot-Safe Preview States"));
+    var prev = el("div", "card-grid");
+    (d.screenshot_safe_preview_states || []).forEach(function (p) {
+      var c = el("div", "card");
+      c.appendChild(el("h3", null, p.state.replace(/_/g, " ")));
+      var chip = el("span", "chip", p.export_safe ? "export-safe" : "blocked");
+      chip.setAttribute("data-tone", p.export_safe ? "pass" : "blocked");
+      c.appendChild(chip);
+      prev.appendChild(c);
+    });
+    prevSection.appendChild(prev);
+    main.appendChild(prevSection);
+
+    main.appendChild(ccFlagsCard("Antigravity Handoff (Future-Only)", d.antigravity_handoff_panel));
+    main.appendChild(ccFlagsCard("Visual Quality Checklist", d.visual_quality_checklist));
+
+    main.appendChild(ccCardGrid("Manual Operator Checklist", function (c) {
+      return el("li", null, c.replace(/_/g, " "));
+    }, (d.manual_operator_checklist || []).map(function (x) { return x; }), null));
+
+    main.appendChild(ccFlagsCard("Evidence Summary", d.evidence_summary));
+    main.appendChild(ccFlagsCard("Next Allowed Action", d.next_allowed_action_panel));
+  }
+
+
 
   /* Main screen render */
   function renderScreen(screenId) {
@@ -708,6 +807,11 @@
 
     if (screen.screen_id === "content_calendar" && F.content_calendar_workflow_detail) {
       renderContentCalendar(main);
+      return;
+    }
+
+    if (screen.screen_id === "visual_export_studio" && F.visual_export_detail) {
+      renderVisualExport(main);
       return;
     }
 

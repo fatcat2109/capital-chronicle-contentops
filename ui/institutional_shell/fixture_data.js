@@ -656,6 +656,145 @@ window.CC_INSTITUTIONAL_SHELL_FIXTURE = {
       future_task: "0166 Visual Export / Screenshot-Safe Mode only after audit"
     }
   },
+  visual_export_detail: {
+    hero_status_band: {
+      title: "Capital Chronicle Visual Export + Screenshot-Safe Mode",
+      export_mode: "static / local / fixture-driven / preparation-only",
+      screenshot_capture_state: "not_captured",
+      file_export_state: "disabled",
+      upload_posting_state: "disabled",
+      browser_automation_state: "disabled",
+      antigravity_state: "future_only",
+      current_gate: "0166 Visual Export + Screenshot-Safe Mode screen",
+      next_allowed_action: "AWAIT OPERATOR/CHATGPT AUDIT_OF_0166_EVIDENCE_BEFORE_ANY_NEXT_TASK"
+    },
+    safety_banners: [
+      "LOCAL_ONLY", "REVIEW_ONLY", "MANUAL_REVIEW_REQUIRED", "NOT_PUBLIC_POSTABLE",
+      "LIVE_DISABLED", "EXPORT_PREP_ONLY", "SCREENSHOT_NOT_CAPTURED", "SECRET_REDACTED",
+      "NO_FINANCIAL_ADVICE", "NO_SIGNAL_LANGUAGE", "MISSING_DATA_VISIBLE",
+      "LIMITATIONS_VISIBLE", "WATERMARK_REQUIRED", "ANTIGRAVITY_FUTURE_ONLY"
+    ],
+    screenshot_safe_mode_panel: {
+      visual_prep_only: true,
+      screenshot_taken_by_task: false,
+      browser_automation: false,
+      antigravity_run: false,
+      image_video_pdf_export_created: false,
+      platform_upload_or_post: false,
+      operator_manual_redaction_verification_required: true
+    },
+    export_safe_card_gallery: [
+      { card_id: "esc-command-center", source_screen: "command_center", export_safe_status: "export_ready_with_redaction", required_watermark: "Local fixture UI — Screenshot-safe", required_labels: ["Not public-postable", "Review-only", "Live/API disabled"], evidence_refs_visible: true, limitations_visible: true, freshness_visible: true, redaction_required: true, forbidden_fields: ["credentials", "env_paths", "raw_request_urls"], blocked_export_reason: null },
+      { card_id: "esc-content-studio", source_screen: "content_studio", export_safe_status: "export_ready_with_redaction", required_watermark: "Local fixture UI — Screenshot-safe", required_labels: ["Not public-postable", "Review-only", "No financial advice", "No signal language"], evidence_refs_visible: true, limitations_visible: true, freshness_visible: true, redaction_required: true, forbidden_fields: ["raw_platform_responses", "credentials"], blocked_export_reason: null },
+      { card_id: "esc-publish-readiness", source_screen: "publish_readiness_tower", export_safe_status: "export_ready_with_redaction", required_watermark: "Local fixture UI — Dry-run only", required_labels: ["Live disabled", "Dry-run only", "Manual approval required"], evidence_refs_visible: true, limitations_visible: true, freshness_visible: false, redaction_required: true, forbidden_fields: ["credentials", "raw_request_urls", "raw_platform_responses"], blocked_export_reason: null },
+      { card_id: "esc-evidence-vault", source_screen: "evidence_vault", export_safe_status: "export_ready_with_redaction", required_watermark: "Local fixture UI — Audit read-only", required_labels: ["Audit read-only", "Secret redacted", "Evidence refs visible"], evidence_refs_visible: true, limitations_visible: true, freshness_visible: false, redaction_required: true, forbidden_fields: ["env_paths", "credentials", "raw_platform_responses"], blocked_export_reason: null },
+      { card_id: "esc-content-calendar", source_screen: "content_calendar", export_safe_status: "export_ready_with_redaction", required_watermark: "Local fixture UI — Manual workflow only", required_labels: ["Manual publish tracking only", "Scheduler disabled", "Not public-postable"], evidence_refs_visible: true, limitations_visible: true, freshness_visible: true, redaction_required: true, forbidden_fields: ["credentials", "raw_request_urls"], blocked_export_reason: null },
+      { card_id: "esc-telegram-gate", source_screen: "publish_readiness_tower", export_safe_status: "export_ready_with_redaction", required_watermark: "Local fixture UI — Telegram redacted", required_labels: ["Credentials redacted", "sendMessage disabled", "Channel permission unvalidated"], evidence_refs_visible: true, limitations_visible: true, freshness_visible: false, redaction_required: true, forbidden_fields: ["token_chat_id", "credentials", "raw_platform_responses"], blocked_export_reason: null }
+    ],
+    redaction_overlay_panel: [
+      { field: "credentials", displayed: false },
+      { field: "token_chat_id_values", displayed: false },
+      { field: "env_paths", displayed: false },
+      { field: "raw_request_urls", displayed: false },
+      { field: "raw_platform_responses", displayed: false },
+      { field: "raw_vendor_data", displayed: false },
+      { field: "personal_operator_local_paths", displayed: false },
+      { field: "unapproved_source_artifact_ids", displayed: false },
+      { field: "secret_hashes_snippets_lengths", displayed: false },
+      { field: "platform_target_identifiers", displayed: false }
+    ],
+    watermark_status_label_panel: [
+      "Local fixture UI", "Not public-postable", "Review-only", "No financial advice",
+      "No signal language", "Live/API disabled", "Limitations visible",
+      "Missing/degraded/proxy visible", "Screenshot-safe mode", "Evidence refs visible"
+    ],
+    limitations_freshness_visibility_panel: {
+      limitations_cannot_be_hidden: true,
+      freshness_visible_for_market_current_claims: true,
+      missing_degraded_proxy_states_visible: true,
+      dqr_forecast_readiness_blocks_visible: true,
+      no_confident_forecast_when_data_sufficiency_blocks: true
+    },
+    evidence_reference_visibility_panel: {
+      evidence_refs_visible: true,
+      task_evidence_packet_ids_visible: true,
+      source_artifact_ids_only_if_approved_real: true,
+      future_artifact_backed_without_real_ids_blocked: true,
+      evidence_vault_handoff_read_only: true,
+      invented_source_artifact_ids_allowed: false
+    },
+    export_eligibility_checklist: [
+      "no_secrets_visible", "no_raw_env_path", "no_raw_request_url",
+      "no_raw_platform_response", "no_raw_vendor_data", "no_public_ready_false_claim",
+      "no_signal_or_trade_advice_language", "limitations_visible",
+      "freshness_visible_where_required", "evidence_refs_visible",
+      "watermark_visible", "operator_review_required"
+    ],
+    blocked_export_action_matrix: [
+      { action: "capture_screenshot", state: "disabled" },
+      { action: "export_png", state: "disabled" },
+      { action: "export_pdf", state: "disabled" },
+      { action: "export_svg", state: "disabled" },
+      { action: "download_file", state: "disabled" },
+      { action: "upload_to_platform", state: "disabled" },
+      { action: "publish_to_platform", state: "disabled" },
+      { action: "schedule_post", state: "disabled" },
+      { action: "send_telegram_message", state: "disabled" },
+      { action: "run_antigravity", state: "disabled" },
+      { action: "browser_capture", state: "disabled" },
+      { action: "scrape_metrics", state: "disabled" },
+      { action: "refresh_project_sources", state: "disabled" },
+      { action: "read_env", state: "disabled" },
+      { action: "edit_evidence", state: "disabled" }
+    ],
+    antigravity_handoff_panel: {
+      antigravity_run_yet: false,
+      future_0167_may_define_browser_qa: true,
+      future_task_requires_explicit_go: true,
+      browser_qa_must_be_narrow_and_screenshot_safe: true,
+      no_live_api_env_in_browser: true,
+      no_credentials_in_browser_state: true,
+      no_platform_posting: true
+    },
+    visual_quality_checklist: {
+      high_contrast: true,
+      text_legibility: true,
+      dense_but_readable: true,
+      status_labels_visible: true,
+      blocked_states_obvious: true,
+      redaction_obvious: true,
+      color_only_status_communication: false,
+      green_red_as_market_direction: false,
+      pnl_trading_look: false,
+      social_scheduler_glamor: false
+    },
+    screenshot_safe_preview_states: [
+      { state: "export_ready_with_redaction", export_safe: true },
+      { state: "blocked_missing_limitations", export_safe: false, blocked: true },
+      { state: "blocked_secret_visible", export_safe: false, blocked: true },
+      { state: "blocked_public_ready_claim", export_safe: false, blocked: true },
+      { state: "blocked_no_evidence_refs", export_safe: false, blocked: true },
+      { state: "blocked_unredacted_platform_response", export_safe: false, blocked: true }
+    ],
+    manual_operator_checklist: [
+      "inspect_visible_labels", "inspect_redaction_overlays", "inspect_evidence_refs",
+      "inspect_limitations_freshness", "inspect_no_live_or_action_controls",
+      "confirm_no_secrets", "confirm_no_public_ready_false_claim",
+      "document_manual_screenshot_context_later_if_performed_outside_repo"
+    ],
+    evidence_summary: {
+      linked_design_system_screenshot_safe_rules: true,
+      linked_evidence_vault: true,
+      linked_content_calendar: true,
+      linked_publish_readiness_tower: true,
+      linked_command_center: true,
+      validation_test_scan_evidence_required: true
+    },
+    next_allowed_action_panel: {
+      directive: "AWAIT OPERATOR/CHATGPT AUDIT_OF_0166_EVIDENCE_BEFORE_ANY_NEXT_TASK",
+      future_task: "0167 Antigravity Browser QA only after audit"
+    }
+  },
   screens: [
     {
       screen_id: "command_center",

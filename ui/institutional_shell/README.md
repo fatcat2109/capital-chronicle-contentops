@@ -1,4 +1,4 @@
-# Institutional Shell Prototype (Static, Local — Shell 0160, Command Center 0161, Content Studio 0162, Publish Readiness Tower 0163, Evidence Vault 0164, Content Calendar 0165)
+# Institutional Shell Prototype (Static, Local — Shell 0160, Command Center 0161, Content Studio 0162, Publish Readiness Tower 0163, Evidence Vault 0164, Content Calendar 0165, Visual Export 0166)
 
 Tasks:
 - TASK_CONTENTOPS_0160_INSTITUTIONAL_SHELL_PROTOTYPE_STATIC_LOCAL_V0 (shell frame)
