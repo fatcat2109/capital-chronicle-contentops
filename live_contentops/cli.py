@@ -46,6 +46,7 @@ from . import review_history
 from . import pre_alpha_manual_performance_record
 from . import pre_alpha_content_performance_review
 from . import institutional_pre_antigravity_static_qa_hardening
+from . import institutional_antigravity_browser_qa_strategy
 
 import uuid
 
@@ -1310,6 +1311,7 @@ COMMANDS = {
     "pre-alpha-institutional-content-calendar-workflow-board-screen-summary": pre_alpha_institutional_content_calendar_workflow_board_screen_summary,
     "pre-alpha-institutional-visual-export-screenshot-safe-mode-screen-summary": pre_alpha_institutional_visual_export_screenshot_safe_mode_screen_summary,
     "pre-alpha-institutional-pre-antigravity-static-qa-hardening-summary": lambda: print(json.dumps(institutional_pre_antigravity_static_qa_hardening.build_summary(), indent=2)),
+    "pre-alpha-institutional-antigravity-browser-qa-strategy-summary": lambda: print(json.dumps(institutional_antigravity_browser_qa_strategy.build_summary(), indent=2)),
 
 
     "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,
