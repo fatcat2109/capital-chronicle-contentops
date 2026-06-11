@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Capital Chronicle ContentOps - Evidence Vault</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#18130e",
+                      "on-primary": "#2f3034",
+                      "on-secondary-fixed-variant": "#44474d",
+                      "on-secondary-fixed": "#191c22",
+                      "on-error": "#690005",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary": "#c4c6ce",
+                      "surface": "#141313",
+                      "surface-variant": "#353435",
+                      "surface-container-highest": "#353435",
+                      "on-tertiary": "#362f29",
+                      "secondary-fixed": "#e1e2ea",
+                      "surface-bright": "#3a3939",
+                      "on-secondary-container": "#b6b8c0",
+                      "on-primary-container": "#7d7e82",
+                      "on-surface": "#e5e2e1",
+                      "inverse-on-surface": "#313030",
+                      "on-surface-variant": "#c6c6ca",
+                      "surface-container-lowest": "#0e0e0e",
+                      "inverse-surface": "#e5e2e1",
+                      "on-error-container": "#ffdad6",
+                      "inverse-primary": "#5d5e62",
+                      "background": "#141313",
+                      "error-container": "#93000a",
+                      "tertiary-fixed-dim": "#cfc5bc",
+                      "on-secondary": "#2d3037",
+                      "secondary-fixed-dim": "#c4c6ce",
+                      "on-tertiary-fixed": "#201b15",
+                      "error": "#ffb4ab",
+                      "surface-container-low": "#1c1b1c",
+                      "on-primary-fixed": "#1a1c1f",
+                      "on-primary-fixed-variant": "#45474a",
+                      "on-tertiary-fixed-variant": "#4d453f",
+                      "on-background": "#e5e2e1",
+                      "tertiary": "#cfc5bc",
+                      "primary": "#c6c6ca",
+                      "secondary-container": "#464950",
+                      "surface-tint": "#c6c6ca",
+                      "primary-fixed": "#e2e2e6",
+                      "tertiary-fixed": "#ece0d8",
+                      "on-tertiary-container": "#867d75",
+                      "outline": "#8f9094",
+                      "surface-dim": "#141313",
+                      "primary-fixed-dim": "#c6c6ca",
+                      "surface-container": "#201f20",
+                      "outline-variant": "#45474a",
+                      "primary-container": "#121417"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "0.75rem",
+                      "nav-width": "220px",
+                      "stack-sm": "0.25rem",
+                      "safety-ribbon-height": "32px",
+                      "gutter": "1rem",
+                      "panel-padding": "1.25rem"
+              },
+              "fontFamily": {
+                      "mono-data": ["JetBrains Mono"],
+                      "headline-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "safety-status": ["Inter"],
+                      "mono-label": ["JetBrains Mono"]
+              },
+              "fontSize": {
+                      "mono-data": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                      "headline-md": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                      "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                      "body-sm": ["11px", { "lineHeight": "16px", "fontWeight": "400" }],
+                      "headline-lg": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                      "safety-status": ["10px", { "lineHeight": "12px", "fontWeight": "700" }],
+                      "mono-label": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Minimalist Brutalism specific utility overrides */
+        .brutal-border { border: 1px solid theme('colors.outline-variant'); }
+        .brutal-border-b { border-bottom: 1px solid theme('colors.outline-variant'); }
+        .brutal-border-r { border-right: 1px solid theme('colors.outline-variant'); }
+        
+        /* Ensure table rows don't have soft backgrounds */
+        tbody tr:hover { background-color: theme('colors.surface-container-highest'); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md overflow-x-hidden selection:bg-primary-container selection:text-primary">
+<!-- TopAppBar (Small) - Safety Ribbon -->
+<nav class="bg-surface-container-lowest dark:bg-surface-container-lowest text-primary dark:text-primary font-mono-label text-mono-label border-b border-outline-variant fixed top-0 w-full flex items-center px-gutter gap-stack-md z-50 h-[safety-ribbon-height]">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-bold">LOCAL ONLY</span>
+</div>
+<span class="text-on-surface-variant">•</span>
+<span class="font-bold text-on-surface-variant">DRY RUN ONLY</span>
+<span class="text-on-surface-variant">•</span>
+<span class="font-bold text-on-surface-variant">REVIEW ONLY</span>
+<span class="text-on-surface-variant">•</span>
+<span class="font-bold text-on-surface-variant">MANUAL REVIEW REQUIRED</span>
+<span class="text-on-surface-variant">•</span>
+<span class="font-bold text-on-surface-variant">NOT PUBLIC POSTABLE</span>
+<span class="text-on-surface-variant">•</span>
+<span class="font-bold text-on-surface-variant">LIVE DISABLED</span>
+<div class="flex-grow"></div>
+<span class="material-symbols-outlined text-[16px] text-error cursor-pointer hover:opacity-80">dangerous</span>
+</nav>
+<!-- SideNavBar -->
+<aside class="bg-surface-container dark:bg-surface-container text-primary dark:text-primary font-body-md text-body-md border-r border-outline-variant fixed left-0 top-0 h-full flex flex-col py-panel-padding w-[nav-width] pt-[calc(32px+1.25rem)] z-40">
+<div class="px-gutter mb-6">
+<div class="font-headline-lg text-headline-lg text-on-surface">Capital Chronicle</div>
+<div class="font-mono-data text-mono-data text-on-surface-variant mt-1">ContentOps v1.0.2</div>
+</div>
+<nav class="flex flex-col flex-grow w-full">
+<a class="flex items-center gap-3 px-gutter py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+                Command Center
+            </a>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+                Content Studio
+            </a>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">account_tree</span>
+                Publish Readiness Tower
+            </a>
+<a class="flex items-center gap-3 px-gutter py-2 text-primary font-bold border-l-2 border-primary bg-secondary-container/10 transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">folder_zip</span>
+                Evidence Vault
+            </a>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                Calendar
+            </a>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">image</span>
+                Visual Export
+            </a>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto w-full pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-gutter py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">security</span>
+                Safety Policy
+            </a>
+</div>
+</aside>
+<!-- TopAppBar (Medium) - System Header -->
+<header class="bg-surface-container-low dark:bg-surface-container-low text-primary dark:text-primary font-mono-data text-mono-data border-b border-outline-variant fixed top-[32px] left-[220px] right-0 flex flex-col justify-center px-gutter py-stack-sm z-40">
+<div class="flex items-start justify-between w-full">
+<div class="flex flex-col gap-2 w-full">
+<!-- Row 1 -->
+<div class="flex items-center gap-8 text-on-surface-variant uppercase">
+<div class="flex flex-col">
+<span class="text-[9px] font-bold tracking-wider mb-1">SYSTEM MODE</span>
+<span class="text-on-surface lowercase">local_pre_alpha</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] font-bold tracking-wider mb-1">ACCEPTED HEAD</span>
+<span class="text-on-surface lowercase">444ef2c</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] font-bold tracking-wider mb-1">KILL SWITCH</span>
+<span class="text-error font-bold">ACTIVE</span>
+</div>
+<div class="flex flex-col flex-grow">
+<span class="text-[9px] font-bold tracking-wider mb-1">CURRENT GATE</span>
+<span class="text-on-surface lowercase">0170 browser qa evidence + metadata reconciliation</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary text-[18px]">history</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary text-[18px]">refresh</span>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center gap-8 text-on-surface-variant uppercase mt-1">
+<div class="flex flex-col flex-grow">
+<span class="text-[9px] font-bold tracking-wider mb-1">NEXT ALLOWED ACTION</span>
+<span class="text-primary underline cursor-pointer">AWAIT OPERATOR/CHATGPT AUDIT OF 0170 EVIDENCE BEFORE PROJECT SOURCES REFRESH OR ANY NEXT TASK</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] font-bold tracking-wider mb-1">EVIDENCE</span>
+<span class="text-on-surface">12</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] font-bold tracking-wider mb-1">ACTIVE BLOCKERS</span>
+<span class="text-on-surface">0</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] font-bold tracking-wider mb-1">LIVE POSTING</span>
+<span class="text-on-surface-variant">DISABLED</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] font-bold tracking-wider mb-1">PLATFORM API</span>
+<span class="text-on-surface-variant">DISABLED</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-[220px] mt-[calc(32px+88px)] p-panel-padding flex flex-col gap-6">
+<!-- Safety Banner -->
+<div class="w-full bg-[#121417] brutal-border p-3 flex items-center font-mono-data text-mono-data text-on-surface-variant" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.02) 10px, rgba(255,255,255,0.02) 20px);">
+            SCREENSHOT-SAFE / LOCAL ONLY / NOT PUBLIC-POSTABLE / LIVE DISABLED
+        </div>
+<!-- Main Header Card -->
+<div class="w-full bg-surface-container brutal-border p-panel-padding flex flex-col gap-6">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Capital Chronicle Evidence Vault + Audit Timeline</h1>
+<div class="grid grid-cols-4 gap-4 font-mono-data text-mono-data">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">EVIDENCE MODE</span>
+<span class="text-on-surface">static / local / fixture-driven</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">PUBLIC STATE</span>
+<span class="text-on-surface">not_public_postable</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">LIVE STATE</span>
+<span class="text-on-surface">disabled</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">EVIDENCE MUTATION</span>
+<span class="text-on-surface">read_only</span>
+</div>
+<div class="flex flex-col gap-1 mt-4 col-span-2">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">SCREEN GATE (HISTORICAL)</span>
+<span class="text-on-surface">0164 Evidence Vault + Audit Timeline screen</span>
+</div>
+<div class="flex flex-col gap-1 mt-4 col-span-2">
+<span class="text-[10px] text-on-surface-variant uppercase tracking-wider">NEXT ALLOWED ACTION</span>
+<span class="text-on-surface">AWAIT OPERATOR/CHATGPT AUDIT_OF_0164_EVIDENCE_BEFORE_ANY_NEXT_TASK</span>
+</div>
+</div>
+</div>
+<!-- Tag Strip -->
+<div class="flex flex-wrap gap-2 font-safety-status text-safety-status">
+<span class="px-2 py-1 brutal-border text-primary bg-primary/10 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> LOCAL ONLY</span>
+<span class="px-2 py-1 brutal-border text-primary bg-primary/10 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> REVIEW ONLY</span>
+<span class="px-2 py-1 brutal-border text-primary bg-primary/10 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> MANUAL REVIEW REQUIRED</span>
+<span class="px-2 py-1 brutal-border text-primary bg-primary/10 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> NOT PUBLIC POSTABLE</span>
+<span class="px-2 py-1 brutal-border text-primary bg-primary/10 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> LIVE DISABLED</span>
+<span class="px-2 py-1 brutal-border text-error bg-error/10 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-error rounded-full"></span> KILL SWITCH ACTIVE</span>
+<span class="px-2 py-1 brutal-border text-primary bg-primary/10 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> SECRET REDACTED</span>
+<span class="px-2 py-1 brutal-border text-primary bg-primary/10 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> NO FINANCIAL ADVICE</span>
+<span class="px-2 py-1 brutal-border text-primary bg-primary/10 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> NO SIGNAL LANGUAGE</span>
+<span class="px-2 py-1 brutal-border text-primary bg-primary/10 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> MISSING DATA VISIBLE</span>
+<span class="px-2 py-1 brutal-border text-primary bg-primary/10 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> EVIDENCE REQUIRED</span>
+<span class="px-2 py-1 brutal-border text-primary bg-primary/10 flex items-center gap-1"><span class="w-1.5 h-1.5 bg-primary rounded-full"></span> AUDIT READ ONLY</span>
+</div>
+<!-- Section: TASK EVIDENCE PACKET INDEX -->
+<section class="flex flex-col gap-2">
+<h2 class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest">TASK EVIDENCE PACKET INDEX</h2>
+<div class="w-full bg-surface-container brutal-border overflow-hidden">
+<table class="w-full text-left font-mono-data text-mono-data border-collapse">
+<thead class="bg-surface-container-highest brutal-border-b text-on-surface-variant">
+<tr>
+<th class="p-3 font-normal">Task</th>
+<th class="p-3 font-normal">Classification</th>
+<th class="p-3 font-normal">HEAD</th>
+<th class="p-3 font-normal">Artifact</th>
+<th class="p-3 font-normal">Focused</th>
+<th class="p-3 font-normal">Full Suite</th>
+<th class="p-3 font-normal">Forbidden Scope</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant text-on-surface">
+<tr>
+<td class="p-3 text-on-surface-variant">0157</td>
+<td class="p-3">PASS</td>
+<td class="p-3">260ae89</td>
+<td class="p-3">planning/spec</td>
+<td class="p-3">n/a</td>
+<td class="p-3">1306 passed, 28 skipped</td>
+<td class="p-3">preserved</td>
+</tr>
+<tr>
+<td class="p-3 text-on-surface-variant">0158</td>
+<td class="p-3">PASS</td>
+<td class="p-3">1ae6e62</td>
+<td class="p-3">design-system</td>
+<td class="p-3">n/a</td>
+<td class="p-3">1332 passed, 28 skipped</td>
+<td class="p-3">preserved</td>
+</tr>
+<tr>
+<td class="p-3 text-on-surface-variant">0159</td>
+<td class="p-3">PASS</td>
+<td class="p-3">15b87ff</td>
+<td class="p-3">view-model contract</td>
+<td class="p-3">n/a</td>
+<td class="p-3">1369 passed, 28 skipped</td>
+<td class="p-3">preserved</td>
+</tr>
+<tr>
+<td class="p-3 text-on-surface-variant">0160</td>
+<td class="p-3">PASS</td>
+<td class="p-3">1c03ca0</td>
+<td class="p-3">static shell</td>
+<td class="p-3">33</td>
+<td class="p-3">1402 passed, 28 skipped</td>
+<td class="p-3">preserved</td>
+</tr>
+<tr>
+<td class="p-3 text-on-surface-variant">0161</td>
+<td class="p-3">PASS</td>
+<td class="p-3">1b0f34a</td>
+<td class="p-3">command center screen</td>
+<td class="p-3">39</td>
+<td class="p-3">1444 passed, 28 skipped</td>
+<td class="p-3">preserved</td>
+</tr>
+<tr>
+<td class="p-3 text-on-surface-variant">0162</td>
+<td class="p-3">PASS</td>
+<td class="p-3">85f7627</td>
+<td class="p-3">content studio screen</td>
+<td class="p-3">58</td>
+<td class="p-3">1502 passed, 28 skipped</td>
+<td class="p-3">preserved</td>
+</tr>
+<tr>
+<td class="p-3 text-on-surface-variant border-l-2 border-primary">0163</td>
+<td class="p-3">PASS_WITH_MINOR_EVIDENCE_GAP</td>
+<td class="p-3">a7989ea</td>
+<td class="p-3">publish readiness tower screen</td>
+<td class="p-3">59</td>
+<td class="p-3">1561 passed, 28 skipped</td>
+<td class="p-3">preserved</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Section: COMMIT TIMELINE -->
+<section class="flex flex-col gap-2">
+<h2 class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest">COMMIT TIMELINE</h2>
+<div class="w-full bg-surface-container brutal-border overflow-hidden">
+<table class="w-full text-left font-mono-data text-mono-data border-collapse">
+<thead class="bg-surface-container-highest brutal-border-b text-on-surface-variant">
+<tr>
+<th class="p-3 font-normal w-32">Task</th>
+<th class="p-3 font-normal w-64">HEAD</th>
+<th class="p-3 font-normal">State</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant text-on-surface">
+<tr><td class="p-3 text-on-surface-variant">0157</td><td class="p-3">260ae89</td><td class="p-3">accepted</td></tr>
+<tr><td class="p-3 text-on-surface-variant">0158</td><td class="p-3">1ae6e62</td><td class="p-3">accepted</td></tr>
+<tr><td class="p-3 text-on-surface-variant">0159</td><td class="p-3">15b87ff</td><td class="p-3">accepted</td></tr>
+<tr><td class="p-3 text-on-surface-variant">0160</td><td class="p-3">1c03ca0</td><td class="p-3">accepted</td></tr>
+<tr><td class="p-3 text-on-surface-variant">0161</td><td class="p-3">1b0f34a</td><td class="p-3">accepted</td></tr>
+<tr><td class="p-3 text-on-surface-variant">0162</td><td class="p-3">85f7627</td><td class="p-3">accepted</td></tr>
+<tr><td class="p-3 text-on-surface-variant border-l-2 border-primary">0163</td><td class="p-3 text-primary">a7989ea</td><td class="p-3 text-primary">current_baseline</td></tr>
+<tr><td class="p-3 text-on-surface-variant">0164</td><td class="p-3 text-on-surface-variant">pending</td><td class="p-3 text-on-surface-variant">in_progress</td></tr>
+<tr><td class="p-3 text-on-surface-variant">0165</td><td class="p-3 text-on-surface-variant">future</td><td class="p-3 text-on-surface-variant">future_placeholder</td></tr>
+<tr><td class="p-3 text-on-surface-variant">0166</td><td class="p-3 text-on-surface-variant">future</td><td class="p-3 text-on-surface-variant">future_placeholder</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Spacer for brevity, normally there would be more tables here following the same pattern -->
+<div class="h-8"></div>
+<!-- Next Allowed Action Footer -->
+<section class="flex flex-col gap-2">
+<h2 class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest">NEXT ALLOWED ACTION</h2>
+<div class="w-full bg-[#000000] brutal-border p-panel-padding font-mono-data text-mono-data flex flex-col gap-3 text-on-surface">
+<div class="flex gap-2"><span class="text-on-surface-variant">directive:</span> <span>AWAIT OPERATOR/CHATGPT AUDIT_OF_0164_EVIDENCE_BEFORE_ANY_NEXT_TASK</span></div>
+<div class="flex gap-2"><span class="text-on-surface-variant">future task:</span> <span>0165 Calendar + Workflow Board only after audit</span></div>
+</div>
+</section>
+</main>
+</body></html>

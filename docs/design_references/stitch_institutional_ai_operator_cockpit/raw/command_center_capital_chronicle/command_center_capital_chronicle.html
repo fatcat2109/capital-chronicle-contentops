@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Command Center - Capital Chronicle</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#18130e",
+                      "on-primary": "#2f3034",
+                      "on-secondary-fixed-variant": "#44474d",
+                      "on-secondary-fixed": "#191c22",
+                      "on-error": "#690005",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary": "#c4c6ce",
+                      "surface": "#141313",
+                      "surface-variant": "#353435",
+                      "surface-container-highest": "#353435",
+                      "on-tertiary": "#362f29",
+                      "secondary-fixed": "#e1e2ea",
+                      "surface-bright": "#3a3939",
+                      "on-secondary-container": "#b6b8c0",
+                      "on-primary-container": "#7d7e82",
+                      "on-surface": "#e5e2e1",
+                      "inverse-on-surface": "#313030",
+                      "on-surface-variant": "#c6c6ca",
+                      "surface-container-lowest": "#0e0e0e",
+                      "inverse-surface": "#e5e2e1",
+                      "on-error-container": "#ffdad6",
+                      "inverse-primary": "#5d5e62",
+                      "background": "#141313",
+                      "error-container": "#93000a",
+                      "tertiary-fixed-dim": "#cfc5bc",
+                      "on-secondary": "#2d3037",
+                      "secondary-fixed-dim": "#c4c6ce",
+                      "on-tertiary-fixed": "#201b15",
+                      "error": "#ffb4ab",
+                      "surface-container-low": "#1c1b1c",
+                      "on-primary-fixed": "#1a1c1f",
+                      "on-primary-fixed-variant": "#45474a",
+                      "on-tertiary-fixed-variant": "#4d453f",
+                      "on-background": "#e5e2e1",
+                      "tertiary": "#cfc5bc",
+                      "primary": "#c6c6ca",
+                      "secondary-container": "#464950",
+                      "surface-tint": "#c6c6ca",
+                      "primary-fixed": "#e2e2e6",
+                      "tertiary-fixed": "#ece0d8",
+                      "on-tertiary-container": "#867d75",
+                      "outline": "#8f9094",
+                      "surface-dim": "#141313",
+                      "primary-fixed-dim": "#c6c6ca",
+                      "surface-container": "#201f20",
+                      "outline-variant": "#45474a",
+                      "primary-container": "#121417"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "0.75rem",
+                      "nav-width": "220px",
+                      "stack-sm": "0.25rem",
+                      "safety-ribbon-height": "32px",
+                      "gutter": "1rem",
+                      "panel-padding": "1.25rem"
+              },
+              "fontFamily": {
+                      "mono-data": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "safety-status": [
+                              "Inter"
+                      ],
+                      "mono-label": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "mono-data": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "safety-status": [
+                              "10px",
+                              {
+                                      "lineHeight": "12px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "mono-label": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body {
+            background-color: #121417; /* Base Level 0 */
+            color: #e5e2e1;
+        }
+        .panel {
+            background-color: #1A1D23; /* Panel Level 1 */
+            border: 1px solid #2A2E35;
+        }
+        .inset-panel {
+            background-color: #000000; /* Inset Level 2 */
+            border: 1px solid #2A2E35;
+        }
+        .border-technical {
+            border-color: #2A2E35;
+        }
+        .status-chip {
+            border: 1px solid currentColor;
+            background-color: rgba(currentcolor, 0.1);
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased overflow-hidden flex flex-col h-screen">
+<!-- TopAppBar (Small - Safety Ribbon) -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-lowest font-mono-label text-mono-label fixed top-0 w-full flex items-center px-gutter gap-stack-md z-50 docked full-width h-[safety-ribbon-height] border-b border-outline-variant flat no shadows">
+<div class="font-headline-md text-headline-md font-bold text-on-surface mr-4 truncate">Capital Chronicle ContentOps</div>
+<div class="flex gap-2 overflow-x-auto no-scrollbar items-center flex-1">
+<span class="text-on-surface-variant whitespace-nowrap px-2 py-0.5 rounded border border-outline-variant status-chip text-primary">LOCAL ONLY</span>
+<span class="text-on-surface-variant whitespace-nowrap px-2 py-0.5 rounded border border-outline-variant status-chip text-primary">DRY RUN ONLY</span>
+<span class="text-on-surface-variant whitespace-nowrap px-2 py-0.5 rounded border border-outline-variant status-chip text-primary">REVIEW ONLY</span>
+<span class="text-on-surface-variant whitespace-nowrap px-2 py-0.5 rounded border border-outline-variant status-chip text-primary">MANUAL REVIEW REQUIRED</span>
+<span class="text-on-surface-variant whitespace-nowrap px-2 py-0.5 rounded border border-outline-variant status-chip text-primary">NOT PUBLIC POSTABLE</span>
+<span class="text-on-surface-variant whitespace-nowrap px-2 py-0.5 rounded border border-outline-variant status-chip text-primary">LIVE DISABLED</span>
+</div>
+<button class="text-on-surface-variant hover:bg-surface-container-high transition-colors ml-auto p-1 rounded">
+<span class="material-symbols-outlined text-[18px]">dangerous</span>
+</button>
+</header>
+<!-- TopAppBar (Medium - System Header) -->
+<div class="bg-surface-container-low dark:bg-surface-container-low font-mono-data text-mono-data fixed top-[32px] left-[220px] right-0 flex flex-col justify-center px-gutter py-stack-sm z-40 border-b border-outline-variant flat no shadows h-16">
+<div class="flex justify-between items-start w-full">
+<div class="flex gap-8">
+<div class="flex flex-col">
+<span class="text-on-surface-variant uppercase text-[10px] tracking-wider mb-1">SYSTEM MODE</span>
+<span class="text-primary font-bold">local_pre_alpha</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant uppercase text-[10px] tracking-wider mb-1">ACCEPTED HEAD</span>
+<span class="text-primary font-bold">444ef2c</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant uppercase text-[10px] tracking-wider mb-1">KILL SWITCH</span>
+<span class="text-error font-bold">ACTIVE</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant uppercase text-[10px] tracking-wider mb-1">CURRENT GATE</span>
+<span class="text-on-surface">0170 browser qa evidence + metadata reconciliation</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex flex-col text-right">
+<span class="text-on-surface-variant uppercase text-[10px] tracking-wider mb-1">NEXT ALLOWED ACTION</span>
+<span class="text-primary truncate max-w-md">AWAIT OPERATOR/CHATGPT AUDIT OF 0170 EVIDENCE BEFORE PROJECT SOURCES REFRESH OR ANY NEXT TASK</span>
+</div>
+<div class="flex gap-2">
+<button class="text-on-surface-variant hover:text-primary hover:border-primary p-1 border border-transparent rounded transition-all">
+<span class="material-symbols-outlined">history</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary hover:border-primary p-1 border border-transparent rounded transition-all">
+<span class="material-symbols-outlined">refresh</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- SideNavBar -->
+<nav class="bg-surface-container dark:bg-surface-container text-primary dark:text-primary font-body-md text-body-md fixed left-0 top-[32px] h-[calc(100vh-32px)] flex flex-col py-panel-padding docked w-[nav-width] border-r border-outline-variant flat no shadows z-40">
+<div class="px-4 mb-6">
+<div class="font-headline-lg text-headline-lg text-on-surface font-bold tracking-tight">Capital Chronicle</div>
+<div class="text-on-surface-variant text-xs mt-1 font-mono-data opacity-70">ContentOps v1.0.2</div>
+</div>
+<ul class="flex flex-col gap-1 flex-1 overflow-y-auto">
+<li>
+<a class="text-primary font-bold border-l-2 border-primary bg-secondary-container/10 flex items-center gap-3 px-4 py-2 hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+                    Command Center
+                </a>
+</li>
+<li>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-2 hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+                    Content Studio
+                </a>
+</li>
+<li>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-2 hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">account_tree</span>
+                    Publish Readiness Tower
+                </a>
+</li>
+<li>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-2 hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">folder_zip</span>
+                    Evidence Vault
+                </a>
+</li>
+<li>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-2 hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                    Calendar
+                </a>
+</li>
+<li>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-2 hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">image</span>
+                    Visual Export
+                </a>
+</li>
+<li>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-2 hover:bg-surface-container-highest hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+                    Settings
+                </a>
+</li>
+</ul>
+<div class="mt-auto pt-4 border-t border-outline-variant px-4">
+<a class="text-on-surface-variant flex items-center gap-3 py-2 hover:bg-surface-container-highest hover:text-on-surface transition-colors text-xs font-mono-data" href="#">
+<span class="material-symbols-outlined text-[16px]">security</span>
+                Safety Policy
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-[220px] mt-[96px] p-gutter overflow-y-auto h-[calc(100vh-96px)]">
+<!-- Page Title & Meta -->
+<div class="mb-6 flex flex-col gap-2">
+<h1 class="font-headline-lg text-headline-lg font-bold">Capital Chronicle ContentOps Command Center</h1>
+<div class="grid grid-cols-4 gap-4 mt-2">
+<div class="panel p-3">
+<div class="text-[10px] text-on-surface-variant uppercase tracking-widest mb-1">SYSTEM MODE</div>
+<div class="font-mono-data text-primary">local / static / fixture-driven</div>
+</div>
+<div class="panel p-3">
+<div class="text-[10px] text-on-surface-variant uppercase tracking-widest mb-1">SCREEN BASELINE (HISTORICAL)</div>
+<div class="font-mono-data">1c03ca0</div>
+</div>
+<div class="panel p-3">
+<div class="text-[10px] text-on-surface-variant uppercase tracking-widest mb-1">KILL SWITCH</div>
+<div class="font-mono-data text-error font-bold">active</div>
+</div>
+<div class="panel p-3">
+<div class="text-[10px] text-on-surface-variant uppercase tracking-widest mb-1">PUBLIC STATE</div>
+<div class="font-mono-data">not_public_postable</div>
+</div>
+</div>
+</div>
+<!-- 1. EXECUTIVE STATUS Grid -->
+<section class="mb-8">
+<h2 class="font-mono-label text-mono-label uppercase text-on-surface-variant mb-3 border-b border-technical pb-1">Executive Status</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<div class="panel p-panel-padding hover:border-primary transition-colors cursor-default">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-headline-md text-headline-md text-on-surface">System Safety</h3>
+<span class="status-chip text-[#a3defe] text-[10px] px-2 py-1 font-bold uppercase rounded-sm font-mono-data">PASS</span>
+</div>
+<p class="text-on-surface-variant text-sm">Kill switch active. Live disabled. Review-only. Not public-postable.</p>
+</div>
+<div class="panel p-panel-padding hover:border-primary transition-colors cursor-default">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-headline-md text-headline-md text-on-surface">Build Baseline</h3>
+<span class="status-chip text-[#a3defe] text-[10px] px-2 py-1 font-bold uppercase rounded-sm font-mono-data">PASS</span>
+</div>
+<p class="text-on-surface-variant text-sm">Accepted HEAD 1c03ca0. 0160 static shell prototype accepted.</p>
+</div>
+<div class="panel p-panel-padding border-outline-variant hover:border-primary transition-colors cursor-default opacity-70">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-headline-md text-headline-md text-on-surface">Publish Automation</h3>
+<span class="status-chip text-error text-[10px] px-2 py-1 font-bold uppercase rounded-sm font-mono-data">LIVE DISABLED</span>
+</div>
+<p class="text-on-surface-variant text-sm">Dry-run only. Platform API disabled. One-button publish-all disabled.</p>
+</div>
+<div class="panel p-panel-padding hover:border-primary transition-colors cursor-default">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-headline-md text-headline-md text-on-surface">Evidence / Audit</h3>
+<span class="status-chip text-[#a3defe] text-[10px] px-2 py-1 font-bold uppercase rounded-sm font-mono-data">PASS</span>
+</div>
+<p class="text-on-surface-variant text-sm">Full suite green at fixture baseline. Secret scan clean. Forbidden scope clean.</p>
+</div>
+<div class="panel p-panel-padding hover:border-primary transition-colors cursor-default">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-headline-md text-headline-md text-on-surface">UI Rebuild Track</h3>
+<span class="status-chip text-[#ffd54f] text-[10px] px-2 py-1 font-bold uppercase rounded-sm font-mono-data">REVIEW REQUIRED</span>
+</div>
+<p class="text-on-surface-variant text-sm">0157-0160 accepted. 0161 current. Antigravity future-only.</p>
+</div>
+<div class="panel p-panel-padding hover:border-primary transition-colors cursor-default">
+<div class="flex justify-between items-start mb-3">
+<h3 class="font-headline-md text-headline-md text-on-surface">Residual Drift</h3>
+<span class="status-chip text-[#ffb4ab] text-[10px] px-2 py-1 font-bold uppercase rounded-sm font-mono-data">MANUAL ONLY</span>
+</div>
+<p class="text-on-surface-variant text-sm">Local env file and strategy docs untouched/untracked. No cleanup allowed.</p>
+</div>
+</div>
+</section>
+<!-- 2. GATE TIMELINE -->
+<section class="mb-8">
+<h2 class="font-mono-label text-mono-label uppercase text-on-surface-variant mb-3 border-b border-technical pb-1">Gate Timeline</h2>
+<div class="flex overflow-x-auto pb-4 gap-3 no-scrollbar inset-panel p-4 items-center">
+<div class="flex flex-col min-w-[140px] panel p-3 border-l-2 border-l-[#a3defe]">
+<div class="flex justify-between items-center mb-2">
+<span class="font-mono-data text-primary font-bold">0157</span>
+<span class="material-symbols-outlined text-[14px] text-[#a3defe]">check_circle</span>
+</div>
+<div class="text-xs text-on-surface-variant truncate">UI/UX master plan</div>
+</div>
+<div class="w-4 h-[1px] bg-technical"></div>
+<div class="flex flex-col min-w-[140px] panel p-3 border-l-2 border-l-[#a3defe]">
+<div class="flex justify-between items-center mb-2">
+<span class="font-mono-data text-primary font-bold">0158</span>
+<span class="material-symbols-outlined text-[14px] text-[#a3defe]">check_circle</span>
+</div>
+<div class="text-xs text-on-surface-variant truncate">design system</div>
+</div>
+<div class="w-4 h-[1px] bg-technical"></div>
+<div class="flex flex-col min-w-[140px] panel p-3 border-l-2 border-l-[#a3defe]">
+<div class="flex justify-between items-center mb-2">
+<span class="font-mono-data text-primary font-bold">0159</span>
+<span class="material-symbols-outlined text-[14px] text-[#a3defe]">check_circle</span>
+</div>
+<div class="text-xs text-on-surface-variant truncate">view-model contract</div>
+</div>
+<div class="w-4 h-[1px] bg-technical"></div>
+<div class="flex flex-col min-w-[140px] panel p-3 border-l-2 border-l-[#a3defe]">
+<div class="flex justify-between items-center mb-2">
+<span class="font-mono-data text-primary font-bold">0160</span>
+<span class="material-symbols-outlined text-[14px] text-[#a3defe]">check_circle</span>
+</div>
+<div class="text-xs text-on-surface-variant truncate">static shell prototype</div>
+</div>
+<div class="w-4 h-[1px] bg-technical"></div>
+<div class="flex flex-col min-w-[140px] panel p-3 border-l-2 border-l-[#ffd54f] bg-surface-container-highest shadow-[inset_0_0_0_1px_#ffd54f]">
+<div class="flex justify-between items-center mb-2">
+<span class="font-mono-data text-on-surface font-bold">0161</span>
+<span class="material-symbols-outlined text-[14px] text-[#ffd54f]">pending</span>
+</div>
+<div class="text-xs text-on-surface truncate">command center screen</div>
+</div>
+<div class="w-4 h-[1px] bg-technical opacity-30 border-dashed border-t border-technical"></div>
+<div class="flex flex-col min-w-[140px] panel p-3 opacity-50 border-l-2 border-l-outline-variant">
+<div class="flex justify-between items-center mb-2">
+<span class="font-mono-data text-on-surface-variant">0162</span>
+<span class="material-symbols-outlined text-[14px] text-outline-variant">radio_button_unchecked</span>
+</div>
+<div class="text-xs text-on-surface-variant truncate">content studio rebuild</div>
+</div>
+</div>
+</section>
+<!-- 3. BLOCKED ACTION MATRIX -->
+<section class="mb-8">
+<h2 class="font-mono-label text-mono-label uppercase text-on-surface-variant mb-3 border-b border-technical pb-1">Blocked Action Matrix</h2>
+<div class="inset-panel p-panel-padding grid grid-cols-2 md:grid-cols-4 gap-3">
+<div class="flex items-center gap-2 p-2 border border-technical bg-[#121417] text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="font-mono-data text-[10px] uppercase">live posting — disabled</span>
+</div>
+<div class="flex items-center gap-2 p-2 border border-technical bg-[#121417] text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="font-mono-data text-[10px] uppercase">scheduler — disabled</span>
+</div>
+<div class="flex items-center gap-2 p-2 border border-technical bg-[#121417] text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="font-mono-data text-[10px] uppercase">platform api — disabled</span>
+</div>
+<div class="flex items-center gap-2 p-2 border border-technical bg-[#121417] text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="font-mono-data text-[10px] uppercase">provider llm api — disabled</span>
+</div>
+<div class="flex items-center gap-2 p-2 border border-technical bg-[#121417] text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="font-mono-data text-[10px] uppercase">scraping — disabled</span>
+</div>
+<div class="flex items-center gap-2 p-2 border border-technical bg-[#121417] text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="font-mono-data text-[10px] uppercase">autonomous replies dms — disabled</span>
+</div>
+<div class="flex items-center gap-2 p-2 border border-technical bg-[#121417] text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="font-mono-data text-[10px] uppercase">one button publish all — disabled</span>
+</div>
+<div class="flex items-center gap-2 p-2 border border-technical bg-[#121417] text-on-surface-variant opacity-60">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+<span class="font-mono-data text-[10px] uppercase">public ready final copy — disabled</span>
+</div>
+</div>
+</section>
+<!-- 4. EVIDENCE / AUDIT SUMMARY -->
+<section class="mb-24">
+<h2 class="font-mono-label text-mono-label uppercase text-on-surface-variant mb-3 border-b border-technical pb-1">Evidence / Audit Summary</h2>
+<div class="panel">
+<table class="w-full text-left font-mono-data text-sm">
+<tbody>
+<tr class="border-b border-technical">
+<td class="py-3 px-4 text-on-surface-variant w-1/3">full suite result:</td>
+<td class="py-3 px-4 text-on-surface font-bold">1402 passed, 28 skipped (fixture baseline)</td>
+</tr>
+<tr class="border-b border-technical">
+<td class="py-3 px-4 text-on-surface-variant">focused tests result:</td>
+<td class="py-3 px-4 text-on-surface">shell + command center focused tests passing</td>
+</tr>
+<tr class="border-b border-technical">
+<td class="py-3 px-4 text-on-surface-variant">cli summaries:</td>
+<td class="py-3 px-4 text-[#a3defe]">passing</td>
+</tr>
+<tr class="border-b border-technical">
+<td class="py-3 px-4 text-on-surface-variant">secret scan status:</td>
+<td class="py-3 px-4 text-[#a3defe] font-bold">clean (0 secrets)</td>
+</tr>
+<tr>
+<td class="py-3 px-4 text-on-surface-variant">forbidden scope status:</td>
+<td class="py-3 px-4 text-[#a3defe]">clean</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<!-- 5. NEXT ALLOWED ACTION (Footer Bar) -->
+<footer class="fixed bottom-0 left-[220px] right-0 bg-primary-container border-t-2 border-[#a3defe] p-4 z-50 flex items-center justify-between">
+<div class="flex flex-col gap-1">
+<span class="font-mono-label text-[10px] text-on-primary-container uppercase tracking-widest">Next Allowed Action Directive</span>
+<span class="font-mono-data text-[#a3defe] font-bold text-sm">AWAIT OPERATOR/CHATGPT AUDIT_OF_0161_EVIDENCE_BEFORE_ANY_NEXT_TASK</span>
+</div>
+<button class="border border-[#a3defe] text-[#a3defe] px-4 py-2 font-mono-data text-xs hover:bg-[#a3defe] hover:text-[#000000] transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+            ACKNOWLEDGE &amp; PROCEED
+        </button>
+</footer>
+</body></html>

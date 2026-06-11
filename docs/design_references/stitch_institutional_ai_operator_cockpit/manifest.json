@@ -1,0 +1,87 @@
+{
+  "task_label": "TASK_CONTENTOPS_0174H_QUARANTINED_STITCH_VISUAL_REFERENCE_IMPORT_FOR_CLINE_V1",
+  "created_at_local": "2026-06-11",
+  "source_folder": "C:\\Users\\bullw\\Downloads\\stitch_capital_chronicle_governance_terminal\\stitch_capital_chronicle_governance_terminal",
+  "destination_folder": "docs/design_references/stitch_institutional_ai_operator_cockpit/",
+  "quarantine_status": true,
+  "runtime_authority": false,
+  "imported_file_count": 4,
+  "skipped_file_count": 3,
+  "imported_files": [
+    {
+      "source_relative_path": "command_center_capital_chronicle\\command_center_capital_chronicle.html",
+      "destination_relative_path": "raw/command_center_capital_chronicle/command_center_capital_chronicle.html",
+      "file_type": "html",
+      "size_bytes": 25937,
+      "sha256": "07E1B15985F0828E27702FD25ABA6A5DF10B913A8B0E32B703EFA4B6CBD1D891",
+      "classification": "raw_html_reference",
+      "runtime_allowed": false,
+      "notes": "Stitch Command Center reference screen. Contains Tailwind CDN, Google Fonts, Material Symbols remote links - forbidden for runtime."
+    },
+    {
+      "source_relative_path": "evidence_vault_capital_chronicle\\evidence_vault_capital_chronicle.html",
+      "destination_relative_path": "raw/evidence_vault_capital_chronicle/evidence_vault_capital_chronicle.html",
+      "file_type": "html",
+      "size_bytes": 22194,
+      "sha256": "791D458519FFEF7093C4BBB68C330603AE10CCA5FE9724B505F1DC62F82F9A2B",
+      "classification": "raw_html_reference",
+      "runtime_allowed": false,
+      "notes": "Stitch Evidence Vault + Audit Timeline reference screen. Contains remote runtime links - forbidden for runtime."
+    },
+    {
+      "source_relative_path": "publish_readiness_tower_capital_chronicle\\publish_readiness_tower_capital_chronicle.html",
+      "destination_relative_path": "raw/publish_readiness_tower_capital_chronicle/publish_readiness_tower_capital_chronicle.html",
+      "file_type": "html",
+      "size_bytes": 28136,
+      "sha256": "CD5DE44D6734FFE975113FD08B11A3643101B552C5A10373F718D1C4E7171F34",
+      "classification": "raw_html_reference",
+      "runtime_allowed": false,
+      "notes": "Stitch Publish Readiness Tower reference screen. Contains remote runtime links - forbidden for runtime."
+    },
+    {
+      "source_relative_path": "technical_matte_operator\\DESIGN.md",
+      "destination_relative_path": "raw/technical_matte_operator/DESIGN.md",
+      "file_type": "md",
+      "size_bytes": 8095,
+      "sha256": "304EB86D650D06BBF2A31528CE4C789F9F73F9F7188535ED1EBDE88BAF0A46B5",
+      "classification": "design_markdown_reference",
+      "runtime_allowed": false,
+      "notes": "Technical Matte Operator design system tokens (colors, typography, spacing, elevation, shapes, components)."
+    }
+  ],
+  "skipped_files": [
+    {
+      "source_relative_path": "command_center_capital_chronicle\\command_center_capital_chronicle.png",
+      "reason": "Large screenshot image (378535 bytes). Images are not Cline-primary evidence; not directly referenced by HTML/CSS. Skipped per image rule."
+    },
+    {
+      "source_relative_path": "evidence_vault_capital_chronicle\\evidence_vault_capital_chronicle.png",
+      "reason": "Large screenshot image (410466 bytes). Images are not Cline-primary evidence; not directly referenced by HTML/CSS. Skipped per image rule."
+    },
+    {
+      "source_relative_path": "publish_readiness_tower_capital_chronicle\\publish_readiness_tower_capital_chronicle.png",
+      "reason": "Large screenshot image (233512 bytes). Images are not Cline-primary evidence; not directly referenced by HTML/CSS. Skipped per image rule."
+    }
+  ],
+  "forbidden_runtime_patterns_detected_in_raw_reference": [
+    {
+      "pattern": "cdn.tailwindcss.com",
+      "files": ["raw/command_center_capital_chronicle/command_center_capital_chronicle.html", "raw/evidence_vault_capital_chronicle/evidence_vault_capital_chronicle.html", "raw/publish_readiness_tower_capital_chronicle/publish_readiness_tower_capital_chronicle.html"],
+      "decision": "rejected_for_runtime"
+    },
+    {
+      "pattern": "fonts.googleapis.com",
+      "files": ["raw/command_center_capital_chronicle/command_center_capital_chronicle.html", "raw/evidence_vault_capital_chronicle/evidence_vault_capital_chronicle.html", "raw/publish_readiness_tower_capital_chronicle/publish_readiness_tower_capital_chronicle.html"],
+      "decision": "rejected_for_runtime"
+    },
+    {
+      "pattern": "Material Symbols Outlined (remote font)",
+      "files": ["raw/command_center_capital_chronicle/command_center_capital_chronicle.html", "raw/evidence_vault_capital_chronicle/evidence_vault_capital_chronicle.html", "raw/publish_readiness_tower_capital_chronicle/publish_readiness_tower_capital_chronicle.html"],
+      "decision": "rejected_for_runtime"
+    }
+  ],
+  "secret_scan_result": "clean - no credential/api-key/token/private-key/provider-token patterns detected in source text files",
+  "no_env_read": true,
+  "no_runtime_import": true,
+  "no_ui_mutation": true
+}

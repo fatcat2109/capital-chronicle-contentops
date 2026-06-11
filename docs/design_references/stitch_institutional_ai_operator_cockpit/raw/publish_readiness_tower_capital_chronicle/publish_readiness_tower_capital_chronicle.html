@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Capital Chronicle ContentOps - Publish Readiness Tower</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#141313",
+                    "on-tertiary": "#362f29",
+                    "secondary": "#c4c6ce",
+                    "on-primary-fixed-variant": "#45474a",
+                    "secondary-fixed": "#e1e2ea",
+                    "on-surface-variant": "#c6c6ca",
+                    "on-tertiary-fixed": "#201b15",
+                    "on-secondary-fixed-variant": "#44474d",
+                    "inverse-primary": "#5d5e62",
+                    "tertiary-container": "#18130e",
+                    "surface-container": "#201f20",
+                    "secondary-container": "#464950",
+                    "outline-variant": "#45474a",
+                    "background": "#141313",
+                    "primary-container": "#121417",
+                    "on-tertiary-container": "#867d75",
+                    "on-error": "#690005",
+                    "inverse-surface": "#e5e2e1",
+                    "inverse-on-surface": "#313030",
+                    "on-background": "#e5e2e1",
+                    "primary": "#c6c6ca",
+                    "surface-container-lowest": "#0e0e0e",
+                    "on-secondary": "#2d3037",
+                    "primary-fixed": "#e2e2e6",
+                    "on-secondary-container": "#b6b8c0",
+                    "surface-dim": "#141313",
+                    "surface-container-highest": "#353435",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed": "#ece0d8",
+                    "surface-container-high": "#2a2a2a",
+                    "surface-tint": "#c6c6ca",
+                    "surface-container-low": "#1c1b1c",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-fixed": "#191c22",
+                    "error-container": "#93000a",
+                    "on-primary-fixed": "#1a1c1f",
+                    "on-primary": "#2f3034",
+                    "surface-variant": "#353435",
+                    "tertiary-fixed-dim": "#cfc5bc",
+                    "on-tertiary-fixed-variant": "#4d453f",
+                    "primary-fixed-dim": "#c6c6ca",
+                    "on-primary-container": "#7d7e82",
+                    "outline": "#8f9094",
+                    "on-surface": "#e5e2e1",
+                    "tertiary": "#cfc5bc",
+                    "surface-bright": "#3a3939",
+                    "secondary-fixed-dim": "#c4c6ce"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "safety-ribbon-height": "32px",
+                    "panel-padding": "1.25rem",
+                    "gutter": "1rem",
+                    "stack-sm": "0.25rem",
+                    "stack-md": "0.75rem",
+                    "nav-width": "220px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "mono-data": ["JetBrains Mono"],
+                    "headline-md": ["Inter"],
+                    "mono-label": ["JetBrains Mono"],
+                    "body-sm": ["Inter"],
+                    "safety-status": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "headline-lg": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "mono-data": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "headline-md": ["16px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "mono-label": ["11px", {"lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-sm": ["11px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "safety-status": ["10px", {"lineHeight": "12px", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Custom Scrollbar for a technical feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0e0e0e; 
+            border-left: 1px solid #45474a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #353435; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #45474a; 
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-hidden selection:bg-secondary-container selection:text-on-surface flex flex-col h-screen">
+<!-- TopAppBar (Small) - Safety Ribbon -->
+<nav class="fixed top-0 w-full flex items-center px-gutter gap-stack-md z-50 bg-surface-container-lowest border-b border-outline-variant h-[safety-ribbon-height] overflow-x-auto hide-scrollbar whitespace-nowrap">
+<div class="flex items-center gap-4 text-mono-label font-mono-label text-error">
+<span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> LOCAL ONLY</span>
+<span class="text-outline-variant">/</span>
+<span>DRY RUN ONLY</span>
+<span class="text-outline-variant">/</span>
+<span>REVIEW ONLY</span>
+<span class="text-outline-variant">/</span>
+<span>MANUAL REVIEW REQUIRED</span>
+<span class="text-outline-variant">/</span>
+<span>NOT PUBLIC POSTABLE</span>
+<span class="text-outline-variant">/</span>
+<span>LIVE DISABLED</span>
+<span class="text-outline-variant">/</span>
+<span class="font-bold">KILL SWITCH ACTIVE</span>
+<span class="text-outline-variant">/</span>
+<span>SECRET REDACTED</span>
+<span class="text-outline-variant">/</span>
+<span>NO FINANCIAL ADVICE</span>
+<span class="text-outline-variant">/</span>
+<span>NO SIGNAL LANGUAGE</span>
+</div>
+</nav>
+<div class="flex flex-1 pt-[safety-ribbon-height] w-full h-full">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col fixed left-0 top-[safety-ribbon-height] h-[calc(100vh-32px)] w-[nav-width] bg-surface-container border-r border-outline-variant py-panel-padding z-40">
+<div class="px-4 mb-8">
+<div class="font-headline-lg text-headline-lg text-on-surface">Capital Chronicle</div>
+<div class="font-mono-data text-mono-data text-on-surface-variant uppercase mt-1">ContentOps v1.0.2</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface rounded-sm transition-colors group" href="#">
+<span class="material-symbols-outlined text-[18px] opacity-70 group-hover:opacity-100">terminal</span>
+<span class="font-body-sm text-body-sm">Command Center</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface rounded-sm transition-colors group" href="#">
+<span class="material-symbols-outlined text-[18px] opacity-70 group-hover:opacity-100">edit_note</span>
+<span class="font-body-sm text-body-sm">Content Studio</span>
+</a>
+<!-- Active Nav Item -->
+<a class="flex items-center gap-3 px-3 py-2 text-primary font-bold border-l-2 border-primary bg-secondary-container/10 rounded-r-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">account_tree</span>
+<span class="font-body-sm text-body-sm">Publish Readiness Tower</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface rounded-sm transition-colors group" href="#">
+<span class="material-symbols-outlined text-[18px] opacity-70 group-hover:opacity-100">folder_zip</span>
+<span class="font-body-sm text-body-sm">Evidence Vault</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface rounded-sm transition-colors group" href="#">
+<span class="material-symbols-outlined text-[18px] opacity-70 group-hover:opacity-100">calendar_today</span>
+<span class="font-body-sm text-body-sm">Calendar</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface rounded-sm transition-colors group" href="#">
+<span class="material-symbols-outlined text-[18px] opacity-70 group-hover:opacity-100">image</span>
+<span class="font-body-sm text-body-sm">Visual Export</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface rounded-sm transition-colors group" href="#">
+<span class="material-symbols-outlined text-[18px] opacity-70 group-hover:opacity-100">settings</span>
+<span class="font-body-sm text-body-sm">Settings</span>
+</a>
+</nav>
+<div class="px-2 mt-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface rounded-sm transition-colors group" href="#">
+<span class="material-symbols-outlined text-[18px] opacity-70 group-hover:opacity-100">security</span>
+<span class="font-body-sm text-body-sm">Safety Policy</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-[nav-width] relative w-full h-[calc(100vh-32px)] bg-background">
+<!-- TopAppBar (Medium) - System Header -->
+<header class="sticky top-0 w-full flex items-center justify-between px-gutter py-3 bg-surface-container-low border-b border-outline-variant z-30 min-h-[48px]">
+<div class="flex items-center gap-6 overflow-x-auto hide-scrollbar whitespace-nowrap">
+<div class="flex flex-col gap-0.5">
+<span class="font-mono-label text-mono-label uppercase text-on-surface-variant opacity-60">System Mode</span>
+<span class="font-mono-data text-mono-data text-on-surface">local_pre_alpha</span>
+</div>
+<div class="w-px h-6 bg-outline-variant"></div>
+<div class="flex flex-col gap-0.5">
+<span class="font-mono-label text-mono-label uppercase text-on-surface-variant opacity-60">Accepted Head</span>
+<span class="font-mono-data text-mono-data text-on-surface">444ef2c</span>
+</div>
+<div class="w-px h-6 bg-outline-variant"></div>
+<div class="flex flex-col gap-0.5">
+<span class="font-mono-label text-mono-label uppercase text-on-surface-variant opacity-60">Kill Switch</span>
+<span class="font-mono-data text-mono-data text-error font-bold flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> ACTIVE
+                        </span>
+</div>
+<div class="w-px h-6 bg-outline-variant"></div>
+<div class="flex flex-col gap-0.5">
+<span class="font-mono-label text-mono-label uppercase text-on-surface-variant opacity-60">Current Gate</span>
+<span class="font-mono-data text-mono-data text-primary">0170 browser qa evidence + metadata reconciliation</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="p-1 text-on-surface-variant hover:text-primary transition-colors border border-transparent hover:border-outline-variant rounded-sm" title="History">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:text-primary transition-colors border border-transparent hover:border-outline-variant rounded-sm" title="Refresh">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Workspace -->
+<div class="flex-1 overflow-y-auto p-gutter lg:p-panel-padding pb-32">
+<div class="max-w-[1400px] mx-auto space-y-8">
+<!-- Header Panel -->
+<div class="border border-outline-variant bg-surface-container p-6 relative overflow-hidden">
+<!-- Decorative top accent -->
+<div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary to-transparent opacity-30"></div>
+<div class="mb-2">
+<span class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest bg-surface-container-lowest px-2 py-1 border border-outline-variant rounded-sm inline-block mb-3">SCREENSHOT-SAFE / LOCAL ONLY / NOT PUBLIC-POSTABLE</span>
+<h1 class="font-headline-lg text-[24px] font-bold text-on-surface tracking-tight">Capital Chronicle Publish Readiness Tower</h1>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6 pt-6 border-t border-outline-variant/50">
+<div>
+<div class="font-mono-label text-mono-label text-on-surface-variant uppercase mb-1">Publish Mode</div>
+<div class="font-mono-data text-mono-data text-on-surface bg-surface-container-lowest px-2 py-1.5 border border-outline-variant inline-block">dry-run / readiness-only</div>
+</div>
+<div>
+<div class="font-mono-label text-mono-label text-on-surface-variant uppercase mb-1">Public State</div>
+<div class="font-mono-data text-mono-data text-error bg-surface-container-lowest px-2 py-1.5 border border-outline-variant inline-block">not_public_postable</div>
+</div>
+<div>
+<div class="font-mono-label text-mono-label text-on-surface-variant uppercase mb-1">Live State</div>
+<div class="font-mono-data text-mono-data text-error bg-surface-container-lowest px-2 py-1.5 border border-outline-variant inline-block">disabled</div>
+</div>
+<div>
+<div class="font-mono-label text-mono-label text-on-surface-variant uppercase mb-1">Platform API</div>
+<div class="font-mono-data text-mono-data text-error bg-surface-container-lowest px-2 py-1.5 border border-outline-variant inline-block">disabled</div>
+</div>
+</div>
+</div>
+<!-- Platform Capability Registry Grid -->
+<section>
+<h2 class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest mb-4 flex items-center gap-2">
+<span class="w-1 h-3 bg-primary block"></span>
+                            Platform Capability Registry (Dry-Run)
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1px] bg-outline-variant border border-outline-variant">
+<!-- Card Template: Telegram -->
+<div class="bg-surface-container-low p-4 flex flex-col gap-3 hover:bg-surface-container transition-colors group">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">Telegram</h3>
+<div class="font-mono-data text-[10px] text-on-surface-variant mt-0.5">future pilot channel</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[18px]">send</span>
+</div>
+<div class="flex flex-col gap-1.5 mt-2">
+<div class="flex items-center gap-2 font-mono-data text-[10px] uppercase">
+<span class="flex items-center justify-center w-3 h-3 border border-primary text-primary rounded-sm bg-primary/10">■</span>
+<span class="text-on-surface">dry-run</span>
+<span class="text-outline-variant mx-1">|</span>
+<span class="flex items-center justify-center w-3 h-3 border border-error text-error rounded-sm">✕</span>
+<span class="text-error">live api: disabled</span>
+</div>
+<div class="flex items-center gap-2 font-mono-data text-[10px] uppercase">
+<span class="flex items-center justify-center w-3 h-3 border border-error text-error rounded-sm">✕</span>
+<span class="text-error">scheduling: disabled</span>
+</div>
+<div class="flex items-center gap-2 font-mono-data text-[10px] uppercase">
+<span class="flex items-center justify-center w-3 h-3 border border-error text-error rounded-sm">✕</span>
+<span class="text-error">not public-postable</span>
+</div>
+</div>
+<div class="mt-auto pt-3 border-t border-outline-variant/50 flex flex-col gap-1 font-mono-data text-[10px]">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Credential:</span>
+<span class="text-on-surface truncate ml-2">redacted_presence_only</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Next blocker:</span>
+<span class="text-on-surface truncate ml-2">docs verification</span>
+</div>
+</div>
+</div>
+<!-- Card Template: X -->
+<div class="bg-surface-container-low p-4 flex flex-col gap-3 hover:bg-surface-container transition-colors group">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">X</h3>
+<div class="font-mono-data text-[10px] text-on-surface-variant mt-0.5">short education hooks</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[18px]">close</span>
+</div>
+<div class="flex flex-col gap-1.5 mt-2">
+<div class="flex items-center gap-2 font-mono-data text-[10px] uppercase">
+<span class="flex items-center justify-center w-3 h-3 border border-primary text-primary rounded-sm bg-primary/10">■</span>
+<span class="text-on-surface">dry-run</span>
+<span class="text-outline-variant mx-1">|</span>
+<span class="flex items-center justify-center w-3 h-3 border border-error text-error rounded-sm">✕</span>
+<span class="text-error">live api: disabled</span>
+</div>
+<div class="flex items-center gap-2 font-mono-data text-[10px] uppercase">
+<span class="flex items-center justify-center w-3 h-3 border border-error text-error rounded-sm">✕</span>
+<span class="text-error">scheduling: disabled</span>
+</div>
+</div>
+<div class="mt-auto pt-3 border-t border-outline-variant/50 flex flex-col gap-1 font-mono-data text-[10px]">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Credential:</span>
+<span class="text-on-surface truncate ml-2 text-right">not_configured_redacted</span>
+</div>
+</div>
+</div>
+<!-- Card Template: LinkedIn -->
+<div class="bg-surface-container-low p-4 flex flex-col gap-3 hover:bg-surface-container transition-colors group">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">LinkedIn</h3>
+<div class="font-mono-data text-[10px] text-on-surface-variant mt-0.5">professional insight</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[18px]">work</span>
+</div>
+<div class="flex flex-col gap-1.5 mt-2">
+<div class="flex items-center gap-2 font-mono-data text-[10px] uppercase">
+<span class="flex items-center justify-center w-3 h-3 border border-primary text-primary rounded-sm bg-primary/10">■</span>
+<span class="text-on-surface">dry-run</span>
+<span class="text-outline-variant mx-1">|</span>
+<span class="flex items-center justify-center w-3 h-3 border border-error text-error rounded-sm">✕</span>
+<span class="text-error">live api: disabled</span>
+</div>
+</div>
+<div class="mt-auto pt-3 border-t border-outline-variant/50 flex flex-col gap-1 font-mono-data text-[10px]">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Credential:</span>
+<span class="text-on-surface truncate ml-2 text-right">not_configured_redacted</span>
+</div>
+</div>
+</div>
+<!-- Card Template: Threads -->
+<div class="bg-surface-container-low p-4 flex flex-col gap-3 hover:bg-surface-container transition-colors group">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">Threads</h3>
+<div class="font-mono-data text-[10px] text-on-surface-variant mt-0.5">conversational mirror</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[18px]">forum</span>
+</div>
+<div class="flex flex-col gap-1.5 mt-2">
+<div class="flex items-center gap-2 font-mono-data text-[10px] uppercase">
+<span class="flex items-center justify-center w-3 h-3 border border-primary text-primary rounded-sm bg-primary/10">■</span>
+<span class="text-on-surface">dry-run</span>
+</div>
+</div>
+<div class="mt-auto pt-3 border-t border-outline-variant/50 flex flex-col gap-1 font-mono-data text-[10px]">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Credential:</span>
+<span class="text-on-surface truncate ml-2 text-right">not_configured_redacted</span>
+</div>
+</div>
+</div>
+<!-- Card Template: Substack -->
+<div class="bg-surface-container-low p-4 flex flex-col gap-3 hover:bg-surface-container transition-colors group">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide">Substack</h3>
+<div class="font-mono-data text-[10px] text-on-surface-variant mt-0.5">long-form home</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[18px]">article</span>
+</div>
+<div class="mt-auto pt-3 border-t border-outline-variant/50 flex flex-col gap-1 font-mono-data text-[10px]">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Credential:</span>
+<span class="text-on-surface truncate ml-2 text-right">not_configured</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dense Layout: Tables/Lists -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Left Column -->
+<div class="space-y-8">
+<section>
+<h2 class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest mb-4 border-b border-outline-variant pb-2">Dry-Run Batch Manifest</h2>
+<div class="bg-surface-container-lowest border border-outline-variant flex flex-col font-mono-data text-[11px]">
+<div class="flex justify-between items-center p-2.5 border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors">
+<span class="text-on-surface-variant">fixture mock payload only:</span>
+<span class="text-on-surface font-bold">true</span>
+</div>
+<div class="flex justify-between items-center p-2.5 border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors">
+<span class="text-on-surface-variant">real platform payload dispatch:</span>
+<span class="text-error font-bold">false</span>
+</div>
+<div class="flex justify-between items-center p-2.5 border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors">
+<span class="text-on-surface-variant">source lineage required:</span>
+<span class="text-on-surface font-bold">true</span>
+</div>
+<div class="flex justify-between items-center p-2.5 hover:bg-surface-container-low transition-colors">
+<span class="text-on-surface-variant">manual approval gate required:</span>
+<span class="text-on-surface font-bold">true</span>
+</div>
+</div>
+</section>
+<section>
+<h2 class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest mb-4 border-b border-outline-variant pb-2">Evidence / Audit Summary</h2>
+<div class="bg-surface-container-lowest border border-outline-variant flex flex-col font-mono-data text-[11px]">
+<div class="flex justify-between items-center p-2.5 border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors">
+<span class="text-on-surface-variant">publish automation readiness:</span>
+<a class="text-primary hover:underline flex items-center gap-1" href="#">linked <span class="material-symbols-outlined text-[12px]">open_in_new</span></a>
+</div>
+<div class="flex justify-between items-center p-2.5 border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors">
+<span class="text-on-surface-variant">credential policy:</span>
+<a class="text-primary hover:underline flex items-center gap-1" href="#">linked <span class="material-symbols-outlined text-[12px]">open_in_new</span></a>
+</div>
+<div class="flex justify-between items-center p-2.5 hover:bg-surface-container-low transition-colors">
+<span class="text-on-surface-variant">redacted audit log:</span>
+<a class="text-primary hover:underline flex items-center gap-1" href="#">linked <span class="material-symbols-outlined text-[12px]">open_in_new</span></a>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column -->
+<div class="space-y-8">
+<section>
+<h2 class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest mb-4 border-b border-outline-variant pb-2 text-error">Kill Switch Gate Status</h2>
+<div class="bg-error-container/10 border border-error p-4 flex flex-col gap-3 font-mono-data">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error text-[24px]">gpp_bad</span>
+<div>
+<div class="text-error text-[14px] font-bold uppercase tracking-wider">kill switch active: true</div>
+<div class="text-on-surface-variant text-[11px] mt-1">System is in hard-block state. No outbound mutations permitted.</div>
+</div>
+</div>
+<div class="border-t border-error/30 mt-2 pt-3 flex flex-col gap-2 text-[11px]">
+<div class="flex justify-between">
+<span class="text-error/70">blocks publishing:</span>
+<span class="text-error font-bold">true</span>
+</div>
+<div class="flex justify-between">
+<span class="text-error/70">no publish while active:</span>
+<span class="text-error font-bold">true</span>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h2 class="font-mono-label text-mono-label text-on-surface-variant uppercase tracking-widest mb-4 border-b border-outline-variant pb-2">Manual Approval Gate</h2>
+<div class="bg-surface-container-lowest border border-outline-variant flex flex-col font-mono-data text-[11px]">
+<div class="flex justify-between items-center p-2.5 border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors">
+<span class="text-on-surface-variant">approval required before live publish:</span>
+<span class="text-on-surface font-bold">true</span>
+</div>
+<div class="flex justify-between items-center p-2.5 border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors bg-secondary-container/10">
+<span class="text-on-surface-variant">current state:</span>
+<span class="text-primary font-bold">review_only_dry_run</span>
+</div>
+<div class="flex justify-between items-center p-2.5 border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors">
+<span class="text-on-surface-variant">operator decision required:</span>
+<span class="text-on-surface font-bold">true</span>
+</div>
+<div class="flex justify-between items-center p-2.5 hover:bg-surface-container-low transition-colors">
+<span class="text-on-surface-variant">auto approval:</span>
+<span class="text-error font-bold">false</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Next Allowed Action Bottom Bar -->
+<div class="mt-12 bg-surface-container border border-outline-variant p-6 flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+<div>
+<div class="font-mono-label text-mono-label text-on-surface-variant uppercase mb-2">Next Allowed Action</div>
+<div class="font-mono-data text-mono-data text-primary font-bold tracking-wide">
+                                AWAIT OPERATOR/CHATGPT AUDIT_OF_0163_EVIDENCE_BEFORE_ANY_NEXT_TASK
+                            </div>
+</div>
+<button class="px-6 py-2.5 border border-outline-variant bg-surface-container-highest hover:bg-surface-bright text-on-surface font-mono-label text-mono-label uppercase tracking-widest transition-colors self-stretch lg:self-auto flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">done_all</span>
+                            Acknowledge Status
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
