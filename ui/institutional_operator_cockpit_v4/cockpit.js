@@ -91,11 +91,42 @@
   function renderCommandCenter(s, body) {
     body.appendChild(renderBand(s.verdict));
 
-    var changed = panel("What Changed Since Last Accepted State");
-    var ul = el("ul");
-    s.what_changed.forEach(function (c) { ul.appendChild(el("li", null, c)); });
-    changed.appendChild(ul);
-    changed.classList.add("section-gap");
+    /* Integrated mission-control decision band: verdict token + next action +
+       blocker count + evidence count in one scan-fast grid. */
+    var mission = el("div", "mission-grid section-gap");
+    var nextAction = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];
+    var cells = [
+      ["Current Verdict", s.verdict.status, "verdict"],
+      ["Next Allowed Action", nextAction ? nextAction.value : "", "next"],
+      ["Active Blockers", String(MODEL.blocker_stack.length), "count"],
+      ["Evidence Refs", String(MODEL.evidence_refs.length), "count"],
+      ["Provenance", "current vs historical (labeled)", "prov"]
+    ];
+    cells.forEach(function (cdef) {
+      var cell = el("div", "decision-stack kind-" + cdef[2]);
+      cell.appendChild(el("div", "data-label", cdef[0]));
+      if (cdef[2] === "verdict") {
+        cell.appendChild(el("span", "token " + cdef[1], cdef[1]));
+      } else {
+        cell.appendChild(el("div", "decision-value", cdef[1]));
+      }
+      mission.appendChild(cell);
+    });
+    body.appendChild(mission);
+
+    var changed = el("div", "instrument-panel section-gap");
+    var chHead = el("div", "instrument-head");
+    chHead.appendChild(el("span", "instrument-title", "What Changed Since Last Accepted State"));
+    chHead.appendChild(el("span", "data-label", "change ledger"));
+    changed.appendChild(chHead);
+    var ledger = el("div", "change-ledger");
+    s.what_changed.forEach(function (c) {
+      var row = el("div", "ledger-entry");
+      row.appendChild(el("span", "ledger-mark", "Δ"));
+      row.appendChild(el("span", "ledger-text", c));
+      ledger.appendChild(row);
+    });
+    changed.appendChild(ledger);
     body.appendChild(changed);
 
     var blk = el("div", "instrument-panel section-gap");
@@ -114,7 +145,7 @@
     blk.appendChild(rail);
     body.appendChild(blk);
 
-    var dep = el("div", "instrument-panel section-gap");
+    var dep = el("div", "instrument-panel proof-graph section-gap");
     var depHead = el("div", "instrument-head");
     depHead.appendChild(el("span", "instrument-title", "Evidence Dependency Map"));
     depHead.appendChild(el("span", "data-label", "proof ledger"));
@@ -145,7 +176,7 @@
   /* --- Content Studio --- */
   function renderContentStudio(s, body) {
     body.appendChild(renderBand(s.studio_state));
-    var grid = el("div", "grid grid-2");
+    var grid = el("div", "grid grid-2 lane-control-grid");
     s.lanes.forEach(function (lane) {
       var p = el("div", "lane" + (lane.status === "BLOCKED" ? " blocked" : ""));
       var head = el("div", "lane-name");
@@ -170,7 +201,7 @@
   function renderPublishReadiness(s, body) {
     body.appendChild(renderBand(s.readiness_verdict));
     var mp = panel("Gate Matrix");
-    var wrap = el("div", "gate-matrix");
+    var wrap = el("div", "gate-matrix gate-control-surface");
     var table = el("table", "matrix");
     var thead = el("thead"), htr = el("tr");
     s.gate_columns.forEach(function (col) { htr.appendChild(el("th", null, col)); });
@@ -238,8 +269,7 @@
     tl.classList.add("section-gap");
     body.appendChild(tl);
 
-    var grid = el("div", "grid grid-3 section-gap");
-    var cav = panel("Caveat Registry");
+    var grid = el("div", "grid grid-3 audit-registry section-gap");
     s.caveat_registry.forEach(function (c) {
       cav.appendChild(el("div", "reg-row", null));
       var r = cav.lastChild;
@@ -284,7 +314,7 @@
     leg.classList.add("section-gap");
     body.appendChild(leg);
 
-    var grid = el("div", "grid grid-2 section-gap");
+    var grid = el("div", "grid grid-2 manual-workflow-board section-gap");
     s.date_lanes.forEach(function (lane) {
       var p = el("div", "lane");
       p.appendChild(el("div", "lane-name", lane.period));
@@ -313,7 +343,7 @@
   function renderVisualExport(s, body) {
     body.appendChild(renderBand(s.export_state));
 
-    var cards = el("div", "grid grid-2 section-gap");
+    var cards = el("div", "grid grid-2 screenshot-prep-grid section-gap");
     s.report_cards.forEach(function (rc) {
       var p = el("div", "lane");
       p.appendChild(el("div", "lane-name", rc.surface + " — screenshot-safe report card"));
@@ -361,7 +391,7 @@
     body.appendChild(renderBand(s.policy_state));
 
     var mp = panel("Policy Matrix");
-    var wrap = el("div", "matrix-wrap");
+    var wrap = el("div", "matrix-wrap policy-inspection-grid");
     var table = el("table", "matrix");
     var thead = el("thead"), htr = el("tr");
     ["policy", "value", "enforcement", "rationale"].forEach(function (c) { htr.appendChild(el("th", null, c)); });

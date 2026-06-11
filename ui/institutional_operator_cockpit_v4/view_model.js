@@ -357,7 +357,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
         { policy: "Credential read", value: "disabled", enforcement: "no env/credential read", rationale: "secrets stay out-of-band" },
         { policy: "Financial advice", value: "prohibited", enforcement: "content governance", rationale: "no advice, no directional calls" },
         { policy: "Signal language", value: "prohibited", enforcement: "forbidden-language scan", rationale: "no signal/target/prediction" },
-        { policy: "Market-direction color", value: "prohibited", enforcement: "color = governance safety only", rationale: "no bullish/bearish semantics" }
+        { policy: "Market-direction color", value: "prohibited", enforcement: "color = governance safety only", rationale: "no market-sentiment direction semantics" }
       ],
       credential_never_display_registry: [
         { item: "bot token", display: "SECRET_REDACTED" },

@@ -538,3 +538,80 @@ table.matrix tbody tr:nth-child(even) td { background: var(--bg-panel-2); }
 .registry-row .reg-key { color: var(--text); word-break: break-word; }
 .registry-row .reg-val { color: var(--text-dim); text-align: right; white-space: nowrap; }
 
+
+/* =====================================================================
+ * State / layout / content-density hardening (0174G).
+ * Denser first fold, 4px baseline rhythm, no soft SaaS empty spacing.
+ * ===================================================================== */
+
+/* Command Center mission-control decision band. */
+.mission-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 2fr) repeat(3, minmax(0, 0.8fr));
+  gap: 1px;
+  background: var(--gridline);
+  border: 1px solid var(--outline);
+  border-radius: 0;
+}
+.decision-stack {
+  background: var(--bg-panel);
+  padding: 10px 12px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.decision-stack .decision-value {
+  font-family: var(--font-ui);
+  font-size: var(--type-label);
+  color: var(--text);
+  word-break: break-word;
+  line-height: var(--line-tight);
+}
+.decision-stack.kind-count .decision-value {
+  font-family: var(--font-mono);
+  font-size: var(--type-verdict);
+  color: var(--cyan);
+}
+.decision-stack.kind-next .decision-value { color: var(--cyan); }
+
+/* Change ledger (what changed since last accepted state). */
+.change-ledger { display: flex; flex-direction: column; }
+.change-ledger .ledger-entry {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: baseline;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--gridline);
+  min-width: 0;
+}
+.change-ledger .ledger-entry:last-child { border-bottom: 0; }
+.change-ledger .ledger-mark { font-family: var(--font-mono); color: var(--cyan); }
+.change-ledger .ledger-text { font-size: var(--type-body); word-break: break-word; }
+
+/* Proof graph emphasis on the dependency map. */
+.proof-graph .proof-strip { background: var(--bg-panel-2); }
+
+/* Gate control surface: matrix dominates, rows read as records not controls. */
+.gate-control-surface { width: 100%; }
+.gate-control-surface td .token { pointer-events: none; }
+
+/* Audit registry density (Evidence Vault three-column registries). */
+.audit-registry .panel { background: var(--bg-panel); }
+.audit-registry .panel-head { color: var(--cyan); }
+
+/* Lane control grid (Content Studio editorial control). */
+.lane-control-grid { gap: 10px; }
+.lane-control-grid .lane { background: var(--bg-panel); }
+
+/* Manual workflow board (Calendar). */
+.manual-workflow-board .lane { background: var(--bg-panel); }
+.manual-workflow-board .reg-row .reg-val { color: var(--cyan); }
+
+/* Screenshot-prep grid (Visual Export). */
+.screenshot-prep-grid .lane { background: var(--bg-panel-2); }
+
+/* Policy inspection grid (Settings). */
+.policy-inspection-grid { width: 100%; }
+
