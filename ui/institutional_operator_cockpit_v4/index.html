@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Capital Chronicle ContentOps — Operator Cockpit V4</title>
+  <!-- Local-only static cockpit. No remote scripts, stylesheets, fonts, or content networks. -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="cockpit-root">
+    <!-- Compact grouped Safety Rail -->
+    <header id="safety-rail" class="safety-rail" aria-label="Safety Rail"></header>
+
+    <!-- Labeled Truth Rail (canonical current-vs-historical) -->
+    <section id="truth-rail" class="truth-rail" aria-label="Truth Rail"></section>
+
+    <div class="cockpit-frame">
+      <!-- Seven-item screen navigation (inspect-style switching only) -->
+      <nav id="screen-nav" class="screen-nav" aria-label="Screen Navigation"></nav>
+
+      <!-- Screen-specific composed surface -->
+      <main id="screen-body" class="screen-body" aria-label="Screen Body"></main>
+    </div>
+
+    <!-- In-flow footer (participates in layout; NOT fixed, no overlap) -->
+    <footer id="cockpit-footer" class="cockpit-footer" aria-label="Next Allowed Action"></footer>
+  </div>
+
+  <script src="view_model.js"></script>
+  <script src="cockpit.js"></script>
+</body>
+</html>
