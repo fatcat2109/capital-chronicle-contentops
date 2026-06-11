@@ -1,9 +1,10 @@
-# Institutional Shell Prototype (Static, Local — Shell 0160, Command Center 0161, Content Studio 0162)
+# Institutional Shell Prototype (Static, Local — Shell 0160, Command Center 0161, Content Studio 0162, Publish Readiness Tower 0163)
 
 Tasks:
 - TASK_CONTENTOPS_0160_INSTITUTIONAL_SHELL_PROTOTYPE_STATIC_LOCAL_V0 (shell frame)
 - TASK_CONTENTOPS_0161_INSTITUTIONAL_COMMAND_CENTER_SCREEN_V0 (Command Center)
 - TASK_CONTENTOPS_0162_INSTITUTIONAL_CONTENT_STUDIO_REBUILD_SCREEN_V0 (Content Studio)
+- TASK_CONTENTOPS_0163_INSTITUTIONAL_PUBLISH_READINESS_TOWER_SCREEN_V0 (Publish Readiness Tower)
 
 This is the static local institutional shell prototype for Capital Chronicle
 ContentOps. It implements the institutional fintech control-terminal frame defined
@@ -12,7 +13,12 @@ Command Center is the first institutional-grade operational screen (0161). The
 Content Studio (0162) is an editorial QA cockpit: content lanes, grounded-news
 rule, source/evidence requirements, claim-risk classifier, guardrail results,
 limitations/refusal mode, dry-run platform fit, decision-ledger and draft-inspector
-handoffs, and a read-only blocked action matrix. No live controls.
+handoffs, and a read-only blocked action matrix. The Publish Readiness Tower (0163)
+is a dry-run readiness/gating control tower: 8-platform capability registry, dry-run
+batch manifest, manual approval gate, kill switch gate, credential redaction,
+redacted audit gate, official docs gate, Telegram pilot sub-gates, a disabled
+publish control surface, idempotency/partial-failure, and future live handoff.
+No live controls.
 
 ## How To Open
 

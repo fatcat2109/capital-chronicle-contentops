@@ -338,6 +338,140 @@ window.CC_INSTITUTIONAL_SHELL_FIXTURE = {
       future_task: "0163 Publish Readiness Tower only after audit"
     }
   },
+  publish_readiness_tower_detail: {
+    hero_status_band: {
+      title: "Capital Chronicle Publish Readiness Tower",
+      publish_mode: "dry-run / readiness-only / local-only",
+      public_state: "not_public_postable",
+      live_state: "disabled",
+      platform_api_state: "disabled",
+      scheduler_state: "disabled",
+      current_gate: "0163 Publish Readiness Tower screen",
+      next_allowed_action: "AWAIT OPERATOR/CHATGPT AUDIT_OF_0163_EVIDENCE_BEFORE_ANY_NEXT_TASK"
+    },
+    safety_banners: [
+      "LOCAL_ONLY", "DRY_RUN_ONLY", "REVIEW_ONLY", "MANUAL_REVIEW_REQUIRED",
+      "NOT_PUBLIC_POSTABLE", "LIVE_DISABLED", "API_VALIDATED_NO_POST",
+      "CHANNEL_PERMISSION_UNVALIDATED", "KILL_SWITCH_ACTIVE", "SECRET_REDACTED",
+      "NO_FINANCIAL_ADVICE", "NO_SIGNAL_LANGUAGE"
+    ],
+    platform_capability_registry_panel: [
+      { platform_id: "telegram", display_name: "Telegram", intended_use: "future pilot channel", dry_run_render: "modeled", credential_state: "redacted_presence_only", docs_verification: "implemented", manual_review_required: true, not_public_postable: true, live_api: "disabled", scheduling: "disabled", next_blocker: "channel write permission unvalidated; separate GO required" },
+      { platform_id: "x", display_name: "X", intended_use: "short education/process hooks", dry_run_render: "modeled", credential_state: "not_configured_redacted", docs_verification: "pending", manual_review_required: true, not_public_postable: true, live_api: "disabled", scheduling: "disabled", next_blocker: "docs verification + credentials pending" },
+      { platform_id: "linkedin", display_name: "LinkedIn", intended_use: "professional process insight", dry_run_render: "modeled", credential_state: "not_configured_redacted", docs_verification: "pending", manual_review_required: true, not_public_postable: true, live_api: "disabled", scheduling: "disabled", next_blocker: "docs verification + credentials pending" },
+      { platform_id: "threads", display_name: "Threads", intended_use: "conversational mirror", dry_run_render: "modeled", credential_state: "not_configured_redacted", docs_verification: "pending", manual_review_required: true, not_public_postable: true, live_api: "disabled", scheduling: "disabled", next_blocker: "docs verification + credentials pending" },
+      { platform_id: "substack", display_name: "Substack", intended_use: "long-form home", dry_run_render: "modeled", credential_state: "not_configured_redacted", docs_verification: "pending", manual_review_required: true, not_public_postable: true, live_api: "disabled", scheduling: "disabled", next_blocker: "docs verification + credentials pending" },
+      { platform_id: "facebook_page", display_name: "Facebook Page", intended_use: "process distribution", dry_run_render: "modeled", credential_state: "not_configured_redacted", docs_verification: "pending", manual_review_required: true, not_public_postable: true, live_api: "disabled", scheduling: "disabled", next_blocker: "docs verification + credentials pending" },
+      { platform_id: "instagram", display_name: "Instagram", intended_use: "visual process recap", dry_run_render: "modeled", credential_state: "not_configured_redacted", docs_verification: "pending", manual_review_required: true, not_public_postable: true, live_api: "disabled", scheduling: "disabled", next_blocker: "docs verification + credentials pending" },
+      { platform_id: "tiktok", display_name: "TikTok", intended_use: "short explainer", dry_run_render: "modeled", credential_state: "not_configured_redacted", docs_verification: "pending", manual_review_required: true, not_public_postable: true, live_api: "disabled", scheduling: "disabled", next_blocker: "docs verification + credentials pending" }
+    ],
+    dry_run_batch_manifest_panel: {
+      dry_run_only: true,
+      fixture_mock_payload_only: true,
+      real_platform_payload_dispatch: false,
+      source_lineage_required: true,
+      limitation_visibility_required: true,
+      idempotency_policy_modeled: true,
+      partial_failure_policy_modeled: true,
+      redacted_audit_required: true,
+      manual_approval_gate_required: true
+    },
+    manual_approval_gate_panel: {
+      approval_required_before_live_publish: true,
+      current_state: "review_only_dry_run",
+      public_ready_approval_enabled_now: false,
+      operator_decision_required: true,
+      revocation_supported: true,
+      auto_approval: false
+    },
+    kill_switch_gate_panel: {
+      kill_switch_active: true,
+      blocks_publishing: true,
+      no_publish_while_active: true,
+      must_be_audited_in_future_live_tasks: true
+    },
+    credential_secret_state_panel: {
+      credentials_local_only_out_of_band: true,
+      credential_values_displayed: false,
+      token_chat_id_redacted: true,
+      env_path_shown: false,
+      secret_redaction_required: true,
+      credential_read_in_this_task: false,
+      validation_implies_posting_permission: false
+    },
+    redacted_audit_gate_panel: {
+      audit_events_modeled: true,
+      unredacted_secrets_in_audit: false,
+      raw_request_urls_in_audit: false,
+      raw_platform_responses_in_audit: false,
+      raw_env_path_in_audit: false,
+      future_platform_responses_must_be_redacted: true,
+      evidence_packet_must_be_secret_safe: true
+    },
+    official_docs_gate_panel: {
+      per_platform_docs_verification_required: true,
+      telegram_official_docs_gate: "implemented",
+      other_platforms_require_future_verification: true,
+      docs_verification_is_runtime_authority: false,
+      docs_verification_enables_live_posting: false
+    },
+    telegram_pilot_tower_panel: {
+      sub_gates: [
+        { gate: "credential_presence", state: "redacted_presence_only" },
+        { gate: "official_docs_verification", state: "implemented" },
+        { gate: "getme_token_validation", state: "gate_implemented_live_run_status_separate_later" },
+        { gate: "channel_write_permission", state: "unvalidated" },
+        { gate: "dry_run_payload_preview", state: "modeled_only" },
+        { gate: "manual_approval", state: "required" },
+        { gate: "kill_switch", state: "active" },
+        { gate: "send_message", state: "disabled" },
+        { gate: "live_adapter", state: "disabled" },
+        { gate: "posting", state: "disabled" },
+        { gate: "scheduler", state: "disabled" }
+      ],
+      next_step: "next Telegram live step requires a separate explicit operator/ChatGPT GO"
+    },
+    publish_disabled_control_surface: [
+      { control: "publish", state: "disabled" },
+      { control: "schedule", state: "disabled" },
+      { control: "connect_api", state: "disabled" },
+      { control: "oauth", state: "disabled" },
+      { control: "send_message", state: "disabled" },
+      { control: "getme_live_call", state: "disabled" },
+      { control: "upload_media", state: "disabled" },
+      { control: "publish_all", state: "disabled" },
+      { control: "auto_post", state: "disabled" },
+      { control: "scrape_metrics", state: "disabled" },
+      { control: "reply_dm", state: "disabled" }
+    ],
+    idempotency_partial_failure_panel: {
+      idempotency_required_before_live: true,
+      duplicate_prevention_required: true,
+      partial_failure_policy_required: true,
+      rollback_manual_fallback_required: true,
+      current_live_retry_loop: false
+    },
+    future_live_handoff_panel: {
+      live_adapter_absent_disabled: true,
+      one_platform_live_requires_explicit_go: true,
+      autonomous_posting: false,
+      autonomous_replies_dms: false,
+      platform_by_platform_rollout_only: true
+    },
+    evidence_summary: {
+      publish_automation_readiness: "linked",
+      platform_capability_registry: "linked",
+      dry_run_manifest: "linked",
+      credential_policy: "linked",
+      redacted_audit_log: "linked",
+      telegram_gate: "linked",
+      validation_test_scan_evidence_required: true
+    },
+    next_allowed_action_panel: {
+      directive: "AWAIT OPERATOR/CHATGPT AUDIT_OF_0163_EVIDENCE_BEFORE_ANY_NEXT_TASK",
+      future_task: "0164 Evidence Vault only after audit"
+    }
+  },
   screens: [
     {
       screen_id: "command_center",

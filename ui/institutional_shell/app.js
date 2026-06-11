@@ -355,6 +355,101 @@
     main.appendChild(ccKvSection("Next Allowed Action", d.next_allowed_action_panel));
   }
 
+  function prtHero(d) {
+    var h = d.hero_status_band || {};
+    var band = el("div", "cc-hero");
+    band.appendChild(el("div", "cc-hero-title", h.title || "Publish Readiness Tower"));
+    var rows = [
+      ["Publish mode", h.publish_mode], ["Public state", h.public_state],
+      ["Live state", h.live_state], ["Platform API", h.platform_api_state],
+      ["Scheduler", h.scheduler_state], ["Current gate", h.current_gate],
+      ["Next allowed action", h.next_allowed_action]
+    ];
+    var wrap = el("div", "cc-hero-grid");
+    rows.forEach(function (r) {
+      var cell = el("div", "cc-hero-cell");
+      cell.appendChild(el("span", "label", r[0]));
+      cell.appendChild(el("span", "value", r[1] || "unknown"));
+      wrap.appendChild(cell);
+    });
+    band.appendChild(wrap);
+    return band;
+  }
+
+  function prtPlatformCard(p) {
+    var card = el("div", "card");
+    card.appendChild(el("h3", null, p.display_name));
+    card.appendChild(el("div", "note", p.intended_use || ""));
+    var chips = el("div", "chip-row");
+    [["dry-run", "review"], ["live api: disabled", "blocked"],
+     ["scheduling: disabled", "blocked"], ["not public-postable", "blocked"]].forEach(function (c) {
+      var chip = el("span", "chip", c[0]);
+      chip.setAttribute("data-tone", c[1]);
+      chips.appendChild(chip);
+    });
+    card.appendChild(chips);
+    card.appendChild(el("div", "note", "Credential: " + (p.credential_state || "") +
+      " | Docs: " + (p.docs_verification || "")));
+    card.appendChild(el("div", "note", "Next blocker: " + (p.next_blocker || "")));
+    return card;
+  }
+
+  function prtDisabledSection(title, items, label) {
+    var sec = el("div", "cc-section");
+    sec.appendChild(el("h2", "cc-section-title", title));
+    var card = el("div", "card full");
+    (items || []).forEach(function (it) {
+      var name = label(it);
+      var item = el("span", "disabled-control", name);
+      item.setAttribute("aria-disabled", "true");
+      item.setAttribute("title", "Disabled by safety policy. No live capability is wired.");
+      card.appendChild(item);
+    });
+    sec.appendChild(card);
+    return sec;
+  }
+
+  function renderPublishReadinessTower(main) {
+    var d = F.publish_readiness_tower_detail || {};
+    main.appendChild(screenshotSafeBar());
+    main.appendChild(prtHero(d));
+    main.appendChild(bannerRow(d.safety_banners));
+
+    main.appendChild(ccCardGrid("Platform Capability Registry (Dry-Run)",
+      prtPlatformCard, d.platform_capability_registry_panel));
+
+    main.appendChild(ccKvSection("Dry-Run Batch Manifest", d.dry_run_batch_manifest_panel));
+    main.appendChild(ccKvSection("Manual Approval Gate", d.manual_approval_gate_panel));
+    main.appendChild(ccKvSection("Kill Switch Gate", d.kill_switch_gate_panel));
+    main.appendChild(ccKvSection("Credential & Secret State", d.credential_secret_state_panel));
+    main.appendChild(ccKvSection("Redacted Audit Gate", d.redacted_audit_gate_panel));
+    main.appendChild(ccKvSection("Official Docs Gate", d.official_docs_gate_panel));
+
+    var tg = d.telegram_pilot_tower_panel || {};
+    main.appendChild(ccCardGrid("Telegram Pilot Tower (Read-Only Sub-Gates)", function (g) {
+      var card = el("div", "card");
+      card.appendChild(el("h3", null, g.gate.replace(/_/g, " ")));
+      var chip = el("span", "chip", String(g.state).replace(/_/g, " "));
+      chip.setAttribute("data-tone", tokenTone(g.state));
+      card.appendChild(chip);
+      return card;
+    }, tg.sub_gates));
+    if (tg.next_step) {
+      main.appendChild(el("p", "note", "Next step: " + tg.next_step));
+    }
+
+    main.appendChild(prtDisabledSection("Publish-Disabled Control Surface",
+      d.publish_disabled_control_surface, function (c) {
+        return c.control.replace(/_/g, " ") + " — " + c.state;
+      }));
+
+    main.appendChild(ccKvSection("Idempotency / Partial Failure", d.idempotency_partial_failure_panel));
+    main.appendChild(ccKvSection("Future Live Handoff", d.future_live_handoff_panel));
+    main.appendChild(ccKvSection("Evidence / Audit Summary", d.evidence_summary));
+    main.appendChild(ccKvSection("Next Allowed Action", d.next_allowed_action_panel));
+  }
+
+
 
 
   /* Main screen render */
@@ -378,6 +473,11 @@
 
     if (screen.screen_id === "daily_content_studio" && F.content_studio_detail) {
       renderContentStudio(main);
+      return;
+    }
+
+    if (screen.screen_id === "publish_readiness_tower" && F.publish_readiness_tower_detail) {
+      renderPublishReadinessTower(main);
       return;
     }
 
