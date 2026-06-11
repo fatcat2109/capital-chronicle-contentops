@@ -70,3 +70,16 @@ A:\Capital Chronicle\tools\cc-live-contentops\ui\institutional_shell\index.html
 Kill switch active. Live disabled. Review-only by default. Not public-postable.
 Credentials redacted. This shell does not supersede Telegram live-gate sequencing;
 the Telegram Pilot Gate screen is a read-only, redacted display only.
+
+## Browser QA Evidence (After 0169 / 0170)
+
+- The shell can be opened manually via `file://` at
+  `ui/institutional_shell/index.html`. No server, network, env, or credentials required.
+- 0169 browser QA passed with a minor evidence gap (PASS_WITH_MINOR_EVIDENCE_GAP);
+  see `docs/INSTITUTIONAL_BROWSER_QA_EVIDENCE_PACKET_AFTER_0169.md`.
+- 0170 reconciled the global header so the current accepted code baseline (`444ef2c`)
+  and current gate are distinguished from historical per-screen provenance
+  (e.g. `15b87ff` is the historical 0159 view-model baseline, not current).
+- No browser/API/env/live behavior is required to view the shell.
+- A Project Sources refresh should happen only after the 0170 audit; see
+  `docs/INSTITUTIONAL_GLOBAL_HEADER_METADATA_RECONCILIATION_AFTER_0170.md`.
