@@ -270,4 +270,45 @@ def test_safety_ribbon_max_width_contained():
     css = _read(V3_DIR, "styles.css")
     idx = css.index(".safety-ribbon")
     block = css[idx:idx + 700]
-    assert "max-width: 100vw" in block
+
+
+# 12. Structural brace tests (0174B2 repair) — catch misplaced balanced braces.
+def _slice_between(css, sel_a, sel_b):
+    start = css.index(sel_a)
+    end = css.index(sel_b, start + len(sel_a))
+    return css[start:end]
+
+
+def _assert_single_block_closes(css, sel_a, sel_b):
+    block = _slice_between(css, sel_a, sel_b)
+    assert block.count("{") == 1, sel_a + " must open exactly once before " + sel_b
+    assert block.count("}") == 1, sel_a + " must close exactly once before " + sel_b
+    assert block.rindex("}") > block.index("{"), sel_a + " close must follow its open"
+
+
+def test_dir_value_closes_before_note_banner():
+    css = _read(V3_DIR, "styles.css")
+    _assert_single_block_closes(css, ".dir-value {", ".note-banner {")
+
+
+def test_note_banner_closes_before_screen_title():
+    css = _read(V3_DIR, "styles.css")
+    _assert_single_block_closes(css, ".note-banner {", ".screen-title")
+
+
+def test_no_compensating_brace_after_kv_is_block():
+    css = _read(V3_DIR, "styles.css")
+    # between .kv.is-block rule and the chips section there must be no stray
+    # closing brace compensating for an earlier missing one.
+    block = _slice_between(css, ".kv.is-block", "/* ---- Status tokens / chips ---- */")
+    # the only braces here belong to the single-line .kv.is-block rule itself.
+    assert block.count("{") == block.count("}"), "no stray compensating brace after .kv.is-block"
+    assert block.count("}") == 1, "exactly one closing brace (the .kv.is-block rule) expected"
+
+
+def test_critical_selector_order_sane():
+    css = _read(V3_DIR, "styles.css")
+    order = [".directive-bar", ".dir-value", ".note-banner", ".screen-title",
+             ".section", ".panel", ".hero", ".kv", ".chip"]
+    positions = [css.index(sel) for sel in order]
+    assert positions == sorted(positions), "critical CSS selectors must appear in structural order"

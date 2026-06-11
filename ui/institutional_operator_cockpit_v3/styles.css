@@ -254,6 +254,7 @@ body.cockpit-root {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
 
 /* ---- Screen scaffold ---- */
 .note-banner {
@@ -327,8 +328,6 @@ body.cockpit-root {
 .kv-value { font-size: 13px; color: var(--on-surface); word-break: break-word; }
 .kv.is-info .kv-value { color: var(--accent-info); }
 .kv.is-block .kv-value { color: var(--accent-block); font-weight: 700; }
-
-}
 
 
 /* ---- Status tokens / chips ---- */
