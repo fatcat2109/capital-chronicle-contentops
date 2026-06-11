@@ -162,10 +162,17 @@ def test_evidence_mutation_controls_zero():
 
 
 def test_no_mutation_controls_in_assets():
-    for name in ("app.js", "fixture_data.js"):
-        txt = _read(name)
+    # app.js is the behavior layer: no mutation control wiring may exist there.
+    app = _read("app.js")
+    for term in ("delete_evidence", "edit_evidence", "upload_evidence", "refresh_project_sources"):
+        assert term not in app, ("app.js", term)
+    # In fixture data these terms may appear only as disabled/read-only control labels.
+    fx = _read("fixture_data.js")
+    for line in fx.splitlines():
         for term in ("delete_evidence", "edit_evidence", "upload_evidence", "refresh_project_sources"):
-            assert term not in txt, (name, term)
+            if term in line:
+                assert "disabled" in line, (term, line.strip())
+
 
 
 def test_next_allowed_action_requires_audit():

@@ -1,4 +1,4 @@
-# Institutional Shell Prototype (Static, Local — Shell 0160, Command Center 0161, Content Studio 0162, Publish Readiness Tower 0163, Evidence Vault 0164)
+# Institutional Shell Prototype (Static, Local — Shell 0160, Command Center 0161, Content Studio 0162, Publish Readiness Tower 0163, Evidence Vault 0164, Content Calendar 0165)
 
 Tasks:
 - TASK_CONTENTOPS_0160_INSTITUTIONAL_SHELL_PROTOTYPE_STATIC_LOCAL_V0 (shell frame)
@@ -6,6 +6,7 @@ Tasks:
 - TASK_CONTENTOPS_0162_INSTITUTIONAL_CONTENT_STUDIO_REBUILD_SCREEN_V0 (Content Studio)
 - TASK_CONTENTOPS_0163_INSTITUTIONAL_PUBLISH_READINESS_TOWER_SCREEN_V0 (Publish Readiness Tower)
 - TASK_CONTENTOPS_0164_INSTITUTIONAL_EVIDENCE_VAULT_AND_AUDIT_TIMELINE_SCREEN_V0 (Evidence Vault + Audit Timeline)
+- TASK_CONTENTOPS_0165_INSTITUTIONAL_CONTENT_CALENDAR_AND_WORKFLOW_BOARD_SCREEN_V0 (Content Calendar + Workflow Board)
 
 This is the static local institutional shell prototype for Capital Chronicle
 ContentOps. It implements the institutional fintech control-terminal frame defined

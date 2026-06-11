@@ -562,6 +562,115 @@
   }
 
 
+  function ccFlagsCard(title, obj) {
+    var card = el("div", "card full");
+    card.appendChild(el("h3", null, title));
+    var ul = el("ul", "kv");
+    Object.keys(obj || {}).forEach(function (k) {
+      var li = el("li");
+      li.appendChild(el("span", "k", k + ":"));
+      li.appendChild(el("span", "v", String(obj[k])));
+      ul.appendChild(li);
+    });
+    card.appendChild(ul);
+    return card;
+  }
+
+  function renderContentCalendar(main) {
+    var d = F.content_calendar_workflow_detail || {};
+    main.appendChild(screenshotSafeBar());
+    var h = d.hero_status_band || {};
+    var band = el("div", "cc-hero");
+    band.appendChild(el("div", "cc-hero-title", h.title || "Content Calendar + Workflow Board"));
+    var wrap = el("div", "cc-hero-grid");
+    [["Workflow mode", h.workflow_mode], ["Public state", h.public_state],
+     ["Live state", h.live_state], ["Scheduler", h.scheduler_state],
+     ["Automation", h.automation_state], ["Current gate", h.current_gate],
+     ["Next allowed action", h.next_allowed_action]
+    ].forEach(function (r) {
+      var cell = el("div", "cc-hero-cell");
+      cell.appendChild(el("span", "label", r[0]));
+      cell.appendChild(el("span", "value", r[1] || "unknown"));
+      wrap.appendChild(cell);
+    });
+    band.appendChild(wrap);
+    main.appendChild(band);
+    main.appendChild(bannerRow(d.safety_banners));
+
+    // Workflow board columns + item cards
+    var boardSection = el("div", "cc-section");
+    boardSection.appendChild(el("h2", "cc-section-title", "Workflow Board (manual-only)"));
+    var board = el("div", "wf-board");
+    (d.workflow_states || []).forEach(function (state) {
+      var col = el("div", "wf-col");
+      col.appendChild(el("h4", "wf-col-title", state.replace(/_/g, " ")));
+      (d.content_items || []).filter(function (it) { return it.lifecycle_state === state; })
+        .forEach(function (it) {
+          var c = el("div", "wf-card");
+          c.appendChild(el("div", "wf-card-title", it.title));
+          c.appendChild(el("div", "wf-card-meta", it.content_type + " / " + it.lane));
+          var chip = el("span", "chip", (it.claim_risk || "").replace(/_/g, " "));
+          c.appendChild(chip);
+          if (it.blocked_reasons && it.blocked_reasons.length) {
+            c.appendChild(el("div", "wf-card-blocked", "blocked: " + it.blocked_reasons.join(", ")));
+          }
+          c.appendChild(el("div", "wf-card-next", "next: " + (it.next_operator_action || "")));
+          col.appendChild(c);
+        });
+      board.appendChild(col);
+    });
+    boardSection.appendChild(board);
+    main.appendChild(boardSection);
+
+    // Calendar planning grid
+    var calSection = el("div", "cc-section");
+    calSection.appendChild(el("h2", "cc-section-title", "Calendar Planning Grid (no scheduled posts)"));
+    var calCard = el("div", "card full");
+    var calUl = el("ul", "kv");
+    ((d.calendar_view || {}).slots || []).forEach(function (s) {
+      var li = el("li");
+      li.appendChild(el("span", "k", s.day + ":"));
+      li.appendChild(el("span", "v", s.label));
+      calUl.appendChild(li);
+    });
+    calCard.appendChild(calUl);
+    calSection.appendChild(calCard);
+    main.appendChild(calSection);
+
+    main.appendChild(ccCardGrid("Lane Model", function (l) {
+      var li = el("li");
+      li.appendChild(el("span", "k", l.lane + ":"));
+      li.appendChild(el("span", "v", l.state + " — " + l.note));
+      return li;
+    }, d.lane_model, null));
+
+    main.appendChild(ccFlagsCard("Evidence & Source Requirements", d.evidence_source_panel));
+    main.appendChild(ccFlagsCard("Approval & Manual Publish", d.approval_manual_publish_panel));
+    main.appendChild(ccFlagsCard("Freshness & Limitations", d.freshness_limitations_panel));
+
+    main.appendChild(ccCardGrid("Blocked Reasons", function (r) {
+      return el("li", null, r);
+    }, (d.blocked_reasons_panel || []).map(function (x) { return x; }), null));
+
+    main.appendChild(ccFlagsCard("Metrics (Manual Entry Only)", d.metrics_placeholder_panel));
+    main.appendChild(ccFlagsCard("Decision Ledger Handoff", d.decision_ledger_handoff));
+    main.appendChild(ccFlagsCard("Evidence Vault Handoff", d.evidence_vault_handoff));
+    main.appendChild(ccFlagsCard("Visual Export Handoff", d.visual_export_handoff));
+
+    main.appendChild(ccCardGrid("Disabled Controls (Read-Only)", function (c) {
+      var li = el("li");
+      li.appendChild(el("span", "k", c.control + ":"));
+      var chip = el("span", "chip", c.state);
+      chip.setAttribute("data-tone", "blocked");
+      li.appendChild(chip);
+      return li;
+    }, d.disabled_controls_surface, null));
+
+    main.appendChild(ccFlagsCard("Evidence Summary", d.evidence_summary));
+    main.appendChild(ccFlagsCard("Next Allowed Action", d.next_allowed_action_panel));
+  }
+
+
 
   /* Main screen render */
   function renderScreen(screenId) {
@@ -594,6 +703,11 @@
 
     if (screen.screen_id === "evidence_vault" && F.evidence_vault_detail) {
       renderEvidenceVault(main);
+      return;
+    }
+
+    if (screen.screen_id === "content_calendar" && F.content_calendar_workflow_detail) {
+      renderContentCalendar(main);
       return;
     }
 

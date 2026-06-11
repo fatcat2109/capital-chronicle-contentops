@@ -516,6 +516,146 @@ window.CC_INSTITUTIONAL_SHELL_FIXTURE = {
       future_task: "0165 Calendar + Workflow Board only after audit"
     }
   },
+  content_calendar_workflow_detail: {
+    hero_status_band: {
+      title: "Capital Chronicle Content Calendar + Workflow Board",
+      workflow_mode: "static / local / fixture-driven / manual-only",
+      public_state: "not_public_postable",
+      live_state: "disabled",
+      scheduler_state: "disabled",
+      automation_state: "disabled",
+      current_gate: "0165 Content Calendar + Workflow Board screen",
+      next_allowed_action: "AWAIT OPERATOR/CHATGPT AUDIT_OF_0165_EVIDENCE_BEFORE_ANY_NEXT_TASK"
+    },
+    safety_banners: [
+      "LOCAL_ONLY", "REVIEW_ONLY", "MANUAL_REVIEW_REQUIRED", "NOT_PUBLIC_POSTABLE",
+      "LIVE_DISABLED", "SCHEDULER_DISABLED", "KILL_SWITCH_ACTIVE", "SECRET_REDACTED",
+      "NO_FINANCIAL_ADVICE", "NO_SIGNAL_LANGUAGE", "MISSING_DATA_VISIBLE",
+      "MANUAL_PUBLISH_TRACKING_ONLY"
+    ],
+    workflow_states: [
+      "idea", "source_needed", "draft_review", "blocked",
+      "operator_approved_for_manual", "manually_posted", "metrics_entered"
+    ],
+    forbidden_states: [
+      "scheduled", "auto_publish_ready", "live_published_by_system", "public_ready",
+      "publish_queued", "platform_dispatched", "api_posted", "bot_posted"
+    ],
+    lane_model: [
+      { lane: "pre_alpha_process", state: "allowed_review_only", note: "review-only; no public posting" },
+      { lane: "grounded_news_context", state: "allowed_with_source_citation", note: "requires source URL/date/citation; news is hook, not signal" },
+      { lane: "future_artifact_backed", state: "blocked", note: "blocked until real approved Capital Chronicle artifacts exist" }
+    ],
+    content_items: [
+      { item_id: "ci-001", title: "Data sufficiency report walkthrough", content_type: "data_sufficiency", lane: "pre_alpha_process", lifecycle_state: "draft_review", source_status: "sources_attached", evidence_refs: ["ev-ds-001"], freshness_status: "current", limitation_status: "limitations_visible", claim_risk: "evergreen_education", approval_state: "pending_operator", manual_publish_state: "not_posted", blocked_reasons: [], next_operator_action: "review draft and limitations" },
+      { item_id: "ci-002", title: "What forecast-not-ready means", content_type: "forecast_readiness", lane: "pre_alpha_process", lifecycle_state: "idea", source_status: "no_source_yet", evidence_refs: [], freshness_status: "n_a", limitation_status: "limitations_pending", claim_risk: "first_party_philosophy", approval_state: "not_requested", manual_publish_state: "not_posted", blocked_reasons: [], next_operator_action: "outline angle" },
+      { item_id: "ci-003", title: "Postmortem: pipeline degraded run", content_type: "failure_forensics", lane: "pre_alpha_process", lifecycle_state: "blocked", source_status: "missing_source", evidence_refs: [], freshness_status: "stale", limitation_status: "limitations_missing", claim_risk: "cited_factual_claim", approval_state: "not_requested", manual_publish_state: "not_posted", blocked_reasons: ["missing_source", "limitation_not_visible"], next_operator_action: "attach source and limitations" },
+      { item_id: "ci-004", title: "Build-in-public: shipping the evidence vault", content_type: "build_in_public", lane: "pre_alpha_process", lifecycle_state: "operator_approved_for_manual", source_status: "sources_attached", evidence_refs: ["ev-bip-004"], freshness_status: "current", limitation_status: "limitations_visible", claim_risk: "first_party_philosophy", approval_state: "approved_manual_only", manual_publish_state: "not_posted", blocked_reasons: [], next_operator_action: "manual post out-of-band, then record URL" },
+      { item_id: "ci-005", title: "Macro education: what CPI is and is not", content_type: "macro_education", lane: "grounded_news_context", lifecycle_state: "draft_review", source_status: "sources_attached", evidence_refs: ["ev-me-005"], freshness_status: "current", limitation_status: "limitations_visible", claim_risk: "current_factual_claim_requires_citation", approval_state: "pending_operator", manual_publish_state: "not_posted", blocked_reasons: [], next_operator_action: "verify citations" },
+      { item_id: "ci-006", title: "Product update: institutional shell screens", content_type: "product_update", lane: "pre_alpha_process", lifecycle_state: "manually_posted", source_status: "sources_attached", evidence_refs: ["ev-pu-006"], freshness_status: "current", limitation_status: "limitations_visible", claim_risk: "first_party_philosophy", approval_state: "approved_manual_only", manual_publish_state: "manually_posted_out_of_band", blocked_reasons: [], next_operator_action: "enter manual metrics later" },
+      { item_id: "ci-007", title: "Market note: rates context, educational only", content_type: "market_note", lane: "grounded_news_context", lifecycle_state: "metrics_entered", source_status: "sources_attached", evidence_refs: ["ev-mn-007"], freshness_status: "current_freshness_labeled", limitation_status: "limitations_visible", claim_risk: "current_factual_claim_requires_citation", educational_general_only: true, no_signal_language: true, no_buy_sell_hold: true, approval_state: "approved_manual_only", manual_publish_state: "manually_posted_out_of_band", manual_metrics: { manual_impressions: 0, manual_clicks: 0, manual_engagement_notes: "entered manually", manual_post_url: "recorded_out_of_band_not_fetched", manual_posted_at: "operator_supplied" }, blocked_reasons: [], next_operator_action: "review manual metrics" },
+      { item_id: "ci-008", title: "Market note draft missing freshness label", content_type: "market_note", lane: "grounded_news_context", lifecycle_state: "blocked", source_status: "sources_attached", evidence_refs: ["ev-mn-008"], freshness_status: "freshness_missing", limitation_status: "limitations_visible", claim_risk: "current_factual_claim_requires_citation", educational_general_only: true, no_signal_language: true, no_buy_sell_hold: true, approval_state: "not_requested", manual_publish_state: "not_posted", blocked_reasons: ["market_note_missing_freshness"], next_operator_action: "add freshness label before review" }
+    ],
+    content_type_coverage: ["data_sufficiency", "forecast_readiness", "failure_forensics", "build_in_public", "macro_education", "product_update", "market_note"],
+    evidence_source_panel: {
+      source_evidence_required: true,
+      artifact_ids_required_for_future_artifact_backed: true,
+      source_url_date_required_for_current_factual_claims: true,
+      invented_source_artifact_ids_allowed: false,
+      missing_source_blocks_publish_readiness: true,
+      proxy_or_degraded_status_visible: true
+    },
+    approval_manual_publish_panel: {
+      operator_approval_required: true,
+      approval_is_automatic: false,
+      approval_implies_platform_posting: false,
+      manual_publish_is_out_of_band: true,
+      manual_post_url_recorded_later_not_fetched: true,
+      metrics_entered_later_manually: true,
+      api_sync: false
+    },
+    freshness_limitations_panel: {
+      stale_items_require_review: true,
+      freshness_label_required_for_current_claims: true,
+      missing_degraded_proxy_labels_visible: true,
+      forecast_readiness_blocked_is_valid_state: true,
+      no_confident_forecast_when_dqr_blocks: true
+    },
+    blocked_reasons_panel: [
+      "missing_source", "missing_artifact_id", "future_artifact_not_available",
+      "claim_risk_too_high", "market_note_missing_freshness", "limitation_not_visible",
+      "manual_review_missing", "public_ready_disabled", "scheduler_disabled",
+      "live_posting_disabled"
+    ],
+    calendar_view: {
+      grid_style: "static_week_planning_grid",
+      implies_scheduled_posts: false,
+      slots: [
+        { label: "planned review slot", day: "Mon" },
+        { label: "manual publish window candidate", day: "Tue" },
+        { label: "source refresh checkpoint", day: "Wed" },
+        { label: "metrics entry reminder", day: "Thu" },
+        { label: "planned review slot", day: "Fri" }
+      ]
+    },
+    workflow_board_view: {
+      columns: ["idea", "source_needed", "draft_review", "blocked", "operator_approved_for_manual", "manually_posted", "metrics_entered"],
+      drag_drop_backend_required: false,
+      persistence_implied: false
+    },
+    metrics_placeholder_panel: {
+      manual_impressions: "manual_entry_only",
+      manual_clicks: "manual_entry_only",
+      manual_engagement_notes: "manual_entry_only",
+      manual_post_url: "recorded_out_of_band_not_fetched",
+      manual_posted_at: "operator_supplied",
+      scraping: false,
+      platform_api_metrics: false,
+      automatic_sync: false
+    },
+    decision_ledger_handoff: {
+      decisions_evidence_backed: true,
+      revocation_supported_or_future_required: true,
+      decision_history_read_only: true,
+      auto_approval: false
+    },
+    evidence_vault_handoff: {
+      every_item_needs_evidence_refs: true,
+      audit_trail_needed: true,
+      evidence_packet_standard_applies: true,
+      evidence_mutation_from_this_screen: false
+    },
+    visual_export_handoff: {
+      next_screen: "0166 Visual Export / Screenshot-Safe Mode",
+      screenshot_export_must_be_redacted: true,
+      export_to_platform: false
+    },
+    disabled_controls_surface: [
+      { control: "schedule", state: "disabled" },
+      { control: "auto_publish", state: "disabled" },
+      { control: "publish_now", state: "disabled" },
+      { control: "queue", state: "disabled" },
+      { control: "platform_sync", state: "disabled" },
+      { control: "scrape_metrics", state: "disabled" },
+      { control: "fetch_post_url", state: "disabled" },
+      { control: "generate_final_copy", state: "disabled" },
+      { control: "approve_all", state: "disabled" },
+      { control: "upload_evidence", state: "disabled" },
+      { control: "refresh_project_sources", state: "disabled" }
+    ],
+    evidence_summary: {
+      linked_content_studio: true,
+      linked_publish_readiness_tower: true,
+      linked_evidence_vault: true,
+      linked_decision_ledger: true,
+      linked_manual_publish_metrics: true,
+      validation_test_scan_evidence_required: true
+    },
+    next_allowed_action_panel: {
+      directive: "AWAIT OPERATOR/CHATGPT AUDIT_OF_0165_EVIDENCE_BEFORE_ANY_NEXT_TASK",
+      future_task: "0166 Visual Export / Screenshot-Safe Mode only after audit"
+    }
+  },
   screens: [
     {
       screen_id: "command_center",
