@@ -62,13 +62,18 @@ html, body {
   font-size: 13px;
   line-height: 1.45;
   overflow-x: hidden;          /* no uncontrolled horizontal page scroll */
-  height: 100%;
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;            /* grow with content; never clip to fixed height */
+  display: block;              /* never center the app via flex on body */
 }
 
 #cockpit-root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  width: 100%;
+  min-width: 0;
+  min-height: 100vh;           /* fill viewport, start at top, allow growth */
 }
 
 /* ---------- Safety Rail (compact grouped, never two-line wrap) ---------- */
@@ -107,10 +112,21 @@ html, body {
 /* ---------- Truth Rail (labeled HEAD roles, no bare hashes) ---------- */
 .truth-rail {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(0, 1fr));
+  /* Stable explicit responsive columns. Never an auto-fill grid with a zero
+     minimum, which collapses to a 1px column on wide viewports and stacks
+     tall on narrow viewports. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   background: var(--gridline);
   border-bottom: 1px solid var(--gridline);
+  width: 100%;
+  min-width: 0;
+}
+@media (min-width: 1100px) {
+  .truth-rail { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 1500px) {
+  .truth-rail { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 .truth-cell {
   background: var(--bg-panel);
@@ -236,7 +252,7 @@ html, body {
 .grid {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(auto-fill, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   min-width: 0;
 }
 .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
