@@ -1,0 +1,311 @@
+{
+  "task_label": "TASK_CONTENTOPS_0174A_OPERATOR_COCKPIT_V2_BROWSER_QA_EVIDENCE_CAPTURE_V0",
+  "created_at_local": "2026-06-11T20:06:07.262318",
+  "repo_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops",
+  "branch": "master",
+  "tested_head": "1024cdf",
+  "tested_commit_message": "docs: quarantine Stitch operator cockpit visual references",
+  "product_file_opened": "ui/institutional_operator_cockpit_v2/index.html",
+  "browser": "Chromium (Playwright)",
+  "antigravity_used": true,
+  "evidence_folder": "docs/browser_qa/TASK_CONTENTOPS_0174A_OPERATOR_COCKPIT_V2_BROWSER_QA_EVIDENCE_CAPTURE_V0/",
+  "screenshots": [
+    {
+      "filename": "1366x768_command_center.png",
+      "screen": "command_center",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "EED674BD6306B784E3BA57A621E7D401446A523687CD5DF6A4970EA043215F49",
+      "size_bytes": 95820,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1366x768_content_studio.png",
+      "screen": "content_studio",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "F2D7B0E1F29795C609365F682AD27BBAEC4ABB5DA01D1630B1CADDA5E5A9AC31",
+      "size_bytes": 91034,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1366x768_publish_readiness.png",
+      "screen": "publish_readiness",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "061B918BFC973B9D8A5F0357241B46E5EE329B43DA49E0A14FE2084166045531",
+      "size_bytes": 95600,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1366x768_evidence_vault.png",
+      "screen": "evidence_vault",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "554E254C567779E46AFF4AA64F61F18B352A6D6CD9C66B5DC733E79E60AB0EF7",
+      "size_bytes": 91965,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1366x768_content_calendar.png",
+      "screen": "content_calendar",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "4953D48D49C464D66F0A2370FFA8DC4750A328CEDFEE21FF2A02076CF074F53C",
+      "size_bytes": 96990,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1366x768_visual_export.png",
+      "screen": "visual_export",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "6DBB987FD33B21B28DA27FDA5B37FE452AB80DA3F294DA660C58B1606754DDD1",
+      "size_bytes": 95029,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1366x768_settings.png",
+      "screen": "settings",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "C0C92FCFC47CB8621579EC2351FFA7F6A424FA02DD1948E8B4CFBD06417498FB",
+      "size_bytes": 93313,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_command_center.png",
+      "screen": "command_center",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "6AABB27A7D91E9B95AD968190D1E971955DDC39B8E9ED427A7C7C11A09A143A2",
+      "size_bytes": 114196,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_content_studio.png",
+      "screen": "content_studio",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "7E1E4AE10F944848BF792034CB86A9A63A172B7B131B4CCADE70693789FCCBB0",
+      "size_bytes": 109598,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_publish_readiness.png",
+      "screen": "publish_readiness",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "776CC7EBB17E3760B99F6D16A5140DB24B045214C3136C96A06AF6BB59168307",
+      "size_bytes": 108631,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_evidence_vault.png",
+      "screen": "evidence_vault",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "ECEC1AC716552535445AA56B16E0D9637C73F9A9E9A136BFA80B4532548EC478",
+      "size_bytes": 115810,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_content_calendar.png",
+      "screen": "content_calendar",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "85CEB37C7563BFC4A5308B7E604A103D1B2798E7DEDFC170F012D6B06D37A88D",
+      "size_bytes": 109990,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_visual_export.png",
+      "screen": "visual_export",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "4426DA1FEE3CF18CB69021866F1193207DB032139F7A4B631F3437CA93FB5D8B",
+      "size_bytes": 104826,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_settings.png",
+      "screen": "settings",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "7F1D857440A7C2AA0E3ACA844F41E4903AF8B7981B5BBF27B79D5111278ED505",
+      "size_bytes": 103607,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_command_center.png",
+      "screen": "command_center",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "15E22B92ECC985A71C85027F74F3821D3E7604C0036308F650A25076077A881B",
+      "size_bytes": 107646,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_content_studio.png",
+      "screen": "content_studio",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "3D99E61AAF7DF8BCC96AD76A4BA1781672FE7B0D179859F00E66E3EFE1C44A47",
+      "size_bytes": 107660,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_publish_readiness.png",
+      "screen": "publish_readiness",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "415E92351F589E2EB6E014749296F086F61C895C1B791AEDDA04F8DE7093F95B",
+      "size_bytes": 107002,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_evidence_vault.png",
+      "screen": "evidence_vault",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "B5AF81B8747B8AD6699A9CD2FC946937C2D202F655190CA84A9D0120189A2036",
+      "size_bytes": 110290,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_content_calendar.png",
+      "screen": "content_calendar",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "D85293959F6288D5EAE563E575A8EB5866259CC209C0A6974FA1EAC6FA7AB2AE",
+      "size_bytes": 108234,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_visual_export.png",
+      "screen": "visual_export",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "7528E7795B280359438260EEA694C0A99C5B6A2CCFB36572950ABDB992818250",
+      "size_bytes": 101888,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_settings.png",
+      "screen": "settings",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "0B40F9502C011A5152FF41E9CFC5712A45FE4BE7A08FBDCEEB70C43FE277C2AC",
+      "size_bytes": 102243,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_command_center.png",
+      "screen": "command_center",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "12C9CA1DD982238F31A5C075484D0C64056E0D7E1A3FBCFFB6D917F675AA6286",
+      "size_bytes": 130348,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_content_studio.png",
+      "screen": "content_studio",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "1D38A72520C498B7C7872CFF7F4E8B0BA04F9C4AA950826B24877A3A013D3FDA",
+      "size_bytes": 126068,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_publish_readiness.png",
+      "screen": "publish_readiness",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "79ADACD5EE7DE748C20F1E94F45808B05679CEF9467D3B2891D221A6032BB7BC",
+      "size_bytes": 129656,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_evidence_vault.png",
+      "screen": "evidence_vault",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "5955E3EAC631C8D5CF92BB9BBACC567B1BC10F0E34663A41C5E4A42545904574",
+      "size_bytes": 140125,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_content_calendar.png",
+      "screen": "content_calendar",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "FD5A5FE23CEF0809D08DA8B508725796E6F1E8778C97D28C84196389FE1DC3A5",
+      "size_bytes": 129624,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_visual_export.png",
+      "screen": "visual_export",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "B37173F7AC8089B1015A05734D98B62469DAD668BAF9A3E360A18F49A8952C4D",
+      "size_bytes": 118464,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_settings.png",
+      "screen": "settings",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "AF1463A5255BB593DEDC44C84E75539D6ABA711CADD6AA8F500B85C4C7830762",
+      "size_bytes": 120525,
+      "capture_status": "PASS"
+    }
+  ],
+  "viewport_matrix_path": "viewport_matrix.md",
+  "browser_qa_report_path": "browser_qa_report.md",
+  "console_result": "clean",
+  "network_result": "clean_local_only",
+  "external_url_opened": false,
+  "product_code_modified": false,
+  "ui_institutional_shell_modified": false,
+  "ui_institutional_operator_cockpit_v2_modified": false,
+  "docs_design_references_modified": false,
+  "no_env_read": true,
+  "no_credentials_read": true,
+  "no_platform_api": true,
+  "no_live_posting": true,
+  "no_scheduler": true,
+  "no_project_sources_refresh": true,
+  "findings_summary": "Clean bill of health. No secrets, no network, no remote dependencies, no live actions.",
+  "caveats": "Visual design is constrained by the fixture nature, pending ChatGPT visual audit."
+}
