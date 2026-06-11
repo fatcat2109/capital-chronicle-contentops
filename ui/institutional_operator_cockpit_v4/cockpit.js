@@ -518,6 +518,55 @@
     body.appendChild(rail);
   }
 
+  /* --- Readable operator scan layer (0174S) ---
+     First-open readable summary for every screen. Uses only model data.
+     Detailed audit sections still render below, fully present. */
+  function renderOperatorScanLayer(screen, body) {
+    var layer = el("div", "operator-scan-layer");
+    var board = el("div", "operator-summary-board");
+
+    var intent = el("div", "scan-intent readable-body-copy");
+    intent.textContent = screen.primary_question || screen.title;
+    board.appendChild(intent);
+
+    /* Primary answer: the screen's headline status verdict. */
+    var verdict = screen.verdict || screen.studio_state || screen.readiness_verdict
+      || screen.evidence_state || screen.plan_state || screen.export_state || screen.policy_state;
+    var pa = el("div", "primary-answer");
+    pa.appendChild(document.createTextNode(verdict && verdict.label ? verdict.label : screen.title));
+    if (verdict && verdict.status) pa.appendChild(el("span", "token " + verdict.status, verdict.status));
+    board.appendChild(pa);
+
+    /* Next action card. */
+    var nextAction = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];
+    var na = el("div", "next-action-card");
+    na.appendChild(el("div", "scan-label", "Next Allowed Action"));
+    na.appendChild(el("div", "scan-value", nextAction ? nextAction.value : (verdict && verdict.reason ? verdict.reason : "")));
+    board.appendChild(na);
+
+    /* Top blockers: max 3 cards, ordered by severity. */
+    var cards = el("div", "top-blocker-cards");
+    MODEL.blocker_stack.slice(0, 3).forEach(function (b) {
+      var card = el("div", "blocker-card sev-" + b.severity);
+      card.appendChild(el("span", "scan-label", b.id + " · " + b.severity));
+      card.appendChild(el("div", "blocker-card-text", b.label));
+      cards.appendChild(card);
+    });
+    board.appendChild(cards);
+
+    /* Confidence summary: evidence families as chips + counts. */
+    var conf = el("div", "confidence-summary");
+    conf.appendChild(el("span", "scan-label", "Evidence (" + MODEL.evidence_refs.length + ")"));
+    MODEL.evidence_refs.slice(0, 5).forEach(function (ref) {
+      conf.appendChild(el("span", "evidence-chip", evidenceRefId(ref)));
+    });
+    conf.appendChild(el("span", "scan-label", "Blockers: " + MODEL.blocker_stack.length));
+    board.appendChild(conf);
+
+    layer.appendChild(board);
+    body.appendChild(layer);
+  }
+
   /* --- Screen dispatcher --- */
   function renderScreen(screenId) {
     var screen = MODEL.screens.filter(function (s) { return s.screen_id === screenId; })[0];
@@ -527,6 +576,9 @@
     clear(body);
     body.appendChild(el("h1", "screen-title", screen.title));
     body.appendChild(el("p", "screen-question", screen.primary_question));
+
+    /* Readable scan layer first; detailed audit sections render below it. */
+    renderOperatorScanLayer(screen, body);
 
     switch (screen.screen_id) {
       case "command_center": renderCommandCenter(screen, body); break;

@@ -41,6 +41,13 @@
   --line-tight: 1.2;
   --line-normal: 1.45;
 
+  /* Readable operator scan layer (0174S): larger scannable type for the
+     first-open summary, while audit detail below keeps compact density. */
+  --type-readable-body: 13.5px;
+  --type-summary: 14px;
+  --type-primary-answer: 22px;
+  --line-readable: 1.5;
+
   --rail-h: 32px;        /* DESIGN.md 32px safety ribbon */
   --nav-w: 220px;        /* DESIGN.md 220px left nav */
   --pad-module: 1.25rem; /* DESIGN.md module padding */
@@ -812,4 +819,137 @@ table.matrix tbody tr:nth-child(even) td { background: var(--bg-panel-2); }
   color: var(--text-dim);
   word-break: break-word;
 }
+
+
+/* =====================================================================
+ * Readable operator scan layer (0174S).
+ * First-open readable summary; audit detail stays below, fully present.
+ * ===================================================================== */
+
+.operator-scan-layer {
+  border: 2px solid var(--outline-strong);
+  background: var(--bg-panel-3);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.operator-summary-board {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 12px;
+}
+@media (max-width: 1099px) {
+  .operator-summary-board { grid-template-columns: minmax(0, 1fr); }
+}
+.scan-intent {
+  grid-column: 1 / -1;
+  font-family: var(--font-ui);
+  font-size: var(--type-summary);
+  line-height: var(--line-readable);
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+.primary-answer {
+  font-family: var(--font-ui);
+  font-size: var(--type-primary-answer);
+  line-height: 1.25;
+  color: var(--text);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.primary-answer .token { font-size: var(--type-label); }
+.next-action-card {
+  border: 1px solid var(--cyan);
+  background: var(--bg-panel-2);
+  padding: 10px 12px;
+}
+.next-action-card .scan-label { color: var(--cyan); }
+.next-action-card .scan-value {
+  font-family: var(--font-ui);
+  font-size: var(--type-readable-body);
+  line-height: var(--line-readable);
+  color: var(--text);
+  margin-top: 4px;
+}
+.top-blocker-cards {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 6px;
+}
+@media (max-width: 1099px) {
+  .top-blocker-cards { grid-template-columns: minmax(0, 1fr); }
+}
+.blocker-card {
+  border: 1px solid var(--outline);
+  border-left: 3px solid var(--red);
+  background: var(--bg-panel-2);
+  padding: 8px 10px;
+}
+.blocker-card.sev-review_required { border-left-color: var(--amber); }
+.blocker-card .scan-label { display: block; margin-bottom: 3px; }
+.blocker-card .blocker-card-text {
+  font-family: var(--font-ui);
+  font-size: var(--type-readable-body);
+  line-height: 1.4;
+  color: var(--text);
+}
+.confidence-summary {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--gridline);
+  padding-top: 8px;
+  margin-top: 4px;
+}
+.confidence-summary .scan-label { color: var(--text-faint); }
+.confidence-summary .evidence-chip {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  color: var(--cyan);
+  border: 1px solid var(--outline);
+  padding: 2px 6px;
+}
+.scan-label {
+  font-family: var(--font-ui);
+  font-size: var(--type-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-faint);
+}
+.scan-value {
+  font-family: var(--font-ui);
+  font-size: var(--type-readable-body);
+  line-height: var(--line-readable);
+  color: var(--text);
+}
+
+/* Audit detail zone: present and inspectable, visually secondary. */
+.audit-detail-section, .detail-density-zone, .evidence-depth-layer {
+  margin-top: 6px;
+}
+.detail-density-zone > .detail-zone-label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: var(--type-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-faint);
+  border-bottom: 1px solid var(--gridline);
+  padding-bottom: 4px;
+  margin: 10px 0 8px 0;
+}
+.readable-body-copy {
+  font-family: var(--font-ui);
+  font-size: var(--type-readable-body);
+  line-height: var(--line-readable);
+  color: var(--text);
+  text-transform: none;
+}
+.reduced-mono-prose { font-family: var(--font-ui); text-transform: none; }
 
