@@ -355,3 +355,8 @@ body {
 .cc-gate { text-align: left; }
 .cc-gate h3 { font-family: var(--font-mono); }
 
+
+/* Content Studio lane cards */
+.cs-lane { border-left: 3px solid var(--border); }
+.cs-lane .chip { margin: var(--space-1) 0; }
+

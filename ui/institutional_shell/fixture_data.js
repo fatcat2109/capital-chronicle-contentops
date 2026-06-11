@@ -183,6 +183,161 @@ window.CC_INSTITUTIONAL_SHELL_FIXTURE = {
       future_task: "0162 Content Studio Rebuild only after audit"
     }
   },
+  content_studio_detail: {
+    hero_status_band: {
+      title: "Capital Chronicle Content Studio",
+      content_mode: "review-only / fixture-driven / local-only",
+      public_state: "not_public_postable",
+      generation_state: "external/manual draft only",
+      current_gate: "0162 Content Studio screen rebuild",
+      next_allowed_action: "AWAIT OPERATOR/CHATGPT AUDIT_OF_0162_EVIDENCE_BEFORE_ANY_NEXT_TASK"
+    },
+    safety_banners: [
+      "LOCAL_ONLY", "REVIEW_ONLY", "MANUAL_REVIEW_REQUIRED", "NOT_PUBLIC_POSTABLE",
+      "LIVE_DISABLED", "SECRET_REDACTED", "NO_FINANCIAL_ADVICE", "NO_SIGNAL_LANGUAGE",
+      "MISSING_DATA_VISIBLE", "FORECAST_NOT_READY"
+    ],
+    content_lanes: [
+      {
+        lane_id: "pre_alpha_process",
+        title: "Pre-Alpha Process Lane",
+        state: "allowed_review_only",
+        detail: "Process/philosophy/education narratives about how Capital Chronicle works. Review-only, never auto-published."
+      },
+      {
+        lane_id: "grounded_news_context",
+        title: "Grounded News Context Lane",
+        state: "allowed_with_constraints",
+        detail: "Source-cited educational/process context only. News is a hook, not a signal. Source metadata supplied externally."
+      },
+      {
+        lane_id: "future_artifact_backed",
+        title: "Future Artifact-Backed Lane",
+        state: "blocked",
+        detail: "Blocked until real approved Capital Chronicle artifacts exist. Fake fixture artifacts are not allowed."
+      }
+    ],
+    lane_rules: {
+      lane_mixing: "blocked",
+      future_artifact_fixture_use: "blocked",
+      source_artifact_ids_invented: "blocked",
+      capital_chronicle_alpha_implied_before_approval: "blocked"
+    },
+    grounded_news_rule_panel: {
+      news_is_hook_not_signal: true,
+      source_metadata_supplied_externally: true,
+      repo_searches_or_fetches_news: false,
+      market_direction_claims: "blocked",
+      model_predicts_claims: "blocked",
+      actionable_trade_framing: "blocked"
+    },
+    source_evidence_requirements: [
+      { field: "source_url", requirement: "required for factual/current claims" },
+      { field: "source_date", requirement: "required for factual/current claims" },
+      { field: "source_summary", requirement: "required" },
+      { field: "claim_risk_notes", requirement: "required" },
+      { field: "freshness_label", requirement: "required" },
+      { field: "limitation_label", requirement: "required" },
+      { field: "artifact_id", requirement: "real artifact ID required later for artifact-backed content" },
+      { field: "missing_source", requirement: "blocks publish-readiness" }
+    ],
+    draft_review_only_panel: {
+      draft_origin: "externally drafted / manual draft only",
+      repo_calls_provider_llm_api: false,
+      draft_is_review_only: true,
+      final_public_copy_generation: "disabled",
+      manual_jim_review_required: true
+    },
+    claim_risk_classifier: [
+      { class: "first_party_philosophy", handling: "allowed" },
+      { class: "evergreen_education", handling: "allowed" },
+      { class: "cited_factual_claim", handling: "allowed_with_citation" },
+      { class: "current_factual_claim_requiring_citation", handling: "requires_citation" },
+      { class: "market_sensitive_claim", handling: "blocked_or_transformed_to_evergreen_education" },
+      { class: "forbidden_claim", handling: "blocked" }
+    ],
+    guardrail_results: [
+      { category: "buy_sell_hold", state: "forbidden" },
+      { category: "long_short", state: "forbidden" },
+      { category: "position_sizing", state: "forbidden" },
+      { category: "entries_exits", state: "forbidden" },
+      { category: "target_prices", state: "forbidden" },
+      { category: "guaranteed_prediction", state: "forbidden" },
+      { category: "signal_service_framing", state: "forbidden" },
+      { category: "execution_broker_order_routing", state: "forbidden" },
+      { category: "fake_alpha", state: "forbidden" },
+      { category: "unsupported_numeric_market_claims", state: "forbidden" },
+      { category: "raw_vendor_data_redistribution", state: "forbidden" },
+      { category: "hidden_missing_degraded_proxy_data", state: "forbidden" }
+    ],
+    limitations_refusal_mode: {
+      missing_stays_missing: true,
+      degraded_stays_degraded: true,
+      proxy_only_is_labeled: true,
+      forecast_readiness_can_stay_blocked: true,
+      no_forecast_is_valid_output: true,
+      uncertainty_must_be_visible: true
+    },
+    platform_fit_preview: [
+      { platform: "substack", fit: "long-form home", mode: "dry_run_read_only" },
+      { platform: "linkedin", fit: "professional process insight", mode: "dry_run_read_only" },
+      { platform: "x", fit: "short education/process hooks", mode: "dry_run_read_only" },
+      { platform: "threads", fit: "conversational mirror", mode: "dry_run_read_only" },
+      { platform: "telegram", fit: "future pilot only after gates", mode: "dry_run_read_only" }
+    ],
+    platform_fit_constraints: {
+      export_to_platform: "disabled",
+      schedule: "disabled",
+      publish: "disabled",
+      live_api: "disabled"
+    },
+    editorial_quality_state: {
+      review_completeness: "fixture_static",
+      evidence_completeness: "fixture_static",
+      limitation_visibility: "fixture_static",
+      guardrail_cleanliness: "fixture_static",
+      manual_review_pending: true,
+      implies_publish_ready: false
+    },
+    decision_ledger_handoff: {
+      operator_decision_required: true,
+      approval_is_automatic: false,
+      revocation_supported: true,
+      evidence_refs_required: true,
+      public_ready_approval_enabled_now: false
+    },
+    draft_inspector_handoff: {
+      next_drilldown_surface: "draft_inspector",
+      source_lineage_must_remain_visible: true,
+      guardrails_must_remain_visible: true
+    },
+    blocked_action_matrix: [
+      { action: "generate_final_public_copy", state: "disabled" },
+      { action: "auto_approve", state: "disabled" },
+      { action: "publish", state: "disabled" },
+      { action: "schedule", state: "disabled" },
+      { action: "provider_llm_api", state: "disabled" },
+      { action: "news_search_fetch", state: "disabled" },
+      { action: "platform_api", state: "disabled" },
+      { action: "scrape_metrics", state: "disabled" },
+      { action: "artifact_backed_without_real_artifacts", state: "disabled" },
+      { action: "create_market_signal", state: "disabled" },
+      { action: "credential_display", state: "disabled" },
+      { action: "one_button_publish_all", state: "disabled" }
+    ],
+    evidence_summary: {
+      content_studio_workbench: "linked (concept)",
+      grounded_news_rule: "linked",
+      external_draft_review: "linked",
+      decision_ledger: "linked",
+      platform_fit_readiness_dry_run: "linked",
+      evidence_packet_required: true
+    },
+    next_allowed_action_panel: {
+      directive: "AWAIT OPERATOR/CHATGPT AUDIT_OF_0162_EVIDENCE_BEFORE_ANY_NEXT_TASK",
+      future_task: "0163 Publish Readiness Tower only after audit"
+    }
+  },
   screens: [
     {
       screen_id: "command_center",

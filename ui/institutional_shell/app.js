@@ -249,6 +249,113 @@
     main.appendChild(ccKvSection("Next Allowed Action", d.next_allowed_action_panel));
   }
 
+  /* Content Studio hero band */
+  function csHero(d) {
+    var h = d.hero_status_band || {};
+    var band = el("div", "cc-hero");
+    band.appendChild(el("div", "cc-hero-title", h.title || "Content Studio"));
+    var rows = [
+      ["Content mode", h.content_mode], ["Public state", h.public_state],
+      ["Generation state", h.generation_state], ["Current gate", h.current_gate],
+      ["Next allowed action", h.next_allowed_action]
+    ];
+    var wrap = el("div", "cc-hero-grid");
+    rows.forEach(function (r) {
+      var cell = el("div", "cc-hero-cell");
+      cell.appendChild(el("span", "label", r[0]));
+      cell.appendChild(el("span", "value", r[1] || "unknown"));
+      wrap.appendChild(cell);
+    });
+    band.appendChild(wrap);
+    return band;
+  }
+
+  function csLaneCard(lane) {
+    var toneMap = { allowed_review_only: "review", allowed_with_constraints: "proxy", blocked: "blocked" };
+    var card = el("div", "card cs-lane");
+    card.appendChild(el("h3", null, lane.title));
+    var chip = el("span", "chip", String(lane.state).replace(/_/g, " "));
+    chip.setAttribute("data-tone", toneMap[lane.state] || "unknown");
+    card.appendChild(chip);
+    card.appendChild(el("div", "note", lane.detail || ""));
+    return card;
+  }
+
+  function renderContentStudio(main) {
+    var d = F.content_studio_detail || {};
+    main.appendChild(screenshotSafeBar());
+    main.appendChild(csHero(d));
+    main.appendChild(bannerRow(d.safety_banners));
+
+    main.appendChild(ccCardGrid("Content Lane Control", csLaneCard, d.content_lanes));
+    main.appendChild(ccKvSection("Lane Rules", d.lane_rules));
+    main.appendChild(ccKvSection("Grounded News Rule", d.grounded_news_rule_panel));
+
+    main.appendChild(ccCardGrid("Source / Evidence Requirements", function (s) {
+      var card = el("div", "card");
+      card.appendChild(el("h3", null, s.field));
+      card.appendChild(el("div", "note", s.requirement || ""));
+      return card;
+    }, d.source_evidence_requirements));
+
+    main.appendChild(ccKvSection("Draft Intake (Review-Only)", d.draft_review_only_panel));
+
+    main.appendChild(ccCardGrid("Claim Risk Classifier", function (c) {
+      var card = el("div", "card");
+      card.appendChild(el("h3", null, c.class.replace(/_/g, " ")));
+      var tone = c.handling === "allowed" ? "pass" :
+        (c.handling === "blocked" || c.handling.indexOf("blocked") === 0) ? "blocked" : "review";
+      var chip = el("span", "chip", c.handling.replace(/_/g, " "));
+      chip.setAttribute("data-tone", tone);
+      card.appendChild(chip);
+      return card;
+    }, d.claim_risk_classifier));
+
+    var gr = el("div", "cc-section");
+    gr.appendChild(el("h2", "cc-section-title", "Guardrail Results (Forbidden Categories)"));
+    var gcard = el("div", "card full");
+    (d.guardrail_results || []).forEach(function (g) {
+      var item = el("span", "disabled-control", g.category.replace(/_/g, " ") + " — " + g.state);
+      item.setAttribute("aria-disabled", "true");
+      item.setAttribute("title", "Forbidden content category. Blocked by guardrails.");
+      gcard.appendChild(item);
+    });
+    gr.appendChild(gcard);
+    main.appendChild(gr);
+
+    main.appendChild(ccKvSection("Limitations / Refusal Mode", d.limitations_refusal_mode));
+
+    main.appendChild(ccCardGrid("Platform Fit Preview (Dry-Run, Read-Only)", function (p) {
+      var card = el("div", "card");
+      card.appendChild(el("h3", null, p.platform));
+      card.appendChild(el("div", "note", p.fit + " (" + p.mode + ")"));
+      return card;
+    }, d.platform_fit_preview));
+
+    main.appendChild(ccKvSection("Platform Fit Constraints", d.platform_fit_constraints));
+    main.appendChild(ccKvSection("Editorial Quality State", d.editorial_quality_state));
+
+    var bam = el("div", "cc-section");
+    bam.appendChild(el("h2", "cc-section-title", "Blocked Action Matrix"));
+    var bcard = el("div", "card full");
+    (d.blocked_action_matrix || []).forEach(function (b) {
+      var item = el("span", "disabled-control", b.action.replace(/_/g, " ") + " — " + b.state);
+      item.setAttribute("aria-disabled", "true");
+      item.setAttribute("title", "Disabled by safety policy.");
+      bcard.appendChild(item);
+    });
+    bcard.appendChild(el("div", "forbidden-note",
+      "All actions above are disabled, read-only. No live capability is wired."));
+    bam.appendChild(bcard);
+    main.appendChild(bam);
+
+    main.appendChild(ccKvSection("Decision Ledger Handoff", d.decision_ledger_handoff));
+    main.appendChild(ccKvSection("Draft Inspector Handoff", d.draft_inspector_handoff));
+    main.appendChild(ccKvSection("Evidence / Audit Summary", d.evidence_summary));
+    main.appendChild(ccKvSection("Next Allowed Action", d.next_allowed_action_panel));
+  }
+
+
 
   /* Main screen render */
   function renderScreen(screenId) {
@@ -266,6 +373,11 @@
 
     if (screen.screen_id === "command_center" && F.command_center_detail) {
       renderCommandCenter(main);
+      return;
+    }
+
+    if (screen.screen_id === "daily_content_studio" && F.content_studio_detail) {
+      renderContentStudio(main);
       return;
     }
 
