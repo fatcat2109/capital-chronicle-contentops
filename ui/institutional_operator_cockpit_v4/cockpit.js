@@ -18,6 +18,14 @@
   }
   function clear(node) { while (node.firstChild) node.removeChild(node.firstChild); }
 
+  /* Normalize an evidence ref (object or string) to a stable display id. */
+  function evidenceRefId(ref) {
+    if (typeof ref === "string") return ref;
+    if (ref && ref.evidence_id) return ref.evidence_id;
+    if (ref && ref.id) return ref.id;
+    return "";
+  }
+
   /* --- Safety Rail --- */
   function renderSafetyRail() {
     var rail = document.getElementById("safety-rail");
@@ -493,7 +501,7 @@
     var ev = el("div", "summary-cell");
     ev.appendChild(el("div", "data-label", "Evidence Refs"));
     ev.appendChild(el("div", "summary-text mono-value",
-      MODEL.evidence_refs.slice(0, 6).join(" / ")));
+      MODEL.evidence_refs.slice(0, 6).map(evidenceRefId).filter(Boolean).join(" / ")));
     rail.appendChild(ev);
 
     var nextAction = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];

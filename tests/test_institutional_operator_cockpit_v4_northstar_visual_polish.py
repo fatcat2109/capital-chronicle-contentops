@@ -74,6 +74,25 @@ def test_evidence_vault_hierarchy_classes_defined_and_used():
         assert cls in cockpit, "vault class not used: " + cls
 
 
+# ---------- evidence ref render fix (0174P) ----------
+def test_evidence_ref_helper_present():
+    cockpit = _cockpit()
+    assert "function evidenceRefId" in cockpit
+    assert "evidence_id" in cockpit
+
+
+def test_no_direct_object_join_on_evidence_refs():
+    cockpit = _cockpit()
+    # the prior bug: joining objects directly produced "[object Object]".
+    assert 'MODEL.evidence_refs.slice(0, 6).join(" / ")' not in cockpit
+    assert ".map(evidenceRefId)" in cockpit
+
+
+def test_no_object_object_literal_in_runtime():
+    text = _runtime_text()
+    assert "[object Object]" not in text
+
+
 # ---------- sparse-screen governor ----------
 def test_sparse_screen_governor_defined_and_used():
     css = _css()
