@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD ContentIntentPacket",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "packet_id": { "type": "string" },
+    "source_basis_type": {
+      "type": "string",
+      "enum": [
+        "general_process_brief",
+        "grounded_news_brief",
+        "approved_artifact_packet",
+        "forecast_readiness_summary",
+        "outcome_packet",
+        "forensics_packet",
+        "product_build_milestone"
+      ]
+    },
+    "content_lane": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "E", "F"]
+    },
+    "authority_level": { "type": "string" },
+    "classification": {
+      "type": "string",
+      "enum": ["current", "historical", "reference_only"]
+    },
+    "source_status": {
+      "type": "string",
+      "enum": [
+        "current_repo",
+        "historical_git",
+        "project_source_only",
+        "appended_report_only",
+        "unknown"
+      ]
+    },
+    "evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "allowed_claims": { "type": "array", "items": { "type": "string" } },
+    "forbidden_transformations": { "type": "array", "items": { "type": "string" } },
+    "required_citations": { "type": "array", "items": { "type": "string" } },
+    "required_limitations": { "type": "array", "items": { "type": "string" } },
+    "platform_target_intent": { "type": "array", "items": { "type": "string" } },
+    "content_risk_tier": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "text_content": { "type": "string" },
+    "claims_artifact_backed": { "type": "boolean" },
+    "source_artifact_ids": { "type": "array", "items": { "type": "string" } },
+    "freshness_status": { "type": "string" },
+    "public_ready": { "type": "boolean" },
+    "live_dispatch_implied": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "packet_id",
+    "source_basis_type",
+    "content_lane",
+    "authority_level",
+    "classification",
+    "evidence_refs",
+    "public_ready",
+    "live_dispatch_implied",
+    "validation_state"
+  ]
+}

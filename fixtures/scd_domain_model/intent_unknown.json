@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "packet_id": "intent_unknown_001",
+  "source_basis_type": "general_process_brief",
+  "content_lane": "A",
+  "authority_level": "",
+  "classification": "current",
+  "source_status": "unknown",
+  "evidence_refs": [],
+  "allowed_claims": [],
+  "forbidden_transformations": [],
+  "required_citations": ["pending"],
+  "required_limitations": [],
+  "platform_target_intent": [],
+  "content_risk_tier": "low",
+  "text_content": "Draft idea with no established evidence basis yet.",
+  "claims_artifact_backed": false,
+  "source_artifact_ids": [],
+  "public_ready": false,
+  "live_dispatch_implied": false,
+  "validation_state": "UNKNOWN",
+  "blocked_reasons": []
+}

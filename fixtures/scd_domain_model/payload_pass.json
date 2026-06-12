@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "payload_id": "payload_pass_001",
+  "canonical_post_id": "post_pass_001",
+  "platform_target": "linkedin",
+  "payload_preview": {
+    "text": "This week we shipped a deterministic domain model for supervised content distribution. Here is what we learned about evidence-first publishing."
+  },
+  "media_requirements": [],
+  "character_limit": { "max": 3000, "current": 140 },
+  "disclosure_fields": ["process_content"],
+  "platform_warnings": [],
+  "unsupported_feature_flags": [],
+  "mode": "dry_run",
+  "live_eligibility": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

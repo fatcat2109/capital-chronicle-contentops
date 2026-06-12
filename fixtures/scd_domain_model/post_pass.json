@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "post_id": "post_pass_001",
+  "source_intent_packet_id": "intent_lane_a_pass_001",
+  "content_lane": "A",
+  "audience_mode": "founder_operator",
+  "canonical_text": "This week we shipped a deterministic domain model for supervised content distribution. Here is what we learned about evidence-first publishing.",
+  "citations": ["build_log_0174AP"],
+  "limitations": ["Process content only; not investment guidance."],
+  "claim_risk": "low",
+  "platform_targets": ["linkedin", "x"],
+  "guardrail_summary": {
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "no_execution_language": true,
+    "limitations_present": true
+  },
+  "approval_state": "draft_review_only",
+  "dispatch_state": "not_dispatchable",
+  "audit_refs": [],
+  "metrics_refs": [],
+  "public_postable": false,
+  "live_posting_enabled": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

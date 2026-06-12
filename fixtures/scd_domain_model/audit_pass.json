@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "audit_event_id": "audit_pass_001",
+  "created_at": "2026-06-12T00:00:00Z",
+  "event_type": "mock_dispatch_recorded",
+  "related_packet_refs": ["dispatch_pass_001"],
+  "redacted_request_placeholder": "POST <redacted-endpoint> <redacted-auth>",
+  "redacted_response_placeholder": "<redacted-response>",
+  "secret_redaction_proof": {
+    "redaction_applied": true,
+    "redacted_fields": ["authorization", "bot_token"],
+    "unsafe_secret_detected": false
+  },
+  "operator_decision_ref": "approval_pass_001",
+  "network_accessed": false,
+  "credential_accessed": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

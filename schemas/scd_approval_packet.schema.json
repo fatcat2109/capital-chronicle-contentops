@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD ApprovalPacket",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "approval_packet_id": { "type": "string" },
+    "source_evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "included_post_refs": { "type": "array", "items": { "type": "string" } },
+    "included_payload_refs": { "type": "array", "items": { "type": "string" } },
+    "guardrail_report_summary": {
+      "type": "object",
+      "properties": {
+        "all_posts_pass": { "type": "boolean" },
+        "unresolved_states": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["all_posts_pass", "unresolved_states"]
+    },
+    "limitation_checklist": { "type": "array", "items": { "type": "string" } },
+    "claim_risk_summary": { "type": "string" },
+    "operator_review_required": { "type": "boolean" },
+    "approval_state": {
+      "type": "string",
+      "enum": [
+        "operator_review_required",
+        "operator_approved_for_mock_dispatch",
+        "blocked",
+        "revoked"
+      ]
+    },
+    "revocation_ready": { "type": "boolean" },
+    "auto_approved": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "approval_packet_id",
+    "source_evidence_refs",
+    "included_post_refs",
+    "guardrail_report_summary",
+    "operator_review_required",
+    "approval_state",
+    "revocation_ready",
+    "auto_approved",
+    "validation_state"
+  ]
+}

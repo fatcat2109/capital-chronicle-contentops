@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "dispatch_packet_id": "dispatch_pass_001",
+  "approval_packet_id": "approval_pass_001",
+  "frozen_payload_hash_refs": ["sha256:deadbeef"],
+  "dispatch_preconditions": {
+    "all_upstream_pass": true,
+    "operator_approved": true,
+    "kill_switch_inactive_for_operation": true
+  },
+  "kill_switch_state_required": true,
+  "redacted_credential_slot_refs": ["TELEGRAM_BOT_TOKEN_SLOT"],
+  "platform_live_gate_state": "mock_only",
+  "rollback_fallback_refs": ["manual_fallback_doc"],
+  "dispatch_state": "mock_dispatch_ready",
+  "live_ready": false,
+  "executable_dispatch": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

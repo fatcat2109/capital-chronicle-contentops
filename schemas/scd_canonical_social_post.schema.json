@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD CanonicalSocialPost",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "post_id": { "type": "string" },
+    "source_intent_packet_id": { "type": "string" },
+    "content_lane": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "E", "F"]
+    },
+    "audience_mode": { "type": "string" },
+    "canonical_text": { "type": "string" },
+    "citations": { "type": "array", "items": { "type": "string" } },
+    "limitations": { "type": "array", "items": { "type": "string" } },
+    "claim_risk": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "platform_targets": { "type": "array", "items": { "type": "string" } },
+    "guardrail_summary": {
+      "type": "object",
+      "properties": {
+        "no_financial_advice": { "type": "boolean" },
+        "no_signal_language": { "type": "boolean" },
+        "no_execution_language": { "type": "boolean" },
+        "limitations_present": { "type": "boolean" }
+      },
+      "required": [
+        "no_financial_advice",
+        "no_signal_language",
+        "no_execution_language",
+        "limitations_present"
+      ]
+    },
+    "approval_state": {
+      "type": "string",
+      "enum": [
+        "draft_review_only",
+        "operator_review_required",
+        "platform_dry_run_ready",
+        "blocked"
+      ]
+    },
+    "dispatch_state": {
+      "type": "string",
+      "enum": ["not_dispatchable", "dry_run_only", "mock_only", "blocked"]
+    },
+    "audit_refs": { "type": "array", "items": { "type": "string" } },
+    "metrics_refs": { "type": "array", "items": { "type": "string" } },
+    "public_postable": { "type": "boolean" },
+    "live_posting_enabled": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "post_id",
+    "source_intent_packet_id",
+    "content_lane",
+    "audience_mode",
+    "canonical_text",
+    "citations",
+    "limitations",
+    "claim_risk",
+    "platform_targets",
+    "guardrail_summary",
+    "approval_state",
+    "dispatch_state",
+    "public_postable",
+    "live_posting_enabled",
+    "validation_state"
+  ]
+}

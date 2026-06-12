@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD PlatformPayload",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "payload_id": { "type": "string" },
+    "canonical_post_id": { "type": "string" },
+    "platform_target": {
+      "type": "string",
+      "enum": [
+        "telegram",
+        "linkedin",
+        "x",
+        "threads",
+        "substack",
+        "facebook_page",
+        "instagram",
+        "tiktok"
+      ]
+    },
+    "payload_preview": {
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" }
+      },
+      "required": ["text"]
+    },
+    "media_requirements": { "type": "array", "items": { "type": "object" } },
+    "character_limit": {
+      "type": "object",
+      "properties": {
+        "max": { "type": "integer" },
+        "current": { "type": "integer" }
+      },
+      "required": ["max", "current"]
+    },
+    "disclosure_fields": { "type": "array", "items": { "type": "string" } },
+    "platform_warnings": { "type": "array", "items": { "type": "string" } },
+    "unsupported_feature_flags": { "type": "array", "items": { "type": "string" } },
+    "mode": {
+      "type": "string",
+      "enum": ["dry_run", "mock_only", "supervised_live_future"]
+    },
+    "live_eligibility": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "payload_id",
+    "canonical_post_id",
+    "platform_target",
+    "payload_preview",
+    "character_limit",
+    "mode",
+    "live_eligibility",
+    "validation_state"
+  ]
+}

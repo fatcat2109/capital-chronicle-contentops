@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "metrics_record_id": "metrics_pass_001",
+  "related_post_ref": "post_pass_001",
+  "related_payload_ref": "payload_pass_001",
+  "related_dispatch_ref": "dispatch_pass_001",
+  "platform_id_or_manual_source": "manual",
+  "source_type": "manual_entry",
+  "url": null,
+  "platform_post_id": null,
+  "manual_or_mock_metrics": {
+    "impressions": 0,
+    "engagement": 0,
+    "clicks": 0
+  },
+  "performance_review_refs": [],
+  "scraping_used": false,
+  "live_api_import_used": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

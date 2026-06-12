@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "approval_packet_id": "approval_review_001",
+  "source_evidence_refs": ["intent_lane_a_pass_001"],
+  "included_post_refs": ["post_pass_001"],
+  "included_payload_refs": ["payload_pass_001"],
+  "guardrail_report_summary": {
+    "all_posts_pass": true,
+    "unresolved_states": []
+  },
+  "limitation_checklist": ["process content only"],
+  "claim_risk_summary": "low",
+  "operator_review_required": true,
+  "approval_state": "operator_approved_for_mock_dispatch",
+  "revocation_ready": true,
+  "auto_approved": false,
+  "validation_state": "REVIEW_REQUIRED",
+  "blocked_reasons": []
+}

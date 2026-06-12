@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD MetricsRecord",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "metrics_record_id": { "type": "string" },
+    "related_post_ref": { "type": "string" },
+    "related_payload_ref": { "type": "string" },
+    "related_dispatch_ref": { "type": "string" },
+    "platform_id_or_manual_source": { "type": "string" },
+    "source_type": {
+      "type": "string",
+      "enum": ["manual_entry", "mock_result", "future_read_only_import"]
+    },
+    "url": { "type": ["string", "null"] },
+    "platform_post_id": { "type": ["string", "null"] },
+    "manual_or_mock_metrics": {
+      "type": "object",
+      "properties": {
+        "impressions": { "type": ["integer", "null"] },
+        "engagement": { "type": ["integer", "null"] },
+        "clicks": { "type": ["integer", "null"] }
+      }
+    },
+    "performance_review_refs": { "type": "array", "items": { "type": "string" } },
+    "scraping_used": { "type": "boolean" },
+    "live_api_import_used": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "metrics_record_id",
+    "source_type",
+    "scraping_used",
+    "live_api_import_used",
+    "validation_state"
+  ]
+}

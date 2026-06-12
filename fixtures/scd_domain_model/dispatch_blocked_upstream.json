@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "dispatch_packet_id": "dispatch_blocked_upstream_001",
+  "approval_packet_id": "approval_x",
+  "frozen_payload_hash_refs": ["hash_abc"],
+  "dispatch_preconditions": {
+    "all_upstream_pass": false,
+    "operator_approved": false,
+    "kill_switch_inactive_for_operation": false
+  },
+  "kill_switch_state_required": true,
+  "redacted_credential_slot_refs": ["TELEGRAM_BOT_TOKEN_SLOT"],
+  "platform_live_gate_state": "closed",
+  "rollback_fallback_refs": ["manual_fallback_doc"],
+  "dispatch_state": "blocked",
+  "live_ready": false,
+  "executable_dispatch": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["upstream not PASS"]
+}

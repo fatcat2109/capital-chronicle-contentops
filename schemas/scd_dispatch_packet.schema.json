@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD DispatchPacket",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "dispatch_packet_id": { "type": "string" },
+    "approval_packet_id": { "type": "string" },
+    "frozen_payload_hash_refs": { "type": "array", "items": { "type": "string" } },
+    "dispatch_preconditions": {
+      "type": "object",
+      "properties": {
+        "all_upstream_pass": { "type": "boolean" },
+        "operator_approved": { "type": "boolean" },
+        "kill_switch_inactive_for_operation": { "type": "boolean" }
+      },
+      "required": [
+        "all_upstream_pass",
+        "operator_approved",
+        "kill_switch_inactive_for_operation"
+      ]
+    },
+    "kill_switch_state_required": { "type": "boolean" },
+    "redacted_credential_slot_refs": { "type": "array", "items": { "type": "string" } },
+    "platform_live_gate_state": {
+      "type": "string",
+      "enum": ["closed", "mock_only", "open_future"]
+    },
+    "rollback_fallback_refs": { "type": "array", "items": { "type": "string" } },
+    "dispatch_state": {
+      "type": "string",
+      "enum": ["not_ready", "dry_run_ready", "mock_dispatch_ready", "blocked"]
+    },
+    "live_ready": { "type": "boolean" },
+    "executable_dispatch": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "dispatch_packet_id",
+    "approval_packet_id",
+    "frozen_payload_hash_refs",
+    "dispatch_preconditions",
+    "kill_switch_state_required",
+    "platform_live_gate_state",
+    "dispatch_state",
+    "live_ready",
+    "executable_dispatch",
+    "validation_state"
+  ]
+}
