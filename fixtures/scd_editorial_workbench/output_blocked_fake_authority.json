@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "output_id": "ewo_blocked_authority_001",
+  "request_id": "ewr_lane_a_pass_001",
+  "produced_text": "Capital Chronicle alpha says this is forecast-ready and our model predicts the next move.",
+  "proposed_variants": [],
+  "cited_refs_used": [],
+  "limitations_preserved": ["Process content, not investment guidance."],
+  "claims_preserved": [],
+  "claims_added": [],
+  "citations_added": [],
+  "citations_missing": [],
+  "authority_claims_detected": [],
+  "market_call_risk_detected": false,
+  "forbidden_language_detected": [],
+  "hallucination_risk_flags": [],
+  "operator_review_required": true,
+  "approved_by_system": false,
+  "public_ready": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["invented Capital Chronicle authority"]
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD EditorialWorkbenchOutput",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "output_id": { "type": "string" },
+    "request_id": { "type": "string" },
+    "produced_text": { "type": "string" },
+    "proposed_variants": { "type": "array", "items": { "type": "object" } },
+    "cited_refs_used": { "type": "array", "items": { "type": "string" } },
+    "limitations_preserved": { "type": "array", "items": { "type": "string" } },
+    "claims_preserved": { "type": "array", "items": { "type": "string" } },
+    "claims_added": { "type": "array", "items": { "type": "string" } },
+    "citations_added": { "type": "array", "items": { "type": "string" } },
+    "citations_missing": { "type": "array", "items": { "type": "string" } },
+    "authority_claims_detected": { "type": "array", "items": { "type": "string" } },
+    "market_call_risk_detected": { "type": "boolean" },
+    "forbidden_language_detected": { "type": "array", "items": { "type": "string" } },
+    "hallucination_risk_flags": { "type": "array", "items": { "type": "string" } },
+    "operator_review_required": { "type": "boolean" },
+    "approved_by_system": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "output_id",
+    "request_id",
+    "produced_text",
+    "limitations_preserved",
+    "claims_preserved",
+    "claims_added",
+    "citations_added",
+    "citations_missing",
+    "operator_review_required",
+    "approved_by_system",
+    "public_ready",
+    "validation_state"
+  ]
+}

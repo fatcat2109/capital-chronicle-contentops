@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "output_id": "ewo_review_001",
+  "request_id": "ewr_lane_a_pass_001",
+  "produced_text": "This week we shipped a deterministic domain model and explained our evidence-first approach.",
+  "proposed_variants": [],
+  "cited_refs_used": ["build_log_0174AP"],
+  "limitations_preserved": ["Process content, not investment guidance."],
+  "claims_preserved": ["We built a domain model layer."],
+  "claims_added": [],
+  "citations_added": [],
+  "citations_missing": ["secondary_source_pending"],
+  "authority_claims_detected": [],
+  "market_call_risk_detected": false,
+  "forbidden_language_detected": [],
+  "hallucination_risk_flags": [],
+  "operator_review_required": true,
+  "approved_by_system": false,
+  "public_ready": false,
+  "validation_state": "REVIEW_REQUIRED",
+  "blocked_reasons": []
+}

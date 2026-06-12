@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD EditorialVoiceProfile",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "voice_profile_id": { "type": "string" },
+    "label": { "type": "string" },
+    "allowed_tone": { "type": "array", "items": { "type": "string" } },
+    "forbidden_tone": { "type": "array", "items": { "type": "string" } },
+    "allowed_phrasing_examples": { "type": "array", "items": { "type": "string" } },
+    "forbidden_phrasing_examples": { "type": "array", "items": { "type": "string" } },
+    "no_market_advice_required": { "type": "boolean" },
+    "no_signal_language_required": { "type": "boolean" },
+    "no_authority_invention_required": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "voice_profile_id",
+    "label",
+    "allowed_tone",
+    "forbidden_tone",
+    "no_market_advice_required",
+    "no_signal_language_required",
+    "no_authority_invention_required",
+    "validation_state"
+  ]
+}

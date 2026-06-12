@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD HookTaxonomyEntry",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "hook_id": { "type": "string" },
+    "hook_type": {
+      "type": "string",
+      "enum": [
+        "data_sufficiency",
+        "forecast_readiness",
+        "source_trust",
+        "uncertainty",
+        "failure_forensics",
+        "build_in_public",
+        "grounded_news_context",
+        "product_philosophy",
+        "artifact_backed_future"
+      ]
+    },
+    "allowed_lanes": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["A", "B", "C", "D", "E", "F"] }
+    },
+    "required_limitations": { "type": "array", "items": { "type": "string" } },
+    "forbidden_transformations": { "type": "array", "items": { "type": "string" } },
+    "example_safe_hook": { "type": "string" },
+    "example_blocked_hook": { "type": "string" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "hook_id",
+    "hook_type",
+    "allowed_lanes",
+    "required_limitations",
+    "forbidden_transformations",
+    "validation_state"
+  ]
+}

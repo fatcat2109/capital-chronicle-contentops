@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "hook_id": "hook_data_sufficiency_001",
+  "hook_type": "data_sufficiency",
+  "allowed_lanes": ["A", "B"],
+  "required_limitations": ["Explains why missing data blocks conclusions."],
+  "forbidden_transformations": ["market_call", "signal_framing"],
+  "example_safe_hook": "Most forecasts fail because the underlying data was never sufficient.",
+  "example_blocked_hook": "Our model says buy now; the data guarantees a 90% gain.",
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

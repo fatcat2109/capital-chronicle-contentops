@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "voice_profile_id": "voice_founder_operator_001",
+  "label": "Founder / Operator Voice",
+  "allowed_tone": ["founder_operator", "credible", "sharp", "educational", "process_first", "non_hype"],
+  "forbidden_tone": ["hype", "trader-bait", "signal-service", "certainty theater", "fake alpha", "urgency-to-act"],
+  "allowed_phrasing_examples": [
+    "Here is what we learned building evidence-first publishing.",
+    "We refuse to publish claims we cannot back with sources."
+  ],
+  "forbidden_phrasing_examples": [
+    "Our model predicts this asset will moon.",
+    "Buy now before it is too late."
+  ],
+  "no_market_advice_required": true,
+  "no_signal_language_required": true,
+  "no_authority_invention_required": true,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

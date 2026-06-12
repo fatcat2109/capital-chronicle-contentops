@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "critique_id": "crit_blocked_001",
+  "request_id": "ewr_lane_a_pass_001",
+  "output_id": "ewo_pass_001",
+  "before_text_hash_or_ref": "sha256:before",
+  "after_text_hash_or_ref": "sha256:after",
+  "quality_score_local_only": 0.9,
+  "clarity_score": 0.9,
+  "credibility_score": 0.9,
+  "safety_score": 1.0,
+  "source_integrity_score": 0.9,
+  "limitation_preservation_result": "PASS",
+  "claim_preservation_result": "PASS",
+  "citation_integrity_result": "PASS",
+  "hallucination_check_result": "PASS",
+  "forbidden_language_result": "PASS",
+  "final_recommendation": "PASS",
+  "operator_review_required": true,
+  "public_ready": true,
+  "approved_by_system": true,
+  "blocked_reasons": []
+}

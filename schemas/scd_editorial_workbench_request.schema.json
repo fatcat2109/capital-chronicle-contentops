@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD EditorialWorkbenchRequest",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "request_id": { "type": "string" },
+    "source_intent_packet_id": { "type": "string" },
+    "input_text": { "type": "string" },
+    "source_summary": { "type": "string" },
+    "content_lane": {
+      "type": "string",
+      "enum": ["A", "B", "C", "D", "E", "F"]
+    },
+    "audience_mode": { "type": "string" },
+    "requested_platform_targets": { "type": "array", "items": { "type": "string" } },
+    "editorial_task_type": {
+      "type": "string",
+      "enum": [
+        "rewrite",
+        "summarize",
+        "hook_generation",
+        "platform_variant",
+        "title_subtitle",
+        "hashtag_keywords",
+        "narrative_tension",
+        "audience_adaptation",
+        "first_comment",
+        "newsletter_section",
+        "critique",
+        "quality_score"
+      ]
+    },
+    "voice_profile_id": { "type": "string" },
+    "hook_taxonomy_refs": { "type": "array", "items": { "type": "string" } },
+    "allowed_claims": { "type": "array", "items": { "type": "string" } },
+    "preserved_claims": { "type": "array", "items": { "type": "string" } },
+    "required_citations": { "type": "array", "items": { "type": "string" } },
+    "required_limitations": { "type": "array", "items": { "type": "string" } },
+    "forbidden_transformations": { "type": "array", "items": { "type": "string" } },
+    "claim_risk_tier": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "artifact_authority_state": {
+      "type": "string",
+      "enum": ["none", "claimed_unverified", "real_artifact_backed"]
+    },
+    "operator_review_required": { "type": "boolean" },
+    "provider_call_allowed": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "request_id",
+    "source_intent_packet_id",
+    "content_lane",
+    "audience_mode",
+    "editorial_task_type",
+    "voice_profile_id",
+    "operator_review_required",
+    "provider_call_allowed",
+    "public_ready",
+    "validation_state"
+  ]
+}

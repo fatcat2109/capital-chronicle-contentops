@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "output_id": "ewo_blocked_signal_001",
+  "request_id": "ewr_lane_a_pass_001",
+  "produced_text": "Buy this asset now and watch this level; our setup says sell at the target price.",
+  "proposed_variants": [],
+  "cited_refs_used": ["build_log_0174AP"],
+  "limitations_preserved": ["Process content, not investment guidance."],
+  "claims_preserved": ["We built a domain model layer."],
+  "claims_added": [],
+  "citations_added": [],
+  "citations_missing": [],
+  "authority_claims_detected": [],
+  "market_call_risk_detected": false,
+  "forbidden_language_detected": [],
+  "hallucination_risk_flags": [],
+  "operator_review_required": true,
+  "approved_by_system": false,
+  "public_ready": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["buy/sell/signal language"]
+}
