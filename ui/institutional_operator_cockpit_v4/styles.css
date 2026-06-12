@@ -18,11 +18,31 @@
   --text-dim: #c6c6ca;           /* on-surface-variant */
   --text-faint: #8f9094;
   --text-mono: #c6c6ca;
-  --cyan: #5cc8e8;       /* selected / current metadata */
-  --amber: #e0a73d;      /* review / caution */
-  --red: #ffb4ab;        /* blocked / kill switch / live disabled (DESIGN error) */
-  --green: #57b87a;      /* validation pass only */
-  --grey: #6b757e;       /* disabled / future-only */
+  /* 0174AA — austere accent discipline from the root Evidence Vault reference.
+     Authority / current / evidence now reads as a neutral near-white rather than
+     a hue; red is the only saturated accent and is reserved for danger / kill
+     switch / blockers. No neon, no decorative color. */
+  --accent-authority: #d7dadd;     /* reference grey-primary, brightened for legibility */
+  --danger-verified: #ffb4ab;      /* reference error: the only saturated accent */
+  --cyan: var(--accent-authority); /* legacy alias: now austere neutral, no neon */
+  --amber: #e0a73d;                /* review / caution (kept for required state semantics) */
+  --red: var(--danger-verified);   /* blocked / kill switch / live disabled */
+  --green: #57b87a;                /* validation pass only (kept for required semantics) */
+  --grey: #6b757e;                 /* disabled / future-only */
+
+  /* Reference-aligned warm-graphite surface ladder. Semantic design-system
+     names layered over the existing tonal values (same colors, real names). */
+  --surface-base: var(--bg);           /* near #0e0e0e lowest */
+  --surface-page: var(--bg-panel);     /* near #141313 base */
+  --surface-header: var(--bg-panel-2); /* near #1c1b1c low */
+  --surface-panel: var(--bg-panel-3);  /* near #201f20 container */
+  --surface-raised: #2a2a2a;           /* near #2a2a2a high */
+  --surface-highest: #353435;          /* near #353435 highest */
+  --surface-sunken: #121417;           /* near #121417 inset banner */
+  --surface-terminal: #000000;         /* pure-black directive surface */
+  --text-primary: var(--text);         /* near #e5e2e1 */
+  --text-secondary: var(--text-dim);   /* near #c6c6ca */
+  --border-subtle: var(--outline);     /* near #45474a outline-variant */
 
   /* Local-only font preference stacks. Inter / JetBrains Mono preferred if the
      operator has them installed; otherwise safe local/system fallback. No remote
@@ -1019,4 +1039,70 @@ table.matrix tbody tr:nth-child(even) td { background: var(--bg-panel-2); }
   text-transform: none;
 }
 .reduced-mono-prose { font-family: var(--font-ui); text-transform: none; }
+
+
+/* =====================================================================
+ * Root Evidence Vault reference visual system (0174AA).
+ * Translates evidence_vault_capital_chronicle.png/.html taste into the V4
+ * runtime using local CSS only. No remote stylesheets, no utility frameworks,
+ * no remote fonts.
+ * Moves: austere grey-primary authority (token rebase above), brutal-border
+ * matte cards, de-zebra audit-table rhythm with a highest-surface header and
+ * an authority row/cell marker, diagonal-hatch safety banner, and a pure-black
+ * sunken directive surface. Flat depth, 1px gridlines, zero radius, no glow.
+ * ===================================================================== */
+
+/* Brutal-border / matte-card primitive: flat 1px outline, no radius, no glow. */
+.brutal-border { border: 1px solid var(--border-subtle); border-radius: 0; box-shadow: none; }
+.matte-card {
+  border: 1px solid var(--border-subtle);
+  border-radius: 0;
+  background: var(--surface-panel);
+  box-shadow: none;
+}
+
+/* Diagonal-hatch safety surface (reference SCREENSHOT-SAFE / LOCAL ONLY band).
+   Applied to the persistent top safety rail so the safety posture reads as a
+   hazard-hatched governance strip, exactly like the reference banner. */
+.safety-rail {
+  background-color: var(--surface-sunken);
+  background-image: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(255, 255, 255, 0.02) 10px,
+    rgba(255, 255, 255, 0.02) 20px
+  );
+}
+
+/* Audit-table rhythm to match the reference tables: highest-surface header,
+   1px row dividers, NO zebra striping, subtle hover, optional authority marker
+   on a current / baseline row. */
+table.matrix thead th,
+.gate-matrix th { background: var(--surface-highest); }
+table.matrix tbody tr:nth-child(even) td { background: transparent; }
+table.matrix tbody tr:hover td,
+.gate-matrix tbody tr:hover td { background: var(--surface-highest); }
+table.matrix tbody tr.row-authority td:first-child,
+.gate-matrix tbody tr.row-authority td:first-child {
+  border-left: 2px solid var(--accent-authority);
+}
+
+/* Authority left-border marker on the current truth cells, echoing the
+   reference current/baseline row marker. Uses existing rendered kind-current. */
+.truth-cell.kind-current { border-left: 2px solid var(--accent-authority); }
+
+/* Pure-black sunken directive surface for the Next Allowed Action footer
+   (reference directive block). In-flow only — never fixed-position. */
+.audit-footer {
+  background: var(--surface-terminal);
+  border-top: 1px solid var(--border-subtle);
+  padding: 10px 16px;
+}
+.audit-footer .footer-action { color: var(--text-primary); }
+
+/* Provenance / evidence ids read as austere neutral authority, never neon. */
+.evidence-cell .ev-id,
+.confidence-summary .evidence-chip,
+.evref { color: var(--accent-authority); }
 
