@@ -1776,3 +1776,147 @@ table.matrix thead th,
   .command-tile, .density-toggle .density-option { transition: none !important; }
 }
 
+
+/* =====================================================================
+ * 0174AG — Workspace shell + inspector rail composition.
+ * Recompose the vertical report page into a controlled workspace: a main
+ * work surface plus an optional right inspector/detail rail on desktop widths.
+ * Matte gradients + 1px hairlines only. No shadow/glow/neon/blue. Local-only.
+ * ===================================================================== */
+
+/* Workspace shell: main work surface + inspector rail. Single column until
+   1440, then a fixed-width inspector docks on the right. minmax(0,...) and
+   min-width:0 keep both children shrink-safe (layout-stability guard). */
+.workspace-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+  width: 100%;
+  min-width: 0;
+}
+.work-surface { min-width: 0; }
+.inspector-rail { min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+
+@media (min-width: 1440px) {
+  .workspace-shell { grid-template-columns: minmax(0, 1fr) 320px; }
+  .inspector-rail {
+    position: sticky;
+    top: 12px;
+    align-self: start;
+    max-height: calc(100vh - 24px);
+    overflow-y: auto;
+  }
+}
+@media (min-width: 1700px) {
+  .workspace-shell { grid-template-columns: minmax(0, 1fr) 360px; gap: 24px; }
+}
+
+/* Inspector header: labels the rail as a read-only detail surface. */
+.inspector-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--gridline);
+}
+.inspector-eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--type-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  color: var(--text-faint);
+}
+.inspector-screen {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  color: var(--accent-authority);
+}
+
+/* Inspector card: compact matte summary/detail unit (NOT another dump). */
+.inspector-card {
+  background-image: var(--matte-panel);
+  border: 1px solid var(--outline);
+  border-left: 3px solid var(--hairline);
+  padding: 13px 15px;
+}
+.inspector-card.sev-blocked { border-left-color: var(--sev-blocked-edge); }
+.inspector-card.sev-review { border-left-color: var(--sev-review-edge); }
+.inspector-card.sev-safe { border-left-color: var(--sev-safe-edge); }
+.inspector-card-label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: var(--type-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-faint);
+  margin-bottom: 6px;
+}
+.inspector-card-value {
+  font-family: var(--font-ui);
+  font-size: var(--type-readable-body);
+  line-height: var(--line-readable);
+  color: var(--text);
+}
+.inspector-card-value.mono {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  color: var(--text-mono);
+  word-break: break-word;
+}
+.inspector-lock-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--gridline);
+  font-size: var(--type-label);
+}
+.inspector-lock-row:last-child { border-bottom: 0; }
+.inspector-lock-row .lock-key { color: var(--text-dim); }
+.inspector-lock-row .lock-val {
+  font-family: var(--font-mono);
+  color: var(--red);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Active/selected command-tile state (local inspection focus). */
+.command-tile[aria-current="true"],
+.command-tile.active {
+  border-left-color: var(--accent-authority);
+  background-color: var(--surface-raised);
+}
+.command-tile[aria-current="true"] .command-tile-cue { color: var(--text); }
+
+/* Calmer command ribbon rhythm (top truth-rail summary). */
+.truth-rail-summary { gap: 6px 22px; padding: 8px 16px; }
+.truth-summary-title { font-size: var(--type-micro); color: var(--text-dim); }
+.truth-summary-cell { max-width: 48ch; }
+.truth-summary-value { max-width: 48ch; }
+
+/* Compact status dock footer (less terminal/log feel; still in-flow). */
+.cockpit-footer.audit-footer {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 11px 26px;
+  opacity: 0.95;
+}
+.cockpit-footer .footer-label {
+  font-size: var(--type-micro);
+  letter-spacing: var(--tracking-wide);
+}
+.cockpit-footer .footer-action { font-size: var(--type-body); color: var(--text); }
+
+/* Material maturity: current/selected surfaces read slightly brighter. */
+.inspector-card.sev-blocked .inspector-card-value { color: var(--text); }
+.nav-item.active { background-color: var(--surface-raised); }
+
+/* Responsive: at 1366 the inspector stacks below the work surface, no clip. */
+@media (max-width: 1439px) {
+  .inspector-rail { flex-direction: row; flex-wrap: wrap; }
+  .inspector-rail > .inspector-head { flex: 1 1 100%; }
+  .inspector-rail > .inspector-card { flex: 1 1 240px; }
+}
+

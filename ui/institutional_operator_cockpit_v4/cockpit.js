@@ -812,6 +812,56 @@
     body.appendChild(row);
   }
 
+  /* --- Inspector rail (0174AG) ---
+     Read-only premium detail rail. Answers: what is current, why allowed/blocked,
+     what evidence backs it, what is the next allowed manual action, what stays
+     disabled. Built only from existing model data — no new capability, no dump. */
+  function renderInspectorRail(screen, rail) {
+    var head = el("div", "inspector-head");
+    head.appendChild(el("span", "inspector-eyebrow", "Inspector"));
+    head.appendChild(el("span", "inspector-screen", screen.screen_id));
+    rail.appendChild(head);
+
+    var verdict = screen.verdict || screen.studio_state || screen.readiness_verdict
+      || screen.evidence_state || screen.plan_state || screen.export_state || screen.policy_state || {};
+    var sev = verdict.severity || (verdict.status === "BLOCKED" || verdict.status === "LIVE_DISABLED"
+      ? "blocked" : (verdict.status === "REVIEW_REQUIRED" ? "review" : "safe"));
+
+    function card(label, value, mono, sevClass) {
+      var c = el("div", "inspector-card" + (sevClass ? " sev-" + sevClass : ""));
+      c.appendChild(el("span", "inspector-card-label", label));
+      c.appendChild(el("div", "inspector-card-value" + (mono ? " mono" : ""), value));
+      return c;
+    }
+
+    rail.appendChild(card("Current state",
+      (verdict.label || screen.title) + (verdict.status ? " · " + verdict.status : ""), false, sev));
+    if (verdict.reason) rail.appendChild(card("Why", verdict.reason, false, null));
+
+    var nextAction = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];
+    rail.appendChild(card("Next allowed action", nextAction ? nextAction.value : "—", false, null));
+
+    var evCard = el("div", "inspector-card");
+    evCard.appendChild(el("span", "inspector-card-label", "Evidence backing (" + MODEL.evidence_refs.length + ")"));
+    evCard.appendChild(el("div", "inspector-card-value mono",
+      MODEL.evidence_refs.slice(0, 5).map(evidenceRefId).filter(Boolean).join(" · ") || "—"));
+    rail.appendChild(evCard);
+
+    var g = MODEL.global_current_state || {};
+    var locksCard = el("div", "inspector-card sev-blocked");
+    locksCard.appendChild(el("span", "inspector-card-label", "Disabled (cannot run)"));
+    [["Live adapter", g.live_state], ["Scheduler", g.scheduler_state],
+     ["Posting", g.live_state], ["Credential read", g.credential_read_state],
+     ["Platform API", g.platform_api_state]
+    ].forEach(function (pair) {
+      var row = el("div", "inspector-lock-row");
+      row.appendChild(el("span", "lock-key", pair[0]));
+      row.appendChild(el("span", "lock-val", pair[1] || "disabled"));
+      locksCard.appendChild(row);
+    });
+    rail.appendChild(locksCard);
+  }
+
   /* --- Screen dispatcher --- */
   function renderScreen(screenId) {
     var screen = MODEL.screens.filter(function (s) { return s.screen_id === screenId; })[0];
@@ -825,26 +875,35 @@
     body.appendChild(el("p", "screen-question", screen.primary_question));
     renderDensityToggle(body);
 
-    /* Readable scan layer first; detailed audit sections render below it. */
+    /* Readable scan layer first (primary command zone, full width). */
     renderOperatorScanLayer(screen, body);
 
+    /* Workspace shell: main work surface + read-only inspector rail. */
+    var shell = el("div", "workspace-shell");
+    var work = el("div", "work-surface");
+    var inspector = el("div", "inspector-rail");
+    shell.appendChild(work);
+    shell.appendChild(inspector);
+    body.appendChild(shell);
+
     switch (screen.screen_id) {
-      case "command_center": renderCommandCenter(screen, body); break;
-      case "content_studio": renderContentStudio(screen, body); break;
-      case "publish_readiness": renderPublishReadiness(screen, body); break;
-      case "evidence_vault": renderEvidenceVault(screen, body); break;
-      case "content_calendar": renderContentCalendar(screen, body); break;
-      case "visual_export": renderVisualExport(screen, body); break;
-      case "settings_safety_policy": renderSettings(screen, body); break;
+      case "command_center": renderCommandCenter(screen, work); break;
+      case "content_studio": renderContentStudio(screen, work); break;
+      case "publish_readiness": renderPublishReadiness(screen, work); break;
+      case "evidence_vault": renderEvidenceVault(screen, work); break;
+      case "content_calendar": renderContentCalendar(screen, work); break;
+      case "visual_export": renderVisualExport(screen, work); break;
+      case "settings_safety_policy": renderSettings(screen, work); break;
       default: break;
     }
 
-    /* Sparse screens get a governed summary rail to remove lower dead-zone
-       without inventing content. */
+    /* Sparse screens get a governed summary rail to remove lower dead-zone. */
     var sparse = ["content_calendar", "visual_export", "settings_safety_policy", "publish_readiness"];
     if (sparse.indexOf(screen.screen_id) !== -1) {
-      renderScreenSummaryRail(screen, body);
+      renderScreenSummaryRail(screen, work);
     }
+
+    renderInspectorRail(screen, inspector);
   }
 
   /* --- Bootstrap --- */
