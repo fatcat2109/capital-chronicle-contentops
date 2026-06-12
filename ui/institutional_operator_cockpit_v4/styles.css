@@ -1320,3 +1320,241 @@ table.matrix thead th,
   }
 }
 
+
+/* =====================================================================
+ * 0174AE — Premium screen composition + institutional depth.
+ * Screen-specialization primitives. Matte gradients + 1px hairlines only.
+ * Severity accents use var() fallbacks: danger=red, review=amber, pass=green,
+ * neutral=hairline — governance color discipline preserved (no market hue).
+ * ===================================================================== */
+
+:root {
+  --sev-blocked-edge: var(--accent-danger, #b4453a);
+  --sev-review-edge: var(--accent-review, #b0823f);
+  --sev-safe-edge: var(--accent-pass, #5f7d5a);
+  --sev-neutral-edge: var(--hairline);
+}
+
+/* --- LaneHealthStrip (Content Studio first fold) --- */
+.lane-health-strip {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--gridline, #2a2a2a);
+  border: 1px solid var(--outline, #2a2a2a);
+}
+.lane-health-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  background-image: var(--matte-raised);
+  border-left: 3px solid var(--sev-neutral-edge);
+}
+.lane-health-cell.sev-blocked { border-left-color: var(--sev-blocked-edge); }
+.lane-health-cell.sev-review { border-left-color: var(--sev-review-edge); }
+.lane-health-cell.sev-safe { border-left-color: var(--sev-safe-edge); }
+.lane-health-num {
+  font-family: var(--font-mono);
+  font-size: var(--type-title, 18px);
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+.lane-health-label {
+  font-family: var(--font-ui);
+  font-size: var(--type-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-faint);
+}
+
+/* --- WorkflowBoard (Calendar) --- */
+.workflow-stage-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background-image: var(--matte-panel);
+  border: 1px solid var(--outline, #2a2a2a);
+}
+.stage-pill {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  color: var(--text-muted, #b8b8b8);
+  padding: 3px 8px;
+  border: 1px solid var(--gridline, #2a2a2a);
+  background-image: var(--matte-header);
+  white-space: nowrap;
+}
+.workflow-board {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+@media (max-width: 1200px) {
+  .workflow-board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lane-health-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+.workflow-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background-image: var(--matte-panel);
+  border: 1px solid var(--outline, #2a2a2a);
+  border-top: 2px solid var(--sev-neutral-edge);
+  min-width: 0;
+}
+.workflow-column.col-blocked { border-top-color: var(--sev-blocked-edge); }
+.workflow-column-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--gridline, #2a2a2a);
+}
+.workflow-column-title {
+  font-family: var(--font-ui);
+  font-size: var(--type-micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text);
+}
+.workflow-column-count {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  color: var(--text-faint);
+  border: 1px solid var(--gridline, #2a2a2a);
+  padding: 1px 7px;
+}
+.workflow-empty {
+  color: var(--text-faint);
+  font-family: var(--font-mono);
+  text-align: center;
+  padding: 14px 0;
+}
+.workflow-card {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 9px 10px;
+  background-image: var(--matte-raised);
+  border: 1px solid var(--gridline, #2a2a2a);
+  border-left: 3px solid var(--sev-neutral-edge);
+}
+.workflow-card.sev-blocked { border-left-color: var(--sev-blocked-edge); }
+.workflow-card-title {
+  font-family: var(--font-ui);
+  font-size: var(--type-body, 13px);
+  color: var(--text);
+  line-height: 1.3;
+}
+.workflow-card-meta { display: flex; flex-wrap: wrap; gap: 5px; }
+.workflow-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-faint);
+  padding: 1px 6px;
+  border: 1px solid var(--gridline, #2a2a2a);
+}
+.workflow-card-next { display: flex; flex-direction: column; gap: 2px; }
+.workflow-next-value {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  color: var(--text-muted, #b8b8b8);
+}
+
+/* --- PublishCheckpoint (Publish Readiness dominant surface) --- */
+.publish-checkpoint {
+  padding: 16px 18px;
+  background-image:
+    radial-gradient(130% 150% at 12% 0%, rgba(180, 69, 58, 0.07) 0%, rgba(180, 69, 58, 0) 60%),
+    var(--matte-raised);
+  border: 1px solid var(--outline-strong, #3a3a3a);
+  border-left: 3px solid var(--sev-blocked-edge);
+}
+.publish-checkpoint-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.publish-checkpoint-title {
+  font-family: var(--font-ui);
+  font-size: var(--type-title, 18px);
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.01em;
+}
+.publish-checkpoint-reason {
+  color: var(--text-muted, #b8b8b8);
+  margin-bottom: 12px;
+  max-width: 78ch;
+}
+.publish-lock-row { display: flex; flex-wrap: wrap; gap: 1px; background: var(--gridline, #2a2a2a); }
+.publish-lock-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 14px;
+  background-image: var(--matte-header);
+  flex: 1 1 auto;
+  min-width: 120px;
+}
+.publish-lock-label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-faint);
+}
+.publish-lock-state {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  color: var(--sev-blocked-edge);
+  text-transform: uppercase;
+}
+
+/* --- ConfidenceSurface (Evidence Vault first fold) --- */
+.confidence-surface {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--gridline, #2a2a2a);
+  border: 1px solid var(--outline, #2a2a2a);
+}
+@media (max-width: 1200px) {
+  .confidence-surface { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.confidence-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 14px;
+  background-image: var(--matte-raised);
+  border-left: 3px solid var(--sev-neutral-edge);
+}
+.confidence-cell.sev-blocked { border-left-color: var(--sev-blocked-edge); }
+.confidence-cell.sev-review { border-left-color: var(--sev-review-edge); }
+.confidence-cell.sev-safe { border-left-color: var(--sev-safe-edge); }
+.confidence-value {
+  font-family: var(--font-mono);
+  font-size: var(--type-label, 12px);
+  color: var(--text);
+  line-height: 1.35;
+}
+
+/* --- Top-rail rhythm refinement (institutional command ribbon) --- */
+.truth-summary-cell { gap: 3px; }
+.truth-summary-label { letter-spacing: var(--tracking-label); }
+.truth-summary-value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 42ch;
+}
+

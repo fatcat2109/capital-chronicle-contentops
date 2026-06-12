@@ -145,7 +145,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
   ],
 
   /* Reusable status token registry. PASS = validation-safe only. */
-  status_tokens: ["PASS", "DEGRADED", "BLOCKED", "REVIEW_REQUIRED", "LIVE_DISABLED", "NOT_PUBLIC_POSTABLE", "FUTURE_ONLY", "UNKNOWN", "SECRET_REDACTED"],
+  status_tokens: ["PASS", "DEGRADED", "BLOCKED", "REVIEW_REQUIRED", "LIVE_DISABLED", "NOT_PUBLIC_POSTABLE", "FUTURE_ONLY", "UNKNOWN", "SECRET_REDACTED", "SCREENSHOT_SAFE"],
 
 
   /* Seven institutional cockpit screens. */
@@ -321,11 +321,11 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
       title: "Visual Export / Screenshot-Safe Mode",
       primary_question: "Is this surface safe to screenshot for a briefing?",
       export_state: {
-        status: "SECRET_REDACTED",
+        status: "SCREENSHOT_SAFE",
         severity: "safe",
-        label: "Export State",
-        text: "Screenshot-safe preparation only. No export/download/upload.",
-        reason: "This surface prepares views for safe manual screenshotting only; it performs no export.",
+        label: "Capture State",
+        text: "Screenshot-safe briefing surface. Redacted, fixture-only, no export/download/upload.",
+        reason: "This surface prepares views for safe manual screenshotting into a briefing; it performs no export, download, or upload and renders no live secret.",
         evidence_ref_ids: ["EV-MASTER-PLAN"],
         allowed_actions: ["inspect", "manual screenshot-safe review"],
         blocked_actions: ["export", "download", "upload", "screenshot automation", "public-ready caption"],

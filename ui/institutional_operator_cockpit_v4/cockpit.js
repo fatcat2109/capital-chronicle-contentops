@@ -222,6 +222,33 @@
 
   /* --- Content Studio --- */
   function renderContentStudio(s, body) {
+    /* LaneHealthStrip (0174AE): screen-specific editorial-lane health summary.
+       Computed only from existing lane data; no new capability, no market data. */
+    var lanes = s.lanes || [];
+    var reviewN = lanes.filter(function (l) { return l.status === "REVIEW_REQUIRED"; }).length;
+    var blockedN = lanes.filter(function (l) { return l.status === "BLOCKED"; }).length;
+    var citationN = lanes.filter(function (l) {
+      return (l.limitations || []).some(function (x) { return /citation|source/i.test(x); });
+    }).length;
+    var forbiddenRiskN = lanes.filter(function (l) {
+      return l.forbidden_language && !/^none detected/i.test(l.forbidden_language) && l.status !== "BLOCKED";
+    }).length;
+    var notPostableN = lanes.filter(function (l) { return l.not_public_postable; }).length;
+    var strip = el("div", "lane-health-strip section-gap");
+    [["Editorial lanes", String(lanes.length), "neutral"],
+     ["Manual review", String(reviewN), "review"],
+     ["Blocked / future-only", String(blockedN), "blocked"],
+     ["Citation-dependent", String(citationN), "review"],
+     ["Forbidden-language watch", String(forbiddenRiskN), "review"],
+     ["Not public-postable", notPostableN === lanes.length ? "all" : String(notPostableN), "blocked"]
+    ].forEach(function (m) {
+      var cell = el("div", "lane-health-cell sev-" + m[2]);
+      cell.appendChild(el("span", "lane-health-num", m[1]));
+      cell.appendChild(el("span", "lane-health-label", m[0]));
+      strip.appendChild(cell);
+    });
+    body.appendChild(strip);
+
     var grid = el("div", "grid grid-2 lane-control-grid");
     s.lanes.forEach(function (lane) {
       var p = el("div", "lane lane-control-board" + (lane.status === "BLOCKED" ? " blocked" : ""));
@@ -280,9 +307,31 @@
 
   /* --- Publish Readiness Tower (gate matrix first) --- */
   function renderPublishReadiness(s, body) {
+    var g = MODEL.global_current_state || {};
+    /* Dominant publish checkpoint (0174AE): single answer to "why can't anything
+       publish?" with the hard locks, above the calm gate-summary strip. */
+    var rv = s.readiness_verdict || {};
+    var checkpoint = el("div", "publish-checkpoint section-gap");
+    var cpHead = el("div", "publish-checkpoint-head");
+    cpHead.appendChild(el("span", "publish-checkpoint-title", "No platform can publish"));
+    cpHead.appendChild(el("span", "token " + (rv.status || "BLOCKED"), rv.status || "BLOCKED"));
+    checkpoint.appendChild(cpHead);
+    checkpoint.appendChild(el("div", "publish-checkpoint-reason readable-body-copy",
+      rv.reason || "No platform has cleared the gate matrix; live adapter, scheduler, and posting are disabled."));
+    var locks = el("div", "publish-lock-row");
+    [["Live adapter", g.live_state], ["Scheduler", g.scheduler_state], ["Posting", g.live_state],
+     ["Credential read", g.credential_read_state], ["Platform API", g.platform_api_state]
+    ].forEach(function (pair) {
+      var chip = el("div", "publish-lock-chip");
+      chip.appendChild(el("span", "publish-lock-label", pair[0]));
+      chip.appendChild(el("span", "publish-lock-state", pair[1] || "disabled"));
+      locks.appendChild(chip);
+    });
+    checkpoint.appendChild(locks);
+    body.appendChild(checkpoint);
+
     /* Composed gate-summary strip: a calm, institutional readout of the hard
        publishing locks above the dense matrix, built from canonical state. */
-    var g = MODEL.global_current_state || {};
     var sumStrip = el("div", "gate-summary-strip section-gap");
     [["Live adapter", g.live_state || "disabled"],
      ["Scheduler", g.scheduler_state || "disabled"],
@@ -342,6 +391,26 @@
 
   /* --- Evidence Vault (compliance room) --- */
   function renderEvidenceVault(s, body) {
+    /* ConfidenceSurface (0174AE): institutional provenance readout above the
+       detailed drilldowns. Computed from existing model data only. */
+    var es = s.evidence_state || {};
+    var passN = (s.validation_matrix || []).filter(function (r) { return r.status === "PASS"; }).length;
+    var totalN = (s.validation_matrix || []).length;
+    var blockingCav = (s.caveat_registry || []).filter(function (c) { return c.blocking; }).length;
+    var currentEvents = (s.evidence_timeline || []).filter(function (e) { return e.classification === "current"; }).length;
+    var surface = el("div", "confidence-surface section-gap");
+    [["Evidence confidence", es.status === "PASS" ? "high (caveated)" : (es.status || "unknown"), "safe"],
+     ["Lineage health", currentEvents + " current / " + (s.evidence_timeline || []).length + " tracked", "safe"],
+     ["Validation state", passN + " / " + totalN + " PASS", passN === totalN ? "safe" : "review"],
+     ["Recency / QA", "0174C capture · worker judgment caveat", "review"],
+     ["Blocking caveats", String(blockingCav), blockingCav ? "blocked" : "safe"]
+    ].forEach(function (m) {
+      var cell = el("div", "confidence-cell sev-" + m[2]);
+      cell.appendChild(el("span", "data-label", m[0]));
+      cell.appendChild(el("span", "confidence-value", m[1]));
+      surface.appendChild(cell);
+    });
+    body.appendChild(surface);
 
     var mp = panel("Validation Matrix");
     var wrap = el("div", "matrix-wrap audit-room-grid");
@@ -417,24 +486,65 @@
   /* --- Content Calendar / Workflow --- */
   function renderContentCalendar(s, body) {
 
-    var leg = panel("Allowed Manual States");
-    s.allowed_states.forEach(function (st) { leg.appendChild(el("span", "token PASS", st)); leg.appendChild(document.createTextNode(" ")); });
-    leg.classList.add("section-gap");
+    /* Stage legend (manual states only). */
+    var leg = el("div", "workflow-stage-legend section-gap");
+    leg.appendChild(el("span", "data-label", "Manual stages"));
+    s.allowed_states.forEach(function (st) { leg.appendChild(el("span", "stage-pill", st)); });
     body.appendChild(leg);
 
-    var grid = el("div", "grid grid-2 manual-workflow-board section-gap");
+    /* WorkflowBoard (0174AE): kanban columns by allowed manual state.
+       Items flattened from date_lanes; manual-only, no scheduler/auto-post. */
+    var nextActionByState = {
+      "idea": "shape angle / assign lane",
+      "source-needed": "attach source + citation",
+      "research-brief-ready": "draft for review",
+      "draft-review": "manual editorial review",
+      "blocked": "resolve blocker (no artifacts/lineage)",
+      "operator-approved-for-manual": "operator manual post (off-system)",
+      "manually-posted": "enter metrics manually",
+      "metrics-entered": "archive / retro"
+    };
+    var sourceByState = {
+      "idea": "not started",
+      "source-needed": "missing",
+      "research-brief-ready": "brief attached",
+      "draft-review": "cited",
+      "blocked": "unavailable"
+    };
+    var items = [];
     s.date_lanes.forEach(function (lane) {
-      var p = el("div", "lane");
-      p.appendChild(el("div", "lane-name", lane.period));
-      lane.items.forEach(function (it) {
-        var row = el("div", "reg-row");
-        row.appendChild(el("span", "reg-key", it.title + " (" + it.lane + ")"));
-        row.appendChild(el("span", "reg-val", it.state));
-        p.appendChild(row);
+      (lane.items || []).forEach(function (it) {
+        items.push({ title: it.title, lane: it.lane, state: it.state, period: lane.period, evidence_ref: it.evidence_ref });
       });
-      grid.appendChild(p);
     });
-    body.appendChild(grid);
+    var board = el("div", "manual-workflow-board workflow-board section-gap");
+    s.allowed_states.forEach(function (state) {
+      var colItems = items.filter(function (it) { return it.state === state; });
+      var col = el("div", "workflow-column" + (state === "blocked" ? " col-blocked" : ""));
+      var ch = el("div", "workflow-column-head");
+      ch.appendChild(el("span", "workflow-column-title", state));
+      ch.appendChild(el("span", "workflow-column-count", String(colItems.length)));
+      col.appendChild(ch);
+      if (!colItems.length) {
+        col.appendChild(el("div", "workflow-empty", "—"));
+      }
+      colItems.forEach(function (it) {
+        var card = el("div", "workflow-card" + (it.state === "blocked" ? " sev-blocked" : ""));
+        card.appendChild(el("div", "workflow-card-title", it.title));
+        var meta = el("div", "workflow-card-meta");
+        meta.appendChild(el("span", "workflow-tag", "lane: " + it.lane));
+        meta.appendChild(el("span", "workflow-tag", "source: " + (sourceByState[it.state] || "n/a")));
+        meta.appendChild(el("span", "workflow-tag", it.period));
+        card.appendChild(meta);
+        var na = el("div", "workflow-card-next");
+        na.appendChild(el("span", "data-label", "manual next"));
+        na.appendChild(el("span", "workflow-next-value", nextActionByState[it.state] || "manual review"));
+        card.appendChild(na);
+        col.appendChild(card);
+      });
+      board.appendChild(col);
+    });
+    body.appendChild(board);
 
     var locked = panel("Forbidden Automated States (disabled / future-only)");
     s.forbidden_states.forEach(function (f) {
