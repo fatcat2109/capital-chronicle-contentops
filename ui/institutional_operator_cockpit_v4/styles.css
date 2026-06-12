@@ -50,23 +50,23 @@
   --font-ui: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", "Consolas", "Liberation Mono", monospace;
 
-  /* Type scale (compact, 10-20px, from DESIGN.md). */
-  --type-micro: 9.5px;   /* micro evidence/status labels */
-  --type-label: 11px;    /* mono-label / data-label */
-  --type-body: 13px;     /* body-md */
-  --type-title: 16px;    /* headline-md */
-  --type-verdict: 20px;  /* headline-lg verdict band */
-  --tracking-label: 0.08em;
+  /* Type scale (0174AF readability lift — institutional command legibility). */
+  --type-micro: 10.5px;  /* micro evidence/status labels */
+  --type-label: 12px;    /* mono-label / data-label */
+  --type-body: 14px;     /* body-md */
+  --type-title: 18px;    /* headline-md */
+  --type-verdict: 25px;  /* headline-lg verdict band */
+  --tracking-label: 0.07em;
   --tracking-wide: 0.1em;
-  --line-tight: 1.2;
-  --line-normal: 1.45;
+  --line-tight: 1.25;
+  --line-normal: 1.5;
 
-  /* Readable operator scan layer (0174S): larger scannable type for the
-     first-open summary, while audit detail below keeps compact density. */
-  --type-readable-body: 13.5px;
-  --type-summary: 14px;
-  --type-primary-answer: 22px;
-  --line-readable: 1.5;
+  /* Readable operator scan layer (0174S, lifted 0174AF): larger scannable type
+     for the first-open summary, while audit detail below keeps compact density. */
+  --type-readable-body: 15px;
+  --type-summary: 16px;
+  --type-primary-answer: 30px;
+  --line-readable: 1.55;
 
   --rail-h: 32px;        /* DESIGN.md 32px safety ribbon */
   --nav-w: 220px;        /* DESIGN.md 220px left nav */
@@ -1556,5 +1556,223 @@ table.matrix thead th,
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 42ch;
+}
+
+
+/* =====================================================================
+ * 0174AF — Premium command surfaces, readability, micro-interaction.
+ * Goal: move from "evidence grid / newspaper" to "institutional command
+ * cockpit." Bigger primary surfaces, breathable rhythm, larger readable type,
+ * command-like read-only affordances with hover/focus states, local density
+ * toggle. Matte gradients + 1px hairlines only — no shadow, glow, neon, blue.
+ * Color discipline unchanged (red=danger, amber=review, green=pass, neutral).
+ * ===================================================================== */
+
+/* --- Breathable screen rhythm --- */
+.screen-body { padding: 22px 26px 40px 26px; }
+.screen-title { font-size: var(--type-verdict); margin-bottom: 4px; }
+.screen-question {
+  font-size: var(--type-summary);
+  line-height: var(--line-readable);
+  max-width: 86ch;
+  margin-bottom: 18px;
+}
+.section-gap { margin-bottom: 20px; }
+.grid { gap: 14px; }
+
+/* Deliberate vertical rhythm: primary slab breathes more than detail rows. */
+.operator-scan-layer { padding: 22px 24px; margin-bottom: 20px; }
+.operator-summary-board { gap: 16px; }
+.scan-intent { font-size: var(--type-summary); margin-bottom: 8px; }
+.primary-answer { font-size: var(--type-primary-answer); gap: 12px; }
+.primary-answer .token { font-size: var(--type-body); padding: 2px 9px; }
+.next-action-card { padding: 14px 16px; }
+.blocker-card { padding: 12px 14px; }
+.blocker-card .blocker-card-text { font-size: var(--type-readable-body); }
+
+/* --- Instrument panels: larger heads, more air --- */
+.instrument-panel { padding: 18px 20px; }
+.instrument-panel .instrument-head { padding-bottom: 10px; margin-bottom: 12px; }
+.instrument-panel .instrument-title { font-size: var(--type-title); }
+.panel { padding: 14px 16px; }
+.panel-head { font-size: var(--type-label); margin-bottom: 10px; padding-bottom: 6px; }
+
+/* --- CommandTile: large read-only inspection surface primitive ---
+   Used for inspection commands (view evidence / inspect gate / open policy).
+   Clearly a cockpit control, never a fake operational button. Matte, hairline,
+   hover/focus tonal lift only. --- */
+.command-tile-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+@media (max-width: 1200px) {
+  .command-tile-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 800px) {
+  .command-tile-row { grid-template-columns: minmax(0, 1fr); }
+}
+.command-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px;
+  background-image: var(--matte-raised);
+  border: 1px solid var(--outline);
+  border-left: 3px solid var(--hairline);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: var(--text);
+  width: 100%;
+  transition: border-color var(--motion-fast) var(--ease-matte),
+              background-color var(--motion-fast) var(--ease-matte);
+}
+.command-tile:hover { border-left-color: var(--accent-authority); background-color: var(--surface-raised); }
+.command-tile:focus-visible { outline: 1px solid var(--accent-authority); outline-offset: -2px; }
+.command-tile .command-tile-label {
+  font-family: var(--font-ui);
+  font-size: var(--type-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-faint);
+}
+.command-tile .command-tile-title {
+  font-family: var(--font-ui);
+  font-size: var(--type-title);
+  font-weight: 600;
+  line-height: var(--line-tight);
+}
+.command-tile .command-tile-meta {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  color: var(--text-dim);
+}
+.command-tile .command-tile-cue {
+  margin-top: 2px;
+  font-family: var(--font-ui);
+  font-size: var(--type-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--accent-authority);
+}
+
+/* --- Density toggle (local UI only, no storage/network) --- */
+.density-toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.density-toggle-row .density-label {
+  font-family: var(--font-ui);
+  font-size: var(--type-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-faint);
+}
+.density-toggle {
+  display: inline-flex;
+  border: 1px solid var(--outline);
+  background-image: var(--matte-header);
+}
+.density-toggle .density-option {
+  font: inherit;
+  font-family: var(--font-ui);
+  font-size: var(--type-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-dim);
+  background: transparent;
+  border: 0;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--ease-matte),
+              background-color var(--motion-fast) var(--ease-matte);
+}
+.density-toggle .density-option:hover { color: var(--text); }
+.density-toggle .density-option[aria-pressed="true"] {
+  color: var(--text);
+  background-color: var(--surface-raised);
+}
+.density-toggle .density-option:focus-visible { outline: 1px solid var(--accent-authority); outline-offset: -1px; }
+
+/* Comfortable density (default for premium readability). */
+.screen-body.density-comfortable .reg-row { padding: 8px 0; font-size: var(--type-body); }
+.screen-body.density-comfortable table.matrix { font-size: var(--type-label); }
+.screen-body.density-comfortable table.matrix th,
+.screen-body.density-comfortable table.matrix td { padding: 9px 12px; }
+.screen-body.density-comfortable .lane li { font-size: var(--type-label); line-height: 1.5; }
+
+/* Compact density (operator-chosen denser inspection). */
+.screen-body.density-compact .reg-row { padding: 4px 0; font-size: var(--type-label); }
+.screen-body.density-compact .section-gap { margin-bottom: 12px; }
+.screen-body.density-compact .instrument-panel { padding: 12px 14px; }
+.screen-body.density-compact .operator-scan-layer { padding: 14px 16px; }
+
+/* --- Lane readability lift (Content Studio editorial board) --- */
+.lane { padding: 16px 18px; }
+.lane .lane-name { font-size: var(--type-title); margin-bottom: 10px; }
+.lane li { font-size: var(--type-label); line-height: 1.55; }
+.lane-health-cell { padding: 16px 16px; }
+.lane-health-num { font-size: var(--type-verdict); }
+.lane-health-label { font-size: var(--type-micro); }
+.lane-control-grid { gap: 14px; }
+
+/* --- Workflow board: bigger, more alive cards --- */
+.workflow-board { gap: 14px; }
+.workflow-column { padding: 14px; gap: 10px; }
+.workflow-column-title { font-size: var(--type-label); }
+.workflow-card { padding: 13px 14px; gap: 9px; }
+.workflow-card-title { font-size: var(--type-body); line-height: 1.4; }
+.workflow-tag { font-size: 11px; padding: 2px 7px; }
+.workflow-next-value { font-size: var(--type-label); color: var(--text-dim); }
+.workflow-empty {
+  font-style: normal;
+  font-family: var(--font-ui);
+  font-size: var(--type-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  padding: 18px 0;
+}
+
+/* --- Confidence surface: more prominent, more legible --- */
+.confidence-surface { gap: 1px; }
+.confidence-cell { padding: 16px 16px; gap: 7px; }
+.confidence-cell .data-label { font-size: var(--type-micro); }
+.confidence-value { font-size: var(--type-body); line-height: 1.4; }
+
+/* --- Publish lock chips: more command-like --- */
+.publish-checkpoint { padding: 20px 22px; }
+.publish-checkpoint-title { font-size: var(--type-title); }
+.publish-checkpoint-reason { font-size: var(--type-readable-body); line-height: var(--line-readable); }
+.publish-lock-chip { padding: 11px 16px; gap: 5px; }
+.publish-lock-label { font-size: var(--type-micro); }
+.publish-lock-state { font-size: var(--type-label); }
+
+/* --- Counters as command metrics --- */
+.counter-strip .counter { padding: 14px 12px; }
+.counter .num { font-size: 26px; }
+.counter .lbl { font-size: var(--type-micro); letter-spacing: var(--tracking-label); }
+
+/* --- Calmer status footer (less terminal-like, still in-flow) --- */
+.audit-footer { padding: 12px 26px; opacity: 0.9; }
+.audit-footer .footer-label { font-size: var(--type-micro); }
+.audit-footer .footer-action { font-size: var(--type-label); }
+
+/* --- Drilldown summaries read more like inspection commands --- */
+.drilldown-summary { padding: 12px 16px; }
+.drilldown-title { font-size: var(--type-label); }
+.drilldown-summary:hover { background-color: var(--surface-raised); }
+
+/* --- Wider-viewport command composure (use 1920 without stretching) --- */
+@media (min-width: 1700px) {
+  .screen-body { padding-left: 40px; padding-right: 40px; }
+  .operator-summary-board { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+}
+
+/* Reduced-motion: neutralize the new interactive transitions too. */
+@media (prefers-reduced-motion: reduce) {
+  .command-tile, .density-toggle .density-option { transition: none !important; }
 }
 

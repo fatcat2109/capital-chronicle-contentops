@@ -153,11 +153,38 @@
     return { details: details, body: ddBody };
   }
 
+  /* --- Inspection command tiles (0174AF) ---
+     Large, read-only command surfaces. Each tile is local UI navigation to an
+     inspection screen — NOT an operational control. No publish/run/send/approve
+     behavior, no network, no storage. */
+  function renderInspectionCommands(body) {
+    var row = el("div", "command-tile-row section-gap");
+    var lanes = (MODEL.screens.filter(function (x) { return x.screen_id === "content_studio"; })[0] || {}).lanes || [];
+    [["Inspect", "View Evidence Vault", "evidence_vault",
+      MODEL.evidence_refs.length + " evidence refs · " + MODEL.blocker_stack.length + " blockers"],
+     ["Inspect", "Inspect Publish Gate", "publish_readiness",
+      "gate matrix · all platforms blocked"],
+     ["Inspect", "Review Editorial Lanes", "content_studio",
+      lanes.length + " lanes · review-only"]
+    ].forEach(function (t) {
+      var tile = el("button", "command-tile");
+      tile.setAttribute("type", "button");
+      tile.setAttribute("data-screen-link", t[2]);
+      tile.appendChild(el("span", "command-tile-label", t[0]));
+      tile.appendChild(el("span", "command-tile-title", t[1]));
+      tile.appendChild(el("span", "command-tile-meta", t[3]));
+      tile.appendChild(el("span", "command-tile-cue", "Open ›"));
+      tile.addEventListener("click", function () { renderScreen(t[2]); });
+      row.appendChild(tile);
+    });
+    body.appendChild(row);
+  }
+
   /* --- Command Center --- */
   function renderCommandCenter(s, body) {
-    /* Primary state is the operator scan layer (rendered by the dispatcher
-       above). No duplicate dominant verdict band or mission-grid summary row;
-       those values are already covered by the scan layer + safety counters. */
+    /* Inspection command surfaces lead the executive cockpit, then the change
+       ledger / blocker stack / proof ledger detail below. */
+    renderInspectionCommands(body);
 
     var changed = el("div", "instrument-panel section-gap");
     var chHead = el("div", "instrument-head");
@@ -754,6 +781,37 @@
     body.appendChild(layer);
   }
 
+  /* --- Density toggle (0174AF) ---
+     Local-only read-only UI interaction. Switches first-fold spacing/type
+     density between comfortable (default, premium readability) and compact
+     (denser inspection). No storage, no network, no operational effect. */
+  var currentDensity = "comfortable";
+  function renderDensityToggle(body) {
+    var row = el("div", "density-toggle-row");
+    row.appendChild(el("span", "density-label", "Density"));
+    var group = el("div", "density-toggle");
+    group.setAttribute("role", "group");
+    group.setAttribute("aria-label", "Inspection density (local view only)");
+    [["comfortable", "Comfortable"], ["compact", "Compact"]].forEach(function (opt) {
+      var b = el("button", "density-option", opt[1]);
+      b.setAttribute("type", "button");
+      b.setAttribute("data-density", opt[0]);
+      b.setAttribute("aria-pressed", currentDensity === opt[0] ? "true" : "false");
+      b.addEventListener("click", function () {
+        currentDensity = opt[0];
+        var sb = document.getElementById("screen-body");
+        sb.classList.remove("density-comfortable", "density-compact");
+        sb.classList.add("density-" + currentDensity);
+        group.querySelectorAll(".density-option").forEach(function (o) {
+          o.setAttribute("aria-pressed", o.getAttribute("data-density") === currentDensity ? "true" : "false");
+        });
+      });
+      group.appendChild(b);
+    });
+    row.appendChild(group);
+    body.appendChild(row);
+  }
+
   /* --- Screen dispatcher --- */
   function renderScreen(screenId) {
     var screen = MODEL.screens.filter(function (s) { return s.screen_id === screenId; })[0];
@@ -761,8 +819,11 @@
     renderNav(screen.screen_id);
     var body = document.getElementById("screen-body");
     clear(body);
+    body.classList.remove("density-comfortable", "density-compact");
+    body.classList.add("density-" + currentDensity);
     body.appendChild(el("h1", "screen-title", screen.title));
     body.appendChild(el("p", "screen-question", screen.primary_question));
+    renderDensityToggle(body);
 
     /* Readable scan layer first; detailed audit sections render below it. */
     renderOperatorScanLayer(screen, body);

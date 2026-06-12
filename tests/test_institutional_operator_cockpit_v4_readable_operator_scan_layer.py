@@ -65,10 +65,10 @@ def test_readable_type_scale_defined():
 
 def test_readable_body_not_below_13px():
     css = _css()
-    # key readable type tokens must stay at/above 13px.
-    assert "--type-readable-body: 13.5px" in css
-    assert "--type-summary: 14px" in css
-    assert "--type-body: 13px" in css
+    # key readable type tokens must stay at/above 13px (0174AF lifted these).
+    assert "--type-readable-body: 15px" in css
+    assert "--type-summary: 16px" in css
+    assert "--type-body: 14px" in css
 
 
 # ---------- detail preservation (no feature deletion) ----------
