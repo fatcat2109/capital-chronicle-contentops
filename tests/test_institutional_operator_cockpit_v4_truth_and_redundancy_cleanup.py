@@ -98,6 +98,30 @@ def test_current_truth_references_present_state():
                   "redundant state", "stale truth", "targeted cleanup"]:
         assert token in vm, "missing present-state token: " + token
 
+# ---------- D1. next-action QA copy repair (0174V1) ----------
+def test_next_action_no_antigravity_phrase_removed():
+    vm = _vm()
+    assert "No Antigravity" not in vm
+
+
+def test_next_action_instructs_antigravity_browser_qa():
+    vm = _vm()
+    for token in ["Final milestone browser recheck", "Antigravity browser QA",
+                  "No source edits", "no Project Sources refresh",
+                  "no live behavior", "no platform/API/credential behavior"]:
+        assert token in vm, "missing next-action token: " + token
+
+
+def test_next_action_no_stale_cline_patch_task_wording():
+    vm = _vm()
+    na = vm.split('role_label: "Next Allowed Action"', 1)[1].split("}", 1)[0]
+    assert "Cline patch task" not in na
+    for stale in ["0174L patch awaits targeted browser recheck",
+                  "Awaiting 0174E audit", "0174E evidence packet"]:
+        assert stale not in vm, "stale wording present: " + stale
+
+
+
 
 # ---------- E. safety-lock ellipsis ----------
 def test_safety_lock_cluster_truncates_gracefully():

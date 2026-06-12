@@ -69,7 +69,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
     },
     {
       role_label: "Next Allowed Action",
-      value: "Final milestone browser recheck of the 0174V targeted cleanup patch across all seven screens. No Antigravity, no Project Sources refresh, no live behavior in the Cline patch task.",
+      value: "Final milestone browser recheck of the 0174V targeted cleanup patch across all seven screens. Run Antigravity browser QA only. No source edits, no Project Sources refresh, no live behavior, no platform/API/credential behavior.",
       kind: "current",
       runtime_authority: true
     },
