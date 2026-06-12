@@ -54,9 +54,10 @@ def test_screen_specific_inspector_labels_present():
 
 def test_no_generic_inspector_regression():
     cockpit = _cockpit()
-    # The old generic template used these exact labels; they must not return as
-    # the inspector body (specialized labels replace them).
-    assert '"Why"' not in cockpit, "generic inspector 'Why' label regressed"
+    # The screen-specific inspector must still lead with purpose-built cards, not
+    # the old generic template. (Selected-object detail may carry its own "Why"
+    # row — that is object-centric, not the generic screen template.)
+    assert '"Active decision"' in cockpit, "screen-specific Command Center inspector missing"
     assert cockpit.count('"Current state"') <= 1, "generic 'Current state' overused"
 
 

@@ -1954,3 +1954,99 @@ table.matrix thead th,
 /* Editorial / policy first-fold: tighten the lead strip rhythm a touch. */
 .lane-health-strip, .gate-summary-strip, .confidence-surface { margin-bottom: 14px; }
 
+
+/* =====================================================================
+ * 0174AI — Object-centric inspection visual language.
+ * Selected objects read as selected through matte surface + hairline +
+ * semantic edge (no glow/neon). Restrained productive motion only.
+ * ===================================================================== */
+
+:root {
+  --motion-hover: 90ms;
+  --motion-select: 140ms;
+  --motion-open: 200ms;
+  --ease-productive: cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+/* Local inspection surfaces: tactile but calm. */
+.selectable-object {
+  cursor: pointer;
+  position: relative;
+  border-left: 2px solid transparent;
+  transition: background-color var(--motion-hover) var(--ease-productive),
+              border-color var(--motion-select) var(--ease-productive);
+}
+.selectable-object:hover { background-color: var(--surface-raised); }
+.selectable-object:focus-visible {
+  outline: 2px solid var(--text-dim);
+  outline-offset: 2px;
+}
+.selectable-object.selected {
+  background-color: var(--surface-raised);
+  border-left-color: var(--text-dim);
+}
+.selectable-object.selected::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--text-dim), transparent);
+}
+
+/* Selected-object detail card in the inspector rail. */
+.selected-object-detail {
+  border: 1px solid var(--hairline);
+  border-left-width: 4px;
+  border-radius: 8px;
+  background: linear-gradient(160deg, var(--surface-raised), var(--surface));
+  padding: 13px 14px;
+  margin-bottom: 14px;
+}
+.selected-object-detail.sev-blocked { border-left-color: var(--danger); }
+.selected-object-detail.sev-review { border-left-color: var(--review); }
+.selected-object-detail.sev-safe { border-left-color: var(--pass); }
+.selected-object-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.selected-object-kind {
+  font-size: var(--type-micro);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.selected-object-label {
+  font-size: var(--type-summary);
+  line-height: var(--line-tight);
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.selected-object-row { display: flex; gap: 8px; padding: 3px 0; font-size: var(--type-micro); }
+.selected-object-row-label { color: var(--text-dim); min-width: 84px; flex-shrink: 0; }
+.selected-object-row-value { color: var(--text); }
+
+/* Compact evidence path: institutional trace, not a charting toy. */
+.evidence-path { margin-top: 10px; padding-top: 9px; border-top: 1px solid var(--hairline); }
+.evidence-path-label {
+  display: block;
+  font-size: var(--type-micro);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+.evidence-path-chain { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
+.evidence-path-node { font-size: var(--type-micro); color: var(--text-dim); }
+.evidence-path-arrow { color: var(--text-dim); opacity: 0.7; }
+.evidence-chip {
+  font-family: var(--mono, monospace);
+  font-size: var(--type-micro);
+  padding: 1px 7px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  color: var(--text);
+  background-color: var(--surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .selectable-object { transition: none; }
+  .selectable-object.selected::after { background: var(--text-dim); }
+}
+

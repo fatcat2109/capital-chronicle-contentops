@@ -167,14 +167,22 @@
      ["Inspect", "Review Editorial Lanes", "content_studio",
       lanes.length + " lanes · review-only"]
     ].forEach(function (t) {
-      var tile = el("button", "command-tile");
-      tile.setAttribute("type", "button");
+      var tile = el("div", "command-tile");
       tile.setAttribute("data-screen-link", t[2]);
       tile.appendChild(el("span", "command-tile-label", t[0]));
       tile.appendChild(el("span", "command-tile-title", t[1]));
       tile.appendChild(el("span", "command-tile-meta", t[3]));
-      tile.appendChild(el("span", "command-tile-cue", "Open ›"));
-      tile.addEventListener("click", function () { renderScreen(t[2]); });
+      var open = el("button", "command-tile-cue");
+      open.setAttribute("type", "button");
+      open.textContent = "Open ›";
+      open.setAttribute("aria-label", "Open " + t[1]);
+      open.addEventListener("click", function (e) { e.stopPropagation(); renderScreen(t[2]); });
+      tile.appendChild(open);
+      makeSelectable(tile, inspectObject({
+        kind: "command tile", id: t[2], label: t[1], state: "inspect-only",
+        severity: "neutral", reason: t[3],
+        allowed_local_action: t[0] + " (local navigation)",
+        blocked_action: "publish / run / send" }));
       row.appendChild(tile);
     });
     body.appendChild(row);
@@ -212,6 +220,11 @@
       row.appendChild(el("div", "blocker-label", b.label));
       row.appendChild(el("div", "blocker-reason", b.reason));
       row.appendChild(el("div", "evref", "evidence: " + b.evidence_ref_ids.join(", ")));
+      makeSelectable(row, inspectObject({
+        kind: "blocker", id: b.id, label: b.label, state: b.severity,
+        severity: b.severity === "blocked" ? "blocked" : "review", reason: b.reason,
+        evidence_refs: b.evidence_ref_ids, allowed_local_action: "Review Blocker",
+        blocked_action: "publish / post / schedule" }));
       rail.appendChild(row);
     });
     blk.appendChild(rail);
@@ -327,6 +340,12 @@
       p.appendChild(ev);
 
       p.appendChild(el("div", "token NOT_PUBLIC_POSTABLE", "NOT_PUBLIC_POSTABLE"));
+      makeSelectable(p, inspectObject({
+        kind: "content lane", id: lane.lane_id, label: lane.name, state: lane.status,
+        severity: lane.status === "BLOCKED" ? "blocked" : "review",
+        reason: (lane.limitations || []).join("; "), evidence_refs: lane.evidence_ref_ids,
+        allowed_local_action: "Select Lane", blocked_action: "publish final copy / signal language",
+        caveat: lane.forbidden_language }));
       grid.appendChild(p);
     });
     body.appendChild(grid);
@@ -352,6 +371,11 @@
       var chip = el("div", "publish-lock-chip");
       chip.appendChild(el("span", "publish-lock-label", pair[0]));
       chip.appendChild(el("span", "publish-lock-state", pair[1] || "disabled"));
+      makeSelectable(chip, inspectObject({
+        kind: "publish gate", id: pair[0], label: pair[0], state: pair[1] || "disabled",
+        severity: "blocked", reason: pair[0] + " is disabled by policy and kill switch.",
+        evidence_refs: (rv.evidence_ref_ids || []), allowed_local_action: "Inspect Gate",
+        blocked_action: "publish / posting / scheduler / credential read" }));
       locks.appendChild(chip);
     });
     checkpoint.appendChild(locks);
@@ -435,6 +459,12 @@
       var cell = el("div", "confidence-cell sev-" + m[2]);
       cell.appendChild(el("span", "data-label", m[0]));
       cell.appendChild(el("span", "confidence-value", m[1]));
+      makeSelectable(cell, inspectObject({
+        kind: "evidence ref", id: m[0], label: m[0], state: m[1],
+        severity: m[2], reason: m[0] + ": " + m[1],
+        evidence_refs: (es.evidence_ref_ids || []), allowed_local_action: "View Evidence",
+        blocked_action: "evidence mutation / export / upload",
+        posture: /QA|Recency/i.test(m[0]) ? "historical" : "current" }));
       surface.appendChild(cell);
     });
     body.appendChild(surface);
@@ -567,6 +597,12 @@
         na.appendChild(el("span", "data-label", "manual next"));
         na.appendChild(el("span", "workflow-next-value", nextActionByState[it.state] || "manual review"));
         card.appendChild(na);
+        makeSelectable(card, inspectObject({
+          kind: "workflow item", id: it.lane, label: it.title, state: it.state,
+          severity: it.state === "blocked" ? "blocked" : "review",
+          reason: "Manual workflow stage: " + it.state + " · source: " + (sourceByState[it.state] || "n/a"),
+          evidence_refs: [it.evidence_ref], allowed_local_action: "Inspect Workflow Item",
+          blocked_action: "schedule / auto-post / dispatch" }));
         col.appendChild(card);
       });
       board.appendChild(col);
@@ -598,6 +634,12 @@
       rc.redactions.forEach(function (r) { ul.appendChild(el("li", null, "redacts: " + r)); });
       p.appendChild(ul);
       p.appendChild(el("div", "token SECRET_REDACTED", "SCREENSHOT-SAFE"));
+      makeSelectable(p, inspectObject({
+        kind: "redaction proof", id: rc.card_id, label: rc.surface + " screenshot-safe card",
+        state: "SCREENSHOT_SAFE", severity: "safe",
+        reason: "Redacts: " + (rc.redactions || []).join(", ") + ". Fixture-only, no live secret.",
+        allowed_local_action: "View Redaction Proof",
+        blocked_action: "export / download / upload" }));
       cards.appendChild(p);
     });
     body.appendChild(cards);
@@ -651,6 +693,11 @@
       tr.appendChild(el("td", "wrap", r.value));
       tr.appendChild(el("td", "wrap", r.enforcement));
       tr.appendChild(el("td", "wrap", r.rationale));
+      makeSelectable(tr, inspectObject({
+        kind: "policy group", id: r.policy, label: r.policy, state: r.value,
+        severity: /disabled|prohibited/i.test(r.value) ? "blocked" : "safe",
+        reason: r.enforcement + " — " + r.rationale, allowed_local_action: "Open Policy Group",
+        blocked_action: "enable live / display credential" }));
       tbody.appendChild(tr);
     });
     table.appendChild(tbody); wrap.appendChild(table); mp.appendChild(wrap);
@@ -663,6 +710,11 @@
       var row = el("div", "reg-row");
       row.appendChild(el("span", "reg-key", c.item));
       var rv = el("span", "reg-val"); rv.appendChild(el("span", "token SECRET_REDACTED", c.display)); row.appendChild(rv);
+      makeSelectable(row, inspectObject({
+        kind: "policy group", id: "cred-" + c.item, label: "Credential never-display: " + c.item,
+        state: "SECRET_REDACTED", severity: "safe",
+        reason: c.item + " is never displayed; secrets stay out-of-band.",
+        allowed_local_action: "Open Policy Group", blocked_action: "display credential / read env" }));
       reg.appendChild(row);
     });
     reg.classList.add("section-gap");
@@ -812,15 +864,171 @@
     body.appendChild(row);
   }
 
+  /* --- Object-centric inspection registry (0174AI) ---
+     Deterministic selected-object model. Normalizes existing MODEL items into a
+     canonical inspectable shape. Local-only: selection updates UI state and the
+     inspector rail; it performs no network, no storage, no operational action. */
+  var SELECTED_OBJECT = null;   // canonical selected object (null = summary mode)
+  var ACTIVE_SCREEN = null;     // current screen object
+  var INSPECTOR_NODE = null;    // current inspector rail container
+
+  /* Canonical inspectable-object factory. Only kind/label are required. */
+  function inspectObject(o) {
+    return {
+      kind: o.kind || "object",
+      id: o.id || "",
+      label: o.label || "",
+      state: o.state || "",
+      severity: o.severity || "neutral",
+      reason: o.reason || "",
+      evidence_refs: o.evidence_refs || [],
+      allowed_local_action: o.allowed_local_action || "Inspect",
+      blocked_action: o.blocked_action || "",
+      caveat: o.caveat || "",
+      posture: o.posture || "current"
+    };
+  }
+
+  /* Mark a DOM node as a local inspection surface for a canonical object. */
+  function makeSelectable(node, obj) {
+    node.classList.add("selectable-object");
+    if (node.tagName !== "BUTTON") {
+      node.setAttribute("role", "button");
+      node.setAttribute("tabindex", "0");
+    }
+    node.setAttribute("aria-label", "Inspect " + obj.kind + ": " + obj.label);
+    node.setAttribute("aria-pressed", "false");
+    function fire(e) { if (e) e.preventDefault(); selectObject(obj, node); }
+    node.addEventListener("click", fire);
+    node.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") fire(e);
+    });
+    return node;
+  }
+
+  /* Select an object: update state, sync selected visual state, re-render rail. */
+  function selectObject(obj, node) {
+    SELECTED_OBJECT = obj;
+    var prior = document.querySelectorAll(".selectable-object.selected");
+    for (var i = 0; i < prior.length; i++) {
+      prior[i].classList.remove("selected");
+      prior[i].setAttribute("aria-pressed", "false");
+    }
+    if (node) { node.classList.add("selected"); node.setAttribute("aria-pressed", "true"); }
+    if (INSPECTOR_NODE && ACTIVE_SCREEN) {
+      clear(INSPECTOR_NODE);
+      renderInspectorRail(ACTIVE_SCREEN, INSPECTOR_NODE);
+    }
+  }
+
+  /* Build the default selected object for a screen from existing MODEL data. */
+  function defaultObjectForScreen(screen) {
+    var sid = screen.screen_id;
+    if (sid === "command_center") {
+      var b = MODEL.blocker_stack[0] || {};
+      return inspectObject({ kind: "blocker", id: b.id, label: b.label,
+        state: b.severity, severity: b.severity === "blocked" ? "blocked" : "review",
+        reason: b.reason, evidence_refs: b.evidence_ref_ids,
+        allowed_local_action: "Review Blocker", blocked_action: "publish / post / schedule" });
+    }
+    if (sid === "content_studio") {
+      var lanes = screen.lanes || [];
+      var lane = lanes.filter(function (l) { return l.status === "BLOCKED"; })[0] || lanes[0] || {};
+      return inspectObject({ kind: "content lane", id: lane.lane_id, label: lane.name,
+        state: lane.status, severity: lane.status === "BLOCKED" ? "blocked" : "review",
+        reason: (lane.limitations || []).join("; "), evidence_refs: lane.evidence_ref_ids,
+        allowed_local_action: "Select Lane", blocked_action: "publish final copy",
+        caveat: lane.forbidden_language });
+    }
+    if (sid === "publish_readiness") {
+      var rv = screen.readiness_verdict || {};
+      return inspectObject({ kind: "publish gate", id: "gate-checkpoint", label: "No platform can publish",
+        state: rv.status, severity: "blocked", reason: rv.reason, evidence_refs: rv.evidence_ref_ids,
+        allowed_local_action: "Inspect Gate", blocked_action: "publish / posting / scheduler" });
+    }
+    if (sid === "evidence_vault") {
+      var cav = (screen.caveat_registry || [])[0] || {};
+      return inspectObject({ kind: "QA caveat", id: cav.caveat_id, label: "0174C Browser QA caveat",
+        state: "historical", severity: "review", reason: cav.note,
+        evidence_refs: [cav.source_evidence], allowed_local_action: "View Evidence",
+        blocked_action: "evidence mutation / export",
+        caveat: "Worker visual judgment rejected; capture accepted", posture: "historical" });
+    }
+    if (sid === "content_calendar") {
+      var items = [];
+      (screen.date_lanes || []).forEach(function (l) { (l.items || []).forEach(function (it) { items.push(it); }); });
+      var it = items.filter(function (x) { return x.state === "blocked"; })[0] || items[0] || {};
+      return inspectObject({ kind: "workflow item", id: it.lane, label: it.title,
+        state: it.state, severity: it.state === "blocked" ? "blocked" : "review",
+        reason: "Manual workflow stage: " + it.state, evidence_refs: [it.evidence_ref],
+        allowed_local_action: "Inspect Workflow Item", blocked_action: "schedule / auto-post" });
+    }
+    if (sid === "visual_export") {
+      return inspectObject({ kind: "redaction proof", id: "redaction", label: "Screenshot-safe redaction proof",
+        state: "SCREENSHOT_SAFE", severity: "safe",
+        reason: "Secrets are SECRET_REDACTED; surface is fixture-only.",
+        evidence_refs: (screen.export_state || {}).evidence_ref_ids,
+        allowed_local_action: "View Redaction Proof", blocked_action: "export / download / upload" });
+    }
+    if (sid === "settings_safety_policy") {
+      return inspectObject({ kind: "policy group", id: "credential-never-display", label: "Credential never-display",
+        state: "PASS", severity: "safe",
+        reason: "Credentials and env are never displayed; secrets stay out-of-band.",
+        evidence_refs: (screen.policy_state || {}).evidence_ref_ids,
+        allowed_local_action: "Open Policy Group", blocked_action: "display credential / enable live" });
+    }
+    return null;
+  }
+
+  /* Render the selected-object institutional detail + compact evidence path. */
+  function renderSelectedObjectDetail(obj, rail) {
+    var box = el("div", "selected-object-detail sev-" + (obj.severity || "neutral"));
+    var h = el("div", "selected-object-head");
+    h.appendChild(el("span", "selected-object-kind", obj.kind));
+    if (obj.state) h.appendChild(el("span", "token " + obj.state, obj.state));
+    box.appendChild(h);
+    box.appendChild(el("div", "selected-object-label", obj.label));
+    function row(label, value) {
+      if (!value) return;
+      var r = el("div", "selected-object-row");
+      r.appendChild(el("span", "selected-object-row-label", label));
+      r.appendChild(el("span", "selected-object-row-value", value));
+      box.appendChild(r);
+    }
+    row("Why", obj.reason);
+    row("Allowed (local)", obj.allowed_local_action);
+    row("Blocked", obj.blocked_action);
+    row("Caveat", obj.caveat);
+    row("Posture", obj.posture);
+    var refs = (obj.evidence_refs || []).map(evidenceRefId).filter(Boolean);
+    if (refs.length) {
+      var trace = el("div", "evidence-path");
+      trace.appendChild(el("span", "evidence-path-label", "Evidence path"));
+      var chain = el("div", "evidence-path-chain");
+      chain.appendChild(el("span", "evidence-path-node", obj.kind));
+      refs.forEach(function (r) {
+        chain.appendChild(el("span", "evidence-path-arrow", "\u2192"));
+        chain.appendChild(el("span", "evidence-chip", r));
+      });
+      trace.appendChild(chain);
+      box.appendChild(trace);
+    }
+    rail.appendChild(box);
+  }
+
   /* --- Screen-specific inspector rail (0174AH) ---
      Read-only, high-signal, purpose-built per screen. Built only from existing
      model data — no new capability, no operational control, no dump. Each screen
      answers its own institutional questions instead of a generic template. */
   function renderInspectorRail(screen, rail) {
     var head = el("div", "inspector-head");
-    head.appendChild(el("span", "inspector-eyebrow", "Inspector"));
+    head.appendChild(el("span", "inspector-eyebrow", SELECTED_OBJECT ? "Selected object" : "Inspector"));
     head.appendChild(el("span", "inspector-screen", screen.screen_id));
     rail.appendChild(head);
+
+    /* Selected-object detail mode (0174AI): lead with the selected object's
+       institutional detail + evidence path, then the screen summary below. */
+    if (SELECTED_OBJECT) renderSelectedObjectDetail(SELECTED_OBJECT, rail);
 
     function card(label, value, sevClass, mono) {
       var c = el("div", "inspector-card" + (sevClass ? " sev-" + sevClass : ""));
@@ -949,6 +1157,11 @@
     shell.appendChild(work);
     shell.appendChild(inspector);
     body.appendChild(shell);
+
+    /* Object-centric state (0174AI): default selected object per screen. */
+    ACTIVE_SCREEN = screen;
+    INSPECTOR_NODE = inspector;
+    SELECTED_OBJECT = defaultObjectForScreen(screen);
 
     switch (screen.screen_id) {
       case "command_center": renderCommandCenter(screen, work); break;
