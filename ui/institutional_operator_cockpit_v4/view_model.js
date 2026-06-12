@@ -57,9 +57,9 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
      without the full provenance wall. The full grid (truth_rail) stays the
      authoritative expanded source. */
   truth_rail_summary: {
-    product_head: "4ffe650 / V4 institutional cockpit (0174AC current-state baseline)",
-    gate: "Dashboard IA + modern matte pass (0174AD) on baseline 4ffe650. Awaiting Browser QA (0174AF) + ChatGPT visual audit.",
-    next_action: "Browser QA screenshot capture + ChatGPT visual audit of the 0174AD dashboard IA pass. No live/platform/API behavior.",
+    product_head: "152b855 / V4 object-centric inspection model (0174AI)",
+    gate: "0174AI object-centric inspection implemented; 0174AIa state-truth + inspect-affordance patch in progress. Awaiting Browser QA + ChatGPT visual audit.",
+    next_action: "Browser QA screenshot capture of 0174AIa, then ChatGPT visual audit. Targeted 0174AJ build only after state/affordance blockers clear. No live/platform/API behavior.",
     safety_status: "Live posting, platform API, provider API, and scheduler disabled; kill switch active"
   },
 
@@ -68,25 +68,25 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
   truth_rail: [
     {
       role_label: "Current Product HEAD",
-      value: "4ffe650 / V4 institutional cockpit (0174AC current-state baseline)",
+      value: "152b855 / V4 object-centric inspection model (0174AI). Documentation head 5f1494d / 0174AI-0174AM quality-system roadmap.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Current Gate",
-      value: "Dashboard information architecture + progressive disclosure + modern matte language pass (0174AD) on baseline 4ffe650. Awaiting Browser QA (0174AF) and ChatGPT visual audit. Live posting, scheduler, and platform API remain disabled.",
+      value: "0174AI object-centric inspection model implemented (selected-object registry, inspector sync, evidence path); 0174AIa state-truth + inspect-affordance patch in progress. Awaiting Browser QA and ChatGPT visual audit. Live posting, scheduler, and platform API remain disabled.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Next Allowed Action",
-      value: "Browser QA screenshot capture of the 0174AD dashboard IA pass, then ChatGPT visual audit; targeted patch only if blockers remain. No live/platform/API/credential behavior.",
+      value: "Browser QA screenshot capture of the 0174AIa patch, then ChatGPT visual audit; targeted 0174AJ Executive Command Surface Rewrite only after state/affordance blockers clear. No live/platform/API/credential behavior.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Build Lineage (Historical Provenance)",
-      value: "Clean-room build (0174E); root layout stabilized at 0174I; readable scan layer at 0174S; truth/redundancy cleanup at 0174V; truth-rail progressive disclosure at 0174Z; institutional visual system rebuild at 0174AA (047ca7a); brand-language and state-grammar patches at 0174AB (1f9ed89 / 1e12953); current-state + matte brand composition at 0174AC (4ffe650); dashboard IA + modern matte language pass at 0174AD. Not Runtime Authority.",
+      value: "Clean-room build (0174E); root layout stabilized at 0174I; readable scan layer at 0174S; truth/redundancy cleanup at 0174V; truth-rail progressive disclosure at 0174Z; institutional visual system rebuild at 0174AA (047ca7a); brand-language and state-grammar patches at 0174AB (1f9ed89 / 1e12953); current-state + matte brand composition at 0174AC (4ffe650); dashboard IA + modern matte language pass at 0174AD; screen specialization at 0174AE/0174AF; workspace shell + screen-specific inspector at 0174AG/0174AH; object-centric inspection model at 0174AI (152b855). Not Runtime Authority.",
       kind: "historical",
       runtime_authority: false
     },
@@ -132,7 +132,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
 
   /* Ordered active blocker stack (by severity). */
   blocker_stack: [
-    { id: "BLK-VISUAL", severity: "review_required", label: "0174AD dashboard IA pass pending Browser QA + ChatGPT visual audit", reason: "The 0174AD dashboard information-architecture and modern matte language pass is composed on baseline 4ffe650; Browser QA screenshots and the ChatGPT visual audit are still pending before visual acceptance.", evidence_ref_ids: ["EV-0174D", "EV-TESTS-V4"] },
+    { id: "BLK-VISUAL", severity: "review_required", label: "0174AIa state-truth + inspect-affordance patch pending Browser QA + ChatGPT visual audit", reason: "The 0174AI object-centric inspection model is implemented (head 152b855); the 0174AIa patch repairs current-state truth and inspect affordances. Browser QA screenshots and the ChatGPT visual audit are still pending before visual acceptance.", evidence_ref_ids: ["EV-0174D", "EV-TESTS-V4"] },
     { id: "BLK-LIVE", severity: "blocked", label: "Supervised publishing blocked", reason: "Live adapter, platform API, scheduler, and posting are all disabled by policy and kill switch.", evidence_ref_ids: ["EV-MASTER-PLAN"] },
     { id: "BLK-ARTIFACT", severity: "review_required", label: "Artifact-backed content lane blocked", reason: "No real approved Capital Chronicle artifacts, lineage, freshness, or DQR state exist yet.", evidence_ref_ids: ["EV-MASTER-PLAN"] }
   ],
@@ -168,10 +168,10 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
         historical_provenance: false
       },
       what_changed: [
-        "Dashboard information architecture recomposed to summary-first with progressive disclosure (0174AD).",
-        "Dense audit detail moved into drilldown panels and below-scan surfaces; no evidence removed.",
-        "Modern matte graphite design language tokenized (gradient depth, hairline highlight, micro-motion).",
-        "Current-state truth realigned to baseline 4ffe650 (0174AC); stale 0174AB/1e12953 language removed."
+        "Object-centric inspection model added: selected-object registry, inspector sync, evidence path, and local-only inspect controls (0174AI).",
+        "Command tile inspect affordance restyled to matte secondary; native white default button removed (0174AIa).",
+        "Selected-object visual state and inspector readability strengthened without glow or neon (0174AIa).",
+        "Current-state truth realigned to the implemented head 152b855 (0174AI); 0174AD / 4ffe650 moved to historical provenance."
       ],
       evidence_dependency_map: [
         { node: "Current Verdict", depends_on: ["EV-0174D", "EV-MASTER-PLAN"] },
@@ -245,8 +245,8 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
         status: "PASS",
         severity: "safe",
         label: "Evidence State",
-        text: "Audit trail complete to current baseline 4ffe650 (0174AC). Confidence: high for build authority, caveated for browser QA.",
-        reason: "Blueprint chain and master plan accepted; browser QA capture accepted with worker-judgment caveat; 0174AD dashboard IA pass awaiting fresh Browser QA.",
+        text: "Audit trail complete to current implemented head 152b855 (0174AI). Confidence: high for build authority, caveated for browser QA.",
+        reason: "Blueprint chain and master plan accepted; browser QA capture accepted with worker-judgment caveat; 0174AI object-centric model and 0174AIa patch awaiting fresh Browser QA.",
         evidence_ref_ids: ["EV-0174D", "EV-MASTER-PLAN", "EV-0174C-QA"],
         allowed_actions: ["inspect", "view evidence"],
         blocked_actions: ["evidence mutation", "export", "upload"],
@@ -262,8 +262,9 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
       evidence_timeline: [
         { commit: "0174AA / 047ca7a", task: "institutional visual system rebuild", classification: "historical" },
         { commit: "0174AB / 1e12953", task: "brand-language + state-grammar patch", classification: "historical" },
-        { commit: "0174AC / 4ffe650", task: "current-state + matte brand composition", classification: "current" },
-        { commit: "0174AD", task: "dashboard IA + modern matte language pass", classification: "current" },
+        { commit: "0174AC / 4ffe650", task: "current-state + matte brand composition", classification: "historical" },
+        { commit: "0174AD\u20130174AH", task: "dashboard IA, screen specialization, workspace shell + inspector", classification: "historical" },
+        { commit: "0174AI / 152b855", task: "object-centric inspection model", classification: "current" },
         { commit: "0174C", task: "visible browser QA capture (V3)", classification: "evidence-only" }
       ],
       caveat_registry: [

@@ -94,14 +94,14 @@ def test_no_stale_current_truth_phrases():
 
 def test_current_truth_references_present_state():
     vm = _vm()
-    # current operator truth is the composed 0174AC baseline + in-progress 0174AD pass.
-    for token in ["4ffe650", "0174AD", "Dashboard"]:
+    # current operator truth is the implemented 0174AI object-centric head.
+    for token in ["152b855", "0174AI", "object-centric"]:
         assert token in vm, "missing present-state token: " + token
-    # the older progressive-disclosure lineage survives only as historical provenance.
+    # the older composition lineage survives only as historical provenance.
     lineage = vm.split("Build Lineage (Historical Provenance)", 1)
     assert len(lineage) == 2, "historical build-lineage entry missing"
     block = lineage[1].split("}", 1)[0]
-    for token in ["0174Z", "0174V", "progressive disclosure"]:
+    for token in ["0174Z", "0174V", "progressive disclosure", "4ffe650", "0174AD"]:
         assert token in block, "lineage token not in historical block: " + token
 
 # ---------- D1. next-action QA copy repair (0174V1) ----------

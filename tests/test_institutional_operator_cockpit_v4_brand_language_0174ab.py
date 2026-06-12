@@ -112,10 +112,13 @@ def _next_action_block(vm):
     return vm.split('role_label: "Next Allowed Action"', 1)[1].split("}", 1)[0]
 
 
-def test_current_head_is_4ffe650():
+def test_current_head_is_152b855_object_centric():
     vm = _vm()
-    assert "4ffe650" in _current_head_block(vm), "current head must be 4ffe650"
-    assert '"4ffe650 / V4 institutional cockpit (0174AC current-state baseline)"' in vm
+    head = _current_head_block(vm)
+    assert "152b855" in head, "current head must be 152b855 (0174AI)"
+    assert "0174AI" in head, "current head must reference 0174AI object-centric model"
+    # the prior composition baseline must not present itself as the current head.
+    assert "4ffe650" not in head, "stale 4ffe650 must not be the current head"
 
 
 def test_no_active_1f9ed89_as_current_head():

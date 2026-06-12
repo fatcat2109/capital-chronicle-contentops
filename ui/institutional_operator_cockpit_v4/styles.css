@@ -2050,3 +2050,85 @@ table.matrix thead th,
   .selectable-object.selected::after { background: var(--text-dim); }
 }
 
+
+/* =====================================================================
+ * 0174AIa — State-truth + inspect-affordance patch.
+ * Matte secondary inspect affordance (no native white button), stronger
+ * selected-object visual state, and more readable selected-object detail.
+ * ===================================================================== */
+
+/* B. Command tile inspect affordance — matte secondary, never a CTA, never
+ * a native white default button. */
+.command-tile-cue.inspect-affordance,
+.command-tile .command-tile-cue {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  margin-top: 10px;
+  padding: 5px 11px;
+  font: inherit;
+  font-size: var(--type-micro);
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  background: linear-gradient(160deg, var(--surface-raised), var(--surface));
+  border: 1px solid var(--hairline);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color var(--motion-hover, 90ms) ease,
+              border-color var(--motion-hover, 90ms) ease,
+              color var(--motion-hover, 90ms) ease;
+}
+.command-tile-cue.inspect-affordance:hover {
+  color: var(--text);
+  border-color: var(--text-dim);
+  background: var(--surface-raised);
+}
+.command-tile-cue.inspect-affordance:focus-visible {
+  outline: 2px solid var(--text-dim);
+  outline-offset: 2px;
+}
+
+/* C. Selected-object visual state — stronger, still matte (no glow/neon). */
+.selectable-object {
+  border-left-width: 3px;
+}
+.selectable-object:hover {
+  background-color: var(--surface-raised);
+}
+.selectable-object.selected {
+  border-left-color: var(--text);
+  border-left-width: 4px;
+}
+.selectable-object.selected::after {
+  width: 3px;
+  background: linear-gradient(180deg, var(--text), var(--text-dim));
+}
+
+/* D. Selected-object inspector readability — roomier rows + legible chips. */
+.selected-object-detail { padding: 15px 16px; }
+.selected-object-kind {
+  font-size: var(--type-micro);
+  letter-spacing: 0.1em;
+}
+.selected-object-label {
+  font-size: var(--type-body, 15px);
+  line-height: 1.34;
+  margin-bottom: 11px;
+}
+.selected-object-row {
+  padding: 5px 0;
+  font-size: var(--type-meta, 13px);
+  line-height: 1.4;
+  border-top: 1px solid color-mix(in srgb, var(--hairline) 60%, transparent);
+}
+.selected-object-row:first-of-type { border-top: none; }
+.selected-object-row-label { min-width: 96px; }
+.evidence-path { margin-top: 12px; padding-top: 11px; }
+.evidence-chip {
+  font-size: var(--type-meta, 12px);
+  padding: 2px 9px;
+}
+

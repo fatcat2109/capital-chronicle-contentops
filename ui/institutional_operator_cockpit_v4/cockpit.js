@@ -172,10 +172,10 @@
       tile.appendChild(el("span", "command-tile-label", t[0]));
       tile.appendChild(el("span", "command-tile-title", t[1]));
       tile.appendChild(el("span", "command-tile-meta", t[3]));
-      var open = el("button", "command-tile-cue");
+      var open = el("button", "command-tile-cue inspect-affordance");
       open.setAttribute("type", "button");
-      open.textContent = "Open ›";
-      open.setAttribute("aria-label", "Open " + t[1]);
+      open.textContent = "Inspect ›";
+      open.setAttribute("aria-label", "Inspect " + t[1]);
       open.addEventListener("click", function (e) { e.stopPropagation(); renderScreen(t[2]); });
       tile.appendChild(open);
       makeSelectable(tile, inspectObject({
