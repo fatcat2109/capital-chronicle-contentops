@@ -73,6 +73,15 @@
   --pad-module: 1.25rem; /* DESIGN.md module padding */
   --baseline: 4px;       /* DESIGN.md 4px baseline grid */
 
+  /* Productive motion system (0174AK). Motion only preserves context — never
+     decoration. No bounce/spring/parallax. Durations follow Carbon guidance:
+     micro-interactions, fade, small expansion, system communication. */
+  --motion-hover: 90ms;    /* hover / focus micro-interactions (70–110ms) */
+  --motion-select: 140ms;  /* selected object -> inspector update (120–150ms) */
+  --motion-open: 200ms;    /* drilldown / disclosure open (150–240ms) */
+  --motion-trace: 130ms;   /* evidence trace update (120–150ms) */
+  --ease-productive: cubic-bezier(0.2, 0, 0.38, 0.9); /* no overshoot */
+
   --mono: var(--font-mono);
   --sans: var(--font-ui);
 }
@@ -2130,5 +2139,88 @@ table.matrix thead th,
 .evidence-chip {
   font-size: var(--type-meta, 12px);
   padding: 2px 9px;
+}
+
+
+/* =====================================================================
+ * 0174AJ — Executive command surfaces.
+ * DecisionSpine: the flagship Command Center header. Matte graphite band,
+ * left severity edge, decisive verdict, and a context cell grid. No glow.
+ * ===================================================================== */
+.decision-spine {
+  position: relative;
+  margin-bottom: 1.25rem;
+  padding: 18px 20px 18px 22px;
+  background: linear-gradient(150deg, var(--surface-raised), var(--surface-panel) 60%);
+  border: 1px solid var(--gridline);
+  border-left: 4px solid var(--outline-strong);
+  border-radius: 10px;
+}
+.decision-spine.sev-blocked { border-left-color: var(--red); }
+.decision-spine.sev-review { border-left-color: var(--amber); }
+.decision-spine.sev-safe { border-left-color: var(--green); }
+.decision-spine-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color var(--motion-hover) var(--ease-productive);
+}
+.decision-spine-head:hover { background-color: rgba(255, 255, 255, 0.03); }
+.decision-spine-head:focus-visible { outline: 2px solid var(--text-dim); outline-offset: 3px; }
+.decision-spine-eyebrow {
+  font-size: var(--type-label);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.decision-spine-verdict {
+  margin: 10px 0 16px;
+  font-size: var(--type-title);
+  line-height: var(--line-tight);
+  color: var(--text);
+  max-width: 70ch;
+}
+.decision-spine-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  background: var(--gridline);
+  border: 1px solid var(--gridline);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.decision-cell {
+  flex: 1 1 150px;
+  padding: 11px 13px;
+  background: var(--surface-panel);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-left: 2px solid transparent;
+  transition: background-color var(--motion-hover) var(--ease-productive);
+}
+.decision-cell.sev-blocked { border-left-color: var(--red); }
+.decision-cell.sev-review { border-left-color: var(--amber); }
+.decision-cell.sev-safe { border-left-color: var(--green); }
+.decision-cell-label {
+  font-size: var(--type-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.decision-cell-value {
+  font-size: var(--type-body);
+  color: var(--text);
+  line-height: 1.34;
+}
+
+/* B2 — reduced-motion hardening for 0174AJ/AK surfaces. State persists via
+   color/border only; no transforms, no transitions. */
+@media (prefers-reduced-motion: reduce) {
+  .decision-spine-head,
+  .decision-cell,
+  .command-tile-cue.inspect-affordance { transition: none; }
 }
 

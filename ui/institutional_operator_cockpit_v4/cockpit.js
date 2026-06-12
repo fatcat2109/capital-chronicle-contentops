@@ -189,9 +189,52 @@
   }
 
   /* --- Command Center --- */
+  function renderDecisionSpine(s, body) {
+    /* Executive decision spine (0174AJ). Composed only from existing verdict /
+       blocker / counter data. Decisive operator answer, not a report grid. */
+    var v = s.verdict || {};
+    var top = MODEL.blocker_stack[0] || {};
+    var g = MODEL.global_current_state || {};
+    var spine = el("div", "decision-spine sev-" + (v.severity || "blocked"));
+
+    var head = el("div", "decision-spine-head");
+    head.appendChild(el("span", "decision-spine-eyebrow", "Decision"));
+    head.appendChild(el("span", "token " + (v.status || "BLOCKED"), v.status || "BLOCKED"));
+    spine.appendChild(head);
+    spine.appendChild(el("div", "decision-spine-verdict", v.text || v.label || "Nothing may proceed to publishing."));
+    var spineObj = inspectObject({ kind: "decision", id: "command-verdict",
+      label: (v.label || "Current Verdict") + " · " + (v.status || "BLOCKED"),
+      state: v.status, severity: v.severity || "blocked", reason: v.reason,
+      evidence_refs: v.evidence_ref_ids, allowed_local_action: (v.allowed_actions || []).join(" · ") || "inspect",
+      blocked_action: (v.blocked_actions || []).join(" · ") });
+    makeSelectable(head, spineObj);
+
+    var grid = el("div", "decision-spine-grid");
+    function spineCell(label, value, sev, obj) {
+      var cell = el("div", "decision-cell" + (sev ? " sev-" + sev : ""));
+      cell.appendChild(el("span", "decision-cell-label", label));
+      cell.appendChild(el("span", "decision-cell-value", value));
+      if (obj) makeSelectable(cell, obj);
+      grid.appendChild(cell);
+    }
+    spineCell("Top blocker", top.id + " · " + top.label,
+      top.severity === "blocked" ? "blocked" : "review",
+      inspectObject({ kind: "blocker", id: top.id, label: top.label, state: top.severity,
+        severity: top.severity === "blocked" ? "blocked" : "review", reason: top.reason,
+        evidence_refs: top.evidence_ref_ids, allowed_local_action: "Review Blocker",
+        blocked_action: "publish / post / schedule" }));
+    spineCell("Evidence", MODEL.evidence_refs.length + " refs · validation PASS", "safe");
+    spineCell("Allowed (local)", (v.allowed_actions || ["inspect"]).join(" · "), null);
+    spineCell("Disabled surfaces", "live · API · scheduler · posting · credential", "blocked");
+    spineCell("Recent delta", (s.what_changed && s.what_changed[0]) || "—", null);
+    spine.appendChild(grid);
+    body.appendChild(spine);
+  }
+
   function renderCommandCenter(s, body) {
-    /* Inspection command surfaces lead the executive cockpit, then the change
-       ledger / blocker stack / proof ledger detail below. */
+    /* Executive decision spine leads the flagship; inspection command surfaces
+       and the change ledger / blocker board / proof ledger follow below. */
+    renderDecisionSpine(s, body);
     renderInspectionCommands(body);
 
     var changed = el("div", "instrument-panel section-gap");
