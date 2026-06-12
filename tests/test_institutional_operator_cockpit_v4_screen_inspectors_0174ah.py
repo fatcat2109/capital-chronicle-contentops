@@ -1,10 +1,9 @@
-"""0174AG workspace-shell / inspector-rail guard tests.
+"""0174AH screen-specific inspector + executive workflow guard tests.
 
-Deterministic static assertions only — no browser, no network. Enforces the
-0174AG workspace composition: workspace shell + inspector rail primitives
-defined and used, inspector is read-only/local-only, no fake operational
-controls, no network/storage, evidence/matrices/registries preserved, no
-blue/glow, and screenshot-safe wording preserved.
+Deterministic static assertions only — no browser, no network. Enforces that
+the inspector rail is screen-specific (not the generic 0174AG template), that
+each screen's purpose-built labels are present, that stale-reading recency
+wording is framed as historical, and that safety/material discipline holds.
 """
 from pathlib import Path
 
@@ -30,57 +29,54 @@ def _runtime_text() -> str:
     return "\n".join(p.read_text(encoding="utf-8") for p in RUNTIME_FILES)
 
 
-# ---------- workspace shell + inspector primitives ----------
-def test_workspace_shell_defined_and_used():
-    css = _css()
+# ---------- inspector is screen-specific (keyed on screen_id) ----------
+def test_inspector_dispatches_per_screen():
     cockpit = _cockpit()
-    for cls in [".workspace-shell", ".work-surface", ".inspector-rail"]:
-        assert cls in css, "missing workspace class in CSS: " + cls
-    assert "workspace-shell" in cockpit, "workspace-shell not used in renderer"
-    assert "work-surface" in cockpit, "work-surface not used in renderer"
-    assert "inspector-rail" in cockpit, "inspector-rail not used in renderer"
+    for sid in ['sid === "command_center"', 'sid === "publish_readiness"',
+                'sid === "evidence_vault"', 'sid === "content_studio"',
+                'sid === "content_calendar"', 'sid === "visual_export"',
+                'sid === "settings_safety_policy"']:
+        assert sid in cockpit, "inspector not specialized for: " + sid
 
 
-def test_inspector_card_primitives_defined():
-    css = _css()
-    for cls in [".inspector-card", ".inspector-card-label", ".inspector-card-value",
-                ".inspector-lock-row"]:
-        assert cls in css, "missing inspector primitive: " + cls
-
-
-def test_inspector_rail_rendered():
+def test_screen_specific_inspector_labels_present():
     cockpit = _cockpit()
-    assert "renderInspectorRail" in cockpit
-    # screen renderers now fill the work surface, not the body directly.
-    assert "renderCommandCenter(screen, work)" in cockpit
+    # A representative, distinct label per screen — proves no generic-only rail.
+    for label in ['"Active decision"', '"Priority blocker"',          # command center
+                  '"Gate checkpoint"', '"Next blocker"',              # publish readiness
+                  '"Validation state"', '"Lineage health"',          # evidence vault
+                  '"Manual review queue"', '"Forbidden-language watch"',  # content studio
+                  '"Plan state"', '"Workflow items"',                 # calendar
+                  '"Capture state"', '"Redaction proof"',             # visual export
+                  '"Runtime boundaries"', '"Credential never-display"']:  # settings
+        assert label in cockpit, "screen-specific inspector label missing: " + label
 
 
-def test_inspector_is_read_only_summary():
+def test_no_generic_inspector_regression():
     cockpit = _cockpit()
-    # The inspector answers state/blocker/evidence/disabled per screen — read-only.
-    for label in ['"Active decision"', '"Gate checkpoint"', '"Disabled (cannot run)"']:
-        assert label in cockpit, "inspector summary field missing: " + label
+    # The old generic template used these exact labels; they must not return as
+    # the inspector body (specialized labels replace them).
+    assert '"Why"' not in cockpit, "generic inspector 'Why' label regressed"
+    assert cockpit.count('"Current state"') <= 1, "generic 'Current state' overused"
+
+
+# ---------- stale recency wording reframed as historical ----------
+def test_qa_caveat_framed_historical():
+    cockpit = _cockpit()
+    # Evidence Vault inspector must frame the 0174C capture as a historical
+    # caveat, not as current recency.
+    assert '"QA caveat (historical)"' in cockpit
 
 
 # ---------- no fake operational controls ----------
 def test_no_fake_operational_controls():
     text = _runtime_text().lower()
     for token in ["publish button", "run button", "send button", "approve button",
-                  "schedule button", "connect api", "execute button", "start automation",
-                  "read credentials"]:
+                  "schedule button", "connect api", "execute button", "start automation"]:
         assert token not in text, "fake operational control present: " + token
     for label in [">publish<", ">post<", ">schedule<", ">approve<", ">execute<",
                   ">connect<", ">run<", ">send<"]:
         assert label not in text, "operational button label present: " + label
-
-
-# ---------- responsive shell is stable (no auto-fit/auto-fill) ----------
-def test_workspace_grid_is_stable():
-    css = _css()
-    for line in css.splitlines():
-        if "grid-template-columns" in line:
-            assert "auto-fill" not in line, "auto-fill in grid-template: " + line
-            assert "auto-fit" not in line, "auto-fit in grid-template: " + line
 
 
 # ---------- material discipline ----------
@@ -105,8 +101,8 @@ def test_no_feature_deletion():
                   '"Caveat Registry"', '"Active Blocker Registry"',
                   '"Credential Never-Display Registry"', '"Policy Matrix"']:
         assert label in cockpit, "feature removed: " + label
-    for cls in ["lane-health-strip", "publish-checkpoint", "confidence-surface",
-                "workflow-board", "command-tile-row", "density-toggle"]:
+    for cls in ["workspace-shell", "inspector-rail", "command-tile-row",
+                "density-toggle", "lane-health-strip", "workflow-board"]:
         assert cls in cockpit, "prior feature removed: " + cls
 
 

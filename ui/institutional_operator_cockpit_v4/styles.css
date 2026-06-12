@@ -1920,3 +1920,37 @@ table.matrix thead th,
   .inspector-rail > .inspector-card { flex: 1 1 240px; }
 }
 
+
+/* =====================================================================
+ * 0174AH — Screen-specific inspector hierarchy + repetition reduction.
+ * The first inspector card per screen is the dominant decision; remaining
+ * cards are compact supporting detail. Footer reduced to one calm line.
+ * ===================================================================== */
+
+/* Dominant decision: the first card after the inspector head reads stronger. */
+.inspector-head + .inspector-card {
+  border-left-width: 4px;
+  background-color: var(--surface-raised);
+}
+.inspector-head + .inspector-card .inspector-card-value {
+  font-size: var(--type-summary);
+  line-height: var(--line-tight);
+  color: var(--text);
+}
+
+/* Supporting cards stay compact and quiet so the rail is high-signal, not a dump. */
+.inspector-card + .inspector-card { padding-top: 11px; padding-bottom: 11px; }
+.inspector-card-label { opacity: 0.92; }
+
+/* Repetition reduction: compact one-line footer (safety state still present). */
+.cockpit-footer.audit-footer { padding-top: 9px; padding-bottom: 9px; }
+.cockpit-footer .footer-action {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 64ch;
+}
+
+/* Editorial / policy first-fold: tighten the lead strip rhythm a touch. */
+.lane-health-strip, .gate-summary-strip, .confidence-surface { margin-bottom: 14px; }
+

@@ -812,54 +812,118 @@
     body.appendChild(row);
   }
 
-  /* --- Inspector rail (0174AG) ---
-     Read-only premium detail rail. Answers: what is current, why allowed/blocked,
-     what evidence backs it, what is the next allowed manual action, what stays
-     disabled. Built only from existing model data — no new capability, no dump. */
+  /* --- Screen-specific inspector rail (0174AH) ---
+     Read-only, high-signal, purpose-built per screen. Built only from existing
+     model data — no new capability, no operational control, no dump. Each screen
+     answers its own institutional questions instead of a generic template. */
   function renderInspectorRail(screen, rail) {
     var head = el("div", "inspector-head");
     head.appendChild(el("span", "inspector-eyebrow", "Inspector"));
     head.appendChild(el("span", "inspector-screen", screen.screen_id));
     rail.appendChild(head);
 
-    var verdict = screen.verdict || screen.studio_state || screen.readiness_verdict
-      || screen.evidence_state || screen.plan_state || screen.export_state || screen.policy_state || {};
-    var sev = verdict.severity || (verdict.status === "BLOCKED" || verdict.status === "LIVE_DISABLED"
-      ? "blocked" : (verdict.status === "REVIEW_REQUIRED" ? "review" : "safe"));
-
-    function card(label, value, mono, sevClass) {
+    function card(label, value, sevClass, mono) {
       var c = el("div", "inspector-card" + (sevClass ? " sev-" + sevClass : ""));
       c.appendChild(el("span", "inspector-card-label", label));
       c.appendChild(el("div", "inspector-card-value" + (mono ? " mono" : ""), value));
+      rail.appendChild(c);
       return c;
     }
+    function disabledLocks() {
+      var g = MODEL.global_current_state || {};
+      var lc = el("div", "inspector-card sev-blocked");
+      lc.appendChild(el("span", "inspector-card-label", "Disabled (cannot run)"));
+      [["Live adapter", g.live_state], ["Scheduler", g.scheduler_state],
+       ["Posting", g.live_state], ["Credential read", g.credential_read_state],
+       ["Platform API", g.platform_api_state]
+      ].forEach(function (pair) {
+        var row = el("div", "inspector-lock-row");
+        row.appendChild(el("span", "lock-key", pair[0]));
+        row.appendChild(el("span", "lock-val", pair[1] || "disabled"));
+        lc.appendChild(row);
+      });
+      rail.appendChild(lc);
+    }
+    function evidenceRefsValue(n) {
+      return MODEL.evidence_refs.slice(0, n).map(evidenceRefId).filter(Boolean).join(" · ") || "—";
+    }
 
-    rail.appendChild(card("Current state",
-      (verdict.label || screen.title) + (verdict.status ? " · " + verdict.status : ""), false, sev));
-    if (verdict.reason) rail.appendChild(card("Why", verdict.reason, false, null));
+    var sid = screen.screen_id;
 
-    var nextAction = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];
-    rail.appendChild(card("Next allowed action", nextAction ? nextAction.value : "—", false, null));
-
-    var evCard = el("div", "inspector-card");
-    evCard.appendChild(el("span", "inspector-card-label", "Evidence backing (" + MODEL.evidence_refs.length + ")"));
-    evCard.appendChild(el("div", "inspector-card-value mono",
-      MODEL.evidence_refs.slice(0, 5).map(evidenceRefId).filter(Boolean).join(" · ") || "—"));
-    rail.appendChild(evCard);
-
-    var g = MODEL.global_current_state || {};
-    var locksCard = el("div", "inspector-card sev-blocked");
-    locksCard.appendChild(el("span", "inspector-card-label", "Disabled (cannot run)"));
-    [["Live adapter", g.live_state], ["Scheduler", g.scheduler_state],
-     ["Posting", g.live_state], ["Credential read", g.credential_read_state],
-     ["Platform API", g.platform_api_state]
-    ].forEach(function (pair) {
-      var row = el("div", "inspector-lock-row");
-      row.appendChild(el("span", "lock-key", pair[0]));
-      row.appendChild(el("span", "lock-val", pair[1] || "disabled"));
-      locksCard.appendChild(row);
-    });
-    rail.appendChild(locksCard);
+    if (sid === "command_center") {
+      var v = screen.verdict || {};
+      var top = MODEL.blocker_stack[0] || {};
+      var cnt = screen.safety_counters || {};
+      card("Active decision", (v.label || "Verdict") + " · " + (v.status || "BLOCKED"), "blocked");
+      card("Priority blocker", top.id + " · " + top.label, top.severity === "blocked" ? "blocked" : "review");
+      card("Evidence confidence", MODEL.evidence_refs.length + " refs · validation PASS", "safe", true);
+      card("Operator next action", (v.allowed_actions || []).join(" · ") || "inspect", null);
+      card("Safety locks", (cnt.locks_active || 13) + " active · live disabled", "blocked");
+      card("Recent change", (screen.what_changed && screen.what_changed[0]) || "—", null);
+    } else if (sid === "publish_readiness") {
+      var rv = screen.readiness_verdict || {};
+      card("Gate checkpoint", "No platform can publish · " + (rv.status || "BLOCKED"), "blocked");
+      card("Next blocker", rv.text || "Supervised publishing blocked", "blocked");
+      card("Gate matrix", (screen.gate_matrix || []).length + " platforms · all gates blocked", "blocked", true);
+      disabledLocks();
+    } else if (sid === "evidence_vault") {
+      var es = screen.evidence_state || {};
+      var vm = screen.validation_matrix || [];
+      var passN = vm.filter(function (r) { return r.status === "PASS"; }).length;
+      var tl = screen.evidence_timeline || [];
+      var currentN = tl.filter(function (e) { return e.classification === "current"; }).length;
+      var blkCav = (screen.caveat_registry || []).filter(function (c) { return c.blocking; }).length;
+      card("Evidence confidence", es.status === "PASS" ? "high (caveated)" : (es.status || "unknown"), "safe");
+      card("Validation state", passN + " / " + vm.length + " PASS", passN === vm.length ? "safe" : "review", true);
+      card("Lineage health", currentN + " current / " + tl.length + " tracked", "safe", true);
+      card("QA caveat (historical)", "0174C capture accepted; worker visual judgment rejected", "review");
+      card("Blocking caveats", String(blkCav), blkCav ? "blocked" : "safe", true);
+    } else if (sid === "content_studio") {
+      var lanes = screen.lanes || [];
+      var reviewN = lanes.filter(function (l) { return l.status === "REVIEW_REQUIRED"; }).length;
+      var blockedN = lanes.filter(function (l) { return l.status === "BLOCKED"; }).length;
+      var citationN = lanes.filter(function (l) {
+        return (l.limitations || []).some(function (x) { return /citation|source/i.test(x); });
+      }).length;
+      var forbiddenN = lanes.filter(function (l) {
+        return l.forbidden_language && !/^none detected/i.test(l.forbidden_language) && l.status !== "BLOCKED";
+      }).length;
+      card("Dominant lane state", (screen.studio_state || {}).status || "REVIEW_REQUIRED", "review");
+      card("Manual review queue", reviewN + " of " + lanes.length + " lanes", "review", true);
+      card("Citation-dependent", citationN + " lanes", citationN ? "review" : "safe", true);
+      card("Forbidden-language watch", forbiddenN + " lanes flagged", forbiddenN ? "review" : "safe", true);
+      card("Future artifact-backed", blockedN + " blocked (no artifacts)", "blocked", true);
+      card("Public posture", "not public-postable", "blocked");
+    } else if (sid === "content_calendar") {
+      var items = [];
+      (screen.date_lanes || []).forEach(function (l) { (l.items || []).forEach(function (it) { items.push(it); }); });
+      var blockedItems = items.filter(function (it) { return it.state === "blocked"; }).length;
+      card("Plan state", (screen.plan_state || {}).status || "REVIEW_REQUIRED", "review");
+      card("Workflow items", items.length + " tracked · manual only", null, true);
+      card("Blocked items", String(blockedItems), blockedItems ? "blocked" : "safe", true);
+      card("Manual next", "manual review / draft (no scheduler)", null);
+      card("Automation", "scheduler & auto-post disabled (future-only)", "blocked");
+    } else if (sid === "visual_export") {
+      var ex = screen.export_state || {};
+      card("Capture state", ex.status || "SCREENSHOT_SAFE", "safe");
+      card("Redaction proof", (screen.redaction_preview || []).length + " secrets SECRET_REDACTED", "safe", true);
+      card("Briefing package", (screen.report_cards || []).length + " screenshot-safe cards", "safe", true);
+      card("Export posture", "no export / download / upload", "blocked");
+      card("Forecast / data", (screen.forecast_readiness_placeholder || {}).status || "FUTURE_ONLY", "blocked");
+    } else if (sid === "settings_safety_policy") {
+      var ps = screen.policy_state || {};
+      card("Active policy state", ps.status || "PASS", "safe");
+      card("Runtime boundaries", "network / live / scheduler / API disabled", "blocked");
+      card("Content boundaries", "no advice · no signal · no targets", "review");
+      card("Credential never-display", (screen.credential_never_display_registry || []).length + " items · SECRET_REDACTED", "safe", true);
+      card("Platform gates", (screen.future_gate_requirements || []).length + " future-only gates", "blocked", true);
+      card("Redaction posture", "secrets stay out-of-band", "safe");
+    } else {
+      var fb = screen.verdict || screen.policy_state || {};
+      card("Current state", (fb.label || screen.title) + (fb.status ? " · " + fb.status : ""), "safe");
+      card("Evidence backing", evidenceRefsValue(5), null, true);
+      disabledLocks();
+    }
   }
 
   /* --- Screen dispatcher --- */
