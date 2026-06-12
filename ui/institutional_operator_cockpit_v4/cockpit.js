@@ -26,12 +26,16 @@
     return "";
   }
 
-  /* --- Safety Rail --- */
+  /* --- Safety Rail ---
+     Red is reserved for genuine danger (kill switch / live disabled). Every
+     other governance lock renders as a neutral graphite chip so the strip reads
+     as calm authority rather than an all-red alarm wall. */
   function renderSafetyRail() {
     var rail = document.getElementById("safety-rail");
     clear(rail);
+    var dangerLocks = { "KILL SWITCH ACTIVE": true, "LIVE DISABLED": true };
     MODEL.safety_locks.critical.forEach(function (lbl) {
-      rail.appendChild(el("span", "safety-chip critical", lbl));
+      rail.appendChild(el("span", "safety-chip" + (dangerLocks[lbl] ? " critical" : ""), lbl));
     });
     var cluster = el("span", "safety-locks-cluster",
       "SYSTEM LOCKS +" + MODEL.safety_locks.grouped_locks.length + ": " +
@@ -257,6 +261,28 @@
 
   /* --- Publish Readiness Tower (gate matrix first) --- */
   function renderPublishReadiness(s, body) {
+    /* Composed gate-summary strip: a calm, institutional readout of the hard
+       publishing locks above the dense matrix, built from canonical state. */
+    var g = MODEL.global_current_state || {};
+    var sumStrip = el("div", "gate-summary-strip section-gap");
+    [["Live adapter", g.live_state || "disabled"],
+     ["Scheduler", g.scheduler_state || "disabled"],
+     ["Posting", g.live_state || "disabled"],
+     ["Credential read", g.credential_read_state || "disabled"],
+     ["Platform API", g.platform_api_state || "disabled"]
+    ].forEach(function (pair) {
+      var cell = el("div", "gate-summary-cell");
+      cell.appendChild(el("span", "gate-summary-label", pair[0]));
+      cell.appendChild(el("span", "gate-summary-value", pair[1]));
+      sumStrip.appendChild(cell);
+    });
+    var nb = el("div", "gate-summary-cell gate-summary-blocker");
+    nb.appendChild(el("span", "gate-summary-label", "Next blocker"));
+    nb.appendChild(el("span", "gate-summary-value",
+      s.readiness_verdict ? s.readiness_verdict.text : "Supervised publishing blocked"));
+    sumStrip.appendChild(nb);
+    body.appendChild(sumStrip);
+
     var mp = panel("Gate Matrix");
     var wrap = el("div", "gate-matrix gate-control-surface");
     var table = el("table", "matrix");

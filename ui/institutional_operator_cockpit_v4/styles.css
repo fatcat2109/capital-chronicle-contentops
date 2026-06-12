@@ -38,7 +38,7 @@
   --surface-panel: var(--bg-panel-3);  /* near #201f20 container */
   --surface-raised: #2a2a2a;           /* near #2a2a2a high */
   --surface-highest: #353435;          /* near #353435 highest */
-  --surface-sunken: #121417;           /* near #121417 inset banner */
+  --surface-sunken: #121211;           /* warm graphite inset banner (0174AB de-blue) */
   --surface-terminal: #000000;         /* pure-black directive surface */
   --text-primary: var(--text);         /* near #e5e2e1 */
   --text-secondary: var(--text-dim);   /* near #c6c6ca */
@@ -111,7 +111,7 @@ html, body {
   height: var(--rail-h);
   min-height: var(--rail-h);
   padding: 0 12px;
-  background: #0e1418;
+  background: #121211;
   border-bottom: 1px solid var(--gridline);
   overflow: hidden;
   white-space: nowrap;
@@ -156,7 +156,7 @@ html, body {
   flex-wrap: wrap;
   gap: 4px 16px;
   padding: 6px 12px;
-  background: #0e1216;
+  background: #141312;
   cursor: pointer;
   list-style: none;
   min-width: 0;
@@ -255,7 +255,7 @@ html, body {
   min-height: 0;
 }
 .screen-nav {
-  background: #0e1115;
+  background: #121211;
   border-right: 1px solid var(--gridline);
   padding: 8px 0;
   min-width: 0;
@@ -273,11 +273,11 @@ html, body {
   padding: 9px 14px;
   cursor: pointer;
 }
-.nav-item:hover { color: var(--text); background: #11161b; }
+.nav-item:hover { color: var(--text); background: #1b1a19; }
 .nav-item.active {
   color: var(--cyan);
   border-left-color: var(--cyan);
-  background: #11181d;
+  background: #201f1d;
 }
 .nav-item:focus-visible { outline: 1px solid var(--cyan); outline-offset: -1px; }
 
@@ -403,7 +403,7 @@ table.matrix th, table.matrix td {
   white-space: nowrap;
 }
 table.matrix th {
-  background: #0e1418;
+  background: var(--surface-header);
   color: var(--text-dim);
   text-transform: uppercase;
   font-size: 9.5px;
@@ -452,7 +452,7 @@ table.matrix tbody tr:nth-child(even) td { background: var(--bg-panel-2); }
 .cockpit-footer {
   position: static;        /* explicitly not fixed */
   border-top: 1px solid var(--gridline);
-  background: #0e1115;
+  background: #121211;
   padding: 8px 16px;
   font-size: 11px;
   color: var(--text-dim);
@@ -632,6 +632,54 @@ table.matrix tbody tr:nth-child(even) td { background: var(--bg-panel-2); }
 }
 .gate-matrix td.wrap { white-space: normal; word-break: break-word; min-width: 160px; }
 .gate-matrix tbody tr:nth-child(even) td { background: var(--bg-panel-2); }
+
+/* 0174AB: composed gate-summary strip above the Publish Readiness matrix.
+   Reads the hard publishing locks as a calm institutional readout rather than
+   forcing the operator to parse the dense matrix first. Reusable component. */
+.gate-summary-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--gridline);
+  border: 1px solid var(--outline-strong);
+}
+@media (max-width: 1099px) {
+  .gate-summary-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.gate-summary-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  background: var(--surface-header);
+  padding: 8px 10px;
+  min-width: 0;
+}
+.gate-summary-label {
+  font-family: var(--font-ui);
+  font-size: var(--type-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text-faint);
+}
+.gate-summary-value {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  word-break: break-word;
+}
+/* Next-blocker cell spans the row and carries the only danger accent. */
+.gate-summary-cell.gate-summary-blocker {
+  grid-column: 1 / -1;
+  border-left: 3px solid var(--red);
+  background: var(--surface-sunken);
+}
+.gate-summary-blocker .gate-summary-value {
+  font-family: var(--font-ui);
+  text-transform: none;
+  color: var(--text);
+  line-height: var(--line-normal);
+}
 
 /* Registry row: caveat / forbidden-scope / never-display registries. */
 .registry-row {
@@ -948,7 +996,7 @@ table.matrix tbody tr:nth-child(even) td { background: var(--bg-panel-2); }
 }
 .primary-answer .token { font-size: var(--type-label); }
 .next-action-card {
-  border: 1px solid var(--cyan);
+  border: 1px solid var(--outline-strong);
   background: var(--bg-panel-2);
   padding: 10px 12px;
 }
@@ -1001,6 +1049,14 @@ table.matrix tbody tr:nth-child(even) td { background: var(--bg-panel-2); }
   color: var(--cyan);
   border: 1px solid var(--outline);
   padding: 2px 6px;
+}
+/* 0174AB: scan reason row uses flex + gap so the uppercase micro-label and the
+   value never concatenate (fixes "REASONKill" / "REASONNo" collisions). */
+.primary-reason, .scan-reason {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 .scan-label {
   font-family: var(--font-ui);
