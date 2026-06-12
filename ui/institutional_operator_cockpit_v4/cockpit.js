@@ -104,14 +104,30 @@
     });
   }
 
-  /* --- Footer (in-flow next allowed action) --- */
+  /* --- Footer / status dock (0174AM-D) ---
+     Calm, discrete status cells instead of one long repeated action line. The
+     full next-action text already lives in the scan layer; the dock keeps only
+     compact current-truth anchors so the bottom rail reads as quiet chrome. */
   function renderFooter() {
     var footer = document.getElementById("cockpit-footer");
     clear(footer);
-    footer.classList.add("audit-footer");
-    var next = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];
-    footer.appendChild(el("span", "footer-label", "next allowed action"));
-    footer.appendChild(el("span", "footer-action", next ? next.value : ""));
+    footer.classList.add("audit-footer", "status-dock");
+    var sum = MODEL.truth_rail_summary || {};
+    var head = (sum.product_head || "").split(" / ")[0] || "—";
+    var nextShort = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];
+    var nextLabel = nextShort ? (nextShort.value.split(".")[0]) : "";
+    var cells = [
+      ["mono", "Product HEAD", head],
+      [null, "Next allowed action", nextLabel],
+      [null, "Safety", "live · API · scheduler disabled · kill switch active"]
+    ];
+    cells.forEach(function (c, i) {
+      if (i > 0) footer.appendChild(el("span", "dock-divider"));
+      var cell = el("span", "dock-cell");
+      cell.appendChild(el("span", "dock-label", c[1]));
+      cell.appendChild(el("span", "dock-value" + (c[0] === "mono" ? " mono" : ""), c[2]));
+      footer.appendChild(cell);
+    });
   }
 
   /* --- shared band renderer for evidence-backed status objects --- */
@@ -332,6 +348,65 @@
     });
     body.appendChild(strip);
 
+    /* ReviewQueue choreography (0174AM-A): lead with the single highest-priority
+       object the operator must act on, then a severity-ranked pipeline. Built
+       only from existing lane data — no new capability, no market data. */
+    function laneSeverity(l) { return l.status === "BLOCKED" ? 0 : (l.status === "REVIEW_REQUIRED" ? 1 : 2); }
+    function laneSevClass(l) { return l.status === "BLOCKED" ? "blocked" : (l.status === "REVIEW_REQUIRED" ? "review" : "safe"); }
+    var ranked = lanes.slice().sort(function (a, b) {
+      var d = laneSeverity(a) - laneSeverity(b);
+      return d !== 0 ? d : (a.name || "").localeCompare(b.name || "");
+    });
+    var primaryLane = ranked[0] || {};
+    var queue = el("div", "review-queue section-gap");
+
+    var prim = el("div", "review-queue-primary");
+    prim.appendChild(el("span", "rq-eyebrow", "Top of review queue"));
+    var rqTitle = el("div", "rq-title");
+    rqTitle.appendChild(document.createTextNode(primaryLane.name || "Editorial lane"));
+    rqTitle.appendChild(el("span", "token " + (primaryLane.status || "REVIEW_REQUIRED"), primaryLane.status || "REVIEW_REQUIRED"));
+    prim.appendChild(rqTitle);
+    prim.appendChild(el("div", "rq-reason readable-body-copy",
+      (primaryLane.limitations || []).join("; ") || "Manual review required before this lane can proceed."));
+    var rqMeta = el("div", "review-queue-meta");
+    [["claim risk", primaryLane.claim_risk], ["platform", primaryLane.platform_fit],
+     ["forbidden-language", primaryLane.forbidden_language]
+    ].forEach(function (m) {
+      if (!m[1]) return;
+      rqMeta.appendChild(el("span", "rq-chip", m[0] + ": " + m[1]));
+    });
+    prim.appendChild(rqMeta);
+    makeSelectable(prim, inspectObject({
+      kind: "content lane", id: primaryLane.lane_id, label: primaryLane.name, state: primaryLane.status,
+      severity: laneSevClass(primaryLane), reason: (primaryLane.limitations || []).join("; "),
+      evidence_refs: primaryLane.evidence_ref_ids, allowed_local_action: "Select Lane",
+      blocked_action: "publish final copy / signal language", caveat: primaryLane.forbidden_language }));
+    queue.appendChild(prim);
+
+    var pipeline = el("div", "risk-pipeline");
+    ranked.forEach(function (lane, i) {
+      var row = el("div", "pipeline-row sev-" + laneSevClass(lane));
+      row.appendChild(el("span", "pipeline-rank", String(i + 1)));
+      var main = el("div", "pipeline-main");
+      main.appendChild(el("span", "pipeline-name", lane.name));
+      main.appendChild(el("span", "pipeline-class", "claim risk: " + (lane.claim_risk || "n/a")));
+      row.appendChild(main);
+      var risk = el("div", "pipeline-risk");
+      risk.appendChild(el("span", "pipeline-risk-label", "forbidden-language"));
+      risk.appendChild(el("span", "pipeline-risk-value", lane.forbidden_language || "—"));
+      row.appendChild(risk);
+      var tok = el("div"); tok.appendChild(el("span", "token " + lane.status, lane.status));
+      row.appendChild(tok);
+      makeSelectable(row, inspectObject({
+        kind: "content lane", id: lane.lane_id, label: lane.name, state: lane.status,
+        severity: laneSevClass(lane), reason: (lane.limitations || []).join("; "),
+        evidence_refs: lane.evidence_ref_ids, allowed_local_action: "Select Lane",
+        blocked_action: "publish final copy / signal language", caveat: lane.forbidden_language }));
+      pipeline.appendChild(row);
+    });
+    queue.appendChild(pipeline);
+    body.appendChild(queue);
+
     var grid = el("div", "grid grid-2 lane-control-grid");
     s.lanes.forEach(function (lane) {
       var p = el("div", "lane lane-control-board" + (lane.status === "BLOCKED" ? " blocked" : ""));
@@ -512,6 +587,43 @@
     });
     body.appendChild(surface);
 
+    /* ProvenanceChain (0174AM-B): a visible evidence -> caveat -> registry trace
+       so the audit lineage is scannable before the dense drilldowns. Built only
+       from existing model data; no new capability, no export. */
+    var firstCav = (s.caveat_registry || [])[0] || {};
+    var firstReg = (s.active_blocker_registry || [])[0] || {};
+    var chainStages = [
+      { step: "01", label: "Evidence source", value: (es.evidence_ref_ids || []).join(" · ") || "—", sev: "safe",
+        obj: inspectObject({ kind: "evidence ref", id: "evidence-source", label: "Evidence source",
+          state: es.status, severity: "safe", reason: es.reason, evidence_refs: es.evidence_ref_ids,
+          allowed_local_action: "View Evidence", blocked_action: "evidence mutation / export" }) },
+      { step: "02", label: "Validation", value: passN + " / " + totalN + " PASS", sev: passN === totalN ? "safe" : "review",
+        obj: inspectObject({ kind: "evidence ref", id: "validation", label: "Validation state",
+          state: passN + "/" + totalN + " PASS", severity: passN === totalN ? "safe" : "review",
+          reason: "External-dependency, current-state, forbidden-control, and secret scans.",
+          allowed_local_action: "View Evidence", blocked_action: "evidence mutation" }) },
+      { step: "03", label: "Caveat", value: firstCav.caveat_id ? (firstCav.caveat_id + " · " + (firstCav.blocking ? "blocking" : "non-blocking")) : "none", sev: firstCav.blocking ? "blocked" : "review",
+        obj: inspectObject({ kind: "QA caveat", id: firstCav.caveat_id, label: firstCav.caveat_id || "Caveat",
+          state: "historical", severity: firstCav.blocking ? "blocked" : "review", reason: firstCav.note,
+          evidence_refs: [firstCav.source_evidence], allowed_local_action: "View Evidence",
+          blocked_action: "evidence mutation", posture: "historical" }) },
+      { step: "04", label: "Active blocker", value: firstReg.id ? (firstReg.id + " · " + firstReg.status) : "none", sev: /LIVE_DISABLED|BLOCKED/.test(firstReg.status || "") ? "blocked" : "review",
+        obj: inspectObject({ kind: "blocker", id: firstReg.id, label: firstReg.label,
+          state: firstReg.status, severity: "review", reason: firstReg.label,
+          allowed_local_action: "Review Blocker", blocked_action: "publish / post / schedule" }) }
+    ];
+    var chain = el("div", "provenance-chain section-gap");
+    chainStages.forEach(function (st, i) {
+      if (i > 0) chain.appendChild(el("div", "provenance-arrow", "\u2192"));
+      var stage = el("div", "provenance-stage sev-" + st.sev);
+      stage.appendChild(el("span", "provenance-step", st.step));
+      stage.appendChild(el("span", "provenance-stage-label", st.label));
+      stage.appendChild(el("span", "provenance-stage-value", st.value));
+      makeSelectable(stage, st.obj);
+      chain.appendChild(stage);
+    });
+    body.appendChild(chain);
+
     var mp = panel("Validation Matrix");
     var wrap = el("div", "matrix-wrap audit-room-grid");
     var table = el("table", "matrix");
@@ -617,6 +729,41 @@
         items.push({ title: it.title, lane: it.lane, state: it.state, period: lane.period, evidence_ref: it.evidence_ref });
       });
     });
+    /* WorkflowPriorityRail (0174AM-C): choreograph the two items that matter —
+       the top blocked item and the next actionable item — above the full board.
+       Manual-only; no scheduler, no auto-post. */
+    var blockedItem = items.filter(function (it) { return it.state === "blocked"; })[0];
+    var nextItem = items.filter(function (it) { return it.state !== "blocked"; }).sort(function (a, b) {
+      var order = s.allowed_states;
+      return order.indexOf(a.state) - order.indexOf(b.state);
+    })[0];
+    var prioRail = el("div", "workflow-priority-rail section-gap");
+    function prioritySlot(kind, modifier, item) {
+      var slot = el("div", "priority-slot " + modifier);
+      slot.appendChild(el("span", "priority-slot-eyebrow", kind));
+      if (!item) { slot.appendChild(el("div", "priority-slot-next", "None at this stage.")); return slot; }
+      slot.appendChild(el("div", "priority-slot-title", item.title));
+      var meta = el("div", "priority-slot-meta");
+      meta.appendChild(el("span", "ps-chip", "lane: " + item.lane));
+      meta.appendChild(el("span", "ps-chip", "state: " + item.state));
+      meta.appendChild(el("span", "ps-chip", item.period));
+      slot.appendChild(meta);
+      var na = el("div", "priority-slot-next");
+      na.appendChild(el("span", "data-label", "manual next "));
+      na.appendChild(document.createTextNode(nextActionByState[item.state] || "manual review"));
+      slot.appendChild(na);
+      makeSelectable(slot, inspectObject({
+        kind: "workflow item", id: item.lane, label: item.title, state: item.state,
+        severity: item.state === "blocked" ? "blocked" : "review",
+        reason: "Manual workflow stage: " + item.state,
+        evidence_refs: [item.evidence_ref], allowed_local_action: "Inspect Workflow Item",
+        blocked_action: "schedule / auto-post / dispatch" }));
+      return slot;
+    }
+    prioRail.appendChild(prioritySlot("Blocked — resolve first", "slot-blocked", blockedItem));
+    prioRail.appendChild(prioritySlot("Next manual action", "slot-next", nextItem));
+    body.appendChild(prioRail);
+
     var board = el("div", "manual-workflow-board workflow-board section-gap");
     s.allowed_states.forEach(function (state) {
       var colItems = items.filter(function (it) { return it.state === state; });
@@ -823,7 +970,7 @@
      First-open readable summary for every screen. Uses only model data.
      Detailed audit sections still render below, fully present. */
   function renderOperatorScanLayer(screen, body) {
-    var layer = el("div", "operator-scan-layer" + (screen.screen_id === "command_center" ? " scan-primary" : ""));
+    var layer = el("div", "operator-scan-layer" + (screen.screen_id === "command_center" ? " scan-primary" : " scan-compact"));
     var board = el("div", "operator-summary-board");
 
     var intent = el("div", "scan-intent readable-body-copy");
