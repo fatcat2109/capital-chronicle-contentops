@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "platform_id": "telegram",
+  "label": "Telegram Channel (manual paste only)",
+  "content_surface": "channel_post",
+  "character_limit_max": 4096,
+  "character_limit_soft": 1024,
+  "supports_links": true,
+  "supports_hashtags": true,
+  "supports_threading": false,
+  "supports_media": true,
+  "required_disclosure_fields": ["process_content"],
+  "required_limitation_fields": ["not_investment_guidance"],
+  "unsupported_features": ["auto_publish", "inline_buttons"],
+  "manual_publish_only": true,
+  "live_api_supported_future": false,
+  "credential_required_future": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "compiler_output_id": "cout_blocked_signal_001",
+  "compiler_input_id": "cin_lane_a_pass_001",
+  "platform_payloads": [
+    {
+      "platform_id": "x_twitter",
+      "text": "Buy now and watch this level; our signal says sell at the price target.",
+      "character_count": 71,
+      "character_limit_max": 280,
+      "disclosure_fields": ["process_content"],
+      "limitations": ["Process content, not investment guidance."],
+      "citations": ["build_log_0174AP"],
+      "hashtags": [],
+      "links": [],
+      "unsupported_feature_flags": [],
+      "mode": "dry_run"
+    }
+  ],
+  "unsupported_feature_flags": [],
+  "disclosure_preservation_result": "PASS",
+  "limitation_preservation_result": "PASS",
+  "citation_preservation_result": "PASS",
+  "character_limit_result": "PASS",
+  "claim_integrity_result": "PASS",
+  "platform_constraint_result": "PASS",
+  "operator_review_required": true,
+  "public_ready": false,
+  "live_eligibility": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["buy/sell/signal language"]
+}

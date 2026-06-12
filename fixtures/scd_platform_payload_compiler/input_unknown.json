@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "compiler_input_id": "cin_unknown_001",
+  "canonical_post_id": "",
+  "editorial_output_id": "",
+  "source_text": "",
+  "source_limitations": ["Process content, not investment guidance."],
+  "source_citations": ["build_log_0174AP"],
+  "source_claims": [],
+  "requested_platforms": ["x_twitter"],
+  "platform_constraint_profile_refs": ["x_twitter"],
+  "operator_review_required": true,
+  "public_ready": false,
+  "live_eligibility": false,
+  "validation_state": "UNKNOWN",
+  "blocked_reasons": []
+}

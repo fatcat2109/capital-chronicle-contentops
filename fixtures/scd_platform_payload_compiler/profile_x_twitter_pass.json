@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "platform_id": "x_twitter",
+  "label": "X / Twitter (manual)",
+  "content_surface": "short_post",
+  "character_limit_max": 280,
+  "character_limit_soft": 270,
+  "supports_links": true,
+  "supports_hashtags": true,
+  "supports_threading": false,
+  "supports_media": true,
+  "required_disclosure_fields": ["process_content"],
+  "required_limitation_fields": ["not_investment_guidance"],
+  "unsupported_features": ["thread_automation", "auto_hashtag"],
+  "manual_publish_only": true,
+  "live_api_supported_future": false,
+  "credential_required_future": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "compile_report_id": "crep_blocked_contradiction_001",
+  "compiler_input_id": "cin_lane_a_pass_001",
+  "compiler_output_id": "cout_pass_001",
+  "per_platform_results": [
+    { "platform_id": "x_twitter", "result": "PASS" },
+    { "platform_id": "linkedin", "result": "BLOCKED" }
+  ],
+  "blocked_platforms": ["linkedin"],
+  "review_required_platforms": [],
+  "pass_platforms": ["x_twitter"],
+  "unknown_platforms": [],
+  "final_recommendation": "PASS",
+  "live_ready": false,
+  "dispatch_ready": false,
+  "operator_review_required": true,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["final PASS contradicts a BLOCKED per-platform result"]
+}

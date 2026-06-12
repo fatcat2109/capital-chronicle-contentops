@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "compiler_input_id": "cin_lane_a_pass_001",
+  "canonical_post_id": "post_pass_001",
+  "editorial_output_id": "ewo_pass_001",
+  "source_text": "This week we shipped a deterministic domain model. We explain why evidence has to come before any conclusion.",
+  "source_limitations": ["Process content, not investment guidance."],
+  "source_citations": ["build_log_0174AP"],
+  "source_claims": ["We built a domain model layer."],
+  "requested_platforms": ["x_twitter", "linkedin", "telegram", "generic_manual"],
+  "platform_constraint_profile_refs": ["x_twitter", "linkedin", "telegram", "generic_manual"],
+  "operator_review_required": true,
+  "public_ready": false,
+  "live_eligibility": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

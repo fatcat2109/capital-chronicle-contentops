@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "compiler_output_id": "cout_blocked_citation_001",
+  "compiler_input_id": "cin_lane_a_pass_001",
+  "platform_payloads": [
+    {
+      "platform_id": "linkedin",
+      "text": "We shipped a deterministic domain model this week. Process content, not investment guidance.",
+      "character_count": 92,
+      "character_limit_max": 3000,
+      "disclosure_fields": ["process_content"],
+      "limitations": ["Process content, not investment guidance."],
+      "citations": ["invented_source_99"],
+      "hashtags": [],
+      "links": [],
+      "unsupported_feature_flags": [],
+      "mode": "dry_run"
+    }
+  ],
+  "unsupported_feature_flags": [],
+  "disclosure_preservation_result": "PASS",
+  "limitation_preservation_result": "PASS",
+  "citation_preservation_result": "BLOCKED",
+  "character_limit_result": "PASS",
+  "claim_integrity_result": "PASS",
+  "platform_constraint_result": "PASS",
+  "operator_review_required": true,
+  "public_ready": false,
+  "live_eligibility": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["citation dropped/invented"]
+}

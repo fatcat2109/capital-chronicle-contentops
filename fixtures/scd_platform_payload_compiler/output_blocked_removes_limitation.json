@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "compiler_output_id": "cout_blocked_limitation_001",
+  "compiler_input_id": "cin_lane_a_pass_001",
+  "platform_payloads": [
+    {
+      "platform_id": "linkedin",
+      "text": "We shipped a deterministic domain model this week.",
+      "character_count": 50,
+      "character_limit_max": 3000,
+      "disclosure_fields": ["process_content"],
+      "limitations": [],
+      "citations": ["build_log_0174AP"],
+      "hashtags": [],
+      "links": [],
+      "unsupported_feature_flags": [],
+      "mode": "dry_run"
+    }
+  ],
+  "unsupported_feature_flags": [],
+  "disclosure_preservation_result": "PASS",
+  "limitation_preservation_result": "BLOCKED",
+  "citation_preservation_result": "PASS",
+  "character_limit_result": "PASS",
+  "claim_integrity_result": "PASS",
+  "platform_constraint_result": "PASS",
+  "operator_review_required": true,
+  "public_ready": false,
+  "live_eligibility": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["required limitation dropped"]
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD PlatformConstraintProfile",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "platform_id": {
+      "type": "string",
+      "enum": ["x_twitter", "linkedin", "telegram", "newsletter", "generic_manual"]
+    },
+    "label": { "type": "string" },
+    "content_surface": {
+      "type": "string",
+      "enum": [
+        "short_post",
+        "professional_post",
+        "channel_post",
+        "newsletter_section",
+        "manual_export"
+      ]
+    },
+    "character_limit_max": { "type": "integer" },
+    "character_limit_soft": { "type": "integer" },
+    "supports_links": { "type": "boolean" },
+    "supports_hashtags": { "type": "boolean" },
+    "supports_threading": { "type": "boolean" },
+    "supports_media": { "type": "boolean" },
+    "required_disclosure_fields": { "type": "array", "items": { "type": "string" } },
+    "required_limitation_fields": { "type": "array", "items": { "type": "string" } },
+    "unsupported_features": { "type": "array", "items": { "type": "string" } },
+    "manual_publish_only": { "type": "boolean" },
+    "live_api_supported_future": { "type": "boolean" },
+    "credential_required_future": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "platform_id",
+    "label",
+    "content_surface",
+    "character_limit_max",
+    "supports_links",
+    "supports_hashtags",
+    "supports_threading",
+    "supports_media",
+    "required_disclosure_fields",
+    "required_limitation_fields",
+    "unsupported_features",
+    "manual_publish_only",
+    "live_api_supported_future",
+    "credential_required_future",
+    "validation_state"
+  ]
+}

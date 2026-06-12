@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "compile_report_id": "crep_blocked_live_001",
+  "compiler_input_id": "cin_lane_a_pass_001",
+  "compiler_output_id": "cout_pass_001",
+  "per_platform_results": [
+    { "platform_id": "x_twitter", "result": "PASS" }
+  ],
+  "blocked_platforms": [],
+  "review_required_platforms": [],
+  "pass_platforms": ["x_twitter"],
+  "unknown_platforms": [],
+  "final_recommendation": "PASS",
+  "live_ready": true,
+  "dispatch_ready": true,
+  "operator_review_required": true,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["live_ready/dispatch_ready must be false"]
+}

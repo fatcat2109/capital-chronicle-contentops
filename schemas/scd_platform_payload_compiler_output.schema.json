@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD PlatformPayloadCompilerOutput",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "compiler_output_id": { "type": "string" },
+    "compiler_input_id": { "type": "string" },
+    "platform_payloads": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "platform_id": { "type": "string" },
+          "text": { "type": "string" },
+          "character_count": { "type": "integer" },
+          "character_limit_max": { "type": "integer" },
+          "disclosure_fields": { "type": "array", "items": { "type": "string" } },
+          "limitations": { "type": "array", "items": { "type": "string" } },
+          "citations": { "type": "array", "items": { "type": "string" } },
+          "hashtags": { "type": "array", "items": { "type": "string" } },
+          "links": { "type": "array", "items": { "type": "string" } },
+          "unsupported_feature_flags": { "type": "array", "items": { "type": "string" } },
+          "mode": { "type": "string", "enum": ["dry_run", "mock_only"] }
+        },
+        "required": ["platform_id", "text", "character_count", "character_limit_max", "mode"]
+      }
+    },
+    "unsupported_feature_flags": { "type": "array", "items": { "type": "string" } },
+    "disclosure_preservation_result": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "limitation_preservation_result": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "citation_preservation_result": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "character_limit_result": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "claim_integrity_result": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "platform_constraint_result": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "operator_review_required": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "live_eligibility": { "type": "boolean" },
+    "validation_state": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "compiler_output_id",
+    "compiler_input_id",
+    "platform_payloads",
+    "operator_review_required",
+    "public_ready",
+    "live_eligibility",
+    "validation_state"
+  ]
+}
