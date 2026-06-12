@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD PipelineReplayEvidenceManifest",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "evidence_manifest_id": { "type": "string" },
+    "pipeline_replay_input_id": { "type": "string" },
+    "stage_packet_hash_refs": { "type": "array", "items": { "type": "string" } },
+    "validator_refs": { "type": "array", "items": { "type": "string" } },
+    "fixture_refs": { "type": "array", "items": { "type": "string" } },
+    "test_refs": { "type": "array", "items": { "type": "string" } },
+    "audit_binding_refs": { "type": "array", "items": { "type": "string" } },
+    "replay_timestamp": { "type": "string" },
+    "hash_algorithm": { "type": "string", "enum": ["canonical_json_sha256"] },
+    "evidence_complete": { "type": "boolean" },
+    "missing_evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "mutation_after_replay_detected": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "evidence_manifest_id",
+    "pipeline_replay_input_id",
+    "hash_algorithm",
+    "evidence_complete",
+    "mutation_after_replay_detected",
+    "validation_state"
+  ]
+}

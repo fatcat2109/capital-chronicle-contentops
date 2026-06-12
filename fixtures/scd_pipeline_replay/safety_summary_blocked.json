@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "safety_summary_id": "ss_blocked_001",
+  "pipeline_replay_input_id": "pri_pass_001",
+  "no_provider_api_used": true,
+  "no_network_used": false,
+  "no_credentials_accessed": false,
+  "no_platform_api_called": true,
+  "no_browser_automation_used": true,
+  "no_scheduler_used": true,
+  "no_live_dispatch_created": true,
+  "no_public_post_created": true,
+  "no_telegram_bot_used": true,
+  "no_webhook_used": true,
+  "no_financial_advice_detected": true,
+  "no_signal_language_detected": true,
+  "all_live_flags_false": true,
+  "all_public_flags_false": true,
+  "all_executable_flags_false": true,
+  "api_gate_required": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["no_network_used and no_credentials_accessed must be true"]
+}

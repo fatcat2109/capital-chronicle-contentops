@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "pipeline_replay_report_id": "prr_blocked_contradiction_001",
+  "pipeline_replay_input_id": "pri_pass_001",
+  "stage_results": [
+    { "stage_name": "content_intent", "result": "PASS" },
+    { "stage_name": "editorial_workbench", "result": "BLOCKED" }
+  ],
+  "safety_summary_ref": "ss_pass_001",
+  "evidence_manifest_ref": "em_pass_001",
+  "pass_stages": ["content_intent"],
+  "blocked_stages": ["editorial_workbench"],
+  "review_required_stages": [],
+  "unknown_stages": [],
+  "final_recommendation": "PASS",
+  "operator_next_action": "n/a",
+  "manual_publish_only": true,
+  "mock_only": true,
+  "api_gate_required": false,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["final PASS while a stage is BLOCKED"]
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "evidence_manifest_id": "em_pass_001",
+  "pipeline_replay_input_id": "pri_pass_001",
+  "stage_packet_hash_refs": ["canonical_json_sha256:s1", "canonical_json_sha256:s2"],
+  "validator_refs": ["scd_pipeline_replay.validate_pipeline_replay_report"],
+  "fixture_refs": ["input_pass.json", "report_pass.json"],
+  "test_refs": ["tests/test_scd_pipeline_replay.py"],
+  "audit_binding_refs": ["abp_pass_001"],
+  "replay_timestamp": "2026-06-12T00:00:10Z",
+  "hash_algorithm": "canonical_json_sha256",
+  "evidence_complete": true,
+  "missing_evidence_refs": [],
+  "mutation_after_replay_detected": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

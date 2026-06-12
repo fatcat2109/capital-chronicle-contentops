@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD PipelineReplayReport",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "pipeline_replay_report_id": { "type": "string" },
+    "pipeline_replay_input_id": { "type": "string" },
+    "stage_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stage_name": { "type": "string" },
+          "result": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] }
+        },
+        "required": ["stage_name", "result"]
+      }
+    },
+    "safety_summary_ref": { "type": "string" },
+    "evidence_manifest_ref": { "type": "string" },
+    "pass_stages": { "type": "array", "items": { "type": "string" } },
+    "blocked_stages": { "type": "array", "items": { "type": "string" } },
+    "review_required_stages": { "type": "array", "items": { "type": "string" } },
+    "unknown_stages": { "type": "array", "items": { "type": "string" } },
+    "final_recommendation": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "operator_next_action": { "type": "string" },
+    "manual_publish_only": { "type": "boolean" },
+    "mock_only": { "type": "boolean" },
+    "api_gate_required": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "executable_dispatch": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "pipeline_replay_report_id",
+    "pipeline_replay_input_id",
+    "stage_results",
+    "final_recommendation",
+    "manual_publish_only",
+    "mock_only",
+    "api_gate_required",
+    "public_ready",
+    "live_ready",
+    "executable_dispatch",
+    "validation_state"
+  ]
+}

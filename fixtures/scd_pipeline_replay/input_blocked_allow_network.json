@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "pipeline_replay_input_id": "pri_blocked_net_001",
+  "replay_mode": "mock_only",
+  "stage_packet_refs": ["content_intent_001"],
+  "stage_packet_hash_refs": ["canonical_json_sha256:s1"],
+  "stage_order": ["content_intent"],
+  "operator_id_ref": "operator_local_001",
+  "requested_platforms": ["x_twitter"],
+  "expected_content_lane": "lane_a",
+  "expected_manual_publish_only": true,
+  "expected_mock_only": true,
+  "allow_provider_api": false,
+  "allow_network": true,
+  "allow_credentials": false,
+  "allow_platform_api": true,
+  "allow_live_dispatch": false,
+  "allow_browser_automation": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["allow_network/allow_platform_api must be false"]
+}

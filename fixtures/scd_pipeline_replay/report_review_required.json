@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "pipeline_replay_report_id": "prr_review_001",
+  "pipeline_replay_input_id": "pri_pass_001",
+  "stage_results": [
+    { "stage_name": "content_intent", "result": "PASS" },
+    { "stage_name": "editorial_workbench", "result": "REVIEW_REQUIRED" },
+    { "stage_name": "mock_dispatch", "result": "PASS" }
+  ],
+  "safety_summary_ref": "ss_pass_001",
+  "evidence_manifest_ref": "em_pass_001",
+  "pass_stages": ["content_intent", "mock_dispatch"],
+  "blocked_stages": [],
+  "review_required_stages": ["editorial_workbench"],
+  "unknown_stages": [],
+  "final_recommendation": "REVIEW_REQUIRED",
+  "operator_next_action": "Operator review required on editorial_workbench stage.",
+  "manual_publish_only": true,
+  "mock_only": true,
+  "api_gate_required": false,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "validation_state": "REVIEW_REQUIRED",
+  "blocked_reasons": []
+}

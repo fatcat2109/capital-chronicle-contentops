@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "stage_result_id": "sr_ppc_pass_001",
+  "pipeline_replay_input_id": "pri_pass_001",
+  "stage_name": "platform_payload_compile",
+  "stage_order_index": 3,
+  "packet_ref": "compile_out_001",
+  "packet_hash_ref": "canonical_json_sha256:s3",
+  "validator_name": "scd_platform_payload_compiler.validate_platform_payload_compiler_output",
+  "validation_state": "PASS",
+  "reasons": [],
+  "blocked_reasons": [],
+  "review_reasons": [],
+  "unknown_reasons": [],
+  "manual_publish_only": true,
+  "mock_only": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "api_gate_required": false
+}

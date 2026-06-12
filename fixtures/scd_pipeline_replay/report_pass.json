@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "pipeline_replay_report_id": "prr_pass_001",
+  "pipeline_replay_input_id": "pri_pass_001",
+  "stage_results": [
+    { "stage_name": "content_intent", "result": "PASS" },
+    { "stage_name": "editorial_workbench", "result": "PASS" },
+    { "stage_name": "platform_payload_compile", "result": "PASS" },
+    { "stage_name": "one_button_gate", "result": "PASS" },
+    { "stage_name": "mock_dispatch", "result": "PASS" }
+  ],
+  "safety_summary_ref": "ss_pass_001",
+  "evidence_manifest_ref": "em_pass_001",
+  "pass_stages": ["content_intent", "editorial_workbench", "platform_payload_compile", "one_button_gate", "mock_dispatch"],
+  "blocked_stages": [],
+  "review_required_stages": [],
+  "unknown_stages": [],
+  "final_recommendation": "PASS",
+  "operator_next_action": "Review the validated mock pipeline replay; nothing is publish-ready.",
+  "manual_publish_only": true,
+  "mock_only": true,
+  "api_gate_required": false,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

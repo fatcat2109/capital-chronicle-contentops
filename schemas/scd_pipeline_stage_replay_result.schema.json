@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD PipelineStageReplayResult",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "stage_result_id": { "type": "string" },
+    "pipeline_replay_input_id": { "type": "string" },
+    "stage_name": { "type": "string" },
+    "stage_order_index": { "type": "integer" },
+    "packet_ref": { "type": "string" },
+    "packet_hash_ref": { "type": "string" },
+    "validator_name": { "type": "string" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "reasons": { "type": "array", "items": { "type": "string" } },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } },
+    "review_reasons": { "type": "array", "items": { "type": "string" } },
+    "unknown_reasons": { "type": "array", "items": { "type": "string" } },
+    "manual_publish_only": { "type": "boolean" },
+    "mock_only": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "executable_dispatch": { "type": "boolean" },
+    "api_gate_required": { "type": "boolean" }
+  },
+  "required": [
+    "schema_version",
+    "stage_result_id",
+    "pipeline_replay_input_id",
+    "stage_name",
+    "stage_order_index",
+    "validator_name",
+    "validation_state",
+    "manual_publish_only",
+    "mock_only",
+    "public_ready",
+    "live_ready",
+    "executable_dispatch",
+    "api_gate_required"
+  ]
+}

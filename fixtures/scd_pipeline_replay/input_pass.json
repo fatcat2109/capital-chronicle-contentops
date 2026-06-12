@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "pipeline_replay_input_id": "pri_pass_001",
+  "replay_mode": "mock_only",
+  "stage_packet_refs": ["content_intent_001", "editorial_wb_001", "compile_out_001", "gate_result_001", "mock_record_001"],
+  "stage_packet_hash_refs": ["canonical_json_sha256:s1", "canonical_json_sha256:s2", "canonical_json_sha256:s3", "canonical_json_sha256:s4", "canonical_json_sha256:s5"],
+  "stage_order": ["content_intent", "editorial_workbench", "platform_payload_compile", "one_button_gate", "mock_dispatch"],
+  "operator_id_ref": "operator_local_001",
+  "requested_platforms": ["x_twitter", "linkedin"],
+  "expected_content_lane": "lane_a",
+  "expected_manual_publish_only": true,
+  "expected_mock_only": true,
+  "allow_provider_api": false,
+  "allow_network": false,
+  "allow_credentials": false,
+  "allow_platform_api": false,
+  "allow_live_dispatch": false,
+  "allow_browser_automation": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

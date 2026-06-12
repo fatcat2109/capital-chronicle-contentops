@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "stage_result_id": "sr_obg_pass_001",
+  "pipeline_replay_input_id": "pri_pass_001",
+  "stage_name": "one_button_gate",
+  "stage_order_index": 7,
+  "packet_ref": "gate_result_001",
+  "packet_hash_ref": "canonical_json_sha256:s4",
+  "validator_name": "scd_dispatch_gate.validate_one_button_dispatch_gate_result",
+  "validation_state": "PASS",
+  "reasons": [],
+  "blocked_reasons": [],
+  "review_reasons": [],
+  "unknown_reasons": [],
+  "manual_publish_only": true,
+  "mock_only": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "api_gate_required": false
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "stage_result_id": "sr_ci_pass_001",
+  "pipeline_replay_input_id": "pri_pass_001",
+  "stage_name": "content_intent",
+  "stage_order_index": 0,
+  "packet_ref": "content_intent_001",
+  "packet_hash_ref": "canonical_json_sha256:s1",
+  "validator_name": "scd_domain_model.validate_content_intent_packet",
+  "validation_state": "PASS",
+  "reasons": [],
+  "blocked_reasons": [],
+  "review_reasons": [],
+  "unknown_reasons": [],
+  "manual_publish_only": true,
+  "mock_only": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "api_gate_required": false
+}

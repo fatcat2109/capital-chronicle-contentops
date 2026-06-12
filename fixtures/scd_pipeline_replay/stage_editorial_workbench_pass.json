@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "stage_result_id": "sr_ew_pass_001",
+  "pipeline_replay_input_id": "pri_pass_001",
+  "stage_name": "editorial_workbench",
+  "stage_order_index": 1,
+  "packet_ref": "editorial_wb_001",
+  "packet_hash_ref": "canonical_json_sha256:s2",
+  "validator_name": "scd_editorial_workbench.validate_editorial_workbench_request",
+  "validation_state": "PASS",
+  "reasons": [],
+  "blocked_reasons": [],
+  "review_reasons": [],
+  "unknown_reasons": [],
+  "manual_publish_only": true,
+  "mock_only": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "api_gate_required": false
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "pipeline_replay_input_id": "pri_unknown_001",
+  "replay_mode": "mock_only",
+  "stage_packet_refs": [],
+  "stage_packet_hash_refs": [],
+  "stage_order": [],
+  "operator_id_ref": "operator_local_001",
+  "requested_platforms": ["x_twitter"],
+  "expected_content_lane": "lane_a",
+  "expected_manual_publish_only": true,
+  "expected_mock_only": true,
+  "allow_provider_api": false,
+  "allow_network": false,
+  "allow_credentials": false,
+  "allow_platform_api": false,
+  "allow_live_dispatch": false,
+  "allow_browser_automation": false,
+  "validation_state": "UNKNOWN",
+  "blocked_reasons": []
+}
