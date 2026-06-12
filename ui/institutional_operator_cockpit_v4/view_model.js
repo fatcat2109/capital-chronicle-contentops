@@ -57,9 +57,9 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
      without the full provenance wall. The full grid (truth_rail) stays the
      authoritative expanded source. */
   truth_rail_summary: {
-    product_head: "1e12953 / V4 institutional cockpit",
-    gate: "Visual acceptance pending. 0174AB screenshots captured; ChatGPT visual audit pending.",
-    next_action: "ChatGPT screenshot audit pending at HEAD 1e12953. No live/platform/API behavior.",
+    product_head: "4ffe650 / V4 institutional cockpit (0174AC current-state baseline)",
+    gate: "Dashboard IA + modern matte pass (0174AD) on baseline 4ffe650. Awaiting Browser QA (0174AF) + ChatGPT visual audit.",
+    next_action: "Browser QA screenshot capture + ChatGPT visual audit of the 0174AD dashboard IA pass. No live/platform/API behavior.",
     safety_status: "Live posting, platform API, provider API, and scheduler disabled; kill switch active"
   },
 
@@ -68,25 +68,25 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
   truth_rail: [
     {
       role_label: "Current Product HEAD",
-      value: "1e12953 / V4 institutional cockpit",
+      value: "4ffe650 / V4 institutional cockpit (0174AC current-state baseline)",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Current Gate",
-      value: "Visual acceptance pending. 0174AB screenshots captured; ChatGPT visual audit pending. Live posting, scheduler, and platform API remain disabled.",
+      value: "Dashboard information architecture + progressive disclosure + modern matte language pass (0174AD) on baseline 4ffe650. Awaiting Browser QA (0174AF) and ChatGPT visual audit. Live posting, scheduler, and platform API remain disabled.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Next Allowed Action",
-      value: "ChatGPT screenshot audit at HEAD 1e12953, then a targeted patch only if blockers remain. No live/platform/API/credential behavior.",
+      value: "Browser QA screenshot capture of the 0174AD dashboard IA pass, then ChatGPT visual audit; targeted patch only if blockers remain. No live/platform/API/credential behavior.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Build Lineage (Historical Provenance)",
-      value: "Clean-room build (0174E); root layout stabilized at 0174I; readable scan layer at 0174S; truth/redundancy cleanup at 0174V; truth-rail progressive disclosure at 0174Z; institutional visual system rebuild at 0174AA (047ca7a); brand-language and state-grammar patch at 0174AB (1f9ed89); current-state composition at 0174AC (1e12953). Not Runtime Authority.",
+      value: "Clean-room build (0174E); root layout stabilized at 0174I; readable scan layer at 0174S; truth/redundancy cleanup at 0174V; truth-rail progressive disclosure at 0174Z; institutional visual system rebuild at 0174AA (047ca7a); brand-language and state-grammar patches at 0174AB (1f9ed89 / 1e12953); current-state + matte brand composition at 0174AC (4ffe650); dashboard IA + modern matte language pass at 0174AD. Not Runtime Authority.",
       kind: "historical",
       runtime_authority: false
     },
@@ -132,7 +132,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
 
   /* Ordered active blocker stack (by severity). */
   blocker_stack: [
-    { id: "BLK-VISUAL", severity: "review_required", label: "0174AB visual acceptance pending ChatGPT screenshot audit", reason: "0174AB brand-language composition patch is committed at HEAD 1e12953; the screenshot matrix is captured and awaiting ChatGPT visual audit before acceptance.", evidence_ref_ids: ["EV-0174D", "EV-TESTS-V4"] },
+    { id: "BLK-VISUAL", severity: "review_required", label: "0174AD dashboard IA pass pending Browser QA + ChatGPT visual audit", reason: "The 0174AD dashboard information-architecture and modern matte language pass is composed on baseline 4ffe650; Browser QA screenshots and the ChatGPT visual audit are still pending before visual acceptance.", evidence_ref_ids: ["EV-0174D", "EV-TESTS-V4"] },
     { id: "BLK-LIVE", severity: "blocked", label: "Supervised publishing blocked", reason: "Live adapter, platform API, scheduler, and posting are all disabled by policy and kill switch.", evidence_ref_ids: ["EV-MASTER-PLAN"] },
     { id: "BLK-ARTIFACT", severity: "review_required", label: "Artifact-backed content lane blocked", reason: "No real approved Capital Chronicle artifacts, lineage, freshness, or DQR state exist yet.", evidence_ref_ids: ["EV-MASTER-PLAN"] }
   ],
@@ -168,9 +168,10 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
         historical_provenance: false
       },
       what_changed: [
-        "V4 clean-room frontend created under ui/institutional_operator_cockpit_v4 (0174E).",
-        "Canonical truth model replaces V3 stale 0174B gate.",
-        "Master plan committed as repo-native authority (0174D2)."
+        "Dashboard information architecture recomposed to summary-first with progressive disclosure (0174AD).",
+        "Dense audit detail moved into drilldown panels and below-scan surfaces; no evidence removed.",
+        "Modern matte graphite design language tokenized (gradient depth, hairline highlight, micro-motion).",
+        "Current-state truth realigned to baseline 4ffe650 (0174AC); stale 0174AB/1e12953 language removed."
       ],
       evidence_dependency_map: [
         { node: "Current Verdict", depends_on: ["EV-0174D", "EV-MASTER-PLAN"] },
@@ -244,8 +245,8 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
         status: "PASS",
         severity: "safe",
         label: "Evidence State",
-        text: "Audit trail complete to current accepted HEAD (0174D2). Confidence: high for build authority, caveated for browser QA.",
-        reason: "Blueprint chain and master plan accepted; browser QA capture accepted with worker-judgment caveat.",
+        text: "Audit trail complete to current baseline 4ffe650 (0174AC). Confidence: high for build authority, caveated for browser QA.",
+        reason: "Blueprint chain and master plan accepted; browser QA capture accepted with worker-judgment caveat; 0174AD dashboard IA pass awaiting fresh Browser QA.",
         evidence_ref_ids: ["EV-0174D", "EV-MASTER-PLAN", "EV-0174C-QA"],
         allowed_actions: ["inspect", "view evidence"],
         blocked_actions: ["evidence mutation", "export", "upload"],
@@ -259,17 +260,18 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
         { check: "secret scan", expected: "no tracked secrets / no secrets displayed", observed: "clean", status: "PASS", evidence_ref: "EV-TESTS-V4" }
       ],
       evidence_timeline: [
-        { commit: "0174D", task: "V4 north-star blueprint", classification: "historical" },
-        { commit: "0174D1", task: "blueprint doc/test repair", classification: "historical" },
-        { commit: "0174D2", task: "master plan authority", classification: "current" },
-        { commit: "0174C", task: "visible browser QA capture", classification: "evidence-only" }
+        { commit: "0174AA / 047ca7a", task: "institutional visual system rebuild", classification: "historical" },
+        { commit: "0174AB / 1e12953", task: "brand-language + state-grammar patch", classification: "historical" },
+        { commit: "0174AC / 4ffe650", task: "current-state + matte brand composition", classification: "current" },
+        { commit: "0174AD", task: "dashboard IA + modern matte language pass", classification: "current" },
+        { commit: "0174C", task: "visible browser QA capture (V3)", classification: "evidence-only" }
       ],
       caveat_registry: [
         { caveat_id: "CAV-0174C", severity: "minor", source_evidence: "EV-0174C-QA", affected_screen: "evidence_vault", blocking: false, resolution_task: "future Antigravity QA of V4", note: "Worker visual judgment rejected; capture accepted." }
       ],
       forbidden_scope_registry: ["live posting", "scheduler", "platform API", "provider API", "scraping", "credential/env read", "evidence mutation", "export/upload"],
       active_blocker_registry: [
-        { id: "BLK-VISUAL", status: "REVIEW_REQUIRED", label: "0174AB visual acceptance pending ChatGPT screenshot audit" },
+        { id: "BLK-VISUAL", status: "REVIEW_REQUIRED", label: "0174AD dashboard IA pass pending Browser QA + ChatGPT visual audit" },
         { id: "BLK-LIVE", status: "LIVE_DISABLED", label: "Supervised publishing blocked" }
       ],
       confidence_legend: ["PASS = validation-safe", "DEGRADED = usable with caveat", "BLOCKED = cannot proceed", "REVIEW_REQUIRED = human decision needed"],

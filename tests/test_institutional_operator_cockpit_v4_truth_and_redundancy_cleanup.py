@@ -94,8 +94,8 @@ def test_no_stale_current_truth_phrases():
 
 def test_current_truth_references_present_state():
     vm = _vm()
-    # current operator truth is the composed 0174AC state.
-    for token in ["1e12953", "Visual acceptance pending", "screenshots captured"]:
+    # current operator truth is the composed 0174AC baseline + in-progress 0174AD pass.
+    for token in ["4ffe650", "0174AD", "Dashboard"]:
         assert token in vm, "missing present-state token: " + token
     # the older progressive-disclosure lineage survives only as historical provenance.
     lineage = vm.split("Build Lineage (Historical Provenance)", 1)
@@ -113,8 +113,8 @@ def test_next_action_no_antigravity_phrase_removed():
 def test_next_action_instructs_antigravity_browser_qa():
     vm = _vm()
     na = vm.split('role_label: "Next Allowed Action"', 1)[1].split("}", 1)[0]
-    # composed 0174AC next action: short, screenshot-audit-focused, at the current head.
-    for token in ["1e12953", "screenshot audit"]:
+    # composed 0174AD next action: short, Browser-QA-focused, on the current baseline.
+    for token in ["Browser QA", "visual audit"]:
         assert token in na, "missing next-action token: " + token
     # no live/platform/API behavior may be implied as available.
     assert "No live" in na or "no live" in na

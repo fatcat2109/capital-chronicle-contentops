@@ -1183,3 +1183,140 @@ table.matrix tbody tr.row-authority td:first-child,
 ::selection { background: var(--surface-highest); color: var(--text); }
 * { scrollbar-color: var(--surface-raised) var(--surface-base); }
 
+
+/* =====================================================================
+ * Modern matte design language + progressive disclosure (0174AD).
+ * Depth comes from matte graphite GRADIENTS and 1px hairlines only — never
+ * elevation-shadow, glow, neon, or blue. Motion is restrained (120-180ms) and
+ * used for hover/focus/disclosure affordance only. Semantic color discipline is
+ * unchanged (red = danger, amber = review, green = pass, neutral = authority).
+ * ===================================================================== */
+
+:root {
+  /* Matte tonal gradient stops (graphite ladder, no hue, no glow). */
+  --matte-panel: linear-gradient(180deg, #1a191a 0%, #141313 100%);
+  --matte-raised: linear-gradient(180deg, #232223 0%, #1b1a1b 100%);
+  --matte-header: linear-gradient(180deg, #201f20 0%, #161516 100%);
+  /* Barely-visible warm-neutral radial attention for the PRIMARY command
+     panel only. Graphite/neutral, never colored — reads as focused light. */
+  --matte-command-radial:
+    radial-gradient(120% 140% at 18% 0%, rgba(215, 218, 221, 0.05) 0%, rgba(215, 218, 221, 0) 55%);
+  --hairline: rgba(215, 218, 221, 0.22);   /* austere neutral hairline highlight */
+  --motion-fast: 120ms;
+  --motion-base: 160ms;
+  --ease-matte: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Tonal matte depth on the standard module surfaces (gradient, not flat fill).
+   1px outline preserved; zero radius preserved; no shadow introduced. */
+.instrument-panel,
+.panel,
+.lane,
+.evidence-cell,
+.next-action-card {
+  background-image: var(--matte-panel);
+}
+.gate-summary-cell,
+.counter-strip .counter,
+.lane-verdict-cell,
+.lane-readiness-strip,
+.lane-metric {
+  background-image: var(--matte-raised);
+}
+table.matrix thead th,
+.gate-matrix th {
+  background-image: var(--matte-header);
+}
+
+/* Hairline highlight for active / current authority surfaces only. */
+.nav-item { transition: color var(--motion-fast) var(--ease-matte),
+                        border-color var(--motion-fast) var(--ease-matte),
+                        background-color var(--motion-fast) var(--ease-matte); }
+.nav-item.active { border-left-color: var(--accent-authority); }
+
+/* --- Operator scan layer: matte slab; PRIMARY command variant gets the
+   restrained warm radial behind it (Command Center only). --- */
+.operator-scan-layer {
+  background-image: var(--matte-raised);
+  transition: border-color var(--motion-base) var(--ease-matte);
+}
+.operator-scan-layer.scan-primary {
+  background-image: var(--matte-command-radial), var(--matte-raised);
+  border-color: var(--outline-strong);
+  border-top: 1px solid var(--hairline);
+}
+
+/* --- DrilldownPanel (progressive disclosure third layer, 0174AD) ---
+   Collapsed by default. Reads as a calm, inspectable governed surface, not a
+   button. The dense audit content lives inside .drilldown-body, preserved. */
+.drilldown-panel {
+  border: 1px solid var(--outline);
+  border-radius: 0;
+  background-image: var(--matte-panel);
+  background-color: var(--bg-panel);
+}
+.drilldown-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 9px 12px;
+  cursor: pointer;
+  list-style: none;
+  min-width: 0;
+  background-image: var(--matte-header);
+  border-left: 3px solid transparent;
+  transition: border-color var(--motion-fast) var(--ease-matte),
+              background-color var(--motion-fast) var(--ease-matte);
+}
+.drilldown-summary::-webkit-details-marker { display: none; }
+.drilldown-summary::marker { content: ""; }
+.drilldown-summary:hover { border-left-color: var(--hairline); }
+.drilldown-panel[open] > .drilldown-summary {
+  border-left-color: var(--accent-authority);
+  border-bottom: 1px solid var(--gridline);
+}
+.drilldown-summary:focus-visible { outline: 1px solid var(--accent-authority); outline-offset: -1px; }
+.drilldown-caret {
+  display: inline-block;
+  color: var(--accent-authority);
+  font-size: 10px;
+  flex: 0 0 auto;
+  transition: transform var(--motion-base) var(--ease-matte);
+}
+.drilldown-panel[open] > .drilldown-summary .drilldown-caret { transform: rotate(90deg); }
+.drilldown-title {
+  font-family: var(--font-ui);
+  font-size: var(--type-label);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--text);
+}
+.drilldown-hint {
+  font-family: var(--font-mono);
+  font-size: var(--type-micro);
+  color: var(--text-faint);
+  margin-left: auto;
+  text-align: right;
+  white-space: nowrap;
+}
+.drilldown-body { padding: 10px 12px; min-width: 0; }
+.drilldown-body > .panel,
+.drilldown-body > .grid,
+.drilldown-body > .matrix-wrap { margin-bottom: 0; }
+
+/* Matte hover lift on instrument panels / lanes (tonal shift only, no shadow). */
+.instrument-panel,
+.lane,
+.gate-summary-cell {
+  transition: background-color var(--motion-base) var(--ease-matte);
+}
+
+/* Honor reduced-motion: disable all transition affordances. */
+@media (prefers-reduced-motion: reduce) {
+  *, .nav-item, .drilldown-caret, .drilldown-summary,
+  .operator-scan-layer, .instrument-panel, .lane, .gate-summary-cell {
+    transition: none !important;
+  }
+}
+

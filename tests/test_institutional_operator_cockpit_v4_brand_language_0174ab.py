@@ -112,10 +112,10 @@ def _next_action_block(vm):
     return vm.split('role_label: "Next Allowed Action"', 1)[1].split("}", 1)[0]
 
 
-def test_current_head_is_1e12953():
+def test_current_head_is_4ffe650():
     vm = _vm()
-    assert "1e12953" in _current_head_block(vm), "current head must be 1e12953"
-    assert '"1e12953 / V4 institutional cockpit"' in vm
+    assert "4ffe650" in _current_head_block(vm), "current head must be 4ffe650"
+    assert '"4ffe650 / V4 institutional cockpit (0174AC current-state baseline)"' in vm
 
 
 def test_no_active_1f9ed89_as_current_head():
@@ -137,11 +137,11 @@ def test_1f9ed89_only_in_historical_provenance():
     assert 'kind: "historical"' in block
 
 
-def test_next_action_references_1e12953_and_screenshot_audit():
+def test_next_action_references_browser_qa_visual_audit():
     vm = _vm()
     na = _next_action_block(vm)
-    assert "1e12953" in na, "next action must reference HEAD 1e12953"
-    assert "screenshot audit" in na
+    assert "Browser QA" in na, "next action must reference Browser QA"
+    assert "visual audit" in na
 
 
 def test_no_0174z_browser_recheck_in_current_blocker():

@@ -136,6 +136,23 @@
     return p;
   }
 
+  /* --- Drilldown panel (progressive disclosure, 0174AD) ---
+     Reusable third-layer disclosure. Collapsed by default so dense audit
+     detail (matrices, registries, provenance, dependency maps) is preserved
+     and inspectable without dominating the first fold. Native details/summary,
+     keyboard-accessible, no storage, no network, no auto-expand. */
+  function drilldown(summaryLabel, hintText) {
+    var details = el("details", "drilldown-panel section-gap");
+    var summary = el("summary", "drilldown-summary");
+    summary.appendChild(el("span", "drilldown-caret", "\u25B8"));
+    summary.appendChild(el("span", "drilldown-title", summaryLabel));
+    if (hintText) summary.appendChild(el("span", "drilldown-hint", hintText));
+    details.appendChild(summary);
+    var ddBody = el("div", "drilldown-body");
+    details.appendChild(ddBody);
+    return { details: details, body: ddBody };
+  }
+
   /* --- Command Center --- */
   function renderCommandCenter(s, body) {
     /* Primary state is the operator scan layer (rendered by the dispatcher
@@ -186,7 +203,9 @@
       proof.appendChild(row);
     });
     dep.appendChild(proof);
-    body.appendChild(dep);
+    var depDd = drilldown("Evidence Dependency Map", "proof ledger · drilldown");
+    depDd.body.appendChild(dep);
+    body.appendChild(depDd.details);
 
     var counters = panel("Safety Counters");
     var wrap = el("div", "counters counter-strip");
@@ -304,8 +323,9 @@
     table.appendChild(tbody);
     wrap.appendChild(table);
     mp.appendChild(wrap);
-    mp.classList.add("section-gap");
-    body.appendChild(mp);
+    var gmDd = drilldown("Gate Matrix", "platform gate control · drilldown");
+    gmDd.body.appendChild(mp);
+    body.appendChild(gmDd.details);
 
     var rec = panel("Platform Readiness Records (inspect-only)");
     s.platform_records.forEach(function (p) {
@@ -314,7 +334,9 @@
       row.appendChild(el("span", "reg-val", "forbidden: " + p.forbidden_now));
       rec.appendChild(row);
     });
-    body.appendChild(rec);
+    var recDd = drilldown("Platform Readiness Records", "inspect-only · drilldown");
+    recDd.body.appendChild(rec);
+    body.appendChild(recDd.details);
   }
 
 
@@ -338,8 +360,9 @@
       tbody.appendChild(tr);
     });
     table.appendChild(tbody); wrap.appendChild(table); mp.appendChild(wrap);
-    mp.classList.add("section-gap");
-    body.appendChild(mp);
+    var vmDd = drilldown("Validation Matrix", "check / expected / observed · drilldown");
+    vmDd.body.appendChild(mp);
+    body.appendChild(vmDd.details);
 
     var tl = panel("Evidence Timeline");
     s.evidence_timeline.forEach(function (e) {
@@ -348,10 +371,11 @@
       row.appendChild(el("span", "reg-val", e.classification));
       tl.appendChild(row);
     });
-    tl.classList.add("section-gap");
-    body.appendChild(tl);
+    var tlDd = drilldown("Evidence Timeline", "commit lineage · drilldown");
+    tlDd.body.appendChild(tl);
+    body.appendChild(tlDd.details);
 
-    var grid = el("div", "grid grid-3 audit-registry audit-triad section-gap");
+    var grid = el("div", "grid grid-3 audit-registry audit-triad");
     var cav = panel("Caveat Registry");
     s.caveat_registry.forEach(function (c) {
       cav.appendChild(el("div", "reg-row", null));
@@ -372,14 +396,16 @@
       abr.appendChild(row);
     });
     grid.appendChild(abr);
-    body.appendChild(grid);
+    var gridDd = drilldown("Evidence Registries", "caveat / forbidden-scope / blocker · drilldown");
+    gridDd.body.appendChild(grid);
+    body.appendChild(gridDd.details);
 
     var leg = panel("Evidence Confidence Legend");
     s.confidence_legend.forEach(function (l) { leg.appendChild(el("div", "muted", "• " + l)); });
     leg.classList.add("section-gap");
     body.appendChild(leg);
 
-    var qa = el("div", "band sev-caution");
+    var qa = el("div", "band sev-caution evidence-qa-caveat");
     qa.appendChild(el("span", "band-label", s.browser_qa_row.label));
     var qt = el("div", "band-text");
     qt.appendChild(el("span", "token DEGRADED", "PASS_WITH_CAVEAT"));
@@ -417,7 +443,9 @@
       var rv = el("span", "reg-val"); rv.appendChild(el("span", "token " + f.status, f.status)); row.appendChild(rv);
       locked.appendChild(row);
     });
-    body.appendChild(locked);
+    var lockedDd = drilldown("Forbidden Automated States (disabled / future-only)", "policy-locked · drilldown");
+    lockedDd.body.appendChild(locked);
+    body.appendChild(lockedDd.details);
   }
 
 
@@ -459,12 +487,15 @@
 
     var bf = panel("Blocked Forecast Explainer");
     bf.appendChild(el("div", "muted", s.blocked_forecast_explainer));
-    bf.classList.add("section-gap");
-    body.appendChild(bf);
+    var bfDd = drilldown("Blocked Forecast Explainer", "why forecasting is blocked · drilldown");
+    bfDd.body.appendChild(bf);
+    body.appendChild(bfDd.details);
 
     var ff = panel(s.failure_forensics_card.title);
     ff.appendChild(el("div", "muted", s.failure_forensics_card.note));
-    body.appendChild(ff);
+    var ffDd = drilldown("Failure Forensics", "post-mortem · drilldown");
+    ffDd.body.appendChild(ff);
+    body.appendChild(ffDd.details);
   }
 
   /* --- Settings / Safety Policy --- */
@@ -486,8 +517,9 @@
       tbody.appendChild(tr);
     });
     table.appendChild(tbody); wrap.appendChild(table); mp.appendChild(wrap);
-    mp.classList.add("section-gap");
-    body.appendChild(mp);
+    var pmDd = drilldown("Policy Matrix", "policy / enforcement / rationale · drilldown");
+    pmDd.body.appendChild(mp);
+    body.appendChild(pmDd.details);
 
     var reg = panel("Credential Never-Display Registry");
     s.credential_never_display_registry.forEach(function (c) {
@@ -511,7 +543,9 @@
       var rv = el("span", "reg-val"); rv.appendChild(el("span", "token " + g.status, g.status)); row.appendChild(rv);
       fg.appendChild(row);
     });
-    body.appendChild(fg);
+    var fgDd = drilldown("Future Gate Requirements", "future-only gates · drilldown");
+    fgDd.body.appendChild(fg);
+    body.appendChild(fgDd.details);
   }
 
 
@@ -557,7 +591,7 @@
      First-open readable summary for every screen. Uses only model data.
      Detailed audit sections still render below, fully present. */
   function renderOperatorScanLayer(screen, body) {
-    var layer = el("div", "operator-scan-layer");
+    var layer = el("div", "operator-scan-layer" + (screen.screen_id === "command_center" ? " scan-primary" : ""));
     var board = el("div", "operator-summary-board");
 
     var intent = el("div", "scan-intent readable-body-copy");
