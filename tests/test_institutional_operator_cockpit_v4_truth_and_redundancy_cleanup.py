@@ -94,9 +94,15 @@ def test_no_stale_current_truth_phrases():
 
 def test_current_truth_references_present_state():
     vm = _vm()
-    for token in ["0174Y", "0174Z", "0174V", "Global Truth Rail",
-                  "cognitive overload", "progressive-disclosure"]:
+    # current operator truth is the composed 0174AC state.
+    for token in ["1e12953", "Visual acceptance pending", "screenshots captured"]:
         assert token in vm, "missing present-state token: " + token
+    # the older progressive-disclosure lineage survives only as historical provenance.
+    lineage = vm.split("Build Lineage (Historical Provenance)", 1)
+    assert len(lineage) == 2, "historical build-lineage entry missing"
+    block = lineage[1].split("}", 1)[0]
+    for token in ["0174Z", "0174V", "progressive disclosure"]:
+        assert token in block, "lineage token not in historical block: " + token
 
 # ---------- D1. next-action QA copy repair (0174V1) ----------
 def test_next_action_no_antigravity_phrase_removed():
@@ -106,10 +112,12 @@ def test_next_action_no_antigravity_phrase_removed():
 
 def test_next_action_instructs_antigravity_browser_qa():
     vm = _vm()
-    for token in ["Antigravity browser QA", "read-only recheck", "0174Z",
-                  "No source edits", "no Project Sources refresh",
-                  "no live behavior", "no platform/API/credential behavior"]:
-        assert token in vm, "missing next-action token: " + token
+    na = vm.split('role_label: "Next Allowed Action"', 1)[1].split("}", 1)[0]
+    # composed 0174AC next action: short, screenshot-audit-focused, at the current head.
+    for token in ["1e12953", "screenshot audit"]:
+        assert token in na, "missing next-action token: " + token
+    # no live/platform/API behavior may be implied as available.
+    assert "No live" in na or "no live" in na
 
 
 def test_next_action_no_stale_cline_patch_task_wording():

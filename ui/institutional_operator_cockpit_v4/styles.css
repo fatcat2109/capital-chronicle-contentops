@@ -1162,3 +1162,24 @@ table.matrix tbody tr.row-authority td:first-child,
 .confidence-summary .evidence-chip,
 .evref { color: var(--accent-authority); }
 
+/* 0174AC — remove residual blue/cyber edge lighting.
+   No blue literals, gradients, or shadows exist in this stylesheet; the only
+   non-graphite illumination came from the user-agent default accent-color and
+   focus ring on the left-nav buttons and the truth-rail <details>/<summary>
+   disclosure. Pin accent, focus, selection, and scrollbars to the austere
+   neutral authority accent so every edge reads as warm graphite, never browser
+   blue. */
+:root { accent-color: var(--accent-authority); }
+:focus { outline: none; }
+:focus-visible {
+  outline: 1px solid var(--accent-authority);
+  outline-offset: 1px;
+}
+.nav-item:focus-visible,
+.truth-rail-disclosure > summary:focus-visible {
+  outline: 1px solid var(--accent-authority);
+  outline-offset: -1px;
+}
+::selection { background: var(--surface-highest); color: var(--text); }
+* { scrollbar-color: var(--surface-raised) var(--surface-base); }
+

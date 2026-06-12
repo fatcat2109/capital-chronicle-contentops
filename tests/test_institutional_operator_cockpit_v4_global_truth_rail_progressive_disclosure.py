@@ -149,7 +149,7 @@ def test_expanded_truth_metadata_preserved():
     vm = _vm()
     for label in [
         "Current Product HEAD", "Current Gate", "Next Allowed Action",
-        "V4 Build Status",
+        "Build Lineage (Historical Provenance)",
         "Tested HEAD (Evidence-only Browser QA)",
         "V3 Failed-Candidate Build",
         "V2 Historical Build Candidate",
@@ -162,14 +162,17 @@ def test_expanded_truth_metadata_preserved():
     assert "reference-only" in vm.lower()
 
 
-# ---------- 8. runtime copy references 0174Y and 0174Z ----------
-def test_runtime_copy_references_0174y_and_0174z():
+# ---------- 8. truth lineage preserved in historical provenance (0174AC) ----------
+def test_truth_lineage_in_historical_provenance():
     vm = _vm()
-    assert "0174Y" in vm
-    assert "0174Z" in vm
-    assert "progressive-disclosure" in vm or "progressive disclosure" in vm
-    assert "Global Truth Rail" in vm
-    assert "cognitive overload" in vm.lower()
+    # The 0174Z progressive-disclosure lineage is preserved, but only as
+    # historical provenance now -- not as active current-state copy.
+    lineage = vm.split("Build Lineage (Historical Provenance)", 1)
+    assert len(lineage) == 2, "historical build-lineage entry missing"
+    block = lineage[1].split("}", 1)[0]
+    assert "0174Z" in block
+    assert "0174V" in block
+    assert "progressive disclosure" in block.lower()
 
 
 # ---------- 9. no stale / contradictory current-truth phrases ----------

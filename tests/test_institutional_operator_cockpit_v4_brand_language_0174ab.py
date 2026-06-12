@@ -103,29 +103,59 @@ def test_no_remote_urls_runtime():
         assert token not in text, "forbidden remote token: " + token
 
 
-# ---------- G. committed-state language (no stale patch-in-progress) ----------
-def test_current_state_marks_0174ab_committed_at_1f9ed89():
+# ---------- G. composed current state (0174AC) ----------
+def _current_head_block(vm):
+    return vm.split('role_label: "Current Product HEAD"', 1)[1].split("}", 1)[0]
+
+
+def _next_action_block(vm):
+    return vm.split('role_label: "Next Allowed Action"', 1)[1].split("}", 1)[0]
+
+
+def test_current_head_is_1e12953():
     vm = _vm()
-    assert "1f9ed89" in vm, "current HEAD 1f9ed89 missing from truth model"
+    assert "1e12953" in _current_head_block(vm), "current head must be 1e12953"
+    assert '"1e12953 / V4 institutional cockpit"' in vm
 
 
-def test_no_stale_patch_in_progress_language():
+def test_no_active_1f9ed89_as_current_head():
     vm = _vm()
-    for stale in [
-        "set-at-build / V4 frontend / visual remediation in progress",
-        "0174AB targeted brand-language and state-grammar patch in progress",
-        "0174AB brand-language and state-grammar patch in progress",
-        "Apply the 0174AB targeted patch",
-        "Apply the 0174AB targeted brand-language and state-grammar patch",
-    ]:
-        assert stale not in vm, "stale patch-in-progress language present: " + stale
+    # the prior committed hash must not present itself as the live current head.
+    assert "1f9ed89" not in _current_head_block(vm)
+    assert "1f9ed89" not in _next_action_block(vm)
+    gate = vm.split('role_label: "Current Gate"', 1)[1].split("}", 1)[0]
+    assert "1f9ed89" not in gate
 
 
-def test_next_action_points_to_browser_qa_recheck_at_head():
+def test_1f9ed89_only_in_historical_provenance():
     vm = _vm()
-    na = vm.split('role_label: "Next Allowed Action"', 1)[1].split("}", 1)[0]
-    assert "1f9ed89" in na, "next action must reference recheck HEAD 1f9ed89"
-    assert "browser QA" in na or "Browser QA" in na
+    # any surviving reference to the prior hash lives in the historical lineage.
+    lineage = vm.split("Build Lineage (Historical Provenance)", 1)
+    assert len(lineage) == 2, "historical build-lineage entry missing"
+    block = lineage[1].split("}", 1)[0]
+    assert "1f9ed89" in block
+    assert 'kind: "historical"' in block
+
+
+def test_next_action_references_1e12953_and_screenshot_audit():
+    vm = _vm()
+    na = _next_action_block(vm)
+    assert "1e12953" in na, "next action must reference HEAD 1e12953"
+    assert "screenshot audit" in na
+
+
+def test_no_0174z_browser_recheck_in_current_blocker():
+    vm = _vm()
+    stack = vm.split("blocker_stack:", 1)[1].split("],", 1)[0]
+    assert "0174Z" not in stack, "current blocker must not cite historical 0174Z recheck"
+    assert "browser recheck" not in stack
+
+
+def test_blue_edge_glow_neutralized():
+    css = _css()
+    assert "accent-color: var(--accent-authority)" in css
+    assert "accent-color: auto" not in css
+
 
 
 # ---------- H. de-zebra audit/gate tables ----------

@@ -85,8 +85,8 @@ def test_no_stale_0174e_current_gate_copy():
 
 def test_next_action_references_browser_recheck():
     vm = _vm()
-    # the next allowed action must reference the recheck / targeted visual patch state.
-    assert "browser recheck" in vm.lower() or "visual-defect patch" in vm.lower()
+    # the next allowed action must reference the current composed audit state.
+    assert "1e12953" in vm.lower() or "screenshot audit" in vm.lower()
 
 
 # ---------- root layout guard still holds ----------

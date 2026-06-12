@@ -57,9 +57,9 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
      without the full provenance wall. The full grid (truth_rail) stays the
      authoritative expanded source. */
   truth_rail_summary: {
-    product_head: "1f9ed89 / V4 institutional cockpit / 0174AB committed",
-    gate: "0174AB brand-language and state-grammar patch committed at 1f9ed89, built on the 047ca7a visual system rebuild. 0174AA Antigravity Browser QA was the prior finding, now addressed. The 0174Z progressive-disclosure patch that resolved the Global Truth Rail cognitive overload remains in place.",
-    next_action: "Antigravity browser QA / read-only recheck at HEAD 1f9ed89 across all seven screens. No source edits, no Project Sources refresh, no live behavior, no platform/API/credential behavior.",
+    product_head: "1e12953 / V4 institutional cockpit",
+    gate: "Visual acceptance pending. 0174AB screenshots captured; ChatGPT visual audit pending.",
+    next_action: "ChatGPT screenshot audit pending at HEAD 1e12953. No live/platform/API behavior.",
     safety_status: "Live posting, platform API, provider API, and scheduler disabled; kill switch active"
   },
 
@@ -68,27 +68,27 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
   truth_rail: [
     {
       role_label: "Current Product HEAD",
-      value: "1f9ed89 (V4 institutional cockpit; 0174AB brand-language and state-grammar patch committed, built on the 047ca7a visual system rebuild)",
+      value: "1e12953 / V4 institutional cockpit",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Current Gate",
-      value: "0174AB brand-language and state-grammar patch is committed at 1f9ed89, built on the 047ca7a visual system rebuild. It addresses the prior 0174AA Antigravity Browser QA findings: residual cyber-edge tint, non-danger lock overuse, stale current-state copy, label/value collisions, and remaining truth-rail density. The 0174Z progressive-disclosure patch that resolved the Global Truth Rail cognitive overload on first load remains in place. Awaiting Antigravity Browser QA recheck at 1f9ed89. Live posting, scheduler, and platform API remain disabled.",
+      value: "Visual acceptance pending. 0174AB screenshots captured; ChatGPT visual audit pending. Live posting, scheduler, and platform API remain disabled.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Next Allowed Action",
-      value: "Run an Antigravity browser QA / read-only recheck at HEAD 1f9ed89 across all seven screens, comparing against the root Evidence Vault reference. The 0174Z progressive-disclosure truth rail stays collapsed by default. No source edits, no Project Sources refresh, no live behavior, no platform/API/credential behavior.",
+      value: "ChatGPT screenshot audit at HEAD 1e12953, then a targeted patch only if blockers remain. No live/platform/API/credential behavior.",
       kind: "current",
       runtime_authority: true
     },
     {
-      role_label: "V4 Build Status",
-      value: "Clean-room build (batch 1 at 0174E, historical); root layout stabilized at 0174I; readable scan layer at 0174S; truth/redundancy cleanup at 0174V (historical); truth-rail progressive disclosure at 0174Z; institutional visual system rebuild at 0174AA (047ca7a); brand-language and state-grammar patch at 0174AB",
-      kind: "current",
-      runtime_authority: true
+      role_label: "Build Lineage (Historical Provenance)",
+      value: "Clean-room build (0174E); root layout stabilized at 0174I; readable scan layer at 0174S; truth/redundancy cleanup at 0174V; truth-rail progressive disclosure at 0174Z; institutional visual system rebuild at 0174AA (047ca7a); brand-language and state-grammar patch at 0174AB (1f9ed89); current-state composition at 0174AC (1e12953). Not Runtime Authority.",
+      kind: "historical",
+      runtime_authority: false
     },
     {
       role_label: "Tested HEAD (Evidence-only Browser QA)",
@@ -132,7 +132,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
 
   /* Ordered active blocker stack (by severity). */
   blocker_stack: [
-    { id: "BLK-VISUAL", severity: "review_required", label: "V4 Global Truth Rail progressive-disclosure patch under browser recheck (0174Z)", reason: "0174Y browser readability review found the Global Truth Rail too dense and uncollapsible; 0174Z collapses it by default while preserving all current-vs-historical provenance, awaiting Antigravity browser recheck.", evidence_ref_ids: ["EV-0174D", "EV-TESTS-V4"] },
+    { id: "BLK-VISUAL", severity: "review_required", label: "0174AB visual acceptance pending ChatGPT screenshot audit", reason: "0174AB brand-language composition patch is committed at HEAD 1e12953; the screenshot matrix is captured and awaiting ChatGPT visual audit before acceptance.", evidence_ref_ids: ["EV-0174D", "EV-TESTS-V4"] },
     { id: "BLK-LIVE", severity: "blocked", label: "Supervised publishing blocked", reason: "Live adapter, platform API, scheduler, and posting are all disabled by policy and kill switch.", evidence_ref_ids: ["EV-MASTER-PLAN"] },
     { id: "BLK-ARTIFACT", severity: "review_required", label: "Artifact-backed content lane blocked", reason: "No real approved Capital Chronicle artifacts, lineage, freshness, or DQR state exist yet.", evidence_ref_ids: ["EV-MASTER-PLAN"] }
   ],
@@ -269,7 +269,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
       ],
       forbidden_scope_registry: ["live posting", "scheduler", "platform API", "provider API", "scraping", "credential/env read", "evidence mutation", "export/upload"],
       active_blocker_registry: [
-        { id: "BLK-VISUAL", status: "REVIEW_REQUIRED", label: "0174Z truth-rail progressive disclosure awaiting Antigravity browser recheck" },
+        { id: "BLK-VISUAL", status: "REVIEW_REQUIRED", label: "0174AB visual acceptance pending ChatGPT screenshot audit" },
         { id: "BLK-LIVE", status: "LIVE_DISABLED", label: "Supervised publishing blocked" }
       ],
       confidence_legend: ["PASS = validation-safe", "DEGRADED = usable with caveat", "BLOCKED = cannot proceed", "REVIEW_REQUIRED = human decision needed"],
