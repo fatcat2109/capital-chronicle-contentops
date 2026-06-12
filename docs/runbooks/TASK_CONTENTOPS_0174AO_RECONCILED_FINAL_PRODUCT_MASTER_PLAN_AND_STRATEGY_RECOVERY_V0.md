@@ -7,7 +7,7 @@
 - **Repo:** `A:\Capital Chronicle\tools\cc-live-contentops`
 - **Branch:** `master`
 - **Starting HEAD:** `9b1bfe1c9b1512cd3fd01bdd58f711da5bd02d94`
-- **Final HEAD:** `[recorded after commit]`
+- **Final HEAD:** `ebd6a70d3849029f0583914ffe4e281dde217c6a`
 
 ## Purpose
 Return ContentOps from the completed V4 visual-hardening track to the final product
