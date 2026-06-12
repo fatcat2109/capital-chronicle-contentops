@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD RedactedAuditBindingPacket",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "audit_binding_id": { "type": "string" },
+    "mock_execution_record_id": { "type": "string" },
+    "redacted_audit_event_id": { "type": "string" },
+    "dispatch_packet_id": { "type": "string" },
+    "freeze_manifest_id": { "type": "string" },
+    "approval_ledger_entry_id": { "type": "string" },
+    "operator_decision_id": { "type": "string" },
+    "audit_event_type": {
+      "type": "string",
+      "enum": ["mock_dispatch_created", "manual_export_created", "dry_run_validated", "blocked_execution_attempt", "review_required"]
+    },
+    "related_packet_refs": { "type": "array", "items": { "type": "string" } },
+    "redaction_proof": {
+      "type": "object",
+      "properties": {
+        "secrets_scanned": { "type": "boolean" },
+        "tokens_absent": { "type": "boolean" },
+        "credentials_absent": { "type": "boolean" },
+        "endpoints_absent": { "type": "boolean" },
+        "raw_payloads_redacted": { "type": "boolean" },
+        "operator_identity_redacted_or_ref_only": { "type": "boolean" }
+      },
+      "required": [
+        "secrets_scanned",
+        "tokens_absent",
+        "credentials_absent",
+        "endpoints_absent",
+        "raw_payloads_redacted",
+        "operator_identity_redacted_or_ref_only"
+      ]
+    },
+    "network_accessed": { "type": "boolean" },
+    "credential_accessed": { "type": "boolean" },
+    "platform_api_called": { "type": "boolean" },
+    "webhook_used": { "type": "boolean" },
+    "live_execution": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "audit_binding_id",
+    "mock_execution_record_id",
+    "redacted_audit_event_id",
+    "audit_event_type",
+    "related_packet_refs",
+    "redaction_proof",
+    "network_accessed",
+    "credential_accessed",
+    "platform_api_called",
+    "webhook_used",
+    "live_execution",
+    "validation_state"
+  ]
+}

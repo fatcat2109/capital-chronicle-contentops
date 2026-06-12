@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD MockDispatchExecutionRecord",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "mock_execution_record_id": { "type": "string" },
+    "mock_execution_request_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "execution_state": {
+      "type": "string",
+      "enum": ["mock_record_created", "manual_export_created", "dry_run_validated", "blocked", "review_required", "unknown"]
+    },
+    "platform_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "platform_id": { "type": "string" },
+          "result": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] }
+        },
+        "required": ["platform_id", "result"]
+      }
+    },
+    "dispatch_packet_ref": { "type": "string" },
+    "manual_export_packet_ref": { "type": "string" },
+    "redacted_audit_event_ref": { "type": "string" },
+    "frozen_hash_refs": { "type": "array", "items": { "type": "string" } },
+    "execution_mode": {
+      "type": "string",
+      "enum": ["mock_only", "manual_export_only", "dry_run_validation_only"]
+    },
+    "network_accessed": { "type": "boolean" },
+    "credential_accessed": { "type": "boolean" },
+    "platform_api_called": { "type": "boolean" },
+    "telegram_bot_used": { "type": "boolean" },
+    "webhook_used": { "type": "boolean" },
+    "live_execution": { "type": "boolean" },
+    "public_post_created": { "type": "boolean" },
+    "operator_review_required": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "mock_execution_record_id",
+    "mock_execution_request_id",
+    "created_at",
+    "execution_state",
+    "execution_mode",
+    "network_accessed",
+    "credential_accessed",
+    "platform_api_called",
+    "telegram_bot_used",
+    "webhook_used",
+    "live_execution",
+    "public_post_created",
+    "operator_review_required",
+    "validation_state"
+  ]
+}

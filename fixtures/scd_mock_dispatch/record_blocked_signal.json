@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "mock_execution_record_id": "mer_blocked_signal_001",
+  "mock_execution_request_id": "mreq_pass_001",
+  "created_at": "2026-06-12T00:00:01Z",
+  "execution_state": "mock_record_created",
+  "platform_results": [
+    { "platform_id": "x_twitter", "result": "PASS" }
+  ],
+  "dispatch_packet_ref": "buy now and sell at the price target; our signal says watch this level",
+  "manual_export_packet_ref": "mep_pass_001",
+  "redacted_audit_event_ref": "audit_pass_001",
+  "frozen_hash_refs": ["canonical_json_sha256:abc123"],
+  "execution_mode": "mock_only",
+  "network_accessed": false,
+  "credential_accessed": false,
+  "platform_api_called": false,
+  "telegram_bot_used": false,
+  "webhook_used": false,
+  "live_execution": false,
+  "public_post_created": false,
+  "operator_review_required": true,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["buy/sell/signal/price target language"]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "manual_export_packet_id": "mep_blocked_endpoint_001",
+  "mock_execution_record_id": "mer_pass_001",
+  "platform_payload_refs": ["bearer sk-LIVE-1234 https://api.telegram.org/sendMessage"],
+  "platform_payload_hash_refs": ["canonical_json_sha256:abc123"],
+  "export_surfaces": ["local_json_packet"],
+  "export_mode": "manual_only",
+  "export_contains_credentials": false,
+  "export_contains_tokens": false,
+  "export_contains_platform_endpoint": false,
+  "limitations_included": true,
+  "citations_included": true,
+  "financial_advice_absent": true,
+  "signal_language_absent": true,
+  "manual_publish_only_notice_included": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["token/API endpoint present in export"]
+}

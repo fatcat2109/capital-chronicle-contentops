@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "mock_run_report_id": "mrr_blocked_apigate_001",
+  "mock_execution_request_id": "mreq_pass_001",
+  "mock_execution_record_id": "mer_pass_001",
+  "manual_export_packet_id": "mep_pass_001",
+  "audit_binding_id": "abp_pass_001",
+  "per_platform_mock_results": [
+    { "platform_id": "x_twitter", "result": "PASS" }
+  ],
+  "blocked_platforms": [],
+  "review_required_platforms": [],
+  "pass_platforms": ["x_twitter"],
+  "unknown_platforms": [],
+  "final_recommendation": "PASS",
+  "operator_next_action": "n/a",
+  "api_gate_required": true,
+  "manual_publish_only": true,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["api_gate_required is true; final PASS not allowed"]
+}

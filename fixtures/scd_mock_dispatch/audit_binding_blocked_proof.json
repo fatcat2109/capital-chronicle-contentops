@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "audit_binding_id": "abp_blocked_proof_001",
+  "mock_execution_record_id": "mer_pass_001",
+  "redacted_audit_event_id": "audit_pass_001",
+  "dispatch_packet_id": "dispatch_pass_001",
+  "freeze_manifest_id": "fmz_pass_001",
+  "approval_ledger_entry_id": "led_pass_001",
+  "operator_decision_id": "odp_pass_001",
+  "audit_event_type": "mock_dispatch_created",
+  "related_packet_refs": ["mer_pass_001"],
+  "redaction_proof": {
+    "secrets_scanned": false,
+    "tokens_absent": false,
+    "credentials_absent": true,
+    "endpoints_absent": true,
+    "raw_payloads_redacted": false,
+    "operator_identity_redacted_or_ref_only": true
+  },
+  "network_accessed": false,
+  "credential_accessed": false,
+  "platform_api_called": false,
+  "webhook_used": false,
+  "live_execution": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["redaction proof incomplete"]
+}
