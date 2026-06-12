@@ -39,16 +39,52 @@
     rail.appendChild(cluster);
   }
 
-  /* --- Truth Rail --- */
+  /* --- Truth Rail (progressive disclosure, 0174Z) ---
+     Collapsed by default so first-open cognitive load stays low. The full
+     current-vs-historical/provenance grid is preserved inside the disclosure
+     body and reachable via the keyboard-accessible native summary control.
+     No storage, no network, no auto-expand. */
   function renderTruthRail() {
     var rail = document.getElementById("truth-rail");
     clear(rail);
+
+    var details = el("details", "truth-rail-disclosure");
+    /* Collapsed on initial load: the `open` attribute is intentionally absent. */
+    details.id = "truth-rail-disclosure";
+
+    var summary = el("summary", "truth-rail-summary");
+    summary.setAttribute("aria-label", "Show full operational truth metadata");
+
+    var sum = MODEL.truth_rail_summary || {};
+    var cue = el("span", "truth-summary-cue");
+    cue.appendChild(el("span", "truth-summary-caret", "\u25B8"));
+    cue.appendChild(el("span", "truth-summary-title", "Operational Truth"));
+    summary.appendChild(cue);
+
+    [["Product Head", sum.product_head],
+     ["Gate", sum.gate],
+     ["Next Action", sum.next_action],
+     ["Safety / Live", sum.safety_status]
+    ].forEach(function (pair) {
+      if (!pair[1]) return;
+      var cell = el("span", "truth-summary-cell");
+      cell.appendChild(el("span", "truth-summary-label", pair[0]));
+      cell.appendChild(el("span", "truth-summary-value", pair[1]));
+      summary.appendChild(cell);
+    });
+    details.appendChild(summary);
+
+    /* Full grid: identical content/structure to the prior rail, now nested. */
+    var grid = el("div", "truth-grid");
     MODEL.truth_rail.forEach(function (cell) {
       var c = el("div", "truth-cell kind-" + cell.kind);
       c.appendChild(el("span", "role-label", cell.role_label));
       c.appendChild(el("span", "role-value", cell.value));
-      rail.appendChild(c);
+      grid.appendChild(c);
     });
+    details.appendChild(grid);
+
+    rail.appendChild(details);
   }
 
   /* --- Navigation --- */

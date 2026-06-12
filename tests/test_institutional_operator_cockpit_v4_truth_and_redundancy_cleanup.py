@@ -94,8 +94,8 @@ def test_no_stale_current_truth_phrases():
 
 def test_current_truth_references_present_state():
     vm = _vm()
-    for token in ["0174U", "0174V", "final milestone browser QA",
-                  "redundant state", "stale truth", "targeted cleanup"]:
+    for token in ["0174Y", "0174Z", "0174V", "Global Truth Rail",
+                  "cognitive overload", "progressive-disclosure"]:
         assert token in vm, "missing present-state token: " + token
 
 # ---------- D1. next-action QA copy repair (0174V1) ----------
@@ -106,7 +106,7 @@ def test_next_action_no_antigravity_phrase_removed():
 
 def test_next_action_instructs_antigravity_browser_qa():
     vm = _vm()
-    for token in ["Final milestone browser recheck", "Antigravity browser QA",
+    for token in ["Antigravity browser QA", "read-only recheck", "0174Z",
                   "No source edits", "no Project Sources refresh",
                   "no live behavior", "no platform/API/credential behavior"]:
         assert token in vm, "missing next-action token: " + token

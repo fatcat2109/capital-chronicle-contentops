@@ -85,10 +85,17 @@ def test_cockpit_frame_min_width_zero():
 
 # ---------- truth rail explicit columns ----------
 def test_truth_rail_explicit_columns():
-    blk = _block(_css(), ".truth-rail")
-    assert "repeat(2, minmax(0, 1fr))" in blk
-    assert "width: 100%" in blk
-    assert "min-width: 0" in blk
+    css = _css()
+    # 0174Z: the dense grid moved into .truth-grid inside the collapsed
+    # disclosure; explicit responsive columns now live on .truth-grid.
+    grid = _block(css, ".truth-grid")
+    assert "repeat(2, minmax(0, 1fr))" in grid
+    assert "width: 100%" in grid
+    assert "min-width: 0" in grid
+    # the .truth-rail container itself stays full-width and shrink-safe.
+    rail = _block(css, ".truth-rail")
+    assert "width: 100%" in rail
+    assert "min-width: 0" in rail
 
 
 # ---------- scroll behavior ----------

@@ -52,6 +52,17 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
     network_state: "disabled"
   },
 
+  /* Concise collapsed-disclosure summary for the Global Truth Rail (0174Z).
+     Shown when the truth rail is collapsed; communicates enough current truth
+     without the full provenance wall. The full grid (truth_rail) stays the
+     authoritative expanded source. */
+  truth_rail_summary: {
+    product_head: "set-at-build / V4 frontend / visual remediation in progress",
+    gate: "0174Y found Global Truth Rail cognitive overload; 0174Z progressive-disclosure patch applied, awaiting Antigravity browser recheck",
+    next_action: "Antigravity browser QA / read-only recheck of the 0174Z disclosure patch only — no source edits, no Project Sources refresh, no live/platform/API/credential behavior",
+    safety_status: "Live posting, platform API, provider API, and scheduler disabled; kill switch active"
+  },
+
   /* Labeled truth rail. Every HEAD carries an explicit role label. No bare hashes.
      The current gate must NOT carry the stale 0174B V3 string. */
   truth_rail: [
@@ -63,19 +74,19 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
     },
     {
       role_label: "Current Gate",
-      value: "0174U final milestone browser QA found redundant state declarations, stale truth metadata, and a safety-chip clipping defect; 0174V targeted cleanup patch is applied and awaiting final browser recheck. Live posting, scheduler, and platform API remain disabled.",
+      value: "0174Y browser readability and cognitive-load review found the Global Truth Rail too dense and uncollapsible — a global truth rail cognitive overload on first load. 0174Z applied a progressive-disclosure patch that collapses the truth rail by default while preserving all current-vs-historical provenance when expanded. Awaiting Antigravity browser recheck. Live posting, scheduler, and platform API remain disabled.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Next Allowed Action",
-      value: "Final milestone browser recheck of the 0174V targeted cleanup patch across all seven screens. Run Antigravity browser QA only. No source edits, no Project Sources refresh, no live behavior, no platform/API/credential behavior.",
+      value: "Antigravity browser QA / read-only recheck of the 0174Z progressive-disclosure patch across all seven screens. No source edits, no Project Sources refresh, no live behavior, no platform/API/credential behavior.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "V4 Build Status",
-      value: "Clean-room build (batch 1 at 0174E, historical); root layout stabilized at 0174I; readable scan layer at 0174S; truth/redundancy cleanup at 0174V",
+      value: "Clean-room build (batch 1 at 0174E, historical); root layout stabilized at 0174I; readable scan layer at 0174S; truth/redundancy cleanup at 0174V (historical); truth-rail progressive disclosure at 0174Z",
       kind: "current",
       runtime_authority: true
     },
@@ -121,7 +132,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
 
   /* Ordered active blocker stack (by severity). */
   blocker_stack: [
-    { id: "BLK-VISUAL", severity: "review_required", label: "V4 visual polish under final milestone cleanup (0174V)", reason: "0174U final milestone browser QA flagged redundant state declarations, stale truth metadata, and a safety-chip clipping defect; 0174V targeted cleanup patch awaits final browser recheck.", evidence_ref_ids: ["EV-0174D", "EV-TESTS-V4"] },
+    { id: "BLK-VISUAL", severity: "review_required", label: "V4 Global Truth Rail progressive-disclosure patch under browser recheck (0174Z)", reason: "0174Y browser readability review found the Global Truth Rail too dense and uncollapsible; 0174Z collapses it by default while preserving all current-vs-historical provenance, awaiting Antigravity browser recheck.", evidence_ref_ids: ["EV-0174D", "EV-TESTS-V4"] },
     { id: "BLK-LIVE", severity: "blocked", label: "Supervised publishing blocked", reason: "Live adapter, platform API, scheduler, and posting are all disabled by policy and kill switch.", evidence_ref_ids: ["EV-MASTER-PLAN"] },
     { id: "BLK-ARTIFACT", severity: "review_required", label: "Artifact-backed content lane blocked", reason: "No real approved Capital Chronicle artifacts, lineage, freshness, or DQR state exist yet.", evidence_ref_ids: ["EV-MASTER-PLAN"] }
   ],
@@ -258,7 +269,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
       ],
       forbidden_scope_registry: ["live posting", "scheduler", "platform API", "provider API", "scraping", "credential/env read", "evidence mutation", "export/upload"],
       active_blocker_registry: [
-        { id: "BLK-VISUAL", status: "REVIEW_REQUIRED", label: "0174V truth/redundancy cleanup awaiting final browser recheck" },
+        { id: "BLK-VISUAL", status: "REVIEW_REQUIRED", label: "0174Z truth-rail progressive disclosure awaiting Antigravity browser recheck" },
         { id: "BLK-LIVE", status: "LIVE_DISABLED", label: "Supervised publishing blocked" }
       ],
       confidence_legend: ["PASS = validation-safe", "DEGRADED = usable with caveat", "BLOCKED = cannot proceed", "REVIEW_REQUIRED = human decision needed"],
