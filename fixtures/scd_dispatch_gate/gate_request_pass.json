@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "gate_request_id": "greq_pass_001",
+  "operator_decision_id": "odp_pass_001",
+  "approval_ledger_entry_id": "led_pass_001",
+  "freeze_manifest_id": "fmz_pass_001",
+  "dispatch_packet_id": "dispatch_pass_001",
+  "platform_targets": ["x_twitter", "linkedin"],
+  "precondition_summary": {
+    "content_pass": true,
+    "editorial_pass_or_reviewed": true,
+    "platform_compile_pass": true,
+    "approval_packet_pass": true,
+    "operator_approved": true,
+    "freeze_manifest_complete": true,
+    "kill_switch_clear_for_mock": true,
+    "no_blocked_states": true
+  },
+  "requested_action": "create_mock_dispatch_packet",
+  "one_button_label": "Approve for Mock Dispatch (review only)",
+  "one_button_enabled": true,
+  "manual_publish_only": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

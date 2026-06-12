@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD OneButtonDispatchGateRequest",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "gate_request_id": { "type": "string" },
+    "operator_decision_id": { "type": "string" },
+    "approval_ledger_entry_id": { "type": "string" },
+    "freeze_manifest_id": { "type": "string" },
+    "dispatch_packet_id": { "type": "string" },
+    "platform_targets": { "type": "array", "items": { "type": "string" } },
+    "precondition_summary": {
+      "type": "object",
+      "properties": {
+        "content_pass": { "type": "boolean" },
+        "editorial_pass_or_reviewed": { "type": "boolean" },
+        "platform_compile_pass": { "type": "boolean" },
+        "approval_packet_pass": { "type": "boolean" },
+        "operator_approved": { "type": "boolean" },
+        "freeze_manifest_complete": { "type": "boolean" },
+        "kill_switch_clear_for_mock": { "type": "boolean" },
+        "no_blocked_states": { "type": "boolean" }
+      },
+      "required": [
+        "content_pass",
+        "editorial_pass_or_reviewed",
+        "platform_compile_pass",
+        "approval_packet_pass",
+        "operator_approved",
+        "freeze_manifest_complete",
+        "kill_switch_clear_for_mock",
+        "no_blocked_states"
+      ]
+    },
+    "requested_action": {
+      "type": "string",
+      "enum": ["create_mock_dispatch_packet", "export_manual_packet", "reject", "revoke"]
+    },
+    "one_button_label": { "type": "string" },
+    "one_button_enabled": { "type": "boolean" },
+    "manual_publish_only": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "executable_dispatch": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "gate_request_id",
+    "operator_decision_id",
+    "precondition_summary",
+    "requested_action",
+    "one_button_enabled",
+    "manual_publish_only",
+    "public_ready",
+    "live_ready",
+    "executable_dispatch",
+    "validation_state"
+  ]
+}

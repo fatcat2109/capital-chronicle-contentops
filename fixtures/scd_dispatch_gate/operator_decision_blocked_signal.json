@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0",
+  "operator_decision_id": "odp_blocked_signal_001",
+  "operator_id_ref": "operator_local_001",
+  "decision_type": "approve_mock_dispatch",
+  "decision_scope": "dispatch_packet",
+  "related_content_refs": ["post_pass_001"],
+  "related_payload_refs": ["payload_pass_001"],
+  "related_compile_report_refs": ["crep_pass_001"],
+  "decision_timestamp": "2026-06-12T00:00:00Z",
+  "decision_reason": "Approving because our signal says buy now and sell at the price target.",
+  "operator_attestation": {
+    "reviewed_content": true,
+    "reviewed_citations": true,
+    "reviewed_limitations": true,
+    "reviewed_platform_payloads": true,
+    "understands_manual_publish_only": true
+  },
+  "manual_publish_only_acknowledged": true,
+  "no_financial_advice_acknowledged": true,
+  "no_live_dispatch_acknowledged": true,
+  "approval_valid_for_mock_dispatch_only": true,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["buy/sell/signal/price target language"]
+}

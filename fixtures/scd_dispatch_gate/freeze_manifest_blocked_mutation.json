@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "freeze_manifest_id": "fmz_blocked_mutation_001",
+  "freeze_timestamp": "2026-06-12T00:00:02Z",
+  "canonical_post_hash": "canonical_json_sha256:post_hash",
+  "platform_payload_hashes": ["canonical_json_sha256:x_hash"],
+  "approval_packet_hash": "canonical_json_sha256:approval_hash",
+  "operator_decision_hash": "canonical_json_sha256:decision_hash",
+  "compile_report_hash": "canonical_json_sha256:report_hash",
+  "ledger_entry_hash": "canonical_json_sha256:ledger_hash",
+  "freeze_algorithm": "canonical_json_sha256",
+  "freeze_complete": true,
+  "mutation_after_freeze_detected": true,
+  "manual_publish_only": true,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["mutation_after_freeze_detected is true"]
+}

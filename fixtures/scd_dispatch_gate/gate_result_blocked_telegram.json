@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "gate_result_id": "gres_blocked_telegram_001",
+  "gate_request_id": "greq_pass_001",
+  "result_state": "mock_dispatch_packet_ready",
+  "dispatch_packet_ref": "dispatch_pass_001",
+  "redacted_audit_event_ref": "audit_pass_001",
+  "blocked_reasons": [],
+  "review_reasons": [],
+  "frozen_hash_refs": ["canonical_json_sha256:ledger_hash"],
+  "operator_next_action": "Use the telegram bot sendMessage with chat_id to auto-post via webhook.",
+  "manual_publish_only": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "validation_state": "BLOCKED"
+}

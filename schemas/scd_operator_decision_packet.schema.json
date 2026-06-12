@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD OperatorDecisionPacket",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "operator_decision_id": { "type": "string" },
+    "operator_id_ref": { "type": "string" },
+    "decision_type": {
+      "type": "string",
+      "enum": ["approve_mock_dispatch", "reject", "request_revision", "revoke_approval"]
+    },
+    "decision_scope": {
+      "type": "string",
+      "enum": ["content_post", "platform_payload_set", "approval_packet", "dispatch_packet"]
+    },
+    "related_content_refs": { "type": "array", "items": { "type": "string" } },
+    "related_payload_refs": { "type": "array", "items": { "type": "string" } },
+    "related_compile_report_refs": { "type": "array", "items": { "type": "string" } },
+    "decision_timestamp": { "type": "string" },
+    "decision_reason": { "type": "string" },
+    "operator_attestation": {
+      "type": "object",
+      "properties": {
+        "reviewed_content": { "type": "boolean" },
+        "reviewed_citations": { "type": "boolean" },
+        "reviewed_limitations": { "type": "boolean" },
+        "reviewed_platform_payloads": { "type": "boolean" },
+        "understands_manual_publish_only": { "type": "boolean" }
+      },
+      "required": [
+        "reviewed_content",
+        "reviewed_citations",
+        "reviewed_limitations",
+        "reviewed_platform_payloads",
+        "understands_manual_publish_only"
+      ]
+    },
+    "manual_publish_only_acknowledged": { "type": "boolean" },
+    "no_financial_advice_acknowledged": { "type": "boolean" },
+    "no_live_dispatch_acknowledged": { "type": "boolean" },
+    "approval_valid_for_mock_dispatch_only": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "operator_decision_id",
+    "operator_id_ref",
+    "decision_type",
+    "decision_scope",
+    "decision_timestamp",
+    "operator_attestation",
+    "manual_publish_only_acknowledged",
+    "no_financial_advice_acknowledged",
+    "no_live_dispatch_acknowledged",
+    "approval_valid_for_mock_dispatch_only",
+    "validation_state"
+  ]
+}

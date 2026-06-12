@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD OneButtonDispatchGateResult",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "gate_result_id": { "type": "string" },
+    "gate_request_id": { "type": "string" },
+    "result_state": {
+      "type": "string",
+      "enum": ["mock_dispatch_packet_ready", "manual_export_ready", "blocked", "review_required", "unknown"]
+    },
+    "dispatch_packet_ref": { "type": "string" },
+    "redacted_audit_event_ref": { "type": "string" },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } },
+    "review_reasons": { "type": "array", "items": { "type": "string" } },
+    "frozen_hash_refs": { "type": "array", "items": { "type": "string" } },
+    "operator_next_action": { "type": "string" },
+    "manual_publish_only": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "executable_dispatch": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    }
+  },
+  "required": [
+    "schema_version",
+    "gate_result_id",
+    "gate_request_id",
+    "result_state",
+    "manual_publish_only",
+    "public_ready",
+    "live_ready",
+    "executable_dispatch",
+    "validation_state"
+  ]
+}
