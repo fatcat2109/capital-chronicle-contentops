@@ -410,7 +410,7 @@ table.matrix th {
   letter-spacing: 0.05em;
 }
 table.matrix td.wrap { white-space: normal; word-break: break-word; min-width: 160px; }
-table.matrix tbody tr:nth-child(even) td { background: var(--bg-panel-2); }
+table.matrix tbody tr:hover td { background: var(--surface-raised); }
 
 /* ---------- Lanes (Content Studio, Calendar) ---------- */
 .lane {
@@ -631,7 +631,7 @@ table.matrix tbody tr:nth-child(even) td { background: var(--bg-panel-2); }
   letter-spacing: var(--tracking-label);
 }
 .gate-matrix td.wrap { white-space: normal; word-break: break-word; min-width: 160px; }
-.gate-matrix tbody tr:nth-child(even) td { background: var(--bg-panel-2); }
+.gate-matrix tbody tr:hover td { background: var(--surface-raised); }
 
 /* 0174AB: composed gate-summary strip above the Publish Readiness matrix.
    Reads the hard publishing locks as a calm institutional readout rather than

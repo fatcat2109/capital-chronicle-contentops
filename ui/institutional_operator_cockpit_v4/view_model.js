@@ -57,9 +57,9 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
      without the full provenance wall. The full grid (truth_rail) stays the
      authoritative expanded source. */
   truth_rail_summary: {
-    product_head: "set-at-build / V4 frontend / visual remediation in progress",
-    gate: "Current baseline 047ca7a. 0174AA Antigravity Browser QA found visual/state caveats; 0174AB targeted brand-language and state-grammar patch in progress. The prior 0174Z progressive-disclosure patch that resolved the Global Truth Rail cognitive overload remains in place.",
-    next_action: "Apply the 0174AB targeted patch, then run an Antigravity browser QA / read-only recheck across all seven screens. No source edits beyond V4 scope, no Project Sources refresh, no live behavior, no platform/API/credential behavior.",
+    product_head: "1f9ed89 / V4 institutional cockpit / 0174AB committed",
+    gate: "0174AB brand-language and state-grammar patch committed at 1f9ed89, built on the 047ca7a visual system rebuild. 0174AA Antigravity Browser QA was the prior finding, now addressed. The 0174Z progressive-disclosure patch that resolved the Global Truth Rail cognitive overload remains in place.",
+    next_action: "Antigravity browser QA / read-only recheck at HEAD 1f9ed89 across all seven screens. No source edits, no Project Sources refresh, no live behavior, no platform/API/credential behavior.",
     safety_status: "Live posting, platform API, provider API, and scheduler disabled; kill switch active"
   },
 
@@ -68,19 +68,19 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
   truth_rail: [
     {
       role_label: "Current Product HEAD",
-      value: "047ca7a (V4 institutional visual system rebuild; 0174AB brand-language and state-grammar patch in progress)",
+      value: "1f9ed89 (V4 institutional cockpit; 0174AB brand-language and state-grammar patch committed, built on the 047ca7a visual system rebuild)",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Current Gate",
-      value: "0174AA Antigravity Browser QA found visual and state caveats on the 047ca7a rebuild: residual cyber-edge tint, non-danger lock overuse, stale current-state copy, label/value collisions, and remaining truth-rail density. 0174AB applies a targeted brand-language and state-grammar patch. The prior 0174Z progressive-disclosure patch that resolved the Global Truth Rail cognitive overload on first load remains in place. Awaiting Antigravity Browser QA recheck. Live posting, scheduler, and platform API remain disabled.",
+      value: "0174AB brand-language and state-grammar patch is committed at 1f9ed89, built on the 047ca7a visual system rebuild. It addresses the prior 0174AA Antigravity Browser QA findings: residual cyber-edge tint, non-danger lock overuse, stale current-state copy, label/value collisions, and remaining truth-rail density. The 0174Z progressive-disclosure patch that resolved the Global Truth Rail cognitive overload on first load remains in place. Awaiting Antigravity Browser QA recheck at 1f9ed89. Live posting, scheduler, and platform API remain disabled.",
       kind: "current",
       runtime_authority: true
     },
     {
       role_label: "Next Allowed Action",
-      value: "Apply the 0174AB targeted brand-language and state-grammar patch, then run an Antigravity browser QA / read-only recheck of the 0174Z progressive-disclosure patch across all seven screens. No source edits beyond V4 scope, no Project Sources refresh, no live behavior, no platform/API/credential behavior.",
+      value: "Run an Antigravity browser QA / read-only recheck at HEAD 1f9ed89 across all seven screens, comparing against the root Evidence Vault reference. The 0174Z progressive-disclosure truth rail stays collapsed by default. No source edits, no Project Sources refresh, no live behavior, no platform/API/credential behavior.",
       kind: "current",
       runtime_authority: true
     },

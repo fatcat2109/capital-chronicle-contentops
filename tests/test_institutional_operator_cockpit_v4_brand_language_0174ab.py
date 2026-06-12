@@ -101,3 +101,38 @@ def test_no_remote_urls_runtime():
     for token in ["http://", "https://", "fonts.googleapis", "fonts.gstatic",
                   "unpkg", "jsdelivr"]:
         assert token not in text, "forbidden remote token: " + token
+
+
+# ---------- G. committed-state language (no stale patch-in-progress) ----------
+def test_current_state_marks_0174ab_committed_at_1f9ed89():
+    vm = _vm()
+    assert "1f9ed89" in vm, "current HEAD 1f9ed89 missing from truth model"
+
+
+def test_no_stale_patch_in_progress_language():
+    vm = _vm()
+    for stale in [
+        "set-at-build / V4 frontend / visual remediation in progress",
+        "0174AB targeted brand-language and state-grammar patch in progress",
+        "0174AB brand-language and state-grammar patch in progress",
+        "Apply the 0174AB targeted patch",
+        "Apply the 0174AB targeted brand-language and state-grammar patch",
+    ]:
+        assert stale not in vm, "stale patch-in-progress language present: " + stale
+
+
+def test_next_action_points_to_browser_qa_recheck_at_head():
+    vm = _vm()
+    na = vm.split('role_label: "Next Allowed Action"', 1)[1].split("}", 1)[0]
+    assert "1f9ed89" in na, "next action must reference recheck HEAD 1f9ed89"
+    assert "browser QA" in na or "Browser QA" in na
+
+
+# ---------- H. de-zebra audit/gate tables ----------
+def test_tables_are_de_zebra():
+    css = _css()
+    # zebra striping (a distinct even-row panel background) must be gone.
+    assert "tbody tr:nth-child(even) td { background: var(--bg-panel-2); }" not in css
+    # de-zebra mechanism: even rows neutralized to transparent + restrained hover.
+    assert "table.matrix tbody tr:nth-child(even) td { background: transparent; }" in css
+    assert "table.matrix tbody tr:hover td" in css
