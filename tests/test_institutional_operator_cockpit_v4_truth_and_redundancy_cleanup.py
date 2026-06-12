@@ -114,7 +114,7 @@ def test_next_action_instructs_antigravity_browser_qa():
     vm = _vm()
     na = vm.split('role_label: "Next Allowed Action"', 1)[1].split("}", 1)[0]
     # composed 0174AD next action: short, Browser-QA-focused, on the current baseline.
-    for token in ["Browser QA", "visual audit"]:
+    for token in ["Browser QA", "Source Audit"]:
         assert token in na, "missing next-action token: " + token
     # no live/platform/API behavior may be implied as available.
     assert "No live" in na or "no live" in na

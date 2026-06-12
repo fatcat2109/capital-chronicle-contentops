@@ -116,5 +116,8 @@ def test_no_glow_or_neon_regression():
 def test_current_truth_not_stale():
     vm = VIEW_MODEL.read_text(encoding="utf-8")
     head = vm.split('role_label: "Current Product HEAD"', 1)[1].split("}", 1)[0]
-    assert "0174AI" in head
-    assert "4ffe650" not in head
+    assert "0174AJ_AK" in head
+    assert "992a7d0" in head
+    active = head.split("Prior")[0]
+    assert "0174AI" not in active
+    assert "4ffe650" not in active

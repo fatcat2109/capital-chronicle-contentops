@@ -60,36 +60,52 @@ def _lineage_block() -> str:
 
 
 # ---------- A. current-truth repair ----------
-def test_current_head_is_object_centric_152b855():
+def test_current_head_is_executive_992a7d0():
     head = _current_head_block()
-    assert "152b855" in head
-    assert "0174AI" in head
-    assert "object-centric" in head
+    assert "992a7d0" in head
+    assert "0174AJ_AK" in head
+    # Active part before prior list
+    active = head.split("Prior")[0]
+    for stale in ["152b855", "9570bdc", "4ffe650", "0174AD"]:
+        assert stale not in active, f"stale head {stale} is listed as active"
 
 
 def test_current_head_not_stale():
     head = _current_head_block()
-    assert "4ffe650" not in head, "stale 4ffe650 presented as current head"
-    assert "0174AD" not in head, "stale 0174AD presented as current head"
+    active = head.split("Prior")[0]
+    assert "4ffe650" not in active
+    assert "0174AD" not in active
 
 
 def test_summary_head_is_current():
     summary = _summary_block()
-    assert "152b855" in summary
+    assert "992a7d0" in summary
+    assert "152b855" not in summary.split("Prior")[0]
     assert "4ffe650" not in summary
-    assert "0174AD" not in summary
 
 
-def test_next_action_is_0174aia_qa():
+def test_next_action_is_0174al_qa():
     nxt = _next_action_block()
-    assert "0174AIa" in nxt, "next action must reference 0174AIa Browser QA"
+    assert "0174AL" in nxt
+    assert "0174AIa" not in nxt
     assert "0174AD" not in nxt
     assert "0174AF" not in nxt
 
 
+def test_current_blocks_do_not_contain_stale_phrases():
+    vm = _vm()
+    for stale in [
+        "0174AIa state-truth + inspect-affordance patch in progress",
+        "Targeted 0174AJ build only after",
+        "Browser QA screenshot capture of 0174AIa"
+    ]:
+        assert stale not in vm, f"stale phrase found: {stale}"
+
+
 def test_stale_heads_historical_only():
-    # 4ffe650 / 0174AD may appear, but only inside the historical lineage block.
     lineage = _lineage_block()
+    assert "152b855" in lineage
+    assert "9570bdc" in lineage
     assert "4ffe650" in lineage
     assert "0174AD" in lineage
 

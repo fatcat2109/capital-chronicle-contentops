@@ -112,13 +112,15 @@ def _next_action_block(vm):
     return vm.split('role_label: "Next Allowed Action"', 1)[1].split("}", 1)[0]
 
 
-def test_current_head_is_152b855_object_centric():
+def test_current_head_is_992a7d0_executive_cockpit():
     vm = _vm()
     head = _current_head_block(vm)
-    assert "152b855" in head, "current head must be 152b855 (0174AI)"
-    assert "0174AI" in head, "current head must reference 0174AI object-centric model"
-    # the prior composition baseline must not present itself as the current head.
-    assert "4ffe650" not in head, "stale 4ffe650 must not be the current head"
+    assert "992a7d0" in head, "current head must be 992a7d0 (0174AJ_AK)"
+    assert "0174AJ_AK" in head
+    # the active part before "Prior" should not list older heads as active
+    active = head.split("Prior")[0]
+    for stale in ["152b855", "9570bdc", "4ffe650", "0174AD"]:
+        assert stale not in active, f"stale head {stale} is listed as active"
 
 
 def test_no_active_1f9ed89_as_current_head():
@@ -144,7 +146,7 @@ def test_next_action_references_browser_qa_visual_audit():
     vm = _vm()
     na = _next_action_block(vm)
     assert "Browser QA" in na, "next action must reference Browser QA"
-    assert "visual audit" in na
+    assert "0174AL" in na
 
 
 def test_no_0174z_browser_recheck_in_current_blocker():
