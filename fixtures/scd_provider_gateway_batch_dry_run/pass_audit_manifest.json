@@ -1,5 +1,17 @@
 {
   "schema_version": "1.0",
-  "batch_id": "b14",
-  "audit_status": "PASS"
+  "batch_id": "b1",
+  "validation_state": "PASS",
+  "per_item_dry_run_input_refs": [
+    "ref1"
+  ],
+  "per_item_call_plan_refs": [
+    "ref2"
+  ],
+  "per_item_spend_ledger_refs": [
+    "ref3"
+  ],
+  "lifecycle_report_refs": [
+    "ref4"
+  ]
 }

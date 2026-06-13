@@ -10,6 +10,15 @@
     "validation_state": {
       "type": "string"
     },
+    "batch_input_state": {
+      "type": "string"
+    },
+    "aggregate_spend_ceiling_state": {
+      "type": "string"
+    },
+    "audit_manifest_state": {
+      "type": "string"
+    },
     "reasons": {
       "type": "array"
     }

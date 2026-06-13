@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "batch_id": "b1",
-  "declared_spend_ceiling": 5.0,
+  "declared_spend_ceiling": -1.0,
   "batch_items": [
     {
       "schema_version": "1.0",
@@ -14,10 +14,8 @@
       "credentials_required": false,
       "env_read_performed": false,
       "api_key_present": false,
-      "estimated_cost": 0.0,
-      "platform_variants_requested": false,
-      "cache_hit_state": "PASS",
-      "prompt_version": "stale"
+      "estimated_cost": 1.0,
+      "platform_variants_requested": false
     }
   ]
 }

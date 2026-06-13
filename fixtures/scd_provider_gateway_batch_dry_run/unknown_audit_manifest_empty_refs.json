@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "validation_state": "UNKNOWN",
+  "per_item_dry_run_input_refs": []
+}

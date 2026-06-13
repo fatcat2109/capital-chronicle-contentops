@@ -2,5 +2,6 @@
   "schema_version": "1.0",
   "batch_id": "b1",
   "declared_spend_ceiling": 5.0,
-  "batch_items": []
+  "aggregate_estimated_cost": -1.0,
+  "validation_state": "PASS"
 }

@@ -13,6 +13,12 @@
     "aggregate_estimated_cost": {
       "type": "number"
     },
+    "item_estimated_costs": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
     "validation_state": {
       "type": "string"
     },

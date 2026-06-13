@@ -7,8 +7,32 @@
     "batch_id": {
       "type": "string"
     },
-    "audit_status": {
+    "validation_state": {
       "type": "string"
+    },
+    "per_item_dry_run_input_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "per_item_call_plan_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "per_item_spend_ledger_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "lifecycle_report_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
     "reasons": {
       "type": "array"
@@ -17,6 +41,6 @@
   "required": [
     "schema_version",
     "batch_id",
-    "audit_status"
+    "validation_state"
   ]
 }
