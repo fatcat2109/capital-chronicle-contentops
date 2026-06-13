@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD ReplayConsoleLayoutRegionSpec",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "layout_region_id": { "type": "string" },
+    "render_spec_id": { "type": "string" },
+    "region_name": {
+      "type": "string",
+      "enum": [
+        "command_hero",
+        "blocker_banner",
+        "safety_banner",
+        "stage_matrix",
+        "evidence_rail",
+        "copy_safe_export_panel",
+        "current_truth_panel",
+        "operator_next_action_panel"
+      ]
+    },
+    "region_role": { "type": "string" },
+    "source_view_model_field": { "type": "string" },
+    "region_order_index": { "type": "integer" },
+    "required_for_pass": { "type": "boolean" },
+    "collapsible": { "type": "boolean" },
+    "default_expanded": { "type": "boolean" },
+    "density": { "type": "string", "enum": ["compact", "standard", "evidence_dense"] },
+    "display_only": { "type": "boolean" },
+    "action_enabled": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "executable_dispatch": { "type": "boolean" },
+    "api_gate_required": { "type": "boolean" },
+    "validation_state": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "layout_region_id",
+    "render_spec_id",
+    "region_name",
+    "source_view_model_field",
+    "region_order_index",
+    "density",
+    "display_only",
+    "action_enabled",
+    "public_ready",
+    "live_ready",
+    "executable_dispatch",
+    "api_gate_required",
+    "validation_state"
+  ]
+}

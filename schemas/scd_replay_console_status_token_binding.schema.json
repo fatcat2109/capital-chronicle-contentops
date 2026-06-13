@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD ReplayConsoleStatusTokenBinding",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "status_token_binding_id": { "type": "string" },
+    "render_spec_id": { "type": "string" },
+    "status": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "severity": { "type": "string", "enum": ["pass", "blocked", "review", "unknown", "neutral"] },
+    "semantic_color_role": { "type": "string", "enum": ["pass", "danger", "review", "unknown", "neutral"] },
+    "token_label": { "type": "string" },
+    "token_description": { "type": "string" },
+    "allowed_for_headline": { "type": "boolean" },
+    "allowed_for_stage_chip": { "type": "boolean" },
+    "action_enabled": { "type": "boolean" },
+    "display_only": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "executable_dispatch": { "type": "boolean" },
+    "api_gate_required": { "type": "boolean" },
+    "validation_state": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "status_token_binding_id",
+    "render_spec_id",
+    "status",
+    "severity",
+    "semantic_color_role",
+    "action_enabled",
+    "display_only",
+    "public_ready",
+    "live_ready",
+    "executable_dispatch",
+    "api_gate_required",
+    "validation_state"
+  ]
+}

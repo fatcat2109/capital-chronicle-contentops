@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "status_token_binding_id": "token_review_required",
+  "render_spec_id": "rs_vm_pass_001",
+  "status": "REVIEW_REQUIRED",
+  "severity": "review",
+  "semantic_color_role": "review",
+  "token_label": "REVIEW_REQUIRED",
+  "token_description": "Display token for REVIEW_REQUIRED state.",
+  "allowed_for_headline": true,
+  "allowed_for_stage_chip": true,
+  "action_enabled": false,
+  "display_only": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "api_gate_required": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

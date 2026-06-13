@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD OperatorReplayConsoleRenderSpec",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "render_spec_id": { "type": "string" },
+    "view_model_id": { "type": "string" },
+    "console_input_id": { "type": "string" },
+    "evidence_bundle_id": { "type": "string" },
+    "copy_safe_export_bundle_id": { "type": "string" },
+    "render_mode": { "type": "string", "enum": ["display_spec_only", "static_contract_only"] },
+    "target_surface": {
+      "type": "string",
+      "enum": ["future_operator_cockpit", "evidence_bundle_console", "blocker_review_console"]
+    },
+    "layout_regions": { "type": "array", "items": { "type": "string" } },
+    "display_slot_bindings": { "type": "array", "items": { "type": "string" } },
+    "status_token_bindings": { "type": "array", "items": { "type": "string" } },
+    "copy_safe_action_bindings": { "type": "array", "items": { "type": "string" } },
+    "evidence_slot_bindings": { "type": "array", "items": { "type": "string" } },
+    "current_vs_historical_truth_binding": {
+      "type": "object",
+      "properties": {
+        "current_replay_report_slot": { "type": "string" },
+        "historical_evidence_slot": { "type": "string" },
+        "current_state_is_authoritative": { "type": "boolean" },
+        "stale_or_historical_refs_separated": { "type": "boolean" }
+      },
+      "required": ["current_replay_report_slot", "current_state_is_authoritative", "stale_or_historical_refs_separated"]
+    },
+    "display_only": { "type": "boolean" },
+    "action_enabled": { "type": "boolean" },
+    "ui_runtime_required": { "type": "boolean" },
+    "browser_required": { "type": "boolean" },
+    "screenshot_required": { "type": "boolean" },
+    "manual_publish_only": { "type": "boolean" },
+    "mock_only": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "executable_dispatch": { "type": "boolean" },
+    "api_gate_required": { "type": "boolean" },
+    "validation_state": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "render_spec_id",
+    "view_model_id",
+    "render_mode",
+    "target_surface",
+    "layout_regions",
+    "display_slot_bindings",
+    "status_token_bindings",
+    "current_vs_historical_truth_binding",
+    "display_only",
+    "action_enabled",
+    "ui_runtime_required",
+    "browser_required",
+    "screenshot_required",
+    "manual_publish_only",
+    "mock_only",
+    "public_ready",
+    "live_ready",
+    "executable_dispatch",
+    "api_gate_required",
+    "validation_state"
+  ]
+}

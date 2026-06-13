@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "layout_region_id": "region_3_stage_matrix",
+  "render_spec_id": "rs_vm_pass_001",
+  "region_name": "stage_matrix",
+  "region_role": "display",
+  "source_view_model_field": "stage_status_chips",
+  "region_order_index": 3,
+  "required_for_pass": true,
+  "collapsible": false,
+  "default_expanded": true,
+  "density": "evidence_dense",
+  "display_only": true,
+  "action_enabled": false,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "api_gate_required": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

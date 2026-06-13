@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "display_slot_binding_id": "slot_headline_001",
+  "render_spec_id": "rs_vm_pass_001",
+  "layout_region_id": "region_0_command_hero",
+  "slot_name": "headline_status_slot",
+  "source_object": "console_view_model",
+  "source_field": "headline_status",
+  "display_label": "Replay Status",
+  "display_semantics": "headline_status",
+  "required_for_pass": true,
+  "redaction_required": false,
+  "copy_safe": true,
+  "mono_required": false,
+  "semantic_color_role": "authority",
+  "action_enabled": false,
+  "display_only": true,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

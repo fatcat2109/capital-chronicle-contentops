@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "status_token_binding_id": "token_blocked_ready_001",
+  "render_spec_id": "rs_vm_pass_001",
+  "status": "PASS",
+  "severity": "pass",
+  "semantic_color_role": "pass",
+  "token_label": "PASS",
+  "token_description": "Display token.",
+  "allowed_for_headline": true,
+  "allowed_for_stage_chip": true,
+  "action_enabled": false,
+  "display_only": true,
+  "public_ready": true,
+  "live_ready": true,
+  "executable_dispatch": true,
+  "api_gate_required": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["public_ready/live_ready/executable_dispatch must be false"]
+}

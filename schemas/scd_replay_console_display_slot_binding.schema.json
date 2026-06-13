@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD ReplayConsoleDisplaySlotBinding",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "display_slot_binding_id": { "type": "string" },
+    "render_spec_id": { "type": "string" },
+    "layout_region_id": { "type": "string" },
+    "slot_name": { "type": "string" },
+    "source_object": {
+      "type": "string",
+      "enum": [
+        "console_view_model",
+        "stage_chip",
+        "evidence_bundle",
+        "copy_safe_export_bundle",
+        "safety_counter",
+        "current_vs_historical_truth"
+      ]
+    },
+    "source_field": { "type": "string" },
+    "display_label": { "type": "string" },
+    "display_semantics": {
+      "type": "string",
+      "enum": [
+        "headline_status",
+        "blocker_state",
+        "review_state",
+        "unknown_state",
+        "pass_state",
+        "evidence_ref",
+        "safety_counter",
+        "manual_publish_notice",
+        "copy_safe_text",
+        "current_truth_ref",
+        "historical_truth_ref"
+      ]
+    },
+    "required_for_pass": { "type": "boolean" },
+    "redaction_required": { "type": "boolean" },
+    "copy_safe": { "type": "boolean" },
+    "mono_required": { "type": "boolean" },
+    "semantic_color_role": {
+      "type": "string",
+      "enum": ["neutral", "authority", "pass", "review", "blocked", "unknown"]
+    },
+    "action_enabled": { "type": "boolean" },
+    "display_only": { "type": "boolean" },
+    "validation_state": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "display_slot_binding_id",
+    "render_spec_id",
+    "slot_name",
+    "source_object",
+    "source_field",
+    "display_semantics",
+    "semantic_color_role",
+    "action_enabled",
+    "display_only",
+    "validation_state"
+  ]
+}

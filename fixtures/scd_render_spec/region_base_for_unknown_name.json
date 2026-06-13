@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "layout_region_id": "region_blocked_name_001",
+  "render_spec_id": "rs_vm_pass_001",
+  "region_name": "command_hero",
+  "region_role": "display",
+  "source_view_model_field": "headline_status",
+  "region_order_index": 0,
+  "required_for_pass": true,
+  "collapsible": false,
+  "default_expanded": true,
+  "density": "standard",
+  "display_only": true,
+  "action_enabled": false,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "api_gate_required": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["region_name override in test makes this unrecognized"]
+}

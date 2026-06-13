@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "display_slot_binding_id": "slot_evidence_001",
+  "render_spec_id": "rs_vm_pass_001",
+  "layout_region_id": "region_4_evidence_rail",
+  "slot_name": "evidence_ref_slot",
+  "source_object": "evidence_bundle",
+  "source_field": "evidence_bundle_id",
+  "display_label": "Evidence Bundle",
+  "display_semantics": "evidence_ref",
+  "required_for_pass": false,
+  "redaction_required": true,
+  "copy_safe": true,
+  "mono_required": true,
+  "semantic_color_role": "neutral",
+  "action_enabled": false,
+  "display_only": true,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "display_slot_binding_id": "slot_blocked_tg_001",
+  "render_spec_id": "rs_vm_pass_001",
+  "layout_region_id": "region_5_copy_safe_export_panel",
+  "slot_name": "copy_safe_text_slot",
+  "source_object": "copy_safe_export_bundle",
+  "source_field": "copy_safe_text",
+  "display_label": "auto-post via the telegram bot sendMessage with chat_id and a webhook",
+  "display_semantics": "copy_safe_text",
+  "required_for_pass": false,
+  "redaction_required": true,
+  "copy_safe": true,
+  "mono_required": true,
+  "semantic_color_role": "neutral",
+  "action_enabled": false,
+  "display_only": true,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["telegram bot/sendMessage/chat_id/webhook implication"]
+}

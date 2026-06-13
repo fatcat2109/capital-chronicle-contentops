@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "status_token_binding_id": "token_pass",
+  "render_spec_id": "rs_vm_pass_001",
+  "status": "PASS",
+  "severity": "pass",
+  "semantic_color_role": "pass",
+  "token_label": "PASS",
+  "token_description": "Display token for PASS state.",
+  "allowed_for_headline": true,
+  "allowed_for_stage_chip": true,
+  "action_enabled": false,
+  "display_only": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "api_gate_required": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}
