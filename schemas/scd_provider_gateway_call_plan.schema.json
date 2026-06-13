@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCDProviderGatewayCallPlan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "call_plan_id",
+    "executable",
+    "dry_run_only"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "call_plan_id": { "type": "string" },
+    "requested_operation": { "type": "string" },
+    "executable": { "type": "boolean" },
+    "provider_api_allowed": { "type": "boolean" },
+    "network_allowed": { "type": "boolean" },
+    "credentials_required": { "type": "boolean" },
+    "credential_lookup_performed": { "type": "boolean" },
+    "env_read_performed": { "type": "boolean" },
+    "api_key_present": { "type": "boolean" },
+    "dry_run_only": { "type": "boolean" },
+    "prompt_pack_ref": { "type": "string" },
+    "quota_policy_ref": { "type": "string" },
+    "cache_key_ref": { "type": "string" },
+    "spend_ledger_entry_ref": { "type": ["string", "null"] },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } },
+    "review_reasons": { "type": "array", "items": { "type": "string" } },
+    "unknown_reasons": { "type": "array", "items": { "type": "string" } },
+    "validation_state": { "type": "string" }
+  },
+  "additionalProperties": true
+}

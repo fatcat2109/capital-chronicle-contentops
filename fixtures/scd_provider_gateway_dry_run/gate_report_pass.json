@@ -1,0 +1,15 @@
+{
+  "call_plan_result": "PASS",
+  "dry_run_result": "PASS",
+  "final_recommendation": "PASS",
+  "input_result": "PASS",
+  "live_ready": false,
+  "operator_review_required": true,
+  "provider_ready": false,
+  "public_ready": false,
+  "ready_for_future_provider_gate_review": true,
+  "report_id": "pgw_gate_report_v0",
+  "schema_version": "1.0",
+  "spend_ledger_result": "PASS",
+  "validation_state": "PASS"
+}

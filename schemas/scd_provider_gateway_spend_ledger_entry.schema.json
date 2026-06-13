@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCDProviderGatewaySpendLedgerEntry",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "spend_ledger_entry_id",
+    "estimated_input_tokens",
+    "estimated_output_tokens",
+    "estimated_cost",
+    "provider_name",
+    "model_name",
+    "stage_name",
+    "packet_ref",
+    "cache_key_ref"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "spend_ledger_entry_id": { "type": "string" },
+    "estimated_input_tokens": { "type": "integer" },
+    "estimated_output_tokens": { "type": "integer" },
+    "estimated_cost": { "type": "number" },
+    "provider_name": { "type": "string" },
+    "model_name": { "type": "string" },
+    "stage_name": { "type": "string" },
+    "packet_ref": { "type": "string" },
+    "cache_key_ref": { "type": "string" },
+    "actual_input_tokens": { "type": ["integer", "null"] },
+    "actual_output_tokens": { "type": ["integer", "null"] },
+    "actual_cost": { "type": ["number", "null"] },
+    "dry_run_only": { "type": "boolean" },
+    "validation_state": { "type": "string" }
+  },
+  "additionalProperties": true
+}

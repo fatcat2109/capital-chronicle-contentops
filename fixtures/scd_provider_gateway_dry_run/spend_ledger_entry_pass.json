@@ -1,0 +1,13 @@
+{
+  "cache_key_ref": "ppack_cachekey_v0",
+  "estimated_cost": 0.0,
+  "estimated_input_tokens": 1200,
+  "estimated_output_tokens": 800,
+  "model_name": "stub_model_v0",
+  "packet_ref": "ppack_canonical_v0",
+  "provider_name": "stub_provider_alpha",
+  "schema_version": "1.0",
+  "spend_ledger_entry_id": "spend:sha256:66fed0b011a49a529c0dd8b097b3079f21f9f2951286b4a2ea7f08516cf807f2",
+  "stage_name": "canonical_generation",
+  "validation_state": "PASS"
+}

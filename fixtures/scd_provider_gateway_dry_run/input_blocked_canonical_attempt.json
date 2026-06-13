@@ -1,0 +1,43 @@
+{
+  "attempt_index": 2,
+  "cache_lookup_state": "cache_miss",
+  "estimated_cost": 0.0,
+  "estimated_input_tokens": 1200,
+  "estimated_output_tokens": 800,
+  "input_id": "pgw_input_canonical_v0",
+  "model_config_stub": {
+    "id": "stub_model_v0",
+    "model_name": "stub_model_v0"
+  },
+  "operator_context_ref": "operator_ctx_v0",
+  "prior_attempt_count": 0,
+  "prompt_pack_cache_key": {
+    "cache_key_id": "ppack_cachekey_v0",
+    "composite_key_hash": "sha256:a72cce6cc676f3fb6a532225e6e3c2f590d182af089f8a8d855645801715c437",
+    "prompt_version": "promptpack_v1",
+    "validation_state": "PASS"
+  },
+  "prompt_pack_summary": {
+    "platform_variants_requested": false,
+    "prompt_pack_id": "ppack_canonical_v0",
+    "prompt_pack_kind": "canonical_writer_prompt_pack",
+    "prompt_version": "promptpack_v1",
+    "validation_state": "PASS"
+  },
+  "provider_profile_stub": {
+    "id": "stub_provider_alpha",
+    "provider_name": "stub_provider_alpha"
+  },
+  "quota_policy_summary": {
+    "credentials_required": false,
+    "max_generation_attempts": 1,
+    "max_targeted_repair_attempts": 1,
+    "network_allowed": false,
+    "policy_id": "llm_quota_retry_policy_v0",
+    "provider_api_allowed": false,
+    "validation_state": "PASS"
+  },
+  "requested_operation": "canonical_generation",
+  "schema_version": "1.0",
+  "validation_state": "PASS"
+}

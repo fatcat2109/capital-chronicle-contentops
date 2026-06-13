@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCDProviderGatewayDryRunInput",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "input_id",
+    "requested_operation",
+    "attempt_index",
+    "prior_attempt_count",
+    "quota_policy_summary",
+    "prompt_pack_summary"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "input_id": { "type": "string" },
+    "requested_operation": { "type": "string" },
+    "attempt_index": { "type": "integer" },
+    "prior_attempt_count": { "type": "integer" },
+    "quota_policy_summary": {
+      "type": "object",
+      "properties": {
+        "policy_id": { "type": "string" },
+        "validation_state": { "type": "string" },
+        "provider_api_allowed": { "type": "boolean" },
+        "network_allowed": { "type": "boolean" },
+        "credentials_required": { "type": "boolean" },
+        "max_generation_attempts": { "type": "integer" },
+        "max_targeted_repair_attempts": { "type": "integer" }
+      },
+      "additionalProperties": true
+    },
+    "prompt_pack_summary": {
+      "type": "object",
+      "properties": {
+        "prompt_pack_id": { "type": "string" },
+        "prompt_pack_kind": { "type": "string" },
+        "prompt_version": { "type": "string" },
+        "validation_state": { "type": "string" },
+        "platform_variants_requested": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "prompt_pack_cache_key": {
+      "type": "object",
+      "properties": {
+        "cache_key_id": { "type": "string" },
+        "prompt_version": { "type": "string" },
+        "composite_key_hash": { "type": "string" },
+        "validation_state": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "provider_profile_stub": { "type": "object", "additionalProperties": true },
+    "model_config_stub": { "type": "object", "additionalProperties": true },
+    "estimated_input_tokens": { "type": "integer" },
+    "estimated_output_tokens": { "type": "integer" },
+    "estimated_cost": { "type": "number" },
+    "cache_lookup_state": { "type": "string" },
+    "operator_context_ref": { "type": "string" },
+    "platform_variants_requested": { "type": "boolean" },
+    "validation_state": { "type": "string" }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,21 @@
+{
+  "api_key_present": false,
+  "blocked_reasons": [],
+  "cache_key_ref": "ppack_cachekey_v0",
+  "call_plan_id": "call_plan:sha256:2ed339f3aa2ca2d79796fe4fb7355f075923caae2ada7a78583df38806f87792",
+  "credential_lookup_performed": false,
+  "credentials_required": false,
+  "dry_run_only": true,
+  "env_read_performed": false,
+  "executable": true,
+  "network_allowed": false,
+  "prompt_pack_ref": "ppack_canonical_v0",
+  "provider_api_allowed": false,
+  "quota_policy_ref": "llm_quota_retry_policy_v0",
+  "requested_operation": "canonical_generation",
+  "review_reasons": [],
+  "schema_version": "1.0",
+  "spend_ledger_entry_ref": null,
+  "unknown_reasons": [],
+  "validation_state": "PASS"
+}

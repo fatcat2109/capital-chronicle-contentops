@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCDProviderGatewayDryRunResult",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "result_id",
+    "executable",
+    "dry_run_only",
+    "final_recommendation"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "result_id": { "type": "string" },
+    "input_ref": { "type": "string" },
+    "call_plan_ref": { "type": "string" },
+    "spend_ledger_entry_ref": { "type": "string" },
+    "executable": { "type": "boolean" },
+    "provider_api_allowed": { "type": "boolean" },
+    "network_allowed": { "type": "boolean" },
+    "credentials_required": { "type": "boolean" },
+    "credential_lookup_performed": { "type": "boolean" },
+    "env_read_performed": { "type": "boolean" },
+    "api_key_present": { "type": "boolean" },
+    "dry_run_only": { "type": "boolean" },
+    "provider_ready": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "ready_for_future_provider_gate_review": { "type": "boolean" },
+    "call_plan_result": { "type": "string" },
+    "spend_ledger_result": { "type": "string" },
+    "input_result": { "type": "string" },
+    "final_recommendation": { "type": "string" },
+    "validation_state": { "type": "string" }
+  },
+  "additionalProperties": true
+}
