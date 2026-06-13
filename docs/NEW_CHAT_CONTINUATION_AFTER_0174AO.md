@@ -21,6 +21,10 @@ Use the repo files/evidence as authority. Do not rely on prior chat history.
 - `docs/CONTENTOPS_FINAL_PRODUCT_ROADMAP_AFTER_0174AO.md` holds the forward task sequence.
 - `docs/CONTENTOPS_STRATEGY_RECOVERY_INDEX_AFTER_0174AO.md` records source/authority of
   recovered plans.
+- `docs/CONTENTOPS_LLM_QUOTA_RETRY_DISCIPLINE_ADDENDUM_AFTER_0174AY.md` is a binding
+  addendum: bounded LLM generation/repair, no rewrite loop, no infinite retry,
+  deterministic validator primary, cache + spend tracking. Enforced by
+  `scd_llm_quota_retry_policy` (schema + validator + fixtures + tests).
 - `CONTENTOPS_RECONCILED_ROADMAP_AFTER_0126.md` and
   `FINAL_MASTER_PLAN_..._AFTER_0077.md` are superseded-but-retained historical reference.
 

@@ -5,6 +5,13 @@
 **Standing rules:** local-only · fail-closed · no network · no credential/env reads ·
 no live posting · V4 UI frozen until contracts are reconciled.
 
+**Binding addendum (0174AY):** before any real provider/LLM adapter is built, the LLM
+quota / retry discipline in
+`docs/CONTENTOPS_LLM_QUOTA_RETRY_DISCIPLINE_ADDENDUM_AFTER_0174AY.md` must hold: validate
+locally first, max 1 canonical generation, max 1 targeted repair (minor failures only),
+no full-rewrite loop, no infinite retry, deterministic validator primary, cache + spend
+tracking required. Enforced by `scd_llm_quota_retry_policy`.
+
 ---
 
 ## TASK_CONTENTOPS_0174AP_DOMAIN_MODEL_UNIFICATION_FOR_SUPERVISED_CONTENT_DISTRIBUTION_OS_V0
