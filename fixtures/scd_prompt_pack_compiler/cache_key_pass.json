@@ -1,0 +1,12 @@
+{
+  "brief_hash": "sha256:brief",
+  "cache_key_id": "ppack_cachekey_v0",
+  "composite_key": "brief_hash=sha256:brief|prompt_version=promptpack_v1|source_packet_hash=sha256:src|model_config=modelcfg_v1|quota_policy_id=llm_quota_retry_policy_v0",
+  "composite_key_hash": "sha256:a72cce6cc676f3fb6a532225e6e3c2f590d182af089f8a8d855645801715c437",
+  "model_config": "modelcfg_v1",
+  "prompt_version": "promptpack_v1",
+  "quota_policy_id": "llm_quota_retry_policy_v0",
+  "schema_version": "1.0",
+  "source_packet_hash": "sha256:src",
+  "validation_state": "PASS"
+}

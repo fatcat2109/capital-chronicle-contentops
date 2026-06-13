@@ -1,0 +1,61 @@
+{
+  "allowed_angle": "explain the process and the context",
+  "audience_mode": "informed_generalist",
+  "brief_hash": "sha256:brief",
+  "canonical_prompt_pack_id": "ppack_canonical_v0",
+  "credentials_required": false,
+  "failing_section_refs": [
+    "section-2"
+  ],
+  "financial_advice_absent_required": true,
+  "forbid_full_rewrite": true,
+  "forbid_new_claims": true,
+  "forbidden_claims": [
+    "no performance promises"
+  ],
+  "lane": "A",
+  "live_ready": false,
+  "max_targeted_repair_attempts": 1,
+  "model_config_ref": "modelcfg_v1",
+  "model_output_never_authority": true,
+  "network_allowed": false,
+  "non_signal_framing_required": true,
+  "patch_only_failing_section": true,
+  "preserve_citations": false,
+  "preserve_claim_meaning": true,
+  "preserve_limitations": false,
+  "preserve_non_signal_framing": true,
+  "preserve_source_refs": false,
+  "prompt_hash": "sha256:ae0c6731a1cfebac957d646b81a394dda13603b563b0c946b818f38ec24ca2b9",
+  "prompt_pack_id": "ppack_repair_v0",
+  "prompt_version": "promptpack_v1",
+  "provider_api_allowed": false,
+  "provider_ready": false,
+  "public_ready": false,
+  "quota_policy_id": "llm_quota_retry_policy_v0",
+  "quota_policy_summary": {
+    "credentials_required": false,
+    "max_generation_attempts": 1,
+    "max_targeted_repair_attempts": 1,
+    "network_allowed": false,
+    "policy_id": "llm_quota_retry_policy_v0",
+    "provider_api_allowed": false,
+    "validation_state": "PASS"
+  },
+  "repair_instructions": "Patch only the failing section; keep all citations and limitations.",
+  "required_citation_policy": "cite every external claim",
+  "required_limitations": [
+    "this is not financial advice"
+  ],
+  "required_source_refs": [
+    "ref-001"
+  ],
+  "schema_version": "1.0",
+  "source_packet_hash": "sha256:src",
+  "target_platform": "newsletter",
+  "validation_state": "PASS",
+  "validator_failure_refs": [
+    "citation_integrity_result"
+  ],
+  "voice_profile": "measured_editorial"
+}

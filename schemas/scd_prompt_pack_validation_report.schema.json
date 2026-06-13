@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCDPromptPackValidationReport",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "report_id",
+    "final_recommendation"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "report_id": { "type": "string" },
+    "prompt_pack_input_ref": { "type": "string" },
+    "canonical_prompt_pack_ref": { "type": "string" },
+    "targeted_repair_prompt_pack_ref": { "type": "string" },
+    "cache_key_ref": { "type": "string" },
+    "input_result": { "type": "string" },
+    "canonical_result": { "type": "string" },
+    "repair_result": { "type": "string" },
+    "cache_key_result": { "type": "string" },
+    "per_object_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "object_name": { "type": "string" },
+          "result": { "type": "string" },
+          "reasons": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": true
+      }
+    },
+    "provider_ready": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "ready_for_future_provider_call_review": { "type": "boolean" },
+    "operator_review_required": { "type": "boolean" },
+    "final_recommendation": { "type": "string" },
+    "validation_state": { "type": "string" }
+  },
+  "additionalProperties": true
+}

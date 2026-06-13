@@ -1,0 +1,37 @@
+{
+  "allowed_angle": "explain the process and the context",
+  "audience_mode": "informed_generalist",
+  "brief_hash": "sha256:brief",
+  "financial_advice_absent_required": true,
+  "forbidden_claims": [
+    "no performance promises"
+  ],
+  "input_id": "ppack_input_v0",
+  "lane": "A",
+  "model_config_ref": "modelcfg_v1",
+  "model_output_never_authority": true,
+  "non_signal_framing_required": true,
+  "quota_policy_id": "llm_quota_retry_policy_v0",
+  "quota_policy_summary": {
+    "credentials_required": false,
+    "max_generation_attempts": 1,
+    "max_targeted_repair_attempts": 1,
+    "network_allowed": false,
+    "policy_id": "llm_quota_retry_policy_v0",
+    "provider_api_allowed": false,
+    "validation_state": "PASS"
+  },
+  "required_citation_policy": "cite every external claim",
+  "required_limitations": [
+    "this is not financial advice"
+  ],
+  "required_source_refs": [
+    "ref-001"
+  ],
+  "schema_version": "1.0",
+  "source_packet_hash": "",
+  "source_text": "A measured editorial explainer about the process.",
+  "target_platform": "newsletter",
+  "validation_state": "PASS",
+  "voice_profile": "measured_editorial"
+}

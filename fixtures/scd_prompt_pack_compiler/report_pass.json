@@ -1,0 +1,35 @@
+{
+  "cache_key_ref": "ppack_cachekey_v0",
+  "cache_key_result": "PASS",
+  "canonical_prompt_pack_ref": "ppack_canonical_v0",
+  "canonical_result": "PASS",
+  "final_recommendation": "PASS",
+  "input_result": "PASS",
+  "live_ready": false,
+  "operator_review_required": true,
+  "per_object_results": [
+    {
+      "object_name": "prompt_pack_input",
+      "reasons": [
+        "ok"
+      ],
+      "result": "PASS"
+    },
+    {
+      "object_name": "canonical_writer_prompt_pack",
+      "reasons": [
+        "ok"
+      ],
+      "result": "PASS"
+    }
+  ],
+  "prompt_pack_input_ref": "ppack_input_v0",
+  "provider_ready": false,
+  "public_ready": false,
+  "ready_for_future_provider_call_review": true,
+  "repair_result": "PASS",
+  "report_id": "ppack_report_v0",
+  "schema_version": "1.0",
+  "targeted_repair_prompt_pack_ref": "ppack_repair_v0",
+  "validation_state": "PASS"
+}

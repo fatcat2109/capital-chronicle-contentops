@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCDPromptPackCacheKey",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "cache_key_id",
+    "brief_hash",
+    "prompt_version",
+    "source_packet_hash",
+    "model_config",
+    "quota_policy_id"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "cache_key_id": { "type": "string" },
+    "brief_hash": { "type": "string" },
+    "prompt_version": { "type": "string" },
+    "source_packet_hash": { "type": "string" },
+    "model_config": { "type": "string" },
+    "quota_policy_id": { "type": "string" },
+    "composite_key": { "type": "string" },
+    "composite_key_hash": { "type": "string" },
+    "validation_state": { "type": "string" }
+  },
+  "additionalProperties": true
+}

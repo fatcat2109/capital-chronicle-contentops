@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCDPromptPackInput",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "input_id",
+    "brief_hash",
+    "source_packet_hash",
+    "model_config_ref",
+    "lane",
+    "quota_policy_summary"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "input_id": { "type": "string" },
+    "brief_hash": { "type": "string" },
+    "source_packet_hash": { "type": "string" },
+    "model_config_ref": { "type": "string" },
+    "lane": { "type": "string" },
+    "target_platform": { "type": "string" },
+    "audience_mode": { "type": "string" },
+    "voice_profile": { "type": "string" },
+    "allowed_angle": { "type": "string" },
+    "forbidden_claims": { "type": "array", "items": { "type": "string" } },
+    "required_limitations": { "type": "array", "items": { "type": "string" } },
+    "required_source_refs": { "type": "array", "items": { "type": "string" } },
+    "required_citation_policy": { "type": "string" },
+    "source_text": { "type": "string" },
+    "quota_policy_id": { "type": "string" },
+    "quota_policy_summary": {
+      "type": "object",
+      "properties": {
+        "policy_id": { "type": "string" },
+        "validation_state": { "type": "string" },
+        "provider_api_allowed": { "type": "boolean" },
+        "network_allowed": { "type": "boolean" },
+        "credentials_required": { "type": "boolean" },
+        "max_generation_attempts": { "type": "integer" },
+        "max_targeted_repair_attempts": { "type": "integer" }
+      },
+      "additionalProperties": true
+    },
+    "non_signal_framing_required": { "type": "boolean" },
+    "financial_advice_absent_required": { "type": "boolean" },
+    "model_output_never_authority": { "type": "boolean" },
+    "validation_state": { "type": "string" }
+  },
+  "additionalProperties": true
+}
