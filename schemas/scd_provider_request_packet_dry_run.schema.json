@@ -1,0 +1,94 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "validation_state": {
+      "type": "string"
+    },
+    "provider_api_gate_readiness_state": {
+      "type": "string"
+    },
+    "credential_envelope_state": {
+      "type": "string"
+    },
+    "request_budget_state": {
+      "type": "string"
+    },
+    "provider_allowlist_state": {
+      "type": "string"
+    },
+    "explicit_operator_api_approval_present": {
+      "type": "boolean"
+    },
+    "request_packet_mode": {
+      "type": "string"
+    },
+    "executable": {
+      "type": "boolean"
+    },
+    "network_allowed": {
+      "type": "boolean"
+    },
+    "provider_client_constructed": {
+      "type": "boolean"
+    },
+    "env_read_allowed": {
+      "type": "boolean"
+    },
+    "credential_lookup_allowed": {
+      "type": "boolean"
+    },
+    "api_key_present": {
+      "type": "boolean"
+    },
+    "credential_value_present": {
+      "type": "boolean"
+    },
+    "provider_ready": {
+      "type": "boolean"
+    },
+    "live_ready": {
+      "type": "boolean"
+    },
+    "public_ready": {
+      "type": "boolean"
+    },
+    "symbolic_provider_name": {
+      "type": "string"
+    },
+    "symbolic_endpoint_family": {
+      "type": "string"
+    },
+    "prompt_pack_ref": {
+      "type": "string"
+    },
+    "canonical_draft_ref": {
+      "type": "string"
+    },
+    "budget_ref": {
+      "type": "string"
+    },
+    "credential_envelope_ref": {
+      "type": "string"
+    },
+    "audit_manifest_ref": {
+      "type": "string"
+    },
+    "redaction_proof_state": {
+      "type": "string"
+    },
+    "budget_binding_state": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "batch_id",
+    "validation_state"
+  ]
+}
