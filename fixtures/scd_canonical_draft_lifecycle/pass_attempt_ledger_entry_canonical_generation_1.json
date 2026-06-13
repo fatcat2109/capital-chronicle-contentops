@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "operation": "canonical_generation",
+  "attempt_index": 1,
+  "provider_call_plan_ref": "plan",
+  "result_summary": "PASS"
+}

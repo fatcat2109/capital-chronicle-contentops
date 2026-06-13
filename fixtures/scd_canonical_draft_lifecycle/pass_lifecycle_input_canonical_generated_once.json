@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "lifecycle_state": "CANONICAL_GENERATED_ONCE",
+  "quota_policy_summary": "PASS",
+  "prompt_pack_summary": "PASS",
+  "provider_gateway_dry_run_result_summary": "PASS",
+  "canonical_draft_ref": "ref",
+  "canonical_draft_hash": "hash123",
+  "local_validator_result": "PASS",
+  "attempt_ledger_entries": [
+    {
+      "schema_version": "1.0",
+      "operation": "canonical_generation",
+      "attempt_index": 1,
+      "provider_call_plan_ref": "plan",
+      "result_summary": "PASS"
+    }
+  ]
+}

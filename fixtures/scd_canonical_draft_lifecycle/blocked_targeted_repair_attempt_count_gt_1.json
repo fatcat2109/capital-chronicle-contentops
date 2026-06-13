@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "lifecycle_state": "TARGETED_REPAIR_APPLIED_ONCE",
+  "quota_policy_summary": "PASS",
+  "attempt_ledger_entries": [
+    {
+      "schema_version": "1.0",
+      "operation": "canonical_generation",
+      "attempt_index": 1
+    },
+    {
+      "schema_version": "1.0",
+      "operation": "targeted_repair",
+      "attempt_index": 1
+    },
+    {
+      "schema_version": "1.0",
+      "operation": "targeted_repair",
+      "attempt_index": 2
+    }
+  ]
+}

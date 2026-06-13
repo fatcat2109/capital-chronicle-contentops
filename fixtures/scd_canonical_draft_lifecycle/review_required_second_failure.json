@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "lifecycle_state": "TARGETED_REPAIR_APPLIED_ONCE",
+  "quota_policy_summary": "PASS",
+  "prompt_pack_summary": "PASS",
+  "provider_gateway_dry_run_result_summary": "PASS",
+  "canonical_draft_hash": "hash123",
+  "local_validator_result": "second_failure"
+}

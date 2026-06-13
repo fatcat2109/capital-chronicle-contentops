@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "lifecycle_state": "CANONICAL_GENERATED_ONCE",
+  "quota_policy_summary": "PASS",
+  "prompt_pack_summary": "PASS",
+  "provider_gateway_dry_run_result_summary": "PASS",
+  "platform_variant_requested": true
+}

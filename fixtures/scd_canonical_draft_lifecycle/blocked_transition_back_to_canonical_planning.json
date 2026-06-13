@@ -1,0 +1,12 @@
+{
+  "schema_version": "1.0",
+  "lifecycle_state": "CANONICAL_DRAFT_PLANNED",
+  "quota_policy_summary": "PASS",
+  "attempt_ledger_entries": [
+    {
+      "schema_version": "1.0",
+      "operation": "canonical_generation",
+      "attempt_index": 1
+    }
+  ]
+}

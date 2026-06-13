@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCDCanonicalDraftLifecycleInput",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "lifecycle_state"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "lifecycle_state": { "type": "string" },
+    "quota_policy_summary": { "type": "string" },
+    "prompt_pack_summary": { "type": "string" },
+    "provider_gateway_dry_run_result_summary": { "type": "string" },
+    "canonical_draft_ref": { "type": "string" },
+    "canonical_draft_hash": { "type": "string" },
+    "local_validator_result": { "type": "string" },
+    "targeted_repair_prompt_pack_summary": { "type": "string" },
+    "targeted_repair_patch_ref": { "type": "string" },
+    "attempt_ledger_entries": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "platform_variant_requested": { "type": "boolean" },
+    "operator_context_ref": { "type": "string" }
+  },
+  "additionalProperties": true
+}

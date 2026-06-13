@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "lifecycle_state": "CANONICAL_DRAFT_PLANNED",
+  "quota_policy_summary": "PASS",
+  "canonical_draft_hash": "hash123",
+  "provider_gateway_dry_run_result_summary": ""
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "lifecycle_state": "PASS",
+  "validation_state": "PASS",
+  "attempt_count_canonical": 1,
+  "attempt_count_repair": 0,
+  "total_provider_call_plans": 1
+}

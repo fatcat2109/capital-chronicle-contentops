@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCDCanonicalDraftAttemptLedgerEntry",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "operation",
+    "attempt_index"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "operation": { "type": "string" },
+    "attempt_index": { "type": "integer" },
+    "provider_call_plan_ref": { "type": "string" },
+    "result_summary": { "type": "string" }
+  },
+  "additionalProperties": true
+}
