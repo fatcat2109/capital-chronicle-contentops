@@ -68,3 +68,19 @@ def test_unknown_audit_manifest_empty_refs():
 def test_blocked_audit_manifest_empty_refs_claimed_pass():
     res = validate_provider_gateway_batch_audit_manifest(_load("blocked_audit_manifest_empty_refs_claimed_pass.json"))
     assert res["validation_state"] == "BLOCKED"
+
+def test_report_unknown_with_unknown_substate():
+    res = validate_provider_gateway_batch_dry_run_report(_load("report_unknown_with_unknown_substate.json"))
+    assert res["validation_state"] == "UNKNOWN"
+
+def test_report_review_with_review_substate():
+    res = validate_provider_gateway_batch_dry_run_report(_load("report_review_with_review_substate.json"))
+    assert res["validation_state"] == "REVIEW_REQUIRED"
+
+def test_report_pass_while_unknown():
+    res = validate_provider_gateway_batch_dry_run_report(_load("report_pass_while_unknown.json"))
+    assert res["validation_state"] == "BLOCKED"
+
+def test_report_pass_while_review():
+    res = validate_provider_gateway_batch_dry_run_report(_load("report_pass_while_review.json"))
+    assert res["validation_state"] == "BLOCKED"

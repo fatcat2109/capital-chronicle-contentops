@@ -148,6 +148,13 @@ def validate_provider_gateway_batch_dry_run_report(packet):
 
     if claim == PASS and rolled != PASS:
         blocked.append("PASS only allowed if batch input, ceiling, and manifest are PASS")
+        
+    if rolled == UNKNOWN:
+        unknown.append("rolled up state is UNKNOWN")
+    elif rolled == REVIEW_REQUIRED:
+        review.append("rolled up state is REVIEW_REQUIRED")
+    elif rolled == BLOCKED:
+        blocked.append("rolled up state is BLOCKED")
 
     return _result(blocked, review, unknown)
 

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "validation_state": "PASS",
+  "batch_input_state": "REVIEW_REQUIRED",
+  "aggregate_spend_ceiling_state": "PASS",
+  "audit_manifest_state": "PASS"
+}
