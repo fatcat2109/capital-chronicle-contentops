@@ -15,7 +15,6 @@ def validate_provider_gateway_batch_item_plan(packet):
     blocked += _common_safety_blocks(packet)
     
     if "item_id" not in packet: blocked.append("item_id missing")
-    if packet.get("validation_state") != PASS: blocked.append("validation_state must be PASS")
     
     if packet.get("platform_variants_requested"):
         blocked.append("platform variants forbidden in this batch task")
@@ -39,7 +38,7 @@ def validate_provider_gateway_batch_item_plan(packet):
                 review.append("stale cache hit")
             else:
                 blocked.append("zero estimated provider cost requires valid cache hit")
-    
+                
     return _result(blocked, review, unknown)
 
 def validate_provider_gateway_batch_dry_run_input(packet):
@@ -177,10 +176,10 @@ def validate_provider_gateway_batch_audit_manifest(packet):
     return _result(blocked, review, unknown)
 
 def build_batch_item_plan(item_input):
-    return {
+    cost = item_input.get("estimated_cost")
+    
+    plan = {
         "schema_version": "1.0",
-        "item_id": item_input.get("item_id", "unknown"),
-        "validation_state": "PASS",
         "dry_run_only": True,
         "executable": False,
         "provider_api_allowed": False,
@@ -188,9 +187,22 @@ def build_batch_item_plan(item_input):
         "credentials_required": False,
         "env_read_performed": False,
         "api_key_present": False,
-        "estimated_cost": item_input.get("estimated_cost", 0.0),
-        "platform_variants_requested": False
+        "platform_variants_requested": False,
+        "validation_state": "UNKNOWN"
     }
+    
+    if "item_id" in item_input: plan["item_id"] = item_input["item_id"]
+    if cost is not None: plan["estimated_cost"] = cost
+    if "cache_hit_state" in item_input: plan["cache_hit_state"] = item_input["cache_hit_state"]
+    if "prompt_version" in item_input: plan["prompt_version"] = item_input["prompt_version"]
+    
+    res = validate_provider_gateway_batch_item_plan(plan)
+    plan["validation_state"] = res["validation_state"]
+    
+    reasons = [r for r in res["reasons"] if r != "ok"]
+    if not reasons: reasons = ["ok"]
+    plan["reasons"] = reasons
+    return plan
 
 def build_aggregate_spend_ceiling(item_plans, declared_ceiling):
     agg = sum(i.get("estimated_cost", 0) for i in item_plans)
@@ -204,15 +216,47 @@ def build_aggregate_spend_ceiling(item_plans, declared_ceiling):
         "validation_state": val
     }
 
-def build_batch_dry_run_report(batch_input, item_plans, ceiling_packet):
+def build_batch_dry_run_report(batch_input, item_plans, ceiling_packet, audit_manifest_packet=None):
+    res_input = validate_provider_gateway_batch_dry_run_input(batch_input)
+    res_ceiling = validate_provider_gateway_aggregate_spend_ceiling(ceiling_packet)
+    
+    blocked, review, unknown = [], [], []
+    
+    item_states = []
+    for item in item_plans:
+        res = validate_provider_gateway_batch_item_plan(item)
+        item_states.append(res["validation_state"])
+    rolled_items = _rollup(item_states) if item_states else UNKNOWN
+    
+    manifest_state = UNKNOWN
+    res_manifest = None
+    if audit_manifest_packet is None:
+        unknown.append("audit_manifest_packet missing")
+    else:
+        res_manifest = validate_provider_gateway_batch_audit_manifest(audit_manifest_packet)
+        manifest_state = res_manifest["validation_state"]
+        
+    states = [res_input["validation_state"], rolled_items, res_ceiling["validation_state"], manifest_state]
+    rolled = _rollup(states)
+    
+    reasons = res_input["reasons"] + res_ceiling["reasons"]
+    if res_manifest:
+        reasons += res_manifest["reasons"]
+    reasons += blocked + review + unknown
+    reasons = [r for r in list(dict.fromkeys(reasons)) if r != "ok"]
+    if not reasons: reasons = ["ok"]
+    
     return {
         "schema_version": "1.0",
-        "batch_id": batch_input.get("batch_id", "batch"),
-        "validation_state": ceiling_packet.get("validation_state", UNKNOWN),
-        "batch_input_state": ceiling_packet.get("validation_state", UNKNOWN),
-        "aggregate_spend_ceiling_state": ceiling_packet.get("validation_state", UNKNOWN),
-        "audit_manifest_state": ceiling_packet.get("validation_state", UNKNOWN),
-        "reasons": ceiling_packet.get("reasons", [])
+        "batch_id": batch_input.get("batch_id", "unknown"),
+        "validation_state": rolled,
+        "batch_input_state": res_input["validation_state"],
+        "aggregate_spend_ceiling_state": res_ceiling["validation_state"],
+        "audit_manifest_state": manifest_state,
+        "provider_ready": False,
+        "live_ready": False,
+        "public_ready": False,
+        "reasons": reasons
     }
 
 PROVIDER_GATEWAY_BATCH_DRY_RUN_VALIDATORS = {

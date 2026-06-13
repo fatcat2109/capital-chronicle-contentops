@@ -6,7 +6,9 @@ from live_contentops.scd_provider_gateway_batch_dry_run import (
     validate_provider_gateway_aggregate_spend_ceiling,
     validate_provider_gateway_batch_audit_manifest,
     validate_provider_gateway_batch_dry_run_report,
-    build_aggregate_spend_ceiling
+    build_aggregate_spend_ceiling,
+    build_batch_item_plan,
+    build_batch_dry_run_report
 )
 
 def _load(f):
@@ -84,3 +86,163 @@ def test_report_pass_while_unknown():
 def test_report_pass_while_review():
     res = validate_provider_gateway_batch_dry_run_report(_load("report_pass_while_review.json"))
     assert res["validation_state"] == "BLOCKED"
+
+
+# --- BUILDER TESTS ---
+
+def test_build_item_plan_pass():
+    plan = build_batch_item_plan({"item_id": "i1", "estimated_cost": 0.5})
+    assert plan["validation_state"] == "PASS"
+    assert plan["item_id"] == "i1"
+    assert plan["estimated_cost"] == 0.5
+
+def test_build_item_plan_missing_cost_not_pass():
+    plan = build_batch_item_plan({"item_id": "i1"})
+    assert plan["validation_state"] != "PASS"
+
+def test_build_item_plan_missing_item_id_not_pass():
+    plan = build_batch_item_plan({"estimated_cost": 0.5})
+    assert plan["validation_state"] != "PASS"
+
+def test_build_item_plan_negative_cost():
+    plan = build_batch_item_plan({"item_id": "i1", "estimated_cost": -1.0})
+    assert plan["validation_state"] == "BLOCKED"
+
+def test_build_item_plan_zero_cost_no_cache():
+    plan = build_batch_item_plan({"item_id": "i1", "estimated_cost": 0.0})
+    assert plan["validation_state"] == "BLOCKED"
+
+def test_build_item_plan_zero_cost_with_valid_cache():
+    plan = build_batch_item_plan({
+        "item_id": "i1", 
+        "estimated_cost": 0.0, 
+        "cache_hit_state": "PASS", 
+        "prompt_version": "current"
+    })
+    assert plan["validation_state"] == "PASS"
+
+def test_build_item_plan_zero_cost_with_stale_cache():
+    plan = build_batch_item_plan({
+        "item_id": "i1", 
+        "estimated_cost": 0.0, 
+        "cache_hit_state": "PASS", 
+        "prompt_version": "stale"
+    })
+    assert plan["validation_state"] == "REVIEW_REQUIRED"
+
+def test_build_item_plan_ignores_unsafe_flags():
+    plan = build_batch_item_plan({
+        "item_id": "i1", 
+        "estimated_cost": 0.5,
+        "executable": True,
+        "network_allowed": True
+    })
+    assert plan["executable"] is False
+    assert plan["network_allowed"] is False
+    assert plan["validation_state"] == "PASS"
+
+def test_build_item_plan_platform_variants_requested():
+    plan = build_batch_item_plan({
+        "item_id": "i1", 
+        "estimated_cost": 0.5,
+        "platform_variants_requested": True
+    })
+    assert plan["platform_variants_requested"] is False
+    assert plan["validation_state"] != "BLOCKED"
+
+# --- REPORT BUILDER TESTS ---
+
+def _valid_batch_input():
+    return _load("pass_multi_item.json")
+
+def _valid_item_plans():
+    return _valid_batch_input()["batch_items"]
+
+def _valid_ceiling():
+    return {
+        "schema_version": "1.0",
+        "batch_id": "b1",
+        "declared_spend_ceiling": 10.0,
+        "aggregate_estimated_cost": 0.0,
+        "item_estimated_costs": [0.0, 0.0],
+        "validation_state": "PASS"
+    }
+
+def _valid_manifest():
+    return _load("pass_audit_manifest.json")
+
+def test_build_report_all_pass():
+    rep = build_batch_dry_run_report(_valid_batch_input(), _valid_item_plans(), _valid_ceiling(), _valid_manifest())
+    assert rep["validation_state"] == "PASS"
+
+def test_build_report_missing_manifest():
+    rep = build_batch_dry_run_report(_valid_batch_input(), _valid_item_plans(), _valid_ceiling())
+    assert rep["validation_state"] == "UNKNOWN"
+
+def test_build_report_blocked_manifest():
+    m = _valid_manifest()
+    m["per_item_dry_run_input_refs"] = [] 
+    m["validation_state"] = "PASS" 
+    rep = build_batch_dry_run_report(_valid_batch_input(), _valid_item_plans(), _valid_ceiling(), m)
+    assert rep["validation_state"] == "BLOCKED"
+
+def test_build_report_unknown_manifest():
+    m = _valid_manifest()
+    m["per_item_dry_run_input_refs"] = [] 
+    m["validation_state"] = "UNKNOWN"
+    rep = build_batch_dry_run_report(_valid_batch_input(), _valid_item_plans(), _valid_ceiling(), m)
+    assert rep["validation_state"] == "UNKNOWN"
+
+def test_build_report_blocked_batch_input():
+    b = _valid_batch_input()
+    b["declared_spend_ceiling"] = -1.0 
+    rep = build_batch_dry_run_report(b, _valid_item_plans(), _valid_ceiling(), _valid_manifest())
+    assert rep["validation_state"] == "BLOCKED"
+
+def test_build_report_unknown_batch_input():
+    b = _valid_batch_input()
+    b["batch_items"] = [] 
+    if "aggregate_estimated_cost" in b:
+        b["aggregate_estimated_cost"] = 0.0
+    rep = build_batch_dry_run_report(b, [], _valid_ceiling(), _valid_manifest())
+    assert rep["validation_state"] == "UNKNOWN"
+
+def test_build_report_blocked_item_plan():
+    items = _valid_item_plans()
+    items[0]["estimated_cost"] = -1.0
+    rep = build_batch_dry_run_report(_valid_batch_input(), items, _valid_ceiling(), _valid_manifest())
+    assert rep["validation_state"] == "BLOCKED"
+
+def test_build_report_review_item_plan():
+    items = _valid_item_plans()
+    items[0]["estimated_cost"] = 0.0
+    items[0]["cache_hit_state"] = "PASS"
+    items[0]["prompt_version"] = "stale"
+    
+    b = _valid_batch_input()
+    b["batch_items"] = items
+    if "aggregate_estimated_cost" in b:
+        b["aggregate_estimated_cost"] = sum(i.get("estimated_cost", 0.0) for i in items)
+        
+    rep = build_batch_dry_run_report(b, items, _valid_ceiling(), _valid_manifest())
+    assert rep["validation_state"] == "REVIEW_REQUIRED"
+
+def test_build_report_blocked_ceiling():
+    c = _valid_ceiling()
+    c["declared_spend_ceiling"] = -1.0
+    rep = build_batch_dry_run_report(_valid_batch_input(), _valid_item_plans(), c, _valid_manifest())
+    assert rep["validation_state"] == "BLOCKED"
+
+def test_build_report_audit_manifest_state_not_from_ceiling():
+    c = _valid_ceiling()
+    c["validation_state"] = "REVIEW_REQUIRED"
+    rep = build_batch_dry_run_report(_valid_batch_input(), _valid_item_plans(), c, _valid_manifest())
+    assert rep["audit_manifest_state"] == "PASS"
+
+def test_build_report_forged_pass_corrected():
+    c = _valid_ceiling()
+    c["declared_spend_ceiling"] = -1.0
+    c["validation_state"] = "PASS" 
+    rep = build_batch_dry_run_report(_valid_batch_input(), _valid_item_plans(), c, _valid_manifest())
+    assert rep["validation_state"] == "BLOCKED"
+
