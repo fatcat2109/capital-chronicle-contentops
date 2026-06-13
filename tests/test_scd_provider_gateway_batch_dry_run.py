@@ -76,7 +76,9 @@ def test_report_unknown_with_unknown_substate():
     assert res["validation_state"] == "UNKNOWN"
 
 def test_report_review_with_review_substate():
-    res = validate_provider_gateway_batch_dry_run_report(_load("report_review_with_review_substate.json"))
+    packet = _load("report_review_with_review_substate.json")
+    packet["batch_item_plan_state"] = "REVIEW_REQUIRED"
+    res = validate_provider_gateway_batch_dry_run_report(packet)
     assert res["validation_state"] == "REVIEW_REQUIRED"
 
 def test_report_pass_while_unknown():
@@ -141,14 +143,14 @@ def test_build_item_plan_ignores_unsafe_flags():
     assert plan["network_allowed"] is False
     assert plan["validation_state"] == "PASS"
 
-def test_build_item_plan_platform_variants_requested():
+def test_build_item_plan_platform_variants_requested_blocks_or_not_pass():
     plan = build_batch_item_plan({
         "item_id": "i1", 
         "estimated_cost": 0.5,
         "platform_variants_requested": True
     })
-    assert plan["platform_variants_requested"] is False
-    assert plan["validation_state"] != "BLOCKED"
+    assert plan["validation_state"] != "PASS"
+    assert any("platform variants" in r.lower() for r in plan["reasons"])
 
 # --- REPORT BUILDER TESTS ---
 
@@ -207,13 +209,48 @@ def test_build_report_unknown_batch_input():
     rep = build_batch_dry_run_report(b, [], _valid_ceiling(), _valid_manifest())
     assert rep["validation_state"] == "UNKNOWN"
 
-def test_build_report_blocked_item_plan():
+def test_build_report_blocked_item_plan_validates_as_blocked():
     items = _valid_item_plans()
     items[0]["estimated_cost"] = -1.0
-    rep = build_batch_dry_run_report(_valid_batch_input(), items, _valid_ceiling(), _valid_manifest())
+    
+    b = _valid_batch_input()
+    b["batch_items"] = items
+    if "aggregate_estimated_cost" in b:
+        b["aggregate_estimated_cost"] = sum(i.get("estimated_cost", 0.0) for i in items)
+        
+    rep = build_batch_dry_run_report(b, items, _valid_ceiling(), _valid_manifest())
     assert rep["validation_state"] == "BLOCKED"
+    res = validate_provider_gateway_batch_dry_run_report(rep)
+    assert res["validation_state"] == "BLOCKED"
 
-def test_build_report_review_item_plan():
+def test_build_report_unknown_item_plan_validates_as_unknown():
+    b = _valid_batch_input()
+    b["batch_items"] = []
+    if "aggregate_estimated_cost" in b:
+        b["aggregate_estimated_cost"] = 0.0
+        
+    c = _valid_ceiling()
+    c["item_estimated_costs"] = []
+    c["aggregate_estimated_cost"] = 0.0
+        
+    rep = build_batch_dry_run_report(b, [], c, _valid_manifest())
+    assert rep["validation_state"] == "UNKNOWN"
+    res = validate_provider_gateway_batch_dry_run_report(rep)
+    assert res["validation_state"] == "UNKNOWN"
+
+def test_build_report_includes_item_reasons():
+    items = _valid_item_plans()
+    items[0]["estimated_cost"] = -1.0
+    
+    b = _valid_batch_input()
+    b["batch_items"] = items
+    if "aggregate_estimated_cost" in b:
+        b["aggregate_estimated_cost"] = sum(i.get("estimated_cost", 0.0) for i in items)
+        
+    rep = build_batch_dry_run_report(b, items, _valid_ceiling(), _valid_manifest())
+    assert any("negative" in r for r in rep["reasons"])
+
+def test_build_report_review_item_plan_validates_as_review():
     items = _valid_item_plans()
     items[0]["estimated_cost"] = 0.0
     items[0]["cache_hit_state"] = "PASS"
@@ -226,6 +263,8 @@ def test_build_report_review_item_plan():
         
     rep = build_batch_dry_run_report(b, items, _valid_ceiling(), _valid_manifest())
     assert rep["validation_state"] == "REVIEW_REQUIRED"
+    res = validate_provider_gateway_batch_dry_run_report(rep)
+    assert res["validation_state"] == "REVIEW_REQUIRED"
 
 def test_build_report_blocked_ceiling():
     c = _valid_ceiling()

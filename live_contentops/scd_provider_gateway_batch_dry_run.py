@@ -137,7 +137,8 @@ def validate_provider_gateway_batch_dry_run_report(packet):
     states = [
         packet.get("batch_input_state", UNKNOWN),
         packet.get("aggregate_spend_ceiling_state", UNKNOWN),
-        packet.get("audit_manifest_state", UNKNOWN)
+        packet.get("audit_manifest_state", UNKNOWN),
+        packet.get("batch_item_plan_state", UNKNOWN)
     ]
     rolled = _rollup(states)
     
@@ -187,7 +188,7 @@ def build_batch_item_plan(item_input):
         "credentials_required": False,
         "env_read_performed": False,
         "api_key_present": False,
-        "platform_variants_requested": False,
+        "platform_variants_requested": item_input.get("platform_variants_requested", False),
         "validation_state": "UNKNOWN"
     }
     
@@ -223,9 +224,11 @@ def build_batch_dry_run_report(batch_input, item_plans, ceiling_packet, audit_ma
     blocked, review, unknown = [], [], []
     
     item_states = []
+    item_reasons = []
     for item in item_plans:
         res = validate_provider_gateway_batch_item_plan(item)
         item_states.append(res["validation_state"])
+        item_reasons.extend(res["reasons"])
     rolled_items = _rollup(item_states) if item_states else UNKNOWN
     
     manifest_state = UNKNOWN
@@ -239,7 +242,7 @@ def build_batch_dry_run_report(batch_input, item_plans, ceiling_packet, audit_ma
     states = [res_input["validation_state"], rolled_items, res_ceiling["validation_state"], manifest_state]
     rolled = _rollup(states)
     
-    reasons = res_input["reasons"] + res_ceiling["reasons"]
+    reasons = res_input["reasons"] + res_ceiling["reasons"] + item_reasons
     if res_manifest:
         reasons += res_manifest["reasons"]
     reasons += blocked + review + unknown
@@ -253,6 +256,7 @@ def build_batch_dry_run_report(batch_input, item_plans, ceiling_packet, audit_ma
         "batch_input_state": res_input["validation_state"],
         "aggregate_spend_ceiling_state": res_ceiling["validation_state"],
         "audit_manifest_state": manifest_state,
+        "batch_item_plan_state": rolled_items,
         "provider_ready": False,
         "live_ready": False,
         "public_ready": False,
