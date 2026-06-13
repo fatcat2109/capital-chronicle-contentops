@@ -1,0 +1,87 @@
+{
+  "url": "file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/institutional_operator_cockpit_v4/index.html",
+  "network": [],
+  "console": [],
+  "screenshots": [
+    {
+      "filename": "1_command_center_1366x768.png",
+      "screen": "command_center",
+      "viewport": "1366x768",
+      "sha256": "9906EA605D6015E730ACB49ECB5AD15371A03E4F7745F8AA287DB66051A94D80",
+      "size_bytes": 224855,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "2_command_center_1440x900.png",
+      "screen": "command_center",
+      "viewport": "1440x900",
+      "sha256": "35D3E66F71FDE9EEF01E1781C40C1351B2F6FB6C9D03678FB6564D9877BB6C6F",
+      "size_bytes": 226647,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "3_command_center_1536x864.png",
+      "screen": "command_center",
+      "viewport": "1536x864",
+      "sha256": "EB9F192F6F5E3500FDE69B6283A9D8109CB97D9E4CF7EF125ED0E2E10CBAE0B6",
+      "size_bytes": 223181,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "4_command_center_1920x1080.png",
+      "screen": "command_center",
+      "viewport": "1920x1080",
+      "sha256": "69839FA0A18C41A97AA6D4AB6414758360EABAA6E429820421B271B8DAC9D0FD",
+      "size_bytes": 229713,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "5_content_studio_1440x900.png",
+      "screen": "content_studio",
+      "viewport": "1440x900",
+      "sha256": "B176CCE6F4312EAFB8934E404BD1DABADDDBDE0F0094FA1D14DD9FF5BC78A48E",
+      "size_bytes": 246452,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "6_publish_readiness_1440x900.png",
+      "screen": "publish_readiness",
+      "viewport": "1440x900",
+      "sha256": "2314DF9C5FA2B851ABFC911EAF317F1413F91032588AECEAC652DF42F3CCAA3C",
+      "size_bytes": 187453,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "7_evidence_vault_1440x900.png",
+      "screen": "evidence_vault",
+      "viewport": "1440x900",
+      "sha256": "4D09071AA7B3BF28C21FCB154E3E2904FF77CB1A22890D0A4C22885160101F5B",
+      "size_bytes": 151603,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "8_calendar_workflow_1440x900.png",
+      "screen": "content_calendar",
+      "viewport": "1440x900",
+      "sha256": "939D7F7A19091AA8CCBCC5FBF9D075942AB1DEEF7E19EE9E00C646979790647F",
+      "size_bytes": 187533,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "9_visual_export_1440x900.png",
+      "screen": "visual_export",
+      "viewport": "1440x900",
+      "sha256": "26AEE6AF193A5B971652968D4C141A2DDF735A4898B63577DC85F582EFDE92F1",
+      "size_bytes": 185742,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "10_settings_safety_1440x900.png",
+      "screen": "settings_safety_policy",
+      "viewport": "1440x900",
+      "sha256": "D0A66456D102CE5EB1576D8EC6E42825B832E103912F451944B32E013C143AD1",
+      "size_bytes": 156992,
+      "capture_status": "CAPTURED"
+    }
+  ]
+}

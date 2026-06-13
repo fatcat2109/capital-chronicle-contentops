@@ -1,0 +1,197 @@
+{
+  "url": "file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/institutional_operator_cockpit_v4/index.html",
+  "target_head": "cf95005e92090f10699508c9045dad5b9be92914",
+  "network": [],
+  "console": [],
+  "screenshots": [
+    {
+      "filename": "01_command_center_1366x768.png",
+      "note": "Command Center primary layout under 1366x768",
+      "sha256": "CC6C5DD1A0E22EF849C6C613E70D460CB965E94D0E2E7927C088725CF1D77611",
+      "size_bytes": 408206,
+      "capture_status": "CAPTURED",
+      "viewport": "1366x768",
+      "selector_state": "command_center"
+    },
+    {
+      "filename": "02_command_center_1440x900.png",
+      "note": "Command Center primary layout under 1440x900",
+      "sha256": "0DFB6A8ED8D74F5C7D7818DEFAF3DB77BBAFFC56617DA6033D30100ED2BE1EC5",
+      "size_bytes": 398156,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "command_center"
+    },
+    {
+      "filename": "03_command_center_1536x864.png",
+      "note": "Command Center primary layout under 1536x864",
+      "sha256": "DEEA967D15E8299177C7D184CE38D8479E2E68225BD0B71FA91D685A2D81DDAF",
+      "size_bytes": 397551,
+      "capture_status": "CAPTURED",
+      "viewport": "1536x864",
+      "selector_state": "command_center"
+    },
+    {
+      "filename": "04_command_center_1920x1080.png",
+      "note": "Command Center primary layout under 1920x1080",
+      "sha256": "72366D9F344B4FC0A2F86996C49E76890E77E026C1583772071E97BD843DFF5F",
+      "size_bytes": 409527,
+      "capture_status": "CAPTURED",
+      "viewport": "1920x1080",
+      "selector_state": "command_center"
+    },
+    {
+      "filename": "05_command_center_selected_blocker_1440x900.png",
+      "note": "Command Center with top blocker selected",
+      "sha256": "D9F64CEC52BDD67CA53C0CAE7BCF63CDBCED4A997D34400A083D94C6CB872D41",
+      "size_bytes": 393677,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": ".blocker-rail .rail-item clicked"
+    },
+    {
+      "filename": "06_command_center_selected_command_tile_1440x900.png",
+      "note": "Command Center with view evidence vault command tile selected",
+      "sha256": "23FCD4FD2D596ADB119F23C283010F0F32609EBACAD6C87174D62485CA7EABF8",
+      "size_bytes": 396410,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": ".command-tile-row .command-tile clicked"
+    },
+    {
+      "filename": "07_command_center_keyboard_focus_1440x900.png",
+      "note": "Command Center with focus on top blocker item",
+      "sha256": "0DFB6A8ED8D74F5C7D7818DEFAF3DB77BBAFFC56617DA6033D30100ED2BE1EC5",
+      "size_bytes": 398156,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": ".blocker-rail .rail-item focused"
+    },
+    {
+      "filename": "08_command_center_compact_density_1440x900.png",
+      "note": "Command Center under compact density",
+      "sha256": "79DE48FD834757F9D4003D6412AD4031DA0A12156272DD0375A797C50712ED17",
+      "size_bytes": 395888,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "compact density active"
+    },
+    {
+      "filename": "09_content_studio_review_queue_1440x900.png",
+      "note": "Content Studio default review queue layout",
+      "sha256": "20658F811DCA67794065ABC602A4F8491E645839B936A6CFE5220BC329D3A002",
+      "size_bytes": 322611,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "content_studio"
+    },
+    {
+      "filename": "10_content_studio_selected_lane_1440x900.png",
+      "note": "Content Studio with Future Artifact-Backed Content lane selected",
+      "sha256": "5823F0ABFDDB42457028DC641F26A4A4DE4A0023E27C8A565DE9546A9FCD6586",
+      "size_bytes": 327341,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": ".lane.blocked clicked"
+    },
+    {
+      "filename": "11_publish_readiness_gate_map_1440x900.png",
+      "note": "Publish Readiness default gate map layout",
+      "sha256": "43A19D543ED771250FF43B294BAECE73DBA2AAA3A1F53FDF819028D670DE34F7",
+      "size_bytes": 264112,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "publish_readiness"
+    },
+    {
+      "filename": "12_publish_readiness_selected_gate_1440x900.png",
+      "note": "Publish Readiness with Live Adapter gate selected",
+      "sha256": "9066C04771E485E7E9CFCA3B8BBF53CF93ED53F58162EDF801314DE9C85F27BD",
+      "size_bytes": 263565,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": ".publish-lock-chip:nth-child(1) clicked"
+    },
+    {
+      "filename": "13_evidence_vault_graph_lite_1440x900.png",
+      "note": "Evidence Vault default provenance/audit layout",
+      "sha256": "029A82C744B100E177F3CEAB431BA6350E50E095BA560029EEFF1B7C241957F7",
+      "size_bytes": 224045,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "evidence_vault"
+    },
+    {
+      "filename": "14_evidence_vault_selected_caveat_1440x900.png",
+      "note": "Evidence Vault with 0174C QA caveat selected",
+      "sha256": "023F56BD20E92DBC2AC05769170266D2A9E9BF575291E9F31B40F9512E3BBF3E",
+      "size_bytes": 227033,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": ".confidence-cell:nth-child(4) clicked"
+    },
+    {
+      "filename": "15_calendar_workflow_board_1440x900.png",
+      "note": "Content Calendar default manual workflow board",
+      "sha256": "813C3EBAA9802FBE41D25E62DDA202F609780BA52B8887A208EEA19CF3ED2667",
+      "size_bytes": 283477,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "content_calendar"
+    },
+    {
+      "filename": "16_calendar_selected_workflow_item_1440x900.png",
+      "note": "Content Calendar with blocked workflow item selected",
+      "sha256": "83000D5D5DEABC5EAAC8E477F3FD7E67A78B971E7213A27A9A0F4C3926D1E27C",
+      "size_bytes": 285556,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": ".workflow-card.sev-blocked clicked"
+    },
+    {
+      "filename": "17_visual_export_briefing_package_1440x900.png",
+      "note": "Visual Export briefing package layout",
+      "sha256": "244960D3B9CC600BB050B2C7E680E49102D588894A31AF8A8235AD7BD288F581",
+      "size_bytes": 252204,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "visual_export"
+    },
+    {
+      "filename": "18_visual_export_selected_redaction_1440x900.png",
+      "note": "Visual Export with screenshot-safe redaction proof selected",
+      "sha256": "47EBBD46324975E3890804FD9951FD1892B23FDE411D7088031E974330411994",
+      "size_bytes": 257321,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": ".screenshot-prep-grid .lane clicked"
+    },
+    {
+      "filename": "19_settings_policy_map_1440x900.png",
+      "note": "Settings safety policy map layout",
+      "sha256": "BCCC505375CA7CC07010F5AE2343BA1A378B53DA64A816EC002D90BF4671E90A",
+      "size_bytes": 232717,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "settings_safety_policy"
+    },
+    {
+      "filename": "20_settings_selected_policy_1440x900.png",
+      "note": "Settings safety policy with credential registry item selected",
+      "sha256": "F8DF9EE240E95E15FA11C9147F7CFC4837CAE4278D636D3A6C533F0CBFC307A5",
+      "size_bytes": 227650,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "credential registry item clicked"
+    },
+    {
+      "filename": "21_reduced_motion_or_focus_proof_1440x900.png",
+      "note": "Settings safety policy focusing density options for focus proof",
+      "sha256": "BCCC505375CA7CC07010F5AE2343BA1A378B53DA64A816EC002D90BF4671E90A",
+      "size_bytes": 232717,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": ".density-option focused"
+    }
+  ]
+}

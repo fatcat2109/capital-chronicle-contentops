@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0",
+  "lifecycle_state": "PASS",
+  "validation_state": "PASS",
+  "provider_ready": true
+}

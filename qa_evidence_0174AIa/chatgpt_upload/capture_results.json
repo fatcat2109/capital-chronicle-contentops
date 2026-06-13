@@ -1,0 +1,64 @@
+{
+  "url": "file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/institutional_operator_cockpit_v4/index.html",
+  "task": "0174AIa",
+  "network": [],
+  "console": [],
+  "screenshots": [
+    {
+      "filename": "command_center_1440x900_default.png",
+      "note": "default selected blocker + truth rail",
+      "sha256": "3DA359E77078E29B448062BF3D66E0A35175BE7EB184D5EFC7C718CBE8ABC1BD",
+      "size_bytes": 343491,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "command_center_selected_blocker_1440x900.png",
+      "note": "blocker selected",
+      "sha256": "BF122D61CBAA63FDBC6FC5E9B8DA14AB5D32D3FB42A899B3F2E57688C3D9BA7C",
+      "size_bytes": 334313,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "command_center_selected_command_tile_1440x900.png",
+      "note": "command tile selected, matte Inspect affordance",
+      "sha256": "BAB195FA860D7D2777E914DE6B30A1709F620500763A20C99D839BC9A0F2A19B",
+      "size_bytes": 342105,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "command_center_keyboard_focus_1440x900.png",
+      "note": "keyboard focus-visible ring",
+      "sha256": "7EBDF8BE16E376CBF1EA96D4EBF6B653E514F6949C3B9882834A15C13A17B08B",
+      "size_bytes": 343537,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "content_studio_selected_lane_1440x900.png",
+      "note": "lane selected",
+      "sha256": "33153E7EC1CAA2C9A07504790C68738E471DC51DF64E687797D900259548F381",
+      "size_bytes": 332760,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "publish_readiness_selected_gate_1440x900.png",
+      "note": "gate selected",
+      "sha256": "3C28BBCF28A38EA20565476401F50FFB1EB162B75DB615A8909DD6E32D20F701",
+      "size_bytes": 265544,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "evidence_vault_selected_caveat_1440x900.png",
+      "note": "QA caveat selected",
+      "sha256": "0AC6E5A00083762F266E3AB6C4D35335107C7CEE9B55A48629851DFC5576A8A2",
+      "size_bytes": 227412,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "settings_selected_policy_or_credential_1440x900.png",
+      "note": "policy/credential selected",
+      "sha256": "99E68C65E405367ECAF726E53FB026422C8D88FE138DF75CFF51049C3B9140CE",
+      "size_bytes": 229553,
+      "capture_status": "CAPTURED"
+    }
+  ]
+}

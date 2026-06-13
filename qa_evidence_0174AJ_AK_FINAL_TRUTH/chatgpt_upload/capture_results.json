@@ -1,0 +1,64 @@
+{
+  "url": "file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/institutional_operator_cockpit_v4/index.html",
+  "task": "0174AJ_AK_FINAL_TRUTH",
+  "network": [],
+  "console": [],
+  "screenshots": [
+    {
+      "filename": "command_center_1440x900_current_truth.png",
+      "note": "command center @ 1440x900 final truth",
+      "sha256": "0DFB6A8ED8D74F5C7D7818DEFAF3DB77BBAFFC56617DA6033D30100ED2BE1EC5",
+      "size_bytes": 398156,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "command_center_1920x1080_current_truth.png",
+      "note": "command center @ 1920x1080 final truth",
+      "sha256": "72366D9F344B4FC0A2F86996C49E76890E77E026C1583772071E97BD843DFF5F",
+      "size_bytes": 409527,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "command_center_selected_blocker_1440x900.png",
+      "note": "blocker selected final truth",
+      "sha256": "9F78B72667FAB0A81D5E23DBB192B8F9BCCB541E5724085915F5991DFF90B790",
+      "size_bytes": 392145,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "command_center_selected_command_tile_1440x900.png",
+      "note": "command tile selected final truth",
+      "sha256": "23FCD4FD2D596ADB119F23C283010F0F32609EBACAD6C87174D62485CA7EABF8",
+      "size_bytes": 396410,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "content_studio_review_queue_1440x900.png",
+      "note": "content studio final truth",
+      "sha256": "20658F811DCA67794065ABC602A4F8491E645839B936A6CFE5220BC329D3A002",
+      "size_bytes": 322611,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "publish_readiness_gate_map_1440x900.png",
+      "note": "publish readiness final truth",
+      "sha256": "43A19D543ED771250FF43B294BAECE73DBA2AAA3A1F53FDF819028D670DE34F7",
+      "size_bytes": 264112,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "evidence_vault_graph_lite_1440x900.png",
+      "note": "evidence vault final truth",
+      "sha256": "029A82C744B100E177F3CEAB431BA6350E50E095BA560029EEFF1B7C241957F7",
+      "size_bytes": 224045,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "settings_policy_map_1440x900.png",
+      "note": "settings safety policy final truth",
+      "sha256": "BCCC505375CA7CC07010F5AE2343BA1A378B53DA64A816EC002D90BF4671E90A",
+      "size_bytes": 232717,
+      "capture_status": "CAPTURED"
+    }
+  ]
+}

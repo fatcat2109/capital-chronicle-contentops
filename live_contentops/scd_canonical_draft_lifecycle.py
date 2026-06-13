@@ -40,17 +40,22 @@ def _scan_all_strings(obj, patterns):
     walk(obj)
     return found
 
+def _common_safety_blocks(packet):
+    blocked = []
+    blocked += _scan_secrets(packet)
+    blocked += [f"network/api: {h}" for h in _scan_all_strings(packet, NETWORK_API_PATTERNS)]
+    blocked += [f"telegram/api: {h}" for h in _scan_all_strings(packet, TELEGRAM_API_PATTERNS)]
+    blocked += [f"forbidden loop language: {h}" for h in _scan_all_strings(packet, LOOP_LANGUAGE_PATTERNS)]
+    blocked += [f"financial/signal language: {h}" for h in _scan_all_strings(packet, FORBIDDEN_LANGUAGE)]
+    return blocked
+
 def validate_canonical_draft_lifecycle_input(packet):
     ok, msg = _schema_ok(packet, "scd_canonical_draft_lifecycle_input.schema.json")
     if not ok: return {"validation_state": BLOCKED, "reasons": [f"schema: {msg}"]}
 
     blocked, review, unknown = [], [], []
 
-    blocked += _scan_secrets(packet)
-    blocked += [f"network/api: {h}" for h in _scan_all_strings(packet, NETWORK_API_PATTERNS)]
-    blocked += [f"telegram/api: {h}" for h in _scan_all_strings(packet, TELEGRAM_API_PATTERNS)]
-    blocked += [f"forbidden loop language: {h}" for h in _scan_all_strings(packet, LOOP_LANGUAGE_PATTERNS)]
-    blocked += [f"financial/signal language: {h}" for h in _scan_all_strings(packet, FORBIDDEN_LANGUAGE)]
+    blocked += _common_safety_blocks(packet)
 
     if packet.get("quota_policy_summary") != PASS:
         blocked.append("quota_policy_summary must be PASS")
@@ -105,10 +110,7 @@ def validate_canonical_draft_attempt_ledger_entry(packet):
     ok, msg = _schema_ok(packet, "scd_canonical_draft_attempt_ledger_entry.schema.json")
     if not ok: return {"validation_state": BLOCKED, "reasons": [f"schema: {msg}"]}
     blocked, review, unknown = [], [], []
-    blocked += _scan_secrets(packet)
-    blocked += [f"network/api: {h}" for h in _scan_all_strings(packet, NETWORK_API_PATTERNS)]
-    blocked += [f"telegram/api: {h}" for h in _scan_all_strings(packet, TELEGRAM_API_PATTERNS)]
-    blocked += [f"forbidden loop language: {h}" for h in _scan_all_strings(packet, LOOP_LANGUAGE_PATTERNS)]
+    blocked += _common_safety_blocks(packet)
 
     op = packet.get("operation")
     idx = packet.get("attempt_index")
@@ -122,17 +124,47 @@ def validate_canonical_draft_attempt_ledger_entry(packet):
 def validate_canonical_draft_validation_result(packet):
     ok, msg = _schema_ok(packet, "scd_canonical_draft_validation_result.schema.json")
     if not ok: return {"validation_state": BLOCKED, "reasons": [f"schema: {msg}"]}
-    return _result([], [], [])
+    blocked, review, unknown = [], [], []
+    blocked += _common_safety_blocks(packet)
+
+    if packet.get("validation_state") == PASS or packet.get("local_validator_result") == PASS:
+        if "major_safety_failure" in packet.get("reasons", []):
+            blocked.append("PASS claimed while major safety failures exist")
+
+    return _result(blocked, review, unknown)
 
 def validate_targeted_repair_patch_plan(packet):
     ok, msg = _schema_ok(packet, "scd_targeted_repair_patch_plan.schema.json")
     if not ok: return {"validation_state": BLOCKED, "reasons": [f"schema: {msg}"]}
-    return _result([], [], [])
+    blocked, review, unknown = [], [], []
+    blocked += _common_safety_blocks(packet)
+
+    if "patch_only_failing_section" in packet and not packet.get("patch_only_failing_section"):
+        blocked.append("patch_only_failing_section must be true if present")
+    if packet.get("allow_full_rewrite"):
+        blocked.append("allow_full_rewrite must be false")
+    if packet.get("allow_new_claims"):
+        blocked.append("allow_new_claims must be false")
+
+    for f in ["preserve_citations", "preserve_limitations", "preserve_source_refs", "preserve_claim_meaning", "preserve_non_signal_framing"]:
+        if f in packet and not packet.get(f):
+            blocked.append(f"{f} must be true if present")
+
+    return _result(blocked, review, unknown)
 
 def validate_canonical_draft_lifecycle_report(packet):
     ok, msg = _schema_ok(packet, "scd_canonical_draft_lifecycle_report.schema.json")
     if not ok: return {"validation_state": BLOCKED, "reasons": [f"schema: {msg}"]}
     blocked, review, unknown = [], [], []
+    blocked += _common_safety_blocks(packet)
+
+    for f in ("provider_ready", "live_ready", "public_ready"):
+        if packet.get(f):
+            blocked.append(f"{f} must be false or absent")
+
+    if packet.get("lifecycle_state") == PASS or packet.get("validation_state") == PASS:
+        if "major_safety_failure" in packet.get("reasons", []):
+            blocked.append("PASS contradicts sub-results")
 
     cg = packet.get("attempt_count_canonical", 0)
     tr = packet.get("attempt_count_repair", 0)

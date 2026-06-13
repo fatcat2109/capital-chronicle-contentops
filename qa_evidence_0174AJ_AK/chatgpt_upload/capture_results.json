@@ -1,0 +1,148 @@
+{
+  "url": "file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/institutional_operator_cockpit_v4/index.html",
+  "task": "0174AJ_AK",
+  "network": [],
+  "console": [],
+  "screenshots": [
+    {
+      "filename": "1_command_center_1366x768.png",
+      "note": "command center @ 1366",
+      "sha256": "61212EE9232E2163D883A63034E492F0FF38F17306C30C18D6E95DAB4FE36C84",
+      "size_bytes": 414727,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "2_command_center_1440x900.png",
+      "note": "command center @ 1440",
+      "sha256": "F215042A4F0C97ECBAE1233CE9CCBC702C6A99A2ED4EA7C6636FDB669F8F0497",
+      "size_bytes": 401715,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "3_command_center_1536x864.png",
+      "note": "command center @ 1536",
+      "sha256": "ED97F3C3A1AF4AC53F1C49BAD9DC92D416D5DBD679522A1CE861B7B7EAF48BA4",
+      "size_bytes": 401929,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "4_command_center_1920x1080.png",
+      "note": "command center @ 1920 workstation",
+      "sha256": "34E4716883EC899314DDC6740E89A4A71D0C12FB37FA0134917BE910A2973786",
+      "size_bytes": 418141,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "5_command_center_selected_blocker_1440x900.png",
+      "note": "blocker selected",
+      "sha256": "A6ECFC653E080254869DA753E7D907E29BBB474E0F95B103FC0F6ADA921E07CB",
+      "size_bytes": 393280,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "6_command_center_selected_command_tile_1440x900.png",
+      "note": "command tile selected, matte Inspect",
+      "sha256": "A362AB1D1AB3D1AA52CFA683D34E078267709EAEF40BAA983868B5A05FAB99F8",
+      "size_bytes": 401065,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "7_command_center_keyboard_focus_1440x900.png",
+      "note": "keyboard focus-visible",
+      "sha256": "B8CDFCE805B5B064AEAC09E59A46E8ABB1E5B24190EDDF2E1052EB769DAEBFF7",
+      "size_bytes": 401767,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "8_content_studio_review_queue_1440x900.png",
+      "note": "review queue / lane health",
+      "sha256": "03B45FA34F9B409328AD2C40567DD30D38853ACECE7259C69ADAE1C638986DD6",
+      "size_bytes": 323486,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "9_content_studio_selected_lane_1440x900.png",
+      "note": "lane selected",
+      "sha256": "33153E7EC1CAA2C9A07504790C68738E471DC51DF64E687797D900259548F381",
+      "size_bytes": 332760,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "10_publish_readiness_gate_map_1440x900.png",
+      "note": "gate object map",
+      "sha256": "99C01475662585C7D7219E7718186701A42B70F3E7CFD537046DAD4432925A2E",
+      "size_bytes": 266172,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "11_publish_readiness_selected_gate_1440x900.png",
+      "note": "gate selected",
+      "sha256": "3C28BBCF28A38EA20565476401F50FFB1EB162B75DB615A8909DD6E32D20F701",
+      "size_bytes": 265544,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "12_evidence_vault_graph_lite_1440x900.png",
+      "note": "provenance graph-lite",
+      "sha256": "A2ECEA161FE8429C49C04CE84B0D7B7E3EDF3011A6D01870AC9BFF438237078F",
+      "size_bytes": 224421,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "13_evidence_vault_selected_caveat_1440x900.png",
+      "note": "caveat selected",
+      "sha256": "0AC6E5A00083762F266E3AB6C4D35335107C7CEE9B55A48629851DFC5576A8A2",
+      "size_bytes": 227412,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "14_calendar_selected_workflow_item_1440x900.png",
+      "note": "workflow item selected",
+      "sha256": "1D9F0F3BA2D73388F5DE507ECB39DC1847161DE7D8EF636EE38E6CE4B287CD78",
+      "size_bytes": 285392,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "15_visual_export_briefing_package_1440x900.png",
+      "note": "briefing package preview",
+      "sha256": "C893390DE0B594CECD305DFF365868AAAF9A9CDE393A2251335B18C792EDB9EE",
+      "size_bytes": 254033,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "16_visual_export_selected_redaction_1440x900.png",
+      "note": "redaction object selected",
+      "sha256": "C893390DE0B594CECD305DFF365868AAAF9A9CDE393A2251335B18C792EDB9EE",
+      "size_bytes": 254033,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "17_settings_policy_map_1440x900.png",
+      "note": "policy control map",
+      "sha256": "768BD8FB0A9828E5F1A7009285769A8AADE7F747D84CACE45870E09595C722A5",
+      "size_bytes": 234630,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "18_settings_selected_policy_1440x900.png",
+      "note": "policy/credential selected",
+      "sha256": "99E68C65E405367ECAF726E53FB026422C8D88FE138DF75CFF51049C3B9140CE",
+      "size_bytes": 229553,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "19_compact_density_command_center_1440x900.png",
+      "note": "compact density",
+      "sha256": "4BD9E6542E3C4AC6DBF8CF0CFD8EE5A4483B1C15BEFAAC9887623D97F9178C3E",
+      "size_bytes": 398598,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "20_reduced_motion_or_focus_proof_1440x900.png",
+      "note": "focus proof (reduced-motion in CSS+tests)",
+      "sha256": "30D1A97D497E4283C6464D3574B8DF4242F56D8B4CF11A22FD42F16EAA456417",
+      "size_bytes": 401753,
+      "capture_status": "CAPTURED"
+    }
+  ]
+}

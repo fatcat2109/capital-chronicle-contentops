@@ -1,0 +1,291 @@
+{
+  "network": [
+    "file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/institutional_operator_cockpit_v3/index.html",
+    "file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/institutional_operator_cockpit_v3/styles.css",
+    "file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/institutional_operator_cockpit_v3/view_model.js",
+    "file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/institutional_operator_cockpit_v3/cockpit.js"
+  ],
+  "console": [],
+  "screenshots": [
+    {
+      "filename": "1366x768_command_center.png",
+      "screen": "command_center",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "56FCC7525FB3D9E6BB9B75E74A8D3F0F85B6DCA820C8EBA03995C034A3AE1DCE",
+      "size_bytes": 92967,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1366x768_content_studio.png",
+      "screen": "content_studio",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "F0F801838ABB605C804E7A20414B291A04E4ABD4841110ED5A9BF5645A15E9A0",
+      "size_bytes": 86471,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1366x768_publish_readiness.png",
+      "screen": "publish_readiness",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "0FFCB56C210A7B0711CEBF672B0ECE981C55BF5245A0747E48EEDEF3E4BD2D58",
+      "size_bytes": 84774,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1366x768_evidence_vault.png",
+      "screen": "evidence_vault",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "39C6F6237CA0AE325D84B2F082F7F323D5D571D1C98E88EC095ADECF4463A4DE",
+      "size_bytes": 80154,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1366x768_content_calendar.png",
+      "screen": "content_calendar",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "B40AF57D4DA8E4C4B0F3DF370E8884B6A9BC271C1C5705E8C25639BBD7441140",
+      "size_bytes": 90122,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1366x768_visual_export.png",
+      "screen": "visual_export",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "D8B78916FB77B5D6198E663D23AFB4DA5976376AECF367C9F8C4392C98C07AF0",
+      "size_bytes": 84725,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1366x768_settings.png",
+      "screen": "settings",
+      "viewport": "1366x768",
+      "width": 1366,
+      "height": 768,
+      "sha256": "6575FE372E32F0910D17567148F6FF3B7190FEF3F346DF1F5A10A1335E5A57B2",
+      "size_bytes": 84976,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_command_center.png",
+      "screen": "command_center",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "7D02D3DD122417478F641BA0E2C1E3A1185D4218893B3598EEB6F65D2B69FAD0",
+      "size_bytes": 105533,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_content_studio.png",
+      "screen": "content_studio",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "6FA5D1A6ADB7FF482F73480BA23FD62B2ACF6258431432D1960070FA049448C7",
+      "size_bytes": 100819,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_publish_readiness.png",
+      "screen": "publish_readiness",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "79FB2F84EA93A41747582725E91D4D59920FDD5782D9C86C8FC6F07914CC0BB2",
+      "size_bytes": 91138,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_evidence_vault.png",
+      "screen": "evidence_vault",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "38E587BAC28EB1FDED44EB7A2BE4B24BDB9DA53A0ABF42C75D53172458924F17",
+      "size_bytes": 95188,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_content_calendar.png",
+      "screen": "content_calendar",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "5FDDBC1789E7784BB8C4A14FDCEABB30738B6B9917A497BDE2B057037DEFEB19",
+      "size_bytes": 98130,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_visual_export.png",
+      "screen": "visual_export",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "C57DF6F8F81D6A866728DD0DC1B81904EF30B95736DE9639E53F920ED1A47B21",
+      "size_bytes": 90183,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1440x900_settings.png",
+      "screen": "settings",
+      "viewport": "1440x900",
+      "width": 1440,
+      "height": 900,
+      "sha256": "AA44D9C1B27D5C5F80844203F1781E7A8AFDA48FFEBDCD1E883E3C7F708AC3F3",
+      "size_bytes": 98255,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_command_center.png",
+      "screen": "command_center",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "50B630806E607781866B794ACD0B0C85EA23F4DBD234AD415734AC144B0F2026",
+      "size_bytes": 117602,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_content_studio.png",
+      "screen": "content_studio",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "D63FC12836E72684FAE14DD485B7D4B9804EEB61C2A095020079A92E122379C2",
+      "size_bytes": 100622,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_publish_readiness.png",
+      "screen": "publish_readiness",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "E7EA45F466A42C5610B1B605E5C14AEED347AF8C1C6C655E13BB9B1141B6A55C",
+      "size_bytes": 90656,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_evidence_vault.png",
+      "screen": "evidence_vault",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "9407B38CEABF231E39FC325DD0CBF411BA28FAA923928B2821DB57ADB0AA1608",
+      "size_bytes": 92467,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_content_calendar.png",
+      "screen": "content_calendar",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "69AC4D629CB74661DE73811253AB75D1C053BE447D7F96E7929F3659B71F3BA3",
+      "size_bytes": 93060,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_visual_export.png",
+      "screen": "visual_export",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "F04911302D8A14ACD30383D1884D0FDE505D716C97BBADA11AC151F6B3A25942",
+      "size_bytes": 89277,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1536x864_settings.png",
+      "screen": "settings",
+      "viewport": "1536x864",
+      "width": 1536,
+      "height": 864,
+      "sha256": "8ECA5C578DAF9315E3D7D7DC294D983197E772F29A13820B471C31BC944FBE21",
+      "size_bytes": 96167,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_command_center.png",
+      "screen": "command_center",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "423C7CD1CBBD1C92BBDBE1AF7C27E2F5F7C2E931E01F72CC1EEAC2686954B606",
+      "size_bytes": 132534,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_content_studio.png",
+      "screen": "content_studio",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "34BB8A601710C96F29B3BBEDCEB549255D19760E526CCA1704500E44A0C0C7A2",
+      "size_bytes": 124383,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_publish_readiness.png",
+      "screen": "publish_readiness",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "DD97A2C641E09B52D0B1057AC54ABA9F8284C024DEB2B97F5D6054E595A8C887",
+      "size_bytes": 107033,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_evidence_vault.png",
+      "screen": "evidence_vault",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "090668CFAA762DA4B93CCB48B1B95A4C27807CC2EB3CB210E27835CB79D9028C",
+      "size_bytes": 116994,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_content_calendar.png",
+      "screen": "content_calendar",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "F659313FDD50850F8C04851172CF63455E58CC15061819FE7FFC826B4B2919F5",
+      "size_bytes": 116342,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_visual_export.png",
+      "screen": "visual_export",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "48C6F7AFD14BBFFFC42BA7F51AB1C23B1B73DD71A3F957D2E3F004091829BA59",
+      "size_bytes": 108540,
+      "capture_status": "PASS"
+    },
+    {
+      "filename": "1920x1080_settings.png",
+      "screen": "settings",
+      "viewport": "1920x1080",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "2F0E15BC2BD58ADBF90DC3E3557E5079A6F19F1369C7714D0363AC0DFFBE3BCB",
+      "size_bytes": 115950,
+      "capture_status": "PASS"
+    }
+  ]
+}

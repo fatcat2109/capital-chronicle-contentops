@@ -1,0 +1,92 @@
+{
+  "url": "file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/institutional_operator_cockpit_v4/index.html",
+  "task": "0174AI",
+  "network": [],
+  "console": [],
+  "screenshots": [
+    {
+      "filename": "1_command_center_1366x768.png",
+      "note": "default selected blocker",
+      "sha256": "6A380CFDE4FF52795CAE6B78351CCE15E0FBE57A61C15930EA748BF629CF56FF",
+      "size_bytes": 335276,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "2_command_center_1440x900.png",
+      "note": "default selected blocker",
+      "sha256": "09B317079E6DC766C6B430EAE2FDE37FA991A9C9AC7B03717434DC16333C9A63",
+      "size_bytes": 326079,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "3_command_center_selected_blocker_1440x900.png",
+      "note": "blocker selected",
+      "sha256": "0EB4E94849EF749A6C74B012C4CCBFD87EB380DC929D03BAD229837F17E1F390",
+      "size_bytes": 324819,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "4_command_center_selected_tile_1440x900.png",
+      "note": "command tile selected",
+      "sha256": "AAA2CC757F11DA94652C8C08985393A9C363A155F05A9BF958B0BCB1716B1F9E",
+      "size_bytes": 324058,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "5_command_center_1920x1080.png",
+      "note": "wide viewport",
+      "sha256": "C127C66D25B3299CA637C68F0ADE45323D0381572B0560295055C53165372D7D",
+      "size_bytes": 324078,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "6_content_studio_selected_lane_1440x900.png",
+      "note": "lane selected",
+      "sha256": "69157D223AB9154891699CE19F2545C5AF7815E5FAB4E7CF19B346F97C7C5650",
+      "size_bytes": 320225,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "7_publish_readiness_selected_gate_1440x900.png",
+      "note": "gate selected",
+      "sha256": "084B7F7FA97762D8E6ED1DC632D93268C8756351BF34D5BB955628400312118A",
+      "size_bytes": 255248,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "8_evidence_vault_selected_caveat_1440x900.png",
+      "note": "QA caveat selected",
+      "sha256": "C2D462A8F19E6B223FC4802E0C34F782787C0502F8BAD53A34C31788E610B1E7",
+      "size_bytes": 218832,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "9_calendar_selected_workflow_item_1440x900.png",
+      "note": "workflow item selected",
+      "sha256": "2CA7472DAAD1093DC800E5422CD86F68D71EFA677D3C5602C7619DEFA43BCD30",
+      "size_bytes": 277237,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "10_visual_export_selected_redaction_1440x900.png",
+      "note": "redaction proof selected",
+      "sha256": "C55702A57B4104CD3C3FAA0578568295245A0AE55323BB33D6257E96E4B9700D",
+      "size_bytes": 250497,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "11_settings_selected_policy_1440x900.png",
+      "note": "policy/credential selected",
+      "sha256": "B92F595784372344D5147A62A39FA3533BE838AC0F516573EA04C7B5B88BC793",
+      "size_bytes": 220459,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "12_keyboard_focus_state_1440x900.png",
+      "note": "keyboard focus-visible ring",
+      "sha256": "881812E646C42C3C11476810ACA1EA88C43004835098232A1389A94A8B81149A",
+      "size_bytes": 326117,
+      "capture_status": "CAPTURED"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "url": "file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/institutional_operator_cockpit_v4/index.html",
+  "network": [],
+  "console": [],
+  "screenshots": [
+    {
+      "filename": "1_command_center_1440x900.png",
+      "screen": "command_center",
+      "viewport": "1440x900",
+      "sha256": "61A16BD7AA9CB764295FD4E172A884E7A74049E8A1A9974FA30031D2EF7D3B27",
+      "size_bytes": 226519,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "2_command_center_1920x1080.png",
+      "screen": "command_center",
+      "viewport": "1920x1080",
+      "sha256": "35F8F17090A6FB2A72F6D23FB4BEF9BF0DE9C9423AA278A4B4FC659A6341C8D0",
+      "size_bytes": 229583,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "3_content_studio_1440x900.png",
+      "screen": "content_studio",
+      "viewport": "1440x900",
+      "sha256": "E7D71BD38CDCC72BABB7C431A03F1D7D13FCABEEEC1C3C6444AE0D904A7C0A04",
+      "size_bytes": 236792,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "4_publish_readiness_1440x900.png",
+      "screen": "publish_readiness",
+      "viewport": "1440x900",
+      "sha256": "14FE088442998D599E240151D338A3960D4A9BF86F56F06C762B270929A0CB8B",
+      "size_bytes": 141997,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "5_evidence_vault_1440x900.png",
+      "screen": "evidence_vault",
+      "viewport": "1440x900",
+      "sha256": "1F75D71634CE1101598A33157B744D91426F1F6D3319309F7BE1DD5CD634D8E6",
+      "size_bytes": 138811,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "6_calendar_workflow_1440x900.png",
+      "screen": "content_calendar",
+      "viewport": "1440x900",
+      "sha256": "6008A61A8FCE10FD0751844FEA5251A77BF005A7E236C39CF2EA0E13B1DCA7E8",
+      "size_bytes": 145568,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "7_visual_export_1440x900.png",
+      "screen": "visual_export",
+      "viewport": "1440x900",
+      "sha256": "C0002F475D7D1AF092F7EB28D657BA3A7185CD387A8FB3283076EF916FE23328",
+      "size_bytes": 182355,
+      "capture_status": "CAPTURED"
+    },
+    {
+      "filename": "8_settings_safety_1440x900.png",
+      "screen": "settings_safety_policy",
+      "viewport": "1440x900",
+      "sha256": "615AF4F806ACD00D98F8D419A28F2A58E850B5382AD953BC22701CCFBFE839A1",
+      "size_bytes": 156869,
+      "capture_status": "CAPTURED"
+    }
+  ]
+}

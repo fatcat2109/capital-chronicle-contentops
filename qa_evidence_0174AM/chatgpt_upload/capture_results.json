@@ -1,0 +1,89 @@
+{
+  "url": "file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/institutional_operator_cockpit_v4/index.html",
+  "target_head": "cf95005e92090f10699508c9045dad5b9be92914",
+  "network": [],
+  "console": [],
+  "screenshots": [
+    {
+      "filename": "1366x768_command_center.png",
+      "note": "Command Center primary layout under 1366x768",
+      "sha256": "608040FA418074BD8F3965C85AA3383044C3C76DE498F4DBF188ACA1CCFE699C",
+      "size_bytes": 409305,
+      "capture_status": "CAPTURED",
+      "viewport": "1366x768",
+      "selector_state": "command_center"
+    },
+    {
+      "filename": "1920x1080_command_center.png",
+      "note": "Command Center primary layout under 1920x1080",
+      "sha256": "9DFEAEAD21356719FC091970D6C7612A3D52C730E87C6071E349AE17EBBFBAED",
+      "size_bytes": 410774,
+      "capture_status": "CAPTURED",
+      "viewport": "1920x1080",
+      "selector_state": "command_center"
+    },
+    {
+      "filename": "1440x900_command_center.png",
+      "note": "Command Center primary layout under 1440x900",
+      "sha256": "5B0042ADDCC9A91B8E8F346048A9932C5092B70AB7CF37CC1CCBB29B8FF6DC32",
+      "size_bytes": 399353,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "command_center"
+    },
+    {
+      "filename": "1440x900_content_studio.png",
+      "note": "Content Studio with severity-ranked Review Queue and ranked risk pipeline",
+      "sha256": "B94B517DE8C97AB6D637C3076636C00A2989EB7AF2CF527D7BF26EBE644461D5",
+      "size_bytes": 333629,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "content_studio"
+    },
+    {
+      "filename": "1440x900_publish_readiness.png",
+      "note": "Publish Readiness Tower layout",
+      "sha256": "A0B246000AB6F41E72E69D0B55383246996A1D46B027656ED622CF6AE54AE688",
+      "size_bytes": 220043,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "publish_readiness"
+    },
+    {
+      "filename": "1440x900_evidence_vault.png",
+      "note": "Evidence Vault with 4-stage provenance chain",
+      "sha256": "8C35CA9F6E2E2099F453A531D49B63E0A140E3205545F23936BF0718D1C69890",
+      "size_bytes": 190406,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "evidence_vault"
+    },
+    {
+      "filename": "1440x900_content_calendar.png",
+      "note": "Content Calendar with 2-slot manual workflow priority rail",
+      "sha256": "07E05D56EABE30762B67EFDEF87D946E36EB0D51FA7F5451700D64F071768E8A",
+      "size_bytes": 261331,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "content_calendar"
+    },
+    {
+      "filename": "1440x900_visual_export.png",
+      "note": "Visual Export briefing package layout",
+      "sha256": "65D34CF43243D8221E766932806CDB72D4B8327FDD84929A8D11DC4B2CBD3740",
+      "size_bytes": 210719,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "visual_export"
+    },
+    {
+      "filename": "1440x900_settings_safety_policy.png",
+      "note": "Settings safety policy layout",
+      "sha256": "B251245499E78817DC45E7DD296D3C5250F2FD4CA98FC997C02E47E959D76C32",
+      "size_bytes": 189258,
+      "capture_status": "CAPTURED",
+      "viewport": "1440x900",
+      "selector_state": "settings_safety_policy"
+    }
+  ]
+}
