@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "required_credential_refs": [
+    "bearer token"
+  ],
+  "credential_value_present": false,
+  "api_key_present": false,
+  "env_read_performed": false,
+  "credential_lookup_performed": false
+}

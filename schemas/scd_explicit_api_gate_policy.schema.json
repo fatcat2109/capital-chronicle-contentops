@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "provider_allowlist_state": {
+      "type": "string"
+    },
+    "symbolic_provider_name": {
+      "type": "string"
+    },
+    "symbolic_endpoint_family": {
+      "type": "string"
+    },
+    "provider_client_constructed": {
+      "type": "boolean"
+    },
+    "network_allowed": {
+      "type": "boolean"
+    },
+    "executable": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "batch_id"
+  ]
+}

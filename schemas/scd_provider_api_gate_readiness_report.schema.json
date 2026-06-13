@@ -1,0 +1,70 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "validation_state": {
+      "type": "string"
+    },
+    "provider_live_gate_readiness_state": {
+      "type": "string"
+    },
+    "operator_approval_state": {
+      "type": "string"
+    },
+    "explicit_api_gate_required": {
+      "type": "boolean"
+    },
+    "explicit_operator_api_approval_present": {
+      "type": "boolean"
+    },
+    "credential_envelope_state": {
+      "type": "string"
+    },
+    "request_budget_state": {
+      "type": "string"
+    },
+    "provider_allowlist_state": {
+      "type": "string"
+    },
+    "credential_lookup_allowed": {
+      "type": "boolean"
+    },
+    "env_read_allowed": {
+      "type": "boolean"
+    },
+    "api_key_present": {
+      "type": "boolean"
+    },
+    "credential_value_present": {
+      "type": "boolean"
+    },
+    "provider_client_constructed": {
+      "type": "boolean"
+    },
+    "network_allowed": {
+      "type": "boolean"
+    },
+    "executable": {
+      "type": "boolean"
+    },
+    "live_ready": {
+      "type": "boolean"
+    },
+    "provider_ready": {
+      "type": "boolean"
+    },
+    "public_ready": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "batch_id",
+    "validation_state"
+  ]
+}

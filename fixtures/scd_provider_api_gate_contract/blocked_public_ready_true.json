@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "validation_state": "BLOCKED",
+  "provider_live_gate_readiness_state": "PASS",
+  "operator_approval_state": "APPROVED_FOR_FUTURE_API_GATE_REVIEW",
+  "explicit_api_gate_required": true,
+  "explicit_operator_api_approval_present": true,
+  "credential_envelope_state": "PASS",
+  "request_budget_state": "PASS",
+  "provider_allowlist_state": "PASS",
+  "credential_lookup_allowed": false,
+  "env_read_allowed": false,
+  "api_key_present": false,
+  "credential_value_present": false,
+  "provider_client_constructed": false,
+  "network_allowed": false,
+  "executable": false,
+  "live_ready": false,
+  "provider_ready": false,
+  "public_ready": true
+}

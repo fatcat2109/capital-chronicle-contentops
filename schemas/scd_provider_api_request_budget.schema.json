@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "max_requests": {
+      "type": "integer"
+    },
+    "max_input_tokens": {
+      "type": "integer"
+    },
+    "max_output_tokens": {
+      "type": "integer"
+    },
+    "max_estimated_cost": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "schema_version",
+    "batch_id",
+    "max_requests",
+    "max_input_tokens",
+    "max_output_tokens",
+    "max_estimated_cost"
+  ]
+}
