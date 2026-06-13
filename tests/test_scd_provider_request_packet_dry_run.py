@@ -85,23 +85,128 @@ def test_blocked_redaction_proof_non_pass():
 def test_blocked_budget_binding_non_pass():
     assert validate_provider_request_packet_dry_run(_load("blocked_budget_binding_non_pass.json"))["validation_state"] == "BLOCKED"
 
-def test_build_helper_determinism():
-    api_gate_report = {"schema_version": "1.0", "batch_id": "b1", "validation_state": "PASS"}
-    packet = build_provider_request_packet_dry_run(api_gate_report, "r1", "r2", "r3", "r4", "r5")
-    assert packet["validation_state"] == "PASS"
-
-def test_build_helper_blocked_gate():
-    api_gate_report = {"schema_version": "1.0", "batch_id": "b1", "validation_state": "BLOCKED"}
-    packet = build_provider_request_packet_dry_run(api_gate_report, "r1", "r2", "r3", "r4", "r5")
-    assert packet["validation_state"] == "BLOCKED"
-
-def test_build_helper_missing_gate():
-    packet = build_provider_request_packet_dry_run(None, "r1", "r2", "r3", "r4", "r5")
-    assert packet["validation_state"] == "UNKNOWN"
-
 def test_static_scan_no_live_imports():
     with open("live_contentops/scd_provider_request_packet_dry_run.py") as f:
         code = f.read()
     bad_imports = ["import httpx", "import requests", "import urllib", "import socket", "import openai", "import anthropic", "os.environ", "os.getenv", "webbrowser", "subprocess"]
     for bad in bad_imports:
         assert bad not in code
+
+def test_helper_pass_all_evidence_explicit():
+    packet = build_provider_request_packet_dry_run(
+        _load("pass_api_gate_report.json"),
+        _load("pass_credential_envelope_evidence.json"),
+        _load("pass_request_budget_evidence.json"),
+        _load("pass_provider_allowlist_evidence.json"),
+        _load("pass_redaction_proof_evidence.json"),
+        _load("pass_budget_binding_evidence.json"),
+        _load("pass_provider_symbol_evidence.json"),
+        _load("pass_endpoint_family_evidence.json"),
+        "r1", "r2", "r3", "r4", "r5"
+    )
+    assert packet["validation_state"] == "PASS"
+
+def test_helper_missing_credential_envelope_evidence_unknown():
+    packet = build_provider_request_packet_dry_run(
+        _load("pass_api_gate_report.json"),
+        None,
+        _load("pass_request_budget_evidence.json"),
+        _load("pass_provider_allowlist_evidence.json"),
+        _load("pass_redaction_proof_evidence.json"),
+        _load("pass_budget_binding_evidence.json"),
+        _load("pass_provider_symbol_evidence.json"),
+        _load("pass_endpoint_family_evidence.json"),
+        "r1", "r2", "r3", "r4", "r5"
+    )
+    assert packet["validation_state"] == "UNKNOWN"
+
+def test_helper_missing_redaction_proof_evidence_unknown():
+    packet = build_provider_request_packet_dry_run(
+        _load("pass_api_gate_report.json"),
+        _load("pass_credential_envelope_evidence.json"),
+        _load("pass_request_budget_evidence.json"),
+        _load("pass_provider_allowlist_evidence.json"),
+        None,
+        _load("pass_budget_binding_evidence.json"),
+        _load("pass_provider_symbol_evidence.json"),
+        _load("pass_endpoint_family_evidence.json"),
+        "r1", "r2", "r3", "r4", "r5"
+    )
+    assert packet["validation_state"] == "UNKNOWN"
+
+def test_helper_budget_binding_blocked():
+    packet = build_provider_request_packet_dry_run(
+        _load("pass_api_gate_report.json"),
+        _load("pass_credential_envelope_evidence.json"),
+        _load("pass_request_budget_evidence.json"),
+        _load("pass_provider_allowlist_evidence.json"),
+        _load("pass_redaction_proof_evidence.json"),
+        _load("blocked_budget_binding.json"),
+        _load("pass_provider_symbol_evidence.json"),
+        _load("pass_endpoint_family_evidence.json"),
+        "r1", "r2", "r3", "r4", "r5"
+    )
+    assert packet["validation_state"] == "BLOCKED"
+
+def test_helper_provider_allowlist_review_required():
+    packet = build_provider_request_packet_dry_run(
+        _load("pass_api_gate_report.json"),
+        _load("pass_credential_envelope_evidence.json"),
+        _load("pass_request_budget_evidence.json"),
+        _load("review_provider_allowlist_evidence.json"),
+        _load("pass_redaction_proof_evidence.json"),
+        _load("pass_budget_binding_evidence.json"),
+        _load("pass_provider_symbol_evidence.json"),
+        _load("pass_endpoint_family_evidence.json"),
+        "r1", "r2", "r3", "r4", "r5"
+    )
+    assert packet["validation_state"] == "REVIEW_REQUIRED"
+
+def test_helper_missing_provider_symbol_evidence_not_fabricated():
+    packet = build_provider_request_packet_dry_run(
+        _load("pass_api_gate_report.json"),
+        _load("pass_credential_envelope_evidence.json"),
+        _load("pass_request_budget_evidence.json"),
+        _load("pass_provider_allowlist_evidence.json"),
+        _load("pass_redaction_proof_evidence.json"),
+        _load("pass_budget_binding_evidence.json"),
+        None,
+        _load("pass_endpoint_family_evidence.json"),
+        "r1", "r2", "r3", "r4", "r5"
+    )
+    assert packet["symbolic_provider_name"] == "UNKNOWN_PROVIDER"
+
+def test_helper_missing_endpoint_family_evidence_not_fabricated():
+    packet = build_provider_request_packet_dry_run(
+        _load("pass_api_gate_report.json"),
+        _load("pass_credential_envelope_evidence.json"),
+        _load("pass_request_budget_evidence.json"),
+        _load("pass_provider_allowlist_evidence.json"),
+        _load("pass_redaction_proof_evidence.json"),
+        _load("pass_budget_binding_evidence.json"),
+        _load("pass_provider_symbol_evidence.json"),
+        None,
+        "r1", "r2", "r3", "r4", "r5"
+    )
+    assert packet["symbolic_endpoint_family"] == "UNKNOWN_ENDPOINT"
+
+def test_helper_symbolic_provider_url_blocked():
+    packet = build_provider_request_packet_dry_run(
+        _load("pass_api_gate_report.json"),
+        _load("pass_credential_envelope_evidence.json"),
+        _load("pass_request_budget_evidence.json"),
+        _load("pass_provider_allowlist_evidence.json"),
+        _load("pass_redaction_proof_evidence.json"),
+        _load("pass_budget_binding_evidence.json"),
+        _load("blocked_symbolic_provider_url.json"),
+        _load("pass_endpoint_family_evidence.json"),
+        "r1", "r2", "r3", "r4", "r5"
+    )
+    assert packet["validation_state"] == "BLOCKED"
+
+def test_audit_manifest_missing_refs_unknown():
+    assert validate_provider_request_packet_audit_manifest(_load("unknown_missing_refs_audit_manifest.json"))["validation_state"] == "UNKNOWN"
+
+def test_audit_manifest_missing_refs_claim_pass_blocked():
+    assert validate_provider_request_packet_audit_manifest(_load("blocked_missing_refs_claim_pass_audit_manifest.json"))["validation_state"] == "BLOCKED"
+

@@ -9,6 +9,21 @@
     },
     "validation_state": {
       "type": "string"
+    },
+    "prompt_pack_ref": {
+      "type": "string"
+    },
+    "canonical_draft_ref": {
+      "type": "string"
+    },
+    "budget_ref": {
+      "type": "string"
+    },
+    "credential_envelope_ref": {
+      "type": "string"
+    },
+    "audit_manifest_ref": {
+      "type": "string"
     }
   },
   "required": [

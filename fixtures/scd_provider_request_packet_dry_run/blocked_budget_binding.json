@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "validation_state": "BLOCKED",
+  "budget_binding_state": "BLOCKED"
+}

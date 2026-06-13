@@ -14,6 +14,10 @@ def validate_provider_request_payload_redaction(packet):
     if not ok: return _result([f"schema: {msg}"], [], [])
     blocked, review, unknown = [], [], []
     blocked += _common_safety_blocks(packet)
+    
+    if packet.get("redaction_proof_state") != PASS:
+        blocked.append("redaction_proof_state must be PASS")
+        
     return _result(blocked, review, unknown)
 
 def validate_provider_request_packet_budget_binding(packet):
@@ -21,6 +25,10 @@ def validate_provider_request_packet_budget_binding(packet):
     if not ok: return _result([f"schema: {msg}"], [], [])
     blocked, review, unknown = [], [], []
     blocked += _common_safety_blocks(packet)
+    
+    if packet.get("budget_binding_state") != PASS:
+        blocked.append("budget_binding_state must be PASS")
+        
     return _result(blocked, review, unknown)
 
 def validate_provider_request_packet_audit_manifest(packet):
@@ -28,6 +36,15 @@ def validate_provider_request_packet_audit_manifest(packet):
     if not ok: return _result([f"schema: {msg}"], [], [])
     blocked, review, unknown = [], [], []
     blocked += _common_safety_blocks(packet)
+    
+    refs = ["prompt_pack_ref", "canonical_draft_ref", "budget_ref", "credential_envelope_ref", "audit_manifest_ref"]
+    for r in refs:
+        if not packet.get(r):
+            unknown.append(f"{r} missing")
+            
+    if unknown and packet.get("validation_state") == PASS:
+        blocked.append("claimed PASS but refs are missing")
+        
     return _result(blocked, review, unknown)
 
 def validate_provider_request_packet_dry_run(packet):
@@ -45,8 +62,13 @@ def validate_provider_request_packet_dry_run(packet):
         "budget_binding_state"
     ]
     for f in pass_fields:
-        if packet.get(f) != PASS:
-            blocked.append(f"{f} must be PASS")
+        val = packet.get(f)
+        if val == BLOCKED:
+            blocked.append(f"{f} is BLOCKED")
+        elif val == REVIEW_REQUIRED:
+            review.append(f"{f} is REVIEW_REQUIRED")
+        elif val != PASS:
+            unknown.append(f"{f} missing or UNKNOWN")
             
     if packet.get("explicit_operator_api_approval_present") is not True:
         blocked.append("explicit_operator_api_approval_present must be true")
@@ -106,23 +128,72 @@ def validate_provider_request_packet_dry_run(packet):
         
     return _result(blocked, review, unknown)
 
-def build_provider_request_packet_dry_run(api_gate_report, prompt_pack_ref, canonical_draft_ref, budget_ref, credential_envelope_ref, manifest_ref):
-    if not api_gate_report:
-        api_gate_report = {}
+def build_provider_request_packet_dry_run(
+    api_gate_report,
+    credential_envelope_evidence,
+    request_budget_evidence,
+    provider_allowlist_evidence,
+    redaction_proof_evidence,
+    budget_binding_evidence,
+    provider_symbol_evidence,
+    endpoint_family_evidence,
+    prompt_pack_ref,
+    canonical_draft_ref,
+    budget_ref,
+    credential_envelope_ref,
+    manifest_ref
+):
+    blocked, review, unknown = [], [], []
+    
+    def _get_state(ev, key="validation_state"):
+        if not ev:
+            return UNKNOWN
+        return ev.get(key, UNKNOWN)
+
+    api_gate_state = _get_state(api_gate_report)
+    cred_env_state = _get_state(credential_envelope_evidence)
+    req_bud_state = _get_state(request_budget_evidence)
+    allowlist_state = _get_state(provider_allowlist_evidence)
+    redact_state = _get_state(redaction_proof_evidence)
+    bind_state = _get_state(budget_binding_evidence)
+    
+    # Operator API approval is checked from either explicit evidence (if passed) or api_gate_report if it holds it.
+    op_present = False
+    if api_gate_report:
+        op_present = api_gate_report.get("explicit_operator_api_approval_present", False)
         
-    gate_state = api_gate_report.get("validation_state", UNKNOWN)
-    if gate_state != PASS:
-        rolled = BLOCKED if gate_state in [BLOCKED, REVIEW_REQUIRED] else UNKNOWN
-        return {"schema_version": "1.0", "batch_id": "unknown", "validation_state": rolled, "reasons": ["api_gate_report not PASS"]}
+    sym_name = "UNKNOWN_PROVIDER"
+    if provider_symbol_evidence:
+        sym_name = provider_symbol_evidence.get("symbolic_provider_name", sym_name)
+    
+    sym_ep = "UNKNOWN_ENDPOINT"
+    if endpoint_family_evidence:
+        sym_ep = endpoint_family_evidence.get("symbolic_endpoint_family", sym_ep)
         
+    states = [api_gate_state, cred_env_state, req_bud_state, allowlist_state, redact_state, bind_state]
+    if not op_present:
+        unknown.append("explicit_operator_api_approval_present missing")
+        states.append(UNKNOWN)
+        
+    # Check if refs missing
+    if not prompt_pack_ref: unknown.append("prompt_pack_ref missing")
+    if not canonical_draft_ref: unknown.append("canonical_draft_ref missing")
+    if not budget_ref: unknown.append("budget_ref missing")
+    if not credential_envelope_ref: unknown.append("credential_envelope_ref missing")
+    if not manifest_ref: unknown.append("manifest_ref missing")
+    
+    if unknown: states.append(UNKNOWN)
+
+    rolled = _rollup(states)
+    
     packet = {
         "schema_version": "1.0",
-        "batch_id": api_gate_report.get("batch_id", "unknown"),
-        "provider_api_gate_readiness_state": PASS,
-        "credential_envelope_state": PASS,
-        "request_budget_state": PASS,
-        "provider_allowlist_state": PASS,
-        "explicit_operator_api_approval_present": True,
+        "batch_id": (api_gate_report or {}).get("batch_id", "unknown"),
+        "provider_api_gate_readiness_state": api_gate_state,
+        "credential_envelope_state": cred_env_state,
+        "request_budget_state": req_bud_state,
+        "provider_allowlist_state": allowlist_state,
+        "explicit_operator_api_approval_present": op_present,
         "request_packet_mode": "DRY_RUN_ONLY",
         "executable": False,
         "network_allowed": False,
@@ -134,21 +205,26 @@ def build_provider_request_packet_dry_run(api_gate_report, prompt_pack_ref, cano
         "provider_ready": False,
         "live_ready": False,
         "public_ready": False,
-        "symbolic_provider_name": "OPENAI",
-        "symbolic_endpoint_family": "CHAT_COMPLETION",
+        "symbolic_provider_name": sym_name,
+        "symbolic_endpoint_family": sym_ep,
         "prompt_pack_ref": prompt_pack_ref,
         "canonical_draft_ref": canonical_draft_ref,
         "budget_ref": budget_ref,
         "credential_envelope_ref": credential_envelope_ref,
         "audit_manifest_ref": manifest_ref,
-        "redaction_proof_state": PASS,
-        "budget_binding_state": PASS,
-        "validation_state": PASS
+        "redaction_proof_state": redact_state,
+        "budget_binding_state": bind_state,
+        "validation_state": rolled
     }
     
     res = validate_provider_request_packet_dry_run(packet)
-    packet["validation_state"] = res["validation_state"]
-    packet["reasons"] = res["reasons"]
+    if res["validation_state"] != PASS:
+        packet["validation_state"] = res["validation_state"]
+    # The packet validation state was set to 'rolled' which we trust, but let's take reasons from both
+    reasons = res["reasons"] + blocked + review + unknown
+    reasons = [r for r in list(dict.fromkeys(reasons)) if r != "ok"]
+    if not reasons: reasons = ["ok"]
+    packet["reasons"] = reasons
     return packet
 
 PROVIDER_REQUEST_PACKET_DRY_RUN_VALIDATORS = {

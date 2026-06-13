@@ -2,5 +2,5 @@
   "schema_version": "1.0",
   "batch_id": "b1",
   "validation_state": "PASS",
-  "budget_binding_state": "PASS"
+  "symbolic_provider_name": "OPENAI"
 }

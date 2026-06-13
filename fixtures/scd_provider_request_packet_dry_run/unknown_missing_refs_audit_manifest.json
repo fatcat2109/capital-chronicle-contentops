@@ -1,10 +1,9 @@
 {
   "schema_version": "1.0",
   "batch_id": "b1",
-  "validation_state": "PASS",
+  "validation_state": "UNKNOWN",
   "prompt_pack_ref": "ref1",
   "canonical_draft_ref": "ref2",
   "budget_ref": "ref3",
-  "credential_envelope_ref": "ref4",
-  "audit_manifest_ref": "ref5"
+  "credential_envelope_ref": "ref4"
 }

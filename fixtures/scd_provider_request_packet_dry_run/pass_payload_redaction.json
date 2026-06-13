@@ -1,5 +1,6 @@
 {
   "schema_version": "1.0",
   "batch_id": "b1",
-  "validation_state": "PASS"
+  "validation_state": "PASS",
+  "redaction_proof_state": "PASS"
 }

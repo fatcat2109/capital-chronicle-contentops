@@ -9,6 +9,9 @@
     },
     "validation_state": {
       "type": "string"
+    },
+    "redaction_proof_state": {
+      "type": "string"
     }
   },
   "required": [

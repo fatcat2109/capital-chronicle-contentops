@@ -9,6 +9,9 @@
     },
     "validation_state": {
       "type": "string"
+    },
+    "budget_binding_state": {
+      "type": "string"
     }
   },
   "required": [
