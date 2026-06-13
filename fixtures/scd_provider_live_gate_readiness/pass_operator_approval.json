@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "operator_approval_state": "APPROVED_FOR_FUTURE_LIVE_GATE_REVIEW",
+  "approval_wording": "Safe for future review."
+}

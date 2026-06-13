@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "validation_state": "PASS",
+  "upstream_lineage_refs": [
+    "ref1",
+    "ref2"
+  ]
+}

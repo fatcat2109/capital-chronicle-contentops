@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "validation_state": {
+      "type": "string"
+    },
+    "reasons": {
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "batch_id",
+    "validation_state"
+  ]
+}

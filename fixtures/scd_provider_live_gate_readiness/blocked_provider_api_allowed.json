@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "quota_retry_policy_state": "PASS",
+  "prompt_pack_state": "PASS",
+  "canonical_draft_lifecycle_state": "PASS",
+  "provider_gateway_dry_run_state": "PASS",
+  "batch_dry_run_report_state": "PASS",
+  "aggregate_spend_ceiling_state": "PASS",
+  "operator_approval_required": true,
+  "explicit_api_gate_required": true,
+  "executable": false,
+  "provider_api_allowed": true,
+  "network_allowed": false,
+  "credentials_required": false,
+  "env_read_allowed": false,
+  "credential_lookup_performed": false,
+  "api_key_present": false,
+  "provider_ready": false,
+  "live_ready": false,
+  "public_ready": false
+}

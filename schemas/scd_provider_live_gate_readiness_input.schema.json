@@ -1,0 +1,69 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "quota_retry_policy_state": {
+      "type": "string"
+    },
+    "prompt_pack_state": {
+      "type": "string"
+    },
+    "canonical_draft_lifecycle_state": {
+      "type": "string"
+    },
+    "provider_gateway_dry_run_state": {
+      "type": "string"
+    },
+    "batch_dry_run_report_state": {
+      "type": "string"
+    },
+    "aggregate_spend_ceiling_state": {
+      "type": "string"
+    },
+    "operator_approval_required": {
+      "type": "boolean"
+    },
+    "explicit_api_gate_required": {
+      "type": "boolean"
+    },
+    "executable": {
+      "type": "boolean"
+    },
+    "provider_api_allowed": {
+      "type": "boolean"
+    },
+    "network_allowed": {
+      "type": "boolean"
+    },
+    "credentials_required": {
+      "type": "boolean"
+    },
+    "env_read_allowed": {
+      "type": "boolean"
+    },
+    "credential_lookup_performed": {
+      "type": "boolean"
+    },
+    "api_key_present": {
+      "type": "boolean"
+    },
+    "provider_ready": {
+      "type": "boolean"
+    },
+    "live_ready": {
+      "type": "boolean"
+    },
+    "public_ready": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "batch_id"
+  ]
+}
