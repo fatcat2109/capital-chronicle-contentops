@@ -1,0 +1,53 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "item_id": {
+      "type": "string"
+    },
+    "validation_state": {
+      "type": "string"
+    },
+    "dry_run_only": {
+      "type": "boolean"
+    },
+    "executable": {
+      "type": "boolean"
+    },
+    "provider_api_allowed": {
+      "type": "boolean"
+    },
+    "network_allowed": {
+      "type": "boolean"
+    },
+    "credentials_required": {
+      "type": "boolean"
+    },
+    "env_read_performed": {
+      "type": "boolean"
+    },
+    "api_key_present": {
+      "type": "boolean"
+    },
+    "estimated_cost": {
+      "type": "number"
+    },
+    "cache_hit_state": {
+      "type": "string"
+    },
+    "prompt_version": {
+      "type": "string"
+    },
+    "platform_variants_requested": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "schema_version",
+    "item_id",
+    "validation_state",
+    "estimated_cost"
+  ]
+}

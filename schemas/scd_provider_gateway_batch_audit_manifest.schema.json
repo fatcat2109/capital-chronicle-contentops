@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "audit_status": {
+      "type": "string"
+    },
+    "reasons": {
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "batch_id",
+    "audit_status"
+  ]
+}

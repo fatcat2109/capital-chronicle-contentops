@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "declared_spend_ceiling": 5.0,
+  "batch_items": [
+    {
+      "schema_version": "1.0",
+      "item_id": "1",
+      "validation_state": "PASS",
+      "dry_run_only": true,
+      "executable": false,
+      "provider_api_allowed": false,
+      "network_allowed": false,
+      "credentials_required": false,
+      "env_read_performed": false,
+      "api_key_present": false,
+      "estimated_cost": 1.0,
+      "platform_variants_requested": false
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "declared_spend_ceiling": {
+      "type": "number"
+    },
+    "aggregate_estimated_cost": {
+      "type": "number"
+    },
+    "validation_state": {
+      "type": "string"
+    },
+    "reasons": {
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "batch_id",
+    "declared_spend_ceiling",
+    "aggregate_estimated_cost",
+    "validation_state"
+  ]
+}

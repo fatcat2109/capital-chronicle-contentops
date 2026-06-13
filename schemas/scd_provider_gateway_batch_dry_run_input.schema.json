@@ -1,0 +1,38 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "batch_id": {
+      "type": "string"
+    },
+    "batch_items": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "declared_spend_ceiling": {
+      "type": "number"
+    },
+    "currency_or_unit": {
+      "type": "string"
+    },
+    "cache_policy_ref": {
+      "type": "string"
+    },
+    "quota_policy_ref": {
+      "type": "string"
+    },
+    "operator_context_ref": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "batch_id",
+    "batch_items",
+    "declared_spend_ceiling"
+  ]
+}
