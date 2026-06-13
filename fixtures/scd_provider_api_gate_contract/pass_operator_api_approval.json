@@ -1,0 +1,7 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "operator_approval_state": "APPROVED_FOR_FUTURE_API_GATE_REVIEW",
+  "explicit_api_gate_required": true,
+  "explicit_operator_api_approval_present": true
+}

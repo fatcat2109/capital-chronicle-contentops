@@ -56,13 +56,22 @@ def validate_provider_api_request_budget(packet):
     blocked += _common_safety_blocks(packet)
     
     reqs = packet.get("max_requests", 0)
-    if reqs <= 0:
+    if not isinstance(reqs, int) or isinstance(reqs, bool):
+        blocked.append("max_requests must be integer")
+    elif reqs <= 0:
         blocked.append("max_requests must be small and positive")
+    elif reqs > 3:
+        blocked.append("max_requests must be <= 3")
         
     for k in ["max_input_tokens", "max_output_tokens", "max_estimated_cost"]:
-        val = packet.get(k, -1)
-        if val < 0:
-            blocked.append(f"{k} must be >= 0")
+        if k not in packet:
+            blocked.append(f"{k} missing")
+        else:
+            val = packet[k]
+            if not isinstance(val, (int, float)) or isinstance(val, bool):
+                blocked.append(f"{k} must be numeric")
+            elif val < 0:
+                blocked.append(f"{k} must be >= 0")
             
     return _result(blocked, review, unknown)
 
@@ -132,6 +141,8 @@ def validate_provider_api_gate_readiness_report(packet):
         states.append(REVIEW_REQUIRED)
     elif app_state != "APPROVED_FOR_FUTURE_API_GATE_REVIEW":
         states.append(BLOCKED)
+    else:
+        states.append(PASS)
         
     if states:
         rolled = _rollup(states)
@@ -166,16 +177,51 @@ def validate_provider_api_gate_audit_manifest(packet):
 
     return _result(blocked, review, unknown)
 
-def build_provider_api_gate_readiness_report(envelope, policy, budget, manifest):
+def build_provider_api_gate_readiness_report(envelope, policy, budget, manifest, live_gate_evidence, operator_api_approval):
     res_env = validate_provider_credential_envelope(envelope)
     res_pol = validate_explicit_api_gate_policy(policy)
     res_bud = validate_provider_api_request_budget(budget)
     res_man = validate_provider_api_gate_audit_manifest(manifest)
     
-    states = [res_env["validation_state"], res_pol["validation_state"], res_bud["validation_state"], res_man["validation_state"]]
+    blocked, review, unknown = [], [], []
+    
+    live_gate_state = UNKNOWN
+    if not live_gate_evidence:
+        unknown.append("live_gate_evidence missing")
+    else:
+        live_gate_state = live_gate_evidence.get("validation_state", UNKNOWN)
+        
+    op_api_appr_state = UNKNOWN
+    req = False
+    present = False
+    if not operator_api_approval:
+        review.append("operator_api_approval missing")
+    else:
+        op_api_appr_state = operator_api_approval.get("operator_approval_state", UNKNOWN)
+        req = operator_api_approval.get("explicit_api_gate_required", False)
+        present = operator_api_approval.get("explicit_operator_api_approval_present", False)
+        
+        if op_api_appr_state != "APPROVED_FOR_FUTURE_API_GATE_REVIEW":
+            if op_api_appr_state == "STALE" or op_api_appr_state == "REVIEW_REQUIRED":
+                review.append("operator API approval not approved")
+            else:
+                blocked.append("operator API approval not approved")
+                
+    op_mapped = PASS if op_api_appr_state == "APPROVED_FOR_FUTURE_API_GATE_REVIEW" else op_api_appr_state
+    if not operator_api_approval:
+        op_mapped = REVIEW_REQUIRED
+    elif op_mapped not in [PASS, BLOCKED, REVIEW_REQUIRED, UNKNOWN]:
+        op_mapped = BLOCKED
+
+    states = [res_env["validation_state"], res_pol["validation_state"], res_bud["validation_state"], res_man["validation_state"], live_gate_state, op_mapped]
+    
+    if blocked: states.append(BLOCKED)
+    elif unknown: states.append(UNKNOWN)
+    elif review: states.append(REVIEW_REQUIRED)
+
     rolled = _rollup(states)
     
-    reasons = res_env["reasons"] + res_pol["reasons"] + res_bud["reasons"] + res_man["reasons"]
+    reasons = res_env["reasons"] + res_pol["reasons"] + res_bud["reasons"] + res_man["reasons"] + blocked + review + unknown
     reasons = [r for r in list(dict.fromkeys(reasons)) if r != "ok"]
     if not reasons: reasons = ["ok"]
     
@@ -183,10 +229,10 @@ def build_provider_api_gate_readiness_report(envelope, policy, budget, manifest)
         "schema_version": "1.0",
         "batch_id": envelope.get("batch_id", "unknown"),
         "validation_state": rolled,
-        "provider_live_gate_readiness_state": "PASS",
-        "operator_approval_state": "APPROVED_FOR_FUTURE_API_GATE_REVIEW",
-        "explicit_api_gate_required": True,
-        "explicit_operator_api_approval_present": True,
+        "provider_live_gate_readiness_state": live_gate_state,
+        "operator_approval_state": op_api_appr_state,
+        "explicit_api_gate_required": req,
+        "explicit_operator_api_approval_present": present,
         "credential_envelope_state": res_env["validation_state"],
         "request_budget_state": res_bud["validation_state"],
         "provider_allowlist_state": res_pol["validation_state"],

@@ -106,12 +106,32 @@ def test_blocked_public_ready_true():
     res = validate_provider_api_gate_readiness_report(_load("blocked_public_ready_true.json"))
     assert res["validation_state"] == "BLOCKED"
 
+
+
+def test_blocked_budget_max_requests_0():
+    res = validate_provider_api_request_budget(_load("blocked_budget_max_requests_0.json"))
+    assert res["validation_state"] == "BLOCKED"
+
+def test_blocked_budget_max_requests_negative():
+    res = validate_provider_api_request_budget(_load("blocked_budget_max_requests_negative.json"))
+    assert res["validation_state"] == "BLOCKED"
+
+def test_blocked_budget_max_requests_above_cap():
+    res = validate_provider_api_request_budget(_load("blocked_budget_max_requests_above_cap.json"))
+    assert res["validation_state"] == "BLOCKED"
+
+def test_blocked_budget_missing_cost():
+    res = validate_provider_api_request_budget(_load("blocked_budget_missing_cost.json"))
+    assert res["validation_state"] == "BLOCKED"
+
 def test_build_provider_api_gate_readiness_report():
     rep = build_provider_api_gate_readiness_report(
         _load("pass_credential_envelope.json"),
         _load("pass_api_gate_policy.json"),
         _load("pass_request_budget.json"),
-        _load("pass_audit_manifest.json")
+        _load("pass_audit_manifest.json"),
+        _load("pass_live_gate_evidence.json"),
+        _load("pass_operator_api_approval.json")
     )
     assert rep["validation_state"] == "PASS"
     
@@ -119,6 +139,41 @@ def test_build_provider_api_gate_readiness_report():
         _load("pass_credential_envelope.json"),
         _load("pass_api_gate_policy.json"),
         _load("blocked_request_budget_negative.json"),
-        _load("pass_audit_manifest.json")
+        _load("pass_audit_manifest.json"),
+        _load("pass_live_gate_evidence.json"),
+        _load("pass_operator_api_approval.json")
     )
     assert rep2["validation_state"] == "BLOCKED"
+
+def test_build_helper_missing_live_gate_evidence():
+    rep = build_provider_api_gate_readiness_report(
+        _load("pass_credential_envelope.json"),
+        _load("pass_api_gate_policy.json"),
+        _load("pass_request_budget.json"),
+        _load("pass_audit_manifest.json"),
+        None,
+        _load("pass_operator_api_approval.json")
+    )
+    assert rep["validation_state"] == "UNKNOWN"
+    
+def test_build_helper_missing_operator_api_approval():
+    rep = build_provider_api_gate_readiness_report(
+        _load("pass_credential_envelope.json"),
+        _load("pass_api_gate_policy.json"),
+        _load("pass_request_budget.json"),
+        _load("pass_audit_manifest.json"),
+        _load("pass_live_gate_evidence.json"),
+        None
+    )
+    assert rep["validation_state"] == "REVIEW_REQUIRED"
+    
+def test_build_helper_blocked_operator_api_approval_execute():
+    rep = build_provider_api_gate_readiness_report(
+        _load("pass_credential_envelope.json"),
+        _load("pass_api_gate_policy.json"),
+        _load("pass_request_budget.json"),
+        _load("pass_audit_manifest.json"),
+        _load("pass_live_gate_evidence.json"),
+        _load("blocked_operator_api_approval_execute.json")
+    )
+    assert rep["validation_state"] == "BLOCKED"

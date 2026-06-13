@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "operator_approval_state": "APPROVED_TO_EXECUTE",
+  "explicit_api_gate_required": true,
+  "explicit_operator_api_approval_present": true,
+  "approval_wording": "execute"
+}
