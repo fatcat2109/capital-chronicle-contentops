@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "validation_state": "PASS",
+  "reasons": [
+    "ready to execute live call"
+  ]
+}

@@ -83,6 +83,63 @@ def validate_provider_live_gate_readiness_report(packet):
     blocked, review, unknown = [], [], []
     blocked += _common_safety_blocks(packet)
     
+    false_fields = [
+        "executable",
+        "provider_api_allowed",
+        "network_allowed",
+        "credentials_required",
+        "env_read_allowed",
+        "credential_lookup_performed",
+        "api_key_present",
+        "provider_ready",
+        "live_ready",
+        "public_ready"
+    ]
+    for field in false_fields:
+        if packet.get(field):
+            blocked.append(f"{field} must be false")
+            
+    wording = (" ".join(packet.get("reasons", [])) + " " + packet.get("operator_approval_state", "") + " " + packet.get("approval_wording", "")).lower()
+    unsafe_words = ["execute", "send", "call provider", "use api", "go live", "dispatch", "post", "publish", "webhook", "token", "key", "oauth"]
+    for w in unsafe_words:
+        if w in wording:
+            blocked.append(f"reasons wording contains unsafe word: {w}")
+
+    states = []
+    sub_state_keys = [
+        "readiness_input_state",
+        "operator_approval_state",
+        "audit_manifest_state",
+        "quota_retry_policy_state",
+        "prompt_pack_state",
+        "canonical_draft_lifecycle_state",
+        "provider_gateway_dry_run_state",
+        "batch_dry_run_report_state",
+        "aggregate_spend_ceiling_state"
+    ]
+    for k in sub_state_keys:
+        if k in packet:
+            states.append(packet[k])
+
+    if states:
+        rolled = _rollup(states)
+    else:
+        rolled = UNKNOWN
+        
+    claim = packet.get("validation_state")
+    if claim != rolled:
+        blocked.append(f"claimed validation_state {claim} != rolled up state {rolled}")
+
+    if claim == PASS and rolled != PASS:
+        blocked.append("PASS only allowed if all sub-states are PASS")
+        
+    if rolled == UNKNOWN:
+        unknown.append("rolled up state is UNKNOWN")
+    elif rolled == REVIEW_REQUIRED:
+        review.append("rolled up state is REVIEW_REQUIRED")
+    elif rolled == BLOCKED:
+        blocked.append("rolled up state is BLOCKED")
+
     return _result(blocked, review, unknown)
 
 def validate_provider_live_gate_audit_manifest(packet):
@@ -117,6 +174,25 @@ def build_provider_live_gate_readiness_report(input_packet, approval_packet, man
         "schema_version": "1.0",
         "batch_id": input_packet.get("batch_id", "unknown"),
         "validation_state": rolled,
+        "readiness_input_state": res_input["validation_state"],
+        "operator_approval_state": res_approval["validation_state"],
+        "audit_manifest_state": res_manifest["validation_state"],
+        "quota_retry_policy_state": input_packet.get("quota_retry_policy_state", "UNKNOWN"),
+        "prompt_pack_state": input_packet.get("prompt_pack_state", "UNKNOWN"),
+        "canonical_draft_lifecycle_state": input_packet.get("canonical_draft_lifecycle_state", "UNKNOWN"),
+        "provider_gateway_dry_run_state": input_packet.get("provider_gateway_dry_run_state", "UNKNOWN"),
+        "batch_dry_run_report_state": input_packet.get("batch_dry_run_report_state", "UNKNOWN"),
+        "aggregate_spend_ceiling_state": input_packet.get("aggregate_spend_ceiling_state", "UNKNOWN"),
+        "provider_ready": False,
+        "live_ready": False,
+        "public_ready": False,
+        "executable": False,
+        "provider_api_allowed": False,
+        "network_allowed": False,
+        "credentials_required": False,
+        "env_read_allowed": False,
+        "credential_lookup_performed": False,
+        "api_key_present": False,
         "reasons": reasons
     }
 

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "validation_state": "BLOCKED",
+  "readiness_input_state": "PASS",
+  "operator_approval_state": "BLOCKED",
+  "audit_manifest_state": "PASS"
+}

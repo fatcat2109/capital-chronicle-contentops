@@ -111,3 +111,39 @@ def test_build_report_determinism():
         _load("pass_audit_manifest.json")
     )
     assert rep2["validation_state"] == "BLOCKED"
+
+def test_report_pass_all_substates_pass():
+    res = validate_provider_live_gate_readiness_report(_load("report_pass_all_substates_pass.json"))
+    assert res["validation_state"] == "PASS"
+
+def test_report_unknown_with_missing_lineage():
+    res = validate_provider_live_gate_readiness_report(_load("report_unknown_with_missing_lineage.json"))
+    assert res["validation_state"] == "UNKNOWN"
+
+def test_report_review_required_with_stale_approval():
+    res = validate_provider_live_gate_readiness_report(_load("report_review_required_with_stale_approval.json"))
+    assert res["validation_state"] == "REVIEW_REQUIRED"
+
+def test_report_blocked_with_approval_execute():
+    res = validate_provider_live_gate_readiness_report(_load("report_blocked_with_approval_execute.json"))
+    assert res["validation_state"] == "BLOCKED"
+
+def test_report_blocked_claim_pass_but_substate_unknown():
+    res = validate_provider_live_gate_readiness_report(_load("report_blocked_claim_pass_but_substate_unknown.json"))
+    assert res["validation_state"] == "BLOCKED"
+
+def test_report_blocked_claim_pass_but_substate_review():
+    res = validate_provider_live_gate_readiness_report(_load("report_blocked_claim_pass_but_substate_review.json"))
+    assert res["validation_state"] == "BLOCKED"
+
+def test_report_blocked_when_provider_ready_true():
+    res = validate_provider_live_gate_readiness_report(_load("report_blocked_when_provider_ready_true.json"))
+    assert res["validation_state"] == "BLOCKED"
+
+def test_report_blocked_when_executable_true():
+    res = validate_provider_live_gate_readiness_report(_load("report_blocked_when_executable_true.json"))
+    assert res["validation_state"] == "BLOCKED"
+
+def test_report_blocked_with_wording_execute():
+    res = validate_provider_live_gate_readiness_report(_load("report_blocked_with_wording_execute.json"))
+    assert res["validation_state"] == "BLOCKED"
