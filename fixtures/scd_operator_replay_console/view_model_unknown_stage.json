@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "view_model_id": "vm_unknown_001",
+  "console_input_id": "cin_pass_001",
+  "headline_status": "UNKNOWN",
+  "headline_message": "One stage has unknown lineage.",
+  "blocker_banner": "",
+  "safety_banner": "Mock-only, manual-publish-only.",
+  "manual_publish_only_banner": "Manual publish only.",
+  "api_gate_banner": "",
+  "stage_status_chips": [
+    { "stage_name": "content_intent", "status": "PASS" },
+    { "stage_name": "freeze_manifest", "status": "UNKNOWN" },
+    { "stage_name": "mock_dispatch", "status": "PASS" }
+  ],
+  "safety_counters": {
+    "pass_count": 2,
+    "blocked_count": 0,
+    "review_required_count": 0,
+    "unknown_count": 1,
+    "total_stages": 3
+  },
+  "current_vs_historical_truth": {
+    "current_replay_report_ref": "prr_unknown_001",
+    "historical_evidence_refs": [],
+    "current_state_is_authoritative": true,
+    "stale_or_historical_refs_separated": true
+  },
+  "evidence_bundle_ref": "eb_pass_001",
+  "copy_safe_export_bundle_ref": "cseb_pass_001",
+  "operator_next_action": "Resolve unknown lineage on freeze_manifest stage.",
+  "display_only": true,
+  "action_enabled": false,
+  "manual_publish_only": true,
+  "mock_only": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "api_gate_required": false,
+  "validation_state": "UNKNOWN",
+  "blocked_reasons": []
+}

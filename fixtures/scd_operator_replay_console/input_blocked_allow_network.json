@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "console_input_id": "cin_blocked_net_001",
+  "pipeline_replay_report_id": "prr_pass_001",
+  "safety_summary_id": "ss_pass_001",
+  "evidence_manifest_id": "em_pass_001",
+  "mock_run_report_id": "mrr_pass_001",
+  "audit_binding_id": "abp_pass_001",
+  "replay_report_validation_state": "PASS",
+  "requested_view": "operator_overview",
+  "operator_id_ref": "operator_local_001",
+  "expected_manual_publish_only": true,
+  "expected_mock_only": true,
+  "allow_provider_api": false,
+  "allow_network": true,
+  "allow_credentials": false,
+  "allow_platform_api": false,
+  "allow_live_dispatch": false,
+  "allow_browser_automation": false,
+  "allow_ui_runtime_execution": true,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["allow_network/allow_ui_runtime_execution must be false"]
+}

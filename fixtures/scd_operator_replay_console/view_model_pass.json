@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "view_model_id": "vm_pass_001",
+  "console_input_id": "cin_pass_001",
+  "headline_status": "PASS",
+  "headline_message": "Mock pipeline replay validated for operator review.",
+  "blocker_banner": "",
+  "safety_banner": "All safety assertions pass. Mock-only, manual-publish-only.",
+  "manual_publish_only_banner": "Manual publish only. Nothing is dispatch-ready.",
+  "api_gate_banner": "",
+  "stage_status_chips": [
+    { "stage_name": "content_intent", "status": "PASS" },
+    { "stage_name": "editorial_workbench", "status": "PASS" },
+    { "stage_name": "mock_dispatch", "status": "PASS" }
+  ],
+  "safety_counters": {
+    "pass_count": 3,
+    "blocked_count": 0,
+    "review_required_count": 0,
+    "unknown_count": 0,
+    "total_stages": 3
+  },
+  "current_vs_historical_truth": {
+    "current_replay_report_ref": "prr_pass_001",
+    "historical_evidence_refs": ["prr_historical_000"],
+    "current_state_is_authoritative": true,
+    "stale_or_historical_refs_separated": true
+  },
+  "evidence_bundle_ref": "eb_pass_001",
+  "copy_safe_export_bundle_ref": "cseb_pass_001",
+  "operator_next_action": "Review the displayed replay evidence; nothing is publish-ready.",
+  "display_only": true,
+  "action_enabled": false,
+  "manual_publish_only": true,
+  "mock_only": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "api_gate_required": false,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

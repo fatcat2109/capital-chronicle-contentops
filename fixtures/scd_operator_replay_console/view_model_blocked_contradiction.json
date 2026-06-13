@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "view_model_id": "vm_blocked_contradiction_001",
+  "console_input_id": "cin_pass_001",
+  "headline_status": "PASS",
+  "headline_message": "Replay validated.",
+  "blocker_banner": "",
+  "safety_banner": "",
+  "manual_publish_only_banner": "Manual publish only.",
+  "api_gate_banner": "",
+  "stage_status_chips": [
+    { "stage_name": "content_intent", "status": "PASS" },
+    { "stage_name": "editorial_workbench", "status": "BLOCKED" }
+  ],
+  "safety_counters": {
+    "pass_count": 1,
+    "blocked_count": 1,
+    "review_required_count": 0,
+    "unknown_count": 0,
+    "total_stages": 2
+  },
+  "current_vs_historical_truth": {
+    "current_replay_report_ref": "prr_pass_001",
+    "historical_evidence_refs": [],
+    "current_state_is_authoritative": true,
+    "stale_or_historical_refs_separated": true
+  },
+  "evidence_bundle_ref": "eb_pass_001",
+  "copy_safe_export_bundle_ref": "cseb_pass_001",
+  "operator_next_action": "n/a",
+  "display_only": true,
+  "action_enabled": false,
+  "manual_publish_only": true,
+  "mock_only": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "api_gate_required": false,
+  "validation_state": "BLOCKED",
+  "blocked_reasons": ["headline PASS while a chip is BLOCKED"]
+}

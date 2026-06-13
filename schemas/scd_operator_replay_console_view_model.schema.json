@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD OperatorReplayConsoleViewModel",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "view_model_id": { "type": "string" },
+    "console_input_id": { "type": "string" },
+    "headline_status": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "headline_message": { "type": "string" },
+    "blocker_banner": { "type": "string" },
+    "safety_banner": { "type": "string" },
+    "manual_publish_only_banner": { "type": "string" },
+    "api_gate_banner": { "type": "string" },
+    "stage_status_chips": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stage_name": { "type": "string" },
+          "status": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] }
+        },
+        "required": ["stage_name", "status"]
+      }
+    },
+    "safety_counters": {
+      "type": "object",
+      "properties": {
+        "pass_count": { "type": "integer" },
+        "blocked_count": { "type": "integer" },
+        "review_required_count": { "type": "integer" },
+        "unknown_count": { "type": "integer" },
+        "total_stages": { "type": "integer" }
+      },
+      "required": ["pass_count", "blocked_count", "review_required_count", "unknown_count", "total_stages"]
+    },
+    "current_vs_historical_truth": {
+      "type": "object",
+      "properties": {
+        "current_replay_report_ref": { "type": "string" },
+        "historical_evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "current_state_is_authoritative": { "type": "boolean" },
+        "stale_or_historical_refs_separated": { "type": "boolean" }
+      },
+      "required": [
+        "current_replay_report_ref",
+        "current_state_is_authoritative",
+        "stale_or_historical_refs_separated"
+      ]
+    },
+    "evidence_bundle_ref": { "type": "string" },
+    "copy_safe_export_bundle_ref": { "type": "string" },
+    "operator_next_action": { "type": "string" },
+    "display_only": { "type": "boolean" },
+    "action_enabled": { "type": "boolean" },
+    "manual_publish_only": { "type": "boolean" },
+    "mock_only": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "executable_dispatch": { "type": "boolean" },
+    "api_gate_required": { "type": "boolean" },
+    "validation_state": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "view_model_id",
+    "console_input_id",
+    "headline_status",
+    "stage_status_chips",
+    "safety_counters",
+    "current_vs_historical_truth",
+    "display_only",
+    "action_enabled",
+    "manual_publish_only",
+    "mock_only",
+    "public_ready",
+    "live_ready",
+    "executable_dispatch",
+    "api_gate_required",
+    "validation_state"
+  ]
+}
