@@ -487,3 +487,33 @@ A final acceptance record can only be created after:
 7. remaining caveats are explicitly categorized as blocking or non-blocking.
 
 Documentation-only acceptance records must not claim new visual verification. They may only record a prior accepted browser QA result.
+
+
+## Antigravity + Gemini 3.1 Pro Preview Prompting Notes
+
+### Observed Strengths
+Gemini 3.1 Pro Preview inside Antigravity is strong for high-throughput bounded implementation. It correctly interprets highly scoped boundary contracts, strictly applies zero-trust principles when prompted, and maintains explicit execution safety boundaries effectively.
+
+### Observed Weaknesses
+Do not assume an initial PASS is promotion-ready. Common misses include edge-case invariant gaps, policy-widening bugs, path containment bugs, too-synthetic fixtures, report overclaim, weak first-pass adversarial tests, and visual self-assessment without screenshots.
+
+### Prompting Strategy
+Prompts should be concrete: build exactly this, inspect these files first, edit only these files, prove these invariants, add hostile tests, run validation, commit only scoped paths, push only audit branch, stop after evidence. Avoid abstract behavioral guidance in favor of hard mechanical invariants.
+
+### Required Workflow Adjustment
+For safety-chain modules, verifier/gate modules, data authority modules, and security-sensitive tasks: never promote initial PASS directly to main; require ChatGPT remote audit and expect one repair loop.
+
+### Prompt Shape for Gemini
+Explicitly pass the starting baseline, the allowed paths, the forbidden paths, and the exact validation commands. Gemini performs better with explicit hostile cases than abstract safety language. List exactly what edge cases to verify in the test suite.
+
+### Reports Are Not Authority
+Reports are useful summaries, but reports are not authority; source/tests must prove the report. Always verify the implementation in the repository diff.
+
+### Internal Antigravity Logs
+Internal Antigravity .gemini/antigravity-ide/brain/.system_generated/... logs may be surfaced by tool behavior but must not be requirements, implementation authority, evidence, committed files, quoted proof, or substitute for git/test/read-back evidence.
+
+### Best Use
+Targeted logic patching, single-module isolation, deterministic data structures, deterministic test suites, and strict mechanical refactoring. One task at a time. No self-promotion. No next-phase continuation inside the same worker task.
+
+### Default Gemini Task Rule
+Default lifecycle: Prompt -> Audit branch implementation -> ChatGPT remote audit -> Repair prompt -> ChatGPT re-audit -> Promotion prompt -> Remote main read-back -> Stop.

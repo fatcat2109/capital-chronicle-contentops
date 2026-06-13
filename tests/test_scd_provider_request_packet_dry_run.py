@@ -162,7 +162,7 @@ def test_helper_provider_allowlist_review_required():
     )
     assert packet["validation_state"] == "REVIEW_REQUIRED"
 
-def test_helper_missing_provider_symbol_evidence_not_fabricated():
+def test_helper_missing_provider_symbol_evidence_unknown_and_not_fabricated():
     packet = build_provider_request_packet_dry_run(
         _load("pass_api_gate_report.json"),
         _load("pass_credential_envelope_evidence.json"),
@@ -175,8 +175,9 @@ def test_helper_missing_provider_symbol_evidence_not_fabricated():
         "r1", "r2", "r3", "r4", "r5"
     )
     assert packet["symbolic_provider_name"] == "UNKNOWN_PROVIDER"
+    assert packet["validation_state"] == "UNKNOWN"
 
-def test_helper_missing_endpoint_family_evidence_not_fabricated():
+def test_helper_missing_endpoint_family_evidence_unknown_and_not_fabricated():
     packet = build_provider_request_packet_dry_run(
         _load("pass_api_gate_report.json"),
         _load("pass_credential_envelope_evidence.json"),
@@ -189,6 +190,35 @@ def test_helper_missing_endpoint_family_evidence_not_fabricated():
         "r1", "r2", "r3", "r4", "r5"
     )
     assert packet["symbolic_endpoint_family"] == "UNKNOWN_ENDPOINT"
+    assert packet["validation_state"] == "UNKNOWN"
+
+def test_helper_provider_symbol_packet_missing_symbolic_name_unknown():
+    packet = build_provider_request_packet_dry_run(
+        _load("pass_api_gate_report.json"),
+        _load("pass_credential_envelope_evidence.json"),
+        _load("pass_request_budget_evidence.json"),
+        _load("pass_provider_allowlist_evidence.json"),
+        _load("pass_redaction_proof_evidence.json"),
+        _load("pass_budget_binding_evidence.json"),
+        _load("pass_provider_symbol_evidence_missing_name.json"),
+        _load("pass_endpoint_family_evidence.json"),
+        "r1", "r2", "r3", "r4", "r5"
+    )
+    assert packet["validation_state"] == "UNKNOWN"
+
+def test_helper_endpoint_family_packet_missing_family_unknown():
+    packet = build_provider_request_packet_dry_run(
+        _load("pass_api_gate_report.json"),
+        _load("pass_credential_envelope_evidence.json"),
+        _load("pass_request_budget_evidence.json"),
+        _load("pass_provider_allowlist_evidence.json"),
+        _load("pass_redaction_proof_evidence.json"),
+        _load("pass_budget_binding_evidence.json"),
+        _load("pass_provider_symbol_evidence.json"),
+        _load("pass_endpoint_family_evidence_missing_family.json"),
+        "r1", "r2", "r3", "r4", "r5"
+    )
+    assert packet["validation_state"] == "UNKNOWN"
 
 def test_helper_symbolic_provider_url_blocked():
     packet = build_provider_request_packet_dry_run(
