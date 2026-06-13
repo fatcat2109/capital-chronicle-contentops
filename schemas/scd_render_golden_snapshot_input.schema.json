@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCDRenderGoldenSnapshotInput",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "golden_snapshot_input_id",
+    "render_spec_id",
+    "replay_state",
+    "validation_state"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "golden_snapshot_input_id": { "type": "string" },
+    "render_spec_id": { "type": "string" },
+    "view_model_id": { "type": "string" },
+    "replay_state": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "golden_snapshot_ref": { "type": "string" },
+    "actual_render_spec_ref": { "type": "string" },
+    "expected_hash_algorithm": { "type": "string" },
+    "conformance_mode": { "type": "string", "enum": ["exact_canonical_json", "structural_binding_only"] },
+    "include_layout_regions": { "type": "boolean" },
+    "include_display_slot_bindings": { "type": "boolean" },
+    "include_status_token_bindings": { "type": "boolean" },
+    "include_current_truth_binding": { "type": "boolean" },
+    "allow_ui_runtime": { "type": "boolean" },
+    "allow_browser": { "type": "boolean" },
+    "allow_screenshot": { "type": "boolean" },
+    "allow_html_css_js": { "type": "boolean" },
+    "allow_network": { "type": "boolean" },
+    "allow_credentials": { "type": "boolean" },
+    "allow_platform_api": { "type": "boolean" },
+    "allow_live_dispatch": { "type": "boolean" },
+    "manual_publish_only": { "type": "boolean" },
+    "mock_only": { "type": "boolean" },
+    "validation_state": { "type": "string" }
+  },
+  "additionalProperties": true
+}

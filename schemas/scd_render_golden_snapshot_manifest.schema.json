@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCDRenderGoldenSnapshotManifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "golden_snapshot_manifest_id",
+    "snapshot_set_version",
+    "validation_state"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "golden_snapshot_manifest_id": { "type": "string" },
+    "snapshot_set_version": { "type": "string" },
+    "snapshot_refs": { "type": "array", "items": { "type": "string" } },
+    "replay_states_covered": { "type": "array", "items": { "type": "string" } },
+    "snapshot_hash_refs": { "type": "array", "items": { "type": "string" } },
+    "fixture_refs": { "type": "array", "items": { "type": "string" } },
+    "validator_refs": { "type": "array", "items": { "type": "string" } },
+    "test_refs": { "type": "array", "items": { "type": "string" } },
+    "canonical_hash_algorithm": { "type": "string" },
+    "all_required_states_covered": { "type": "boolean" },
+    "all_hashes_present": { "type": "boolean" },
+    "mutation_after_freeze_detected": { "type": "boolean" },
+    "evidence_complete": { "type": "boolean" },
+    "missing_evidence_refs": { "type": "array", "items": { "type": "string" } },
+    "display_only": { "type": "boolean" },
+    "action_enabled": { "type": "boolean" },
+    "no_ui_runtime_required": { "type": "boolean" },
+    "no_browser_required": { "type": "boolean" },
+    "no_screenshot_required": { "type": "boolean" },
+    "no_html_css_js_edits": { "type": "boolean" },
+    "no_api_required": { "type": "boolean" },
+    "validation_state": { "type": "string" }
+  },
+  "additionalProperties": true
+}

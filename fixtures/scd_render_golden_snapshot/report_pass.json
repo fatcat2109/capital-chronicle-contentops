@@ -1,0 +1,42 @@
+{
+  "action_enabled": false,
+  "all_required_states_covered": true,
+  "api_gate_required": false,
+  "blocked_results": [],
+  "conformance_results": [
+    "cr_gs_rs_pass",
+    "cr_gs_rs_blocked",
+    "cr_gs_rs_review_required",
+    "cr_gs_rs_unknown"
+  ],
+  "display_contract_locked": true,
+  "display_only": true,
+  "executable_dispatch": false,
+  "failed_hash_matches": [],
+  "failed_structural_matches": [],
+  "final_recommendation": "PASS",
+  "golden_snapshot_manifest_id": "gsm_v1",
+  "golden_snapshot_report_id": "gsr_v1",
+  "live_ready": false,
+  "manual_publish_only": true,
+  "missing_required_replay_states": [],
+  "mock_only": true,
+  "mutation_detected_refs": [],
+  "no_api_required": true,
+  "no_browser_required": true,
+  "no_html_css_js_edits": true,
+  "no_screenshot_required": true,
+  "no_ui_runtime_required": true,
+  "operator_next_action": "Review locked golden snapshots before any future UI implementation.",
+  "pass_results": [
+    "cr_gs_rs_pass",
+    "cr_gs_rs_blocked",
+    "cr_gs_rs_review_required",
+    "cr_gs_rs_unknown"
+  ],
+  "public_ready": false,
+  "review_required_results": [],
+  "schema_version": "1.0",
+  "unknown_results": [],
+  "validation_state": "PASS"
+}

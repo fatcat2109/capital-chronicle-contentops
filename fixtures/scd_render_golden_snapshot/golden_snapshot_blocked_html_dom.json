@@ -1,0 +1,56 @@
+{
+  "action_enabled": false,
+  "api_gate_required": false,
+  "browser_required": false,
+  "canonical_json_sha256": "canonical_json_sha256:2a2a78f141b295677a4e15aacc8e4b9513882834a1dd630ae57235f3fa8bc3e4",
+  "current_vs_historical_truth_binding_present": true,
+  "display_only": true,
+  "display_slot_binding_count": 2,
+  "executable_dispatch": false,
+  "frozen_at": "deterministic",
+  "golden_snapshot_id": "gs_rs_pass",
+  "html_css_js_required": false,
+  "layout_region_count": 3,
+  "live_ready": false,
+  "operator_note": "inject <script>document.querySelector('x').innerHTML</script> at runtime",
+  "public_ready": false,
+  "render_spec_id": "rs_pass",
+  "render_spec_report_ref": "",
+  "replay_state": "PASS",
+  "schema_version": "1.0",
+  "screenshot_required": false,
+  "snapshot_payload": {
+    "action_enabled": false,
+    "current_vs_historical_truth_binding": {
+      "current_replay_report_slot": "current_truth_slot",
+      "current_state_is_authoritative": true,
+      "historical_evidence_slot": "historical_truth_slot",
+      "stale_or_historical_refs_separated": true
+    },
+    "display_only": true,
+    "display_slot_bindings": [
+      "headline_status_slot",
+      "current_truth_slot"
+    ],
+    "layout_regions": [
+      "command_hero",
+      "stage_matrix",
+      "current_truth_panel"
+    ],
+    "render_mode": "display_spec_only",
+    "render_spec_id": "rs_pass",
+    "schema_version": "1.0",
+    "status_token_bindings": [
+      "token_pass"
+    ],
+    "validation_state": "PASS",
+    "view_model_id": "vm_pass"
+  },
+  "source_fixture_refs": [
+    "fixtures/scd_render_spec/render_spec_pass.json"
+  ],
+  "status_token_binding_count": 1,
+  "ui_runtime_required": false,
+  "validation_state": "BLOCKED",
+  "view_model_id": "vm_pass"
+}

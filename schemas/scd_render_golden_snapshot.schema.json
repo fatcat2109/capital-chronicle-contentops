@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCDRenderGoldenSnapshot",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "golden_snapshot_id",
+    "render_spec_id",
+    "replay_state",
+    "snapshot_payload",
+    "canonical_json_sha256",
+    "validation_state"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "golden_snapshot_id": { "type": "string" },
+    "render_spec_id": { "type": "string" },
+    "view_model_id": { "type": "string" },
+    "replay_state": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "snapshot_payload": { "type": "object" },
+    "canonical_json_sha256": { "type": "string" },
+    "frozen_at": { "type": "string" },
+    "source_fixture_refs": { "type": "array", "items": { "type": "string" } },
+    "render_spec_report_ref": { "type": "string" },
+    "layout_region_count": { "type": "integer" },
+    "display_slot_binding_count": { "type": "integer" },
+    "status_token_binding_count": { "type": "integer" },
+    "current_vs_historical_truth_binding_present": { "type": "boolean" },
+    "display_only": { "type": "boolean" },
+    "action_enabled": { "type": "boolean" },
+    "ui_runtime_required": { "type": "boolean" },
+    "browser_required": { "type": "boolean" },
+    "screenshot_required": { "type": "boolean" },
+    "html_css_js_required": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "executable_dispatch": { "type": "boolean" },
+    "api_gate_required": { "type": "boolean" },
+    "validation_state": { "type": "string" }
+  },
+  "additionalProperties": true
+}

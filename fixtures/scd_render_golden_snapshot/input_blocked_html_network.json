@@ -1,0 +1,22 @@
+{
+  "actual_render_spec_ref": "rs_demo",
+  "allow_browser": false,
+  "allow_credentials": false,
+  "allow_html_css_js": true,
+  "allow_live_dispatch": false,
+  "allow_network": true,
+  "allow_platform_api": false,
+  "allow_screenshot": false,
+  "allow_ui_runtime": false,
+  "conformance_mode": "exact_canonical_json",
+  "expected_hash_algorithm": "canonical_json_sha256",
+  "golden_snapshot_input_id": "gsi_blocked_html",
+  "golden_snapshot_ref": "gs_rs_demo",
+  "manual_publish_only": true,
+  "mock_only": true,
+  "render_spec_id": "rs_demo",
+  "replay_state": "PASS",
+  "schema_version": "1.0",
+  "validation_state": "BLOCKED",
+  "view_model_id": "vm_demo"
+}
