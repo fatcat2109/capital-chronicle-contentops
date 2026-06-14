@@ -8,11 +8,17 @@
       "requested_as": "telegram",
       "content_surface": "channel_post",
       "text": "Markets closed mixed today as investors weighed the latest economic releases. This summary reflects published figures only and includes no forward-looking view.",
-      "character_count": 156,
+      "character_count": 160,
       "character_limit_max": 4096,
       "disclosure_fields": ["published_data_only"],
-      "limitations": ["Figures reflect the most recent published release and may be revised."],
-      "citations": ["citation_ref:bls_cpi_release_2026_06"],
+      "limitations": [
+        "Figures reflect the most recent published release and may be revised.",
+        "No intraday or real-time data is represented."
+      ],
+      "citations": [
+        "citation_ref:bls_cpi_release_2026_06",
+        "citation_ref:treasury_yield_curve_2026_06_13"
+      ],
       "hashtags": [],
       "links": [],
       "unsupported_feature_flags": ["live_posting_future_gated"],
@@ -26,12 +32,18 @@
       "platform_id": "x_twitter",
       "requested_as": "x_twitter",
       "content_surface": "short_post",
-      "text": "Markets closed mixed today. Published figures only.",
-      "character_count": 51,
+      "text": "Markets closed mixed today as investors weighed the latest economic releases. This summary reflects published figures only and includes no forward-looking view.",
+      "character_count": 160,
       "character_limit_max": 280,
       "disclosure_fields": ["made_with_ai", "published_data_only"],
-      "limitations": ["Figures may be revised."],
-      "citations": ["citation_ref:bls_cpi_release_2026_06"],
+      "limitations": [
+        "Figures reflect the most recent published release and may be revised.",
+        "No intraday or real-time data is represented."
+      ],
+      "citations": [
+        "citation_ref:bls_cpi_release_2026_06",
+        "citation_ref:treasury_yield_curve_2026_06_13"
+      ],
       "hashtags": [],
       "links": [],
       "unsupported_feature_flags": ["live_posting_future_gated"],
@@ -45,12 +57,18 @@
       "platform_id": "linkedin",
       "requested_as": "linkedin",
       "content_surface": "professional_post",
-      "text": "Markets closed mixed today as investors weighed the latest economic releases. Published figures only.",
-      "character_count": 100,
+      "text": "Markets closed mixed today as investors weighed the latest economic releases. This summary reflects published figures only and includes no forward-looking view.",
+      "character_count": 160,
       "character_limit_max": 3000,
       "disclosure_fields": ["published_data_only", "identity_mode_member_or_org"],
-      "limitations": ["Figures may be revised."],
-      "citations": ["citation_ref:bls_cpi_release_2026_06"],
+      "limitations": [
+        "Figures reflect the most recent published release and may be revised.",
+        "No intraday or real-time data is represented."
+      ],
+      "citations": [
+        "citation_ref:bls_cpi_release_2026_06",
+        "citation_ref:treasury_yield_curve_2026_06_13"
+      ],
       "hashtags": [],
       "links": [],
       "unsupported_feature_flags": ["live_posting_future_gated"],
@@ -64,12 +82,18 @@
       "platform_id": "facebook_page",
       "requested_as": "facebook_page",
       "content_surface": "page_post",
-      "text": "Markets closed mixed today. Published figures only.",
-      "character_count": 51,
+      "text": "Markets closed mixed today as investors weighed the latest economic releases. This summary reflects published figures only and includes no forward-looking view.",
+      "character_count": 160,
       "character_limit_max": 63206,
       "disclosure_fields": ["published_data_only"],
-      "limitations": ["Figures may be revised."],
-      "citations": ["citation_ref:bls_cpi_release_2026_06"],
+      "limitations": [
+        "Figures reflect the most recent published release and may be revised.",
+        "No intraday or real-time data is represented."
+      ],
+      "citations": [
+        "citation_ref:bls_cpi_release_2026_06",
+        "citation_ref:treasury_yield_curve_2026_06_13"
+      ],
       "hashtags": [],
       "links": [],
       "unsupported_feature_flags": ["live_posting_future_gated", "app_review_required_future"],
@@ -83,12 +107,18 @@
       "platform_id": "instagram",
       "requested_as": "instagram",
       "content_surface": "caption",
-      "text": "Markets closed mixed today. Published figures only.",
-      "character_count": 51,
+      "text": "Markets closed mixed today as investors weighed the latest economic releases. This summary reflects published figures only and includes no forward-looking view.",
+      "character_count": 160,
       "character_limit_max": 2200,
       "disclosure_fields": ["published_data_only"],
-      "limitations": ["Figures may be revised."],
-      "citations": ["citation_ref:bls_cpi_release_2026_06"],
+      "limitations": [
+        "Figures reflect the most recent published release and may be revised.",
+        "No intraday or real-time data is represented."
+      ],
+      "citations": [
+        "citation_ref:bls_cpi_release_2026_06",
+        "citation_ref:treasury_yield_curve_2026_06_13"
+      ],
       "hashtags": [],
       "links": [],
       "unsupported_feature_flags": ["live_posting_future_gated", "media_symbolic_placeholder_only"],
@@ -102,12 +132,18 @@
       "platform_id": "threads",
       "requested_as": "threads",
       "content_surface": "short_post",
-      "text": "Markets closed mixed today. Published figures only.",
-      "character_count": 51,
+      "text": "Markets closed mixed today as investors weighed the latest economic releases. This summary reflects published figures only and includes no forward-looking view.",
+      "character_count": 160,
       "character_limit_max": 500,
       "disclosure_fields": ["published_data_only"],
-      "limitations": ["Figures may be revised."],
-      "citations": ["citation_ref:bls_cpi_release_2026_06"],
+      "limitations": [
+        "Figures reflect the most recent published release and may be revised.",
+        "No intraday or real-time data is represented."
+      ],
+      "citations": [
+        "citation_ref:bls_cpi_release_2026_06",
+        "citation_ref:treasury_yield_curve_2026_06_13"
+      ],
       "hashtags": [],
       "links": [],
       "unsupported_feature_flags": ["live_posting_future_gated"],
@@ -121,12 +157,18 @@
       "platform_id": "tiktok",
       "requested_as": "tiktok",
       "content_surface": "video_caption",
-      "text": "Markets closed mixed today. Published figures only.",
-      "character_count": 51,
+      "text": "Markets closed mixed today as investors weighed the latest economic releases. This summary reflects published figures only and includes no forward-looking view.",
+      "character_count": 160,
       "character_limit_max": 2200,
       "disclosure_fields": ["published_data_only"],
-      "limitations": ["Figures may be revised."],
-      "citations": ["citation_ref:bls_cpi_release_2026_06"],
+      "limitations": [
+        "Figures reflect the most recent published release and may be revised.",
+        "No intraday or real-time data is represented."
+      ],
+      "citations": [
+        "citation_ref:bls_cpi_release_2026_06",
+        "citation_ref:treasury_yield_curve_2026_06_13"
+      ],
       "hashtags": [],
       "links": [],
       "unsupported_feature_flags": ["live_posting_future_gated", "last_priority_high_friction"],
@@ -141,11 +183,17 @@
       "requested_as": "substack_newsletter",
       "content_surface": "newsletter_section",
       "text": "Markets closed mixed today as investors weighed the latest economic releases. This summary reflects published figures only and includes no forward-looking view.",
-      "character_count": 156,
+      "character_count": 160,
       "character_limit_max": 100000,
       "disclosure_fields": ["published_data_only"],
-      "limitations": ["Figures reflect the most recent published release and may be revised."],
-      "citations": ["citation_ref:bls_cpi_release_2026_06"],
+      "limitations": [
+        "Figures reflect the most recent published release and may be revised.",
+        "No intraday or real-time data is represented."
+      ],
+      "citations": [
+        "citation_ref:bls_cpi_release_2026_06",
+        "citation_ref:treasury_yield_curve_2026_06_13"
+      ],
       "hashtags": [],
       "links": [],
       "unsupported_feature_flags": ["manual_export_only", "no_write_api"],
@@ -160,11 +208,17 @@
       "requested_as": "generic_manual",
       "content_surface": "manual_export",
       "text": "Markets closed mixed today as investors weighed the latest economic releases. This summary reflects published figures only and includes no forward-looking view.",
-      "character_count": 156,
+      "character_count": 160,
       "character_limit_max": 100000,
       "disclosure_fields": ["published_data_only"],
-      "limitations": ["Figures reflect the most recent published release and may be revised."],
-      "citations": ["citation_ref:bls_cpi_release_2026_06"],
+      "limitations": [
+        "Figures reflect the most recent published release and may be revised.",
+        "No intraday or real-time data is represented."
+      ],
+      "citations": [
+        "citation_ref:bls_cpi_release_2026_06",
+        "citation_ref:treasury_yield_curve_2026_06_13"
+      ],
       "hashtags": [],
       "links": [],
       "unsupported_feature_flags": ["manual_export_only", "no_api", "no_credential"],

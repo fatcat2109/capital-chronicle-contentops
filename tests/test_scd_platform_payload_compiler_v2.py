@@ -33,6 +33,9 @@ from live_contentops.scd_platform_payload_compiler_v2 import (
     validate_platform_payload_compiler_v2_input,
     validate_platform_payload_compiler_v2_output,
     validate_platform_payload_compile_report_v2,
+    build_constraint_profiles_from_registry_v2,
+    build_platform_payload_compile_report_v2,
+    build_compiler_v2_summary,
 )
 
 FIXTURE_DIR = os.path.join(
@@ -258,3 +261,127 @@ def test_hostile_cases_fail_closed():
         )
         # a hostile case may never resolve to PASS
         assert result["validation_state"] != PASS
+
+
+# --- Valid output fixture exact-copy (Repair 1) --------------------------------------
+
+def test_valid_output_fixture_texts_match_input_source_text_exactly():
+    source = _load("compiler_v2_input_valid_all_platforms.json")["source_text"]
+    output = _load("compiler_v2_output_valid_all_platforms.json")
+    payloads = output["platform_payloads"]
+    assert payloads
+    for payload in payloads:
+        # valid output represents the allowed path: source copied exactly,
+        # never rewritten or shortened
+        assert payload["text"] == source, payload["platform_id"]
+        assert payload["character_count"] == len(source)
+        assert payload["links"] == []
+        assert payload["hashtags"] == []
+        assert payload["operator_review_required"] is True
+        assert payload["public_ready"] is False
+        assert payload["live_eligibility"] is False
+    # exact source text fits every platform max, so the all-platforms output is
+    # not BLOCKED (tiktok remains high-friction REVIEW_REQUIRED via report)
+    result = validate_platform_payload_compiler_v2_output(output)
+    assert result["validation_state"] != BLOCKED
+
+
+# --- Builder API (Repair 2) ----------------------------------------------------------
+
+def test_builder_api_names_exist():
+    assert callable(build_constraint_profiles_from_registry_v2)
+    assert callable(build_platform_payload_compile_report_v2)
+    assert callable(build_compiler_v2_summary)
+
+
+def test_build_constraint_profiles_from_registry_v2_builds_all_registry_platforms():
+    registry_profiles = _load("registry_profiles_input.json")["registry_profiles"]
+    built = build_constraint_profiles_from_registry_v2(registry_profiles)
+    assert {p["platform_id"] for p in built} == set(APPROVED_PLATFORMS_V2)
+    for profile in built:
+        pid = profile["platform_id"]
+        # manual_export only for substack/generic; dry_run otherwise
+        if pid in MANUAL_EXPORT_PLATFORMS_V2:
+            assert profile["payload_shape"] == "manual_export"
+        else:
+            assert profile["payload_shape"] == "dry_run"
+        assert profile["manual_publish_only"] is True
+        for flag in (
+            "public_ready", "live_eligibility", "live_ready", "dispatch_ready",
+            "live_api_enabled_now", "platform_api_allowed_now",
+            "credential_read_allowed_now", "scheduler_enabled_now",
+        ):
+            assert profile[flag] is False
+        # each built profile validates cleanly (PASS, or REVIEW for tiktok)
+        result = validate_platform_constraint_profile_v2(profile)
+        if pid in HIGH_FRICTION_REVIEW_PLATFORMS_V2:
+            assert result["validation_state"] == REVIEW_REQUIRED
+        else:
+            assert result["validation_state"] == PASS
+
+
+def test_build_constraint_profiles_from_registry_v2_does_not_mutate_inputs():
+    registry_profiles = _load("registry_profiles_input.json")["registry_profiles"]
+    before = json.dumps(registry_profiles, sort_keys=True)
+    build_constraint_profiles_from_registry_v2(registry_profiles)
+    after = json.dumps(registry_profiles, sort_keys=True)
+    assert before == after
+
+
+def test_build_platform_payload_compile_report_v2_rolls_up_review_required_for_tiktok():
+    output = _load("compiler_v2_output_valid_all_platforms.json")
+    report = build_platform_payload_compile_report_v2(output)
+    by_id = {r["platform_id"]: r["result"] for r in report["per_platform_results"]}
+    assert by_id["tiktok"] == REVIEW_REQUIRED
+    assert report["final_recommendation"] == REVIEW_REQUIRED
+    assert report["live_ready"] is False
+    assert report["dispatch_ready"] is False
+    assert report["operator_review_required"] is True
+    # the built report validates through its own validator
+    result = validate_platform_payload_compile_report_v2(report)
+    assert result["validation_state"] == REVIEW_REQUIRED
+
+
+def test_build_platform_payload_compile_report_v2_blocks_overflow_or_unsafe_payload():
+    overflow_output = {
+        "schema_version": "0174bn-v2",
+        "compiler_output_id": "cout_of",
+        "compiler_input_id": "cin_of",
+        "platform_payloads": [
+            {
+                "platform_id": "x_twitter",
+                "text": "x" * 5000,
+                "character_count": 5000,
+                "character_limit_max": 280,
+                "payload_shape": "dry_run",
+                "mode": "dry_run",
+            }
+        ],
+        "operator_review_required": True,
+        "public_ready": False,
+        "live_eligibility": False,
+        "validation_state": "BLOCKED",
+    }
+    report = build_platform_payload_compile_report_v2(overflow_output)
+    by_id = {r["platform_id"]: r["result"] for r in report["per_platform_results"]}
+    assert by_id["x_twitter"] == BLOCKED
+    assert report["final_recommendation"] == BLOCKED
+    assert report["live_ready"] is False
+    assert report["dispatch_ready"] is False
+
+
+def test_build_compiler_v2_summary_never_grants_live_public_dispatch():
+    input_packet = _load("compiler_v2_input_valid_all_platforms.json")
+    output = _load("compiler_v2_output_valid_all_platforms.json")
+    report = build_platform_payload_compile_report_v2(output)
+    summary = build_compiler_v2_summary(input_packet, output, report)
+    assert summary["live_ready"] is False
+    assert summary["public_ready"] is False
+    assert summary["dispatch_ready"] is False
+    assert summary["live_eligibility"] is False
+    assert summary["operator_review_required"] is True
+    assert summary["platform_count"] == len(input_packet["requested_platforms"])
+    assert summary["output_payload_count"] == len(output["platform_payloads"])
+    assert summary["final_recommendation"] == report["final_recommendation"]
+    # tiktok surfaces as a non-PASS reason
+    assert any(r.startswith("tiktok:") for r in summary["reasons"])

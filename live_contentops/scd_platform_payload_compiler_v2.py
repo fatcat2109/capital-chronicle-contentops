@@ -388,6 +388,197 @@ def rollup_compile_report_v2(per_platform_results):
     return _rollup(states)
 
 
+# --- Local-only builder API ----------------------------------------------------------
+
+def build_constraint_profiles_from_registry_v2(platform_profiles):
+    """Build one v2 constraint profile per approved registry platform.
+
+    Takes registry v2 profile packets (symbolic capability descriptors) and
+    emits schema-valid SCDPlatformConstraintProfileV2 dicts. Platform ids are
+    normalized; substack_newsletter/generic_manual route to manual_export and
+    every other approved platform routes to dry_run. All live/API/credential/
+    scheduler/public/dispatch flags are forced false, manual_publish_only and
+    operator_review_required are forced true, and only symbolic metadata is
+    copied (no official URLs, no executable endpoints). Input profiles are never
+    mutated. Unknown/unapproved platforms are skipped. Each returned profile is
+    built to validate through validate_platform_constraint_profile_v2 (PASS, or
+    REVIEW_REQUIRED for high-friction platforms such as tiktok).
+    """
+    built = []
+    seen = set()
+    for raw in platform_profiles or []:
+        pid = normalize_platform_id_v2(_value(raw, "platform_id"))
+        if pid not in APPROVED_PLATFORMS_V2 or pid in seen:
+            continue
+        seen.add(pid)
+        shape = shape_for_platform_v2(pid)
+        declared = REVIEW_REQUIRED if pid in HIGH_FRICTION_REVIEW_PLATFORMS_V2 else PASS
+        built.append({
+            "schema_version": "0174bn-v2",
+            "profile_id": f"cp_v2_{pid}",
+            "platform_id": pid,
+            "label": f"{pid} ({shape} preview only)",
+            "content_surface": PLATFORM_SURFACE_V2.get(pid, "manual_export"),
+            "payload_shape": shape,
+            "character_limit_max": PLATFORM_HARD_MAX_V2.get(pid, 0),
+            "supports_links": False,
+            "supports_hashtags": False,
+            "supports_threading": False,
+            "supports_media": False,
+            "required_disclosure_fields": [],
+            "required_limitation_fields": [],
+            "unsupported_features": [],
+            "registry_allowed_state": _value(raw, "current_repo_allowed_state", ""),
+            "manual_publish_only": True,
+            "public_ready": False,
+            "live_eligibility": False,
+            "live_ready": False,
+            "dispatch_ready": False,
+            "live_api_enabled_now": False,
+            "platform_api_allowed_now": False,
+            "credential_read_allowed_now": False,
+            "scheduler_enabled_now": False,
+            "validation_state": declared,
+        })
+    return built
+
+
+def _payload_result_v2(payload):
+    """Fail-closed per-platform result for a single compiler output payload.
+
+    BLOCKED on forbidden flags/runtime/secret hits, shape/mode mismatch, or
+    character overflow; UNKNOWN for unapproved/missing platform ids;
+    REVIEW_REQUIRED for high-friction platforms (e.g. tiktok) otherwise; PASS
+    only for clean, in-shape, in-limit payloads.
+    """
+    pid = _value(payload, "platform_id")
+    if pid not in APPROVED_PLATFORMS_V2:
+        return UNKNOWN
+
+    blocked = []
+    blocked.extend(_required_false_hits_v2(payload))
+    blocked.extend(_unsafe_runtime_hits(payload))
+    blocked.extend(_secret_hits(payload))
+
+    expected_shape = shape_for_platform_v2(pid)
+    if _value(payload, "payload_shape") != expected_shape:
+        blocked.append("payload_shape_mismatch")
+    mode = _value(payload, "mode")
+    if mode not in ALLOWED_PAYLOAD_SHAPES_V2 or mode != expected_shape:
+        blocked.append("invalid_mode")
+
+    cmax = _value(payload, "character_limit_max")
+    ccount = _value(payload, "character_count")
+    if isinstance(cmax, int) and isinstance(ccount, int) and ccount > cmax:
+        blocked.append("character_overflow")
+    hard = PLATFORM_HARD_MAX_V2.get(pid)
+    if hard and isinstance(ccount, int) and ccount > hard:
+        blocked.append("character_overflow_hard")
+
+    if blocked:
+        return BLOCKED
+    if pid in HIGH_FRICTION_REVIEW_PLATFORMS_V2:
+        return REVIEW_REQUIRED
+    return PASS
+
+
+def build_platform_payload_compile_report_v2(compiler_output):
+    """Build a schema-valid compile report from a compiler v2 output packet.
+
+    Validates the supplied output, derives a fail-closed per-platform result for
+    each payload, and rolls them up (incorporating the overall output state so a
+    non-PASS output can never yield a PASS report). live_ready, dispatch_ready,
+    and every *_now flag are forced false; operator_review_required is forced
+    true. The returned packet is built to validate through
+    validate_platform_payload_compile_report_v2.
+    """
+    output_state = validate_platform_payload_compiler_v2_output(compiler_output)["validation_state"]
+    payloads = _value(compiler_output, "platform_payloads", []) or []
+
+    per_platform = []
+    blocked_p, review_p, pass_p, unknown_p = [], [], [], []
+    for payload in payloads:
+        pid = _value(payload, "platform_id")
+        result = _payload_result_v2(payload)
+        per_platform.append({"platform_id": pid, "result": result})
+        if result == BLOCKED:
+            blocked_p.append(pid)
+        elif result == REVIEW_REQUIRED:
+            review_p.append(pid)
+        elif result == UNKNOWN:
+            unknown_p.append(pid)
+        else:
+            pass_p.append(pid)
+
+    rollup_inputs = [r["result"] for r in per_platform]
+    if output_state != PASS:
+        rollup_inputs = rollup_inputs + [output_state]
+    recommendation = rollup_compile_report_v2(rollup_inputs)
+
+    output_id = _value(compiler_output, "compiler_output_id", "")
+    return {
+        "schema_version": "0174bn-v2",
+        "compile_report_id": f"crep_v2_from_{output_id}" if output_id else "crep_v2_from_unknown",
+        "compiler_input_id": _value(compiler_output, "compiler_input_id", ""),
+        "compiler_output_id": output_id,
+        "per_platform_results": per_platform,
+        "blocked_platforms": blocked_p,
+        "review_required_platforms": review_p,
+        "pass_platforms": pass_p,
+        "unknown_platforms": unknown_p,
+        "final_recommendation": recommendation,
+        "live_ready": False,
+        "dispatch_ready": False,
+        "platform_api_allowed_now": False,
+        "credential_read_allowed_now": False,
+        "credentials_requested_now": False,
+        "posting_enabled_now": False,
+        "scheduler_enabled_now": False,
+        "autonomous_replies_enabled_now": False,
+        "dms_enabled_now": False,
+        "scraping_enabled_now": False,
+        "public_ready": False,
+        "live_eligibility": False,
+        "operator_review_required": True,
+        "validation_state": recommendation,
+    }
+
+
+def build_compiler_v2_summary(compiler_input, compiler_output, compile_report):
+    """Build a pure in-memory summary of a v2 compile cycle.
+
+    No filesystem writes, no network, no provider/platform/credential access.
+    Returns normalized requested platforms, counts, the report's rolled-up
+    recommendation/state, and per-platform non-PASS reasons. The live_ready,
+    public_ready, and dispatch_ready booleans are hard-coded false and can never
+    be granted by this function.
+    """
+    requested = [
+        normalize_platform_id_v2(p)
+        for p in _value(compiler_input, "requested_platforms", []) or []
+    ]
+    payloads = _value(compiler_output, "platform_payloads", []) or []
+    reasons = []
+    for entry in _value(compile_report, "per_platform_results", []) or []:
+        result = _value(entry, "result")
+        if result != PASS:
+            reasons.append(f"{_value(entry, 'platform_id')}:{result}")
+
+    return {
+        "platform_count": len(requested),
+        "requested_platforms": requested,
+        "output_payload_count": len(payloads),
+        "final_recommendation": _value(compile_report, "final_recommendation"),
+        "validation_state": _value(compile_report, "validation_state"),
+        "operator_review_required": True,
+        "live_ready": False,
+        "public_ready": False,
+        "dispatch_ready": False,
+        "live_eligibility": False,
+        "reasons": reasons,
+    }
+
+
 # Registry of v2 compiler validators, keyed for data-driven hostile tests.
 PLATFORM_PAYLOAD_COMPILER_V2_VALIDATORS = {
     "platform_constraint_profile_v2": validate_platform_constraint_profile_v2,
