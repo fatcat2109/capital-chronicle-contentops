@@ -251,6 +251,7 @@
     /* Executive decision spine leads the flagship; inspection command surfaces
        and the change ledger / blocker board / proof ledger follow below. */
     renderDecisionSpine(s, body);
+    renderEvidenceSurfaceSummary(body);
     renderInspectionCommands(body);
 
     var changed = el("div", "instrument-panel section-gap");
@@ -555,6 +556,8 @@
     var recDd = drilldown("Platform Readiness Records", "inspect-only · drilldown");
     recDd.body.appendChild(rec);
     body.appendChild(recDd.details);
+
+    renderEvidenceSurfaceNoGrant(body);
   }
 
 
@@ -623,6 +626,8 @@
       chain.appendChild(stage);
     });
     body.appendChild(chain);
+
+    renderEvidenceSurfaceHost(body);
 
     var mp = panel("Validation Matrix");
     var wrap = el("div", "matrix-wrap audit-room-grid");
@@ -925,6 +930,8 @@
     var fgDd = drilldown("Future Gate Requirements", "future-only gates · drilldown");
     fgDd.body.appendChild(fg);
     body.appendChild(fgDd.details);
+
+    renderEvidenceSurfaceBoundary(body);
   }
 
 
@@ -1220,6 +1227,20 @@
        institutional detail + evidence path, then the screen summary below. */
     if (SELECTED_OBJECT) renderSelectedObjectDetail(SELECTED_OBJECT, rail);
 
+    /* Surface-derived selection (0174BU): show evidence-surface cards instead
+       of the per-screen template. Read-only; no grant, no operational control. */
+    if (SELECTED_OBJECT && SELECTED_OBJECT.kind === "evidence surface") {
+      var sv = surfaceIntegrity();
+      var hm = surfaceField("hostile_matrix_summary", {});
+      card("Surface rollup", surfaceField("rollup_state", "UNKNOWN") + " · integrity " + sv.state,
+        sv.state === "PASS" ? "safe" : (sv.state === "BLOCKED" ? "blocked" : "review"));
+      card("No-grant label", surfaceField("no_grant_label", NO_GRANT_LABEL), "safe");
+      card("Component states", surfaceField("component_state_matrix", []).length + " bound", "safe", true);
+      card("Hostile matrix", "never_pass=" + hm.never_pass + " · " + hm.total_cases + " cases", "safe", true);
+      card("Blocked actions", surfaceField("blocked_actions", []).length + " · publish / dispatch / credential read", "blocked", true);
+      return;
+    }
+
     function card(label, value, sevClass, mono) {
       var c = el("div", "inspector-card" + (sevClass ? " sev-" + sevClass : ""));
       c.appendChild(el("span", "inspector-card-label", label));
@@ -1322,6 +1343,312 @@
       card("Evidence backing", evidenceRefsValue(5), null, true);
       disabledLocks();
     }
+  }
+
+  /* =====================================================================
+   * Operator Evidence Surface integration (0174BU).
+   * Wires the frozen Prep02 bridge global window.CC_OPERATOR_EVIDENCE_SURFACE
+   * into the cockpit as an additive, evidence-only, no-grant surface. The
+   * bridge is trusted-but-verified: surfaceIntegrity() re-checks the no-grant
+   * invariants locally so a missing or tampered global can never produce a
+   * false grant. Local-only: no network, no storage, no operational action.
+   * ===================================================================== */
+  var SURFACE = window.CC_OPERATOR_EVIDENCE_SURFACE || null;
+  var NO_GRANT_LABEL = "EVIDENCE ONLY / NO GRANT";
+
+  var SURFACE_REQUIRED_FALSE = [
+    "public_ready", "live_ready", "dispatch_ready", "executable_dispatch",
+    "platform_api_allowed_now", "credential_read_allowed_now",
+    "scheduler_enabled_now", "posting_enabled_now", "audit_event_created",
+    "audit_allowlist_modified", "readiness_granted"
+  ];
+  var SURFACE_REQUIRED_TRUE = [
+    "evidence_only", "non_executable", "manual_review_required",
+    "local_only", "ui_surface_ready"
+  ];
+  var SURFACE_REQUIRED_LINEAGE = [
+    "bridge_report_id", "bridge_report_hash", "compiler_output_id",
+    "compile_report_id", "payload_hash_manifest_id",
+    "readiness_alignment_id", "audit_alignment_id"
+  ];
+
+  /* Null-safe reader: a partial/absent surface never throws. */
+  function surfaceField(key, fallback) {
+    if (!SURFACE || SURFACE[key] === undefined || SURFACE[key] === null) return fallback;
+    return SURFACE[key];
+  }
+
+  /* Recompute the no-grant verdict locally. Never trusts the declared
+     validation_state alone. Fail-closed precedence: BLOCKED > UNKNOWN > PASS. */
+  function surfaceIntegrity() {
+    if (!SURFACE) return { state: "UNKNOWN", reasons: ["evidence surface global is absent"] };
+    var reasons = [];
+    var falseViolations = SURFACE_REQUIRED_FALSE.filter(function (k) { return SURFACE[k] === true; });
+    var trueViolations = SURFACE_REQUIRED_TRUE.filter(function (k) { return SURFACE[k] !== true; });
+    falseViolations.forEach(function (k) { reasons.push("required-false flag true: " + k); });
+    trueViolations.forEach(function (k) { reasons.push("required-true flag not true: " + k); });
+    if (SURFACE.no_grant_label !== NO_GRANT_LABEL) reasons.push("no_grant_label mismatch");
+    if (reasons.length) return { state: "BLOCKED", reasons: reasons };
+    var missing = SURFACE_REQUIRED_LINEAGE.filter(function (k) {
+      return !SURFACE[k] || String(SURFACE[k]).length === 0;
+    });
+    if (missing.length) {
+      return { state: "UNKNOWN", reasons: missing.map(function (k) { return "missing lineage id: " + k; }) };
+    }
+    if (SURFACE.rollup_state !== "PASS") {
+      return { state: SURFACE.rollup_state || "UNKNOWN", reasons: ["rollup_state=" + (SURFACE.rollup_state || "absent")] };
+    }
+    return { state: "PASS", reasons: [] };
+  }
+
+  /* Canonical inspectable object for surface-derived selections. */
+  function surfaceInspectObject(partial) {
+    return inspectObject({
+      kind: "evidence surface",
+      id: partial.id || surfaceField("surface_id", "evidence-surface"),
+      label: partial.label || "Operator Evidence Surface",
+      state: partial.state || surfaceIntegrity().state,
+      severity: partial.severity || "neutral",
+      reason: partial.reason || "Evidence-only projection of the accepted 0174BT operator evidence summary. Grants nothing.",
+      evidence_refs: partial.evidence_refs || [],
+      allowed_local_action: "Inspect Evidence",
+      blocked_action: "publish / dispatch / credential read / readiness grant",
+      caveat: NO_GRANT_LABEL,
+      posture: "current"
+    });
+  }
+
+  /* Fail-closed banner. Shown whenever integrity is not PASS so the worst case
+     is a calm unavailable/blocked readout, never a positive/grant affordance. */
+  function renderSurfaceUnavailable(body, verdict) {
+    var sev = verdict.state === "BLOCKED" ? "blocked" : "review";
+    var banner = el("div", "evidence-surface-unavailable sev-" + sev);
+    var head = el("div", "es-unavailable-head");
+    var title = verdict.state === "BLOCKED"
+      ? "SURFACE INTEGRITY BLOCKED"
+      : "EVIDENCE SURFACE UNAVAILABLE / NO GRANT";
+    head.appendChild(el("span", "es-unavailable-title", title));
+    head.appendChild(el("span", "token " + (verdict.state === "BLOCKED" ? "BLOCKED" : "UNKNOWN"), verdict.state));
+    banner.appendChild(head);
+    banner.appendChild(el("div", "es-unavailable-reason readable-body-copy",
+      "Evidence surface fail-closed; no publish / dispatch / readiness affordance is shown. " +
+      (verdict.reasons[0] || "")));
+    body.appendChild(banner);
+    return banner;
+  }
+
+  /* Command Center — compact evidence summary near the decision spine. */
+  function renderEvidenceSurfaceSummary(body) {
+    var verdict = surfaceIntegrity();
+    var wrap = el("div", "instrument-panel evidence-surface-summary section-gap");
+    var head = el("div", "instrument-head");
+    head.appendChild(el("span", "instrument-title", "Operator Evidence Surface"));
+    head.appendChild(el("span", "data-label", NO_GRANT_LABEL));
+    wrap.appendChild(head);
+    if (verdict.state !== "PASS") { renderSurfaceUnavailable(wrap, verdict); body.appendChild(wrap); return; }
+    var strip = el("div", "es-summary-grid");
+    [["Rollup", surfaceField("rollup_state", "UNKNOWN"), "safe", true],
+     ["Blockers", String(surfaceField("blocker_count", 0)), "neutral", false],
+     ["Review", String(surfaceField("review_required_count", 0)), "neutral", false],
+     ["Unknown", String(surfaceField("unknown_count", 0)), "neutral", false],
+     ["Allowed (local)", surfaceField("allowed_local_action", "inspect evidence only"), "neutral", false]
+    ].forEach(function (m) {
+      var cell = el("div", "es-cell" + (m[2] ? " sev-" + m[2] : ""));
+      cell.appendChild(el("span", "data-label", m[0]));
+      if (m[3]) {
+        var v = el("span", "es-value");
+        v.appendChild(el("span", "token " + m[1], m[1]));
+        cell.appendChild(v);
+      } else {
+        cell.appendChild(el("span", "es-value mono", m[1]));
+      }
+      strip.appendChild(cell);
+    });
+    wrap.appendChild(strip);
+    var src = el("div", "es-source");
+    src.appendChild(el("span", "data-label", "Source baseline"));
+    src.appendChild(el("span", "mono-value",
+      surfaceField("source_evidence_baseline_head", "\u2014") + " \u00b7 " + surfaceField("source_task_label", "")));
+    wrap.appendChild(src);
+    makeSelectable(wrap, surfaceInspectObject({
+      state: verdict.state, severity: "safe",
+      reason: "Compact evidence-surface summary. PASS means internally consistent and UI-safe only \u2014 never publish/live/ready."
+    }));
+    body.appendChild(wrap);
+  }
+
+  /* Evidence Vault — primary host: chain map, component matrix, required-false
+     matrix, hostile rollup, lineage. All within drilldowns; nothing deleted. */
+  function renderEvidenceSurfaceHost(body) {
+    var verdict = surfaceIntegrity();
+    var hostHead = el("div", "instrument-panel evidence-surface-host section-gap");
+    var hh = el("div", "instrument-head");
+    hh.appendChild(el("span", "instrument-title", "Operator Evidence Surface (Primary Host)"));
+    hh.appendChild(el("span", "data-label", NO_GRANT_LABEL));
+    hostHead.appendChild(hh);
+    if (verdict.state !== "PASS") { renderSurfaceUnavailable(hostHead, verdict); body.appendChild(hostHead); return; }
+    var rollup = el("div", "es-rollup");
+    [["Rollup", surfaceField("rollup_state", "UNKNOWN"), true],
+     ["Validation", surfaceField("validation_state", "UNKNOWN"), true],
+     ["Schema", surfaceField("surface_schema_version", "\u2014"), false]
+    ].forEach(function (m) {
+      var cell = el("div", "es-rollup-cell");
+      cell.appendChild(el("span", "data-label", m[0]));
+      if (m[2]) cell.appendChild(el("span", "token " + m[1], m[1]));
+      else cell.appendChild(el("span", "mono-value", m[1]));
+      rollup.appendChild(cell);
+    });
+    hostHead.appendChild(rollup);
+    makeSelectable(hostHead, surfaceInspectObject({ state: verdict.state, severity: "safe",
+      reason: "Primary evidence-surface host. Evidence-only projection of the accepted 0174BT summary; grants nothing." }));
+    body.appendChild(hostHead);
+
+    var nodes = surfaceField("evidence_path_nodes", []);
+    if (nodes.length) {
+      var chainPanel = panel("Evidence Chain Map");
+      var chain = el("div", "es-chain");
+      nodes.forEach(function (n, i) {
+        if (i > 0) chain.appendChild(el("span", "es-chain-arrow", "\u2192"));
+        var node = el("span", "es-chain-node");
+        node.appendChild(el("span", "es-chain-step", String(i + 1)));
+        node.appendChild(el("span", "es-chain-label", n));
+        chain.appendChild(node);
+      });
+      chainPanel.appendChild(chain);
+      var chainDd = drilldown("Evidence Chain Map", "compiler v2 \u2192 operator evidence summary 0174bt \u00b7 drilldown");
+      chainDd.body.appendChild(chainPanel);
+      body.appendChild(chainDd.details);
+    }
+
+    var comps = surfaceField("component_state_matrix", []);
+    if (comps.length) {
+      var cmPanel = panel("Component State Matrix");
+      var cmWrap = el("div", "matrix-wrap");
+      var cmTable = el("table", "matrix");
+      var cmThead = el("thead"), cmTr = el("tr");
+      ["component", "evidence id", "state"].forEach(function (c) { cmTr.appendChild(el("th", null, c)); });
+      cmThead.appendChild(cmTr); cmTable.appendChild(cmThead);
+      var cmBody = el("tbody");
+      comps.forEach(function (r) {
+        var tr = el("tr");
+        tr.appendChild(el("td", "wrap", r.component));
+        tr.appendChild(el("td", "mono", r.evidence_id));
+        var td = el("td"); td.appendChild(el("span", "token " + r.state, r.state)); tr.appendChild(td);
+        makeSelectable(tr, surfaceInspectObject({
+          id: r.evidence_id, label: r.component + " \u00b7 " + r.state, state: r.state,
+          severity: r.state === "PASS" ? "safe" : "review",
+          reason: "Bound component " + r.component + " validated " + r.state + ".",
+          evidence_refs: [r.evidence_id] }));
+        cmBody.appendChild(tr);
+      });
+      cmTable.appendChild(cmBody); cmWrap.appendChild(cmTable); cmPanel.appendChild(cmWrap);
+      var cmDd = drilldown("Component State Matrix", "component / evidence id / state \u00b7 drilldown");
+      cmDd.body.appendChild(cmPanel);
+      body.appendChild(cmDd.details);
+    }
+
+    var flags = surfaceField("required_false_flag_matrix", []);
+    if (flags.length) {
+      var fPanel = panel("Required-False Flag Matrix (no-grant proof)");
+      var fMat = el("div", "es-flag-matrix");
+      flags.forEach(function (f) {
+        var row = el("div", "es-flag-row" + (f.value === true ? " is-violation" : ""));
+        row.appendChild(el("span", "es-flag-name mono", f.flag));
+        row.appendChild(el("span", "es-flag-value", f.value === true ? "TRUE \u2014 VIOLATION" : "false"));
+        fMat.appendChild(row);
+      });
+      fPanel.appendChild(fMat);
+      var fDd = drilldown("Required-False Flag Matrix", "every flag must be false \u00b7 drilldown");
+      fDd.body.appendChild(fPanel);
+      body.appendChild(fDd.details);
+    }
+
+    var hm = surfaceField("hostile_matrix_summary", {});
+    var lineagePanel = panel("Lineage + Hostile Matrix Rollup");
+    [["never_pass", String(hm.never_pass)], ["hostile cases", String(hm.total_cases)],
+     ["bridge_report_id", surfaceField("bridge_report_id", "\u2014")],
+     ["bridge_report_hash", surfaceField("bridge_report_hash", "\u2014")],
+     ["compiler_output_id", surfaceField("compiler_output_id", "\u2014")],
+     ["compile_report_id", surfaceField("compile_report_id", "\u2014")],
+     ["payload_hash_manifest_id", surfaceField("payload_hash_manifest_id", "\u2014")],
+     ["readiness_alignment_id", surfaceField("readiness_alignment_id", "\u2014")],
+     ["audit_alignment_id", surfaceField("audit_alignment_id", "\u2014")]
+    ].forEach(function (m) {
+      var row = el("div", "reg-row");
+      row.appendChild(el("span", "reg-key", m[0]));
+      row.appendChild(el("span", "reg-val mono", m[1]));
+      lineagePanel.appendChild(row);
+    });
+    var lDd = drilldown("Lineage + Hostile Matrix Rollup", "lineage ids / hostile rollup \u00b7 drilldown");
+    lDd.body.appendChild(lineagePanel);
+    body.appendChild(lDd.details);
+  }
+
+  /* Publish Readiness Tower — no-grant communication matrix. */
+  function renderEvidenceSurfaceNoGrant(body) {
+    var verdict = surfaceIntegrity();
+    var p = el("div", "instrument-panel es-no-grant-matrix section-gap");
+    var h = el("div", "instrument-head");
+    h.appendChild(el("span", "instrument-title", "No-Grant Communication Matrix"));
+    h.appendChild(el("span", "data-label", NO_GRANT_LABEL));
+    p.appendChild(h);
+    if (verdict.state !== "PASS") { renderSurfaceUnavailable(p, verdict); body.appendChild(p); return; }
+    p.appendChild(el("div", "es-no-grant-note readable-body-copy",
+      "Even a PASS evidence surface grants nothing. The actions below remain blocked; readiness and dispatch flags are forced false."));
+    var blocked = surfaceField("blocked_actions", []);
+    var grid = el("div", "es-blocked-grid");
+    blocked.forEach(function (a) {
+      var cell = el("div", "es-blocked-cell sev-blocked");
+      cell.appendChild(el("span", "token BLOCKED", "BLOCKED"));
+      cell.appendChild(el("span", "es-blocked-label", a));
+      grid.appendChild(cell);
+    });
+    p.appendChild(grid);
+    var flags = surfaceField("required_false_flag_matrix", []).filter(function (f) {
+      return /ready|dispatch|readiness|posting|platform_api/.test(f.flag);
+    });
+    var fr = el("div", "es-flag-matrix");
+    flags.forEach(function (f) {
+      var row = el("div", "es-flag-row" + (f.value === true ? " is-violation" : ""));
+      row.appendChild(el("span", "es-flag-name mono", f.flag));
+      row.appendChild(el("span", "es-flag-value", f.value === true ? "TRUE \u2014 VIOLATION" : "false"));
+      fr.appendChild(row);
+    });
+    p.appendChild(fr);
+    makeSelectable(p, surfaceInspectObject({ state: verdict.state, severity: "blocked",
+      reason: "No-grant communication matrix: surface grants no publish/dispatch/readiness even at PASS." }));
+    body.appendChild(p);
+  }
+
+  /* Settings / Safety — evidence surface boundary policy group. */
+  function renderEvidenceSurfaceBoundary(body) {
+    var verdict = surfaceIntegrity();
+    var p = panel("Evidence Surface Boundary");
+    p.classList.add("es-boundary", "section-gap");
+    if (verdict.state !== "PASS") { renderSurfaceUnavailable(p, verdict); body.appendChild(p); return; }
+    [["No-grant label", surfaceField("no_grant_label", NO_GRANT_LABEL)],
+     ["Allowed (local)", surfaceField("allowed_local_action", "inspect evidence only")],
+     ["Surface id", surfaceField("surface_id", "\u2014")],
+     ["Schema version", surfaceField("surface_schema_version", "\u2014")]
+    ].forEach(function (m) {
+      var row = el("div", "reg-row");
+      row.appendChild(el("span", "reg-key", m[0]));
+      row.appendChild(el("span", "reg-val mono", m[1]));
+      p.appendChild(row);
+    });
+    var notes = surfaceField("truth_model_notes", []);
+    if (notes.length) {
+      p.appendChild(el("div", "data-label", "Truth-model notes"));
+      var ul = el("ul");
+      notes.forEach(function (n) { ul.appendChild(el("li", null, n)); });
+      p.appendChild(ul);
+    }
+    p.appendChild(el("div", "data-label", "Credential / env path awareness (names only)"));
+    p.appendChild(el("div", "muted",
+      "Surface performs no credential or env read. Path names are referenced for awareness only; no value is read, parsed, or displayed."));
+    makeSelectable(p, surfaceInspectObject({ state: verdict.state, severity: "safe",
+      reason: "Evidence surface boundary: parallel/additive, evidence-only, no credential or env read." }));
+    body.appendChild(p);
   }
 
   /* --- Screen dispatcher --- */

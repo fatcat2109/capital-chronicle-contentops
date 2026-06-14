@@ -2358,3 +2358,106 @@ table.matrix thead th,
 .operator-scan-layer.scan-compact .primary-answer { font-size: var(--type-title); }
 .operator-scan-layer.scan-compact .next-action-card { display: none; }
 
+
+/* =====================================================================
+ * Operator Evidence Surface primitives (0174BU).
+ * Additive, evidence-only / no-grant surface. Technical Matte: flat depth
+ * (no shadow/glow), 1px gridlines, zero border-radius. Reuses existing
+ * tokens only; the single saturated accent (--red) is used solely for the
+ * fail-closed violation/unavailable state, never for a positive grant.
+ * ===================================================================== */
+
+/* Compact Command Center summary strip. */
+.evidence-surface-summary .es-summary-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  border: 1px solid var(--gridline); border-bottom: none;
+}
+.evidence-surface-summary .es-cell {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 10px 12px; border-bottom: 1px solid var(--gridline);
+  border-right: 1px solid var(--gridline); background: var(--surface-panel);
+}
+.evidence-surface-summary .es-cell:last-child { border-right: none; }
+.evidence-surface-summary .es-value { font-size: var(--type-body); color: var(--text); }
+.evidence-surface-summary .es-value.mono { font-family: var(--mono); color: var(--text-mono); }
+.evidence-surface-summary .es-source {
+  display: flex; align-items: baseline; gap: 10px;
+  padding: 8px 12px; border: 1px solid var(--gridline);
+  background: var(--surface-header);
+}
+.evidence-surface-summary .es-source .mono-value { font-family: var(--mono); color: var(--text-dim); font-size: var(--type-label); }
+
+/* Primary host rollup row (Evidence Vault). */
+.evidence-surface-host .es-rollup {
+  display: flex; flex-wrap: wrap; gap: 0;
+  border: 1px solid var(--gridline); margin-top: 10px;
+}
+.evidence-surface-host .es-rollup-cell {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 10px 14px; border-right: 1px solid var(--gridline);
+  background: var(--surface-panel);
+}
+.evidence-surface-host .es-rollup-cell:last-child { border-right: none; }
+.evidence-surface-host .es-rollup-cell .mono-value { font-family: var(--mono); color: var(--text-mono); font-size: var(--type-label); }
+
+/* Evidence chain map (reuses provenance-chain rhythm). */
+.es-chain {
+  display: flex; flex-wrap: wrap; align-items: stretch; gap: 6px;
+  padding: 4px 0;
+}
+.es-chain-node {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 8px 12px; border: 1px solid var(--gridline);
+  background: var(--surface-panel); min-width: 0;
+}
+.es-chain-step {
+  font-family: var(--mono); font-size: var(--type-micro);
+  color: var(--text-faint); letter-spacing: var(--tracking-label);
+}
+.es-chain-label { font-size: var(--type-label); color: var(--text); word-break: break-word; }
+.es-chain-arrow { align-self: center; color: var(--text-faint); padding: 0 2px; }
+
+/* Required-false flag matrix (no-grant proof). */
+.es-flag-matrix { border: 1px solid var(--gridline); border-bottom: none; }
+.es-flag-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 7px 12px; border-bottom: 1px solid var(--gridline);
+  background: var(--surface-panel);
+}
+.es-flag-name { font-family: var(--mono); font-size: var(--type-label); color: var(--text-dim); }
+.es-flag-value { font-size: var(--type-label); color: var(--green); letter-spacing: var(--tracking-label); }
+/* Violation state: only shown on fail-closed (a required-false flag is true). */
+.es-flag-row.is-violation { background: var(--surface-sunken); }
+.es-flag-row.is-violation .es-flag-value { color: var(--red); }
+
+/* No-Grant Communication Matrix (Publish Readiness Tower). */
+.es-no-grant-matrix .es-no-grant-note { margin-bottom: 10px; color: var(--text-dim); }
+.es-blocked-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--gridline); border-bottom: none; margin-bottom: 10px;
+}
+.es-blocked-cell {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 12px; border-bottom: 1px solid var(--gridline);
+  border-right: 1px solid var(--gridline); background: var(--surface-panel);
+}
+.es-blocked-label { font-family: var(--mono); font-size: var(--type-label); color: var(--text-dim); }
+
+/* Settings boundary policy group. */
+.es-boundary ul { margin: 4px 0 0; padding-left: 1.1rem; }
+.es-boundary li { font-size: var(--type-label); color: var(--text-dim); line-height: var(--line-normal); }
+
+/* Fail-closed banner: calm unavailable/blocked readout, never a grant. */
+.evidence-surface-unavailable {
+  border: 1px solid var(--outline); background: var(--surface-sunken);
+  padding: 12px 14px; margin-top: 10px;
+}
+.evidence-surface-unavailable.sev-blocked { border-color: var(--red); }
+.evidence-surface-unavailable .es-unavailable-head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 6px;
+}
+.evidence-surface-unavailable .es-unavailable-title {
+  font-size: var(--type-label); letter-spacing: var(--tracking-label);
+  text-transform: uppercase; color: var(--text);
+}
+.evidence-surface-unavailable .es-unavailable-reason { color: var(--text-dim); font-size: var(--type-label); }
