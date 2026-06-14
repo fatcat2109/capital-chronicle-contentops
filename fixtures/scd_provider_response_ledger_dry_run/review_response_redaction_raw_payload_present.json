@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "validation_state": "PASS",
+  "response_artifact_ref": "ref:art",
+  "response_redaction_ref": "ref:red",
+  "raw_response_redistribution_allowed": false,
+  "raw_provider_payload_present": true,
+  "redacted_response_artifact_present": true,
+  "secret_material_detected": false,
+  "auth_header_detected": false,
+  "endpoint_url_detected": false,
+  "provider_token_detected": false,
+  "public_ready": false,
+  "reasons": [
+    "ok"
+  ]
+}

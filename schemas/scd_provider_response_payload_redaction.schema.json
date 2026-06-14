@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "schema_version": {"type": "string"},
+        "batch_id": {"type": "string"},
+        "validation_state": {"type": "string"},
+        "response_artifact_ref": {"type": "string"},
+        "response_redaction_ref": {"type": "string"},
+        "raw_response_redistribution_allowed": {"type": "boolean"},
+        "raw_provider_payload_present": {"type": "boolean"},
+        "redacted_response_artifact_present": {"type": "boolean"},
+        "secret_material_detected": {"type": "boolean"},
+        "auth_header_detected": {"type": "boolean"},
+        "endpoint_url_detected": {"type": "boolean"},
+        "provider_token_detected": {"type": "boolean"},
+        "public_ready": {"type": "boolean"},
+        "reasons": {"type": "array", "items": {"type": "string"}}
+    },
+    "required": [
+        "schema_version",
+        "batch_id",
+        "validation_state",
+        "response_artifact_ref",
+        "response_redaction_ref",
+        "raw_response_redistribution_allowed",
+        "raw_provider_payload_present",
+        "redacted_response_artifact_present",
+        "secret_material_detected",
+        "auth_header_detected",
+        "endpoint_url_detected",
+        "provider_token_detected",
+        "public_ready",
+        "reasons"
+    ],
+    "additionalProperties": false
+}
