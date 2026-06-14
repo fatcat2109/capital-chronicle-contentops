@@ -1,0 +1,402 @@
+[
+  {
+    "schema_version": "2.0",
+    "official_doc_source_id": "doc-src-telegram",
+    "platform_id": "telegram",
+    "official_doc_url": "https://core.telegram.org/bots/api",
+    "doc_title": "Telegram Bot API Reference",
+    "retrieved_date": "2026-06-10",
+    "doc_version_or_last_updated_if_visible": "not_visible",
+    "endpoint_family_names": [
+      "bot_message_family_future",
+      "bot_media_family_future"
+    ],
+    "publish_capability_summary": "Documented channel message posting capability; supervised future gate only.",
+    "required_permissions_or_scopes": [
+      "channel_admin_post_permission_future"
+    ],
+    "credential_requirements": [
+      "single_bot_credential_slot_future"
+    ],
+    "media_requirements": [
+      "image_and_video_attachment_limits_apply"
+    ],
+    "app_review_or_verification_requirements": [
+      "channel_admin_post_permission_future"
+    ],
+    "rate_limit_or_quota_notes": [
+      "per_second_and_per_minute_message_caps_future"
+    ],
+    "unsupported_or_unknown_fields": [
+      "native_metrics_not_available"
+    ],
+    "live_risk_level": "medium_first_future_candidate",
+    "current_repo_allowed_state": "future_live_gate_required",
+    "future_live_gate_requirements": [
+      "operator_go_required_future",
+      "per_post_approval_future",
+      "kill_switch_check_future",
+      "redacted_audit_future"
+    ],
+    "citation_safe_notes": "Official documentation reference only; advisory, not runtime authority.",
+    "advisory_only": true,
+    "runtime_authority": false,
+    "source_status": "official",
+    "validation_state": "PASS",
+    "blocked_reasons": []
+  },
+  {
+    "schema_version": "2.0",
+    "official_doc_source_id": "doc-src-x_twitter",
+    "platform_id": "x_twitter",
+    "official_doc_url": "https://docs.x.com/x-api/posts/creation-of-a-post",
+    "doc_title": "X API - Create Post",
+    "retrieved_date": "2026-06-10",
+    "doc_version_or_last_updated_if_visible": "not_visible",
+    "endpoint_family_names": [
+      "create_post_family_future",
+      "media_upload_family_future"
+    ],
+    "publish_capability_summary": "Documented post creation and media attachment fields; cost and access tier sensitive.",
+    "required_permissions_or_scopes": [
+      "paid_developer_tier_required_for_write_future"
+    ],
+    "credential_requirements": [
+      "oauth2_app_credential_slot_future"
+    ],
+    "media_requirements": [
+      "image_and_video_attachment_limits_apply"
+    ],
+    "app_review_or_verification_requirements": [
+      "paid_developer_tier_required_for_write_future"
+    ],
+    "rate_limit_or_quota_notes": [
+      "write_tier_daily_caps_future"
+    ],
+    "unsupported_or_unknown_fields": [
+      "poll_and_paid_partnership_fields_unverified"
+    ],
+    "live_risk_level": "high_policy_cost_access_sensitive",
+    "current_repo_allowed_state": "future_live_gate_required",
+    "future_live_gate_requirements": [
+      "operator_go_required_future",
+      "per_post_approval_future",
+      "kill_switch_check_future",
+      "redacted_audit_future"
+    ],
+    "citation_safe_notes": "Official documentation reference only; advisory, not runtime authority.",
+    "advisory_only": true,
+    "runtime_authority": false,
+    "source_status": "official",
+    "validation_state": "PASS",
+    "blocked_reasons": []
+  },
+  {
+    "schema_version": "2.0",
+    "official_doc_source_id": "doc-src-linkedin",
+    "platform_id": "linkedin",
+    "official_doc_url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api",
+    "doc_title": "Microsoft Learn - LinkedIn Posts API",
+    "retrieved_date": "2026-06-10",
+    "doc_version_or_last_updated_if_visible": "not_visible",
+    "endpoint_family_names": [
+      "member_share_family_future",
+      "organization_share_family_future"
+    ],
+    "publish_capability_summary": "Documented member and organization share posting; restricted permissions future only.",
+    "required_permissions_or_scopes": [
+      "community_management_app_review_future"
+    ],
+    "credential_requirements": [
+      "oauth2_member_and_org_credential_slot_future"
+    ],
+    "media_requirements": [
+      "image_video_and_document_upload_init_future"
+    ],
+    "app_review_or_verification_requirements": [
+      "community_management_app_review_future"
+    ],
+    "rate_limit_or_quota_notes": [
+      "spaced_daily_posting_caps_future"
+    ],
+    "unsupported_or_unknown_fields": [
+      "versioned_header_requirements_unverified"
+    ],
+    "live_risk_level": "high_restricted_permissions",
+    "current_repo_allowed_state": "future_live_gate_required",
+    "future_live_gate_requirements": [
+      "operator_go_required_future",
+      "per_post_approval_future",
+      "kill_switch_check_future",
+      "redacted_audit_future"
+    ],
+    "citation_safe_notes": "Official documentation reference only; advisory, not runtime authority.",
+    "advisory_only": true,
+    "runtime_authority": false,
+    "source_status": "official",
+    "validation_state": "PASS",
+    "blocked_reasons": []
+  },
+  {
+    "schema_version": "2.0",
+    "official_doc_source_id": "doc-src-facebook_page",
+    "platform_id": "facebook_page",
+    "official_doc_url": "https://developers.facebook.com/docs/pages-api/posts",
+    "doc_title": "Meta Graph API - Page Posts Publishing",
+    "retrieved_date": "2026-06-10",
+    "doc_version_or_last_updated_if_visible": "not_visible",
+    "endpoint_family_names": [
+      "page_feed_publish_family_future",
+      "page_media_family_future"
+    ],
+    "publish_capability_summary": "Documented page feed posting via graph platform; future gate only.",
+    "required_permissions_or_scopes": [
+      "meta_app_review_and_business_verification_future"
+    ],
+    "credential_requirements": [
+      "page_credential_slot_future"
+    ],
+    "media_requirements": [
+      "photo_and_video_id_attach_future"
+    ],
+    "app_review_or_verification_requirements": [
+      "meta_app_review_and_business_verification_future"
+    ],
+    "rate_limit_or_quota_notes": [
+      "graph_platform_caps_future"
+    ],
+    "unsupported_or_unknown_fields": [
+      "page_identity_admin_constraints_unverified"
+    ],
+    "live_risk_level": "high_meta_app_review_identity",
+    "current_repo_allowed_state": "future_live_gate_required",
+    "future_live_gate_requirements": [
+      "operator_go_required_future",
+      "per_post_approval_future",
+      "kill_switch_check_future",
+      "redacted_audit_future"
+    ],
+    "citation_safe_notes": "Official documentation reference only; advisory, not runtime authority.",
+    "advisory_only": true,
+    "runtime_authority": false,
+    "source_status": "official",
+    "validation_state": "PASS",
+    "blocked_reasons": []
+  },
+  {
+    "schema_version": "2.0",
+    "official_doc_source_id": "doc-src-instagram",
+    "platform_id": "instagram",
+    "official_doc_url": "https://developers.facebook.com/docs/instagram-platform/content-publishing",
+    "doc_title": "Instagram Platform - Content Publishing",
+    "retrieved_date": "2026-06-10",
+    "doc_version_or_last_updated_if_visible": "not_visible",
+    "endpoint_family_names": [
+      "media_container_family_future",
+      "media_publish_family_future"
+    ],
+    "publish_capability_summary": "Documented media container then publish flow; future gate only.",
+    "required_permissions_or_scopes": [
+      "meta_app_review_and_business_verification_future"
+    ],
+    "credential_requirements": [
+      "page_linked_credential_slot_future"
+    ],
+    "media_requirements": [
+      "public_media_url_required_future"
+    ],
+    "app_review_or_verification_requirements": [
+      "meta_app_review_and_business_verification_future"
+    ],
+    "rate_limit_or_quota_notes": [
+      "per_day_publish_caps_future"
+    ],
+    "unsupported_or_unknown_fields": [
+      "account_type_constraints_unverified"
+    ],
+    "live_risk_level": "high_meta_app_review_media_constraints",
+    "current_repo_allowed_state": "future_live_gate_required",
+    "future_live_gate_requirements": [
+      "operator_go_required_future",
+      "per_post_approval_future",
+      "kill_switch_check_future",
+      "redacted_audit_future"
+    ],
+    "citation_safe_notes": "Official documentation reference only; advisory, not runtime authority.",
+    "advisory_only": true,
+    "runtime_authority": false,
+    "source_status": "official",
+    "validation_state": "PASS",
+    "blocked_reasons": []
+  },
+  {
+    "schema_version": "2.0",
+    "official_doc_source_id": "doc-src-threads",
+    "platform_id": "threads",
+    "official_doc_url": "https://developers.facebook.com/docs/threads",
+    "doc_title": "Threads API Documentation",
+    "retrieved_date": "2026-06-10",
+    "doc_version_or_last_updated_if_visible": "not_visible",
+    "endpoint_family_names": [
+      "thread_create_family_future",
+      "thread_media_family_future"
+    ],
+    "publish_capability_summary": "Documented post creation flow; access still maturing, future gate only.",
+    "required_permissions_or_scopes": [
+      "meta_app_review_future"
+    ],
+    "credential_requirements": [
+      "threads_credential_slot_future"
+    ],
+    "media_requirements": [
+      "image_and_video_attachment_future"
+    ],
+    "app_review_or_verification_requirements": [
+      "meta_app_review_future"
+    ],
+    "rate_limit_or_quota_notes": [
+      "per_day_publish_caps_future"
+    ],
+    "unsupported_or_unknown_fields": [
+      "access_availability_uncertain"
+    ],
+    "live_risk_level": "high_access_and_permissions",
+    "current_repo_allowed_state": "future_live_gate_required",
+    "future_live_gate_requirements": [
+      "operator_go_required_future",
+      "per_post_approval_future",
+      "kill_switch_check_future",
+      "redacted_audit_future"
+    ],
+    "citation_safe_notes": "Official documentation reference only; advisory, not runtime authority.",
+    "advisory_only": true,
+    "runtime_authority": false,
+    "source_status": "official",
+    "validation_state": "PASS",
+    "blocked_reasons": []
+  },
+  {
+    "schema_version": "2.0",
+    "official_doc_source_id": "doc-src-tiktok",
+    "platform_id": "tiktok",
+    "official_doc_url": "https://developers.tiktok.com/doc/content-posting-api-get-started",
+    "doc_title": "TikTok Content Posting API - Get Started",
+    "retrieved_date": "2026-06-10",
+    "doc_version_or_last_updated_if_visible": "not_visible",
+    "endpoint_family_names": [
+      "content_init_family_future",
+      "content_publish_status_family_future"
+    ],
+    "publish_capability_summary": "Documented content posting initialization flow; high friction, last priority future.",
+    "required_permissions_or_scopes": [
+      "developer_app_audit_required_future"
+    ],
+    "credential_requirements": [
+      "oauth2_publish_scope_credential_slot_future"
+    ],
+    "media_requirements": [
+      "video_and_photo_format_constraints_future"
+    ],
+    "app_review_or_verification_requirements": [
+      "developer_app_audit_required_future"
+    ],
+    "rate_limit_or_quota_notes": [
+      "audit_and_sandbox_caps_future"
+    ],
+    "unsupported_or_unknown_fields": [
+      "private_only_and_creator_control_constraints"
+    ],
+    "live_risk_level": "very_high_audit_and_creator_control",
+    "current_repo_allowed_state": "future_live_gate_required",
+    "future_live_gate_requirements": [
+      "operator_go_required_future",
+      "per_post_approval_future",
+      "kill_switch_check_future",
+      "redacted_audit_future"
+    ],
+    "citation_safe_notes": "Official documentation reference only; advisory, not runtime authority.",
+    "advisory_only": true,
+    "runtime_authority": false,
+    "source_status": "official",
+    "validation_state": "PASS",
+    "blocked_reasons": []
+  },
+  {
+    "schema_version": "2.0",
+    "official_doc_source_id": "doc-src-substack_newsletter",
+    "platform_id": "substack_newsletter",
+    "official_doc_url": "https://support.substack.com/hc/en-us",
+    "doc_title": "Substack Support - Publishing and Export",
+    "retrieved_date": "2026-06-10",
+    "doc_version_or_last_updated_if_visible": "not_visible",
+    "endpoint_family_names": [
+      "manual_export_family_only"
+    ],
+    "publish_capability_summary": "No verified stable public publishing capability; manual export only.",
+    "required_permissions_or_scopes": [],
+    "credential_requirements": [],
+    "media_requirements": [
+      "manual_export_assets_only"
+    ],
+    "app_review_or_verification_requirements": [],
+    "rate_limit_or_quota_notes": [
+      "not_applicable_manual"
+    ],
+    "unsupported_or_unknown_fields": [
+      "public_publishing_capability_unknown"
+    ],
+    "live_risk_level": "high_write_api_unknown_manual_only",
+    "current_repo_allowed_state": "manual_export_only",
+    "future_live_gate_requirements": [
+      "operator_go_required_future",
+      "per_post_approval_future",
+      "kill_switch_check_future",
+      "redacted_audit_future"
+    ],
+    "citation_safe_notes": "Official documentation reference only; advisory, not runtime authority.",
+    "advisory_only": true,
+    "runtime_authority": false,
+    "source_status": "official",
+    "validation_state": "PASS",
+    "blocked_reasons": []
+  },
+  {
+    "schema_version": "2.0",
+    "official_doc_source_id": "doc-src-generic_manual",
+    "platform_id": "generic_manual",
+    "official_doc_url": "",
+    "doc_title": "Manual workflow advisory (no API)",
+    "retrieved_date": "2026-06-10",
+    "doc_version_or_last_updated_if_visible": "not_visible",
+    "endpoint_family_names": [
+      "manual_workflow_family_only"
+    ],
+    "publish_capability_summary": "Manual operator workflow only; no platform capability of any kind.",
+    "required_permissions_or_scopes": [],
+    "credential_requirements": [],
+    "media_requirements": [
+      "manual_assets_only"
+    ],
+    "app_review_or_verification_requirements": [],
+    "rate_limit_or_quota_notes": [
+      "not_applicable_manual"
+    ],
+    "unsupported_or_unknown_fields": [
+      "no_api_by_design"
+    ],
+    "live_risk_level": "low_manual_only",
+    "current_repo_allowed_state": "manual_export_only",
+    "future_live_gate_requirements": [
+      "operator_go_required_future",
+      "per_post_approval_future",
+      "kill_switch_check_future",
+      "redacted_audit_future"
+    ],
+    "citation_safe_notes": "Official documentation reference only; advisory, not runtime authority.",
+    "advisory_only": true,
+    "runtime_authority": false,
+    "source_status": "not_applicable_manual",
+    "validation_state": "PASS",
+    "blocked_reasons": []
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "schema_version": "2.0",
+  "report_id": "registry-compiler-alignment-v2",
+  "registry_platform_ids": [
+    "facebook_page",
+    "generic_manual",
+    "instagram",
+    "linkedin",
+    "substack_newsletter",
+    "telegram",
+    "threads",
+    "tiktok",
+    "x_twitter"
+  ],
+  "existing_compiler_platform_ids": [
+    "generic_manual",
+    "linkedin",
+    "newsletter",
+    "telegram",
+    "x_twitter"
+  ],
+  "registry_only_platform_ids": [
+    "facebook_page",
+    "instagram",
+    "substack_newsletter",
+    "threads",
+    "tiktok"
+  ],
+  "compiler_expansion_required_later": true,
+  "credential_allowed_now": false,
+  "live_allowed_now": false,
+  "public_ready_allowed_now": false,
+  "contradictions": [],
+  "validation_state": "REVIEW_REQUIRED",
+  "blocked_reasons": []
+}

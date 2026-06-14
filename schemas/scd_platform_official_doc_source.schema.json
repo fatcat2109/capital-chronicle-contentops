@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD Platform Official Doc Source",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "official_doc_source_id",
+    "platform_id",
+    "official_doc_url",
+    "doc_title",
+    "retrieved_date",
+    "doc_version_or_last_updated_if_visible",
+    "endpoint_family_names",
+    "publish_capability_summary",
+    "required_permissions_or_scopes",
+    "credential_requirements",
+    "media_requirements",
+    "app_review_or_verification_requirements",
+    "rate_limit_or_quota_notes",
+    "unsupported_or_unknown_fields",
+    "live_risk_level",
+    "current_repo_allowed_state",
+    "future_live_gate_requirements",
+    "citation_safe_notes",
+    "advisory_only",
+    "runtime_authority",
+    "source_status",
+    "validation_state"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "official_doc_source_id": { "type": "string" },
+    "platform_id": {
+      "type": "string",
+      "enum": [
+        "telegram",
+        "x_twitter",
+        "linkedin",
+        "facebook_page",
+        "instagram",
+        "threads",
+        "tiktok",
+        "substack_newsletter",
+        "generic_manual"
+      ]
+    },
+    "official_doc_url": { "type": "string" },
+    "doc_title": { "type": "string" },
+    "retrieved_date": { "type": "string" },
+    "doc_version_or_last_updated_if_visible": { "type": "string" },
+    "endpoint_family_names": { "type": "array", "items": { "type": "string" } },
+    "publish_capability_summary": { "type": "string" },
+    "required_permissions_or_scopes": { "type": "array", "items": { "type": "string" } },
+    "credential_requirements": { "type": "array", "items": { "type": "string" } },
+    "media_requirements": { "type": "array", "items": { "type": "string" } },
+    "app_review_or_verification_requirements": { "type": "array", "items": { "type": "string" } },
+    "rate_limit_or_quota_notes": { "type": "array", "items": { "type": "string" } },
+    "unsupported_or_unknown_fields": { "type": "array", "items": { "type": "string" } },
+    "live_risk_level": { "type": "string" },
+    "current_repo_allowed_state": { "type": "string" },
+    "future_live_gate_requirements": { "type": "array", "items": { "type": "string" } },
+    "citation_safe_notes": { "type": "string" },
+    "advisory_only": { "type": "boolean" },
+    "runtime_authority": { "type": "boolean" },
+    "source_status": { "type": "string" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  }
+}

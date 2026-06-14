@@ -1,0 +1,168 @@
+{
+  "schema_version": "2.0",
+  "matrix_id": "dry-run-payload-policy-matrix-v2",
+  "platform_policies": [
+    {
+      "platform_id": "telegram",
+      "endpoint_family_names_symbolic": [
+        "bot_message_family_future",
+        "bot_media_family_future"
+      ],
+      "allowed_payload_shapes": [
+        "dry_run"
+      ],
+      "authorization_header_allowed": false,
+      "webhook_url_allowed": false,
+      "live_control_allowed": false,
+      "public_ready_allowed": false,
+      "posting_control_allowed": false,
+      "future_gate_notes": [
+        "native_metrics_not_available"
+      ]
+    },
+    {
+      "platform_id": "x_twitter",
+      "endpoint_family_names_symbolic": [
+        "create_post_family_future",
+        "media_upload_family_future"
+      ],
+      "allowed_payload_shapes": [
+        "dry_run"
+      ],
+      "authorization_header_allowed": false,
+      "webhook_url_allowed": false,
+      "live_control_allowed": false,
+      "public_ready_allowed": false,
+      "posting_control_allowed": false,
+      "future_gate_notes": [
+        "poll_and_paid_partnership_fields_unverified"
+      ]
+    },
+    {
+      "platform_id": "linkedin",
+      "endpoint_family_names_symbolic": [
+        "member_share_family_future",
+        "organization_share_family_future"
+      ],
+      "allowed_payload_shapes": [
+        "dry_run"
+      ],
+      "authorization_header_allowed": false,
+      "webhook_url_allowed": false,
+      "live_control_allowed": false,
+      "public_ready_allowed": false,
+      "posting_control_allowed": false,
+      "future_gate_notes": [
+        "versioned_header_requirements_unverified"
+      ]
+    },
+    {
+      "platform_id": "facebook_page",
+      "endpoint_family_names_symbolic": [
+        "page_feed_publish_family_future",
+        "page_media_family_future"
+      ],
+      "allowed_payload_shapes": [
+        "dry_run"
+      ],
+      "authorization_header_allowed": false,
+      "webhook_url_allowed": false,
+      "live_control_allowed": false,
+      "public_ready_allowed": false,
+      "posting_control_allowed": false,
+      "future_gate_notes": [
+        "page_identity_admin_constraints_unverified"
+      ]
+    },
+    {
+      "platform_id": "instagram",
+      "endpoint_family_names_symbolic": [
+        "media_container_family_future",
+        "media_publish_family_future"
+      ],
+      "allowed_payload_shapes": [
+        "dry_run"
+      ],
+      "authorization_header_allowed": false,
+      "webhook_url_allowed": false,
+      "live_control_allowed": false,
+      "public_ready_allowed": false,
+      "posting_control_allowed": false,
+      "future_gate_notes": [
+        "account_type_constraints_unverified"
+      ]
+    },
+    {
+      "platform_id": "threads",
+      "endpoint_family_names_symbolic": [
+        "thread_create_family_future",
+        "thread_media_family_future"
+      ],
+      "allowed_payload_shapes": [
+        "dry_run"
+      ],
+      "authorization_header_allowed": false,
+      "webhook_url_allowed": false,
+      "live_control_allowed": false,
+      "public_ready_allowed": false,
+      "posting_control_allowed": false,
+      "future_gate_notes": [
+        "access_availability_uncertain"
+      ]
+    },
+    {
+      "platform_id": "tiktok",
+      "endpoint_family_names_symbolic": [
+        "content_init_family_future",
+        "content_publish_status_family_future"
+      ],
+      "allowed_payload_shapes": [
+        "dry_run"
+      ],
+      "authorization_header_allowed": false,
+      "webhook_url_allowed": false,
+      "live_control_allowed": false,
+      "public_ready_allowed": false,
+      "posting_control_allowed": false,
+      "future_gate_notes": [
+        "private_only_and_creator_control_constraints"
+      ]
+    },
+    {
+      "platform_id": "substack_newsletter",
+      "endpoint_family_names_symbolic": [
+        "manual_export_family_only"
+      ],
+      "allowed_payload_shapes": [
+        "manual_export"
+      ],
+      "authorization_header_allowed": false,
+      "webhook_url_allowed": false,
+      "live_control_allowed": false,
+      "public_ready_allowed": false,
+      "posting_control_allowed": false,
+      "future_gate_notes": [
+        "public_publishing_capability_unknown"
+      ]
+    },
+    {
+      "platform_id": "generic_manual",
+      "endpoint_family_names_symbolic": [
+        "manual_workflow_family_only"
+      ],
+      "allowed_payload_shapes": [
+        "manual_export"
+      ],
+      "authorization_header_allowed": false,
+      "webhook_url_allowed": false,
+      "live_control_allowed": false,
+      "public_ready_allowed": false,
+      "posting_control_allowed": false,
+      "future_gate_notes": [
+        "no_api_by_design"
+      ]
+    }
+  ],
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

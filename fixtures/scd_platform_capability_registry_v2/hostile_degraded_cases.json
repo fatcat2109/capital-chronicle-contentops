@@ -1,0 +1,988 @@
+[
+  {
+    "name": "missing_docs_profile",
+    "validator": "platform_capability_profile_v2",
+    "expected_state": "UNKNOWN",
+    "packet": {
+      "schema_version": "2.0",
+      "profile_id": "capability-profile-v2-x_twitter",
+      "platform_id": "x_twitter",
+      "display_name": "X Twitter",
+      "official_doc_source_ids": [],
+      "endpoint_family_names_symbolic": [
+        "create_post_family_future",
+        "media_upload_family_future"
+      ],
+      "publish_capability_summary": "Documented post creation and media attachment fields; cost and access tier sensitive.",
+      "current_repo_allowed_state": "future_live_gate_required",
+      "live_risk_level": "high_policy_cost_access_sensitive",
+      "credential_slot_names_future_only": [
+        "oauth2_app_credential_slot_future"
+      ],
+      "credential_required_later": true,
+      "app_review_or_verification_required": true,
+      "restricted_access_or_cost_sensitive": true,
+      "future_live_gate_required": true,
+      "first_future_supervised_live_candidate": false,
+      "actual_channel_id_present": false,
+      "posting_identity_modes": [],
+      "disclosure_and_policy_fields": [
+        "made_with_ai",
+        "reply_settings",
+        "media_disclosure",
+        "paid_partnership"
+      ],
+      "future_priority": "normal_future_gate",
+      "api_write_publish_supported": true,
+      "live_api_enabled_now": false,
+      "platform_api_allowed_now": false,
+      "credential_read_allowed_now": false,
+      "credentials_requested_now": false,
+      "posting_enabled_now": false,
+      "scheduler_enabled_now": false,
+      "autonomous_replies_enabled_now": false,
+      "dms_enabled_now": false,
+      "scraping_enabled_now": false,
+      "public_ready": false,
+      "live_ready": false,
+      "dispatch_ready": false,
+      "validation_state": "UNKNOWN",
+      "blocked_reasons": [],
+      "review_required_reasons": [],
+      "unsupported_or_unknown_fields": [
+        "poll_and_paid_partnership_fields_unverified"
+      ]
+    }
+  },
+  {
+    "name": "unofficial_source",
+    "validator": "platform_official_doc_source",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "official_doc_source_id": "doc-src-x-unofficial",
+      "platform_id": "x_twitter",
+      "official_doc_url": "https://random-blog.example.net/x-howto",
+      "doc_title": "X API - Create Post",
+      "retrieved_date": "2026-06-10",
+      "doc_version_or_last_updated_if_visible": "not_visible",
+      "endpoint_family_names": [
+        "create_post_family_future",
+        "media_upload_family_future"
+      ],
+      "publish_capability_summary": "Documented post creation and media attachment fields; cost and access tier sensitive.",
+      "required_permissions_or_scopes": [
+        "paid_developer_tier_required_for_write_future"
+      ],
+      "credential_requirements": [
+        "oauth2_app_credential_slot_future"
+      ],
+      "media_requirements": [
+        "image_and_video_attachment_limits_apply"
+      ],
+      "app_review_or_verification_requirements": [
+        "paid_developer_tier_required_for_write_future"
+      ],
+      "rate_limit_or_quota_notes": [
+        "write_tier_daily_caps_future"
+      ],
+      "unsupported_or_unknown_fields": [
+        "poll_and_paid_partnership_fields_unverified"
+      ],
+      "live_risk_level": "high_policy_cost_access_sensitive",
+      "current_repo_allowed_state": "future_live_gate_required",
+      "future_live_gate_requirements": [
+        "operator_go_required_future",
+        "per_post_approval_future",
+        "kill_switch_check_future",
+        "redacted_audit_future"
+      ],
+      "citation_safe_notes": "Official documentation reference only; advisory, not runtime authority.",
+      "advisory_only": true,
+      "runtime_authority": false,
+      "source_status": "official",
+      "validation_state": "PASS",
+      "blocked_reasons": []
+    }
+  },
+  {
+    "name": "stale_docs_source",
+    "validator": "platform_official_doc_source",
+    "expected_state": "REVIEW_REQUIRED",
+    "packet": {
+      "schema_version": "2.0",
+      "official_doc_source_id": "doc-src-linkedin-stale",
+      "platform_id": "linkedin",
+      "official_doc_url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api",
+      "doc_title": "Microsoft Learn - LinkedIn Posts API",
+      "retrieved_date": "2024-01-01",
+      "doc_version_or_last_updated_if_visible": "not_visible",
+      "endpoint_family_names": [
+        "member_share_family_future",
+        "organization_share_family_future"
+      ],
+      "publish_capability_summary": "Documented member and organization share posting; restricted permissions future only.",
+      "required_permissions_or_scopes": [
+        "community_management_app_review_future"
+      ],
+      "credential_requirements": [
+        "oauth2_member_and_org_credential_slot_future"
+      ],
+      "media_requirements": [
+        "image_video_and_document_upload_init_future"
+      ],
+      "app_review_or_verification_requirements": [
+        "community_management_app_review_future"
+      ],
+      "rate_limit_or_quota_notes": [
+        "spaced_daily_posting_caps_future"
+      ],
+      "unsupported_or_unknown_fields": [
+        "versioned_header_requirements_unverified"
+      ],
+      "live_risk_level": "high_restricted_permissions",
+      "current_repo_allowed_state": "future_live_gate_required",
+      "future_live_gate_requirements": [
+        "operator_go_required_future",
+        "per_post_approval_future",
+        "kill_switch_check_future",
+        "redacted_audit_future"
+      ],
+      "citation_safe_notes": "Official documentation reference only; advisory, not runtime authority.",
+      "advisory_only": true,
+      "runtime_authority": false,
+      "source_status": "official",
+      "validation_state": "REVIEW_REQUIRED",
+      "blocked_reasons": []
+    }
+  },
+  {
+    "name": "live_enabled_profile",
+    "validator": "platform_capability_profile_v2",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "profile_id": "capability-profile-v2-x_twitter",
+      "platform_id": "x_twitter",
+      "display_name": "X Twitter",
+      "official_doc_source_ids": [
+        "doc-src-x_twitter"
+      ],
+      "endpoint_family_names_symbolic": [
+        "create_post_family_future",
+        "media_upload_family_future"
+      ],
+      "publish_capability_summary": "Documented post creation and media attachment fields; cost and access tier sensitive.",
+      "current_repo_allowed_state": "future_live_gate_required",
+      "live_risk_level": "high_policy_cost_access_sensitive",
+      "credential_slot_names_future_only": [
+        "oauth2_app_credential_slot_future"
+      ],
+      "credential_required_later": true,
+      "app_review_or_verification_required": true,
+      "restricted_access_or_cost_sensitive": true,
+      "future_live_gate_required": true,
+      "first_future_supervised_live_candidate": false,
+      "actual_channel_id_present": false,
+      "posting_identity_modes": [],
+      "disclosure_and_policy_fields": [
+        "made_with_ai",
+        "reply_settings",
+        "media_disclosure",
+        "paid_partnership"
+      ],
+      "future_priority": "normal_future_gate",
+      "api_write_publish_supported": true,
+      "live_api_enabled_now": true,
+      "platform_api_allowed_now": false,
+      "credential_read_allowed_now": false,
+      "credentials_requested_now": false,
+      "posting_enabled_now": false,
+      "scheduler_enabled_now": false,
+      "autonomous_replies_enabled_now": false,
+      "dms_enabled_now": false,
+      "scraping_enabled_now": false,
+      "public_ready": false,
+      "live_ready": false,
+      "dispatch_ready": false,
+      "validation_state": "REVIEW_REQUIRED",
+      "blocked_reasons": [],
+      "review_required_reasons": [],
+      "unsupported_or_unknown_fields": [
+        "poll_and_paid_partnership_fields_unverified"
+      ]
+    }
+  },
+  {
+    "name": "credential_requested_policy",
+    "validator": "platform_credential_slot_policy",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "policy_id": "credential-slot-policy-0174bl",
+      "platform_credential_slots": [
+        {
+          "platform_id": "telegram",
+          "slot_names": [
+            "single_bot_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": true,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "x_twitter",
+          "slot_names": [
+            "oauth2_app_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "linkedin",
+          "slot_names": [
+            "oauth2_member_and_org_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "facebook_page",
+          "slot_names": [
+            "page_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "instagram",
+          "slot_names": [
+            "page_linked_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "threads",
+          "slot_names": [
+            "threads_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "tiktok",
+          "slot_names": [
+            "oauth2_publish_scope_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "substack_newsletter",
+          "slot_names": [
+            "substack_newsletter_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        }
+      ],
+      "credential_value_present": false,
+      "credential_validation_enabled_now": false,
+      "env_read_allowed_now": false,
+      "os_env_read_allowed_now": false,
+      "secret_redaction_required": true,
+      "no_secret_scan_required": true,
+      "validation_state": "PASS",
+      "blocked_reasons": []
+    }
+  },
+  {
+    "name": "endpoint_url_active_matrix",
+    "validator": "platform_dry_run_payload_policy_matrix",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "matrix_id": "dry-run-payload-policy-matrix-v2",
+      "platform_policies": [
+        {
+          "platform_id": "telegram",
+          "endpoint_family_names_symbolic": [
+            "https://api.telegram.org/bot"
+          ],
+          "allowed_payload_shapes": [
+            "dry_run"
+          ],
+          "authorization_header_allowed": false,
+          "webhook_url_allowed": false,
+          "live_control_allowed": false,
+          "public_ready_allowed": false,
+          "posting_control_allowed": false,
+          "future_gate_notes": [
+            "native_metrics_not_available"
+          ]
+        },
+        {
+          "platform_id": "x_twitter",
+          "endpoint_family_names_symbolic": [
+            "create_post_family_future",
+            "media_upload_family_future"
+          ],
+          "allowed_payload_shapes": [
+            "dry_run"
+          ],
+          "authorization_header_allowed": false,
+          "webhook_url_allowed": false,
+          "live_control_allowed": false,
+          "public_ready_allowed": false,
+          "posting_control_allowed": false,
+          "future_gate_notes": [
+            "poll_and_paid_partnership_fields_unverified"
+          ]
+        },
+        {
+          "platform_id": "linkedin",
+          "endpoint_family_names_symbolic": [
+            "member_share_family_future",
+            "organization_share_family_future"
+          ],
+          "allowed_payload_shapes": [
+            "dry_run"
+          ],
+          "authorization_header_allowed": false,
+          "webhook_url_allowed": false,
+          "live_control_allowed": false,
+          "public_ready_allowed": false,
+          "posting_control_allowed": false,
+          "future_gate_notes": [
+            "versioned_header_requirements_unverified"
+          ]
+        },
+        {
+          "platform_id": "facebook_page",
+          "endpoint_family_names_symbolic": [
+            "page_feed_publish_family_future",
+            "page_media_family_future"
+          ],
+          "allowed_payload_shapes": [
+            "dry_run"
+          ],
+          "authorization_header_allowed": false,
+          "webhook_url_allowed": false,
+          "live_control_allowed": false,
+          "public_ready_allowed": false,
+          "posting_control_allowed": false,
+          "future_gate_notes": [
+            "page_identity_admin_constraints_unverified"
+          ]
+        },
+        {
+          "platform_id": "instagram",
+          "endpoint_family_names_symbolic": [
+            "media_container_family_future",
+            "media_publish_family_future"
+          ],
+          "allowed_payload_shapes": [
+            "dry_run"
+          ],
+          "authorization_header_allowed": false,
+          "webhook_url_allowed": false,
+          "live_control_allowed": false,
+          "public_ready_allowed": false,
+          "posting_control_allowed": false,
+          "future_gate_notes": [
+            "account_type_constraints_unverified"
+          ]
+        },
+        {
+          "platform_id": "threads",
+          "endpoint_family_names_symbolic": [
+            "thread_create_family_future",
+            "thread_media_family_future"
+          ],
+          "allowed_payload_shapes": [
+            "dry_run"
+          ],
+          "authorization_header_allowed": false,
+          "webhook_url_allowed": false,
+          "live_control_allowed": false,
+          "public_ready_allowed": false,
+          "posting_control_allowed": false,
+          "future_gate_notes": [
+            "access_availability_uncertain"
+          ]
+        },
+        {
+          "platform_id": "tiktok",
+          "endpoint_family_names_symbolic": [
+            "content_init_family_future",
+            "content_publish_status_family_future"
+          ],
+          "allowed_payload_shapes": [
+            "dry_run"
+          ],
+          "authorization_header_allowed": false,
+          "webhook_url_allowed": false,
+          "live_control_allowed": false,
+          "public_ready_allowed": false,
+          "posting_control_allowed": false,
+          "future_gate_notes": [
+            "private_only_and_creator_control_constraints"
+          ]
+        },
+        {
+          "platform_id": "substack_newsletter",
+          "endpoint_family_names_symbolic": [
+            "manual_export_family_only"
+          ],
+          "allowed_payload_shapes": [
+            "manual_export"
+          ],
+          "authorization_header_allowed": false,
+          "webhook_url_allowed": false,
+          "live_control_allowed": false,
+          "public_ready_allowed": false,
+          "posting_control_allowed": false,
+          "future_gate_notes": [
+            "public_publishing_capability_unknown"
+          ]
+        },
+        {
+          "platform_id": "generic_manual",
+          "endpoint_family_names_symbolic": [
+            "manual_workflow_family_only"
+          ],
+          "allowed_payload_shapes": [
+            "manual_export"
+          ],
+          "authorization_header_allowed": false,
+          "webhook_url_allowed": false,
+          "live_control_allowed": false,
+          "public_ready_allowed": false,
+          "posting_control_allowed": false,
+          "future_gate_notes": [
+            "no_api_by_design"
+          ]
+        }
+      ],
+      "validation_state": "PASS",
+      "blocked_reasons": []
+    }
+  },
+  {
+    "name": "token_value_present_policy",
+    "validator": "platform_credential_slot_policy",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "policy_id": "credential-slot-policy-0174bl",
+      "platform_credential_slots": [
+        {
+          "platform_id": "telegram",
+          "slot_names": [
+            "single_bot_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "123456789:AAEhBP0abcdefghijklmnopqrstuvwxyz012345"
+        },
+        {
+          "platform_id": "x_twitter",
+          "slot_names": [
+            "oauth2_app_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "linkedin",
+          "slot_names": [
+            "oauth2_member_and_org_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "facebook_page",
+          "slot_names": [
+            "page_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "instagram",
+          "slot_names": [
+            "page_linked_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "threads",
+          "slot_names": [
+            "threads_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "tiktok",
+          "slot_names": [
+            "oauth2_publish_scope_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        },
+        {
+          "platform_id": "substack_newsletter",
+          "slot_names": [
+            "substack_newsletter_credential_slot_future"
+          ],
+          "slot_values_present": false,
+          "credential_requested_now": false,
+          "credential_read_allowed_now": false,
+          "future_only": true,
+          "notes": "Slot name only; never a value. Future supervised gate only."
+        }
+      ],
+      "credential_value_present": false,
+      "credential_validation_enabled_now": false,
+      "env_read_allowed_now": false,
+      "os_env_read_allowed_now": false,
+      "secret_redaction_required": true,
+      "no_secret_scan_required": true,
+      "validation_state": "PASS",
+      "blocked_reasons": []
+    }
+  },
+  {
+    "name": "dispatch_enabled_checklist",
+    "validator": "platform_live_gate_checklist",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "checklist_id": "live-gate-checklist-telegram",
+      "platform_id": "telegram",
+      "official_doc_source_ids": [
+        "doc-src-telegram"
+      ],
+      "future_scope": "future supervised live gate only",
+      "live_ready": false,
+      "operator_go_required_later": true,
+      "per_post_approval_required_later": true,
+      "kill_switch_check_required_later": true,
+      "redacted_audit_required_later": true,
+      "autonomous_replies_enabled_now": false,
+      "dms_enabled_now": false,
+      "scheduler_enabled_now": false,
+      "scraping_enabled_now": false,
+      "posting_enabled_now": false,
+      "dispatch_ready": true,
+      "first_future_candidate": true,
+      "high_friction_future_late": false,
+      "validation_state": "PASS",
+      "blocked_reasons": []
+    }
+  },
+  {
+    "name": "scheduler_enabled_profile",
+    "validator": "platform_capability_profile_v2",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "profile_id": "capability-profile-v2-x_twitter",
+      "platform_id": "x_twitter",
+      "display_name": "X Twitter",
+      "official_doc_source_ids": [
+        "doc-src-x_twitter"
+      ],
+      "endpoint_family_names_symbolic": [
+        "create_post_family_future",
+        "media_upload_family_future"
+      ],
+      "publish_capability_summary": "Documented post creation and media attachment fields; cost and access tier sensitive.",
+      "current_repo_allowed_state": "future_live_gate_required",
+      "live_risk_level": "high_policy_cost_access_sensitive",
+      "credential_slot_names_future_only": [
+        "oauth2_app_credential_slot_future"
+      ],
+      "credential_required_later": true,
+      "app_review_or_verification_required": true,
+      "restricted_access_or_cost_sensitive": true,
+      "future_live_gate_required": true,
+      "first_future_supervised_live_candidate": false,
+      "actual_channel_id_present": false,
+      "posting_identity_modes": [],
+      "disclosure_and_policy_fields": [
+        "made_with_ai",
+        "reply_settings",
+        "media_disclosure",
+        "paid_partnership"
+      ],
+      "future_priority": "normal_future_gate",
+      "api_write_publish_supported": true,
+      "live_api_enabled_now": false,
+      "platform_api_allowed_now": false,
+      "credential_read_allowed_now": false,
+      "credentials_requested_now": false,
+      "posting_enabled_now": false,
+      "scheduler_enabled_now": true,
+      "autonomous_replies_enabled_now": false,
+      "dms_enabled_now": false,
+      "scraping_enabled_now": false,
+      "public_ready": false,
+      "live_ready": false,
+      "dispatch_ready": false,
+      "validation_state": "REVIEW_REQUIRED",
+      "blocked_reasons": [],
+      "review_required_reasons": [],
+      "unsupported_or_unknown_fields": [
+        "poll_and_paid_partnership_fields_unverified"
+      ]
+    }
+  },
+  {
+    "name": "public_ready_profile",
+    "validator": "platform_capability_profile_v2",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "profile_id": "capability-profile-v2-x_twitter",
+      "platform_id": "x_twitter",
+      "display_name": "X Twitter",
+      "official_doc_source_ids": [
+        "doc-src-x_twitter"
+      ],
+      "endpoint_family_names_symbolic": [
+        "create_post_family_future",
+        "media_upload_family_future"
+      ],
+      "publish_capability_summary": "Documented post creation and media attachment fields; cost and access tier sensitive.",
+      "current_repo_allowed_state": "future_live_gate_required",
+      "live_risk_level": "high_policy_cost_access_sensitive",
+      "credential_slot_names_future_only": [
+        "oauth2_app_credential_slot_future"
+      ],
+      "credential_required_later": true,
+      "app_review_or_verification_required": true,
+      "restricted_access_or_cost_sensitive": true,
+      "future_live_gate_required": true,
+      "first_future_supervised_live_candidate": false,
+      "actual_channel_id_present": false,
+      "posting_identity_modes": [],
+      "disclosure_and_policy_fields": [
+        "made_with_ai",
+        "reply_settings",
+        "media_disclosure",
+        "paid_partnership"
+      ],
+      "future_priority": "normal_future_gate",
+      "api_write_publish_supported": true,
+      "live_api_enabled_now": false,
+      "platform_api_allowed_now": false,
+      "credential_read_allowed_now": false,
+      "credentials_requested_now": false,
+      "posting_enabled_now": false,
+      "scheduler_enabled_now": false,
+      "autonomous_replies_enabled_now": false,
+      "dms_enabled_now": false,
+      "scraping_enabled_now": false,
+      "public_ready": true,
+      "live_ready": false,
+      "dispatch_ready": false,
+      "validation_state": "REVIEW_REQUIRED",
+      "blocked_reasons": [],
+      "review_required_reasons": [],
+      "unsupported_or_unknown_fields": [
+        "poll_and_paid_partnership_fields_unverified"
+      ]
+    }
+  },
+  {
+    "name": "signal_language_profile",
+    "validator": "platform_capability_profile_v2",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "profile_id": "capability-profile-v2-x_twitter",
+      "platform_id": "x_twitter",
+      "display_name": "X Twitter",
+      "official_doc_source_ids": [
+        "doc-src-x_twitter"
+      ],
+      "endpoint_family_names_symbolic": [
+        "create_post_family_future",
+        "media_upload_family_future"
+      ],
+      "publish_capability_summary": "Our model predicts buy; target price soon.",
+      "current_repo_allowed_state": "future_live_gate_required",
+      "live_risk_level": "high_policy_cost_access_sensitive",
+      "credential_slot_names_future_only": [
+        "oauth2_app_credential_slot_future"
+      ],
+      "credential_required_later": true,
+      "app_review_or_verification_required": true,
+      "restricted_access_or_cost_sensitive": true,
+      "future_live_gate_required": true,
+      "first_future_supervised_live_candidate": false,
+      "actual_channel_id_present": false,
+      "posting_identity_modes": [],
+      "disclosure_and_policy_fields": [
+        "made_with_ai",
+        "reply_settings",
+        "media_disclosure",
+        "paid_partnership"
+      ],
+      "future_priority": "normal_future_gate",
+      "api_write_publish_supported": true,
+      "live_api_enabled_now": false,
+      "platform_api_allowed_now": false,
+      "credential_read_allowed_now": false,
+      "credentials_requested_now": false,
+      "posting_enabled_now": false,
+      "scheduler_enabled_now": false,
+      "autonomous_replies_enabled_now": false,
+      "dms_enabled_now": false,
+      "scraping_enabled_now": false,
+      "public_ready": false,
+      "live_ready": false,
+      "dispatch_ready": false,
+      "validation_state": "REVIEW_REQUIRED",
+      "blocked_reasons": [],
+      "review_required_reasons": [],
+      "unsupported_or_unknown_fields": [
+        "poll_and_paid_partnership_fields_unverified"
+      ]
+    }
+  },
+  {
+    "name": "claimed_pass_with_unknowns",
+    "validator": "platform_capability_profile_v2",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "profile_id": "capability-profile-v2-x_twitter",
+      "platform_id": "x_twitter",
+      "display_name": "X Twitter",
+      "official_doc_source_ids": [],
+      "endpoint_family_names_symbolic": [
+        "create_post_family_future",
+        "media_upload_family_future"
+      ],
+      "publish_capability_summary": "Documented post creation and media attachment fields; cost and access tier sensitive.",
+      "current_repo_allowed_state": "future_live_gate_required",
+      "live_risk_level": "high_policy_cost_access_sensitive",
+      "credential_slot_names_future_only": [
+        "oauth2_app_credential_slot_future"
+      ],
+      "credential_required_later": true,
+      "app_review_or_verification_required": true,
+      "restricted_access_or_cost_sensitive": true,
+      "future_live_gate_required": true,
+      "first_future_supervised_live_candidate": false,
+      "actual_channel_id_present": false,
+      "posting_identity_modes": [],
+      "disclosure_and_policy_fields": [
+        "made_with_ai",
+        "reply_settings",
+        "media_disclosure",
+        "paid_partnership"
+      ],
+      "future_priority": "normal_future_gate",
+      "api_write_publish_supported": true,
+      "live_api_enabled_now": false,
+      "platform_api_allowed_now": false,
+      "credential_read_allowed_now": false,
+      "credentials_requested_now": false,
+      "posting_enabled_now": false,
+      "scheduler_enabled_now": false,
+      "autonomous_replies_enabled_now": false,
+      "dms_enabled_now": false,
+      "scraping_enabled_now": false,
+      "public_ready": false,
+      "live_ready": false,
+      "dispatch_ready": false,
+      "validation_state": "PASS",
+      "blocked_reasons": [],
+      "review_required_reasons": [],
+      "unsupported_or_unknown_fields": [
+        "poll_and_paid_partnership_fields_unverified"
+      ]
+    }
+  },
+  {
+    "name": "readiness_contradiction_report",
+    "validator": "platform_publish_readiness_alignment_report",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "report_id": "publish-readiness-alignment-v2",
+      "profile_count": 9,
+      "publish_readiness_still_dry_run_only": true,
+      "forbidden_now_flags_confirmed_false": [
+        {
+          "flag": "credentials_requested_now",
+          "confirmed_false": false
+        },
+        {
+          "flag": "credential_read_allowed_now",
+          "confirmed_false": true
+        },
+        {
+          "flag": "platform_api_allowed_now",
+          "confirmed_false": true
+        },
+        {
+          "flag": "live_posting_enabled_now",
+          "confirmed_false": true
+        },
+        {
+          "flag": "scheduler_allowed_now",
+          "confirmed_false": true
+        },
+        {
+          "flag": "provider_llm_api_allowed_now",
+          "confirmed_false": true
+        },
+        {
+          "flag": "repo_web_search_allowed_now",
+          "confirmed_false": true
+        },
+        {
+          "flag": "scraping_allowed_now",
+          "confirmed_false": true
+        },
+        {
+          "flag": "publish_all_button_enabled_now",
+          "confirmed_false": true
+        },
+        {
+          "flag": "one_button_publish_all_enabled_now",
+          "confirmed_false": true
+        },
+        {
+          "flag": "final_social_copy_generated",
+          "confirmed_false": true
+        }
+      ],
+      "contradiction_count": 1,
+      "contradictions": [
+        "credentials_requested_now"
+      ],
+      "validation_state": "PASS",
+      "blocked_reasons": []
+    }
+  },
+  {
+    "name": "audit_platform_api_called_report",
+    "validator": "platform_redacted_audit_alignment_report",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "report_id": "redacted-audit-alignment-v2",
+      "profile_count": 9,
+      "platform_response_logging_future_only": true,
+      "platform_response_redaction_required_later": true,
+      "credential_values_forbidden": true,
+      "credential_logging_forbidden": true,
+      "credential_printing_forbidden": true,
+      "credential_commit_forbidden": true,
+      "credential_value_present": false,
+      "live_event_present": false,
+      "platform_api_called": true,
+      "contradiction_count": 1,
+      "contradictions": [
+        "platform_api_called"
+      ],
+      "validation_state": "PASS",
+      "blocked_reasons": []
+    }
+  },
+  {
+    "name": "compiler_credential_allowed_report",
+    "validator": "platform_registry_compiler_alignment_report",
+    "expected_state": "BLOCKED",
+    "packet": {
+      "schema_version": "2.0",
+      "report_id": "registry-compiler-alignment-v2",
+      "registry_platform_ids": [
+        "facebook_page",
+        "generic_manual",
+        "instagram",
+        "linkedin",
+        "substack_newsletter",
+        "telegram",
+        "threads",
+        "tiktok",
+        "x_twitter"
+      ],
+      "existing_compiler_platform_ids": [
+        "generic_manual",
+        "linkedin",
+        "newsletter",
+        "telegram",
+        "x_twitter"
+      ],
+      "registry_only_platform_ids": [
+        "facebook_page",
+        "instagram",
+        "substack_newsletter",
+        "threads",
+        "tiktok"
+      ],
+      "compiler_expansion_required_later": true,
+      "credential_allowed_now": true,
+      "live_allowed_now": false,
+      "public_ready_allowed_now": false,
+      "contradictions": [
+        "registry_credential_allowed_now"
+      ],
+      "validation_state": "REVIEW_REQUIRED",
+      "blocked_reasons": []
+    }
+  }
+]

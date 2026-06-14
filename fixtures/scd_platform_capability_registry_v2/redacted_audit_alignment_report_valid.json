@@ -1,0 +1,18 @@
+{
+  "schema_version": "2.0",
+  "report_id": "redacted-audit-alignment-v2",
+  "profile_count": 9,
+  "platform_response_logging_future_only": true,
+  "platform_response_redaction_required_later": true,
+  "credential_values_forbidden": true,
+  "credential_logging_forbidden": true,
+  "credential_printing_forbidden": true,
+  "credential_commit_forbidden": true,
+  "credential_value_present": false,
+  "live_event_present": false,
+  "platform_api_called": false,
+  "contradiction_count": 0,
+  "contradictions": [],
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

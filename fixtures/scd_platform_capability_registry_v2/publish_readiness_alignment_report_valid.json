@@ -1,0 +1,56 @@
+{
+  "schema_version": "2.0",
+  "report_id": "publish-readiness-alignment-v2",
+  "profile_count": 9,
+  "publish_readiness_still_dry_run_only": true,
+  "forbidden_now_flags_confirmed_false": [
+    {
+      "flag": "credentials_requested_now",
+      "confirmed_false": true
+    },
+    {
+      "flag": "credential_read_allowed_now",
+      "confirmed_false": true
+    },
+    {
+      "flag": "platform_api_allowed_now",
+      "confirmed_false": true
+    },
+    {
+      "flag": "live_posting_enabled_now",
+      "confirmed_false": true
+    },
+    {
+      "flag": "scheduler_allowed_now",
+      "confirmed_false": true
+    },
+    {
+      "flag": "provider_llm_api_allowed_now",
+      "confirmed_false": true
+    },
+    {
+      "flag": "repo_web_search_allowed_now",
+      "confirmed_false": true
+    },
+    {
+      "flag": "scraping_allowed_now",
+      "confirmed_false": true
+    },
+    {
+      "flag": "publish_all_button_enabled_now",
+      "confirmed_false": true
+    },
+    {
+      "flag": "one_button_publish_all_enabled_now",
+      "confirmed_false": true
+    },
+    {
+      "flag": "final_social_copy_generated",
+      "confirmed_false": true
+    }
+  ],
+  "contradiction_count": 0,
+  "contradictions": [],
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

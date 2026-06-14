@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD Platform Dry Run Payload Policy Matrix",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "matrix_id",
+    "platform_policies",
+    "validation_state"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "matrix_id": { "type": "string" },
+    "platform_policies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "platform_id",
+          "endpoint_family_names_symbolic",
+          "allowed_payload_shapes",
+          "authorization_header_allowed",
+          "webhook_url_allowed",
+          "live_control_allowed",
+          "public_ready_allowed",
+          "posting_control_allowed"
+        ],
+        "properties": {
+          "platform_id": { "type": "string" },
+          "endpoint_family_names_symbolic": { "type": "array", "items": { "type": "string" } },
+          "allowed_payload_shapes": { "type": "array", "items": { "type": "string" } },
+          "authorization_header_allowed": { "type": "boolean" },
+          "webhook_url_allowed": { "type": "boolean" },
+          "live_control_allowed": { "type": "boolean" },
+          "public_ready_allowed": { "type": "boolean" },
+          "posting_control_allowed": { "type": "boolean" },
+          "future_gate_notes": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD Platform Registry Compiler Alignment Report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "report_id",
+    "registry_platform_ids",
+    "existing_compiler_platform_ids",
+    "registry_only_platform_ids",
+    "compiler_expansion_required_later",
+    "credential_allowed_now",
+    "live_allowed_now",
+    "public_ready_allowed_now",
+    "contradictions",
+    "validation_state"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "report_id": { "type": "string" },
+    "registry_platform_ids": { "type": "array", "items": { "type": "string" } },
+    "existing_compiler_platform_ids": { "type": "array", "items": { "type": "string" } },
+    "registry_only_platform_ids": { "type": "array", "items": { "type": "string" } },
+    "compiler_expansion_required_later": { "type": "boolean" },
+    "credential_allowed_now": { "type": "boolean" },
+    "live_allowed_now": { "type": "boolean" },
+    "public_ready_allowed_now": { "type": "boolean" },
+    "contradictions": { "type": "array", "items": { "type": "string" } },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  }
+}

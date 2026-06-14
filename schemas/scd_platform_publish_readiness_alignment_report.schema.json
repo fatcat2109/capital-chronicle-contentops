@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD Platform Publish Readiness Alignment Report",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "report_id",
+    "profile_count",
+    "publish_readiness_still_dry_run_only",
+    "forbidden_now_flags_confirmed_false",
+    "contradiction_count",
+    "contradictions",
+    "validation_state"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "report_id": { "type": "string" },
+    "profile_count": { "type": "integer" },
+    "publish_readiness_still_dry_run_only": { "type": "boolean" },
+    "forbidden_now_flags_confirmed_false": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["flag", "confirmed_false"],
+        "properties": {
+          "flag": { "type": "string" },
+          "confirmed_false": { "type": "boolean" }
+        }
+      }
+    },
+    "contradiction_count": { "type": "integer" },
+    "contradictions": { "type": "array", "items": { "type": "string" } },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  }
+}

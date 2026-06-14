@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD Platform Live Gate Checklist",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "checklist_id",
+    "platform_id",
+    "official_doc_source_ids",
+    "future_scope",
+    "live_ready",
+    "operator_go_required_later",
+    "per_post_approval_required_later",
+    "kill_switch_check_required_later",
+    "redacted_audit_required_later",
+    "autonomous_replies_enabled_now",
+    "dms_enabled_now",
+    "scheduler_enabled_now",
+    "scraping_enabled_now",
+    "posting_enabled_now",
+    "dispatch_ready",
+    "validation_state"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "checklist_id": { "type": "string" },
+    "platform_id": { "type": "string" },
+    "official_doc_source_ids": { "type": "array", "items": { "type": "string" } },
+    "future_scope": { "type": "string" },
+    "live_ready": { "type": "boolean" },
+    "operator_go_required_later": { "type": "boolean" },
+    "per_post_approval_required_later": { "type": "boolean" },
+    "kill_switch_check_required_later": { "type": "boolean" },
+    "redacted_audit_required_later": { "type": "boolean" },
+    "autonomous_replies_enabled_now": { "type": "boolean" },
+    "dms_enabled_now": { "type": "boolean" },
+    "scheduler_enabled_now": { "type": "boolean" },
+    "scraping_enabled_now": { "type": "boolean" },
+    "posting_enabled_now": { "type": "boolean" },
+    "dispatch_ready": { "type": "boolean" },
+    "first_future_candidate": { "type": "boolean" },
+    "high_friction_future_late": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  }
+}
