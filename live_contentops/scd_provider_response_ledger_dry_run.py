@@ -354,6 +354,67 @@ def build_provider_response_ledger_entry(
 
     return packet
 
+def build_provider_response_audit_manifest(
+    batch_id,
+    upstream_lineage_refs,
+    request_packet_ref,
+    response_artifact_ref,
+    response_redaction_ref,
+    response_ledger_ref
+):
+    blocked, review, unknown = [], [], []
+
+    norm_batch_id = batch_id if batch_id else "unknown"
+    if not batch_id:
+        unknown.append("batch_id missing")
+
+    norm_upstream = upstream_lineage_refs if upstream_lineage_refs else []
+    if not norm_upstream:
+        unknown.append("upstream_lineage_refs missing or empty")
+
+    norm_refs = {}
+    refs_map = {
+        "request_packet_ref": request_packet_ref,
+        "response_artifact_ref": response_artifact_ref,
+        "response_redaction_ref": response_redaction_ref,
+        "response_ledger_ref": response_ledger_ref
+    }
+    
+    for r_name, r_val in refs_map.items():
+        if not r_val:
+            unknown.append(f"{r_name} missing")
+            norm_refs[r_name] = ""
+        else:
+            norm_refs[r_name] = r_val
+
+    state = PASS
+    if unknown:
+        state = UNKNOWN
+
+    packet = {
+        "schema_version": "1.0",
+        "batch_id": norm_batch_id,
+        "validation_state": state,
+        "upstream_lineage_refs": norm_upstream,
+        "request_packet_ref": norm_refs["request_packet_ref"],
+        "response_artifact_ref": norm_refs["response_artifact_ref"],
+        "response_redaction_ref": norm_refs["response_redaction_ref"],
+        "response_ledger_ref": norm_refs["response_ledger_ref"],
+        "reasons": ["ok"]
+    }
+
+    res = validate_provider_response_audit_manifest(packet)
+    if res["validation_state"] != PASS:
+        packet["validation_state"] = res["validation_state"]
+        
+    reasons = res["reasons"] + blocked + review + unknown
+    reasons = [r for r in list(dict.fromkeys(reasons)) if r != "ok"]
+    if not reasons:
+        reasons = ["ok"]
+    packet["reasons"] = reasons
+
+    return packet
+
 PROVIDER_RESPONSE_LEDGER_DRY_RUN_VALIDATORS = {
     "receipt": validate_provider_response_receipt_dry_run,
     "payload_redaction": validate_provider_response_payload_redaction,

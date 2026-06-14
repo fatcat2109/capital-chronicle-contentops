@@ -6,7 +6,8 @@ from live_contentops.scd_provider_response_ledger_dry_run import (
     validate_provider_response_payload_redaction,
     validate_provider_response_ledger_entry,
     validate_provider_response_audit_manifest,
-    build_provider_response_ledger_entry
+    build_provider_response_ledger_entry,
+    build_provider_response_audit_manifest
 )
 
 def _load(p):
@@ -321,3 +322,117 @@ def test_builder_itemizes_reasons():
     assert any("request_packet_ref" in r for r in res["reasons"])
     valid = validate_provider_response_ledger_entry(res)
     assert valid["validation_state"] == UNKNOWN
+
+def test_build_response_audit_manifest_pass():
+    res = build_provider_response_audit_manifest(
+        "b1", ["ref1"], "req_ref", "art_ref", "red_ref", "led_ref"
+    )
+    assert res["validation_state"] == PASS
+    valid = validate_provider_response_audit_manifest(res)
+    assert valid["validation_state"] == PASS
+
+def test_build_response_audit_manifest_missing_upstream_refs_unknown():
+    res1 = build_provider_response_audit_manifest(
+        "b1", None, "req_ref", "art_ref", "red_ref", "led_ref"
+    )
+    assert res1["validation_state"] == UNKNOWN
+    assert res1["upstream_lineage_refs"] == []
+    assert any("upstream_lineage_refs missing" in r for r in res1["reasons"])
+    
+    res2 = build_provider_response_audit_manifest(
+        "b1", [], "req_ref", "art_ref", "red_ref", "led_ref"
+    )
+    assert res2["validation_state"] == UNKNOWN
+    assert res2["upstream_lineage_refs"] == []
+    
+    valid1 = validate_provider_response_audit_manifest(res1)
+    assert valid1["validation_state"] == UNKNOWN
+
+@pytest.mark.parametrize("missing_val", ["", None])
+@pytest.mark.parametrize("missing_ref", [
+    "request_packet_ref",
+    "response_artifact_ref",
+    "response_redaction_ref",
+    "response_ledger_ref"
+])
+def test_build_response_audit_manifest_missing_ref_unknown(missing_ref, missing_val):
+    kwargs = {
+        "batch_id": "b1",
+        "upstream_lineage_refs": ["u1"],
+        "request_packet_ref": "r_req",
+        "response_artifact_ref": "r_art",
+        "response_redaction_ref": "r_red",
+        "response_ledger_ref": "r_led"
+    }
+    kwargs[missing_ref] = missing_val
+    res = build_provider_response_audit_manifest(**kwargs)
+    assert res["validation_state"] == UNKNOWN
+    assert res[missing_ref] == ""
+    assert any(missing_ref in r for r in res["reasons"])
+    valid = validate_provider_response_audit_manifest(res)
+    assert valid["validation_state"] == UNKNOWN
+
+@pytest.mark.parametrize("missing_val", ["", None])
+def test_build_response_audit_manifest_missing_batch_id_unknown_or_not_pass(missing_val):
+    res = build_provider_response_audit_manifest(
+        missing_val, ["ref1"], "req_ref", "art_ref", "red_ref", "led_ref"
+    )
+    assert res["batch_id"] == "unknown"
+    assert res["validation_state"] != PASS
+    assert any("batch_id missing" in r for r in res["reasons"])
+    valid = validate_provider_response_audit_manifest(res)
+    assert valid["validation_state"] != BLOCKED or "schema" not in str(valid["reasons"])
+
+@pytest.mark.parametrize("hostile_str", [
+    "http://example.com",
+    "https://example.com",
+    "authorization",
+    "bearer abc",
+    "sk-test",
+    "token=abc",
+    "webhook",
+    "dispatch",
+    "publish",
+    "live call",
+    "call provider now"
+])
+@pytest.mark.parametrize("field_to_poison", [
+    "request_packet_ref",
+    "response_artifact_ref",
+    "response_redaction_ref",
+    "response_ledger_ref",
+    "upstream_lineage_refs"
+])
+def test_build_response_audit_manifest_hostile_strings_block(hostile_str, field_to_poison):
+    kwargs = {
+        "batch_id": "b1",
+        "upstream_lineage_refs": ["u1"],
+        "request_packet_ref": "r_req",
+        "response_artifact_ref": "r_art",
+        "response_redaction_ref": "r_red",
+        "response_ledger_ref": "r_led"
+    }
+    if field_to_poison == "upstream_lineage_refs":
+        kwargs[field_to_poison] = [hostile_str]
+    else:
+        kwargs[field_to_poison] = hostile_str
+        
+    res = build_provider_response_audit_manifest(**kwargs)
+    assert res["validation_state"] == BLOCKED
+    valid = validate_provider_response_audit_manifest(res)
+    assert valid["validation_state"] == BLOCKED
+
+def test_build_response_audit_manifest_no_schema_mismatch_for_none_inputs():
+    res = build_provider_response_audit_manifest(None, None, None, None, None, None)
+    assert isinstance(res["request_packet_ref"], str)
+    assert isinstance(res["upstream_lineage_refs"], list)
+    valid = validate_provider_response_audit_manifest(res)
+    assert valid["validation_state"] == UNKNOWN
+    assert not any("schema:" in r for r in valid["reasons"])
+
+def test_static_source_safety():
+    with open("live_contentops/scd_provider_response_ledger_dry_run.py", "r") as f:
+        src = f.read()
+    forbidden = ["requests", "httpx", "urllib", "socket", "subprocess", "webbrowser", "openai", "anthropic", "os.environ", "os.getenv"]
+    for word in forbidden:
+        assert word not in src, f"Forbidden word found: {word}"
