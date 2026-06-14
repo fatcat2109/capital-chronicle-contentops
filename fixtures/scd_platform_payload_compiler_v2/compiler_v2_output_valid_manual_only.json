@@ -1,0 +1,91 @@
+{
+  "schema_version": "0174bn-v2",
+  "compiler_output_id": "cout_v2_manual_only_001",
+  "compiler_input_id": "cin_v2_manual_only_001",
+  "platform_payloads": [
+    {
+      "platform_id": "substack_newsletter",
+      "requested_as": "substack_newsletter",
+      "content_surface": "newsletter_section",
+      "text": "Markets closed mixed today as investors weighed the latest economic releases. This summary reflects published figures only and includes no forward-looking view.",
+      "character_count": 160,
+      "character_limit_max": 100000,
+      "disclosure_fields": [
+        "published_data_only"
+      ],
+      "limitations": [
+        "Figures reflect the most recent published release and may be revised.",
+        "No intraday or real-time data is represented."
+      ],
+      "citations": [
+        "citation_ref:bls_cpi_release_2026_06",
+        "citation_ref:treasury_yield_curve_2026_06_13"
+      ],
+      "hashtags": [],
+      "links": [],
+      "unsupported_feature_flags": [
+        "manual_export_only",
+        "no_write_api"
+      ],
+      "payload_shape": "manual_export",
+      "mode": "manual_export",
+      "operator_review_required": true,
+      "public_ready": false,
+      "live_eligibility": false
+    },
+    {
+      "platform_id": "generic_manual",
+      "requested_as": "generic_manual",
+      "content_surface": "manual_export",
+      "text": "Markets closed mixed today as investors weighed the latest economic releases. This summary reflects published figures only and includes no forward-looking view.",
+      "character_count": 160,
+      "character_limit_max": 100000,
+      "disclosure_fields": [
+        "published_data_only"
+      ],
+      "limitations": [
+        "Figures reflect the most recent published release and may be revised.",
+        "No intraday or real-time data is represented."
+      ],
+      "citations": [
+        "citation_ref:bls_cpi_release_2026_06",
+        "citation_ref:treasury_yield_curve_2026_06_13"
+      ],
+      "hashtags": [],
+      "links": [],
+      "unsupported_feature_flags": [
+        "manual_export_only",
+        "no_api",
+        "no_credential"
+      ],
+      "payload_shape": "manual_export",
+      "mode": "manual_export",
+      "operator_review_required": true,
+      "public_ready": false,
+      "live_eligibility": false
+    }
+  ],
+  "unsupported_feature_flags": [
+    "manual_export_only"
+  ],
+  "disclosure_preservation_result": "PASS",
+  "limitation_preservation_result": "PASS",
+  "citation_preservation_result": "PASS",
+  "character_limit_result": "PASS",
+  "claim_integrity_result": "PASS",
+  "platform_constraint_result": "PASS",
+  "operator_review_required": true,
+  "public_ready": false,
+  "live_eligibility": false,
+  "live_ready": false,
+  "dispatch_ready": false,
+  "platform_api_allowed_now": false,
+  "credential_read_allowed_now": false,
+  "credentials_requested_now": false,
+  "posting_enabled_now": false,
+  "scheduler_enabled_now": false,
+  "autonomous_replies_enabled_now": false,
+  "dms_enabled_now": false,
+  "scraping_enabled_now": false,
+  "validation_state": "PASS"
+}
