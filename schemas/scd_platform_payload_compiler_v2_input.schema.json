@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD PlatformPayloadCompilerV2Input",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "compiler_input_id": { "type": "string" },
+    "canonical_post_id": { "type": "string" },
+    "editorial_output_id": { "type": "string" },
+    "source_text": { "type": "string" },
+    "source_limitations": { "type": "array", "items": { "type": "string" } },
+    "source_citations": { "type": "array", "items": { "type": "string" } },
+    "source_claims": { "type": "array", "items": { "type": "string" } },
+    "requested_platforms": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "platform_constraint_profile_refs": { "type": "array", "items": { "type": "string" } },
+    "operator_review_required": { "type": "boolean" },
+    "public_ready": { "type": "boolean" },
+    "live_eligibility": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "dispatch_ready": { "type": "boolean" },
+    "platform_api_allowed_now": { "type": "boolean" },
+    "credential_read_allowed_now": { "type": "boolean" },
+    "credentials_requested_now": { "type": "boolean" },
+    "posting_enabled_now": { "type": "boolean" },
+    "scheduler_enabled_now": { "type": "boolean" },
+    "autonomous_replies_enabled_now": { "type": "boolean" },
+    "dms_enabled_now": { "type": "boolean" },
+    "scraping_enabled_now": { "type": "boolean" },
+    "validation_state": {
+      "type": "string",
+      "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"]
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "compiler_input_id",
+    "canonical_post_id",
+    "editorial_output_id",
+    "source_limitations",
+    "source_citations",
+    "requested_platforms",
+    "operator_review_required",
+    "public_ready",
+    "live_eligibility",
+    "validation_state"
+  ]
+}

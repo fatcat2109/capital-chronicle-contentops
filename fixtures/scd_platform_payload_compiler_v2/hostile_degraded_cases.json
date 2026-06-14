@@ -1,0 +1,375 @@
+{
+  "description": "Adversarial / degraded inputs for the v2 platform payload compiler. Each case is an EXPECTED-non-PASS input. Valid runtime fixtures never carry these strings; these adversarial inputs intentionally do, to prove the detectors fail closed.",
+  "cases": [
+    {
+      "case_id": "public_ready_true",
+      "kind": "platform_payload_compiler_v2_input",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_input_id": "cin_h1",
+        "canonical_post_id": "cp_h1",
+        "editorial_output_id": "eo_h1",
+        "source_text": "Neutral macro recap.",
+        "source_limitations": ["preliminary"],
+        "source_citations": ["cite:ref-1"],
+        "requested_platforms": ["telegram"],
+        "operator_review_required": true,
+        "public_ready": true,
+        "live_eligibility": false,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "live_eligibility_true",
+      "kind": "platform_payload_compiler_v2_input",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_input_id": "cin_h2",
+        "canonical_post_id": "cp_h2",
+        "editorial_output_id": "eo_h2",
+        "source_text": "Neutral macro recap.",
+        "source_limitations": ["preliminary"],
+        "source_citations": ["cite:ref-1"],
+        "requested_platforms": ["telegram"],
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": true,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "auth_header_present",
+      "kind": "platform_payload_compiler_v2_input",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_input_id": "cin_h3",
+        "canonical_post_id": "cp_h3",
+        "editorial_output_id": "eo_h3",
+        "source_text": "Authorization: Bearer abcdef please post this.",
+        "source_limitations": ["preliminary"],
+        "source_citations": ["cite:ref-1"],
+        "requested_platforms": ["telegram"],
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "telegram_bot_api_endpoint",
+      "kind": "platform_payload_compiler_v2_input",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_input_id": "cin_h4",
+        "canonical_post_id": "cp_h4",
+        "editorial_output_id": "eo_h4",
+        "source_text": "Call https://api.telegram.org/botXXXX/sendMessage now.",
+        "source_limitations": ["preliminary"],
+        "source_citations": ["cite:ref-1"],
+        "requested_platforms": ["telegram"],
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "webhook_present",
+      "kind": "platform_payload_compiler_v2_input",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_input_id": "cin_h5",
+        "canonical_post_id": "cp_h5",
+        "editorial_output_id": "eo_h5",
+        "source_text": "Register a webhook and dispatch immediately.",
+        "source_limitations": ["preliminary"],
+        "source_citations": ["cite:ref-1"],
+        "requested_platforms": ["telegram"],
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "scheduler_enabled_now",
+      "kind": "platform_payload_compiler_v2_input",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_input_id": "cin_h6",
+        "canonical_post_id": "cp_h6",
+        "editorial_output_id": "eo_h6",
+        "source_text": "Neutral macro recap.",
+        "source_limitations": ["preliminary"],
+        "source_citations": ["cite:ref-1"],
+        "requested_platforms": ["telegram"],
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "scheduler_enabled_now": true,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "signal_language_present",
+      "kind": "platform_payload_compiler_v2_input",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_input_id": "cin_h7",
+        "canonical_post_id": "cp_h7",
+        "editorial_output_id": "eo_h7",
+        "source_text": "Our model predicts a target price; buy now.",
+        "source_limitations": ["preliminary"],
+        "source_citations": ["cite:ref-1"],
+        "requested_platforms": ["x_twitter"],
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "secret_bot_token_value",
+      "kind": "platform_payload_compiler_v2_input",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_input_id": "cin_h8",
+        "canonical_post_id": "cp_h8",
+        "editorial_output_id": "eo_h8",
+        "source_text": "Use 123456789:ABCdefGHIjklMNOpqrSTUvwxYZ0123456789 to authenticate.",
+        "source_limitations": ["preliminary"],
+        "source_citations": ["cite:ref-1"],
+        "requested_platforms": ["telegram"],
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "operator_review_missing",
+      "kind": "platform_payload_compiler_v2_input",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_input_id": "cin_h9",
+        "canonical_post_id": "cp_h9",
+        "editorial_output_id": "eo_h9",
+        "source_text": "Neutral macro recap.",
+        "source_limitations": ["preliminary"],
+        "source_citations": ["cite:ref-1"],
+        "requested_platforms": ["telegram"],
+        "operator_review_required": false,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "unknown_platform_id",
+      "kind": "platform_payload_compiler_v2_input",
+      "expected_state": "UNKNOWN",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_input_id": "cin_h10",
+        "canonical_post_id": "cp_h10",
+        "editorial_output_id": "eo_h10",
+        "source_text": "Neutral macro recap.",
+        "source_limitations": ["preliminary"],
+        "source_citations": ["cite:ref-1"],
+        "requested_platforms": ["mastodon"],
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "UNKNOWN"
+      }
+    },
+    {
+      "case_id": "missing_source_text_and_lineage",
+      "kind": "platform_payload_compiler_v2_input",
+      "expected_state": "UNKNOWN",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_input_id": "cin_h11",
+        "canonical_post_id": "",
+        "editorial_output_id": "",
+        "source_text": "",
+        "source_limitations": ["preliminary"],
+        "source_citations": ["cite:ref-1"],
+        "requested_platforms": ["telegram"],
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "UNKNOWN"
+      }
+    },
+    {
+      "case_id": "character_overflow_hard",
+      "kind": "platform_payload_compiler_v2_output",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_output_id": "cout_h12",
+        "compiler_input_id": "cin_h12",
+        "platform_payloads": [
+          {
+            "platform_id": "x_twitter",
+            "text": "overflow",
+            "character_count": 5000,
+            "character_limit_max": 280,
+            "payload_shape": "dry_run",
+            "mode": "dry_run"
+          }
+        ],
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "shape_mismatch_manual_for_dry_run_platform",
+      "kind": "platform_payload_compiler_v2_output",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_output_id": "cout_h13",
+        "compiler_input_id": "cin_h13",
+        "platform_payloads": [
+          {
+            "platform_id": "telegram",
+            "text": "Neutral recap.",
+            "character_count": 14,
+            "character_limit_max": 4096,
+            "payload_shape": "manual_export",
+            "mode": "manual_export"
+          }
+        ],
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "output_unknown_platform",
+      "kind": "platform_payload_compiler_v2_output",
+      "expected_state": "UNKNOWN",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compiler_output_id": "cout_h14",
+        "compiler_input_id": "cin_h14",
+        "platform_payloads": [
+          {
+            "platform_id": "mastodon",
+            "text": "Neutral recap.",
+            "character_count": 14,
+            "character_limit_max": 500,
+            "payload_shape": "dry_run",
+            "mode": "dry_run"
+          }
+        ],
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "UNKNOWN"
+      }
+    },
+    {
+      "case_id": "declared_pass_contradicts_blocked",
+      "kind": "platform_payload_compile_report_v2",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compile_report_id": "crep_h15",
+        "compiler_input_id": "cin_h15",
+        "compiler_output_id": "cout_h15",
+        "per_platform_results": [
+          { "platform_id": "telegram", "result": "BLOCKED" }
+        ],
+        "final_recommendation": "PASS",
+        "live_ready": false,
+        "dispatch_ready": false,
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "PASS"
+      }
+    },
+    {
+      "case_id": "report_live_ready_true",
+      "kind": "platform_payload_compile_report_v2",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "compile_report_id": "crep_h16",
+        "compiler_input_id": "cin_h16",
+        "compiler_output_id": "cout_h16",
+        "per_platform_results": [
+          { "platform_id": "telegram", "result": "PASS" }
+        ],
+        "final_recommendation": "REVIEW_REQUIRED",
+        "live_ready": true,
+        "dispatch_ready": false,
+        "operator_review_required": true,
+        "public_ready": false,
+        "live_eligibility": false,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "constraint_profile_not_manual_only",
+      "kind": "platform_constraint_profile_v2",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "profile_id": "prof_h17",
+        "platform_id": "telegram",
+        "label": "Telegram",
+        "content_surface": "channel_post",
+        "payload_shape": "dry_run",
+        "character_limit_max": 4096,
+        "supports_links": true,
+        "supports_hashtags": true,
+        "supports_threading": false,
+        "supports_media": true,
+        "required_disclosure_fields": [],
+        "required_limitation_fields": [],
+        "unsupported_features": [],
+        "manual_publish_only": false,
+        "validation_state": "BLOCKED"
+      }
+    },
+    {
+      "case_id": "constraint_profile_shape_mismatch",
+      "kind": "platform_constraint_profile_v2",
+      "expected_state": "BLOCKED",
+      "packet": {
+        "schema_version": "0174bn-v2",
+        "profile_id": "prof_h18",
+        "platform_id": "substack_newsletter",
+        "label": "Substack",
+        "content_surface": "newsletter_section",
+        "payload_shape": "dry_run",
+        "character_limit_max": 100000,
+        "supports_links": true,
+        "supports_hashtags": false,
+        "supports_threading": false,
+        "supports_media": true,
+        "required_disclosure_fields": [],
+        "required_limitation_fields": [],
+        "unsupported_features": [],
+        "manual_publish_only": true,
+        "validation_state": "BLOCKED"
+      }
+    }
+  ]
+}

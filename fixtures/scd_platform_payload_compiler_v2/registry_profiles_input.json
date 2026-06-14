@@ -1,0 +1,51 @@
+{
+  "description": "Symbolic registry capability profiles consumed by the v2 compiler binding. current_repo_allowed_state routes payload shape; no live/credential flags are truthy.",
+  "schema_version": "0174bn-v2",
+  "registry_profiles": [
+    {
+      "platform_id": "telegram",
+      "current_repo_allowed_state": "dry_run_only",
+      "expected_payload_shape": "dry_run"
+    },
+    {
+      "platform_id": "x_twitter",
+      "current_repo_allowed_state": "dry_run_only",
+      "expected_payload_shape": "dry_run"
+    },
+    {
+      "platform_id": "linkedin",
+      "current_repo_allowed_state": "dry_run_only",
+      "expected_payload_shape": "dry_run"
+    },
+    {
+      "platform_id": "facebook_page",
+      "current_repo_allowed_state": "future_live_gate_required",
+      "expected_payload_shape": "dry_run"
+    },
+    {
+      "platform_id": "instagram",
+      "current_repo_allowed_state": "future_live_gate_required",
+      "expected_payload_shape": "dry_run"
+    },
+    {
+      "platform_id": "threads",
+      "current_repo_allowed_state": "future_live_gate_required",
+      "expected_payload_shape": "dry_run"
+    },
+    {
+      "platform_id": "tiktok",
+      "current_repo_allowed_state": "future_live_gate_required",
+      "expected_payload_shape": "dry_run"
+    },
+    {
+      "platform_id": "substack_newsletter",
+      "current_repo_allowed_state": "manual_export_only",
+      "expected_payload_shape": "manual_export"
+    },
+    {
+      "platform_id": "generic_manual",
+      "current_repo_allowed_state": "manual_export_only",
+      "expected_payload_shape": "manual_export"
+    }
+  ]
+}
