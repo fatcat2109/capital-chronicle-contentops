@@ -216,6 +216,9 @@ def validate_provider_response_ledger_entry(packet):
             unknown.append(f"{k} missing")
             states.append(UNKNOWN)
 
+    if unknown:
+        states.append(UNKNOWN)
+
     rolled = _rollup(states)
     claim = packet.get("validation_state")
     
