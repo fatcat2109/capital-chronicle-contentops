@@ -281,9 +281,21 @@ def build_provider_response_ledger_entry(
         unknown.append("symbolic_endpoint_family is UNKNOWN_ENDPOINT")
         states.append(UNKNOWN)
 
-    if not request_packet_ref:
-        unknown.append("request_packet_ref missing")
-        states.append(UNKNOWN)
+    req_refs = {
+        "request_packet_ref": request_packet_ref,
+        "prompt_pack_ref": prompt_pack_ref,
+        "canonical_draft_ref": canonical_draft_ref,
+        "budget_ref": budget_ref,
+        "credential_envelope_ref": credential_envelope_ref,
+        "request_audit_manifest_ref": request_audit_manifest_ref,
+        "response_artifact_ref": response_artifact_ref,
+        "response_redaction_ref": response_redaction_ref,
+        "response_audit_manifest_ref": response_audit_manifest_ref
+    }
+    for ref_name, ref_val in req_refs.items():
+        if not ref_val:
+            unknown.append(f"{ref_name} missing")
+            states.append(UNKNOWN)
 
     rolled = _rollup(states)
 

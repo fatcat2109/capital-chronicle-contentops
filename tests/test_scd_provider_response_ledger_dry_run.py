@@ -234,7 +234,42 @@ def test_builder_missing_request_packet_ref_unknown():
     res = build_provider_response_ledger_entry(
         req, req, req, req, "", "r_pro", "r_can", "r_bud", "r_cred", "r_raud", "r_art", "r_rred", "r_raudm"
     )
-    assert res["validation_state"] != PASS
+    assert res["validation_state"] == UNKNOWN
+    valid = validate_provider_response_ledger_entry(res)
+    assert valid["validation_state"] == UNKNOWN
+
+@pytest.mark.parametrize("missing_ref", [
+    "prompt_pack_ref",
+    "canonical_draft_ref",
+    "budget_ref",
+    "credential_envelope_ref",
+    "request_audit_manifest_ref",
+    "response_artifact_ref",
+    "response_redaction_ref",
+    "response_audit_manifest_ref"
+])
+def test_builder_missing_ref_unknown(missing_ref):
+    req = {"validation_state": PASS, "symbolic_provider_name": "P", "symbolic_endpoint_family": "E", "batch_id": "b1"}
+    kwargs = {
+        "request_packet": req,
+        "response_receipt": req,
+        "response_redaction": req,
+        "response_audit_manifest": req,
+        "request_packet_ref": "r_req",
+        "prompt_pack_ref": "r_pro",
+        "canonical_draft_ref": "r_can",
+        "budget_ref": "r_bud",
+        "credential_envelope_ref": "r_cred",
+        "request_audit_manifest_ref": "r_raud",
+        "response_artifact_ref": "r_art",
+        "response_redaction_ref": "r_rred",
+        "response_audit_manifest_ref": "r_raudm"
+    }
+    kwargs[missing_ref] = ""
+    res = build_provider_response_ledger_entry(**kwargs)
+    assert res["validation_state"] == UNKNOWN
+    valid = validate_provider_response_ledger_entry(res)
+    assert valid["validation_state"] == UNKNOWN
 
 def test_builder_inherits_symbolic_provider():
     req = {"validation_state": PASS, "symbolic_provider_name": "MY_PROV", "symbolic_endpoint_family": "MY_END", "batch_id": "b1"}
