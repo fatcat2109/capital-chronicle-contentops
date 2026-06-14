@@ -1,0 +1,24 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "validation_state": "PASS",
+  "response_receipt_mode": "DRY_RUN_RESPONSE_ARTIFACT_ONLY",
+  "request_packet_ref": "ref:req",
+  "response_artifact_ref": "ref:art",
+  "local_artifact_only": true,
+  "executable": false,
+  "network_allowed": false,
+  "provider_client_constructed": false,
+  "env_read_allowed": false,
+  "credential_lookup_allowed": false,
+  "api_key_present": false,
+  "credential_value_present": false,
+  "provider_ready": false,
+  "live_ready": false,
+  "public_ready": false,
+  "response_content_authority_state": "DRAFT_REVIEW_ONLY",
+  "generated_content_public_ready": false,
+  "reasons": [
+    "live call"
+  ]
+}

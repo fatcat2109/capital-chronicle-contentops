@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "batch_id": "b1",
+  "validation_state": "PASS",
+  "upstream_lineage_refs": [
+    "ref:x"
+  ],
+  "response_artifact_ref": "ref:art",
+  "response_redaction_ref": "ref:red",
+  "response_ledger_ref": "ref:led",
+  "reasons": [
+    "ok"
+  ]
+}
