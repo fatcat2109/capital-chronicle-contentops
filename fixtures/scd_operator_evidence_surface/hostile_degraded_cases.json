@@ -1,0 +1,46 @@
+{
+  "cases": [
+    {
+      "case_id": "required_false_credential_read_true_blocks",
+      "expected_state": "BLOCKED",
+      "mutation": {
+        "credential_read_allowed_now": true
+      },
+      "rationale": "A required-false safety flag turned true is a contradiction; fail-closed to BLOCKED."
+    },
+    {
+      "case_id": "required_true_evidence_only_false_blocks",
+      "expected_state": "BLOCKED",
+      "mutation": {
+        "evidence_only": false
+      },
+      "rationale": "A required-true evidence flag turned false is a contradiction; fail-closed to BLOCKED."
+    },
+    {
+      "case_id": "missing_bridge_report_hash_unknown",
+      "expected_state": "UNKNOWN",
+      "mutation": {
+        "bridge_report_hash": "",
+        "validation_state": "UNKNOWN"
+      },
+      "rationale": "Missing lineage/hash id cannot establish lineage; computed UNKNOWN with declared state reset."
+    },
+    {
+      "case_id": "declared_pass_after_missing_bridge_hash_blocks",
+      "expected_state": "BLOCKED",
+      "mutation": {
+        "bridge_report_hash": ""
+      },
+      "rationale": "Declared PASS contradicting a computed UNKNOWN (missing hash) fail-closes to BLOCKED."
+    },
+    {
+      "case_id": "static_bridge_prefix_safe",
+      "expected_js_prefix": "window.CC_OPERATOR_EVIDENCE_SURFACE =",
+      "mutation": {},
+      "rationale": "Unmutated valid packet yields the evidence-only static JS literal prefix."
+    }
+  ],
+  "note": "Each mutation is applied to a freshly built valid PASS surface packet.",
+  "source_valid_fixture": "evidence_surface_valid_pass_manual_only.json",
+  "surface_hostile_matrix_version": "0174bu-prep02-v1"
+}

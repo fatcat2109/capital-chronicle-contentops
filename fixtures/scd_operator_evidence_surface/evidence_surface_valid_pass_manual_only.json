@@ -1,0 +1,142 @@
+{
+  "allowed_local_action": "inspect evidence only",
+  "audit_alignment_id": "brraa_adbr_v2_crep_v2_pass_manual_001",
+  "audit_alignment_state": "PASS",
+  "audit_allowlist_modified": false,
+  "audit_event_created": false,
+  "blocked_actions": [
+    "no_live_posting",
+    "no_platform_api_call",
+    "no_provider_api_call",
+    "no_credential_read",
+    "no_scheduler_enable",
+    "no_dispatch_execute",
+    "no_audit_event_create",
+    "no_audit_allowlist_modify",
+    "no_autonomous_replies",
+    "no_direct_messages",
+    "no_scraping"
+  ],
+  "blocked_reasons": [],
+  "blocker_count": 0,
+  "bridge_report_hash": "canonical_json_sha256:722aea7bc3779cf8fab498f0a5fe8f3e37f05a09a492006f8b5033c56398d91a",
+  "bridge_report_id": "adbr_v2_crep_v2_pass_manual_001",
+  "bridge_report_state": "PASS",
+  "compile_report_id": "crep_v2_pass_manual_001",
+  "compiler_output_id": "cout_v2_manual_only_001",
+  "component_state_matrix": [
+    {
+      "component": "bridge_report",
+      "evidence_id": "adbr_v2_crep_v2_pass_manual_001",
+      "state": "PASS"
+    },
+    {
+      "component": "readiness_alignment",
+      "evidence_id": "brpra_adbr_v2_crep_v2_pass_manual_001",
+      "state": "PASS"
+    },
+    {
+      "component": "audit_alignment",
+      "evidence_id": "brraa_adbr_v2_crep_v2_pass_manual_001",
+      "state": "PASS"
+    }
+  ],
+  "component_states": [
+    "PASS",
+    "PASS",
+    "PASS"
+  ],
+  "credential_read_allowed_now": false,
+  "dispatch_ready": false,
+  "evidence_only": true,
+  "evidence_path_nodes": [
+    "compiler_v2_output",
+    "compile_report_v2",
+    "payload_hash_manifest",
+    "approval_bridge_report_0174bp",
+    "publish_readiness_alignment_0174br",
+    "redacted_audit_alignment_0174br",
+    "operator_evidence_summary_0174bt"
+  ],
+  "executable_dispatch": false,
+  "hostile_matrix_summary": {
+    "never_pass": true,
+    "total_cases": 0
+  },
+  "live_ready": false,
+  "local_only": true,
+  "manual_review_required": true,
+  "no_grant_label": "EVIDENCE ONLY / NO GRANT",
+  "non_executable": true,
+  "operator_evidence_summary_id": "oes_adbr_v2_crep_v2_pass_manual_001",
+  "payload_hash_manifest_id": "phm_v2_cout_v2_manual_only_001",
+  "platform_api_allowed_now": false,
+  "posting_enabled_now": false,
+  "public_ready": false,
+  "readiness_alignment_id": "brpra_adbr_v2_crep_v2_pass_manual_001",
+  "readiness_alignment_state": "PASS",
+  "readiness_granted": false,
+  "required_false_flag_matrix": [
+    {
+      "flag": "public_ready",
+      "value": false
+    },
+    {
+      "flag": "live_ready",
+      "value": false
+    },
+    {
+      "flag": "dispatch_ready",
+      "value": false
+    },
+    {
+      "flag": "executable_dispatch",
+      "value": false
+    },
+    {
+      "flag": "platform_api_allowed_now",
+      "value": false
+    },
+    {
+      "flag": "credential_read_allowed_now",
+      "value": false
+    },
+    {
+      "flag": "scheduler_enabled_now",
+      "value": false
+    },
+    {
+      "flag": "posting_enabled_now",
+      "value": false
+    },
+    {
+      "flag": "audit_event_created",
+      "value": false
+    },
+    {
+      "flag": "audit_allowlist_modified",
+      "value": false
+    },
+    {
+      "flag": "readiness_granted",
+      "value": false
+    }
+  ],
+  "review_required_count": 0,
+  "rollup_state": "PASS",
+  "scheduler_enabled_now": false,
+  "source_evidence_baseline_head": "add55ea1c7447770cb9382f86af1794b951ae8f1",
+  "source_evidence_baseline_subject": "feat: add operator evidence summary for compiler v2 chain",
+  "source_task_label": "TASK_CONTENTOPS_0174BT_OPERATOR_EVIDENCE_SUMMARY_V0",
+  "surface_id": "oes_surface_oes_adbr_v2_crep_v2_pass_manual_001",
+  "surface_schema_version": "0174bu-prep02-v1",
+  "truth_model_notes": [
+    "surface is evidence-only and grants nothing",
+    "pass means internally consistent and ui-safe only, never publish or live or ready",
+    "projection of accepted 0174bt summary; no accepted module edited",
+    "all readiness, api, credential, and posting flags are forced false"
+  ],
+  "ui_surface_ready": true,
+  "unknown_count": 0,
+  "validation_state": "PASS"
+}
