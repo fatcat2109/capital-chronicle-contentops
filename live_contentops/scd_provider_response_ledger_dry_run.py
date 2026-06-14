@@ -295,10 +295,14 @@ def build_provider_response_ledger_entry(
         "response_redaction_ref": response_redaction_ref,
         "response_audit_manifest_ref": response_audit_manifest_ref
     }
+    normalized_refs = {}
     for ref_name, ref_val in req_refs.items():
         if not ref_val:
             unknown.append(f"{ref_name} missing")
             states.append(UNKNOWN)
+            normalized_refs[ref_name] = ""
+        else:
+            normalized_refs[ref_name] = ref_val
 
     rolled = _rollup(states)
 
@@ -310,15 +314,15 @@ def build_provider_response_ledger_entry(
         "response_receipt_state": rec_state,
         "response_redaction_state": red_state,
         "response_audit_manifest_state": aud_state,
-        "request_packet_ref": request_packet_ref,
-        "prompt_pack_ref": prompt_pack_ref,
-        "canonical_draft_ref": canonical_draft_ref,
-        "budget_ref": budget_ref,
-        "credential_envelope_ref": credential_envelope_ref,
-        "request_audit_manifest_ref": request_audit_manifest_ref,
-        "response_artifact_ref": response_artifact_ref,
-        "response_redaction_ref": response_redaction_ref,
-        "response_audit_manifest_ref": response_audit_manifest_ref,
+        "request_packet_ref": normalized_refs["request_packet_ref"],
+        "prompt_pack_ref": normalized_refs["prompt_pack_ref"],
+        "canonical_draft_ref": normalized_refs["canonical_draft_ref"],
+        "budget_ref": normalized_refs["budget_ref"],
+        "credential_envelope_ref": normalized_refs["credential_envelope_ref"],
+        "request_audit_manifest_ref": normalized_refs["request_audit_manifest_ref"],
+        "response_artifact_ref": normalized_refs["response_artifact_ref"],
+        "response_redaction_ref": normalized_refs["response_redaction_ref"],
+        "response_audit_manifest_ref": normalized_refs["response_audit_manifest_ref"],
         "symbolic_provider_name": sym_name,
         "symbolic_endpoint_family": sym_ep,
         "response_ledger_mode": "DRY_RUN_LEDGER_ONLY",

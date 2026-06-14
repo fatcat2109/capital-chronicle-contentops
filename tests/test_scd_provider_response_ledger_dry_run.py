@@ -238,6 +238,7 @@ def test_builder_missing_request_packet_ref_unknown():
     valid = validate_provider_response_ledger_entry(res)
     assert valid["validation_state"] == UNKNOWN
 
+@pytest.mark.parametrize("missing_val", ["", None])
 @pytest.mark.parametrize("missing_ref", [
     "prompt_pack_ref",
     "canonical_draft_ref",
@@ -248,7 +249,7 @@ def test_builder_missing_request_packet_ref_unknown():
     "response_redaction_ref",
     "response_audit_manifest_ref"
 ])
-def test_builder_missing_ref_unknown(missing_ref):
+def test_builder_missing_ref_unknown(missing_ref, missing_val):
     req = {"validation_state": PASS, "symbolic_provider_name": "P", "symbolic_endpoint_family": "E", "batch_id": "b1"}
     kwargs = {
         "request_packet": req,
@@ -265,9 +266,11 @@ def test_builder_missing_ref_unknown(missing_ref):
         "response_redaction_ref": "r_rred",
         "response_audit_manifest_ref": "r_raudm"
     }
-    kwargs[missing_ref] = ""
+    kwargs[missing_ref] = missing_val
     res = build_provider_response_ledger_entry(**kwargs)
     assert res["validation_state"] == UNKNOWN
+    assert res[missing_ref] == ""
+    assert any(missing_ref in r for r in res["reasons"])
     valid = validate_provider_response_ledger_entry(res)
     assert valid["validation_state"] == UNKNOWN
 
@@ -314,4 +317,7 @@ def test_builder_itemizes_reasons():
     res = build_provider_response_ledger_entry(
         req, req, req, req, None, "r_pro", "r_can", "r_bud", "r_cred", "r_raud", "r_art", "r_rred", "r_raudm"
     )
+    assert res["validation_state"] == UNKNOWN
     assert any("request_packet_ref" in r for r in res["reasons"])
+    valid = validate_provider_response_ledger_entry(res)
+    assert valid["validation_state"] == UNKNOWN
