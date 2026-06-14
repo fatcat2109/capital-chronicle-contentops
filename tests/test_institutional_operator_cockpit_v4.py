@@ -68,16 +68,22 @@ def test_no_forms_or_submit_controls():
 
 
 def test_no_credential_or_env_runtime_behavior():
-    # credential/env words may appear only as redaction/policy text, never as real values.
+    # credential/env words may appear only as redaction/policy text, never as IO.
     # Tokens are built from fragments so this test file itself stays secret-scan clean.
     text = _runtime_text()
+    allowed_env_path = r"A:\\Capital Chronicle\\tools\\cc-live-contentops.env"
+    assert allowed_env_path in text
+    assert "do not read, do not parse, do not load, do not display values" in text
     forbidden = [
         "process.env",
-        ".env",
         "API_" + "KEY=",
         "BOT_" + "TOKEN",
         "TELEGRAM_" + "BOT_" + "TOKEN",
         "ghp" + "_",
+        "readFileSync",
+        "read_text",
+        "os.environ",
+        "open(",
     ]
     for token in forbidden:
         assert token not in text, "forbidden credential/env token in runtime"
@@ -222,4 +228,3 @@ def test_no_trading_or_market_direction_wording():
     ]
     for token in forbidden:
         assert token not in text, "forbidden trading wording: " + token
-

@@ -1232,12 +1232,25 @@
     if (SELECTED_OBJECT && SELECTED_OBJECT.kind === "evidence surface") {
       var sv = surfaceIntegrity();
       var hm = surfaceField("hostile_matrix_summary", {});
-      card("Surface rollup", surfaceField("rollup_state", "UNKNOWN") + " · integrity " + sv.state,
+      var truthHm = truthField("hostile_matrix_summary", {});
+      card("Surface summary", truthField("surface_id", surfaceField("surface_id", "UNKNOWN")) + " / " +
+        truthField("availability", "UNKNOWN") + " / integrity " + truthField("integrity_state", sv.state),
         sv.state === "PASS" ? "safe" : (sv.state === "BLOCKED" ? "blocked" : "review"));
       card("No-grant label", surfaceField("no_grant_label", NO_GRANT_LABEL), "safe");
-      card("Component states", surfaceField("component_state_matrix", []).length + " bound", "safe", true);
-      card("Hostile matrix", "never_pass=" + hm.never_pass + " · " + hm.total_cases + " cases", "safe", true);
-      card("Blocked actions", surfaceField("blocked_actions", []).length + " · publish / dispatch / credential read", "blocked", true);
+      card("Bridge report", surfaceField("bridge_report_id", "UNKNOWN") + " / " +
+        truthField("bridge_report_hash", surfaceField("bridge_report_hash", "UNKNOWN")), "safe", true);
+      card("Readiness alignment", truthField("readiness_alignment_id", "UNKNOWN") +
+        " / readiness_granted=false", "blocked", true);
+      card("Audit alignment", truthField("audit_alignment_id", "UNKNOWN") +
+        " / audit_event_created=false / allowlist_modified=false", "blocked", true);
+      card("Required-false groups", flagGroups().map(function (g) { return g.category; }).join(" / "), "blocked", true);
+      card("Hostile matrix group", "never_pass=" + (truthHm.never_pass || hm.never_pass) +
+        " / cases=" + ((truthHm.cases || []).length || hm.total_cases || 0), "safe", true);
+      card("Fallback/missing bridge state", truthField("fallback_reason", "") ||
+        "Bridge present; missing bridge would render UNKNOWN / no-grant.", "review");
+      card("No-grant matrix", "public/live/dispatch/API/credential/scheduler/audit/readiness all blocked", "blocked");
+      card("Blocked actions", truthField("blocked_actions", surfaceField("blocked_actions", [])).length +
+        " / publish / dispatch / credential read", "blocked", true);
       return;
     }
 
@@ -1354,6 +1367,7 @@
    * false grant. Local-only: no network, no storage, no operational action.
    * ===================================================================== */
   var SURFACE = window.CC_OPERATOR_EVIDENCE_SURFACE || null;
+  var SURFACE_TRUTH = (MODEL && MODEL.operator_evidence_surface_truth) || {};
   var NO_GRANT_LABEL = "EVIDENCE ONLY / NO GRANT";
 
   var SURFACE_REQUIRED_FALSE = [
@@ -1371,6 +1385,49 @@
     "compile_report_id", "payload_hash_manifest_id",
     "readiness_alignment_id", "audit_alignment_id"
   ];
+
+  function truthField(key, fallback) {
+    if (!SURFACE_TRUTH || SURFACE_TRUTH[key] === undefined || SURFACE_TRUTH[key] === null) return fallback;
+    return SURFACE_TRUTH[key];
+  }
+
+  function truthStateSeverity(state) {
+    if (state === "PASS") return "safe";
+    if (state === "BLOCKED") return "blocked";
+    if (state === "REVIEW_REQUIRED") return "review";
+    return "review";
+  }
+
+  function flagGroups() {
+    var grouped = truthField("required_false_flags", []);
+    if (grouped && grouped.length) return grouped;
+    var flat = surfaceField("required_false_flag_matrix", []);
+    return [{ category: "required false", flags: flat.map(function (f) {
+      return { flag: f.flag, expected: false, observed: f.value, state: f.value === false ? "PASS" : "BLOCKED" };
+    }) }];
+  }
+
+  function lineageRows() {
+    return [
+      ["Current branch", truthField("current_branch_head", "UNKNOWN"), "current"],
+      ["Master baseline", truthField("master_baseline_head", "UNKNOWN"), "historical"],
+      ["Source evidence baseline", truthField("source_evidence_baseline_head", "UNKNOWN"), "source"],
+      ["Prep02 bridge", truthField("prep02_bridge_head", "UNKNOWN"), "bridge"],
+      ["Protected truth rail", truthField("protected_truth_rail_head", "992a7d0"), "protected"]
+    ];
+  }
+
+  function hostileCases() {
+    var hm = truthField("hostile_matrix_summary", {});
+    return hm.cases || [];
+  }
+
+  function provenanceChip(label, value, posture) {
+    var chip = el("span", "provenance-chip posture-" + (posture || "current"));
+    chip.appendChild(el("span", "provenance-chip-label", label));
+    chip.appendChild(el("span", "provenance-chip-value", value));
+    return chip;
+  }
 
   /* Null-safe reader: a partial/absent surface never throws. */
   function surfaceField(key, fallback) {
@@ -1443,15 +1500,19 @@
     var wrap = el("div", "instrument-panel evidence-surface-summary section-gap");
     var head = el("div", "instrument-head");
     head.appendChild(el("span", "instrument-title", "Operator Evidence Surface"));
-    head.appendChild(el("span", "data-label", NO_GRANT_LABEL));
+    head.appendChild(el("span", "data-label", truthField("no_grant_label", NO_GRANT_LABEL)));
     wrap.appendChild(head);
     if (verdict.state !== "PASS") { renderSurfaceUnavailable(wrap, verdict); body.appendChild(wrap); return; }
     var strip = el("div", "es-summary-grid");
-    [["Rollup", surfaceField("rollup_state", "UNKNOWN"), "safe", true],
-     ["Blockers", String(surfaceField("blocker_count", 0)), "neutral", false],
-     ["Review", String(surfaceField("review_required_count", 0)), "neutral", false],
-     ["Unknown", String(surfaceField("unknown_count", 0)), "neutral", false],
-     ["Allowed (local)", surfaceField("allowed_local_action", "inspect evidence only"), "neutral", false]
+    [["Model state", truthField("integrity_state", verdict.state), truthStateSeverity(truthField("integrity_state", verdict.state)), true],
+     ["No-grant", truthField("no_grant_label", NO_GRANT_LABEL), "neutral", false],
+     ["Surface id", truthField("surface_id", surfaceField("surface_id", "UNKNOWN")), "neutral", false],
+     ["Rollup counts", "block " + surfaceField("blocker_count", 0) + " / review " +
+        surfaceField("review_required_count", 0) + " / unknown " + surfaceField("unknown_count", 0), "neutral", false],
+     ["Allowed local", surfaceField("allowed_local_action", "inspect evidence only"), "neutral", false],
+     ["Branch status", "0174BW repair branch baseline", "neutral", false],
+     ["Blocked actions", truthField("blocked_actions", []).slice(0, 4).join(" / "), "blocked", false],
+     ["Impossible now", "publish / dispatch / API / credential / scheduler", "blocked", false]
     ].forEach(function (m) {
       var cell = el("div", "es-cell" + (m[2] ? " sev-" + m[2] : ""));
       cell.appendChild(el("span", "data-label", m[0]));
@@ -1466,15 +1527,89 @@
     });
     wrap.appendChild(strip);
     var src = el("div", "es-source");
-    src.appendChild(el("span", "data-label", "Source baseline"));
-    src.appendChild(el("span", "mono-value",
-      surfaceField("source_evidence_baseline_head", "\u2014") + " \u00b7 " + surfaceField("source_task_label", "")));
+    src.appendChild(el("span", "data-label", "Provenance"));
+    src.appendChild(provenanceChip("source", truthField("source_evidence_baseline_head", "\u2014"), "source"));
+    src.appendChild(provenanceChip("branch", truthField("current_branch_head", "\u2014"), "current"));
+    src.appendChild(provenanceChip("master", truthField("master_baseline_head", "\u2014"), "historical"));
     wrap.appendChild(src);
+    wrap.appendChild(el("div", "es-no-action-copy",
+      "Inspect evidence only. No publish, dispatch, platform/provider API, credential/env read, scheduler, audit event, scraping, reply, or DM action exists here."));
     makeSelectable(wrap, surfaceInspectObject({
       state: verdict.state, severity: "safe",
       reason: "Compact evidence-surface summary. PASS means internally consistent and UI-safe only \u2014 never publish/live/ready."
     }));
     body.appendChild(wrap);
+  }
+
+  function renderEvidenceComplianceRoom(body, verdict) {
+    var room = el("div", "instrument-panel evidence-compliance-room section-gap");
+    var head = el("div", "instrument-head");
+    head.appendChild(el("span", "instrument-title", "Evidence Vault Compliance Room"));
+    head.appendChild(el("span", "data-label", "state-before-action / no-grant proof"));
+    room.appendChild(head);
+
+    var strip = el("div", "compliance-counter-strip");
+    [["Availability", truthField("availability", "UNKNOWN"), "review"],
+     ["Integrity", truthField("integrity_state", verdict.state), truthStateSeverity(verdict.state)],
+     ["Summary", truthField("operator_evidence_summary_id", "UNKNOWN"), "safe"],
+     ["Bridge hash", truthField("bridge_report_hash", "UNKNOWN"), "safe"]
+    ].forEach(function (m) {
+      var cell = el("div", "compliance-counter sev-" + m[2]);
+      cell.appendChild(el("span", "data-label", m[0]));
+      cell.appendChild(el("span", "mono-value", m[1]));
+      strip.appendChild(cell);
+    });
+    room.appendChild(strip);
+
+    var chain = el("div", "compliance-chain");
+    truthField("evidence_path_nodes", surfaceField("evidence_path_nodes", [])).forEach(function (node, i) {
+      if (i > 0) chain.appendChild(el("span", "compliance-chain-arrow", "->"));
+      var item = el("div", "compliance-chain-node");
+      item.appendChild(el("span", "compliance-chain-step", String(i + 1).padStart(2, "0")));
+      item.appendChild(el("span", "compliance-chain-label", node));
+      chain.appendChild(item);
+    });
+    room.appendChild(chain);
+
+    var lineage = el("div", "lineage-ledger");
+    lineageRows().forEach(function (row) {
+      var r = el("div", "lineage-row posture-" + row[2]);
+      r.appendChild(el("span", "lineage-role", row[0]));
+      r.appendChild(el("span", "lineage-value mono", row[1]));
+      r.appendChild(el("span", "lineage-posture", row[2]));
+      makeSelectable(r, surfaceInspectObject({
+        id: row[0], label: row[0], state: row[2] === "current" ? "PASS" : "REFERENCE",
+        severity: row[2] === "current" ? "safe" : "review",
+        reason: "Lineage ledger row: " + row[0] + " is labeled " + row[2] + ".",
+        evidence_refs: [row[1]]
+      }));
+      lineage.appendChild(r);
+    });
+    var lineageDd = drilldown("Lineage Ledger", "current branch / master / source / prep02 / protected truth rail");
+    lineageDd.body.appendChild(lineage);
+    room.appendChild(lineageDd.details);
+
+    var proof = el("div", "no-grant-proof-panel");
+    proof.appendChild(el("div", "proof-title", truthField("no_grant_label", NO_GRANT_LABEL)));
+    proof.appendChild(el("div", "proof-copy readable-body-copy",
+      "Evidence may support review, but cannot bypass approval, readiness gates, dispatch locks, manual operator control, or credential boundaries."));
+    truthField("blocked_actions", surfaceField("blocked_actions", [])).slice(0, 12).forEach(function (action) {
+      proof.appendChild(el("span", "blocked-action-chip", action));
+    });
+    room.appendChild(proof);
+
+    var fallback = el("div", "fallback-proof-panel");
+    fallback.appendChild(el("span", "data-label", "Fallback / degraded proof"));
+    fallback.appendChild(el("div", "readable-body-copy",
+      truthField("fallback_reason", "") || "Bridge present. If the bridge is absent, this model exposes UNKNOWN, degraded, no-grant state and renders no readiness affordance."));
+    fallback.appendChild(el("span", "token UNKNOWN", "UNKNOWN fallback"));
+    room.appendChild(fallback);
+
+    makeSelectable(room, surfaceInspectObject({
+      state: truthField("integrity_state", verdict.state), severity: truthStateSeverity(truthField("integrity_state", verdict.state)),
+      reason: "Compliance-room summary: chain, lineage, no-grant proof, fallback proof, and blocked actions are all inspect-only."
+    }));
+    body.appendChild(room);
   }
 
   /* Evidence Vault — primary host: chain map, component matrix, required-false
@@ -1502,6 +1637,7 @@
     makeSelectable(hostHead, surfaceInspectObject({ state: verdict.state, severity: "safe",
       reason: "Primary evidence-surface host. Evidence-only projection of the accepted 0174BT summary; grants nothing." }));
     body.appendChild(hostHead);
+    renderEvidenceComplianceRoom(body, verdict);
 
     var nodes = surfaceField("evidence_path_nodes", []);
     if (nodes.length) {
@@ -1547,23 +1683,65 @@
       body.appendChild(cmDd.details);
     }
 
-    var flags = surfaceField("required_false_flag_matrix", []);
-    if (flags.length) {
+    var groupedFlags = flagGroups();
+    if (groupedFlags.length) {
       var fPanel = panel("Required-False Flag Matrix (no-grant proof)");
-      var fMat = el("div", "es-flag-matrix");
-      flags.forEach(function (f) {
-        var row = el("div", "es-flag-row" + (f.value === true ? " is-violation" : ""));
-        row.appendChild(el("span", "es-flag-name mono", f.flag));
-        row.appendChild(el("span", "es-flag-value", f.value === true ? "TRUE \u2014 VIOLATION" : "false"));
-        fMat.appendChild(row);
+      var fMat = el("div", "required-false-flag-matrix");
+      groupedFlags.forEach(function (group) {
+        var groupNode = el("div", "flag-group");
+        groupNode.appendChild(el("div", "flag-group-title", group.category));
+        group.flags.forEach(function (f) {
+          var observed = f.observed === undefined ? f.value : f.observed;
+          var row = el("div", "es-flag-row" + (observed === true ? " is-violation" : ""));
+          row.appendChild(el("span", "es-flag-name mono", f.flag));
+          row.appendChild(el("span", "es-flag-value", observed === true ? "TRUE - VIOLATION" : "false"));
+          row.appendChild(el("span", "es-flag-state", f.state || (observed === false ? "PASS" : "BLOCKED")));
+          makeSelectable(row, surfaceInspectObject({
+            id: f.flag, label: group.category + " / " + f.flag,
+            state: f.state || (observed === false ? "PASS" : "BLOCKED"),
+            severity: observed === false ? "safe" : "blocked",
+            reason: "Required-false flag must remain false. Category: " + group.category + ".",
+            evidence_refs: [truthField("surface_id", surfaceField("surface_id", "UNKNOWN"))]
+          }));
+          groupNode.appendChild(row);
+        });
+        fMat.appendChild(groupNode);
       });
       fPanel.appendChild(fMat);
-      var fDd = drilldown("Required-False Flag Matrix", "every flag must be false \u00b7 drilldown");
+      var fDd = drilldown("Required-False Flag Matrix", "grouped by readiness / dispatch / API / credential / scheduler / audit");
       fDd.body.appendChild(fPanel);
       body.appendChild(fDd.details);
     }
 
     var hm = surfaceField("hostile_matrix_summary", {});
+    var hostile = hostileCases();
+    if (hostile.length) {
+      var hPanel = panel("Hostile / Degraded Matrix Drilldown");
+      var hWrap = el("div", "matrix-wrap hostile-matrix-group");
+      var hTable = el("table", "matrix");
+      var hHead = el("thead"), hTr = el("tr");
+      ["case id", "mutation", "expected state", "rationale"].forEach(function (c) { hTr.appendChild(el("th", null, c)); });
+      hHead.appendChild(hTr); hTable.appendChild(hHead);
+      var hBody = el("tbody");
+      hostile.forEach(function (c) {
+        var tr = el("tr");
+        tr.appendChild(el("td", "mono", c.case_id));
+        tr.appendChild(el("td", "wrap", c.mutation));
+        var td = el("td"); td.appendChild(el("span", "token " + c.expected_state, c.expected_state)); tr.appendChild(td);
+        tr.appendChild(el("td", "wrap", c.rationale));
+        makeSelectable(tr, surfaceInspectObject({
+          id: c.case_id, label: c.case_id, state: c.expected_state,
+          severity: c.expected_state === "BLOCKED" ? "blocked" : "review",
+          reason: c.rationale, evidence_refs: [c.case_id]
+        }));
+        hBody.appendChild(tr);
+      });
+      hTable.appendChild(hBody); hWrap.appendChild(hTable); hPanel.appendChild(hWrap);
+      var hDd = drilldown("Hostile / Degraded Matrix", "case id / mutation / expected fail-closed state");
+      hDd.body.appendChild(hPanel);
+      body.appendChild(hDd.details);
+    }
+
     var lineagePanel = panel("Lineage + Hostile Matrix Rollup");
     [["never_pass", String(hm.never_pass)], ["hostile cases", String(hm.total_cases)],
      ["bridge_report_id", surfaceField("bridge_report_id", "\u2014")],
@@ -1594,7 +1772,7 @@
     p.appendChild(h);
     if (verdict.state !== "PASS") { renderSurfaceUnavailable(p, verdict); body.appendChild(p); return; }
     p.appendChild(el("div", "es-no-grant-note readable-body-copy",
-      "Even a PASS evidence surface grants nothing. The actions below remain blocked; readiness and dispatch flags are forced false."));
+      "Evidence summary PASS is evidence-only. Manual review is still required; approval, readiness, dispatch, scheduler, API, credential, audit-event, and allowlist gates remain closed."));
     var blocked = surfaceField("blocked_actions", []);
     var grid = el("div", "es-blocked-grid");
     blocked.forEach(function (a) {
@@ -1604,16 +1782,36 @@
       grid.appendChild(cell);
     });
     p.appendChild(grid);
-    var flags = surfaceField("required_false_flag_matrix", []).filter(function (f) {
-      return /ready|dispatch|readiness|posting|platform_api/.test(f.flag);
+    var noGrantRows = [
+      ["evidence_summary_pass", "PASS - evidence-only"],
+      ["manual_review_required", "true"],
+      ["public_ready", "false"],
+      ["live_ready", "false"],
+      ["dispatch_ready", "false"],
+      ["executable_dispatch", "false"],
+      ["scheduler_enabled_now", "false"],
+      ["platform_api_allowed_now", "false"],
+      ["credential_read_allowed_now", "false"],
+      ["audit_event_created", "false"],
+      ["audit_allowlist_modified", "false"],
+      ["readiness_granted", "false"]
+    ];
+    var fr = el("div", "gate-matrix no-grant-gate-matrix");
+    var table = el("table", "matrix");
+    var thead = el("thead"), htr = el("tr");
+    ["gate", "observed", "meaning"].forEach(function (c) { htr.appendChild(el("th", null, c)); });
+    thead.appendChild(htr); table.appendChild(thead);
+    var tbody = el("tbody");
+    noGrantRows.forEach(function (r) {
+      var tr = el("tr");
+      tr.appendChild(el("td", "mono", r[0]));
+      tr.appendChild(el("td", "mono", r[1]));
+      tr.appendChild(el("td", "wrap", r[0] === "evidence_summary_pass"
+        ? "Internally consistent and UI-safe only; not approval or readiness."
+        : "This gate cannot be bypassed by evidence surface PASS."));
+      tbody.appendChild(tr);
     });
-    var fr = el("div", "es-flag-matrix");
-    flags.forEach(function (f) {
-      var row = el("div", "es-flag-row" + (f.value === true ? " is-violation" : ""));
-      row.appendChild(el("span", "es-flag-name mono", f.flag));
-      row.appendChild(el("span", "es-flag-value", f.value === true ? "TRUE \u2014 VIOLATION" : "false"));
-      fr.appendChild(row);
-    });
+    table.appendChild(tbody); fr.appendChild(table);
     p.appendChild(fr);
     makeSelectable(p, surfaceInspectObject({ state: verdict.state, severity: "blocked",
       reason: "No-grant communication matrix: surface grants no publish/dispatch/readiness even at PASS." }));
@@ -1643,9 +1841,23 @@
       notes.forEach(function (n) { ul.appendChild(el("li", null, n)); });
       p.appendChild(ul);
     }
-    p.appendChild(el("div", "data-label", "Credential / env path awareness (names only)"));
-    p.appendChild(el("div", "muted",
-      "Surface performs no credential or env read. Path names are referenced for awareness only; no value is read, parsed, or displayed."));
+    var cred = truthField("credential_boundary", {});
+    var boundary = el("div", "safety-boundary-ledger");
+    [["Local-only static bridge", "operator_evidence_surface.js is a static local bridge"],
+     ["No network", "no runtime requests, sockets, beacons, platform API, or provider API"],
+     ["No storage", "no browser storage, no persisted operator state"],
+     ["Known credential file path", cred.known_credential_file_path || "A:\\Capital Chronicle\\tools\\cc-live-contentops.env"],
+     ["Credential/env rule", cred.policy || "do not read, do not parse, do not load, do not display values"],
+     ["No live posting", "no posting, scheduler, scraping, autonomous replies, or DMs"],
+     ["No audit mutation", "no audit event creation and no audit allowlist modification"],
+     ["No readiness grant", "evidence supports review only and cannot grant readiness"]
+    ].forEach(function (m) {
+      var row = el("div", "safety-boundary-row");
+      row.appendChild(el("span", "safety-boundary-key", m[0]));
+      row.appendChild(el("span", "safety-boundary-val", m[1]));
+      boundary.appendChild(row);
+    });
+    p.appendChild(boundary);
     makeSelectable(p, surfaceInspectObject({ state: verdict.state, severity: "safe",
       reason: "Evidence surface boundary: parallel/additive, evidence-only, no credential or env read." }));
     body.appendChild(p);
@@ -1715,4 +1927,3 @@
     init();
   }
 })();
-

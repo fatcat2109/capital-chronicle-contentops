@@ -7,6 +7,147 @@
  * source of operational truth; the header and every screen read from it.
  * Historical and Stitch provenance are explicitly labeled "Not Runtime Authority".
  */
+var CC_OPERATOR_EVIDENCE_BASELINES = {
+  current_branch_head: "13656e91a4c0cd14c898f1700454836f82624022",
+  master_baseline_head: "8e57c4aa8af6e5089c8d7bc07d8104d5260eea27",
+  source_evidence_baseline_head: "add55ea1c7447770cb9382f86af1794b951ae8f1",
+  prep02_bridge_head: "8e57c4aa8af6e5089c8d7bc07d8104d5260eea27",
+  protected_truth_rail_head: "992a7d0"
+};
+var CC_OPERATOR_ENV_BOUNDARY_PATH = "A:\\Capital Chronicle\\tools\\cc-live-contentops.env";
+var CC_OPERATOR_SURFACE_TRUE_FLAGS = [
+  "evidence_only", "non_executable", "manual_review_required", "local_only",
+  "ui_surface_ready"
+];
+var CC_OPERATOR_SURFACE_FALSE_FLAG_GROUPS = [
+  { category: "readiness", flags: ["public_ready", "live_ready", "readiness_granted"] },
+  { category: "dispatch/execution", flags: ["dispatch_ready", "executable_dispatch"] },
+  { category: "API/provider", flags: ["platform_api_allowed_now"] },
+  { category: "credential/env", flags: ["credential_read_allowed_now"] },
+  { category: "scheduler/posting", flags: ["scheduler_enabled_now", "posting_enabled_now"] },
+  { category: "audit event/allowlist", flags: ["audit_event_created", "audit_allowlist_modified"] }
+];
+var CC_OPERATOR_HOSTILE_CASES = [
+  {
+    case_id: "required_false_credential_read_true_blocks",
+    mutation: "credential_read_allowed_now = true",
+    expected_state: "BLOCKED",
+    rationale: "A required-false safety flag turned true is a contradiction; fail-closed to BLOCKED."
+  },
+  {
+    case_id: "required_true_evidence_only_false_blocks",
+    mutation: "evidence_only = false",
+    expected_state: "BLOCKED",
+    rationale: "A required-true evidence flag turned false is a contradiction; fail-closed to BLOCKED."
+  },
+  {
+    case_id: "missing_bridge_report_hash_unknown",
+    mutation: "bridge_report_hash empty with validation_state UNKNOWN",
+    expected_state: "UNKNOWN",
+    rationale: "Missing lineage/hash id cannot establish lineage; computed UNKNOWN with declared state reset."
+  },
+  {
+    case_id: "declared_pass_after_missing_bridge_hash_blocks",
+    mutation: "bridge_report_hash empty while declared PASS remains",
+    expected_state: "BLOCKED",
+    rationale: "Declared PASS contradicting missing lineage and fail-closes to BLOCKED."
+  },
+  {
+    case_id: "static_bridge_prefix_safe",
+    mutation: "none",
+    expected_state: "PASS",
+    rationale: "Unmutated valid packet yields the evidence-only static JS bridge prefix."
+  }
+];
+
+function operatorEvidenceSurfaceField(surface, key, fallback) {
+  if (!surface || surface[key] === undefined || surface[key] === null) return fallback;
+  return surface[key];
+}
+
+function operatorEvidenceSurfaceTruth() {
+  var surface = window.CC_OPERATOR_EVIDENCE_SURFACE || null;
+  var availability = surface ? "PRESENT" : "MISSING";
+  var missingLineage = surface ? [
+    "bridge_report_id", "bridge_report_hash", "compiler_output_id",
+    "compile_report_id", "payload_hash_manifest_id",
+    "readiness_alignment_id", "audit_alignment_id"
+  ].filter(function (k) { return !surface[k]; }) : ["CC_OPERATOR_EVIDENCE_SURFACE"];
+  var falseViolations = surface ? CC_OPERATOR_SURFACE_FALSE_FLAG_GROUPS.reduce(function (acc, group) {
+    group.flags.forEach(function (flag) { if (surface[flag] === true) acc.push(flag); });
+    return acc;
+  }, []) : [];
+  var trueViolations = surface ? CC_OPERATOR_SURFACE_TRUE_FLAGS.filter(function (flag) {
+    return surface[flag] !== true;
+  }) : CC_OPERATOR_SURFACE_TRUE_FLAGS.slice();
+  var integrity = "UNKNOWN";
+  if (falseViolations.length || trueViolations.length || (surface && surface.no_grant_label !== "EVIDENCE ONLY / NO GRANT")) {
+    integrity = "BLOCKED";
+  } else if (missingLineage.length) {
+    integrity = "UNKNOWN";
+  } else if (operatorEvidenceSurfaceField(surface, "rollup_state", "UNKNOWN") === "PASS") {
+    integrity = "PASS";
+  } else {
+    integrity = operatorEvidenceSurfaceField(surface, "rollup_state", "REVIEW_REQUIRED");
+  }
+  var requiredTrue = CC_OPERATOR_SURFACE_TRUE_FLAGS.map(function (flag) {
+    return { flag: flag, expected: true, observed: !!operatorEvidenceSurfaceField(surface, flag, false),
+      state: operatorEvidenceSurfaceField(surface, flag, false) === true ? "PASS" : "BLOCKED" };
+  });
+  var requiredFalse = CC_OPERATOR_SURFACE_FALSE_FLAG_GROUPS.map(function (group) {
+    return { category: group.category, flags: group.flags.map(function (flag) {
+      var observed = operatorEvidenceSurfaceField(surface, flag, false);
+      return { flag: flag, expected: false, observed: observed, state: observed === false ? "PASS" : "BLOCKED" };
+    }) };
+  });
+  var hostileCases = CC_OPERATOR_HOSTILE_CASES.map(function (c) {
+    return { case_id: c.case_id, mutation: c.mutation, expected_state: c.expected_state, rationale: c.rationale };
+  });
+  return {
+    availability: availability,
+    integrity_state: integrity,
+    no_grant_label: operatorEvidenceSurfaceField(surface, "no_grant_label", "EVIDENCE SURFACE UNAVAILABLE / NO GRANT"),
+    current_branch_head: CC_OPERATOR_EVIDENCE_BASELINES.current_branch_head,
+    master_baseline_head: CC_OPERATOR_EVIDENCE_BASELINES.master_baseline_head,
+    source_evidence_baseline_head: CC_OPERATOR_EVIDENCE_BASELINES.source_evidence_baseline_head,
+    prep02_bridge_head: CC_OPERATOR_EVIDENCE_BASELINES.prep02_bridge_head,
+    protected_truth_rail_head: CC_OPERATOR_EVIDENCE_BASELINES.protected_truth_rail_head,
+    surface_id: operatorEvidenceSurfaceField(surface, "surface_id", "missing-operator-evidence-surface"),
+    operator_evidence_summary_id: operatorEvidenceSurfaceField(surface, "operator_evidence_summary_id", "UNKNOWN"),
+    bridge_report_hash: operatorEvidenceSurfaceField(surface, "bridge_report_hash", "UNKNOWN"),
+    readiness_alignment_id: operatorEvidenceSurfaceField(surface, "readiness_alignment_id", "UNKNOWN"),
+    audit_alignment_id: operatorEvidenceSurfaceField(surface, "audit_alignment_id", "UNKNOWN"),
+    required_true_flags: requiredTrue,
+    required_false_flags: requiredFalse,
+    component_state_matrix: operatorEvidenceSurfaceField(surface, "component_state_matrix", []),
+    evidence_path_nodes: operatorEvidenceSurfaceField(surface, "evidence_path_nodes", []),
+    hostile_matrix_summary: {
+      never_pass: true,
+      total_cases: hostileCases.length,
+      source: "fixtures/scd_operator_evidence_surface/hostile_degraded_cases.json",
+      cases: hostileCases
+    },
+    blocked_actions: operatorEvidenceSurfaceField(surface, "blocked_actions", [
+      "no_live_posting", "no_platform_api_call", "no_provider_api_call",
+      "no_credential_read", "no_scheduler_enable", "no_dispatch_execute",
+      "no_audit_event_create", "no_audit_allowlist_modify",
+      "no_autonomous_replies", "no_direct_messages", "no_scraping"
+    ]),
+    fallback_reason: surface ? "" : "Frozen operator evidence bridge missing; model exposes UNKNOWN and grants nothing.",
+    credential_boundary: {
+      known_credential_file_path: CC_OPERATOR_ENV_BOUNDARY_PATH,
+      policy: "do not read, do not parse, do not load, do not display values",
+      runtime_posture: "UI safety copy only; no file or environment access logic."
+    },
+    current_vs_historical_notes: [
+      "13656e91a4c0cd14c898f1700454836f82624022 is the 0174BW repair branch baseline.",
+      "8e57c4aa8af6e5089c8d7bc07d8104d5260eea27 is both master and Prep02 bridge baseline.",
+      "add55ea1c7447770cb9382f86af1794b951ae8f1 is the source evidence baseline.",
+      "992a7d0 remains protected prior V4 truth rail provenance, not the 0174BW branch head."
+    ]
+  };
+}
+
 window.CC_OPERATOR_COCKPIT_V4_MODEL = {
   meta: {
     version: "v4",
@@ -15,6 +156,8 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
     runtime_authority: false,
     generated_note: "Deterministic local fixtures only. No live data, no market data."
   },
+
+  operator_evidence_surface_truth: operatorEvidenceSurfaceTruth(),
 
   /* Compact grouped Safety Rail. Critical locks are always visible; the rest are
      grouped into a single system-locks cluster with a count. */
@@ -392,4 +535,3 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
     }
   ]
 };
-
