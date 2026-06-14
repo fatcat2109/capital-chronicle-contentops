@@ -1,0 +1,555 @@
+{
+  "cases": [
+    {
+      "case_id": "approval_ledger_hash_mismatch",
+      "kind": "compiler_v2_dispatch_bridge_result",
+      "packet": {
+        "schema_version": "0174bp-v1",
+        "bridge_result_id": "bridge_v2_crep_v2_review_001",
+        "bridge_mode": "local_reconciliation_dry_run_only",
+        "compiler_output_id": "cout_v2_all_platforms_001",
+        "compile_report_id": "crep_v2_review_001",
+        "derived_platform_payload_hashes": [
+          "canonical_json_sha256:0cc0db3713801a8845dcc3487531d48903fef9658089a2f4c2f852cb107e3142",
+          "canonical_json_sha256:5678730e8f81d5b5470039ce3afc88c6b0349bf98fa800d5b42e3f4fcd827c5b",
+          "canonical_json_sha256:252026d290d823c46b78fd0461147f5f10aa04ec237ff53c8566eabb1401647d",
+          "canonical_json_sha256:8bec5e1d634a6fb43e28c612470323a9447e947c549f3a9c0de4397d40805950",
+          "canonical_json_sha256:e3122249048fb6b0d6c63eeded0fd9d87d77c86987d88f45d265fd18b97b2e87",
+          "canonical_json_sha256:fbea94f97a0faa24b401bf3141c08fc2f8001757211ba66787f91a6549c0359b",
+          "canonical_json_sha256:34348ada0738505af0f85f1ab5cee5bb03130aec68995a7de443437e6fc129e5",
+          "canonical_json_sha256:b7b9ef7f794450980c9414a3ea379f369ba3088ca4d33c4c52aa5de1ef454e70",
+          "canonical_json_sha256:aeea72976d7b242d2098ec9ea5c167be41eb93459d79d17b2dd1871e769dadf3"
+        ],
+        "approval_reconciliation": {
+          "ledger_entry_id": "ledg_v2_bridge_001",
+          "hash_match": false,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "lineage_matches_report": true,
+          "result": "BLOCKED",
+          "reasons": [
+            "approval_ledger_payload_hash_mismatch"
+          ]
+        },
+        "dispatch_reconciliation": {
+          "gate_request_id": "gate_v2_bridge_001",
+          "freeze_manifest_id": "frz_v2_bridge_001",
+          "claimed_compile_pass": false,
+          "report_recommendation": "REVIEW_REQUIRED",
+          "claim_consistent": true,
+          "hash_match": true,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "result": "REVIEW_REQUIRED",
+          "reasons": [
+            "compile_report_review_required"
+          ]
+        },
+        "final_recommendation": "BLOCKED",
+        "mock_dispatch_ready": false,
+        "dispatch_ready": false,
+        "live_ready": false,
+        "executable_dispatch": false,
+        "public_ready": false,
+        "live_eligibility": false,
+        "live_api_enabled_now": false,
+        "platform_api_allowed_now": false,
+        "credential_read_allowed_now": false,
+        "credentials_requested_now": false,
+        "posting_enabled_now": false,
+        "scheduler_enabled_now": false,
+        "autonomous_replies_enabled_now": false,
+        "dms_enabled_now": false,
+        "scraping_enabled_now": false,
+        "operator_review_required": true,
+        "validation_state": "BLOCKED",
+        "blocked_reasons": [
+          "approval_ledger_payload_hash_mismatch",
+          "compile_report_review_required"
+        ]
+      },
+      "expected_state": "BLOCKED"
+    },
+    {
+      "case_id": "gate_claims_compile_pass_but_report_review",
+      "kind": "compiler_v2_dispatch_bridge_result",
+      "packet": {
+        "schema_version": "0174bp-v1",
+        "bridge_result_id": "bridge_v2_crep_v2_review_001",
+        "bridge_mode": "local_reconciliation_dry_run_only",
+        "compiler_output_id": "cout_v2_all_platforms_001",
+        "compile_report_id": "crep_v2_review_001",
+        "derived_platform_payload_hashes": [
+          "canonical_json_sha256:0cc0db3713801a8845dcc3487531d48903fef9658089a2f4c2f852cb107e3142",
+          "canonical_json_sha256:5678730e8f81d5b5470039ce3afc88c6b0349bf98fa800d5b42e3f4fcd827c5b",
+          "canonical_json_sha256:252026d290d823c46b78fd0461147f5f10aa04ec237ff53c8566eabb1401647d",
+          "canonical_json_sha256:8bec5e1d634a6fb43e28c612470323a9447e947c549f3a9c0de4397d40805950",
+          "canonical_json_sha256:e3122249048fb6b0d6c63eeded0fd9d87d77c86987d88f45d265fd18b97b2e87",
+          "canonical_json_sha256:fbea94f97a0faa24b401bf3141c08fc2f8001757211ba66787f91a6549c0359b",
+          "canonical_json_sha256:34348ada0738505af0f85f1ab5cee5bb03130aec68995a7de443437e6fc129e5",
+          "canonical_json_sha256:b7b9ef7f794450980c9414a3ea379f369ba3088ca4d33c4c52aa5de1ef454e70",
+          "canonical_json_sha256:aeea72976d7b242d2098ec9ea5c167be41eb93459d79d17b2dd1871e769dadf3"
+        ],
+        "approval_reconciliation": {
+          "ledger_entry_id": "ledg_v2_bridge_001",
+          "hash_match": true,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "lineage_matches_report": true,
+          "result": "REVIEW_REQUIRED",
+          "reasons": [
+            "compile_report_review_required"
+          ]
+        },
+        "dispatch_reconciliation": {
+          "gate_request_id": "gate_v2_bridge_001",
+          "freeze_manifest_id": "frz_v2_bridge_001",
+          "claimed_compile_pass": true,
+          "report_recommendation": "REVIEW_REQUIRED",
+          "claim_consistent": false,
+          "hash_match": true,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "result": "BLOCKED",
+          "reasons": [
+            "gate_claims_compile_pass_but_report_is:REVIEW_REQUIRED"
+          ]
+        },
+        "final_recommendation": "BLOCKED",
+        "mock_dispatch_ready": false,
+        "dispatch_ready": false,
+        "live_ready": false,
+        "executable_dispatch": false,
+        "public_ready": false,
+        "live_eligibility": false,
+        "live_api_enabled_now": false,
+        "platform_api_allowed_now": false,
+        "credential_read_allowed_now": false,
+        "credentials_requested_now": false,
+        "posting_enabled_now": false,
+        "scheduler_enabled_now": false,
+        "autonomous_replies_enabled_now": false,
+        "dms_enabled_now": false,
+        "scraping_enabled_now": false,
+        "operator_review_required": true,
+        "validation_state": "BLOCKED",
+        "blocked_reasons": [
+          "compile_report_review_required",
+          "gate_claims_compile_pass_but_report_is:REVIEW_REQUIRED"
+        ]
+      },
+      "expected_state": "BLOCKED"
+    },
+    {
+      "case_id": "freeze_manifest_hash_mismatch",
+      "kind": "compiler_v2_dispatch_bridge_result",
+      "packet": {
+        "schema_version": "0174bp-v1",
+        "bridge_result_id": "bridge_v2_crep_v2_review_001",
+        "bridge_mode": "local_reconciliation_dry_run_only",
+        "compiler_output_id": "cout_v2_all_platforms_001",
+        "compile_report_id": "crep_v2_review_001",
+        "derived_platform_payload_hashes": [
+          "canonical_json_sha256:0cc0db3713801a8845dcc3487531d48903fef9658089a2f4c2f852cb107e3142",
+          "canonical_json_sha256:5678730e8f81d5b5470039ce3afc88c6b0349bf98fa800d5b42e3f4fcd827c5b",
+          "canonical_json_sha256:252026d290d823c46b78fd0461147f5f10aa04ec237ff53c8566eabb1401647d",
+          "canonical_json_sha256:8bec5e1d634a6fb43e28c612470323a9447e947c549f3a9c0de4397d40805950",
+          "canonical_json_sha256:e3122249048fb6b0d6c63eeded0fd9d87d77c86987d88f45d265fd18b97b2e87",
+          "canonical_json_sha256:fbea94f97a0faa24b401bf3141c08fc2f8001757211ba66787f91a6549c0359b",
+          "canonical_json_sha256:34348ada0738505af0f85f1ab5cee5bb03130aec68995a7de443437e6fc129e5",
+          "canonical_json_sha256:b7b9ef7f794450980c9414a3ea379f369ba3088ca4d33c4c52aa5de1ef454e70",
+          "canonical_json_sha256:aeea72976d7b242d2098ec9ea5c167be41eb93459d79d17b2dd1871e769dadf3"
+        ],
+        "approval_reconciliation": {
+          "ledger_entry_id": "ledg_v2_bridge_001",
+          "hash_match": true,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "lineage_matches_report": true,
+          "result": "REVIEW_REQUIRED",
+          "reasons": [
+            "compile_report_review_required"
+          ]
+        },
+        "dispatch_reconciliation": {
+          "gate_request_id": "gate_v2_bridge_001",
+          "freeze_manifest_id": "frz_v2_bridge_001",
+          "claimed_compile_pass": false,
+          "report_recommendation": "REVIEW_REQUIRED",
+          "claim_consistent": true,
+          "hash_match": false,
+          "derived_hash_count": 9,
+          "ref_hash_count": 1,
+          "result": "BLOCKED",
+          "reasons": [
+            "freeze_manifest_payload_hash_mismatch"
+          ]
+        },
+        "final_recommendation": "BLOCKED",
+        "mock_dispatch_ready": false,
+        "dispatch_ready": false,
+        "live_ready": false,
+        "executable_dispatch": false,
+        "public_ready": false,
+        "live_eligibility": false,
+        "live_api_enabled_now": false,
+        "platform_api_allowed_now": false,
+        "credential_read_allowed_now": false,
+        "credentials_requested_now": false,
+        "posting_enabled_now": false,
+        "scheduler_enabled_now": false,
+        "autonomous_replies_enabled_now": false,
+        "dms_enabled_now": false,
+        "scraping_enabled_now": false,
+        "operator_review_required": true,
+        "validation_state": "BLOCKED",
+        "blocked_reasons": [
+          "compile_report_review_required",
+          "freeze_manifest_payload_hash_mismatch"
+        ]
+      },
+      "expected_state": "BLOCKED"
+    },
+    {
+      "case_id": "mutation_after_freeze_detected",
+      "kind": "compiler_v2_dispatch_bridge_result",
+      "packet": {
+        "schema_version": "0174bp-v1",
+        "bridge_result_id": "bridge_v2_crep_v2_review_001",
+        "bridge_mode": "local_reconciliation_dry_run_only",
+        "compiler_output_id": "cout_v2_all_platforms_001",
+        "compile_report_id": "crep_v2_review_001",
+        "derived_platform_payload_hashes": [
+          "canonical_json_sha256:0cc0db3713801a8845dcc3487531d48903fef9658089a2f4c2f852cb107e3142",
+          "canonical_json_sha256:5678730e8f81d5b5470039ce3afc88c6b0349bf98fa800d5b42e3f4fcd827c5b",
+          "canonical_json_sha256:252026d290d823c46b78fd0461147f5f10aa04ec237ff53c8566eabb1401647d",
+          "canonical_json_sha256:8bec5e1d634a6fb43e28c612470323a9447e947c549f3a9c0de4397d40805950",
+          "canonical_json_sha256:e3122249048fb6b0d6c63eeded0fd9d87d77c86987d88f45d265fd18b97b2e87",
+          "canonical_json_sha256:fbea94f97a0faa24b401bf3141c08fc2f8001757211ba66787f91a6549c0359b",
+          "canonical_json_sha256:34348ada0738505af0f85f1ab5cee5bb03130aec68995a7de443437e6fc129e5",
+          "canonical_json_sha256:b7b9ef7f794450980c9414a3ea379f369ba3088ca4d33c4c52aa5de1ef454e70",
+          "canonical_json_sha256:aeea72976d7b242d2098ec9ea5c167be41eb93459d79d17b2dd1871e769dadf3"
+        ],
+        "approval_reconciliation": {
+          "ledger_entry_id": "ledg_v2_bridge_001",
+          "hash_match": true,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "lineage_matches_report": true,
+          "result": "REVIEW_REQUIRED",
+          "reasons": [
+            "compile_report_review_required"
+          ]
+        },
+        "dispatch_reconciliation": {
+          "gate_request_id": "gate_v2_bridge_001",
+          "freeze_manifest_id": "frz_v2_bridge_001",
+          "claimed_compile_pass": false,
+          "report_recommendation": "REVIEW_REQUIRED",
+          "claim_consistent": true,
+          "hash_match": true,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "result": "BLOCKED",
+          "reasons": [
+            "mutation_after_freeze_detected"
+          ]
+        },
+        "final_recommendation": "BLOCKED",
+        "mock_dispatch_ready": false,
+        "dispatch_ready": false,
+        "live_ready": false,
+        "executable_dispatch": false,
+        "public_ready": false,
+        "live_eligibility": false,
+        "live_api_enabled_now": false,
+        "platform_api_allowed_now": false,
+        "credential_read_allowed_now": false,
+        "credentials_requested_now": false,
+        "posting_enabled_now": false,
+        "scheduler_enabled_now": false,
+        "autonomous_replies_enabled_now": false,
+        "dms_enabled_now": false,
+        "scraping_enabled_now": false,
+        "operator_review_required": true,
+        "validation_state": "BLOCKED",
+        "blocked_reasons": [
+          "compile_report_review_required",
+          "mutation_after_freeze_detected"
+        ]
+      },
+      "expected_state": "BLOCKED"
+    },
+    {
+      "case_id": "bridge_live_ready_true",
+      "kind": "compiler_v2_dispatch_bridge_result",
+      "packet": {
+        "schema_version": "0174bp-v1",
+        "bridge_result_id": "bridge_v2_crep_v2_review_001",
+        "bridge_mode": "local_reconciliation_dry_run_only",
+        "compiler_output_id": "cout_v2_all_platforms_001",
+        "compile_report_id": "crep_v2_review_001",
+        "derived_platform_payload_hashes": [
+          "canonical_json_sha256:0cc0db3713801a8845dcc3487531d48903fef9658089a2f4c2f852cb107e3142",
+          "canonical_json_sha256:5678730e8f81d5b5470039ce3afc88c6b0349bf98fa800d5b42e3f4fcd827c5b",
+          "canonical_json_sha256:252026d290d823c46b78fd0461147f5f10aa04ec237ff53c8566eabb1401647d",
+          "canonical_json_sha256:8bec5e1d634a6fb43e28c612470323a9447e947c549f3a9c0de4397d40805950",
+          "canonical_json_sha256:e3122249048fb6b0d6c63eeded0fd9d87d77c86987d88f45d265fd18b97b2e87",
+          "canonical_json_sha256:fbea94f97a0faa24b401bf3141c08fc2f8001757211ba66787f91a6549c0359b",
+          "canonical_json_sha256:34348ada0738505af0f85f1ab5cee5bb03130aec68995a7de443437e6fc129e5",
+          "canonical_json_sha256:b7b9ef7f794450980c9414a3ea379f369ba3088ca4d33c4c52aa5de1ef454e70",
+          "canonical_json_sha256:aeea72976d7b242d2098ec9ea5c167be41eb93459d79d17b2dd1871e769dadf3"
+        ],
+        "approval_reconciliation": {
+          "ledger_entry_id": "ledg_v2_bridge_001",
+          "hash_match": true,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "lineage_matches_report": true,
+          "result": "REVIEW_REQUIRED",
+          "reasons": [
+            "compile_report_review_required"
+          ]
+        },
+        "dispatch_reconciliation": {
+          "gate_request_id": "gate_v2_bridge_001",
+          "freeze_manifest_id": "frz_v2_bridge_001",
+          "claimed_compile_pass": false,
+          "report_recommendation": "REVIEW_REQUIRED",
+          "claim_consistent": true,
+          "hash_match": true,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "result": "REVIEW_REQUIRED",
+          "reasons": [
+            "compile_report_review_required"
+          ]
+        },
+        "final_recommendation": "REVIEW_REQUIRED",
+        "mock_dispatch_ready": false,
+        "dispatch_ready": false,
+        "live_ready": true,
+        "executable_dispatch": false,
+        "public_ready": false,
+        "live_eligibility": false,
+        "live_api_enabled_now": false,
+        "platform_api_allowed_now": false,
+        "credential_read_allowed_now": false,
+        "credentials_requested_now": false,
+        "posting_enabled_now": false,
+        "scheduler_enabled_now": false,
+        "autonomous_replies_enabled_now": false,
+        "dms_enabled_now": false,
+        "scraping_enabled_now": false,
+        "operator_review_required": true,
+        "validation_state": "REVIEW_REQUIRED",
+        "blocked_reasons": []
+      },
+      "expected_state": "BLOCKED"
+    },
+    {
+      "case_id": "declared_pass_contradicts_subresults",
+      "kind": "compiler_v2_dispatch_bridge_result",
+      "packet": {
+        "schema_version": "0174bp-v1",
+        "bridge_result_id": "bridge_v2_crep_v2_review_001",
+        "bridge_mode": "local_reconciliation_dry_run_only",
+        "compiler_output_id": "cout_v2_all_platforms_001",
+        "compile_report_id": "crep_v2_review_001",
+        "derived_platform_payload_hashes": [
+          "canonical_json_sha256:0cc0db3713801a8845dcc3487531d48903fef9658089a2f4c2f852cb107e3142",
+          "canonical_json_sha256:5678730e8f81d5b5470039ce3afc88c6b0349bf98fa800d5b42e3f4fcd827c5b",
+          "canonical_json_sha256:252026d290d823c46b78fd0461147f5f10aa04ec237ff53c8566eabb1401647d",
+          "canonical_json_sha256:8bec5e1d634a6fb43e28c612470323a9447e947c549f3a9c0de4397d40805950",
+          "canonical_json_sha256:e3122249048fb6b0d6c63eeded0fd9d87d77c86987d88f45d265fd18b97b2e87",
+          "canonical_json_sha256:fbea94f97a0faa24b401bf3141c08fc2f8001757211ba66787f91a6549c0359b",
+          "canonical_json_sha256:34348ada0738505af0f85f1ab5cee5bb03130aec68995a7de443437e6fc129e5",
+          "canonical_json_sha256:b7b9ef7f794450980c9414a3ea379f369ba3088ca4d33c4c52aa5de1ef454e70",
+          "canonical_json_sha256:aeea72976d7b242d2098ec9ea5c167be41eb93459d79d17b2dd1871e769dadf3"
+        ],
+        "approval_reconciliation": {
+          "ledger_entry_id": "ledg_v2_bridge_001",
+          "hash_match": true,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "lineage_matches_report": true,
+          "result": "REVIEW_REQUIRED",
+          "reasons": [
+            "compile_report_review_required"
+          ]
+        },
+        "dispatch_reconciliation": {
+          "gate_request_id": "gate_v2_bridge_001",
+          "freeze_manifest_id": "frz_v2_bridge_001",
+          "claimed_compile_pass": false,
+          "report_recommendation": "REVIEW_REQUIRED",
+          "claim_consistent": true,
+          "hash_match": true,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "result": "REVIEW_REQUIRED",
+          "reasons": [
+            "compile_report_review_required"
+          ]
+        },
+        "final_recommendation": "REVIEW_REQUIRED",
+        "mock_dispatch_ready": false,
+        "dispatch_ready": false,
+        "live_ready": false,
+        "executable_dispatch": false,
+        "public_ready": false,
+        "live_eligibility": false,
+        "live_api_enabled_now": false,
+        "platform_api_allowed_now": false,
+        "credential_read_allowed_now": false,
+        "credentials_requested_now": false,
+        "posting_enabled_now": false,
+        "scheduler_enabled_now": false,
+        "autonomous_replies_enabled_now": false,
+        "dms_enabled_now": false,
+        "scraping_enabled_now": false,
+        "operator_review_required": true,
+        "validation_state": "PASS",
+        "blocked_reasons": []
+      },
+      "expected_state": "BLOCKED"
+    },
+    {
+      "case_id": "approval_ledger_decision_blocked",
+      "kind": "compiler_v2_dispatch_bridge_result",
+      "packet": {
+        "schema_version": "0174bp-v1",
+        "bridge_result_id": "bridge_v2_crep_v2_review_001",
+        "bridge_mode": "local_reconciliation_dry_run_only",
+        "compiler_output_id": "cout_v2_all_platforms_001",
+        "compile_report_id": "crep_v2_review_001",
+        "derived_platform_payload_hashes": [
+          "canonical_json_sha256:0cc0db3713801a8845dcc3487531d48903fef9658089a2f4c2f852cb107e3142",
+          "canonical_json_sha256:5678730e8f81d5b5470039ce3afc88c6b0349bf98fa800d5b42e3f4fcd827c5b",
+          "canonical_json_sha256:252026d290d823c46b78fd0461147f5f10aa04ec237ff53c8566eabb1401647d",
+          "canonical_json_sha256:8bec5e1d634a6fb43e28c612470323a9447e947c549f3a9c0de4397d40805950",
+          "canonical_json_sha256:e3122249048fb6b0d6c63eeded0fd9d87d77c86987d88f45d265fd18b97b2e87",
+          "canonical_json_sha256:fbea94f97a0faa24b401bf3141c08fc2f8001757211ba66787f91a6549c0359b",
+          "canonical_json_sha256:34348ada0738505af0f85f1ab5cee5bb03130aec68995a7de443437e6fc129e5",
+          "canonical_json_sha256:b7b9ef7f794450980c9414a3ea379f369ba3088ca4d33c4c52aa5de1ef454e70",
+          "canonical_json_sha256:aeea72976d7b242d2098ec9ea5c167be41eb93459d79d17b2dd1871e769dadf3"
+        ],
+        "approval_reconciliation": {
+          "ledger_entry_id": "ledg_v2_bridge_001",
+          "hash_match": true,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "lineage_matches_report": true,
+          "result": "BLOCKED",
+          "reasons": [
+            "approval_ledger_decision_blocked"
+          ]
+        },
+        "dispatch_reconciliation": {
+          "gate_request_id": "gate_v2_bridge_001",
+          "freeze_manifest_id": "frz_v2_bridge_001",
+          "claimed_compile_pass": false,
+          "report_recommendation": "REVIEW_REQUIRED",
+          "claim_consistent": true,
+          "hash_match": true,
+          "derived_hash_count": 9,
+          "ref_hash_count": 9,
+          "result": "REVIEW_REQUIRED",
+          "reasons": [
+            "compile_report_review_required"
+          ]
+        },
+        "final_recommendation": "BLOCKED",
+        "mock_dispatch_ready": false,
+        "dispatch_ready": false,
+        "live_ready": false,
+        "executable_dispatch": false,
+        "public_ready": false,
+        "live_eligibility": false,
+        "live_api_enabled_now": false,
+        "platform_api_allowed_now": false,
+        "credential_read_allowed_now": false,
+        "credentials_requested_now": false,
+        "posting_enabled_now": false,
+        "scheduler_enabled_now": false,
+        "autonomous_replies_enabled_now": false,
+        "dms_enabled_now": false,
+        "scraping_enabled_now": false,
+        "operator_review_required": true,
+        "validation_state": "BLOCKED",
+        "blocked_reasons": [
+          "approval_ledger_decision_blocked",
+          "compile_report_review_required"
+        ]
+      },
+      "expected_state": "BLOCKED"
+    },
+    {
+      "case_id": "missing_hash_refs_unknown",
+      "kind": "compiler_v2_dispatch_bridge_result",
+      "packet": {
+        "schema_version": "0174bp-v1",
+        "bridge_result_id": "bridge_v2_crep_v2_review_001",
+        "bridge_mode": "local_reconciliation_dry_run_only",
+        "compiler_output_id": "cout_v2_all_platforms_001",
+        "compile_report_id": "crep_v2_review_001",
+        "derived_platform_payload_hashes": [
+          "canonical_json_sha256:0cc0db3713801a8845dcc3487531d48903fef9658089a2f4c2f852cb107e3142",
+          "canonical_json_sha256:5678730e8f81d5b5470039ce3afc88c6b0349bf98fa800d5b42e3f4fcd827c5b",
+          "canonical_json_sha256:252026d290d823c46b78fd0461147f5f10aa04ec237ff53c8566eabb1401647d",
+          "canonical_json_sha256:8bec5e1d634a6fb43e28c612470323a9447e947c549f3a9c0de4397d40805950",
+          "canonical_json_sha256:e3122249048fb6b0d6c63eeded0fd9d87d77c86987d88f45d265fd18b97b2e87",
+          "canonical_json_sha256:fbea94f97a0faa24b401bf3141c08fc2f8001757211ba66787f91a6549c0359b",
+          "canonical_json_sha256:34348ada0738505af0f85f1ab5cee5bb03130aec68995a7de443437e6fc129e5",
+          "canonical_json_sha256:b7b9ef7f794450980c9414a3ea379f369ba3088ca4d33c4c52aa5de1ef454e70",
+          "canonical_json_sha256:aeea72976d7b242d2098ec9ea5c167be41eb93459d79d17b2dd1871e769dadf3"
+        ],
+        "approval_reconciliation": {
+          "ledger_entry_id": "ledg_v2_bridge_001",
+          "hash_match": false,
+          "derived_hash_count": 9,
+          "ref_hash_count": 0,
+          "lineage_matches_report": true,
+          "result": "UNKNOWN",
+          "reasons": [
+            "approval_ledger_no_payload_hash_refs"
+          ]
+        },
+        "dispatch_reconciliation": {
+          "gate_request_id": "gate_v2_bridge_001",
+          "freeze_manifest_id": "frz_v2_bridge_001",
+          "claimed_compile_pass": false,
+          "report_recommendation": "REVIEW_REQUIRED",
+          "claim_consistent": true,
+          "hash_match": false,
+          "derived_hash_count": 9,
+          "ref_hash_count": 0,
+          "result": "UNKNOWN",
+          "reasons": [
+            "freeze_manifest_no_payload_hashes"
+          ]
+        },
+        "final_recommendation": "UNKNOWN",
+        "mock_dispatch_ready": false,
+        "dispatch_ready": false,
+        "live_ready": false,
+        "executable_dispatch": false,
+        "public_ready": false,
+        "live_eligibility": false,
+        "live_api_enabled_now": false,
+        "platform_api_allowed_now": false,
+        "credential_read_allowed_now": false,
+        "credentials_requested_now": false,
+        "posting_enabled_now": false,
+        "scheduler_enabled_now": false,
+        "autonomous_replies_enabled_now": false,
+        "dms_enabled_now": false,
+        "scraping_enabled_now": false,
+        "operator_review_required": true,
+        "validation_state": "UNKNOWN",
+        "blocked_reasons": []
+      },
+      "expected_state": "UNKNOWN"
+    }
+  ]
+}

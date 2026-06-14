@@ -1,0 +1,39 @@
+{
+  "schema_version": "0174as-v1",
+  "ledger_entry_id": "ledg_v2_bridge_001",
+  "ledger_sequence": 1,
+  "previous_ledger_entry_hash": null,
+  "entry_timestamp": "2026-06-14T00:00:00Z",
+  "operator_decision_id": "opdec_v2_bridge_001",
+  "approval_packet_id": "appk_v2_bridge_001",
+  "canonical_post_id": "cp_v2_all_platforms_001",
+  "compiler_output_id": "cout_v2_all_platforms_001",
+  "compile_report_id": "crep_v2_review_001",
+  "platform_payload_hash_refs": [
+    "canonical_json_sha256:0cc0db3713801a8845dcc3487531d48903fef9658089a2f4c2f852cb107e3142",
+    "canonical_json_sha256:5678730e8f81d5b5470039ce3afc88c6b0349bf98fa800d5b42e3f4fcd827c5b",
+    "canonical_json_sha256:252026d290d823c46b78fd0461147f5f10aa04ec237ff53c8566eabb1401647d",
+    "canonical_json_sha256:8bec5e1d634a6fb43e28c612470323a9447e947c549f3a9c0de4397d40805950",
+    "canonical_json_sha256:e3122249048fb6b0d6c63eeded0fd9d87d77c86987d88f45d265fd18b97b2e87",
+    "canonical_json_sha256:fbea94f97a0faa24b401bf3141c08fc2f8001757211ba66787f91a6549c0359b",
+    "canonical_json_sha256:34348ada0738505af0f85f1ab5cee5bb03130aec68995a7de443437e6fc129e5",
+    "canonical_json_sha256:b7b9ef7f794450980c9414a3ea379f369ba3088ca4d33c4c52aa5de1ef454e70",
+    "canonical_json_sha256:aeea72976d7b242d2098ec9ea5c167be41eb93459d79d17b2dd1871e769dadf3"
+  ],
+  "source_citation_refs": [
+    "citation_ref:bls_cpi_release_2026_06",
+    "citation_ref:treasury_yield_curve_2026_06_13"
+  ],
+  "source_limitation_refs": [
+    "limitation_ref:published_data_only"
+  ],
+  "decision_state": "approved_mock_only",
+  "append_only": true,
+  "immutable_after_write": true,
+  "secrets_redacted": true,
+  "public_ready": false,
+  "live_ready": false,
+  "executable_dispatch": false,
+  "validation_state": "REVIEW_REQUIRED",
+  "blocked_reasons": []
+}
