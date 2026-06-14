@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCD CompilerV2PayloadHashManifest",
+  "type": "object",
+  "properties": {
+    "schema_version": { "type": "string" },
+    "manifest_id": { "type": "string" },
+    "compiler_output_id": { "type": "string" },
+    "hash_algorithm": { "type": "string", "enum": ["canonical_json_sha256"] },
+    "canonicalization": { "type": "string" },
+    "payload_count": { "type": "integer" },
+    "payload_hashes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "public_ready": { "type": "boolean" },
+    "live_ready": { "type": "boolean" },
+    "dispatch_ready": { "type": "boolean" },
+    "executable_dispatch": { "type": "boolean" },
+    "platform_api_allowed_now": { "type": "boolean" },
+    "credential_read_allowed_now": { "type": "boolean" },
+    "scheduler_enabled_now": { "type": "boolean" },
+    "operator_review_required": { "type": "boolean" },
+    "validation_state": { "type": "string", "enum": ["PASS", "BLOCKED", "REVIEW_REQUIRED", "UNKNOWN"] },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  },
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "compiler_output_id",
+    "hash_algorithm",
+    "canonicalization",
+    "payload_count",
+    "payload_hashes",
+    "public_ready",
+    "live_ready",
+    "dispatch_ready",
+    "executable_dispatch",
+    "platform_api_allowed_now",
+    "credential_read_allowed_now",
+    "scheduler_enabled_now",
+    "validation_state"
+  ]
+}

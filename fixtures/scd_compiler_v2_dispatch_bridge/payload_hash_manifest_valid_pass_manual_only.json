@@ -1,0 +1,22 @@
+{
+  "schema_version": "0174bp-v1",
+  "manifest_id": "phm_v2_cout_v2_manual_only_001",
+  "compiler_output_id": "cout_v2_manual_only_001",
+  "hash_algorithm": "canonical_json_sha256",
+  "canonicalization": "json_dumps_sort_keys_true_compact_separators_utf8",
+  "payload_count": 2,
+  "payload_hashes": [
+    "canonical_json_sha256:b7b9ef7f794450980c9414a3ea379f369ba3088ca4d33c4c52aa5de1ef454e70",
+    "canonical_json_sha256:aeea72976d7b242d2098ec9ea5c167be41eb93459d79d17b2dd1871e769dadf3"
+  ],
+  "public_ready": false,
+  "live_ready": false,
+  "dispatch_ready": false,
+  "executable_dispatch": false,
+  "platform_api_allowed_now": false,
+  "credential_read_allowed_now": false,
+  "scheduler_enabled_now": false,
+  "operator_review_required": true,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

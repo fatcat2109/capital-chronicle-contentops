@@ -1,0 +1,29 @@
+{
+  "schema_version": "0174bp-v1",
+  "manifest_id": "phm_v2_cout_v2_all_platforms_001",
+  "compiler_output_id": "cout_v2_all_platforms_001",
+  "hash_algorithm": "canonical_json_sha256",
+  "canonicalization": "json_dumps_sort_keys_true_compact_separators_utf8",
+  "payload_count": 9,
+  "payload_hashes": [
+    "canonical_json_sha256:0cc0db3713801a8845dcc3487531d48903fef9658089a2f4c2f852cb107e3142",
+    "canonical_json_sha256:5678730e8f81d5b5470039ce3afc88c6b0349bf98fa800d5b42e3f4fcd827c5b",
+    "canonical_json_sha256:252026d290d823c46b78fd0461147f5f10aa04ec237ff53c8566eabb1401647d",
+    "canonical_json_sha256:8bec5e1d634a6fb43e28c612470323a9447e947c549f3a9c0de4397d40805950",
+    "canonical_json_sha256:e3122249048fb6b0d6c63eeded0fd9d87d77c86987d88f45d265fd18b97b2e87",
+    "canonical_json_sha256:fbea94f97a0faa24b401bf3141c08fc2f8001757211ba66787f91a6549c0359b",
+    "canonical_json_sha256:34348ada0738505af0f85f1ab5cee5bb03130aec68995a7de443437e6fc129e5",
+    "canonical_json_sha256:b7b9ef7f794450980c9414a3ea379f369ba3088ca4d33c4c52aa5de1ef454e70",
+    "canonical_json_sha256:aeea72976d7b242d2098ec9ea5c167be41eb93459d79d17b2dd1871e769dadf3"
+  ],
+  "public_ready": false,
+  "live_ready": false,
+  "dispatch_ready": false,
+  "executable_dispatch": false,
+  "platform_api_allowed_now": false,
+  "credential_read_allowed_now": false,
+  "scheduler_enabled_now": false,
+  "operator_review_required": true,
+  "validation_state": "PASS",
+  "blocked_reasons": []
+}

@@ -27,6 +27,16 @@ from live_contentops.scd_compiler_v2_dispatch_bridge import (
     reconcile_report_with_dispatch_gate_v2,
     build_compiler_v2_dispatch_bridge_result,
     validate_compiler_v2_dispatch_bridge_result,
+    ALLOWED_APPROVAL_STATES,
+    ALLOWED_DISPATCH_STATES,
+    build_compiler_v2_payload_hash_manifest,
+    validate_compiler_v2_payload_hash_manifest,
+    build_compiler_v2_approval_bridge_packet,
+    validate_compiler_v2_approval_bridge_packet,
+    build_compiler_v2_dispatch_bridge_packet,
+    validate_compiler_v2_dispatch_bridge_packet,
+    build_compiler_v2_approval_dispatch_bridge_report,
+    validate_compiler_v2_approval_dispatch_bridge_report,
 )
 
 BRIDGE_FIXTURE_DIR = os.path.join(
@@ -291,4 +301,232 @@ def test_hostile_cases_fail_closed():
             f"got {result['validation_state']} ({result['reasons']})"
         )
         # a hostile case may never resolve to PASS
+        assert result["validation_state"] != PASS
+
+
+# =====================================================================================
+# Repaired explicit four-object contract (0174BP repair)
+# =====================================================================================
+
+_REVIEW = "review_required"
+_MANUAL = "pass_manual_only"
+
+
+def _output_for(suffix):
+    if suffix == _MANUAL:
+        return _compiler("compiler_v2_output_valid_manual_only.json")
+    return _compiler("compiler_v2_output_valid_all_platforms.json")
+
+
+def _report_for(suffix):
+    if suffix == _MANUAL:
+        return _compiler("compiler_v2_report_valid_pass_manual_only.json")
+    return _compiler("compiler_v2_report_valid_review_required.json")
+
+
+# --- 1. Payload hash manifest ---------------------------------------------------------
+
+def test_payload_hash_manifest_valid_and_deterministic():
+    output = _output_for(_REVIEW)
+    first = build_compiler_v2_payload_hash_manifest(output)
+    second = build_compiler_v2_payload_hash_manifest(output)
+    assert first == second
+    assert first["hash_algorithm"] == "canonical_json_sha256"
+    assert first["payload_count"] == len(first["payload_hashes"])
+    assert validate_compiler_v2_payload_hash_manifest(first)["validation_state"] == PASS
+    for flag in (
+        "public_ready", "live_ready", "dispatch_ready", "executable_dispatch",
+        "platform_api_allowed_now", "credential_read_allowed_now", "scheduler_enabled_now",
+    ):
+        assert first[flag] is False
+
+
+def test_payload_hash_manifest_fixture_matches_builder():
+    fixture = _bridge("payload_hash_manifest_valid_review_required.json")
+    built = build_compiler_v2_payload_hash_manifest(_output_for(_REVIEW))
+    assert fixture["payload_hashes"] == built["payload_hashes"]
+    assert validate_compiler_v2_payload_hash_manifest(fixture)["validation_state"] == PASS
+
+
+def test_payload_hash_manifest_wrong_algorithm_blocks():
+    manifest = build_compiler_v2_payload_hash_manifest(_output_for(_REVIEW))
+    manifest["hash_algorithm"] = "md5"
+    assert validate_compiler_v2_payload_hash_manifest(manifest)["validation_state"] == BLOCKED
+
+
+# --- 2. Approval bridge packet (candidate-only) ---------------------------------------
+
+def _built_set(suffix):
+    output = _output_for(suffix)
+    report = _report_for(suffix)
+    manifest = build_compiler_v2_payload_hash_manifest(output)
+    approval = build_compiler_v2_approval_bridge_packet(output, report, manifest)
+    dispatch = build_compiler_v2_dispatch_bridge_packet(output, report, manifest, approval)
+    bridge_report = build_compiler_v2_approval_dispatch_bridge_report(approval, dispatch, manifest)
+    return output, report, manifest, approval, dispatch, bridge_report
+
+
+def test_approval_bridge_packet_review_required_candidate_only():
+    _, _, _, approval, _, _ = _built_set(_REVIEW)
+    assert validate_compiler_v2_approval_bridge_packet(approval)["validation_state"] == REVIEW_REQUIRED
+    assert approval["approval_state"] in ALLOWED_APPROVAL_STATES
+    for flag in ("auto_approved", "operator_approved", "approval_bypass"):
+        assert approval[flag] is False
+    for flag in ("operator_review_required", "manual_review_required",
+                 "redacted_audit_required", "kill_switch_check_required", "revocation_required"):
+        assert approval[flag] is True
+
+
+def test_approval_bridge_packet_manual_only_pass_still_candidate():
+    _, _, _, approval, _, _ = _built_set(_MANUAL)
+    assert validate_compiler_v2_approval_bridge_packet(approval)["validation_state"] == PASS
+    # PASS is allowed for the manual-only path but it must remain candidate-only
+    assert approval["approval_state"] == "approval_candidate_only"
+    assert approval["operator_approved"] is False
+    assert approval["executable_dispatch"] is False
+
+
+def test_approval_bridge_operator_approved_blocks():
+    _, _, _, approval, _, _ = _built_set(_REVIEW)
+    approval["operator_approved"] = True
+    assert validate_compiler_v2_approval_bridge_packet(approval)["validation_state"] == BLOCKED
+
+
+def test_approval_bridge_auto_approved_blocks():
+    _, _, _, approval, _, _ = _built_set(_REVIEW)
+    approval["auto_approved"] = True
+    assert validate_compiler_v2_approval_bridge_packet(approval)["validation_state"] == BLOCKED
+
+
+def test_approval_bridge_bypass_blocks():
+    _, _, _, approval, _, _ = _built_set(_REVIEW)
+    approval["approval_bypass"] = True
+    assert validate_compiler_v2_approval_bridge_packet(approval)["validation_state"] == BLOCKED
+
+
+def test_approval_bridge_hash_mismatch_blocks():
+    _, _, _, approval, _, _ = _built_set(_REVIEW)
+    approval["payload_hash_match"] = False
+    assert validate_compiler_v2_approval_bridge_packet(approval)["validation_state"] == BLOCKED
+
+
+# --- 3. Dispatch bridge packet (non-executable) ---------------------------------------
+
+def test_dispatch_bridge_packet_review_required_non_executable():
+    _, _, _, _, dispatch, _ = _built_set(_REVIEW)
+    assert validate_compiler_v2_dispatch_bridge_packet(dispatch)["validation_state"] == REVIEW_REQUIRED
+    assert dispatch["dispatch_state"] in ALLOWED_DISPATCH_STATES
+    assert dispatch["operator_approval_present"] is False
+    assert dispatch["executable_dispatch"] is False
+    assert dispatch["freeze_candidate_only"] is True
+    assert dispatch["precondition_summary"]["platform_compile_pass"] is False
+    assert dispatch["precondition_summary"]["executable_dispatch_allowed"] is False
+
+
+def test_dispatch_bridge_operator_approval_present_blocks():
+    _, _, _, _, dispatch, _ = _built_set(_REVIEW)
+    dispatch["operator_approval_present"] = True
+    assert validate_compiler_v2_dispatch_bridge_packet(dispatch)["validation_state"] == BLOCKED
+
+
+def test_dispatch_bridge_false_compile_pass_claim_blocks():
+    _, _, _, _, dispatch, _ = _built_set(_REVIEW)
+    dispatch["precondition_summary"]["platform_compile_pass"] = True
+    assert validate_compiler_v2_dispatch_bridge_packet(dispatch)["validation_state"] == BLOCKED
+
+
+def test_dispatch_bridge_executable_dispatch_blocks():
+    _, _, _, _, dispatch, _ = _built_set(_REVIEW)
+    dispatch["executable_dispatch"] = True
+    assert validate_compiler_v2_dispatch_bridge_packet(dispatch)["validation_state"] == BLOCKED
+
+
+def test_dispatch_bridge_bound_approval_approved_blocks():
+    _, _, _, _, dispatch, _ = _built_set(_REVIEW)
+    dispatch["approval_operator_approved"] = True
+    assert validate_compiler_v2_dispatch_bridge_packet(dispatch)["validation_state"] == BLOCKED
+
+
+def test_dispatch_bridge_hash_mismatch_blocks():
+    _, _, _, _, dispatch, _ = _built_set(_REVIEW)
+    dispatch["payload_hash_match"] = False
+    assert validate_compiler_v2_dispatch_bridge_packet(dispatch)["validation_state"] == BLOCKED
+
+
+# --- 4. Approval-dispatch bridge report (authoritative) -------------------------------
+
+def test_bridge_report_review_required_path():
+    _, _, _, _, _, report = _built_set(_REVIEW)
+    assert validate_compiler_v2_approval_dispatch_bridge_report(report)["validation_state"] == REVIEW_REQUIRED
+    for flag in ("local_only", "evidence_only", "non_executable", "manual_review_required"):
+        assert report[flag] is True
+    for flag in ("public_ready", "live_ready", "dispatch_ready", "executable_dispatch",
+                 "platform_api_allowed_now", "credential_read_allowed_now", "scheduler_enabled_now"):
+        assert report[flag] is False
+
+
+def test_bridge_report_manual_only_pass_path():
+    _, _, _, _, _, report = _built_set(_MANUAL)
+    assert validate_compiler_v2_approval_dispatch_bridge_report(report)["validation_state"] == PASS
+    # PASS but still non-executable and candidate-only
+    assert report["non_executable"] is True
+    assert report["executable_dispatch"] is False
+    assert report["dispatch_ready"] is False
+
+
+def test_bridge_report_declared_pass_with_review_subobject_blocks():
+    _, _, _, _, _, report = _built_set(_REVIEW)
+    report["final_recommendation"] = PASS
+    report["validation_state"] = PASS
+    assert validate_compiler_v2_approval_dispatch_bridge_report(report)["validation_state"] == BLOCKED
+
+
+def test_bridge_report_subobject_blocked_blocks():
+    _, _, _, _, _, report = _built_set(_REVIEW)
+    report["payload_hash_manifest_state"] = BLOCKED
+    assert validate_compiler_v2_approval_dispatch_bridge_report(report)["validation_state"] == BLOCKED
+
+
+def test_builders_do_not_mutate_inputs_v2():
+    output = _output_for(_REVIEW)
+    report = _report_for(_REVIEW)
+    before = json.dumps([output, report], sort_keys=True)
+    manifest = build_compiler_v2_payload_hash_manifest(output)
+    approval = build_compiler_v2_approval_bridge_packet(output, report, manifest)
+    dispatch = build_compiler_v2_dispatch_bridge_packet(output, report, manifest, approval)
+    build_compiler_v2_approval_dispatch_bridge_report(approval, dispatch, manifest)
+    after = json.dumps([output, report], sort_keys=True)
+    assert before == after
+
+
+def test_new_valid_fixtures_never_imply_approval_or_dispatch():
+    for name in (
+        "approval_bridge_packet_valid_review_required.json",
+        "approval_bridge_packet_valid_pass_manual_only.json",
+        "dispatch_bridge_packet_valid_review_required.json",
+        "dispatch_bridge_packet_valid_pass_manual_only.json",
+        "approval_dispatch_bridge_report_valid_review_required.json",
+        "approval_dispatch_bridge_report_valid_pass_manual_only.json",
+    ):
+        data = _bridge(name)
+        for key, val in _iter_bool_flags(data):
+            if key in ("operator_approved", "auto_approved", "approval_bypass",
+                       "operator_approval_present", "executable_dispatch",
+                       "dispatch_ready", "live_ready", "public_ready",
+                       "platform_api_allowed_now", "credential_read_allowed_now",
+                       "scheduler_enabled_now", "posting_enabled_now"):
+                assert val is not True, f"{name}:{key} must not be true in a valid path"
+        assert data.get("approval_state") != "approved_mock_only"
+
+
+def test_hostile_cases_v2_objects_fail_closed():
+    cases = _bridge("hostile_degraded_cases_v2_objects.json")["cases"]
+    assert cases
+    for case in cases:
+        validator = COMPILER_V2_DISPATCH_BRIDGE_VALIDATORS[case["kind"]]
+        result = validator(case["packet"])
+        assert result["validation_state"] == case["expected_state"], (
+            f"{case['case_id']}: expected {case['expected_state']}, "
+            f"got {result['validation_state']} ({result['reasons']})"
+        )
         assert result["validation_state"] != PASS
