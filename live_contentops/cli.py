@@ -1041,6 +1041,26 @@ def telegram_supervised_post_dry_run_gate_summary():
     print(json.dumps(gate.run_supervised_post_dry_run_gate(dry_run=dry_run), indent=2))
 
 
+def telegram_first_supervised_live_post_gate_summary():
+    import json
+    from live_contentops import telegram_first_supervised_live_post_gate as gate
+    # 0174CN: the THIRD and final module authorized to make a bounded LIVE Telegram
+    # Bot API request, and ONLY sendMessage, exactly ONCE. Fail-closed: NO network
+    # unless BOTH --telegram-first-supervised-live-post AND --operator-go-0174cn are
+    # passed. Max ONE live request, no retry. Prints ONLY the redacted JSON summary:
+    # booleans + symbolic classes; no token, chat id, channel id/username, bot
+    # id/username, URL, raw response, message id/date value, lengths, or hashes.
+    rest = sys.argv[2:]
+    live_post_flag = gate.FLAG_LIVE_POST in rest
+    operator_go_flag = gate.FLAG_OPERATOR_GO in rest
+    use_process_env = "--process-env" in rest
+    print(json.dumps(gate.run_first_supervised_live_post_gate(
+        live_post_flag=live_post_flag,
+        operator_go_flag=operator_go_flag,
+        use_process_env=use_process_env,
+    ), indent=2))
+
+
 def pre_alpha_institutional_ui_ux_rebuild_plan_summary():
     import json
     from live_contentops import institutional_ui_ux_frontend_rebuild_plan as plan
@@ -1367,6 +1387,7 @@ COMMANDS = {
     "telegram-live-getme-gate": telegram_live_getme_gate_summary,
     "telegram-target-binding-gate": telegram_target_binding_gate_summary,
     "telegram-supervised-post-dry-run-gate": telegram_supervised_post_dry_run_gate_summary,
+    "telegram-first-supervised-live-post-gate": telegram_first_supervised_live_post_gate_summary,
     "pre-alpha-institutional-ui-ux-rebuild-plan-summary": pre_alpha_institutional_ui_ux_rebuild_plan_summary,
     "pre-alpha-institutional-design-system-summary": pre_alpha_institutional_design_system_summary,
     "pre-alpha-institutional-ui-view-model-contract-v2-summary": pre_alpha_institutional_ui_view_model_contract_v2_summary,
