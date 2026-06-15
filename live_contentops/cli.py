@@ -1028,6 +1028,19 @@ def telegram_target_binding_gate_summary():
     ), indent=2))
 
 
+def telegram_supervised_post_dry_run_gate_summary():
+    import json
+    from live_contentops import telegram_supervised_post_dry_run_gate as gate
+    # 0174CM: FINAL local preflight gate before any future supervised live post.
+    # STRICTLY LOCAL: no network, no credential read, no live Telegram call. The
+    # local dry-run path runs ONLY when --telegram-supervised-post-dry-run is
+    # passed; otherwise fail-closed. Kill switch keeps live dispatch active_block.
+    # Prints ONLY the redacted JSON summary: booleans + symbolic classes only.
+    rest = sys.argv[2:]
+    dry_run = "--telegram-supervised-post-dry-run" in rest
+    print(json.dumps(gate.run_supervised_post_dry_run_gate(dry_run=dry_run), indent=2))
+
+
 def pre_alpha_institutional_ui_ux_rebuild_plan_summary():
     import json
     from live_contentops import institutional_ui_ux_frontend_rebuild_plan as plan
@@ -1353,6 +1366,7 @@ COMMANDS = {
     "telegram-credential-readiness": telegram_credential_readiness_summary,
     "telegram-live-getme-gate": telegram_live_getme_gate_summary,
     "telegram-target-binding-gate": telegram_target_binding_gate_summary,
+    "telegram-supervised-post-dry-run-gate": telegram_supervised_post_dry_run_gate_summary,
     "pre-alpha-institutional-ui-ux-rebuild-plan-summary": pre_alpha_institutional_ui_ux_rebuild_plan_summary,
     "pre-alpha-institutional-design-system-summary": pre_alpha_institutional_design_system_summary,
     "pre-alpha-institutional-ui-view-model-contract-v2-summary": pre_alpha_institutional_ui_view_model_contract_v2_summary,
