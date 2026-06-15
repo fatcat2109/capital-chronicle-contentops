@@ -33,6 +33,8 @@ To resolve conflicting rules or strategy models, the hierarchy of authority is:
 
 - **Redacted Shape Checks:** Pre-launch readiness modules may check for the presence/absence of required keys in `.env` and validate their formats minimally (e.g., matching known patterns like Telegram bot token structures) without loading or printing the actual secret value.
 - **Fingerprints only:** Only non-leaking, redacted shape classes (e.g. `present_redacted_telegram_bot_token_like`) may be persisted or reported. Never print prefixes, suffixes, lengths, or cryptographic digests of real secrets.
+- **Explicit Scoping:** Explicit credential readiness may inspect `.env` presence/shape only when specifically scoped. Credential readiness does not imply network, provider, or platform permission.
+- **Separation of Gates:** Presence/shape checks and live API validation are separate gates. Generic readiness modules must remain network-free and are blocked from importing network or SDK libraries.
 - **UI Constraint:** The browser runtime/UI must remain completely free of `.env` or `process.env` access.
 - **No Commits:** Never stage or commit a `.env` file containing real secret values.
 - **No Screenshots:** Never capture browser screenshots or QA logs showing raw credentials.
@@ -41,6 +43,7 @@ To resolve conflicting rules or strategy models, the hierarchy of authority is:
 
 ## 5. Provider, Platform, and Live Gate Policy
 - **Live Gated by Default:** All live provider API calls and platform publishing adapters remain disabled in general tasks.
+- **Explicit Authorization:** Live-gate modules must be named explicitly, tested separately, and are the only modules permitted to import network libraries (e.g., `urllib`, `requests`, `socket`) or make platform requests. They must not be treated as generic readiness modules.
 - **Platform-by-Platform Enabling:** Each target platform (Telegram, X, LinkedIn, Meta, TikTok, etc.) must be enabled separately. Telegram is the first candidate; others will follow.
 - **Automation Constraints:**
   - Any future platform dispatch requires a manual "operator GO" confirmation, active kill switch, redacted audit trail, rate-limiting/error handling, and manual fallback/rollback plans.

@@ -46,10 +46,20 @@ The following stale files have been moved to [docs/archive/stale_prelaunch_reset
 
 ---
 
-## 3. Files Edited
+## 3. Files Edited (in 0174CG)
 - [CONTENTOPS_OPERATING_RULES_AND_DESIGN_SYSTEM_GOVERNANCE.md](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/docs/CONTENTOPS_OPERATING_RULES_AND_DESIGN_SYSTEM_GOVERNANCE.md) - Updated React/Tailwind/V5 constraints and credential policy language.
 - [README.md](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/README.md) - Pointed to V5 app, pre-launch operating policy, and added instructions on running V5.
 - [tests/test_security_scans.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/tests/test_security_scans.py) - Exempted pre-launch credential readiness/presence check modules from strict zero-env check.
+- **Validation and Handoff Path Expectation Modules:** Updated path expectations and legacy selectors to fallback resolve moved docs to the archive directory:
+  - [live_contentops/final_bundle_manifest.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/final_bundle_manifest.py)
+  - [live_contentops/ide_cli_document_bundle.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/ide_cli_document_bundle.py)
+  - [live_contentops/institutional_ui_ux_frontend_rebuild_plan.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/institutional_ui_ux_frontend_rebuild_plan.py)
+  - [tests/test_alpha_wait_state.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/tests/test_alpha_wait_state.py)
+  - [tests/test_ide_cli_document_bundle.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/tests/test_ide_cli_document_bundle.py)
+  - [tests/test_institutional_ui_ux_frontend_rebuild_plan.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/tests/test_institutional_ui_ux_frontend_rebuild_plan.py)
+  - [tests/test_next_phase_selection.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/tests/test_next_phase_selection.py)
+  - [tests/test_pipeline_trace.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/tests/test_pipeline_trace.py)
+  - [tests/test_review_bundle_manifest.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/tests/test_review_bundle_manifest.py)
 
 ---
 
@@ -78,7 +88,8 @@ The following stale files have been moved to [docs/archive/stale_prelaunch_reset
 ---
 
 ## 8. Tests Updated
-- `tests/test_security_scans.py`: Modified `test_no_forbidden_imports_or_env_vars` to exempt pre-launch credential readiness/presence check modules.
+- `tests/test_security_scans.py`: Modified `test_no_forbidden_imports_or_env_vars` to split checks into separate allowlists/denylists for env access and forbidden imports.
+- `tests/test_telegram_live_pilot.py`: Modified to mock test flags and clear real env variables during token absence check.
 
 ---
 
@@ -88,4 +99,20 @@ The following stale files have been moved to [docs/archive/stale_prelaunch_reset
 ---
 
 ## 10. Caveats
-- None.
+- 0174CG accepted as directionally correct policy reset, but 0174CG_A tightens the security scan split before any real credential-readiness execution.
+
+---
+
+## 11. 0174CG_A Corrective Guardrail Patch
+To prevent the pre-launch credential policy from becoming a generic loophole for network/provider/platform libraries or credential leakage:
+- **Tightened Security Scan Split:** Split the security checks in [tests/test_security_scans.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/tests/test_security_scans.py) into separate policies:
+  - **A. Env-read allowlist:** Only local/redacted readiness/presence modules (or explicitly authorized live-gate modules) may access env-like inputs or `os.environ`/`os.getenv`.
+  - **B. Network/provider/platform import denylist:** Stricter check blocks readiness/presence modules from importing `requests`, `httpx`, `urllib`, `socket`, `openai`, `anthropic`, `tweepy`, `selenium`, `playwright`, browser/network clients, and platform/provider SDKs.
+  - **C. Live-gate allowlist:** Only explicitly allowlisted live-gate modules (e.g. `telegram_live_pilot.py`) are allowed to import urllib/socket or run network targets.
+- **Legacy Live Pilot Hardening:** Modified [live_contentops/telegram_live_pilot.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/telegram_live_pilot.py) to raise a fail-closed exception by default under the pre-launch operating policy, and completely removed token suffix/prefix/length leakage.
+- **Files Edited in 0174CG_A:**
+  - [tests/test_security_scans.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/tests/test_security_scans.py)
+  - [live_contentops/telegram_live_pilot.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/telegram_live_pilot.py)
+  - [tests/test_telegram_live_pilot.py](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/tests/test_telegram_live_pilot.py)
+  - [docs/governance/PRELAUNCH_REPO_DOCS_AND_RULES_CLEANUP_MANIFEST_0174CG.md](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/docs/governance/PRELAUNCH_REPO_DOCS_AND_RULES_CLEANUP_MANIFEST_0174CG.md)
+  - [docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md)

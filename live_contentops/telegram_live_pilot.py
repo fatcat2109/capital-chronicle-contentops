@@ -10,6 +10,15 @@ class LivePilotBlockedException(Exception):
     pass
 
 def execute_telegram_pilot(target_channel: str, message_text: str) -> dict:
+    # Under current pre-launch operating policy, all live platform/provider API execution is blocked.
+    # Legacy live pilot is for future live-gate only, is not callable by default, and is not part of pre-launch credential readiness.
+    # It must remain fail-closed/no-op unless explicitly authorized in a mock/test environment.
+    if os.environ.get("ALLOW_TELEGRAM_LIVE_PILOT_TEST") != "true":
+        raise LivePilotBlockedException(
+            "Telegram Live Pilot is locked: Future live-gate authorization required. "
+            "Not callable by default under pre-launch operating policy."
+        )
+
     # 1. Enforcement of exact GO phrase via the gate check
     # We load a synthetic valid gate record to ensure the design gate logic is sound.
     # In a real environment, this might be loaded from a state file.
@@ -85,7 +94,7 @@ def execute_telegram_pilot(target_channel: str, message_text: str) -> dict:
         reason="Explicit GO phrase authorized",
         payload={
             "channel": target_channel,
-            "redacted_token": "***" + token[-4:] if len(token) > 4 else "***",
+            "redacted_token": "redacted_presence_only",
             "message": message_text
         }
     )
