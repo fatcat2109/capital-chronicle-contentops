@@ -14,7 +14,7 @@ var CC_OPERATOR_EVIDENCE_BASELINES = {
   prep02_bridge_head: "8e57c4aa8af6e5089c8d7bc07d8104d5260eea27",
   protected_truth_rail_head: "992a7d0"
 };
-var CC_OPERATOR_ENV_BOUNDARY_PATH = "A:\\Capital Chronicle\\tools\\cc-live-contentops.env";
+var CC_OPERATOR_ENV_BOUNDARY_PATH = "A:\\Capital Chronicle\\tools\\cc-live-contentops\\.env";
 var CC_OPERATOR_SURFACE_TRUE_FLAGS = [
   "evidence_only", "non_executable", "manual_review_required", "local_only",
   "ui_surface_ready"

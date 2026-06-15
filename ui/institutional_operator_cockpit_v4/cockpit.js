@@ -1846,7 +1846,7 @@
     [["Local-only static bridge", "operator_evidence_surface.js is a static local bridge"],
      ["No network", "no runtime requests, sockets, beacons, platform API, or provider API"],
      ["No storage", "no browser storage, no persisted operator state"],
-     ["Known credential file path", cred.known_credential_file_path || "A:\\Capital Chronicle\\tools\\cc-live-contentops.env"],
+     ["Known credential file path", cred.known_credential_file_path || "A:\\Capital Chronicle\\tools\\cc-live-contentops\\.env"],
      ["Credential/env rule", cred.policy || "do not read, do not parse, do not load, do not display values"],
      ["No live posting", "no posting, scheduler, scraping, autonomous replies, or DMs"],
      ["No audit mutation", "no audit event creation and no audit allowlist modification"],

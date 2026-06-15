@@ -340,7 +340,7 @@ def test_view_model_baseline_roles_are_separated():
 
 def test_exact_env_path_is_negative_ui_copy_only():
     text = "\n".join(_read(p) for p in (VIEW_MODEL_JS, COCKPIT_JS))
-    assert r"A:\\Capital Chronicle\\tools\\cc-live-contentops.env" in text
+    assert r"A:\\Capital Chronicle\\tools\\cc-live-contentops\\.env" in text
     assert "do not read, do not parse, do not load, do not display values" in text
     for token in (
         "readFileSync",

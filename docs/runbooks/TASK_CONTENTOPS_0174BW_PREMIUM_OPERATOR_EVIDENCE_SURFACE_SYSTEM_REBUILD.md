@@ -114,7 +114,7 @@ artifact is byte-identical to a fresh regeneration (`CHECK_OK ... byte-identical
 safety scan over generated output is clean (`SAFETY_SCAN_CLEAN`).
 
 ## Protected paths (not edited)
-- `A:\Capital Chronicle\tools\cc-live-contentops.env` and any `.env`/credential/token file
+- `A:\Capital Chronicle\tools\cc-live-contentops\.env` and any `.env`/credential/token file
 - `live_contentops/scd_operator_evidence_surface_contract.py`
 - `schemas/scd_operator_evidence_surface_contract.schema.json`
 - `tests/test_scd_operator_evidence_surface_contract.py`
@@ -129,7 +129,7 @@ safety scan over generated output is clean (`SAFETY_SCAN_CLEAN`).
   scheduler/posting/scraping/upload/export/core ingestion paths
 
 ## Credential boundary
-- Exact credential path: `A:\Capital Chronicle\tools\cc-live-contentops.env`
+- Exact credential path: `A:\Capital Chronicle\tools\cc-live-contentops\.env`
 - This file was **NOT** opened, parsed, read, grepped, inspected, imported, loaded, validated,
   or modified. No other credential files were searched for. The task required no credentials.
 

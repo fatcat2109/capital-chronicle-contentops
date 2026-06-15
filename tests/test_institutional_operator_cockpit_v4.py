@@ -71,7 +71,7 @@ def test_no_credential_or_env_runtime_behavior():
     # credential/env words may appear only as redaction/policy text, never as IO.
     # Tokens are built from fragments so this test file itself stays secret-scan clean.
     text = _runtime_text()
-    allowed_env_path = r"A:\\Capital Chronicle\\tools\\cc-live-contentops.env"
+    allowed_env_path = r"A:\\Capital Chronicle\\tools\\cc-live-contentops\\.env"
     assert allowed_env_path in text
     assert "do not read, do not parse, do not load, do not display values" in text
     forbidden = [
