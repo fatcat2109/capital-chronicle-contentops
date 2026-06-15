@@ -1,0 +1,50 @@
+{
+  "reference_set_id": "stitch_contentops_v5",
+  "preferred_reference": "v5.1",
+  "reference_only": true,
+  "runtime_dependency_authority": false,
+  "shared_brandkit_doc": "institutional_contentops.md",
+  "visual_identity": {
+    "default": "light_institutional_cms_editorial",
+    "secondary": "dark_evidence_vault_mode",
+    "v4_dark_terminal": "historical_reference_only"
+  },
+  "runtime_dependency_warnings": [
+    "cdn.tailwindcss.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
+    "material_symbols_remote",
+    "external_image_urls"
+  ],
+  "safety_boundaries": {
+    "live_posting": false,
+    "scheduler": false,
+    "provider_or_platform_api": false,
+    "credential_env_read": false
+  },
+  "v5_files": [
+    "v5/command_center_v5.html",
+    "v5/command_center_v5.png",
+    "v5/content_inventory_v5.html",
+    "v5/content_inventory_v5.png",
+    "v5/writer_studio_v5.html",
+    "v5/writer_studio_v5.png",
+    "v5/approval_queue_dispatch_v5.html",
+    "v5/approval_queue_dispatch_v5.png",
+    "v5/evidence_vault_v5.html",
+    "v5/evidence_vault_v5.png"
+  ],
+  "v5_1_files": [
+    "v5.1/command_center_v5.1_safety_refinement.html",
+    "v5.1/command_center_v5.1_safety_refinement.png",
+    "v5.1/content_inventory_v5.1_governance_focus.html",
+    "v5.1/content_inventory_v5.1_governance_focus.png",
+    "v5.1/writer_studio_v5.1_editorial_safety.html",
+    "v5.1/writer_studio_v5.1_editorial_safety.png",
+    "v5.1/dispatch_control_v5.1_gated_hierarchy.html",
+    "v5.1/dispatch_control_v5.1_gated_hierarchy.png",
+    "v5.1/evidence_vault_v5.1_forensic_mode.html",
+    "v5.1/evidence_vault_v5.1_forensic_mode.png"
+  ],
+  "implementation_next_task": "TASK_CONTENTOPS_0174BZ_V5_FRONTEND_SCAFFOLD_AND_DESIGN_SYSTEM_FOUNDATION_V0"
+}

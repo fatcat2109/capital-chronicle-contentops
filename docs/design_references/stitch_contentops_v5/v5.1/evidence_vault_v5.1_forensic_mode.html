@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evidence Vault - Capital Chronicle ContentOps</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-container": "#858387",
+                        "inverse-primary": "#c8c5ca",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-background": "#1a1b22",
+                        "outline": "#77767b",
+                        "surface-bright": "#fbf8ff",
+                        "primary": "#000000",
+                        "outline-variant": "#c8c5cb",
+                        "tertiary-fixed": "#e2e1eb",
+                        "tertiary-container": "#1a1b22",
+                        "secondary-container": "#dfdfe0",
+                        "on-primary-fixed": "#1b1b1e",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e3e1ec",
+                        "surface-container": "#eeedf7",
+                        "tertiary-fixed-dim": "#c6c6cf",
+                        "on-surface": "#1a1b22",
+                        "on-secondary-fixed": "#1a1c1d",
+                        "inverse-on-surface": "#f1effa",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#1b1b1e",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#e4e1e6",
+                        "on-secondary": "#ffffff",
+                        "background": "#fbf8ff",
+                        "secondary-fixed": "#e2e2e3",
+                        "surface-container-low": "#f4f2fd",
+                        "on-surface-variant": "#47464b",
+                        "tertiary": "#000000",
+                        "on-primary-fixed-variant": "#47464a",
+                        "on-tertiary-fixed-variant": "#45464e",
+                        "on-secondary-fixed-variant": "#454748",
+                        "error": "#ba1a1a",
+                        "surface": "#fbf8ff",
+                        "on-tertiary-container": "#83838c",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#c8c5ca",
+                        "secondary": "#5d5e60",
+                        "surface-container-highest": "#e3e1ec",
+                        "surface-container-high": "#e8e7f1",
+                        "inverse-surface": "#2f3038",
+                        "surface-dim": "#dad9e3",
+                        "on-tertiary-fixed": "#1a1b22",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#616364",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#5f5e61"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "stack-sm": "8px",
+                        "stack-xs": "4px",
+                        "stack-md": "16px",
+                        "stack-lg": "24px"
+                    },
+                    fontFamily: {
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-mono": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "status-code": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"]
+                    },
+                    fontSize: {
+                        "headline-lg": ["30px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "status-code": ["11px", { "lineHeight": "12px", "fontWeight": "700" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-zinc-950 text-zinc-300 font-body-md text-body-md h-screen overflow-hidden flex">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-zinc-900 border-r border-zinc-800 fixed left-0 top-0 h-screen flex flex-col p-4 z-40 w-64">
+<!-- Brand -->
+<div class="mb-8 px-2">
+<h1 class="font-headline-sm text-headline-sm font-black text-zinc-100">CAPITAL CHRONICLE</h1>
+<p class="font-label-mono text-label-mono text-zinc-500 mt-1">Institutional ContentOps</p>
+</div>
+<!-- Navigation Tabs -->
+<ul class="flex flex-col gap-1 flex-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-zinc-400 hover:bg-zinc-800/50 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-mono text-label-mono">Command Center</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-zinc-400 hover:bg-zinc-800/50 transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-mono text-label-mono">Content Inventory</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-zinc-400 hover:bg-zinc-800/50 transition-all" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-label-mono text-label-mono">Writer Studio</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-zinc-400 hover:bg-zinc-800/50 transition-all" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-label-mono text-label-mono">Approval Queue</span>
+</a>
+</li>
+<!-- Active Tab -->
+<li>
+<a class="flex items-center gap-3 px-3 py-2 bg-zinc-800 text-zinc-100 border border-zinc-700 shadow-inner rounded-lg font-bold scale-95 duration-200" href="#">
+<span class="material-symbols-outlined fill-icon">inventory</span>
+<span class="font-label-mono text-label-mono">Evidence Vault</span>
+</a>
+</li>
+</ul>
+<!-- CTA -->
+<div class="mt-auto mb-4">
+<button class="w-full bg-zinc-200 text-zinc-900 py-2 px-4 rounded font-label-mono text-label-mono flex justify-center items-center gap-2 hover:opacity-90 transition-opacity">
+                Dispatch Gate
+            </button>
+</div>
+<!-- Footer Tabs -->
+<ul class="flex flex-col gap-1 border-t border-zinc-800 pt-4">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-zinc-400 hover:bg-zinc-800/50 transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-mono text-label-mono">Support</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-zinc-400 hover:bg-zinc-800/50 transition-all" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-mono text-label-mono">Logs</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Wrapper -->
+<div class="ml-64 flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-zinc-900 border-b border-zinc-800 flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-zinc-400">search</span>
+<span class="text-headline-sm font-headline-sm font-bold tracking-tight text-zinc-100">Capital Chronicle ContentOps V5</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-zinc-400 hover:bg-zinc-800 transition-colors rounded-full">
+<span class="material-symbols-outlined">lock_open</span>
+</button>
+<button class="p-2 text-zinc-400 hover:bg-zinc-800 transition-colors rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-zinc-400 hover:bg-zinc-800 transition-colors rounded-full">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-zinc-400">person</span>
+</div>
+</div>
+</header>
+<!-- Content Area: Center Canvas + Right Inspector -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Center Canvas -->
+<div class="flex-1 bg-zinc-950 overflow-y-auto p-margin-desktop flex flex-col gap-stack-lg">
+<!-- Header & Lineage -->
+<div class="flex flex-col gap-stack-sm">
+<div class="flex items-center gap-2 text-zinc-400 font-label-mono text-label-mono">
+<span class="px-2 py-1 bg-zinc-900 border border-zinc-800 rounded">SRC-4A9</span>
+<span class="material-symbols-outlined text-[14px]">arrow_right_alt</span>
+<span class="px-2 py-1 bg-zinc-900 border border-zinc-800 rounded">TRANS-8B</span>
+<span class="material-symbols-outlined text-[14px]">arrow_right_alt</span>
+<span class="px-2 py-1 bg-zinc-200 text-zinc-900 rounded font-bold">PLD-99X</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-zinc-100">Operational Truth: Q3 Earnings Brief</h2>
+</div>
+<!-- Validation Commands -->
+<div class="flex items-center gap-3 font-label-mono text-label-mono">
+<button class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-zinc-300 rounded flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[16px]">terminal</span> Run Validation Check
+    </button>
+<button class="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 rounded flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[16px]">policy</span> View Content Policy
+    </button>
+<button class="px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-400 rounded flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[16px]">bug_report</span> Secret Scan Config
+    </button>
+</div>
+<!-- Task Evidence Packets -->
+<div class="bg-zinc-900 border border-zinc-800 rounded shadow-sm overflow-hidden flex flex-col">
+<div class="px-4 py-3 bg-zinc-900 border-b border-zinc-800 flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-zinc-100">Task Evidence Packets</h3>
+<span class="px-2 py-1 bg-zinc-800 text-zinc-400 font-status-code text-status-code rounded border border-zinc-700">PKG-RDY-10</span>
+</div>
+<div class="p-4 flex gap-4 overflow-x-auto">
+<div class="min-w-[200px] bg-zinc-950 border border-zinc-800 p-3 rounded flex flex-col gap-2">
+<span class="material-symbols-outlined text-zinc-500">folder_zip</span>
+<span class="font-label-mono text-label-mono text-zinc-300">Financial_Ledger_Dump.zip</span>
+<span class="font-label-mono text-[10px] text-zinc-500">Hash: a8f9...32bc</span>
+</div>
+<div class="min-w-[200px] bg-zinc-950 border border-zinc-800 p-3 rounded flex flex-col gap-2">
+<span class="material-symbols-outlined text-zinc-500">article</span>
+<span class="font-label-mono text-label-mono text-zinc-300">Legal_Signoff_Transcript.pdf</span>
+<span class="font-label-mono text-[10px] text-zinc-500">Hash: c7d2...99f1</span>
+</div>
+<div class="min-w-[200px] bg-zinc-950 border border-zinc-800 border-dashed p-3 rounded flex flex-col items-center justify-center text-zinc-500 hover:text-zinc-300 hover:bg-zinc-900 transition-colors cursor-pointer">
+<span class="material-symbols-outlined">add</span>
+<span class="font-label-mono text-[10px]">Attach Evidence</span>
+</div>
+</div>
+</div>
+<!-- Validation Matrix -->
+<div class="bg-zinc-900 border border-zinc-800 rounded shadow-sm overflow-hidden flex flex-col">
+<div class="px-4 py-3 bg-zinc-900 border-b border-zinc-800 flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-zinc-100">Validation Matrix</h3>
+<span class="px-2 py-1 bg-zinc-800 text-zinc-400 font-status-code text-status-code rounded border border-zinc-700">PASS-RUN-491</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-zinc-950 border-b border-zinc-800">
+<th class="px-4 py-2 font-label-mono text-label-mono text-zinc-500 uppercase">Check Vector</th>
+<th class="px-4 py-2 font-label-mono text-label-mono text-zinc-500 uppercase">Expected State</th>
+<th class="px-4 py-2 font-label-mono text-label-mono text-zinc-500 uppercase">Observed Value</th>
+<th class="px-4 py-2 font-label-mono text-label-mono text-zinc-500 uppercase">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<tr class="border-b border-zinc-800 hover:bg-zinc-800/30 transition-colors">
+<td class="px-4 py-3 font-label-mono text-label-mono">LIN-INT-01</td>
+<td class="px-4 py-3 text-zinc-400">Lineage Integrity</td>
+<td class="px-4 py-3 text-zinc-200 font-label-mono text-label-mono">Origin Block Match</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-zinc-300 font-label-mono text-[10px]">
+<span class="w-2 h-2 rounded-full bg-[#10b981]"></span> VERIFIED
+                                        </span>
+</td>
+</tr>
+<tr class="border-b border-zinc-800 hover:bg-zinc-800/30 transition-colors">
+<td class="px-4 py-3 font-label-mono text-label-mono">AUD-RED-04</td>
+<td class="px-4 py-3 text-zinc-400">Redacted Audit Trail</td>
+<td class="px-4 py-3 text-zinc-200">Zero PII Leakage</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-zinc-300 font-label-mono text-[10px]">
+<span class="w-2 h-2 rounded-full bg-[#10b981]"></span> VERIFIED
+                                        </span>
+</td>
+</tr>
+<tr class="hover:bg-zinc-800/30 transition-colors">
+<td class="px-4 py-3 font-label-mono text-label-mono">PRV-CHP-99</td>
+<td class="px-4 py-3 text-zinc-400">Provenance Chip Match</td>
+<td class="px-4 py-3 text-zinc-200">Hardware Rooted - Secure Enclave</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-zinc-950 border border-zinc-800 text-zinc-300 font-label-mono text-[10px]">
+<span class="w-2 h-2 rounded-full bg-[#10b981]"></span> VERIFIED
+                                        </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Forbidden-Scope Matrix & Secret Scan Results -->
+<div class="grid grid-cols-2 gap-stack-lg">
+<div class="bg-zinc-900 border border-zinc-800 rounded shadow-sm overflow-hidden flex flex-col">
+<div class="px-4 py-3 bg-zinc-900 border-b border-zinc-800 flex justify-between items-center">
+<h3 class="font-headline-sm text-[16px] text-zinc-100">Forbidden-Scope Matrix</h3>
+<span class="material-symbols-outlined text-zinc-500 text-[18px]">gpp_bad</span>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+<span class="font-label-mono text-label-mono text-zinc-400">Embargoed Entities</span>
+<span class="text-zinc-500 font-label-mono text-[10px]">0 DETECTED</span>
+</div>
+<div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+<span class="font-label-mono text-label-mono text-zinc-400">Unapproved Jurisdictions</span>
+<span class="text-zinc-500 font-label-mono text-[10px]">0 DETECTED</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-mono text-label-mono text-zinc-400">Competitor Keywords</span>
+<span class="text-zinc-500 font-label-mono text-[10px]">0 DETECTED</span>
+</div>
+</div>
+</div>
+<div class="bg-zinc-900 border border-zinc-800 rounded shadow-sm overflow-hidden flex flex-col">
+<div class="px-4 py-3 bg-zinc-900 border-b border-zinc-800 flex justify-between items-center">
+<h3 class="font-headline-sm text-[16px] text-zinc-100">Secret Scan Results</h3>
+<span class="material-symbols-outlined text-zinc-500 text-[18px]">key</span>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+<span class="font-label-mono text-label-mono text-zinc-400">API Keys / Tokens</span>
+<span class="text-[#10b981] font-label-mono text-[10px]">CLEAN</span>
+</div>
+<div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+<span class="font-label-mono text-label-mono text-zinc-400">Internal IP Addresses</span>
+<span class="text-[#10b981] font-label-mono text-[10px]">CLEAN</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-mono text-label-mono text-zinc-400">Credentials</span>
+<span class="text-[#10b981] font-label-mono text-[10px]">CLEAN</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline / Event Log -->
+<div class="flex-1 flex flex-col gap-4 mt-2">
+<h3 class="font-headline-sm text-headline-sm text-zinc-100 border-b border-zinc-800 pb-2">Commit Timeline</h3>
+<div class="flex flex-col gap-0 border-l-2 border-zinc-800 ml-3 pl-4 relative">
+<!-- Event 1 -->
+<div class="relative pb-6">
+<div class="absolute -left-[23px] top-1 w-3 h-3 rounded-full bg-zinc-200 border-2 border-zinc-950"></div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-mono text-label-mono font-bold text-zinc-100">Payload Sealed</span>
+<span class="text-[12px] text-zinc-500">14:02:44 UTC</span>
+</div>
+<p class="text-zinc-400 text-body-md font-body-md">Cryptographic lock applied. Ready for dispatch.</p>
+</div>
+<!-- Event 2 -->
+<div class="relative pb-6">
+<div class="absolute -left-[23px] top-1 w-3 h-3 rounded-full bg-zinc-700 border-2 border-zinc-950"></div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-mono text-label-mono font-bold text-zinc-100">Validation Pass</span>
+<span class="text-[12px] text-zinc-500">14:01:12 UTC</span>
+</div>
+<p class="text-zinc-400 text-body-md font-body-md">Automated rules engine execution complete.</p>
+</div>
+<!-- Event 3 -->
+<div class="relative pb-6">
+<div class="absolute -left-[23px] top-1 w-3 h-3 rounded-full bg-zinc-700 border-2 border-zinc-950"></div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-label-mono text-label-mono font-bold text-zinc-100">Task Evidence Attached</span>
+<span class="text-[12px] text-zinc-500">13:58:05 UTC</span>
+</div>
+<p class="text-zinc-400 text-body-md font-body-md">Financial and legal sign-off documents linked to payload.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Inspector Rail -->
+<aside class="w-[320px] bg-zinc-900 border-l border-zinc-800 flex-shrink-0 flex flex-col h-full overflow-y-auto shadow-xl">
+<div class="p-4 border-b border-zinc-800 flex items-center justify-between bg-zinc-950/50">
+<h3 class="font-headline-sm text-headline-sm text-zinc-100">Inspector</h3>
+<button class="text-zinc-500 hover:text-zinc-300">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<div class="p-4 flex flex-col gap-stack-lg">
+<!-- Object Meta -->
+<div>
+<div class="font-label-mono text-[10px] text-zinc-500 uppercase tracking-wider mb-2">Selected Object</div>
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-zinc-300">description</span>
+<div>
+<div class="font-headline-sm text-[16px] text-zinc-100 break-all">VAL_PASS_491</div>
+<div class="font-label-mono text-status-code text-zinc-400 mt-1">TYPE: COMPLIANCE_RECORD</div>
+<div class="font-label-mono text-[10px] text-zinc-500 mt-1">ISSUER: SEC-ENCLAVE-04</div>
+</div>
+</div>
+</div>
+<hr class="border-zinc-800"/>
+<!-- Properties -->
+<div class="flex flex-col gap-3">
+<div class="font-label-mono text-[10px] text-zinc-500 uppercase tracking-wider mb-1">Cryptographic Proofs</div>
+<div>
+<div class="text-[12px] text-zinc-400 mb-1">SHA-256 Hash</div>
+<div class="bg-zinc-950 p-2 rounded border border-zinc-800 font-label-mono text-[10px] text-zinc-300 break-all select-all">
+                                8f434346648f6b96df89dda901c5176b10a6d83961dd3c1ac88b59b2dc327aa4
+                            </div>
+</div>
+<div>
+<div class="text-[12px] text-zinc-400 mb-1">Merkle Root</div>
+<div class="bg-zinc-950 p-2 rounded border border-zinc-800 font-label-mono text-[10px] text-zinc-300 break-all select-all">
+                                a1b2c3d4e5f678901234567890abcdef12345678
+                            </div>
+</div>
+<div>
+<div class="text-[12px] text-zinc-400 mb-1">Hardware Signature (HSM)</div>
+<div class="bg-zinc-950 p-2 rounded border border-zinc-800 font-label-mono text-[10px] text-zinc-300 break-all select-all">
+                                sig_9x8c7v6b5n4m3, verified by HSM-A
+                            </div>
+</div>
+</div>
+<hr class="border-zinc-800"/>
+<!-- Actions -->
+<div class="flex flex-col gap-2">
+<button class="w-full bg-zinc-900 border border-zinc-700 text-zinc-200 py-2 rounded font-label-mono text-label-mono hover:bg-zinc-800 transition-colors text-left px-3 flex justify-between items-center">
+                            View Raw JSON <span class="material-symbols-outlined text-[16px]">code</span>
+</button>
+<button class="w-full bg-zinc-900 border border-zinc-700 text-zinc-200 py-2 rounded font-label-mono text-label-mono hover:bg-zinc-800 transition-colors text-left px-3 flex justify-between items-center">
+                            Export PDF <span class="material-symbols-outlined text-[16px]">download</span>
+</button>
+</div>
+</div>
+</aside>
+</main>
+</div>
+</body></html>

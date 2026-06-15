@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Capital Chronicle - Writer Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#858387",
+                        "inverse-primary": "#c8c5ca",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-background": "#1a1b22",
+                        "outline": "#77767b",
+                        "surface-bright": "#fbf8ff",
+                        "primary": "#000000",
+                        "outline-variant": "#c8c5cb",
+                        "tertiary-fixed": "#e2e1eb",
+                        "tertiary-container": "#1a1b22",
+                        "secondary-container": "#dfdfe0",
+                        "on-primary-fixed": "#1b1b1e",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e3e1ec",
+                        "surface-container": "#eeedf7",
+                        "tertiary-fixed-dim": "#c6c6cf",
+                        "on-surface": "#1a1b22",
+                        "on-secondary-fixed": "#1a1c1d",
+                        "inverse-on-surface": "#f1effa",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#1b1b1e",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#e4e1e6",
+                        "on-secondary": "#ffffff",
+                        "background": "#fbf8ff",
+                        "secondary-fixed": "#e2e2e3",
+                        "surface-container-low": "#f4f2fd",
+                        "on-surface-variant": "#47464b",
+                        "tertiary": "#000000",
+                        "on-primary-fixed-variant": "#47464a",
+                        "on-tertiary-fixed-variant": "#45464e",
+                        "on-secondary-fixed-variant": "#454748",
+                        "error": "#ba1a1a",
+                        "surface": "#fbf8ff",
+                        "on-tertiary-container": "#83838c",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#c8c5ca",
+                        "secondary": "#5d5e60",
+                        "surface-container-highest": "#e3e1ec",
+                        "surface-container-high": "#e8e7f1",
+                        "inverse-surface": "#2f3038",
+                        "surface-dim": "#dad9e3",
+                        "on-tertiary-fixed": "#1a1b22",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#616364",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#5f5e61"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "stack-sm": "8px",
+                        "stack-xs": "4px",
+                        "stack-md": "16px",
+                        "stack-lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-mono": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "status-code": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "status-code": ["11px", {"lineHeight": "12px", "fontWeight": "700"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #dfdfe0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background-color: #c8c5cb; }
+        
+        .hide-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex antialiased">
+<!-- Shared SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen flex flex-col p-4 z-40 bg-surface-container-lowest dark:bg-surface-container-low border-r border-outline-variant dark:border-outline docked left-0 h-full w-64 hidden md:flex">
+<div class="mb-8">
+<h1 class="font-headline-sm text-headline-sm font-black text-on-surface dark:text-on-primary-fixed tracking-tight">CAPITAL CHRONICLE</h1>
+<p class="font-label-mono text-label-mono text-on-surface-variant mt-1 uppercase">Institutional ContentOps</p>
+</div>
+<ul class="flex flex-col gap-1 flex-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all font-label-mono text-label-mono" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                    Command Center
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all font-label-mono text-label-mono" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                    Content Inventory
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container rounded-lg font-bold font-label-mono text-label-mono scale-95 duration-200" href="#">
+<span class="material-symbols-outlined text-[20px] font-bold">edit_note</span>
+                    Writer Studio
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all font-label-mono text-label-mono" href="#">
+<span class="material-symbols-outlined text-[20px]">fact_check</span>
+                    Approval Queue
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all font-label-mono text-label-mono" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory</span>
+                    Evidence Vault
+                </a>
+</li>
+</ul>
+<div class="mt-auto pt-4 border-t border-outline-variant dark:border-outline">
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary font-label-mono text-label-mono py-2 px-4 rounded hover:opacity-90 transition-opacity mb-4">
+                Dispatch Gate
+            </button>
+<ul class="flex flex-col gap-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all font-label-mono text-label-mono" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+                        Support
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all font-label-mono text-label-mono" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+                        Logs
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col md:ml-64 w-full min-h-screen">
+<!-- Shared TopAppBar -->
+<header class="flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-30 bg-surface dark:bg-surface-container-highest border-b border-outline-variant dark:border-outline docked full-width top-0">
+<div class="flex items-center gap-4">
+<span class="font-headline-sm text-headline-sm font-bold tracking-tight text-on-surface dark:text-inverse-on-surface md:hidden">CAPITAL CHRONICLE</span>
+<span class="font-label-mono text-label-mono text-on-surface-variant hidden md:block">Capital Chronicle ContentOps V5</span>
+</div>
+<div class="flex items-center gap-4 flex-1 justify-end">
+<!-- Search Bar -->
+<div class="hidden md:flex items-center bg-surface-container-low rounded-full px-4 py-1.5 border border-outline-variant focus-within:border-primary transition-colors max-w-md w-full mr-4">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md text-on-surface placeholder-on-surface-variant w-full outline-none py-1" placeholder="Search inventory, tags, or IDs..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors text-on-surface-variant dark:text-surface-variant">
+<span class="material-symbols-outlined">lock_open</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors text-on-surface-variant dark:text-surface-variant relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors text-on-surface-variant dark:text-surface-variant">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden ml-2 border border-outline-variant">
+<img alt="Administrator Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmeMGpeFzOEWwykfQPP5bL5PvjOn0HV_Ctc3nOwnyENPlbng8HLqoBpERTDYdYuEB8ez957pcWp0VHV0Q08q0l6rNCzz9glt9g8p9JOe4ZnnrQTdCu4DpBsp1X8VezQsvEyS0m4xWrj_QATPEj1NtAPiO8mcIsJcDmecY9ZvXj_ztRouXCzrAMBgUr9nNRFWMnC97FBrZHuFRig4Nbjbb9GM3fN1SXS5kYC9wBH6UiN0IlcKL516fIjiOwd43u0JfEtOpwXuLKR_ga"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Studio Layout -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left Rail: Outline & Sections -->
+<aside class="w-64 border-r border-outline-variant bg-surface-container-lowest hidden lg:flex flex-col overflow-y-auto">
+<div class="p-4 border-b border-outline-variant sticky top-0 bg-surface-container-lowest z-10">
+<h2 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">Document Outline</h2>
+</div>
+<div class="p-4 flex flex-col gap-1">
+<button class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-surface-container-low text-left group">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary">drag_indicator</span>
+<span class="font-body-md text-body-md text-on-surface truncate">Executive Summary</span>
+</button>
+<button class="flex items-center gap-2 px-2 py-1.5 rounded bg-surface-container text-left group border-l-2 border-primary ml-2">
+<span class="material-symbols-outlined text-[16px] text-primary">drag_indicator</span>
+<span class="font-body-md text-body-md text-primary font-medium truncate">Q3 Market Dynamics</span>
+</button>
+<button class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-surface-container-low text-left group ml-4">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary">drag_indicator</span>
+<span class="font-body-md text-body-md text-on-surface-variant truncate">Sector Rotation</span>
+</button>
+<button class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-surface-container-low text-left group ml-4">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary">drag_indicator</span>
+<span class="font-body-md text-body-md text-on-surface-variant truncate">Yield Curve Analysis</span>
+</button>
+<button class="flex items-center gap-2 px-2 py-1.5 rounded hover:bg-surface-container-low text-left group">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary">drag_indicator</span>
+<span class="font-body-md text-body-md text-on-surface truncate">Forward Guidance</span>
+</button>
+<button class="flex items-center gap-2 px-2 py-2 mt-4 rounded border border-dashed border-outline-variant text-on-surface-variant hover:bg-surface-container-low justify-center font-label-mono text-label-mono">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                        Add Section
+                    </button>
+</div>
+</aside>
+<!-- Center Editor & Media Tray Container -->
+<div class="flex-1 flex flex-col min-w-0 bg-surface">
+<!-- Editor Canvas -->
+<div class="flex-1 overflow-y-auto p-8 flex justify-center">
+<div class="w-full max-w-3xl flex flex-col gap-6">
+<!-- Metadata / Breadcrumbs -->
+<div class="flex items-center gap-2 font-label-mono text-label-mono text-on-surface-variant">
+<span class="bg-surface-container-high px-2 py-0.5 rounded text-on-surface">DRAFT</span>
+<span>/</span>
+<span>Q3_Macro_Outlook_Final</span>
+<span class="material-symbols-outlined text-[14px] ml-auto cursor-pointer hover:text-primary">history</span>
+<span>Last saved 2m ago</span>
+</div>
+<!-- Platform Tabs -->
+<div class="flex border-b border-outline-variant gap-6">
+<button class="pb-2 border-b-2 border-primary font-label-mono text-label-mono text-primary font-bold">Longform (Web)</button>
+<button class="pb-2 border-b-2 border-transparent hover:border-outline-variant font-label-mono text-label-mono text-on-surface-variant">X Thread</button>
+<button class="pb-2 border-b-2 border-transparent hover:border-outline-variant font-label-mono text-label-mono text-on-surface-variant">LinkedIn Article</button>
+</div>
+<!-- Title Input -->
+<input class="w-full bg-transparent border-none text-headline-lg font-headline-lg font-bold text-on-surface placeholder-outline focus:ring-0 p-0 outline-none" placeholder="Document Title..." type="text" value="Navigating Volatility: Q3 Macroeconomic Outlook &amp; Strategic Positioning"/>
+<!-- Editor Toolbar (Minimal) -->
+<div class="flex items-center gap-1 p-1 bg-surface-container-low rounded border border-outline-variant w-fit sticky top-0 z-10">
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface" title="Format Text"><span class="material-symbols-outlined text-[18px]">format_bold</span></button>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface" title="Format Text"><span class="material-symbols-outlined text-[18px]">format_italic</span></button>
+<div class="w-px h-4 bg-outline-variant mx-1"></div>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface" title="Insert Link"><span class="material-symbols-outlined text-[18px]">link</span></button>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface" title="Blockquote"><span class="material-symbols-outlined text-[18px]">format_quote</span></button>
+<div class="w-px h-4 bg-outline-variant mx-1"></div>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface" title="Insert Media"><span class="material-symbols-outlined text-[18px]">add_photo_alternate</span></button>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface" title="AI Assist"><span class="material-symbols-outlined text-[18px]">auto_awesome</span></button>
+</div>
+<!-- Body Content Area (Simulated ContentEditable) -->
+<div class="prose prose-zinc max-w-none font-body-lg text-body-lg text-on-surface outline-none min-h-[400px]" contenteditable="true">
+<p class="mb-4">The third quarter presents a complex paradigm for institutional capital allocation. As central bank policies diverge and geopolitical friction points intensify, standard risk models require recalibration.</p>
+<h3 class="font-headline-sm text-headline-sm font-semibold mt-6 mb-3">Q3 Market Dynamics</h3>
+<p class="mb-4">Recent data indicates a deceleration in manufacturing indices across major OECD economies, contrasting sharply with persistent strength in services. This divergence complicates the inflation narrative and challenges the 'higher for longer' consensus that dominated H1.</p>
+<div class="my-6 p-4 border-l-4 border-primary bg-surface-container-lowest text-on-surface italic">
+                                "The yield curve inversion remains a critical, albeit distorted, signal. We are focusing on the slope of the belly relative to the long end to gauge real term premium compression." — Chief Strategist, Global Macro
+                            </div>
+<p class="mb-4">Liquidity conditions, while aggregate tightening continues, show localized pockets of resilience. The rotation from momentum to value requires precise timing, as premature defensive positioning has historically eroded alpha in late-cycle environments.</p>
+<p class="text-outline-variant italic">Start writing or type '/' for commands...</p>
+</div>
+</div>
+</div>
+<!-- Bottom Media Tray -->
+<div class="h-64 border-t border-outline-variant bg-surface-container-lowest flex flex-col shrink-0">
+<div class="flex items-center justify-between p-3 border-b border-outline-variant bg-surface-container-low">
+<div class="flex items-center gap-2 font-label-mono text-label-mono">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">perm_media</span>
+<span class="text-on-surface font-semibold uppercase">Media Assets</span>
+<span class="bg-surface-dim px-1.5 py-0.5 rounded text-status-code font-status-code">2 Attached</span>
+</div>
+<div class="flex gap-2">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[18px]">filter_list</span></button>
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span></button>
+</div>
+</div>
+<div class="flex-1 overflow-x-auto p-4 flex gap-4 hide-scrollbar items-start">
+<!-- Upload Card -->
+<div class="w-48 h-full border-2 border-dashed border-outline-variant rounded flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-low cursor-pointer shrink-0 transition-colors">
+<span class="material-symbols-outlined text-[24px] mb-2">cloud_upload</span>
+<span class="font-label-mono text-label-mono">Upload Asset</span>
+<span class="text-[10px] mt-1 text-outline">JPG, PNG, SVG</span>
+</div>
+<!-- Asset Card 1 -->
+<div class="w-64 border border-outline-variant rounded bg-surface overflow-hidden flex flex-col shrink-0 group relative">
+<div class="h-24 bg-surface-dim relative overflow-hidden">
+<img alt="Stock market chart" class="w-full h-full object-cover" data-alt="A professional, high-contrast close-up of a digital stock market terminal displaying complex financial charts and candlestick graphs. The interface uses a dark mode aesthetic with vibrant green and red indicators illuminating the screen. The setting implies a high-stakes institutional trading floor or modern financial command center. The image is sharply focused, emphasizing data density and analytical precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfH7lqFS6TwOwKf7Lfi7XeG4d2j-A9NIW8eiB1HjKuDMFYoFQsGBXMmfteqeywC1CrOP92wT7mrlfPMSMj0wijVD0ALYZDS9cmx7SDD4VhFOv4ULNl8jXPYr3g1kFER346XaU1QwzaliykTc64Hd4PTQ08tjfM1zjK779BWETy-kBoYsUMRZY9PBK2LTr1vSiWGGWLMwpyct3hmgCntIAkZqO71HcPkDQo5JQ3vFGoeVNQCaYQ_14YuOYfcgDgwioPmPirz7hx2DX8"/>
+<div class="absolute top-2 right-2 bg-primary/80 backdrop-blur-sm text-on-primary font-status-code text-status-code px-1.5 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">check_circle</span> cleared
+                                </div>
+</div>
+<div class="p-3 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="font-label-mono text-label-mono font-bold truncate pr-2">yield_curve_q3.png</span>
+<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-[16px]">more_vert</span></button>
+</div>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded px-2 py-1 text-[11px] font-body-md focus:border-primary outline-none" placeholder="Alt text..." type="text" value="Chart showing inverted yield curve Q3"/>
+</div>
+</div>
+<!-- Asset Card 2 -->
+<div class="w-64 border border-outline-variant rounded bg-surface overflow-hidden flex flex-col shrink-0 group relative">
+<div class="h-24 bg-surface-dim relative overflow-hidden">
+<img alt="Corporate building" class="w-full h-full object-cover" data-alt="A striking architectural photograph of a modern corporate skyscraper captured from a low angle against a clear sky. The facade features a vast expanse of reflective glass panels, emphasizing structural integrity and institutional scale. The lighting is bright and natural, aligning with a clean, light-mode corporate aesthetic. The overall mood is authoritative, stable, and forward-looking." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRuUV9py4GiGDHo0evRL2DUDk3l4ovErj_879N5rvj6Z72YnIgcJ83FyARMRI3MMZWnQInFmBJwtbFfvM7D-2ZIXDlUwpwOnF7Mtep3V8x_7t6gYHEcsOqBPFzm4hqAd1T6rYkoY7WtpRJzT9i_APQh_q5RjoehWyj7Ionmy4LVY_6fzIlvNZdKXK_b3sp56NkLBYs44Xkt2af4xCFEVX96uO8TjOOrqhWTwOMbovGXsNqxvarWPjOJ-RMgDOM7TjA7AbXeBFSstby"/>
+<div class="absolute top-2 right-2 bg-surface-container/80 backdrop-blur-sm text-on-surface-variant font-status-code text-status-code px-1.5 py-0.5 rounded flex items-center gap-1 border border-outline-variant">
+<span class="material-symbols-outlined text-[10px]">warning</span> pending rights
+                                </div>
+</div>
+<div class="p-3 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="font-label-mono text-label-mono font-bold truncate pr-2">headquarters_hero.jpg</span>
+<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity"><span class="material-symbols-outlined text-[16px]">more_vert</span></button>
+</div>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded px-2 py-1 text-[11px] font-body-md focus:border-primary outline-none border-dashed" placeholder="Required for compliance..." type="text"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Rail: Inspector & Guardrails -->
+<aside class="w-80 border-l border-outline-variant bg-surface-container-lowest hidden xl:flex flex-col overflow-y-auto">
+<!-- Status Header -->
+<div class="p-4 border-b border-outline-variant bg-surface-container-low flex items-center justify-between sticky top-0 z-10">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">Workflow State</span>
+<span class="bg-surface-dim text-on-surface border border-outline-variant font-label-mono text-label-mono px-2 py-0.5 rounded-full text-[10px]">IN PROGRESS</span>
+</div>
+<!-- Guardrails Section -->
+<div class="p-4 border-b border-outline-variant">
+<h3 class="font-label-mono text-label-mono font-bold text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+                        Compliance Guardrails
+                    </h3>
+<div class="flex flex-col gap-3">
+<!-- Claim Risk Score -->
+<div class="bg-surface border border-outline-variant rounded p-3 relative overflow-hidden">
+<div class="absolute top-0 left-0 h-1 bg-[#10b981] w-[94%]"></div> <!-- Green arbitrary color used conceptually for meter -->
+<div class="flex justify-between items-end mb-1">
+<span class="font-label-mono text-label-mono text-on-surface-variant">Claim Grounding</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">94%</span>
+</div>
+<p class="text-[11px] text-on-surface-variant font-body-md mt-2">2 claims require manual citation linkage. AI verification completed.</p>
+</div>
+<!-- No-Signal Check -->
+<div class="flex items-start gap-2 p-2 rounded hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px] text-[#10b981] mt-0.5">check_circle</span>
+<div>
+<span class="font-label-mono text-label-mono text-on-surface block">No-Signal Policy</span>
+<span class="text-[11px] text-on-surface-variant">No forward-looking unhedged predictions detected.</span>
+</div>
+</div>
+<!-- Citation Check -->
+<div class="flex items-start gap-2 p-2 rounded hover:bg-surface-container-low transition-colors opacity-70">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant mt-0.5">pending</span>
+<div>
+<span class="font-label-mono text-label-mono text-on-surface block">Citation Completeness</span>
+<span class="text-[11px] text-on-surface-variant">Waiting on 'Yield Curve' data source validation.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Entity Extraction -->
+<div class="p-4 border-b border-outline-variant">
+<h3 class="font-label-mono text-label-mono font-bold text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">category</span>
+                        Auto-Tags &amp; Entities
+                    </h3>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container border border-outline-variant text-on-surface font-label-mono text-[10px] px-2 py-1 rounded">Macroeconomics</span>
+<span class="bg-surface-container border border-outline-variant text-on-surface font-label-mono text-[10px] px-2 py-1 rounded">Q3 2024</span>
+<span class="bg-surface-container border border-outline-variant text-on-surface font-label-mono text-[10px] px-2 py-1 rounded">Fixed Income</span>
+<button class="bg-transparent border border-dashed border-outline-variant text-on-surface-variant font-label-mono text-[10px] px-2 py-1 rounded hover:bg-surface-container flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">add</span> Add Tag
+                        </button>
+</div>
+</div>
+<!-- Actions -->
+<div class="p-4 mt-auto">
+<button class="w-full bg-surface-container-high text-on-surface border border-outline-variant font-label-mono text-label-mono py-2 px-4 rounded hover:bg-surface-dim transition-colors mb-2">
+                        Save Draft
+                    </button>
+<button class="w-full bg-primary text-on-primary font-label-mono text-label-mono py-2 px-4 rounded hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">send</span>
+                        Submit to Approval Queue
+                    </button>
+</div>
+</aside>
+</div>
+</main>
+<script>
+        // Simple script to toggle active state on platform tabs for demonstration
+        document.querySelectorAll('.flex.border-b.border-outline-variant button').forEach(button => {
+            button.addEventListener('click', function() {
+                // Reset all
+                document.querySelectorAll('.flex.border-b.border-outline-variant button').forEach(b => {
+                    b.className = 'pb-2 border-b-2 border-transparent hover:border-outline-variant font-label-mono text-label-mono text-on-surface-variant';
+                });
+                // Set active
+                this.className = 'pb-2 border-b-2 border-primary font-label-mono text-label-mono text-primary font-bold';
+            });
+        });
+    </script>
+</body></html>

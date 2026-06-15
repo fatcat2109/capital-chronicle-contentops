@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Capital Chronicle ContentOps V5 - Content Inventory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#858387",
+                        "inverse-primary": "#c8c5ca",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-background": "#1a1b22",
+                        "outline": "#77767b",
+                        "surface-bright": "#fbf8ff",
+                        "primary": "#000000",
+                        "outline-variant": "#c8c5cb",
+                        "tertiary-fixed": "#e2e1eb",
+                        "tertiary-container": "#1a1b22",
+                        "secondary-container": "#dfdfe0",
+                        "on-primary-fixed": "#1b1b1e",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e3e1ec",
+                        "surface-container": "#eeedf7",
+                        "tertiary-fixed-dim": "#c6c6cf",
+                        "on-surface": "#1a1b22",
+                        "on-secondary-fixed": "#1a1c1d",
+                        "inverse-on-surface": "#f1effa",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#1b1b1e",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#e4e1e6",
+                        "on-secondary": "#ffffff",
+                        "background": "#fbf8ff",
+                        "secondary-fixed": "#e2e2e3",
+                        "surface-container-low": "#f4f2fd",
+                        "on-surface-variant": "#47464b",
+                        "tertiary": "#000000",
+                        "on-primary-fixed-variant": "#47464a",
+                        "on-tertiary-fixed-variant": "#45464e",
+                        "on-secondary-fixed-variant": "#454748",
+                        "error": "#ba1a1a",
+                        "surface": "#fbf8ff",
+                        "on-tertiary-container": "#83838c",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#c8c5ca",
+                        "secondary": "#5d5e60",
+                        "surface-container-highest": "#e3e1ec",
+                        "surface-container-high": "#e8e7f1",
+                        "inverse-surface": "#2f3038",
+                        "surface-dim": "#dad9e3",
+                        "on-tertiary-fixed": "#1a1b22",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#616364",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#5f5e61"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px",
+                        "container-max": "1440px",
+                        "stack-sm": "8px",
+                        "stack-xs": "4px",
+                        "stack-md": "16px",
+                        "stack-lg": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-mono": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "status-code": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["30px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "status-code": ["11px", { "lineHeight": "12px", "fontWeight": "700" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        /* Minimalist Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e3e1ec;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #c8c5cb;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen overflow-hidden flex">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col bg-surface-container-lowest dark:bg-surface-container-low text-primary dark:text-inverse-primary border-r border-outline-variant dark:border-outline docked left-0 h-full w-64 fixed left-0 top-0 h-screen p-4 z-40">
+<div class="mb-stack-lg">
+<h1 class="font-headline-sm text-headline-sm font-black text-on-surface dark:text-on-primary-fixed tracking-tight">CAPITAL CHRONICLE</h1>
+<p class="font-label-mono text-label-mono text-on-surface-variant mt-stack-xs opacity-70">Institutional ContentOps</p>
+</div>
+<button class="bg-primary text-on-primary font-label-mono text-label-mono px-4 py-2 rounded mb-stack-lg hover:bg-surface-tint transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+            Dispatch Gate
+        </button>
+<div class="flex-1 overflow-y-auto pr-2">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high hover:bg-surface-container dark:hover:bg-surface-container-high transition-all rounded" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="dashboard">dashboard</span>
+<span class="font-label-mono text-label-mono">Command Center</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container rounded-lg font-bold scale-95 duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="inventory_2">inventory_2</span>
+<span class="font-label-mono text-label-mono">Content Inventory</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high hover:bg-surface-container dark:hover:bg-surface-container-high transition-all rounded" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="edit_note">edit_note</span>
+<span class="font-label-mono text-label-mono">Writer Studio</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high hover:bg-surface-container dark:hover:bg-surface-container-high transition-all rounded" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="fact_check">fact_check</span>
+<span class="font-label-mono text-label-mono">Approval Queue</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high hover:bg-surface-container dark:hover:bg-surface-container-high transition-all rounded" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="inventory">inventory</span>
+<span class="font-label-mono text-label-mono">Evidence Vault</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="pt-stack-md mt-auto border-t border-outline-variant dark:border-outline">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="help">help</span>
+<span class="font-label-mono text-label-mono">Support</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container rounded transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="history">history</span>
+<span class="font-label-mono text-label-mono">Logs</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col md:ml-64 h-screen bg-background">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-container-highest text-primary dark:text-inverse-primary border-b border-outline-variant dark:border-outline docked full-width top-0 flat no shadows flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-50">
+<div class="flex items-center gap-4 flex-1">
+<!-- Search on left -->
+<div class="relative max-w-md w-full hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full bg-surface-container-low border-none rounded pl-10 pr-4 py-2 font-body-md text-body-md text-on-surface focus:ring-1 focus:ring-primary outline-none" placeholder="Search inventory..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="lock_open">lock_open</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-surface-container transition-colors rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="w-8 h-8 rounded-full bg-secondary-container overflow-hidden border border-outline-variant">
+<img alt="Administrator Avatar" class="w-full h-full object-cover" data-alt="A small, professional headshot photo of an administrator, suitable for a dashboard avatar. The lighting is clean and bright, set against a neutral off-white background. The image is circular and sits within a minimal structural UI, evoking a sense of corporate authority and calm efficiency within a modern content operations tool." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmtAseURCxsxPdfOnYU6zmr_kkv-epIK0AShoELAI-A3Lf9mgizc4S3zlPmheRJZlSWjLuEdVHuKaW1beacYPRiEuuB9JSPogCpDTgEfliKyQLKvQHcszmsT1LD4vrdXQAMleJ4hY3NUZAgagFGSY9GVbfeUwK2lgngXdsQtsbD_IqVipnITpi9JuOjoA9SrDmMfEGSq87sKLjObfapwRQA3piZ8fm_aFoXXPZPXZHyxtnIBp6cLDOxH1LSrTE8LAdPK1_ODm-5s3m"/>
+</div>
+</div>
+</header>
+<!-- Content Area: 3-pane layout -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Filter Sidebar (Left Pane) -->
+<aside class="w-64 border-r border-outline-variant bg-surface-container-lowest flex flex-col overflow-y-auto hidden lg:flex shrink-0">
+<div class="p-4 border-b border-outline-variant">
+<h2 class="font-label-mono text-label-mono uppercase text-on-surface-variant tracking-wider">Filters</h2>
+</div>
+<div class="p-4">
+<div class="mb-stack-lg">
+<h3 class="font-label-mono text-label-mono text-on-surface font-bold mb-stack-sm flex items-center justify-between">
+                            Content Lanes
+                            <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</h3>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input checked="" class="form-checkbox h-4 w-4 text-primary border-outline rounded-sm focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">Pre-alpha</span>
+<span class="ml-auto font-label-mono text-status-code text-on-surface-variant bg-surface-container px-1.5 py-0.5 rounded">12</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input checked="" class="form-checkbox h-4 w-4 text-primary border-outline rounded-sm focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">Grounded News</span>
+<span class="ml-auto font-label-mono text-status-code text-on-surface-variant bg-surface-container px-1.5 py-0.5 rounded">8</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="form-checkbox h-4 w-4 text-primary border-outline rounded-sm focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">Future Artifact-backed</span>
+<span class="ml-auto font-label-mono text-status-code text-on-surface-variant bg-surface-container px-1.5 py-0.5 rounded">3</span>
+</label>
+</div>
+</div>
+<div class="mb-stack-lg">
+<h3 class="font-label-mono text-label-mono text-on-surface font-bold mb-stack-sm flex items-center justify-between">
+                            Content Types
+                            <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</h3>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="form-checkbox h-4 w-4 text-primary border-outline rounded-sm focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">News</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="form-checkbox h-4 w-4 text-primary border-outline rounded-sm focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">Research</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="form-checkbox h-4 w-4 text-primary border-outline rounded-sm focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">Brief</span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="font-label-mono text-label-mono text-on-surface font-bold mb-stack-sm flex items-center justify-between">
+                            Status
+                            <span class="material-symbols-outlined text-[16px]">expand_more</span>
+</h3>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="form-checkbox h-4 w-4 text-primary border-outline rounded-sm focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">EVIDENCE_PENDING</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="form-checkbox h-4 w-4 text-primary border-outline rounded-sm focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">REVIEW_REQUIRED</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="form-checkbox h-4 w-4 text-primary border-outline rounded-sm focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant group-hover:text-on-surface transition-colors">LINEAGE_VERIFIED</span>
+</label>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Table Pane (Center) -->
+<div class="flex-1 flex flex-col bg-surface overflow-hidden">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Inventory List</h2>
+<div class="flex gap-2">
+<button class="bg-surface-container-low border border-outline-variant px-3 py-1.5 rounded font-label-mono text-label-mono text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+                            Filter
+                        </button>
+<button class="bg-surface-container-low border border-outline-variant px-3 py-1.5 rounded font-label-mono text-label-mono text-on-surface hover:bg-surface-container transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">view_column</span>
+                            Columns
+                        </button>
+</div>
+</div>
+<div class="flex-1 overflow-auto p-4">
+<table class="w-full text-left border border-outline-variant bg-surface-container-lowest rounded overflow-hidden border-collapse">
+<thead class="bg-surface-container text-on-surface-variant font-label-mono text-label-mono uppercase sticky top-0 z-10 shadow-[0_1px_0_#c8c5cb]">
+<tr>
+<th class="p-3 font-semibold border-b border-outline-variant">Title</th>
+<th class="p-3 font-semibold border-b border-outline-variant">Lane / Type</th>
+<th class="p-3 font-semibold border-b border-outline-variant hidden xl:table-cell">Platform Fit</th>
+<th class="p-3 font-semibold border-b border-outline-variant">Status</th>
+<th class="p-3 font-semibold border-b border-outline-variant w-10"></th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md divide-y divide-outline-variant">
+<!-- Row 1: Selected -->
+<tr class="hover:bg-surface-container-low transition-colors bg-surface-container-low cursor-pointer border-l-2 border-l-primary group">
+<td class="p-3 align-top py-4">
+<div class="font-semibold text-on-surface">Data Sufficiency Protocol v1.2</div>
+<div class="text-on-surface-variant text-sm mt-1 flex items-center gap-2">
+<span class="font-label-mono text-status-code bg-surface-container-high px-1.5 py-0.5 rounded border border-outline-variant">ID-9942</span>
+<span class="text-xs">Updated 2h ago</span>
+</div>
+</td>
+<td class="p-3 align-top py-4">
+<div class="text-on-surface">Pre-alpha</div>
+<div class="text-on-surface-variant text-sm mt-1">Research</div>
+</td>
+<td class="p-3 align-top py-4 hidden xl:table-cell">
+<div class="flex gap-1">
+<span class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold text-on-surface" title="X (Twitter)">X</span>
+<span class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-xs font-bold text-on-surface-variant" title="LinkedIn">in</span>
+<span class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold text-on-surface" title="Web">W</span>
+</div>
+</td>
+<td class="p-3 align-top py-4">
+<div class="flex flex-col gap-1.5 items-start">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-mono text-status-code bg-surface-container border border-outline-variant text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary mr-1.5"></span>
+                                            EVIDENCE_PENDING
+                                        </span>
+<span class="text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                                            Citation Pending
+                                        </span>
+</div>
+</td>
+<td class="p-3 align-top py-4 text-right">
+<button class="text-on-surface-variant hover:text-on-surface opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group">
+<td class="p-3 align-top py-4">
+<div class="font-semibold text-on-surface">Source Lineage: Q4 Forecast Readiness</div>
+<div class="text-on-surface-variant text-sm mt-1 flex items-center gap-2">
+<span class="font-label-mono text-status-code bg-surface-container-high px-1.5 py-0.5 rounded border border-outline-variant">ID-9940</span>
+<span class="text-xs">Updated 1d ago</span>
+</div>
+</td>
+<td class="p-3 align-top py-4">
+<div class="text-on-surface">Grounded News</div>
+<div class="text-on-surface-variant text-sm mt-1">Brief</div>
+</td>
+<td class="p-3 align-top py-4 hidden xl:table-cell">
+<div class="flex gap-1">
+<span class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold text-on-surface" title="X (Twitter)">X</span>
+<span class="w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-xs font-bold text-on-surface-variant" title="Web">W</span>
+</div>
+</td>
+<td class="p-3 align-top py-4">
+<div class="flex flex-col gap-1.5 items-start">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-mono text-status-code bg-[#eef8f1] border border-[#a3d9b1] text-[#1c6e3b]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#1c6e3b] mr-1.5"></span>
+                                            LINEAGE_VERIFIED
+                                        </span>
+<span class="text-xs text-[#1c6e3b] flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                            Citation Verified
+                                        </span>
+</div>
+</td>
+<td class="p-3 align-top py-4 text-right">
+<button class="text-on-surface-variant hover:text-on-surface opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group">
+<td class="p-3 align-top py-4">
+<div class="font-semibold text-on-surface">Grounded News Context: Fiscal Policy Baseline</div>
+<div class="text-on-surface-variant text-sm mt-1 flex items-center gap-2">
+<span class="font-label-mono text-status-code bg-surface-container-high px-1.5 py-0.5 rounded border border-outline-variant">ID-9938</span>
+<span class="text-xs">Updated 2d ago</span>
+</div>
+</td>
+<td class="p-3 align-top py-4">
+<div class="text-on-surface">Future Artifact-backed</div>
+<div class="text-on-surface-variant text-sm mt-1">Research</div>
+</td>
+<td class="p-3 align-top py-4 hidden xl:table-cell">
+<div class="flex gap-1">
+<span class="w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center text-xs font-bold text-on-surface" title="LinkedIn">in</span>
+</div>
+</td>
+<td class="p-3 align-top py-4">
+<div class="flex flex-col gap-1.5 items-start">
+<span class="inline-flex items-center px-2 py-0.5 rounded font-label-mono text-status-code bg-[#fef6e5] border border-[#f0c366] text-[#8f6311]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#8f6311] mr-1.5"></span>
+                                            REVIEW_REQUIRED
+                                        </span>
+</div>
+</td>
+<td class="p-3 align-top py-4 text-right">
+<button class="text-on-surface-variant hover:text-on-surface opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Inspector Rail (Right Pane) -->
+<aside class="w-80 border-l border-outline-variant bg-surface-container-lowest flex flex-col shrink-0 overflow-y-auto z-20 shadow-[-4px_0_12px_rgba(0,0,0,0.02)] hidden lg:flex">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface sticky top-0 z-10">
+<h2 class="font-label-mono text-label-mono uppercase text-on-surface-variant tracking-wider">Inspector</h2>
+<button class="text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="p-4">
+<!-- Preview Card -->
+<div class="bg-surface border border-outline-variant rounded mb-stack-lg overflow-hidden relative group">
+<div class="h-32 bg-surface-container-low flex items-center justify-center border-b border-outline-variant relative overflow-hidden">
+<!-- Placeholder for actual content preview or generic graphic -->
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmJmOGZmIj48L3JlY3Q+CjxwYXRoIGQ9Ik0wIDBMOCA4Wk04IDBMMCA4WiIgc3Ryb2tlPSIjZTNlMWVjIiBzdHJva2Utd2lkdGg9IjEiPjwvcGF0aD4KPC9zdmc+')] opacity-50"></div>
+<span class="material-symbols-outlined text-[48px] text-outline opacity-20 relative z-10">article</span>
+</div>
+<div class="p-4">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Data Sufficiency Protocol v1.2</h3>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">An exploration into default assumptions in modern retail banking architecture and the hero narrative often employed in marketing materials...</p>
+</div>
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer">
+<button class="bg-surface text-on-surface font-label-mono text-label-mono px-3 py-1.5 rounded border border-outline-variant shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">visibility</span> View Draft
+                            </button>
+</div>
+</div>
+<!-- Metadata -->
+<div class="space-y-4 mb-stack-lg pb-stack-lg border-b border-outline-variant">
+<div>
+<span class="font-label-mono text-label-mono text-on-surface-variant block mb-1">Lane</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Pre-alpha</span>
+</div>
+<div>
+<span class="font-label-mono text-label-mono text-on-surface-variant block mb-1">Content Type</span>
+<span class="font-body-md text-body-md text-on-surface font-medium">Research Article</span>
+</div>
+<div>
+<span class="font-label-mono text-label-mono text-on-surface-variant block mb-1">Evidence ID</span>
+<span class="font-label-mono text-status-code bg-surface-container px-2 py-1 rounded border border-outline-variant text-on-surface inline-block">REF-8821</span>
+</div>
+</div>
+<!-- Actions -->
+<div>
+<h3 class="font-label-mono text-label-mono uppercase text-on-surface-variant tracking-wider mb-stack-md">Local Actions</h3>
+<div class="space-y-2">
+<button class="w-full bg-surface border border-outline-variant hover:bg-surface-container-low text-on-surface font-body-md text-body-md py-2 px-3 rounded flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">policy</span>
+                                Inspect Provenance
+                            </button>
+<button class="w-full bg-surface border border-outline-variant hover:bg-surface-container-low text-on-surface font-body-md text-body-md py-2 px-3 rounded flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+                                Verify Citations
+                            </button>
+<!-- Safety Lock Strip example for high stakes -->
+<div class="mt-stack-lg p-3 bg-surface-container border border-outline-variant rounded relative overflow-hidden group opacity-60">
+<div class="relative z-10 flex flex-col gap-2">
+<span class="font-label-mono text-label-mono text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+                                        Approval override blocked — requires signed operator decision and gate clearance.
+                                    </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</body></html>

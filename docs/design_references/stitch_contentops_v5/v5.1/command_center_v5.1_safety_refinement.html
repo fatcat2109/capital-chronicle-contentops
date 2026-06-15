@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Command Center - Capital Chronicle</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Brand Anchors -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#858387",
+                    "inverse-primary": "#c8c5ca",
+                    "secondary-fixed-dim": "#c6c6c7",
+                    "on-background": "#1a1b22",
+                    "outline": "#77767b",
+                    "surface-bright": "#fbf8ff",
+                    "primary": "#000000",
+                    "outline-variant": "#c8c5cb",
+                    "tertiary-fixed": "#e2e1eb",
+                    "tertiary-container": "#1a1b22",
+                    "secondary-container": "#dfdfe0",
+                    "on-primary-fixed": "#1b1b1e",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#e3e1ec",
+                    "surface-container": "#eeedf7",
+                    "tertiary-fixed-dim": "#c6c6cf",
+                    "on-surface": "#1a1b22",
+                    "on-secondary-fixed": "#1a1c1d",
+                    "inverse-on-surface": "#f1effa",
+                    "error-container": "#ffdad6",
+                    "primary-container": "#1b1b1e",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#e4e1e6",
+                    "on-secondary": "#ffffff",
+                    "background": "#fbf8ff",
+                    "secondary-fixed": "#e2e2e3",
+                    "surface-container-low": "#f4f2fd",
+                    "on-surface-variant": "#47464b",
+                    "tertiary": "#000000",
+                    "on-primary-fixed-variant": "#47464a",
+                    "on-tertiary-fixed-variant": "#45464e",
+                    "on-secondary-fixed-variant": "#454748",
+                    "error": "#ba1a1a",
+                    "surface": "#fbf8ff",
+                    "on-tertiary-container": "#83838c",
+                    "on-error-container": "#93000a",
+                    "primary-fixed-dim": "#c8c5ca",
+                    "secondary": "#5d5e60",
+                    "surface-container-highest": "#e3e1ec",
+                    "surface-container-high": "#e8e7f1",
+                    "inverse-surface": "#2f3038",
+                    "surface-dim": "#dad9e3",
+                    "on-tertiary-fixed": "#1a1b22",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-container": "#616364",
+                    "on-primary": "#ffffff",
+                    "surface-tint": "#5f5e61"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-desktop": "32px",
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "container-max": "1440px",
+                    "stack-sm": "8px",
+                    "stack-xs": "4px",
+                    "stack-md": "16px",
+                    "stack-lg": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-mono": ["JetBrains Mono"],
+                    "headline-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "status-code": ["JetBrains Mono"],
+                    "headline-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-mono": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "status-code": ["11px", {"lineHeight": "12px", "fontWeight": "700"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .hazard-strip {
+            background-image: repeating-linear-gradient(
+                -45deg,
+                theme('colors.surface-container-high'),
+                theme('colors.surface-container-high') 10px,
+                theme('colors.surface') 10px,
+                theme('colors.surface') 20px
+            );
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased overflow-hidden selection:bg-secondary-container selection:text-on-secondary-container">
+<div class="flex h-screen w-full">
+<!-- SideNavBar (From JSON) -->
+<nav class="bg-surface-container-lowest dark:bg-surface-container-low text-primary dark:text-inverse-primary docked left-0 h-full w-64 border-r border-outline-variant dark:border-outline flat no shadows fixed left-0 top-0 h-screen flex flex-col p-4 z-40">
+<!-- Header -->
+<div class="mb-8">
+<div class="font-headline-sm text-headline-sm font-black text-on-surface dark:text-on-primary-fixed uppercase tracking-tight">CAPITAL CHRONICLE</div>
+<div class="font-label-mono text-label-mono text-on-surface-variant mt-1 opacity-70">Institutional ContentOps</div>
+</div>
+<!-- Tabs -->
+<div class="flex flex-col gap-1 flex-1">
+<!-- Command Center (Active) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container dark:bg-primary-container text-on-secondary-container dark:text-on-primary-container rounded-lg font-bold scale-95 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-mono text-label-mono">Command Center</span>
+</a>
+<!-- Content Inventory -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-mono text-label-mono">Content Inventory</span>
+</a>
+<!-- Writer Studio -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-label-mono text-label-mono">Writer Studio</span>
+</a>
+<!-- Approval Queue -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-label-mono text-label-mono">Approval Queue</span>
+</a>
+<!-- Evidence Vault -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">inventory</span>
+<span class="font-label-mono text-label-mono">Evidence Vault</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="mt-auto mb-4">
+<button class="w-full bg-primary text-on-primary font-label-mono text-label-mono py-2 px-4 rounded hover:opacity-90 transition-opacity">Dispatch Gate</button>
+</div>
+<!-- Footer Tabs -->
+<div class="flex flex-col gap-1 border-t border-outline-variant pt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-mono text-label-mono">Support</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-mono text-label-mono">Logs</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col ml-64 bg-surface relative h-full">
+<!-- TopAppBar (From JSON) -->
+<header class="bg-surface dark:bg-surface-container-highest text-primary dark:text-inverse-primary docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center w-full px-margin-desktop h-16 sticky top-0 z-50">
+<!-- Brand / Left -->
+<div class="flex items-center gap-4">
+<div class="text-headline-sm font-headline-sm font-bold tracking-tight text-on-surface dark:text-inverse-on-surface">
+                        Capital Chronicle ContentOps V5
+                    </div>
+<!-- Navigation Structure inside App Bar (if any, hiding for desktop command center focus as it's meant to be a title bar mostly, but json has active/inactive styles. We'll leave it as title bar) -->
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">lock_open</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full flex items-center justify-center relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-surface"></span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="ml-4 w-8 h-8 rounded-full bg-surface-variant border border-outline-variant overflow-hidden">
+<!-- Placeholder for Administrator Avatar -->
+<div class="w-full h-full flex items-center justify-center text-on-surface-variant font-label-mono text-xs">AD</div>
+</div>
+</div>
+</header>
+<!-- Top Safety Lock Strip -->
+<div class="hazard-strip w-full border-b border-outline-variant py-2 px-margin-desktop flex items-center justify-between text-on-surface-variant shadow-sm z-40 relative">
+<div class="flex items-center gap-6 font-label-mono text-label-mono tracking-widest font-bold text-[10px] uppercase">
+<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">lock</span> LOCAL_PRE_ALPHA</div>
+<div class="flex items-center gap-1.5"><span class="material-symbols-outlined text-[14px]">visibility</span> REVIEW-ONLY</div>
+<div class="flex items-center gap-1.5 text-error"><span class="material-symbols-outlined text-[14px]">gavel</span> MANUAL APPROVAL REQUIRED</div>
+</div>
+<div class="font-status-code text-status-code bg-error text-on-error px-2 py-1 rounded-sm tracking-widest">
+                    FUTURE_LIVE_DISABLED
+                </div>
+</div>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-auto flex w-full">
+<!-- Center Work Surface -->
+<div class="flex-1 p-margin-desktop flex flex-col gap-gutter max-w-container-max mx-auto w-full">
+<!-- Safety Counters Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-lg flex flex-col justify-between h-32">
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase">Validation Passes</div>
+<div class="font-headline-lg text-headline-lg text-primary">13</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-lg flex flex-col justify-between h-32">
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase">Lineage Verified</div>
+<div class="font-headline-lg text-headline-lg text-primary">0</div>
+</div>
+<div class="bg-error-container border border-error bg-opacity-20 rounded-lg p-stack-lg flex flex-col justify-between h-32 relative overflow-hidden">
+<div class="absolute inset-0 bg-error opacity-5"></div>
+<div class="font-label-mono text-label-mono text-on-error-container uppercase relative z-10 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">warning</span> Active Blockers
+                            </div>
+<div class="font-headline-lg text-headline-lg text-on-error-container relative z-10">3</div>
+</div>
+</section>
+<!-- Main Status & Actions -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Current Verdict -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-lg flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-stack-md flex items-center gap-2">
+<span class="material-symbols-outlined">policy</span> System Verdict
+                            </h2>
+<div class="flex-1 flex flex-col justify-center items-center py-8 text-center border border-dashed border-error rounded bg-error-container bg-opacity-10">
+<span class="material-symbols-outlined text-error text-[48px] mb-2">block</span>
+<div class="font-headline-md text-headline-md text-error mb-2 tracking-tight">GATED_REDACTED_AUDIT</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">
+                                    Content requires mandatory manual redaction and validation. Progression halted.
+                                </p>
+</div>
+</div>
+<!-- Action Panel -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-lg flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-stack-md flex items-center gap-2">
+<span class="material-symbols-outlined">play_arrow</span> Available Operations
+                            </h2>
+<div class="flex-1 flex flex-col gap-stack-sm">
+<div class="flex items-center justify-between p-4 border border-outline-variant rounded bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div>
+<div class="font-label-mono text-label-mono text-primary font-bold">Run read-only Lineage Scan</div>
+<div class="font-body-md text-body-md text-on-surface-variant text-sm">Execute content source checks without state mutation.</div>
+</div>
+<span class="material-symbols-outlined text-primary opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</div>
+<div class="flex items-center justify-between p-4 border border-outline-variant rounded bg-surface opacity-50 cursor-not-allowed">
+<div>
+<div class="font-label-mono text-label-mono text-on-surface-variant font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">lock</span> Initiate Distribution Pipeline
+                                        </div>
+<div class="font-body-md text-body-md text-on-surface-variant text-sm">Disabled pending PENDING_SECRET_SCAN clearance.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Pipeline & Queue Summary (Bento Layout continued) -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-lg">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-stack-md">Pipeline Health</h2>
+<!-- Simplified visualization of a queue -->
+<div class="flex items-center gap-2 h-16">
+<div class="flex-1 h-full bg-surface-container border border-outline-variant rounded flex items-center justify-center font-label-mono text-label-mono text-on-surface-variant">Ingest</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+<div class="flex-1 h-full bg-surface-container border border-outline-variant rounded flex items-center justify-center font-label-mono text-label-mono text-on-surface-variant">Validation Pass</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+<div class="flex-1 h-full bg-error-container border border-error rounded flex items-center justify-center font-label-mono text-label-mono text-on-error-container relative">
+                                    Lineage
+                                    <div class="absolute -top-2 -right-2 w-4 h-4 bg-error rounded-full flex items-center justify-center"><span class="material-symbols-outlined text-[10px] text-on-error">close</span></div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+<div class="flex-1 h-full bg-surface border border-outline-variant border-dashed rounded flex items-center justify-center font-label-mono text-label-mono text-outline opacity-50">Gated</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-lg">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-stack-md">Queue Summary</h2>
+<ul class="flex flex-col gap-3 font-body-md text-body-md">
+<li class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant">Pending Validation</span>
+<span class="font-label-mono text-label-mono font-bold bg-surface-container px-2 py-0.5 rounded">42</span>
+</li>
+<li class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant">Needs Revision</span>
+<span class="font-label-mono text-label-mono font-bold bg-surface-container px-2 py-0.5 rounded">12</span>
+</li>
+<li class="flex justify-between items-center">
+<span class="text-on-surface-variant">Cleared (Gated)</span>
+<span class="font-label-mono text-label-mono font-bold bg-surface-container px-2 py-0.5 rounded">0</span>
+</li>
+</ul>
+</div>
+</section>
+</div>
+<!-- Right Inspector Rail -->
+<aside class="w-[320px] bg-surface-container-lowest border-l border-outline-variant flex flex-col flex-shrink-0">
+<!-- Inspector Header -->
+<div class="p-4 border-b border-outline-variant bg-surface-container-low flex items-center justify-between">
+<span class="font-label-mono text-label-mono uppercase tracking-wider text-on-surface font-bold">System Inspector</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">info</span>
+</div>
+<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-6">
+<!-- State Metadata -->
+<section>
+<h3 class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-3 border-b border-outline-variant pb-1">Current State</h3>
+<div class="flex flex-col gap-2 font-body-md text-body-md">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Environment</span>
+<span class="font-status-code text-status-code bg-surface-container px-1 rounded">LOCAL_PRE_ALPHA</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Sync Status</span>
+<span class="font-status-code text-status-code text-error">PAUSED</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">Last Heartbeat</span>
+<span class="font-status-code text-status-code">14s ago</span>
+</div>
+</div>
+</section>
+<!-- Provenance -->
+<section>
+<h3 class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-3 border-b border-outline-variant pb-1">Build Provenance</h3>
+<div class="bg-surface-container rounded p-3 font-status-code text-status-code flex flex-col gap-1 break-all">
+<div class="text-on-surface-variant">ID: <span class="text-primary">BLD-992A-44B</span></div>
+<div class="text-on-surface-variant">Hash: <span class="text-primary">0x88f2...a19c</span></div>
+<div class="text-on-surface-variant">Branch: <span class="text-primary">hotfix/v4-audit</span></div>
+</div>
+</section>
+<!-- Blocker Stack -->
+<section>
+<h3 class="font-label-mono text-label-mono text-error uppercase mb-3 border-b border-error pb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Active Blockers
+                            </h3>
+<div class="flex flex-col gap-2">
+<div class="border border-error border-l-4 rounded bg-surface p-2">
+<div class="font-status-code text-status-code text-error mb-1">INSUFFICIENT_SOURCE_LINEAGE</div>
+<div class="font-body-md text-body-md text-xs text-on-surface">Source validation failed for current content payload.</div>
+</div>
+<div class="border border-outline-variant border-l-4 border-l-secondary rounded bg-surface p-2">
+<div class="font-status-code text-status-code text-secondary mb-1">PENDING_SECRET_SCAN</div>
+<div class="font-body-md text-body-md text-xs text-on-surface">Automated secret detection not cleared on recent inputs.</div>
+</div>
+</div>
+</section>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</body></html>
