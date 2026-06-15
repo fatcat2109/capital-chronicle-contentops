@@ -1304,6 +1304,14 @@ def platform_requirements_account_binding_policy_gate_summary():
     print(json.dumps(gate.run_policy_gate(write=write), indent=2))
 
 
+def x_official_docs_account_binding_requirements_gate_summary():
+    import json
+    from live_contentops import x_official_docs_account_binding_requirements_gate as gate
+    rest = sys.argv[2:]
+    write = gate.FLAG_WRITE in rest
+    print(json.dumps(gate.run_gate(write=write), indent=2))
+
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -1495,6 +1503,7 @@ COMMANDS = {
     "telegram-second-live-post-reconciliation-gate": telegram_second_live_post_reconciliation_gate_summary,
     "operator-live-publishing-review-backlog-gate": operator_live_publishing_review_backlog_gate_summary,
     "platform-requirements-account-binding-policy-gate": platform_requirements_account_binding_policy_gate_summary,
+    "x-official-docs-account-binding-requirements-gate": x_official_docs_account_binding_requirements_gate_summary,
 
 
 }
