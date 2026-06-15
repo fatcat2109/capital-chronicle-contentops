@@ -981,6 +981,18 @@ def pre_alpha_telegram_redacted_credential_presence_check_summary():
     print(json.dumps(chk.summary(env_text=env_text, source_label=source_label), indent=2))
 
 
+def telegram_credential_readiness_summary():
+    import json
+    from live_contentops import prelaunch_telegram_credential_readiness as readiness
+    # This is the explicit, scoped pre-launch readiness harness (0174CJ). It is
+    # authorized to read the repo-local .env / .env.local for presence + redacted
+    # shape classification. Pass --process-env to opt into the process-env fallback.
+    # It prints ONLY the redacted JSON summary: no raw values, snippets, lengths,
+    # hashes, paths, and it never calls the Telegram API.
+    use_process_env = "--process-env" in sys.argv[2:]
+    print(json.dumps(readiness.summary(use_process_env=use_process_env), indent=2))
+
+
 def pre_alpha_institutional_ui_ux_rebuild_plan_summary():
     import json
     from live_contentops import institutional_ui_ux_frontend_rebuild_plan as plan
@@ -1303,6 +1315,7 @@ COMMANDS = {
     "pre-alpha-telegram-credential-setup-guide-summary": pre_alpha_telegram_credential_setup_guide_summary,
     "pre-alpha-telegram-redacted-credential-presence-check-summary": pre_alpha_telegram_redacted_credential_presence_check_summary,
     "pre-alpha-telegram-official-docs-credential-validation-gate-summary": pre_alpha_telegram_official_docs_credential_validation_gate_summary,
+    "telegram-credential-readiness": telegram_credential_readiness_summary,
     "pre-alpha-institutional-ui-ux-rebuild-plan-summary": pre_alpha_institutional_ui_ux_rebuild_plan_summary,
     "pre-alpha-institutional-design-system-summary": pre_alpha_institutional_design_system_summary,
     "pre-alpha-institutional-ui-view-model-contract-v2-summary": pre_alpha_institutional_ui_view_model_contract_v2_summary,

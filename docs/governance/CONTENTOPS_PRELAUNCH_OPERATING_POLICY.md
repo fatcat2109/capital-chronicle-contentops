@@ -35,6 +35,7 @@ To resolve conflicting rules or strategy models, the hierarchy of authority is:
 - **Fingerprints only:** Only non-leaking, redacted shape classes (e.g. `present_redacted_telegram_bot_token_like`) may be persisted or reported. Never print prefixes, suffixes, lengths, or cryptographic digests of real secrets.
 - **Explicit Scoping:** Explicit credential readiness may inspect `.env` presence/shape only when specifically scoped. Credential readiness does not imply network, provider, or platform permission.
 - **Separation of Gates:** Presence/shape checks and live API validation are separate gates. Generic readiness modules must remain network-free and are blocked from importing network or SDK libraries.
+- **Authorized Telegram Readiness Harness:** `live_contentops/prelaunch_telegram_credential_readiness.py` is the explicitly scoped pre-launch Telegram readiness harness. It may read repo-local `.env` / `.env.local` (or, only when explicitly selected, process-env slots) for presence + redacted shape classification. It emits only redacted readiness classes, imports no network/provider/platform libraries, and never calls the Telegram API. Run via `python -m live_contentops.cli telegram-credential-readiness`.
 - **UI Constraint:** The browser runtime/UI must remain completely free of `.env` or `process.env` access.
 - **No Commits:** Never stage or commit a `.env` file containing real secret values.
 - **No Screenshots:** Never capture browser screenshots or QA logs showing raw credentials.
@@ -84,4 +85,4 @@ Content safety is non-negotiable. Content generated, reviewed, or previewed with
 ## 10. Next-Task Handoff Discipline
 - Every completed task must explicitly specify the exact next recommended task matching the pre-launch roadmap.
 - The next recommended task for credential readiness validation is:
-  `TASK_CONTENTOPS_0174CH_PRELAUNCH_CREDENTIAL_READINESS_DRY_RUN_AND_REDACTION_HARNESS_V0`
+  `TASK_CONTENTOPS_0174CK_TELEGRAM_LIVE_GATE_READ_ONLY_BOT_ID_VALIDATION_V0` (a separate, explicitly authorized read-only bot-identity validation gate).
