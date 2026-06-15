@@ -17,6 +17,7 @@ def test_no_forbidden_imports_or_env_vars():
     live_gate_allowlist = {
         "telegram_live_pilot.py",
         "telegram_live_getme_gate.py",
+        "telegram_target_binding_gate.py",
     }
 
     # Modules allowed to perform env lookups for configuration (excluding generic modules)

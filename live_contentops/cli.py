@@ -1011,6 +1011,23 @@ def telegram_live_getme_gate_summary():
     ), indent=2))
 
 
+def telegram_target_binding_gate_summary():
+    import json
+    from live_contentops import telegram_target_binding_gate as gate
+    # 0174CL: the SECOND module authorized to make bounded, live, read-only
+    # Telegram Bot API requests, and ONLY getMe/getChat/getChatMember. Fail-closed:
+    # NO network unless --live-telegram-target-binding is passed. Max 3 live
+    # requests, no retry. Prints ONLY the redacted JSON summary: no token, chat id,
+    # channel id/username, bot id/username, URL, raw response, lengths, or hashes.
+    rest = sys.argv[2:]
+    armed = "--live-telegram-target-binding" in rest
+    use_process_env = "--process-env" in rest
+    print(json.dumps(gate.run_target_binding_gate(
+        armed=armed,
+        use_process_env=use_process_env,
+    ), indent=2))
+
+
 def pre_alpha_institutional_ui_ux_rebuild_plan_summary():
     import json
     from live_contentops import institutional_ui_ux_frontend_rebuild_plan as plan
@@ -1335,6 +1352,7 @@ COMMANDS = {
     "pre-alpha-telegram-official-docs-credential-validation-gate-summary": pre_alpha_telegram_official_docs_credential_validation_gate_summary,
     "telegram-credential-readiness": telegram_credential_readiness_summary,
     "telegram-live-getme-gate": telegram_live_getme_gate_summary,
+    "telegram-target-binding-gate": telegram_target_binding_gate_summary,
     "pre-alpha-institutional-ui-ux-rebuild-plan-summary": pre_alpha_institutional_ui_ux_rebuild_plan_summary,
     "pre-alpha-institutional-design-system-summary": pre_alpha_institutional_design_system_summary,
     "pre-alpha-institutional-ui-view-model-contract-v2-summary": pre_alpha_institutional_ui_view_model_contract_v2_summary,
