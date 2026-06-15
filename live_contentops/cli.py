@@ -1264,6 +1264,22 @@ def telegram_second_supervised_post_dry_run_ledger_gate_summary():
     print(json.dumps(gate.run_gate(write=write), indent=2))
 
 
+def telegram_second_supervised_live_post_gate_summary():
+    import json
+    from live_contentops import telegram_second_supervised_live_post_gate as gate
+    rest = sys.argv[2:]
+    live_post_flag = gate.FLAG_LIVE_POST in rest
+    operator_go_flag = gate.FLAG_OPERATOR_GO in rest
+    write_ledger = gate.FLAG_WRITE_LEDGER in rest
+    use_process_env = "--process-env" in rest
+    print(json.dumps(gate.run_second_supervised_live_post_gate(
+        live_post_flag=live_post_flag,
+        operator_go_flag=operator_go_flag,
+        write_ledger=write_ledger,
+        use_process_env=use_process_env,
+    ), indent=2))
+
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -1420,6 +1436,7 @@ COMMANDS = {
     "telegram-post-pilot-ledger-gate": telegram_post_pilot_ledger_gate_summary,
     "next-platform-account-binding-selection-gate": next_platform_account_binding_selection_gate_summary,
     "telegram-second-supervised-post-dry-run-ledger-gate": telegram_second_supervised_post_dry_run_ledger_gate_summary,
+    "telegram-second-supervised-live-post-gate": telegram_second_supervised_live_post_gate_summary,
     "pre-alpha-institutional-ui-ux-rebuild-plan-summary": pre_alpha_institutional_ui_ux_rebuild_plan_summary,
     "pre-alpha-institutional-design-system-summary": pre_alpha_institutional_design_system_summary,
     "pre-alpha-institutional-ui-view-model-contract-v2-summary": pre_alpha_institutional_ui_view_model_contract_v2_summary,
