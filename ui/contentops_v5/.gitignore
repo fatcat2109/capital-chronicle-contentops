@@ -1,0 +1,12 @@
+node_modules
+dist
+*.local
+.vite
+coverage
+
+# tsc -b emitted artifacts from composite config project
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts
+tailwind.config.js
+tailwind.config.d.ts
