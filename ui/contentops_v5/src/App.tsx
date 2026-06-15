@@ -11,6 +11,8 @@ import { VIEW_ICONS, IconClose, IconShield, IconSun, IconMoon } from './ui/icons
 import { CommandCenter } from './views/CommandCenter';
 import { ContentInventory } from './views/ContentInventory';
 import { WriterStudio } from './views/WriterStudio';
+import { AiWriterSeoLab } from './views/AiWriterSeoLab';
+import { DraftInspector } from './views/DraftInspector';
 import { ApprovalQueue } from './views/ApprovalQueue';
 import { EvidenceVault } from './views/EvidenceVault';
 
@@ -194,6 +196,10 @@ function ActiveView() {
       return <ContentInventory />;
     case 'writer_studio':
       return <WriterStudio />;
+    case 'ai_writer_seo_lab':
+      return <AiWriterSeoLab />;
+    case 'draft_inspector':
+      return <DraftInspector />;
     case 'approval_queue':
       return <ApprovalQueue />;
     case 'evidence_vault':

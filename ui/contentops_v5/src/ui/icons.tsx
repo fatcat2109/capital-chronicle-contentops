@@ -179,6 +179,8 @@ export const VIEW_ICONS: Record<string, (p: IconProps) => JSX.Element> = {
   dashboard: IconDashboard,
   inventory: IconInventory,
   edit: IconEdit,
+  sparkle: IconSparkle,
+  fingerprint: IconFingerprint,
   shield: IconShield,
   lock: IconLock,
 };

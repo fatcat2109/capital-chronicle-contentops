@@ -5,10 +5,17 @@
 import { viewModel } from './fixtures';
 import type {
   AiWriterOutput,
+  ArtifactEligibilityCheck,
   Blocker,
+  CitationCheck,
+  ClaimRiskItem,
   ContentItem,
   DispatchGate,
+  DraftInspection,
+  LimitationCheck,
   MediaAsset,
+  NoSignalCheck,
+  SeoKeywordGroup,
   SelectableObject,
   SystemState,
   ValidationPass,
@@ -75,14 +82,120 @@ export function selectAiVariant(v: AiWriterOutput): SelectableObject {
       { label: 'Platform', value: v.platform },
       { label: 'Audience', value: v.audience_mode },
       { label: 'Style', value: v.style_mode },
+      { label: 'Hook', value: v.hook_type },
+      { label: 'Editorial', value: String(v.editorial_score), mono: true },
+      { label: 'SEO', value: String(v.seo_score), mono: true },
+      { label: 'Platform fit', value: String(v.platform_fit_score), mono: true },
+      { label: 'Keywords', value: v.seo_keywords.join(', ') || '—' },
       { label: 'Guardrail', value: v.guardrail_status, status: v.guardrail_status },
       {
         label: 'Review',
         value: v.human_review_required ? 'required' : 'no',
         status: 'review',
       },
+      { label: 'Limitations', value: v.limitations_preserved ? 'preserved' : 'missing', status: v.limitations_preserved ? 'verified' : 'blocked' },
+      { label: 'Sources', value: v.source_references_preserved ? 'preserved' : 'missing', status: v.source_references_preserved ? 'verified' : 'blocked' },
       { label: 'Postable', value: 'no', status: 'blocked' },
+      { label: 'Publish', value: 'publish_ready: false', mono: true, status: 'blocked' },
       { label: 'Reason', value: v.not_public_postable_reason },
+    ],
+  };
+}
+
+export function selectSeoKeywordGroup(g: SeoKeywordGroup): SelectableObject {
+  return {
+    kind: 'seo_keyword_group',
+    id: g.id,
+    title: g.label,
+    fields: [
+      { label: 'Intent', value: g.intent },
+      { label: 'SEO score', value: String(g.seo_score), mono: true },
+      { label: 'Status', value: g.status, status: g.status },
+      { label: 'Keywords', value: g.keywords.join(', ') || '—' },
+      { label: 'Advisory', value: 'Advisory only · not a publish gate' },
+    ],
+  };
+}
+
+export function selectClaimRiskItem(c: ClaimRiskItem): SelectableObject {
+  return {
+    kind: 'claim_risk_item',
+    id: c.id,
+    title: c.label,
+    fields: [
+      { label: 'Class', value: c.classification },
+      { label: 'Severity', value: c.severity, status: c.severity },
+      { label: 'ID', value: c.id, mono: true },
+      { label: 'Detail', value: c.detail },
+    ],
+  };
+}
+
+export function selectCitationCheck(c: CitationCheck): SelectableObject {
+  return {
+    kind: 'citation_check',
+    id: c.id,
+    title: c.label,
+    fields: [
+      { label: 'Source', value: c.source_ref, mono: true },
+      { label: 'Status', value: c.status, status: c.status },
+      { label: 'Detail', value: c.detail },
+    ],
+  };
+}
+
+export function selectLimitationCheck(c: LimitationCheck): SelectableObject {
+  return {
+    kind: 'limitation_check',
+    id: c.id,
+    title: c.label,
+    fields: [
+      { label: 'Status', value: c.status, status: c.status },
+      { label: 'Detail', value: c.detail },
+    ],
+  };
+}
+
+export function selectNoSignalCheck(c: NoSignalCheck): SelectableObject {
+  return {
+    kind: 'no_signal_check',
+    id: c.id,
+    title: c.label,
+    fields: [
+      { label: 'Status', value: c.status, status: c.status },
+      { label: 'Detail', value: c.detail },
+    ],
+  };
+}
+
+export function selectArtifactEligibility(
+  c: ArtifactEligibilityCheck,
+): SelectableObject {
+  return {
+    kind: 'artifact_eligibility_check',
+    id: c.id,
+    title: c.label,
+    fields: [
+      { label: 'Status', value: c.status, status: c.status },
+      { label: 'Detail', value: c.detail },
+    ],
+  };
+}
+
+export function selectDraftInspection(d: DraftInspection): SelectableObject {
+  return {
+    kind: 'draft_inspection',
+    id: d.id,
+    title: d.title,
+    fields: [
+      { label: 'Draft', value: d.draft_id, mono: true },
+      { label: 'Readiness', value: d.approval_readiness, status: d.approval_readiness_status },
+      { label: 'Review', value: d.human_review_required ? 'required' : 'no', status: 'review' },
+      { label: 'Citations', value: `${d.citation_checks.length} checks` },
+      { label: 'Claim risks', value: `${d.claim_risk_items.length} items` },
+      { label: 'No-signal', value: `${d.no_signal_checks.length} checks` },
+      { label: 'Artifact', value: `${d.artifact_eligibility_checks.length} checks` },
+      { label: 'Publish', value: 'publish_ready: false', mono: true, status: 'blocked' },
     ],
   };
 }
@@ -150,6 +263,10 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectContentItem(defaultContentItem(vm.content_items));
     case 'writer_studio':
       return selectAiVariant(vm.editorial_draft.ai_outputs[0]);
+    case 'ai_writer_seo_lab':
+      return selectAiVariant(vm.ai_writer_lab.outputs[0]);
+    case 'draft_inspector':
+      return selectDraftInspection(vm.draft_inspections[0]);
     case 'approval_queue': {
       const p = vm.approval_packets[0];
       const gate =

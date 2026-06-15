@@ -25,6 +25,8 @@ export const NAV_ITEMS: { id: ViewId; label: string; icon: string }[] = [
   { id: 'command_center', label: 'Command Center', icon: 'dashboard' },
   { id: 'content_inventory', label: 'Content Inventory', icon: 'inventory' },
   { id: 'writer_studio', label: 'Writer Studio', icon: 'edit' },
+  { id: 'ai_writer_seo_lab', label: 'AI Writer / SEO Lab', icon: 'sparkle' },
+  { id: 'draft_inspector', label: 'Draft Inspector', icon: 'fingerprint' },
   { id: 'approval_queue', label: 'Approval & Dispatch', icon: 'shield' },
   { id: 'evidence_vault', label: 'Evidence Vault', icon: 'lock' },
 ];

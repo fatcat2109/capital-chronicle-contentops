@@ -9,6 +9,8 @@ export type ViewId =
   | 'command_center'
   | 'content_inventory'
   | 'writer_studio'
+  | 'ai_writer_seo_lab'
+  | 'draft_inspector'
   | 'approval_queue'
   | 'evidence_vault';
 
@@ -71,19 +73,103 @@ export interface SeoMetadata {
   readability: string;
 }
 
+/**
+ * AI Writer output contract. AI is UI-only and review-only: it is NEVER source
+ * authority. publish_ready is the literal `false` so a publish-ready variant is
+ * unrepresentable. All ids/metrics are synthetic local fixtures.
+ */
 export interface AiWriterOutput {
   variant_id: string;
   source_draft_id: string;
+  source_artifact_id?: string;
   platform: string;
   audience_mode: string;
   style_mode: string;
   content_type: string;
+  body: string;
+  hook_type: string;
+  hashtags: string[];
+  seo_keywords: string[];
+  title_candidates: string[];
+  limitations_preserved: boolean;
+  source_references_preserved: boolean;
+  safety_notes: string[];
+  not_public_postable_reason: string;
+  editorial_score: number;
+  seo_score: number;
+  platform_fit_score: number;
   guardrail_status: StatusKind;
   human_review_required: boolean;
   publish_ready: false;
-  not_public_postable_reason: string;
-  limitations_preserved: boolean;
-  source_references_preserved: boolean;
+}
+
+/** A grouped set of SEO keywords selectable in the SEO Lab. */
+export interface SeoKeywordGroup {
+  id: string;
+  label: string;
+  intent: string;
+  keywords: string[];
+  seo_score: number;
+  status: StatusKind;
+}
+
+/** A single citation completeness check for the Draft Inspector. */
+export interface CitationCheck {
+  id: string;
+  label: string;
+  source_ref: string;
+  status: StatusKind;
+  detail: string;
+}
+
+/** A claim-risk classification item. */
+export interface ClaimRiskItem {
+  id: string;
+  label: string;
+  classification: string;
+  severity: StatusKind;
+  detail: string;
+}
+
+/** A limitation/caveat preservation check. */
+export interface LimitationCheck {
+  id: string;
+  label: string;
+  status: StatusKind;
+  detail: string;
+}
+
+/** A no-signal / forbidden-language audit row. */
+export interface NoSignalCheck {
+  id: string;
+  label: string;
+  status: StatusKind;
+  detail: string;
+}
+
+/** An artifact-backed eligibility check (Lane C readiness). */
+export interface ArtifactEligibilityCheck {
+  id: string;
+  label: string;
+  status: StatusKind;
+  detail: string;
+}
+
+/** A draft inspection record aggregating all check families for one draft. */
+export interface DraftInspection {
+  id: string;
+  draft_id: string;
+  title: string;
+  source_lineage: { id: string; label: string }[];
+  citation_checks: CitationCheck[];
+  limitation_checks: LimitationCheck[];
+  claim_risk_items: ClaimRiskItem[];
+  no_signal_checks: NoSignalCheck[];
+  artifact_eligibility_checks: ArtifactEligibilityCheck[];
+  approval_readiness: string;
+  approval_readiness_status: StatusKind;
+  human_review_required: boolean;
+  publish_ready: false;
 }
 
 export interface MediaAsset {
@@ -174,10 +260,20 @@ export interface InternalAlphaArtifactPlaceholder {
   reason_blocked: string;
 }
 
+export interface AiWriterLab {
+  source_draft_id: string;
+  audience_modes: string[];
+  style_modes: string[];
+  keyword_groups: SeoKeywordGroup[];
+  outputs: AiWriterOutput[];
+}
+
 export interface ContentOpsViewModel {
   system_state: SystemState;
   content_items: ContentItem[];
   editorial_draft: EditorialDraft;
+  ai_writer_lab: AiWriterLab;
+  draft_inspections: DraftInspection[];
   approval_packets: ApprovalPacket[];
   evidence_packets: EvidencePacket[];
   audit_events: AuditEvent[];
