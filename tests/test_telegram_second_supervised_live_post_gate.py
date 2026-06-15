@@ -60,7 +60,7 @@ def _kwargs(**overrides):
         write_ledger=False,
         repo_root=None,
         dry_run_ledger=_valid_dry_run_ledger(),
-        existing_live_ledger=None,
+        existing_live_ledger={},
         # Inject env-free path by short-circuiting the env read with a fake repo
         # is not possible here; tests that reach the caller pass _api_caller and a
         # repo_root that has a .env. To stay fully network/env-free, the gate-level
@@ -108,7 +108,7 @@ def test_missing_dry_run_ledger_blocks_no_caller():
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
         dry_run_ledger=None, repo_root="/nonexistent_repo_root_xyz",
-        existing_live_ledger=None, _api_caller=spy)
+        existing_live_ledger={}, _api_caller=spy)
     assert out["status"] == "blocked"
     assert spy.calls == 0
     assert "dry_run_0174cq_ledger_missing" in out["blocked_reasons"]
@@ -120,7 +120,7 @@ def test_invalid_dry_run_state_blocks_no_caller():
     bad["would_send_message"] = False
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=bad, existing_live_ledger=None, _api_caller=spy)
+        dry_run_ledger=bad, existing_live_ledger={}, _api_caller=spy)
     assert out["status"] == "blocked"
     assert spy.calls == 0
     assert "dry_run_ledger_field_mismatch:would_send_message" in out["blocked_reasons"]
@@ -132,7 +132,7 @@ def test_payload_text_mismatch_blocks_no_caller():
     payload["content_text"] = "Some other text entirely, not the approved live payload."
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         payload=payload, _api_caller=spy)
     assert out["status"] == "blocked"
     assert spy.calls == 0
@@ -154,7 +154,7 @@ def test_approval_missing_blocks_no_caller():
     spy = SpyCaller(_ok_response())
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         live_approval_record={}, _api_caller=spy)
     assert out["status"] == "blocked"
     assert spy.calls == 0
@@ -166,7 +166,7 @@ def test_approval_hash_mismatch_blocks_no_caller():
     rec["approved_payload_hash"] = "deadbeef"
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         live_approval_record=rec, _api_caller=spy)
     assert out["status"] == "blocked"
     assert spy.calls == 0
@@ -180,7 +180,7 @@ def test_approval_wrong_state_blocks_no_caller():
     rec["approval_state"] = "operator_approved_for_dry_run"
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         live_approval_record=rec, _api_caller=spy)
     assert out["status"] == "blocked"
     assert spy.calls == 0
@@ -194,7 +194,7 @@ def test_approval_missing_ack_blocks_no_caller():
     rec["understands_this_sends_live_message"] = False
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         live_approval_record=rec, _api_caller=spy)
     assert out["status"] == "blocked"
     assert spy.calls == 0
@@ -205,7 +205,7 @@ def test_kill_switch_missing_blocks_no_caller():
     spy = SpyCaller(_ok_response())
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         kill_switch_state={}, _api_caller=spy)
     assert out["status"] == "blocked"
     assert spy.calls == 0
@@ -217,7 +217,7 @@ def test_kill_switch_wrong_override_blocks_no_caller():
     ks["one_time_live_override"] = "operator_approved_0174cn_only"
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         kill_switch_state=ks, _api_caller=spy)
     assert out["status"] == "blocked"
     assert spy.calls == 0
@@ -230,7 +230,7 @@ def test_kill_switch_global_dispatch_not_blocked_blocks_no_caller():
     ks["global_live_dispatch"] = "active"
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         kill_switch_state=ks, _api_caller=spy)
     assert out["status"] == "blocked"
     assert spy.calls == 0
@@ -282,7 +282,7 @@ def test_happy_path_calls_caller_exactly_once(_fake_env):
     spy = SpyCaller(_ok_response())
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         _api_caller=spy)
     assert out["status"] == "pass"
     assert spy.calls == 1
@@ -299,7 +299,7 @@ def test_request_budget_is_one_and_no_retry(_fake_env):
     spy = SpyCaller(_ok_response())
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         _api_caller=spy)
     assert out["request_budget"] == 1
     assert out["no_retry"] is True
@@ -311,7 +311,7 @@ def test_response_ok_true_pass_with_redacted_classes(_fake_env):
     spy = SpyCaller(_ok_response())
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         _api_caller=spy)
     assert out["status"] == "pass"
     # Only redacted classes/booleans present.
@@ -326,7 +326,7 @@ def test_transport_error_blocks_with_one_call_no_retry(_fake_env):
                      "chat_type": None})
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         _api_caller=spy)
     assert out["status"] == "blocked"
     assert out["request_count"] == 1
@@ -341,7 +341,7 @@ def test_response_ok_false_blocks_with_one_call_no_retry(_fake_env):
                      "chat_type": None})
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True,
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         _api_caller=spy)
     assert out["status"] == "blocked"
     assert out["request_count"] == 1
@@ -363,7 +363,7 @@ def test_write_ledger_creates_only_expected_path(tmp_path, monkeypatch):
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True, write_ledger=True,
         repo_root=str(tmp_path),
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         _api_caller=spy)
     assert out["status"] == "pass"
     assert out["ledger_written"] is True
@@ -383,7 +383,7 @@ def test_preview_does_not_write(tmp_path, monkeypatch):
     out = gate.run_second_supervised_live_post_gate(
         live_post_flag=True, operator_go_flag=True, write_ledger=False,
         repo_root=str(tmp_path),
-        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger=None,
+        dry_run_ledger=_valid_dry_run_ledger(), existing_live_ledger={},
         _api_caller=spy)
     assert out["ledger_written"] is False
     assert not (tmp_path / gate.LEDGER_REL_DIR).exists()
