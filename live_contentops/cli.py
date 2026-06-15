@@ -993,6 +993,24 @@ def telegram_credential_readiness_summary():
     print(json.dumps(readiness.summary(use_process_env=use_process_env), indent=2))
 
 
+def telegram_live_getme_gate_summary():
+    import json
+    from live_contentops import telegram_live_getme_gate as gate
+    # 0174CK: the FIRST and ONLY module authorized to make a bounded, live,
+    # read-only Telegram Bot API getMe request. Fail-closed: NO network unless
+    # --live-telegram-getme is passed. Prints ONLY the redacted JSON summary:
+    # no token, chat id, URL, raw response, bot id/username, lengths, or hashes.
+    rest = sys.argv[2:]
+    armed = "--live-telegram-getme" in rest
+    use_process_env = "--process-env" in rest
+    allow_second = "--allow-second-attempt" in rest
+    print(json.dumps(gate.run_getme_gate(
+        armed=armed,
+        use_process_env=use_process_env,
+        allow_second_attempt=allow_second,
+    ), indent=2))
+
+
 def pre_alpha_institutional_ui_ux_rebuild_plan_summary():
     import json
     from live_contentops import institutional_ui_ux_frontend_rebuild_plan as plan
@@ -1316,6 +1334,7 @@ COMMANDS = {
     "pre-alpha-telegram-redacted-credential-presence-check-summary": pre_alpha_telegram_redacted_credential_presence_check_summary,
     "pre-alpha-telegram-official-docs-credential-validation-gate-summary": pre_alpha_telegram_official_docs_credential_validation_gate_summary,
     "telegram-credential-readiness": telegram_credential_readiness_summary,
+    "telegram-live-getme-gate": telegram_live_getme_gate_summary,
     "pre-alpha-institutional-ui-ux-rebuild-plan-summary": pre_alpha_institutional_ui_ux_rebuild_plan_summary,
     "pre-alpha-institutional-design-system-summary": pre_alpha_institutional_design_system_summary,
     "pre-alpha-institutional-ui-view-model-contract-v2-summary": pre_alpha_institutional_ui_view_model_contract_v2_summary,
