@@ -13,7 +13,10 @@ import type {
   DispatchGate,
   DraftInspection,
   LimitationCheck,
+  ManualPublishChecklistItem,
+  ManualPublishRecord,
   MediaAsset,
+  MetricsSnapshot,
   NoSignalCheck,
   PayloadConstraint,
   PlatformPayloadPreview,
@@ -287,6 +290,90 @@ export function selectPayloadConstraint(
   };
 }
 
+export function selectManualPublishRecord(
+  r: ManualPublishRecord,
+): SelectableObject {
+  const allowedAction =
+    r.stage === 'blocked'
+      ? 'None — blocked candidate'
+      : 'Record manual post URL + timestamp (local draft only)';
+  return {
+    kind: 'manual_publish_record',
+    id: r.id,
+    title: `${r.platform} · manual publish`,
+    fields: [
+      { label: 'Platform', value: r.platform },
+      { label: 'Stage', value: r.stage_label, status: r.stage_status },
+      { label: 'Source', value: r.source_draft_id, mono: true },
+      { label: 'Payload', value: r.payload_ref, mono: true },
+      { label: 'Payload #', value: r.payload_hash, mono: true },
+      { label: 'Approval', value: r.approval_packet_ref, mono: true },
+      { label: 'Approval #', value: r.approval_packet_hash, mono: true },
+      { label: 'Manual URL', value: r.manual_url || '(not posted)', mono: true },
+      { label: 'Posted', value: r.published_at || '(not posted)', mono: true },
+      { label: 'Metrics', value: `${r.metrics.length} snapshot(s)` },
+      { label: 'Audit', value: r.audit_state, status: r.audit_status },
+      { label: 'Allowed', value: allowedAction },
+      { label: 'Blocked', value: r.blocked_reason || 'none' },
+      { label: 'Live', value: r.live_status, mono: true, status: 'blocked' },
+      { label: 'Platform API', value: r.platform_api_status, mono: true, status: 'blocked' },
+      { label: 'Credential', value: r.credential_status, mono: true, status: 'blocked' },
+      { label: 'Scheduler', value: r.scheduler_status, mono: true, status: 'blocked' },
+      { label: 'Autonomous', value: r.autonomous_status, mono: true, status: 'blocked' },
+      { label: 'Post live', value: 'can_post_live: false', mono: true, status: 'blocked' },
+      { label: 'Caveat', value: r.caveat },
+    ],
+  };
+}
+
+export function selectMetricsSnapshot(
+  m: MetricsSnapshot,
+  platform: string,
+): SelectableObject {
+  const fields: SelectableObject['fields'] = [
+    { label: 'Platform', value: platform },
+    { label: 'Captured', value: m.captured_at, mono: true },
+    { label: 'Source', value: m.source, mono: true, status: 'review' },
+  ];
+  const counts: { label: string; value?: number }[] = [
+    { label: 'Impressions', value: m.impressions },
+    { label: 'Likes', value: m.likes },
+    { label: 'Comments', value: m.comments },
+    { label: 'Shares', value: m.shares },
+    { label: 'Saves', value: m.saves },
+    { label: 'Clicks', value: m.click_count },
+  ];
+  for (const c of counts) {
+    if (c.value !== undefined) {
+      fields.push({ label: c.label, value: String(c.value), mono: true });
+    }
+  }
+  fields.push({ label: 'Notes', value: m.notes });
+  fields.push({ label: 'Entry', value: 'Manual entry only · no metrics API', status: 'blocked' });
+  return {
+    kind: 'metrics_snapshot',
+    id: m.id,
+    title: `Metrics · ${m.captured_at}`,
+    fields,
+  };
+}
+
+export function selectManualChecklistItem(
+  c: ManualPublishChecklistItem,
+  platform: string,
+): SelectableObject {
+  return {
+    kind: 'manual_checklist_item',
+    id: c.id,
+    title: c.label,
+    fields: [
+      { label: 'Platform', value: platform },
+      { label: 'Status', value: c.status, status: c.status },
+      { label: 'Detail', value: c.detail },
+    ],
+  };
+}
+
 /** Highest-priority inventory row: first item awaiting review, else first row. */
 export function defaultContentItem(items: ContentItem[]): ContentItem {
   return items.find((i) => i.status === 'review') ?? items[0];
@@ -311,6 +398,8 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectDraftInspection(vm.draft_inspections[0]);
     case 'platform_payload_preview':
       return selectPlatformPayloadPreview(vm.platform_payload_previews[0]);
+    case 'manual_publish_metrics':
+      return selectManualPublishRecord(vm.manual_publish_records[0]);
     case 'approval_queue': {
       const p = vm.approval_packets[0];
       const gate =

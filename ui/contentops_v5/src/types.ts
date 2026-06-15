@@ -12,6 +12,7 @@ export type ViewId =
   | 'ai_writer_seo_lab'
   | 'draft_inspector'
   | 'platform_payload_preview'
+  | 'manual_publish_metrics'
   | 'approval_queue'
   | 'evidence_vault';
 
@@ -321,6 +322,84 @@ export interface PlatformPayloadPreview {
   dispatchable: false;
 }
 
+/**
+ * A single operator checklist item that must be satisfied before a manual
+ * (human, off-platform) post is considered done. Purely a recordkeeping aid;
+ * checking items never triggers any posting, scheduling, or network behavior.
+ */
+export interface ManualPublishChecklistItem {
+  id: string;
+  label: string;
+  status: StatusKind;
+  detail: string;
+}
+
+/**
+ * A manually-entered metrics snapshot for a manual publish record. Every value
+ * is typed in by a human from what they observed on-platform. There is NO
+ * metrics API, no provider call, and no fetch: `source` is the literal
+ * 'MANUAL_ENTRY' so an automated/synced snapshot is structurally
+ * unrepresentable. Counts are optional because not every platform exposes every
+ * metric, and `click_count` only applies where a link is present.
+ */
+export interface MetricsSnapshot {
+  id: string;
+  captured_at: string;
+  impressions?: number;
+  likes?: number;
+  comments?: number;
+  shares?: number;
+  saves?: number;
+  click_count?: number;
+  notes: string;
+  source: 'MANUAL_ENTRY';
+}
+
+/**
+ * Manual publish + metrics capture contract. This surface is the bridge from
+ * dry-run payload preview to operator MANUAL posting recordkeeping. It is
+ * manual-only: the operator posts off-platform by hand, then records the URL,
+ * timestamp, and any metrics here. There is zero live posting, scheduling,
+ * platform/provider API, credential read, or autonomous behavior.
+ *
+ * `can_post_live` is the literal `false` so a live-postable record is
+ * structurally unrepresentable. `live_status` / `credential_status` /
+ * `provider_status` / `scheduler_status` are always locked by policy. The
+ * manual URL and timestamps are LOCAL fixture/mock strings, never fetched.
+ */
+export interface ManualPublishRecord {
+  id: string;
+  platform: string;
+  platform_key: string;
+  source_draft_id: string;
+  payload_ref: string;
+  payload_hash: string;
+  approval_packet_ref: string;
+  approval_packet_hash: string;
+  /** Lifecycle bucket the record falls into for the status tabs. */
+  stage: 'approved_for_manual' | 'blocked' | 'manually_posted' | 'metrics_entered';
+  stage_label: string;
+  stage_status: StatusKind;
+  /** Mock/local manual post URL. Empty string when not yet posted. */
+  manual_url: string;
+  /** Local mock publish timestamp. Empty string when not yet posted. */
+  published_at: string;
+  checklist: ManualPublishChecklistItem[];
+  metrics: MetricsSnapshot[];
+  audit_state: string;
+  audit_status: StatusKind;
+  caveat: string;
+  blocked_reason: string;
+  live_status: 'MANUAL_ONLY';
+  platform_api_status: 'NO_PLATFORM_API';
+  credential_status: 'NO_CREDENTIAL_READ';
+  scheduler_status: 'NO_SCHEDULER';
+  autonomous_status: 'NO_AUTONOMOUS_POSTING';
+  metrics_status: 'METRICS_MANUAL_ENTRY_ONLY';
+  review_status: 'HUMAN_REVIEW_REQUIRED';
+  can_post_live: false;
+}
+
 export interface ContentOpsViewModel {
   system_state: SystemState;
   content_items: ContentItem[];
@@ -328,6 +407,7 @@ export interface ContentOpsViewModel {
   ai_writer_lab: AiWriterLab;
   draft_inspections: DraftInspection[];
   platform_payload_previews: PlatformPayloadPreview[];
+  manual_publish_records: ManualPublishRecord[];
   approval_packets: ApprovalPacket[];
   evidence_packets: EvidencePacket[];
   audit_events: AuditEvent[];

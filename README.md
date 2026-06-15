@@ -52,6 +52,13 @@ The V5 console is an object-centric, local-first editorial workspace. Current su
   documented limits. It is dry-run only: no posting, scheduling, credential read,
   provider call, or platform API. Every preview is structurally `dispatchable: false`
   with `LIVE_DISABLED` / `NO_CREDENTIAL_READ` / `NO_PROVIDER_CALL` states locked.
+- **Manual Publish** — manual publish + metrics capture recordkeeping. The operator
+  posts off-platform by hand, then records the (local mock) post URL, publish timestamp,
+  and hand-entered metrics snapshots here. It is manual-only: no live posting, scheduler,
+  platform/provider API, credential read, or metrics fetch/sync. Every record is
+  structurally `can_post_live: false`, metrics are `METRICS_MANUAL_ENTRY_ONLY`, and the
+  `MANUAL_ONLY` / `NO_PLATFORM_API` / `NO_CREDENTIAL_READ` / `NO_SCHEDULER` /
+  `NO_AUTONOMOUS_POSTING` / `HUMAN_REVIEW_REQUIRED` states are surfaced.
 - **Approval & Dispatch** — approval gating (live dispatch disabled by policy).
 - **Evidence Vault** — audit timeline and evidence packets.
 

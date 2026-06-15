@@ -185,6 +185,15 @@ export function IconLayers(p: IconProps) {
   );
 }
 
+export function IconSend(p: IconProps) {
+  return (
+    <svg {...base(p)}>
+      <path d="M22 2L11 13" />
+      <path d="M22 2l-7 20-4-9-9-4 20-7z" />
+    </svg>
+  );
+}
+
 export const VIEW_ICONS: Record<string, (p: IconProps) => JSX.Element> = {
   dashboard: IconDashboard,
   inventory: IconInventory,
@@ -192,6 +201,7 @@ export const VIEW_ICONS: Record<string, (p: IconProps) => JSX.Element> = {
   sparkle: IconSparkle,
   fingerprint: IconFingerprint,
   layers: IconLayers,
+  send: IconSend,
   shield: IconShield,
   lock: IconLock,
 };
