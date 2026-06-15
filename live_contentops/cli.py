@@ -1251,7 +1251,8 @@ def pre_alpha_social_platform_foundation_summary():
 def next_platform_account_binding_selection_gate_summary():
     import json
     from live_contentops import next_platform_account_binding_selection_gate as gate
-    write = gate.FLAG_WRITE_PACKET in sys.argv
+    rest = sys.argv[2:]
+    write = gate.FLAG_WRITE_PACKET in rest
     print(json.dumps(gate.run_gate(write=write), indent=2))
 
 
