@@ -5,6 +5,7 @@
 
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
+import { selectAiVariant, selectMediaAsset } from '../selectors';
 import { IconImage, IconSparkle } from '../ui/icons';
 import {
   EvidenceChip,
@@ -102,22 +103,7 @@ export function WriterStudio() {
                     type="button"
                     key={v.variant_id}
                     id={`ai-${v.variant_id}`}
-                    onClick={() =>
-                      select({
-                        kind: 'ai_variant',
-                        id: v.variant_id,
-                        title: `${v.platform} · ${v.style_mode}`,
-                        fields: [
-                          { label: 'Platform', value: v.platform },
-                          { label: 'Audience', value: v.audience_mode },
-                          { label: 'Style', value: v.style_mode },
-                          { label: 'Guardrail', value: v.guardrail_status, status: v.guardrail_status },
-                          { label: 'Review', value: v.human_review_required ? 'required' : 'no', status: 'review' },
-                          { label: 'Postable', value: 'no', status: 'blocked' },
-                          { label: 'Reason', value: v.not_public_postable_reason },
-                        ],
-                      })
-                    }
+                    onClick={() => select(selectAiVariant(v))}
                     className={`w-full rounded-lg border px-3 py-2.5 text-left transition-colors ${
                       active
                         ? 'border-accent/40 bg-accent/5'
@@ -243,20 +229,7 @@ export function WriterStudio() {
                     <button
                       type="button"
                       id={`media-${m.id}`}
-                      onClick={() =>
-                        select({
-                          kind: 'media_asset',
-                          id: m.id,
-                          title: m.name,
-                          fields: [
-                            { label: 'Kind', value: m.kind, mono: true },
-                            { label: 'Alt text', value: m.alt_text },
-                            { label: 'Rights', value: m.rights_label, status: m.rights_status },
-                            { label: 'Selected', value: m.selected ? 'yes' : 'no' },
-                            { label: 'Constraints', value: m.platform_constraints.join(' · ') },
-                          ],
-                        })
-                      }
+                      onClick={() => select(selectMediaAsset(m))}
                       className={`flex w-full items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-colors ${
                         active
                           ? 'border-accent/40 bg-accent/5'

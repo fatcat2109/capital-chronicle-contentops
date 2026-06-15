@@ -10,11 +10,17 @@ import {
   StatusChip,
   StatusDot,
 } from '../ui/primitives';
+import { selectBlocker, selectSystemVerdict } from '../selectors';
 import { IconChevronRight } from '../ui/icons';
 
 export function CommandCenter() {
   const { select, selected, setView } = useApp();
   const s = viewModel.system_state;
+  const topBlocker =
+    s.blockers.find((b) => b.severity === 'blocked') ?? s.blockers[0];
+  const verdictActive = selected?.kind === 'system_verdict';
+  const topBlockerActive =
+    selected?.kind === 'blocker' && selected.id === topBlocker.id;
 
   return (
     <div className="space-y-8">
@@ -33,32 +39,18 @@ export function CommandCenter() {
         </p>
       </header>
 
-      {/* Verdict spine */}
-      <button
-        type="button"
-        id="verdict-spine"
-        onClick={() =>
-          select({
-            kind: 'system_verdict',
-            id: s.baseline_ref,
-            title: s.verdict,
-            fields: [
-              { label: 'Status', value: s.verdict, status: s.verdict_status },
-              { label: 'Baseline', value: s.baseline_ref, mono: true },
-              { label: 'Provenance', value: s.build_provenance, mono: true },
-              { label: 'Next', value: s.next_allowed_action },
-            ],
-          })
-        }
-        className={`group flex w-full items-center gap-4 rounded-xl border bg-surface-1 p-4 text-left shadow-card transition-colors hover:border-line-strong ${
-          selected?.kind === 'system_verdict'
-            ? 'border-accent/50'
-            : 'border-line'
-        }`}
-      >
-        <span className="flex h-12 w-1.5 shrink-0 rounded-full bg-status-verified" />
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-center gap-2">
+      {/* Decision spine — verdict + next action paired with the top blocker. */}
+      <section className="grid grid-cols-1 gap-4 lg:grid-cols-5">
+        <button
+          type="button"
+          id="verdict-spine"
+          onClick={() => select(selectSystemVerdict(s))}
+          className={`group flex flex-col rounded-xl border bg-surface-1 p-5 text-left shadow-card transition-colors hover:border-line-strong lg:col-span-3 ${
+            verdictActive ? 'border-accent/50 ring-1 ring-accent/20' : 'border-line'
+          }`}
+        >
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-1.5 shrink-0 rounded-full bg-status-verified" />
             <StatusChip status={s.verdict_status} icon>
               {s.verdict}
             </StatusChip>
@@ -66,18 +58,53 @@ export function CommandCenter() {
               {s.baseline_ref}
             </span>
           </div>
-          <p className="mt-1.5 text-sm text-fg">
-            <span className="text-fg-muted">Next allowed action — </span>
-            <span className="font-medium">{s.next_allowed_action}</span>
-          </p>
-        </div>
-        <IconChevronRight className="h-4 w-4 shrink-0 text-fg-subtle transition-transform group-hover:translate-x-0.5" />
-      </button>
+          <div className="mt-4 rounded-lg border border-line bg-surface-2 p-3">
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+              Next allowed action
+            </div>
+            <p className="mt-1 text-sm font-medium text-fg">
+              {s.next_allowed_action}
+            </p>
+          </div>
+          <span className="mt-3 flex items-center gap-1 font-mono text-[11px] text-fg-subtle group-hover:text-fg-muted">
+            Inspect verdict
+            <IconChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </button>
 
-      {/* Pipeline health */}
+        <button
+          type="button"
+          id="top-blocker-spine"
+          onClick={() => select(selectBlocker(topBlocker))}
+          className={`group flex flex-col rounded-xl border p-5 text-left shadow-card transition-colors hover:border-line-strong lg:col-span-2 ${
+            topBlockerActive
+              ? 'border-accent/50 ring-1 ring-accent/20'
+              : 'border-status-blocked/30'
+          } bg-status-blocked/5`}
+        >
+          <div className="flex items-center justify-between gap-2">
+            <span className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-status-blocked">
+              Top blocker
+            </span>
+            <StatusChip status={topBlocker.severity}>{topBlocker.id}</StatusChip>
+          </div>
+          <p className="mt-3 text-sm font-semibold leading-snug text-fg">
+            {topBlocker.label}
+          </p>
+          <p className="mt-1 text-[12px] leading-relaxed text-fg-muted">
+            {topBlocker.detail}
+          </p>
+          <span className="mt-auto flex items-center gap-1 pt-3 font-mono text-[11px] text-fg-subtle group-hover:text-fg-muted">
+            Inspect blocker
+            <IconChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          </span>
+        </button>
+      </section>
+
+      {/* Pipeline health — dense strip, not a standalone board. */}
       <section>
         <SectionLabel>Pipeline health</SectionLabel>
-        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           {s.pipeline_health.map((m) => (
             <Metric
               key={m.label}
@@ -111,18 +138,7 @@ export function CommandCenter() {
                   <button
                     type="button"
                     id={`blocker-${b.id}`}
-                    onClick={() =>
-                      select({
-                        kind: 'blocker',
-                        id: b.id,
-                        title: b.label,
-                        fields: [
-                          { label: 'Severity', value: b.severity, status: b.severity },
-                          { label: 'ID', value: b.id, mono: true },
-                          { label: 'Detail', value: b.detail },
-                        ],
-                      })
-                    }
+                    onClick={() => select(selectBlocker(b))}
                     className={`flex w-full items-start gap-3 rounded-lg border bg-surface-2 px-3 py-2.5 text-left transition-colors hover:bg-surface-3 ${
                       active ? 'border-accent/50' : 'border-line'
                     }`}

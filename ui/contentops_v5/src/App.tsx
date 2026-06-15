@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react';
 import { AppContext, NAV_ITEMS, useApp } from './state';
 import type { SelectableObject, ThemeMode, ViewId } from './types';
 import { viewModel } from './fixtures';
+import { defaultSelectionFor } from './selectors';
 import { StatusChip, StatusDot } from './ui/primitives';
 import { VIEW_ICONS, IconClose, IconShield, IconSun, IconMoon } from './ui/icons';
 import { CommandCenter } from './views/CommandCenter';
@@ -16,7 +17,10 @@ import { EvidenceVault } from './views/EvidenceVault';
 export default function App() {
   const [view, setView] = useState<ViewId>('command_center');
   const [theme, setTheme] = useState<ThemeMode>('light');
-  const [selected, setSelected] = useState<SelectableObject | null>(null);
+  // Inspector is never empty on first render: each view has a default object.
+  const [selected, setSelected] = useState<SelectableObject | null>(() =>
+    defaultSelectionFor('command_center'),
+  );
 
   // Evidence Vault forces dark evidence mode; other views use chosen theme.
   const effectiveTheme: ThemeMode =
@@ -27,7 +31,8 @@ export default function App() {
       view,
       setView: (v: ViewId) => {
         setView(v);
-        setSelected(null);
+        // Reset the inspector to the new view's primary object.
+        setSelected(defaultSelectionFor(v));
       },
       theme,
       setTheme,

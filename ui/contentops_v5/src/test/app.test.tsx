@@ -54,11 +54,12 @@ describe('ContentOps V5 app shell', () => {
     expect(toggle).toBeDisabled();
   });
 
-  it('shows the inspector empty state before any selection', () => {
+  it('shows a default selected object in the inspector on first render', () => {
     render(<App />);
     const rail = document.getElementById('inspector-rail')!;
-    expect(
-      within(rail).getByText(/select an object/i),
-    ).toBeInTheDocument();
+    // Inspector must never be empty on first render: Command Center defaults
+    // to the system verdict object, so the empty-state copy is absent.
+    expect(within(rail).queryByText(/select an object/i)).toBeNull();
+    expect(within(rail).getByText(/system verdict/i)).toBeInTheDocument();
   });
 });

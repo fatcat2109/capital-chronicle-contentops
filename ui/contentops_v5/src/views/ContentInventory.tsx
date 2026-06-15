@@ -5,14 +5,9 @@ import { useMemo, useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { Panel, SectionLabel, StatusChip, StatusDot } from '../ui/primitives';
+import { selectContentItem, LANE_LABEL } from '../selectors';
 import { IconSearch } from '../ui/icons';
 import type { StatusKind } from '../types';
-
-const LANE_LABEL: Record<string, string> = {
-  A_pre_alpha: 'A · Pre-alpha',
-  B_grounded_news: 'B · Grounded news',
-  C_artifact_backed: 'C · Artifact-backed',
-};
 
 const LANE_FILTERS: { id: string; label: string }[] = [
   { id: 'all', label: 'All lanes' },
@@ -55,6 +50,33 @@ export function ContentInventory() {
           lanes. Select a row to inspect its full provenance.
         </p>
       </header>
+
+      {/* Status summary — lane/status composition at a glance. */}
+      <div className="grid grid-cols-3 gap-3">
+        {(['verified', 'review', 'blocked'] as StatusKind[]).map((st) => {
+          const count = items.filter((i) => i.status === st).length;
+          const label =
+            st === 'verified'
+              ? 'Review passed'
+              : st === 'review'
+                ? 'Awaiting review'
+                : 'Blocked';
+          return (
+            <div
+              key={st}
+              className="flex items-center justify-between gap-2 rounded-xl border border-line bg-surface-1 px-4 py-3 shadow-card"
+            >
+              <span className="flex items-center gap-2 text-[12px] text-fg-muted">
+                <StatusDot status={st} />
+                {label}
+              </span>
+              <span className="font-mono text-xl font-semibold text-fg">
+                {count}
+              </span>
+            </div>
+          );
+        })}
+      </div>
 
       {/* Controls */}
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -113,25 +135,13 @@ export function ContentInventory() {
                   <tr
                     key={it.id}
                     id={`content-row-${it.id}`}
-                    onClick={() =>
-                      select({
-                        kind: 'content_item',
-                        id: it.id,
-                        title: it.title,
-                        fields: [
-                          { label: 'Lane', value: LANE_LABEL[it.lane] },
-                          { label: 'Type', value: it.content_type, mono: true },
-                          { label: 'Status', value: it.status_label, status: it.status },
-                          { label: 'Approval', value: it.approval_state },
-                          { label: 'Platform', value: it.platform_fit.join(', ') || '—' },
-                          { label: 'Owner', value: it.owner },
-                          { label: 'Updated', value: it.last_updated, mono: true },
-                          { label: 'Evidence', value: it.evidence_id, mono: true },
-                        ],
-                      })
-                    }
+                    onClick={() => select(selectContentItem(it))}
                     className={`cursor-pointer border-b border-line transition-colors ${
-                      active ? 'bg-accent/5' : 'hover:bg-surface-2'
+                      active
+                        ? 'bg-accent/5'
+                        : it.status === 'blocked'
+                          ? 'bg-status-blocked/[0.04] hover:bg-status-blocked/[0.08]'
+                          : 'hover:bg-surface-2'
                     }`}
                   >
                     <td className="whitespace-nowrap px-3 py-3 font-mono text-[12px] text-fg-muted">

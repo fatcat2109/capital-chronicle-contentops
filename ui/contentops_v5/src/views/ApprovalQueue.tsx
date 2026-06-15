@@ -4,6 +4,7 @@
 
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
+import { selectDispatchGate } from '../selectors';
 import {
   LockedAction,
   Panel,
@@ -93,18 +94,7 @@ export function ApprovalQueue() {
                   <button
                     type="button"
                     id={`gate-${g.id}`}
-                    onClick={() =>
-                      select({
-                        kind: 'dispatch_gate',
-                        id: g.id,
-                        title: g.label,
-                        fields: [
-                          { label: 'Status', value: g.status, status: g.status },
-                          { label: 'Cleared', value: g.cleared ? 'yes' : 'no', mono: true },
-                          { label: 'Detail', value: g.detail },
-                        ],
-                      })
-                    }
+                    onClick={() => select(selectDispatchGate(g))}
                     className={`flex w-full items-center justify-between gap-3 rounded-lg border px-3 py-2.5 text-left transition-colors ${
                       active
                         ? 'border-accent/40 bg-accent/5'

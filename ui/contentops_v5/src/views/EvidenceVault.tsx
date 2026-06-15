@@ -4,6 +4,7 @@
 
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
+import { selectValidation } from '../selectors';
 import { IconClock, IconFingerprint } from '../ui/icons';
 import {
   EvidenceChip,
@@ -56,18 +57,7 @@ export function EvidenceVault() {
                     <button
                       type="button"
                       id={`vm-${v.id}`}
-                      onClick={() =>
-                        select({
-                          kind: 'validation',
-                          id: v.id,
-                          title: v.label,
-                          fields: [
-                            { label: 'Status', value: v.status, status: v.status },
-                            { label: 'Detail', value: v.detail },
-                            { label: 'Packet', value: packet.id, mono: true },
-                          ],
-                        })
-                      }
+                      onClick={() => select(selectValidation(v, packet.id))}
                       className={`flex w-full items-center justify-between gap-3 px-1 py-2.5 text-left transition-colors ${
                         active ? 'bg-accent/5' : 'hover:bg-surface-2'
                       }`}
