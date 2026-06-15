@@ -248,7 +248,7 @@ function InspectorRail() {
           <div className="mt-1 text-base font-semibold leading-snug text-fg">
             {selected.title}
           </div>
-          <div className="mt-1 font-mono text-[11px] text-fg-subtle">
+          <div className="mt-1 font-mono text-[11px] text-fg-muted">
             {selected.id}
           </div>
           <dl className="mt-4 space-y-3 border-t border-line pt-4">
@@ -257,12 +257,12 @@ function InspectorRail() {
                 key={i}
                 className="grid grid-cols-[5.5rem_1fr] items-start gap-3"
               >
-                <dt className="font-mono text-[10.5px] uppercase leading-5 tracking-wide text-fg-subtle">
+                <dt className="font-mono text-[10.5px] font-semibold uppercase leading-5 tracking-wide text-fg-muted">
                   {f.label}
                 </dt>
                 <dd
-                  className={`text-sm leading-5 text-fg ${
-                    f.mono ? 'break-all font-mono text-[12px]' : ''
+                  className={`text-sm font-medium leading-5 text-fg ${
+                    f.mono ? 'break-all font-mono text-[12px] font-normal' : ''
                   }`}
                 >
                   {f.status ? (

@@ -158,8 +158,8 @@ export function ContentInventory() {
                     <td className="whitespace-nowrap px-3 py-3 text-xs text-fg-muted">
                       {LANE_LABEL[it.lane]}
                     </td>
-                    <td className="px-3 py-3">
-                      <StatusChip status={it.status}>
+                    <td className="whitespace-nowrap px-3 py-3">
+                      <StatusChip status={it.status} nowrap>
                         {it.status_label}
                       </StatusChip>
                     </td>

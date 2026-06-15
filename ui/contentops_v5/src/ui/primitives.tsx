@@ -24,10 +24,12 @@ export function StatusChip({
   status,
   children,
   icon = false,
+  nowrap = false,
 }: {
   status: StatusKind;
   children: ReactNode;
   icon?: boolean;
+  nowrap?: boolean;
 }) {
   const Icon =
     status === 'verified'
@@ -39,7 +41,9 @@ export function StatusChip({
           : null;
   return (
     <span
-      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 font-mono text-[10.5px] font-bold uppercase tracking-wide ${STATUS_CLASS[status]}`}
+      className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 font-mono text-[10.5px] font-bold uppercase tracking-wide ${
+        nowrap ? 'whitespace-nowrap' : ''
+      } ${STATUS_CLASS[status]}`}
     >
       {icon && Icon && <Icon className="h-3 w-3" />}
       {children}

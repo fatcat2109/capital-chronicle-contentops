@@ -136,6 +136,51 @@ export function WriterStudio() {
 
         {/* Right: guardrails, SEO, media */}
         <div className="space-y-6">
+          {/* Compact media quick-access — keeps the Media Tray reachable in the
+              first fold at 1440x900. Mock/local assets only: no upload, no file
+              picker, no media API. Selecting a chip routes to the inspector. */}
+          <Panel
+            title={
+              <span className="flex items-center gap-2">
+                <IconImage className="h-4 w-4 text-fg-subtle" />
+                Media Tray
+              </span>
+            }
+            subtitle="Mock only · local assets · no upload, no file picker, no media API"
+            actions={
+              <span className="rounded-md border border-line bg-surface-2 px-1.5 py-0.5 font-mono text-[10.5px] text-fg-muted">
+                {d.media.length} mock
+              </span>
+            }
+            bodyClassName="p-3"
+          >
+            <div className="flex flex-wrap gap-1.5">
+              {d.media.map((m) => {
+                const active =
+                  selected?.kind === 'media_asset' && selected.id === m.id;
+                return (
+                  <button
+                    type="button"
+                    key={m.id}
+                    id={`media-chip-${m.id}`}
+                    onClick={() => select(selectMediaAsset(m))}
+                    className={`flex items-center gap-2 rounded-full border px-2.5 py-1 text-[11px] font-medium transition-colors ${
+                      active
+                        ? 'border-accent/40 bg-accent/5 text-fg'
+                        : 'border-line bg-surface-2 text-fg-muted hover:border-line-strong hover:text-fg'
+                    }`}
+                  >
+                    <IconImage className="h-3.5 w-3.5 shrink-0 text-fg-subtle" />
+                    <span className="max-w-[10rem] truncate font-mono">
+                      {m.name}
+                    </span>
+                    <StatusDot status={m.rights_status} />
+                  </button>
+                );
+              })}
+            </div>
+          </Panel>
+
           <Panel title="Guardrails &amp; claim risk" bodyClassName="p-4 space-y-4">
             <div>
               <SectionLabel>Guardrails</SectionLabel>
@@ -209,54 +254,6 @@ export function WriterStudio() {
             <p className="mt-3 font-mono text-[11px] text-fg-subtle">
               Readability: {d.seo.readability}
             </p>
-          </Panel>
-
-          <Panel
-            title={
-              <span className="flex items-center gap-2">
-                <IconImage className="h-4 w-4 text-fg-subtle" />
-                Media Tray
-              </span>
-            }
-            subtitle="Mock only · no upload, no file picker"
-          >
-            <ul className="space-y-2">
-              {d.media.map((m) => {
-                const active =
-                  selected?.kind === 'media_asset' && selected.id === m.id;
-                return (
-                  <li key={m.id}>
-                    <button
-                      type="button"
-                      id={`media-${m.id}`}
-                      onClick={() => select(selectMediaAsset(m))}
-                      className={`flex w-full items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-colors ${
-                        active
-                          ? 'border-accent/40 bg-accent/5'
-                          : m.selected
-                            ? 'border-line-strong bg-surface-2'
-                            : 'border-line bg-surface-2 hover:border-line-strong'
-                      }`}
-                    >
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-line bg-surface-3 text-fg-subtle">
-                        <IconImage className="h-4 w-4" />
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <span className="block truncate font-mono text-[12px] text-fg">
-                          {m.name}
-                        </span>
-                        <span className="block truncate text-[11px] text-fg-subtle">
-                          {m.alt_text}
-                        </span>
-                      </span>
-                      <StatusChip status={m.rights_status}>
-                        {m.rights_status}
-                      </StatusChip>
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
           </Panel>
         </div>
       </div>
