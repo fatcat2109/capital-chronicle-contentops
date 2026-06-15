@@ -45,9 +45,11 @@ export default function App() {
           <div className="flex min-h-0 flex-1">
             <main
               id="v5-workspace"
-              className="min-w-0 flex-1 overflow-y-auto p-6"
+              className="min-w-[28rem] flex-1 overflow-y-auto p-6"
             >
-              <ActiveView />
+              <div className="mx-auto w-full max-w-6xl">
+                <ActiveView />
+              </div>
             </main>
             <InspectorRail />
           </div>
@@ -60,7 +62,7 @@ export default function App() {
 function LeftNav() {
   const [activeView, setView] = [useApp().view, useApp().setView];
   return (
-    <nav className="flex w-60 flex-col border-r border-line bg-surface-1">
+    <nav className="flex w-60 shrink-0 flex-col border-r border-line bg-surface-1">
       <div className="flex items-center gap-2 border-b border-line px-4 py-4">
         <div className="flex h-8 w-8 items-center justify-center rounded bg-fg text-bg font-mono text-sm font-bold">
           CC
@@ -164,7 +166,7 @@ function InspectorRail() {
   return (
     <aside
       id="inspector-rail"
-      className="w-80 shrink-0 overflow-y-auto border-l border-line bg-surface-1 p-4"
+      className="hidden w-80 shrink-0 overflow-y-auto border-l border-line bg-surface-1 p-4 xl:block"
     >
       <h2 className="font-mono text-[11px] uppercase tracking-wide text-fg-muted">
         Inspector
