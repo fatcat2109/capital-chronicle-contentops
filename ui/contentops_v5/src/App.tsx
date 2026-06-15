@@ -2,10 +2,11 @@
 // Local-first. No network, no storage, no credentials.
 
 import { useMemo, useState } from 'react';
-import { AppContext, NAV_ITEMS } from './state';
+import { AppContext, NAV_ITEMS, useApp } from './state';
 import type { SelectableObject, ThemeMode, ViewId } from './types';
 import { viewModel } from './fixtures';
-import { StatusChip } from './ui/primitives';
+import { StatusChip, StatusDot } from './ui/primitives';
+import { VIEW_ICONS, IconClose, IconShield, IconSun, IconMoon } from './ui/icons';
 import { CommandCenter } from './views/CommandCenter';
 import { ContentInventory } from './views/ContentInventory';
 import { WriterStudio } from './views/WriterStudio';
@@ -24,7 +25,10 @@ export default function App() {
   const ctx = useMemo(
     () => ({
       view,
-      setView,
+      setView: (v: ViewId) => {
+        setView(v);
+        setSelected(null);
+      },
       theme,
       setTheme,
       selected,
@@ -45,9 +49,9 @@ export default function App() {
           <div className="flex min-h-0 flex-1">
             <main
               id="v5-workspace"
-              className="min-w-[28rem] flex-1 overflow-y-auto p-6"
+              className="min-w-[28rem] flex-1 overflow-y-auto"
             >
-              <div className="mx-auto w-full max-w-6xl">
+              <div key={view} className="animate-fade-in mx-auto w-full max-w-container p-6 lg:p-8">
                 <ActiveView />
               </div>
             </main>
@@ -60,46 +64,72 @@ export default function App() {
 }
 
 function LeftNav() {
-  const [activeView, setView] = [useApp().view, useApp().setView];
+  const { view, setView } = useApp();
+  const s = viewModel.system_state;
   return (
-    <nav className="flex w-60 shrink-0 flex-col border-r border-line bg-surface-1">
-      <div className="flex items-center gap-2 border-b border-line px-4 py-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded bg-fg text-bg font-mono text-sm font-bold">
+    <nav className="flex w-64 shrink-0 flex-col border-r border-line bg-surface-1">
+      <div className="flex items-center gap-3 border-b border-line px-5 py-4">
+        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-fg font-mono text-sm font-bold text-bg shadow-card">
           CC
         </div>
-        <div>
-          <div className="text-sm font-semibold text-fg">ContentOps</div>
-          <div className="font-mono text-[11px] text-fg-muted">V5 · local</div>
+        <div className="min-w-0">
+          <div className="truncate text-sm font-semibold text-fg">
+            ContentOps
+          </div>
+          <div className="font-mono text-[11px] text-fg-subtle">
+            V5 · local-first
+          </div>
         </div>
       </div>
-      <ul className="flex-1 space-y-1 p-2">
-        {NAV_ITEMS.map((item) => (
-          <li key={item.id}>
-            <button
-              type="button"
-              id={`nav-${item.id}`}
-              onClick={() => setView(item.id)}
-              className={`flex w-full items-center gap-3 rounded-md px-3 py-2 text-left text-sm transition-colors ${
-                activeView === item.id
-                  ? 'bg-surface-3 font-semibold text-fg'
-                  : 'text-fg-muted hover:bg-surface-2 hover:text-fg'
-              }`}
-            >
-              <span className="font-mono text-[11px] uppercase">
-                {item.icon.slice(0, 2)}
-              </span>
-              {item.label}
-            </button>
-          </li>
-        ))}
+
+      <ul className="flex-1 space-y-0.5 overflow-y-auto p-3">
+        {NAV_ITEMS.map((item) => {
+          const Icon = VIEW_ICONS[item.icon];
+          const active = view === item.id;
+          return (
+            <li key={item.id}>
+              <button
+                type="button"
+                id={`nav-${item.id}`}
+                onClick={() => setView(item.id)}
+                aria-current={active ? 'page' : undefined}
+                className={`group relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
+                  active
+                    ? 'bg-surface-2 font-semibold text-fg'
+                    : 'text-fg-muted hover:bg-surface-2 hover:text-fg'
+                }`}
+              >
+                <span
+                  className={`absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-full bg-accent transition-opacity ${
+                    active ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  aria-hidden
+                />
+                <Icon
+                  className={`h-[18px] w-[18px] shrink-0 ${
+                    active ? 'text-accent' : 'text-fg-subtle group-hover:text-fg-muted'
+                  }`}
+                />
+                <span className="truncate">{item.label}</span>
+              </button>
+            </li>
+          );
+        })}
       </ul>
+
       <div className="border-t border-line p-3">
-        <div className="rounded-md border border-line bg-surface-2 p-2">
-          <div className="font-mono text-[11px] uppercase text-fg-muted">
-            Mode
+        <div className="rounded-lg border border-line bg-surface-2 p-3">
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-[10.5px] uppercase tracking-wide text-fg-subtle">
+              Mode
+            </span>
+            <StatusDot status="verified" />
           </div>
-          <div className="mt-1 text-xs font-semibold text-fg">
-            {viewModel.system_state.product_mode}
+          <div className="mt-1 font-mono text-[12px] font-semibold text-fg">
+            {s.product_mode}
+          </div>
+          <div className="mt-0.5 text-[11px] text-fg-subtle">
+            Review-only · no live posting
           </div>
         </div>
       </div>
@@ -110,33 +140,40 @@ function LeftNav() {
 function SafetyBar({ effectiveTheme }: { effectiveTheme: ThemeMode }) {
   const { theme, setTheme, view } = useApp();
   const s = viewModel.system_state;
+  const isDark = effectiveTheme === 'dark-evidence';
   return (
     <header className="flex items-center justify-between gap-4 border-b border-line bg-surface-1 px-6 py-3">
-      <div className="flex items-center gap-3">
-        <StatusChip status={s.verdict_status}>{s.verdict}</StatusChip>
-        <span className="font-mono text-[11px] text-fg-muted">
+      <div className="flex min-w-0 items-center gap-3">
+        <IconShield className="h-4 w-4 shrink-0 text-status-verified" />
+        <StatusChip status={s.verdict_status} icon>
+          {s.verdict}
+        </StatusChip>
+        <span className="hidden truncate font-mono text-[11px] text-fg-subtle md:inline">
           {s.build_provenance}
         </span>
       </div>
-      <div className="flex items-center gap-3">
-        <span className="font-mono text-[11px] text-fg-muted">
+      <div className="flex shrink-0 items-center gap-3">
+        <span className="hidden font-mono text-[11px] text-fg-subtle sm:inline">
           {s.baseline_ref}
         </span>
         <button
           type="button"
           id="theme-toggle"
           disabled={view === 'evidence_vault'}
-          onClick={() =>
-            setTheme(theme === 'light' ? 'dark-evidence' : 'light')
-          }
-          className="rounded border border-line bg-surface-2 px-2 py-1 font-mono text-[11px] text-fg-muted disabled:opacity-50"
+          onClick={() => setTheme(theme === 'light' ? 'dark-evidence' : 'light')}
+          className="flex items-center gap-1.5 rounded-md border border-line bg-surface-2 px-2.5 py-1.5 font-mono text-[11px] text-fg-muted transition-colors hover:border-line-strong hover:text-fg disabled:cursor-not-allowed disabled:opacity-50"
           title={
             view === 'evidence_vault'
               ? 'Evidence Vault is always dark evidence mode'
               : 'Toggle theme'
           }
         >
-          {effectiveTheme === 'light' ? 'LIGHT' : 'DARK-EVIDENCE'}
+          {isDark ? (
+            <IconMoon className="h-3.5 w-3.5" />
+          ) : (
+            <IconSun className="h-3.5 w-3.5" />
+          )}
+          {isDark ? 'DARK-EVIDENCE' : 'LIGHT'}
         </button>
       </div>
     </header>
@@ -162,42 +199,72 @@ function ActiveView() {
 }
 
 function InspectorRail() {
-  const { selected } = useApp();
+  const { selected, select } = useApp();
   return (
     <aside
       id="inspector-rail"
-      className="hidden w-80 shrink-0 overflow-y-auto border-l border-line bg-surface-1 p-4 xl:block"
+      className="hidden w-80 shrink-0 overflow-y-auto border-l border-line bg-surface-1 xl:block"
     >
-      <h2 className="font-mono text-[11px] uppercase tracking-wide text-fg-muted">
-        Inspector
-      </h2>
+      <header className="sticky top-0 z-10 flex items-center justify-between border-b border-line bg-surface-1/95 px-4 py-3 backdrop-blur">
+        <h2 className="font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-fg-subtle">
+          Inspector
+        </h2>
+        {selected && (
+          <button
+            type="button"
+            id="inspector-clear"
+            onClick={() => select(null)}
+            className="flex h-6 w-6 items-center justify-center rounded-md text-fg-subtle transition-colors hover:bg-surface-2 hover:text-fg"
+            title="Clear selection"
+          >
+            <IconClose className="h-3.5 w-3.5" />
+          </button>
+        )}
+      </header>
+
       {!selected ? (
-        <p className="mt-4 text-sm text-fg-muted">
-          Select an object to view its properties and evidence.
-        </p>
-      ) : (
-        <div className="mt-4">
-          <div className="font-mono text-[11px] uppercase text-fg-muted">
-            {selected.kind}
+        <div className="bg-grid flex min-h-[16rem] flex-col items-center justify-center px-6 py-10 text-center">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-dashed border-line-strong text-fg-subtle">
+            <IconShield className="h-5 w-5" />
           </div>
-          <div className="mt-1 text-sm font-semibold text-fg">
+          <p className="mt-3 text-sm font-medium text-fg-muted">
+            Select an object
+          </p>
+          <p className="mt-1 text-[12px] leading-relaxed text-fg-subtle">
+            Select a card, row, gate, asset, or evidence item to inspect its
+            properties and provenance.
+          </p>
+        </div>
+      ) : (
+        <div key={`${selected.kind}-${selected.id}`} className="animate-fade-in p-4">
+          <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-accent">
+            {selected.kind.replace(/_/g, ' ')}
+          </div>
+          <div className="mt-1 text-base font-semibold leading-snug text-fg">
             {selected.title}
           </div>
-          <div className="mt-1 font-mono text-[11px] text-fg-muted">
+          <div className="mt-1 font-mono text-[11px] text-fg-subtle">
             {selected.id}
           </div>
           <dl className="mt-4 space-y-3 border-t border-line pt-4">
             {selected.fields.map((f, i) => (
-              <div key={i}>
-                <dt className="font-mono text-[11px] uppercase text-fg-muted">
+              <div
+                key={i}
+                className="grid grid-cols-[5.5rem_1fr] items-start gap-3"
+              >
+                <dt className="font-mono text-[10.5px] uppercase leading-5 tracking-wide text-fg-subtle">
                   {f.label}
                 </dt>
                 <dd
-                  className={`mt-0.5 text-sm text-fg ${
-                    f.mono ? 'font-mono text-[12px]' : ''
+                  className={`text-sm leading-5 text-fg ${
+                    f.mono ? 'break-all font-mono text-[12px]' : ''
                   }`}
                 >
-                  {f.value}
+                  {f.status ? (
+                    <StatusChip status={f.status}>{f.value}</StatusChip>
+                  ) : (
+                    f.value
+                  )}
                 </dd>
               </div>
             ))}
@@ -207,6 +274,3 @@ function InspectorRail() {
     </aside>
   );
 }
-
-// Local import to avoid circular import ordering issues in some bundlers.
-import { useApp } from './state';

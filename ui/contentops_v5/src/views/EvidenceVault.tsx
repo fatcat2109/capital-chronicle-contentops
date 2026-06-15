@@ -1,171 +1,173 @@
-// Capital Chronicle ContentOps V5 — Evidence Vault view (dark evidence mode).
-// Forensic / compliance-room surface. No network, no storage, no credentials.
+// Capital Chronicle ContentOps V5 — Evidence Vault view.
+// Forensic / compliance mode. Always rendered in dark-evidence theme (App
+// forces it). Read-only audit surface. No network, storage, or credentials.
 
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
-import { Panel, StatusChip } from '../ui/primitives';
+import { IconClock, IconFingerprint } from '../ui/icons';
+import {
+  EvidenceChip,
+  Panel,
+  SectionLabel,
+  StatusChip,
+  StatusDot,
+} from '../ui/primitives';
 
 export function EvidenceVault() {
-  const { select } = useApp();
-  const ev = viewModel.evidence_packets[0];
-  const audit = viewModel.audit_events;
-  const policy = viewModel.policy_boundaries;
+  const { select, selected } = useApp();
+  const packet = viewModel.evidence_packets[0];
 
   return (
     <div className="space-y-6">
-      <header className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight text-fg">
+      <header className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-fg-subtle">
+            <IconFingerprint className="h-4 w-4 text-accent" />
+            Forensic mode
+          </div>
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight text-fg">
             Evidence Vault
           </h1>
-          <p className="mt-1 text-sm text-fg-muted">
-            Dark evidence mode. Validation matrix, task evidence packets,
-            commit timeline, forbidden-scope matrix, and secret scan.
-          </p>
+          <div className="mt-1 break-all font-mono text-[12px] text-fg-muted">
+            {packet.task_label}
+          </div>
+          <div className="mt-2 flex flex-wrap items-center gap-2">
+            <StatusChip status={packet.result} icon>
+              {packet.result_label}
+            </StatusChip>
+            <EvidenceChip>{packet.commit_ref}</EvidenceChip>
+            <span className="flex items-center gap-1 font-mono text-[11px] text-fg-subtle">
+              <IconClock className="h-3.5 w-3.5" />
+              {packet.timestamp}
+            </span>
+          </div>
         </div>
-        <StatusChip status={ev.result}>{ev.result_label}</StatusChip>
       </header>
 
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <Panel title="Validation matrix" className="lg:col-span-2">
-          <ul className="space-y-2">
-            {ev.validation_matrix.map((v) => (
-              <li
-                key={v.id}
-                className="flex items-start justify-between gap-3 rounded-md border border-line bg-surface-2 px-3 py-2"
-              >
-                <span>
-                  <span className="text-sm font-medium text-fg">{v.label}</span>
-                  <span className="mt-0.5 block font-mono text-[11px] text-fg-muted">
-                    {v.detail}
-                  </span>
-                </span>
-                <StatusChip status={v.status}>{v.status}</StatusChip>
-              </li>
-            ))}
-          </ul>
-        </Panel>
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+        <div className="space-y-6 xl:col-span-2">
+          <Panel title="Validation matrix" subtitle="Each check is part of the evidence record">
+            <ul className="divide-y divide-line">
+              {packet.validation_matrix.map((v) => {
+                const active =
+                  selected?.kind === 'validation' && selected.id === v.id;
+                return (
+                  <li key={v.id}>
+                    <button
+                      type="button"
+                      id={`vm-${v.id}`}
+                      onClick={() =>
+                        select({
+                          kind: 'validation',
+                          id: v.id,
+                          title: v.label,
+                          fields: [
+                            { label: 'Status', value: v.status, status: v.status },
+                            { label: 'Detail', value: v.detail },
+                            { label: 'Packet', value: packet.id, mono: true },
+                          ],
+                        })
+                      }
+                      className={`flex w-full items-center justify-between gap-3 px-1 py-2.5 text-left transition-colors ${
+                        active ? 'bg-accent/5' : 'hover:bg-surface-2'
+                      }`}
+                    >
+                      <span className="flex items-center gap-2.5">
+                        <StatusDot status={v.status} />
+                        <span className="text-sm text-fg">{v.label}</span>
+                      </span>
+                      <span className="flex items-center gap-3">
+                        <span className="hidden font-mono text-[11px] text-fg-subtle sm:inline">
+                          {v.detail}
+                        </span>
+                        <StatusChip status={v.status}>{v.status}</StatusChip>
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </Panel>
 
-        <Panel title="Secret scan">
-          <div className="rounded-md border border-status-verified/40 bg-status-verified/10 p-3">
-            <StatusChip status={ev.secret_scan.status}>
-              {ev.secret_scan.label}
-            </StatusChip>
-            <p className="mt-2 font-mono text-[11px] text-fg">
-              {ev.secret_scan.detail}
-            </p>
-          </div>
-          <div className="mt-3 flex flex-wrap gap-1">
-            {ev.provenance_chips.map((c) => (
-              <span
-                key={c}
-                className="rounded border border-line bg-surface-2 px-1.5 py-0.5 font-mono text-[11px] text-fg-muted"
-              >
-                {c}
-              </span>
-            ))}
-          </div>
-        </Panel>
-      </div>
-
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <Panel
-          title="Task evidence packet"
-          actions={
-            <button
-              type="button"
-              id="evidence-inspect"
-              onClick={() =>
-                select({
-                  kind: 'evidence_packet',
-                  id: ev.id,
-                  title: ev.task_label,
-                  fields: [
-                    { label: 'Result', value: ev.result_label, status: ev.result },
-                    { label: 'Commit', value: ev.commit_ref, mono: true },
-                    { label: 'Timestamp', value: ev.timestamp, mono: true },
-                    ...ev.source_lineage.map((l) => ({
-                      label: 'Lineage',
-                      value: l.label,
-                    })),
-                  ],
-                })
-              }
-              className="rounded border border-line bg-surface-2 px-2 py-1 font-mono text-[11px] text-fg-muted hover:bg-surface-3"
-            >
-              inspect
-            </button>
-          }
-        >
-          <div className="font-mono text-[12px] text-fg">{ev.id}</div>
-          <p className="mt-1 break-all font-mono text-[11px] text-fg-muted">
-            {ev.task_label}
-          </p>
-          <dl className="mt-3 space-y-2 text-sm">
-            <div className="flex items-center justify-between">
-              <dt className="font-mono text-[11px] uppercase text-fg-muted">
-                Commit
-              </dt>
-              <dd className="font-mono text-[12px] text-fg">{ev.commit_ref}</dd>
-            </div>
-            <div className="flex items-center justify-between">
-              <dt className="font-mono text-[11px] uppercase text-fg-muted">
-                Timestamp
-              </dt>
-              <dd className="font-mono text-[12px] text-fg">{ev.timestamp}</dd>
-            </div>
-          </dl>
-        </Panel>
-
-        <Panel title="Forbidden-scope matrix">
-          <ul className="space-y-2">
-            {ev.forbidden_scope.map((f) => (
-              <li
-                key={f.id}
-                className="flex items-center justify-between text-sm"
-              >
-                <span className="text-fg-muted">{f.label}</span>
-                <StatusChip status={f.status}>excluded</StatusChip>
-              </li>
-            ))}
-          </ul>
-        </Panel>
-
-        <Panel title="Commit timeline">
-          <ol className="space-y-3">
-            {audit.map((a) => (
-              <li key={a.id} className="border-l border-line pl-3">
-                <div className="font-mono text-[11px] text-fg-muted">
-                  {a.timestamp}
+          <Panel title="Forbidden scope — proven absent" subtitle="Static guarantees enforced for V5">
+            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              {packet.forbidden_scope.map((f) => (
+                <div
+                  key={f.id}
+                  className="flex items-center justify-between gap-2 rounded-lg border border-line bg-surface-2 px-3 py-2"
+                >
+                  <span className="text-[12px] text-fg-muted">{f.label}</span>
+                  <StatusChip status={f.status} icon>
+                    clean
+                  </StatusChip>
                 </div>
-                <div className="text-sm text-fg">{a.action}</div>
-                <div className="font-mono text-[11px] text-fg-muted">
-                  {a.actor} · {a.ref}
-                </div>
-              </li>
-            ))}
-          </ol>
-        </Panel>
-      </div>
-
-      <Panel title="Policy boundaries">
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {policy.map((p) => (
-            <div
-              key={p.id}
-              className="flex items-start justify-between gap-3 rounded-md border border-line bg-surface-2 px-3 py-2"
-            >
-              <span>
-                <span className="text-sm font-medium text-fg">{p.label}</span>
-                <span className="mt-0.5 block font-mono text-[11px] text-fg-muted">
-                  {p.detail}
-                </span>
-              </span>
-              <StatusChip status={p.status}>{p.status}</StatusChip>
+              ))}
             </div>
-          ))}
+          </Panel>
         </div>
-      </Panel>
+
+        <div className="space-y-6">
+          <Panel
+            title={
+              <span className="flex items-center gap-2">
+                <IconFingerprint className="h-4 w-4 text-accent" />
+                Secret scan
+              </span>
+            }
+          >
+            <div className="flex items-center justify-between gap-2">
+              <span className="flex items-center gap-2 text-sm text-fg-muted">
+                <StatusDot status={packet.secret_scan.status} />
+                {packet.secret_scan.label}
+              </span>
+              <StatusChip status={packet.secret_scan.status} icon>
+                {packet.secret_scan.status}
+              </StatusChip>
+            </div>
+            <p className="mt-2 font-mono text-[11px] leading-relaxed text-fg-subtle">
+              {packet.secret_scan.detail}
+            </p>
+          </Panel>
+
+          <Panel title="Provenance">
+            <div className="flex flex-wrap gap-1.5">
+              {packet.provenance_chips.map((c) => (
+                <EvidenceChip key={c}>{c}</EvidenceChip>
+              ))}
+            </div>
+            <div className="mt-4 border-t border-line pt-3">
+              <SectionLabel>Source lineage</SectionLabel>
+              <ul className="space-y-2">
+                {packet.source_lineage.map((l) => (
+                  <li
+                    key={l.id}
+                    className="flex items-center gap-2.5 rounded-lg border border-line bg-surface-2 px-3 py-2"
+                  >
+                    <span className="font-mono text-[10.5px] text-fg-subtle">
+                      {l.id}
+                    </span>
+                    <span className="text-[12px] text-fg-muted">{l.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Panel>
+
+          <Panel title="Audit trail">
+            <ul className="space-y-3">
+              {viewModel.audit_events.map((e) => (
+                <li key={e.id} className="relative pl-4">
+                  <span className="absolute left-0 top-1.5 h-2 w-2 rounded-full bg-accent" />
+                  <div className="text-[12px] text-fg">{e.action}</div>
+                  <div className="mt-0.5 font-mono text-[10.5px] text-fg-subtle">
+                    {e.actor} · {e.ref} · {e.timestamp}
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </Panel>
+        </div>
+      </div>
     </div>
   );
 }
