@@ -11,6 +11,7 @@ export type ViewId =
   | 'writer_studio'
   | 'ai_writer_seo_lab'
   | 'draft_inspector'
+  | 'platform_payload_preview'
   | 'approval_queue'
   | 'evidence_vault';
 
@@ -268,12 +269,65 @@ export interface AiWriterLab {
   outputs: AiWriterOutput[];
 }
 
+/**
+ * A single per-platform constraint check shown in the payload preview. Purely
+ * descriptive: it reflects how the local fixture payload measures against a
+ * platform's documented limit. It is NOT a live validation and never calls a
+ * platform API.
+ */
+export interface PayloadConstraint {
+  id: string;
+  label: string;
+  limit: string;
+  actual: string;
+  status: StatusKind;
+  detail: string;
+}
+
+/**
+ * A single field of the compiled local payload (e.g. body, title, hashtags).
+ * Values are local fixture strings only.
+ */
+export interface PayloadField {
+  id: string;
+  label: string;
+  value: string;
+  mono?: boolean;
+}
+
+/**
+ * Per-platform dry-run payload preview contract. This surface is dry-run only:
+ * it shows the exact LOCAL fixture payload that WOULD be assembled for a
+ * platform, with zero posting, scheduling, credential use, provider call, or
+ * platform API behavior. `dispatchable` is the literal `false` so a
+ * dispatchable preview is structurally unrepresentable. `live_status` and
+ * `credential_status` are always locked/blocked by policy.
+ */
+export interface PlatformPayloadPreview {
+  id: string;
+  platform: string;
+  platform_key: string;
+  source_draft_id: string;
+  format_label: string;
+  fit_status: StatusKind;
+  fit_summary: string;
+  fields: PayloadField[];
+  constraints: PayloadConstraint[];
+  media_note: string;
+  live_status: 'LIVE_DISABLED';
+  credential_status: 'NO_CREDENTIAL_READ';
+  provider_status: 'NO_PROVIDER_CALL';
+  not_dispatchable_reason: string;
+  dispatchable: false;
+}
+
 export interface ContentOpsViewModel {
   system_state: SystemState;
   content_items: ContentItem[];
   editorial_draft: EditorialDraft;
   ai_writer_lab: AiWriterLab;
   draft_inspections: DraftInspection[];
+  platform_payload_previews: PlatformPayloadPreview[];
   approval_packets: ApprovalPacket[];
   evidence_packets: EvidencePacket[];
   audit_events: AuditEvent[];

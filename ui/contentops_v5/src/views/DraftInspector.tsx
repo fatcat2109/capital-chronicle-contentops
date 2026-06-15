@@ -16,7 +16,7 @@ import {
   selectNoSignalCheck,
 } from '../selectors';
 import { IconFingerprint } from '../ui/icons';
-import { Panel, SectionLabel, StatusChip, StatusDot } from '../ui/primitives';
+import { Panel, StatusChip, StatusDot } from '../ui/primitives';
 import type { SelectableObject, StatusKind } from '../types';
 
 export function DraftInspector() {

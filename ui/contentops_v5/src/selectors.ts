@@ -15,6 +15,8 @@ import type {
   LimitationCheck,
   MediaAsset,
   NoSignalCheck,
+  PayloadConstraint,
+  PlatformPayloadPreview,
   SeoKeywordGroup,
   SelectableObject,
   SystemState,
@@ -245,6 +247,46 @@ export function selectValidation(
   };
 }
 
+export function selectPlatformPayloadPreview(
+  p: PlatformPayloadPreview,
+): SelectableObject {
+  return {
+    kind: 'platform_payload_preview',
+    id: p.id,
+    title: `${p.platform} · payload preview`,
+    fields: [
+      { label: 'Platform', value: p.platform },
+      { label: 'Format', value: p.format_label },
+      { label: 'Source', value: p.source_draft_id, mono: true },
+      { label: 'Fit', value: p.fit_summary, status: p.fit_status },
+      { label: 'Live', value: p.live_status, mono: true, status: 'blocked' },
+      { label: 'Credential', value: p.credential_status, mono: true, status: 'blocked' },
+      { label: 'Provider', value: p.provider_status, mono: true, status: 'blocked' },
+      { label: 'Media', value: p.media_note },
+      { label: 'Dispatch', value: 'dispatchable: false', mono: true, status: 'blocked' },
+      { label: 'Reason', value: p.not_dispatchable_reason },
+    ],
+  };
+}
+
+export function selectPayloadConstraint(
+  c: PayloadConstraint,
+  platform: string,
+): SelectableObject {
+  return {
+    kind: 'payload_constraint',
+    id: c.id,
+    title: c.label,
+    fields: [
+      { label: 'Platform', value: platform },
+      { label: 'Limit', value: c.limit, mono: true },
+      { label: 'Actual', value: c.actual, mono: true },
+      { label: 'Status', value: c.status, status: c.status },
+      { label: 'Detail', value: c.detail },
+    ],
+  };
+}
+
 /** Highest-priority inventory row: first item awaiting review, else first row. */
 export function defaultContentItem(items: ContentItem[]): ContentItem {
   return items.find((i) => i.status === 'review') ?? items[0];
@@ -267,6 +309,8 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectAiVariant(vm.ai_writer_lab.outputs[0]);
     case 'draft_inspector':
       return selectDraftInspection(vm.draft_inspections[0]);
+    case 'platform_payload_preview':
+      return selectPlatformPayloadPreview(vm.platform_payload_previews[0]);
     case 'approval_queue': {
       const p = vm.approval_packets[0];
       const gate =

@@ -1,0 +1,234 @@
+// Capital Chronicle ContentOps V5 — Platform Payload Preview view.
+// DRY-RUN ONLY. This surface shows the exact LOCAL fixture payload that WOULD
+// be assembled for each platform, with zero posting, scheduling, credential
+// use, provider call, or platform API behavior. Every preview carries
+// dispatchable: false (structurally unrepresentable as true), and the
+// live/credential/provider states are always locked. Selecting a platform tab,
+// a payload field, or a constraint updates the inspector. No network, no
+// storage, no credentials.
+
+import { useState } from 'react';
+import { useApp } from '../state';
+import { viewModel } from '../fixtures';
+import {
+  selectPayloadConstraint,
+  selectPlatformPayloadPreview,
+} from '../selectors';
+import { IconBlock, IconLayers } from '../ui/icons';
+import { LockedAction, Panel, SectionLabel, StatusChip, StatusDot } from '../ui/primitives';
+import type { PlatformPayloadPreview as Preview } from '../types';
+
+export function PlatformPayloadPreview() {
+  const { select, selected } = useApp();
+  const previews = viewModel.platform_payload_previews;
+  const [activeKey, setActiveKey] = useState(previews[0].platform_key);
+  const active: Preview =
+    previews.find((p) => p.platform_key === activeKey) ?? previews[0];
+
+  return (
+    <div className="space-y-6">
+      <header className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-fg-subtle">
+            Platform payload preview
+            <span className="text-fg-subtle/60">·</span>
+            <span className="text-fg-muted">{active.source_draft_id}</span>
+          </div>
+          <h1 className="mt-2 flex items-center gap-2 text-2xl font-semibold tracking-tight text-fg">
+            <IconLayers className="h-6 w-6 text-accent" />
+            Platform Payload Preview
+          </h1>
+          <p className="mt-1 text-sm font-medium text-fg-muted">
+            Exact local fixture payloads per platform — dry-run only, never dispatched.
+          </p>
+        </div>
+        <div className="flex flex-col items-end gap-1.5">
+          <StatusChip status="blocked" icon nowrap>
+            Dry-run only · not dispatchable
+          </StatusChip>
+          <span className="font-mono text-[10.5px] text-status-blocked">
+            dispatchable: false
+          </span>
+        </div>
+      </header>
+
+      {/* Dry-run policy banner — make the no-live posture unmissable. */}
+      <div className="flex items-start gap-2.5 rounded-xl border border-status-blocked/30 bg-status-blocked/5 p-4">
+        <IconBlock className="mt-0.5 h-4 w-4 shrink-0 text-status-blocked" />
+        <div className="min-w-0">
+          <p className="text-sm font-semibold text-fg">
+            Dry-run payload preview — no posting, no scheduling, no credentials
+          </p>
+          <p className="mt-1 text-[12px] leading-relaxed text-fg-muted">
+            These previews are assembled from local fixtures to show how a draft
+            maps onto each platform&apos;s payload shape and limits. There is no
+            platform API, no provider call, no credential or token read, and no
+            scheduler. Nothing on this screen can be dispatched.
+          </p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            <span className="rounded-md border border-line bg-surface-2 px-1.5 py-0.5 font-mono text-[10.5px] text-fg-muted">
+              LIVE_DISABLED
+            </span>
+            <span className="rounded-md border border-line bg-surface-2 px-1.5 py-0.5 font-mono text-[10.5px] text-fg-muted">
+              NO_CREDENTIAL_READ
+            </span>
+            <span className="rounded-md border border-line bg-surface-2 px-1.5 py-0.5 font-mono text-[10.5px] text-fg-muted">
+              NO_PROVIDER_CALL
+            </span>
+            <span className="rounded-md border border-line bg-surface-2 px-1.5 py-0.5 font-mono text-[10.5px] text-fg-muted">
+              NO_SCHEDULER
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* Platform selector tabs */}
+      <div
+        role="tablist"
+        aria-label="Platform payload previews"
+        className="flex flex-wrap gap-1.5"
+      >
+        {previews.map((p) => {
+          const isActive = p.platform_key === activeKey;
+          return (
+            <button
+              type="button"
+              key={p.platform_key}
+              id={`platform-tab-${p.platform_key}`}
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => {
+                setActiveKey(p.platform_key);
+                select(selectPlatformPayloadPreview(p));
+              }}
+              className={`flex items-center gap-2 rounded-lg border px-3 py-1.5 text-sm font-medium transition-colors ${
+                isActive
+                  ? 'border-accent/40 bg-accent/5 text-fg'
+                  : 'border-line bg-surface-2 text-fg-muted hover:border-line-strong hover:text-fg'
+              }`}
+            >
+              <StatusDot status={p.fit_status} />
+              {p.platform}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+        {/* Compiled payload */}
+        <div className="space-y-6 xl:col-span-2">
+          <Panel
+            title={
+              <button
+                type="button"
+                id={`payload-summary-${active.platform_key}`}
+                onClick={() => select(selectPlatformPayloadPreview(active))}
+                className="text-left text-sm font-semibold text-fg hover:text-accent"
+              >
+                {active.platform} payload
+              </button>
+            }
+            subtitle={active.format_label}
+            actions={
+              <StatusChip status={active.fit_status}>
+                {active.fit_status}
+              </StatusChip>
+            }
+            bodyClassName="p-4 space-y-3"
+          >
+            {active.fields.map((f) => (
+              <div key={f.id}>
+                <SectionLabel>{f.label}</SectionLabel>
+                <p
+                  className={`rounded-lg border border-line bg-surface-2 p-3 text-sm leading-relaxed text-fg-muted ${
+                    f.mono ? 'break-all font-mono text-[12px]' : ''
+                  }`}
+                >
+                  {f.value}
+                </p>
+              </div>
+            ))}
+            <p className="flex items-center gap-2 pt-1 text-[11px] text-fg-subtle">
+              <StatusDot status="neutral" />
+              {active.media_note}
+            </p>
+          </Panel>
+
+          {/* Locked dispatch — disabled, future-gated, dry-run only. */}
+          <Panel
+            title="Dispatch"
+            subtitle="Disabled by policy · dry-run preview only"
+            bodyClassName="p-4"
+          >
+            <LockedAction
+              label="Dispatch payload"
+              reason={active.not_dispatchable_reason}
+            />
+          </Panel>
+        </div>
+
+        {/* Constraints + live status */}
+        <div className="space-y-6">
+          <Panel
+            title="Platform constraints"
+            subtitle="Local fit checks · select a row to inspect"
+            bodyClassName="p-3 space-y-2"
+          >
+            {active.constraints.map((c) => {
+              const isActive =
+                selected?.kind === 'payload_constraint' && selected.id === c.id;
+              return (
+                <button
+                  type="button"
+                  key={c.id}
+                  id={`constraint-${c.id}`}
+                  onClick={() => select(selectPayloadConstraint(c, active.platform))}
+                  className={`w-full rounded-lg border px-3 py-2.5 text-left transition-colors ${
+                    isActive
+                      ? 'border-accent/40 bg-accent/5'
+                      : 'border-line bg-surface-2 hover:border-line-strong'
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="flex items-center gap-2 text-sm font-medium text-fg">
+                      <StatusDot status={c.status} />
+                      {c.label}
+                    </span>
+                    <StatusChip status={c.status}>{c.status}</StatusChip>
+                  </div>
+                  <p className="mt-1 text-[11px] leading-relaxed text-fg-subtle">
+                    <span className="font-mono text-fg-muted">
+                      {c.actual} / {c.limit}
+                    </span>{' '}
+                    · {c.detail}
+                  </p>
+                </button>
+              );
+            })}
+          </Panel>
+
+          <Panel title="Live status" bodyClassName="p-4 space-y-2">
+            <StatusRow label="Live" value={active.live_status} />
+            <StatusRow label="Credential" value={active.credential_status} />
+            <StatusRow label="Provider" value={active.provider_status} />
+            <p className="mt-2 border-t border-line pt-3 font-mono text-[10.5px] leading-relaxed text-status-blocked">
+              dispatchable: false · {active.not_dispatchable_reason}
+            </p>
+          </Panel>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatusRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-center justify-between gap-2">
+      <span className="flex items-center gap-2 text-sm text-fg-muted">
+        <StatusDot status="blocked" />
+        {label}
+      </span>
+      <span className="font-mono text-[11px] text-status-blocked">{value}</span>
+    </div>
+  );
+}

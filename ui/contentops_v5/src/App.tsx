@@ -13,6 +13,7 @@ import { ContentInventory } from './views/ContentInventory';
 import { WriterStudio } from './views/WriterStudio';
 import { AiWriterSeoLab } from './views/AiWriterSeoLab';
 import { DraftInspector } from './views/DraftInspector';
+import { PlatformPayloadPreview } from './views/PlatformPayloadPreview';
 import { ApprovalQueue } from './views/ApprovalQueue';
 import { EvidenceVault } from './views/EvidenceVault';
 
@@ -200,6 +201,8 @@ function ActiveView() {
       return <AiWriterSeoLab />;
     case 'draft_inspector':
       return <DraftInspector />;
+    case 'platform_payload_preview':
+      return <PlatformPayloadPreview />;
     case 'approval_queue':
       return <ApprovalQueue />;
     case 'evidence_vault':

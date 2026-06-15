@@ -39,6 +39,24 @@ The V5 frontend is located under `ui/contentops_v5/`.
 
 ---
 
+## V5 Surfaces
+The V5 console is an object-centric, local-first editorial workspace. Current surfaces:
+- **Command Center** — system state and queue overview.
+- **Content Inventory** — editorial pipeline rows.
+- **Writer Studio** — drafting workspace.
+- **AI Writer / SEO Lab** — assisted drafting and SEO variants (local fixtures).
+- **Draft Inspector** — limitation, no-signal, and media checks.
+- **Platform Preview** — per-platform **dry-run payload preview** for X, LinkedIn,
+  Threads, Substack, Telegram, Facebook, Instagram, and TikTok. It shows the exact
+  local fixture payload that *would* be assembled for each platform alongside its
+  documented limits. It is dry-run only: no posting, scheduling, credential read,
+  provider call, or platform API. Every preview is structurally `dispatchable: false`
+  with `LIVE_DISABLED` / `NO_CREDENTIAL_READ` / `NO_PROVIDER_CALL` states locked.
+- **Approval & Dispatch** — approval gating (live dispatch disabled by policy).
+- **Evidence Vault** — audit timeline and evidence packets.
+
+---
+
 ## Credential Readiness Policy
 Under the **Pre-Launch Operating Policy**, scoped local-only `.env` presence and shape checks are permitted:
 - Explicit pre-launch credential readiness tasks/modules may inspect `.env` keys.
