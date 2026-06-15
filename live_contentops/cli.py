@@ -1280,6 +1280,14 @@ def telegram_second_supervised_live_post_gate_summary():
     ), indent=2))
 
 
+def telegram_second_live_post_reconciliation_gate_summary():
+    import json
+    from live_contentops import telegram_second_live_post_reconciliation_gate as gate
+    rest = sys.argv[2:]
+    write = gate.FLAG_WRITE in rest
+    print(json.dumps(gate.run_reconciliation_gate(write=write), indent=2))
+
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -1467,6 +1475,8 @@ COMMANDS = {
     "pre-alpha-grounded-news-angle-workbench-summary": pre_alpha_grounded_news_angle_workbench_summary,
 
     "pre-alpha-llm-content-writer-workbench-summary": pre_alpha_llm_content_writer_workbench_summary,
+
+    "telegram-second-live-post-reconciliation-gate": telegram_second_live_post_reconciliation_gate_summary,
 
 
 }
