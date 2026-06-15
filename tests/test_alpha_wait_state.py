@@ -66,6 +66,8 @@ def test_readiness_checklists_exist():
 def test_runbook_includes_hard_boundaries():
     docs = os.path.join(os.path.dirname(__file__), "..", "docs")
     path = os.path.join(docs, "ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_AFTER_0073.md")
+    if not os.path.isfile(path):
+        path = os.path.join(docs, "archive", "stale_prelaunch_reset_0174CG", "ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_AFTER_0073.md")
     assert os.path.isfile(path)
     with open(path, "r", encoding="utf-8") as f:
         text = f.read()
@@ -82,7 +84,10 @@ def test_0073_bundle_docs_exist():
                  "CURRENT_STATE_SUMMARY_AFTER_0073.md",
                  "ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_AFTER_0073.md",
                  "TASK_CONTENTOPS_0073_EXTREME_LOCAL_ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_FINAL_BUNDLE_AND_PATH_REPAIR_V0.md"):
-        assert os.path.isfile(os.path.join(docs, name)), f"missing doc: {name}"
+        path = os.path.join(docs, name)
+        if not os.path.isfile(path):
+            path = os.path.join(docs, "archive", "stale_prelaunch_reset_0174CG", name)
+        assert os.path.isfile(path), f"missing doc: {name}"
 
 
 def test_recommended_upload_paths_exist_and_unique():
@@ -91,7 +96,11 @@ def test_recommended_upload_paths_exist_and_unique():
     assert len(paths) == len(set(paths)), "duplicate recommended upload paths"
     docs = os.path.join(os.path.dirname(__file__), "..", "docs")
     for p in paths:
-        assert os.path.isfile(os.path.join(docs, os.path.basename(p))), f"missing: {p}"
+        name = os.path.basename(p)
+        path = os.path.join(docs, name)
+        if not os.path.isfile(path):
+            path = os.path.join(docs, "archive", "stale_prelaunch_reset_0174CG", name)
+        assert os.path.isfile(path), f"missing: {p}"
 
 
 def test_manifest_excludes_gitignore_and_unsafe_categories():

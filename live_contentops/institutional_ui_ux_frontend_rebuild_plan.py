@@ -115,7 +115,11 @@ def build_packet():
 
 
 def _doc_exists(rel_path):
-    return os.path.isfile(os.path.join(BASE_DIR, rel_path))
+    path = os.path.join(BASE_DIR, rel_path)
+    if os.path.isfile(path):
+        return True
+    archive_path = os.path.join(BASE_DIR, "docs", "archive", "stale_prelaunch_reset_0174CG", os.path.basename(rel_path))
+    return os.path.isfile(archive_path)
 
 
 def validate_packet(packet):

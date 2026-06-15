@@ -176,22 +176,14 @@ Every serious UI polish task must define and/or audit:
 
 ---
 
-## 4. Correct Technical Language for This Repo
+## 4. Correct Technical Language for V5 and V4 Cockpits
 
-This repo does not need React, Tailwind, Material Web, Fluent UI, Carbon, package managers, web fonts, or external dependencies for the current V4 cockpit.
+This repo implements two frontend tracks:
+1. **V5 Front-End (Active Development):** Written in React, Vite, TypeScript, and Tailwind CSS. All external packages must be installed as build-time dependencies and committed through package manifests. No runtime CDN/remote resources are allowed.
+2. **V4 Front-End (Frozen Fallback):** Does not need React, Tailwind, package managers, web fonts, or external dependencies. It is implemented via CSS custom properties, semantic component classes, static HTML, and vanilla JavaScript.
 
-The correct implementation language is:
+For the active V5 application, the design system is written like a real system using Tailwind utility tokens mapped to custom properties where appropriate. For V4, correct implementation remains:
 
-* CSS custom properties for design tokens;
-* semantic component classes for primitives;
-* vanilla JavaScript renderer for deterministic local UI;
-* static HTML shell;
-* no runtime network;
-* no CDN;
-* no external font import;
-* no framework dependency.
-
-The design system should still be written like a real system.
 
 Use token names such as:
 
@@ -422,38 +414,44 @@ For final visual acceptance, ChatGPT must inspect the actual screenshots and com
 
 ## 11. Runtime Safety Rule
 
-The V4 cockpit remains a static local governance UI.
+Both the V4 and V5 cockpits remain static local governance UIs by default.
 
-Forbidden:
+### Default Runtime Constraints
+The following behaviors are strictly forbidden in normal runtime:
+- No automatic `.env` read by UI/browser;
+- No secret values in UI;
+- No secret values in logs;
+- No credentials committed;
+- No live posting/API calls unless explicitly authorized by a live-gate task.
 
-* runtime network calls;
-* platform APIs;
-* provider APIs;
-* Telegram APIs;
-* scheduler;
-* live posting;
-* scraping;
-* upload/export actions;
-* credential reads;
-* `.env` reads;
-* Project Sources refresh;
-* buy/sell/hold advice;
-* price targets;
-* forecast readiness claims;
-* signal language;
-* fake market data.
+### Explicit Pre-Launch Credential Readiness Tasks
+Pre-launch credential readiness tasks are allowed to inspect `.env` to check keys presence/shape:
+- May read `.env` only when the task explicitly says so;
+- May check presence/absence of required keys;
+- May validate format minimally without printing full values;
+- May produce redacted fingerprints only (e.g., shape classification);
+- Must never print raw token/key/chat IDs;
+- Must never commit `.env`;
+- Must never screenshot secrets;
+- Must never call platform/provider APIs unless the task explicitly authorizes a live/read-only validation endpoint and budget.
 
-Required:
+### Future Live Platform Gates
+- Each platform must be enabled separately (Telegram first candidate);
+- Must require operator GO, approval ledger, kill switch, redacted audit, rate-limit/error handling, rollback, and manual fallback;
+- No autonomous replies/DMs;
+- No unsupervised scheduler/posting.
 
-* local-only;
-* review-only;
-* not public-postable;
-* live disabled;
-* kill switch active;
-* no financial advice;
-* no signal language;
-* secret redaction proof;
-* current-vs-historical truth separation.
+### Content Safety (Non-Negotiable)
+- No financial advice;
+- No buy/sell/hold;
+- No position sizing;
+- No price targets;
+- No guaranteed prediction;
+- No signal-service framing;
+- No broker/execution/order language;
+- No fake alpha claims;
+- No unsupported market numbers;
+- No public-ready fixture content.
 
 ---
 

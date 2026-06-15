@@ -196,5 +196,8 @@ def test_refreshed_0072_bundle_docs_exist():
                  "UPLOAD_BUNDLE_MANIFEST_AFTER_0072.md",
                  "PROJECT_SOURCE_EXPORT_AFTER_0072.md",
                  "TASK_CONTENTOPS_0072_EXTREME_LOCAL_REAL_ARTIFACT_PIPELINE_TRACE_REVIEW_PACKET_AND_BUNDLE_REFRESH_V0.md"):
-        assert os.path.isfile(os.path.join(docs, name)), f"missing doc: {name}"
+        path = os.path.join(docs, name)
+        if not os.path.isfile(path):
+            path = os.path.join(docs, "archive", "stale_prelaunch_reset_0174CG", name)
+        assert os.path.isfile(path), f"missing doc: {name}"
 

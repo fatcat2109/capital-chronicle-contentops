@@ -12,7 +12,10 @@ def test_refreshed_0069_docs_exist():
                  "UPLOAD_BUNDLE_MANIFEST_AFTER_0069.md",
                  "PROJECT_SOURCE_EXPORT_AFTER_0069.md",
                  "TASK_CONTENTOPS_0069_LOCAL_BUNDLE_REFRESH_AND_NEXT_PHASE_SELECTION_V0.md"):
-        assert os.path.isfile(os.path.join(REPO_DOCS, name)), f"missing doc: {name}"
+        path = os.path.join(REPO_DOCS, name)
+        if not os.path.isfile(path):
+            path = os.path.join(REPO_DOCS, "archive", "stale_prelaunch_reset_0174CG", name)
+        assert os.path.isfile(path), f"missing doc: {name}"
 
 
 def test_bundle_supersedes_0068_and_older():
@@ -27,7 +30,10 @@ def test_recommended_upload_paths_exist_and_unique():
     assert len(paths) == len(set(paths))
     repo_root = os.path.join(os.path.dirname(__file__), "..")
     for p in paths:
-        assert os.path.isfile(os.path.join(repo_root, p)), f"missing doc: {p}"
+        path = os.path.join(repo_root, p)
+        if not os.path.isfile(path):
+            path = os.path.join(repo_root, "docs", "archive", "stale_prelaunch_reset_0174CG", os.path.basename(p))
+        assert os.path.isfile(path), f"missing doc: {p}"
 
 
 def test_unsafe_categories_remain_excluded():
@@ -78,6 +84,8 @@ def test_real_artifact_intake_is_fixture_only():
 
 def test_continuation_packet_has_boundaries_and_local_only():
     path = os.path.join(REPO_DOCS, "NEW_CHAT_CONTINUATION_AFTER_0069.md")
+    if not os.path.isfile(path):
+        path = os.path.join(REPO_DOCS, "archive", "stale_prelaunch_reset_0174CG", "NEW_CHAT_CONTINUATION_AFTER_0069.md")
     with open(path, "r", encoding="utf-8") as f:
         text = f.read()
     assert "LOCAL ONLY" in text

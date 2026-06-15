@@ -80,6 +80,8 @@ def validate_manifest() -> dict:
         seen.add(path)
         abs_path = os.path.join(_DOCS_DIR, os.path.basename(path))
         if not os.path.isfile(abs_path):
+            abs_path = os.path.join(_DOCS_DIR, "archive", "stale_prelaunch_reset_0174CG", os.path.basename(path))
+        if not os.path.isfile(abs_path):
             blockers.append("recommended upload path does not exist: %s" % path)
         if ".gitignore" in path:
             blockers.append("bundle includes .gitignore: %s" % path)

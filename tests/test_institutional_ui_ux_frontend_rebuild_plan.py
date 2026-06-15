@@ -58,7 +58,7 @@ def test_referenced_docs_exist():
     for key in ("master_plan_doc", "backlog_doc", "quality_matrix_doc",
                 "antigravity_strategy_doc"):
         rel = packet[key]
-        assert os.path.isfile(os.path.join(BASE_DIR, rel)), rel
+        assert plan._doc_exists(rel), rel
 
 
 def test_negative_active_frontend_changed_fails():
