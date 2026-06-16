@@ -719,3 +719,228 @@ def test_safety_flags_present_on_all_objects():
         assert rec["dispatch_performed"] is False
         assert rec["scheduler_enabled"] is False
         assert rec["auto_retry_allowed"] is False
+
+
+# --------------------------------------------------------------------------- #
+# R1. Upstream safety-flag revalidation hardening
+# --------------------------------------------------------------------------- #
+def test_r1_valid_full_chain_still_creates_candidate_not_dispatched():
+    entry, rr, er, ps, dr = _full_dry_run()
+    ks = _clear_kill_switch(dr)
+    rp = _clear_rate_policy()
+    gate = sg.run_one_request_dispatch_gate(_bundle(dr, ks, rp, entry))
+    assert gate["status"] == sg.Status.PASS
+    assert gate["dispatch_gate_outcome_class"] == sg.GATE_CANDIDATE_CREATED
+    assert gate["candidate_created_not_dispatched"] is True
+
+
+def test_r1_detect_unsafe_behavior_claims_clean_artifact_returns_empty():
+    _, _, _, _, dr = _full_dry_run()
+    assert sg.detect_unsafe_behavior_claims(dr, sg.ARTIFACT_DRY_RUN) == []
+    assert sg.detect_unsafe_behavior_claims({}, sg.ARTIFACT_KILL_SWITCH) == []
+
+
+def test_r1_detect_unsafe_behavior_claims_reports_base_and_flag_suffix():
+    reasons = sg.detect_unsafe_behavior_claims(
+        {"network_performed": True}, sg.ARTIFACT_KILL_SWITCH)
+    assert sg.BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR in reasons
+    assert (sg.BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR
+            + ":network_performed") in reasons
+
+
+def _tamper_dry_run(flag, value=True):
+    entry, rr, er, ps, dr = _full_dry_run()
+    tampered = copy.deepcopy(dr)
+    tampered[flag] = value
+    ks = _clear_kill_switch(dr)
+    rp = _clear_rate_policy()
+    gate = sg.run_one_request_dispatch_gate(_bundle(tampered, ks, rp, entry))
+    return gate
+
+
+def test_r1_dry_run_network_performed_blocks():
+    gate = _tamper_dry_run("network_performed")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_DRY_RUN_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+    assert (sg.BLOCK_GATE_DRY_RUN_UNSAFE_BEHAVIOR
+            + ":network_performed") in gate["blocked_reasons"]
+
+
+def test_r1_dry_run_telegram_api_called_blocks():
+    gate = _tamper_dry_run("telegram_api_called")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_DRY_RUN_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+
+
+def test_r1_dry_run_llm_behavior_blocks():
+    gate = _tamper_dry_run("llm_behavior")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_DRY_RUN_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+
+
+def test_r1_dry_run_scheduler_enabled_blocks():
+    gate = _tamper_dry_run("scheduler_enabled")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_DRY_RUN_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+
+
+def test_r1_dry_run_auto_retry_allowed_blocks():
+    gate = _tamper_dry_run("auto_retry_allowed")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_DRY_RUN_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+
+
+def _tamper_kill_switch(flag, value=True):
+    entry, rr, er, ps, dr = _full_dry_run()
+    ks = _clear_kill_switch(dr)
+    # Keep the clear status/pass metadata intact; only flip an unsafe flag.
+    assert ks["status"] == sg.Status.PASS
+    assert ks["kill_switch_clear"] is True
+    ks[flag] = value
+    rp = _clear_rate_policy()
+    gate = sg.run_one_request_dispatch_gate(_bundle(dr, ks, rp, entry))
+    return gate
+
+
+def test_r1_kill_switch_network_performed_blocks_despite_clear():
+    gate = _tamper_kill_switch("network_performed")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+
+
+def test_r1_kill_switch_platform_api_called_blocks():
+    gate = _tamper_kill_switch("platform_api_called")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+
+
+def test_r1_kill_switch_credential_hydrated_blocks():
+    gate = _tamper_kill_switch("credential_hydrated")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+
+
+def test_r1_kill_switch_live_ready_blocks():
+    gate = _tamper_kill_switch("live_ready")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+
+
+def test_r1_kill_switch_evaluation_is_dispatch_blocks():
+    gate = _tamper_kill_switch("kill_switch_evaluation_is_dispatch")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert (sg.BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR
+            + ":kill_switch_evaluation_is_dispatch") in gate["blocked_reasons"]
+
+
+def _tamper_rate_policy(flag, value=True):
+    entry, rr, er, ps, dr = _full_dry_run()
+    ks = _clear_kill_switch(dr)
+    rp = _clear_rate_policy()
+    assert rp["status"] == sg.Status.PASS
+    assert rp["rate_spend_retry_policy_clear"] is True
+    rp[flag] = value
+    gate = sg.run_one_request_dispatch_gate(_bundle(dr, ks, rp, entry))
+    return gate
+
+
+def test_r1_rate_policy_network_performed_blocks_despite_clear():
+    gate = _tamper_rate_policy("network_performed")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_RATE_POLICY_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+
+
+def test_r1_rate_policy_scheduler_enabled_blocks():
+    gate = _tamper_rate_policy("scheduler_enabled")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_RATE_POLICY_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+
+
+def test_r1_rate_policy_auto_retry_allowed_blocks():
+    gate = _tamper_rate_policy("auto_retry_allowed")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_RATE_POLICY_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+
+
+def test_r1_rate_policy_credential_hydrated_blocks():
+    gate = _tamper_rate_policy("credential_hydrated")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert sg.BLOCK_GATE_RATE_POLICY_UNSAFE_BEHAVIOR in gate["blocked_reasons"]
+
+
+def test_r1_rate_policy_evaluation_is_dispatch_blocks():
+    gate = _tamper_rate_policy("rate_spend_retry_evaluation_is_dispatch")
+    assert gate["status"] == sg.Status.BLOCKED
+    assert (sg.BLOCK_GATE_RATE_POLICY_UNSAFE_BEHAVIOR
+            + ":rate_spend_retry_evaluation_is_dispatch"
+            ) in gate["blocked_reasons"]
+
+
+def test_r1_blocked_reasons_identify_artifact_class_and_flag():
+    gate = _tamper_kill_switch("platform_api_called")
+    matching = [r for r in gate["blocked_reasons"]
+                if r == (sg.BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR
+                         + ":platform_api_called")]
+    assert matching == [
+        sg.BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR + ":platform_api_called"]
+
+
+def test_r1_candidate_still_sets_unsafe_flags_false_on_valid_chain():
+    entry, rr, er, ps, dr = _full_dry_run()
+    ks = _clear_kill_switch(dr)
+    rp = _clear_rate_policy()
+    gate = sg.run_one_request_dispatch_gate(_bundle(dr, ks, rp, entry))
+    cand = gate["dispatch_authorization_candidate"]
+    for flag in ("dispatch_performed", "live_request_performed",
+                 "platform_api_called", "telegram_api_called",
+                 "credential_hydrated", "llm_behavior", "scheduler_enabled",
+                 "auto_retry_allowed"):
+        assert cand[flag] is False, flag
+    assert cand["valid_for_live_execution"] is False
+
+
+def test_r1_registry_still_suppresses_duplicates():
+    entry, rr, er, ps, dr = _full_dry_run()
+    ks = _clear_kill_switch(dr)
+    rp = _clear_rate_policy()
+    gate_a = sg.run_one_request_dispatch_gate(
+        _bundle(dr, ks, rp, entry, request_id="supervised_request_R1A"))
+    gate_b = sg.run_one_request_dispatch_gate(
+        _bundle(dr, ks, rp, entry, request_id="supervised_request_R1B"))
+    registry = sg.DispatchGateRegistry()
+    assert registry.submit(gate_a, ks, rp)["appended"] is True
+    # Same request id -> request-id suppression.
+    assert registry.submit(gate_a, ks, rp)["registry_outcome_class"] == (
+        sg.GATE_REGISTRY_DUPLICATE_REQUEST_ID)
+    # Different request id, same binding -> fingerprint suppression.
+    assert registry.submit(gate_b, ks, rp)["registry_outcome_class"] == (
+        sg.GATE_REGISTRY_DUPLICATE_FINGERPRINT)
+    assert registry.candidate_count() == 1
+
+
+def test_r1_packet_includes_invariants_and_blocked_reasons():
+    p = sg.build_packet()
+    for inv in (
+            "dispatch_gate_revalidates_upstream_safety_flags",
+            "kill_switch_clear_metadata_cannot_hide_unsafe_behavior",
+            "rate_policy_clear_metadata_cannot_hide_retry_or_scheduler_behavior",
+            "dry_run_complete_metadata_cannot_hide_network_or_live_behavior",
+            "unsafe_upstream_behavior_claim_blocks_candidate"):
+        assert inv in p["hard_invariants"], inv
+    for reason in (
+            sg.BLOCK_GATE_DRY_RUN_UNSAFE_BEHAVIOR,
+            sg.BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR,
+            sg.BLOCK_GATE_RATE_POLICY_UNSAFE_BEHAVIOR):
+        assert reason in p["r1_upstream_revalidation_blocked_reasons"], reason
+
+
+def test_r1_packet_and_doc_deterministic_and_leak_free():
+    p1 = sg.build_packet()
+    p2 = sg.build_packet()
+    assert p1["checksum_sha256"] == p2["checksum_sha256"]
+    assert sg.scan_for_leaks(p1) == []
+    d1 = sg.build_doc()
+    d2 = sg.build_doc()
+    assert d1 == d2
+    assert sg.scan_for_leaks(d1) == []
+    assert sg.BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR in d1

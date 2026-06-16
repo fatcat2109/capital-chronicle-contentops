@@ -197,6 +197,56 @@ BLOCK_GATE_IDEMPOTENCY_KEY_MISMATCH = "gate_idempotency_key_mismatch"
 BLOCK_GATE_REQUEST_ID_MISSING = "gate_explicit_supervised_request_id_missing"
 BLOCK_GATE_MISSING_FIELD = "gate_required_field_missing"
 
+# R1 upstream safety-flag revalidation blocked-reason classes. Clear status /
+# pass / clear metadata on an upstream artifact must NEVER be able to hide a
+# claim of unsafe behavior; the gate re-derives the truth from the flags.
+BLOCK_GATE_DRY_RUN_UNSAFE_BEHAVIOR = (
+    "dispatch_gate_dry_run_unsafe_behavior_claimed")
+BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR = (
+    "dispatch_gate_kill_switch_unsafe_behavior_claimed")
+BLOCK_GATE_RATE_POLICY_UNSAFE_BEHAVIOR = (
+    "dispatch_gate_rate_policy_unsafe_behavior_claimed")
+
+# Artifact-name labels passed to detect_unsafe_behavior_claims.
+ARTIFACT_DRY_RUN = "dry_run"
+ARTIFACT_KILL_SWITCH = "kill_switch"
+ARTIFACT_RATE_POLICY = "rate_policy"
+
+_ARTIFACT_UNSAFE_BASE = {
+    ARTIFACT_DRY_RUN: BLOCK_GATE_DRY_RUN_UNSAFE_BEHAVIOR,
+    ARTIFACT_KILL_SWITCH: BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR,
+    ARTIFACT_RATE_POLICY: BLOCK_GATE_RATE_POLICY_UNSAFE_BEHAVIOR,
+}
+
+# Universal unsafe-behavior flags that MUST be False on every upstream artifact.
+_UNSAFE_BEHAVIOR_FLAGS = (
+    "dispatch_performed",
+    "live_request_performed",
+    "platform_api_called",
+    "telegram_api_called",
+    "credential_hydrated",
+    "llm_behavior",
+    "network_performed",
+    "scheduler_enabled",
+    "auto_retry_allowed",
+    "autonomous_reply_performed",
+    "dispatch_ready",
+    "live_ready",
+)
+
+# Artifact-specific live/readiness booleans that MUST be False where present.
+_UNSAFE_READINESS_FLAGS = (
+    "dry_run_is_dispatch",
+    "dry_run_is_live_readiness_claim",
+    "kill_switch_evaluation_is_dispatch",
+    "kill_switch_evaluation_is_live_readiness",
+    "rate_spend_retry_evaluation_is_dispatch",
+    "gate_is_dispatch",
+    "gate_is_provider_authorization",
+    "gate_is_live_readiness",
+    "valid_for_live_execution",
+)
+
 # 0174TO registry suppression classes.
 GATE_REGISTRY_APPENDED = "dispatch_authorization_candidate_appended"
 GATE_REGISTRY_DUPLICATE_REQUEST_ID = "duplicate_request_id_suppressed"
@@ -292,6 +342,37 @@ def _dry_run_claims_live(dry_run_result):
         or dr.get("dry_run_is_dispatch") is not False
         or dr.get("dry_run_is_live_readiness_claim") is not False
     )
+
+
+def detect_unsafe_behavior_claims(obj, artifact_name):
+    """Return deterministic blocked reasons for any unsafe flag an artifact claims.
+
+    R1 hardening: a previously-"clear"/"pass" upstream artifact (dry run, kill
+    switch evaluation, or rate/spend/retry evaluation) must NOT be able to carry
+    a tampered flag claiming live/network/credential/scheduler/retry/dispatch
+    behavior past the gate just because its status metadata still reads clear.
+    This helper re-derives the truth directly from the flags.
+
+    A universal flag "claims" unsafe behavior when it is present and not False.
+    An artifact-specific readiness boolean likewise blocks when present and not
+    False. Returns a sorted, de-duplicated list whose first element (when any
+    flag trips) is the artifact's bare unsafe-behavior-claimed class, followed
+    by ``<base>:<flag>`` entries for audit precision. An empty list means the
+    artifact claims no unsafe behavior.
+    """
+    o = obj or {}
+    base = _ARTIFACT_UNSAFE_BASE.get(
+        artifact_name,
+        "dispatch_gate_" + str(artifact_name) + "_unsafe_behavior_claimed")
+    hits = []
+    for flag in (_UNSAFE_BEHAVIOR_FLAGS + _UNSAFE_READINESS_FLAGS):
+        if flag in o and o.get(flag) is not False:
+            hits.append(flag)
+    if not hits:
+        return []
+    reasons = [base]
+    reasons.extend(base + ":" + flag for flag in hits)
+    return sorted(set(reasons))
 
 
 # --------------------------------------------------------------------------- #
@@ -736,6 +817,15 @@ def run_one_request_dispatch_gate(input_bundle):
     if _dry_run_claims_live(dr):
         blocked.append(BLOCK_GATE_DRY_RUN_LIVE_FLAG_SET)
 
+    # 3b. R1: re-validate the upstream safety flags on EVERY artifact. Clear
+    #     status/pass/clear metadata on the dry run, kill switch, or rate policy
+    #     must NOT be able to hide a claim of unsafe behavior (network,
+    #     platform/telegram api, credential hydration, llm, scheduler, auto
+    #     retry, dispatch, live readiness, autonomous reply).
+    blocked.extend(detect_unsafe_behavior_claims(dr, ARTIFACT_DRY_RUN))
+    blocked.extend(detect_unsafe_behavior_claims(ks, ARTIFACT_KILL_SWITCH))
+    blocked.extend(detect_unsafe_behavior_claims(rp, ARTIFACT_RATE_POLICY))
+
     # 4. Kill switch + rate policy must both be clear.
     if not _kill_switch_is_clear(ks):
         blocked.append(BLOCK_GATE_KILL_SWITCH_NOT_CLEAR)
@@ -1098,6 +1188,13 @@ def build_packet():
             GATE_REGISTRY_DUPLICATE_REQUEST_ID,
             GATE_REGISTRY_DUPLICATE_FINGERPRINT,
         ],
+        "r1_upstream_revalidation_blocked_reasons": [
+            BLOCK_GATE_DRY_RUN_UNSAFE_BEHAVIOR,
+            BLOCK_GATE_KILL_SWITCH_UNSAFE_BEHAVIOR,
+            BLOCK_GATE_RATE_POLICY_UNSAFE_BEHAVIOR,
+        ],
+        "r1_revalidated_unsafe_flags": list(
+            _UNSAFE_BEHAVIOR_FLAGS + _UNSAFE_READINESS_FLAGS),
         "rate_spend_retry_policy_invariants": [
             "max_requests_per_gate_equals_1",
             "auto_retry_allowed_false",
@@ -1120,6 +1217,12 @@ def build_packet():
             "candidate_cannot_be_live_executable",
             "operator_owned_live_gate_remains_future_separate_task",
             "registry_suppresses_duplicate_request_id_and_fingerprint",
+            # R1 upstream safety-flag revalidation invariants.
+            "dispatch_gate_revalidates_upstream_safety_flags",
+            "kill_switch_clear_metadata_cannot_hide_unsafe_behavior",
+            "rate_policy_clear_metadata_cannot_hide_retry_or_scheduler_behavior",
+            "dry_run_complete_metadata_cannot_hide_network_or_live_behavior",
+            "unsafe_upstream_behavior_claim_blocks_candidate",
             "no_credential_hydration",
             "no_platform_api",
             "no_telegram_send",
@@ -1147,6 +1250,9 @@ def build_doc():
         f"  * `{inv}`"
         for inv in packet["rate_spend_retry_policy_invariants"])
     hard = "\n".join(f"  * `{inv}`" for inv in packet["hard_invariants"])
+    r1_reasons = "\n".join(
+        f"  * `{r}`"
+        for r in packet["r1_upstream_revalidation_blocked_reasons"])
     return (
         f"# 0174TM/TN/TO Kill Switch + Rate Policy + One-Request Dispatch Gate\n\n"
         f"Task: `{TASK_LABEL}`\n\n"
@@ -1172,6 +1278,13 @@ def build_doc():
         f"is NEVER live-executable and always `requires_operator_live_gate`. "
         f"A registry suppresses duplicate request ids and idempotency "
         f"fingerprints.\n\n"
+        f"## R1 upstream safety-flag revalidation\n\n"
+        f"The gate re-derives upstream safety truth directly from the flags on "
+        f"the dry run, kill switch evaluation, and rate/spend/retry evaluation. "
+        f"A `pass`/`clear` status can NOT hide a tampered claim of "
+        f"network/platform/Telegram/credential/LLM/scheduler/retry/dispatch or "
+        f"live-readiness behavior; any such claim blocks the candidate:\n\n"
+        f"{r1_reasons}\n\n"
         f"## Hard invariants\n\n{hard}\n\n"
         f"## Next required gate\n\n{NEXT_REQUIRED_GATE}\n\n"
         f"Exact next task: `{EXACT_NEXT_TASK_RECOMMENDATION}`\n\n"

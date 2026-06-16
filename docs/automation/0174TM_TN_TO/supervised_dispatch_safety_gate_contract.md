@@ -42,6 +42,14 @@ The only clear outcome is `rate_spend_retry_policy_clear_for_one_request_gate`. 
 
 Requires a complete dry run, a clear kill switch, a clear rate policy, the full deep cross-binding, and an explicit supervised request id. It produces a local `DispatchAuthorizationCandidate` (`one_request_dispatch_gate_candidate_created_not_dispatched`) that is NEVER live-executable and always `requires_operator_live_gate`. A registry suppresses duplicate request ids and idempotency fingerprints.
 
+## R1 upstream safety-flag revalidation
+
+The gate re-derives upstream safety truth directly from the flags on the dry run, kill switch evaluation, and rate/spend/retry evaluation. A `pass`/`clear` status can NOT hide a tampered claim of network/platform/Telegram/credential/LLM/scheduler/retry/dispatch or live-readiness behavior; any such claim blocks the candidate:
+
+  * `dispatch_gate_dry_run_unsafe_behavior_claimed`
+  * `dispatch_gate_kill_switch_unsafe_behavior_claimed`
+  * `dispatch_gate_rate_policy_unsafe_behavior_claimed`
+
 ## Hard invariants
 
   * `kill_switch_clear_required_but_not_sufficient`
@@ -51,6 +59,11 @@ Requires a complete dry run, a clear kill switch, a clear rate policy, the full 
   * `candidate_cannot_be_live_executable`
   * `operator_owned_live_gate_remains_future_separate_task`
   * `registry_suppresses_duplicate_request_id_and_fingerprint`
+  * `dispatch_gate_revalidates_upstream_safety_flags`
+  * `kill_switch_clear_metadata_cannot_hide_unsafe_behavior`
+  * `rate_policy_clear_metadata_cannot_hide_retry_or_scheduler_behavior`
+  * `dry_run_complete_metadata_cannot_hide_network_or_live_behavior`
+  * `unsafe_upstream_behavior_claim_blocks_candidate`
   * `no_credential_hydration`
   * `no_platform_api`
   * `no_telegram_send`
@@ -67,4 +80,4 @@ a redacted immutable audit ledger + an operator-owned live gate readiness review
 
 Exact next task: `TASK_CONTENTOPS_0174TP_TQ_TR_REDACTED_IMMUTABLE_AUDIT_AND_OPERATOR_LIVE_GATE_READINESS_REVIEW_BATCH_V0`
 
-Packet checksum: `9c0c2e5ea3d94e0bd25aa1a43a7fa42bf5810407b59666e889f3a35c9f67ff47`
+Packet checksum: `f04b25c8ce53fe894143df476bc57ae23c0a23dc27f6effeab375fb01181e9b3`
