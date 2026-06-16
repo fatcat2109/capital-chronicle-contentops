@@ -95,6 +95,15 @@ path is ever included in the hash or persisted.
   status, never mutation of a prior approval fact.
 - Audit objects contain redacted values only; no raw credential/token/api-key
   is stored, hashed, prefixed, suffixed, fingerprinted, or logged.
+- **R1 hardening:** `record_approval` fails closed BEFORE creating a ledger
+  entry unless the supplied challenge still binds the exact same payload: the
+  challenge payload hash must equal `compute_payload_hash(payload)`, every
+  binding field (platform, destination binding, credential handle, media
+  manifest hash, visibility class) must match, the response must be an explicit
+  approve, the challenge must still be pending, and the approval time must not
+  exceed the challenge expiry. A challenge created for payload A can never
+  record an approval for a substituted payload B
+  (`record_approval_rejects_challenge_payload_substitution`).
 
 ## Authority Boundary
 Approval state never implies dispatch-ready or live-ready. Every validation

@@ -472,9 +472,55 @@ def record_approval(challenge, payload, ledger_entry_id, approved_at_epoch,
     credentials, and reports ``valid_for_dispatch = False``. Validity for a
     CURRENT payload is always re-derived by ``validate_approval_for_current_
     payload`` -- this fact only states that an approval happened.
+
+    R1 HARDENING (fail-closed challenge<->payload binding): an approval entry is
+    created ONLY when the supplied challenge still binds the EXACT same payload.
+    A challenge created for payload A MUST NOT be usable to record an approval
+    for a substituted payload B. Before any entry is built this raises
+    ``ValueError`` with a stable reason string if:
+      * the challenge payload hash is missing
+        (``approval_challenge_payload_hash_missing``);
+      * the challenge payload hash differs from ``compute_payload_hash(payload)``
+        (``approval_challenge_payload_hash_mismatch``);
+      * any binding field (platform, destination binding, credential handle,
+        media manifest hash, visibility class) differs
+        (``approval_challenge_binding_mismatch:<field>``);
+      * the approval time is past the challenge expiry
+        (``approval_challenge_expired``);
+      * the response class is not an explicit approve
+        (``approval_response_not_explicit_approve``);
+      * the challenge status is present and not pending
+        (``approval_challenge_not_pending``).
+    No approval fact is produced in any failed case.
     """
     assert_payload_redacted(payload)
     payload_hash = compute_payload_hash(payload)
+
+    # --- R1: prove the challenge still binds this exact payload ----------- #
+    if response_class != RESPONSE_EXPLICIT_APPROVE:
+        raise ValueError("approval_response_not_explicit_approve")
+
+    challenge = challenge or {}
+
+    challenge_status = challenge.get("status")
+    if challenge_status is not None and challenge_status != CHALLENGE_PENDING:
+        raise ValueError("approval_challenge_not_pending")
+
+    challenge_hash = challenge.get("payload_hash")
+    if not challenge_hash:
+        raise ValueError("approval_challenge_payload_hash_missing")
+    if challenge_hash != payload_hash:
+        raise ValueError("approval_challenge_payload_hash_mismatch")
+
+    for field in _BINDING_FIELDS:
+        if challenge.get(field) != payload.get(field):
+            raise ValueError(f"approval_challenge_binding_mismatch:{field}")
+
+    challenge_expires = challenge.get("expires_at_epoch")
+    if challenge_expires is None:
+        raise ValueError("approval_challenge_expired")
+    if int(approved_at_epoch) > int(challenge_expires):
+        raise ValueError("approval_challenge_expired")
     entry = {
         "fact_kind": FACT_APPROVAL,
         "ledger_entry_id": ledger_entry_id,
@@ -816,6 +862,7 @@ def build_packet():
             "approval_does_not_hydrate_credentials",
             "append_only_revocation_is_new_fact_not_mutation",
             "audit_contains_redacted_values_only",
+            "record_approval_rejects_challenge_payload_substitution",
         ],
         "redaction_policy": {
             "fail_closed_on_forbidden_value": True,
@@ -948,6 +995,15 @@ path is ever included in the hash or persisted.
   status, never mutation of a prior approval fact.
 - Audit objects contain redacted values only; no raw credential/token/api-key
   is stored, hashed, prefixed, suffixed, fingerprinted, or logged.
+- **R1 hardening:** `record_approval` fails closed BEFORE creating a ledger
+  entry unless the supplied challenge still binds the exact same payload: the
+  challenge payload hash must equal `compute_payload_hash(payload)`, every
+  binding field (platform, destination binding, credential handle, media
+  manifest hash, visibility class) must match, the response must be an explicit
+  approve, the challenge must still be pending, and the approval time must not
+  exceed the challenge expiry. A challenge created for payload A can never
+  record an approval for a substituted payload B
+  (`record_approval_rejects_challenge_payload_substitution`).
 
 ## Authority Boundary
 Approval state never implies dispatch-ready or live-ready. Every validation

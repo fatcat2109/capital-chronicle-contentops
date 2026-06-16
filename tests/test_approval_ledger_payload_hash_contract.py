@@ -525,3 +525,127 @@ def test_write_artifacts_touches_only_0174ed_dir(tmp_path):
 def test_source_baseline_commit_recorded():
     assert model.SOURCE_BASELINE_COMMIT == (
         "b07e220e4d5fdebeb47368dbc08a10f28c9c4bbd")
+
+
+# --------------------------------------------------------------------------- #
+# R1 hardening: record_approval rejects challenge<->payload substitution
+# --------------------------------------------------------------------------- #
+def test_r1_record_approval_rejects_edited_text_substitution():
+    a = _payload()
+    ch = _challenge(a)
+    b = _payload(payload_text="substituted body B")
+    with pytest.raises(ValueError) as exc:
+        _approval(b, ch)
+    assert "approval_challenge_payload_hash_mismatch" in str(exc.value)
+
+
+def test_r1_record_approval_rejects_changed_platform():
+    a = _payload()
+    ch = _challenge(a)
+    b = _payload(platform="x")
+    with pytest.raises(ValueError):
+        _approval(b, ch)
+
+
+def test_r1_record_approval_rejects_changed_destination_binding():
+    a = _payload()
+    ch = _challenge(a)
+    b = _payload(destination_binding_id="9" * 64)
+    with pytest.raises(ValueError):
+        _approval(b, ch)
+
+
+def test_r1_record_approval_rejects_changed_credential_handle():
+    a = _payload()
+    ch = _challenge(a)
+    b = _payload(credential_handle_id="9" * 64)
+    with pytest.raises(ValueError):
+        _approval(b, ch)
+
+
+def test_r1_record_approval_rejects_changed_media_manifest():
+    a = _payload()
+    ch = _challenge(a)
+    b = _payload(media_manifest_hash="9" * 64)
+    with pytest.raises(ValueError):
+        _approval(b, ch)
+
+
+def test_r1_record_approval_rejects_changed_visibility():
+    a = _payload()
+    ch = _challenge(a)
+    b = _payload(visibility_class="unlisted")
+    with pytest.raises(ValueError):
+        _approval(b, ch)
+
+
+def test_r1_record_approval_rejects_expired_challenge_even_if_hash_matches():
+    a = _payload()
+    ch = _challenge(a, expires=2000)
+    with pytest.raises(ValueError) as exc:
+        model.record_approval(
+            ch, a, ledger_entry_id="led-1", approved_at_epoch=9999,
+            operator_id="jim")
+    assert "approval_challenge_expired" in str(exc.value)
+
+
+def test_r1_record_approval_rejects_non_explicit_response():
+    a = _payload()
+    ch = _challenge(a)
+    with pytest.raises(ValueError) as exc:
+        model.record_approval(
+            ch, a, ledger_entry_id="led-1", approved_at_epoch=1500,
+            operator_id="jim",
+            response_class=model.RESPONSE_EXPLICIT_EDIT_REQUEST)
+    assert "approval_response_not_explicit_approve" in str(exc.value)
+
+
+def test_r1_record_approval_rejects_non_pending_challenge():
+    a = _payload()
+    ch = _challenge(a)
+    ch["status"] = model.CHALLENGE_APPROVED
+    with pytest.raises(ValueError) as exc:
+        _approval(a, ch)
+    assert "approval_challenge_not_pending" in str(exc.value)
+
+
+def test_r1_valid_path_still_records_and_validates():
+    a = _payload()
+    ledger = model.ApprovalLedger()
+    ch = _challenge(a)
+    entry = _approval(a, ch)
+    ledger.append_approval(entry)
+    res = model.validate_approval_for_current_payload(
+        ledger, entry, a, now_epoch=1600)
+    assert res["approval_validity_class"] == model.APPROVAL_VALID_CANDIDATE
+    assert res["status"] == model.ApprovalStatus.PASS
+
+
+def test_r1_audit_exploit_regression_challenge_a_cannot_approve_payload_b():
+    # Exact audit exploit: challenge for A must not approve substituted B.
+    a = _payload()
+    b = _payload(payload_text="malicious substituted payload B")
+    ledger = model.ApprovalLedger()
+    ch_a = _challenge(a)
+    # 1. record_approval(challenge_A, payload_B) must fail closed.
+    with pytest.raises(ValueError):
+        model.record_approval(
+            ch_a, b, ledger_entry_id="led-b", approved_at_epoch=1500,
+            operator_id="jim")
+    # 2. No approval fact was appended (nothing was returned to append).
+    assert len(ledger.approvals()) == 0
+    assert len(ledger.facts) == 0
+    # 3. Even the legitimately recorded approval for A cannot validate B.
+    entry_a = _approval(a, ch_a)
+    ledger.append_approval(entry_a)
+    res = model.validate_approval_for_current_payload(
+        ledger, entry_a, b, now_epoch=1600)
+    assert res["status"] != model.ApprovalStatus.PASS
+    assert res["payload_hash_match"] is False
+
+
+def test_r1_invariant_present_in_packet():
+    pkt = model.build_packet()
+    assert (
+        "record_approval_rejects_challenge_payload_substitution"
+        in pkt["invariants"])
