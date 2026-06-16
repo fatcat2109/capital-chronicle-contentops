@@ -115,6 +115,13 @@ persisted.
   validation, missing gate snapshot, or a non-symbolic credential blocks.
 - An approval valid for payload A can **never** create an outbox entry for a
   substituted payload B.
+- **R1 authority-chain hardening:** the preflight ALWAYS recomputes the current
+  payload hash from the supplied current payload
+  (`preflight_recomputes_current_payload_hash_before_outbox`) and uses it for
+  the candidate + idempotency key. A stale/foreign validation result is rejected
+  fail-closed (`stale_validation_result_cannot_create_outbox`) when its
+  `current_payload_hash`, `approved_payload_hash`, `ledger_entry_id`, or
+  `challenge_id` does not bind the same approval entry + recomputed payload.
 - Audit objects contain redacted values only.
 
 ## Authority Boundary

@@ -159,6 +159,14 @@ BLOCK_LIVE_NOT_ALLOWED = "live_dispatch_not_allowed_in_0174EE"
 BLOCK_MISSING_VALIDATION = "approval_validation_missing"
 BLOCK_MISSING_FIELD = "required_field_missing"
 BLOCK_DISPATCH_FLAG_SET = "upstream_dispatch_or_live_flag_set"
+# R1 authority-chain hardening: the preflight recomputes the current payload
+# hash and proves the supplied validation result + approval entry all agree.
+BLOCK_VALIDATION_HASH_MISMATCH_CURRENT = (
+    "validation_payload_hash_mismatch_current_payload")
+BLOCK_VALIDATION_APPROVED_HASH_MISMATCH_ENTRY = (
+    "validation_approved_hash_mismatch_entry")
+BLOCK_VALIDATION_ENTRY_MISMATCH = "validation_entry_mismatch"
+BLOCK_VALIDATION_CHALLENGE_MISMATCH = "validation_challenge_mismatch"
 
 # Required authority fields that must be present (non-empty) on a candidate.
 REQUIRED_CANDIDATE_FIELDS = (
@@ -236,13 +244,19 @@ def _is_symbolic_credential_handle(handle_id):
 def build_outbox_candidate(current_payload, approval_entry, validation_result,
                            dispatch_intent_class=INTENT_SUPERVISED_SINGLE,
                            gate_snapshot_class=GATE_ALLOWS_LOCAL_OUTBOX,
-                           gate_snapshot_id=None, operator_id=None):
+                           gate_snapshot_id=None, operator_id=None,
+                           payload_hash_override=None):
     """Build a deterministic DispatchOutboxCandidate from 0174ED outputs.
 
     Pulls authority-bearing fields from the CURRENT payload and the approval
     validation result. A credential is represented ONLY by its symbolic
     ``credential_handle_id``. No raw payload text, account id, handle, or
     secret material is copied into the candidate.
+
+    R1: when ``payload_hash_override`` is supplied (the hash recomputed locally
+    from the current payload by the preflight) it is the authoritative
+    ``payload_hash`` -- the externally supplied validation result hash is never
+    trusted on its own for the candidate or idempotency key.
     """
     payload = current_payload or {}
     entry = approval_entry or {}
@@ -250,7 +264,8 @@ def build_outbox_candidate(current_payload, approval_entry, validation_result,
     return {
         "outbox_schema": OUTBOX_SCHEMA,
         "outbox_schema_version": OUTBOX_SCHEMA_VERSION,
-        "payload_hash": vres.get("current_payload_hash"),
+        "payload_hash": payload_hash_override or vres.get(
+            "current_payload_hash"),
         "platform": payload.get("platform"),
         "destination_binding_id": payload.get("destination_binding_id"),
         "credential_handle_id": payload.get("credential_handle_id"),
@@ -324,12 +339,22 @@ def run_dispatch_preflight(current_payload, approval_entry, validation_result,
     candidate = None
     idempotency_key = None
     eligibility = OUTBOX_NOT_ELIGIBLE
+    # R1: the trusted current payload hash is ALWAYS recomputed locally from the
+    # supplied current_payload -- never read blindly from the validation result.
+    computed_current_payload_hash = None
 
     if forbidden_detected:
         status = OutboxStatus.FAIL_CLOSED
         eligibility = OUTBOX_FAIL_CLOSED
         blocked.append(BLOCK_FORBIDDEN_VALUE)
     else:
+        # R1: recompute the current payload hash from the CURRENT payload after
+        # redaction passes. This is the single source of truth for the outbox
+        # candidate + idempotency key; an externally supplied
+        # validation_result["current_payload_hash"] is only cross-checked, never
+        # trusted on its own.
+        computed_current_payload_hash = approval.compute_payload_hash(payload)
+
         # 2. Approval validation must be present.
         if not vres:
             blocked.append(BLOCK_MISSING_VALIDATION)
@@ -358,6 +383,27 @@ def run_dispatch_preflight(current_payload, approval_entry, validation_result,
                     or vres.get("live_ready") is not False
                     or vres.get("approval_authorizes_dispatch") is not False):
                 blocked.append(BLOCK_DISPATCH_FLAG_SET)
+
+            # R1 AUTHORITY-CHAIN HARDENING: prove the supplied validation result
+            # + approval entry all bind the SAME recomputed current payload.
+            # A stale/foreign validation result for payload A must not be paired
+            # with a substituted payload B.
+            # (a) recomputed current hash must equal the validation's claimed
+            #     current_payload_hash.
+            if vres.get("current_payload_hash") != computed_current_payload_hash:
+                blocked.append(BLOCK_VALIDATION_HASH_MISMATCH_CURRENT)
+            # (b) recomputed current hash must equal the approval entry hash.
+            if entry.get("payload_hash") != computed_current_payload_hash:
+                blocked.append(BLOCK_VALIDATION_HASH_MISMATCH_CURRENT)
+            # (c) validation approved hash must equal the approval entry hash.
+            if vres.get("approved_payload_hash") != entry.get("payload_hash"):
+                blocked.append(BLOCK_VALIDATION_APPROVED_HASH_MISMATCH_ENTRY)
+            # (d) validation must reference the same ledger entry id.
+            if vres.get("ledger_entry_id") != entry.get("ledger_entry_id"):
+                blocked.append(BLOCK_VALIDATION_ENTRY_MISMATCH)
+            # (e) validation must reference the same challenge id.
+            if vres.get("challenge_id") != entry.get("challenge_id"):
+                blocked.append(BLOCK_VALIDATION_CHALLENGE_MISMATCH)
 
         # 10. Required authority fields present (non-empty).
         for field in REQUIRED_CANDIDATE_FIELDS:
@@ -403,7 +449,8 @@ def run_dispatch_preflight(current_payload, approval_entry, validation_result,
                 payload, entry, vres,
                 dispatch_intent_class=dispatch_intent_class,
                 gate_snapshot_class=gate_snapshot_class,
-                gate_snapshot_id=gate_snapshot_id, operator_id=operator_id)
+                gate_snapshot_id=gate_snapshot_id, operator_id=operator_id,
+                payload_hash_override=computed_current_payload_hash)
             idempotency_key = compute_idempotency_key(candidate)
 
     return {
@@ -416,7 +463,10 @@ def run_dispatch_preflight(current_payload, approval_entry, validation_result,
         "approval_ledger_entry_id": entry.get("ledger_entry_id"),
         "challenge_id": entry.get("challenge_id"),
         "approved_payload_hash": (vres or {}).get("approved_payload_hash"),
-        "current_payload_hash": (vres or {}).get("current_payload_hash"),
+        "current_payload_hash": (
+            computed_current_payload_hash
+            if computed_current_payload_hash is not None
+            else (vres or {}).get("current_payload_hash")),
         "idempotency_key": idempotency_key,
         "idempotency_key_short": (
             idempotency_key_short(idempotency_key) if idempotency_key else None),
@@ -693,6 +743,10 @@ def build_packet():
             BLOCK_DUPLICATE_KEY, BLOCK_FORBIDDEN_VALUE, BLOCK_LIVE_NOT_ALLOWED,
             BLOCK_MISSING_VALIDATION, BLOCK_MISSING_FIELD,
             BLOCK_DISPATCH_FLAG_SET,
+            BLOCK_VALIDATION_HASH_MISMATCH_CURRENT,
+            BLOCK_VALIDATION_APPROVED_HASH_MISMATCH_ENTRY,
+            BLOCK_VALIDATION_ENTRY_MISMATCH,
+            BLOCK_VALIDATION_CHALLENGE_MISMATCH,
         ],
         "consumes_0174ed_outputs": [
             "current_payload",
@@ -715,6 +769,8 @@ def build_packet():
             "readiness_never_inferred_from_absence_of_blockers",
             "approval_valid_for_payload_a_cannot_create_outbox_for_payload_b",
             "audit_contains_redacted_values_only",
+            "preflight_recomputes_current_payload_hash_before_outbox",
+            "stale_validation_result_cannot_create_outbox",
         ],
         "redaction_policy": {
             "fail_closed_on_forbidden_value": True,
@@ -853,6 +909,13 @@ persisted.
   validation, missing gate snapshot, or a non-symbolic credential blocks.
 - An approval valid for payload A can **never** create an outbox entry for a
   substituted payload B.
+- **R1 authority-chain hardening:** the preflight ALWAYS recomputes the current
+  payload hash from the supplied current payload
+  (`preflight_recomputes_current_payload_hash_before_outbox`) and uses it for
+  the candidate + idempotency key. A stale/foreign validation result is rejected
+  fail-closed (`stale_validation_result_cannot_create_outbox`) when its
+  `current_payload_hash`, `approved_payload_hash`, `ledger_entry_id`, or
+  `challenge_id` does not bind the same approval entry + recomputed payload.
 - Audit objects contain redacted values only.
 
 ## Authority Boundary

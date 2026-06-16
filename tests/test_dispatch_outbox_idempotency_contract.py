@@ -574,3 +574,127 @@ def test_write_artifacts_touches_only_0174ee_dir(tmp_path):
 def test_source_baseline_commit_recorded():
     assert model.SOURCE_BASELINE_COMMIT == (
         "b07848e61fef10917a38e344743f00a9de655cbb")
+
+
+# --------------------------------------------------------------------------- #
+# R1 authority-chain hardening: preflight recomputes the current payload hash
+# and fails closed on any stale/foreign validation-result pairing.
+# --------------------------------------------------------------------------- #
+def test_r1_valid_path_still_passes():
+    pre = _preflight()
+    assert pre["status"] == model.OutboxStatus.PASS
+    assert pre["blocked_reasons"] == []
+    assert pre["candidate"] is not None
+    assert pre["idempotency_key"] and len(pre["idempotency_key"]) == 64
+
+
+def _stale_validation_pairing(text_b="substituted body B only text changed"):
+    """Build validation for payload A, then a payload B with only text changed
+    so binding fields still match. Returns (payload_b, entry_a, vres_a)."""
+    a = _payload()
+    ledger, entry_a = _approved(a)
+    vres_a = approval.validate_approval_for_current_payload(
+        ledger, entry_a, a, now_epoch=1600)
+    b = _payload(payload_text=text_b)
+    return b, entry_a, vres_a
+
+
+def test_r1_stale_validation_a_with_payload_b_blocks():
+    b, entry_a, vres_a = _stale_validation_pairing()
+    pre = model.run_dispatch_preflight(
+        b, entry_a, vres_a, gate_snapshot_id="gate_v1")
+    assert pre["status"] == model.OutboxStatus.BLOCKED
+    assert model.BLOCK_VALIDATION_HASH_MISMATCH_CURRENT in pre["blocked_reasons"]
+
+
+def test_r1_stale_validation_a_with_payload_b_no_candidate_or_key():
+    b, entry_a, vres_a = _stale_validation_pairing()
+    pre = model.run_dispatch_preflight(
+        b, entry_a, vres_a, gate_snapshot_id="gate_v1")
+    assert pre["candidate"] is None
+    assert pre["idempotency_key"] is None
+
+
+def test_r1_registry_submit_on_blocked_stale_pairing_raises_and_appends_none():
+    b, entry_a, vres_a = _stale_validation_pairing()
+    pre = model.run_dispatch_preflight(
+        b, entry_a, vres_a, gate_snapshot_id="gate_v1")
+    reg = model.DispatchOutboxRegistry()
+    with pytest.raises(ValueError):
+        reg.submit(pre, outbox_entry_id="ob-b", created_at_epoch=1700)
+    assert reg.entry_count() == 0
+
+
+def test_r1_stale_validation_hash_mismatch_reason_present():
+    b, entry_a, vres_a = _stale_validation_pairing()
+    pre = model.run_dispatch_preflight(
+        b, entry_a, vres_a, gate_snapshot_id="gate_v1")
+    assert (model.BLOCK_VALIDATION_HASH_MISMATCH_CURRENT
+            in pre["blocked_reasons"])
+
+
+def test_r1_validation_approved_hash_mismatch_against_entry_blocks():
+    p = _payload()
+    _ledger, entry = _approved(p)
+    vres = approval.validate_approval_for_current_payload(
+        _ledger, entry, p, now_epoch=1600)
+    tampered = dict(vres)
+    tampered["approved_payload_hash"] = "9" * 64
+    pre = model.run_dispatch_preflight(
+        p, entry, tampered, gate_snapshot_id="gate_v1")
+    assert pre["status"] == model.OutboxStatus.BLOCKED
+    assert (model.BLOCK_VALIDATION_APPROVED_HASH_MISMATCH_ENTRY
+            in pre["blocked_reasons"])
+
+
+def test_r1_validation_ledger_entry_id_mismatch_blocks():
+    p = _payload()
+    _ledger, entry = _approved(p)
+    vres = approval.validate_approval_for_current_payload(
+        _ledger, entry, p, now_epoch=1600)
+    tampered = dict(vres)
+    tampered["ledger_entry_id"] = "led-foreign"
+    pre = model.run_dispatch_preflight(
+        p, entry, tampered, gate_snapshot_id="gate_v1")
+    assert pre["status"] == model.OutboxStatus.BLOCKED
+    assert model.BLOCK_VALIDATION_ENTRY_MISMATCH in pre["blocked_reasons"]
+
+
+def test_r1_validation_challenge_id_mismatch_blocks():
+    p = _payload()
+    _ledger, entry = _approved(p)
+    vres = approval.validate_approval_for_current_payload(
+        _ledger, entry, p, now_epoch=1600)
+    tampered = dict(vres)
+    tampered["challenge_id"] = "chal-foreign"
+    pre = model.run_dispatch_preflight(
+        p, entry, tampered, gate_snapshot_id="gate_v1")
+    assert pre["status"] == model.OutboxStatus.BLOCKED
+    assert model.BLOCK_VALIDATION_CHALLENGE_MISMATCH in pre["blocked_reasons"]
+
+
+def test_r1_candidate_uses_recomputed_payload_hash_on_valid_path():
+    p = _payload()
+    _ledger, entry = _approved(p)
+    vres = approval.validate_approval_for_current_payload(
+        _ledger, entry, p, now_epoch=1600)
+    expected = approval.compute_payload_hash(p)
+    pre = model.run_dispatch_preflight(
+        p, entry, vres, gate_snapshot_id="gate_v1")
+    assert pre["status"] == model.OutboxStatus.PASS
+    assert pre["candidate"]["payload_hash"] == expected
+    assert pre["current_payload_hash"] == expected
+
+
+def test_r1_invariants_present_in_packet():
+    pkt = model.build_packet()
+    assert (
+        "preflight_recomputes_current_payload_hash_before_outbox"
+        in pkt["invariants"])
+    assert "stale_validation_result_cannot_create_outbox" in pkt["invariants"]
+    for reason in (
+            model.BLOCK_VALIDATION_HASH_MISMATCH_CURRENT,
+            model.BLOCK_VALIDATION_APPROVED_HASH_MISMATCH_ENTRY,
+            model.BLOCK_VALIDATION_ENTRY_MISMATCH,
+            model.BLOCK_VALIDATION_CHALLENGE_MISMATCH):
+        assert reason in pkt["blocked_reasons"]
