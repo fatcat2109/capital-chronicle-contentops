@@ -2,7 +2,7 @@
 
 Task: `TASK_CONTENTOPS_0174TJ_TK_TL_EDITORIAL_PREVIEW_AND_SUPERVISED_DRY_RUN_CONTRACT_BATCH_V0`
 
-Model: `EDITORIAL_PREVIEW_SUPERVISED_DRY_RUN_CONTRACT_0174TJ_TK_TL` version `0174TJ_TK_TL_EDITORIAL_PREVIEW_DRY_RUN_V2_R1`
+Model: `EDITORIAL_PREVIEW_SUPERVISED_DRY_RUN_CONTRACT_0174TJ_TK_TL` version `0174TJ_TK_TL_EDITORIAL_PREVIEW_DRY_RUN_V2_R2`
 
 Baseline commit: `9e06c325f64e3dd1d4aa95c44c8e5224b061be17`
 
@@ -33,10 +33,30 @@ Builds one preview artifact per required surface; a single record can NEVER sati
 
 Re-verifies the full review -> outbox -> editorial -> preview-set hierarchy and every deep binding. Even when complete, the outcome is `supervised_dry_run_complete_not_dispatched` -- never dispatch.
 
+## R2 preview-artifact coverage recompute
+
+The supervised dry run RECOMPUTES preview-surface coverage directly from `preview_artifacts` and treats set-level `present_surface_classes` / `missing_surface_classes` as self-reported metadata only. Stale or tampered set metadata can NEVER hide a missing, duplicated, or unknown artifact. Invariants:
+
+  * `dry_run_recomputes_preview_surface_coverage_from_artifacts`
+  * `preview_set_metadata_cannot_override_artifact_truth`
+  * `missing_preview_artifact_cannot_be_hidden_by_stale_metadata`
+  * `duplicate_preview_artifact_surface_blocks_dry_run`
+  * `unknown_preview_artifact_surface_blocks_dry_run`
+  * `artifact_count_mismatch_blocks_dry_run`
+
+Coverage blocked reasons:
+
+  * `dry_run_preview_set_missing_required_surface`
+  * `dry_run_preview_artifact_binding_mismatch`
+  * `dry_run_preview_artifact_duplicate_surface`
+  * `dry_run_preview_artifact_unknown_surface`
+  * `dry_run_preview_artifact_count_mismatch`
+  * `dry_run_preview_surface_coverage_mismatch`
+
 ## Next required gate
 
 kill switch contract, rate/spend policy contract, and a one-request/no-auto-retry supervised dispatch gate with redacted immutable audit, all still local until an explicit operator-owned live gate; credential hydration and live platform/Telegram dispatch remain separate future operator-owned gates and are NOT enabled here
 
 Exact next task: `TASK_CONTENTOPS_0174TM_TN_TO_KILL_SWITCH_RATE_POLICY_AND_ONE_REQUEST_SUPERVISED_DISPATCH_GATE_BATCH_V0`
 
-Packet checksum: `3e0b5158ea56714e4cca4ac6fe01fe4adb87d8d1ec9bdef343287da11aa3c567`
+Packet checksum: `cb5a05dadc05fe2300029404e9927ebe8e57f62906082a8beffebe222653b12e`

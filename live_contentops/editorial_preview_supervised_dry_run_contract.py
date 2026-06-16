@@ -78,7 +78,7 @@ TASK_LABEL = (
     "CONTRACT_BATCH_V0"
 )
 MODEL = "EDITORIAL_PREVIEW_SUPERVISED_DRY_RUN_CONTRACT_0174TJ_TK_TL"
-MODEL_VERSION = "0174TJ_TK_TL_EDITORIAL_PREVIEW_DRY_RUN_V2_R1"
+MODEL_VERSION = "0174TJ_TK_TL_EDITORIAL_PREVIEW_DRY_RUN_V2_R2"
 
 EDITORIAL_SCHEMA = "contentops.editorial_decision_record"
 EDITORIAL_SCHEMA_VERSION = "0174TJ_EDITORIAL_V2_R1"
@@ -90,7 +90,7 @@ PREVIEW_SET_SCHEMA_VERSION = "0174TK_PREVIEW_SET_V1_R1"
 PREVIEW_SCHEMA = "contentops.platform_preview_record"
 PREVIEW_SCHEMA_VERSION = "0174TK_PREVIEW_V1"
 DRY_RUN_SCHEMA = "contentops.supervised_dry_run_record"
-DRY_RUN_SCHEMA_VERSION = "0174TL_DRY_RUN_V2_R1"
+DRY_RUN_SCHEMA_VERSION = "0174TL_DRY_RUN_V2_R2"
 
 SOURCE_BASELINE_COMMIT = "9e06c325f64e3dd1d4aa95c44c8e5224b061be17"
 
@@ -190,6 +190,37 @@ BLOCK_DRY_RUN_PREVIEW_ARTIFACT_HARD_BLOCKER = (
     "dry_run_preview_artifact_hard_blocker")
 BLOCK_DRY_RUN_PREVIEW_SET_REQUIRED = "dry_run_preview_set_required"
 BLOCK_DRY_RUN_LIVE_READINESS_CLAIMED = "dry_run_live_readiness_claimed"
+# R2 coverage-recompute dry-run blocked reasons. Coverage is recomputed from
+# the preview artifacts themselves; set-level metadata is never authority.
+BLOCK_DRY_RUN_PREVIEW_ARTIFACT_DUPLICATE_SURFACE = (
+    "dry_run_preview_artifact_duplicate_surface")
+BLOCK_DRY_RUN_PREVIEW_ARTIFACT_UNKNOWN_SURFACE = (
+    "dry_run_preview_artifact_unknown_surface")
+BLOCK_DRY_RUN_PREVIEW_ARTIFACT_COUNT_MISMATCH = (
+    "dry_run_preview_artifact_count_mismatch")
+BLOCK_DRY_RUN_PREVIEW_SURFACE_COVERAGE_MISMATCH = (
+    "dry_run_preview_surface_coverage_mismatch")
+
+# R2 invariants surfaced in the packet + doc so the recompute guarantee is
+# self-describing and auditable.
+R2_INVARIANTS = (
+    "dry_run_recomputes_preview_surface_coverage_from_artifacts",
+    "preview_set_metadata_cannot_override_artifact_truth",
+    "missing_preview_artifact_cannot_be_hidden_by_stale_metadata",
+    "duplicate_preview_artifact_surface_blocks_dry_run",
+    "unknown_preview_artifact_surface_blocks_dry_run",
+    "artifact_count_mismatch_blocks_dry_run",
+)
+
+# The full set of dry-run blocked reasons that enforce preview coverage truth.
+R2_COVERAGE_BLOCKED_REASONS = (
+    BLOCK_DRY_RUN_PREVIEW_SET_MISSING_SURFACE,
+    BLOCK_DRY_RUN_PREVIEW_ARTIFACT_BINDING_MISMATCH,
+    BLOCK_DRY_RUN_PREVIEW_ARTIFACT_DUPLICATE_SURFACE,
+    BLOCK_DRY_RUN_PREVIEW_ARTIFACT_UNKNOWN_SURFACE,
+    BLOCK_DRY_RUN_PREVIEW_ARTIFACT_COUNT_MISMATCH,
+    BLOCK_DRY_RUN_PREVIEW_SURFACE_COVERAGE_MISMATCH,
+)
 
 # Only these content lanes may carry an editorial decision in this batch. These
 # are grounded/context lanes -- never a trade-signal or advice lane.
@@ -820,6 +851,34 @@ def _preview_set_is_built(preview_set_result):
     )
 
 
+def _recompute_surface_coverage(artifacts):
+    """Recompute preview-surface coverage STRICTLY from artifact contents (R2).
+
+    Set-level ``present_surface_classes`` / ``missing_surface_classes`` are
+    self-reported metadata and are NEVER trusted as authority. This reads each
+    artifact's own ``preview_surface_class`` and returns the authoritative,
+    deterministically-sorted coverage, so a tampered/stale preview set that
+    drops one artifact while leaving clean metadata cannot pass the dry run.
+    """
+    artifacts = artifacts or []
+    required = set(REQUIRED_PREVIEW_SURFACES)
+    surfaces = [a.get("preview_surface_class") for a in artifacts]
+    counts = {}
+    for surface in surfaces:
+        counts[surface] = counts.get(surface, 0) + 1
+    present = sorted({str(s) for s in surfaces})
+    missing = sorted(required - set(surfaces))
+    duplicate = sorted({str(s) for s, c in counts.items() if c > 1})
+    unknown = sorted({str(s) for s in surfaces if s not in required})
+    return {
+        "artifact_count": len(artifacts),
+        "recomputed_present_surface_classes": present,
+        "recomputed_missing_surface_classes": missing,
+        "recomputed_duplicate_surface_classes": duplicate,
+        "recomputed_unknown_surface_classes": unknown,
+    }
+
+
 def run_supervised_dry_run(review_result, outbox_entry, editorial_record,
                            preview_set_result, *, dry_run_id, operator_id,
                            run_at_epoch):
@@ -877,13 +936,37 @@ def run_supervised_dry_run(review_result, outbox_entry, editorial_record,
     if not _preview_set_is_built(ps):
         blocked.append(BLOCK_DRY_RUN_PREVIEW_NOT_BUILT)
 
-    # 3. A preview SET is mandatory: the set must declare all required surfaces.
-    if ps.get("missing_surface_classes"):
-        for surface in ps.get("missing_surface_classes") or []:
-            blocked.append(
-                BLOCK_DRY_RUN_PREVIEW_SET_MISSING_SURFACE + ":" + surface)
-    if not ps.get("preview_artifacts"):
+    # 3. Preview-set coverage is RECOMPUTED from the artifacts themselves (R2).
+    #    Set-level present/missing metadata is self-reported ONLY and can NEVER
+    #    override artifact truth: a tampered set that drops one artifact while
+    #    leaving clean metadata is caught here. The required surfaces must be
+    #    present EXACTLY once, with no duplicate / unknown surface and an
+    #    artifact count equal to the required count.
+    artifacts = ps.get("preview_artifacts") or []
+    coverage = _recompute_surface_coverage(artifacts)
+    if not artifacts:
         blocked.append(BLOCK_DRY_RUN_PREVIEW_SET_REQUIRED)
+    for surface in coverage["recomputed_missing_surface_classes"]:
+        blocked.append(
+            BLOCK_DRY_RUN_PREVIEW_SET_MISSING_SURFACE + ":" + surface)
+    for surface in coverage["recomputed_duplicate_surface_classes"]:
+        blocked.append(
+            BLOCK_DRY_RUN_PREVIEW_ARTIFACT_DUPLICATE_SURFACE + ":" + surface)
+    for surface in coverage["recomputed_unknown_surface_classes"]:
+        blocked.append(
+            BLOCK_DRY_RUN_PREVIEW_ARTIFACT_UNKNOWN_SURFACE + ":" + surface)
+    if coverage["artifact_count"] != len(REQUIRED_PREVIEW_SURFACES):
+        blocked.append(BLOCK_DRY_RUN_PREVIEW_ARTIFACT_COUNT_MISMATCH)
+    # Self-reported set metadata must match the recomputed truth EXACTLY; any
+    # divergence means the metadata was tampered or is stale -> block.
+    if ((ps.get("present_surface_classes") or [])
+            != coverage["recomputed_present_surface_classes"]):
+        blocked.append(BLOCK_DRY_RUN_PREVIEW_SURFACE_COVERAGE_MISMATCH)
+    if ((ps.get("missing_surface_classes") or [])
+            != coverage["recomputed_missing_surface_classes"]):
+        blocked.append(BLOCK_DRY_RUN_PREVIEW_SURFACE_COVERAGE_MISMATCH)
+    if (ps.get("preview_artifact_count") or 0) != coverage["artifact_count"]:
+        blocked.append(BLOCK_DRY_RUN_PREVIEW_SURFACE_COVERAGE_MISMATCH)
 
     # 4. Authority binding must agree across all four artifacts.
     rbind = _review_binding(rr)
@@ -987,6 +1070,7 @@ def _dry_run_result(outcome_class, *, blocked, complete, forbidden_detected,
     entry = entry or {}
     er = editorial_record or {}
     ps = preview_set_result or {}
+    _coverage = _recompute_surface_coverage(ps.get("preview_artifacts") or [])
     result = {
         "task_label": TASK_LABEL,
         "model": MODEL,
@@ -1013,7 +1097,17 @@ def _dry_run_result(outcome_class, *, blocked, complete, forbidden_detected,
         "required_surface_classes": list(REQUIRED_PREVIEW_SURFACES),
         "present_surface_classes": ps.get("present_surface_classes") or [],
         "missing_surface_classes": ps.get("missing_surface_classes") or [],
-        "preview_artifact_count": ps.get("preview_artifact_count") or 0,
+        # R2 recomputed-from-artifacts coverage evidence (authoritative).
+        "recomputed_present_surface_classes":
+            _coverage["recomputed_present_surface_classes"],
+        "recomputed_missing_surface_classes":
+            _coverage["recomputed_missing_surface_classes"],
+        "recomputed_duplicate_surface_classes":
+            _coverage["recomputed_duplicate_surface_classes"],
+        "recomputed_unknown_surface_classes":
+            _coverage["recomputed_unknown_surface_classes"],
+        "preview_artifact_count": _coverage["artifact_count"],
+        "required_preview_artifact_count": len(REQUIRED_PREVIEW_SURFACES),
         "blocked_reasons": blocked,
         "forbidden_fields_detected": forbidden_detected,
         "financial_advice_detected": financial_advice,
@@ -1065,6 +1159,10 @@ def build_packet():
         "chain_bind_fields": list(_CHAIN_BIND_FIELDS),
         "next_required_gate": NEXT_REQUIRED_GATE,
         "exact_next_task_recommendation": EXACT_NEXT_TASK_RECOMMENDATION,
+        "r2_invariants": list(R2_INVARIANTS),
+        "dry_run_preview_coverage_blocked_reasons":
+            list(R2_COVERAGE_BLOCKED_REASONS),
+        "required_preview_artifact_count": len(REQUIRED_PREVIEW_SURFACES),
         **_safety_flags(),
     }
     packet["checksum_sha256"] = compute_checksum(packet)
@@ -1078,6 +1176,9 @@ def build_doc():
     surfaces = "\n".join(
         f"  * `{s}` -> `{_SURFACE_PLATFORM[s]}`"
         for s in REQUIRED_PREVIEW_SURFACES)
+    r2_invariants = "\n".join(f"  * `{inv}`" for inv in R2_INVARIANTS)
+    r2_reasons = "\n".join(
+        f"  * `{reason}`" for reason in R2_COVERAGE_BLOCKED_REASONS)
     return (
         f"# 0174TJ/TK/TL Editorial + Preview Set + Supervised Dry-Run Contract\n\n"
         f"Task: `{TASK_LABEL}`\n\n"
@@ -1099,6 +1200,13 @@ def build_doc():
         f"Re-verifies the full review -> outbox -> editorial -> preview-set "
         f"hierarchy and every deep binding. Even when complete, the outcome is "
         f"`{DRY_RUN_COMPLETE_NOT_DISPATCHED}` -- never dispatch.\n\n"
+        f"## R2 preview-artifact coverage recompute\n\n"
+        f"The supervised dry run RECOMPUTES preview-surface coverage directly "
+        f"from `preview_artifacts` and treats set-level `present_surface_"
+        f"classes` / `missing_surface_classes` as self-reported metadata only. "
+        f"Stale or tampered set metadata can NEVER hide a missing, duplicated, "
+        f"or unknown artifact. Invariants:\n\n{r2_invariants}\n\n"
+        f"Coverage blocked reasons:\n\n{r2_reasons}\n\n"
         f"## Next required gate\n\n{NEXT_REQUIRED_GATE}\n\n"
         f"Exact next task: `{EXACT_NEXT_TASK_RECOMMENDATION}`\n\n"
         f"Packet checksum: `{packet['checksum_sha256']}`\n")

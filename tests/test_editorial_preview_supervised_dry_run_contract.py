@@ -18,6 +18,8 @@ All upstream objects are built through the GENUINE authority chain
 bindings are real.
 """
 
+import copy
+
 from live_contentops import approval_ledger_payload_hash_contract as approval
 from live_contentops import dispatch_outbox_idempotency_contract as outbox
 from live_contentops import remote_operator_inbox_intent_review_contract as review
@@ -419,6 +421,249 @@ def test_dry_run_fails_closed_on_forbidden_value():
         operator_id="operator_jim", run_at_epoch=2100)
     assert dr["status"] == ep.Status.FAIL_CLOSED
     assert dr["forbidden_fields_detected"] is True
+
+
+# --------------------------------------------------------------------------- #
+# 0174TL R2: dry run recomputes preview-surface coverage from artifacts and
+# never trusts set-level present/missing metadata as authority.
+# --------------------------------------------------------------------------- #
+def _drop_surface(ps, surface):
+    """Deep-copy ``ps`` and remove the artifact for ``surface`` while leaving
+    set-level coverage metadata CLEAN (claiming all surfaces present)."""
+    tampered = copy.deepcopy(ps)
+    tampered["preview_artifacts"] = [
+        a for a in tampered["preview_artifacts"]
+        if a["preview_surface_class"] != surface]
+    # Stale/tampered metadata: still claims full coverage.
+    tampered["present_surface_classes"] = sorted(ep.REQUIRED_PREVIEW_SURFACES)
+    tampered["missing_surface_classes"] = []
+    tampered["preview_artifact_count"] = len(ep.REQUIRED_PREVIEW_SURFACES)
+    return tampered
+
+
+def _run_dry(rr, entry, er, ps):
+    return ep.run_supervised_dry_run(
+        rr, entry, er, ps, dry_run_id="dry_run_0001",
+        operator_id="operator_jim", run_at_epoch=2100)
+
+
+def test_r2_valid_full_chain_still_passes():
+    entry, rr, er, ps = _full_chain()
+    dr = _run_dry(rr, entry, er, ps)
+    assert dr["status"] == ep.Status.PASS
+    assert dr["dry_run_outcome_class"] == ep.DRY_RUN_COMPLETE_NOT_DISPATCHED
+    assert dr["recomputed_present_surface_classes"] == sorted(
+        ep.REQUIRED_PREVIEW_SURFACES)
+    assert dr["recomputed_missing_surface_classes"] == []
+    assert dr["recomputed_duplicate_surface_classes"] == []
+    assert dr["recomputed_unknown_surface_classes"] == []
+    assert dr["preview_artifact_count"] == len(ep.REQUIRED_PREVIEW_SURFACES)
+    assert dr["required_preview_artifact_count"] == len(
+        ep.REQUIRED_PREVIEW_SURFACES)
+
+
+def test_r2_blocks_missing_linkedin_artifact_with_clean_metadata():
+    entry, rr, er, ps = _full_chain()
+    tampered = _drop_surface(ps, ep.SURFACE_LINKEDIN_POST)
+    dr = _run_dry(rr, entry, er, tampered)
+    assert dr["status"] == ep.Status.BLOCKED
+    assert (ep.BLOCK_DRY_RUN_PREVIEW_SET_MISSING_SURFACE + ":"
+            + ep.SURFACE_LINKEDIN_POST) in dr["blocked_reasons"]
+    assert ep.BLOCK_DRY_RUN_PREVIEW_SURFACE_COVERAGE_MISMATCH in dr[
+        "blocked_reasons"]
+    assert ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_COUNT_MISMATCH in dr[
+        "blocked_reasons"]
+    assert ep.SURFACE_LINKEDIN_POST in dr["recomputed_missing_surface_classes"]
+
+
+def test_r2_blocks_missing_x_artifact_with_clean_metadata():
+    entry, rr, er, ps = _full_chain()
+    tampered = _drop_surface(ps, ep.SURFACE_X_POST)
+    dr = _run_dry(rr, entry, er, tampered)
+    assert dr["status"] == ep.Status.BLOCKED
+    assert (ep.BLOCK_DRY_RUN_PREVIEW_SET_MISSING_SURFACE + ":"
+            + ep.SURFACE_X_POST) in dr["blocked_reasons"]
+    assert ep.BLOCK_DRY_RUN_PREVIEW_SURFACE_COVERAGE_MISMATCH in dr[
+        "blocked_reasons"]
+    assert ep.SURFACE_X_POST in dr["recomputed_missing_surface_classes"]
+
+
+def test_r2_blocks_duplicate_telegram_artifact():
+    entry, rr, er, ps = _full_chain()
+    tampered = copy.deepcopy(ps)
+    dupe = copy.deepcopy(next(
+        a for a in tampered["preview_artifacts"]
+        if a["preview_surface_class"] == ep.SURFACE_TELEGRAM_CHANNEL))
+    tampered["preview_artifacts"].append(dupe)
+    dr = _run_dry(rr, entry, er, tampered)
+    assert dr["status"] == ep.Status.BLOCKED
+    assert (ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_DUPLICATE_SURFACE + ":"
+            + ep.SURFACE_TELEGRAM_CHANNEL) in dr["blocked_reasons"]
+    assert ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_COUNT_MISMATCH in dr[
+        "blocked_reasons"]
+    assert ep.SURFACE_TELEGRAM_CHANNEL in dr[
+        "recomputed_duplicate_surface_classes"]
+
+
+def test_r2_blocks_unknown_fake_surface():
+    entry, rr, er, ps = _full_chain()
+    tampered = copy.deepcopy(ps)
+    fake = copy.deepcopy(tampered["preview_artifacts"][0])
+    fake["preview_surface_class"] = "fake_surface_preview"
+    tampered["preview_artifacts"].append(fake)
+    dr = _run_dry(rr, entry, er, tampered)
+    assert dr["status"] == ep.Status.BLOCKED
+    assert (ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_UNKNOWN_SURFACE
+            + ":fake_surface_preview") in dr["blocked_reasons"]
+    assert "fake_surface_preview" in dr["recomputed_unknown_surface_classes"]
+
+
+def test_r2_blocks_artifact_count_mismatch():
+    entry, rr, er, ps = _full_chain()
+    tampered = copy.deepcopy(ps)
+    # Drop one artifact AND make the metadata internally consistent with the
+    # smaller list, so ONLY the count-vs-required invariant is the difference.
+    tampered["preview_artifacts"] = tampered["preview_artifacts"][:-1]
+    dr = _run_dry(rr, entry, er, tampered)
+    assert dr["status"] == ep.Status.BLOCKED
+    assert ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_COUNT_MISMATCH in dr[
+        "blocked_reasons"]
+    assert dr["preview_artifact_count"] != dr["required_preview_artifact_count"]
+
+
+def test_r2_stale_present_surface_classes_cannot_override_truth():
+    entry, rr, er, ps = _full_chain()
+    tampered = copy.deepcopy(ps)
+    # Artifacts are intact and valid; metadata LIES about present surfaces.
+    tampered["present_surface_classes"] = [ep.SURFACE_TELEGRAM_CHANNEL]
+    dr = _run_dry(rr, entry, er, tampered)
+    assert dr["status"] == ep.Status.BLOCKED
+    assert ep.BLOCK_DRY_RUN_PREVIEW_SURFACE_COVERAGE_MISMATCH in dr[
+        "blocked_reasons"]
+    # Recomputed truth still reflects the real (complete) artifact coverage.
+    assert dr["recomputed_present_surface_classes"] == sorted(
+        ep.REQUIRED_PREVIEW_SURFACES)
+
+
+def test_r2_stale_missing_surface_classes_cannot_override_truth():
+    entry, rr, er, ps = _full_chain()
+    tampered = copy.deepcopy(ps)
+    # Artifacts are intact and valid; metadata LIES that X is missing.
+    tampered["missing_surface_classes"] = [ep.SURFACE_X_POST]
+    dr = _run_dry(rr, entry, er, tampered)
+    assert dr["status"] == ep.Status.BLOCKED
+    assert ep.BLOCK_DRY_RUN_PREVIEW_SURFACE_COVERAGE_MISMATCH in dr[
+        "blocked_reasons"]
+    assert dr["recomputed_missing_surface_classes"] == []
+
+
+def _tamper_first_artifact(ps, field, value):
+    tampered = copy.deepcopy(ps)
+    tampered["preview_artifacts"][0][field] = value
+    return tampered
+
+
+def test_r2_wrong_artifact_preview_set_id_blocks():
+    entry, rr, er, ps = _full_chain()
+    dr = _run_dry(rr, entry, er,
+                  _tamper_first_artifact(ps, "preview_set_id", "other_set"))
+    assert dr["status"] == ep.Status.BLOCKED
+    assert any(r.startswith(ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_BINDING_MISMATCH)
+               for r in dr["blocked_reasons"])
+
+
+def test_r2_wrong_artifact_editorial_id_blocks():
+    entry, rr, er, ps = _full_chain()
+    dr = _run_dry(rr, entry, er,
+                  _tamper_first_artifact(ps, "editorial_id", "editorial_9999"))
+    assert dr["status"] == ep.Status.BLOCKED
+    assert any(r.startswith(ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_BINDING_MISMATCH)
+               for r in dr["blocked_reasons"])
+
+
+def test_r2_wrong_artifact_review_challenge_id_blocks():
+    entry, rr, er, ps = _full_chain()
+    dr = _run_dry(rr, entry, er,
+                  _tamper_first_artifact(ps, "review_challenge_id", "rc_9999"))
+    assert dr["status"] == ep.Status.BLOCKED
+    assert any(r.startswith(ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_BINDING_MISMATCH)
+               for r in dr["blocked_reasons"])
+
+
+def test_r2_wrong_artifact_operator_id_blocks():
+    entry, rr, er, ps = _full_chain()
+    dr = _run_dry(rr, entry, er,
+                  _tamper_first_artifact(ps, "operator_id", "operator_eve"))
+    assert dr["status"] == ep.Status.BLOCKED
+    assert any(r.startswith(ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_BINDING_MISMATCH)
+               for r in dr["blocked_reasons"])
+
+
+def test_r2_wrong_artifact_payload_hash_blocks():
+    entry, rr, er, ps = _full_chain()
+    dr = _run_dry(rr, entry, er,
+                  _tamper_first_artifact(ps, "payload_hash", "d" * 64))
+    assert dr["status"] == ep.Status.BLOCKED
+    assert any(r.startswith(ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_BINDING_MISMATCH)
+               for r in dr["blocked_reasons"])
+
+
+def test_r2_wrong_artifact_idempotency_key_blocks():
+    entry, rr, er, ps = _full_chain()
+    dr = _run_dry(rr, entry, er,
+                  _tamper_first_artifact(ps, "idempotency_key", "e" * 64))
+    assert dr["status"] == ep.Status.BLOCKED
+    assert any(r.startswith(ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_BINDING_MISMATCH)
+               for r in dr["blocked_reasons"])
+
+
+def test_r2_wrong_artifact_approval_ledger_entry_id_blocks():
+    entry, rr, er, ps = _full_chain()
+    dr = _run_dry(rr, entry, er, _tamper_first_artifact(
+        ps, "approval_ledger_entry_id", "led_9999"))
+    assert dr["status"] == ep.Status.BLOCKED
+    assert any(r.startswith(ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_BINDING_MISMATCH)
+               for r in dr["blocked_reasons"])
+
+
+def test_r2_artifact_hard_blocker_blocks():
+    entry, rr, er, ps = _full_chain()
+    dr = _run_dry(rr, entry, er, _tamper_first_artifact(
+        ps, "hard_blocker_classes", ["injected_blocker"]))
+    assert dr["status"] == ep.Status.BLOCKED
+    assert any(r.startswith(ep.BLOCK_DRY_RUN_PREVIEW_ARTIFACT_HARD_BLOCKER)
+               for r in dr["blocked_reasons"])
+
+
+def test_r2_artifact_live_readiness_claim_blocks():
+    entry, rr, er, ps = _full_chain()
+    for field in ("live_ready", "platform_api_called", "dispatch_performed",
+                  "credential_hydrated"):
+        dr = _run_dry(rr, entry, er, _tamper_first_artifact(ps, field, True))
+        assert dr["status"] == ep.Status.BLOCKED
+        assert any(r.startswith(ep.BLOCK_DRY_RUN_LIVE_READINESS_CLAIMED)
+                   for r in dr["blocked_reasons"]), field
+
+
+def test_r2_packet_and_doc_include_invariants_and_blocked_reasons():
+    packet = ep.build_packet()
+    assert packet["r2_invariants"] == list(ep.R2_INVARIANTS)
+    assert packet["dry_run_preview_coverage_blocked_reasons"] == list(
+        ep.R2_COVERAGE_BLOCKED_REASONS)
+    assert packet["required_preview_artifact_count"] == len(
+        ep.REQUIRED_PREVIEW_SURFACES)
+    doc = ep.build_doc()
+    for invariant in ep.R2_INVARIANTS:
+        assert invariant in doc
+    for reason in ep.R2_COVERAGE_BLOCKED_REASONS:
+        assert reason in doc
+
+
+def test_r2_packet_and_doc_deterministic_and_leak_free():
+    assert ep.build_packet()["checksum_sha256"] == ep.build_packet()[
+        "checksum_sha256"]
+    assert ep.scan_for_leaks(ep.build_packet()) == []
+    assert ep.scan_for_leaks(ep.build_doc()) == []
 
 
 # --------------------------------------------------------------------------- #
