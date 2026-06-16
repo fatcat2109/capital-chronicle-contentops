@@ -1,20 +1,22 @@
-"""Tests for the 0174TJ/TK/TL editorial + preview + supervised dry-run contract.
+"""Tests for the 0174TJ/TK/TL editorial + preview-set + supervised dry-run contract.
 
 Deterministic, stdlib-only, offline. These tests assert the LOCAL authority
-chain extension: 0174TJ editorial agent (consumes a genuine
-``remote_review_approved_not_dispatched`` result + the exact 0174EE outbox
-entry, fails closed on financial advice, never dispatches), 0174TK platform
-preview (local symbolic preview only, never renders live), and 0174TL
-supervised dry run (re-proves every cross-binding, never dispatches).
+chain extension:
+
+  * 0174TJ editorial agent -- consumes a genuine
+    ``remote_review_approved_not_dispatched`` result + the exact 0174EE outbox
+    entry, fails closed on financial advice, never dispatches.
+  * 0174TK platform preview SET (R1) -- builds one local, symbolic preview
+    artifact per REQUIRED surface (telegram channel, X post, LinkedIn post,
+    manual publish packet). A single record can never satisfy the dry run; a
+    missing surface blocks the set. It never renders live.
+  * 0174TL supervised dry run -- re-proves every cross-binding across the four
+    artifacts and every preview artifact, and never dispatches.
 
 All upstream objects are built through the GENUINE authority chain
 (0174ED -> 0174EE -> 0174TG/TH/TI), never via hand-rolled dicts, so the
 bindings are real.
 """
-
-import json
-
-import pytest
 
 from live_contentops import approval_ledger_payload_hash_contract as approval
 from live_contentops import dispatch_outbox_idempotency_contract as outbox
@@ -91,8 +93,21 @@ def _real_review_approved(entry):
     return vres
 
 
+def _surface_bodies(override=None):
+    """A clean redacted body for EVERY required surface, optionally overridden."""
+    bodies = {
+        ep.SURFACE_TELEGRAM_CHANNEL: "Neutral context summary for telegram.",
+        ep.SURFACE_X_POST: "Grounded recap of the CPI print for X.",
+        ep.SURFACE_LINKEDIN_POST: "Measured macro context note for LinkedIn.",
+        ep.SURFACE_MANUAL_PUBLISH_PACKET: "Manual publish packet neutral summary.",
+    }
+    if override:
+        bodies.update(override)
+    return bodies
+
+
 def _full_chain():
-    """Return (entry, review_result, editorial_record, preview_record)."""
+    """Return (entry, review_result, editorial_record, preview_set_result)."""
     entry = _real_outbox_entry()
     rr = _real_review_approved(entry)
     er = ep.run_editorial_agent(
@@ -100,10 +115,10 @@ def _full_chain():
         editor_operator_id="operator_jim", decided_at_epoch=1900,
         editorial_summary_redacted="Grounded recap of the CPI print.",
         content_lane="grounded_news_context")
-    pr = ep.build_platform_preview(
-        er, entry, preview_id="preview_0001", built_at_epoch=2000,
-        preview_body_redacted="Neutral context summary for telegram.")
-    return entry, rr, er, pr
+    ps = ep.build_platform_preview_set(
+        er, entry, preview_set_id="preview_set_0001", built_at_epoch=2000,
+        surface_bodies_redacted=_surface_bodies())
+    return entry, rr, er, ps
 
 
 # --------------------------------------------------------------------------- #
@@ -215,121 +230,189 @@ def test_editorial_blocks_binding_mismatch():
 
 
 # --------------------------------------------------------------------------- #
-# 0174TK: platform preview
+# 0174TK: platform preview SET
 # --------------------------------------------------------------------------- #
-def test_preview_builds_from_valid_editorial():
-    entry, rr, er, pr = _full_chain()
-    assert pr["status"] == ep.Status.PASS
-    assert pr["preview_outcome_class"] == ep.PREVIEW_BUILT_NOT_DISPATCHED
-    assert pr["preview_built_not_dispatched"] is True
-    assert pr["editorial_id"] == er["editorial_id"]
-    assert pr["payload_hash"] == entry["payload_hash"]
-    assert pr["platform_api_called"] is False
-    assert pr["preview_rendered_against_live_platform"] is False
-    assert pr["preview_is_platform_posting"] is False
-    assert pr["record_checksum"]
+def test_preview_set_builds_from_valid_editorial():
+    entry, rr, er, ps = _full_chain()
+    assert ps["status"] == ep.Status.PASS
+    assert ps["preview_outcome_class"] == ep.PREVIEW_SET_BUILT_NOT_DISPATCHED
+    assert ps["preview_set_built_not_dispatched"] is True
+    assert ps["editorial_id"] == er["editorial_id"]
+    assert ps["payload_hash"] == entry["payload_hash"]
+    assert ps["platform_api_called"] is False
+    assert ps["platform_preview_rendered_live"] is False
+    assert ps["preview_is_platform_posting"] is False
+    assert ps["missing_surface_classes"] == []
+    assert set(ps["present_surface_classes"]) == set(ep.REQUIRED_PREVIEW_SURFACES)
+    assert ps["preview_artifact_count"] == len(ep.REQUIRED_PREVIEW_SURFACES)
+    assert ps["preview_set_checksum"]
 
 
-def test_preview_blocks_unapproved_editorial():
+def test_preview_set_artifacts_carry_deep_binding():
+    entry, rr, er, ps = _full_chain()
+    for artifact in ps["preview_artifacts"]:
+        assert artifact["outbox_entry_id"] == entry["outbox_entry_id"]
+        assert artifact["payload_hash"] == entry["payload_hash"]
+        assert artifact["idempotency_key"] == entry["idempotency_key"]
+        assert artifact["editorial_id"] == er["editorial_id"]
+        assert artifact["preview_set_id"] == ps["preview_set_id"]
+        assert artifact["operator_id"] == er["operator_id"]
+        assert artifact["live_ready"] is False
+        assert artifact["platform_api_called"] is False
+        assert artifact["credential_hydrated"] is False
+        assert artifact["hard_blocker_classes"] == []
+
+
+def test_preview_set_blocks_missing_surface():
+    entry, rr, er, _ = _full_chain()
+    bodies = _surface_bodies()
+    del bodies[ep.SURFACE_X_POST]
+    ps = ep.build_platform_preview_set(
+        er, entry, preview_set_id="preview_set_0001", built_at_epoch=2000,
+        surface_bodies_redacted=bodies)
+    assert ps["status"] == ep.Status.BLOCKED
+    assert ps["preview_outcome_class"] == ep.PREVIEW_SET_NOT_BUILT
+    assert ep.SURFACE_X_POST in ps["missing_surface_classes"]
+    assert any(r.startswith(ep.BLOCK_PREVIEW_SET_MISSING_SURFACE)
+               for r in ps["blocked_reasons"])
+
+
+def test_preview_set_blocks_unapproved_editorial():
     entry = _real_outbox_entry()
     rr = _real_review_approved(entry)
     er = ep.run_editorial_agent(
         rr, entry, editorial_id="editorial_0001",
         editor_operator_id="operator_jim", decided_at_epoch=1900,
         content_lane="trade_signal_lane")  # blocked editorial
-    pr = ep.build_platform_preview(
-        er, entry, preview_id="preview_0001", built_at_epoch=2000)
-    assert pr["status"] == ep.Status.BLOCKED
-    assert ep.BLOCK_EDITORIAL_NOT_APPROVED in pr["blocked_reasons"]
+    ps = ep.build_platform_preview_set(
+        er, entry, preview_set_id="preview_set_0001", built_at_epoch=2000,
+        surface_bodies_redacted=_surface_bodies())
+    assert ps["status"] == ep.Status.BLOCKED
+    assert ep.BLOCK_EDITORIAL_NOT_APPROVED in ps["blocked_reasons"]
 
 
-def test_preview_fails_closed_on_financial_advice():
+def test_preview_set_fails_closed_on_financial_advice():
     entry, rr, er, _ = _full_chain()
-    pr = ep.build_platform_preview(
-        er, entry, preview_id="preview_0001", built_at_epoch=2000,
-        preview_body_redacted="Sell now, this trade signal is risk-free.")
-    assert pr["status"] == ep.Status.FAIL_CLOSED
-    assert pr["financial_advice_detected"] is True
-    assert ep.BLOCK_PREVIEW_FINANCIAL_ADVICE in pr["blocked_reasons"]
+    bodies = _surface_bodies(
+        {ep.SURFACE_X_POST: "Sell now, this trade signal is risk-free."})
+    ps = ep.build_platform_preview_set(
+        er, entry, preview_set_id="preview_set_0001", built_at_epoch=2000,
+        surface_bodies_redacted=bodies)
+    assert ps["status"] == ep.Status.FAIL_CLOSED
+    assert ps["financial_advice_detected"] is True
+    assert ep.BLOCK_PREVIEW_FINANCIAL_ADVICE in ps["blocked_reasons"]
 
 
-def test_preview_fails_closed_on_forbidden_value():
+def test_preview_set_fails_closed_on_forbidden_value():
     entry, rr, er, _ = _full_chain()
-    pr = ep.build_platform_preview(
-        er, entry, preview_id="preview_0001", built_at_epoch=2000,
-        preview_body_redacted="visit https://t.me/secretchannel now")
-    assert pr["status"] == ep.Status.FAIL_CLOSED
-    assert pr["forbidden_fields_detected"] is True
+    bodies = _surface_bodies(
+        {ep.SURFACE_TELEGRAM_CHANNEL: "visit https://t.me/secretchannel now"})
+    ps = ep.build_platform_preview_set(
+        er, entry, preview_set_id="preview_set_0001", built_at_epoch=2000,
+        surface_bodies_redacted=bodies)
+    assert ps["status"] == ep.Status.FAIL_CLOSED
+    assert ps["forbidden_fields_detected"] is True
 
 
-def test_preview_blocks_outbox_mismatch():
+def test_preview_set_blocks_outbox_mismatch():
     entry, rr, er, _ = _full_chain()
     # A second, different outbox entry id.
     other = dict(entry)
     other["outbox_entry_id"] = "outbox_entry_9999"
-    pr = ep.build_platform_preview(
-        er, other, preview_id="preview_0001", built_at_epoch=2000)
-    assert pr["status"] == ep.Status.BLOCKED
-    assert ep.BLOCK_PREVIEW_OUTBOX_MISMATCH in pr["blocked_reasons"]
+    ps = ep.build_platform_preview_set(
+        er, other, preview_set_id="preview_set_0001", built_at_epoch=2000,
+        surface_bodies_redacted=_surface_bodies())
+    assert ps["status"] == ep.Status.BLOCKED
+    assert ep.BLOCK_PREVIEW_OUTBOX_MISMATCH in ps["blocked_reasons"]
+
+
+def test_legacy_build_platform_preview_returns_set():
+    entry, rr, er, _ = _full_chain()
+    ps = ep.build_platform_preview(
+        er, entry, preview_set_id="preview_set_0001", built_at_epoch=2000,
+        surface_bodies_redacted=_surface_bodies())
+    assert ps["preview_outcome_class"] == ep.PREVIEW_SET_BUILT_NOT_DISPATCHED
+    assert ps["preview_set_built_not_dispatched"] is True
+    assert ps["preview_artifact_count"] == len(ep.REQUIRED_PREVIEW_SURFACES)
+    assert ps["preview_set_checksum"]
 
 
 # --------------------------------------------------------------------------- #
 # 0174TL: supervised dry run
 # --------------------------------------------------------------------------- #
 def test_dry_run_completes_full_chain():
-    entry, rr, er, pr = _full_chain()
+    entry, rr, er, ps = _full_chain()
     dr = ep.run_supervised_dry_run(
-        rr, entry, er, pr, dry_run_id="dry_run_0001",
+        rr, entry, er, ps, dry_run_id="dry_run_0001",
         operator_id="operator_jim", run_at_epoch=2100)
     assert dr["status"] == ep.Status.PASS
     assert dr["dry_run_outcome_class"] == ep.DRY_RUN_COMPLETE_NOT_DISPATCHED
     assert dr["dry_run_complete_not_dispatched"] is True
     assert dr["editorial_id"] == er["editorial_id"]
-    assert dr["preview_id"] == pr["preview_id"]
+    assert dr["preview_set_id"] == ps["preview_set_id"]
     assert dr["outbox_entry_id"] == entry["outbox_entry_id"]
+    assert dr["missing_surface_classes"] == []
+    assert dr["preview_artifact_count"] == len(ep.REQUIRED_PREVIEW_SURFACES)
     assert dr["dispatch_performed"] is False
     assert dr["dry_run_is_dispatch"] is False
-    assert dr["ready_for_future_supervised_gate_only"] is True
-    assert dr["record_checksum"]
+    assert dr["dry_run_is_live_readiness_claim"] is False
+    assert dr["dry_run_checksum"]
 
 
 def test_dry_run_blocks_on_payload_hash_substitution():
-    entry, rr, er, pr = _full_chain()
-    tampered_preview = dict(pr)
-    tampered_preview["payload_hash"] = "d" * 64
+    entry, rr, er, ps = _full_chain()
+    tampered_set = dict(ps)
+    tampered_set["payload_hash"] = "d" * 64
     dr = ep.run_supervised_dry_run(
-        rr, entry, er, tampered_preview, dry_run_id="dry_run_0001",
+        rr, entry, er, tampered_set, dry_run_id="dry_run_0001",
         operator_id="operator_jim", run_at_epoch=2100)
     assert dr["status"] == ep.Status.BLOCKED
     assert ep.BLOCK_DRY_RUN_PAYLOAD_HASH_MISMATCH in dr["blocked_reasons"]
 
 
 def test_dry_run_blocks_on_editorial_id_mismatch():
-    entry, rr, er, pr = _full_chain()
-    tampered_preview = dict(pr)
-    tampered_preview["editorial_id"] = "editorial_9999"
+    entry, rr, er, ps = _full_chain()
+    tampered_set = dict(ps)
+    tampered_set["editorial_id"] = "editorial_9999"
     dr = ep.run_supervised_dry_run(
-        rr, entry, er, tampered_preview, dry_run_id="dry_run_0001",
+        rr, entry, er, tampered_set, dry_run_id="dry_run_0001",
         operator_id="operator_jim", run_at_epoch=2100)
     assert dr["status"] == ep.Status.BLOCKED
     assert ep.BLOCK_DRY_RUN_EDITORIAL_ID_MISMATCH in dr["blocked_reasons"]
 
 
+def test_dry_run_blocks_on_missing_surface():
+    entry, rr, er, _ = _full_chain()
+    bodies = _surface_bodies()
+    del bodies[ep.SURFACE_LINKEDIN_POST]
+    partial_set = ep.build_platform_preview_set(
+        er, entry, preview_set_id="preview_set_0001", built_at_epoch=2000,
+        surface_bodies_redacted=bodies)
+    dr = ep.run_supervised_dry_run(
+        rr, entry, er, partial_set, dry_run_id="dry_run_0001",
+        operator_id="operator_jim", run_at_epoch=2100)
+    assert dr["status"] == ep.Status.BLOCKED
+    assert ep.BLOCK_DRY_RUN_PREVIEW_NOT_BUILT in dr["blocked_reasons"]
+    assert any(r.startswith(ep.BLOCK_DRY_RUN_PREVIEW_SET_MISSING_SURFACE)
+               for r in dr["blocked_reasons"])
+
+
 def test_dry_run_blocks_on_unbuilt_preview():
     entry, rr, er, _ = _full_chain()
-    bad_preview = ep.build_platform_preview(
-        er, entry, preview_id="preview_0001", built_at_epoch=2000,
-        preview_body_redacted="Buy now for guaranteed profit.")  # fail_closed
+    bad_set = ep.build_platform_preview_set(
+        er, entry, preview_set_id="preview_set_0001", built_at_epoch=2000,
+        surface_bodies_redacted=_surface_bodies(
+            {ep.SURFACE_X_POST: "Buy now for guaranteed profit."}))  # fail_closed
     dr = ep.run_supervised_dry_run(
-        rr, entry, er, bad_preview, dry_run_id="dry_run_0001",
+        rr, entry, er, bad_set, dry_run_id="dry_run_0001",
         operator_id="operator_jim", run_at_epoch=2100)
     assert dr["status"] == ep.Status.BLOCKED
     assert ep.BLOCK_DRY_RUN_PREVIEW_NOT_BUILT in dr["blocked_reasons"]
 
 
 def test_dry_run_fails_closed_on_forbidden_value():
-    entry, rr, er, pr = _full_chain()
-    tampered = dict(pr)
+    entry, rr, er, ps = _full_chain()
+    tampered = dict(ps)
     tampered["leak"] = "ghp_abcdefghijklmnopqrstuvwxyz0123456789"
     dr = ep.run_supervised_dry_run(
         rr, entry, er, tampered, dry_run_id="dry_run_0001",
@@ -342,11 +425,10 @@ def test_dry_run_fails_closed_on_forbidden_value():
 # Determinism, packet, doc, safety
 # --------------------------------------------------------------------------- #
 def test_chain_is_deterministic():
-    a = _full_chain()
-    b = _full_chain()
-    for ra, rb in zip(a, b):
-        assert ra.get("record_checksum") == rb.get("record_checksum") or (
-            ra.get("checksum_sha256") == rb.get("checksum_sha256"))
+    _, _, er_a, ps_a = _full_chain()
+    _, _, er_b, ps_b = _full_chain()
+    assert er_a["record_checksum"] == er_b["record_checksum"]
+    assert ps_a["preview_set_checksum"] == ps_b["preview_set_checksum"]
 
 
 def test_build_packet_is_clean_and_deterministic():
@@ -356,6 +438,7 @@ def test_build_packet_is_clean_and_deterministic():
     assert ep.scan_for_leaks(p1) == []
     assert p1["task_label"] == ep.TASK_LABEL
     assert p1["status"] == ep.Status.PASS
+    assert p1["required_preview_surfaces"] == list(ep.REQUIRED_PREVIEW_SURFACES)
 
 
 def test_build_doc_is_clean():
@@ -386,11 +469,11 @@ def test_no_financial_advice_scanner_flags_known_phrases():
 
 
 def test_safety_flags_present_on_all_records():
-    entry, rr, er, pr = _full_chain()
+    entry, rr, er, ps = _full_chain()
     dr = ep.run_supervised_dry_run(
-        rr, entry, er, pr, dry_run_id="dry_run_0001",
+        rr, entry, er, ps, dry_run_id="dry_run_0001",
         operator_id="operator_jim", run_at_epoch=2100)
-    for rec in (er, pr, dr):
+    for rec in (er, ps, dr):
         assert rec["credential_hydrated"] is False
         assert rec["network_performed"] is False
         assert rec["llm_behavior"] is False

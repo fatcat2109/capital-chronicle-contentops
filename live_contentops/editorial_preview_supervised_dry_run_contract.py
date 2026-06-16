@@ -1,4 +1,4 @@
-"""Editorial agent + platform preview + supervised dry-run contract.
+"""Editorial agent + platform preview SET + supervised dry-run contract.
 
 Tasks 0174TJ (editorial agent), 0174TK (platform preview integration), and
 0174TL (supervised end-to-end dry run) -- one deterministic, LOCAL authority
@@ -11,23 +11,32 @@ batch on top of the accepted chain:
   * 0174TG/TH/TI + R1: remote operator inbox + intent parser + review challenge
     contract, terminating in ``remote_review_approved_not_dispatched``.
 
+R1 HARDENING (this revision):
+  * Bug 1 fix: 0174TK now builds a multi-surface ``PlatformPreviewSet`` (Telegram
+    channel, X post, LinkedIn post, manual publish packet). A single
+    ``PlatformPreviewRecord`` can NO LONGER satisfy supervised dry run.
+  * Bug 2 fix: editorial / preview / dry-run cross-binding is deepened to bind
+    and re-check review_challenge_id, operator_id, editorial_id, preview_set_id,
+    outbox_entry_id, idempotency_key, payload_hash, and approval_ledger_entry_id
+    across ALL artifacts (review result, outbox entry, editorial record, preview
+    set, and EVERY preview artifact inside the set).
+
 Product role of this batch (all LOCAL, all deterministic):
   1. 0174TJ takes a VALID 0174TI ``remote_review_approved_not_dispatched``
      result plus the EXACT 0174EE outbox entry it was bound to, and produces a
-     symbolic, redacted ``EditorialDecisionRecord``. The editorial agent is a
-     deterministic, rule-based gate (NEVER an LLM call). It fails closed on any
-     financial-advice / buy-sell-hold / sizing / guaranteed-prediction / signal
-     framing in the editorial summary, and it NEVER dispatches.
+     symbolic, redacted ``EditorialDecisionRecord`` carrying the full authority
+     binding. The editorial agent is a deterministic, rule-based gate (NEVER an
+     LLM call). It fails closed on any financial-advice / buy-sell-hold / sizing
+     / guaranteed-prediction / signal framing, and it NEVER dispatches.
   2. 0174TK consumes a valid editorial record + the same outbox entry and builds
-     a LOCAL, redacted ``PlatformPreviewRecord``. It NEVER renders against a live
-     platform, calls a platform API, or hydrates credentials -- it only restates
-     symbolic, already-redacted authority fields bound to the exact payload hash.
-  3. 0174TL consumes the review result, outbox entry, editorial record, and
-     preview record, re-proves EVERY cross-binding (payload hash, idempotency
-     key, outbox entry id, approval ledger entry id, editorial id, preview id),
-     and emits a ``supervised_dry_run_complete_not_dispatched`` result. A valid
-     dry run can ONLY confirm readiness for a FUTURE supervised gate -- it never
-     dispatches, posts, or hydrates credentials.
+     a LOCAL, redacted ``PlatformPreviewSet`` with one artifact per required
+     surface. It NEVER renders against a live platform, calls a platform API, or
+     hydrates credentials -- provider rendering remains UNVERIFIED. The manual
+     publish packet is a local preview only, never live readiness.
+  3. 0174TL consumes the review result, outbox entry, editorial record, and the
+     preview SET, re-proves EVERY cross-binding, and requires all four surfaces.
+     It emits ``supervised_dry_run_complete_not_dispatched``. A valid dry run can
+     ONLY confirm readiness for a FUTURE supervised gate -- never dispatch.
 
 HARD GUARANTEES (enforced by tests + leakage guards):
   * Pure Python stdlib only. No requests/httpx/aiohttp, no urllib request
@@ -44,8 +53,9 @@ HARD GUARANTEES (enforced by tests + leakage guards):
     scanner and never persisted.
   * NO financial advice: buy/sell/hold calls, position sizing, guaranteed
     predictions, or trade-signal framing in editorial/preview text fail closed.
-  * Editorial approval is NOT dispatch; a preview is NOT a post; a dry run is NOT
-    a live write; none of them hydrate credentials.
+  * Editorial approval is NOT dispatch; a preview SET is NOT a post; a dry run is
+    NOT a live write; none of them hydrate credentials.
+  * Provider rendering is UNVERIFIED and NEVER becomes live readiness.
   * Missing or ambiguous state blocks (fail closed).
 
 Importing this module performs NO writes and NO side effects. Artifacts are
@@ -68,16 +78,21 @@ TASK_LABEL = (
     "CONTRACT_BATCH_V0"
 )
 MODEL = "EDITORIAL_PREVIEW_SUPERVISED_DRY_RUN_CONTRACT_0174TJ_TK_TL"
-MODEL_VERSION = "0174TJ_TK_TL_EDITORIAL_PREVIEW_DRY_RUN_V1"
+MODEL_VERSION = "0174TJ_TK_TL_EDITORIAL_PREVIEW_DRY_RUN_V2_R1"
 
 EDITORIAL_SCHEMA = "contentops.editorial_decision_record"
-EDITORIAL_SCHEMA_VERSION = "0174TJ_EDITORIAL_V1"
+EDITORIAL_SCHEMA_VERSION = "0174TJ_EDITORIAL_V2_R1"
+PREVIEW_ARTIFACT_SCHEMA = "contentops.platform_preview_artifact"
+PREVIEW_ARTIFACT_SCHEMA_VERSION = "0174TK_PREVIEW_ARTIFACT_V1_R1"
+PREVIEW_SET_SCHEMA = "contentops.platform_preview_set"
+PREVIEW_SET_SCHEMA_VERSION = "0174TK_PREVIEW_SET_V1_R1"
+# Legacy single-record schema retained only for the compatibility wrapper.
 PREVIEW_SCHEMA = "contentops.platform_preview_record"
 PREVIEW_SCHEMA_VERSION = "0174TK_PREVIEW_V1"
 DRY_RUN_SCHEMA = "contentops.supervised_dry_run_record"
-DRY_RUN_SCHEMA_VERSION = "0174TL_DRY_RUN_V1"
+DRY_RUN_SCHEMA_VERSION = "0174TL_DRY_RUN_V2_R1"
 
-SOURCE_BASELINE_COMMIT = "27ba55ce08aa8cae1b509e6404edd652e4d31c0c"
+SOURCE_BASELINE_COMMIT = "9e06c325f64e3dd1d4aa95c44c8e5224b061be17"
 
 # Output artifact locations (written ONLY by the explicit write helper).
 DOC_REL_DIR = os.path.join("docs", "automation", "0174TJ_TK_TL")
@@ -111,7 +126,11 @@ EDITORIAL_APPROVED_NOT_DISPATCHED = "editorial_approved_not_dispatched"
 EDITORIAL_NOT_APPROVED = "editorial_not_approved"
 EDITORIAL_FAIL_CLOSED = "editorial_fail_closed_forbidden_value"
 
-# 0174TK preview outcome classes.
+# 0174TK preview-set outcome classes.
+PREVIEW_SET_BUILT_NOT_DISPATCHED = "platform_preview_set_built_not_dispatched"
+PREVIEW_SET_NOT_BUILT = "platform_preview_set_not_built"
+PREVIEW_SET_FAIL_CLOSED = "platform_preview_set_fail_closed_forbidden_value"
+# Legacy single-record outcome classes (compatibility wrapper only).
 PREVIEW_BUILT_NOT_DISPATCHED = "platform_preview_built_not_dispatched"
 PREVIEW_NOT_BUILT = "platform_preview_not_built"
 PREVIEW_FAIL_CLOSED = "platform_preview_fail_closed_forbidden_value"
@@ -130,6 +149,12 @@ BLOCK_EDITORIAL_FORBIDDEN_VALUE = "editorial_forbidden_value_detected"
 BLOCK_EDITORIAL_FINANCIAL_ADVICE = "editorial_financial_advice_detected"
 BLOCK_EDITORIAL_MISSING_FIELD = "editorial_required_field_missing"
 BLOCK_EDITORIAL_LANE_NOT_ALLOWED = "editorial_content_lane_not_allowed"
+# R1 deep-binding editorial blocked reasons.
+BLOCK_EDITORIAL_CHALLENGE_ID_MISMATCH = "editorial_challenge_id_mismatch"
+BLOCK_EDITORIAL_OPERATOR_ID_MISMATCH = "editorial_operator_id_mismatch"
+BLOCK_EDITORIAL_IDEMPOTENCY_KEY_MISMATCH = "editorial_idempotency_key_mismatch"
+BLOCK_EDITORIAL_LEDGER_ENTRY_MISMATCH = (
+    "editorial_approval_ledger_entry_id_mismatch")
 
 # 0174TK preview blocked-reason classes.
 BLOCK_EDITORIAL_NOT_APPROVED = "editorial_record_not_approved_not_dispatched"
@@ -139,12 +164,13 @@ BLOCK_PREVIEW_FORBIDDEN_VALUE = "preview_forbidden_value_detected"
 BLOCK_PREVIEW_FINANCIAL_ADVICE = "preview_financial_advice_detected"
 BLOCK_PREVIEW_MISSING_FIELD = "preview_required_field_missing"
 BLOCK_PREVIEW_PLATFORM_MISMATCH = "preview_platform_mismatch"
+BLOCK_PREVIEW_SET_MISSING_SURFACE = "preview_set_missing_required_surface"
 
 # 0174TL dry-run blocked-reason classes.
 BLOCK_DRY_RUN_FORBIDDEN_VALUE = "dry_run_forbidden_value_detected"
 BLOCK_DRY_RUN_REVIEW_NOT_APPROVED = "dry_run_review_not_approved"
 BLOCK_DRY_RUN_EDITORIAL_NOT_APPROVED = "dry_run_editorial_not_approved"
-BLOCK_DRY_RUN_PREVIEW_NOT_BUILT = "dry_run_preview_not_built"
+BLOCK_DRY_RUN_PREVIEW_NOT_BUILT = "dry_run_preview_set_not_built"
 BLOCK_DRY_RUN_PAYLOAD_HASH_MISMATCH = "dry_run_payload_hash_mismatch"
 BLOCK_DRY_RUN_IDEMPOTENCY_KEY_MISMATCH = "dry_run_idempotency_key_mismatch"
 BLOCK_DRY_RUN_OUTBOX_ENTRY_MISMATCH = "dry_run_outbox_entry_id_mismatch"
@@ -152,6 +178,18 @@ BLOCK_DRY_RUN_LEDGER_ENTRY_MISMATCH = "dry_run_approval_ledger_entry_id_mismatch
 BLOCK_DRY_RUN_EDITORIAL_ID_MISMATCH = "dry_run_editorial_id_mismatch"
 BLOCK_DRY_RUN_PREVIEW_ID_MISMATCH = "dry_run_preview_id_mismatch"
 BLOCK_DRY_RUN_MISSING_FIELD = "dry_run_required_field_missing"
+# R1 deep-binding dry-run blocked reasons.
+BLOCK_DRY_RUN_CHALLENGE_ID_MISMATCH = "dry_run_challenge_id_mismatch"
+BLOCK_DRY_RUN_OPERATOR_ID_MISMATCH = "dry_run_operator_id_mismatch"
+BLOCK_DRY_RUN_PREVIEW_SET_ID_MISMATCH = "dry_run_preview_set_id_mismatch"
+BLOCK_DRY_RUN_PREVIEW_SET_MISSING_SURFACE = (
+    "dry_run_preview_set_missing_required_surface")
+BLOCK_DRY_RUN_PREVIEW_ARTIFACT_BINDING_MISMATCH = (
+    "dry_run_preview_artifact_binding_mismatch")
+BLOCK_DRY_RUN_PREVIEW_ARTIFACT_HARD_BLOCKER = (
+    "dry_run_preview_artifact_hard_blocker")
+BLOCK_DRY_RUN_PREVIEW_SET_REQUIRED = "dry_run_preview_set_required"
+BLOCK_DRY_RUN_LIVE_READINESS_CLAIMED = "dry_run_live_readiness_claimed"
 
 # Only these content lanes may carry an editorial decision in this batch. These
 # are grounded/context lanes -- never a trade-signal or advice lane.
@@ -165,9 +203,43 @@ ALLOWED_CONTENT_LANES = frozenset({
 
 DEFAULT_CONTENT_LANE = "grounded_news_context"
 
+# The required preview surfaces. A preview set MUST contain exactly one artifact
+# per surface; a missing surface blocks both the preview set and the dry run.
+SURFACE_TELEGRAM_CHANNEL = "telegram_channel_preview"
+SURFACE_X_POST = "x_post_preview"
+SURFACE_LINKEDIN_POST = "linkedin_post_preview"
+SURFACE_MANUAL_PUBLISH_PACKET = "manual_publish_packet_preview"
+
+REQUIRED_PREVIEW_SURFACES = (
+    SURFACE_TELEGRAM_CHANNEL,
+    SURFACE_X_POST,
+    SURFACE_LINKEDIN_POST,
+    SURFACE_MANUAL_PUBLISH_PACKET,
+)
+
+# Each surface maps to the platform token recorded on its artifact.
+_SURFACE_PLATFORM = {
+    SURFACE_TELEGRAM_CHANNEL: "telegram",
+    SURFACE_X_POST: "x",
+    SURFACE_LINKEDIN_POST: "linkedin",
+    SURFACE_MANUAL_PUBLISH_PACKET: "manual_publish_packet",
+}
+
 # Authority fields that must agree across the review result, outbox entry,
-# editorial record, and preview record.
+# editorial record, preview set, and every preview artifact.
 _CHAIN_BIND_FIELDS = (
+    "outbox_entry_id",
+    "idempotency_key",
+    "payload_hash",
+    "approval_ledger_entry_id",
+)
+
+# Deep-binding identity fields threaded through every artifact (R1).
+_DEEP_BIND_FIELDS = (
+    "review_challenge_id",
+    "operator_id",
+    "editorial_id",
+    "preview_set_id",
     "outbox_entry_id",
     "idempotency_key",
     "payload_hash",
@@ -266,7 +338,30 @@ def _safety_flags():
         "autonomous_reply_performed": False,
         "dispatch_ready": False,
         "live_ready": False,
+        "provider_rendering_unverified": True,
         "no_financial_advice_emitted": True,
+    }
+
+
+# --------------------------------------------------------------------------- #
+# Deterministic derivation / normalization of review-result binding fields.
+# --------------------------------------------------------------------------- #
+def _review_binding(review_result):
+    """Derive the canonical binding fields a 0174TI review result exposes.
+
+    The 0174TI ``_review_result`` surface exposes ``challenge_id``,
+    ``operator_id``, ``outbox_entry_id``, ``idempotency_key_short``, and
+    ``payload_hash_short`` (short forms only). This normalizer maps them to the
+    deep-binding field names without weakening fail-closed behavior: a missing
+    field stays ``None`` and therefore cannot match a populated outbox field.
+    """
+    rr = review_result or {}
+    return {
+        "review_challenge_id": rr.get("challenge_id"),
+        "operator_id": rr.get("operator_id"),
+        "outbox_entry_id": rr.get("outbox_entry_id"),
+        "idempotency_key_short": rr.get("idempotency_key_short"),
+        "payload_hash_short": rr.get("payload_hash_short"),
     }
 
 
@@ -291,17 +386,18 @@ def run_editorial_agent(review_result, outbox_entry, *, editorial_id,
     """Deterministically decide whether an approved review may become editorial.
 
     Consumes a VALID 0174TI ``remote_review_approved_not_dispatched`` result and
-    the EXACT 0174EE outbox entry it was bound to. Fail-closed and
-    non-side-effecting:
+    the EXACT 0174EE outbox entry it was bound to, and carries the full deep
+    binding forward (review challenge id, operator id, outbox entry id,
+    idempotency key, payload hash, approval ledger entry id). Fail-closed:
 
-      * any forbidden credential/provider material in the review result, outbox
-        entry, or editorial text => ``fail_closed``;
-      * any financial-advice / buy-sell-hold / sizing / guaranteed-prediction /
-        signal framing in the editorial text => ``fail_closed``;
+      * forbidden credential/provider material => ``fail_closed``;
+      * financial-advice / signal framing in editorial text => ``fail_closed``;
       * the review must be an exact approved-not-dispatched outcome;
       * the outbox entry must be a genuine, eligible 0174EE local record;
-      * the review<->outbox binding (entry id / idempotency key / payload hash)
-        must still match;
+      * the review<->outbox binding must match on outbox entry id, payload hash
+        (short), operator id, and challenge id;
+      * the editor operator must match the reviewing operator;
+      * idempotency key and approval ledger entry id must be present and bind;
       * the content lane must be an allowed grounded/context lane.
 
     Even when approved, the outcome is ``editorial_approved_not_dispatched`` --
@@ -309,6 +405,7 @@ def run_editorial_agent(review_result, outbox_entry, *, editorial_id,
     """
     rr = review_result or {}
     entry = outbox_entry or {}
+    bind = _review_binding(rr)
     blocked = []
 
     # 1. Fail-closed redaction scan FIRST (review + outbox + editorial text).
@@ -318,8 +415,9 @@ def run_editorial_agent(review_result, outbox_entry, *, editorial_id,
     }
     if scan_for_leaks([rr, entry, editorial_payload]):
         return _editorial_result(
-            EDITORIAL_FAIL_CLOSED, entry, blocked=[BLOCK_EDITORIAL_FORBIDDEN_VALUE],
-            approved=False, forbidden_detected=True, financial_advice=False,
+            EDITORIAL_FAIL_CLOSED, entry, bind,
+            blocked=[BLOCK_EDITORIAL_FORBIDDEN_VALUE], approved=False,
+            forbidden_detected=True, financial_advice=False,
             editorial_id=editorial_id, editor_operator_id=editor_operator_id,
             decided_at_epoch=decided_at_epoch, content_lane=content_lane,
             editorial_summary_redacted=editorial_summary_redacted,
@@ -328,9 +426,9 @@ def run_editorial_agent(review_result, outbox_entry, *, editorial_id,
     # 2. Hard content-safety gate: no financial advice in editorial text.
     if scan_for_financial_advice(editorial_payload):
         return _editorial_result(
-            EDITORIAL_FAIL_CLOSED, entry,
-            blocked=[BLOCK_EDITORIAL_FINANCIAL_ADVICE],
-            approved=False, forbidden_detected=False, financial_advice=True,
+            EDITORIAL_FAIL_CLOSED, entry, bind,
+            blocked=[BLOCK_EDITORIAL_FINANCIAL_ADVICE], approved=False,
+            forbidden_detected=False, financial_advice=True,
             editorial_id=editorial_id, editor_operator_id=editor_operator_id,
             decided_at_epoch=decided_at_epoch, content_lane=content_lane,
             editorial_summary_redacted=editorial_summary_redacted,
@@ -345,17 +443,35 @@ def run_editorial_agent(review_result, outbox_entry, *, editorial_id,
     if not _review_is_approved(rr):
         blocked.append(BLOCK_REVIEW_NOT_APPROVED)
 
-    # 5. The review<->outbox binding must still match.
-    if (rr.get("outbox_entry_id") != entry.get("outbox_entry_id")
-            or rr.get("payload_hash_short") != _short(
+    # 5. The review<->outbox binding must still match (entry id + payload hash).
+    if (bind["outbox_entry_id"] != entry.get("outbox_entry_id")
+            or bind["payload_hash_short"] != _short(
                 entry.get("payload_hash") or "")):
         blocked.append(BLOCK_REVIEW_OUTBOX_BINDING_MISMATCH)
 
-    # 6. Content lane must be an allowed grounded/context lane.
+    # 6. Challenge id must be present on the review binding.
+    if not bind["review_challenge_id"]:
+        blocked.append(BLOCK_EDITORIAL_CHALLENGE_ID_MISMATCH)
+
+    # 7. The editor operator must match the reviewing operator.
+    if not bind["operator_id"] or editor_operator_id != bind["operator_id"]:
+        blocked.append(BLOCK_EDITORIAL_OPERATOR_ID_MISMATCH)
+
+    # 8. Idempotency key must be present and bind (short form vs outbox).
+    if (not entry.get("idempotency_key")
+            or bind["idempotency_key_short"] != _short(
+                entry.get("idempotency_key") or "")):
+        blocked.append(BLOCK_EDITORIAL_IDEMPOTENCY_KEY_MISMATCH)
+
+    # 9. Approval ledger entry id must be present on the outbox entry.
+    if not entry.get("approval_ledger_entry_id"):
+        blocked.append(BLOCK_EDITORIAL_LEDGER_ENTRY_MISMATCH)
+
+    # 10. Content lane must be an allowed grounded/context lane.
     if content_lane not in ALLOWED_CONTENT_LANES:
         blocked.append(BLOCK_EDITORIAL_LANE_NOT_ALLOWED)
 
-    # 7. Required identity fields present.
+    # 11. Required identity fields present.
     if not editorial_id:
         blocked.append(BLOCK_EDITORIAL_MISSING_FIELD + ":editorial_id")
     if not editor_operator_id:
@@ -365,7 +481,7 @@ def run_editorial_agent(review_result, outbox_entry, *, editorial_id,
     outcome = (EDITORIAL_APPROVED_NOT_DISPATCHED if approved
                else EDITORIAL_NOT_APPROVED)
     return _editorial_result(
-        outcome, entry, blocked=sorted(set(blocked)), approved=approved,
+        outcome, entry, bind, blocked=sorted(set(blocked)), approved=approved,
         forbidden_detected=False, financial_advice=False,
         editorial_id=editorial_id, editor_operator_id=editor_operator_id,
         decided_at_epoch=decided_at_epoch, content_lane=content_lane,
@@ -373,16 +489,22 @@ def run_editorial_agent(review_result, outbox_entry, *, editorial_id,
         editorial_notes_redacted=editorial_notes_redacted)
 
 
-def _editorial_result(outcome_class, entry, *, blocked, approved,
+def _editorial_result(outcome_class, entry, bind, *, blocked, approved,
                       forbidden_detected, financial_advice, editorial_id,
                       editor_operator_id, decided_at_epoch, content_lane,
                       editorial_summary_redacted, editorial_notes_redacted):
-    """Build a deterministic EditorialDecisionRecord (pure value)."""
+    """Build a deterministic EditorialDecisionRecord (pure value).
+
+    Carries the full deep binding forward: review challenge id and operator id
+    from the review result, and the outbox entry id / idempotency key / payload
+    hash / approval ledger entry id from the exact 0174EE outbox entry.
+    """
     status = (Status.PASS if approved
               else (Status.FAIL_CLOSED
                     if (forbidden_detected or financial_advice)
                     else Status.BLOCKED))
     entry = entry or {}
+    bind = bind or {}
     record = {
         "task_label": TASK_LABEL,
         "model": MODEL,
@@ -394,6 +516,10 @@ def _editorial_result(outcome_class, entry, *, blocked, approved,
         "editorial_approved_not_dispatched": approved,
         "editorial_id": editorial_id,
         "editor_operator_id": editor_operator_id,
+        # Deep-binding identity fields (R1).
+        "review_challenge_id": bind.get("review_challenge_id"),
+        "operator_id": bind.get("operator_id"),
+        "reviewing_operator_id": bind.get("operator_id"),
         "decided_at_epoch": (int(decided_at_epoch)
                              if decided_at_epoch is not None else None),
         "content_lane": content_lane,
@@ -424,7 +550,7 @@ def _editorial_result(outcome_class, entry, *, blocked, approved,
 
 
 # --------------------------------------------------------------------------- #
-# 0174TK: Platform preview integration contract
+# 0174TK: Platform preview SET integration contract
 # --------------------------------------------------------------------------- #
 def _editorial_is_approved(editorial_record):
     """True if a 0174TJ editorial record is an exact approved-not-dispatched."""
@@ -436,113 +562,54 @@ def _editorial_is_approved(editorial_record):
     )
 
 
-def build_platform_preview(editorial_record, outbox_entry, *, preview_id,
-                           built_at_epoch,
-                           preview_body_redacted="redacted",
-                           preview_render_class="local_symbolic_preview"):
-    """Build a LOCAL, redacted platform preview bound to the editorial record.
+def _text_length_class(text):
+    """Bounded, symbolic length class -- never the raw text or its exact len."""
+    n = len(str(text or ""))
+    if n == 0:
+        return "empty"
+    if n <= 280:
+        return "short_form"
+    if n <= 1300:
+        return "medium_form"
+    return "long_form"
 
-    Consumes a VALID 0174TJ editorial record + the EXACT 0174EE outbox entry.
-    Fail-closed and non-side-effecting:
 
-      * any forbidden material in the editorial record, outbox entry, or preview
-        body => ``fail_closed``;
-      * any financial-advice / signal framing in the preview body =>
-        ``fail_closed``;
-      * the editorial record must be an exact approved-not-dispatched outcome;
-      * the editorial<->outbox binding (entry id / idempotency key / payload
-        hash) must still match;
-      * the platform must match between the editorial record and outbox entry.
+def _build_preview_artifact(surface, editorial_record, entry, *,
+                            preview_set_id, built_at_epoch,
+                            preview_body_redacted,
+                            disclosure_class="none",
+                            media_manifest_presence_class="none"):
+    """Build a single deterministic PlatformPreviewArtifact for one surface.
 
-    The preview NEVER renders against a live platform, calls a platform API, or
-    hydrates credentials. Outcome is ``platform_preview_built_not_dispatched``.
+    Every artifact carries the full deep binding (review challenge id, operator
+    id, editorial id, preview set id, outbox entry id, idempotency key, payload
+    hash, approval ledger entry id) and fails closed on forbidden material or
+    financial-advice framing via ``hard_blocker_classes``. The artifact NEVER
+    renders against a live platform and NEVER hydrates credentials.
     """
     er = editorial_record or {}
-    entry = outbox_entry or {}
-    blocked = []
-
-    preview_payload = {"preview_body_redacted": preview_body_redacted}
-
-    # 1. Fail-closed redaction scan FIRST.
-    if scan_for_leaks([er, entry, preview_payload]):
-        return _preview_result(
-            PREVIEW_FAIL_CLOSED, er, entry,
-            blocked=[BLOCK_PREVIEW_FORBIDDEN_VALUE], built=False,
-            forbidden_detected=True, financial_advice=False,
-            preview_id=preview_id, built_at_epoch=built_at_epoch,
-            preview_body_redacted=preview_body_redacted,
-            preview_render_class=preview_render_class)
-
-    # 2. Hard content-safety gate: no financial advice in preview body.
-    if scan_for_financial_advice(preview_payload):
-        return _preview_result(
-            PREVIEW_FAIL_CLOSED, er, entry,
-            blocked=[BLOCK_PREVIEW_FINANCIAL_ADVICE], built=False,
-            forbidden_detected=False, financial_advice=True,
-            preview_id=preview_id, built_at_epoch=built_at_epoch,
-            preview_body_redacted=preview_body_redacted,
-            preview_render_class=preview_render_class)
-
-    # 3. The editorial record must be an exact approved-not-dispatched outcome.
-    if not _editorial_is_approved(er):
-        blocked.append(BLOCK_EDITORIAL_NOT_APPROVED)
-
-    # 4. The outbox entry must still be a genuine 0174EE local record.
-    authority = review.validate_0174ee_outbox_entry_for_review_challenge(entry)
-    if not authority["valid"]:
-        blocked.append(BLOCK_OUTBOX_NOT_AUTHORITY)
-
-    # 5. The editorial<->outbox binding must still match.
-    for field in _CHAIN_BIND_FIELDS:
-        if er.get(field) != entry.get(field):
-            blocked.append(BLOCK_PREVIEW_OUTBOX_MISMATCH)
-            break
-
-    # 6. Platform must match between editorial record and outbox entry.
-    if er.get("platform") != entry.get("platform"):
-        blocked.append(BLOCK_PREVIEW_PLATFORM_MISMATCH)
-
-    # 7. Required identity fields present.
-    if not preview_id:
-        blocked.append(BLOCK_PREVIEW_MISSING_FIELD + ":preview_id")
-
-    built = not blocked
-    outcome = PREVIEW_BUILT_NOT_DISPATCHED if built else PREVIEW_NOT_BUILT
-    return _preview_result(
-        outcome, er, entry, blocked=sorted(set(blocked)), built=built,
-        forbidden_detected=False, financial_advice=False,
-        preview_id=preview_id, built_at_epoch=built_at_epoch,
-        preview_body_redacted=preview_body_redacted,
-        preview_render_class=preview_render_class)
-
-
-def _preview_result(outcome_class, er, entry, *, blocked, built,
-                    forbidden_detected, financial_advice, preview_id,
-                    built_at_epoch, preview_body_redacted,
-                    preview_render_class):
-    """Build a deterministic PlatformPreviewRecord (pure value)."""
-    status = (Status.PASS if built
-              else (Status.FAIL_CLOSED
-                    if (forbidden_detected or financial_advice)
-                    else Status.BLOCKED))
-    er = er or {}
     entry = entry or {}
-    record = {
-        "task_label": TASK_LABEL,
-        "model": MODEL,
-        "model_version": MODEL_VERSION,
-        "preview_schema": PREVIEW_SCHEMA,
-        "preview_schema_version": PREVIEW_SCHEMA_VERSION,
-        "status": status,
-        "preview_outcome_class": outcome_class,
-        "preview_built_not_dispatched": built,
-        "preview_id": preview_id,
-        "built_at_epoch": (int(built_at_epoch)
-                           if built_at_epoch is not None else None),
-        "preview_render_class": preview_render_class,
-        "preview_body_redacted": preview_body_redacted,
-        # Authority bindings carried forward (symbolic).
+    hard_blockers = []
+    warnings = []
+
+    body_payload = {"preview_body_redacted": preview_body_redacted}
+    if scan_for_leaks([body_payload]):
+        hard_blockers.append(BLOCK_PREVIEW_FORBIDDEN_VALUE)
+    if scan_for_financial_advice(body_payload):
+        hard_blockers.append(BLOCK_PREVIEW_FINANCIAL_ADVICE)
+
+    # Provider rendering is always unverified for a local symbolic preview.
+    warnings.append("provider_rendering_unverified")
+    if surface == SURFACE_MANUAL_PUBLISH_PACKET:
+        warnings.append("manual_publish_packet_is_local_preview_only")
+
+    artifact = {
+        "preview_artifact_id": f"{preview_set_id}:{surface}",
+        "preview_surface_class": surface,
+        "preview_set_id": preview_set_id,
         "editorial_id": er.get("editorial_id"),
+        "review_challenge_id": er.get("review_challenge_id"),
+        "operator_id": er.get("operator_id"),
         "outbox_entry_id": entry.get("outbox_entry_id"),
         "idempotency_key": entry.get("idempotency_key"),
         "idempotency_key_short": _short(entry.get("idempotency_key") or ""),
@@ -550,117 +617,341 @@ def _preview_result(outcome_class, er, entry, *, blocked, built,
         "payload_hash_short": _short(entry.get("payload_hash") or ""),
         "approval_ledger_entry_id": entry.get("approval_ledger_entry_id"),
         "platform": entry.get("platform"),
-        "destination_binding_id": entry.get("destination_binding_id"),
-        "credential_handle_id": entry.get("credential_handle_id"),
-        "visibility_class": entry.get("visibility_class"),
-        "content_lane": er.get("content_lane"),
+        "source_platform": entry.get("platform"),
+        "surface_platform": _SURFACE_PLATFORM.get(surface),
+        "built_at_epoch": (int(built_at_epoch)
+                           if built_at_epoch is not None else None),
+        "text_length_class": _text_length_class(preview_body_redacted),
+        "media_manifest_presence_class": media_manifest_presence_class,
+        "disclosure_class": disclosure_class,
+        "preview_body_redacted": preview_body_redacted,
+        "manual_publish_required": True,
+        "provider_rendering_unverified": True,
+        "live_ready": False,
+        "platform_api_called": False,
+        "dispatch_performed": False,
+        "credential_hydrated": False,
+        "preview_warning_classes": sorted(set(warnings)),
+        "hard_blocker_classes": sorted(set(hard_blockers)),
+    }
+    artifact["artifact_checksum"] = compute_checksum(artifact)
+    return artifact
+
+
+def build_platform_preview_set(editorial_record, outbox_entry, *,
+                               preview_set_id, built_at_epoch,
+                               surface_bodies_redacted=None,
+                               disclosure_class="none",
+                               media_manifest_presence_class="none"):
+    """Build a deterministic PlatformPreviewSet across ALL required surfaces.
+
+    Consumes an approved 0174TJ editorial record and the EXACT 0174EE outbox
+    entry it bound, and produces one PlatformPreviewArtifact per required
+    surface (telegram channel, X post, LinkedIn post, manual publish packet).
+    A single record can NEVER satisfy this: a missing surface blocks the set.
+
+    Fail-closed rules (the set is ``platform_preview_set_not_built`` unless ALL
+    hold):
+      * forbidden credential/provider material => ``fail_closed``;
+      * financial-advice / signal framing in any body => ``fail_closed``;
+      * the editorial record must be an exact approved-not-dispatched outcome;
+      * the editorial<->outbox binding must match (entry id, payload hash short,
+        idempotency key short, approval ledger entry id, operator id);
+      * a body must be supplied for EVERY required surface;
+      * no per-artifact hard blocker may be present.
+
+    ``surface_bodies_redacted`` maps each required surface class to its redacted
+    preview body string. Even when built, the set is built-not-dispatched --
+    NEVER live, NEVER dispatched, provider rendering remains unverified.
+    """
+    er = editorial_record or {}
+    entry = outbox_entry or {}
+    bodies = dict(surface_bodies_redacted or {})
+    blocked = []
+
+    # 1. Fail-closed redaction + financial-advice scan across all bodies first.
+    if scan_for_leaks([er, entry, bodies]):
+        return _preview_set_result(
+            PREVIEW_SET_FAIL_CLOSED, er, entry,
+            blocked=[BLOCK_PREVIEW_FORBIDDEN_VALUE], built=False,
+            forbidden_detected=True, financial_advice=False,
+            preview_set_id=preview_set_id, built_at_epoch=built_at_epoch,
+            artifacts=[])
+    if scan_for_financial_advice(bodies):
+        return _preview_set_result(
+            PREVIEW_SET_FAIL_CLOSED, er, entry,
+            blocked=[BLOCK_PREVIEW_FINANCIAL_ADVICE], built=False,
+            forbidden_detected=False, financial_advice=True,
+            preview_set_id=preview_set_id, built_at_epoch=built_at_epoch,
+            artifacts=[])
+
+    # 2. The editorial record must be an exact approved-not-dispatched outcome.
+    if not _editorial_is_approved(er):
+        blocked.append(BLOCK_EDITORIAL_NOT_APPROVED)
+
+    # 3. The editorial<->outbox binding must still match.
+    if (er.get("outbox_entry_id") != entry.get("outbox_entry_id")
+            or er.get("payload_hash_short") != _short(
+                entry.get("payload_hash") or "")
+            or er.get("idempotency_key_short") != _short(
+                entry.get("idempotency_key") or "")
+            or er.get("approval_ledger_entry_id")
+            != entry.get("approval_ledger_entry_id")
+            or not er.get("operator_id")):
+        blocked.append(BLOCK_PREVIEW_OUTBOX_MISMATCH)
+
+    # 4. A body must be supplied for EVERY required surface.
+    artifacts = []
+    for surface in REQUIRED_PREVIEW_SURFACES:
+        if surface not in bodies or bodies.get(surface) in (None, ""):
+            blocked.append(BLOCK_PREVIEW_SET_MISSING_SURFACE + ":" + surface)
+            continue
+        artifact = _build_preview_artifact(
+            surface, er, entry, preview_set_id=preview_set_id,
+            built_at_epoch=built_at_epoch,
+            preview_body_redacted=bodies.get(surface),
+            disclosure_class=disclosure_class,
+            media_manifest_presence_class=media_manifest_presence_class)
+        if artifact["hard_blocker_classes"]:
+            blocked.extend(artifact["hard_blocker_classes"])
+        # Per-artifact platform must match its surface's platform token.
+        if artifact["surface_platform"] != _SURFACE_PLATFORM.get(surface):
+            blocked.append(BLOCK_PREVIEW_PLATFORM_MISMATCH + ":" + surface)
+        artifacts.append(artifact)
+
+    built = not blocked
+    outcome = (PREVIEW_SET_BUILT_NOT_DISPATCHED if built
+               else PREVIEW_SET_NOT_BUILT)
+    return _preview_set_result(
+        outcome, er, entry, blocked=sorted(set(blocked)), built=built,
+        forbidden_detected=False, financial_advice=False,
+        preview_set_id=preview_set_id, built_at_epoch=built_at_epoch,
+        artifacts=artifacts)
+
+
+def _preview_set_result(outcome_class, editorial_record, entry, *, blocked,
+                        built, forbidden_detected, financial_advice,
+                        preview_set_id, built_at_epoch, artifacts):
+    """Build a deterministic PlatformPreviewSet result (pure value).
+
+    Carries the full deep binding forward and embeds every per-surface preview
+    artifact. ``present_surface_classes`` and ``missing_surface_classes`` make
+    the surface-coverage proof explicit so a downstream dry run can re-verify
+    that all required surfaces are present without re-deriving them.
+    """
+    status = (Status.PASS if built
+              else (Status.FAIL_CLOSED
+                    if (forbidden_detected or financial_advice)
+                    else Status.BLOCKED))
+    er = editorial_record or {}
+    entry = entry or {}
+    present = sorted({a.get("preview_surface_class") for a in artifacts})
+    missing = sorted(set(REQUIRED_PREVIEW_SURFACES) - set(present))
+    result = {
+        "task_label": TASK_LABEL,
+        "model": MODEL,
+        "model_version": MODEL_VERSION,
+        "preview_schema": PREVIEW_SCHEMA,
+        "preview_schema_version": PREVIEW_SCHEMA_VERSION,
+        "status": status,
+        "preview_outcome_class": outcome_class,
+        "preview_set_built_not_dispatched": built,
+        "preview_set_id": preview_set_id,
+        "built_at_epoch": (int(built_at_epoch)
+                           if built_at_epoch is not None else None),
+        # Deep-binding identity fields carried forward.
+        "editorial_id": er.get("editorial_id"),
+        "review_challenge_id": er.get("review_challenge_id"),
+        "operator_id": er.get("operator_id"),
+        "outbox_entry_id": entry.get("outbox_entry_id"),
+        "idempotency_key": entry.get("idempotency_key"),
+        "idempotency_key_short": _short(entry.get("idempotency_key") or ""),
+        "payload_hash": entry.get("payload_hash"),
+        "payload_hash_short": _short(entry.get("payload_hash") or ""),
+        "approval_ledger_entry_id": entry.get("approval_ledger_entry_id"),
+        "platform": entry.get("platform"),
+        "required_surface_classes": list(REQUIRED_PREVIEW_SURFACES),
+        "present_surface_classes": present,
+        "missing_surface_classes": missing,
+        "preview_artifacts": artifacts,
+        "preview_artifact_count": len(artifacts),
         "blocked_reasons": blocked,
         "forbidden_fields_detected": forbidden_detected,
         "financial_advice_detected": financial_advice,
-        # Hard invariants -- a preview is NEVER a post.
+        # Hard invariants -- a preview set is NEVER dispatch / live.
         **_safety_flags(),
+        "preview_is_dispatch": False,
         "preview_is_platform_posting": False,
-        "preview_rendered_against_live_platform": False,
     }
-    record["record_checksum"] = compute_checksum(record)
-    return record
+    result["preview_set_checksum"] = compute_checksum(result)
+    return result
+
+
+def build_platform_preview(editorial_record, outbox_entry, *, preview_set_id,
+                           built_at_epoch, surface_bodies_redacted=None,
+                           disclosure_class="none",
+                           media_manifest_presence_class="none"):
+    """Legacy single-call wrapper that returns a full PlatformPreviewSet.
+
+    Retained for backward compatibility with callers that expected a single
+    ``build_platform_preview`` entry point. A single preview RECORD can never
+    satisfy the dry run -- this wrapper always builds the full required-surface
+    SET and returns its result, so the hard surface-coverage invariant holds.
+    """
+    return build_platform_preview_set(
+        editorial_record, outbox_entry, preview_set_id=preview_set_id,
+        built_at_epoch=built_at_epoch,
+        surface_bodies_redacted=surface_bodies_redacted,
+        disclosure_class=disclosure_class,
+        media_manifest_presence_class=media_manifest_presence_class)
 
 
 # --------------------------------------------------------------------------- #
 # 0174TL: Supervised end-to-end dry-run contract
 # --------------------------------------------------------------------------- #
-def _preview_is_built(preview_record):
-    """True if a 0174TK preview record is an exact built-not-dispatched."""
-    pr = preview_record or {}
+def _preview_set_is_built(preview_set_result):
+    """True if a 0174TK preview-set result is an exact built-not-dispatched."""
+    ps = preview_set_result or {}
     return (
-        pr.get("preview_outcome_class") == PREVIEW_BUILT_NOT_DISPATCHED
-        and pr.get("preview_built_not_dispatched") is True
-        and pr.get("status") == Status.PASS
+        ps.get("preview_outcome_class") == PREVIEW_SET_BUILT_NOT_DISPATCHED
+        and ps.get("preview_set_built_not_dispatched") is True
+        and ps.get("status") == Status.PASS
+        and not ps.get("missing_surface_classes")
     )
 
 
 def run_supervised_dry_run(review_result, outbox_entry, editorial_record,
-                           preview_record, *, dry_run_id, operator_id,
+                           preview_set_result, *, dry_run_id, operator_id,
                            run_at_epoch):
-    """Re-prove the full local authority chain end-to-end without dispatching.
+    """Re-verify the FULL local authority hierarchy as a supervised dry run.
 
-    Consumes the 0174TI review result, the 0174EE outbox entry, the 0174TJ
-    editorial record, and the 0174TK preview record, and re-proves EVERY
-    cross-binding. Fail-closed and non-side-effecting:
+    Consumes the review result (0174TI), the exact 0174EE outbox entry, the
+    approved 0174TJ editorial record, and the built 0174TK preview SET, and
+    re-derives every cross-binding from scratch. A single preview record can
+    NEVER satisfy this: the preview set must carry an artifact for every
+    required surface. Fail-closed (the run is ``supervised_dry_run_not_complete``
+    unless ALL hold):
 
-      * any forbidden material in any input => ``fail_closed``;
-      * the review must be approved-not-dispatched;
-      * the editorial record must be approved-not-dispatched;
-      * the preview record must be built-not-dispatched;
-      * the payload hash, idempotency key, outbox entry id, and approval ledger
-        entry id must match across ALL four artifacts;
-      * the editorial id and preview id must thread through consistently.
+      * no forbidden credential/provider material and no financial advice;
+      * the review is an exact approved-not-dispatched outcome;
+      * the editorial is an exact approved-not-dispatched outcome;
+      * the preview set is an exact built-not-dispatched outcome with no missing
+        required surface;
+      * the deep identity binding agrees across all four artifacts
+        (review challenge id, operator id, editorial id, preview set id);
+      * the authority binding agrees across all four artifacts
+        (outbox entry id, idempotency key, payload hash, approval ledger id);
+      * every preview artifact re-binds to the same authority and carries no
+        hard blocker and no claimed live readiness.
 
-    Outcome is ``supervised_dry_run_complete_not_dispatched`` -- it confirms
-    readiness for a FUTURE supervised gate but NEVER dispatches, posts, renders
-    live, or hydrates credentials.
+    Even when complete, the outcome is ``supervised_dry_run_complete_not_
+    dispatched`` -- NEVER dispatch, NEVER live, provider rendering unverified.
     """
     rr = review_result or {}
     entry = outbox_entry or {}
     er = editorial_record or {}
-    pr = preview_record or {}
+    ps = preview_set_result or {}
     blocked = []
 
-    # 1. Fail-closed redaction scan FIRST.
-    if scan_for_leaks([rr, entry, er, pr]):
+    # 1. Fail-closed redaction + financial-advice scan across all inputs first.
+    if scan_for_leaks([rr, entry, er, ps]):
         return _dry_run_result(
-            DRY_RUN_FAIL_CLOSED, entry, er, pr,
-            blocked=[BLOCK_DRY_RUN_FORBIDDEN_VALUE], complete=False,
-            forbidden_detected=True, dry_run_id=dry_run_id,
-            operator_id=operator_id, run_at_epoch=run_at_epoch)
+            DRY_RUN_FAIL_CLOSED, blocked=[BLOCK_DRY_RUN_FORBIDDEN_VALUE],
+            complete=False, forbidden_detected=True, financial_advice=False,
+            dry_run_id=dry_run_id, operator_id=operator_id,
+            run_at_epoch=run_at_epoch, entry=entry, editorial_record=er,
+            preview_set_result=ps)
+    if scan_for_financial_advice([er, ps]):
+        return _dry_run_result(
+            DRY_RUN_FAIL_CLOSED, blocked=[BLOCK_PREVIEW_FINANCIAL_ADVICE],
+            complete=False, forbidden_detected=False, financial_advice=True,
+            dry_run_id=dry_run_id, operator_id=operator_id,
+            run_at_epoch=run_at_epoch, entry=entry, editorial_record=er,
+            preview_set_result=ps)
 
-    # 2. Stage outcomes must each be the exact not-dispatched success class.
+    # 2. Each upstream stage must be an exact accepted outcome.
     if not _review_is_approved(rr):
         blocked.append(BLOCK_DRY_RUN_REVIEW_NOT_APPROVED)
     if not _editorial_is_approved(er):
         blocked.append(BLOCK_DRY_RUN_EDITORIAL_NOT_APPROVED)
-    if not _preview_is_built(pr):
+    if not _preview_set_is_built(ps):
         blocked.append(BLOCK_DRY_RUN_PREVIEW_NOT_BUILT)
 
-    # 3. Outbox entry must still be a genuine 0174EE local record.
-    authority = review.validate_0174ee_outbox_entry_for_review_challenge(entry)
-    if not authority["valid"]:
-        blocked.append(BLOCK_OUTBOX_NOT_AUTHORITY)
+    # 3. A preview SET is mandatory: the set must declare all required surfaces.
+    if ps.get("missing_surface_classes"):
+        for surface in ps.get("missing_surface_classes") or []:
+            blocked.append(
+                BLOCK_DRY_RUN_PREVIEW_SET_MISSING_SURFACE + ":" + surface)
+    if not ps.get("preview_artifacts"):
+        blocked.append(BLOCK_DRY_RUN_PREVIEW_SET_REQUIRED)
 
-    # 4. Payload hash must match across outbox, editorial, preview, and review.
-    ph = entry.get("payload_hash")
-    ph_short = _short(ph or "")
-    if (er.get("payload_hash") != ph or pr.get("payload_hash") != ph
-            or rr.get("payload_hash_short") != ph_short):
-        blocked.append(BLOCK_DRY_RUN_PAYLOAD_HASH_MISMATCH)
-
-    # 5. Idempotency key must match across outbox, editorial, and preview.
-    ik = entry.get("idempotency_key")
-    if er.get("idempotency_key") != ik or pr.get("idempotency_key") != ik:
-        blocked.append(BLOCK_DRY_RUN_IDEMPOTENCY_KEY_MISMATCH)
-
-    # 6. Outbox entry id must thread through all artifacts.
-    oeid = entry.get("outbox_entry_id")
-    if (er.get("outbox_entry_id") != oeid or pr.get("outbox_entry_id") != oeid
-            or rr.get("outbox_entry_id") != oeid):
+    # 4. Authority binding must agree across all four artifacts.
+    rbind = _review_binding(rr)
+    if not (entry.get("outbox_entry_id")
+            == rbind["outbox_entry_id"]
+            == er.get("outbox_entry_id")
+            == ps.get("outbox_entry_id")):
         blocked.append(BLOCK_DRY_RUN_OUTBOX_ENTRY_MISMATCH)
-
-    # 7. Approval ledger entry id must match across outbox, editorial, preview.
-    leid = entry.get("approval_ledger_entry_id")
-    if (er.get("approval_ledger_entry_id") != leid
-            or pr.get("approval_ledger_entry_id") != leid):
+    if not (entry.get("payload_hash")
+            and er.get("payload_hash") == entry.get("payload_hash")
+            and ps.get("payload_hash") == entry.get("payload_hash")
+            and rbind["payload_hash_short"] == _short(
+                entry.get("payload_hash") or "")):
+        blocked.append(BLOCK_DRY_RUN_PAYLOAD_HASH_MISMATCH)
+    if not (entry.get("idempotency_key")
+            and er.get("idempotency_key") == entry.get("idempotency_key")
+            and ps.get("idempotency_key") == entry.get("idempotency_key")):
+        blocked.append(BLOCK_DRY_RUN_IDEMPOTENCY_KEY_MISMATCH)
+    if not (entry.get("approval_ledger_entry_id")
+            and er.get("approval_ledger_entry_id")
+            == entry.get("approval_ledger_entry_id")
+            and ps.get("approval_ledger_entry_id")
+            == entry.get("approval_ledger_entry_id")):
         blocked.append(BLOCK_DRY_RUN_LEDGER_ENTRY_MISMATCH)
 
-    # 8. Editorial id must thread editorial -> preview.
-    if not er.get("editorial_id") or pr.get("editorial_id") != er.get(
-            "editorial_id"):
+    # 5. Deep identity binding must agree across all four artifacts.
+    if not (rbind["review_challenge_id"]
+            and er.get("review_challenge_id") == rbind["review_challenge_id"]
+            and ps.get("review_challenge_id") == rbind["review_challenge_id"]):
+        blocked.append(BLOCK_DRY_RUN_CHALLENGE_ID_MISMATCH)
+    if not (operator_id
+            and rbind["operator_id"] == operator_id
+            and er.get("operator_id") == operator_id
+            and ps.get("operator_id") == operator_id):
+        blocked.append(BLOCK_DRY_RUN_OPERATOR_ID_MISMATCH)
+    if not (er.get("editorial_id")
+            and ps.get("editorial_id") == er.get("editorial_id")):
         blocked.append(BLOCK_DRY_RUN_EDITORIAL_ID_MISMATCH)
+    if not ps.get("preview_set_id"):
+        blocked.append(BLOCK_DRY_RUN_PREVIEW_SET_ID_MISMATCH)
 
-    # 9. Preview id must be present.
-    if not pr.get("preview_id"):
-        blocked.append(BLOCK_DRY_RUN_PREVIEW_ID_MISMATCH)
+    # 6. Every preview artifact must re-bind to the same authority and carry no
+    #    hard blocker and no claimed live readiness.
+    for artifact in ps.get("preview_artifacts") or []:
+        if (artifact.get("outbox_entry_id") != entry.get("outbox_entry_id")
+                or artifact.get("payload_hash") != entry.get("payload_hash")
+                or artifact.get("idempotency_key")
+                != entry.get("idempotency_key")
+                or artifact.get("approval_ledger_entry_id")
+                != entry.get("approval_ledger_entry_id")
+                or artifact.get("editorial_id") != er.get("editorial_id")
+                or artifact.get("preview_set_id") != ps.get("preview_set_id")
+                or artifact.get("review_challenge_id")
+                != rbind["review_challenge_id"]
+                or artifact.get("operator_id") != operator_id):
+            blocked.append(BLOCK_DRY_RUN_PREVIEW_ARTIFACT_BINDING_MISMATCH
+                           + ":" + str(artifact.get("preview_surface_class")))
+        if artifact.get("hard_blocker_classes"):
+            blocked.append(BLOCK_DRY_RUN_PREVIEW_ARTIFACT_HARD_BLOCKER
+                           + ":" + str(artifact.get("preview_surface_class")))
+        if (artifact.get("live_ready") is not False
+                or artifact.get("platform_api_called") is not False
+                or artifact.get("dispatch_performed") is not False
+                or artifact.get("credential_hydrated") is not False):
+            blocked.append(BLOCK_DRY_RUN_LIVE_READINESS_CLAIMED
+                           + ":" + str(artifact.get("preview_surface_class")))
 
-    # 10. Required identity fields present.
+    # 7. Required identity fields present.
     if not dry_run_id:
         blocked.append(BLOCK_DRY_RUN_MISSING_FIELD + ":dry_run_id")
     if not operator_id:
@@ -670,21 +961,33 @@ def run_supervised_dry_run(review_result, outbox_entry, editorial_record,
     outcome = (DRY_RUN_COMPLETE_NOT_DISPATCHED if complete
                else DRY_RUN_NOT_COMPLETE)
     return _dry_run_result(
-        outcome, entry, er, pr, blocked=sorted(set(blocked)),
-        complete=complete, forbidden_detected=False, dry_run_id=dry_run_id,
-        operator_id=operator_id, run_at_epoch=run_at_epoch)
+        outcome, blocked=sorted(set(blocked)), complete=complete,
+        forbidden_detected=False, financial_advice=False,
+        dry_run_id=dry_run_id, operator_id=operator_id,
+        run_at_epoch=run_at_epoch, entry=entry, editorial_record=er,
+        preview_set_result=ps)
 
 
-def _dry_run_result(outcome_class, entry, er, pr, *, blocked, complete,
-                    forbidden_detected, dry_run_id, operator_id, run_at_epoch):
-    """Build a deterministic SupervisedDryRunRecord (pure value)."""
+def _dry_run_result(outcome_class, *, blocked, complete, forbidden_detected,
+                    financial_advice, dry_run_id, operator_id, run_at_epoch,
+                    entry, editorial_record, preview_set_result):
+    """Build a deterministic SupervisedDryRunResult (pure value).
+
+    Carries the full deep binding forward (review challenge id, operator id,
+    editorial id, preview set id, outbox entry id, idempotency key, payload
+    hash, approval ledger entry id) and embeds the present/missing surface
+    coverage proof so the dry-run outcome is self-describing and re-verifiable.
+    Even when complete, the outcome is complete-not-dispatched: NEVER live,
+    NEVER dispatched, provider rendering remains unverified.
+    """
     status = (Status.PASS if complete
-              else (Status.FAIL_CLOSED if forbidden_detected
+              else (Status.FAIL_CLOSED
+                    if (forbidden_detected or financial_advice)
                     else Status.BLOCKED))
     entry = entry or {}
-    er = er or {}
-    pr = pr or {}
-    record = {
+    er = editorial_record or {}
+    ps = preview_set_result or {}
+    result = {
         "task_label": TASK_LABEL,
         "model": MODEL,
         "model_version": MODEL_VERSION,
@@ -697,38 +1000,43 @@ def _dry_run_result(outcome_class, entry, er, pr, *, blocked, complete,
         "operator_id": operator_id,
         "run_at_epoch": (int(run_at_epoch)
                          if run_at_epoch is not None else None),
-        # The exact bound chain (symbolic / short fingerprints only).
+        # Deep-binding identity fields re-asserted from the verified chain.
+        "review_challenge_id": ps.get("review_challenge_id"),
         "editorial_id": er.get("editorial_id"),
-        "preview_id": pr.get("preview_id"),
+        "preview_set_id": ps.get("preview_set_id"),
         "outbox_entry_id": entry.get("outbox_entry_id"),
         "idempotency_key_short": _short(entry.get("idempotency_key") or ""),
         "payload_hash_short": _short(entry.get("payload_hash") or ""),
         "approval_ledger_entry_id": entry.get("approval_ledger_entry_id"),
         "platform": entry.get("platform"),
-        "visibility_class": entry.get("visibility_class"),
-        "content_lane": er.get("content_lane"),
+        # Surface-coverage proof carried forward from the preview set.
+        "required_surface_classes": list(REQUIRED_PREVIEW_SURFACES),
+        "present_surface_classes": ps.get("present_surface_classes") or [],
+        "missing_surface_classes": ps.get("missing_surface_classes") or [],
+        "preview_artifact_count": ps.get("preview_artifact_count") or 0,
         "blocked_reasons": blocked,
         "forbidden_fields_detected": forbidden_detected,
-        # Hard invariants -- a dry run is NEVER a live write.
+        "financial_advice_detected": financial_advice,
+        # Hard invariants -- a dry run is NEVER dispatch / live.
         **_safety_flags(),
         "dry_run_is_dispatch": False,
         "dry_run_is_platform_posting": False,
-        "ready_for_future_supervised_gate_only": complete,
-        "next_required_gate": NEXT_REQUIRED_GATE,
+        "dry_run_is_live_readiness_claim": False,
     }
-    record["record_checksum"] = compute_checksum(record)
-    return record
+    result["dry_run_checksum"] = compute_checksum(result)
+    return result
 
 
 # --------------------------------------------------------------------------- #
-# Model packet + doc builders
+# Deterministic packet + doc builders + explicit artifact writer
 # --------------------------------------------------------------------------- #
 def build_packet():
-    """Build the deterministic redacted 0174TJ/TK/TL model packet."""
+    """Return a deterministic, redaction-clean contract packet (pure value)."""
     packet = {
         "task_label": TASK_LABEL,
         "model": MODEL,
         "model_version": MODEL_VERSION,
+        "status": Status.PASS,
         "source_baseline_commit": SOURCE_BASELINE_COMMIT,
         "editorial_schema": EDITORIAL_SCHEMA,
         "editorial_schema_version": EDITORIAL_SCHEMA_VERSION,
@@ -736,222 +1044,78 @@ def build_packet():
         "preview_schema_version": PREVIEW_SCHEMA_VERSION,
         "dry_run_schema": DRY_RUN_SCHEMA,
         "dry_run_schema_version": DRY_RUN_SCHEMA_VERSION,
-        "contract_status": (
-            "deterministic_local_editorial_preview_dry_run_authority_ready"),
         "allowed_content_lanes": sorted(ALLOWED_CONTENT_LANES),
+        "required_preview_surfaces": list(REQUIRED_PREVIEW_SURFACES),
         "editorial_outcome_classes": [
-            EDITORIAL_APPROVED_NOT_DISPATCHED, EDITORIAL_NOT_APPROVED,
+            EDITORIAL_APPROVED_NOT_DISPATCHED,
+            EDITORIAL_NOT_APPROVED,
             EDITORIAL_FAIL_CLOSED,
         ],
-        "preview_outcome_classes": [
-            PREVIEW_BUILT_NOT_DISPATCHED, PREVIEW_NOT_BUILT,
-            PREVIEW_FAIL_CLOSED,
+        "preview_set_outcome_classes": [
+            PREVIEW_SET_BUILT_NOT_DISPATCHED,
+            PREVIEW_SET_NOT_BUILT,
+            PREVIEW_SET_FAIL_CLOSED,
         ],
         "dry_run_outcome_classes": [
-            DRY_RUN_COMPLETE_NOT_DISPATCHED, DRY_RUN_NOT_COMPLETE,
+            DRY_RUN_COMPLETE_NOT_DISPATCHED,
+            DRY_RUN_NOT_COMPLETE,
             DRY_RUN_FAIL_CLOSED,
         ],
-        "editorial_blocked_reasons": [
-            BLOCK_REVIEW_NOT_APPROVED, BLOCK_REVIEW_FORBIDDEN_VALUE,
-            BLOCK_OUTBOX_NOT_AUTHORITY, BLOCK_REVIEW_OUTBOX_BINDING_MISMATCH,
-            BLOCK_EDITORIAL_FORBIDDEN_VALUE, BLOCK_EDITORIAL_FINANCIAL_ADVICE,
-            BLOCK_EDITORIAL_MISSING_FIELD, BLOCK_EDITORIAL_LANE_NOT_ALLOWED,
-        ],
-        "preview_blocked_reasons": [
-            BLOCK_EDITORIAL_NOT_APPROVED, BLOCK_EDITORIAL_FORBIDDEN_INPUT,
-            BLOCK_PREVIEW_OUTBOX_MISMATCH, BLOCK_PREVIEW_FORBIDDEN_VALUE,
-            BLOCK_PREVIEW_FINANCIAL_ADVICE, BLOCK_PREVIEW_MISSING_FIELD,
-            BLOCK_PREVIEW_PLATFORM_MISMATCH, BLOCK_OUTBOX_NOT_AUTHORITY,
-        ],
-        "dry_run_blocked_reasons": [
-            BLOCK_DRY_RUN_FORBIDDEN_VALUE, BLOCK_DRY_RUN_REVIEW_NOT_APPROVED,
-            BLOCK_DRY_RUN_EDITORIAL_NOT_APPROVED,
-            BLOCK_DRY_RUN_PREVIEW_NOT_BUILT,
-            BLOCK_DRY_RUN_PAYLOAD_HASH_MISMATCH,
-            BLOCK_DRY_RUN_IDEMPOTENCY_KEY_MISMATCH,
-            BLOCK_DRY_RUN_OUTBOX_ENTRY_MISMATCH,
-            BLOCK_DRY_RUN_LEDGER_ENTRY_MISMATCH,
-            BLOCK_DRY_RUN_EDITORIAL_ID_MISMATCH,
-            BLOCK_DRY_RUN_PREVIEW_ID_MISMATCH, BLOCK_DRY_RUN_MISSING_FIELD,
-        ],
-        "consumes_upstream_outputs": [
-            "remote_review_approved_not_dispatched", "outbox_entry_id",
-            "idempotency_key", "payload_hash", "approval_ledger_entry_id",
-        ],
-        "invariants": [
-            "editorial_blocked_unless_review_approved_not_dispatched",
-            "editorial_blocked_unless_outbox_entry_is_0174ee_authority",
-            "editorial_blocked_on_review_outbox_binding_mismatch",
-            "editorial_fails_closed_on_financial_advice_or_signal_framing",
-            "editorial_blocked_unless_content_lane_allowed",
-            "editorial_approval_is_not_dispatch",
-            "preview_blocked_unless_editorial_approved_not_dispatched",
-            "preview_blocked_on_editorial_outbox_binding_mismatch",
-            "preview_fails_closed_on_financial_advice_or_signal_framing",
-            "preview_never_renders_against_live_platform",
-            "preview_is_not_platform_posting",
-            "dry_run_reproves_every_cross_binding",
-            "dry_run_blocked_on_any_hash_key_or_id_mismatch",
-            "dry_run_is_not_dispatch_or_platform_posting",
-            "dry_run_confirms_future_supervised_gate_readiness_only",
-            "no_credential_hydration_anywhere",
-            "fail_closed_on_forbidden_value",
-        ],
-        "redaction_policy": {
-            "fail_closed_on_forbidden_value": True,
-            "fail_closed_on_financial_advice": True,
-            "credential_referenced_by_handle_id_only": True,
-            "no_raw_provider_or_platform_response_stored": True,
-            "scanner_source": "0174ED_approval_ledger_payload_hash_contract",
-        },
-        "safety_flags": {
-            "dispatch_performed": False,
-            "live_request_performed": False,
-            "platform_api_called": False,
-            "platform_preview_rendered_live": False,
-            "telegram_send_performed": False,
-            "llm_behavior": False,
-            "credential_hydrated": False,
-            "scheduler_enabled": False,
-            "auto_retry_allowed": False,
-            "autonomous_reply_performed": False,
-            "dispatch_ready": False,
-            "live_ready": False,
-            "autonomous_posting_allowed": False,
-            "manual_fallback_available": True,
-            "no_financial_advice_emitted": True,
-            "no_network_performed": True,
-            "no_env_read_performed": True,
-            "no_dotenv_read_performed": True,
-            "no_keyring_read_performed": True,
-            "no_browser_session_read_performed": True,
-            "no_credential_file_read_performed": True,
-            "no_oauth_performed": True,
-            "no_credential_hydration_performed": True,
-            "no_openclaw_runtime": True,
-            "no_scheduler_or_posting": True,
-        },
-        "strategic_posture": {
-            "manual_posting": "fallback",
-            "automation": "main_build_path",
-            "autonomous_posting": "forbidden",
-            "supervised_publishing": "final_product",
-        },
-        "status": Status.PASS,
+        "deep_bind_fields": list(_DEEP_BIND_FIELDS),
+        "chain_bind_fields": list(_CHAIN_BIND_FIELDS),
         "next_required_gate": NEXT_REQUIRED_GATE,
         "exact_next_task_recommendation": EXACT_NEXT_TASK_RECOMMENDATION,
+        **_safety_flags(),
     }
     packet["checksum_sha256"] = compute_checksum(packet)
     return packet
 
 
 def build_doc():
-    """Build the deterministic redacted 0174TJ/TK/TL markdown documentation."""
-    lanes = "\n".join(f"- `{c}`" for c in sorted(ALLOWED_CONTENT_LANES))
-    return f"""# Editorial Agent + Platform Preview + Supervised Dry-Run Contract (0174TJ/TK/TL)
-
-Task: {TASK_LABEL}
-Model: {MODEL} ({MODEL_VERSION})
-Source baseline commit: {SOURCE_BASELINE_COMMIT}
-Mode: Implementation Mode. Deterministic, stdlib-only, local authority batch.
-
-> [!IMPORTANT]
-> This batch introduces NO live behavior: no platform API call, no live preview
-> render, no Telegram send, no LLM call, no network call, no credential read or
-> hydration, no environment or `.env` read, no keyring or browser-session read,
-> no OAuth, no scheduler, and no auto retry. It is the deterministic local
-> editorial agent + platform preview + supervised dry-run authority contract
-> only.
-
-## Strategic Posture
-- Manual posting is the **fallback** path, not the strategic destination.
-- **Automation is the main build path.**
-- **Autonomous posting is forbidden.**
-- **Supervised publishing is the final product.**
-
-## What This Batch Proves
-0174ED proved Jim approved an **exact payload hash**. 0174EE proved that exact,
-validated approval becomes a **single local outbox candidate** without duplicate
-dispatch risk. 0174TG/TH/TI proved a remote operator review can only ever yield
-`remote_review_approved_not_dispatched`. This batch proves the final three local
-authority steps WITHOUT touching any live surface:
-
-- **0174TJ Editorial Agent** -- `run_editorial_agent` consumes a valid
-  `remote_review_approved_not_dispatched` result plus the exact 0174EE outbox
-  entry and produces an `EditorialDecisionRecord`. It is a deterministic,
-  rule-based gate (never an LLM call). It **fails closed** on any financial
-  advice, buy/sell/hold call, position sizing, guaranteed prediction, or trade
-  signal framing, and only allows grounded/context content lanes. Outcome is
-  only ever `editorial_approved_not_dispatched`.
-- **0174TK Platform Preview** -- `build_platform_preview` consumes a valid
-  editorial record + the same outbox entry and builds a LOCAL, redacted
-  `PlatformPreviewRecord`. It **never** renders against a live platform or calls
-  a platform API. Outcome is only ever `platform_preview_built_not_dispatched`.
-- **0174TL Supervised Dry Run** -- `run_supervised_dry_run` re-proves EVERY
-  cross-binding (payload hash, idempotency key, outbox entry id, approval ledger
-  entry id, editorial id, preview id) across all four artifacts and emits
-  `supervised_dry_run_complete_not_dispatched`. It confirms readiness for a
-  FUTURE supervised gate but never dispatches.
-
-## Allowed Content Lanes
-{lanes}
-
-## Core Objects
-- **EditorialDecisionRecord** -- the deterministic 0174TJ editorial gate output.
-- **PlatformPreviewRecord** -- the local, redacted 0174TK preview output.
-- **SupervisedDryRunRecord** -- the 0174TL end-to-end cross-binding proof.
-
-## Hard Invariants
-- Editorial approval is **not** dispatch; a preview is **not** a post; a dry run
-  is **not** a live write; none of them hydrate credentials.
-- Financial advice / buy-sell-hold / sizing / guaranteed predictions / signal
-  framing **fail closed** in both editorial and preview text.
-- Every stage re-proves the exact upstream authority binding; any payload hash,
-  idempotency key, or id mismatch blocks.
-- No raw provider/platform response, token, chat id, username, phone, or webhook
-  url is ever stored.
-- Missing or ambiguous state blocks (fail closed).
-
-## Next Task
-Recommended next task after PASS:
-`{EXACT_NEXT_TASK_RECOMMENDATION}`
-
-Next required gate: {NEXT_REQUIRED_GATE}
-"""
-
-
-# --------------------------------------------------------------------------- #
-# Explicit artifact writer (no writes happen on import)
-# --------------------------------------------------------------------------- #
-def write_artifacts(repo_root):
-    """Write the deterministic 0174TJ/TK/TL packet + doc under ``repo_root``.
-
-    Returns the list of written file paths. Refuses to write if either artifact
-    fails the redaction scan (fail closed). Performs NO other side effects.
-    """
+    """Return a deterministic, redaction-clean markdown contract document."""
     packet = build_packet()
-    doc = build_doc()
+    lanes = "\n".join(f"  * `{lane}`" for lane in sorted(ALLOWED_CONTENT_LANES))
+    surfaces = "\n".join(
+        f"  * `{s}` -> `{_SURFACE_PLATFORM[s]}`"
+        for s in REQUIRED_PREVIEW_SURFACES)
+    return (
+        f"# 0174TJ/TK/TL Editorial + Preview Set + Supervised Dry-Run Contract\n\n"
+        f"Task: `{TASK_LABEL}`\n\n"
+        f"Model: `{MODEL}` version `{MODEL_VERSION}`\n\n"
+        f"Baseline commit: `{SOURCE_BASELINE_COMMIT}`\n\n"
+        f"## Role\n\n"
+        f"This batch is LOCAL and deterministic. It performs NO live platform "
+        f"API call, NO Telegram send, NO LLM/provider call, NO network, NO "
+        f"env/credential read, NO credential hydration, NO scheduler, and NO "
+        f"auto retry. Provider rendering remains UNVERIFIED.\n\n"
+        f"## 0174TJ Editorial agent\n\n"
+        f"Consumes a genuine `remote_review_approved_not_dispatched` result and "
+        f"the exact 0174EE outbox entry. Fails closed on forbidden material or "
+        f"financial-advice framing. Allowed content lanes:\n\n{lanes}\n\n"
+        f"## 0174TK Platform preview SET\n\n"
+        f"Builds one preview artifact per required surface; a single record "
+        f"can NEVER satisfy the dry run. Required surfaces:\n\n{surfaces}\n\n"
+        f"## 0174TL Supervised dry run\n\n"
+        f"Re-verifies the full review -> outbox -> editorial -> preview-set "
+        f"hierarchy and every deep binding. Even when complete, the outcome is "
+        f"`{DRY_RUN_COMPLETE_NOT_DISPATCHED}` -- never dispatch.\n\n"
+        f"## Next required gate\n\n{NEXT_REQUIRED_GATE}\n\n"
+        f"Exact next task: `{EXACT_NEXT_TASK_RECOMMENDATION}`\n\n"
+        f"Packet checksum: `{packet['checksum_sha256']}`\n")
 
-    packet_violations = scan_for_leaks(packet)
-    if packet_violations:
-        raise ValueError(f"packet failed redaction scan: {packet_violations}")
-    doc_violations = scan_for_leaks(doc)
-    if doc_violations:
-        raise ValueError(f"doc failed redaction scan: {doc_violations}")
 
-    out_dir = os.path.join(repo_root, DOC_REL_DIR)
+def write_artifacts(base_dir):
+    """Write the packet JSON + markdown doc under ``base_dir``. Explicit only.
+
+    Returns the list of written absolute paths. This is the ONLY function that
+    performs filesystem writes; importing the module performs none.
+    """
+    out_dir = os.path.join(base_dir, DOC_REL_DIR)
     os.makedirs(out_dir, exist_ok=True)
     packet_path = os.path.join(out_dir, PACKET_FILENAME)
     doc_path = os.path.join(out_dir, DOC_FILENAME)
-
     with open(packet_path, "w", encoding="utf-8") as fh:
-        fh.write(serialize(packet))
+        fh.write(serialize(build_packet()))
     with open(doc_path, "w", encoding="utf-8") as fh:
-        fh.write(doc)
-
+        fh.write(build_doc())
     return [packet_path, doc_path]
-
-
-# Note: os.makedirs / open are used ONLY inside write_artifacts, invoked
-# explicitly by an operator/test. Importing this module performs no writes.
-# ``os`` is bound via the top-level ``import os.path``.
