@@ -163,6 +163,17 @@ BLOCK_PAYLOAD_HASH_MISMATCH = "payload_hash_mismatch"
 BLOCK_NONCE_MISMATCH = "one_time_nonce_mismatch"
 BLOCK_CHALLENGE_FORBIDDEN_VALUE = "challenge_forbidden_value_detected"
 
+# 0174TI R1: 0174EE outbox-authority gate block-reason classes. A review
+# challenge may only be created from a genuine, eligible 0174EE local outbox
+# record -- never a synthetic/outbox-like dict or a live/dispatch-flagged entry.
+BLOCK_OUTBOX_NOT_0174EE_AUTHORITY = "outbox_entry_not_0174ee_authority"
+BLOCK_OUTBOX_STATE_NOT_LOCAL_RECORD = (
+    "outbox_entry_state_not_local_record_created")
+BLOCK_OUTBOX_NOT_ELIGIBLE = "outbox_entry_not_eligible_for_review"
+BLOCK_OUTBOX_LIVE_OR_DISPATCH_FLAG = "outbox_entry_live_or_dispatch_flag_set"
+BLOCK_OUTBOX_REQUIRED_FIELD_MISSING = "outbox_entry_required_field_missing"
+BLOCK_OUTBOX_FORBIDDEN_VALUE = "outbox_entry_forbidden_value_detected"
+
 # Required (non-empty) fields on a normalized inbound envelope.
 REQUIRED_INBOUND_FIELDS = (
     "inbound_message_id",
@@ -610,6 +621,109 @@ def _challenge_safety_flags():
     }
 
 
+# --------------------------------------------------------------------------- #
+# 0174TI R1: 0174EE outbox-entry authority gate.
+# --------------------------------------------------------------------------- #
+# Flags that MUST be present and True on a valid 0174EE outbox entry.
+_OUTBOX_REQUIRED_TRUE_FLAGS = (
+    "outbox_created",
+    "eligible_for_local_outbox",
+)
+
+# Flags that MUST be present and False on a valid 0174EE outbox entry.
+_OUTBOX_REQUIRED_FALSE_FLAGS = (
+    "dispatch_performed",
+    "live_request_performed",
+    "platform_api_called",
+    "credential_hydrated",
+    "auto_retry_allowed",
+    "scheduler_enabled",
+    "telegram_behavior",
+    "llm_behavior",
+    "dispatch_ready",
+    "live_ready",
+)
+
+# Authority fields that MUST be present (non-empty) on a valid 0174EE entry.
+_OUTBOX_REQUIRED_AUTHORITY_FIELDS = (
+    "outbox_entry_id",
+    "idempotency_key",
+    "payload_hash",
+    "approval_ledger_entry_id",
+    "platform",
+    "destination_binding_id",
+    "credential_handle_id",
+    "visibility_class",
+    "dispatch_intent_class",
+)
+
+
+def validate_0174ee_outbox_entry_for_review_challenge(outbox_entry):
+    """Fail-closed proof that ``outbox_entry`` is a genuine 0174EE local outbox
+    record eligible to back a remote review challenge.
+
+    Returns a deterministic result dict::
+
+        {"valid": bool,
+         "blocked_reasons": [...],
+         "forbidden_fields_detected": bool}
+
+    Rejects (``valid`` False) an arbitrary outbox-like dict, a duplicate-
+    suppressed registry result, a record missing the exact 0174EE model /
+    model_version / state authority stamp, a record that is not explicitly
+    created + eligible for local outbox, a record with ANY live / dispatch /
+    platform / credential / scheduler / telegram / llm flag set true, a record
+    missing a required authority field, or a record carrying forbidden raw
+    credential / provider / Telegram material. Performs NO side effect, NEVER
+    dispatches, and NEVER hydrates credentials.
+    """
+    entry = outbox_entry if isinstance(outbox_entry, dict) else {}
+    blocked = []
+
+    # 1. Fail-closed redaction scan FIRST: never reason about forbidden material.
+    if scan_for_leaks(outbox_entry or {}):
+        return {
+            "valid": False,
+            "blocked_reasons": [BLOCK_OUTBOX_FORBIDDEN_VALUE],
+            "forbidden_fields_detected": True,
+        }
+
+    if not isinstance(outbox_entry, dict) or not entry:
+        blocked.append(BLOCK_OUTBOX_NOT_0174EE_AUTHORITY)
+
+    # 2. Exact 0174EE model + version authority stamp.
+    if (entry.get("model") != outbox.MODEL
+            or entry.get("model_version") != outbox.MODEL_VERSION):
+        blocked.append(BLOCK_OUTBOX_NOT_0174EE_AUTHORITY)
+
+    # 3. State must be the local-record-created class (rejects duplicate-
+    #    suppressed results and any other state).
+    if entry.get("state_class") != outbox.STATE_LOCAL_RECORD_CREATED:
+        blocked.append(BLOCK_OUTBOX_STATE_NOT_LOCAL_RECORD)
+
+    # 4. Must be explicitly created + eligible for local outbox.
+    if any(entry.get(flag) is not True
+           for flag in _OUTBOX_REQUIRED_TRUE_FLAGS):
+        blocked.append(BLOCK_OUTBOX_NOT_ELIGIBLE)
+
+    # 5. No live / dispatch / platform / credential / scheduler / telegram /
+    #    llm flag may be set (each must be explicitly present and False).
+    if any(entry.get(flag) is not False
+           for flag in _OUTBOX_REQUIRED_FALSE_FLAGS):
+        blocked.append(BLOCK_OUTBOX_LIVE_OR_DISPATCH_FLAG)
+
+    # 6. Required authority fields present (non-empty).
+    for field in _OUTBOX_REQUIRED_AUTHORITY_FIELDS:
+        if not entry.get(field):
+            blocked.append(BLOCK_OUTBOX_REQUIRED_FIELD_MISSING + ":" + field)
+
+    return {
+        "valid": not blocked,
+        "blocked_reasons": sorted(set(blocked)),
+        "forbidden_fields_detected": False,
+    }
+
+
 def create_review_challenge(outbox_entry, challenge_id, operator_id,
                             created_at_epoch, expires_at_epoch,
                             *, one_time_nonce=None,
@@ -631,6 +745,15 @@ def create_review_challenge(outbox_entry, challenge_id, operator_id,
     violations = scan_for_leaks(entry)
     if violations:
         raise ValueError(f"outbox entry failed redaction scan: {violations}")
+
+    # R1: prove the entry is a genuine, eligible 0174EE local outbox record
+    # BEFORE binding a challenge to it. A synthetic/outbox-like dict, a
+    # duplicate-suppressed result, or a live/dispatch-flagged entry fails here.
+    authority = validate_0174ee_outbox_entry_for_review_challenge(entry)
+    if not authority["valid"]:
+        raise ValueError(
+            "outbox entry is not a valid 0174EE authority for a review "
+            f"challenge: {authority['blocked_reasons']}")
 
     for field in ("outbox_entry_id", "idempotency_key", "payload_hash"):
         if not entry.get(field):
@@ -940,6 +1063,12 @@ def build_packet():
             BLOCK_OUTBOX_ENTRY_MISMATCH, BLOCK_IDEMPOTENCY_KEY_MISMATCH,
             BLOCK_PAYLOAD_HASH_MISMATCH, BLOCK_NONCE_MISMATCH,
             BLOCK_CHALLENGE_FORBIDDEN_VALUE,
+            BLOCK_OUTBOX_NOT_0174EE_AUTHORITY,
+            BLOCK_OUTBOX_STATE_NOT_LOCAL_RECORD,
+            BLOCK_OUTBOX_NOT_ELIGIBLE,
+            BLOCK_OUTBOX_LIVE_OR_DISPATCH_FLAG,
+            BLOCK_OUTBOX_REQUIRED_FIELD_MISSING,
+            BLOCK_OUTBOX_FORBIDDEN_VALUE,
         ],
         "consumes_0174ee_outputs": [
             "outbox_entry_id", "idempotency_key", "payload_hash",
@@ -958,6 +1087,10 @@ def build_packet():
             "explicit_approve_requires_exact_phrase_or_challenge_id",
             "parser_never_creates_approval_outbox_or_dispatch_state",
             "review_challenge_binds_exact_outbox_entry_idempotency_and_hash",
+            "review_challenge_requires_valid_0174ee_outbox_entry",
+            "synthetic_outbox_like_dict_cannot_create_review_challenge",
+            "duplicate_suppressed_result_cannot_create_review_challenge",
+            "live_or_dispatched_outbox_entry_cannot_create_review_challenge",
             "review_blocked_on_outbox_or_payload_hash_substitution",
             "review_blocked_unless_intent_is_explicit_approve",
             "review_blocked_on_expired_or_non_pending_challenge",

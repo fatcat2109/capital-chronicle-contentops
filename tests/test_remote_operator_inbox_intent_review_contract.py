@@ -39,7 +39,50 @@ def _good_inbound(**overrides):
     return base
 
 
+def _real_preflight():
+    """Run the genuine 0174ED->0174EE authority chain to a PASSED preflight."""
+    payload = approval.canonical_payload_dict(
+        platform="telegram",
+        payload_text="One CPI print is not a regime shift.",
+        destination_binding_id="a" * 64,
+        credential_handle_id="b" * 64,
+        media_manifest_hash="c" * 64,
+        visibility_class="public_default",
+        content_lane="grounded_news_context",
+        policy_snapshot_id="policy_v1",
+        platform_adapter_version="telegram_adapter_v1",
+        platform_formatting="default",
+        thread_split=None,
+        disclosure_class="none",
+    )
+    ledger = approval.ApprovalLedger()
+    ch = approval.create_approval_challenge(
+        payload, challenge_id="chal-ee-1", operator_id="operator_jim",
+        created_at_epoch=1000, expires_at_epoch=2000)
+    entry = approval.record_approval(
+        ch, payload, ledger_entry_id="led-ee-1", approved_at_epoch=1500,
+        operator_id="operator_jim")
+    ledger.append_approval(entry)
+    vres = approval.validate_approval_for_current_payload(
+        ledger, entry, payload, now_epoch=1600)
+    return outbox.run_dispatch_preflight(
+        payload, entry, vres,
+        dispatch_intent_class=outbox.INTENT_SUPERVISED_SINGLE,
+        gate_snapshot_class=outbox.GATE_ALLOWS_LOCAL_OUTBOX,
+        gate_snapshot_id="gate_v1", operator_id="operator_jim")
+
+
 def _good_outbox_entry(**overrides):
+    """A genuine, eligible 0174EE local outbox entry (real authority chain)."""
+    pre = _real_preflight()
+    entry = outbox.build_outbox_entry(pre, "outbox_entry_0001",
+                                      created_at_epoch=1700)
+    entry.update(overrides)
+    return entry
+
+
+def _synthetic_outbox_entry(**overrides):
+    """A loose, outbox-LIKE dict that is NOT a genuine 0174EE authority."""
     base = {
         "outbox_schema": "contentops.dispatch_outbox_entry",
         "outbox_entry_id": "outbox_entry_0001",
@@ -266,13 +309,14 @@ def test_intent_preserves_provenance_hash():
 # 0174TI: review challenge creation
 # --------------------------------------------------------------------------- #
 def test_create_challenge_binds_outbox_entry():
+    entry = _good_outbox_entry()
     ch = rc.create_review_challenge(
-        _good_outbox_entry(), "chal_0001", "operator_jim",
+        entry, "chal_0001", "operator_jim",
         created_at_epoch=1_700_000_000, expires_at_epoch=1_700_003_600)
     assert ch["challenge_id"] == "chal_0001"
-    assert ch["outbox_entry_id"] == "outbox_entry_0001"
-    assert ch["idempotency_key"] == "f" * 64
-    assert ch["payload_hash"] == "e" * 64
+    assert ch["outbox_entry_id"] == entry["outbox_entry_id"]
+    assert ch["idempotency_key"] == entry["idempotency_key"]
+    assert ch["payload_hash"] == entry["payload_hash"]
     assert ch["challenge_status"] == rc.CHALLENGE_PENDING
     assert ch["challenge_checksum"]
     assert ch["dispatch_performed"] is False
@@ -292,6 +336,84 @@ def test_create_challenge_fail_closed_on_forbidden():
     with pytest.raises(ValueError):
         rc.create_review_challenge(
             bad, "chal_x", "operator_jim",
+            created_at_epoch=1, expires_at_epoch=2)
+
+
+# --------------------------------------------------------------------------- #
+# 0174TI R1: 0174EE outbox-entry authority gate
+# --------------------------------------------------------------------------- #
+def test_outbox_authority_accepts_real_entry():
+    res = rc.validate_0174ee_outbox_entry_for_review_challenge(
+        _good_outbox_entry())
+    assert res["valid"] is True
+    assert res["blocked_reasons"] == []
+    assert res["forbidden_fields_detected"] is False
+
+
+def test_outbox_authority_rejects_synthetic_dict():
+    res = rc.validate_0174ee_outbox_entry_for_review_challenge(
+        _synthetic_outbox_entry())
+    assert res["valid"] is False
+    assert rc.BLOCK_OUTBOX_NOT_0174EE_AUTHORITY in res["blocked_reasons"]
+
+
+def test_outbox_authority_rejects_live_or_dispatch_flag():
+    for flag in ("dispatch_performed", "live_request_performed",
+                 "platform_api_called", "credential_hydrated"):
+        res = rc.validate_0174ee_outbox_entry_for_review_challenge(
+            _good_outbox_entry(**{flag: True}))
+        assert res["valid"] is False, flag
+        assert rc.BLOCK_OUTBOX_LIVE_OR_DISPATCH_FLAG in res["blocked_reasons"]
+
+
+def test_outbox_authority_rejects_not_eligible():
+    res = rc.validate_0174ee_outbox_entry_for_review_challenge(
+        _good_outbox_entry(eligible_for_local_outbox=False))
+    assert res["valid"] is False
+    assert rc.BLOCK_OUTBOX_NOT_ELIGIBLE in res["blocked_reasons"]
+
+
+def test_outbox_authority_rejects_missing_field():
+    res = rc.validate_0174ee_outbox_entry_for_review_challenge(
+        _good_outbox_entry(payload_hash=None))
+    assert res["valid"] is False
+    assert any(r.startswith(rc.BLOCK_OUTBOX_REQUIRED_FIELD_MISSING)
+               for r in res["blocked_reasons"])
+
+
+def test_outbox_authority_rejects_duplicate_suppressed_result():
+    pre = _real_preflight()
+    reg = outbox.DispatchOutboxRegistry()
+    reg.submit(pre, "outbox_entry_0001", created_at_epoch=1700)
+    dup = reg.submit(pre, "outbox_entry_0002", created_at_epoch=1800)
+    assert dup["state_class"] == outbox.STATE_DUPLICATE_SUPPRESSED
+    res = rc.validate_0174ee_outbox_entry_for_review_challenge(dup)
+    assert res["valid"] is False
+    assert rc.BLOCK_OUTBOX_STATE_NOT_LOCAL_RECORD in res["blocked_reasons"]
+
+
+def test_outbox_authority_fail_closed_on_forbidden():
+    res = rc.validate_0174ee_outbox_entry_for_review_challenge(
+        _good_outbox_entry(
+            credential_handle_id=(
+                "123456789:AAFakeTelegramBotTokenForTestsOnly0123456789")))
+    assert res["valid"] is False
+    assert res["forbidden_fields_detected"] is True
+    assert rc.BLOCK_OUTBOX_FORBIDDEN_VALUE in res["blocked_reasons"]
+
+
+def test_create_challenge_rejects_synthetic_outbox_entry():
+    with pytest.raises(ValueError):
+        rc.create_review_challenge(
+            _synthetic_outbox_entry(), "chal_syn", "operator_jim",
+            created_at_epoch=1, expires_at_epoch=2)
+
+
+def test_create_challenge_rejects_live_flagged_entry():
+    with pytest.raises(ValueError):
+        rc.create_review_challenge(
+            _good_outbox_entry(live_request_performed=True),
+            "chal_live", "operator_jim",
             created_at_epoch=1, expires_at_epoch=2)
 
 
