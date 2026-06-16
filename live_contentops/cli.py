@@ -1344,6 +1344,14 @@ def x_oauth_local_callback_handler_dry_run_stub_gate_summary():
     print(json.dumps(gate.run_gate(write=write), indent=2))
 
 
+def x_oauth_callback_server_policy_gate_summary():
+    import json
+    from live_contentops import x_oauth_callback_server_policy_gate as gate
+    rest = sys.argv[2:]
+    write = gate.FLAG_WRITE in rest
+    print(json.dumps(gate.run_gate(write=write), indent=2))
+
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -1540,6 +1548,7 @@ COMMANDS = {
     "x-oauth-callback-pkce-dry-run-design-gate": x_oauth_callback_pkce_dry_run_design_gate_summary,
     "x-oauth-redirect-ledger-callback-fixture-contract-gate": x_oauth_redirect_ledger_callback_fixture_contract_gate_summary,
     "x-oauth-local-callback-handler-dry-run-stub-gate": x_oauth_local_callback_handler_dry_run_stub_gate_summary,
+    "x-oauth-callback-server-policy-gate": x_oauth_callback_server_policy_gate_summary,
 
 
 }
