@@ -23,13 +23,20 @@ A live request occurs ONLY when both `--operator-go-live-read-only-identity-proo
 - `GET https://api.x.com/2/users/me` -- "Get my User" (`docs.x.com/x-api/users/get-my-user`), OAuth 2.0 user-context bearer token, returns the authenticated user object.
 - Host is restricted to `api.x.com`; method is restricted to `GET`; request budget is `1`; there is no retry; timeout is explicit.
 
+## Redirect / final-host hardening (0174DE_R1)
+
+- Redirects are NEVER followed: a no-redirect opener surfaces any 301/302/303/307/308 as a fail-closed `blocked_redirect_response`.
+- The `Location` header is never read, returned, logged, or persisted; `redirect_follow_count` stays `0`.
+- On a 2xx the FINAL response URL is re-verified to be exactly scheme `https`, host `api.x.com`, path `/2/users/me`; any mismatch fails closed (`final_scheme_mismatch_blocked` / `final_host_mismatch_blocked` / `final_path_mismatch_blocked`).
+- `live_read_only_identity_proof_baseline_status = corrected_pending_audit`.
+
 ## Redacted output only
 
 The transient response is mapped to boolean/class fields only (reachable, authenticated-context, identity-seen, status class) and the raw body is discarded. No user id, username, handle, display name, profile URL, metrics, headers, or token ever appear in the packet, README, logs, or output.
 
 ## What this did NOT do
 
-Did not post/edit/delete/repost/like/reply/DM, upload media, fetch metrics, create a webhook, scrape, search, read timelines, or do bulk reads. Did not exchange or refresh tokens. Did not persist, log, hash, fingerprint, prefix, or suffix the token. Did not bind an X account.
+Did not post/edit/delete/repost/like/reply/DM, upload media, fetch metrics, create a webhook, scrape, search, read timelines, or do bulk reads. Did not exchange or refresh tokens. Did not persist, log, hash, fingerprint, prefix, or suffix the token. Did not bind an X account. Did not follow any redirect or persist a `Location` header.
 
 ## Next
 

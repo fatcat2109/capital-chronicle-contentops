@@ -617,3 +617,305 @@ def test_main_recognizes_flags_without_real_network(monkeypatch):
     assert data["live_read_only_identity_proof_status"] == (
         "blocked_pending_operator_go_or_token_source")
 
+
+# --------------------------------------------------------------------------- #
+# 0174DE_R1 redirect / final-host / final-path / final-scheme hardening
+# --------------------------------------------------------------------------- #
+# These tests prove the live HTTP caller NEVER follows redirects, fails closed
+# on every 3xx, never persists a Location header, and re-verifies the FINAL
+# response URL (scheme/host/path) before accepting a body. They use a fake
+# urllib opener (monkeypatched) and fake callers -- NO real network.
+
+class _FakeResp:
+    """Minimal context-manager response mimicking a urllib response."""
+
+    def __init__(self, code, final_url, body="{}"):
+        self._code = code
+        self._url = final_url
+        self._body = body
+
+    def getcode(self):
+        return self._code
+
+    def geturl(self):
+        return self._url
+
+    def read(self):
+        return self._body.encode("utf-8")
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+
+class _FakeOpener:
+    def __init__(self, resp=None, exc=None):
+        self.resp = resp
+        self.exc = exc
+        self.open_calls = 0
+
+    def open(self, req, timeout=None):
+        self.open_calls += 1
+        if self.exc is not None:
+            raise self.exc
+        return self.resp
+
+
+def _patch_build_opener(monkeypatch, resp=None, exc=None):
+    """Patch urllib.request.build_opener; capture the handler(s) passed and
+    return both the capture dict and the fake opener so tests can assert the
+    no-redirect handler was installed and that exactly one open() occurred."""
+    import urllib.request as _ur
+    captured = {"handlers": None, "opener": None}
+    fake = _FakeOpener(resp=resp, exc=exc)
+
+    def _fake_build_opener(*handlers):
+        captured["handlers"] = handlers
+        captured["opener"] = fake
+        return fake
+
+    monkeypatch.setattr(_ur, "build_opener", _fake_build_opener)
+    return captured
+
+
+def _http_error(code, url="https://api.x.com/2/users/me"):
+    import urllib.error as _ue
+    return _ue.HTTPError(url, code, "redirect", {}, None)
+
+
+# --- the no-redirect handler genuinely disables following ------------------ #
+def test_caller_installs_no_redirect_handler_that_returns_none(monkeypatch):
+    captured = _patch_build_opener(
+        monkeypatch,
+        resp=_FakeResp(200, gate.ENDPOINT_URL,
+                       '{"data": {"id": "1"}}'))
+    gate._default_http_caller("GET", gate.ENDPOINT_URL, "tok",
+                              gate.TIMEOUT_SECONDS)
+    handlers = captured["handlers"]
+    assert handlers, "build_opener was not called with a handler"
+    handler_cls = handlers[0]
+    # Instantiating and calling redirect_request must return None, which is
+    # what causes urllib to refuse to follow and surface the 3xx as an error.
+    inst = handler_cls() if isinstance(handler_cls, type) else handler_cls
+    assert inst.redirect_request(
+        None, None, 302, "Found", {}, "https://evil.example.com/") is None
+
+
+# --- every 3xx surfaced as HTTPError fails closed, not followed ------------ #
+@pytest.mark.parametrize("code", [301, 302, 303, 307, 308])
+def test_caller_blocks_each_redirect_via_httperror(monkeypatch, code):
+    captured = _patch_build_opener(monkeypatch, exc=_http_error(code))
+    out = gate._default_http_caller("GET", gate.ENDPOINT_URL, "tok",
+                                    gate.TIMEOUT_SECONDS)
+    assert out["ok"] is False
+    assert out["error_class"] == "blocked_redirect_response"
+    assert out["redirect_blocked"] is True
+    assert out["redirect_follow_count"] == 0
+    assert out["final_host_verified"] is False
+    assert out["final_path_verified"] is False
+    # exactly one open() attempt; no retry, no follow.
+    assert captured["opener"].open_calls == 1
+
+
+@pytest.mark.parametrize("code", [301, 302, 303, 307, 308])
+def test_caller_blocks_each_redirect_via_status_code(monkeypatch, code):
+    # Defense-in-depth: even if a 3xx is returned as a response object, the
+    # caller must fail closed instead of reading/following it.
+    captured = _patch_build_opener(
+        monkeypatch, resp=_FakeResp(code, "https://evil.example.com/x"))
+    out = gate._default_http_caller("GET", gate.ENDPOINT_URL, "tok",
+                                    gate.TIMEOUT_SECONDS)
+    assert out["ok"] is False
+    assert out["error_class"] == "blocked_redirect_response"
+    assert out["redirect_blocked"] is True
+    assert out["redirect_follow_count"] == 0
+    assert captured["opener"].open_calls == 1
+
+
+def test_caller_redirect_location_never_returned(monkeypatch):
+    # The redirect target must never appear in the caller's redacted result.
+    _patch_build_opener(
+        monkeypatch,
+        exc=_http_error(302, "https://evil.example.com/redirected"))
+    out = gate._default_http_caller("GET", gate.ENDPOINT_URL, "tok",
+                                    gate.TIMEOUT_SECONDS)
+    blob = json.dumps(out)
+    assert "evil.example.com" not in blob
+    assert "redirected" not in blob
+    assert out.get("json") is None
+
+
+# --- final URL re-verification (scheme/host/path) -------------------------- #
+def test_caller_blocks_final_host_mismatch(monkeypatch):
+    _patch_build_opener(
+        monkeypatch,
+        resp=_FakeResp(200, "https://evil.example.com/2/users/me",
+                       '{"data": {"id": "1"}}'))
+    out = gate._default_http_caller("GET", gate.ENDPOINT_URL, "tok",
+                                    gate.TIMEOUT_SECONDS)
+    assert out["ok"] is False
+    assert out["error_class"] == "final_host_mismatch_blocked"
+    assert out["final_host_verified"] is False
+    assert out.get("json") is None
+
+
+def test_caller_blocks_final_path_mismatch(monkeypatch):
+    _patch_build_opener(
+        monkeypatch,
+        resp=_FakeResp(200, "https://api.x.com/2/tweets",
+                       '{"data": {"id": "1"}}'))
+    out = gate._default_http_caller("GET", gate.ENDPOINT_URL, "tok",
+                                    gate.TIMEOUT_SECONDS)
+    assert out["ok"] is False
+    assert out["error_class"] == "final_path_mismatch_blocked"
+    assert out["final_path_verified"] is False
+
+
+def test_caller_blocks_final_scheme_mismatch(monkeypatch):
+    _patch_build_opener(
+        monkeypatch,
+        resp=_FakeResp(200, "http://api.x.com/2/users/me",
+                       '{"data": {"id": "1"}}'))
+    out = gate._default_http_caller("GET", gate.ENDPOINT_URL, "tok",
+                                    gate.TIMEOUT_SECONDS)
+    assert out["ok"] is False
+    assert out["error_class"] == "final_scheme_mismatch_blocked"
+
+
+def test_caller_success_sets_final_verifications(monkeypatch):
+    captured = _patch_build_opener(
+        monkeypatch,
+        resp=_FakeResp(200, gate.ENDPOINT_URL,
+                       '{"data": {"id": "1"}}'))
+    out = gate._default_http_caller("GET", gate.ENDPOINT_URL, "tok",
+                                    gate.TIMEOUT_SECONDS)
+    assert out["ok"] is True
+    assert out["final_host_verified"] is True
+    assert out["final_path_verified"] is True
+    assert out["final_scheme_verified"] is True
+    assert out["redirect_follow_count"] == 0
+    assert captured["opener"].open_calls == 1
+
+
+def test_classify_final_url_helper():
+    assert gate._classify_final_url(gate.ENDPOINT_URL) is None
+    assert gate._classify_final_url(
+        "http://api.x.com/2/users/me") == "final_scheme_mismatch_blocked"
+    assert gate._classify_final_url(
+        "https://evil.example.com/2/users/me") == "final_host_mismatch_blocked"
+    assert gate._classify_final_url(
+        "https://api.x.com/2/tweets") == "final_path_mismatch_blocked"
+
+
+# --- run_gate end-to-end with fake redirect-blocked caller ----------------- #
+def _redirect_blocked_response():
+    return {"ok": False, "status_code": 302, "json": None,
+            "error_class": "blocked_redirect_response",
+            "redirect_blocked": True, "redirect_follow_count": 0,
+            "final_host_verified": False, "final_path_verified": False,
+            "final_scheme_verified": False}
+
+
+def test_run_gate_redirect_blocked_fails_closed_one_request():
+    calls = _RecordingCaller(_redirect_blocked_response())
+    result = gate.run_gate(operator_go=True, execution_requested=True,
+                           token_provider=_fake_token_provider,
+                           http_caller=calls)
+    assert len(calls.calls) == 1
+    assert result["request_count"] == 1
+    assert result["retry_count"] == 0
+    assert result["redirect_follow_count"] == 0
+    assert result["redirect_following_disabled"] is True
+    assert result["final_host_verified"] is False
+    assert result["final_path_verified"] is False
+    assert result["live_read_only_identity_proof_status"] == (
+        "blocked_redirect_response")
+    assert result["status"] == "pass"
+
+
+def test_run_gate_redirect_blocked_packet_has_no_leaks():
+    calls = _RecordingCaller(_redirect_blocked_response())
+    result = gate.run_gate(operator_go=True, execution_requested=True,
+                           token_provider=_fake_token_provider,
+                           http_caller=calls)
+    packet = gate.build_packet(
+        live_request_performed=True, request_count=1,
+        redirect_follow_count=0, final_host_verified=False,
+        final_path_verified=False, operator_go=True,
+        execution_requested=True,
+        proof=result["redacted_identity_proof"],
+        proof_status=result["live_read_only_identity_proof_status"])
+    assert gate.scan_packet_for_leaks(packet) == []
+
+
+@pytest.mark.parametrize("err_class", [
+    "final_host_mismatch_blocked",
+    "final_path_mismatch_blocked",
+    "final_scheme_mismatch_blocked",
+])
+def test_run_gate_final_mismatch_flows_through(err_class):
+    calls = _RecordingCaller(
+        {"ok": False, "status_code": 200, "json": None,
+         "error_class": err_class, "redirect_blocked": False,
+         "redirect_follow_count": 0, "final_host_verified": False,
+         "final_path_verified": False, "final_scheme_verified": False})
+    result = gate.run_gate(operator_go=True, execution_requested=True,
+                           token_provider=_fake_token_provider,
+                           http_caller=calls)
+    assert len(calls.calls) == 1
+    assert result["request_count"] == 1
+    assert result["retry_count"] == 0
+    assert result["live_read_only_identity_proof_status"] == err_class
+
+
+def test_run_gate_request_count_cannot_exceed_one():
+    # Even a successful live run performs exactly one request and never more.
+    calls = _RecordingCaller(_identity_ok_response())
+    result = gate.run_gate(operator_go=True, execution_requested=True,
+                           token_provider=_fake_token_provider,
+                           http_caller=calls)
+    assert len(calls.calls) == 1
+    assert result["request_count"] == 1
+    assert result["request_count"] <= result["request_budget"]
+    assert result["redirect_follow_count"] == 0
+
+
+# --- packet/build_packet redirect-hardening fields ------------------------- #
+def test_packet_redirect_hardening_flags():
+    packet = gate.build_packet()
+    assert packet["redirect_following_disabled"] is True
+    assert packet["redirect_response_fails_closed"] is True
+    assert packet["no_auto_retry_for_live_read_only_identity_proof"] is True
+    assert packet["final_url_host_verification_required"] is True
+    assert packet["final_url_path_verification_required"] is True
+    assert packet["final_url_scheme_verification_required"] is True
+    assert packet["allowed_path"] == "/2/users/me"
+    assert packet["allowed_scheme"] == "https"
+    assert packet["redirect_follow_count"] == 0
+    assert packet["no_redirect_following_performed"] is True
+    assert packet["no_redirect_location_persisted"] is True
+    assert packet["live_read_only_identity_proof_baseline_status"] == (
+        "corrected_pending_audit")
+
+
+def test_policy_constants_redirect_hardening():
+    assert gate.ALLOWED_PATH == "/2/users/me"
+    assert gate.ALLOWED_SCHEME == "https"
+    assert gate.REDIRECT_FOLLOWING_DISABLED is True
+    assert gate.REDIRECT_STATUS_CODES == frozenset({301, 302, 303, 307, 308})
+
+
+def test_no_redirect_following_strings_present_in_module():
+    # Prove the no-redirect mechanism (not a follow) exists in source.
+    with open(MODULE_PATH, "r", encoding="utf-8") as fh:
+        src = fh.read()
+    assert "HTTPRedirectHandler" in src
+    assert "redirect_request" in src
+    assert "build_opener" in src
+    # No HTTP client dependency was introduced by the hardening.
+    for s in ("requests.", "httpx.", "aiohttp.", "import requests",
+              "import httpx", "import aiohttp"):
+        assert s not in src
+

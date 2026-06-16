@@ -62,12 +62,20 @@ DOCS_ACCESSED_DATE = "2026-06-16"
 # --------------------------------------------------------------------------- #
 ALLOWED_HOST = "api.x.com"
 ALLOWED_METHOD = "GET"
+ALLOWED_PATH = "/2/users/me"
+ALLOWED_SCHEME = "https"
 ENDPOINT_FAMILY = (
     "x_api_v2_users_me_authenticated_user_identity_oauth2_user_context"
 )
 ENDPOINT_URL = "https://api.x.com/2/users/me"
 REQUEST_BUDGET = 1
 TIMEOUT_SECONDS = 10
+
+# Redirect hardening (0174DE_R1): redirects are NEVER followed. Any redirect
+# response fails closed. The final response URL must be re-verified against the
+# exact allowed scheme/host/path before any response body is accepted.
+REDIRECT_STATUS_CODES = frozenset({301, 302, 303, 307, 308})
+REDIRECT_FOLLOWING_DISABLED = True
 
 # Output artifact locations.
 PACKET_REL_DIR = os.path.join("docs", "credential_readiness", "0174DE")
@@ -347,11 +355,17 @@ def _redacted_error_contract():
             "host_mismatch_blocked",
             "method_mismatch_blocked",
             "endpoint_mismatch_blocked",
+            "blocked_redirect_response",
+            "final_scheme_mismatch_blocked",
+            "final_host_mismatch_blocked",
+            "final_path_mismatch_blocked",
             "timeout_error_redacted",
             "http_error_redacted",
             "unexpected_response_shape_redacted",
             "request_error_redacted",
         ],
+        "redirect_following_disabled": True,
+        "redirect_response_fails_closed": True,
         "no_retry": True,
     }
 
@@ -454,51 +468,109 @@ def _default_token_provider():
     )
 
 
+def _classify_final_url(final_url):
+    """Re-verify the FINAL response URL. Returns None if it is exactly the
+    allowed identity endpoint (scheme/host/path), else a redacted fail-closed
+    error class. The URL itself is never returned, logged, or persisted.
+    """
+    from urllib import parse as _parse
+    parsed = _parse.urlsplit(final_url)
+    if parsed.scheme != ALLOWED_SCHEME:
+        return "final_scheme_mismatch_blocked"
+    if parsed.hostname != ALLOWED_HOST:
+        return "final_host_mismatch_blocked"
+    if parsed.path != ALLOWED_PATH:
+        return "final_path_mismatch_blocked"
+    return None
+
+
 def _default_http_caller(method, url, token, timeout_seconds):
     """Perform at most ONE bounded read-only GET. Returns a redacted-safe dict.
 
-    Never returns the token, the request URL, or raw headers. Validates host
-    and method locally before any network use; refuses anything else without a
-    network call. urllib is imported lazily to keep the static import surface
-    minimal.
+    Redirect hardening (0174DE_R1):
+      * A no-redirect opener is used: the custom HTTPRedirectHandler's
+        ``redirect_request`` returns None, so urllib surfaces any 3xx as an
+        HTTPError instead of transparently following the Location header.
+      * Any 301/302/303/307/308 response fails closed as
+        ``blocked_redirect_response``; the Location header is never read,
+        returned, logged, or persisted.
+      * On a 2xx response the FINAL URL (``response.geturl()``) is re-verified
+        to be exactly https://api.x.com/2/users/me before the body is accepted.
+
+    Never returns the token, the request URL, the final URL, raw headers, or
+    the Location header. Validates host/method/path locally before any network
+    use; refuses anything else without a network call. urllib is imported
+    lazily to keep the static import surface minimal.
     """
     from urllib import request as _request
     from urllib import error as _error
     from urllib import parse as _parse
 
+    base = {
+        "ok": False, "status_code": None, "json": None,
+        "redirect_blocked": False,
+        "redirect_follow_count": 0,
+        "final_host_verified": False,
+        "final_path_verified": False,
+        "final_scheme_verified": False,
+    }
+
     if method != ALLOWED_METHOD:
-        return {"ok": False, "status_code": None, "json": None,
-                "error_class": "method_mismatch_blocked"}
+        return {**base, "error_class": "method_mismatch_blocked"}
     parsed = _parse.urlsplit(url)
-    if parsed.scheme != "https" or parsed.hostname != ALLOWED_HOST:
-        return {"ok": False, "status_code": None, "json": None,
-                "error_class": "host_mismatch_blocked"}
-    if parsed.path != "/2/users/me":
-        return {"ok": False, "status_code": None, "json": None,
-                "error_class": "endpoint_mismatch_blocked"}
+    if parsed.scheme != ALLOWED_SCHEME or parsed.hostname != ALLOWED_HOST:
+        return {**base, "error_class": "host_mismatch_blocked"}
+    if parsed.path != ALLOWED_PATH:
+        return {**base, "error_class": "endpoint_mismatch_blocked"}
+
+    class _NoRedirect(_request.HTTPRedirectHandler):
+        # Returning None prevents urllib from following the redirect; the 3xx
+        # response is surfaced as an HTTPError and fails closed below.
+        def redirect_request(self, req, fp, code, msg, headers, newurl):
+            return None
+
+    opener = _request.build_opener(_NoRedirect)
 
     req = _request.Request(url, method="GET")
     req.add_header("Authorization", "Bearer " + token)
     try:
-        with _request.urlopen(req, timeout=timeout_seconds) as resp:
-            body = resp.read().decode("utf-8")
+        with opener.open(req, timeout=timeout_seconds) as resp:
             status = resp.getcode()
+            if status in REDIRECT_STATUS_CODES:
+                return {**base, "status_code": status,
+                        "redirect_blocked": True,
+                        "error_class": "blocked_redirect_response"}
+            final_error = _classify_final_url(resp.geturl())
+            if final_error is not None:
+                return {**base, "status_code": status,
+                        "error_class": final_error}
+            body = resp.read().decode("utf-8")
         data = json.loads(body)
         return {"ok": True, "status_code": status, "json": data,
-                "error_class": None}
+                "error_class": None,
+                "redirect_blocked": False,
+                "redirect_follow_count": 0,
+                "final_host_verified": True,
+                "final_path_verified": True,
+                "final_scheme_verified": True}
     except _error.HTTPError as e:
-        return {"ok": False, "status_code": e.code, "json": None,
+        if e.code in REDIRECT_STATUS_CODES:
+            return {**base, "status_code": e.code,
+                    "redirect_blocked": True,
+                    "error_class": "blocked_redirect_response"}
+        return {**base, "status_code": e.code,
                 "error_class": "http_error_redacted"}
     except Exception:
-        return {"ok": False, "status_code": None, "json": None,
-                "error_class": "request_error_redacted"}
+        return {**base, "error_class": "request_error_redacted"}
 
 
 # --------------------------------------------------------------------------- #
 # Packet builder
 # --------------------------------------------------------------------------- #
 def build_packet(*, live_request_performed=False, request_count=0,
-                 retry_count=0, operator_go=False, execution_requested=False,
+                 retry_count=0, redirect_follow_count=0,
+                 final_host_verified=False, final_path_verified=False,
+                 operator_go=False, execution_requested=False,
                  proof=None, proof_status="blocked_no_operator_go",
                  current_blockers=None):
     """Build the deterministic redacted identity-proof packet."""
@@ -526,10 +598,22 @@ def build_packet(*, live_request_performed=False, request_count=0,
         "request_budget": REQUEST_BUDGET,
         "request_count": int(request_count),
         "retry_count": int(retry_count),
+        "redirect_follow_count": int(redirect_follow_count),
         "timeout_seconds": TIMEOUT_SECONDS,
 
         "allowed_host": ALLOWED_HOST,
         "allowed_method": ALLOWED_METHOD,
+        "allowed_path": ALLOWED_PATH,
+        "allowed_scheme": ALLOWED_SCHEME,
+
+        "redirect_following_disabled": REDIRECT_FOLLOWING_DISABLED,
+        "redirect_response_fails_closed": True,
+        "no_auto_retry_for_live_read_only_identity_proof": True,
+        "final_url_host_verification_required": True,
+        "final_url_path_verification_required": True,
+        "final_url_scheme_verification_required": True,
+        "final_host_verified": bool(final_host_verified),
+        "final_path_verified": bool(final_path_verified),
         "official_endpoint_family_verified": True,
         "endpoint_family": ENDPOINT_FAMILY,
         "official_docs_checked": True,
@@ -585,8 +669,12 @@ def build_packet(*, live_request_performed=False, request_count=0,
         "no_webhook_created": True,
         "no_reply_dm_created": True,
         "no_scraping_performed": True,
+        "no_redirect_following_performed": True,
+        "no_redirect_location_persisted": True,
         "no_autonomous_publishing": True,
         "redaction_verified": True,
+        "live_read_only_identity_proof_baseline_status": (
+            "corrected_pending_audit"),
 
         # --- Mode-dependent network flags -------------------------------- #
         "no_live_network_call_performed": bool(no_live),
@@ -647,6 +735,19 @@ def build_readme():
         "- Host is restricted to `api.x.com`; method is restricted to `GET`; "
         "request budget is `1`; there is no retry; timeout is explicit.\n"
         "\n"
+        "## Redirect / final-host hardening (0174DE_R1)\n"
+        "\n"
+        "- Redirects are NEVER followed: a no-redirect opener surfaces any "
+        "301/302/303/307/308 as a fail-closed `blocked_redirect_response`.\n"
+        "- The `Location` header is never read, returned, logged, or "
+        "persisted; `redirect_follow_count` stays `0`.\n"
+        "- On a 2xx the FINAL response URL is re-verified to be exactly "
+        "scheme `https`, host `api.x.com`, path `/2/users/me`; any mismatch "
+        "fails closed (`final_scheme_mismatch_blocked` / "
+        "`final_host_mismatch_blocked` / `final_path_mismatch_blocked`).\n"
+        "- `live_read_only_identity_proof_baseline_status = "
+        "corrected_pending_audit`.\n"
+        "\n"
         "## Redacted output only\n"
         "\n"
         "The transient response is mapped to boolean/class fields only "
@@ -661,7 +762,8 @@ def build_readme():
         "metrics, create a webhook, scrape, search, read timelines, or do "
         "bulk reads. Did not exchange or refresh tokens. Did not persist, "
         "log, hash, fingerprint, prefix, or suffix the token. Did not bind an "
-        "X account.\n"
+        "X account. Did not follow any redirect or persist a `Location` "
+        "header.\n"
         "\n"
         "## Next\n"
         "\n"
@@ -691,6 +793,9 @@ def run_gate(*, write=False, operator_go=False, execution_requested=False,
     live_request_performed = False
     request_count = 0
     retry_count = 0
+    redirect_follow_count = 0
+    final_host_verified = False
+    final_path_verified = False
     proof = _dry_run_identity_proof()
     current_blockers = []
 
@@ -729,18 +834,29 @@ def run_gate(*, write=False, operator_go=False, execution_requested=False,
                 proof = _error_identity_proof("unexpected_response_shape_"
                                               "redacted")
                 proof_status = "unexpected_response_shape_redacted"
-            elif result.get("ok"):
-                proof = redact_identity_response(result)
-                proof_status = proof["identity_proof_status_class"]
             else:
-                err_class = result.get("error_class") or "request_error_redacted"
-                proof = _error_identity_proof(err_class)
-                proof_status = err_class
+                # Redirects are NEVER followed; the caller surfaces any 3xx as
+                # a fail-closed class and reports redirect_follow_count == 0.
+                redirect_follow_count = int(
+                    result.get("redirect_follow_count") or 0)
+                final_host_verified = bool(result.get("final_host_verified"))
+                final_path_verified = bool(result.get("final_path_verified"))
+                if result.get("ok"):
+                    proof = redact_identity_response(result)
+                    proof_status = proof["identity_proof_status_class"]
+                else:
+                    err_class = (result.get("error_class")
+                                 or "request_error_redacted")
+                    proof = _error_identity_proof(err_class)
+                    proof_status = err_class
 
     packet = build_packet(
         live_request_performed=live_request_performed,
         request_count=request_count,
         retry_count=retry_count,
+        redirect_follow_count=redirect_follow_count,
+        final_host_verified=final_host_verified,
+        final_path_verified=final_path_verified,
         operator_go=operator_go,
         execution_requested=execution_requested,
         proof=proof,
@@ -785,9 +901,15 @@ def run_gate(*, write=False, operator_go=False, execution_requested=False,
         "request_budget": REQUEST_BUDGET,
         "request_count": int(request_count),
         "retry_count": int(retry_count),
+        "redirect_follow_count": int(redirect_follow_count),
+        "redirect_following_disabled": REDIRECT_FOLLOWING_DISABLED,
+        "final_host_verified": bool(final_host_verified),
+        "final_path_verified": bool(final_path_verified),
         "timeout_seconds": TIMEOUT_SECONDS,
         "allowed_host": ALLOWED_HOST,
         "allowed_method": ALLOWED_METHOD,
+        "allowed_path": ALLOWED_PATH,
+        "allowed_scheme": ALLOWED_SCHEME,
         "endpoint_family": ENDPOINT_FAMILY,
         "official_endpoint_family_verified": True,
         "redacted_identity_proof": proof,
