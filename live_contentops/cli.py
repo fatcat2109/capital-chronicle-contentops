@@ -1376,6 +1376,20 @@ def x_oauth_supervised_live_readiness_bridge_bundle_gate_summary():
     print(json.dumps(gate.run_gate(write=write), indent=2))
 
 
+def x_oauth_live_read_only_identity_proof_gate_summary():
+    import json
+    from live_contentops import x_oauth_live_read_only_identity_proof_gate as gate
+    rest = sys.argv[2:]
+    write = gate.FLAG_WRITE in rest
+    operator_go = gate.FLAG_OPERATOR_GO in rest
+    execution_requested = gate.FLAG_EXECUTE in rest
+    print(json.dumps(gate.run_gate(
+        write=write,
+        operator_go=operator_go,
+        execution_requested=execution_requested,
+    ), indent=2))
+
+
 def operator_command_summary():
     import json
     # Determine debug commands at runtime by excluding known operator/doc commands
@@ -1576,6 +1590,7 @@ COMMANDS = {
     "x-oauth-credential-readiness-policy-gate": x_oauth_credential_readiness_policy_gate_summary,
     "x-oauth-redacted-credential-presence-check-design-gate": x_oauth_redacted_credential_presence_check_design_gate_summary,
     "x-oauth-supervised-live-readiness-bridge-bundle-gate": x_oauth_supervised_live_readiness_bridge_bundle_gate_summary,
+    "x-oauth-live-read-only-identity-proof-gate": x_oauth_live_read_only_identity_proof_gate_summary,
 
 
 }
