@@ -164,6 +164,10 @@ BLOCK_CHECKLIST_OPERATOR_ID_MISMATCH = "checklist_operator_id_mismatch"
 BLOCK_CHECKLIST_PACKET_ID_MISSING = "checklist_packet_id_missing"
 BLOCK_CHECKLIST_PREMARKED_ITEM = "checklist_premarked_item_supplied"
 BLOCK_CHECKLIST_DRY_RUN_UNSAFE = "checklist_policy_dry_run_unsafe_behavior_claimed"
+BLOCK_CHECKLIST_DECISION_PACKET_UNSAFE = (
+    "checklist_decision_packet_unsafe_behavior_claimed")
+BLOCK_CHECKLIST_LEDGER_ENTRY_UNSAFE = (
+    "checklist_latest_ledger_entry_unsafe_behavior_claimed")
 
 # 0174TT checklist registry suppression classes.
 CHECKLIST_REGISTRY_APPENDED = "operator_checklist_packet_appended"
@@ -188,6 +192,13 @@ BLOCK_SYNC_DRY_RUN_NOT_COMPLETE = "doc_sync_policy_dry_run_not_complete"
 BLOCK_SYNC_DECISION_PACKET_MISSING = "doc_sync_decision_packet_missing"
 BLOCK_SYNC_OPERATOR_ID_MISSING = "doc_sync_operator_id_missing"
 BLOCK_SYNC_SYNC_PACKET_ID_MISSING = "doc_sync_sync_packet_id_missing"
+BLOCK_SYNC_DRY_RUN_UNSAFE = "doc_sync_policy_dry_run_unsafe_behavior_claimed"
+BLOCK_SYNC_CHECKLIST_UNSAFE = (
+    "doc_sync_checklist_packet_unsafe_behavior_claimed")
+BLOCK_SYNC_DECISION_PACKET_UNSAFE = (
+    "doc_sync_decision_packet_unsafe_behavior_claimed")
+BLOCK_SYNC_LEDGER_ENTRY_UNSAFE = (
+    "doc_sync_latest_ledger_entry_unsafe_behavior_claimed")
 
 # Remaining FUTURE live gates. Symbolic ids only. Each is UNRESOLVED here and is
 # NEVER cleared by this local batch.
@@ -655,9 +666,19 @@ def build_operator_live_gate_checklist_packet(
     if _checklist_has_premarked_item(supplied_items):
         blocked.append(BLOCK_CHECKLIST_PREMARKED_ITEM)
 
-    # 5. The dry-run must not claim unsafe behavior.
-    if detect_unsafe_behavior_claims(dr, al.ARTIFACT_DECISION_PACKET):
-        blocked.append(BLOCK_CHECKLIST_DRY_RUN_UNSAFE)
+    # 5. No input artifact may claim unsafe behavior, even if its outcome /
+    #    checksum metadata still reads clear. The truth is re-derived directly
+    #    from the flags on the dry-run, decision packet, and ledger entry.
+    for base, art_name, art in (
+            (BLOCK_CHECKLIST_DRY_RUN_UNSAFE, al.ARTIFACT_DECISION_PACKET, dr),
+            (BLOCK_CHECKLIST_DECISION_PACKET_UNSAFE,
+             al.ARTIFACT_DECISION_PACKET, dp),
+            (BLOCK_CHECKLIST_LEDGER_ENTRY_UNSAFE, al.ARTIFACT_LEDGER_ENTRY,
+             entry)):
+        unsafe = detect_unsafe_behavior_claims(art, art_name)
+        if unsafe:
+            blocked.append(base)
+            blocked.extend(base + ":" + flag for flag in unsafe)
 
     # 6. Operator id agreement + explicit checklist packet id.
     if not operator_id:
@@ -925,6 +946,21 @@ def build_local_documentation_state_sync_packet(
     if not dp:
         blocked.append(BLOCK_SYNC_DECISION_PACKET_MISSING)
 
+    # 4b. No input artifact may claim unsafe behavior, even if its outcome /
+    #     checksum metadata still reads clear. The truth is re-derived directly
+    #     from the flags on the dry-run, checklist, decision packet, and entry.
+    for base, art_name, art in (
+            (BLOCK_SYNC_DRY_RUN_UNSAFE, al.ARTIFACT_DECISION_PACKET, dr),
+            (BLOCK_SYNC_CHECKLIST_UNSAFE, al.ARTIFACT_DECISION_PACKET, cp),
+            (BLOCK_SYNC_DECISION_PACKET_UNSAFE, al.ARTIFACT_DECISION_PACKET,
+             dp),
+            (BLOCK_SYNC_LEDGER_ENTRY_UNSAFE, al.ARTIFACT_LEDGER_ENTRY,
+             entry)):
+        unsafe = detect_unsafe_behavior_claims(art, art_name)
+        if unsafe:
+            blocked.append(base)
+            blocked.extend(base + ":" + flag for flag in unsafe)
+
     # 5. Operator id + explicit sync packet id.
     if not operator_id:
         blocked.append(BLOCK_SYNC_OPERATOR_ID_MISSING)
@@ -1091,6 +1127,15 @@ def build_packet():
             "missing_stale_unsafe_or_ambiguous_authority_blocks",
             "no_current_state_authority_promotion_inside_module",
             "accepted_baseline_requires_human_audit_not_self_accepted",
+        ],
+        "r1_revalidation_blocked_reasons": [
+            BLOCK_CHECKLIST_DRY_RUN_UNSAFE,
+            BLOCK_CHECKLIST_DECISION_PACKET_UNSAFE,
+            BLOCK_CHECKLIST_LEDGER_ENTRY_UNSAFE,
+            BLOCK_SYNC_DRY_RUN_UNSAFE,
+            BLOCK_SYNC_CHECKLIST_UNSAFE,
+            BLOCK_SYNC_DECISION_PACKET_UNSAFE,
+            BLOCK_SYNC_LEDGER_ENTRY_UNSAFE,
         ],
         "exact_next_task_recommendation": EXACT_NEXT_TASK_RECOMMENDATION,
         "safety_flags": _safety_flags(),

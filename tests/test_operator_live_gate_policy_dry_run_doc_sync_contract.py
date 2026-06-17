@@ -616,3 +616,143 @@ def test_write_artifacts_creates_files(tmp_path):
         with open(path, "r", encoding="utf-8") as fh:
             content = fh.read()
         assert content
+
+
+# --------------------------------------------------------------------------- #
+# 7. R1: checklist (0174TT) revalidates unsafe flags on every input artifact
+# --------------------------------------------------------------------------- #
+# A tampered decision packet / ledger entry that keeps a clear outcome class +
+# valid checksum but flips a live / network / credential / dispatch / readiness
+# flag MUST still block the checklist packet. The truth is re-derived directly
+# from the flags via detect_unsafe_behavior_claims, never from clear metadata.
+def test_checklist_blocks_unsafe_decision_packet_network_performed():
+    dr, dp, entry = _complete_dry_run()
+    tampered = copy.deepcopy(dp)
+    tampered["network_performed"] = True
+    cp = ds.build_operator_live_gate_checklist_packet(
+        dr, tampered, entry, operator_id="operator_jim",
+        checklist_packet_id="checklist_packet_0001")
+    assert cp["checklist_outcome_class"] == ds.CHECKLIST_PACKET_BLOCKED
+    assert ds.BLOCK_CHECKLIST_DECISION_PACKET_UNSAFE in cp["blocked_reasons"]
+    assert any(r.endswith("network_performed") for r in cp["blocked_reasons"])
+
+
+def test_checklist_blocks_unsafe_decision_packet_valid_for_live():
+    dr, dp, entry = _complete_dry_run()
+    tampered = copy.deepcopy(dp)
+    tampered["valid_for_live_execution"] = True
+    cp = ds.build_operator_live_gate_checklist_packet(
+        dr, tampered, entry, operator_id="operator_jim",
+        checklist_packet_id="checklist_packet_0001")
+    assert cp["checklist_outcome_class"] == ds.CHECKLIST_PACKET_BLOCKED
+    assert ds.BLOCK_CHECKLIST_DECISION_PACKET_UNSAFE in cp["blocked_reasons"]
+
+
+def test_checklist_blocks_unsafe_decision_packet_live_ready():
+    dr, dp, entry = _complete_dry_run()
+    tampered = copy.deepcopy(dp)
+    tampered["live_ready"] = True
+    cp = ds.build_operator_live_gate_checklist_packet(
+        dr, tampered, entry, operator_id="operator_jim",
+        checklist_packet_id="checklist_packet_0001")
+    assert cp["checklist_outcome_class"] == ds.CHECKLIST_PACKET_BLOCKED
+    assert ds.BLOCK_CHECKLIST_DECISION_PACKET_UNSAFE in cp["blocked_reasons"]
+    assert any(r.endswith("live_ready") for r in cp["blocked_reasons"])
+
+
+def test_checklist_blocks_unsafe_ledger_entry_credential_hydrated():
+    dr, dp, entry = _complete_dry_run()
+    tampered = copy.deepcopy(entry)
+    tampered["credential_hydrated"] = True
+    cp = ds.build_operator_live_gate_checklist_packet(
+        dr, dp, tampered, operator_id="operator_jim",
+        checklist_packet_id="checklist_packet_0001")
+    assert cp["checklist_outcome_class"] == ds.CHECKLIST_PACKET_BLOCKED
+    assert ds.BLOCK_CHECKLIST_LEDGER_ENTRY_UNSAFE in cp["blocked_reasons"]
+    assert any(r.endswith("credential_hydrated") for r in cp["blocked_reasons"])
+
+
+def test_checklist_blocks_unsafe_ledger_entry_telegram_api_called():
+    dr, dp, entry = _complete_dry_run()
+    tampered = copy.deepcopy(entry)
+    tampered["telegram_api_called"] = True
+    cp = ds.build_operator_live_gate_checklist_packet(
+        dr, dp, tampered, operator_id="operator_jim",
+        checklist_packet_id="checklist_packet_0001")
+    assert cp["checklist_outcome_class"] == ds.CHECKLIST_PACKET_BLOCKED
+    assert ds.BLOCK_CHECKLIST_LEDGER_ENTRY_UNSAFE in cp["blocked_reasons"]
+    assert any(r.endswith("telegram_api_called") for r in cp["blocked_reasons"])
+
+
+# --------------------------------------------------------------------------- #
+# 8. R1: doc/state sync (0174TU) revalidates unsafe flags on every input
+# --------------------------------------------------------------------------- #
+def test_doc_sync_blocks_unsafe_dry_run_telegram_api_called():
+    cp, dr, dp, entry = _complete_checklist()
+    tampered = copy.deepcopy(dr)
+    tampered["telegram_api_called"] = True
+    sp = ds.build_local_documentation_state_sync_packet(
+        tampered, cp, dp, entry, operator_id="operator_jim",
+        sync_packet_id="sync_packet_0001")
+    assert sp["doc_sync_outcome_class"] == ds.DOC_SYNC_BLOCKED
+    assert ds.BLOCK_SYNC_DRY_RUN_UNSAFE in sp["blocked_reasons"]
+    assert any(r.endswith("telegram_api_called") for r in sp["blocked_reasons"])
+
+
+def test_doc_sync_blocks_unsafe_checklist_live_ready():
+    cp, dr, dp, entry = _complete_checklist()
+    tampered = copy.deepcopy(cp)
+    tampered["live_ready"] = True
+    sp = ds.build_local_documentation_state_sync_packet(
+        dr, tampered, dp, entry, operator_id="operator_jim",
+        sync_packet_id="sync_packet_0001")
+    assert sp["doc_sync_outcome_class"] == ds.DOC_SYNC_BLOCKED
+    assert ds.BLOCK_SYNC_CHECKLIST_UNSAFE in sp["blocked_reasons"]
+    assert any(r.endswith("live_ready") for r in sp["blocked_reasons"])
+
+
+def test_doc_sync_blocks_unsafe_decision_packet_network_performed():
+    cp, dr, dp, entry = _complete_checklist()
+    tampered = copy.deepcopy(dp)
+    tampered["network_performed"] = True
+    sp = ds.build_local_documentation_state_sync_packet(
+        dr, cp, tampered, entry, operator_id="operator_jim",
+        sync_packet_id="sync_packet_0001")
+    assert sp["doc_sync_outcome_class"] == ds.DOC_SYNC_BLOCKED
+    assert ds.BLOCK_SYNC_DECISION_PACKET_UNSAFE in sp["blocked_reasons"]
+    assert any(r.endswith("network_performed") for r in sp["blocked_reasons"])
+
+
+def test_doc_sync_blocks_unsafe_decision_packet_valid_for_live():
+    cp, dr, dp, entry = _complete_checklist()
+    tampered = copy.deepcopy(dp)
+    tampered["valid_for_live_execution"] = True
+    sp = ds.build_local_documentation_state_sync_packet(
+        dr, cp, tampered, entry, operator_id="operator_jim",
+        sync_packet_id="sync_packet_0001")
+    assert sp["doc_sync_outcome_class"] == ds.DOC_SYNC_BLOCKED
+    assert ds.BLOCK_SYNC_DECISION_PACKET_UNSAFE in sp["blocked_reasons"]
+
+
+def test_doc_sync_blocks_unsafe_ledger_entry_credential_hydrated():
+    cp, dr, dp, entry = _complete_checklist()
+    tampered = copy.deepcopy(entry)
+    tampered["credential_hydrated"] = True
+    sp = ds.build_local_documentation_state_sync_packet(
+        dr, cp, dp, tampered, operator_id="operator_jim",
+        sync_packet_id="sync_packet_0001")
+    assert sp["doc_sync_outcome_class"] == ds.DOC_SYNC_BLOCKED
+    assert ds.BLOCK_SYNC_LEDGER_ENTRY_UNSAFE in sp["blocked_reasons"]
+    assert any(r.endswith("credential_hydrated") for r in sp["blocked_reasons"])
+
+
+def test_doc_sync_blocks_unsafe_ledger_entry_live_ready():
+    cp, dr, dp, entry = _complete_checklist()
+    tampered = copy.deepcopy(entry)
+    tampered["live_ready"] = True
+    sp = ds.build_local_documentation_state_sync_packet(
+        dr, cp, dp, tampered, operator_id="operator_jim",
+        sync_packet_id="sync_packet_0001")
+    assert sp["doc_sync_outcome_class"] == ds.DOC_SYNC_BLOCKED
+    assert ds.BLOCK_SYNC_LEDGER_ENTRY_UNSAFE in sp["blocked_reasons"]
+    assert any(r.endswith("live_ready") for r in sp["blocked_reasons"])
