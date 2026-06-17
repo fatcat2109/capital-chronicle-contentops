@@ -445,7 +445,7 @@ def test_review_blocked_if_unsafe_flag_present():
         operator_id="operator_jim", current_policy_snapshot_id="ks_policy_v1",
         operator_review_id="operator_review_0001")
     assert rev["readiness_outcome_class"] == al.REVIEW_BLOCKED
-    assert any(r.startswith(al.BLOCK_REVIEW_UNSAFE_BEHAVIOR)
+    assert any(r.startswith(al.BLOCK_REVIEW_CANDIDATE_UNSAFE)
                for r in rev["blocked_reasons"])
 
 
@@ -721,3 +721,203 @@ def test_safety_flags_present_on_all_objects():
         assert rec["dispatch_performed"] is False
         assert rec["scheduler_enabled"] is False
         assert rec["auto_retry_allowed"] is False
+
+
+# --------------------------------------------------------------------------- #
+# R1. Input-safety revalidation on readiness review + decision packet
+# --------------------------------------------------------------------------- #
+def _review_with(ledger, gr, cand, report=None):
+    return al.run_operator_live_gate_readiness_review(
+        ledger.latest_entry(), report or ledger.build_integrity_report(),
+        gr, cand, operator_id="operator_jim",
+        current_policy_snapshot_id="ks_policy_v1",
+        operator_review_id="operator_review_0001")
+
+
+def test_r1_valid_full_chain_still_passes():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    assert res["ledger_append_outcome_class"] == al.LEDGER_APPENDED
+    rev = _review_with(ledger, gr, cand)
+    assert rev["readiness_outcome_class"] == al.REVIEW_EVIDENCE_READY
+    dp = al.build_live_gate_decision_packet(
+        rev, ledger.latest_entry(), cand, operator_id="operator_jim",
+        decision_packet_id="decision_packet_0001")
+    assert dp["decision_outcome_class"] == al.DECISION_CREATED
+
+
+def test_r1_review_blocks_integrity_report_network_while_chain_intact():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    report = ledger.build_integrity_report()
+    assert report["chain_intact"] is True
+    report["network_performed"] = True
+    rev = _review_with(ledger, gr, cand, report=report)
+    assert rev["readiness_outcome_class"] == al.REVIEW_BLOCKED
+    assert al.BLOCK_REVIEW_INTEGRITY_REPORT_UNSAFE in rev["blocked_reasons"]
+    assert (al.BLOCK_REVIEW_INTEGRITY_REPORT_UNSAFE + ":network_performed"
+            in rev["blocked_reasons"])
+
+
+def test_r1_review_blocks_integrity_report_platform_api_called():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    report = ledger.build_integrity_report()
+    report["platform_api_called"] = True
+    rev = _review_with(ledger, gr, cand, report=report)
+    assert rev["readiness_outcome_class"] == al.REVIEW_BLOCKED
+    assert al.BLOCK_REVIEW_INTEGRITY_REPORT_UNSAFE in rev["blocked_reasons"]
+
+
+def test_r1_review_blocks_integrity_report_live_ready():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    report = ledger.build_integrity_report()
+    report["live_ready"] = True
+    rev = _review_with(ledger, gr, cand, report=report)
+    assert rev["readiness_outcome_class"] == al.REVIEW_BLOCKED
+    assert al.BLOCK_REVIEW_INTEGRITY_REPORT_UNSAFE in rev["blocked_reasons"]
+
+
+def test_r1_review_blocks_ledger_entry_network_performed():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    report = ledger.build_integrity_report()
+    tampered_entry = copy.deepcopy(ledger.latest_entry())
+    tampered_entry["network_performed"] = True
+    rev = al.run_operator_live_gate_readiness_review(
+        tampered_entry, report, gr, cand, operator_id="operator_jim",
+        current_policy_snapshot_id="ks_policy_v1",
+        operator_review_id="operator_review_0001")
+    assert rev["readiness_outcome_class"] == al.REVIEW_BLOCKED
+    assert al.BLOCK_REVIEW_LEDGER_ENTRY_UNSAFE in rev["blocked_reasons"]
+
+
+def test_r1_review_blocks_gate_result_telegram_api_called():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    report = ledger.build_integrity_report()
+    tampered_gr = copy.deepcopy(gr)
+    tampered_gr["telegram_api_called"] = True
+    rev = al.run_operator_live_gate_readiness_review(
+        ledger.latest_entry(), report, tampered_gr, cand,
+        operator_id="operator_jim", current_policy_snapshot_id="ks_policy_v1",
+        operator_review_id="operator_review_0001")
+    assert rev["readiness_outcome_class"] == al.REVIEW_BLOCKED
+    assert al.BLOCK_REVIEW_GATE_RESULT_UNSAFE in rev["blocked_reasons"]
+
+
+def test_r1_review_blocks_candidate_credential_hydrated():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    report = ledger.build_integrity_report()
+    tampered_cand = copy.deepcopy(cand)
+    tampered_cand["credential_hydrated"] = True
+    rev = al.run_operator_live_gate_readiness_review(
+        ledger.latest_entry(), report, gr, tampered_cand,
+        operator_id="operator_jim", current_policy_snapshot_id="ks_policy_v1",
+        operator_review_id="operator_review_0001")
+    assert rev["readiness_outcome_class"] == al.REVIEW_BLOCKED
+    assert al.BLOCK_REVIEW_CANDIDATE_UNSAFE in rev["blocked_reasons"]
+
+
+def test_r1_review_blocked_reasons_identify_artifact_and_flag():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    report = ledger.build_integrity_report()
+    report["network_performed"] = True
+    rev = _review_with(ledger, gr, cand, report=report)
+    assert (al.BLOCK_REVIEW_INTEGRITY_REPORT_UNSAFE + ":network_performed"
+            in rev["blocked_reasons"])
+
+
+def test_r1_decision_blocks_review_network_performed():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    rev = _evidence_ready_review(ledger, gr, cand)
+    tampered = copy.deepcopy(rev)
+    tampered["network_performed"] = True
+    dp = al.build_live_gate_decision_packet(
+        tampered, ledger.latest_entry(), cand, operator_id="operator_jim",
+        decision_packet_id="decision_packet_0001")
+    assert dp["decision_outcome_class"] == al.DECISION_BLOCKED
+    assert al.BLOCK_DECISION_REVIEW_UNSAFE in dp["blocked_reasons"]
+
+
+def test_r1_decision_blocks_review_is_live_readiness():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    rev = _evidence_ready_review(ledger, gr, cand)
+    tampered = copy.deepcopy(rev)
+    tampered["review_is_live_readiness"] = True
+    dp = al.build_live_gate_decision_packet(
+        tampered, ledger.latest_entry(), cand, operator_id="operator_jim",
+        decision_packet_id="decision_packet_0001")
+    assert dp["decision_outcome_class"] == al.DECISION_BLOCKED
+    assert al.BLOCK_DECISION_REVIEW_UNSAFE in dp["blocked_reasons"]
+
+
+def test_r1_decision_blocks_ledger_entry_platform_api_called():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    rev = _evidence_ready_review(ledger, gr, cand)
+    tampered_entry = copy.deepcopy(ledger.latest_entry())
+    tampered_entry["platform_api_called"] = True
+    dp = al.build_live_gate_decision_packet(
+        rev, tampered_entry, cand, operator_id="operator_jim",
+        decision_packet_id="decision_packet_0001")
+    assert dp["decision_outcome_class"] == al.DECISION_BLOCKED
+    assert al.BLOCK_DECISION_LEDGER_ENTRY_UNSAFE in dp["blocked_reasons"]
+
+
+def test_r1_decision_blocks_candidate_network_with_unchanged_checksum():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    rev = _evidence_ready_review(ledger, gr, cand)
+    tampered_cand = copy.deepcopy(cand)
+    # Flip an unsafe flag but KEEP the original candidate_checksum field.
+    tampered_cand["network_performed"] = True
+    assert tampered_cand["candidate_checksum"] == cand["candidate_checksum"]
+    dp = al.build_live_gate_decision_packet(
+        rev, ledger.latest_entry(), tampered_cand, operator_id="operator_jim",
+        decision_packet_id="decision_packet_0001")
+    assert dp["decision_outcome_class"] == al.DECISION_BLOCKED
+    assert al.BLOCK_DECISION_CANDIDATE_UNSAFE in dp["blocked_reasons"]
+
+
+def test_r1_decision_blocks_candidate_valid_for_live_with_unchanged_checksum():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    rev = _evidence_ready_review(ledger, gr, cand)
+    tampered_cand = copy.deepcopy(cand)
+    tampered_cand["valid_for_live_execution"] = True
+    assert tampered_cand["candidate_checksum"] == cand["candidate_checksum"]
+    dp = al.build_live_gate_decision_packet(
+        rev, ledger.latest_entry(), tampered_cand, operator_id="operator_jim",
+        decision_packet_id="decision_packet_0001")
+    assert dp["decision_outcome_class"] == al.DECISION_BLOCKED
+    assert al.BLOCK_DECISION_CANDIDATE_UNSAFE in dp["blocked_reasons"]
+
+
+def test_r1_decision_blocked_reasons_identify_artifact_and_flag():
+    ledger, res, gr, cand, audit = _appended_ledger()
+    rev = _evidence_ready_review(ledger, gr, cand)
+    tampered_cand = copy.deepcopy(cand)
+    tampered_cand["network_performed"] = True
+    dp = al.build_live_gate_decision_packet(
+        rev, ledger.latest_entry(), tampered_cand, operator_id="operator_jim",
+        decision_packet_id="decision_packet_0001")
+    assert (al.BLOCK_DECISION_CANDIDATE_UNSAFE + ":network_performed"
+            in dp["blocked_reasons"])
+
+
+def test_r1_packet_and_doc_include_invariants_and_blocked_reasons():
+    packet = al.build_packet()
+    for inv in (
+            "readiness_review_revalidates_all_input_safety_flags",
+            "decision_packet_revalidates_all_input_safety_flags",
+            "integrity_report_clear_metadata_cannot_hide_unsafe_behavior",
+            "candidate_checksum_match_cannot_hide_unsafe_behavior",
+            "ledger_entry_checksum_match_cannot_hide_unsafe_behavior",
+            "unsafe_input_artifact_blocks_review_or_decision"):
+        assert inv in packet["hard_invariants"], inv
+    for reason in (
+            al.BLOCK_REVIEW_LEDGER_ENTRY_UNSAFE,
+            al.BLOCK_REVIEW_INTEGRITY_REPORT_UNSAFE,
+            al.BLOCK_REVIEW_GATE_RESULT_UNSAFE,
+            al.BLOCK_REVIEW_CANDIDATE_UNSAFE,
+            al.BLOCK_DECISION_REVIEW_UNSAFE,
+            al.BLOCK_DECISION_LEDGER_ENTRY_UNSAFE,
+            al.BLOCK_DECISION_CANDIDATE_UNSAFE):
+        assert reason in packet["r1_revalidation_blocked_reasons"], reason
+    doc = al.build_doc()
+    assert "R1 input safety revalidation" in doc
+    assert al.scan_for_leaks(packet) == []
+    assert al.scan_for_leaks(doc) == []

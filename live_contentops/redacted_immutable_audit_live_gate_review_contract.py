@@ -164,6 +164,17 @@ BLOCK_REVIEW_UNSAFE_BEHAVIOR = "review_unsafe_behavior_claimed"
 BLOCK_REVIEW_OPERATOR_ID_MISSING = "review_operator_id_missing"
 BLOCK_REVIEW_OPERATOR_ID_MISMATCH = "review_operator_id_mismatch"
 BLOCK_REVIEW_REVIEW_ID_MISSING = "review_explicit_operator_review_id_missing"
+# R1: per-input unsafe-behavior revalidation. Clear status / pass / intact
+# metadata on an input artifact must NEVER hide a tampered flag claiming
+# live/network/credential/dispatch behavior; the review re-derives the truth.
+BLOCK_REVIEW_LEDGER_ENTRY_UNSAFE = (
+    "readiness_review_ledger_entry_unsafe_behavior_claimed")
+BLOCK_REVIEW_INTEGRITY_REPORT_UNSAFE = (
+    "readiness_review_integrity_report_unsafe_behavior_claimed")
+BLOCK_REVIEW_GATE_RESULT_UNSAFE = (
+    "readiness_review_gate_result_unsafe_behavior_claimed")
+BLOCK_REVIEW_CANDIDATE_UNSAFE = (
+    "readiness_review_candidate_unsafe_behavior_claimed")
 
 # 0174TR decision packet outcome classes.
 DECISION_CREATED = "live_gate_decision_packet_created_not_executable"
@@ -184,6 +195,13 @@ BLOCK_DECISION_CANDIDATE_CHECKSUM_MISMATCH = "decision_candidate_checksum_mismat
 BLOCK_DECISION_OPERATOR_ID_MISSING = "decision_operator_id_missing"
 BLOCK_DECISION_OPERATOR_ID_MISMATCH = "decision_operator_id_mismatch"
 BLOCK_DECISION_PACKET_ID_MISSING = "decision_packet_id_missing"
+# R1: per-input unsafe-behavior revalidation for the decision packet.
+BLOCK_DECISION_REVIEW_UNSAFE = (
+    "decision_packet_review_unsafe_behavior_claimed")
+BLOCK_DECISION_LEDGER_ENTRY_UNSAFE = (
+    "decision_packet_ledger_entry_unsafe_behavior_claimed")
+BLOCK_DECISION_CANDIDATE_UNSAFE = (
+    "decision_packet_candidate_unsafe_behavior_claimed")
 
 # Symbolic manual-checklist item ids (0174TQ). These are NOT approval and NOT
 # live readiness; they are operator-facing reminders only.
@@ -272,6 +290,76 @@ def _candidate_is_live_executable(candidate):
         or c.get("live_ready")
         or c.get("dispatch_ready")
     )
+
+
+# Universal unsafe-behavior flags that MUST be False on every input artifact.
+_UNSAFE_BEHAVIOR_FLAGS = (
+    "dispatch_performed",
+    "live_request_performed",
+    "platform_api_called",
+    "telegram_api_called",
+    "credential_hydrated",
+    "llm_behavior",
+    "network_performed",
+    "scheduler_enabled",
+    "auto_retry_allowed",
+    "autonomous_reply_performed",
+    "dispatch_ready",
+    "live_ready",
+)
+
+# Artifact-specific live/readiness booleans that MUST be False where present.
+_UNSAFE_ARTIFACT_FLAGS = (
+    "valid_for_live_execution",
+    "ledger_append_is_dispatch",
+    "ledger_append_is_live_readiness",
+    "review_is_approval",
+    "review_is_live_readiness",
+    "decision_packet_is_execution",
+    "decision_packet_is_provider_authorization",
+    "decision_packet_is_live_readiness",
+    "checklist_is_approval",
+    "checklist_is_live_readiness",
+)
+
+# Artifact-name labels supported by detect_unsafe_behavior_claims in this module.
+ARTIFACT_LEDGER_ENTRY = "ledger_entry"
+ARTIFACT_LEDGER_INTEGRITY_REPORT = "ledger_integrity_report"
+ARTIFACT_GATE_RESULT = "gate_result"
+ARTIFACT_CANDIDATE = "dispatch_authorization_candidate"
+ARTIFACT_READINESS_REVIEW = "readiness_review"
+ARTIFACT_DECISION_PACKET = "decision_packet"
+
+
+def detect_unsafe_behavior_claims(obj, artifact_name):
+    """Return the unsafe flag names an input artifact claims (present + truthy).
+
+    R1 hardening: a previously-"clear" / "pass" / "intact" input artifact (a
+    ledger entry, integrity report, gate result, candidate, readiness review,
+    or decision packet) must NOT be able to carry a tampered flag claiming
+    live / network / credential / dispatch / readiness behavior past the
+    readiness review or decision packet just because its status / pass /
+    checksum / chain_intact metadata still reads clear. This helper re-derives
+    the truth directly from the flags, ignoring that metadata entirely.
+
+    A flag "claims" unsafe behavior when it is PRESENT and not False. An absent
+    flag (``.get`` -> ``None``) is treated as safe. Returns a sorted, de-duped
+    list of the tripped flag names (empty when the artifact claims nothing).
+    ``artifact_name`` selects the audit label the CALLER attaches; the set of
+    checked flags is the same across all supported artifact names. It also
+    delegates to ``gate.detect_unsafe_behavior_claims`` so any upstream-only
+    readiness flag (gate_is_*, dry_run_is_*, kill_switch_*, rate_*) is caught.
+    """
+    o = obj or {}
+    hits = []
+    for flag in (_UNSAFE_BEHAVIOR_FLAGS + _UNSAFE_ARTIFACT_FLAGS):
+        if flag in o and o.get(flag) is not False:
+            hits.append(flag)
+    # Defense-in-depth: also surface any upstream-only readiness flag.
+    for reason in gate.detect_unsafe_behavior_claims(o, str(artifact_name)):
+        if ":" in reason:
+            hits.append(reason.rsplit(":", 1)[1])
+    return sorted(set(hits))
 
 
 # --------------------------------------------------------------------------- #
@@ -715,11 +803,19 @@ def run_operator_live_gate_readiness_review(
             entry.get("policy_snapshot_id") != current_policy_snapshot_id):
         blocked.append(BLOCK_REVIEW_STALE_POLICY_SNAPSHOT)
 
-    # 7. No upstream artifact may claim unsafe behavior.
-    for art_name, art in (("ledger_entry", entry), ("candidate", cand),
-                          ("dry_run", gr)):
-        if gate.detect_unsafe_behavior_claims(art, art_name):
-            blocked.append(BLOCK_REVIEW_UNSAFE_BEHAVIOR + ":" + art_name)
+    # 7. No input artifact may claim unsafe behavior, even if its status /
+    #    pass / intact / checksum metadata still reads clear. The truth is
+    #    re-derived directly from the flags on each input.
+    for base, art_name, art in (
+            (BLOCK_REVIEW_LEDGER_ENTRY_UNSAFE, ARTIFACT_LEDGER_ENTRY, entry),
+            (BLOCK_REVIEW_INTEGRITY_REPORT_UNSAFE,
+             ARTIFACT_LEDGER_INTEGRITY_REPORT, report),
+            (BLOCK_REVIEW_GATE_RESULT_UNSAFE, ARTIFACT_GATE_RESULT, gr),
+            (BLOCK_REVIEW_CANDIDATE_UNSAFE, ARTIFACT_CANDIDATE, cand)):
+        unsafe = detect_unsafe_behavior_claims(art, art_name)
+        if unsafe:
+            blocked.append(base)
+            blocked.extend(base + ":" + flag for flag in unsafe)
 
     # 8. Operator id agreement + explicit review id.
     if not operator_id:
@@ -863,6 +959,18 @@ def build_live_gate_decision_packet(readiness_review, latest_ledger_entry,
     elif entry and entry.get("candidate_checksum") != cand.get(
             "candidate_checksum"):
         blocked.append(BLOCK_DECISION_CANDIDATE_CHECKSUM_MISMATCH)
+
+    # 4b. No input artifact may claim unsafe behavior, even if its outcome /
+    #     checksum metadata still reads clear. The truth is re-derived directly
+    #     from the flags on the review, ledger entry, and candidate.
+    for base, art_name, art in (
+            (BLOCK_DECISION_REVIEW_UNSAFE, ARTIFACT_READINESS_REVIEW, review),
+            (BLOCK_DECISION_LEDGER_ENTRY_UNSAFE, ARTIFACT_LEDGER_ENTRY, entry),
+            (BLOCK_DECISION_CANDIDATE_UNSAFE, ARTIFACT_CANDIDATE, cand)):
+        unsafe = detect_unsafe_behavior_claims(art, art_name)
+        if unsafe:
+            blocked.append(base)
+            blocked.extend(base + ":" + flag for flag in unsafe)
 
     # 5. Operator id agreement + explicit decision packet id.
     if not operator_id:
@@ -1095,6 +1203,17 @@ def build_packet():
             DECISION_DUPLICATE_PACKET_ID,
             DECISION_DUPLICATE_CANDIDATE_CHECKSUM,
         ],
+        "r1_revalidation_blocked_reasons": [
+            BLOCK_REVIEW_LEDGER_ENTRY_UNSAFE,
+            BLOCK_REVIEW_INTEGRITY_REPORT_UNSAFE,
+            BLOCK_REVIEW_GATE_RESULT_UNSAFE,
+            BLOCK_REVIEW_CANDIDATE_UNSAFE,
+            BLOCK_DECISION_REVIEW_UNSAFE,
+            BLOCK_DECISION_LEDGER_ENTRY_UNSAFE,
+            BLOCK_DECISION_CANDIDATE_UNSAFE,
+        ],
+        "r1_revalidated_unsafe_flags": list(
+            _UNSAFE_BEHAVIOR_FLAGS + _UNSAFE_ARTIFACT_FLAGS),
         "required_ledger_entry_fields": [
             "ledger_entry_id",
             "previous_entry_checksum",
@@ -1135,6 +1254,12 @@ def build_packet():
             "no_autonomous_posting",
             "no_financial_advice_or_signal_framing",
             "missing_stale_unsafe_or_ambiguous_authority_blocks",
+            "readiness_review_revalidates_all_input_safety_flags",
+            "decision_packet_revalidates_all_input_safety_flags",
+            "integrity_report_clear_metadata_cannot_hide_unsafe_behavior",
+            "candidate_checksum_match_cannot_hide_unsafe_behavior",
+            "ledger_entry_checksum_match_cannot_hide_unsafe_behavior",
+            "unsafe_input_artifact_blocks_review_or_decision",
         ],
         "next_required_gate": NEXT_REQUIRED_GATE,
         "exact_next_task_recommendation": EXACT_NEXT_TASK_RECOMMENDATION,
@@ -1182,6 +1307,17 @@ def build_doc():
         f"is NEVER executable and always `requires_future_operator_live_gate`. "
         f"A registry suppresses duplicate decision packet ids and candidate "
         f"checksums.\n\n"
+        f"## R1 input safety revalidation\n\n"
+        f"Both the readiness review (0174TQ) and the decision packet (0174TR) "
+        f"re-derive unsafe behavior directly from the flags on EVERY input "
+        f"artifact -- the ledger entry, the integrity report, the gate result, "
+        f"the candidate, and the readiness review -- ignoring clear `status`, "
+        f"`pass`, `chain_intact`, and matching checksum metadata. A tampered "
+        f"input that keeps a valid checksum or an intact-chain report while "
+        f"claiming `network_performed=True`, `platform_api_called=True`, "
+        f"`live_ready=True`, `credential_hydrated=True`, or any readiness flag "
+        f"is BLOCKED. Blocked reasons identify the artifact class and the "
+        f"specific flag (`<artifact>_unsafe_behavior_claimed:<flag>`).\n\n"
         f"## Hard invariants\n\n{hard}\n\n"
         f"## Next required gate\n\n{NEXT_REQUIRED_GATE}\n\n"
         f"Exact next task: `{EXACT_NEXT_TASK_RECOMMENDATION}`\n\n"

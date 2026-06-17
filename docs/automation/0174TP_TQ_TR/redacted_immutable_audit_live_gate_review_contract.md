@@ -53,6 +53,10 @@ Fail-closed by default. The only non-blocked outcome is `operator_live_gate_revi
 
 Requires an `operator_live_gate_review_evidence_ready_not_live` review, an intact ledger binding, and an explicit decision packet id. It produces a local `live_gate_decision_packet_created_not_executable` packet for FUTURE operator-owned live work that is NEVER executable and always `requires_future_operator_live_gate`. A registry suppresses duplicate decision packet ids and candidate checksums.
 
+## R1 input safety revalidation
+
+Both the readiness review (0174TQ) and the decision packet (0174TR) re-derive unsafe behavior directly from the flags on EVERY input artifact -- the ledger entry, the integrity report, the gate result, the candidate, and the readiness review -- ignoring clear `status`, `pass`, `chain_intact`, and matching checksum metadata. A tampered input that keeps a valid checksum or an intact-chain report while claiming `network_performed=True`, `platform_api_called=True`, `live_ready=True`, `credential_hydrated=True`, or any readiness flag is BLOCKED. Blocked reasons identify the artifact class and the specific flag (`<artifact>_unsafe_behavior_claimed:<flag>`).
+
 ## Hard invariants
 
   * `audit_ledger_is_append_only_and_redacted`
@@ -72,6 +76,12 @@ Requires an `operator_live_gate_review_evidence_ready_not_live` review, an intac
   * `no_autonomous_posting`
   * `no_financial_advice_or_signal_framing`
   * `missing_stale_unsafe_or_ambiguous_authority_blocks`
+  * `readiness_review_revalidates_all_input_safety_flags`
+  * `decision_packet_revalidates_all_input_safety_flags`
+  * `integrity_report_clear_metadata_cannot_hide_unsafe_behavior`
+  * `candidate_checksum_match_cannot_hide_unsafe_behavior`
+  * `ledger_entry_checksum_match_cannot_hide_unsafe_behavior`
+  * `unsafe_input_artifact_blocks_review_or_decision`
 
 ## Next required gate
 
@@ -79,4 +89,4 @@ an operator-owned live-gate policy dry run + doc sync that still performs NO liv
 
 Exact next task: `TASK_CONTENTOPS_0174TS_TT_TU_OPERATOR_LIVE_GATE_POLICY_DRY_RUN_AND_DOC_SYNC_BATCH_V0`
 
-Packet checksum: `32540f61139142ad704934a0204cb6d48cabc830137fca6bf0a8684b1656d2f4`
+Packet checksum: `b1f0a9f282f3bd5d4ec5a303b05cccfd6d00bcd5b1e2a7fadbde74203260f62a`
