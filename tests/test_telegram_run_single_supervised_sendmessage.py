@@ -336,3 +336,109 @@ def test_method_is_send_message_and_inbound_methods_absent():
     blob = json.dumps(packet)
     assert "getUpdates" not in blob
     assert "setWebhook" not in blob
+
+
+# --------------------------------------------------------------------------- #
+# R1: deterministic redacted response_checksum
+# --------------------------------------------------------------------------- #
+def test_success_proof_has_non_null_response_checksum():
+    packet = _build_packet_for(_ok_transport())
+    assert packet["response_checksum"] is not None
+    assert packet["response_shape_checksum"] is not None
+
+
+def test_provider_error_proof_has_non_null_response_checksum():
+    packet = _build_packet_for(_provider_error_transport())
+    assert packet["response_checksum"] is not None
+    assert packet["send_outcome_class"] == runner.SEND_PROVIDER_ERROR
+
+
+def test_network_exception_proof_has_non_null_response_checksum():
+    packet = _build_packet_for(_raising_transport())
+    assert packet["response_checksum"] is not None
+    assert packet["send_outcome_class"] == runner.SEND_NETWORK_BLOCKED
+
+
+def test_blocked_before_network_proof_may_have_null_response_checksum():
+    """A blocked (no send attempted) result carries a null response_checksum."""
+    rendered, enforcer, one_request, send_result = (
+        runner.run_single_supervised_send(
+            operator_live_send_enabled=False, token=FAKE_TOKEN,
+            destination=FAKE_DESTINATION, http_transport=_ok_transport()))
+    assert send_result["send_attempted"] is False
+    assert runner.compute_redacted_send_response_checksum(send_result) is None
+    packet = runner.build_evidence_packet(
+        rendered, enforcer, one_request, send_result,
+        start_head="aaa", final_head="bbb", origin_head="bbb",
+        real_send_attempted=False)
+    assert packet["response_checksum"] is None
+
+
+def test_checksum_changes_when_redacted_classes_change():
+    """Different redacted status/message-id classes => different checksum."""
+    ok_checksum = runner.compute_redacted_send_response_checksum({
+        "send_attempted": True,
+        "outcome_class": runner.SEND_OK,
+        "send_succeeded": True,
+        "provider_status_code_class": adapter.PROVIDER_CODE_SUCCESS_CLASS,
+        "response_status_class": adapter.RESPONSE_STATUS_OK_CLASS,
+        "message_id_class": adapter.MESSAGE_ID_PRESENT_CLASS,
+        "budget_used": 1,
+    })
+    err_checksum = runner.compute_redacted_send_response_checksum({
+        "send_attempted": True,
+        "outcome_class": runner.SEND_PROVIDER_ERROR,
+        "send_succeeded": False,
+        "provider_status_code_class": adapter.PROVIDER_CODE_CLIENT_ERROR_CLASS,
+        "response_status_class": adapter.RESPONSE_STATUS_ERROR_CLASS,
+        "message_id_class": adapter.MESSAGE_ID_ABSENT_CLASS,
+        "budget_used": 1,
+    })
+    assert ok_checksum != err_checksum
+    # Deterministic: identical redacted input reproduces the same checksum.
+    ok_again = runner.compute_redacted_send_response_checksum({
+        "send_attempted": True,
+        "outcome_class": runner.SEND_OK,
+        "send_succeeded": True,
+        "provider_status_code_class": adapter.PROVIDER_CODE_SUCCESS_CLASS,
+        "response_status_class": adapter.RESPONSE_STATUS_OK_CLASS,
+        "message_id_class": adapter.MESSAGE_ID_PRESENT_CLASS,
+        "budget_used": 1,
+    })
+    assert ok_checksum == ok_again
+
+
+def test_checksum_input_contains_no_token_destination_or_raw_material():
+    """The checksum is stable regardless of token/destination/raw response."""
+    # Build two packets with identical redacted outcome but different secrets.
+    rendered_a, enforcer_a, one_request_a, sr_a = (
+        runner.run_single_supervised_send(
+            operator_live_send_enabled=True, token=FAKE_TOKEN,
+            destination=FAKE_DESTINATION, http_transport=_ok_transport()))
+    rendered_b, enforcer_b, one_request_b, sr_b = (
+        runner.run_single_supervised_send(
+            operator_live_send_enabled=True,
+            token="987654321:ZzYyXxWwVvUuTtSsRrQqPpOoNnMmLlKk11",
+            destination="@a_totally_different_channel",
+            http_transport=_ok_transport()))
+    # Same redacted send-result classes => same response checksum, proving the
+    # raw token/destination/response never feed the checksum.
+    assert (runner.compute_redacted_send_response_checksum(sr_a)
+            == runner.compute_redacted_send_response_checksum(sr_b))
+
+
+def test_evidence_records_second_live_test_sequence():
+    packet = _build_packet_for(_ok_transport())
+    assert packet["live_test_sequence"] == 2
+    assert runner.LIVE_TEST_SEQUENCE == 2
+    doc = runner.build_evidence_doc(packet)
+    assert "second supervised live test" in doc
+
+
+def test_response_checksum_packet_remains_scanner_clean():
+    for transport in (_ok_transport(), _provider_error_transport(),
+                      _raising_transport()):
+        packet = _build_packet_for(transport)
+        doc = runner.build_evidence_doc(packet)
+        assert runner.scan_evidence(packet, doc) == []
+        assert runner.scan_for_financial_advice_safe(packet, doc) == []

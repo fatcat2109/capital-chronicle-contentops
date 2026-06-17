@@ -80,11 +80,15 @@ CREDENTIAL_SOURCE_DOTENV = "operator_local_dotenv_file"
 DESTINATION_SOURCE_NONE = "no_live_destination"
 DESTINATION_SOURCE_DOTENV_TEST_CHANNEL = "operator_local_dotenv_test_channel"
 
-# Deterministic, clearly non-financial-advice supervised test message.
+# Deterministic, clearly non-financial-advice supervised test message. This R1
+# patch runs the SECOND operator-owned supervised live send.
 SUPERVISED_TEST_MESSAGE = (
-    "Capital Chronicle ContentOps live-gate test: supervised single Telegram "
-    "sendMessage proof. No market advice."
+    "Capital Chronicle ContentOps live-gate test 2: supervised single Telegram "
+    "sendMessage verification. No market advice."
 )
+
+# Which operator-owned supervised live test this run represents (R1 = 2).
+LIVE_TEST_SEQUENCE = 2
 
 # Symbolic outcome classes for the runner.
 SEND_OK = "telegram_single_supervised_sendmessage_ok_redacted"
@@ -324,6 +328,38 @@ def _blocked_send_result(blocked_reasons):
     }
 
 
+def compute_redacted_send_response_checksum(send_result):
+    """Return a deterministic redacted response checksum, or None if no send.
+
+    The checksum is derived ONLY from redacted symbolic fields -- the send
+    outcome class, the success boolean, the provider status-code class, the
+    response status class, the redacted message-id class, the budget used, plus
+    the fixed ``sendMessage`` method name, the ``telegram`` provider, and the
+    ``live_test_sequence`` marker. It NEVER incorporates a raw provider
+    response, token, raw URL, headers, cookies, raw destination, chat id, or
+    username.
+
+    Returns ``None`` when no send was attempted (e.g. blocked before network),
+    so a blocked proof legitimately carries a null ``response_checksum``; any
+    attempted send (success, provider error, or network exception) yields a
+    non-null, deterministic checksum.
+    """
+    sr = send_result or {}
+    if not sr.get("send_attempted"):
+        return None
+    return adapter.compute_checksum({
+        "send_outcome_class": sr.get("outcome_class"),
+        "send_succeeded": bool(sr.get("send_succeeded")),
+        "provider_status_code_class": sr.get("provider_status_code_class"),
+        "response_status_class": sr.get("response_status_class"),
+        "redacted_message_id_class": sr.get("message_id_class"),
+        "budget_used": sr.get("budget_used"),
+        "method_name": adapter.METHOD_SUPERVISED_SEND,
+        "provider": adapter.PROVIDER_TELEGRAM,
+        "live_test_sequence": LIVE_TEST_SEQUENCE,
+    })
+
+
 # --------------------------------------------------------------------------- #
 # Redacted evidence packet + doc
 # --------------------------------------------------------------------------- #
@@ -342,12 +378,13 @@ def build_evidence_packet(rendered, enforcer, one_request, send_result, *,
     response, NO raw URL, NO header, NO cookie.
     """
     request_descriptor = (one_request or {}).get("request_descriptor") or {}
+    response_checksum = compute_redacted_send_response_checksum(send_result)
     response_shape = adapter.build_redacted_response_shape(
         response_status_class=send_result.get("response_status_class"),
         provider_code_class=send_result.get("provider_status_code_class"),
         message_id_class=send_result.get("message_id_class"),
         request_checksum=(one_request or {}).get("one_request_checksum"),
-        response_checksum=None)
+        response_checksum=response_checksum)
 
     packet = {
         "task_label": TASK_LABEL,
@@ -374,6 +411,7 @@ def build_evidence_packet(rendered, enforcer, one_request, send_result, *,
         "credential_handle_id": (one_request or {}).get("credential_handle_id"),
         # What was attempted.
         "real_send_attempted": bool(real_send_attempted),
+        "live_test_sequence": LIVE_TEST_SEQUENCE,
         "send_outcome_class": send_result.get("outcome_class"),
         "send_attempted": bool(send_result.get("send_attempted")),
         "send_succeeded": bool(send_result.get("send_succeeded")),
@@ -455,6 +493,8 @@ def build_evidence_doc(packet):
         f"- Destination present (redacted): `{present}`\n"
         f"- Real sendMessage attempted: `{attempted}`\n"
         f"- Real sendMessage succeeded: `{succeeded}`\n"
+        f"- Live test sequence: `{packet['live_test_sequence']}` "
+        f"(second supervised live test)\n"
         f"- Send outcome class: `{packet['send_outcome_class']}`\n"
         f"- Request budget used: `{packet['request_budget_used']}` of "
         f"`{packet['request_budget_authorized']}`\n\n"

@@ -7,16 +7,17 @@ Model: `TELEGRAM_RUN_SINGLE_SUPERVISED_SENDMESSAGE_0174UK_UL_UM` version `0174UK
 ## Run summary
 
 - Required baseline: `001fd2feb9edaa78348a48b592114e35cadf1a88`
-- Start HEAD: `001fd2feb9edaa78348a48b592114e35cadf1a88`
-- Final HEAD: `001fd2feb9edaa78348a48b592114e35cadf1a88`
-- Origin HEAD: `001fd2feb9edaa78348a48b592114e35cadf1a88`
-- Baseline matched: `True`
+- Start HEAD: `db989e0f01c47e6a638715107d31f9b68f7fb8be`
+- Final HEAD: `db989e0f01c47e6a638715107d31f9b68f7fb8be`
+- Origin HEAD: `db989e0f01c47e6a638715107d31f9b68f7fb8be`
+- Baseline matched: `False`
 - Credential source: `operator_local_dotenv_file`
 - Destination source: `operator_local_dotenv_test_channel`
 - Destination binding checksum: `9bf41c5012402b2a`
 - Destination present (redacted): `yes`
 - Real sendMessage attempted: `yes`
 - Real sendMessage succeeded: `yes`
+- Live test sequence: `2` (second supervised live test)
 - Send outcome class: `telegram_single_supervised_sendmessage_ok_redacted`
 - Request budget used: `1` of `1`
 
@@ -28,12 +29,12 @@ Model: `TELEGRAM_RUN_SINGLE_SUPERVISED_SENDMESSAGE_0174UK_UL_UM` version `0174UK
 
 ## Checksums
 
-- Rendered payload checksum: `70ead27e3778418e45d0b08e4a70f280ca8324f2c115203fb40225718bca8755`
-- Send text checksum: `ec2a7dbb25dd2e39ed4d09a646191f0e04e815ae2f3df3e040b5fffb32bf0a7d`
+- Rendered payload checksum: `ea155bbad188206e27da40fef1ed3893209fbf08fa0b8cfb7d118803bc1e7224`
+- Send text checksum: `81d5bea0acc1a3e7cc430c6dd1bac8aeb3cbba825d6b538be03a3d976998799e`
 - Capability enforcer checksum: `7b4e00881032de9ecb0c9e0623065efb8dc5f67ba66a531e747c661db93802af`
-- Request checksum: `d75d00120c333714825396e2579702b9faaaab6f31602b51c8242889a43469ad`
-- Response checksum: `None`
-- Evidence checksum: `fabd3eb9d6db888539066f3990757c29d3f5fa3484d57038783c86d8af2c97cf`
+- Request checksum: `3972200a751f6582da3b5f3262a0d9a476f6eda6d6d6a88d302dbb95d36200ff`
+- Response checksum: `02fe90ae27a138941bbacb198487d2712cd5248e970d8f95dc8b978034d6752e`
+- Evidence checksum: `e6ad3376d18cae85248739269f547b65638c2d4f632e40aff4c729eaf350feb3`
 
 ## Safety proofs
 
