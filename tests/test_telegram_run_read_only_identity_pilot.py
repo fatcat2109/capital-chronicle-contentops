@@ -262,3 +262,67 @@ def test_main_output_is_redacted(monkeypatch, tmp_path):
     assert GOOD_TOKEN not in out
     assert "EVIDENCE_SCAN_CLEAN" in out
     assert "REAL_GETME_ATTEMPTED True" in out
+
+
+# --------------------------------------------------------------------------- #
+# Optional --from-dotenv credential source (runner-side only)
+# --------------------------------------------------------------------------- #
+def test_load_dotenv_token_reads_only_token_key(tmp_path):
+    env_file = tmp_path / ".env"
+    env_file.write_text(
+        'TELEGRAM_BOT_TOKEN="' + GOOD_TOKEN + '"\n'
+        'TEST_TELEGRAM_CHANNEL="-100123"\n'
+        '# a comment line\n'
+        '{\n'
+        '  "type": "service_account",\n'
+        '  "private_key": "-----BEGIN PRIVATE KEY-----\\nABC\\n"\n'
+        '}\n',
+        encoding="utf-8")
+    assert runner.load_dotenv_token(env_file) == GOOD_TOKEN
+
+
+def test_load_dotenv_token_missing_file_or_key(tmp_path):
+    assert runner.load_dotenv_token(tmp_path / "nope.env") is None
+    env_file = tmp_path / ".env"
+    env_file.write_text('TEST_TELEGRAM_CHANNEL="-100"\n', encoding="utf-8")
+    assert runner.load_dotenv_token(env_file) is None
+
+
+def test_make_dotenv_credentials_routes_only_allowed_var():
+    env_reader, transport = runner.make_dotenv_credentials(
+        GOOD_TOKEN, timeout_seconds=5)
+    assert env_reader(pilot.ALLOWED_ENV_VAR) == GOOD_TOKEN
+    assert env_reader("SOME_OTHER_VAR") is None
+    assert callable(transport)
+
+
+def test_make_dotenv_credentials_missing_token_fail_closed():
+    env_reader, transport = runner.make_dotenv_credentials(None)
+    assert env_reader(pilot.ALLOWED_ENV_VAR) is None
+    # The fail-closed transport must never be invoked; the pilot blocks first.
+    plan, proof, identity, audit = runner.run_identity_proof(
+        operator_live_read_only_enabled=True,
+        env_reader=env_reader, http_transport=transport)
+    assert identity["read_only_request_performed"] is False
+    assert pilot.BLOCK_CREDENTIAL_MISSING in proof["blocked_reasons"]
+
+
+def test_dotenv_sourced_live_path_is_scanner_clean(tmp_path):
+    # Use the dotenv-derived env_reader with an injected OK transport so no real
+    # network occurs, and confirm the evidence stays tokenless + scanner-clean
+    # and is labeled with the dotenv credential source.
+    env_reader, _ = runner.make_dotenv_credentials(GOOD_TOKEN)
+    plan, proof, identity, audit = runner.run_identity_proof(
+        operator_live_read_only_enabled=True,
+        env_reader=env_reader, http_transport=_ok_transport)
+    packet = runner.build_evidence_packet(
+        plan, proof, identity, audit, start_head="h", final_head="h",
+        origin_head="h", git_status_summary="changed_entries=0",
+        real_getme_attempted=True,
+        credential_source_class=runner.CREDENTIAL_SOURCE_DOTENV)
+    doc = runner.build_evidence_doc(packet)
+    blob = json.dumps(packet) + doc
+    assert GOOD_TOKEN not in blob
+    assert packet["credential_source_class"] == runner.CREDENTIAL_SOURCE_DOTENV
+    assert runner.scan_evidence(packet, doc) == []
+    assert runner.scan_for_financial_advice_safe(packet, doc) == []

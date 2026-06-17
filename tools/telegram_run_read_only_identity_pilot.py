@@ -17,10 +17,17 @@ CREDENTIAL POLICY (delegated entirely to the accepted pilot boundary):
   * NEVER prints or persists the raw provider response, raw URL, headers, or
     cookies.
 
-The runner itself never touches ``os.environ`` for the token: it passes
-``env_reader=None`` so the accepted pilot performs the single gated read through
-its own lazy seam. In tests an injected mock ``env_reader`` and mock
+The runner itself never touches ``os.environ`` for the token: by default it
+passes ``env_reader=None`` so the accepted pilot performs the single gated read
+through its own lazy seam. In tests an injected mock ``env_reader`` and mock
 ``http_transport`` are used, so NO real network call and NO real env read occur.
+
+OPTIONAL ``--from-dotenv`` (IDE/sandbox use): when the shell environment cannot
+be set, the operator may pass ``--from-dotenv``. The RUNNER (never the pilot)
+then reads ONLY the single ``TELEGRAM_BOT_TOKEN`` key from the local ``.env``
+file and feeds it to the accepted pilot through its existing ``env_reader`` and
+``http_transport`` seams. The pilot still reads no file and ``os.environ`` is
+neither read nor mutated. The token is never printed, logged, or persisted.
 
 Importing this module performs NO writes, NO env reads, and NO network. The real
 ``getMe`` happens ONLY inside ``main()`` (or an explicit ``run_identity_proof``
@@ -57,6 +64,12 @@ NEXT_RECOMMENDED_TASK = (
 DOC_REL_DIR = "docs/automation/0174UH_UI_UJ"
 PACKET_FILENAME = "telegram_real_getme_identity_proof_packet.json"
 DOC_FILENAME = "telegram_real_getme_identity_proof.md"
+
+# Optional operator-owned local credential source (RUNNER only; never the pilot).
+DOTENV_FILENAME = ".env"
+DOTENV_TOKEN_KEY = "TELEGRAM_BOT_TOKEN"
+CREDENTIAL_SOURCE_PROCESS_ENV = "process_environment"
+CREDENTIAL_SOURCE_DOTENV = "operator_local_dotenv_file"
 
 
 # --------------------------------------------------------------------------- #
@@ -100,12 +113,91 @@ def run_identity_proof(*, operator_live_read_only_enabled=True,
 
 
 # --------------------------------------------------------------------------- #
+# Optional operator-owned local .env credential source (RUNNER only)
+# --------------------------------------------------------------------------- #
+def load_dotenv_token(dotenv_path):
+    """Read ONLY the single ``TELEGRAM_BOT_TOKEN`` value from a local ``.env``.
+
+    Runner-side convenience for IDE/sandbox use where the shell environment can
+    not be set. Reads ONLY the one token key, ignores every other line
+    (including any JSON/service-account material), strips optional surrounding
+    quotes, and returns the token string or ``None``. NEVER prints, logs, or
+    persists the token.
+    """
+    path = Path(dotenv_path)
+    if not path.is_file():
+        return None
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        key, sep, value = line.partition("=")
+        if sep != "=" or key.strip() != DOTENV_TOKEN_KEY:
+            continue
+        return value.strip().strip('"').strip("'").strip() or None
+    return None
+
+
+def _build_live_transport(token, timeout_seconds):
+    """Return a callable performing the single real ``getMe`` using ``token``.
+
+    Mirrors the accepted pilot's real transport but takes the token explicitly,
+    so ``os.environ`` is never read or mutated here. Returns
+    ``(ok, status_code, {has_id, has_username})`` and NEVER the raw body,
+    headers, cookies, or URL.
+    """
+    def _transport():
+        import urllib.request
+        import urllib.error
+        url = (pilot.ALLOWED_HOST + "/bot" + str(token) + "/"
+               + pilot.ALLOWED_METHOD)
+        request = urllib.request.Request(url, method="GET")
+        try:
+            with urllib.request.urlopen(request,
+                                        timeout=timeout_seconds) as resp:
+                code = resp.getcode()
+                body = json.loads(resp.read().decode("utf-8"))
+                ok = bool(body.get("ok"))
+                result = body.get("result") or {}
+                return (ok, code, {
+                    "has_id": result.get("id") is not None,
+                    "has_username": bool(result.get("username")),
+                })
+        except urllib.error.HTTPError as exc:
+            return (False, getattr(exc, "code", None), {
+                "has_id": False, "has_username": False})
+    return _transport
+
+
+def make_dotenv_credentials(token, timeout_seconds=None):
+    """Build the ``(env_reader, http_transport)`` pair for a dotenv-sourced token.
+
+    The ``env_reader`` returns the token ONLY for the pilot's one allowed env var
+    name and ``None`` otherwise, preserving the pilot's single-variable contract.
+    If ``token`` is falsy, the transport is a fail-closed stub that must never be
+    called (the pilot blocks on the missing credential first).
+    """
+    timeout_seconds = (pilot.REQUEST_TIMEOUT_SECONDS
+                       if timeout_seconds is None else timeout_seconds)
+
+    def env_reader(name):
+        return token if name == pilot.ALLOWED_ENV_VAR else None
+
+    if not token:
+        def _no_token_transport():  # pragma: no cover - never reached
+            raise AssertionError("transport called with no credential")
+        return env_reader, _no_token_transport
+    return env_reader, _build_live_transport(token, timeout_seconds)
+
+
+# --------------------------------------------------------------------------- #
 # Redacted evidence packet + doc
 # --------------------------------------------------------------------------- #
 def build_evidence_packet(plan, proof, identity, audit, *,
                           start_head=None, final_head=None, origin_head=None,
                           git_status_summary=None,
-                          real_getme_attempted=False):
+                          real_getme_attempted=False,
+                          credential_source_class=CREDENTIAL_SOURCE_PROCESS_ENV):
     """Build the deterministic, redacted evidence packet (pure value).
 
     Contains ONLY redacted, non-secret material: outcome classes, presence
@@ -142,6 +234,7 @@ def build_evidence_packet(plan, proof, identity, audit, *,
         "real_getme_attempted": bool(real_getme_attempted),
         "credential_env_var_present_redacted": credential_env_var_present,
         "credential_proof_outcome_class": cred_outcome,
+        "credential_source_class": credential_source_class,
         "only_one_env_var_read": bool(proof.get("only_one_env_var_read")),
         "allowed_env_var_name": pilot.ALLOWED_ENV_VAR,
         "request_budget_authorized": pilot.REQUEST_BUDGET,
@@ -215,6 +308,7 @@ def build_evidence_doc(packet):
         f"- Real getMe attempted: `{attempted}`\n"
         f"- Credential env var present (redacted): `{present}`\n"
         f"- Credential proof outcome: `{packet['credential_proof_outcome_class']}`\n"
+        f"- Credential source: `{packet['credential_source_class']}`\n"
         f"- Request budget used: `{packet['request_budget_used']}` of "
         f"`{packet['request_budget_authorized']}`\n\n"
         f"## Redacted identity outcome\n\n"
@@ -313,10 +407,21 @@ def main(argv=None):
     still produced -- with no retry.
     """
     argv = list(sys.argv[1:] if argv is None else argv)
+    use_dotenv = "--from-dotenv" in argv
     start_head = _head("HEAD")
 
+    if use_dotenv:
+        token = load_dotenv_token(Path(ROOT) / DOTENV_FILENAME)
+        env_reader, http_transport = make_dotenv_credentials(token)
+        credential_source_class = CREDENTIAL_SOURCE_DOTENV
+        del token  # drop the local reference promptly; never stored
+    else:
+        env_reader, http_transport = None, None
+        credential_source_class = CREDENTIAL_SOURCE_PROCESS_ENV
+
     plan, proof, identity, audit = run_identity_proof(
-        operator_live_read_only_enabled=True)
+        operator_live_read_only_enabled=True,
+        env_reader=env_reader, http_transport=http_transport)
 
     final_head = _head("HEAD")
     origin_head = _head("origin/master")
@@ -325,7 +430,8 @@ def main(argv=None):
     packet = build_evidence_packet(
         plan, proof, identity, audit, start_head=start_head,
         final_head=final_head, origin_head=origin_head,
-        git_status_summary=status_summary, real_getme_attempted=True)
+        git_status_summary=status_summary, real_getme_attempted=True,
+        credential_source_class=credential_source_class)
     doc = build_evidence_doc(packet)
 
     written = write_evidence(ROOT, packet, doc)
@@ -334,6 +440,7 @@ def main(argv=None):
     # token or the raw provider response.
     print("TASK " + TASK_LABEL)
     print("REAL_GETME_ATTEMPTED " + str(packet["real_getme_attempted"]))
+    print("CREDENTIAL_SOURCE " + str(packet["credential_source_class"]))
     print("CREDENTIAL_ENV_VAR_PRESENT_REDACTED "
           + str(packet["credential_env_var_present_redacted"]))
     print("IDENTITY_OUTCOME " + str(packet["identity_proof_outcome_class"]))
