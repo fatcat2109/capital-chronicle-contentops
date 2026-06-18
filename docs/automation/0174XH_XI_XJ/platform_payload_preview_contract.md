@@ -1,0 +1,32 @@
+# Platform Payload Preview Contract
+
+- approval_ledger_mutated: `False`
+- autonomous_replies_or_dms: `False`
+- credential_read: `False`
+- dispatch_outbox_mutated: `False`
+- dotenv_read: `False`
+- env_read: `False`
+- hash_excludes: `["raw_credential", "raw_token", "raw_chat_id", "raw_provider_response", "env_var", "secret_path", "live_api_url", "unredacted_destination"]`
+- hash_includes: `["platform", "payload_class", "destination_binding_id", "credential_handle_id", "body", "title", "subtitle", "thread_parts", "manual_export", "visibility_class", "source_brief_id", "platform_formatting_metadata"]`
+- is_local_only: `True`
+- live_post_performed: `False`
+- llm_provider_api_called: `False`
+- model: `PLATFORM_PAYLOAD_PREVIEW_CONTRACT_0174XH_XI_XJ`
+- model_version: `0174XH_XI_XJ_PLATFORM_PAYLOAD_PREVIEW_CONTRACT_V1`
+- network_performed: `False`
+- platform_api_called: `False`
+- platform_payload_preview_contract_checksum: `d9097a8ac40b7534b771d8656d46506cfa6a3d7332e559198df25a438eef95bf`
+- provider_api_called: `False`
+- public_ready_content_generated: `False`
+- required_payload_fields: `["payload_id", "source_brief_id", "source_intent_id", "platform", "payload_class", "destination_binding_id", "credential_handle_id", "body", "title", "subtitle", "thread_parts", "source_notes", "limitations", "seo_metadata", "manual_export", "visibility_class", "platform_constraints_status", "platform_warnings", "payload_hash", "payload_hash_algorithm", "approval_required", "dispatch_ready", "public_postable", "human_review_required", "no_financial_advice", "no_signal_language", "evidence_refs"]`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `e77acd9f74b9ce2e65e569b6bf576e3896c1333e`
+- status: `pass`
+- substack_api_called: `False`
+- supported_payload_classes: `["x_short_post", "x_thread", "telegram_channel_update", "telegram_operator_review_message", "substack_newsletter_issue", "substack_longform_post"]`
+- supported_platforms: `["x", "telegram", "substack"]`
+- symbolic_binding_id: `symbolic_fixture_only`
+- task_label: `TASK_CONTENTOPS_0174XH_XI_XJ_IDEA_TO_PRIMARY_PLATFORM_VARIANTS_DRY_RUN_V0`
+- telegram_api_called: `False`
+- x_api_called: `False`
