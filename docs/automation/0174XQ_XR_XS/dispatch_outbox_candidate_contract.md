@@ -1,0 +1,52 @@
+# Dispatch Outbox Candidate Contract
+
+> [!IMPORTANT]
+> Local dry-run dispatch outbox candidate contract only. No dispatch, credential hydration, platform/provider call, network, or live-ready state.
+
+- active_candidate_count: `1`
+- all_auto_retry_false: `True`
+- all_can_dispatch_false: `True`
+- all_credential_hydration_false: `True`
+- all_live_dispatch_false: `True`
+- all_live_ready_state_false: `True`
+- all_platform_api_call_false: `True`
+- all_request_budget_one: `True`
+- all_valid_for_dispatch_false: `True`
+- approval_ledger_contract_checksum: `6d16a986d815da37ff9cc7f5ec00aaa9fd996077592e55b6ea9d941029cfc48d`
+- approval_ledger_policy_checksum: `73b965e52274ccd7bc2f441b210fbd3fd998a115eeb16ed173eeee79f10a2d0d`
+- autonomous_replies_or_dms: `False`
+- blocked_candidate_count: `17`
+- candidate_output_count: `19`
+- credential_hydration_performed: `False`
+- credential_read: `False`
+- dispatch_outbox_candidate_contract_checksum: `b3bb87875531566a94998ad0cccce97efc96aaeecdab6410e0821574285eccb1`
+- dispatch_outbox_candidate_fixture_outputs_checksum: `4bb68fb251e09f8d245ebdab387ab8f4497de9c669f91697b93dee48965a4dce`
+- dotenv_read: `False`
+- duplicate_suppressed_count: `1`
+- env_read: `False`
+- idempotency_key_determinism_proof: `{"credential_handle_id_change_changes_key": true, "destination_binding_id_change_changes_key": true, "ledger_entry_id_change_changes_key": true, "payload_hash_change_changes_key": true, "platform_change_changes_key": true, "same_input_same_key": true}`
+- is_local_only: `True`
+- live_post_performed: `False`
+- live_ready_state_created: `False`
+- llm_provider_api_called: `False`
+- model: `DISPATCH_OUTBOX_CANDIDATE_CONTRACT_0174XQ_XR_XS`
+- model_version: `0174XQ_XR_XS_DISPATCH_OUTBOX_CANDIDATE_CONTRACT_V1`
+- network_performed: `False`
+- next_dispatch_outbox_candidate_contract_checksum: `0cd94c91f816787f20e6e6c1c0924a1f5076716036f9941051a7a9ebd0896026`
+- platform_api_called: `False`
+- platform_dispatch_performed: `False`
+- platform_universe_registry_checksum: `268d23bf3d265e101ec7a6fad0c585858c1ea276cc995d7a123ae88f485411fe`
+- provider_api_called: `False`
+- public_ready_content_generated: `False`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `2f80831bce881f26e6bff3109a4731aaaad3e167`
+- status: `pass`
+- substack_api_called: `False`
+- substack_dispatch_status: `manual_export_no_api`
+- task_label: `TASK_CONTENTOPS_0174XQ_XR_XS_DISPATCH_OUTBOX_CANDIDATE_CONTRACT_V0`
+- telegram_api_called: `False`
+- telegram_dispatch_registry_checksum: `e2f98551d197eb463cc72d4307fb153fe6bf83a28d034d518e11d05e555c3cc6`
+- telegram_dispatch_status: `proven_frozen_no_send`
+- x_api_called: `False`
+- x_dispatch_status: `dry_run_no_api`
