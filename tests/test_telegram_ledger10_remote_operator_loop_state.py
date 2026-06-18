@@ -1,4 +1,4 @@
-﻿"""Tests for 0174VU/VV/VW ledger-5 remote operator loop state."""
+"""Tests for 0174VU/VV/VW ledger-5 remote operator loop state."""
 
 import copy
 import importlib.util
@@ -113,7 +113,7 @@ def test_state_has_ledger_count_8_and_sequence_9(state):
 def test_exact_replay_blocks(ledger9, proof, state):
     candidate = ledger9._candidate_from_proof(proof)
     pre = ledger9.build_next_gate_precheck_state(
-        state, candidate, fresh_operator_gate_id=ledger9.eleventh_GATE_ID)
+        state, candidate, fresh_operator_gate_id=ledger9.ELEVENTH_GATE_ID)
     assert pre["next_gate_outcome_class"] == ledger9.loop3.NEXT_BLOCKED_EXACT
 
 

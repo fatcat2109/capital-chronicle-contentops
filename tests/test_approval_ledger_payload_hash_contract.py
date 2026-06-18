@@ -524,7 +524,7 @@ def test_write_artifacts_touches_only_0174ed_dir(tmp_path):
 
 def test_source_baseline_commit_recorded():
     assert model.SOURCE_BASELINE_COMMIT == (
-        "b07e220e4d5fdebeb47368dbc08a10f28c9c4bbd")
+        "b0cff8f6ddb6819ba148512dadebdf5a025552ce")
 
 
 # --------------------------------------------------------------------------- #
@@ -649,3 +649,70 @@ def test_r1_invariant_present_in_packet():
     assert (
         "record_approval_rejects_challenge_payload_substitution"
         in pkt["invariants"])
+
+
+# --------------------------------------------------------------------------- #
+# R2 hardening: approval scope, evidence refs, public readiness
+# --------------------------------------------------------------------------- #
+def test_approval_entry_records_scope_evidence_and_public_block():
+    p = _payload()
+    ch = model.create_approval_challenge(
+        p, challenge_id="chal-scope", operator_id="jim",
+        created_at_epoch=1000, expires_at_epoch=2000,
+        approval_scope="platform_preview_only",
+        evidence_refs=["evidence_packet_alpha"])
+    entry = model.record_approval(
+        ch, p, ledger_entry_id="led-scope", approved_at_epoch=1500,
+        operator_id="jim")
+    assert entry["approval_scope"] == "platform_preview_only"
+    assert entry["evidence_refs"] == ["evidence_packet_alpha"]
+    assert entry["public_postable"] is False
+
+
+def test_record_approval_rejects_missing_evidence_refs():
+    p = _payload()
+    ch = model.create_approval_challenge(
+        p, challenge_id="chal-no-evidence", operator_id="jim",
+        created_at_epoch=1000, expires_at_epoch=2000,
+        evidence_refs=[])
+    with pytest.raises(ValueError) as exc:
+        model.record_approval(
+            ch, p, ledger_entry_id="led-no-evidence",
+            approved_at_epoch=1500, operator_id="jim")
+    assert "approval_evidence_refs_missing" in str(exc.value)
+
+
+def test_validate_rejects_legacy_entry_without_evidence_refs():
+    p = _payload()
+    ledger = model.ApprovalLedger()
+    ch = _challenge(p)
+    entry = _approval(p, ch)
+    entry["evidence_refs"] = []
+    ledger.append_approval(entry)
+    res = model.validate_approval_for_current_payload(
+        ledger, entry, p, now_epoch=1600)
+    assert res["status"] == model.ApprovalStatus.BLOCKED
+    assert "approval_evidence_refs_missing" in res["blocked_reasons"]
+    assert res["public_postable"] is False
+
+
+def test_record_approval_rejects_invalid_approval_scope():
+    p = _payload()
+    ch = model.create_approval_challenge(
+        p, challenge_id="chal-bad-scope", operator_id="jim",
+        created_at_epoch=1000, expires_at_epoch=2000,
+        approval_scope="approve_the_idea",
+        evidence_refs=["evidence_packet_alpha"])
+    with pytest.raises(ValueError) as exc:
+        model.record_approval(
+            ch, p, ledger_entry_id="led-bad-scope",
+            approved_at_epoch=1500, operator_id="jim")
+    assert "approval_scope_invalid" in str(exc.value)
+
+
+def test_packet_advertises_scope_evidence_and_public_block():
+    pkt = model.build_packet()
+    assert pkt["required_approval_scopes"] == list(model.REQUIRED_APPROVAL_SCOPES)
+    assert "approval_scope_is_explicit_and_limited" in pkt["invariants"]
+    assert "approval_requires_evidence_packet_references" in pkt["invariants"]
+    assert pkt["safety_flags"]["public_postable"] is False

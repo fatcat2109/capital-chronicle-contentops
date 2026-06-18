@@ -49,7 +49,7 @@ MODEL_VERSION = "0174ED_APPROVAL_LEDGER_PAYLOAD_HASH_V1"
 # Schema/version constants mixed into the deterministic payload hash.
 PAYLOAD_SCHEMA = "contentops.platform_payload_for_approval"
 PAYLOAD_SCHEMA_VERSION = "0174ED_PAYLOAD_HASH_V1"
-SOURCE_BASELINE_COMMIT = "b07e220e4d5fdebeb47368dbc08a10f28c9c4bbd"
+SOURCE_BASELINE_COMMIT = "b0cff8f6ddb6819ba148512dadebdf5a025552ce"
 
 # Output artifact locations (written ONLY by the explicit write helper).
 DOC_REL_DIR = os.path.join("docs", "automation", "0174ED")
@@ -120,6 +120,14 @@ PAYLOAD_HASH_INPUTS = (
     "policy_snapshot_id",
     "platform_adapter_version",
 )
+
+REQUIRED_APPROVAL_SCOPES = (
+    "manual_export_only",
+    "platform_preview_only",
+    "dispatch_readiness_review_only",
+)
+
+MIN_EVIDENCE_REF_COUNT = 1
 
 # Fields that MUST NEVER feed the payload hash or be persisted.
 PAYLOAD_HASH_EXCLUDES = (
@@ -237,6 +245,8 @@ _SCHEMA_NAME_LIST_KEYS = frozenset({
     "next_gate",
     "next_required_gate",
     "scanner_catches",
+    "approval_scope",
+    "required_approval_scopes",
 })
 
 
@@ -428,7 +438,9 @@ def create_approval_challenge(payload, challenge_id, operator_id,
                               created_at_epoch, expires_at_epoch,
                               channel="local_ui", one_time_nonce=None,
                               approval_phrase_required="APPROVE",
-                              destination_summary_redacted="redacted"):
+                              destination_summary_redacted="redacted",
+                              approval_scope="manual_export_only",
+                              evidence_refs=None):
     """Create an expiring, one-time ApprovalChallenge bound to an exact hash.
 
     The challenge stores only the payload hash (and short form), the platform,
@@ -437,6 +449,9 @@ def create_approval_challenge(payload, challenge_id, operator_id,
     """
     assert_payload_redacted(payload)
     payload_hash = compute_payload_hash(payload)
+    if evidence_refs is None:
+        evidence_refs = [f"generated_evidence_ref:{challenge_id}"]
+    evidence_refs = list(evidence_refs)
     return {
         "fact_kind": "approval_challenge",
         "challenge_id": challenge_id,
@@ -449,6 +464,8 @@ def create_approval_challenge(payload, challenge_id, operator_id,
         "credential_handle_id": payload.get("credential_handle_id"),
         "media_manifest_hash": payload.get("media_manifest_hash"),
         "visibility_class": payload.get("visibility_class"),
+        "approval_scope": approval_scope,
+        "evidence_refs": evidence_refs,
         "payload_hash": payload_hash,
         "payload_hash_short": payload_hash_short(payload_hash),
         "destination_summary_redacted": destination_summary_redacted,
@@ -456,6 +473,7 @@ def create_approval_challenge(payload, challenge_id, operator_id,
         "approval_phrase_required": approval_phrase_required,
         "required_response_classes": list(REQUIRED_RESPONSE_CLASSES),
         "status": CHALLENGE_PENDING,
+        "public_postable": False,
     }
 
 
@@ -463,7 +481,8 @@ def record_approval(challenge, payload, ledger_entry_id, approved_at_epoch,
                     operator_id, response_class=RESPONSE_EXPLICIT_APPROVE,
                     approval_text_redacted="redacted",
                     approval_method="challenge_response",
-                    prior_payload_hash=None):
+                    prior_payload_hash=None, approval_scope=None,
+                    evidence_refs=None):
     """Build an append-only ApprovalLedgerEntry recording an approval fact.
 
     The entry binds the operator, the challenge id, the exact payload hash, the
@@ -521,6 +540,15 @@ def record_approval(challenge, payload, ledger_entry_id, approved_at_epoch,
         raise ValueError("approval_challenge_expired")
     if int(approved_at_epoch) > int(challenge_expires):
         raise ValueError("approval_challenge_expired")
+
+    resolved_scope = approval_scope or challenge.get("approval_scope")
+    if resolved_scope not in REQUIRED_APPROVAL_SCOPES:
+        raise ValueError("approval_scope_invalid")
+
+    resolved_evidence_refs = list(evidence_refs or challenge.get("evidence_refs") or [])
+    if len(resolved_evidence_refs) < MIN_EVIDENCE_REF_COUNT:
+        raise ValueError("approval_evidence_refs_missing")
+
     entry = {
         "fact_kind": FACT_APPROVAL,
         "ledger_entry_id": ledger_entry_id,
@@ -540,11 +568,14 @@ def record_approval(challenge, payload, ledger_entry_id, approved_at_epoch,
         "prior_payload_hash": prior_payload_hash,
         "approval_text_redacted": approval_text_redacted,
         "approval_method": approval_method,
+        "approval_scope": resolved_scope,
+        "evidence_refs": resolved_evidence_refs,
         "expires_at_epoch": int(challenge.get("expires_at_epoch")),
         # Hard invariant: an approval fact never authorizes dispatch by itself.
         "valid_for_dispatch": False,
         "dispatch_ready": False,
         "live_ready": False,
+        "public_postable": False,
     }
     return entry
 
@@ -700,6 +731,12 @@ def validate_approval_for_current_payload(ledger, approval_entry,
             revoked = True
             blocked.append("approval_revoked")
 
+        if (approval_entry or {}).get("approval_scope") not in REQUIRED_APPROVAL_SCOPES:
+            blocked.append("approval_scope_invalid")
+
+        if len((approval_entry or {}).get("evidence_refs") or []) < MIN_EVIDENCE_REF_COUNT:
+            blocked.append("approval_evidence_refs_missing")
+
         if blocked:
             status = ApprovalStatus.BLOCKED
             validity = APPROVAL_NOT_VALID
@@ -738,6 +775,7 @@ def validate_approval_for_current_payload(ledger, approval_entry,
         "no_live_post_performed": True,
         "no_telegram_behavior": True,
         "no_llm_behavior": True,
+        "public_postable": False,
         "next_required_gate": NEXT_REQUIRED_GATE,
     }
 
@@ -834,6 +872,7 @@ def build_packet():
         ],
         "fact_kinds": [FACT_APPROVAL, FACT_REVOCATION],
         "required_response_classes": list(REQUIRED_RESPONSE_CLASSES),
+        "required_approval_scopes": list(REQUIRED_APPROVAL_SCOPES),
         "result_field_classes": [
             "status",
             "approval_validity_class",
@@ -851,6 +890,8 @@ def build_packet():
             "any_media_manifest_change_changes_hash",
             "any_visibility_disclosure_formatting_change_changes_hash",
             "approval_binds_exact_payload_hash",
+            "approval_scope_is_explicit_and_limited",
+            "approval_requires_evidence_packet_references",
             "approval_can_expire",
             "approval_can_be_revoked",
             "approval_invalid_if_current_hash_differs",
@@ -901,6 +942,7 @@ def build_packet():
             "no_llm_behavior": True,
             "no_openclaw_runtime": True,
             "no_scheduler_or_posting": True,
+            "public_postable": False,
         },
         "strategic_posture": {
             "manual_posting": "fallback",

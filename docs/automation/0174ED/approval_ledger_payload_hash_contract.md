@@ -2,7 +2,7 @@
 
 Task: TASK_CONTENTOPS_0174ED_APPROVAL_LEDGER_AND_PAYLOAD_HASH_CONTRACT_V0
 Model: APPROVAL_LEDGER_PAYLOAD_HASH_CONTRACT_0174ED (0174ED_APPROVAL_LEDGER_PAYLOAD_HASH_V1)
-Source baseline commit: b07e220e4d5fdebeb47368dbc08a10f28c9c4bbd
+Source baseline commit: b0cff8f6ddb6819ba148512dadebdf5a025552ce
 Mode: Implementation Mode. Deterministic, stdlib-only, local authority layer.
 
 > [!IMPORTANT]
