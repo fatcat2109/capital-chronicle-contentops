@@ -47,15 +47,14 @@ import re
 from live_contentops import approval_ledger_payload_hash_contract as approval
 
 TASK_LABEL = (
-    "TASK_CONTENTOPS_0174EE_DISPATCH_OUTBOX_IDEMPOTENCY_AND_PREFLIGHT_"
-    "CONTRACT_BATCH_V0"
+    "TASK_CONTENTOPS_0174EE_DISPATCH_OUTBOX_AND_IDEMPOTENCY_CONTRACT_V0"
 )
 MODEL = "DISPATCH_OUTBOX_IDEMPOTENCY_CONTRACT_0174EE"
-MODEL_VERSION = "0174EE_DISPATCH_OUTBOX_IDEMPOTENCY_V1"
+MODEL_VERSION = "0174EE_DISPATCH_OUTBOX_IDEMPOTENCY_V2"
 # Schema/version constants mixed into the deterministic idempotency key.
-OUTBOX_SCHEMA = "contentops.dispatch_outbox_candidate"
-OUTBOX_SCHEMA_VERSION = "0174EE_OUTBOX_IDEMPOTENCY_V1"
-SOURCE_BASELINE_COMMIT = "b07848e61fef10917a38e344743f00a9de655cbb"
+OUTBOX_SCHEMA = "contentops.dispatch_outbox_entry"
+OUTBOX_SCHEMA_VERSION = "0174EE_OUTBOX_IDEMPOTENCY_V2"
+SOURCE_BASELINE_COMMIT = "8cc0b87716d13c33352e9a3918bd35e1a685a75b"
 
 # Output artifact locations (written ONLY by the explicit write helper).
 DOC_REL_DIR = os.path.join("docs", "automation", "0174EE")
@@ -90,9 +89,17 @@ OUTBOX_ELIGIBLE = "eligible_for_local_outbox"
 OUTBOX_NOT_ELIGIBLE = "not_eligible_for_local_outbox"
 OUTBOX_FAIL_CLOSED = "outbox_fail_closed_forbidden_value"
 
-# Outbox entry state classes.
-STATE_LOCAL_RECORD_CREATED = "local_outbox_record_created_not_dispatched"
-STATE_DUPLICATE_SUPPRESSED = "duplicate_idempotency_key_suppressed"
+# Outbox entry state classes requested by current 0174EE contract.
+STATE_ENTRY_CREATED_BLOCKED = "outbox_entry_created_blocked"
+STATE_DUPLICATE_BLOCKED = "outbox_entry_duplicate_blocked"
+STATE_INVALID_APPROVAL_BLOCKED = "outbox_entry_invalid_approval_blocked"
+STATE_REVOKED_BLOCKED = "outbox_entry_revoked_blocked"
+STATE_EXPIRED_BLOCKED = "outbox_entry_expired_blocked"
+STATE_MISSING_FUTURE_GATE_BLOCKED = "outbox_entry_missing_future_gate_blocked"
+
+# Backward-compatible aliases used by later dry-run contracts.
+STATE_LOCAL_RECORD_CREATED = STATE_ENTRY_CREATED_BLOCKED
+STATE_DUPLICATE_SUPPRESSED = STATE_DUPLICATE_BLOCKED
 
 # Dispatch intent classes (symbolic only).
 INTENT_SUPERVISED_SINGLE = "supervised_single_dispatch_candidate"
@@ -109,17 +116,18 @@ IDEMPOTENCY_KEY_INPUTS = (
     "outbox_schema_version",
     "payload_hash",
     "platform",
+    "platform_payload_class",
     "destination_binding_id",
     "credential_handle_id",
     "media_manifest_hash",
-    "visibility_class",
+    "approval_scope",
     "dispatch_intent_class",
     "content_lane",
     "policy_snapshot_id",
     "platform_adapter_version",
-    "approval_ledger_entry_id",
-    "challenge_id",
-    "operator_id",
+    "source_approval_ledger_entry_id",
+    "approval_challenge_id",
+    "requested_by_operator_id",
 )
 
 # Fields that MUST NEVER feed the idempotency key or be persisted.
@@ -167,6 +175,7 @@ BLOCK_VALIDATION_APPROVED_HASH_MISMATCH_ENTRY = (
     "validation_approved_hash_mismatch_entry")
 BLOCK_VALIDATION_ENTRY_MISMATCH = "validation_entry_mismatch"
 BLOCK_VALIDATION_CHALLENGE_MISMATCH = "validation_challenge_mismatch"
+BLOCK_EVIDENCE_REFS_MISSING = "approval_evidence_refs_missing"
 
 # Required authority fields that must be present (non-empty) on a candidate.
 REQUIRED_CANDIDATE_FIELDS = (
@@ -261,25 +270,43 @@ def build_outbox_candidate(current_payload, approval_entry, validation_result,
     payload = current_payload or {}
     entry = approval_entry or {}
     vres = validation_result or {}
-    return {
+    source_ledger_entry_id = entry.get("ledger_entry_id")
+    approval_challenge_id = entry.get("challenge_id")
+    requested_operator_id = operator_id or entry.get("operator_id")
+    platform_payload_class = (
+        payload.get("platform_payload_class") or "approved_payload")
+    approval_scope = entry.get("approval_scope")
+    candidate = {
         "outbox_schema": OUTBOX_SCHEMA,
         "outbox_schema_version": OUTBOX_SCHEMA_VERSION,
         "payload_hash": payload_hash_override or vres.get(
             "current_payload_hash"),
         "platform": payload.get("platform"),
+        "platform_payload_class": platform_payload_class,
         "destination_binding_id": payload.get("destination_binding_id"),
         "credential_handle_id": payload.get("credential_handle_id"),
         "media_manifest_hash": payload.get("media_manifest_hash"),
         "visibility_class": payload.get("visibility_class"),
         "content_lane": payload.get("content_lane"),
+        "approval_scope": approval_scope,
         "dispatch_intent_class": dispatch_intent_class,
         "policy_snapshot_id": gate_snapshot_id,
         "platform_adapter_version": payload.get("platform_adapter_version"),
-        "approval_ledger_entry_id": entry.get("ledger_entry_id"),
-        "challenge_id": entry.get("challenge_id"),
-        "operator_id": operator_id or entry.get("operator_id"),
+        "source_approval_ledger_entry_id": source_ledger_entry_id,
+        "approval_challenge_id": approval_challenge_id,
+        "requested_by_operator_id": requested_operator_id,
+        "evidence_refs": list(entry.get("evidence_refs") or []),
         "gate_snapshot_class": gate_snapshot_class,
+        # Compatibility aliases for existing downstream dry-run contracts.
+        "approval_ledger_entry_id": source_ledger_entry_id,
+        "challenge_id": approval_challenge_id,
+        "operator_id": requested_operator_id,
+        "evidence_refs": list(entry.get("evidence_refs") or []),
     }
+    candidate["idempotency_basis"] = {
+        k: candidate.get(k) for k in IDEMPOTENCY_KEY_INPUTS
+    }
+    return candidate
 
 
 # --------------------------------------------------------------------------- #
@@ -404,6 +431,8 @@ def run_dispatch_preflight(current_payload, approval_entry, validation_result,
             # (e) validation must reference the same challenge id.
             if vres.get("challenge_id") != entry.get("challenge_id"):
                 blocked.append(BLOCK_VALIDATION_CHALLENGE_MISMATCH)
+            if len(entry.get("evidence_refs") or []) < approval.MIN_EVIDENCE_REF_COUNT:
+                blocked.append(BLOCK_EVIDENCE_REFS_MISSING)
 
         # 10. Required authority fields present (non-empty).
         for field in REQUIRED_CANDIDATE_FIELDS:
@@ -478,6 +507,7 @@ def run_dispatch_preflight(current_payload, approval_entry, validation_result,
         "dispatch_performed": False,
         "live_request_performed": False,
         "platform_api_called": False,
+        "provider_api_called": False,
         "credential_hydrated": False,
         "auto_retry_allowed": False,
         "scheduler_enabled": False,
@@ -485,6 +515,9 @@ def run_dispatch_preflight(current_payload, approval_entry, validation_result,
         "llm_behavior": False,
         "dispatch_ready": False,
         "live_ready": False,
+        "public_postable": False,
+        "autonomous_posting_allowed": False,
+        "outbox_only": True,
         "next_required_gate": NEXT_REQUIRED_GATE,
     }
 
@@ -509,24 +542,36 @@ def build_outbox_entry(preflight_result, outbox_entry_id, created_at_epoch):
         "model": MODEL,
         "model_version": MODEL_VERSION,
         "outbox_entry_id": outbox_entry_id,
-        "idempotency_key": idempotency_key,
-        "idempotency_key_short": idempotency_key_short(idempotency_key),
+        "source_approval_ledger_entry_id": cand.get(
+            "source_approval_ledger_entry_id"),
+        "approval_challenge_id": cand.get("approval_challenge_id"),
         "payload_hash": payload_hash,
         "payload_hash_short": _short(payload_hash),
-        "approval_ledger_entry_id": cand.get("approval_ledger_entry_id"),
-        "challenge_id": cand.get("challenge_id"),
-        "operator_id": cand.get("operator_id"),
         "platform": cand.get("platform"),
+        "platform_payload_class": cand.get("platform_payload_class"),
         "destination_binding_id": cand.get("destination_binding_id"),
         "credential_handle_id": cand.get("credential_handle_id"),
         "media_manifest_hash": cand.get("media_manifest_hash"),
+        "approval_scope": cand.get("approval_scope"),
+        "idempotency_key": idempotency_key,
+        "idempotency_key_short": idempotency_key_short(idempotency_key),
+        "idempotency_basis": cand.get("idempotency_basis"),
+        "created_at_epoch": int(created_at_epoch),
+        "requested_by_operator_id": cand.get("requested_by_operator_id"),
+        "status": STATE_ENTRY_CREATED_BLOCKED,
+        "blocked_reasons": [STATE_MISSING_FUTURE_GATE_BLOCKED],
+        "evidence_refs": list(cand.get("evidence_refs") or []),
+        "redacted_audit_refs": ["redacted_outbox_audit_pending"],
+        # Compatibility aliases for existing downstream dry-run contracts.
+        "approval_ledger_entry_id": cand.get("approval_ledger_entry_id"),
+        "challenge_id": cand.get("challenge_id"),
+        "operator_id": cand.get("operator_id"),
         "visibility_class": cand.get("visibility_class"),
         "content_lane": cand.get("content_lane"),
         "dispatch_intent_class": cand.get("dispatch_intent_class"),
         "policy_snapshot_id": cand.get("policy_snapshot_id"),
         "platform_adapter_version": cand.get("platform_adapter_version"),
         "gate_snapshot_class": cand.get("gate_snapshot_class"),
-        "created_at_epoch": int(created_at_epoch),
         "state_class": STATE_LOCAL_RECORD_CREATED,
         # Hard safety invariants -- ALWAYS these values.
         "outbox_created": True,
@@ -534,6 +579,7 @@ def build_outbox_entry(preflight_result, outbox_entry_id, created_at_epoch):
         "dispatch_performed": False,
         "live_request_performed": False,
         "platform_api_called": False,
+        "provider_api_called": False,
         "credential_hydrated": False,
         "auto_retry_allowed": False,
         "scheduler_enabled": False,
@@ -541,6 +587,9 @@ def build_outbox_entry(preflight_result, outbox_entry_id, created_at_epoch):
         "llm_behavior": False,
         "dispatch_ready": False,
         "live_ready": False,
+        "public_postable": False,
+        "autonomous_posting_allowed": False,
+        "outbox_only": True,
     }
     entry["audit_checksum"] = compute_checksum(entry)
     return entry
@@ -612,11 +661,17 @@ class DispatchOutboxRegistry:
                 "dispatch_performed": False,
                 "live_request_performed": False,
                 "platform_api_called": False,
+                "provider_api_called": False,
                 "credential_hydrated": False,
                 "auto_retry_allowed": False,
                 "scheduler_enabled": False,
                 "telegram_behavior": False,
                 "llm_behavior": False,
+                "dispatch_ready": False,
+                "live_ready": False,
+                "public_postable": False,
+                "autonomous_posting_allowed": False,
+                "outbox_only": True,
             }
 
         entry = build_outbox_entry(preflight_result, outbox_entry_id,
@@ -641,11 +696,17 @@ class DispatchOutboxRegistry:
             "dispatch_performed": False,
             "live_request_performed": False,
             "platform_api_called": False,
+            "provider_api_called": False,
             "credential_hydrated": False,
             "auto_retry_allowed": False,
             "scheduler_enabled": False,
             "telegram_behavior": False,
             "llm_behavior": False,
+            "dispatch_ready": False,
+            "live_ready": False,
+            "public_postable": False,
+            "autonomous_posting_allowed": False,
+            "outbox_only": True,
         }
 
     @property

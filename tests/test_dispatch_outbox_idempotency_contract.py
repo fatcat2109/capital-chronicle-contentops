@@ -426,6 +426,55 @@ def test_outbox_entry_never_enables_auto_retry_or_scheduler():
         assert obj["llm_behavior"] is False
 
 
+def test_outbox_entry_contains_requested_contract_fields():
+    pre = _preflight()
+    reg = model.DispatchOutboxRegistry()
+    res = reg.submit(pre, outbox_entry_id="ob-1", created_at_epoch=1700)
+    entry = res["entry"]
+    for field in (
+            "outbox_entry_id", "source_approval_ledger_entry_id",
+            "approval_challenge_id", "payload_hash", "payload_hash_short",
+            "platform", "platform_payload_class", "destination_binding_id",
+            "credential_handle_id", "media_manifest_hash", "approval_scope",
+            "idempotency_key", "idempotency_basis", "created_at_epoch",
+            "requested_by_operator_id", "status", "blocked_reasons",
+            "evidence_refs", "redacted_audit_refs"):
+        assert field in entry
+    assert entry["status"] == model.STATE_ENTRY_CREATED_BLOCKED
+    assert entry["blocked_reasons"] == [model.STATE_MISSING_FUTURE_GATE_BLOCKED]
+    assert entry["evidence_refs"]
+
+
+def test_outbox_entry_exact_safety_flags_false_or_blocked():
+    pre = _preflight()
+    reg = model.DispatchOutboxRegistry()
+    res = reg.submit(pre, outbox_entry_id="ob-1", created_at_epoch=1700)
+    entry = res["entry"]
+    for obj in (pre, res, entry):
+        assert obj["dispatch_ready"] is False
+        assert obj["live_ready"] is False
+        assert obj["platform_api_called"] is False
+        assert obj["provider_api_called"] is False
+        assert obj["credential_hydrated"] is False
+        assert obj["scheduler_enabled"] is False
+        assert obj["public_postable"] is False
+        assert obj["autonomous_posting_allowed"] is False
+        assert obj["outbox_only"] is True
+
+
+def test_missing_evidence_refs_blocks_outbox_creation():
+    p = _payload()
+    ledger, entry = _approved(p)
+    entry = dict(entry)
+    entry["evidence_refs"] = []
+    vres = approval.validate_approval_for_current_payload(
+        ledger, entry, p, now_epoch=1600)
+    pre = model.run_dispatch_preflight(
+        p, entry, vres, gate_snapshot_id="gate_v1")
+    assert pre["status"] == model.OutboxStatus.BLOCKED
+    assert model.BLOCK_EVIDENCE_REFS_MISSING in pre["blocked_reasons"]
+
+
 # --------------------------------------------------------------------------- #
 # Fail-closed redaction + redacted audit (tests 25, 19-family)
 # --------------------------------------------------------------------------- #
@@ -536,11 +585,12 @@ def test_packet_next_task_recommendation():
 
 def test_packet_key_inputs_and_excludes():
     pkt = model.build_packet()
-    for f in ("payload_hash", "platform", "destination_binding_id",
-              "credential_handle_id", "media_manifest_hash", "visibility_class",
+    for f in ("payload_hash", "platform", "platform_payload_class",
+              "destination_binding_id", "credential_handle_id",
+              "media_manifest_hash", "approval_scope",
               "dispatch_intent_class", "policy_snapshot_id",
-              "platform_adapter_version", "approval_ledger_entry_id",
-              "challenge_id"):
+              "platform_adapter_version", "source_approval_ledger_entry_id",
+              "approval_challenge_id", "requested_by_operator_id"):
         assert f in pkt["idempotency_key_inputs"]
     for f in ("raw_token", "api_key", "raw_env_var", "request_headers",
               "cookies"):
@@ -573,7 +623,7 @@ def test_write_artifacts_touches_only_0174ee_dir(tmp_path):
 
 def test_source_baseline_commit_recorded():
     assert model.SOURCE_BASELINE_COMMIT == (
-        "b07848e61fef10917a38e344743f00a9de655cbb")
+        "8cc0b87716d13c33352e9a3918bd35e1a685a75b")
 
 
 # --------------------------------------------------------------------------- #

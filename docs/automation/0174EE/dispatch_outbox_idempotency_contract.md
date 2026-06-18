@@ -1,8 +1,8 @@
 # Dispatch Outbox + Idempotency + Preflight Contract (0174EE)
 
-Task: TASK_CONTENTOPS_0174EE_DISPATCH_OUTBOX_IDEMPOTENCY_AND_PREFLIGHT_CONTRACT_BATCH_V0
-Model: DISPATCH_OUTBOX_IDEMPOTENCY_CONTRACT_0174EE (0174EE_DISPATCH_OUTBOX_IDEMPOTENCY_V1)
-Source baseline commit: b07848e61fef10917a38e344743f00a9de655cbb
+Task: TASK_CONTENTOPS_0174EE_DISPATCH_OUTBOX_AND_IDEMPOTENCY_CONTRACT_V0
+Model: DISPATCH_OUTBOX_IDEMPOTENCY_CONTRACT_0174EE (0174EE_DISPATCH_OUTBOX_IDEMPOTENCY_V2)
+Source baseline commit: 8cc0b87716d13c33352e9a3918bd35e1a685a75b
 Mode: Implementation Mode. Deterministic, stdlib-only, local authority layer.
 
 > [!IMPORTANT]
@@ -35,17 +35,18 @@ it does not bypass them. It is still **not live-ready**.
 - `outbox_schema_version`
 - `payload_hash`
 - `platform`
+- `platform_payload_class`
 - `destination_binding_id`
 - `credential_handle_id`
 - `media_manifest_hash`
-- `visibility_class`
+- `approval_scope`
 - `dispatch_intent_class`
 - `content_lane`
 - `policy_snapshot_id`
 - `platform_adapter_version`
-- `approval_ledger_entry_id`
-- `challenge_id`
-- `operator_id`
+- `source_approval_ledger_entry_id`
+- `approval_challenge_id`
+- `requested_by_operator_id`
 
 ## Idempotency Key Excludes (never keyed or stored)
 - `raw_credential`
@@ -78,7 +79,7 @@ persisted.
 - **DispatchPreflightResult** -- the fail-closed decision
   (`run_dispatch_preflight`).
 - **DispatchOutboxEntry** -- an append-ready local outbox record
-  (`build_outbox_entry`); state `local_outbox_record_created_not_dispatched`.
+  (`build_outbox_entry`); state `outbox_entry_created_blocked`.
 - **DispatchIdempotencyRecord** -- key -> first entry record
   (`build_idempotency_record`).
 - **DispatchOutboxRegistry** -- append-only registry enforcing idempotency-key
