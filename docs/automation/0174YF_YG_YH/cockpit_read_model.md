@@ -1,0 +1,66 @@
+# Cockpit Read Model
+
+> [!IMPORTANT]
+> Cockpit read model only. Review queues are local; live dispatch remains blocked.
+
+- action_counts: `{"copy_markdown_for_substack": 6, "hold": 0, "inspect_telegram_channel_update_preview": 2, "inspect_x_short_preview": 3, "inspect_x_thread_preview": 3, "open_static_cockpit_surface_preview": 0, "record_manual_publish_later": 0, "request_revision": 0}`
+- allowed_actions: `["copy_markdown_for_substack", "inspect_x_thread_preview", "inspect_x_short_preview", "inspect_telegram_channel_update_preview", "record_manual_publish_later", "request_revision", "hold", "open_static_cockpit_surface_preview"]`
+- audit_dry_run_summary: `{"audit_event_count": 23, "dispatch_audit_dry_run_contract_checksum": "0ad3ec27815718ce888fbec6b1171d34ba7d04ff617e29537a5c7e6c2020e9e9", "dispatch_audit_dry_run_fixture_outputs_checksum": "847f5b6ddb2fab4c1bf2bb9c7754fa267d01b1b98000f30a6bd2d9b9bf75ac48", "request_budget_used": 0}`
+- audit_hash_index: `23 items`
+- autonomous_replies_or_dms: `False`
+- blocked_live_dispatch_queue: `5 items`
+- blocker_summary: `{"blocked_reasons": ["kill switch activation missing", "redacted audit packet for real platform response missing", "manual fallback proof missing", "operator supervision window missing", "live dispatch separate approval missing", "credential hydration forbidden in current chain", "platform API calls forbidden in current chain", "provider response not called", "request budget used is 0", "final URL not verified"], "live_dispatch_status": "BLOCKED", "required_future_gates": ["kill_switch_activation", "redacted_audit_packet", "manual_fallback_proof", "operator_supervision_window", "live_dispatch_separate_approval"]}`
+- can_dispatch: `False`
+- chain_reconciliation_summary: `{"full_dry_run_chain_reconciliation_checksum": "f6fde2435b44137ccb53651efc9c9741e91738ba6058e73ad395cf0fc330c448", "readiness_class": "NOT_READY_FOR_LIVE_DISPATCH", "status": "pass"}`
+- cockpit_read_model_checksum: `507d15893d887d552a4a4cb7a49b7879a5ab52cd52df7b7e4142ae94f7247c2e`
+- cockpit_read_model_fixture_outputs_checksum: `d9d1a913868d07c44e57bc0ae8756540462357cb4e15be26a9ebf9edd5826b32`
+- cockpit_read_model_id: `cockpit_read_model_0174YF_YG_YH`
+- credential_hydration_performed: `False`
+- credential_read: `False`
+- current_review_queue: `14 items`
+- dotenv_read: `False`
+- env_read: `False`
+- evidence_index: `[{"checksum": "b69ed234df59c8eda6326515f245a23d8557bba09b846d95fdb57e3173f0acdb", "stage": "cockpit_read_model_policy_checksum"}, {"checksum": "0ad3ec27815718ce888fbec6b1171d34ba7d04ff617e29537a5c7e6c2020e9e9", "stage": "dispatch_audit_dry_run_contract_checksum"}, {"checksum": "847f5b6ddb2fab4c1bf2bb9c7754fa267d01b1b98000f30a6bd2d9b9bf75ac48", "stage": "dispatch_audit_dry_run_fixture_outputs_checksum"}, {"checksum": "f6fde2435b44137ccb53651efc9c9741e91738ba6058e73ad395cf0fc330c448", "stage": "full_dry_run_chain_reconciliation_checksum"}, {"checksum": "16ae5e7873481e8692622f7b2fba2c8356f4041f3480cb3be1e1ae56fa75639f", "stage": "manual_export_review_fixture_outputs_checksum"}, {"checksum": "6fe6b88583ce7dd403093d6a83168cd98624a754e135e980aa20c47e3d1398ab", "stage": "manual_export_review_policy_checksum"}, {"checksum": "4746a909dd1d85752382cd4c3e518c88b84a515f238b97cd1c82d90c51909e8a", "stage": "manual_export_review_surface_checksum"}, {"checksum": "17ab5de3e186b705d3bdf4b7d031770d7c426e888220c0164409d963ba55d2fe", "stage": "next_cockpit_read_model_contract_checksum"}, {"checksum": "268d23bf3d265e101ec7a6fad0c585858c1ea276cc995d7a123ae88f485411fe", "stage": "platform_universe_registry_checksum"}, {"checksum": "63189c93969955cda3f397b9337a98e79faf059769d44e23bec331d208a802b0", "stage": "supervised_dispatch_readiness_summary_checksum"}]`
+- evidence_refs: `["b69ed234df59c8eda6326515f245a23d8557bba09b846d95fdb57e3173f0acdb", "0ad3ec27815718ce888fbec6b1171d34ba7d04ff617e29537a5c7e6c2020e9e9", "847f5b6ddb2fab4c1bf2bb9c7754fa267d01b1b98000f30a6bd2d9b9bf75ac48", "f6fde2435b44137ccb53651efc9c9741e91738ba6058e73ad395cf0fc330c448", "16ae5e7873481e8692622f7b2fba2c8356f4041f3480cb3be1e1ae56fa75639f", "6fe6b88583ce7dd403093d6a83168cd98624a754e135e980aa20c47e3d1398ab", "4746a909dd1d85752382cd4c3e518c88b84a515f238b97cd1c82d90c51909e8a", "17ab5de3e186b705d3bdf4b7d031770d7c426e888220c0164409d963ba55d2fe", "268d23bf3d265e101ec7a6fad0c585858c1ea276cc995d7a123ae88f485411fe", "63189c93969955cda3f397b9337a98e79faf059769d44e23bec331d208a802b0", "451ad5a824ba8f6bac186062c06a483db988c8b4632d39ea514ca23a1cb1631f", "300e2c50375ac7073f9f517c11ecb6e2615feff0f1dec3d6e6e19bbc5ef9c77a", "c1b98e0d8f5e6849f426f50b9df72b79c47c1ce9a3bcc8519142ae562ea31edc", "1a90368d22c170628905248baefe81945fd1c9955108332e4164064fba0c7612", "f0e53e0563a0d3910920213aeb8e3828cd0def900f56dc144943df4f24954eb9", "e7148e59ec7fe3d02ea99ff773dcce95386d61b6dbc39a4bbb2265cdb770feea", "b236154c187edcd1b73b717243be9ee8b9296eac724b52c082ed974760757bfd", "6ffb6f9129d2aa0d8e368057405636a5d6269c698987477bea6cabdec35068fb", "3432bded88d3aaa4edbb77bcf39417b53a399e13a9dbb481a3e4fe924f5a7e50", "460b5f2ffa524d04dddedd1e2b2b06306710d3f5d19f03ec0ea42ab590fab05e", "eb0f32909b67132bf8efda51ac61956b9757487325d9dd02c9043cd03e2cc0db", "aede6a4c2f95f6efaf5f0365652e8e4e43b03f85d09141c25f07502588d7b158", "78a9e5cbabd9b9ff10a3f8926cc435ca79682f4f7109380029ee232ee79cddec", "195c169321c06afd954743bb243857421f3ef5cfe5ee5cab7f1c80c6658fea8f", "e25e594836b63541e818e220bbc2dd23de79ce39a07a2a989f6699ca4cac7284", "18947de2eece526aba3ff39370257c8cc9ba62974e1614b9cc828edb55ccf571", "242fcb64ed65cdccf7edbcde3e7fd544a2ebaef1b9968d0d98eb4d490cd0d2df", "b0019fba32adc7d507622b51b48921c3a25d8e884a6e18e9fedda9cd091e8f12", "02300811bf6513572c5deadce779263fb9bbe6fbd06cf89fd80998073806f397", "f53bd00ad1dca39ca565a3736709720a276497851ff738366d2a3c0b38a76ec2", "2b399b010f4de3eced1f6b74e3c8013801ccfa5d488a9eaa47e9816079b7dce0", "7508a15d1175822bdafca9ddbccd526f6a3842125b023c828e926dbb9a2cc34a", "7797922aa4ff8d39699cad8ddc7c8b523815b799f6f8dc244a515554227e6462", "f6fde2435b44137ccb53651efc9c9741e91738ba6058e73ad395cf0fc330c448", "f6fde2435b44137ccb53651efc9c9741e91738ba6058e73ad395cf0fc330c448", "6fe6b88583ce7dd403093d6a83168cd98624a754e135e980aa20c47e3d1398ab"]`
+- forbidden_actions: `["live_dispatch", "credential_hydration", "platform_api_call", "autonomous_posting", "scheduling", "reply_or_dm", "scraping"]`
+- is_local_only: `True`
+- live_dispatch_status: `BLOCKED`
+- live_post_performed: `False`
+- live_ready_state_created: `False`
+- llm_provider_api_called: `False`
+- local_governance_status: `PASS_DRY_RUN_CHAIN`
+- manual_export_queue: `6 items`
+- manual_export_status: `REVIEW_ONLY_READY_FOR_OPERATOR`
+- model: `COCKPIT_READ_MODEL_CONTRACT_0174YF_YG_YH`
+- model_version: `0174YF_YG_YH_COCKPIT_READ_MODEL_CONTRACT_V1`
+- network_performed: `False`
+- next_builder_task: `TASK_CONTENTOPS_0174YI_YJ_YK_STATIC_COCKPIT_SURFACE_CONTRACT_V0`
+- next_operator_action: `review manual export queue or open static cockpit surface preview`
+- no_forbidden_readiness_claim_proof: `pass_no_forbidden_readiness_claims_in_cockpit_read_model`
+- no_live_behavior_proof: `{"autonomous_replies_or_dms": false, "credential_hydration_performed": false, "credential_read": false, "dotenv_read": false, "env_read": false, "is_local_only": true, "live_post_performed": false, "live_ready_state_created": false, "llm_provider_api_called": false, "network_performed": false, "platform_api_called": false, "platform_dispatch_performed": false, "proof": "pass_no_live_env_network_platform_provider_behavior", "provider_api_called": false, "public_ready_content_generated": false, "raw_request_persisted": false, "raw_response_persisted": false, "scheduler_enabled": false, "scraping_performed": false, "substack_api_called": false, "telegram_api_called": false, "token_logged": false, "x_api_called": false}`
+- operator_summary: `{"blocked_live_dispatch_count": 5, "first_safe_action": "review manual export queue, then inspect preview queues", "next_builder_task": "TASK_CONTENTOPS_0174YI_YJ_YK_STATIC_COCKPIT_SURFACE_CONTRACT_V0", "reviewable_now_count": 14}`
+- payload_hash_index: `14 items`
+- payload_hash_index_proof: `pass_hashes_only_no_raw_credential_token_destination_env_path_live_url_provider_output`
+- platform_api_called: `False`
+- platform_counts: `{"substack": 6, "telegram": 2, "x": 6}`
+- platform_dispatch_performed: `False`
+- platform_statuses: `{"substack": "MANUAL_EXPORT_ONLY_NO_API", "telegram": "PREVIEW_ONLY_FROZEN_NO_SEND", "x": "PREVIEW_ONLY_NO_API"}`
+- protected_output_path: `docs\automation\0174YF_YG_YH`
+- provider_api_called: `False`
+- public_postable: `False`
+- public_ready_content_generated: `False`
+- raw_request_persisted: `False`
+- raw_response_persisted: `False`
+- readiness_class: `NOT_READY_FOR_LIVE_DISPATCH`
+- required_future_gates: `["kill_switch_activation", "redacted_audit_packet", "manual_fallback_proof", "operator_supervision_window", "live_dispatch_separate_approval"]`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `ab91f3e7b2773b33301e7c05f5042196c762fd12`
+- status: `pass`
+- substack_api_called: `False`
+- task_label: `TASK_CONTENTOPS_0174YF_YG_YH_COCKPIT_READ_MODEL_CONTRACT_V0`
+- telegram_api_called: `False`
+- telegram_preview_queue: `2 items`
+- token_logged: `False`
+- x_api_called: `False`
+- x_preview_queue: `6 items`

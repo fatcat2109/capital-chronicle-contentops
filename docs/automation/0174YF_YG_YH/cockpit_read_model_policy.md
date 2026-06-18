@@ -1,0 +1,52 @@
+# Cockpit Read Model Policy
+
+> [!IMPORTANT]
+> Local cockpit read model only. Live dispatch remains blocked; no platform/provider/env/credential behavior occurs.
+
+- allowed_actions: `["copy_markdown_for_substack", "inspect_x_thread_preview", "inspect_x_short_preview", "inspect_telegram_channel_update_preview", "record_manual_publish_later", "request_revision", "hold", "open_static_cockpit_surface_preview"]`
+- autonomous_replies_or_dms: `False`
+- blocker_first_read_model: `True`
+- can_dispatch: `False`
+- cockpit_read_model_only: `True`
+- cockpit_read_model_policy_checksum: `b69ed234df59c8eda6326515f245a23d8557bba09b846d95fdb57e3173f0acdb`
+- credential_hydration_performed: `False`
+- credential_read: `False`
+- dotenv_read: `False`
+- env_read: `False`
+- forbidden_actions: `["live_dispatch", "credential_hydration", "platform_api_call", "autonomous_posting", "scheduling", "reply_or_dm", "scraping"]`
+- forbidden_material_patterns: `["bot\\d+:[a-z0-9_-]{20,}", "\\bchat[_-]?id\\b", "\\braw[_-]?destination\\b", "\\bsecret\\b", "\\.env", "https?://", "provider_response"]`
+- forbidden_readiness_claims: `["production-ready", "live-ready", "dispatch-ready", "ready to send", "public-postable"]`
+- human_review_required: `True`
+- is_local_only: `True`
+- live_dispatch_status: `BLOCKED`
+- live_post_performed: `False`
+- live_ready_state_created: `False`
+- llm_provider_api_called: `False`
+- local_governance_status: `PASS_DRY_RUN_CHAIN`
+- manual_export_status: `REVIEW_ONLY_READY_FOR_OPERATOR`
+- model: `COCKPIT_READ_MODEL_POLICY_0174YF_YG_YH`
+- model_version: `0174YF_YG_YH_COCKPIT_READ_MODEL_POLICY_V1`
+- network_performed: `False`
+- next_task_must_be_static_cockpit_surface: `True`
+- no_financial_advice: `True`
+- no_signal_language: `True`
+- platform_api_called: `False`
+- platform_dispatch_performed: `False`
+- platform_statuses: `{"substack": "MANUAL_EXPORT_ONLY_NO_API", "telegram": "PREVIEW_ONLY_FROZEN_NO_SEND", "x": "PREVIEW_ONLY_NO_API"}`
+- platforms: `["substack", "x", "telegram"]`
+- provider_api_called: `False`
+- public_postable: `False`
+- public_ready_content_generated: `False`
+- raw_request_persisted: `False`
+- raw_response_persisted: `False`
+- readiness_class: `NOT_READY_FOR_LIVE_DISPATCH`
+- required_future_gates: `["kill_switch_activation", "redacted_audit_packet", "manual_fallback_proof", "operator_supervision_window", "live_dispatch_separate_approval"]`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `ab91f3e7b2773b33301e7c05f5042196c762fd12`
+- status: `pass`
+- substack_api_called: `False`
+- task_label: `TASK_CONTENTOPS_0174YF_YG_YH_COCKPIT_READ_MODEL_CONTRACT_V0`
+- telegram_api_called: `False`
+- token_logged: `False`
+- x_api_called: `False`
