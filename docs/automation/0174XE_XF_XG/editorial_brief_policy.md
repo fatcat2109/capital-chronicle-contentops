@@ -1,0 +1,33 @@
+# Editorial Brief Policy
+
+- approval_ledger_mutated: `False`
+- autonomous_replies_or_dms: `False`
+- can_create_approval_always_false: `True`
+- can_dispatch_always_false: `True`
+- credential_read: `False`
+- dispatch_outbox_mutated: `False`
+- dotenv_read: `False`
+- editorial_brief_policy_checksum: `2a4f71fb111ded5b79b2f47e8c99adff035ce91812a6ba820710f78b04398ecf`
+- env_read: `False`
+- human_review_required_always: `True`
+- is_local_only: `True`
+- live_post_performed: `False`
+- llm_provider_api_called: `False`
+- model: `EDITORIAL_BRIEF_POLICY_0174XE_XF_XG`
+- model_version: `0174XE_XF_XG_EDITORIAL_BRIEF_POLICY_V1`
+- network_performed: `False`
+- no_financial_advice_always: `True`
+- no_signal_language_always: `True`
+- platform_api_called: `False`
+- policy_rules: `{"approval_like_intent": "cannot_create_approval", "direct_dispatch_intent": "cannot_create_outbox", "empty_ambiguous_intent": "requires_clarification", "expansion": "threads_instagram_facebook_page_dry_run_only", "future_artifact_backed": "blocked_without_artifact_intake_gate", "grounded_news_context": "news_hook_never_signal", "linkedin": "secondary_professional_credibility_review_gated", "signal_advice_language": "blocks_brief_generation_or_safe_reframe", "substack": "owned_long_form_authority_manual_export_path", "telegram": "channel_update_distinct_from_remote_inbox", "x": "short_form_thread_preview_only_not_posting"}`
+- provider_api_called: `False`
+- public_postable_always_false: `True`
+- public_ready_content_generated: `False`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `73eb5797f2413f32989efa57c600eb014a1db507`
+- status: `pass`
+- supported_content_lanes: `["pre_alpha_general_process", "grounded_news_context", "future_artifact_backed", "blocked_or_unknown"]`
+- supported_platform_tiers: `{"expansion_channel_fit": ["threads", "instagram", "facebook_page"], "primary_brand_channel_fit": ["x", "telegram", "substack"], "secondary_channel_fit": ["linkedin"]}`
+- task_label: `TASK_CONTENTOPS_0174XE_XF_XG_LLM_INTENT_EDITORIAL_BRIEF_CONTRACT_V0`
+- telegram_api_called: `False`

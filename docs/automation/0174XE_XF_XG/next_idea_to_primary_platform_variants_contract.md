@@ -1,0 +1,29 @@
+# Next Idea To Primary Platform Variants Contract
+
+- allowed_outputs: `["review_draft_candidate", "x_thread_preview", "substack_manual_export_draft", "telegram_inbox_response_candidate"]`
+- approval_ledger_mutated: `False`
+- autonomous_replies_or_dms: `False`
+- credential_read: `False`
+- dispatch_outbox_mutated: `False`
+- dotenv_read: `False`
+- editorial_brief_contract_checksum: `6cfa4cb84f83673cbc760865f176e59ae03c3e5302b29bce81256f02b96e8691`
+- editorial_brief_fixture_outputs_checksum: `6c6216714e9b74397e0ab60fd14cbc96d1125865fa4cb2530a13dd871dfc221e`
+- env_read: `False`
+- forbidden_outputs: `["approval", "dispatch", "public_post", "credential_access", "platform_api_call"]`
+- is_local_only: `True`
+- live_post_performed: `False`
+- llm_provider_api_called: `False`
+- model: `NEXT_IDEA_TO_PRIMARY_PLATFORM_VARIANTS_CONTRACT_0174XE_XF_XG`
+- model_version: `0174XE_XF_XG_NEXT_IDEA_TO_PRIMARY_PLATFORM_VARIANTS_CONTRACT_V1`
+- network_performed: `False`
+- next_batch_prompt: `TASK_CONTENTOPS_0174XH_XI_XJ_IDEA_TO_PRIMARY_PLATFORM_VARIANTS_DRY_RUN_V0`
+- next_scope: `idea_to_primary_platform_variants_dry_run_local_only`
+- next_variants_contract_checksum: `8156798cec8ef74990f08d97bd117c9d8c179ee0eda112c95161663ed290b0cf`
+- platform_api_called: `False`
+- provider_api_called: `False`
+- public_ready_content_generated: `False`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `73eb5797f2413f32989efa57c600eb014a1db507`
+- task_label: `TASK_CONTENTOPS_0174XH_XI_XJ_IDEA_TO_PRIMARY_PLATFORM_VARIANTS_DRY_RUN_V0`
+- telegram_api_called: `False`
