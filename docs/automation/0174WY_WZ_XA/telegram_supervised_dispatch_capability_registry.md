@@ -1,0 +1,40 @@
+# Telegram Supervised Dispatch Capability Registry
+
+- autonomous_reply_or_dm_performed: `False`
+- blockers: `[]`
+- credential_read: `False`
+- default_next_task_class: `platform_registry_and_remote_inbox_pipeline`
+- dotenv_read: `False`
+- env_read: `False`
+- future_live_send_allowed_for: `["explicit_regression_test", "new_platform_adapter_proof", "new_account_or_channel_binding_proof", "user_approved_supervised_production_payload", "security_or_audit_retest_after_dispatch_path_change"]`
+- future_live_send_not_allowed_for: `["arbitrary_ledgerN_increment", "metadata_stress_testing", "proof_of_life_ping", "cosmetic_audit_update"]`
+- is_local_only: `True`
+- latest_accepted_ledger_count: `12`
+- latest_chain_hardening_audit_checksum: `d32844aa049072fc3712e4fcd06cd660d911f440d250078cc245c67838ca52bf`
+- latest_dispatch_proof_checksum: `93c8bc238f6a0f823ed8ee6c85c621f1908e7d9ed6c4ea991275175b80005865`
+- latest_remote_loop_state_checksum: `56fd3ac4b4aabf30e679fd2aff4ce9a62e03e86c20a70557febe85741e28a9cc`
+- latest_successful_sequence: `13`
+- live_post_performed: `False`
+- model: `TELEGRAM_SUPERVISED_DISPATCH_CAPABILITY_REGISTRY_0174WY_WZ_XA`
+- model_version: `0174WY_WZ_XA_TELEGRAM_SUPERVISED_DISPATCH_CAPABILITY_REGISTRY_V1`
+- network_performed: `False`
+- new_live_send_runner_created: `False`
+- next_live_send_allowed: `false_by_default`
+- next_product_work: `["remote_ingress", "intent_parser", "editorial_workflow", "approval_authority", "dispatch_preparation", "evidence_cockpit_integration"]`
+- no_more_ledger_treadmill: `True`
+- platform_api_called: `False`
+- provider_api_called: `False`
+- refuses_new_ledger_to_ledger_live_send_next_task: `True`
+- registry_checksum: `e2f98551d197eb463cc72d4307fb153fe6bf83a28d034d518e11d05e555c3cc6`
+- requires_new_exact_payload_hash: `True`
+- requires_new_manual_gate_packet: `True`
+- requires_new_operator_task: `True`
+- requires_new_outbox_entry: `True`
+- requires_regression_reason: `True`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `d0e8d7f0e3c9bf84704cb66c602e75f7b9e8af62`
+- status: `pass`
+- task_label: `TASK_CONTENTOPS_0174WY_WZ_XA_TELEGRAM_DISPATCH_FREEZE_AND_PLATFORM_UNIVERSE_REGISTRY_V2_PRIMARY_CHANNELS_V0`
+- telegram_api_called: `False`
+- telegram_channel_dispatch_status: `proven_frozen`

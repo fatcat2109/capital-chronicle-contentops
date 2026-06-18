@@ -1,0 +1,30 @@
+# Next Product Direction
+
+- autonomous_replies_or_dms: `False`
+- credential_read: `False`
+- direction: `remote_operator_inbox_and_intent_ingress_dry_run`
+- dotenv_read: `False`
+- env_read: `False`
+- exact_next_batch_prompt: `TASK_CONTENTOPS_0174XB_XC_XD_REMOTE_OPERATOR_INBOX_INTENT_INGRESS_DRY_RUN_BATCH_V0`
+- is_local_only: `True`
+- linkedin_api_called: `False`
+- live_post_performed: `False`
+- meta_api_called: `False`
+- model: `NEXT_PRODUCT_DIRECTION_0174WY_WZ_XA`
+- model_version: `0174WY_WZ_XA_NEXT_PRODUCT_DIRECTION_V1`
+- network_performed: `False`
+- next_product_direction_checksum: `e68b53fd18343454a44848d8ded433a0c0391ef69ac9635a1e5e0b3bf6b8699a`
+- no_more_ledger_treadmill: `True`
+- platform_api_called: `False`
+- platform_universe_registry_checksum: `268d23bf3d265e101ec7a6fad0c585858c1ea276cc995d7a123ae88f485411fe`
+- product_work: `["remote_operator_inbox", "intent_ingress_dry_run", "intent_parser", "editorial_workflow", "approval_authority", "dispatch_preparation", "evidence_cockpit_integration"]`
+- provider_api_called: `False`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `d0e8d7f0e3c9bf84704cb66c602e75f7b9e8af62`
+- substack_api_called: `False`
+- task_label: `TASK_CONTENTOPS_0174WY_WZ_XA_NEXT_PRODUCT_DIRECTION_V0`
+- telegram_api_called: `False`
+- telegram_dispatch_status: `proven_frozen`
+- tiktok_or_youtube_api_called: `False`
+- x_api_called: `False`

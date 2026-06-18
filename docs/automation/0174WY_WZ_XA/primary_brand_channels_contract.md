@@ -1,0 +1,28 @@
+# Primary Brand Channels Contract
+
+- autonomous_replies_or_dms: `False`
+- credential_read: `False`
+- dotenv_read: `False`
+- env_read: `False`
+- is_local_only: `True`
+- linkedin_api_called: `False`
+- live_post_performed: `False`
+- meta_api_called: `False`
+- model: `PRIMARY_BRAND_CHANNELS_CONTRACT_0174WY_WZ_XA`
+- model_version: `0174WY_WZ_XA_PRIMARY_BRAND_CHANNELS_CONTRACT_V1`
+- network_performed: `False`
+- payload_classes: `["x_short_post", "x_thread", "telegram_channel_update", "telegram_operator_review_message", "substack_newsletter_issue", "substack_longform_post", "linkedin_professional_post", "threads_short_post", "instagram_carousel_script", "facebook_page_post"]`
+- platform_api_called: `False`
+- platform_universe_registry_checksum: `268d23bf3d265e101ec7a6fad0c585858c1ea276cc995d7a123ae88f485411fe`
+- primary_brand_channels: `["x", "telegram", "substack"]`
+- primary_brand_channels_contract_checksum: `e7797aac3f8c069a4a63d19df211970d0410b1ed1faa178d60bdc5fa72262f1e`
+- primary_channel_roles: `{"substack": {"api_call_allowed_now": false, "credentials_allowed_now": false, "initial_support": "manual_markdown_newsletter_export_first", "owned_media": true, "posting_allowed_now": false, "role": "primary_owned_audience_long_form_authority_channel"}, "telegram": {"dispatch_status": "proven_frozen", "inbox_status": "needs_product_buildout", "roles": ["remote_operator_inbox", "supervised_channel_dispatch_destination"], "roles_must_never_collapse": true}, "x": {"autonomous_replies_or_dms_allowed": false, "cost_rate_spend_gates": "later", "execution_status": "dry_run_first", "role": "narrative_velocity_short_form_distribution_public_discussion_threads_hooks_fast_feedback", "signal_framing_allowed": false}}`
+- provider_api_called: `False`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `d0e8d7f0e3c9bf84704cb66c602e75f7b9e8af62`
+- substack_api_called: `False`
+- task_label: `TASK_CONTENTOPS_0174WY_WZ_XA_PRIMARY_BRAND_CHANNELS_CONTRACT_V0`
+- telegram_api_called: `False`
+- tiktok_or_youtube_api_called: `False`
+- x_api_called: `False`
