@@ -26,20 +26,21 @@ export function CommandCenter() {
     <div className="space-y-8">
       <header>
         <div className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-fg-subtle">
-          <StatusDot status="verified" />
-          Editorial operations
+          <StatusDot status="blocked" />
+          Cockpit read model · local static contract
         </div>
         <h1 className="mt-2 text-2xl font-semibold tracking-tight text-fg">
           Command Center
         </h1>
-        <p className="mt-1 max-w-2xl text-sm leading-relaxed text-fg-muted">
-          Local-first, review-only control surface. No live posting, no
-          scheduler, no provider or platform API. Every action below is a
-          supervised, manual step.
+        <p className="mt-1 max-w-3xl text-sm leading-relaxed text-fg-muted">
+          V5 cockpit is bound to the current local read model. It shows reviewable work,
+          manual export, platform previews, blocked live dispatch, payload hashes,
+          evidence index, and the next safe operator action. No live posting, no
+          scheduler, no platform/provider API, and no credential hydration.
         </p>
       </header>
 
-      {/* Decision spine — verdict + next action paired with the top blocker. */}
+      {/* Cockpit spine — readiness, next action, and hard live-dispatch blocker. */}
       <section className="grid grid-cols-1 gap-4 lg:grid-cols-5">
         <button
           type="button"
@@ -49,22 +50,39 @@ export function CommandCenter() {
             verdictActive ? 'border-accent/50 ring-1 ring-accent/20' : 'border-line'
           }`}
         >
-          <div className="flex items-center gap-3">
-            <span className="flex h-10 w-1.5 shrink-0 rounded-full bg-status-verified" />
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="flex h-10 w-1.5 shrink-0 rounded-full bg-status-blocked" />
             <StatusChip status={s.verdict_status} icon>
               {s.verdict}
             </StatusChip>
             <span className="font-mono text-[11px] text-fg-subtle">
-              {s.baseline_ref}
+              {viewModel.cockpit.current_gate}
             </span>
           </div>
-          <div className="mt-4 rounded-lg border border-line bg-surface-2 p-3">
-            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
-              Next allowed action
+          <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-lg border border-line bg-surface-2 p-3">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                Next safe operator action
+              </div>
+              <p className="mt-1 text-sm font-medium text-fg">
+                {s.next_allowed_action}
+              </p>
             </div>
-            <p className="mt-1 text-sm font-medium text-fg">
-              {s.next_allowed_action}
-            </p>
+            <div className="rounded-lg border border-line bg-surface-2 p-3">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                Accepted baseline
+              </div>
+              <p className="mt-1 break-all font-mono text-[12px] font-medium text-fg">
+                {viewModel.cockpit.accepted_baseline}
+              </p>
+            </div>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {viewModel.cockpit.safety_modes.map((mode) => (
+              <span key={mode} className="rounded-md border border-line bg-surface-2 px-1.5 py-0.5 font-mono text-[10.5px] text-fg-muted">
+                {mode}
+              </span>
+            ))}
           </div>
           <span className="mt-3 flex items-center gap-1 font-mono text-[11px] text-fg-subtle group-hover:text-fg-muted">
             Inspect verdict
@@ -84,15 +102,20 @@ export function CommandCenter() {
         >
           <div className="flex items-center justify-between gap-2">
             <span className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-status-blocked">
-              Top blocker
+              Blocked live dispatch
             </span>
-            <StatusChip status={topBlocker.severity}>{topBlocker.id}</StatusChip>
+            <StatusChip status="blocked">
+              {viewModel.cockpit.blocked_live_dispatch_queue.length} gates
+            </StatusChip>
           </div>
           <p className="mt-3 text-sm font-semibold leading-snug text-fg">
             {topBlocker.label}
           </p>
           <p className="mt-1 text-[12px] leading-relaxed text-fg-muted">
             {topBlocker.detail}
+          </p>
+          <p className="mt-3 font-mono text-[10.5px] text-status-blocked">
+            can_dispatch: false · public_postable: false
           </p>
           <span className="mt-auto flex items-center gap-1 pt-3 font-mono text-[11px] text-fg-subtle group-hover:text-fg-muted">
             Inspect blocker
@@ -101,15 +124,15 @@ export function CommandCenter() {
         </button>
       </section>
 
-      {/* Pipeline health — dense strip, not a standalone board. */}
+      {/* Pipeline health — cockpit queue counts, not a standalone board. */}
       <section>
-        <SectionLabel>Pipeline health</SectionLabel>
+        <SectionLabel>Cockpit queues</SectionLabel>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          {s.pipeline_health.map((m) => (
+          {s.queue_summary.map((m) => (
             <Metric
               key={m.label}
               label={m.label}
-              value={m.value}
+              value={String(m.count)}
               status={m.status}
             />
           ))}

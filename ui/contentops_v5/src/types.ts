@@ -390,6 +390,9 @@ export interface ManualPublishRecord {
   audit_status: StatusKind;
   caveat: string;
   blocked_reason: string;
+  allowed_operator_action?: string;
+  evidence_refs?: string[];
+  public_postable?: false;
   live_status: 'MANUAL_ONLY';
   platform_api_status: 'NO_PLATFORM_API';
   credential_status: 'NO_CREDENTIAL_READ';
@@ -400,8 +403,114 @@ export interface ManualPublishRecord {
   can_post_live: false;
 }
 
+export interface CockpitQueueItem {
+  item_id: string;
+  platform: 'substack' | 'x' | 'telegram' | string;
+  payload_class: string;
+  payload_hash: string;
+  payload_hash_short: string;
+  review_status: string;
+  allowed_operator_action: string;
+  can_dispatch: false;
+  public_postable: false;
+  human_review_required: boolean;
+  no_financial_advice: boolean;
+  no_signal_language: boolean;
+  evidence_refs: string[];
+  limitations: string[];
+  source_notes: string[];
+}
+
+export interface CockpitBlockedDispatchItem {
+  blocker_id: string;
+  status: 'BLOCKED';
+  reason: string;
+  required_future_gate: string;
+  allowed_operator_action: 'hold';
+  can_dispatch: false;
+  public_postable: false;
+  human_review_required: boolean;
+}
+
+export interface CockpitEvidenceEntry {
+  stage: string;
+  checksum: string;
+}
+
+export interface CockpitNoLiveProof {
+  proof: string;
+  is_local_only: boolean;
+  network_performed: false;
+  credential_read: false;
+  env_read: false;
+  dotenv_read: false;
+  provider_api_called: false;
+  llm_provider_api_called: false;
+  platform_api_called: false;
+  platform_dispatch_performed: false;
+  live_post_performed: false;
+  live_ready_state_created: false;
+  scheduler_enabled: false;
+  scraping_performed: false;
+  autonomous_replies_or_dms: false;
+  public_ready_content_generated: false;
+  token_logged: false;
+  raw_request_persisted: false;
+  raw_response_persisted: false;
+  substack_api_called: false;
+  telegram_api_called: false;
+  x_api_called: false;
+}
+
+export interface CockpitReadModelPacket {
+  task_label: string;
+  model: string;
+  model_version: string;
+  cockpit_read_model_id: string;
+  cockpit_read_model_checksum: string;
+  source_baseline_commit: string;
+  readiness_class: string;
+  status: 'pass';
+  live_dispatch_status: 'BLOCKED';
+  can_dispatch: false;
+  public_postable: false;
+  manual_export_status: string;
+  next_operator_action: string;
+  local_governance_status: string;
+  platform_statuses: Record<string, string>;
+  platform_counts: Record<string, number>;
+  operator_summary: {
+    reviewable_now_count: number;
+    blocked_live_dispatch_count: number;
+    first_safe_action: string;
+  };
+  blocker_summary: {
+    live_dispatch_status: 'BLOCKED';
+    required_future_gates: string[];
+    blocked_reasons: string[];
+  };
+  no_live_behavior_proof: CockpitNoLiveProof;
+  action_counts: Record<string, number>;
+  current_review_queue: CockpitQueueItem[];
+  blocked_live_dispatch_queue: CockpitBlockedDispatchItem[];
+  evidence_index: CockpitEvidenceEntry[];
+}
+
+export interface CockpitViewModel {
+  packet: CockpitReadModelPacket;
+  manual_export_queue: CockpitQueueItem[];
+  x_preview_queue: CockpitQueueItem[];
+  telegram_preview_queue: CockpitQueueItem[];
+  blocked_live_dispatch_queue: CockpitBlockedDispatchItem[];
+  evidence_index: CockpitEvidenceEntry[];
+  safety_modes: string[];
+  current_gate: string;
+  accepted_baseline: string;
+}
+
 export interface ContentOpsViewModel {
   system_state: SystemState;
+  cockpit: CockpitViewModel;
   content_items: ContentItem[];
   editorial_draft: EditorialDraft;
   ai_writer_lab: AiWriterLab;
