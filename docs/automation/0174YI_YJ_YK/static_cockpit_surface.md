@@ -1,0 +1,75 @@
+# Static Cockpit Surface
+
+> [!IMPORTANT]
+> Static cockpit preview only. Live dispatch remains blocked; APIs remain off.
+
+- allowed_actions: `8 items`
+- autonomous_replies_or_dms: `False`
+- blocked_live_dispatch_count: `5`
+- blocked_live_dispatch_queue: `5 items`
+- blocker_summary: `{"blocked_reasons": ["kill switch activation missing", "redacted audit packet for real platform response missing", "manual fallback proof missing", "operator supervision window missing", "live dispatch separate approval missing", "credential hydration forbidden in current chain", "platform API calls forbidden in current chain", "provider response not called", "request budget used is 0", "final URL not verified"], "live_dispatch_status": "BLOCKED", "required_future_gates": ["kill_switch_activation", "redacted_audit_packet", "manual_fallback_proof", "operator_supervision_window", "live_dispatch_separate_approval"]}`
+- can_dispatch: `False`
+- credential_hydration_performed: `False`
+- credential_read: `False`
+- dotenv_read: `False`
+- env_read: `False`
+- evidence_index: `5 items`
+- evidence_refs: `41 items`
+- external_assets_allowed: `False`
+- forbidden_actions: `8 items`
+- html_checksum: `e7e83d8e61cb6b7af1c4535f1669f4f787e1b154c0e423e292ebb0c09b53abda`
+- html_file: `static_cockpit_surface.html`
+- html_forms_allowed: `False`
+- html_scripts_allowed: `False`
+- human_review_required: `True`
+- is_local_only: `True`
+- live_dispatch_status: `BLOCKED`
+- live_post_performed: `False`
+- live_ready_state_created: `False`
+- llm_provider_api_called: `False`
+- local_governance_status: `PASS_DRY_RUN_CHAIN`
+- manual_export_queue: `6 items`
+- manual_export_queue_count: `6`
+- manual_export_status: `REVIEW_ONLY_READY_FOR_OPERATOR`
+- model: `STATIC_COCKPIT_SURFACE_CONTRACT_0174YI_YJ_YK`
+- model_version: `0174YI_YJ_YK_STATIC_COCKPIT_SURFACE_CONTRACT_V1`
+- network_performed: `False`
+- next_builder_task: `TASK_CONTENTOPS_0174YL_YM_YN_COCKPIT_UI_SHELL_CONTRACT_V0`
+- next_operator_action: `open static cockpit surface preview, review queue, then copy Substack markdown only if Jim chooses manual export`
+- no_financial_advice: `True`
+- no_forbidden_material_proof: `pass_no_scripts_forms_urls_credentials_raw_destination_env_secret_provider_output`
+- no_forbidden_readiness_claim_proof: `pass_no_forbidden_readiness_claims_in_static_surface`
+- no_live_behavior_proof: `{"autonomous_replies_or_dms": false, "can_dispatch": false, "credential_hydration_performed": false, "credential_read": false, "dotenv_read": false, "env_read": false, "human_review_required": true, "is_local_only": true, "live_post_performed": false, "live_ready_state_created": false, "llm_provider_api_called": false, "network_performed": false, "no_financial_advice": true, "no_signal_language": true, "platform_api_called": false, "platform_dispatch_performed": false, "proof": "pass_static_surface_no_live_no_api_no_network", "provider_api_called": false, "public_postable": false, "public_ready_content_generated": false, "raw_request_persisted": false, "raw_response_persisted": false, "scheduler_enabled": false, "scraping_performed": false, "static_preview_only": true, "substack_api_called": false, "telegram_api_called": false, "token_logged": false, "x_api_called": false}`
+- no_signal_language: `True`
+- operator_banner: `Local static cockpit preview. APIs off. Live dispatch blocked. Review-only queues visible.`
+- payload_hash_index: `14 items`
+- platform_api_called: `False`
+- platform_cards: `3 items`
+- platform_dispatch_performed: `False`
+- platform_statuses: `{"substack": "MANUAL_EXPORT_ONLY_NO_API", "telegram": "PREVIEW_ONLY_FROZEN_NO_SEND", "x": "PREVIEW_ONLY_NO_API"}`
+- provider_api_called: `False`
+- public_postable: `False`
+- public_ready_content_generated: `False`
+- raw_request_persisted: `False`
+- raw_response_persisted: `False`
+- readiness_class: `NOT_READY_FOR_LIVE_DISPATCH`
+- required_future_gates: `5 items`
+- reviewable_now_count: `14`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- screenshot_safe_surface: `True`
+- source_baseline_commit: `ebe0b3c9c792a6eb0c8a80b8b73d41a6538665a1`
+- static_cockpit_surface_checksum: `06fdbf6c818d2fbe6aa1c64aa22eae0bf14745b758b736be2126f9c3d88da526`
+- static_cockpit_surface_fixture_outputs_checksum: `a85655e1452dbe865689d843d5c40adceddaf00cd9be21c3107e0ffc10ca09fc`
+- static_cockpit_surface_id: `static_cockpit_surface_0174YI_YJ_YK`
+- static_preview_only: `True`
+- status: `pass`
+- substack_api_called: `False`
+- task_label: `TASK_CONTENTOPS_0174YI_YJ_YK_STATIC_COCKPIT_SURFACE_CONTRACT_V0`
+- telegram_api_called: `False`
+- telegram_preview_queue: `2 items`
+- telegram_preview_queue_count: `2`
+- token_logged: `False`
+- x_api_called: `False`
+- x_preview_queue: `6 items`
+- x_preview_queue_count: `6`

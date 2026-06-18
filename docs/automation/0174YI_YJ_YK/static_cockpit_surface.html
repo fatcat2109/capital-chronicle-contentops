@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Local static cockpit preview for review-only ContentOps queues.">
+  <title>Capital Chronicle Static Cockpit Preview</title>
+  <style>
+    :root { color-scheme: dark; --bg:#08111f; --panel:#101c30; --panel2:#16243b; --line:#29405f; --text:#eef5ff; --muted:#9fb2cc; --gold:#ffd166; --cyan:#68e1fd; --rose:#ff6b8b; --green:#7ee787; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter,Segoe UI,Arial,sans-serif; background:radial-gradient(circle at top left,#223b68 0,#08111f 34%,#050914 100%); color:var(--text); }
+    main { width:min(1180px,calc(100% - 32px)); margin:0 auto; padding:32px 0 48px; }
+    header { border:1px solid var(--line); border-radius:28px; padding:28px; background:linear-gradient(135deg,rgba(104,225,253,.18),rgba(255,209,102,.10)); box-shadow:0 24px 80px rgba(0,0,0,.35); }
+    h1 { margin:0 0 10px; font-size:clamp(32px,5vw,64px); letter-spacing:-.05em; }
+    h2 { margin:0 0 18px; font-size:26px; }
+    h3 { margin:8px 0; }
+    section { margin-top:24px; padding:22px; border:1px solid var(--line); border-radius:24px; background:rgba(16,28,48,.82); }
+    .banner { display:inline-flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+    .pill { border:1px solid var(--line); border-radius:999px; padding:8px 12px; background:rgba(255,255,255,.06); color:var(--cyan); font-weight:700; }
+    .pill.blocked { color:var(--rose); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
+    .status-card,.queue-card { border:1px solid var(--line); border-radius:20px; padding:16px; background:linear-gradient(180deg,var(--panel2),var(--panel)); }
+    .status-card span { display:block; color:var(--muted); text-transform:uppercase; letter-spacing:.16em; font-size:12px; }
+    .status-card strong { display:block; color:var(--gold); margin:8px 0; }
+    .status-card em { color:var(--green); font-style:normal; }
+    .queue-card .hash { color:var(--cyan); font-family:ui-monospace,Consolas,monospace; }
+    code { color:var(--cyan); overflow-wrap:anywhere; }
+    table { width:100%; border-collapse:collapse; }
+    th,td { text-align:left; padding:10px; border-bottom:1px solid var(--line); vertical-align:top; }
+    .muted { color:var(--muted); }
+    .next { font-size:20px; color:var(--gold); }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <p class="muted">Capital Chronicle ContentOps</p>
+    <h1>Static Cockpit Preview</h1>
+    <p>Local static cockpit preview. APIs off. Live dispatch blocked. Review-only queues visible.</p>
+    <div class="banner">
+      <span class="pill">Local only</span>
+      <span class="pill">No API</span>
+      <span class="pill blocked">Live dispatch blocked</span>
+      <span class="pill">Reviewable: 14</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Platform status</h2>
+    <div class="grid"><div class="status-card"><span>substack</span><strong>MANUAL_EXPORT_ONLY_NO_API</strong><em>6 reviewable</em></div>
+<div class="status-card"><span>x</span><strong>PREVIEW_ONLY_NO_API</strong><em>6 reviewable</em></div>
+<div class="status-card"><span>telegram</span><strong>PREVIEW_ONLY_FROZEN_NO_SEND</strong><em>2 reviewable</em></div></div>
+  </section>
+
+  <section>
+    <h2>Manual export queue</h2>
+    <div class="grid"><article class="queue-card"><div class="hash">7349e344d2f2</div><h3>substack_newsletter_issue</h3><p>primary_manual_export_review</p><p><strong>Action:</strong> copy_markdown_for_substack</p><p><strong>Payload hash:</strong> <code>7349e344d2f2dbbd51076fcae65ee096312ebb7ed7c3c5510f06f9988bd1237c</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">add2344cb9d4</div><h3>substack_longform_post</h3><p>primary_manual_export_review</p><p><strong>Action:</strong> copy_markdown_for_substack</p><p><strong>Payload hash:</strong> <code>add2344cb9d4f8ecfb31f5271ee8b06de9889edb4c319d196c09b90a8f2a1aad</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">b38f425792e2</div><h3>substack_newsletter_issue</h3><p>primary_manual_export_review</p><p><strong>Action:</strong> copy_markdown_for_substack</p><p><strong>Payload hash:</strong> <code>b38f425792e20430b54d3e56b548c6b0c6b45d6846697060ae49aa6ebfd428a4</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">badfe6395edd</div><h3>substack_longform_post</h3><p>primary_manual_export_review</p><p><strong>Action:</strong> copy_markdown_for_substack</p><p><strong>Payload hash:</strong> <code>badfe6395edd651e785d8939c75da045ef7f2a43b6790f362448d997a46b8930</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">fd47cf9976d2</div><h3>substack_newsletter_issue</h3><p>primary_manual_export_review</p><p><strong>Action:</strong> copy_markdown_for_substack</p><p><strong>Payload hash:</strong> <code>fd47cf9976d21519d74f60ef47884ec7de603810950ab74007575bf70ce2764a</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">5086f060d219</div><h3>substack_longform_post</h3><p>primary_manual_export_review</p><p><strong>Action:</strong> copy_markdown_for_substack</p><p><strong>Payload hash:</strong> <code>5086f060d2198803fea6a702324fd590a593a1db0bfbd5bdccf65a89379c0750</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article></div>
+  </section>
+
+  <section>
+    <h2>X preview queue</h2>
+    <div class="grid"><article class="queue-card"><div class="hash">deeb60310e94</div><h3>x_short_post</h3><p>preview_only_no_api</p><p><strong>Action:</strong> inspect_x_short_preview</p><p><strong>Payload hash:</strong> <code>deeb60310e94695a3fa8ccbf5a9269a69828c9e4a763f89664a7b1813497ce60</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">bb9d3b4b11d1</div><h3>x_thread</h3><p>preview_only_no_api</p><p><strong>Action:</strong> inspect_x_thread_preview</p><p><strong>Payload hash:</strong> <code>bb9d3b4b11d152156813c60adfbea3aaf3d438fdce7be16040a65ce6e0e03587</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">54bf65cac3f5</div><h3>x_short_post</h3><p>preview_only_no_api</p><p><strong>Action:</strong> inspect_x_short_preview</p><p><strong>Payload hash:</strong> <code>54bf65cac3f519050c0306549a6f69e11049b59848c1d08808e05491e64aded6</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">d2af78685969</div><h3>x_thread</h3><p>preview_only_no_api</p><p><strong>Action:</strong> inspect_x_thread_preview</p><p><strong>Payload hash:</strong> <code>d2af78685969e7ba2480754792c56efd8a9eb92fda380af49dad3805f849c3f5</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">2a5bad559d2f</div><h3>x_short_post</h3><p>preview_only_no_api</p><p><strong>Action:</strong> inspect_x_short_preview</p><p><strong>Payload hash:</strong> <code>2a5bad559d2fcb6fbfc7cadb469d854a99d28ec959f66b3a8335d4cd0428bb5e</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">5bd8fd82388d</div><h3>x_thread</h3><p>preview_only_no_api</p><p><strong>Action:</strong> inspect_x_thread_preview</p><p><strong>Payload hash:</strong> <code>5bd8fd82388ded4b4106f5098cdb33b235084b536a45b44e27d5d9f0f42a8f0e</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article></div>
+  </section>
+
+  <section>
+    <h2>Telegram preview queue</h2>
+    <div class="grid"><article class="queue-card"><div class="hash">17e540efcf53</div><h3>telegram_channel_update</h3><p>channel_update_preview_only</p><p><strong>Action:</strong> inspect_telegram_channel_update_preview</p><p><strong>Payload hash:</strong> <code>17e540efcf53abb524af9a7ab3e3d8e43fa5494b49e9964ccb3d36b140d54a17</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">cd88a26e5388</div><h3>telegram_operator_review_message</h3><p>operator_review_preview_only</p><p><strong>Action:</strong> inspect_telegram_channel_update_preview</p><p><strong>Payload hash:</strong> <code>cd88a26e53882fabe2b6ab5bfe7926eedd5fca74a5eaf3987e423d6b944c161a</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article></div>
+  </section>
+
+  <section>
+    <h2>Blocked live dispatch</h2>
+    <ul><li>kill switch activation missing</li>
+<li>redacted audit packet for real platform response missing</li>
+<li>manual fallback proof missing</li>
+<li>operator supervision window missing</li>
+<li>live dispatch separate approval missing</li>
+<li>credential hydration forbidden in current chain</li>
+<li>platform API calls forbidden in current chain</li>
+<li>provider response not called</li>
+<li>request budget used is 0</li>
+<li>final URL not verified</li></ul>
+  </section>
+
+  <section>
+    <h2>Payload hashes</h2>
+    <div class="grid"><article class="queue-card"><div class="hash">7349e344d2f2</div><h3>substack_newsletter_issue</h3><p>substack</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>7349e344d2f2dbbd51076fcae65ee096312ebb7ed7c3c5510f06f9988bd1237c</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">add2344cb9d4</div><h3>substack_longform_post</h3><p>substack</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>add2344cb9d4f8ecfb31f5271ee8b06de9889edb4c319d196c09b90a8f2a1aad</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">deeb60310e94</div><h3>x_short_post</h3><p>x</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>deeb60310e94695a3fa8ccbf5a9269a69828c9e4a763f89664a7b1813497ce60</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">bb9d3b4b11d1</div><h3>x_thread</h3><p>x</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>bb9d3b4b11d152156813c60adfbea3aaf3d438fdce7be16040a65ce6e0e03587</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">17e540efcf53</div><h3>telegram_channel_update</h3><p>telegram</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>17e540efcf53abb524af9a7ab3e3d8e43fa5494b49e9964ccb3d36b140d54a17</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">cd88a26e5388</div><h3>telegram_operator_review_message</h3><p>telegram</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>cd88a26e53882fabe2b6ab5bfe7926eedd5fca74a5eaf3987e423d6b944c161a</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">b38f425792e2</div><h3>substack_newsletter_issue</h3><p>substack</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>b38f425792e20430b54d3e56b548c6b0c6b45d6846697060ae49aa6ebfd428a4</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">badfe6395edd</div><h3>substack_longform_post</h3><p>substack</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>badfe6395edd651e785d8939c75da045ef7f2a43b6790f362448d997a46b8930</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">54bf65cac3f5</div><h3>x_short_post</h3><p>x</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>54bf65cac3f519050c0306549a6f69e11049b59848c1d08808e05491e64aded6</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">d2af78685969</div><h3>x_thread</h3><p>x</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>d2af78685969e7ba2480754792c56efd8a9eb92fda380af49dad3805f849c3f5</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">2a5bad559d2f</div><h3>x_short_post</h3><p>x</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>2a5bad559d2fcb6fbfc7cadb469d854a99d28ec959f66b3a8335d4cd0428bb5e</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">5bd8fd82388d</div><h3>x_thread</h3><p>x</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>5bd8fd82388ded4b4106f5098cdb33b235084b536a45b44e27d5d9f0f42a8f0e</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">fd47cf9976d2</div><h3>substack_newsletter_issue</h3><p>substack</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>fd47cf9976d21519d74f60ef47884ec7de603810950ab74007575bf70ce2764a</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article>
+<article class="queue-card"><div class="hash">5086f060d219</div><h3>substack_longform_post</h3><p>substack</p><p><strong>Action:</strong> review_payload_hash</p><p><strong>Payload hash:</strong> <code>5086f060d2198803fea6a702324fd590a593a1db0bfbd5bdccf65a89379c0750</code></p><p><strong>Dispatch:</strong> blocked · <strong>Public:</strong> false</p></article></div>
+  </section>
+
+  <section>
+    <h2>Evidence index</h2>
+    <table><thead><tr><th>Stage</th><th>Checksum</th></tr></thead><tbody><tr><td>cockpit_read_model_checksum</td><td><code>507d15893d887d552a4a4cb7a49b7879a5ab52cd52df7b7e4142ae94f7247c2e</code></td></tr>
+<tr><td>cockpit_read_model_fixture_outputs_checksum</td><td><code>d9d1a913868d07c44e57bc0ae8756540462357cb4e15be26a9ebf9edd5826b32</code></td></tr>
+<tr><td>cockpit_read_model_policy_checksum</td><td><code>b69ed234df59c8eda6326515f245a23d8557bba09b846d95fdb57e3173f0acdb</code></td></tr>
+<tr><td>next_static_cockpit_surface_contract_checksum</td><td><code>0345ac84746830b8fab4c544dcadce2725e5837da518fcff69a6974cd1152f94</code></td></tr>
+<tr><td>static_cockpit_surface_policy_checksum</td><td><code>67c4ed40e25d6cb0cc3282867a71f4d265cbfd98271e6f7a4bf85a6ef5720dbe</code></td></tr></tbody></table>
+  </section>
+
+  <section>
+    <h2>Next safe operator action</h2>
+    <p class="next">open static cockpit surface preview, review queue, then copy Substack markdown only if Jim chooses manual export</p>
+  </section>
+</main>
+</body>
+</html>

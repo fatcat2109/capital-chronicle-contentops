@@ -1,0 +1,51 @@
+# Next Cockpit UI Shell Contract
+
+> [!IMPORTANT]
+> Static cockpit preview only. Live dispatch remains blocked; APIs remain off.
+
+- allowed_inputs: `3 items`
+- autonomous_replies_or_dms: `False`
+- can_dispatch: `False`
+- credential_hydration_performed: `False`
+- credential_read: `False`
+- dotenv_read: `False`
+- env_read: `False`
+- forbidden_outputs: `9 items`
+- human_review_required: `True`
+- is_local_only: `True`
+- live_dispatch_status: `BLOCKED`
+- live_post_performed: `False`
+- live_ready_state_created: `False`
+- llm_provider_api_called: `False`
+- manual_export_status: `REVIEW_ONLY_READY_FOR_OPERATOR`
+- model: `NEXT_COCKPIT_UI_SHELL_CONTRACT_0174YI_YJ_YK`
+- model_version: `0174YI_YJ_YK_NEXT_COCKPIT_UI_SHELL_CONTRACT_V1`
+- network_performed: `False`
+- next_batch_prompt: `TASK_CONTENTOPS_0174YL_YM_YN_COCKPIT_UI_SHELL_CONTRACT_V0`
+- next_cockpit_ui_shell_contract_checksum: `d545c944a5569165151bba4cdaad960cfaafa12907ea37e804e8a4c1a802baa6`
+- next_scope: `cockpit_ui_shell_local_only_from_static_surface`
+- no_financial_advice: `True`
+- no_signal_language: `True`
+- platform_api_called: `False`
+- platform_dispatch_performed: `False`
+- provider_api_called: `False`
+- public_postable: `False`
+- public_ready_content_generated: `False`
+- raw_request_persisted: `False`
+- raw_response_persisted: `False`
+- readiness_class: `NOT_READY_FOR_LIVE_DISPATCH`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `ebe0b3c9c792a6eb0c8a80b8b73d41a6538665a1`
+- static_cockpit_surface_checksum: `06fdbf6c818d2fbe6aa1c64aa22eae0bf14745b758b736be2126f9c3d88da526`
+- static_cockpit_surface_fixture_outputs_checksum: `a85655e1452dbe865689d843d5c40adceddaf00cd9be21c3107e0ffc10ca09fc`
+- static_cockpit_surface_html_checksum: `e7e83d8e61cb6b7af1c4535f1669f4f787e1b154c0e423e292ebb0c09b53abda`
+- static_cockpit_surface_policy_checksum: `67c4ed40e25d6cb0cc3282867a71f4d265cbfd98271e6f7a4bf85a6ef5720dbe`
+- static_preview_only: `True`
+- status: `pass`
+- substack_api_called: `False`
+- task_label: `TASK_CONTENTOPS_0174YL_YM_YN_COCKPIT_UI_SHELL_CONTRACT_V0`
+- telegram_api_called: `False`
+- token_logged: `False`
+- ui_shell_must_remain_local_only: `True`
+- x_api_called: `False`
