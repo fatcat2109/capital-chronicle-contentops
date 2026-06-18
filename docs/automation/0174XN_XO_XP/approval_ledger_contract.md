@@ -1,0 +1,52 @@
+# Approval Ledger Contract
+
+> [!IMPORTANT]
+> Local append-only approval ledger fixtures only. No dispatch, no outbox creation, no platform/provider call, no network, no credential/env read.
+
+- all_can_create_outbox_false: `True`
+- all_can_dispatch_false: `True`
+- all_public_postable_false: `True`
+- all_valid_for_dispatch_false: `True`
+- approval_challenge_candidate_contract_checksum: `ba4a15f597c8d7f16c41c9c8bed163d04b2b165c7715b54245049483e41e4613`
+- approval_challenge_policy_checksum: `425eed46a445bc064c73b41e91b5eb1accedd86520fb5f65edfdf7f3ff5122fb`
+- approval_eligible_entries_bind_exact_hash: `True`
+- approval_ledger_contract_checksum: `6d16a986d815da37ff9cc7f5ec00aaa9fd996077592e55b6ea9d941029cfc48d`
+- approval_ledger_fixture_outputs_checksum: `65dd6e08a1ffba43ca3b273a53e2a8e371effafda84c9ae0e17c798fc3cc1e5f`
+- approval_response_fixture_checksum: `e25394d5b1570a4cf7fef48232036d4c1cc077b8a42cf1d454576958738711b7`
+- approved_entry_count: `1`
+- autonomous_replies_or_dms: `False`
+- blocked_event_count: `8`
+- blocked_source_brief_proof: `["brief_intent_future_artifact_demo", "brief_intent_msg_003", "brief_intent_msg_011", "brief_intent_msg_012"]`
+- credential_read: `False`
+- dispatch_outbox_mutated: `False`
+- dotenv_read: `False`
+- edit_event_count: `1`
+- env_read: `False`
+- hash_mismatch_blocked_proof: `True`
+- hold_event_count: `1`
+- is_local_only: `True`
+- ledger_event_count: `12`
+- live_post_performed: `False`
+- llm_provider_api_called: `False`
+- model: `APPROVAL_LEDGER_CONTRACT_0174XN_XO_XP`
+- model_version: `0174XN_XO_XP_APPROVAL_LEDGER_CONTRACT_V1`
+- network_performed: `False`
+- next_approval_ledger_contract_checksum: `5983fe14bfdaf9fc5486982ba121e5e4a4676c11b6fc44c574fd120723a14527`
+- platform_api_called: `False`
+- platform_dispatch_performed: `False`
+- primary_variant_dry_run_checksum: `f5ae7f8830621dbc4b2b7e1c07f72601e6132afbe89cbd65eaff83faa844c047`
+- provider_api_called: `False`
+- public_ready_content_generated: `False`
+- rejected_event_count: `1`
+- replay_blocked_proof: `True`
+- response_fixture_count: `8`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `a763e3aaa1cf079a472b9fe0f8748c36dae60a50`
+- status: `pass`
+- substack_api_called: `False`
+- task_label: `TASK_CONTENTOPS_0174XN_XO_XP_APPROVAL_LEDGER_CONTRACT_V0`
+- telegram_api_called: `False`
+- telegram_dispatch_registry_checksum: `e2f98551d197eb463cc72d4307fb153fe6bf83a28d034d518e11d05e555c3cc6`
+- unknown_challenge_blocked_proof: `True`
+- x_api_called: `False`
