@@ -1,0 +1,29 @@
+# Next Editorial Workflow Contract
+
+- approval_ledger_mutated: `False`
+- autonomous_replies_or_dms: `False`
+- credential_read: `False`
+- dispatch_outbox_mutated: `False`
+- dotenv_read: `False`
+- env_read: `False`
+- fixture_messages_checksum: `d20bcc756ddbf980bde386d165052d7339f2a001515340855a430e5ff3866856`
+- inputs: `["remote_operator_intent_ingress_packet", "platform_universe_registry_v2_packet"]`
+- intent_ingress_packet_checksum: `4af2dc2dd4d5a96070f1f23470eb02f065888b4c0f797762f4cbad4c4c6a6092`
+- is_local_only: `True`
+- live_post_performed: `False`
+- llm_provider_api_called: `False`
+- model: `NEXT_EDITORIAL_WORKFLOW_CONTRACT_0174XB_XC_XD`
+- model_version: `0174XB_XC_XD_NEXT_EDITORIAL_WORKFLOW_CONTRACT_V1`
+- must_preserve: `["untrusted_input", "no_dispatch", "no_approval_creation", "manual_review_required"]`
+- network_performed: `False`
+- next_batch_prompt: `TASK_CONTENTOPS_0174XE_XF_XG_LLM_INTENT_EDITORIAL_BRIEF_CONTRACT_V0`
+- next_editorial_workflow_contract_checksum: `6f4da93c4679fb0b7fc3989886541b4c59fcda8ba9aebaedbf814879bc51c1b7`
+- next_scope: `llm_intent_to_editorial_brief_contract_local_only`
+- platform_api_called: `False`
+- provider_api_called: `False`
+- public_ready_content_generated: `False`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `24450e8128244c0fb02e2948e78f32c0ffc9e86a`
+- task_label: `TASK_CONTENTOPS_0174XE_XF_XG_LLM_INTENT_EDITORIAL_BRIEF_CONTRACT_V0`
+- telegram_api_called: `False`
