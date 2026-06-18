@@ -1,0 +1,63 @@
+# Supervised Dispatch Readiness Summary
+
+> [!IMPORTANT]
+> Blocker-first local surface. Live dispatch remains blocked; next step is manual export/review surface or cockpit read model, not live dispatch.
+
+- approval_challenge_checksum: `ba4a15f597c8d7f16c41c9c8bed163d04b2b165c7715b54245049483e41e4613`
+- approval_ledger_checksum: `6d16a986d815da37ff9cc7f5ec00aaa9fd996077592e55b6ea9d941029cfc48d`
+- audit_hash: `123905d43a59829b925f9168dc25191c243b0aadd37b46769c193221bf06643b`
+- autonomous_replies_or_dms: `False`
+- chain_final_commit: `397a9cdbd020bcdf46bbb464ab9752e9be6b1e98`
+- chain_start_commit: `e77acd9f74b9ce2e65e569b6bf576e3896c1333e`
+- credential_hydration_performed: `False`
+- credential_read: `False`
+- current_baseline_commit: `397a9cdbd020bcdf46bbb464ab9752e9be6b1e98`
+- dispatch_audit_dry_run_checksum: `0ad3ec27815718ce888fbec6b1171d34ba7d04ff617e29537a5c7e6c2020e9e9`
+- dispatch_gate_matrix_checksum: `df22819fd01a9d08a8da3a1e8f074e85665867e7495a3283a4c87f3495e6672d`
+- dispatch_outbox_candidate_checksum: `b3bb87875531566a94998ad0cccce97efc96aaeecdab6410e0821574285eccb1`
+- dotenv_read: `False`
+- dry_run_capabilities_proven: `["remote operator intent ingress fixture accepted", "deterministic intent and editorial brief fixtures reconciled", "review-only platform payload previews hashed", "approval challenge candidate contract created", "approval ledger candidate contract created", "dispatch outbox candidate contract created", "dispatch gate matrix evaluated", "redacted dispatch audit dry-run events recorded", "payload hash binding preserved through local chain"]`
+- editorial_brief_checksum: `6cfa4cb84f83673cbc760865f176e59ae03c3e5302b29bce81256f02b96e8691`
+- env_read: `False`
+- evidence_refs: `["451ad5a824ba8f6bac186062c06a483db988c8b4632d39ea514ca23a1cb1631f", "300e2c50375ac7073f9f517c11ecb6e2615feff0f1dec3d6e6e19bbc5ef9c77a", "c1b98e0d8f5e6849f426f50b9df72b79c47c1ce9a3bcc8519142ae562ea31edc", "1a90368d22c170628905248baefe81945fd1c9955108332e4164064fba0c7612", "f0e53e0563a0d3910920213aeb8e3828cd0def900f56dc144943df4f24954eb9", "e7148e59ec7fe3d02ea99ff773dcce95386d61b6dbc39a4bbb2265cdb770feea", "b236154c187edcd1b73b717243be9ee8b9296eac724b52c082ed974760757bfd", "6ffb6f9129d2aa0d8e368057405636a5d6269c698987477bea6cabdec35068fb", "3432bded88d3aaa4edbb77bcf39417b53a399e13a9dbb481a3e4fe924f5a7e50", "460b5f2ffa524d04dddedd1e2b2b06306710d3f5d19f03ec0ea42ab590fab05e", "eb0f32909b67132bf8efda51ac61956b9757487325d9dd02c9043cd03e2cc0db", "aede6a4c2f95f6efaf5f0365652e8e4e43b03f85d09141c25f07502588d7b158", "78a9e5cbabd9b9ff10a3f8926cc435ca79682f4f7109380029ee232ee79cddec", "195c169321c06afd954743bb243857421f3ef5cfe5ee5cab7f1c80c6658fea8f", "e25e594836b63541e818e220bbc2dd23de79ce39a07a2a989f6699ca4cac7284", "18947de2eece526aba3ff39370257c8cc9ba62974e1614b9cc828edb55ccf571", "242fcb64ed65cdccf7edbcde3e7fd544a2ebaef1b9968d0d98eb4d490cd0d2df", "b0019fba32adc7d507622b51b48921c3a25d8e884a6e18e9fedda9cd091e8f12", "02300811bf6513572c5deadce779263fb9bbe6fbd06cf89fd80998073806f397", "f53bd00ad1dca39ca565a3736709720a276497851ff738366d2a3c0b38a76ec2", "2b399b010f4de3eced1f6b74e3c8013801ccfa5d488a9eaa47e9816079b7dce0", "7508a15d1175822bdafca9ddbccd526f6a3842125b023c828e926dbb9a2cc34a", "7797922aa4ff8d39699cad8ddc7c8b523815b799f6f8dc244a515554227e6462", "f6fde2435b44137ccb53651efc9c9741e91738ba6058e73ad395cf0fc330c448"]`
+- forbidden_capabilities: `["autonomous posting", "scheduling", "autonomous replies", "direct messages", "scraping", "trading or signal behavior", "credential hydration", "platform API calls", "provider API calls", "public content generation", "live state creation", "raw request or response persistence", "token logging"]`
+- forbidden_readiness_claim_proof: `pass_no_ready_live_ready_dispatch_ready_public_postable_claims`
+- full_dry_run_chain_reconciliation_checksum: `f6fde2435b44137ccb53651efc9c9741e91738ba6058e73ad395cf0fc330c448`
+- intent_ingress_checksum: `4af2dc2dd4d5a96070f1f23470eb02f065888b4c0f797762f4cbad4c4c6a6092`
+- is_local_only: `True`
+- live_blockers: `["kill switch activation missing", "redacted audit packet for real platform response missing", "manual fallback proof missing", "operator supervision window missing", "live dispatch separate approval missing", "credential hydration forbidden in current chain", "platform API calls forbidden in current chain", "provider response not called", "request budget used is 0", "final URL not verified"]`
+- live_dispatch_status: `BLOCKED`
+- live_post_performed: `False`
+- live_ready_state_created: `False`
+- llm_provider_api_called: `False`
+- local_governance_status: `PASS_DRY_RUN_CHAIN`
+- model: `SUPERVISED_DISPATCH_READINESS_SUMMARY_0174XZ_YA_YB`
+- model_version: `0174XZ_YA_YB_SUPERVISED_DISPATCH_READINESS_SUMMARY_V1`
+- network_performed: `False`
+- no_live_behavior_proof: `{"all_false": true, "all_final_url_verified_null": true, "autonomous_replies_or_dms": true, "credential_hydration_performed": true, "credential_read": true, "dotenv_read": true, "env_read": true, "live_post_performed": true, "live_ready_state_created": true, "llm_provider_api_called": true, "network_performed": true, "platform_api_called": true, "platform_dispatch_performed": true, "provider_api_called": true, "provider_response_class_values": ["not_called"], "public_ready_content_generated": true, "raw_request_persisted": true, "raw_response_persisted": true, "request_budget_used_values": [0], "scheduler_enabled": true, "scraping_performed": true, "substack_api_called": true, "telegram_api_called": true, "token_logged": true, "x_api_called": true}`
+- platform_api_called: `False`
+- platform_dispatch_performed: `False`
+- platform_readiness: `{"substack": "MANUAL_EXPORT_ONLY_NO_API", "telegram": "DISPATCH_PROVEN_FROZEN_NO_SEND", "x": "DRY_RUN_ONLY_NO_API"}`
+- platform_universe_registry_checksum: `268d23bf3d265e101ec7a6fad0c585858c1ea276cc995d7a123ae88f485411fe`
+- platform_variant_checksum: `f5ae7f8830621dbc4b2b7e1c07f72601e6132afbe89cbd65eaff83faa844c047`
+- provider_api_called: `False`
+- public_ready_content_generated: `False`
+- raw_request_persisted: `False`
+- raw_response_persisted: `False`
+- readiness_class: `NOT_READY_FOR_LIVE_DISPATCH`
+- readiness_summary_id: `supervised_dispatch_readiness_summary_0174XZ_YA_YB`
+- remote_inbox_checksum: `d20bcc756ddbf980bde386d165052d7339f2a001515340855a430e5ff3866856`
+- required_future_gates: `["kill_switch_activation", "redacted_audit_packet", "manual_fallback_proof", "operator_supervision_window", "live_dispatch_separate_approval"]`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `397a9cdbd020bcdf46bbb464ab9752e9be6b1e98`
+- status: `pass`
+- substack_api_called: `False`
+- supervised_dispatch_readiness_policy_checksum: `c2079a5a7feb187b2e7a12aa05cc4980076f5199c1eb93f7bf2672c15e856c3f`
+- supervised_dispatch_readiness_summary_checksum: `63189c93969955cda3f397b9337a98e79faf059769d44e23bec331d208a802b0`
+- supported_primary_platforms: `["x", "telegram", "substack"]`
+- task_label: `TASK_CONTENTOPS_0174XZ_YA_YB_SUPERVISED_DISPATCH_READINESS_SUMMARY_V0`
+- telegram_api_called: `False`
+- telegram_dispatch_registry_checksum: `e2f98551d197eb463cc72d4307fb153fe6bf83a28d034d518e11d05e555c3cc6`
+- token_logged: `False`
+- x_api_called: `False`
