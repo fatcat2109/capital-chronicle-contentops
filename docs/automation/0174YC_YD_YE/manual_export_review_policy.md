@@ -1,0 +1,51 @@
+# Manual Export Review Policy
+
+> [!IMPORTANT]
+> Local manual export review only. Live dispatch remains blocked and no platform API is called.
+
+- autonomous_replies_or_dms: `False`
+- can_dispatch: `False`
+- credential_hydration_performed: `False`
+- credential_read: `False`
+- dotenv_read: `False`
+- env_read: `False`
+- forbidden_actions: `["live_dispatch", "credential_hydration", "platform_api_call", "autonomous_posting", "scheduling", "reply_or_dm", "scraping"]`
+- forbidden_material_patterns: `["bot\\d+:[a-z0-9_-]{20,}", "\\bchat[_-]?id\\b", "\\braw[_-]?destination\\b", "\\bsecret\\b", "\\.env", "https?://"]`
+- forbidden_readiness_claims: `["production-ready", "live-ready", "dispatch-ready", "ready to send", "public-postable"]`
+- human_review_required: `True`
+- is_local_only: `True`
+- live_dispatch_status: `BLOCKED`
+- live_post_performed: `False`
+- live_ready_state_created: `False`
+- llm_provider_api_called: `False`
+- local_governance_status: `PASS_DRY_RUN_CHAIN`
+- manual_export_review_policy_checksum: `6fe6b88583ce7dd403093d6a83168cd98624a754e135e980aa20c47e3d1398ab`
+- manual_export_status: `REVIEW_ONLY_READY_FOR_OPERATOR`
+- model: `MANUAL_EXPORT_REVIEW_POLICY_0174YC_YD_YE`
+- model_version: `0174YC_YD_YE_MANUAL_EXPORT_REVIEW_POLICY_V1`
+- network_performed: `False`
+- next_task_must_be_cockpit_read_model: `True`
+- no_financial_advice: `True`
+- no_signal_language: `True`
+- operator_actions: `["copy_markdown_for_substack", "inspect_x_thread_preview", "inspect_telegram_channel_update_preview", "record_manual_publish_later", "request_revision", "hold"]`
+- platform_api_called: `False`
+- platform_dispatch_performed: `False`
+- platform_surface_statuses: `{"substack": "manual_export_review_strongest_path_no_api", "telegram": "operator_and_channel_preview_only_no_send", "x": "preview_only_no_api"}`
+- platforms: `["substack", "x", "telegram"]`
+- provider_api_called: `False`
+- public_postable: `False`
+- public_ready_content_generated: `False`
+- raw_request_persisted: `False`
+- raw_response_persisted: `False`
+- readiness_class: `NOT_READY_FOR_LIVE_DISPATCH`
+- required_future_gates: `["kill_switch_activation", "redacted_audit_packet", "manual_fallback_proof", "operator_supervision_window", "live_dispatch_separate_approval"]`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `ca2e8c01327984fd90524e790406621a2668202d`
+- status: `pass`
+- substack_api_called: `False`
+- surface_must_remain_manual_local_review_only: `True`
+- task_label: `TASK_CONTENTOPS_0174YC_YD_YE_MANUAL_EXPORT_REVIEW_SURFACE_CONTRACT_V0`
+- telegram_api_called: `False`
+- token_logged: `False`
+- x_api_called: `False`

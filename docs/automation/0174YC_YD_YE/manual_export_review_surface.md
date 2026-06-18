@@ -1,0 +1,63 @@
+# Manual Export Review Surface
+
+> [!IMPORTANT]
+> Operator review surface only. Manual export review is available; live dispatch remains blocked.
+
+- audit_hashes: `["451ad5a824ba8f6bac186062c06a483db988c8b4632d39ea514ca23a1cb1631f", "300e2c50375ac7073f9f517c11ecb6e2615feff0f1dec3d6e6e19bbc5ef9c77a", "c1b98e0d8f5e6849f426f50b9df72b79c47c1ce9a3bcc8519142ae562ea31edc", "1a90368d22c170628905248baefe81945fd1c9955108332e4164064fba0c7612", "f0e53e0563a0d3910920213aeb8e3828cd0def900f56dc144943df4f24954eb9", "e7148e59ec7fe3d02ea99ff773dcce95386d61b6dbc39a4bbb2265cdb770feea", "b236154c187edcd1b73b717243be9ee8b9296eac724b52c082ed974760757bfd", "6ffb6f9129d2aa0d8e368057405636a5d6269c698987477bea6cabdec35068fb", "3432bded88d3aaa4edbb77bcf39417b53a399e13a9dbb481a3e4fe924f5a7e50", "460b5f2ffa524d04dddedd1e2b2b06306710d3f5d19f03ec0ea42ab590fab05e", "eb0f32909b67132bf8efda51ac61956b9757487325d9dd02c9043cd03e2cc0db", "aede6a4c2f95f6efaf5f0365652e8e4e43b03f85d09141c25f07502588d7b158", "78a9e5cbabd9b9ff10a3f8926cc435ca79682f4f7109380029ee232ee79cddec", "195c169321c06afd954743bb243857421f3ef5cfe5ee5cab7f1c80c6658fea8f", "e25e594836b63541e818e220bbc2dd23de79ce39a07a2a989f6699ca4cac7284", "18947de2eece526aba3ff39370257c8cc9ba62974e1614b9cc828edb55ccf571", "242fcb64ed65cdccf7edbcde3e7fd544a2ebaef1b9968d0d98eb4d490cd0d2df", "b0019fba32adc7d507622b51b48921c3a25d8e884a6e18e9fedda9cd091e8f12", "02300811bf6513572c5deadce779263fb9bbe6fbd06cf89fd80998073806f397", "f53bd00ad1dca39ca565a3736709720a276497851ff738366d2a3c0b38a76ec2", "2b399b010f4de3eced1f6b74e3c8013801ccfa5d488a9eaa47e9816079b7dce0", "7508a15d1175822bdafca9ddbccd526f6a3842125b023c828e926dbb9a2cc34a", "7797922aa4ff8d39699cad8ddc7c8b523815b799f6f8dc244a515554227e6462"]`
+- autonomous_replies_or_dms: `False`
+- blocked_live_dispatch_reasons: `["kill switch activation missing", "redacted audit packet for real platform response missing", "manual fallback proof missing", "operator supervision window missing", "live dispatch separate approval missing", "credential hydration forbidden in current chain", "platform API calls forbidden in current chain", "provider response not called", "request budget used is 0", "final URL not verified"]`
+- can_dispatch: `False`
+- credential_hydration_performed: `False`
+- credential_read: `False`
+- dotenv_read: `False`
+- env_read: `False`
+- evidence_refs: `["451ad5a824ba8f6bac186062c06a483db988c8b4632d39ea514ca23a1cb1631f", "300e2c50375ac7073f9f517c11ecb6e2615feff0f1dec3d6e6e19bbc5ef9c77a", "c1b98e0d8f5e6849f426f50b9df72b79c47c1ce9a3bcc8519142ae562ea31edc", "1a90368d22c170628905248baefe81945fd1c9955108332e4164064fba0c7612", "f0e53e0563a0d3910920213aeb8e3828cd0def900f56dc144943df4f24954eb9", "e7148e59ec7fe3d02ea99ff773dcce95386d61b6dbc39a4bbb2265cdb770feea", "b236154c187edcd1b73b717243be9ee8b9296eac724b52c082ed974760757bfd", "6ffb6f9129d2aa0d8e368057405636a5d6269c698987477bea6cabdec35068fb", "3432bded88d3aaa4edbb77bcf39417b53a399e13a9dbb481a3e4fe924f5a7e50", "460b5f2ffa524d04dddedd1e2b2b06306710d3f5d19f03ec0ea42ab590fab05e", "eb0f32909b67132bf8efda51ac61956b9757487325d9dd02c9043cd03e2cc0db", "aede6a4c2f95f6efaf5f0365652e8e4e43b03f85d09141c25f07502588d7b158", "78a9e5cbabd9b9ff10a3f8926cc435ca79682f4f7109380029ee232ee79cddec", "195c169321c06afd954743bb243857421f3ef5cfe5ee5cab7f1c80c6658fea8f", "e25e594836b63541e818e220bbc2dd23de79ce39a07a2a989f6699ca4cac7284", "18947de2eece526aba3ff39370257c8cc9ba62974e1614b9cc828edb55ccf571", "242fcb64ed65cdccf7edbcde3e7fd544a2ebaef1b9968d0d98eb4d490cd0d2df", "b0019fba32adc7d507622b51b48921c3a25d8e884a6e18e9fedda9cd091e8f12", "02300811bf6513572c5deadce779263fb9bbe6fbd06cf89fd80998073806f397", "f53bd00ad1dca39ca565a3736709720a276497851ff738366d2a3c0b38a76ec2", "2b399b010f4de3eced1f6b74e3c8013801ccfa5d488a9eaa47e9816079b7dce0", "7508a15d1175822bdafca9ddbccd526f6a3842125b023c828e926dbb9a2cc34a", "7797922aa4ff8d39699cad8ddc7c8b523815b799f6f8dc244a515554227e6462", "f6fde2435b44137ccb53651efc9c9741e91738ba6058e73ad395cf0fc330c448", "f6fde2435b44137ccb53651efc9c9741e91738ba6058e73ad395cf0fc330c448", "6fe6b88583ce7dd403093d6a83168cd98624a754e135e980aa20c47e3d1398ab"]`
+- forbidden_actions: `["live_dispatch", "credential_hydration", "platform_api_call", "autonomous_posting", "scheduling", "reply_or_dm", "scraping"]`
+- forbidden_readiness_claim_proof: `pass_no_forbidden_readiness_claims_in_surface`
+- human_review_required: `True`
+- is_local_only: `True`
+- limitations: `["human_review_required", "news_hook_only_never_signal", "no_financial_advice", "no_signal_language", "not_public_ready", "review_only_preview", "source_notes_required_before_publication"]`
+- live_dispatch_status: `BLOCKED`
+- live_post_performed: `False`
+- live_ready_state_created: `False`
+- llm_provider_api_called: `False`
+- local_governance_status: `PASS_DRY_RUN_CHAIN`
+- manual_export_review_fixture_outputs_checksum: `16ae5e7873481e8692622f7b2fba2c8356f4041f3480cb3be1e1ae56fa75639f`
+- manual_export_review_surface_checksum: `4746a909dd1d85752382cd4c3e518c88b84a515f238b97cd1c82d90c51909e8a`
+- manual_export_status: `REVIEW_ONLY_READY_FOR_OPERATOR`
+- model: `MANUAL_EXPORT_REVIEW_SURFACE_CONTRACT_0174YC_YD_YE`
+- model_version: `0174YC_YD_YE_MANUAL_EXPORT_REVIEW_SURFACE_CONTRACT_V1`
+- network_performed: `False`
+- no_financial_advice: `True`
+- no_forbidden_material_proof: `pass_no_raw_credential_token_chat_id_raw_destination_env_secret_path_live_url`
+- no_signal_language: `True`
+- operator_actions: `["copy_markdown_for_substack", "inspect_x_thread_preview", "inspect_telegram_channel_update_preview", "record_manual_publish_later", "request_revision", "hold"]`
+- payload_hashes: `["7349e344d2f2dbbd51076fcae65ee096312ebb7ed7c3c5510f06f9988bd1237c", "add2344cb9d4f8ecfb31f5271ee8b06de9889edb4c319d196c09b90a8f2a1aad", "deeb60310e94695a3fa8ccbf5a9269a69828c9e4a763f89664a7b1813497ce60", "bb9d3b4b11d152156813c60adfbea3aaf3d438fdce7be16040a65ce6e0e03587", "17e540efcf53abb524af9a7ab3e3d8e43fa5494b49e9964ccb3d36b140d54a17", "cd88a26e53882fabe2b6ab5bfe7926eedd5fca74a5eaf3987e423d6b944c161a", "b38f425792e20430b54d3e56b548c6b0c6b45d6846697060ae49aa6ebfd428a4", "badfe6395edd651e785d8939c75da045ef7f2a43b6790f362448d997a46b8930", "54bf65cac3f519050c0306549a6f69e11049b59848c1d08808e05491e64aded6", "d2af78685969e7ba2480754792c56efd8a9eb92fda380af49dad3805f849c3f5", "2a5bad559d2fcb6fbfc7cadb469d854a99d28ec959f66b3a8335d4cd0428bb5e", "5bd8fd82388ded4b4106f5098cdb33b235084b536a45b44e27d5d9f0f42a8f0e", "fd47cf9976d21519d74f60ef47884ec7de603810950ab74007575bf70ce2764a", "5086f060d2198803fea6a702324fd590a593a1db0bfbd5bdccf65a89379c0750"]`
+- platform_api_called: `False`
+- platform_dispatch_performed: `False`
+- platform_payload_counts: `{"substack": 6, "telegram": 2, "x": 6}`
+- platform_payload_hashes: `{"substack": ["7349e344d2f2dbbd51076fcae65ee096312ebb7ed7c3c5510f06f9988bd1237c", "add2344cb9d4f8ecfb31f5271ee8b06de9889edb4c319d196c09b90a8f2a1aad", "b38f425792e20430b54d3e56b548c6b0c6b45d6846697060ae49aa6ebfd428a4", "badfe6395edd651e785d8939c75da045ef7f2a43b6790f362448d997a46b8930", "fd47cf9976d21519d74f60ef47884ec7de603810950ab74007575bf70ce2764a", "5086f060d2198803fea6a702324fd590a593a1db0bfbd5bdccf65a89379c0750"], "telegram": ["17e540efcf53abb524af9a7ab3e3d8e43fa5494b49e9964ccb3d36b140d54a17", "cd88a26e53882fabe2b6ab5bfe7926eedd5fca74a5eaf3987e423d6b944c161a"], "x": ["deeb60310e94695a3fa8ccbf5a9269a69828c9e4a763f89664a7b1813497ce60", "bb9d3b4b11d152156813c60adfbea3aaf3d438fdce7be16040a65ce6e0e03587", "54bf65cac3f519050c0306549a6f69e11049b59848c1d08808e05491e64aded6", "d2af78685969e7ba2480754792c56efd8a9eb92fda380af49dad3805f849c3f5", "2a5bad559d2fcb6fbfc7cadb469d854a99d28ec959f66b3a8335d4cd0428bb5e", "5bd8fd82388ded4b4106f5098cdb33b235084b536a45b44e27d5d9f0f42a8f0e"]}`
+- platform_surface_statuses: `{"substack": "manual_export_review_strongest_path_no_api", "telegram": "operator_and_channel_preview_only_no_send", "x": "preview_only_no_api"}`
+- platforms: `["substack", "x", "telegram"]`
+- primary_manual_exports: `6 items`
+- provider_api_called: `False`
+- public_postable: `False`
+- public_ready_content_generated: `False`
+- raw_request_persisted: `False`
+- raw_response_persisted: `False`
+- readiness_class: `NOT_READY_FOR_LIVE_DISPATCH`
+- required_future_gates: `["kill_switch_activation", "redacted_audit_packet", "manual_fallback_proof", "operator_supervision_window", "live_dispatch_separate_approval"]`
+- review_only_payloads: `14 items`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `ca2e8c01327984fd90524e790406621a2668202d`
+- source_notes: `["content_lane=blocked_or_unknown", "content_lane=grounded_news_context", "content_lane=pre_alpha_general_process", "manual_markdown_export_first", "source_requirement_status=clarification_needed", "source_requirement_status=operator_context_sufficient_for_brief", "source_requirement_status=source_needed"]`
+- source_readiness_summary_id: `supervised_dispatch_readiness_summary_0174XZ_YA_YB`
+- status: `pass`
+- substack_api_called: `False`
+- surface_id: `manual_export_review_surface_0174YC_YD_YE`
+- task_label: `TASK_CONTENTOPS_0174YC_YD_YE_MANUAL_EXPORT_REVIEW_SURFACE_CONTRACT_V0`
+- telegram_api_called: `False`
+- token_logged: `False`
+- upstream_checksums: `{"dispatch_audit_dry_run_contract_checksum": "0ad3ec27815718ce888fbec6b1171d34ba7d04ff617e29537a5c7e6c2020e9e9", "dispatch_audit_dry_run_fixture_outputs_checksum": "847f5b6ddb2fab4c1bf2bb9c7754fa267d01b1b98000f30a6bd2d9b9bf75ac48", "full_dry_run_chain_reconciliation_checksum": "f6fde2435b44137ccb53651efc9c9741e91738ba6058e73ad395cf0fc330c448", "next_manual_export_review_surface_contract_checksum": "5e2d0ce04692c5e46a46d1ddd05a034c67424417e760c294c0b21f5bb1e4aba8", "platform_universe_registry_checksum": "268d23bf3d265e101ec7a6fad0c585858c1ea276cc995d7a123ae88f485411fe", "supervised_dispatch_readiness_policy_checksum": "c2079a5a7feb187b2e7a12aa05cc4980076f5199c1eb93f7bf2672c15e856c3f", "supervised_dispatch_readiness_summary_checksum": "63189c93969955cda3f397b9337a98e79faf059769d44e23bec331d208a802b0"}`
+- x_api_called: `False`
