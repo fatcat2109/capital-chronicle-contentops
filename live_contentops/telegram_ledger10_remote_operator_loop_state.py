@@ -1,6 +1,6 @@
-﻿"""Ledger-9 Telegram remote operator loop state after tenth send.
+﻿"""Ledger-9 Telegram remote operator loop state after eleventh send.
 
-Task 0174WM/WN/WO. Promotes accepted tenth-send proof into local-only
+Task 0174WP/WQ/WR. Promotes accepted eleventh-send proof into local-only
 remote operator loop truth and builds next-gate examples. Import has no side
 effects. No network, no env, no credentials, no Telegram call, no sendMessage.
 """
@@ -18,36 +18,35 @@ from live_contentops import telegram_remote_operator_loop_state as loop3
 from live_contentops import telegram_supervised_send_outcome_ledger as ledger
 
 TASK_LABEL = (
-    "TASK_CONTENTOPS_0174WM_WN_WO_TELEGRAM_LEDGER9_REMOTE_OPERATOR_LOOP_"
+    "TASK_CONTENTOPS_0174WP_WQ_WR_TELEGRAM_LEDGER10_REMOTE_OPERATOR_LOOP_"
     "RECONCILIATION_BATCH_V0"
 )
-MODEL = "TELEGRAM_LEDGER9_REMOTE_OPERATOR_LOOP_STATE_0174WM_WN_WO"
-MODEL_VERSION = "0174WM_WN_WO_TELEGRAM_LEDGER9_REMOTE_OPERATOR_LOOP_STATE_V1"
-SOURCE_BASELINE_COMMIT = "a9c9f2cb727e717dde2b2902414cddc762fe7d72"
-DOC_REL_DIR = os.path.join("docs", "automation", "0174WM_WN_WO")
-PACKET_FILENAME = "telegram_ledger9_remote_operator_loop_state_packet.json"
-DOC_FILENAME = "telegram_ledger9_remote_operator_loop_state.md"
-TENTH_PROOF_REL = os.path.join(
-    "docs", "automation", "0174WM_WN_WO", "telegram_ledger8_tenth_send_proof_packet.json")
+MODEL = "TELEGRAM_ledger10_remote_operator_loop_state_0174WP_WQ_WR"
+MODEL_VERSION = "0174WP_WQ_WR_TELEGRAM_ledger10_remote_operator_loop_state_V1"
+SOURCE_BASELINE_COMMIT = "d0c9474e76bcd5c1e7b0c305d5d6c7d98585cf22"
+DOC_REL_DIR = os.path.join("docs", "automation", "0174WP_WQ_WR")
+PACKET_FILENAME = "telegram_ledger10_remote_operator_loop_state_packet.json"
+DOC_FILENAME = "telegram_ledger10_remote_operator_loop_state.md"
+eleventh_PROOF_REL = os.path.join(
+    "docs", "automation", "0174WP_WQ_WR", "telegram_ledger9_eleventh_send_proof_packet.json")
 MANUAL_GATE_REL = os.path.join(
-    "docs", "automation", "0174WM_WN_WO", "telegram_ledger8_next_manual_gate_packet.json")
-PREVIOUS_LOOP_REL = os.path.join(
-    "docs", "automation", "0174WJ_WK_WL", "telegram_ledger8_remote_operator_loop_state_packet.json")
+    "docs", "automation", "0174WP_WQ_WR", "telegram_ledger9_next_manual_gate_packet.json")
+PREVIOUS_LOOP_REL = os.path.join("docs", "automation", "0174WM_WN_WO", "telegram_ledger9_remote_operator_loop_state_packet.json")
 
-RECONCILE_OK = "ledger9_reconciliation_ok_ledger_advanced_to_9"
-RECONCILE_MISSING = "ledger9_reconciliation_blocked_missing_tenth_send_proof"
-RECONCILE_SEND_NOT_SUCCEEDED = "ledger9_reconciliation_blocked_send_not_succeeded"
-RECONCILE_GATE_NOT_REVALIDATED = "ledger9_reconciliation_blocked_manual_gate_not_revalidated"
-RECONCILE_LEDGER_NOT_ADVANCED = "ledger9_reconciliation_blocked_ledger_not_advanced"
-RECONCILE_MANIFEST_NOT_ADVANCED = "ledger9_reconciliation_blocked_manifest_not_advanced"
-RECONCILE_FAIL_CLOSED = "ledger9_reconciliation_fail_closed_forbidden_value"
-TRUTH_CLASS = "remote_loop_truth_ledger_count_9_test10_accepted"
+RECONCILE_OK = "ledger10_reconciliation_ok_ledger_advanced_to_10"
+RECONCILE_MISSING = "ledger10_reconciliation_blocked_missing_eleventh_send_proof"
+RECONCILE_SEND_NOT_SUCCEEDED = "ledger10_reconciliation_blocked_send_not_succeeded"
+RECONCILE_GATE_NOT_REVALIDATED = "ledger10_reconciliation_blocked_manual_gate_not_revalidated"
+RECONCILE_LEDGER_NOT_ADVANCED = "ledger10_reconciliation_blocked_ledger_not_advanced"
+RECONCILE_MANIFEST_NOT_ADVANCED = "ledger10_reconciliation_blocked_manifest_not_advanced"
+RECONCILE_FAIL_CLOSED = "ledger10_reconciliation_fail_closed_forbidden_value"
+TRUTH_CLASS = "remote_loop_truth_ledger_count_10_test11_accepted"
 NEXT_ALLOWED_ACTION = "prepare_next_manual_gate_candidate"
 NEXT_RECOMMENDED_TASK = (
     "TASK_CONTENTOPS_0174WP_WQ_WR_TELEGRAM_LEDGER9_NEXT_MANUAL_GATE_PACKET_"
     "BATCH_V0"
 )
-TENTH_GATE_ID = "ledger8_next_manual_gate_transient_local_gate_v1"
+eleventh_GATE_ID = "ledger9_next_manual_gate_transient_local_gate_v1"
 
 
 def serialize(obj):
@@ -127,7 +126,7 @@ def _proof_to_evidence(proof):
 
 def _entry_from_proof(proof):
     ev = _proof_to_evidence(proof)
-    entry = ledger.build_ledger_entry(ev, operator_gate_id=TENTH_GATE_ID)
+    entry = ledger.build_ledger_entry(ev, operator_gate_id=eleventh_GATE_ID)
     p = proof or {}
     entry["ledger_entry_checksum"] = p.get("new_ledger_entry_checksum")
     entry["exact_run_replay_key"] = p.get("exact_run_replay_key") or entry.get("exact_run_replay_key")
@@ -138,8 +137,8 @@ def _entry_from_proof(proof):
     return entry
 
 
-def reconcile_tenth_send_proof(tenth_send_proof, previous_loop_state_packet=None):
-    p = tenth_send_proof or {}
+def reconcile_eleventh_send_proof(eleventh_send_proof, previous_loop_state_packet=None):
+    p = eleventh_send_proof or {}
     blockers = []
     forbidden = bool(scan(p))
     if forbidden:
@@ -150,8 +149,7 @@ def reconcile_tenth_send_proof(tenth_send_proof, previous_loop_state_packet=None
         outcome = RECONCILE_SEND_NOT_SUCCEEDED
     elif p.get("manual_gate_revalidated") is not True:
         outcome = RECONCILE_GATE_NOT_REVALIDATED
-    elif not (p.get("ledger_appended") is True and p.get("ledger_entry_count_before") == 8
-              and p.get("ledger_entry_count") == 9 and p.get("request_budget_used") == 1):
+    elif not (p.get("ledger_appended") is True and p.get("ledger_entry_count_before") == 9 and p.get("ledger_entry_count") == 10 and p.get("request_budget_used") == 1):
         outcome = RECONCILE_LEDGER_NOT_ADVANCED
     elif not (p.get("old_ledger_manifest_checksum") and p.get("new_ledger_manifest_checksum")
               and p.get("old_ledger_manifest_checksum") != p.get("new_ledger_manifest_checksum")):
@@ -172,7 +170,7 @@ def reconcile_tenth_send_proof(tenth_send_proof, previous_loop_state_packet=None
         "reconciliation_outcome_class": outcome,
         "reconciled": outcome == RECONCILE_OK,
         "blocker_stack": blockers,
-        "tenth_send_proof_checksum": p.get("evidence_checksum") or compute_checksum(p) if p else None,
+        "eleventh_send_proof_checksum": p.get("evidence_checksum") or compute_checksum(p) if p else None,
         "previous_loop_state_checksum": prev_state.get("remote_loop_state_checksum"),
         "ledger_entry_count_before": p.get("ledger_entry_count_before"),
         "ledger_entry_count": p.get("ledger_entry_count"),
@@ -188,17 +186,17 @@ def reconcile_tenth_send_proof(tenth_send_proof, previous_loop_state_packet=None
     return result
 
 
-def build_ledger9_remote_operator_loop_state(tenth_send_proof, manual_gate_packet,
+def build_ledger10_remote_operator_loop_state(eleventh_send_proof, manual_gate_packet,
                                              previous_loop_state_packet=None):
-    proof = tenth_send_proof or {}
+    proof = eleventh_send_proof or {}
     gate_packet = manual_gate_packet or {}
     prev_packet = previous_loop_state_packet or {}
     prev_state = prev_packet.get("remote_loop_state") or {}
-    reconciliation = reconcile_tenth_send_proof(proof, prev_packet)
+    reconciliation = reconcile_eleventh_send_proof(proof, prev_packet)
     reconciled = reconciliation.get("reconciled") is True
     entry = _entry_from_proof(proof) if proof else {}
     audit_refs = {
-        "tenth_send_proof_checksum": proof.get("evidence_checksum") or compute_checksum(proof) if proof else None,
+        "eleventh_send_proof_checksum": proof.get("evidence_checksum") or compute_checksum(proof) if proof else None,
         "manual_gate_packet_checksum": gate_packet.get("manual_gate_packet_checksum"),
         "previous_loop_state_checksum": prev_state.get("remote_loop_state_checksum"),
     }
@@ -268,9 +266,9 @@ def _new_payload_candidate_from_proof(proof):
     return ev
 
 
-def build_artifact_packet(tenth_send_proof, manual_gate_packet, previous_loop_state_packet=None):
-    proof = tenth_send_proof or {}
-    state = build_ledger9_remote_operator_loop_state(
+def build_artifact_packet(eleventh_send_proof, manual_gate_packet, previous_loop_state_packet=None):
+    proof = eleventh_send_proof or {}
+    state = build_ledger10_remote_operator_loop_state(
         proof, manual_gate_packet, previous_loop_state_packet=previous_loop_state_packet)
     exact_replay_candidate = _candidate_from_proof(proof)
     same_payload_candidate = _candidate_from_proof(proof, sequence=10, response_suffix="same_payload")
@@ -278,7 +276,7 @@ def build_artifact_packet(tenth_send_proof, manual_gate_packet, previous_loop_st
     examples = {
         "no_candidate": build_next_gate_precheck_state(state),
         "exact_replay": build_next_gate_precheck_state(
-            state, exact_replay_candidate, fresh_operator_gate_id=TENTH_GATE_ID),
+            state, exact_replay_candidate, fresh_operator_gate_id=eleventh_GATE_ID),
         "same_payload_without_gate": build_next_gate_precheck_state(
             state, same_payload_candidate, fresh_operator_gate_id=None),
         "same_payload_with_fresh_gate": build_next_gate_precheck_state(
@@ -293,7 +291,7 @@ def build_artifact_packet(tenth_send_proof, manual_gate_packet, previous_loop_st
         "status": adapter.Status.PASS,
         "provider": proof.get("provider") or adapter.PROVIDER_TELEGRAM,
         "source_baseline_commit": SOURCE_BASELINE_COMMIT,
-        "tenth_send_proof_checksum": proof.get("evidence_checksum") or compute_checksum(proof) if proof else None,
+        "eleventh_send_proof_checksum": proof.get("evidence_checksum") or compute_checksum(proof) if proof else None,
         "manual_gate_packet_checksum": (manual_gate_packet or {}).get("manual_gate_packet_checksum"),
         "reconciliation_outcome_class": state.get("reconciliation_outcome_class"),
         "current_ledger_count": state.get("current_ledger_count"),
@@ -316,7 +314,7 @@ def build_artifact_doc(packet):
     def ex(name):
         return (examples.get(name) or {}).get("next_gate_outcome_class")
     return (
-        "# 0174WM/WN/WO Telegram Ledger-9 Remote Operator Loop State\n\n"
+        "# 0174WP/WQ/WR Telegram Ledger-9 Remote Operator Loop State\n\n"
         f"Task: `{packet['task_label']}`\n\n"
         f"Model: `{packet['model']}` version `{packet['model_version']}`\n\n"
         "## Reconciliation\n\n"
@@ -361,10 +359,10 @@ def load_packet(packet_path):
 
 def build_artifact_from_repo(repo_root):
     root = os.path.abspath(repo_root)
-    tenth = load_packet(os.path.join(root, TENTH_PROOF_REL))
+    eleventh = load_packet(os.path.join(root, eleventh_PROOF_REL))
     manual = load_packet(os.path.join(root, MANUAL_GATE_REL))
     previous = load_packet(os.path.join(root, PREVIOUS_LOOP_REL))
-    return build_artifact_packet(tenth, manual, previous_loop_state_packet=previous)
+    return build_artifact_packet(eleventh, manual, previous_loop_state_packet=previous)
 
 
 def write_artifacts(base_dir, packet, doc):

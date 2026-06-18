@@ -1,18 +1,18 @@
-# 0174WM/WN/WO Telegram Ledger-9 Remote Operator Loop State
+# 0174WP/WQ/WR Telegram Ledger-9 Remote Operator Loop State
 
-Task: `TASK_CONTENTOPS_0174WM_WN_WO_TELEGRAM_LEDGER9_REMOTE_OPERATOR_LOOP_RECONCILIATION_BATCH_V0`
+Task: `TASK_CONTENTOPS_0174WP_WQ_WR_TELEGRAM_LEDGER10_REMOTE_OPERATOR_LOOP_RECONCILIATION_BATCH_V0`
 
-Model: `TELEGRAM_LEDGER9_REMOTE_OPERATOR_LOOP_STATE_0174WM_WN_WO` version `0174WM_WN_WO_TELEGRAM_LEDGER9_REMOTE_OPERATOR_LOOP_STATE_V1`
+Model: `TELEGRAM_ledger10_remote_operator_loop_state_0174WP_WQ_WR` version `0174WP_WQ_WR_TELEGRAM_ledger10_remote_operator_loop_state_V1`
 
 ## Reconciliation
 
-- Outcome: `ledger9_reconciliation_ok_ledger_advanced_to_9`
-- Current ledger count: `9`
-- Last successful send sequence: `10`
-- Old manifest checksum: `63340faab1b668946610b03bfea5e0234321adc3487cb91c385f584c7df549aa`
-- New manifest checksum: `f470f6719275fa4cc64e4d94c5e572d760abd7266b2cc28055b9e2716e9b2767`
-- Remote loop state checksum: `e9048f04d55379f8ed66951141d01b48f4ef4876c5b09c1c26e9a05a917207f1`
-- Last response checksum: `b5700c95b87e52e0df7d1baabe2de6b54399109a5f35cbc248dfb5d05fc78a96`
+- Outcome: `ledger10_reconciliation_ok_ledger_advanced_to_10`
+- Current ledger count: `10`
+- Last successful send sequence: `11`
+- Old manifest checksum: `f470f6719275fa4cc64e4d94c5e572d760abd7266b2cc28055b9e2716e9b2767`
+- New manifest checksum: `720e481f93fd9feea44c755d8f6fe3b57d26648fddb7aacec30eff9b478fba9f`
+- Remote loop state checksum: `89351d685f997ffa099a44d4947d896d5096d7563bace10dbec936b9da6a7c81`
+- Last response checksum: `bba7804ac932443d476c0771ff6ef9d1aa3fc0ecd300b2608db6e331ecd1e31a`
 
 ## Next gate examples
 
@@ -40,7 +40,7 @@ Model: `TELEGRAM_LEDGER9_REMOTE_OPERATOR_LOOP_STATE_0174WM_WN_WO` version `0174W
 
 ## Artifact checksum
 
-`0c09b8f4788b000252ad00574e1bbf1036542980d3c7da118298452c6eba6342`
+`ef4fe11793c6979515aeac68b61fdf65b2ad2ef98b2bd125aeeba0e6584ef9bf`
 
 ## Next recommended task
 
