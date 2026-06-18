@@ -1,0 +1,80 @@
+# Cockpit UI Shell
+
+> [!IMPORTANT]
+> Local cockpit UI shell only. Live dispatch remains blocked; APIs remain off.
+
+- allowed_review_only_actions: `8 items`
+- audit_table: `5 items`
+- autonomous_replies_or_dms: `False`
+- blocked_live_dispatch_count: `5`
+- blocked_live_dispatch_queue: `5 items`
+- can_dispatch: `False`
+- cockpit_ui_shell_checksum: `6e0ed7eef1e26de0e1224176ffc67e14206aafde5c1138a0c214dd5893686f92`
+- cockpit_ui_shell_fixture_checksum: `4724cefd263e8596102293a83074acf60f81b9eaabaea1e55c703b9918e71feb`
+- cockpit_ui_shell_id: `cockpit_ui_shell_0174YL_YM_YN`
+- credential_hydration_performed: `False`
+- credential_read: `False`
+- current_truth: `5 items`
+- design_tokens: `{"authority_accent": "disciplined_neutral", "density": "institutional_compact_readable", "forbidden_styles": ["blue_cyan_dashboard", "neon_glow", "fake_terminal_dump", "marketing_hero_cards", "fake_action_buttons"], "review_caution": "amber_only", "surface_family": "matte_graphite_zinc", "verified_blocker": "red_only", "verified_pass": "green_only"}`
+- dotenv_read: `False`
+- env_read: `False`
+- evidence_cards: `14 items`
+- evidence_index_count: `5`
+- forbidden_actions: `10 items`
+- future_requirements: `10 items`
+- html_checksum: `71732b5f543ecfa378f055426a6eeb62c353b499d551a05cc03b274f22bec0d3`
+- html_file: `cockpit_ui_shell.html`
+- human_review_required: `True`
+- is_local_only: `True`
+- live_dispatch_status: `BLOCKED`
+- live_post_performed: `False`
+- live_ready_state_created: `False`
+- llm_provider_api_called: `False`
+- local_governance_status: `PASS_DRY_RUN_CHAIN`
+- manual_export_queue: `6 items`
+- manual_export_queue_count: `6`
+- manual_export_status: `REVIEW_ONLY_READY_FOR_OPERATOR`
+- model: `COCKPIT_UI_SHELL_CONTRACT_0174YL_YM_YN`
+- model_version: `0174YL_YM_YN_COCKPIT_UI_SHELL_CONTRACT_V1`
+- network_performed: `False`
+- next_safe_operator_action: `open cockpit UI shell preview locally; review queues; use only non-executing review-only controls`
+- no_external_dependency_proof: `{"cdn_used": false, "external_assets_allowed": false, "external_fonts_used": false, "html_forms_allowed": false, "html_scripts_allowed": false, "iframe_allowed": false, "react_used": false, "runtime_network_allowed": false, "tailwind_used": false, "tracking_allowed": false}`
+- no_financial_advice: `True`
+- no_forbidden_readiness_claim_proof: `pass_no_forbidden_readiness_claims_in_cockpit_ui_shell`
+- no_live_action_affordance_proof: `{"action_elements_review_only_or_non_executing": true, "can_dispatch": false, "hidden_live_affordances_allowed": false, "live_dispatch_status": "BLOCKED", "public_postable": false}`
+- no_live_behavior_proof: `{"autonomous_replies_or_dms": false, "can_dispatch": false, "credential_hydration_performed": false, "credential_read": false, "dotenv_read": false, "env_read": false, "human_review_required": true, "is_local_only": true, "live_post_performed": false, "live_ready_state_created": false, "llm_provider_api_called": false, "network_performed": false, "no_financial_advice": true, "no_signal_language": true, "platform_api_called": false, "platform_dispatch_performed": false, "proof": "pass_cockpit_ui_shell_no_live_no_env_no_network_no_platform_provider", "provider_api_called": false, "public_postable": false, "public_ready_content_generated": false, "raw_request_persisted": false, "raw_response_persisted": false, "scheduler_enabled": false, "scraping_performed": false, "static_preview_only": true, "static_shell_only": true, "substack_api_called": false, "telegram_api_called": false, "token_logged": false, "x_api_called": false}`
+- no_signal_language: `True`
+- platform_api_called: `False`
+- platform_dispatch_performed: `False`
+- platform_statuses: `{"substack": "MANUAL_EXPORT_ONLY_NO_API", "telegram": "PREVIEW_ONLY_FROZEN_NO_SEND", "x": "PREVIEW_ONLY_NO_API"}`
+- provider_api_called: `False`
+- public_postable: `False`
+- public_ready_content_generated: `False`
+- raw_request_persisted: `False`
+- raw_response_persisted: `False`
+- readiness_class: `NOT_READY_FOR_LIVE_DISPATCH`
+- rendered_shell_regions: `8 items`
+- required_future_gates: `5 items`
+- reviewable_now_count: `14`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- screenshot_safe_surface: `True`
+- semantic_components: `{"AuditTable": ["evidence_index", "checksum", "source_stage", "status"], "BlockerStack": ["current_truth", "required_future_gates", "live_blocker_reasons"], "CommandHero": ["title", "readiness_class", "local_governance_status", "live_dispatch_status", "next_safe_operator_action"], "ContentLane": ["manual_export_queue", "x_preview_queue", "telegram_preview_queue", "blocked_live_dispatch_queue"], "EvidenceCard": ["payload_hash_short", "payload_class", "platform", "source_payload_id", "source_notes", "evidence_refs", "can_dispatch", "public_postable"], "NextActionPanel": ["allowed_local_review_actions", "forbidden_live_platform_actions"], "OperationalTruthRail": ["platform_statuses", "review_queue_count", "blocker_count"], "SignalLockStrip": ["no_live_dispatch", "no_platform_api", "no_credential_hydration", "no_scheduler", "no_autonomous_replies_or_dms", "no_scraping", "no_financial_advice_or_signal_language"]}`
+- shell_regions: `8 items`
+- source_baseline_commit: `ab6e9840f2dc1d73008bea3e6aabbbcf4db5abdd`
+- source_next_cockpit_ui_shell_contract_checksum: `d545c944a5569165151bba4cdaad960cfaafa12907ea37e804e8a4c1a802baa6`
+- source_static_cockpit_surface_checksum: `06fdbf6c818d2fbe6aa1c64aa22eae0bf14745b758b736be2126f9c3d88da526`
+- source_static_cockpit_surface_fixture_checksum: `a85655e1452dbe865689d843d5c40adceddaf00cd9be21c3107e0ffc10ca09fc`
+- source_static_cockpit_surface_html_checksum: `e7e83d8e61cb6b7af1c4535f1669f4f787e1b154c0e423e292ebb0c09b53abda`
+- source_static_cockpit_surface_policy_checksum: `67c4ed40e25d6cb0cc3282867a71f4d265cbfd98271e6f7a4bf85a6ef5720dbe`
+- static_shell_only: `True`
+- status: `pass`
+- substack_api_called: `False`
+- task_label: `TASK_CONTENTOPS_0174YL_YM_YN_COCKPIT_UI_SHELL_CONTRACT_V0`
+- telegram_api_called: `False`
+- telegram_preview_queue: `2 items`
+- telegram_preview_queue_count: `2`
+- token_logged: `False`
+- x_api_called: `False`
+- x_preview_queue: `6 items`
+- x_preview_queue_count: `6`

@@ -1,0 +1,54 @@
+# Next Cockpit Browser QA
+
+> [!IMPORTANT]
+> Local cockpit UI shell only. Live dispatch remains blocked; APIs remain off.
+
+- allowed_inputs: `4 items`
+- autonomous_replies_or_dms: `False`
+- browser_qa_must_remain_local_only: `True`
+- can_dispatch: `False`
+- cockpit_ui_shell_checksum: `6e0ed7eef1e26de0e1224176ffc67e14206aafde5c1138a0c214dd5893686f92`
+- cockpit_ui_shell_fixture_checksum: `4724cefd263e8596102293a83074acf60f81b9eaabaea1e55c703b9918e71feb`
+- cockpit_ui_shell_html_checksum: `71732b5f543ecfa378f055426a6eeb62c353b499d551a05cc03b274f22bec0d3`
+- cockpit_ui_shell_policy_checksum: `91339095ff05fddfc832ccd180be10480c3f619c1153467523575208a3ce5a3a`
+- credential_hydration_performed: `False`
+- credential_read: `False`
+- dotenv_read: `False`
+- env_read: `False`
+- forbidden_outputs: `10 items`
+- human_review_required: `True`
+- is_local_only: `True`
+- live_dispatch_status: `BLOCKED`
+- live_post_performed: `False`
+- live_ready_state_created: `False`
+- llm_provider_api_called: `False`
+- manual_export_status: `REVIEW_ONLY_READY_FOR_OPERATOR`
+- model: `NEXT_COCKPIT_BROWSER_QA_0174YL_YM_YN`
+- model_version: `0174YL_YM_YN_NEXT_COCKPIT_BROWSER_QA_V1`
+- must_capture_screenshot_safe_static_html: `True`
+- must_not_click_or_invent_live_actions: `True`
+- network_performed: `False`
+- next_batch_prompt: `TASK_CONTENTOPS_0174YO_YP_YQ_COCKPIT_BROWSER_QA_CONTRACT_V0`
+- next_cockpit_browser_qa_packet_checksum: `585afecbb7f6dfde0f678baf6ff617805f0256d8a33e866b827958bf852d87a9`
+- next_scope: `browser_qa_for_local_cockpit_ui_shell_only`
+- no_financial_advice: `True`
+- no_signal_language: `True`
+- platform_api_called: `False`
+- platform_dispatch_performed: `False`
+- provider_api_called: `False`
+- public_postable: `False`
+- public_ready_content_generated: `False`
+- raw_request_persisted: `False`
+- raw_response_persisted: `False`
+- readiness_class: `NOT_READY_FOR_LIVE_DISPATCH`
+- rendered_shell_regions: `8 items`
+- scheduler_enabled: `False`
+- scraping_performed: `False`
+- source_baseline_commit: `ab6e9840f2dc1d73008bea3e6aabbbcf4db5abdd`
+- static_shell_only: `True`
+- status: `pass`
+- substack_api_called: `False`
+- task_label: `TASK_CONTENTOPS_0174YO_YP_YQ_COCKPIT_BROWSER_QA_CONTRACT_V0`
+- telegram_api_called: `False`
+- token_logged: `False`
+- x_api_called: `False`

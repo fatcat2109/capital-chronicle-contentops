@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Local review-only cockpit UI shell for Capital Chronicle ContentOps governance.">
+  <title>Capital Chronicle Cockpit UI Shell</title>
+  <style>
+    :root { color-scheme: dark; --bg:#11110f; --panel:#1a1a17; --panel-2:#23231f; --panel-3:#2c2b26; --line:#3b3a32; --text:#eee9dd; --muted:#aaa397; --amber:#d7a447; --red:#c85f5f; --green:#86a86d; --neutral:#c9c0ad; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:linear-gradient(135deg,#0f0f0d,#1b1b18 45%,#0d0d0c); color:var(--text); font-family:Georgia,'Times New Roman',serif; }
+    main { width:min(1320px,calc(100% - 32px)); margin:0 auto; padding:28px 0 44px; }
+    .CommandHero { border:1px solid var(--line); background:linear-gradient(135deg,rgba(215,164,71,.16),rgba(35,35,31,.95)); border-radius:18px; padding:28px; }
+    h1 { margin:0 0 12px; font-size:clamp(36px,5vw,72px); letter-spacing:-.05em; }
+    h2 { margin:0 0 16px; font-size:26px; }
+    h3 { margin:8px 0 10px; }
+    section { margin-top:18px; border:1px solid var(--line); border-radius:16px; padding:20px; background:rgba(26,26,23,.92); }
+    .rail { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; }
+    .badge,.truth-card,.metric,.evidence-card { border:1px solid var(--line); background:var(--panel-2); border-radius:12px; padding:12px; }
+    .badge { display:inline-flex; margin:4px; color:var(--amber); font-family:Arial,sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:12px; }
+    .badge.danger { color:var(--red); } .badge.good { color:var(--green); }
+    .truth-card span,.metric span { display:block; color:var(--muted); font:700 11px Arial,sans-serif; text-transform:uppercase; letter-spacing:.14em; }
+    .truth-card strong,.metric strong { display:block; margin-top:8px; color:var(--amber); overflow-wrap:anywhere; }
+    .ContentLane { display:grid; grid-template-columns:1fr; gap:18px; }
+    .lane-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+    .hash, code { color:var(--neutral); font-family:Consolas,'Courier New',monospace; overflow-wrap:anywhere; }
+    dl { display:grid; grid-template-columns:118px 1fr; gap:7px 10px; }
+    dt { color:var(--muted); } dd { margin:0; }
+    .review-action { border-top:1px solid var(--line); padding-top:10px; color:var(--amber); font-family:Arial,sans-serif; font-weight:700; }
+    .BlockerStack li { margin:10px 0; } .BlockerStack span { display:block; color:var(--muted); }
+    table { width:100%; border-collapse:collapse; } th,td { text-align:left; padding:10px; border-bottom:1px solid var(--line); vertical-align:top; }
+    .NextActionPanel strong { color:var(--amber); } .muted { color:var(--muted); }
+  </style>
+</head>
+<body>
+<main>
+  <header class="CommandHero">
+    <p class="muted">Capital Chronicle · Institutional local governance cockpit shell</p>
+    <h1>Cockpit UI Shell</h1>
+    <div><span class="badge danger">NOT_READY_FOR_LIVE_DISPATCH</span><span class="badge good">PASS_DRY_RUN_CHAIN</span><span class="badge danger">BLOCKED</span></div>
+    <p><strong>Next safe operator action:</strong> open cockpit UI shell preview locally; review queues; use only non-executing review-only controls</p>
+  </header>
+
+  <section class="SignalLockStrip">
+    <h2>SignalLockStrip</h2>
+    <div><span class="badge danger">no live dispatch</span><span class="badge danger">no platform API</span><span class="badge danger">no credential hydration</span><span class="badge danger">no scheduler</span><span class="badge danger">no autonomous replies/DMs</span><span class="badge danger">no scraping</span><span class="badge danger">no financial advice/signal language</span></div>
+  </section>
+
+  <section class="OperationalTruthRail">
+    <h2>OperationalTruthRail</h2>
+    <div class="rail"><article class='truth-card'><span>substack</span><strong>MANUAL_EXPORT_ONLY_NO_API</strong></article>
+<article class='truth-card'><span>telegram</span><strong>PREVIEW_ONLY_FROZEN_NO_SEND</strong></article>
+<article class='truth-card'><span>x</span><strong>PREVIEW_ONLY_NO_API</strong></article><article class="metric"><span>Review queue count</span><strong>14</strong></article><article class="metric"><span>Blocker count</span><strong>5</strong></article></div>
+  </section>
+
+  <section class="BlockerStack">
+    <h2>BlockerStack</h2>
+    <p><strong>Current truth:</strong> live dispatch blocked; local review shell only.</p>
+    <p><strong>Future requirements:</strong> gates below remain unsatisfied and do not imply readiness.</p>
+    <ul><li><strong>kill_switch_activation</strong><span>kill switch activation missing</span></li>
+<li><strong>redacted_audit_packet</strong><span>redacted audit packet for real platform response missing</span></li>
+<li><strong>manual_fallback_proof</strong><span>manual fallback proof missing</span></li>
+<li><strong>operator_supervision_window</strong><span>operator supervision window missing</span></li>
+<li><strong>live_dispatch_separate_approval</strong><span>live dispatch separate approval missing</span></li></ul>
+  </section>
+
+  <section class="ContentLane">
+    <h2>ContentLane</h2>
+    <h3>Manual export queue</h3><div class="lane-grid">
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">7349e344d2f2</div>
+        <h3>substack_newsletter_issue</h3>
+        <dl>
+          <dt>Platform</dt><dd>substack</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_001_newsletter</dd>
+          <dt>Source notes</dt><dd>primary_manual_export_review; human_review_required; news_hook_only_never_signal; no_financial_advice</dd>
+          <dt>Evidence refs</dt><dd><code>b516085d7cdcbc53b8fbfba525e11f1c5d353733d99aabfb24ec5b66d7d4567a</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Review-only manual export copy; non-executing shell affordance</p>
+      </article>
+    
+
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">add2344cb9d4</div>
+        <h3>substack_longform_post</h3>
+        <dl>
+          <dt>Platform</dt><dd>substack</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_001_longform</dd>
+          <dt>Source notes</dt><dd>primary_manual_export_review; human_review_required; news_hook_only_never_signal; no_financial_advice</dd>
+          <dt>Evidence refs</dt><dd><code>b516085d7cdcbc53b8fbfba525e11f1c5d353733d99aabfb24ec5b66d7d4567a</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Review-only manual export copy; non-executing shell affordance</p>
+      </article>
+    
+
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">b38f425792e2</div>
+        <h3>substack_newsletter_issue</h3>
+        <dl>
+          <dt>Platform</dt><dd>substack</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_005_newsletter</dd>
+          <dt>Source notes</dt><dd>primary_manual_export_review; human_review_required; news_hook_only_never_signal; no_financial_advice</dd>
+          <dt>Evidence refs</dt><dd><code>6e68d28299c5c7fe9de80c2c84bc3755d6abd1dcffbfd8c0ab0e97a332bdf120</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Review-only manual export copy; non-executing shell affordance</p>
+      </article>
+    
+
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">badfe6395edd</div>
+        <h3>substack_longform_post</h3>
+        <dl>
+          <dt>Platform</dt><dd>substack</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_005_longform</dd>
+          <dt>Source notes</dt><dd>primary_manual_export_review; human_review_required; news_hook_only_never_signal; no_financial_advice</dd>
+          <dt>Evidence refs</dt><dd><code>6e68d28299c5c7fe9de80c2c84bc3755d6abd1dcffbfd8c0ab0e97a332bdf120</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Review-only manual export copy; non-executing shell affordance</p>
+      </article>
+    
+
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">fd47cf9976d2</div>
+        <h3>substack_newsletter_issue</h3>
+        <dl>
+          <dt>Platform</dt><dd>substack</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_014_newsletter</dd>
+          <dt>Source notes</dt><dd>primary_manual_export_review; human_review_required; news_hook_only_never_signal; no_financial_advice</dd>
+          <dt>Evidence refs</dt><dd><code>9b61f46ce264a9eebdc2dc5e6774572a7bd699362a4afcdb6d1443bcee913388, 451ad5a824ba8f6bac186062c06a483db988c8b4632d39ea514ca23a1cb1631f</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Review-only manual export copy; non-executing shell affordance</p>
+      </article>
+    
+
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">5086f060d219</div>
+        <h3>substack_longform_post</h3>
+        <dl>
+          <dt>Platform</dt><dd>substack</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_014_longform</dd>
+          <dt>Source notes</dt><dd>primary_manual_export_review; human_review_required; news_hook_only_never_signal; no_financial_advice</dd>
+          <dt>Evidence refs</dt><dd><code>9b61f46ce264a9eebdc2dc5e6774572a7bd699362a4afcdb6d1443bcee913388, 300e2c50375ac7073f9f517c11ecb6e2615feff0f1dec3d6e6e19bbc5ef9c77a</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Review-only manual export copy; non-executing shell affordance</p>
+      </article>
+    </div>
+    <h3>X preview queue</h3><div class="lane-grid">
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">deeb60310e94</div>
+        <h3>x_short_post</h3>
+        <dl>
+          <dt>Platform</dt><dd>x</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_002_x_short</dd>
+          <dt>Source notes</dt><dd>preview_only_no_api; human_review_required; no_financial_advice; no_signal_language</dd>
+          <dt>Evidence refs</dt><dd><code>5a777e306cc96618e3de19299ceb97c9c40ae0831a6ab002fe2a2c4513b0c674</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Inspect X short preview; non-executing shell affordance</p>
+      </article>
+    
+
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">bb9d3b4b11d1</div>
+        <h3>x_thread</h3>
+        <dl>
+          <dt>Platform</dt><dd>x</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_002_x_thread</dd>
+          <dt>Source notes</dt><dd>preview_only_no_api; human_review_required; no_financial_advice; no_signal_language</dd>
+          <dt>Evidence refs</dt><dd><code>5a777e306cc96618e3de19299ceb97c9c40ae0831a6ab002fe2a2c4513b0c674</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Inspect X thread preview; non-executing shell affordance</p>
+      </article>
+    
+
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">54bf65cac3f5</div>
+        <h3>x_short_post</h3>
+        <dl>
+          <dt>Platform</dt><dd>x</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_008_x_short</dd>
+          <dt>Source notes</dt><dd>preview_only_no_api; human_review_required; no_financial_advice; no_signal_language</dd>
+          <dt>Evidence refs</dt><dd><code>dc5894272adf418d4de3b8b6e49564d83d56745780eae494ec73b7c655e9dc2d</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Inspect X short preview; non-executing shell affordance</p>
+      </article>
+    
+
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">d2af78685969</div>
+        <h3>x_thread</h3>
+        <dl>
+          <dt>Platform</dt><dd>x</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_008_x_thread</dd>
+          <dt>Source notes</dt><dd>preview_only_no_api; human_review_required; no_financial_advice; no_signal_language</dd>
+          <dt>Evidence refs</dt><dd><code>dc5894272adf418d4de3b8b6e49564d83d56745780eae494ec73b7c655e9dc2d</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Inspect X thread preview; non-executing shell affordance</p>
+      </article>
+    
+
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">2a5bad559d2f</div>
+        <h3>x_short_post</h3>
+        <dl>
+          <dt>Platform</dt><dd>x</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_013_x_short</dd>
+          <dt>Source notes</dt><dd>preview_only_no_api; human_review_required; no_financial_advice; no_signal_language</dd>
+          <dt>Evidence refs</dt><dd><code>582af301c28534cf951b6a88f6e21926f28cbd7b88a4aad7c8e83c52dacaeb62, c1b98e0d8f5e6849f426f50b9df72b79c47c1ce9a3bcc8519142ae562ea31edc</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Inspect X short preview; non-executing shell affordance</p>
+      </article>
+    
+
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">5bd8fd82388d</div>
+        <h3>x_thread</h3>
+        <dl>
+          <dt>Platform</dt><dd>x</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_013_x_thread</dd>
+          <dt>Source notes</dt><dd>preview_only_no_api; human_review_required; no_financial_advice; no_signal_language</dd>
+          <dt>Evidence refs</dt><dd><code>582af301c28534cf951b6a88f6e21926f28cbd7b88a4aad7c8e83c52dacaeb62, 1a90368d22c170628905248baefe81945fd1c9955108332e4164064fba0c7612</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Inspect X thread preview; non-executing shell affordance</p>
+      </article>
+    </div>
+    <h3>Telegram preview queue</h3><div class="lane-grid">
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">17e540efcf53</div>
+        <h3>telegram_channel_update</h3>
+        <dl>
+          <dt>Platform</dt><dd>telegram</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_004_channel_update</dd>
+          <dt>Source notes</dt><dd>channel_update_preview_only; human_review_required; no_financial_advice; no_signal_language</dd>
+          <dt>Evidence refs</dt><dd><code>189f30f0f54dd361eff996439c808242b7b594e174f9bad9c410c8ac5ef12b14, f0e53e0563a0d3910920213aeb8e3828cd0def900f56dc144943df4f24954eb9</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Inspect Telegram frozen preview; non-executing shell affordance</p>
+      </article>
+    
+
+      <article class="EvidenceCard evidence-card">
+        <div class="hash">cd88a26e5388</div>
+        <h3>telegram_operator_review_message</h3>
+        <dl>
+          <dt>Platform</dt><dd>telegram</dd>
+          <dt>Source payload</dt><dd>payload_brief_intent_msg_004_operator_review</dd>
+          <dt>Source notes</dt><dd>operator_review_preview_only; human_review_required; no_financial_advice; no_signal_language</dd>
+          <dt>Evidence refs</dt><dd><code>189f30f0f54dd361eff996439c808242b7b594e174f9bad9c410c8ac5ef12b14, e7148e59ec7fe3d02ea99ff773dcce95386d61b6dbc39a4bbb2265cdb770feea</code></dd>
+          <dt>can_dispatch</dt><dd>false</dd>
+          <dt>public_postable</dt><dd>false</dd>
+        </dl>
+        <p class="review-action">Inspect Telegram frozen preview; non-executing shell affordance</p>
+      </article>
+    </div>
+    <h3>Blocked live dispatch queue</h3><ul><li><strong>kill_switch_activation</strong><span>kill switch activation missing</span></li>
+<li><strong>redacted_audit_packet</strong><span>redacted audit packet for real platform response missing</span></li>
+<li><strong>manual_fallback_proof</strong><span>manual fallback proof missing</span></li>
+<li><strong>operator_supervision_window</strong><span>operator supervision window missing</span></li>
+<li><strong>live_dispatch_separate_approval</strong><span>live dispatch separate approval missing</span></li></ul>
+  </section>
+
+  <section class="AuditTable">
+    <h2>AuditTable</h2>
+    <table><thead><tr><th>Source stage</th><th>Checksum</th><th>Status</th></tr></thead><tbody><tr><td>cockpit_read_model_checksum</td><td><code>507d15893d887d552a4a4cb7a49b7879a5ab52cd52df7b7e4142ae94f7247c2e</code></td><td>PASS_BOUND</td></tr>
+<tr><td>cockpit_read_model_fixture_outputs_checksum</td><td><code>d9d1a913868d07c44e57bc0ae8756540462357cb4e15be26a9ebf9edd5826b32</code></td><td>PASS_BOUND</td></tr>
+<tr><td>cockpit_read_model_policy_checksum</td><td><code>b69ed234df59c8eda6326515f245a23d8557bba09b846d95fdb57e3173f0acdb</code></td><td>PASS_BOUND</td></tr>
+<tr><td>next_static_cockpit_surface_contract_checksum</td><td><code>0345ac84746830b8fab4c544dcadce2725e5837da518fcff69a6974cd1152f94</code></td><td>PASS_BOUND</td></tr>
+<tr><td>static_cockpit_surface_policy_checksum</td><td><code>67c4ed40e25d6cb0cc3282867a71f4d265cbfd98271e6f7a4bf85a6ef5720dbe</code></td><td>PASS_BOUND</td></tr></tbody></table>
+  </section>
+
+  <section class="NextActionPanel">
+    <h2>NextActionPanel</h2>
+    <p><strong>Allowed local review actions:</strong> open_cockpit_ui_shell_preview_non_executing, review_manual_export_queue_non_executing, copy_markdown_for_substack_after_human_review, inspect_x_preview_non_executing, inspect_telegram_preview_non_executing, record_manual_publish_later_non_executing, request_revision_non_executing, hold_non_executing</p>
+    <p><strong>Forbidden live/platform actions:</strong> live_dispatch, approve_for_posting, credential_hydration, platform_api_call, provider_api_call, autonomous_posting, scheduling, reply_or_dm, scraping, live_state_creation</p>
+  </section>
+</main>
+</body>
+</html>
