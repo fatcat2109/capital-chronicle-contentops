@@ -1,0 +1,1036 @@
+{
+  "artifact_scope": "docs/automation/0174U1_only",
+  "expansion_platforms": [
+    "threads",
+    "instagram",
+    "facebook_page"
+  ],
+  "model": "contentops.platform_universe_registry_v2",
+  "model_version": "0174U1_PLATFORM_UNIVERSE_REGISTRY_V2_V1",
+  "next_heavy_batch_recommendation": "TASK_CONTENTOPS_0174U2_PRIMARY_PLATFORM_PAYLOAD_PREVIEW_CONTRACTS_V0",
+  "no_live_confirmation": {
+    "all_clear": true,
+    "payload_defaults_false": {
+      "facebook_page_post": true,
+      "instagram_caption_asset_packet": true,
+      "instagram_carousel_script": true,
+      "linkedin_professional_post": true,
+      "substack_longform_post": true,
+      "substack_newsletter_issue": true,
+      "telegram_channel_update": true,
+      "telegram_operator_review_message": true,
+      "threads_short_post": true,
+      "tiktok_video_metadata_packet": true,
+      "video_script_metadata_packet": true,
+      "x_short_post": true,
+      "x_thread": true,
+      "youtube_video_metadata_packet": true
+    },
+    "platform_flags_false": {
+      "facebook_page": true,
+      "instagram": true,
+      "linkedin": true,
+      "substack_newsletter": true,
+      "telegram_channel_destination": true,
+      "telegram_remote_operator": true,
+      "threads": true,
+      "tiktok": true,
+      "x": true,
+      "youtube": true
+    }
+  },
+  "no_live_defaults": {
+    "autonomous_posting_allowed": false,
+    "credential_hydrated": false,
+    "dispatch_ready": false,
+    "dm_or_reply_automation_allowed": false,
+    "env_read": false,
+    "live_dispatch_enabled": false,
+    "platform_api_called": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false
+  },
+  "payload_class_entries": [
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "short_text",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "markdown_export_supported": false,
+      "media_shape": "optional_link_or_media",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "x_short_post",
+      "payload_hash_required": true,
+      "platform_family": "x",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": false,
+      "thread_supported": false,
+      "title_supported": false
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "ordered_short_text_parts",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "markdown_export_supported": false,
+      "media_shape": "optional_link_or_media",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "x_thread",
+      "payload_hash_required": true,
+      "platform_family": "x",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": false,
+      "thread_supported": true,
+      "title_supported": false
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "message_text",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "markdown_export_supported": false,
+      "media_shape": "optional_image_or_link",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "telegram_channel_update",
+      "payload_hash_required": true,
+      "platform_family": "telegram_channel_destination",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": false,
+      "thread_supported": false,
+      "title_supported": false
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "review_challenge_message",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "markdown_export_supported": false,
+      "media_shape": "none",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "telegram_operator_review_message",
+      "payload_hash_required": true,
+      "platform_family": "telegram_remote_operator",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": false,
+      "thread_supported": false,
+      "title_supported": false
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "newsletter_markdown",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": true,
+      "markdown_export_supported": true,
+      "media_shape": "optional_assets",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "substack_newsletter_issue",
+      "payload_hash_required": true,
+      "platform_family": "substack_newsletter",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": true,
+      "thread_supported": false,
+      "title_supported": true
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "longform_markdown",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": true,
+      "markdown_export_supported": true,
+      "media_shape": "optional_assets",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "substack_longform_post",
+      "payload_hash_required": true,
+      "platform_family": "substack_newsletter",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": true,
+      "thread_supported": false,
+      "title_supported": true
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "professional_post_text",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "markdown_export_supported": false,
+      "media_shape": "optional_link_or_media",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "linkedin_professional_post",
+      "payload_hash_required": true,
+      "platform_family": "linkedin",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": false,
+      "thread_supported": false,
+      "title_supported": false
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "short_text",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "markdown_export_supported": false,
+      "media_shape": "optional_link_or_media",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "threads_short_post",
+      "payload_hash_required": true,
+      "platform_family": "threads",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": false,
+      "thread_supported": true,
+      "title_supported": false
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "caption_plus_asset_manifest",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": true,
+      "markdown_export_supported": false,
+      "media_shape": "asset_packet",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "instagram_caption_asset_packet",
+      "payload_hash_required": true,
+      "platform_family": "instagram",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": false,
+      "thread_supported": false,
+      "title_supported": false
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "carousel_slide_script",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": true,
+      "markdown_export_supported": false,
+      "media_shape": "carousel_assets",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "instagram_carousel_script",
+      "payload_hash_required": true,
+      "platform_family": "instagram",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": false,
+      "thread_supported": false,
+      "title_supported": true
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "page_post_text",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "markdown_export_supported": false,
+      "media_shape": "optional_link_or_media",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "facebook_page_post",
+      "payload_hash_required": true,
+      "platform_family": "facebook_page",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": false,
+      "thread_supported": false,
+      "title_supported": false
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "video_script_metadata",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": true,
+      "markdown_export_supported": false,
+      "media_shape": "video_rights_metadata",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "video_script_metadata_packet",
+      "payload_hash_required": true,
+      "platform_family": "tiktok",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": true,
+      "thread_supported": false,
+      "title_supported": true
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "youtube_metadata",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": true,
+      "markdown_export_supported": false,
+      "media_shape": "video_rights_metadata",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "youtube_video_metadata_packet",
+      "payload_hash_required": true,
+      "platform_family": "youtube",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": true,
+      "thread_supported": false,
+      "title_supported": true
+    },
+    {
+      "approval_required": true,
+      "blocked_reasons": [
+        "live_gate_closed",
+        "approval_required",
+        "dispatch_revalidation_not_built"
+      ],
+      "body_shape": "tiktok_metadata",
+      "content_lane_support": [
+        "pre_alpha_process",
+        "grounded_news_context",
+        "future_artifact_backed"
+      ],
+      "dispatch_ready_default": false,
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md"
+      ],
+      "live_gate_required": true,
+      "manual_export_supported": true,
+      "markdown_export_supported": false,
+      "media_shape": "video_rights_metadata",
+      "no_advice_required": true,
+      "no_signal_required": true,
+      "payload_class_id": "tiktok_video_metadata_packet",
+      "payload_hash_required": true,
+      "platform_family": "tiktok",
+      "public_postable_default": false,
+      "source_citation_required_when_claimed": true,
+      "subtitle_supported": true,
+      "thread_supported": false,
+      "title_supported": true
+    }
+  ],
+  "platform_entries": [
+    {
+      "api_gate_required": true,
+      "blocked_reasons": [
+        "x_api_gate_closed",
+        "credential_gate_closed"
+      ],
+      "build_phase": "preview_now",
+      "credential_gate_required": true,
+      "current_capability": "preview_contract_only",
+      "default_publish_mode": "preview_only",
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md",
+        "docs/CAPITAL_CHRONICLE_CONTENTOPS_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AFTER_0174AO.md",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
+      ],
+      "future_capability": "future_supervised_live_gate_after_platform_policy_and_budget_gate",
+      "hard_limits": {
+        "text": "short_form_or_thread_preview"
+      },
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "official_docs_refs": [
+        "https://developer.x.com/"
+      ],
+      "payload_classes_supported": [
+        "x_short_post",
+        "x_thread"
+      ],
+      "platform_family": "x",
+      "platform_id": "x",
+      "platform_role": "primary_distribution",
+      "preview_supported": true,
+      "priority_tier": "primary_now",
+      "safety_flags": {
+        "autonomous_posting_allowed": false,
+        "credential_hydrated": false,
+        "dispatch_ready": false,
+        "dm_or_reply_automation_allowed": false,
+        "env_read": false,
+        "future_supervised_dispatch_possible": true,
+        "live_dispatch_enabled": false,
+        "manual_export_or_preview_only": true,
+        "platform_api_called": false,
+        "provider_api_called": false,
+        "public_postable": false,
+        "scheduler_enabled": false,
+        "scraping_performed": false
+      },
+      "soft_guidelines": [
+        "fast_public_narrative",
+        "preserve_citations_when_claimed"
+      ]
+    },
+    {
+      "api_gate_required": true,
+      "blocked_reasons": [
+        "not_publish_destination",
+        "telegram_api_gate_closed"
+      ],
+      "build_phase": "contract_now",
+      "credential_gate_required": true,
+      "current_capability": "local_review_contract_only",
+      "default_publish_mode": "remote_review_only",
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md",
+        "docs/CAPITAL_CHRONICLE_CONTENTOPS_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AFTER_0174AO.md",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
+      ],
+      "future_capability": "future_read_only_or_review_gate_only",
+      "hard_limits": {
+        "destination": "operator_review_not_public_channel"
+      },
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "official_docs_refs": [
+        "https://core.telegram.org/bots/api"
+      ],
+      "payload_classes_supported": [
+        "telegram_operator_review_message"
+      ],
+      "platform_family": "telegram_remote_operator",
+      "platform_id": "telegram_remote_operator",
+      "platform_role": "remote_operator_review",
+      "preview_supported": true,
+      "priority_tier": "primary_now",
+      "safety_flags": {
+        "autonomous_posting_allowed": false,
+        "credential_hydrated": false,
+        "dispatch_ready": false,
+        "dm_or_reply_automation_allowed": false,
+        "env_read": false,
+        "future_supervised_dispatch_possible": false,
+        "live_dispatch_enabled": false,
+        "manual_export_or_preview_only": false,
+        "platform_api_called": false,
+        "provider_api_called": false,
+        "public_postable": false,
+        "scheduler_enabled": false,
+        "scraping_performed": false
+      },
+      "soft_guidelines": [
+        "review_control_only",
+        "must_not_publish"
+      ]
+    },
+    {
+      "api_gate_required": true,
+      "blocked_reasons": [
+        "telegram_api_gate_closed",
+        "bot_admin_gate_closed"
+      ],
+      "build_phase": "preview_now",
+      "credential_gate_required": true,
+      "current_capability": "channel_payload_preview_only",
+      "default_publish_mode": "preview_only",
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md",
+        "docs/CAPITAL_CHRONICLE_CONTENTOPS_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AFTER_0174AO.md",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
+      ],
+      "future_capability": "future_supervised_send_after_gate",
+      "hard_limits": {
+        "method_future": "sendMessage_or_sendPhoto_after_gate"
+      },
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "official_docs_refs": [
+        "https://core.telegram.org/bots/api"
+      ],
+      "payload_classes_supported": [
+        "telegram_channel_update"
+      ],
+      "platform_family": "telegram_channel_destination",
+      "platform_id": "telegram_channel_destination",
+      "platform_role": "controlled_channel_distribution",
+      "preview_supported": true,
+      "priority_tier": "primary_now",
+      "safety_flags": {
+        "autonomous_posting_allowed": false,
+        "credential_hydrated": false,
+        "dispatch_ready": false,
+        "dm_or_reply_automation_allowed": false,
+        "env_read": false,
+        "future_supervised_dispatch_possible": true,
+        "live_dispatch_enabled": false,
+        "manual_export_or_preview_only": true,
+        "platform_api_called": false,
+        "provider_api_called": false,
+        "public_postable": false,
+        "scheduler_enabled": false,
+        "scraping_performed": false
+      },
+      "soft_guidelines": [
+        "controlled_channel_distribution",
+        "hash_exact_payload"
+      ]
+    },
+    {
+      "api_gate_required": true,
+      "blocked_reasons": [
+        "no_substack_public_publish_api_gate",
+        "session_automation_blocked"
+      ],
+      "build_phase": "manual_export_now",
+      "credential_gate_required": true,
+      "current_capability": "manual_markdown_export_only",
+      "default_publish_mode": "manual_export_only",
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md",
+        "docs/CAPITAL_CHRONICLE_CONTENTOPS_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AFTER_0174AO.md",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
+      ],
+      "future_capability": "future_manual_publish_record_without_session_automation",
+      "hard_limits": {
+        "export": "markdown_manual_export"
+      },
+      "live_gate_required": true,
+      "manual_export_supported": true,
+      "official_docs_refs": [
+        "https://support.substack.com/"
+      ],
+      "payload_classes_supported": [
+        "substack_newsletter_issue",
+        "substack_longform_post"
+      ],
+      "platform_family": "substack_newsletter",
+      "platform_id": "substack_newsletter",
+      "platform_role": "owned_long_form",
+      "preview_supported": true,
+      "priority_tier": "primary_now",
+      "safety_flags": {
+        "autonomous_posting_allowed": false,
+        "credential_hydrated": false,
+        "dispatch_ready": false,
+        "dm_or_reply_automation_allowed": false,
+        "env_read": false,
+        "future_supervised_dispatch_possible": true,
+        "live_dispatch_enabled": false,
+        "manual_export_or_preview_only": true,
+        "platform_api_called": false,
+        "provider_api_called": false,
+        "public_postable": false,
+        "scheduler_enabled": false,
+        "scraping_performed": false
+      },
+      "soft_guidelines": [
+        "owned_audience",
+        "citation_footer",
+        "seo_metadata"
+      ]
+    },
+    {
+      "api_gate_required": true,
+      "blocked_reasons": [
+        "linkedin_oauth_gate_closed",
+        "permission_review_closed"
+      ],
+      "build_phase": "preview_now",
+      "credential_gate_required": true,
+      "current_capability": "professional_preview_only",
+      "default_publish_mode": "preview_only",
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md",
+        "docs/CAPITAL_CHRONICLE_CONTENTOPS_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AFTER_0174AO.md",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
+      ],
+      "future_capability": "future_supervised_posts_api_after_review",
+      "hard_limits": {
+        "tone": "professional_credibility"
+      },
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "official_docs_refs": [
+        "https://learn.microsoft.com/linkedin/"
+      ],
+      "payload_classes_supported": [
+        "linkedin_professional_post"
+      ],
+      "platform_family": "linkedin",
+      "platform_id": "linkedin",
+      "platform_role": "professional_credibility",
+      "preview_supported": true,
+      "priority_tier": "secondary_next",
+      "safety_flags": {
+        "autonomous_posting_allowed": false,
+        "credential_hydrated": false,
+        "dispatch_ready": false,
+        "dm_or_reply_automation_allowed": false,
+        "env_read": false,
+        "future_supervised_dispatch_possible": true,
+        "live_dispatch_enabled": false,
+        "manual_export_or_preview_only": true,
+        "platform_api_called": false,
+        "provider_api_called": false,
+        "public_postable": false,
+        "scheduler_enabled": false,
+        "scraping_performed": false
+      },
+      "soft_guidelines": [
+        "founder_voice",
+        "institutional_credibility"
+      ]
+    },
+    {
+      "api_gate_required": true,
+      "blocked_reasons": [
+        "meta_app_review_closed"
+      ],
+      "build_phase": "preview_now",
+      "credential_gate_required": true,
+      "current_capability": "expansion_preview_only",
+      "default_publish_mode": "preview_only",
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md",
+        "docs/CAPITAL_CHRONICLE_CONTENTOPS_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AFTER_0174AO.md",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
+      ],
+      "future_capability": "future_meta_threads_gate",
+      "hard_limits": {
+        "shape": "short_conversation_preview"
+      },
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "official_docs_refs": [
+        "https://developers.facebook.com/docs/threads/"
+      ],
+      "payload_classes_supported": [
+        "threads_short_post"
+      ],
+      "platform_family": "threads",
+      "platform_id": "threads",
+      "platform_role": "expansion_distribution",
+      "preview_supported": true,
+      "priority_tier": "expansion_later",
+      "safety_flags": {
+        "autonomous_posting_allowed": false,
+        "credential_hydrated": false,
+        "dispatch_ready": false,
+        "dm_or_reply_automation_allowed": false,
+        "env_read": false,
+        "future_supervised_dispatch_possible": true,
+        "live_dispatch_enabled": false,
+        "manual_export_or_preview_only": true,
+        "platform_api_called": false,
+        "provider_api_called": false,
+        "public_postable": false,
+        "scheduler_enabled": false,
+        "scraping_performed": false
+      },
+      "soft_guidelines": [
+        "lightweight_conversation"
+      ]
+    },
+    {
+      "api_gate_required": true,
+      "blocked_reasons": [
+        "instagram_content_publish_gate_closed",
+        "media_url_gate_closed"
+      ],
+      "build_phase": "preview_now",
+      "credential_gate_required": true,
+      "current_capability": "asset_packet_preview_only",
+      "default_publish_mode": "preview_only",
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md",
+        "docs/CAPITAL_CHRONICLE_CONTENTOPS_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AFTER_0174AO.md",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
+      ],
+      "future_capability": "future_content_publishing_api_gate",
+      "hard_limits": {
+        "requires": "asset_packet_or_carousel_script"
+      },
+      "live_gate_required": true,
+      "manual_export_supported": true,
+      "official_docs_refs": [
+        "https://developers.facebook.com/docs/"
+      ],
+      "payload_classes_supported": [
+        "instagram_caption_asset_packet",
+        "instagram_carousel_script"
+      ],
+      "platform_family": "instagram",
+      "platform_id": "instagram",
+      "platform_role": "expansion_distribution",
+      "preview_supported": true,
+      "priority_tier": "expansion_later",
+      "safety_flags": {
+        "autonomous_posting_allowed": false,
+        "credential_hydrated": false,
+        "dispatch_ready": false,
+        "dm_or_reply_automation_allowed": false,
+        "env_read": false,
+        "future_supervised_dispatch_possible": true,
+        "live_dispatch_enabled": false,
+        "manual_export_or_preview_only": true,
+        "platform_api_called": false,
+        "provider_api_called": false,
+        "public_postable": false,
+        "scheduler_enabled": false,
+        "scraping_performed": false
+      },
+      "soft_guidelines": [
+        "visual_education",
+        "rights_status_required"
+      ]
+    },
+    {
+      "api_gate_required": true,
+      "blocked_reasons": [
+        "pages_manage_posts_gate_closed"
+      ],
+      "build_phase": "preview_now",
+      "credential_gate_required": true,
+      "current_capability": "page_post_preview_only",
+      "default_publish_mode": "preview_only",
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md",
+        "docs/CAPITAL_CHRONICLE_CONTENTOPS_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AFTER_0174AO.md",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
+      ],
+      "future_capability": "future_page_publish_after_review",
+      "hard_limits": {
+        "destination": "page_post_preview"
+      },
+      "live_gate_required": true,
+      "manual_export_supported": false,
+      "official_docs_refs": [
+        "https://developers.facebook.com/docs/"
+      ],
+      "payload_classes_supported": [
+        "facebook_page_post"
+      ],
+      "platform_family": "facebook_page",
+      "platform_id": "facebook_page",
+      "platform_role": "expansion_distribution",
+      "preview_supported": true,
+      "priority_tier": "expansion_later",
+      "safety_flags": {
+        "autonomous_posting_allowed": false,
+        "credential_hydrated": false,
+        "dispatch_ready": false,
+        "dm_or_reply_automation_allowed": false,
+        "env_read": false,
+        "future_supervised_dispatch_possible": true,
+        "live_dispatch_enabled": false,
+        "manual_export_or_preview_only": true,
+        "platform_api_called": false,
+        "provider_api_called": false,
+        "public_postable": false,
+        "scheduler_enabled": false,
+        "scraping_performed": false
+      },
+      "soft_guidelines": [
+        "meta_page_distribution"
+      ]
+    },
+    {
+      "api_gate_required": true,
+      "blocked_reasons": [
+        "video_future_gate_closed",
+        "tiktok_audit_closed"
+      ],
+      "build_phase": "video_future_gate",
+      "credential_gate_required": true,
+      "current_capability": "video_metadata_packet_only",
+      "default_publish_mode": "preview_only",
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md",
+        "docs/CAPITAL_CHRONICLE_CONTENTOPS_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AFTER_0174AO.md",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
+      ],
+      "future_capability": "future_video_posting_api_after_audit",
+      "hard_limits": {
+        "media": "video_metadata_only"
+      },
+      "live_gate_required": true,
+      "manual_export_supported": true,
+      "official_docs_refs": [
+        "https://developers.tiktok.com/doc/content-posting-api-get-started/"
+      ],
+      "payload_classes_supported": [
+        "video_script_metadata_packet",
+        "tiktok_video_metadata_packet"
+      ],
+      "platform_family": "tiktok",
+      "platform_id": "tiktok",
+      "platform_role": "later_video_distribution",
+      "preview_supported": true,
+      "priority_tier": "video_later",
+      "safety_flags": {
+        "autonomous_posting_allowed": false,
+        "credential_hydrated": false,
+        "dispatch_ready": false,
+        "dm_or_reply_automation_allowed": false,
+        "env_read": false,
+        "future_supervised_dispatch_possible": true,
+        "live_dispatch_enabled": false,
+        "manual_export_or_preview_only": true,
+        "platform_api_called": false,
+        "provider_api_called": false,
+        "public_postable": false,
+        "scheduler_enabled": false,
+        "scraping_performed": false
+      },
+      "soft_guidelines": [
+        "rights_checklist_required"
+      ]
+    },
+    {
+      "api_gate_required": true,
+      "blocked_reasons": [
+        "video_future_gate_closed",
+        "youtube_oauth_gate_closed"
+      ],
+      "build_phase": "video_future_gate",
+      "credential_gate_required": true,
+      "current_capability": "video_metadata_packet_only",
+      "default_publish_mode": "preview_only",
+      "evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md",
+        "docs/CAPITAL_CHRONICLE_CONTENTOPS_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AFTER_0174AO.md",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
+      ],
+      "future_capability": "future_upload_after_oauth_quota_gate",
+      "hard_limits": {
+        "media": "video_metadata_only"
+      },
+      "live_gate_required": true,
+      "manual_export_supported": true,
+      "official_docs_refs": [
+        "https://developers.google.com/youtube/v3/docs/videos/insert"
+      ],
+      "payload_classes_supported": [
+        "video_script_metadata_packet",
+        "youtube_video_metadata_packet"
+      ],
+      "platform_family": "youtube",
+      "platform_id": "youtube",
+      "platform_role": "later_video_distribution",
+      "preview_supported": true,
+      "priority_tier": "video_later",
+      "safety_flags": {
+        "autonomous_posting_allowed": false,
+        "credential_hydrated": false,
+        "dispatch_ready": false,
+        "dm_or_reply_automation_allowed": false,
+        "env_read": false,
+        "future_supervised_dispatch_possible": true,
+        "live_dispatch_enabled": false,
+        "manual_export_or_preview_only": true,
+        "platform_api_called": false,
+        "provider_api_called": false,
+        "public_postable": false,
+        "scheduler_enabled": false,
+        "scraping_performed": false
+      },
+      "soft_guidelines": [
+        "rights_checklist_required",
+        "quota_awareness"
+      ]
+    }
+  ],
+  "primary_triangle": [
+    "x",
+    "telegram_channel_destination",
+    "substack_newsletter"
+  ],
+  "registry_checksum": "de586ffd70646e253c2ef7689705311058009e8d3f5ce66c1dadd83f568c52ff",
+  "source_baseline_commit": "ae424c27c69338aa189edaf23f8240151cbff6ac",
+  "task_label": "TASK_CONTENTOPS_0174U1_PLATFORM_UNIVERSE_REGISTRY_V2_AND_PRIMARY_PAYLOAD_CLASSES_CONTRACT_V0"
+}
