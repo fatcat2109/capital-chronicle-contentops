@@ -1,0 +1,544 @@
+{
+  "ai_writer_output_contract_checksum": "1dc332b0d63580ba1a03971c5339830ca637a6e7c700fb2a5fff18bce011daf9",
+  "ai_writer_output_fields": [
+    "writer_output_id",
+    "source_brief_id",
+    "writer_mode",
+    "title_candidates",
+    "hook_candidates",
+    "seo_keywords",
+    "seo_title",
+    "seo_description",
+    "platform_fit_notes",
+    "draft_variants",
+    "citation_refs_used",
+    "limitation_notes_preserved",
+    "disclaimers_preserved",
+    "forbidden_claims_detected",
+    "source_hallucination_risk",
+    "public_postable",
+    "approval_ready",
+    "dispatch_ready",
+    "human_review_required",
+    "output_hash",
+    "output_hash_algorithm",
+    "evidence_refs",
+    "safety_flags",
+    "blocked_reasons"
+  ],
+  "allowed_writer_modes": [
+    "deterministic_fixture",
+    "manual_external_llm_paste"
+  ],
+  "artifact_scope": "docs/automation/0174U5_only",
+  "content_idea_intent_parser_model_version": "0174U4_CONTENT_IDEA_INTENT_PARSER_CONTRACT_V1",
+  "draft_variant_fields": [
+    "draft_variant_id",
+    "source_writer_output_id",
+    "platform_id",
+    "payload_class_id",
+    "title",
+    "subtitle",
+    "body",
+    "thread_parts",
+    "markdown_body",
+    "citation_refs",
+    "limitation_notes",
+    "no_signal_disclaimer",
+    "no_advice_disclaimer",
+    "platform_fit_status",
+    "citation_status",
+    "limitation_status",
+    "no_signal_status",
+    "no_advice_status",
+    "review_status",
+    "public_postable",
+    "approval_ready",
+    "dispatch_ready",
+    "draft_hash",
+    "evidence_refs",
+    "blocked_reasons"
+  ],
+  "editorial_brief_fields": [
+    "brief_id",
+    "source_idea_id",
+    "source_intent_id",
+    "source_raw_input_id",
+    "content_lane",
+    "topic_summary",
+    "target_platforms",
+    "target_payload_classes",
+    "audience_mode",
+    "tone_mode",
+    "source_requirement_status",
+    "claim_risk_class",
+    "required_citation_refs",
+    "required_limitation_notes",
+    "required_disclaimers",
+    "forbidden_claims",
+    "required_no_advice",
+    "required_no_signal",
+    "artifact_backed_allowed",
+    "output_status",
+    "human_review_required",
+    "public_postable",
+    "dispatch_ready",
+    "evidence_refs",
+    "safety_flags",
+    "blocked_reasons"
+  ],
+  "model": "contentops.editorial_brief_ai_writer_output_contract",
+  "model_version": "0174U5_EDITORIAL_BRIEF_AI_WRITER_OUTPUT_CONTRACT_V1",
+  "next_heavy_batch_recommendation": "TASK_CONTENTOPS_0174U6_IDEA_TO_MULTI_PLATFORM_DRAFT_DRY_RUN_CONTRACT_V0",
+  "registry_checksum": "de586ffd70646e253c2ef7689705311058009e8d3f5ce66c1dadd83f568c52ff",
+  "review_only_status": "review_only",
+  "safety_false_flags": [
+    "llm_provider_called",
+    "provider_api_called",
+    "platform_api_called",
+    "telegram_api_called",
+    "credential_hydrated",
+    "env_read",
+    "network_performed",
+    "scheduler_enabled",
+    "autonomous_posting_allowed",
+    "scraping_performed",
+    "dm_or_reply_automation_allowed",
+    "live_dispatch_enabled",
+    "dispatch_ready",
+    "public_postable",
+    "approval_granted",
+    "ingestion_repo_mutated"
+  ],
+  "sample_ai_writer_output": {
+    "approval_ready": false,
+    "blocked_reasons": [],
+    "citation_refs_used": [
+      "source:0174U0"
+    ],
+    "disclaimers_preserved": [
+      "Educational context only. Not financial advice.",
+      "Not a trading signal. No buy/sell/hold or price target instruction is provided."
+    ],
+    "dispatch_ready": false,
+    "draft_variants": [
+      {
+        "approval_ready": false,
+        "blocked_reasons": [],
+        "body": "create a Substack newsletter and X thread about source trust before CPI commentary.\n\nAudience: general_operator_review. Tone: credible_plainspoken. Platform: substack_newsletter. Sources: source:0174U0. Limitations: source context required before public claims.\n\nEducational context only. Not financial advice. Not a trading signal. No buy/sell/hold or price target instruction is provided.",
+        "citation_refs": [
+          "source:0174U0"
+        ],
+        "citation_status": "citations_preserved",
+        "dispatch_ready": false,
+        "draft_hash": "64878c56aacd730d747a10cca783ff3e1d839bed3cfa227b67f038e219d5c88b",
+        "draft_variant_id": "draft_variant_64878c56aacd730d747a10cc",
+        "evidence_refs": [
+          "docs/automation/0174U0/heavy_strategy_recon_report.md",
+          "docs/automation/0174U4/content_idea_intent_parser_contract.md",
+          "docs/automation/0174U5/editorial_brief_ai_writer_output_contract.md"
+        ],
+        "limitation_notes": [
+          "source context required before public claims"
+        ],
+        "limitation_status": "limitations_preserved",
+        "markdown_body": "create a Substack newsletter and X thread about source trust before CPI commentary.\n\nAudience: general_operator_review. Tone: credible_plainspoken. Platform: substack_newsletter. Sources: source:0174U0. Limitations: source context required before public claims.\n\nEducational context only. Not financial advice. Not a trading signal. No buy/sell/hold or price target instruction is provided.",
+        "no_advice_disclaimer": "Educational context only. Not financial advice.",
+        "no_advice_status": "no_advice_disclaimer_preserved",
+        "no_signal_disclaimer": "Not a trading signal. No buy/sell/hold or price target instruction is provided.",
+        "no_signal_status": "no_signal_disclaimer_preserved",
+        "payload_class_id": "substack_newsletter_issue",
+        "platform_fit_status": "registry_payload_compatible",
+        "platform_id": "substack_newsletter",
+        "public_postable": false,
+        "review_status": "review_only",
+        "source_writer_output_id": "writer_output_9c5688742c36f987756019c6",
+        "subtitle": "Review-only draft candidate",
+        "thread_parts": [],
+        "title": "Review brief: create a Substack newsletter and X thread about source trust before CP"
+      },
+      {
+        "approval_ready": false,
+        "blocked_reasons": [],
+        "body": "create a Substack newsletter and X thread about source trust before CPI commentary.\n\nAudience: general_operator_review. Tone: credible_plainspoken. Platform: x. Sources: source:0174U0. Limitations: source context required before public claims.\n\nEducational context only. Not financial advice. Not a trading signal. No buy/sell/hold or price target instruction is provided.",
+        "citation_refs": [
+          "source:0174U0"
+        ],
+        "citation_status": "citations_preserved",
+        "dispatch_ready": false,
+        "draft_hash": "4fa53beee337f50354e284ceaefbdac4e6b58eb0b5e39218a79bee1f0b2a7b32",
+        "draft_variant_id": "draft_variant_4fa53beee337f50354e284ce",
+        "evidence_refs": [
+          "docs/automation/0174U0/heavy_strategy_recon_report.md",
+          "docs/automation/0174U4/content_idea_intent_parser_contract.md",
+          "docs/automation/0174U5/editorial_brief_ai_writer_output_contract.md"
+        ],
+        "limitation_notes": [
+          "source context required before public claims"
+        ],
+        "limitation_status": "limitations_preserved",
+        "markdown_body": "",
+        "no_advice_disclaimer": "Educational context only. Not financial advice.",
+        "no_advice_status": "no_advice_disclaimer_preserved",
+        "no_signal_disclaimer": "Not a trading signal. No buy/sell/hold or price target instruction is provided.",
+        "no_signal_status": "no_signal_disclaimer_preserved",
+        "payload_class_id": "x_thread",
+        "platform_fit_status": "registry_payload_compatible",
+        "platform_id": "x",
+        "public_postable": false,
+        "review_status": "review_only",
+        "source_writer_output_id": "writer_output_9c5688742c36f987756019c6",
+        "subtitle": "Review-only draft candidate",
+        "thread_parts": [
+          "Why this matters: create a Substack newsletter and X thread about source trust before CPI commentary.",
+          "create a Substack newsletter and X thread about source trust before CPI commentary.\n\nAudience: general_operator_review. Tone: credible_plainspoken. Platform: x. Sources: source:0174U0. Limitations: source context required before public claims.\n\nEducational con"
+        ],
+        "title": "Review brief: create a Substack newsletter and X thread about source trust before CP"
+      }
+    ],
+    "evidence_refs": [
+      "docs/automation/0174U0/heavy_strategy_recon_report.md",
+      "docs/automation/0174U4/content_idea_intent_parser_contract.md",
+      "docs/automation/0174U5/editorial_brief_ai_writer_output_contract.md"
+    ],
+    "forbidden_claims_detected": [],
+    "hook_candidates": [
+      "Why this matters: create a Substack newsletter and X thread about source trust before CPI commentary."
+    ],
+    "human_review_required": true,
+    "limitation_notes_preserved": [
+      "source context required before public claims"
+    ],
+    "output_hash": "b84fbd8e161d923a058e431e1262390afae6810212e60701267079d50e6ccb2b",
+    "output_hash_algorithm": "sha256",
+    "platform_fit_notes": {
+      "substack_newsletter": "registry_fit:substack_newsletter",
+      "x": "registry_fit:x"
+    },
+    "public_postable": false,
+    "safety_flags": {
+      "approval_granted": false,
+      "autonomous_posting_allowed": false,
+      "credential_hydrated": false,
+      "deterministic_local_only": true,
+      "dispatch_ready": false,
+      "dm_or_reply_automation_allowed": false,
+      "env_read": false,
+      "ingestion_repo_mutated": false,
+      "live_dispatch_enabled": false,
+      "llm_provider_called": false,
+      "network_performed": false,
+      "platform_api_called": false,
+      "provider_api_called": false,
+      "public_postable": false,
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "telegram_api_called": false
+    },
+    "seo_description": "Review-only draft candidate for create a Substack newsletter and X thread about source trust before CPI commentary.",
+    "seo_keywords": [
+      "source trust",
+      "editorial review",
+      "grounded_news_context"
+    ],
+    "seo_title": "Review brief: create a Substack newsletter and X thread about source t",
+    "source_brief_id": "brief_c23d5407ee8ff65a0e1e94f5",
+    "source_hallucination_risk": false,
+    "title_candidates": [
+      "Review brief: create a Substack newsletter and X thread about source trust before CP",
+      "Source-aware note: grounded_news_context"
+    ],
+    "writer_mode": "deterministic_fixture",
+    "writer_output_id": "writer_output_9c5688742c36f987756019c6"
+  },
+  "sample_editorial_brief": {
+    "artifact_backed_allowed": false,
+    "audience_mode": "general_operator_review",
+    "blocked_reasons": [],
+    "brief_id": "brief_c23d5407ee8ff65a0e1e94f5",
+    "claim_risk_class": "market_context_claim_review_required",
+    "content_lane": "grounded_news_context",
+    "dispatch_ready": false,
+    "evidence_refs": [
+      "docs/automation/0174U0/heavy_strategy_recon_report.md",
+      "docs/automation/0174U4/content_idea_intent_parser_contract.md",
+      "docs/automation/0174U5/editorial_brief_ai_writer_output_contract.md"
+    ],
+    "forbidden_claims": [
+      "buy",
+      "sell",
+      "hold",
+      "price target",
+      "trading signal",
+      "signal",
+      "entry point",
+      "exit point",
+      "guaranteed returns",
+      "our model predicts",
+      "financial advice",
+      "long",
+      "short",
+      "model predicts",
+      "recommendation to buy",
+      "recommendation to sell",
+      "watch this level"
+    ],
+    "human_review_required": true,
+    "output_status": "review_only",
+    "public_postable": false,
+    "required_citation_refs": [
+      "source:0174U0"
+    ],
+    "required_disclaimers": [
+      "Educational context only. Not financial advice.",
+      "Not a trading signal. No buy/sell/hold or price target instruction is provided."
+    ],
+    "required_limitation_notes": [
+      "source context required before public claims"
+    ],
+    "required_no_advice": true,
+    "required_no_signal": true,
+    "safety_flags": {
+      "approval_granted": false,
+      "autonomous_posting_allowed": false,
+      "credential_hydrated": false,
+      "deterministic_local_only": true,
+      "dispatch_ready": false,
+      "dm_or_reply_automation_allowed": false,
+      "env_read": false,
+      "ingestion_repo_mutated": false,
+      "live_dispatch_enabled": false,
+      "llm_provider_called": false,
+      "network_performed": false,
+      "platform_api_called": false,
+      "provider_api_called": false,
+      "public_postable": false,
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "telegram_api_called": false
+    },
+    "source_idea_id": "idea_1d2784149f866921b79354da",
+    "source_intent_id": "intent_248391f0f0f3d2f90d87338a",
+    "source_raw_input_id": "raw_input_413e4f1ea74d4ca59aec37c4",
+    "source_requirement_status": "source_needed",
+    "target_payload_classes": [
+      "substack_newsletter_issue",
+      "x_thread"
+    ],
+    "target_platforms": [
+      "substack_newsletter",
+      "x"
+    ],
+    "tone_mode": "credible_plainspoken",
+    "topic_summary": "create a Substack newsletter and X thread about source trust before CPI commentary."
+  },
+  "sample_idea_packet": {
+    "artifact_backed_claims_allowed": false,
+    "audience_mode": "general_operator_review",
+    "blocked_reasons": [],
+    "citation_refs": [
+      "source:0174U0"
+    ],
+    "claim_risk_class": "market_context_claim_review_required",
+    "content_lane": "grounded_news_context",
+    "created_at_epoch": 0,
+    "evidence_refs": [
+      "docs/automation/0174U0/heavy_strategy_recon_report.md",
+      "docs/automation/0174U4/content_idea_intent_parser_contract.md"
+    ],
+    "human_review_required": true,
+    "idea_id": "idea_1d2784149f866921b79354da",
+    "limitation_notes": [
+      "source context required before public claims"
+    ],
+    "market_sensitivity": "medium",
+    "no_financial_advice": true,
+    "no_signal_language": true,
+    "operator_identity_ref": "operator_identity_ref_local",
+    "original_text_hash": "457e5f68897e81585c4725f9b20f94ff378c993570e30764552b0cfd9e169bc0",
+    "public_postable": false,
+    "readiness_state": "source_needed",
+    "requested_output_shapes": [
+      "x_thread",
+      "substack_newsletter_issue"
+    ],
+    "requested_platforms": [
+      "substack_newsletter",
+      "x"
+    ],
+    "safety_flags": {
+      "autonomous_posting_allowed": false,
+      "credential_hydrated": false,
+      "deterministic_local_only": true,
+      "dispatch_ready": false,
+      "dm_or_reply_automation_allowed": false,
+      "env_read": false,
+      "ingestion_repo_mutated": false,
+      "live_dispatch_enabled": false,
+      "llm_provider_called": false,
+      "network_performed": false,
+      "platform_api_called": false,
+      "provider_api_called": false,
+      "public_postable": false,
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "telegram_api_called": false
+    },
+    "source_channel_class": "local_ui",
+    "source_context_refs": [
+      "source:0174U0"
+    ],
+    "source_raw_input_id": "raw_input_413e4f1ea74d4ca59aec37c4",
+    "source_requirement_status": "source_needed",
+    "tone_mode": "credible_plainspoken",
+    "topic_summary": "create a Substack newsletter and X thread about source trust before CPI commentary."
+  },
+  "sample_intent_packet": {
+    "blocked_reasons": [],
+    "can_create_approval": false,
+    "can_create_content_idea": true,
+    "can_create_editorial_brief_candidate": true,
+    "can_dispatch": false,
+    "clarification_question": "",
+    "confidence_class": "deterministic_inferred",
+    "evidence_refs": [
+      "docs/automation/0174U0/heavy_strategy_recon_report.md",
+      "docs/automation/0174U4/content_idea_intent_parser_contract.md"
+    ],
+    "extracted_audience_mode": "general_operator_review",
+    "extracted_constraints": [
+      "source context required before public claims"
+    ],
+    "extracted_content_lane": "grounded_news_context",
+    "extracted_forbidden_risk_flags": [],
+    "extracted_platform_targets": [
+      "substack_newsletter",
+      "x"
+    ],
+    "extracted_tone_mode": "credible_plainspoken",
+    "extracted_topic": "create a Substack newsletter and X thread about source trust before CPI commentary.",
+    "intent_class": "create_content_from_idea",
+    "intent_id": "intent_248391f0f0f3d2f90d87338a",
+    "parser_mode": "deterministic_local_only",
+    "parser_version": "0174U4_CONTENT_IDEA_INTENT_PARSER_CONTRACT_V1",
+    "requires_clarification": false,
+    "safety_flags": {
+      "autonomous_posting_allowed": false,
+      "credential_hydrated": false,
+      "deterministic_local_only": true,
+      "dispatch_ready": false,
+      "dm_or_reply_automation_allowed": false,
+      "env_read": false,
+      "ingestion_repo_mutated": false,
+      "live_dispatch_enabled": false,
+      "llm_provider_called": false,
+      "network_performed": false,
+      "platform_api_called": false,
+      "provider_api_called": false,
+      "public_postable": false,
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "telegram_api_called": false
+    },
+    "source_idea_id": "idea_1d2784149f866921b79354da",
+    "source_raw_input_id": "raw_input_413e4f1ea74d4ca59aec37c4"
+  },
+  "sample_raw_input": {
+    "attachment_manifest_hash": "",
+    "blocked_reasons": [],
+    "evidence_refs": [
+      "docs/automation/0174U0/heavy_strategy_recon_report.md"
+    ],
+    "operator_identity_ref": "operator_identity_ref_local",
+    "raw_input_id": "raw_input_413e4f1ea74d4ca59aec37c4",
+    "raw_text_hash": "457e5f68897e81585c4725f9b20f94ff378c993570e30764552b0cfd9e169bc0",
+    "raw_text_redacted": "Idea: create a Substack newsletter and X thread about source trust before CPI commentary.",
+    "received_at_epoch": 0,
+    "safety_flags": {
+      "autonomous_posting_allowed": false,
+      "credential_hydrated": false,
+      "deterministic_local_only": true,
+      "dispatch_ready": false,
+      "dm_or_reply_automation_allowed": false,
+      "env_read": false,
+      "ingestion_repo_mutated": false,
+      "live_dispatch_enabled": false,
+      "llm_provider_called": false,
+      "network_performed": false,
+      "platform_api_called": false,
+      "provider_api_called": false,
+      "public_postable": false,
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "telegram_api_called": false
+    },
+    "source_channel_class": "local_ui",
+    "source_context_refs": [
+      "source:0174U0"
+    ]
+  },
+  "sample_validation": {
+    "all_drafts_review_only": true,
+    "approval_not_granted": true,
+    "blocked_reasons": [],
+    "citations_preserved": true,
+    "disclaimers_preserved": true,
+    "dispatch_not_allowed": true,
+    "evidence_refs": [
+      "docs/automation/0174U0/heavy_strategy_recon_report.md",
+      "docs/automation/0174U4/content_idea_intent_parser_contract.md",
+      "docs/automation/0174U5/editorial_brief_ai_writer_output_contract.md"
+    ],
+    "limitations_preserved": true,
+    "no_advice_pass": true,
+    "no_forbidden_claims": true,
+    "no_hallucinated_sources": true,
+    "no_provider_defaults_pass": true,
+    "no_signal_pass": true,
+    "public_postable_false": true,
+    "source_brief_id": "brief_c23d5407ee8ff65a0e1e94f5",
+    "validation_id": "writer_validation_ffc45cecc9595476e49830af",
+    "validation_status": "writer_output_valid_for_local_review",
+    "writer_mode_allowed": true,
+    "writer_output_id": "writer_output_9c5688742c36f987756019c6"
+  },
+  "source_baseline_commit": "16065fa1953975c4261a923e7467ac3464b09848",
+  "task_label": "TASK_CONTENTOPS_0174U5_EDITORIAL_BRIEF_AND_AI_WRITER_OUTPUT_CONTRACT_V0",
+  "validation_fields": [
+    "validation_id",
+    "source_brief_id",
+    "writer_output_id",
+    "writer_mode_allowed",
+    "citations_preserved",
+    "limitations_preserved",
+    "disclaimers_preserved",
+    "no_hallucinated_sources",
+    "no_forbidden_claims",
+    "no_signal_pass",
+    "no_advice_pass",
+    "all_drafts_review_only",
+    "approval_not_granted",
+    "dispatch_not_allowed",
+    "public_postable_false",
+    "no_provider_defaults_pass",
+    "validation_status",
+    "blocked_reasons",
+    "evidence_refs"
+  ],
+  "writer_modes": [
+    "deterministic_fixture",
+    "manual_external_llm_paste",
+    "provider_future_gate_blocked"
+  ],
+  "writer_rules": {
+    "approval_creation_allowed": false,
+    "citations_must_be_preserved": true,
+    "deterministic_fixture_allowed": true,
+    "dispatch_allowed": false,
+    "limitations_must_be_preserved": true,
+    "manual_external_llm_paste_allowed": true,
+    "no_advice_no_signal_disclaimers_required": true,
+    "provider_llm_allowed": false,
+    "public_postable_allowed": false
+  }
+}
