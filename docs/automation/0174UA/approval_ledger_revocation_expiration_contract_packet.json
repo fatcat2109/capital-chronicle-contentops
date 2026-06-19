@@ -1,0 +1,62 @@
+{
+  "all_facts_redacted": true,
+  "append_only": true,
+  "blocked_reasons": [
+    "approval_expired",
+    "approval_revoked",
+    "can_dispatch_false_by_contract",
+    "dispatch_revalidation_required_future_0174UB"
+  ],
+  "contract_scope": "deterministic_local_approval_revocation_expiration_only",
+  "evidence_refs": [
+    "docs/automation/0174ED/approval_ledger_payload_hash_contract_packet.json",
+    "docs/automation/0174EE/dispatch_outbox_idempotency_contract_packet.json",
+    "docs/automation/0174TJ/approval_ledger_candidate_recording_contract_packet.json",
+    "docs/automation/0174U9/redacted_immutable_audit_ledger_v2_contract_packet.json"
+  ],
+  "exact_next_task_recommendation": "TASK_CONTENTOPS_0174UB_DISPATCH_OUTBOX_REVALIDATION_GATE_CONTRACT_V0",
+  "hash_algorithm": "sha256",
+  "models": {
+    "approval_expiration_fact": "append-only expiration evaluation over validity window time order and evaluated_at_epoch",
+    "approval_revocation_fact": "append-only revocation fact with raw detail represented only by SHA-256 hash",
+    "approval_validity_assessment": "exact payload/platform/payload-class/destination/credential/revocation/expiration assessment; never dispatch",
+    "approval_validity_window": "exact approval scope and expiration window derived from approval ledger fact",
+    "ledger_packet": "redacted append-only packet containing windows, facts, assessments, safety flags, blockers, and evidence refs"
+  },
+  "no_dispatch": true,
+  "no_live_behavior": true,
+  "packet_hash_algorithm": "sha256",
+  "redaction_rules": [
+    "raw revocation detail not stored",
+    "operator refs are symbolic only",
+    "credential handles are identifiers only, never hydrated",
+    "facts compatible with 0174U9 redacted audit ledger"
+  ],
+  "safety_flags": {
+    "approval_expiration_evaluated": false,
+    "approval_granted": false,
+    "approval_revoked_fact_recorded": false,
+    "autonomous_posting_allowed": false,
+    "can_dispatch": false,
+    "credential_hydrated": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "dm_or_reply_automation_allowed": false,
+    "dqr_cleared": false,
+    "env_read": false,
+    "immutable_append_only": true,
+    "ingestion_repo_mutated": false,
+    "live_dispatch_enabled": false,
+    "llm_provider_called": false,
+    "network_performed": false,
+    "platform_api_called": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "readiness_cleared": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "telegram_api_called": false
+  },
+  "source_baseline_commit": "dbf1030c64874f96032acd781ac3d7b430dac52c",
+  "task_label": "TASK_CONTENTOPS_0174UA_APPROVAL_LEDGER_REVOCATION_EXPIRATION_CONTRACT_V0"
+}
