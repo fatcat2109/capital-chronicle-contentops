@@ -40,6 +40,7 @@ ENTRY_FAMILIES = (
     "platform_account_binding_future", "credential_boundary_future",
     "platform_docs_evidence_future", "permission_scope_gate_future",
     "rate_budget_kill_switch_future", "platform_preflight_future",
+    "preflight_dry_run_request_budget_future",
     "unknown_or_blocked",
 )
 
