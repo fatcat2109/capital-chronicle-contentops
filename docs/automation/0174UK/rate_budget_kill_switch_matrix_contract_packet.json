@@ -1,0 +1,608 @@
+{
+  "auto_retry_allowed_count": 0,
+  "blocked_platforms": [],
+  "blocked_reasons": [
+    "rate_limit_and_spend_gate_unresolved",
+    "operator_inbox_chat_proof_required",
+    "no_arbitrary_dm_allowed",
+    "channel_permission_proof_required",
+    "manual_export_first_no_api",
+    "linkedin_organization_page_binding_missing",
+    "rate_budget_unverified",
+    "meta_app_review_closed",
+    "instagram_content_publish_gate_closed",
+    "pages_manage_posts_gate_closed",
+    "tiktok_audit_closed",
+    "quota_upload_gate_closed"
+  ],
+  "credential_hydrated_count": 0,
+  "env_read_count": 0,
+  "evidence_refs": [
+    "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+    "rate_budget_gate_row_spec:x",
+    "rate_budget_gate_row_spec:telegram_remote_operator",
+    "rate_budget_gate_row_spec:telegram_channel_destination",
+    "rate_budget_gate_row_spec:substack_newsletter",
+    "rate_budget_gate_row_spec:linkedin",
+    "rate_budget_gate_row_spec:threads",
+    "rate_budget_gate_row_spec:instagram",
+    "rate_budget_gate_row_spec:facebook_page",
+    "rate_budget_gate_row_spec:tiktok",
+    "rate_budget_gate_row_spec:youtube"
+  ],
+  "generated_at_epoch": 0,
+  "live_read_allowed_count": 0,
+  "live_write_allowed_count": 0,
+  "manual_export_only_platforms": [
+    "substack_newsletter"
+  ],
+  "matrix_version": "0174UK_RATE_BUDGET_AND_KILL_SWITCH_MATRIX_V1",
+  "next_required_gate": "TASK_CONTENTOPS_0174UL_PLATFORM_PREFLIGHT_AND_DRY_RUN_REQUEST_BUDGET_CONTRACT_V0",
+  "packet_hash": "e8b6c1ebef06237362095ad122fb75c23e548c7b57b65d10833213452148d8b3",
+  "packet_hash_algorithm": "sha256",
+  "packet_id": "rate_budget_kill_switch_packet_e8b6c1ebef06237362095ad1",
+  "platform_api_called_count": 0,
+  "platforms_requiring_kill_switch": [
+    "x",
+    "telegram_remote_operator",
+    "telegram_channel_destination",
+    "linkedin",
+    "threads",
+    "instagram",
+    "facebook_page",
+    "tiktok",
+    "youtube"
+  ],
+  "platforms_with_exact_numeric_claims": [
+    "youtube"
+  ],
+  "platforms_with_unsupported_numeric_claims": [],
+  "public_post_allowed_count": 0,
+  "readiness_cleared_count": 0,
+  "requirement_count": 10,
+  "retry_allowed_count": 0,
+  "rows": [
+    {
+      "auto_retry_allowed": false,
+      "blocked_reasons": [
+        "rate_limit_and_spend_gate_unresolved"
+      ],
+      "credential_hydrated": false,
+      "daily_quota_summary": "N/A",
+      "docs_refs": [
+        "docs_evidence_row_x"
+      ],
+      "endpoint_rate_limit_summary": "Pay-per-use credit-based pricing, endpoint-specific 15-minute rate limit windows",
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "rate_budget_gate_row_spec:x"
+      ],
+      "exact_numeric_claims_present": [],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "kill_switch_default_state": "enabled",
+      "kill_switch_policy_summary": "required=True, default=enabled",
+      "kill_switch_required": true,
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "permission_gate_refs": [
+        "platform_permission_gate_row_x"
+      ],
+      "platform_api_called": false,
+      "platform_id": "x",
+      "platform_role": "primary_distribution",
+      "public_post_allowed": false,
+      "rate_budget_requirements": [
+        "req_x_rate_limit"
+      ],
+      "readiness_cleared": false,
+      "request_budget_policy_summary": "N/A",
+      "retry_allowed": false,
+      "retry_policy_summary": "retry=False, autoretry=False",
+      "row_claim_support_status": "partially_supported_by_cited_doc",
+      "row_hash": "a692b94008a1fb23ef10712f55319acb7289efa0b8ffc21feeca460eaff8943e",
+      "row_id": "platform_rate_budget_gate_row_x",
+      "spend_budget_summary": "N/A",
+      "timeout_failure_policy_summary": "timeout=10s, fail=fail_closed_unapproved_budget",
+      "unsupported_numeric_claims": []
+    },
+    {
+      "auto_retry_allowed": false,
+      "blocked_reasons": [
+        "operator_inbox_chat_proof_required",
+        "no_arbitrary_dm_allowed"
+      ],
+      "credential_hydrated": false,
+      "daily_quota_summary": "N/A",
+      "docs_refs": [
+        "docs_evidence_row_telegram_remote_operator"
+      ],
+      "endpoint_rate_limit_summary": "N/A",
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "rate_budget_gate_row_spec:telegram_remote_operator"
+      ],
+      "exact_numeric_claims_present": [],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "kill_switch_default_state": "enabled",
+      "kill_switch_policy_summary": "required=True, default=enabled",
+      "kill_switch_required": true,
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "permission_gate_refs": [
+        "platform_permission_gate_row_telegram_remote_operator"
+      ],
+      "platform_api_called": false,
+      "platform_id": "telegram_remote_operator",
+      "platform_role": "remote_operator_review",
+      "public_post_allowed": false,
+      "rate_budget_requirements": [
+        "req_tg_op_limit"
+      ],
+      "readiness_cleared": false,
+      "request_budget_policy_summary": "One-request budget model for supervised remote operator inbox",
+      "retry_allowed": false,
+      "retry_policy_summary": "retry=False, autoretry=False",
+      "row_claim_support_status": "partially_supported_by_cited_doc",
+      "row_hash": "e36c022ecfb099c7c0c17bbbfc9b4263155ac5e9ca92f442f33db4d56f01dce4",
+      "row_id": "platform_rate_budget_gate_row_telegram_remote_operator",
+      "spend_budget_summary": "N/A",
+      "timeout_failure_policy_summary": "timeout=10s, fail=needs_human_review",
+      "unsupported_numeric_claims": []
+    },
+    {
+      "auto_retry_allowed": false,
+      "blocked_reasons": [
+        "channel_permission_proof_required"
+      ],
+      "credential_hydrated": false,
+      "daily_quota_summary": "N/A",
+      "docs_refs": [
+        "docs_evidence_row_telegram_channel_destination"
+      ],
+      "endpoint_rate_limit_summary": "N/A",
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "rate_budget_gate_row_spec:telegram_channel_destination"
+      ],
+      "exact_numeric_claims_present": [],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "kill_switch_default_state": "enabled",
+      "kill_switch_policy_summary": "required=True, default=enabled",
+      "kill_switch_required": true,
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "permission_gate_refs": [
+        "platform_permission_gate_row_telegram_channel_destination"
+      ],
+      "platform_api_called": false,
+      "platform_id": "telegram_channel_destination",
+      "platform_role": "controlled_channel_distribution",
+      "public_post_allowed": false,
+      "rate_budget_requirements": [
+        "req_tg_ch_limit"
+      ],
+      "readiness_cleared": false,
+      "request_budget_policy_summary": "One-request budget model for channel post sending",
+      "retry_allowed": false,
+      "retry_policy_summary": "retry=False, autoretry=False",
+      "row_claim_support_status": "partially_supported_by_cited_doc",
+      "row_hash": "9ce8aef83db5c6f36c77b075b0092cac0d13fcca3ce90fcf2af4077edb303b91",
+      "row_id": "platform_rate_budget_gate_row_telegram_channel_destination",
+      "spend_budget_summary": "N/A",
+      "timeout_failure_policy_summary": "timeout=10s, fail=needs_human_review",
+      "unsupported_numeric_claims": []
+    },
+    {
+      "auto_retry_allowed": false,
+      "blocked_reasons": [
+        "manual_export_first_no_api"
+      ],
+      "credential_hydrated": false,
+      "daily_quota_summary": "N/A",
+      "docs_refs": [
+        "docs_evidence_row_substack_newsletter"
+      ],
+      "endpoint_rate_limit_summary": "N/A",
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "rate_budget_gate_row_spec:substack_newsletter"
+      ],
+      "exact_numeric_claims_present": [],
+      "gate_status": "manual_export_no_api",
+      "gate_strength": "weak_manual_policy",
+      "kill_switch_default_state": "manual_stop_policy",
+      "kill_switch_policy_summary": "required=False, default=manual_stop_policy",
+      "kill_switch_required": false,
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "permission_gate_refs": [
+        "platform_permission_gate_row_substack_newsletter"
+      ],
+      "platform_api_called": false,
+      "platform_id": "substack_newsletter",
+      "platform_role": "owned_long_form",
+      "public_post_allowed": false,
+      "rate_budget_requirements": [
+        "req_substack_manual"
+      ],
+      "readiness_cleared": false,
+      "request_budget_policy_summary": "No API request budget, manual copy-paste markdown only",
+      "retry_allowed": false,
+      "retry_policy_summary": "retry=False, autoretry=False",
+      "row_claim_support_status": "manual_export_no_api",
+      "row_hash": "c50f20a6a8af06dcb3ee7dc6da76cb84e238dabd52ed9f9deb035ce71b03ba49",
+      "row_id": "platform_rate_budget_gate_row_substack_newsletter",
+      "spend_budget_summary": "N/A",
+      "timeout_failure_policy_summary": "timeout=0s, fail=fail_closed_manual_export_only",
+      "unsupported_numeric_claims": []
+    },
+    {
+      "auto_retry_allowed": false,
+      "blocked_reasons": [
+        "linkedin_organization_page_binding_missing",
+        "rate_budget_unverified"
+      ],
+      "credential_hydrated": false,
+      "daily_quota_summary": "N/A",
+      "docs_refs": [
+        "docs_evidence_row_linkedin"
+      ],
+      "endpoint_rate_limit_summary": "Member profile w_member_social rate limits and organization control access page gates",
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "rate_budget_gate_row_spec:linkedin"
+      ],
+      "exact_numeric_claims_present": [],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "kill_switch_default_state": "enabled",
+      "kill_switch_policy_summary": "required=True, default=enabled",
+      "kill_switch_required": true,
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "permission_gate_refs": [
+        "platform_permission_gate_row_linkedin"
+      ],
+      "platform_api_called": false,
+      "platform_id": "linkedin",
+      "platform_role": "professional_credibility",
+      "public_post_allowed": false,
+      "rate_budget_requirements": [
+        "req_linkedin_limit"
+      ],
+      "readiness_cleared": false,
+      "request_budget_policy_summary": "N/A",
+      "retry_allowed": false,
+      "retry_policy_summary": "retry=False, autoretry=False",
+      "row_claim_support_status": "partially_supported_by_cited_doc",
+      "row_hash": "07d13559f3089c4ceeff96a1f13cffa2a4bedf4b9c87a762d03b7c887e32cd2c",
+      "row_id": "platform_rate_budget_gate_row_linkedin",
+      "spend_budget_summary": "N/A",
+      "timeout_failure_policy_summary": "timeout=10s, fail=needs_human_review",
+      "unsupported_numeric_claims": []
+    },
+    {
+      "auto_retry_allowed": false,
+      "blocked_reasons": [
+        "meta_app_review_closed",
+        "rate_budget_unverified"
+      ],
+      "credential_hydrated": false,
+      "daily_quota_summary": "N/A",
+      "docs_refs": [
+        "docs_evidence_row_threads"
+      ],
+      "endpoint_rate_limit_summary": "Threads API publishing rate limits and Meta App Review rate ceilings",
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "rate_budget_gate_row_spec:threads"
+      ],
+      "exact_numeric_claims_present": [],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "kill_switch_default_state": "enabled",
+      "kill_switch_policy_summary": "required=True, default=enabled",
+      "kill_switch_required": true,
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "permission_gate_refs": [
+        "platform_permission_gate_row_threads"
+      ],
+      "platform_api_called": false,
+      "platform_id": "threads",
+      "platform_role": "expansion_distribution",
+      "public_post_allowed": false,
+      "rate_budget_requirements": [
+        "req_threads_limit"
+      ],
+      "readiness_cleared": false,
+      "request_budget_policy_summary": "N/A",
+      "retry_allowed": false,
+      "retry_policy_summary": "retry=False, autoretry=False",
+      "row_claim_support_status": "partially_supported_by_cited_doc",
+      "row_hash": "061f3b41e32eac7740663e605fb7461c2afe64c9997a77a4ff7d1931738cefb5",
+      "row_id": "platform_rate_budget_gate_row_threads",
+      "spend_budget_summary": "N/A",
+      "timeout_failure_policy_summary": "timeout=10s, fail=needs_human_review",
+      "unsupported_numeric_claims": []
+    },
+    {
+      "auto_retry_allowed": false,
+      "blocked_reasons": [
+        "instagram_content_publish_gate_closed",
+        "rate_budget_unverified"
+      ],
+      "credential_hydrated": false,
+      "daily_quota_summary": "N/A",
+      "docs_refs": [
+        "docs_evidence_row_instagram"
+      ],
+      "endpoint_rate_limit_summary": "Instagram content publishing container rates and creator/business account limits",
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "rate_budget_gate_row_spec:instagram"
+      ],
+      "exact_numeric_claims_present": [],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "kill_switch_default_state": "enabled",
+      "kill_switch_policy_summary": "required=True, default=enabled",
+      "kill_switch_required": true,
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "permission_gate_refs": [
+        "platform_permission_gate_row_instagram"
+      ],
+      "platform_api_called": false,
+      "platform_id": "instagram",
+      "platform_role": "expansion_distribution",
+      "public_post_allowed": false,
+      "rate_budget_requirements": [
+        "req_instagram_limit"
+      ],
+      "readiness_cleared": false,
+      "request_budget_policy_summary": "N/A",
+      "retry_allowed": false,
+      "retry_policy_summary": "retry=False, autoretry=False",
+      "row_claim_support_status": "partially_supported_by_cited_doc",
+      "row_hash": "af8705a4b8623297ddb61140f6fd0f0b3a1b1cb4ffd861e69e7f9ea075625fe5",
+      "row_id": "platform_rate_budget_gate_row_instagram",
+      "spend_budget_summary": "N/A",
+      "timeout_failure_policy_summary": "timeout=10s, fail=needs_human_review",
+      "unsupported_numeric_claims": []
+    },
+    {
+      "auto_retry_allowed": false,
+      "blocked_reasons": [
+        "pages_manage_posts_gate_closed",
+        "rate_budget_unverified"
+      ],
+      "credential_hydrated": false,
+      "daily_quota_summary": "N/A",
+      "docs_refs": [
+        "docs_evidence_row_facebook_page"
+      ],
+      "endpoint_rate_limit_summary": "Facebook Page posting scopes rate limitations and App Review thresholds",
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "rate_budget_gate_row_spec:facebook_page"
+      ],
+      "exact_numeric_claims_present": [],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "kill_switch_default_state": "enabled",
+      "kill_switch_policy_summary": "required=True, default=enabled",
+      "kill_switch_required": true,
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "permission_gate_refs": [
+        "platform_permission_gate_row_facebook_page"
+      ],
+      "platform_api_called": false,
+      "platform_id": "facebook_page",
+      "platform_role": "expansion_distribution",
+      "public_post_allowed": false,
+      "rate_budget_requirements": [
+        "req_fb_limit"
+      ],
+      "readiness_cleared": false,
+      "request_budget_policy_summary": "N/A",
+      "retry_allowed": false,
+      "retry_policy_summary": "retry=False, autoretry=False",
+      "row_claim_support_status": "partially_supported_by_cited_doc",
+      "row_hash": "c33ff57f34206f778c4adb33b0aefc6a0ed89035eb942ce0563e76a2050a6126",
+      "row_id": "platform_rate_budget_gate_row_facebook_page",
+      "spend_budget_summary": "N/A",
+      "timeout_failure_policy_summary": "timeout=10s, fail=needs_human_review",
+      "unsupported_numeric_claims": []
+    },
+    {
+      "auto_retry_allowed": false,
+      "blocked_reasons": [
+        "tiktok_audit_closed",
+        "rate_budget_unverified"
+      ],
+      "credential_hydrated": false,
+      "daily_quota_summary": "N/A",
+      "docs_refs": [
+        "docs_evidence_row_tiktok"
+      ],
+      "endpoint_rate_limit_summary": "TikTok Content Posting API video upload and post publish constraints",
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "rate_budget_gate_row_spec:tiktok"
+      ],
+      "exact_numeric_claims_present": [],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "kill_switch_default_state": "enabled",
+      "kill_switch_policy_summary": "required=True, default=enabled",
+      "kill_switch_required": true,
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "permission_gate_refs": [
+        "platform_permission_gate_row_tiktok"
+      ],
+      "platform_api_called": false,
+      "platform_id": "tiktok",
+      "platform_role": "later_video_distribution",
+      "public_post_allowed": false,
+      "rate_budget_requirements": [
+        "req_tiktok_limit"
+      ],
+      "readiness_cleared": false,
+      "request_budget_policy_summary": "N/A",
+      "retry_allowed": false,
+      "retry_policy_summary": "retry=False, autoretry=False",
+      "row_claim_support_status": "partially_supported_by_cited_doc",
+      "row_hash": "497893ac7b7d022a93a6f0ca92b043954aed18a4591357434c94f1fb2cd80ac2",
+      "row_id": "platform_rate_budget_gate_row_tiktok",
+      "spend_budget_summary": "N/A",
+      "timeout_failure_policy_summary": "timeout=10s, fail=needs_human_review",
+      "unsupported_numeric_claims": []
+    },
+    {
+      "auto_retry_allowed": false,
+      "blocked_reasons": [
+        "quota_upload_gate_closed"
+      ],
+      "credential_hydrated": false,
+      "daily_quota_summary": "videos.insert supports media upload, 100 calls per day daily limit, cost 1 unit in Video Uploads bucket, 256GB max size",
+      "docs_refs": [
+        "docs_evidence_row_youtube"
+      ],
+      "endpoint_rate_limit_summary": "N/A",
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "rate_budget_gate_row_spec:youtube"
+      ],
+      "exact_numeric_claims_present": [
+        "req_yt_upload_quota"
+      ],
+      "gate_status": "symbolic_rate_budget_ready",
+      "gate_strength": "strong_official_docs",
+      "kill_switch_default_state": "enabled",
+      "kill_switch_policy_summary": "required=True, default=enabled",
+      "kill_switch_required": true,
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "permission_gate_refs": [
+        "platform_permission_gate_row_youtube"
+      ],
+      "platform_api_called": false,
+      "platform_id": "youtube",
+      "platform_role": "later_video_distribution",
+      "public_post_allowed": false,
+      "rate_budget_requirements": [
+        "req_yt_upload_quota"
+      ],
+      "readiness_cleared": false,
+      "request_budget_policy_summary": "N/A",
+      "retry_allowed": false,
+      "retry_policy_summary": "retry=False, autoretry=False",
+      "row_claim_support_status": "supported_by_cited_doc",
+      "row_hash": "95ece97eba8e2d0e08d6e1bbef32a5b5aa4092045d9fc359fefdf6dfef0fd770",
+      "row_id": "platform_rate_budget_gate_row_youtube",
+      "spend_budget_summary": "N/A",
+      "timeout_failure_policy_summary": "timeout=10s, fail=fail_closed_unapproved_budget",
+      "unsupported_numeric_claims": []
+    }
+  ],
+  "rows_by_platform": {
+    "facebook_page": [
+      "platform_rate_budget_gate_row_facebook_page"
+    ],
+    "instagram": [
+      "platform_rate_budget_gate_row_instagram"
+    ],
+    "linkedin": [
+      "platform_rate_budget_gate_row_linkedin"
+    ],
+    "substack_newsletter": [
+      "platform_rate_budget_gate_row_substack_newsletter"
+    ],
+    "telegram_channel_destination": [
+      "platform_rate_budget_gate_row_telegram_channel_destination"
+    ],
+    "telegram_remote_operator": [
+      "platform_rate_budget_gate_row_telegram_remote_operator"
+    ],
+    "threads": [
+      "platform_rate_budget_gate_row_threads"
+    ],
+    "tiktok": [
+      "platform_rate_budget_gate_row_tiktok"
+    ],
+    "x": [
+      "platform_rate_budget_gate_row_x"
+    ],
+    "youtube": [
+      "platform_rate_budget_gate_row_youtube"
+    ]
+  },
+  "safety_flags": {
+    "auto_retry_allowed": false,
+    "autonomous_posting_allowed": false,
+    "browser_session_used": false,
+    "credential_hydrated": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "dm_or_reply_automation_allowed": false,
+    "dqr_cleared": false,
+    "env_read": false,
+    "ingestion_repo_mutated": false,
+    "live_read_allowed": false,
+    "live_write_allowed": false,
+    "local_symbolic_rate_budget_only": true,
+    "network_performed": false,
+    "platform_api_called": false,
+    "provider_api_called": false,
+    "public_post_allowed": false,
+    "public_postable": false,
+    "readiness_cleared": false,
+    "retry_allowed": false,
+    "review_only": true,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "telegram_api_called": false,
+    "ui_generated": false
+  },
+  "symbolic_rate_budget_ready_count": 1,
+  "u9_audit_entry_families": [
+    "rate_budget_kill_switch_future",
+    "rate_budget_kill_switch_future",
+    "rate_budget_kill_switch_future",
+    "rate_budget_kill_switch_future",
+    "rate_budget_kill_switch_future",
+    "rate_budget_kill_switch_future",
+    "rate_budget_kill_switch_future",
+    "rate_budget_kill_switch_future",
+    "rate_budget_kill_switch_future",
+    "rate_budget_kill_switch_future"
+  ],
+  "u9_audit_entry_ids": [
+    "ledger_entry_f4649a8a6cf416a50fd65454",
+    "ledger_entry_5b0905087a71a1c1ceb6bfb5",
+    "ledger_entry_4cc45fd27a24de22007d4e66",
+    "ledger_entry_b072b8066fe797d9b2ee7479",
+    "ledger_entry_d1de87a555ec49fa0546fc8f",
+    "ledger_entry_0308c660402ab67fb3437945",
+    "ledger_entry_632c00b10cb9a0b8df78d394",
+    "ledger_entry_361a511444730a66e35ec45c",
+    "ledger_entry_9fb98b67640c3d1f44da3f36",
+    "ledger_entry_6b20f6b5905dd7bd653fa856"
+  ]
+}
