@@ -49,6 +49,7 @@ ENTRY_FAMILIES = (
     "live_read_only_research_local_preflight_simulation_future",
     "read_only_credential_slot_check_validation_future",
     "read_only_credential_slot_inspection_mock_audit_future",
+    "local_preflight_bundle_v5_read_model_precheck_future",
     "unknown_or_blocked",
 )
 
