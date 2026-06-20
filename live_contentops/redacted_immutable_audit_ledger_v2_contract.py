@@ -41,6 +41,7 @@ ENTRY_FAMILIES = (
     "platform_docs_evidence_future", "permission_scope_gate_future",
     "rate_budget_kill_switch_future", "platform_preflight_future",
     "preflight_dry_run_request_budget_future",
+    "supervised_live_readiness_review_future",
     "unknown_or_blocked",
 )
 
