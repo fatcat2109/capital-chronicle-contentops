@@ -1,0 +1,55 @@
+{
+  "task_label": "TASK_CONTENTOPS_0174UI_R3_REPO_STATE_RECONCILIATION_SCOPE_REPAIR_AND_V5_ALIGNMENT_DOCS_V0",
+  "mode": "Scope-repair + repo audit + documentation",
+  "repo_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops",
+  "repo_full_name": "fatcat2109/capital-chronicle-contentops",
+  "branch": "master",
+  "starting_head": "98a1e433836ee872d9ba6481ade1ca0ccc29eeed",
+  "final_head": "98a1e433836ee872d9ba6481ade1ca0ccc29eeed",
+  "restored_files": [
+    "docs/automation/0174VF_VG_VH/telegram_manual_gate_backed_send_proof.md",
+    "docs/automation/0174VF_VG_VH/telegram_manual_gate_backed_send_proof_packet.json"
+  ],
+  "changed_files": [
+    "docs/automation/0174VF_VG_VH/telegram_manual_gate_backed_send_proof.md",
+    "docs/automation/0174VF_VG_VH/telegram_manual_gate_backed_send_proof_packet.json",
+    "docs/automation/0174UI_R3_STATE_RECON/current_repo_state_report.md",
+    "docs/automation/0174UI_R3_STATE_RECON/current_repo_state_packet.json",
+    "docs/automation/0174UI_R3_STATE_RECON/master_plan_gap_map.md",
+    "docs/automation/0174UI_R3_STATE_RECON/ui_surface_authority_map.md",
+    "docs/automation/0174UI_R3_STATE_RECON/next_task_handoff.md"
+  ],
+  "accepted_state_candidate": "0174UI_R2 remains content-valid",
+  "blocked_or_pending_items": [
+    "0174UJ platform permission scope matrix is pending",
+    "Live posting / API calls blocked"
+  ],
+  "live_api_credential_classification": "Disabled, local shape validation checks only",
+  "safety_flags": {
+    "autonomous_posting_allowed": false,
+    "browser_session_used": false,
+    "credential_hydrated": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "dm_or_reply_automation_allowed": false,
+    "dqr_cleared": false,
+    "env_read": false,
+    "ingestion_repo_mutated": false,
+    "live_read_allowed": false,
+    "live_write_allowed": false,
+    "local_docs_matrix_only": true,
+    "network_performed": false,
+    "platform_api_called": false,
+    "provider_api_called": false,
+    "public_post_allowed": false,
+    "public_postable": false,
+    "readiness_cleared": false,
+    "review_only": true,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "telegram_api_called": false,
+    "ui_generated": false
+  },
+  "packet_hash": "c001da38c6422b9c7c2518e100f9a2b564b3a77992c3d52485e9aa8cc302faef",
+  "packet_hash_algorithm": "sha256"
+}

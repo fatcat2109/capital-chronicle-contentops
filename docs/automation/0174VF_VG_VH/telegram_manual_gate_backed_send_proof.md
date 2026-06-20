@@ -6,9 +6,9 @@ Model: `TELEGRAM_MANUAL_GATE_BACKED_SEND_RUNNER_0174VF_VG_VH` version `0174VF_VG
 
 ## Run summary
 
-- Start HEAD: `c868675cbeeabf97092e1c3229583dfc54596e6b`
-- Final HEAD: `c868675cbeeabf97092e1c3229583dfc54596e6b`
-- Origin HEAD: `c868675cbeeabf97092e1c3229583dfc54596e6b`
+- Start HEAD: `a135e06d91d97bd448d0b711f87a1e98d1b37a33`
+- Final HEAD: `a135e06d91d97bd448d0b711f87a1e98d1b37a33`
+- Origin HEAD: `a135e06d91d97bd448d0b711f87a1e98d1b37a33`
 - Live test sequence: `4`
 - Real send attempted: `False`
 - Send succeeded: `False`
