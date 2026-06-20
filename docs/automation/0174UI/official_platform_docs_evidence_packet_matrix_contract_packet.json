@@ -42,15 +42,19 @@
       "credential_hydrated": false,
       "credential_required_future": true,
       "doc_refs": [
-        "doc_evidence_ref_x_v2"
+        "doc_evidence_ref_x_v2",
+        "doc_evidence_ref_x_limits"
       ],
+      "docs_evidence_strength": "strong",
       "docs_status": "partial_docs_grounded",
       "endpoint_family_summary": "v2/tweets POST/GET",
       "env_read": false,
       "evidence_refs": [
         "doc_evidence_ref_x_v2",
+        "doc_evidence_ref_x_limits",
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
       ],
+      "exact_numeric_claims_present": false,
       "live_read_allowed": false,
       "live_write_allowed": false,
       "media_constraint_summary": "Image (JPEG, PNG), GIF, or Video up to 512MB",
@@ -59,8 +63,9 @@
       "platform_api_called": false,
       "platform_id": "x",
       "platform_role": "primary_distribution",
-      "rate_quota_spend_summary": "17 tweets per 24 hours on Free tier; paywall spend tier caveats",
-      "row_hash": "1adfe767314d351d2163ef7040445cb50931770c0897f81bc6483173a516e6ab",
+      "rate_quota_spend_summary": "Pay-per-use/rate-limit caveat dependent on paid tier",
+      "row_claim_support_status": "supported_by_cited_doc",
+      "row_hash": "c2f72f85c4edbcd858539ed78e7d620c1d01fb3f30a8d084c998fe385343caf1",
       "row_id": "docs_evidence_row_x",
       "safety_flags": {
         "autonomous_posting_allowed": false,
@@ -86,7 +91,8 @@
         "scraping_performed": false,
         "telegram_api_called": false,
         "ui_generated": false
-      }
+      },
+      "unsupported_claims": []
     },
     {
       "app_review_access_summary": "Inbox presence only; operator chat_id binding verification",
@@ -100,6 +106,7 @@
       "doc_refs": [
         "doc_evidence_ref_telegram_operator_intro"
       ],
+      "docs_evidence_strength": "strong",
       "docs_status": "docs_grounded",
       "endpoint_family_summary": "getMe, getUpdates, Webhooks, sendMessage",
       "env_read": false,
@@ -107,6 +114,7 @@
         "doc_evidence_ref_telegram_operator_intro",
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
       ],
+      "exact_numeric_claims_present": false,
       "live_read_allowed": false,
       "live_write_allowed": false,
       "media_constraint_summary": "None (Text operators)",
@@ -116,7 +124,8 @@
       "platform_id": "telegram_remote_operator",
       "platform_role": "remote_operator_review",
       "rate_quota_spend_summary": "No commercial spend quota; standard Bot API rate limits",
-      "row_hash": "b1907f074468bf7ccf8b06e2bf2d4e33b3ba1d59f3c7fbfbe3366d2a47d735b0",
+      "row_claim_support_status": "supported_by_cited_doc",
+      "row_hash": "c7fbc4e93a08f54750e35f7c0eead609989b7d8e733d86c9ae793f2252c5e58a",
       "row_id": "docs_evidence_row_telegram_remote_operator",
       "safety_flags": {
         "autonomous_posting_allowed": false,
@@ -142,7 +151,8 @@
         "scraping_performed": false,
         "telegram_api_called": false,
         "ui_generated": false
-      }
+      },
+      "unsupported_claims": []
     },
     {
       "app_review_access_summary": "Requires Bot to be added to channel with Administrator roles",
@@ -157,6 +167,7 @@
       "doc_refs": [
         "doc_evidence_ref_telegram_channel_send"
       ],
+      "docs_evidence_strength": "strong",
       "docs_status": "docs_grounded",
       "endpoint_family_summary": "sendMessage, sendPhoto",
       "env_read": false,
@@ -164,6 +175,7 @@
         "doc_evidence_ref_telegram_channel_send",
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
       ],
+      "exact_numeric_claims_present": true,
       "live_read_allowed": false,
       "live_write_allowed": false,
       "media_constraint_summary": "Direct photo upload or public image URL",
@@ -172,8 +184,9 @@
       "platform_api_called": false,
       "platform_id": "telegram_channel_destination",
       "platform_role": "controlled_channel_distribution",
-      "rate_quota_spend_summary": "Standard Bot API limits (30 messages/second max)",
-      "row_hash": "804ff4f7029c3029bc01e8588bb95a38f1284a90da18076b54bccf38499d8842",
+      "rate_quota_spend_summary": "Rate limit caveat requiring platform-rate task",
+      "row_claim_support_status": "supported_by_cited_doc",
+      "row_hash": "9ca4591338c8634e39c3ef48d1b3b2894558f26ba25e96aa1f886b16b19b311f",
       "row_id": "docs_evidence_row_telegram_channel_destination",
       "safety_flags": {
         "autonomous_posting_allowed": false,
@@ -199,7 +212,8 @@
         "scraping_performed": false,
         "telegram_api_called": false,
         "ui_generated": false
-      }
+      },
+      "unsupported_claims": []
     },
     {
       "app_review_access_summary": "No Meta/LinkedIn/TikTok Developer App review",
@@ -214,6 +228,7 @@
       "doc_refs": [
         "doc_evidence_ref_substack_help"
       ],
+      "docs_evidence_strength": "weak",
       "docs_status": "manual_export_no_api",
       "endpoint_family_summary": "None (No API Supported)",
       "env_read": false,
@@ -221,6 +236,7 @@
         "doc_evidence_ref_substack_help",
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
       ],
+      "exact_numeric_claims_present": false,
       "live_read_allowed": false,
       "live_write_allowed": false,
       "media_constraint_summary": "Assets manually embedded",
@@ -230,7 +246,8 @@
       "platform_id": "substack_newsletter",
       "platform_role": "owned_long_form",
       "rate_quota_spend_summary": "Manual copy/paste workflow",
-      "row_hash": "3b101f986038afc7ffc9b5ac24bdc7345b915fedcf505b74a1727be19fd09a9f",
+      "row_claim_support_status": "not_verified_current_docs",
+      "row_hash": "dfbfe5717e641ae49cfd508e8d9e00e074b1ade226214aa511fe481447228fc0",
       "row_id": "docs_evidence_row_substack_newsletter",
       "safety_flags": {
         "autonomous_posting_allowed": false,
@@ -256,7 +273,8 @@
         "scraping_performed": false,
         "telegram_api_called": false,
         "ui_generated": false
-      }
+      },
+      "unsupported_claims": []
     },
     {
       "app_review_access_summary": "Member profile posting vs organization page admin permission constraints",
@@ -271,6 +289,7 @@
       "doc_refs": [
         "doc_evidence_ref_linkedin_share"
       ],
+      "docs_evidence_strength": "strong",
       "docs_status": "partial_docs_grounded",
       "endpoint_family_summary": "ugcPosts, shares API",
       "env_read": false,
@@ -278,6 +297,7 @@
         "doc_evidence_ref_linkedin_share",
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
       ],
+      "exact_numeric_claims_present": false,
       "live_read_allowed": false,
       "live_write_allowed": false,
       "media_constraint_summary": "Links, images, and video assets",
@@ -287,7 +307,8 @@
       "platform_id": "linkedin",
       "platform_role": "professional_credibility",
       "rate_quota_spend_summary": "Standard member rate limits",
-      "row_hash": "db5c826d22d2c3456800c87a7f3e351d1a32fcd4cef679ebfb3b530047988c1d",
+      "row_claim_support_status": "supported_by_cited_doc",
+      "row_hash": "6fde85db82435f7dc2eeb01b25d8839e16190df39f49c126150da81ce89b8382",
       "row_id": "docs_evidence_row_linkedin",
       "safety_flags": {
         "autonomous_posting_allowed": false,
@@ -313,7 +334,8 @@
         "scraping_performed": false,
         "telegram_api_called": false,
         "ui_generated": false
-      }
+      },
+      "unsupported_claims": []
     },
     {
       "app_review_access_summary": "Meta App Review required for live API context",
@@ -327,6 +349,7 @@
       "doc_refs": [
         "doc_evidence_ref_threads_overview"
       ],
+      "docs_evidence_strength": "strong",
       "docs_status": "partial_docs_grounded",
       "endpoint_family_summary": "Threads API publishing endpoint",
       "env_read": false,
@@ -334,6 +357,7 @@
         "doc_evidence_ref_threads_overview",
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
       ],
+      "exact_numeric_claims_present": true,
       "live_read_allowed": false,
       "live_write_allowed": false,
       "media_constraint_summary": "Images, videos up to spec",
@@ -343,7 +367,8 @@
       "platform_id": "threads",
       "platform_role": "expansion_distribution",
       "rate_quota_spend_summary": "250 posts per 24 hours per user",
-      "row_hash": "c9d0057ca24b1c25cc2c56ab99678f234b3c8f5427ea14774eaa8dc564c36dbd",
+      "row_claim_support_status": "supported_by_cited_doc",
+      "row_hash": "bee3d02ca3a165b1fe98d84053142053be64b3a7799398fc18b1ae87b78058f0",
       "row_id": "docs_evidence_row_threads",
       "safety_flags": {
         "autonomous_posting_allowed": false,
@@ -369,7 +394,8 @@
         "scraping_performed": false,
         "telegram_api_called": false,
         "ui_generated": false
-      }
+      },
+      "unsupported_claims": []
     },
     {
       "app_review_access_summary": "Meta App Review and Business Verification required",
@@ -384,6 +410,7 @@
       "doc_refs": [
         "doc_evidence_ref_instagram_publish"
       ],
+      "docs_evidence_strength": "strong",
       "docs_status": "partial_docs_grounded",
       "endpoint_family_summary": "media containers and media publish endpoints",
       "env_read": false,
@@ -391,6 +418,7 @@
         "doc_evidence_ref_instagram_publish",
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
       ],
+      "exact_numeric_claims_present": true,
       "live_read_allowed": false,
       "live_write_allowed": false,
       "media_constraint_summary": "Hosted publicly accessible URL required for Facebook server intake",
@@ -400,7 +428,8 @@
       "platform_id": "instagram",
       "platform_role": "expansion_distribution",
       "rate_quota_spend_summary": "Container creation limit (25 per 24h rolling)",
-      "row_hash": "e7d772d700d381f3cda54e887d50830fbe8e11c9b8a8c1851c799a8dd0163971",
+      "row_claim_support_status": "supported_by_cited_doc",
+      "row_hash": "dd9577a16f3a6b413169f5459e207f51d4c578c07deb184c3968e4a614bc5ccb",
       "row_id": "docs_evidence_row_instagram",
       "safety_flags": {
         "autonomous_posting_allowed": false,
@@ -426,7 +455,8 @@
         "scraping_performed": false,
         "telegram_api_called": false,
         "ui_generated": false
-      }
+      },
+      "unsupported_claims": []
     },
     {
       "app_review_access_summary": "Meta App Review Advanced Access and Page admin role verification",
@@ -440,6 +470,7 @@
       "doc_refs": [
         "doc_evidence_ref_facebook_page_publish"
       ],
+      "docs_evidence_strength": "strong",
       "docs_status": "partial_docs_grounded",
       "endpoint_family_summary": "Pages API feed endpoint",
       "env_read": false,
@@ -447,6 +478,7 @@
         "doc_evidence_ref_facebook_page_publish",
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
       ],
+      "exact_numeric_claims_present": false,
       "live_read_allowed": false,
       "live_write_allowed": false,
       "media_constraint_summary": "Images and video formats",
@@ -456,7 +488,8 @@
       "platform_id": "facebook_page",
       "platform_role": "expansion_distribution",
       "rate_quota_spend_summary": "Facebook Page rate limit system",
-      "row_hash": "9cf6dcea7c3de195f2c8c944ebe125b884335bb6aabf58bdd20c97d9151ddf04",
+      "row_claim_support_status": "supported_by_cited_doc",
+      "row_hash": "04845760e8e93908574eb20209bc9bbbb2352ce4a2328bc2b0e696492a423cd8",
       "row_id": "docs_evidence_row_facebook_page",
       "safety_flags": {
         "autonomous_posting_allowed": false,
@@ -482,7 +515,8 @@
         "scraping_performed": false,
         "telegram_api_called": false,
         "ui_generated": false
-      }
+      },
+      "unsupported_claims": []
     },
     {
       "app_review_access_summary": "Developer app audit and TikTok video upload permissions review",
@@ -497,6 +531,7 @@
       "doc_refs": [
         "doc_evidence_ref_tiktok_posting"
       ],
+      "docs_evidence_strength": "strong",
       "docs_status": "partial_docs_grounded",
       "endpoint_family_summary": "Content Posting API upload endpoints",
       "env_read": false,
@@ -504,6 +539,7 @@
         "doc_evidence_ref_tiktok_posting",
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
       ],
+      "exact_numeric_claims_present": false,
       "live_read_allowed": false,
       "live_write_allowed": false,
       "media_constraint_summary": "MP4/WebM compliance, aspect ratio constraints",
@@ -513,7 +549,8 @@
       "platform_id": "tiktok",
       "platform_role": "later_video_distribution",
       "rate_quota_spend_summary": "TikTok Posting quota limitations",
-      "row_hash": "cde5d7069f3262552c0df642b2f5bea98dc7e65867600d3d1c25d70318eda03d",
+      "row_claim_support_status": "supported_by_cited_doc",
+      "row_hash": "3b8ec9e0f0863b8d0c1c1c95cc2913129cde361d29800130d54a3d32e3b87fed",
       "row_id": "docs_evidence_row_tiktok",
       "safety_flags": {
         "autonomous_posting_allowed": false,
@@ -539,7 +576,8 @@
         "scraping_performed": false,
         "telegram_api_called": false,
         "ui_generated": false
-      }
+      },
+      "unsupported_claims": []
     },
     {
       "app_review_access_summary": "Google OAuth Consent Screen review and verification",
@@ -554,6 +592,7 @@
       "doc_refs": [
         "doc_evidence_ref_youtube_insert"
       ],
+      "docs_evidence_strength": "strong",
       "docs_status": "partial_docs_grounded",
       "endpoint_family_summary": "YouTube Data API v3 videos.insert",
       "env_read": false,
@@ -561,6 +600,7 @@
         "doc_evidence_ref_youtube_insert",
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md"
       ],
+      "exact_numeric_claims_present": true,
       "live_read_allowed": false,
       "live_write_allowed": false,
       "media_constraint_summary": "Video containers (MOV, MP4, AVI, etc.)",
@@ -570,7 +610,8 @@
       "platform_id": "youtube",
       "platform_role": "later_video_distribution",
       "rate_quota_spend_summary": "Daily API upload quota consumes 1600 units out of 10000 units",
-      "row_hash": "677e4e9fe11462b714a4576d18bb9ea37c528ea7aecdfab5f3ba62c4586d9cef",
+      "row_claim_support_status": "supported_by_cited_doc",
+      "row_hash": "4555f0373e9836ad875e5f7c8b5874f9ffc9fc13318b4224cf73beddb48c1beb",
       "row_id": "docs_evidence_row_youtube",
       "safety_flags": {
         "autonomous_posting_allowed": false,
@@ -596,12 +637,14 @@
         "scraping_performed": false,
         "telegram_api_called": false,
         "ui_generated": false
-      }
+      },
+      "unsupported_claims": []
     }
   ],
   "env_read_count": 0,
   "evidence_refs": [
     "doc_evidence_ref_x_v2",
+    "doc_evidence_ref_x_limits",
     "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
     "doc_evidence_ref_telegram_operator_intro",
     "doc_evidence_ref_telegram_channel_send",
@@ -621,11 +664,11 @@
   ],
   "matrix_version": "0174UI_OFFICIAL_PLATFORM_DOCS_EVIDENCE_PACKET_MATRIX_V1",
   "next_required_gate": "TASK_CONTENTOPS_0174UJ_PLATFORM_PERMISSION_SCOPE_AND_APP_REVIEW_GATE_MATRIX_V0",
-  "official_doc_ref_count": 10,
+  "official_doc_ref_count": 11,
   "official_domain_count": 7,
-  "packet_hash": "984d175d07fb07e2416f564f19ee97ae5be5b6c84538621277a83f68e6200e74",
+  "packet_hash": "4a8720b2ea6a33699fc3727d26c19e755ff1e0ca15f1e3d74a2d31fbf13faf9c",
   "packet_hash_algorithm": "sha256",
-  "packet_id": "official_platform_docs_evidence_matrix_packet_984d175d07fb07e2416f564f",
+  "packet_id": "official_platform_docs_evidence_matrix_packet_4a8720b2ea6a33699fc3727d",
   "platform_api_called_count": 0,
   "rows_by_platform": {
     "facebook_page": [
@@ -697,15 +740,15 @@
     "platform_docs_evidence_future"
   ],
   "u9_audit_entry_ids": [
-    "ledger_entry_eb0a7889419e0b45fe01de56",
-    "ledger_entry_a8f4a38d450022baea499c1b",
-    "ledger_entry_0dee260201284c55c8be7db7",
-    "ledger_entry_f264c7caa8397fdf4e0707ff",
-    "ledger_entry_19050137af8a829eb2d9285b",
-    "ledger_entry_02fe985b6f4b4ed37fd5302b",
-    "ledger_entry_ff383e9431c69af4cd17fdcd",
-    "ledger_entry_db1c7d76a87c930858d0e267",
-    "ledger_entry_f7ae88b00570bc9f2841a53f",
-    "ledger_entry_9c9ab6d566a349ce2714a5a6"
+    "ledger_entry_738f00c136e9c802087a7f0c",
+    "ledger_entry_7ff5987616e944fdc67b1ef1",
+    "ledger_entry_77842eb3375792599a7391db",
+    "ledger_entry_7ef04b44d1f416d6ed3106cb",
+    "ledger_entry_d7fc8c4156ad97af3a067ca3",
+    "ledger_entry_e2446898a3a33e43eacc62d8",
+    "ledger_entry_ba95640bcb558f8d5d7ea0d8",
+    "ledger_entry_0aa406274e4c8968ebe9940b",
+    "ledger_entry_9e8f8e613d1f4ed0d9cb78e9",
+    "ledger_entry_b2c91ac2a91560d05472bc3f"
   ]
 }

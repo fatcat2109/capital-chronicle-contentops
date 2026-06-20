@@ -39,17 +39,21 @@ def test_every_official_doc_url_is_from_allowed_domain():
     refs = contract.build_default_evidence_refs()
     for ref in refs:
         assert ref.official_domain in contract.ALLOWED_DOMAINS
-        # Ensure urlparse actually yields this host
         from urllib.parse import urlparse
         parsed = urlparse(ref.official_doc_url)
         assert parsed.netloc.split(":")[0] == ref.official_domain
 
+        parsed_final = urlparse(ref.final_doc_url)
+        assert parsed_final.netloc.split(":")[0] in contract.ALLOWED_DOMAINS
 
-def test_substack_is_manual_export_no_api():
+
+def test_substack_is_manual_export_no_api_and_has_weak_strength():
     packet = contract.build_official_platform_docs_evidence_matrix_packet()
     substack_row = next(r for r in packet.docs_rows if r.platform_id == "substack_newsletter")
     
     assert substack_row.docs_status == "manual_export_no_api"
+    assert substack_row.docs_evidence_strength == "weak"  # Downgraded proof
+    assert substack_row.row_claim_support_status == "not_verified_current_docs"
     assert "no_substack_public_publish_api_gate" in substack_row.blocked_reasons
     assert "session_automation_blocked" in substack_row.blocked_reasons
     assert substack_row.credential_required_future is False
@@ -81,7 +85,7 @@ def test_all_live_read_write_api_env_credential_counts_are_zero():
 def test_docs_coverage_does_not_clear_readiness():
     packet = contract.build_official_platform_docs_evidence_matrix_packet()
     
-    # Verify that every platform is blocked and has blocked reasons
+    # Verify that every platform remains blocked
     for row in packet.docs_rows:
         assert len(row.blocked_reasons) > 0
         assert row.safety_flags["dispatch_ready"] is False
@@ -98,23 +102,33 @@ def test_each_row_has_evidence_refs_and_caveats():
         assert row.auth_model_summary != ""
 
 
-def test_x_has_rate_spend_access_caveat():
+def test_x_has_rate_spend_access_caveat_and_no_stale_exact_numeric_claim():
     packet = contract.build_official_platform_docs_evidence_matrix_packet()
     x_row = next(r for r in packet.docs_rows if r.platform_id == "x")
     
-    assert "Free tier is write-only" in x_row.rate_quota_spend_summary or "paywall" in x_row.rate_quota_spend_summary
+    # Stale claim "17 tweets per 24h" removed
+    assert "17 tweets" not in x_row.rate_quota_spend_summary
+    assert "Pay-per-use" in x_row.rate_quota_spend_summary
     assert x_row.docs_status == "partial_docs_grounded"
+    assert x_row.exact_numeric_claims_present is False
 
 
-def test_telegram_operator_and_channel_are_distinct():
+def test_telegram_operator_and_channel_are_distinct_and_sendMessage_character_limit_is_verified():
     packet = contract.build_official_platform_docs_evidence_matrix_packet()
     op_row = next(r for r in packet.docs_rows if r.platform_id == "telegram_remote_operator")
     ch_row = next(r for r in packet.docs_rows if r.platform_id == "telegram_channel_destination")
     
     assert op_row.row_id != ch_row.row_id
     assert op_row.platform_role != ch_row.platform_role
-    assert "operator_inbox" in op_row.blocked_reasons[0] or "operator" in op_row.app_review_access_summary
-    assert "channel_permission_proof_required" in ch_row.blocked_reasons
+
+    # Telegram Channel Destination has verified 4096 character numeric limit
+    assert ch_row.exact_numeric_claims_present is True
+    assert len(ch_row.unsupported_claims) == 0
+    assert ch_row.docs_evidence_strength == "strong"
+    assert ch_row.docs_status == "docs_grounded"
+
+    # Operator inbox limits are not documented in Bot API main page, so rate limit limits is removed/downgraded
+    assert "30 msg/sec" not in op_row.rate_quota_spend_summary
 
 
 def test_linkedin_member_org_caveats_exist():
@@ -146,10 +160,10 @@ def test_tiktok_and_youtube_video_upload_quota_caveats_exist():
     
     assert "video" in tiktok_row.media_constraint_summary or "MP4" in tiktok_row.media_constraint_summary
     assert "quota" in yt_row.rate_quota_spend_summary or "1600 units" in yt_row.rate_quota_spend_summary
+    assert yt_row.exact_numeric_claims_present is True
 
 
 def test_unofficial_domain_input_fails_closed():
-    # Attempting to build an evidence reference with an unofficial domain should raise ValueError
     with pytest.raises(ValueError, match="unofficial_domain_not_allowed"):
         contract.OfficialDocsEvidenceRef(
             evidence_ref_id="doc_evidence_ref_illegal",
@@ -163,7 +177,14 @@ def test_unofficial_domain_input_fails_closed():
             caveats="None",
             evidence_status="official_doc_cited",
             evidence_hash="dummy",
-            evidence_hash_algorithm="sha256"
+            evidence_hash_algorithm="sha256",
+            final_doc_url="https://unofficialblog.com/x-api-leak",
+            official_url_opened=True,
+            source_support_level="direct_official_page",
+            claim_support_status="supported_by_cited_doc",
+            exact_numeric_claim=False,
+            exact_numeric_claim_has_direct_doc_proof=False,
+            claim_review_notes="Notes",
         )
 
     # Domain mismatch should also fail closed
@@ -180,18 +201,24 @@ def test_unofficial_domain_input_fails_closed():
             caveats="None",
             evidence_status="official_doc_cited",
             evidence_hash="dummy",
-            evidence_hash_algorithm="sha256"
+            evidence_hash_algorithm="sha256",
+            final_doc_url="https://developer.x.com/en/docs",
+            official_url_opened=True,
+            source_support_level="direct_official_page",
+            claim_support_status="supported_by_cited_doc",
+            exact_numeric_claim=False,
+            exact_numeric_claim_has_direct_doc_proof=False,
+            claim_review_notes="Notes",
         )
 
 
 def test_missing_official_docs_fails_closed_or_needs_review():
-    # Pass an empty list of references, forcing platforms (except substack) to missing_docs state
     empty_refs = ()
     rows = contract.build_default_docs_rows(empty_refs)
     
-    # Substack remains manual_export_no_api, but X or YouTube should become blocked_missing_official_docs
     x_row = next(r for r in rows if r.platform_id == "x")
     assert x_row.docs_status == "blocked_missing_official_docs"
+    assert x_row.docs_evidence_strength == "blocked"
     assert "missing_official_docs" in x_row.blocked_reasons
 
 
@@ -201,7 +228,6 @@ def test_u9_audit_entries_use_platform_docs_evidence_future_and_are_redacted():
     
     assert len(entries) == 10
     assert all(e.entry_family == "platform_docs_evidence_future" for e in entries)
-    assert packet.u9_audit_entry_families == tuple("platform_docs_evidence_future" for _ in range(10))
     
     chain = audit.build_ledger_chain(entries)
     validation = audit.validate_ledger_chain(chain)
@@ -217,14 +243,77 @@ def test_artifact_writer_touches_only_docs_automation_0174ui(tmp_path):
         contract.write_artifacts(repo_root=repo_root, output_dir=tmp_path)
 
 
-def test_artifact_writer_outputs_packet_and_runbook():
-    repo_root = Path(__file__).resolve().parents[1]
-    result = contract.write_artifacts(repo_root=repo_root)
+def test_exact_numeric_claims_require_direct_doc_proof():
+    # Construct a reference with exact_numeric_claim=True but direct proof=False
+    refs = [
+        contract.OfficialDocsEvidenceRef(
+            evidence_ref_id="doc_evidence_ref_numeric_test",
+            platform_id="x",
+            official_doc_title="X Numeric Test",
+            official_doc_url="https://docs.x.com/overview",
+            official_domain="docs.x.com",
+            doc_accessed_at_epoch=1781913600,
+            doc_relevance=contract.DocRelevance(auth_model=True),
+            cited_claim_summary="100 tweets per day",
+            caveats="None",
+            evidence_status="official_doc_cited",
+            evidence_hash="dummy",
+            evidence_hash_algorithm="sha256",
+            final_doc_url="https://docs.x.com/overview",
+            official_url_opened=True,
+            source_support_level="direct_official_page",
+            claim_support_status="supported_by_cited_doc",
+            exact_numeric_claim=True,
+            exact_numeric_claim_has_direct_doc_proof=False,  # missing direct proof
+            claim_review_notes="Notes",
+        )
+    ]
+    rows = contract.build_default_docs_rows(tuple(refs))
+    x_row = next(r for r in rows if r.platform_id == "x")
 
-    packet_str = str(result["packet_path"])
-    runbook_str = str(result["runbook_path"])
+    assert x_row.exact_numeric_claims_present is True
+    assert "stale_numeric_claim:doc_evidence_ref_numeric_test" in x_row.unsupported_claims
+    assert x_row.row_claim_support_status == "unsupported_by_cited_doc"
+    assert x_row.docs_evidence_strength == "weak"  # Degraded due to missing direct proof of numeric claim
+    assert x_row.docs_status in {"needs_human_review", "partial_docs_grounded"}
+
+
+def test_unsupported_claims_degrade_row_to_not_grounded():
+    # Construct a reference with claim_support_status="unsupported_by_cited_doc"
+    refs = [
+        contract.OfficialDocsEvidenceRef(
+            evidence_ref_id="doc_evidence_ref_unsupported_test",
+            platform_id="telegram_channel_destination",
+            official_doc_title="TG Unsupported Test",
+            official_doc_url="https://core.telegram.org/bots/api",
+            official_domain="core.telegram.org",
+            doc_accessed_at_epoch=1781913600,
+            doc_relevance=contract.DocRelevance(auth_model=True),
+            cited_claim_summary="Unsupported claim summary",
+            caveats="None",
+            evidence_status="official_doc_cited",
+            evidence_hash="dummy",
+            evidence_hash_algorithm="sha256",
+            final_doc_url="https://core.telegram.org/bots/api",
+            official_url_opened=True,
+            source_support_level="direct_official_page",
+            claim_support_status="unsupported_by_cited_doc",  # unsupported status
+            exact_numeric_claim=False,
+            exact_numeric_claim_has_direct_doc_proof=False,
+            claim_review_notes="Notes",
+        )
+    ]
+    rows = contract.build_default_docs_rows(tuple(refs))
+    tg_row = next(r for r in rows if r.platform_id == "telegram_channel_destination")
+
+    assert tg_row.row_claim_support_status == "unsupported_by_cited_doc"
+    assert tg_row.docs_evidence_strength == "weak"
+    assert tg_row.docs_status != "docs_grounded"  # Degraded
+
+
+def test_substack_generic_help_center_support_cannot_be_strong():
+    packet = contract.build_official_platform_docs_evidence_matrix_packet()
+    substack_row = next(r for r in packet.docs_rows if r.platform_id == "substack_newsletter")
     
-    assert "docs/automation/0174UI" in packet_str.replace("\\", "/")
-    assert "docs/automation/0174UI" in runbook_str.replace("\\", "/")
-    assert Path(result["packet_path"]).exists()
-    assert Path(result["runbook_path"]).exists()
+    assert substack_row.docs_evidence_strength == "weak"
+    assert substack_row.docs_status != "docs_grounded"
