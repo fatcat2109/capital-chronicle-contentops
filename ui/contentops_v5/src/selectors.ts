@@ -3,6 +3,7 @@
 // Pure functions over local fixture data. No network, storage, or credentials.
 
 import { viewModel } from './fixtures';
+import { preflightBundlePacket } from './data/preflightBundlePacket';
 import type {
   AiWriterOutput,
   ArtifactEligibilityCheck,
@@ -25,7 +26,12 @@ import type {
   SystemState,
   ValidationPass,
   ViewId,
+  LocalPreflightBundlePacket,
+  LocalPreflightBundlePlatformState,
+  LocalPreflightBundleRoomBindingPrecheck,
+  LocalPreflightBundleSourceRef,
 } from './types';
+
 
 export const LANE_LABEL: Record<string, string> = {
   A_pre_alpha: 'A · Pre-alpha',
@@ -410,5 +416,108 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       const p = vm.evidence_packets[0];
       return selectValidation(p.validation_matrix[0], p.id);
     }
+    case 'preflight_bundle':
+      return selectPreflightBundlePacket(preflightBundlePacket);
   }
+}
+
+export function selectPreflightBundlePacket(
+  p: LocalPreflightBundlePacket,
+): SelectableObject {
+  return {
+    kind: 'preflight_bundle_packet',
+    id: p.packet_id,
+    title: `Preflight Bundle · ${p.matrix_version}`,
+    fields: [
+      { label: 'Packet ID', value: p.packet_id, mono: true },
+      { label: 'Matrix version', value: p.matrix_version, mono: true },
+      { label: 'Packet Hash', value: p.packet_hash, mono: true },
+      { label: 'Hash alg', value: p.packet_hash_algorithm, mono: true },
+      { label: 'Baseline', value: p.source_baseline_commit, mono: true },
+      { label: 'Platforms', value: String(p.platform_count) },
+      { label: 'Rooms', value: String(p.room_count) },
+      { label: 'Source refs', value: String(p.source_ref_count) },
+      { label: 'Fields count', value: String(p.candidate_field_count) },
+      { label: 'UI policy', value: p.ui_binding_policy, mono: true },
+    ],
+  };
+}
+
+export function selectPreflightPlatformState(
+  p: LocalPreflightBundlePlatformState,
+): SelectableObject {
+  return {
+    kind: 'preflight_platform_state',
+    id: p.platform_id,
+    title: `Platform · ${p.platform_id}`,
+    fields: [
+      { label: 'Platform ID', value: p.platform_id, mono: true },
+      { label: 'Role', value: p.platform_role },
+      { label: 'Category', value: p.primary_or_secondary_or_expansion },
+      { label: 'Endpoint', value: p.endpoint_family, mono: true },
+      { label: 'Binding', value: p.account_binding_status, status: p.account_binding_status === 'bound' ? 'verified' : 'review' },
+      { label: 'Cred slot', value: p.credential_slot_status },
+      { label: 'Cred audit', value: p.credential_mock_audit_status, status: p.credential_mock_audit_status === 'blocked' ? 'blocked' : 'review' },
+      { label: 'Preflight', value: p.preflight_simulation_status, status: p.preflight_simulation_status === 'blocked' ? 'blocked' : 'review' },
+      { label: 'Budget state', value: p.rate_budget_status, status: p.rate_budget_status === 'blocked' ? 'blocked' : 'review' },
+      { label: 'Evidence st', value: p.evidence_packet_status, status: p.evidence_packet_status === 'blocked' ? 'blocked' : 'review' },
+      { label: 'Approval gate', value: p.approval_gate_status, status: p.approval_gate_status === 'blocked' ? 'blocked' : 'review' },
+      { label: 'Display st', value: p.v5_display_status },
+      { label: 'Kill switch', value: p.kill_switch_status },
+      { label: 'Live read', value: p.live_read_allowed ? 'allowed' : 'blocked', status: p.live_read_allowed ? 'verified' : 'blocked' },
+      { label: 'Live write', value: p.live_write_allowed ? 'allowed' : 'blocked', status: p.live_write_allowed ? 'verified' : 'blocked' },
+      { label: 'Public post', value: p.public_post_allowed ? 'allowed' : 'blocked', status: p.public_post_allowed ? 'verified' : 'blocked' },
+      { label: 'Dispatch ok', value: p.dispatch_ready ? 'ready' : 'blocked', status: p.dispatch_ready ? 'verified' : 'blocked' },
+      { label: 'Readiness ok', value: p.readiness_cleared ? 'cleared' : 'blocked', status: p.readiness_cleared ? 'verified' : 'blocked' },
+      { label: 'Blocked by', value: p.blocked_reasons.join(', ') || 'none' },
+      { label: 'Missing proofs', value: p.missing_proofs.join(', ') || 'none' },
+    ],
+  };
+}
+
+export function selectPreflightRoomPrecheck(
+  r: LocalPreflightBundleRoomBindingPrecheck,
+): SelectableObject {
+  return {
+    kind: 'preflight_room_precheck',
+    id: r.room_id,
+    title: `Room Binding · ${r.room_id}`,
+    fields: [
+      { label: 'Room ID', value: r.room_id, mono: true },
+      { label: 'Bind status', value: r.binding_status, status: 'review' },
+      { label: 'No live action', value: r.no_live_action_affordances ? 'verified' : 'failed', status: r.no_live_action_affordances ? 'verified' : 'blocked' },
+      { label: 'Disabled acts', value: r.disabled_affordances.join(', ') || 'none' },
+      { label: 'Safe fields', value: String(r.safe_fields_count) },
+      { label: 'Redacted flds', value: String(r.redacted_fields_count) },
+      { label: 'Hidden fields', value: String(r.hidden_fields_count) },
+      { label: 'Req contracts', value: r.required_contracts.join(', ') || 'none' },
+      { label: 'Miss contracts', value: r.missing_contracts.join(', ') || 'none' },
+      { label: 'Safety notes', value: r.safety_notes },
+    ],
+  };
+}
+
+export function selectPreflightSourceRef(
+  s: LocalPreflightBundleSourceRef,
+): SelectableObject {
+  return {
+    kind: 'preflight_source_ref',
+    id: s.source_ref_id,
+    title: `Source Ref · ${s.source_ref_id}`,
+    fields: [
+      { label: 'Source ID', value: s.source_ref_id, mono: true },
+      { label: 'Task family', value: s.task_family },
+      { label: 'Art family', value: s.artifact_family },
+      { label: 'Module name', value: s.module_name, mono: true },
+      { label: 'Code hash', value: s.source_hash_or_packet_hash, mono: true },
+      { label: 'Status', value: s.source_status, status: s.source_status === 'valid' ? 'verified' : 'blocked' },
+      { label: 'Consumed', value: s.consumed ? 'true' : 'false', status: s.consumed ? 'verified' : 'neutral' },
+      { label: 'Env read', value: s.env_read ? 'true' : 'false', status: s.env_read ? 'blocked' : 'verified' },
+      { label: 'Cred access', value: s.credential_values_accessed ? 'true' : 'false', status: s.credential_values_accessed ? 'blocked' : 'verified' },
+      { label: 'Platform API', value: s.platform_api_called ? 'true' : 'false', status: s.platform_api_called ? 'blocked' : 'verified' },
+      { label: 'Live capability', value: s.live_capability_added ? 'true' : 'false', status: s.live_capability_added ? 'blocked' : 'verified' },
+      { label: 'Ingestion mut', value: s.ingestion_mutated ? 'true' : 'false', status: s.ingestion_mutated ? 'blocked' : 'verified' },
+      { label: 'UI mutated', value: s.ui_mutated ? 'true' : 'false', status: s.ui_mutated ? 'blocked' : 'verified' },
+    ],
+  };
 }

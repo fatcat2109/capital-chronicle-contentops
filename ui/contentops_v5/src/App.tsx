@@ -17,6 +17,7 @@ import { PlatformPayloadPreview } from './views/PlatformPayloadPreview';
 import { ManualPublishMetrics } from './views/ManualPublishMetrics';
 import { ApprovalQueue } from './views/ApprovalQueue';
 import { EvidenceVault } from './views/EvidenceVault';
+import { PreflightBundle } from './views/PreflightBundle';
 
 export default function App() {
   const [view, setView] = useState<ViewId>('command_center');
@@ -210,6 +211,8 @@ function ActiveView() {
       return <ApprovalQueue />;
     case 'evidence_vault':
       return <EvidenceVault />;
+    case 'preflight_bundle':
+      return <PreflightBundle />;
     default:
       return null;
   }

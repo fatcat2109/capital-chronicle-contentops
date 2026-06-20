@@ -14,7 +14,8 @@ export type ViewId =
   | 'platform_payload_preview'
   | 'manual_publish_metrics'
   | 'approval_queue'
-  | 'evidence_vault';
+  | 'evidence_vault'
+  | 'preflight_bundle';
 
 export interface SystemMode {
   code: string;
@@ -525,8 +526,130 @@ export interface ContentOpsViewModel {
 }
 
 export interface SelectableObject {
-  kind: string;
-  id: string;
-  title: string;
   fields: { label: string; value: string; mono?: boolean; status?: StatusKind }[];
+  id: string;
+  kind: string;
+  title: string;
+}
+
+export interface LocalPreflightBundleSafetyFlags {
+  autonomous_posting_allowed: boolean;
+  browser_session_used: boolean;
+  credential_hydrated: boolean;
+  credential_values_accessed: boolean;
+  current_truth_promoted: boolean;
+  dispatch_ready: boolean;
+  dm_or_reply_automation_allowed: boolean;
+  dqr_cleared: boolean;
+  env_read: boolean;
+  ingestion_repo_mutated: boolean;
+  live_read_allowed: boolean;
+  live_write_allowed: boolean;
+  local_only: boolean;
+  network_performed: boolean;
+  platform_api_called: boolean;
+  provider_api_called: boolean;
+  public_post_allowed: boolean;
+  read_model_precheck_only: boolean;
+  readiness_cleared: boolean;
+  scheduler_enabled: boolean;
+  scraping_performed: boolean;
+  secret_output_allowed: boolean;
+  ui_mutated: boolean;
+}
+
+export interface LocalPreflightBundlePlatformState {
+  account_binding_status: string;
+  approval_gate_status: string;
+  blocked_reasons: string[];
+  credential_mock_audit_status: string;
+  credential_slot_status: string;
+  dispatch_ready: boolean;
+  endpoint_family: string;
+  evidence_packet_status: string;
+  hidden_or_absent_fields: string[];
+  kill_switch_status: string;
+  live_read_allowed: boolean;
+  live_write_allowed: boolean;
+  manual_export_status: string;
+  missing_proofs: string[];
+  platform_id: string;
+  platform_role: string;
+  preflight_simulation_status: string;
+  primary_or_secondary_or_expansion: string;
+  public_post_allowed: boolean;
+  rate_budget_status: string;
+  readiness_cleared: boolean;
+  redaction_required_fields: string[];
+  safe_display_fields: string[];
+  v5_display_status: string;
+}
+
+export interface LocalPreflightBundleRoomBindingPrecheck {
+  binding_status: string;
+  disabled_affordances: string[];
+  hidden_fields_count: number;
+  missing_contracts: string[];
+  no_live_action_affordances: boolean;
+  redacted_fields_count: number;
+  required_contracts: string[];
+  room_id: string;
+  safe_fields_count: number;
+  safety_notes: string;
+}
+
+export interface LocalPreflightBundleSourceRef {
+  artifact_family: string;
+  consumed: boolean;
+  credential_values_accessed: boolean;
+  env_read: boolean;
+  ingestion_mutated: boolean;
+  live_capability_added: boolean;
+  module_name: string;
+  platform_api_called: boolean;
+  source_hash_or_packet_hash: string;
+  source_ref_id: string;
+  source_status: string;
+  task_family: string;
+  ui_mutated: boolean;
+}
+
+export interface LocalPreflightBundleCandidateField {
+  current_truth_policy: string;
+  display_policy: string;
+  evidence_ref: string;
+  field_id: string;
+  field_kind: string;
+  field_name: string;
+  forbidden_affordance_reason: string;
+  room_id: string;
+  sample_value_classification: string;
+  source_family: string;
+  source_ref_id: string;
+  user_action_affordance: string;
+}
+
+export interface LocalPreflightBundlePacket {
+  candidate_field_count: number;
+  generated_at_epoch: number;
+  global_blocked_reasons: string[];
+  global_missing_proofs: string[];
+  matrix_version: string;
+  next_recommended_task?: string;
+  packet_hash: string;
+  packet_hash_algorithm: string;
+  packet_id: string;
+  platform_count: number;
+  platform_states: LocalPreflightBundlePlatformState[];
+  room_binding_prechecks: LocalPreflightBundleRoomBindingPrecheck[];
+  room_count: number;
+  safety_flags: LocalPreflightBundleSafetyFlags;
+  source_baseline_commit: string;
+  source_ref_count: number;
+  source_refs: LocalPreflightBundleSourceRef[];
+  task_label: string;
+  u9_audit_entry_families: string[];
+  u9_audit_entry_ids: string[];
+  ui_binding_policy: string;
+  v5_candidate_fields: LocalPreflightBundleCandidateField[];
 }
