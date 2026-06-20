@@ -43,6 +43,7 @@ ENTRY_FAMILIES = (
     "preflight_dry_run_request_budget_future",
     "supervised_live_readiness_review_future",
     "supervised_live_read_only_research_gate_precheck_future",
+    "live_read_only_research_approval_packet_schema_future",
     "unknown_or_blocked",
 )
 
