@@ -1,0 +1,230 @@
+from pathlib import Path
+import pytest
+
+from live_contentops import official_platform_docs_evidence_packet_matrix_contract as contract
+from live_contentops import redacted_immutable_audit_ledger_v2_contract as audit
+
+EXPECTED_PLATFORMS = {
+    "x",
+    "telegram_remote_operator",
+    "telegram_channel_destination",
+    "substack_newsletter",
+    "linkedin",
+    "threads",
+    "instagram",
+    "facebook_page",
+    "tiktok",
+    "youtube",
+}
+
+
+def test_packet_builds_deterministically_from_static_refs():
+    packet1 = contract.build_official_platform_docs_evidence_matrix_packet()
+    packet2 = contract.build_official_platform_docs_evidence_matrix_packet()
+
+    assert packet1.packet_hash == packet2.packet_hash
+    assert packet1.packet_id == packet2.packet_id
+    assert len(packet1.docs_rows) == 10
+    assert set(packet1.rows_by_platform) == EXPECTED_PLATFORMS
+
+
+def test_all_10_platforms_exist_in_matrix():
+    packet = contract.build_official_platform_docs_evidence_matrix_packet()
+    platform_ids = {row.platform_id for row in packet.docs_rows}
+    assert platform_ids == EXPECTED_PLATFORMS
+    assert len(packet.docs_rows) == 10
+
+
+def test_every_official_doc_url_is_from_allowed_domain():
+    refs = contract.build_default_evidence_refs()
+    for ref in refs:
+        assert ref.official_domain in contract.ALLOWED_DOMAINS
+        # Ensure urlparse actually yields this host
+        from urllib.parse import urlparse
+        parsed = urlparse(ref.official_doc_url)
+        assert parsed.netloc.split(":")[0] == ref.official_domain
+
+
+def test_substack_is_manual_export_no_api():
+    packet = contract.build_official_platform_docs_evidence_matrix_packet()
+    substack_row = next(r for r in packet.docs_rows if r.platform_id == "substack_newsletter")
+    
+    assert substack_row.docs_status == "manual_export_no_api"
+    assert "no_substack_public_publish_api_gate" in substack_row.blocked_reasons
+    assert "session_automation_blocked" in substack_row.blocked_reasons
+    assert substack_row.credential_required_future is False
+    assert "substack_newsletter" in packet.manual_export_no_api_platforms
+
+
+def test_all_live_read_write_api_env_credential_counts_are_zero():
+    packet = contract.build_official_platform_docs_evidence_matrix_packet()
+
+    assert packet.live_read_allowed_count == 0
+    assert packet.live_write_allowed_count == 0
+    assert packet.platform_api_called_count == 0
+    assert packet.env_read_count == 0
+    assert packet.credential_hydrated_count == 0
+
+    for row in packet.docs_rows:
+        assert row.live_read_allowed is False
+        assert row.live_write_allowed is False
+        assert row.platform_api_called is False
+        assert row.credential_hydrated is False
+        assert row.env_read is False
+        assert row.safety_flags["live_read_allowed"] is False
+        assert row.safety_flags["live_write_allowed"] is False
+        assert row.safety_flags["platform_api_called"] is False
+        assert row.safety_flags["env_read"] is False
+        assert row.safety_flags["credential_hydrated"] is False
+
+
+def test_docs_coverage_does_not_clear_readiness():
+    packet = contract.build_official_platform_docs_evidence_matrix_packet()
+    
+    # Verify that every platform is blocked and has blocked reasons
+    for row in packet.docs_rows:
+        assert len(row.blocked_reasons) > 0
+        assert row.safety_flags["dispatch_ready"] is False
+        assert row.safety_flags["public_postable"] is False
+
+
+def test_each_row_has_evidence_refs_and_caveats():
+    packet = contract.build_official_platform_docs_evidence_matrix_packet()
+    
+    for row in packet.docs_rows:
+        assert len(row.doc_refs) > 0
+        assert len(row.evidence_refs) > 0
+        assert row.rate_quota_spend_summary != ""
+        assert row.auth_model_summary != ""
+
+
+def test_x_has_rate_spend_access_caveat():
+    packet = contract.build_official_platform_docs_evidence_matrix_packet()
+    x_row = next(r for r in packet.docs_rows if r.platform_id == "x")
+    
+    assert "Free tier is write-only" in x_row.rate_quota_spend_summary or "paywall" in x_row.rate_quota_spend_summary
+    assert x_row.docs_status == "partial_docs_grounded"
+
+
+def test_telegram_operator_and_channel_are_distinct():
+    packet = contract.build_official_platform_docs_evidence_matrix_packet()
+    op_row = next(r for r in packet.docs_rows if r.platform_id == "telegram_remote_operator")
+    ch_row = next(r for r in packet.docs_rows if r.platform_id == "telegram_channel_destination")
+    
+    assert op_row.row_id != ch_row.row_id
+    assert op_row.platform_role != ch_row.platform_role
+    assert "operator_inbox" in op_row.blocked_reasons[0] or "operator" in op_row.app_review_access_summary
+    assert "channel_permission_proof_required" in ch_row.blocked_reasons
+
+
+def test_linkedin_member_org_caveats_exist():
+    packet = contract.build_official_platform_docs_evidence_matrix_packet()
+    linkedin_row = next(r for r in packet.docs_rows if r.platform_id == "linkedin")
+    
+    assert "member profile" in linkedin_row.app_review_access_summary.lower()
+    assert "organization page" in linkedin_row.app_review_access_summary.lower()
+
+
+def test_meta_threads_instagram_facebook_rows_are_separate():
+    packet = contract.build_official_platform_docs_evidence_matrix_packet()
+    threads_row = next(r for r in packet.docs_rows if r.platform_id == "threads")
+    insta_row = next(r for r in packet.docs_rows if r.platform_id == "instagram")
+    fb_row = next(r for r in packet.docs_rows if r.platform_id == "facebook_page")
+    
+    assert threads_row.row_id != insta_row.row_id
+    assert insta_row.row_id != fb_row.row_id
+    
+    assert "threads_content_publish" in threads_row.permission_scope_summary
+    assert "instagram_content_publish" in insta_row.permission_scope_summary
+    assert "pages_manage_posts" in fb_row.permission_scope_summary
+
+
+def test_tiktok_and_youtube_video_upload_quota_caveats_exist():
+    packet = contract.build_official_platform_docs_evidence_matrix_packet()
+    tiktok_row = next(r for r in packet.docs_rows if r.platform_id == "tiktok")
+    yt_row = next(r for r in packet.docs_rows if r.platform_id == "youtube")
+    
+    assert "video" in tiktok_row.media_constraint_summary or "MP4" in tiktok_row.media_constraint_summary
+    assert "quota" in yt_row.rate_quota_spend_summary or "1600 units" in yt_row.rate_quota_spend_summary
+
+
+def test_unofficial_domain_input_fails_closed():
+    # Attempting to build an evidence reference with an unofficial domain should raise ValueError
+    with pytest.raises(ValueError, match="unofficial_domain_not_allowed"):
+        contract.OfficialDocsEvidenceRef(
+            evidence_ref_id="doc_evidence_ref_illegal",
+            platform_id="x",
+            official_doc_title="Unverified Documentation",
+            official_doc_url="https://unofficialblog.com/x-api-leak",
+            official_domain="unofficialblog.com",
+            doc_accessed_at_epoch=1781913600,
+            doc_relevance=contract.DocRelevance(auth_model=True),
+            cited_claim_summary="None",
+            caveats="None",
+            evidence_status="official_doc_cited",
+            evidence_hash="dummy",
+            evidence_hash_algorithm="sha256"
+        )
+
+    # Domain mismatch should also fail closed
+    with pytest.raises(ValueError, match="domain_mismatch"):
+        contract.OfficialDocsEvidenceRef(
+            evidence_ref_id="doc_evidence_ref_mismatch",
+            platform_id="x",
+            official_doc_title="Mismatched Domain",
+            official_doc_url="https://developer.x.com/en/docs",
+            official_domain="docs.x.com",
+            doc_accessed_at_epoch=1781913600,
+            doc_relevance=contract.DocRelevance(auth_model=True),
+            cited_claim_summary="None",
+            caveats="None",
+            evidence_status="official_doc_cited",
+            evidence_hash="dummy",
+            evidence_hash_algorithm="sha256"
+        )
+
+
+def test_missing_official_docs_fails_closed_or_needs_review():
+    # Pass an empty list of references, forcing platforms (except substack) to missing_docs state
+    empty_refs = ()
+    rows = contract.build_default_docs_rows(empty_refs)
+    
+    # Substack remains manual_export_no_api, but X or YouTube should become blocked_missing_official_docs
+    x_row = next(r for r in rows if r.platform_id == "x")
+    assert x_row.docs_status == "blocked_missing_official_docs"
+    assert "missing_official_docs" in x_row.blocked_reasons
+
+
+def test_u9_audit_entries_use_platform_docs_evidence_future_and_are_redacted():
+    packet = contract.build_official_platform_docs_evidence_matrix_packet()
+    entries = contract.build_u9_audit_entries(packet)
+    
+    assert len(entries) == 10
+    assert all(e.entry_family == "platform_docs_evidence_future" for e in entries)
+    assert packet.u9_audit_entry_families == tuple("platform_docs_evidence_future" for _ in range(10))
+    
+    chain = audit.build_ledger_chain(entries)
+    validation = audit.validate_ledger_chain(chain)
+    assert validation.validation_status == "pass"
+    
+    # Ensure they contain no secrets
+    assert not audit.scan_for_forbidden_material([e.redacted_summary for e in entries])
+
+
+def test_artifact_writer_touches_only_docs_automation_0174ui(tmp_path):
+    repo_root = Path(__file__).resolve().parents[1]
+    with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_docs_automation_0174UI"):
+        contract.write_artifacts(repo_root=repo_root, output_dir=tmp_path)
+
+
+def test_artifact_writer_outputs_packet_and_runbook():
+    repo_root = Path(__file__).resolve().parents[1]
+    result = contract.write_artifacts(repo_root=repo_root)
+
+    packet_str = str(result["packet_path"])
+    runbook_str = str(result["runbook_path"])
+    
+    assert "docs/automation/0174UI" in packet_str.replace("\\", "/")
+    assert "docs/automation/0174UI" in runbook_str.replace("\\", "/")
+    assert Path(result["packet_path"]).exists()
+    assert Path(result["runbook_path"]).exists()
