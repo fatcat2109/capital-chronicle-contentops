@@ -1,9 +1,12 @@
 {
   "all_records_redacted": true,
   "all_rows_review_only": true,
+  "approval_ready_count": 0,
   "blocked_reasons": [],
   "blocker_summaries": [],
+  "current_truth_promoted_count": 0,
   "dispatch_ready_count": 0,
+  "dqr_cleared_count": 0,
   "evidence_refs": [
     "docs/automation/0174EE/dispatch_outbox_idempotency_contract_packet.json",
     "docs/automation/0174U9/redacted_immutable_audit_ledger_v2_contract_packet.json",
@@ -13,6 +16,177 @@
     "docs/automation/0174UC/manual_publish_record_metrics_ledger_contract.md",
     "docs/automation/0174UD/content_performance_review_editorial_feedback_contract.md",
     "docs/automation/0174UE/local_content_governance_summary_mart_contract.md"
+  ],
+  "evidence_summaries": [
+    {
+      "all_records_redacted": true,
+      "audit_ledger_entry_count": 3,
+      "evidence_family": "idea_intent",
+      "evidence_ref_count": 2,
+      "retained_evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md",
+        "docs/automation/0174U4/content_idea_intent_parser_contract.md"
+      ],
+      "u9_unknown_or_blocked_entry_count": 0,
+      "u9_unknown_or_blocked_soft_caveat": false
+    },
+    {
+      "all_records_redacted": true,
+      "audit_ledger_entry_count": 3,
+      "evidence_family": "editorial_writer",
+      "evidence_ref_count": 3,
+      "retained_evidence_refs": [
+        "docs/automation/0174U0/heavy_strategy_recon_report.md",
+        "docs/automation/0174U4/content_idea_intent_parser_contract.md",
+        "docs/automation/0174U5/editorial_brief_ai_writer_output_contract.md"
+      ],
+      "u9_unknown_or_blocked_entry_count": 0,
+      "u9_unknown_or_blocked_soft_caveat": false
+    },
+    {
+      "all_records_redacted": true,
+      "audit_ledger_entry_count": 3,
+      "evidence_family": "dry_run_preview",
+      "evidence_ref_count": 2,
+      "retained_evidence_refs": [
+        "docs/automation/0174U4/content_idea_intent_parser_contract.md",
+        "docs/automation/0174U5/editorial_brief_ai_writer_output_contract.md"
+      ],
+      "u9_unknown_or_blocked_entry_count": 0,
+      "u9_unknown_or_blocked_soft_caveat": false
+    },
+    {
+      "all_records_redacted": true,
+      "audit_ledger_entry_count": 2,
+      "evidence_family": "ingestion_context",
+      "evidence_ref_count": 20,
+      "retained_evidence_refs": [
+        "docs/APPROVAL_LEDGER_KILL_SWITCH_AND_AUDIT_AFTER_0079.md",
+        "docs/architecture/openclaw_reference_patterns_for_contentops_0174EF.md",
+        "docs/architecture/supervised_social_publishing_reference_architecture_0174EA.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_AFTER_0073.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/ANTIGRAVITY_BROWSER_QA_STRATEGY_AFTER_0157.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/APPROVAL_LEDGER_KILL_SWITCH_REDACTED_AUDIT_AFTER_0131.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/AUTOMATION_POLICY_MODES_AFTER_0086.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/CANONICAL_SOCIAL_POST_AND_PLATFORM_DRY_RUN_AFTER_0130.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/Capital Chronicle ContentOps — Final Master Plan for Pre-Alpha Content + API Automation Readiness.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/CONTENTOPS_RECONCILED_ROADMAP_AFTER_0126.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/CONTENTOPS_STRATEGY_RECOVERY_MAP_AFTER_0126.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/CURRENT_STATE_SUMMARY_AFTER_0073.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/CURRENT_STATE_SUMMARY_AFTER_0099.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/CURRENT_STATE_SUMMARY_AFTER_0101.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/CURRENT_STATE_SUMMARY_AFTER_0108.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/CURRENT_STATE_SUMMARY_AFTER_0112.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/CURRENT_STATE_SUMMARY_AFTER_0118.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/CURRENT_STATE_SUMMARY_AFTER_0121.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/CURRENT_STATE_SUMMARY_AFTER_0123.md",
+        "docs/archive/stale_prelaunch_reset_0174CG/CURRENT_STATE_SUMMARY_AFTER_0137.md"
+      ],
+      "u9_unknown_or_blocked_entry_count": 0,
+      "u9_unknown_or_blocked_soft_caveat": false
+    },
+    {
+      "all_records_redacted": true,
+      "audit_ledger_entry_count": 3,
+      "evidence_family": "artifact_eligibility",
+      "evidence_ref_count": 3,
+      "retained_evidence_refs": [
+        "fixture:u7_headline",
+        "fixture:review_artifact",
+        "manual"
+      ],
+      "u9_unknown_or_blocked_entry_count": 0,
+      "u9_unknown_or_blocked_soft_caveat": false
+    },
+    {
+      "all_records_redacted": true,
+      "audit_ledger_entry_count": 19,
+      "evidence_family": "redacted_audit_ledger",
+      "evidence_ref_count": 19,
+      "retained_evidence_refs": [
+        "fixture:u4_raw",
+        "fixture:u4_idea",
+        "fixture:u4_intent",
+        "fixture:u5_brief",
+        "fixture:u5_writer",
+        "fixture:u5_draft",
+        "fixture:u6_preview",
+        "fixture:u6_substack",
+        "fixture:u6_dry_run",
+        "fixture:u7_candidate",
+        "fixture:u7_headline",
+        "fixture:u8_intake",
+        "fixture:u8_assessment",
+        "fixture:u8_seed",
+        "fixture:0174ED",
+        "fixture:0174EE",
+        "fixture:future_manual_publish",
+        "fixture:future_metrics",
+        "fixture:unknown"
+      ],
+      "u9_unknown_or_blocked_entry_count": 1,
+      "u9_unknown_or_blocked_soft_caveat": false
+    },
+    {
+      "all_records_redacted": true,
+      "audit_ledger_entry_count": 1,
+      "evidence_family": "approval_validity",
+      "evidence_ref_count": 3,
+      "retained_evidence_refs": [
+        "docs/automation/0174ED/approval_ledger_payload_hash_contract_packet.json",
+        "docs/automation/0174U9/redacted_immutable_audit_ledger_v2_contract_packet.json",
+        "fixture:manual_hold"
+      ],
+      "u9_unknown_or_blocked_entry_count": 0,
+      "u9_unknown_or_blocked_soft_caveat": false
+    },
+    {
+      "all_records_redacted": true,
+      "audit_ledger_entry_count": 1,
+      "evidence_family": "dispatch_revalidation",
+      "evidence_ref_count": 4,
+      "retained_evidence_refs": [
+        "docs/automation/0174EE/dispatch_outbox_idempotency_contract_packet.json",
+        "docs/automation/0174U9/redacted_immutable_audit_ledger_v2_contract_packet.json",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "policy:0174UB:placeholder"
+      ],
+      "u9_unknown_or_blocked_entry_count": 0,
+      "u9_unknown_or_blocked_soft_caveat": false
+    },
+    {
+      "all_records_redacted": true,
+      "audit_ledger_entry_count": 2,
+      "evidence_family": "manual_publish_metrics",
+      "evidence_ref_count": 6,
+      "retained_evidence_refs": [
+        "docs/automation/0174EE/dispatch_outbox_idempotency_contract_packet.json",
+        "docs/automation/0174U9/redacted_immutable_audit_ledger_v2_contract_packet.json",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "policy:0174UB:placeholder",
+        "docs/automation/0174UB/dispatch_outbox_revalidation_gate_contract_packet.json",
+        "docs/automation/0174UC/manual_publish_record_metrics_ledger_contract.md"
+      ],
+      "u9_unknown_or_blocked_entry_count": 0,
+      "u9_unknown_or_blocked_soft_caveat": false
+    },
+    {
+      "all_records_redacted": true,
+      "audit_ledger_entry_count": 0,
+      "evidence_family": "performance_feedback",
+      "evidence_ref_count": 7,
+      "retained_evidence_refs": [
+        "docs/automation/0174EE/dispatch_outbox_idempotency_contract_packet.json",
+        "docs/automation/0174U9/redacted_immutable_audit_ledger_v2_contract_packet.json",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "policy:0174UB:placeholder",
+        "docs/automation/0174UB/dispatch_outbox_revalidation_gate_contract_packet.json",
+        "docs/automation/0174UC/manual_publish_record_metrics_ledger_contract.md",
+        "docs/automation/0174UD/content_performance_review_editorial_feedback_contract.md"
+      ],
+      "u9_unknown_or_blocked_entry_count": 0,
+      "u9_unknown_or_blocked_soft_caveat": false
+    }
   ],
   "evidence_summary": {
     "all_records_redacted": true,
@@ -31,6 +205,7 @@
     "u9_unknown_or_blocked_entry_count": 2,
     "u9_unknown_or_blocked_soft_caveat": true
   },
+  "hard_blockers": [],
   "mart_status": "local_governance_summary_ready_review_only",
   "next_required_gate": "TASK_CONTENTOPS_0174UF_AUDIT_LEDGER_FAMILY_TAXONOMY_EXTENSION_V0",
   "no_api_verification": true,
@@ -39,70 +214,23 @@
   "no_dispatch": true,
   "no_public_claim_authorized": true,
   "no_scraping": true,
-  "packet_hash": "abfdd8299247a14ede690dda37f6fb260bf11e68b549cea3170db4c82f33abfb",
+  "overall_status": "local_governance_summary_ready_review_only",
+  "packet_hash": "7edbd6cfd601995402fcfa12c0ac80a348cfa3cb542151bc5b8f58ea7da02e08",
   "packet_hash_algorithm": "sha256",
-  "packet_id": "local_content_governance_summary_mart_packet_abfdd8299247a14ede690dda",
-  "platform_summaries": [
+  "packet_id": "local_content_governance_summary_mart_packet_7edbd6cfd601995402fcfa12",
+  "pipeline_rows": [
     {
-      "blocked_count": 0,
-      "dispatch_ready_count": 0,
-      "manual_metrics_record_count": 1,
-      "manual_publish_record_count": 1,
-      "performance_review_count": 1,
-      "platform_id": "telegram_channel_destination",
-      "public_postable_count": 0,
-      "review_only_count": 1,
-      "soft_caveats": [
-        "0174UD_u9_audit_family_unknown_or_blocked_soft_caveat",
-        "upstream_future_send_gate_preserved_soft_caveat"
-      ],
-      "summary_row_count": 1
-    }
-  ],
-  "public_postable_count": 0,
-  "safety_flags": {
-    "approval_granted": false,
-    "autonomous_posting_allowed": false,
-    "browser_session_used": false,
-    "can_auto_generate_content": false,
-    "can_auto_publish": false,
-    "can_dispatch": false,
-    "credential_hydrated": false,
-    "current_truth_promoted": false,
-    "dispatch_ready": false,
-    "dm_or_reply_automation_allowed": false,
-    "dqr_cleared": false,
-    "env_read": false,
-    "ingestion_repo_mutated": false,
-    "live_dispatch_enabled": false,
-    "llm_provider_called": false,
-    "local_summary_mart_only": true,
-    "metrics_api_verified": false,
-    "metrics_scraped": false,
-    "network_performed": false,
-    "platform_api_called": false,
-    "provider_api_called": false,
-    "public_claim_authorized": false,
-    "public_postable": false,
-    "readiness_cleared": false,
-    "review_only": true,
-    "scheduler_enabled": false,
-    "scraping_performed": false,
-    "telegram_api_called": false,
-    "ui_generated": false
-  },
-  "soft_caveats": [
-    "0174UD_u9_audit_family_unknown_or_blocked_soft_caveat",
-    "upstream_future_send_gate_preserved_soft_caveat"
-  ],
-  "summary_rows": [
-    {
+      "approval_state": "dispatch_revalidation_required_future_0174UB",
+      "artifact_eligibility_state": "source_provided_context_only",
       "blocked_reasons": [],
+      "brief_state": "review_only",
       "can_approve": false,
       "can_auto_generate_content": false,
       "can_dispatch": false,
       "can_publish_public_claim": false,
       "content_lane": "pre_alpha_general_process",
+      "dry_run_state": "review_only_dry_run_valid",
+      "editorial_feedback_state": "review_only_feedback_recorded",
       "evidence_refs": [
         "docs/automation/0174EE/dispatch_outbox_idempotency_contract_packet.json",
         "docs/automation/0174U9/redacted_immutable_audit_ledger_v2_contract_packet.json",
@@ -112,15 +240,17 @@
         "docs/automation/0174UC/manual_publish_record_metrics_ledger_contract.md",
         "docs/automation/0174UD/content_performance_review_editorial_feedback_contract.md"
       ],
-      "feedback_loop_status": "review_only_feedback_recorded",
       "governance_status": "local_governance_summary_ready_review_only",
       "human_review_required": true,
-      "manual_publish_record_status": "recorded_review_only",
-      "metric_quality_class": "operator_attested_only",
+      "idea_state": "source_needed",
+      "manual_publish_state": "recorded_review_only",
+      "metrics_state": "platform_ui_manual_read",
       "payload_class_id": "telegram_channel_update",
-      "performance_interpretation_class": "useful_learning_signal",
+      "performance_review_state": "operator_attested_only",
       "platform_id": "telegram_channel_destination",
+      "preview_state": "platform_payload_preview",
       "public_postable": false,
+      "revalidation_state": "locally_revalidated_but_dispatch_future_gate",
       "safety_flags": {
         "approval_granted": false,
         "autonomous_posting_allowed": false,
@@ -161,7 +291,249 @@
       "source_manual_publish_record_id": "manual_publish_record_e02451cb3aa90b3591d60bc7",
       "source_payload_hash": "e5d6317265650df220a23bdce33fdece6ce77c5fbeb0024c0984ae6ebf041194",
       "source_performance_review_id": "performance_review_65ed74f73aa9fa45c6b02078",
-      "summary_row_id": "content_governance_summary_row_4381eba6a9ab09c8ef04f91f"
+      "substack_export_state": "substack_manual_export",
+      "summary_row_id": "content_governance_summary_row_4381eba6a9ab09c8ef04f91f",
+      "writer_state": "deterministic_fixture"
+    }
+  ],
+  "platform_summaries": [
+    {
+      "blocked_count": 0,
+      "dispatch_ready_count": 0,
+      "manual_metrics_record_count": 0,
+      "manual_publish_record_count": 0,
+      "performance_review_count": 0,
+      "platform_id": "x",
+      "public_postable_count": 0,
+      "review_only_count": 0,
+      "soft_caveats": [],
+      "summary_row_count": 0
+    },
+    {
+      "blocked_count": 0,
+      "dispatch_ready_count": 0,
+      "manual_metrics_record_count": 0,
+      "manual_publish_record_count": 0,
+      "performance_review_count": 0,
+      "platform_id": "telegram_remote_operator",
+      "public_postable_count": 0,
+      "review_only_count": 0,
+      "soft_caveats": [],
+      "summary_row_count": 0
+    },
+    {
+      "blocked_count": 0,
+      "dispatch_ready_count": 0,
+      "manual_metrics_record_count": 1,
+      "manual_publish_record_count": 1,
+      "performance_review_count": 1,
+      "platform_id": "telegram_channel_destination",
+      "public_postable_count": 0,
+      "review_only_count": 1,
+      "soft_caveats": [
+        "0174UD_u9_audit_family_unknown_or_blocked_soft_caveat",
+        "upstream_future_send_gate_preserved_soft_caveat"
+      ],
+      "summary_row_count": 1
+    },
+    {
+      "blocked_count": 0,
+      "dispatch_ready_count": 0,
+      "manual_metrics_record_count": 0,
+      "manual_publish_record_count": 0,
+      "performance_review_count": 0,
+      "platform_id": "substack_newsletter",
+      "public_postable_count": 0,
+      "review_only_count": 0,
+      "soft_caveats": [],
+      "summary_row_count": 0
+    },
+    {
+      "blocked_count": 0,
+      "dispatch_ready_count": 0,
+      "manual_metrics_record_count": 0,
+      "manual_publish_record_count": 0,
+      "performance_review_count": 0,
+      "platform_id": "linkedin",
+      "public_postable_count": 0,
+      "review_only_count": 0,
+      "soft_caveats": [],
+      "summary_row_count": 0
+    },
+    {
+      "blocked_count": 0,
+      "dispatch_ready_count": 0,
+      "manual_metrics_record_count": 0,
+      "manual_publish_record_count": 0,
+      "performance_review_count": 0,
+      "platform_id": "threads",
+      "public_postable_count": 0,
+      "review_only_count": 0,
+      "soft_caveats": [],
+      "summary_row_count": 0
+    },
+    {
+      "blocked_count": 0,
+      "dispatch_ready_count": 0,
+      "manual_metrics_record_count": 0,
+      "manual_publish_record_count": 0,
+      "performance_review_count": 0,
+      "platform_id": "instagram",
+      "public_postable_count": 0,
+      "review_only_count": 0,
+      "soft_caveats": [],
+      "summary_row_count": 0
+    },
+    {
+      "blocked_count": 0,
+      "dispatch_ready_count": 0,
+      "manual_metrics_record_count": 0,
+      "manual_publish_record_count": 0,
+      "performance_review_count": 0,
+      "platform_id": "facebook_page",
+      "public_postable_count": 0,
+      "review_only_count": 0,
+      "soft_caveats": [],
+      "summary_row_count": 0
+    },
+    {
+      "blocked_count": 0,
+      "dispatch_ready_count": 0,
+      "manual_metrics_record_count": 0,
+      "manual_publish_record_count": 0,
+      "performance_review_count": 0,
+      "platform_id": "tiktok",
+      "public_postable_count": 0,
+      "review_only_count": 0,
+      "soft_caveats": [],
+      "summary_row_count": 0
+    },
+    {
+      "blocked_count": 0,
+      "dispatch_ready_count": 0,
+      "manual_metrics_record_count": 0,
+      "manual_publish_record_count": 0,
+      "performance_review_count": 0,
+      "platform_id": "youtube",
+      "public_postable_count": 0,
+      "review_only_count": 0,
+      "soft_caveats": [],
+      "summary_row_count": 0
+    }
+  ],
+  "public_postable_count": 0,
+  "readiness_cleared_count": 0,
+  "safety_flags": {
+    "approval_granted": false,
+    "autonomous_posting_allowed": false,
+    "browser_session_used": false,
+    "can_auto_generate_content": false,
+    "can_auto_publish": false,
+    "can_dispatch": false,
+    "credential_hydrated": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "dm_or_reply_automation_allowed": false,
+    "dqr_cleared": false,
+    "env_read": false,
+    "ingestion_repo_mutated": false,
+    "live_dispatch_enabled": false,
+    "llm_provider_called": false,
+    "local_summary_mart_only": true,
+    "metrics_api_verified": false,
+    "metrics_scraped": false,
+    "network_performed": false,
+    "platform_api_called": false,
+    "provider_api_called": false,
+    "public_claim_authorized": false,
+    "public_postable": false,
+    "readiness_cleared": false,
+    "review_only": true,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "telegram_api_called": false,
+    "ui_generated": false
+  },
+  "soft_caveats": [
+    "0174UD_u9_audit_family_unknown_or_blocked_soft_caveat",
+    "upstream_future_send_gate_preserved_soft_caveat"
+  ],
+  "summary_rows": [
+    {
+      "approval_state": "dispatch_revalidation_required_future_0174UB",
+      "artifact_eligibility_state": "source_provided_context_only",
+      "blocked_reasons": [],
+      "brief_state": "review_only",
+      "can_approve": false,
+      "can_auto_generate_content": false,
+      "can_dispatch": false,
+      "can_publish_public_claim": false,
+      "content_lane": "pre_alpha_general_process",
+      "dry_run_state": "review_only_dry_run_valid",
+      "editorial_feedback_state": "review_only_feedback_recorded",
+      "evidence_refs": [
+        "docs/automation/0174EE/dispatch_outbox_idempotency_contract_packet.json",
+        "docs/automation/0174U9/redacted_immutable_audit_ledger_v2_contract_packet.json",
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "policy:0174UB:placeholder",
+        "docs/automation/0174UB/dispatch_outbox_revalidation_gate_contract_packet.json",
+        "docs/automation/0174UC/manual_publish_record_metrics_ledger_contract.md",
+        "docs/automation/0174UD/content_performance_review_editorial_feedback_contract.md"
+      ],
+      "governance_status": "local_governance_summary_ready_review_only",
+      "human_review_required": true,
+      "idea_state": "source_needed",
+      "manual_publish_state": "recorded_review_only",
+      "metrics_state": "platform_ui_manual_read",
+      "payload_class_id": "telegram_channel_update",
+      "performance_review_state": "operator_attested_only",
+      "platform_id": "telegram_channel_destination",
+      "preview_state": "platform_payload_preview",
+      "public_postable": false,
+      "revalidation_state": "locally_revalidated_but_dispatch_future_gate",
+      "safety_flags": {
+        "approval_granted": false,
+        "autonomous_posting_allowed": false,
+        "browser_session_used": false,
+        "can_auto_generate_content": false,
+        "can_auto_publish": false,
+        "can_dispatch": false,
+        "credential_hydrated": false,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dm_or_reply_automation_allowed": false,
+        "dqr_cleared": false,
+        "env_read": false,
+        "ingestion_repo_mutated": false,
+        "live_dispatch_enabled": false,
+        "llm_provider_called": false,
+        "local_summary_mart_only": true,
+        "metrics_api_verified": false,
+        "metrics_scraped": false,
+        "network_performed": false,
+        "platform_api_called": false,
+        "provider_api_called": false,
+        "public_claim_authorized": false,
+        "public_postable": false,
+        "readiness_cleared": false,
+        "review_only": true,
+        "scheduler_enabled": false,
+        "scraping_performed": false,
+        "telegram_api_called": false,
+        "ui_generated": false
+      },
+      "soft_caveats": [
+        "0174UD_u9_audit_family_unknown_or_blocked_soft_caveat",
+        "upstream_future_send_gate_preserved_soft_caveat"
+      ],
+      "source_feedback_loop_packet_id": "feedback_loop_packet_0920ef9ff0ca6028b6ebda4e",
+      "source_manual_metrics_record_id": "manual_metrics_record_72d2e2f3988a0d467b38bb06",
+      "source_manual_publish_record_id": "manual_publish_record_e02451cb3aa90b3591d60bc7",
+      "source_payload_hash": "e5d6317265650df220a23bdce33fdece6ce77c5fbeb0024c0984ae6ebf041194",
+      "source_performance_review_id": "performance_review_65ed74f73aa9fa45c6b02078",
+      "substack_export_state": "substack_manual_export",
+      "summary_row_id": "content_governance_summary_row_4381eba6a9ab09c8ef04f91f",
+      "writer_state": "deterministic_fixture"
     }
   ]
 }
