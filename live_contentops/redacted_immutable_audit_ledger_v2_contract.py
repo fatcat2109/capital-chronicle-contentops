@@ -48,6 +48,7 @@ ENTRY_FAMILIES = (
     "live_read_only_research_runbook_approval_gate_dry_run_future",
     "live_read_only_research_local_preflight_simulation_future",
     "read_only_credential_slot_check_validation_future",
+    "read_only_credential_slot_inspection_mock_audit_future",
     "unknown_or_blocked",
 )
 
