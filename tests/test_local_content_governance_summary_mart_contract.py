@@ -132,9 +132,19 @@ def test_forged_dqr_cleared_or_readiness_cleared_blocks():
     assert "forged_readiness_cleared_blocked" in packet_2.hard_blockers
 
 
-def test_ud_u9_unknown_or_blocked_remains_soft_caveat():
-    packet = mart.build_mart()
-    assert mart.SOFT_CAVEAT_0174UD_U9_UNKNOWN in packet.soft_caveats
+def test_ud_u9_explicit_families_remove_default_soft_caveat():
+    ud_packet = ud.build_contract_packet()
+    families = {entry.entry_family for entry in ud_packet.audit_ledger_entries}
+    assert "content_performance_review" in families
+    assert "editorial_feedback_loop" in families
+    assert "unknown_or_blocked" not in families
+
+    packet = mart.build_mart(ud_packet=ud_packet)
+    assert mart.SOFT_CAVEAT_0174UD_U9_UNKNOWN not in packet.soft_caveats
+    assert packet.evidence_summary.u9_unknown_or_blocked_entry_count == 0
+    performance_summary = next(es for es in packet.evidence_summaries if es.evidence_family == "performance_feedback")
+    assert performance_summary.u9_unknown_or_blocked_entry_count == 0
+    assert performance_summary.u9_unknown_or_blocked_soft_caveat is False
     assert packet.mart_status == mart.STATUS_LOCAL_SUMMARY_READY
 
 

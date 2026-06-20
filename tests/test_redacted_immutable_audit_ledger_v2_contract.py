@@ -185,5 +185,9 @@ def test_contract_packet_is_valid_and_has_expected_families():
     assert "artifact_idea_seed" in families
     assert "approval_ledger_fact" in families
     assert "dispatch_outbox_fact" in families
+    assert "content_performance_review" in ledger.ENTRY_FAMILIES
+    assert "editorial_feedback_loop" in ledger.ENTRY_FAMILIES
+    assert "local_governance_summary_mart" in ledger.ENTRY_FAMILIES
+    assert "platform_automation_readiness" in ledger.ENTRY_FAMILIES
     assert "unknown_or_blocked" in families
     assert packet["next_heavy_batch_recommendation"] == "TASK_CONTENTOPS_0174UA_APPROVAL_LEDGER_REVOCATION_EXPIRATION_CONTRACT_V0"

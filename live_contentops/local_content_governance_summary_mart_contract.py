@@ -430,7 +430,7 @@ def _evidence_summaries(
         "approval_validity": ("approval_ledger_fact",),
         "dispatch_revalidation": ("dispatch_outbox_fact",),
         "manual_publish_metrics": ("manual_publish_record_future_gate", "metrics_record_future_gate"),
-        "performance_feedback": (),
+        "performance_feedback": ("content_performance_review", "editorial_feedback_signal", "editorial_feedback_loop", "content_performance_validation"),
     }
 
     out: list[EvidenceGovernanceSummaryRow] = []
@@ -645,7 +645,7 @@ def render_runbook(packet: LocalContentGovernanceSummaryMartPacket) -> str:
         "- Mart aggregates local U4 through UD contract packets.",
         "- Rows are review-only governance summaries, not UI state or publish truth.",
         "- Public postable, dispatch-ready, auto-generation, approval, and public claim authority remain false.",
-        "- 0174UD U9 `unknown_or_blocked` audit families are preserved as soft caveats, not hard blockers.", "",
+        "- Explicit U9 performance-feedback audit families prevent default `unknown_or_blocked` caveats for current 0174UD packets.", "",
         "## Safety", "",
         "- No UI, API/provider/network/env/credential reads, scraping, browser, scheduler, DM/reply, dispatch, DQR/readiness clearing, current-truth promotion, or ingestion repo mutation.", "",
         "## Next heavy batch", "", f"`{NEXT_HEAVY_BATCH}`", "",

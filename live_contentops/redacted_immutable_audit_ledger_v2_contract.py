@@ -32,6 +32,11 @@ ENTRY_FAMILIES = (
     "internal_alpha_artifact_intake", "content_eligibility_assessment",
     "artifact_idea_seed", "approval_ledger_fact", "dispatch_outbox_fact",
     "manual_publish_record_future_gate", "metrics_record_future_gate",
+    "content_performance_review", "editorial_feedback_signal",
+    "editorial_feedback_loop", "content_performance_validation",
+    "local_governance_summary_mart", "platform_governance_summary",
+    "evidence_governance_summary", "governance_blocker_summary",
+    "platform_automation_readiness", "platform_automation_blocker",
     "unknown_or_blocked",
 )
 
