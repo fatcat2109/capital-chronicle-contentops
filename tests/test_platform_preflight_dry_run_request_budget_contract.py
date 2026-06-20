@@ -138,7 +138,7 @@ def test_meta_platforms_preserve_blockers():
     packet = contract.build_preflight_dry_run_request_budget_packet()
     for pid in ("threads", "instagram", "facebook_page"):
         dec = next(d for d in packet.decisions if d.platform_id == pid)
-        assert dec.decision_status == "needs_human_review"
+        assert dec.decision_status == "blocked_preflight"
         assert len(dec.missing_proofs) > 0
 
 
@@ -225,3 +225,81 @@ def test_unofficial_platform_action_fails_closed():
             action_hash="",
             action_hash_algorithm="sha256",
         )
+
+
+def test_x_default_decision_blocks_on_budget():
+    packet = contract.build_preflight_dry_run_request_budget_packet()
+    x_dec = next(d for d in packet.decisions if d.platform_id == "x")
+    assert x_dec.request_budget_status == "request_budget_exceeds_limit"
+    assert x_dec.decision_status == "blocked_preflight"
+
+
+def test_any_action_exceeding_budget_blocks():
+    actions = contract.build_default_proposed_actions()
+    # Test for max_budget=0 platform (e.g. threads, where max is 0, request is 1)
+    threads_action = next(a for a in actions if a.platform_id == "threads")
+    dec_threads = contract.build_preflight_dry_run_decision(threads_action)
+    assert dec_threads.request_budget_status == "request_budget_exceeds_limit"
+    assert dec_threads.decision_status == "blocked_preflight"
+
+    # Test for max_budget > 0 platform (e.g. youtube, where max is 1, request is 2)
+    youtube_action = next(a for a in actions if a.platform_id == "youtube")
+    over_budget_youtube = contract.replace(youtube_action, action_id="over_budget_yt", requested_request_budget=2)
+    dec_yt = contract.build_preflight_dry_run_decision(over_budget_youtube)
+    assert dec_yt.request_budget_status == "request_budget_exceeds_limit"
+    assert dec_yt.decision_status == "blocked_preflight"
+
+
+def test_exceeded_budget_status_must_block_decision():
+    packet = contract.build_preflight_dry_run_request_budget_packet()
+    for dec in packet.decisions:
+        if dec.request_budget_status == "request_budget_exceeds_limit":
+            assert dec.decision_status == "blocked_preflight"
+
+
+def test_u9_ledger_family_is_allowlisted():
+    assert "preflight_dry_run_request_budget_future" in audit.ENTRY_FAMILIES
+
+
+def test_u9_ledger_hygiene_and_redaction():
+    packet = contract.build_preflight_dry_run_request_budget_packet()
+    entries = contract.build_u9_audit_entries(packet)
+
+    # Verify entries validate
+    chain = audit.build_ledger_chain(entries)
+    validation = audit.validate_ledger_chain(chain)
+    assert validation.validation_status == "pass"
+    assert len(validation.blocked_reasons) == 0
+
+    # Verify all safety flags in ledger entries remain false (except ledger-level policy flags)
+    for entry in entries:
+        safety = entry.safety_state_snapshot
+        for k, v in safety.items():
+            if k in ("immutable_append_only", "redaction_policy_applied", "no_secret_material"):
+                assert v is True
+            else:
+                assert v is False, f"Flag {k} was not False"
+
+    # Verify redaction blocks secrets (e.g. sensitive terms or token-like patterns)
+    policy = audit.build_redaction_policy(("policy:0174U9", "policy:0174UL"))
+    payload_with_secret = {
+        "context_summary": "secret email is secret@gmail.com",
+        "status": "ghp_abcdefghijklmnopqrst",
+        "validation_status": "safe-value"
+    }
+    redacted = audit.build_redacted_ledger_entry(
+        entry_sequence=1,
+        previous_entry_hash=audit.GENESIS_HASH,
+        entry_family="preflight_dry_run_request_budget_future",
+        source_model="0174UL",
+        source_model_version="test-version",
+        payload=payload_with_secret,
+        policy=policy
+    )
+    # The payload in the redacted entry must have redacted values
+    summary = redacted.redacted_summary
+    assert "secret@gmail.com" not in summary["redacted"]["context_summary"]
+    assert "[REDACTED_EMAIL]" in summary["redacted"]["context_summary"]
+    assert "ghp_" not in summary["redacted"]["status"]
+    assert "[REDACTED_TOKEN]" in summary["redacted"]["status"]
+    assert summary["redacted"]["validation_status"] == "safe-value"

@@ -405,8 +405,7 @@ def build_preflight_dry_run_decision(
         request_budget_status = "request_budget_zero"
     elif action.requested_request_budget > max_budget:
         request_budget_status = "request_budget_exceeds_limit"
-        if max_budget > 0:
-            blockers.append("request_budget_exceeds_limit")
+        blockers.append("request_budget_exceeds_limit")
     else:
         request_budget_status = "request_budget_within_symbolic_limit"
         
@@ -462,6 +461,7 @@ def build_preflight_dry_run_decision(
         has_blocked_gate = (
             permission_gate_status in ("blocked_missing_permission_scope_matrix", "blocked_missing_app_review_proof", "blocked_missing_account_role_proof", "blocked_manual_export_only") or
             rate_budget_gate_status == "rate_budget_gate_blocked" or
+            request_budget_status == "request_budget_exceeds_limit" or
             "request_budget_exceeds_limit" in blockers or
             "retry_forbidden" in blockers or
             "kill_switch_open_blocks" in blockers or

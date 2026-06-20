@@ -1,7 +1,7 @@
 {
   "action_count": 10,
   "auto_retry_forbidden_count": 0,
-  "blocked_preflight_count": 2,
+  "blocked_preflight_count": 6,
   "blocked_reasons": [
     "x_oauth_app_review_required",
     "x_scopes_symbolic_only",
@@ -9,6 +9,7 @@
     "rate_limit_and_spend_gate_unresolved",
     "x_api_gate_closed",
     "rate_budget_gate_status_needs_human_review",
+    "request_budget_exceeds_limit",
     "operator_inbox_chat_id_presence_only",
     "telegram_operator_not_public_destination",
     "operator_inbox_chat_proof_required",
@@ -67,16 +68,17 @@
         "permission_gate_status_needs_human_review",
         "rate_limit_and_spend_gate_unresolved",
         "x_api_gate_closed",
-        "rate_budget_gate_status_needs_human_review"
+        "rate_budget_gate_status_needs_human_review",
+        "request_budget_exceeds_limit"
       ],
       "browser_session_used": false,
       "credential_boundary_status": "credential_handle_known_symbolic",
       "credential_hydrated": false,
-      "decision_hash": "30381a4c3c1602c5f6f99c4a00fcd6f1b5c38c3735748c68ea578cc5394ad7bd",
+      "decision_hash": "99b0ecb8388acdd1ed9f76da769e41da48eb260abb96a392f6a3964c444cb735",
       "decision_hash_algorithm": "sha256",
-      "decision_id": "preflight_decision_x_30381a4c3c1602c5",
-      "decision_status": "needs_human_review",
-      "decision_strength": "missing_proof",
+      "decision_id": "preflight_decision_x_99b0ecb8388acdd1",
+      "decision_status": "blocked_preflight",
+      "decision_strength": "deterministic_block",
       "env_read_allowed": false,
       "evidence_refs": [
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
@@ -240,14 +242,15 @@
         "linkedin_organization_page_binding_missing",
         "organization_page_proof_required",
         "rate_budget_gate_status_needs_human_review",
-        "rate_budget_unverified"
+        "rate_budget_unverified",
+        "request_budget_exceeds_limit"
       ],
       "browser_session_used": false,
       "credential_boundary_status": "credential_handle_known_symbolic",
       "credential_hydrated": false,
-      "decision_hash": "690549bc4045679a298a262e5df00d524bd47e0ebc8bc6e72fa9ccf6bc5aec83",
+      "decision_hash": "4fc9f4730f9a228067c75accc35bf397255f572312811938693b29cae5106910",
       "decision_hash_algorithm": "sha256",
-      "decision_id": "preflight_decision_linkedin_690549bc4045679a",
+      "decision_id": "preflight_decision_linkedin_4fc9f4730f9a2280",
       "decision_status": "blocked_preflight",
       "decision_strength": "deterministic_block",
       "env_read_allowed": false,
@@ -286,16 +289,17 @@
         "meta_app_review_closed",
         "meta_app_account_proof_required",
         "rate_budget_gate_status_needs_human_review",
-        "rate_budget_unverified"
+        "rate_budget_unverified",
+        "request_budget_exceeds_limit"
       ],
       "browser_session_used": false,
       "credential_boundary_status": "credential_handle_known_symbolic",
       "credential_hydrated": false,
-      "decision_hash": "3918cddf721e61f80de23948cc8a9a482ff3f3a47b7186903d2468154385c036",
+      "decision_hash": "11ee785f7650f3ef89f350077d72d85fec4dd3b598837149066ff6bb34c165d8",
       "decision_hash_algorithm": "sha256",
-      "decision_id": "preflight_decision_threads_3918cddf721e61f8",
-      "decision_status": "needs_human_review",
-      "decision_strength": "missing_proof",
+      "decision_id": "preflight_decision_threads_11ee785f7650f3ef",
+      "decision_status": "blocked_preflight",
+      "decision_strength": "deterministic_block",
       "env_read_allowed": false,
       "evidence_refs": [
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
@@ -332,16 +336,17 @@
         "instagram_business_creator_proof_required",
         "media_url_gate_closed",
         "rate_budget_gate_status_needs_human_review",
-        "rate_budget_unverified"
+        "rate_budget_unverified",
+        "request_budget_exceeds_limit"
       ],
       "browser_session_used": false,
       "credential_boundary_status": "credential_handle_known_symbolic",
       "credential_hydrated": false,
-      "decision_hash": "f34598a3ecc83eec74be7d0b594d6c429f854416d787ff6415b5d87c5bfd1c57",
+      "decision_hash": "1fdf643adadb3769c64551551967ab4c0f3b65c6ecae68aa1b360a5d7f3ce7de",
       "decision_hash_algorithm": "sha256",
-      "decision_id": "preflight_decision_instagram_f34598a3ecc83eec",
-      "decision_status": "needs_human_review",
-      "decision_strength": "missing_proof",
+      "decision_id": "preflight_decision_instagram_1fdf643adadb3769",
+      "decision_status": "blocked_preflight",
+      "decision_strength": "deterministic_block",
       "env_read_allowed": false,
       "evidence_refs": [
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
@@ -379,16 +384,17 @@
         "facebook_page_role_proof_required",
         "app_review_gate_closed",
         "rate_budget_gate_status_needs_human_review",
-        "rate_budget_unverified"
+        "rate_budget_unverified",
+        "request_budget_exceeds_limit"
       ],
       "browser_session_used": false,
       "credential_boundary_status": "credential_handle_known_symbolic",
       "credential_hydrated": false,
-      "decision_hash": "3edd72f07c1812ce9be5b7732f2ec89ae7d09e811365a9474679c53f9e90bc93",
+      "decision_hash": "16901412f00eab09a8ac2350277c303f0044c43c3aa7978713e58539fc37ad55",
       "decision_hash_algorithm": "sha256",
-      "decision_id": "preflight_decision_facebook_page_3edd72f07c1812ce",
-      "decision_status": "needs_human_review",
-      "decision_strength": "missing_proof",
+      "decision_id": "preflight_decision_facebook_page_16901412f00eab09",
+      "decision_status": "blocked_preflight",
+      "decision_strength": "deterministic_block",
       "env_read_allowed": false,
       "evidence_refs": [
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
@@ -426,14 +432,15 @@
         "creator_account_video_publish_proof_required",
         "tiktok_audit_closed",
         "rate_budget_gate_status_needs_human_review",
-        "rate_budget_unverified"
+        "rate_budget_unverified",
+        "request_budget_exceeds_limit"
       ],
       "browser_session_used": false,
       "credential_boundary_status": "credential_handle_known_symbolic",
       "credential_hydrated": false,
-      "decision_hash": "e43fd7ed966dd1df11fd83651910d9486b0d46ca251d809645ca332dc9169223",
+      "decision_hash": "97baa00b5f324f21d8de9d4171b18eb1c52519f07e1c452e8e48054ed2db4902",
       "decision_hash_algorithm": "sha256",
-      "decision_id": "preflight_decision_tiktok_e43fd7ed966dd1df",
+      "decision_id": "preflight_decision_tiktok_97baa00b5f324f21",
       "decision_status": "blocked_preflight",
       "decision_strength": "deterministic_block",
       "env_read_allowed": false,
@@ -509,13 +516,13 @@
   ],
   "decisions_by_platform": {
     "facebook_page": [
-      "preflight_decision_facebook_page_3edd72f07c1812ce"
+      "preflight_decision_facebook_page_16901412f00eab09"
     ],
     "instagram": [
-      "preflight_decision_instagram_f34598a3ecc83eec"
+      "preflight_decision_instagram_1fdf643adadb3769"
     ],
     "linkedin": [
-      "preflight_decision_linkedin_690549bc4045679a"
+      "preflight_decision_linkedin_4fc9f4730f9a2280"
     ],
     "substack_newsletter": [
       "preflight_decision_substack_newsletter_64d7f9a16f367084"
@@ -527,13 +534,13 @@
       "preflight_decision_telegram_remote_operator_79a6bcde24a656d0"
     ],
     "threads": [
-      "preflight_decision_threads_3918cddf721e61f8"
+      "preflight_decision_threads_11ee785f7650f3ef"
     ],
     "tiktok": [
-      "preflight_decision_tiktok_e43fd7ed966dd1df"
+      "preflight_decision_tiktok_97baa00b5f324f21"
     ],
     "x": [
-      "preflight_decision_x_30381a4c3c1602c5"
+      "preflight_decision_x_99b0ecb8388acdd1"
     ],
     "youtube": [
       "preflight_decision_youtube_c3618063d955e4e7"
@@ -588,11 +595,11 @@
     "quota_upload_gate_closed",
     "youtube_oauth_channel_proof_required"
   ],
-  "needs_human_review_count": 7,
+  "needs_human_review_count": 3,
   "next_required_gate": "TASK_CONTENTOPS_0174UM_SUPERVISED_LIVE_READINESS_REVIEW_INDEX_V0",
-  "packet_hash": "781c87277602c83ea563fed71c8ebbd8cebd7e12e1564f639a9c3d89172a7386",
+  "packet_hash": "a43674c677456109c14786d2e88de05aa3d7d8c7e3919d23d29c71cb20f9821b",
   "packet_hash_algorithm": "sha256",
-  "packet_id": "preflight_dry_run_packet_781c87277602c83ea563fed7",
+  "packet_id": "preflight_dry_run_packet_a43674c677456109c14786d2",
   "platform_api_called_count": 0,
   "proposed_actions": [
     {
@@ -919,15 +926,15 @@
     "preflight_dry_run_request_budget_future"
   ],
   "u9_audit_entry_ids": [
-    "ledger_entry_838879f8b1e5cce5616d8cca",
-    "ledger_entry_5e93c3200de37750f726e3a7",
-    "ledger_entry_a8d433485b29b5fc10cb8717",
-    "ledger_entry_7daedf8473fe23ff905d1e80",
-    "ledger_entry_76db526f12c87f317daf40b7",
-    "ledger_entry_14c31b822568a388734e104a",
-    "ledger_entry_3b9d5c1fcf7a25b63c0966f7",
-    "ledger_entry_65e788b3271db937aa72068c",
-    "ledger_entry_961ad16c5a9dce0b4cfabd79",
-    "ledger_entry_5b4495f324a29e6a6719cba7"
+    "ledger_entry_f0280b11ffe728766009641e",
+    "ledger_entry_352e8b1fdd2da9543086c786",
+    "ledger_entry_a37e49e02643b2581a1d2c98",
+    "ledger_entry_0e8ea5f04ecea8720e618bf4",
+    "ledger_entry_a3729464e536c87e80c6277f",
+    "ledger_entry_aaafa307aa11d1242019af43",
+    "ledger_entry_1033aad5674891ffef03f9b8",
+    "ledger_entry_9639de5eca41ba2c44a86285",
+    "ledger_entry_538aa1dec29f151623bcf77d",
+    "ledger_entry_a6126ea2649007869f56fb63"
   ]
 }
