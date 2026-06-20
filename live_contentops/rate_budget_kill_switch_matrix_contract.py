@@ -269,7 +269,7 @@ def _make_requirement(
 
 # Default specifications grounding matrix mapping
 _REQ_SPECS = (
-    ("req_x_rate_limit", "x", "endpoint_rate_limit", "X Endpoint-Specific Rate Limits and Spend Gate", "doc_evidence_ref_x_limits", "https://developer.x.com/", "developer.x.com", "partially_supported_by_cited_doc", False, False, "Pay-per-use credit-based pricing, endpoint-specific 15-minute rate limit windows", 0, 0, False, False, True, "enabled", 10, "fail_closed_unapproved_budget", ("rate_limit_and_spend_gate_unresolved",)),
+    ("req_x_rate_limit", "x", "endpoint_rate_limit", "X Endpoint-Specific Rate Limits and Spend Gate", "doc_evidence_ref_x_limits", "https://developer.x.com/", "developer.x.com", "partially_supported_by_cited_doc", False, False, "Pay-per-use credit-based pricing; endpoint-specific rate-limit windows require future official-doc/live-gated rate-budget verification", 0, 0, False, False, True, "enabled", 10, "fail_closed_unapproved_budget", ("rate_limit_and_spend_gate_unresolved",)),
     ("req_tg_op_limit", "telegram_remote_operator", "request_budget_policy", "Telegram Remote Operator sendMessage Limit", "doc_evidence_ref_telegram_operator_intro", "https://core.telegram.org/bots/api", "core.telegram.org", "partially_supported_by_cited_doc", False, False, "One-request budget model for supervised remote operator inbox", 0, 1, False, False, True, "enabled", 10, "needs_human_review", ("operator_inbox_chat_proof_required", "no_arbitrary_dm_allowed")),
     ("req_tg_ch_limit", "telegram_channel_destination", "request_budget_policy", "Telegram Channel sendMessage/sendPhoto Limits", "doc_evidence_ref_telegram_channel_send", "https://core.telegram.org/bots/api", "core.telegram.org", "partially_supported_by_cited_doc", False, False, "One-request budget model for channel post sending", 0, 1, False, False, True, "enabled", 10, "needs_human_review", ("channel_permission_proof_required",)),
     ("req_substack_manual", "substack_newsletter", "manual_export_no_api", "Substack Manual Copy-Paste Markdown Export Only", "doc_evidence_ref_substack_help", "https://support.substack.com/", "support.substack.com", "manual_export_no_api", False, False, "No API request budget, manual copy-paste markdown only", 0, 0, False, False, False, "manual_stop_policy", 0, "fail_closed_manual_export_only", ("manual_export_first_no_api",)),
@@ -643,7 +643,7 @@ def render_runbook(packet: RateBudgetKillSwitchPacket) -> str:
         "",
         "## Required Distinctions & Caveats",
         "",
-        "- **X**: Credit-budget pay-per-use caveat and endpoint-specific 15-minute rate limit windows.",
+        "- **X**: Credit-budget pay-per-use caveat; endpoint-specific rate-limit windows require future official-doc/live-gated rate-budget verification.",
         "- **Telegram Bot (Remote Operator & Channel)**: Restricted message limits with one-request budget models. Operator separate from Channel posting. Zero arbitrary DM access.",
         "- **Substack**: Grounded strictly as manual copy-paste markdown export without API request budgets.",
         "- **LinkedIn/Meta/TikTok**: Throttling, container publication limitations, and Meta app review rate caps. All are blocked or pending review.",

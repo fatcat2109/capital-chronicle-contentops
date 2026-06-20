@@ -38,9 +38,9 @@
   ],
   "matrix_version": "0174UK_RATE_BUDGET_AND_KILL_SWITCH_MATRIX_V1",
   "next_required_gate": "TASK_CONTENTOPS_0174UL_PLATFORM_PREFLIGHT_AND_DRY_RUN_REQUEST_BUDGET_CONTRACT_V0",
-  "packet_hash": "e8b6c1ebef06237362095ad122fb75c23e548c7b57b65d10833213452148d8b3",
+  "packet_hash": "e37e5701f1b3c5a25a651ef99d1f6d649d15c422560dfa44468f7a5f46159126",
   "packet_hash_algorithm": "sha256",
-  "packet_id": "rate_budget_kill_switch_packet_e8b6c1ebef06237362095ad1",
+  "packet_id": "rate_budget_kill_switch_packet_e37e5701f1b3c5a25a651ef9",
   "platform_api_called_count": 0,
   "platforms_requiring_kill_switch": [
     "x",
@@ -72,7 +72,7 @@
       "docs_refs": [
         "docs_evidence_row_x"
       ],
-      "endpoint_rate_limit_summary": "Pay-per-use credit-based pricing, endpoint-specific 15-minute rate limit windows",
+      "endpoint_rate_limit_summary": "Pay-per-use credit-based pricing; endpoint-specific rate-limit windows require future official-doc/live-gated rate-budget verification",
       "env_read": false,
       "evidence_refs": [
         "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
@@ -101,7 +101,7 @@
       "retry_allowed": false,
       "retry_policy_summary": "retry=False, autoretry=False",
       "row_claim_support_status": "partially_supported_by_cited_doc",
-      "row_hash": "a692b94008a1fb23ef10712f55319acb7289efa0b8ffc21feeca460eaff8943e",
+      "row_hash": "1745d3bcafe98166d0cb5ae8b7a2683588e70effa5bf322fcc2d4c0a97d5e00f",
       "row_id": "platform_rate_budget_gate_row_x",
       "spend_budget_summary": "N/A",
       "timeout_failure_policy_summary": "timeout=10s, fail=fail_closed_unapproved_budget",
@@ -594,15 +594,15 @@
     "rate_budget_kill_switch_future"
   ],
   "u9_audit_entry_ids": [
-    "ledger_entry_f4649a8a6cf416a50fd65454",
-    "ledger_entry_5b0905087a71a1c1ceb6bfb5",
-    "ledger_entry_4cc45fd27a24de22007d4e66",
-    "ledger_entry_b072b8066fe797d9b2ee7479",
-    "ledger_entry_d1de87a555ec49fa0546fc8f",
-    "ledger_entry_0308c660402ab67fb3437945",
-    "ledger_entry_632c00b10cb9a0b8df78d394",
-    "ledger_entry_361a511444730a66e35ec45c",
-    "ledger_entry_9fb98b67640c3d1f44da3f36",
-    "ledger_entry_6b20f6b5905dd7bd653fa856"
+    "ledger_entry_33db62b56ced913a07a74621",
+    "ledger_entry_1b1e8ec56e4fa361bfcd252c",
+    "ledger_entry_911858e5891253ff39df05dd",
+    "ledger_entry_444ac2d3c677bada9d5d2b0d",
+    "ledger_entry_feea18dc361a4160380d6033",
+    "ledger_entry_3c96260036d4809663a13b83",
+    "ledger_entry_7f0660dd50c8a349034aabd2",
+    "ledger_entry_1d0e7a21372ba0c78648ab6c",
+    "ledger_entry_384620b724deb0bc51e354b3",
+    "ledger_entry_a14dc6a4c7574461480618e0"
   ]
 }

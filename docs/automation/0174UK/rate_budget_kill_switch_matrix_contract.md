@@ -3,8 +3,8 @@
 - task_label: `TASK_CONTENTOPS_0174UK_RATE_BUDGET_AND_KILL_SWITCH_MATRIX_V0`
 - matrix_version: `0174UK_RATE_BUDGET_AND_KILL_SWITCH_MATRIX_V1`
 - source_baseline_commit: `a3d4b82f74fe78a296b24f0a013ab3e8ad85fd4b`
-- packet_id: `rate_budget_kill_switch_packet_e8b6c1ebef06237362095ad1`
-- packet_hash: `e8b6c1ebef06237362095ad122fb75c23e548c7b57b65d10833213452148d8b3`
+- packet_id: `rate_budget_kill_switch_packet_e37e5701f1b3c5a25a651ef9`
+- packet_hash: `e37e5701f1b3c5a25a651ef99d1f6d649d15c422560dfa44468f7a5f46159126`
 - next_required_gate: `TASK_CONTENTOPS_0174UL_PLATFORM_PREFLIGHT_AND_DRY_RUN_REQUEST_BUDGET_CONTRACT_V0`
 
 ## Rate Limit, Quota & Kill Switch Matrix
@@ -24,7 +24,7 @@
 
 ## Required Distinctions & Caveats
 
-- **X**: Credit-budget pay-per-use caveat and endpoint-specific 15-minute rate limit windows.
+- **X**: Credit-budget pay-per-use caveat; endpoint-specific rate-limit windows require future official-doc/live-gated rate-budget verification.
 - **Telegram Bot (Remote Operator & Channel)**: Restricted message limits with one-request budget models. Operator separate from Channel posting. Zero arbitrary DM access.
 - **Substack**: Grounded strictly as manual copy-paste markdown export without API request budgets.
 - **LinkedIn/Meta/TikTok**: Throttling, container publication limitations, and Meta app review rate caps. All are blocked or pending review.

@@ -185,6 +185,33 @@ def test_x_row_has_pay_per_use_and_does_not_clear_readiness():
     assert "rate_limit_and_spend_gate_unresolved" in x_row.blocked_reasons
     assert x_row.readiness_cleared is False
 
+    # Assert 15-minute is removed from X row, packet, and runbook
+    assert "15-minute" not in x_row.endpoint_rate_limit_summary
+    assert "15-minute" not in contract.render_runbook(packet)
+    assert "15-minute" not in contract._json(packet)
+
+    # Assert X remains not exact numeric
+    assert "req_x_rate_limit" not in packet.platforms_with_exact_numeric_claims
+    x_req = next(req for req in contract.build_default_requirements() if req.platform_id == "x")
+    assert x_req.exact_numeric_claim is False
+    assert x_req.exact_numeric_claim_has_direct_doc_proof is False
+
+    # Assert X still contains pay-per-use, endpoint-specific, and spend-gate caveats
+    assert "Pay-per-use credit-based pricing" in x_row.endpoint_rate_limit_summary
+    assert "endpoint-specific rate-limit" in x_row.endpoint_rate_limit_summary
+    assert "rate_limit_and_spend_gate_unresolved" in x_row.blocked_reasons
+
+
+def test_numeric_looking_claims_must_be_classified_properly():
+    # Ensure any summary containing quota numbers (like 15 or 100) must set exact_numeric_claim=True
+    # so they cannot silently bypass numeric proof gates.
+    import re
+    digit_quota_re = re.compile(r'\b(?!1\b|3\b|256\b)\d+\b')  # Allow version (3), single (1), or size (256)
+    for req in contract.build_default_requirements():
+        if not req.exact_numeric_claim:
+            match = digit_quota_re.search(req.budget_or_quota_value_summary)
+            assert not match, f"Requirement {req.requirement_id} contains unclassified quota number '{match.group()}'"
+
 
 def test_telegram_remote_operator_and_channel_are_distinct():
     packet = contract.build_rate_budget_kill_switch_packet()
