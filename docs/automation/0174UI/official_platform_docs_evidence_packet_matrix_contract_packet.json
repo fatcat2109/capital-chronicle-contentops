@@ -63,9 +63,9 @@
       "platform_api_called": false,
       "platform_id": "x",
       "platform_role": "primary_distribution",
-      "rate_quota_spend_summary": "Pay-per-use/rate-limit caveat dependent on paid tier",
+      "rate_quota_spend_summary": "X API is pay-per-use / credit-based pricing; rate limits are endpoint-specific and commonly use 15-minute windows",
       "row_claim_support_status": "supported_by_cited_doc",
-      "row_hash": "c2f72f85c4edbcd858539ed78e7d620c1d01fb3f30a8d084c998fe385343caf1",
+      "row_hash": "55a5c3727079bfc98f826a8d0e1f8a71dd2c528d514a05334cea56e87ae1ee7e",
       "row_id": "docs_evidence_row_x",
       "safety_flags": {
         "autonomous_posting_allowed": false,
@@ -604,14 +604,14 @@
       "live_read_allowed": false,
       "live_write_allowed": false,
       "media_constraint_summary": "Video containers (MOV, MP4, AVI, etc.)",
-      "payload_constraint_summary": "Video title, description, tags, playlist constraints",
+      "payload_constraint_summary": "Video title, description, tags, playlist constraints; maximum file size 256GB; accepted media MIME types: video/*, application/octet-stream",
       "permission_scope_summary": "youtube.readonly, youtube.upload",
       "platform_api_called": false,
       "platform_id": "youtube",
       "platform_role": "later_video_distribution",
-      "rate_quota_spend_summary": "Daily API upload quota consumes 1600 units out of 10000 units",
+      "rate_quota_spend_summary": "videos.insert supports media upload; quota impact: 100 calls per day; quota cost: 1 unit in the Video Uploads quota bucket",
       "row_claim_support_status": "supported_by_cited_doc",
-      "row_hash": "4555f0373e9836ad875e5f7c8b5874f9ffc9fc13318b4224cf73beddb48c1beb",
+      "row_hash": "ee8736ac43de18f5968716e6cc67a35e64cf621512ea46a032ebf2b05ab6459b",
       "row_id": "docs_evidence_row_youtube",
       "safety_flags": {
         "autonomous_posting_allowed": false,
@@ -666,9 +666,9 @@
   "next_required_gate": "TASK_CONTENTOPS_0174UJ_PLATFORM_PERMISSION_SCOPE_AND_APP_REVIEW_GATE_MATRIX_V0",
   "official_doc_ref_count": 11,
   "official_domain_count": 7,
-  "packet_hash": "4a8720b2ea6a33699fc3727d26c19e755ff1e0ca15f1e3d74a2d31fbf13faf9c",
+  "packet_hash": "64b4c2456c9c15cb0e92e163ee56212755d3c4e6023dddfc324b2ed5c8aac1bf",
   "packet_hash_algorithm": "sha256",
-  "packet_id": "official_platform_docs_evidence_matrix_packet_4a8720b2ea6a33699fc3727d",
+  "packet_id": "official_platform_docs_evidence_matrix_packet_64b4c2456c9c15cb0e92e163",
   "platform_api_called_count": 0,
   "rows_by_platform": {
     "facebook_page": [
@@ -740,15 +740,15 @@
     "platform_docs_evidence_future"
   ],
   "u9_audit_entry_ids": [
-    "ledger_entry_738f00c136e9c802087a7f0c",
-    "ledger_entry_7ff5987616e944fdc67b1ef1",
-    "ledger_entry_77842eb3375792599a7391db",
-    "ledger_entry_7ef04b44d1f416d6ed3106cb",
-    "ledger_entry_d7fc8c4156ad97af3a067ca3",
-    "ledger_entry_e2446898a3a33e43eacc62d8",
-    "ledger_entry_ba95640bcb558f8d5d7ea0d8",
-    "ledger_entry_0aa406274e4c8968ebe9940b",
-    "ledger_entry_9e8f8e613d1f4ed0d9cb78e9",
-    "ledger_entry_b2c91ac2a91560d05472bc3f"
+    "ledger_entry_e4201a1231f9a9b667d230cb",
+    "ledger_entry_0a8653bc736e8b9c6513a5f9",
+    "ledger_entry_593d03b3294cef03afedba76",
+    "ledger_entry_d7faa1585a6c089e3247ad31",
+    "ledger_entry_b2fda8af45963ccd14f51d8d",
+    "ledger_entry_5fd717d0a7f91829724d2037",
+    "ledger_entry_06465f94e070715c7c72536d",
+    "ledger_entry_1c306a2d49f7b7e7eb7cf53c",
+    "ledger_entry_5323445034e00c8e6ba78915",
+    "ledger_entry_851c55e49cb858e705f32806"
   ]
 }

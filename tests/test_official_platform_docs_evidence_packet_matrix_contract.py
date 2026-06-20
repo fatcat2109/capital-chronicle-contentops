@@ -106,9 +106,13 @@ def test_x_has_rate_spend_access_caveat_and_no_stale_exact_numeric_claim():
     packet = contract.build_official_platform_docs_evidence_matrix_packet()
     x_row = next(r for r in packet.docs_rows if r.platform_id == "x")
     
-    # Stale claim "17 tweets per 24h" removed
+    # Stale claim "17 tweets per 24h" and Free/Basic/Pro tier wording removed
     assert "17 tweets" not in x_row.rate_quota_spend_summary
-    assert "Pay-per-use" in x_row.rate_quota_spend_summary
+    assert "Free tier is write-only" not in x_row.rate_quota_spend_summary
+    assert "Basic" not in x_row.rate_quota_spend_summary
+    assert "Pro" not in x_row.rate_quota_spend_summary
+    assert "pay-per-use" in x_row.rate_quota_spend_summary.lower()
+    assert "endpoint-specific" in x_row.rate_quota_spend_summary.lower()
     assert x_row.docs_status == "partial_docs_grounded"
     assert x_row.exact_numeric_claims_present is False
 
@@ -159,8 +163,13 @@ def test_tiktok_and_youtube_video_upload_quota_caveats_exist():
     yt_row = next(r for r in packet.docs_rows if r.platform_id == "youtube")
     
     assert "video" in tiktok_row.media_constraint_summary or "MP4" in tiktok_row.media_constraint_summary
-    assert "quota" in yt_row.rate_quota_spend_summary or "1600 units" in yt_row.rate_quota_spend_summary
+
+    # YouTube quota claims repaired
+    assert "1600" not in yt_row.rate_quota_spend_summary
+    assert "100 calls per day" in yt_row.rate_quota_spend_summary
+    assert "1 unit" in yt_row.rate_quota_spend_summary
     assert yt_row.exact_numeric_claims_present is True
+    assert yt_row.docs_evidence_strength == "strong"
 
 
 def test_unofficial_domain_input_fails_closed():
@@ -185,6 +194,12 @@ def test_unofficial_domain_input_fails_closed():
             exact_numeric_claim=False,
             exact_numeric_claim_has_direct_doc_proof=False,
             claim_review_notes="Notes",
+            doc_readback_basis={
+                "official_doc_url": "https://unofficialblog.com/x-api-leak",
+                "final_doc_url": "https://unofficialblog.com/x-api-leak",
+                "official_doc_title": "Unverified Documentation",
+                "current_claim_basis_summary": "None",
+            }
         )
 
     # Domain mismatch should also fail closed
@@ -209,6 +224,12 @@ def test_unofficial_domain_input_fails_closed():
             exact_numeric_claim=False,
             exact_numeric_claim_has_direct_doc_proof=False,
             claim_review_notes="Notes",
+            doc_readback_basis={
+                "official_doc_url": "https://developer.x.com/en/docs",
+                "final_doc_url": "https://developer.x.com/en/docs",
+                "official_doc_title": "Mismatched Domain",
+                "current_claim_basis_summary": "None",
+            }
         )
 
 
@@ -266,6 +287,12 @@ def test_exact_numeric_claims_require_direct_doc_proof():
             exact_numeric_claim=True,
             exact_numeric_claim_has_direct_doc_proof=False,  # missing direct proof
             claim_review_notes="Notes",
+            doc_readback_basis={
+                "official_doc_url": "https://docs.x.com/overview",
+                "final_doc_url": "https://docs.x.com/overview",
+                "official_doc_title": "X Numeric Test",
+                "current_claim_basis_summary": "100 tweets per day",
+            }
         )
     ]
     rows = contract.build_default_docs_rows(tuple(refs))
@@ -301,6 +328,12 @@ def test_unsupported_claims_degrade_row_to_not_grounded():
             exact_numeric_claim=False,
             exact_numeric_claim_has_direct_doc_proof=False,
             claim_review_notes="Notes",
+            doc_readback_basis={
+                "official_doc_url": "https://core.telegram.org/bots/api",
+                "final_doc_url": "https://core.telegram.org/bots/api",
+                "official_doc_title": "TG Unsupported Test",
+                "current_claim_basis_summary": "Unsupported claim summary",
+            }
         )
     ]
     rows = contract.build_default_docs_rows(tuple(refs))
@@ -317,3 +350,42 @@ def test_substack_generic_help_center_support_cannot_be_strong():
     
     assert substack_row.docs_evidence_strength == "weak"
     assert substack_row.docs_status != "docs_grounded"
+
+
+def test_doc_readback_basis_exists_and_validated_for_every_ref():
+    refs = contract.build_default_evidence_refs()
+    for ref in refs:
+        assert isinstance(ref.doc_readback_basis, dict)
+        assert set(ref.doc_readback_basis.keys()) == {
+            "official_doc_url",
+            "final_doc_url",
+            "official_doc_title",
+            "current_claim_basis_summary",
+        }
+        # Verify that validation fails when missing fields or malformed type
+        with pytest.raises(ValueError):
+            contract.OfficialDocsEvidenceRef(
+                evidence_ref_id="doc_evidence_ref_invalid_readback",
+                platform_id="x",
+                official_doc_title="X Invalid Readback",
+                official_doc_url="https://docs.x.com/overview",
+                official_domain="docs.x.com",
+                doc_accessed_at_epoch=1781913600,
+                doc_relevance=contract.DocRelevance(auth_model=True),
+                cited_claim_summary="None",
+                caveats="None",
+                evidence_status="official_doc_cited",
+                evidence_hash="dummy",
+                evidence_hash_algorithm="sha256",
+                final_doc_url="https://docs.x.com/overview",
+                official_url_opened=True,
+                source_support_level="direct_official_page",
+                claim_support_status="supported_by_cited_doc",
+                exact_numeric_claim=False,
+                exact_numeric_claim_has_direct_doc_proof=False,
+                claim_review_notes="Notes",
+                doc_readback_basis={
+                    "official_doc_url": "https://docs.x.com/overview",
+                    # missing keys
+                }
+            )

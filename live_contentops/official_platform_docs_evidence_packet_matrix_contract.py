@@ -17,7 +17,7 @@ from live_contentops import redacted_immutable_audit_ledger_v2_contract as audit
 
 TASK_LABEL = "TASK_CONTENTOPS_0174UI_OFFICIAL_PLATFORM_DOCS_EVIDENCE_PACKET_MATRIX_V0"
 MATRIX_VERSION = "0174UI_OFFICIAL_PLATFORM_DOCS_EVIDENCE_PACKET_MATRIX_V1"
-SOURCE_BASELINE_COMMIT = "d1e4224a1a0ddef0393f49ba7c167a118a1e7068"
+SOURCE_BASELINE_COMMIT = "c868675cbeeabf97092e1c3229583dfc54596e6b"
 DOC_REL_DIR = Path("docs") / "automation" / "0174UI"
 PACKET_FILENAME = "official_platform_docs_evidence_packet_matrix_contract_packet.json"
 RUNBOOK_FILENAME = "official_platform_docs_evidence_packet_matrix_contract.md"
@@ -66,7 +66,7 @@ class OfficialDocsEvidenceRef:
     evidence_hash: str
     evidence_hash_algorithm: str
 
-    # 7 new claim-support hardening fields:
+    # 7 claim-support hardening fields:
     final_doc_url: str
     official_url_opened: bool
     source_support_level: str  # direct_official_page, official_index_only, official_generic_help_only, official_docs_missing, needs_human_review
@@ -74,6 +74,9 @@ class OfficialDocsEvidenceRef:
     exact_numeric_claim: bool
     exact_numeric_claim_has_direct_doc_proof: bool
     claim_review_notes: str
+
+    # 1 new doc readback basis metadata field:
+    doc_readback_basis: dict[str, str]
 
     def __post_init__(self) -> None:
         # Strict validation on construction: unofficial domains fail closed
@@ -107,6 +110,14 @@ class OfficialDocsEvidenceRef:
         }:
             raise ValueError(f"invalid_claim_support_status: {self.claim_support_status}")
 
+        # Validate doc_readback_basis field
+        if not isinstance(self.doc_readback_basis, dict):
+            raise TypeError("doc_readback_basis must be a dict")
+        required_keys = {"official_doc_url", "final_doc_url", "official_doc_title", "current_claim_basis_summary"}
+        missing_keys = required_keys - set(self.doc_readback_basis.keys())
+        if missing_keys:
+            raise ValueError(f"doc_readback_basis missing keys: {missing_keys}")
+
 
 @dataclass(frozen=True)
 class PlatformDocsEvidenceRow:
@@ -133,7 +144,7 @@ class PlatformDocsEvidenceRow:
     blocked_reasons: tuple[str, ...]
     row_hash: str
 
-    # 4 new claim-support hardening fields:
+    # 4 claim-support hardening fields:
     row_claim_support_status: str  # supported_by_cited_doc, partially_supported_by_cited_doc, unsupported_by_cited_doc, not_verified_current_docs
     exact_numeric_claims_present: bool
     unsupported_claims: tuple[str, ...]
@@ -215,17 +226,24 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             "docs.x.com",
             1781913600,
             DocRelevance(auth_model=True, endpoint_family=True, payload_constraints=True, rate_limit_or_quota=True, app_review_or_access_level=True),
-            "OAuth 2.0 Authorization Code Flow with PKCE is standard. Rate limit restrictions depend on access tier, e.g. Free, Basic, Pro.",
-            "Free tier is write-only with strict posting limits. Higher limits require paid Basic/Pro plans. V2 endpoints are primary.",
+            "X API is pay-per-use / credit-based pricing. Rate limits are endpoint-specific and commonly use 15-minute windows.",
+            "Exact tier limits are not readiness proof and must be handled in rate/budget task. V2 endpoints are primary.",
             "official_doc_cited",
-            # 7 new fields:
+            # 7 claim-support fields:
             "https://docs.x.com/overview",
             True,
             "direct_official_page",
             "supported_by_cited_doc",
-            False,  # exact numeric claim "17 tweets per 24h" removed as stale/unsupported
             False,
-            "Removed stale claim of 17 tweets per 24h. Replaced with access tier paywall rate limits.",
+            False,
+            "Removed stale claim of 17 tweets per 24h and Free/Basic/Pro tier limits. Replaced with endpoint-specific rate limits and credit caveats.",
+            # doc_readback_basis dict:
+            {
+                "official_doc_url": "https://docs.x.com/overview",
+                "final_doc_url": "https://docs.x.com/overview",
+                "official_doc_title": "X API - Getting Started",
+                "current_claim_basis_summary": "X API is pay-per-use / credit-based pricing. Rate limits are endpoint-specific and commonly use 15-minute windows.",
+            }
         ),
         (
             "doc_evidence_ref_x_limits",
@@ -235,17 +253,24 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             "docs.x.com",
             1781913600,
             DocRelevance(rate_limit_or_quota=True),
-            "Programmatic endpoints are rate-limited based on specific endpoint and access tier.",
-            "Free tier rate limits are extremely low. Basic/Pro/Enterprise have larger request limits.",
+            "Programmatic endpoints are rate-limited based on specific endpoint. Common windows are 15-minutes.",
+            "Exact tier limits are not readiness proof and must be handled in rate/budget task.",
             "official_doc_cited",
-            # 7 new fields:
+            # 7 claim-support fields:
             "https://docs.x.com/fundamentals/rate-limits",
             True,
             "direct_official_page",
             "supported_by_cited_doc",
             False,
             False,
-            "Standard rate-limits reference.",
+            "Endpoint-specific limits and 15-minute rate limit window verification.",
+            # doc_readback_basis dict:
+            {
+                "official_doc_url": "https://docs.x.com/fundamentals/rate-limits",
+                "final_doc_url": "https://docs.x.com/fundamentals/rate-limits",
+                "official_doc_title": "X API - Rate Limits",
+                "current_claim_basis_summary": "Programmatic endpoints are rate-limited based on specific endpoint. Common windows are 15-minutes.",
+            }
         ),
         (
             "doc_evidence_ref_telegram_operator_intro",
@@ -258,7 +283,7 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             "Telegram Bot token is passed in the request path. Access is bot-based and chat-scoped.",
             "Bots cannot message arbitrary users without prior contact. Operates as incoming inbox only via getUpdates/Webhooks.",
             "official_doc_cited",
-            # 7 new fields:
+            # 7 claim-support fields:
             "https://core.telegram.org/bots/api#introduction",
             True,
             "direct_official_page",
@@ -266,6 +291,13 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             False,
             False,
             "Verified chat-scoped bot incoming inbox model.",
+            # doc_readback_basis dict:
+            {
+                "official_doc_url": "https://core.telegram.org/bots/api#introduction",
+                "final_doc_url": "https://core.telegram.org/bots/api#introduction",
+                "official_doc_title": "Telegram Bot API - Introduction",
+                "current_claim_basis_summary": "Telegram Bot token is passed in the request path. Access is bot-based and chat-scoped.",
+            }
         ),
         (
             "doc_evidence_ref_telegram_channel_send",
@@ -278,7 +310,7 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             "sendMessage requires a chat_id (e.g. @channelusername) and text content. Max length is 4096 characters.",
             "The bot must be added to the channel as an administrator. Rate limit caveat requiring platform-rate task.",
             "official_doc_cited",
-            # 7 new fields:
+            # 7 claim-support fields:
             "https://core.telegram.org/bots/api#sendmessage",
             True,
             "direct_official_page",
@@ -286,6 +318,13 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             True,  # exact numeric claim: 4096 characters limit
             True,  # directly documented in the sendMessage section
             "4096 char limit documented. Removed 30 msg/sec numeric claim since it is not on the Bot API main page.",
+            # doc_readback_basis dict:
+            {
+                "official_doc_url": "https://core.telegram.org/bots/api#sendmessage",
+                "final_doc_url": "https://core.telegram.org/bots/api#sendmessage",
+                "official_doc_title": "Telegram Bot API - sendMessage",
+                "current_claim_basis_summary": "sendMessage requires a chat_id and text content. Max length is 4096 characters.",
+            }
         ),
         (
             "doc_evidence_ref_substack_help",
@@ -298,7 +337,7 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             "No approved official publish API doc found in current evidence.",
             "ContentOps must rely on manual markdown export or drafts, as automated browser sessions are prohibited.",
             "manual_export_no_api",
-            # 7 new fields:
+            # 7 claim-support fields:
             "https://support.substack.com/hc/en-us",
             True,
             "official_generic_help_only",
@@ -306,6 +345,13 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             False,
             False,
             "Help center shows no developers or API section. Kept manual_export_no_api project policy but downgraded evidence strength to weak.",
+            # doc_readback_basis dict:
+            {
+                "official_doc_url": "https://support.substack.com/hc/en-us",
+                "final_doc_url": "https://support.substack.com/hc/en-us",
+                "official_doc_title": "Substack Help Center - Publication Management",
+                "current_claim_basis_summary": "No approved official publish API doc found in current evidence.",
+            }
         ),
         (
             "doc_evidence_ref_linkedin_share",
@@ -318,7 +364,7 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             "Posting on behalf of members uses the ugcPosts or shares API. Requires w_member_social scope.",
             "Requires OAuth 2.0 authorization. App must be approved via the LinkedIn Developer Portal.",
             "official_doc_cited",
-            # 7 new fields:
+            # 7 claim-support fields:
             "https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/share-on-linkedin",  # redirect URL
             True,
             "direct_official_page",
@@ -326,6 +372,13 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             False,
             False,
             "Redirect to en-us localized page.",
+            # doc_readback_basis dict:
+            {
+                "official_doc_url": "https://learn.microsoft.com/linkedin/consumer/integrations/self-serve/share-on-linkedin",
+                "final_doc_url": "https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/share-on-linkedin",
+                "official_doc_title": "LinkedIn Share on LinkedIn API",
+                "current_claim_basis_summary": "Posting on behalf of members uses the ugcPosts or shares API. Requires w_member_social scope.",
+            }
         ),
         (
             "doc_evidence_ref_threads_overview",
@@ -338,7 +391,7 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             "Threads API supports publishing. Accounts subject to rate limit of 250 posts per 24 hours per user.",
             "Requires Meta App Review for live API access.",
             "official_doc_cited",
-            # 7 new fields:
+            # 7 claim-support fields:
             "https://developers.facebook.com/docs/threads/overview",
             True,
             "direct_official_page",
@@ -346,6 +399,13 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             True,  # exact numeric claim: 250 posts
             True,  # directly documented in Meta docs
             "250 posts per day per user is explicitly supported.",
+            # doc_readback_basis dict:
+            {
+                "official_doc_url": "https://developers.facebook.com/docs/threads/overview",
+                "final_doc_url": "https://developers.facebook.com/docs/threads/overview",
+                "official_doc_title": "Threads API - Overview",
+                "current_claim_basis_summary": "Threads API supports publishing. Accounts subject to rate limit of 250 posts per 24 hours per user.",
+            }
         ),
         (
             "doc_evidence_ref_instagram_publish",
@@ -358,7 +418,7 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             "Instagram Graph API publishing has a container creation limit of 25 per 24h rolling.",
             "Requires Meta App Review and instagram_content_publish scope.",
             "official_doc_cited",
-            # 7 new fields:
+            # 7 claim-support fields:
             "https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/content-publishing",  # redirect URL
             True,
             "direct_official_page",
@@ -366,6 +426,13 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             True,  # exact numeric claim: 25 container limit
             True,  # directly documented in guides
             "25 container limit documented on Instagram content publishing guide.",
+            # doc_readback_basis dict:
+            {
+                "official_doc_url": "https://developers.facebook.com/docs/instagram-api/guides/content-publishing",
+                "final_doc_url": "https://developers.facebook.com/docs/instagram-platform/instagram-graph-api/content-publishing",
+                "official_doc_title": "Instagram Content Publishing API",
+                "current_claim_basis_summary": "Instagram Graph API publishing has a container creation limit of 25 per 24h rolling.",
+            }
         ),
         (
             "doc_evidence_ref_facebook_page_publish",
@@ -378,7 +445,7 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             "Programmatic posting to a Facebook Page requires a Page Access Token and pages_manage_posts permission.",
             "Requires Meta App Review Advanced Access and sufficient Page roles.",
             "official_doc_cited",
-            # 7 new fields:
+            # 7 claim-support fields:
             "https://developers.facebook.com/docs/graph-api/reference/page/feed#publish",  # redirect URL
             True,
             "direct_official_page",
@@ -386,6 +453,13 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             False,
             False,
             "Facebook Page publishing via graph API reference feed node.",
+            # doc_readback_basis dict:
+            {
+                "official_doc_url": "https://developers.facebook.com/docs/pages/publishing",
+                "final_doc_url": "https://developers.facebook.com/docs/graph-api/reference/page/feed#publish",
+                "official_doc_title": "Facebook Pages API - Publishing",
+                "current_claim_basis_summary": "Programmatic posting to a Facebook Page requires a Page Access Token and pages_manage_posts permission.",
+            }
         ),
         (
             "doc_evidence_ref_tiktok_posting",
@@ -398,7 +472,7 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             "TikTok Content Posting API allows publishing videos directly. Requires video.upload and video.publish.",
             "Requires developer app review.",
             "official_doc_cited",
-            # 7 new fields:
+            # 7 claim-support fields:
             "https://developers.tiktok.com/doc/content-posting-api-get-started",
             True,
             "direct_official_page",
@@ -406,6 +480,13 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             False,
             False,
             "Content Posting API details.",
+            # doc_readback_basis dict:
+            {
+                "official_doc_url": "https://developers.tiktok.com/doc/content-posting-api-get-started",
+                "final_doc_url": "https://developers.tiktok.com/doc/content-posting-api-get-started",
+                "official_doc_title": "TikTok Content Posting API Overview",
+                "current_claim_basis_summary": "TikTok Content Posting API allows publishing videos directly. Requires video.upload and video.publish.",
+            }
         ),
         (
             "doc_evidence_ref_youtube_insert",
@@ -415,23 +496,30 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             "developers.google.com",
             1781913600,
             DocRelevance(auth_model=True, endpoint_family=True, media_constraints=True, permission_scope=True, rate_limit_or_quota=True),
-            "Uploads videos to YouTube using videos.insert. Quota cost is 1600 units out of 10000 daily default.",
-            "Requires OAuth 2.0 with youtube.upload scope.",
+            "videos.insert supports media upload; maximum file size 256GB; MIME types: video/*, application/octet-stream; quota impact: 100 calls per day; quota cost: 1 unit in the Video Uploads quota bucket",
+            "Requires OAuth 2.0 with youtube.upload scope. Upload is review-only and future-gated.",
             "official_doc_cited",
-            # 7 new fields:
+            # 7 claim-support fields:
             "https://developers.google.com/youtube/v3/docs/videos/insert",
             True,
             "direct_official_page",
             "supported_by_cited_doc",
-            True,  # exact numeric claim: 1600 units
-            True,  # directly documented in YouTube Data API quota limits
-            "1600 quota cost is standard for videos.insert.",
+            True,  # exact numeric claim: 100 calls and 1 unit
+            True,  # directly documented in YouTube Data API uploads/quota limits
+            "Verified that videos.insert supports media upload up to 256GB with video/* or application/octet-stream types. Under current quota policy, the quota cost is 1 unit in the Video Uploads quota bucket and the quota impact is 100 calls per day. Removed stale 1600 units claim.",
+            # doc_readback_basis dict:
+            {
+                "official_doc_url": "https://developers.google.com/youtube/v3/docs/videos/insert",
+                "final_doc_url": "https://developers.google.com/youtube/v3/docs/videos/insert",
+                "official_doc_title": "YouTube Data API - Videos: insert",
+                "current_claim_basis_summary": "videos.insert supports media upload; maximum file size 256GB; MIME types: video/*, application/octet-stream; quota impact: 100 calls per day; quota cost: 1 unit in the Video Uploads quota bucket",
+            }
         )
     ]
     refs = []
     for (
         ref_id, platform, title, url, domain, accessed, relevance, claim, caveats, status,
-        final_url, url_opened, support_level, claim_status, num_claim, direct_proof, notes
+        final_url, url_opened, support_level, claim_status, num_claim, direct_proof, notes, readback
     ) in specs:
         material = {
             "evidence_ref_id": ref_id,
@@ -451,6 +539,7 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
             "exact_numeric_claim": num_claim,
             "exact_numeric_claim_has_direct_doc_proof": direct_proof,
             "claim_review_notes": notes,
+            "doc_readback_basis": readback,
         }
         refs.append(
             OfficialDocsEvidenceRef(
@@ -473,6 +562,7 @@ def build_default_evidence_refs() -> tuple[OfficialDocsEvidenceRef, ...]:
                 exact_numeric_claim=num_claim,
                 exact_numeric_claim_has_direct_doc_proof=direct_proof,
                 claim_review_notes=notes,
+                doc_readback_basis=readback,
             )
         )
     return tuple(refs)
@@ -491,10 +581,8 @@ def build_default_docs_rows(refs: tuple[OfficialDocsEvidenceRef, ...] | None = N
         doc_refs = tuple(r.evidence_ref_id for r in plat_refs)
         role = universe.PLATFORMS_BY_ID[platform_id].platform_role
 
-        # 4 new claim-support fields:
         exact_numeric_claims_present = any(r.exact_numeric_claim for r in plat_refs)
         
-        # Collect unsupported claims based on hardening rules
         unsupported = []
         for r in plat_refs:
             if r.claim_support_status == "unsupported_by_cited_doc":
@@ -503,7 +591,6 @@ def build_default_docs_rows(refs: tuple[OfficialDocsEvidenceRef, ...] | None = N
                 unsupported.append(f"stale_numeric_claim:{r.evidence_ref_id}")
         unsupported_claims = tuple(unsupported)
 
-        # Determine row-level claim support status
         if any(r.claim_support_status == "unsupported_by_cited_doc" for r in plat_refs) or any(
             r.exact_numeric_claim and not r.exact_numeric_claim_has_direct_doc_proof for r in plat_refs
         ):
@@ -515,7 +602,6 @@ def build_default_docs_rows(refs: tuple[OfficialDocsEvidenceRef, ...] | None = N
         else:
             row_claim_support_status = "supported_by_cited_doc" if plat_refs else "not_verified_current_docs"
 
-        # Determine evidence strength
         if not plat_refs:
             docs_evidence_strength = "blocked"
         elif any(r.source_support_level == "official_docs_missing" for r in plat_refs):
@@ -529,11 +615,9 @@ def build_default_docs_rows(refs: tuple[OfficialDocsEvidenceRef, ...] | None = N
         elif any(r.source_support_level == "official_index_only" for r in plat_refs):
             docs_evidence_strength = "partial"
         else:
-            # Requires at least one direct official page and no unsupported claims to be strong
             has_direct = any(r.source_support_level == "direct_official_page" for r in plat_refs)
             docs_evidence_strength = "strong" if has_direct else "partial"
 
-        # Base properties matching universe configuration roles
         if platform_id == "substack_newsletter":
             docs_status = "manual_export_no_api"
             auth_model_summary = "None (Manual Markdown Export)"
@@ -565,7 +649,7 @@ def build_default_docs_rows(refs: tuple[OfficialDocsEvidenceRef, ...] | None = N
                     payload_constraint_summary = "Short post (280 chars) or thread payload structure"
                     media_constraint_summary = "Image (JPEG, PNG), GIF, or Video up to 512MB"
                     permission_scope_summary = "tweet.read, tweet.write, users.read, offline.access"
-                    rate_quota_spend_summary = "Pay-per-use/rate-limit caveat dependent on paid tier"
+                    rate_quota_spend_summary = "X API is pay-per-use / credit-based pricing; rate limits are endpoint-specific and commonly use 15-minute windows"
                     app_review_access_summary = "Developer portal app creation and user authorization"
                     blocked_reasons = ("x_api_gate_closed", "credential_gate_closed", "rate_limit_and_spend_gate_unresolved")
                 elif platform_id == "telegram_remote_operator":
@@ -642,14 +726,13 @@ def build_default_docs_rows(refs: tuple[OfficialDocsEvidenceRef, ...] | None = N
                     docs_status = "partial_docs_grounded"
                     auth_model_summary = "Google OAuth 2.0 with client id"
                     endpoint_family_summary = "YouTube Data API v3 videos.insert"
-                    payload_constraint_summary = "Video title, description, tags, playlist constraints"
+                    payload_constraint_summary = "Video title, description, tags, playlist constraints; maximum file size 256GB; accepted media MIME types: video/*, application/octet-stream"
                     media_constraint_summary = "Video containers (MOV, MP4, AVI, etc.)"
                     permission_scope_summary = "youtube.readonly, youtube.upload"
-                    rate_quota_spend_summary = "Daily API upload quota consumes 1600 units out of 10000 units"
+                    rate_quota_spend_summary = "videos.insert supports media upload; quota impact: 100 calls per day; quota cost: 1 unit in the Video Uploads quota bucket"
                     app_review_access_summary = "Google OAuth Consent Screen review and verification"
                     blocked_reasons = ("youtube_oauth_channel_proof_required", "quota_upload_gate_closed", "later_video_gate_closed")
 
-        # Downgrade row status rules based on evidence hardening
         if docs_evidence_strength == "blocked":
             docs_status = "blocked_missing_official_docs"
         elif docs_evidence_strength == "weak":
@@ -834,12 +917,12 @@ def render_runbook(packet: OfficialPlatformDocsEvidenceMatrixPacket) -> str:
         "",
         "## Required Distinctions & Caveats",
         "",
-        "- **X / Twitter**: Paywalled API tiers. Rate limit restrictions depend on paid tier. Stale 17 tweets/24h claim removed.",
+        "- **X / Twitter**: Paywalled API tiers. Rate limits are endpoint-specific and commonly use 15-minute windows. Pricing is pay-per-use / credit-based.",
         "- **Telegram**: Bots are chat-scoped and require chat_id values. Character limit (4096) directly proven. 30 msg/sec limit removed and downgraded.",
         "- **Substack**: Grounded as `manual_export_no_api` with `weak` evidence strength (no approved API doc found).",
         "- **LinkedIn**: Member profile shares separate from organization page administration.",
         "- **Meta (Threads, Instagram, Facebook)**: Standard Meta OAuth and App Review apply. Media URL visibility is required.",
-        "- **TikTok & YouTube**: High quota constraints (YouTube videos.insert cost 1600 units) and video uploads metadata only.",
+        "- **TikTok & YouTube**: High quota constraints (YouTube videos.insert cost 1 unit in Video Uploads bucket with 100 calls limit) and video uploads metadata only.",
         "",
         "## Safety Enforcements",
         "",
