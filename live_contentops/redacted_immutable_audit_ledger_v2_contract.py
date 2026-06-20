@@ -44,6 +44,7 @@ ENTRY_FAMILIES = (
     "supervised_live_readiness_review_future",
     "supervised_live_read_only_research_gate_precheck_future",
     "live_read_only_research_approval_packet_schema_future",
+    "live_read_only_research_evidence_packet_dry_run_schema_future",
     "unknown_or_blocked",
 )
 
