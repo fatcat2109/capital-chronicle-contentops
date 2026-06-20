@@ -1,0 +1,623 @@
+{
+  "account_role_proof_required_platforms": [
+    "telegram_remote_operator",
+    "telegram_channel_destination",
+    "linkedin",
+    "instagram",
+    "facebook_page",
+    "tiktok",
+    "youtube"
+  ],
+  "app_review_required_platforms": [
+    "x",
+    "linkedin",
+    "threads",
+    "instagram",
+    "facebook_page",
+    "tiktok",
+    "youtube"
+  ],
+  "blocked_platforms": [
+    "linkedin",
+    "tiktok"
+  ],
+  "blocked_reasons": [
+    "rate_limit_and_spend_gate_unresolved",
+    "x_api_gate_closed",
+    "operator_inbox_chat_proof_required",
+    "not_public_destination",
+    "channel_permission_proof_required",
+    "bot_admin_gate_closed",
+    "manual_export_first_no_api",
+    "linkedin_member_profile_proof_required",
+    "linkedin_organization_page_binding_missing",
+    "organization_page_proof_required",
+    "meta_app_review_closed",
+    "meta_app_account_proof_required",
+    "instagram_content_publish_gate_closed",
+    "instagram_business_creator_proof_required",
+    "media_url_gate_closed",
+    "pages_manage_posts_gate_closed",
+    "facebook_page_role_proof_required",
+    "app_review_gate_closed",
+    "later_video_gate_closed",
+    "creator_account_video_publish_proof_required",
+    "tiktok_audit_closed",
+    "quota_upload_gate_closed",
+    "youtube_oauth_channel_proof_required"
+  ],
+  "credential_hydrated_count": 0,
+  "env_read_count": 0,
+  "evidence_refs": [
+    "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+    "permission_gate_row_spec:x",
+    "permission_gate_row_spec:telegram_remote_operator",
+    "permission_gate_row_spec:telegram_channel_destination",
+    "permission_gate_row_spec:substack_newsletter",
+    "permission_gate_row_spec:linkedin",
+    "permission_gate_row_spec:threads",
+    "permission_gate_row_spec:instagram",
+    "permission_gate_row_spec:facebook_page",
+    "permission_gate_row_spec:tiktok",
+    "permission_gate_row_spec:youtube"
+  ],
+  "generated_at_epoch": 0,
+  "live_read_allowed_count": 0,
+  "live_write_allowed_count": 0,
+  "manual_export_only_platforms": [
+    "substack_newsletter"
+  ],
+  "matrix_version": "0174UJ_PLATFORM_PERMISSION_SCOPE_AND_APP_REVIEW_GATE_MATRIX_V1",
+  "next_required_gate": "TASK_CONTENTOPS_0174UK_RATE_BUDGET_AND_KILL_SWITCH_MATRIX_V0",
+  "packet_hash": "51379bcf59e4c356d48b67bda64afd6278f4e156639fd298835c41f3f7ba45e7",
+  "packet_hash_algorithm": "sha256",
+  "packet_id": "platform_permission_scope_app_review_gate_packet_51379bcf59e4c356d48b67bd",
+  "permission_gate_rows": [
+    {
+      "account_binding_refs": [
+        "platform_account_binding_c0d34a52119b8d74077f4454"
+      ],
+      "blocked_reasons": [
+        "rate_limit_and_spend_gate_unresolved",
+        "x_api_gate_closed"
+      ],
+      "credential_handle_refs": [
+        "symbolic_credential_handle:x"
+      ],
+      "credential_hydrated": false,
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "permission_gate_row_spec:x"
+      ],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "manual_export_constraints": [],
+      "official_docs_refs": [
+        "docs_evidence_row_x"
+      ],
+      "permission_requirements": [
+        "req_x_oauth",
+        "req_x_app_access"
+      ],
+      "platform_api_called": false,
+      "platform_id": "x",
+      "platform_role": "primary_distribution",
+      "public_post_allowed": false,
+      "readiness_cleared": false,
+      "required_account_type_proofs": [],
+      "required_admin_roles": [],
+      "required_app_review_items": [
+        "Developer Portal App Access Verification"
+      ],
+      "required_bot_permissions": [],
+      "required_oauth_scopes": [
+        "X OAuth 2.0 Scopes (tweet.read, tweet.write, users.read, offline.access)"
+      ],
+      "row_hash": "ba2cf72cd72d77fa56be827d388d227fd83c3827419b9b657db5f8d07647b20f",
+      "row_id": "platform_permission_gate_row_x"
+    },
+    {
+      "account_binding_refs": [
+        "platform_account_binding_fe83fbd587eef5e0b0f59654"
+      ],
+      "blocked_reasons": [
+        "operator_inbox_chat_proof_required",
+        "not_public_destination"
+      ],
+      "credential_handle_refs": [
+        "symbolic_credential_handle:telegram_remote_operator"
+      ],
+      "credential_hydrated": false,
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "permission_gate_row_spec:telegram_remote_operator"
+      ],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "manual_export_constraints": [],
+      "official_docs_refs": [
+        "docs_evidence_row_telegram_remote_operator"
+      ],
+      "permission_requirements": [
+        "req_tg_op_send",
+        "req_tg_op_proof"
+      ],
+      "platform_api_called": false,
+      "platform_id": "telegram_remote_operator",
+      "platform_role": "remote_operator_review",
+      "public_post_allowed": false,
+      "readiness_cleared": false,
+      "required_account_type_proofs": [],
+      "required_admin_roles": [],
+      "required_app_review_items": [],
+      "required_bot_permissions": [
+        "Telegram Bot sendMessage to Operator"
+      ],
+      "required_oauth_scopes": [],
+      "row_hash": "b5262696c6c23f746f76f0d5402f3daf1132188b65d04e5f23e98c208ee3194a",
+      "row_id": "platform_permission_gate_row_telegram_remote_operator"
+    },
+    {
+      "account_binding_refs": [
+        "platform_account_binding_35d6f5158bacac2521bf9b67"
+      ],
+      "blocked_reasons": [
+        "channel_permission_proof_required",
+        "bot_admin_gate_closed"
+      ],
+      "credential_handle_refs": [
+        "symbolic_credential_handle:telegram_channel_destination"
+      ],
+      "credential_hydrated": false,
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "permission_gate_row_spec:telegram_channel_destination"
+      ],
+      "gate_status": "symbolic_permission_matrix_ready",
+      "gate_strength": "strong_official_docs",
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "manual_export_constraints": [],
+      "official_docs_refs": [
+        "docs_evidence_row_telegram_channel_destination"
+      ],
+      "permission_requirements": [
+        "req_tg_ch_send",
+        "req_tg_ch_admin"
+      ],
+      "platform_api_called": false,
+      "platform_id": "telegram_channel_destination",
+      "platform_role": "controlled_channel_distribution",
+      "public_post_allowed": false,
+      "readiness_cleared": false,
+      "required_account_type_proofs": [],
+      "required_admin_roles": [
+        "Telegram Bot Administrator Role on Destination Channel"
+      ],
+      "required_app_review_items": [],
+      "required_bot_permissions": [
+        "Telegram Bot sendMessage/sendPhoto to Channel"
+      ],
+      "required_oauth_scopes": [],
+      "row_hash": "84e0aff3787d72588736b87c871fcb6efd039842bcad71fd4a7da914976a4477",
+      "row_id": "platform_permission_gate_row_telegram_channel_destination"
+    },
+    {
+      "account_binding_refs": [
+        "platform_account_binding_f19ad6578971f8c7ad0fc743"
+      ],
+      "blocked_reasons": [
+        "manual_export_first_no_api"
+      ],
+      "credential_handle_refs": [
+        "symbolic_credential_handle:substack_newsletter"
+      ],
+      "credential_hydrated": false,
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "permission_gate_row_spec:substack_newsletter"
+      ],
+      "gate_status": "blocked_manual_export_only",
+      "gate_strength": "weak_manual_policy",
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "manual_export_constraints": [
+        "Substack Manual Copy-Paste Markdown Export Only"
+      ],
+      "official_docs_refs": [
+        "docs_evidence_row_substack_newsletter"
+      ],
+      "permission_requirements": [
+        "req_substack_manual"
+      ],
+      "platform_api_called": false,
+      "platform_id": "substack_newsletter",
+      "platform_role": "owned_long_form",
+      "public_post_allowed": false,
+      "readiness_cleared": false,
+      "required_account_type_proofs": [],
+      "required_admin_roles": [],
+      "required_app_review_items": [],
+      "required_bot_permissions": [],
+      "required_oauth_scopes": [],
+      "row_hash": "04b90eab8caa910e144052272b03f90ab83bf7ceff3eaf5a477380dc555f4ae7",
+      "row_id": "platform_permission_gate_row_substack_newsletter"
+    },
+    {
+      "account_binding_refs": [
+        "platform_account_binding_a01412ce876324b18792dab6",
+        "platform_account_binding_d016a044ef4b179e17745843"
+      ],
+      "blocked_reasons": [
+        "linkedin_member_profile_proof_required",
+        "linkedin_organization_page_binding_missing",
+        "organization_page_proof_required"
+      ],
+      "credential_handle_refs": [
+        "symbolic_credential_handle:linkedin"
+      ],
+      "credential_hydrated": false,
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "permission_gate_row_spec:linkedin"
+      ],
+      "gate_status": "blocked_missing_permission_scope_matrix",
+      "gate_strength": "blocked",
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "manual_export_constraints": [],
+      "official_docs_refs": [
+        "docs_evidence_row_linkedin"
+      ],
+      "permission_requirements": [
+        "req_li_member",
+        "req_li_org_admin"
+      ],
+      "platform_api_called": false,
+      "platform_id": "linkedin",
+      "platform_role": "professional_credibility",
+      "public_post_allowed": false,
+      "readiness_cleared": false,
+      "required_account_type_proofs": [],
+      "required_admin_roles": [
+        "LinkedIn w_organization_social and Page Administrator Proof"
+      ],
+      "required_app_review_items": [],
+      "required_bot_permissions": [],
+      "required_oauth_scopes": [
+        "LinkedIn w_member_social Scope for Personal Profile"
+      ],
+      "row_hash": "fc5cd076c1c0df37b50a881c67951b6524a1c09288587d52c1bc4f1614ff6fb5",
+      "row_id": "platform_permission_gate_row_linkedin"
+    },
+    {
+      "account_binding_refs": [
+        "platform_account_binding_7b14d9c728550af6e77bfdda"
+      ],
+      "blocked_reasons": [
+        "meta_app_review_closed",
+        "meta_app_account_proof_required"
+      ],
+      "credential_handle_refs": [
+        "symbolic_credential_handle:threads"
+      ],
+      "credential_hydrated": false,
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "permission_gate_row_spec:threads"
+      ],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "manual_export_constraints": [],
+      "official_docs_refs": [
+        "docs_evidence_row_threads"
+      ],
+      "permission_requirements": [
+        "req_threads_scopes",
+        "req_threads_review"
+      ],
+      "platform_api_called": false,
+      "platform_id": "threads",
+      "platform_role": "expansion_distribution",
+      "public_post_allowed": false,
+      "readiness_cleared": false,
+      "required_account_type_proofs": [],
+      "required_admin_roles": [],
+      "required_app_review_items": [
+        "Meta App Review Verification for Threads Integration"
+      ],
+      "required_bot_permissions": [],
+      "required_oauth_scopes": [
+        "Threads API Publishing Scopes (threads_basic, threads_content_publish)"
+      ],
+      "row_hash": "ed879c2e5e98280160e74dd5af41a1979fc1d7df02d133d0620e3ba5bbeeb20a",
+      "row_id": "platform_permission_gate_row_threads"
+    },
+    {
+      "account_binding_refs": [
+        "platform_account_binding_e0e9d12dbb043c5037a72349"
+      ],
+      "blocked_reasons": [
+        "instagram_content_publish_gate_closed",
+        "instagram_business_creator_proof_required",
+        "media_url_gate_closed"
+      ],
+      "credential_handle_refs": [
+        "symbolic_credential_handle:instagram"
+      ],
+      "credential_hydrated": false,
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "permission_gate_row_spec:instagram"
+      ],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "manual_export_constraints": [],
+      "official_docs_refs": [
+        "docs_evidence_row_instagram"
+      ],
+      "permission_requirements": [
+        "req_insta_scopes",
+        "req_insta_type"
+      ],
+      "platform_api_called": false,
+      "platform_id": "instagram",
+      "platform_role": "expansion_distribution",
+      "public_post_allowed": false,
+      "readiness_cleared": false,
+      "required_account_type_proofs": [
+        "Instagram Professional/Business/Creator Account Verification"
+      ],
+      "required_admin_roles": [],
+      "required_app_review_items": [],
+      "required_bot_permissions": [],
+      "required_oauth_scopes": [
+        "Instagram API Content Publish Scopes (instagram_basic, instagram_content_publish, pages_show_list)"
+      ],
+      "row_hash": "9902628258e9d91adb214075fe097022e16ca97342209e55c76fb3ad28580386",
+      "row_id": "platform_permission_gate_row_instagram"
+    },
+    {
+      "account_binding_refs": [
+        "platform_account_binding_24924eb404aef9388e3d57e2"
+      ],
+      "blocked_reasons": [
+        "pages_manage_posts_gate_closed",
+        "facebook_page_role_proof_required",
+        "app_review_gate_closed"
+      ],
+      "credential_handle_refs": [
+        "symbolic_credential_handle:facebook_page"
+      ],
+      "credential_hydrated": false,
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "permission_gate_row_spec:facebook_page"
+      ],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "manual_export_constraints": [],
+      "official_docs_refs": [
+        "docs_evidence_row_facebook_page"
+      ],
+      "permission_requirements": [
+        "req_fb_scopes",
+        "req_fb_admin"
+      ],
+      "platform_api_called": false,
+      "platform_id": "facebook_page",
+      "platform_role": "expansion_distribution",
+      "public_post_allowed": false,
+      "readiness_cleared": false,
+      "required_account_type_proofs": [],
+      "required_admin_roles": [
+        "Facebook Page Administrator Role"
+      ],
+      "required_app_review_items": [],
+      "required_bot_permissions": [],
+      "required_oauth_scopes": [
+        "Facebook Page Posting Scopes (pages_read_engagement, pages_manage_posts, pages_show_list)"
+      ],
+      "row_hash": "a6363f62ded7e37c542f0b9a4d43bc686834062b8a006eb6060e02b968f1a073",
+      "row_id": "platform_permission_gate_row_facebook_page"
+    },
+    {
+      "account_binding_refs": [
+        "platform_account_binding_48c277dcbd04d8669436e318"
+      ],
+      "blocked_reasons": [
+        "later_video_gate_closed",
+        "creator_account_video_publish_proof_required",
+        "tiktok_audit_closed"
+      ],
+      "credential_handle_refs": [
+        "symbolic_credential_handle:tiktok"
+      ],
+      "credential_hydrated": false,
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "permission_gate_row_spec:tiktok"
+      ],
+      "gate_status": "blocked_missing_permission_scope_matrix",
+      "gate_strength": "blocked",
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "manual_export_constraints": [],
+      "official_docs_refs": [
+        "docs_evidence_row_tiktok"
+      ],
+      "permission_requirements": [
+        "req_tiktok_scopes",
+        "req_tiktok_audit"
+      ],
+      "platform_api_called": false,
+      "platform_id": "tiktok",
+      "platform_role": "later_video_distribution",
+      "public_post_allowed": false,
+      "readiness_cleared": false,
+      "required_account_type_proofs": [],
+      "required_admin_roles": [],
+      "required_app_review_items": [
+        "TikTok Developer App Audit and Review"
+      ],
+      "required_bot_permissions": [],
+      "required_oauth_scopes": [
+        "TikTok Content Posting Scopes (user.info.basic, video.upload, video.publish)"
+      ],
+      "row_hash": "81875d9e176254f170817f6056da63ef38ef7b52a7c7846454f3f4a74a9f9305",
+      "row_id": "platform_permission_gate_row_tiktok"
+    },
+    {
+      "account_binding_refs": [
+        "platform_account_binding_0e4c72c183117aadd290bfcd"
+      ],
+      "blocked_reasons": [
+        "quota_upload_gate_closed",
+        "youtube_oauth_channel_proof_required",
+        "later_video_gate_closed"
+      ],
+      "credential_handle_refs": [
+        "symbolic_credential_handle:youtube"
+      ],
+      "credential_hydrated": false,
+      "env_read": false,
+      "evidence_refs": [
+        "docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md",
+        "permission_gate_row_spec:youtube"
+      ],
+      "gate_status": "needs_human_review",
+      "gate_strength": "partial_official_docs",
+      "live_read_allowed": false,
+      "live_write_allowed": false,
+      "manual_export_constraints": [],
+      "official_docs_refs": [
+        "docs_evidence_row_youtube"
+      ],
+      "permission_requirements": [
+        "req_yt_scopes",
+        "req_yt_consent"
+      ],
+      "platform_api_called": false,
+      "platform_id": "youtube",
+      "platform_role": "later_video_distribution",
+      "public_post_allowed": false,
+      "readiness_cleared": false,
+      "required_account_type_proofs": [],
+      "required_admin_roles": [],
+      "required_app_review_items": [
+        "Google App OAuth Consent Screen and Verification"
+      ],
+      "required_bot_permissions": [],
+      "required_oauth_scopes": [
+        "YouTube Data API v3 upload and readonly (youtube.upload, youtube.readonly)"
+      ],
+      "row_hash": "ae4d993b02b3e92d85e8054c23b0aa43a23e54466542bb62438d44d4bd568ab0",
+      "row_id": "platform_permission_gate_row_youtube"
+    }
+  ],
+  "permission_requirement_count": 19,
+  "platform_api_called_count": 0,
+  "public_post_allowed_count": 0,
+  "readiness_cleared_count": 0,
+  "rows_by_platform": {
+    "facebook_page": [
+      "platform_permission_gate_row_facebook_page"
+    ],
+    "instagram": [
+      "platform_permission_gate_row_instagram"
+    ],
+    "linkedin": [
+      "platform_permission_gate_row_linkedin"
+    ],
+    "substack_newsletter": [
+      "platform_permission_gate_row_substack_newsletter"
+    ],
+    "telegram_channel_destination": [
+      "platform_permission_gate_row_telegram_channel_destination"
+    ],
+    "telegram_remote_operator": [
+      "platform_permission_gate_row_telegram_remote_operator"
+    ],
+    "threads": [
+      "platform_permission_gate_row_threads"
+    ],
+    "tiktok": [
+      "platform_permission_gate_row_tiktok"
+    ],
+    "x": [
+      "platform_permission_gate_row_x"
+    ],
+    "youtube": [
+      "platform_permission_gate_row_youtube"
+    ]
+  },
+  "safety_flags": {
+    "autonomous_posting_allowed": false,
+    "browser_session_used": false,
+    "credential_hydrated": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "dm_or_reply_automation_allowed": false,
+    "dqr_cleared": false,
+    "env_read": false,
+    "ingestion_repo_mutated": false,
+    "live_read_allowed": false,
+    "live_write_allowed": false,
+    "local_symbolic_permissions_only": true,
+    "network_performed": false,
+    "platform_api_called": false,
+    "provider_api_called": false,
+    "public_post_allowed": false,
+    "public_postable": false,
+    "readiness_cleared": false,
+    "review_only": true,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "telegram_api_called": false,
+    "ui_generated": false
+  },
+  "symbolic_permission_matrix_ready_count": 1,
+  "u9_audit_entry_families": [
+    "permission_scope_gate_future",
+    "permission_scope_gate_future",
+    "permission_scope_gate_future",
+    "permission_scope_gate_future",
+    "permission_scope_gate_future",
+    "permission_scope_gate_future",
+    "permission_scope_gate_future",
+    "permission_scope_gate_future",
+    "permission_scope_gate_future",
+    "permission_scope_gate_future"
+  ],
+  "u9_audit_entry_ids": [
+    "ledger_entry_386ee49eef923cc0a7e1f07f",
+    "ledger_entry_6d1e6782c7666cb0c65863ee",
+    "ledger_entry_126948a81d7fbbe6e5416a57",
+    "ledger_entry_d9a88b9297a1eb181b21528c",
+    "ledger_entry_4238cbbcc911a0a3c63fa1db",
+    "ledger_entry_408b3cfcc3b12b97c82c8c2e",
+    "ledger_entry_f907083360e1ca25b9d91e5b",
+    "ledger_entry_1f28a3283a54d175f6a5ce4c",
+    "ledger_entry_223135bce4567a9fc92b3693",
+    "ledger_entry_e9166be1d1b38e1868a073c0"
+  ]
+}
