@@ -56,9 +56,21 @@ def test_feedback_loop_cannot_approve_generate_publish_dispatch():
 
 def test_u9_redacted_ledger_entries_and_no_secret_leakage():
     pkt=ud.build_contract_packet(); raw=ud._json(pkt)
-    assert pkt.audit_ledger_entries[0].previous_entry_hash==u9.GENESIS_HASH
-    assert pkt.audit_ledger_entries[1].previous_entry_hash==pkt.audit_ledger_entries[0].entry_hash
+    entries=pkt.audit_ledger_entries
+    families=[entry.entry_family for entry in entries]
+    assert len(entries)==3
+    assert families==["content_performance_review","editorial_feedback_signal","editorial_feedback_loop"]
+    assert "unknown_or_blocked" not in families
+    assert entries[0].entry_sequence==1 and entries[0].previous_entry_hash==u9.GENESIS_HASH
+    assert entries[1].entry_sequence==2 and entries[1].previous_entry_hash==entries[0].entry_hash
+    assert entries[2].entry_sequence==3 and entries[2].previous_entry_hash==entries[1].entry_hash
     assert pkt.all_records_redacted is True
+    for entry in entries:
+        assert entry.public_postable is False
+        assert entry.dispatch_ready is False
+        assert entry.current_truth_promoted is False
+        assert entry.dqr_cleared is False
+        assert entry.readiness_cleared is False
     for needle in ["raw-secret","operator@example.com","token=raw-secret","credential_hydrated\":true","network_performed\":true"]:
         assert needle not in raw
 

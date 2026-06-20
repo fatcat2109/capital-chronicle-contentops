@@ -1,8 +1,5 @@
 {
-  "task_label": "TASK_CONTENTOPS_0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V0",
-  "model_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
-  "source_baseline_commit": "573d407ba32ecd2f1af47542d85d997b712c0eb5",
-  "ledger_scope": "docs/automation/0174U9_only",
+  "contract_checksum": "9244ca13912ec50af27a807c8e8e9795734f4fa8ea2aa6548900b6c54120a7d7",
   "entry_families": [
     "raw_operator_input",
     "content_idea",
@@ -22,70 +19,1548 @@
     "dispatch_outbox_fact",
     "manual_publish_record_future_gate",
     "metrics_record_future_gate",
+    "content_performance_review",
+    "editorial_feedback_signal",
+    "editorial_feedback_loop",
+    "content_performance_validation",
+    "local_governance_summary_mart",
+    "platform_governance_summary",
+    "evidence_governance_summary",
+    "governance_blocker_summary",
+    "platform_automation_readiness",
+    "platform_automation_blocker",
+    "platform_account_binding_future",
+    "credential_boundary_future",
+    "platform_docs_evidence_future",
+    "permission_scope_gate_future",
+    "rate_budget_kill_switch_future",
+    "platform_preflight_future",
     "unknown_or_blocked"
   ],
-  "redaction_policy_summary": {
-    "redact_raw_text": true,
-    "redact_operator_identity": true,
-    "redact_credentials": true,
-    "redact_env_paths": true,
-    "redact_tokens": true,
-    "redact_emails": true,
-    "redact_phone_numbers": true,
-    "redact_urls_if_secret_like": true,
-    "preserve_hashes": true,
-    "preserve_evidence_refs": true,
-    "preserve_model_versions": true,
-    "preserve_blocked_reasons": true,
-    "preserve_safety_flags": true
-  },
-  "immutable_chain_summary": {
-    "entry_hash_algorithm": "sha256",
-    "chain_hash_algorithm": "sha256",
-    "entry_hash_includes_previous_entry_hash": true,
+  "ledger_chain": {
+    "all_entries_redacted": true,
+    "all_previous_hashes_match": true,
     "append_only": true,
-    "monotonic_sequence_required": true,
-    "previous_hash_linkage_required": true
+    "blocked_reasons": [
+      "unknown_source_family_fail_closed"
+    ],
+    "chain_hash": "983f6cfafee1e466816224e943f5d8ec2c36e4d62dc1e439ef5ddbe670a388cc",
+    "chain_hash_algorithm": "sha256",
+    "chain_id": "ledger_chain_983f6cfafee1e466816224e9",
+    "entries": [
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "raw_operator_input",
+        "entry_hash": "fc56b27c411f5223780d9a0e9a8b8ec217cbe805a965b6c006af285f994ec429",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 1,
+        "evidence_refs": [
+          "fixture:u4_raw"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_fc56b27c411f5223780d9a0e",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u4_raw"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "u4_raw_fixture"
+          },
+          "redacted": {},
+          "source_payload_digest": "c1ee22f10434b50615fd227c49293eab598813554cf38f311a17bd8a685a9d17"
+        },
+        "retained_evidence_refs": [
+          "fixture:u4_raw"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U4",
+        "source_model_version": "0174U4",
+        "source_object_hash": "d8a1f936884403caa3c1895b8fcd167e4811af3c6e68c522498c7c9480040a8c",
+        "source_object_id": "u4_raw_fixture",
+        "source_payload_hash": "d8a1f936884403caa3c1895b8fcd167e4811af3c6e68c522498c7c9480040a8c"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "content_idea",
+        "entry_hash": "8f81ecb177c6feef74588a549e216babb4d2145d1672fbbfde4c185307a6ce00",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 2,
+        "evidence_refs": [
+          "fixture:u4_idea"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_8f81ecb177c6feef74588a54",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "fc56b27c411f5223780d9a0e9a8b8ec217cbe805a965b6c006af285f994ec429",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u4_idea"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "u4_idea_fixture"
+          },
+          "redacted": {
+            "content_lane": "grounded_news_context"
+          },
+          "source_payload_digest": "516fda5f38f585924957073d5806a9332ec2ecd11b37c6914deb2dda45f964c0"
+        },
+        "retained_evidence_refs": [
+          "fixture:u4_idea"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U4",
+        "source_model_version": "0174U4",
+        "source_object_hash": "0bd0d6f5585dc36a36e80cb57eb75f62686777d9ee74e4d0bfb85e16ddff1562",
+        "source_object_id": "u4_idea_fixture",
+        "source_payload_hash": "0bd0d6f5585dc36a36e80cb57eb75f62686777d9ee74e4d0bfb85e16ddff1562"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "local_intent",
+        "entry_hash": "bcfb8aa1657f3a50be7e15ab231aa14b24287ce68351ce560e6a28d92a0a10e6",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 3,
+        "evidence_refs": [
+          "fixture:u4_intent"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_bcfb8aa1657f3a50be7e15ab",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "8f81ecb177c6feef74588a549e216babb4d2145d1672fbbfde4c185307a6ce00",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u4_intent"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "u4_intent_fixture"
+          },
+          "redacted": {},
+          "source_payload_digest": "8cac0a2e8dba4c6b7863b202eaedab0f87ad2bbdfdd14477e6c9fd83ef6e077c"
+        },
+        "retained_evidence_refs": [
+          "fixture:u4_intent"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U4",
+        "source_model_version": "0174U4",
+        "source_object_hash": "d737ca87df8437b6c049c63571a2be781c6bad05f68bddf07a00eff83a45bd65",
+        "source_object_id": "u4_intent_fixture",
+        "source_payload_hash": "d737ca87df8437b6c049c63571a2be781c6bad05f68bddf07a00eff83a45bd65"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "editorial_brief",
+        "entry_hash": "b3c9ff5a1aa4d822efa52016188e53536b56015efac59e77d89f4ce4fe90cb55",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 4,
+        "evidence_refs": [
+          "fixture:u5_brief"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_b3c9ff5a1aa4d822efa52016",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "bcfb8aa1657f3a50be7e15ab231aa14b24287ce68351ce560e6a28d92a0a10e6",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u5_brief"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "u5_brief_fixture"
+          },
+          "redacted": {
+            "claim_risk_class": "source_context_claim"
+          },
+          "source_payload_digest": "45f453cfb717c0a1c94497396e0afe666f4b12f8e248809c24b9967b6f7a5700"
+        },
+        "retained_evidence_refs": [
+          "fixture:u5_brief"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U5",
+        "source_model_version": "0174U5",
+        "source_object_hash": "d1a2afe942eae2971633b520ae793b42063dd6b0986fee4942060264b21abba6",
+        "source_object_id": "u5_brief_fixture",
+        "source_payload_hash": "d1a2afe942eae2971633b520ae793b42063dd6b0986fee4942060264b21abba6"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "ai_writer_output",
+        "entry_hash": "108d0683a5d746441cbc26de437a22fc3e23e5188556f6cb8f3fd15bb18e7e7e",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 5,
+        "evidence_refs": [
+          "fixture:u5_writer"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_108d0683a5d746441cbc26de",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "b3c9ff5a1aa4d822efa52016188e53536b56015efac59e77d89f4ce4fe90cb55",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u5_writer"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "u5_writer_fixture"
+          },
+          "redacted": {
+            "review_status": "review_only"
+          },
+          "source_payload_digest": "c43372dd8a21cd7b9fa2b3e3de69ca3d28ceadaec4af40a080e9d5355add4d5b"
+        },
+        "retained_evidence_refs": [
+          "fixture:u5_writer"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U5",
+        "source_model_version": "0174U5",
+        "source_object_hash": "125d6d59d0211fa3bfc598c9c4c230aa6455ae45d85770da59d634a02601ed67",
+        "source_object_id": "u5_writer_fixture",
+        "source_payload_hash": "125d6d59d0211fa3bfc598c9c4c230aa6455ae45d85770da59d634a02601ed67"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "draft_variant",
+        "entry_hash": "dbeab2838b0cd4eb10682952bd28370a281389914da4993744cb826686d70d42",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 6,
+        "evidence_refs": [
+          "fixture:u5_draft"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_dbeab2838b0cd4eb10682952",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "108d0683a5d746441cbc26de437a22fc3e23e5188556f6cb8f3fd15bb18e7e7e",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u5_draft"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "u5_draft_fixture"
+          },
+          "redacted": {},
+          "source_payload_digest": "964cad8cc59c2872aa364918e671c0b9359c9c5694e431c26e84cb5d7b18d3ff"
+        },
+        "retained_evidence_refs": [
+          "fixture:u5_draft"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U5",
+        "source_model_version": "0174U5",
+        "source_object_hash": "d0a1462cd330ba408d17395dae7e95d3c4aa61f95e0a383894362d43aebe3759",
+        "source_object_id": "u5_draft_fixture",
+        "source_payload_hash": "d0a1462cd330ba408d17395dae7e95d3c4aa61f95e0a383894362d43aebe3759"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "platform_payload_preview",
+        "entry_hash": "6ae58b70c1d448618c7a3b09393f593d10cff3abf50d6556988bb2770dea4027",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 7,
+        "evidence_refs": [
+          "fixture:u6_preview"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_6ae58b70c1d448618c7a3b09",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "dbeab2838b0cd4eb10682952bd28370a281389914da4993744cb826686d70d42",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [
+          "payload_hash"
+        ],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u6_preview"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "unknown_source_object"
+          },
+          "redacted": {
+            "payload_hash": "d1f8023157ea9a[REDACTED_PHONE]dc1c066d[REDACTED_PHONE]f23911e7ead66393b80"
+          },
+          "source_payload_digest": "72729aa7b6c2ff76fd97a85a205cd95a865aac2cbd3a9bbb323d05494fc0b55b"
+        },
+        "retained_evidence_refs": [
+          "fixture:u6_preview"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U6",
+        "source_model_version": "0174U6",
+        "source_object_hash": "46ced49d21b8f3f688a8f10df719fd2dfa16999a5e321d4b2833f2a4853bb750",
+        "source_object_id": "source_7",
+        "source_payload_hash": "d1f8023157ea9a83587684000105dc1c066d347176615f23911e7ead66393b80"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "substack_manual_export",
+        "entry_hash": "422f67b0d6be078b8b3c462774cacff960f0accfaa2173e0c5e568f18f828981",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 8,
+        "evidence_refs": [
+          "fixture:u6_substack"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_422f67b0d6be078b8b3c4627",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "6ae58b70c1d448618c7a3b09393f593d10cff3abf50d6556988bb2770dea4027",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u6_substack"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "unknown_source_object"
+          },
+          "redacted": {
+            "source_payload_hash": "301a818f3e688ebda332458f9a9eb28ab233bea6a46305eb42591cfbf64bb816"
+          },
+          "source_payload_digest": "513ef84b09344668fa110b2b6797d56ab2a3b24ad395ea32edef0ea0faeb7e62"
+        },
+        "retained_evidence_refs": [
+          "fixture:u6_substack"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U6",
+        "source_model_version": "0174U6",
+        "source_object_hash": "d2e5b1056dbbda682584a4b395b2c60e29de87a45ade7a00928f79309af24b6b",
+        "source_object_id": "source_8",
+        "source_payload_hash": "301a818f3e688ebda332458f9a9eb28ab233bea6a46305eb42591cfbf64bb816"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "multi_platform_dry_run",
+        "entry_hash": "ef400b3982484e3abdd65237deece1e5dcb70d2564d35a3e059fddc189ac6759",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 9,
+        "evidence_refs": [
+          "fixture:u6_dry_run"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_ef400b3982484e3abdd65237",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "422f67b0d6be078b8b3c462774cacff960f0accfaa2173e0c5e568f18f828981",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u6_dry_run"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "u6_dry_run_fixture"
+          },
+          "redacted": {
+            "dry_run_hash": "cf8af651ebcd4bb5e278ce1b974ec343ebba4e13c8b0764731f0d2510988e94f"
+          },
+          "source_payload_digest": "d6ba79d66855935e9a89a8f71aa641076fff904ec67c448f2ac7f90ac026419f"
+        },
+        "retained_evidence_refs": [
+          "fixture:u6_dry_run"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U6",
+        "source_model_version": "0174U6",
+        "source_object_hash": "a1e6e555e3a517432cb7657bb5698ef83c6df9eddda4500e7f5f41fa74fd48d3",
+        "source_object_id": "u6_dry_run_fixture",
+        "source_payload_hash": "cf8af651ebcd4bb5e278ce1b974ec343ebba4e13c8b0764731f0d2510988e94f"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "ingestion_context_candidate",
+        "entry_hash": "4fec9d07bf7c47c9d946ce0ff1ace41e93d1984d1c45b87d229c62ef08fe9443",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 10,
+        "evidence_refs": [
+          "fixture:u7_candidate"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_4fec9d07bf7c47c9d946ce0f",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "ef400b3982484e3abdd65237deece1e5dcb70d2564d35a3e059fddc189ac6759",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u7_candidate"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "u7_candidate_fixture"
+          },
+          "redacted": {
+            "candidate_class": "headline_surface"
+          },
+          "source_payload_digest": "0962c3945a8f5186d6fb5f4cea48d7d5327b199d575e52efb0e0475297d202f9"
+        },
+        "retained_evidence_refs": [
+          "fixture:u7_candidate"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U7",
+        "source_model_version": "0174U7",
+        "source_object_hash": "47b490b6450053dcbe9f8d34799dc63cf5c44afc110be69be2b24b0439a6b4d2",
+        "source_object_id": "u7_candidate_fixture",
+        "source_payload_hash": "47b490b6450053dcbe9f8d34799dc63cf5c44afc110be69be2b24b0439a6b4d2"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "headline_context_packet",
+        "entry_hash": "08708d4290c889c1cc9ae1f81c6bdf526822bd0c2770e3fd457e002b0bc57b4b",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 11,
+        "evidence_refs": [
+          "fixture:u7_headline"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_08708d4290c889c1cc9ae1f8",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "4fec9d07bf7c47c9d946ce0ff1ace41e93d1984d1c45b87d229c62ef08fe9443",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u7_headline"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "u7_headline_fixture"
+          },
+          "redacted": {
+            "content_lane": "grounded_news_context"
+          },
+          "source_payload_digest": "5756d92128715810add88f7ac3e7f3113d7c068f088e6de1ef546b96bf010314"
+        },
+        "retained_evidence_refs": [
+          "fixture:u7_headline"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U7",
+        "source_model_version": "0174U7",
+        "source_object_hash": "e60bd7e8061d626ff5c498c2a161e0a7e54580d3043885280cb203314ad82367",
+        "source_object_id": "u7_headline_fixture",
+        "source_payload_hash": "e60bd7e8061d626ff5c498c2a161e0a7e54580d3043885280cb203314ad82367"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "internal_alpha_artifact_intake",
+        "entry_hash": "5a52582654cc8913d4422ace2ebdb30369aa57a84a41dc6b7f48bd280ad2caa6",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 12,
+        "evidence_refs": [
+          "fixture:u8_intake"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_5a52582654cc8913d4422ace",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "08708d4290c889c1cc9ae1f81c6bdf526822bd0c2770e3fd457e002b0bc57b4b",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u8_intake"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "u8_intake_fixture"
+          },
+          "redacted": {
+            "artifact_family": "internal_alpha_report",
+            "artifact_hash": "b70b1a31935eebf91ec0ceb00eff3d2e7046b7f43ec34dcbc18f9127b0934d87"
+          },
+          "source_payload_digest": "8b01a1402013c9e3763c37a8209daed24d31f9f488c6584360e4b6c2df52147e"
+        },
+        "retained_evidence_refs": [
+          "fixture:u8_intake"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U8",
+        "source_model_version": "0174U8",
+        "source_object_hash": "0726328fd4e51058fcdbeca5f3a97f68e5bb0cde9376e1e39a50f211c8947521",
+        "source_object_id": "u8_intake_fixture",
+        "source_payload_hash": "b70b1a31935eebf91ec0ceb00eff3d2e7046b7f43ec34dcbc18f9127b0934d87"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "content_eligibility_assessment",
+        "entry_hash": "bbf195c51e60aa1ceced48de009fc6f1ea705cd4dedee00613c9988f67c5f4d9",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 13,
+        "evidence_refs": [
+          "fixture:u8_assessment"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_bbf195c51e60aa1ceced48de",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "5a52582654cc8913d4422ace2ebdb30369aa57a84a41dc6b7f48bd280ad2caa6",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u8_assessment"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "u8_assessment_fixture"
+          },
+          "redacted": {
+            "eligibility_class": "eligible_for_content_idea_only"
+          },
+          "source_payload_digest": "945dfc330eff05f2767aefaea196b0a825f26538e222250f5749b4f00eaa6fbc"
+        },
+        "retained_evidence_refs": [
+          "fixture:u8_assessment"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U8",
+        "source_model_version": "0174U8",
+        "source_object_hash": "9896ba972cec707292469a48593a653ae0ce2f33aec1b32eb74578eb0e77c8f3",
+        "source_object_id": "u8_assessment_fixture",
+        "source_payload_hash": "9896ba972cec707292469a48593a653ae0ce2f33aec1b32eb74578eb0e77c8f3"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "artifact_idea_seed",
+        "entry_hash": "7e96b384265f334bdfb97d94fc1ce809fd51265626aeb941dd56d355712881ac",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 14,
+        "evidence_refs": [
+          "fixture:u8_seed"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_7e96b384265f334bdfb97d94",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "bbf195c51e60aa1ceced48de009fc6f1ea705cd4dedee00613c9988f67c5f4d9",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:u8_seed"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "u8_seed_fixture"
+          },
+          "redacted": {
+            "topic_hint": "internal alpha artifact review"
+          },
+          "source_payload_digest": "03f971da0bfe7a523ccde014337f13fcc5ae6e604059aa8bc4e479dc873ca8af"
+        },
+        "retained_evidence_refs": [
+          "fixture:u8_seed"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "U8",
+        "source_model_version": "0174U8",
+        "source_object_hash": "0b42ea9e7bb1032f3d6326eb63abba17f8b71f85439bfe289dff95b99afbe0ae",
+        "source_object_id": "u8_seed_fixture",
+        "source_payload_hash": "0b42ea9e7bb1032f3d6326eb63abba17f8b71f85439bfe289dff95b99afbe0ae"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "approval_ledger_fact",
+        "entry_hash": "76de306f7a5b1accd3dfa4099d44f4019da6a7285e06c8280b545c6a96c29186",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 15,
+        "evidence_refs": [
+          "fixture:0174ED"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_76de306f7a5b1accd3dfa409",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "7e96b384265f334bdfb97d94fc1ce809fd51265626aeb941dd56d355712881ac",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:0174ED"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "ed_approval_fact_fixture"
+          },
+          "redacted": {
+            "fact_kind": "approval",
+            "payload_hash": "77cfcb182930ea9a160035d74f3d4bffcb5083a4328ca15ee1a5376b75b9e361"
+          },
+          "source_payload_digest": "0fddbeca006c2caf7212aaf3e7334a5c33d75c197f4b0370bb05dbc177cac59f"
+        },
+        "retained_evidence_refs": [
+          "fixture:0174ED"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "0174ED",
+        "source_model_version": "0174ED",
+        "source_object_hash": "3559d6b9f51fc1e92c66c8682725a4b794d107cbe3cc597db935dea3f4baf137",
+        "source_object_id": "ed_approval_fact_fixture",
+        "source_payload_hash": "77cfcb182930ea9a160035d74f3d4bffcb5083a4328ca15ee1a5376b75b9e361"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "dispatch_outbox_fact",
+        "entry_hash": "bb54d952f3fc430b8faa5d186a5cdbf24be44376f8ee5eb9f95f281cfabe4fa4",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 16,
+        "evidence_refs": [
+          "fixture:0174EE"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_bb54d952f3fc430b8faa5d18",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "76de306f7a5b1accd3dfa4099d44f4019da6a7285e06c8280b545c6a96c29186",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:0174EE"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "ee_outbox_fact_fixture"
+          },
+          "redacted": {},
+          "source_payload_digest": "447518d373288cabaa93ae9e4aa1cebe98f7ecf6bcc8773f17beef6eaf6883db"
+        },
+        "retained_evidence_refs": [
+          "fixture:0174EE"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "0174EE",
+        "source_model_version": "0174EE",
+        "source_object_hash": "8101abde1c56f026adb092498dead280e42d9a0e41b1e03e677aa0f026d1920e",
+        "source_object_id": "ee_outbox_fact_fixture",
+        "source_payload_hash": "8101abde1c56f026adb092498dead280e42d9a0e41b1e03e677aa0f026d1920e"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "manual_publish_record_future_gate",
+        "entry_hash": "5b72588006d6adff11ae9dca658a82f1cac3e79bfbba49c08dec4f2cf6e680a1",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 17,
+        "evidence_refs": [
+          "fixture:future_manual_publish"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_5b72588006d6adff11ae9dca",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "bb54d952f3fc430b8faa5d186a5cdbf24be44376f8ee5eb9f95f281cfabe4fa4",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:future_manual_publish"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "future_manual_publish_gate"
+          },
+          "redacted": {
+            "status": "future_gate_required"
+          },
+          "source_payload_digest": "f337e9192fdc426624125b04cadc47225151803cce7707806f4c027628a41479"
+        },
+        "retained_evidence_refs": [
+          "fixture:future_manual_publish"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "future",
+        "source_model_version": "0174U9",
+        "source_object_hash": "80746fe2c005c16bfd48cef0e2d954ffd59fc734690ae346f1ed148dcde1dd36",
+        "source_object_id": "future_manual_publish_gate",
+        "source_payload_hash": "80746fe2c005c16bfd48cef0e2d954ffd59fc734690ae346f1ed148dcde1dd36"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [],
+        "blocked_reasons": [],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "metrics_record_future_gate",
+        "entry_hash": "3beda722464debeab19b55287d56e4a500f8a5d125a6358084c22074745545b4",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 18,
+        "evidence_refs": [
+          "fixture:future_metrics"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_3beda722464debeab19b5528",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "5b72588006d6adff11ae9dca658a82f1cac3e79bfbba49c08dec4f2cf6e680a1",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [],
+            "evidence_refs": [
+              "fixture:future_metrics"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "future_metrics_gate"
+          },
+          "redacted": {
+            "status": "future_gate_required"
+          },
+          "source_payload_digest": "e74eb2a6808071f90b0aa6eca36ae6e3ba04c57dc707e317f190c095e7800a89"
+        },
+        "retained_evidence_refs": [
+          "fixture:future_metrics"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "future",
+        "source_model_version": "0174U9",
+        "source_object_hash": "00e1300ee67228127ee2d38241ca2f002fd89b09694a74c9cf08fc5e8812155c",
+        "source_object_id": "future_metrics_gate",
+        "source_payload_hash": "00e1300ee67228127ee2d38241ca2f002fd89b09694a74c9cf08fc5e8812155c"
+      },
+      {
+        "approval_granted": false,
+        "blocked_reason_refs": [
+          "unknown_source_family_fail_closed"
+        ],
+        "blocked_reasons": [
+          "unknown_source_family_fail_closed"
+        ],
+        "created_at_epoch": 0,
+        "current_truth_promoted": false,
+        "dispatch_ready": false,
+        "dqr_cleared": false,
+        "entry_family": "unknown_or_blocked",
+        "entry_hash": "a49a931e37f2265ea96328b78edeb2bff2c9d94919246cb01a949c5baccd9754",
+        "entry_hash_algorithm": "sha256",
+        "entry_sequence": 19,
+        "evidence_refs": [
+          "fixture:unknown"
+        ],
+        "human_review_required": true,
+        "immutable_append_only": true,
+        "ledger_entry_id": "ledger_entry_a49a931e37f2265ea96328b7",
+        "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+        "operator_identity_ref": "redacted_operator_identity",
+        "previous_entry_hash": "3beda722464debeab19b55287d56e4a500f8a5d125a6358084c22074745545b4",
+        "public_postable": false,
+        "readiness_cleared": false,
+        "redacted_fields": [],
+        "redacted_summary": {
+          "preserved": {
+            "blocked_reasons": [
+              "unknown_source_family_fail_closed"
+            ],
+            "evidence_refs": [
+              "fixture:unknown"
+            ],
+            "model_version": null,
+            "safety_flags": {},
+            "source_object_id": "unknown_fixture"
+          },
+          "redacted": {},
+          "source_payload_digest": "1f14d1e4ffd2eb33721bed2e99a2786a8215ff83af30f4c764848fd25ac8d609"
+        },
+        "retained_evidence_refs": [
+          "fixture:unknown"
+        ],
+        "safety_state_snapshot": {
+          "approval_granted": false,
+          "autonomous_posting_allowed": false,
+          "credential_hydrated": false,
+          "current_truth_promoted": false,
+          "dispatch_ready": false,
+          "dm_or_reply_automation_allowed": false,
+          "dqr_cleared": false,
+          "env_read": false,
+          "immutable_append_only": true,
+          "ingestion_repo_mutated": false,
+          "live_dispatch_enabled": false,
+          "llm_provider_called": false,
+          "network_performed": false,
+          "no_secret_material": true,
+          "platform_api_called": false,
+          "provider_api_called": false,
+          "public_postable": false,
+          "readiness_cleared": false,
+          "redaction_policy_applied": true,
+          "scheduler_enabled": false,
+          "scraping_performed": false,
+          "telegram_api_called": false
+        },
+        "source_model": "unknown",
+        "source_model_version": "0174U9",
+        "source_object_hash": "8e4df7dad3fdfce4f8107c393f22ed8de7befcf2318610ae1be2ff35fc578e8f",
+        "source_object_id": "unknown_fixture",
+        "source_payload_hash": "8e4df7dad3fdfce4f8107c393f22ed8de7befcf2318610ae1be2ff35fc578e8f"
+      }
+    ],
+    "entry_count": 19,
+    "evidence_refs": [
+      "fixture:u4_raw",
+      "fixture:u4_idea",
+      "fixture:u4_intent",
+      "fixture:u5_brief",
+      "fixture:u5_writer",
+      "fixture:u5_draft",
+      "fixture:u6_preview",
+      "fixture:u6_substack",
+      "fixture:u6_dry_run",
+      "fixture:u7_candidate",
+      "fixture:u7_headline",
+      "fixture:u8_intake",
+      "fixture:u8_assessment",
+      "fixture:u8_seed",
+      "fixture:0174ED",
+      "fixture:0174EE",
+      "fixture:future_manual_publish",
+      "fixture:future_metrics",
+      "fixture:unknown"
+    ],
+    "first_entry_hash": "fc56b27c411f5223780d9a0e9a8b8ec217cbe805a965b6c006af285f994ec429",
+    "last_entry_hash": "a49a931e37f2265ea96328b78edeb2bff2c9d94919246cb01a949c5baccd9754",
+    "ledger_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+    "monotonic_sequence": true,
+    "no_approval_granted_entries": true,
+    "no_current_truth_promoted_entries": true,
+    "no_dispatch_ready_entries": true,
+    "no_dqr_cleared_entries": true,
+    "no_public_postable_entries": true,
+    "no_readiness_cleared_entries": true,
+    "safety_flags": {
+      "approval_granted": false,
+      "autonomous_posting_allowed": false,
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "dm_or_reply_automation_allowed": false,
+      "dqr_cleared": false,
+      "env_read": false,
+      "immutable_append_only": true,
+      "ingestion_repo_mutated": false,
+      "live_dispatch_enabled": false,
+      "llm_provider_called": false,
+      "network_performed": false,
+      "no_secret_material": true,
+      "platform_api_called": false,
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared": false,
+      "redaction_policy_applied": true,
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "telegram_api_called": false
+    }
   },
-  "validation_summary": {
-    "hash_chain_valid_required": true,
-    "append_only_valid_required": true,
-    "monotonic_sequence_valid_required": true,
-    "redaction_policy_applied_required": true,
-    "forbidden_data_absent_required": true,
-    "no_provider_or_platform_behavior_required": true
+  "ledger_scope": "docs/automation/0174U9_only",
+  "model_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+  "next_heavy_batch_recommendation": "TASK_CONTENTOPS_0174UA_APPROVAL_LEDGER_REVOCATION_EXPIRATION_CONTRACT_V0",
+  "redaction_policy": {
+    "evidence_refs": [
+      "policy:0174U9"
+    ],
+    "policy_hash": "5b44f23e9b48f9aea8a7e4789aa0271e9f7976ceb667200ec2f14a6fff20baa4",
+    "policy_id": "redaction_policy_0174U9_v2",
+    "policy_version": "0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V1",
+    "preserve_blocked_reasons": true,
+    "preserve_evidence_refs": true,
+    "preserve_hashes": true,
+    "preserve_model_versions": true,
+    "preserve_safety_flags": true,
+    "redact_credentials": true,
+    "redact_emails": true,
+    "redact_env_paths": true,
+    "redact_operator_identity": true,
+    "redact_phone_numbers": true,
+    "redact_raw_text": true,
+    "redact_tokens": true,
+    "redact_urls_if_secret_like": true
   },
-  "safety_flags": {
-    "immutable_append_only": true,
-    "redaction_policy_applied": true,
-    "no_secret_material": true,
-    "public_postable": false,
-    "approval_granted": false,
-    "dispatch_ready": false,
-    "current_truth_promoted": false,
-    "dqr_cleared": false,
-    "readiness_cleared": false,
-    "live_dispatch_enabled": false,
-    "llm_provider_called": false,
-    "provider_api_called": false,
-    "platform_api_called": false,
-    "telegram_api_called": false,
-    "credential_hydrated": false,
-    "env_read": false,
-    "network_performed": false,
-    "scheduler_enabled": false,
-    "autonomous_posting_allowed": false,
-    "scraping_performed": false,
-    "dm_or_reply_automation_allowed": false,
-    "ingestion_repo_mutated": false
-  },
-  "blocked_state_rules": [
-    "no_public_postable",
-    "no_approval_granted",
-    "no_dispatch_ready",
-    "no_current_truth_promoted",
-    "no_dqr_cleared",
-    "no_readiness_cleared"
+  "safety_false_flags": [
+    "public_postable",
+    "approval_granted",
+    "dispatch_ready",
+    "current_truth_promoted",
+    "dqr_cleared",
+    "readiness_cleared",
+    "ingestion_repo_mutated",
+    "live_dispatch_enabled",
+    "llm_provider_called",
+    "provider_api_called",
+    "platform_api_called",
+    "telegram_api_called",
+    "credential_hydrated",
+    "env_read",
+    "network_performed",
+    "scheduler_enabled",
+    "autonomous_posting_allowed",
+    "scraping_performed",
+    "dm_or_reply_automation_allowed",
+    "ingestion_repo_mutated"
   ],
-  "next_heavy_batch_recommendation": "TASK_CONTENTOPS_0174UA_APPROVAL_LEDGER_REVOCATION_EXPIRATION_CONTRACT_V0"
+  "source_baseline_commit": "573d407ba32ecd2f1af47542d85d997b712c0eb5",
+  "task_label": "TASK_CONTENTOPS_0174U9_REDACTED_IMMUTABLE_AUDIT_LEDGER_V2_CONTRACT_V0",
+  "validation_result": {
+    "append_only_valid": true,
+    "blocked_reasons": [],
+    "entry_count": 19,
+    "evidence_refs": [
+      "fixture:u4_raw",
+      "fixture:u4_idea",
+      "fixture:u4_intent",
+      "fixture:u5_brief",
+      "fixture:u5_writer",
+      "fixture:u5_draft",
+      "fixture:u6_preview",
+      "fixture:u6_substack",
+      "fixture:u6_dry_run",
+      "fixture:u7_candidate",
+      "fixture:u7_headline",
+      "fixture:u8_intake",
+      "fixture:u8_assessment",
+      "fixture:u8_seed",
+      "fixture:0174ED",
+      "fixture:0174EE",
+      "fixture:future_manual_publish",
+      "fixture:future_metrics",
+      "fixture:unknown"
+    ],
+    "forbidden_data_absent": true,
+    "hash_chain_valid": true,
+    "monotonic_sequence_valid": true,
+    "no_approval_granted": true,
+    "no_current_truth_promotion": true,
+    "no_dispatch_ready": true,
+    "no_dqr_clearance": true,
+    "no_provider_or_platform_behavior": true,
+    "no_public_postable": true,
+    "no_readiness_clearance": true,
+    "no_secret_material": true,
+    "redaction_policy_applied": true,
+    "source_chain_id": "ledger_chain_983f6cfafee1e466816224e9",
+    "validation_id": "ledger_validation_d53c66c3712916c2a15b4717",
+    "validation_status": "pass"
+  }
 }

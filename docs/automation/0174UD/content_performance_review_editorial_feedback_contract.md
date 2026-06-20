@@ -3,8 +3,8 @@
 - task_label: `TASK_CONTENTOPS_0174UD_CONTENT_PERFORMANCE_REVIEW_AND_EDITORIAL_FEEDBACK_LOOP_CONTRACT_V0`
 - model_version: `0174UD_CONTENT_PERFORMANCE_REVIEW_EDITORIAL_FEEDBACK_CONTRACT_V1`
 - source_baseline_commit: `5c5e7b3d038f8c012b4275ef3056fd8636c6f51f`
-- packet_id: `content_performance_review_ledger_packet_23bb8f4e7c15f83de42ee4d3`
-- packet_hash: `23bb8f4e7c15f83de42ee4d323f5eeb56d180c6ac115f0f897e21819d2a0e644`
+- packet_id: `content_performance_review_ledger_packet_7e342b5ac09861dc715ed25d`
+- packet_hash: `7e342b5ac09861dc715ed25d9abe9626e70475f7d82e5048064902bcfbbaaebc`
 
 ## Rules
 

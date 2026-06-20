@@ -37,6 +37,9 @@ ENTRY_FAMILIES = (
     "local_governance_summary_mart", "platform_governance_summary",
     "evidence_governance_summary", "governance_blocker_summary",
     "platform_automation_readiness", "platform_automation_blocker",
+    "platform_account_binding_future", "credential_boundary_future",
+    "platform_docs_evidence_future", "permission_scope_gate_future",
+    "rate_budget_kill_switch_future", "platform_preflight_future",
     "unknown_or_blocked",
 )
 
@@ -498,6 +501,7 @@ def build_contract_packet() -> dict[str, Any]:
         "ledger_chain": _asdict(chain),
         "validation_result": _asdict(validation),
         "safety_false_flags": list(SAFETY_FALSE_FLAGS),
+        "entry_families": list(ENTRY_FAMILIES),
         "ledger_scope": "docs/automation/0174U9_only",
         "next_heavy_batch_recommendation": NEXT_HEAVY_BATCH,
     }

@@ -97,6 +97,24 @@ def test_unknown_source_family_fails_closed():
     e = _entry(family="alien_family")
     assert e.entry_family == "unknown_or_blocked"
     assert "unknown_source_family_fail_closed" in e.blocked_reasons
+    assert e.human_review_required is True
+    assert e.public_postable is False
+    assert e.dispatch_ready is False
+
+
+def test_historical_unknown_or_blocked_family_remains_valid_fail_closed_evidence():
+    e = _entry(family="unknown_or_blocked", payload={"legacy_ref": "0174UD", "evidence_refs": ["legacy:u9"]})
+    chain = ledger.build_ledger_chain((e,))
+    result = ledger.validate_ledger_chain(chain)
+    assert e.entry_family == "unknown_or_blocked"
+    assert "unknown_source_family_fail_closed" in e.blocked_reasons
+    assert e.retained_evidence_refs == ("legacy:u9",)
+    assert e.public_postable is False
+    assert e.dispatch_ready is False
+    assert e.current_truth_promoted is False
+    assert e.dqr_cleared is False
+    assert e.readiness_cleared is False
+    assert result.validation_status == "pass"
 
 
 def test_ledger_entry_from_u4_idea_intent_remains_review_only():
@@ -185,9 +203,27 @@ def test_contract_packet_is_valid_and_has_expected_families():
     assert "artifact_idea_seed" in families
     assert "approval_ledger_fact" in families
     assert "dispatch_outbox_fact" in families
-    assert "content_performance_review" in ledger.ENTRY_FAMILIES
-    assert "editorial_feedback_loop" in ledger.ENTRY_FAMILIES
-    assert "local_governance_summary_mart" in ledger.ENTRY_FAMILIES
-    assert "platform_automation_readiness" in ledger.ENTRY_FAMILIES
+    required_future = {
+        "platform_account_binding_future",
+        "credential_boundary_future",
+        "platform_docs_evidence_future",
+        "permission_scope_gate_future",
+        "rate_budget_kill_switch_future",
+        "platform_preflight_future",
+    }
+    explicit = {
+        "content_performance_review",
+        "editorial_feedback_signal",
+        "editorial_feedback_loop",
+        "content_performance_validation",
+        "local_governance_summary_mart",
+        "platform_governance_summary",
+        "evidence_governance_summary",
+        "governance_blocker_summary",
+        "platform_automation_readiness",
+        "platform_automation_blocker",
+    }
+    assert required_future.issubset(set(ledger.ENTRY_FAMILIES))
+    assert explicit.issubset(set(ledger.ENTRY_FAMILIES))
     assert "unknown_or_blocked" in families
     assert packet["next_heavy_batch_recommendation"] == "TASK_CONTENTOPS_0174UA_APPROVAL_LEDGER_REVOCATION_EXPIRATION_CONTRACT_V0"

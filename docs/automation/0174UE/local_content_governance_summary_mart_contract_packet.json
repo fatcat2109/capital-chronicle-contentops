@@ -172,7 +172,7 @@
     },
     {
       "all_records_redacted": true,
-      "audit_ledger_entry_count": 0,
+      "audit_ledger_entry_count": 3,
       "evidence_family": "performance_feedback",
       "evidence_ref_count": 7,
       "retained_evidence_refs": [
@@ -190,7 +190,7 @@
   ],
   "evidence_summary": {
     "all_records_redacted": true,
-    "audit_ledger_entry_count": 4,
+    "audit_ledger_entry_count": 5,
     "evidence_ref_count": 8,
     "retained_evidence_refs": [
       "docs/automation/0174EE/dispatch_outbox_idempotency_contract_packet.json",
@@ -202,8 +202,8 @@
       "docs/automation/0174UD/content_performance_review_editorial_feedback_contract.md",
       "docs/automation/0174UE/local_content_governance_summary_mart_contract.md"
     ],
-    "u9_unknown_or_blocked_entry_count": 2,
-    "u9_unknown_or_blocked_soft_caveat": true
+    "u9_unknown_or_blocked_entry_count": 0,
+    "u9_unknown_or_blocked_soft_caveat": false
   },
   "hard_blockers": [],
   "mart_status": "local_governance_summary_ready_review_only",
@@ -215,9 +215,9 @@
   "no_public_claim_authorized": true,
   "no_scraping": true,
   "overall_status": "local_governance_summary_ready_review_only",
-  "packet_hash": "7edbd6cfd601995402fcfa12c0ac80a348cfa3cb542151bc5b8f58ea7da02e08",
+  "packet_hash": "019fa15c50168a7a9f0473257e58ddf49013c8853d0f28b5f29710b5df59f183",
   "packet_hash_algorithm": "sha256",
-  "packet_id": "local_content_governance_summary_mart_packet_7edbd6cfd601995402fcfa12",
+  "packet_id": "local_content_governance_summary_mart_packet_019fa15c50168a7a9f047325",
   "pipeline_rows": [
     {
       "approval_state": "dispatch_revalidation_required_future_0174UB",
@@ -283,7 +283,6 @@
         "ui_generated": false
       },
       "soft_caveats": [
-        "0174UD_u9_audit_family_unknown_or_blocked_soft_caveat",
         "upstream_future_send_gate_preserved_soft_caveat"
       ],
       "source_feedback_loop_packet_id": "feedback_loop_packet_0920ef9ff0ca6028b6ebda4e",
@@ -331,7 +330,6 @@
       "public_postable_count": 0,
       "review_only_count": 1,
       "soft_caveats": [
-        "0174UD_u9_audit_family_unknown_or_blocked_soft_caveat",
         "upstream_future_send_gate_preserved_soft_caveat"
       ],
       "summary_row_count": 1
@@ -455,7 +453,6 @@
     "ui_generated": false
   },
   "soft_caveats": [
-    "0174UD_u9_audit_family_unknown_or_blocked_soft_caveat",
     "upstream_future_send_gate_preserved_soft_caveat"
   ],
   "summary_rows": [
@@ -523,7 +520,6 @@
         "ui_generated": false
       },
       "soft_caveats": [
-        "0174UD_u9_audit_family_unknown_or_blocked_soft_caveat",
         "upstream_future_send_gate_preserved_soft_caveat"
       ],
       "source_feedback_loop_packet_id": "feedback_loop_packet_0920ef9ff0ca6028b6ebda4e",

@@ -134,18 +134,35 @@ def test_forged_dqr_cleared_or_readiness_cleared_blocks():
 
 def test_ud_u9_explicit_families_remove_default_soft_caveat():
     ud_packet = ud.build_contract_packet()
-    families = {entry.entry_family for entry in ud_packet.audit_ledger_entries}
-    assert "content_performance_review" in families
-    assert "editorial_feedback_loop" in families
+    families = [entry.entry_family for entry in ud_packet.audit_ledger_entries]
+    assert families == ["content_performance_review", "editorial_feedback_signal", "editorial_feedback_loop"]
     assert "unknown_or_blocked" not in families
 
     packet = mart.build_mart(ud_packet=ud_packet)
     assert mart.SOFT_CAVEAT_0174UD_U9_UNKNOWN not in packet.soft_caveats
     assert packet.evidence_summary.u9_unknown_or_blocked_entry_count == 0
     performance_summary = next(es for es in packet.evidence_summaries if es.evidence_family == "performance_feedback")
+    assert performance_summary.audit_ledger_entry_count == 3
     assert performance_summary.u9_unknown_or_blocked_entry_count == 0
     assert performance_summary.u9_unknown_or_blocked_soft_caveat is False
     assert packet.mart_status == mart.STATUS_LOCAL_SUMMARY_READY
+
+
+def test_historical_ud_unknown_or_blocked_remains_soft_caveat_compatible():
+    ud_packet = ud.build_contract_packet()
+    legacy = replace(
+        ud_packet.audit_ledger_entries[0],
+        entry_family="unknown_or_blocked",
+        blocked_reasons=("legacy_unknown_or_blocked_fail_closed",),
+    )
+    legacy_packet = replace(ud_packet, audit_ledger_entries=(legacy,))
+    packet = mart.build_mart(ud_packet=legacy_packet)
+    performance_summary = next(es for es in packet.evidence_summaries if es.evidence_family == "performance_feedback")
+    assert mart.SOFT_CAVEAT_0174UD_U9_UNKNOWN in packet.soft_caveats
+    assert packet.evidence_summary.u9_unknown_or_blocked_entry_count == 1
+    assert performance_summary.audit_ledger_entry_count == 1
+    assert performance_summary.u9_unknown_or_blocked_entry_count == 1
+    assert performance_summary.u9_unknown_or_blocked_soft_caveat is True
 
 
 def test_artifact_writer_refuses_outside_paths(tmp_path):

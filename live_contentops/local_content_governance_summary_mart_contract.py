@@ -469,7 +469,13 @@ def _evidence_summaries(
         matching_entries = [e for e in u9_entries if e.get("entry_family") in mapped_families]
 
         if fam == "performance_feedback":
-            matching_entries = [e for e in u9_entries if e.get("source_model") == "0174UD"]
+            ud_entries = ud_data.audit_ledger_entries if hasattr(ud_data, "audit_ledger_entries") else ud_data.get("audit_ledger_entries", ())
+            matching_entries = [
+                _asdict(e) if hasattr(e, "__dataclass_fields__") else e
+                for e in ud_entries
+                if (_asdict(e) if hasattr(e, "__dataclass_fields__") else e).get("entry_family") in mapped_families
+                or (_asdict(e) if hasattr(e, "__dataclass_fields__") else e).get("entry_family") == "unknown_or_blocked"
+            ]
         elif fam == "redacted_audit_ledger":
             matching_entries = list(u9_entries)
 
