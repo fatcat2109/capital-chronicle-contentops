@@ -6,15 +6,15 @@
 - **GitHub Repository**: `fatcat2109/capital-chronicle-contentops`
 - **Active Branch**: `master`
 - **Starting HEAD**: `98a1e433836ee872d9ba6481ade1ca0ccc29eeed`
-- **Final HEAD Candidate**: `[To be determined upon commit]`
-- **Current Master SHA**: `98a1e433836ee872d9ba6481ade1ca0ccc29eeed`
+- **Final HEAD Candidate**: `6fe152c12c9c4a2599484ec62a6c9b2c9e0242dc`
+- **Current Master SHA**: `6fe152c12c9c4a2599484ec62a6c9b2c9e0242dc`
 
 ---
 
 ## 1. Scope Repair & Content Validity Verification
 
-### 0174UI_R2 Validity
-The changes made during the `0174UI_R2` repair remain fully content-valid. These include:
+### 0174UI_R2 + R3 ready for acceptance review
+The changes made during the `0174UI_R2` repair remain fully content-valid, and the repository is ready for ChatGPT final acceptance review under `0174UI_R3` + `R4`. Key elements include:
 - Rectifying the daily YouTube Data API v3 upload quota cost claim from the outdated `1600 units` to the current `1 unit in the Video Uploads quota bucket` with a limit of `100 calls per day`.
 - Removing stale claims and unstable wording regarding X pricing tiers (such as "Free tier is write-only", "Basic", "Pro", and "17 tweets per 24h") and replacing them with pay-per-use credit-based pricing and 15-minute endpoint-specific rate windows.
 - Restructuring and enforcing `doc_readback_basis` dictionary structures across all 10 platform references in `OfficialDocsEvidenceRef`.
@@ -44,7 +44,7 @@ ContentOps is strictly partitioned to avoid security leaks, unwanted side effect
 
 ```mermaid
 graph TD
-    A[Accepted Baseline: 0174U0 to 0174UI_R2] --> B[This State Recon: 0174UI_R3]
+    A[Acceptance candidate pending ChatGPT final audit] --> B[This State Recon: 0174UI_R3]
     B --> C[Pending Next Task: 0174UJ Matrix]
     C --> D[Blocked: Supervised Live Dispatch Gates]
     style A fill:#d4edda,stroke:#28a745,stroke-width:2px
@@ -53,7 +53,7 @@ graph TD
     style D fill:#f8d7da,stroke:#dc3545,stroke-width:2px
 ```
 
-* **Accepted Baseline**: `0174U0` through `0174UI` (with `0174UI_R2` numeric repair). All contract schemas, tests, and regenerated documentation packets pass.
+* **Acceptance candidate pending ChatGPT final audit**: `0174U0` through `0174UI` (with `0174UI_R2` numeric repair + R3 scope repair is ready for acceptance review). All contract schemas, tests, and regenerated documentation packets pass.
 * **Pending / Next Step**: `TASK_CONTENTOPS_0174UJ_PLATFORM_PERMISSION_SCOPE_AND_APP_REVIEW_GATE_MATRIX_V0`.
 * **Blocked**: Any task attempting to execute active live postings, live API reads, credential extraction, or provider integrations prior to completing the gated roadmap phases.
 

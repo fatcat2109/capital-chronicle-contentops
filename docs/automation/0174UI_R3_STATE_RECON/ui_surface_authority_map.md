@@ -25,10 +25,12 @@ The following user interface surfaces and directories are cataloged in the repos
 ### Exact Path to Open for V5
 - **Authoritative Surface**: [ui/contentops_v5/](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/ui/contentops_v5/)
 - This is a fully structured, React + Vite application. It contains its own package manifests, tsconfig, and vitest unit test suite.
+- **CRITICAL WARNING**: The existence of `ui/contentops_v5/` does **NOT** equal a visual PASS. Visual QA requires active review.
 
 ### Paths That Are NOT V5
-- **Do NOT treat** `ui/institutional_operator_cockpit_v4/index.html` or any other directory besides `ui/contentops_v5/` as the primary V5 surface.
-- Stands as a visual fallback and reference only.
+- **Do NOT treat** `ui/institutional_operator_cockpit_v4/index.html` or any other static cockpit HTML/JSON file as the primary V5 surface.
+- **Do NOT treat** any static HTML pages, generated dashboards, or legacy sandbox files (like `daily_content_studio` or `institutional_shell`) as V5.
+- V4 and older cockpit folders are legacy/static reference artifacts only and must not be opened or described as the active V5 application.
 
 ### Structure of V5 App
 - **Structure**:
@@ -38,6 +40,6 @@ The following user interface surfaces and directories are cataloged in the repos
   - `src/fixtures.ts` (local mock data models)
   - `src/test/` (Vitest spec files checking state logic, AI variants, and safety compliance)
 
-### V5 Visual QA Status
+### V5 Visual QA Status & ChatGPT Screenshot Audit
 - **Existence of Visual QA**: Yes, screenshots exist under `docs/browser_qa/contentops_v5/` capturing viewport renders at multiple stages (e.g. BZ, CA, CI runs).
-- **Audit Requirement**: No visual `PASS` can be claimed without raw screenshot files captured by the browser subagent and independently inspected by ChatGPT. Standalone generated HTML pages are strictly evidence artifacts and do not represent active product surfaces unless verified.
+- **Audit Requirement**: There is **no visual PASS** for V5 without direct, explicit screenshot files captured by the browser subagent and independently inspected/approved by ChatGPT. Standalone generated HTML pages are strictly evidence artifacts and do not represent active product surfaces unless verified.

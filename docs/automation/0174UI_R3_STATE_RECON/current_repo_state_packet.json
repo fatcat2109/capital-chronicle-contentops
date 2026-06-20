@@ -5,7 +5,8 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "starting_head": "98a1e433836ee872d9ba6481ade1ca0ccc29eeed",
-  "final_head": "98a1e433836ee872d9ba6481ade1ca0ccc29eeed",
+  "final_head": "6fe152c12c9c4a2599484ec62a6c9b2c9e0242dc",
+  "remote_sha": "6fe152c12c9c4a2599484ec62a6c9b2c9e0242dc",
   "restored_files": [
     "docs/automation/0174VF_VG_VH/telegram_manual_gate_backed_send_proof.md",
     "docs/automation/0174VF_VG_VH/telegram_manual_gate_backed_send_proof_packet.json"
@@ -19,7 +20,7 @@
     "docs/automation/0174UI_R3_STATE_RECON/ui_surface_authority_map.md",
     "docs/automation/0174UI_R3_STATE_RECON/next_task_handoff.md"
   ],
-  "accepted_state_candidate": "0174UI_R2 remains content-valid",
+  "accepted_state_candidate": "0174UI_R2 plus R3 scope repair is ready for ChatGPT acceptance review",
   "blocked_or_pending_items": [
     "0174UJ platform permission scope matrix is pending",
     "Live posting / API calls blocked"
@@ -50,6 +51,6 @@
     "telegram_api_called": false,
     "ui_generated": false
   },
-  "packet_hash": "c001da38c6422b9c7c2518e100f9a2b564b3a77992c3d52485e9aa8cc302faef",
-  "packet_hash_algorithm": "sha256"
+  "documentation_packet_id": "c001da38c6422b9c7c2518e100f9a2b564b3a77992c3d52485e9aa8cc302faef",
+  "packet_hash_status": "not_recomputed"
 }
