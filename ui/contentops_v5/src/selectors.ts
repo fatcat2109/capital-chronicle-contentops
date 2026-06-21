@@ -43,6 +43,7 @@ import type {
   V5ManualPilotTrailReconciliationPacket,
   V5LifecycleStep,
   V5PlaceholderField,
+  V5ManualPilotTrailReconciliationAuditPacket,
 } from './types';
 
 
@@ -727,6 +728,57 @@ export function selectPlaceholderField(
       { label: 'Current Value', value: f.value === '' ? '(empty)' : f.value, mono: f.value !== '' },
       { label: 'Status', value: f.status, status: 'review' },
       { label: 'Verification Detail', value: f.detail },
+    ],
+  };
+}
+
+export function selectManualPilotTrailReconciliationAuditPacket(
+  p: V5ManualPilotTrailReconciliationAuditPacket,
+): SelectableObject {
+  return {
+    kind: 'manual_pilot_audit_packet',
+    id: p.audit_id,
+    title: `Manual Pilot Audit · ${p.contract_version}`,
+    fields: [
+      { label: 'Audit ID', value: p.audit_id, mono: true },
+      { label: 'Audit Status', value: p.audit_status, status: p.audit_status === 'verified_blocked_manual_only' ? 'verified' : 'blocked' },
+      { label: 'Contract Version', value: p.contract_version, mono: true },
+      { label: 'Packet Hash', value: p.packet_hash, mono: true },
+      { label: 'Hash Alg', value: p.packet_hash_algorithm, mono: true },
+      { label: 'Baseline Commit', value: p.source_baseline_commit, mono: true },
+      { label: 'Task Label', value: p.task_label, mono: true },
+      { label: 'Next Task', value: p.next_recommended_task, mono: true },
+    ],
+  };
+}
+
+export function selectAuditInvariant(
+  name: string,
+  passed: boolean,
+): SelectableObject {
+  return {
+    kind: 'audit_invariant',
+    id: name,
+    title: name.replace(/_/g, ' '),
+    fields: [
+      { label: 'Invariant ID', value: name, mono: true },
+      { label: 'Verification', value: passed ? 'PASSED' : 'FAILED', status: passed ? 'verified' : 'blocked' },
+      { label: 'Scope', value: 'local-only compliance check' },
+    ],
+  };
+}
+
+export function selectAuditContradiction(
+  text: string,
+  index: number,
+): SelectableObject {
+  return {
+    kind: 'audit_contradiction',
+    id: `contradiction-${index}`,
+    title: `Contradiction #${index + 1}`,
+    fields: [
+      { label: 'Detail', value: text },
+      { label: 'Severity', value: 'blocked', status: 'blocked' },
     ],
   };
 }

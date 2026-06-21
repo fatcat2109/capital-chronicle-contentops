@@ -871,3 +871,34 @@ export interface V5ManualPilotTrailReconciliationPacket {
   source_operator_review_queue_id: string;
   task_label: string;
 }
+
+export interface V5ReconciliationAuditSourcePacket {
+  contract_version: string;
+  packet_hash: string;
+}
+
+export interface V5ManualPilotTrailReconciliationAuditPacket {
+  audit_id: string;
+  audit_status: string;
+  blocked_reason_results: { reasons: string[] };
+  chain_links: {
+    uy_to_uw_link: string;
+    uz_to_uw_link: string;
+    uz_to_uy_packet_hash: string;
+    uz_to_uy_queue_id: string;
+  };
+  contract_version: string;
+  contradiction_results: { contradictions_found: string[] };
+  disabled_live_action_results: { passed: boolean };
+  invariant_results: Record<string, boolean>;
+  missing_evidence_results: { passed: boolean; required_missing: string[] };
+  next_recommended_task: string;
+  packet_hash: string;
+  packet_hash_algorithm: string;
+  placeholder_integrity_results: { passed: boolean };
+  safety_flag_results: Record<string, boolean>;
+  safety_flags: Record<string, boolean>;
+  source_baseline_commit: string;
+  source_packets: Record<string, V5ReconciliationAuditSourcePacket>;
+  task_label: string;
+}

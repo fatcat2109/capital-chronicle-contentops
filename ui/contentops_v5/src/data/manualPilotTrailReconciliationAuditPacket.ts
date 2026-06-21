@@ -1,0 +1,88 @@
+import type { V5ManualPilotTrailReconciliationAuditPacket } from '../types';
+
+export const manualPilotTrailReconciliationAuditPacket: V5ManualPilotTrailReconciliationAuditPacket = {
+  "audit_id": "v5_manual_pilot_trail_reconciliation_audit_da783feced81f63b0b903161",
+  "audit_status": "verified_blocked_manual_only",
+  "blocked_reason_results": {
+    "reasons": []
+  },
+  "chain_links": {
+    "uy_to_uw_link": "277fb7d44b247efc6021f038e362256f746cc039",
+    "uz_to_uw_link": "277fb7d44b247efc6021f038e362256f746cc039",
+    "uz_to_uy_packet_hash": "473a376d9ff812ff830391e24d3cd75fd71b4faf576414f8b8a157b2ea9f284c",
+    "uz_to_uy_queue_id": "v5_operator_review_queue_473a376d9ff812ff830391e2"
+  },
+  "contract_version": "0175AA_V5_MANUAL_PILOT_TRAIL_RECONCILIATION_AUDIT_CONTRACT_V1",
+  "contradiction_results": {
+    "contradictions_found": []
+  },
+  "disabled_live_action_results": {
+    "passed": true
+  },
+  "invariant_results": {
+    "approval_mutation_false": true,
+    "credential_values_loaded_false": true,
+    "disabled_live_action_states_correct": true,
+    "dispatch_ready_false": true,
+    "missing_evidence_fields_correct": true,
+    "network_performed_false": true,
+    "no_banned_financial_language": true,
+    "no_pretend_evidence": true,
+    "placeholders_remain_empty": true,
+    "public_postable_false": true,
+    "reconciliation_status_blocked_only": true,
+    "uw_exists_and_manual_only": true,
+    "uy_references_uw_correctly": true,
+    "uz_references_uy_and_uw_correctly": true
+  },
+  "missing_evidence_results": {
+    "passed": true,
+    "required_missing": [
+      "manual_publish_url",
+      "manual_publish_timestamp",
+      "manual_metrics_snapshot"
+    ]
+  },
+  "next_recommended_task": "TASK_CONTENTOPS_0175AB_MANUAL_PILOT_TRAIL_RECONCILIATION_AUDIT_BROWSER_QA_V0",
+  "packet_hash": "da783feced81f63b0b903161c10cca021f44b65f8a56ecf9af07074cee688d37",
+  "packet_hash_algorithm": "sha256",
+  "placeholder_integrity_results": {
+    "passed": true
+  },
+  "safety_flag_results": {
+    "approval_mutation": true,
+    "credential_values_loaded": true,
+    "dispatch_ready": true,
+    "network_performed": true,
+    "public_postable": true
+  },
+  "safety_flags": {
+    "approval_mutation": false,
+    "credential_values_loaded": false,
+    "dispatch_ready": false,
+    "local_only": true,
+    "manual_only": true,
+    "network_performed": false,
+    "no_credentials": true,
+    "no_live_dispatch": true,
+    "no_platform_api": true,
+    "no_scheduler": true,
+    "public_postable": false
+  },
+  "source_baseline_commit": "77c4dc546dcd0fba91879ccb7db66a64407ceae4",
+  "source_packets": {
+    "0174UW_manual_export": {
+      "contract_version": "0174UW_V5_MANUAL_EXPORT_PILOT_VERIFICATION_CONTRACT_V1",
+      "packet_hash": "2ae3c6a6e0b90d754cd1c12b100b0bed97f4acca1299110ced4224927b53984b"
+    },
+    "0174UY_operator_review": {
+      "contract_version": "0174UY_V5_OPERATOR_REVIEW_QUEUE_MANUAL_PILOT_TRAIL_CONTRACT_V1",
+      "packet_hash": "473a376d9ff812ff830391e24d3cd75fd71b4faf576414f8b8a157b2ea9f284c"
+    },
+    "0174UZ_reconciliation": {
+      "contract_version": "0174UZ_V5_MANUAL_PILOT_TRAIL_RECONCILIATION_CONTRACT_V1",
+      "packet_hash": "7998084518f5b9cabd948ab803ffd1a69f18ae95a68ce4999fd98218f5304f00"
+    }
+  },
+  "task_label": "TASK_CONTENTOPS_0175AA_MANUAL_PILOT_TRAIL_RECONCILIATION_AUDIT_V0"
+};
