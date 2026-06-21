@@ -1,0 +1,773 @@
+{
+  "blocked_capabilities": [
+    "live_publishing_dispatch",
+    "autonomous_reply_automation",
+    "live_credential_hydration",
+    "active_scheduler_triggers"
+  ],
+  "generated_at_epoch": 0,
+  "hash_algorithm": "sha256",
+  "ledger_family": "platform_preview_dry_payload_shape_registry_future",
+  "matrix_version": "0175AN_PLATFORM_PREVIEW_DRY_PAYLOAD_SHAPE_REGISTRY_V1",
+  "missing_future_gates": [
+    "lane_c_platform_preview_dry_render_gate",
+    "production_key_vault_decrypter",
+    "live_operator_signature_vault"
+  ],
+  "next_required_gate": "lane_c_platform_preview_dry_render_gate",
+  "packet_hash": "e5bd60a6d050561cccb9ea939d6bfd5ae80a86f208998c9ac58b71cb05bf2f98",
+  "platform_shapes": [
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for x shape field: text_stub",
+          "dispatch_ready": false,
+          "field_name": "text_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for x shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for x shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for x shape field: thread_hint",
+          "dispatch_ready": false,
+          "field_name": "thread_hint",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for x shape field: media_slot_stub",
+          "dispatch_ready": false,
+          "field_name": "media_slot_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "280 character limit with media slots",
+      "media_requirements": "media stubs allowed for preview only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "x_microblog",
+      "platform_target_id": "x",
+      "precheck_only": true,
+      "required_fields": [
+        "text_stub",
+        "citation_stub",
+        "limitation_stub",
+        "thread_hint",
+        "media_slot_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for telegram_channel_destination shape field: message_stub",
+          "dispatch_ready": false,
+          "field_name": "message_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for telegram_channel_destination shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for telegram_channel_destination shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for telegram_channel_destination shape field: operator_note_stub",
+          "dispatch_ready": false,
+          "field_name": "operator_note_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "4096 characters limit for channel messages",
+      "media_requirements": "text only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_channel_destination",
+      "precheck_only": true,
+      "required_fields": [
+        "message_stub",
+        "citation_stub",
+        "limitation_stub",
+        "operator_note_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for telegram_remote_operator shape field: operator_summary_stub",
+          "dispatch_ready": false,
+          "field_name": "operator_summary_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for telegram_remote_operator shape field: decision_buttons_stub_disabled",
+          "dispatch_ready": false,
+          "field_name": "decision_buttons_stub_disabled",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for telegram_remote_operator shape field: audit_ref_stub",
+          "dispatch_ready": false,
+          "field_name": "audit_ref_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "4096 characters limit for operator logs",
+      "media_requirements": "text only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_remote_operator",
+      "precheck_only": true,
+      "required_fields": [
+        "operator_summary_stub",
+        "decision_buttons_stub_disabled",
+        "audit_ref_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for substack shape field: title_stub",
+          "dispatch_ready": false,
+          "field_name": "title_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for substack shape field: subtitle_stub",
+          "dispatch_ready": false,
+          "field_name": "subtitle_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for substack shape field: body_outline_stub",
+          "dispatch_ready": false,
+          "field_name": "body_outline_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for substack shape field: citation_section_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_section_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for substack shape field: limitation_section_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_section_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "standard newsletter email layout, markdown-enabled",
+      "media_requirements": "text only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "substack_newsletter",
+      "platform_target_id": "substack",
+      "precheck_only": true,
+      "required_fields": [
+        "title_stub",
+        "subtitle_stub",
+        "body_outline_stub",
+        "citation_section_stub",
+        "limitation_section_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for linkedin shape field: professional_intro_stub",
+          "dispatch_ready": false,
+          "field_name": "professional_intro_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for linkedin shape field: body_stub",
+          "dispatch_ready": false,
+          "field_name": "body_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for linkedin shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for linkedin shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "3000 character limit professional feed structure",
+      "media_requirements": "text only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "linkedin_professional",
+      "platform_target_id": "linkedin",
+      "precheck_only": true,
+      "required_fields": [
+        "professional_intro_stub",
+        "body_stub",
+        "citation_stub",
+        "limitation_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for threads shape field: short_text_stub",
+          "dispatch_ready": false,
+          "field_name": "short_text_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for threads shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for threads shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "500 character limit microblog shape",
+      "media_requirements": "text only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "threads_microblog",
+      "platform_target_id": "threads",
+      "precheck_only": true,
+      "required_fields": [
+        "short_text_stub",
+        "citation_stub",
+        "limitation_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for instagram shape field: caption_stub",
+          "dispatch_ready": false,
+          "field_name": "caption_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for instagram shape field: image_requirement_stub",
+          "dispatch_ready": false,
+          "field_name": "image_requirement_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for instagram shape field: alt_text_stub",
+          "dispatch_ready": false,
+          "field_name": "alt_text_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for instagram shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for instagram shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "2200 character limit image/caption requirement",
+      "media_requirements": "media stubs allowed for preview only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "instagram_media",
+      "platform_target_id": "instagram",
+      "precheck_only": true,
+      "required_fields": [
+        "caption_stub",
+        "image_requirement_stub",
+        "alt_text_stub",
+        "citation_stub",
+        "limitation_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for facebook_page shape field: post_text_stub",
+          "dispatch_ready": false,
+          "field_name": "post_text_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for facebook_page shape field: attachment_stub",
+          "dispatch_ready": false,
+          "field_name": "attachment_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for facebook_page shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for facebook_page shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "standard page layout with attachment fields",
+      "media_requirements": "text only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "facebook_page_media",
+      "platform_target_id": "facebook_page",
+      "precheck_only": true,
+      "required_fields": [
+        "post_text_stub",
+        "attachment_stub",
+        "citation_stub",
+        "limitation_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for tiktok shape field: caption_stub",
+          "dispatch_ready": false,
+          "field_name": "caption_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for tiktok shape field: video_requirement_stub",
+          "dispatch_ready": false,
+          "field_name": "video_requirement_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for tiktok shape field: disclosure_stub",
+          "dispatch_ready": false,
+          "field_name": "disclosure_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for tiktok shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "caption character limit and video format details",
+      "media_requirements": "media stubs allowed for preview only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "tiktok_video",
+      "platform_target_id": "tiktok",
+      "precheck_only": true,
+      "required_fields": [
+        "caption_stub",
+        "video_requirement_stub",
+        "disclosure_stub",
+        "citation_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for youtube shape field: title_stub",
+          "dispatch_ready": false,
+          "field_name": "title_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for youtube shape field: description_outline_stub",
+          "dispatch_ready": false,
+          "field_name": "description_outline_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for youtube shape field: video_requirement_stub",
+          "dispatch_ready": false,
+          "field_name": "video_requirement_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for youtube shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for youtube shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "description character limit and video metadata check",
+      "media_requirements": "media stubs allowed for preview only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "youtube_video",
+      "platform_target_id": "youtube",
+      "precheck_only": true,
+      "required_fields": [
+        "title_stub",
+        "description_outline_stub",
+        "video_requirement_stub",
+        "citation_stub",
+        "limitation_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    }
+  ],
+  "safety_flags": {
+    "account_binding_active": false,
+    "approved_for_publication": false,
+    "approved_internal_alpha_artifacts_available": false,
+    "autonomous_posting": false,
+    "autonomous_reply_or_dm": false,
+    "broker_order_execution": false,
+    "credential_values_loaded": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "dqr_cleared_by_contentops": false,
+    "dry_render_only": true,
+    "env_read": false,
+    "financial_advice": false,
+    "fixture_only": true,
+    "ingestion_repo_mutated": false,
+    "local_only": true,
+    "network_performed": false,
+    "platform_api_called": false,
+    "platform_payload_created": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "publishable_payload_created": false,
+    "raw_vendor_redistribution": false,
+    "readiness_cleared_by_contentops": false,
+    "scheduler_enabled": false,
+    "schema_only": true,
+    "scraping": false,
+    "signal_language": false
+  },
+  "shape_rules": [
+    {
+      "description": "Enforce that no render stubs can be exported as publishable copy.",
+      "passed": true,
+      "rule_id": "no_publishable_payload"
+    },
+    {
+      "description": "Confirm that platform sending or status check API calls are blocked.",
+      "passed": true,
+      "rule_id": "no_platform_api_call"
+    },
+    {
+      "description": "Strict block on external dot-env or key-vault reads for platforms.",
+      "passed": true,
+      "rule_id": "no_credential_or_env_read"
+    },
+    {
+      "description": "Enforce that account bindings are dry/mock only.",
+      "passed": true,
+      "rule_id": "no_account_binding_active"
+    },
+    {
+      "description": "Enforce that no schedulers or task runners are active.",
+      "passed": true,
+      "rule_id": "no_scheduler"
+    },
+    {
+      "description": "Verify that no autonomous publishing paths exist.",
+      "passed": true,
+      "rule_id": "no_autonomous_posting"
+    },
+    {
+      "description": "Verify that automated comments, replies, or DMs are blocked.",
+      "passed": true,
+      "rule_id": "no_autonomous_reply_or_dm"
+    },
+    {
+      "description": "Verify that zero live web scraping is executed.",
+      "passed": true,
+      "rule_id": "no_scraping"
+    },
+    {
+      "description": "Check that stub placeholders block any financial advice markers.",
+      "passed": true,
+      "rule_id": "no_financial_advice"
+    },
+    {
+      "description": "Check that stub placeholders contain no signal/trading indicators.",
+      "passed": true,
+      "rule_id": "no_signal_language"
+    },
+    {
+      "description": "Ensure dry shapes carry citations and block manual edits.",
+      "passed": true,
+      "rule_id": "no_market_number_fabrication"
+    },
+    {
+      "description": "Enforce citation rendering layout rules in stubs.",
+      "passed": true,
+      "rule_id": "preserve_citation_requirements"
+    },
+    {
+      "description": "Enforce limitations block placeholders in target layouts.",
+      "passed": true,
+      "rule_id": "preserve_limitations"
+    },
+    {
+      "description": "Block compilation of stubs when DQR snapshot indicates errors.",
+      "passed": true,
+      "rule_id": "preserve_dqr_readiness_blocks"
+    },
+    {
+      "description": "Mark operator manual review gate as an absolute requirement.",
+      "passed": true,
+      "rule_id": "require_operator_review"
+    },
+    {
+      "description": "Enforce that each platform shape requires a payload hash lock proof.",
+      "passed": true,
+      "rule_id": "require_payload_hash_lock"
+    },
+    {
+      "description": "Enforce next phase dry preview rendering gate requirement.",
+      "passed": true,
+      "rule_id": "require_future_dry_render_gate"
+    }
+  ],
+  "source_baseline_commit": "4d10a497d0104f5d3acae54097708e9e8b97e5d7",
+  "summary_counts": {
+    "evaluation_rules_count": 17,
+    "registered_shapes_count": 10,
+    "total_fields_registered_count": 42
+  },
+  "task_label": "TASK_CONTENTOPS_0175AN_PLATFORM_PREVIEW_DRY_PAYLOAD_SHAPE_REGISTRY_V0"
+}
