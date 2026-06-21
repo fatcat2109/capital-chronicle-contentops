@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `ab4a851ff60121cc3c3bdd85e25ed58c07aa9766`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175AP_PLATFORM_PREVIEW_DRY_RENDER_TO_REVIEW_BUNDLE_V0`
-* **Latest implemented capability:** Platform Preview Dry Render to Review Bundle
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175AQ_PLATFORM_REVIEW_BUNDLE_OPERATOR_DECISION_GATE_V0`
+* **Last resolved accepted HEAD in ledger:** `68a7e425d229d7876fdfa1f37a65f3ef8c388849`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175AQ_PLATFORM_REVIEW_BUNDLE_OPERATOR_DECISION_GATE_V0`
+* **Latest implemented capability:** Platform Review Bundle Operator Decision Gate
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175AR_OPERATOR_DECISION_GATE_TO_MANUAL_EXPORT_PRECHECK_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -50,6 +50,7 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | **Platform Preview Dry Render Packet** | Platform-specific preview dry render packets for human inspection | `LOCAL_CONTRACT_READY` | `0175AO` / `platform_preview_dry_render_packet_contract.py` | Future dry rendering integration | Precheck precedent |
 | **Platform Preview Dry Render to Review Bundle** | Bundle all dry render packets into a single operator review bundle | `LOCAL_CONTRACT_READY` | `0175AP` / `platform_preview_dry_render_to_review_bundle_contract.py` | Future dry rendering integration | Precheck precedent |
 | **Platform Review Bundle Operator Decision Gate** | Operator decision gate metadata for review bundles | `LOCAL_CONTRACT_READY` | `0175AQ` / `platform_review_bundle_operator_decision_gate_contract.py` | Future decision gate integration | Precheck precedent |
+| **Operator Decision Gate to Manual Export Precheck** | Operator decision gate metadata to manual export precheck | `LOCAL_CONTRACT_READY` | `0175AR` / `operator_decision_gate_to_manual_export_precheck_contract.py` | Future manual export integration | Precheck precedent |
 | **Artifact-backed Approval Packet** | Consolidated cryptographic evidence packet for artifacts | `TESTED` | `lane_c_draft_review_to_approval_packet_gate_contract.py` | Generate approval gate packet stubs | Platform preview prechecks |
 | **Internal Alpha Artifact Intake** | Intake gates for verified Internal Alpha artifacts | `TESTED` | `internal_alpha_artifact_intake_content_eligibility_contract.py` | Intake validator integration | Ingestion repo paths |
 | **Capital Chronicle Ingestion Connector** | Ingestion of raw official data sources | `TESTED` | `capital_chronicle_ingestion_headline_idea_connector_precheck.py` | Ingestion pipeline scheduler | None |
@@ -88,7 +89,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175AN_PLATFORM_PREVIEW_DRY_PAYLOAD_SHAPE_REGISTRY_V0` | `4d10a497d0104f5d3acae54097708e9e8b97e5d7` | `f57a23fb61a550d9528c1984d8e758e7f00ab265` | build platform preview dry payload shape registry | pytest suite, check placeholder fields, shape rules | dry payload registry schemas for future rendering | live/platform/API/publishing | `0175AO` |
 | `TASK_CONTENTOPS_0175AO_PLATFORM_PREVIEW_DRY_RENDER_PACKET_V0` | `f57a23fb61a550d9528c1984d8e758e7f00ab265` | `1a2d9bd78a254bee8790c3a8288168166a3f2fa8` | build platform preview dry render packet | pytest suite, check placeholder renders, surface types | dry render preview stubs for platform review workflows | live/platform/API/publishing | `0175AP` |
 | `TASK_CONTENTOPS_0175AP_PLATFORM_PREVIEW_DRY_RENDER_TO_REVIEW_BUNDLE_V0` | `1a2d9bd78a254bee8790c3a8288168166a3f2fa8` | `ab4a851ff60121cc3c3bdd85e25ed58c07aa9766` | build platform preview dry render to review bundle | pytest suite, check bundle items, disabled decision stubs | operator review bundle schemas for future human review UI | live/platform/API/publishing | `0175AQ` |
-| `TASK_CONTENTOPS_0175AQ_PLATFORM_REVIEW_BUNDLE_OPERATOR_DECISION_GATE_V0` | `ab4a851ff60121cc3c3bdd85e25ed58c07aa9766` | `RECORDED_IN_NEXT_TASK_READBACK` | build platform review decision gate | pytest suite, check decision options, active locks | operator decision gate stubs for future manual decision queue | live/platform/API/publishing | `0175AR` |
+| `TASK_CONTENTOPS_0175AQ_PLATFORM_REVIEW_BUNDLE_OPERATOR_DECISION_GATE_V0` | `ab4a851ff60121cc3c3bdd85e25ed58c07aa9766` | `68a7e425d229d7876fdfa1f37a65f3ef8c388849` | build platform review decision gate | pytest suite, check decision options, active locks | operator decision gate stubs for future manual decision queue | live/platform/API/publishing | `0175AR` |
+| `TASK_CONTENTOPS_0175AR_OPERATOR_DECISION_GATE_TO_MANUAL_EXPORT_PRECHECK_V0` | `68a7e425d229d7876fdfa1f37a65f3ef8c388849` | `RECORDED_IN_NEXT_TASK_READBACK` | build manual export precheck | pytest suite, check precheck rules, export target types | precheck metadata stubs for future manual export workflows | live/platform/API/publishing | `0175AS` |
 
 ---
 
@@ -130,6 +132,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175AR_OPERATOR_DECISION_GATE_TO_MANUAL_EXPORT_PRECHECK_V0`
-* **Focus:** Operator Decision Gate to Manual Export Precheck. Establish prechecks for manual exporting from approved decision gates.
+* **Next recommended task:** `TASK_CONTENTOPS_0175AS_MANUAL_EXPORT_PRECHECK_TO_EXPORT_PACKET_STUB_V0`
+* **Focus:** Manual Export Precheck to Export Packet Stub. Establish stubs for manual exporting approved and prechecked platform packets.
 * **Visual System Status:** Visual enhancement/polish is deferred until more core product foundation is complete.

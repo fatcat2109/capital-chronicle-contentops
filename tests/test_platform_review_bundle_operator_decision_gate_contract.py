@@ -274,7 +274,7 @@ def test_31_progress_ledger_resolves_0175ap_and_appends_0175aq():
 
     # One-task-lag checks
     assert "| `TASK_CONTENTOPS_0175AP_PLATFORM_PREVIEW_DRY_RENDER_TO_REVIEW_BUNDLE_V0` | `1a2d9bd78a254bee8790c3a8288168166a3f2fa8` | `ab4a851ff60121cc3c3bdd85e25ed58c07aa9766` |" in content
-    assert "| `TASK_CONTENTOPS_0175AQ_PLATFORM_REVIEW_BUNDLE_OPERATOR_DECISION_GATE_V0` | `ab4a851ff60121cc3c3bdd85e25ed58c07aa9766` | `RECORDED_IN_NEXT_TASK_READBACK` |" in content
+    assert "| `TASK_CONTENTOPS_0175AQ_PLATFORM_REVIEW_BUNDLE_OPERATOR_DECISION_GATE_V0` | `ab4a851ff60121cc3c3bdd85e25ed58c07aa9766` | `68a7e425d229d7876fdfa1f37a65f3ef8c388849` |" in content
 
 
 def test_32_no_pycache_or_pyc_staged():
