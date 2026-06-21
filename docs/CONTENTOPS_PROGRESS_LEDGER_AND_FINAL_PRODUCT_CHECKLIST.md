@@ -5,8 +5,8 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `78385a78f4cc7e910d6311e7401838c90ac38357`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175ALR2_LEDGER_FINAL_SHA_REPAIR_V0`
+* **Last resolved accepted HEAD in ledger:** `ba81ce1851c8365cbd00f332daba2e087ea309df`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175ALR3_LEDGER_PROTOCOL_ONE_TASK_LAG_REPAIR_V0`
 * **Latest implemented capability:** Lane C Draft Review to Approval Packet Gate
 * **Next recommended core feature task:** `TASK_CONTENTOPS_0175AM_LANE_C_APPROVAL_PACKET_TO_PLATFORM_PREVIEW_PRECHECK_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
@@ -45,7 +45,7 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | **Lane C Artifact Ingestion Foundation** | Batch file ingestion and verification mechanisms | `TESTED` | `lane_c_artifact_ingestion_foundation_contract.py` | Integration with live ingestion pipeline | Operator gate and folder bindings |
 | **Artifact-backed Editorial Brief** | Automatically generated briefs from ingested artifacts | `TESTED` | `lane_c_artifact_to_editorial_brief_review_packet_contract.py` | Generation of review briefs from candidates | Ingestion foundation validation |
 | **Artifact-backed Draft Generation** | Auto-generation of multi-platform variant drafts from brief | `TESTED` | `lane_c_editorial_brief_to_draft_review_only_packet_contract.py` | Scaffold review-only draft stubs from brief | Writer Studio/approval workflows |
-| **Artifact-backed Platform Preview** | Payload compilation and preview for artifact-derived posts | `NOT_STARTED` | None | Invariant checks and preview compilation | Draft Generation |
+| **Artifact-backed Platform Preview** | Payload compilation and preview for artifact-derived posts | `LOCAL_CONTRACT_READY` | `0175AM` / `lane_c_approval_packet_to_platform_preview_precheck_contract.py` | Invariant checks and preview compilation | Draft Generation |
 | **Artifact-backed Approval Packet** | Consolidated cryptographic evidence packet for artifacts | `TESTED` | `lane_c_draft_review_to_approval_packet_gate_contract.py` | Generate approval gate packet stubs | Platform preview prechecks |
 | **Internal Alpha Artifact Intake** | Intake gates for verified Internal Alpha artifacts | `TESTED` | `internal_alpha_artifact_intake_content_eligibility_contract.py` | Intake validator integration | Ingestion repo paths |
 | **Capital Chronicle Ingestion Connector** | Ingestion of raw official data sources | `TESTED` | `capital_chronicle_ingestion_headline_idea_connector_precheck.py` | Ingestion pipeline scheduler | None |
@@ -79,7 +79,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175AL_LEDGER_FRONTIER_REPAIR_AND_DRAFT_APPROVAL_GATE_V0` | `6ba3bac45f676de8d340b4d3e7383283c5102068` | `00b174449909c668cd451bf42b5aac072ac9ab58` (contaminated 6d5e5742e49b973aa5c654d7402e822b30d1f429) | Deterministic local draft review to approval gate stub compilation | `test_lane_c_draft_review_to_approval_packet_gate_contract.py`, generated json/md contract packet | Safe candidate approval readiness check without active publication; hygiene status: pycache repaired in 0175ALR | `0175AM` platform preview prechecks | `0175ALR` |
 | `TASK_CONTENTOPS_0175ALR_PYCACHE_AND_LEDGER_FRONTIER_REPAIR_V0` | `6d5e5742e49b973aa5c654d7402e822b30d1f429` | `00b174449909c668cd451bf42b5aac072ac9ab58` | pycache rollback, ledger frontier repair, optional gitignore hardening | targeted Lane C suite, diff check, show name-status proof | clean continuation to 0175AM | live/platform/API/publishing | `0175ALR2` |
 | `TASK_CONTENTOPS_0175ALR2_LEDGER_FINAL_SHA_REPAIR_V0` | `00b174449909c668cd451bf42b5aac072ac9ab58` | `78385a78f4cc7e910d6311e7401838c90ac38357` | repair ledger final accepted SHA references | diff check, show name-status proof | clean continuation to 0175AM | live/platform/API/publishing | `0175AM` |
-| `TASK_CONTENTOPS_0175ALR3_LEDGER_PROTOCOL_ONE_TASK_LAG_REPAIR_V0` | `78385a78f4cc7e910d6311e7401838c90ac38357` | `RECORDED_IN_NEXT_TASK_READBACK` | ledger protocol repair, one-task-lag final SHA policy | diff check, grep/readback, show name-status | safe continuation to 0175AM without self-referential SHA loops | live/platform/API/publishing | `0175AM` |
+| `TASK_CONTENTOPS_0175ALR3_LEDGER_PROTOCOL_ONE_TASK_LAG_REPAIR_V0` | `78385a78f4cc7e910d6311e7401838c90ac38357` | `ba81ce1851c8365cbd00f332daba2e087ea309df` | ledger protocol repair, one-task-lag final SHA policy | diff check, grep/readback, show name-status | safe continuation to 0175AM without self-referential SHA loops | live/platform/API/publishing | `0175AM` |
+| `TASK_CONTENTOPS_0175AM_LANE_C_APPROVAL_PACKET_TO_PLATFORM_PREVIEW_PRECHECK_V0` | `ba81ce1851c8365cbd00f332daba2e087ea309df` | `RECORDED_IN_NEXT_TASK_READBACK` | build platform preview precheck contract and stubs | pytest suite, check dry-run invariants, schema validation | preview validation flow for Lane C operator reviews | live/platform/API/publishing | `0175AN` |
 
 ---
 
@@ -121,6 +122,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175AM_LANE_C_APPROVAL_PACKET_TO_PLATFORM_PREVIEW_PRECHECK_V0`
-* **Focus:** Lane C Approval Packet to Platform Preview Precheck. Establish local precheck contracts for future platform payload validation.
+* **Next recommended task:** `TASK_CONTENTOPS_0175AN_PLATFORM_PREVIEW_DRY_PAYLOAD_SHAPE_REGISTRY_V0`
+* **Focus:** Platform Preview Dry Payload Shape Registry. Establish local schemas for multi-platform preview payloads.
 * **Visual System Status:** Visual enhancement/polish is deferred until more core product foundation is complete.

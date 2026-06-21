@@ -1,0 +1,3784 @@
+{
+  "blocked_reasons": [
+    "degraded_proxy_label_required",
+    "forbidden_public_ready_claim",
+    "local_fixture_only",
+    "missing_account_binding",
+    "missing_credential_gate",
+    "missing_lineage_manifest",
+    "missing_operator_approval",
+    "missing_payload_hash_lock",
+    "not_authorized_signing_authority",
+    "quarantined_review_only"
+  ],
+  "generated_at_epoch": 0,
+  "hash_algorithm": "sha256",
+  "ledger_family": "lane_c_approval_packet_to_platform_preview_precheck_future",
+  "matrix_version": "0175AM_LANE_C_APPROVAL_PACKET_TO_PLATFORM_PREVIEW_PRECHECK_V1",
+  "missing_proofs": [
+    "account_binding_proof",
+    "administrator_clearance",
+    "authorized_signing_certificate",
+    "credential_gate_proof",
+    "health_monitor_verification",
+    "lineage_manifest_sequence",
+    "manual_operator_signature",
+    "operator_signature_check",
+    "payload_hash_lock_proof",
+    "production_key_setup",
+    "security_escalation_clearance"
+  ],
+  "packet_hash": "8dcb619e1052efc2b28f728b1d3935330b2344e3f7ae3f1d55bbbac93834abad",
+  "payload_stubs": [
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "x",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_shape_valid_but_not_authorized drafted content preview for x",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_shape_valid_but_not_authorized_x"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_channel_destination",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_shape_valid_but_not_authorized drafted content preview for telegram_channel_destination",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_shape_valid_but_not_authorized_telegram_channel_destination"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_remote_operator",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_shape_valid_but_not_authorized drafted content preview for telegram_remote_operator",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_shape_valid_but_not_authorized_telegram_remote_operator"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "substack",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_shape_valid_but_not_authorized drafted content preview for substack",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_shape_valid_but_not_authorized_substack"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "linkedin",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_shape_valid_but_not_authorized drafted content preview for linkedin",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_shape_valid_but_not_authorized_linkedin"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "threads",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_shape_valid_but_not_authorized drafted content preview for threads",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_shape_valid_but_not_authorized_threads"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "instagram",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_shape_valid_but_not_authorized drafted content preview for instagram",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_shape_valid_but_not_authorized_instagram"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "facebook_page",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_shape_valid_but_not_authorized drafted content preview for facebook_page",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_shape_valid_but_not_authorized_facebook_page"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "tiktok",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_shape_valid_but_not_authorized drafted content preview for tiktok",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_shape_valid_but_not_authorized_tiktok"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "youtube",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_shape_valid_but_not_authorized drafted content preview for youtube",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_shape_valid_but_not_authorized_youtube"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "x",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_lineage_manifest drafted content preview for x",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_lineage_manifest_x"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_channel_destination",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_lineage_manifest drafted content preview for telegram_channel_destination",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_lineage_manifest_telegram_channel_destination"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_remote_operator",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_lineage_manifest drafted content preview for telegram_remote_operator",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_lineage_manifest_telegram_remote_operator"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "substack",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_lineage_manifest drafted content preview for substack",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_lineage_manifest_substack"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "linkedin",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_lineage_manifest drafted content preview for linkedin",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_lineage_manifest_linkedin"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "threads",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_lineage_manifest drafted content preview for threads",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_lineage_manifest_threads"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "instagram",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_lineage_manifest drafted content preview for instagram",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_lineage_manifest_instagram"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "facebook_page",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_lineage_manifest drafted content preview for facebook_page",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_lineage_manifest_facebook_page"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "tiktok",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_lineage_manifest drafted content preview for tiktok",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_lineage_manifest_tiktok"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "youtube",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_lineage_manifest drafted content preview for youtube",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_lineage_manifest_youtube"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "x",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_stale_or_missing_freshness drafted content preview for x",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_stale_or_missing_freshness_x"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_channel_destination",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_stale_or_missing_freshness drafted content preview for telegram_channel_destination",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_stale_or_missing_freshness_telegram_channel_destination"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_remote_operator",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_stale_or_missing_freshness drafted content preview for telegram_remote_operator",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_stale_or_missing_freshness_telegram_remote_operator"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "substack",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_stale_or_missing_freshness drafted content preview for substack",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_stale_or_missing_freshness_substack"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "linkedin",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_stale_or_missing_freshness drafted content preview for linkedin",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_stale_or_missing_freshness_linkedin"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "threads",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_stale_or_missing_freshness drafted content preview for threads",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_stale_or_missing_freshness_threads"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "instagram",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_stale_or_missing_freshness drafted content preview for instagram",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_stale_or_missing_freshness_instagram"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "facebook_page",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_stale_or_missing_freshness drafted content preview for facebook_page",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_stale_or_missing_freshness_facebook_page"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "tiktok",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_stale_or_missing_freshness drafted content preview for tiktok",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_stale_or_missing_freshness_tiktok"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "youtube",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_stale_or_missing_freshness drafted content preview for youtube",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_stale_or_missing_freshness_youtube"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "x",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_degraded_proxy_label_required drafted content preview for x",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_degraded_proxy_label_required_x"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_channel_destination",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_degraded_proxy_label_required drafted content preview for telegram_channel_destination",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_degraded_proxy_label_required_telegram_channel_destination"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_remote_operator",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_degraded_proxy_label_required drafted content preview for telegram_remote_operator",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_degraded_proxy_label_required_telegram_remote_operator"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "substack",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_degraded_proxy_label_required drafted content preview for substack",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_degraded_proxy_label_required_substack"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "linkedin",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_degraded_proxy_label_required drafted content preview for linkedin",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_degraded_proxy_label_required_linkedin"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "threads",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_degraded_proxy_label_required drafted content preview for threads",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_degraded_proxy_label_required_threads"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "instagram",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_degraded_proxy_label_required drafted content preview for instagram",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_degraded_proxy_label_required_instagram"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "facebook_page",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_degraded_proxy_label_required drafted content preview for facebook_page",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_degraded_proxy_label_required_facebook_page"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "tiktok",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_degraded_proxy_label_required drafted content preview for tiktok",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_degraded_proxy_label_required_tiktok"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "youtube",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_degraded_proxy_label_required drafted content preview for youtube",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_degraded_proxy_label_required_youtube"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "x",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_operator_approval drafted content preview for x",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_operator_approval_x"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_channel_destination",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_operator_approval drafted content preview for telegram_channel_destination",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_operator_approval_telegram_channel_destination"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_remote_operator",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_operator_approval drafted content preview for telegram_remote_operator",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_operator_approval_telegram_remote_operator"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "substack",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_operator_approval drafted content preview for substack",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_operator_approval_substack"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "linkedin",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_operator_approval drafted content preview for linkedin",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_operator_approval_linkedin"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "threads",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_operator_approval drafted content preview for threads",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_operator_approval_threads"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "instagram",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_operator_approval drafted content preview for instagram",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_operator_approval_instagram"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "facebook_page",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_operator_approval drafted content preview for facebook_page",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_operator_approval_facebook_page"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "tiktok",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_operator_approval drafted content preview for tiktok",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_operator_approval_tiktok"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "youtube",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_missing_operator_approval drafted content preview for youtube",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_missing_operator_approval_youtube"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "x",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_local_fixture_only drafted content preview for x",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_local_fixture_only_x"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_channel_destination",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_local_fixture_only drafted content preview for telegram_channel_destination",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_local_fixture_only_telegram_channel_destination"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_remote_operator",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_local_fixture_only drafted content preview for telegram_remote_operator",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_local_fixture_only_telegram_remote_operator"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "substack",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_local_fixture_only drafted content preview for substack",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_local_fixture_only_substack"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "linkedin",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_local_fixture_only drafted content preview for linkedin",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_local_fixture_only_linkedin"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "threads",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_local_fixture_only drafted content preview for threads",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_local_fixture_only_threads"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "instagram",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_local_fixture_only drafted content preview for instagram",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_local_fixture_only_instagram"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "facebook_page",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_local_fixture_only drafted content preview for facebook_page",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_local_fixture_only_facebook_page"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "tiktok",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_local_fixture_only drafted content preview for tiktok",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_local_fixture_only_tiktok"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "youtube",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_local_fixture_only drafted content preview for youtube",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_local_fixture_only_youtube"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "x",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_quarantined_review_only drafted content preview for x",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_quarantined_review_only_x"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_channel_destination",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_quarantined_review_only drafted content preview for telegram_channel_destination",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_quarantined_review_only_telegram_channel_destination"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_remote_operator",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_quarantined_review_only drafted content preview for telegram_remote_operator",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_quarantined_review_only_telegram_remote_operator"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "substack",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_quarantined_review_only drafted content preview for substack",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_quarantined_review_only_substack"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "linkedin",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_quarantined_review_only drafted content preview for linkedin",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_quarantined_review_only_linkedin"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "threads",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_quarantined_review_only drafted content preview for threads",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_quarantined_review_only_threads"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "instagram",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_quarantined_review_only drafted content preview for instagram",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_quarantined_review_only_instagram"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "facebook_page",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_quarantined_review_only drafted content preview for facebook_page",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_quarantined_review_only_facebook_page"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "tiktok",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_quarantined_review_only drafted content preview for tiktok",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_quarantined_review_only_tiktok"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "youtube",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_quarantined_review_only drafted content preview for youtube",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_quarantined_review_only_youtube"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "x",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_forbidden_public_ready_claim drafted content preview for x",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_forbidden_public_ready_claim_x"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_channel_destination",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_forbidden_public_ready_claim drafted content preview for telegram_channel_destination",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_forbidden_public_ready_claim_telegram_channel_destination"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "telegram_remote_operator",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_forbidden_public_ready_claim drafted content preview for telegram_remote_operator",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_forbidden_public_ready_claim_telegram_remote_operator"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "substack",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_forbidden_public_ready_claim drafted content preview for substack",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_forbidden_public_ready_claim_substack"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "linkedin",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_forbidden_public_ready_claim drafted content preview for linkedin",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_forbidden_public_ready_claim_linkedin"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "threads",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_forbidden_public_ready_claim drafted content preview for threads",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_forbidden_public_ready_claim_threads"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "instagram",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_forbidden_public_ready_claim drafted content preview for instagram",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_forbidden_public_ready_claim_instagram"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "facebook_page",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_forbidden_public_ready_claim drafted content preview for facebook_page",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_forbidden_public_ready_claim_facebook_page"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "tiktok",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_forbidden_public_ready_claim drafted content preview for tiktok",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_forbidden_public_ready_claim_tiktok"
+    },
+    {
+      "dispatch_ready": false,
+      "payload_created": false,
+      "platform_target_id": "youtube",
+      "preview_content_stub": "[PRECHECK STUB] approval_packet_candidate_forbidden_public_ready_claim drafted content preview for youtube",
+      "publishable_payload_created": false,
+      "stub_id": "preview_stub_candidate_forbidden_public_ready_claim_youtube"
+    }
+  ],
+  "precheck_records": [
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_payload_hash_lock",
+        "not_authorized_signing_authority"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "authorized_signing_certificate",
+        "operator_signature_check",
+        "payload_hash_lock_proof"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "54a6879bddf967173941db54fcd943c7ec475dc027bff36c23ccdeb0ceb994a0",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "x_microblog",
+      "platform_target_id": "x",
+      "precheck_id": "precheck_candidate_shape_valid_but_not_authorized_x",
+      "precheck_status": "blocked_missing_payload_hash_lock",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_shape_valid_but_not_authorized",
+      "source_draft_packet_id": "draft_packet_candidate_shape_valid_but_not_authorized"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_account_binding",
+        "not_authorized_signing_authority"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "account_binding_proof",
+        "authorized_signing_certificate",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "01ab526f0d46163f354d5010a27a191b479f4eef6081d2101165c2c9df66f838",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_channel_destination",
+      "precheck_id": "precheck_candidate_shape_valid_but_not_authorized_telegram_channel_destination",
+      "precheck_status": "blocked_missing_account_binding",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_shape_valid_but_not_authorized",
+      "source_draft_packet_id": "draft_packet_candidate_shape_valid_but_not_authorized"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_credential_gate",
+        "not_authorized_signing_authority"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "authorized_signing_certificate",
+        "credential_gate_proof",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "90ffc379e54a34693380076e3709e77b55467ad0aa0f27485f8ccf3b8bf41ccb",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_remote_operator",
+      "precheck_id": "precheck_candidate_shape_valid_but_not_authorized_telegram_remote_operator",
+      "precheck_status": "blocked_missing_credential_gate",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_shape_valid_but_not_authorized",
+      "source_draft_packet_id": "draft_packet_candidate_shape_valid_but_not_authorized"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "authorized_signing_certificate",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "d5c241b2a5c4fc1cd54e9ed776e4ff29e2a994e96ee571cdccdeaa24b21397bc",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "substack_newsletter",
+      "platform_target_id": "substack",
+      "precheck_id": "precheck_candidate_shape_valid_but_not_authorized_substack",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_shape_valid_but_not_authorized",
+      "source_draft_packet_id": "draft_packet_candidate_shape_valid_but_not_authorized"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "authorized_signing_certificate",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "6b6536defa3f052d1316fec317c89afc573b88ea18237e5402320eac6efd0da5",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "linkedin_professional",
+      "platform_target_id": "linkedin",
+      "precheck_id": "precheck_candidate_shape_valid_but_not_authorized_linkedin",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_shape_valid_but_not_authorized",
+      "source_draft_packet_id": "draft_packet_candidate_shape_valid_but_not_authorized"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "authorized_signing_certificate",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "38e275276894ae95c40c39d9e9f10accaafcb088efb1597d678ad41e91d25b4f",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "threads_microblog",
+      "platform_target_id": "threads",
+      "precheck_id": "precheck_candidate_shape_valid_but_not_authorized_threads",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_shape_valid_but_not_authorized",
+      "source_draft_packet_id": "draft_packet_candidate_shape_valid_but_not_authorized"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "authorized_signing_certificate",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "e3d32d956ee6ee0ab6846d04a34d15714031cacc54264ec038c464476e5f2761",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "instagram_media",
+      "platform_target_id": "instagram",
+      "precheck_id": "precheck_candidate_shape_valid_but_not_authorized_instagram",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_shape_valid_but_not_authorized",
+      "source_draft_packet_id": "draft_packet_candidate_shape_valid_but_not_authorized"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "authorized_signing_certificate",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "d819153581025f17d440c35d9d1d99c038d005e1a25bdede0ae0b0ce313277d2",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "facebook_page_media",
+      "platform_target_id": "facebook_page",
+      "precheck_id": "precheck_candidate_shape_valid_but_not_authorized_facebook_page",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_shape_valid_but_not_authorized",
+      "source_draft_packet_id": "draft_packet_candidate_shape_valid_but_not_authorized"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "authorized_signing_certificate",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "f3d1d431c0999187ad748be0065eae98155131f7d4826aba9cc56ddf6cb59d57",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "tiktok_video",
+      "platform_target_id": "tiktok",
+      "precheck_id": "precheck_candidate_shape_valid_but_not_authorized_tiktok",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_shape_valid_but_not_authorized",
+      "source_draft_packet_id": "draft_packet_candidate_shape_valid_but_not_authorized"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "authorized_signing_certificate",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "913dd26f852448220cb83b6c57c0aed1a7e2ec9651e5031449f8c6ddffa3d07b",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "youtube_video",
+      "platform_target_id": "youtube",
+      "precheck_id": "precheck_candidate_shape_valid_but_not_authorized_youtube",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_shape_valid_but_not_authorized",
+      "source_draft_packet_id": "draft_packet_candidate_shape_valid_but_not_authorized"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "5d288bd37f144b90f88a5a3744d73a63b9b71f78071f3ce196f4e6c7ea483d4f",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "x_microblog",
+      "platform_target_id": "x",
+      "precheck_id": "precheck_candidate_missing_lineage_manifest_x",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_lineage_manifest",
+      "source_draft_packet_id": "draft_packet_candidate_missing_lineage_manifest"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "18f01e131e6c0dc0887e051a69d56d38f1c61b48c1fe623a27f530ec572a7397",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_channel_destination",
+      "precheck_id": "precheck_candidate_missing_lineage_manifest_telegram_channel_destination",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_lineage_manifest",
+      "source_draft_packet_id": "draft_packet_candidate_missing_lineage_manifest"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "619b34ed7e612216048c4d520ff80d56482e9ecd31fb4893244a63ad71a69469",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_remote_operator",
+      "precheck_id": "precheck_candidate_missing_lineage_manifest_telegram_remote_operator",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_lineage_manifest",
+      "source_draft_packet_id": "draft_packet_candidate_missing_lineage_manifest"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "c5f21d66c39e719ac0bcb18940a40c909d64c3273f2b95aa1b940513e1b5ec11",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "substack_newsletter",
+      "platform_target_id": "substack",
+      "precheck_id": "precheck_candidate_missing_lineage_manifest_substack",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_lineage_manifest",
+      "source_draft_packet_id": "draft_packet_candidate_missing_lineage_manifest"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "c28185fa7a2949874b05aca01da40f61b3cb0737f2b51ff7e0b87e53960e05bf",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "linkedin_professional",
+      "platform_target_id": "linkedin",
+      "precheck_id": "precheck_candidate_missing_lineage_manifest_linkedin",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_lineage_manifest",
+      "source_draft_packet_id": "draft_packet_candidate_missing_lineage_manifest"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "caa1a6777306d25a124814aefa51a130dca40fdd49f8cacf1e9eee83c773e299",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "threads_microblog",
+      "platform_target_id": "threads",
+      "precheck_id": "precheck_candidate_missing_lineage_manifest_threads",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_lineage_manifest",
+      "source_draft_packet_id": "draft_packet_candidate_missing_lineage_manifest"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "943a4bec338091bf4e3fb94b11ffa250bae6c25dff07c3c13f8b78a07eb05ea2",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "instagram_media",
+      "platform_target_id": "instagram",
+      "precheck_id": "precheck_candidate_missing_lineage_manifest_instagram",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_lineage_manifest",
+      "source_draft_packet_id": "draft_packet_candidate_missing_lineage_manifest"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "f0c55aa84d091fd3d571522bc924ecad973d81ff86ad276aaa8b57ba458c7cd7",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "facebook_page_media",
+      "platform_target_id": "facebook_page",
+      "precheck_id": "precheck_candidate_missing_lineage_manifest_facebook_page",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_lineage_manifest",
+      "source_draft_packet_id": "draft_packet_candidate_missing_lineage_manifest"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "be123ace13492895b034db6826b05a0e97818e45a1959787c9bcd669ab0422f4",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "tiktok_video",
+      "platform_target_id": "tiktok",
+      "precheck_id": "precheck_candidate_missing_lineage_manifest_tiktok",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_lineage_manifest",
+      "source_draft_packet_id": "draft_packet_candidate_missing_lineage_manifest"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "5a4b6736076038fd26199ae8cac8a5d6c5c3441c44f8508eace0a0c02e02768b",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "youtube_video",
+      "platform_target_id": "youtube",
+      "precheck_id": "precheck_candidate_missing_lineage_manifest_youtube",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_lineage_manifest",
+      "source_draft_packet_id": "draft_packet_candidate_missing_lineage_manifest"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "845f84f40075965b38249ae33c818b29eac5db6fb2faac3b34b7b3d05612c32c",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "x_microblog",
+      "platform_target_id": "x",
+      "precheck_id": "precheck_candidate_stale_or_missing_freshness_x",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_stale_or_missing_freshness",
+      "source_draft_packet_id": "draft_packet_candidate_stale_or_missing_freshness"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "ec283e0457c976013b6d622e5d61a50f5c6c2b3fa1187f807f5e8e6293ccbdc7",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_channel_destination",
+      "precheck_id": "precheck_candidate_stale_or_missing_freshness_telegram_channel_destination",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_stale_or_missing_freshness",
+      "source_draft_packet_id": "draft_packet_candidate_stale_or_missing_freshness"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "d5a15cc40ff8999dd6250f9b3e65db1726aaac473e6acada03884dad2564e172",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_remote_operator",
+      "precheck_id": "precheck_candidate_stale_or_missing_freshness_telegram_remote_operator",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_stale_or_missing_freshness",
+      "source_draft_packet_id": "draft_packet_candidate_stale_or_missing_freshness"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "64499212d552406c75634511c15cc35d3e9a2d362d77d49b97de634a0b35369d",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "substack_newsletter",
+      "platform_target_id": "substack",
+      "precheck_id": "precheck_candidate_stale_or_missing_freshness_substack",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_stale_or_missing_freshness",
+      "source_draft_packet_id": "draft_packet_candidate_stale_or_missing_freshness"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "480494f3cc205399a462e542dfe63244a25f46e52b3b4d5e1ffc0e38c0d3ebbf",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "linkedin_professional",
+      "platform_target_id": "linkedin",
+      "precheck_id": "precheck_candidate_stale_or_missing_freshness_linkedin",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_stale_or_missing_freshness",
+      "source_draft_packet_id": "draft_packet_candidate_stale_or_missing_freshness"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "6840bb5113385c9f027ed7db312e6fef4ce25c202455ca80f8b5c79d83a3b1a9",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "threads_microblog",
+      "platform_target_id": "threads",
+      "precheck_id": "precheck_candidate_stale_or_missing_freshness_threads",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_stale_or_missing_freshness",
+      "source_draft_packet_id": "draft_packet_candidate_stale_or_missing_freshness"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "6585c92274600f5d19508a261747564de269105298bd0b381ad474ae8deafc70",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "instagram_media",
+      "platform_target_id": "instagram",
+      "precheck_id": "precheck_candidate_stale_or_missing_freshness_instagram",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_stale_or_missing_freshness",
+      "source_draft_packet_id": "draft_packet_candidate_stale_or_missing_freshness"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "67821668fa5c2815008a6c213078cb95ae55a185b409d595f8beb5361b8de830",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "facebook_page_media",
+      "platform_target_id": "facebook_page",
+      "precheck_id": "precheck_candidate_stale_or_missing_freshness_facebook_page",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_stale_or_missing_freshness",
+      "source_draft_packet_id": "draft_packet_candidate_stale_or_missing_freshness"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "ad75bff0847bbb16142a5f3a79d06fc3887203826dc45eecbaf77adf67eef62c",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "tiktok_video",
+      "platform_target_id": "tiktok",
+      "precheck_id": "precheck_candidate_stale_or_missing_freshness_tiktok",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_stale_or_missing_freshness",
+      "source_draft_packet_id": "draft_packet_candidate_stale_or_missing_freshness"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "a197669f43030edd61ddeae7abec2690441ff769f60ff9f4e5bfedc9f6581fd8",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "youtube_video",
+      "platform_target_id": "youtube",
+      "precheck_id": "precheck_candidate_stale_or_missing_freshness_youtube",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_stale_or_missing_freshness",
+      "source_draft_packet_id": "draft_packet_candidate_stale_or_missing_freshness"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "health_monitor_verification",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "faaf7a993e47a20cfa30087ab344c3f4fae61e6e7312704e7add78bf2bf9342f",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "x_microblog",
+      "platform_target_id": "x",
+      "precheck_id": "precheck_candidate_degraded_proxy_label_required_x",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_degraded_proxy_label_required",
+      "source_draft_packet_id": "draft_packet_candidate_degraded_proxy_label_required"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "health_monitor_verification",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "d753d10dee071a0b8d5ce97e6a3ccf38663824d23aeb9281e61162aae0f6d6cf",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_channel_destination",
+      "precheck_id": "precheck_candidate_degraded_proxy_label_required_telegram_channel_destination",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_degraded_proxy_label_required",
+      "source_draft_packet_id": "draft_packet_candidate_degraded_proxy_label_required"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "health_monitor_verification",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "997dfd7b613e4039b08ff4f0abd555cd7abef7523d409326900d45c0816f47e9",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_remote_operator",
+      "precheck_id": "precheck_candidate_degraded_proxy_label_required_telegram_remote_operator",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_degraded_proxy_label_required",
+      "source_draft_packet_id": "draft_packet_candidate_degraded_proxy_label_required"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "health_monitor_verification",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "ca7889283be30e9cf4e7ff823a495ee911c7c0ad8a77fed3e19d039a66d8a377",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "substack_newsletter",
+      "platform_target_id": "substack",
+      "precheck_id": "precheck_candidate_degraded_proxy_label_required_substack",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_degraded_proxy_label_required",
+      "source_draft_packet_id": "draft_packet_candidate_degraded_proxy_label_required"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "health_monitor_verification",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "cb4e6c992cbfe5103276beb37b3d45ad59f2853ba9798b587b8f4a9d4fa5bd3a",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "linkedin_professional",
+      "platform_target_id": "linkedin",
+      "precheck_id": "precheck_candidate_degraded_proxy_label_required_linkedin",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_degraded_proxy_label_required",
+      "source_draft_packet_id": "draft_packet_candidate_degraded_proxy_label_required"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "health_monitor_verification",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "a3a3d8cd4826c62834fc7ae206e79d3d9f6b16a68851ff90634e6cf6406c3b37",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "threads_microblog",
+      "platform_target_id": "threads",
+      "precheck_id": "precheck_candidate_degraded_proxy_label_required_threads",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_degraded_proxy_label_required",
+      "source_draft_packet_id": "draft_packet_candidate_degraded_proxy_label_required"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "health_monitor_verification",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "48bc9bd39ec35a0db6acfc0cf908390da062fe6110715e89374de76c74e4af8e",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "instagram_media",
+      "platform_target_id": "instagram",
+      "precheck_id": "precheck_candidate_degraded_proxy_label_required_instagram",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_degraded_proxy_label_required",
+      "source_draft_packet_id": "draft_packet_candidate_degraded_proxy_label_required"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "health_monitor_verification",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "66e494809cc074ef848d06e7efde38ef83cc066a2550ebec6f96e82047505775",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "facebook_page_media",
+      "platform_target_id": "facebook_page",
+      "precheck_id": "precheck_candidate_degraded_proxy_label_required_facebook_page",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_degraded_proxy_label_required",
+      "source_draft_packet_id": "draft_packet_candidate_degraded_proxy_label_required"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "health_monitor_verification",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "b870179d12ec3efd3fe44538397dee508890e352127dda8e9b802e1813cd14ef",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "tiktok_video",
+      "platform_target_id": "tiktok",
+      "precheck_id": "precheck_candidate_degraded_proxy_label_required_tiktok",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_degraded_proxy_label_required",
+      "source_draft_packet_id": "draft_packet_candidate_degraded_proxy_label_required"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "health_monitor_verification",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "f4cb7685b727cfce2beb3c8618fe2076833a2572d9abedfa21786fec79d6023a",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "youtube_video",
+      "platform_target_id": "youtube",
+      "precheck_id": "precheck_candidate_degraded_proxy_label_required_youtube",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_degraded_proxy_label_required",
+      "source_draft_packet_id": "draft_packet_candidate_degraded_proxy_label_required"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_operator_approval",
+        "missing_payload_hash_lock"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "manual_operator_signature",
+        "operator_signature_check",
+        "payload_hash_lock_proof"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "8efbbdd9d12ff48c3bbbc86c943f84648b678d387a72491ebb12a948cc1b4559",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "x_microblog",
+      "platform_target_id": "x",
+      "precheck_id": "precheck_candidate_missing_operator_approval_x",
+      "precheck_status": "blocked_missing_payload_hash_lock",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_operator_approval",
+      "source_draft_packet_id": "draft_packet_candidate_missing_operator_approval"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_account_binding",
+        "missing_operator_approval"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "account_binding_proof",
+        "manual_operator_signature",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "0b41d4cfc9f3889bbce51ef0c1ed26ca24d133f53c30dbd7adcc3b8ba484592f",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_channel_destination",
+      "precheck_id": "precheck_candidate_missing_operator_approval_telegram_channel_destination",
+      "precheck_status": "blocked_missing_account_binding",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_operator_approval",
+      "source_draft_packet_id": "draft_packet_candidate_missing_operator_approval"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_credential_gate",
+        "missing_operator_approval"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "credential_gate_proof",
+        "manual_operator_signature",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "67121683d10653c1bce096c5acebe3496c014e9228d9a314e81b1bd1ac99eed9",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_remote_operator",
+      "precheck_id": "precheck_candidate_missing_operator_approval_telegram_remote_operator",
+      "precheck_status": "blocked_missing_credential_gate",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_operator_approval",
+      "source_draft_packet_id": "draft_packet_candidate_missing_operator_approval"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "manual_operator_signature",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "f8970f6d939fa2c4b2228685f5e16d520bcf7c98fda8effa16beec3bfe8fd194",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "substack_newsletter",
+      "platform_target_id": "substack",
+      "precheck_id": "precheck_candidate_missing_operator_approval_substack",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_operator_approval",
+      "source_draft_packet_id": "draft_packet_candidate_missing_operator_approval"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "manual_operator_signature",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "bd47c670da8786950acfad50ee4ba838e84f2063ea3ac2c084f73f8d8daff820",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "linkedin_professional",
+      "platform_target_id": "linkedin",
+      "precheck_id": "precheck_candidate_missing_operator_approval_linkedin",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_operator_approval",
+      "source_draft_packet_id": "draft_packet_candidate_missing_operator_approval"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "manual_operator_signature",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "2e5a893725ef106cfb489d83f191b11a80be3f9ae6862cfecd8b09c412fdb965",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "threads_microblog",
+      "platform_target_id": "threads",
+      "precheck_id": "precheck_candidate_missing_operator_approval_threads",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_operator_approval",
+      "source_draft_packet_id": "draft_packet_candidate_missing_operator_approval"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "manual_operator_signature",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "d88d3701cc52ebf40d72f67793c71aab5cf42fe634bb068bdafa923c3a3d8129",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "instagram_media",
+      "platform_target_id": "instagram",
+      "precheck_id": "precheck_candidate_missing_operator_approval_instagram",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_operator_approval",
+      "source_draft_packet_id": "draft_packet_candidate_missing_operator_approval"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "manual_operator_signature",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "b499bae5a69552a66c25ef73812d7312e73d959d924c02af5dc5887db511ee94",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "facebook_page_media",
+      "platform_target_id": "facebook_page",
+      "precheck_id": "precheck_candidate_missing_operator_approval_facebook_page",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_operator_approval",
+      "source_draft_packet_id": "draft_packet_candidate_missing_operator_approval"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "manual_operator_signature",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "3307f940a8f58a649a24fcb9eebf820fb16bce540be766da16da35a6b9267867",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "tiktok_video",
+      "platform_target_id": "tiktok",
+      "precheck_id": "precheck_candidate_missing_operator_approval_tiktok",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_operator_approval",
+      "source_draft_packet_id": "draft_packet_candidate_missing_operator_approval"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "manual_operator_signature",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "231d085e80c120c9c3f1ca4ea91a454cea7d185827762fd6868cc764b22becf9",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "youtube_video",
+      "platform_target_id": "youtube",
+      "precheck_id": "precheck_candidate_missing_operator_approval_youtube",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_missing_operator_approval",
+      "source_draft_packet_id": "draft_packet_candidate_missing_operator_approval"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "local_fixture_only",
+        "missing_payload_hash_lock"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "payload_hash_lock_proof",
+        "production_key_setup"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "87b861d9cb191087c8cba0f1ecd75a4b3e82b6a2da464327150fbd69417d5515",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "x_microblog",
+      "platform_target_id": "x",
+      "precheck_id": "precheck_candidate_local_fixture_only_x",
+      "precheck_status": "blocked_missing_payload_hash_lock",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_local_fixture_only",
+      "source_draft_packet_id": "draft_packet_candidate_local_fixture_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "local_fixture_only",
+        "missing_account_binding"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "account_binding_proof",
+        "operator_signature_check",
+        "production_key_setup"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "91815b244d8a87a6f4302b1633e9aa76fea695853bce558df7f75d3367c1413b",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_channel_destination",
+      "precheck_id": "precheck_candidate_local_fixture_only_telegram_channel_destination",
+      "precheck_status": "blocked_missing_account_binding",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_local_fixture_only",
+      "source_draft_packet_id": "draft_packet_candidate_local_fixture_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "local_fixture_only",
+        "missing_credential_gate"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "credential_gate_proof",
+        "operator_signature_check",
+        "production_key_setup"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "96eb6b5f47b9aab219e77754ef260b37bedb1a86b622bbeddb96d17caf837e61",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_remote_operator",
+      "precheck_id": "precheck_candidate_local_fixture_only_telegram_remote_operator",
+      "precheck_status": "blocked_missing_credential_gate",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_local_fixture_only",
+      "source_draft_packet_id": "draft_packet_candidate_local_fixture_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "production_key_setup"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "6962a99d8a00bbd7cd335b4763da0d753e1bc655f804ada01e240772acc3c5f8",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "substack_newsletter",
+      "platform_target_id": "substack",
+      "precheck_id": "precheck_candidate_local_fixture_only_substack",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_local_fixture_only",
+      "source_draft_packet_id": "draft_packet_candidate_local_fixture_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "production_key_setup"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "ab3c5f2e95c206d80eff4fc88c9ae2ebbf615bfb8d70ad7c6942aea50ad59d1f",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "linkedin_professional",
+      "platform_target_id": "linkedin",
+      "precheck_id": "precheck_candidate_local_fixture_only_linkedin",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_local_fixture_only",
+      "source_draft_packet_id": "draft_packet_candidate_local_fixture_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "production_key_setup"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "5ea60192c211cd682f4c58b22e7d0d12b3e1aa05340552513ce4142fc67f1cc0",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "threads_microblog",
+      "platform_target_id": "threads",
+      "precheck_id": "precheck_candidate_local_fixture_only_threads",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_local_fixture_only",
+      "source_draft_packet_id": "draft_packet_candidate_local_fixture_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "production_key_setup"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "13a168ee784a3d5ef8a13e9be44f1506827536c33ca8594048cd555d8a3ae058",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "instagram_media",
+      "platform_target_id": "instagram",
+      "precheck_id": "precheck_candidate_local_fixture_only_instagram",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_local_fixture_only",
+      "source_draft_packet_id": "draft_packet_candidate_local_fixture_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "production_key_setup"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "8012107b5a66f97f7dd01253b02d74cf5459c6ea80f56c63d3489c8dbd147652",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "facebook_page_media",
+      "platform_target_id": "facebook_page",
+      "precheck_id": "precheck_candidate_local_fixture_only_facebook_page",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_local_fixture_only",
+      "source_draft_packet_id": "draft_packet_candidate_local_fixture_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "production_key_setup"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "a6f73608c25478db6d04aff0d52e29c36e9fc7bf310068966e7b62d9e8f78d58",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "tiktok_video",
+      "platform_target_id": "tiktok",
+      "precheck_id": "precheck_candidate_local_fixture_only_tiktok",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_local_fixture_only",
+      "source_draft_packet_id": "draft_packet_candidate_local_fixture_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "production_key_setup"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "4f2317966ec635c7e4891b0f0d78d62b138885cfdbd91648a82cbd9a11fbab50",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "youtube_video",
+      "platform_target_id": "youtube",
+      "precheck_id": "precheck_candidate_local_fixture_only_youtube",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_local_fixture_only",
+      "source_draft_packet_id": "draft_packet_candidate_local_fixture_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_payload_hash_lock",
+        "quarantined_review_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "administrator_clearance",
+        "operator_signature_check",
+        "payload_hash_lock_proof"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "b3ac6d3a3f7327868df44b4c4bf08be378c7b4f6ae71ffb958184e1684fb1b39",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "x_microblog",
+      "platform_target_id": "x",
+      "precheck_id": "precheck_candidate_quarantined_review_only_x",
+      "precheck_status": "blocked_missing_payload_hash_lock",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_quarantined_review_only",
+      "source_draft_packet_id": "draft_packet_candidate_quarantined_review_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_account_binding",
+        "quarantined_review_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "account_binding_proof",
+        "administrator_clearance",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "e7ad19c39bcf4cac29ef75b80a22433a75bd80ea81048fc1f73010362220392e",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_channel_destination",
+      "precheck_id": "precheck_candidate_quarantined_review_only_telegram_channel_destination",
+      "precheck_status": "blocked_missing_account_binding",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_quarantined_review_only",
+      "source_draft_packet_id": "draft_packet_candidate_quarantined_review_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "missing_credential_gate",
+        "quarantined_review_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "administrator_clearance",
+        "credential_gate_proof",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "e108ed5ed2ceb5b0045ef79be9e8da0b18f75960060713c20e50f3e3fce406ba",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_remote_operator",
+      "precheck_id": "precheck_candidate_quarantined_review_only_telegram_remote_operator",
+      "precheck_status": "blocked_missing_credential_gate",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_quarantined_review_only",
+      "source_draft_packet_id": "draft_packet_candidate_quarantined_review_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "administrator_clearance",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "09046e83b8cd92f60d2d2aa4c71a18b18c11733aec3479d2948adbb4458601cc",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "substack_newsletter",
+      "platform_target_id": "substack",
+      "precheck_id": "precheck_candidate_quarantined_review_only_substack",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_quarantined_review_only",
+      "source_draft_packet_id": "draft_packet_candidate_quarantined_review_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "administrator_clearance",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "5ad694b131459a24dcd9f48a3ef410237902807b681bc899b12b5ab75d2d64f6",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "linkedin_professional",
+      "platform_target_id": "linkedin",
+      "precheck_id": "precheck_candidate_quarantined_review_only_linkedin",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_quarantined_review_only",
+      "source_draft_packet_id": "draft_packet_candidate_quarantined_review_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "administrator_clearance",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "7489e48d5a8419040840e2a58f77816c80200e8df1895f3df606a22af11f6988",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "threads_microblog",
+      "platform_target_id": "threads",
+      "precheck_id": "precheck_candidate_quarantined_review_only_threads",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_quarantined_review_only",
+      "source_draft_packet_id": "draft_packet_candidate_quarantined_review_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "administrator_clearance",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "ad90fdf0877335efa98b7a9d11e7c1b382f657d94f638f956d43f981abcafe03",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "instagram_media",
+      "platform_target_id": "instagram",
+      "precheck_id": "precheck_candidate_quarantined_review_only_instagram",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_quarantined_review_only",
+      "source_draft_packet_id": "draft_packet_candidate_quarantined_review_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "administrator_clearance",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "5bf6cd0872c562cc8bda30a2b30e5ec7093a84534b86b1b594d84df6ec37b802",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "facebook_page_media",
+      "platform_target_id": "facebook_page",
+      "precheck_id": "precheck_candidate_quarantined_review_only_facebook_page",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_quarantined_review_only",
+      "source_draft_packet_id": "draft_packet_candidate_quarantined_review_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "administrator_clearance",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "4028258ded7c5e06cf269538a638386acdbccc57f3b2bb90b2bb03e4ee6ab24e",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "tiktok_video",
+      "platform_target_id": "tiktok",
+      "precheck_id": "precheck_candidate_quarantined_review_only_tiktok",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_quarantined_review_only",
+      "source_draft_packet_id": "draft_packet_candidate_quarantined_review_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "administrator_clearance",
+        "operator_signature_check"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "e981b7fb5137e52922d21db4c5d835deb34fdbf1957fd21606809f34abd23047",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "youtube_video",
+      "platform_target_id": "youtube",
+      "precheck_id": "precheck_candidate_quarantined_review_only_youtube",
+      "precheck_status": "precheck_created_blocked_for_operator_review",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_quarantined_review_only",
+      "source_draft_packet_id": "draft_packet_candidate_quarantined_review_only"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "security_escalation_clearance"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "e049a67cbc660cfa716c3a3a3a04472669ed52917ff311859ab99278cc5c80de",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "x_microblog",
+      "platform_target_id": "x",
+      "precheck_id": "precheck_candidate_forbidden_public_ready_claim_x",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_forbidden_public_ready_claim",
+      "source_draft_packet_id": "none"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "security_escalation_clearance"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "f9240c4de2252d51cb6e7fa52cfba7d2ff5bde94ba56b5f8466be1837ebd29a6",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_channel_destination",
+      "precheck_id": "precheck_candidate_forbidden_public_ready_claim_telegram_channel_destination",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_forbidden_public_ready_claim",
+      "source_draft_packet_id": "none"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "security_escalation_clearance"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "c32c7a916ccdae7a11dcf7249eef961f52599cf10056d1741f1ba8cb60b2348e",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_remote_operator",
+      "precheck_id": "precheck_candidate_forbidden_public_ready_claim_telegram_remote_operator",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_forbidden_public_ready_claim",
+      "source_draft_packet_id": "none"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "security_escalation_clearance"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "0a308eb28885ef644c9d6c7321adc9afea19175294bbb661420417a3f993fe44",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "substack_newsletter",
+      "platform_target_id": "substack",
+      "precheck_id": "precheck_candidate_forbidden_public_ready_claim_substack",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_forbidden_public_ready_claim",
+      "source_draft_packet_id": "none"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "security_escalation_clearance"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "1d7edc001105713cd9dab0a4f3fb1a70d5b1f166ddcfb260e98a05316e010e49",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "linkedin_professional",
+      "platform_target_id": "linkedin",
+      "precheck_id": "precheck_candidate_forbidden_public_ready_claim_linkedin",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_forbidden_public_ready_claim",
+      "source_draft_packet_id": "none"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "security_escalation_clearance"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "df412488312b02d94a92eca856fc83c4287cf0c087b1f8cefcf314ec8fb7a233",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "threads_microblog",
+      "platform_target_id": "threads",
+      "precheck_id": "precheck_candidate_forbidden_public_ready_claim_threads",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_forbidden_public_ready_claim",
+      "source_draft_packet_id": "none"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "security_escalation_clearance"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "83c743065c2c94a60d2449168890f03fb59f71ac4a5998617bad5214e50fdb01",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "instagram_media",
+      "platform_target_id": "instagram",
+      "precheck_id": "precheck_candidate_forbidden_public_ready_claim_instagram",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_forbidden_public_ready_claim",
+      "source_draft_packet_id": "none"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "security_escalation_clearance"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "bf95d046fac9a48875c7e2c4c28cf7caf31b59a27d1db4a544e464c378281fe1",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "facebook_page_media",
+      "platform_target_id": "facebook_page",
+      "precheck_id": "precheck_candidate_forbidden_public_ready_claim_facebook_page",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_forbidden_public_ready_claim",
+      "source_draft_packet_id": "none"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "security_escalation_clearance"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "190ebd5ef3f65e4203e12a17282299e846330841dfeb65821fd904fff8dd4163",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "tiktok_video",
+      "platform_target_id": "tiktok",
+      "precheck_id": "precheck_candidate_forbidden_public_ready_claim_tiktok",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_forbidden_public_ready_claim",
+      "source_draft_packet_id": "none"
+    },
+    {
+      "account_binding_required": true,
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "credential_gate_required": true,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "missing_proofs": [
+        "operator_signature_check",
+        "security_escalation_clearance"
+      ],
+      "operator_review_required": true,
+      "packet_hash": "d1e5dc1333d967c9e279e23c8e5aab7f131f37b0b3dcf01d5de65dd981c6076c",
+      "payload_created": false,
+      "payload_hash_lock_required": true,
+      "platform_api_called": false,
+      "platform_family": "youtube_video",
+      "platform_target_id": "youtube",
+      "precheck_id": "precheck_candidate_forbidden_public_ready_claim_youtube",
+      "precheck_status": "blocked_unresolved_dqr_or_readiness",
+      "preserved_citation_requirements": [
+        "unverified_citations"
+      ],
+      "preserved_limitations": [
+        "active_limitations_present"
+      ],
+      "preview_stub_status": "stub_compiled_precheck_only",
+      "publishable_payload_created": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_approval_packet_id": "approval_packet_candidate_forbidden_public_ready_claim",
+      "source_draft_packet_id": "none"
+    }
+  ],
+  "rules": [
+    {
+      "description": "Ensure no post is marked postable publicly without active operator override.",
+      "passed": true,
+      "rule_id": "no_public_postable_content"
+    },
+    {
+      "description": "Ensure no post state transitions to dispatch ready.",
+      "passed": true,
+      "rule_id": "no_dispatch_ready_state"
+    },
+    {
+      "description": "Ensure no real platform-ready payloads are compiled or saved.",
+      "passed": true,
+      "rule_id": "no_platform_payload_created"
+    },
+    {
+      "description": "Enforce strict dry local-only path blocks on all network adapters.",
+      "passed": true,
+      "rule_id": "no_platform_api_call"
+    },
+    {
+      "description": "Strict block on external dot-env or key-vault reads for platforms.",
+      "passed": true,
+      "rule_id": "no_credential_or_env_read"
+    },
+    {
+      "description": "Enforce no active scheduler triggers or timers.",
+      "passed": true,
+      "rule_id": "no_scheduler"
+    },
+    {
+      "description": "Block any unsupervised publishing flows.",
+      "passed": true,
+      "rule_id": "no_autonomous_posting"
+    },
+    {
+      "description": "Block any automated operator responses or inbox handlers.",
+      "passed": true,
+      "rule_id": "no_autonomous_reply_or_dm"
+    },
+    {
+      "description": "Ensure zero active HTTP scraping rules are executed.",
+      "passed": true,
+      "rule_id": "no_scraping"
+    },
+    {
+      "description": "Validate that no financial recommendation keywords are in payloads.",
+      "passed": true,
+      "rule_id": "no_financial_advice"
+    },
+    {
+      "description": "Validate that no signal/trading system descriptors are in payloads.",
+      "passed": true,
+      "rule_id": "no_signal_language"
+    },
+    {
+      "description": "Validate candidate lineage to block fake stats or price estimates.",
+      "passed": true,
+      "rule_id": "no_market_number_fabrication"
+    },
+    {
+      "description": "Validate citation proofs are referenced and kept un-cleared.",
+      "passed": true,
+      "rule_id": "preserve_citation_requirements"
+    },
+    {
+      "description": "Ensure active limitations remain in stub metadata.",
+      "passed": true,
+      "rule_id": "preserve_limitations"
+    },
+    {
+      "description": "Block post promotion while DQR snapshot indicates unresolved details.",
+      "passed": true,
+      "rule_id": "preserve_dqr_readiness_blocks"
+    },
+    {
+      "description": "Always mark operator signoff requirements as active.",
+      "passed": true,
+      "rule_id": "require_operator_review"
+    },
+    {
+      "description": "Explicitly register account binding requirements.",
+      "passed": true,
+      "rule_id": "require_future_account_binding"
+    },
+    {
+      "description": "Explicitly register payload hash lock check requirements.",
+      "passed": true,
+      "rule_id": "require_future_payload_hash_lock"
+    }
+  ],
+  "safety_flags": {
+    "approved_for_publication": false,
+    "approved_internal_alpha_artifacts_available": false,
+    "autonomous_posting": false,
+    "autonomous_reply_or_dm": false,
+    "broker_order_execution": false,
+    "credential_values_loaded": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "dqr_cleared_by_contentops": false,
+    "env_read": false,
+    "financial_advice": false,
+    "fixture_only": true,
+    "ingestion_repo_mutated": false,
+    "local_only": true,
+    "network_performed": false,
+    "platform_api_called": false,
+    "platform_payload_allowed": false,
+    "platform_payload_created": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "publishable_payload_created": false,
+    "raw_vendor_redistribution": false,
+    "readiness_cleared_by_contentops": false,
+    "scheduler_enabled": false,
+    "scraping": false,
+    "signal_language": false
+  },
+  "source_baseline_commit": "ba81ce1851c8365cbd00f332daba2e087ea309df",
+  "targets": [
+    {
+      "character_limit_or_shape_note": "280 character limit with media slots",
+      "forbidden_actions": [
+        "autonomous_posting",
+        "direct_api_send_without_operator"
+      ],
+      "platform_family": "x_microblog",
+      "precheck_only": true,
+      "requires_account_binding": true,
+      "requires_credential_gate": true,
+      "requires_manual_preview": true,
+      "requires_operator_approval": true,
+      "requires_payload_hash_lock": true,
+      "status": "precheck_only",
+      "target_id": "x"
+    },
+    {
+      "character_limit_or_shape_note": "4096 characters limit for channel messages",
+      "forbidden_actions": [
+        "autonomous_posting",
+        "direct_api_send_without_operator"
+      ],
+      "platform_family": "telegram_chat",
+      "precheck_only": true,
+      "requires_account_binding": true,
+      "requires_credential_gate": true,
+      "requires_manual_preview": true,
+      "requires_operator_approval": true,
+      "requires_payload_hash_lock": true,
+      "status": "precheck_only",
+      "target_id": "telegram_channel_destination"
+    },
+    {
+      "character_limit_or_shape_note": "4096 characters limit for operator logs",
+      "forbidden_actions": [
+        "autonomous_posting",
+        "direct_api_send_without_operator"
+      ],
+      "platform_family": "telegram_chat",
+      "precheck_only": true,
+      "requires_account_binding": true,
+      "requires_credential_gate": true,
+      "requires_manual_preview": true,
+      "requires_operator_approval": true,
+      "requires_payload_hash_lock": true,
+      "status": "precheck_only",
+      "target_id": "telegram_remote_operator"
+    },
+    {
+      "character_limit_or_shape_note": "standard newsletter email layout, markdown-enabled",
+      "forbidden_actions": [
+        "autonomous_posting",
+        "direct_api_send_without_operator"
+      ],
+      "platform_family": "substack_newsletter",
+      "precheck_only": true,
+      "requires_account_binding": true,
+      "requires_credential_gate": true,
+      "requires_manual_preview": true,
+      "requires_operator_approval": true,
+      "requires_payload_hash_lock": true,
+      "status": "precheck_only",
+      "target_id": "substack"
+    },
+    {
+      "character_limit_or_shape_note": "3000 character limit professional feed structure",
+      "forbidden_actions": [
+        "autonomous_posting",
+        "direct_api_send_without_operator"
+      ],
+      "platform_family": "linkedin_professional",
+      "precheck_only": true,
+      "requires_account_binding": true,
+      "requires_credential_gate": true,
+      "requires_manual_preview": true,
+      "requires_operator_approval": true,
+      "requires_payload_hash_lock": true,
+      "status": "precheck_only",
+      "target_id": "linkedin"
+    },
+    {
+      "character_limit_or_shape_note": "500 character limit microblog shape",
+      "forbidden_actions": [
+        "autonomous_posting",
+        "direct_api_send_without_operator"
+      ],
+      "platform_family": "threads_microblog",
+      "precheck_only": true,
+      "requires_account_binding": true,
+      "requires_credential_gate": true,
+      "requires_manual_preview": true,
+      "requires_operator_approval": true,
+      "requires_payload_hash_lock": true,
+      "status": "precheck_only",
+      "target_id": "threads"
+    },
+    {
+      "character_limit_or_shape_note": "2200 character limit image/caption requirement",
+      "forbidden_actions": [
+        "autonomous_posting",
+        "direct_api_send_without_operator"
+      ],
+      "platform_family": "instagram_media",
+      "precheck_only": true,
+      "requires_account_binding": true,
+      "requires_credential_gate": true,
+      "requires_manual_preview": true,
+      "requires_operator_approval": true,
+      "requires_payload_hash_lock": true,
+      "status": "precheck_only",
+      "target_id": "instagram"
+    },
+    {
+      "character_limit_or_shape_note": "standard page layout with attachment fields",
+      "forbidden_actions": [
+        "autonomous_posting",
+        "direct_api_send_without_operator"
+      ],
+      "platform_family": "facebook_page_media",
+      "precheck_only": true,
+      "requires_account_binding": true,
+      "requires_credential_gate": true,
+      "requires_manual_preview": true,
+      "requires_operator_approval": true,
+      "requires_payload_hash_lock": true,
+      "status": "precheck_only",
+      "target_id": "facebook_page"
+    },
+    {
+      "character_limit_or_shape_note": "caption character limit and video format details",
+      "forbidden_actions": [
+        "autonomous_posting",
+        "direct_api_send_without_operator"
+      ],
+      "platform_family": "tiktok_video",
+      "precheck_only": true,
+      "requires_account_binding": true,
+      "requires_credential_gate": true,
+      "requires_manual_preview": true,
+      "requires_operator_approval": true,
+      "requires_payload_hash_lock": true,
+      "status": "precheck_only",
+      "target_id": "tiktok"
+    },
+    {
+      "character_limit_or_shape_note": "description character limit and video metadata check",
+      "forbidden_actions": [
+        "autonomous_posting",
+        "direct_api_send_without_operator"
+      ],
+      "platform_family": "youtube_video",
+      "precheck_only": true,
+      "requires_account_binding": true,
+      "requires_credential_gate": true,
+      "requires_manual_preview": true,
+      "requires_operator_approval": true,
+      "requires_payload_hash_lock": true,
+      "status": "precheck_only",
+      "target_id": "youtube"
+    }
+  ],
+  "task_label": "TASK_CONTENTOPS_0175AM_LANE_C_APPROVAL_PACKET_TO_PLATFORM_PREVIEW_PRECHECK_V0"
+}

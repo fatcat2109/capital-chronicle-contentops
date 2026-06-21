@@ -60,6 +60,7 @@ ENTRY_FAMILIES = (
     "lane_c_artifact_to_editorial_brief_review_packet_future",
     "lane_c_editorial_brief_to_draft_review_only_packet_future",
     "lane_c_draft_review_to_approval_packet_gate_future",
+    "lane_c_approval_packet_to_platform_preview_precheck_future",
     "unknown_or_blocked",
 )
 
