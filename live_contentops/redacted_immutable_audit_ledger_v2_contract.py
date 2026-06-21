@@ -73,6 +73,7 @@ ENTRY_FAMILIES = (
     "manual_publish_record_stub_to_metrics_precheck_future",
     "metrics_precheck_to_metrics_record_stub_future",
     "metrics_record_stub_to_performance_audit_precheck_future",
+    "performance_audit_precheck_to_summary_stub_future",
     "unknown_or_blocked",
 )
 
