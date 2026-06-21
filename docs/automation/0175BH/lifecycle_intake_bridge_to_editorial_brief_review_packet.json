@@ -1,0 +1,179 @@
+{
+  "blocked_reasons": [
+    "operator_brief_review_pending",
+    "content_intent_gate_unlocked"
+  ],
+  "candidate_count": 7,
+  "candidate_review_items": [
+    {
+      "advisory_only": true,
+      "allowed_next_step": "operator_must_inspect_source_artifact_before_brief_generation",
+      "blocked_reasons": [
+        "waiting_for_operator_brief_review"
+      ],
+      "candidate_id": "STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1",
+      "candidate_only": true,
+      "contract_name": null,
+      "evidence_role": "manifest",
+      "operator_review_required": true,
+      "records_count": 6,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1.json",
+      "source_family": "Official Text Spine"
+    },
+    {
+      "advisory_only": true,
+      "allowed_next_step": "operator_must_inspect_source_artifact_before_brief_generation",
+      "blocked_reasons": [
+        "waiting_for_operator_brief_review"
+      ],
+      "candidate_id": "STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1",
+      "candidate_only": true,
+      "contract_name": "STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1",
+      "evidence_role": "contract",
+      "operator_review_required": true,
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1.json",
+      "source_family": "Official Text Spine"
+    },
+    {
+      "advisory_only": true,
+      "allowed_next_step": "operator_must_inspect_source_artifact_before_brief_generation",
+      "blocked_reasons": [
+        "waiting_for_operator_brief_review"
+      ],
+      "candidate_id": "BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1",
+      "candidate_only": true,
+      "contract_name": "BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1",
+      "evidence_role": "contract",
+      "operator_review_required": true,
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1.json",
+      "source_family": "US Macro"
+    },
+    {
+      "advisory_only": true,
+      "allowed_next_step": "operator_must_inspect_source_artifact_before_brief_generation",
+      "blocked_reasons": [
+        "waiting_for_operator_brief_review"
+      ],
+      "candidate_id": "BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1",
+      "candidate_only": true,
+      "contract_name": null,
+      "evidence_role": "candidates",
+      "operator_review_required": true,
+      "records_count": 9,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1.json",
+      "source_family": "US Macro"
+    },
+    {
+      "advisory_only": true,
+      "allowed_next_step": "operator_must_inspect_source_artifact_before_brief_generation",
+      "blocked_reasons": [
+        "waiting_for_operator_brief_review"
+      ],
+      "candidate_id": "BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1",
+      "candidate_only": true,
+      "contract_name": null,
+      "evidence_role": "manifest",
+      "operator_review_required": true,
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1.json",
+      "source_family": "Broker Proxy"
+    },
+    {
+      "advisory_only": true,
+      "allowed_next_step": "operator_must_inspect_source_artifact_before_brief_generation",
+      "blocked_reasons": [
+        "waiting_for_operator_brief_review"
+      ],
+      "candidate_id": "DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1",
+      "candidate_only": true,
+      "contract_name": null,
+      "evidence_role": "contract",
+      "operator_review_required": true,
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1.json",
+      "source_family": "US Macro"
+    },
+    {
+      "advisory_only": true,
+      "allowed_next_step": "operator_must_inspect_source_artifact_before_brief_generation",
+      "blocked_reasons": [
+        "waiting_for_operator_brief_review"
+      ],
+      "candidate_id": "ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1",
+      "candidate_only": true,
+      "contract_name": null,
+      "evidence_role": "contract",
+      "operator_review_required": true,
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1.json",
+      "source_family": "US Macro"
+    }
+  ],
+  "contentops_source_head": "23e0573c062b63c939040143cfe66830bbfa9c2a",
+  "evidence_roles": [
+    "candidates",
+    "contract",
+    "manifest"
+  ],
+  "hash_algorithm": "sha256",
+  "ingestion_repo_branch": "main",
+  "ingestion_repo_head": "5d783546da258196cbfcdd37899c23a2100b9acb",
+  "ingestion_repo_path_checked": "A:\\Capital Chronicle\\Headline Raw data local json\\capital-chronicle-ingestion",
+  "ingestion_repo_status": "dirty",
+  "ledger_family": "lifecycle_intake_bridge_to_editorial_brief_review_packet_future",
+  "lifecycle_overlay": {
+    "affected_stage_id": "artifact_or_brief_intake",
+    "downstream_dispatch_ready": false,
+    "operator_review_required": true,
+    "public_postable": false,
+    "stage_state_after_overlay": "PENDING"
+  },
+  "lifecycle_overlays": {
+    "artifact_or_brief_intake": {
+      "operator_action_required": true,
+      "state": "PENDING"
+    },
+    "content_intent": {
+      "operator_action_required": true,
+      "state": "BLOCKED"
+    }
+  },
+  "next_recommended_task": "TASK_CONTENTOPS_0175BI_EDITORIAL_BRIEF_REVIEW_PACKET_TO_V5_BRIEF_QUEUE_BINDING_V0",
+  "packet_hash": "4c3787d21a3441a3da13b1ac87af28c963797afbe823f5ec6e77792018ed0793",
+  "protected_truth_flags": {
+    "current_truth_promoted": false,
+    "dqr_cleared_by_contentops": false,
+    "market_data_promoted": false,
+    "numeric_truth_promoted": false,
+    "readiness_cleared_by_contentops": false
+  },
+  "required_operator_review_checklist": [
+    "Confirm ingestion repository path matches local system",
+    "Verify candidates scanned count matches expected count",
+    "Ensure all candidate metadata fields are loaded without error",
+    "Confirm no public draft copy or market predictions are generated",
+    "Inspect source family classification before transitioning to content intent stage"
+  ],
+  "safety_flags": {
+    "credential_hydrated": false,
+    "dispatch_ready": false,
+    "env_secret_read": false,
+    "live_api_called": false,
+    "platform_api_called": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "secret_values_observed": false
+  },
+  "source_bridge_packet_hash": "17dd4652f4ec4e3e20ade749c68fdad0bf3a854d2a388bff1c25a6cf9842da2a",
+  "source_bridge_task_label": "TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0",
+  "task_label": "TASK_CONTENTOPS_0175BH_LIFECYCLE_INTAKE_BRIDGE_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0",
+  "topic_families": [
+    "Broker Proxy",
+    "Official Text Spine",
+    "US Macro"
+  ]
+}

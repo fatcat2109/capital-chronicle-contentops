@@ -1,14 +1,14 @@
 # Capital Chronicle ContentOps Progress Ledger and Final Product Checklist
 
-## 1. Accepted Frontier
+### 1. Accepted Frontier
 
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `25030c9ecb7f1340d8abc0943c397984f1ebb4d7`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175BF_OPERATOR_REVIEW_READ_MODEL_TO_V5_QUEUE_BINDING_V0`
-* **Latest implemented capability:** Content Lifecycle Spine V5 UI Binding
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0`
+* **Last resolved accepted HEAD in ledger:** `23e0573c062b63c939040143cfe66830bbfa9c2a`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0`
+* **Latest implemented capability:** Lane C Artifact Intake Lifecycle Bridge
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BH_LIFECYCLE_INTAKE_BRIDGE_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -43,7 +43,7 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | **Lane C Artifact Intake Validation** | Validation pipeline for future Capital Chronicle artifacts | `TESTED` | `lane_c_artifact_intake_validation_contract.py` | Integration with live ingestion scripts | Ingestion path validation |
 | **Lane C Artifact Connector Index** | Registry of allowed connector families and path patterns | `TESTED` | `lane_c_artifact_connector_index_contract.py` | Production file connectors | Operator manual review gate |
 | **Lane C Artifact Ingestion Foundation** | Batch file ingestion and verification mechanisms | `TESTED` | `lane_c_artifact_ingestion_foundation_contract.py` | Integration with live ingestion pipeline | Operator gate and folder bindings |
-| **Artifact-backed Editorial Brief** | Automatically generated briefs from ingested artifacts | `TESTED` | `lane_c_artifact_to_editorial_brief_review_packet_contract.py` | Generation of review briefs from candidates | Ingestion foundation validation |
+| **Artifact-backed Editorial Brief** | Automatically generated briefs from ingested artifacts | `TESTED` | `lifecycle_intake_bridge_to_editorial_brief_review_packet.py` | None (bridge capability complete) | Operator brief review signoff |
 | **Artifact-backed Draft Generation** | Auto-generation of multi-platform variant drafts from brief | `TESTED` | `lane_c_editorial_brief_to_draft_review_only_packet_contract.py` | Scaffold review-only draft stubs from brief | Writer Studio/approval workflows |
 | **Artifact-backed Platform Preview** | Payload compilation and preview for artifact-derived posts | `LOCAL_CONTRACT_READY` | `0175AM` / `lane_c_approval_packet_to_platform_preview_precheck_contract.py` | Invariant checks and preview compilation | Draft Generation |
 | **Platform Preview Dry Payload Shape Registry** | Platform-specific preview payload shapes for future rendering | `LOCAL_CONTRACT_READY` | `0175AN` / `platform_preview_dry_payload_shape_registry_contract.py` | Future dry rendering integration | Precheck precedent |
@@ -116,8 +116,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175BD_REPO_DEEP_RESEARCH_AND_REMAINING_PHASE_PLAN_V0` | `2265841efaa3af9177fbb58f2def53ac6cfa807a` | `158c85467dfd1877f43e3bdea78bb15dba051c05` | perform deep research scan and plan remaining phases | JSON packet loads, file existence checks | strategic design clarity and remaining roadmap planning | local/recon | `0175BE` |
 | `TASK_CONTENTOPS_0175BE_CONTRACT_CHAIN_LIFECYCLE_SPINE_AND_OPERATOR_REVIEW_READ_MODEL_PRECHECK_V0` | `158c85467dfd1877f43e3bdea78bb15dba051c05` | `8e95830500a6d37999b906d65f0498f09ffde912` | build canonical content lifecycle spine and operator review read model | pytest suites, check stage order, safety checks | unified state model representing all 16 stages | local/contract | `0175BF` |
 | `TASK_CONTENTOPS_0175BF_OPERATOR_REVIEW_READ_MODEL_TO_V5_QUEUE_BINDING_V0` | `8e95830500a6d37999b906d65f0498f09ffde912` | `25030c9ecb7f1340d8abc0943c397984f1ebb4d7` | Bind consolidated lifecycle read-model and stages to V5 UI | Vitest front-end test, pytest check test, build check | Canonical contract-backed V5 Operator Review Queue | Ingestion connectors / artifact bridge | `0175BG` |
-| `TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0` | `25030c9ecb7f1340d8abc0943c397984f1ebb4d7` | `RECORDED_IN_NEXT_TASK_READBACK` | Bridge Lane C artifact intake validation to the Content Lifecycle Engine | Pytest suite, check scanned candidates count, invariants validation | Evidence-backed first stage of the lifecycle spine | Intake bridge to brief review packet transition | `0175BH` |
-
+| `TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0` | `25030c9ecb7f1340d8abc0943c397984f1ebb4d7` | `23e0573c062b63c939040143cfe66830bbfa9c2a` | Bridge Lane C artifact intake validation to the Content Lifecycle Engine | Pytest suite, check scanned candidates count, invariants validation | Evidence-backed first stage of the lifecycle spine | Intake bridge to brief review packet transition | `0175BH` |
+| `TASK_CONTENTOPS_0175BH_LIFECYCLE_INTAKE_BRIDGE_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0` | `23e0573c062b63c939040143cfe66830bbfa9c2a` | `RECORDED_IN_NEXT_TASK_READBACK` | Transition Lane C candidate metadata into Editorial Brief Review Packet | test_lifecycle_intake_bridge_to_editorial_brief_review_packet.py, runbook checks | Deterministic metadata-only brief review packet mapping | V5 cockpit brief queue binding, content intent gate checks | `0175BI` |
 
 ---
 
@@ -159,6 +159,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BH_LIFECYCLE_INTAKE_BRIDGE_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0`
-* **Focus:** Transition the lifecycle intake bridge candidates into the editorial brief review packet.
-* **Visual System Status:** Visual enhancement/polish is deferred until more core product foundation is complete.
+* **Next recommended task:** `TASK_CONTENTOPS_0175BI_EDITORIAL_BRIEF_REVIEW_PACKET_TO_V5_BRIEF_QUEUE_BINDING_V0`
+* **Focus:** Bind the Editorial Brief Review Packet into the V5 cockpit static queues.
+* **Visual System Status:** Visual enhancement/polish is deferred.

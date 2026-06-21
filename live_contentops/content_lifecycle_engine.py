@@ -623,22 +623,33 @@ def render_runbook(packet: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def build_lifecycle_read_model_with_artifact_intake_bridge(bridge_packet: dict[str, Any]) -> dict[str, Any]:
+def build_lifecycle_read_model_with_artifact_intake_bridge(
+    bridge_packet: dict[str, Any],
+    next_recommended_task: str | None = None
+) -> dict[str, Any]:
     """Applies the bridge_packet overlay to the canonical content lifecycle model."""
     stages = list_lifecycle_stages()
 
-    # Extract overlay configuration
-    overlay = bridge_packet.get("lifecycle_overlay", {})
-    affected_stage_id = overlay.get("affected_stage_id", "artifact_or_brief_intake")
-    state_after = overlay.get("stage_state_after_overlay", "PENDING")
-    op_required = overlay.get("operator_review_required", True)
+    # Extract overlays support both single and multi-stage configurations
+    overlays = bridge_packet.get("lifecycle_overlays", {})
+    if not overlays:
+        overlay = bridge_packet.get("lifecycle_overlay", {})
+        if overlay:
+            stage_id = overlay.get("affected_stage_id", "artifact_or_brief_intake")
+            state_after = overlay.get("stage_state_after_overlay", "PENDING")
+            op_required = overlay.get("operator_review_required", True)
+            overlays[stage_id] = {
+                "state": state_after,
+                "operator_action_required": op_required
+            }
 
-    # Apply overlay to the first stage
+    # Apply overlays to matching stages
     updated_stages = []
     for stage in stages:
-        if stage.stage_id == affected_stage_id:
+        if stage.stage_id in overlays:
+            new_state = overlays[stage.stage_id].get("state", stage.state)
+            new_op = overlays[stage.stage_id].get("operator_action_required", stage.operator_action_required)
             # Reconstruct LifecycleStage with overlay values
-            # (LifecycleStage is frozen/immutable)
             new_stage = LifecycleStage(
                 stage_id=stage.stage_id,
                 stage_order=stage.stage_order,
@@ -653,8 +664,8 @@ def build_lifecycle_read_model_with_artifact_intake_bridge(bridge_packet: dict[s
                 evidence_refs=stage.evidence_refs,
                 blocker_codes=stage.blocker_codes,
                 required_future_gate=stage.required_future_gate,
-                state=state_after,
-                operator_action_required=op_required,
+                state=new_state,
+                operator_action_required=new_op,
                 public_postable=False,
                 dispatch_ready=False,
                 live_api_called=False,
@@ -677,9 +688,14 @@ def build_lifecycle_read_model_with_artifact_intake_bridge(bridge_packet: dict[s
 
     summary = build_operator_review_summary(updated_stages)
 
-    # We should override the next recommended task in summary to match the bridge task
+    # Configure the next recommended task dynamically
     summary_dict = _asdict(summary)
-    summary_dict["next_recommended_task"] = "TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0"
+    actual_next_task = next_recommended_task
+    if not actual_next_task:
+        actual_next_task = bridge_packet.get("next_recommended_task")
+    if not actual_next_task:
+        actual_next_task = "TASK_CONTENTOPS_0175BH_LIFECYCLE_INTAKE_BRIDGE_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0"
+    summary_dict["next_recommended_task"] = actual_next_task
 
     read_model = [_asdict(s) for s in sorted(updated_stages, key=lambda s: s.stage_order)]
 
@@ -697,8 +713,8 @@ def build_lifecycle_read_model_with_artifact_intake_bridge(bridge_packet: dict[s
     }
 
     raw_packet = {
-        "task_label": "TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0",
-        "matrix_version": "0175BG_CONTENT_LIFECYCLE_SPINE_V1",
+        "task_label": bridge_packet.get("task_label", "TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0"),
+        "matrix_version": bridge_packet.get("matrix_version", "0175BG_CONTENT_LIFECYCLE_SPINE_V1"),
         "source_baseline_commit": "25030c9ecb7f1340d8abc0943c397984f1ebb4d7",
         "generated_at_epoch": 0,
         "stages": read_model,
