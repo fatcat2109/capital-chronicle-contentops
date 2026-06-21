@@ -110,7 +110,7 @@ describe('Manual Export / Pilot Verification UI', () => {
   it('proves break-all and containment classes exist on primitives', () => {
     openView();
     const verifiedChips = screen.getAllByText('true');
-    expect(verifiedChips[0].className).toContain('break-all');
+    expect(verifiedChips[0].className).toContain('whitespace-nowrap');
 
     const disabledBlocks = screen.getAllByText(/manual_export_pilot_verification_only_no_live_affordance/i);
     expect(disabledBlocks[0].className).toContain('break-all');

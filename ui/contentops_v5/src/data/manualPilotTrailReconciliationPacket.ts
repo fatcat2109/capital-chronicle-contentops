@@ -1,0 +1,152 @@
+// Generated static packet for TASK_CONTENTOPS_0174UZ.
+import type { V5ManualPilotTrailReconciliationPacket } from '../types';
+
+export const manualPilotTrailReconciliationPacket: V5ManualPilotTrailReconciliationPacket = {
+  "blocked_reasons": [
+    "awaiting_off_system_operator_evidence",
+    "manual_publish_url_empty",
+    "manual_metrics_snapshot_empty"
+  ],
+  "contract_version": "0174UZ_V5_MANUAL_PILOT_TRAIL_RECONCILIATION_CONTRACT_V1",
+  "disabled_live_action_state": {
+    "connect_account_enabled": false,
+    "live_dispatch_enabled": false,
+    "publish_enabled": false,
+    "reason": "manual_pilot_trail_reconciliation_only_no_live_dispatch",
+    "schedule_enabled": false,
+    "send_enabled": false,
+    "state_id": "disabled_live_action_0174UZ",
+    "sync_platform_enabled": false,
+    "verify_credentials_enabled": false
+  },
+  "lifecycle_steps": [
+    {
+      "detail": "Supervised pilot manual export packet generated and local file paths sealed.",
+      "label": "Export Packet Prepared",
+      "status": "verified",
+      "step_id": "export_packet_prepared",
+      "timestamp_placeholder": "local_only_time_placeholder"
+    },
+    {
+      "detail": "Operator review queue has registered the export package and is awaiting checklist completion.",
+      "label": "Operator Review Pending",
+      "status": "review",
+      "step_id": "operator_review_pending",
+      "timestamp_placeholder": "local_only_time_placeholder"
+    },
+    {
+      "detail": "Human compliance checks (X, Telegram, Substack, LinkedIn) must be checked off-system.",
+      "label": "Checklist Pending",
+      "status": "review",
+      "step_id": "checklist_pending",
+      "timestamp_placeholder": "local_only_time_placeholder"
+    },
+    {
+      "detail": "No live URL has been recorded. Operator must post off-system and supply the link.",
+      "label": "Manual Publish URL Empty",
+      "status": "review",
+      "step_id": "manual_publish_url_empty",
+      "timestamp_placeholder": "local_only_time_placeholder"
+    },
+    {
+      "detail": "No performance indicators recorded. Metrics remain uncaptured until manual operator entry.",
+      "label": "Manual Metrics Empty",
+      "status": "review",
+      "step_id": "manual_metrics_empty",
+      "timestamp_placeholder": "local_only_time_placeholder"
+    },
+    {
+      "detail": "Publishing requires the compliance officer to post copy blocks outside ContentOps.",
+      "label": "Off-System Operator Action Required",
+      "status": "review",
+      "step_id": "off_system_operator_action_required",
+      "timestamp_placeholder": "local_only_time_placeholder"
+    },
+    {
+      "detail": "Reconciliation record cannot be sealed without valid off-system manual publish links.",
+      "label": "Reconciliation Blocked Until Evidence Recorded",
+      "status": "blocked",
+      "step_id": "reconciliation_blocked_until_evidence_recorded",
+      "timestamp_placeholder": "local_only_time_placeholder"
+    },
+    {
+      "detail": "Local compliance engine actively prevents automated publishing or credential hydration.",
+      "label": "Live Dispatch Disabled",
+      "status": "verified",
+      "step_id": "live_dispatch_disabled",
+      "timestamp_placeholder": "local_only_time_placeholder"
+    }
+  ],
+  "missing_evidence": [
+    "manual_publish_url",
+    "manual_publish_timestamp",
+    "manual_metrics_snapshot"
+  ],
+  "next_recommended_task": "TASK_CONTENTOPS_0175AA_MANUAL_PILOT_TRAIL_RECONCILIATION_AUDIT_V0",
+  "packet_hash": "7998084518f5b9cabd948ab803ffd1a69f18ae95a68ce4999fd98218f5304f00",
+  "packet_hash_algorithm": "sha256",
+  "placeholder_fields": [
+    {
+      "detail": "Target destination URL where the operator manually posted the content.",
+      "field_id": "manual_publish_url",
+      "label": "Manual Publish URL",
+      "status": "empty_not_recorded",
+      "value": ""
+    },
+    {
+      "detail": "Operator-recorded exact timestamp of the off-system publish action.",
+      "field_id": "manual_publish_timestamp",
+      "label": "Manual Publish Timestamp",
+      "status": "empty_not_recorded",
+      "value": ""
+    },
+    {
+      "detail": "Manual copy of impressions, shares, likes, and comments from original source views.",
+      "field_id": "manual_metrics_snapshot",
+      "label": "Manual Metrics Snapshot",
+      "status": "empty_not_recorded",
+      "value": ""
+    },
+    {
+      "detail": "Unique post/status identifier extracted from the platform URL.",
+      "field_id": "platform_post_id",
+      "label": "Platform Post ID",
+      "status": "empty_not_recorded",
+      "value": ""
+    },
+    {
+      "detail": "Direct canonical link back to the published institutional message.",
+      "field_id": "platform_permalink",
+      "label": "Platform Permalink",
+      "status": "empty_not_recorded",
+      "value": ""
+    },
+    {
+      "detail": "Manual compliance overrides or warnings noted by the operator during verification.",
+      "field_id": "operator_notes",
+      "label": "Operator Notes",
+      "status": "empty_not_recorded",
+      "value": ""
+    }
+  ],
+  "reconciliation_id": "v5_reconciliation_7998084518f5b9cabd948ab",
+  "reconciliation_status": "blocked_reconciliation_pending_evidence",
+  "safety_flags": {
+    "approval_mutation": false,
+    "credential_values_loaded": false,
+    "dispatch_ready": false,
+    "local_only": true,
+    "manual_only": true,
+    "network_performed": false,
+    "no_credentials": true,
+    "no_live_dispatch": true,
+    "no_platform_api": true,
+    "no_scheduler": true,
+    "public_postable": false
+  },
+  "source_baseline_commit": "244ddaad05bcd39d071b8fda5ac3d359793aeca4",
+  "source_manual_export_packet_hash": "277fb7d44b247efc6021f038e362256f746cc039",
+  "source_operator_review_packet_hash": "473a376d9ff812ff830391e24d3cd75fd71b4faf576414f8b8a157b2ea9f284c",
+  "source_operator_review_queue_id": "v5_operator_review_queue_473a376d9ff812ff830391e2",
+  "task_label": "TASK_CONTENTOPS_0174UZ_MANUAL_PILOT_TRAIL_RECONCILIATION_V0"
+};

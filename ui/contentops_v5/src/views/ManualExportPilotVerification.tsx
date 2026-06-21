@@ -142,8 +142,8 @@ export function ManualExportPilotVerification() {
                     {target.status}
                   </StatusChip>
                 </td>
-                <td className="px-4 py-3"><StatusChip status="verified">true</StatusChip></td>
-                <td className="px-4 py-3"><StatusChip status="verified">true</StatusChip></td>
+                <td className="px-4 py-3"><StatusChip status="verified" nowrap>true</StatusChip></td>
+                <td className="px-4 py-3"><StatusChip status="verified" nowrap>true</StatusChip></td>
                 <td className="px-4 py-3"><StatusChip status="blocked">blocked</StatusChip></td>
               </tr>
             ))}

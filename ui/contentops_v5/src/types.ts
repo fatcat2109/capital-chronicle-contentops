@@ -15,6 +15,7 @@ export type ViewId =
   | 'manual_publish_metrics'
   | 'manual_export_pilot_verification'
   | 'operator_review_queue'
+  | 'manual_pilot_trail_reconciliation'
   | 'approval_queue'
   | 'evidence_vault'
   | 'preflight_bundle';
@@ -818,5 +819,55 @@ export interface V5OperatorReviewQueueManualPilotTrailPacket {
   safety_flags: V5ManualExportPilotSafetyFlags;
   source_baseline_commit: string;
   source_manual_export_packet_hash: string;
+  task_label: string;
+}
+
+export interface V5ReconciliationSafetyFlags {
+  approval_mutation: boolean;
+  credential_values_loaded: boolean;
+  dispatch_ready: boolean;
+  local_only: boolean;
+  manual_only: boolean;
+  network_performed: boolean;
+  no_credentials: boolean;
+  no_live_dispatch: boolean;
+  no_platform_api: boolean;
+  no_scheduler: boolean;
+  public_postable: boolean;
+}
+
+export interface V5LifecycleStep {
+  detail: string;
+  label: string;
+  status: StatusKind;
+  step_id: string;
+  timestamp_placeholder: string;
+}
+
+export interface V5PlaceholderField {
+  detail: string;
+  field_id: string;
+  label: string;
+  status: string;
+  value: string;
+}
+
+export interface V5ManualPilotTrailReconciliationPacket {
+  blocked_reasons: string[];
+  contract_version: string;
+  disabled_live_action_state: V5DisabledLiveDispatchState;
+  lifecycle_steps: V5LifecycleStep[];
+  missing_evidence: string[];
+  next_recommended_task: string;
+  packet_hash: string;
+  packet_hash_algorithm: string;
+  placeholder_fields: V5PlaceholderField[];
+  reconciliation_id: string;
+  reconciliation_status: string;
+  safety_flags: V5ReconciliationSafetyFlags;
+  source_baseline_commit: string;
+  source_manual_export_packet_hash: string;
+  source_operator_review_packet_hash: string;
+  source_operator_review_queue_id: string;
   task_label: string;
 }

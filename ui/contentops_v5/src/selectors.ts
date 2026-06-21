@@ -6,6 +6,7 @@ import { viewModel } from './fixtures';
 import { preflightBundlePacket } from './data/preflightBundlePacket';
 import { manualExportPilotVerificationPacket } from './data/manualExportPilotVerificationPacket';
 import { operatorReviewQueuePacket } from './data/operatorReviewQueuePacket';
+import { manualPilotTrailReconciliationPacket } from './data/manualPilotTrailReconciliationPacket';
 import type {
   AiWriterOutput,
   ArtifactEligibilityCheck,
@@ -39,6 +40,9 @@ import type {
   V5ReviewItem,
   V5TrailEntry,
   V5OperatorReviewQueueManualPilotTrailPacket,
+  V5ManualPilotTrailReconciliationPacket,
+  V5LifecycleStep,
+  V5PlaceholderField,
 } from './types';
 
 
@@ -419,6 +423,8 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectManualExportPilotPacket(manualExportPilotVerificationPacket);
     case 'operator_review_queue':
       return selectOperatorReviewQueuePacket(operatorReviewQueuePacket);
+    case 'manual_pilot_trail_reconciliation':
+      return selectManualPilotTrailReconciliationPacket(manualPilotTrailReconciliationPacket);
     case 'approval_queue': {
       const p = vm.approval_packets[0];
       const gate =
@@ -668,6 +674,59 @@ export function selectTrailEntry(
       { label: 'Status', value: e.status, status: e.status },
       { label: 'Timestamp', value: e.timestamp_placeholder, mono: true },
       { label: 'Label', value: e.label },
+    ],
+  };
+}
+
+export function selectManualPilotTrailReconciliationPacket(
+  p: V5ManualPilotTrailReconciliationPacket,
+): SelectableObject {
+  return {
+    kind: 'manual_pilot_trail_reconciliation_packet',
+    id: p.reconciliation_id,
+    title: `Reconciliation · ${p.reconciliation_id.slice(0, 16)}...`,
+    fields: [
+      { label: 'Reconciliation ID', value: p.reconciliation_id, mono: true },
+      { label: 'Contract Version', value: p.contract_version, mono: true },
+      { label: 'Reconciliation Status', value: p.reconciliation_status, status: p.reconciliation_status === 'blocked_reconciliation_pending_evidence' ? 'blocked' : 'verified' },
+      { label: 'Source Queue ID', value: p.source_operator_review_queue_id, mono: true },
+      { label: 'Source Export Hash', value: p.source_manual_export_packet_hash, mono: true },
+      { label: 'Source Review Hash', value: p.source_operator_review_packet_hash, mono: true },
+      { label: 'Baseline Commit', value: p.source_baseline_commit, mono: true },
+      { label: 'Task Label', value: p.task_label, mono: true },
+      { label: 'Packet Hash', value: p.packet_hash, mono: true },
+    ],
+  };
+}
+
+export function selectLifecycleStep(
+  s: V5LifecycleStep,
+): SelectableObject {
+  return {
+    kind: 'reconciliation_lifecycle_step',
+    id: s.step_id,
+    title: s.label,
+    fields: [
+      { label: 'Step ID', value: s.step_id, mono: true },
+      { label: 'Status', value: s.status, status: s.status },
+      { label: 'Detail', value: s.detail },
+      { label: 'Local Timestamp', value: s.timestamp_placeholder, mono: true },
+    ],
+  };
+}
+
+export function selectPlaceholderField(
+  f: V5PlaceholderField,
+): SelectableObject {
+  return {
+    kind: 'reconciliation_placeholder_field',
+    id: f.field_id,
+    title: f.label,
+    fields: [
+      { label: 'Field ID', value: f.field_id, mono: true },
+      { label: 'Current Value', value: f.value === '' ? '(empty)' : f.value, mono: f.value !== '' },
+      { label: 'Status', value: f.status, status: 'review' },
+      { label: 'Verification Detail', value: f.detail },
     ],
   };
 }

@@ -31,6 +31,7 @@ export const NAV_ITEMS: { id: ViewId; label: string; icon: string }[] = [
   { id: 'manual_publish_metrics', label: 'Manual Publish', icon: 'send' },
   { id: 'manual_export_pilot_verification', label: 'Manual Export / Pilot', icon: 'layers' },
   { id: 'operator_review_queue', label: 'Operator Review Queue', icon: 'inventory' },
+  { id: 'manual_pilot_trail_reconciliation', label: 'Manual Pilot Reconciliation', icon: 'sparkle' },
   { id: 'approval_queue', label: 'Approval & Dispatch', icon: 'shield' },
   { id: 'evidence_vault', label: 'Evidence Vault', icon: 'lock' },
   { id: 'preflight_bundle', label: 'Preflight Bundle', icon: 'shield' },

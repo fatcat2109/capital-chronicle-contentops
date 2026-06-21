@@ -140,10 +140,10 @@ export function OperatorReviewQueue() {
                       <StatusChip status="review">{item.status}</StatusChip>
                     </td>
                     <td className="px-4 py-3">
-                      <StatusChip status="verified">true</StatusChip>
+                      <StatusChip status="verified" nowrap>true</StatusChip>
                     </td>
                     <td className="px-4 py-3">
-                      <StatusChip status="verified">true</StatusChip>
+                      <StatusChip status="verified" nowrap>true</StatusChip>
                     </td>
                     <td className="px-4 py-3 text-[12px] text-fg-muted">
                       Required
