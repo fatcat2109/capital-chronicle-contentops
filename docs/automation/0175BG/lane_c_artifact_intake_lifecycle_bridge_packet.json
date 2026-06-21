@@ -1,0 +1,107 @@
+{
+  "task_label": "TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0",
+  "contentops_source_head": "25030c9ecb7f1340d8abc0943c397984f1ebb4d7",
+  "ingestion_repo_path_checked": "A:\\Capital Chronicle\\Headline Raw data local json\\capital-chronicle-ingestion",
+  "ingestion_repo_detected": true,
+  "ingestion_repo_branch": "main",
+  "ingestion_repo_head": "5d783546da258196cbfcdd37899c23a2100b9acb",
+  "ingestion_repo_status": "dirty",
+  "artifacts_scanned_count": 7,
+  "artifact_candidates_count": 7,
+  "artifact_candidate_summaries": [
+    {
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1.json",
+      "file_size_bytes": 3305,
+      "evidence_role": "manifest",
+      "source_family": "Official Text Spine",
+      "records_count": 6,
+      "contract_name": null,
+      "advisory_only": true,
+      "candidate_only": true
+    },
+    {
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1.json",
+      "file_size_bytes": 851,
+      "evidence_role": "contract",
+      "source_family": "Official Text Spine",
+      "records_count": 1,
+      "contract_name": "STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1",
+      "advisory_only": true,
+      "candidate_only": true
+    },
+    {
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1.json",
+      "file_size_bytes": 2385,
+      "evidence_role": "contract",
+      "source_family": "US Macro",
+      "records_count": 1,
+      "contract_name": "BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1",
+      "advisory_only": true,
+      "candidate_only": true
+    },
+    {
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1.json",
+      "file_size_bytes": 17558,
+      "evidence_role": "candidates",
+      "source_family": "US Macro",
+      "records_count": 9,
+      "contract_name": null,
+      "advisory_only": true,
+      "candidate_only": true
+    },
+    {
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1.json",
+      "file_size_bytes": 1273,
+      "evidence_role": "manifest",
+      "source_family": "Broker Proxy",
+      "records_count": 1,
+      "contract_name": null,
+      "advisory_only": true,
+      "candidate_only": true
+    },
+    {
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1.json",
+      "file_size_bytes": 2633,
+      "evidence_role": "contract",
+      "source_family": "US Macro",
+      "records_count": 1,
+      "contract_name": null,
+      "advisory_only": true,
+      "candidate_only": true
+    },
+    {
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1.json",
+      "file_size_bytes": 4500,
+      "evidence_role": "contract",
+      "source_family": "US Macro",
+      "records_count": 1,
+      "contract_name": null,
+      "advisory_only": true,
+      "candidate_only": true
+    }
+  ],
+  "protected_truth_flags": {
+    "dqr_cleared_by_contentops": false,
+    "readiness_cleared_by_contentops": false,
+    "current_truth_promoted": false,
+    "numeric_truth_promoted": false,
+    "market_data_promoted": false
+  },
+  "lifecycle_overlay": {
+    "affected_stage_id": "artifact_or_brief_intake",
+    "stage_state_after_overlay": "PENDING",
+    "operator_review_required": true,
+    "downstream_dispatch_ready": false,
+    "public_postable": false
+  },
+  "safety_flags": {
+    "live_api_called": false,
+    "provider_api_called": false,
+    "platform_api_called": false,
+    "credential_hydrated": false,
+    "secret_values_observed": false,
+    "env_secret_read": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false
+  }
+}

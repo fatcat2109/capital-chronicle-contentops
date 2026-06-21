@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `8e95830500a6d37999b906d65f0498f09ffde912`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175BE_CONTRACT_CHAIN_LIFECYCLE_SPINE_AND_OPERATOR_REVIEW_READ_MODEL_PRECHECK_V0`
-* **Latest implemented capability:** Canonical Content Lifecycle Spine and Operator Review Read Model
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BF_OPERATOR_REVIEW_READ_MODEL_TO_V5_QUEUE_BINDING_V0`
+* **Last resolved accepted HEAD in ledger:** `25030c9ecb7f1340d8abc0943c397984f1ebb4d7`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175BF_OPERATOR_REVIEW_READ_MODEL_TO_V5_QUEUE_BINDING_V0`
+* **Latest implemented capability:** Content Lifecycle Spine V5 UI Binding
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -115,7 +115,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` | `2265841efaa3af9177fbb58f2def53ac6cfa807a` | build operator review brief precheck | pytest suite, check checked invariants, required brief references | operator review brief precheck metadata stubs for future logging | live/platform/API/publishing | `0175BD` |
 | `TASK_CONTENTOPS_0175BD_REPO_DEEP_RESEARCH_AND_REMAINING_PHASE_PLAN_V0` | `2265841efaa3af9177fbb58f2def53ac6cfa807a` | `158c85467dfd1877f43e3bdea78bb15dba051c05` | perform deep research scan and plan remaining phases | JSON packet loads, file existence checks | strategic design clarity and remaining roadmap planning | local/recon | `0175BE` |
 | `TASK_CONTENTOPS_0175BE_CONTRACT_CHAIN_LIFECYCLE_SPINE_AND_OPERATOR_REVIEW_READ_MODEL_PRECHECK_V0` | `158c85467dfd1877f43e3bdea78bb15dba051c05` | `8e95830500a6d37999b906d65f0498f09ffde912` | build canonical content lifecycle spine and operator review read model | pytest suites, check stage order, safety checks | unified state model representing all 16 stages | local/contract | `0175BF` |
-| `TASK_CONTENTOPS_0175BF_OPERATOR_REVIEW_READ_MODEL_TO_V5_QUEUE_BINDING_V0` | `8e95830500a6d37999b906d65f0498f09ffde912` | `RECORDED_IN_NEXT_TASK_READBACK` | Bind consolidated lifecycle read-model and stages to V5 UI | Vitest front-end test, pytest check test, build check | Canonical contract-backed V5 Operator Review Queue | Ingestion connectors / artifact bridge | `0175BG` |
+| `TASK_CONTENTOPS_0175BF_OPERATOR_REVIEW_READ_MODEL_TO_V5_QUEUE_BINDING_V0` | `8e95830500a6d37999b906d65f0498f09ffde912` | `25030c9ecb7f1340d8abc0943c397984f1ebb4d7` | Bind consolidated lifecycle read-model and stages to V5 UI | Vitest front-end test, pytest check test, build check | Canonical contract-backed V5 Operator Review Queue | Ingestion connectors / artifact bridge | `0175BG` |
+| `TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0` | `25030c9ecb7f1340d8abc0943c397984f1ebb4d7` | `RECORDED_IN_NEXT_TASK_READBACK` | Bridge Lane C artifact intake validation to the Content Lifecycle Engine | Pytest suite, check scanned candidates count, invariants validation | Evidence-backed first stage of the lifecycle spine | Intake bridge to brief review packet transition | `0175BH` |
 
 
 ---
@@ -158,6 +159,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0`
-* **Focus:** Bridge Lane C artifact intake validation pipeline to the canonical lifecycle engine.
+* **Next recommended task:** `TASK_CONTENTOPS_0175BH_LIFECYCLE_INTAKE_BRIDGE_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0`
+* **Focus:** Transition the lifecycle intake bridge candidates into the editorial brief review packet.
 * **Visual System Status:** Visual enhancement/polish is deferred until more core product foundation is complete.

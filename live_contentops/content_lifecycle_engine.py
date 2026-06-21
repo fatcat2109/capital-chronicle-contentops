@@ -623,6 +623,100 @@ def render_runbook(packet: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def build_lifecycle_read_model_with_artifact_intake_bridge(bridge_packet: dict[str, Any]) -> dict[str, Any]:
+    """Applies the bridge_packet overlay to the canonical content lifecycle model."""
+    stages = list_lifecycle_stages()
+
+    # Extract overlay configuration
+    overlay = bridge_packet.get("lifecycle_overlay", {})
+    affected_stage_id = overlay.get("affected_stage_id", "artifact_or_brief_intake")
+    state_after = overlay.get("stage_state_after_overlay", "PENDING")
+    op_required = overlay.get("operator_review_required", True)
+
+    # Apply overlay to the first stage
+    updated_stages = []
+    for stage in stages:
+        if stage.stage_id == affected_stage_id:
+            # Reconstruct LifecycleStage with overlay values
+            # (LifecycleStage is frozen/immutable)
+            new_stage = LifecycleStage(
+                stage_id=stage.stage_id,
+                stage_order=stage.stage_order,
+                stage_name=stage.stage_name,
+                lifecycle_phase=stage.lifecycle_phase,
+                source_task_label=stage.source_task_label,
+                source_module=stage.source_module,
+                source_packet_path=stage.source_packet_path,
+                upstream_stage_ids=stage.upstream_stage_ids,
+                downstream_stage_ids=stage.downstream_stage_ids,
+                platform_scope=stage.platform_scope,
+                evidence_refs=stage.evidence_refs,
+                blocker_codes=stage.blocker_codes,
+                required_future_gate=stage.required_future_gate,
+                state=state_after,
+                operator_action_required=op_required,
+                public_postable=False,
+                dispatch_ready=False,
+                live_api_called=False,
+                provider_api_called=False,
+                env_read=False,
+                credential_hydrated=False,
+                scheduler_enabled=False,
+                scraping_performed=False,
+                autonomous_reply_or_dm_enabled=False,
+                dqr_cleared_by_contentops=False,
+                readiness_cleared_by_contentops=False,
+                current_truth_promoted=False,
+            )
+            updated_stages.append(new_stage)
+        else:
+            updated_stages.append(stage)
+
+    # Validate invariants (to make sure safety limits are preserved)
+    validate_lifecycle_invariants(updated_stages, raise_exception=True)
+
+    summary = build_operator_review_summary(updated_stages)
+
+    # We should override the next recommended task in summary to match the bridge task
+    summary_dict = _asdict(summary)
+    summary_dict["next_recommended_task"] = "TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0"
+
+    read_model = [_asdict(s) for s in sorted(updated_stages, key=lambda s: s.stage_order)]
+
+    safety_flags = {
+        "all_safety_locks_active": summary.all_safety_locks_active,
+        "live_api_called": any(s.live_api_called for s in updated_stages),
+        "provider_api_called": any(s.provider_api_called for s in updated_stages),
+        "env_read": any(s.env_read for s in updated_stages),
+        "credential_hydrated": any(s.credential_hydrated for s in updated_stages),
+        "scheduler_enabled": any(s.scheduler_enabled for s in updated_stages),
+        "scraping_performed": any(s.scraping_performed for s in updated_stages),
+        "autonomous_reply_or_dm_enabled": any(s.autonomous_reply_or_dm_enabled for s in updated_stages),
+        "public_postable": any(s.public_postable for s in updated_stages),
+        "dispatch_ready": any(s.dispatch_ready for s in updated_stages),
+    }
+
+    raw_packet = {
+        "task_label": "TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0",
+        "matrix_version": "0175BG_CONTENT_LIFECYCLE_SPINE_V1",
+        "source_baseline_commit": "25030c9ecb7f1340d8abc0943c397984f1ebb4d7",
+        "generated_at_epoch": 0,
+        "stages": read_model,
+        "summary": summary_dict,
+        "safety_flags": safety_flags,
+        "ledger_family": "content_lifecycle_spine_future",
+        "hash_algorithm": "sha256",
+        "next_required_gate": "lane_c_operator_review_brief_precheck_to_brief_stub",
+    }
+
+    packet_hash = _digest(raw_packet)
+
+    return {
+        "packet_hash": packet_hash,
+        **raw_packet,
+    }
+
+
 def write_contract_artifacts(repo_root: str | Path = ".") -> dict[str, Any]:
     """Writes the JSON packet and Markdown runbook to the docs/automation/0175BE/ directory."""
     root = Path(repo_root).resolve()
