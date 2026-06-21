@@ -54,6 +54,7 @@ ENTRY_FAMILIES = (
     "v5_manual_pilot_trail_reconciliation_future",
     "v5_manual_pilot_trail_reconciliation_audit_future",
     "v5_local_operator_runbook_index_future",
+    "lane_c_artifact_intake_validation_future",
     "unknown_or_blocked",
 )
 

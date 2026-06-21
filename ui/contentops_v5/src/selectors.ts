@@ -46,6 +46,8 @@ import type {
   V5PlaceholderField,
   V5ManualPilotTrailReconciliationAuditPacket,
   V5RunbookStep,
+  LaneCArtifactIntakeValidationPacket,
+  ArtifactIntakeCandidate,
 } from './types';
 
 
@@ -819,6 +821,54 @@ export function selectRunbookStep(
       { label: 'Human Actions', value: s.what_human_can_do },
       { label: 'System Limits', value: s.what_system_cannot_do },
       { label: 'Next Safe Step', value: s.next_safe_step, mono: true },
+    ],
+  };
+}
+
+export function selectLaneCArtifactIntakeValidationPacket(
+  p: LaneCArtifactIntakeValidationPacket,
+): SelectableObject {
+  return {
+    kind: 'lane_c_artifact_intake_validation_packet',
+    id: p.matrix_version,
+    title: 'Lane C Artifact Intake Validation Packet',
+    fields: [
+      { label: 'Task Label', value: p.task_label, mono: true },
+      { label: 'Matrix Version', value: p.matrix_version, mono: true },
+      { label: 'Baseline Commit', value: p.source_baseline_commit, mono: true },
+      { label: 'Candidates', value: String(p.artifact_candidate_count) },
+      { label: 'Validation Checks', value: String(p.validation_check_count) },
+      { label: 'Local-Only Classification', value: p.local_only_classification },
+      { label: 'Packet Hash', value: p.packet_hash, mono: true },
+      { label: 'Hash Algorithm', value: p.hash_algorithm, mono: true },
+      { label: 'Next Required Gate', value: p.next_required_gate },
+    ],
+  };
+}
+
+export function selectLaneCArtifactIntakeCandidate(
+  c: ArtifactIntakeCandidate,
+): SelectableObject {
+  return {
+    kind: 'lane_c_artifact_intake_candidate',
+    id: c.candidate_id,
+    title: c.candidate_id.replace(/_/g, ' '),
+    fields: [
+      { label: 'Candidate ID', value: c.candidate_id, mono: true },
+      { label: 'Artifact Family', value: c.artifact_family },
+      { label: 'Local Ref', value: c.local_artifact_ref, mono: true },
+      { label: 'Source System', value: c.source_system },
+      { label: 'Lineage Ref', value: c.lineage_ref, mono: true },
+      { label: 'Freshness', value: c.freshness_status },
+      { label: 'DQR Status', value: c.dqr_status },
+      { label: 'Readiness', value: c.readiness_status },
+      { label: 'Degraded Labels', value: c.missing_or_degraded_labels.join(', ') || 'none' },
+      { label: 'Citations', value: c.citation_refs.join(', ') || 'none' },
+      { label: 'Limitations', value: c.limitation_notes.join('; ') || 'none' },
+      { label: 'Public Postable', value: String(c.public_postable), status: c.public_postable ? 'verified' : 'blocked' },
+      { label: 'Dispatch Ready', value: String(c.dispatch_ready), status: c.dispatch_ready ? 'verified' : 'blocked' },
+      { label: 'Review Required', value: String(c.review_required), status: c.review_required ? 'review' : 'verified' },
+      { label: 'Blocked Reasons', value: c.blocked_reasons.join(', ') || 'none' },
     ],
   };
 }

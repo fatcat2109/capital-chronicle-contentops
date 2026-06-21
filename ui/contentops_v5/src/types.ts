@@ -931,3 +931,59 @@ export interface V5OperatorRunbookIndexPacket {
   source_baseline_commit: string;
   task_label: string;
 }
+
+export interface ArtifactIntakeSourceRef {
+  system_id: string;
+  relative_path: string;
+  commit_sha: string;
+}
+
+export interface ArtifactIntakeCandidate {
+  candidate_id: string;
+  artifact_family: string;
+  local_artifact_ref: string;
+  source_system: string;
+  lineage_ref: string;
+  freshness_status: string;
+  dqr_status: string;
+  readiness_status: string;
+  missing_or_degraded_labels: string[];
+  citation_refs: string[];
+  limitation_notes: string[];
+  public_postable: boolean;
+  dispatch_ready: boolean;
+  review_required: boolean;
+  blocked_reasons: string[];
+}
+
+export interface ArtifactIntakeValidationCheck {
+  check_id: string;
+  description: string;
+  passed: boolean;
+}
+
+export interface ArtifactIntakeDecision {
+  decision_id: string;
+  candidate_id: string;
+  verdict: string;
+  review_required: boolean;
+  blocked_reasons: string[];
+}
+
+export interface LaneCArtifactIntakeValidationPacket {
+  task_label: string;
+  matrix_version: string;
+  source_baseline_commit: string;
+  generated_at_epoch: number;
+  artifact_candidate_count: number;
+  validation_check_count: number;
+  candidates: ArtifactIntakeCandidate[];
+  validation_checks: ArtifactIntakeValidationCheck[];
+  blocked_reasons: string[];
+  missing_proofs: string[];
+  safety_flags: Record<string, boolean>;
+  local_only_classification: string;
+  packet_hash: string;
+  hash_algorithm: string;
+  next_required_gate: string;
+}

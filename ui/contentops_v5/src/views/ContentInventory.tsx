@@ -5,9 +5,15 @@ import { useMemo, useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { Panel, SectionLabel, StatusChip, StatusDot } from '../ui/primitives';
-import { selectContentItem, LANE_LABEL } from '../selectors';
+import {
+  selectContentItem,
+  LANE_LABEL,
+  selectLaneCArtifactIntakeValidationPacket,
+  selectLaneCArtifactIntakeCandidate,
+} from '../selectors';
 import { IconSearch } from '../ui/icons';
 import type { StatusKind } from '../types';
+import { laneCArtifactIntakePacket as laneCPacket } from '../data/laneCArtifactIntakePacket';
 
 const LANE_FILTERS: { id: string; label: string }[] = [
   { id: 'all', label: 'All lanes' },
@@ -192,6 +198,142 @@ export function ContentInventory() {
           </table>
         </div>
       </Panel>
+
+      <section className="mt-8 border-t border-line pt-6">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div className="flex items-center gap-3">
+            <div>
+              <SectionLabel>Lane C Artifact Intake Pipeline</SectionLabel>
+              <p className="text-xs text-fg-muted mt-0.5">
+                Deterministic local contract checks for artifact-backed macro briefs.
+              </p>
+            </div>
+            <button
+              type="button"
+              id="btn-inspect-lane-c-packet"
+              onClick={() => select(selectLaneCArtifactIntakeValidationPacket(laneCPacket))}
+              className="text-[10px] font-mono border border-line hover:border-line-strong hover:bg-surface-2 text-fg-muted px-2 py-0.5 rounded transition-colors"
+            >
+              Inspect Packet
+            </button>
+          </div>
+          <StatusChip status="review" icon nowrap>
+            Lane C artifact intake: review-only
+          </StatusChip>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+          <div className="rounded-xl border border-line bg-surface-1 p-4 shadow-card">
+            <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-fg-subtle">
+              Candidates / Blocked
+            </div>
+            <div className="mt-2 flex items-baseline gap-2">
+              <span className="text-2xl font-semibold font-mono text-fg">
+                {laneCPacket.artifact_candidate_count}
+              </span>
+              <span className="text-xs text-fg-muted font-medium">candidates /</span>
+              <span className="text-2xl font-semibold font-mono text-status-blocked">
+                {laneCPacket.candidates.filter(c => c.blocked_reasons.length > 0).length}
+              </span>
+              <span className="text-xs text-fg-muted font-medium">blocked</span>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-line bg-surface-1 p-4 shadow-card">
+            <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-fg-subtle">
+              Compliance Posture
+            </div>
+            <div className="mt-2 space-y-1 text-xs text-fg-muted">
+              <div className="flex items-center gap-1.5">
+                <span className="text-green-500 font-bold">✓</span> DQR / Readiness not cleared
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-green-500 font-bold">✓</span> Proxy / Degraded labels preserved
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-line bg-surface-1 p-4 shadow-card">
+            <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-fg-subtle">
+              Security Constraints
+            </div>
+            <div className="mt-2 space-y-1 text-xs text-fg-muted">
+              <div className="flex items-center gap-1.5">
+                <span className="text-red-500 font-bold">✗</span> No public-postable
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-red-500 font-bold">✗</span> No dispatch-ready
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="lg:col-span-2">
+            <Panel bodyClassName="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse text-sm">
+                  <thead>
+                    <tr className="border-b border-line bg-surface-2 text-left">
+                      {['Candidate ID', 'Family', 'Lineage Ref', 'Freshness', 'DQR Status', 'Status'].map(h => (
+                        <th key={h} className="whitespace-nowrap px-3 py-2.5 font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {laneCPacket.candidates.map((c) => {
+                      const active = selected?.kind === 'lane_c_artifact_intake_candidate' && selected.id === c.candidate_id;
+                      return (
+                        <tr
+                          key={c.candidate_id}
+                          id={`lane-c-candidate-row-${c.candidate_id}`}
+                          onClick={() => select(selectLaneCArtifactIntakeCandidate(c))}
+                          className={`cursor-pointer border-b border-line transition-colors ${
+                            active ? 'bg-accent/5' : 'hover:bg-surface-2'
+                          }`}
+                        >
+                          <td className="whitespace-nowrap px-3 py-2.5 font-mono text-[11.5px] text-fg font-medium">
+                            {c.candidate_id.replace('valid_shape_but_blocked_missing_manual_review', 'missing_manual_review').replace('stale_or_missing_freshness_metadata', 'stale_metadata').replace('degraded_proxy_or_unverified_lineage', 'degraded_proxy')}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-2.5 text-xs text-fg-muted">{c.artifact_family}</td>
+                          <td className="whitespace-nowrap px-3 py-2.5 font-mono text-[11px] text-fg-muted">{c.lineage_ref}</td>
+                          <td className="whitespace-nowrap px-3 py-2.5 text-xs text-fg-muted">{c.freshness_status}</td>
+                          <td className="whitespace-nowrap px-3 py-2.5 text-xs text-fg-muted">{c.dqr_status}</td>
+                          <td className="whitespace-nowrap px-3 py-2.5">
+                            <StatusChip status={c.blocked_reasons.length > 0 ? 'blocked' : 'verified'}>
+                              {c.blocked_reasons.length > 0 ? 'Blocked' : 'Review Ready'}
+                            </StatusChip>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Panel>
+          </div>
+
+          <div>
+            <Panel title="Pipeline Checks">
+              <div className="space-y-2 mt-2">
+                {laneCPacket.validation_checks.map((check) => (
+                  <div key={check.check_id} className="flex items-start gap-2 text-xs">
+                    <span className={check.passed ? 'text-green-500 font-bold' : 'text-red-500 font-bold'}>
+                      {check.passed ? '✓' : '✗'}
+                    </span>
+                    <div>
+                      <span className="font-mono text-[11px] text-fg break-all block">{check.check_id}</span>
+                      <span className="text-[11px] text-fg-muted">{check.description}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Panel>
+          </div>
+        </div>
+      </section>
 
       <section>
         <SectionLabel>Lane legend</SectionLabel>
