@@ -9,7 +9,7 @@
 - **Source Bridge Task Label**: `TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0`
 - **Source Bridge Packet Hash**: `17dd4652f4ec4e3e20ade749c68fdad0bf3a854d2a388bff1c25a6cf9842da2a`
 - **ContentOps Source Head**: `23e0573c062b63c939040143cfe66830bbfa9c2a`
-- **Packet Hash**: `4c3787d21a3441a3da13b1ac87af28c963797afbe823f5ec6e77792018ed0793`
+- **Packet Hash**: `1a8cf4c01bfbf86fe2928ebb604feae8c59d84f95806709ea44245af89027a5b`
 - **Ledger Family**: `lifecycle_intake_bridge_to_editorial_brief_review_packet_future`
 
 ## Ingestion Status

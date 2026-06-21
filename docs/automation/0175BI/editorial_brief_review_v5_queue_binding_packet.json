@@ -1,0 +1,30 @@
+{
+  "task_label": "TASK_CONTENTOPS_0175BI_EDITORIAL_BRIEF_REVIEW_PACKET_TO_V5_BRIEF_QUEUE_BINDING_V0",
+  "generated_at_epoch": 0,
+  "source_0175BH_packet_hash": "1a8cf4c01bfbf86fe2928ebb604feae8c59d84f95806709ea44245af89027a5b",
+  "source_baseline_commit": "1dd9a01a2c6e1d3444181ef94f80f975b85400ef",
+  "generated_ts_file_paths": [
+    "ui/contentops_v5/src/data/editorialBriefReviewPacket.ts",
+    "ui/contentops_v5/src/data/editorialBriefReviewAdapter.ts"
+  ],
+  "ui_surfaces_touched": [
+    "ui/contentops_v5/src/views/WriterStudio.tsx",
+    "ui/contentops_v5/src/selectors.ts"
+  ],
+  "safety_classification": "local-only-ui-binding-compliance-precheck",
+  "validation_results": {
+    "vitest_pass_count": 127,
+    "typescript_compiled": true,
+    "vite_build_succeeded": true,
+    "exporter_check_passed": true
+  },
+  "safety_flags": {
+    "live_api_called": false,
+    "provider_api_called": false,
+    "platform_api_called": false,
+    "credential_hydrated": false,
+    "env_read": false,
+    "dispatch_ready": false,
+    "public_postable": false
+  }
+}

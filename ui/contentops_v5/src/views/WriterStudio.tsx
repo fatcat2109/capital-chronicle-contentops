@@ -5,7 +5,8 @@
 
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
-import { selectAiVariant, selectMediaAsset } from '../selectors';
+import { selectAiVariant, selectMediaAsset, selectCandidateReviewItem, selectEditorialBriefReviewPacket } from '../selectors';
+import { editorialBriefReviewAdapter } from '../data/editorialBriefReviewAdapter';
 import { IconImage, IconSparkle } from '../ui/icons';
 import {
   EvidenceChip,
@@ -57,6 +58,140 @@ export function WriterStudio() {
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
         {/* Draft + outline */}
         <div className="space-y-6 xl:col-span-2">
+          {/* Editorial Brief Review Queue Panel */}
+          <Panel
+            title="Editorial Brief Review Queue"
+            subtitle="Local candidate metadata bridge · no article draft"
+            actions={
+              <button
+                type="button"
+                id="btn-inspect-review-packet"
+                onClick={() => select(selectEditorialBriefReviewPacket(editorialBriefReviewAdapter.packet))}
+                className="rounded-md border border-line bg-surface-2 px-2.5 py-1 font-mono text-[10.5px] text-fg-muted hover:border-line-strong hover:text-fg transition-colors"
+              >
+                Inspect Packet
+              </button>
+            }
+            bodyClassName="p-4 space-y-4"
+          >
+            {/* Packet Metadata Grid */}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                  Packet Hash
+                </div>
+                <div className="mt-1 break-all font-mono text-[11px] font-semibold text-fg">
+                  {editorialBriefReviewAdapter.packet.packet_hash}
+                </div>
+              </div>
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                  Source Bridge Task
+                </div>
+                <div className="mt-1 break-all font-mono text-[11px] font-semibold text-fg">
+                  {editorialBriefReviewAdapter.packet.source_bridge_task_label}
+                </div>
+              </div>
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                  Ingestion Status
+                </div>
+                <div className="mt-1 break-all text-xs font-semibold text-fg">
+                  <span className="font-mono uppercase text-status-review">{editorialBriefReviewAdapter.packet.ingestion_repo_status}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {/* Blocked Reasons */}
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-status-blocked">
+                  Blocked reasons
+                </div>
+                <ul className="mt-2 list-inside list-disc text-xs text-fg-muted space-y-1">
+                  {editorialBriefReviewAdapter.blockedReasons.map(r => (
+                    <li key={r} className="font-mono text-[11px]">{r}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Checklist */}
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                  Operator Checklist
+                </div>
+                <ul className="mt-2 list-inside list-disc text-xs text-fg-muted space-y-1">
+                  {editorialBriefReviewAdapter.checklist.map(c => (
+                    <li key={c}>{c}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* Candidates Table */}
+            <div className="border-t border-line pt-3">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle mb-2">
+                Candidate review items ({editorialBriefReviewAdapter.packet.candidate_count})
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs min-w-[500px]">
+                  <thead>
+                    <tr className="border-b border-line bg-surface-2 font-mono text-[10px] text-fg-subtle">
+                      <th className="px-2 py-1.5">Candidate ID</th>
+                      <th className="px-2 py-1.5">Evidence Role</th>
+                      <th className="px-2 py-1.5">Family</th>
+                      <th className="px-2 py-1.5">Records</th>
+                      <th className="px-2 py-1.5">Next Step</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-line">
+                    {editorialBriefReviewAdapter.candidateReviewItems.map((item) => {
+                      const active = selected?.kind === 'candidate_review_item' && selected.id === item.candidate_id;
+                      return (
+                        <tr
+                          key={item.candidate_id}
+                          id={`candidate-row-${item.candidate_id}`}
+                          onClick={() => select(selectCandidateReviewItem(item))}
+                          className={`cursor-pointer transition-colors hover:bg-surface-3 ${
+                            active ? 'bg-accent/5' : ''
+                          }`}
+                        >
+                          <td className="px-2 py-2 font-mono font-semibold text-fg">
+                            {item.candidate_id}
+                          </td>
+                          <td className="px-2 py-2 text-fg-muted font-mono">{item.evidence_role}</td>
+                          <td className="px-2 py-2 text-fg-muted font-mono">{item.source_family}</td>
+                          <td className="px-2 py-2 font-mono text-fg">{item.records_count}</td>
+                          <td className="px-2 py-2 text-fg-muted font-mono">{item.allowed_next_step}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Safety & Truth Flags Strip */}
+            <div className="border-t border-line pt-3 space-y-2">
+              <div className="flex flex-wrap items-center gap-1.5 text-[10.5px] font-mono text-fg-subtle">
+                <span className="font-bold uppercase mr-1">Safety Flags:</span>
+                {Object.entries(editorialBriefReviewAdapter.safetyFlags).map(([key, val]) => (
+                  <span key={key} className={`px-1.5 py-0.5 rounded border border-line bg-surface-2 ${val ? 'text-status-blocked' : 'text-status-verified'}`}>
+                    {key}: {String(val)}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center gap-1.5 text-[10.5px] font-mono text-fg-subtle">
+                <span className="font-bold uppercase mr-1">Truth Flags:</span>
+                {Object.entries(editorialBriefReviewAdapter.protectedTruthFlags).map(([key, val]) => (
+                  <span key={key} className={`px-1.5 py-0.5 rounded border border-line bg-surface-2 ${val ? 'text-status-blocked' : 'text-status-verified'}`}>
+                    {key}: {String(val)}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Panel>
+
           <Panel
             title="Draft"
             subtitle="Local working copy · no auto-publish"

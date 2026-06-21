@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `23e0573c062b63c939040143cfe66830bbfa9c2a`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0`
-* **Latest implemented capability:** Lane C Artifact Intake Lifecycle Bridge
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BH_LIFECYCLE_INTAKE_BRIDGE_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0`
+* **Last resolved accepted HEAD in ledger:** `1dd9a01a2c6e1d3444181ef94f80f975b85400ef`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175BH_LIFECYCLE_INTAKE_BRIDGE_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0`
+* **Latest implemented capability:** Metadata-only Editorial Brief Review Packet from Lane C candidates
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BI_EDITORIAL_BRIEF_REVIEW_PACKET_TO_V5_BRIEF_QUEUE_BINDING_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -117,7 +117,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175BE_CONTRACT_CHAIN_LIFECYCLE_SPINE_AND_OPERATOR_REVIEW_READ_MODEL_PRECHECK_V0` | `158c85467dfd1877f43e3bdea78bb15dba051c05` | `8e95830500a6d37999b906d65f0498f09ffde912` | build canonical content lifecycle spine and operator review read model | pytest suites, check stage order, safety checks | unified state model representing all 16 stages | local/contract | `0175BF` |
 | `TASK_CONTENTOPS_0175BF_OPERATOR_REVIEW_READ_MODEL_TO_V5_QUEUE_BINDING_V0` | `8e95830500a6d37999b906d65f0498f09ffde912` | `25030c9ecb7f1340d8abc0943c397984f1ebb4d7` | Bind consolidated lifecycle read-model and stages to V5 UI | Vitest front-end test, pytest check test, build check | Canonical contract-backed V5 Operator Review Queue | Ingestion connectors / artifact bridge | `0175BG` |
 | `TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0` | `25030c9ecb7f1340d8abc0943c397984f1ebb4d7` | `23e0573c062b63c939040143cfe66830bbfa9c2a` | Bridge Lane C artifact intake validation to the Content Lifecycle Engine | Pytest suite, check scanned candidates count, invariants validation | Evidence-backed first stage of the lifecycle spine | Intake bridge to brief review packet transition | `0175BH` |
-| `TASK_CONTENTOPS_0175BH_LIFECYCLE_INTAKE_BRIDGE_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0` | `23e0573c062b63c939040143cfe66830bbfa9c2a` | `RECORDED_IN_NEXT_TASK_READBACK` | Transition Lane C candidate metadata into Editorial Brief Review Packet | test_lifecycle_intake_bridge_to_editorial_brief_review_packet.py, runbook checks | Deterministic metadata-only brief review packet mapping | V5 cockpit brief queue binding, content intent gate checks | `0175BI` |
+| `TASK_CONTENTOPS_0175BH_LIFECYCLE_INTAKE_BRIDGE_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0` | `23e0573c062b63c939040143cfe66830bbfa9c2a` | `1dd9a01a2c6e1d3444181ef94f80f975b85400ef` | Transition Lane C candidate metadata into Editorial Brief Review Packet | test_lifecycle_intake_bridge_to_editorial_brief_review_packet.py, runbook checks | Deterministic metadata-only brief review packet mapping | V5 cockpit brief queue binding, content intent gate checks | `0175BI` |
+| `TASK_CONTENTOPS_0175BI_EDITORIAL_BRIEF_REVIEW_PACKET_TO_V5_BRIEF_QUEUE_BINDING_V0` | `1dd9a01a2c6e1d3444181ef94f80f975b85400ef` | `RECORDED_IN_NEXT_TASK_READBACK` | Bind Editorial Brief Review Packet into V5 Writer Studio panel | Vitest UI tests, pytest suite, Vite build check | Metadata-only cockpit brief queue UI binding | Promotion and content intent gate checks | `0175BJ` |
 
 ---
 
@@ -159,6 +160,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BI_EDITORIAL_BRIEF_REVIEW_PACKET_TO_V5_BRIEF_QUEUE_BINDING_V0`
-* **Focus:** Bind the Editorial Brief Review Packet into the V5 cockpit static queues.
+* **Next recommended task:** `TASK_CONTENTOPS_0175BJ_EDITORIAL_BRIEF_REVIEW_TO_CONTENT_INTENT_GATE_PRECHECK_V0`
+* **Focus:** Transition editorial brief review packet into content intent gate precheck with active safety locks.
 * **Visual System Status:** Visual enhancement/polish is deferred.

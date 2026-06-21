@@ -10,6 +10,10 @@ import { manualPilotTrailReconciliationPacket } from './data/manualPilotTrailRec
 import { operatorRunbookIndexPacket } from './data/operatorRunbookIndexPacket';
 import { LifecycleStage, getStatusColor } from './data/contentLifecycleReadModelAdapter';
 import type {
+  CandidateReviewItem,
+  EditorialBriefReviewPacketType
+} from './data/editorialBriefReviewAdapter';
+import type {
   AiWriterOutput,
   ArtifactEligibilityCheck,
   Blocker,
@@ -954,6 +958,56 @@ export function selectLifecycleStage(s: LifecycleStage): SelectableObject {
       { label: 'DQR Cleared', value: String(s.dqr_cleared_by_contentops), status: s.dqr_cleared_by_contentops ? 'verified' : 'review' },
       { label: 'Readiness Cleared', value: String(s.readiness_cleared_by_contentops), status: s.readiness_cleared_by_contentops ? 'verified' : 'review' },
       { label: 'Current Truth', value: String(s.current_truth_promoted), status: s.current_truth_promoted ? 'blocked' : 'verified' },
+    ],
+  };
+}
+
+export function selectCandidateReviewItem(
+  item: CandidateReviewItem,
+): SelectableObject {
+  return {
+    kind: 'candidate_review_item',
+    id: item.candidate_id,
+    title: item.candidate_id,
+    fields: [
+      { label: 'Candidate ID', value: item.candidate_id, mono: true },
+      { label: 'Relative Path', value: item.relative_path, mono: true },
+      { label: 'Evidence Role', value: item.evidence_role },
+      { label: 'Source Family', value: item.source_family },
+      { label: 'Records Count', value: String(item.records_count), mono: true },
+      { label: 'Contract Name', value: item.contract_name || 'none', mono: item.contract_name !== null },
+      { label: 'Advisory Only', value: String(item.advisory_only), status: item.advisory_only ? 'verified' : 'blocked' },
+      { label: 'Candidate Only', value: String(item.candidate_only), status: item.candidate_only ? 'verified' : 'blocked' },
+      { label: 'Operator Action', value: item.operator_review_required ? 'Required' : 'None', status: item.operator_review_required ? 'review' : 'verified' },
+      { label: 'Blocked Reasons', value: item.blocked_reasons.join(', ') || 'none' },
+      { label: 'Next Step', value: item.allowed_next_step },
+    ],
+  };
+}
+
+export function selectEditorialBriefReviewPacket(
+  p: EditorialBriefReviewPacketType,
+): SelectableObject {
+  return {
+    kind: 'editorial_brief_review_packet',
+    id: p.packet_hash,
+    title: `Editorial Brief Review Packet · ${p.task_label.slice(0, 16)}...`,
+    fields: [
+      { label: 'Task Label', value: p.task_label, mono: true },
+      { label: 'Bridge Task', value: p.source_bridge_task_label, mono: true },
+      { label: 'Bridge Hash', value: p.source_bridge_packet_hash, mono: true },
+      { label: 'Source Head', value: p.contentops_source_head, mono: true },
+      { label: 'Packet Hash', value: p.packet_hash, mono: true },
+      { label: 'Ledger Family', value: p.ledger_family, mono: true },
+      { label: 'Repo Path', value: p.ingestion_repo_path_checked },
+      { label: 'Repo Head', value: p.ingestion_repo_head, mono: true },
+      { label: 'Repo Branch', value: p.ingestion_repo_branch, mono: true },
+      { label: 'Repo Status', value: p.ingestion_repo_status },
+      { label: 'Candidates', value: String(p.candidate_count) },
+      { label: 'Topic Families', value: p.topic_families.join(', ') },
+      { label: 'Evidence Roles', value: p.evidence_roles.join(', ') },
+      { label: 'Blocked Reasons', value: p.blocked_reasons.join(', ') },
+      { label: 'Next Rec Task', value: p.next_recommended_task, mono: true },
     ],
   };
 }

@@ -225,3 +225,19 @@ def test_write_artifacts(tmp_path):
     res = write_artifacts(bridge_packet_path=input_file, repo_root=tmp_path)
     assert Path(res["packet_path"]).exists()
     assert Path(res["runbook_path"]).exists()
+
+
+def test_blocked_reasons_do_not_imply_readiness(sample_bridge_packet):
+    """Verify that blocked reasons do not imply readiness or unlocked states."""
+    review_packet = create_editorial_brief_review_packet(sample_bridge_packet)
+    reasons = review_packet["blocked_reasons"]
+
+    assert "content_intent_gate_locked_until_operator_review" in reasons
+    assert "content_intent_gate_unlocked" not in reasons
+
+    # Blocked reasons must not contain unlocked or ready indicators
+    for reason in reasons:
+        reason_lower = reason.lower()
+        # Verify no misleading unlocked wording
+        assert "unlocked" not in reason_lower, f"Reason '{reason}' implies an unlocked state."
+        assert "clearance" not in reason_lower, f"Reason '{reason}' implies clearance."

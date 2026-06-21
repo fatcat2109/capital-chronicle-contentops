@@ -72,7 +72,7 @@ def create_editorial_brief_review_packet(
         "Inspect source family classification before transitioning to content intent stage"
     ]
 
-    blocked_reasons = ["operator_brief_review_pending", "content_intent_gate_unlocked"]
+    blocked_reasons = ["operator_brief_review_pending", "content_intent_gate_locked_until_operator_review"]
 
     # Strict protected truth flags (Never promote to truth)
     protected_truth_flags = {
