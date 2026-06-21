@@ -213,7 +213,7 @@ def test_23_progress_ledger_resolves_0175an_and_appends_0175ao():
 
     # One-task-lag check
     assert "| `TASK_CONTENTOPS_0175AN_PLATFORM_PREVIEW_DRY_PAYLOAD_SHAPE_REGISTRY_V0` | `4d10a497d0104f5d3acae54097708e9e8b97e5d7` | `f57a23fb61a550d9528c1984d8e758e7f00ab265` |" in content
-    assert "| `TASK_CONTENTOPS_0175AO_PLATFORM_PREVIEW_DRY_RENDER_PACKET_V0` | `f57a23fb61a550d9528c1984d8e758e7f00ab265` | `RECORDED_IN_NEXT_TASK_READBACK` |" in content
+    assert "| `TASK_CONTENTOPS_0175AO_PLATFORM_PREVIEW_DRY_RENDER_PACKET_V0` | `f57a23fb61a550d9528c1984d8e758e7f00ab265` | `1a2d9bd78a254bee8790c3a8288168166a3f2fa8` |" in content
 
 
 def test_24_no_pycache_or_pyc_staged():

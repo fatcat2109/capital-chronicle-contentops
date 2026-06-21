@@ -63,6 +63,7 @@ ENTRY_FAMILIES = (
     "lane_c_approval_packet_to_platform_preview_precheck_future",
     "platform_preview_dry_payload_shape_registry_future",
     "platform_preview_dry_render_packet_future",
+    "platform_preview_dry_render_to_review_bundle_future",
     "unknown_or_blocked",
 )
 
