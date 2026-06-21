@@ -350,7 +350,7 @@ def test_37_progress_ledger_resolves_0175at_and_appends_0175au():
 
     # One-task-lag checks
     assert "| `TASK_CONTENTOPS_0175AT_EXPORT_PACKET_STUB_TO_OPERATOR_AUDIT_SUMMARY_V0` | `3441635cad8010a7325d83d856351275f897ce37` | `9cf9d9d545d14ece9fa6239dfc717baac547f3e0` |" in content
-    assert "| `TASK_CONTENTOPS_0175AU_OPERATOR_AUDIT_SUMMARY_TO_MANUAL_PUBLISH_RECORD_PRECHECK_V0` | `9cf9d9d545d14ece9fa6239dfc717baac547f3e0` | `RECORDED_IN_NEXT_TASK_READBACK` |" in content
+    assert "| `TASK_CONTENTOPS_0175AU_OPERATOR_AUDIT_SUMMARY_TO_MANUAL_PUBLISH_RECORD_PRECHECK_V0` | `9cf9d9d545d14ece9fa6239dfc717baac547f3e0` | `0c817cdfef6d71fe5e6f4b20040665b157d50596` |" in content
 
 
 def test_38_no_pycache_or_pyc_staged():
