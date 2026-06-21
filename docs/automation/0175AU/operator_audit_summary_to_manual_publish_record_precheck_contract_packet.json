@@ -1,0 +1,3234 @@
+{
+  "blocked_capabilities": [
+    "live_publishing_dispatch",
+    "autonomous_reply_automation",
+    "live_credential_hydration",
+    "active_scheduler_triggers",
+    "manual_review_export"
+  ],
+  "generated_at_epoch": 0,
+  "hash_algorithm": "sha256",
+  "ledger_family": "operator_audit_summary_to_manual_publish_record_precheck_future",
+  "matrix_version": "0175AU_OPERATOR_AUDIT_SUMMARY_TO_MANUAL_PUBLISH_RECORD_PRECHECK_V1",
+  "missing_future_gates": [
+    "lane_c_platform_manual_publish_record_precheck_to_record_stub",
+    "production_key_vault_decrypter",
+    "live_operator_signature_vault"
+  ],
+  "next_required_gate": "lane_c_platform_manual_publish_record_precheck_to_record_stub",
+  "packet_hash": "2bbbd12247d253142f72cdfdf7566bee7bf70e2b7ba2c8ef72b2fb3a2556d509",
+  "precheck_records": [
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_export_gate",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify cryptographic operator signature matches registered key.",
+          "requirement_id": "evidence_operator_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual export gate is cleared.",
+          "requirement_id": "evidence_manual_export_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual publish record gate is cleared.",
+          "requirement_id": "evidence_manual_publish_record_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform publication URL.",
+          "requirement_id": "evidence_platform_publication_url_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform post ID.",
+          "requirement_id": "evidence_platform_post_id_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify external publish timestamp evidence.",
+          "requirement_id": "evidence_external_timestamp_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify audience public metrics snapshot.",
+          "requirement_id": "evidence_metrics_snapshot_verified",
+          "satisfied": false
+        }
+      ],
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "invariants": [
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no manual publish record created.",
+          "expected_state": "no_record",
+          "invariant_id": "no_manual_publish_record_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_url",
+          "evidence_note": "Verified platform publication URL remains unrecorded.",
+          "expected_state": "no_url",
+          "invariant_id": "no_platform_publication_url_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_post_id",
+          "evidence_note": "Verified platform post ID remains unrecorded.",
+          "expected_state": "no_post_id",
+          "invariant_id": "no_platform_post_id_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_timestamp",
+          "evidence_note": "Verified external publish timestamp remains unrecorded.",
+          "expected_state": "no_timestamp",
+          "invariant_id": "no_external_publish_timestamp_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_metrics",
+          "evidence_note": "Verified public metrics remain unrecorded.",
+          "expected_state": "no_metrics",
+          "invariant_id": "no_public_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_file",
+          "evidence_note": "Checked local workspace; no export files exist.",
+          "expected_state": "no_file",
+          "invariant_id": "no_export_file_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_clipboard",
+          "evidence_note": "Verified clipboard payload remains ungenerated.",
+          "expected_state": "no_clipboard",
+          "invariant_id": "no_clipboard_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_download",
+          "evidence_note": "Verified no download artifact created.",
+          "expected_state": "no_download",
+          "invariant_id": "no_download_artifact_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual export gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_export_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual publish record gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_publish_record_gate",
+          "passed": true
+        }
+      ],
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_export_gate_status": "manual_export_gate_required_but_locked",
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "manual_publish_record_gate_status": "manual_publish_record_gate_required_but_locked",
+      "manual_publish_record_precheck_id": "manual_publish_record_precheck_x",
+      "missing_future_gates": [
+        "lane_c_platform_manual_publish_record_precheck_to_record_stub",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "a61f9f0152759c001044be6873cf6442f778d3f41cf4fd8f5c6897d638bce86c",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "x_microblog",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_target_id": "x",
+      "precheck_status": "manual_publish_record_precheck_blocked",
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publish_record_target_type": "x_manual_publish_record_precheck",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_audit_summary_id": "audit_summary_x",
+      "source_decision_gate_id": "decision_gate_x",
+      "source_export_packet_stub_id": "export_packet_stub_x",
+      "source_manual_export_precheck_id": "manual_export_precheck_x"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_export_gate",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify cryptographic operator signature matches registered key.",
+          "requirement_id": "evidence_operator_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual export gate is cleared.",
+          "requirement_id": "evidence_manual_export_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual publish record gate is cleared.",
+          "requirement_id": "evidence_manual_publish_record_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform publication URL.",
+          "requirement_id": "evidence_platform_publication_url_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform post ID.",
+          "requirement_id": "evidence_platform_post_id_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify external publish timestamp evidence.",
+          "requirement_id": "evidence_external_timestamp_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify audience public metrics snapshot.",
+          "requirement_id": "evidence_metrics_snapshot_verified",
+          "satisfied": false
+        }
+      ],
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "invariants": [
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no manual publish record created.",
+          "expected_state": "no_record",
+          "invariant_id": "no_manual_publish_record_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_url",
+          "evidence_note": "Verified platform publication URL remains unrecorded.",
+          "expected_state": "no_url",
+          "invariant_id": "no_platform_publication_url_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_post_id",
+          "evidence_note": "Verified platform post ID remains unrecorded.",
+          "expected_state": "no_post_id",
+          "invariant_id": "no_platform_post_id_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_timestamp",
+          "evidence_note": "Verified external publish timestamp remains unrecorded.",
+          "expected_state": "no_timestamp",
+          "invariant_id": "no_external_publish_timestamp_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_metrics",
+          "evidence_note": "Verified public metrics remain unrecorded.",
+          "expected_state": "no_metrics",
+          "invariant_id": "no_public_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_file",
+          "evidence_note": "Checked local workspace; no export files exist.",
+          "expected_state": "no_file",
+          "invariant_id": "no_export_file_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_clipboard",
+          "evidence_note": "Verified clipboard payload remains ungenerated.",
+          "expected_state": "no_clipboard",
+          "invariant_id": "no_clipboard_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_download",
+          "evidence_note": "Verified no download artifact created.",
+          "expected_state": "no_download",
+          "invariant_id": "no_download_artifact_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual export gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_export_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual publish record gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_publish_record_gate",
+          "passed": true
+        }
+      ],
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_export_gate_status": "manual_export_gate_required_but_locked",
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "manual_publish_record_gate_status": "manual_publish_record_gate_required_but_locked",
+      "manual_publish_record_precheck_id": "manual_publish_record_precheck_telegram_channel_destination",
+      "missing_future_gates": [
+        "lane_c_platform_manual_publish_record_precheck_to_record_stub",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "419df3f12a75d019893fb6baca041c70757f744f6b4fad0398c836d0b84c6b20",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_target_id": "telegram_channel_destination",
+      "precheck_status": "manual_publish_record_precheck_blocked",
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publish_record_target_type": "telegram_channel_manual_publish_record_precheck",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_audit_summary_id": "audit_summary_telegram_channel_destination",
+      "source_decision_gate_id": "decision_gate_telegram_channel_destination",
+      "source_export_packet_stub_id": "export_packet_stub_telegram_channel_destination",
+      "source_manual_export_precheck_id": "manual_export_precheck_telegram_channel_destination"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_export_gate",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify cryptographic operator signature matches registered key.",
+          "requirement_id": "evidence_operator_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual export gate is cleared.",
+          "requirement_id": "evidence_manual_export_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual publish record gate is cleared.",
+          "requirement_id": "evidence_manual_publish_record_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform publication URL.",
+          "requirement_id": "evidence_platform_publication_url_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform post ID.",
+          "requirement_id": "evidence_platform_post_id_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify external publish timestamp evidence.",
+          "requirement_id": "evidence_external_timestamp_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify audience public metrics snapshot.",
+          "requirement_id": "evidence_metrics_snapshot_verified",
+          "satisfied": false
+        }
+      ],
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "invariants": [
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no manual publish record created.",
+          "expected_state": "no_record",
+          "invariant_id": "no_manual_publish_record_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_url",
+          "evidence_note": "Verified platform publication URL remains unrecorded.",
+          "expected_state": "no_url",
+          "invariant_id": "no_platform_publication_url_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_post_id",
+          "evidence_note": "Verified platform post ID remains unrecorded.",
+          "expected_state": "no_post_id",
+          "invariant_id": "no_platform_post_id_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_timestamp",
+          "evidence_note": "Verified external publish timestamp remains unrecorded.",
+          "expected_state": "no_timestamp",
+          "invariant_id": "no_external_publish_timestamp_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_metrics",
+          "evidence_note": "Verified public metrics remain unrecorded.",
+          "expected_state": "no_metrics",
+          "invariant_id": "no_public_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_file",
+          "evidence_note": "Checked local workspace; no export files exist.",
+          "expected_state": "no_file",
+          "invariant_id": "no_export_file_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_clipboard",
+          "evidence_note": "Verified clipboard payload remains ungenerated.",
+          "expected_state": "no_clipboard",
+          "invariant_id": "no_clipboard_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_download",
+          "evidence_note": "Verified no download artifact created.",
+          "expected_state": "no_download",
+          "invariant_id": "no_download_artifact_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual export gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_export_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual publish record gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_publish_record_gate",
+          "passed": true
+        }
+      ],
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_export_gate_status": "manual_export_gate_required_but_locked",
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "manual_publish_record_gate_status": "manual_publish_record_gate_required_but_locked",
+      "manual_publish_record_precheck_id": "manual_publish_record_precheck_telegram_remote_operator",
+      "missing_future_gates": [
+        "lane_c_platform_manual_publish_record_precheck_to_record_stub",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "c12f8737f39e880570a2d1e7129df90b4e8513245a9534f78926763f79f9f7a0",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_target_id": "telegram_remote_operator",
+      "precheck_status": "manual_publish_record_precheck_blocked",
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publish_record_target_type": "telegram_remote_operator_log_record_precheck",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_audit_summary_id": "audit_summary_telegram_remote_operator",
+      "source_decision_gate_id": "decision_gate_telegram_remote_operator",
+      "source_export_packet_stub_id": "export_packet_stub_telegram_remote_operator",
+      "source_manual_export_precheck_id": "manual_export_precheck_telegram_remote_operator"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_export_gate",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify cryptographic operator signature matches registered key.",
+          "requirement_id": "evidence_operator_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual export gate is cleared.",
+          "requirement_id": "evidence_manual_export_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual publish record gate is cleared.",
+          "requirement_id": "evidence_manual_publish_record_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform publication URL.",
+          "requirement_id": "evidence_platform_publication_url_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform post ID.",
+          "requirement_id": "evidence_platform_post_id_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify external publish timestamp evidence.",
+          "requirement_id": "evidence_external_timestamp_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify audience public metrics snapshot.",
+          "requirement_id": "evidence_metrics_snapshot_verified",
+          "satisfied": false
+        }
+      ],
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "invariants": [
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no manual publish record created.",
+          "expected_state": "no_record",
+          "invariant_id": "no_manual_publish_record_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_url",
+          "evidence_note": "Verified platform publication URL remains unrecorded.",
+          "expected_state": "no_url",
+          "invariant_id": "no_platform_publication_url_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_post_id",
+          "evidence_note": "Verified platform post ID remains unrecorded.",
+          "expected_state": "no_post_id",
+          "invariant_id": "no_platform_post_id_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_timestamp",
+          "evidence_note": "Verified external publish timestamp remains unrecorded.",
+          "expected_state": "no_timestamp",
+          "invariant_id": "no_external_publish_timestamp_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_metrics",
+          "evidence_note": "Verified public metrics remain unrecorded.",
+          "expected_state": "no_metrics",
+          "invariant_id": "no_public_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_file",
+          "evidence_note": "Checked local workspace; no export files exist.",
+          "expected_state": "no_file",
+          "invariant_id": "no_export_file_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_clipboard",
+          "evidence_note": "Verified clipboard payload remains ungenerated.",
+          "expected_state": "no_clipboard",
+          "invariant_id": "no_clipboard_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_download",
+          "evidence_note": "Verified no download artifact created.",
+          "expected_state": "no_download",
+          "invariant_id": "no_download_artifact_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual export gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_export_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual publish record gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_publish_record_gate",
+          "passed": true
+        }
+      ],
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_export_gate_status": "manual_export_gate_required_but_locked",
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "manual_publish_record_gate_status": "manual_publish_record_gate_required_but_locked",
+      "manual_publish_record_precheck_id": "manual_publish_record_precheck_substack",
+      "missing_future_gates": [
+        "lane_c_platform_manual_publish_record_precheck_to_record_stub",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "2bf9cb94a7140b09ac16cf1437feb03c90b396a57fb5e47102db9050873cd60e",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "substack_newsletter",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_target_id": "substack",
+      "precheck_status": "manual_publish_record_precheck_blocked",
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publish_record_target_type": "substack_manual_publish_record_precheck",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_audit_summary_id": "audit_summary_substack",
+      "source_decision_gate_id": "decision_gate_substack",
+      "source_export_packet_stub_id": "export_packet_stub_substack",
+      "source_manual_export_precheck_id": "manual_export_precheck_substack"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_export_gate",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify cryptographic operator signature matches registered key.",
+          "requirement_id": "evidence_operator_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual export gate is cleared.",
+          "requirement_id": "evidence_manual_export_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual publish record gate is cleared.",
+          "requirement_id": "evidence_manual_publish_record_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform publication URL.",
+          "requirement_id": "evidence_platform_publication_url_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform post ID.",
+          "requirement_id": "evidence_platform_post_id_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify external publish timestamp evidence.",
+          "requirement_id": "evidence_external_timestamp_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify audience public metrics snapshot.",
+          "requirement_id": "evidence_metrics_snapshot_verified",
+          "satisfied": false
+        }
+      ],
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "invariants": [
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no manual publish record created.",
+          "expected_state": "no_record",
+          "invariant_id": "no_manual_publish_record_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_url",
+          "evidence_note": "Verified platform publication URL remains unrecorded.",
+          "expected_state": "no_url",
+          "invariant_id": "no_platform_publication_url_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_post_id",
+          "evidence_note": "Verified platform post ID remains unrecorded.",
+          "expected_state": "no_post_id",
+          "invariant_id": "no_platform_post_id_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_timestamp",
+          "evidence_note": "Verified external publish timestamp remains unrecorded.",
+          "expected_state": "no_timestamp",
+          "invariant_id": "no_external_publish_timestamp_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_metrics",
+          "evidence_note": "Verified public metrics remain unrecorded.",
+          "expected_state": "no_metrics",
+          "invariant_id": "no_public_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_file",
+          "evidence_note": "Checked local workspace; no export files exist.",
+          "expected_state": "no_file",
+          "invariant_id": "no_export_file_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_clipboard",
+          "evidence_note": "Verified clipboard payload remains ungenerated.",
+          "expected_state": "no_clipboard",
+          "invariant_id": "no_clipboard_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_download",
+          "evidence_note": "Verified no download artifact created.",
+          "expected_state": "no_download",
+          "invariant_id": "no_download_artifact_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual export gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_export_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual publish record gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_publish_record_gate",
+          "passed": true
+        }
+      ],
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_export_gate_status": "manual_export_gate_required_but_locked",
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "manual_publish_record_gate_status": "manual_publish_record_gate_required_but_locked",
+      "manual_publish_record_precheck_id": "manual_publish_record_precheck_linkedin",
+      "missing_future_gates": [
+        "lane_c_platform_manual_publish_record_precheck_to_record_stub",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "d8bec86b1f1c6e2c7bcf6d84bb609118d5ef82250ddb8d35fd18fa39a29f2b48",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "linkedin_professional",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_target_id": "linkedin",
+      "precheck_status": "manual_publish_record_precheck_blocked",
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publish_record_target_type": "linkedin_manual_publish_record_precheck",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_audit_summary_id": "audit_summary_linkedin",
+      "source_decision_gate_id": "decision_gate_linkedin",
+      "source_export_packet_stub_id": "export_packet_stub_linkedin",
+      "source_manual_export_precheck_id": "manual_export_precheck_linkedin"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_export_gate",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify cryptographic operator signature matches registered key.",
+          "requirement_id": "evidence_operator_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual export gate is cleared.",
+          "requirement_id": "evidence_manual_export_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual publish record gate is cleared.",
+          "requirement_id": "evidence_manual_publish_record_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform publication URL.",
+          "requirement_id": "evidence_platform_publication_url_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform post ID.",
+          "requirement_id": "evidence_platform_post_id_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify external publish timestamp evidence.",
+          "requirement_id": "evidence_external_timestamp_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify audience public metrics snapshot.",
+          "requirement_id": "evidence_metrics_snapshot_verified",
+          "satisfied": false
+        }
+      ],
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "invariants": [
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no manual publish record created.",
+          "expected_state": "no_record",
+          "invariant_id": "no_manual_publish_record_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_url",
+          "evidence_note": "Verified platform publication URL remains unrecorded.",
+          "expected_state": "no_url",
+          "invariant_id": "no_platform_publication_url_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_post_id",
+          "evidence_note": "Verified platform post ID remains unrecorded.",
+          "expected_state": "no_post_id",
+          "invariant_id": "no_platform_post_id_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_timestamp",
+          "evidence_note": "Verified external publish timestamp remains unrecorded.",
+          "expected_state": "no_timestamp",
+          "invariant_id": "no_external_publish_timestamp_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_metrics",
+          "evidence_note": "Verified public metrics remain unrecorded.",
+          "expected_state": "no_metrics",
+          "invariant_id": "no_public_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_file",
+          "evidence_note": "Checked local workspace; no export files exist.",
+          "expected_state": "no_file",
+          "invariant_id": "no_export_file_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_clipboard",
+          "evidence_note": "Verified clipboard payload remains ungenerated.",
+          "expected_state": "no_clipboard",
+          "invariant_id": "no_clipboard_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_download",
+          "evidence_note": "Verified no download artifact created.",
+          "expected_state": "no_download",
+          "invariant_id": "no_download_artifact_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual export gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_export_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual publish record gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_publish_record_gate",
+          "passed": true
+        }
+      ],
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_export_gate_status": "manual_export_gate_required_but_locked",
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "manual_publish_record_gate_status": "manual_publish_record_gate_required_but_locked",
+      "manual_publish_record_precheck_id": "manual_publish_record_precheck_threads",
+      "missing_future_gates": [
+        "lane_c_platform_manual_publish_record_precheck_to_record_stub",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "811ae14c7a4271a7e355f523969b36289c19415d20b64cb117bd4a0f4dcc4415",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "threads_microblog",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_target_id": "threads",
+      "precheck_status": "manual_publish_record_precheck_blocked",
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publish_record_target_type": "threads_manual_publish_record_precheck",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_audit_summary_id": "audit_summary_threads",
+      "source_decision_gate_id": "decision_gate_threads",
+      "source_export_packet_stub_id": "export_packet_stub_threads",
+      "source_manual_export_precheck_id": "manual_export_precheck_threads"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_export_gate",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify cryptographic operator signature matches registered key.",
+          "requirement_id": "evidence_operator_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual export gate is cleared.",
+          "requirement_id": "evidence_manual_export_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual publish record gate is cleared.",
+          "requirement_id": "evidence_manual_publish_record_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform publication URL.",
+          "requirement_id": "evidence_platform_publication_url_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform post ID.",
+          "requirement_id": "evidence_platform_post_id_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify external publish timestamp evidence.",
+          "requirement_id": "evidence_external_timestamp_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify audience public metrics snapshot.",
+          "requirement_id": "evidence_metrics_snapshot_verified",
+          "satisfied": false
+        }
+      ],
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "invariants": [
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no manual publish record created.",
+          "expected_state": "no_record",
+          "invariant_id": "no_manual_publish_record_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_url",
+          "evidence_note": "Verified platform publication URL remains unrecorded.",
+          "expected_state": "no_url",
+          "invariant_id": "no_platform_publication_url_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_post_id",
+          "evidence_note": "Verified platform post ID remains unrecorded.",
+          "expected_state": "no_post_id",
+          "invariant_id": "no_platform_post_id_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_timestamp",
+          "evidence_note": "Verified external publish timestamp remains unrecorded.",
+          "expected_state": "no_timestamp",
+          "invariant_id": "no_external_publish_timestamp_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_metrics",
+          "evidence_note": "Verified public metrics remain unrecorded.",
+          "expected_state": "no_metrics",
+          "invariant_id": "no_public_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_file",
+          "evidence_note": "Checked local workspace; no export files exist.",
+          "expected_state": "no_file",
+          "invariant_id": "no_export_file_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_clipboard",
+          "evidence_note": "Verified clipboard payload remains ungenerated.",
+          "expected_state": "no_clipboard",
+          "invariant_id": "no_clipboard_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_download",
+          "evidence_note": "Verified no download artifact created.",
+          "expected_state": "no_download",
+          "invariant_id": "no_download_artifact_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual export gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_export_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual publish record gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_publish_record_gate",
+          "passed": true
+        }
+      ],
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_export_gate_status": "manual_export_gate_required_but_locked",
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "manual_publish_record_gate_status": "manual_publish_record_gate_required_but_locked",
+      "manual_publish_record_precheck_id": "manual_publish_record_precheck_instagram",
+      "missing_future_gates": [
+        "lane_c_platform_manual_publish_record_precheck_to_record_stub",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "5d3d0aef3379bc2cbdd13443ca6f0122cc45edf202e8323dfb0e15f53b4d9869",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "instagram_media",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_target_id": "instagram",
+      "precheck_status": "manual_publish_record_precheck_blocked",
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publish_record_target_type": "instagram_manual_publish_record_precheck",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_audit_summary_id": "audit_summary_instagram",
+      "source_decision_gate_id": "decision_gate_instagram",
+      "source_export_packet_stub_id": "export_packet_stub_instagram",
+      "source_manual_export_precheck_id": "manual_export_precheck_instagram"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_export_gate",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify cryptographic operator signature matches registered key.",
+          "requirement_id": "evidence_operator_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual export gate is cleared.",
+          "requirement_id": "evidence_manual_export_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual publish record gate is cleared.",
+          "requirement_id": "evidence_manual_publish_record_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform publication URL.",
+          "requirement_id": "evidence_platform_publication_url_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform post ID.",
+          "requirement_id": "evidence_platform_post_id_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify external publish timestamp evidence.",
+          "requirement_id": "evidence_external_timestamp_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify audience public metrics snapshot.",
+          "requirement_id": "evidence_metrics_snapshot_verified",
+          "satisfied": false
+        }
+      ],
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "invariants": [
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no manual publish record created.",
+          "expected_state": "no_record",
+          "invariant_id": "no_manual_publish_record_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_url",
+          "evidence_note": "Verified platform publication URL remains unrecorded.",
+          "expected_state": "no_url",
+          "invariant_id": "no_platform_publication_url_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_post_id",
+          "evidence_note": "Verified platform post ID remains unrecorded.",
+          "expected_state": "no_post_id",
+          "invariant_id": "no_platform_post_id_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_timestamp",
+          "evidence_note": "Verified external publish timestamp remains unrecorded.",
+          "expected_state": "no_timestamp",
+          "invariant_id": "no_external_publish_timestamp_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_metrics",
+          "evidence_note": "Verified public metrics remain unrecorded.",
+          "expected_state": "no_metrics",
+          "invariant_id": "no_public_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_file",
+          "evidence_note": "Checked local workspace; no export files exist.",
+          "expected_state": "no_file",
+          "invariant_id": "no_export_file_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_clipboard",
+          "evidence_note": "Verified clipboard payload remains ungenerated.",
+          "expected_state": "no_clipboard",
+          "invariant_id": "no_clipboard_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_download",
+          "evidence_note": "Verified no download artifact created.",
+          "expected_state": "no_download",
+          "invariant_id": "no_download_artifact_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual export gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_export_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual publish record gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_publish_record_gate",
+          "passed": true
+        }
+      ],
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_export_gate_status": "manual_export_gate_required_but_locked",
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "manual_publish_record_gate_status": "manual_publish_record_gate_required_but_locked",
+      "manual_publish_record_precheck_id": "manual_publish_record_precheck_facebook_page",
+      "missing_future_gates": [
+        "lane_c_platform_manual_publish_record_precheck_to_record_stub",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "2503936cff8ab381e435248cdcecf8aacdb95e7643883a49aaeb721256a2327d",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "facebook_page_media",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_target_id": "facebook_page",
+      "precheck_status": "manual_publish_record_precheck_blocked",
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publish_record_target_type": "facebook_page_manual_publish_record_precheck",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_audit_summary_id": "audit_summary_facebook_page",
+      "source_decision_gate_id": "decision_gate_facebook_page",
+      "source_export_packet_stub_id": "export_packet_stub_facebook_page",
+      "source_manual_export_precheck_id": "manual_export_precheck_facebook_page"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_export_gate",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify cryptographic operator signature matches registered key.",
+          "requirement_id": "evidence_operator_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual export gate is cleared.",
+          "requirement_id": "evidence_manual_export_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual publish record gate is cleared.",
+          "requirement_id": "evidence_manual_publish_record_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform publication URL.",
+          "requirement_id": "evidence_platform_publication_url_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform post ID.",
+          "requirement_id": "evidence_platform_post_id_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify external publish timestamp evidence.",
+          "requirement_id": "evidence_external_timestamp_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify audience public metrics snapshot.",
+          "requirement_id": "evidence_metrics_snapshot_verified",
+          "satisfied": false
+        }
+      ],
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "invariants": [
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no manual publish record created.",
+          "expected_state": "no_record",
+          "invariant_id": "no_manual_publish_record_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_url",
+          "evidence_note": "Verified platform publication URL remains unrecorded.",
+          "expected_state": "no_url",
+          "invariant_id": "no_platform_publication_url_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_post_id",
+          "evidence_note": "Verified platform post ID remains unrecorded.",
+          "expected_state": "no_post_id",
+          "invariant_id": "no_platform_post_id_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_timestamp",
+          "evidence_note": "Verified external publish timestamp remains unrecorded.",
+          "expected_state": "no_timestamp",
+          "invariant_id": "no_external_publish_timestamp_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_metrics",
+          "evidence_note": "Verified public metrics remain unrecorded.",
+          "expected_state": "no_metrics",
+          "invariant_id": "no_public_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_file",
+          "evidence_note": "Checked local workspace; no export files exist.",
+          "expected_state": "no_file",
+          "invariant_id": "no_export_file_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_clipboard",
+          "evidence_note": "Verified clipboard payload remains ungenerated.",
+          "expected_state": "no_clipboard",
+          "invariant_id": "no_clipboard_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_download",
+          "evidence_note": "Verified no download artifact created.",
+          "expected_state": "no_download",
+          "invariant_id": "no_download_artifact_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual export gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_export_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual publish record gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_publish_record_gate",
+          "passed": true
+        }
+      ],
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_export_gate_status": "manual_export_gate_required_but_locked",
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "manual_publish_record_gate_status": "manual_publish_record_gate_required_but_locked",
+      "manual_publish_record_precheck_id": "manual_publish_record_precheck_tiktok",
+      "missing_future_gates": [
+        "lane_c_platform_manual_publish_record_precheck_to_record_stub",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "b807ae91762252c7ad699368d111e4e853f0194cd6abd3ba1df8afb0125b8b2f",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "tiktok_video",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_target_id": "tiktok",
+      "precheck_status": "manual_publish_record_precheck_blocked",
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publish_record_target_type": "tiktok_manual_publish_record_precheck",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_audit_summary_id": "audit_summary_tiktok",
+      "source_decision_gate_id": "decision_gate_tiktok",
+      "source_export_packet_stub_id": "export_packet_stub_tiktok",
+      "source_manual_export_precheck_id": "manual_export_precheck_tiktok"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_export_gate",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify cryptographic operator signature matches registered key.",
+          "requirement_id": "evidence_operator_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual export gate is cleared.",
+          "requirement_id": "evidence_manual_export_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify manual publish record gate is cleared.",
+          "requirement_id": "evidence_manual_publish_record_gate_cleared",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform publication URL.",
+          "requirement_id": "evidence_platform_publication_url_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify recorded platform post ID.",
+          "requirement_id": "evidence_platform_post_id_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify external publish timestamp evidence.",
+          "requirement_id": "evidence_external_timestamp_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify audience public metrics snapshot.",
+          "requirement_id": "evidence_metrics_snapshot_verified",
+          "satisfied": false
+        }
+      ],
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "invariants": [
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no manual publish record created.",
+          "expected_state": "no_record",
+          "invariant_id": "no_manual_publish_record_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_url",
+          "evidence_note": "Verified platform publication URL remains unrecorded.",
+          "expected_state": "no_url",
+          "invariant_id": "no_platform_publication_url_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_post_id",
+          "evidence_note": "Verified platform post ID remains unrecorded.",
+          "expected_state": "no_post_id",
+          "invariant_id": "no_platform_post_id_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_timestamp",
+          "evidence_note": "Verified external publish timestamp remains unrecorded.",
+          "expected_state": "no_timestamp",
+          "invariant_id": "no_external_publish_timestamp_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_metrics",
+          "evidence_note": "Verified public metrics remain unrecorded.",
+          "expected_state": "no_metrics",
+          "invariant_id": "no_public_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_file",
+          "evidence_note": "Checked local workspace; no export files exist.",
+          "expected_state": "no_file",
+          "invariant_id": "no_export_file_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_clipboard",
+          "evidence_note": "Verified clipboard payload remains ungenerated.",
+          "expected_state": "no_clipboard",
+          "invariant_id": "no_clipboard_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_download",
+          "evidence_note": "Verified no download artifact created.",
+          "expected_state": "no_download",
+          "invariant_id": "no_download_artifact_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual export gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_export_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified manual publish record gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_manual_publish_record_gate",
+          "passed": true
+        }
+      ],
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_export_gate_status": "manual_export_gate_required_but_locked",
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "manual_publish_record_gate_status": "manual_publish_record_gate_required_but_locked",
+      "manual_publish_record_precheck_id": "manual_publish_record_precheck_youtube",
+      "missing_future_gates": [
+        "lane_c_platform_manual_publish_record_precheck_to_record_stub",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "1322c1f079cc4b61b16641e8b59a5ff9648415b0cff3e9c0e51fdda19542bb93",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "youtube_video",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_target_id": "youtube",
+      "precheck_status": "manual_publish_record_precheck_blocked",
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publish_record_target_type": "youtube_manual_publish_record_precheck",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "scheduler_enabled": false,
+      "source_audit_summary_id": "audit_summary_youtube",
+      "source_decision_gate_id": "decision_gate_youtube",
+      "source_export_packet_stub_id": "export_packet_stub_youtube",
+      "source_manual_export_precheck_id": "manual_export_precheck_youtube"
+    }
+  ],
+  "precheck_targets": [
+    {
+      "description": "Manual publish record precheck for X platform",
+      "platform_target_id": "x",
+      "publish_record_target_type": "x_manual_publish_record_precheck"
+    },
+    {
+      "description": "Manual publish record precheck for Telegram channel",
+      "platform_target_id": "telegram_channel_destination",
+      "publish_record_target_type": "telegram_channel_manual_publish_record_precheck"
+    },
+    {
+      "description": "Manual publish record precheck for Telegram remote operator",
+      "platform_target_id": "telegram_remote_operator",
+      "publish_record_target_type": "telegram_remote_operator_log_record_precheck"
+    },
+    {
+      "description": "Manual publish record precheck for Substack",
+      "platform_target_id": "substack",
+      "publish_record_target_type": "substack_manual_publish_record_precheck"
+    },
+    {
+      "description": "Manual publish record precheck for LinkedIn",
+      "platform_target_id": "linkedin",
+      "publish_record_target_type": "linkedin_manual_publish_record_precheck"
+    },
+    {
+      "description": "Manual publish record precheck for Meta Threads",
+      "platform_target_id": "threads",
+      "publish_record_target_type": "threads_manual_publish_record_precheck"
+    },
+    {
+      "description": "Manual publish record precheck for Instagram",
+      "platform_target_id": "instagram",
+      "publish_record_target_type": "instagram_manual_publish_record_precheck"
+    },
+    {
+      "description": "Manual publish record precheck for Facebook Page",
+      "platform_target_id": "facebook_page",
+      "publish_record_target_type": "facebook_page_manual_publish_record_precheck"
+    },
+    {
+      "description": "Manual publish record precheck for TikTok",
+      "platform_target_id": "tiktok",
+      "publish_record_target_type": "tiktok_manual_publish_record_precheck"
+    },
+    {
+      "description": "Manual publish record precheck for YouTube",
+      "platform_target_id": "youtube",
+      "publish_record_target_type": "youtube_manual_publish_record_precheck"
+    }
+  ],
+  "safety_flags": {
+    "account_binding_active": false,
+    "approval_granted": false,
+    "approved_for_publication": false,
+    "approved_internal_alpha_artifacts_available": false,
+    "autonomous_posting": false,
+    "autonomous_reply_or_dm": false,
+    "broker_order_execution": false,
+    "clipboard_payload_created": false,
+    "credential_values_loaded": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "download_artifact_created": false,
+    "dqr_cleared_by_contentops": false,
+    "env_read": false,
+    "export_file_created": false,
+    "export_packet_stub_only": true,
+    "export_ready": false,
+    "external_publish_timestamp_recorded": false,
+    "financial_advice": false,
+    "fixture_only": true,
+    "ingestion_repo_mutated": false,
+    "local_only": true,
+    "manual_export_allowed": false,
+    "manual_export_precheck_only": true,
+    "manual_publish_record_allowed": false,
+    "manual_publish_record_created": false,
+    "manual_publish_record_precheck_only": true,
+    "network_performed": false,
+    "operator_approval_granted": false,
+    "operator_audit_summary_only": true,
+    "operator_identity_bound": false,
+    "operator_signature_present": false,
+    "payload_hash_locked": false,
+    "platform_api_called": false,
+    "platform_payload_created": false,
+    "platform_post_id_recorded": false,
+    "platform_publication_url_recorded": false,
+    "platform_ready": false,
+    "provider_api_called": false,
+    "public_metrics_recorded": false,
+    "public_postable": false,
+    "publishable_payload_created": false,
+    "publishable_text": false,
+    "raw_vendor_redistribution": false,
+    "readiness_cleared_by_contentops": false,
+    "scheduler_enabled": false,
+    "schema_only": true,
+    "scraping": false,
+    "signal_language": false
+  },
+  "source_baseline_commit": "9cf9d9d545d14ece9fa6239dfc717baac547f3e0",
+  "summary_counts": {
+    "precheck_evidence_requirements_count": 10,
+    "precheck_invariants_count": 27,
+    "precheck_targets_count": 10,
+    "registered_precheck_records_count": 10,
+    "safety_flags_count": 49
+  },
+  "task_label": "TASK_CONTENTOPS_0175AU_OPERATOR_AUDIT_SUMMARY_TO_MANUAL_PUBLISH_RECORD_PRECHECK_V0"
+}
