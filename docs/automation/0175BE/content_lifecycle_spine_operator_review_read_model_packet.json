@@ -1,0 +1,621 @@
+{
+  "generated_at_epoch": 0,
+  "hash_algorithm": "sha256",
+  "ledger_family": "content_lifecycle_spine_future",
+  "matrix_version": "0175BE_CONTENT_LIFECYCLE_SPINE_V1",
+  "next_required_gate": "lane_c_operator_review_brief_precheck_to_brief_stub",
+  "packet_hash": "33a1e02cf92174ecb0772fea66b6d26bbfc07292f3b9900fee4f40f89d17d279",
+  "safety_flags": {
+    "all_safety_locks_active": true,
+    "autonomous_reply_or_dm_enabled": false,
+    "credential_hydrated": false,
+    "dispatch_ready": false,
+    "env_read": false,
+    "live_api_called": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false
+  },
+  "source_baseline_commit": "158c85467dfd1877f43e3bdea78bb15dba051c05",
+  "stages": [
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "content_intent"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "lane_c_artifact_schema_check"
+      ],
+      "lifecycle_phase": "Ingestion",
+      "live_api_called": false,
+      "operator_action_required": false,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": null,
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/lane_c_artifact_intake_validation_contract.py",
+      "source_packet_path": "docs/automation/0175AF/lane_c_artifact_intake_validation_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0175AF_LANE_C_ARTIFACT_INTAKE_VALIDATION_V0",
+      "stage_id": "artifact_or_brief_intake",
+      "stage_name": "Artifact or Brief Intake",
+      "stage_order": 1,
+      "state": "COMPLETED",
+      "upstream_stage_ids": []
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "draft_or_render"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "intent_parsed_stub"
+      ],
+      "lifecycle_phase": "Ingestion",
+      "live_api_called": false,
+      "operator_action_required": false,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": null,
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/content_idea_intent_parser_contract.py",
+      "source_packet_path": "docs/automation/0174U4/content_idea_intent_parser_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0174U4_CONTENT_IDEA_INTAKE_V0",
+      "stage_id": "content_intent",
+      "stage_name": "Content Intent Parser",
+      "stage_order": 2,
+      "state": "COMPLETED",
+      "upstream_stage_ids": [
+        "artifact_or_brief_intake"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "operator_review_bundle"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "draft_composed_stub"
+      ],
+      "lifecycle_phase": "Composition",
+      "live_api_called": false,
+      "operator_action_required": false,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": null,
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/editorial_brief_ai_writer_output_contract.py",
+      "source_packet_path": "docs/automation/0174U5/editorial_brief_ai_writer_output_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0174U5_EDITORIAL_BRIEF_AI_WRITER_V0",
+      "stage_id": "draft_or_render",
+      "stage_name": "Draft Composition and Platform Rendering",
+      "stage_order": 3,
+      "state": "COMPLETED",
+      "upstream_stage_ids": [
+        "content_intent"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "approval_gate"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "operator_review_bundle_stub"
+      ],
+      "lifecycle_phase": "Review",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": null,
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/v5_operator_review_queue_manual_pilot_trail_contract.py",
+      "source_packet_path": "docs/automation/0174UY/v5_operator_review_queue_manual_pilot_trail_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0174UY_V5_OPERATOR_REVIEW_QUEUE_V0",
+      "stage_id": "operator_review_bundle",
+      "stage_name": "Operator Review Queue Bundle Intake",
+      "stage_order": 4,
+      "state": "PENDING",
+      "upstream_stage_ids": [
+        "draft_or_render"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [
+        "blocked_no_operator_signature"
+      ],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "manual_export"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "approval_queue_stub"
+      ],
+      "lifecycle_phase": "Approval",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": "live_operator_signature_vault",
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/approval_queue.py",
+      "source_packet_path": "docs/automation/0174UW/v5_manual_export_pilot_verification_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0174UW_V5_APPROVAL_QUEUE_V0",
+      "stage_id": "approval_gate",
+      "stage_name": "Operator Approval Gate",
+      "stage_order": 5,
+      "state": "BLOCKED",
+      "upstream_stage_ids": [
+        "operator_review_bundle"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock"
+      ],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "operator_audit_summary"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "manual_export_ready"
+      ],
+      "lifecycle_phase": "Dispatch",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": "production_key_vault_decrypter",
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/v5_manual_export_pilot_verification_contract.py",
+      "source_packet_path": "docs/automation/0174UW/v5_manual_export_pilot_verification_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0174UW_V5_MANUAL_EXPORT_PILOT_V0",
+      "stage_id": "manual_export",
+      "stage_name": "Manual Platform Export",
+      "stage_order": 6,
+      "state": "BLOCKED",
+      "upstream_stage_ids": [
+        "approval_gate"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock"
+      ],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "manual_publish_record_precheck"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "audit_summary_stub"
+      ],
+      "lifecycle_phase": "Dispatch",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": "production_key_vault_decrypter",
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/export_packet_stub_to_operator_audit_summary_contract.py",
+      "source_packet_path": "docs/automation/0175AT/export_packet_stub_to_operator_audit_summary_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0175AT_EXPORT_PACKET_STUB_TO_OPERATOR_AUDIT_SUMMARY_V0",
+      "stage_id": "operator_audit_summary",
+      "stage_name": "Operator Audit Summary",
+      "stage_order": 7,
+      "state": "BLOCKED",
+      "upstream_stage_ids": [
+        "manual_export"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [
+        "blocked_no_manual_publish_record_gate"
+      ],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "manual_publish_record_stub"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "publish_record_precheck"
+      ],
+      "lifecycle_phase": "Dispatch",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": "production_key_vault_decrypter",
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/operator_audit_summary_to_manual_publish_record_precheck_contract.py",
+      "source_packet_path": "docs/automation/0175AU/operator_audit_summary_to_manual_publish_record_precheck_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0175AU_OPERATOR_AUDIT_SUMMARY_TO_MANUAL_PUBLISH_RECORD_PRECHECK_V0",
+      "stage_id": "manual_publish_record_precheck",
+      "stage_name": "Manual Publish Record Precheck",
+      "stage_order": 8,
+      "state": "BLOCKED",
+      "upstream_stage_ids": [
+        "operator_audit_summary"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence"
+      ],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "metrics_precheck"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "publish_record_stub"
+      ],
+      "lifecycle_phase": "Dispatch",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": "production_key_vault_decrypter",
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/manual_publish_record_precheck_to_record_stub_contract.py",
+      "source_packet_path": "docs/automation/0175AV/manual_publish_record_precheck_to_record_stub_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0175AV_MANUAL_PUBLISH_RECORD_PRECHECK_TO_RECORD_STUB_V0",
+      "stage_id": "manual_publish_record_stub",
+      "stage_name": "Manual Publish Record Stub",
+      "stage_order": 9,
+      "state": "BLOCKED",
+      "upstream_stage_ids": [
+        "manual_publish_record_precheck"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [
+        "blocked_no_metrics_gate"
+      ],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "metrics_record_stub"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "metrics_precheck"
+      ],
+      "lifecycle_phase": "Metrics",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": "production_key_vault_decrypter",
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/manual_publish_record_stub_to_metrics_precheck_contract.py",
+      "source_packet_path": "docs/automation/0175AW/manual_publish_record_stub_to_metrics_precheck_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0175AW_MANUAL_PUBLISH_RECORD_STUB_TO_METRICS_PRECHECK_V0",
+      "stage_id": "metrics_precheck",
+      "stage_name": "Metrics Record Precheck",
+      "stage_order": 10,
+      "state": "BLOCKED",
+      "upstream_stage_ids": [
+        "manual_publish_record_stub"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [
+        "blocked_no_metrics_gate"
+      ],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "performance_audit_precheck"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "metrics_record_stub"
+      ],
+      "lifecycle_phase": "Metrics",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": "production_key_vault_decrypter",
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/metrics_precheck_to_metrics_record_stub_contract.py",
+      "source_packet_path": "docs/automation/0175AX/metrics_precheck_to_metrics_record_stub_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0175AX_METRICS_PRECHECK_TO_METRICS_RECORD_STUB_V0",
+      "stage_id": "metrics_record_stub",
+      "stage_name": "Metrics Record Stub",
+      "stage_order": 11,
+      "state": "BLOCKED",
+      "upstream_stage_ids": [
+        "metrics_precheck"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [
+        "blocked_no_performance_audit_gate"
+      ],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "performance_summary_stub"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "performance_audit_precheck"
+      ],
+      "lifecycle_phase": "Metrics",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": "production_key_vault_decrypter",
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/metrics_record_stub_to_performance_audit_precheck_contract.py",
+      "source_packet_path": "docs/automation/0175AY/metrics_record_stub_to_performance_audit_precheck_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0175AY_METRICS_RECORD_STUB_TO_PERFORMANCE_AUDIT_PRECHECK_V0",
+      "stage_id": "performance_audit_precheck",
+      "stage_name": "Performance Audit Precheck",
+      "stage_order": 12,
+      "state": "BLOCKED",
+      "upstream_stage_ids": [
+        "metrics_record_stub"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [
+        "blocked_no_performance_audit_gate"
+      ],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "content_feedback_precheck"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "performance_summary_stub"
+      ],
+      "lifecycle_phase": "Metrics",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": "production_key_vault_decrypter",
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/performance_audit_precheck_to_summary_stub_contract.py",
+      "source_packet_path": "docs/automation/0175AZ/performance_audit_precheck_to_summary_stub_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0175AZ_PERFORMANCE_AUDIT_PRECHECK_TO_SUMMARY_STUB_V0",
+      "stage_id": "performance_summary_stub",
+      "stage_name": "Performance Summary Stub",
+      "stage_order": 13,
+      "state": "BLOCKED",
+      "upstream_stage_ids": [
+        "performance_audit_precheck"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [
+        "blocked_no_content_feedback_gate"
+      ],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "content_feedback_stub"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "content_feedback_precheck"
+      ],
+      "lifecycle_phase": "Feedback",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": "production_key_vault_decrypter",
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/performance_summary_stub_to_content_feedback_precheck_contract.py",
+      "source_packet_path": "docs/automation/0175BA/performance_summary_stub_to_content_feedback_precheck_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0175BA_PERFORMANCE_SUMMARY_STUB_TO_CONTENT_FEEDBACK_PRECHECK_V0",
+      "stage_id": "content_feedback_precheck",
+      "stage_name": "Content Feedback Precheck",
+      "stage_order": 14,
+      "state": "BLOCKED",
+      "upstream_stage_ids": [
+        "performance_summary_stub"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [
+        "blocked_no_content_feedback_gate"
+      ],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [
+        "operator_review_brief_precheck"
+      ],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "content_feedback_stub"
+      ],
+      "lifecycle_phase": "Feedback",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": "production_key_vault_decrypter",
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/content_feedback_precheck_to_feedback_stub_contract.py",
+      "source_packet_path": "docs/automation/0175BB/content_feedback_precheck_to_feedback_stub_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0175BB_CONTENT_FEEDBACK_PRECHECK_TO_FEEDBACK_STUB_V0",
+      "stage_id": "content_feedback_stub",
+      "stage_name": "Content Feedback Stub",
+      "stage_order": 15,
+      "state": "BLOCKED",
+      "upstream_stage_ids": [
+        "content_feedback_precheck"
+      ]
+    },
+    {
+      "autonomous_reply_or_dm_enabled": false,
+      "blocker_codes": [
+        "blocked_no_operator_review_brief_gate"
+      ],
+      "credential_hydrated": false,
+      "current_truth_promoted": false,
+      "dispatch_ready": false,
+      "downstream_stage_ids": [],
+      "dqr_cleared_by_contentops": false,
+      "env_read": false,
+      "evidence_refs": [
+        "operator_review_brief_precheck"
+      ],
+      "lifecycle_phase": "Review",
+      "live_api_called": false,
+      "operator_action_required": true,
+      "platform_scope": "all",
+      "provider_api_called": false,
+      "public_postable": false,
+      "readiness_cleared_by_contentops": false,
+      "required_future_gate": "lane_c_operator_review_brief_precheck_to_brief_stub",
+      "scheduler_enabled": false,
+      "scraping_performed": false,
+      "source_module": "live_contentops/feedback_stub_to_operator_review_brief_precheck_contract.py",
+      "source_packet_path": "docs/automation/0175BC/feedback_stub_to_operator_review_brief_precheck_contract_packet.json",
+      "source_task_label": "TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0",
+      "stage_id": "operator_review_brief_precheck",
+      "stage_name": "Operator Review Brief Precheck",
+      "stage_order": 16,
+      "state": "BLOCKED",
+      "upstream_stage_ids": [
+        "content_feedback_stub"
+      ]
+    }
+  ],
+  "summary": {
+    "all_safety_locks_active": true,
+    "blocked_stage_count": 12,
+    "credential_hydration_count": 0,
+    "current_lifecycle_position": "operator_review_bundle",
+    "dispatch_ready_count": 0,
+    "env_read_count": 0,
+    "live_api_call_count": 0,
+    "next_blocker": "approval_gate",
+    "next_recommended_task": "TASK_CONTENTOPS_0175BF_OPERATOR_REVIEW_READ_MODEL_TO_V5_QUEUE_BINDING_V0",
+    "provider_api_call_count": 0,
+    "public_postable_count": 0,
+    "total_stage_count": 16
+  },
+  "task_label": "TASK_CONTENTOPS_0175BE_CONTRACT_CHAIN_LIFECYCLE_SPINE_AND_OPERATOR_REVIEW_READ_MODEL_PRECHECK_V0"
+}

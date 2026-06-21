@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `2265841efaa3af9177fbb58f2def53ac6cfa807a`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0`
-* **Latest implemented capability:** Feedback Stub to Operator Review Brief Precheck
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BD_REPO_DEEP_RESEARCH_AND_REMAINING_PHASE_PLAN_V0`
+* **Last resolved accepted HEAD in ledger:** `158c85467dfd1877f43e3bdea78bb15dba051c05`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175BD_REPO_DEEP_RESEARCH_AND_REMAINING_PHASE_PLAN_V0`
+* **Latest implemented capability:** Deep Research and Remaining Phase Plan
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BE_CONTRACT_CHAIN_LIFECYCLE_SPINE_AND_OPERATOR_REVIEW_READ_MODEL_PRECHECK_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -113,7 +113,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175BA_PERFORMANCE_SUMMARY_STUB_TO_CONTENT_FEEDBACK_PRECHECK_V0` | `888d6c34b31daa107056bb5a56ab0d5e7430e49b` | `1e278a83bb2cf95464edc80dbfe819adf6ba6107` | build content feedback precheck | pytest suite, check checked invariants, required feedback references | content feedback precheck metadata stubs for future logging | live/platform/API/publishing | `0175BB` |
 | `TASK_CONTENTOPS_0175BB_CONTENT_FEEDBACK_PRECHECK_TO_FEEDBACK_STUB_V0` | `1e278a83bb2cf95464edc80dbfe819adf6ba6107` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` | build content feedback stub | pytest suite, check checked invariants, required feedback references | content feedback stub metadata stubs for future logging | live/platform/API/publishing | `0175BC` |
 | `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` | `2265841efaa3af9177fbb58f2def53ac6cfa807a` | build operator review brief precheck | pytest suite, check checked invariants, required brief references | operator review brief precheck metadata stubs for future logging | live/platform/API/publishing | `0175BD` |
-| `TASK_CONTENTOPS_0175BD_REPO_DEEP_RESEARCH_AND_REMAINING_PHASE_PLAN_V0` | `2265841efaa3af9177fbb58f2def53ac6cfa807a` | `RECORDED_IN_NEXT_TASK_READBACK` | perform deep research scan and plan remaining phases | JSON packet loads, file existence checks | strategic design clarity and remaining roadmap planning | local/recon | `0175BE` |
+| `TASK_CONTENTOPS_0175BD_REPO_DEEP_RESEARCH_AND_REMAINING_PHASE_PLAN_V0` | `2265841efaa3af9177fbb58f2def53ac6cfa807a` | `158c85467dfd1877f43e3bdea78bb15dba051c05` | perform deep research scan and plan remaining phases | JSON packet loads, file existence checks | strategic design clarity and remaining roadmap planning | local/recon | `0175BE` |
+| `TASK_CONTENTOPS_0175BE_CONTRACT_CHAIN_LIFECYCLE_SPINE_AND_OPERATOR_REVIEW_READ_MODEL_PRECHECK_V0` | `158c85467dfd1877f43e3bdea78bb15dba051c05` | `RECORDED_IN_NEXT_TASK_READBACK` | build canonical content lifecycle spine and operator review read model | pytest suites, check stage order, safety checks | unified state model representing all 16 stages | local/contract | `0175BF` |
 
 ---
 
@@ -155,6 +156,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BE_CONTRACT_CHAIN_LIFECYCLE_SPINE_AND_OPERATOR_REVIEW_READ_MODEL_PRECHECK_V0`
-* **Focus:** Consolidate the 20+ circular mock contract stubs into a single unified lifecycle engine.
+* **Next recommended task:** `TASK_CONTENTOPS_0175BF_OPERATOR_REVIEW_READ_MODEL_TO_V5_QUEUE_BINDING_V0`
+* **Focus:** Bind the consolidated Python read-models to the V5 cockpit read-models.
 * **Visual System Status:** Visual enhancement/polish is deferred until more core product foundation is complete.

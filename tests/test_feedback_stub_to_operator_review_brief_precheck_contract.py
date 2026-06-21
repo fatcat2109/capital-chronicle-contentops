@@ -419,7 +419,10 @@ def test_63_progress_ledger_resolves_0175bb_and_appends_0175bc():
 
     # One-task-lag checks
     assert "| `TASK_CONTENTOPS_0175BB_CONTENT_FEEDBACK_PRECHECK_TO_FEEDBACK_STUB_V0` | `1e278a83bb2cf95464edc80dbfe819adf6ba6107` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` |" in content
-    assert "| `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` | `RECORDED_IN_NEXT_TASK_READBACK` |" in content
+    assert (
+        "| `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` | `RECORDED_IN_NEXT_TASK_READBACK` |" in content or
+        "| `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` | `2265841efaa3af9177fbb58f2def53ac6cfa807a` |" in content
+    )
 
 
 def test_64_no_pycache_or_pyc_staged():
@@ -433,5 +436,5 @@ def test_64_no_pycache_or_pyc_staged():
         status_code = line[:2]
         path_str = line[3:]
         if "__pycache__" in path_str or path_str.endswith(".pyc"):
-            if status_code[0] != " ":
+            if status_code[0] != " " and status_code[0] != "D":
                 raise AssertionError(f"Staged pycache or .pyc file found: {line}")
