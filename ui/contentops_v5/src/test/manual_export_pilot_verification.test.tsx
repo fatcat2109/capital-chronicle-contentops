@@ -94,4 +94,25 @@ describe('Manual Export / Pilot Verification UI', () => {
     expect(within(rail).getByText(/manual export checklist item/i)).toBeInTheDocument();
     expect(within(rail).getAllByText('check_no_credentials').length).toBeGreaterThan(0);
   });
+
+  it('toggles sidebar menu on mobile sizes', () => {
+    render(createElement(App));
+    const menuBtn = screen.getByTitle(/Open menu/i);
+    expect(menuBtn).toBeInTheDocument();
+
+    const nav = screen.getByRole('navigation');
+    expect(nav.className).toContain('-translate-x-full');
+
+    fireEvent.click(menuBtn);
+    expect(nav.className).toContain('translate-x-0');
+  });
+
+  it('proves break-all and containment classes exist on primitives', () => {
+    openView();
+    const verifiedChips = screen.getAllByText('true');
+    expect(verifiedChips[0].className).toContain('break-all');
+
+    const disabledBlocks = screen.getAllByText(/manual_export_pilot_verification_only_no_live_affordance/i);
+    expect(disabledBlocks[0].className).toContain('break-all');
+  });
 });

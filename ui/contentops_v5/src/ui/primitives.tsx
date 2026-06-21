@@ -42,7 +42,7 @@ export function StatusChip({
   return (
     <span
       className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 font-mono text-[10.5px] font-bold uppercase tracking-wide ${
-        nowrap ? 'whitespace-nowrap' : ''
+        nowrap ? 'whitespace-nowrap' : 'break-all'
       } ${STATUS_CLASS[status]}`}
     >
       {icon && Icon && <Icon className="h-3 w-3" />}
@@ -157,7 +157,7 @@ export function LockedAction({
         <IconBlock className="h-4 w-4" />
         {label} (disabled)
       </button>
-      <p className="mt-2 font-mono text-[10.5px] leading-relaxed text-status-blocked">
+      <p className="mt-2 font-mono text-[10.5px] leading-relaxed text-status-blocked break-all">
         {reason}
       </p>
     </div>

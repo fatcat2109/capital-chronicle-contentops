@@ -7,7 +7,7 @@ import type { SelectableObject, ThemeMode, ViewId } from './types';
 import { viewModel } from './fixtures';
 import { defaultSelectionFor } from './selectors';
 import { StatusChip, StatusDot } from './ui/primitives';
-import { VIEW_ICONS, IconClose, IconShield, IconSun, IconMoon } from './ui/icons';
+import { VIEW_ICONS, IconClose, IconShield, IconSun, IconMoon, IconMenu } from './ui/icons';
 import { CommandCenter } from './views/CommandCenter';
 import { ContentInventory } from './views/ContentInventory';
 import { WriterStudio } from './views/WriterStudio';
@@ -23,6 +23,7 @@ import { PreflightBundle } from './views/PreflightBundle';
 export default function App() {
   const [view, setView] = useState<ViewId>('command_center');
   const [theme, setTheme] = useState<ThemeMode>('light');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   // Inspector is never empty on first render: each view has a default object.
   const [selected, setSelected] = useState<SelectableObject | null>(() =>
     defaultSelectionFor('command_center'),
@@ -54,13 +55,13 @@ export default function App() {
         data-theme={effectiveTheme}
         className="flex h-screen w-full overflow-hidden bg-bg text-fg"
       >
-        <LeftNav />
+        <LeftNav isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <div className="flex min-w-0 flex-1 flex-col">
-          <SafetyBar effectiveTheme={effectiveTheme} />
+          <SafetyBar effectiveTheme={effectiveTheme} onMenuClick={() => setSidebarOpen(true)} />
           <div className="flex min-h-0 flex-1">
             <main
               id="v5-workspace"
-              className="min-w-[28rem] flex-1 overflow-y-auto"
+              className="min-w-0 flex-1 overflow-y-auto"
             >
               <div key={view} className="animate-fade-in mx-auto w-full max-w-container p-6 lg:p-8">
                 <ActiveView />
@@ -74,87 +75,124 @@ export default function App() {
   );
 }
 
-function LeftNav() {
+function LeftNav({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const { view, setView } = useApp();
   const s = viewModel.system_state;
   return (
-    <nav className="flex w-64 shrink-0 flex-col border-r border-line bg-surface-1">
-      <div className="flex items-center gap-3 border-b border-line px-5 py-4">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-fg font-mono text-sm font-bold text-bg shadow-card">
-          CC
-        </div>
-        <div className="min-w-0">
-          <div className="truncate text-sm font-semibold text-fg">
-            ContentOps
+    <>
+      {isOpen && (
+        <div
+          onClick={onClose}
+          className="fixed inset-0 z-40 bg-fg/20 backdrop-blur-sm lg:hidden"
+        />
+      )}
+      <nav className={`fixed inset-y-0 left-0 z-50 flex w-64 flex-col border-r border-line bg-surface-1 transition-transform duration-200 lg:static lg:translate-x-0 ${
+        isOpen ? 'translate-x-0' : '-translate-x-full'
+      }`}>
+        <div className="flex items-center justify-between border-b border-line px-5 py-4">
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-fg font-mono text-sm font-bold text-bg shadow-card">
+              CC
+            </div>
+            <div className="min-w-0">
+              <div className="truncate text-sm font-semibold text-fg">
+                ContentOps
+              </div>
+              <div className="font-mono text-[11px] text-fg-subtle">
+                V5 · local-first
+              </div>
+            </div>
           </div>
-          <div className="font-mono text-[11px] text-fg-subtle">
-            V5 · local-first
-          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-8 w-8 items-center justify-center rounded-md border border-line text-fg-muted hover:text-fg lg:hidden"
+            title="Close menu"
+          >
+            <IconClose className="h-4 w-4" />
+          </button>
         </div>
-      </div>
 
-      <ul className="flex-1 space-y-0.5 overflow-y-auto p-3">
-        {NAV_ITEMS.map((item) => {
-          const Icon = VIEW_ICONS[item.icon];
-          const active = view === item.id;
-          return (
-            <li key={item.id}>
-              <button
-                type="button"
-                id={`nav-${item.id}`}
-                onClick={() => setView(item.id)}
-                aria-current={active ? 'page' : undefined}
-                className={`group relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
-                  active
-                    ? 'bg-surface-2 font-semibold text-fg'
-                    : 'text-fg-muted hover:bg-surface-2 hover:text-fg'
-                }`}
-              >
-                <span
-                  className={`absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-full bg-accent transition-opacity ${
-                    active ? 'opacity-100' : 'opacity-0'
+        <ul className="flex-1 space-y-0.5 overflow-y-auto p-3">
+          {NAV_ITEMS.map((item) => {
+            const Icon = VIEW_ICONS[item.icon];
+            const active = view === item.id;
+            return (
+              <li key={item.id}>
+                <button
+                  type="button"
+                  id={`nav-${item.id}`}
+                  onClick={() => {
+                    setView(item.id);
+                    onClose();
+                  }}
+                  aria-current={active ? 'page' : undefined}
+                  className={`group relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
+                    active
+                      ? 'bg-surface-2 font-semibold text-fg'
+                      : 'text-fg-muted hover:bg-surface-2 hover:text-fg'
                   }`}
-                  aria-hidden
-                />
-                <Icon
-                  className={`h-[18px] w-[18px] shrink-0 ${
-                    active ? 'text-accent' : 'text-fg-subtle group-hover:text-fg-muted'
-                  }`}
-                />
-                <span className="truncate">{item.label}</span>
-              </button>
-            </li>
-          );
-        })}
-      </ul>
+                >
+                  <span
+                    className={`absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-full bg-accent transition-opacity ${
+                      active ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    aria-hidden
+                  />
+                  <Icon
+                    className={`h-[18px] w-[18px] shrink-0 ${
+                      active ? 'text-accent' : 'text-fg-subtle group-hover:text-fg-muted'
+                    }`}
+                  />
+                  <span className="truncate">{item.label}</span>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
 
-      <div className="border-t border-line p-3">
-        <div className="rounded-lg border border-line bg-surface-2 p-3">
-          <div className="flex items-center justify-between">
-            <span className="font-mono text-[10.5px] uppercase tracking-wide text-fg-subtle">
-              Mode
-            </span>
-            <StatusDot status="verified" />
-          </div>
-          <div className="mt-1 font-mono text-[12px] font-semibold text-fg">
-            {s.product_mode}
-          </div>
-          <div className="mt-0.5 text-[11px] text-fg-subtle">
-            Review-only · no live posting
+        <div className="border-t border-line p-3">
+          <div className="rounded-lg border border-line bg-surface-2 p-3">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[10.5px] uppercase tracking-wide text-fg-subtle">
+                Mode
+              </span>
+              <StatusDot status="verified" />
+            </div>
+            <div className="mt-1 font-mono text-[12px] font-semibold text-fg">
+              {s.product_mode}
+            </div>
+            <div className="mt-0.5 text-[11px] text-fg-subtle">
+              Review-only · no live posting
+            </div>
           </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </>
   );
 }
 
-function SafetyBar({ effectiveTheme }: { effectiveTheme: ThemeMode }) {
+function SafetyBar({
+  effectiveTheme,
+  onMenuClick,
+}: {
+  effectiveTheme: ThemeMode;
+  onMenuClick: () => void;
+}) {
   const { theme, setTheme, view } = useApp();
   const s = viewModel.system_state;
   const isDark = effectiveTheme === 'dark-evidence';
   return (
     <header className="flex items-center justify-between gap-4 border-b border-line bg-surface-1 px-6 py-3">
       <div className="flex min-w-0 items-center gap-3">
+        <button
+          type="button"
+          onClick={onMenuClick}
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-line text-fg-muted hover:text-fg lg:hidden"
+          title="Open menu"
+        >
+          <IconMenu className="h-4 w-4" />
+        </button>
         <IconShield className="h-4 w-4 shrink-0 text-status-verified" />
         <StatusChip status={s.verdict_status} icon>
           {s.verdict}
