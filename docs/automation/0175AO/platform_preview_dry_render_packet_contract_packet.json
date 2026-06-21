@@ -1,0 +1,1749 @@
+{
+  "blocked_capabilities": [
+    "live_publishing_dispatch",
+    "autonomous_reply_automation",
+    "live_credential_hydration",
+    "active_scheduler_triggers"
+  ],
+  "generated_at_epoch": 0,
+  "global_blockers": [
+    {
+      "active": true,
+      "blocker_id": "blocked_no_operator_review",
+      "description": "Operator review gate is required but pending."
+    },
+    {
+      "active": true,
+      "blocker_id": "blocked_no_account_binding",
+      "description": "Account binding is required but inactive."
+    },
+    {
+      "active": true,
+      "blocker_id": "blocked_no_credential_gate",
+      "description": "Credential gate authentication is required but pending."
+    },
+    {
+      "active": true,
+      "blocker_id": "blocked_no_payload_hash_lock",
+      "description": "Payload hash lock verification is required but pending."
+    },
+    {
+      "active": true,
+      "blocker_id": "blocked_dqr_readiness_unresolved",
+      "description": "DQR and publish readiness checks are unresolved."
+    },
+    {
+      "active": true,
+      "blocker_id": "blocked_not_public_postable",
+      "description": "Candidate is not marked public postable."
+    },
+    {
+      "active": true,
+      "blocker_id": "blocked_no_dispatch_gate",
+      "description": "Dispatch gate has not cleared the post."
+    },
+    {
+      "active": true,
+      "blocker_id": "blocked_no_platform_api_authorization",
+      "description": "Platform API is not authorized (local contract dry run)."
+    }
+  ],
+  "hash_algorithm": "sha256",
+  "ledger_family": "platform_preview_dry_render_packet_future",
+  "matrix_version": "0175AO_PLATFORM_PREVIEW_DRY_RENDER_PACKET_V1",
+  "missing_future_gates": [
+    "lane_c_platform_preview_dry_render_to_review_bundle_gate",
+    "production_key_vault_decrypter",
+    "live_operator_signature_vault"
+  ],
+  "next_required_gate": "lane_c_platform_preview_dry_render_to_review_bundle_gate",
+  "packet_hash": "70a2efc915ffd8df17ae82af0c56070dac193b2136bf5151ec8ac4fdbe948991",
+  "platform_shapes": [
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for x shape field: text_stub",
+          "dispatch_ready": false,
+          "field_name": "text_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for x shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for x shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for x shape field: thread_hint",
+          "dispatch_ready": false,
+          "field_name": "thread_hint",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for x shape field: media_slot_stub",
+          "dispatch_ready": false,
+          "field_name": "media_slot_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "280 character limit with media slots",
+      "media_requirements": "media stubs allowed for preview only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "x_microblog",
+      "platform_target_id": "x",
+      "precheck_only": true,
+      "required_fields": [
+        "text_stub",
+        "citation_stub",
+        "limitation_stub",
+        "thread_hint",
+        "media_slot_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for telegram_channel_destination shape field: message_stub",
+          "dispatch_ready": false,
+          "field_name": "message_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for telegram_channel_destination shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for telegram_channel_destination shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for telegram_channel_destination shape field: operator_note_stub",
+          "dispatch_ready": false,
+          "field_name": "operator_note_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "4096 characters limit for channel messages",
+      "media_requirements": "text only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_channel_destination",
+      "precheck_only": true,
+      "required_fields": [
+        "message_stub",
+        "citation_stub",
+        "limitation_stub",
+        "operator_note_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for telegram_remote_operator shape field: operator_summary_stub",
+          "dispatch_ready": false,
+          "field_name": "operator_summary_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for telegram_remote_operator shape field: decision_buttons_stub_disabled",
+          "dispatch_ready": false,
+          "field_name": "decision_buttons_stub_disabled",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for telegram_remote_operator shape field: audit_ref_stub",
+          "dispatch_ready": false,
+          "field_name": "audit_ref_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "4096 characters limit for operator logs",
+      "media_requirements": "text only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "telegram_chat",
+      "platform_target_id": "telegram_remote_operator",
+      "precheck_only": true,
+      "required_fields": [
+        "operator_summary_stub",
+        "decision_buttons_stub_disabled",
+        "audit_ref_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for substack shape field: title_stub",
+          "dispatch_ready": false,
+          "field_name": "title_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for substack shape field: subtitle_stub",
+          "dispatch_ready": false,
+          "field_name": "subtitle_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for substack shape field: body_outline_stub",
+          "dispatch_ready": false,
+          "field_name": "body_outline_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for substack shape field: citation_section_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_section_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for substack shape field: limitation_section_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_section_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "standard newsletter email layout, markdown-enabled",
+      "media_requirements": "text only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "substack_newsletter",
+      "platform_target_id": "substack",
+      "precheck_only": true,
+      "required_fields": [
+        "title_stub",
+        "subtitle_stub",
+        "body_outline_stub",
+        "citation_section_stub",
+        "limitation_section_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for linkedin shape field: professional_intro_stub",
+          "dispatch_ready": false,
+          "field_name": "professional_intro_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for linkedin shape field: body_stub",
+          "dispatch_ready": false,
+          "field_name": "body_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for linkedin shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for linkedin shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "3000 character limit professional feed structure",
+      "media_requirements": "text only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "linkedin_professional",
+      "platform_target_id": "linkedin",
+      "precheck_only": true,
+      "required_fields": [
+        "professional_intro_stub",
+        "body_stub",
+        "citation_stub",
+        "limitation_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for threads shape field: short_text_stub",
+          "dispatch_ready": false,
+          "field_name": "short_text_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for threads shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for threads shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "500 character limit microblog shape",
+      "media_requirements": "text only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "threads_microblog",
+      "platform_target_id": "threads",
+      "precheck_only": true,
+      "required_fields": [
+        "short_text_stub",
+        "citation_stub",
+        "limitation_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for instagram shape field: caption_stub",
+          "dispatch_ready": false,
+          "field_name": "caption_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for instagram shape field: image_requirement_stub",
+          "dispatch_ready": false,
+          "field_name": "image_requirement_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for instagram shape field: alt_text_stub",
+          "dispatch_ready": false,
+          "field_name": "alt_text_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for instagram shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for instagram shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "2200 character limit image/caption requirement",
+      "media_requirements": "media stubs allowed for preview only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "instagram_media",
+      "platform_target_id": "instagram",
+      "precheck_only": true,
+      "required_fields": [
+        "caption_stub",
+        "image_requirement_stub",
+        "alt_text_stub",
+        "citation_stub",
+        "limitation_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for facebook_page shape field: post_text_stub",
+          "dispatch_ready": false,
+          "field_name": "post_text_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for facebook_page shape field: attachment_stub",
+          "dispatch_ready": false,
+          "field_name": "attachment_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for facebook_page shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for facebook_page shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "standard page layout with attachment fields",
+      "media_requirements": "text only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "facebook_page_media",
+      "platform_target_id": "facebook_page",
+      "precheck_only": true,
+      "required_fields": [
+        "post_text_stub",
+        "attachment_stub",
+        "citation_stub",
+        "limitation_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for tiktok shape field: caption_stub",
+          "dispatch_ready": false,
+          "field_name": "caption_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for tiktok shape field: video_requirement_stub",
+          "dispatch_ready": false,
+          "field_name": "video_requirement_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for tiktok shape field: disclosure_stub",
+          "dispatch_ready": false,
+          "field_name": "disclosure_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for tiktok shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "caption character limit and video format details",
+      "media_requirements": "media stubs allowed for preview only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "tiktok_video",
+      "platform_target_id": "tiktok",
+      "precheck_only": true,
+      "required_fields": [
+        "caption_stub",
+        "video_requirement_stub",
+        "disclosure_stub",
+        "citation_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    },
+    {
+      "account_binding_requirement": "requires future account binding verification",
+      "blocked_fields": [
+        "raw_unredacted_credentials",
+        "direct_payload_signature"
+      ],
+      "citation_rendering_requirement": "must append citation footnotes stub format",
+      "credential_gate_requirement": "requires future credential gate authentication",
+      "dispatch_gate_requirement": "requires dispatcher check",
+      "dry_render_only": true,
+      "fields": [
+        {
+          "description": "Placeholder stub for youtube shape field: title_stub",
+          "dispatch_ready": false,
+          "field_name": "title_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for youtube shape field: description_outline_stub",
+          "dispatch_ready": false,
+          "field_name": "description_outline_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for youtube shape field: video_requirement_stub",
+          "dispatch_ready": false,
+          "field_name": "video_requirement_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for youtube shape field: citation_stub",
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        },
+        {
+          "description": "Placeholder stub for youtube shape field: limitation_stub",
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "publishable_text": false
+        }
+      ],
+      "limitations_rendering_requirement": "must append limitations warn label format",
+      "max_length_or_shape_notes": "description character limit and video metadata check",
+      "media_requirements": "media stubs allowed for preview only",
+      "operator_review_requirement": "requires manual operator confirmation",
+      "optional_fields": [],
+      "payload_hash_lock_requirement": "requires cryptographically verified payload hash lock",
+      "platform_family": "youtube_video",
+      "platform_target_id": "youtube",
+      "precheck_only": true,
+      "required_fields": [
+        "title_stub",
+        "description_outline_stub",
+        "video_requirement_stub",
+        "citation_stub",
+        "limitation_stub"
+      ],
+      "shape_status": "shape_registered_precheck_aligned"
+    }
+  ],
+  "render_records": [
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_review",
+        "blocked_no_account_binding",
+        "blocked_no_credential_gate",
+        "blocked_no_payload_hash_lock",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_not_public_postable",
+        "blocked_no_dispatch_gate",
+        "blocked_no_platform_api_authorization"
+      ],
+      "blocker_banner": "[DRY_RENDER_BLOCKER_BANNER: ACTIVE_BLOCKERS_PREVENT_PUBLICATION: blocked_no_operator_review, blocked_no_account_binding, blocked_no_credential_gate, blocked_no_payload_hash_lock, blocked_dqr_readiness_unresolved, blocked_not_public_postable, blocked_no_dispatch_gate, blocked_no_platform_api_authorization]",
+      "citation_slot_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "export_ready": false,
+      "field_renders": [
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "text_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: x.text_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: x.citation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: x.limitation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "thread_hint",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: x.thread_hint]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "media_slot_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: x.media_slot_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        }
+      ],
+      "limitation_slot_status": "limitation_rendering_required_but_pending",
+      "missing_future_gates": [
+        "lane_c_platform_preview_dry_render_to_review_bundle_gate"
+      ],
+      "operator_review_required": true,
+      "operator_review_status": "review_required_but_pending",
+      "packet_hash": "abe24c170b160f8d04d3e9984f99d5db30da9e1ce8c2c92f43b42ec5f105dcc2",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "placeholder_only": true,
+      "platform_api_called": false,
+      "platform_family": "x_microblog",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "x",
+      "preview_surface_type": "x_thread_stub_surface",
+      "publishability_status": "non_publishable_dry_render",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "render_id": "dry_render_x",
+      "render_status": "dry_render_blocked",
+      "scheduler_enabled": false,
+      "source_shape_id": "shape_x",
+      "watermark": "[DRY_RENDER_WATERMARK_NON_PUBLISHABLE_SCHEMA_ONLY]"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_review",
+        "blocked_no_account_binding",
+        "blocked_no_credential_gate",
+        "blocked_no_payload_hash_lock",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_not_public_postable",
+        "blocked_no_dispatch_gate",
+        "blocked_no_platform_api_authorization"
+      ],
+      "blocker_banner": "[DRY_RENDER_BLOCKER_BANNER: ACTIVE_BLOCKERS_PREVENT_PUBLICATION: blocked_no_operator_review, blocked_no_account_binding, blocked_no_credential_gate, blocked_no_payload_hash_lock, blocked_dqr_readiness_unresolved, blocked_not_public_postable, blocked_no_dispatch_gate, blocked_no_platform_api_authorization]",
+      "citation_slot_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "export_ready": false,
+      "field_renders": [
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "message_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: telegram_channel_destination.message_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: telegram_channel_destination.citation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: telegram_channel_destination.limitation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "operator_note_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: telegram_channel_destination.operator_note_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        }
+      ],
+      "limitation_slot_status": "limitation_rendering_required_but_pending",
+      "missing_future_gates": [
+        "lane_c_platform_preview_dry_render_to_review_bundle_gate"
+      ],
+      "operator_review_required": true,
+      "operator_review_status": "review_required_but_pending",
+      "packet_hash": "987bc3fa1f0cdc2137deefc8e5593bafb37e397b91cceb99095b2d09e0bb6d52",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "placeholder_only": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "telegram_channel_destination",
+      "preview_surface_type": "telegram_channel_stub_surface",
+      "publishability_status": "non_publishable_dry_render",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "render_id": "dry_render_telegram_channel_destination",
+      "render_status": "dry_render_blocked",
+      "scheduler_enabled": false,
+      "source_shape_id": "shape_telegram_channel_destination",
+      "watermark": "[DRY_RENDER_WATERMARK_NON_PUBLISHABLE_SCHEMA_ONLY]"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_review",
+        "blocked_no_account_binding",
+        "blocked_no_credential_gate",
+        "blocked_no_payload_hash_lock",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_not_public_postable",
+        "blocked_no_dispatch_gate",
+        "blocked_no_platform_api_authorization"
+      ],
+      "blocker_banner": "[DRY_RENDER_BLOCKER_BANNER: ACTIVE_BLOCKERS_PREVENT_PUBLICATION: blocked_no_operator_review, blocked_no_account_binding, blocked_no_credential_gate, blocked_no_payload_hash_lock, blocked_dqr_readiness_unresolved, blocked_not_public_postable, blocked_no_dispatch_gate, blocked_no_platform_api_authorization]",
+      "citation_slot_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "export_ready": false,
+      "field_renders": [
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "operator_summary_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: telegram_remote_operator.operator_summary_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "decision_buttons_stub_disabled",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: telegram_remote_operator.decision_buttons_stub_disabled]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "audit_ref_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: telegram_remote_operator.audit_ref_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        }
+      ],
+      "limitation_slot_status": "limitation_rendering_required_but_pending",
+      "missing_future_gates": [
+        "lane_c_platform_preview_dry_render_to_review_bundle_gate"
+      ],
+      "operator_review_required": true,
+      "operator_review_status": "review_required_but_pending",
+      "packet_hash": "763d35bcb27b09ac386ac6877766c1266d1e36c9cf956bfeff3409eb51988320",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "placeholder_only": true,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "telegram_remote_operator",
+      "preview_surface_type": "telegram_remote_operator_stub_surface",
+      "publishability_status": "non_publishable_dry_render",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "render_id": "dry_render_telegram_remote_operator",
+      "render_status": "dry_render_blocked",
+      "scheduler_enabled": false,
+      "source_shape_id": "shape_telegram_remote_operator",
+      "watermark": "[DRY_RENDER_WATERMARK_NON_PUBLISHABLE_SCHEMA_ONLY]"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_review",
+        "blocked_no_account_binding",
+        "blocked_no_credential_gate",
+        "blocked_no_payload_hash_lock",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_not_public_postable",
+        "blocked_no_dispatch_gate",
+        "blocked_no_platform_api_authorization"
+      ],
+      "blocker_banner": "[DRY_RENDER_BLOCKER_BANNER: ACTIVE_BLOCKERS_PREVENT_PUBLICATION: blocked_no_operator_review, blocked_no_account_binding, blocked_no_credential_gate, blocked_no_payload_hash_lock, blocked_dqr_readiness_unresolved, blocked_not_public_postable, blocked_no_dispatch_gate, blocked_no_platform_api_authorization]",
+      "citation_slot_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "export_ready": false,
+      "field_renders": [
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "title_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: substack.title_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "subtitle_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: substack.subtitle_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "body_outline_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: substack.body_outline_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "citation_section_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: substack.citation_section_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "limitation_section_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: substack.limitation_section_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        }
+      ],
+      "limitation_slot_status": "limitation_rendering_required_but_pending",
+      "missing_future_gates": [
+        "lane_c_platform_preview_dry_render_to_review_bundle_gate"
+      ],
+      "operator_review_required": true,
+      "operator_review_status": "review_required_but_pending",
+      "packet_hash": "e5b651632186f3c33c0d42825053277b655f26e18eb34f99232a471cd60b64c5",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "placeholder_only": true,
+      "platform_api_called": false,
+      "platform_family": "substack_newsletter",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "substack",
+      "preview_surface_type": "substack_outline_stub_surface",
+      "publishability_status": "non_publishable_dry_render",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "render_id": "dry_render_substack",
+      "render_status": "dry_render_blocked",
+      "scheduler_enabled": false,
+      "source_shape_id": "shape_substack",
+      "watermark": "[DRY_RENDER_WATERMARK_NON_PUBLISHABLE_SCHEMA_ONLY]"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_review",
+        "blocked_no_account_binding",
+        "blocked_no_credential_gate",
+        "blocked_no_payload_hash_lock",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_not_public_postable",
+        "blocked_no_dispatch_gate",
+        "blocked_no_platform_api_authorization"
+      ],
+      "blocker_banner": "[DRY_RENDER_BLOCKER_BANNER: ACTIVE_BLOCKERS_PREVENT_PUBLICATION: blocked_no_operator_review, blocked_no_account_binding, blocked_no_credential_gate, blocked_no_payload_hash_lock, blocked_dqr_readiness_unresolved, blocked_not_public_postable, blocked_no_dispatch_gate, blocked_no_platform_api_authorization]",
+      "citation_slot_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "export_ready": false,
+      "field_renders": [
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "professional_intro_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: linkedin.professional_intro_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "body_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: linkedin.body_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: linkedin.citation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: linkedin.limitation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        }
+      ],
+      "limitation_slot_status": "limitation_rendering_required_but_pending",
+      "missing_future_gates": [
+        "lane_c_platform_preview_dry_render_to_review_bundle_gate"
+      ],
+      "operator_review_required": true,
+      "operator_review_status": "review_required_but_pending",
+      "packet_hash": "82d8044c0820684683392a39a40fe902db4cb40b324aad502f17e60f754b05a0",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "placeholder_only": true,
+      "platform_api_called": false,
+      "platform_family": "linkedin_professional",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "linkedin",
+      "preview_surface_type": "linkedin_feed_stub_surface",
+      "publishability_status": "non_publishable_dry_render",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "render_id": "dry_render_linkedin",
+      "render_status": "dry_render_blocked",
+      "scheduler_enabled": false,
+      "source_shape_id": "shape_linkedin",
+      "watermark": "[DRY_RENDER_WATERMARK_NON_PUBLISHABLE_SCHEMA_ONLY]"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_review",
+        "blocked_no_account_binding",
+        "blocked_no_credential_gate",
+        "blocked_no_payload_hash_lock",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_not_public_postable",
+        "blocked_no_dispatch_gate",
+        "blocked_no_platform_api_authorization"
+      ],
+      "blocker_banner": "[DRY_RENDER_BLOCKER_BANNER: ACTIVE_BLOCKERS_PREVENT_PUBLICATION: blocked_no_operator_review, blocked_no_account_binding, blocked_no_credential_gate, blocked_no_payload_hash_lock, blocked_dqr_readiness_unresolved, blocked_not_public_postable, blocked_no_dispatch_gate, blocked_no_platform_api_authorization]",
+      "citation_slot_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "export_ready": false,
+      "field_renders": [
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "short_text_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: threads.short_text_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: threads.citation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: threads.limitation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        }
+      ],
+      "limitation_slot_status": "limitation_rendering_required_but_pending",
+      "missing_future_gates": [
+        "lane_c_platform_preview_dry_render_to_review_bundle_gate"
+      ],
+      "operator_review_required": true,
+      "operator_review_status": "review_required_but_pending",
+      "packet_hash": "985bc5519364589a7d0ea45b7b3b43f1d82035d7c2bb4632e5f984f520d46b9e",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "placeholder_only": true,
+      "platform_api_called": false,
+      "platform_family": "threads_microblog",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "threads",
+      "preview_surface_type": "threads_stub_surface",
+      "publishability_status": "non_publishable_dry_render",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "render_id": "dry_render_threads",
+      "render_status": "dry_render_blocked",
+      "scheduler_enabled": false,
+      "source_shape_id": "shape_threads",
+      "watermark": "[DRY_RENDER_WATERMARK_NON_PUBLISHABLE_SCHEMA_ONLY]"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_review",
+        "blocked_no_account_binding",
+        "blocked_no_credential_gate",
+        "blocked_no_payload_hash_lock",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_not_public_postable",
+        "blocked_no_dispatch_gate",
+        "blocked_no_platform_api_authorization"
+      ],
+      "blocker_banner": "[DRY_RENDER_BLOCKER_BANNER: ACTIVE_BLOCKERS_PREVENT_PUBLICATION: blocked_no_operator_review, blocked_no_account_binding, blocked_no_credential_gate, blocked_no_payload_hash_lock, blocked_dqr_readiness_unresolved, blocked_not_public_postable, blocked_no_dispatch_gate, blocked_no_platform_api_authorization]",
+      "citation_slot_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "export_ready": false,
+      "field_renders": [
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "caption_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: instagram.caption_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "image_requirement_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: instagram.image_requirement_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "alt_text_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: instagram.alt_text_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: instagram.citation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: instagram.limitation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        }
+      ],
+      "limitation_slot_status": "limitation_rendering_required_but_pending",
+      "missing_future_gates": [
+        "lane_c_platform_preview_dry_render_to_review_bundle_gate"
+      ],
+      "operator_review_required": true,
+      "operator_review_status": "review_required_but_pending",
+      "packet_hash": "adebc0d85ec4aa67703d0fd33d629587bb6ffb3dc68e09f5c69892a1b8916acf",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "placeholder_only": true,
+      "platform_api_called": false,
+      "platform_family": "instagram_media",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "instagram",
+      "preview_surface_type": "instagram_caption_media_stub_surface",
+      "publishability_status": "non_publishable_dry_render",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "render_id": "dry_render_instagram",
+      "render_status": "dry_render_blocked",
+      "scheduler_enabled": false,
+      "source_shape_id": "shape_instagram",
+      "watermark": "[DRY_RENDER_WATERMARK_NON_PUBLISHABLE_SCHEMA_ONLY]"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_review",
+        "blocked_no_account_binding",
+        "blocked_no_credential_gate",
+        "blocked_no_payload_hash_lock",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_not_public_postable",
+        "blocked_no_dispatch_gate",
+        "blocked_no_platform_api_authorization"
+      ],
+      "blocker_banner": "[DRY_RENDER_BLOCKER_BANNER: ACTIVE_BLOCKERS_PREVENT_PUBLICATION: blocked_no_operator_review, blocked_no_account_binding, blocked_no_credential_gate, blocked_no_payload_hash_lock, blocked_dqr_readiness_unresolved, blocked_not_public_postable, blocked_no_dispatch_gate, blocked_no_platform_api_authorization]",
+      "citation_slot_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "export_ready": false,
+      "field_renders": [
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "post_text_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: facebook_page.post_text_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "attachment_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: facebook_page.attachment_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: facebook_page.citation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: facebook_page.limitation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        }
+      ],
+      "limitation_slot_status": "limitation_rendering_required_but_pending",
+      "missing_future_gates": [
+        "lane_c_platform_preview_dry_render_to_review_bundle_gate"
+      ],
+      "operator_review_required": true,
+      "operator_review_status": "review_required_but_pending",
+      "packet_hash": "a7a5399df940d27a40a7127d9b539beaf4ee1fa3db31a9dee42673f765fcbf6d",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "placeholder_only": true,
+      "platform_api_called": false,
+      "platform_family": "facebook_page_media",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "facebook_page",
+      "preview_surface_type": "facebook_page_stub_surface",
+      "publishability_status": "non_publishable_dry_render",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "render_id": "dry_render_facebook_page",
+      "render_status": "dry_render_blocked",
+      "scheduler_enabled": false,
+      "source_shape_id": "shape_facebook_page",
+      "watermark": "[DRY_RENDER_WATERMARK_NON_PUBLISHABLE_SCHEMA_ONLY]"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_review",
+        "blocked_no_account_binding",
+        "blocked_no_credential_gate",
+        "blocked_no_payload_hash_lock",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_not_public_postable",
+        "blocked_no_dispatch_gate",
+        "blocked_no_platform_api_authorization"
+      ],
+      "blocker_banner": "[DRY_RENDER_BLOCKER_BANNER: ACTIVE_BLOCKERS_PREVENT_PUBLICATION: blocked_no_operator_review, blocked_no_account_binding, blocked_no_credential_gate, blocked_no_payload_hash_lock, blocked_dqr_readiness_unresolved, blocked_not_public_postable, blocked_no_dispatch_gate, blocked_no_platform_api_authorization]",
+      "citation_slot_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "export_ready": false,
+      "field_renders": [
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "caption_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: tiktok.caption_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "video_requirement_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: tiktok.video_requirement_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "disclosure_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: tiktok.disclosure_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: tiktok.citation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        }
+      ],
+      "limitation_slot_status": "limitation_rendering_required_but_pending",
+      "missing_future_gates": [
+        "lane_c_platform_preview_dry_render_to_review_bundle_gate"
+      ],
+      "operator_review_required": true,
+      "operator_review_status": "review_required_but_pending",
+      "packet_hash": "ceaa49d3f370c583e49dc953761c2264622c0aaea81538da7315337c49689164",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "placeholder_only": true,
+      "platform_api_called": false,
+      "platform_family": "tiktok_video",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "tiktok",
+      "preview_surface_type": "tiktok_caption_video_stub_surface",
+      "publishability_status": "non_publishable_dry_render",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "render_id": "dry_render_tiktok",
+      "render_status": "dry_render_blocked",
+      "scheduler_enabled": false,
+      "source_shape_id": "shape_tiktok",
+      "watermark": "[DRY_RENDER_WATERMARK_NON_PUBLISHABLE_SCHEMA_ONLY]"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "blocked_no_operator_review",
+        "blocked_no_account_binding",
+        "blocked_no_credential_gate",
+        "blocked_no_payload_hash_lock",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_not_public_postable",
+        "blocked_no_dispatch_gate",
+        "blocked_no_platform_api_authorization"
+      ],
+      "blocker_banner": "[DRY_RENDER_BLOCKER_BANNER: ACTIVE_BLOCKERS_PREVENT_PUBLICATION: blocked_no_operator_review, blocked_no_account_binding, blocked_no_credential_gate, blocked_no_payload_hash_lock, blocked_dqr_readiness_unresolved, blocked_not_public_postable, blocked_no_dispatch_gate, blocked_no_platform_api_authorization]",
+      "citation_slot_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "export_ready": false,
+      "field_renders": [
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "title_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: youtube.title_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "description_outline_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: youtube.description_outline_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "video_requirement_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: youtube.video_requirement_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "citation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: youtube.citation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        },
+        {
+          "contains_financial_advice": false,
+          "contains_market_number": false,
+          "contains_signal_language": false,
+          "dispatch_ready": false,
+          "field_name": "limitation_stub",
+          "generated_by_provider": false,
+          "placeholder_only": true,
+          "placeholder_value": "[DRY_RENDER_PLACEHOLDER_ONLY: youtube.limitation_stub]",
+          "platform_ready": false,
+          "publishable_text": false,
+          "requires_human_rewrite": true
+        }
+      ],
+      "limitation_slot_status": "limitation_rendering_required_but_pending",
+      "missing_future_gates": [
+        "lane_c_platform_preview_dry_render_to_review_bundle_gate"
+      ],
+      "operator_review_required": true,
+      "operator_review_status": "review_required_but_pending",
+      "packet_hash": "b4d870f143e4b5a338cecfaa8c867e86048766e3068cfda27671e7fc4049ca6a",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "placeholder_only": true,
+      "platform_api_called": false,
+      "platform_family": "youtube_video",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "youtube",
+      "preview_surface_type": "youtube_metadata_video_stub_surface",
+      "publishability_status": "non_publishable_dry_render",
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "render_id": "dry_render_youtube",
+      "render_status": "dry_render_blocked",
+      "scheduler_enabled": false,
+      "source_shape_id": "shape_youtube",
+      "watermark": "[DRY_RENDER_WATERMARK_NON_PUBLISHABLE_SCHEMA_ONLY]"
+    }
+  ],
+  "safety_flags": {
+    "account_binding_active": false,
+    "approved_for_publication": false,
+    "approved_internal_alpha_artifacts_available": false,
+    "autonomous_posting": false,
+    "autonomous_reply_or_dm": false,
+    "broker_order_execution": false,
+    "credential_values_loaded": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "dqr_cleared_by_contentops": false,
+    "dry_render_only": true,
+    "env_read": false,
+    "export_ready": false,
+    "financial_advice": false,
+    "fixture_only": true,
+    "ingestion_repo_mutated": false,
+    "local_only": true,
+    "network_performed": false,
+    "platform_api_called": false,
+    "platform_payload_created": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "publishable_payload_created": false,
+    "raw_vendor_redistribution": false,
+    "readiness_cleared_by_contentops": false,
+    "scheduler_enabled": false,
+    "schema_only": true,
+    "scraping": false,
+    "signal_language": false
+  },
+  "source_baseline_commit": "f57a23fb61a550d9528c1984d8e758e7f00ab265",
+  "summary_counts": {
+    "evaluation_rules_count": 17,
+    "global_blockers_count": 8,
+    "registered_renders_count": 10,
+    "registered_shapes_count": 10,
+    "total_fields_rendered_count": 42
+  },
+  "task_label": "TASK_CONTENTOPS_0175AO_PLATFORM_PREVIEW_DRY_RENDER_PACKET_V0"
+}
