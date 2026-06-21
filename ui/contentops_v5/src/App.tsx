@@ -16,6 +16,7 @@ import { DraftInspector } from './views/DraftInspector';
 import { PlatformPayloadPreview } from './views/PlatformPayloadPreview';
 import { ManualPublishMetrics } from './views/ManualPublishMetrics';
 import { ManualExportPilotVerification } from './views/ManualExportPilotVerification';
+import { OperatorReviewQueue } from './views/OperatorReviewQueue';
 import { ApprovalQueue } from './views/ApprovalQueue';
 import { EvidenceVault } from './views/EvidenceVault';
 import { PreflightBundle } from './views/PreflightBundle';
@@ -248,6 +249,8 @@ function ActiveView() {
       return <ManualPublishMetrics />;
     case 'manual_export_pilot_verification':
       return <ManualExportPilotVerification />;
+    case 'operator_review_queue':
+      return <OperatorReviewQueue />;
     case 'approval_queue':
       return <ApprovalQueue />;
     case 'evidence_vault':

@@ -5,6 +5,7 @@
 import { viewModel } from './fixtures';
 import { preflightBundlePacket } from './data/preflightBundlePacket';
 import { manualExportPilotVerificationPacket } from './data/manualExportPilotVerificationPacket';
+import { operatorReviewQueuePacket } from './data/operatorReviewQueuePacket';
 import type {
   AiWriterOutput,
   ArtifactEligibilityCheck,
@@ -35,6 +36,9 @@ import type {
   V5ManualExportChecklistItem,
   V5ManualExportPilotVerificationPacket,
   V5ManualExportPlatformTarget,
+  V5ReviewItem,
+  V5TrailEntry,
+  V5OperatorReviewQueueManualPilotTrailPacket,
 } from './types';
 
 
@@ -413,6 +417,8 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectManualPublishRecord(vm.manual_publish_records[0]);
     case 'manual_export_pilot_verification':
       return selectManualExportPilotPacket(manualExportPilotVerificationPacket);
+    case 'operator_review_queue':
+      return selectOperatorReviewQueuePacket(operatorReviewQueuePacket);
     case 'approval_queue': {
       const p = vm.approval_packets[0];
       const gate =
@@ -603,6 +609,65 @@ export function selectManualExportChecklistItem(
     fields: [
       { label: 'Status', value: c.status, status: c.status },
       { label: 'Detail', value: c.detail },
+    ],
+  };
+}
+
+export function selectOperatorReviewQueuePacket(
+  p: V5OperatorReviewQueueManualPilotTrailPacket,
+): SelectableObject {
+  return {
+    kind: 'operator_review_queue_packet',
+    id: p.queue_id,
+    title: 'Operator Review Queue & Manual Pilot Trail',
+    fields: [
+      { label: 'Queue ID', value: p.queue_id, mono: true },
+      { label: 'Status', value: p.item_status_summary, status: 'review' },
+      { label: 'Export hash', value: p.source_manual_export_packet_hash, mono: true },
+      { label: 'Packet hash', value: p.packet_hash, mono: true },
+      { label: 'Items count', value: String(p.review_items.length) },
+      { label: 'Trail count', value: String(p.local_review_trail_entries.length) },
+      { label: 'Local only', value: p.safety_flags.local_only ? 'verified' : 'failed', status: p.safety_flags.local_only ? 'verified' : 'blocked' },
+      { label: 'Platform API', value: p.safety_flags.platform_api_called ? 'called' : 'none', status: p.safety_flags.platform_api_called ? 'blocked' : 'verified' },
+      { label: 'Credentials', value: p.safety_flags.credential_values_accessed ? 'accessed' : 'not loaded', status: p.safety_flags.credential_values_accessed ? 'blocked' : 'verified' },
+    ],
+  };
+}
+
+export function selectReviewItem(
+  i: V5ReviewItem,
+): SelectableObject {
+  return {
+    kind: 'operator_review_item',
+    id: i.item_id,
+    title: i.label,
+    fields: [
+      { label: 'Item ID', value: i.item_id, mono: true },
+      { label: 'Status', value: i.status, status: i.status === 'manual_review_required' ? 'review' : 'verified' },
+      { label: 'Local only', value: i.local_only ? 'true' : 'false', status: i.local_only ? 'verified' : 'blocked' },
+      { label: 'No API', value: i.no_api ? 'true' : 'false', status: i.no_api ? 'verified' : 'blocked' },
+      { label: 'No creds', value: i.no_credentials ? 'true' : 'false', status: i.no_credentials ? 'verified' : 'blocked' },
+      { label: 'Scheduler', value: i.no_scheduler ? 'disabled' : 'enabled', status: i.no_scheduler ? 'verified' : 'blocked' },
+      { label: 'Dispatch', value: i.not_dispatch_ready ? 'blocked' : 'ready', status: i.not_dispatch_ready ? 'blocked' : 'verified' },
+      { label: 'Postable', value: i.not_public_postable ? 'false' : 'true', status: i.not_public_postable ? 'blocked' : 'verified' },
+      { label: 'Detail', value: i.detail },
+    ],
+  };
+}
+
+export function selectTrailEntry(
+  e: V5TrailEntry,
+): SelectableObject {
+  return {
+    kind: 'local_review_trail_entry',
+    id: e.entry_id,
+    title: e.label,
+    fields: [
+      { label: 'Entry ID', value: e.entry_id, mono: true },
+      { label: 'Type', value: e.entry_type, mono: true },
+      { label: 'Status', value: e.status, status: e.status },
+      { label: 'Timestamp', value: e.timestamp_placeholder, mono: true },
+      { label: 'Label', value: e.label },
     ],
   };
 }

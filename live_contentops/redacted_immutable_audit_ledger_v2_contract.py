@@ -50,6 +50,7 @@ ENTRY_FAMILIES = (
     "read_only_credential_slot_check_validation_future",
     "read_only_credential_slot_inspection_mock_audit_future",
     "local_preflight_bundle_v5_read_model_precheck_future",
+    "v5_operator_review_queue_manual_pilot_trail_future",
     "unknown_or_blocked",
 )
 

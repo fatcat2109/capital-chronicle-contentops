@@ -14,6 +14,7 @@ export type ViewId =
   | 'platform_payload_preview'
   | 'manual_publish_metrics'
   | 'manual_export_pilot_verification'
+  | 'operator_review_queue'
   | 'approval_queue'
   | 'evidence_vault'
   | 'preflight_bundle';
@@ -775,5 +776,47 @@ export interface V5ManualExportPilotVerificationPacket {
   source_baseline_commit: string;
   source_read_model_packet_hash: string;
   source_read_model_packet_id: string;
+  task_label: string;
+}
+
+export interface V5ReviewItem {
+  detail: string;
+  item_id: string;
+  label: string;
+  local_only: boolean;
+  manual_review_required: boolean;
+  no_api: boolean;
+  no_credentials: boolean;
+  no_scheduler: boolean;
+  not_dispatch_ready: boolean;
+  not_public_postable: boolean;
+  operator_action_outside_contentops_required: boolean;
+  status: StatusKind | 'manual_review_required';
+}
+
+export interface V5TrailEntry {
+  entry_id: string;
+  entry_type: string;
+  label: string;
+  status: StatusKind;
+  timestamp_placeholder: string;
+}
+
+export interface V5OperatorReviewQueueManualPilotTrailPacket {
+  blocked_reasons: string[];
+  contract_version: string;
+  disabled_live_action_state: V5DisabledLiveDispatchState;
+  item_status_summary: string;
+  local_review_trail_entries: V5TrailEntry[];
+  manual_publish_placeholders: V5ManualEmptyPlaceholder[];
+  missing_proofs: string[];
+  next_recommended_task: string;
+  packet_hash: string;
+  packet_hash_algorithm: string;
+  queue_id: string;
+  review_items: V5ReviewItem[];
+  safety_flags: V5ManualExportPilotSafetyFlags;
+  source_baseline_commit: string;
+  source_manual_export_packet_hash: string;
   task_label: string;
 }
