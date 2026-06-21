@@ -52,6 +52,7 @@ ENTRY_FAMILIES = (
     "local_preflight_bundle_v5_read_model_precheck_future",
     "v5_operator_review_queue_manual_pilot_trail_future",
     "v5_manual_pilot_trail_reconciliation_future",
+    "v5_manual_pilot_trail_reconciliation_audit_future",
     "unknown_or_blocked",
 )
 
