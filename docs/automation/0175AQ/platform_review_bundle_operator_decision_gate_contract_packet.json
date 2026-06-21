@@ -1,0 +1,2180 @@
+{
+  "blocked_capabilities": [
+    "live_publishing_dispatch",
+    "autonomous_reply_automation",
+    "live_credential_hydration",
+    "active_scheduler_triggers",
+    "manual_review_export"
+  ],
+  "decision_gate_records": [
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "lock_no_operator_identity",
+        "lock_no_operator_signature",
+        "lock_no_payload_hash_lock",
+        "lock_unresolved_citations",
+        "lock_unresolved_limitations",
+        "lock_dqr_readiness_unresolved",
+        "lock_no_account_binding",
+        "lock_no_credential_gate",
+        "lock_no_export_gate",
+        "lock_no_dispatch_gate"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "decision_gate_id": "decision_gate_x",
+      "decision_locks": [
+        {
+          "active": true,
+          "description": "Operator identity is not bound to the session.",
+          "lock_id": "lock_no_operator_identity"
+        },
+        {
+          "active": true,
+          "description": "Cryptographic approval signature is missing.",
+          "lock_id": "lock_no_operator_signature"
+        },
+        {
+          "active": true,
+          "description": "Payload hash lock is not verified.",
+          "lock_id": "lock_no_payload_hash_lock"
+        },
+        {
+          "active": true,
+          "description": "Citations are unresolved or pending verification.",
+          "lock_id": "lock_unresolved_citations"
+        },
+        {
+          "active": true,
+          "description": "Limitations acknowledgement is pending.",
+          "lock_id": "lock_unresolved_limitations"
+        },
+        {
+          "active": true,
+          "description": "DQR audit and publish readiness checks are unresolved.",
+          "lock_id": "lock_dqr_readiness_unresolved"
+        },
+        {
+          "active": true,
+          "description": "Platform account binding is inactive.",
+          "lock_id": "lock_no_account_binding"
+        },
+        {
+          "active": true,
+          "description": "Credential gate authentication is required but locked.",
+          "lock_id": "lock_no_credential_gate"
+        },
+        {
+          "active": true,
+          "description": "Export gate has not been cleared.",
+          "lock_id": "lock_no_export_gate"
+        },
+        {
+          "active": true,
+          "description": "Dispatch gate has not cleared the post.",
+          "lock_id": "lock_no_dispatch_gate"
+        }
+      ],
+      "decision_options": [
+        {
+          "available_now": false,
+          "decision_option_id": "approve_for_publication",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "reject_bundle",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "request_revision",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "hold_for_more_evidence",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "export_for_manual_publish",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "dispatch_to_platform",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        }
+      ],
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify operator identity matches key binding registry.",
+          "requirement_id": "evidence_operator_identity_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify cryptographic approval signature matches operator key.",
+          "requirement_id": "evidence_approval_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        }
+      ],
+      "export_gate_status": "export_gate_required_but_locked",
+      "export_ready": false,
+      "gate_status": "decision_gate_blocked",
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_decision_required": true,
+      "missing_future_gates": [
+        "lane_c_platform_review_bundle_operator_decision_gate",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_review_required": true,
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "82a1b81363a4bd4d719205f9b6f5593b5e626fc4d28bc2580750a9aba9621db9",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "x_microblog",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "x",
+      "public_postable": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "rejection_recorded": false,
+      "revision_requested": false,
+      "scheduler_enabled": false,
+      "source_bundle_item_id": "bundle_item_x",
+      "source_render_id": "dry_render_x"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "lock_no_operator_identity",
+        "lock_no_operator_signature",
+        "lock_no_payload_hash_lock",
+        "lock_unresolved_citations",
+        "lock_unresolved_limitations",
+        "lock_dqr_readiness_unresolved",
+        "lock_no_account_binding",
+        "lock_no_credential_gate",
+        "lock_no_export_gate",
+        "lock_no_dispatch_gate"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "decision_gate_id": "decision_gate_telegram_channel_destination",
+      "decision_locks": [
+        {
+          "active": true,
+          "description": "Operator identity is not bound to the session.",
+          "lock_id": "lock_no_operator_identity"
+        },
+        {
+          "active": true,
+          "description": "Cryptographic approval signature is missing.",
+          "lock_id": "lock_no_operator_signature"
+        },
+        {
+          "active": true,
+          "description": "Payload hash lock is not verified.",
+          "lock_id": "lock_no_payload_hash_lock"
+        },
+        {
+          "active": true,
+          "description": "Citations are unresolved or pending verification.",
+          "lock_id": "lock_unresolved_citations"
+        },
+        {
+          "active": true,
+          "description": "Limitations acknowledgement is pending.",
+          "lock_id": "lock_unresolved_limitations"
+        },
+        {
+          "active": true,
+          "description": "DQR audit and publish readiness checks are unresolved.",
+          "lock_id": "lock_dqr_readiness_unresolved"
+        },
+        {
+          "active": true,
+          "description": "Platform account binding is inactive.",
+          "lock_id": "lock_no_account_binding"
+        },
+        {
+          "active": true,
+          "description": "Credential gate authentication is required but locked.",
+          "lock_id": "lock_no_credential_gate"
+        },
+        {
+          "active": true,
+          "description": "Export gate has not been cleared.",
+          "lock_id": "lock_no_export_gate"
+        },
+        {
+          "active": true,
+          "description": "Dispatch gate has not cleared the post.",
+          "lock_id": "lock_no_dispatch_gate"
+        }
+      ],
+      "decision_options": [
+        {
+          "available_now": false,
+          "decision_option_id": "approve_for_publication",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "reject_bundle",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "request_revision",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "hold_for_more_evidence",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "export_for_manual_publish",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "dispatch_to_platform",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        }
+      ],
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify operator identity matches key binding registry.",
+          "requirement_id": "evidence_operator_identity_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify cryptographic approval signature matches operator key.",
+          "requirement_id": "evidence_approval_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        }
+      ],
+      "export_gate_status": "export_gate_required_but_locked",
+      "export_ready": false,
+      "gate_status": "decision_gate_blocked",
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_decision_required": true,
+      "missing_future_gates": [
+        "lane_c_platform_review_bundle_operator_decision_gate",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_review_required": true,
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "1f1fbb60468dfbbf4159d04fc903ce08079c6ee8a2e676fa2eacb3045e48c4d5",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "telegram_channel_destination",
+      "public_postable": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "rejection_recorded": false,
+      "revision_requested": false,
+      "scheduler_enabled": false,
+      "source_bundle_item_id": "bundle_item_telegram_channel_destination",
+      "source_render_id": "dry_render_telegram_channel_destination"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "lock_no_operator_identity",
+        "lock_no_operator_signature",
+        "lock_no_payload_hash_lock",
+        "lock_unresolved_citations",
+        "lock_unresolved_limitations",
+        "lock_dqr_readiness_unresolved",
+        "lock_no_account_binding",
+        "lock_no_credential_gate",
+        "lock_no_export_gate",
+        "lock_no_dispatch_gate"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "decision_gate_id": "decision_gate_telegram_remote_operator",
+      "decision_locks": [
+        {
+          "active": true,
+          "description": "Operator identity is not bound to the session.",
+          "lock_id": "lock_no_operator_identity"
+        },
+        {
+          "active": true,
+          "description": "Cryptographic approval signature is missing.",
+          "lock_id": "lock_no_operator_signature"
+        },
+        {
+          "active": true,
+          "description": "Payload hash lock is not verified.",
+          "lock_id": "lock_no_payload_hash_lock"
+        },
+        {
+          "active": true,
+          "description": "Citations are unresolved or pending verification.",
+          "lock_id": "lock_unresolved_citations"
+        },
+        {
+          "active": true,
+          "description": "Limitations acknowledgement is pending.",
+          "lock_id": "lock_unresolved_limitations"
+        },
+        {
+          "active": true,
+          "description": "DQR audit and publish readiness checks are unresolved.",
+          "lock_id": "lock_dqr_readiness_unresolved"
+        },
+        {
+          "active": true,
+          "description": "Platform account binding is inactive.",
+          "lock_id": "lock_no_account_binding"
+        },
+        {
+          "active": true,
+          "description": "Credential gate authentication is required but locked.",
+          "lock_id": "lock_no_credential_gate"
+        },
+        {
+          "active": true,
+          "description": "Export gate has not been cleared.",
+          "lock_id": "lock_no_export_gate"
+        },
+        {
+          "active": true,
+          "description": "Dispatch gate has not cleared the post.",
+          "lock_id": "lock_no_dispatch_gate"
+        }
+      ],
+      "decision_options": [
+        {
+          "available_now": false,
+          "decision_option_id": "approve_for_publication",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "reject_bundle",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "request_revision",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "hold_for_more_evidence",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "export_for_manual_publish",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "dispatch_to_platform",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        }
+      ],
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify operator identity matches key binding registry.",
+          "requirement_id": "evidence_operator_identity_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify cryptographic approval signature matches operator key.",
+          "requirement_id": "evidence_approval_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        }
+      ],
+      "export_gate_status": "export_gate_required_but_locked",
+      "export_ready": false,
+      "gate_status": "decision_gate_blocked",
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_decision_required": true,
+      "missing_future_gates": [
+        "lane_c_platform_review_bundle_operator_decision_gate",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_review_required": true,
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "497a968180dd9c615974560f921ccd80c125d4b3a1870bc2750ee3b027275735",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "telegram_remote_operator",
+      "public_postable": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "rejection_recorded": false,
+      "revision_requested": false,
+      "scheduler_enabled": false,
+      "source_bundle_item_id": "bundle_item_telegram_remote_operator",
+      "source_render_id": "dry_render_telegram_remote_operator"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "lock_no_operator_identity",
+        "lock_no_operator_signature",
+        "lock_no_payload_hash_lock",
+        "lock_unresolved_citations",
+        "lock_unresolved_limitations",
+        "lock_dqr_readiness_unresolved",
+        "lock_no_account_binding",
+        "lock_no_credential_gate",
+        "lock_no_export_gate",
+        "lock_no_dispatch_gate"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "decision_gate_id": "decision_gate_substack",
+      "decision_locks": [
+        {
+          "active": true,
+          "description": "Operator identity is not bound to the session.",
+          "lock_id": "lock_no_operator_identity"
+        },
+        {
+          "active": true,
+          "description": "Cryptographic approval signature is missing.",
+          "lock_id": "lock_no_operator_signature"
+        },
+        {
+          "active": true,
+          "description": "Payload hash lock is not verified.",
+          "lock_id": "lock_no_payload_hash_lock"
+        },
+        {
+          "active": true,
+          "description": "Citations are unresolved or pending verification.",
+          "lock_id": "lock_unresolved_citations"
+        },
+        {
+          "active": true,
+          "description": "Limitations acknowledgement is pending.",
+          "lock_id": "lock_unresolved_limitations"
+        },
+        {
+          "active": true,
+          "description": "DQR audit and publish readiness checks are unresolved.",
+          "lock_id": "lock_dqr_readiness_unresolved"
+        },
+        {
+          "active": true,
+          "description": "Platform account binding is inactive.",
+          "lock_id": "lock_no_account_binding"
+        },
+        {
+          "active": true,
+          "description": "Credential gate authentication is required but locked.",
+          "lock_id": "lock_no_credential_gate"
+        },
+        {
+          "active": true,
+          "description": "Export gate has not been cleared.",
+          "lock_id": "lock_no_export_gate"
+        },
+        {
+          "active": true,
+          "description": "Dispatch gate has not cleared the post.",
+          "lock_id": "lock_no_dispatch_gate"
+        }
+      ],
+      "decision_options": [
+        {
+          "available_now": false,
+          "decision_option_id": "approve_for_publication",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "reject_bundle",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "request_revision",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "hold_for_more_evidence",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "export_for_manual_publish",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "dispatch_to_platform",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        }
+      ],
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify operator identity matches key binding registry.",
+          "requirement_id": "evidence_operator_identity_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify cryptographic approval signature matches operator key.",
+          "requirement_id": "evidence_approval_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        }
+      ],
+      "export_gate_status": "export_gate_required_but_locked",
+      "export_ready": false,
+      "gate_status": "decision_gate_blocked",
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_decision_required": true,
+      "missing_future_gates": [
+        "lane_c_platform_review_bundle_operator_decision_gate",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_review_required": true,
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "4c34d88dc2fd439bb7016ef053cb9f512693a127e86516cc6a93bdcbea900534",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "substack_newsletter",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "substack",
+      "public_postable": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "rejection_recorded": false,
+      "revision_requested": false,
+      "scheduler_enabled": false,
+      "source_bundle_item_id": "bundle_item_substack",
+      "source_render_id": "dry_render_substack"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "lock_no_operator_identity",
+        "lock_no_operator_signature",
+        "lock_no_payload_hash_lock",
+        "lock_unresolved_citations",
+        "lock_unresolved_limitations",
+        "lock_dqr_readiness_unresolved",
+        "lock_no_account_binding",
+        "lock_no_credential_gate",
+        "lock_no_export_gate",
+        "lock_no_dispatch_gate"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "decision_gate_id": "decision_gate_linkedin",
+      "decision_locks": [
+        {
+          "active": true,
+          "description": "Operator identity is not bound to the session.",
+          "lock_id": "lock_no_operator_identity"
+        },
+        {
+          "active": true,
+          "description": "Cryptographic approval signature is missing.",
+          "lock_id": "lock_no_operator_signature"
+        },
+        {
+          "active": true,
+          "description": "Payload hash lock is not verified.",
+          "lock_id": "lock_no_payload_hash_lock"
+        },
+        {
+          "active": true,
+          "description": "Citations are unresolved or pending verification.",
+          "lock_id": "lock_unresolved_citations"
+        },
+        {
+          "active": true,
+          "description": "Limitations acknowledgement is pending.",
+          "lock_id": "lock_unresolved_limitations"
+        },
+        {
+          "active": true,
+          "description": "DQR audit and publish readiness checks are unresolved.",
+          "lock_id": "lock_dqr_readiness_unresolved"
+        },
+        {
+          "active": true,
+          "description": "Platform account binding is inactive.",
+          "lock_id": "lock_no_account_binding"
+        },
+        {
+          "active": true,
+          "description": "Credential gate authentication is required but locked.",
+          "lock_id": "lock_no_credential_gate"
+        },
+        {
+          "active": true,
+          "description": "Export gate has not been cleared.",
+          "lock_id": "lock_no_export_gate"
+        },
+        {
+          "active": true,
+          "description": "Dispatch gate has not cleared the post.",
+          "lock_id": "lock_no_dispatch_gate"
+        }
+      ],
+      "decision_options": [
+        {
+          "available_now": false,
+          "decision_option_id": "approve_for_publication",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "reject_bundle",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "request_revision",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "hold_for_more_evidence",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "export_for_manual_publish",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "dispatch_to_platform",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        }
+      ],
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify operator identity matches key binding registry.",
+          "requirement_id": "evidence_operator_identity_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify cryptographic approval signature matches operator key.",
+          "requirement_id": "evidence_approval_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        }
+      ],
+      "export_gate_status": "export_gate_required_but_locked",
+      "export_ready": false,
+      "gate_status": "decision_gate_blocked",
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_decision_required": true,
+      "missing_future_gates": [
+        "lane_c_platform_review_bundle_operator_decision_gate",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_review_required": true,
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "8bfbfc03032301ec09e4b3decf595374a12ed6fae6f26205d5a2ac463f2bfca4",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "linkedin_professional",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "linkedin",
+      "public_postable": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "rejection_recorded": false,
+      "revision_requested": false,
+      "scheduler_enabled": false,
+      "source_bundle_item_id": "bundle_item_linkedin",
+      "source_render_id": "dry_render_linkedin"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "lock_no_operator_identity",
+        "lock_no_operator_signature",
+        "lock_no_payload_hash_lock",
+        "lock_unresolved_citations",
+        "lock_unresolved_limitations",
+        "lock_dqr_readiness_unresolved",
+        "lock_no_account_binding",
+        "lock_no_credential_gate",
+        "lock_no_export_gate",
+        "lock_no_dispatch_gate"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "decision_gate_id": "decision_gate_threads",
+      "decision_locks": [
+        {
+          "active": true,
+          "description": "Operator identity is not bound to the session.",
+          "lock_id": "lock_no_operator_identity"
+        },
+        {
+          "active": true,
+          "description": "Cryptographic approval signature is missing.",
+          "lock_id": "lock_no_operator_signature"
+        },
+        {
+          "active": true,
+          "description": "Payload hash lock is not verified.",
+          "lock_id": "lock_no_payload_hash_lock"
+        },
+        {
+          "active": true,
+          "description": "Citations are unresolved or pending verification.",
+          "lock_id": "lock_unresolved_citations"
+        },
+        {
+          "active": true,
+          "description": "Limitations acknowledgement is pending.",
+          "lock_id": "lock_unresolved_limitations"
+        },
+        {
+          "active": true,
+          "description": "DQR audit and publish readiness checks are unresolved.",
+          "lock_id": "lock_dqr_readiness_unresolved"
+        },
+        {
+          "active": true,
+          "description": "Platform account binding is inactive.",
+          "lock_id": "lock_no_account_binding"
+        },
+        {
+          "active": true,
+          "description": "Credential gate authentication is required but locked.",
+          "lock_id": "lock_no_credential_gate"
+        },
+        {
+          "active": true,
+          "description": "Export gate has not been cleared.",
+          "lock_id": "lock_no_export_gate"
+        },
+        {
+          "active": true,
+          "description": "Dispatch gate has not cleared the post.",
+          "lock_id": "lock_no_dispatch_gate"
+        }
+      ],
+      "decision_options": [
+        {
+          "available_now": false,
+          "decision_option_id": "approve_for_publication",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "reject_bundle",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "request_revision",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "hold_for_more_evidence",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "export_for_manual_publish",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "dispatch_to_platform",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        }
+      ],
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify operator identity matches key binding registry.",
+          "requirement_id": "evidence_operator_identity_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify cryptographic approval signature matches operator key.",
+          "requirement_id": "evidence_approval_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        }
+      ],
+      "export_gate_status": "export_gate_required_but_locked",
+      "export_ready": false,
+      "gate_status": "decision_gate_blocked",
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_decision_required": true,
+      "missing_future_gates": [
+        "lane_c_platform_review_bundle_operator_decision_gate",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_review_required": true,
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "0b6a55c3675d67cf6c9ec6d61910a8c84d17d122db76a1fc3996e179b7e14e77",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "threads_microblog",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "threads",
+      "public_postable": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "rejection_recorded": false,
+      "revision_requested": false,
+      "scheduler_enabled": false,
+      "source_bundle_item_id": "bundle_item_threads",
+      "source_render_id": "dry_render_threads"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "lock_no_operator_identity",
+        "lock_no_operator_signature",
+        "lock_no_payload_hash_lock",
+        "lock_unresolved_citations",
+        "lock_unresolved_limitations",
+        "lock_dqr_readiness_unresolved",
+        "lock_no_account_binding",
+        "lock_no_credential_gate",
+        "lock_no_export_gate",
+        "lock_no_dispatch_gate"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "decision_gate_id": "decision_gate_instagram",
+      "decision_locks": [
+        {
+          "active": true,
+          "description": "Operator identity is not bound to the session.",
+          "lock_id": "lock_no_operator_identity"
+        },
+        {
+          "active": true,
+          "description": "Cryptographic approval signature is missing.",
+          "lock_id": "lock_no_operator_signature"
+        },
+        {
+          "active": true,
+          "description": "Payload hash lock is not verified.",
+          "lock_id": "lock_no_payload_hash_lock"
+        },
+        {
+          "active": true,
+          "description": "Citations are unresolved or pending verification.",
+          "lock_id": "lock_unresolved_citations"
+        },
+        {
+          "active": true,
+          "description": "Limitations acknowledgement is pending.",
+          "lock_id": "lock_unresolved_limitations"
+        },
+        {
+          "active": true,
+          "description": "DQR audit and publish readiness checks are unresolved.",
+          "lock_id": "lock_dqr_readiness_unresolved"
+        },
+        {
+          "active": true,
+          "description": "Platform account binding is inactive.",
+          "lock_id": "lock_no_account_binding"
+        },
+        {
+          "active": true,
+          "description": "Credential gate authentication is required but locked.",
+          "lock_id": "lock_no_credential_gate"
+        },
+        {
+          "active": true,
+          "description": "Export gate has not been cleared.",
+          "lock_id": "lock_no_export_gate"
+        },
+        {
+          "active": true,
+          "description": "Dispatch gate has not cleared the post.",
+          "lock_id": "lock_no_dispatch_gate"
+        }
+      ],
+      "decision_options": [
+        {
+          "available_now": false,
+          "decision_option_id": "approve_for_publication",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "reject_bundle",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "request_revision",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "hold_for_more_evidence",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "export_for_manual_publish",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "dispatch_to_platform",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        }
+      ],
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify operator identity matches key binding registry.",
+          "requirement_id": "evidence_operator_identity_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify cryptographic approval signature matches operator key.",
+          "requirement_id": "evidence_approval_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        }
+      ],
+      "export_gate_status": "export_gate_required_but_locked",
+      "export_ready": false,
+      "gate_status": "decision_gate_blocked",
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_decision_required": true,
+      "missing_future_gates": [
+        "lane_c_platform_review_bundle_operator_decision_gate",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_review_required": true,
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "1e083ad728777b01c92b96bfb9036e687cfed7f932b55e3932298aadd9eabb29",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "instagram_media",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "instagram",
+      "public_postable": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "rejection_recorded": false,
+      "revision_requested": false,
+      "scheduler_enabled": false,
+      "source_bundle_item_id": "bundle_item_instagram",
+      "source_render_id": "dry_render_instagram"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "lock_no_operator_identity",
+        "lock_no_operator_signature",
+        "lock_no_payload_hash_lock",
+        "lock_unresolved_citations",
+        "lock_unresolved_limitations",
+        "lock_dqr_readiness_unresolved",
+        "lock_no_account_binding",
+        "lock_no_credential_gate",
+        "lock_no_export_gate",
+        "lock_no_dispatch_gate"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "decision_gate_id": "decision_gate_facebook_page",
+      "decision_locks": [
+        {
+          "active": true,
+          "description": "Operator identity is not bound to the session.",
+          "lock_id": "lock_no_operator_identity"
+        },
+        {
+          "active": true,
+          "description": "Cryptographic approval signature is missing.",
+          "lock_id": "lock_no_operator_signature"
+        },
+        {
+          "active": true,
+          "description": "Payload hash lock is not verified.",
+          "lock_id": "lock_no_payload_hash_lock"
+        },
+        {
+          "active": true,
+          "description": "Citations are unresolved or pending verification.",
+          "lock_id": "lock_unresolved_citations"
+        },
+        {
+          "active": true,
+          "description": "Limitations acknowledgement is pending.",
+          "lock_id": "lock_unresolved_limitations"
+        },
+        {
+          "active": true,
+          "description": "DQR audit and publish readiness checks are unresolved.",
+          "lock_id": "lock_dqr_readiness_unresolved"
+        },
+        {
+          "active": true,
+          "description": "Platform account binding is inactive.",
+          "lock_id": "lock_no_account_binding"
+        },
+        {
+          "active": true,
+          "description": "Credential gate authentication is required but locked.",
+          "lock_id": "lock_no_credential_gate"
+        },
+        {
+          "active": true,
+          "description": "Export gate has not been cleared.",
+          "lock_id": "lock_no_export_gate"
+        },
+        {
+          "active": true,
+          "description": "Dispatch gate has not cleared the post.",
+          "lock_id": "lock_no_dispatch_gate"
+        }
+      ],
+      "decision_options": [
+        {
+          "available_now": false,
+          "decision_option_id": "approve_for_publication",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "reject_bundle",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "request_revision",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "hold_for_more_evidence",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "export_for_manual_publish",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "dispatch_to_platform",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        }
+      ],
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify operator identity matches key binding registry.",
+          "requirement_id": "evidence_operator_identity_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify cryptographic approval signature matches operator key.",
+          "requirement_id": "evidence_approval_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        }
+      ],
+      "export_gate_status": "export_gate_required_but_locked",
+      "export_ready": false,
+      "gate_status": "decision_gate_blocked",
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_decision_required": true,
+      "missing_future_gates": [
+        "lane_c_platform_review_bundle_operator_decision_gate",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_review_required": true,
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "98e39ed0ed74dfa45cc48e71b18319f55222ceed7ec6e290d140fe83269a6e6a",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "facebook_page_media",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "facebook_page",
+      "public_postable": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "rejection_recorded": false,
+      "revision_requested": false,
+      "scheduler_enabled": false,
+      "source_bundle_item_id": "bundle_item_facebook_page",
+      "source_render_id": "dry_render_facebook_page"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "lock_no_operator_identity",
+        "lock_no_operator_signature",
+        "lock_no_payload_hash_lock",
+        "lock_unresolved_citations",
+        "lock_unresolved_limitations",
+        "lock_dqr_readiness_unresolved",
+        "lock_no_account_binding",
+        "lock_no_credential_gate",
+        "lock_no_export_gate",
+        "lock_no_dispatch_gate"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "decision_gate_id": "decision_gate_tiktok",
+      "decision_locks": [
+        {
+          "active": true,
+          "description": "Operator identity is not bound to the session.",
+          "lock_id": "lock_no_operator_identity"
+        },
+        {
+          "active": true,
+          "description": "Cryptographic approval signature is missing.",
+          "lock_id": "lock_no_operator_signature"
+        },
+        {
+          "active": true,
+          "description": "Payload hash lock is not verified.",
+          "lock_id": "lock_no_payload_hash_lock"
+        },
+        {
+          "active": true,
+          "description": "Citations are unresolved or pending verification.",
+          "lock_id": "lock_unresolved_citations"
+        },
+        {
+          "active": true,
+          "description": "Limitations acknowledgement is pending.",
+          "lock_id": "lock_unresolved_limitations"
+        },
+        {
+          "active": true,
+          "description": "DQR audit and publish readiness checks are unresolved.",
+          "lock_id": "lock_dqr_readiness_unresolved"
+        },
+        {
+          "active": true,
+          "description": "Platform account binding is inactive.",
+          "lock_id": "lock_no_account_binding"
+        },
+        {
+          "active": true,
+          "description": "Credential gate authentication is required but locked.",
+          "lock_id": "lock_no_credential_gate"
+        },
+        {
+          "active": true,
+          "description": "Export gate has not been cleared.",
+          "lock_id": "lock_no_export_gate"
+        },
+        {
+          "active": true,
+          "description": "Dispatch gate has not cleared the post.",
+          "lock_id": "lock_no_dispatch_gate"
+        }
+      ],
+      "decision_options": [
+        {
+          "available_now": false,
+          "decision_option_id": "approve_for_publication",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "reject_bundle",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "request_revision",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "hold_for_more_evidence",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "export_for_manual_publish",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "dispatch_to_platform",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        }
+      ],
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify operator identity matches key binding registry.",
+          "requirement_id": "evidence_operator_identity_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify cryptographic approval signature matches operator key.",
+          "requirement_id": "evidence_approval_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        }
+      ],
+      "export_gate_status": "export_gate_required_but_locked",
+      "export_ready": false,
+      "gate_status": "decision_gate_blocked",
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_decision_required": true,
+      "missing_future_gates": [
+        "lane_c_platform_review_bundle_operator_decision_gate",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_review_required": true,
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "97d7b5f02afdce1e917c7481d0651bd4f26396324a76ecbe3db3f9266a4db9df",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "tiktok_video",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "tiktok",
+      "public_postable": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "rejection_recorded": false,
+      "revision_requested": false,
+      "scheduler_enabled": false,
+      "source_bundle_item_id": "bundle_item_tiktok",
+      "source_render_id": "dry_render_tiktok"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "blocked_reasons": [
+        "lock_no_operator_identity",
+        "lock_no_operator_signature",
+        "lock_no_payload_hash_lock",
+        "lock_unresolved_citations",
+        "lock_unresolved_limitations",
+        "lock_dqr_readiness_unresolved",
+        "lock_no_account_binding",
+        "lock_no_credential_gate",
+        "lock_no_export_gate",
+        "lock_no_dispatch_gate"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "decision_gate_id": "decision_gate_youtube",
+      "decision_locks": [
+        {
+          "active": true,
+          "description": "Operator identity is not bound to the session.",
+          "lock_id": "lock_no_operator_identity"
+        },
+        {
+          "active": true,
+          "description": "Cryptographic approval signature is missing.",
+          "lock_id": "lock_no_operator_signature"
+        },
+        {
+          "active": true,
+          "description": "Payload hash lock is not verified.",
+          "lock_id": "lock_no_payload_hash_lock"
+        },
+        {
+          "active": true,
+          "description": "Citations are unresolved or pending verification.",
+          "lock_id": "lock_unresolved_citations"
+        },
+        {
+          "active": true,
+          "description": "Limitations acknowledgement is pending.",
+          "lock_id": "lock_unresolved_limitations"
+        },
+        {
+          "active": true,
+          "description": "DQR audit and publish readiness checks are unresolved.",
+          "lock_id": "lock_dqr_readiness_unresolved"
+        },
+        {
+          "active": true,
+          "description": "Platform account binding is inactive.",
+          "lock_id": "lock_no_account_binding"
+        },
+        {
+          "active": true,
+          "description": "Credential gate authentication is required but locked.",
+          "lock_id": "lock_no_credential_gate"
+        },
+        {
+          "active": true,
+          "description": "Export gate has not been cleared.",
+          "lock_id": "lock_no_export_gate"
+        },
+        {
+          "active": true,
+          "description": "Dispatch gate has not cleared the post.",
+          "lock_id": "lock_no_dispatch_gate"
+        }
+      ],
+      "decision_options": [
+        {
+          "available_now": false,
+          "decision_option_id": "approve_for_publication",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "reject_bundle",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "request_revision",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "hold_for_more_evidence",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "export_for_manual_publish",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        },
+        {
+          "available_now": false,
+          "decision_option_id": "dispatch_to_platform",
+          "enabled": false,
+          "requires_citation_clearance": true,
+          "requires_dqr_readiness_review": true,
+          "requires_future_gate": true,
+          "requires_limitation_ack": true,
+          "requires_operator_identity": true,
+          "requires_operator_signature": true,
+          "requires_payload_hash_lock": true
+        }
+      ],
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_requirements": [
+        {
+          "description": "Verify operator identity matches key binding registry.",
+          "requirement_id": "evidence_operator_identity_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify cryptographic approval signature matches operator key.",
+          "requirement_id": "evidence_approval_signature_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify payload hash lock matches draft variant snapshot.",
+          "requirement_id": "evidence_payload_hash_lock_confirmed",
+          "satisfied": false
+        },
+        {
+          "description": "Verify citation references are validated.",
+          "requirement_id": "evidence_citation_clearance_verified",
+          "satisfied": false
+        },
+        {
+          "description": "Verify limitation acknowledgement is logged.",
+          "requirement_id": "evidence_limitation_ack_verified",
+          "satisfied": false
+        }
+      ],
+      "export_gate_status": "export_gate_required_but_locked",
+      "export_ready": false,
+      "gate_status": "decision_gate_blocked",
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_decision_required": true,
+      "missing_future_gates": [
+        "lane_c_platform_review_bundle_operator_decision_gate",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_review_required": true,
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "packet_hash": "a74799b8ebdfde53c88c7f9c9c07ed63f35815f20b1686db1c29743f53d821cd",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "platform_api_called": false,
+      "platform_family": "youtube_video",
+      "platform_payload_created": false,
+      "platform_ready": false,
+      "platform_target_id": "youtube",
+      "public_postable": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "readiness_status": "readiness_unresolved",
+      "rejection_recorded": false,
+      "revision_requested": false,
+      "scheduler_enabled": false,
+      "source_bundle_item_id": "bundle_item_youtube",
+      "source_render_id": "dry_render_youtube"
+    }
+  ],
+  "generated_at_epoch": 0,
+  "hash_algorithm": "sha256",
+  "ledger_family": "platform_review_bundle_operator_decision_gate_future",
+  "matrix_version": "0175AQ_PLATFORM_REVIEW_BUNDLE_OPERATOR_DECISION_GATE_V1",
+  "missing_future_gates": [
+    "lane_c_platform_review_bundle_operator_decision_gate",
+    "production_key_vault_decrypter",
+    "live_operator_signature_vault"
+  ],
+  "next_required_gate": "lane_c_platform_review_bundle_operator_decision_gate",
+  "packet_hash": "c6de6169638892a9bef70a53db931e5aec9cfa4cbb74b7b45d69d92828bad95d",
+  "safety_flags": {
+    "account_binding_active": false,
+    "approval_granted": false,
+    "approved_for_publication": false,
+    "approved_internal_alpha_artifacts_available": false,
+    "autonomous_posting": false,
+    "autonomous_reply_or_dm": false,
+    "broker_order_execution": false,
+    "credential_values_loaded": false,
+    "current_truth_promoted": false,
+    "decision_gate_only": true,
+    "dispatch_ready": false,
+    "dqr_cleared_by_contentops": false,
+    "env_read": false,
+    "export_ready": false,
+    "financial_advice": false,
+    "fixture_only": true,
+    "ingestion_repo_mutated": false,
+    "local_only": true,
+    "network_performed": false,
+    "operator_approval_granted": false,
+    "operator_identity_bound": false,
+    "operator_signature_present": false,
+    "payload_hash_locked": false,
+    "platform_api_called": false,
+    "platform_payload_created": false,
+    "platform_ready": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "publishable_payload_created": false,
+    "publishable_text": false,
+    "raw_vendor_redistribution": false,
+    "readiness_cleared_by_contentops": false,
+    "review_bundle_only": true,
+    "scheduler_enabled": false,
+    "schema_only": true,
+    "scraping": false,
+    "signal_language": false
+  },
+  "source_baseline_commit": "ab4a851ff60121cc3c3bdd85e25ed58c07aa9766",
+  "summary_counts": {
+    "evidence_requirements_count": 5,
+    "global_decision_locks_count": 10,
+    "global_decision_options_count": 6,
+    "global_safety_flags_count": 37,
+    "registered_gate_records_count": 10
+  },
+  "task_label": "TASK_CONTENTOPS_0175AQ_PLATFORM_REVIEW_BUNDLE_OPERATOR_DECISION_GATE_V0"
+}

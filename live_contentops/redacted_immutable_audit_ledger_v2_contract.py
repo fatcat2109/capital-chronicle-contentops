@@ -64,6 +64,7 @@ ENTRY_FAMILIES = (
     "platform_preview_dry_payload_shape_registry_future",
     "platform_preview_dry_render_packet_future",
     "platform_preview_dry_render_to_review_bundle_future",
+    "platform_review_bundle_operator_decision_gate_future",
     "unknown_or_blocked",
 )
 
