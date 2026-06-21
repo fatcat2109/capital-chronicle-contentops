@@ -1,0 +1,458 @@
+{
+  "approval_stubs": [
+    {
+      "approval_packet_id": "approval_packet_candidate_shape_valid_but_not_authorized",
+      "approval_status": "pending_operator_review",
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "citation_requirement_status": "unverified",
+      "claim_ledger_status": "unverified",
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence_candidate_shape_valid_but_not_authorized",
+          "reference_uri": "provenance://candidate_shape_valid_but_not_authorized",
+          "verification_status": "pending"
+        }
+      ],
+      "gate_status": "blocked_missing_citation_evidence",
+      "human_review_required": true,
+      "limitation_block_status": "active_limitations_present",
+      "manual_evidence_required": true,
+      "missing_proofs": [
+        "authorized_signing_certificate",
+        "operator_signature_check"
+      ],
+      "operator_approval_required": true,
+      "operator_placeholders": {
+        "evidence_packet_ref_placeholder": "evidence_packet_ref_placeholder",
+        "manual_approval_note_placeholder": "manual_approval_note_placeholder",
+        "operator_id_placeholder": "operator_id_placeholder",
+        "operator_review_timestamp_placeholder": "operator_review_timestamp_placeholder"
+      },
+      "packet_hash": "8049808d40aa123015a8eefc583a5f85a401bc6f55d0606945427d9fc143e494",
+      "platform_payload_allowed": false,
+      "platform_payload_created": false,
+      "public_postable": false,
+      "readiness_status": "readiness_unresolved",
+      "source_brief_id": "brief_packet_candidate_shape_valid_but_not_authorized",
+      "source_candidate_id": "candidate_shape_valid_but_not_authorized",
+      "source_draft_packet_id": "draft_packet_candidate_shape_valid_but_not_authorized"
+    },
+    {
+      "approval_packet_id": "approval_packet_candidate_missing_lineage_manifest",
+      "approval_status": "blocked",
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "citation_requirement_status": "unverified",
+      "claim_ledger_status": "unverified",
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence_candidate_missing_lineage_manifest",
+          "reference_uri": "provenance://candidate_missing_lineage_manifest",
+          "verification_status": "failed"
+        }
+      ],
+      "gate_status": "blocked_unresolved_limitations",
+      "human_review_required": true,
+      "limitation_block_status": "active_limitations_present",
+      "manual_evidence_required": true,
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_approval_required": true,
+      "operator_placeholders": {
+        "evidence_packet_ref_placeholder": "evidence_packet_ref_placeholder",
+        "manual_approval_note_placeholder": "manual_approval_note_placeholder",
+        "operator_id_placeholder": "operator_id_placeholder",
+        "operator_review_timestamp_placeholder": "operator_review_timestamp_placeholder"
+      },
+      "packet_hash": "5656006a1f3dfd52c1801446e5a8a7e59c2efdb91a77f3554641e65fc4c315dc",
+      "platform_payload_allowed": false,
+      "platform_payload_created": false,
+      "public_postable": false,
+      "readiness_status": "readiness_unresolved",
+      "source_brief_id": "brief_packet_candidate_missing_lineage_manifest",
+      "source_candidate_id": "candidate_missing_lineage_manifest",
+      "source_draft_packet_id": "draft_packet_candidate_missing_lineage_manifest"
+    },
+    {
+      "approval_packet_id": "approval_packet_candidate_stale_or_missing_freshness",
+      "approval_status": "blocked",
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "citation_requirement_status": "unverified",
+      "claim_ledger_status": "unverified",
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence_candidate_stale_or_missing_freshness",
+          "reference_uri": "provenance://candidate_stale_or_missing_freshness",
+          "verification_status": "failed"
+        }
+      ],
+      "gate_status": "blocked_unresolved_limitations",
+      "human_review_required": true,
+      "limitation_block_status": "active_limitations_present",
+      "manual_evidence_required": true,
+      "missing_proofs": [
+        "lineage_manifest_sequence",
+        "operator_signature_check"
+      ],
+      "operator_approval_required": true,
+      "operator_placeholders": {
+        "evidence_packet_ref_placeholder": "evidence_packet_ref_placeholder",
+        "manual_approval_note_placeholder": "manual_approval_note_placeholder",
+        "operator_id_placeholder": "operator_id_placeholder",
+        "operator_review_timestamp_placeholder": "operator_review_timestamp_placeholder"
+      },
+      "packet_hash": "dca8aff1c1c83d067def044ca04679f871159cf5a436a4c3f6e06647a2a5812a",
+      "platform_payload_allowed": false,
+      "platform_payload_created": false,
+      "public_postable": false,
+      "readiness_status": "readiness_unresolved",
+      "source_brief_id": "brief_packet_candidate_stale_or_missing_freshness",
+      "source_candidate_id": "candidate_stale_or_missing_freshness",
+      "source_draft_packet_id": "draft_packet_candidate_stale_or_missing_freshness"
+    },
+    {
+      "approval_packet_id": "approval_packet_candidate_degraded_proxy_label_required",
+      "approval_status": "pending_operator_review",
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "citation_requirement_status": "unverified",
+      "claim_ledger_status": "unverified",
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence_candidate_degraded_proxy_label_required",
+          "reference_uri": "provenance://candidate_degraded_proxy_label_required",
+          "verification_status": "pending"
+        }
+      ],
+      "gate_status": "blocked_unresolved_limitations",
+      "human_review_required": true,
+      "limitation_block_status": "active_limitations_present",
+      "manual_evidence_required": true,
+      "missing_proofs": [
+        "health_monitor_verification",
+        "operator_signature_check"
+      ],
+      "operator_approval_required": true,
+      "operator_placeholders": {
+        "evidence_packet_ref_placeholder": "evidence_packet_ref_placeholder",
+        "manual_approval_note_placeholder": "manual_approval_note_placeholder",
+        "operator_id_placeholder": "operator_id_placeholder",
+        "operator_review_timestamp_placeholder": "operator_review_timestamp_placeholder"
+      },
+      "packet_hash": "56a47a4d274ebf6b19789289ddced90195786852be4b36c8d18faf0c28d4a655",
+      "platform_payload_allowed": false,
+      "platform_payload_created": false,
+      "public_postable": false,
+      "readiness_status": "readiness_unresolved",
+      "source_brief_id": "brief_packet_candidate_degraded_proxy_label_required",
+      "source_candidate_id": "candidate_degraded_proxy_label_required",
+      "source_draft_packet_id": "draft_packet_candidate_degraded_proxy_label_required"
+    },
+    {
+      "approval_packet_id": "approval_packet_candidate_missing_operator_approval",
+      "approval_status": "pending_operator_review",
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "citation_requirement_status": "unverified",
+      "claim_ledger_status": "unverified",
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence_candidate_missing_operator_approval",
+          "reference_uri": "provenance://candidate_missing_operator_approval",
+          "verification_status": "pending"
+        }
+      ],
+      "gate_status": "blocked_missing_operator_approval",
+      "human_review_required": true,
+      "limitation_block_status": "active_limitations_present",
+      "manual_evidence_required": true,
+      "missing_proofs": [
+        "manual_operator_signature",
+        "operator_signature_check"
+      ],
+      "operator_approval_required": true,
+      "operator_placeholders": {
+        "evidence_packet_ref_placeholder": "evidence_packet_ref_placeholder",
+        "manual_approval_note_placeholder": "manual_approval_note_placeholder",
+        "operator_id_placeholder": "operator_id_placeholder",
+        "operator_review_timestamp_placeholder": "operator_review_timestamp_placeholder"
+      },
+      "packet_hash": "ccac8921e86976be794d04c045b56d9bf53d8b3922a922a8fd4587213c25275f",
+      "platform_payload_allowed": false,
+      "platform_payload_created": false,
+      "public_postable": false,
+      "readiness_status": "readiness_unresolved",
+      "source_brief_id": "brief_packet_candidate_missing_operator_approval",
+      "source_candidate_id": "candidate_missing_operator_approval",
+      "source_draft_packet_id": "draft_packet_candidate_missing_operator_approval"
+    },
+    {
+      "approval_packet_id": "approval_packet_candidate_local_fixture_only",
+      "approval_status": "pending_operator_review",
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "citation_requirement_status": "unverified",
+      "claim_ledger_status": "unverified",
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence_candidate_local_fixture_only",
+          "reference_uri": "provenance://candidate_local_fixture_only",
+          "verification_status": "pending"
+        }
+      ],
+      "gate_status": "gate_packet_created_pending_operator_review",
+      "human_review_required": true,
+      "limitation_block_status": "active_limitations_present",
+      "manual_evidence_required": true,
+      "missing_proofs": [
+        "operator_signature_check",
+        "production_key_setup"
+      ],
+      "operator_approval_required": true,
+      "operator_placeholders": {
+        "evidence_packet_ref_placeholder": "evidence_packet_ref_placeholder",
+        "manual_approval_note_placeholder": "manual_approval_note_placeholder",
+        "operator_id_placeholder": "operator_id_placeholder",
+        "operator_review_timestamp_placeholder": "operator_review_timestamp_placeholder"
+      },
+      "packet_hash": "f46611318fd9fee66b08663a05893a0573c67de85209c6c027ab40c51c180164",
+      "platform_payload_allowed": false,
+      "platform_payload_created": false,
+      "public_postable": false,
+      "readiness_status": "readiness_unresolved",
+      "source_brief_id": "brief_packet_candidate_local_fixture_only",
+      "source_candidate_id": "candidate_local_fixture_only",
+      "source_draft_packet_id": "draft_packet_candidate_local_fixture_only"
+    },
+    {
+      "approval_packet_id": "approval_packet_candidate_quarantined_review_only",
+      "approval_status": "pending_operator_review",
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "citation_requirement_status": "unverified",
+      "claim_ledger_status": "unverified",
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence_candidate_quarantined_review_only",
+          "reference_uri": "provenance://candidate_quarantined_review_only",
+          "verification_status": "pending"
+        }
+      ],
+      "gate_status": "gate_packet_created_pending_operator_review",
+      "human_review_required": true,
+      "limitation_block_status": "active_limitations_present",
+      "manual_evidence_required": true,
+      "missing_proofs": [
+        "administrator_clearance",
+        "operator_signature_check"
+      ],
+      "operator_approval_required": true,
+      "operator_placeholders": {
+        "evidence_packet_ref_placeholder": "evidence_packet_ref_placeholder",
+        "manual_approval_note_placeholder": "manual_approval_note_placeholder",
+        "operator_id_placeholder": "operator_id_placeholder",
+        "operator_review_timestamp_placeholder": "operator_review_timestamp_placeholder"
+      },
+      "packet_hash": "725ed6e1cec5f2d0258212732b8383c6c3068272cfd38bf93079c5b0e52ffb84",
+      "platform_payload_allowed": false,
+      "platform_payload_created": false,
+      "public_postable": false,
+      "readiness_status": "readiness_unresolved",
+      "source_brief_id": "brief_packet_candidate_quarantined_review_only",
+      "source_candidate_id": "candidate_quarantined_review_only",
+      "source_draft_packet_id": "draft_packet_candidate_quarantined_review_only"
+    },
+    {
+      "approval_packet_id": "approval_packet_candidate_forbidden_public_ready_claim",
+      "approval_status": "rejected",
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "citation_requirement_status": "unverified",
+      "claim_ledger_status": "unverified",
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_ready": false,
+      "dqr_status": "dqr_unresolved",
+      "evidence_refs": [
+        {
+          "evidence_id": "evidence_candidate_forbidden_public_ready_claim",
+          "reference_uri": "provenance://candidate_forbidden_public_ready_claim",
+          "verification_status": "failed"
+        }
+      ],
+      "gate_status": "blocked_rejected_source_candidate",
+      "human_review_required": true,
+      "limitation_block_status": "active_limitations_present",
+      "manual_evidence_required": true,
+      "missing_proofs": [
+        "operator_signature_check",
+        "security_escalation_clearance"
+      ],
+      "operator_approval_required": true,
+      "operator_placeholders": {
+        "evidence_packet_ref_placeholder": "evidence_packet_ref_placeholder",
+        "manual_approval_note_placeholder": "manual_approval_note_placeholder",
+        "operator_id_placeholder": "operator_id_placeholder",
+        "operator_review_timestamp_placeholder": "operator_review_timestamp_placeholder"
+      },
+      "packet_hash": "f7dbcff3ddad268cafa3ede8934f889182f79ca7f4b8fccd0212f070b7bc48c6",
+      "platform_payload_allowed": false,
+      "platform_payload_created": false,
+      "public_postable": false,
+      "readiness_status": "readiness_unresolved",
+      "source_brief_id": "none",
+      "source_candidate_id": "candidate_forbidden_public_ready_claim",
+      "source_draft_packet_id": "none"
+    }
+  ],
+  "blocked_reasons": [
+    "degraded_proxy_label_required",
+    "forbidden_public_ready_claim",
+    "local_fixture_only",
+    "missing_lineage_manifest",
+    "missing_operator_approval",
+    "not_authorized_signing_authority",
+    "quarantined_review_only"
+  ],
+  "decisions": [
+    {
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "decision_id": "approval_decision_candidate_shape_valid_but_not_authorized",
+      "gate_status": "blocked_missing_citation_evidence",
+      "next_required_gate": "lane_c_approval_packet_operator_signoff",
+      "source_candidate_id": "candidate_shape_valid_but_not_authorized"
+    },
+    {
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "decision_id": "approval_decision_candidate_missing_lineage_manifest",
+      "gate_status": "blocked_unresolved_limitations",
+      "next_required_gate": "security_escalation_review",
+      "source_candidate_id": "candidate_missing_lineage_manifest"
+    },
+    {
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "decision_id": "approval_decision_candidate_stale_or_missing_freshness",
+      "gate_status": "blocked_unresolved_limitations",
+      "next_required_gate": "security_escalation_review",
+      "source_candidate_id": "candidate_stale_or_missing_freshness"
+    },
+    {
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "decision_id": "approval_decision_candidate_degraded_proxy_label_required",
+      "gate_status": "blocked_unresolved_limitations",
+      "next_required_gate": "lane_c_approval_packet_operator_signoff",
+      "source_candidate_id": "candidate_degraded_proxy_label_required"
+    },
+    {
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "decision_id": "approval_decision_candidate_missing_operator_approval",
+      "gate_status": "blocked_missing_operator_approval",
+      "next_required_gate": "lane_c_approval_packet_operator_signoff",
+      "source_candidate_id": "candidate_missing_operator_approval"
+    },
+    {
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "decision_id": "approval_decision_candidate_local_fixture_only",
+      "gate_status": "gate_packet_created_pending_operator_review",
+      "next_required_gate": "lane_c_approval_packet_operator_signoff",
+      "source_candidate_id": "candidate_local_fixture_only"
+    },
+    {
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "decision_id": "approval_decision_candidate_quarantined_review_only",
+      "gate_status": "gate_packet_created_pending_operator_review",
+      "next_required_gate": "lane_c_approval_packet_operator_signoff",
+      "source_candidate_id": "candidate_quarantined_review_only"
+    },
+    {
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "decision_id": "approval_decision_candidate_forbidden_public_ready_claim",
+      "gate_status": "blocked_rejected_source_candidate",
+      "next_required_gate": "security_escalation_review",
+      "source_candidate_id": "candidate_forbidden_public_ready_claim"
+    }
+  ],
+  "generated_at_epoch": 0,
+  "hash_algorithm": "sha256",
+  "ledger_family": "lane_c_draft_review_to_approval_packet_gate_future",
+  "matrix_version": "0175AL_LANE_C_DRAFT_REVIEW_TO_APPROVAL_PACKET_GATE_V1",
+  "missing_proofs": [
+    "operator_signature_check",
+    "production_key_vault_verify"
+  ],
+  "next_required_gate": "lane_c_approval_packet_operator_signoff",
+  "packet_hash": "a26457b7c32b69c5851e27a6058af282a8d36188bc110ca474aa4d2f3a4b47d1",
+  "safety_flags": {
+    "approved_for_publication": false,
+    "approved_internal_alpha_artifacts_available": false,
+    "broker_order_execution": false,
+    "credential_values_loaded": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "dqr_cleared_by_contentops": false,
+    "env_read": false,
+    "financial_advice": false,
+    "fixture_only": true,
+    "ingestion_repo_mutated": false,
+    "local_only": true,
+    "network_performed": false,
+    "platform_api_called": false,
+    "platform_payload_allowed": false,
+    "platform_payload_created": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "raw_vendor_redistribution": false,
+    "readiness_cleared_by_contentops": false,
+    "signal_language": false
+  },
+  "source_baseline_commit": "6ba3bac45f676de8d340b4d3e7383283c5102068",
+  "task_label": "TASK_CONTENTOPS_0175AL_LEDGER_FRONTIER_REPAIR_AND_DRAFT_APPROVAL_GATE_V0"
+}

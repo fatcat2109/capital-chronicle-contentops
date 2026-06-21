@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Current accepted HEAD:** `ea5084684c04915c2261c5cd9e03a51fb2f276f1`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175AK_LANE_C_EDITORIAL_BRIEF_TO_DRAFT_REVIEW_ONLY_PACKET_V0`
-* **Latest implemented capability:** Lane C Editorial Brief to Draft Review-Only Packet
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175AL_LANE_C_DRAFT_REVIEW_TO_APPROVAL_PACKET_GATE_V0`
+* **Current accepted HEAD:** `3df4146597deaef634b91fb975fc2531ce9bd73d`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175AL_LEDGER_FRONTIER_REPAIR_AND_DRAFT_APPROVAL_GATE_V0`
+* **Latest implemented capability:** Lane C Draft Review to Approval Packet Gate
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175AM_LANE_C_APPROVAL_PACKET_TO_PLATFORM_PREVIEW_PRECHECK_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -46,7 +46,7 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | **Artifact-backed Editorial Brief** | Automatically generated briefs from ingested artifacts | `TESTED` | `lane_c_artifact_to_editorial_brief_review_packet_contract.py` | Generation of review briefs from candidates | Ingestion foundation validation |
 | **Artifact-backed Draft Generation** | Auto-generation of multi-platform variant drafts from brief | `TESTED` | `lane_c_editorial_brief_to_draft_review_only_packet_contract.py` | Scaffold review-only draft stubs from brief | Writer Studio/approval workflows |
 | **Artifact-backed Platform Preview** | Payload compilation and preview for artifact-derived posts | `NOT_STARTED` | None | Invariant checks and preview compilation | Draft Generation |
-| **Artifact-backed Approval Packet** | Consolidated cryptographic evidence packet for artifacts | `NOT_STARTED` | None | Signature/audit packet creation | Live audit ledger |
+| **Artifact-backed Approval Packet** | Consolidated cryptographic evidence packet for artifacts | `TESTED` | `lane_c_draft_review_to_approval_packet_gate_contract.py` | Generate approval gate packet stubs | Platform preview prechecks |
 | **Internal Alpha Artifact Intake** | Intake gates for verified Internal Alpha artifacts | `TESTED` | `internal_alpha_artifact_intake_content_eligibility_contract.py` | Intake validator integration | Ingestion repo paths |
 | **Capital Chronicle Ingestion Connector** | Ingestion of raw official data sources | `TESTED` | `capital_chronicle_ingestion_headline_idea_connector_precheck.py` | Ingestion pipeline scheduler | None |
 | **Telegram Remote Operator Inbox** | Remote Telegram command intake and operator notifications | `TESTED` | `telegram_remote_operator_inbox_contract.py` | Active polling worker | Telegram Bot API credentials |
@@ -75,7 +75,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175AH_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST_FOUNDATION_V0` | `bfe863fa7898740ed19fdaf93d4a39fe8423c2a9` | `e6fd4c65baea9daa9879de7f70142522889c8df7` | Canonical repository-tracked ledger file, update protocols, anti-hallucination rules | Grep validation readbacks | Prevention of completion hallucinations, standardized task protocol | `0175AI` ingestion foundation | `0175AI` |
 | `TASK_CONTENTOPS_0175AI_LANE_C_ARTIFACT_INGESTION_FOUNDATION_BATCH_V0` | `e6fd4c65baea9daa9879de7f70142522889c8df7` | `d60d71c2dc4ff1fc148f68bf5ff7645fccace1ab` | Deterministic local candidate validation, shape verification, and quarantine policies | `test_lane_c_artifact_ingestion_foundation_contract.py`, generated json/md contract packet | Safe discovery and classification of ingested Capital Chronicle candidates | `0175AJ` editorial brief generation | `0175AJ` |
 | `TASK_CONTENTOPS_0175AJ_LANE_C_ARTIFACT_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0` | `d60d71c2dc4ff1fc148f68bf5ff7645fccace1ab` | `ea5084684c04915c2261c5cd9e03a51fb2f276f1` | Conversion of eligible ingested candidates into review-only stub briefs | `test_lane_c_artifact_to_editorial_brief_review_packet_contract.py`, generated json/md contract packet | Safe bridging from ingestion foundation to human-supervised review briefs | `0175AK` editorial draft generation | `0175AK` |
-| `TASK_CONTENTOPS_0175AK_LANE_C_EDITORIAL_BRIEF_TO_DRAFT_REVIEW_ONLY_PACKET_V0` | `ea5084684c04915c2261c5cd9e03a51fb2f276f1` | `pending_commit` | Transformation of eligible briefs into dry draft stubs for review | `test_lane_c_editorial_brief_to_draft_review_only_packet_contract.py`, generated json/md contract packet | Controlled draft scaffold layer for future Writer Studio and approvals | `0175AL` approval packet gates | `0175AL` |
+| `TASK_CONTENTOPS_0175AK_LANE_C_EDITORIAL_BRIEF_TO_DRAFT_REVIEW_ONLY_PACKET_V0` | `ea5084684c04915c2261c5cd9e03a51fb2f276f1` | `6ba3bac45f676de8d340b4d3e7383283c5102068` | Transformation of eligible briefs into dry draft stubs for review | `test_lane_c_editorial_brief_to_draft_review_only_packet_contract.py`, generated json/md contract packet | Controlled draft scaffold layer for future Writer Studio and approvals | `0175AL` approval packet gates | `0175AL` |
+| `TASK_CONTENTOPS_0175AL_LEDGER_FRONTIER_REPAIR_AND_DRAFT_APPROVAL_GATE_V0` | `6ba3bac45f676de8d340b4d3e7383283c5102068` | `3df4146597deaef634b91fb975fc2531ce9bd73d` | Deterministic local draft review to approval gate stub compilation | `test_lane_c_draft_review_to_approval_packet_gate_contract.py`, generated json/md contract packet | Safe candidate approval readiness check without active publication | `0175AM` platform preview prechecks | `0175AM` |
 
 ---
 
@@ -105,10 +106,15 @@ Every future implementation task must:
 8. **Never mark ACCEPTED without evidence**.
 9. **Commit ledger changes** with the implementation task.
 
+Future tasks that update this ledger must either:
+1. commit implementation, obtain final SHA, update ledger, amend commit, then push; or
+2. label the row as pending_auditor_acceptance and require the next task to repair it.
+Do not leave “Current accepted HEAD” pointing at the task starting HEAD after the task has been accepted.
+
 ---
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175AL_LANE_C_DRAFT_REVIEW_TO_APPROVAL_PACKET_GATE_V0`
-* **Focus:** Lane C Draft Review to Approval Packet Gate. Establish local contracts for cryptographic operator signoff packets.
+* **Next recommended task:** `TASK_CONTENTOPS_0175AM_LANE_C_APPROVAL_PACKET_TO_PLATFORM_PREVIEW_PRECHECK_V0`
+* **Focus:** Lane C Approval Packet to Platform Preview Precheck. Establish local precheck contracts for future platform payload validation.
 * **Visual System Status:** Visual enhancement/polish is deferred until more core product foundation is complete.

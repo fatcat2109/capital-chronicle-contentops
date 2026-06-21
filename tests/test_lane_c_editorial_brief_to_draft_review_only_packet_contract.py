@@ -133,4 +133,4 @@ def test_progress_ledger_file_is_updated():
     assert path.exists()
     content = path.read_text(encoding="utf-8")
     assert "TASK_CONTENTOPS_0175AK" in content
-    assert "TASK_CONTENTOPS_0175AL_LANE_C_DRAFT_REVIEW_TO_APPROVAL_PACKET_GATE_V0" in content
+    assert "TASK_CONTENTOPS_0175AL" in content
