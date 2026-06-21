@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `048b27c6dce2aef5fb38e0552b8208d4fd408d9f`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175AY_METRICS_RECORD_STUB_TO_PERFORMANCE_AUDIT_PRECHECK_V0`
-* **Latest implemented capability:** Metrics Record Stub to Performance Audit Precheck
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175AZ_PERFORMANCE_AUDIT_PRECHECK_TO_SUMMARY_STUB_V0`
+* **Last resolved accepted HEAD in ledger:** `888d6c34b31daa107056bb5a56ab0d5e7430e49b`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175AZ_PERFORMANCE_AUDIT_PRECHECK_TO_SUMMARY_STUB_V0`
+* **Latest implemented capability:** Performance Audit Precheck to Summary Stub
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BA_PERFORMANCE_SUMMARY_STUB_TO_CONTENT_FEEDBACK_PRECHECK_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -59,6 +59,7 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | **Metrics Precheck to Metrics Record Stub** | Metrics precheck metadata to metrics record stub | `LOCAL_CONTRACT_READY` | `0175AX` / `metrics_precheck_to_metrics_record_stub_contract.py` | Future manual export integration | Precheck precedent |
 | **Metrics Record Stub to Performance Audit Precheck** | Metrics record stub metadata to performance audit precheck | `LOCAL_CONTRACT_READY` | `0175AY` / `metrics_record_stub_to_performance_audit_precheck_contract.py` | Future manual export integration | Precheck precedent |
 | **Performance Audit Precheck to Summary Stub** | Performance audit precheck metadata to summary stub | `LOCAL_CONTRACT_READY` | `0175AZ` / `performance_audit_precheck_to_summary_stub_contract.py` | Future manual export integration | Precheck precedent |
+| **Performance Summary Stub to Content Feedback Precheck** | Performance summary stub metadata to content feedback precheck | `LOCAL_CONTRACT_READY` | `0175BA` / `performance_summary_stub_to_content_feedback_precheck_contract.py` | Future manual export integration | Precheck precedent |
 | **Artifact-backed Approval Packet** | Consolidated cryptographic evidence packet for artifacts | `TESTED` | `lane_c_draft_review_to_approval_packet_gate_contract.py` | Generate approval gate packet stubs | Platform preview prechecks |
 | **Internal Alpha Artifact Intake** | Intake gates for verified Internal Alpha artifacts | `TESTED` | `internal_alpha_artifact_intake_content_eligibility_contract.py` | Intake validator integration | Ingestion repo paths |
 | **Capital Chronicle Ingestion Connector** | Ingestion of raw official data sources | `TESTED` | `capital_chronicle_ingestion_headline_idea_connector_precheck.py` | Ingestion pipeline scheduler | None |
@@ -106,7 +107,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175AW_MANUAL_PUBLISH_RECORD_STUB_TO_METRICS_PRECHECK_V0` | `1c8d66919f6e577b247f32b096b12f7eccd09bd6` | `c0d3e9944767f82b470b7e3f1bff0ba718c6e01d` | build metrics precheck | pytest suite, check checked invariants, required metric fields | metrics precheck metadata stubs for future logging | live/platform/API/publishing | `0175AX` |
 | `TASK_CONTENTOPS_0175AX_METRICS_PRECHECK_TO_METRICS_RECORD_STUB_V0` | `c0d3e9944767f82b470b7e3f1bff0ba718c6e01d` | `f3e0cb0e2774b8a9566e652ee61be947bf686a5e` | build metrics record stub | pytest suite, check checked invariants, required metric fields | metrics record stub metadata stubs for future logging | live/platform/API/publishing | `0175AY` |
 | `TASK_CONTENTOPS_0175AY_METRICS_RECORD_STUB_TO_PERFORMANCE_AUDIT_PRECHECK_V0` | `f3e0cb0e2774b8a9566e652ee61be947bf686a5e` | `048b27c6dce2aef5fb38e0552b8208d4fd408d9f` | build performance audit precheck | pytest suite, check checked invariants, required metric references | performance audit precheck metadata stubs for future logging | live/platform/API/publishing | `0175AZ` |
-| `TASK_CONTENTOPS_0175AZ_PERFORMANCE_AUDIT_PRECHECK_TO_SUMMARY_STUB_V0` | `048b27c6dce2aef5fb38e0552b8208d4fd408d9f` | `RECORDED_IN_NEXT_TASK_READBACK` | build performance summary stub | pytest suite, check checked invariants, required metric references | performance summary stub metadata stubs for future logging | live/platform/API/publishing | `0175BA` |
+| `TASK_CONTENTOPS_0175AZ_PERFORMANCE_AUDIT_PRECHECK_TO_SUMMARY_STUB_V0` | `048b27c6dce2aef5fb38e0552b8208d4fd408d9f` | `888d6c34b31daa107056bb5a56ab0d5e7430e49b` | build performance summary stub | pytest suite, check checked invariants, required metric references | performance summary stub metadata stubs for future logging | live/platform/API/publishing | `0175BA` |
+| `TASK_CONTENTOPS_0175BA_PERFORMANCE_SUMMARY_STUB_TO_CONTENT_FEEDBACK_PRECHECK_V0` | `888d6c34b31daa107056bb5a56ab0d5e7430e49b` | `RECORDED_IN_NEXT_TASK_READBACK` | build content feedback precheck | pytest suite, check checked invariants, required feedback references | content feedback precheck metadata stubs for future logging | live/platform/API/publishing | `0175BB` |
 
 ---
 
@@ -148,6 +150,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BA_PERFORMANCE_SUMMARY_STUB_TO_CONTENT_FEEDBACK_PRECHECK_V0`
-* **Focus:** Performance Summary Stub to Content Feedback Precheck. Establish stubs for content feedback loops.
+* **Next recommended task:** `TASK_CONTENTOPS_0175BB_CONTENT_FEEDBACK_PRECHECK_TO_FEEDBACK_STUB_V0`
+* **Focus:** Content Feedback Precheck to Feedback Stub. Establish stubs for content feedback loops.
 * **Visual System Status:** Visual enhancement/polish is deferred until more core product foundation is complete.
