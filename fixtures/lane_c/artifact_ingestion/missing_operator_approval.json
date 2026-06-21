@@ -1,0 +1,8 @@
+{
+  "artifact_id": "candidate_missing_operator_approval",
+  "artifact_type": "local_capital_chronicle_forecast_readiness_snapshot",
+  "source_system": "capital_chronicle_forecast_system",
+  "freshness_status": "fresh",
+  "dqr_status": "unresolved_not_cleared",
+  "readiness_status": "ready_for_review_only"
+}

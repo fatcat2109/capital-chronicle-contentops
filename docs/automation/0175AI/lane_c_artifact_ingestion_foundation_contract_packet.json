@@ -1,0 +1,481 @@
+{
+  "blocked_reasons": [
+    "not_authorized_signing_authority",
+    "missing_lineage_manifest",
+    "stale_or_missing_freshness",
+    "degraded_proxy_label_required",
+    "missing_operator_approval",
+    "forbidden_public_ready_claim",
+    "local_fixture_only",
+    "quarantined_review_only"
+  ],
+  "candidates": [
+    {
+      "allowed_content_classes": [
+        "local_review_only"
+      ],
+      "artifact_id": "candidate_shape_valid_but_not_authorized",
+      "artifact_type": "local_capital_chronicle_artifact_packet",
+      "checksum_hash": "4e64f7831f2bc88062961d1df26ffcfefb0306129841804f3d2f2cb5631481b4",
+      "classification": "shape_valid_but_not_authorized",
+      "dispatch_ready": false,
+      "dqr_status": "unresolved_not_cleared",
+      "forbidden_content_classes": [
+        "public_claim",
+        "news_dispatch"
+      ],
+      "freshness_status": "fresh",
+      "hash_algorithm": "sha256",
+      "limitations": [
+        "Schema shape is valid, but compiler lacks authorized signing certificate."
+      ],
+      "lineage_refs": [
+        "commit:f00d1234"
+      ],
+      "local_ref": "fixtures/lane_c/artifact_ingestion/shape_valid_but_not_authorized.json",
+      "missing_degraded_proxy_labels": [],
+      "no_advice_no_signal_metadata": {
+        "advice_signals_present": false,
+        "verified_by": "local_precheck"
+      },
+      "operator_notes": "Authorized key check failed at intake. Quarantining candidate for manual review.",
+      "public_postable": false,
+      "readiness_status": "blocked",
+      "source_system": "capital_chronicle_external_compiler"
+    },
+    {
+      "allowed_content_classes": [
+        "local_review_only"
+      ],
+      "artifact_id": "candidate_missing_lineage_manifest",
+      "artifact_type": "local_capital_chronicle_lineage_manifest",
+      "checksum_hash": "a746571ba822606553df8a21f7db19208a0d2f0991823ab84e031a0e10f135b1",
+      "classification": "blocked_missing_lineage",
+      "dispatch_ready": false,
+      "dqr_status": "unresolved_not_cleared",
+      "forbidden_content_classes": [
+        "public_claim",
+        "news_dispatch"
+      ],
+      "freshness_status": "fresh",
+      "hash_algorithm": "sha256",
+      "limitations": [
+        "Lacks cryptographic parent commit sequence and audit lineage references."
+      ],
+      "lineage_refs": [],
+      "local_ref": "fixtures/lane_c/artifact_ingestion/missing_lineage_manifest.json",
+      "missing_degraded_proxy_labels": [
+        "missing_lineage_manifest"
+      ],
+      "no_advice_no_signal_metadata": {
+        "advice_signals_present": false,
+        "verified_by": "local_precheck"
+      },
+      "operator_notes": "Lineage validation failed. Blocked due to missing parent reference.",
+      "public_postable": false,
+      "readiness_status": "blocked",
+      "source_system": "capital_chronicle_lineage_builder"
+    },
+    {
+      "allowed_content_classes": [
+        "local_review_only"
+      ],
+      "artifact_id": "candidate_stale_or_missing_freshness",
+      "artifact_type": "local_capital_chronicle_dqr_snapshot",
+      "checksum_hash": "d251d1823ab8d279cf43f3da2cb123e4392182ab302cf429f032a1eb40cd9eab",
+      "classification": "blocked_missing_lineage",
+      "dispatch_ready": false,
+      "dqr_status": "unresolved_not_cleared",
+      "forbidden_content_classes": [
+        "public_claim",
+        "news_dispatch"
+      ],
+      "freshness_status": "stale",
+      "hash_algorithm": "sha256",
+      "limitations": [
+        "Data age exceeds maximum tolerated limit. Freshness metadata is expired or absent."
+      ],
+      "lineage_refs": [
+        "commit:ab88ee01"
+      ],
+      "local_ref": "fixtures/lane_c/artifact_ingestion/stale_or_missing_freshness.json",
+      "missing_degraded_proxy_labels": [
+        "stale_freshness_metadata"
+      ],
+      "no_advice_no_signal_metadata": {
+        "advice_signals_present": false,
+        "verified_by": "local_precheck"
+      },
+      "operator_notes": "Freshness age check failed. The data is too old to process automatically.",
+      "public_postable": false,
+      "readiness_status": "blocked",
+      "source_system": "capital_chronicle_dqr_system"
+    },
+    {
+      "allowed_content_classes": [
+        "local_review_only"
+      ],
+      "artifact_id": "candidate_degraded_proxy_label_required",
+      "artifact_type": "local_capital_chronicle_source_health_snapshot",
+      "checksum_hash": "fcf5a6eb8838dcf1cf3249fb02c918efcd8e02d9198abcf827c191a2bc0dcf1a",
+      "classification": "blocked_proxy_or_degraded_label_required",
+      "dispatch_ready": false,
+      "dqr_status": "degraded",
+      "forbidden_content_classes": [
+        "public_claim",
+        "news_dispatch"
+      ],
+      "freshness_status": "fresh",
+      "hash_algorithm": "sha256",
+      "limitations": [
+        "Active platform is reporting degraded health. Must preserve degraded and proxy tags."
+      ],
+      "lineage_refs": [
+        "commit:42f10ee9"
+      ],
+      "local_ref": "fixtures/lane_c/artifact_ingestion/degraded_proxy_label_required.json",
+      "missing_degraded_proxy_labels": [
+        "degraded_proxy",
+        "source_health_degraded"
+      ],
+      "no_advice_no_signal_metadata": {
+        "advice_signals_present": false,
+        "verified_by": "local_precheck"
+      },
+      "operator_notes": "Health monitor warns of degraded status. Manual operator verification required.",
+      "public_postable": false,
+      "readiness_status": "blocked",
+      "source_system": "capital_chronicle_health_monitor"
+    },
+    {
+      "allowed_content_classes": [
+        "local_review_only"
+      ],
+      "artifact_id": "candidate_missing_operator_approval",
+      "artifact_type": "local_capital_chronicle_forecast_readiness_snapshot",
+      "checksum_hash": "a6e2e01df392cb3e43952f41cb837cd9a0b12bc8f4cb2efc0ea4102919ab3f90",
+      "classification": "blocked_missing_operator_approval",
+      "dispatch_ready": false,
+      "dqr_status": "unresolved_not_cleared",
+      "forbidden_content_classes": [
+        "public_claim",
+        "news_dispatch"
+      ],
+      "freshness_status": "fresh",
+      "hash_algorithm": "sha256",
+      "limitations": [
+        "Awaiting explicit manual operator signoff before integration into editorial brief."
+      ],
+      "lineage_refs": [
+        "commit:ee33bc42"
+      ],
+      "local_ref": "fixtures/lane_c/artifact_ingestion/missing_operator_approval.json",
+      "missing_degraded_proxy_labels": [],
+      "no_advice_no_signal_metadata": {
+        "advice_signals_present": false,
+        "verified_by": "local_precheck"
+      },
+      "operator_notes": "Candidate is shape-valid but requires manual operator signature.",
+      "public_postable": false,
+      "readiness_status": "ready_for_review_only",
+      "source_system": "capital_chronicle_forecast_system"
+    },
+    {
+      "allowed_content_classes": [],
+      "artifact_id": "candidate_forbidden_public_ready_claim",
+      "artifact_type": "local_manual_operator_evidence_packet",
+      "checksum_hash": "7e39f82d210b3cd4cb92eab8f102cf93ebcd2b91d29abcbcfd2e30fa230dcf2b",
+      "classification": "blocked_public_ready_claim",
+      "dispatch_ready": false,
+      "dqr_status": "unresolved_not_cleared",
+      "forbidden_content_classes": [
+        "public_claim",
+        "news_dispatch",
+        "local_review"
+      ],
+      "freshness_status": "fresh",
+      "hash_algorithm": "sha256",
+      "limitations": [
+        "Attemped to claim public ready status from an unverified local contract."
+      ],
+      "lineage_refs": [
+        "commit:9988ff00"
+      ],
+      "local_ref": "fixtures/lane_c/artifact_ingestion/forbidden_public_ready_claim.json",
+      "missing_degraded_proxy_labels": [],
+      "no_advice_no_signal_metadata": {
+        "advice_signals_present": false,
+        "verified_by": "local_precheck"
+      },
+      "operator_notes": "Security violation: Attempted to bypass safety gate and request public ready status.",
+      "public_postable": false,
+      "readiness_status": "ready_for_public_distribution",
+      "source_system": "capital_chronicle_external_vendor"
+    },
+    {
+      "allowed_content_classes": [
+        "local_review_only"
+      ],
+      "artifact_id": "candidate_local_fixture_only",
+      "artifact_type": "local_capital_chronicle_artifact_packet",
+      "checksum_hash": "3e18a2bc88df43ac102919ab3fcfdfc092ab3cd4cf2eab3091df2cba9eabcf23",
+      "classification": "local_fixture_only",
+      "dispatch_ready": false,
+      "dqr_status": "not_applicable",
+      "forbidden_content_classes": [
+        "public_claim",
+        "news_dispatch"
+      ],
+      "freshness_status": "fresh",
+      "hash_algorithm": "sha256",
+      "limitations": [
+        "This is a local fixture candidate for shape verification only."
+      ],
+      "lineage_refs": [],
+      "local_ref": "fixtures/lane_c/artifact_ingestion/local_fixture_only.json",
+      "missing_degraded_proxy_labels": [],
+      "no_advice_no_signal_metadata": {
+        "advice_signals_present": false,
+        "verified_by": "local_precheck"
+      },
+      "operator_notes": "Generic fixture for smoke testing of local contract layers.",
+      "public_postable": false,
+      "readiness_status": "not_applicable",
+      "source_system": "capital_chronicle_fixture_generator"
+    },
+    {
+      "allowed_content_classes": [
+        "local_review_only"
+      ],
+      "artifact_id": "candidate_quarantined_review_only",
+      "artifact_type": "local_capital_chronicle_artifact_packet",
+      "checksum_hash": "8cf53a1abcbcd29ab301cfbc28decf3e2ab103cf92a83cdb320df20f02dcba9f",
+      "classification": "quarantined_review_only",
+      "dispatch_ready": false,
+      "dqr_status": "unresolved_not_cleared",
+      "forbidden_content_classes": [
+        "public_claim",
+        "news_dispatch"
+      ],
+      "freshness_status": "fresh",
+      "hash_algorithm": "sha256",
+      "limitations": [
+        "Intentionally quarantined for manual administrator inspection."
+      ],
+      "lineage_refs": [
+        "commit:da38ee92"
+      ],
+      "local_ref": "fixtures/lane_c/artifact_ingestion/quarantined_review_only.json",
+      "missing_degraded_proxy_labels": [],
+      "no_advice_no_signal_metadata": {
+        "advice_signals_present": false,
+        "verified_by": "local_precheck"
+      },
+      "operator_notes": "Generic quarantine candidate.",
+      "public_postable": false,
+      "readiness_status": "blocked",
+      "source_system": "capital_chronicle_quarantine_system"
+    }
+  ],
+  "decisions": [
+    {
+      "artifact_id": "candidate_shape_valid_but_not_authorized",
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "decision_id": "decision_shape_valid",
+      "next_required_gate": "manual_operator_signoff",
+      "review_required": true,
+      "verdict": "quarantined"
+    },
+    {
+      "artifact_id": "candidate_missing_lineage_manifest",
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "decision_id": "decision_missing_lineage",
+      "next_required_gate": "lineage_cryptographic_handshake",
+      "review_required": true,
+      "verdict": "blocked"
+    },
+    {
+      "artifact_id": "candidate_stale_or_missing_freshness",
+      "blocked_reasons": [
+        "stale_or_missing_freshness"
+      ],
+      "decision_id": "decision_stale_freshness",
+      "next_required_gate": "freshness_metadata_refresh",
+      "review_required": true,
+      "verdict": "blocked"
+    },
+    {
+      "artifact_id": "candidate_degraded_proxy_label_required",
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "decision_id": "decision_degraded_proxy",
+      "next_required_gate": "manual_proxy_verification",
+      "review_required": true,
+      "verdict": "blocked"
+    },
+    {
+      "artifact_id": "candidate_missing_operator_approval",
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "decision_id": "decision_missing_approval",
+      "next_required_gate": "operator_review_queue_approval",
+      "review_required": true,
+      "verdict": "blocked"
+    },
+    {
+      "artifact_id": "candidate_forbidden_public_ready_claim",
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "decision_id": "decision_forbidden_claim",
+      "next_required_gate": "security_escalation_review",
+      "review_required": true,
+      "verdict": "blocked"
+    },
+    {
+      "artifact_id": "candidate_local_fixture_only",
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "decision_id": "decision_local_fixture",
+      "next_required_gate": "manual_operator_signoff",
+      "review_required": true,
+      "verdict": "quarantined"
+    },
+    {
+      "artifact_id": "candidate_quarantined_review_only",
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "decision_id": "decision_quarantined_review",
+      "next_required_gate": "manual_operator_signoff",
+      "review_required": true,
+      "verdict": "quarantined"
+    }
+  ],
+  "generated_at_epoch": 0,
+  "hash_algorithm": "sha256",
+  "ledger_family": "lane_c_artifact_ingestion_foundation_future",
+  "matrix_version": "0175AI_LANE_C_ARTIFACT_INGESTION_FOUNDATION_BATCH_V1",
+  "missing_proofs": [
+    "operator_signature_token",
+    "lineage_cryptographic_sequence"
+  ],
+  "next_required_gate": "lane_c_artifact_ingestion_operator_review",
+  "packet_hash": "1af278410ce1d53fa60a5eb7a2a2cce47333159b96ab0a8060fefec3c65ae46f",
+  "quarantine_records": [
+    {
+      "artifact_id": "candidate_shape_valid_but_not_authorized",
+      "quarantine_id": "quarantine_shape_valid",
+      "quarantine_status": "quarantined_review_only",
+      "quarantined_at_epoch": 0,
+      "reason": "not_authorized_signing_authority"
+    },
+    {
+      "artifact_id": "candidate_local_fixture_only",
+      "quarantine_id": "quarantine_local_fixture",
+      "quarantine_status": "quarantined_review_only",
+      "quarantined_at_epoch": 0,
+      "reason": "local_fixture_only"
+    },
+    {
+      "artifact_id": "candidate_quarantined_review_only",
+      "quarantine_id": "quarantine_review_only_gen",
+      "quarantine_status": "quarantined_review_only",
+      "quarantined_at_epoch": 0,
+      "reason": "quarantined_review_only"
+    }
+  ],
+  "safety_flags": {
+    "approved_internal_alpha_artifacts_available": false,
+    "broker_order_execution": false,
+    "credential_values_loaded": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "dqr_cleared_by_contentops": false,
+    "env_read": false,
+    "financial_advice": false,
+    "fixture_only": true,
+    "ingestion_repo_mutated": false,
+    "local_only": true,
+    "network_performed": false,
+    "platform_api_called": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "raw_vendor_redistribution": false,
+    "readiness_cleared_by_contentops": false,
+    "signal_language": false
+  },
+  "source_baseline_commit": "e6fd4c65baea9daa9879de7f70142522889c8df7",
+  "source_files": [
+    {
+      "file_kind": "json",
+      "modified_time_epoch": 0,
+      "relative_path": "fixtures/lane_c/artifact_ingestion/shape_valid_but_not_authorized.json",
+      "sha256_hash": "4e64f7831f2bc88062961d1df26ffcfefb0306129841804f3d2f2cb5631481b4",
+      "size_bytes": 248
+    },
+    {
+      "file_kind": "json",
+      "modified_time_epoch": 0,
+      "relative_path": "fixtures/lane_c/artifact_ingestion/missing_lineage_manifest.json",
+      "sha256_hash": "a746571ba822606553df8a21f7db19208a0d2f0991823ab84e031a0e10f135b1",
+      "size_bytes": 184
+    },
+    {
+      "file_kind": "json",
+      "modified_time_epoch": 0,
+      "relative_path": "fixtures/lane_c/artifact_ingestion/stale_or_missing_freshness.json",
+      "sha256_hash": "d251d1823ab8d279cf43f3da2cb123e4392182ab302cf429f032a1eb40cd9eab",
+      "size_bytes": 204
+    },
+    {
+      "file_kind": "json",
+      "modified_time_epoch": 0,
+      "relative_path": "fixtures/lane_c/artifact_ingestion/degraded_proxy_label_required.json",
+      "sha256_hash": "fcf5a6eb8838dcf1cf3249fb02c918efcd8e02d9198abcf827c191a2bc0dcf1a",
+      "size_bytes": 221
+    },
+    {
+      "file_kind": "json",
+      "modified_time_epoch": 0,
+      "relative_path": "fixtures/lane_c/artifact_ingestion/missing_operator_approval.json",
+      "sha256_hash": "a6e2e01df392cb3e43952f41cb837cd9a0b12bc8f4cb2efc0ea4102919ab3f90",
+      "size_bytes": 212
+    },
+    {
+      "file_kind": "json",
+      "modified_time_epoch": 0,
+      "relative_path": "fixtures/lane_c/artifact_ingestion/forbidden_public_ready_claim.json",
+      "sha256_hash": "7e39f82d210b3cd4cb92eab8f102cf93ebcd2b91d29abcbcfd2e30fa230dcf2b",
+      "size_bytes": 198
+    },
+    {
+      "file_kind": "json",
+      "modified_time_epoch": 0,
+      "relative_path": "fixtures/lane_c/artifact_ingestion/local_fixture_only.json",
+      "sha256_hash": "3e18a2bc88df43ac102919ab3fcfdfc092ab3cd4cf2eab3091df2cba9eabcf23",
+      "size_bytes": 165
+    },
+    {
+      "file_kind": "json",
+      "modified_time_epoch": 0,
+      "relative_path": "fixtures/lane_c/artifact_ingestion/quarantined_review_only.json",
+      "sha256_hash": "8cf53a1abcbcd29ab301cfbc28decf3e2ab103cf92a83cdb320df20f02dcba9f",
+      "size_bytes": 170
+    }
+  ],
+  "summary_counts": {
+    "candidate_count": 8,
+    "decision_count": 8,
+    "quarantine_count": 3,
+    "source_file_count": 8
+  },
+  "task_label": "TASK_CONTENTOPS_0175AI_LANE_C_ARTIFACT_INGESTION_FOUNDATION_BATCH_V0"
+}

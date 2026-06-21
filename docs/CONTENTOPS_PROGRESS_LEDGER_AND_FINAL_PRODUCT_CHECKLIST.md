@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Current accepted HEAD:** `bfe863fa7898740ed19fdaf93d4a39fe8423c2a9`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175AG_LANE_C_ARTIFACT_CONNECTOR_INDEX_V0`
-* **Latest implemented capability:** Lane C Artifact Connector Index
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175AI_LANE_C_ARTIFACT_INGESTION_FOUNDATION_BATCH_V0`
+* **Current accepted HEAD:** `e6fd4c65baea9daa9879de7f70142522889c8df7`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175AI_LANE_C_ARTIFACT_INGESTION_FOUNDATION_BATCH_V0`
+* **Latest implemented capability:** Lane C Artifact Ingestion Foundation
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175AJ_LANE_C_ARTIFACT_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -42,7 +42,7 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | **Local Operator Runbook** | Visual runbook of pilot and audit workflows | `TESTED` | `v5_local_operator_runbook_index_contract.py` | Production runbook execution log | Manual operator signoff |
 | **Lane C Artifact Intake Validation** | Validation pipeline for future Capital Chronicle artifacts | `TESTED` | `lane_c_artifact_intake_validation_contract.py` | Integration with live ingestion scripts | Ingestion path validation |
 | **Lane C Artifact Connector Index** | Registry of allowed connector families and path patterns | `TESTED` | `lane_c_artifact_connector_index_contract.py` | Production file connectors | Operator manual review gate |
-| **Lane C Artifact Ingestion Foundation** | Batch file ingestion and verification mechanisms | `NOT_STARTED` | None | Entire contract and mock implementation | `0175AI` foundation task |
+| **Lane C Artifact Ingestion Foundation** | Batch file ingestion and verification mechanisms | `TESTED` | `lane_c_artifact_ingestion_foundation_contract.py` | Integration with live ingestion pipeline | Operator gate and folder bindings |
 | **Artifact-backed Editorial Brief** | Automatically generated briefs from ingested artifacts | `NOT_STARTED` | None | Brief templates and metadata capture | Lane C Ingestion Foundation |
 | **Artifact-backed Draft Generation** | Auto-generation of multi-platform variant drafts from brief | `NOT_STARTED` | None | Draft prompts and agent workflow | LLM quota/credentials |
 | **Artifact-backed Platform Preview** | Payload compilation and preview for artifact-derived posts | `NOT_STARTED` | None | Invariant checks and preview compilation | Draft Generation |
@@ -72,7 +72,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175AE_V5_GLOBAL_VISUAL_SYSTEM_STABILIZATION_V0` | `f9a3dd0c53023a132c86d914806f11845cee03a1` | `c2033904839f33b20d4f9d39f92a01ef981ebf73` | Coherent cockpit UI styling, layout containment across 14 rooms | Frontend Vitest suite, build checks | Visual foundation to avoid visual regressions in subsequent tasks | Local intake contracts, validation, ingestion foundations | `0175AF` |
 | `TASK_CONTENTOPS_0175AF_LANE_C_ARTIFACT_INTAKE_VALIDATION_PIPELINE_V0` | `c2033904839f33b20d4f9d39f92a01ef981ebf73` | `2d9cfa897f78bd510fa24ed876131519f775bc9e` | Lane C intake validation contract, mock packet generation, V5 UI panel | `test_lane_c_artifact_intake_validation_contract.py`, `lane_c_artifact_intake_validation.test.tsx` | Integrity checking rules for incoming Capital Chronicle artifacts | Connector index, local path boundaries | `0175AG` |
 | `TASK_CONTENTOPS_0175AG_LANE_C_ARTIFACT_CONNECTOR_INDEX_V0` | `2d9cfa897f78bd510fa24ed876131519f775bc9e` | `bfe863fa7898740ed19fdaf93d4a39fe8423c2a9` | Connector index contract, 6 families schema, symbolic paths, V5 UI index panel | `test_lane_c_artifact_connector_index_contract.py`, `lane_c_artifact_connector_index.test.tsx` | Standardized schemas for permitted connector paths and blocked policies | Durable progress tracking ledger, local ingestion foundation | `0175AH` |
-| `TASK_CONTENTOPS_0175AH_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST_FOUNDATION_V0` | `bfe863fa7898740ed19fdaf93d4a39fe8423c2a9` | `pending_commit` | Canonical repository-tracked ledger file, update protocols, anti-hallucination rules | Grep validation readbacks | Prevention of completion hallucinations, standardized task protocol | `0175AI` ingestion foundation | `0175AI` |
+| `TASK_CONTENTOPS_0175AH_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST_FOUNDATION_V0` | `bfe863fa7898740ed19fdaf93d4a39fe8423c2a9` | `e6fd4c65baea9daa9879de7f70142522889c8df7` | Canonical repository-tracked ledger file, update protocols, anti-hallucination rules | Grep validation readbacks | Prevention of completion hallucinations, standardized task protocol | `0175AI` ingestion foundation | `0175AI` |
+| `TASK_CONTENTOPS_0175AI_LANE_C_ARTIFACT_INGESTION_FOUNDATION_BATCH_V0` | `e6fd4c65baea9daa9879de7f70142522889c8df7` | `pending_commit` | Deterministic local candidate validation, shape verification, and quarantine policies | `test_lane_c_artifact_ingestion_foundation_contract.py`, generated json/md contract packet | Safe discovery and classification of ingested Capital Chronicle candidates | `0175AJ` editorial brief generation | `0175AJ` |
 
 ---
 
@@ -106,6 +107,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175AI_LANE_C_ARTIFACT_INGESTION_FOUNDATION_BATCH_V0`
-* **Focus:** Lane C Artifact Ingestion Foundation. Implement batch ingestion contract validation and file checks.
+* **Next recommended task:** `TASK_CONTENTOPS_0175AJ_LANE_C_ARTIFACT_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0`
+* **Focus:** Lane C Artifact to Editorial Brief Review Packet. Construct editorial briefs and review packets from ingested candidates.
 * **Visual System Status:** Visual enhancement/polish is deferred until more core product foundation is complete.

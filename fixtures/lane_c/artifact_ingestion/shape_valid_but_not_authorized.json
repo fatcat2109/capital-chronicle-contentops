@@ -1,0 +1,8 @@
+{
+  "artifact_id": "candidate_shape_valid_but_not_authorized",
+  "artifact_type": "local_capital_chronicle_artifact_packet",
+  "source_system": "capital_chronicle_external_compiler",
+  "freshness_status": "fresh",
+  "dqr_status": "unresolved_not_cleared",
+  "readiness_status": "blocked"
+}

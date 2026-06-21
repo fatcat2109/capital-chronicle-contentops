@@ -1,0 +1,8 @@
+{
+  "artifact_id": "candidate_stale_or_missing_freshness",
+  "artifact_type": "local_capital_chronicle_dqr_snapshot",
+  "source_system": "capital_chronicle_dqr_system",
+  "freshness_status": "stale",
+  "dqr_status": "unresolved_not_cleared",
+  "readiness_status": "blocked"
+}

@@ -1,0 +1,8 @@
+{
+  "artifact_id": "candidate_forbidden_public_ready_claim",
+  "artifact_type": "local_manual_operator_evidence_packet",
+  "source_system": "capital_chronicle_external_vendor",
+  "freshness_status": "fresh",
+  "dqr_status": "unresolved_not_cleared",
+  "readiness_status": "ready_for_public_distribution"
+}

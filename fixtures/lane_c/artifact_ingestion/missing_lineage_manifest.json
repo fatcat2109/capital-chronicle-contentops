@@ -1,0 +1,8 @@
+{
+  "artifact_id": "candidate_missing_lineage_manifest",
+  "artifact_type": "local_capital_chronicle_lineage_manifest",
+  "source_system": "capital_chronicle_lineage_builder",
+  "freshness_status": "fresh",
+  "dqr_status": "unresolved_not_cleared",
+  "readiness_status": "blocked"
+}
