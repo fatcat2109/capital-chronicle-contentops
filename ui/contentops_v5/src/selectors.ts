@@ -8,6 +8,7 @@ import { manualExportPilotVerificationPacket } from './data/manualExportPilotVer
 import { operatorReviewQueuePacket } from './data/operatorReviewQueuePacket';
 import { manualPilotTrailReconciliationPacket } from './data/manualPilotTrailReconciliationPacket';
 import { operatorRunbookIndexPacket } from './data/operatorRunbookIndexPacket';
+import { LifecycleStage, getStatusColor } from './data/contentLifecycleReadModelAdapter';
 import type {
   AiWriterOutput,
   ArtifactEligibilityCheck,
@@ -919,6 +920,40 @@ export function selectLaneCConnectorFamily(
       { label: 'Consumers', value: f.allowed_consumer_surfaces.join(', ') },
       { label: 'Prohibited Effects', value: f.prohibited_effects.join(', ') },
       { label: 'Next Required Gate', value: f.next_required_gate },
+    ],
+  };
+}
+
+export function selectLifecycleStage(s: LifecycleStage): SelectableObject {
+  return {
+    kind: 'lifecycle_stage',
+    id: s.stage_id,
+    title: s.stage_name,
+    fields: [
+      { label: 'Stage ID', value: s.stage_id, mono: true },
+      { label: 'Order', value: String(s.stage_order), mono: true },
+      { label: 'Phase', value: s.lifecycle_phase },
+      { label: 'State', value: s.state, status: getStatusColor(s.state) },
+      { label: 'Source Task', value: s.source_task_label, mono: true },
+      { label: 'Source Module', value: s.source_module, mono: true },
+      { label: 'Source Packet', value: s.source_packet_path, mono: true },
+      { label: 'Platform Scope', value: s.platform_scope },
+      { label: 'Future Gate', value: s.required_future_gate || 'none', mono: s.required_future_gate !== null },
+      { label: 'Blocker Codes', value: s.blocker_codes.join(', ') || 'none' },
+      { label: 'Evidence Refs', value: s.evidence_refs.join(', ') || 'none', mono: s.evidence_refs.length > 0 },
+      { label: 'Operator Action', value: s.operator_action_required ? 'Required' : 'None', status: s.operator_action_required ? 'review' : 'verified' },
+      { label: 'Public Postable', value: String(s.public_postable), status: s.public_postable ? 'verified' : 'blocked' },
+      { label: 'Dispatch Ready', value: String(s.dispatch_ready), status: s.dispatch_ready ? 'verified' : 'blocked' },
+      { label: 'Live API Called', value: String(s.live_api_called), status: s.live_api_called ? 'blocked' : 'verified' },
+      { label: 'Provider API Called', value: String(s.provider_api_called), status: s.provider_api_called ? 'blocked' : 'verified' },
+      { label: 'Env Read', value: String(s.env_read), status: s.env_read ? 'blocked' : 'verified' },
+      { label: 'Credential Hydrated', value: String(s.credential_hydrated), status: s.credential_hydrated ? 'blocked' : 'verified' },
+      { label: 'Scheduler Enabled', value: String(s.scheduler_enabled), status: s.scheduler_enabled ? 'blocked' : 'verified' },
+      { label: 'Scraping Performed', value: String(s.scraping_performed), status: s.scraping_performed ? 'blocked' : 'verified' },
+      { label: 'Reply/DM Enabled', value: String(s.autonomous_reply_or_dm_enabled), status: s.autonomous_reply_or_dm_enabled ? 'blocked' : 'verified' },
+      { label: 'DQR Cleared', value: String(s.dqr_cleared_by_contentops), status: s.dqr_cleared_by_contentops ? 'verified' : 'review' },
+      { label: 'Readiness Cleared', value: String(s.readiness_cleared_by_contentops), status: s.readiness_cleared_by_contentops ? 'verified' : 'review' },
+      { label: 'Current Truth', value: String(s.current_truth_promoted), status: s.current_truth_promoted ? 'blocked' : 'verified' },
     ],
   };
 }

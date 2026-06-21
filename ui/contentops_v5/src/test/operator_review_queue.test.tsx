@@ -75,4 +75,19 @@ describe('Operator Review Queue UI', () => {
     expect(within(rail).getByText(/local review trail entry/i)).toBeInTheDocument();
     expect(within(rail).getAllByText('trail_live_dispatch_disabled').length).toBeGreaterThan(0);
   });
+
+  it('renders content lifecycle spine and updates inspector on click', () => {
+    openView();
+
+    expect(screen.getByText(/Content Lifecycle Spine/i)).toBeInTheDocument();
+    expect(screen.getByText(/16 stages canonical lifecycle & operator read-model/i)).toBeInTheDocument();
+
+    expect(screen.getByText(/Artifact or Brief Intake/i)).toBeInTheDocument();
+    expect(screen.getByText(/Operator Approval Gate/i)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText(/Artifact or Brief Intake/i));
+    const rail = document.getElementById('inspector-rail')!;
+    expect(within(rail).getByText(/lifecycle stage/i)).toBeInTheDocument();
+    expect(within(rail).getAllByText('artifact_or_brief_intake').length).toBeGreaterThan(0);
+  });
 });

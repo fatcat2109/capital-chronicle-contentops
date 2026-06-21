@@ -7,9 +7,11 @@ import {
   selectOperatorReviewQueuePacket,
   selectReviewItem,
   selectTrailEntry,
+  selectLifecycleStage,
 } from '../selectors';
 import { IconBlock, IconShield } from '../ui/icons';
 import { LockedAction, Panel, StatusChip, StatusDot } from '../ui/primitives';
+import { contentLifecycleReadModel } from '../data/contentLifecycleReadModelAdapter';
 
 export function OperatorReviewQueue() {
   const { select, selected } = useApp();
@@ -156,6 +158,110 @@ export function OperatorReviewQueue() {
         </div>
 
         <div className="space-y-6">
+          {/* Content Lifecycle Spine */}
+          <Panel
+            title="Content Lifecycle Spine"
+            subtitle="16 stages canonical lifecycle & operator read-model"
+            bodyClassName="p-4 space-y-4"
+          >
+            {/* Spine summary / Next task */}
+            <div className="rounded-xl border border-line bg-surface-2 p-3 space-y-2">
+              <div className="flex flex-wrap items-center justify-between gap-2 text-[12px]">
+                <span className="font-semibold text-fg">Current Position</span>
+                <span className="font-mono text-[11px] text-fg-subtle">{contentLifecycleReadModel.currentLifecyclePosition}</span>
+              </div>
+              <div className="flex flex-wrap items-center justify-between gap-2 text-[12px]">
+                <span className="font-semibold text-fg">Next Blocker</span>
+                <span className="font-mono text-[11px] text-status-blocked">{contentLifecycleReadModel.nextBlocker || 'None'}</span>
+              </div>
+              <div className="flex flex-col gap-1 text-[12px]">
+                <span className="font-semibold text-fg">Next Recommended Task</span>
+                <span className="font-mono text-[11px] text-fg-muted break-all">{contentLifecycleReadModel.nextRecommendedTask}</span>
+              </div>
+            </div>
+
+            {/* Safety Locks Status */}
+            <div className="rounded-xl border border-line bg-surface-2 p-3 space-y-2">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                Read-Model Safety Locks
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                <StatusChip status="verified">
+                  Safety Locks: Active
+                </StatusChip>
+                {contentLifecycleReadModel.safetyFlags.live_api_called ? (
+                  <StatusChip status="blocked">Live API</StatusChip>
+                ) : (
+                  <StatusChip status="verified">No Live API</StatusChip>
+                )}
+                {contentLifecycleReadModel.safetyFlags.provider_api_called ? (
+                  <StatusChip status="blocked">Provider API</StatusChip>
+                ) : (
+                  <StatusChip status="verified">No Provider API</StatusChip>
+                )}
+                {contentLifecycleReadModel.safetyFlags.env_read ? (
+                  <StatusChip status="blocked">Env Read</StatusChip>
+                ) : (
+                  <StatusChip status="verified">No Env Read</StatusChip>
+                )}
+                {contentLifecycleReadModel.safetyFlags.credential_hydrated ? (
+                  <StatusChip status="blocked">Credentials</StatusChip>
+                ) : (
+                  <StatusChip status="verified">No Credentials</StatusChip>
+                )}
+              </div>
+            </div>
+
+            {/* Stage List */}
+            <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
+              {contentLifecycleReadModel.stages.map((stage) => {
+                const isCurrent = stage.stage_id === contentLifecycleReadModel.currentLifecyclePosition;
+                const isSelected = selected?.kind === 'lifecycle_stage' && selected.id === stage.stage_id;
+                let statusColor: 'verified' | 'blocked' | 'review' = 'review';
+                if (stage.state === 'COMPLETED') statusColor = 'verified';
+                if (stage.state === 'BLOCKED') statusColor = 'blocked';
+
+                return (
+                  <button
+                    key={stage.stage_id}
+                    type="button"
+                    onClick={() => select(selectLifecycleStage(stage))}
+                    className={`flex w-full items-center justify-between gap-3 rounded-xl border p-3 text-left transition-colors hover:border-line-strong ${
+                      isSelected
+                        ? 'border-accent/40 bg-accent/5'
+                        : isCurrent
+                        ? 'border-status-review/50 bg-status-review/5'
+                        : 'border-line bg-surface-2'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <StatusDot status={statusColor} />
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1.5">
+                          <span className="font-mono text-[10.5px] font-bold text-fg-subtle">
+                            {String(stage.stage_order).padStart(2, '0')}
+                          </span>
+                          <span className={`text-xs font-semibold truncate ${isCurrent ? 'text-fg font-bold' : 'text-fg-muted'}`}>
+                            {stage.stage_name}
+                          </span>
+                          {isCurrent && (
+                            <span className="rounded bg-status-review/20 px-1 py-0.2 text-[9px] font-bold uppercase tracking-wider text-status-review">
+                              Current
+                            </span>
+                          )}
+                        </div>
+                        <div className="font-mono text-[9.5px] text-fg-subtle truncate mt-0.5">
+                          {stage.stage_id}
+                        </div>
+                      </div>
+                    </div>
+                    <StatusChip status={statusColor}>{stage.state}</StatusChip>
+                  </button>
+                );
+              })}
+            </div>
+          </Panel>
+
           {/* Manual Pilot Trail */}
           <Panel
             title="Manual Pilot Trail Timeline"

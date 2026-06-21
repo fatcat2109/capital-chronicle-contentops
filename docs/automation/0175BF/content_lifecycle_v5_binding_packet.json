@@ -1,0 +1,15 @@
+{
+  "task_label": "TASK_CONTENTOPS_0175BF_OPERATOR_REVIEW_READ_MODEL_TO_V5_QUEUE_BINDING_V0",
+  "source_packet_hash": "33a1e02cf92174ecb0772fea66b6d26bbfc07292f3b9900fee4f40f89d17d279",
+  "local_only_safety_classification": "local-only-compliance-read-model",
+  "ui_surfaces_touched": [
+    "OperatorReviewQueue"
+  ],
+  "generated_files": [
+    "tools/export_v5_lifecycle_read_model.py",
+    "ui/contentops_v5/src/data/contentLifecycleReadModelPacket.ts",
+    "ui/contentops_v5/src/data/contentLifecycleReadModelAdapter.ts",
+    "docs/automation/0175BF/content_lifecycle_v5_binding.md",
+    "docs/automation/0175BF/content_lifecycle_v5_binding_packet.json"
+  ]
+}
