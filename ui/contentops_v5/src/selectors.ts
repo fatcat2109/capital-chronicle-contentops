@@ -18,6 +18,10 @@ import type {
   ContentIntentGatePrecheckPacketType
 } from './data/contentIntentGatePrecheckAdapter';
 import type {
+  ReviewOnlyIntentItem,
+  ReviewOnlyContentIntentPacketType
+} from './data/reviewOnlyContentIntentAdapter';
+import type {
   AiWriterOutput,
   ArtifactEligibilityCheck,
   Blocker,
@@ -1056,6 +1060,64 @@ export function selectContentIntentGatePrecheckPacket(
       { label: 'Ledger Family', value: p.ledger_family, mono: true },
       { label: 'Gate Status', value: p.content_intent_gate_status, status: p.content_intent_gate_status === 'BLOCKED_OPERATOR_REVIEW_REQUIRED' ? 'blocked' : (p.content_intent_gate_status.startsWith('BLOCKED') ? 'blocked' : 'review') },
       { label: 'Candidates', value: String(p.source_candidate_count) },
+      { label: 'Blocked Reasons', value: p.blocked_reasons.join(', ') },
+      { label: 'Allowed Next Step', value: p.allowed_next_step },
+      { label: 'Disallowed Outputs', value: p.disallowed_outputs.join(', ') },
+      { label: 'Next Rec Task', value: p.next_recommended_task, mono: true },
+    ],
+  };
+}
+
+export function selectReviewOnlyIntentItem(
+  item: ReviewOnlyIntentItem,
+): SelectableObject {
+  return {
+    kind: 'review_only_intent_item',
+    id: item.intent_item_id,
+    title: item.source_candidate_id,
+    fields: [
+      { label: 'Intent Item ID', value: item.intent_item_id, mono: true },
+      { label: 'Candidate ID', value: item.source_candidate_id, mono: true },
+      { label: 'Relative Path', value: item.relative_path, mono: true },
+      { label: 'Evidence Role', value: item.evidence_role },
+      { label: 'Source Family', value: item.source_family },
+      { label: 'Records Count', value: String(item.records_count), mono: true },
+      { label: 'Contract Name', value: item.contract_name || 'none', mono: item.contract_name !== null },
+      { label: 'Advisory Only', value: String(item.advisory_only), status: item.advisory_only ? 'verified' : 'blocked' },
+      { label: 'Candidate Only', value: String(item.candidate_only), status: item.candidate_only ? 'verified' : 'blocked' },
+      { label: 'Source Gate Status', value: item.source_gate_status, status: item.source_gate_status === 'READY_FOR_OPERATOR_INTENT_REVIEW' ? 'review' : 'blocked' },
+      { label: 'Intent Status', value: item.review_only_intent_status, status: item.review_only_intent_status === 'REVIEW_ONLY_INTENT_PENDING_OPERATOR_INPUT' ? 'review' : 'blocked' },
+      { label: 'Operator Action', value: item.operator_review_required ? 'Required' : 'None', status: item.operator_review_required ? 'review' : 'verified' },
+      { label: 'Scope Label', value: item.intent_scope_label, mono: true },
+      { label: 'Blocked Reasons', value: item.blocked_reasons.join(', ') || 'none' },
+      { label: 'Missing Requirements', value: item.missing_requirements.join(', ') || 'none' },
+      { label: 'Allowed Next Step', value: item.allowed_next_step },
+      { label: 'Disallowed Outputs', value: item.disallowed_outputs.join(', ') },
+      { label: 'Audience Lane', value: item.required_operator_inputs.intended_audience_lane, status: 'review' },
+      { label: 'Purpose Category', value: item.required_operator_inputs.content_purpose_category, status: 'review' },
+      { label: 'Source Review Notes', value: item.required_operator_inputs.source_review_notes, status: 'review' },
+      { label: 'Risk Review Notes', value: item.required_operator_inputs.risk_review_notes, status: 'review' },
+      { label: 'Claim Scope Boundary', value: item.required_operator_inputs.claim_scope_boundary, status: 'review' },
+      { label: 'Manual Decision', value: item.required_operator_inputs.manual_operator_decision, status: 'review' },
+    ],
+  };
+}
+
+export function selectReviewOnlyContentIntentPacket(
+  p: ReviewOnlyContentIntentPacketType,
+): SelectableObject {
+  return {
+    kind: 'review_only_content_intent_packet',
+    id: p.packet_hash,
+    title: `Review-Only Content Intent Packet · ${p.task_label.slice(0, 16)}...`,
+    fields: [
+      { label: 'Task Label', value: p.task_label, mono: true },
+      { label: 'Precheck Hash', value: p.source_content_intent_gate_precheck_packet_hash, mono: true },
+      { label: 'Source Task', value: p.source_packet_task_label, mono: true },
+      { label: 'Packet Hash', value: p.packet_hash, mono: true },
+      { label: 'Ledger Family', value: p.ledger_family, mono: true },
+      { label: 'Intent Status', value: p.global_intent_packet_status, status: 'blocked' },
+      { label: 'Candidates Count', value: String(p.source_candidate_count) },
       { label: 'Blocked Reasons', value: p.blocked_reasons.join(', ') },
       { label: 'Allowed Next Step', value: p.allowed_next_step },
       { label: 'Disallowed Outputs', value: p.disallowed_outputs.join(', ') },

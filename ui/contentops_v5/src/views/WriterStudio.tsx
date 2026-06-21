@@ -5,9 +5,10 @@
 
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
-import { selectAiVariant, selectMediaAsset, selectCandidateReviewItem, selectEditorialBriefReviewPacket, selectCandidateGateItem, selectContentIntentGatePrecheckPacket } from '../selectors';
+import { selectAiVariant, selectMediaAsset, selectCandidateReviewItem, selectEditorialBriefReviewPacket, selectCandidateGateItem, selectContentIntentGatePrecheckPacket, selectReviewOnlyIntentItem, selectReviewOnlyContentIntentPacket } from '../selectors';
 import { editorialBriefReviewAdapter } from '../data/editorialBriefReviewAdapter';
 import { contentIntentGatePrecheckAdapter } from '../data/contentIntentGatePrecheckAdapter';
+import { reviewOnlyContentIntentAdapter } from '../data/reviewOnlyContentIntentAdapter';
 import { IconImage, IconSparkle } from '../ui/icons';
 import {
   EvidenceChip,
@@ -346,6 +347,186 @@ export function WriterStudio() {
               <div className="flex flex-wrap items-center gap-1.5 text-[10.5px] font-mono text-fg-subtle">
                 <span className="font-bold uppercase mr-1">Truth Flags (verified false):</span>
                 {Object.entries(contentIntentGatePrecheckAdapter.truthProtectionFlags).map(([key, val]) => (
+                  <span key={key} className={`px-1.5 py-0.5 rounded border border-line bg-surface-2 ${val ? 'text-status-blocked' : 'text-status-verified font-semibold'}`}>
+                    {key}: {String(val)}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Panel>
+
+          {/* Review-Only Content Intent Panel */}
+          <Panel
+            title="Review-Only Content Intent"
+            subtitle="Local intent packet · blocked pending operator input"
+            actions={
+              <button
+                type="button"
+                id="btn-inspect-intent-packet"
+                onClick={() => select(selectReviewOnlyContentIntentPacket(reviewOnlyContentIntentAdapter.packet))}
+                className="rounded-md border border-line bg-surface-2 px-2.5 py-1 font-mono text-[10.5px] text-fg-muted hover:border-line-strong hover:text-fg transition-colors"
+              >
+                Inspect Intent
+              </button>
+            }
+            bodyClassName="p-4 space-y-4"
+          >
+            {/* Packet Metadata Grid */}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                  Packet Hash
+                </div>
+                <div className="mt-1 break-all font-mono text-[11px] font-semibold text-fg">
+                  {reviewOnlyContentIntentAdapter.packet.packet_hash}
+                </div>
+              </div>
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                  Source Precheck Hash
+                </div>
+                <div className="mt-1 break-all font-mono text-[11px] font-semibold text-fg">
+                  {reviewOnlyContentIntentAdapter.packet.source_content_intent_gate_precheck_packet_hash}
+                </div>
+              </div>
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                  Global Intent Status
+                </div>
+                <div className="mt-1 break-all text-xs font-semibold text-fg">
+                  <span className="font-mono uppercase text-status-blocked">
+                    {reviewOnlyContentIntentAdapter.packet.global_intent_packet_status}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {/* Blocked Reasons */}
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-status-blocked">
+                  Intent Blocked Reasons
+                </div>
+                <ul className="mt-2 list-inside list-disc text-xs text-fg-muted space-y-1">
+                  {reviewOnlyContentIntentAdapter.blockedReasons.map(r => (
+                    <li key={r} className="font-mono text-[11px]">{r}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Next step & Recommended Task */}
+              <div className="rounded-xl border border-line bg-surface-2 p-3 space-y-2">
+                <div>
+                  <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                    Allowed Next Step
+                  </div>
+                  <div className="mt-1 text-xs text-fg font-medium">
+                    {reviewOnlyContentIntentAdapter.packet.allowed_next_step}
+                  </div>
+                </div>
+                <div>
+                  <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                    Next Recommended Task
+                  </div>
+                  <div className="mt-1 font-mono text-[11px] text-fg break-all font-semibold">
+                    {reviewOnlyContentIntentAdapter.packet.next_recommended_task}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Required Operator Inputs */}
+            <div className="rounded-xl border border-line bg-surface-2 p-3">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-status-review mb-2">
+                Required Operator Inputs (Pending Capture)
+              </div>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 text-xs">
+                {Object.entries(reviewOnlyContentIntentAdapter.packet.required_operator_inputs).map(([key, val]) => (
+                  <div key={key} className="rounded border border-line bg-surface-1 p-2">
+                    <span className="font-mono font-bold text-fg-subtle block">{key}</span>
+                    <span className="font-mono font-semibold text-status-review block mt-0.5">{val}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Review-Only Intent Items Table */}
+            <div className="border-t border-line pt-3">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle mb-2">
+                Review-Only Intent Items ({reviewOnlyContentIntentAdapter.packet.source_candidate_count})
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs min-w-[500px]">
+                  <thead>
+                    <tr className="border-b border-line bg-surface-2 font-mono text-[10px] text-fg-subtle">
+                      <th className="px-2 py-1.5">Candidate ID</th>
+                      <th className="px-2 py-1.5">Scope Label</th>
+                      <th className="px-2 py-1.5">Evidence Role</th>
+                      <th className="px-2 py-1.5">Family</th>
+                      <th className="px-2 py-1.5">Records</th>
+                      <th className="px-2 py-1.5">Intent Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-line">
+                    {reviewOnlyContentIntentAdapter.reviewOnlyIntentItems.map((item) => {
+                      const active = selected?.kind === 'review_only_intent_item' && selected.id === item.intent_item_id;
+                      const isPending = item.review_only_intent_status === 'REVIEW_ONLY_INTENT_PENDING_OPERATOR_INPUT';
+                      return (
+                        <tr
+                          key={item.intent_item_id}
+                          id={`intent-item-row-${item.intent_item_id}`}
+                          onClick={() => select(selectReviewOnlyIntentItem(item))}
+                          className={`cursor-pointer transition-colors hover:bg-surface-3 ${
+                            active ? 'bg-accent/5' : ''
+                          }`}
+                        >
+                          <td className="px-2 py-2 font-mono font-semibold text-fg">
+                            {item.source_candidate_id}
+                          </td>
+                          <td className="px-2 py-2 text-fg-muted font-mono">{item.intent_scope_label}</td>
+                          <td className="px-2 py-2 text-fg-muted font-mono">{item.evidence_role}</td>
+                          <td className="px-2 py-2 text-fg-muted font-mono">{item.source_family}</td>
+                          <td className="px-2 py-2 font-mono text-fg">{item.records_count}</td>
+                          <td className="px-2 py-2 font-mono">
+                            <span className={isPending ? 'text-status-review font-semibold' : 'text-status-blocked font-semibold'}>
+                              {item.review_only_intent_status}
+                            </span>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Disallowed Outputs strip */}
+            <div className="border-t border-line pt-3">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-status-blocked mb-1">
+                Disallowed output enforcement (Strict compliance locks)
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {reviewOnlyContentIntentAdapter.disallowedOutputs.map((out) => (
+                  <span key={out} className="px-1.5 py-0.5 rounded border border-line bg-surface-2 font-mono text-[9.5px] text-fg-muted">
+                    {out}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Safety & Truth Flags Strip */}
+            <div className="border-t border-line pt-3 space-y-2">
+              <div className="flex flex-wrap items-center gap-1.5 text-[10.5px] font-mono text-fg-subtle">
+                <span className="font-bold uppercase mr-1">Safety Flags (verified locked):</span>
+                {Object.entries(reviewOnlyContentIntentAdapter.safetyFlags).map(([key, val]) => (
+                  <span key={key} className={`px-1.5 py-0.5 rounded border border-line bg-surface-2 ${val ? 'text-status-blocked' : 'text-status-verified font-semibold'}`}>
+                    {key}: {String(val)}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center gap-1.5 text-[10.5px] font-mono text-fg-subtle">
+                <span className="font-bold uppercase mr-1">Truth Flags (verified false):</span>
+                {Object.entries(reviewOnlyContentIntentAdapter.truthProtectionFlags).map(([key, val]) => (
                   <span key={key} className={`px-1.5 py-0.5 rounded border border-line bg-surface-2 ${val ? 'text-status-blocked' : 'text-status-verified font-semibold'}`}>
                     {key}: {String(val)}
                   </span>

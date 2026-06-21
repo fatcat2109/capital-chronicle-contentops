@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `1943a1fa9234431263074f48e8f5fabe9f3a1738`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175BK_CONTENT_INTENT_GATE_PRECHECK_TO_V5_INTENT_QUEUE_BINDING_V0`
-* **Latest implemented capability:** Bind Content Intent Gate Precheck to V5 queue
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BL_CONTENT_INTENT_GATE_TO_REVIEW_ONLY_INTENT_PACKET_V0`
+* **Last resolved accepted HEAD in ledger:** `3d0edd78c83778d513e53c71fd18385a5cdc4d5f`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175BL_CONTENT_INTENT_GATE_TO_REVIEW_ONLY_INTENT_PACKET_V0`
+* **Latest implemented capability:** Transition Content Intent Gate Precheck into deterministic Review-Only Content Intent Packet
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BM_REVIEW_ONLY_INTENT_PACKET_TO_V5_INTENT_DETAIL_BINDING_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -121,7 +121,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175BI_EDITORIAL_BRIEF_REVIEW_PACKET_TO_V5_BRIEF_QUEUE_BINDING_V0` | `1dd9a01a2c6e1d3444181ef94f80f975b85400ef` | `b6006d21829f55d6a781169104debd2f39b1491e` | Bind Editorial Brief Review Packet into V5 Writer Studio panel | Vitest UI tests, pytest suite, Vite build check | Metadata-only cockpit brief queue UI binding | Promotion and content intent gate checks | `0175BJ` |
 | `TASK_CONTENTOPS_0175BJ_EDITORIAL_BRIEF_REVIEW_TO_CONTENT_INTENT_GATE_PRECHECK_V0` | `b6006d21829f55d6a781169104debd2f39b1491e` | `ca1b1de07b2b285b243791cf46be864e57e780ba` | Create deterministic Content Intent Gate Precheck module and validate candidates | Pytest unit tests, local verification checks | Compliance precheck gate validating candidate safety and metadata | UI queue binding, variant drafts compilation | `0175BK` |
 | `TASK_CONTENTOPS_0175BK_CONTENT_INTENT_GATE_PRECHECK_TO_V5_INTENT_QUEUE_BINDING_V0` | `ca1b1de07b2b285b243791cf46be864e57e780ba` | `1943a1fa9234431263074f48e8f5fabe9f3a1738` | Bind Content Intent Gate Precheck to V5 Writer Studio panel | Vitest UI tests, pytest suite, Vite build check | Statically bound precheck queue panel in Writer Studio | Variant drafts compilation, dispatching logic | `0175BL` |
-| `TASK_CONTENTOPS_0175BL_CONTENT_INTENT_GATE_TO_REVIEW_ONLY_INTENT_PACKET_V0` | `1943a1fa9234431263074f48e8f5fabe9f3a1738` | `RECORDED_IN_NEXT_TASK_READBACK` | Transition Content Intent Gate Precheck into deterministic Review-Only Content Intent Packet | Pytest suite, verify deterministic mapping and safety flags, docs/automation/0175BL/ artifacts | Deterministic intent scaffolding ready for review and operator inputs | Operator input binding, draft generation gates, live API dispatching | `0175BM` |
+| `TASK_CONTENTOPS_0175BL_CONTENT_INTENT_GATE_TO_REVIEW_ONLY_INTENT_PACKET_V0` | `1943a1fa9234431263074f48e8f5fabe9f3a1738` | `3d0edd78c83778d513e53c71fd18385a5cdc4d5f` | Transition Content Intent Gate Precheck into deterministic Review-Only Content Intent Packet | Pytest suite, verify deterministic mapping and safety flags, docs/automation/0175BL/ artifacts | Deterministic intent scaffolding ready for review and operator inputs | Operator input binding, draft generation gates, live API dispatching | `0175BM` |
+| `TASK_CONTENTOPS_0175BM_REVIEW_ONLY_INTENT_PACKET_TO_V5_INTENT_DETAIL_BINDING_V0` | `3d0edd78c83778d513e53c71fd18385a5cdc4d5f` | `RECORDED_IN_NEXT_TASK_READBACK` | Bind Review-Only Content Intent Packet to V5 cockpit static detail views | Vitest UI tests, pytest exporter unit tests, Vite build and typecheck | Cockpit detail views showing intent metadata and safety status locks | Operator input capture, draft generation, platform dispatching | `0175BN` |
 
 ---
 
@@ -163,6 +164,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BM_REVIEW_ONLY_INTENT_PACKET_TO_V5_INTENT_DETAIL_BINDING_V0`
-* **Focus:** Bind Review-Only Content Intent Packet to V5 cockpit detail views.
+* **Next recommended task:** `TASK_CONTENTOPS_0175BN_REVIEW_ONLY_INTENT_TO_OPERATOR_INPUT_CAPTURE_PRECHECK_V0`
+* **Focus:** Build Operator Input Capture Precheck module.
 * **Visual System Status:** Visual enhancement/polish is deferred.

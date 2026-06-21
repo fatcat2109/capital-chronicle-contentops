@@ -1,0 +1,26 @@
+{
+  "task_label": "TASK_CONTENTOPS_0175BM_REVIEW_ONLY_INTENT_PACKET_TO_V5_INTENT_DETAIL_BINDING_V0",
+  "source_content_intent_gate_precheck_packet_hash": "607f1ab0ab7b10ec10d2b4e0cb55154f0b20127c5ca3c6ce25c38dbeefeb3af6",
+  "source_review_only_content_intent_packet_hash": "d2bf5de9b4a6cfc02270638efeff6715f70ad3cb2e80969df35af057fa343f99",
+  "generated_ts_packet_paths": [
+    "ui/contentops_v5/src/data/reviewOnlyContentIntentPacket.ts",
+    "ui/contentops_v5/src/data/reviewOnlyContentIntentAdapter.ts"
+  ],
+  "ui_surfaces_touched": [
+    "ui/contentops_v5/src/views/WriterStudio.tsx",
+    "ui/contentops_v5/src/selectors.ts"
+  ],
+  "status_rendering_policy": {
+    "BLOCKED_OPERATOR_INTENT_INPUT_REQUIRED": "text-status-blocked (red)",
+    "REVIEW_ONLY_INTENT_PENDING_OPERATOR_INPUT": "text-status-review (amber)",
+    "BLOCKED_BY_CONTENT_INTENT_GATE": "text-status-blocked (red)",
+    "PENDING_OPERATOR_INPUT": "text-status-review (amber)",
+    "safety_and_truth_flags_false": "text-status-verified (green)"
+  },
+  "safety_classification": "LOCAL_UI_BINDING_ONLY",
+  "validation_results": {
+    "python_tests": "17 passed",
+    "frontend_tests": "133 passed",
+    "frontend_build": "built successfully"
+  }
+}
