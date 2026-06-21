@@ -53,6 +53,7 @@ ENTRY_FAMILIES = (
     "v5_operator_review_queue_manual_pilot_trail_future",
     "v5_manual_pilot_trail_reconciliation_future",
     "v5_manual_pilot_trail_reconciliation_audit_future",
+    "v5_local_operator_runbook_index_future",
     "unknown_or_blocked",
 )
 

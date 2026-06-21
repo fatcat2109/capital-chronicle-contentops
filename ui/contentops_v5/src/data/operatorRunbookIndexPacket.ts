@@ -1,0 +1,117 @@
+import { V5OperatorRunbookIndexPacket } from '../types';
+
+export const operatorRunbookIndexPacket: V5OperatorRunbookIndexPacket = {
+  audit_status: "verified_blocked_manual_only",
+  contract_version: "0175AD_V5_LOCAL_OPERATOR_RUNBOOK_INDEX_CONTRACT_V1",
+  invariant_results: {
+    all_steps_local_only: true,
+    audit_step_configured: true,
+    disabled_live_action_states_correct: true,
+    export_step_configured: true,
+    no_banned_financial_language: true,
+    preflight_step_configured: true,
+    reconciliation_step_configured: true,
+    review_queue_step_configured: true
+  },
+  next_recommended_task: "TASK_CONTENTOPS_0175AE_V5_LOCAL_OPERATOR_RUNBOOK_INDEX_BROWSER_QA_V0",
+  packet_hash: "44221547bfbebe4f1d52c0478b0caf0f46282a50604fc902091499f58c9883bc",
+  packet_hash_algorithm: "sha256",
+  runbook_id: "v5_local_operator_runbook_index_44221547bfbebe4f1d52c047",
+  runbook_steps: [
+    {
+      blocked_reasons: [],
+      evidence_refs: [
+        "docs/automation/0174UU/local_preflight_bundle_v5_read_model_precheck_contract.md"
+      ],
+      missing_evidence: [],
+      next_safe_step: "manual_export_pilot_verification",
+      operator_meaning: "Automated preflight checks for the content bundle and local configuration constraints.",
+      source_packet: "docs/automation/0174UU/local_preflight_bundle_v5_read_model_precheck_contract_packet.json",
+      status: "verified",
+      step_id: "preflight_bundle",
+      view_id: "preflight_bundle",
+      what_human_can_do: "Inspect all active gates, bundle properties, and dry run results.",
+      what_system_cannot_do: "Modify live server states or communicate with platform APIs."
+    },
+    {
+      blocked_reasons: [],
+      evidence_refs: [
+        "docs/automation/0174UW/v5_manual_export_pilot_verification.md"
+      ],
+      missing_evidence: [],
+      next_safe_step: "operator_review_queue",
+      operator_meaning: "Generates manual export bundles for the pilot deployment.",
+      source_packet: "docs/automation/0174UW/v5_manual_export_pilot_verification_contract_packet.json",
+      status: "verified",
+      step_id: "manual_export_pilot_verification",
+      view_id: "manual_export_pilot_verification",
+      what_human_can_do: "Generate offline export packages for manual substack setup and download manual verification payloads.",
+      what_system_cannot_do: "Write keys, env files, or invoke platform publishing engines."
+    },
+    {
+      blocked_reasons: [],
+      evidence_refs: [
+        "docs/automation/0174UY/v5_operator_review_queue_manual_pilot_trail_contract.md"
+      ],
+      missing_evidence: [],
+      next_safe_step: "manual_pilot_reconciliation",
+      operator_meaning: "Tracks which manual pilot export items are under operator inspection.",
+      source_packet: "docs/automation/0174UY/v5_operator_review_queue_manual_pilot_trail_contract_packet.json",
+      status: "verified",
+      step_id: "operator_review_queue",
+      view_id: "operator_review_queue",
+      what_human_can_do: "Inspect queue states, view reviewable files, and log offline progress.",
+      what_system_cannot_do: "Automate approvals, trigger webhook dispatches, or modify database states."
+    },
+    {
+      blocked_reasons: [
+        "reconciliation_blocked_awaiting_operator_evidence"
+      ],
+      evidence_refs: [
+        "docs/automation/0174UZ/v5_manual_pilot_trail_reconciliation_contract.md"
+      ],
+      missing_evidence: [
+        "manual_publish_url",
+        "manual_publish_timestamp",
+        "manual_metrics_snapshot"
+      ],
+      next_safe_step: "evidence_vault_manual_pilot_audit",
+      operator_meaning: "Reconciles operator review records with manual publish evidence inputs.",
+      source_packet: "docs/automation/0174UZ/v5_manual_pilot_trail_reconciliation_contract_packet.json",
+      status: "blocked",
+      step_id: "manual_pilot_reconciliation",
+      view_id: "manual_pilot_trail_reconciliation",
+      what_human_can_do: "Submit placeholder evidence and preview off-system manual publish records.",
+      what_system_cannot_do: "Mutate real publish states or communicate with provider credential endpoints."
+    },
+    {
+      blocked_reasons: [],
+      evidence_refs: [
+        "docs/automation/0175AA/v5_manual_pilot_trail_reconciliation_audit_contract.md"
+      ],
+      missing_evidence: [],
+      next_safe_step: "none",
+      operator_meaning: "Forensic audit ledger verifying safety compliance flags across the entire manual trail chain.",
+      source_packet: "docs/automation/0175AA/v5_manual_pilot_trail_reconciliation_audit_contract_packet.json",
+      status: "verified",
+      step_id: "evidence_vault_manual_pilot_audit",
+      view_id: "evidence_vault",
+      what_human_can_do: "Inspect invariant check results, check contradiction flags, and read local evidence files.",
+      what_system_cannot_do: "Perform live publishing, credential checks, or publish/approve operations."
+    }
+  ],
+  safety_flags: {
+    approval_mutation: false,
+    credential_values_loaded: false,
+    dispatch_ready: false,
+    local_only: true,
+    manual_only: true,
+    network_performed: false,
+    no_credentials: true,
+    no_live_dispatch: true,
+    no_platform_api: true,
+    public_postable: false
+  },
+  source_baseline_commit: "bc065b8085364f304be7ace285d5325852127746",
+  task_label: "TASK_CONTENTOPS_0175AD_V5_LOCAL_OPERATOR_RUNBOOK_INDEX_V0"
+};

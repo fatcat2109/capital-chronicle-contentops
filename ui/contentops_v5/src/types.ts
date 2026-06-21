@@ -18,7 +18,8 @@ export type ViewId =
   | 'manual_pilot_trail_reconciliation'
   | 'approval_queue'
   | 'evidence_vault'
-  | 'preflight_bundle';
+  | 'preflight_bundle'
+  | 'operator_runbook_index';
 
 export interface SystemMode {
   code: string;
@@ -900,5 +901,33 @@ export interface V5ManualPilotTrailReconciliationAuditPacket {
   safety_flags: Record<string, boolean>;
   source_baseline_commit: string;
   source_packets: Record<string, V5ReconciliationAuditSourcePacket>;
+  task_label: string;
+}
+
+export interface V5RunbookStep {
+  step_id: string;
+  view_id: string;
+  source_packet: string;
+  status: string;
+  operator_meaning: string;
+  what_human_can_do: string;
+  what_system_cannot_do: string;
+  blocked_reasons: string[];
+  missing_evidence: string[];
+  evidence_refs: string[];
+  next_safe_step: string;
+}
+
+export interface V5OperatorRunbookIndexPacket {
+  audit_status: string;
+  contract_version: string;
+  invariant_results: Record<string, boolean>;
+  next_recommended_task: string;
+  packet_hash: string;
+  packet_hash_algorithm: string;
+  runbook_id: string;
+  runbook_steps: V5RunbookStep[];
+  safety_flags: Record<string, boolean>;
+  source_baseline_commit: string;
   task_label: string;
 }

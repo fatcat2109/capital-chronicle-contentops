@@ -7,6 +7,7 @@ import { preflightBundlePacket } from './data/preflightBundlePacket';
 import { manualExportPilotVerificationPacket } from './data/manualExportPilotVerificationPacket';
 import { operatorReviewQueuePacket } from './data/operatorReviewQueuePacket';
 import { manualPilotTrailReconciliationPacket } from './data/manualPilotTrailReconciliationPacket';
+import { operatorRunbookIndexPacket } from './data/operatorRunbookIndexPacket';
 import type {
   AiWriterOutput,
   ArtifactEligibilityCheck,
@@ -44,6 +45,7 @@ import type {
   V5LifecycleStep,
   V5PlaceholderField,
   V5ManualPilotTrailReconciliationAuditPacket,
+  V5RunbookStep,
 } from './types';
 
 
@@ -438,6 +440,8 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
     }
     case 'preflight_bundle':
       return selectPreflightBundlePacket(preflightBundlePacket);
+    case 'operator_runbook_index':
+      return selectRunbookStep(operatorRunbookIndexPacket.runbook_steps[0]);
   }
 }
 
@@ -779,6 +783,25 @@ export function selectAuditContradiction(
     fields: [
       { label: 'Detail', value: text },
       { label: 'Severity', value: 'blocked', status: 'blocked' },
+    ],
+  };
+}
+
+export function selectRunbookStep(
+  s: V5RunbookStep,
+): SelectableObject {
+  return {
+    kind: 'runbook_step',
+    id: s.step_id,
+    title: s.step_id.replace(/_/g, ' ').toUpperCase(),
+    fields: [
+      { label: 'Step ID', value: s.step_id, mono: true },
+      { label: 'View ID', value: s.view_id, mono: true },
+      { label: 'Status', value: s.status, status: s.status === 'verified' ? 'verified' : 'blocked' },
+      { label: 'Source Packet', value: s.source_packet, mono: true },
+      { label: 'Human Actions', value: s.what_human_can_do },
+      { label: 'System Limits', value: s.what_system_cannot_do },
+      { label: 'Next Safe Step', value: s.next_safe_step, mono: true },
     ],
   };
 }

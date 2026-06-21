@@ -21,6 +21,7 @@ import { ManualPilotTrailReconciliation } from './views/ManualPilotTrailReconcil
 import { ApprovalQueue } from './views/ApprovalQueue';
 import { EvidenceVault } from './views/EvidenceVault';
 import { PreflightBundle } from './views/PreflightBundle';
+import { OperatorRunbookIndex } from './views/OperatorRunbookIndex';
 
 export default function App() {
   const [view, setView] = useState<ViewId>('command_center');
@@ -31,9 +32,11 @@ export default function App() {
     defaultSelectionFor('command_center'),
   );
 
-  // Evidence Vault forces dark evidence mode; other views use chosen theme.
+  // Evidence Vault and Operator Runbook force dark evidence mode; other views use chosen theme.
   const effectiveTheme: ThemeMode =
-    view === 'evidence_vault' ? 'dark-evidence' : theme;
+    view === 'evidence_vault' || view === 'operator_runbook_index'
+      ? 'dark-evidence'
+      : theme;
 
   const ctx = useMemo(
     () => ({
@@ -260,6 +263,8 @@ function ActiveView() {
       return <EvidenceVault />;
     case 'preflight_bundle':
       return <PreflightBundle />;
+    case 'operator_runbook_index':
+      return <OperatorRunbookIndex />;
     default:
       return null;
   }

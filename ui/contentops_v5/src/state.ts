@@ -35,4 +35,5 @@ export const NAV_ITEMS: { id: ViewId; label: string; icon: string }[] = [
   { id: 'approval_queue', label: 'Approval & Dispatch', icon: 'shield' },
   { id: 'evidence_vault', label: 'Evidence Vault', icon: 'lock' },
   { id: 'preflight_bundle', label: 'Preflight Bundle', icon: 'shield' },
+  { id: 'operator_runbook_index', label: 'Operator Runbook', icon: 'lock' },
 ];
