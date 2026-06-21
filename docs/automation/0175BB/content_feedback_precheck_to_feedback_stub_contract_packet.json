@@ -1,0 +1,4510 @@
+{
+  "blocked_capabilities": [
+    "live_publishing_dispatch",
+    "autonomous_reply_automation",
+    "live_credential_hydration",
+    "active_scheduler_triggers",
+    "manual_review_export",
+    "live_metrics_retrieval",
+    "scraping",
+    "performance_scoring",
+    "analytics_ingestion",
+    "content_editorial_revisions",
+    "platform_strategy_planning"
+  ],
+  "generated_at_epoch": 0,
+  "hash_algorithm": "sha256",
+  "ledger_family": "content_feedback_precheck_to_feedback_stub_future",
+  "matrix_version": "0175BB_CONTENT_FEEDBACK_PRECHECK_TO_FEEDBACK_STUB_V1",
+  "missing_future_gates": [
+    "lane_c_feedback_stub_to_operator_review_brief_precheck",
+    "production_key_vault_decrypter",
+    "live_operator_signature_vault"
+  ],
+  "next_required_gate": "lane_c_feedback_stub_to_operator_review_brief_precheck",
+  "packet_hash": "c49edc728c218b200ad9ce3f5e93efbc379e2daf183e138bc787a866a9e785ed",
+  "precheck_records": [
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "best_or_worst_claim_generated": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence",
+        "blocked_no_metrics_gate",
+        "blocked_no_performance_audit_gate",
+        "blocked_no_content_feedback_gate",
+        "blocked_no_operator_review_brief_precheck"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "content_feedback_gate_status": "content_feedback_gate_required_but_locked",
+      "content_feedback_stub_id": "content_feedback_stub_x",
+      "content_feedback_stub_status": "content_feedback_stub_blocked",
+      "content_score_computed": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "editorial_advice_generated": false,
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "feedback_generated": false,
+      "feedback_references": [
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: x.hook_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "hook_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "hook_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: x.clarity_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "clarity_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "clarity_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: x.citation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "citation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "citation_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: x.limitation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "limitation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "limitation_feedback_stub"
+        }
+      ],
+      "feedback_stub_type": "x_content_feedback_stub",
+      "feedback_target_type": "x_content_feedback_stub",
+      "invariants": [
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no active content feedback or editorial revisions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_content_feedback_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified rewrite suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_rewrite_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified editorial advice remains ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_editorial_advice_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no performance recommendations or suggestions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_recommendation_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified optimization suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_optimization_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no platform-specific distribution strategy was generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_platform_strategy_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no content score has been computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_content_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_rank",
+          "evidence_note": "Verified no platform rank generated.",
+          "expected_state": "no_rank",
+          "invariant_id": "no_ranking_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no best or worst performing claims generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_best_or_worst_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no performance claims or analytics texts were generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_performance_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_copy",
+          "evidence_note": "Verified no publishable copy generated.",
+          "expected_state": "no_copy",
+          "invariant_id": "no_publishable_copy_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no real platform performance metrics recorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_real_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified metric values are unrecorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_metric_values_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no performance metrics score computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_metric_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_comparison",
+          "evidence_note": "Verified no KPI comparison has been performed.",
+          "expected_state": "no_comparison",
+          "invariant_id": "no_kpi_comparison_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_pull",
+          "evidence_note": "Verified no active analytics pulls were executed.",
+          "expected_state": "no_pull",
+          "invariant_id": "no_platform_analytics_pull",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no provider LLM API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_provider_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "false",
+          "evidence_note": "Verified draft cannot be publicly posted.",
+          "expected_state": "false",
+          "invariant_id": "no_public_postable",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified content feedback gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_content_feedback_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified future operator review brief precheck gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_future_operator_review_brief_precheck",
+          "passed": true
+        }
+      ],
+      "kpi_comparison_computed": false,
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "metric_score_computed": false,
+      "metric_values_recorded": false,
+      "metrics_gate_status": "metrics_gate_required_but_locked",
+      "missing_future_gates": [
+        "lane_c_feedback_stub_to_operator_review_brief_precheck",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "optimization_suggestion_generated": false,
+      "packet_hash": "98622a39ee21a481c45ad26f71a970645f5a1f17c479f8566a485587c297bd21",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "performance_audit_gate_status": "performance_audit_gate_required_but_locked",
+      "performance_claim_generated": false,
+      "platform_analytics_pull_performed": false,
+      "platform_api_called": false,
+      "platform_family": "x_microblog",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_strategy_generated": false,
+      "platform_target_id": "x",
+      "provider_api_called": false,
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publishable_copy_created": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "ranking_generated": false,
+      "readiness_status": "readiness_unresolved",
+      "real_metrics_recorded": false,
+      "recommendation_generated": false,
+      "rewrite_suggestion_generated": false,
+      "scheduler_enabled": false,
+      "scraping": false,
+      "source_audit_summary_id": "audit_summary_x",
+      "source_content_feedback_precheck_id": "content_feedback_precheck_x",
+      "source_decision_gate_id": "decision_gate_x",
+      "source_export_packet_stub_id": "export_packet_stub_x",
+      "source_manual_export_precheck_id": "manual_export_precheck_x",
+      "source_manual_publish_record_precheck_id": "manual_publish_record_precheck_x",
+      "source_manual_publish_record_stub_id": "manual_publish_record_stub_x",
+      "source_metrics_precheck_id": "metrics_precheck_x",
+      "source_metrics_record_stub_id": "metrics_record_stub_x",
+      "source_performance_audit_precheck_id": "performance_audit_precheck_x",
+      "source_performance_summary_stub_id": "performance_summary_stub_x"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "best_or_worst_claim_generated": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence",
+        "blocked_no_metrics_gate",
+        "blocked_no_performance_audit_gate",
+        "blocked_no_content_feedback_gate",
+        "blocked_no_operator_review_brief_precheck"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "content_feedback_gate_status": "content_feedback_gate_required_but_locked",
+      "content_feedback_stub_id": "content_feedback_stub_telegram_channel_destination",
+      "content_feedback_stub_status": "content_feedback_stub_blocked",
+      "content_score_computed": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "editorial_advice_generated": false,
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "feedback_generated": false,
+      "feedback_references": [
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: telegram_channel_destination.message_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "message_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "message_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: telegram_channel_destination.operator_context_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "operator_context_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "operator_context_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: telegram_channel_destination.citation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "citation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "citation_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: telegram_channel_destination.limitation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "limitation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "limitation_feedback_stub"
+        }
+      ],
+      "feedback_stub_type": "telegram_channel_content_feedback_stub",
+      "feedback_target_type": "telegram_channel_content_feedback_stub",
+      "invariants": [
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no active content feedback or editorial revisions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_content_feedback_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified rewrite suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_rewrite_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified editorial advice remains ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_editorial_advice_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no performance recommendations or suggestions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_recommendation_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified optimization suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_optimization_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no platform-specific distribution strategy was generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_platform_strategy_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no content score has been computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_content_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_rank",
+          "evidence_note": "Verified no platform rank generated.",
+          "expected_state": "no_rank",
+          "invariant_id": "no_ranking_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no best or worst performing claims generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_best_or_worst_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no performance claims or analytics texts were generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_performance_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_copy",
+          "evidence_note": "Verified no publishable copy generated.",
+          "expected_state": "no_copy",
+          "invariant_id": "no_publishable_copy_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no real platform performance metrics recorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_real_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified metric values are unrecorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_metric_values_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no performance metrics score computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_metric_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_comparison",
+          "evidence_note": "Verified no KPI comparison has been performed.",
+          "expected_state": "no_comparison",
+          "invariant_id": "no_kpi_comparison_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_pull",
+          "evidence_note": "Verified no active analytics pulls were executed.",
+          "expected_state": "no_pull",
+          "invariant_id": "no_platform_analytics_pull",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no provider LLM API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_provider_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "false",
+          "evidence_note": "Verified draft cannot be publicly posted.",
+          "expected_state": "false",
+          "invariant_id": "no_public_postable",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified content feedback gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_content_feedback_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified future operator review brief precheck gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_future_operator_review_brief_precheck",
+          "passed": true
+        }
+      ],
+      "kpi_comparison_computed": false,
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "metric_score_computed": false,
+      "metric_values_recorded": false,
+      "metrics_gate_status": "metrics_gate_required_but_locked",
+      "missing_future_gates": [
+        "lane_c_feedback_stub_to_operator_review_brief_precheck",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "optimization_suggestion_generated": false,
+      "packet_hash": "c57b74e76e0b54f3cd9646c38d01bb39adfe5d2a3270385daffeeae71584cd67",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "performance_audit_gate_status": "performance_audit_gate_required_but_locked",
+      "performance_claim_generated": false,
+      "platform_analytics_pull_performed": false,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_strategy_generated": false,
+      "platform_target_id": "telegram_channel_destination",
+      "provider_api_called": false,
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publishable_copy_created": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "ranking_generated": false,
+      "readiness_status": "readiness_unresolved",
+      "real_metrics_recorded": false,
+      "recommendation_generated": false,
+      "rewrite_suggestion_generated": false,
+      "scheduler_enabled": false,
+      "scraping": false,
+      "source_audit_summary_id": "audit_summary_telegram_channel_destination",
+      "source_content_feedback_precheck_id": "content_feedback_precheck_telegram_channel_destination",
+      "source_decision_gate_id": "decision_gate_telegram_channel_destination",
+      "source_export_packet_stub_id": "export_packet_stub_telegram_channel_destination",
+      "source_manual_export_precheck_id": "manual_export_precheck_telegram_channel_destination",
+      "source_manual_publish_record_precheck_id": "manual_publish_record_precheck_telegram_channel_destination",
+      "source_manual_publish_record_stub_id": "manual_publish_record_stub_telegram_channel_destination",
+      "source_metrics_precheck_id": "metrics_precheck_telegram_channel_destination",
+      "source_metrics_record_stub_id": "metrics_record_stub_telegram_channel_destination",
+      "source_performance_audit_precheck_id": "performance_audit_precheck_telegram_channel_destination",
+      "source_performance_summary_stub_id": "performance_summary_stub_telegram_channel_destination"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "best_or_worst_claim_generated": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence",
+        "blocked_no_metrics_gate",
+        "blocked_no_performance_audit_gate",
+        "blocked_no_content_feedback_gate",
+        "blocked_no_operator_review_brief_precheck"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "content_feedback_gate_status": "content_feedback_gate_required_but_locked",
+      "content_feedback_stub_id": "content_feedback_stub_telegram_remote_operator",
+      "content_feedback_stub_status": "content_feedback_stub_blocked",
+      "content_score_computed": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "editorial_advice_generated": false,
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "feedback_generated": false,
+      "feedback_references": [
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: telegram_remote_operator.operator_log_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "operator_log_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "operator_log_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: telegram_remote_operator.audit_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "audit_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "audit_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: telegram_remote_operator.manual_action_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "manual_action_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "manual_action_feedback_stub"
+        }
+      ],
+      "feedback_stub_type": "telegram_remote_operator_log_content_feedback_stub",
+      "feedback_target_type": "telegram_remote_operator_log_content_feedback_stub",
+      "invariants": [
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no active content feedback or editorial revisions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_content_feedback_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified rewrite suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_rewrite_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified editorial advice remains ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_editorial_advice_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no performance recommendations or suggestions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_recommendation_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified optimization suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_optimization_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no platform-specific distribution strategy was generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_platform_strategy_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no content score has been computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_content_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_rank",
+          "evidence_note": "Verified no platform rank generated.",
+          "expected_state": "no_rank",
+          "invariant_id": "no_ranking_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no best or worst performing claims generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_best_or_worst_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no performance claims or analytics texts were generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_performance_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_copy",
+          "evidence_note": "Verified no publishable copy generated.",
+          "expected_state": "no_copy",
+          "invariant_id": "no_publishable_copy_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no real platform performance metrics recorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_real_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified metric values are unrecorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_metric_values_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no performance metrics score computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_metric_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_comparison",
+          "evidence_note": "Verified no KPI comparison has been performed.",
+          "expected_state": "no_comparison",
+          "invariant_id": "no_kpi_comparison_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_pull",
+          "evidence_note": "Verified no active analytics pulls were executed.",
+          "expected_state": "no_pull",
+          "invariant_id": "no_platform_analytics_pull",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no provider LLM API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_provider_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "false",
+          "evidence_note": "Verified draft cannot be publicly posted.",
+          "expected_state": "false",
+          "invariant_id": "no_public_postable",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified content feedback gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_content_feedback_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified future operator review brief precheck gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_future_operator_review_brief_precheck",
+          "passed": true
+        }
+      ],
+      "kpi_comparison_computed": false,
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "metric_score_computed": false,
+      "metric_values_recorded": false,
+      "metrics_gate_status": "metrics_gate_required_but_locked",
+      "missing_future_gates": [
+        "lane_c_feedback_stub_to_operator_review_brief_precheck",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "optimization_suggestion_generated": false,
+      "packet_hash": "316df208ac79ca58888d603abd3212f4092c429b964eaf51e1cfae8b10a40e08",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "performance_audit_gate_status": "performance_audit_gate_required_but_locked",
+      "performance_claim_generated": false,
+      "platform_analytics_pull_performed": false,
+      "platform_api_called": false,
+      "platform_family": "telegram_chat",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_strategy_generated": false,
+      "platform_target_id": "telegram_remote_operator",
+      "provider_api_called": false,
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publishable_copy_created": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "ranking_generated": false,
+      "readiness_status": "readiness_unresolved",
+      "real_metrics_recorded": false,
+      "recommendation_generated": false,
+      "rewrite_suggestion_generated": false,
+      "scheduler_enabled": false,
+      "scraping": false,
+      "source_audit_summary_id": "audit_summary_telegram_remote_operator",
+      "source_content_feedback_precheck_id": "content_feedback_precheck_telegram_remote_operator",
+      "source_decision_gate_id": "decision_gate_telegram_remote_operator",
+      "source_export_packet_stub_id": "export_packet_stub_telegram_remote_operator",
+      "source_manual_export_precheck_id": "manual_export_precheck_telegram_remote_operator",
+      "source_manual_publish_record_precheck_id": "manual_publish_record_precheck_telegram_remote_operator",
+      "source_manual_publish_record_stub_id": "manual_publish_record_stub_telegram_remote_operator",
+      "source_metrics_precheck_id": "metrics_precheck_telegram_remote_operator",
+      "source_metrics_record_stub_id": "metrics_record_stub_telegram_remote_operator",
+      "source_performance_audit_precheck_id": "performance_audit_precheck_telegram_remote_operator",
+      "source_performance_summary_stub_id": "performance_summary_stub_telegram_remote_operator"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "best_or_worst_claim_generated": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence",
+        "blocked_no_metrics_gate",
+        "blocked_no_performance_audit_gate",
+        "blocked_no_content_feedback_gate",
+        "blocked_no_operator_review_brief_precheck"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "content_feedback_gate_status": "content_feedback_gate_required_but_locked",
+      "content_feedback_stub_id": "content_feedback_stub_substack",
+      "content_feedback_stub_status": "content_feedback_stub_blocked",
+      "content_score_computed": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "editorial_advice_generated": false,
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "feedback_generated": false,
+      "feedback_references": [
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: substack.title_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "title_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "title_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: substack.thesis_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "thesis_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "thesis_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: substack.structure_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "structure_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "structure_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: substack.citation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "citation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "citation_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: substack.limitation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "limitation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "limitation_feedback_stub"
+        }
+      ],
+      "feedback_stub_type": "substack_content_feedback_stub",
+      "feedback_target_type": "substack_content_feedback_stub",
+      "invariants": [
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no active content feedback or editorial revisions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_content_feedback_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified rewrite suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_rewrite_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified editorial advice remains ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_editorial_advice_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no performance recommendations or suggestions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_recommendation_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified optimization suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_optimization_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no platform-specific distribution strategy was generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_platform_strategy_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no content score has been computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_content_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_rank",
+          "evidence_note": "Verified no platform rank generated.",
+          "expected_state": "no_rank",
+          "invariant_id": "no_ranking_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no best or worst performing claims generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_best_or_worst_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no performance claims or analytics texts were generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_performance_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_copy",
+          "evidence_note": "Verified no publishable copy generated.",
+          "expected_state": "no_copy",
+          "invariant_id": "no_publishable_copy_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no real platform performance metrics recorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_real_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified metric values are unrecorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_metric_values_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no performance metrics score computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_metric_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_comparison",
+          "evidence_note": "Verified no KPI comparison has been performed.",
+          "expected_state": "no_comparison",
+          "invariant_id": "no_kpi_comparison_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_pull",
+          "evidence_note": "Verified no active analytics pulls were executed.",
+          "expected_state": "no_pull",
+          "invariant_id": "no_platform_analytics_pull",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no provider LLM API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_provider_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "false",
+          "evidence_note": "Verified draft cannot be publicly posted.",
+          "expected_state": "false",
+          "invariant_id": "no_public_postable",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified content feedback gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_content_feedback_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified future operator review brief precheck gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_future_operator_review_brief_precheck",
+          "passed": true
+        }
+      ],
+      "kpi_comparison_computed": false,
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "metric_score_computed": false,
+      "metric_values_recorded": false,
+      "metrics_gate_status": "metrics_gate_required_but_locked",
+      "missing_future_gates": [
+        "lane_c_feedback_stub_to_operator_review_brief_precheck",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "optimization_suggestion_generated": false,
+      "packet_hash": "7b6d1e455bb0eacd7d25079bbb3e1c77c4286b3f2d47f1e6ad249f5eea58db17",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "performance_audit_gate_status": "performance_audit_gate_required_but_locked",
+      "performance_claim_generated": false,
+      "platform_analytics_pull_performed": false,
+      "platform_api_called": false,
+      "platform_family": "substack_newsletter",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_strategy_generated": false,
+      "platform_target_id": "substack",
+      "provider_api_called": false,
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publishable_copy_created": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "ranking_generated": false,
+      "readiness_status": "readiness_unresolved",
+      "real_metrics_recorded": false,
+      "recommendation_generated": false,
+      "rewrite_suggestion_generated": false,
+      "scheduler_enabled": false,
+      "scraping": false,
+      "source_audit_summary_id": "audit_summary_substack",
+      "source_content_feedback_precheck_id": "content_feedback_precheck_substack",
+      "source_decision_gate_id": "decision_gate_substack",
+      "source_export_packet_stub_id": "export_packet_stub_substack",
+      "source_manual_export_precheck_id": "manual_export_precheck_substack",
+      "source_manual_publish_record_precheck_id": "manual_publish_record_precheck_substack",
+      "source_manual_publish_record_stub_id": "manual_publish_record_stub_substack",
+      "source_metrics_precheck_id": "metrics_precheck_substack",
+      "source_metrics_record_stub_id": "metrics_record_stub_substack",
+      "source_performance_audit_precheck_id": "performance_audit_precheck_substack",
+      "source_performance_summary_stub_id": "performance_summary_stub_substack"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "best_or_worst_claim_generated": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence",
+        "blocked_no_metrics_gate",
+        "blocked_no_performance_audit_gate",
+        "blocked_no_content_feedback_gate",
+        "blocked_no_operator_review_brief_precheck"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "content_feedback_gate_status": "content_feedback_gate_required_but_locked",
+      "content_feedback_stub_id": "content_feedback_stub_linkedin",
+      "content_feedback_stub_status": "content_feedback_stub_blocked",
+      "content_score_computed": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "editorial_advice_generated": false,
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "feedback_generated": false,
+      "feedback_references": [
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: linkedin.professional_framing_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "professional_framing_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "professional_framing_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: linkedin.body_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "body_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "body_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: linkedin.citation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "citation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "citation_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: linkedin.limitation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "limitation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "limitation_feedback_stub"
+        }
+      ],
+      "feedback_stub_type": "linkedin_content_feedback_stub",
+      "feedback_target_type": "linkedin_content_feedback_stub",
+      "invariants": [
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no active content feedback or editorial revisions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_content_feedback_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified rewrite suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_rewrite_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified editorial advice remains ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_editorial_advice_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no performance recommendations or suggestions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_recommendation_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified optimization suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_optimization_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no platform-specific distribution strategy was generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_platform_strategy_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no content score has been computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_content_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_rank",
+          "evidence_note": "Verified no platform rank generated.",
+          "expected_state": "no_rank",
+          "invariant_id": "no_ranking_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no best or worst performing claims generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_best_or_worst_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no performance claims or analytics texts were generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_performance_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_copy",
+          "evidence_note": "Verified no publishable copy generated.",
+          "expected_state": "no_copy",
+          "invariant_id": "no_publishable_copy_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no real platform performance metrics recorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_real_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified metric values are unrecorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_metric_values_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no performance metrics score computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_metric_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_comparison",
+          "evidence_note": "Verified no KPI comparison has been performed.",
+          "expected_state": "no_comparison",
+          "invariant_id": "no_kpi_comparison_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_pull",
+          "evidence_note": "Verified no active analytics pulls were executed.",
+          "expected_state": "no_pull",
+          "invariant_id": "no_platform_analytics_pull",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no provider LLM API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_provider_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "false",
+          "evidence_note": "Verified draft cannot be publicly posted.",
+          "expected_state": "false",
+          "invariant_id": "no_public_postable",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified content feedback gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_content_feedback_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified future operator review brief precheck gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_future_operator_review_brief_precheck",
+          "passed": true
+        }
+      ],
+      "kpi_comparison_computed": false,
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "metric_score_computed": false,
+      "metric_values_recorded": false,
+      "metrics_gate_status": "metrics_gate_required_but_locked",
+      "missing_future_gates": [
+        "lane_c_feedback_stub_to_operator_review_brief_precheck",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "optimization_suggestion_generated": false,
+      "packet_hash": "949a26a792090cf1784e3de7ea2fb1589397361b378f65c7576d2df9d8781067",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "performance_audit_gate_status": "performance_audit_gate_required_but_locked",
+      "performance_claim_generated": false,
+      "platform_analytics_pull_performed": false,
+      "platform_api_called": false,
+      "platform_family": "linkedin_professional",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_strategy_generated": false,
+      "platform_target_id": "linkedin",
+      "provider_api_called": false,
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publishable_copy_created": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "ranking_generated": false,
+      "readiness_status": "readiness_unresolved",
+      "real_metrics_recorded": false,
+      "recommendation_generated": false,
+      "rewrite_suggestion_generated": false,
+      "scheduler_enabled": false,
+      "scraping": false,
+      "source_audit_summary_id": "audit_summary_linkedin",
+      "source_content_feedback_precheck_id": "content_feedback_precheck_linkedin",
+      "source_decision_gate_id": "decision_gate_linkedin",
+      "source_export_packet_stub_id": "export_packet_stub_linkedin",
+      "source_manual_export_precheck_id": "manual_export_precheck_linkedin",
+      "source_manual_publish_record_precheck_id": "manual_publish_record_precheck_linkedin",
+      "source_manual_publish_record_stub_id": "manual_publish_record_stub_linkedin",
+      "source_metrics_precheck_id": "metrics_precheck_linkedin",
+      "source_metrics_record_stub_id": "metrics_record_stub_linkedin",
+      "source_performance_audit_precheck_id": "performance_audit_precheck_linkedin",
+      "source_performance_summary_stub_id": "performance_summary_stub_linkedin"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "best_or_worst_claim_generated": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence",
+        "blocked_no_metrics_gate",
+        "blocked_no_performance_audit_gate",
+        "blocked_no_content_feedback_gate",
+        "blocked_no_operator_review_brief_precheck"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "content_feedback_gate_status": "content_feedback_gate_required_but_locked",
+      "content_feedback_stub_id": "content_feedback_stub_threads",
+      "content_feedback_stub_status": "content_feedback_stub_blocked",
+      "content_score_computed": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "editorial_advice_generated": false,
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "feedback_generated": false,
+      "feedback_references": [
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: threads.short_text_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "short_text_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "short_text_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: threads.clarity_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "clarity_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "clarity_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: threads.citation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "citation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "citation_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: threads.limitation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "limitation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "limitation_feedback_stub"
+        }
+      ],
+      "feedback_stub_type": "threads_content_feedback_stub",
+      "feedback_target_type": "threads_content_feedback_stub",
+      "invariants": [
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no active content feedback or editorial revisions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_content_feedback_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified rewrite suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_rewrite_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified editorial advice remains ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_editorial_advice_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no performance recommendations or suggestions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_recommendation_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified optimization suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_optimization_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no platform-specific distribution strategy was generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_platform_strategy_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no content score has been computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_content_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_rank",
+          "evidence_note": "Verified no platform rank generated.",
+          "expected_state": "no_rank",
+          "invariant_id": "no_ranking_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no best or worst performing claims generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_best_or_worst_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no performance claims or analytics texts were generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_performance_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_copy",
+          "evidence_note": "Verified no publishable copy generated.",
+          "expected_state": "no_copy",
+          "invariant_id": "no_publishable_copy_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no real platform performance metrics recorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_real_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified metric values are unrecorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_metric_values_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no performance metrics score computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_metric_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_comparison",
+          "evidence_note": "Verified no KPI comparison has been performed.",
+          "expected_state": "no_comparison",
+          "invariant_id": "no_kpi_comparison_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_pull",
+          "evidence_note": "Verified no active analytics pulls were executed.",
+          "expected_state": "no_pull",
+          "invariant_id": "no_platform_analytics_pull",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no provider LLM API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_provider_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "false",
+          "evidence_note": "Verified draft cannot be publicly posted.",
+          "expected_state": "false",
+          "invariant_id": "no_public_postable",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified content feedback gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_content_feedback_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified future operator review brief precheck gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_future_operator_review_brief_precheck",
+          "passed": true
+        }
+      ],
+      "kpi_comparison_computed": false,
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "metric_score_computed": false,
+      "metric_values_recorded": false,
+      "metrics_gate_status": "metrics_gate_required_but_locked",
+      "missing_future_gates": [
+        "lane_c_feedback_stub_to_operator_review_brief_precheck",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "optimization_suggestion_generated": false,
+      "packet_hash": "22738c10d77b30620340b5f721c809b7f4f4f7e319cc3c3760649be0fe1cf3ba",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "performance_audit_gate_status": "performance_audit_gate_required_but_locked",
+      "performance_claim_generated": false,
+      "platform_analytics_pull_performed": false,
+      "platform_api_called": false,
+      "platform_family": "threads_microblog",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_strategy_generated": false,
+      "platform_target_id": "threads",
+      "provider_api_called": false,
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publishable_copy_created": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "ranking_generated": false,
+      "readiness_status": "readiness_unresolved",
+      "real_metrics_recorded": false,
+      "recommendation_generated": false,
+      "rewrite_suggestion_generated": false,
+      "scheduler_enabled": false,
+      "scraping": false,
+      "source_audit_summary_id": "audit_summary_threads",
+      "source_content_feedback_precheck_id": "content_feedback_precheck_threads",
+      "source_decision_gate_id": "decision_gate_threads",
+      "source_export_packet_stub_id": "export_packet_stub_threads",
+      "source_manual_export_precheck_id": "manual_export_precheck_threads",
+      "source_manual_publish_record_precheck_id": "manual_publish_record_precheck_threads",
+      "source_manual_publish_record_stub_id": "manual_publish_record_stub_threads",
+      "source_metrics_precheck_id": "metrics_precheck_threads",
+      "source_metrics_record_stub_id": "metrics_record_stub_threads",
+      "source_performance_audit_precheck_id": "performance_audit_precheck_threads",
+      "source_performance_summary_stub_id": "performance_summary_stub_threads"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "best_or_worst_claim_generated": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence",
+        "blocked_no_metrics_gate",
+        "blocked_no_performance_audit_gate",
+        "blocked_no_content_feedback_gate",
+        "blocked_no_operator_review_brief_precheck"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "content_feedback_gate_status": "content_feedback_gate_required_but_locked",
+      "content_feedback_stub_id": "content_feedback_stub_instagram",
+      "content_feedback_stub_status": "content_feedback_stub_blocked",
+      "content_score_computed": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "editorial_advice_generated": false,
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "feedback_generated": false,
+      "feedback_references": [
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: instagram.caption_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "caption_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "caption_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: instagram.media_context_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "media_context_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "media_context_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: instagram.alt_text_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "alt_text_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "alt_text_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: instagram.citation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "citation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "citation_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: instagram.limitation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "limitation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "limitation_feedback_stub"
+        }
+      ],
+      "feedback_stub_type": "instagram_content_feedback_stub",
+      "feedback_target_type": "instagram_content_feedback_stub",
+      "invariants": [
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no active content feedback or editorial revisions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_content_feedback_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified rewrite suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_rewrite_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified editorial advice remains ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_editorial_advice_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no performance recommendations or suggestions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_recommendation_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified optimization suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_optimization_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no platform-specific distribution strategy was generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_platform_strategy_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no content score has been computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_content_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_rank",
+          "evidence_note": "Verified no platform rank generated.",
+          "expected_state": "no_rank",
+          "invariant_id": "no_ranking_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no best or worst performing claims generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_best_or_worst_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no performance claims or analytics texts were generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_performance_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_copy",
+          "evidence_note": "Verified no publishable copy generated.",
+          "expected_state": "no_copy",
+          "invariant_id": "no_publishable_copy_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no real platform performance metrics recorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_real_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified metric values are unrecorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_metric_values_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no performance metrics score computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_metric_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_comparison",
+          "evidence_note": "Verified no KPI comparison has been performed.",
+          "expected_state": "no_comparison",
+          "invariant_id": "no_kpi_comparison_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_pull",
+          "evidence_note": "Verified no active analytics pulls were executed.",
+          "expected_state": "no_pull",
+          "invariant_id": "no_platform_analytics_pull",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no provider LLM API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_provider_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "false",
+          "evidence_note": "Verified draft cannot be publicly posted.",
+          "expected_state": "false",
+          "invariant_id": "no_public_postable",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified content feedback gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_content_feedback_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified future operator review brief precheck gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_future_operator_review_brief_precheck",
+          "passed": true
+        }
+      ],
+      "kpi_comparison_computed": false,
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "metric_score_computed": false,
+      "metric_values_recorded": false,
+      "metrics_gate_status": "metrics_gate_required_but_locked",
+      "missing_future_gates": [
+        "lane_c_feedback_stub_to_operator_review_brief_precheck",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "optimization_suggestion_generated": false,
+      "packet_hash": "0a531932206e88e041ab563129ec86d9c903074463255a8251f7a351e7d572de",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "performance_audit_gate_status": "performance_audit_gate_required_but_locked",
+      "performance_claim_generated": false,
+      "platform_analytics_pull_performed": false,
+      "platform_api_called": false,
+      "platform_family": "instagram_media",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_strategy_generated": false,
+      "platform_target_id": "instagram",
+      "provider_api_called": false,
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publishable_copy_created": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "ranking_generated": false,
+      "readiness_status": "readiness_unresolved",
+      "real_metrics_recorded": false,
+      "recommendation_generated": false,
+      "rewrite_suggestion_generated": false,
+      "scheduler_enabled": false,
+      "scraping": false,
+      "source_audit_summary_id": "audit_summary_instagram",
+      "source_content_feedback_precheck_id": "content_feedback_precheck_instagram",
+      "source_decision_gate_id": "decision_gate_instagram",
+      "source_export_packet_stub_id": "export_packet_stub_instagram",
+      "source_manual_export_precheck_id": "manual_export_precheck_instagram",
+      "source_manual_publish_record_precheck_id": "manual_publish_record_precheck_instagram",
+      "source_manual_publish_record_stub_id": "manual_publish_record_stub_instagram",
+      "source_metrics_precheck_id": "metrics_precheck_instagram",
+      "source_metrics_record_stub_id": "metrics_record_stub_instagram",
+      "source_performance_audit_precheck_id": "performance_audit_precheck_instagram",
+      "source_performance_summary_stub_id": "performance_summary_stub_instagram"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "best_or_worst_claim_generated": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence",
+        "blocked_no_metrics_gate",
+        "blocked_no_performance_audit_gate",
+        "blocked_no_content_feedback_gate",
+        "blocked_no_operator_review_brief_precheck"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "content_feedback_gate_status": "content_feedback_gate_required_but_locked",
+      "content_feedback_stub_id": "content_feedback_stub_facebook_page",
+      "content_feedback_stub_status": "content_feedback_stub_blocked",
+      "content_score_computed": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "editorial_advice_generated": false,
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "feedback_generated": false,
+      "feedback_references": [
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: facebook_page.post_text_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "post_text_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "post_text_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: facebook_page.attachment_context_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "attachment_context_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "attachment_context_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: facebook_page.citation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "citation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "citation_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: facebook_page.limitation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "limitation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "limitation_feedback_stub"
+        }
+      ],
+      "feedback_stub_type": "facebook_page_content_feedback_stub",
+      "feedback_target_type": "facebook_page_content_feedback_stub",
+      "invariants": [
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no active content feedback or editorial revisions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_content_feedback_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified rewrite suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_rewrite_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified editorial advice remains ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_editorial_advice_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no performance recommendations or suggestions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_recommendation_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified optimization suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_optimization_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no platform-specific distribution strategy was generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_platform_strategy_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no content score has been computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_content_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_rank",
+          "evidence_note": "Verified no platform rank generated.",
+          "expected_state": "no_rank",
+          "invariant_id": "no_ranking_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no best or worst performing claims generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_best_or_worst_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no performance claims or analytics texts were generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_performance_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_copy",
+          "evidence_note": "Verified no publishable copy generated.",
+          "expected_state": "no_copy",
+          "invariant_id": "no_publishable_copy_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no real platform performance metrics recorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_real_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified metric values are unrecorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_metric_values_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no performance metrics score computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_metric_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_comparison",
+          "evidence_note": "Verified no KPI comparison has been performed.",
+          "expected_state": "no_comparison",
+          "invariant_id": "no_kpi_comparison_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_pull",
+          "evidence_note": "Verified no active analytics pulls were executed.",
+          "expected_state": "no_pull",
+          "invariant_id": "no_platform_analytics_pull",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no provider LLM API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_provider_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "false",
+          "evidence_note": "Verified draft cannot be publicly posted.",
+          "expected_state": "false",
+          "invariant_id": "no_public_postable",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified content feedback gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_content_feedback_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified future operator review brief precheck gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_future_operator_review_brief_precheck",
+          "passed": true
+        }
+      ],
+      "kpi_comparison_computed": false,
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "metric_score_computed": false,
+      "metric_values_recorded": false,
+      "metrics_gate_status": "metrics_gate_required_but_locked",
+      "missing_future_gates": [
+        "lane_c_feedback_stub_to_operator_review_brief_precheck",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "optimization_suggestion_generated": false,
+      "packet_hash": "ea7701ed832f7d083c6776460861e2974268cee9b0368178980d4a7e0dbc16e3",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "performance_audit_gate_status": "performance_audit_gate_required_but_locked",
+      "performance_claim_generated": false,
+      "platform_analytics_pull_performed": false,
+      "platform_api_called": false,
+      "platform_family": "facebook_page_media",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_strategy_generated": false,
+      "platform_target_id": "facebook_page",
+      "provider_api_called": false,
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publishable_copy_created": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "ranking_generated": false,
+      "readiness_status": "readiness_unresolved",
+      "real_metrics_recorded": false,
+      "recommendation_generated": false,
+      "rewrite_suggestion_generated": false,
+      "scheduler_enabled": false,
+      "scraping": false,
+      "source_audit_summary_id": "audit_summary_facebook_page",
+      "source_content_feedback_precheck_id": "content_feedback_precheck_facebook_page",
+      "source_decision_gate_id": "decision_gate_facebook_page",
+      "source_export_packet_stub_id": "export_packet_stub_facebook_page",
+      "source_manual_export_precheck_id": "manual_export_precheck_facebook_page",
+      "source_manual_publish_record_precheck_id": "manual_publish_record_precheck_facebook_page",
+      "source_manual_publish_record_stub_id": "manual_publish_record_stub_facebook_page",
+      "source_metrics_precheck_id": "metrics_precheck_facebook_page",
+      "source_metrics_record_stub_id": "metrics_record_stub_facebook_page",
+      "source_performance_audit_precheck_id": "performance_audit_precheck_facebook_page",
+      "source_performance_summary_stub_id": "performance_summary_stub_facebook_page"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "best_or_worst_claim_generated": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence",
+        "blocked_no_metrics_gate",
+        "blocked_no_performance_audit_gate",
+        "blocked_no_content_feedback_gate",
+        "blocked_no_operator_review_brief_precheck"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "content_feedback_gate_status": "content_feedback_gate_required_but_locked",
+      "content_feedback_stub_id": "content_feedback_stub_tiktok",
+      "content_feedback_stub_status": "content_feedback_stub_blocked",
+      "content_score_computed": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "editorial_advice_generated": false,
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "feedback_generated": false,
+      "feedback_references": [
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: tiktok.caption_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "caption_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "caption_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: tiktok.video_context_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "video_context_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "video_context_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: tiktok.disclosure_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "disclosure_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "disclosure_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: tiktok.citation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "citation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "citation_feedback_stub"
+        }
+      ],
+      "feedback_stub_type": "tiktok_content_feedback_stub",
+      "feedback_target_type": "tiktok_content_feedback_stub",
+      "invariants": [
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no active content feedback or editorial revisions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_content_feedback_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified rewrite suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_rewrite_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified editorial advice remains ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_editorial_advice_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no performance recommendations or suggestions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_recommendation_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified optimization suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_optimization_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no platform-specific distribution strategy was generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_platform_strategy_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no content score has been computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_content_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_rank",
+          "evidence_note": "Verified no platform rank generated.",
+          "expected_state": "no_rank",
+          "invariant_id": "no_ranking_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no best or worst performing claims generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_best_or_worst_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no performance claims or analytics texts were generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_performance_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_copy",
+          "evidence_note": "Verified no publishable copy generated.",
+          "expected_state": "no_copy",
+          "invariant_id": "no_publishable_copy_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no real platform performance metrics recorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_real_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified metric values are unrecorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_metric_values_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no performance metrics score computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_metric_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_comparison",
+          "evidence_note": "Verified no KPI comparison has been performed.",
+          "expected_state": "no_comparison",
+          "invariant_id": "no_kpi_comparison_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_pull",
+          "evidence_note": "Verified no active analytics pulls were executed.",
+          "expected_state": "no_pull",
+          "invariant_id": "no_platform_analytics_pull",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no provider LLM API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_provider_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "false",
+          "evidence_note": "Verified draft cannot be publicly posted.",
+          "expected_state": "false",
+          "invariant_id": "no_public_postable",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified content feedback gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_content_feedback_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified future operator review brief precheck gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_future_operator_review_brief_precheck",
+          "passed": true
+        }
+      ],
+      "kpi_comparison_computed": false,
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "metric_score_computed": false,
+      "metric_values_recorded": false,
+      "metrics_gate_status": "metrics_gate_required_but_locked",
+      "missing_future_gates": [
+        "lane_c_feedback_stub_to_operator_review_brief_precheck",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "optimization_suggestion_generated": false,
+      "packet_hash": "b540f0539b80e211cee12766a9d4445f916b3c6e8fe94f1a20efee9d460c9321",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "performance_audit_gate_status": "performance_audit_gate_required_but_locked",
+      "performance_claim_generated": false,
+      "platform_analytics_pull_performed": false,
+      "platform_api_called": false,
+      "platform_family": "tiktok_video",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_strategy_generated": false,
+      "platform_target_id": "tiktok",
+      "provider_api_called": false,
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publishable_copy_created": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "ranking_generated": false,
+      "readiness_status": "readiness_unresolved",
+      "real_metrics_recorded": false,
+      "recommendation_generated": false,
+      "rewrite_suggestion_generated": false,
+      "scheduler_enabled": false,
+      "scraping": false,
+      "source_audit_summary_id": "audit_summary_tiktok",
+      "source_content_feedback_precheck_id": "content_feedback_precheck_tiktok",
+      "source_decision_gate_id": "decision_gate_tiktok",
+      "source_export_packet_stub_id": "export_packet_stub_tiktok",
+      "source_manual_export_precheck_id": "manual_export_precheck_tiktok",
+      "source_manual_publish_record_precheck_id": "manual_publish_record_precheck_tiktok",
+      "source_manual_publish_record_stub_id": "manual_publish_record_stub_tiktok",
+      "source_metrics_precheck_id": "metrics_precheck_tiktok",
+      "source_metrics_record_stub_id": "metrics_record_stub_tiktok",
+      "source_performance_audit_precheck_id": "performance_audit_precheck_tiktok",
+      "source_performance_summary_stub_id": "performance_summary_stub_tiktok"
+    },
+    {
+      "account_binding_active": false,
+      "account_binding_status": "binding_required_but_inactive",
+      "approval_granted": false,
+      "approved_for_publication": false,
+      "best_or_worst_claim_generated": false,
+      "blocked_reasons": [
+        "blocked_no_operator_signature",
+        "blocked_no_payload_hash_lock",
+        "blocked_unresolved_citations",
+        "blocked_unresolved_limitations",
+        "blocked_dqr_readiness_unresolved",
+        "blocked_no_manual_publish_record_gate",
+        "blocked_no_platform_publication_identity",
+        "blocked_no_external_publish_evidence",
+        "blocked_no_metrics_gate",
+        "blocked_no_performance_audit_gate",
+        "blocked_no_content_feedback_gate",
+        "blocked_no_operator_review_brief_precheck"
+      ],
+      "citation_status": "citation_rendering_required_but_pending",
+      "clipboard_payload_created": false,
+      "content_feedback_gate_status": "content_feedback_gate_required_but_locked",
+      "content_feedback_stub_id": "content_feedback_stub_youtube",
+      "content_feedback_stub_status": "content_feedback_stub_blocked",
+      "content_score_computed": false,
+      "credential_gate_status": "credential_required_but_locked",
+      "credential_values_loaded": false,
+      "current_truth_status": "current_truth_unpromoted",
+      "dispatch_gate_status": "dispatch_gate_required_but_locked",
+      "dispatch_ready": false,
+      "download_artifact_created": false,
+      "dqr_status": "dqr_unresolved",
+      "editorial_advice_generated": false,
+      "export_file_created": false,
+      "export_ready": false,
+      "external_publish_timestamp_recorded": false,
+      "feedback_generated": false,
+      "feedback_references": [
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: youtube.title_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "title_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "title_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: youtube.description_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "description_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "description_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: youtube.video_context_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "video_context_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "video_context_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: youtube.citation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "citation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "citation_feedback_stub"
+        },
+        {
+          "best_or_worst_claim_generated": false,
+          "content_score_computed": false,
+          "editorial_advice_generated": false,
+          "feedback_generated": false,
+          "optimization_suggestion_generated": false,
+          "performance_claim_generated": false,
+          "placeholder_only": true,
+          "placeholder_value": "[CONTENT_FEEDBACK_STUB_ONLY: youtube.limitation_feedback_stub]",
+          "platform_strategy_generated": false,
+          "publishable_copy_created": false,
+          "ranking_generated": false,
+          "recommendation_generated": false,
+          "reference_name": "limitation_feedback_stub",
+          "requires_human_editorial_review": true,
+          "rewrite_suggestion_generated": false,
+          "source_summary_field": "limitation_feedback_stub"
+        }
+      ],
+      "feedback_stub_type": "youtube_content_feedback_stub",
+      "feedback_target_type": "youtube_content_feedback_stub",
+      "invariants": [
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no active content feedback or editorial revisions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_content_feedback_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified rewrite suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_rewrite_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified editorial advice remains ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_editorial_advice_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no performance recommendations or suggestions generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_recommendation_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified optimization suggestions remain ungenerated.",
+          "expected_state": "absent",
+          "invariant_id": "no_optimization_suggestion_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified no platform-specific distribution strategy was generated.",
+          "expected_state": "absent",
+          "invariant_id": "no_platform_strategy_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no content score has been computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_content_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_rank",
+          "evidence_note": "Verified no platform rank generated.",
+          "expected_state": "no_rank",
+          "invariant_id": "no_ranking_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no best or worst performing claims generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_best_or_worst_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_claim",
+          "evidence_note": "Verified no performance claims or analytics texts were generated.",
+          "expected_state": "no_claim",
+          "invariant_id": "no_performance_claim_generated",
+          "passed": true
+        },
+        {
+          "actual_state": "no_copy",
+          "evidence_note": "Verified no publishable copy generated.",
+          "expected_state": "no_copy",
+          "invariant_id": "no_publishable_copy_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified no real platform performance metrics recorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_real_metrics_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_record",
+          "evidence_note": "Verified metric values are unrecorded.",
+          "expected_state": "no_record",
+          "invariant_id": "no_metric_values_recorded",
+          "passed": true
+        },
+        {
+          "actual_state": "no_score",
+          "evidence_note": "Verified no performance metrics score computed.",
+          "expected_state": "no_score",
+          "invariant_id": "no_metric_score_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_comparison",
+          "evidence_note": "Verified no KPI comparison has been performed.",
+          "expected_state": "no_comparison",
+          "invariant_id": "no_kpi_comparison_computed",
+          "passed": true
+        },
+        {
+          "actual_state": "no_pull",
+          "evidence_note": "Verified no active analytics pulls were executed.",
+          "expected_state": "no_pull",
+          "invariant_id": "no_platform_analytics_pull",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified scraping is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scraping",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no provider LLM API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_provider_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_api_calls",
+          "evidence_note": "Verified no platform API calls executed.",
+          "expected_state": "no_api_calls",
+          "invariant_id": "no_platform_api_call",
+          "passed": true
+        },
+        {
+          "actual_state": "no_reads",
+          "evidence_note": "Verified no credentials or environment read operations performed.",
+          "expected_state": "no_reads",
+          "invariant_id": "no_credential_or_env_read",
+          "passed": true
+        },
+        {
+          "actual_state": "inactive",
+          "evidence_note": "Verified no account binding is active.",
+          "expected_state": "inactive",
+          "invariant_id": "no_account_binding_active",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified no scheduler enabled.",
+          "expected_state": "disabled",
+          "invariant_id": "no_scheduler",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous posting is blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_posting",
+          "passed": true
+        },
+        {
+          "actual_state": "disabled",
+          "evidence_note": "Verified autonomous replies and DMs are blocked.",
+          "expected_state": "disabled",
+          "invariant_id": "no_autonomous_reply_or_dm",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified no publishable payload created.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_publishable_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "no_payload",
+          "evidence_note": "Verified platform payload is not generated.",
+          "expected_state": "no_payload",
+          "invariant_id": "no_platform_payload_created",
+          "passed": true
+        },
+        {
+          "actual_state": "false",
+          "evidence_note": "Verified draft cannot be publicly posted.",
+          "expected_state": "false",
+          "invariant_id": "no_public_postable",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain financial advice.",
+          "expected_state": "absent",
+          "invariant_id": "no_financial_advice",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft does not contain trading signals or order terminology.",
+          "expected_state": "absent",
+          "invariant_id": "no_signal_language",
+          "passed": true
+        },
+        {
+          "actual_state": "absent",
+          "evidence_note": "Verified draft contains no fabricated market numbers.",
+          "expected_state": "absent",
+          "invariant_id": "no_market_number_fabrication",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified citations are preserved as unresolved placeholders.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_citation_requirements",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified limitation slot is preserved as unresolved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_limitations",
+          "passed": true
+        },
+        {
+          "actual_state": "pending",
+          "evidence_note": "Verified DQR readiness blocks are preserved.",
+          "expected_state": "pending",
+          "invariant_id": "preserve_dqr_readiness_blocks",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified operator signature required for validation.",
+          "expected_state": "required",
+          "invariant_id": "require_operator_signature",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified payload hash lock is required.",
+          "expected_state": "required",
+          "invariant_id": "require_payload_hash_lock",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified content feedback gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_content_feedback_gate",
+          "passed": true
+        },
+        {
+          "actual_state": "required",
+          "evidence_note": "Verified future operator review brief precheck gate is required.",
+          "expected_state": "required",
+          "invariant_id": "require_future_operator_review_brief_precheck",
+          "passed": true
+        }
+      ],
+      "kpi_comparison_computed": false,
+      "limitation_status": "limitation_rendering_required_but_pending",
+      "manual_export_allowed": false,
+      "manual_publish_record_allowed": false,
+      "manual_publish_record_created": false,
+      "metric_score_computed": false,
+      "metric_values_recorded": false,
+      "metrics_gate_status": "metrics_gate_required_but_locked",
+      "missing_future_gates": [
+        "lane_c_feedback_stub_to_operator_review_brief_precheck",
+        "production_key_vault_decrypter",
+        "live_operator_signature_vault"
+      ],
+      "operator_identity_bound": false,
+      "operator_identity_status": "identity_required_but_unbound",
+      "operator_signature_present": false,
+      "operator_signature_status": "signature_required_but_missing",
+      "optimization_suggestion_generated": false,
+      "packet_hash": "6ba633b79d4b781b3d58e5abf6a3a69d132f7837022e7188377828f40693ecd0",
+      "payload_hash_lock_status": "hash_lock_required_but_pending",
+      "payload_hash_locked": false,
+      "performance_audit_gate_status": "performance_audit_gate_required_but_locked",
+      "performance_claim_generated": false,
+      "platform_analytics_pull_performed": false,
+      "platform_api_called": false,
+      "platform_family": "youtube_video",
+      "platform_payload_created": false,
+      "platform_post_id_recorded": false,
+      "platform_publication_url_recorded": false,
+      "platform_ready": false,
+      "platform_strategy_generated": false,
+      "platform_target_id": "youtube",
+      "provider_api_called": false,
+      "public_metrics_recorded": false,
+      "public_postable": false,
+      "publishable_copy_created": false,
+      "publishable_payload_created": false,
+      "publishable_text": false,
+      "ranking_generated": false,
+      "readiness_status": "readiness_unresolved",
+      "real_metrics_recorded": false,
+      "recommendation_generated": false,
+      "rewrite_suggestion_generated": false,
+      "scheduler_enabled": false,
+      "scraping": false,
+      "source_audit_summary_id": "audit_summary_youtube",
+      "source_content_feedback_precheck_id": "content_feedback_precheck_youtube",
+      "source_decision_gate_id": "decision_gate_youtube",
+      "source_export_packet_stub_id": "export_packet_stub_youtube",
+      "source_manual_export_precheck_id": "manual_export_precheck_youtube",
+      "source_manual_publish_record_precheck_id": "manual_publish_record_precheck_youtube",
+      "source_manual_publish_record_stub_id": "manual_publish_record_stub_youtube",
+      "source_metrics_precheck_id": "metrics_precheck_youtube",
+      "source_metrics_record_stub_id": "metrics_record_stub_youtube",
+      "source_performance_audit_precheck_id": "performance_audit_precheck_youtube",
+      "source_performance_summary_stub_id": "performance_summary_stub_youtube"
+    }
+  ],
+  "precheck_targets": [
+    {
+      "description": "Content feedback stub for X platform",
+      "feedback_target_type": "x_content_feedback_stub",
+      "platform_target_id": "x"
+    },
+    {
+      "description": "Content feedback stub for Telegram channel",
+      "feedback_target_type": "telegram_channel_content_feedback_stub",
+      "platform_target_id": "telegram_channel_destination"
+    },
+    {
+      "description": "Content feedback stub for Telegram remote operator",
+      "feedback_target_type": "telegram_remote_operator_log_content_feedback_stub",
+      "platform_target_id": "telegram_remote_operator"
+    },
+    {
+      "description": "Content feedback stub for Substack",
+      "feedback_target_type": "substack_content_feedback_stub",
+      "platform_target_id": "substack"
+    },
+    {
+      "description": "Content feedback stub for LinkedIn",
+      "feedback_target_type": "linkedin_content_feedback_stub",
+      "platform_target_id": "linkedin"
+    },
+    {
+      "description": "Content feedback stub for Meta Threads",
+      "feedback_target_type": "threads_content_feedback_stub",
+      "platform_target_id": "threads"
+    },
+    {
+      "description": "Content feedback stub for Instagram",
+      "feedback_target_type": "instagram_content_feedback_stub",
+      "platform_target_id": "instagram"
+    },
+    {
+      "description": "Content feedback stub for Facebook Page",
+      "feedback_target_type": "facebook_page_content_feedback_stub",
+      "platform_target_id": "facebook_page"
+    },
+    {
+      "description": "Content feedback stub for TikTok",
+      "feedback_target_type": "tiktok_content_feedback_stub",
+      "platform_target_id": "tiktok"
+    },
+    {
+      "description": "Content feedback stub for YouTube",
+      "feedback_target_type": "youtube_content_feedback_stub",
+      "platform_target_id": "youtube"
+    }
+  ],
+  "safety_flags": {
+    "account_binding_active": false,
+    "approval_granted": false,
+    "approved_for_publication": false,
+    "approved_internal_alpha_artifacts_available": false,
+    "autonomous_posting": false,
+    "autonomous_reply_or_dm": false,
+    "best_or_worst_claim_generated": false,
+    "broker_order_execution": false,
+    "clipboard_payload_created": false,
+    "content_feedback_precheck_only": true,
+    "content_feedback_stub_only": true,
+    "content_score_computed": false,
+    "credential_values_loaded": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "download_artifact_created": false,
+    "dqr_cleared_by_contentops": false,
+    "editorial_advice_generated": false,
+    "env_read": false,
+    "export_file_created": false,
+    "export_ready": false,
+    "external_publish_timestamp_recorded": false,
+    "feedback_generated": false,
+    "financial_advice": false,
+    "fixture_only": true,
+    "ingestion_repo_mutated": false,
+    "kpi_comparison_computed": false,
+    "local_only": true,
+    "manual_export_allowed": false,
+    "manual_publish_record_allowed": false,
+    "manual_publish_record_created": false,
+    "metric_score_computed": false,
+    "metric_values_recorded": false,
+    "network_performed": false,
+    "operator_approval_granted": false,
+    "operator_identity_bound": false,
+    "operator_signature_present": false,
+    "optimization_suggestion_generated": false,
+    "payload_hash_locked": false,
+    "performance_audit_precheck_only": true,
+    "performance_claim_generated": false,
+    "performance_summary_stub_only": true,
+    "platform_analytics_pull_performed": false,
+    "platform_api_called": false,
+    "platform_payload_created": false,
+    "platform_post_id_recorded": false,
+    "platform_publication_url_recorded": false,
+    "platform_strategy_generated": false,
+    "provider_api_called": false,
+    "public_metrics_recorded": false,
+    "public_postable": false,
+    "publishable_copy_created": false,
+    "publishable_payload_created": false,
+    "ranking_generated": false,
+    "raw_vendor_redistribution": false,
+    "readiness_cleared_by_contentops": false,
+    "real_metrics_recorded": false,
+    "recommendation_generated": false,
+    "rewrite_suggestion_generated": false,
+    "scheduler_enabled": false,
+    "schema_only": true,
+    "scraping": false,
+    "signal_language": false
+  },
+  "source_baseline_commit": "1e278a83bb2cf95464edc80dbfe819adf6ba6107",
+  "summary_counts": {
+    "precheck_feedback_references_count": 42,
+    "precheck_invariants_count": 37,
+    "precheck_targets_count": 10,
+    "registered_precheck_records_count": 10,
+    "safety_flags_count": 63
+  },
+  "task_label": "TASK_CONTENTOPS_0175BB_CONTENT_FEEDBACK_PRECHECK_TO_FEEDBACK_STUB_V0"
+}
