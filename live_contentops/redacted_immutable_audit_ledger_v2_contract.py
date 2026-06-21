@@ -67,6 +67,7 @@ ENTRY_FAMILIES = (
     "platform_review_bundle_operator_decision_gate_future",
     "operator_decision_gate_to_manual_export_precheck_future",
     "manual_export_precheck_to_export_packet_stub_future",
+    "export_packet_stub_to_operator_audit_summary_future",
     "unknown_or_blocked",
 )
 

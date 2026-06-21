@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `c6ad0bcf016e1a5396aaab52f334b176e26f5c58`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175AR_OPERATOR_DECISION_GATE_TO_MANUAL_EXPORT_PRECHECK_V0`
-* **Latest implemented capability:** Operator Decision Gate to Manual Export Precheck
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175AS_MANUAL_EXPORT_PRECHECK_TO_EXPORT_PACKET_STUB_V0`
+* **Last resolved accepted HEAD in ledger:** `3441635cad8010a7325d83d856351275f897ce37`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175AS_MANUAL_EXPORT_PRECHECK_TO_EXPORT_PACKET_STUB_V0`
+* **Latest implemented capability:** Manual Export Precheck to Export Packet Stub
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175AT_EXPORT_PACKET_STUB_TO_OPERATOR_AUDIT_SUMMARY_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -52,6 +52,7 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | **Platform Review Bundle Operator Decision Gate** | Operator decision gate metadata for review bundles | `LOCAL_CONTRACT_READY` | `0175AQ` / `platform_review_bundle_operator_decision_gate_contract.py` | Future decision gate integration | Precheck precedent |
 | **Operator Decision Gate to Manual Export Precheck** | Operator decision gate metadata to manual export precheck | `LOCAL_CONTRACT_READY` | `0175AR` / `operator_decision_gate_to_manual_export_precheck_contract.py` | Future manual export integration | Precheck precedent |
 | **Manual Export Precheck to Export Packet Stub** | Manual export precheck metadata to export packet stubs | `LOCAL_CONTRACT_READY` | `0175AS` / `manual_export_precheck_to_export_packet_stub_contract.py` | Future manual export integration | Precheck precedent |
+| **Export Packet Stub to Operator Audit Summary** | Export packet stub metadata to operator audit summary | `LOCAL_CONTRACT_READY` | `0175AT` / `export_packet_stub_to_operator_audit_summary_contract.py` | Future manual export integration | Precheck precedent |
 | **Artifact-backed Approval Packet** | Consolidated cryptographic evidence packet for artifacts | `TESTED` | `lane_c_draft_review_to_approval_packet_gate_contract.py` | Generate approval gate packet stubs | Platform preview prechecks |
 | **Internal Alpha Artifact Intake** | Intake gates for verified Internal Alpha artifacts | `TESTED` | `internal_alpha_artifact_intake_content_eligibility_contract.py` | Intake validator integration | Ingestion repo paths |
 | **Capital Chronicle Ingestion Connector** | Ingestion of raw official data sources | `TESTED` | `capital_chronicle_ingestion_headline_idea_connector_precheck.py` | Ingestion pipeline scheduler | None |
@@ -92,7 +93,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175AP_PLATFORM_PREVIEW_DRY_RENDER_TO_REVIEW_BUNDLE_V0` | `1a2d9bd78a254bee8790c3a8288168166a3f2fa8` | `ab4a851ff60121cc3c3bdd85e25ed58c07aa9766` | build platform preview dry render to review bundle | pytest suite, check bundle items, disabled decision stubs | operator review bundle schemas for future human review UI | live/platform/API/publishing | `0175AQ` |
 | `TASK_CONTENTOPS_0175AQ_PLATFORM_REVIEW_BUNDLE_OPERATOR_DECISION_GATE_V0` | `ab4a851ff60121cc3c3bdd85e25ed58c07aa9766` | `68a7e425d229d7876fdfa1f37a65f3ef8c388849` | build platform review decision gate | pytest suite, check decision options, active locks | operator decision gate stubs for future manual decision queue | live/platform/API/publishing | `0175AR` |
 | `TASK_CONTENTOPS_0175AR_OPERATOR_DECISION_GATE_TO_MANUAL_EXPORT_PRECHECK_V0` | `68a7e425d229d7876fdfa1f37a65f3ef8c388849` | `c6ad0bcf016e1a5396aaab52f334b176e26f5c58` | build manual export precheck | pytest suite, check precheck rules, export target types | precheck metadata stubs for future manual export workflows | live/platform/API/publishing | `0175AS` |
-| `TASK_CONTENTOPS_0175AS_MANUAL_EXPORT_PRECHECK_TO_EXPORT_PACKET_STUB_V0` | `c6ad0bcf016e1a5396aaab52f334b176e26f5c58` | `RECORDED_IN_NEXT_TASK_READBACK` | build manual export packet stub | pytest suite, check field placeholders, active locks | export packet stub metadata for future human copy-paste workflows | live/platform/API/publishing | `0175AT` |
+| `TASK_CONTENTOPS_0175AS_MANUAL_EXPORT_PRECHECK_TO_EXPORT_PACKET_STUB_V0` | `c6ad0bcf016e1a5396aaab52f334b176e26f5c58` | `3441635cad8010a7325d83d856351275f897ce37` | build manual export packet stub | pytest suite, check field placeholders, active locks | export packet stub metadata for future human copy-paste workflows | live/platform/API/publishing | `0175AT` |
+| `TASK_CONTENTOPS_0175AT_EXPORT_PACKET_STUB_TO_OPERATOR_AUDIT_SUMMARY_V0` | `3441635cad8010a7325d83d856351275f897ce37` | `RECORDED_IN_NEXT_TASK_READBACK` | build operator audit summary | pytest suite, check checked invariants, documented findings | operator audit summary metadata stubs for future release audits | live/platform/API/publishing | `0175AU` |
 
 ---
 
@@ -134,6 +136,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175AT_EXPORT_PACKET_STUB_TO_OPERATOR_AUDIT_SUMMARY_V0`
-* **Focus:** Export Packet Stub to Operator Audit Summary. Establish stubs for compiling audit summary metadata from blocked export packet stubs.
+* **Next recommended task:** `TASK_CONTENTOPS_0175AU_OPERATOR_AUDIT_SUMMARY_TO_MANUAL_PUBLISH_RECORD_PRECHECK_V0`
+* **Focus:** Operator Audit Summary to Manual Publish Record Precheck. Establish stubs for prechecking manual publish records before logging final publications.
 * **Visual System Status:** Visual enhancement/polish is deferred until more core product foundation is complete.
