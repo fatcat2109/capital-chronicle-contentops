@@ -48,6 +48,8 @@ import type {
   V5RunbookStep,
   LaneCArtifactIntakeValidationPacket,
   ArtifactIntakeCandidate,
+  LaneCArtifactConnectorIndexPacket,
+  LaneCConnectorFamily,
 } from './types';
 
 
@@ -869,6 +871,54 @@ export function selectLaneCArtifactIntakeCandidate(
       { label: 'Dispatch Ready', value: String(c.dispatch_ready), status: c.dispatch_ready ? 'verified' : 'blocked' },
       { label: 'Review Required', value: String(c.review_required), status: c.review_required ? 'review' : 'verified' },
       { label: 'Blocked Reasons', value: c.blocked_reasons.join(', ') || 'none' },
+    ],
+  };
+}
+
+export function selectLaneCArtifactConnectorIndexPacket(
+  p: LaneCArtifactConnectorIndexPacket,
+): SelectableObject {
+  return {
+    kind: 'lane_c_artifact_connector_index_packet',
+    id: p.matrix_version,
+    title: 'Lane C Artifact Connector Index Packet',
+    fields: [
+      { label: 'Task Label', value: p.task_label, mono: true },
+      { label: 'Matrix Version', value: p.matrix_version, mono: true },
+      { label: 'Baseline Commit', value: p.source_baseline_commit, mono: true },
+      { label: 'Connector Families', value: String(p.connector_family_count) },
+      { label: 'Proof Requirements', value: String(p.proof_requirement_count) },
+      { label: 'Local-Only Classification', value: p.local_only_classification },
+      { label: 'Packet Hash', value: p.packet_hash, mono: true },
+      { label: 'Hash Algorithm', value: p.hash_algorithm, mono: true },
+      { label: 'Next Required Gate', value: p.next_required_gate },
+    ],
+  };
+}
+
+export function selectLaneCConnectorFamily(
+  f: LaneCConnectorFamily,
+): SelectableObject {
+  return {
+    kind: 'lane_c_connector_family',
+    id: f.connector_id,
+    title: f.connector_family.replace(/_/g, ' '),
+    fields: [
+      { label: 'Connector ID', value: f.connector_id, mono: true },
+      { label: 'Family', value: f.connector_family },
+      { label: 'Status', value: f.current_status, status: f.current_status === 'manual_only' ? 'verified' : 'blocked' },
+      { label: 'Path Pattern', value: f.allowed_path_pattern, mono: true },
+      { label: 'File Kinds', value: f.required_file_kinds.join(', ') },
+      { label: 'Identity Fields', value: f.required_identity_fields.join(', ') },
+      { label: 'Hash Fields', value: f.required_hash_fields.join(', ') },
+      { label: 'Lineage Fields', value: f.required_lineage_fields.join(', ') },
+      { label: 'Freshness', value: f.freshness_requirement },
+      { label: 'DQR Handling', value: f.dqr_handling },
+      { label: 'Readiness', value: f.readiness_handling },
+      { label: 'Label Handling', value: f.missing_degraded_proxy_label_handling },
+      { label: 'Consumers', value: f.allowed_consumer_surfaces.join(', ') },
+      { label: 'Prohibited Effects', value: f.prohibited_effects.join(', ') },
+      { label: 'Next Required Gate', value: f.next_required_gate },
     ],
   };
 }

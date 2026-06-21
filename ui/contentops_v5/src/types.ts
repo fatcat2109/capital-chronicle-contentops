@@ -987,3 +987,57 @@ export interface LaneCArtifactIntakeValidationPacket {
   hash_algorithm: string;
   next_required_gate: string;
 }
+
+export interface LaneCConnectorFamily {
+  connector_id: string;
+  connector_family: string;
+  current_status: string;
+  allowed_path_pattern: string;
+  required_file_kinds: string[];
+  required_identity_fields: string[];
+  required_hash_fields: string[];
+  required_lineage_fields: string[];
+  freshness_requirement: string;
+  dqr_handling: string;
+  readiness_handling: string;
+  missing_degraded_proxy_label_handling: string;
+  allowed_consumer_surfaces: string[];
+  prohibited_effects: string[];
+  next_required_gate: string;
+}
+
+export interface LaneCConnectorPathBoundary {
+  allowed_path_pattern: string;
+  symbolic_only: boolean;
+  local_only: boolean;
+}
+
+export interface LaneCConnectorProofRequirement {
+  connector_family: string;
+  required_proofs: string[];
+}
+
+export interface LaneCConnectorReadinessDecision {
+  connector_id: string;
+  decision: string;
+  blocked_reasons: string[];
+}
+
+export interface LaneCArtifactConnectorIndexPacket {
+  task_label: string;
+  matrix_version: string;
+  source_baseline_commit: string;
+  generated_at_epoch: number;
+  connector_family_count: number;
+  proof_requirement_count: number;
+  connector_families: LaneCConnectorFamily[];
+  path_boundaries: LaneCConnectorPathBoundary[];
+  readiness_decisions: LaneCConnectorReadinessDecision[];
+  blocked_reasons: string[];
+  missing_proofs: string[];
+  safety_flags: Record<string, boolean>;
+  local_only_classification: string;
+  packet_hash: string;
+  hash_algorithm: string;
+  next_required_gate: string;
+}

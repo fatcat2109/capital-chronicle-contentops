@@ -10,10 +10,13 @@ import {
   LANE_LABEL,
   selectLaneCArtifactIntakeValidationPacket,
   selectLaneCArtifactIntakeCandidate,
+  selectLaneCArtifactConnectorIndexPacket,
+  selectLaneCConnectorFamily,
 } from '../selectors';
 import { IconSearch } from '../ui/icons';
 import type { StatusKind } from '../types';
 import { laneCArtifactIntakePacket as laneCPacket } from '../data/laneCArtifactIntakePacket';
+import { laneCArtifactConnectorIndexPacket as laneCConnectorPacket } from '../data/laneCArtifactConnectorIndexPacket';
 
 const LANE_FILTERS: { id: string; label: string }[] = [
   { id: 'all', label: 'All lanes' },
@@ -326,6 +329,138 @@ export function ContentInventory() {
                     <div>
                       <span className="font-mono text-[11px] text-fg break-all block">{check.check_id}</span>
                       <span className="text-[11px] text-fg-muted">{check.description}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Panel>
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-8 border-t border-line pt-6">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <div className="flex items-center gap-3">
+            <div>
+              <SectionLabel>Lane C Connector Index</SectionLabel>
+              <p className="text-xs text-fg-muted mt-0.5">
+                Deterministic registry of future Capital Chronicle artifact connectors.
+              </p>
+            </div>
+            <button
+              type="button"
+              id="btn-inspect-lane-c-connector-packet"
+              onClick={() => select(selectLaneCArtifactConnectorIndexPacket(laneCConnectorPacket))}
+              className="text-[10px] font-mono border border-line hover:border-line-strong hover:bg-surface-2 text-fg-muted px-2 py-0.5 rounded transition-colors"
+            >
+              Inspect Index
+            </button>
+          </div>
+          <StatusChip status="review" icon nowrap>
+            Connectors: {laneCConnectorPacket.connector_family_count} registered · review-only
+          </StatusChip>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+          <div className="rounded-xl border border-line bg-surface-1 p-4 shadow-card">
+            <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-fg-subtle">
+              Connector Status
+            </div>
+            <div className="mt-2 flex items-baseline gap-2">
+              <span className="text-2xl font-semibold font-mono text-fg">
+                {laneCConnectorPacket.connector_family_count}
+              </span>
+              <span className="text-xs text-fg-muted font-medium">registered /</span>
+              <span className="text-2xl font-semibold font-mono text-status-blocked">
+                {laneCConnectorPacket.connector_families.filter(f => f.current_status !== 'manual_only').length}
+              </span>
+              <span className="text-xs text-fg-muted font-medium">blocked</span>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-line bg-surface-1 p-4 shadow-card">
+            <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-fg-subtle">
+              Safety Boundaries
+            </div>
+            <div className="mt-2 space-y-1 text-xs text-fg-muted">
+              <div className="flex items-center gap-1.5">
+                <span className="text-green-500 font-bold">✓</span> No live connector enabled
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-green-500 font-bold">✓</span> Ingestion repo mutation: false
+              </div>
+            </div>
+          </div>
+
+          <div className="rounded-xl border border-line bg-surface-1 p-4 shadow-card">
+            <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-fg-subtle">
+              Compliance Enforcement
+            </div>
+            <div className="mt-2 space-y-1 text-xs text-fg-muted">
+              <div className="flex items-center gap-1.5">
+                <span className="text-green-500 font-bold">✓</span> DQR/Readiness not cleared
+              </div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-red-500 font-bold">✗</span> All network/API calls blocked
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div className="lg:col-span-2">
+            <Panel bodyClassName="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse text-sm">
+                  <thead>
+                    <tr className="border-b border-line bg-surface-2 text-left">
+                      {['Family ID', 'Path Boundary', 'Status', 'Next Gate'].map(h => (
+                        <th key={h} className="whitespace-nowrap px-3 py-2.5 font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {laneCConnectorPacket.connector_families.map((f) => {
+                      const active = selected?.kind === 'lane_c_connector_family' && selected.id === f.connector_id;
+                      return (
+                        <tr
+                          key={f.connector_id}
+                          id={`lane-c-connector-row-${f.connector_id}`}
+                          onClick={() => select(selectLaneCConnectorFamily(f))}
+                          className={`cursor-pointer border-b border-line transition-colors ${
+                            active ? 'bg-accent/5' : 'hover:bg-surface-2'
+                          }`}
+                        >
+                          <td className="whitespace-nowrap px-3 py-2.5 font-mono text-[11.5px] text-fg font-medium">
+                            {f.connector_id.replace('local_capital_chronicle_', '').replace('_snapshot', '').replace('_packet', '').replace('_manifest', '')}
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-2.5 font-mono text-[11px] text-fg-muted">{f.allowed_path_pattern}</td>
+                          <td className="whitespace-nowrap px-3 py-2.5">
+                            <StatusChip status={f.current_status === 'manual_only' ? 'verified' : 'blocked'}>
+                              {f.current_status === 'manual_only' ? 'Manual Only' : 'Blocked'}
+                            </StatusChip>
+                          </td>
+                          <td className="whitespace-nowrap px-3 py-2.5 text-xs text-fg-muted">{f.next_required_gate}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </Panel>
+          </div>
+
+          <div>
+            <Panel title="Required Proofs Index">
+              <div className="space-y-2 mt-2">
+                {laneCConnectorPacket.missing_proofs.map((proof) => (
+                  <div key={proof} className="flex items-start gap-2 text-xs">
+                    <span className="text-red-500 font-bold">✗</span>
+                    <div>
+                      <span className="font-mono text-[11px] text-fg break-all block">{proof}</span>
+                      <span className="text-[11px] text-fg-muted">Awaiting local connector gate enablement</span>
                     </div>
                   </div>
                 ))}
