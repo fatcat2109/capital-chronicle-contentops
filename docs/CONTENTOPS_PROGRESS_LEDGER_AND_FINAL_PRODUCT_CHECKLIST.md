@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Current accepted HEAD:** `d60d71c2dc4ff1fc148f68bf5ff7645fccace1ab`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175AJ_LANE_C_ARTIFACT_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0`
-* **Latest implemented capability:** Lane C Artifact-to-Editorial Brief Review Packet
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175AK_LANE_C_EDITORIAL_BRIEF_TO_DRAFT_REVIEW_ONLY_PACKET_V0`
+* **Current accepted HEAD:** `ea5084684c04915c2261c5cd9e03a51fb2f276f1`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175AK_LANE_C_EDITORIAL_BRIEF_TO_DRAFT_REVIEW_ONLY_PACKET_V0`
+* **Latest implemented capability:** Lane C Editorial Brief to Draft Review-Only Packet
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175AL_LANE_C_DRAFT_REVIEW_TO_APPROVAL_PACKET_GATE_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -44,7 +44,7 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | **Lane C Artifact Connector Index** | Registry of allowed connector families and path patterns | `TESTED` | `lane_c_artifact_connector_index_contract.py` | Production file connectors | Operator manual review gate |
 | **Lane C Artifact Ingestion Foundation** | Batch file ingestion and verification mechanisms | `TESTED` | `lane_c_artifact_ingestion_foundation_contract.py` | Integration with live ingestion pipeline | Operator gate and folder bindings |
 | **Artifact-backed Editorial Brief** | Automatically generated briefs from ingested artifacts | `TESTED` | `lane_c_artifact_to_editorial_brief_review_packet_contract.py` | Generation of review briefs from candidates | Ingestion foundation validation |
-| **Artifact-backed Draft Generation** | Auto-generation of multi-platform variant drafts from brief | `NOT_STARTED` | None | Draft prompts and agent workflow | LLM quota/credentials |
+| **Artifact-backed Draft Generation** | Auto-generation of multi-platform variant drafts from brief | `TESTED` | `lane_c_editorial_brief_to_draft_review_only_packet_contract.py` | Scaffold review-only draft stubs from brief | Writer Studio/approval workflows |
 | **Artifact-backed Platform Preview** | Payload compilation and preview for artifact-derived posts | `NOT_STARTED` | None | Invariant checks and preview compilation | Draft Generation |
 | **Artifact-backed Approval Packet** | Consolidated cryptographic evidence packet for artifacts | `NOT_STARTED` | None | Signature/audit packet creation | Live audit ledger |
 | **Internal Alpha Artifact Intake** | Intake gates for verified Internal Alpha artifacts | `TESTED` | `internal_alpha_artifact_intake_content_eligibility_contract.py` | Intake validator integration | Ingestion repo paths |
@@ -74,7 +74,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175AG_LANE_C_ARTIFACT_CONNECTOR_INDEX_V0` | `2d9cfa897f78bd510fa24ed876131519f775bc9e` | `bfe863fa7898740ed19fdaf93d4a39fe8423c2a9` | Connector index contract, 6 families schema, symbolic paths, V5 UI index panel | `test_lane_c_artifact_connector_index_contract.py`, `lane_c_artifact_connector_index.test.tsx` | Standardized schemas for permitted connector paths and blocked policies | Durable progress tracking ledger, local ingestion foundation | `0175AH` |
 | `TASK_CONTENTOPS_0175AH_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST_FOUNDATION_V0` | `bfe863fa7898740ed19fdaf93d4a39fe8423c2a9` | `e6fd4c65baea9daa9879de7f70142522889c8df7` | Canonical repository-tracked ledger file, update protocols, anti-hallucination rules | Grep validation readbacks | Prevention of completion hallucinations, standardized task protocol | `0175AI` ingestion foundation | `0175AI` |
 | `TASK_CONTENTOPS_0175AI_LANE_C_ARTIFACT_INGESTION_FOUNDATION_BATCH_V0` | `e6fd4c65baea9daa9879de7f70142522889c8df7` | `d60d71c2dc4ff1fc148f68bf5ff7645fccace1ab` | Deterministic local candidate validation, shape verification, and quarantine policies | `test_lane_c_artifact_ingestion_foundation_contract.py`, generated json/md contract packet | Safe discovery and classification of ingested Capital Chronicle candidates | `0175AJ` editorial brief generation | `0175AJ` |
-| `TASK_CONTENTOPS_0175AJ_LANE_C_ARTIFACT_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0` | `d60d71c2dc4ff1fc148f68bf5ff7645fccace1ab` | `pending_commit` | Conversion of eligible ingested candidates into review-only stub briefs | `test_lane_c_artifact_to_editorial_brief_review_packet_contract.py`, generated json/md contract packet | Safe bridging from ingestion foundation to human-supervised review briefs | `0175AK` editorial draft generation | `0175AK` |
+| `TASK_CONTENTOPS_0175AJ_LANE_C_ARTIFACT_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0` | `d60d71c2dc4ff1fc148f68bf5ff7645fccace1ab` | `ea5084684c04915c2261c5cd9e03a51fb2f276f1` | Conversion of eligible ingested candidates into review-only stub briefs | `test_lane_c_artifact_to_editorial_brief_review_packet_contract.py`, generated json/md contract packet | Safe bridging from ingestion foundation to human-supervised review briefs | `0175AK` editorial draft generation | `0175AK` |
+| `TASK_CONTENTOPS_0175AK_LANE_C_EDITORIAL_BRIEF_TO_DRAFT_REVIEW_ONLY_PACKET_V0` | `ea5084684c04915c2261c5cd9e03a51fb2f276f1` | `pending_commit` | Transformation of eligible briefs into dry draft stubs for review | `test_lane_c_editorial_brief_to_draft_review_only_packet_contract.py`, generated json/md contract packet | Controlled draft scaffold layer for future Writer Studio and approvals | `0175AL` approval packet gates | `0175AL` |
 
 ---
 
@@ -108,6 +109,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175AK_LANE_C_EDITORIAL_BRIEF_TO_DRAFT_REVIEW_ONLY_PACKET_V0`
-* **Focus:** Lane C Editorial Brief to Draft Review Packet. Generate review-only draft variants from brief packets.
+* **Next recommended task:** `TASK_CONTENTOPS_0175AL_LANE_C_DRAFT_REVIEW_TO_APPROVAL_PACKET_GATE_V0`
+* **Focus:** Lane C Draft Review to Approval Packet Gate. Establish local contracts for cryptographic operator signoff packets.
 * **Visual System Status:** Visual enhancement/polish is deferred until more core product foundation is complete.

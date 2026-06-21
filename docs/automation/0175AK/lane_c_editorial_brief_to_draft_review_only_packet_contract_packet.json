@@ -1,0 +1,636 @@
+{
+  "blocked_reasons": [
+    "quarantined_review_only",
+    "missing_lineage_manifest",
+    "forbidden_public_ready_claim",
+    "missing_operator_approval",
+    "degraded_proxy_label_required",
+    "local_fixture_only",
+    "not_authorized_signing_authority"
+  ],
+  "draft_packets": [
+    {
+      "allowed_claim_boundaries": [
+        "local_compliance_assertions_only"
+      ],
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "citation_requirements": [
+        {
+          "citation_id": "cit_req_candidate_shape_valid_but_not_authorized",
+          "required_source": "provenance:candidate_shape_valid_but_not_authorized",
+          "verified": false
+        }
+      ],
+      "claim_ledger": [
+        {
+          "assertion_type": "metadata_validation",
+          "claim_id": "claim_1_candidate_shape_valid_but_not_authorized",
+          "claim_text": "The source authority schema matches the validated Capital Chronicle registration.",
+          "evidence_citation": "citation:candidate_shape_valid_but_not_authorized",
+          "risk_level": "low"
+        }
+      ],
+      "dek_or_summary_stub": "[NON-PUBLIC] [REVIEW-ONLY] Ingested candidate details scaffold for candidate_shape_valid_but_not_authorized. No publishable copy generated.",
+      "dispatch_ready": false,
+      "draft_packet_id": "draft_packet_candidate_shape_valid_but_not_authorized",
+      "draft_status": "review_only",
+      "forbidden_claims": [
+        "financial_forecasts",
+        "market_projections"
+      ],
+      "human_review_required": true,
+      "limitation_blocks": [
+        {
+          "description": "Awaiting manual operator verification signature.",
+          "limitation_id": "lim_block_candidate_shape_valid_but_not_authorized",
+          "severity": "warning"
+        }
+      ],
+      "missing_proofs": [
+        "authorized_signing_certificate"
+      ],
+      "operator_approval_required": true,
+      "packet_hash": "cce5269cd4bef5500591a980d9d708139669640018e51c6e14572159a28e48d0",
+      "platform_payload_created": false,
+      "provider_api_used": false,
+      "public_postable": false,
+      "review_gate_status": "pending_human_review",
+      "review_gates": [
+        {
+          "gate_id": "gate_1_candidate_shape_valid_but_not_authorized",
+          "gate_name": "Human Review Gate",
+          "passed": false,
+          "reason": "Scaffold review status is: pending_human_review"
+        }
+      ],
+      "review_only": true,
+      "section_outline": [
+        "Section 1: Ingested Metadata Validation Check",
+        "Section 2: Preserved Source Limitations Audit",
+        "Section 3: Operator Gate Override Pre-check"
+      ],
+      "sections": [
+        {
+          "bullet_points": [
+            "Bullet 1: Verify source authority keys.",
+            "Bullet 2: Trace lineage sequence to parent commit."
+          ],
+          "section_id": "sec_1_candidate_shape_valid_but_not_authorized",
+          "title": "Ingested Metadata Validation Check"
+        }
+      ],
+      "source_brief_id": "brief_packet_candidate_shape_valid_but_not_authorized",
+      "source_candidate_id": "candidate_shape_valid_but_not_authorized",
+      "unresolved_evidence_flags": [
+        "cryptographic_lineage_unverified"
+      ],
+      "working_title_options": [
+        "[INTERNAL-REVIEW-ONLY] Lane C Compliance Draft Stub (candidate_shape_valid_but_not_authorized)",
+        "[NON-PUBLIC] Dry-run schema placeholder draft (candidate_shape_valid_but_not_authorized)"
+      ]
+    },
+    {
+      "allowed_claim_boundaries": [
+        "local_compliance_assertions_only"
+      ],
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "citation_requirements": [
+        {
+          "citation_id": "cit_req_candidate_missing_lineage_manifest",
+          "required_source": "provenance:candidate_missing_lineage_manifest",
+          "verified": false
+        }
+      ],
+      "claim_ledger": [
+        {
+          "assertion_type": "metadata_validation",
+          "claim_id": "claim_1_candidate_missing_lineage_manifest",
+          "claim_text": "The source authority schema matches the validated Capital Chronicle registration.",
+          "evidence_citation": "citation:candidate_missing_lineage_manifest",
+          "risk_level": "low"
+        }
+      ],
+      "dek_or_summary_stub": "[NON-PUBLIC] [REVIEW-ONLY] Ingested candidate details scaffold for candidate_missing_lineage_manifest. No publishable copy generated.",
+      "dispatch_ready": false,
+      "draft_packet_id": "draft_packet_candidate_missing_lineage_manifest",
+      "draft_status": "blocked",
+      "forbidden_claims": [
+        "financial_forecasts",
+        "market_projections"
+      ],
+      "human_review_required": true,
+      "limitation_blocks": [
+        {
+          "description": "Awaiting manual operator verification signature.",
+          "limitation_id": "lim_block_candidate_missing_lineage_manifest",
+          "severity": "blocker"
+        }
+      ],
+      "missing_proofs": [
+        "lineage_manifest_sequence"
+      ],
+      "operator_approval_required": true,
+      "packet_hash": "121f46a7313d7456e7ca9426e1bf0c1602d51b480293701c9859ce02b4503738",
+      "platform_payload_created": false,
+      "provider_api_used": false,
+      "public_postable": false,
+      "review_gate_status": "blocked_missing_lineage",
+      "review_gates": [
+        {
+          "gate_id": "gate_1_candidate_missing_lineage_manifest",
+          "gate_name": "Human Review Gate",
+          "passed": false,
+          "reason": "Scaffold review status is: blocked_missing_lineage"
+        }
+      ],
+      "review_only": true,
+      "section_outline": [
+        "Section 1: Ingested Metadata Validation Check",
+        "Section 2: Preserved Source Limitations Audit",
+        "Section 3: Operator Gate Override Pre-check"
+      ],
+      "sections": [
+        {
+          "bullet_points": [
+            "Bullet 1: Verify source authority keys.",
+            "Bullet 2: Trace lineage sequence to parent commit."
+          ],
+          "section_id": "sec_1_candidate_missing_lineage_manifest",
+          "title": "Ingested Metadata Validation Check"
+        }
+      ],
+      "source_brief_id": "brief_packet_candidate_missing_lineage_manifest",
+      "source_candidate_id": "candidate_missing_lineage_manifest",
+      "unresolved_evidence_flags": [
+        "cryptographic_lineage_unverified"
+      ],
+      "working_title_options": [
+        "[INTERNAL-REVIEW-ONLY] Lane C Compliance Draft Stub (candidate_missing_lineage_manifest)",
+        "[NON-PUBLIC] Dry-run schema placeholder draft (candidate_missing_lineage_manifest)"
+      ]
+    },
+    {
+      "allowed_claim_boundaries": [
+        "local_compliance_assertions_only"
+      ],
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "citation_requirements": [
+        {
+          "citation_id": "cit_req_candidate_stale_or_missing_freshness",
+          "required_source": "provenance:candidate_stale_or_missing_freshness",
+          "verified": false
+        }
+      ],
+      "claim_ledger": [
+        {
+          "assertion_type": "metadata_validation",
+          "claim_id": "claim_1_candidate_stale_or_missing_freshness",
+          "claim_text": "The source authority schema matches the validated Capital Chronicle registration.",
+          "evidence_citation": "citation:candidate_stale_or_missing_freshness",
+          "risk_level": "low"
+        }
+      ],
+      "dek_or_summary_stub": "[NON-PUBLIC] [REVIEW-ONLY] Ingested candidate details scaffold for candidate_stale_or_missing_freshness. No publishable copy generated.",
+      "dispatch_ready": false,
+      "draft_packet_id": "draft_packet_candidate_stale_or_missing_freshness",
+      "draft_status": "blocked",
+      "forbidden_claims": [
+        "financial_forecasts",
+        "market_projections"
+      ],
+      "human_review_required": true,
+      "limitation_blocks": [
+        {
+          "description": "Awaiting manual operator verification signature.",
+          "limitation_id": "lim_block_candidate_stale_or_missing_freshness",
+          "severity": "blocker"
+        }
+      ],
+      "missing_proofs": [
+        "lineage_manifest_sequence"
+      ],
+      "operator_approval_required": true,
+      "packet_hash": "5663400b60669359f733d8c6358f94736235ce6d1ce1beb10df12e74a5688e4b",
+      "platform_payload_created": false,
+      "provider_api_used": false,
+      "public_postable": false,
+      "review_gate_status": "blocked_missing_lineage",
+      "review_gates": [
+        {
+          "gate_id": "gate_1_candidate_stale_or_missing_freshness",
+          "gate_name": "Human Review Gate",
+          "passed": false,
+          "reason": "Scaffold review status is: blocked_missing_lineage"
+        }
+      ],
+      "review_only": true,
+      "section_outline": [
+        "Section 1: Ingested Metadata Validation Check",
+        "Section 2: Preserved Source Limitations Audit",
+        "Section 3: Operator Gate Override Pre-check"
+      ],
+      "sections": [
+        {
+          "bullet_points": [
+            "Bullet 1: Verify source authority keys.",
+            "Bullet 2: Trace lineage sequence to parent commit."
+          ],
+          "section_id": "sec_1_candidate_stale_or_missing_freshness",
+          "title": "Ingested Metadata Validation Check"
+        }
+      ],
+      "source_brief_id": "brief_packet_candidate_stale_or_missing_freshness",
+      "source_candidate_id": "candidate_stale_or_missing_freshness",
+      "unresolved_evidence_flags": [
+        "cryptographic_lineage_unverified"
+      ],
+      "working_title_options": [
+        "[INTERNAL-REVIEW-ONLY] Lane C Compliance Draft Stub (candidate_stale_or_missing_freshness)",
+        "[NON-PUBLIC] Dry-run schema placeholder draft (candidate_stale_or_missing_freshness)"
+      ]
+    },
+    {
+      "allowed_claim_boundaries": [
+        "local_compliance_assertions_only"
+      ],
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "citation_requirements": [
+        {
+          "citation_id": "cit_req_candidate_degraded_proxy_label_required",
+          "required_source": "provenance:candidate_degraded_proxy_label_required",
+          "verified": false
+        }
+      ],
+      "claim_ledger": [
+        {
+          "assertion_type": "metadata_validation",
+          "claim_id": "claim_1_candidate_degraded_proxy_label_required",
+          "claim_text": "The source authority schema matches the validated Capital Chronicle registration.",
+          "evidence_citation": "citation:candidate_degraded_proxy_label_required",
+          "risk_level": "low"
+        }
+      ],
+      "dek_or_summary_stub": "[NON-PUBLIC] [REVIEW-ONLY] Ingested candidate details scaffold for candidate_degraded_proxy_label_required. No publishable copy generated.",
+      "dispatch_ready": false,
+      "draft_packet_id": "draft_packet_candidate_degraded_proxy_label_required",
+      "draft_status": "review_only",
+      "forbidden_claims": [
+        "financial_forecasts",
+        "market_projections"
+      ],
+      "human_review_required": true,
+      "limitation_blocks": [
+        {
+          "description": "Awaiting manual operator verification signature.",
+          "limitation_id": "lim_block_candidate_degraded_proxy_label_required",
+          "severity": "warning"
+        }
+      ],
+      "missing_proofs": [
+        "health_monitor_verification"
+      ],
+      "operator_approval_required": true,
+      "packet_hash": "9a31ea49088e82b89e0f83f345013b3394f2bf908b612346d65a1a110e21878f",
+      "platform_payload_created": false,
+      "provider_api_used": false,
+      "public_postable": false,
+      "review_gate_status": "pending_proxy_review",
+      "review_gates": [
+        {
+          "gate_id": "gate_1_candidate_degraded_proxy_label_required",
+          "gate_name": "Human Review Gate",
+          "passed": false,
+          "reason": "Scaffold review status is: pending_proxy_review"
+        }
+      ],
+      "review_only": true,
+      "section_outline": [
+        "Section 1: Ingested Metadata Validation Check",
+        "Section 2: Preserved Source Limitations Audit",
+        "Section 3: Operator Gate Override Pre-check"
+      ],
+      "sections": [
+        {
+          "bullet_points": [
+            "Bullet 1: Verify source authority keys.",
+            "Bullet 2: Trace lineage sequence to parent commit."
+          ],
+          "section_id": "sec_1_candidate_degraded_proxy_label_required",
+          "title": "Ingested Metadata Validation Check"
+        }
+      ],
+      "source_brief_id": "brief_packet_candidate_degraded_proxy_label_required",
+      "source_candidate_id": "candidate_degraded_proxy_label_required",
+      "unresolved_evidence_flags": [
+        "cryptographic_lineage_unverified"
+      ],
+      "working_title_options": [
+        "[INTERNAL-REVIEW-ONLY] Lane C Compliance Draft Stub (candidate_degraded_proxy_label_required)",
+        "[NON-PUBLIC] Dry-run schema placeholder draft (candidate_degraded_proxy_label_required)"
+      ]
+    },
+    {
+      "allowed_claim_boundaries": [
+        "local_compliance_assertions_only"
+      ],
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "citation_requirements": [
+        {
+          "citation_id": "cit_req_candidate_missing_operator_approval",
+          "required_source": "provenance:candidate_missing_operator_approval",
+          "verified": false
+        }
+      ],
+      "claim_ledger": [
+        {
+          "assertion_type": "metadata_validation",
+          "claim_id": "claim_1_candidate_missing_operator_approval",
+          "claim_text": "The source authority schema matches the validated Capital Chronicle registration.",
+          "evidence_citation": "citation:candidate_missing_operator_approval",
+          "risk_level": "low"
+        }
+      ],
+      "dek_or_summary_stub": "[NON-PUBLIC] [REVIEW-ONLY] Ingested candidate details scaffold for candidate_missing_operator_approval. No publishable copy generated.",
+      "dispatch_ready": false,
+      "draft_packet_id": "draft_packet_candidate_missing_operator_approval",
+      "draft_status": "review_only",
+      "forbidden_claims": [
+        "financial_forecasts",
+        "market_projections"
+      ],
+      "human_review_required": true,
+      "limitation_blocks": [
+        {
+          "description": "Awaiting manual operator verification signature.",
+          "limitation_id": "lim_block_candidate_missing_operator_approval",
+          "severity": "warning"
+        }
+      ],
+      "missing_proofs": [
+        "manual_operator_signature"
+      ],
+      "operator_approval_required": true,
+      "packet_hash": "3bbf1e44e217d470a25f60a1722dc483fb78de25ffb9e9f277db459cf9e33d6a",
+      "platform_payload_created": false,
+      "provider_api_used": false,
+      "public_postable": false,
+      "review_gate_status": "pending_operator_signoff",
+      "review_gates": [
+        {
+          "gate_id": "gate_1_candidate_missing_operator_approval",
+          "gate_name": "Human Review Gate",
+          "passed": false,
+          "reason": "Scaffold review status is: pending_operator_signoff"
+        }
+      ],
+      "review_only": true,
+      "section_outline": [
+        "Section 1: Ingested Metadata Validation Check",
+        "Section 2: Preserved Source Limitations Audit",
+        "Section 3: Operator Gate Override Pre-check"
+      ],
+      "sections": [
+        {
+          "bullet_points": [
+            "Bullet 1: Verify source authority keys.",
+            "Bullet 2: Trace lineage sequence to parent commit."
+          ],
+          "section_id": "sec_1_candidate_missing_operator_approval",
+          "title": "Ingested Metadata Validation Check"
+        }
+      ],
+      "source_brief_id": "brief_packet_candidate_missing_operator_approval",
+      "source_candidate_id": "candidate_missing_operator_approval",
+      "unresolved_evidence_flags": [
+        "cryptographic_lineage_unverified"
+      ],
+      "working_title_options": [
+        "[INTERNAL-REVIEW-ONLY] Lane C Compliance Draft Stub (candidate_missing_operator_approval)",
+        "[NON-PUBLIC] Dry-run schema placeholder draft (candidate_missing_operator_approval)"
+      ]
+    },
+    {
+      "allowed_claim_boundaries": [
+        "local_compliance_assertions_only"
+      ],
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "citation_requirements": [
+        {
+          "citation_id": "cit_req_candidate_local_fixture_only",
+          "required_source": "provenance:candidate_local_fixture_only",
+          "verified": false
+        }
+      ],
+      "claim_ledger": [
+        {
+          "assertion_type": "metadata_validation",
+          "claim_id": "claim_1_candidate_local_fixture_only",
+          "claim_text": "The source authority schema matches the validated Capital Chronicle registration.",
+          "evidence_citation": "citation:candidate_local_fixture_only",
+          "risk_level": "low"
+        }
+      ],
+      "dek_or_summary_stub": "[NON-PUBLIC] [REVIEW-ONLY] Ingested candidate details scaffold for candidate_local_fixture_only. No publishable copy generated.",
+      "dispatch_ready": false,
+      "draft_packet_id": "draft_packet_candidate_local_fixture_only",
+      "draft_status": "review_only",
+      "forbidden_claims": [
+        "financial_forecasts",
+        "market_projections"
+      ],
+      "human_review_required": true,
+      "limitation_blocks": [
+        {
+          "description": "Awaiting manual operator verification signature.",
+          "limitation_id": "lim_block_candidate_local_fixture_only",
+          "severity": "warning"
+        }
+      ],
+      "missing_proofs": [
+        "production_key_setup"
+      ],
+      "operator_approval_required": true,
+      "packet_hash": "95f6909e46ca682307c9ad05f74dd9e0ae53a31bb35822f86015b77a8efb5326",
+      "platform_payload_created": false,
+      "provider_api_used": false,
+      "public_postable": false,
+      "review_gate_status": "pending_human_review",
+      "review_gates": [
+        {
+          "gate_id": "gate_1_candidate_local_fixture_only",
+          "gate_name": "Human Review Gate",
+          "passed": false,
+          "reason": "Scaffold review status is: pending_human_review"
+        }
+      ],
+      "review_only": true,
+      "section_outline": [
+        "Section 1: Ingested Metadata Validation Check",
+        "Section 2: Preserved Source Limitations Audit",
+        "Section 3: Operator Gate Override Pre-check"
+      ],
+      "sections": [
+        {
+          "bullet_points": [
+            "Bullet 1: Verify source authority keys.",
+            "Bullet 2: Trace lineage sequence to parent commit."
+          ],
+          "section_id": "sec_1_candidate_local_fixture_only",
+          "title": "Ingested Metadata Validation Check"
+        }
+      ],
+      "source_brief_id": "brief_packet_candidate_local_fixture_only",
+      "source_candidate_id": "candidate_local_fixture_only",
+      "unresolved_evidence_flags": [
+        "cryptographic_lineage_unverified"
+      ],
+      "working_title_options": [
+        "[INTERNAL-REVIEW-ONLY] Lane C Compliance Draft Stub (candidate_local_fixture_only)",
+        "[NON-PUBLIC] Dry-run schema placeholder draft (candidate_local_fixture_only)"
+      ]
+    },
+    {
+      "allowed_claim_boundaries": [
+        "local_compliance_assertions_only"
+      ],
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "citation_requirements": [
+        {
+          "citation_id": "cit_req_candidate_quarantined_review_only",
+          "required_source": "provenance:candidate_quarantined_review_only",
+          "verified": false
+        }
+      ],
+      "claim_ledger": [
+        {
+          "assertion_type": "metadata_validation",
+          "claim_id": "claim_1_candidate_quarantined_review_only",
+          "claim_text": "The source authority schema matches the validated Capital Chronicle registration.",
+          "evidence_citation": "citation:candidate_quarantined_review_only",
+          "risk_level": "low"
+        }
+      ],
+      "dek_or_summary_stub": "[NON-PUBLIC] [REVIEW-ONLY] Ingested candidate details scaffold for candidate_quarantined_review_only. No publishable copy generated.",
+      "dispatch_ready": false,
+      "draft_packet_id": "draft_packet_candidate_quarantined_review_only",
+      "draft_status": "review_only",
+      "forbidden_claims": [
+        "financial_forecasts",
+        "market_projections"
+      ],
+      "human_review_required": true,
+      "limitation_blocks": [
+        {
+          "description": "Awaiting manual operator verification signature.",
+          "limitation_id": "lim_block_candidate_quarantined_review_only",
+          "severity": "warning"
+        }
+      ],
+      "missing_proofs": [
+        "administrator_clearance"
+      ],
+      "operator_approval_required": true,
+      "packet_hash": "17322f4d22c89b74228d0500bd58dc3f90c40fafb2625acbd1e65eb8766fc44b",
+      "platform_payload_created": false,
+      "provider_api_used": false,
+      "public_postable": false,
+      "review_gate_status": "pending_human_review",
+      "review_gates": [
+        {
+          "gate_id": "gate_1_candidate_quarantined_review_only",
+          "gate_name": "Human Review Gate",
+          "passed": false,
+          "reason": "Scaffold review status is: pending_human_review"
+        }
+      ],
+      "review_only": true,
+      "section_outline": [
+        "Section 1: Ingested Metadata Validation Check",
+        "Section 2: Preserved Source Limitations Audit",
+        "Section 3: Operator Gate Override Pre-check"
+      ],
+      "sections": [
+        {
+          "bullet_points": [
+            "Bullet 1: Verify source authority keys.",
+            "Bullet 2: Trace lineage sequence to parent commit."
+          ],
+          "section_id": "sec_1_candidate_quarantined_review_only",
+          "title": "Ingested Metadata Validation Check"
+        }
+      ],
+      "source_brief_id": "brief_packet_candidate_quarantined_review_only",
+      "source_candidate_id": "candidate_quarantined_review_only",
+      "unresolved_evidence_flags": [
+        "cryptographic_lineage_unverified"
+      ],
+      "working_title_options": [
+        "[INTERNAL-REVIEW-ONLY] Lane C Compliance Draft Stub (candidate_quarantined_review_only)",
+        "[NON-PUBLIC] Dry-run schema placeholder draft (candidate_quarantined_review_only)"
+      ]
+    }
+  ],
+  "generated_at_epoch": 0,
+  "hash_algorithm": "sha256",
+  "ledger_family": "lane_c_editorial_brief_to_draft_review_only_packet_future",
+  "matrix_version": "0175AK_LANE_C_EDITORIAL_BRIEF_TO_DRAFT_REVIEW_ONLY_PACKET_V1",
+  "missing_proofs": [
+    "operator_signature_check",
+    "production_key_vault_verify"
+  ],
+  "next_required_gate": "lane_c_draft_review_packet_operator_signoff",
+  "packet_hash": "54a23a6212a8d943c4215413fa7eb561a3db3cada858ce307e12f338ac398eee",
+  "rejected_decisions": [
+    {
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "next_required_gate": "security_escalation_review",
+      "source_candidate_id": "candidate_forbidden_public_ready_claim",
+      "verdict": "rejected"
+    }
+  ],
+  "safety_flags": {
+    "approved_internal_alpha_artifacts_available": false,
+    "broker_order_execution": false,
+    "credential_values_loaded": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "dqr_cleared_by_contentops": false,
+    "env_read": false,
+    "financial_advice": false,
+    "fixture_only": true,
+    "ingestion_repo_mutated": false,
+    "local_only": true,
+    "network_performed": false,
+    "platform_api_called": false,
+    "platform_payload_created": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "published_content_created": false,
+    "raw_vendor_redistribution": false,
+    "readiness_cleared_by_contentops": false,
+    "signal_language": false,
+    "writer_generated_public_draft": false
+  },
+  "source_baseline_commit": "ea5084684c04915c2261c5cd9e03a51fb2f276f1",
+  "summary_counts": {
+    "draft_packet_count": 7,
+    "rejected_count": 1
+  },
+  "task_label": "TASK_CONTENTOPS_0175AK_LANE_C_EDITORIAL_BRIEF_TO_DRAFT_REVIEW_ONLY_PACKET_V0"
+}
