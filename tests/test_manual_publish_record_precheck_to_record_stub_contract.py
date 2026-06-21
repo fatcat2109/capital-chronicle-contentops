@@ -395,7 +395,7 @@ def test_46_progress_ledger_resolves_0175au_and_appends_0175av():
 
     # One-task-lag checks
     assert "| `TASK_CONTENTOPS_0175AU_OPERATOR_AUDIT_SUMMARY_TO_MANUAL_PUBLISH_RECORD_PRECHECK_V0` | `9cf9d9d545d14ece9fa6239dfc717baac547f3e0` | `0c817cdfef6d71fe5e6f4b20040665b157d50596` |" in content
-    assert "| `TASK_CONTENTOPS_0175AV_MANUAL_PUBLISH_RECORD_PRECHECK_TO_RECORD_STUB_V0` | `0c817cdfef6d71fe5e6f4b20040665b157d50596` | `RECORDED_IN_NEXT_TASK_READBACK` |" in content
+    assert "| `TASK_CONTENTOPS_0175AV_MANUAL_PUBLISH_RECORD_PRECHECK_TO_RECORD_STUB_V0` | `0c817cdfef6d71fe5e6f4b20040665b157d50596` | `1c8d66919f6e577b247f32b096b12f7eccd09bd6` |" in content
 
 
 def test_47_no_pycache_or_pyc_staged():

@@ -70,6 +70,7 @@ ENTRY_FAMILIES = (
     "export_packet_stub_to_operator_audit_summary_future",
     "operator_audit_summary_to_manual_publish_record_precheck_future",
     "manual_publish_record_precheck_to_record_stub_future",
+    "manual_publish_record_stub_to_metrics_precheck_future",
     "unknown_or_blocked",
 )
 
