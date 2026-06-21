@@ -57,6 +57,7 @@ ENTRY_FAMILIES = (
     "lane_c_artifact_intake_validation_future",
     "lane_c_artifact_connector_index_future",
     "lane_c_artifact_ingestion_foundation_future",
+    "lane_c_artifact_to_editorial_brief_review_packet_future",
     "unknown_or_blocked",
 )
 

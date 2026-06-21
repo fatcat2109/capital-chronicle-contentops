@@ -1,0 +1,534 @@
+{
+  "blocked_reasons": [
+    "not_authorized_signing_authority",
+    "missing_lineage_manifest",
+    "missing_lineage_manifest",
+    "degraded_proxy_label_required",
+    "missing_operator_approval",
+    "forbidden_public_ready_claim",
+    "local_fixture_only",
+    "quarantined_review_only"
+  ],
+  "brief_packets": [
+    {
+      "allowed_claims": [
+        "local_review_only"
+      ],
+      "approval_status": "pending_operator_signoff",
+      "artifact_family": "local_capital_chronicle_artifact_packet",
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "brief_id": "brief_packet_candidate_shape_valid_but_not_authorized",
+      "citation_refs": [
+        "local_review_only"
+      ],
+      "dispatch_ready": false,
+      "dqr_status": "unresolved_not_cleared",
+      "editorial_angle": "Review-only artifact stub. No editorial commentary authorized.",
+      "forbidden_claims": [
+        "public_distribution",
+        "market_trends"
+      ],
+      "freshness_status": "fresh",
+      "human_review_required": true,
+      "limitations": [
+        "Schema shape is valid, but compiler lacks authorized signing certificate."
+      ],
+      "missing_degraded_proxy_labels": [],
+      "missing_proofs": [
+        "authorized_signing_certificate"
+      ],
+      "no_advice_no_signal_metadata": {
+        "ingestion_checksum": "4e64f7831f2bc88062961d1df26ffcfefb0306129841804f3d2f2cb5631481b4",
+        "no_financial_advice": true,
+        "no_market_signals": true
+      },
+      "packet_hash": "2bd8f87baa5612f764682de7b2ec23f40c8a08869b28c6f962b134df6d7beea8",
+      "public_postable": false,
+      "readiness_status": "blocked",
+      "review_status": "review_only",
+      "source_candidate_id": "candidate_shape_valid_but_not_authorized",
+      "source_lineage_refs": [
+        "commit:f00d1234"
+      ]
+    },
+    {
+      "allowed_claims": [
+        "local_review_only"
+      ],
+      "approval_status": "blocked",
+      "artifact_family": "local_capital_chronicle_lineage_manifest",
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "brief_id": "brief_packet_candidate_missing_lineage_manifest",
+      "citation_refs": [
+        "local_review_only"
+      ],
+      "dispatch_ready": false,
+      "dqr_status": "unresolved_not_cleared",
+      "editorial_angle": "Review-only artifact stub. No editorial commentary authorized.",
+      "forbidden_claims": [
+        "public_distribution",
+        "market_trends"
+      ],
+      "freshness_status": "fresh",
+      "human_review_required": true,
+      "limitations": [
+        "Lacks cryptographic parent commit sequence and audit lineage references."
+      ],
+      "missing_degraded_proxy_labels": [
+        "missing_lineage_manifest"
+      ],
+      "missing_proofs": [
+        "lineage_manifest_sequence"
+      ],
+      "no_advice_no_signal_metadata": {
+        "ingestion_checksum": "a746571ba822606553df8a21f7db19208a0d2f0991823ab84e031a0e10f135b1",
+        "no_financial_advice": true,
+        "no_market_signals": true
+      },
+      "packet_hash": "9b0fff9304a45e30a1a450d3fef0fde9e6db876a2d78413425f688b7be371a81",
+      "public_postable": false,
+      "readiness_status": "blocked",
+      "review_status": "blocked_review_only",
+      "source_candidate_id": "candidate_missing_lineage_manifest",
+      "source_lineage_refs": []
+    },
+    {
+      "allowed_claims": [
+        "local_review_only"
+      ],
+      "approval_status": "blocked",
+      "artifact_family": "local_capital_chronicle_dqr_snapshot",
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "brief_id": "brief_packet_candidate_stale_or_missing_freshness",
+      "citation_refs": [
+        "local_review_only"
+      ],
+      "dispatch_ready": false,
+      "dqr_status": "unresolved_not_cleared",
+      "editorial_angle": "Review-only artifact stub. No editorial commentary authorized.",
+      "forbidden_claims": [
+        "public_distribution",
+        "market_trends"
+      ],
+      "freshness_status": "stale",
+      "human_review_required": true,
+      "limitations": [
+        "Data age exceeds maximum tolerated limit. Freshness metadata is expired or absent."
+      ],
+      "missing_degraded_proxy_labels": [
+        "stale_freshness_metadata"
+      ],
+      "missing_proofs": [
+        "lineage_manifest_sequence"
+      ],
+      "no_advice_no_signal_metadata": {
+        "ingestion_checksum": "d251d1823ab8d279cf43f3da2cb123e4392182ab302cf429f032a1eb40cd9eab",
+        "no_financial_advice": true,
+        "no_market_signals": true
+      },
+      "packet_hash": "02f98c903f61a6ca9fe0ea02e0fac1dfbc411448807cc857abd9ae019f14d69c",
+      "public_postable": false,
+      "readiness_status": "blocked",
+      "review_status": "blocked_review_only",
+      "source_candidate_id": "candidate_stale_or_missing_freshness",
+      "source_lineage_refs": [
+        "commit:ab88ee01"
+      ]
+    },
+    {
+      "allowed_claims": [
+        "local_review_only"
+      ],
+      "approval_status": "pending_operator_signoff",
+      "artifact_family": "local_capital_chronicle_source_health_snapshot",
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "brief_id": "brief_packet_candidate_degraded_proxy_label_required",
+      "citation_refs": [
+        "local_review_only"
+      ],
+      "dispatch_ready": false,
+      "dqr_status": "degraded",
+      "editorial_angle": "Review-only artifact stub. No editorial commentary authorized.",
+      "forbidden_claims": [
+        "public_distribution",
+        "market_trends"
+      ],
+      "freshness_status": "fresh",
+      "human_review_required": true,
+      "limitations": [
+        "Active platform is reporting degraded health. Must preserve degraded and proxy tags."
+      ],
+      "missing_degraded_proxy_labels": [
+        "degraded_proxy",
+        "source_health_degraded"
+      ],
+      "missing_proofs": [
+        "health_monitor_verification"
+      ],
+      "no_advice_no_signal_metadata": {
+        "ingestion_checksum": "fcf5a6eb8838dcf1cf3249fb02c918efcd8e02d9198abcf827c191a2bc0dcf1a",
+        "no_financial_advice": true,
+        "no_market_signals": true
+      },
+      "packet_hash": "76a6ed7e1734df77d923ea5bb2da180d1e609fc4082cdf335167adb05701d743",
+      "public_postable": false,
+      "readiness_status": "blocked",
+      "review_status": "review_only",
+      "source_candidate_id": "candidate_degraded_proxy_label_required",
+      "source_lineage_refs": [
+        "commit:42f10ee9"
+      ]
+    },
+    {
+      "allowed_claims": [
+        "local_review_only"
+      ],
+      "approval_status": "pending_operator_signoff",
+      "artifact_family": "local_capital_chronicle_forecast_readiness_snapshot",
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "brief_id": "brief_packet_candidate_missing_operator_approval",
+      "citation_refs": [
+        "local_review_only"
+      ],
+      "dispatch_ready": false,
+      "dqr_status": "unresolved_not_cleared",
+      "editorial_angle": "Review-only artifact stub. No editorial commentary authorized.",
+      "forbidden_claims": [
+        "public_distribution",
+        "market_trends"
+      ],
+      "freshness_status": "fresh",
+      "human_review_required": true,
+      "limitations": [
+        "Awaiting explicit manual operator signoff before integration into editorial brief."
+      ],
+      "missing_degraded_proxy_labels": [],
+      "missing_proofs": [
+        "manual_operator_signature"
+      ],
+      "no_advice_no_signal_metadata": {
+        "ingestion_checksum": "a6e2e01df392cb3e43952f41cb837cd9a0b12bc8f4cb2efc0ea4102919ab3f90",
+        "no_financial_advice": true,
+        "no_market_signals": true
+      },
+      "packet_hash": "f7929cc429d9b4edb4e22f64895a70848a8c99f53e064660707587ecdb60e023",
+      "public_postable": false,
+      "readiness_status": "ready_for_review_only",
+      "review_status": "review_only",
+      "source_candidate_id": "candidate_missing_operator_approval",
+      "source_lineage_refs": [
+        "commit:ee33bc42"
+      ]
+    },
+    {
+      "allowed_claims": [
+        "local_review_only"
+      ],
+      "approval_status": "pending_operator_signoff",
+      "artifact_family": "local_capital_chronicle_artifact_packet",
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "brief_id": "brief_packet_candidate_local_fixture_only",
+      "citation_refs": [
+        "local_review_only"
+      ],
+      "dispatch_ready": false,
+      "dqr_status": "not_applicable",
+      "editorial_angle": "Review-only artifact stub. No editorial commentary authorized.",
+      "forbidden_claims": [
+        "public_distribution",
+        "market_trends"
+      ],
+      "freshness_status": "fresh",
+      "human_review_required": true,
+      "limitations": [
+        "This is a local fixture candidate for shape verification only."
+      ],
+      "missing_degraded_proxy_labels": [],
+      "missing_proofs": [
+        "production_key_setup"
+      ],
+      "no_advice_no_signal_metadata": {
+        "ingestion_checksum": "3e18a2bc88df43ac102919ab3fcfdfc092ab3cd4cf2eab3091df2cba9eabcf23",
+        "no_financial_advice": true,
+        "no_market_signals": true
+      },
+      "packet_hash": "6a2166dbf8c1e43e76963b14467dd1db3952c0c72f693a8a6626de732df3d9f5",
+      "public_postable": false,
+      "readiness_status": "not_applicable",
+      "review_status": "review_only",
+      "source_candidate_id": "candidate_local_fixture_only",
+      "source_lineage_refs": []
+    },
+    {
+      "allowed_claims": [
+        "local_review_only"
+      ],
+      "approval_status": "pending_operator_signoff",
+      "artifact_family": "local_capital_chronicle_artifact_packet",
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "brief_id": "brief_packet_candidate_quarantined_review_only",
+      "citation_refs": [
+        "local_review_only"
+      ],
+      "dispatch_ready": false,
+      "dqr_status": "unresolved_not_cleared",
+      "editorial_angle": "Review-only artifact stub. No editorial commentary authorized.",
+      "forbidden_claims": [
+        "public_distribution",
+        "market_trends"
+      ],
+      "freshness_status": "fresh",
+      "human_review_required": true,
+      "limitations": [
+        "Intentionally quarantined for manual administrator inspection."
+      ],
+      "missing_degraded_proxy_labels": [],
+      "missing_proofs": [
+        "administrator_clearance"
+      ],
+      "no_advice_no_signal_metadata": {
+        "ingestion_checksum": "8cf53a1abcbcd29ab301cfbc28decf3e2ab103cf92a83cdb320df20f02dcba9f",
+        "no_financial_advice": true,
+        "no_market_signals": true
+      },
+      "packet_hash": "afd68c5e1d98fadc32b563d0a370087c0c060d38a741fd8e7d5dbdff04b0d01f",
+      "public_postable": false,
+      "readiness_status": "blocked",
+      "review_status": "review_only",
+      "source_candidate_id": "candidate_quarantined_review_only",
+      "source_lineage_refs": [
+        "commit:da38ee92"
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "blocked_reasons": [
+        "not_authorized_signing_authority"
+      ],
+      "decision_id": "brief_decision_candidate_shape_valid_but_not_authorized",
+      "next_required_gate": "manual_operator_signoff",
+      "review_required": true,
+      "source_candidate_id": "candidate_shape_valid_but_not_authorized",
+      "verdict": "created"
+    },
+    {
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "decision_id": "brief_decision_candidate_missing_lineage_manifest",
+      "next_required_gate": "lineage_cryptographic_handshake",
+      "review_required": true,
+      "source_candidate_id": "candidate_missing_lineage_manifest",
+      "verdict": "blocked"
+    },
+    {
+      "blocked_reasons": [
+        "missing_lineage_manifest"
+      ],
+      "decision_id": "brief_decision_candidate_stale_or_missing_freshness",
+      "next_required_gate": "lineage_cryptographic_handshake",
+      "review_required": true,
+      "source_candidate_id": "candidate_stale_or_missing_freshness",
+      "verdict": "blocked"
+    },
+    {
+      "blocked_reasons": [
+        "degraded_proxy_label_required"
+      ],
+      "decision_id": "brief_decision_candidate_degraded_proxy_label_required",
+      "next_required_gate": "manual_proxy_verification",
+      "review_required": true,
+      "source_candidate_id": "candidate_degraded_proxy_label_required",
+      "verdict": "created"
+    },
+    {
+      "blocked_reasons": [
+        "missing_operator_approval"
+      ],
+      "decision_id": "brief_decision_candidate_missing_operator_approval",
+      "next_required_gate": "operator_review_queue_approval",
+      "review_required": true,
+      "source_candidate_id": "candidate_missing_operator_approval",
+      "verdict": "created"
+    },
+    {
+      "blocked_reasons": [
+        "forbidden_public_ready_claim"
+      ],
+      "decision_id": "brief_decision_candidate_forbidden_public_ready_claim",
+      "next_required_gate": "security_escalation_review",
+      "review_required": true,
+      "source_candidate_id": "candidate_forbidden_public_ready_claim",
+      "verdict": "rejected"
+    },
+    {
+      "blocked_reasons": [
+        "local_fixture_only"
+      ],
+      "decision_id": "brief_decision_candidate_local_fixture_only",
+      "next_required_gate": "manual_operator_signoff",
+      "review_required": true,
+      "source_candidate_id": "candidate_local_fixture_only",
+      "verdict": "created"
+    },
+    {
+      "blocked_reasons": [
+        "quarantined_review_only"
+      ],
+      "decision_id": "brief_decision_candidate_quarantined_review_only",
+      "next_required_gate": "manual_operator_signoff",
+      "review_required": true,
+      "source_candidate_id": "candidate_quarantined_review_only",
+      "verdict": "created"
+    }
+  ],
+  "generated_at_epoch": 0,
+  "guardrails": [
+    {
+      "description": "Ensure absolute absence of price/yield/spread macroeconomic numbers.",
+      "guardrail_id": "no_market_numbers",
+      "passed": true
+    },
+    {
+      "description": "Verify that no public-ready drafts are compiled.",
+      "guardrail_id": "no_public_ready_draft",
+      "passed": true
+    },
+    {
+      "description": "Ensure no X/Telegram/LinkedIn post content is present.",
+      "guardrail_id": "no_social_payloads",
+      "passed": true
+    },
+    {
+      "description": "Verify that zero active platform API endpoints are configured.",
+      "guardrail_id": "no_platform_write_calls",
+      "passed": true
+    },
+    {
+      "description": "Confirm local-only boundaries are enforced.",
+      "guardrail_id": "local_precheck_boundary",
+      "passed": true
+    },
+    {
+      "description": "Verify that no DQR clearance was performed.",
+      "guardrail_id": "dqr_unresolved_boundary",
+      "passed": true
+    },
+    {
+      "description": "Verify that readiness remains blocked.",
+      "guardrail_id": "readiness_unresolved_boundary",
+      "passed": true
+    }
+  ],
+  "hash_algorithm": "sha256",
+  "ledger_family": "lane_c_artifact_to_editorial_brief_review_packet_future",
+  "matrix_version": "0175AJ_LANE_C_ARTIFACT_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V1",
+  "missing_proofs": [
+    "cryptographic_lineage_handshake",
+    "operator_brief_signoff"
+  ],
+  "next_required_gate": "lane_c_editorial_brief_operator_signoff",
+  "packet_hash": "eb3388aa42722d7f001be172edfccd21cb4688ea2b60b6a937a0190b8243e5d3",
+  "safety_flags": {
+    "approved_internal_alpha_artifacts_available": false,
+    "broker_order_execution": false,
+    "credential_values_loaded": false,
+    "current_truth_promoted": false,
+    "dispatch_ready": false,
+    "dqr_cleared_by_contentops": false,
+    "env_read": false,
+    "financial_advice": false,
+    "fixture_only": true,
+    "ingestion_repo_mutated": false,
+    "local_only": true,
+    "network_performed": false,
+    "platform_api_called": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "raw_vendor_redistribution": false,
+    "readiness_cleared_by_contentops": false,
+    "signal_language": false,
+    "writer_generated_public_draft": false
+  },
+  "source_baseline_commit": "d60d71c2dc4ff1fc148f68bf5ff7645fccace1ab",
+  "source_bindings": [
+    {
+      "artifact_id": "candidate_shape_valid_but_not_authorized",
+      "artifact_type": "local_capital_chronicle_artifact_packet",
+      "candidate_id": "candidate_shape_valid_but_not_authorized",
+      "checksum_hash": "4e64f7831f2bc88062961d1df26ffcfefb0306129841804f3d2f2cb5631481b4",
+      "local_ref": "fixtures/lane_c/artifact_ingestion/shape_valid_but_not_authorized.json"
+    },
+    {
+      "artifact_id": "candidate_missing_lineage_manifest",
+      "artifact_type": "local_capital_chronicle_lineage_manifest",
+      "candidate_id": "candidate_missing_lineage_manifest",
+      "checksum_hash": "a746571ba822606553df8a21f7db19208a0d2f0991823ab84e031a0e10f135b1",
+      "local_ref": "fixtures/lane_c/artifact_ingestion/missing_lineage_manifest.json"
+    },
+    {
+      "artifact_id": "candidate_stale_or_missing_freshness",
+      "artifact_type": "local_capital_chronicle_dqr_snapshot",
+      "candidate_id": "candidate_stale_or_missing_freshness",
+      "checksum_hash": "d251d1823ab8d279cf43f3da2cb123e4392182ab302cf429f032a1eb40cd9eab",
+      "local_ref": "fixtures/lane_c/artifact_ingestion/stale_or_missing_freshness.json"
+    },
+    {
+      "artifact_id": "candidate_degraded_proxy_label_required",
+      "artifact_type": "local_capital_chronicle_source_health_snapshot",
+      "candidate_id": "candidate_degraded_proxy_label_required",
+      "checksum_hash": "fcf5a6eb8838dcf1cf3249fb02c918efcd8e02d9198abcf827c191a2bc0dcf1a",
+      "local_ref": "fixtures/lane_c/artifact_ingestion/degraded_proxy_label_required.json"
+    },
+    {
+      "artifact_id": "candidate_missing_operator_approval",
+      "artifact_type": "local_capital_chronicle_forecast_readiness_snapshot",
+      "candidate_id": "candidate_missing_operator_approval",
+      "checksum_hash": "a6e2e01df392cb3e43952f41cb837cd9a0b12bc8f4cb2efc0ea4102919ab3f90",
+      "local_ref": "fixtures/lane_c/artifact_ingestion/missing_operator_approval.json"
+    },
+    {
+      "artifact_id": "candidate_forbidden_public_ready_claim",
+      "artifact_type": "local_manual_operator_evidence_packet",
+      "candidate_id": "candidate_forbidden_public_ready_claim",
+      "checksum_hash": "7e39f82d210b3cd4cb92eab8f102cf93ebcd2b91d29abcbcfd2e30fa230dcf2b",
+      "local_ref": "fixtures/lane_c/artifact_ingestion/forbidden_public_ready_claim.json"
+    },
+    {
+      "artifact_id": "candidate_local_fixture_only",
+      "artifact_type": "local_capital_chronicle_artifact_packet",
+      "candidate_id": "candidate_local_fixture_only",
+      "checksum_hash": "3e18a2bc88df43ac102919ab3fcfdfc092ab3cd4cf2eab3091df2cba9eabcf23",
+      "local_ref": "fixtures/lane_c/artifact_ingestion/local_fixture_only.json"
+    },
+    {
+      "artifact_id": "candidate_quarantined_review_only",
+      "artifact_type": "local_capital_chronicle_artifact_packet",
+      "candidate_id": "candidate_quarantined_review_only",
+      "checksum_hash": "8cf53a1abcbcd29ab301cfbc28decf3e2ab103cf92a83cdb320df20f02dcba9f",
+      "local_ref": "fixtures/lane_c/artifact_ingestion/quarantined_review_only.json"
+    }
+  ],
+  "summary_counts": {
+    "brief_packet_count": 7,
+    "decision_count": 8,
+    "guardrail_count": 7,
+    "source_binding_count": 8
+  },
+  "task_label": "TASK_CONTENTOPS_0175AJ_LANE_C_ARTIFACT_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0"
+}
