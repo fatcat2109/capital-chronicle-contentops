@@ -24,7 +24,7 @@ export function StatusChip({
   status,
   children,
   icon = false,
-  nowrap = false,
+  nowrap = true,
 }: {
   status: StatusKind;
   children: ReactNode;

@@ -25,11 +25,11 @@ describe('Local Operator Runbook Index UI', () => {
     expect(screen.getAllByText('evidence_vault_manual_pilot_audit').length).toBeGreaterThan(0);
 
     // Verify card titles
-    expect(screen.getAllByText('PREFLIGHT BUNDLE').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('MANUAL EXPORT PILOT VERIFICATION').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('OPERATOR REVIEW QUEUE').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('MANUAL PILOT RECONCILIATION').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('EVIDENCE VAULT MANUAL PILOT AUDIT').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Preflight Bundle Validation').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Manual Export & Verification').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Operator Review Queue').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Manual Pilot Reconciliation').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Evidence Vault Audit').length).toBeGreaterThan(0);
   });
 
   it('renders step details, human actions, and system limits', () => {

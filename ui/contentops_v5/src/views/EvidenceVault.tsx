@@ -245,7 +245,7 @@ export function EvidenceVault() {
               }
             >
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                <MetricCard label="Audit Status" value="verified blocked/manual-only" mono status="verified" />
+                <MetricCard label="Audit Status" value="verified local (blocked/manual-only)" mono status="verified" />
                 <MetricCard label="Contract Version" value={auditPacket.contract_version} mono status="neutral" />
                 <MetricCard label="Contradictions" value={`${auditPacket.contradiction_results.contradictions_found.length}`} mono status="verified" />
               </div>

@@ -44,7 +44,7 @@ export default {
         xl: "0.75rem",
       },
       maxWidth: {
-        container: "1440px",
+        container: "1600px",
         prose: "720px",
       },
     },

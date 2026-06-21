@@ -21,19 +21,52 @@ export function useApp(): AppState {
   return ctx;
 }
 
-export const NAV_ITEMS: { id: ViewId; label: string; icon: string }[] = [
-  { id: 'command_center', label: 'Command Center', icon: 'dashboard' },
-  { id: 'content_inventory', label: 'Content Inventory', icon: 'inventory' },
-  { id: 'writer_studio', label: 'Writer Studio', icon: 'edit' },
-  { id: 'ai_writer_seo_lab', label: 'AI Writer / SEO Lab', icon: 'sparkle' },
-  { id: 'draft_inspector', label: 'Draft Inspector', icon: 'fingerprint' },
-  { id: 'platform_payload_preview', label: 'Platform Preview', icon: 'layers' },
-  { id: 'manual_publish_metrics', label: 'Manual Publish', icon: 'send' },
-  { id: 'manual_export_pilot_verification', label: 'Manual Export / Pilot', icon: 'layers' },
-  { id: 'operator_review_queue', label: 'Operator Review Queue', icon: 'inventory' },
-  { id: 'manual_pilot_trail_reconciliation', label: 'Manual Pilot Reconciliation', icon: 'sparkle' },
-  { id: 'approval_queue', label: 'Approval & Dispatch', icon: 'shield' },
-  { id: 'evidence_vault', label: 'Evidence Vault', icon: 'lock' },
-  { id: 'preflight_bundle', label: 'Preflight Bundle', icon: 'shield' },
-  { id: 'operator_runbook_index', label: 'Operator Runbook', icon: 'lock' },
+export interface NavItem {
+  id: ViewId;
+  label: string;
+  icon: string;
+}
+
+export interface NavGroup {
+  title: string;
+  items: NavItem[];
+}
+
+export const NAV_GROUPS: NavGroup[] = [
+  {
+    title: 'Core',
+    items: [
+      { id: 'command_center', label: 'Command Center', icon: 'dashboard' },
+      { id: 'content_inventory', label: 'Content Inventory', icon: 'inventory' },
+      { id: 'platform_payload_preview', label: 'Platform Preview', icon: 'layers' },
+      { id: 'manual_publish_metrics', label: 'Manual Publish', icon: 'send' },
+    ],
+  },
+  {
+    title: 'Editorial',
+    items: [
+      { id: 'writer_studio', label: 'Writer Studio', icon: 'edit' },
+      { id: 'ai_writer_seo_lab', label: 'AI Writer / SEO Lab', icon: 'sparkle' },
+      { id: 'draft_inspector', label: 'Draft Inspector', icon: 'fingerprint' },
+      { id: 'approval_queue', label: 'Approval & Dispatch', icon: 'shield' },
+    ],
+  },
+  {
+    title: 'Pilot Workflow',
+    items: [
+      { id: 'manual_export_pilot_verification', label: 'Manual Export', icon: 'layers' },
+      { id: 'operator_review_queue', label: 'Review Queue', icon: 'inventory' },
+      { id: 'manual_pilot_trail_reconciliation', label: 'Reconciliation', icon: 'sparkle' },
+    ],
+  },
+  {
+    title: 'Evidence / Safety',
+    items: [
+      { id: 'preflight_bundle', label: 'Preflight Bundle', icon: 'shield' },
+      { id: 'evidence_vault', label: 'Evidence Vault', icon: 'lock' },
+      { id: 'operator_runbook_index', label: 'Operator Runbook', icon: 'lock' },
+    ],
+  },
 ];
+
+export const NAV_ITEMS = NAV_GROUPS.flatMap((g) => g.items);

@@ -30,7 +30,7 @@ import type { ManualPublishRecord, MetricsSnapshot } from '../types';
 type StageTab = ManualPublishRecord['stage'];
 
 const STAGE_TABS: { id: StageTab; label: string }[] = [
-  { id: 'approved_for_manual', label: 'Approved for manual' },
+  { id: 'approved_for_manual', label: 'Verified local (manual)' },
   { id: 'blocked', label: 'Blocked' },
   { id: 'manually_posted', label: 'Manually posted' },
   { id: 'metrics_entered', label: 'Metrics entered' },

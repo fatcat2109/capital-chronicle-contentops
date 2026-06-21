@@ -787,13 +787,30 @@ export function selectAuditContradiction(
   };
 }
 
+export function getStepLabel(stepId: string): string {
+  switch (stepId) {
+    case 'preflight_bundle':
+      return 'Preflight Bundle Validation';
+    case 'manual_export_pilot_verification':
+      return 'Manual Export & Verification';
+    case 'operator_review_queue':
+      return 'Operator Review Queue';
+    case 'manual_pilot_reconciliation':
+      return 'Manual Pilot Reconciliation';
+    case 'evidence_vault_manual_pilot_audit':
+      return 'Evidence Vault Audit';
+    default:
+      return stepId.replace(/_/g, ' ').toUpperCase();
+  }
+}
+
 export function selectRunbookStep(
   s: V5RunbookStep,
 ): SelectableObject {
   return {
     kind: 'runbook_step',
     id: s.step_id,
-    title: s.step_id.replace(/_/g, ' ').toUpperCase(),
+    title: getStepLabel(s.step_id),
     fields: [
       { label: 'Step ID', value: s.step_id, mono: true },
       { label: 'View ID', value: s.view_id, mono: true },

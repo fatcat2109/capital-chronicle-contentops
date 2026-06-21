@@ -15,7 +15,7 @@ describe('Manual Pilot Trail Audit Index UI', () => {
     openAuditView();
 
     expect(screen.getByText(/Manual Pilot Audit Overview/i)).toBeInTheDocument();
-    expect(screen.getByText(/verified blocked\/manual-only/i)).toBeInTheDocument();
+    expect(screen.getByText(/verified local \(blocked\/manual-only\)/i)).toBeInTheDocument();
     expect(screen.getAllByText(packet.packet_hash).length).toBeGreaterThan(0);
   });
 

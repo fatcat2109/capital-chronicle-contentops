@@ -1,6 +1,6 @@
 import { useApp } from '../state';
 import { ViewId } from '../types';
-import { selectRunbookStep } from '../selectors';
+import { selectRunbookStep, getStepLabel } from '../selectors';
 import { operatorRunbookIndexPacket as runbook } from '../data/operatorRunbookIndexPacket';
 import { Panel, StatusChip, StatusDot, LockedAction, SectionLabel } from '../ui/primitives';
 import { IconClock, IconFingerprint, IconBlock } from '../ui/icons';
@@ -94,12 +94,15 @@ export function OperatorRunbookIndex() {
                       <span className="font-mono text-[9.5px] font-bold text-fg-subtle uppercase">
                         Step 0{index + 1}
                       </span>
-                      <span className="font-mono text-[11.5px] font-semibold text-fg break-all">
-                        {s.step_id}
+                      <span className="text-[11.5px] font-semibold text-fg leading-tight">
+                        {getStepLabel(s.step_id)}
+                      </span>
+                      <span className="font-mono text-[9px] text-fg-subtle break-all">
+                        ({s.step_id})
                       </span>
                       <span className="mt-0.5 font-mono text-[9px] uppercase font-bold">
                         {s.status === 'verified' ? (
-                          <span className="text-status-verified">verified</span>
+                          <span className="text-status-verified">verified local</span>
                         ) : s.status === 'blocked' ? (
                           <span className="text-status-blocked">blocked</span>
                         ) : (
@@ -136,8 +139,8 @@ export function OperatorRunbookIndex() {
                       <div className="font-mono text-[10.5px] font-bold text-fg-subtle uppercase">
                         Step 0{index + 1} · {s.step_id}
                       </div>
-                      <h3 className="mt-1 text-base font-semibold text-fg font-mono break-all">
-                        {s.step_id.replace(/_/g, ' ').toUpperCase()}
+                      <h3 className="mt-1 text-base font-semibold text-fg leading-snug">
+                        {getStepLabel(s.step_id)}
                       </h3>
                     </div>
                     <div className="flex items-center gap-2">

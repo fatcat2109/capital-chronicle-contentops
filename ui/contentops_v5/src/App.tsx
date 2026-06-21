@@ -2,7 +2,7 @@
 // Local-first. No network, no storage, no credentials.
 
 import { useMemo, useState } from 'react';
-import { AppContext, NAV_ITEMS, useApp } from './state';
+import { AppContext, NAV_GROUPS, useApp } from './state';
 import type { SelectableObject, ThemeMode, ViewId } from './types';
 import { viewModel } from './fixtures';
 import { defaultSelectionFor } from './selectors';
@@ -118,43 +118,52 @@ function LeftNav({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
           </button>
         </div>
 
-        <ul className="flex-1 space-y-0.5 overflow-y-auto p-3">
-          {NAV_ITEMS.map((item) => {
-            const Icon = VIEW_ICONS[item.icon];
-            const active = view === item.id;
-            return (
-              <li key={item.id}>
-                <button
-                  type="button"
-                  id={`nav-${item.id}`}
-                  onClick={() => {
-                    setView(item.id);
-                    onClose();
-                  }}
-                  aria-current={active ? 'page' : undefined}
-                  className={`group relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
-                    active
-                      ? 'bg-surface-2 font-semibold text-fg'
-                      : 'text-fg-muted hover:bg-surface-2 hover:text-fg'
-                  }`}
-                >
-                  <span
-                    className={`absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-full bg-accent transition-opacity ${
-                      active ? 'opacity-100' : 'opacity-0'
-                    }`}
-                    aria-hidden
-                  />
-                  <Icon
-                    className={`h-[18px] w-[18px] shrink-0 ${
-                      active ? 'text-accent' : 'text-fg-subtle group-hover:text-fg-muted'
-                    }`}
-                  />
-                  <span className="truncate">{item.label}</span>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+        <div className="flex-1 overflow-y-auto p-3 space-y-4">
+          {NAV_GROUPS.map((group) => (
+            <div key={group.title} className="space-y-1">
+              <h3 className="px-3 text-[10px] font-bold uppercase tracking-wider text-fg-subtle">
+                {group.title}
+              </h3>
+              <ul className="space-y-0.5">
+                {group.items.map((item) => {
+                  const Icon = VIEW_ICONS[item.icon];
+                  const active = view === item.id;
+                  return (
+                    <li key={item.id}>
+                      <button
+                        type="button"
+                        id={`nav-${item.id}`}
+                        onClick={() => {
+                          setView(item.id);
+                          onClose();
+                        }}
+                        aria-current={active ? 'page' : undefined}
+                        className={`group relative flex w-full items-center gap-3 rounded-lg px-3 py-1.5 text-left text-sm transition-colors ${
+                          active
+                            ? 'bg-surface-2 font-semibold text-fg'
+                            : 'text-fg-muted hover:bg-surface-2 hover:text-fg'
+                        }`}
+                      >
+                        <span
+                          className={`absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-full bg-accent transition-opacity ${
+                            active ? 'opacity-100' : 'opacity-0'
+                          }`}
+                          aria-hidden
+                        />
+                        <Icon
+                          className={`h-[18px] w-[18px] shrink-0 ${
+                            active ? 'text-accent' : 'text-fg-subtle group-hover:text-fg-muted'
+                          }`}
+                        />
+                        <span className="truncate">{item.label}</span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </div>
 
         <div className="border-t border-line p-3">
           <div className="rounded-lg border border-line bg-surface-2 p-3">

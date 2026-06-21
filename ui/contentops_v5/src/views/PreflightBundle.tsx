@@ -188,7 +188,7 @@ export function PreflightBundle() {
                       </td>
                       <td className="px-4 py-3">
                         <StatusChip status={readinessOk ? 'verified' : 'blocked'}>
-                          {readinessOk ? 'cleared' : 'blocked'}
+                          {readinessOk ? 'verified local' : 'blocked'}
                         </StatusChip>
                       </td>
                     </tr>

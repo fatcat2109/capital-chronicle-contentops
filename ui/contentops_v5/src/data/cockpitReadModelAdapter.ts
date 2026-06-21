@@ -166,7 +166,7 @@ export function buildCockpitManualRecords(): ManualPublishRecord[] {
     can_post_live: false,
   });
   const records = [
-    base('MP-X-0042', 'X', 'x', first, 'approved_for_manual', 'Approved for manual', 'verified'),
+    base('MP-X-0042', 'X', 'x', first, 'approved_for_manual', 'Verified Local (Manual)', 'verified'),
     base('MP-LI-0042', 'LinkedIn', 'linkedin', second, 'manually_posted', 'Manually posted', 'verified'),
     base('MP-TG-0042', 'Telegram', 'telegram', first, 'metrics_entered', 'Metrics entered', 'verified'),
     base('MP-TT-0042', 'TikTok', 'tiktok', second, 'blocked', 'Blocked', 'blocked'),

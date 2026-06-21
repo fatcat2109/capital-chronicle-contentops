@@ -424,7 +424,7 @@ export const viewModel: ContentOpsViewModel = {
       id: 'EV-0174BZ',
       task_label: 'TASK_CONTENTOPS_0174BZ_V5_FRONTEND_SCAFFOLD_AND_DESIGN_SYSTEM_FOUNDATION_V0',
       result: 'verified',
-      result_label: 'Foundation shipped',
+      result_label: 'Verified local (foundation)',
       commit_ref: 'commit@pending',
       timestamp: '2026-06-15T09:22:00+07:00',
       validation_matrix: [
