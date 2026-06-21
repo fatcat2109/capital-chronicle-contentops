@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `a3bc9ed1d6636796e3a8d1866c37492ef0207141`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175BB_CONTENT_FEEDBACK_PRECHECK_TO_FEEDBACK_STUB_V0`
-* **Latest implemented capability:** Content Feedback Precheck to Feedback Stub
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0`
+* **Last resolved accepted HEAD in ledger:** `2265841efaa3af9177fbb58f2def53ac6cfa807a`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0`
+* **Latest implemented capability:** Feedback Stub to Operator Review Brief Precheck
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BD_REPO_DEEP_RESEARCH_AND_REMAINING_PHASE_PLAN_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -112,7 +112,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175AZ_PERFORMANCE_AUDIT_PRECHECK_TO_SUMMARY_STUB_V0` | `048b27c6dce2aef5fb38e0552b8208d4fd408d9f` | `888d6c34b31daa107056bb5a56ab0d5e7430e49b` | build performance summary stub | pytest suite, check checked invariants, required metric references | performance summary stub metadata stubs for future logging | live/platform/API/publishing | `0175BA` |
 | `TASK_CONTENTOPS_0175BA_PERFORMANCE_SUMMARY_STUB_TO_CONTENT_FEEDBACK_PRECHECK_V0` | `888d6c34b31daa107056bb5a56ab0d5e7430e49b` | `1e278a83bb2cf95464edc80dbfe819adf6ba6107` | build content feedback precheck | pytest suite, check checked invariants, required feedback references | content feedback precheck metadata stubs for future logging | live/platform/API/publishing | `0175BB` |
 | `TASK_CONTENTOPS_0175BB_CONTENT_FEEDBACK_PRECHECK_TO_FEEDBACK_STUB_V0` | `1e278a83bb2cf95464edc80dbfe819adf6ba6107` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` | build content feedback stub | pytest suite, check checked invariants, required feedback references | content feedback stub metadata stubs for future logging | live/platform/API/publishing | `0175BC` |
-| `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` | `RECORDED_IN_NEXT_TASK_READBACK` | build operator review brief precheck | pytest suite, check checked invariants, required brief references | operator review brief precheck metadata stubs for future logging | live/platform/API/publishing | `0175BD` |
+| `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` | `2265841efaa3af9177fbb58f2def53ac6cfa807a` | build operator review brief precheck | pytest suite, check checked invariants, required brief references | operator review brief precheck metadata stubs for future logging | live/platform/API/publishing | `0175BD` |
+| `TASK_CONTENTOPS_0175BD_REPO_DEEP_RESEARCH_AND_REMAINING_PHASE_PLAN_V0` | `2265841efaa3af9177fbb58f2def53ac6cfa807a` | `RECORDED_IN_NEXT_TASK_READBACK` | perform deep research scan and plan remaining phases | JSON packet loads, file existence checks | strategic design clarity and remaining roadmap planning | local/recon | `0175BE` |
 
 ---
 
@@ -154,6 +155,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BD_OPERATOR_REVIEW_BRIEF_PRECHECK_TO_BRIEF_STUB_V0`
-* **Focus:** Operator Review Brief Precheck to Brief Stub. Establish stubs for content feedback loops.
+* **Next recommended task:** `TASK_CONTENTOPS_0175BE_CONTRACT_CHAIN_LIFECYCLE_SPINE_AND_OPERATOR_REVIEW_READ_MODEL_PRECHECK_V0`
+* **Focus:** Consolidate the 20+ circular mock contract stubs into a single unified lifecycle engine.
 * **Visual System Status:** Visual enhancement/polish is deferred until more core product foundation is complete.

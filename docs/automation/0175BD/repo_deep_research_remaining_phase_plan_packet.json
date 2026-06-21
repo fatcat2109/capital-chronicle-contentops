@@ -1,0 +1,411 @@
+{
+  "inventory": [
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174U1/platform_universe_registry_v2_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/platform_universe_registry_v2.py"
+      ],
+      "backing_tests": [
+        "tests/test_platform_universe_registry_v2.py"
+      ],
+      "capability": "Platform Universe Registry",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "Lack of live status queries to targets.",
+      "ui_binding": "ui/contentops_v5/src/views/CommandCenter.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174U4/content_idea_intent_parser_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/content_idea_intent_parser_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_content_idea_intent_parser_contract.py"
+      ],
+      "capability": "Content Idea Intake",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/symbolic",
+      "confidence": "high",
+      "gaps": "Only accepts mock intents; no real RSS/ingestion pipelines.",
+      "ui_binding": "ui/contentops_v5/src/views/WriterStudio.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174U5/editorial_brief_ai_writer_output_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/editorial_brief_ai_writer_output_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_editorial_brief_ai_writer_output_contract.py"
+      ],
+      "capability": "Writer Studio",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/symbolic",
+      "confidence": "high",
+      "gaps": "Editorial brief generation is dry-run only; no live synchronizer.",
+      "ui_binding": "ui/contentops_v5/src/views/WriterStudio.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174U3/substack_newsletter_manual_export_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/llm_content_writer_workbench.py"
+      ],
+      "backing_tests": [
+        "tests/test_llm_content_writer_workbench.py"
+      ],
+      "capability": "AI Writer / SEO Lab",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/symbolic",
+      "confidence": "high",
+      "gaps": "No real LLM provider endpoint integrated.",
+      "ui_binding": "ui/contentops_v5/src/views/AiWriterSeoLab.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174U6/idea_to_multi_platform_draft_dry_run_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/citation_guardrail.py"
+      ],
+      "backing_tests": [
+        "tests/test_citation_guardrail.py"
+      ],
+      "capability": "Draft Inspector",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "Rules engine evaluates static dictionary structures; no dynamic check runtime.",
+      "ui_binding": "ui/contentops_v5/src/views/DraftInspector.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174U2/primary_platform_payload_preview_contracts_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/platform_payload_preview_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_platform_payload_preview_contract.py"
+      ],
+      "capability": "Platform Payload Preview",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/symbolic",
+      "confidence": "high",
+      "gaps": "Payload formats verified via static checks, no real API sandbox rendering.",
+      "ui_binding": "ui/contentops_v5/src/views/PlatformPayloadPreview.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174UD/manual_publish_record_metrics_ledger_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/manual_publish_record_metrics_ledger_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_manual_publish_record_metrics_ledger_contract.py"
+      ],
+      "capability": "Manual Publish / Metrics",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "No metrics retrieval API integrated; manual operator logs only.",
+      "ui_binding": "ui/contentops_v5/src/views/ManualPublishMetrics.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174UW/v5_manual_export_pilot_verification_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/v5_manual_export_pilot_verification_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_v5_manual_export_pilot_verification_contract.py"
+      ],
+      "capability": "Manual Export / Pilot",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "None. Manual copy-paste capability verified.",
+      "ui_binding": "ui/contentops_v5/src/views/ManualExportPilotVerification.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174UY/v5_operator_review_queue_manual_pilot_trail_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/v5_operator_review_queue_manual_pilot_trail_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_v5_operator_review_queue_manual_pilot_trail_contract.py"
+      ],
+      "capability": "Operator Review Queue",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "Queue is decoupled from active platform dispatch triggers.",
+      "ui_binding": "ui/contentops_v5/src/views/OperatorReviewQueue.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174UZ/v5_manual_pilot_trail_reconciliation_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/v5_manual_pilot_trail_reconciliation_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_v5_manual_pilot_trail_reconciliation_contract.py"
+      ],
+      "capability": "Manual Pilot Reconciliation",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "Requires operator manual inputs; no background polling of platform status.",
+      "ui_binding": "ui/contentops_v5/src/views/ManualPilotTrailReconciliation.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174UW/v5_manual_export_pilot_verification_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/approval_queue.py"
+      ],
+      "backing_tests": [
+        "tests/test_approval_queue.py"
+      ],
+      "capability": "Approval / Dispatch Control",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "Does not integrate production cryptographic key vaults.",
+      "ui_binding": "ui/contentops_v5/src/views/ApprovalQueue.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174U9/redacted_immutable_audit_ledger_v2_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/redacted_immutable_audit_ledger_v2_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_redacted_immutable_audit_ledger_v2_contract.py"
+      ],
+      "capability": "Evidence Vault",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "No validation check runs against a live blockchain audit ledger.",
+      "ui_binding": "ui/contentops_v5/src/views/EvidenceVault.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174UU/local_preflight_bundle_v5_read_model_precheck_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/local_preflight_bundle_v5_read_model_precheck_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_local_preflight_bundle_v5_read_model_precheck_contract.py"
+      ],
+      "capability": "Preflight Bundle",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "Checks presence of key names only; no active token validation.",
+      "ui_binding": "ui/contentops_v5/src/views/PreflightBundle.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0174U5/v5_manual_export_pilot_verification_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/v5_local_operator_runbook_index_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_v5_local_operator_runbook_index_contract.py"
+      ],
+      "capability": "Local Operator Runbook",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "Runbook index relies on manual checkpoint verification.",
+      "ui_binding": "ui/contentops_v5/src/views/OperatorRunbookIndex.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0175AF/lane_c_artifact_intake_validation_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/lane_c_artifact_intake_validation_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_lane_c_artifact_intake_validation_contract.py"
+      ],
+      "capability": "Lane C Artifact Intake Validation",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "Validates schema format only; no active filesystem connector active.",
+      "ui_binding": "ui/contentops_v5/src/views/CommandCenter.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0175AG/lane_c_artifact_connector_index_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/lane_c_artifact_connector_index_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_lane_c_artifact_connector_index_contract.py"
+      ],
+      "capability": "Lane C Artifact Connector Index",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "Index is populated with symbolic path limits; no active ingestion loop.",
+      "ui_binding": "ui/contentops_v5/src/views/CommandCenter.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0175AI/lane_c_artifact_ingestion_foundation_contract_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/lane_c_artifact_ingestion_foundation_contract.py"
+      ],
+      "backing_tests": [
+        "tests/test_lane_c_artifact_ingestion_foundation_contract.py"
+      ],
+      "capability": "Lane C Artifact Ingestion Foundation",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "local/real",
+      "confidence": "high",
+      "gaps": "Simulates folder scanning via local fixtures; no file system watcher.",
+      "ui_binding": "ui/contentops_v5/src/views/CommandCenter.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/automation/0084/telegram_first_supervised_live_post_gate_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/telegram_first_supervised_live_post_gate.py"
+      ],
+      "backing_tests": [
+        "tests/test_telegram_first_supervised_live_post_gate.py"
+      ],
+      "capability": "Telegram Channel Destination",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "live/supervised",
+      "confidence": "high",
+      "gaps": "Requires CLI flags and direct getpass interactions; no admin UI send.",
+      "ui_binding": "ui/contentops_v5/src/views/ApprovalQueue.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/credential_readiness/0174DE/x_oauth_live_read_only_identity_proof_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/x_oauth_live_read_only_identity_proof_gate.py"
+      ],
+      "backing_tests": [
+        "tests/test_x_oauth_live_read_only_identity_proof_gate.py"
+      ],
+      "capability": "X supervised live-read gate",
+      "claimed_status_in_ledger": "TESTED",
+      "classification": "live/supervised",
+      "confidence": "high",
+      "gaps": "OAuth flow validated for read-only user context; CLI getpass only.",
+      "ui_binding": "ui/contentops_v5/src/views/PreflightBundle.tsx"
+    },
+    {
+      "backing_docs_packets": [
+        "docs/credential_readiness/0174DD/x_oauth_supervised_live_readiness_bridge_bundle_packet.json"
+      ],
+      "backing_modules": [
+        "live_contentops/x_oauth_supervised_live_readiness_bridge_bundle_gate.py"
+      ],
+      "backing_tests": [
+        "tests/test_x_oauth_supervised_live_readiness_bridge_bundle_gate.py"
+      ],
+      "capability": "X supervised live-write gate",
+      "claimed_status_in_ledger": "LOCAL_CONTRACT_READY",
+      "classification": "local/symbolic",
+      "confidence": "high",
+      "gaps": "Dry-run readiness contract only; no live write endpoint verified.",
+      "ui_binding": "ui/contentops_v5/src/views/PreflightBundle.tsx"
+    }
+  ],
+  "phase_completion_map": {
+    "completed_with_evidence": [
+      "Platform Universe Registry",
+      "Draft Inspector",
+      "Manual Publish / Metrics",
+      "Manual Export / Pilot",
+      "Operator Review Queue",
+      "Manual Pilot Reconciliation",
+      "Approval / Dispatch Control",
+      "Evidence Vault",
+      "Preflight Bundle",
+      "Local Operator Runbook",
+      "Lane C Artifact Intake Validation",
+      "Lane C Artifact Connector Index",
+      "Lane C Artifact Ingestion Foundation",
+      "Telegram Channel Destination",
+      "X supervised live-read gate",
+      "Pre-Alpha Ingestion Connector (tested)"
+    ],
+    "implemented_but_needs_browser_qa": [
+      "Platform Universe Registry",
+      "Content Idea Intake",
+      "Writer Studio",
+      "AI Writer / SEO Lab",
+      "Draft Inspector",
+      "Platform Payload Preview",
+      "Manual Publish / Metrics",
+      "Manual Export / Pilot",
+      "Operator Review Queue",
+      "Manual Pilot Reconciliation",
+      "Approval / Dispatch Control",
+      "Evidence Vault",
+      "Preflight Bundle",
+      "Local Operator Runbook",
+      "Lane C Artifact Intake Validation",
+      "Lane C Artifact Connector Index",
+      "Lane C Artifact Ingestion Foundation",
+      "Telegram Channel Destination",
+      "X supervised live-read gate",
+      "X supervised live-write gate"
+    ],
+    "implemented_but_needs_consolidation": [
+      "Content feedback stub chain (0175AT-0175BC loop)"
+    ],
+    "missing": [
+      "Live RSS parser",
+      "Real database binding",
+      "Production KMS credentials"
+    ],
+    "risky_overclaimed": [
+      "X supervised live-write gate (claimed ready but symbolic only)"
+    ],
+    "stale_duplicate": [
+      "0175AT-0175BC stub chain duplicate prechecks (overclaims progress without utility)"
+    ],
+    "symbolic_only": [
+      "Content Idea Intake",
+      "Writer Studio",
+      "AI Writer / SEO Lab",
+      "Platform Payload Preview",
+      "X supervised live-write gate",
+      "LinkedIn / Meta / TikTok / YouTube expansion gates (not started or placeholder only)"
+    ]
+  },
+  "scanned_at_iso": "2026-06-21T20:00:42.278469Z",
+  "starting_head": "2265841efaa3af9177fbb58f2def53ac6cfa807a",
+  "task_label": "TASK_CONTENTOPS_0175BD_REPO_DEEP_RESEARCH_AND_REMAINING_PHASE_PLAN_V0"
+}
