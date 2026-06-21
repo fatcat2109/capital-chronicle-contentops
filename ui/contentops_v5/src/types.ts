@@ -13,6 +13,7 @@ export type ViewId =
   | 'draft_inspector'
   | 'platform_payload_preview'
   | 'manual_publish_metrics'
+  | 'manual_export_pilot_verification'
   | 'approval_queue'
   | 'evidence_vault'
   | 'preflight_bundle';
@@ -652,4 +653,127 @@ export interface LocalPreflightBundlePacket {
   u9_audit_entry_ids: string[];
   ui_binding_policy: string;
   v5_candidate_fields: LocalPreflightBundleCandidateField[];
+}
+
+export interface V5ManualExportPilotSafetyFlags {
+  credential_hydrated: boolean;
+  credential_values_accessed: boolean;
+  dispatch_ready: boolean;
+  dm_or_reply_automation_allowed: boolean;
+  dotenv_loaded: boolean;
+  env_read: boolean;
+  ingestion_repo_mutated: boolean;
+  local_only: boolean;
+  manual_export_only: boolean;
+  network_performed: boolean;
+  pilot_verification_only: boolean;
+  platform_api_called: boolean;
+  posting_performed: boolean;
+  provider_api_called: boolean;
+  public_postable: boolean;
+  readiness_cleared: boolean;
+  scheduler_enabled: boolean;
+  scraping_performed: boolean;
+  secret_output_allowed: boolean;
+  token_hash_or_prefix_suffix_output: boolean;
+}
+
+export interface V5ManualExportPlatformTarget {
+  blocked_reason: string;
+  dispatch_ready: false;
+  manual_copy_block_id: string;
+  manual_only: true;
+  no_api: true;
+  no_credentials: true;
+  no_scheduler: true;
+  not_live: true;
+  not_public_postable_until_operator_action_outside_system: true;
+  platform_label: string;
+  public_postable: false;
+  status: string;
+  target_class: string;
+  target_id: string;
+}
+
+export interface V5ManualCopyBlock {
+  block_id: string;
+  content_classification: string;
+  copy_text: string;
+  draft_only: true;
+  manual_export_only: true;
+  no_fake_live_market_data: true;
+  no_raw_response_bodies: true;
+  no_secrets: true;
+  platform_target_id: string;
+  title: string;
+}
+
+export interface V5ManualExportChecklistItem {
+  detail: string;
+  item_id: string;
+  label: string;
+  status: StatusKind;
+}
+
+export interface V5ReviewSignaturePlaceholder {
+  cryptographic_signature: false;
+  signature_value: string;
+  signer_label: string;
+  status: string;
+  uses_secret_material: false;
+}
+
+export interface V5ManualEmptyPlaceholder {
+  detail: string;
+  status: string;
+  value: string;
+}
+
+export interface V5DisabledLiveDispatchState {
+  connect_account_enabled: false;
+  live_dispatch_enabled: false;
+  publish_enabled: false;
+  reason: string;
+  schedule_enabled: false;
+  send_enabled: false;
+  state_id: string;
+  sync_platform_enabled: false;
+  verify_credentials_enabled: false;
+}
+
+export interface V5PilotVerificationPacket {
+  blocked_reasons: string[];
+  checklist_items: V5ManualExportChecklistItem[];
+  missing_proofs: string[];
+  no_live_action_proof: string[];
+  packet_hash: string;
+  packet_hash_algorithm: string;
+  redaction_proof: string[];
+  status: string;
+  u9_audit_references: string[];
+  verification_id: string;
+}
+
+export interface V5ManualExportPilotVerificationPacket {
+  contract_version: string;
+  disabled_live_dispatch_state: V5DisabledLiveDispatchState;
+  evidence_refs: string[];
+  export_package_id: string;
+  generated_at_epoch: number;
+  manual_copy_blocks: V5ManualCopyBlock[];
+  manual_metrics_placeholder: V5ManualEmptyPlaceholder;
+  manual_publish_url_placeholder: V5ManualEmptyPlaceholder;
+  next_recommended_task: string;
+  operator_review_checklist: V5ManualExportChecklistItem[];
+  packet_hash: string;
+  packet_hash_algorithm: string;
+  pilot_verification_packet: V5PilotVerificationPacket;
+  pilot_verification_status: string;
+  platform_targets: V5ManualExportPlatformTarget[];
+  review_signature_placeholder: V5ReviewSignaturePlaceholder;
+  safety_flags: V5ManualExportPilotSafetyFlags;
+  source_baseline_commit: string;
+  source_read_model_packet_hash: string;
+  source_read_model_packet_id: string;
+  task_label: string;
 }

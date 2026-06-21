@@ -1,0 +1,292 @@
+// Capital Chronicle ContentOps V5 — Manual Export / Pilot Verification.
+// Read-only local package preview. No API calls, credentials, scheduling, or posting.
+
+import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
+import { useApp } from '../state';
+import {
+  selectManualCopyBlock,
+  selectManualExportChecklistItem,
+  selectManualExportPilotPacket,
+  selectManualExportTarget,
+} from '../selectors';
+import { IconBlock, IconShield } from '../ui/icons';
+import { LockedAction, Panel, StatusChip, StatusDot } from '../ui/primitives';
+
+export function ManualExportPilotVerification() {
+  const { select, selected } = useApp();
+  const activeTargets = p.platform_targets.filter((t) => t.target_class === 'active_manual_export_preview');
+  const futureTargets = p.platform_targets.filter((t) => t.target_class === 'future_manual_expansion');
+
+  return (
+    <div className="space-y-6">
+      <header className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0">
+          <div className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-fg-subtle">
+            Manual Export Contract
+            <span className="text-fg-subtle/60">·</span>
+            <span className="text-fg-muted">0174UW</span>
+          </div>
+          <h1 className="mt-2 flex items-center gap-2 text-2xl font-semibold tracking-tight text-fg">
+            <IconShield className="h-6 w-6 text-accent" />
+            Manual Export &amp; Pilot Verification
+          </h1>
+          <p className="mt-1 max-w-3xl text-sm font-medium leading-relaxed text-fg-muted">
+            Reviewable local export package for supervised pilot editorial runs.
+            It prepares copy blocks and verification evidence only; operators must
+            manually copy/publish outside ContentOps after human review.
+          </p>
+        </div>
+        <button
+          type="button"
+          id="select-manual-export-packet-btn"
+          onClick={() => select(selectManualExportPilotPacket(p))}
+          className={`rounded-lg border px-3 py-1 text-left transition-colors ${
+            selected?.kind === 'manual_export_pilot_packet'
+              ? 'border-accent/40 bg-accent/5'
+              : 'border-line bg-surface-2 hover:border-line-strong'
+          }`}
+        >
+          <span className="block font-mono text-[10.5px] font-semibold text-fg">
+            Export SHA-256
+          </span>
+          <span className="font-mono text-[11px] text-fg-subtle">
+            {p.packet_hash.slice(0, 16)}...
+          </span>
+        </button>
+      </header>
+
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
+        {[
+          'Manual Export Only',
+          'No platform API',
+          'No credentials loaded',
+          'No live dispatch',
+          'Operator publishes outside ContentOps',
+        ].map((label, index) => (
+          <div
+            key={label}
+            id={`manual-export-safety-${index}`}
+            className="rounded-xl border border-status-blocked/30 bg-status-blocked/5 p-3"
+          >
+            <div className="flex items-center gap-2">
+              <StatusDot status="blocked" />
+              <span className="text-[12px] font-semibold uppercase tracking-wide text-fg">
+                {label}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <Panel
+        title="Export Package Overview"
+        subtitle="Packet identity, source 0174UU binding, and pilot verification posture"
+        bodyClassName="p-4"
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Package" value={p.export_package_id} mono status="review" />
+          <Metric label="Pilot status" value={p.pilot_verification_status} mono status="blocked" />
+          <Metric label="Source hash" value={p.source_read_model_packet_hash} mono status="verified" />
+          <Metric label="Packet hash" value={p.packet_hash} mono status="verified" />
+        </div>
+        <div className="mt-4 rounded-xl border border-line bg-surface-2 p-4">
+          <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+            Evidence refs
+          </div>
+          <div className="mt-2 grid gap-2">
+            {p.evidence_refs.map((ref) => (
+              <div key={ref} className="rounded-lg border border-line bg-surface-1 px-3 py-2 font-mono text-[12px] text-fg-muted">
+                {ref}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Panel>
+
+      <Panel
+        title="Platform Manual Copy Targets"
+        subtitle="Select any target to inspect manual/no-api/no-credential flags"
+        bodyClassName="p-0 overflow-x-auto"
+      >
+        <table className="w-full min-w-[760px] border-collapse text-left text-sm">
+          <thead>
+            <tr className="border-b border-line bg-surface-2 font-mono text-[10.5px] uppercase tracking-wider text-fg-muted">
+              <th className="px-4 py-3">Target</th>
+              <th className="px-4 py-3">Class</th>
+              <th className="px-4 py-3">Status</th>
+              <th className="px-4 py-3">No API</th>
+              <th className="px-4 py-3">No Credentials</th>
+              <th className="px-4 py-3">Dispatch</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-line">
+            {p.platform_targets.map((target) => (
+              <tr
+                key={target.target_id}
+                id={`manual-export-target-${target.target_id}`}
+                onClick={() => select(selectManualExportTarget(target))}
+                className={`cursor-pointer transition-colors hover:bg-surface-2/60 ${
+                  selected?.kind === 'manual_export_target' && selected.id === target.target_id
+                    ? 'bg-accent/5'
+                    : ''
+                }`}
+              >
+                <td className="px-4 py-3 font-mono text-[12px] font-semibold text-fg">
+                  {target.platform_label}
+                </td>
+                <td className="px-4 py-3 font-mono text-[11px] text-fg-subtle">
+                  {target.target_class}
+                </td>
+                <td className="px-4 py-3">
+                  <StatusChip status={target.status === 'future_gate_blocked' ? 'blocked' : 'review'}>
+                    {target.status}
+                  </StatusChip>
+                </td>
+                <td className="px-4 py-3"><StatusChip status="verified">true</StatusChip></td>
+                <td className="px-4 py-3"><StatusChip status="verified">true</StatusChip></td>
+                <td className="px-4 py-3"><StatusChip status="blocked">blocked</StatusChip></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Panel>
+
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+        <Panel
+          title="Manual Copy Blocks"
+          subtitle="Local draft text only; no secrets, raw response bodies, or live market data"
+          bodyClassName="p-4"
+        >
+          <div className="grid gap-3">
+            {p.manual_copy_blocks.map((block) => (
+              <button
+                key={block.block_id}
+                type="button"
+                id={`manual-copy-block-${block.block_id}`}
+                onClick={() => select(selectManualCopyBlock(block))}
+                className={`rounded-xl border p-4 text-left transition-colors hover:border-line-strong ${
+                  selected?.kind === 'manual_copy_block' && selected.id === block.block_id
+                    ? 'border-accent/40 bg-accent/5'
+                    : 'border-line bg-surface-2'
+                }`}
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <h3 className="font-semibold text-fg">{block.title}</h3>
+                  <StatusChip status="review">manual review</StatusChip>
+                </div>
+                <p className="mt-2 text-sm leading-relaxed text-fg-muted">
+                  {block.copy_text}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <StatusChip status="verified">no secrets</StatusChip>
+                  <StatusChip status="verified">no raw bodies</StatusChip>
+                  <StatusChip status="blocked">not public-postable</StatusChip>
+                </div>
+              </button>
+            ))}
+          </div>
+        </Panel>
+
+        <Panel
+          title="Pilot Verification Packet"
+          subtitle="Blocked-first proof packet for human review"
+          bodyClassName="p-4"
+        >
+          <div className="space-y-3">
+            <Metric label="Verification" value={p.pilot_verification_packet.verification_id} mono status="review" />
+            <Metric label="Status" value={p.pilot_verification_packet.status} mono status="blocked" />
+            <Metric label="Verification hash" value={p.pilot_verification_packet.packet_hash} mono status="verified" />
+          </div>
+          <div className="mt-4 space-y-2">
+            {p.operator_review_checklist.map((item) => (
+              <button
+                key={item.item_id}
+                type="button"
+                id={`manual-export-check-${item.item_id}`}
+                onClick={() => select(selectManualExportChecklistItem(item))}
+                className="flex w-full items-start gap-2 rounded-lg border border-line bg-surface-2 px-3 py-2 text-left transition-colors hover:border-line-strong"
+              >
+                <StatusDot status={item.status} />
+                <span className="min-w-0">
+                  <span className="block text-sm font-semibold text-fg">{item.label}</span>
+                  <span className="block text-[12px] leading-relaxed text-fg-muted">{item.detail}</span>
+                </span>
+              </button>
+            ))}
+          </div>
+        </Panel>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <Panel title="Empty Placeholders" subtitle="Not recorded until operator acts outside ContentOps" bodyClassName="p-4">
+          <div className="grid gap-3">
+            <Placeholder label="Manual publish URL" status={p.manual_publish_url_placeholder.status} detail={p.manual_publish_url_placeholder.detail} />
+            <Placeholder label="Manual metrics" status={p.manual_metrics_placeholder.status} detail={p.manual_metrics_placeholder.detail} />
+            <Placeholder label="Review signature" status={p.review_signature_placeholder.status} detail="Signature value is empty and not cryptographic." />
+          </div>
+        </Panel>
+
+        <Panel title="Disabled Future Gates" subtitle="Visible controls prove live actions remain impossible" bodyClassName="p-4">
+          <div className="mb-4 flex items-start gap-3 rounded-xl border border-status-blocked/30 bg-status-blocked/5 p-3">
+            <IconBlock className="mt-0.5 h-4 w-4 shrink-0 text-status-blocked" />
+            <p className="text-[12px] leading-relaxed text-fg-muted">
+              Live controls are intentionally disabled: publish, send, schedule,
+              connect account, verify credentials, sync platform, and live dispatch.
+            </p>
+          </div>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {['Publish', 'Send', 'Schedule', 'Connect account', 'Verify credentials', 'Sync platform', 'Live dispatch'].map((label) => (
+              <div key={label} id={`manual-export-disabled-${label.toLowerCase().replace(/\s+/g, '-')}`}>
+                <LockedAction
+                  label={label}
+                  reason="manual_export_pilot_verification_only_no_live_affordance"
+                />
+              </div>
+            ))}
+          </div>
+        </Panel>
+      </div>
+
+      <Panel title="Expansion Targets" subtitle="Future manual copy targets stay blocked until separate contracts exist" bodyClassName="p-4">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-5">
+          {futureTargets.map((target) => (
+            <div key={target.target_id} className="rounded-xl border border-line bg-surface-2 p-3">
+              <div className="text-sm font-semibold text-fg">{target.platform_label}</div>
+              <div className="mt-1 font-mono text-[11px] text-fg-subtle">{target.blocked_reason}</div>
+              <div className="mt-3"><StatusChip status="blocked">future gate</StatusChip></div>
+            </div>
+          ))}
+        </div>
+        <div className="sr-only">{activeTargets.length} active manual export targets</div>
+      </Panel>
+    </div>
+  );
+}
+
+function Metric({ label, value, mono, status }: { label: string; value: string; mono?: boolean; status?: 'verified' | 'review' | 'blocked' }) {
+  return (
+    <div className="rounded-xl border border-line bg-surface-2 p-3">
+      <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+        {label}
+      </div>
+      <div className={`mt-1 break-all text-sm font-semibold text-fg ${mono ? 'font-mono text-[12px] font-normal' : ''}`}>
+        {status ? <StatusChip status={status}>{value}</StatusChip> : value}
+      </div>
+    </div>
+  );
+}
+
+function Placeholder({ label, status, detail }: { label: string; status: string; detail: string }) {
+  return (
+    <div className="rounded-xl border border-line bg-surface-2 p-3">
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-sm font-semibold text-fg">{label}</span>
+        <StatusChip status="review">{status}</StatusChip>
+      </div>
+      <div className="mt-2 rounded-lg border border-dashed border-line-strong bg-surface-1 px-3 py-2 font-mono text-[12px] text-fg-subtle">
+        value: ''
+      </div>
+      <p className="mt-2 text-[12px] leading-relaxed text-fg-muted">{detail}</p>
+    </div>
+  );
+}

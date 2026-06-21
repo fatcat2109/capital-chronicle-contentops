@@ -4,6 +4,7 @@
 
 import { viewModel } from './fixtures';
 import { preflightBundlePacket } from './data/preflightBundlePacket';
+import { manualExportPilotVerificationPacket } from './data/manualExportPilotVerificationPacket';
 import type {
   AiWriterOutput,
   ArtifactEligibilityCheck,
@@ -30,6 +31,10 @@ import type {
   LocalPreflightBundlePlatformState,
   LocalPreflightBundleRoomBindingPrecheck,
   LocalPreflightBundleSourceRef,
+  V5ManualCopyBlock,
+  V5ManualExportChecklistItem,
+  V5ManualExportPilotVerificationPacket,
+  V5ManualExportPlatformTarget,
 } from './types';
 
 
@@ -406,6 +411,8 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectPlatformPayloadPreview(vm.platform_payload_previews[0]);
     case 'manual_publish_metrics':
       return selectManualPublishRecord(vm.manual_publish_records[0]);
+    case 'manual_export_pilot_verification':
+      return selectManualExportPilotPacket(manualExportPilotVerificationPacket);
     case 'approval_queue': {
       const p = vm.approval_packets[0];
       const gate =
@@ -518,6 +525,84 @@ export function selectPreflightSourceRef(
       { label: 'Live capability', value: s.live_capability_added ? 'true' : 'false', status: s.live_capability_added ? 'blocked' : 'verified' },
       { label: 'Ingestion mut', value: s.ingestion_mutated ? 'true' : 'false', status: s.ingestion_mutated ? 'blocked' : 'verified' },
       { label: 'UI mutated', value: s.ui_mutated ? 'true' : 'false', status: s.ui_mutated ? 'blocked' : 'verified' },
+    ],
+  };
+}
+
+export function selectManualExportPilotPacket(
+  p: V5ManualExportPilotVerificationPacket,
+): SelectableObject {
+  return {
+    kind: 'manual_export_pilot_packet',
+    id: p.export_package_id,
+    title: 'Manual Export / Pilot Verification',
+    fields: [
+      { label: 'Package ID', value: p.export_package_id, mono: true },
+      { label: 'Status', value: p.pilot_verification_status, status: 'blocked' },
+      { label: 'Source hash', value: p.source_read_model_packet_hash, mono: true },
+      { label: 'Packet hash', value: p.packet_hash, mono: true },
+      { label: 'Targets', value: String(p.platform_targets.length) },
+      { label: 'Copy blocks', value: String(p.manual_copy_blocks.length) },
+      { label: 'Manual only', value: p.safety_flags.manual_export_only ? 'verified' : 'failed', status: p.safety_flags.manual_export_only ? 'verified' : 'blocked' },
+      { label: 'Platform API', value: p.safety_flags.platform_api_called ? 'called' : 'none', status: p.safety_flags.platform_api_called ? 'blocked' : 'verified' },
+      { label: 'Credentials', value: p.safety_flags.credential_values_accessed ? 'accessed' : 'not loaded', status: p.safety_flags.credential_values_accessed ? 'blocked' : 'verified' },
+      { label: 'Dispatch', value: p.safety_flags.dispatch_ready ? 'ready' : 'blocked', status: p.safety_flags.dispatch_ready ? 'verified' : 'blocked' },
+    ],
+  };
+}
+
+export function selectManualExportTarget(
+  t: V5ManualExportPlatformTarget,
+): SelectableObject {
+  return {
+    kind: 'manual_export_target',
+    id: t.target_id,
+    title: t.platform_label,
+    fields: [
+      { label: 'Target ID', value: t.target_id, mono: true },
+      { label: 'Class', value: t.target_class },
+      { label: 'Status', value: t.status, status: t.status === 'future_gate_blocked' ? 'blocked' : 'review' },
+      { label: 'Blocked by', value: t.blocked_reason },
+      { label: 'Manual only', value: t.manual_only ? 'true' : 'false', status: t.manual_only ? 'verified' : 'blocked' },
+      { label: 'No API', value: t.no_api ? 'true' : 'false', status: t.no_api ? 'verified' : 'blocked' },
+      { label: 'No creds', value: t.no_credentials ? 'true' : 'false', status: t.no_credentials ? 'verified' : 'blocked' },
+      { label: 'Scheduler', value: t.no_scheduler ? 'disabled' : 'enabled', status: t.no_scheduler ? 'verified' : 'blocked' },
+      { label: 'Dispatch', value: t.dispatch_ready ? 'ready' : 'blocked', status: t.dispatch_ready ? 'verified' : 'blocked' },
+      { label: 'Public post', value: t.public_postable ? 'true' : 'false', status: t.public_postable ? 'verified' : 'blocked' },
+    ],
+  };
+}
+
+export function selectManualCopyBlock(
+  b: V5ManualCopyBlock,
+): SelectableObject {
+  return {
+    kind: 'manual_copy_block',
+    id: b.block_id,
+    title: b.title,
+    fields: [
+      { label: 'Block ID', value: b.block_id, mono: true },
+      { label: 'Target', value: b.platform_target_id, mono: true },
+      { label: 'Class', value: b.content_classification, mono: true },
+      { label: 'Draft only', value: b.draft_only ? 'true' : 'false', status: b.draft_only ? 'verified' : 'blocked' },
+      { label: 'Manual only', value: b.manual_export_only ? 'true' : 'false', status: b.manual_export_only ? 'verified' : 'blocked' },
+      { label: 'No secrets', value: b.no_secrets ? 'true' : 'false', status: b.no_secrets ? 'verified' : 'blocked' },
+      { label: 'No raw bodies', value: b.no_raw_response_bodies ? 'true' : 'false', status: b.no_raw_response_bodies ? 'verified' : 'blocked' },
+      { label: 'Copy text', value: b.copy_text },
+    ],
+  };
+}
+
+export function selectManualExportChecklistItem(
+  c: V5ManualExportChecklistItem,
+): SelectableObject {
+  return {
+    kind: 'manual_export_checklist_item',
+    id: c.item_id,
+    title: c.label,
+    fields: [
+      { label: 'Status', value: c.status, status: c.status },
+      { label: 'Detail', value: c.detail },
     ],
   };
 }

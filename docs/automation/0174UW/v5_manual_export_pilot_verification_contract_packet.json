@@ -1,0 +1,377 @@
+{
+  "contract_version": "0174UW_V5_MANUAL_EXPORT_PILOT_VERIFICATION_CONTRACT_V1",
+  "disabled_live_dispatch_state": {
+    "connect_account_enabled": false,
+    "live_dispatch_enabled": false,
+    "publish_enabled": false,
+    "reason": "manual_export_pilot_verification_only_no_live_affordance",
+    "schedule_enabled": false,
+    "send_enabled": false,
+    "state_id": "disabled_live_dispatch_0174UW",
+    "sync_platform_enabled": false,
+    "verify_credentials_enabled": false
+  },
+  "evidence_refs": [
+    "docs/automation/0174UU/local_preflight_bundle_v5_read_model_precheck_contract_packet.json",
+    "ui/contentops_v5/src/data/preflightBundlePacket.ts",
+    "live_contentops/v5_manual_export_pilot_verification_contract.py"
+  ],
+  "export_package_id": "v5_manual_export_pilot_packet_2ae3c6a6e0b90d754cd1c12b",
+  "generated_at_epoch": 0,
+  "manual_copy_blocks": [
+    {
+      "block_id": "copy_x_manual_post_draft",
+      "content_classification": "draft_manual_copy_no_live_market_data",
+      "copy_text": "Draft/manual export only: Capital Chronicle pilot note for human review. Use this block only as a local editorial candidate; verify citations, limits, timing, and policy outside ContentOps before any manual action.",
+      "draft_only": true,
+      "manual_export_only": true,
+      "no_fake_live_market_data": true,
+      "no_raw_response_bodies": true,
+      "no_secrets": true,
+      "platform_target_id": "x_manual_post_copy",
+      "title": "X manual post draft"
+    },
+    {
+      "block_id": "copy_telegram_channel_manual_message_draft",
+      "content_classification": "draft_manual_copy_no_channel_send",
+      "copy_text": "Draft/manual export only: Editorial pilot summary for a controlled channel. Operator must copy by hand outside ContentOps after human approval. No bot send, no channel API, no credential use.",
+      "draft_only": true,
+      "manual_export_only": true,
+      "no_fake_live_market_data": true,
+      "no_raw_response_bodies": true,
+      "no_secrets": true,
+      "platform_target_id": "telegram_channel_manual_message_copy",
+      "title": "Telegram Channel manual message draft"
+    },
+    {
+      "block_id": "copy_substack_manual_newsletter_export_draft",
+      "content_classification": "draft_manual_export_copy_no_substack_api",
+      "copy_text": "Draft/manual export only: Newsletter body candidate for supervised pilot review. Operator must paste into Substack manually outside ContentOps. No Substack API, no subscriber sync, no credential use.",
+      "draft_only": true,
+      "manual_export_only": true,
+      "no_fake_live_market_data": true,
+      "no_raw_response_bodies": true,
+      "no_secrets": true,
+      "platform_target_id": "substack_manual_newsletter_export_copy",
+      "title": "Substack manual newsletter/export draft"
+    },
+    {
+      "block_id": "copy_linkedin_manual_post_draft",
+      "content_classification": "draft_manual_copy_no_linkedin_api",
+      "copy_text": "Draft/manual export only: Professional credibility summary for human review. Operator must copy/publish manually outside ContentOps after page proof. No LinkedIn API, no organization-page sync, no credential use.",
+      "draft_only": true,
+      "manual_export_only": true,
+      "no_fake_live_market_data": true,
+      "no_raw_response_bodies": true,
+      "no_secrets": true,
+      "platform_target_id": "linkedin_manual_post_copy",
+      "title": "LinkedIn manual post draft"
+    }
+  ],
+  "manual_metrics_placeholder": {
+    "detail": "Manual metrics must be recorded after operator observation outside ContentOps.",
+    "status": "empty_not_recorded",
+    "value": ""
+  },
+  "manual_publish_url_placeholder": {
+    "detail": "Manual publish URL must be recorded after operator action outside ContentOps.",
+    "status": "empty_not_recorded",
+    "value": ""
+  },
+  "next_recommended_task": "TASK_CONTENTOPS_0174UX_MANUAL_PILOT_PACKET_BROWSER_QA_AND_OPERATOR_REVIEW_V0",
+  "operator_review_checklist": [
+    {
+      "detail": "c853aefbe2574348acd1f708044a893a5372eb89bb28b4cba69ecfe6216ae5fe",
+      "item_id": "check_source_packet_hash",
+      "label": "Source 0174UU packet hash referenced",
+      "status": "verified"
+    },
+    {
+      "detail": "Human review required before off-system copy/publish.",
+      "item_id": "check_manual_copy_review",
+      "label": "Operator reviews every copy block",
+      "status": "review"
+    },
+    {
+      "detail": "No env, dotenv, credential, secret, token, or key material exists in packet.",
+      "item_id": "check_no_credentials",
+      "label": "No credentials loaded",
+      "status": "verified"
+    },
+    {
+      "detail": "All publish/send/schedule/connect/verify/sync states are disabled.",
+      "item_id": "check_no_live_dispatch",
+      "label": "No live dispatch path",
+      "status": "verified"
+    },
+    {
+      "detail": "Manual publish URL and metrics are not recorded yet.",
+      "item_id": "check_url_metrics_empty",
+      "label": "URL and metrics placeholders empty",
+      "status": "review"
+    },
+    {
+      "detail": "Local status placeholder; no cryptographic signing.",
+      "item_id": "check_signature_placeholder",
+      "label": "Review signature placeholder only",
+      "status": "review"
+    }
+  ],
+  "packet_hash": "2ae3c6a6e0b90d754cd1c12b100b0bed97f4acca1299110ced4224927b53984b",
+  "packet_hash_algorithm": "sha256",
+  "pilot_verification_packet": {
+    "blocked_reasons": [
+      "manual_export_only",
+      "no_platform_api",
+      "no_credentials_loaded",
+      "no_live_dispatch",
+      "operator_must_publish_outside_contentops"
+    ],
+    "checklist_items": [
+      {
+        "detail": "c853aefbe2574348acd1f708044a893a5372eb89bb28b4cba69ecfe6216ae5fe",
+        "item_id": "check_source_packet_hash",
+        "label": "Source 0174UU packet hash referenced",
+        "status": "verified"
+      },
+      {
+        "detail": "Human review required before off-system copy/publish.",
+        "item_id": "check_manual_copy_review",
+        "label": "Operator reviews every copy block",
+        "status": "review"
+      },
+      {
+        "detail": "No env, dotenv, credential, secret, token, or key material exists in packet.",
+        "item_id": "check_no_credentials",
+        "label": "No credentials loaded",
+        "status": "verified"
+      },
+      {
+        "detail": "All publish/send/schedule/connect/verify/sync states are disabled.",
+        "item_id": "check_no_live_dispatch",
+        "label": "No live dispatch path",
+        "status": "verified"
+      },
+      {
+        "detail": "Manual publish URL and metrics are not recorded yet.",
+        "item_id": "check_url_metrics_empty",
+        "label": "URL and metrics placeholders empty",
+        "status": "review"
+      },
+      {
+        "detail": "Local status placeholder; no cryptographic signing.",
+        "item_id": "check_signature_placeholder",
+        "label": "Review signature placeholder only",
+        "status": "review"
+      }
+    ],
+    "missing_proofs": [
+      "operator_manual_review_signature_not_recorded",
+      "manual_publish_url_not_recorded",
+      "manual_metrics_not_recorded",
+      "future_live_dispatch_authorization_not_present"
+    ],
+    "no_live_action_proof": [
+      "publish_enabled_false",
+      "send_enabled_false",
+      "schedule_enabled_false",
+      "connect_account_enabled_false",
+      "verify_credentials_enabled_false",
+      "sync_platform_enabled_false"
+    ],
+    "packet_hash": "b43e25b3372b8e52a137d20b112bb287641d64543871eed1699e180ad5e20cb3",
+    "packet_hash_algorithm": "sha256",
+    "redaction_proof": [
+      "credential_values_absent",
+      "token_slices_absent",
+      "secret_hashes_absent",
+      "raw_response_bodies_absent"
+    ],
+    "status": "blocked_pending_operator_manual_review",
+    "u9_audit_references": [
+      "v5_manual_export_pilot_verification_future",
+      "u9:0174UW:manual_export_pilot_verification:future"
+    ],
+    "verification_id": "pilot_verification_packet_0174UW"
+  },
+  "pilot_verification_status": "blocked_pending_operator_manual_review",
+  "platform_targets": [
+    {
+      "blocked_reason": "x_app_access_gap_and_manual_operator_review_required",
+      "dispatch_ready": false,
+      "manual_copy_block_id": "copy_x_manual_post_draft",
+      "manual_only": true,
+      "no_api": true,
+      "no_credentials": true,
+      "no_scheduler": true,
+      "not_live": true,
+      "not_public_postable_until_operator_action_outside_system": true,
+      "platform_label": "X manual post copy",
+      "public_postable": false,
+      "status": "manual_review_required",
+      "target_class": "active_manual_export_preview",
+      "target_id": "x_manual_post_copy"
+    },
+    {
+      "blocked_reason": "channel_admin_proof_required_and_manual_operator_review_required",
+      "dispatch_ready": false,
+      "manual_copy_block_id": "copy_telegram_channel_manual_message_draft",
+      "manual_only": true,
+      "no_api": true,
+      "no_credentials": true,
+      "no_scheduler": true,
+      "not_live": true,
+      "not_public_postable_until_operator_action_outside_system": true,
+      "platform_label": "Telegram Channel manual message copy",
+      "public_postable": false,
+      "status": "manual_review_required",
+      "target_class": "active_manual_export_preview",
+      "target_id": "telegram_channel_manual_message_copy"
+    },
+    {
+      "blocked_reason": "manual_export_only_operator_action_outside_system_required",
+      "dispatch_ready": false,
+      "manual_copy_block_id": "copy_substack_manual_newsletter_export_draft",
+      "manual_only": true,
+      "no_api": true,
+      "no_credentials": true,
+      "no_scheduler": true,
+      "not_live": true,
+      "not_public_postable_until_operator_action_outside_system": true,
+      "platform_label": "Substack manual newsletter/export copy",
+      "public_postable": false,
+      "status": "manual_review_required",
+      "target_class": "active_manual_export_preview",
+      "target_id": "substack_manual_newsletter_export_copy"
+    },
+    {
+      "blocked_reason": "linkedin_organization_page_proof_missing",
+      "dispatch_ready": false,
+      "manual_copy_block_id": "copy_linkedin_manual_post_draft",
+      "manual_only": true,
+      "no_api": true,
+      "no_credentials": true,
+      "no_scheduler": true,
+      "not_live": true,
+      "not_public_postable_until_operator_action_outside_system": true,
+      "platform_label": "LinkedIn manual post copy",
+      "public_postable": false,
+      "status": "manual_review_required",
+      "target_class": "active_manual_export_preview",
+      "target_id": "linkedin_manual_post_copy"
+    },
+    {
+      "blocked_reason": "meta_app_review_closed",
+      "dispatch_ready": false,
+      "manual_copy_block_id": "",
+      "manual_only": true,
+      "no_api": true,
+      "no_credentials": true,
+      "no_scheduler": true,
+      "not_live": true,
+      "not_public_postable_until_operator_action_outside_system": true,
+      "platform_label": "Threads manual expansion copy",
+      "public_postable": false,
+      "status": "future_gate_blocked",
+      "target_class": "future_manual_expansion",
+      "target_id": "threads_manual_expansion_copy_future"
+    },
+    {
+      "blocked_reason": "meta_app_review_closed",
+      "dispatch_ready": false,
+      "manual_copy_block_id": "",
+      "manual_only": true,
+      "no_api": true,
+      "no_credentials": true,
+      "no_scheduler": true,
+      "not_live": true,
+      "not_public_postable_until_operator_action_outside_system": true,
+      "platform_label": "Instagram manual expansion copy",
+      "public_postable": false,
+      "status": "future_gate_blocked",
+      "target_class": "future_manual_expansion",
+      "target_id": "instagram_manual_expansion_copy_future"
+    },
+    {
+      "blocked_reason": "meta_app_review_closed",
+      "dispatch_ready": false,
+      "manual_copy_block_id": "",
+      "manual_only": true,
+      "no_api": true,
+      "no_credentials": true,
+      "no_scheduler": true,
+      "not_live": true,
+      "not_public_postable_until_operator_action_outside_system": true,
+      "platform_label": "Facebook Page manual expansion copy",
+      "public_postable": false,
+      "status": "future_gate_blocked",
+      "target_class": "future_manual_expansion",
+      "target_id": "facebook_page_manual_expansion_copy_future"
+    },
+    {
+      "blocked_reason": "tiktok_app_audit_closed",
+      "dispatch_ready": false,
+      "manual_copy_block_id": "",
+      "manual_only": true,
+      "no_api": true,
+      "no_credentials": true,
+      "no_scheduler": true,
+      "not_live": true,
+      "not_public_postable_until_operator_action_outside_system": true,
+      "platform_label": "TikTok manual expansion copy",
+      "public_postable": false,
+      "status": "future_gate_blocked",
+      "target_class": "future_manual_expansion",
+      "target_id": "tiktok_manual_expansion_copy_future"
+    },
+    {
+      "blocked_reason": "youtube_oauth_flow_closed",
+      "dispatch_ready": false,
+      "manual_copy_block_id": "",
+      "manual_only": true,
+      "no_api": true,
+      "no_credentials": true,
+      "no_scheduler": true,
+      "not_live": true,
+      "not_public_postable_until_operator_action_outside_system": true,
+      "platform_label": "YouTube manual expansion copy",
+      "public_postable": false,
+      "status": "future_gate_blocked",
+      "target_class": "future_manual_expansion",
+      "target_id": "youtube_manual_expansion_copy_future"
+    }
+  ],
+  "review_signature_placeholder": {
+    "cryptographic_signature": false,
+    "signature_value": "",
+    "signer_label": "operator_review_signature_pending_local_placeholder",
+    "status": "placeholder_not_signed",
+    "uses_secret_material": false
+  },
+  "safety_flags": {
+    "credential_hydrated": false,
+    "credential_values_accessed": false,
+    "dispatch_ready": false,
+    "dm_or_reply_automation_allowed": false,
+    "dotenv_loaded": false,
+    "env_read": false,
+    "ingestion_repo_mutated": false,
+    "local_only": true,
+    "manual_export_only": true,
+    "network_performed": false,
+    "pilot_verification_only": true,
+    "platform_api_called": false,
+    "posting_performed": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "readiness_cleared": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "secret_output_allowed": false,
+    "token_hash_or_prefix_suffix_output": false
+  },
+  "source_baseline_commit": "b043e1be2563945b058648d840da68c46847e1e4",
+  "source_read_model_packet_hash": "c853aefbe2574348acd1f708044a893a5372eb89bb28b4cba69ecfe6216ae5fe",
+  "source_read_model_packet_id": "local_preflight_bundle_v5_read_model_precheck_packet_d783ae2ac1c153dcb6bf709a",
+  "task_label": "TASK_CONTENTOPS_0174UW_V5_MANUAL_EXPORT_AND_PILOT_VERIFICATION_V0"
+}

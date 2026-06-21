@@ -15,6 +15,7 @@ import { AiWriterSeoLab } from './views/AiWriterSeoLab';
 import { DraftInspector } from './views/DraftInspector';
 import { PlatformPayloadPreview } from './views/PlatformPayloadPreview';
 import { ManualPublishMetrics } from './views/ManualPublishMetrics';
+import { ManualExportPilotVerification } from './views/ManualExportPilotVerification';
 import { ApprovalQueue } from './views/ApprovalQueue';
 import { EvidenceVault } from './views/EvidenceVault';
 import { PreflightBundle } from './views/PreflightBundle';
@@ -207,6 +208,8 @@ function ActiveView() {
       return <PlatformPayloadPreview />;
     case 'manual_publish_metrics':
       return <ManualPublishMetrics />;
+    case 'manual_export_pilot_verification':
+      return <ManualExportPilotVerification />;
     case 'approval_queue':
       return <ApprovalQueue />;
     case 'evidence_vault':
