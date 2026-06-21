@@ -76,6 +76,7 @@ ENTRY_FAMILIES = (
     "performance_audit_precheck_to_summary_stub_future",
     "performance_summary_stub_to_content_feedback_precheck_future",
     "content_feedback_precheck_to_feedback_stub_future",
+    "feedback_stub_to_operator_review_brief_precheck_future",
     "unknown_or_blocked",
 )
 

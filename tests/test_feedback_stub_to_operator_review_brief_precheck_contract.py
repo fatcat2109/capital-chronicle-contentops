@@ -1,4 +1,4 @@
-"""Unit tests for Content Feedback Precheck to Feedback Stub contract (0175BB)."""
+"""Unit tests for Feedback Stub to Operator Review Brief Precheck contract (0175BC)."""
 from __future__ import annotations
 
 import json
@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 import subprocess
 
-from live_contentops.content_feedback_precheck_to_feedback_stub_contract import (
+from live_contentops.feedback_stub_to_operator_review_brief_precheck_contract import (
     build_contract_packet,
     write_artifacts,
     TASK_LABEL,
@@ -27,15 +27,15 @@ def test_1_deterministic_packet_hash():
     assert p1["source_baseline_commit"] == SOURCE_BASELINE_COMMIT
 
 
-def test_2_consumes_0175ba_precedent():
-    """2. Verify that the contract successfully consumes 0175BA precedent."""
+def test_2_consumes_0175bb_precedent():
+    """2. Verify that the contract successfully consumes 0175BB precedent."""
     p = build_contract_packet()
     assert "precheck_records" in p
     assert len(p["precheck_records"]) == 10
 
 
-def test_3_all_supported_platform_content_feedback_stubs_exist():
-    """3. Verify all supported platform content feedback stubs exist."""
+def test_3_all_supported_platform_operator_review_brief_prechecks_exist():
+    """3. Verify all supported platform operator review brief prechecks exist."""
     p = build_contract_packet()
     records = p["precheck_records"]
     assert len(records) == 10
@@ -48,77 +48,80 @@ def test_3_all_supported_platform_content_feedback_stubs_exist():
     assert target_ids == expected_ids
 
 
-def test_4_every_content_feedback_stub_status_is_content_feedback_stub_blocked():
-    """4. Verify every content feedback stub status is content_feedback_stub_blocked."""
+def test_4_every_operator_review_brief_precheck_status_is_operator_review_brief_precheck_blocked():
+    """4. Verify every status is operator_review_brief_precheck_blocked."""
     p = build_contract_packet()
     for r in p["precheck_records"]:
-        assert r["content_feedback_stub_status"] == "content_feedback_stub_blocked"
+        assert r["operator_review_brief_precheck_status"] == "operator_review_brief_precheck_blocked"
 
 
-def test_5_to_18_feedback_reference_assertions():
-    """Verify feedback references configurations and assertions."""
+def test_5_to_20_brief_reference_assertions():
+    """Verify brief references configurations and assertions."""
     p = build_contract_packet()
 
     expected_fields_by_target = {
-        "x": ["hook_feedback_stub", "clarity_feedback_stub", "citation_feedback_stub", "limitation_feedback_stub"],
-        "telegram_channel_destination": ["message_feedback_stub", "operator_context_feedback_stub", "citation_feedback_stub", "limitation_feedback_stub"],
-        "telegram_remote_operator": ["operator_log_feedback_stub", "audit_feedback_stub", "manual_action_feedback_stub"],
-        "substack": ["title_feedback_stub", "thesis_feedback_stub", "structure_feedback_stub", "citation_feedback_stub", "limitation_feedback_stub"],
-        "linkedin": ["professional_framing_feedback_stub", "body_feedback_stub", "citation_feedback_stub", "limitation_feedback_stub"],
-        "threads": ["short_text_feedback_stub", "clarity_feedback_stub", "citation_feedback_stub", "limitation_feedback_stub"],
-        "instagram": ["caption_feedback_stub", "media_context_feedback_stub", "alt_text_feedback_stub", "citation_feedback_stub", "limitation_feedback_stub"],
-        "facebook_page": ["post_text_feedback_stub", "attachment_context_feedback_stub", "citation_feedback_stub", "limitation_feedback_stub"],
-        "tiktok": ["caption_feedback_stub", "video_context_feedback_stub", "disclosure_feedback_stub", "citation_feedback_stub"],
-        "youtube": ["title_feedback_stub", "description_feedback_stub", "video_context_feedback_stub", "citation_feedback_stub", "limitation_feedback_stub"]
+        "x": ["hook_review_stub", "clarity_review_stub", "citation_review_stub", "limitation_review_stub", "operator_decision_stub"],
+        "telegram_channel_destination": ["message_review_stub", "operator_context_review_stub", "citation_review_stub", "limitation_review_stub", "operator_decision_stub"],
+        "telegram_remote_operator": ["operator_log_review_stub", "audit_review_stub", "manual_action_review_stub", "operator_decision_stub"],
+        "substack": ["title_review_stub", "thesis_review_stub", "structure_review_stub", "citation_review_stub", "limitation_review_stub", "operator_decision_stub"],
+        "linkedin": ["professional_framing_review_stub", "body_review_stub", "citation_review_stub", "limitation_review_stub", "operator_decision_stub"],
+        "threads": ["short_text_review_stub", "clarity_review_stub", "citation_review_stub", "limitation_review_stub", "operator_decision_stub"],
+        "instagram": ["caption_review_stub", "media_context_review_stub", "alt_text_review_stub", "citation_review_stub", "limitation_review_stub", "operator_decision_stub"],
+        "facebook_page": ["post_text_review_stub", "attachment_context_review_stub", "citation_review_stub", "limitation_review_stub", "operator_decision_stub"],
+        "tiktok": ["caption_review_stub", "video_context_review_stub", "disclosure_review_stub", "citation_review_stub", "operator_decision_stub"],
+        "youtube": ["title_review_stub", "description_review_stub", "video_context_review_stub", "citation_review_stub", "limitation_review_stub", "operator_decision_stub"]
     }
 
     for r in p["precheck_records"]:
         tid = r["platform_target_id"]
-        refs = r["feedback_references"]
+        refs = r["brief_references"]
 
-        # 5. every required feedback reference exists by target
+        # 5. every required brief reference exists by target
         ref_names = [f["reference_name"] for f in refs]
         assert ref_names == expected_fields_by_target[tid]
 
         for f in refs:
-            # 6. every feedback reference placeholder_only true
+            # 6. every brief reference placeholder_only true
             assert f["placeholder_only"] is True
-            # 7. every feedback reference feedback_generated false
+            # 7. every brief reference operator_review_brief_generated false
+            assert f["operator_review_brief_generated"] is False
+            # 8. every brief reference operator_decision_generated false
+            assert f["operator_decision_generated"] is False
+            # 9. every brief reference feedback_generated false
             assert f["feedback_generated"] is False
-            # 8. every feedback reference rewrite_suggestion_generated false
-            assert f["rewrite_suggestion_generated"] is False
-            # 9. every feedback reference editorial_advice_generated false
+            # 10. every brief reference editorial_advice_generated false
             assert f["editorial_advice_generated"] is False
-            # 10. every feedback reference recommendation_generated false
+            # 11. every brief reference rewrite_suggestion_generated false
+            assert f["rewrite_suggestion_generated"] is False
+            # 12. every brief reference recommendation_generated false
             assert f["recommendation_generated"] is False
-            # 11. every feedback reference optimization_suggestion_generated false
+            # 13. every brief reference optimization_suggestion_generated false
             assert f["optimization_suggestion_generated"] is False
-            # 12. every feedback reference platform_strategy_generated false
+            # 14. every brief reference platform_strategy_generated false
             assert f["platform_strategy_generated"] is False
-            # 13. every feedback reference content_score_computed false
+            # 15. every brief reference content_score_computed false
             assert f["content_score_computed"] is False
-            # 14. every feedback reference ranking_generated false
+            # 16. every brief reference ranking_generated false
             assert f["ranking_generated"] is False
-            # 15. every feedback reference best_or_worst_claim_generated false
+            # 17. every brief reference best_or_worst_claim_generated false
             assert f["best_or_worst_claim_generated"] is False
-            # 16. every feedback reference performance_claim_generated false
+            # 18. every brief reference performance_claim_generated false
             assert f["performance_claim_generated"] is False
-            # 17. every feedback reference publishable_copy_created false
+            # 19. every brief reference publishable_copy_created false
             assert f["publishable_copy_created"] is False
-            # 18. every feedback reference requires_human_editorial_review true
-            assert f["requires_human_editorial_review"] is True
-
-            # Check obviously non-public placeholder values
-            assert f["placeholder_value"] == f"[CONTENT_FEEDBACK_STUB_ONLY: {tid}.{f['reference_name']}]"
+            # 20. every brief reference requires_human_operator_review true
+            assert f["requires_human_operator_review"] is True
 
 
-def test_19_every_invariant_exists():
-    """19. Verify every invariant exists."""
+def test_21_every_invariant_exists():
+    """21. Verify every invariant exists."""
     p = build_contract_packet()
     expected_invariants = {
+        "no_operator_review_brief_generated",
+        "no_operator_decision_generated",
         "no_content_feedback_generated",
-        "no_rewrite_suggestion_generated",
         "no_editorial_advice_generated",
+        "no_rewrite_suggestion_generated",
         "no_recommendation_generated",
         "no_optimization_suggestion_generated",
         "no_platform_strategy_generated",
@@ -152,25 +155,30 @@ def test_19_every_invariant_exists():
         "require_operator_signature",
         "require_payload_hash_lock",
         "require_content_feedback_gate",
-        "require_future_operator_review_brief_precheck"
+        "require_operator_review_brief_gate"
     }
     for r in p["precheck_records"]:
         inv_ids = {inv["invariant_id"] for inv in r["invariants"]}
         assert inv_ids == expected_invariants
 
 
-def test_20_every_invariant_passed_true_for_blocked_state_preservation():
-    """20. Verify every invariant passed true for blocked-state preservation."""
+def test_22_every_invariant_passed_true_for_blocked_state_preservation():
+    """22. Verify every invariant passed true for blocked-state preservation."""
     p = build_contract_packet()
     for r in p["precheck_records"]:
         for inv in r["invariants"]:
             assert inv["passed"] is True
 
 
-def test_21_to_31_feedback_and_scoring_flags_false():
-    """Verify all feedback, advice, recommendation, strategy, score, and ranking flags remain false."""
+def test_23_to_35_brief_feedback_and_scoring_flags_false():
+    """Verify all generator and scoring flags remain false."""
     p = build_contract_packet()
-    # 21-31: verified on safety_flags for packet-level (when present) or precheck records (all cases)
+    # 23-35: verified on safety_flags for packet-level (when present) or precheck records (all cases)
+    assert p["safety_flags"]["operator_review_brief_generated"] is False
+    assert p["safety_flags"]["operator_decision_generated"] is False
+    assert p["safety_flags"]["feedback_generated"] is False
+    assert p["safety_flags"]["rewrite_suggestion_generated"] is False
+    assert p["safety_flags"]["editorial_advice_generated"] is False
     assert p["safety_flags"]["recommendation_generated"] is False
     assert p["safety_flags"]["optimization_suggestion_generated"] is False
     assert p["safety_flags"]["platform_strategy_generated"] is False
@@ -179,11 +187,10 @@ def test_21_to_31_feedback_and_scoring_flags_false():
     assert p["safety_flags"]["best_or_worst_claim_generated"] is False
     assert p["safety_flags"]["performance_claim_generated"] is False
     assert p["safety_flags"]["publishable_copy_created"] is False
-    assert p["safety_flags"]["feedback_generated"] is False
-    assert p["safety_flags"]["rewrite_suggestion_generated"] is False
-    assert p["safety_flags"]["editorial_advice_generated"] is False
 
     for r in p["precheck_records"]:
+        assert r["operator_review_brief_generated"] is False
+        assert r["operator_decision_generated"] is False
         assert r["feedback_generated"] is False
         assert r["rewrite_suggestion_generated"] is False
         assert r["editorial_advice_generated"] is False
@@ -197,20 +204,20 @@ def test_21_to_31_feedback_and_scoring_flags_false():
         assert r["publishable_copy_created"] is False
 
 
-def test_32_to_37_metrics_and_analytics_flags_false():
+def test_36_to_41_metrics_and_analytics_flags_false():
     """Verify metrics and analytics flags remain false."""
     p = build_contract_packet()
-    # 32. real_metrics_recorded false
+    # 36. real_metrics_recorded false
     assert p["safety_flags"]["real_metrics_recorded"] is False
-    # 33. metric_values_recorded false
+    # 37. metric_values_recorded false
     assert p["safety_flags"]["metric_values_recorded"] is False
-    # 34. metric_score_computed false
+    # 38. metric_score_computed false
     assert p["safety_flags"]["metric_score_computed"] is False
-    # 35. kpi_comparison_computed false
+    # 39. kpi_comparison_computed false
     assert p["safety_flags"]["kpi_comparison_computed"] is False
-    # 36. platform_analytics_pull_performed false
+    # 40. platform_analytics_pull_performed false
     assert p["safety_flags"]["platform_analytics_pull_performed"] is False
-    # 37. public_metrics_recorded false
+    # 41. public_metrics_recorded false
     assert p["safety_flags"]["public_metrics_recorded"] is False
 
     for r in p["precheck_records"]:
@@ -222,62 +229,62 @@ def test_32_to_37_metrics_and_analytics_flags_false():
         assert r["public_metrics_recorded"] is False
 
 
-def test_38_publishable_payload_created_false():
-    """38. Verify publishable_payload_created false."""
+def test_42_publishable_payload_created_false():
+    """42. Verify publishable_payload_created false."""
     p = build_contract_packet()
     assert p["safety_flags"]["publishable_payload_created"] is False
     for r in p["precheck_records"]:
         assert r["publishable_payload_created"] is False
 
 
-def test_39_platform_payload_created_false():
-    """39. Verify platform_payload_created false."""
+def test_43_platform_payload_created_false():
+    """43. Verify platform_payload_created false."""
     p = build_contract_packet()
     assert p["safety_flags"]["platform_payload_created"] is False
     for r in p["precheck_records"]:
         assert r["platform_payload_created"] is False
 
 
-def test_40_public_postable_false():
-    """40. Verify public_postable false."""
+def test_44_public_postable_false():
+    """44. Verify public_postable false."""
     p = build_contract_packet()
     assert p["safety_flags"]["public_postable"] is False
     for r in p["precheck_records"]:
         assert r["public_postable"] is False
 
 
-def test_41_publishable_text_false():
-    """41. Verify publishable_text false."""
+def test_45_publishable_text_false():
+    """45. Verify publishable_text false."""
     p = build_contract_packet()
     for r in p["precheck_records"]:
         assert r["publishable_text"] is False
 
 
-def test_42_platform_ready_false():
-    """42. Verify platform_ready false."""
+def test_46_platform_ready_false():
+    """46. Verify platform_ready false."""
     p = build_contract_packet()
     for r in p["precheck_records"]:
         assert r["platform_ready"] is False
 
 
-def test_43_dispatch_ready_false():
-    """43. Verify dispatch_ready false."""
+def test_47_dispatch_ready_false():
+    """47. Verify dispatch_ready false."""
     p = build_contract_packet()
     assert p["safety_flags"]["dispatch_ready"] is False
     for r in p["precheck_records"]:
         assert r["dispatch_ready"] is False
 
 
-def test_44_approval_granted_false():
-    """44. Verify approval_granted false."""
+def test_48_approval_granted_false():
+    """48. Verify approval_granted false."""
     p = build_contract_packet()
     assert p["safety_flags"]["approval_granted"] is False
     for r in p["precheck_records"]:
         assert r["approval_granted"] is False
 
 
-def test_45_operator_identity_not_bound():
-    """45. Verify operator identity not bound."""
+def test_49_operator_identity_not_bound():
+    """49. Verify operator identity not bound."""
     p = build_contract_packet()
     assert p["safety_flags"]["operator_identity_bound"] is False
     for r in p["precheck_records"]:
@@ -285,8 +292,8 @@ def test_45_operator_identity_not_bound():
         assert r["operator_identity_status"] == "identity_required_but_unbound"
 
 
-def test_46_operator_signature_absent():
-    """46. Verify operator signature absent."""
+def test_50_operator_signature_absent():
+    """50. Verify operator signature absent."""
     p = build_contract_packet()
     assert p["safety_flags"]["operator_signature_present"] is False
     for r in p["precheck_records"]:
@@ -294,8 +301,8 @@ def test_46_operator_signature_absent():
         assert r["operator_signature_status"] == "signature_required_but_missing"
 
 
-def test_47_payload_hash_not_locked():
-    """47. Verify payload hash not locked."""
+def test_51_payload_hash_not_locked():
+    """51. Verify payload hash not locked."""
     p = build_contract_packet()
     assert p["safety_flags"]["payload_hash_locked"] is False
     for r in p["precheck_records"]:
@@ -303,8 +310,8 @@ def test_47_payload_hash_not_locked():
         assert r["payload_hash_lock_status"] == "hash_lock_required_but_pending"
 
 
-def test_48_account_binding_and_credential_gates_required_but_inactive():
-    """48. Verify account binding and credential gates required but inactive."""
+def test_52_account_binding_and_credential_gates_required_but_inactive():
+    """52. Verify account binding and credential gates required but inactive."""
     p = build_contract_packet()
     assert p["safety_flags"]["account_binding_active"] is False
     assert p["safety_flags"]["credential_values_loaded"] is False
@@ -315,69 +322,71 @@ def test_48_account_binding_and_credential_gates_required_but_inactive():
         assert r["credential_gate_status"] == "credential_required_but_locked"
 
 
-def test_49_citation_and_limitation_statuses_preserved():
-    """49. Verify citation and limitation statuses preserved."""
+def test_53_citation_and_limitation_statuses_preserved():
+    """53. Verify citation and limitation statuses preserved."""
     p = build_contract_packet()
     for r in p["precheck_records"]:
         assert r["citation_status"] == "citation_rendering_required_but_pending"
         assert r["limitation_status"] == "limitation_rendering_required_but_pending"
 
 
-def test_50_dqr_readiness_current_truth_not_cleared():
-    """50. Verify DQR/readiness/current truth not cleared."""
+def test_54_dqr_readiness_current_truth_not_cleared():
+    """54. Verify DQR/readiness/current truth not cleared."""
     p = build_contract_packet()
     assert p["safety_flags"]["dqr_cleared_by_contentops"] is False
     assert p["safety_flags"]["readiness_cleared_by_contentops"] is False
     assert p["safety_flags"]["current_truth_promoted"] is False
 
 
-def test_51_no_financial_advice_signal_execution_language():
-    """51. Verify no financial advice/signal/execution language."""
+def test_55_no_financial_advice_signal_execution_language():
+    """55. Verify no financial advice/signal/execution language."""
     p = build_contract_packet()
     assert p["safety_flags"]["financial_advice"] is False
     assert p["safety_flags"]["signal_language"] is False
     assert p["safety_flags"]["broker_order_execution"] is False
 
 
-def test_52_no_fake_market_numbers():
-    """52. Verify no fake market numbers."""
+def test_56_no_fake_market_numbers():
+    """56. Verify no fake market numbers."""
     p = build_contract_packet()
     assert p["safety_flags"]["financial_advice"] is False
     assert p["safety_flags"]["broker_order_execution"] is False
 
-    out_dir = Path("docs/automation/0175BB")
-    runbook_path = out_dir / "content_feedback_precheck_to_feedback_stub_contract.md"
+    out_dir = Path("docs/automation/0175BC")
+    runbook_path = out_dir / "feedback_stub_to_operator_review_brief_precheck_contract.md"
     assert runbook_path.exists()
     content = runbook_path.read_text(encoding="utf-8")
     assert "fake" not in content.lower()
 
 
-def test_53_no_env_network_credential_platform_provider_api_imports_or_calls():
-    """53. Scan code to ensure no environment, network, or credential API modules are imported."""
-    with open("live_contentops/content_feedback_precheck_to_feedback_stub_contract.py", encoding="utf-8") as f:
+def test_57_no_env_network_credential_platform_provider_api_imports_or_calls():
+    """57. Scan code to ensure no environment, network, or credential API modules are imported."""
+    with open("live_contentops/feedback_stub_to_operator_review_brief_precheck_contract.py", encoding="utf-8") as f:
         content = f.read()
     forbidden = ["import os", "from os", "import requests", "urllib", "dotenv", "socket"]
     for pattern in forbidden:
         assert pattern not in content, f"Forbidden import or keyword '{pattern}' found."
 
 
-def test_54_no_ingestion_repo_mutation_or_path_access():
-    """54. Verify no ingestion repo mutation or path access is allowed."""
+def test_58_no_ingestion_repo_mutation_or_path_access():
+    """58. Verify no ingestion repo mutation or path access is allowed."""
     p = build_contract_packet()
     assert p["safety_flags"]["ingestion_repo_mutated"] is False
 
 
-def test_55_no_scraping_screenshots_or_platform_analytics_pull():
-    """55. Verify no scraping, screenshots, or platform analytics pull."""
+def test_59_no_scraping_screenshots_or_platform_analytics_pull():
+    """59. Verify no scraping, screenshots, or platform analytics pull."""
     p = build_contract_packet()
     assert p["safety_flags"]["scraping"] is False
     assert "scraping" in p["blocked_capabilities"]
     assert "live_metrics_retrieval" in p["blocked_capabilities"]
 
 
-def test_56_no_score_kpi_recommendation_ranking_best_worst_performance_claim_content_feedback():
-    """56. Verify no score/KPI/recommendation/ranking/best-worst/performance claim/content feedback/editorial advice/rewrite suggestion/platform strategy."""
+def test_60_no_operator_review_brief_operator_decision_score_kpi_recommendation_ranking_best_worst_performance_claim_content_feedback_editorial_advice_rewrite_suggestion_platform_strategy():
+    """60. Verify no operator brief/decision/score/KPI/recommendation/ranking/best-worst/performance claim/content feedback/editorial advice/rewrite suggestion/platform strategy."""
     p = build_contract_packet()
+    assert p["safety_flags"]["operator_review_brief_generated"] is False
+    assert p["safety_flags"]["operator_decision_generated"] is False
     assert p["safety_flags"]["metric_score_computed"] is False
     assert p["safety_flags"]["kpi_comparison_computed"] is False
     assert p["safety_flags"]["performance_claim_generated"] is False
@@ -391,30 +400,30 @@ def test_56_no_score_kpi_recommendation_ranking_best_worst_performance_claim_con
     assert "performance_scoring" in p["blocked_capabilities"]
 
 
-def test_57_ledger_family_registered():
-    """57. Verify ledger family content_feedback_precheck_to_feedback_stub_future is registered."""
+def test_61_ledger_family_registered():
+    """61. Verify ledger family feedback_stub_to_operator_review_brief_precheck_future is registered."""
     assert LEDGER_FAMILY in ENTRY_FAMILIES
 
 
-def test_58_artifacts_written_only_under_docs_automation_0175bb():
-    """58. Verify that write_artifacts fails with ValueError outside docs/automation/0175BB."""
-    with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_docs_automation_0175BB"):
+def test_62_artifacts_written_only_under_docs_automation_0175bc():
+    """62. Verify that write_artifacts fails with ValueError outside docs/automation/0175BC."""
+    with pytest.raises(ValueError, match="artifact_writer_refuses_paths_outside_docs_automation_0175BC"):
         write_artifacts(repo_root=".", output_dir="docs/automation/other")
 
 
-def test_59_progress_ledger_resolves_0175ba_and_appends_0175bb():
-    """59. Verify progress ledger resolves 0175BA final HEAD and appends 0175BB."""
+def test_63_progress_ledger_resolves_0175bb_and_appends_0175bc():
+    """63. Verify progress ledger resolves 0175BB final HEAD and appends 0175BC."""
     path = Path("docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md")
     assert path.exists()
     content = path.read_text(encoding="utf-8")
 
     # One-task-lag checks
-    assert "| `TASK_CONTENTOPS_0175BA_PERFORMANCE_SUMMARY_STUB_TO_CONTENT_FEEDBACK_PRECHECK_V0` | `888d6c34b31daa107056bb5a56ab0d5e7430e49b` | `1e278a83bb2cf95464edc80dbfe819adf6ba6107` |" in content
     assert "| `TASK_CONTENTOPS_0175BB_CONTENT_FEEDBACK_PRECHECK_TO_FEEDBACK_STUB_V0` | `1e278a83bb2cf95464edc80dbfe819adf6ba6107` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` |" in content
+    assert "| `TASK_CONTENTOPS_0175BC_FEEDBACK_STUB_TO_OPERATOR_REVIEW_BRIEF_PRECHECK_V0` | `a3bc9ed1d6636796e3a8d1866c37492ef0207141` | `RECORDED_IN_NEXT_TASK_READBACK` |" in content
 
 
-def test_60_no_pycache_or_pyc_staged():
-    """60. Ensure no pycache or .pyc files are staged/tracked in git."""
+def test_64_no_pycache_or_pyc_staged():
+    """64. Ensure no pycache or .pyc files are staged/tracked in git."""
     res = subprocess.run(
         ["git", "status", "--porcelain"],
         capture_output=True,
