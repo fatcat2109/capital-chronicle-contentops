@@ -5,8 +5,8 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Current accepted HEAD:** `43825e08843d0bb60b004b0c59ef1cf5f417d2ae`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175AL_LEDGER_FRONTIER_REPAIR_AND_DRAFT_APPROVAL_GATE_V0` (implementation accepted after pycache hygiene repair)
+* **Current accepted HEAD:** `79652037996da6ccbf84a441e8c75ddff0113c01`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175ALR_PYCACHE_AND_LEDGER_FRONTIER_REPAIR_V0` (HEAD: `00b174449909c668cd451bf42b5aac072ac9ab58`)
 * **Latest implemented capability:** Lane C Draft Review to Approval Packet Gate
 * **Next recommended core feature task:** `TASK_CONTENTOPS_0175AM_LANE_C_APPROVAL_PACKET_TO_PLATFORM_PREVIEW_PRECHECK_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
@@ -76,8 +76,9 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175AI_LANE_C_ARTIFACT_INGESTION_FOUNDATION_BATCH_V0` | `e6fd4c65baea9daa9879de7f70142522889c8df7` | `d60d71c2dc4ff1fc148f68bf5ff7645fccace1ab` | Deterministic local candidate validation, shape verification, and quarantine policies | `test_lane_c_artifact_ingestion_foundation_contract.py`, generated json/md contract packet | Safe discovery and classification of ingested Capital Chronicle candidates | `0175AJ` editorial brief generation | `0175AJ` |
 | `TASK_CONTENTOPS_0175AJ_LANE_C_ARTIFACT_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0` | `d60d71c2dc4ff1fc148f68bf5ff7645fccace1ab` | `ea5084684c04915c2261c5cd9e03a51fb2f276f1` | Conversion of eligible ingested candidates into review-only stub briefs | `test_lane_c_artifact_to_editorial_brief_review_packet_contract.py`, generated json/md contract packet | Safe bridging from ingestion foundation to human-supervised review briefs | `0175AK` editorial draft generation | `0175AK` |
 | `TASK_CONTENTOPS_0175AK_LANE_C_EDITORIAL_BRIEF_TO_DRAFT_REVIEW_ONLY_PACKET_V0` | `ea5084684c04915c2261c5cd9e03a51fb2f276f1` | `6ba3bac45f676de8d340b4d3e7383283c5102068` | Transformation of eligible briefs into dry draft stubs for review | `test_lane_c_editorial_brief_to_draft_review_only_packet_contract.py`, generated json/md contract packet | Controlled draft scaffold layer for future Writer Studio and approvals | `0175AL` approval packet gates | `0175AL` |
-| `TASK_CONTENTOPS_0175AL_LEDGER_FRONTIER_REPAIR_AND_DRAFT_APPROVAL_GATE_V0` | `6ba3bac45f676de8d340b4d3e7383283c5102068` | `43825e08843d0bb60b004b0c59ef1cf5f417d2ae` | Deterministic local draft review to approval gate stub compilation | `test_lane_c_draft_review_to_approval_packet_gate_contract.py`, generated json/md contract packet | Safe candidate approval readiness check without active publication; implementation commit with pycache contamination: 6d5e5742e49b973aa5c654d7402e822b30d1f429, hygiene status: pycache repaired in 0175ALR | `0175AM` platform preview prechecks | `0175ALR` |
-| `TASK_CONTENTOPS_0175ALR_PYCACHE_AND_LEDGER_FRONTIER_REPAIR_V0` | `6d5e5742e49b973aa5c654d7402e822b30d1f429` | `43825e08843d0bb60b004b0c59ef1cf5f417d2ae` | pycache rollback, ledger frontier repair, optional gitignore hardening | targeted Lane C suite, diff check, show name-status proof | clean continuation to 0175AM | live/platform/API/publishing | `0175AM` |
+| `TASK_CONTENTOPS_0175AL_LEDGER_FRONTIER_REPAIR_AND_DRAFT_APPROVAL_GATE_V0` | `6ba3bac45f676de8d340b4d3e7383283c5102068` | `00b174449909c668cd451bf42b5aac072ac9ab58` (contaminated 6d5e5742e49b973aa5c654d7402e822b30d1f429) | Deterministic local draft review to approval gate stub compilation | `test_lane_c_draft_review_to_approval_packet_gate_contract.py`, generated json/md contract packet | Safe candidate approval readiness check without active publication; hygiene status: pycache repaired in 0175ALR | `0175AM` platform preview prechecks | `0175ALR` |
+| `TASK_CONTENTOPS_0175ALR_PYCACHE_AND_LEDGER_FRONTIER_REPAIR_V0` | `6d5e5742e49b973aa5c654d7402e822b30d1f429` | `00b174449909c668cd451bf42b5aac072ac9ab58` | pycache rollback, ledger frontier repair, optional gitignore hardening | targeted Lane C suite, diff check, show name-status proof | clean continuation to 0175AM | live/platform/API/publishing | `0175ALR2` |
+| `TASK_CONTENTOPS_0175ALR2_LEDGER_FINAL_SHA_REPAIR_V0` | `00b174449909c668cd451bf42b5aac072ac9ab58` | `79652037996da6ccbf84a441e8c75ddff0113c01` | repair ledger final accepted SHA references | diff check, show name-status proof | clean continuation to 0175AM | live/platform/API/publishing | `0175AM` |
 
 ---
 
@@ -111,6 +112,8 @@ Future tasks that update this ledger must either:
 1. commit implementation, obtain final SHA, update ledger, amend commit, then push; or
 2. label the row as pending_auditor_acceptance and require the next task to repair it.
 Do not leave “Current accepted HEAD” pointing at the task starting HEAD after the task has been accepted.
+
+The accepted frontier must be updated only after the final pushed SHA is known. If the ledger is committed before final SHA is known, the same task must amend it before final evidence. Do not leave intermediate local SHA as accepted frontier.
 
 ---
 
