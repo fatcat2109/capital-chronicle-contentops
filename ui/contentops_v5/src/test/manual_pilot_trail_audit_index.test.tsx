@@ -82,4 +82,25 @@ describe('Manual Pilot Trail Audit Index UI', () => {
     expect(within(rail).getByText(/manual pilot audit packet/i)).toBeInTheDocument();
     expect(within(rail).getAllByText(packet.audit_id).length).toBeGreaterThan(0);
   });
+
+  it('has containment classes like break-all on key layout elements', () => {
+    openAuditView();
+    // Verify break-all class on task-label element
+    const taskLabelElements = screen.getAllByText(packet.task_label);
+    expect(taskLabelElements.length).toBeGreaterThan(0);
+    taskLabelElements.forEach((el) => {
+      expect(el).toHaveClass('break-all');
+    });
+
+    // Verify break-all class on hash element
+    const hashElement = screen.getAllByText(packet.packet_hash)[0];
+    expect(hashElement).toHaveClass('break-all');
+
+    // Verify break-all class on audit id metadata element
+    const auditIdElements = screen.getAllByText(packet.audit_id);
+    expect(auditIdElements.length).toBeGreaterThan(0);
+    auditIdElements.forEach((el) => {
+      expect(el).toHaveClass('break-all');
+    });
+  });
 });

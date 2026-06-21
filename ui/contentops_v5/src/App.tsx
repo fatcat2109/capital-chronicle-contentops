@@ -307,10 +307,10 @@ function InspectorRail() {
           <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-accent">
             {selected.kind.replace(/_/g, ' ')}
           </div>
-          <div className="mt-1 text-base font-semibold leading-snug text-fg">
+          <div className="mt-1 text-base font-semibold leading-snug text-fg break-words">
             {selected.title}
           </div>
-          <div className="mt-1 font-mono text-[11px] text-fg-muted">
+          <div className="mt-1 font-mono text-[11px] text-fg-muted break-all">
             {selected.id}
           </div>
           <dl className="mt-4 space-y-3 border-t border-line pt-4">

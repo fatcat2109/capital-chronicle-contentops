@@ -218,7 +218,7 @@ export function EvidenceVault() {
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-[1.2fr_0.8fr]">
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-0">
             {/* Manual Pilot Audit Overview */}
             <Panel
               title="Manual Pilot Audit Overview"
@@ -257,7 +257,7 @@ export function EvidenceVault() {
                 <div className="grid gap-2">
                   <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-line bg-surface-1 px-3 py-2 text-sm">
                     <span className="font-semibold text-fg">Audit ID</span>
-                    <span className="font-mono text-[11.5px] text-fg-muted">{auditPacket.audit_id}</span>
+                    <span className="font-mono text-[11.5px] text-fg-muted break-all">{auditPacket.audit_id}</span>
                   </div>
                   <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-line bg-surface-1 px-3 py-2 text-sm">
                     <span className="font-semibold text-fg">Packet Hash</span>
@@ -265,11 +265,11 @@ export function EvidenceVault() {
                   </div>
                   <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-line bg-surface-1 px-3 py-2 text-sm">
                     <span className="font-semibold text-fg">Baseline Commit</span>
-                    <span className="font-mono text-[11.5px] text-fg-muted">{auditPacket.source_baseline_commit}</span>
+                    <span className="font-mono text-[11.5px] text-fg-muted break-all">{auditPacket.source_baseline_commit}</span>
                   </div>
                   <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-line bg-surface-1 px-3 py-2 text-sm">
                     <span className="font-semibold text-fg">Next Recommended Task</span>
-                    <span className="font-mono text-[11.5px] text-fg-muted">{auditPacket.next_recommended_task}</span>
+                    <span className="font-mono text-[11.5px] text-fg-muted break-all">{auditPacket.next_recommended_task}</span>
                   </div>
                 </div>
               </div>
@@ -301,7 +301,7 @@ export function EvidenceVault() {
                           isSelected ? 'bg-accent/5' : ''
                         }`}
                       >
-                        <td className="px-4 py-3 font-mono text-[12px] font-semibold text-fg">
+                        <td className="px-4 py-3 font-mono text-[12px] font-semibold text-fg break-all">
                           {name}
                         </td>
                         <td className="px-4 py-3 text-center">
@@ -336,10 +336,10 @@ export function EvidenceVault() {
                 <tbody className="divide-y divide-line">
                   {Object.entries(auditPacket.source_packets).map(([name, meta]) => (
                     <tr key={name} className="transition-colors hover:bg-surface-2/60">
-                      <td className="px-4 py-3 font-mono text-[12px] font-semibold text-fg">
+                      <td className="px-4 py-3 font-mono text-[12px] font-semibold text-fg break-all">
                         {name}
                       </td>
-                      <td className="px-4 py-3 font-mono text-[11.5px] text-fg-muted">
+                      <td className="px-4 py-3 font-mono text-[11.5px] text-fg-muted break-all">
                         {meta.contract_version}
                       </td>
                       <td className="px-4 py-3 font-mono text-[11.5px] text-fg-subtle break-all">
@@ -352,7 +352,7 @@ export function EvidenceVault() {
             </Panel>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-0">
             {/* Contradiction Checker */}
             <Panel
               title="Contradictions Detected"
