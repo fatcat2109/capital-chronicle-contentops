@@ -5,8 +5,8 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Current accepted HEAD:** `79652037996da6ccbf84a441e8c75ddff0113c01`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175ALR_PYCACHE_AND_LEDGER_FRONTIER_REPAIR_V0` (HEAD: `00b174449909c668cd451bf42b5aac072ac9ab58`)
+* **Last resolved accepted HEAD in ledger:** `78385a78f4cc7e910d6311e7401838c90ac38357`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175ALR2_LEDGER_FINAL_SHA_REPAIR_V0`
 * **Latest implemented capability:** Lane C Draft Review to Approval Packet Gate
 * **Next recommended core feature task:** `TASK_CONTENTOPS_0175AM_LANE_C_APPROVAL_PACKET_TO_PLATFORM_PREVIEW_PRECHECK_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
@@ -78,7 +78,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175AK_LANE_C_EDITORIAL_BRIEF_TO_DRAFT_REVIEW_ONLY_PACKET_V0` | `ea5084684c04915c2261c5cd9e03a51fb2f276f1` | `6ba3bac45f676de8d340b4d3e7383283c5102068` | Transformation of eligible briefs into dry draft stubs for review | `test_lane_c_editorial_brief_to_draft_review_only_packet_contract.py`, generated json/md contract packet | Controlled draft scaffold layer for future Writer Studio and approvals | `0175AL` approval packet gates | `0175AL` |
 | `TASK_CONTENTOPS_0175AL_LEDGER_FRONTIER_REPAIR_AND_DRAFT_APPROVAL_GATE_V0` | `6ba3bac45f676de8d340b4d3e7383283c5102068` | `00b174449909c668cd451bf42b5aac072ac9ab58` (contaminated 6d5e5742e49b973aa5c654d7402e822b30d1f429) | Deterministic local draft review to approval gate stub compilation | `test_lane_c_draft_review_to_approval_packet_gate_contract.py`, generated json/md contract packet | Safe candidate approval readiness check without active publication; hygiene status: pycache repaired in 0175ALR | `0175AM` platform preview prechecks | `0175ALR` |
 | `TASK_CONTENTOPS_0175ALR_PYCACHE_AND_LEDGER_FRONTIER_REPAIR_V0` | `6d5e5742e49b973aa5c654d7402e822b30d1f429` | `00b174449909c668cd451bf42b5aac072ac9ab58` | pycache rollback, ledger frontier repair, optional gitignore hardening | targeted Lane C suite, diff check, show name-status proof | clean continuation to 0175AM | live/platform/API/publishing | `0175ALR2` |
-| `TASK_CONTENTOPS_0175ALR2_LEDGER_FINAL_SHA_REPAIR_V0` | `00b174449909c668cd451bf42b5aac072ac9ab58` | `79652037996da6ccbf84a441e8c75ddff0113c01` | repair ledger final accepted SHA references | diff check, show name-status proof | clean continuation to 0175AM | live/platform/API/publishing | `0175AM` |
+| `TASK_CONTENTOPS_0175ALR2_LEDGER_FINAL_SHA_REPAIR_V0` | `00b174449909c668cd451bf42b5aac072ac9ab58` | `78385a78f4cc7e910d6311e7401838c90ac38357` | repair ledger final accepted SHA references | diff check, show name-status proof | clean continuation to 0175AM | live/platform/API/publishing | `0175AM` |
+| `TASK_CONTENTOPS_0175ALR3_LEDGER_PROTOCOL_ONE_TASK_LAG_REPAIR_V0` | `78385a78f4cc7e910d6311e7401838c90ac38357` | `RECORDED_IN_NEXT_TASK_READBACK` | ledger protocol repair, one-task-lag final SHA policy | diff check, grep/readback, show name-status | safe continuation to 0175AM without self-referential SHA loops | live/platform/API/publishing | `0175AM` |
 
 ---
 
@@ -99,21 +100,22 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 
 Every future implementation task must:
 1. **Read this ledger** before planning.
-2. **Update Accepted Frontier** (HEAD, task label, capability description).
+2. **Update Frontier** (Latest accepted task, last resolved accepted HEAD, capability description).
 3. **Update exactly relevant checklist rows** (assign appropriate statuses and evidence refs).
-4. **Append one Task Ledger row** summarizing the starting/final HEADs and deliverables of the task.
+4. **Append one Task Ledger row** summarizing the starting HEAD, setting final HEAD to `RECORDED_IN_NEXT_TASK_READBACK`, and documenting deliverables.
 5. **Set next recommended task**.
 6. **State whether visual QA is required, completed, skipped, or deferred**.
 7. **Never overwrite history silently**.
 8. **Never mark ACCEPTED without evidence**.
 9. **Commit ledger changes** with the implementation task.
 
-Future tasks that update this ledger must either:
-1. commit implementation, obtain final SHA, update ledger, amend commit, then push; or
-2. label the row as pending_auditor_acceptance and require the next task to repair it.
-Do not leave “Current accepted HEAD” pointing at the task starting HEAD after the task has been accepted.
-
-The accepted frontier must be updated only after the final pushed SHA is known. If the ledger is committed before final SHA is known, the same task must amend it before final evidence. Do not leave intermediate local SHA as accepted frontier.
+### One-Task-Lag Protocol rules:
+* A repo file cannot reliably contain the SHA of the same commit that contains it.
+* The ledger records the last resolved accepted HEAD.
+* The current task final SHA is recorded in the final evidence packet and resolved in the next task’s first ledger update.
+* Do not force push master to chase self-referential SHA updates.
+* Do not leave accidental intermediate SHA values as accepted frontier.
+* Never commit pycache or .pyc files.
 
 ---
 
