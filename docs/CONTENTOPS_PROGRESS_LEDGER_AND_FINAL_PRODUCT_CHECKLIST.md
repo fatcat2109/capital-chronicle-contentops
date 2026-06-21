@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `b6006d21829f55d6a781169104debd2f39b1491e`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175BI_EDITORIAL_BRIEF_REVIEW_PACKET_TO_V5_BRIEF_QUEUE_BINDING_V0`
-* **Latest implemented capability:** UI binding of the Editorial Brief Review Queue in WriterStudio
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BJ_EDITORIAL_BRIEF_REVIEW_TO_CONTENT_INTENT_GATE_PRECHECK_V0`
+* **Last resolved accepted HEAD in ledger:** `ca1b1de07b2b285b243791cf46be864e57e780ba`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175BJ_EDITORIAL_BRIEF_REVIEW_TO_CONTENT_INTENT_GATE_PRECHECK_V0`
+* **Latest implemented capability:** Deterministic Content Intent Gate Precheck module
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BK_CONTENT_INTENT_GATE_PRECHECK_TO_V5_INTENT_QUEUE_BINDING_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -119,7 +119,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175BG_LANE_C_ARTIFACT_INTAKE_BRIDGE_TO_LIFECYCLE_ENGINE_PRECHECK_V0` | `25030c9ecb7f1340d8abc0943c397984f1ebb4d7` | `23e0573c062b63c939040143cfe66830bbfa9c2a` | Bridge Lane C artifact intake validation to the Content Lifecycle Engine | Pytest suite, check scanned candidates count, invariants validation | Evidence-backed first stage of the lifecycle spine | Intake bridge to brief review packet transition | `0175BH` |
 | `TASK_CONTENTOPS_0175BH_LIFECYCLE_INTAKE_BRIDGE_TO_EDITORIAL_BRIEF_REVIEW_PACKET_V0` | `23e0573c062b63c939040143cfe66830bbfa9c2a` | `1dd9a01a2c6e1d3444181ef94f80f975b85400ef` | Transition Lane C candidate metadata into Editorial Brief Review Packet | test_lifecycle_intake_bridge_to_editorial_brief_review_packet.py, runbook checks | Deterministic metadata-only brief review packet mapping | V5 cockpit brief queue binding, content intent gate checks | `0175BI` |
 | `TASK_CONTENTOPS_0175BI_EDITORIAL_BRIEF_REVIEW_PACKET_TO_V5_BRIEF_QUEUE_BINDING_V0` | `1dd9a01a2c6e1d3444181ef94f80f975b85400ef` | `b6006d21829f55d6a781169104debd2f39b1491e` | Bind Editorial Brief Review Packet into V5 Writer Studio panel | Vitest UI tests, pytest suite, Vite build check | Metadata-only cockpit brief queue UI binding | Promotion and content intent gate checks | `0175BJ` |
-| `TASK_CONTENTOPS_0175BJ_EDITORIAL_BRIEF_REVIEW_TO_CONTENT_INTENT_GATE_PRECHECK_V0` | `b6006d21829f55d6a781169104debd2f39b1491e` | `RECORDED_IN_NEXT_TASK_READBACK` | Create deterministic Content Intent Gate Precheck module and validate candidates | Pytest unit tests, local verification checks | Compliance precheck gate validating candidate safety and metadata | UI queue binding, variant drafts compilation | `0175BK` |
+| `TASK_CONTENTOPS_0175BJ_EDITORIAL_BRIEF_REVIEW_TO_CONTENT_INTENT_GATE_PRECHECK_V0` | `b6006d21829f55d6a781169104debd2f39b1491e` | `ca1b1de07b2b285b243791cf46be864e57e780ba` | Create deterministic Content Intent Gate Precheck module and validate candidates | Pytest unit tests, local verification checks | Compliance precheck gate validating candidate safety and metadata | UI queue binding, variant drafts compilation | `0175BK` |
+| `TASK_CONTENTOPS_0175BK_CONTENT_INTENT_GATE_PRECHECK_TO_V5_INTENT_QUEUE_BINDING_V0` | `ca1b1de07b2b285b243791cf46be864e57e780ba` | `RECORDED_IN_NEXT_TASK_READBACK` | Bind Content Intent Gate Precheck to V5 Writer Studio panel | Vitest UI tests, pytest suite, Vite build check | Statically bound precheck queue panel in Writer Studio | Variant drafts compilation, dispatching logic | `0175BL` |
 
 ---
 
@@ -161,6 +162,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BK_CONTENT_INTENT_GATE_PRECHECK_TO_V5_INTENT_QUEUE_BINDING_V0`
-* **Focus:** Bind the Content Intent Gate Precheck packet into the V5 cockpit static queue layer.
+* **Next recommended task:** `TASK_CONTENTOPS_0175BL_CONTENT_INTENT_GATE_TO_REVIEW_ONLY_INTENT_PACKET_V0`
+* **Focus:** Transition Content Intent Gate Precheck into review-only intent packets.
 * **Visual System Status:** Visual enhancement/polish is deferred.

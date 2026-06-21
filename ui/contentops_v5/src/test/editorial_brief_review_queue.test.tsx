@@ -27,8 +27,8 @@ describe('Editorial Brief Review Queue UI', () => {
     expect(screen.getByText(`Candidate review items (${adapter.packet.candidate_count})`)).toBeInTheDocument();
 
     // Verify candidate rows exist
-    expect(screen.getByText('STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1')).toBeInTheDocument();
-    expect(screen.getByText('BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1')).toBeInTheDocument();
+    expect(screen.getAllByText('STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1').length).toBeGreaterThan(0);
   });
 
   it('updates the Inspector Rail when clicking Inspect Packet', () => {

@@ -14,6 +14,10 @@ import type {
   EditorialBriefReviewPacketType
 } from './data/editorialBriefReviewAdapter';
 import type {
+  CandidateGateItem,
+  ContentIntentGatePrecheckPacketType
+} from './data/contentIntentGatePrecheckAdapter';
+import type {
   AiWriterOutput,
   ArtifactEligibilityCheck,
   Blocker,
@@ -1007,6 +1011,54 @@ export function selectEditorialBriefReviewPacket(
       { label: 'Topic Families', value: p.topic_families.join(', ') },
       { label: 'Evidence Roles', value: p.evidence_roles.join(', ') },
       { label: 'Blocked Reasons', value: p.blocked_reasons.join(', ') },
+      { label: 'Next Rec Task', value: p.next_recommended_task, mono: true },
+    ],
+  };
+}
+
+export function selectCandidateGateItem(
+  item: CandidateGateItem,
+): SelectableObject {
+  return {
+    kind: 'candidate_gate_item',
+    id: item.candidate_id,
+    title: item.candidate_id,
+    fields: [
+      { label: 'Candidate ID', value: item.candidate_id, mono: true },
+      { label: 'Relative Path', value: item.relative_path, mono: true },
+      { label: 'Evidence Role', value: item.evidence_role },
+      { label: 'Source Family', value: item.source_family },
+      { label: 'Records Count', value: String(item.records_count), mono: true },
+      { label: 'Contract Name', value: item.contract_name || 'none', mono: item.contract_name !== null },
+      { label: 'Advisory Only', value: String(item.advisory_only), status: item.advisory_only ? 'verified' : 'blocked' },
+      { label: 'Candidate Only', value: String(item.candidate_only), status: item.candidate_only ? 'verified' : 'blocked' },
+      { label: 'Operator Action', value: item.operator_review_required ? 'Required' : 'None', status: item.operator_review_required ? 'review' : 'verified' },
+      { label: 'Gate Status', value: item.content_intent_gate_status, status: item.content_intent_gate_status === 'READY_FOR_OPERATOR_INTENT_REVIEW' ? 'review' : 'blocked' },
+      { label: 'Blocked Reasons', value: item.blocked_reasons.join(', ') || 'none' },
+      { label: 'Missing Requirements', value: item.missing_requirements.join(', ') || 'none' },
+      { label: 'Next Step', value: item.allowed_next_step },
+    ],
+  };
+}
+
+export function selectContentIntentGatePrecheckPacket(
+  p: ContentIntentGatePrecheckPacketType,
+): SelectableObject {
+  return {
+    kind: 'content_intent_gate_precheck_packet',
+    id: p.packet_hash,
+    title: `Content Intent Gate Precheck · ${p.task_label.slice(0, 16)}...`,
+    fields: [
+      { label: 'Task Label', value: p.task_label, mono: true },
+      { label: 'Source Brief Hash', value: p.source_editorial_brief_review_packet_hash, mono: true },
+      { label: 'Source Task', value: p.source_packet_task_label, mono: true },
+      { label: 'Packet Hash', value: p.packet_hash, mono: true },
+      { label: 'Ledger Family', value: p.ledger_family, mono: true },
+      { label: 'Gate Status', value: p.content_intent_gate_status, status: p.content_intent_gate_status === 'BLOCKED_OPERATOR_REVIEW_REQUIRED' ? 'blocked' : (p.content_intent_gate_status.startsWith('BLOCKED') ? 'blocked' : 'review') },
+      { label: 'Candidates', value: String(p.source_candidate_count) },
+      { label: 'Blocked Reasons', value: p.blocked_reasons.join(', ') },
+      { label: 'Allowed Next Step', value: p.allowed_next_step },
+      { label: 'Disallowed Outputs', value: p.disallowed_outputs.join(', ') },
       { label: 'Next Rec Task', value: p.next_recommended_task, mono: true },
     ],
   };
