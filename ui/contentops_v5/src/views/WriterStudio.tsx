@@ -5,11 +5,12 @@
 
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
-import { selectAiVariant, selectMediaAsset, selectCandidateReviewItem, selectEditorialBriefReviewPacket, selectCandidateGateItem, selectContentIntentGatePrecheckPacket, selectReviewOnlyIntentItem, selectReviewOnlyContentIntentPacket, selectInputCapturePrecheckItem, selectOperatorInputCapturePrecheckPacket } from '../selectors';
+import { selectAiVariant, selectMediaAsset, selectCandidateReviewItem, selectEditorialBriefReviewPacket, selectCandidateGateItem, selectContentIntentGatePrecheckPacket, selectReviewOnlyIntentItem, selectReviewOnlyContentIntentPacket, selectInputCapturePrecheckItem, selectOperatorInputCapturePrecheckPacket, selectSupervisedInputStubContractPacket, selectSupervisedInputStubItem } from '../selectors';
 import { editorialBriefReviewAdapter } from '../data/editorialBriefReviewAdapter';
 import { contentIntentGatePrecheckAdapter } from '../data/contentIntentGatePrecheckAdapter';
 import { reviewOnlyContentIntentAdapter } from '../data/reviewOnlyContentIntentAdapter';
 import { operatorInputCapturePrecheckAdapter } from '../data/operatorInputCapturePrecheckAdapter';
+import { supervisedInputStubContractAdapter } from '../data/supervisedInputStubContractAdapter';
 import { IconImage, IconSparkle } from '../ui/icons';
 import {
   EvidenceChip,
@@ -705,6 +706,214 @@ export function WriterStudio() {
               <div className="flex flex-wrap items-center gap-1.5 text-[10.5px] font-mono text-fg-subtle">
                 <span className="font-bold uppercase mr-1">Truth Flags (verified false):</span>
                 {Object.entries(operatorInputCapturePrecheckAdapter.truthProtectionFlags).map(([key, val]) => (
+                  <span key={key} className={`rounded border border-line bg-surface-2 px-1.5 py-0.5 ${val ? 'text-status-blocked' : 'text-status-verified font-semibold'}`}>
+                    {key}: {String(val)}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Panel>
+
+          {/* Supervised Operator Input Stub Contract Panel */}
+          <Panel
+            title="Supervised Input Stub Contract"
+            subtitle="Readonly supervised input stub · future capture only"
+            actions={
+              <button
+                type="button"
+                id="btn-inspect-supervised-input-stub-contract"
+                onClick={() => select(selectSupervisedInputStubContractPacket(supervisedInputStubContractAdapter.packet))}
+                className="rounded-md border border-line bg-surface-2 px-2.5 py-1 font-mono text-[10.5px] text-fg-muted hover:border-line-strong hover:text-fg transition-colors"
+              >
+                Inspect Stub Contract
+              </button>
+            }
+            bodyClassName="p-4 space-y-4"
+          >
+            <div className="rounded-xl border border-status-blocked/30 bg-status-blocked/10 p-3">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-status-blocked">
+                Supervised Capture Locked
+              </div>
+              <p className="mt-1 text-xs leading-relaxed text-fg-muted">
+                This panel displays pending supervised input stub slots only. Future capture modes are declared but not enabled here.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                  Stub Packet Hash
+                </div>
+                <div className="mt-1 break-all font-mono text-[11px] font-semibold text-fg">
+                  {supervisedInputStubContractAdapter.packet.packet_hash}
+                </div>
+              </div>
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                  Source Precheck Hash
+                </div>
+                <div className="mt-1 break-all font-mono text-[11px] font-semibold text-fg">
+                  {supervisedInputStubContractAdapter.packet.source_operator_input_capture_precheck_packet_hash}
+                </div>
+              </div>
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                  Stub Status
+                </div>
+                <div className="mt-1 break-all text-xs font-semibold text-status-blocked">
+                  {supervisedInputStubContractAdapter.packet.global_supervised_input_stub_status}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="rounded-xl border border-line bg-surface-2 p-3">
+                <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-status-blocked">
+                  Blocked Reasons
+                </div>
+                <ul className="mt-2 list-inside list-disc space-y-1 text-xs text-fg-muted">
+                  {supervisedInputStubContractAdapter.blockedReasons.map((r) => (
+                    <li key={r} className="font-mono text-[11px]">{r}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="rounded-xl border border-line bg-surface-2 p-3 space-y-2">
+                <div>
+                  <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                    Allowed Next Step
+                  </div>
+                  <div className="mt-1 text-xs font-medium text-fg">
+                    {supervisedInputStubContractAdapter.packet.allowed_next_step}
+                  </div>
+                </div>
+                <div>
+                  <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+                    Next Recommended Task
+                  </div>
+                  <div className="mt-1 break-all font-mono text-[11px] font-semibold text-fg">
+                    {supervisedInputStubContractAdapter.packet.next_recommended_task}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-line bg-surface-2 p-3">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-status-review mb-2">
+                Required Stub Field Policy (Readonly)
+              </div>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 text-xs">
+                {Object.entries(supervisedInputStubContractAdapter.fieldPolicy).map(([key, policy]) => (
+                  <div key={key} className="rounded border border-line bg-surface-1 p-2">
+                    <span className="block font-mono font-bold text-fg-subtle">{key}</span>
+                    <span className="mt-0.5 block font-mono font-semibold text-status-review">{policy.placeholder_value}</span>
+                    <span className="mt-1 block font-mono text-[10px] text-status-blocked">current_value: {String(policy.current_value)}</span>
+                    <span className="block font-mono text-[10px] text-status-blocked">capture_enabled_in_this_task: {String(policy.capture_enabled_in_this_task)}</span>
+                    <span className="block font-mono text-[10px] text-status-blocked">editable_in_this_task: {String(policy.editable_in_this_task)}</span>
+                    <span className="block font-mono text-[10px] text-status-blocked">persistence_enabled: {String(policy.persistence_enabled)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-line bg-surface-2 p-3">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle mb-2">
+                Allowed Future Capture Modes (Not Enabled Here)
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {supervisedInputStubContractAdapter.allowedFutureCaptureModes.map((mode) => (
+                  <span key={mode} className="rounded border border-status-review/30 bg-status-review/10 px-1.5 py-0.5 font-mono text-[9.5px] text-status-review">
+                    {mode}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-2 font-mono text-[10.5px] font-semibold text-status-blocked">
+                future_capture_modes_enabled_in_this_task: {String(supervisedInputStubContractAdapter.packet.future_capture_modes_enabled_in_this_task)}
+              </div>
+            </div>
+
+            <div className="border-t border-line pt-3">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle mb-2">
+                Supervised Stub Items ({supervisedInputStubContractAdapter.packet.source_input_capture_precheck_item_count})
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[620px] text-left text-xs">
+                  <thead>
+                    <tr className="border-b border-line bg-surface-2 font-mono text-[10px] text-fg-subtle">
+                      <th className="px-2 py-1.5">Candidate ID</th>
+                      <th className="px-2 py-1.5">Scope Label</th>
+                      <th className="px-2 py-1.5">Family</th>
+                      <th className="px-2 py-1.5">Fields</th>
+                      <th className="px-2 py-1.5">Stub Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-line">
+                    {supervisedInputStubContractAdapter.supervisedInputStubItems.map((item) => {
+                      const active = selected?.kind === 'supervised_input_stub_item' && selected.id === item.stub_item_id;
+                      return (
+                        <tr
+                          key={item.stub_item_id}
+                          id={`supervised-input-stub-row-${item.stub_item_id}`}
+                          onClick={() => select(selectSupervisedInputStubItem(item))}
+                          className={`cursor-pointer transition-colors hover:bg-surface-3 ${
+                            active ? 'bg-accent/5' : ''
+                          }`}
+                        >
+                          <td className="px-2 py-2 font-mono font-semibold text-fg">
+                            {item.source_candidate_id}
+                          </td>
+                          <td className="px-2 py-2 font-mono text-fg-muted">{item.intent_scope_label}</td>
+                          <td className="px-2 py-2 font-mono text-fg-muted">{item.source_family}</td>
+                          <td className="px-2 py-2 font-mono text-fg">{item.required_input_fields.length}</td>
+                          <td className="px-2 py-2 font-mono font-semibold text-status-review">
+                            {item.supervised_input_stub_status}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="border-t border-line pt-3">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-status-blocked mb-1">
+                Forbidden current actions (Strict no-capture locks)
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {supervisedInputStubContractAdapter.forbiddenCurrentActions.map((action) => (
+                  <span key={action} className="rounded border border-line bg-surface-2 px-1.5 py-0.5 font-mono text-[9.5px] text-fg-muted">
+                    {action}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="border-t border-line pt-3">
+              <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-status-blocked mb-1">
+                Disallowed output enforcement (Strict compliance locks)
+              </div>
+              <div className="flex flex-wrap gap-1.5">
+                {supervisedInputStubContractAdapter.disallowedOutputs.map((out) => (
+                  <span key={out} className="rounded border border-line bg-surface-2 px-1.5 py-0.5 font-mono text-[9.5px] text-fg-muted">
+                    {out}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="border-t border-line pt-3 space-y-2">
+              <div className="flex flex-wrap items-center gap-1.5 text-[10.5px] font-mono text-fg-subtle">
+                <span className="font-bold uppercase mr-1">Safety Flags (verified locked):</span>
+                {Object.entries(supervisedInputStubContractAdapter.safetyFlags).map(([key, val]) => (
+                  <span key={key} className={`rounded border border-line bg-surface-2 px-1.5 py-0.5 ${val ? 'text-status-blocked' : 'text-status-verified font-semibold'}`}>
+                    {key}: {String(val)}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center gap-1.5 text-[10.5px] font-mono text-fg-subtle">
+                <span className="font-bold uppercase mr-1">Truth Flags (verified false):</span>
+                {Object.entries(supervisedInputStubContractAdapter.truthProtectionFlags).map(([key, val]) => (
                   <span key={key} className={`rounded border border-line bg-surface-2 px-1.5 py-0.5 ${val ? 'text-status-blocked' : 'text-status-verified font-semibold'}`}>
                     {key}: {String(val)}
                   </span>

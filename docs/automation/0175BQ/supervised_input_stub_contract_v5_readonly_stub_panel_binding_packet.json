@@ -1,0 +1,76 @@
+{
+  "task_label": "TASK_CONTENTOPS_0175BQ_SUPERVISED_INPUT_STUB_CONTRACT_TO_V5_READONLY_STUB_PANEL_BINDING_V0",
+  "starting_head": "cdf8387397c738c72df444e492611aa5535ddc8d",
+  "scope": "Bind 0175BP Supervised Operator Input Stub Contract into V5 as a static readonly stub panel.",
+  "source_packet": "docs/automation/0175BP/operator_input_capture_precheck_to_supervised_input_stub_contract_packet.json",
+  "source_packet_hash": "cb0ce2665803ae05a5b407ad002f8277ea246b397c3193bd57b54a36b3a11dd4",
+  "generated_v5_packet": "ui/contentops_v5/src/data/supervisedInputStubContractPacket.ts",
+  "changed_files": [
+    "tools/export_v5_supervised_input_stub_contract_packet.py",
+    "ui/contentops_v5/src/data/supervisedInputStubContractPacket.ts",
+    "ui/contentops_v5/src/data/supervisedInputStubContractAdapter.ts",
+    "ui/contentops_v5/src/selectors.ts",
+    "ui/contentops_v5/src/views/WriterStudio.tsx",
+    "ui/contentops_v5/src/test/supervised_input_stub_contract.test.tsx",
+    "tests/test_export_v5_supervised_input_stub_contract_packet.py",
+    "docs/automation/0175BQ/supervised_input_stub_contract_v5_readonly_stub_panel_binding.md",
+    "docs/automation/0175BQ/supervised_input_stub_contract_v5_readonly_stub_panel_binding_packet.json",
+    "docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md"
+  ],
+  "readonly_guarantees": {
+    "actual_operator_input_capture_enabled": false,
+    "editable_ui_enabled": false,
+    "persistence_enabled": false,
+    "provider_api_called": false,
+    "platform_api_called": false,
+    "live_api_called": false,
+    "content_generation_enabled": false,
+    "draft_eligibility_enabled": false,
+    "future_capture_modes_enabled_in_this_task": false
+  },
+  "ui_binding": {
+    "panel_title": "Supervised Input Stub Contract",
+    "panel_subtitle": "Readonly supervised input stub · future capture only",
+    "inspect_packet_button_id": "btn-inspect-supervised-input-stub-contract",
+    "stub_row_id_prefix": "supervised-input-stub-row-",
+    "global_status": "BLOCKED_SUPERVISED_INPUT_CAPTURE_NOT_ENABLED"
+  },
+  "validation": [
+    {
+      "command": "python tools/export_v5_supervised_input_stub_contract_packet.py --check",
+      "result": "PASS",
+      "evidence": "CHECK_OK artifact is byte-identical to regenerated output; SAFETY_SCAN_CLEAN"
+    },
+    {
+      "command": "python -m pytest -q tests/test_operator_input_capture_precheck_to_supervised_input_stub_contract.py tests/test_export_v5_supervised_input_stub_contract_packet.py",
+      "result": "PASS",
+      "evidence": "19 passed in 0.75s"
+    },
+    {
+      "command": "npm test",
+      "result": "PASS_AFTER_SELF_DEBUG",
+      "evidence": "18 passed (18), 142 passed (142) after changing duplicate heading assertion to getAllByText"
+    },
+    {
+      "command": "npm run build",
+      "result": "PASS",
+      "evidence": "tsc -b && vite build completed successfully; Vite chunk-size warning only"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS",
+      "evidence": "No whitespace errors; CRLF warnings only"
+    },
+    {
+      "command": "git ls-files \"***pycache***\" \"*.pyc\"",
+      "result": "PASS",
+      "evidence": "No tracked pycache or pyc files"
+    },
+    {
+      "command": "contextual forbidden/editable scan over changed files",
+      "result": "PASS_WITH_TEST_EXPORTER_ALLOWLIST",
+      "evidence": "Matches only exporter forbidden-token definitions, exporter test blocked-token fixtures, and pre-existing ledger API key roadmap text"
+    }
+  ],
+  "next_recommended_task": "TASK_CONTENTOPS_0175BR_SUPERVISED_INPUT_STUB_TO_DRAFT_ELIGIBILITY_GATE_PRECHECK_V0"
+}

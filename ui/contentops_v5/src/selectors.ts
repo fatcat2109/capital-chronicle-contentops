@@ -26,6 +26,10 @@ import type {
   OperatorInputCapturePrecheckPacketType
 } from './data/operatorInputCapturePrecheckAdapter';
 import type {
+  SupervisedInputStubContractPacketType,
+  SupervisedInputStubItem
+} from './data/supervisedInputStubContractAdapter';
+import type {
   AiWriterOutput,
   ArtifactEligibilityCheck,
   Blocker,
@@ -1179,6 +1183,68 @@ export function selectOperatorInputCapturePrecheckPacket(
       { label: 'Required Fields', value: p.required_input_fields.join(', ') },
       { label: 'Validation Rules', value: p.validation_rules.join(', ') },
       { label: 'Blocked Reasons', value: p.blocked_reasons.join(', ') },
+      { label: 'Allowed Next Step', value: p.allowed_next_step },
+      { label: 'Disallowed Outputs', value: p.disallowed_outputs.join(', ') },
+      { label: 'Next Rec Task', value: p.next_recommended_task, mono: true },
+    ],
+  };
+}
+
+export function selectSupervisedInputStubItem(
+  item: SupervisedInputStubItem,
+): SelectableObject {
+  return {
+    kind: 'supervised_input_stub_item',
+    id: item.stub_item_id,
+    title: item.source_candidate_id,
+    fields: [
+      { label: 'Stub Item ID', value: item.stub_item_id, mono: true },
+      { label: 'Source Intent Item ID', value: item.source_intent_item_id, mono: true },
+      { label: 'Candidate ID', value: item.source_candidate_id, mono: true },
+      { label: 'Relative Path', value: item.relative_path, mono: true },
+      { label: 'Evidence Role', value: item.evidence_role },
+      { label: 'Source Family', value: item.source_family },
+      { label: 'Records Count', value: String(item.records_count), mono: true },
+      { label: 'Contract Name', value: item.contract_name || 'none', mono: item.contract_name !== null },
+      { label: 'Scope Label', value: item.intent_scope_label, mono: true },
+      { label: 'Source Precheck Status', value: item.source_precheck_status, status: item.source_precheck_status === 'OPERATOR_INPUT_CAPTURE_PRECHECK_PENDING' ? 'review' : 'blocked' },
+      { label: 'Stub Status', value: item.supervised_input_stub_status, status: 'review' },
+      { label: 'Required Fields', value: item.required_input_fields.join(', ') },
+      { label: 'Blocked Reasons', value: item.blocked_reasons.join(', ') || 'none' },
+      { label: 'Missing Requirements', value: item.missing_requirements.join(', ') || 'none' },
+      { label: 'Allowed Next Step', value: item.allowed_next_step },
+      { label: 'Current Value', value: 'current_value: null', mono: true, status: 'blocked' },
+      { label: 'Placeholder', value: 'placeholder_value: PENDING_OPERATOR_INPUT', mono: true, status: 'review' },
+      { label: 'Capture Here', value: 'capture_enabled_in_this_task: false', mono: true, status: 'blocked' },
+      { label: 'Editable Here', value: 'editable_in_this_task: false', mono: true, status: 'blocked' },
+      { label: 'Persistence', value: 'persistence_enabled: false', mono: true, status: 'blocked' },
+      { label: 'Forbidden Actions', value: item.forbidden_current_actions.join(', ') },
+      { label: 'Disallowed Outputs', value: item.disallowed_outputs.join(', ') },
+    ],
+  };
+}
+
+export function selectSupervisedInputStubContractPacket(
+  p: SupervisedInputStubContractPacketType,
+): SelectableObject {
+  return {
+    kind: 'supervised_input_stub_contract_packet',
+    id: p.packet_hash,
+    title: `Supervised Input Stub Contract · ${p.task_label.slice(0, 16)}...`,
+    fields: [
+      { label: 'Task Label', value: p.task_label, mono: true },
+      { label: 'Source Precheck Hash', value: p.source_operator_input_capture_precheck_packet_hash, mono: true },
+      { label: 'Source Task', value: p.source_packet_task_label, mono: true },
+      { label: 'Packet Hash', value: p.packet_hash, mono: true },
+      { label: 'Ledger Family', value: p.ledger_family, mono: true },
+      { label: 'Global Stub Status', value: p.global_supervised_input_stub_status, status: 'blocked' },
+      { label: 'Precheck Items Count', value: String(p.source_input_capture_precheck_item_count) },
+      { label: 'Required Fields', value: p.required_input_fields.join(', ') },
+      { label: 'Future Modes Enabled', value: String(p.future_capture_modes_enabled_in_this_task), mono: true, status: 'blocked' },
+      { label: 'Allowed Future Modes', value: p.allowed_future_capture_modes.join(', ') },
+      { label: 'Validation Rules', value: p.validation_rules.join(', ') },
+      { label: 'Blocked Reasons', value: p.blocked_reasons.join(', ') },
+      { label: 'Forbidden Current Actions', value: p.forbidden_current_actions.join(', ') },
       { label: 'Allowed Next Step', value: p.allowed_next_step },
       { label: 'Disallowed Outputs', value: p.disallowed_outputs.join(', ') },
       { label: 'Next Rec Task', value: p.next_recommended_task, mono: true },
