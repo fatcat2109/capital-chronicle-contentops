@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `3af7d07d1ea151ed7ac7bced5d84231dab20e997`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175BV_DRAFT_ELIGIBILITY_GATE_TO_SUPERVISED_INPUT_RESOLUTION_PLAN_V0`
-* **Latest implemented capability:** Create deterministic Supervised Input Resolution Plan
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BW_SUPERVISED_INPUT_RESOLUTION_PLAN_TO_LOCAL_REDACTION_AND_VALIDATION_PRECHECK_V0`
+* **Last resolved accepted HEAD in ledger:** `731e67f8f661db155b2f2aaed618e4104f326361`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175BW_SUPERVISED_INPUT_RESOLUTION_PLAN_TO_LOCAL_REDACTION_AND_VALIDATION_PRECHECK_V0`
+* **Latest implemented capability:** Create deterministic Local Redaction and Validation Precheck
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BX_LOCAL_REDACTION_VALIDATION_PRECHECK_TO_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -133,7 +133,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175BS_SCHEMA_COMPLETION_REPAIR_V0` | `ae31a18420b6007df2e3fe9e6f34f768021d78de` | `9d5987d98d0f1b4f8a2e86c44b618b1105a9733d` | Repair schema gaps in Draft Eligibility Gate Precheck contract, adding required_input_fields, missing_required_input_fields, eligibility_field_policy, draft_generation_policy objects | Pytest suite checking repaired fields, global status BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED, fail-closed status | Repaired, compliant schema contract for the draft eligibility precheck layer | V5 cockpit draft eligibility status queue binding, layout containment review | `TASK_CONTENTOPS_0175BT_DRAFT_ELIGIBILITY_GATE_TO_V5_READONLY_STATUS_PANEL_BINDING_V0` |
 | `TASK_CONTENTOPS_0175BT_DRAFT_ELIGIBILITY_GATE_TO_V5_READONLY_STATUS_PANEL_BINDING_V0` | `9d5987d98d0f1b4f8a2e86c44b618b1105a9733d` | `9298c0487e2542c4cfa7a8d41f6b4283738fd386` | Bind Draft Eligibility Gate Precheck into V5 cockpit as a readonly draft eligibility status surface nested inside the Draft panel with progressive disclosure details area | Vitest suite, python exporter check, pytest exporter tests, Vite build check, pycache scan, forbidden-term scan, editable-affordance scan | Statically bound cockpit surface representing the draft eligibility status without visual overload | Visual gate stack containment review, actual operator input capture, editable UI, persistence, draft generation, platform dispatching | `TASK_CONTENTOPS_0175BU_V5_WRITER_STUDIO_GATE_STACK_CONTAINMENT_REVIEW_V0` |
 | `TASK_CONTENTOPS_0175BV_DRAFT_ELIGIBILITY_GATE_TO_SUPERVISED_INPUT_RESOLUTION_PLAN_V0` | `9298c0487e2542c4cfa7a8d41f6b4283738fd386` | `3af7d07d1ea151ed7ac7bced5d84231dab20e997` | Create deterministic backend Supervised Input Resolution Plan over Draft Eligibility Gate Precheck | Pytest suite checking fail-closed status, draft_generation_enabled: False, 7 resolution items mapping | Deterministic resolution plan mappings, validation and evidence rules for missing operator inputs | Local validation prechecks, redaction, future operator inputs capture | `TASK_CONTENTOPS_0175BW_SUPERVISED_INPUT_RESOLUTION_PLAN_TO_LOCAL_REDACTION_AND_VALIDATION_PRECHECK_V0` |
-| `TASK_CONTENTOPS_0175BW_SUPERVISED_INPUT_RESOLUTION_PLAN_TO_LOCAL_REDACTION_AND_VALIDATION_PRECHECK_V0` | `3af7d07d1ea151ed7ac7bced5d84231dab20e997` | `RECORDED_IN_NEXT_TASK_READBACK` | Create deterministic backend Local Redaction and Validation Precheck over Supervised Input Resolution Plan | Pytest suite checking fail-closed status, 7 precheck items mapping | Deterministic redaction/validation schemas and evidence rules for operator values | Local validation prechecks, redaction scan settings, future inputs capture gate | `TASK_CONTENTOPS_0175BX_LOCAL_REDACTION_VALIDATION_PRECHECK_TO_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT_V0` |
+| `TASK_CONTENTOPS_0175BW_SUPERVISED_INPUT_RESOLUTION_PLAN_TO_LOCAL_REDACTION_AND_VALIDATION_PRECHECK_V0` | `3af7d07d1ea151ed7ac7bced5d84231dab20e997` | `731e67f8f661db155b2f2aaed618e4104f326361` | Create deterministic backend Local Redaction and Validation Precheck over Supervised Input Resolution Plan | Pytest suite checking fail-closed status, 7 precheck items mapping | Deterministic redaction/validation schemas and evidence rules for operator values | Local validation prechecks, redaction scan settings, future inputs capture gate | `TASK_CONTENTOPS_0175BX_LOCAL_REDACTION_VALIDATION_PRECHECK_TO_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT_V0` |
+| `TASK_CONTENTOPS_0175BX_LOCAL_REDACTION_VALIDATION_PRECHECK_TO_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT_V0` | `731e67f8f661db155b2f2aaed618e4104f326361` | `RECORDED_IN_NEXT_TASK_READBACK` | Create deterministic backend Operator Input Capture Gate Contract over Local Redaction and Validation Precheck | Pytest suite checking fail-closed status, 7 capture items mapping | Deterministic capture contracts, validation dependency policies, and evidence checks | Future capture validation limits, dry-run prechecks, future inputs manual capture | `TASK_CONTENTOPS_0175BY_OPERATOR_INPUT_CAPTURE_GATE_TO_SUPERVISED_MANUAL_INPUT_DRY_RUN_PRECHECK_V0` |
 
 ---
 
@@ -175,7 +176,7 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BX_LOCAL_REDACTION_VALIDATION_PRECHECK_TO_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT_V0`
-* **Focus:** Create deterministic Operator Input Capture Gate Contract over Local Redaction and Validation Precheck.
+* **Next recommended task:** `TASK_CONTENTOPS_0175BY_OPERATOR_INPUT_CAPTURE_GATE_TO_SUPERVISED_MANUAL_INPUT_DRY_RUN_PRECHECK_V0`
+* **Focus:** Create deterministic Operator Input Capture Gate to Supervised Manual Input Dry Run Precheck.
 * **Visual System Status:** Visual QA skipped (backend task).
 * **UI Caveat:** Backend-only task; do not add or modify UI.
