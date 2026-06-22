@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `cdf8387397c738c72df444e492611aa5535ddc8d`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175BP_OPERATOR_INPUT_CAPTURE_PRECHECK_TO_SUPERVISED_INPUT_STUB_CONTRACT_V0`
-* **Latest implemented capability:** Deterministic Supervised Operator Input Stub Contract over pending operator input requirements
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BQ_SUPERVISED_INPUT_STUB_CONTRACT_TO_V5_READONLY_STUB_PANEL_BINDING_V0`
+* **Last resolved accepted HEAD in ledger:** `718806d60328c9032dad3990cd381231b93ef012`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175BQ_SUPERVISED_INPUT_STUB_CONTRACT_TO_V5_READONLY_STUB_PANEL_BINDING_V0`
+* **Latest implemented capability:** Bind Supervised Operator Input Stub Contract into V5 readonly stub panel
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BS_SUPERVISED_INPUT_STUB_TO_DRAFT_ELIGIBILITY_GATE_PRECHECK_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -127,7 +127,9 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175BO_OPERATOR_INPUT_CAPTURE_PRECHECK_TO_V5_READONLY_INPUT_PANEL_BINDING_V0` | `df77b283c91c2f1213336529562e5fef22319498` | `a666117febeaf77633b00d3cf5acd9b8bcd5f9d2` | Bind Operator Input Capture Precheck into V5 readonly input-precheck panel | Exporter check, backend pytest, forbidden affordance scan, Vite build/typecheck | Cockpit readonly surface for required operator input metadata and capture locks | Completion evidence repair, actual operator input capture, draft generation, platform dispatching | `0175BO_REPAIR` |
 | `TASK_CONTENTOPS_0175BO_COMPLETION_EVIDENCE_TEST_AND_DOCS_REPAIR_V0` | `a666117febeaf77633b00d3cf5acd9b8bcd5f9d2` | `3c539e7faf6359b475d30de51d530faee4b28f2c` | Complete tests, docs automation runbook, evidence packet, and ledger repair for 0175BO without product scope change | Exporter test, V5 UI test, full npm test, V5 build, diff check, pycache scan, forbidden-term scan, editable-affordance scan | Evidence-grade acceptance path for readonly input-precheck panel | Actual operator input capture, draft generation, platform dispatching | `0175BP` |
 | `TASK_CONTENTOPS_0175BP_OPERATOR_INPUT_CAPTURE_PRECHECK_TO_SUPERVISED_INPUT_STUB_CONTRACT_V0` | `3c539e7faf6359b475d30de51d530faee4b28f2c` | `cdf8387397c738c72df444e492611aa5535ddc8d` | Create deterministic Supervised Operator Input Stub Contract over Operator Input Capture Precheck with schema-only pending slots | 0175BN pytest, 0175BP pytest, JSON load, diff check, pycache scan, forbidden-term scan, editable-affordance scan | Local contract for future supervised input capture UI binding without enabling capture | Actual operator input capture, editable UI, draft generation, platform dispatching | `0175BQ` |
-| `TASK_CONTENTOPS_0175BQ_SUPERVISED_INPUT_STUB_CONTRACT_TO_V5_READONLY_STUB_PANEL_BINDING_V0` | `cdf8387397c738c72df444e492611aa5535ddc8d` | `RECORDED_IN_NEXT_TASK_READBACK` | Bind Supervised Operator Input Stub Contract into V5 readonly stub panel with static exporter, adapter, selectors, and Writer Studio queue surface | Exporter check, 0175BP pytest, exporter pytest, V5 UI test, full npm test, V5 build, diff check, pycache scan, forbidden-term scan, editable-affordance scan | Cockpit readonly surface for supervised input stub contract review without enabling capture | Actual operator input capture, editable UI, persistence, draft generation, platform dispatching | `0175BR` |
+| `TASK_CONTENTOPS_0175BQ_SUPERVISED_INPUT_STUB_CONTRACT_TO_V5_READONLY_STUB_PANEL_BINDING_V0` | `cdf8387397c738c72df444e492611aa5535ddc8d` | `718806d60328c9032dad3990cd381231b93ef012` | Bind Supervised Operator Input Stub Contract into V5 readonly stub panel with static exporter, adapter, selectors, and Writer Studio queue surface | Exporter check, 0175BP pytest, exporter pytest, V5 UI test, full npm test, V5 build, diff check, pycache scan, forbidden-term scan, editable-affordance scan | Cockpit readonly surface for supervised input stub contract review without enabling capture | Actual operator input capture, editable UI, persistence, draft generation, platform dispatching | `0175BR` |
+| `TASK_CONTENTOPS_0175BR_V5_WRITER_STUDIO_GATE_STACK_BROWSER_QA_V0` | `718806d60328c9032dad3990cd381231b93ef012` | `718806d60328c9032dad3990cd381231b93ef012` | Run read-only browser visual QA walkthrough over V5 Writer Studio gate stack | Vite development server run, Browser subagent navigation and screenshot validation | Operator verification and visual sanity check of stack layout | Visual layout polish, mobile responsive scaling, panel containment planning | `0175BS` |
+| `TASK_CONTENTOPS_0175BS_SUPERVISED_INPUT_STUB_TO_DRAFT_ELIGIBILITY_GATE_PRECHECK_V0` | `718806d60328c9032dad3990cd381231b93ef012` | `RECORDED_IN_NEXT_TASK_READBACK` | Create deterministic backend Draft Eligibility Gate Precheck over Supervised Operator Input Stub Contract | Pytest suite checking fail-closed status, draft_generation_enabled: False, 7 stub items mapping | Safe, deterministic requirements definition for draft eligibility gate prechecks | V5 cockpit draft eligibility queue binding, manual inputs validation | `TASK_CONTENTOPS_0175BT_DRAFT_ELIGIBILITY_GATE_TO_V5_READONLY_STATUS_PANEL_BINDING_V0` |
 
 ---
 
@@ -169,6 +171,7 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BQ_SUPERVISED_INPUT_STUB_CONTRACT_TO_V5_READONLY_STUB_PANEL_BINDING_V0`
-* **Focus:** Bind supervised operator input stub contract to V5 as readonly stub panel without enabling capture, editability, generation, persistence, or live/API behavior.
+* **Next recommended task:** `TASK_CONTENTOPS_0175BT_DRAFT_ELIGIBILITY_GATE_TO_V5_READONLY_STATUS_PANEL_BINDING_V0`
+* **Focus:** Bind Draft Eligibility Gate Precheck to V5 as readonly status panel without enabling draft generation, editable UI, persistence, or live API behavior.
 * **Visual System Status:** Visual enhancement/polish is deferred.
+* **UI Caveat:** Future UI binding should use containment/progressive disclosure and should not add another full WriterStudio panel without visual repair.
