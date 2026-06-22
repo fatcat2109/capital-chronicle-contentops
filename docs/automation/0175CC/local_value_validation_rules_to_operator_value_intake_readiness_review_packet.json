@@ -1,0 +1,1901 @@
+{
+  "all_prerequisites_satisfied_for_future_intake_design": true,
+  "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+  "disallowed_outputs": [
+    "raw_record_contents",
+    "source_extracted_facts",
+    "market_values",
+    "narrative_thesis",
+    "headline",
+    "hook",
+    "caption",
+    "draft_paragraph",
+    "platform_copy",
+    "prediction",
+    "recommendation",
+    "buy_sell_hold_sizing_signal_language",
+    "operator_input_value",
+    "operator_review_notes_text",
+    "captured_operator_value",
+    "dry_run_operator_value",
+    "accepted_operator_value",
+    "redacted_operator_value",
+    "redaction_result_value",
+    "validation_result_value",
+    "validated_operator_value",
+    "operator_value_intake_payload",
+    "operator_value_readiness_result"
+  ],
+  "forbidden_current_actions": [
+    "actual_operator_value_intake",
+    "actual_input_capture",
+    "real_operator_value_acceptance",
+    "editable_input_fields",
+    "form_submission",
+    "save_capture_approve_generate_controls",
+    "operator_value_persistence",
+    "evidence_capture",
+    "validation_execution",
+    "validation_result_generation",
+    "validation_result_persistence",
+    "redaction_execution",
+    "policy_scan_execution",
+    "redacted_value_generation",
+    "redaction_result_persistence",
+    "operator_prose_generation",
+    "content_generation",
+    "draft_generation",
+    "headline_hook_caption_generation",
+    "platform_copy_generation",
+    "ai_writer_generation",
+    "draft_storage",
+    "public_posting",
+    "live_dispatch",
+    "provider_or_platform_api_call",
+    "local_storage_write",
+    "session_storage_write",
+    "draft_eligibility_recheck"
+  ],
+  "future_intake_boundary": {
+    "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+    "future_intake_requires_evidence_before_persistence": true,
+    "future_intake_requires_new_task": true,
+    "future_intake_requires_operator_supplied_values": true,
+    "future_intake_requires_redaction_before_validation": true,
+    "future_intake_requires_supervised_local_value_entry_stub": true,
+    "future_intake_requires_validation_before_acceptance": true,
+    "review_only_now": true
+  },
+  "global_operator_value_intake_readiness_review_status": "BLOCKED_OPERATOR_VALUE_INTAKE_READINESS_REVIEW_COMPLETE_INTAKE_DISABLED",
+  "hash_algorithm": "sha256",
+  "ledger_family": "local_value_validation_rules_to_operator_value_intake_readiness_review_future",
+  "missing_required_input_fields": [
+    "intended_audience_lane",
+    "content_purpose_category",
+    "source_review_notes",
+    "risk_review_notes",
+    "claim_scope_boundary",
+    "manual_operator_decision"
+  ],
+  "next_recommended_task": "TASK_CONTENTOPS_0175CD_OPERATOR_VALUE_INTAKE_READINESS_REVIEW_TO_SUPERVISED_LOCAL_VALUE_ENTRY_STUB_V0",
+  "operator_value_capture_enabled": false,
+  "operator_value_intake_enabled": false,
+  "operator_value_intake_readiness_review_items": [
+    {
+      "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+      "contract_name": null,
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text",
+        "captured_operator_value",
+        "dry_run_operator_value",
+        "accepted_operator_value",
+        "redacted_operator_value",
+        "redaction_result_value",
+        "validation_result_value",
+        "validated_operator_value",
+        "operator_value_intake_payload",
+        "operator_value_readiness_result"
+      ],
+      "evidence_role": "manifest",
+      "forbidden_current_actions": [
+        "actual_operator_value_intake",
+        "actual_input_capture",
+        "real_operator_value_acceptance",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_value_persistence",
+        "evidence_capture",
+        "validation_execution",
+        "validation_result_generation",
+        "validation_result_persistence",
+        "redaction_execution",
+        "policy_scan_execution",
+        "redacted_value_generation",
+        "redaction_result_persistence",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "local_storage_write",
+        "session_storage_write",
+        "draft_eligibility_recheck"
+      ],
+      "future_intake_boundary": {
+        "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+        "future_intake_requires_evidence_before_persistence": true,
+        "future_intake_requires_new_task": true,
+        "future_intake_requires_operator_supplied_values": true,
+        "future_intake_requires_redaction_before_validation": true,
+        "future_intake_requires_supervised_local_value_entry_stub": true,
+        "future_intake_requires_validation_before_acceptance": true,
+        "review_only_now": true
+      },
+      "intent_scope_label": "official_text_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "operator_value_intake_readiness_review_status": "BLOCKED_OPERATOR_VALUE_INTAKE_READINESS_REVIEW_COMPLETE_INTAKE_DISABLED",
+      "prerequisite_review": {
+        "all_required_input_fields_currently_missing": {
+          "current_status": "missing_as_required_for_schema_only_review",
+          "missing_required_input_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "all_required_input_fields_documented": {
+          "current_status": "documented",
+          "required_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "draft_eligibility_recheck_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "draft_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "evidence_capture_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "field_validation_rule_map_present": {
+          "current_status": "present",
+          "field_count": 6,
+          "satisfied": true
+        },
+        "live_dispatch_disabled": {
+          "current_status": "disabled",
+          "reviewed_item_count": 7,
+          "satisfied": true
+        },
+        "operator_value_intake_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "operator_value_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "redaction_dependency_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "redaction_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "source_local_value_validation_rules_contract_present": {
+          "current_status": "present",
+          "required_for_future_intake": true,
+          "satisfied": true
+        },
+        "validation_evidence_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_failure_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_result_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_result_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_rule_catalog_present": {
+          "current_status": "present",
+          "rule_count": 17,
+          "satisfied": true
+        }
+      },
+      "readiness_execution_policy": {
+        "accepts_real_operator_values": false,
+        "ai_writer_generation_enabled": false,
+        "captures_operator_values": false,
+        "dispatch_ready": false,
+        "draft_eligibility_recheck_enabled": false,
+        "draft_generation_enabled": false,
+        "evidence_capture_enabled": false,
+        "local_storage_enabled": false,
+        "operator_value_intake_enabled": false,
+        "operator_value_intake_readiness_review_completed": true,
+        "policy_scan_enabled": false,
+        "public_postable": false,
+        "redacted_value_generation_enabled": false,
+        "redaction_execution_enabled": false,
+        "redaction_result_persistence_enabled": false,
+        "session_storage_enabled": false,
+        "stores_operator_values": false,
+        "validation_execution_enabled": false,
+        "validation_result_generation_enabled": false,
+        "validation_result_persistence_enabled": false
+      },
+      "readiness_prerequisites": [
+        "source_local_value_validation_rules_contract_present",
+        "all_required_input_fields_documented",
+        "all_required_input_fields_currently_missing",
+        "validation_rule_catalog_present",
+        "field_validation_rule_map_present",
+        "validation_evidence_policy_present",
+        "validation_failure_policy_present",
+        "redaction_dependency_policy_present",
+        "validation_execution_disabled",
+        "validation_result_generation_disabled",
+        "validation_result_persistence_disabled",
+        "redaction_execution_disabled",
+        "operator_value_intake_disabled",
+        "operator_value_persistence_disabled",
+        "evidence_capture_disabled",
+        "draft_eligibility_recheck_disabled",
+        "draft_generation_disabled",
+        "live_dispatch_disabled"
+      ],
+      "readiness_review_item_id": "operator_value_intake_readiness_review_item_01_STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1",
+      "records_count": 6,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "source_candidate_id": "STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1",
+      "source_family": "Official Text Spine",
+      "source_local_value_validation_rules_contract_status": "BLOCKED_LOCAL_VALUE_VALIDATION_RULES_DEFINED_EXECUTION_DISABLED",
+      "source_validation_rule_item_id": "local_value_validation_rule_item_01_STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1"
+    },
+    {
+      "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+      "contract_name": "STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1",
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text",
+        "captured_operator_value",
+        "dry_run_operator_value",
+        "accepted_operator_value",
+        "redacted_operator_value",
+        "redaction_result_value",
+        "validation_result_value",
+        "validated_operator_value",
+        "operator_value_intake_payload",
+        "operator_value_readiness_result"
+      ],
+      "evidence_role": "contract",
+      "forbidden_current_actions": [
+        "actual_operator_value_intake",
+        "actual_input_capture",
+        "real_operator_value_acceptance",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_value_persistence",
+        "evidence_capture",
+        "validation_execution",
+        "validation_result_generation",
+        "validation_result_persistence",
+        "redaction_execution",
+        "policy_scan_execution",
+        "redacted_value_generation",
+        "redaction_result_persistence",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "local_storage_write",
+        "session_storage_write",
+        "draft_eligibility_recheck"
+      ],
+      "future_intake_boundary": {
+        "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+        "future_intake_requires_evidence_before_persistence": true,
+        "future_intake_requires_new_task": true,
+        "future_intake_requires_operator_supplied_values": true,
+        "future_intake_requires_redaction_before_validation": true,
+        "future_intake_requires_supervised_local_value_entry_stub": true,
+        "future_intake_requires_validation_before_acceptance": true,
+        "review_only_now": true
+      },
+      "intent_scope_label": "official_text_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "operator_value_intake_readiness_review_status": "BLOCKED_OPERATOR_VALUE_INTAKE_READINESS_REVIEW_COMPLETE_INTAKE_DISABLED",
+      "prerequisite_review": {
+        "all_required_input_fields_currently_missing": {
+          "current_status": "missing_as_required_for_schema_only_review",
+          "missing_required_input_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "all_required_input_fields_documented": {
+          "current_status": "documented",
+          "required_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "draft_eligibility_recheck_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "draft_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "evidence_capture_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "field_validation_rule_map_present": {
+          "current_status": "present",
+          "field_count": 6,
+          "satisfied": true
+        },
+        "live_dispatch_disabled": {
+          "current_status": "disabled",
+          "reviewed_item_count": 7,
+          "satisfied": true
+        },
+        "operator_value_intake_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "operator_value_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "redaction_dependency_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "redaction_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "source_local_value_validation_rules_contract_present": {
+          "current_status": "present",
+          "required_for_future_intake": true,
+          "satisfied": true
+        },
+        "validation_evidence_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_failure_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_result_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_result_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_rule_catalog_present": {
+          "current_status": "present",
+          "rule_count": 17,
+          "satisfied": true
+        }
+      },
+      "readiness_execution_policy": {
+        "accepts_real_operator_values": false,
+        "ai_writer_generation_enabled": false,
+        "captures_operator_values": false,
+        "dispatch_ready": false,
+        "draft_eligibility_recheck_enabled": false,
+        "draft_generation_enabled": false,
+        "evidence_capture_enabled": false,
+        "local_storage_enabled": false,
+        "operator_value_intake_enabled": false,
+        "operator_value_intake_readiness_review_completed": true,
+        "policy_scan_enabled": false,
+        "public_postable": false,
+        "redacted_value_generation_enabled": false,
+        "redaction_execution_enabled": false,
+        "redaction_result_persistence_enabled": false,
+        "session_storage_enabled": false,
+        "stores_operator_values": false,
+        "validation_execution_enabled": false,
+        "validation_result_generation_enabled": false,
+        "validation_result_persistence_enabled": false
+      },
+      "readiness_prerequisites": [
+        "source_local_value_validation_rules_contract_present",
+        "all_required_input_fields_documented",
+        "all_required_input_fields_currently_missing",
+        "validation_rule_catalog_present",
+        "field_validation_rule_map_present",
+        "validation_evidence_policy_present",
+        "validation_failure_policy_present",
+        "redaction_dependency_policy_present",
+        "validation_execution_disabled",
+        "validation_result_generation_disabled",
+        "validation_result_persistence_disabled",
+        "redaction_execution_disabled",
+        "operator_value_intake_disabled",
+        "operator_value_persistence_disabled",
+        "evidence_capture_disabled",
+        "draft_eligibility_recheck_disabled",
+        "draft_generation_disabled",
+        "live_dispatch_disabled"
+      ],
+      "readiness_review_item_id": "operator_value_intake_readiness_review_item_02_STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1",
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "source_candidate_id": "STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1",
+      "source_family": "Official Text Spine",
+      "source_local_value_validation_rules_contract_status": "BLOCKED_LOCAL_VALUE_VALIDATION_RULES_DEFINED_EXECUTION_DISABLED",
+      "source_validation_rule_item_id": "local_value_validation_rule_item_02_STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1"
+    },
+    {
+      "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+      "contract_name": "BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1",
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text",
+        "captured_operator_value",
+        "dry_run_operator_value",
+        "accepted_operator_value",
+        "redacted_operator_value",
+        "redaction_result_value",
+        "validation_result_value",
+        "validated_operator_value",
+        "operator_value_intake_payload",
+        "operator_value_readiness_result"
+      ],
+      "evidence_role": "contract",
+      "forbidden_current_actions": [
+        "actual_operator_value_intake",
+        "actual_input_capture",
+        "real_operator_value_acceptance",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_value_persistence",
+        "evidence_capture",
+        "validation_execution",
+        "validation_result_generation",
+        "validation_result_persistence",
+        "redaction_execution",
+        "policy_scan_execution",
+        "redacted_value_generation",
+        "redaction_result_persistence",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "local_storage_write",
+        "session_storage_write",
+        "draft_eligibility_recheck"
+      ],
+      "future_intake_boundary": {
+        "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+        "future_intake_requires_evidence_before_persistence": true,
+        "future_intake_requires_new_task": true,
+        "future_intake_requires_operator_supplied_values": true,
+        "future_intake_requires_redaction_before_validation": true,
+        "future_intake_requires_supervised_local_value_entry_stub": true,
+        "future_intake_requires_validation_before_acceptance": true,
+        "review_only_now": true
+      },
+      "intent_scope_label": "macro_data_contract_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "operator_value_intake_readiness_review_status": "BLOCKED_OPERATOR_VALUE_INTAKE_READINESS_REVIEW_COMPLETE_INTAKE_DISABLED",
+      "prerequisite_review": {
+        "all_required_input_fields_currently_missing": {
+          "current_status": "missing_as_required_for_schema_only_review",
+          "missing_required_input_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "all_required_input_fields_documented": {
+          "current_status": "documented",
+          "required_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "draft_eligibility_recheck_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "draft_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "evidence_capture_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "field_validation_rule_map_present": {
+          "current_status": "present",
+          "field_count": 6,
+          "satisfied": true
+        },
+        "live_dispatch_disabled": {
+          "current_status": "disabled",
+          "reviewed_item_count": 7,
+          "satisfied": true
+        },
+        "operator_value_intake_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "operator_value_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "redaction_dependency_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "redaction_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "source_local_value_validation_rules_contract_present": {
+          "current_status": "present",
+          "required_for_future_intake": true,
+          "satisfied": true
+        },
+        "validation_evidence_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_failure_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_result_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_result_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_rule_catalog_present": {
+          "current_status": "present",
+          "rule_count": 17,
+          "satisfied": true
+        }
+      },
+      "readiness_execution_policy": {
+        "accepts_real_operator_values": false,
+        "ai_writer_generation_enabled": false,
+        "captures_operator_values": false,
+        "dispatch_ready": false,
+        "draft_eligibility_recheck_enabled": false,
+        "draft_generation_enabled": false,
+        "evidence_capture_enabled": false,
+        "local_storage_enabled": false,
+        "operator_value_intake_enabled": false,
+        "operator_value_intake_readiness_review_completed": true,
+        "policy_scan_enabled": false,
+        "public_postable": false,
+        "redacted_value_generation_enabled": false,
+        "redaction_execution_enabled": false,
+        "redaction_result_persistence_enabled": false,
+        "session_storage_enabled": false,
+        "stores_operator_values": false,
+        "validation_execution_enabled": false,
+        "validation_result_generation_enabled": false,
+        "validation_result_persistence_enabled": false
+      },
+      "readiness_prerequisites": [
+        "source_local_value_validation_rules_contract_present",
+        "all_required_input_fields_documented",
+        "all_required_input_fields_currently_missing",
+        "validation_rule_catalog_present",
+        "field_validation_rule_map_present",
+        "validation_evidence_policy_present",
+        "validation_failure_policy_present",
+        "redaction_dependency_policy_present",
+        "validation_execution_disabled",
+        "validation_result_generation_disabled",
+        "validation_result_persistence_disabled",
+        "redaction_execution_disabled",
+        "operator_value_intake_disabled",
+        "operator_value_persistence_disabled",
+        "evidence_capture_disabled",
+        "draft_eligibility_recheck_disabled",
+        "draft_generation_disabled",
+        "live_dispatch_disabled"
+      ],
+      "readiness_review_item_id": "operator_value_intake_readiness_review_item_03_BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1",
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "source_candidate_id": "BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1",
+      "source_family": "US Macro",
+      "source_local_value_validation_rules_contract_status": "BLOCKED_LOCAL_VALUE_VALIDATION_RULES_DEFINED_EXECUTION_DISABLED",
+      "source_validation_rule_item_id": "local_value_validation_rule_item_03_BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1"
+    },
+    {
+      "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+      "contract_name": null,
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text",
+        "captured_operator_value",
+        "dry_run_operator_value",
+        "accepted_operator_value",
+        "redacted_operator_value",
+        "redaction_result_value",
+        "validation_result_value",
+        "validated_operator_value",
+        "operator_value_intake_payload",
+        "operator_value_readiness_result"
+      ],
+      "evidence_role": "candidates",
+      "forbidden_current_actions": [
+        "actual_operator_value_intake",
+        "actual_input_capture",
+        "real_operator_value_acceptance",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_value_persistence",
+        "evidence_capture",
+        "validation_execution",
+        "validation_result_generation",
+        "validation_result_persistence",
+        "redaction_execution",
+        "policy_scan_execution",
+        "redacted_value_generation",
+        "redaction_result_persistence",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "local_storage_write",
+        "session_storage_write",
+        "draft_eligibility_recheck"
+      ],
+      "future_intake_boundary": {
+        "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+        "future_intake_requires_evidence_before_persistence": true,
+        "future_intake_requires_new_task": true,
+        "future_intake_requires_operator_supplied_values": true,
+        "future_intake_requires_redaction_before_validation": true,
+        "future_intake_requires_supervised_local_value_entry_stub": true,
+        "future_intake_requires_validation_before_acceptance": true,
+        "review_only_now": true
+      },
+      "intent_scope_label": "macro_data_contract_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "operator_value_intake_readiness_review_status": "BLOCKED_OPERATOR_VALUE_INTAKE_READINESS_REVIEW_COMPLETE_INTAKE_DISABLED",
+      "prerequisite_review": {
+        "all_required_input_fields_currently_missing": {
+          "current_status": "missing_as_required_for_schema_only_review",
+          "missing_required_input_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "all_required_input_fields_documented": {
+          "current_status": "documented",
+          "required_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "draft_eligibility_recheck_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "draft_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "evidence_capture_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "field_validation_rule_map_present": {
+          "current_status": "present",
+          "field_count": 6,
+          "satisfied": true
+        },
+        "live_dispatch_disabled": {
+          "current_status": "disabled",
+          "reviewed_item_count": 7,
+          "satisfied": true
+        },
+        "operator_value_intake_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "operator_value_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "redaction_dependency_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "redaction_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "source_local_value_validation_rules_contract_present": {
+          "current_status": "present",
+          "required_for_future_intake": true,
+          "satisfied": true
+        },
+        "validation_evidence_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_failure_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_result_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_result_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_rule_catalog_present": {
+          "current_status": "present",
+          "rule_count": 17,
+          "satisfied": true
+        }
+      },
+      "readiness_execution_policy": {
+        "accepts_real_operator_values": false,
+        "ai_writer_generation_enabled": false,
+        "captures_operator_values": false,
+        "dispatch_ready": false,
+        "draft_eligibility_recheck_enabled": false,
+        "draft_generation_enabled": false,
+        "evidence_capture_enabled": false,
+        "local_storage_enabled": false,
+        "operator_value_intake_enabled": false,
+        "operator_value_intake_readiness_review_completed": true,
+        "policy_scan_enabled": false,
+        "public_postable": false,
+        "redacted_value_generation_enabled": false,
+        "redaction_execution_enabled": false,
+        "redaction_result_persistence_enabled": false,
+        "session_storage_enabled": false,
+        "stores_operator_values": false,
+        "validation_execution_enabled": false,
+        "validation_result_generation_enabled": false,
+        "validation_result_persistence_enabled": false
+      },
+      "readiness_prerequisites": [
+        "source_local_value_validation_rules_contract_present",
+        "all_required_input_fields_documented",
+        "all_required_input_fields_currently_missing",
+        "validation_rule_catalog_present",
+        "field_validation_rule_map_present",
+        "validation_evidence_policy_present",
+        "validation_failure_policy_present",
+        "redaction_dependency_policy_present",
+        "validation_execution_disabled",
+        "validation_result_generation_disabled",
+        "validation_result_persistence_disabled",
+        "redaction_execution_disabled",
+        "operator_value_intake_disabled",
+        "operator_value_persistence_disabled",
+        "evidence_capture_disabled",
+        "draft_eligibility_recheck_disabled",
+        "draft_generation_disabled",
+        "live_dispatch_disabled"
+      ],
+      "readiness_review_item_id": "operator_value_intake_readiness_review_item_04_BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1",
+      "records_count": 9,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "source_candidate_id": "BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1",
+      "source_family": "US Macro",
+      "source_local_value_validation_rules_contract_status": "BLOCKED_LOCAL_VALUE_VALIDATION_RULES_DEFINED_EXECUTION_DISABLED",
+      "source_validation_rule_item_id": "local_value_validation_rule_item_04_BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1"
+    },
+    {
+      "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+      "contract_name": null,
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text",
+        "captured_operator_value",
+        "dry_run_operator_value",
+        "accepted_operator_value",
+        "redacted_operator_value",
+        "redaction_result_value",
+        "validation_result_value",
+        "validated_operator_value",
+        "operator_value_intake_payload",
+        "operator_value_readiness_result"
+      ],
+      "evidence_role": "manifest",
+      "forbidden_current_actions": [
+        "actual_operator_value_intake",
+        "actual_input_capture",
+        "real_operator_value_acceptance",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_value_persistence",
+        "evidence_capture",
+        "validation_execution",
+        "validation_result_generation",
+        "validation_result_persistence",
+        "redaction_execution",
+        "policy_scan_execution",
+        "redacted_value_generation",
+        "redaction_result_persistence",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "local_storage_write",
+        "session_storage_write",
+        "draft_eligibility_recheck"
+      ],
+      "future_intake_boundary": {
+        "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+        "future_intake_requires_evidence_before_persistence": true,
+        "future_intake_requires_new_task": true,
+        "future_intake_requires_operator_supplied_values": true,
+        "future_intake_requires_redaction_before_validation": true,
+        "future_intake_requires_supervised_local_value_entry_stub": true,
+        "future_intake_requires_validation_before_acceptance": true,
+        "review_only_now": true
+      },
+      "intent_scope_label": "broker_proxy_context_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "operator_value_intake_readiness_review_status": "BLOCKED_OPERATOR_VALUE_INTAKE_READINESS_REVIEW_COMPLETE_INTAKE_DISABLED",
+      "prerequisite_review": {
+        "all_required_input_fields_currently_missing": {
+          "current_status": "missing_as_required_for_schema_only_review",
+          "missing_required_input_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "all_required_input_fields_documented": {
+          "current_status": "documented",
+          "required_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "draft_eligibility_recheck_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "draft_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "evidence_capture_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "field_validation_rule_map_present": {
+          "current_status": "present",
+          "field_count": 6,
+          "satisfied": true
+        },
+        "live_dispatch_disabled": {
+          "current_status": "disabled",
+          "reviewed_item_count": 7,
+          "satisfied": true
+        },
+        "operator_value_intake_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "operator_value_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "redaction_dependency_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "redaction_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "source_local_value_validation_rules_contract_present": {
+          "current_status": "present",
+          "required_for_future_intake": true,
+          "satisfied": true
+        },
+        "validation_evidence_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_failure_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_result_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_result_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_rule_catalog_present": {
+          "current_status": "present",
+          "rule_count": 17,
+          "satisfied": true
+        }
+      },
+      "readiness_execution_policy": {
+        "accepts_real_operator_values": false,
+        "ai_writer_generation_enabled": false,
+        "captures_operator_values": false,
+        "dispatch_ready": false,
+        "draft_eligibility_recheck_enabled": false,
+        "draft_generation_enabled": false,
+        "evidence_capture_enabled": false,
+        "local_storage_enabled": false,
+        "operator_value_intake_enabled": false,
+        "operator_value_intake_readiness_review_completed": true,
+        "policy_scan_enabled": false,
+        "public_postable": false,
+        "redacted_value_generation_enabled": false,
+        "redaction_execution_enabled": false,
+        "redaction_result_persistence_enabled": false,
+        "session_storage_enabled": false,
+        "stores_operator_values": false,
+        "validation_execution_enabled": false,
+        "validation_result_generation_enabled": false,
+        "validation_result_persistence_enabled": false
+      },
+      "readiness_prerequisites": [
+        "source_local_value_validation_rules_contract_present",
+        "all_required_input_fields_documented",
+        "all_required_input_fields_currently_missing",
+        "validation_rule_catalog_present",
+        "field_validation_rule_map_present",
+        "validation_evidence_policy_present",
+        "validation_failure_policy_present",
+        "redaction_dependency_policy_present",
+        "validation_execution_disabled",
+        "validation_result_generation_disabled",
+        "validation_result_persistence_disabled",
+        "redaction_execution_disabled",
+        "operator_value_intake_disabled",
+        "operator_value_persistence_disabled",
+        "evidence_capture_disabled",
+        "draft_eligibility_recheck_disabled",
+        "draft_generation_disabled",
+        "live_dispatch_disabled"
+      ],
+      "readiness_review_item_id": "operator_value_intake_readiness_review_item_05_BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1",
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "source_candidate_id": "BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1",
+      "source_family": "Broker Proxy",
+      "source_local_value_validation_rules_contract_status": "BLOCKED_LOCAL_VALUE_VALIDATION_RULES_DEFINED_EXECUTION_DISABLED",
+      "source_validation_rule_item_id": "local_value_validation_rule_item_05_BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1"
+    },
+    {
+      "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+      "contract_name": null,
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text",
+        "captured_operator_value",
+        "dry_run_operator_value",
+        "accepted_operator_value",
+        "redacted_operator_value",
+        "redaction_result_value",
+        "validation_result_value",
+        "validated_operator_value",
+        "operator_value_intake_payload",
+        "operator_value_readiness_result"
+      ],
+      "evidence_role": "contract",
+      "forbidden_current_actions": [
+        "actual_operator_value_intake",
+        "actual_input_capture",
+        "real_operator_value_acceptance",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_value_persistence",
+        "evidence_capture",
+        "validation_execution",
+        "validation_result_generation",
+        "validation_result_persistence",
+        "redaction_execution",
+        "policy_scan_execution",
+        "redacted_value_generation",
+        "redaction_result_persistence",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "local_storage_write",
+        "session_storage_write",
+        "draft_eligibility_recheck"
+      ],
+      "future_intake_boundary": {
+        "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+        "future_intake_requires_evidence_before_persistence": true,
+        "future_intake_requires_new_task": true,
+        "future_intake_requires_operator_supplied_values": true,
+        "future_intake_requires_redaction_before_validation": true,
+        "future_intake_requires_supervised_local_value_entry_stub": true,
+        "future_intake_requires_validation_before_acceptance": true,
+        "review_only_now": true
+      },
+      "intent_scope_label": "ttl_freshness_policy_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "operator_value_intake_readiness_review_status": "BLOCKED_OPERATOR_VALUE_INTAKE_READINESS_REVIEW_COMPLETE_INTAKE_DISABLED",
+      "prerequisite_review": {
+        "all_required_input_fields_currently_missing": {
+          "current_status": "missing_as_required_for_schema_only_review",
+          "missing_required_input_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "all_required_input_fields_documented": {
+          "current_status": "documented",
+          "required_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "draft_eligibility_recheck_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "draft_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "evidence_capture_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "field_validation_rule_map_present": {
+          "current_status": "present",
+          "field_count": 6,
+          "satisfied": true
+        },
+        "live_dispatch_disabled": {
+          "current_status": "disabled",
+          "reviewed_item_count": 7,
+          "satisfied": true
+        },
+        "operator_value_intake_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "operator_value_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "redaction_dependency_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "redaction_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "source_local_value_validation_rules_contract_present": {
+          "current_status": "present",
+          "required_for_future_intake": true,
+          "satisfied": true
+        },
+        "validation_evidence_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_failure_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_result_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_result_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_rule_catalog_present": {
+          "current_status": "present",
+          "rule_count": 17,
+          "satisfied": true
+        }
+      },
+      "readiness_execution_policy": {
+        "accepts_real_operator_values": false,
+        "ai_writer_generation_enabled": false,
+        "captures_operator_values": false,
+        "dispatch_ready": false,
+        "draft_eligibility_recheck_enabled": false,
+        "draft_generation_enabled": false,
+        "evidence_capture_enabled": false,
+        "local_storage_enabled": false,
+        "operator_value_intake_enabled": false,
+        "operator_value_intake_readiness_review_completed": true,
+        "policy_scan_enabled": false,
+        "public_postable": false,
+        "redacted_value_generation_enabled": false,
+        "redaction_execution_enabled": false,
+        "redaction_result_persistence_enabled": false,
+        "session_storage_enabled": false,
+        "stores_operator_values": false,
+        "validation_execution_enabled": false,
+        "validation_result_generation_enabled": false,
+        "validation_result_persistence_enabled": false
+      },
+      "readiness_prerequisites": [
+        "source_local_value_validation_rules_contract_present",
+        "all_required_input_fields_documented",
+        "all_required_input_fields_currently_missing",
+        "validation_rule_catalog_present",
+        "field_validation_rule_map_present",
+        "validation_evidence_policy_present",
+        "validation_failure_policy_present",
+        "redaction_dependency_policy_present",
+        "validation_execution_disabled",
+        "validation_result_generation_disabled",
+        "validation_result_persistence_disabled",
+        "redaction_execution_disabled",
+        "operator_value_intake_disabled",
+        "operator_value_persistence_disabled",
+        "evidence_capture_disabled",
+        "draft_eligibility_recheck_disabled",
+        "draft_generation_disabled",
+        "live_dispatch_disabled"
+      ],
+      "readiness_review_item_id": "operator_value_intake_readiness_review_item_06_DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1",
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "source_candidate_id": "DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1",
+      "source_family": "US Macro",
+      "source_local_value_validation_rules_contract_status": "BLOCKED_LOCAL_VALUE_VALIDATION_RULES_DEFINED_EXECUTION_DISABLED",
+      "source_validation_rule_item_id": "local_value_validation_rule_item_06_DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1"
+    },
+    {
+      "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+      "contract_name": null,
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text",
+        "captured_operator_value",
+        "dry_run_operator_value",
+        "accepted_operator_value",
+        "redacted_operator_value",
+        "redaction_result_value",
+        "validation_result_value",
+        "validated_operator_value",
+        "operator_value_intake_payload",
+        "operator_value_readiness_result"
+      ],
+      "evidence_role": "contract",
+      "forbidden_current_actions": [
+        "actual_operator_value_intake",
+        "actual_input_capture",
+        "real_operator_value_acceptance",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_value_persistence",
+        "evidence_capture",
+        "validation_execution",
+        "validation_result_generation",
+        "validation_result_persistence",
+        "redaction_execution",
+        "policy_scan_execution",
+        "redacted_value_generation",
+        "redaction_result_persistence",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "local_storage_write",
+        "session_storage_write",
+        "draft_eligibility_recheck"
+      ],
+      "future_intake_boundary": {
+        "allowed_next_step": "stage_operator_value_intake_readiness_review_to_supervised_local_value_entry_stub",
+        "future_intake_requires_evidence_before_persistence": true,
+        "future_intake_requires_new_task": true,
+        "future_intake_requires_operator_supplied_values": true,
+        "future_intake_requires_redaction_before_validation": true,
+        "future_intake_requires_supervised_local_value_entry_stub": true,
+        "future_intake_requires_validation_before_acceptance": true,
+        "review_only_now": true
+      },
+      "intent_scope_label": "schema_contract_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "operator_value_intake_readiness_review_status": "BLOCKED_OPERATOR_VALUE_INTAKE_READINESS_REVIEW_COMPLETE_INTAKE_DISABLED",
+      "prerequisite_review": {
+        "all_required_input_fields_currently_missing": {
+          "current_status": "missing_as_required_for_schema_only_review",
+          "missing_required_input_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "all_required_input_fields_documented": {
+          "current_status": "documented",
+          "required_fields": [
+            "intended_audience_lane",
+            "content_purpose_category",
+            "source_review_notes",
+            "risk_review_notes",
+            "claim_scope_boundary",
+            "manual_operator_decision"
+          ],
+          "satisfied": true
+        },
+        "draft_eligibility_recheck_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "draft_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "evidence_capture_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "field_validation_rule_map_present": {
+          "current_status": "present",
+          "field_count": 6,
+          "satisfied": true
+        },
+        "live_dispatch_disabled": {
+          "current_status": "disabled",
+          "reviewed_item_count": 7,
+          "satisfied": true
+        },
+        "operator_value_intake_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "operator_value_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "redaction_dependency_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "redaction_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "source_local_value_validation_rules_contract_present": {
+          "current_status": "present",
+          "required_for_future_intake": true,
+          "satisfied": true
+        },
+        "validation_evidence_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_execution_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_failure_policy_present": {
+          "current_status": "present",
+          "satisfied": true
+        },
+        "validation_result_generation_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_result_persistence_disabled": {
+          "current_status": "disabled",
+          "satisfied": true
+        },
+        "validation_rule_catalog_present": {
+          "current_status": "present",
+          "rule_count": 17,
+          "satisfied": true
+        }
+      },
+      "readiness_execution_policy": {
+        "accepts_real_operator_values": false,
+        "ai_writer_generation_enabled": false,
+        "captures_operator_values": false,
+        "dispatch_ready": false,
+        "draft_eligibility_recheck_enabled": false,
+        "draft_generation_enabled": false,
+        "evidence_capture_enabled": false,
+        "local_storage_enabled": false,
+        "operator_value_intake_enabled": false,
+        "operator_value_intake_readiness_review_completed": true,
+        "policy_scan_enabled": false,
+        "public_postable": false,
+        "redacted_value_generation_enabled": false,
+        "redaction_execution_enabled": false,
+        "redaction_result_persistence_enabled": false,
+        "session_storage_enabled": false,
+        "stores_operator_values": false,
+        "validation_execution_enabled": false,
+        "validation_result_generation_enabled": false,
+        "validation_result_persistence_enabled": false
+      },
+      "readiness_prerequisites": [
+        "source_local_value_validation_rules_contract_present",
+        "all_required_input_fields_documented",
+        "all_required_input_fields_currently_missing",
+        "validation_rule_catalog_present",
+        "field_validation_rule_map_present",
+        "validation_evidence_policy_present",
+        "validation_failure_policy_present",
+        "redaction_dependency_policy_present",
+        "validation_execution_disabled",
+        "validation_result_generation_disabled",
+        "validation_result_persistence_disabled",
+        "redaction_execution_disabled",
+        "operator_value_intake_disabled",
+        "operator_value_persistence_disabled",
+        "evidence_capture_disabled",
+        "draft_eligibility_recheck_disabled",
+        "draft_generation_disabled",
+        "live_dispatch_disabled"
+      ],
+      "readiness_review_item_id": "operator_value_intake_readiness_review_item_07_ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1",
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "source_candidate_id": "ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1",
+      "source_family": "US Macro",
+      "source_local_value_validation_rules_contract_status": "BLOCKED_LOCAL_VALUE_VALIDATION_RULES_DEFINED_EXECUTION_DISABLED",
+      "source_validation_rule_item_id": "local_value_validation_rule_item_07_ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1"
+    }
+  ],
+  "operator_value_persistence_enabled": false,
+  "packet_hash": "4aa93f23b171c3871189796ad97ef6a4f5f5ceb2b02d7e2b8a4d3438021ed832",
+  "prerequisite_review": {
+    "all_required_input_fields_currently_missing": {
+      "current_status": "missing_as_required_for_schema_only_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "satisfied": true
+    },
+    "all_required_input_fields_documented": {
+      "current_status": "documented",
+      "required_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "satisfied": true
+    },
+    "draft_eligibility_recheck_disabled": {
+      "current_status": "disabled",
+      "satisfied": true
+    },
+    "draft_generation_disabled": {
+      "current_status": "disabled",
+      "satisfied": true
+    },
+    "evidence_capture_disabled": {
+      "current_status": "disabled",
+      "satisfied": true
+    },
+    "field_validation_rule_map_present": {
+      "current_status": "present",
+      "field_count": 6,
+      "satisfied": true
+    },
+    "live_dispatch_disabled": {
+      "current_status": "disabled",
+      "reviewed_item_count": 7,
+      "satisfied": true
+    },
+    "operator_value_intake_disabled": {
+      "current_status": "disabled",
+      "satisfied": true
+    },
+    "operator_value_persistence_disabled": {
+      "current_status": "disabled",
+      "satisfied": true
+    },
+    "redaction_dependency_policy_present": {
+      "current_status": "present",
+      "satisfied": true
+    },
+    "redaction_execution_disabled": {
+      "current_status": "disabled",
+      "satisfied": true
+    },
+    "source_local_value_validation_rules_contract_present": {
+      "current_status": "present",
+      "required_for_future_intake": true,
+      "satisfied": true
+    },
+    "validation_evidence_policy_present": {
+      "current_status": "present",
+      "satisfied": true
+    },
+    "validation_execution_disabled": {
+      "current_status": "disabled",
+      "satisfied": true
+    },
+    "validation_failure_policy_present": {
+      "current_status": "present",
+      "satisfied": true
+    },
+    "validation_result_generation_disabled": {
+      "current_status": "disabled",
+      "satisfied": true
+    },
+    "validation_result_persistence_disabled": {
+      "current_status": "disabled",
+      "satisfied": true
+    },
+    "validation_rule_catalog_present": {
+      "current_status": "present",
+      "rule_count": 17,
+      "satisfied": true
+    }
+  },
+  "readiness_execution_policy": {
+    "accepts_real_operator_values": false,
+    "ai_writer_generation_enabled": false,
+    "captures_operator_values": false,
+    "dispatch_ready": false,
+    "draft_eligibility_recheck_enabled": false,
+    "draft_generation_enabled": false,
+    "evidence_capture_enabled": false,
+    "local_storage_enabled": false,
+    "operator_value_intake_enabled": false,
+    "operator_value_intake_readiness_review_completed": true,
+    "policy_scan_enabled": false,
+    "public_postable": false,
+    "redacted_value_generation_enabled": false,
+    "redaction_execution_enabled": false,
+    "redaction_result_persistence_enabled": false,
+    "session_storage_enabled": false,
+    "stores_operator_values": false,
+    "validation_execution_enabled": false,
+    "validation_result_generation_enabled": false,
+    "validation_result_persistence_enabled": false
+  },
+  "readiness_prerequisites": [
+    "source_local_value_validation_rules_contract_present",
+    "all_required_input_fields_documented",
+    "all_required_input_fields_currently_missing",
+    "validation_rule_catalog_present",
+    "field_validation_rule_map_present",
+    "validation_evidence_policy_present",
+    "validation_failure_policy_present",
+    "redaction_dependency_policy_present",
+    "validation_execution_disabled",
+    "validation_result_generation_disabled",
+    "validation_result_persistence_disabled",
+    "redaction_execution_disabled",
+    "operator_value_intake_disabled",
+    "operator_value_persistence_disabled",
+    "evidence_capture_disabled",
+    "draft_eligibility_recheck_disabled",
+    "draft_generation_disabled",
+    "live_dispatch_disabled"
+  ],
+  "required_input_fields": [
+    "intended_audience_lane",
+    "content_purpose_category",
+    "source_review_notes",
+    "risk_review_notes",
+    "claim_scope_boundary",
+    "manual_operator_decision"
+  ],
+  "safety_flags": {
+    "actual_operator_input_capture_enabled": false,
+    "ai_writer_generation_enabled": false,
+    "credential_hydrated": false,
+    "dispatch_ready": false,
+    "draft_eligibility_recheck_enabled": false,
+    "draft_generation_enabled": false,
+    "editable_ui_enabled": false,
+    "env_secret_read": false,
+    "evidence_capture_enabled": false,
+    "live_api_called": false,
+    "local_storage_write_enabled": false,
+    "operator_value_intake_enabled": false,
+    "operator_value_intake_readiness_review_schema_only": true,
+    "persistence_enabled": false,
+    "platform_api_called": false,
+    "policy_scan_execution_enabled": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "real_operator_value_acceptance_enabled": false,
+    "redacted_value_generation_enabled": false,
+    "redaction_execution_enabled": false,
+    "redaction_result_persistence_enabled": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "secret_values_observed": false,
+    "session_storage_write_enabled": false,
+    "validation_enabled": false,
+    "validation_execution_enabled": false,
+    "validation_result_generation_enabled": false,
+    "validation_result_persistence_enabled": false
+  },
+  "source_local_value_validation_rule_item_count": 7,
+  "source_local_value_validation_rules_contract_packet_hash": "4f4bcd44fcce21e99482d9a65706e6a6ecc354e6da89632ad6c990d3b139338a",
+  "source_packet_task_label": "TASK_CONTENTOPS_0175CB_LOCAL_VALUE_REDACTION_RULES_TO_LOCAL_VALUE_VALIDATION_RULES_CONTRACT_V0",
+  "task_label": "TASK_CONTENTOPS_0175CC_LOCAL_VALUE_VALIDATION_RULES_TO_OPERATOR_VALUE_INTAKE_READINESS_REVIEW_V0",
+  "truth_protection_flags": {
+    "accepted_operator_value_truth_promoted": false,
+    "captured_value_truth_promoted": false,
+    "current_truth_promoted": false,
+    "dqr_cleared_by_contentops": false,
+    "draft_truth_promoted": false,
+    "dry_run_value_truth_promoted": false,
+    "market_data_promoted": false,
+    "numeric_truth_promoted": false,
+    "operator_input_truth_promoted": false,
+    "operator_value_intake_readiness_truth_promoted": false,
+    "readiness_cleared_by_contentops": false,
+    "redacted_value_truth_promoted": false,
+    "redaction_result_truth_promoted": false,
+    "validated_operator_value_truth_promoted": false,
+    "validation_result_truth_promoted": false
+  }
+}
