@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `1f92b1825615c762b592eec856ddc8fb5fd3709c`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175BY_SCHEMA_COMPLETION_REPAIR_V0`
-* **Latest implemented capability:** Repair Supervised Manual Input Dry Run Precheck schema keys and fail-closed safety flags
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BZ_SUPERVISED_MANUAL_INPUT_DRY_RUN_PRECHECK_TO_OPERATOR_VALUE_INTAKE_POLICY_V0`
+* **Last resolved accepted HEAD in ledger:** `56f065f8dd98adc6021eaf15b7741036258cd6e5`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175BZ_SUPERVISED_MANUAL_INPUT_DRY_RUN_PRECHECK_TO_OPERATOR_VALUE_INTAKE_POLICY_V0`
+* **Latest implemented capability:** Define backend-only Operator Value Intake Policy over the Supervised Manual Input Dry Run Precheck while keeping intake disabled
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175CA_OPERATOR_VALUE_INTAKE_POLICY_TO_LOCAL_VALUE_REDACTION_RULES_CONTRACT_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -136,7 +136,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175BW_SUPERVISED_INPUT_RESOLUTION_PLAN_TO_LOCAL_REDACTION_AND_VALIDATION_PRECHECK_V0` | `3af7d07d1ea151ed7ac7bced5d84231dab20e997` | `731e67f8f661db155b2f2aaed618e4104f326361` | Create deterministic backend Local Redaction and Validation Precheck over Supervised Input Resolution Plan | Pytest suite checking fail-closed status, 7 precheck items mapping | Deterministic redaction/validation schemas and evidence rules for operator values | Local validation prechecks, redaction scan settings, future inputs capture gate | `TASK_CONTENTOPS_0175BX_LOCAL_REDACTION_VALIDATION_PRECHECK_TO_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT_V0` |
 | `TASK_CONTENTOPS_0175BX_LOCAL_REDACTION_VALIDATION_PRECHECK_TO_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT_V0` | `731e67f8f661db155b2f2aaed618e4104f326361` | `5718f8a94e516b6a6710650fea071361414afe57` | Create deterministic backend Operator Input Capture Gate Contract over Local Redaction and Validation Precheck | Pytest suite checking fail-closed status, 7 capture items mapping | Deterministic capture contracts, validation dependency policies, and evidence checks | Future capture validation limits, dry-run prechecks, future inputs manual capture | `TASK_CONTENTOPS_0175BY_OPERATOR_INPUT_CAPTURE_GATE_TO_SUPERVISED_MANUAL_INPUT_DRY_RUN_PRECHECK_V0` |
 | `TASK_CONTENTOPS_0175BY_OPERATOR_INPUT_CAPTURE_GATE_TO_SUPERVISED_MANUAL_INPUT_DRY_RUN_PRECHECK_V0` | `5718f8a94e516b6a6710650fea071361414afe57` | `1f92b1825615c762b592eec856ddc8fb5fd3709c` | Create deterministic backend Supervised Manual Input Dry Run Precheck over Operator Input Capture Gate Contract | Pytest suite checking fail-closed status, 7 dry-run precheck items mapping | Deterministic dry-run procedure, future operator manual steps, blocked runtime actions, and later evidence requirements | Actual operator input capture, real operator values, evidence capture, validation/redaction execution, draft generation, live/API/platform behavior | `TASK_CONTENTOPS_0175BY_SCHEMA_COMPLETION_REPAIR_V0` |
-| `TASK_CONTENTOPS_0175BY_SCHEMA_COMPLETION_REPAIR_V0` | `1f92b1825615c762b592eec856ddc8fb5fd3709c` | `RECORDED_IN_NEXT_TASK_READBACK` | Repair Supervised Manual Input Dry Run Precheck schema naming and required fields: global_manual_input_dry_run_status, dry_run_items, manual_input_procedure_plan, dry_run_checklist, dry_run_execution_policy, dependency summaries, dry_run_schema_only, dry_run_operator_value disallowance | Targeted 0175BY pytest, JSON regeneration, schema load and forbidden safety scans | Audit-compliant dry-run schema ready for Operator Value Intake Policy | Actual operator input capture, editable UI, persistence, validation/redaction execution over real values, draft generation, live/API/platform behavior | `TASK_CONTENTOPS_0175BZ_SUPERVISED_MANUAL_INPUT_DRY_RUN_PRECHECK_TO_OPERATOR_VALUE_INTAKE_POLICY_V0` |
+| `TASK_CONTENTOPS_0175BY_SCHEMA_COMPLETION_REPAIR_V0` | `1f92b1825615c762b592eec856ddc8fb5fd3709c` | `56f065f8dd98adc6021eaf15b7741036258cd6e5` | Repair Supervised Manual Input Dry Run Precheck schema naming and required fields: global_manual_input_dry_run_status, dry_run_items, manual_input_procedure_plan, dry_run_checklist, dry_run_execution_policy, dependency summaries, dry_run_schema_only, dry_run_operator_value disallowance | Targeted 0175BY pytest, JSON regeneration, schema load and forbidden safety scans | Audit-compliant dry-run schema ready for Operator Value Intake Policy | Actual operator input capture, editable UI, persistence, validation/redaction execution over real values, draft generation, live/API/platform behavior | `TASK_CONTENTOPS_0175BZ_SUPERVISED_MANUAL_INPUT_DRY_RUN_PRECHECK_TO_OPERATOR_VALUE_INTAKE_POLICY_V0` |
+| `TASK_CONTENTOPS_0175BZ_SUPERVISED_MANUAL_INPUT_DRY_RUN_PRECHECK_TO_OPERATOR_VALUE_INTAKE_POLICY_V0` | `56f065f8dd98adc6021eaf15b7741036258cd6e5` | `RECORDED_IN_NEXT_TASK_READBACK` | Create deterministic backend Operator Value Intake Policy over Supervised Manual Input Dry Run Precheck with field, shape, prohibited content, evidence, redaction, validation, execution, truth, and safety policy schemas | Targeted 0175BY pytest, 0175BZ pytest, JSON load, diff check, pycache scan, forbidden-term and editable/live/persistence/generation scans | Policy-defined future operator value intake boundaries without accepting values | Actual operator input capture, real operator value acceptance/intake, evidence capture, persistence, validation/redaction execution over real values, draft generation, live/API/platform behavior | `TASK_CONTENTOPS_0175CA_OPERATOR_VALUE_INTAKE_POLICY_TO_LOCAL_VALUE_REDACTION_RULES_CONTRACT_V0` |
 
 ---
 
@@ -178,7 +179,7 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BZ_SUPERVISED_MANUAL_INPUT_DRY_RUN_PRECHECK_TO_OPERATOR_VALUE_INTAKE_POLICY_V0`
-* **Focus:** Create deterministic Operator Value Intake Policy over Supervised Manual Input Dry Run Precheck.
+* **Next recommended task:** `TASK_CONTENTOPS_0175CA_OPERATOR_VALUE_INTAKE_POLICY_TO_LOCAL_VALUE_REDACTION_RULES_CONTRACT_V0`
+* **Focus:** Create deterministic Local Value Redaction Rules Contract over Operator Value Intake Policy.
 * **Visual System Status:** Visual QA skipped (backend task).
 * **UI Caveat:** Backend-only task; do not add or modify UI.
