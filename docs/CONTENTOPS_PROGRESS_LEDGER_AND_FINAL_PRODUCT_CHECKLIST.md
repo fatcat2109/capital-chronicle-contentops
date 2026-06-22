@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `718806d60328c9032dad3990cd381231b93ef012`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175BQ_SUPERVISED_INPUT_STUB_CONTRACT_TO_V5_READONLY_STUB_PANEL_BINDING_V0`
-* **Latest implemented capability:** Bind Supervised Operator Input Stub Contract into V5 readonly stub panel
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BS_SUPERVISED_INPUT_STUB_TO_DRAFT_ELIGIBILITY_GATE_PRECHECK_V0`
+* **Last resolved accepted HEAD in ledger:** `9298c0487e2542c4cfa7a8d41f6b4283738fd386`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175BT_DRAFT_ELIGIBILITY_GATE_TO_V5_READONLY_STATUS_PANEL_BINDING_V0`
+* **Latest implemented capability:** Bind Draft Eligibility Gate Precheck to V5 readonly status strip
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BV_DRAFT_ELIGIBILITY_GATE_TO_SUPERVISED_INPUT_RESOLUTION_PLAN_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -131,7 +131,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175BR_V5_WRITER_STUDIO_GATE_STACK_BROWSER_QA_V0` | `718806d60328c9032dad3990cd381231b93ef012` | `718806d60328c9032dad3990cd381231b93ef012` | Run read-only browser visual QA walkthrough over V5 Writer Studio gate stack | Vite development server run, Browser subagent navigation and screenshot validation | Operator verification and visual sanity check of stack layout | Visual layout polish, mobile responsive scaling, panel containment planning | `0175BS` |
 | `TASK_CONTENTOPS_0175BS_SUPERVISED_INPUT_STUB_TO_DRAFT_ELIGIBILITY_GATE_PRECHECK_V0` | `718806d60328c9032dad3990cd381231b93ef012` | `ae31a18420b6007df2e3fe9e6f34f768021d78de` | Create deterministic backend Draft Eligibility Gate Precheck over Supervised Operator Input Stub Contract | Pytest suite checking fail-closed status, draft_generation_enabled: False, 7 stub items mapping | Safe, deterministic requirements definition for draft eligibility gate prechecks | V5 cockpit draft eligibility queue binding, manual inputs validation | `TASK_CONTENTOPS_0175BT_DRAFT_ELIGIBILITY_GATE_TO_V5_READONLY_STATUS_PANEL_BINDING_V0` |
 | `TASK_CONTENTOPS_0175BS_SCHEMA_COMPLETION_REPAIR_V0` | `ae31a18420b6007df2e3fe9e6f34f768021d78de` | `9d5987d98d0f1b4f8a2e86c44b618b1105a9733d` | Repair schema gaps in Draft Eligibility Gate Precheck contract, adding required_input_fields, missing_required_input_fields, eligibility_field_policy, draft_generation_policy objects | Pytest suite checking repaired fields, global status BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED, fail-closed status | Repaired, compliant schema contract for the draft eligibility precheck layer | V5 cockpit draft eligibility status queue binding, layout containment review | `TASK_CONTENTOPS_0175BT_DRAFT_ELIGIBILITY_GATE_TO_V5_READONLY_STATUS_PANEL_BINDING_V0` |
-| `TASK_CONTENTOPS_0175BT_DRAFT_ELIGIBILITY_GATE_TO_V5_READONLY_STATUS_PANEL_BINDING_V0` | `9d5987d98d0f1b4f8a2e86c44b618b1105a9733d` | `RECORDED_IN_NEXT_TASK_READBACK` | Bind Draft Eligibility Gate Precheck into V5 cockpit as a readonly draft eligibility status surface nested inside the Draft panel with progressive disclosure details area | Vitest suite, python exporter check, pytest exporter tests, Vite build check, pycache scan, forbidden-term scan, editable-affordance scan | Statically bound cockpit surface representing the draft eligibility status without visual overload | Visual gate stack containment review, actual operator input capture, editable UI, persistence, draft generation, platform dispatching | `TASK_CONTENTOPS_0175BU_V5_WRITER_STUDIO_GATE_STACK_CONTAINMENT_REVIEW_V0` |
+| `TASK_CONTENTOPS_0175BT_DRAFT_ELIGIBILITY_GATE_TO_V5_READONLY_STATUS_PANEL_BINDING_V0` | `9d5987d98d0f1b4f8a2e86c44b618b1105a9733d` | `9298c0487e2542c4cfa7a8d41f6b4283738fd386` | Bind Draft Eligibility Gate Precheck into V5 cockpit as a readonly draft eligibility status surface nested inside the Draft panel with progressive disclosure details area | Vitest suite, python exporter check, pytest exporter tests, Vite build check, pycache scan, forbidden-term scan, editable-affordance scan | Statically bound cockpit surface representing the draft eligibility status without visual overload | Visual gate stack containment review, actual operator input capture, editable UI, persistence, draft generation, platform dispatching | `TASK_CONTENTOPS_0175BU_V5_WRITER_STUDIO_GATE_STACK_CONTAINMENT_REVIEW_V0` |
+| `TASK_CONTENTOPS_0175BV_DRAFT_ELIGIBILITY_GATE_TO_SUPERVISED_INPUT_RESOLUTION_PLAN_V0` | `9298c0487e2542c4cfa7a8d41f6b4283738fd386` | `RECORDED_IN_NEXT_TASK_READBACK` | Create deterministic backend Supervised Input Resolution Plan over Draft Eligibility Gate Precheck | Pytest suite checking fail-closed status, draft_generation_enabled: False, 7 resolution items mapping | Deterministic resolution plan mappings, validation and evidence rules for missing operator inputs | Local validation prechecks, redaction, future operator inputs capture | `TASK_CONTENTOPS_0175BW_SUPERVISED_INPUT_RESOLUTION_PLAN_TO_LOCAL_REDACTION_AND_VALIDATION_PRECHECK_V0` |
 
 ---
 
@@ -173,7 +174,7 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BU_V5_WRITER_STUDIO_GATE_STACK_CONTAINMENT_REVIEW_V0`
-* **Focus:** Perform visual gate-stack containment review of WriterStudio panels to ensure visual cohesion and readability.
-* **Visual System Status:** Visual enhancement/polish is deferred.
-* **UI Caveat:** Future UI binding should use containment/progressive disclosure and should not add another full WriterStudio panel without visual repair.
+* **Next recommended task:** `TASK_CONTENTOPS_0175BW_SUPERVISED_INPUT_RESOLUTION_PLAN_TO_LOCAL_REDACTION_AND_VALIDATION_PRECHECK_V0`
+* **Focus:** Implement local redaction rules and validation precheck constraints over the supervised input resolution plan.
+* **Visual System Status:** Visual QA skipped (backend task).
+* **UI Caveat:** Backend-only task; do not add or modify UI.

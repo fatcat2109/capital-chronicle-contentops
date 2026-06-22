@@ -1,0 +1,1724 @@
+{
+  "allowed_future_resolution_methods": [
+    "supervised_manual_operator_entry",
+    "imported_operator_review_packet",
+    "deferred_human_review_session"
+  ],
+  "allowed_next_step": "stage_supervised_input_resolution_redaction_and_validation",
+  "blocked_reasons": [
+    "supervised_input_resolution_required",
+    "missing_required_operator_inputs",
+    "draft_eligibility_blocked_by_precheck"
+  ],
+  "disallowed_outputs": [
+    "raw_record_contents",
+    "source_extracted_facts",
+    "market_values",
+    "narrative_thesis",
+    "headline",
+    "hook",
+    "caption",
+    "draft_paragraph",
+    "platform_copy",
+    "prediction",
+    "recommendation",
+    "buy_sell_hold_sizing_signal_language",
+    "operator_input_value",
+    "operator_review_notes_text"
+  ],
+  "draft_generation_policy": {
+    "ai_writer_generation_enabled": false,
+    "caption_generation_enabled": false,
+    "dispatch_ready": false,
+    "draft_generation_enabled": false,
+    "draft_storage_enabled": false,
+    "headline_generation_enabled": false,
+    "hook_generation_enabled": false,
+    "operator_input_capture_enabled": false,
+    "platform_copy_generation_enabled": false,
+    "public_postable": false,
+    "supervised_input_resolution_enabled": false,
+    "validation_enabled": false
+  },
+  "evidence_requirements": {
+    "manual_review_notes_required": true,
+    "no_raw_vendor_redistribution_allowed": true,
+    "no_secret_values_allowed": true,
+    "operator_identity_or_session_ref_required": true,
+    "redaction_check_required": true,
+    "source_packet_hash_required": true,
+    "timestamp_required": true
+  },
+  "field_resolution_plan": {
+    "claim_scope_boundary": {
+      "allowed_future_resolution_methods": [
+        "supervised_manual_operator_entry",
+        "imported_operator_review_packet",
+        "deferred_human_review_session"
+      ],
+      "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+      "current_value": null,
+      "editable_in_this_task": false,
+      "evidence_required": true,
+      "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+      "future_resolution_required": true,
+      "generated_by_system": false,
+      "persistence_enabled": false,
+      "placeholder_value": "PENDING_OPERATOR_INPUT",
+      "required": true,
+      "resolution_enabled_in_this_task": false,
+      "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+      "validation_enabled": false
+    },
+    "content_purpose_category": {
+      "allowed_future_resolution_methods": [
+        "supervised_manual_operator_entry",
+        "imported_operator_review_packet",
+        "deferred_human_review_session"
+      ],
+      "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+      "current_value": null,
+      "editable_in_this_task": false,
+      "evidence_required": true,
+      "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+      "future_resolution_required": true,
+      "generated_by_system": false,
+      "persistence_enabled": false,
+      "placeholder_value": "PENDING_OPERATOR_INPUT",
+      "required": true,
+      "resolution_enabled_in_this_task": false,
+      "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+      "validation_enabled": false
+    },
+    "intended_audience_lane": {
+      "allowed_future_resolution_methods": [
+        "supervised_manual_operator_entry",
+        "imported_operator_review_packet",
+        "deferred_human_review_session"
+      ],
+      "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+      "current_value": null,
+      "editable_in_this_task": false,
+      "evidence_required": true,
+      "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+      "future_resolution_required": true,
+      "generated_by_system": false,
+      "persistence_enabled": false,
+      "placeholder_value": "PENDING_OPERATOR_INPUT",
+      "required": true,
+      "resolution_enabled_in_this_task": false,
+      "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+      "validation_enabled": false
+    },
+    "manual_operator_decision": {
+      "allowed_future_resolution_methods": [
+        "supervised_manual_operator_entry",
+        "imported_operator_review_packet",
+        "deferred_human_review_session"
+      ],
+      "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+      "current_value": null,
+      "editable_in_this_task": false,
+      "evidence_required": true,
+      "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+      "future_resolution_required": true,
+      "generated_by_system": false,
+      "persistence_enabled": false,
+      "placeholder_value": "PENDING_OPERATOR_INPUT",
+      "required": true,
+      "resolution_enabled_in_this_task": false,
+      "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+      "validation_enabled": false
+    },
+    "risk_review_notes": {
+      "allowed_future_resolution_methods": [
+        "supervised_manual_operator_entry",
+        "imported_operator_review_packet",
+        "deferred_human_review_session"
+      ],
+      "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+      "current_value": null,
+      "editable_in_this_task": false,
+      "evidence_required": true,
+      "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+      "future_resolution_required": true,
+      "generated_by_system": false,
+      "persistence_enabled": false,
+      "placeholder_value": "PENDING_OPERATOR_INPUT",
+      "required": true,
+      "resolution_enabled_in_this_task": false,
+      "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+      "validation_enabled": false
+    },
+    "source_review_notes": {
+      "allowed_future_resolution_methods": [
+        "supervised_manual_operator_entry",
+        "imported_operator_review_packet",
+        "deferred_human_review_session"
+      ],
+      "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+      "current_value": null,
+      "editable_in_this_task": false,
+      "evidence_required": true,
+      "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+      "future_resolution_required": true,
+      "generated_by_system": false,
+      "persistence_enabled": false,
+      "placeholder_value": "PENDING_OPERATOR_INPUT",
+      "required": true,
+      "resolution_enabled_in_this_task": false,
+      "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+      "validation_enabled": false
+    }
+  },
+  "forbidden_current_actions": [
+    "actual_input_capture",
+    "editable_input_fields",
+    "form_submission",
+    "save_capture_approve_generate_controls",
+    "operator_prose_generation",
+    "content_generation",
+    "draft_generation",
+    "headline_hook_caption_generation",
+    "platform_copy_generation",
+    "ai_writer_generation",
+    "draft_storage",
+    "public_posting",
+    "live_dispatch",
+    "provider_or_platform_api_call",
+    "validation_execution",
+    "persistence_write"
+  ],
+  "global_resolution_plan_status": "BLOCKED_SUPERVISED_INPUT_RESOLUTION_REQUIRED",
+  "hash_algorithm": "sha256",
+  "ledger_family": "draft_eligibility_gate_to_supervised_input_resolution_plan_future",
+  "missing_required_input_fields": [
+    "intended_audience_lane",
+    "content_purpose_category",
+    "source_review_notes",
+    "risk_review_notes",
+    "claim_scope_boundary",
+    "manual_operator_decision"
+  ],
+  "next_recommended_task": "TASK_CONTENTOPS_0175BW_SUPERVISED_INPUT_RESOLUTION_PLAN_TO_LOCAL_REDACTION_AND_VALIDATION_PRECHECK_V0",
+  "packet_hash": "1ebc33bc10ce222fa645fb00b62debf15b79927587a17b68a2e52c25835349d8",
+  "required_input_fields": [
+    "intended_audience_lane",
+    "content_purpose_category",
+    "source_review_notes",
+    "risk_review_notes",
+    "claim_scope_boundary",
+    "manual_operator_decision"
+  ],
+  "resolution_rules": [
+    "supervised_input_resolution_must_be_completed_before_draft_eligibility",
+    "validation_requirements_must_be_satisfied_in_future_task",
+    "all_missing_fields_must_have_operator_provided_review_evidence"
+  ],
+  "safety_flags": {
+    "actual_operator_input_capture_enabled": false,
+    "ai_writer_generation_enabled": false,
+    "credential_hydrated": false,
+    "dispatch_ready": false,
+    "draft_generation_enabled": false,
+    "editable_ui_enabled": false,
+    "env_secret_read": false,
+    "live_api_called": false,
+    "persistence_enabled": false,
+    "platform_api_called": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "secret_values_observed": false,
+    "supervised_input_resolution_enabled": false,
+    "validation_enabled": false
+  },
+  "source_draft_eligibility_gate_precheck_packet_hash": "01ca95b8738a8f65b50a5edcdf59cf46fba72ce468e2de690e2e659332501b90",
+  "source_draft_eligibility_item_count": 7,
+  "source_packet_task_label": "TASK_CONTENTOPS_0175BS_SUPERVISED_INPUT_STUB_TO_DRAFT_ELIGIBILITY_GATE_PRECHECK_V0",
+  "supervised_input_resolution_items": [
+    {
+      "allowed_next_step": "stage_supervised_input_resolution_redaction_and_validation",
+      "blocked_reasons": [
+        "supervised_input_resolution_required",
+        "missing_required_operator_inputs",
+        "draft_eligibility_blocked_by_precheck"
+      ],
+      "contract_name": null,
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text"
+      ],
+      "evidence_requirements": {
+        "manual_review_notes_required": true,
+        "no_raw_vendor_redistribution_allowed": true,
+        "no_secret_values_allowed": true,
+        "operator_identity_or_session_ref_required": true,
+        "redaction_check_required": true,
+        "source_packet_hash_required": true,
+        "timestamp_required": true
+      },
+      "evidence_role": "manifest",
+      "field_resolution_plan": {
+        "claim_scope_boundary": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "content_purpose_category": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "intended_audience_lane": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "manual_operator_decision": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "risk_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "source_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        }
+      },
+      "forbidden_current_actions": [
+        "actual_input_capture",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "validation_execution",
+        "persistence_write"
+      ],
+      "intent_scope_label": "official_text_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "records_count": 6,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "resolution_item_id": "resolution_item_01_STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1",
+      "resolution_status": "BLOCKED_SUPERVISED_INPUT_RESOLUTION_REQUIRED",
+      "source_candidate_id": "STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1",
+      "source_draft_eligibility_item_id": "draft_eligibility_item_01_intent_item_STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1",
+      "source_draft_eligibility_status": "BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED",
+      "source_family": "Official Text Spine",
+      "validation_requirements": [
+        "operator_value_present",
+        "operator_value_non_empty",
+        "operator_value_not_system_generated",
+        "operator_review_evidence_attached",
+        "claim_scope_boundary_present",
+        "risk_review_notes_present",
+        "manual_operator_decision_present"
+      ]
+    },
+    {
+      "allowed_next_step": "stage_supervised_input_resolution_redaction_and_validation",
+      "blocked_reasons": [
+        "supervised_input_resolution_required",
+        "missing_required_operator_inputs",
+        "draft_eligibility_blocked_by_precheck"
+      ],
+      "contract_name": "STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1",
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text"
+      ],
+      "evidence_requirements": {
+        "manual_review_notes_required": true,
+        "no_raw_vendor_redistribution_allowed": true,
+        "no_secret_values_allowed": true,
+        "operator_identity_or_session_ref_required": true,
+        "redaction_check_required": true,
+        "source_packet_hash_required": true,
+        "timestamp_required": true
+      },
+      "evidence_role": "contract",
+      "field_resolution_plan": {
+        "claim_scope_boundary": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "content_purpose_category": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "intended_audience_lane": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "manual_operator_decision": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "risk_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "source_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        }
+      },
+      "forbidden_current_actions": [
+        "actual_input_capture",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "validation_execution",
+        "persistence_write"
+      ],
+      "intent_scope_label": "official_text_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "resolution_item_id": "resolution_item_02_STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1",
+      "resolution_status": "BLOCKED_SUPERVISED_INPUT_RESOLUTION_REQUIRED",
+      "source_candidate_id": "STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1",
+      "source_draft_eligibility_item_id": "draft_eligibility_item_02_intent_item_STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1",
+      "source_draft_eligibility_status": "BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED",
+      "source_family": "Official Text Spine",
+      "validation_requirements": [
+        "operator_value_present",
+        "operator_value_non_empty",
+        "operator_value_not_system_generated",
+        "operator_review_evidence_attached",
+        "claim_scope_boundary_present",
+        "risk_review_notes_present",
+        "manual_operator_decision_present"
+      ]
+    },
+    {
+      "allowed_next_step": "stage_supervised_input_resolution_redaction_and_validation",
+      "blocked_reasons": [
+        "supervised_input_resolution_required",
+        "missing_required_operator_inputs",
+        "draft_eligibility_blocked_by_precheck"
+      ],
+      "contract_name": "BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1",
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text"
+      ],
+      "evidence_requirements": {
+        "manual_review_notes_required": true,
+        "no_raw_vendor_redistribution_allowed": true,
+        "no_secret_values_allowed": true,
+        "operator_identity_or_session_ref_required": true,
+        "redaction_check_required": true,
+        "source_packet_hash_required": true,
+        "timestamp_required": true
+      },
+      "evidence_role": "contract",
+      "field_resolution_plan": {
+        "claim_scope_boundary": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "content_purpose_category": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "intended_audience_lane": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "manual_operator_decision": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "risk_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "source_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        }
+      },
+      "forbidden_current_actions": [
+        "actual_input_capture",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "validation_execution",
+        "persistence_write"
+      ],
+      "intent_scope_label": "macro_data_contract_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "resolution_item_id": "resolution_item_03_BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1",
+      "resolution_status": "BLOCKED_SUPERVISED_INPUT_RESOLUTION_REQUIRED",
+      "source_candidate_id": "BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1",
+      "source_draft_eligibility_item_id": "draft_eligibility_item_03_intent_item_BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1",
+      "source_draft_eligibility_status": "BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED",
+      "source_family": "US Macro",
+      "validation_requirements": [
+        "operator_value_present",
+        "operator_value_non_empty",
+        "operator_value_not_system_generated",
+        "operator_review_evidence_attached",
+        "claim_scope_boundary_present",
+        "risk_review_notes_present",
+        "manual_operator_decision_present"
+      ]
+    },
+    {
+      "allowed_next_step": "stage_supervised_input_resolution_redaction_and_validation",
+      "blocked_reasons": [
+        "supervised_input_resolution_required",
+        "missing_required_operator_inputs",
+        "draft_eligibility_blocked_by_precheck"
+      ],
+      "contract_name": null,
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text"
+      ],
+      "evidence_requirements": {
+        "manual_review_notes_required": true,
+        "no_raw_vendor_redistribution_allowed": true,
+        "no_secret_values_allowed": true,
+        "operator_identity_or_session_ref_required": true,
+        "redaction_check_required": true,
+        "source_packet_hash_required": true,
+        "timestamp_required": true
+      },
+      "evidence_role": "candidates",
+      "field_resolution_plan": {
+        "claim_scope_boundary": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "content_purpose_category": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "intended_audience_lane": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "manual_operator_decision": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "risk_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "source_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        }
+      },
+      "forbidden_current_actions": [
+        "actual_input_capture",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "validation_execution",
+        "persistence_write"
+      ],
+      "intent_scope_label": "macro_data_contract_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "records_count": 9,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "resolution_item_id": "resolution_item_04_BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1",
+      "resolution_status": "BLOCKED_SUPERVISED_INPUT_RESOLUTION_REQUIRED",
+      "source_candidate_id": "BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1",
+      "source_draft_eligibility_item_id": "draft_eligibility_item_04_intent_item_BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1",
+      "source_draft_eligibility_status": "BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED",
+      "source_family": "US Macro",
+      "validation_requirements": [
+        "operator_value_present",
+        "operator_value_non_empty",
+        "operator_value_not_system_generated",
+        "operator_review_evidence_attached",
+        "claim_scope_boundary_present",
+        "risk_review_notes_present",
+        "manual_operator_decision_present"
+      ]
+    },
+    {
+      "allowed_next_step": "stage_supervised_input_resolution_redaction_and_validation",
+      "blocked_reasons": [
+        "supervised_input_resolution_required",
+        "missing_required_operator_inputs",
+        "draft_eligibility_blocked_by_precheck"
+      ],
+      "contract_name": null,
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text"
+      ],
+      "evidence_requirements": {
+        "manual_review_notes_required": true,
+        "no_raw_vendor_redistribution_allowed": true,
+        "no_secret_values_allowed": true,
+        "operator_identity_or_session_ref_required": true,
+        "redaction_check_required": true,
+        "source_packet_hash_required": true,
+        "timestamp_required": true
+      },
+      "evidence_role": "manifest",
+      "field_resolution_plan": {
+        "claim_scope_boundary": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "content_purpose_category": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "intended_audience_lane": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "manual_operator_decision": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "risk_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "source_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        }
+      },
+      "forbidden_current_actions": [
+        "actual_input_capture",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "validation_execution",
+        "persistence_write"
+      ],
+      "intent_scope_label": "broker_proxy_context_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "resolution_item_id": "resolution_item_05_BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1",
+      "resolution_status": "BLOCKED_SUPERVISED_INPUT_RESOLUTION_REQUIRED",
+      "source_candidate_id": "BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1",
+      "source_draft_eligibility_item_id": "draft_eligibility_item_05_intent_item_BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1",
+      "source_draft_eligibility_status": "BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED",
+      "source_family": "Broker Proxy",
+      "validation_requirements": [
+        "operator_value_present",
+        "operator_value_non_empty",
+        "operator_value_not_system_generated",
+        "operator_review_evidence_attached",
+        "claim_scope_boundary_present",
+        "risk_review_notes_present",
+        "manual_operator_decision_present"
+      ]
+    },
+    {
+      "allowed_next_step": "stage_supervised_input_resolution_redaction_and_validation",
+      "blocked_reasons": [
+        "supervised_input_resolution_required",
+        "missing_required_operator_inputs",
+        "draft_eligibility_blocked_by_precheck"
+      ],
+      "contract_name": null,
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text"
+      ],
+      "evidence_requirements": {
+        "manual_review_notes_required": true,
+        "no_raw_vendor_redistribution_allowed": true,
+        "no_secret_values_allowed": true,
+        "operator_identity_or_session_ref_required": true,
+        "redaction_check_required": true,
+        "source_packet_hash_required": true,
+        "timestamp_required": true
+      },
+      "evidence_role": "contract",
+      "field_resolution_plan": {
+        "claim_scope_boundary": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "content_purpose_category": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "intended_audience_lane": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "manual_operator_decision": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "risk_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "source_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        }
+      },
+      "forbidden_current_actions": [
+        "actual_input_capture",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "validation_execution",
+        "persistence_write"
+      ],
+      "intent_scope_label": "ttl_freshness_policy_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "resolution_item_id": "resolution_item_06_DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1",
+      "resolution_status": "BLOCKED_SUPERVISED_INPUT_RESOLUTION_REQUIRED",
+      "source_candidate_id": "DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1",
+      "source_draft_eligibility_item_id": "draft_eligibility_item_06_intent_item_DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1",
+      "source_draft_eligibility_status": "BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED",
+      "source_family": "US Macro",
+      "validation_requirements": [
+        "operator_value_present",
+        "operator_value_non_empty",
+        "operator_value_not_system_generated",
+        "operator_review_evidence_attached",
+        "claim_scope_boundary_present",
+        "risk_review_notes_present",
+        "manual_operator_decision_present"
+      ]
+    },
+    {
+      "allowed_next_step": "stage_supervised_input_resolution_redaction_and_validation",
+      "blocked_reasons": [
+        "supervised_input_resolution_required",
+        "missing_required_operator_inputs",
+        "draft_eligibility_blocked_by_precheck"
+      ],
+      "contract_name": null,
+      "disallowed_outputs": [
+        "raw_record_contents",
+        "source_extracted_facts",
+        "market_values",
+        "narrative_thesis",
+        "headline",
+        "hook",
+        "caption",
+        "draft_paragraph",
+        "platform_copy",
+        "prediction",
+        "recommendation",
+        "buy_sell_hold_sizing_signal_language",
+        "operator_input_value",
+        "operator_review_notes_text"
+      ],
+      "evidence_requirements": {
+        "manual_review_notes_required": true,
+        "no_raw_vendor_redistribution_allowed": true,
+        "no_secret_values_allowed": true,
+        "operator_identity_or_session_ref_required": true,
+        "redaction_check_required": true,
+        "source_packet_hash_required": true,
+        "timestamp_required": true
+      },
+      "evidence_role": "contract",
+      "field_resolution_plan": {
+        "claim_scope_boundary": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "content_purpose_category": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "intended_audience_lane": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "manual_operator_decision": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "risk_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        },
+        "source_review_notes": {
+          "allowed_future_resolution_methods": [
+            "supervised_manual_operator_entry",
+            "imported_operator_review_packet",
+            "deferred_human_review_session"
+          ],
+          "blocking_reason": "supervised_input_resolution_required_before_draft_eligibility",
+          "current_value": null,
+          "editable_in_this_task": false,
+          "evidence_required": true,
+          "evidence_requirement_label": "OPERATOR_PROVIDED_REVIEW_EVIDENCE_REQUIRED",
+          "future_resolution_required": true,
+          "generated_by_system": false,
+          "persistence_enabled": false,
+          "placeholder_value": "PENDING_OPERATOR_INPUT",
+          "required": true,
+          "resolution_enabled_in_this_task": false,
+          "resolution_status": "PENDING_SUPERVISED_OPERATOR_RESOLUTION",
+          "validation_enabled": false
+        }
+      },
+      "forbidden_current_actions": [
+        "actual_input_capture",
+        "editable_input_fields",
+        "form_submission",
+        "save_capture_approve_generate_controls",
+        "operator_prose_generation",
+        "content_generation",
+        "draft_generation",
+        "headline_hook_caption_generation",
+        "platform_copy_generation",
+        "ai_writer_generation",
+        "draft_storage",
+        "public_posting",
+        "live_dispatch",
+        "provider_or_platform_api_call",
+        "validation_execution",
+        "persistence_write"
+      ],
+      "intent_scope_label": "schema_contract_review",
+      "missing_required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "records_count": 1,
+      "relative_path": "docs/research/database_foundation/pre_ia_acceleration/ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1.json",
+      "required_input_fields": [
+        "intended_audience_lane",
+        "content_purpose_category",
+        "source_review_notes",
+        "risk_review_notes",
+        "claim_scope_boundary",
+        "manual_operator_decision"
+      ],
+      "resolution_item_id": "resolution_item_07_ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1",
+      "resolution_status": "BLOCKED_SUPERVISED_INPUT_RESOLUTION_REQUIRED",
+      "source_candidate_id": "ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1",
+      "source_draft_eligibility_item_id": "draft_eligibility_item_07_intent_item_ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1",
+      "source_draft_eligibility_status": "BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED",
+      "source_family": "US Macro",
+      "validation_requirements": [
+        "operator_value_present",
+        "operator_value_non_empty",
+        "operator_value_not_system_generated",
+        "operator_review_evidence_attached",
+        "claim_scope_boundary_present",
+        "risk_review_notes_present",
+        "manual_operator_decision_present"
+      ]
+    }
+  ],
+  "task_label": "TASK_CONTENTOPS_0175BV_DRAFT_ELIGIBILITY_GATE_TO_SUPERVISED_INPUT_RESOLUTION_PLAN_V0",
+  "truth_protection_flags": {
+    "current_truth_promoted": false,
+    "dqr_cleared_by_contentops": false,
+    "draft_truth_promoted": false,
+    "market_data_promoted": false,
+    "numeric_truth_promoted": false,
+    "operator_input_truth_promoted": false,
+    "readiness_cleared_by_contentops": false
+  },
+  "validation_requirements": [
+    "operator_value_present",
+    "operator_value_non_empty",
+    "operator_value_not_system_generated",
+    "operator_review_evidence_attached",
+    "claim_scope_boundary_present",
+    "risk_review_notes_present",
+    "manual_operator_decision_present"
+  ]
+}
