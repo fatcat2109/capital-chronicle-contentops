@@ -2,7 +2,7 @@
 
 Part of TASK_CONTENTOPS_0175BS_SUPERVISED_INPUT_STUB_TO_DRAFT_ELIGIBILITY_GATE_PRECHECK_V0.
 Consumes the 0175BP Supervised Operator Input Stub Contract packet and produces a local-only,
-schema-only Draft Eligibility Gate Precheck packet.
+schema-only Draft Eligibility Gate Precheck packet with repaired schema fields.
 """
 from __future__ import annotations
 
@@ -17,21 +17,32 @@ HASH_ALGORITHM = "sha256"
 DOC_REL_DIR = Path("docs") / "automation" / "0175BS"
 PACKET_FILENAME = "supervised_input_stub_to_draft_eligibility_gate_precheck_packet.json"
 RUNBOOK_FILENAME = "supervised_input_stub_to_draft_eligibility_gate_precheck.md"
-NEXT_RECOMMENDED_TASK = "TASK_CONTENTOPS_0175BT_DRAFT_ELIGIBILITY_GATE_PRECHECK_TO_V5_READONLY_PRECHECK_PANEL_BINDING_V0"
+NEXT_RECOMMENDED_TASK = "TASK_CONTENTOPS_0175BT_DRAFT_ELIGIBILITY_GATE_TO_V5_READONLY_STATUS_PANEL_BINDING_V0"
+
+REQUIRED_INPUT_FIELDS = [
+    "intended_audience_lane",
+    "content_purpose_category",
+    "source_review_notes",
+    "risk_review_notes",
+    "claim_scope_boundary",
+    "manual_operator_decision",
+]
 
 FORBIDDEN_CURRENT_ACTIONS = [
-    "draft_generation",
     "actual_input_capture",
     "editable_input_fields",
     "form_submission",
     "save_capture_approve_generate_controls",
     "operator_prose_generation",
     "content_generation",
+    "draft_generation",
     "headline_hook_caption_generation",
     "platform_copy_generation",
+    "ai_writer_generation",
+    "draft_storage",
+    "public_posting",
     "live_dispatch",
     "provider_or_platform_api_call",
-    "actual_draft_generation",
 ]
 
 DISALLOWED_OUTPUTS = [
@@ -47,7 +58,6 @@ DISALLOWED_OUTPUTS = [
     "prediction",
     "recommendation",
     "buy_sell_hold_sizing_signal_language",
-    "actual_draft_copy",
 ]
 
 TRUTH_PROTECTION_FLAGS = {
@@ -56,6 +66,7 @@ TRUTH_PROTECTION_FLAGS = {
     "current_truth_promoted": False,
     "numeric_truth_promoted": False,
     "market_data_promoted": False,
+    "draft_truth_promoted": False,
 }
 
 SAFETY_FLAGS = {
@@ -73,6 +84,7 @@ SAFETY_FLAGS = {
     "editable_ui_enabled": False,
     "persistence_enabled": False,
     "draft_generation_enabled": False,
+    "ai_writer_generation_enabled": False,
 }
 
 
@@ -82,6 +94,52 @@ def _source_packet_hash(packet: dict[str, Any]) -> str:
         return packet_hash
     serialized = json.dumps(packet, sort_keys=True, separators=(",", ":"))
     return sha256(serialized.encode("utf-8")).hexdigest()
+
+
+def _eligibility_field_policy() -> dict[str, dict[str, Any]]:
+    return {
+        field: {
+            "required": True,
+            "source_slot_status": "STUB_SLOT_PENDING_SUPERVISED_INPUT",
+            "source_value_status": "PENDING_OPERATOR_INPUT",
+            "current_value": None,
+            "placeholder_value": "PENDING_OPERATOR_INPUT",
+            "missing": True,
+            "pending_operator_input": True,
+            "capture_enabled_in_source_task": False,
+            "editable_in_source_task": False,
+            "generated_by_system": False,
+            "persistence_enabled": False,
+            "validation_enabled": False,
+            "draft_eligible": False,
+            "blocking_reason": "supervised_input_required_before_draft_eligibility",
+        }
+        for field in REQUIRED_INPUT_FIELDS
+    }
+
+
+def _draft_generation_policy() -> dict[str, bool]:
+    return {
+        "draft_generation_enabled": False,
+        "headline_generation_enabled": False,
+        "hook_generation_enabled": False,
+        "caption_generation_enabled": False,
+        "platform_copy_generation_enabled": False,
+        "ai_writer_generation_enabled": False,
+        "public_postable": False,
+        "dispatch_ready": False,
+        "draft_storage_enabled": False,
+        "operator_input_capture_enabled": False,
+        "validation_enabled": False,
+    }
+
+
+def _map_item_status(source_status: str) -> str:
+    if source_status == "SUPERVISED_INPUT_STUB_PENDING_FUTURE_CAPTURE":
+        return "BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED"
+    if source_status.startswith("BLOCKED"):
+        return "BLOCKED_BY_SUPERVISED_INPUT_STUB_CONTRACT"
+    return "BLOCKED_BY_SUPERVISED_INPUT_STUB_CONTRACT"
 
 
 def create_draft_eligibility_gate_precheck(
@@ -111,6 +169,9 @@ def create_draft_eligibility_gate_precheck(
         "draft_generation_requires_inputs_validation",
     ]
 
+    eligibility_field_policy = _eligibility_field_policy()
+    draft_generation_policy = _draft_generation_policy()
+
     for index, item in enumerate(source_items, start=1):
         source_status = item.get("supervised_input_stub_status", "")
         source_intent_item_id = item.get("source_intent_item_id", "unknown_intent_item")
@@ -127,9 +188,13 @@ def create_draft_eligibility_gate_precheck(
             "contract_name": item.get("contract_name"),
             "intent_scope_label": item.get("intent_scope_label", "unknown_metadata_review"),
             "source_supervised_input_stub_status": source_status,
-            "draft_eligibility_status": "BLOCKED_BY_SUPERVISED_INPUT_STUB_CONTRACT",
+            "draft_eligibility_status": _map_item_status(source_status),
             "draft_generation_enabled": False,
             "public_postable": False,
+            "required_input_fields": REQUIRED_INPUT_FIELDS.copy(),
+            "missing_required_input_fields": REQUIRED_INPUT_FIELDS.copy(),
+            "eligibility_field_policy": eligibility_field_policy.copy(),
+            "draft_generation_policy": draft_generation_policy.copy(),
             "blocked_reasons": blocked_reasons.copy(),
             "missing_requirements": missing_requirements.copy(),
             "allowed_next_step": "resolve_supervised_input_stub_contract_requirements",
@@ -144,7 +209,11 @@ def create_draft_eligibility_gate_precheck(
         "source_supervised_input_stub_packet_hash": _source_packet_hash(supervised_input_stub_packet),
         "source_packet_task_label": supervised_input_stub_packet.get("task_label", "unknown"),
         "source_supervised_input_stub_item_count": len(source_items),
-        "global_draft_eligibility_status": "BLOCKED_DRAFT_ELIGIBILITY_PENDING_OPERATOR_INPUT",
+        "global_draft_eligibility_status": "BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED",
+        "required_input_fields": REQUIRED_INPUT_FIELDS.copy(),
+        "missing_required_input_fields": REQUIRED_INPUT_FIELDS.copy(),
+        "eligibility_field_policy": eligibility_field_policy,
+        "draft_generation_policy": draft_generation_policy,
         "draft_eligibility_items": draft_eligibility_items,
         "global_draft_generation_enabled": False,
         "global_public_postable": False,
@@ -190,11 +259,52 @@ def render_runbook(packet: dict[str, Any]) -> str:
         f"- **Global Public Postable**: `{packet['global_public_postable']}`",
         f"- **Ledger Family**: `{packet['ledger_family']}`",
         "",
+        "## Required Input Fields",
+        "",
+    ]
+    for field in packet["required_input_fields"]:
+        lines.append(f"- `{field}`")
+
+    lines.extend([
+        "",
+        "## Missing Required Input Fields",
+        "",
+    ])
+    for field in packet["missing_required_input_fields"]:
+        lines.append(f"- `{field}`")
+
+    lines.extend([
+        "",
+        "## Eligibility Field Policy",
+        "",
+        "| Field | Required | Source Slot Status | Source Value Status | Current Value | Placeholder Value | Missing | Pending | Draft Eligible |",
+        "|---|---|---|---|---|---|---|---|---|",
+    ])
+    for field, policy in packet["eligibility_field_policy"].items():
+        curr_val = "null" if policy["current_value"] is None else str(policy["current_value"])
+        lines.append(
+            f"| `{field}` | `{policy['required']}` | `{policy['source_slot_status']}` | "
+            f"`{policy['source_value_status']}` | `{curr_val}` | `{policy['placeholder_value']}` | "
+            f"`{policy['missing']}` | `{policy['pending_operator_input']}` | `{policy['draft_eligible']}` |"
+        )
+
+    lines.extend([
+        "",
+        "## Draft Generation Policy",
+        "",
+        "| Policy Flag | State |",
+        "|---|---|",
+    ])
+    for key, value in packet["draft_generation_policy"].items():
+        lines.append(f"| `{key}` | `{value}` |")
+
+    lines.extend([
+        "",
         "## Draft Eligibility Items",
         "",
         "| Eligibility Item ID | Source Stub Item ID | Candidate ID | Status | Draft Gen Enabled | Public Postable | Allowed Next Step |",
         "|---|---|---|---|---|---|---|",
-    ]
+    ])
 
     for item in packet["draft_eligibility_items"]:
         lines.append(
