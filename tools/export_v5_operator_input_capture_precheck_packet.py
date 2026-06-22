@@ -24,8 +24,13 @@ HEADER = (
 
 FORBIDDEN_TOKENS = (
     "process.env", ".env", "API key", "bearer token", "credential string",
-    "buy", "sell", "hold", "guaranteed", "price target", "order execution",
-    "<input", "<textarea", "onChange=", "onSubmit=", "capture now", "submit"
+    "buy", "sell", "hold", "price target", "target price", "signal",
+    "prediction", "guaranteed", "order", "fill", "PnL", "publish now",
+    "post now", "dispatch live", "headline", "hook", "caption",
+    "draft paragraph", "draft_paragraph", "platform copy", "platform_copy",
+    "thesis", "recommendation", "<input", "<textarea", "contentEditable",
+    "onChange=", "onSubmit=", "capture now", "submit", "save",
+    "approve button", "generate control",
 )
 
 ALLOWED_DISALLOWED_OUTPUT_TOKENS = (
@@ -36,6 +41,8 @@ ALLOWED_DISALLOWED_OUTPUT_TOKENS = (
     "draft_paragraph",
     "platform_copy",
     "prediction",
+    "recommendation",
+    "narrative_thesis",
 )
 
 

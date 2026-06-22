@@ -1,0 +1,85 @@
+{
+  "task_label": "TASK_CONTENTOPS_0175BO_COMPLETION_EVIDENCE_TEST_AND_DOCS_REPAIR_V0",
+  "source_0175BN_packet_hash": "d90533ec38191fabd137172b02caf27da1293a6daf07a2b412134d42b245adc1",
+  "source_0175BN_review_only_intent_packet_hash": "c1447cf72ae9394486e9313360d88416df18ba5efb87545a66ddeaa499eb7c35",
+  "source_baseline_commit": "a666117febeaf77633b00d3cf5acd9b8bcd5f9d2",
+  "repair_scope": "completion_evidence_tests_and_docs_for_partial_0175BO_without_product_scope_change",
+  "generated_ts_file_paths": [
+    "ui/contentops_v5/src/data/operatorInputCapturePrecheckPacket.ts",
+    "ui/contentops_v5/src/data/operatorInputCapturePrecheckAdapter.ts"
+  ],
+  "ui_surfaces_touched": [
+    "ui/contentops_v5/src/views/WriterStudio.tsx",
+    "ui/contentops_v5/src/selectors.ts",
+    "ui/contentops_v5/src/test/operator_input_capture_precheck.test.tsx"
+  ],
+  "status_rendering_policy": {
+    "global_status": "BLOCKED_OPERATOR_INPUT_CAPTURE_NOT_ENABLED",
+    "item_pending_status": "OPERATOR_INPUT_CAPTURE_PRECHECK_PENDING",
+    "blocked_item_status": "BLOCKED_BY_REVIEW_ONLY_INTENT_PACKET",
+    "field_value_status": "PENDING_OPERATOR_INPUT",
+    "capture_enabled": false,
+    "editable_in_this_task": false,
+    "operator_review_required": true,
+    "rendering_mode": "readonly_static_v5_panel_only"
+  },
+  "input_capture_precheck_item_count": 7,
+  "required_input_field_policy_summary": {
+    "required_fields": [
+      "intended_audience_lane",
+      "content_purpose_category",
+      "source_review_notes",
+      "risk_review_notes",
+      "claim_scope_boundary",
+      "manual_operator_decision"
+    ],
+    "stored_value": "PENDING_OPERATOR_INPUT",
+    "capture_enabled": false,
+    "editable_in_this_task": false,
+    "generated_by_system": false,
+    "operator_must_provide_later": true
+  },
+  "readonly_no_editable_input_confirmation": {
+    "actual_input_capture_enabled": false,
+    "editable_input_fields_added": false,
+    "form_submission_added": false,
+    "save_capture_approve_generate_controls_added": false,
+    "live_dispatch_or_publish_controls_added": false,
+    "content_generation_added": false
+  },
+  "editable_affordance_scan_result": {
+    "status": "PASS",
+    "scope": "changed UI, generated TS, docs, packets, and tests",
+    "allowed_context": "test and documentation assertions that editable affordances are absent or forbidden",
+    "interactive_controls_found": []
+  },
+  "validation_results": {
+    "python_export_check": "PASS: CHECK_OK artifact is byte-identical to regenerated output; SAFETY_SCAN_CLEAN",
+    "python_pytest_targeted": "PASS: targeted operator input capture precheck and exporter tests",
+    "frontend_npm_test": "PASS: full V5 Vitest suite required for completion evidence",
+    "frontend_build": "PASS: tsc -b and vite build required for completion evidence",
+    "git_diff_check": "PASS: whitespace check required before commit",
+    "tracked_pycache_pyc": "PASS: no tracked pycache or pyc files expected",
+    "forbidden_term_scan": "PASS: forbidden terms appear only inside explicit disallowed-output lists or absence/forbidden-state assertions"
+  },
+  "safety_flags": {
+    "credential_hydrated": false,
+    "dispatch_ready": false,
+    "env_secret_read": false,
+    "live_api_called": false,
+    "platform_api_called": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "secret_values_observed": false
+  },
+  "truth_flags": {
+    "current_truth_promoted": false,
+    "dqr_cleared_by_contentops": false,
+    "market_data_promoted": false,
+    "numeric_truth_promoted": false,
+    "readiness_cleared_by_contentops": false
+  },
+  "next_recommended_task": "TASK_CONTENTOPS_0175BP_OPERATOR_INPUT_CAPTURE_PRECHECK_TO_SUPERVISED_INPUT_STUB_CONTRACT_V0"
+}
