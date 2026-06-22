@@ -5,10 +5,10 @@
 * **Repo path:** `a:\Capital Chronicle\tools\cc-live-contentops`
 * **GitHub repo:** `fatcat2109/capital-chronicle-contentops`
 * **Branch:** `master`
-* **Last resolved accepted HEAD in ledger:** `ce6d5d11f2a629b64d5be2d7e8cd158badf5929d`
-* **Latest accepted task:** `TASK_CONTENTOPS_0175BM_REVIEW_ONLY_INTENT_PACKET_TO_V5_INTENT_DETAIL_BINDING_V0`
-* **Latest implemented capability:** Bind Review-Only Content Intent Packet to V5 cockpit static detail views
-* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BN_REVIEW_ONLY_INTENT_TO_OPERATOR_INPUT_CAPTURE_PRECHECK_V0`
+* **Last resolved accepted HEAD in ledger:** `df77b283c91c2f1213336529562e5fef22319498`
+* **Latest accepted task:** `TASK_CONTENTOPS_0175BN_REVIEW_ONLY_INTENT_TO_OPERATOR_INPUT_CAPTURE_PRECHECK_V0`
+* **Latest implemented capability:** Deterministic Operator Input Capture Precheck over Review-Only Content Intent Packet
+* **Next recommended core feature task:** `TASK_CONTENTOPS_0175BO_OPERATOR_INPUT_CAPTURE_PRECHECK_TO_V5_READONLY_INPUT_PANEL_BINDING_V0`
 * **Visual polish status:** `DEFERRED_VISUAL_POLISH` (visual system stabilized in `0175AE`, further cosmetics deferred)
 * **Live/API status:** `LOCAL_CONTRACT_ONLY` (no live APIs, credentials, or integrations active)
 
@@ -123,7 +123,8 @@ It is not an autonomous bot, SaaS scheduler, trading terminal, signal service, b
 | `TASK_CONTENTOPS_0175BK_CONTENT_INTENT_GATE_PRECHECK_TO_V5_INTENT_QUEUE_BINDING_V0` | `ca1b1de07b2b285b243791cf46be864e57e780ba` | `1943a1fa9234431263074f48e8f5fabe9f3a1738` | Bind Content Intent Gate Precheck to V5 Writer Studio panel | Vitest UI tests, pytest suite, Vite build check | Statically bound precheck queue panel in Writer Studio | Variant drafts compilation, dispatching logic | `0175BL` |
 | `TASK_CONTENTOPS_0175BL_CONTENT_INTENT_GATE_TO_REVIEW_ONLY_INTENT_PACKET_V0` | `1943a1fa9234431263074f48e8f5fabe9f3a1738` | `3d0edd78c83778d513e53c71fd18385a5cdc4d5f` | Transition Content Intent Gate Precheck into deterministic Review-Only Content Intent Packet | Pytest suite, verify deterministic mapping and safety flags, docs/automation/0175BL/ artifacts | Deterministic intent scaffolding ready for review and operator inputs | Operator input binding, draft generation gates, live API dispatching | `0175BM` |
 | `TASK_CONTENTOPS_0175BM_REVIEW_ONLY_INTENT_PACKET_TO_V5_INTENT_DETAIL_BINDING_V0` | `3d0edd78c83778d513e53c71fd18385a5cdc4d5f` | `ce6d5d11f2a629b64d5be2d7e8cd158badf5929d` | Bind Review-Only Content Intent Packet to V5 cockpit static detail views | Vitest UI tests, pytest exporter unit tests, Vite build and typecheck | Cockpit detail views showing intent metadata and safety status locks | Operator input capture, draft generation, platform dispatching | `0175BN` |
-| `TASK_CONTENTOPS_0175BN_REVIEW_ONLY_INTENT_TO_OPERATOR_INPUT_CAPTURE_PRECHECK_V0` | `ce6d5d11f2a629b64d5be2d7e8cd158badf5929d` | `RECORDED_IN_NEXT_TASK_READBACK` | Create deterministic Operator Input Capture Precheck over Review-Only Content Intent | Pytest suite verifying field policies, pending statuses, and safety/truth protection flags | Safe, deterministic requirements definitions for operator inputs staging | Operator input capture UI, draft generation, platform dispatching | `0175BO` |
+| `TASK_CONTENTOPS_0175BN_REVIEW_ONLY_INTENT_TO_OPERATOR_INPUT_CAPTURE_PRECHECK_V0` | `ce6d5d11f2a629b64d5be2d7e8cd158badf5929d` | `df77b283c91c2f1213336529562e5fef22319498` | Create deterministic Operator Input Capture Precheck over Review-Only Content Intent | Pytest suite verifying field policies, pending statuses, and safety/truth protection flags | Safe, deterministic requirements definitions for operator inputs staging | Operator input capture UI, draft generation, platform dispatching | `0175BO` |
+| `TASK_CONTENTOPS_0175BO_OPERATOR_INPUT_CAPTURE_PRECHECK_TO_V5_READONLY_INPUT_PANEL_BINDING_V0` | `df77b283c91c2f1213336529562e5fef22319498` | `RECORDED_IN_NEXT_TASK_READBACK` | Bind Operator Input Capture Precheck into V5 readonly input-precheck panel | Exporter check, backend pytest, forbidden affordance scan, Vite build/typecheck | Cockpit readonly surface for required operator input metadata and capture locks | Actual operator input capture, draft generation, platform dispatching | `0175BP` |
 
 ---
 
@@ -165,6 +166,6 @@ Every future implementation task must:
 
 ## 7. Recommended Next Core Task
 
-* **Next recommended task:** `TASK_CONTENTOPS_0175BO_OPERATOR_INPUT_CAPTURE_PRECHECK_TO_V5_READONLY_INPUT_PANEL_BINDING_V0`
-* **Focus:** Bind Operator Input Capture Precheck to V5 cockpit input panel.
+* **Next recommended task:** `TASK_CONTENTOPS_0175BP_OPERATOR_INPUT_CAPTURE_PRECHECK_TO_SUPERVISED_INPUT_STUB_CONTRACT_V0`
+* **Focus:** Define supervised operator input stub contract without enabling live editable capture or content generation.
 * **Visual System Status:** Visual enhancement/polish is deferred.
