@@ -10,12 +10,14 @@ from pathlib import Path
 import pytest
 
 from live_contentops.operator_input_capture_gate_to_supervised_manual_input_dry_run_precheck import (
+    BLOCKED_EXECUTION_REASONS,
     BLOCKED_UNTIL_VALUES_EXIST,
     DISALLOWED_OUTPUTS,
     DRY_RUN_CHECKS_WITHOUT_VALUES,
     FORBIDDEN_CURRENT_ACTIONS,
     FUTURE_EVIDENCE_REQUIREMENTS,
     FUTURE_OPERATOR_MANUAL_STEPS,
+    GLOBAL_MANUAL_INPUT_DRY_RUN_STATUS,
     NEXT_RECOMMENDED_TASK,
     REQUIRED_INPUT_FIELDS,
     create_supervised_manual_input_dry_run_precheck,
@@ -41,6 +43,7 @@ FORBIDDEN_OUTPUT_KEYS = {
     "operator_review_notes_text",
     "captured_operator_value",
     "redacted_operator_value",
+    "dry_run_operator_value",
 }
 
 
@@ -58,14 +61,17 @@ def test_valid_0175bx_packet_produces_deterministic_dry_run_precheck(source_pack
     assert first["packet_hash"] == second["packet_hash"]
     assert first["task_label"] == "TASK_CONTENTOPS_0175BY_OPERATOR_INPUT_CAPTURE_GATE_TO_SUPERVISED_MANUAL_INPUT_DRY_RUN_PRECHECK_V0"
     assert first["source_packet_task_label"] == "TASK_CONTENTOPS_0175BX_LOCAL_REDACTION_VALIDATION_PRECHECK_TO_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT_V0"
-    assert first["global_supervised_manual_input_dry_run_precheck_status"] == "BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES"
+    assert first["global_manual_input_dry_run_status"] == GLOBAL_MANUAL_INPUT_DRY_RUN_STATUS
+    assert first["global_supervised_manual_input_dry_run_precheck_status"] == GLOBAL_MANUAL_INPUT_DRY_RUN_STATUS
+    assert first["source_gate_status"] == "BLOCKED_OPERATOR_INPUT_CAPTURE_GATE_PENDING_SUPERVISED_ACTIVATION"
 
 
 def test_every_capture_gate_item_maps_to_one_dry_run_precheck_item(source_packet):
     packet = create_supervised_manual_input_dry_run_precheck(source_packet)
 
     assert packet["source_capture_gate_item_count"] == len(source_packet["operator_input_capture_gate_items"])
-    assert len(packet["supervised_manual_input_dry_run_precheck_items"]) == len(source_packet["operator_input_capture_gate_items"])
+    assert packet["dry_run_items"] is packet["supervised_manual_input_dry_run_precheck_items"]
+    assert len(packet["dry_run_items"]) == len(source_packet["operator_input_capture_gate_items"])
 
     for index, (source_item, item) in enumerate(zip(source_packet["operator_input_capture_gate_items"], packet["supervised_manual_input_dry_run_precheck_items"]), start=1):
         assert item["dry_run_precheck_item_id"] == f"manual_input_dry_run_item_{index:02d}_{source_item['source_candidate_id']}"
@@ -97,36 +103,39 @@ def test_future_operator_steps_are_schema_only(source_packet):
     assert packet["future_operator_manual_steps"] == list(FUTURE_OPERATOR_MANUAL_STEPS)
     assert "enter_operator_owned_values_in_future_task_only" in packet["future_operator_manual_steps"]
     assert "run_local_redaction_scan_after_values_exist" in packet["future_operator_manual_steps"]
+    assert len(packet["manual_input_procedure_plan"]) == len(REQUIRED_INPUT_FIELDS)
     for item in packet["supervised_manual_input_dry_run_precheck_items"]:
-        assert item["future_operator_manual_steps"] == list(FUTURE_OPERATOR_MANUAL_STEPS)
+        assert len(item["manual_input_procedure_plan"]) == len(REQUIRED_INPUT_FIELDS)
+        assert item["manual_input_procedure_plan"][0]["current_value"] is None
 
 
 def test_dry_run_checks_possible_without_values_are_limited_to_schema_checks(source_packet):
     packet = create_supervised_manual_input_dry_run_precheck(source_packet)
 
     assert packet["dry_run_checks_without_values"] == list(DRY_RUN_CHECKS_WITHOUT_VALUES)
+    checklist = packet["dry_run_checklist"]
     matrix = packet["dry_run_check_matrix"]
-    assert set(matrix) == set(DRY_RUN_CHECKS_WITHOUT_VALUES)
-    for row in matrix.values():
-        assert row["dry_run_check_possible_without_values"] is True
-        assert row["executes_real_capture"] is False
-        assert row["executes_validation_or_redaction"] is False
-        assert row["writes_persistence"] is False
-        assert row["promotes_truth"] is False
-        assert row["check_status"] == "DRY_RUN_SCHEMA_CHECK_ONLY"
+    assert set(matrix) == {row["check_name"] for row in checklist}
+    for row in checklist:
+        if row["check_name"] in DRY_RUN_CHECKS_WITHOUT_VALUES:
+            assert row["can_execute_without_values"] is True
+            assert row["pass_status"] == "PASS_SCHEMA_ONLY"
+        else:
+            assert row["can_execute_without_values"] is False
+            assert row["pass_status"] == "BLOCKED_PENDING_OPERATOR_VALUE"
 
 
 def test_blocked_until_values_exist_matrix_disables_all_runtime_actions(source_packet):
     packet = create_supervised_manual_input_dry_run_precheck(source_packet)
 
     assert packet["blocked_until_values_exist"] == list(BLOCKED_UNTIL_VALUES_EXIST)
+    assert packet["blocked_execution_reasons"] == list(BLOCKED_EXECUTION_REASONS)
     matrix = packet["blocked_execution_matrix"]
-    assert set(matrix) == set(BLOCKED_UNTIL_VALUES_EXIST)
-    for row in matrix.values():
+    assert set(matrix) == set(BLOCKED_EXECUTION_REASONS)
+    for reason, row in matrix.items():
         assert row["blocked_now"] is True
-        assert row["requires_real_operator_values"] is True
         assert row["enabled_in_this_task"] is False
-        assert row["blocking_reason"] == "real_operator_values_absent_and_capture_disabled"
+        assert row["blocking_reason"] == reason
 
 
 def test_future_evidence_requirements_are_not_captured(source_packet):
@@ -143,62 +152,48 @@ def test_future_evidence_requirements_are_not_captured(source_packet):
         assert row["blocking_reason"] == "evidence_capture_not_enabled_in_this_task"
 
 
-def test_manual_input_dry_run_policy_blocks_capture_and_execution(source_packet):
+def test_dry_run_execution_policy_blocks_capture_and_execution(source_packet):
     packet = create_supervised_manual_input_dry_run_precheck(source_packet)
-    policies = [packet["manual_input_dry_run_policy"]]
-    policies.extend(item["manual_input_dry_run_policy"] for item in packet["supervised_manual_input_dry_run_precheck_items"])
+    policies = [packet["dry_run_execution_policy"]]
+    policies.extend(item["dry_run_execution_policy"] for item in packet["supervised_manual_input_dry_run_precheck_items"])
 
     for policy in policies:
-        assert policy["dry_run_precheck_only"] is True
-        assert policy["manual_input_session_started"] is False
-        assert policy["operator_input_capture_enabled_in_this_task"] is False
-        assert policy["real_operator_value_acceptance_enabled_in_this_task"] is False
-        assert policy["editable_ui_enabled_in_this_task"] is False
-        assert policy["form_submission_enabled_in_this_task"] is False
-        assert policy["evidence_capture_enabled_in_this_task"] is False
-        assert policy["persistence_enabled_in_this_task"] is False
-        assert policy["validation_execution_enabled_in_this_task"] is False
-        assert policy["redaction_execution_enabled_in_this_task"] is False
-        assert policy["draft_eligibility_recheck_enabled_in_this_task"] is False
-        assert policy["pass_status"] == "BLOCKED_PENDING_REAL_OPERATOR_VALUES"
-
-
-def test_capture_execution_policy_disables_ui_storage_and_generation(source_packet):
-    packet = create_supervised_manual_input_dry_run_precheck(source_packet)
-    policies = [packet["capture_execution_policy"]]
-    policies.extend(item["capture_execution_policy"] for item in packet["supervised_manual_input_dry_run_precheck_items"])
-
-    for policy in policies:
-        assert policy["input_capture_enabled"] is False
-        assert policy["editable_ui_enabled"] is False
-        assert policy["form_submission_enabled"] is False
-        assert policy["operator_value_persistence_enabled"] is False
+        assert policy["dry_run_enabled_in_this_task"] is True
+        assert policy["accepts_real_operator_values"] is False
+        assert policy["stores_operator_values"] is False
+        assert policy["validates_operator_values"] is False
+        assert policy["redacts_operator_values"] is False
         assert policy["evidence_capture_enabled"] is False
-        assert policy["validation_execution_enabled"] is False
-        assert policy["redaction_execution_enabled"] is False
+        assert policy["persistence_enabled"] is False
         assert policy["draft_eligibility_recheck_enabled"] is False
         assert policy["draft_generation_enabled"] is False
         assert policy["ai_writer_generation_enabled"] is False
         assert policy["public_postable"] is False
         assert policy["dispatch_ready"] is False
-        assert policy["local_storage_enabled"] is False
-        assert policy["session_storage_enabled"] is False
 
 
-def test_draft_eligibility_remains_blocked(source_packet):
+def test_evidence_and_dependency_summaries_are_schema_only(source_packet):
     packet = create_supervised_manual_input_dry_run_precheck(source_packet)
-    blockers = [packet["draft_eligibility_block_reason"]]
-    blockers.extend(item["draft_eligibility_block_reason"] for item in packet["supervised_manual_input_dry_run_precheck_items"])
 
-    for block in blockers:
-        assert block["draft_eligibility_status"] == "BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED"
-        assert block["draft_generation_enabled"] is False
-        assert block["draft_eligibility_recheck_enabled"] is False
-        assert block["required_operator_values_present"] is False
-        assert block["redaction_validation_passed"] is False
-        assert block["evidence_requirements_satisfied"] is False
-        assert "missing_required_operator_inputs" in block["blocking_reasons"]
-        assert "redaction_validation_not_executed" in block["blocking_reasons"]
+    assert packet["evidence_requirements"]["operator_identity_or_session_ref_required"] is True
+    assert packet["evidence_requirements"]["evidence_capture_enabled_in_this_task"] is False
+    assert packet["validation_dependency_summary"]["requires_real_operator_values"] is True
+    assert packet["validation_dependency_summary"]["validation_execution_enabled_in_this_task"] is False
+    assert packet["redaction_dependency_summary"]["requires_real_operator_values"] is True
+    assert packet["redaction_dependency_summary"]["redaction_execution_enabled_in_this_task"] is False
+    assert packet["capture_gate_dependency_summary"]["dependency_satisfied_for_procedure_definition"] is True
+    assert packet["capture_gate_dependency_summary"]["dependency_satisfied_for_actual_capture"] is False
+
+
+def test_manual_input_procedure_plan_has_no_values(source_packet):
+    packet = create_supervised_manual_input_dry_run_precheck(source_packet)
+    for step in packet["manual_input_procedure_plan"]:
+        assert step["current_value"] is None
+        assert step["current_value_present"] is False
+        assert step["placeholder_value"] == "PENDING_OPERATOR_INPUT"
+        assert step["capture_enabled_in_this_task"] is False
+        assert step["validation_execution_enabled_in_this_task"] is False
+        assert step["redaction_execution_enabled_in_this_task"] is False
 
 
 def test_forbidden_current_actions_cover_ui_capture_storage_execution_and_live(source_packet):
@@ -245,17 +240,19 @@ def test_truth_and_safety_flags_remain_false(source_packet):
     assert packet["truth_protection_flags"]
     assert packet["safety_flags"]
     assert all(value is False for value in packet["truth_protection_flags"].values())
-    assert all(value is False for value in packet["safety_flags"].values())
+    assert packet["safety_flags"]["dry_run_schema_only"] is True
+    for key, value in packet["safety_flags"].items():
+        if key != "dry_run_schema_only":
+            assert value is False
     assert packet["truth_protection_flags"]["captured_value_truth_promoted"] is False
+    assert packet["truth_protection_flags"]["dry_run_value_truth_promoted"] is False
     assert packet["safety_flags"]["actual_operator_input_capture_enabled"] is False
-    assert packet["safety_flags"]["manual_input_dry_run_enabled"] is False
-    assert packet["safety_flags"]["local_storage_write_enabled"] is False
-    assert packet["safety_flags"]["session_storage_write_enabled"] is False
+    assert packet["safety_flags"]["real_operator_value_acceptance_enabled"] is False
 
 
 def test_item_status_mappings_and_fail_closed(source_packet):
     packet = create_supervised_manual_input_dry_run_precheck(source_packet)
-    assert packet["supervised_manual_input_dry_run_precheck_items"][0]["supervised_manual_input_dry_run_precheck_status"] == "BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES"
+    assert packet["supervised_manual_input_dry_run_precheck_items"][0]["supervised_manual_input_dry_run_precheck_status"] == GLOBAL_MANUAL_INPUT_DRY_RUN_STATUS
 
     sample = {
         "task_label": "TASK_CONTENTOPS_0175BX_LOCAL_REDACTION_VALIDATION_PRECHECK_TO_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT_V0",
@@ -274,8 +271,8 @@ def test_item_status_mappings_and_fail_closed(source_packet):
         ],
     }
     repaired = create_supervised_manual_input_dry_run_precheck(sample)
-    assert repaired["supervised_manual_input_dry_run_precheck_items"][0]["supervised_manual_input_dry_run_precheck_status"] == "BLOCKED_BY_OPERATOR_INPUT_CAPTURE_GATE"
-    assert repaired["supervised_manual_input_dry_run_precheck_items"][1]["supervised_manual_input_dry_run_precheck_status"] == "BLOCKED_BY_OPERATOR_INPUT_CAPTURE_GATE"
+    assert repaired["supervised_manual_input_dry_run_precheck_items"][0]["supervised_manual_input_dry_run_precheck_status"] == "BLOCKED_BY_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT"
+    assert repaired["supervised_manual_input_dry_run_precheck_items"][1]["supervised_manual_input_dry_run_precheck_status"] == "BLOCKED_BY_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT"
 
 
 def test_next_recommended_task_is_set_correctly(source_packet):
@@ -297,7 +294,8 @@ def test_write_artifacts_outputs_json_and_runbook(tmp_path, source_packet):
     assert runbook_path.exists()
 
     loaded = json.loads(packet_path.read_text(encoding="utf-8"))
-    assert loaded["global_supervised_manual_input_dry_run_precheck_status"] == "BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES"
+    assert loaded["global_manual_input_dry_run_status"] == GLOBAL_MANUAL_INPUT_DRY_RUN_STATUS
+    assert loaded["global_supervised_manual_input_dry_run_precheck_status"] == GLOBAL_MANUAL_INPUT_DRY_RUN_STATUS
     assert loaded["next_recommended_task"] == NEXT_RECOMMENDED_TASK
     assert "Supervised Manual Input Dry Run Precheck" in runbook_path.read_text(encoding="utf-8")
 

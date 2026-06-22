@@ -6,8 +6,8 @@
 - **Task Label**: `TASK_CONTENTOPS_0175BY_OPERATOR_INPUT_CAPTURE_GATE_TO_SUPERVISED_MANUAL_INPUT_DRY_RUN_PRECHECK_V0`
 - **Source Operator Input Capture Gate Packet Hash**: `18b277d38a677b8c54b2255184dd1d875853b81aae95e7e3a7a5d3f39a0f2b8d`
 - **Source Packet Task Label**: `TASK_CONTENTOPS_0175BX_LOCAL_REDACTION_VALIDATION_PRECHECK_TO_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT_V0`
-- **Packet Hash**: `25a04668465e26384e14b8f67bbfa4063ac72626319201193f0c38404c5bb0cd`
-- **Global Supervised Manual Input Dry Run Precheck Status**: `BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES`
+- **Packet Hash**: `24246abdf1f1acafe9afd513b75601314364e52b769bbbb3830fe1477ffa10bf`
+- **Global Supervised Manual Input Dry Run Precheck Status**: `BLOCKED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_OPERATOR_VALUES`
 - **Source Capture Gate Item Count**: `7`
 - **Dry Run Precheck Item Count**: `7`
 - **Ledger Family**: `operator_input_capture_gate_to_supervised_manual_input_dry_run_precheck_future`
@@ -34,23 +34,18 @@
 - `redaction_scan_execution`
 - `validation_execution`
 - `draft_eligibility_recheck`
-- `draft_generation`
-- `ai_writer_generation`
-- `public_posting`
-- `live_dispatch`
 
 ## Dry-run Checks Possible Without Values
 
-- `source_gate_packet_status_check`
-- `required_input_field_schema_check`
-- `missing_required_input_field_count_check`
-- `capture_execution_lock_check`
-- `evidence_requirement_schema_check`
-- `redaction_validation_dependency_lock_check`
-- `draft_generation_lock_check`
-- `truth_protection_flag_lock_check`
-- `safety_flag_lock_check`
-- `item_mapping_integrity_check`
+- `verify_required_fields_declared`
+- `verify_capture_gate_status_blocked`
+- `verify_no_current_values_present`
+- `verify_evidence_requirements_declared`
+- `verify_validation_dependencies_declared`
+- `verify_redaction_dependencies_declared`
+- `verify_no_persistence_enabled`
+- `verify_no_generation_enabled`
+- `verify_no_live_api_enabled`
 
 ## Cannot Run Until Values Exist
 
@@ -62,10 +57,6 @@
 - `redaction_scan_execution`
 - `validation_execution`
 - `draft_eligibility_recheck`
-- `draft_generation`
-- `ai_writer_generation`
-- `public_posting`
-- `live_dispatch`
 
 ## Future Evidence Requirements
 
@@ -80,37 +71,46 @@
 - `no_unverified_market_values_attestation`
 - `no_financial_signal_language_attestation`
 
-## Manual Input Dry Run Policy
+## Dry Run Execution Policy
 
 | Policy Flag | State |
 |---|---|
-| `dry_run_precheck_only` | `True` |
-| `manual_input_session_started` | `False` |
-| `operator_input_capture_enabled_in_this_task` | `False` |
-| `real_operator_value_acceptance_enabled_in_this_task` | `False` |
-| `editable_ui_enabled_in_this_task` | `False` |
-| `form_submission_enabled_in_this_task` | `False` |
-| `evidence_capture_enabled_in_this_task` | `False` |
-| `persistence_enabled_in_this_task` | `False` |
-| `validation_execution_enabled_in_this_task` | `False` |
-| `redaction_execution_enabled_in_this_task` | `False` |
-| `draft_eligibility_recheck_enabled_in_this_task` | `False` |
-| `pass_status` | `BLOCKED_PENDING_REAL_OPERATOR_VALUES` |
+| `dry_run_enabled_in_this_task` | `True` |
+| `accepts_real_operator_values` | `False` |
+| `stores_operator_values` | `False` |
+| `validates_operator_values` | `False` |
+| `redacts_operator_values` | `False` |
+| `evidence_capture_enabled` | `False` |
+| `operator_identity_capture_enabled` | `False` |
+| `timestamp_capture_enabled` | `False` |
+| `persistence_enabled` | `False` |
+| `draft_eligibility_recheck_enabled` | `False` |
+| `draft_generation_enabled` | `False` |
+| `ai_writer_generation_enabled` | `False` |
+| `public_postable` | `False` |
+| `dispatch_ready` | `False` |
 
-## Dry-run Check Matrix
+## Dry-run Checklist
 
-| Check | Possible Without Values | Real Capture | Validation/Redaction | Persistence | Truth Promotion | Status |
-|---|---|---|---|---|---|---|
-| `source_gate_packet_status_check` | `True` | `False` | `False` | `False` | `False` | `DRY_RUN_SCHEMA_CHECK_ONLY` |
-| `required_input_field_schema_check` | `True` | `False` | `False` | `False` | `False` | `DRY_RUN_SCHEMA_CHECK_ONLY` |
-| `missing_required_input_field_count_check` | `True` | `False` | `False` | `False` | `False` | `DRY_RUN_SCHEMA_CHECK_ONLY` |
-| `capture_execution_lock_check` | `True` | `False` | `False` | `False` | `False` | `DRY_RUN_SCHEMA_CHECK_ONLY` |
-| `evidence_requirement_schema_check` | `True` | `False` | `False` | `False` | `False` | `DRY_RUN_SCHEMA_CHECK_ONLY` |
-| `redaction_validation_dependency_lock_check` | `True` | `False` | `False` | `False` | `False` | `DRY_RUN_SCHEMA_CHECK_ONLY` |
-| `draft_generation_lock_check` | `True` | `False` | `False` | `False` | `False` | `DRY_RUN_SCHEMA_CHECK_ONLY` |
-| `truth_protection_flag_lock_check` | `True` | `False` | `False` | `False` | `False` | `DRY_RUN_SCHEMA_CHECK_ONLY` |
-| `safety_flag_lock_check` | `True` | `False` | `False` | `False` | `False` | `DRY_RUN_SCHEMA_CHECK_ONLY` |
-| `item_mapping_integrity_check` | `True` | `False` | `False` | `False` | `False` | `DRY_RUN_SCHEMA_CHECK_ONLY` |
+| Check | Can Execute Without Values | Status | Pass Status |
+|---|---|---|---|
+| `verify_required_fields_declared` | `True` | `DRY_RUN_DECLARATION_CHECK_PASSED` | `PASS_SCHEMA_ONLY` |
+| `verify_capture_gate_status_blocked` | `True` | `DRY_RUN_DECLARATION_CHECK_PASSED` | `PASS_SCHEMA_ONLY` |
+| `verify_no_current_values_present` | `True` | `DRY_RUN_DECLARATION_CHECK_PASSED` | `PASS_SCHEMA_ONLY` |
+| `verify_evidence_requirements_declared` | `True` | `DRY_RUN_DECLARATION_CHECK_PASSED` | `PASS_SCHEMA_ONLY` |
+| `verify_validation_dependencies_declared` | `True` | `DRY_RUN_DECLARATION_CHECK_PASSED` | `PASS_SCHEMA_ONLY` |
+| `verify_redaction_dependencies_declared` | `True` | `DRY_RUN_DECLARATION_CHECK_PASSED` | `PASS_SCHEMA_ONLY` |
+| `verify_no_persistence_enabled` | `True` | `DRY_RUN_DECLARATION_CHECK_PASSED` | `PASS_SCHEMA_ONLY` |
+| `verify_no_generation_enabled` | `True` | `DRY_RUN_DECLARATION_CHECK_PASSED` | `PASS_SCHEMA_ONLY` |
+| `verify_no_live_api_enabled` | `True` | `DRY_RUN_DECLARATION_CHECK_PASSED` | `PASS_SCHEMA_ONLY` |
+| `operator_value_acceptance` | `False` | `BLOCKED_PENDING_OPERATOR_VALUE` | `BLOCKED_PENDING_OPERATOR_VALUE` |
+| `operator_value_persistence` | `False` | `BLOCKED_PENDING_OPERATOR_VALUE` | `BLOCKED_PENDING_OPERATOR_VALUE` |
+| `evidence_capture` | `False` | `BLOCKED_PENDING_OPERATOR_VALUE` | `BLOCKED_PENDING_OPERATOR_VALUE` |
+| `field_non_empty_validation` | `False` | `BLOCKED_PENDING_OPERATOR_VALUE` | `BLOCKED_PENDING_OPERATOR_VALUE` |
+| `operator_generated_validation` | `False` | `BLOCKED_PENDING_OPERATOR_VALUE` | `BLOCKED_PENDING_OPERATOR_VALUE` |
+| `redaction_scan_execution` | `False` | `BLOCKED_PENDING_OPERATOR_VALUE` | `BLOCKED_PENDING_OPERATOR_VALUE` |
+| `validation_execution` | `False` | `BLOCKED_PENDING_OPERATOR_VALUE` | `BLOCKED_PENDING_OPERATOR_VALUE` |
+| `draft_eligibility_recheck` | `False` | `BLOCKED_PENDING_OPERATOR_VALUE` | `BLOCKED_PENDING_OPERATOR_VALUE` |
 
 ## Future Evidence Requirement Matrix
 
@@ -127,28 +127,29 @@
 | `no_unverified_market_values_attestation` | `True` | `False` | `False` | `evidence_capture_not_enabled_in_this_task` |
 | `no_financial_signal_language_attestation` | `True` | `False` | `False` | `evidence_capture_not_enabled_in_this_task` |
 
-## Draft Eligibility Remains Blocked Because
+## Blocked Execution Reasons
 
-- **Draft Eligibility Status**: `BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED`
-- **Draft Generation Enabled**: `False`
-- **Draft Eligibility Recheck Enabled**: `False`
-- `missing_required_operator_inputs`
-- `manual_input_dry_run_precheck_only`
-- `operator_values_not_accepted_or_persisted`
-- `redaction_validation_not_executed`
-- `draft_eligibility_recheck_not_enabled`
+- `real_operator_values_absent`
+- `operator_input_capture_disabled`
+- `evidence_capture_disabled`
+- `validation_execution_disabled`
+- `redaction_execution_disabled`
+- `persistence_disabled`
+- `draft_eligibility_recheck_disabled`
+- `draft_generation_disabled`
+- `live_dispatch_disabled`
 
 ## Supervised Manual Input Dry Run Precheck Items
 
 | Dry Run Item ID | Source Capture Gate Item ID | Candidate ID | Relative Path | Dry Run Status |
 |---|---|---|---|---|
-| `manual_input_dry_run_item_01_STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1` | `capture_gate_item_01_STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1` | `STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1` | `docs/research/database_foundation/pre_ia_acceleration/STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1.json` | `BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES` |
-| `manual_input_dry_run_item_02_STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1` | `capture_gate_item_02_STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1` | `STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1` | `docs/research/database_foundation/pre_ia_acceleration/STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1.json` | `BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES` |
-| `manual_input_dry_run_item_03_BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1` | `capture_gate_item_03_BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1` | `BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1` | `docs/research/database_foundation/pre_ia_acceleration/BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1.json` | `BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES` |
-| `manual_input_dry_run_item_04_BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1` | `capture_gate_item_04_BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1` | `BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1` | `docs/research/database_foundation/pre_ia_acceleration/BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1.json` | `BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES` |
-| `manual_input_dry_run_item_05_BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1` | `capture_gate_item_05_BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1` | `BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1` | `docs/research/database_foundation/pre_ia_acceleration/BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1.json` | `BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES` |
-| `manual_input_dry_run_item_06_DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1` | `capture_gate_item_06_DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1` | `DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1` | `docs/research/database_foundation/pre_ia_acceleration/DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1.json` | `BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES` |
-| `manual_input_dry_run_item_07_ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1` | `capture_gate_item_07_ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1` | `ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1` | `docs/research/database_foundation/pre_ia_acceleration/ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1.json` | `BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES` |
+| `manual_input_dry_run_item_01_STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1` | `capture_gate_item_01_STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1` | `STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1` | `docs/research/database_foundation/pre_ia_acceleration/STEP1_OFFICIAL_TEXT_LIVE_PROBE_MANIFEST_V1.json` | `BLOCKED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_OPERATOR_VALUES` |
+| `manual_input_dry_run_item_02_STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1` | `capture_gate_item_02_STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1` | `STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1` | `docs/research/database_foundation/pre_ia_acceleration/STEP1_OFFICIAL_TEXT_SPINE_CONTRACT_V1.json` | `BLOCKED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_OPERATOR_VALUES` |
+| `manual_input_dry_run_item_03_BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1` | `capture_gate_item_03_BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1` | `BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1` | `docs/research/database_foundation/pre_ia_acceleration/BEA_BLS_CENSUS_NORMALIZED_CONTRACT_V1.json` | `BLOCKED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_OPERATOR_VALUES` |
+| `manual_input_dry_run_item_04_BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1` | `capture_gate_item_04_BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1` | `BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1` | `docs/research/database_foundation/pre_ia_acceleration/BEA_BLS_CENSUS_NORMALIZED_CANDIDATE_RECORDS_V1.json` | `BLOCKED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_OPERATOR_VALUES` |
+| `manual_input_dry_run_item_05_BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1` | `capture_gate_item_05_BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1` | `BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1` | `docs/research/database_foundation/pre_ia_acceleration/BROKER_PROXY_NO_VALUE_SNAPSHOT_MANIFEST_V1.json` | `BLOCKED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_OPERATOR_VALUES` |
+| `manual_input_dry_run_item_06_DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1` | `capture_gate_item_06_DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1` | `DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1` | `docs/research/database_foundation/pre_ia_acceleration/DATABASE_FOUNDATION_TTL_FRESHNESS_POLICY_CONTRACT_V1.json` | `BLOCKED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_OPERATOR_VALUES` |
+| `manual_input_dry_run_item_07_ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1` | `capture_gate_item_07_ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1` | `ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1` | `docs/research/database_foundation/pre_ia_acceleration/ECONOMIC_PRINTS_SCHEMA_CONTRACT_V1.json` | `BLOCKED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_OPERATOR_VALUES` |
 
 ## Forbidden Current Actions
 
@@ -193,6 +194,7 @@
 - `[FORBIDDEN]` operator_review_notes_text
 - `[FORBIDDEN]` captured_operator_value
 - `[FORBIDDEN]` redacted_operator_value
+- `[FORBIDDEN]` dry_run_operator_value
 
 ## Truth Protection Flags
 
@@ -208,11 +210,13 @@
 | `redacted_value_truth_promoted` | `False` |
 | `captured_value_truth_promoted` | `False` |
 | `dry_run_truth_promoted` | `False` |
+| `dry_run_value_truth_promoted` | `False` |
 
 ## Safety Flags
 
 | Flag | State |
 |---|---|
+| `dry_run_schema_only` | `True` |
 | `live_api_called` | `False` |
 | `provider_api_called` | `False` |
 | `platform_api_called` | `False` |
@@ -231,11 +235,8 @@
 | `validation_enabled` | `False` |
 | `redaction_execution_enabled` | `False` |
 | `draft_eligibility_recheck_enabled` | `False` |
-| `operator_input_capture_gate_enabled` | `False` |
-| `manual_input_dry_run_enabled` | `False` |
 | `evidence_capture_enabled` | `False` |
-| `local_storage_write_enabled` | `False` |
-| `session_storage_write_enabled` | `False` |
+| `real_operator_value_acceptance_enabled` | `False` |
 
 ## Navigation
 

@@ -28,6 +28,51 @@ REQUIRED_INPUT_FIELDS = [
     "manual_operator_decision",
 ]
 
+GLOBAL_MANUAL_INPUT_DRY_RUN_STATUS = "BLOCKED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_OPERATOR_VALUES"
+BLOCKED_BY_CAPTURE_GATE_STATUS = "BLOCKED_BY_OPERATOR_INPUT_CAPTURE_GATE_CONTRACT"
+SOURCE_GATE_STATUS_REQUIRED = "BLOCKED_OPERATOR_INPUT_CAPTURE_GATE_PENDING_SUPERVISED_ACTIVATION"
+
+DECLARATION_ONLY_CHECKS = [
+    "verify_required_fields_declared",
+    "verify_capture_gate_status_blocked",
+    "verify_no_current_values_present",
+    "verify_evidence_requirements_declared",
+    "verify_validation_dependencies_declared",
+    "verify_redaction_dependencies_declared",
+    "verify_no_persistence_enabled",
+    "verify_no_generation_enabled",
+    "verify_no_live_api_enabled",
+]
+
+VALUE_DEPENDENT_CHECKS = [
+    "operator_value_acceptance",
+    "operator_value_persistence",
+    "evidence_capture",
+    "field_non_empty_validation",
+    "operator_generated_validation",
+    "redaction_scan_execution",
+    "validation_execution",
+    "draft_eligibility_recheck",
+]
+
+BLOCKED_EXECUTION_REASONS = [
+    "real_operator_values_absent",
+    "operator_input_capture_disabled",
+    "evidence_capture_disabled",
+    "validation_execution_disabled",
+    "redaction_execution_disabled",
+    "persistence_disabled",
+    "draft_eligibility_recheck_disabled",
+    "draft_generation_disabled",
+    "live_dispatch_disabled",
+]
+
+ALLOWED_FUTURE_MANUAL_INPUT_MODES = [
+    "supervised_manual_operator_entry",
+    "imported_operator_review_packet",
+    "deferred_human_review_session",
+]
+
 FUTURE_OPERATOR_MANUAL_STEPS = [
     "open_supervised_manual_input_session",
     "review_source_candidate_metadata_only",
@@ -40,34 +85,8 @@ FUTURE_OPERATOR_MANUAL_STEPS = [
     "recheck_draft_eligibility_after_values_pass",
 ]
 
-DRY_RUN_CHECKS_WITHOUT_VALUES = [
-    "source_gate_packet_status_check",
-    "required_input_field_schema_check",
-    "missing_required_input_field_count_check",
-    "capture_execution_lock_check",
-    "evidence_requirement_schema_check",
-    "redaction_validation_dependency_lock_check",
-    "draft_generation_lock_check",
-    "truth_protection_flag_lock_check",
-    "safety_flag_lock_check",
-    "item_mapping_integrity_check",
-]
-
-BLOCKED_UNTIL_VALUES_EXIST = [
-    "operator_value_acceptance",
-    "operator_value_persistence",
-    "evidence_capture",
-    "field_non_empty_validation",
-    "operator_generated_validation",
-    "redaction_scan_execution",
-    "validation_execution",
-    "draft_eligibility_recheck",
-    "draft_generation",
-    "ai_writer_generation",
-    "public_posting",
-    "live_dispatch",
-]
-
+DRY_RUN_CHECKS_WITHOUT_VALUES = DECLARATION_ONLY_CHECKS.copy()
+BLOCKED_UNTIL_VALUES_EXIST = VALUE_DEPENDENT_CHECKS.copy()
 FUTURE_EVIDENCE_REQUIREMENTS = [
     "operator_identity_or_session_ref",
     "operator_entry_timestamp",
@@ -123,6 +142,7 @@ DISALLOWED_OUTPUTS = [
     "operator_review_notes_text",
     "captured_operator_value",
     "redacted_operator_value",
+    "dry_run_operator_value",
 ]
 
 TRUTH_PROTECTION_FLAGS = {
@@ -136,9 +156,11 @@ TRUTH_PROTECTION_FLAGS = {
     "redacted_value_truth_promoted": False,
     "captured_value_truth_promoted": False,
     "dry_run_truth_promoted": False,
+    "dry_run_value_truth_promoted": False,
 }
 
 SAFETY_FLAGS = {
+    "dry_run_schema_only": True,
     "live_api_called": False,
     "provider_api_called": False,
     "platform_api_called": False,
@@ -157,11 +179,8 @@ SAFETY_FLAGS = {
     "validation_enabled": False,
     "redaction_execution_enabled": False,
     "draft_eligibility_recheck_enabled": False,
-    "operator_input_capture_gate_enabled": False,
-    "manual_input_dry_run_enabled": False,
     "evidence_capture_enabled": False,
-    "local_storage_write_enabled": False,
-    "session_storage_write_enabled": False,
+    "real_operator_value_acceptance_enabled": False,
 }
 
 
@@ -173,46 +192,65 @@ def _source_packet_hash(packet: dict[str, Any]) -> str:
     return sha256(serialized.encode("utf-8")).hexdigest()
 
 
-def _manual_input_dry_run_policy() -> dict[str, bool | str]:
-    return {
-        "dry_run_precheck_only": True,
-        "manual_input_session_started": False,
-        "operator_input_capture_enabled_in_this_task": False,
-        "real_operator_value_acceptance_enabled_in_this_task": False,
-        "editable_ui_enabled_in_this_task": False,
-        "form_submission_enabled_in_this_task": False,
-        "evidence_capture_enabled_in_this_task": False,
-        "persistence_enabled_in_this_task": False,
-        "validation_execution_enabled_in_this_task": False,
-        "redaction_execution_enabled_in_this_task": False,
-        "draft_eligibility_recheck_enabled_in_this_task": False,
-        "pass_status": "BLOCKED_PENDING_REAL_OPERATOR_VALUES",
-    }
+def _manual_input_procedure_plan() -> list[dict[str, Any]]:
+    return [
+        {
+            "future_step_order": index,
+            "field_name": field_name,
+            "expected_future_operator_action": "provide_supervised_manual_value",
+            "current_value": None,
+            "current_value_present": False,
+            "placeholder_value": "PENDING_OPERATOR_INPUT",
+            "dry_run_status": "PROCEDURE_DEFINED_VALUE_ABSENT",
+            "operator_identity_required": True,
+            "timestamp_required": True,
+            "evidence_attachment_required": True,
+            "redaction_required_after_entry": True,
+            "validation_required_after_entry": True,
+            "persistence_enabled_in_this_task": False,
+            "capture_enabled_in_this_task": False,
+            "validation_execution_enabled_in_this_task": False,
+            "redaction_execution_enabled_in_this_task": False,
+            "blocking_reason": "real_operator_value_required_before_manual_input_dry_run_can_pass",
+        }
+        for index, field_name in enumerate(REQUIRED_INPUT_FIELDS, start=1)
+    ]
+
+
+def _dry_run_checklist() -> list[dict[str, bool | str]]:
+    declaration_checks = [
+        {
+            "check_name": check_name,
+            "can_execute_without_values": True,
+            "dry_run_check_status": "DRY_RUN_DECLARATION_CHECK_PASSED",
+            "pass_status": "PASS_SCHEMA_ONLY",
+        }
+        for check_name in DECLARATION_ONLY_CHECKS
+    ]
+    value_dependent_checks = [
+        {
+            "check_name": check_name,
+            "can_execute_without_values": False,
+            "dry_run_check_status": "BLOCKED_PENDING_OPERATOR_VALUE",
+            "pass_status": "BLOCKED_PENDING_OPERATOR_VALUE",
+        }
+        for check_name in VALUE_DEPENDENT_CHECKS
+    ]
+    return declaration_checks + value_dependent_checks
 
 
 def _dry_run_check_matrix() -> dict[str, dict[str, bool | str]]:
-    return {
-        check: {
-            "dry_run_check_possible_without_values": True,
-            "executes_real_capture": False,
-            "executes_validation_or_redaction": False,
-            "writes_persistence": False,
-            "promotes_truth": False,
-            "check_status": "DRY_RUN_SCHEMA_CHECK_ONLY",
-        }
-        for check in DRY_RUN_CHECKS_WITHOUT_VALUES
-    }
+    return {row["check_name"]: row for row in _dry_run_checklist()}
 
 
 def _blocked_execution_matrix() -> dict[str, dict[str, bool | str]]:
     return {
-        item: {
+        reason: {
             "blocked_now": True,
-            "requires_real_operator_values": True,
             "enabled_in_this_task": False,
-            "blocking_reason": "real_operator_values_absent_and_capture_disabled",
+            "blocking_reason": reason,
         }
-        for item in BLOCKED_UNTIL_VALUES_EXIST
+        for reason in BLOCKED_EXECUTION_REASONS
     }
 
 
@@ -229,66 +267,72 @@ def _future_evidence_requirement_matrix() -> dict[str, dict[str, bool | str | No
     }
 
 
-def _draft_eligibility_block_reason() -> dict[str, bool | str | list[str]]:
+def _dry_run_execution_policy() -> dict[str, bool]:
     return {
-        "draft_eligibility_status": "BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED",
-        "draft_generation_enabled": False,
-        "draft_eligibility_recheck_enabled": False,
-        "required_operator_values_present": False,
-        "redaction_validation_passed": False,
-        "evidence_requirements_satisfied": False,
-        "blocking_reasons": [
-            "missing_required_operator_inputs",
-            "manual_input_dry_run_precheck_only",
-            "operator_values_not_accepted_or_persisted",
-            "redaction_validation_not_executed",
-            "draft_eligibility_recheck_not_enabled",
-        ],
-    }
-
-
-def _capture_execution_policy() -> dict[str, bool]:
-    return {
-        "input_capture_enabled": False,
-        "editable_ui_enabled": False,
-        "form_submission_enabled": False,
-        "operator_value_persistence_enabled": False,
+        "dry_run_enabled_in_this_task": True,
+        "accepts_real_operator_values": False,
+        "stores_operator_values": False,
+        "validates_operator_values": False,
+        "redacts_operator_values": False,
         "evidence_capture_enabled": False,
-        "validation_execution_enabled": False,
-        "redaction_execution_enabled": False,
+        "operator_identity_capture_enabled": False,
+        "timestamp_capture_enabled": False,
+        "persistence_enabled": False,
         "draft_eligibility_recheck_enabled": False,
         "draft_generation_enabled": False,
         "ai_writer_generation_enabled": False,
         "public_postable": False,
         "dispatch_ready": False,
-        "local_storage_enabled": False,
-        "session_storage_enabled": False,
     }
 
 
-def _draft_generation_policy() -> dict[str, bool]:
+def _evidence_requirements() -> dict[str, bool]:
     return {
-        "draft_generation_enabled": False,
-        "headline_generation_enabled": False,
-        "hook_generation_enabled": False,
-        "caption_generation_enabled": False,
-        "platform_copy_generation_enabled": False,
-        "ai_writer_generation_enabled": False,
-        "public_postable": False,
-        "dispatch_ready": False,
-        "draft_storage_enabled": False,
-        "operator_input_capture_enabled": False,
-        "validation_enabled": False,
-        "supervised_input_resolution_enabled": False,
+        "operator_identity_or_session_ref_required": True,
+        "timestamp_required": True,
+        "source_packet_hash_required": True,
+        "manual_review_notes_required": True,
+        "redaction_check_required": True,
+        "validation_check_required": True,
+        "no_secret_values_allowed": True,
+        "no_raw_vendor_redistribution_allowed": True,
+        "no_unverified_market_values_allowed": True,
+        "no_financial_signal_language_allowed": True,
+        "evidence_capture_enabled_in_this_task": False,
+    }
+
+
+def _validation_dependency_summary() -> dict[str, bool]:
+    return {
+        "pre_capture_validation_contract_present": True,
+        "validation_execution_enabled_in_source": False,
+        "validation_execution_enabled_in_this_task": False,
+        "requires_real_operator_values": True,
+    }
+
+
+def _redaction_dependency_summary() -> dict[str, bool]:
+    return {
+        "redaction_precheck_required": True,
+        "redaction_execution_enabled_in_source": False,
+        "redaction_execution_enabled_in_this_task": False,
+        "requires_real_operator_values": True,
+    }
+
+
+def _capture_gate_dependency_summary(source_gate_status: str) -> dict[str, bool | str]:
+    return {
+        "source_gate_status_required": SOURCE_GATE_STATUS_REQUIRED,
+        "source_gate_status_observed": source_gate_status,
+        "dependency_satisfied_for_procedure_definition": True,
+        "dependency_satisfied_for_actual_capture": False,
     }
 
 
 def _map_item_status(source_status: str) -> str:
-    if source_status == "BLOCKED_OPERATOR_INPUT_CAPTURE_GATE_PENDING_SUPERVISED_ACTIVATION":
-        return "BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES"
-    if source_status.startswith("BLOCKED"):
-        return "BLOCKED_BY_OPERATOR_INPUT_CAPTURE_GATE"
-    return "BLOCKED_BY_OPERATOR_INPUT_CAPTURE_GATE"
+    if source_status == SOURCE_GATE_STATUS_REQUIRED:
+        return GLOBAL_MANUAL_INPUT_DRY_RUN_STATUS
+    return BLOCKED_BY_CAPTURE_GATE_STATUS
 
 
 def create_supervised_manual_input_dry_run_precheck(
@@ -308,25 +352,25 @@ def create_supervised_manual_input_dry_run_precheck(
         raise ValueError("operator_input_capture_gate_items must be a list. Failing closed.")
 
     dry_run_items = []
-    blocked_reasons = [
-        "manual_input_dry_run_precheck_only",
-        "operator_input_capture_disabled",
-        "real_operator_values_absent",
-        "validation_redaction_execution_disabled",
-        "draft_eligibility_recheck_disabled",
-    ]
+    blocked_reasons = BLOCKED_EXECUTION_REASONS.copy()
 
-    manual_policy = _manual_input_dry_run_policy()
+    dry_run_checklist = _dry_run_checklist()
     dry_run_matrix = _dry_run_check_matrix()
     blocked_matrix = _blocked_execution_matrix()
     evidence_matrix = _future_evidence_requirement_matrix()
-    capture_policy = _capture_execution_policy()
-    draft_block = _draft_eligibility_block_reason()
+    execution_policy = _dry_run_execution_policy()
+    evidence_requirements = _evidence_requirements()
+    validation_summary = _validation_dependency_summary()
+    redaction_summary = _redaction_dependency_summary()
+    capture_summary = _capture_gate_dependency_summary(global_status)
+    manual_procedure_plan = _manual_input_procedure_plan()
 
     for index, item in enumerate(source_items, start=1):
         source_status = item.get("operator_input_capture_gate_status", "")
         source_candidate_id = item.get("source_candidate_id", "unknown_candidate")
+        item_status = _map_item_status(source_status)
         dry_run_item = {
+            "dry_run_item_id": f"manual_input_dry_run_item_{index:02d}_{source_candidate_id}",
             "dry_run_precheck_item_id": f"manual_input_dry_run_item_{index:02d}_{source_candidate_id}",
             "source_capture_gate_item_id": item.get("capture_gate_item_id", "unknown_item_id"),
             "source_precheck_item_id": item.get("source_precheck_item_id", "unknown_precheck_item_id"),
@@ -338,19 +382,24 @@ def create_supervised_manual_input_dry_run_precheck(
             "contract_name": item.get("contract_name"),
             "intent_scope_label": item.get("intent_scope_label", "unknown_metadata_review"),
             "source_operator_input_capture_gate_status": source_status,
-            "supervised_manual_input_dry_run_precheck_status": _map_item_status(source_status),
+            "dry_run_status": item_status,
+            "supervised_manual_input_dry_run_precheck_status": item_status,
             "required_input_fields": REQUIRED_INPUT_FIELDS.copy(),
             "missing_required_input_fields": REQUIRED_INPUT_FIELDS.copy(),
-            "future_operator_manual_steps": FUTURE_OPERATOR_MANUAL_STEPS.copy(),
+            "manual_input_procedure_plan": manual_procedure_plan.copy(),
+            "dry_run_checklist": dry_run_checklist.copy(),
+            "dry_run_execution_policy": execution_policy.copy(),
+            "blocked_execution_reasons": blocked_reasons.copy(),
+            "evidence_requirements": evidence_requirements.copy(),
+            "validation_dependency_summary": validation_summary.copy(),
+            "redaction_dependency_summary": redaction_summary.copy(),
+            "capture_gate_dependency_summary": capture_summary.copy(),
             "dry_run_checks_without_values": DRY_RUN_CHECKS_WITHOUT_VALUES.copy(),
             "blocked_until_values_exist": BLOCKED_UNTIL_VALUES_EXIST.copy(),
             "future_evidence_requirements": FUTURE_EVIDENCE_REQUIREMENTS.copy(),
-            "manual_input_dry_run_policy": manual_policy.copy(),
             "dry_run_check_matrix": dry_run_matrix.copy(),
             "blocked_execution_matrix": blocked_matrix.copy(),
             "future_evidence_requirement_matrix": evidence_matrix.copy(),
-            "draft_eligibility_block_reason": draft_block.copy(),
-            "capture_execution_policy": capture_policy.copy(),
             "blocked_reasons": blocked_reasons.copy(),
             "allowed_next_step": "stage_supervised_manual_input_dry_run_precheck_to_operator_value_intake_policy",
             "forbidden_current_actions": FORBIDDEN_CURRENT_ACTIONS.copy(),
@@ -364,27 +413,35 @@ def create_supervised_manual_input_dry_run_precheck(
         "source_operator_input_capture_gate_packet_hash": _source_packet_hash(operator_input_capture_gate_packet),
         "source_packet_task_label": operator_input_capture_gate_packet.get("task_label", "unknown"),
         "source_capture_gate_item_count": len(source_items),
-        "global_supervised_manual_input_dry_run_precheck_status": "BLOCKED_SUPERVISED_MANUAL_INPUT_DRY_RUN_PENDING_REAL_VALUES",
+        "source_gate_status": global_status,
+        "global_manual_input_dry_run_status": GLOBAL_MANUAL_INPUT_DRY_RUN_STATUS,
+        "global_supervised_manual_input_dry_run_precheck_status": GLOBAL_MANUAL_INPUT_DRY_RUN_STATUS,
         "required_input_fields": REQUIRED_INPUT_FIELDS.copy(),
         "missing_required_input_fields": REQUIRED_INPUT_FIELDS.copy(),
+        "dry_run_items": dry_run_items,
         "supervised_manual_input_dry_run_precheck_items": dry_run_items,
+        "manual_input_procedure_plan": manual_procedure_plan,
+        "dry_run_checklist": dry_run_checklist,
+        "dry_run_execution_policy": execution_policy,
+        "blocked_execution_reasons": blocked_reasons.copy(),
+        "evidence_requirements": evidence_requirements,
+        "validation_dependency_summary": validation_summary,
+        "redaction_dependency_summary": redaction_summary,
+        "capture_gate_dependency_summary": capture_summary,
         "future_operator_manual_steps": FUTURE_OPERATOR_MANUAL_STEPS.copy(),
+        "allowed_future_manual_input_modes": ALLOWED_FUTURE_MANUAL_INPUT_MODES.copy(),
         "dry_run_checks_without_values": DRY_RUN_CHECKS_WITHOUT_VALUES.copy(),
         "blocked_until_values_exist": BLOCKED_UNTIL_VALUES_EXIST.copy(),
         "future_evidence_requirements": FUTURE_EVIDENCE_REQUIREMENTS.copy(),
-        "manual_input_dry_run_policy": manual_policy,
         "dry_run_check_matrix": dry_run_matrix,
         "blocked_execution_matrix": blocked_matrix,
         "future_evidence_requirement_matrix": evidence_matrix,
-        "draft_eligibility_block_reason": draft_block,
         "blocked_reasons": blocked_reasons.copy(),
         "allowed_next_step": "stage_supervised_manual_input_dry_run_precheck_to_operator_value_intake_policy",
         "forbidden_current_actions": FORBIDDEN_CURRENT_ACTIONS.copy(),
         "disallowed_outputs": DISALLOWED_OUTPUTS.copy(),
         "truth_protection_flags": TRUTH_PROTECTION_FLAGS.copy(),
         "safety_flags": SAFETY_FLAGS.copy(),
-        "draft_generation_policy": _draft_generation_policy(),
-        "capture_execution_policy": capture_policy.copy(),
         "next_recommended_task": actual_next_task,
         "ledger_family": LEDGER_FAMILY,
         "hash_algorithm": HASH_ALGORITHM,
@@ -436,26 +493,25 @@ def render_runbook(packet: dict[str, Any]) -> str:
 
     lines.extend([
         "",
-        "## Manual Input Dry Run Policy",
+        "## Dry Run Execution Policy",
         "",
         "| Policy Flag | State |",
         "|---|---|",
     ])
-    for flag, value in packet["manual_input_dry_run_policy"].items():
+    for flag, value in packet["dry_run_execution_policy"].items():
         lines.append(f"| `{flag}` | `{value}` |")
 
     lines.extend([
         "",
-        "## Dry-run Check Matrix",
+        "## Dry-run Checklist",
         "",
-        "| Check | Possible Without Values | Real Capture | Validation/Redaction | Persistence | Truth Promotion | Status |",
-        "|---|---|---|---|---|---|---|",
+        "| Check | Can Execute Without Values | Status | Pass Status |",
+        "|---|---|---|---|",
     ])
-    for check, row in packet["dry_run_check_matrix"].items():
+    for row in packet["dry_run_checklist"]:
         lines.append(
-            f"| `{check}` | `{row['dry_run_check_possible_without_values']}` | `{row['executes_real_capture']}` | "
-            f"`{row['executes_validation_or_redaction']}` | `{row['writes_persistence']}` | "
-            f"`{row['promotes_truth']}` | `{row['check_status']}` |"
+            f"| `{row['check_name']}` | `{row['can_execute_without_values']}` | "
+            f"`{row['dry_run_check_status']}` | `{row['pass_status']}` |"
         )
 
     lines.extend([
@@ -473,14 +529,10 @@ def render_runbook(packet: dict[str, Any]) -> str:
 
     lines.extend([
         "",
-        "## Draft Eligibility Remains Blocked Because",
+        "## Blocked Execution Reasons",
         "",
     ])
-    draft_block = packet["draft_eligibility_block_reason"]
-    lines.append(f"- **Draft Eligibility Status**: `{draft_block['draft_eligibility_status']}`")
-    lines.append(f"- **Draft Generation Enabled**: `{draft_block['draft_generation_enabled']}`")
-    lines.append(f"- **Draft Eligibility Recheck Enabled**: `{draft_block['draft_eligibility_recheck_enabled']}`")
-    for reason in draft_block["blocking_reasons"]:
+    for reason in packet["blocked_execution_reasons"]:
         lines.append(f"- `{reason}`")
 
     lines.extend([
