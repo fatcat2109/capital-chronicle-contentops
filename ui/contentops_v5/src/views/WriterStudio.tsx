@@ -5,12 +5,13 @@
 
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
-import { selectAiVariant, selectMediaAsset, selectCandidateReviewItem, selectEditorialBriefReviewPacket, selectCandidateGateItem, selectContentIntentGatePrecheckPacket, selectReviewOnlyIntentItem, selectReviewOnlyContentIntentPacket, selectInputCapturePrecheckItem, selectOperatorInputCapturePrecheckPacket, selectSupervisedInputStubContractPacket, selectSupervisedInputStubItem } from '../selectors';
+import { selectAiVariant, selectMediaAsset, selectCandidateReviewItem, selectEditorialBriefReviewPacket, selectCandidateGateItem, selectContentIntentGatePrecheckPacket, selectReviewOnlyIntentItem, selectReviewOnlyContentIntentPacket, selectInputCapturePrecheckItem, selectOperatorInputCapturePrecheckPacket, selectSupervisedInputStubContractPacket, selectSupervisedInputStubItem, selectDraftEligibilityGatePrecheckPacket, selectDraftEligibilityItem } from '../selectors';
 import { editorialBriefReviewAdapter } from '../data/editorialBriefReviewAdapter';
 import { contentIntentGatePrecheckAdapter } from '../data/contentIntentGatePrecheckAdapter';
 import { reviewOnlyContentIntentAdapter } from '../data/reviewOnlyContentIntentAdapter';
 import { operatorInputCapturePrecheckAdapter } from '../data/operatorInputCapturePrecheckAdapter';
 import { supervisedInputStubContractAdapter } from '../data/supervisedInputStubContractAdapter';
+import { draftEligibilityGatePrecheckAdapter } from '../data/draftEligibilityGatePrecheckAdapter';
 import { IconImage, IconSparkle } from '../ui/icons';
 import {
   EvidenceChip,
@@ -927,6 +928,94 @@ export function WriterStudio() {
             subtitle="Local working copy · no auto-publish"
             actions={<EvidenceChip>{viewModel.content_items[1].evidence_id}</EvidenceChip>}
           >
+            {/* Draft Eligibility Gate Strip */}
+            <div className="mb-4 rounded-xl border border-line bg-surface-2 p-3 space-y-2">
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-semibold text-sm text-fg">Draft Eligibility Gate</span>
+                <button
+                  type="button"
+                  id="btn-inspect-draft-eligibility"
+                  onClick={() => select(selectDraftEligibilityGatePrecheckPacket(draftEligibilityGatePrecheckAdapter.packet))}
+                  className="rounded-md border border-line bg-surface-1 px-2 py-0.5 font-mono text-[10px] text-fg-muted hover:border-line-strong hover:text-fg transition-colors"
+                >
+                  Inspect Draft Eligibility
+                </button>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs font-semibold">
+                <StatusDot status="blocked" />
+                <span className="text-status-blocked">Blocked · supervised input required</span>
+              </div>
+              <div className="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[11px] text-fg-subtle border-t border-line/60 pt-1.5">
+                <span>draft_generation_enabled: false</span>
+                <span>public_postable: false</span>
+                <span className="text-status-review font-semibold">missing_required_input_fields: 6</span>
+              </div>
+
+              <details className="group border-t border-line/60 pt-1.5">
+                <summary className="cursor-pointer font-mono text-[10.5px] font-semibold text-fg-muted hover:text-fg list-none flex items-center gap-1 select-none">
+                  <span className="inline-block transition-transform duration-100 group-open:rotate-90">▶</span>
+                  Show Gate Details
+                </summary>
+                <div className="mt-2 space-y-2 text-xs">
+                  <div className="grid grid-cols-[1fr_2.5fr] gap-x-2 gap-y-1 font-mono text-[10.5px]">
+                    <div className="text-fg-subtle font-bold uppercase">Packet Status:</div>
+                    <div className="text-status-blocked font-semibold uppercase">{draftEligibilityGatePrecheckAdapter.packet.global_draft_eligibility_status}</div>
+                    <div className="text-fg-subtle font-bold uppercase">Packet Hash:</div>
+                    <div className="text-fg truncate font-semibold">{draftEligibilityGatePrecheckAdapter.packet.packet_hash}</div>
+                    <div className="text-fg-subtle font-bold uppercase">Source Stub Hash:</div>
+                    <div className="text-fg truncate font-semibold">{draftEligibilityGatePrecheckAdapter.packet.source_supervised_input_stub_packet_hash}</div>
+                    <div className="text-fg-subtle font-bold uppercase">Next Task:</div>
+                    <div className="text-fg font-semibold break-all">{draftEligibilityGatePrecheckAdapter.packet.next_recommended_task}</div>
+                  </div>
+                  <div className="border-t border-line/60 pt-2">
+                    <div className="font-mono text-[10.5px] font-bold uppercase text-fg-subtle mb-1">
+                      Draft Eligibility Items ({draftEligibilityGatePrecheckAdapter.draftEligibilityItems.length})
+                    </div>
+                    <div className="space-y-1 font-mono text-[10.5px]">
+                      {draftEligibilityGatePrecheckAdapter.draftEligibilityItems.map((item) => {
+                        const active = selected?.kind === 'draft_eligibility_item' && selected.id === item.draft_eligibility_item_id;
+                        return (
+                          <div
+                            key={item.draft_eligibility_item_id}
+                            id={`draft-eligibility-item-row-${item.draft_eligibility_item_id}`}
+                            onClick={() => select(selectDraftEligibilityItem(item))}
+                            className={`cursor-pointer rounded px-1.5 py-1 border transition-colors ${
+                              active
+                                ? 'border-accent/40 bg-accent/5 text-fg'
+                                : 'border-line bg-surface-1 text-fg-muted hover:bg-surface-3 hover:text-fg'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between font-semibold">
+                              <span className="truncate max-w-[14rem]">{item.source_candidate_id}</span>
+                              <span className="text-status-blocked">{item.draft_eligibility_status.replace('BLOCKED_DRAFT_ELIGIBILITY_', '')}</span>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div className="border-t border-line/60 pt-2 space-y-1.5">
+                    <div className="flex flex-wrap items-center gap-1 font-mono text-[9px]">
+                      <span className="font-bold uppercase mr-1 text-fg-subtle">Safety:</span>
+                      {Object.entries(draftEligibilityGatePrecheckAdapter.safetyFlags).map(([key, val]) => (
+                        <span key={key} className={`px-1 rounded border border-line bg-surface-1 ${val ? 'text-status-blocked' : 'text-status-verified font-semibold'}`}>
+                          {key}: {String(val)}
+                        </span>
+                      ))}
+                    </div>
+                    <div className="flex flex-wrap items-center gap-1 font-mono text-[9px]">
+                      <span className="font-bold uppercase mr-1 text-fg-subtle">Truth:</span>
+                      {Object.entries(draftEligibilityGatePrecheckAdapter.truthProtectionFlags).map(([key, val]) => (
+                        <span key={key} className={`px-1 rounded border border-line bg-surface-1 ${val ? 'text-status-blocked' : 'text-status-verified font-semibold'}`}>
+                          {key}: {String(val)}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </details>
+            </div>
+
             <ol className="mb-4 space-y-1.5">
               {d.outline.map((o, i) => (
                 <li key={i} className="flex gap-2.5 text-sm text-fg-muted">

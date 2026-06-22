@@ -1,0 +1,27 @@
+{
+  "task_label": "TASK_CONTENTOPS_0175BT_DRAFT_ELIGIBILITY_GATE_TO_V5_READONLY_STATUS_PANEL_BINDING_V0",
+  "source_0175BS_packet_hash": "01ca95b8738a8f65b50a5edcdf59cf46fba72ce468e2de690e2e659332501b90",
+  "generated_ts_packet_paths": [
+    "ui/contentops_v5/src/data/draftEligibilityGatePrecheckPacket.ts",
+    "ui/contentops_v5/src/data/draftEligibilityGatePrecheckAdapter.ts"
+  ],
+  "ui_surfaces_touched": [
+    "ui/contentops_v5/src/views/WriterStudio.tsx"
+  ],
+  "containment_strategy_used": "Nesting compact Draft Eligibility Gate status strip inside existing Draft panel with progressive disclosure details area and InspectorRail triggers",
+  "status_rendering_policy": {
+    "blocked_draft_eligibility_supervised_input_required": "blocked/red",
+    "missing_required_fields": "review/amber",
+    "draft_generation_policy_false_flags": "verified/green or neutral lock, not red",
+    "safety_truth_false_flags": "verified/green",
+    "green_reserved_for_verified_locks_and_false_safety_truth_flags": true
+  },
+  "no_editable_no_generation_no_persistence_confirmation": true,
+  "visual_debt_caveat": "WriterStudio has visual stack debt. Gate stack containment review is required in the next task.",
+  "validation_results": {
+    "python_exporter_check": "PASS",
+    "pytest_exporter_suite": "PASS",
+    "vitest_ui_suite": "PASS",
+    "vite_build_check": "PASS"
+  }
+}

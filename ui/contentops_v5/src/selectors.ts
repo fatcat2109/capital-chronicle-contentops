@@ -30,6 +30,10 @@ import type {
   SupervisedInputStubItem
 } from './data/supervisedInputStubContractAdapter';
 import type {
+  DraftEligibilityGatePrecheckPacketType,
+  DraftEligibilityItem
+} from './data/draftEligibilityGatePrecheckAdapter';
+import type {
   AiWriterOutput,
   ArtifactEligibilityCheck,
   Blocker,
@@ -1248,6 +1252,81 @@ export function selectSupervisedInputStubContractPacket(
       { label: 'Allowed Next Step', value: p.allowed_next_step },
       { label: 'Disallowed Outputs', value: p.disallowed_outputs.join(', ') },
       { label: 'Next Rec Task', value: p.next_recommended_task, mono: true },
+    ],
+  };
+}
+
+export function selectDraftEligibilityGatePrecheckPacket(
+  p: DraftEligibilityGatePrecheckPacketType,
+): SelectableObject {
+  return {
+    kind: 'draft_eligibility_gate_precheck_packet',
+    id: p.packet_hash,
+    title: `Draft Eligibility Gate Precheck · ${p.task_label.slice(0, 16)}...`,
+    fields: [
+      { label: 'Task Label', value: p.task_label, mono: true },
+      { label: 'Source Stub Hash', value: p.source_supervised_input_stub_packet_hash, mono: true },
+      { label: 'Source Task', value: p.source_packet_task_label, mono: true },
+      { label: 'Packet Hash', value: p.packet_hash, mono: true },
+      { label: 'Global Status', value: p.global_draft_eligibility_status, status: p.global_draft_eligibility_status === 'BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED' ? 'blocked' : 'verified' },
+      { label: 'Required Fields', value: p.required_input_fields.join(', ') },
+      { label: 'Missing Fields', value: p.missing_required_input_fields.join(', '), status: p.missing_required_input_fields.length > 0 ? 'review' : 'verified' },
+      { label: 'Allowed Next Step', value: p.allowed_next_step },
+      { label: 'Next Rec Task', value: p.next_recommended_task, mono: true },
+      { label: 'Validation Rules', value: p.validation_rules.join(', ') },
+      { label: 'Blocked Reasons', value: p.blocked_reasons.join(', ') },
+      { label: 'Forbidden Actions', value: p.forbidden_current_actions.join(', ') },
+      { label: 'Disallowed Outputs', value: p.disallowed_outputs.join(', ') },
+      {
+        label: 'Safety Flags',
+        value: Object.entries(p.safety_flags)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join(', '),
+      },
+      {
+        label: 'Truth Flags',
+        value: Object.entries(p.truth_protection_flags)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join(', '),
+      },
+    ],
+  };
+}
+
+export function selectDraftEligibilityItem(
+  item: DraftEligibilityItem,
+): SelectableObject {
+  return {
+    kind: 'draft_eligibility_item',
+    id: item.draft_eligibility_item_id,
+    title: item.source_candidate_id,
+    fields: [
+      { label: 'Item ID', value: item.draft_eligibility_item_id, mono: true },
+      { label: 'Source Stub Item ID', value: item.source_stub_item_id, mono: true },
+      { label: 'Candidate ID', value: item.source_candidate_id, mono: true },
+      { label: 'Relative Path', value: item.relative_path, mono: true },
+      { label: 'Evidence Role', value: item.evidence_role },
+      { label: 'Source Family', value: item.source_family },
+      { label: 'Records Count', value: String(item.records_count), mono: true },
+      { label: 'Contract Name', value: item.contract_name || 'none', mono: item.contract_name !== null },
+      { label: 'Scope Label', value: item.intent_scope_label, mono: true },
+      { label: 'Source Stub Status', value: item.source_supervised_input_stub_status },
+      { label: 'Item Status', value: item.draft_eligibility_status, status: item.draft_eligibility_status === 'BLOCKED_DRAFT_ELIGIBILITY_SUPERVISED_INPUT_REQUIRED' ? 'blocked' : 'verified' },
+      { label: 'Required Fields', value: item.required_input_fields.join(', ') },
+      { label: 'Missing Fields', value: item.missing_required_input_fields.join(', '), status: item.missing_required_input_fields.length > 0 ? 'review' : 'verified' },
+      { label: 'Allowed Next Step', value: item.allowed_next_step },
+      { label: 'Blocked Reasons', value: item.blocked_reasons.join(', ') || 'none' },
+      { label: 'Missing Requirements', value: item.missing_requirements.join(', ') || 'none' },
+      { label: 'Draft Gen Enabled', value: String(item.draft_generation_enabled), status: item.draft_generation_enabled ? 'verified' : 'neutral' },
+      { label: 'Public Postable', value: String(item.public_postable), status: item.public_postable ? 'verified' : 'neutral' },
+      {
+        label: 'Policy Flags',
+        value: Object.entries(item.draft_generation_policy)
+          .map(([k, v]) => `${k}: ${v}`)
+          .join(', '),
+      },
+      { label: 'Forbidden Actions', value: item.forbidden_current_actions.join(', ') },
+      { label: 'Disallowed Outputs', value: item.disallowed_outputs.join(', ') },
     ],
   };
 }
