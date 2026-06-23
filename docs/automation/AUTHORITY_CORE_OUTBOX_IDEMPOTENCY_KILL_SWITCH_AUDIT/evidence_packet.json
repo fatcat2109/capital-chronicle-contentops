@@ -1,69 +1,61 @@
 {
-  "task_label": "TASK_CONTENTOPS_AUTHORITY_CORE_OUTBOX_IDEMPOTENCY_KILL_SWITCH_AUDIT_V0",
-  "source_baseline_commit": "65cd01cb67e39768e18ad0a250eb79ac65023ce2",
-  "final_head_self_recording_limitation": "Final commit SHA is reported in post-push evidence and verified against GitHub/origin master after push.",
-  "implementation_status": "complete_local_core_backend_domain_contract_only",
-  "scope": {
-    "ui_work": false,
-    "browser_qa": false,
-    "screenshots": false,
-    "visual_polish": false,
-    "v5_component_binding": false,
-    "playwright": false,
-    "browser_cdp": false
-  },
-  "created_modules": [
-    "live_contentops/dispatch_outbox.py",
-    "live_contentops/idempotency_policy.py",
-    "live_contentops/kill_switch_policy.py",
-    "live_contentops/redacted_dispatch_audit.py"
+  "task_label": "TASK_CONTENTOPS_AUTHORITY_CORE_OUTBOX_IDEMPOTENCY_KILL_SWITCH_AUDIT_R1_COMPLETION_PATCH_V0",
+  "result": "repair_completion_patch_local_validation_passed_pending_commit_push",
+  "repo_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops",
+  "branch": "master",
+  "starting_head": "11763f07393e9a409993487513af6328a6c3b0b1",
+  "final_head_self_recording_limitation": "Final commit SHA is reported post-push and must be verified by ChatGPT/GitHub.",
+  "missing_deliverables_completed": [
+    "derive_outbox_status",
+    "assert_no_live_dispatch_ready_now",
+    "is_duplicate_success",
+    "classify_duplicate_action",
+    "build_global_kill_switch_state",
+    "build_platform_kill_switch_state",
+    "is_kill_switch_blocking_platform",
+    "explain_kill_switch_blocker",
+    "build_blocked_dispatch_audit_event",
+    "build_mock_dispatch_audit_event",
+    "assert_redacted_audit_safe",
+    "tests/test_idempotency_policy.py",
+    "tests/test_kill_switch_policy.py",
+    "tests/test_redacted_dispatch_audit.py",
+    "tests/test_authority_core_outbox_no_live_behavior.py",
+    "dispatch_outbox_packet.json",
+    "idempotency_policy_packet.json",
+    "kill_switch_policy_packet.json",
+    "redacted_dispatch_audit_packet.json",
+    "next_task_pointer.md"
   ],
-  "created_tests": [
-    "tests/test_dispatch_outbox.py"
+  "helper_api_completion_list": {
+    "dispatch_outbox": ["derive_outbox_status", "assert_no_live_dispatch_ready_now"],
+    "idempotency_policy": ["is_duplicate_success", "classify_duplicate_action"],
+    "kill_switch_policy": ["build_global_kill_switch_state", "build_platform_kill_switch_state", "is_kill_switch_blocking_platform", "explain_kill_switch_blocker"],
+    "redacted_dispatch_audit": ["build_blocked_dispatch_audit_event", "build_mock_dispatch_audit_event", "assert_redacted_audit_safe"]
+  },
+  "tests_run": [
+    {
+      "command": "python -m pytest tests/test_dispatch_outbox.py tests/test_idempotency_policy.py tests/test_kill_switch_policy.py tests/test_redacted_dispatch_audit.py tests/test_authority_core_outbox_no_live_behavior.py -q",
+      "result": "38 passed in 1.30s"
+    },
+    {
+      "command": "python -m pytest tests/test_approval_payload_hash.py tests/test_approval_ledger.py tests/test_approval_validator.py tests/test_authority_core_approval_no_live_behavior.py tests/test_platform_universe_registry_v2.py tests/test_primary_payload_classes_contract.py tests/test_platform_universe_registry_v2_no_live_behavior.py tests/test_credential_hydration_gate.py tests/test_security_scans.py -q",
+      "result": "39 passed in 2.47s"
+    }
   ],
-  "core_contracts": {
-    "dispatch_outbox_candidates": true,
-    "idempotency_keys": true,
-    "duplicate_suppression": true,
-    "kill_switch_fail_closed": true,
-    "redacted_dispatch_audit_event": true,
-    "audit_sink_readiness_contract": true,
-    "no_auto_retry_policy": true,
-    "manual_fallback_state": true
-  },
-  "approval_ledger_compatibility": {
-    "current_apis_used": [
-      "approval_validator.derive_latest_approval_state",
-      "approval_validator.explain_approval_blockers",
-      "approval_payload_hash.compute_payload_hash"
-    ],
-    "removed_apis_not_used_by_new_modules": [
-      "validate_approval_record",
-      "validate_kill_switch_state",
-      "validate_audit_event",
-      "check_action_allowed"
-    ]
-  },
-  "hard_non_live_policy": {
-    "dispatch_performed": false,
-    "live_request_performed": false,
-    "platform_api_called": false,
-    "credential_hydrated": false,
-    "auto_retry_allowed": false,
-    "scheduler_enabled": false,
-    "network_behavior": false,
-    "env_or_dotenv_read": false,
-    "credential_file_read": false,
-    "browser_or_oauth_state_read": false
-  },
-  "standard_library_only": true,
-  "targeted_tests": {
-    "command": "python -m pytest tests/test_dispatch_outbox.py tests/test_approval_payload_hash.py tests/test_approval_ledger.py tests/test_approval_validator.py tests/test_authority_core_approval_no_live_behavior.py",
-    "result": "23 passed in 1.06s"
-  },
-  "dirty_tree_handling": {
+  "proofs": {
+    "no_ui_change": true,
+    "no_browser_qa": true,
+    "no_env_read": true,
+    "no_network_api_provider_browser": true,
+    "no_live_write": true,
+    "no_platform_adapter": true,
+    "no_auto_retry": true,
+    "valid_for_live_dispatch_now_always_false": true,
+    "packet_files_created": true,
     "unrelated_dirty_docs_left_untouched": true,
-    "no_clean_reset_stash_delete_move": true,
-    "staging_policy": "stage_only_task_owned_files_after_final_diff_review"
-  }
+    "stage_only_exact_task_owned_files": true
+  },
+  "current_blockers": [],
+  "next_recommended_task": "TASK_CONTENTOPS_ACCOUNT_BINDING_PERMISSION_SCOPE_VERIFIER_CORE_V0"
 }

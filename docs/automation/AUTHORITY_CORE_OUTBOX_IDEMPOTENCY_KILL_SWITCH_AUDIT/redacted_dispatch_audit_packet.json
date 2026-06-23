@@ -1,0 +1,43 @@
+{
+  "task_label": "TASK_CONTENTOPS_AUTHORITY_CORE_OUTBOX_IDEMPOTENCY_KILL_SWITCH_AUDIT_R1_COMPLETION_PATCH_V0",
+  "model": "contentops.redacted_dispatch_audit",
+  "model_version": "0174U2_REDACTED_DISPATCH_AUDIT_R1",
+  "helper_api_completed": [
+    "build_blocked_dispatch_audit_event",
+    "build_mock_dispatch_audit_event",
+    "assert_redacted_audit_safe"
+  ],
+  "audit_event_fields": [
+    "request_budget_used",
+    "retry_count",
+    "endpoint_family",
+    "method",
+    "response_class",
+    "public_url",
+    "platform_object_id_redacted",
+    "redaction_status",
+    "no_secret_output",
+    "raw_request_persisted",
+    "raw_response_persisted",
+    "token_logged",
+    "headers_logged",
+    "credential_value_logged",
+    "final_url_verified",
+    "manual_fallback_status",
+    "audit_checksum"
+  ],
+  "raw_request_persisted": false,
+  "raw_response_persisted": false,
+  "token_logged": false,
+  "headers_logged": false,
+  "credential_value_logged": false,
+  "retry_count": 0,
+  "blocked_audit_request_budget_used": 0,
+  "mock_audit_clearly_non_live": true,
+  "success_allowed_only_as_mock_non_live": true,
+  "dispatch_performed": false,
+  "live_request_performed": false,
+  "platform_api_called": false,
+  "credential_hydrated": false,
+  "auto_retry_allowed": false
+}

@@ -1,0 +1,25 @@
+{
+  "task_label": "TASK_CONTENTOPS_AUTHORITY_CORE_OUTBOX_IDEMPOTENCY_KILL_SWITCH_AUDIT_R1_COMPLETION_PATCH_V0",
+  "model": "contentops.kill_switch_policy",
+  "model_version": "0174U2_KILL_SWITCH_POLICY_R1",
+  "helper_api_completed": [
+    "build_global_kill_switch_state",
+    "build_platform_kill_switch_state",
+    "is_kill_switch_blocking_platform",
+    "explain_kill_switch_blocker"
+  ],
+  "state_scopes": ["inactive", "global_active", "platform_active"],
+  "state_metadata_required": ["reason", "operator_id", "activated_at", "expires_at"],
+  "global_kill_switch_blocks_every_platform": true,
+  "platform_kill_switch_blocks_only_selected_platform": true,
+  "inactive_kill_switch_does_not_block_preview_or_approval": true,
+  "active_kill_switch_does_not_delete_outbox": true,
+  "active_kill_switch_blocks_live_readiness": true,
+  "does_not_block_preview": true,
+  "does_not_delete_outbox": true,
+  "dispatch_performed": false,
+  "live_request_performed": false,
+  "platform_api_called": false,
+  "credential_hydrated": false,
+  "auto_retry_allowed": false
+}

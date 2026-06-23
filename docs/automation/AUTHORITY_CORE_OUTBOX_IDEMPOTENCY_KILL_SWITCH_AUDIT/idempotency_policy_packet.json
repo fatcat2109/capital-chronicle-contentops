@@ -1,0 +1,21 @@
+{
+  "task_label": "TASK_CONTENTOPS_AUTHORITY_CORE_OUTBOX_IDEMPOTENCY_KILL_SWITCH_AUDIT_R1_COMPLETION_PATCH_V0",
+  "model": "contentops.idempotency_policy",
+  "model_version": "0174U2_IDEMPOTENCY_POLICY_R1",
+  "helper_api_completed": ["is_duplicate_success", "classify_duplicate_action"],
+  "idempotency_key_algorithm": "sha256",
+  "same_inputs_same_key": true,
+  "payload_hash_change_changes_key": true,
+  "destination_change_changes_key": true,
+  "credential_handle_change_changes_key": true,
+  "platform_change_changes_key": true,
+  "approval_event_change_changes_key": true,
+  "duplicate_success_suppresses_candidate": true,
+  "unknown_result_auto_retry_allowed": false,
+  "unknown_result_routes_to": "manual_reconciliation_manual_fallback",
+  "dispatch_performed": false,
+  "live_request_performed": false,
+  "platform_api_called": false,
+  "credential_hydrated": false,
+  "auto_retry_allowed": false
+}

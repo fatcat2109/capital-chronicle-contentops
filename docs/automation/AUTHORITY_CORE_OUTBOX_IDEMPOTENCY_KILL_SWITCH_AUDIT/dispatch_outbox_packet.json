@@ -1,0 +1,33 @@
+{
+  "task_label": "TASK_CONTENTOPS_AUTHORITY_CORE_OUTBOX_IDEMPOTENCY_KILL_SWITCH_AUDIT_R1_COMPLETION_PATCH_V0",
+  "model": "contentops.dispatch_outbox",
+  "model_version": "0174U2_DISPATCH_OUTBOX_R1",
+  "helper_api_completed": [
+    "derive_outbox_status",
+    "assert_no_live_dispatch_ready_now"
+  ],
+  "outbox_statuses": [
+    "candidate",
+    "blocked_by_approval",
+    "blocked_by_kill_switch",
+    "blocked_by_duplicate",
+    "blocked_by_audit_sink",
+    "ready_for_mock_dispatch",
+    "ready_for_supervised_live_future",
+    "manual_fallback_required"
+  ],
+  "entry_invariants": {
+    "valid_for_live_dispatch_now": false,
+    "request_budget": 1,
+    "auto_retry_allowed": false,
+    "kill_switch_required": true,
+    "audit_sink_required": true,
+    "manual_fallback_required": true,
+    "dispatch_mode_allowed": ["dry_run", "supervised_live_future"]
+  },
+  "ready_for_supervised_live_future_still_live_now_false": true,
+  "dispatch_performed": false,
+  "live_request_performed": false,
+  "platform_api_called": false,
+  "credential_hydrated": false
+}
