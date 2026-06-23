@@ -1,0 +1,79 @@
+{
+  "auto_retry": false,
+  "blocked_reasons": [
+    "one_or_more_readonly_probes_not_confirmed_redacted"
+  ],
+  "credential_source_label": "repo_dotenv_redacted",
+  "credentials": {
+    "telegram_bot_token": {
+      "present": true,
+      "shape_class": "present_redacted_telegram_bot_token_like"
+    },
+    "telegram_channel_id": {
+      "present": false,
+      "shape_class": "missing"
+    },
+    "telegram_operator_chat_id": {
+      "present": false,
+      "shape_class": "missing"
+    }
+  },
+  "docs_source_checked": "https://core.telegram.org/bots/api#getme",
+  "headers_persisted": false,
+  "live_readonly_telegram_requested": true,
+  "probes": {
+    "getChat": {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "telegram_channel_id_missing_or_shape_not_accepted"
+      ],
+      "endpoint_family": "telegram_channel_read",
+      "host": "api.telegram.org",
+      "method": "GET",
+      "raw_response_persisted": false,
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_budget": 1,
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "scheme": "https"
+    },
+    "getMe": {
+      "auto_retry": false,
+      "blocked_reasons": [],
+      "bot_identity_present_class": "present_redacted",
+      "bot_is_bot_class": "present_redacted",
+      "bot_username_present_class": "present_redacted",
+      "endpoint_family": "telegram_bot_identity",
+      "host": "api.telegram.org",
+      "method": "GET",
+      "raw_response_persisted": false,
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_budget": 1,
+      "request_count": 1,
+      "response_ok_redacted": true,
+      "result_classification": "read_only_probe_pass",
+      "scheme": "https"
+    }
+  },
+  "raw_response_persisted": false,
+  "raw_url_persisted": false,
+  "raw_values_persisted": false,
+  "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+  "safety_flags": {
+    "autonomous_reply_performed": false,
+    "dm_performed": false,
+    "platform_write_performed": false,
+    "polling_enabled": false,
+    "posting_performed": false,
+    "publish_performed": false,
+    "raw_secret_exposed": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "send_message_performed": false,
+    "upload_performed": false,
+    "webhook_registered": false
+  },
+  "status": "partial_pass_getchat_blocked_or_unverified",
+  "task_label": "TASK_CONTENTOPS_MULTI_PLATFORM_LIVE_FOUNDATION_BATCH_B_OPERATOR_SETUP_TELEGRAM_READONLY_PROOF_AND_PROBE_HARDENING_V0",
+  "timeout_seconds": 10
+}
