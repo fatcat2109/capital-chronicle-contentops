@@ -1,0 +1,32 @@
+{
+  "idempotency_precheck": {
+    "idempotency_key_hash": "5886f8cf5ad87d0d0c81d4d0205b47cade33ce9dfa343af0e6e7dde7fe91463c",
+    "idempotency_state": "no_prior_success_or_unknown",
+    "matching_prior_success_count": 0,
+    "matching_prior_unknown_count": 0,
+    "raw_request_persisted": false,
+    "raw_response_persisted": false,
+    "send_blocked": false,
+    "task_label": "TASK_CONTENTOPS_TELEGRAM_LIVE_WRITE_BATCH_C_MINIMAL_AUTHORITY_AND_SUPERVISED_SENDMESSAGE_PILOT_V0"
+  },
+  "outbox_candidate": {
+    "approval_event_id": "approval_c04fad4f29c29f9e",
+    "auto_retry_allowed": false,
+    "credential_handle_id": "telegram_bot_token_env_handle",
+    "destination_binding_id": "telegram_channel_id_env_binding",
+    "idempotency_key_class": "sha256_redacted_no_secret_inputs",
+    "idempotency_key_hash": "5886f8cf5ad87d0d0c81d4d0205b47cade33ce9dfa343af0e6e7dde7fe91463c",
+    "method": "sendMessage",
+    "outbox_id": "outbox_5886f8cf5ad87d0d",
+    "payload_hash": "c04fad4f29c29f9e462a65b52a6bc3b74904b2b34db7c471271687d758ddec83",
+    "platform_id": "telegram_channel_destination",
+    "raw_credential_persisted": false,
+    "raw_destination_persisted": false,
+    "request_budget": 1,
+    "status": "candidate_created",
+    "task_label": "TASK_CONTENTOPS_TELEGRAM_LIVE_WRITE_BATCH_C_MINIMAL_AUTHORITY_AND_SUPERVISED_SENDMESSAGE_PILOT_V0"
+  },
+  "raw_request_persisted": false,
+  "raw_response_persisted": false,
+  "task_label": "TASK_CONTENTOPS_TELEGRAM_LIVE_WRITE_BATCH_C_MINIMAL_AUTHORITY_AND_SUPERVISED_SENDMESSAGE_PILOT_V0"
+}

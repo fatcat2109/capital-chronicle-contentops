@@ -1,0 +1,31 @@
+{
+  "approval_event": {
+    "approval_event_id": "approval_c04fad4f29c29f9e",
+    "approval_scope": "one_telegram_sendmessage_request_only",
+    "approved_by": "operator_prompt_explicit",
+    "auto_retry_allowed": false,
+    "payload_hash": "c04fad4f29c29f9e462a65b52a6bc3b74904b2b34db7c471271687d758ddec83",
+    "payload_text_exact_match": true,
+    "raw_secret_persisted": false,
+    "request_budget": 1,
+    "task_label": "TASK_CONTENTOPS_TELEGRAM_LIVE_WRITE_BATCH_C_MINIMAL_AUTHORITY_AND_SUPERVISED_SENDMESSAGE_PILOT_V0"
+  },
+  "payload_packet": {
+    "adapter_version": "telegram_sendmessage_pilot_adapter_v1",
+    "approved_by": "operator_prompt_explicit",
+    "auto_retry_allowed": false,
+    "content_lane": "live_pilot_test_only",
+    "credential_handle_id": "telegram_bot_token_env_handle",
+    "destination_binding_id": "telegram_channel_id_env_binding",
+    "method": "sendMessage",
+    "no_advice": true,
+    "no_signal": true,
+    "payload_hash": "c04fad4f29c29f9e462a65b52a6bc3b74904b2b34db7c471271687d758ddec83",
+    "payload_schema_version": "telegram_live_payload_packet_v1",
+    "payload_text": "Capital Chronicle ContentOps live Telegram pilot.\n\nThis is a supervised test post from the local ContentOps publish gate.\nNo market advice. No trading signal. No autonomous posting.\nPayload approved for one Telegram sendMessage request only.",
+    "platform_id": "telegram_channel_destination",
+    "request_budget": 1
+  },
+  "raw_secret_persisted": false,
+  "task_label": "TASK_CONTENTOPS_TELEGRAM_LIVE_WRITE_BATCH_C_MINIMAL_AUTHORITY_AND_SUPERVISED_SENDMESSAGE_PILOT_V0"
+}

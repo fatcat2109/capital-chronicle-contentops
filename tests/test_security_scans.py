@@ -21,6 +21,7 @@ def test_no_forbidden_imports_or_env_vars():
         "telegram_first_supervised_live_post_gate.py",
         "telegram_second_supervised_live_post_gate.py",
         "telegram_read_only_identity_pilot.py",
+        "telegram_live_sendmessage_pilot.py",
     }
 
     # Modules allowed to perform env lookups for configuration (excluding generic modules)

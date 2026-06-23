@@ -1,0 +1,110 @@
+{
+  "approval_event_id": "approval_c04fad4f29c29f9e",
+  "auto_retry_allowed": false,
+  "blocked_reasons": [
+    "telegram_channel_id_missing"
+  ],
+  "endpoint_family": "Telegram Bot API",
+  "env_summary": {
+    "contentops_global_kill_switch": {
+      "present": false,
+      "shape_class": "missing"
+    },
+    "credential_source_label": "repo_dotenv_redacted+process_env_fallback_redacted",
+    "env_key_names_checked": [
+      "TELEGRAM_BOT_TOKEN",
+      "TELEGRAM_CHANNEL_ID",
+      "CONTENTOPS_GLOBAL_KILL_SWITCH"
+    ],
+    "raw_values_persisted": false,
+    "telegram_bot_token": {
+      "present": true,
+      "shape_class": "present_redacted_telegram_bot_token_like"
+    },
+    "telegram_channel_id": {
+      "present": false,
+      "shape_class": "missing"
+    }
+  },
+  "forbidden_methods_performed": [],
+  "headers_persisted": false,
+  "host": "api.telegram.org",
+  "idempotency_key_hash": "5886f8cf5ad87d0d0c81d4d0205b47cade33ce9dfa343af0e6e7dde7fe91463c",
+  "idempotency_state": "no_prior_success_or_unknown",
+  "kill_switch_state": "off_or_missing_redacted",
+  "manual_reconciliation_required": false,
+  "no_retry_performed": true,
+  "no_second_send_performed": true,
+  "official_docs_checked": [
+    "https://core.telegram.org/bots/api#getme",
+    "https://core.telegram.org/bots/api#getchat",
+    "https://core.telegram.org/bots/api#sendmessage"
+  ],
+  "outbox_id": "outbox_5886f8cf5ad87d0d",
+  "payload_hash": "c04fad4f29c29f9e462a65b52a6bc3b74904b2b34db7c471271687d758ddec83",
+  "payload_text_persisted_for_approval_packet_only": true,
+  "probes": {
+    "getChat": {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "not_attempted"
+      ],
+      "endpoint_family": "telegram_channel_read",
+      "host": "api.telegram.org",
+      "method": "GET",
+      "raw_response_persisted": false,
+      "redacted_path": "/bot<redacted>/getChat",
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_budget": 1,
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "timeout_seconds": 10
+    },
+    "getMe": {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "not_attempted"
+      ],
+      "endpoint_family": "telegram_bot_identity",
+      "host": "api.telegram.org",
+      "method": "GET",
+      "raw_response_persisted": false,
+      "redacted_path": "/bot<redacted>/getMe",
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_budget": 1,
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "timeout_seconds": 10
+    }
+  },
+  "raw_request_persisted": false,
+  "raw_response_persisted": false,
+  "raw_secret_persisted": false,
+  "raw_url_persisted": false,
+  "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+  "redirect_policy": "redirect_disabled_fail_closed",
+  "request_counts": {
+    "getChat": 0,
+    "getMe": 0,
+    "sendMessage": 0
+  },
+  "sendMessage": {
+    "auto_retry": false,
+    "endpoint_family": "telegram_sendmessage_live_write",
+    "host": "api.telegram.org",
+    "method": "POST",
+    "raw_request_persisted": false,
+    "raw_response_persisted": false,
+    "redacted_path": "/bot<redacted>/sendMessage",
+    "redirect_policy": "redirect_disabled_fail_closed",
+    "request_budget": 1,
+    "request_count": 0,
+    "response_ok_redacted": false,
+    "result_classification": "blocked_not_attempted",
+    "sent_message_id_presence_class": "absent_or_unverified_redacted",
+    "timeout_seconds": 10
+  },
+  "status": "blocked_or_not_success",
+  "task_label": "TASK_CONTENTOPS_TELEGRAM_LIVE_WRITE_BATCH_C_MINIMAL_AUTHORITY_AND_SUPERVISED_SENDMESSAGE_PILOT_V0",
+  "timeout_seconds": 10
+}

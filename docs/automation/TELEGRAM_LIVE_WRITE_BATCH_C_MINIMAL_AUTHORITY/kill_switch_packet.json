@@ -1,0 +1,7 @@
+{
+  "env_key_name": "CONTENTOPS_GLOBAL_KILL_SWITCH",
+  "kill_switch_state": "off_or_missing_redacted",
+  "live_send_blocked": false,
+  "raw_value_persisted": false,
+  "task_label": "TASK_CONTENTOPS_TELEGRAM_LIVE_WRITE_BATCH_C_MINIMAL_AUTHORITY_AND_SUPERVISED_SENDMESSAGE_PILOT_V0"
+}
