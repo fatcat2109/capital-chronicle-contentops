@@ -10,22 +10,11 @@
     "user_id"
   ],
   "allowed_scheme": "https",
+  "audit_status": "blocked_redacted",
   "blocked_reasons": [
     "BLOCKED_GETME_FAILED"
   ],
   "bot_api_request_format_verified": "telegram_bot_api_token_path_method_name_format_verified_redacted",
-  "branch": "master",
-  "canonical_packet_files": [
-    "official_docs_grounding.md",
-    "telegram_readonly_probe_plan_packet.json",
-    "telegram_readonly_probe_result_packet.json",
-    "account_binding_update_candidate_packet.json",
-    "live_gate_update_candidate_packet.json",
-    "redacted_audit_packet.json",
-    "implementation_report.md",
-    "evidence_packet.json",
-    "next_task_pointer.md"
-  ],
   "channel_id_presence_status": "present",
   "channel_key_names_checked": [
     "TELEGRAM_CHANNEL_ID",
@@ -39,7 +28,6 @@
     "TELEGRAM_CHAT_ID": true,
     "TELEGRAM_TARGET_CHANNEL_ID": false
   },
-  "cli_change_compatibility_only": true,
   "credential_key_names_checked": [
     "TELEGRAM_BOT_TOKEN",
     "TELEGRAM_BOT_API_TOKEN",
@@ -52,7 +40,6 @@
   },
   "dispatchable_now": false,
   "execution_requested": true,
-  "final_head_self_recording_limitation": "Final commit SHA is unknown before commit; verify final HEAD from git after commit/push.",
   "forbidden_method_fragments": [
     "send",
     "copy",
@@ -79,24 +66,15 @@
     "updates",
     "invite"
   ],
-  "legacy_packet_aliases": [
-    "audit_packet.json",
-    "redacted_candidate_packet.json",
-    "validation_packet.json"
-  ],
   "live_read_only_request_performed": true,
   "live_write_allowed_now": false,
-  "next_recommended_task": "TASK_CONTENTOPS_TELEGRAM_SUPERVISED_SENDMESSAGE_PREP_AND_DRY_RUN_GATE_V0",
   "no_auto_retry": true,
-  "no_browser_qa_proof": true,
-  "no_provider_browser_proof": true,
   "no_raw_headers_persisted": true,
   "no_raw_request_url_persisted": true,
   "no_raw_response_persisted": true,
   "no_token_hash_digest_prefix_suffix_length": true,
   "no_token_logged": true,
   "no_token_persisted": true,
-  "no_ui_change_proof": true,
   "no_unredacted_channel_or_user_identifier_persisted": true,
   "no_write_endpoint_called": true,
   "no_write_post_send_publish_performed": true,
@@ -108,7 +86,7 @@
     "getChatMember"
   ],
   "operator_go_present": true,
-  "packet_type": "evidence_packet",
+  "packet_type": "redacted_audit_packet",
   "param_allowlist": {
     "getChat": [
       "chat_id"
@@ -120,7 +98,6 @@
     "getMe": []
   },
   "platform": "telegram_channel_destination",
-  "previous_accepted_baseline": "b74b2898d0c885850052b08eea6c52c6748cfe6b",
   "probe_plan": {
     "allowed_host": "api.telegram.org",
     "allowed_methods": [
@@ -256,7 +233,6 @@
     "send_permission_unlocked_now": false
   },
   "repair_task_label": "TASK_CONTENTOPS_TELEGRAM_READONLY_CHANNEL_BINDING_PERMISSION_PROOF_R1_REPAIR_PATCH_V0",
-  "repo_path": "A:/Capital Chronicle/tools/cc-live-contentops",
   "request_budget_max": 3,
   "request_budget_used": 1,
   "result_classes": [
@@ -281,8 +257,6 @@
   "selected_channel_key_name": "TELEGRAM_CHAT_ID",
   "selected_credential_key_name": "TELEGRAM_BOT_TOKEN",
   "send_permission_unlocked_now": false,
-  "starting_head": "9c78db7c2c26ef237d21e6239d25895731303ce4",
-  "status": "BLOCKED_GETME_FAILED",
   "task_label": "TASK_CONTENTOPS_TELEGRAM_READONLY_CHANNEL_BINDING_PERMISSION_PROOF_V0",
   "timeout_seconds": 10,
   "valid_for_live_dispatch_now": false
