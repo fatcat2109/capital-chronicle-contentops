@@ -10,9 +10,7 @@
     "user_id"
   ],
   "allowed_scheme": "https",
-  "blocked_reasons": [
-    "BLOCKED_GETME_FAILED"
-  ],
+  "blocked_reasons": [],
   "bot_api_request_format_verified": "telegram_bot_api_token_path_method_name_format_verified_redacted",
   "branch": "master",
   "canonical_packet_files": [
@@ -35,7 +33,7 @@
   ],
   "channel_key_presence": {
     "CONTENTOPS_TELEGRAM_CHANNEL_ID_OR_HANDLE": false,
-    "TELEGRAM_CHANNEL_ID": false,
+    "TELEGRAM_CHANNEL_ID": true,
     "TELEGRAM_CHAT_ID": true,
     "TELEGRAM_TARGET_CHANNEL_ID": false
   },
@@ -207,13 +205,11 @@
     "permission_status_class"
   ],
   "redacted_proof": {
-    "blocked_reasons": [
-      "BLOCKED_GETME_FAILED"
-    ],
-    "bot_admin_confirmed_redacted": false,
-    "bot_identity_seen_redacted": false,
-    "can_post_messages_confirmed_redacted": false,
-    "channel_binding_status": "channel_binding_unconfirmed_redacted",
+    "blocked_reasons": [],
+    "bot_admin_confirmed_redacted": true,
+    "bot_identity_seen_redacted": true,
+    "can_post_messages_confirmed_redacted": true,
+    "channel_binding_status": "channel_binding_confirmed_redacted",
     "channel_id_presence_status": "present",
     "channel_key_names_checked": [
       "TELEGRAM_CHANNEL_ID",
@@ -223,13 +219,13 @@
     ],
     "channel_key_presence": {
       "CONTENTOPS_TELEGRAM_CHANNEL_ID_OR_HANDLE": false,
-      "TELEGRAM_CHANNEL_ID": false,
+      "TELEGRAM_CHANNEL_ID": true,
       "TELEGRAM_CHAT_ID": true,
       "TELEGRAM_TARGET_CHANNEL_ID": false
     },
-    "channel_permission_status": "bot_not_channel_administrator_redacted",
-    "chat_seen_redacted": false,
-    "chat_type_class": "chat_type_unknown_redacted",
+    "channel_permission_status": "can_post_messages_confirmed_redacted",
+    "chat_seen_redacted": true,
+    "chat_type_class": "telegram_channel_confirmed_redacted",
     "credential_key_names_checked": [
       "TELEGRAM_BOT_TOKEN",
       "TELEGRAM_BOT_API_TOKEN",
@@ -240,25 +236,25 @@
       "TELEGRAM_BOT_API_TOKEN": false,
       "TELEGRAM_BOT_TOKEN": true
     },
-    "get_chat_member_ok": false,
-    "get_chat_ok": false,
-    "get_me_ok": false,
+    "get_chat_member_ok": true,
+    "get_chat_ok": true,
+    "get_me_ok": true,
     "live_read_only_request_performed": true,
     "live_write_allowed_now": false,
-    "membership_status_class": "membership_unknown_redacted",
+    "membership_status_class": "bot_channel_administrator_confirmed_redacted",
     "no_raw_response_persisted": true,
     "redaction_verified": true,
-    "request_budget_used": 1,
-    "result_classification": "BLOCKED_GETME_FAILED",
+    "request_budget_used": 3,
+    "result_classification": "PASS_READONLY_PROOF",
     "retry_count": 0,
-    "selected_channel_key_name": "TELEGRAM_CHAT_ID",
+    "selected_channel_key_name": "TELEGRAM_CHANNEL_ID",
     "selected_credential_key_name": "TELEGRAM_BOT_TOKEN",
     "send_permission_unlocked_now": false
   },
   "repair_task_label": "TASK_CONTENTOPS_TELEGRAM_READONLY_CHANNEL_BINDING_PERMISSION_PROOF_R1_REPAIR_PATCH_V0",
   "repo_path": "A:/Capital Chronicle/tools/cc-live-contentops",
   "request_budget_max": 3,
-  "request_budget_used": 1,
+  "request_budget_used": 3,
   "result_classes": [
     "PASS_READONLY_PROOF",
     "BLOCKED_MISSING_CREDENTIAL",
@@ -276,13 +272,13 @@
     "BLOCKED_OPERATOR_GO_REQUIRED",
     "BLOCKED_EXECUTION_FLAG_REQUIRED"
   ],
-  "result_classification": "BLOCKED_GETME_FAILED",
+  "result_classification": "PASS_READONLY_PROOF",
   "retry_count": 0,
-  "selected_channel_key_name": "TELEGRAM_CHAT_ID",
+  "selected_channel_key_name": "TELEGRAM_CHANNEL_ID",
   "selected_credential_key_name": "TELEGRAM_BOT_TOKEN",
   "send_permission_unlocked_now": false,
   "starting_head": "9c78db7c2c26ef237d21e6239d25895731303ce4",
-  "status": "BLOCKED_GETME_FAILED",
+  "status": "PASS_READONLY_PROOF",
   "task_label": "TASK_CONTENTOPS_TELEGRAM_READONLY_CHANNEL_BINDING_PERMISSION_PROOF_V0",
   "timeout_seconds": 10,
   "valid_for_live_dispatch_now": false

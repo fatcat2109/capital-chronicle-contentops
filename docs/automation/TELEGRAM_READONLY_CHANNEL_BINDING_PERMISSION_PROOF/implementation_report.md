@@ -5,22 +5,22 @@ Repair task: `TASK_CONTENTOPS_TELEGRAM_READONLY_CHANNEL_BINDING_PERMISSION_PROOF
 
 ## Result
 
-- Result classification: `BLOCKED_GETME_FAILED`
-- Request budget used: `1` of `3`
+- Result classification: `PASS_READONLY_PROOF`
+- Request budget used: `3` of `3`
 - Live read-only request performed: `True`
 - Live write allowed now: `False`
 - Send permission unlocked now: `False`
 
 ## Stop Conditions
 
-- `BLOCKED_GETME_FAILED`
+- None
 
 ## Credential Policy
 
 - Credential key names checked only: `TELEGRAM_BOT_TOKEN, TELEGRAM_BOT_API_TOKEN, CONTENTOPS_TELEGRAM_BOT_TOKEN`
 - Channel key names checked only: `TELEGRAM_CHANNEL_ID, TELEGRAM_TARGET_CHANNEL_ID, TELEGRAM_CHAT_ID, CONTENTOPS_TELEGRAM_CHANNEL_ID_OR_HANDLE`
 - Selected credential key name: `TELEGRAM_BOT_TOKEN`
-- Selected channel key name: `TELEGRAM_CHAT_ID`
+- Selected channel key name: `TELEGRAM_CHANNEL_ID`
 - No token value, length, prefix, suffix, digest, hash, raw URL, raw header, raw response, raw channel ID, or raw user ID persisted.
 
 ## CLI Compatibility

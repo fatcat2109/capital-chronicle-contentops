@@ -1,10 +1,8 @@
 {
-  "blocked_reasons": [
-    "BLOCKED_GETME_FAILED"
-  ],
+  "blocked_reasons": [],
   "credential_hydration_performed": false,
   "gate_passed_now": false,
-  "live_gate_candidate_state": "blocked_redacted",
+  "live_gate_candidate_state": "readonly_permission_confirmed_but_live_write_locked",
   "live_write_allowed_now": false,
   "no_auto_retry": true,
   "no_write_endpoint_called": true,
@@ -12,8 +10,8 @@
   "raw_response_persisted": false,
   "repair_task_label": "TASK_CONTENTOPS_TELEGRAM_READONLY_CHANNEL_BINDING_PERMISSION_PROOF_R1_REPAIR_PATCH_V0",
   "request_budget_max": 3,
-  "request_budget_used": 1,
-  "result_classification": "BLOCKED_GETME_FAILED",
+  "request_budget_used": 3,
+  "result_classification": "PASS_READONLY_PROOF",
   "task_label": "TASK_CONTENTOPS_TELEGRAM_READONLY_CHANNEL_BINDING_PERMISSION_PROOF_V0",
   "valid_for_live_dispatch_now": false
 }

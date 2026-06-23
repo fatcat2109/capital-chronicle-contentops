@@ -259,8 +259,36 @@ def select_secret_key(env: Mapping[str, str], keys: tuple[str, ...]) -> Credenti
     return CredentialSelection(selected, presence, keys)
 
 
+def _read_scoped_repo_env_files(repo_root: str | Path | None = None) -> dict[str, str]:
+    root = Path(repo_root) if repo_root is not None else Path(__file__).resolve().parents[1]
+    allowed_keys = set(TOKEN_KEYS + CHANNEL_KEYS)
+    scoped: dict[str, str] = {}
+    for filename in (".env", ".env.local"):
+        path = root / filename
+        if not path.exists() or not path.is_file():
+            continue
+        for line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
+            stripped = line.strip()
+            if not stripped or stripped.startswith("#") or "=" not in stripped:
+                continue
+            key, value = stripped.split("=", 1)
+            key = key.strip()
+            if key.startswith("export "):
+                key = key[7:].strip()
+            if key not in allowed_keys:
+                continue
+            value = value.strip()
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in {'\"', "'"}:
+                value = value[1:-1]
+            if value:
+                scoped[key] = value
+    return scoped
+
+
 def _default_env_provider() -> Mapping[str, str]:
-    return getattr(os, "environ")
+    env = dict(getattr(os, "environ"))
+    env.update(_read_scoped_repo_env_files())
+    return env
 
 
 def scan_packet_for_telegram_secret_risk(obj: Any) -> list[str]:
