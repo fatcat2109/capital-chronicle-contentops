@@ -1,0 +1,17 @@
+{
+  "auto_retry_allowed": false,
+  "blocked_reasons": [],
+  "credential_hydrated": false,
+  "dispatch_performed": false,
+  "does_not_block_preview": true,
+  "does_not_delete_outbox": true,
+  "live_readiness_blocked": false,
+  "live_request_performed": false,
+  "local_outbox_allowed": true,
+  "manual_fallback_state": "manual_fallback_not_required",
+  "model": "contentops.kill_switch_policy",
+  "model_version": "0174U2_KILL_SWITCH_POLICY_R1",
+  "platform_api_called": false,
+  "status": "kill_switch_clear",
+  "task_label": "TASK_CONTENTOPS_AUTHORITY_CORE_OUTBOX_IDEMPOTENCY_KILL_SWITCH_AUDIT_R1_COMPLETION_PATCH_V0"
+}

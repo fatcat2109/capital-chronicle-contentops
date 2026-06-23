@@ -1,0 +1,13 @@
+{
+  "canonical_payload_json": "{\"adapter_version\":\"telegram_sendmessage_adapter_dry_run_v1\",\"alt_text_hash\":null,\"caption\":null,\"content_lane\":\"operator_supervised_dry_run\",\"credential_handle_id\":\"telegram_bot_credential_handle_symbolic_redacted\",\"destination_binding_id\":\"telegram_channel_destination_binding_symbolic_redacted\",\"disclosure_class\":\"dry_run_not_for_live_send\",\"guardrail_result_id\":\"telegram_sendmessage_dry_run_guardrail_passed\",\"hashtags\":[],\"link_preview_class\":\"disabled\",\"media_manifest_hash\":\"no_media_manifest\",\"payload_class_id\":\"telegram_sendmessage_text_dry_run\",\"payload_id\":\"telegram-sendmessage-dry-run-payload-0001\",\"payload_schema_version\":\"telegram_sendmessage_payload_v1\",\"payload_text\":\"DRY_RUN_NOT_FOR_LIVE_SEND \u2014 Capital Chronicle supervised Telegram sendMessage dry-run fixture for operator review. This fixture contains no recommendations, no positions, no prices, no external links, and no secrets.\",\"platform_formatting\":\"telegram_plain_text\",\"platform_id\":\"telegram_channel_destination\",\"policy_snapshot_id\":\"telegram_supervised_sendmessage_dry_run_policy_v1\",\"source_or_research_packet_id\":\"local_fixture_no_external_source\",\"subtitle\":\"DRY_RUN_NOT_FOR_LIVE_SEND\",\"thread_split\":null,\"title\":\"Telegram supervised sendMessage dry-run fixture\",\"visibility_class\":\"public_channel_redacted_destination\"}",
+  "dispatchable_now": false,
+  "exact_payload_hash_required": true,
+  "hash_input_contains_secret_risk": false,
+  "packet_type": "telegram_sendmessage_payload_hash_packet",
+  "payload_hash": "b0169bdab26ccdacf08e02fdacb841af21af59804f7195de550b8bf79fcef0fc",
+  "payload_hash_algorithm": "sha256",
+  "payload_hash_short": "b0169bda",
+  "payload_id": "telegram-sendmessage-dry-run-payload-0001",
+  "task_label": "TASK_CONTENTOPS_TELEGRAM_SUPERVISED_SENDMESSAGE_DRY_RUN_GATE_R1_REPAIR_V0",
+  "valid_for_live_dispatch_now": false
+}

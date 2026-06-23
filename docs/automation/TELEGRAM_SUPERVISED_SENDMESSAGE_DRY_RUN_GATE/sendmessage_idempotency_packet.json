@@ -1,0 +1,18 @@
+{
+  "auto_retry_allowed": false,
+  "blocked_reasons": [],
+  "credential_hydrated": false,
+  "dispatch_performed": false,
+  "duplicate": false,
+  "duplicate_action": "allow_new_local_candidate",
+  "idempotency_key": "01d566b08b90b004b5cfa79928ca1e312c46382ec00a8594e811f2b3e069059a",
+  "idempotency_key_short": "01d566b08b90",
+  "live_request_performed": false,
+  "manual_fallback_status": "manual_fallback_not_required",
+  "model": "contentops.idempotency_policy",
+  "model_version": "0174U2_IDEMPOTENCY_POLICY_R1",
+  "platform_api_called": false,
+  "request_budget": 1,
+  "status": "new_key_allowed_for_local_outbox_only",
+  "task_label": "TASK_CONTENTOPS_AUTHORITY_CORE_OUTBOX_IDEMPOTENCY_KILL_SWITCH_AUDIT_R1_COMPLETION_PATCH_V0"
+}
