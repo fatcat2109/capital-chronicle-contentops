@@ -1,0 +1,215 @@
+{
+  "auto_retry": false,
+  "raw_response_persisted": false,
+  "results": [
+    {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "re_ground_required_before_live"
+      ],
+      "endpoint_family": "telegram_bot_identity",
+      "host": "api.telegram.org",
+      "method": "GET",
+      "path": "/bot<redacted>/getMe",
+      "platform_id": "telegram_remote_operator",
+      "raw_response_persisted": false,
+      "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "scheme": "https",
+      "timeout_seconds": 10
+    },
+    {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "re_ground_required_before_live"
+      ],
+      "endpoint_family": "telegram_channel_read",
+      "host": "api.telegram.org",
+      "method": "GET",
+      "path": "/bot<redacted>/getChat",
+      "platform_id": "telegram_channel_destination",
+      "raw_response_persisted": false,
+      "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "scheme": "https",
+      "timeout_seconds": 10
+    },
+    {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "credential_env_key_missing",
+        "re_ground_required_before_live"
+      ],
+      "endpoint_family": "x_user_identity",
+      "host": "api.x.com",
+      "method": "GET",
+      "path": "/2/users/me",
+      "platform_id": "x_profile",
+      "raw_response_persisted": false,
+      "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "scheme": "https",
+      "timeout_seconds": 10
+    },
+    {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "credential_env_key_missing",
+        "re_ground_required_before_live"
+      ],
+      "endpoint_family": "linkedin_member_identity",
+      "host": "api.linkedin.com",
+      "method": "GET",
+      "path": "/v2/userinfo",
+      "platform_id": "linkedin_member_profile",
+      "raw_response_persisted": false,
+      "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "scheme": "https",
+      "timeout_seconds": 10
+    },
+    {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "credential_env_key_missing",
+        "re_ground_required_before_live"
+      ],
+      "endpoint_family": "linkedin_org_acl",
+      "host": "api.linkedin.com",
+      "method": "GET",
+      "path": "/v2/organizationalEntityAcls",
+      "platform_id": "linkedin_organization_page",
+      "raw_response_persisted": false,
+      "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "scheme": "https",
+      "timeout_seconds": 10
+    },
+    {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "credential_env_key_missing",
+        "re_ground_required_before_live"
+      ],
+      "endpoint_family": "meta_page_identity",
+      "host": "graph.facebook.com",
+      "method": "GET",
+      "path": "/v20.0/<page-id>",
+      "platform_id": "facebook_page",
+      "raw_response_persisted": false,
+      "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "scheme": "https",
+      "timeout_seconds": 10
+    },
+    {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "credential_env_key_missing",
+        "re_ground_required_before_live"
+      ],
+      "endpoint_family": "instagram_account_identity",
+      "host": "graph.facebook.com",
+      "method": "GET",
+      "path": "/v20.0/<ig-account-id>",
+      "platform_id": "instagram_professional_account",
+      "raw_response_persisted": false,
+      "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "scheme": "https",
+      "timeout_seconds": 10
+    },
+    {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "credential_env_key_missing",
+        "re_ground_required_before_live"
+      ],
+      "endpoint_family": "threads_user_identity",
+      "host": "graph.threads.net",
+      "method": "GET",
+      "path": "/v1.0/me",
+      "platform_id": "threads_profile",
+      "raw_response_persisted": false,
+      "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "scheme": "https",
+      "timeout_seconds": 10
+    },
+    {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "credential_env_key_missing",
+        "re_ground_required_before_live"
+      ],
+      "endpoint_family": "tiktok_user_info",
+      "host": "open.tiktokapis.com",
+      "method": "GET",
+      "path": "/v2/user/info/",
+      "platform_id": "tiktok_account",
+      "raw_response_persisted": false,
+      "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "scheme": "https",
+      "timeout_seconds": 10
+    },
+    {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "credential_env_key_missing",
+        "re_ground_required_before_live"
+      ],
+      "endpoint_family": "youtube_channel_identity",
+      "host": "www.googleapis.com",
+      "method": "GET",
+      "path": "/youtube/v3/channels",
+      "platform_id": "youtube_channel",
+      "raw_response_persisted": false,
+      "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+      "redirect_policy": "redirect_disabled_fail_closed",
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "scheme": "https",
+      "timeout_seconds": 10
+    },
+    {
+      "auto_retry": false,
+      "blocked_reasons": [
+        "credential_env_key_missing",
+        "official_docs_unverified",
+        "re_ground_required_before_live"
+      ],
+      "endpoint_family": "substack_publication_url_format",
+      "host": "local",
+      "method": "LOCAL",
+      "path": "publication_url_format",
+      "platform_id": "substack_newsletter",
+      "raw_response_persisted": false,
+      "redaction_policy_id": "batch_a_no_secret_prefix_suffix_digest_v1",
+      "redirect_policy": "no_network",
+      "request_count": 0,
+      "result_classification": "blocked_not_attempted",
+      "scheme": "none",
+      "timeout_seconds": 0
+    }
+  ],
+  "task_label": "TASK_CONTENTOPS_MULTI_PLATFORM_LIVE_FOUNDATION_BATCH_A_DOCS_CREDENTIALS_BINDINGS_AND_READONLY_PROBES_V0"
+}

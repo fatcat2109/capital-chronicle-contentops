@@ -1,0 +1,248 @@
+{
+  "live_write_allowed": false,
+  "rows": [
+    {
+      "blocked_reasons": [
+        "operator_confirmation_missing",
+        "permission_unverified",
+        "scope_unverified",
+        "batch_a_live_write_forbidden"
+      ],
+      "confirmation_method": "not_confirmed_batch_a_bootstrap",
+      "credential_handle_id": "telegram_operator_chat",
+      "destination_binding_id": "telegram_operator_inbox_default",
+      "destination_kind": "operator_inbox",
+      "display_name_redacted": "unconfirmed_redacted",
+      "handle_redacted": "unconfirmed_redacted",
+      "last_verified_at": null,
+      "live_write_allowed": false,
+      "operator_confirmed": false,
+      "permission_status": "unverified_blocked",
+      "platform_account_id_redacted": "unconfirmed_redacted",
+      "platform_id": "telegram_remote_operator",
+      "scope_status": "unverified_blocked",
+      "wrong_account_detection_status": "not_checked_blocked"
+    },
+    {
+      "blocked_reasons": [
+        "operator_confirmation_missing",
+        "permission_unverified",
+        "scope_unverified",
+        "batch_a_live_write_forbidden"
+      ],
+      "confirmation_method": "not_confirmed_batch_a_bootstrap",
+      "credential_handle_id": "telegram_channel",
+      "destination_binding_id": "telegram_channel_default",
+      "destination_kind": "channel",
+      "display_name_redacted": "unconfirmed_redacted",
+      "handle_redacted": "unconfirmed_redacted",
+      "last_verified_at": null,
+      "live_write_allowed": false,
+      "operator_confirmed": false,
+      "permission_status": "unverified_blocked",
+      "platform_account_id_redacted": "unconfirmed_redacted",
+      "platform_id": "telegram_channel_destination",
+      "scope_status": "unverified_blocked",
+      "wrong_account_detection_status": "not_checked_blocked"
+    },
+    {
+      "blocked_reasons": [
+        "operator_confirmation_missing",
+        "permission_unverified",
+        "scope_unverified",
+        "batch_a_live_write_forbidden"
+      ],
+      "confirmation_method": "not_confirmed_batch_a_bootstrap",
+      "credential_handle_id": "x_bearer",
+      "destination_binding_id": "x_profile_default",
+      "destination_kind": "profile",
+      "display_name_redacted": "unconfirmed_redacted",
+      "handle_redacted": "unconfirmed_redacted",
+      "last_verified_at": null,
+      "live_write_allowed": false,
+      "operator_confirmed": false,
+      "permission_status": "unverified_blocked",
+      "platform_account_id_redacted": "unconfirmed_redacted",
+      "platform_id": "x_profile",
+      "scope_status": "unverified_blocked",
+      "wrong_account_detection_status": "not_checked_blocked"
+    },
+    {
+      "blocked_reasons": [
+        "operator_confirmation_missing",
+        "permission_unverified",
+        "scope_unverified",
+        "batch_a_live_write_forbidden"
+      ],
+      "confirmation_method": "not_confirmed_batch_a_bootstrap",
+      "credential_handle_id": "linkedin_member",
+      "destination_binding_id": "linkedin_member_default",
+      "destination_kind": "member_profile",
+      "display_name_redacted": "unconfirmed_redacted",
+      "handle_redacted": "unconfirmed_redacted",
+      "last_verified_at": null,
+      "live_write_allowed": false,
+      "operator_confirmed": false,
+      "permission_status": "unverified_blocked",
+      "platform_account_id_redacted": "unconfirmed_redacted",
+      "platform_id": "linkedin_member_profile",
+      "scope_status": "unverified_blocked",
+      "wrong_account_detection_status": "not_checked_blocked"
+    },
+    {
+      "blocked_reasons": [
+        "operator_confirmation_missing",
+        "permission_unverified",
+        "scope_unverified",
+        "batch_a_live_write_forbidden"
+      ],
+      "confirmation_method": "not_confirmed_batch_a_bootstrap",
+      "credential_handle_id": "linkedin_org",
+      "destination_binding_id": "linkedin_org_default",
+      "destination_kind": "organization_page",
+      "display_name_redacted": "unconfirmed_redacted",
+      "handle_redacted": "unconfirmed_redacted",
+      "last_verified_at": null,
+      "live_write_allowed": false,
+      "operator_confirmed": false,
+      "permission_status": "unverified_blocked",
+      "platform_account_id_redacted": "unconfirmed_redacted",
+      "platform_id": "linkedin_organization_page",
+      "scope_status": "unverified_blocked",
+      "wrong_account_detection_status": "not_checked_blocked"
+    },
+    {
+      "blocked_reasons": [
+        "operator_confirmation_missing",
+        "permission_unverified",
+        "scope_unverified",
+        "batch_a_live_write_forbidden"
+      ],
+      "confirmation_method": "not_confirmed_batch_a_bootstrap",
+      "credential_handle_id": "substack_publication",
+      "destination_binding_id": "substack_newsletter_default",
+      "destination_kind": "newsletter_publication",
+      "display_name_redacted": "unconfirmed_redacted",
+      "handle_redacted": "unconfirmed_redacted",
+      "last_verified_at": null,
+      "live_write_allowed": false,
+      "operator_confirmed": false,
+      "permission_status": "unverified_blocked",
+      "platform_account_id_redacted": "unconfirmed_redacted",
+      "platform_id": "substack_newsletter",
+      "scope_status": "unverified_blocked",
+      "wrong_account_detection_status": "not_checked_blocked"
+    },
+    {
+      "blocked_reasons": [
+        "operator_confirmation_missing",
+        "permission_unverified",
+        "scope_unverified",
+        "batch_a_live_write_forbidden"
+      ],
+      "confirmation_method": "not_confirmed_batch_a_bootstrap",
+      "credential_handle_id": "facebook_page",
+      "destination_binding_id": "facebook_page_default",
+      "destination_kind": "page",
+      "display_name_redacted": "unconfirmed_redacted",
+      "handle_redacted": "unconfirmed_redacted",
+      "last_verified_at": null,
+      "live_write_allowed": false,
+      "operator_confirmed": false,
+      "permission_status": "unverified_blocked",
+      "platform_account_id_redacted": "unconfirmed_redacted",
+      "platform_id": "facebook_page",
+      "scope_status": "unverified_blocked",
+      "wrong_account_detection_status": "not_checked_blocked"
+    },
+    {
+      "blocked_reasons": [
+        "operator_confirmation_missing",
+        "permission_unverified",
+        "scope_unverified",
+        "batch_a_live_write_forbidden"
+      ],
+      "confirmation_method": "not_confirmed_batch_a_bootstrap",
+      "credential_handle_id": "instagram_business",
+      "destination_binding_id": "instagram_professional_default",
+      "destination_kind": "professional_account",
+      "display_name_redacted": "unconfirmed_redacted",
+      "handle_redacted": "unconfirmed_redacted",
+      "last_verified_at": null,
+      "live_write_allowed": false,
+      "operator_confirmed": false,
+      "permission_status": "unverified_blocked",
+      "platform_account_id_redacted": "unconfirmed_redacted",
+      "platform_id": "instagram_professional_account",
+      "scope_status": "unverified_blocked",
+      "wrong_account_detection_status": "not_checked_blocked"
+    },
+    {
+      "blocked_reasons": [
+        "operator_confirmation_missing",
+        "permission_unverified",
+        "scope_unverified",
+        "batch_a_live_write_forbidden"
+      ],
+      "confirmation_method": "not_confirmed_batch_a_bootstrap",
+      "credential_handle_id": "threads_user",
+      "destination_binding_id": "threads_profile_default",
+      "destination_kind": "profile",
+      "display_name_redacted": "unconfirmed_redacted",
+      "handle_redacted": "unconfirmed_redacted",
+      "last_verified_at": null,
+      "live_write_allowed": false,
+      "operator_confirmed": false,
+      "permission_status": "unverified_blocked",
+      "platform_account_id_redacted": "unconfirmed_redacted",
+      "platform_id": "threads_profile",
+      "scope_status": "unverified_blocked",
+      "wrong_account_detection_status": "not_checked_blocked"
+    },
+    {
+      "blocked_reasons": [
+        "operator_confirmation_missing",
+        "permission_unverified",
+        "scope_unverified",
+        "batch_a_live_write_forbidden"
+      ],
+      "confirmation_method": "not_confirmed_batch_a_bootstrap",
+      "credential_handle_id": "tiktok_open",
+      "destination_binding_id": "tiktok_account_default",
+      "destination_kind": "account",
+      "display_name_redacted": "unconfirmed_redacted",
+      "handle_redacted": "unconfirmed_redacted",
+      "last_verified_at": null,
+      "live_write_allowed": false,
+      "operator_confirmed": false,
+      "permission_status": "unverified_blocked",
+      "platform_account_id_redacted": "unconfirmed_redacted",
+      "platform_id": "tiktok_account",
+      "scope_status": "unverified_blocked",
+      "wrong_account_detection_status": "not_checked_blocked"
+    },
+    {
+      "blocked_reasons": [
+        "operator_confirmation_missing",
+        "permission_unverified",
+        "scope_unverified",
+        "batch_a_live_write_forbidden"
+      ],
+      "confirmation_method": "not_confirmed_batch_a_bootstrap",
+      "credential_handle_id": "youtube_channel",
+      "destination_binding_id": "youtube_channel_default",
+      "destination_kind": "channel",
+      "display_name_redacted": "unconfirmed_redacted",
+      "handle_redacted": "unconfirmed_redacted",
+      "last_verified_at": null,
+      "live_write_allowed": false,
+      "operator_confirmed": false,
+      "permission_status": "unverified_blocked",
+      "platform_account_id_redacted": "unconfirmed_redacted",
+      "platform_id": "youtube_channel",
+      "scope_status": "unverified_blocked",
+      "wrong_account_detection_status": "not_checked_blocked"
+    }
+  ],
+  "task_label": "TASK_CONTENTOPS_MULTI_PLATFORM_LIVE_FOUNDATION_BATCH_A_DOCS_CREDENTIALS_BINDINGS_AND_READONLY_PROBES_V0"
+}

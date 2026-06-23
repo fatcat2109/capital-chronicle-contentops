@@ -1,0 +1,407 @@
+{
+  "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+  "generated_at": "2026-06-23T07:42:33Z",
+  "live_write_eligible": false,
+  "platform_count": 11,
+  "rows": [
+    {
+      "api_available": true,
+      "api_write_available": false,
+      "browser_assisted_supported": false,
+      "docs_checked_at": "2026-06-23T07:09:32Z",
+      "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+      "docs_source_type": "official_live_fetch_ok",
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "media_upload_model": "none",
+      "official_docs_url": "https://core.telegram.org/bots/api",
+      "paid_plan_notes": "free Bot API; bounded by Telegram limits",
+      "platform_id": "telegram_remote_operator",
+      "rate_limit_notes": "no write in this task",
+      "re_ground_required_before_live": true,
+      "required_account_roles": [
+        "operator_chat_member_or_chat_id"
+      ],
+      "required_app_review": false,
+      "required_oauth": false,
+      "required_scopes": [],
+      "restrictions": [
+        "not public destination",
+        "sendMessage forbidden in this task"
+      ],
+      "supported_payloads": [
+        "operator_review_message"
+      ],
+      "unknowns": [
+        "operator inbox identity must be confirmed manually"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "browser_assisted_supported": false,
+      "docs_checked_at": "2026-06-23T07:09:32Z",
+      "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+      "docs_source_type": "official_live_fetch_ok",
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "media_upload_model": "Bot API multipart/file_id/URL after future gate",
+      "official_docs_url": "https://core.telegram.org/bots/api",
+      "paid_plan_notes": "free Bot API; no paid plan noted",
+      "platform_id": "telegram_channel_destination",
+      "rate_limit_notes": "Telegram Bot API limits apply",
+      "re_ground_required_before_live": true,
+      "required_account_roles": [
+        "bot admin in channel"
+      ],
+      "required_app_review": false,
+      "required_oauth": false,
+      "required_scopes": [],
+      "restrictions": [
+        "sendMessage/sendPhoto/sendDocument forbidden in this task"
+      ],
+      "supported_payloads": [
+        "text",
+        "photo",
+        "document_after_future_gate"
+      ],
+      "unknowns": [
+        "channel membership/admin must be verified"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "browser_assisted_supported": false,
+      "docs_checked_at": "2026-06-23T07:09:32Z",
+      "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+      "docs_source_type": "official_live_fetch_ok",
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "media_upload_model": "media upload requires separate media flow after future gate",
+      "official_docs_url": "https://docs.x.com/x-api/introduction",
+      "paid_plan_notes": "paid access/spend or project plan may be required; budget must be configured before probes",
+      "platform_id": "x_profile",
+      "rate_limit_notes": "plan-specific request limits",
+      "re_ground_required_before_live": true,
+      "required_account_roles": [
+        "developer account",
+        "app access tier",
+        "request/spend budget"
+      ],
+      "required_app_review": true,
+      "required_oauth": true,
+      "required_scopes": [
+        "tweet.read",
+        "users.read",
+        "offline.access",
+        "tweet.write_future_only"
+      ],
+      "restrictions": [
+        "paid/budget/scope unclear blocks live write"
+      ],
+      "supported_payloads": [
+        "short_text",
+        "thread_after_future_gate"
+      ],
+      "unknowns": [
+        "exact account and access tier must be confirmed"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "browser_assisted_supported": false,
+      "docs_checked_at": "2026-06-23T07:09:32Z",
+      "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+      "docs_source_type": "official_live_fetch_ok",
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "media_upload_model": "UGC/posts media constraints after future gate",
+      "official_docs_url": "https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/sign-in-with-linkedin",
+      "paid_plan_notes": "app/product approval may be required",
+      "platform_id": "linkedin_member_profile",
+      "rate_limit_notes": "LinkedIn API throttles apply",
+      "re_ground_required_before_live": true,
+      "required_account_roles": [
+        "member token",
+        "app product access"
+      ],
+      "required_app_review": true,
+      "required_oauth": true,
+      "required_scopes": [
+        "openid",
+        "profile",
+        "email",
+        "w_member_social_future_only"
+      ],
+      "restrictions": [
+        "write scope forbidden in this task"
+      ],
+      "supported_payloads": [
+        "professional_post_after_future_gate"
+      ],
+      "unknowns": [
+        "member URN/account binding must be confirmed"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "browser_assisted_supported": false,
+      "docs_checked_at": "2026-06-23T07:09:32Z",
+      "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+      "docs_source_type": "official_live_fetch_ok",
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "media_upload_model": "UGC/posts media constraints after future gate",
+      "official_docs_url": "https://learn.microsoft.com/en-us/linkedin/marketing/community-management/shares/posts-api",
+      "paid_plan_notes": "Marketing API access/app review may be required",
+      "platform_id": "linkedin_organization_page",
+      "rate_limit_notes": "LinkedIn API throttles apply",
+      "re_ground_required_before_live": true,
+      "required_account_roles": [
+        "organization admin/role",
+        "app product access"
+      ],
+      "required_app_review": true,
+      "required_oauth": true,
+      "required_scopes": [
+        "r_organization_social",
+        "w_organization_social_future_only"
+      ],
+      "restrictions": [
+        "organization role proof required"
+      ],
+      "supported_payloads": [
+        "organization_post_after_future_gate"
+      ],
+      "unknowns": [
+        "org URN/page role must be confirmed"
+      ]
+    },
+    {
+      "api_available": false,
+      "api_write_available": false,
+      "browser_assisted_supported": true,
+      "docs_checked_at": "2026-06-23T07:09:32Z",
+      "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+      "docs_source_type": "official_docs_fetch_blocked_403",
+      "docs_status": "docs_unverified",
+      "live_write_eligible": false,
+      "manual_publish_supported": true,
+      "media_upload_model": "manual upload/export only",
+      "official_docs_url": "https://support.substack.com/",
+      "paid_plan_notes": "Substack official write API not verified",
+      "platform_id": "substack_newsletter",
+      "rate_limit_notes": "manual publishing only",
+      "re_ground_required_before_live": true,
+      "required_account_roles": [
+        "publication owner/editor manual login"
+      ],
+      "required_app_review": false,
+      "required_oauth": false,
+      "required_scopes": [],
+      "restrictions": [
+        "no official write API verified",
+        "browser-assisted only as lab/manual fallback"
+      ],
+      "supported_payloads": [
+        "markdown_export",
+        "manual_browser_assisted_lab"
+      ],
+      "unknowns": [
+        "official docs inaccessible via fetch; re-ground before live"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "browser_assisted_supported": false,
+      "docs_checked_at": "2026-06-23T07:09:32Z",
+      "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+      "docs_source_type": "official_live_fetch_ok",
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "media_upload_model": "container publish model after future gate",
+      "official_docs_url": "https://developers.facebook.com/docs/threads/overview",
+      "paid_plan_notes": "app review/permissions may be required",
+      "platform_id": "threads_profile",
+      "rate_limit_notes": "Meta/Threads limits apply",
+      "re_ground_required_before_live": true,
+      "required_account_roles": [
+        "Threads profile",
+        "Meta app review as needed"
+      ],
+      "required_app_review": true,
+      "required_oauth": true,
+      "required_scopes": [
+        "threads_basic",
+        "threads_content_publish_future_only"
+      ],
+      "restrictions": [
+        "Meta app/scope constraints unresolved for this repo"
+      ],
+      "supported_payloads": [
+        "short_text_after_future_gate",
+        "media_after_future_gate"
+      ],
+      "unknowns": [
+        "profile binding and scopes must be proven"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "browser_assisted_supported": false,
+      "docs_checked_at": "2026-06-23T07:09:32Z",
+      "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+      "docs_source_type": "official_live_fetch_ok",
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "media_upload_model": "media container then publish after future gate",
+      "official_docs_url": "https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/content-publishing",
+      "paid_plan_notes": "app review/permissions may be required",
+      "platform_id": "instagram_professional_account",
+      "rate_limit_notes": "Meta/Instagram limits apply",
+      "re_ground_required_before_live": true,
+      "required_account_roles": [
+        "Instagram professional/business account"
+      ],
+      "required_app_review": true,
+      "required_oauth": true,
+      "required_scopes": [
+        "instagram_business_basic",
+        "instagram_content_publish_future_only"
+      ],
+      "restrictions": [
+        "requires eligible professional account and public media URL constraints"
+      ],
+      "supported_payloads": [
+        "caption_asset_packet",
+        "carousel_after_future_gate"
+      ],
+      "unknowns": [
+        "asset/media constraints must be proven"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "browser_assisted_supported": false,
+      "docs_checked_at": "2026-06-23T07:09:32Z",
+      "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+      "docs_source_type": "official_live_fetch_ok",
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "media_upload_model": "Graph API photo/video/link models after future gate",
+      "official_docs_url": "https://developers.facebook.com/docs/pages-api/posts",
+      "paid_plan_notes": "app review/page permissions may be required",
+      "platform_id": "facebook_page",
+      "rate_limit_notes": "Graph API limits apply",
+      "re_ground_required_before_live": true,
+      "required_account_roles": [
+        "Facebook Page admin/task access"
+      ],
+      "required_app_review": true,
+      "required_oauth": true,
+      "required_scopes": [
+        "pages_show_list",
+        "pages_read_engagement",
+        "pages_manage_posts_future_only"
+      ],
+      "restrictions": [
+        "page role and permission proof required"
+      ],
+      "supported_payloads": [
+        "page_post_after_future_gate"
+      ],
+      "unknowns": [
+        "page binding must be confirmed"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "browser_assisted_supported": false,
+      "docs_checked_at": "2026-06-23T07:09:32Z",
+      "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+      "docs_source_type": "official_live_fetch_ok",
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "media_upload_model": "init upload/post endpoint after future gate",
+      "official_docs_url": "https://developers.tiktok.com/doc/content-posting-api-get-started",
+      "paid_plan_notes": "app audit/review and scopes may be required",
+      "platform_id": "tiktok_account",
+      "rate_limit_notes": "TikTok limits apply",
+      "re_ground_required_before_live": true,
+      "required_account_roles": [
+        "TikTok developer app",
+        "account authorization"
+      ],
+      "required_app_review": true,
+      "required_oauth": true,
+      "required_scopes": [
+        "user.info.basic",
+        "video.publish_future_only",
+        "video.upload_future_only"
+      ],
+      "restrictions": [
+        "video upload/publish forbidden in this task"
+      ],
+      "supported_payloads": [
+        "video_metadata_packet"
+      ],
+      "unknowns": [
+        "app audit, upload constraints, account binding must be proven"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "browser_assisted_supported": false,
+      "docs_checked_at": "2026-06-23T07:09:32Z",
+      "docs_snapshot_id": "batch_a_official_docs_snapshot_2026_06_23",
+      "docs_source_type": "official_live_fetch_ok",
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "media_upload_model": "resumable upload after future gate",
+      "official_docs_url": "https://developers.google.com/youtube/v3/docs/videos/insert",
+      "paid_plan_notes": "Google OAuth consent/quota required",
+      "platform_id": "youtube_channel",
+      "rate_limit_notes": "YouTube quota costs apply",
+      "re_ground_required_before_live": true,
+      "required_account_roles": [
+        "Google OAuth",
+        "YouTube channel"
+      ],
+      "required_app_review": true,
+      "required_oauth": true,
+      "required_scopes": [
+        "youtube.readonly",
+        "youtube.upload_future_only"
+      ],
+      "restrictions": [
+        "upload forbidden in this task",
+        "quota budget required"
+      ],
+      "supported_payloads": [
+        "video_metadata_packet"
+      ],
+      "unknowns": [
+        "channel binding and quota must be proven"
+      ]
+    }
+  ],
+  "task_label": "TASK_CONTENTOPS_MULTI_PLATFORM_LIVE_FOUNDATION_BATCH_A_DOCS_CREDENTIALS_BINDINGS_AND_READONLY_PROBES_V0"
+}

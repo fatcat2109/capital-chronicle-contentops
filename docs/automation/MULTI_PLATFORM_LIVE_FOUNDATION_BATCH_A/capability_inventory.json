@@ -1,0 +1,197 @@
+{
+  "branch": "master",
+  "generated_at": "2026-06-23T07:42:33Z",
+  "origin_master_sha_before": "ffbdb7192b5645451ed8d37b5d55fa1cfbef8fb3",
+  "platforms": [
+    {
+      "api_available": true,
+      "api_write_available": false,
+      "blockers": [
+        "not public destination",
+        "sendMessage forbidden in this task",
+        "operator inbox identity must be confirmed manually"
+      ],
+      "browser_assisted_supported": false,
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "platform_id": "telegram_remote_operator",
+      "required_scopes": []
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "blockers": [
+        "sendMessage/sendPhoto/sendDocument forbidden in this task",
+        "channel membership/admin must be verified"
+      ],
+      "browser_assisted_supported": false,
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "platform_id": "telegram_channel_destination",
+      "required_scopes": []
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "blockers": [
+        "paid/budget/scope unclear blocks live write",
+        "exact account and access tier must be confirmed"
+      ],
+      "browser_assisted_supported": false,
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "platform_id": "x_profile",
+      "required_scopes": [
+        "tweet.read",
+        "users.read",
+        "offline.access",
+        "tweet.write_future_only"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "blockers": [
+        "write scope forbidden in this task",
+        "member URN/account binding must be confirmed"
+      ],
+      "browser_assisted_supported": false,
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "platform_id": "linkedin_member_profile",
+      "required_scopes": [
+        "openid",
+        "profile",
+        "email",
+        "w_member_social_future_only"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "blockers": [
+        "organization role proof required",
+        "org URN/page role must be confirmed"
+      ],
+      "browser_assisted_supported": false,
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "platform_id": "linkedin_organization_page",
+      "required_scopes": [
+        "r_organization_social",
+        "w_organization_social_future_only"
+      ]
+    },
+    {
+      "api_available": false,
+      "api_write_available": false,
+      "blockers": [
+        "no official write API verified",
+        "browser-assisted only as lab/manual fallback",
+        "official docs inaccessible via fetch; re-ground before live"
+      ],
+      "browser_assisted_supported": true,
+      "docs_status": "docs_unverified",
+      "live_write_eligible": false,
+      "manual_publish_supported": true,
+      "platform_id": "substack_newsletter",
+      "required_scopes": []
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "blockers": [
+        "Meta app/scope constraints unresolved for this repo",
+        "profile binding and scopes must be proven"
+      ],
+      "browser_assisted_supported": false,
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "platform_id": "threads_profile",
+      "required_scopes": [
+        "threads_basic",
+        "threads_content_publish_future_only"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "blockers": [
+        "requires eligible professional account and public media URL constraints",
+        "asset/media constraints must be proven"
+      ],
+      "browser_assisted_supported": false,
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "platform_id": "instagram_professional_account",
+      "required_scopes": [
+        "instagram_business_basic",
+        "instagram_content_publish_future_only"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "blockers": [
+        "page role and permission proof required",
+        "page binding must be confirmed"
+      ],
+      "browser_assisted_supported": false,
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "platform_id": "facebook_page",
+      "required_scopes": [
+        "pages_show_list",
+        "pages_read_engagement",
+        "pages_manage_posts_future_only"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "blockers": [
+        "video upload/publish forbidden in this task",
+        "app audit, upload constraints, account binding must be proven"
+      ],
+      "browser_assisted_supported": false,
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "platform_id": "tiktok_account",
+      "required_scopes": [
+        "user.info.basic",
+        "video.publish_future_only",
+        "video.upload_future_only"
+      ]
+    },
+    {
+      "api_available": true,
+      "api_write_available": true,
+      "blockers": [
+        "upload forbidden in this task",
+        "quota budget required",
+        "channel binding and quota must be proven"
+      ],
+      "browser_assisted_supported": false,
+      "docs_status": "official_docs_checked",
+      "live_write_eligible": false,
+      "manual_publish_supported": false,
+      "platform_id": "youtube_channel",
+      "required_scopes": [
+        "youtube.readonly",
+        "youtube.upload_future_only"
+      ]
+    }
+  ],
+  "repo_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops",
+  "starting_head": "ffbdb7192b5645451ed8d37b5d55fa1cfbef8fb3",
+  "task_label": "TASK_CONTENTOPS_MULTI_PLATFORM_LIVE_FOUNDATION_BATCH_A_DOCS_CREDENTIALS_BINDINGS_AND_READONLY_PROBES_V0"
+}
