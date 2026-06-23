@@ -1,0 +1,58 @@
+{
+  "branch": "master",
+  "caveats": [
+    "Commit SHA cannot be self-recorded inside same commit without changing hash; final SHA will be reported after push and in walkthrough/final response.",
+    "Post-push dry-run and live browser open recorded after push per task sequence."
+  ],
+  "cdp_port": 9222,
+  "changed_files": [
+    ".gitignore",
+    "docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP/operator_browser_lab_runbook.md",
+    "docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP/social_credentials_manual_setup_matrix.md",
+    "docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP/env_local_template_redacted.md",
+    "docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP/official_docs_registry_refresh.md",
+    "docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP/evidence_packet.json",
+    "live_contentops/operator_browser_lab.py",
+    "live_contentops/social_credential_setup_workbench.py",
+    "tests/test_operator_browser_lab_policy.py",
+    "tests/test_social_credential_setup_workbench.py",
+    "tests/test_social_credential_setup_no_secret_output.py",
+    "tests/test_browser_lab_paths_gitignore.py",
+    "tests/test_security_scans.py"
+  ],
+  "commit_hash": "PENDING_COMMIT",
+  "commit_message": "feat: add operator browser lab and credential setup workbench",
+  "cookies_localStorage_sessionStorage_dom_dumped": false,
+  "credential_values_printed_read_committed": false,
+  "dry_run_browser_lab_result": "PENDING_POST_PUSH_PER_TASK_SEQUENCE",
+  "exact_next_recommended_task": "Jim manually logs into official portals in opened browser profile and manually stores credentials in local .env.local; then run redacted inventory with --json.",
+  "final_head": "PENDING_COMMIT",
+  "live_browser_opened": "PENDING_POST_PUSH_PER_TASK_SEQUENCE",
+  "openclaw_runtime_integration": false,
+  "origin_master_sha_after_push": "PENDING_PUSH",
+  "post_publish_upload_send_schedule_reply_dm_scrape_performed": false,
+  "profile_path": "A:\\Capital Chronicle\\operator-browser-profiles\\contentops-social-main",
+  "repo_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops",
+  "result": "PASS_WITH_POST_PUSH_ACTIONS_PENDING",
+  "starting_head": "1898f412c71f1725a5c7fc332e05ed144080a085",
+  "task_label": "TASK_CONTENTOPS_OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP_WORKBENCH_V0",
+  "tests_run": [
+    {
+      "command": "python -m pytest tests/test_operator_browser_lab_policy.py tests/test_social_credential_setup_workbench.py tests/test_social_credential_setup_no_secret_output.py tests/test_browser_lab_paths_gitignore.py",
+      "result": "14 passed in 1.39s"
+    },
+    {
+      "command": "python -m pytest tests/test_security_scans.py tests/test_credential_hydration_gate.py tests/test_no_secret_output_live_foundation_batch_a.py tests/test_telegram_live_sendmessage_no_secret_output.py",
+      "result": "6 passed in 4.22s"
+    },
+    {
+      "command": "python -m pytest",
+      "result": "7079 passed, 28 skipped, 419 warnings in 2786.04s (0:46:26)"
+    }
+  ],
+  "unrelated_working_tree_status": [
+    "modified docs/automation/0174VF_VG_VH/telegram_manual_gate_backed_send_proof.md",
+    "modified docs/automation/0174VF_VG_VH/telegram_manual_gate_backed_send_proof_packet.json",
+    "untracked pre-existing docs/reports and planning/automation docs outside task scope"
+  ]
+}

@@ -21,3 +21,15 @@ credentials.json
 # Logs
 *.log
 logs/
+
+# Operator browser / OAuth local secrets
+operator-browser-profiles/
+.browser-profiles/
+.oauth-token-cache/
+.oauth-callback-cache/
+*.client_secret.json
+client_secret*.json
+*oauth*token*.json
+*credential*cache*.json
+*.local.secret
+*.local.secrets.json

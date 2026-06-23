@@ -26,7 +26,9 @@ def test_no_forbidden_imports_or_env_vars():
 
     # Modules allowed to perform env lookups for configuration (excluding generic modules)
     env_access_allowlist = {
-        "cli.py"
+        "cli.py",
+        "operator_browser_lab.py",
+        "social_credential_setup_workbench.py",
     }
 
     for p in root.rglob("*.py"):
