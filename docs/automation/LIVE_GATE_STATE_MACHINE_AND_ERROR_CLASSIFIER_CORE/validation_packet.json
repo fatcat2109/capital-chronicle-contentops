@@ -1,0 +1,18 @@
+{
+  "core_backend_only": true,
+  "json_packet_validation": {
+    "command": "python -m json.tool docs/automation/LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE/*.json",
+    "individual_files_validated": true,
+    "result": "passed"
+  },
+  "packets_generated_from_core_modules": true,
+  "related_core_tests": {
+    "command": "python -m pytest tests/test_account_binding_permission_scope_verifier.py tests/test_platform_scope_permission_contract.py tests/test_account_binding_permission_scope_no_live_behavior.py tests/test_dispatch_outbox.py tests/test_idempotency_policy.py tests/test_kill_switch_policy.py tests/test_redacted_dispatch_audit.py tests/test_approval_payload_hash.py tests/test_approval_ledger.py tests/test_approval_validator.py tests/test_platform_universe_registry_v2.py tests/test_primary_payload_classes_contract.py tests/test_credential_hydration_gate.py tests/test_security_scans.py -q",
+    "passed": true,
+    "result": "86 passed in 3.17s"
+  },
+  "required_tests": "python -m pytest tests/test_live_gate_state_machine.py tests/test_platform_error_classifier.py tests/test_live_gate_endpoint_contract.py tests/test_live_gate_no_live_behavior.py -q",
+  "required_tests_passed": true,
+  "required_tests_result": "34 passed in 0.97s",
+  "task_label": "TASK_CONTENTOPS_LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE_V0"
+}

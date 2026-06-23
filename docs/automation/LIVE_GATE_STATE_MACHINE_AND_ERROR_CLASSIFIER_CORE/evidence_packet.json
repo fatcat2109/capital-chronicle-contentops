@@ -1,0 +1,53 @@
+{
+  "task_label": "TASK_CONTENTOPS_LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE_V0",
+  "repo": "fatcat2109/capital-chronicle-contentops",
+  "branch": "master",
+  "baseline_head": "1884b101e04e117dfcfc5aecc673d138de736bdb",
+  "mode": "core_backend_domain_contract_only",
+  "implemented_modules": [
+    "live_contentops/live_gate_state_machine.py",
+    "live_contentops/platform_error_classifier.py",
+    "live_contentops/live_gate_endpoint_contract.py"
+  ],
+  "implemented_tests": [
+    "tests/test_live_gate_state_machine.py",
+    "tests/test_platform_error_classifier.py",
+    "tests/test_live_gate_endpoint_contract.py",
+    "tests/test_live_gate_no_live_behavior.py"
+  ],
+  "evidence_packets": [
+    "docs/automation/LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE/live_gate_state_machine_packet.json",
+    "docs/automation/LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE/platform_error_classifier_packet.json",
+    "docs/automation/LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE/live_gate_endpoint_contract_packet.json",
+    "docs/automation/LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE/no_live_behavior_packet.json",
+    "docs/automation/LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE/validation_packet.json"
+  ],
+  "records": [
+    "docs/automation/LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE/implementation_report.md",
+    "docs/automation/LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE/evidence_packet.json",
+    "docs/automation/LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE/next_task_pointer.md"
+  ],
+  "validation": {
+    "required_task_tests": "python -m pytest tests/test_live_gate_state_machine.py tests/test_platform_error_classifier.py tests/test_live_gate_endpoint_contract.py tests/test_live_gate_no_live_behavior.py -q",
+    "required_task_tests_result": "34 passed in 0.97s"
+  },
+  "invariants": {
+    "no_ui_work": true,
+    "no_browser_qa": true,
+    "no_screenshots": true,
+    "no_visual_polish": true,
+    "no_playwright": true,
+    "no_browser_cdp": true,
+    "no_live_api_calls": true,
+    "no_read_only_platform_probes": true,
+    "no_credential_hydration": true,
+    "no_env_reads": true,
+    "no_network_web_fetch": true,
+    "valid_for_live_dispatch_now_any": false,
+    "gate_passed_now_any": false,
+    "auto_retry_allowed_any": false,
+    "request_budget_max": 1,
+    "raw_response_persisted_any": false
+  },
+  "final_head_self_recording_limitation": "Final commit SHA is not self-recorded in this file because this file is committed before the final commit object exists. Use git rev-parse HEAD after commit/push as authority."
+}

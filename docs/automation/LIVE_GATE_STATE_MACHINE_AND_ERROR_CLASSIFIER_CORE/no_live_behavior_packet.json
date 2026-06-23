@@ -1,0 +1,16 @@
+{
+  "auto_retry_allowed": false,
+  "no_browser_cdp": true,
+  "no_browser_qa": true,
+  "no_credential_hydration": true,
+  "no_env_reads": true,
+  "no_live_api_calls": true,
+  "no_network_web_fetch": true,
+  "no_playwright": true,
+  "no_read_only_platform_probes": true,
+  "no_ui_work": true,
+  "raw_response_persisted_any": false,
+  "request_budget_max": 1,
+  "task_label": "TASK_CONTENTOPS_LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE_V0",
+  "valid_for_live_dispatch_now_any": false
+}
