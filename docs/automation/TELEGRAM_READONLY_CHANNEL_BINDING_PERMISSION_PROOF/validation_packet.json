@@ -1,0 +1,18 @@
+{
+  "allowed_methods": [
+    "getMe",
+    "getChat",
+    "getChatMember"
+  ],
+  "blockers": [
+    "telegram_token_missing_from_task_scoped_source",
+    "telegram_channel_identifier_missing_from_task_scoped_source"
+  ],
+  "live_write_allowed_now": false,
+  "redaction_violations": [],
+  "request_budget_max": 3,
+  "request_count": 0,
+  "send_permission_unlocked_now": false,
+  "status": "pass",
+  "task_label": "TASK_CONTENTOPS_TELEGRAM_READONLY_CHANNEL_BINDING_PERMISSION_PROOF_V0"
+}
