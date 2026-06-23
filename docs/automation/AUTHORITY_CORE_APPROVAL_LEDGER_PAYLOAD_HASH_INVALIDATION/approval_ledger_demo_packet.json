@@ -1,0 +1,55 @@
+{
+  "task_label": "TASK_CONTENTOPS_AUTHORITY_CORE_APPROVAL_LEDGER_PAYLOAD_HASH_INVALIDATION_V0",
+  "model": "contentops.approval_ledger",
+  "model_version": "0174U1_APPROVAL_LEDGER_V1",
+  "demo_events": [
+    {
+      "ledger_event_id": "req_e3b0c442_1782246537",
+      "event_type": "approval_requested",
+      "created_at": "2026-06-23T20:28:57.216756Z",
+      "operator_id": "jim_op",
+      "approval_channel": "local_ui",
+      "challenge_id": null,
+      "payload_id": "payload_123",
+      "payload_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "payload_hash_short": "e3b0c442",
+      "platform_id": "x_profile",
+      "payload_class_id": "x_short_post",
+      "destination_binding_id": "x_profile_default",
+      "credential_handle_id": "x_bearer",
+      "media_manifest_hash": null,
+      "policy_snapshot_id": "v1",
+      "approval_text_redacted": "",
+      "expiration_at": null,
+      "supersedes_event_id": null,
+      "valid_for_dispatch": false,
+      "blocked_reasons": [
+        "awaiting_operator_approval"
+      ],
+      "audit_hash": "12621f03f16cd9d1f8ae1b93095bd7e029873800861d53d42e6514916df4bf03"
+    },
+    {
+      "ledger_event_id": "app_e3b0c442_1782246537",
+      "event_type": "operator_approved",
+      "created_at": "2026-06-23T20:28:57.217529Z",
+      "operator_id": "jim_op",
+      "approval_channel": "local_ui",
+      "challenge_id": null,
+      "payload_id": "payload_123",
+      "payload_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "payload_hash_short": "e3b0c442",
+      "platform_id": "x_profile",
+      "payload_class_id": "x_short_post",
+      "destination_binding_id": "x_profile_default",
+      "credential_handle_id": "x_bearer",
+      "media_manifest_hash": null,
+      "policy_snapshot_id": "v1",
+      "approval_text_redacted": "",
+      "expiration_at": null,
+      "supersedes_event_id": "req_e3b0c442_1782246537",
+      "valid_for_dispatch": false,
+      "blocked_reasons": [],
+      "audit_hash": "0d92fe8a3f0794465360e7e6df55b4d44e45eb941a57319180096dc53a9aabaf"
+    }
+  ]
+}

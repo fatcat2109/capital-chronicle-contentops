@@ -1,0 +1,31 @@
+{
+  "task_label": "TASK_CONTENTOPS_AUTHORITY_CORE_APPROVAL_LEDGER_PAYLOAD_HASH_INVALIDATION_V0",
+  "model": "contentops.approval_payload_hash",
+  "model_version": "0174U1_APPROVAL_PAYLOAD_HASH_V1",
+  "demo_hash_input": {
+    "adapter_version": "1.0.0",
+    "alt_text_hash": null,
+    "caption": null,
+    "content_lane": "general",
+    "credential_handle_id": "x_bearer",
+    "destination_binding_id": "x_profile_default",
+    "disclosure_class": "none",
+    "guardrail_result_id": null,
+    "hashtags": [],
+    "link_preview_class": "none",
+    "media_manifest_hash": null,
+    "payload_class_id": "x_short_post",
+    "payload_schema_version": "v1",
+    "payload_text": "Grounded macro insight",
+    "platform_formatting": "plain",
+    "platform_id": "x_profile",
+    "policy_snapshot_id": "v1",
+    "source_or_research_packet_id": null,
+    "subtitle": null,
+    "thread_split": null,
+    "title": null,
+    "visibility_class": "public"
+  },
+  "demo_hash": "dac7e130ce993be15405b354b77a036e2c572866935a0e48be69e621e3f856d2",
+  "demo_hash_short": "dac7e130"
+}
