@@ -1,0 +1,15 @@
+{
+  "blocked_reasons": [],
+  "credential_hydrated": false,
+  "live_gate_state": "dry_run_prepared_live_write_locked",
+  "live_write_allowed_now": false,
+  "live_write_performed": false,
+  "network_request_performed": false,
+  "next_gate_required_before_live_send": true,
+  "packet_type": "telegram_sendmessage_dry_run_live_gate_packet",
+  "result_classification": "PASS_DRY_RUN_GATE",
+  "sendmessage_called": false,
+  "task_label": "TASK_CONTENTOPS_TELEGRAM_SUPERVISED_SENDMESSAGE_PREP_AND_DRY_RUN_GATE_V0",
+  "telegram_write_endpoint_called": false,
+  "valid_for_live_dispatch_now": false
+}
