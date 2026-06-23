@@ -1,0 +1,26 @@
+{
+  "task_label": "TASK_CONTENTOPS_ACCOUNT_BINDING_PERMISSION_SCOPE_VERIFIER_CORE_V0",
+  "packet_type": "compatibility_packet",
+  "starting_head": "5cc589efaa8db99fa0cf7c7f2e05f8e15ccd9ad3",
+  "origin_master_at_start": "5cc589efaa8db99fa0cf7c7f2e05f8e15ccd9ad3",
+  "preserved_existing_apis": [
+    "live_contentops.destination_binding_registry.DestinationBindingRow",
+    "live_contentops.destination_binding_registry.build_destination_bindings",
+    "live_contentops.destination_binding_registry.destination_binding_packet",
+    "live_contentops.platform_universe_registry_v2",
+    "live_contentops.primary_payload_classes_contract",
+    "live_contentops.credential_hydration_gate"
+  ],
+  "new_modules_do_not_import_credential_hydration_gate": true,
+  "new_modules_do_not_read_env": true,
+  "new_modules_are_stdlib_only_except_local_contract_import": true,
+  "dirty_unrelated_files_left_unmodified": true,
+  "compatibility_tests": [
+    "tests/test_destination_binding_registry.py",
+    "tests/test_platform_universe_registry_v2.py",
+    "tests/test_primary_payload_classes_contract.py",
+    "tests/test_credential_hydration_gate.py"
+  ],
+  "related_core_safety_tests_result": "74 passed in 2.41s",
+  "status": "passed"
+}
