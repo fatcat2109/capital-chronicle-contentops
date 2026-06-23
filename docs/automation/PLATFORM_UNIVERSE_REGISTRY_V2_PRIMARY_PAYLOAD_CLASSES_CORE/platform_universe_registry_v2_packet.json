@@ -1,0 +1,539 @@
+{
+  "task_label": "TASK_CONTENTOPS_PLATFORM_UNIVERSE_REGISTRY_V2_PRIMARY_PAYLOAD_CLASSES_CORE_V0",
+  "model": "contentops.platform_universe_registry_v2",
+  "model_version": "0174U1_PLATFORM_UNIVERSE_REGISTRY_V2_V2",
+  "platform_entries": [
+    {
+      "platform_id": "x_profile",
+      "display_name": "X Profile",
+      "platform_family": "x",
+      "platform_role": "primary_distribution",
+      "strategy_tier": "primary",
+      "destination_kind": "profile",
+      "default_current_mode": "preview_only",
+      "allowed_current_modes": [
+        "preview_only"
+      ],
+      "future_modes": [
+        "supervised_api_write"
+      ],
+      "primary_payload_class_ids": [
+        "x_short_post",
+        "x_thread"
+      ],
+      "manual_export_supported": false,
+      "browser_assisted_lab_supported": false,
+      "api_available_future": true,
+      "api_write_available_future": true,
+      "live_write_allowed_now": false,
+      "dispatchable_now": false,
+      "public_postable_now": false,
+      "credential_required_for_live": true,
+      "account_binding_required_for_live": true,
+      "approval_payload_hash_required": true,
+      "approval_ledger_required": true,
+      "outbox_required": true,
+      "idempotency_required": true,
+      "kill_switch_required": true,
+      "redacted_audit_required": true,
+      "manual_fallback_required": true,
+      "official_docs_required_before_live": true,
+      "re_ground_required_before_live": true,
+      "live_gate_status": "disabled",
+      "blocked_reasons": [
+        "platform_live_write_not_allowed",
+        "credential_gate_closed",
+        "api_write_gate_closed"
+      ],
+      "forbidden_current_actions": [
+        "api_post",
+        "scheduler_post",
+        "auto_reply",
+        "direct_message"
+      ],
+      "no_autonomous_reply_dm_scheduler_scraping": true
+    },
+    {
+      "platform_id": "telegram_remote_operator_inbox",
+      "display_name": "Telegram Remote Operator Inbox",
+      "platform_family": "telegram",
+      "platform_role": "remote_operator_review",
+      "strategy_tier": "primary",
+      "destination_kind": "operator_inbox",
+      "default_current_mode": "local_only",
+      "allowed_current_modes": [
+        "local_only"
+      ],
+      "future_modes": [
+        "supervised_inbox_check"
+      ],
+      "primary_payload_class_ids": [
+        "telegram_operator_review_message"
+      ],
+      "manual_export_supported": false,
+      "browser_assisted_lab_supported": false,
+      "api_available_future": true,
+      "api_write_available_future": false,
+      "live_write_allowed_now": false,
+      "dispatchable_now": false,
+      "public_postable_now": false,
+      "credential_required_for_live": true,
+      "account_binding_required_for_live": true,
+      "approval_payload_hash_required": true,
+      "approval_ledger_required": true,
+      "outbox_required": true,
+      "idempotency_required": true,
+      "kill_switch_required": true,
+      "redacted_audit_required": true,
+      "manual_fallback_required": true,
+      "official_docs_required_before_live": true,
+      "re_ground_required_before_live": true,
+      "live_gate_status": "disabled",
+      "blocked_reasons": [
+        "platform_live_write_not_allowed",
+        "not_publish_destination"
+      ],
+      "forbidden_current_actions": [
+        "public_post",
+        "auto_reply",
+        "direct_message",
+        "scheduler_post"
+      ],
+      "no_autonomous_reply_dm_scheduler_scraping": true
+    },
+    {
+      "platform_id": "telegram_channel_destination",
+      "display_name": "Telegram Channel Destination",
+      "platform_family": "telegram",
+      "platform_role": "controlled_channel_distribution",
+      "strategy_tier": "primary",
+      "destination_kind": "channel",
+      "default_current_mode": "preview_only",
+      "allowed_current_modes": [
+        "preview_only"
+      ],
+      "future_modes": [
+        "supervised_api_write"
+      ],
+      "primary_payload_class_ids": [
+        "telegram_channel_update"
+      ],
+      "manual_export_supported": false,
+      "browser_assisted_lab_supported": false,
+      "api_available_future": true,
+      "api_write_available_future": true,
+      "live_write_allowed_now": false,
+      "dispatchable_now": false,
+      "public_postable_now": false,
+      "credential_required_for_live": true,
+      "account_binding_required_for_live": true,
+      "approval_payload_hash_required": true,
+      "approval_ledger_required": true,
+      "outbox_required": true,
+      "idempotency_required": true,
+      "kill_switch_required": true,
+      "redacted_audit_required": true,
+      "manual_fallback_required": true,
+      "official_docs_required_before_live": true,
+      "re_ground_required_before_live": true,
+      "live_gate_status": "disabled",
+      "blocked_reasons": [
+        "platform_live_write_not_allowed",
+        "telegram_api_gate_closed"
+      ],
+      "forbidden_current_actions": [
+        "api_post",
+        "scheduler_post",
+        "auto_reply",
+        "direct_message"
+      ],
+      "no_autonomous_reply_dm_scheduler_scraping": true
+    },
+    {
+      "platform_id": "substack_newsletter",
+      "display_name": "Substack Newsletter",
+      "platform_family": "substack",
+      "platform_role": "owned_long_form",
+      "strategy_tier": "primary",
+      "destination_kind": "newsletter",
+      "default_current_mode": "manual_export_only",
+      "allowed_current_modes": [
+        "manual_export_only"
+      ],
+      "future_modes": [
+        "browser_assisted_lab"
+      ],
+      "primary_payload_class_ids": [
+        "substack_newsletter_issue",
+        "substack_manual_export_package"
+      ],
+      "manual_export_supported": true,
+      "browser_assisted_lab_supported": true,
+      "api_available_future": false,
+      "api_write_available_future": false,
+      "live_write_allowed_now": false,
+      "dispatchable_now": false,
+      "public_postable_now": false,
+      "credential_required_for_live": true,
+      "account_binding_required_for_live": true,
+      "approval_payload_hash_required": true,
+      "approval_ledger_required": true,
+      "outbox_required": true,
+      "idempotency_required": true,
+      "kill_switch_required": true,
+      "redacted_audit_required": true,
+      "manual_fallback_required": true,
+      "official_docs_required_before_live": true,
+      "re_ground_required_before_live": true,
+      "live_gate_status": "disabled",
+      "blocked_reasons": [
+        "platform_live_write_not_allowed",
+        "session_automation_blocked",
+        "no_substack_public_publish_api"
+      ],
+      "forbidden_current_actions": [
+        "api_post",
+        "scheduler_post",
+        "auto_reply",
+        "direct_message"
+      ],
+      "no_autonomous_reply_dm_scheduler_scraping": true
+    },
+    {
+      "platform_id": "linkedin_member_profile",
+      "display_name": "LinkedIn Member Profile",
+      "platform_family": "linkedin",
+      "platform_role": "professional_credibility",
+      "strategy_tier": "secondary",
+      "destination_kind": "member_profile",
+      "default_current_mode": "preview_only",
+      "allowed_current_modes": [
+        "preview_only"
+      ],
+      "future_modes": [
+        "supervised_api_write"
+      ],
+      "primary_payload_class_ids": [
+        "linkedin_member_post"
+      ],
+      "manual_export_supported": false,
+      "browser_assisted_lab_supported": false,
+      "api_available_future": true,
+      "api_write_available_future": true,
+      "live_write_allowed_now": false,
+      "dispatchable_now": false,
+      "public_postable_now": false,
+      "credential_required_for_live": true,
+      "account_binding_required_for_live": true,
+      "approval_payload_hash_required": true,
+      "approval_ledger_required": true,
+      "outbox_required": true,
+      "idempotency_required": true,
+      "kill_switch_required": true,
+      "redacted_audit_required": true,
+      "manual_fallback_required": true,
+      "official_docs_required_before_live": true,
+      "re_ground_required_before_live": true,
+      "live_gate_status": "disabled",
+      "blocked_reasons": [
+        "platform_live_write_not_allowed",
+        "linkedin_oauth_gate_closed"
+      ],
+      "forbidden_current_actions": [
+        "api_post",
+        "scheduler_post",
+        "auto_reply",
+        "direct_message"
+      ],
+      "no_autonomous_reply_dm_scheduler_scraping": true
+    },
+    {
+      "platform_id": "linkedin_organization_page",
+      "display_name": "LinkedIn Organization Page",
+      "platform_family": "linkedin",
+      "platform_role": "professional_credibility",
+      "strategy_tier": "secondary",
+      "destination_kind": "organization_page",
+      "default_current_mode": "preview_only",
+      "allowed_current_modes": [
+        "preview_only"
+      ],
+      "future_modes": [
+        "supervised_api_write"
+      ],
+      "primary_payload_class_ids": [
+        "linkedin_organization_post"
+      ],
+      "manual_export_supported": false,
+      "browser_assisted_lab_supported": false,
+      "api_available_future": true,
+      "api_write_available_future": true,
+      "live_write_allowed_now": false,
+      "dispatchable_now": false,
+      "public_postable_now": false,
+      "credential_required_for_live": true,
+      "account_binding_required_for_live": true,
+      "approval_payload_hash_required": true,
+      "approval_ledger_required": true,
+      "outbox_required": true,
+      "idempotency_required": true,
+      "kill_switch_required": true,
+      "redacted_audit_required": true,
+      "manual_fallback_required": true,
+      "official_docs_required_before_live": true,
+      "re_ground_required_before_live": true,
+      "live_gate_status": "disabled",
+      "blocked_reasons": [
+        "platform_live_write_not_allowed",
+        "linkedin_org_urn_missing"
+      ],
+      "forbidden_current_actions": [
+        "api_post",
+        "scheduler_post",
+        "auto_reply",
+        "direct_message"
+      ],
+      "no_autonomous_reply_dm_scheduler_scraping": true
+    },
+    {
+      "platform_id": "threads_profile",
+      "display_name": "Threads Profile",
+      "platform_family": "threads",
+      "platform_role": "expansion_distribution",
+      "strategy_tier": "expansion",
+      "destination_kind": "profile",
+      "default_current_mode": "preview_only",
+      "allowed_current_modes": [
+        "preview_only"
+      ],
+      "future_modes": [
+        "supervised_api_write"
+      ],
+      "primary_payload_class_ids": [
+        "threads_text_post"
+      ],
+      "manual_export_supported": false,
+      "browser_assisted_lab_supported": false,
+      "api_available_future": true,
+      "api_write_available_future": true,
+      "live_write_allowed_now": false,
+      "dispatchable_now": false,
+      "public_postable_now": false,
+      "credential_required_for_live": true,
+      "account_binding_required_for_live": true,
+      "approval_payload_hash_required": true,
+      "approval_ledger_required": true,
+      "outbox_required": true,
+      "idempotency_required": true,
+      "kill_switch_required": true,
+      "redacted_audit_required": true,
+      "manual_fallback_required": true,
+      "official_docs_required_before_live": true,
+      "re_ground_required_before_live": true,
+      "live_gate_status": "disabled",
+      "blocked_reasons": [
+        "platform_live_write_not_allowed",
+        "meta_app_review_pending"
+      ],
+      "forbidden_current_actions": [
+        "api_post",
+        "scheduler_post",
+        "auto_reply",
+        "direct_message"
+      ],
+      "no_autonomous_reply_dm_scheduler_scraping": true
+    },
+    {
+      "platform_id": "instagram_professional_account",
+      "display_name": "Instagram Professional Account",
+      "platform_family": "instagram",
+      "platform_role": "expansion_distribution",
+      "strategy_tier": "expansion",
+      "destination_kind": "professional_account",
+      "default_current_mode": "preview_only",
+      "allowed_current_modes": [
+        "preview_only"
+      ],
+      "future_modes": [
+        "supervised_api_write"
+      ],
+      "primary_payload_class_ids": [
+        "instagram_caption_media_package"
+      ],
+      "manual_export_supported": true,
+      "browser_assisted_lab_supported": false,
+      "api_available_future": true,
+      "api_write_available_future": true,
+      "live_write_allowed_now": false,
+      "dispatchable_now": false,
+      "public_postable_now": false,
+      "credential_required_for_live": true,
+      "account_binding_required_for_live": true,
+      "approval_payload_hash_required": true,
+      "approval_ledger_required": true,
+      "outbox_required": true,
+      "idempotency_required": true,
+      "kill_switch_required": true,
+      "redacted_audit_required": true,
+      "manual_fallback_required": true,
+      "official_docs_required_before_live": true,
+      "re_ground_required_before_live": true,
+      "live_gate_status": "disabled",
+      "blocked_reasons": [
+        "platform_live_write_not_allowed",
+        "instagram_content_publish_gate_closed"
+      ],
+      "forbidden_current_actions": [
+        "api_post",
+        "scheduler_post",
+        "auto_reply",
+        "direct_message"
+      ],
+      "no_autonomous_reply_dm_scheduler_scraping": true
+    },
+    {
+      "platform_id": "facebook_page",
+      "display_name": "Facebook Page",
+      "platform_family": "facebook",
+      "platform_role": "expansion_distribution",
+      "strategy_tier": "expansion",
+      "destination_kind": "page",
+      "default_current_mode": "preview_only",
+      "allowed_current_modes": [
+        "preview_only"
+      ],
+      "future_modes": [
+        "supervised_api_write"
+      ],
+      "primary_payload_class_ids": [
+        "facebook_page_text_link_post"
+      ],
+      "manual_export_supported": false,
+      "browser_assisted_lab_supported": false,
+      "api_available_future": true,
+      "api_write_available_future": true,
+      "live_write_allowed_now": false,
+      "dispatchable_now": false,
+      "public_postable_now": false,
+      "credential_required_for_live": true,
+      "account_binding_required_for_live": true,
+      "approval_payload_hash_required": true,
+      "approval_ledger_required": true,
+      "outbox_required": true,
+      "idempotency_required": true,
+      "kill_switch_required": true,
+      "redacted_audit_required": true,
+      "manual_fallback_required": true,
+      "official_docs_required_before_live": true,
+      "re_ground_required_before_live": true,
+      "live_gate_status": "disabled",
+      "blocked_reasons": [
+        "platform_live_write_not_allowed",
+        "facebook_page_access_token_missing"
+      ],
+      "forbidden_current_actions": [
+        "api_post",
+        "scheduler_post",
+        "auto_reply",
+        "direct_message"
+      ],
+      "no_autonomous_reply_dm_scheduler_scraping": true
+    },
+    {
+      "platform_id": "tiktok_account",
+      "display_name": "TikTok Account",
+      "platform_family": "tiktok",
+      "platform_role": "later_video_distribution",
+      "strategy_tier": "later",
+      "destination_kind": "account",
+      "default_current_mode": "preview_only",
+      "allowed_current_modes": [
+        "preview_only"
+      ],
+      "future_modes": [
+        "supervised_api_write"
+      ],
+      "primary_payload_class_ids": [
+        "tiktok_video_metadata_packet"
+      ],
+      "manual_export_supported": true,
+      "browser_assisted_lab_supported": false,
+      "api_available_future": true,
+      "api_write_available_future": true,
+      "live_write_allowed_now": false,
+      "dispatchable_now": false,
+      "public_postable_now": false,
+      "credential_required_for_live": true,
+      "account_binding_required_for_live": true,
+      "approval_payload_hash_required": true,
+      "approval_ledger_required": true,
+      "outbox_required": true,
+      "idempotency_required": true,
+      "kill_switch_required": true,
+      "redacted_audit_required": true,
+      "manual_fallback_required": true,
+      "official_docs_required_before_live": true,
+      "re_ground_required_before_live": true,
+      "live_gate_status": "disabled",
+      "blocked_reasons": [
+        "platform_live_write_not_allowed",
+        "tiktok_audit_pending"
+      ],
+      "forbidden_current_actions": [
+        "api_post",
+        "scheduler_post",
+        "auto_reply",
+        "direct_message"
+      ],
+      "no_autonomous_reply_dm_scheduler_scraping": true
+    },
+    {
+      "platform_id": "youtube_channel",
+      "display_name": "YouTube Channel",
+      "platform_family": "youtube",
+      "platform_role": "later_video_distribution",
+      "strategy_tier": "later",
+      "destination_kind": "channel",
+      "default_current_mode": "preview_only",
+      "allowed_current_modes": [
+        "preview_only"
+      ],
+      "future_modes": [
+        "supervised_api_write"
+      ],
+      "primary_payload_class_ids": [
+        "youtube_video_metadata_packet"
+      ],
+      "manual_export_supported": true,
+      "browser_assisted_lab_supported": false,
+      "api_available_future": true,
+      "api_write_available_future": true,
+      "live_write_allowed_now": false,
+      "dispatchable_now": false,
+      "public_postable_now": false,
+      "credential_required_for_live": true,
+      "account_binding_required_for_live": true,
+      "approval_payload_hash_required": true,
+      "approval_ledger_required": true,
+      "outbox_required": true,
+      "idempotency_required": true,
+      "kill_switch_required": true,
+      "redacted_audit_required": true,
+      "manual_fallback_required": true,
+      "official_docs_required_before_live": true,
+      "re_ground_required_before_live": true,
+      "live_gate_status": "disabled",
+      "blocked_reasons": [
+        "platform_live_write_not_allowed",
+        "youtube_oauth_pending"
+      ],
+      "forbidden_current_actions": [
+        "api_post",
+        "scheduler_post",
+        "auto_reply",
+        "direct_message"
+      ],
+      "no_autonomous_reply_dm_scheduler_scraping": true
+    }
+  ]
+}
