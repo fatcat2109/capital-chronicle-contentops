@@ -10,6 +10,65 @@
       ".env",
       ".env.local"
     ],
+    "key_value_status": {
+      "CC_UI_PROVIDER_LIVE_BOUNDARY_NINE_ROUTER": "nonblank",
+      "DISCORD_ANNOUNCEMENTS_CHANNEL_ID": "nonblank",
+      "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL": "nonblank",
+      "DISCORD_APPROVAL_CHECKPOINTS_CHANNEL_ID": "nonblank",
+      "DISCORD_ASK_JIM_CHANNEL_ID": "nonblank",
+      "DISCORD_AUDIT_LOG_CHANNEL_ID": "nonblank",
+      "DISCORD_BROWSER_CHECKPOINTS_CHANNEL_ID": "nonblank",
+      "DISCORD_CONTENT_IDEAS_CHANNEL_ID": "nonblank",
+      "DISCORD_FEEDBACK_CHANNEL_ID": "nonblank",
+      "DISCORD_MANUAL_FALLBACK_CHANNEL_ID": "nonblank",
+      "DISCORD_OPERATOR_QUEUE_CHANNEL_ID": "nonblank",
+      "DISCORD_PRODUCT_UPDATES_CHANNEL_ID": "nonblank",
+      "DISCORD_PRODUCT_UPDATES_WEBHOOK_URL": "nonblank",
+      "DISCORD_RESEARCH_QUESTIONS_CHANNEL_ID": "nonblank",
+      "DISCORD_ROLE_CONTRIBUTOR": "nonblank",
+      "DISCORD_ROLE_FOUNDER": "nonblank",
+      "DISCORD_ROLE_MEMBER": "nonblank",
+      "DISCORD_ROLE_MODERATOR": "nonblank",
+      "DISCORD_ROLE_SUBSCRIBER": "nonblank",
+      "DISCORD_SERVER_ID": "nonblank",
+      "DISCORD_SUBSTACK_DROPS_CHANNEL_ID": "nonblank",
+      "DISCORD_SUBSTACK_DROPS_WEBHOOK_URL": "nonblank",
+      "FACEBOOK_PAGE_ACCESS_TOKEN": "nonblank",
+      "FACEBOOK_PAGE_ID": "nonblank",
+      "INSTAGRAM_API_VERSION": "nonblank",
+      "INSTAGRAM_BASE_URL": "nonblank",
+      "INSTAGRAM_BUSINESS_ACCOUNT_ID": "nonblank",
+      "META_ACCESS_TOKEN": "nonblank",
+      "META_APP_ID": "nonblank",
+      "META_APP_SECRET": "nonblank",
+      "NINE_ROUTER_API_KEY": "nonblank",
+      "NINE_ROUTER_BASE_URL": "nonblank",
+      "NINE_ROUTER_MODEL": "nonblank",
+      "SUBSTACK_EMAIL_OR_ACCOUNT_HINT": "nonblank",
+      "SUBSTACK_HANDLE": "nonblank",
+      "SUBSTACK_PUBLICATION_ID": "nonblank",
+      "SUBSTACK_PUBLICATION_URL": "nonblank",
+      "SUBSTACK_TEST_PUBLICATION_ID": "nonblank",
+      "SUBSTACK_TEST_PUBLICATION_URL": "nonblank",
+      "SUBSTACK_USER_ID": "nonblank",
+      "TELEGRAM_BOT_TOKEN": "nonblank",
+      "TELEGRAM_CHANNEL_ID": "nonblank",
+      "TELEGRAM_OPERATOR_CHAT_ID": "nonblank",
+      "TELEGRAM_TARGET_CHAT_ID": "nonblank",
+      "TEST_TELEGRAM_CHANNEL": "nonblank",
+      "THREADS_APP_ID": "nonblank",
+      "THREADS_APP_NAME": "nonblank",
+      "THREADS_APP_SECRET": "nonblank",
+      "THREADS_REDIRECT_URI": "nonblank",
+      "THREADS_SCOPES": "nonblank",
+      "THREADS_USER_ACCESS_TOKEN": "nonblank",
+      "THREADS_USER_ID": "nonblank",
+      "YOUTUBE_CHANNEL_ID": "nonblank",
+      "YOUTUBE_CLIENT_ID": "nonblank",
+      "YOUTUBE_CLIENT_SECRET": "nonblank",
+      "YOUTUBE_CLIENT_SECRETS_JSON_PATH": "nonblank",
+      "YOUTUBE_REFRESH_TOKEN": "nonblank"
+    },
     "malformed": [
       {
         "file": ".env",
@@ -77,6 +136,13 @@
         "line_number": 115
       }
     ],
+    "malformed_summary": {
+      "count": 13,
+      "files": [
+        ".env"
+      ],
+      "key_name": "UNPARSEABLE_LINE"
+    },
     "present_key_names": [
       "CC_UI_PROVIDER_LIVE_BOUNDARY_NINE_ROUTER",
       "DISCORD_ANNOUNCEMENTS_CHANNEL_ID",
@@ -140,21 +206,35 @@
   "platform_rows": [
     {
       "adapter_class": "webhook_adapter",
-      "blocker_class": "credential_missing",
-      "capability_class": "deferred_credentials_missing",
+      "blocker_class": "none",
+      "capability_class": "ready_webhook",
       "credential_handle_id": "discord_webhook_handle",
       "deferred_reason": "",
       "destination_binding_id": "discord_webhook_destination",
       "key_names": [
+        "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL",
+        "DISCORD_SUBSTACK_DROPS_WEBHOOK_URL",
+        "DISCORD_PRODUCT_UPDATES_WEBHOOK_URL",
         "DISCORD_WEBHOOK_URL",
         "DISCORD_WEBHOOK_CAPITAL_CHRONICLE"
       ],
       "key_status": {
+        "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL": true,
+        "DISCORD_PRODUCT_UPDATES_WEBHOOK_URL": true,
+        "DISCORD_SUBSTACK_DROPS_WEBHOOK_URL": true,
         "DISCORD_WEBHOOK_CAPITAL_CHRONICLE": false,
         "DISCORD_WEBHOOK_URL": false
       },
-      "live_write_eligible": false,
-      "notes": "",
+      "key_value_status": {
+        "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL": "nonblank",
+        "DISCORD_PRODUCT_UPDATES_WEBHOOK_URL": "nonblank",
+        "DISCORD_SUBSTACK_DROPS_WEBHOOK_URL": "nonblank",
+        "DISCORD_WEBHOOK_CAPITAL_CHRONICLE": "missing",
+        "DISCORD_WEBHOOK_URL": "missing"
+      },
+      "live_write_allowed_now": false,
+      "live_write_eligible": true,
+      "notes": "specific_webhook_aliases_supported",
       "platform": "Discord webhooks",
       "platform_family": "community"
     },
@@ -166,19 +246,71 @@
       "deferred_reason": "identity_and_routing_only",
       "destination_binding_id": "discord_channel_binding",
       "key_names": [
-        "DISCORD_GUILD_ID",
         "DISCORD_SERVER_ID",
-        "DISCORD_CHANNEL_ID",
-        "DISCORD_ROLE_ID"
+        "DISCORD_GUILD_ID",
+        "DISCORD_ANNOUNCEMENTS_CHANNEL_ID",
+        "DISCORD_SUBSTACK_DROPS_CHANNEL_ID",
+        "DISCORD_PRODUCT_UPDATES_CHANNEL_ID",
+        "DISCORD_RESEARCH_QUESTIONS_CHANNEL_ID",
+        "DISCORD_CONTENT_IDEAS_CHANNEL_ID",
+        "DISCORD_ASK_JIM_CHANNEL_ID",
+        "DISCORD_FEEDBACK_CHANNEL_ID",
+        "DISCORD_OPERATOR_QUEUE_CHANNEL_ID",
+        "DISCORD_APPROVAL_CHECKPOINTS_CHANNEL_ID",
+        "DISCORD_BROWSER_CHECKPOINTS_CHANNEL_ID",
+        "DISCORD_AUDIT_LOG_CHANNEL_ID",
+        "DISCORD_MANUAL_FALLBACK_CHANNEL_ID",
+        "DISCORD_ROLE_FOUNDER",
+        "DISCORD_ROLE_MODERATOR",
+        "DISCORD_ROLE_CONTRIBUTOR",
+        "DISCORD_ROLE_MEMBER",
+        "DISCORD_ROLE_SUBSCRIBER"
       ],
       "key_status": {
-        "DISCORD_CHANNEL_ID": false,
+        "DISCORD_ANNOUNCEMENTS_CHANNEL_ID": true,
+        "DISCORD_APPROVAL_CHECKPOINTS_CHANNEL_ID": true,
+        "DISCORD_ASK_JIM_CHANNEL_ID": true,
+        "DISCORD_AUDIT_LOG_CHANNEL_ID": true,
+        "DISCORD_BROWSER_CHECKPOINTS_CHANNEL_ID": true,
+        "DISCORD_CONTENT_IDEAS_CHANNEL_ID": true,
+        "DISCORD_FEEDBACK_CHANNEL_ID": true,
         "DISCORD_GUILD_ID": false,
-        "DISCORD_ROLE_ID": false,
-        "DISCORD_SERVER_ID": true
+        "DISCORD_MANUAL_FALLBACK_CHANNEL_ID": true,
+        "DISCORD_OPERATOR_QUEUE_CHANNEL_ID": true,
+        "DISCORD_PRODUCT_UPDATES_CHANNEL_ID": true,
+        "DISCORD_RESEARCH_QUESTIONS_CHANNEL_ID": true,
+        "DISCORD_ROLE_CONTRIBUTOR": true,
+        "DISCORD_ROLE_FOUNDER": true,
+        "DISCORD_ROLE_MEMBER": true,
+        "DISCORD_ROLE_MODERATOR": true,
+        "DISCORD_ROLE_SUBSCRIBER": true,
+        "DISCORD_SERVER_ID": true,
+        "DISCORD_SUBSTACK_DROPS_CHANNEL_ID": true
       },
+      "key_value_status": {
+        "DISCORD_ANNOUNCEMENTS_CHANNEL_ID": "nonblank",
+        "DISCORD_APPROVAL_CHECKPOINTS_CHANNEL_ID": "nonblank",
+        "DISCORD_ASK_JIM_CHANNEL_ID": "nonblank",
+        "DISCORD_AUDIT_LOG_CHANNEL_ID": "nonblank",
+        "DISCORD_BROWSER_CHECKPOINTS_CHANNEL_ID": "nonblank",
+        "DISCORD_CONTENT_IDEAS_CHANNEL_ID": "nonblank",
+        "DISCORD_FEEDBACK_CHANNEL_ID": "nonblank",
+        "DISCORD_GUILD_ID": "missing",
+        "DISCORD_MANUAL_FALLBACK_CHANNEL_ID": "nonblank",
+        "DISCORD_OPERATOR_QUEUE_CHANNEL_ID": "nonblank",
+        "DISCORD_PRODUCT_UPDATES_CHANNEL_ID": "nonblank",
+        "DISCORD_RESEARCH_QUESTIONS_CHANNEL_ID": "nonblank",
+        "DISCORD_ROLE_CONTRIBUTOR": "nonblank",
+        "DISCORD_ROLE_FOUNDER": "nonblank",
+        "DISCORD_ROLE_MEMBER": "nonblank",
+        "DISCORD_ROLE_MODERATOR": "nonblank",
+        "DISCORD_ROLE_SUBSCRIBER": "nonblank",
+        "DISCORD_SERVER_ID": "nonblank",
+        "DISCORD_SUBSTACK_DROPS_CHANNEL_ID": "nonblank"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
-      "notes": "",
+      "notes": "specific_channel_role_aliases_supported",
       "platform": "Discord guild/server/channel/role IDs",
       "platform_family": "community"
     },
@@ -197,6 +329,11 @@
         "DISCORD_BOT_TOKEN": false,
         "DISCORD_CLIENT_ID": false
       },
+      "key_value_status": {
+        "DISCORD_BOT_TOKEN": "missing",
+        "DISCORD_CLIENT_ID": "missing"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
       "notes": "",
       "platform": "Discord bot deferred",
@@ -217,6 +354,11 @@
         "TELEGRAM_BOT_TOKEN": true,
         "TELEGRAM_OPERATOR_CHAT_ID": true
       },
+      "key_value_status": {
+        "TELEGRAM_BOT_TOKEN": "nonblank",
+        "TELEGRAM_OPERATOR_CHAT_ID": "nonblank"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": true,
       "notes": "",
       "platform": "Telegram operator inbox",
@@ -237,6 +379,11 @@
         "TELEGRAM_BOT_TOKEN": true,
         "TELEGRAM_CHANNEL_ID": true
       },
+      "key_value_status": {
+        "TELEGRAM_BOT_TOKEN": "nonblank",
+        "TELEGRAM_CHANNEL_ID": "nonblank"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": true,
       "notes": "",
       "platform": "Telegram channel",
@@ -259,6 +406,12 @@
         "SUBSTACK_PUBLICATION_ID": true,
         "SUBSTACK_PUBLICATION_URL": true
       },
+      "key_value_status": {
+        "SUBSTACK_PROFILE_NAME": "missing",
+        "SUBSTACK_PUBLICATION_ID": "nonblank",
+        "SUBSTACK_PUBLICATION_URL": "nonblank"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
       "notes": "",
       "platform": "Substack browser profile/publication metadata",
@@ -266,10 +419,10 @@
     },
     {
       "adapter_class": "official_api_adapter",
-      "blocker_class": "none",
-      "capability_class": "ready_api",
+      "blocker_class": "live_gate_or_scope_proof_required",
+      "capability_class": "credential_present_scope_proof_required",
       "credential_handle_id": "meta_graph_handle",
-      "deferred_reason": "",
+      "deferred_reason": "scope_proof_required",
       "destination_binding_id": "meta_graph_destination",
       "key_names": [
         "META_ACCESS_TOKEN",
@@ -281,26 +434,40 @@
         "META_APP_ID": true,
         "META_APP_SECRET": true
       },
+      "key_value_status": {
+        "META_ACCESS_TOKEN": "nonblank",
+        "META_APP_ID": "nonblank",
+        "META_APP_SECRET": "nonblank"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
-      "notes": "",
+      "notes": "meta_graph_kept_separate_from_threads",
       "platform": "Meta Graph",
       "platform_family": "social_distribution"
     },
     {
       "adapter_class": "official_api_adapter",
-      "blocker_class": "none",
-      "capability_class": "ready_api",
+      "blocker_class": "live_gate_or_scope_proof_required",
+      "capability_class": "credential_present_scope_proof_required",
       "credential_handle_id": "facebook_page_handle",
-      "deferred_reason": "",
+      "deferred_reason": "scope_proof_required",
       "destination_binding_id": "facebook_page_destination",
       "key_names": [
         "FACEBOOK_PAGE_ID",
-        "FACEBOOK_PAGE_ACCESS_TOKEN"
+        "FACEBOOK_PAGE_ACCESS_TOKEN",
+        "META_ACCESS_TOKEN"
       ],
       "key_status": {
         "FACEBOOK_PAGE_ACCESS_TOKEN": true,
-        "FACEBOOK_PAGE_ID": true
+        "FACEBOOK_PAGE_ID": true,
+        "META_ACCESS_TOKEN": true
       },
+      "key_value_status": {
+        "FACEBOOK_PAGE_ACCESS_TOKEN": "nonblank",
+        "FACEBOOK_PAGE_ID": "nonblank",
+        "META_ACCESS_TOKEN": "nonblank"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
       "notes": "",
       "platform": "Facebook Page",
@@ -308,43 +475,60 @@
     },
     {
       "adapter_class": "official_api_adapter",
-      "blocker_class": "none",
-      "capability_class": "ready_api",
+      "blocker_class": "live_gate_or_scope_proof_required",
+      "capability_class": "credential_present_scope_proof_required",
       "credential_handle_id": "instagram_business_handle",
-      "deferred_reason": "",
+      "deferred_reason": "scope_proof_required",
       "destination_binding_id": "instagram_business_destination",
       "key_names": [
         "INSTAGRAM_BUSINESS_ACCOUNT_ID",
-        "INSTAGRAM_ACCESS_TOKEN"
+        "INSTAGRAM_ACCESS_TOKEN",
+        "META_ACCESS_TOKEN"
       ],
       "key_status": {
         "INSTAGRAM_ACCESS_TOKEN": false,
-        "INSTAGRAM_BUSINESS_ACCOUNT_ID": true
+        "INSTAGRAM_BUSINESS_ACCOUNT_ID": true,
+        "META_ACCESS_TOKEN": true
       },
+      "key_value_status": {
+        "INSTAGRAM_ACCESS_TOKEN": "missing",
+        "INSTAGRAM_BUSINESS_ACCOUNT_ID": "nonblank",
+        "META_ACCESS_TOKEN": "nonblank"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
-      "notes": "",
+      "notes": "business_id_plus_meta_token_requires_scope_proof",
       "platform": "Instagram Business",
       "platform_family": "social_distribution"
     },
     {
       "adapter_class": "official_api_adapter",
-      "blocker_class": "none",
-      "capability_class": "ready_api",
+      "blocker_class": "live_gate_or_scope_proof_required",
+      "capability_class": "credential_present_scope_proof_required",
       "credential_handle_id": "threads_app_user_handle",
-      "deferred_reason": "",
+      "deferred_reason": "scope_proof_required",
       "destination_binding_id": "threads_user_destination",
       "key_names": [
         "THREADS_APP_ID",
         "THREADS_USER_ID",
+        "THREADS_USER_ACCESS_TOKEN",
         "THREADS_ACCESS_TOKEN"
       ],
       "key_status": {
         "THREADS_ACCESS_TOKEN": false,
         "THREADS_APP_ID": true,
+        "THREADS_USER_ACCESS_TOKEN": true,
         "THREADS_USER_ID": true
       },
+      "key_value_status": {
+        "THREADS_ACCESS_TOKEN": "missing",
+        "THREADS_APP_ID": "nonblank",
+        "THREADS_USER_ACCESS_TOKEN": "nonblank",
+        "THREADS_USER_ID": "nonblank"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
-      "notes": "",
+      "notes": "threads_token_alias_supported_and_kept_separate_from_meta",
       "platform": "Threads separate app/user",
       "platform_family": "social_distribution"
     },
@@ -365,6 +549,12 @@
         "YOUTUBE_CLIENT_SECRET": true,
         "YOUTUBE_REFRESH_TOKEN": true
       },
+      "key_value_status": {
+        "YOUTUBE_CLIENT_ID": "nonblank",
+        "YOUTUBE_CLIENT_SECRET": "nonblank",
+        "YOUTUBE_REFRESH_TOKEN": "nonblank"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
       "notes": "",
       "platform": "YouTube OAuth/client credentials",
@@ -385,6 +575,11 @@
         "X_PROFILE_URL": false,
         "X_USERNAME": false
       },
+      "key_value_status": {
+        "X_PROFILE_URL": "missing",
+        "X_USERNAME": "missing"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
       "notes": "",
       "platform": "X manual",
@@ -405,6 +600,11 @@
         "LINKEDIN_ACCESS_TOKEN": false,
         "LINKEDIN_PERSONAL_PROFILE_URL": false
       },
+      "key_value_status": {
+        "LINKEDIN_ACCESS_TOKEN": "missing",
+        "LINKEDIN_PERSONAL_PROFILE_URL": "missing"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
       "notes": "",
       "platform": "LinkedIn personal deferred",
@@ -425,6 +625,11 @@
         "LINKEDIN_ORGANIZATION_ID": false,
         "LINKEDIN_ORG_ACCESS_TOKEN": false
       },
+      "key_value_status": {
+        "LINKEDIN_ORGANIZATION_ID": "missing",
+        "LINKEDIN_ORG_ACCESS_TOKEN": "missing"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
       "notes": "",
       "platform": "LinkedIn organization deferred",
@@ -447,6 +652,12 @@
         "TIKTOK_CLIENT_KEY": false,
         "TIKTOK_CLIENT_SECRET": false
       },
+      "key_value_status": {
+        "TIKTOK_ACCESS_TOKEN": "missing",
+        "TIKTOK_CLIENT_KEY": "missing",
+        "TIKTOK_CLIENT_SECRET": "missing"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
       "notes": "",
       "platform": "TikTok deferred",
@@ -454,25 +665,44 @@
     },
     {
       "adapter_class": "official_api_adapter",
-      "blocker_class": "credential_missing",
-      "capability_class": "deferred_credentials_missing",
+      "blocker_class": "live_gate_or_scope_proof_required",
+      "capability_class": "provider_present_live_gate_required",
       "credential_handle_id": "ai_provider_handle",
-      "deferred_reason": "",
+      "deferred_reason": "live_gate_required",
       "destination_binding_id": "ai_generation_destination",
       "key_names": [
-        "ROUTER_API_KEY",
+        "NINE_ROUTER_API_KEY",
+        "NINE_ROUTER_BASE_URL",
+        "NINE_ROUTER_MODEL",
+        "CC_UI_PROVIDER_LIVE_BOUNDARY_NINE_ROUTER",
         "NINEROUTER_API_KEY",
+        "ROUTER_API_KEY",
         "OPENROUTER_API_KEY",
         "AI_PROVIDER_API_KEY"
       ],
       "key_status": {
         "AI_PROVIDER_API_KEY": false,
+        "CC_UI_PROVIDER_LIVE_BOUNDARY_NINE_ROUTER": true,
         "NINEROUTER_API_KEY": false,
+        "NINE_ROUTER_API_KEY": true,
+        "NINE_ROUTER_BASE_URL": true,
+        "NINE_ROUTER_MODEL": true,
         "OPENROUTER_API_KEY": false,
         "ROUTER_API_KEY": false
       },
+      "key_value_status": {
+        "AI_PROVIDER_API_KEY": "missing",
+        "CC_UI_PROVIDER_LIVE_BOUNDARY_NINE_ROUTER": "nonblank",
+        "NINEROUTER_API_KEY": "missing",
+        "NINE_ROUTER_API_KEY": "nonblank",
+        "NINE_ROUTER_BASE_URL": "nonblank",
+        "NINE_ROUTER_MODEL": "nonblank",
+        "OPENROUTER_API_KEY": "missing",
+        "ROUTER_API_KEY": "missing"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
-      "notes": "",
+      "notes": "nine_router_aliases_supported",
       "platform": "9router / AI provider",
       "platform_family": "ai_provider"
     },
@@ -493,6 +723,12 @@
         "VERTEX_LOCATION": false,
         "VERTEX_PROJECT_ID": false
       },
+      "key_value_status": {
+        "GOOGLE_APPLICATION_CREDENTIALS": "missing",
+        "VERTEX_LOCATION": "missing",
+        "VERTEX_PROJECT_ID": "missing"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
       "notes": "",
       "platform": "Vertex fallback / service account path",
@@ -508,15 +744,33 @@
       "key_names": [
         "EDGE_AUTOMATION_PROFILE",
         "CHROME_AUTOMATION_PROFILE",
-        "BROWSER_OPERATOR_PROFILE"
+        "BROWSER_OPERATOR_PROFILE",
+        "BROWSER_PROFILE",
+        "CHROME_PROFILE",
+        "EDGE_PROFILE",
+        "CC_UI_BROWSER_PROFILE"
       ],
       "key_status": {
         "BROWSER_OPERATOR_PROFILE": false,
+        "BROWSER_PROFILE": false,
+        "CC_UI_BROWSER_PROFILE": false,
         "CHROME_AUTOMATION_PROFILE": false,
-        "EDGE_AUTOMATION_PROFILE": false
+        "CHROME_PROFILE": false,
+        "EDGE_AUTOMATION_PROFILE": false,
+        "EDGE_PROFILE": false
       },
+      "key_value_status": {
+        "BROWSER_OPERATOR_PROFILE": "missing",
+        "BROWSER_PROFILE": "missing",
+        "CC_UI_BROWSER_PROFILE": "missing",
+        "CHROME_AUTOMATION_PROFILE": "missing",
+        "CHROME_PROFILE": "missing",
+        "EDGE_AUTOMATION_PROFILE": "missing",
+        "EDGE_PROFILE": "missing"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
-      "notes": "",
+      "notes": "profile_aliases_only_no_browser_storage",
       "platform": "Browser operator profiles",
       "platform_family": "operator_local"
     },
@@ -537,6 +791,12 @@
         "CONTENTOPS_MEDIA_DIR": false,
         "MEDIA_DIR": false
       },
+      "key_value_status": {
+        "ASSET_EXPORT_DIR": "missing",
+        "CONTENTOPS_MEDIA_DIR": "missing",
+        "MEDIA_DIR": "missing"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
       "notes": "",
       "platform": "Media dirs",
@@ -559,6 +819,12 @@
         "CONTENTOPS_AUDIT_DIR": false,
         "CONTENTOPS_OUTBOX_DIR": false
       },
+      "key_value_status": {
+        "CONTENTOPS_APPROVAL_DIR": "missing",
+        "CONTENTOPS_AUDIT_DIR": "missing",
+        "CONTENTOPS_OUTBOX_DIR": "missing"
+      },
+      "live_write_allowed_now": false,
       "live_write_eligible": false,
       "notes": "",
       "platform": "Approval/outbox/audit paths",
@@ -567,10 +833,11 @@
   ],
   "redaction_policy": {
     "browser_cookie_storage_read": false,
+    "malformed_line_output": false,
     "raw_secret_output": false,
     "token_length_prefix_suffix_hash_output": false,
     "webhook_url_output": false
   },
-  "schema_version": "v6_redacted_capability_matrix.v1",
-  "task_label": "TASK_CONTENTOPS_V6_BOOTSTRAP_ENV_RECON_AND_CAPABILITY_MATRIX_V0"
+  "schema_version": "v6_redacted_capability_matrix.v2",
+  "task_label": "TASK_CONTENTOPS_V6_CAPABILITY_MATRIX_ALIAS_REPAIR_V0"
 }
