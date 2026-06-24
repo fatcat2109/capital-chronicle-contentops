@@ -1,0 +1,183 @@
+{
+  "deferred_empty_keys": [
+    "X_CLIENT_ID",
+    "X_CLIENT_SECRET",
+    "X_ACCESS_TOKEN",
+    "X_REFRESH_TOKEN",
+    "X_USER_ID",
+    "X_ACCESS_TIER_CLASS",
+    "LINKEDIN_CLIENT_ID",
+    "LINKEDIN_CLIENT_SECRET",
+    "LINKEDIN_ACCESS_TOKEN",
+    "LINKEDIN_MEMBER_URN",
+    "LINKEDIN_ORGANIZATION_URN",
+    "TIKTOK_CLIENT_KEY",
+    "TIKTOK_CLIENT_SECRET",
+    "TIKTOK_ACCESS_TOKEN",
+    "TIKTOK_REFRESH_TOKEN",
+    "TIKTOK_OPEN_ID"
+  ],
+  "duplicate_keys": [],
+  "key_count": 109,
+  "known_secret_values_redacted": true,
+  "mode": "final_environment_format_redacted_inventory_only",
+  "platform_families_present": {
+    "ai_provider_metadata": true,
+    "approval_outbox_audit_paths": true,
+    "browser_operator": true,
+    "facebook_page": true,
+    "instagram": true,
+    "linkedin_placeholders": true,
+    "media_dirs": true,
+    "meta_graph": true,
+    "substack": true,
+    "telegram": true,
+    "threads": true,
+    "tiktok_placeholders": true,
+    "vertex_path_references": true,
+    "x_placeholders": true,
+    "youtube": true
+  },
+  "platform_family_key_presence": {
+    "ai_provider_metadata": {
+      "AI_PROVIDER_ALLOWED_CONTEXT_CLASSES": true,
+      "AI_PROVIDER_COST_BUDGET_DAILY_USD": true,
+      "AI_PROVIDER_CREDENTIAL_HANDLE_ID": true,
+      "AI_PROVIDER_FORBIDDEN_CONTEXT_CLASSES": true,
+      "AI_PROVIDER_PROMPT_REDACTION_POLICY_ID": true,
+      "AI_PROVIDER_SELECTED": true
+    },
+    "approval_outbox_audit_paths": {
+      "APPROVAL_LEDGER_PATH": true,
+      "AUTOMATION_AUDIT_LOG_PATH": true,
+      "DISPATCH_OUTBOX_PATH": true,
+      "PAYLOAD_HASH_LOCK_DIR": true,
+      "VISUAL_CHECKPOINT_DIR": true
+    },
+    "browser_operator": {
+      "BROWSER_OPERATOR_AUDIT_DIR": true,
+      "BROWSER_OPERATOR_AUTO_RETRY_ALLOWED": true,
+      "BROWSER_OPERATOR_ENGINE": true,
+      "BROWSER_OPERATOR_PROFILE_ROOT": true,
+      "BROWSER_OPERATOR_REQUEST_BUDGET": true,
+      "BROWSER_OPERATOR_REQUIRES_JIM_GO": true,
+      "BROWSER_OPERATOR_SCREENSHOT_DIR": true
+    },
+    "facebook_page": {
+      "FACEBOOK_PAGE_ACCESS_TOKEN": true,
+      "FACEBOOK_PAGE_CREDENTIAL_HANDLE_ID": true,
+      "FACEBOOK_PAGE_DESTINATION_BINDING_ID": true,
+      "FACEBOOK_PAGE_GRANTED_TASKS": true,
+      "FACEBOOK_PAGE_ID": true
+    },
+    "instagram": {
+      "INSTAGRAM_API_VERSION": true,
+      "INSTAGRAM_BASE_URL": true,
+      "INSTAGRAM_BUSINESS_ACCOUNT_ID": true,
+      "INSTAGRAM_CREDENTIAL_HANDLE_ID": true,
+      "INSTAGRAM_DESTINATION_BINDING_ID": true,
+      "INSTAGRAM_USERNAME": true
+    },
+    "linkedin_placeholders": {
+      "LINKEDIN_ACCESS_TOKEN": true,
+      "LINKEDIN_AUTOMATION_MODE": true,
+      "LINKEDIN_CLIENT_ID": true,
+      "LINKEDIN_CLIENT_SECRET": true,
+      "LINKEDIN_MEMBER_URN": true,
+      "LINKEDIN_ORGANIZATION_URN": true
+    },
+    "media_dirs": {
+      "MEDIA_APPROVED_DOWNLOAD_DIR": true,
+      "MEDIA_ATTRIBUTION_REQUIRED_DEFAULT": true,
+      "MEDIA_GENERATED_CARD_DIR": true,
+      "MEDIA_LICENSE_POLICY_ID": true,
+      "MEDIA_RIGHTS_MANIFEST_DIR": true
+    },
+    "meta_graph": {
+      "META_GRAPH_API_VERSION": true,
+      "META_GRAPH_APP_ID": true,
+      "META_GRAPH_APP_NAME": true,
+      "META_GRAPH_APP_SECRET": true,
+      "META_GRAPH_BASE_URL": true,
+      "META_GRAPH_CREDENTIAL_HANDLE_ID": true,
+      "META_GRAPH_GRANTED_SCOPES": true
+    },
+    "substack": {
+      "SUBSTACK_AUTOMATION_MODE": true,
+      "SUBSTACK_BROWSER_PROFILE_ID": true,
+      "SUBSTACK_BROWSER_PROFILE_PATH": true,
+      "SUBSTACK_COMPOSE_URL": true,
+      "SUBSTACK_CREDENTIAL_HANDLE_ID": true,
+      "SUBSTACK_DASHBOARD_URL": true,
+      "SUBSTACK_DESTINATION_BINDING_ID": true,
+      "SUBSTACK_EMAIL_OR_ACCOUNT_HINT": true,
+      "SUBSTACK_HANDLE": true,
+      "SUBSTACK_POSTS_LIST_URL": true,
+      "SUBSTACK_PUBLICATION_ID": true,
+      "SUBSTACK_PUBLICATION_URL": true,
+      "SUBSTACK_TEST_PUBLICATION_ID": true,
+      "SUBSTACK_TEST_PUBLICATION_URL": true,
+      "SUBSTACK_USER_ID": true
+    },
+    "telegram": {
+      "TELEGRAM_BOT_TOKEN": true,
+      "TELEGRAM_CHANNEL_CREDENTIAL_HANDLE_ID": true,
+      "TELEGRAM_CHANNEL_DESTINATION_BINDING_ID": true,
+      "TELEGRAM_CHANNEL_ID": true,
+      "TELEGRAM_OPERATOR_CHAT_ID": true,
+      "TELEGRAM_OPERATOR_CREDENTIAL_HANDLE_ID": true,
+      "TELEGRAM_OPERATOR_DESTINATION_BINDING_ID": true
+    },
+    "threads": {
+      "THREADS_APP_ID": true,
+      "THREADS_APP_NAME": true,
+      "THREADS_APP_SECRET": true,
+      "THREADS_CREDENTIAL_HANDLE_ID": true,
+      "THREADS_DESTINATION_BINDING_ID": true,
+      "THREADS_GRANTED_SCOPES": true,
+      "THREADS_REDIRECT_URI": true,
+      "THREADS_SCOPES": true,
+      "THREADS_USERNAME": true,
+      "THREADS_USER_ACCESS_TOKEN": true,
+      "THREADS_USER_ID": true
+    },
+    "tiktok_placeholders": {
+      "TIKTOK_ACCESS_TOKEN": true,
+      "TIKTOK_AUTOMATION_MODE": true,
+      "TIKTOK_CLIENT_KEY": true,
+      "TIKTOK_CLIENT_SECRET": true,
+      "TIKTOK_OPEN_ID": true,
+      "TIKTOK_REFRESH_TOKEN": true
+    },
+    "vertex_path_references": {
+      "GOOGLE_APPLICATION_CREDENTIALS": true,
+      "VERTEX_PROJECT_ID": true,
+      "VERTEX_SERVICE_ACCOUNT_EMAIL": true
+    },
+    "x_placeholders": {
+      "X_ACCESS_TIER_CLASS": true,
+      "X_ACCESS_TOKEN": true,
+      "X_AUTOMATION_MODE": true,
+      "X_CLIENT_ID": true,
+      "X_CLIENT_SECRET": true,
+      "X_REFRESH_TOKEN": true,
+      "X_USER_ID": true
+    },
+    "youtube": {
+      "YOUTUBE_CHANNEL_DESTINATION_BINDING_ID": true,
+      "YOUTUBE_CHANNEL_ID": true,
+      "YOUTUBE_CLIENT_ID": true,
+      "YOUTUBE_CLIENT_SECRET": true,
+      "YOUTUBE_CLIENT_SECRETS_JSON_PATH": true,
+      "YOUTUBE_CREDENTIAL_HANDLE_ID": true,
+      "YOUTUBE_REFRESH_TOKEN": true
+    }
+  },
+  "private_key_block_present": false,
+  "raw_json_block_present": false,
+  "raw_values_returned": false,
+  "required_key_missing": [],
+  "source_label": "repo_dotenv_redacted",
+  "task_label": "TASK_CONTENTOPS_FINAL_ENV_FORMAT_DOC_AND_REDACTED_INVENTORY_CONTRACT_V0",
+  "token_length_prefix_suffix_digest_hash_returned": false
+}

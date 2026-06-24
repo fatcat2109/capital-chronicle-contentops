@@ -1,0 +1,67 @@
+{
+  "branch": "master",
+  "changed_files": [
+    "docs/CONTENTOPS_FINAL_ENVIRONMENT_FORMAT.md",
+    "live_contentops/final_environment_format_inventory.py",
+    "tests/test_final_environment_format_inventory.py",
+    "docs/automation/FINAL_ENVIRONMENT_FORMAT_INVENTORY/evidence_packet.json",
+    "docs/automation/FINAL_ENVIRONMENT_FORMAT_INVENTORY/redacted_inventory_packet.json",
+    "docs/automation/FINAL_ENVIRONMENT_FORMAT_INVENTORY/implementation_report.md",
+    "docs/automation/FINAL_ENVIRONMENT_FORMAT_INVENTORY/next_task_pointer.md"
+  ],
+  "created_at_utc": "2026-06-24T02:39:27.748402+00:00",
+  "env_not_staged_or_committed_proof": "gitignore excludes .env/.env.local; staging command is restricted to explicit task-owned paths only",
+  "files_inspected": [
+    ".gitignore",
+    "live_contentops/social_credential_setup_workbench.py",
+    "live_contentops/credential_handle_dotenv_secret_boundary_v2_contract.py",
+    "live_contentops/config.py",
+    "docs/Capital Chronicle ContentOps \u2014 AI-Native Automation and Browser Operator Master Plan.md",
+    ".env (structural redacted validation only)"
+  ],
+  "head_before_commit": "149658b14a135c4f8da2740b2f6f930d7279560f",
+  "next_task_pointer": "TASK_CONTENTOPS_UNIFIED_REDACTED_CREDENTIAL_CAPABILITY_MATRIX_WITH_REVOKED_STATE_V0",
+  "no_browser_cdp": true,
+  "no_live_writes": true,
+  "no_platform_api_calls": true,
+  "no_provider_api_calls": true,
+  "no_raw_value_output_proof": "inventory report contains key names and booleans only; no raw values, lengths, prefixes, suffixes, hashes, or digests returned",
+  "origin_master_sha_before_commit": "149658b14a135c4f8da2740b2f6f930d7279560f",
+  "redacted_inventory_summary": {
+    "deferred_empty_keys": [
+      "X_CLIENT_ID",
+      "X_CLIENT_SECRET",
+      "X_ACCESS_TOKEN",
+      "X_REFRESH_TOKEN",
+      "X_USER_ID",
+      "X_ACCESS_TIER_CLASS",
+      "LINKEDIN_CLIENT_ID",
+      "LINKEDIN_CLIENT_SECRET",
+      "LINKEDIN_ACCESS_TOKEN",
+      "LINKEDIN_MEMBER_URN",
+      "LINKEDIN_ORGANIZATION_URN",
+      "TIKTOK_CLIENT_KEY",
+      "TIKTOK_CLIENT_SECRET",
+      "TIKTOK_ACCESS_TOKEN",
+      "TIKTOK_REFRESH_TOKEN",
+      "TIKTOK_OPEN_ID"
+    ],
+    "duplicate_keys": [],
+    "key_count": 109,
+    "known_secret_values_redacted": true,
+    "private_key_block_present": false,
+    "raw_json_block_present": false,
+    "raw_values_returned": false,
+    "required_key_missing": [],
+    "token_length_prefix_suffix_digest_hash_returned": false
+  },
+  "repo_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops",
+  "result": "implemented_pending_commit",
+  "starting_head": "149658b14a135c4f8da2740b2f6f930d7279560f",
+  "task_label": "TASK_CONTENTOPS_FINAL_ENV_FORMAT_DOC_AND_REDACTED_INVENTORY_CONTRACT_V0",
+  "tests_run_results": {
+    "python -m live_contentops.final_environment_format_inventory --repo-root .": "passed_redacted_output_only",
+    "tests/test_final_environment_format_inventory.py": "8 passed",
+    "tests/test_social_credential_setup_workbench.py + tests/test_credential_handle_dotenv_secret_boundary_v2_contract.py": "21 passed"
+  }
+}
