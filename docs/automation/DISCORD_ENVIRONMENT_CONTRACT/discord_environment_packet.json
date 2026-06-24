@@ -1,0 +1,161 @@
+{
+  "bot_capability_class": "deferred_review_required",
+  "bot_credential_handle_id": "discord_bot_capital_chronicle_01_deferred",
+  "bot_deferred": true,
+  "capability_class": "ready_webhook",
+  "channel_groups": {
+    "operator_private_channels": {
+      "destination_binding_id": "discord_operator_private_capital_chronicle_01",
+      "group_name": "operator_private_channels",
+      "key_status": {
+        "DISCORD_APPROVAL_CHECKPOINTS_CHANNEL_ID": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_AUDIT_LOG_CHANNEL_ID": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_BROWSER_CHECKPOINTS_CHANNEL_ID": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_MANUAL_FALLBACK_CHANNEL_ID": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_OPERATOR_QUEUE_CHANNEL_ID": {
+          "present": true,
+          "value_status": "nonblank"
+        }
+      }
+    },
+    "public_channels": {
+      "group_name": "public_channels",
+      "key_status": {
+        "DISCORD_ANNOUNCEMENTS_CHANNEL_ID": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_ASK_JIM_CHANNEL_ID": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_CONTENT_IDEAS_CHANNEL_ID": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_FEEDBACK_CHANNEL_ID": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_PRODUCT_UPDATES_CHANNEL_ID": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_RESEARCH_QUESTIONS_CHANNEL_ID": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_SUBSTACK_DROPS_CHANNEL_ID": {
+          "present": true,
+          "value_status": "nonblank"
+        }
+      }
+    }
+  },
+  "guild_server_identity": {
+    "group_name": "guild_server_identity",
+    "key_status": {
+      "DISCORD_GUILD_ID": {
+        "present": false,
+        "value_status": "missing"
+      },
+      "DISCORD_SERVER_ID": {
+        "present": true,
+        "value_status": "nonblank"
+      }
+    }
+  },
+  "live_write_allowed_now": false,
+  "live_write_eligible": true,
+  "redaction_policy": {
+    "browser_profile_storage_output": false,
+    "cookie_session_local_storage_output": false,
+    "raw_env_line_output": false,
+    "raw_webhook_url_output": false,
+    "token_length_prefix_suffix_hash_output": false,
+    "token_output": false
+  },
+  "role_groups": {
+    "community_roles": {
+      "group_name": "community_roles",
+      "key_status": {
+        "DISCORD_ROLE_CONTRIBUTOR": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_ROLE_FOUNDER": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_ROLE_MEMBER": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_ROLE_MODERATOR": {
+          "present": true,
+          "value_status": "nonblank"
+        },
+        "DISCORD_ROLE_SUBSCRIBER": {
+          "present": true,
+          "value_status": "nonblank"
+        }
+      }
+    }
+  },
+  "schema_version": "discord_environment_contract.v1",
+  "source_matrix_schema_version": "v6_redacted_capability_matrix.v2",
+  "task_label": "TASK_CONTENTOPS_V6_PLATFORM_REGISTRY_AND_DISCORD_ENVIRONMENT_CONTRACT_V0",
+  "webhook_destinations": [
+    {
+      "capability_class": "ready_webhook",
+      "credential_handle_id": "discord_announcements_webhook_01",
+      "destination_binding_id": "discord_announcements_capital_chronicle_01",
+      "key_name": "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL",
+      "key_status": {
+        "present": true,
+        "value_status": "nonblank"
+      },
+      "live_write_allowed_now": false,
+      "live_write_eligible": true,
+      "target_name": "announcements"
+    },
+    {
+      "capability_class": "ready_webhook",
+      "credential_handle_id": "discord_substack_drops_webhook_01",
+      "destination_binding_id": "discord_substack_drops_capital_chronicle_01",
+      "key_name": "DISCORD_SUBSTACK_DROPS_WEBHOOK_URL",
+      "key_status": {
+        "present": true,
+        "value_status": "nonblank"
+      },
+      "live_write_allowed_now": false,
+      "live_write_eligible": true,
+      "target_name": "substack_drops"
+    },
+    {
+      "capability_class": "ready_webhook",
+      "credential_handle_id": "discord_product_updates_webhook_01",
+      "destination_binding_id": "discord_product_updates_capital_chronicle_01",
+      "key_name": "DISCORD_PRODUCT_UPDATES_WEBHOOK_URL",
+      "key_status": {
+        "present": true,
+        "value_status": "nonblank"
+      },
+      "live_write_allowed_now": false,
+      "live_write_eligible": true,
+      "target_name": "product_updates"
+    }
+  ]
+}

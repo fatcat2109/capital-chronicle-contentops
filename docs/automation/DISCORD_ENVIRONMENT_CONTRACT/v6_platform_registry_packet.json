@@ -1,0 +1,282 @@
+{
+  "adapter_types": [
+    "webhook_adapter",
+    "official_api_adapter",
+    "browser_cdp_adapter",
+    "manual_fallback_adapter",
+    "deferred_adapter"
+  ],
+  "allowed_current_execution_postures": [
+    "ready_webhook_but_live_disabled",
+    "ready_api_but_live_disabled",
+    "ready_browser_but_live_disabled",
+    "manual_only",
+    "deferred_after_final_product",
+    "scope_proof_required",
+    "credential_missing",
+    "governance_only"
+  ],
+  "live_write_allowed_now": false,
+  "platform_families": [
+    "owned_long_form",
+    "community",
+    "remote_operator",
+    "social_distribution",
+    "media_video_later",
+    "ai_provider",
+    "local_assets",
+    "governance",
+    "operator_local"
+  ],
+  "platforms": [
+    {
+      "adapter_type": "browser_cdp_adapter",
+      "current_execution_posture": "ready_browser_but_live_disabled",
+      "display_name": "Substack",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "ready_browser",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "Substack browser profile/publication metadata",
+      "platform_family": "owned_long_form",
+      "platform_id": "substack",
+      "rules": [
+        "canonical_long_form_authority",
+        "supervised_browser_only_no_secret_read"
+      ]
+    },
+    {
+      "adapter_type": "webhook_adapter",
+      "current_execution_posture": "ready_webhook_but_live_disabled",
+      "display_name": "Discord",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "ready_webhook",
+      "matrix_live_write_eligible": true,
+      "matrix_platform": "Discord webhooks",
+      "platform_family": "community",
+      "platform_id": "discord",
+      "rules": [
+        "webhook_adapter_exists",
+        "bot_deferred_after_final_product",
+        "live_disabled"
+      ]
+    },
+    {
+      "adapter_type": "official_api_adapter",
+      "current_execution_posture": "ready_api_but_live_disabled",
+      "display_name": "Telegram",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "ready_api",
+      "matrix_live_write_eligible": true,
+      "matrix_platform": "Telegram operator inbox",
+      "platform_family": "remote_operator",
+      "platform_id": "telegram",
+      "rules": [
+        "remote_operator_lane",
+        "live_disabled"
+      ]
+    },
+    {
+      "adapter_type": "manual_fallback_adapter",
+      "current_execution_posture": "manual_only",
+      "display_name": "X manual",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "manual_only",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "X manual",
+      "platform_family": "social_distribution",
+      "platform_id": "x_manual",
+      "rules": [
+        "manual_only"
+      ]
+    },
+    {
+      "adapter_type": "deferred_adapter",
+      "current_execution_posture": "deferred_after_final_product",
+      "display_name": "LinkedIn personal deferred",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "deferred_review_required",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "LinkedIn personal deferred",
+      "platform_family": "social_distribution",
+      "platform_id": "linkedin_personal_deferred",
+      "rules": [
+        "deferred_until_future_task"
+      ]
+    },
+    {
+      "adapter_type": "deferred_adapter",
+      "current_execution_posture": "deferred_after_final_product",
+      "display_name": "LinkedIn organization deferred",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "deferred_review_required",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "LinkedIn organization deferred",
+      "platform_family": "social_distribution",
+      "platform_id": "linkedin_org_deferred",
+      "rules": [
+        "deferred_until_future_task"
+      ]
+    },
+    {
+      "adapter_type": "official_api_adapter",
+      "current_execution_posture": "scope_proof_required",
+      "display_name": "Threads",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "credential_present_scope_proof_required",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "Threads separate app/user",
+      "platform_family": "social_distribution",
+      "platform_id": "threads",
+      "rules": [
+        "separate_from_meta_graph",
+        "scope_proof_required",
+        "live_disabled"
+      ]
+    },
+    {
+      "adapter_type": "official_api_adapter",
+      "current_execution_posture": "scope_proof_required",
+      "display_name": "Facebook Page",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "credential_present_scope_proof_required",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "Facebook Page",
+      "platform_family": "social_distribution",
+      "platform_id": "facebook_page",
+      "rules": [
+        "scope_proof_required",
+        "live_disabled"
+      ]
+    },
+    {
+      "adapter_type": "official_api_adapter",
+      "current_execution_posture": "scope_proof_required",
+      "display_name": "Instagram Business",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "credential_present_scope_proof_required",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "Instagram Business",
+      "platform_family": "social_distribution",
+      "platform_id": "instagram_business",
+      "rules": [
+        "scope_proof_required",
+        "live_disabled"
+      ]
+    },
+    {
+      "adapter_type": "official_api_adapter",
+      "current_execution_posture": "ready_api_but_live_disabled",
+      "display_name": "YouTube later",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "ready_api",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "YouTube OAuth/client credentials",
+      "platform_family": "media_video_later",
+      "platform_id": "youtube_later",
+      "rules": [
+        "media_video_later",
+        "live_disabled"
+      ]
+    },
+    {
+      "adapter_type": "deferred_adapter",
+      "current_execution_posture": "deferred_after_final_product",
+      "display_name": "TikTok deferred",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "deferred_review_required",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "TikTok deferred",
+      "platform_family": "social_distribution",
+      "platform_id": "tiktok_deferred",
+      "rules": [
+        "deferred_until_future_task"
+      ]
+    },
+    {
+      "adapter_type": "official_api_adapter",
+      "current_execution_posture": "scope_proof_required",
+      "display_name": "9router",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "provider_present_live_gate_required",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "9router / AI provider",
+      "platform_family": "ai_provider",
+      "platform_id": "nine_router",
+      "rules": [
+        "provider_not_public_authority",
+        "live_gate_required",
+        "live_disabled"
+      ]
+    },
+    {
+      "adapter_type": "official_api_adapter",
+      "current_execution_posture": "credential_missing",
+      "display_name": "Vertex fallback",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "deferred_credentials_missing",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "Vertex fallback / service account path",
+      "platform_family": "ai_provider",
+      "platform_id": "vertex_fallback",
+      "rules": [
+        "fallback_provider",
+        "live_disabled"
+      ]
+    },
+    {
+      "adapter_type": "browser_cdp_adapter",
+      "current_execution_posture": "credential_missing",
+      "display_name": "Browser operator profiles",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "deferred_credentials_missing",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "Browser operator profiles",
+      "platform_family": "operator_local",
+      "platform_id": "browser_operator_profiles",
+      "rules": [
+        "no_cookie_storage_read",
+        "live_disabled"
+      ]
+    },
+    {
+      "adapter_type": "manual_fallback_adapter",
+      "current_execution_posture": "manual_only",
+      "display_name": "Media dirs",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "unknown",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "Media dirs",
+      "platform_family": "local_assets",
+      "platform_id": "media_dirs",
+      "rules": [
+        "local_assets_only"
+      ]
+    },
+    {
+      "adapter_type": "manual_fallback_adapter",
+      "current_execution_posture": "governance_only",
+      "display_name": "Approval/outbox/audit paths",
+      "live_write_allowed_now": false,
+      "matrix_capability_class": "unknown",
+      "matrix_live_write_eligible": false,
+      "matrix_platform": "Approval/outbox/audit paths",
+      "platform_family": "governance",
+      "platform_id": "approval_outbox_audit_paths",
+      "rules": [
+        "governance_only"
+      ]
+    }
+  ],
+  "rules": {
+    "all_live_writes_disabled": true,
+    "discord_bot_deferred_after_final_product": true,
+    "linkedin_deferred": true,
+    "meta_family_scope_proof_required": true,
+    "nine_router_provider_not_public_authority": true,
+    "threads_separate_from_meta_graph": true,
+    "tiktok_deferred": true,
+    "x_manual_only": true
+  },
+  "schema_version": "v6_platform_registry_contract.v1",
+  "task_label": "TASK_CONTENTOPS_V6_PLATFORM_REGISTRY_AND_DISCORD_ENVIRONMENT_CONTRACT_V0"
+}
