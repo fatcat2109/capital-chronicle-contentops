@@ -39,7 +39,14 @@ def test_selected_payload_id_is_substack_drop_payload():
     assert payload["target_name"] == "substack_drops"
 
 
-@pytest.mark.parametrize("target_name", ["announcements", "substack_drops"])
+def test_selected_payload_id_is_product_update_payload():
+    payload = load_sample_payload("product_updates")
+    assert payload["payload_id"] == pilot.PRODUCT_UPDATES_PAYLOAD_ID
+    assert payload["payload_type"] == "product_update"
+    assert payload["target_name"] == "product_updates"
+
+
+@pytest.mark.parametrize("target_name", ["announcements", "substack_drops", "product_updates"])
 def test_expected_payload_hash_is_verified_from_hash_packet(target_name):
     target = pilot.APPROVED_TARGETS[target_name]
     packet = pilot.load_json(pilot.HASH_PACKET_PATH)
@@ -48,7 +55,7 @@ def test_expected_payload_hash_is_verified_from_hash_packet(target_name):
     assert approval["payload_id"] == target.payload_id
 
 
-@pytest.mark.parametrize("target_name", ["announcements", "substack_drops"])
+@pytest.mark.parametrize("target_name", ["announcements", "substack_drops", "product_updates"])
 def test_wrong_payload_hash_blocks(tmp_path, target_name):
     out = tmp_path / "result.json"
     packet = pilot.run_approved_outbox_dispatch(
@@ -61,7 +68,7 @@ def test_wrong_payload_hash_blocks(tmp_path, target_name):
     assert packet["blocker"] == "payload_hash_approval_not_found"
 
 
-@pytest.mark.parametrize("target_name", ["announcements", "substack_drops"])
+@pytest.mark.parametrize("target_name", ["announcements", "substack_drops", "product_updates"])
 @pytest.mark.parametrize(
     ("payload_key", "payload_value", "expected_blocker"),
     [
@@ -89,7 +96,7 @@ def test_wrong_target_binding_credential_blocks(tmp_path, target_name, payload_k
     assert packet["request_count_attempted"] == 0
 
 
-@pytest.mark.parametrize("target_name", ["announcements", "substack_drops"])
+@pytest.mark.parametrize("target_name", ["announcements", "substack_drops", "product_updates"])
 def test_dispatch_uses_discord_dispatch_adapter(tmp_path, target_name):
     calls = []
 
@@ -118,7 +125,7 @@ def test_dispatch_uses_discord_dispatch_adapter(tmp_path, target_name):
     assert calls[1][1]["target_name"] == target_name
 
 
-@pytest.mark.parametrize("target_name", ["announcements", "substack_drops"])
+@pytest.mark.parametrize("target_name", ["announcements", "substack_drops", "product_updates"])
 @pytest.mark.parametrize(
     ("status", "result_status", "diagnostic"),
     [
@@ -149,7 +156,7 @@ def test_request_budget_blocks_second_post():
         guard.spend_before_post()
 
 
-@pytest.mark.parametrize("target_name", ["announcements", "substack_drops"])
+@pytest.mark.parametrize("target_name", ["announcements", "substack_drops", "product_updates"])
 def test_dry_run_path_does_not_call_network(tmp_path, target_name):
     def forbidden(*args, **kwargs):
         raise AssertionError("network should not be called")
@@ -163,7 +170,7 @@ def test_dry_run_path_does_not_call_network(tmp_path, target_name):
     assert packet["request_count_attempted"] == 0
 
 
-@pytest.mark.parametrize("target_name", ["announcements", "substack_drops"])
+@pytest.mark.parametrize("target_name", ["announcements", "substack_drops", "product_updates"])
 def test_result_packet_contains_no_webhook_url(tmp_path, target_name):
     out = tmp_path / "result.json"
     packet = pilot.run_approved_outbox_dispatch(output_path=out, target_name=target_name)

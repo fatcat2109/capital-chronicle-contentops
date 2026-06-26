@@ -29,6 +29,7 @@ from live_contentops.discord_dispatch_adapter import (
 
 ANNOUNCEMENTS_TASK_LABEL = "TASK_CONTENTOPS_V6_DISCORD_APPROVED_OUTBOX_ONE_REQUEST_LIVE_DISPATCH_PILOT_V0"
 SUBSTACK_TASK_LABEL = "TASK_CONTENTOPS_V6_DISCORD_SUBSTACK_APPROVED_OUTBOX_ONE_REQUEST_LIVE_DISPATCH_PILOT_V0"
+PRODUCT_UPDATES_TASK_LABEL = "TASK_CONTENTOPS_V6_DISCORD_PRODUCT_UPDATES_APPROVED_OUTBOX_ONE_REQUEST_LIVE_DISPATCH_PILOT_V0"
 ADAPTER_MODULE = "live_contentops.discord_dispatch_adapter"
 PLATFORM = "discord"
 PAYLOAD_PACKET_PATH = Path("docs/automation/DISCORD_WEBHOOK_PAYLOAD_CONTRACT/sample_payloads.json")
@@ -38,6 +39,9 @@ RESULT_PACKET_PATH = Path(
 )
 SUBSTACK_RESULT_PACKET_PATH = Path(
     "docs/automation/DISCORD_SUBSTACK_APPROVED_OUTBOX_LIVE_DISPATCH/substack_approved_outbox_live_dispatch_result_packet.json"
+)
+PRODUCT_UPDATES_RESULT_PACKET_PATH = Path(
+    "docs/automation/DISCORD_PRODUCT_UPDATES_APPROVED_OUTBOX_LIVE_DISPATCH/product_updates_approved_outbox_live_dispatch_result_packet.json"
 )
 
 
@@ -80,6 +84,14 @@ APPROVED_TARGETS: dict[str, ApprovedOutboxTarget] = {
         task_label=SUBSTACK_TASK_LABEL,
         default_output_path=SUBSTACK_RESULT_PACKET_PATH,
     ),
+    "product_updates": ApprovedOutboxTarget(
+        target_name="product_updates",
+        payload_id="discord_dryrun_product_update_001",
+        payload_type="product_update",
+        expected_payload_hash="81075439dcafcdc979482d51dd56ce7cb0a704827a9fbe702a2994b3f329efdd",
+        task_label=PRODUCT_UPDATES_TASK_LABEL,
+        default_output_path=PRODUCT_UPDATES_RESULT_PACKET_PATH,
+    ),
 }
 
 # Backward-compatible constants for existing announcements tests/imports.
@@ -93,6 +105,8 @@ PAYLOAD_TYPE = APPROVED_TARGETS["announcements"].payload_type
 EXPECTED_PAYLOAD_HASH = APPROVED_TARGETS["announcements"].expected_payload_hash
 SUBSTACK_PAYLOAD_ID = APPROVED_TARGETS["substack_drops"].payload_id
 SUBSTACK_EXPECTED_PAYLOAD_HASH = APPROVED_TARGETS["substack_drops"].expected_payload_hash
+PRODUCT_UPDATES_PAYLOAD_ID = APPROVED_TARGETS["product_updates"].payload_id
+PRODUCT_UPDATES_EXPECTED_PAYLOAD_HASH = APPROVED_TARGETS["product_updates"].expected_payload_hash
 
 
 def load_json(path: str | Path) -> dict[str, Any]:
