@@ -1,0 +1,43 @@
+{
+  "allowed_mentions_required": {
+    "parse": []
+  },
+  "allowed_payload_top_level_fields": [
+    "content",
+    "embeds",
+    "components",
+    "file",
+    "poll",
+    "allowed_mentions",
+    "attachments",
+    "flags"
+  ],
+  "attachments_allowed_first_pilot": false,
+  "authentication_header_required": false,
+  "bot_required": false,
+  "components_allowed_first_pilot": false,
+  "docs_checked_at": "2026-06-26T19:35:00Z",
+  "docs_confidence": "verified_from_official_docs",
+  "docs_lock_schema_version": "discord_execute_webhook_official_docs_lock.v1",
+  "docs_redirect_url": "https://docs.discord.com/developers/resources/webhook",
+  "docs_source_name": "Discord Developer Documentation - Webhook Resource / Execute Webhook",
+  "docs_url": "https://discord.com/developers/docs/resources/webhook#execute-webhook",
+  "endpoint_family": "discord_execute_webhook",
+  "first_pilot_allowed_payload_mode": "embeds_only_or_content_plus_embed",
+  "host_allowlist": [
+    "discord.com"
+  ],
+  "method": "POST",
+  "official_docs_quote_excerpt_short": "Execute Webhook supports wait, content, embeds, components, file, poll.",
+  "path_template": "/api/webhooks/{webhook.id}/{webhook.token}",
+  "polls_allowed_first_pilot": false,
+  "raw_webhook_url_stored": false,
+  "required_payload_minimum": "one_of_content_embeds_components_file_poll",
+  "secondary_legacy_host": "discordapp.com",
+  "secondary_legacy_review_required": true,
+  "task_label": "TASK_CONTENTOPS_V6_DISCORD_LIVE_PILOT_AUTHORIZATION_GATE_AND_OFFICIAL_DOCS_LOCK_V0",
+  "thread_params_allowed_first_pilot": false,
+  "wait_default": false,
+  "webhook_id_stored": false,
+  "webhook_token_stored": false
+}

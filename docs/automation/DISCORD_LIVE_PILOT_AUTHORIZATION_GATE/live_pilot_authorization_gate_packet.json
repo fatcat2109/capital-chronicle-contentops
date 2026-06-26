@@ -1,0 +1,157 @@
+{
+  "allowed_mentions_required": {
+    "parse": []
+  },
+  "blockers": [],
+  "credential_binding_plan": {
+    "binding_mismatches": [],
+    "credential_binding_schema_version": "discord_live_pilot_credential_binding_plan.v1",
+    "credential_handle_id": "discord_announcements_webhook_01",
+    "credential_key_presence_checked": false,
+    "credential_key_presence_status": "not_checked_in_this_task",
+    "destination_binding_id": "discord_announcements_capital_chronicle_01",
+    "env_key_name": "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL",
+    "env_value_loaded": false,
+    "webhook_id_loaded": false,
+    "webhook_token_loaded": false,
+    "webhook_url_hashed": false,
+    "webhook_url_length_counted": false,
+    "webhook_url_loaded": false,
+    "webhook_url_parsed": false
+  },
+  "current_task_dispatchable": false,
+  "discord_bot_required": false,
+  "docs_lock": {
+    "allowed_mentions_required": {
+      "parse": []
+    },
+    "allowed_payload_top_level_fields": [
+      "content",
+      "embeds",
+      "components",
+      "file",
+      "poll",
+      "allowed_mentions",
+      "attachments",
+      "flags"
+    ],
+    "attachments_allowed_first_pilot": false,
+    "authentication_header_required": false,
+    "bot_required": false,
+    "components_allowed_first_pilot": false,
+    "docs_checked_at": "2026-06-26T19:35:00Z",
+    "docs_confidence": "verified_from_official_docs",
+    "docs_lock_schema_version": "discord_execute_webhook_official_docs_lock.v1",
+    "docs_redirect_url": "https://docs.discord.com/developers/resources/webhook",
+    "docs_source_name": "Discord Developer Documentation - Webhook Resource / Execute Webhook",
+    "docs_url": "https://discord.com/developers/docs/resources/webhook#execute-webhook",
+    "endpoint_family": "discord_execute_webhook",
+    "first_pilot_allowed_payload_mode": "embeds_only_or_content_plus_embed",
+    "host_allowlist": [
+      "discord.com"
+    ],
+    "method": "POST",
+    "official_docs_quote_excerpt_short": "Execute Webhook supports wait, content, embeds, components, file, poll.",
+    "path_template": "/api/webhooks/{webhook.id}/{webhook.token}",
+    "polls_allowed_first_pilot": false,
+    "raw_webhook_url_stored": false,
+    "required_payload_minimum": "one_of_content_embeds_components_file_poll",
+    "secondary_legacy_host": "discordapp.com",
+    "secondary_legacy_review_required": true,
+    "task_label": "TASK_CONTENTOPS_V6_DISCORD_LIVE_PILOT_AUTHORIZATION_GATE_AND_OFFICIAL_DOCS_LOCK_V0",
+    "thread_params_allowed_first_pilot": false,
+    "wait_default": false,
+    "webhook_id_stored": false,
+    "webhook_token_stored": false
+  },
+  "duplicate_suppression_key": "1b82d1ea6e3196da9160a777ea170ef5572072402835d1938ec2813c973c609c",
+  "endpoint_family": "discord_execute_webhook",
+  "endpoint_url_loaded": false,
+  "env_key_name": "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL",
+  "explicit_future_live_authorization_required": true,
+  "future_live_task_ready_status": "ready_for_explicit_live_authorization_task",
+  "gate_schema_version": "discord_live_pilot_authorization_gate.v1",
+  "host_allowlist": [
+    "discord.com"
+  ],
+  "idempotency_key": "179f15b814356193bf7e379f9e30e969d9a21ffd71eb22454430684c5270e79e",
+  "kill_switch_env_key": "CONTENTOPS_LIVE_DISPATCH_KILL_SWITCH",
+  "kill_switch_read_in_this_task": false,
+  "kill_switch_required": true,
+  "kill_switch_required_value": "ALLOW_DISCORD_TEST_SEND",
+  "live_write_allowed_now": false,
+  "method": "POST",
+  "network_call_attempted": false,
+  "network_dispatch_allowed_now": false,
+  "operator_authorization_phrase_required": "AUTHORIZE_DISCORD_WEBHOOK_TEST_SEND_NOW",
+  "path_template": "/api/webhooks/{webhook.id}/{webhook.token}",
+  "payload_mode": "embeds_only_or_content_plus_embed",
+  "request_budget_max": 1,
+  "request_plan": {
+    "allowed_mentions": {
+      "parse": []
+    },
+    "credential_source": "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL",
+    "credential_value_loaded": false,
+    "current_task_network_call_attempted": false,
+    "endpoint_family": "discord_execute_webhook",
+    "expected_response_class": "not_attempted_in_this_task",
+    "headers_output": false,
+    "host_allowlist": [
+      "discord.com"
+    ],
+    "method": "POST",
+    "path_template": "/api/webhooks/{webhook.id}/{webhook.token}",
+    "query_params": {
+      "wait": false
+    },
+    "request_body_shape": {
+      "allowed_mentions_required": {
+        "parse": []
+      },
+      "attachments_allowed": false,
+      "components_allowed": false,
+      "payload_mode": "embeds_only_or_content_plus_embed",
+      "polls_allowed": false,
+      "source_payload_hash": "b166aebf1f53956f04ffa5122d6d065fc09e4f7953ec816e1b0b66a01be9d17d",
+      "source_payload_id": "discord_dryrun_announcement_001",
+      "thread_params_allowed": false
+    },
+    "request_budget_max": 1,
+    "request_plan_schema_version": "discord_live_pilot_request_plan_redacted.v1",
+    "response_body_output": false,
+    "retry_budget_max": 0,
+    "timeout_seconds": 10,
+    "webhook_id_loaded": false,
+    "webhook_token_loaded": false,
+    "webhook_url_loaded": false
+  },
+  "retry_budget_max": 0,
+  "selected_credential_handle_id": "discord_announcements_webhook_01",
+  "selected_destination_binding_id": "discord_announcements_capital_chronicle_01",
+  "selected_dispatch_candidate_id": "discord_candidate_discord_outbox_discord_dryrun_announcement_001",
+  "selected_payload_hash": "b166aebf1f53956f04ffa5122d6d065fc09e4f7953ec816e1b0b66a01be9d17d",
+  "selected_payload_id": "discord_dryrun_announcement_001",
+  "selected_payload_type": "announcement",
+  "selected_target_name": "announcements",
+  "stop_conditions": [
+    "candidate_id_mismatch",
+    "payload_hash_mismatch",
+    "payload_id_mismatch",
+    "target_name_mismatch",
+    "destination_binding_id_mismatch",
+    "credential_handle_id_mismatch",
+    "rendered_payload_preview_mismatch",
+    "operator_authorization_phrase_missing",
+    "kill_switch_not_allowed",
+    "request_budget_exceeded",
+    "retry_requested_without_approval",
+    "hidden_destination_account_channel_mutation",
+    "webhook_url_hydration_not_explicitly_authorized"
+  ],
+  "task_label": "TASK_CONTENTOPS_V6_DISCORD_LIVE_PILOT_AUTHORIZATION_GATE_AND_OFFICIAL_DOCS_LOCK_V0",
+  "timeout_seconds": 10,
+  "wait_query_param": false,
+  "webhook_url_hydration_allowed_now": false,
+  "webhook_url_loaded": false
+}
