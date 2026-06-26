@@ -1,0 +1,43 @@
+{
+  "adapter_module": "live_contentops.discord_dispatch_adapter",
+  "closeout_status": "PASS",
+  "no_live_request_in_this_task": true,
+  "platform": "discord",
+  "raw_secret_output": false,
+  "readiness_summary": "announcements adapter dispatch verified by approved outbox live result; substack_drops and product_updates smoke verified and await adapter dispatch pilots",
+  "remaining_work": [
+    "run approved-outbox adapter dispatch pilot for substack_drops when authorized",
+    "run approved-outbox adapter dispatch pilot for product_updates when authorized",
+    "promote successful target evidence into supervised dispatch runbook"
+  ],
+  "response_body_recorded": false,
+  "response_headers_recorded": false,
+  "supervised_use_status": {
+    "announcements": "ready_for_supervised_dispatch",
+    "product_updates": "ready_for_adapter_dispatch_pilot",
+    "substack_drops": "ready_for_adapter_dispatch_pilot"
+  },
+  "task_label": "TASK_CONTENTOPS_V6_DISCORD_APPROVED_OUTBOX_LIVE_DISPATCH_LEDGER_CLOSEOUT_V0",
+  "user_agent_required": "CapitalChronicleContentOps/1.0",
+  "verified_paths": {
+    "announcements": {
+      "adapter_dispatch_verified": true,
+      "last_http_status_code": 204,
+      "last_payload_hash": "b166aebf1f53956f04ffa5122d6d065fc09e4f7953ec816e1b0b66a01be9d17d",
+      "last_payload_id": "discord_dryrun_announcement_001",
+      "request_count": 1,
+      "retry_count": 0,
+      "smoke_verified": true
+    },
+    "product_updates": {
+      "adapter_dispatch_verified": false,
+      "last_http_status_code": 204,
+      "smoke_verified": true
+    },
+    "substack_drops": {
+      "adapter_dispatch_verified": false,
+      "last_http_status_code": 204,
+      "smoke_verified": true
+    }
+  }
+}
