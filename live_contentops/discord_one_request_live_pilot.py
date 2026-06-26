@@ -198,7 +198,7 @@ def execute_post_once(raw_url: str, body: dict[str, Any], guard: RequestBudgetGu
     url_error = __import__("urllib.error", fromlist=["error"])
     post_url = with_wait_false(raw_url)
     data = json.dumps(body, separators=(",", ":")).encode("utf-8")
-    req = url_request.Request(post_url, data=data, method=METHOD, headers={"Content-Type": "application/json"})
+    req = url_request.Request(post_url, data=data, method=METHOD, headers={"Content-Type": "application/json", "User-Agent": "CapitalChronicleContentOps/1.0"})
     opener = opener or url_request.urlopen
     try:
         response = opener(req, timeout=TIMEOUT_SECONDS)
