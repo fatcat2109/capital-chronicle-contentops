@@ -137,3 +137,75 @@ def test_2xx_produces_pass_without_body_or_headers(tmp_path):
     assert packet["live_write_completed"] is True
     assert packet["response_body_recorded"] is False
     assert packet["response_headers_recorded"] is False
+
+
+def test_minimal_content_body_contains_content_and_allowed_mentions_only():
+    body = pilot.build_minimal_content_body()
+    assert body == {
+        "content": "Capital Chronicle Discord live pilot test — announcements webhook connectivity check.",
+        "allowed_mentions": {"parse": []},
+    }
+
+
+def test_minimal_content_body_has_no_rich_or_thread_fields():
+    body = pilot.build_minimal_content_body()
+    for key in ["embeds", "attachments", "attachment", "components", "poll", "files", "file", "thread_id", "thread_name"]:
+        assert key not in body
+
+
+def test_exact_http_status_code_is_recorded_for_minimal_content(tmp_path):
+    def opener(req, timeout):
+        return MockResponse(204)
+
+    packet = pilot.run_live_pilot(
+        GATE,
+        PAYLOADS,
+        tmp_path / "result.json",
+        execute=True,
+        minimal_content=True,
+        environ={pilot.ENV_KEY_NAME: "https://discord.com/api/webhooks/fake/fake"},
+        opener=opener,
+    )
+    assert packet["http_status_code"] == 204
+    assert packet["payload_mode"] == "minimal_content_only"
+
+
+@pytest.mark.parametrize(
+    ("status_code", "expected"),
+    [
+        (200, "success_2xx"),
+        (204, "success_2xx"),
+        (400, "payload_rejected_or_bad_request"),
+        (401, "credential_unauthorized"),
+        (403, "credential_unauthorized"),
+        (404, "webhook_not_found_or_deleted"),
+        (429, "rate_limited"),
+        (500, "discord_server_error"),
+        (503, "discord_server_error"),
+        (302, "unknown_http_status"),
+    ],
+)
+def test_diagnostic_interpretation_maps_status_codes(status_code, expected):
+    assert pilot.diagnostic_interpretation(status_code) == expected
+
+
+def test_diagnostic_interpretation_maps_network_exception_before_response():
+    assert pilot.diagnostic_interpretation(None) == "network_exception_before_response"
+
+
+def test_dry_run_minimal_content_does_not_call_network(tmp_path):
+    def forbidden(*args, **kwargs):
+        raise AssertionError("network should not be called")
+
+    packet = pilot.run_live_pilot(
+        GATE,
+        PAYLOADS,
+        tmp_path / "result.json",
+        execute=False,
+        minimal_content=True,
+        opener=forbidden,
+    )
+    assert packet["result_status"] == "BLOCKED"
+    assert packet["payload_mode"] == "minimal_content_only"
+    assert packet["network_call_attempted"] is False
+    assert packet["request_count_attempted"] == 0

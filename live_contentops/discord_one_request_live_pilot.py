@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_DISCORD_ONE_REQUEST_LIVE_WEBHOOK_PILOT_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_DISCORD_ONE_REQUEST_LIVE_PILOT_REPAIR_MINIMAL_CONTENT_V0"
 PLATFORM = "discord"
 ENDPOINT_FAMILY = "discord_execute_webhook"
 METHOD = "POST"
@@ -29,6 +29,9 @@ REQUEST_BUDGET_MAX = 1
 RETRY_BUDGET_MAX = 0
 TIMEOUT_SECONDS = 10
 WAIT_QUERY_PARAM = False
+PAYLOAD_MODE_PREVIEW = "redacted_webhook_json_preview"
+PAYLOAD_MODE_MINIMAL = "minimal_content_only"
+MINIMAL_CONTENT = "Capital Chronicle Discord live pilot test \u2014 announcements webhook connectivity check."
 
 FORBIDDEN_PAYLOAD_KEYS = {"attachments", "attachment", "files", "file", "components", "poll", "thread_id", "thread_name"}
 FORBIDDEN_FINANCE_PHRASES = ("buy", "sell", "hold", "price target", "position sizing", "financial advice")
@@ -106,6 +109,10 @@ def build_request_body(payload: dict[str, Any]) -> dict[str, Any]:
     return body
 
 
+def build_minimal_content_body() -> dict[str, Any]:
+    return {"content": MINIMAL_CONTENT, "allowed_mentions": {"parse": []}}
+
+
 def with_wait_false(raw_url: str) -> str:
     url_parse = __import__("urllib.parse", fromlist=["parse"])
     parts = url_parse.urlsplit(raw_url)
@@ -127,7 +134,25 @@ def status_code_class(status_code: int | None) -> str:
     return "other"
 
 
-def make_result_packet(*, result_status: str, request_count_attempted: int, network_call_attempted: bool, webhook_url_loaded: bool, status_class: str, live_write_completed: bool, live_write_failed: bool, error_class: str | None, audit_notes: list[str]) -> dict[str, Any]:
+def diagnostic_interpretation(status_code: int | None) -> str:
+    if status_code is None:
+        return "network_exception_before_response"
+    if 200 <= status_code <= 299:
+        return "success_2xx"
+    if status_code == 400:
+        return "payload_rejected_or_bad_request"
+    if status_code in {401, 403}:
+        return "credential_unauthorized"
+    if status_code == 404:
+        return "webhook_not_found_or_deleted"
+    if status_code == 429:
+        return "rate_limited"
+    if 500 <= status_code <= 599:
+        return "discord_server_error"
+    return "unknown_http_status"
+
+
+def make_result_packet(*, result_status: str, request_count_attempted: int, network_call_attempted: bool, webhook_url_loaded: bool, status_class: str, http_status_code: int | None, diagnostic: str, payload_mode: str, live_write_completed: bool, live_write_failed: bool, error_class: str | None, audit_notes: list[str]) -> dict[str, Any]:
     return {
         "task_label": TASK_LABEL,
         "result_status": result_status,
@@ -153,6 +178,9 @@ def make_result_packet(*, result_status: str, request_count_attempted: int, netw
         "webhook_url_printed": False,
         "raw_secret_output": False,
         "status_code_class": status_class,
+        "http_status_code": http_status_code,
+        "diagnostic_interpretation": diagnostic,
+        "payload_mode": payload_mode,
         "response_body_recorded": False,
         "response_headers_recorded": False,
         "public_url": None,
@@ -181,17 +209,20 @@ def execute_post_once(raw_url: str, body: dict[str, Any], guard: RequestBudgetGu
         return None, exc.__class__.__name__
 
 
-def run_live_pilot(gate_packet_path: str | Path, sample_payloads_path: str | Path, output_path: str | Path, *, execute: bool = False, environ: Any | None = None, opener: Callable[..., Any] | None = None) -> dict[str, Any]:
+def run_live_pilot(gate_packet_path: str | Path, sample_payloads_path: str | Path, output_path: str | Path, *, execute: bool = False, minimal_content: bool = False, environ: Any | None = None, opener: Callable[..., Any] | None = None) -> dict[str, Any]:
     gate_packet = load_json(gate_packet_path)
     sample_payloads = load_json(sample_payloads_path)
     validate_gate_packet(gate_packet)
     payload = select_payload(sample_payloads)
-    body = build_request_body(payload)
+    payload_mode = PAYLOAD_MODE_MINIMAL if minimal_content else PAYLOAD_MODE_PREVIEW
+    body = build_minimal_content_body() if minimal_content else build_request_body(payload)
     guard = RequestBudgetGuard()
     result_status = "BLOCKED"
     network_call_attempted = False
     webhook_url_loaded = False
     status_class = "not_attempted"
+    http_status_code = None
+    diagnostic = "not_attempted"
     live_write_completed = False
     live_write_failed = False
     error_class = None
@@ -204,7 +235,9 @@ def run_live_pilot(gate_packet_path: str | Path, sample_payloads_path: str | Pat
             raise LivePilotBlocked("env_key_missing")
         network_call_attempted = True
         status_code, error_class = execute_post_once(raw_url, body, guard, opener)
+        http_status_code = status_code
         status_class = status_code_class(status_code)
+        diagnostic = diagnostic_interpretation(status_code)
         live_write_completed = status_class == "2xx"
         live_write_failed = not live_write_completed
         result_status = "PASS" if live_write_completed else "FAIL"
@@ -215,6 +248,9 @@ def run_live_pilot(gate_packet_path: str | Path, sample_payloads_path: str | Pat
         network_call_attempted=network_call_attempted,
         webhook_url_loaded=webhook_url_loaded,
         status_class=status_class,
+        http_status_code=http_status_code,
+        diagnostic=diagnostic,
+        payload_mode=payload_mode,
         live_write_completed=live_write_completed,
         live_write_failed=live_write_failed,
         error_class=error_class,
@@ -232,9 +268,10 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--sample-payloads", required=True)
     parser.add_argument("--output", required=True)
     parser.add_argument("--execute", action="store_true")
+    parser.add_argument("--minimal-content", action="store_true")
     args = parser.parse_args(argv)
     try:
-        packet = run_live_pilot(args.gate_packet, args.sample_payloads, args.output, execute=args.execute)
+        packet = run_live_pilot(args.gate_packet, args.sample_payloads, args.output, execute=args.execute, minimal_content=args.minimal_content)
     except LivePilotBlocked as exc:
         packet = make_result_packet(
             result_status="BLOCKED",
@@ -242,6 +279,9 @@ def main(argv: list[str] | None = None) -> int:
             network_call_attempted=False,
             webhook_url_loaded=False,
             status_class="not_attempted",
+            http_status_code=None,
+            diagnostic="not_attempted",
+            payload_mode=PAYLOAD_MODE_MINIMAL if args.minimal_content else PAYLOAD_MODE_PREVIEW,
             live_write_completed=False,
             live_write_failed=False,
             error_class=exc.__class__.__name__,
@@ -264,6 +304,9 @@ def main(argv: list[str] | None = None) -> int:
         "retry_count_attempted": packet["retry_count_attempted"],
         "timeout_seconds": TIMEOUT_SECONDS,
         "status_code_class": packet["status_code_class"],
+        "http_status_code": packet["http_status_code"],
+        "diagnostic_interpretation": packet["diagnostic_interpretation"],
+        "payload_mode": packet["payload_mode"],
         "live_write_completed": packet["live_write_completed"],
         "webhook_url_printed": False,
         "raw_secret_output": False,
