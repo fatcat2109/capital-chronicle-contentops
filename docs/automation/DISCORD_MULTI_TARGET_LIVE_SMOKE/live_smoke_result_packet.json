@@ -1,0 +1,55 @@
+{
+  "endpoint_family": "discord_execute_webhook",
+  "method": "POST",
+  "payload_mode": "minimal_content_only",
+  "platform": "discord",
+  "raw_secret_output": false,
+  "request_budget_max": 2,
+  "request_count_attempted": 2,
+  "response_body_recorded": false,
+  "response_headers_recorded": false,
+  "result_status": "PASS",
+  "retry_budget_max": 0,
+  "retry_count_attempted": 0,
+  "summary": {
+    "targets_attempted": 2,
+    "targets_failed": 0,
+    "targets_passed": 2,
+    "targets_planned": 2
+  },
+  "targets": [
+    {
+      "credential_handle_id": "discord_substack_drops_webhook_01",
+      "destination_binding_id": "discord_substack_drops_capital_chronicle_01",
+      "diagnostic_interpretation": "success_2xx",
+      "env_key_name": "DISCORD_SUBSTACK_DROPS_WEBHOOK_URL",
+      "http_status_code": 204,
+      "live_write_completed": true,
+      "raw_secret_output": false,
+      "request_count_attempted": 1,
+      "response_body_recorded": false,
+      "response_headers_recorded": false,
+      "status_code_class": "2xx",
+      "target_name": "substack_drops"
+    },
+    {
+      "credential_handle_id": "discord_product_updates_webhook_01",
+      "destination_binding_id": "discord_product_updates_capital_chronicle_01",
+      "diagnostic_interpretation": "success_2xx",
+      "env_key_name": "DISCORD_PRODUCT_UPDATES_WEBHOOK_URL",
+      "http_status_code": 204,
+      "live_write_completed": true,
+      "raw_secret_output": false,
+      "request_count_attempted": 1,
+      "response_body_recorded": false,
+      "response_headers_recorded": false,
+      "status_code_class": "2xx",
+      "target_name": "product_updates"
+    }
+  ],
+  "task_label": "TASK_CONTENTOPS_V6_DISCORD_MULTI_TARGET_LIVE_WEBHOOK_SMOKE_V0",
+  "timeout_seconds": 10,
+  "user_agent_set": true,
+  "wait_query_param": false,
+  "webhook_url_printed": false
+}
