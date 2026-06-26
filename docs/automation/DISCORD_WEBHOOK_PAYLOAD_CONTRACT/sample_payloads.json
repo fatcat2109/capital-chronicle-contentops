@@ -1,0 +1,387 @@
+{
+  "discord_bot_required": false,
+  "drop_format_labels": [
+    "Title",
+    "One-line thesis",
+    "Why it matters",
+    "Read the full article",
+    "Discussion question",
+    "Disclosure"
+  ],
+  "dry_run_only": true,
+  "live_write_allowed_now": false,
+  "payloads": [
+    {
+      "blockers": [],
+      "body": "New editorial workflow is ready for operator review.",
+      "content_refs": [],
+      "credential_handle_id": "discord_announcements_webhook_01",
+      "destination_binding_id": "discord_announcements_capital_chronicle_01",
+      "disclosure": "Educational content only. Not investment, legal, tax, or personal finance guidance.",
+      "discussion_question": null,
+      "dry_run_only": true,
+      "human_readable_preview": "[DISCORD DRY RUN ONLY]\nPayload ID: discord_dryrun_announcement_001\nPayload type: announcement\nTarget: announcements\nDestination binding ID: discord_announcements_capital_chronicle_01\nCredential handle ID: discord_announcements_webhook_01\nTitle: Capital Chronicle briefing room open\nOne-line thesis: New editorial workflow is ready for operator review.\nWhy it matters: New editorial workflow is ready for operator review.\nRead the full article: https://capitalchronicle.example/briefing\nDiscussion question: not_required\nDisclosure: Educational content only. Not investment, legal, tax, or personal finance guidance.\nValidation status: valid",
+      "live_write_allowed_now": false,
+      "payload_id": "discord_dryrun_announcement_001",
+      "payload_type": "announcement",
+      "redacted_webhook_json_preview": {
+        "allowed_mentions": {
+          "parse": []
+        },
+        "embeds": [
+          {
+            "description": "New editorial workflow is ready for operator review.",
+            "fields": [
+              {
+                "inline": false,
+                "name": "Read the full article",
+                "value": "https://capitalchronicle.example/briefing"
+              },
+              {
+                "inline": false,
+                "name": "Discussion question",
+                "value": "not_required"
+              },
+              {
+                "inline": false,
+                "name": "Disclosure",
+                "value": "Educational content only. Not investment, legal, tax, or personal finance guidance."
+              }
+            ],
+            "footer": {
+              "text": "Dry-run preview only. Not sent."
+            },
+            "title": "Capital Chronicle briefing room open"
+          }
+        ],
+        "username": "Capital Chronicle ContentOps"
+      },
+      "schema_version": "discord_webhook_payload_contract.v1",
+      "secret_output_policy": {
+        "browser_or_session_storage_output": false,
+        "token_metadata_output": false,
+        "token_output": false,
+        "webhook_url_output": false
+      },
+      "source_url": "https://capitalchronicle.example/briefing",
+      "target_name": "announcements",
+      "task_label": "TASK_CONTENTOPS_V6_DISCORD_WEBHOOK_PAYLOAD_SCHEMA_AND_DRY_RUN_RENDERER_V0",
+      "title": "Capital Chronicle briefing room open",
+      "validation_status": "valid",
+      "warnings": []
+    },
+    {
+      "blockers": [],
+      "body": "A new research note explains liquidity conditions and market structure context.",
+      "content_refs": [],
+      "credential_handle_id": "discord_substack_drops_webhook_01",
+      "destination_binding_id": "discord_substack_drops_capital_chronicle_01",
+      "disclosure": "Educational content only. Not investment, legal, tax, or personal finance guidance.",
+      "discussion_question": "Which data point should we expand in the next issue?",
+      "dry_run_only": true,
+      "human_readable_preview": "[DISCORD DRY RUN ONLY]\nPayload ID: discord_dryrun_substack_drop_001\nPayload type: substack_drop\nTarget: substack_drops\nDestination binding ID: discord_substack_drops_capital_chronicle_01\nCredential handle ID: discord_substack_drops_webhook_01\nTitle: Macro note published\nOne-line thesis: A new research note explains liquidity conditions and market structure context.\nWhy it matters: A new research note explains liquidity conditions and market structure context.\nRead the full article: https://capitalchronicle.example/research-note\nDiscussion question: Which data point should we expand in the next issue?\nDisclosure: Educational content only. Not investment, legal, tax, or personal finance guidance.\nValidation status: valid",
+      "live_write_allowed_now": false,
+      "payload_id": "discord_dryrun_substack_drop_001",
+      "payload_type": "substack_drop",
+      "redacted_webhook_json_preview": {
+        "allowed_mentions": {
+          "parse": []
+        },
+        "embeds": [
+          {
+            "description": "A new research note explains liquidity conditions and market structure context.",
+            "fields": [
+              {
+                "inline": false,
+                "name": "Read the full article",
+                "value": "https://capitalchronicle.example/research-note"
+              },
+              {
+                "inline": false,
+                "name": "Discussion question",
+                "value": "Which data point should we expand in the next issue?"
+              },
+              {
+                "inline": false,
+                "name": "Disclosure",
+                "value": "Educational content only. Not investment, legal, tax, or personal finance guidance."
+              }
+            ],
+            "footer": {
+              "text": "Dry-run preview only. Not sent."
+            },
+            "title": "Macro note published"
+          }
+        ],
+        "username": "Capital Chronicle ContentOps"
+      },
+      "schema_version": "discord_webhook_payload_contract.v1",
+      "secret_output_policy": {
+        "browser_or_session_storage_output": false,
+        "token_metadata_output": false,
+        "token_output": false,
+        "webhook_url_output": false
+      },
+      "source_url": "https://capitalchronicle.example/research-note",
+      "target_name": "substack_drops",
+      "task_label": "TASK_CONTENTOPS_V6_DISCORD_WEBHOOK_PAYLOAD_SCHEMA_AND_DRY_RUN_RENDERER_V0",
+      "title": "Macro note published",
+      "validation_status": "valid",
+      "warnings": []
+    },
+    {
+      "blockers": [],
+      "body": "Discord payload previews now validate safety rules before any live send gate exists.",
+      "content_refs": [],
+      "credential_handle_id": "discord_product_updates_webhook_01",
+      "destination_binding_id": "discord_product_updates_capital_chronicle_01",
+      "disclosure": "Educational content only. Not investment, legal, tax, or personal finance guidance.",
+      "discussion_question": null,
+      "dry_run_only": true,
+      "human_readable_preview": "[DISCORD DRY RUN ONLY]\nPayload ID: discord_dryrun_product_update_001\nPayload type: product_update\nTarget: product_updates\nDestination binding ID: discord_product_updates_capital_chronicle_01\nCredential handle ID: discord_product_updates_webhook_01\nTitle: ContentOps V6 dry-run renderer ready\nOne-line thesis: Discord payload previews now validate safety rules before any live send gate exists.\nWhy it matters: Discord payload previews now validate safety rules before any live send gate exists.\nRead the full article: not_provided\nDiscussion question: not_required\nDisclosure: Educational content only. Not investment, legal, tax, or personal finance guidance.\nValidation status: valid\nWarnings: source_url_absent",
+      "live_write_allowed_now": false,
+      "payload_id": "discord_dryrun_product_update_001",
+      "payload_type": "product_update",
+      "redacted_webhook_json_preview": {
+        "allowed_mentions": {
+          "parse": []
+        },
+        "embeds": [
+          {
+            "description": "Discord payload previews now validate safety rules before any live send gate exists.",
+            "fields": [
+              {
+                "inline": false,
+                "name": "Read the full article",
+                "value": "not_provided"
+              },
+              {
+                "inline": false,
+                "name": "Discussion question",
+                "value": "not_required"
+              },
+              {
+                "inline": false,
+                "name": "Disclosure",
+                "value": "Educational content only. Not investment, legal, tax, or personal finance guidance."
+              }
+            ],
+            "footer": {
+              "text": "Dry-run preview only. Not sent."
+            },
+            "title": "ContentOps V6 dry-run renderer ready"
+          }
+        ],
+        "username": "Capital Chronicle ContentOps"
+      },
+      "schema_version": "discord_webhook_payload_contract.v1",
+      "secret_output_policy": {
+        "browser_or_session_storage_output": false,
+        "token_metadata_output": false,
+        "token_output": false,
+        "webhook_url_output": false
+      },
+      "source_url": null,
+      "target_name": "product_updates",
+      "task_label": "TASK_CONTENTOPS_V6_DISCORD_WEBHOOK_PAYLOAD_SCHEMA_AND_DRY_RUN_RENDERER_V0",
+      "title": "ContentOps V6 dry-run renderer ready",
+      "validation_status": "valid",
+      "warnings": [
+        "source_url_absent"
+      ]
+    },
+    {
+      "blockers": [],
+      "body": "Dry-run packet generated locally with live writes disabled.",
+      "content_refs": [],
+      "credential_handle_id": "discord_operator_private_manual_no_webhook_01",
+      "destination_binding_id": "discord_operator_private_capital_chronicle_01",
+      "disclosure": "Educational content only. Not investment, legal, tax, or personal finance guidance.",
+      "discussion_question": null,
+      "dry_run_only": true,
+      "human_readable_preview": "[DISCORD DRY RUN ONLY]\nPayload ID: discord_dryrun_operator_summary_001\nPayload type: operator_private_summary\nTarget: operator_private\nDestination binding ID: discord_operator_private_capital_chronicle_01\nCredential handle ID: discord_operator_private_manual_no_webhook_01\nTitle: Operator summary\nOne-line thesis: Dry-run packet generated locally with live writes disabled.\nWhy it matters: Dry-run packet generated locally with live writes disabled.\nRead the full article: not_provided\nDiscussion question: not_required\nDisclosure: Educational content only. Not investment, legal, tax, or personal finance guidance.\nValidation status: valid\nWarnings: source_url_absent",
+      "live_write_allowed_now": false,
+      "payload_id": "discord_dryrun_operator_summary_001",
+      "payload_type": "operator_private_summary",
+      "redacted_webhook_json_preview": {
+        "allowed_mentions": {
+          "parse": []
+        },
+        "embeds": [
+          {
+            "description": "Dry-run packet generated locally with live writes disabled.",
+            "fields": [
+              {
+                "inline": false,
+                "name": "Read the full article",
+                "value": "not_provided"
+              },
+              {
+                "inline": false,
+                "name": "Discussion question",
+                "value": "not_required"
+              },
+              {
+                "inline": false,
+                "name": "Disclosure",
+                "value": "Educational content only. Not investment, legal, tax, or personal finance guidance."
+              }
+            ],
+            "footer": {
+              "text": "Dry-run preview only. Not sent."
+            },
+            "title": "Operator summary"
+          }
+        ],
+        "username": "Capital Chronicle ContentOps"
+      },
+      "schema_version": "discord_webhook_payload_contract.v1",
+      "secret_output_policy": {
+        "browser_or_session_storage_output": false,
+        "token_metadata_output": false,
+        "token_output": false,
+        "webhook_url_output": false
+      },
+      "source_url": null,
+      "target_name": "operator_private",
+      "task_label": "TASK_CONTENTOPS_V6_DISCORD_WEBHOOK_PAYLOAD_SCHEMA_AND_DRY_RUN_RENDERER_V0",
+      "title": "Operator summary",
+      "validation_status": "valid",
+      "warnings": [
+        "source_url_absent"
+      ]
+    },
+    {
+      "blockers": [],
+      "body": "Manual review remains available when automation is blocked by policy.",
+      "content_refs": [],
+      "credential_handle_id": "discord_operator_private_manual_no_webhook_01",
+      "destination_binding_id": "discord_operator_private_capital_chronicle_01",
+      "disclosure": "Educational content only. Not investment, legal, tax, or personal finance guidance.",
+      "discussion_question": null,
+      "dry_run_only": true,
+      "human_readable_preview": "[DISCORD DRY RUN ONLY]\nPayload ID: discord_dryrun_manual_fallback_001\nPayload type: manual_fallback_notice\nTarget: operator_private\nDestination binding ID: discord_operator_private_capital_chronicle_01\nCredential handle ID: discord_operator_private_manual_no_webhook_01\nTitle: Manual fallback notice\nOne-line thesis: Manual review remains available when automation is blocked by policy.\nWhy it matters: Manual review remains available when automation is blocked by policy.\nRead the full article: not_provided\nDiscussion question: not_required\nDisclosure: Educational content only. Not investment, legal, tax, or personal finance guidance.\nValidation status: valid\nWarnings: source_url_absent",
+      "live_write_allowed_now": false,
+      "payload_id": "discord_dryrun_manual_fallback_001",
+      "payload_type": "manual_fallback_notice",
+      "redacted_webhook_json_preview": {
+        "allowed_mentions": {
+          "parse": []
+        },
+        "embeds": [
+          {
+            "description": "Manual review remains available when automation is blocked by policy.",
+            "fields": [
+              {
+                "inline": false,
+                "name": "Read the full article",
+                "value": "not_provided"
+              },
+              {
+                "inline": false,
+                "name": "Discussion question",
+                "value": "not_required"
+              },
+              {
+                "inline": false,
+                "name": "Disclosure",
+                "value": "Educational content only. Not investment, legal, tax, or personal finance guidance."
+              }
+            ],
+            "footer": {
+              "text": "Dry-run preview only. Not sent."
+            },
+            "title": "Manual fallback notice"
+          }
+        ],
+        "username": "Capital Chronicle ContentOps"
+      },
+      "schema_version": "discord_webhook_payload_contract.v1",
+      "secret_output_policy": {
+        "browser_or_session_storage_output": false,
+        "token_metadata_output": false,
+        "token_output": false,
+        "webhook_url_output": false
+      },
+      "source_url": null,
+      "target_name": "operator_private",
+      "task_label": "TASK_CONTENTOPS_V6_DISCORD_WEBHOOK_PAYLOAD_SCHEMA_AND_DRY_RUN_RENDERER_V0",
+      "title": "Manual fallback notice",
+      "validation_status": "valid",
+      "warnings": [
+        "source_url_absent"
+      ]
+    },
+    {
+      "blockers": [],
+      "body": "Audit surface lists key names and binding IDs only.",
+      "content_refs": [],
+      "credential_handle_id": "discord_operator_private_manual_no_webhook_01",
+      "destination_binding_id": "discord_operator_private_capital_chronicle_01",
+      "disclosure": "Educational content only. Not investment, legal, tax, or personal finance guidance.",
+      "discussion_question": null,
+      "dry_run_only": true,
+      "human_readable_preview": "[DISCORD DRY RUN ONLY]\nPayload ID: discord_dryrun_audit_summary_001\nPayload type: audit_summary_redacted\nTarget: operator_private\nDestination binding ID: discord_operator_private_capital_chronicle_01\nCredential handle ID: discord_operator_private_manual_no_webhook_01\nTitle: Redacted audit summary\nOne-line thesis: Audit surface lists key names and binding IDs only.\nWhy it matters: Audit surface lists key names and binding IDs only.\nRead the full article: not_provided\nDiscussion question: not_required\nDisclosure: Educational content only. Not investment, legal, tax, or personal finance guidance.\nValidation status: valid\nWarnings: source_url_absent",
+      "live_write_allowed_now": false,
+      "payload_id": "discord_dryrun_audit_summary_001",
+      "payload_type": "audit_summary_redacted",
+      "redacted_webhook_json_preview": {
+        "allowed_mentions": {
+          "parse": []
+        },
+        "embeds": [
+          {
+            "description": "Audit surface lists key names and binding IDs only.",
+            "fields": [
+              {
+                "inline": false,
+                "name": "Read the full article",
+                "value": "not_provided"
+              },
+              {
+                "inline": false,
+                "name": "Discussion question",
+                "value": "not_required"
+              },
+              {
+                "inline": false,
+                "name": "Disclosure",
+                "value": "Educational content only. Not investment, legal, tax, or personal finance guidance."
+              }
+            ],
+            "footer": {
+              "text": "Dry-run preview only. Not sent."
+            },
+            "title": "Redacted audit summary"
+          }
+        ],
+        "username": "Capital Chronicle ContentOps"
+      },
+      "schema_version": "discord_webhook_payload_contract.v1",
+      "secret_output_policy": {
+        "browser_or_session_storage_output": false,
+        "token_metadata_output": false,
+        "token_output": false,
+        "webhook_url_output": false
+      },
+      "source_url": null,
+      "target_name": "operator_private",
+      "task_label": "TASK_CONTENTOPS_V6_DISCORD_WEBHOOK_PAYLOAD_SCHEMA_AND_DRY_RUN_RENDERER_V0",
+      "title": "Redacted audit summary",
+      "validation_status": "valid",
+      "warnings": [
+        "source_url_absent"
+      ]
+    }
+  ],
+  "schema_version": "discord_webhook_payload_contract.v1",
+  "target_mappings": {
+    "announcement": "announcements",
+    "audit_summary_redacted": "operator_private",
+    "manual_fallback_notice": "operator_private",
+    "operator_private_summary": "operator_private",
+    "product_update": "product_updates",
+    "substack_drop": "substack_drops"
+  },
+  "task_label": "TASK_CONTENTOPS_V6_DISCORD_WEBHOOK_PAYLOAD_SCHEMA_AND_DRY_RUN_RENDERER_V0"
+}
