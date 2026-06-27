@@ -1,0 +1,18 @@
+{
+  "approval_valid_for_dispatch": false,
+  "dispatch_allowed_now": false,
+  "evidence_complete": false,
+  "kill_switch_active": true,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0",
+  "no_env_read_in_this_task": true,
+  "no_live_request_in_this_task": true,
+  "no_network_call_in_this_task": true,
+  "no_provider_call_in_this_task": true,
+  "public_postable": false,
+  "raw_secret_output": false,
+  "refresh_packet_id": "refresh_452caf01e1ca",
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0",
+  "validation_status": "EMPTY_FIXTURE_AWAITING_OPERATOR_INPUT",
+  "webhook_url_printed": false
+}
