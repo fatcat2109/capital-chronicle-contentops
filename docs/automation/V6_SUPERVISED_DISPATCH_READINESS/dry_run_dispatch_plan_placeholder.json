@@ -1,0 +1,12 @@
+{
+  "dispatch_allowed_now": false,
+  "dry_run_only": true,
+  "execution_allowed_now": false,
+  "final_payload_hash_present": false,
+  "final_payload_present": false,
+  "note": "strictly non-sendable preview plan for staging dry-runs only.",
+  "outbox_entry_created": false,
+  "real_destination_present": false,
+  "target_channel_family": "community_announcements_placeholder",
+  "target_platform": "discord"
+}

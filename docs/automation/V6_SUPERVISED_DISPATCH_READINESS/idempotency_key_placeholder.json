@@ -1,0 +1,9 @@
+{
+  "destination_binding_present": false,
+  "dispatch_attempt_number": null,
+  "final_payload_hash_present": false,
+  "generation_allowed_now": false,
+  "idempotency_key_present": false,
+  "idempotency_key_value": null,
+  "reason": "requires final payload hash, destination binding, and explicit operator approval"
+}

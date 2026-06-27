@@ -1,0 +1,8 @@
+{
+  "dispatch_allowed_now": false,
+  "dispatch_globally_disabled": true,
+  "emergency_stop_required_for_dispatch": false,
+  "kill_switch_active": true,
+  "live_write_attempted": false,
+  "live_write_authorization_present": false
+}

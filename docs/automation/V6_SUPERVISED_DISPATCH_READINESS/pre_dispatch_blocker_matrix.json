@@ -1,0 +1,66 @@
+[
+  {
+    "blocker_reason": "operator_evidence_missing_from_registry",
+    "complete": false,
+    "current_status": "LOCKED_AWAITING_EVIDENCE_MAPPING",
+    "gate_name": "source_evidence",
+    "remediation_hint": "Supply safe PDF, repo file, screenshot, or URL pointers to resolve reference gap.",
+    "required": true
+  },
+  {
+    "blocker_reason": "sha256_uncalculated_pending_final_draft",
+    "complete": false,
+    "current_status": "LOCKED_AWAITING_HASH_VERIFICATION",
+    "gate_name": "payload_hash",
+    "remediation_hint": "Calculate final content draft SHA256 and confirm digest matching.",
+    "required": true
+  },
+  {
+    "blocker_reason": "mock_placeholder_active_no_sensitive_endpoints_loaded",
+    "complete": false,
+    "current_status": "LOCKED_AWAITING_BINDING_VERIFICATION",
+    "gate_name": "destination_binding",
+    "remediation_hint": "Verify channel family matches non-sensitive platform destination signatures.",
+    "required": true
+  },
+  {
+    "blocker_reason": "safety_checks_unverified",
+    "complete": false,
+    "current_status": "LOCKED_AWAITING_COMPLIANCE_SIGNATURE",
+    "gate_name": "safety_review",
+    "remediation_hint": "Review draft content to guarantee zero trading signal, position sizing, or guaranteed predictions exist.",
+    "required": true
+  },
+  {
+    "blocker_reason": "operator_signatures_unrecorded",
+    "complete": false,
+    "current_status": "LOCKED_AWAITING_APPROVAL_DECISION",
+    "gate_name": "operator_approval",
+    "remediation_hint": "Complete manual review checklist and submit signed decision record template.",
+    "required": true
+  },
+  {
+    "blocker_reason": "kill_switch_override_enabled_blocking_dispatch",
+    "complete": false,
+    "current_status": "LOCKED_SAFETY_SHUTDOWN_ACTIVE",
+    "gate_name": "kill_switch",
+    "remediation_hint": "Disable emergency kill-switch globally to enable outbound routing (requires separate live task).",
+    "required": true
+  },
+  {
+    "blocker_reason": "unauthorized_live_write_attempt_blocked_failsafe",
+    "complete": false,
+    "current_status": "LOCKED_AWAITING_WRITE_AUTHORIZATION",
+    "gate_name": "live_write_authorization",
+    "remediation_hint": "Obtain explicit, supervisor-level write authorizations (requires separate live task).",
+    "required": true
+  },
+  {
+    "blocker_reason": "outbox_staging_disabled_pending_approval",
+    "complete": false,
+    "current_status": "LOCKED_OUTBOX_BLOCKED",
+    "gate_name": "outbox_creation",
+    "remediation_hint": "Complete approval checklists to unblock outbox packet staging queues.",
+    "required": true
+  }
+]
