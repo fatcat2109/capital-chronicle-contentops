@@ -1,0 +1,12 @@
+{
+  "approval_notes": null,
+  "approval_valid_for_dispatch": false,
+  "approved_at": null,
+  "approved_by": null,
+  "destination_binding_confirmed": false,
+  "dispatch_allowed_now": false,
+  "exact_payload_hash_confirmed": false,
+  "operator_decision": null,
+  "safety_review_confirmed": false,
+  "source_evidence_confirmed": false
+}

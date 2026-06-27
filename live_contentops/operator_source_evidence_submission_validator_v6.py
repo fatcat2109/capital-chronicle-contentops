@@ -72,7 +72,7 @@ This lane provides operator guidelines for submitting verified underlying eviden
 - **operator_note**: Custom text statements detailing manual audits.
 
 ## Unsafe / Forbidden Input Examples (Will Be Rejected)
-- Webhook endpoints (`discord.com/api/webhooks/...`)
+- Webhook-like endpoint values
 - Security/auth strings containing `token`, `cookie`, `secret`, `bearer`, or `authorization`
 - System configuration paths pointing to `.env` files
 

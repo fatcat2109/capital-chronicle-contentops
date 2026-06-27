@@ -1,0 +1,7 @@
+{
+  "final_payload_hash_present": false,
+  "final_payload_hash_value": null,
+  "hash_algorithm": "sha256_placeholder_only",
+  "hash_calculation_allowed_now": false,
+  "reason": "final public payload is not ready and not approved"
+}

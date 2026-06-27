@@ -152,6 +152,9 @@ def test_generated_markdown_checklists(tmp_path):
     assert "Accepted Evidence Shapes" in guide
     assert "Unsafe / Forbidden Input Examples" in guide
     assert "Do not invent sources" in guide
+    assert "discord.com/api/webhooks" not in guide
+    assert "discord.com/api" not in guide
+    assert "webhooks/" not in guide
     
     checklist = validator_lane.generate_validation_checklist_markdown(sub, report)
     assert "Evidence Validation Checklist" in checklist

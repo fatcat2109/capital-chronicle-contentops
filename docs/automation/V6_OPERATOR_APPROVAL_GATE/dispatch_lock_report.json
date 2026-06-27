@@ -1,0 +1,16 @@
+{
+  "approval_ledger_entry_created": false,
+  "blocker_summary": [
+    "destination_binding_incomplete",
+    "evidence_incomplete",
+    "operator_approval_incomplete",
+    "payload_hash_incomplete",
+    "safety_review_incomplete"
+  ],
+  "dispatch_allowed_now": false,
+  "dispatch_lock_status": "LOCKED_APPROVAL_REQUIREMENTS_INCOMPLETE",
+  "live_write_attempted": false,
+  "next_required_operator_action": "Resolve outstanding blockers in source evidence, payload hash calculation, and manual approval signatures.",
+  "outbox_entry_created": false,
+  "public_postable": false
+}

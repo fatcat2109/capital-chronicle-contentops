@@ -1,0 +1,11 @@
+{
+  "binding_allowed_now": false,
+  "channel_family": "community_announcements_placeholder",
+  "destination_binding_present": false,
+  "real_channel_id_present": false,
+  "reason": "real binding requires later explicit live-write authorization",
+  "secret_keys_present": false,
+  "target_platform": "discord",
+  "token_present": false,
+  "webhook_url_present": false
+}
