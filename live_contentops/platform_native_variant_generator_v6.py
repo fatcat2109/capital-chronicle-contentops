@@ -80,15 +80,28 @@ def generate_scaffold_text(
 - **Draft layout**:
   [Threads conversational update placeholder...]""",
 
-        "telegram_operator_preview": f"""## Telegram Operator Preview Scaffold
+        "telegram": f"""## Telegram Operator Preview Scaffold
 - **Type**: Operator review summary and dashboard checklist
-- **Operator preview metrics**:
-  - Intent source mode: {source_mode}
-  - Grounding status: {packet.get('source_grounding_status')}
-  - Refinement status: {packet.get('source_refinement_status')}"""
+- **Operator Review Status**: AWAITING_OPERATOR_DECISION
+- **Source Gap Summary**: {status} (missing source references exist)
+- **Target Platform Mapping**:
+  - Substack: long_form_scaffold
+  - Discord: short_form_drop_scaffold
+  - LinkedIn: professional_update_scaffold
+  - X: concise_thread_scaffold
+  - Threads: conversational_scaffold
+  - Telegram: operator_preview_scaffold
+- **Missing Evidence Checklist**:
+  - [ ] Resolve missing references: {missing_str}
+- **Approval Hash/Destination Binding Reminder**: Valid authorization requires an exact operator approval hash matched against an active channel binding target. Do not approve without matching signatures.
+- **Dispatch Blocked Status**: dispatch_allowed_now is strictly false."""
     }
     
-    platform_scaffold = scaffolds.get(platform.lower(), "## Unknown Variant Scaffold")
+    plat_key = platform.lower()
+    if plat_key == "telegram_operator_preview":
+        plat_key = "telegram"
+        
+    platform_scaffold = scaffolds.get(plat_key, "## Unknown Variant Scaffold")
 
     return f"""# Platform Native Draft Scaffold: {platform.upper()}
 
@@ -104,6 +117,7 @@ def generate_scaffold_text(
 
 {platform_scaffold}
 """
+
 
 
 def materialize_variant_packet(

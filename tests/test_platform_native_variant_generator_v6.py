@@ -98,6 +98,19 @@ def test_all_six_platform_variant_files_and_warnings(tmp_path):
         assert "search_volume" not in text
         assert "traffic" not in text
 
+    # Special check for Telegram / operator preview
+    tg_text = generator.generate_scaffold_text("telegram", packet)
+    tg_op_text = generator.generate_scaffold_text("telegram_operator_preview", packet)
+    
+    for text in [tg_text, tg_op_text]:
+        assert "Telegram Operator Preview Scaffold" in text
+        assert "Unknown Variant Scaffold" not in text
+        assert "AWAITING_OPERATOR_DECISION" in text
+        assert "dispatch_allowed_now is strictly false" in text
+        assert "operator_idea_only" in text
+        assert "operator_idea_source_ref" in text
+        assert "Approval Hash/Destination Binding Reminder" in text
+
 
 def test_packet_contains_no_sensitive_values(tmp_path):
     art_p, gnd_p, seo_p = write_temp_inputs(tmp_path)
