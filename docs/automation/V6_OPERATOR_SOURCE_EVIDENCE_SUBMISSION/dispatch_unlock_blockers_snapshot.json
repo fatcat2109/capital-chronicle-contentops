@@ -1,0 +1,10 @@
+{
+  "destination_binding_complete": false,
+  "dispatch_allowed_now": false,
+  "exact_payload_hash_complete": false,
+  "next_required_operator_action": "Fill out source references in the submission template with verified safety paths.",
+  "operator_approval_complete": false,
+  "public_postable": false,
+  "safety_review_complete": false,
+  "source_evidence_complete": false
+}

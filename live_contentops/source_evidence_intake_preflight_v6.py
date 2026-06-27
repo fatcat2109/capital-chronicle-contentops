@@ -214,7 +214,7 @@ def materialize_intake_packets(
         "raw_secret_output": False,
         "webhook_url_printed": False,
         "blocked_reasons": blocked_reasons,
-        "next_recommended_task": "TASK_CONTENTOPS_V6_SOURCE_EVIDENCE_INTAKE_AND_APPROVAL_PREFLIGHT_HEAVY_BATCH_V0" if intake_status == "BLOCKED_BY_UPSTREAM_PACKET" else "TASK_CONTENTOPS_V6_PLATFORM_NATIVE_VARIANT_GENERATOR_V0"
+        "next_recommended_task": "TASK_CONTENTOPS_V6_SOURCE_EVIDENCE_INTAKE_AND_APPROVAL_PREFLIGHT_HEAVY_BATCH_V0" if intake_status == "BLOCKED_BY_UPSTREAM_PACKET" else "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION_VALIDATOR_AND_PREFLIGHT_POINTER_REPAIR_HEAVY_BATCH_V0"
     }
 
     # Approval Preflight Packet

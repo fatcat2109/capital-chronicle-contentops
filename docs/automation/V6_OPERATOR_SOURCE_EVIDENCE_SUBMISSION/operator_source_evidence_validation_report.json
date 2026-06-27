@@ -1,0 +1,11 @@
+{
+  "current_validation_status": "AWAITING_OPERATOR_EVIDENCE",
+  "dispatch_allowed_now": false,
+  "evidence_complete": false,
+  "public_postable": false,
+  "rejected_source_refs": [],
+  "unresolved_source_refs": [
+    "operator_idea_source_ref"
+  ],
+  "unsafe_values_detected": false
+}

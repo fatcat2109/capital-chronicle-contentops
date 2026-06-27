@@ -1,0 +1,17 @@
+[
+  {
+    "evidence_type": null,
+    "expected_evidence_types": [
+      "local_doc_path",
+      "repo_file_path",
+      "screenshot_path",
+      "official_source_url_to_be_reviewed_later",
+      "operator_note"
+    ],
+    "local_validation_required": true,
+    "operator_note": null,
+    "source_ref_id": "operator_idea_source_ref",
+    "supplied_value": null,
+    "verified": false
+  }
+]

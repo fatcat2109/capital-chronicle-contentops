@@ -1,0 +1,38 @@
+{
+  "approval_performed": false,
+  "approval_preflight_packet_id": "preflight_a01e278a",
+  "approval_required": true,
+  "blocked_reasons": [],
+  "dispatch_allowed_now": false,
+  "dispatch_unlock_blockers_snapshot_file": "docs/automation/V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION/dispatch_unlock_blockers_snapshot.json",
+  "evidence_complete": false,
+  "human_review_required": true,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_V0",
+  "no_env_read_in_this_task": true,
+  "no_live_request_in_this_task": true,
+  "no_network_call_in_this_task": true,
+  "no_provider_call_in_this_task": true,
+  "not_approved": true,
+  "not_dispatchable": true,
+  "not_public_postable": true,
+  "operator_source_evidence_submission_packet_id": "submission_e8cb7ab9d7e1",
+  "public_postable": false,
+  "raw_secret_output": false,
+  "rejected_source_refs": [],
+  "required_source_refs": [
+    "operator_idea_source_ref"
+  ],
+  "schema_version": "6.0.0",
+  "source_evidence_intake_packet_id": "intake_a01e278a6d47",
+  "source_reference_registry_file": "docs/automation/V6_SOURCE_EVIDENCE_PREFLIGHT/source_reference_registry.json",
+  "submission_stage": "operator_source_evidence_submission_validation",
+  "submission_status": "AWAITING_OPERATOR_EVIDENCE",
+  "submission_template_file": "docs/automation/V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION/operator_source_evidence_template.json",
+  "supplied_source_refs": [],
+  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION_VALIDATOR_AND_PREFLIGHT_POINTER_REPAIR_HEAVY_BATCH_V0",
+  "unresolved_source_refs": [
+    "operator_idea_source_ref"
+  ],
+  "validation_report_file": "docs/automation/V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION/operator_source_evidence_validation_report.json",
+  "webhook_url_printed": false
+}
