@@ -1,0 +1,73 @@
+{
+  "approval_performed": false,
+  "approval_required": true,
+  "blocked_reasons": [],
+  "canonical_channel": "substack",
+  "dispatch_allowed_now": false,
+  "editorial_angle_candidates": [
+    "Architecture focus over hype",
+    "Operator checklist integration"
+  ],
+  "editorial_stage": "seo_editorial_scaffold",
+  "evidence_blockers": {
+    "missing_source_refs": [
+      "operator_idea_source_ref"
+    ],
+    "source_needed": true
+  },
+  "human_review_required": true,
+  "keyword_theme_candidates": [
+    "AI-Native Editorial Workflows",
+    "Pre-Alpha ContentOps",
+    "System Scaffolding"
+  ],
+  "meta_description_candidates": [
+    "Explore a draft technical analysis on Draft a canonical article about Capital Chronicle V6 AI-native editorial workflo covering system scaffolding under V6 ContentOps.",
+    "V6 pre-alpha draft scaffold exploring process logic, safety boundaries, and evidence requirements for Draft a canonical article about Capital Chronicle V6 AI-native editorial workflo."
+  ],
+  "missing_source_refs": [
+    "operator_idea_source_ref"
+  ],
+  "next_recommended_task": "TASK_CONTENTOPS_V6_PLATFORM_NATIVE_VARIANT_GENERATOR_V0",
+  "no_env_read_in_this_task": true,
+  "no_live_request_in_this_task": true,
+  "no_network_call_in_this_task": true,
+  "no_provider_call_in_this_task": true,
+  "not_approved": true,
+  "not_dispatchable": true,
+  "not_public_postable": true,
+  "public_postable": false,
+  "raw_secret_output": false,
+  "readability_checks": {
+    "cliche_density_ok": true,
+    "passive_voice_threshold_ok": true,
+    "sentence_length_variance_ok": true
+  },
+  "refinement_status": "SEO_EDITORIAL_REVIEW_READY_WITH_SOURCE_GAP",
+  "schema_version": "6.0.0",
+  "seo_editorial_packet_id": "seo_editorial_69ec0b8ce1a0",
+  "slug_candidates": [
+    "v6-system-dynamics-scaffold",
+    "capital-chronicle-v6-workflow-scaffold",
+    "pre-alpha-contentops-design-scaffold"
+  ],
+  "source_article_id": "substack_article_053c35205d67",
+  "source_article_status": "OUTLINE_SCAFFOLD_READY",
+  "source_evidence_required": false,
+  "source_grounding_status": "RESEARCH_BACKLOG_READY",
+  "source_intent_id": "discord_operator_intent_d1720f70a937",
+  "source_needed": true,
+  "source_research_packet_id": "substack_research_6a7a2be45f6e",
+  "subtitle_candidates": [
+    "An unapproved draft exploring system architecture and core process logic.",
+    "Scaffold overview analyzing workflow constraints and evidence rules.",
+    "Pre-alpha technical brief detailing ContentOps design boundaries."
+  ],
+  "task_label": "TASK_CONTENTOPS_V6_SEO_AND_EDITORIAL_REFINEMENT_LANE_V0",
+  "title_candidates": [
+    "Understanding Draft a canonical article about Capital Chronicle V6 AI-native editorial workflo: V6 System Dynamics",
+    "A Guide to Draft a canonical article about Capital Chronicle V6 AI-native editorial workflo under Capital Chronicle V6 Workflow Rules",
+    "V6 System Analysis: Factual Scaffold for Draft a canonical article about Capital Chronicle V6 AI-native editorial workflo"
+  ],
+  "webhook_url_printed": false
+}
