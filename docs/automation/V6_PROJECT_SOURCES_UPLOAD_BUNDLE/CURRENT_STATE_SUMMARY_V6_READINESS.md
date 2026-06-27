@@ -3,8 +3,11 @@
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Upload bundle generation HEAD**: d34a6024a86237cdc6a147702663aef81e954343
-- **Post-commit Verification**: Final post-commit remote HEAD is verified by ChatGPT/GitHub audit after push.
+- **Current generation HEAD**: 998976b3e00c3dcc65b22a15474cf3671c740314
+- **Latest Task**: TASK_CONTENTOPS_V6_PROJECT_SOURCES_UPLOAD_BUNDLE_FINAL_HEAD_REPAIR_AND_REFRESH_HEAVY_BATCH_V0
+
+> [!WARNING]
+> **Post-Push Audit Required**: The final post-commit HEAD of this repository is not hardcoded here; it must be verified by ChatGPT/GitHub audit after push.
 
 ## Current V6 Lane Status Summary
 - All 10 lanes from operator intent to supervised dispatch readiness are summarized.

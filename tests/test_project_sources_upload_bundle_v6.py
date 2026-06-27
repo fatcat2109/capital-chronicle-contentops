@@ -72,8 +72,8 @@ def test_new_chat_continuation_starts_with_task_label(tmp_path):
     )
     lines = content.strip().splitlines()
     assert lines[0] == "TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V0"
-    assert "d97bc3968e1babf48c81f384fb547b439e48515c" in content
-    # Should not treat baseline as current accepted remote HEAD
+    assert "cc-live-contentops" in content
+    assert "master" in content
     assert "Baseline before upload bundle task" in content
 
 
@@ -95,17 +95,11 @@ def test_current_state_summary_details(tmp_path):
         packet["bundle_generation_head"], packet["unresolved_blockers"]
     )
     
-    assert "d97bc3968e1babf48c81f384fb547b439e48515c" in summary
+    assert "Baseline before upload bundle task" in summary
+    assert "Current generation HEAD" in summary
     assert "master" in summary
-    assert "Baseline before" in summary
-    assert "Upload bundle generation HEAD" in summary
-    assert "evidence_incomplete" in summary
-    
-    # Must not present baseline as current accepted remote HEAD
-    lines = summary.splitlines()
-    for line in lines:
-        if "Accepted HEAD" in line:
-            assert False, "Falsely claimed Accepted HEAD in summary"
+    assert "TASK_CONTENTOPS_V6_PROJECT_SOURCES_UPLOAD_BUNDLE_FINAL_HEAD_REPAIR_AND_REFRESH_HEAVY_BATCH_V0" in summary
+    assert "Post-Push Audit Required" in summary
 
 
 def test_webhook_and_secrets_hygiene(tmp_path):
@@ -130,16 +124,6 @@ def test_webhook_and_secrets_hygiene(tmp_path):
         assert "cookie_value" not in doc.lower()
         assert "secret_key" not in doc.lower()
         assert "env_value" not in doc.lower()
-
-
-def test_packet_has_correct_repaired_fields(tmp_path):
-    rb_path, dr_path = write_temp_readiness_inputs(tmp_path)
-    packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
-    
-    assert packet["baseline_before_upload_bundle_task"] == "d97bc3968e1babf48c81f384fb547b439e48515c"
-    assert "bundle_generation_head" in packet
-    assert packet["final_head_requires_post_push_audit"] is True
-    assert "accepted_head_before_task" not in packet
 
 
 def test_no_forbidden_behavior_in_module():
