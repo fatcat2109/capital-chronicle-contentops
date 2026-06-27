@@ -1,0 +1,70 @@
+{
+  "approval_performed": false,
+  "approval_required": true,
+  "blocked_reasons": [],
+  "canonical_channel": "substack",
+  "claims_to_verify": [],
+  "dispatch_allowed_now": false,
+  "evidence_requirements": [
+    "source refs for factual claims",
+    "artifact paths for internal alpha claims",
+    "screenshot or file evidence for UI/product claims",
+    "test/log evidence for implementation claims",
+    "citation/source evidence for external factual/news claims",
+    "explicit exclusion of market advice/signals"
+  ],
+  "grounding_status": "RESEARCH_BACKLOG_READY",
+  "human_review_required": true,
+  "missing_source_refs": [
+    "operator_idea_source_ref"
+  ],
+  "next_recommended_task": "TASK_CONTENTOPS_V6_SEO_AND_EDITORIAL_REFINEMENT_LANE_V0",
+  "no_env_read_in_this_task": true,
+  "no_live_request_in_this_task": true,
+  "no_network_call_in_this_task": true,
+  "no_provider_call_in_this_task": true,
+  "not_approved": true,
+  "not_dispatchable": true,
+  "not_public_postable": true,
+  "public_postable": false,
+  "raw_secret_output": false,
+  "required_source_refs": [],
+  "research_packet_id": "substack_research_6a7a2be45f6e",
+  "research_questions": [
+    {
+      "question": "What is the validated core thesis statement from the operator?",
+      "section": "Thesis Placeholder"
+    },
+    {
+      "question": "What are the specific readership metrics and workflow efficiencies achieved?",
+      "section": "Why It Matters"
+    },
+    {
+      "question": "What are the local-only safety boundaries and preflight checks in the V6 ContentOps codebase?",
+      "section": "Architecture & Product Context"
+    },
+    {
+      "question": "Where are the file/log verification source references located?",
+      "section": "Evidence Needed Before Publish"
+    },
+    {
+      "question": "Does the text fully comply with the absolute ban on financial advice, signal framing, and position sizing?",
+      "section": "Risk & Compliance Notes"
+    },
+    {
+      "question": "Has the operator verified the final payload hash against the destination binding?",
+      "section": "Next Operator Review Checklist"
+    }
+  ],
+  "research_stage": "grounding_backlog",
+  "schema_version": "6.0.0",
+  "source_article_id": "substack_article_053c35205d67",
+  "source_article_status": "OUTLINE_SCAFFOLD_READY",
+  "source_evidence_required": false,
+  "source_intent_id": "discord_operator_intent_d1720f70a937",
+  "source_mode": "operator_idea_only",
+  "source_needed": true,
+  "task_label": "TASK_CONTENTOPS_V6_AI_RESEARCH_GROUNDING_LANE_V0",
+  "unsupported_claims_detected": false,
+  "webhook_url_printed": false
+}
