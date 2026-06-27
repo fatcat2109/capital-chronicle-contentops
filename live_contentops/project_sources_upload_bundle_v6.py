@@ -187,7 +187,7 @@ def generate_implementation_report_markdown(bundle_status: str, head_sha: str) -
 def generate_next_task_pointer_markdown() -> str:
     return """# Next Task Pointer
 
-Recommended next task:
+Recommended next task at time of bundle generation (not permanent authority):
 
 `TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0`
 

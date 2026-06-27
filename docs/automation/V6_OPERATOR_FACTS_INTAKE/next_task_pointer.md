@@ -1,6 +1,6 @@
 # Next Task Pointer
 
-Recommended next task:
+Recommended next task at time of bundle generation (not permanent authority):
 
 `TASK_CONTENTOPS_V6_FAST_SHIP_OPERATING_PROFILE_AND_PROMPT_CEREMONY_REDUCTION_HEAVY_BATCH_V0`
 

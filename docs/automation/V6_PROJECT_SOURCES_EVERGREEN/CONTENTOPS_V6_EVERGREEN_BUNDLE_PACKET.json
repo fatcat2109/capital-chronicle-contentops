@@ -1,0 +1,60 @@
+{
+  "task_label": "TASK_CONTENTOPS_V6_EVERGREEN_PROJECT_SOURCES_BUNDLE_AND_DYNAMIC_POINTER_POLICY_HEAVY_BATCH_V0",
+  "schema_version": "6.0.0",
+  "bundle_type": "evergreen_project_sources",
+  "fast_ship_profile_active": true,
+  "prompt_ceremony_reduction_active": true,
+  "latest_head_must_be_verified_from_github": true,
+  "project_sources_are_not_repo_authority": true,
+  "dynamic_pointer_policy_active": true,
+  "no_secret_output": true,
+  "generated_files": [
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_CURRENT_AUTHORITY_INDEX.md",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_PROJECT_SOURCES_MINIMAL_HANDOFF.md",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_DYNAMIC_POINTER_POLICY.md",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_LEAN_UPLOAD_BUNDLE.md",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_SOURCE_RETENTION_MATRIX.json",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_EVERGREEN_BUNDLE_PACKET.json",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/implementation_report.md",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/next_task_pointer.md"
+  ],
+  "recommended_project_sources": [
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "docs/automation/V6_FAST_SHIP_OPERATING_PROFILE/fast_ship_operating_profile.md",
+    "docs/automation/V6_FAST_SHIP_OPERATING_PROFILE/prompt_style_guide.md",
+    "docs/automation/V6_FAST_SHIP_OPERATING_PROFILE/task_classification_matrix.json",
+    "docs/automation/V6_FAST_SHIP_OPERATING_PROFILE/live_env_scope_contract.md",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_CURRENT_AUTHORITY_INDEX.md",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_PROJECT_SOURCES_MINIMAL_HANDOFF.md",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_DYNAMIC_POINTER_POLICY.md",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_LEAN_UPLOAD_BUNDLE.md",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_SOURCE_RETENTION_MATRIX.json"
+  ],
+  "optional_project_sources": [
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/next_task_pointer.md",
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_EVERGREEN_BUNDLE_PACKET.json"
+  ],
+  "files_to_remove_from_project_sources": [
+    "docs/automation/V6_PROJECT_SOURCES_EVERGREEN/implementation_report.md",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/IMPLEMENTATION_REPORT.md",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/UPLOAD_BUNDLE_FILE_LIST_V6_READINESS.txt",
+    "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/PROJECT_SOURCES_REPLACEMENT_GUIDE_V6_READINESS.md"
+  ],
+  "stale_fields_banned_in_evergreen_docs": [
+    "accepted_head",
+    "latest_accepted_head",
+    "final_head",
+    "current_generation_head as authority",
+    "latest_task as authority",
+    "next_task as authority",
+    "current_task_complete unless scoped to implementation report",
+    "static dispatch readiness claims"
+  ],
+  "allowed_phrasings": [
+    "At bundle generation time...",
+    "Recommended at time of generation...",
+    "Verify from GitHub before use...",
+    "Project Sources are context, not runtime authority..."
+  ]
+}

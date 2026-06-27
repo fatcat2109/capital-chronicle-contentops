@@ -191,7 +191,7 @@ def generate_implementation_report_markdown(packet_status: str, validation_statu
 def generate_next_task_pointer_markdown() -> str:
     return """# Next Task Pointer
 
-Recommended next task:
+Recommended next task at time of bundle generation (not permanent authority):
 
 `TASK_CONTENTOPS_V6_FAST_SHIP_OPERATING_PROFILE_AND_PROMPT_CEREMONY_REDUCTION_HEAVY_BATCH_V0`
 
