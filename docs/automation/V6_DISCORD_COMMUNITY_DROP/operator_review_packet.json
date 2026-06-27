@@ -1,0 +1,25 @@
+{
+  "approval_valid_for_dispatch": false,
+  "checklist": [
+    "Confirm underlying metrics have been verified byJim.",
+    "Verify that no signal language or financial target framing is present.",
+    "Confirm that correct payload hash is calculated and matching."
+  ],
+  "destination_binding_present": false,
+  "destination_binding_required": true,
+  "dispatch_allowed_now": false,
+  "exact_payload_hash_present": false,
+  "exact_payload_hash_required": true,
+  "missing_source_refs": [
+    "operator_idea_source_ref"
+  ],
+  "not_approved": true,
+  "not_dispatchable": true,
+  "operator_review_packet_id": "review_packet_ce89baf4",
+  "public_postable": false,
+  "review_status": "AWAITING_OPERATOR_EVIDENCE_AND_APPROVAL",
+  "schema_version": "6.0.0",
+  "source_discord_drop_packet_id": "discord_drop_ce89baf48671",
+  "source_evidence_required": false,
+  "task_label": "TASK_CONTENTOPS_V6_DISCORD_COMMUNITY_DROP_AND_OPERATOR_REVIEW_HEAVY_BATCH_V0"
+}

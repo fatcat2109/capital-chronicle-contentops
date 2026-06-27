@@ -1,0 +1,13 @@
+{
+  "authorized_roles_allowed": [
+    "V6-Operator",
+    "Admin"
+  ],
+  "binding_id": "binding_ce89baf4",
+  "binding_status": "PLACEHOLDER_ONLY",
+  "channel_family": "community_announcements_placeholder",
+  "note": "This is a strictly non-sensitive placeholder layout. Real binding and live write authorizations must occur in a later explicit live task.",
+  "secret_keys_present": false,
+  "target_platform": "discord",
+  "webhook_url": null
+}
