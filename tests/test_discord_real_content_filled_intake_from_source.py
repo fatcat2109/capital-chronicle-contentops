@@ -49,20 +49,31 @@ def test_inbox_readme_is_ignored_during_bridge_auto_discovery(tmp_path):
     assert packet["source_artifact_path"].endswith("capital_chronicle_launch.md")
 
 
-def test_placeholder_filler_source_does_not_reach_ready_state(tmp_path):
+def test_placeholder_filler_source_rewrites_filled_intake_into_blocked_safe_state(tmp_path):
     inbox = tmp_path / "inbox"
     source(
         inbox / "capital_chronicle_real_announcement_001.md",
         "# Capital Chronicle — Product Update\n\n[Viết nội dung thật ở đây]\n\nSource evidence:\n- [đường dẫn tới artifact/source nếu có]\n\nOperator notes:\n- Target candidate: announcements\n- Content type candidate: announcement",
     )
+    filled_output = tmp_path / "filled_intake_packet.json"
     packet = bridge.materialize_bridge(
         tmp_path / "source_artifact_packet.json",
         inbox=inbox,
         template=Path("docs/automation/DISCORD_REAL_CONTENT_APPROVED_QUEUE/real_content_operator_intake_template.json"),
-        filled_output=tmp_path / "filled_intake_packet.json",
+        filled_output=filled_output,
     )
     assert packet["bridge_status"] == "FAIL_VALIDATION"
+    assert packet["filled_intake_status"] == "BLOCKED_AWAITING_OPERATOR_CONTENT"
     assert packet["validation"]["source_artifact_ready"] is False
+
+    written_filled_packet = json.loads(filled_output.read_text(encoding="utf-8"))
+    assert written_filled_packet["filled_intake_status"] == "BLOCKED_AWAITING_OPERATOR_CONTENT"
+    assert written_filled_packet["template_only"] is True
+    assert written_filled_packet["not_approved"] is True
+    assert written_filled_packet["not_dispatchable"] is True
+    assert written_filled_packet["not_public_postable"] is True
+    assert written_filled_packet["validation"]["real_content_present"] is False
+    assert written_filled_packet["content_body"] is None
 
 
 def test_valid_single_markdown_artifact_produces_ready_for_intake_approval(tmp_path):

@@ -1,6 +1,6 @@
 # Discord Filled Intake From Source Artifact Bridge
 
-Status: `PASS`
+Status: `BLOCKED_FAIL_SAFE`
 
 Bridge status: `FAIL_VALIDATION`
 
@@ -10,4 +10,4 @@ Bridge status: `FAIL_VALIDATION`
 - Auto-approval performed: `false`
 - Auto-dispatch performed: `false`
 
-If source artifact missing, framework remains blocked. If target/content type unclear, operator target selection remains required.
+If source artifact missing, invalid, or placeholder-filled, framework rewrites filled intake into blocked fail-safe state. If target/content type unclear, operator target selection remains required.

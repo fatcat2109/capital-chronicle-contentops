@@ -91,7 +91,13 @@ def blocked_packet() -> dict[str, Any]:
     }
 
 
-def fail_packet(errors: list[str], *, source_packet: dict[str, Any] | None = None, filled_packet: dict[str, Any] | None = None, source_packet_path: str | Path | None = None) -> dict[str, Any]:
+def fail_packet(
+    errors: list[str],
+    *,
+    source_packet: dict[str, Any] | None = None,
+    filled_packet: dict[str, Any] | None = None,
+    source_packet_path: str | Path | None = None,
+) -> dict[str, Any]:
     packet = blocked_packet()
     packet["bridge_status"] = "FAIL_VALIDATION"
     packet["validation_errors"] = errors
@@ -134,6 +140,18 @@ def fail_packet(errors: list[str], *, source_packet: dict[str, Any] | None = Non
     return packet
 
 
+def blocked_filled_packet(
+    template: str | Path,
+    filled_output: str | Path,
+    source_artifact_path: str | Path | None,
+    *,
+    reason: str,
+) -> dict[str, Any]:
+    filled_packet = filled_intake.blocked_packet(template, source_artifact_path, reason=reason)
+    filled_intake.write_all_outputs(filled_output, filled_packet)
+    return filled_packet
+
+
 def blocked_for_operator_target(source_packet: dict[str, Any], *, source_packet_path: str | Path, filled_packet: dict[str, Any] | None = None) -> dict[str, Any]:
     packet = blocked_packet()
     packet["source_artifact_packet_path"] = path_text(source_packet_path)
@@ -168,6 +186,7 @@ def blocked_for_operator_target(source_packet: dict[str, Any], *, source_packet_
     }
     if filled_packet:
         packet["filled_intake_status"] = filled_packet.get("filled_intake_status")
+        packet["content_summary"] = filled_packet.get("content_summary")
     return packet
 
 
@@ -202,25 +221,28 @@ def bridge_validation_from_source(source_packet: dict[str, Any], exactly_one: bo
 def materialize_bridge(source_artifact_packet: str | Path = DEFAULT_SOURCE_ARTIFACT_PACKET, *, source_artifact_path: str | Path | None = None, target: str | None = None, content_type: str | None = None, inbox: str | Path = DEFAULT_SOURCE_INBOX, template: str | Path = DEFAULT_TEMPLATE, filled_output: str | Path = DEFAULT_FILLED_OUTPUT) -> dict[str, Any]:
     source_packet, candidates = source_packet_current_or_refreshed(source_artifact_packet, source_artifact_path, inbox=inbox)
     if len(candidates) > 1:
-        return fail_packet(["multiple_source_artifacts_in_inbox"], source_packet=source_packet, source_packet_path=source_artifact_packet)
+        filled_packet = blocked_filled_packet(template, filled_output, source_packet.get("source_artifact_path"), reason="validation_failed")
+        return fail_packet(["multiple_source_artifacts_in_inbox"], source_packet=source_packet, filled_packet=filled_packet, source_packet_path=source_artifact_packet)
     if source_packet.get("source_artifact_status") == "BLOCKED_AWAITING_OPERATOR_ARTIFACT":
-        filled_packet = filled_intake.blocked_packet(template)
-        filled_intake.write_all_outputs(filled_output, filled_packet)
+        filled_packet = blocked_filled_packet(template, filled_output, source_packet.get("source_artifact_path"), reason="operator_content_missing")
         packet = blocked_packet()
         packet["source_artifact_packet_path"] = path_text(source_artifact_packet)
         packet["filled_intake_packet_path"] = path_text(filled_output)
         packet["filled_intake_status"] = filled_packet.get("filled_intake_status")
         return packet
     if source_packet.get("source_artifact_status") != "READY_FOR_FILLED_INTAKE":
-        return fail_packet(["source_artifact_not_ready"], source_packet=source_packet, source_packet_path=source_artifact_packet)
+        filled_packet = blocked_filled_packet(template, filled_output, source_packet.get("source_artifact_path"), reason="validation_failed")
+        return fail_packet(["source_artifact_not_ready"], source_packet=source_packet, filled_packet=filled_packet, source_packet_path=source_artifact_packet)
     target = target or source_packet.get("recommended_target_name")
     content_type = content_type or source_packet.get("recommended_content_type")
     if not target or not content_type:
-        return blocked_for_operator_target(source_packet, source_packet_path=source_artifact_packet)
+        filled_packet = blocked_filled_packet(template, filled_output, source_packet.get("source_artifact_path"), reason="operator_content_missing")
+        return blocked_for_operator_target(source_packet, source_packet_path=source_artifact_packet, filled_packet=filled_packet)
     filled_packet = filled_intake.materialize_filled_intake(template, filled_output, source_packet.get("source_artifact_path"), target, content_type)
     filled_intake.write_all_outputs(filled_output, filled_packet)
     if filled_packet.get("filled_intake_status") != "READY_FOR_INTAKE_APPROVAL":
-        return fail_packet(["filled_intake_generation_failed"], source_packet=source_packet, filled_packet=filled_packet, source_packet_path=source_artifact_packet)
+        safe_filled_packet = blocked_filled_packet(template, filled_output, source_packet.get("source_artifact_path"), reason="validation_failed")
+        return fail_packet(["filled_intake_generation_failed"], source_packet=source_packet, filled_packet=safe_filled_packet, source_packet_path=source_artifact_packet)
     return {
         "task_label": TASK_LABEL,
         "bridge_status": "READY_FOR_INTAKE_APPROVAL",
@@ -252,7 +274,8 @@ def materialize_bridge(source_artifact_packet: str | Path = DEFAULT_SOURCE_ARTIF
 
 
 def implementation_report(packet: dict[str, Any]) -> str:
-    return f"""# Discord Filled Intake From Source Artifact Bridge\n\nStatus: `PASS`\n\nBridge status: `{packet.get('bridge_status')}`\n\n- No live request in this task: `true`\n- No env read in this task: `true`\n- Fake public-postable content created: `false`\n- Auto-approval performed: `false`\n- Auto-dispatch performed: `false`\n\nIf source artifact missing, framework remains blocked. If target/content type unclear, operator target selection remains required.\n"""
+    report_status = "PASS" if packet.get("bridge_status") == "READY_FOR_INTAKE_APPROVAL" else "BLOCKED_FAIL_SAFE"
+    return f"""# Discord Filled Intake From Source Artifact Bridge\n\nStatus: `{report_status}`\n\nBridge status: `{packet.get('bridge_status')}`\n\n- No live request in this task: `true`\n- No env read in this task: `true`\n- Fake public-postable content created: `false`\n- Auto-approval performed: `false`\n- Auto-dispatch performed: `false`\n\nIf source artifact missing, invalid, or placeholder-filled, framework rewrites filled intake into blocked fail-safe state. If target/content type unclear, operator target selection remains required.\n"""
 
 
 def next_task_pointer(packet: dict[str, Any]) -> str:
