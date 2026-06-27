@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "dryrun_payload_reuse_blocked": {
+      "const": true
+    },
+    "platform": {
+      "const": "discord"
+    },
+    "queue_materialization_status": {
+      "enum": [
+        "PASS",
+        "BLOCKED",
+        "FAIL"
+      ]
+    },
+    "queue_records": {
+      "type": "array"
+    },
+    "real_content_queue_status": {
+      "enum": [
+        "READY_WITH_REAL_CONTENT",
+        "BLOCKED_AWAITING_REAL_CONTENT_INPUT",
+        "FAIL_EVIDENCE_CONFLICT"
+      ]
+    },
+    "task_label": {
+      "const": "TASK_CONTENTOPS_V6_DISCORD_REAL_CONTENT_APPROVED_PAYLOAD_QUEUE_V0"
+    }
+  },
+  "required": [
+    "task_label",
+    "queue_materialization_status",
+    "real_content_queue_status",
+    "platform",
+    "dryrun_payload_reuse_blocked",
+    "queue_records"
+  ],
+  "title": "Discord Real Content Approved Queue Packet",
+  "type": "object"
+}

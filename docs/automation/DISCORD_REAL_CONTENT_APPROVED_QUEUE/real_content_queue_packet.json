@@ -1,0 +1,18 @@
+{
+  "approved_real_content_count": 0,
+  "dispatchable_real_content_count": 0,
+  "dryrun_payload_reuse_blocked": true,
+  "no_env_read_in_this_task": true,
+  "no_live_request_in_this_task": true,
+  "pending_real_content_count": 0,
+  "platform": "discord",
+  "queue_materialization_status": "PASS",
+  "queue_records": [],
+  "raw_secret_output": false,
+  "real_content_queue_status": "BLOCKED_AWAITING_REAL_CONTENT_INPUT",
+  "rejected_or_blocked_count": 0,
+  "source_actions_packet": "docs/automation/DISCORD_SUPERVISED_DISPATCH_ACTIONS/supervised_dispatch_actions_packet.json",
+  "source_closeout_packet": "docs/automation/DISCORD_ONE_ACTION_LIVE_DISPATCH_CLOSEOUT/one_action_live_dispatch_closeout_packet.json",
+  "supervised_live_loop_verified": true,
+  "task_label": "TASK_CONTENTOPS_V6_DISCORD_REAL_CONTENT_APPROVED_PAYLOAD_QUEUE_V0"
+}
