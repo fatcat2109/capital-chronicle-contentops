@@ -1,0 +1,354 @@
+[
+  {
+    "approval_requested": false,
+    "approval_valid_for_dispatch": false,
+    "blocked_reasons": [],
+    "content_lane": "pre_alpha_general_process",
+    "dispatch_allowed_now": false,
+    "dispatch_requested": false,
+    "future_artifact_claim_detected": false,
+    "human_review_required": true,
+    "intent_class": "create_canonical_article",
+    "intent_id": "discord_operator_intent_d1720f70a937",
+    "no_advice_status": true,
+    "no_env_read_in_this_task": true,
+    "no_live_request_in_this_task": true,
+    "no_signal_status": true,
+    "not_public_postable": true,
+    "raw_prompt_excerpt": "Draft a canonical article about Capital Chronicle V6 AI-native editorial workflows.",
+    "raw_secret_output": false,
+    "requested_outputs": [
+      "article_draft"
+    ],
+    "schema_version": "6.0.0",
+    "source_evidence_required": false,
+    "source_mode": "operator_idea_only",
+    "source_needed": false,
+    "source_refs": [],
+    "target_platforms_requested": [
+      "substack"
+    ],
+    "task_label": "TASK_CONTENTOPS_V6_OPERATOR_INTENT_AND_CONTENT_IDEA_PACKET_V0",
+    "topic": "Draft a canonical article about Capital Chronicle V6 AI-native editorial workflo",
+    "webhook_url_printed": false
+  },
+  {
+    "approval_requested": false,
+    "approval_valid_for_dispatch": false,
+    "blocked_reasons": [],
+    "content_lane": "pre_alpha_general_process",
+    "dispatch_allowed_now": false,
+    "dispatch_requested": false,
+    "future_artifact_claim_detected": false,
+    "human_review_required": true,
+    "intent_class": "summarize_source",
+    "intent_id": "discord_operator_intent_c49c1a247dbf",
+    "no_advice_status": true,
+    "no_env_read_in_this_task": true,
+    "no_live_request_in_this_task": true,
+    "no_signal_status": true,
+    "not_public_postable": true,
+    "raw_prompt_excerpt": "We achieved 50% database latency reduction with the new indexing strategy. Summarize this findings file: docs/indexing_perf.md",
+    "raw_secret_output": false,
+    "requested_outputs": [
+      "intent_metadata"
+    ],
+    "schema_version": "6.0.0",
+    "source_evidence_required": false,
+    "source_mode": "source_artifact_path",
+    "source_needed": false,
+    "source_refs": [
+      "docs/indexing_perf.md"
+    ],
+    "target_platforms_requested": [
+      "substack"
+    ],
+    "task_label": "TASK_CONTENTOPS_V6_OPERATOR_INTENT_AND_CONTENT_IDEA_PACKET_V0",
+    "topic": "We achieved 50% database latency reduction with the new indexing strategy. Summa",
+    "webhook_url_printed": false
+  },
+  {
+    "approval_requested": false,
+    "approval_valid_for_dispatch": false,
+    "blocked_reasons": [
+      "dispatch_not_allowed_in_this_task",
+      "numeric_claim_requires_source_evidence"
+    ],
+    "content_lane": "blocked_or_unknown",
+    "dispatch_allowed_now": false,
+    "dispatch_requested": true,
+    "future_artifact_claim_detected": false,
+    "human_review_required": true,
+    "intent_class": "create_canonical_article",
+    "intent_id": "discord_operator_intent_391338b79533",
+    "no_advice_status": true,
+    "no_env_read_in_this_task": true,
+    "no_live_request_in_this_task": true,
+    "no_signal_status": true,
+    "not_public_postable": true,
+    "raw_prompt_excerpt": "We achieved 50% database latency reduction. Write a Discord announcements post.",
+    "raw_secret_output": false,
+    "requested_outputs": [
+      "article_draft",
+      "discord_drop_draft"
+    ],
+    "schema_version": "6.0.0",
+    "source_evidence_required": true,
+    "source_mode": "operator_idea_only",
+    "source_needed": true,
+    "source_refs": [],
+    "target_platforms_requested": [
+      "discord"
+    ],
+    "task_label": "TASK_CONTENTOPS_V6_OPERATOR_INTENT_AND_CONTENT_IDEA_PACKET_V0",
+    "topic": "We achieved 50% database latency reduction. Write a Discord announcements post.",
+    "webhook_url_printed": false
+  },
+  {
+    "approval_requested": true,
+    "approval_valid_for_dispatch": true,
+    "blocked_reasons": [],
+    "content_lane": "pre_alpha_general_process",
+    "dispatch_allowed_now": false,
+    "dispatch_requested": false,
+    "future_artifact_claim_detected": false,
+    "human_review_required": true,
+    "intent_class": "approve_payload",
+    "intent_id": "discord_operator_intent_bb1a7dd35821",
+    "no_advice_status": true,
+    "no_env_read_in_this_task": true,
+    "no_live_request_in_this_task": true,
+    "no_signal_status": true,
+    "not_public_postable": true,
+    "raw_prompt_excerpt": "Please approve payload abc123def456 for discord_webhook_destination",
+    "raw_secret_output": false,
+    "requested_outputs": [
+      "discord_drop_draft"
+    ],
+    "schema_version": "6.0.0",
+    "source_evidence_required": false,
+    "source_mode": "operator_idea_only",
+    "source_needed": false,
+    "source_refs": [],
+    "target_platforms_requested": [
+      "discord"
+    ],
+    "task_label": "TASK_CONTENTOPS_V6_OPERATOR_INTENT_AND_CONTENT_IDEA_PACKET_V0",
+    "topic": "Please approve payload abc123def456 for discord_webhook_destination",
+    "webhook_url_printed": false
+  },
+  {
+    "approval_requested": true,
+    "approval_valid_for_dispatch": false,
+    "blocked_reasons": [
+      "missing_destination_binding_for_approval",
+      "missing_payload_hash_for_approval"
+    ],
+    "content_lane": "blocked_or_unknown",
+    "dispatch_allowed_now": false,
+    "dispatch_requested": false,
+    "future_artifact_claim_detected": false,
+    "human_review_required": true,
+    "intent_class": "approve_payload",
+    "intent_id": "discord_operator_intent_1120e168eccb",
+    "no_advice_status": true,
+    "no_env_read_in_this_task": true,
+    "no_live_request_in_this_task": true,
+    "no_signal_status": true,
+    "not_public_postable": true,
+    "raw_prompt_excerpt": "approve this draft payload",
+    "raw_secret_output": false,
+    "requested_outputs": [
+      "intent_metadata"
+    ],
+    "schema_version": "6.0.0",
+    "source_evidence_required": false,
+    "source_mode": "operator_idea_only",
+    "source_needed": false,
+    "source_refs": [],
+    "target_platforms_requested": [
+      "substack"
+    ],
+    "task_label": "TASK_CONTENTOPS_V6_OPERATOR_INTENT_AND_CONTENT_IDEA_PACKET_V0",
+    "topic": "approve this draft payload",
+    "webhook_url_printed": false
+  },
+  {
+    "approval_requested": false,
+    "approval_valid_for_dispatch": false,
+    "blocked_reasons": [
+      "dispatch_not_allowed_in_this_task"
+    ],
+    "content_lane": "blocked_or_unknown",
+    "dispatch_allowed_now": false,
+    "dispatch_requested": true,
+    "future_artifact_claim_detected": false,
+    "human_review_required": true,
+    "intent_class": "create_canonical_article",
+    "intent_id": "discord_operator_intent_eaa51bd2afd5",
+    "no_advice_status": true,
+    "no_env_read_in_this_task": true,
+    "no_live_request_in_this_task": true,
+    "no_signal_status": true,
+    "not_public_postable": true,
+    "raw_prompt_excerpt": "publish/send this payload to Discord channels announcements immediately",
+    "raw_secret_output": false,
+    "requested_outputs": [
+      "article_draft",
+      "discord_drop_draft"
+    ],
+    "schema_version": "6.0.0",
+    "source_evidence_required": false,
+    "source_mode": "operator_idea_only",
+    "source_needed": false,
+    "source_refs": [],
+    "target_platforms_requested": [
+      "discord"
+    ],
+    "task_label": "TASK_CONTENTOPS_V6_OPERATOR_INTENT_AND_CONTENT_IDEA_PACKET_V0",
+    "topic": "publish/send this payload to Discord channels announcements immediately",
+    "webhook_url_printed": false
+  },
+  {
+    "approval_requested": false,
+    "approval_valid_for_dispatch": false,
+    "blocked_reasons": [
+      "missing_future_alpha_artifact_path"
+    ],
+    "content_lane": "blocked_or_unknown",
+    "dispatch_allowed_now": false,
+    "dispatch_requested": false,
+    "future_artifact_claim_detected": true,
+    "human_review_required": true,
+    "intent_class": "create_canonical_article",
+    "intent_id": "discord_operator_intent_2364d841973d",
+    "no_advice_status": true,
+    "no_env_read_in_this_task": true,
+    "no_live_request_in_this_task": true,
+    "no_signal_status": true,
+    "not_public_postable": true,
+    "raw_prompt_excerpt": "We have a future internal alpha artifact containing our roadmap. Please inspect it.",
+    "raw_secret_output": false,
+    "requested_outputs": [
+      "article_draft"
+    ],
+    "schema_version": "6.0.0",
+    "source_evidence_required": false,
+    "source_mode": "future_internal_alpha_artifact",
+    "source_needed": false,
+    "source_refs": [],
+    "target_platforms_requested": [
+      "substack"
+    ],
+    "task_label": "TASK_CONTENTOPS_V6_OPERATOR_INTENT_AND_CONTENT_IDEA_PACKET_V0",
+    "topic": "We have a future internal alpha artifact containing our roadmap. Please inspect ",
+    "webhook_url_printed": false
+  },
+  {
+    "approval_requested": false,
+    "approval_valid_for_dispatch": false,
+    "blocked_reasons": [],
+    "content_lane": "future_artifact_backed",
+    "dispatch_allowed_now": false,
+    "dispatch_requested": false,
+    "future_artifact_claim_detected": true,
+    "human_review_required": true,
+    "intent_class": "summarize_source",
+    "intent_id": "discord_operator_intent_9d1cd67f81e7",
+    "no_advice_status": true,
+    "no_env_read_in_this_task": true,
+    "no_live_request_in_this_task": true,
+    "no_signal_status": true,
+    "not_public_postable": true,
+    "raw_prompt_excerpt": "We have a future internal alpha artifact docs/alpha_roadmap.md containing our roadmap. Summarize it.",
+    "raw_secret_output": false,
+    "requested_outputs": [
+      "intent_metadata"
+    ],
+    "schema_version": "6.0.0",
+    "source_evidence_required": false,
+    "source_mode": "future_internal_alpha_artifact",
+    "source_needed": false,
+    "source_refs": [
+      "docs/alpha_roadmap.md"
+    ],
+    "target_platforms_requested": [
+      "substack"
+    ],
+    "task_label": "TASK_CONTENTOPS_V6_OPERATOR_INTENT_AND_CONTENT_IDEA_PACKET_V0",
+    "topic": "We have a future internal alpha artifact docs/alpha_roadmap.md containing our ro",
+    "webhook_url_printed": false
+  },
+  {
+    "approval_requested": false,
+    "approval_valid_for_dispatch": false,
+    "blocked_reasons": [
+      "financial_advice_language_blocked",
+      "numeric_claim_requires_source_evidence",
+      "trading_signal_language_blocked"
+    ],
+    "content_lane": "blocked_or_unknown",
+    "dispatch_allowed_now": false,
+    "dispatch_requested": false,
+    "future_artifact_claim_detected": false,
+    "human_review_required": true,
+    "intent_class": "create_canonical_article",
+    "intent_id": "discord_operator_intent_1ae5acccf54d",
+    "no_advice_status": false,
+    "no_env_read_in_this_task": true,
+    "no_live_request_in_this_task": true,
+    "no_signal_status": false,
+    "not_public_postable": true,
+    "raw_prompt_excerpt": "Should we buy this conviction trade? Position sizing is 10%.",
+    "raw_secret_output": false,
+    "requested_outputs": [
+      "article_draft"
+    ],
+    "schema_version": "6.0.0",
+    "source_evidence_required": true,
+    "source_mode": "operator_idea_only",
+    "source_needed": true,
+    "source_refs": [],
+    "target_platforms_requested": [
+      "substack"
+    ],
+    "task_label": "TASK_CONTENTOPS_V6_OPERATOR_INTENT_AND_CONTENT_IDEA_PACKET_V0",
+    "topic": "Should we buy this conviction trade? Position sizing is 10%.",
+    "webhook_url_printed": false
+  },
+  {
+    "approval_requested": false,
+    "approval_valid_for_dispatch": false,
+    "blocked_reasons": [
+      "guaranteed_prediction_language_blocked"
+    ],
+    "content_lane": "blocked_or_unknown",
+    "dispatch_allowed_now": false,
+    "dispatch_requested": false,
+    "future_artifact_claim_detected": false,
+    "human_review_required": true,
+    "intent_class": "create_canonical_article",
+    "intent_id": "discord_operator_intent_ef46c212ec37",
+    "no_advice_status": true,
+    "no_env_read_in_this_task": true,
+    "no_live_request_in_this_task": true,
+    "no_signal_status": true,
+    "not_public_postable": true,
+    "raw_prompt_excerpt": "Guaranteed wins with this strategy! Risk-free returns are certain.",
+    "raw_secret_output": false,
+    "requested_outputs": [
+      "article_draft"
+    ],
+    "schema_version": "6.0.0",
+    "source_evidence_required": false,
+    "source_mode": "operator_idea_only",
+    "source_needed": false,
+    "source_refs": [],
+    "target_platforms_requested": [
+      "substack"
+    ],
+    "task_label": "TASK_CONTENTOPS_V6_OPERATOR_INTENT_AND_CONTENT_IDEA_PACKET_V0",
+    "topic": "Guaranteed wins with this strategy! Risk-free returns are certain.",
+    "webhook_url_printed": false
+  }
+]

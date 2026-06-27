@@ -1,0 +1,33 @@
+{
+  "approval_requested": false,
+  "approval_valid_for_dispatch": false,
+  "blocked_reasons": [],
+  "content_lane": "pre_alpha_general_process",
+  "dispatch_allowed_now": false,
+  "dispatch_requested": false,
+  "future_artifact_claim_detected": false,
+  "human_review_required": true,
+  "intent_class": "create_canonical_article",
+  "intent_id": "discord_operator_intent_d1720f70a937",
+  "no_advice_status": true,
+  "no_env_read_in_this_task": true,
+  "no_live_request_in_this_task": true,
+  "no_signal_status": true,
+  "not_public_postable": true,
+  "raw_prompt_excerpt": "Draft a canonical article about Capital Chronicle V6 AI-native editorial workflows.",
+  "raw_secret_output": false,
+  "requested_outputs": [
+    "article_draft"
+  ],
+  "schema_version": "6.0.0",
+  "source_evidence_required": false,
+  "source_mode": "operator_idea_only",
+  "source_needed": false,
+  "source_refs": [],
+  "target_platforms_requested": [
+    "substack"
+  ],
+  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_INTENT_AND_CONTENT_IDEA_PACKET_V0",
+  "topic": "Draft a canonical article about Capital Chronicle V6 AI-native editorial workflo",
+  "webhook_url_printed": false
+}
