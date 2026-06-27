@@ -1,0 +1,47 @@
+{
+  "chain_steps": {
+    "action_record_verified": true,
+    "current_task_authorization_verified": true,
+    "live_result_verified": true,
+    "operator_gate_verified": true,
+    "redacted_audit_verified": true
+  },
+  "closeout_status": "PASS",
+  "credential_handle_id": "discord_announcements_webhook_01",
+  "destination_binding_id": "discord_announcements_capital_chronicle_01",
+  "env_key_name": "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL",
+  "full_supervised_dispatch_chain_verified": true,
+  "live_result": {
+    "diagnostic_interpretation": "success_2xx",
+    "http_status_code": 204,
+    "live_write_completed": true,
+    "request_count_attempted": 1,
+    "result_status": "PASS",
+    "retry_count_attempted": 0,
+    "status_code_class": "2xx"
+  },
+  "payload_hash": "b166aebf1f53956f04ffa5122d6d065fc09e4f7953ec816e1b0b66a01be9d17d",
+  "payload_id": "discord_dryrun_announcement_001",
+  "payload_type": "announcement",
+  "platform": "discord",
+  "readiness_update": {
+    "dryrun_payload_should_not_be_used_for_public_content_repetition": true,
+    "next_real_content_dispatch_requires_real_approved_payload": true,
+    "supervised_live_loop_verified": true
+  },
+  "safety": {
+    "no_env_read_in_this_task": true,
+    "no_live_request_in_this_task": true,
+    "old_packets_mutated": false,
+    "raw_secret_output": false,
+    "response_body_recorded": false,
+    "response_headers_recorded": false,
+    "webhook_url_printed": false
+  },
+  "selected_action_id": "discord_supervised_dispatch_action_announcements",
+  "source_current_authorization_packet": "docs/automation/DISCORD_ONE_ACTION_EXPLICIT_LIVE_DISPATCH/one_action_explicit_live_dispatch_authorization_packet.json",
+  "source_live_result_packet": "docs/automation/DISCORD_ONE_ACTION_EXPLICIT_LIVE_DISPATCH/one_action_explicit_live_dispatch_result_packet.json",
+  "source_operator_gate_packet": "docs/automation/DISCORD_OPERATOR_APPROVAL_GATE/operator_approval_gate_packet.json",
+  "target_name": "announcements",
+  "task_label": "TASK_CONTENTOPS_V6_DISCORD_ONE_ACTION_LIVE_DISPATCH_CLOSEOUT_V0"
+}
