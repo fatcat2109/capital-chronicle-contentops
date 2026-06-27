@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Discord Supervised Dispatch Actions</title>
+  <meta name="description" content="Static non-live operator panel for Discord supervised dispatch action records.">
+  <style>
+    :root { color-scheme: dark; --bg:#121111; --panel:#1b1b1c; --line:#43464a; --text:#f3efe8; --muted:#aaa49c; --ok:#9ad7b4; --warn:#f1c66d; --ink:#0f1113; }
+    body { margin:0; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background:radial-gradient(circle at top left,#2b2824,var(--bg) 42%); color:var(--text); }
+    main { max-width:1180px; margin:0 auto; padding:36px; }
+    .hero { border:1px solid var(--line); background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02)); padding:26px; box-shadow:0 24px 80px rgba(0,0,0,.35); }
+    .eyebrow { margin:0 0 10px; color:var(--muted); text-transform:uppercase; letter-spacing:.13em; font-size:12px; }
+    h1 { margin:0 0 10px; font-size:30px; letter-spacing:-.04em; }
+    .status { color:var(--ok); font-family:ui-monospace,SFMono-Regular,Consolas,monospace; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:16px; margin-top:20px; }
+    .card { border:1px solid var(--line); background:var(--panel); padding:18px; }
+    h2 { margin:0 0 14px; color:var(--ok); font-size:18px; }
+    dl { margin:0 0 14px; display:grid; grid-template-columns:88px 1fr; gap:8px; }
+    dt { color:var(--muted); } dd { margin:0; overflow-wrap:anywhere; font-family:ui-monospace,SFMono-Regular,Consolas,monospace; }
+    pre { white-space:pre-wrap; overflow-wrap:anywhere; background:var(--ink); border:1px solid #33363a; padding:12px; color:#d8d2ca; }
+    .disabled { margin-top:18px; color:var(--warn); font-family:ui-monospace,SFMono-Regular,Consolas,monospace; }
+    button { display:none; }
+  </style>
+</head>
+<body><main><section class="hero" aria-labelledby="page-title">
+<p class="eyebrow">Capital Chronicle ContentOps</p>
+<h1 id="page-title">Discord supervised dispatch actions</h1>
+<p class="status">PASS · 3 ready actions · non-live preview only · no raw webhook URL</p>
+<div class="grid"><article class='card'><p class='eyebrow'>announcements</p><h2>READY ACTION</h2><dl><dt>Payload</dt><dd>discord_dryrun_announcement_001</dd><dt>Type</dt><dd>announcement</dd><dt>Last HTTP</dt><dd>204</dd><dt>Env key</dt><dd>DISCORD_ANNOUNCEMENTS_WEBHOOK_URL</dd><dt>Auth</dt><dd>explicit operator authorization required</dd></dl><pre>python -m live_contentops.discord_approved_outbox_live_dispatch --target announcements --payload-id discord_dryrun_announcement_001 --execute --output docs/automation/DISCORD_SUPERVISED_DISPATCH_ACTIONS/live_results/announcements_result_packet.json</pre></article><article class='card'><p class='eyebrow'>substack_drops</p><h2>READY ACTION</h2><dl><dt>Payload</dt><dd>discord_dryrun_substack_drop_001</dd><dt>Type</dt><dd>substack_drop</dd><dt>Last HTTP</dt><dd>204</dd><dt>Env key</dt><dd>DISCORD_SUBSTACK_DROPS_WEBHOOK_URL</dd><dt>Auth</dt><dd>explicit operator authorization required</dd></dl><pre>python -m live_contentops.discord_approved_outbox_live_dispatch --target substack_drops --payload-id discord_dryrun_substack_drop_001 --execute --output docs/automation/DISCORD_SUPERVISED_DISPATCH_ACTIONS/live_results/substack_drops_result_packet.json</pre></article><article class='card'><p class='eyebrow'>product_updates</p><h2>READY ACTION</h2><dl><dt>Payload</dt><dd>discord_dryrun_product_update_001</dd><dt>Type</dt><dd>product_update</dd><dt>Last HTTP</dt><dd>204</dd><dt>Env key</dt><dd>DISCORD_PRODUCT_UPDATES_WEBHOOK_URL</dd><dt>Auth</dt><dd>explicit operator authorization required</dd></dl><pre>python -m live_contentops.discord_approved_outbox_live_dispatch --target product_updates --payload-id discord_dryrun_product_update_001 --execute --output docs/automation/DISCORD_SUPERVISED_DISPATCH_ACTIONS/live_results/product_updates_result_packet.json</pre></article></div>
+<p class="disabled">Live controls absent. Operator authorization required before future dispatch.</p>
+</section></main></body></html>
