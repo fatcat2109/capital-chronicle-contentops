@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "approval_required": {
+      "const": true
+    },
+    "filled_intake_status": {
+      "enum": [
+        "READY_FOR_INTAKE_APPROVAL",
+        "BLOCKED_AWAITING_OPERATOR_CONTENT",
+        "FAIL_VALIDATION"
+      ]
+    },
+    "financial_advice_check_required": {
+      "const": true
+    },
+    "no_env_read_in_this_task": {
+      "const": true
+    },
+    "no_live_request_in_this_task": {
+      "const": true
+    },
+    "no_trading_signal_required": {
+      "const": true
+    },
+    "not_approved": {
+      "const": true
+    },
+    "not_dispatchable": {
+      "const": true
+    },
+    "not_public_postable": {
+      "const": true
+    },
+    "platform": {
+      "const": "discord"
+    },
+    "raw_secret_output": {
+      "const": false
+    },
+    "task_label": {
+      "const": "TASK_CONTENTOPS_V6_DISCORD_REAL_CONTENT_FILLED_INTAKE_PACKET_V0"
+    }
+  },
+  "required": [
+    "task_label",
+    "filled_intake_status",
+    "platform",
+    "intake_id",
+    "source_system",
+    "source_artifact_path",
+    "content_title",
+    "content_body",
+    "content_summary",
+    "content_type",
+    "target_name",
+    "approval_required",
+    "financial_advice_check_required",
+    "no_trading_signal_required",
+    "template_only",
+    "not_approved",
+    "not_dispatchable",
+    "not_public_postable",
+    "no_live_request_in_this_task",
+    "no_env_read_in_this_task",
+    "raw_secret_output",
+    "validation"
+  ],
+  "title": "Discord Real Content Filled Intake Packet",
+  "type": "object"
+}
