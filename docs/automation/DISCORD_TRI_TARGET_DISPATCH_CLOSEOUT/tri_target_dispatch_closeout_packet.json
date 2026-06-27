@@ -1,0 +1,60 @@
+{
+  "adapter_module": "live_contentops.discord_dispatch_adapter",
+  "closeout_status": "PASS",
+  "no_live_request_in_this_task": true,
+  "platform": "discord",
+  "raw_secret_output": false,
+  "readiness_summary": {
+    "all_targets_adapter_dispatch_verified": true,
+    "remaining_discord_dispatch_pilots": 0,
+    "supervised_discord_dispatch_ready": true,
+    "verified_target_count": 3
+  },
+  "remaining_work": [
+    "promote adapter into operator runbook / UI readiness panel",
+    "connect supervised payload approval queue to dispatch adapter",
+    "add non-live Discord dispatch history view if useful"
+  ],
+  "response_body_recorded": false,
+  "response_headers_recorded": false,
+  "task_label": "TASK_CONTENTOPS_V6_DISCORD_APPROVED_OUTBOX_LIVE_DISPATCH_TRI_TARGET_CLOSEOUT_V0",
+  "user_agent_required": "CapitalChronicleContentOps/1.0",
+  "verified_targets": {
+    "announcements": {
+      "adapter_dispatch_verified": true,
+      "diagnostic_interpretation": "success_2xx",
+      "http_status_code": 204,
+      "payload_hash": "b166aebf1f53956f04ffa5122d6d065fc09e4f7953ec816e1b0b66a01be9d17d",
+      "payload_id": "discord_dryrun_announcement_001",
+      "ready_for_supervised_dispatch": true,
+      "request_count_attempted": 1,
+      "result_status": "PASS",
+      "retry_count_attempted": 0,
+      "status_code_class": "2xx"
+    },
+    "product_updates": {
+      "adapter_dispatch_verified": true,
+      "diagnostic_interpretation": "success_2xx",
+      "http_status_code": 204,
+      "payload_hash": "81075439dcafcdc979482d51dd56ce7cb0a704827a9fbe702a2994b3f329efdd",
+      "payload_id": "discord_dryrun_product_update_001",
+      "ready_for_supervised_dispatch": true,
+      "request_count_attempted": 1,
+      "result_status": "PASS",
+      "retry_count_attempted": 0,
+      "status_code_class": "2xx"
+    },
+    "substack_drops": {
+      "adapter_dispatch_verified": true,
+      "diagnostic_interpretation": "success_2xx",
+      "http_status_code": 204,
+      "payload_hash": "a084ced7249d9b764132e17888c15c5cfd6177329dbe5ce718311e07e849175d",
+      "payload_id": "discord_dryrun_substack_drop_001",
+      "ready_for_supervised_dispatch": true,
+      "request_count_attempted": 1,
+      "result_status": "PASS",
+      "retry_count_attempted": 0,
+      "status_code_class": "2xx"
+    }
+  }
+}
