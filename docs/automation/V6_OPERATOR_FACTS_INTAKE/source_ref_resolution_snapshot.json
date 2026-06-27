@@ -1,0 +1,19 @@
+{
+  "operator_idea_source_ref_resolved": false,
+  "requires_manual_evidence": true,
+  "requires_validation": true,
+  "resolution_status": "MISSING_OPERATOR_SUPPLIED_EVIDENCE",
+  "source_ref_id": "operator_idea_source_ref",
+  "unresolved_slots": [
+    "operator_idea_source_ref",
+    "topic_statement",
+    "factual_claims",
+    "source_notes",
+    "citation_candidates",
+    "supporting_artifacts",
+    "limitation_notes",
+    "no_signal_disclosure",
+    "intended_content_lane",
+    "intended_canonical_article_angle"
+  ]
+}

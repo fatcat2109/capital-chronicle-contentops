@@ -3,7 +3,7 @@
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Current generation HEAD**: 998976b3e00c3dcc65b22a15474cf3671c740314
+- **Current generation HEAD**: 6fc5818934500818da15a35547b100751c9e701a
 - **Latest Task**: TASK_CONTENTOPS_V6_PROJECT_SOURCES_UPLOAD_BUNDLE_FINAL_HEAD_REPAIR_AND_REFRESH_HEAVY_BATCH_V0
 
 > [!WARNING]
@@ -30,4 +30,4 @@
 - safety_review_incomplete
 
 ## Next Recommended Task
-- **Recommended next task**: `TASK_CONTENTOPS_V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION_VALIDATOR_AND_PREFLIGHT_POINTER_REPAIR_HEAVY_BATCH_V0`
+- **Recommended next task**: `TASK_CONTENTOPS_V6_OPERATOR_FACTS_INTAKE_PACKET_AND_MANUAL_EVIDENCE_FIXTURE_HEAVY_BATCH_V0`

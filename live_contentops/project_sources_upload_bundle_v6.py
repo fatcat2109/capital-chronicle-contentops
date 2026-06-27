@@ -98,8 +98,8 @@ def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) 
 > Future Antigravity prompts in this workflow must start with the active task label on line one.
 
 ## Next Recommended Task
-- **Task**: `TASK_CONTENTOPS_V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION_VALIDATOR_AND_PREFLIGHT_POINTER_REPAIR_HEAVY_BATCH_V0`
-- **Goal**: Proceed back to Operator Source Evidence Submission Validator lane once real manual evidence becomes available.
+- **Task**: `TASK_CONTENTOPS_V6_OPERATOR_FACTS_INTAKE_PACKET_AND_MANUAL_EVIDENCE_FIXTURE_HEAVY_BATCH_V0`
+- **Goal**: Initialize the facts intake and manual evidence fixture template for the operator.
 """
 
 
@@ -129,7 +129,7 @@ def generate_current_state_summary_markdown(head_sha: str, blockers: list[str]) 
 {blockers_list}
 
 ## Next Recommended Task
-- **Recommended next task**: `TASK_CONTENTOPS_V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION_VALIDATOR_AND_PREFLIGHT_POINTER_REPAIR_HEAVY_BATCH_V0`
+- **Recommended next task**: `TASK_CONTENTOPS_V6_OPERATOR_FACTS_INTAKE_PACKET_AND_MANUAL_EVIDENCE_FIXTURE_HEAVY_BATCH_V0`
 """
 
 
@@ -190,9 +190,9 @@ def generate_next_task_pointer_markdown() -> str:
 
 Recommended next task:
 
-`TASK_CONTENTOPS_V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION_VALIDATOR_AND_PREFLIGHT_POINTER_REPAIR_HEAVY_BATCH_V0`
+`TASK_CONTENTOPS_V6_OPERATOR_FACTS_INTAKE_PACKET_AND_MANUAL_EVIDENCE_FIXTURE_HEAVY_BATCH_V0`
 
-Goal: Proceed back to Operator Source Evidence Submission Validator lane once real manual evidence becomes available.
+Goal: Initialize the facts intake and manual evidence fixture template for the operator.
 """
 
 
@@ -277,7 +277,7 @@ def materialize_project_sources_upload_bundle_packets(
         "no_network_call_in_this_task": True,
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION_VALIDATOR_AND_PREFLIGHT_POINTER_REPAIR_HEAVY_BATCH_V0"
+        "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_FACTS_INTAKE_PACKET_AND_MANUAL_EVIDENCE_FIXTURE_HEAVY_BATCH_V0"
     }
 
     return packet, upload_candidate_files

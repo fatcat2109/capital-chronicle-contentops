@@ -1,0 +1,10 @@
+{
+  "evidence_complete": false,
+  "operator_idea_source_ref_resolved": false,
+  "rejected_slots": [],
+  "unsafe_values_detected": false,
+  "validation_errors": [
+    "Fixture is empty. Operator must supply values for required slots."
+  ],
+  "validation_status": "EMPTY_FIXTURE_AWAITING_OPERATOR_INPUT"
+}

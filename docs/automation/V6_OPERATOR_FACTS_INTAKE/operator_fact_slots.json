@@ -1,0 +1,146 @@
+[
+  {
+    "accepted_value_types": [
+      "local_doc_path",
+      "repo_file_path",
+      "screenshot_path",
+      "official_source_url_to_be_reviewed_later",
+      "operator_note"
+    ],
+    "notes": "Slot for operator_idea_source_ref details.",
+    "public_claim_allowed": false,
+    "required": true,
+    "slot_id": "operator_idea_source_ref",
+    "source_ref_id": "operator_idea_source_ref",
+    "supplied_value": null,
+    "unsafe_value_detected": false,
+    "validation_required": true,
+    "verified": false
+  },
+  {
+    "accepted_value_types": [
+      "str"
+    ],
+    "notes": "Slot for topic_statement details.",
+    "public_claim_allowed": false,
+    "required": true,
+    "slot_id": "topic_statement",
+    "source_ref_id": "operator_idea_source_ref",
+    "supplied_value": null,
+    "unsafe_value_detected": false,
+    "validation_required": true,
+    "verified": false
+  },
+  {
+    "accepted_value_types": [
+      "list[str]"
+    ],
+    "notes": "Slot for factual_claims details.",
+    "public_claim_allowed": false,
+    "required": true,
+    "slot_id": "factual_claims",
+    "source_ref_id": "operator_idea_source_ref",
+    "supplied_value": null,
+    "unsafe_value_detected": false,
+    "validation_required": true,
+    "verified": false
+  },
+  {
+    "accepted_value_types": [
+      "str"
+    ],
+    "notes": "Slot for source_notes details.",
+    "public_claim_allowed": false,
+    "required": true,
+    "slot_id": "source_notes",
+    "source_ref_id": "operator_idea_source_ref",
+    "supplied_value": null,
+    "unsafe_value_detected": false,
+    "validation_required": true,
+    "verified": false
+  },
+  {
+    "accepted_value_types": [
+      "list[str]"
+    ],
+    "notes": "Slot for citation_candidates details.",
+    "public_claim_allowed": false,
+    "required": true,
+    "slot_id": "citation_candidates",
+    "source_ref_id": "operator_idea_source_ref",
+    "supplied_value": null,
+    "unsafe_value_detected": false,
+    "validation_required": true,
+    "verified": false
+  },
+  {
+    "accepted_value_types": [
+      "list[str]"
+    ],
+    "notes": "Slot for supporting_artifacts details.",
+    "public_claim_allowed": false,
+    "required": true,
+    "slot_id": "supporting_artifacts",
+    "source_ref_id": "operator_idea_source_ref",
+    "supplied_value": null,
+    "unsafe_value_detected": false,
+    "validation_required": true,
+    "verified": false
+  },
+  {
+    "accepted_value_types": [
+      "str"
+    ],
+    "notes": "Slot for limitation_notes details.",
+    "public_claim_allowed": false,
+    "required": true,
+    "slot_id": "limitation_notes",
+    "source_ref_id": "operator_idea_source_ref",
+    "supplied_value": null,
+    "unsafe_value_detected": false,
+    "validation_required": true,
+    "verified": false
+  },
+  {
+    "accepted_value_types": [
+      "str"
+    ],
+    "notes": "Slot for no_signal_disclosure details.",
+    "public_claim_allowed": false,
+    "required": true,
+    "slot_id": "no_signal_disclosure",
+    "source_ref_id": "operator_idea_source_ref",
+    "supplied_value": null,
+    "unsafe_value_detected": false,
+    "validation_required": true,
+    "verified": false
+  },
+  {
+    "accepted_value_types": [
+      "str"
+    ],
+    "notes": "Slot for intended_content_lane details.",
+    "public_claim_allowed": false,
+    "required": true,
+    "slot_id": "intended_content_lane",
+    "source_ref_id": "operator_idea_source_ref",
+    "supplied_value": null,
+    "unsafe_value_detected": false,
+    "validation_required": true,
+    "verified": false
+  },
+  {
+    "accepted_value_types": [
+      "str"
+    ],
+    "notes": "Slot for intended_canonical_article_angle details.",
+    "public_claim_allowed": false,
+    "required": true,
+    "slot_id": "intended_canonical_article_angle",
+    "source_ref_id": "operator_idea_source_ref",
+    "supplied_value": null,
+    "unsafe_value_detected": false,
+    "validation_required": true,
+    "verified": false
+  }
+]

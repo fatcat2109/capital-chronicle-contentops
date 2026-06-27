@@ -2,6 +2,6 @@
 
 Recommended next task:
 
-`TASK_CONTENTOPS_V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION_VALIDATOR_AND_PREFLIGHT_POINTER_REPAIR_HEAVY_BATCH_V0`
+`TASK_CONTENTOPS_V6_OPERATOR_FACTS_INTAKE_PACKET_AND_MANUAL_EVIDENCE_FIXTURE_HEAVY_BATCH_V0`
 
-Goal: Proceed back to Operator Source Evidence Submission Validator lane once real manual evidence becomes available.
+Goal: Initialize the facts intake and manual evidence fixture template for the operator.
