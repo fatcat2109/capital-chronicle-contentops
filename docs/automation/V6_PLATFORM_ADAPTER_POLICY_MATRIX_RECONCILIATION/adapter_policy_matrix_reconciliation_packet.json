@@ -1,0 +1,12 @@
+{
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "live_write_allowed_now": false,
+  "raw_secret_output": false,
+  "reconciled_platform_rows_file": "docs/automation/V6_PLATFORM_ADAPTER_POLICY_MATRIX_RECONCILIATION/reconciled_platform_adapter_matrix.json",
+  "reconciliation_status": "RECONCILIATION_SUCCESS",
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_PLATFORM_ADAPTER_POLICY_MATRIX_RECONCILIATION_HEAVY_BATCH_V0",
+  "webhook_url_printed": false
+}

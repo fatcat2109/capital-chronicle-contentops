@@ -1,0 +1,1088 @@
+[
+  {
+    "adapter_class": "webhook_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Free and practical webhook API for community channel delivery.",
+    "blocker_class": "none",
+    "browser_session_started": false,
+    "capability_class": "ready_webhook",
+    "cdp_allowed_supervised_only": false,
+    "credential_handle_id": "discord_webhook_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "",
+    "destination_binding_id": "discord_webhook_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": true,
+    "key_names": [
+      "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL",
+      "DISCORD_SUBSTACK_DROPS_WEBHOOK_URL",
+      "DISCORD_PRODUCT_UPDATES_WEBHOOK_URL",
+      "DISCORD_WEBHOOK_URL",
+      "DISCORD_WEBHOOK_CAPITAL_CHRONICLE"
+    ],
+    "key_status": {
+      "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL": true,
+      "DISCORD_PRODUCT_UPDATES_WEBHOOK_URL": true,
+      "DISCORD_SUBSTACK_DROPS_WEBHOOK_URL": true,
+      "DISCORD_WEBHOOK_CAPITAL_CHRONICLE": false,
+      "DISCORD_WEBHOOK_URL": false
+    },
+    "key_value_status": {
+      "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL": "nonblank",
+      "DISCORD_PRODUCT_UPDATES_WEBHOOK_URL": "nonblank",
+      "DISCORD_SUBSTACK_DROPS_WEBHOOK_URL": "nonblank",
+      "DISCORD_WEBHOOK_CAPITAL_CHRONICLE": "missing",
+      "DISCORD_WEBHOOK_URL": "missing"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": true,
+    "manual_fallback_available": true,
+    "notes": "specific_webhook_aliases_supported",
+    "official_api_practical_for_required_actions": true,
+    "platform": "Discord webhooks",
+    "platform_family": "community",
+    "preferred_adapter": "webhook_adapter"
+  },
+  {
+    "adapter_class": "official_api_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Used for routing and identity metadata. Free and practical.",
+    "blocker_class": "none",
+    "browser_session_started": false,
+    "capability_class": "ready_api",
+    "cdp_allowed_supervised_only": false,
+    "credential_handle_id": "discord_ids_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "identity_and_routing_only",
+    "destination_binding_id": "discord_channel_binding",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": true,
+    "key_names": [
+      "DISCORD_SERVER_ID",
+      "DISCORD_GUILD_ID",
+      "DISCORD_ANNOUNCEMENTS_CHANNEL_ID",
+      "DISCORD_SUBSTACK_DROPS_CHANNEL_ID",
+      "DISCORD_PRODUCT_UPDATES_CHANNEL_ID",
+      "DISCORD_RESEARCH_QUESTIONS_CHANNEL_ID",
+      "DISCORD_CONTENT_IDEAS_CHANNEL_ID",
+      "DISCORD_ASK_JIM_CHANNEL_ID",
+      "DISCORD_FEEDBACK_CHANNEL_ID",
+      "DISCORD_OPERATOR_QUEUE_CHANNEL_ID",
+      "DISCORD_APPROVAL_CHECKPOINTS_CHANNEL_ID",
+      "DISCORD_BROWSER_CHECKPOINTS_CHANNEL_ID",
+      "DISCORD_AUDIT_LOG_CHANNEL_ID",
+      "DISCORD_MANUAL_FALLBACK_CHANNEL_ID",
+      "DISCORD_ROLE_FOUNDER",
+      "DISCORD_ROLE_MODERATOR",
+      "DISCORD_ROLE_CONTRIBUTOR",
+      "DISCORD_ROLE_MEMBER",
+      "DISCORD_ROLE_SUBSCRIBER"
+    ],
+    "key_status": {
+      "DISCORD_ANNOUNCEMENTS_CHANNEL_ID": true,
+      "DISCORD_APPROVAL_CHECKPOINTS_CHANNEL_ID": true,
+      "DISCORD_ASK_JIM_CHANNEL_ID": true,
+      "DISCORD_AUDIT_LOG_CHANNEL_ID": true,
+      "DISCORD_BROWSER_CHECKPOINTS_CHANNEL_ID": true,
+      "DISCORD_CONTENT_IDEAS_CHANNEL_ID": true,
+      "DISCORD_FEEDBACK_CHANNEL_ID": true,
+      "DISCORD_GUILD_ID": false,
+      "DISCORD_MANUAL_FALLBACK_CHANNEL_ID": true,
+      "DISCORD_OPERATOR_QUEUE_CHANNEL_ID": true,
+      "DISCORD_PRODUCT_UPDATES_CHANNEL_ID": true,
+      "DISCORD_RESEARCH_QUESTIONS_CHANNEL_ID": true,
+      "DISCORD_ROLE_CONTRIBUTOR": true,
+      "DISCORD_ROLE_FOUNDER": true,
+      "DISCORD_ROLE_MEMBER": true,
+      "DISCORD_ROLE_MODERATOR": true,
+      "DISCORD_ROLE_SUBSCRIBER": true,
+      "DISCORD_SERVER_ID": true,
+      "DISCORD_SUBSTACK_DROPS_CHANNEL_ID": true
+    },
+    "key_value_status": {
+      "DISCORD_ANNOUNCEMENTS_CHANNEL_ID": "nonblank",
+      "DISCORD_APPROVAL_CHECKPOINTS_CHANNEL_ID": "nonblank",
+      "DISCORD_ASK_JIM_CHANNEL_ID": "nonblank",
+      "DISCORD_AUDIT_LOG_CHANNEL_ID": "nonblank",
+      "DISCORD_BROWSER_CHECKPOINTS_CHANNEL_ID": "nonblank",
+      "DISCORD_CONTENT_IDEAS_CHANNEL_ID": "nonblank",
+      "DISCORD_FEEDBACK_CHANNEL_ID": "nonblank",
+      "DISCORD_GUILD_ID": "missing",
+      "DISCORD_MANUAL_FALLBACK_CHANNEL_ID": "nonblank",
+      "DISCORD_OPERATOR_QUEUE_CHANNEL_ID": "nonblank",
+      "DISCORD_PRODUCT_UPDATES_CHANNEL_ID": "nonblank",
+      "DISCORD_RESEARCH_QUESTIONS_CHANNEL_ID": "nonblank",
+      "DISCORD_ROLE_CONTRIBUTOR": "nonblank",
+      "DISCORD_ROLE_FOUNDER": "nonblank",
+      "DISCORD_ROLE_MEMBER": "nonblank",
+      "DISCORD_ROLE_MODERATOR": "nonblank",
+      "DISCORD_ROLE_SUBSCRIBER": "nonblank",
+      "DISCORD_SERVER_ID": "nonblank",
+      "DISCORD_SUBSTACK_DROPS_CHANNEL_ID": "nonblank"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "specific_channel_role_aliases_supported",
+    "official_api_practical_for_required_actions": true,
+    "platform": "Discord guild/server/channel/role IDs",
+    "platform_family": "community",
+    "preferred_adapter": "official_api_adapter"
+  },
+  {
+    "adapter_class": "deferred_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Discord bot deployment is deferred under current V6 plans.",
+    "blocker_class": "deferred_by_plan",
+    "browser_session_started": false,
+    "capability_class": "deferred_review_required",
+    "cdp_allowed_supervised_only": false,
+    "credential_handle_id": "discord_bot_deferred_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "bot_after_final_product",
+    "destination_binding_id": "discord_bot_deferred_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "DISCORD_BOT_TOKEN",
+      "DISCORD_CLIENT_ID"
+    ],
+    "key_status": {
+      "DISCORD_BOT_TOKEN": false,
+      "DISCORD_CLIENT_ID": false
+    },
+    "key_value_status": {
+      "DISCORD_BOT_TOKEN": "missing",
+      "DISCORD_CLIENT_ID": "missing"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "",
+    "official_api_practical_for_required_actions": false,
+    "platform": "Discord bot deferred",
+    "platform_family": "community",
+    "preferred_adapter": "deferred_adapter"
+  },
+  {
+    "adapter_class": "official_api_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Free and highly practical official broadcast API is preferred.",
+    "blocker_class": "none",
+    "browser_session_started": false,
+    "capability_class": "ready_api",
+    "cdp_allowed_supervised_only": false,
+    "credential_handle_id": "telegram_operator_inbox_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "",
+    "destination_binding_id": "telegram_operator_inbox_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": true,
+    "key_names": [
+      "TELEGRAM_BOT_TOKEN",
+      "TELEGRAM_OPERATOR_CHAT_ID"
+    ],
+    "key_status": {
+      "TELEGRAM_BOT_TOKEN": true,
+      "TELEGRAM_OPERATOR_CHAT_ID": true
+    },
+    "key_value_status": {
+      "TELEGRAM_BOT_TOKEN": "nonblank",
+      "TELEGRAM_OPERATOR_CHAT_ID": "nonblank"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": true,
+    "manual_fallback_available": true,
+    "notes": "",
+    "official_api_practical_for_required_actions": true,
+    "platform": "Telegram operator inbox",
+    "platform_family": "remote_operator",
+    "preferred_adapter": "official_api_adapter"
+  },
+  {
+    "adapter_class": "official_api_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Free and highly practical official broadcast API is preferred.",
+    "blocker_class": "none",
+    "browser_session_started": false,
+    "capability_class": "ready_api",
+    "cdp_allowed_supervised_only": false,
+    "credential_handle_id": "telegram_channel_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "",
+    "destination_binding_id": "telegram_channel_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": true,
+    "key_names": [
+      "TELEGRAM_BOT_TOKEN",
+      "TELEGRAM_CHANNEL_ID"
+    ],
+    "key_status": {
+      "TELEGRAM_BOT_TOKEN": true,
+      "TELEGRAM_CHANNEL_ID": true
+    },
+    "key_value_status": {
+      "TELEGRAM_BOT_TOKEN": "nonblank",
+      "TELEGRAM_CHANNEL_ID": "nonblank"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": true,
+    "manual_fallback_available": true,
+    "notes": "",
+    "official_api_practical_for_required_actions": true,
+    "platform": "Telegram channel",
+    "platform_family": "remote_operator",
+    "preferred_adapter": "official_api_adapter"
+  },
+  {
+    "adapter_class": "browser_cdp_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "No public free publishing API is available. Supervised browser CDP is preferred.",
+    "blocker_class": "none",
+    "browser_session_started": false,
+    "capability_class": "ready_browser",
+    "cdp_allowed_supervised_only": true,
+    "cdp_governance_rules": {
+      "bypass_forbidden_checkpoints": [
+        "exact_preview",
+        "payload_hash",
+        "destination_binding",
+        "jim_approval",
+        "outbox_revalidation",
+        "redacted_audit",
+        "idempotency",
+        "kill_switch",
+        "manual_fallback"
+      ],
+      "prohibited_actions": [
+        "selfbot_behavior",
+        "hidden_posting",
+        "dms",
+        "scraping",
+        "account_switching",
+        "cookie_extraction",
+        "localstorage_extraction",
+        "sessionstorage_extraction",
+        "token_extraction",
+        "raw_token_persistence",
+        "approval_bypass"
+      ]
+    },
+    "credential_handle_id": "substack_browser_profile_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "supervised_browser_only_no_secret_read",
+    "destination_binding_id": "substack_publication_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "SUBSTACK_PUBLICATION_URL",
+      "SUBSTACK_PUBLICATION_ID",
+      "SUBSTACK_PROFILE_NAME"
+    ],
+    "key_status": {
+      "SUBSTACK_PROFILE_NAME": false,
+      "SUBSTACK_PUBLICATION_ID": true,
+      "SUBSTACK_PUBLICATION_URL": true
+    },
+    "key_value_status": {
+      "SUBSTACK_PROFILE_NAME": "missing",
+      "SUBSTACK_PUBLICATION_ID": "nonblank",
+      "SUBSTACK_PUBLICATION_URL": "nonblank"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "",
+    "official_api_practical_for_required_actions": false,
+    "platform": "Substack browser profile/publication metadata",
+    "platform_family": "owned_long_form",
+    "preferred_adapter": "supervised_browser_cdp_adapter"
+  },
+  {
+    "adapter_class": "official_api_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Official Meta API requires high-friction app review. Prefer supervised browser CDP.",
+    "blocker_class": "live_gate_or_scope_proof_required",
+    "browser_session_started": false,
+    "capability_class": "credential_present_scope_proof_required",
+    "cdp_allowed_supervised_only": true,
+    "cdp_governance_rules": {
+      "bypass_forbidden_checkpoints": [
+        "exact_preview",
+        "payload_hash",
+        "destination_binding",
+        "jim_approval",
+        "outbox_revalidation",
+        "redacted_audit",
+        "idempotency",
+        "kill_switch",
+        "manual_fallback"
+      ],
+      "prohibited_actions": [
+        "selfbot_behavior",
+        "hidden_posting",
+        "dms",
+        "scraping",
+        "account_switching",
+        "cookie_extraction",
+        "localstorage_extraction",
+        "sessionstorage_extraction",
+        "token_extraction",
+        "raw_token_persistence",
+        "approval_bypass"
+      ]
+    },
+    "credential_handle_id": "meta_graph_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "scope_proof_required",
+    "destination_binding_id": "meta_graph_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "META_ACCESS_TOKEN",
+      "META_APP_ID",
+      "META_APP_SECRET"
+    ],
+    "key_status": {
+      "META_ACCESS_TOKEN": true,
+      "META_APP_ID": true,
+      "META_APP_SECRET": true
+    },
+    "key_value_status": {
+      "META_ACCESS_TOKEN": "nonblank",
+      "META_APP_ID": "nonblank",
+      "META_APP_SECRET": "nonblank"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "meta_graph_kept_separate_from_threads",
+    "official_api_practical_for_required_actions": false,
+    "platform": "Meta Graph",
+    "platform_family": "social_distribution",
+    "preferred_adapter": "supervised_browser_cdp_adapter"
+  },
+  {
+    "adapter_class": "official_api_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Official Meta API requires high-friction app review. Prefer supervised browser CDP.",
+    "blocker_class": "live_gate_or_scope_proof_required",
+    "browser_session_started": false,
+    "capability_class": "credential_present_scope_proof_required",
+    "cdp_allowed_supervised_only": true,
+    "cdp_governance_rules": {
+      "bypass_forbidden_checkpoints": [
+        "exact_preview",
+        "payload_hash",
+        "destination_binding",
+        "jim_approval",
+        "outbox_revalidation",
+        "redacted_audit",
+        "idempotency",
+        "kill_switch",
+        "manual_fallback"
+      ],
+      "prohibited_actions": [
+        "selfbot_behavior",
+        "hidden_posting",
+        "dms",
+        "scraping",
+        "account_switching",
+        "cookie_extraction",
+        "localstorage_extraction",
+        "sessionstorage_extraction",
+        "token_extraction",
+        "raw_token_persistence",
+        "approval_bypass"
+      ]
+    },
+    "credential_handle_id": "facebook_page_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "scope_proof_required",
+    "destination_binding_id": "facebook_page_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "FACEBOOK_PAGE_ID",
+      "FACEBOOK_PAGE_ACCESS_TOKEN",
+      "META_ACCESS_TOKEN"
+    ],
+    "key_status": {
+      "FACEBOOK_PAGE_ACCESS_TOKEN": true,
+      "FACEBOOK_PAGE_ID": true,
+      "META_ACCESS_TOKEN": true
+    },
+    "key_value_status": {
+      "FACEBOOK_PAGE_ACCESS_TOKEN": "nonblank",
+      "FACEBOOK_PAGE_ID": "nonblank",
+      "META_ACCESS_TOKEN": "nonblank"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "",
+    "official_api_practical_for_required_actions": false,
+    "platform": "Facebook Page",
+    "platform_family": "social_distribution",
+    "preferred_adapter": "supervised_browser_cdp_adapter"
+  },
+  {
+    "adapter_class": "official_api_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Official Meta API requires high-friction app review. Prefer supervised browser CDP.",
+    "blocker_class": "live_gate_or_scope_proof_required",
+    "browser_session_started": false,
+    "capability_class": "credential_present_scope_proof_required",
+    "cdp_allowed_supervised_only": true,
+    "cdp_governance_rules": {
+      "bypass_forbidden_checkpoints": [
+        "exact_preview",
+        "payload_hash",
+        "destination_binding",
+        "jim_approval",
+        "outbox_revalidation",
+        "redacted_audit",
+        "idempotency",
+        "kill_switch",
+        "manual_fallback"
+      ],
+      "prohibited_actions": [
+        "selfbot_behavior",
+        "hidden_posting",
+        "dms",
+        "scraping",
+        "account_switching",
+        "cookie_extraction",
+        "localstorage_extraction",
+        "sessionstorage_extraction",
+        "token_extraction",
+        "raw_token_persistence",
+        "approval_bypass"
+      ]
+    },
+    "credential_handle_id": "instagram_business_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "scope_proof_required",
+    "destination_binding_id": "instagram_business_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "INSTAGRAM_BUSINESS_ACCOUNT_ID",
+      "INSTAGRAM_ACCESS_TOKEN",
+      "META_ACCESS_TOKEN"
+    ],
+    "key_status": {
+      "INSTAGRAM_ACCESS_TOKEN": false,
+      "INSTAGRAM_BUSINESS_ACCOUNT_ID": true,
+      "META_ACCESS_TOKEN": true
+    },
+    "key_value_status": {
+      "INSTAGRAM_ACCESS_TOKEN": "missing",
+      "INSTAGRAM_BUSINESS_ACCOUNT_ID": "nonblank",
+      "META_ACCESS_TOKEN": "nonblank"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "business_id_plus_meta_token_requires_scope_proof",
+    "official_api_practical_for_required_actions": false,
+    "platform": "Instagram Business",
+    "platform_family": "social_distribution",
+    "preferred_adapter": "supervised_browser_cdp_adapter"
+  },
+  {
+    "adapter_class": "official_api_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Official Meta API requires high-friction app review. Prefer supervised browser CDP.",
+    "blocker_class": "live_gate_or_scope_proof_required",
+    "browser_session_started": false,
+    "capability_class": "credential_present_scope_proof_required",
+    "cdp_allowed_supervised_only": true,
+    "cdp_governance_rules": {
+      "bypass_forbidden_checkpoints": [
+        "exact_preview",
+        "payload_hash",
+        "destination_binding",
+        "jim_approval",
+        "outbox_revalidation",
+        "redacted_audit",
+        "idempotency",
+        "kill_switch",
+        "manual_fallback"
+      ],
+      "prohibited_actions": [
+        "selfbot_behavior",
+        "hidden_posting",
+        "dms",
+        "scraping",
+        "account_switching",
+        "cookie_extraction",
+        "localstorage_extraction",
+        "sessionstorage_extraction",
+        "token_extraction",
+        "raw_token_persistence",
+        "approval_bypass"
+      ]
+    },
+    "credential_handle_id": "threads_app_user_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "scope_proof_required",
+    "destination_binding_id": "threads_user_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "THREADS_APP_ID",
+      "THREADS_USER_ID",
+      "THREADS_USER_ACCESS_TOKEN",
+      "THREADS_ACCESS_TOKEN"
+    ],
+    "key_status": {
+      "THREADS_ACCESS_TOKEN": false,
+      "THREADS_APP_ID": true,
+      "THREADS_USER_ACCESS_TOKEN": true,
+      "THREADS_USER_ID": true
+    },
+    "key_value_status": {
+      "THREADS_ACCESS_TOKEN": "missing",
+      "THREADS_APP_ID": "nonblank",
+      "THREADS_USER_ACCESS_TOKEN": "nonblank",
+      "THREADS_USER_ID": "nonblank"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "threads_token_alias_supported_and_kept_separate_from_meta",
+    "official_api_practical_for_required_actions": false,
+    "platform": "Threads separate app/user",
+    "platform_family": "social_distribution",
+    "preferred_adapter": "supervised_browser_cdp_adapter"
+  },
+  {
+    "adapter_class": "official_api_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Fallback integration rule",
+    "blocker_class": "none",
+    "browser_session_started": false,
+    "capability_class": "ready_api",
+    "cdp_allowed_supervised_only": false,
+    "credential_handle_id": "youtube_oauth_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "",
+    "destination_binding_id": "youtube_channel_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "YOUTUBE_CLIENT_ID",
+      "YOUTUBE_CLIENT_SECRET",
+      "YOUTUBE_REFRESH_TOKEN"
+    ],
+    "key_status": {
+      "YOUTUBE_CLIENT_ID": true,
+      "YOUTUBE_CLIENT_SECRET": true,
+      "YOUTUBE_REFRESH_TOKEN": true
+    },
+    "key_value_status": {
+      "YOUTUBE_CLIENT_ID": "nonblank",
+      "YOUTUBE_CLIENT_SECRET": "nonblank",
+      "YOUTUBE_REFRESH_TOKEN": "nonblank"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "",
+    "official_api_practical_for_required_actions": false,
+    "platform": "YouTube OAuth/client credentials",
+    "platform_family": "video_distribution",
+    "preferred_adapter": "official_api_adapter"
+  },
+  {
+    "adapter_class": "manual_fallback_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Official API is paid and quota-gated. Manual fallback is preferred.",
+    "blocker_class": "none",
+    "browser_session_started": false,
+    "capability_class": "manual_only",
+    "cdp_allowed_supervised_only": true,
+    "cdp_governance_rules": {
+      "bypass_forbidden_checkpoints": [
+        "exact_preview",
+        "payload_hash",
+        "destination_binding",
+        "jim_approval",
+        "outbox_revalidation",
+        "redacted_audit",
+        "idempotency",
+        "kill_switch",
+        "manual_fallback"
+      ],
+      "prohibited_actions": [
+        "selfbot_behavior",
+        "hidden_posting",
+        "dms",
+        "scraping",
+        "account_switching",
+        "cookie_extraction",
+        "localstorage_extraction",
+        "sessionstorage_extraction",
+        "token_extraction",
+        "raw_token_persistence",
+        "approval_bypass"
+      ]
+    },
+    "credential_handle_id": "x_manual_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "manual_distribution_lane",
+    "destination_binding_id": "x_manual_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "X_USERNAME",
+      "X_PROFILE_URL"
+    ],
+    "key_status": {
+      "X_PROFILE_URL": false,
+      "X_USERNAME": false
+    },
+    "key_value_status": {
+      "X_PROFILE_URL": "missing",
+      "X_USERNAME": "missing"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "",
+    "official_api_practical_for_required_actions": false,
+    "platform": "X manual",
+    "platform_family": "social_distribution",
+    "preferred_adapter": "manual_fallback_adapter"
+  },
+  {
+    "adapter_class": "deferred_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Official API is deferred/review-heavy. Prefer supervised browser CDP or manual fallback.",
+    "blocker_class": "deferred_by_plan",
+    "browser_session_started": false,
+    "capability_class": "deferred_review_required",
+    "cdp_allowed_supervised_only": true,
+    "cdp_governance_rules": {
+      "bypass_forbidden_checkpoints": [
+        "exact_preview",
+        "payload_hash",
+        "destination_binding",
+        "jim_approval",
+        "outbox_revalidation",
+        "redacted_audit",
+        "idempotency",
+        "kill_switch",
+        "manual_fallback"
+      ],
+      "prohibited_actions": [
+        "selfbot_behavior",
+        "hidden_posting",
+        "dms",
+        "scraping",
+        "account_switching",
+        "cookie_extraction",
+        "localstorage_extraction",
+        "sessionstorage_extraction",
+        "token_extraction",
+        "raw_token_persistence",
+        "approval_bypass"
+      ]
+    },
+    "credential_handle_id": "linkedin_personal_deferred_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "deferred_until_verified",
+    "destination_binding_id": "linkedin_personal_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "LINKEDIN_PERSONAL_PROFILE_URL",
+      "LINKEDIN_ACCESS_TOKEN"
+    ],
+    "key_status": {
+      "LINKEDIN_ACCESS_TOKEN": false,
+      "LINKEDIN_PERSONAL_PROFILE_URL": false
+    },
+    "key_value_status": {
+      "LINKEDIN_ACCESS_TOKEN": "missing",
+      "LINKEDIN_PERSONAL_PROFILE_URL": "missing"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "",
+    "official_api_practical_for_required_actions": false,
+    "platform": "LinkedIn personal deferred",
+    "platform_family": "social_distribution",
+    "preferred_adapter": "supervised_browser_cdp_adapter"
+  },
+  {
+    "adapter_class": "deferred_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Official API is deferred/review-heavy. Prefer supervised browser CDP or manual fallback.",
+    "blocker_class": "deferred_by_plan",
+    "browser_session_started": false,
+    "capability_class": "deferred_review_required",
+    "cdp_allowed_supervised_only": true,
+    "cdp_governance_rules": {
+      "bypass_forbidden_checkpoints": [
+        "exact_preview",
+        "payload_hash",
+        "destination_binding",
+        "jim_approval",
+        "outbox_revalidation",
+        "redacted_audit",
+        "idempotency",
+        "kill_switch",
+        "manual_fallback"
+      ],
+      "prohibited_actions": [
+        "selfbot_behavior",
+        "hidden_posting",
+        "dms",
+        "scraping",
+        "account_switching",
+        "cookie_extraction",
+        "localstorage_extraction",
+        "sessionstorage_extraction",
+        "token_extraction",
+        "raw_token_persistence",
+        "approval_bypass"
+      ]
+    },
+    "credential_handle_id": "linkedin_org_deferred_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "deferred_until_verified",
+    "destination_binding_id": "linkedin_org_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "LINKEDIN_ORGANIZATION_ID",
+      "LINKEDIN_ORG_ACCESS_TOKEN"
+    ],
+    "key_status": {
+      "LINKEDIN_ORGANIZATION_ID": false,
+      "LINKEDIN_ORG_ACCESS_TOKEN": false
+    },
+    "key_value_status": {
+      "LINKEDIN_ORGANIZATION_ID": "missing",
+      "LINKEDIN_ORG_ACCESS_TOKEN": "missing"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "",
+    "official_api_practical_for_required_actions": false,
+    "platform": "LinkedIn organization deferred",
+    "platform_family": "social_distribution",
+    "preferred_adapter": "supervised_browser_cdp_adapter"
+  },
+  {
+    "adapter_class": "deferred_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Official API is deferred/review-heavy. Prefer supervised browser CDP or manual fallback.",
+    "blocker_class": "deferred_by_plan",
+    "browser_session_started": false,
+    "capability_class": "deferred_review_required",
+    "cdp_allowed_supervised_only": true,
+    "cdp_governance_rules": {
+      "bypass_forbidden_checkpoints": [
+        "exact_preview",
+        "payload_hash",
+        "destination_binding",
+        "jim_approval",
+        "outbox_revalidation",
+        "redacted_audit",
+        "idempotency",
+        "kill_switch",
+        "manual_fallback"
+      ],
+      "prohibited_actions": [
+        "selfbot_behavior",
+        "hidden_posting",
+        "dms",
+        "scraping",
+        "account_switching",
+        "cookie_extraction",
+        "localstorage_extraction",
+        "sessionstorage_extraction",
+        "token_extraction",
+        "raw_token_persistence",
+        "approval_bypass"
+      ]
+    },
+    "credential_handle_id": "tiktok_deferred_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "deferred_until_verified",
+    "destination_binding_id": "tiktok_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "TIKTOK_CLIENT_KEY",
+      "TIKTOK_CLIENT_SECRET",
+      "TIKTOK_ACCESS_TOKEN"
+    ],
+    "key_status": {
+      "TIKTOK_ACCESS_TOKEN": false,
+      "TIKTOK_CLIENT_KEY": false,
+      "TIKTOK_CLIENT_SECRET": false
+    },
+    "key_value_status": {
+      "TIKTOK_ACCESS_TOKEN": "missing",
+      "TIKTOK_CLIENT_KEY": "missing",
+      "TIKTOK_CLIENT_SECRET": "missing"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "",
+    "official_api_practical_for_required_actions": false,
+    "platform": "TikTok deferred",
+    "platform_family": "social_distribution",
+    "preferred_adapter": "supervised_browser_cdp_adapter"
+  },
+  {
+    "adapter_class": "official_api_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Paid but official API is practical and mandatory for generation.",
+    "blocker_class": "live_gate_or_scope_proof_required",
+    "browser_session_started": false,
+    "capability_class": "provider_present_live_gate_required",
+    "cdp_allowed_supervised_only": false,
+    "credential_handle_id": "ai_provider_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "live_gate_required",
+    "destination_binding_id": "ai_generation_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "NINE_ROUTER_API_KEY",
+      "NINE_ROUTER_BASE_URL",
+      "NINE_ROUTER_MODEL",
+      "CC_UI_PROVIDER_LIVE_BOUNDARY_NINE_ROUTER",
+      "NINEROUTER_API_KEY",
+      "ROUTER_API_KEY",
+      "OPENROUTER_API_KEY",
+      "AI_PROVIDER_API_KEY"
+    ],
+    "key_status": {
+      "AI_PROVIDER_API_KEY": false,
+      "CC_UI_PROVIDER_LIVE_BOUNDARY_NINE_ROUTER": true,
+      "NINEROUTER_API_KEY": false,
+      "NINE_ROUTER_API_KEY": true,
+      "NINE_ROUTER_BASE_URL": true,
+      "NINE_ROUTER_MODEL": true,
+      "OPENROUTER_API_KEY": false,
+      "ROUTER_API_KEY": false
+    },
+    "key_value_status": {
+      "AI_PROVIDER_API_KEY": "missing",
+      "CC_UI_PROVIDER_LIVE_BOUNDARY_NINE_ROUTER": "nonblank",
+      "NINEROUTER_API_KEY": "missing",
+      "NINE_ROUTER_API_KEY": "nonblank",
+      "NINE_ROUTER_BASE_URL": "nonblank",
+      "NINE_ROUTER_MODEL": "nonblank",
+      "OPENROUTER_API_KEY": "missing",
+      "ROUTER_API_KEY": "missing"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": false,
+    "notes": "nine_router_aliases_supported",
+    "official_api_practical_for_required_actions": true,
+    "platform": "9router / AI provider",
+    "platform_family": "ai_provider",
+    "preferred_adapter": "official_api_adapter"
+  },
+  {
+    "adapter_class": "official_api_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Paid but official API is practical and mandatory for generation.",
+    "blocker_class": "credential_missing",
+    "browser_session_started": false,
+    "capability_class": "deferred_credentials_missing",
+    "cdp_allowed_supervised_only": false,
+    "credential_handle_id": "vertex_fallback_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "",
+    "destination_binding_id": "vertex_generation_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "GOOGLE_APPLICATION_CREDENTIALS",
+      "VERTEX_PROJECT_ID",
+      "VERTEX_LOCATION"
+    ],
+    "key_status": {
+      "GOOGLE_APPLICATION_CREDENTIALS": false,
+      "VERTEX_LOCATION": false,
+      "VERTEX_PROJECT_ID": false
+    },
+    "key_value_status": {
+      "GOOGLE_APPLICATION_CREDENTIALS": "missing",
+      "VERTEX_LOCATION": "missing",
+      "VERTEX_PROJECT_ID": "missing"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": false,
+    "notes": "",
+    "official_api_practical_for_required_actions": true,
+    "platform": "Vertex fallback / service account path",
+    "platform_family": "ai_provider",
+    "preferred_adapter": "official_api_adapter"
+  },
+  {
+    "adapter_class": "browser_cdp_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "Operator profile management via CDP.",
+    "blocker_class": "credential_missing",
+    "browser_session_started": false,
+    "capability_class": "deferred_credentials_missing",
+    "cdp_allowed_supervised_only": true,
+    "cdp_governance_rules": {
+      "bypass_forbidden_checkpoints": [
+        "exact_preview",
+        "payload_hash",
+        "destination_binding",
+        "jim_approval",
+        "outbox_revalidation",
+        "redacted_audit",
+        "idempotency",
+        "kill_switch",
+        "manual_fallback"
+      ],
+      "prohibited_actions": [
+        "selfbot_behavior",
+        "hidden_posting",
+        "dms",
+        "scraping",
+        "account_switching",
+        "cookie_extraction",
+        "localstorage_extraction",
+        "sessionstorage_extraction",
+        "token_extraction",
+        "raw_token_persistence",
+        "approval_bypass"
+      ]
+    },
+    "credential_handle_id": "browser_operator_profile_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "no_cookie_or_storage_read",
+    "destination_binding_id": "browser_operator_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "EDGE_AUTOMATION_PROFILE",
+      "CHROME_AUTOMATION_PROFILE",
+      "BROWSER_OPERATOR_PROFILE",
+      "BROWSER_PROFILE",
+      "CHROME_PROFILE",
+      "EDGE_PROFILE",
+      "CC_UI_BROWSER_PROFILE"
+    ],
+    "key_status": {
+      "BROWSER_OPERATOR_PROFILE": false,
+      "BROWSER_PROFILE": false,
+      "CC_UI_BROWSER_PROFILE": false,
+      "CHROME_AUTOMATION_PROFILE": false,
+      "CHROME_PROFILE": false,
+      "EDGE_AUTOMATION_PROFILE": false,
+      "EDGE_PROFILE": false
+    },
+    "key_value_status": {
+      "BROWSER_OPERATOR_PROFILE": "missing",
+      "BROWSER_PROFILE": "missing",
+      "CC_UI_BROWSER_PROFILE": "missing",
+      "CHROME_AUTOMATION_PROFILE": "missing",
+      "CHROME_PROFILE": "missing",
+      "EDGE_AUTOMATION_PROFILE": "missing",
+      "EDGE_PROFILE": "missing"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "profile_aliases_only_no_browser_storage",
+    "official_api_practical_for_required_actions": false,
+    "platform": "Browser operator profiles",
+    "platform_family": "operator_local",
+    "preferred_adapter": "supervised_browser_cdp_adapter"
+  },
+  {
+    "adapter_class": "manual_fallback_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "File storage and local workflows.",
+    "blocker_class": "credential_missing",
+    "browser_session_started": false,
+    "capability_class": "unknown",
+    "cdp_allowed_supervised_only": false,
+    "credential_handle_id": "media_dirs_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "",
+    "destination_binding_id": "media_asset_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "CONTENTOPS_MEDIA_DIR",
+      "MEDIA_DIR",
+      "ASSET_EXPORT_DIR"
+    ],
+    "key_status": {
+      "ASSET_EXPORT_DIR": false,
+      "CONTENTOPS_MEDIA_DIR": false,
+      "MEDIA_DIR": false
+    },
+    "key_value_status": {
+      "ASSET_EXPORT_DIR": "missing",
+      "CONTENTOPS_MEDIA_DIR": "missing",
+      "MEDIA_DIR": "missing"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "",
+    "official_api_practical_for_required_actions": false,
+    "platform": "Media dirs",
+    "platform_family": "local_assets",
+    "preferred_adapter": "manual_fallback_adapter"
+  },
+  {
+    "adapter_class": "manual_fallback_adapter",
+    "adapter_policy_version": "6.0.0",
+    "adapter_selection_reason": "File storage and local workflows.",
+    "blocker_class": "credential_missing",
+    "browser_session_started": false,
+    "capability_class": "unknown",
+    "cdp_allowed_supervised_only": false,
+    "credential_handle_id": "governance_paths_handle",
+    "credentials_hydrated": false,
+    "deferred_reason": "",
+    "destination_binding_id": "approval_outbox_audit_destination",
+    "dispatch_allowed_now": false,
+    "free_practical_api_available": false,
+    "key_names": [
+      "CONTENTOPS_APPROVAL_DIR",
+      "CONTENTOPS_OUTBOX_DIR",
+      "CONTENTOPS_AUDIT_DIR"
+    ],
+    "key_status": {
+      "CONTENTOPS_APPROVAL_DIR": false,
+      "CONTENTOPS_AUDIT_DIR": false,
+      "CONTENTOPS_OUTBOX_DIR": false
+    },
+    "key_value_status": {
+      "CONTENTOPS_APPROVAL_DIR": "missing",
+      "CONTENTOPS_AUDIT_DIR": "missing",
+      "CONTENTOPS_OUTBOX_DIR": "missing"
+    },
+    "live_write_allowed_now": false,
+    "live_write_eligible": false,
+    "manual_fallback_available": true,
+    "notes": "",
+    "official_api_practical_for_required_actions": false,
+    "platform": "Approval/outbox/audit paths",
+    "platform_family": "governance",
+    "preferred_adapter": "manual_fallback_adapter"
+  }
+]
