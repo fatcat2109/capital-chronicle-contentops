@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "approval_materialization_status": {
+      "enum": [
+        "PASS",
+        "BLOCKED",
+        "FAIL"
+      ]
+    },
+    "dispatch_state": {
+      "const": "NOT_DISPATCHED"
+    },
+    "dryrun_payload_reuse_blocked": {
+      "const": true
+    },
+    "intake_approval_status": {
+      "enum": [
+        "APPROVAL_CANDIDATE_READY",
+        "BLOCKED_AWAITING_FILLED_INTAKE",
+        "FAIL_VALIDATION"
+      ]
+    },
+    "no_env_read_in_this_task": {
+      "const": true
+    },
+    "no_live_request_in_this_task": {
+      "const": true
+    },
+    "operator_authorization_required": {
+      "const": true
+    },
+    "platform": {
+      "const": "discord"
+    },
+    "ready_for_supervised_action": {
+      "const": false
+    },
+    "task_label": {
+      "const": "TASK_CONTENTOPS_V6_DISCORD_REAL_CONTENT_OPERATOR_INTAKE_APPROVAL_V0"
+    }
+  },
+  "required": [
+    "task_label",
+    "approval_materialization_status",
+    "intake_approval_status",
+    "platform",
+    "source_queue_packet",
+    "approval_state",
+    "dispatch_state",
+    "ready_for_supervised_action",
+    "operator_authorization_required",
+    "no_live_request_in_this_task",
+    "no_env_read_in_this_task",
+    "dryrun_payload_reuse_blocked",
+    "validation",
+    "operator_decision_required"
+  ],
+  "title": "Discord Real Content Intake Approval Packet",
+  "type": "object"
+}
