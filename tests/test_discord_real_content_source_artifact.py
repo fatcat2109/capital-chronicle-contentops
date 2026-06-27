@@ -41,6 +41,25 @@ def test_valid_markdown_source_artifact_ready_but_not_public_postable(tmp_path):
     assert packet["recommended_content_type"] == "announcement"
 
 
+def test_inbox_readme_is_ignored_during_auto_discovery(tmp_path):
+    source(tmp_path / "inbox" / "README.md", "helper doc")
+    source(tmp_path / "inbox" / "capital_chronicle_update.md", "# Capital Chronicle Update\n\nToday we launched a new editorial workflow.")
+    packet = materialize(tmp_path)
+    assert packet["source_artifact_status"] == "READY_FOR_FILLED_INTAKE"
+    assert packet["source_artifact_path"].endswith("capital_chronicle_update.md")
+
+
+def test_placeholder_filler_text_fails_validation(tmp_path):
+    src = source(
+        tmp_path / "inbox" / "capital_chronicle_real_announcement_001.md",
+        "# Capital Chronicle — Product Update\n\n[Viết nội dung thật ở đây]\n\nSource evidence:\n- [đường dẫn tới artifact/source nếu có]\n\nOperator notes:\n- Target candidate: announcements\n- Content type candidate: announcement",
+    )
+    packet = materialize(tmp_path, src)
+    assert packet["source_artifact_status"] == "FAIL_VALIDATION"
+    assert "placeholder_source_rejected" in packet["validation_errors"]
+    assert packet["validation"]["no_placeholder_fillers"] is False
+
+
 def test_empty_artifact_fails_validation(tmp_path):
     src = source(tmp_path / "inbox" / "empty.md", "")
     packet = materialize(tmp_path, src)

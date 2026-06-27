@@ -38,6 +38,13 @@ DISALLOWED_PATH_MARKERS = (
     "walkthrough",
     "task.md",
 )
+IGNORED_INBOX_FILENAMES = {"readme.md"}
+PLACEHOLDER_TEXT_RE = re.compile(
+    r"\[(?:viết nội dung thật ở đây|đường dẫn tới artifact/source nếu có)\]"
+    r"|\btarget candidate:\b"
+    r"|\bcontent type candidate:\b",
+    re.IGNORECASE,
+)
 TRADING_SIGNAL_RE = re.compile(r"\b(buy|sell|hold|long|short|entry|exit|take profit|stop loss)\b", re.IGNORECASE)
 POSITION_SIZING_RE = re.compile(r"\b(position size|size your position|allocate(?:\s+\w+){0,3}\s+\d+%|risk\s+\d+%|portfolio weight)", re.IGNORECASE)
 GUARANTEED_PREDICTION_RE = re.compile(r"\b(guaranteed|will definitely|certain to|risk[- ]free|cannot lose|sure thing)\b", re.IGNORECASE)
@@ -53,6 +60,10 @@ def path_text(path: str | Path | None) -> str | None:
     if path is None:
         return None
     return str(path).replace("\\", "/")
+
+
+def is_candidate_inbox_file(path: Path) -> bool:
+    return path.is_file() and path.suffix.lower() in ALLOWED_EXTENSIONS and path.name.lower() not in IGNORED_INBOX_FILENAMES
 
 
 def write_json(path: str | Path, data: dict[str, Any]) -> None:
@@ -78,6 +89,7 @@ def validation_base() -> dict[str, Any]:
         "not_dryrun": False,
         "not_sample": False,
         "not_test_message": False,
+        "no_placeholder_fillers": False,
         "no_webhook_or_secret_like_text": False,
         "no_financial_advice_language": False,
         "no_trading_signal_language": False,
@@ -168,7 +180,7 @@ def find_single_source_artifact(inbox: str | Path) -> tuple[Path | None, list[st
     inbox_path = Path(inbox)
     if not inbox_path.exists():
         return None, []
-    files = [p for p in sorted(inbox_path.iterdir()) if p.is_file() and p.suffix.lower() in ALLOWED_EXTENSIONS]
+    files = [p for p in sorted(inbox_path.iterdir()) if is_candidate_inbox_file(p)]
     return (files[0], [path_text(p) for p in files]) if len(files) == 1 else (None, [path_text(p) for p in files])
 
 
@@ -194,6 +206,7 @@ def fail_packet(source_artifact: str | Path | None, errors: list[str], text: str
         "not_dryrun": flags["not_dryrun"],
         "not_sample": flags["not_sample"],
         "not_test_message": flags["not_test_message"],
+        "no_placeholder_fillers": not bool(text and PLACEHOLDER_TEXT_RE.search(text)),
         "no_webhook_or_secret_like_text": not bool(text and SECRETISH_RE.search(text)),
         "no_financial_advice_language": not bool(text and FINANCIAL_ADVICE_RE.search(text)),
         "no_trading_signal_language": not bool(text and TRADING_SIGNAL_RE.search(text)),
@@ -233,6 +246,8 @@ def materialize_source_artifact(source_artifact: str | Path | None = None, *, in
         errors.append("test_message_or_fixture_source_rejected")
     if SECRETISH_RE.search(text):
         errors.append("webhook_or_secret_like_text_blocked")
+    if PLACEHOLDER_TEXT_RE.search(text):
+        errors.append("placeholder_source_rejected")
     if FINANCIAL_ADVICE_RE.search(text):
         errors.append("financial_advice_language_blocked")
     if TRADING_SIGNAL_RE.search(text):
@@ -275,6 +290,7 @@ def materialize_source_artifact(source_artifact: str | Path | None = None, *, in
             "not_dryrun": True,
             "not_sample": True,
             "not_test_message": True,
+            "no_placeholder_fillers": True,
             "no_webhook_or_secret_like_text": True,
             "no_financial_advice_language": True,
             "no_trading_signal_language": True,
