@@ -1,6 +1,7 @@
 [
   {
     "adapter_class": "webhook_adapter",
+    "adapter_policy_decision": "webhook_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Free and practical webhook API for community channel delivery.",
     "blocker_class": "none",
@@ -41,10 +42,14 @@
     "official_api_practical_for_required_actions": true,
     "platform": "Discord webhooks",
     "platform_family": "community",
-    "preferred_adapter": "webhook_adapter"
+    "preferred_adapter": "webhook_adapter",
+    "recommended_adapter_class": "webhook_adapter",
+    "source_adapter_class": "webhook_adapter",
+    "source_capability_class": "ready_webhook"
   },
   {
     "adapter_class": "official_api_adapter",
+    "adapter_policy_decision": "official_api_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Used for routing and identity metadata. Free and practical.",
     "blocker_class": "none",
@@ -127,10 +132,14 @@
     "official_api_practical_for_required_actions": true,
     "platform": "Discord guild/server/channel/role IDs",
     "platform_family": "community",
-    "preferred_adapter": "official_api_adapter"
+    "preferred_adapter": "official_api_adapter",
+    "recommended_adapter_class": "official_api_adapter",
+    "source_adapter_class": "official_api_adapter",
+    "source_capability_class": "ready_api"
   },
   {
     "adapter_class": "deferred_adapter",
+    "adapter_policy_decision": "deferred_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Discord bot deployment is deferred under current V6 plans.",
     "blocker_class": "deferred_by_plan",
@@ -162,10 +171,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "Discord bot deferred",
     "platform_family": "community",
-    "preferred_adapter": "deferred_adapter"
+    "preferred_adapter": "deferred_adapter",
+    "recommended_adapter_class": "deferred_adapter",
+    "source_adapter_class": "deferred_adapter",
+    "source_capability_class": "deferred_review_required"
   },
   {
     "adapter_class": "official_api_adapter",
+    "adapter_policy_decision": "official_api_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Free and highly practical official broadcast API is preferred.",
     "blocker_class": "none",
@@ -197,10 +210,14 @@
     "official_api_practical_for_required_actions": true,
     "platform": "Telegram operator inbox",
     "platform_family": "remote_operator",
-    "preferred_adapter": "official_api_adapter"
+    "preferred_adapter": "official_api_adapter",
+    "recommended_adapter_class": "official_api_adapter",
+    "source_adapter_class": "official_api_adapter",
+    "source_capability_class": "ready_api"
   },
   {
     "adapter_class": "official_api_adapter",
+    "adapter_policy_decision": "official_api_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Free and highly practical official broadcast API is preferred.",
     "blocker_class": "none",
@@ -232,10 +249,14 @@
     "official_api_practical_for_required_actions": true,
     "platform": "Telegram channel",
     "platform_family": "remote_operator",
-    "preferred_adapter": "official_api_adapter"
+    "preferred_adapter": "official_api_adapter",
+    "recommended_adapter_class": "official_api_adapter",
+    "source_adapter_class": "official_api_adapter",
+    "source_capability_class": "ready_api"
   },
   {
-    "adapter_class": "browser_cdp_adapter",
+    "adapter_class": "supervised_browser_cdp_adapter",
+    "adapter_policy_decision": "supervised_browser_cdp_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "No public free publishing API is available. Supervised browser CDP is preferred.",
     "blocker_class": "none",
@@ -296,10 +317,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "Substack browser profile/publication metadata",
     "platform_family": "owned_long_form",
-    "preferred_adapter": "supervised_browser_cdp_adapter"
+    "preferred_adapter": "supervised_browser_cdp_adapter",
+    "recommended_adapter_class": "supervised_browser_cdp_adapter",
+    "source_adapter_class": "browser_cdp_adapter",
+    "source_capability_class": "ready_browser"
   },
   {
-    "adapter_class": "official_api_adapter",
+    "adapter_class": "supervised_browser_cdp_adapter",
+    "adapter_policy_decision": "supervised_browser_cdp_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Official Meta API requires high-friction app review. Prefer supervised browser CDP.",
     "blocker_class": "live_gate_or_scope_proof_required",
@@ -360,10 +385,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "Meta Graph",
     "platform_family": "social_distribution",
-    "preferred_adapter": "supervised_browser_cdp_adapter"
+    "preferred_adapter": "supervised_browser_cdp_adapter",
+    "recommended_adapter_class": "supervised_browser_cdp_adapter",
+    "source_adapter_class": "official_api_adapter",
+    "source_capability_class": "credential_present_scope_proof_required"
   },
   {
-    "adapter_class": "official_api_adapter",
+    "adapter_class": "supervised_browser_cdp_adapter",
+    "adapter_policy_decision": "supervised_browser_cdp_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Official Meta API requires high-friction app review. Prefer supervised browser CDP.",
     "blocker_class": "live_gate_or_scope_proof_required",
@@ -424,10 +453,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "Facebook Page",
     "platform_family": "social_distribution",
-    "preferred_adapter": "supervised_browser_cdp_adapter"
+    "preferred_adapter": "supervised_browser_cdp_adapter",
+    "recommended_adapter_class": "supervised_browser_cdp_adapter",
+    "source_adapter_class": "official_api_adapter",
+    "source_capability_class": "credential_present_scope_proof_required"
   },
   {
-    "adapter_class": "official_api_adapter",
+    "adapter_class": "supervised_browser_cdp_adapter",
+    "adapter_policy_decision": "supervised_browser_cdp_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Official Meta API requires high-friction app review. Prefer supervised browser CDP.",
     "blocker_class": "live_gate_or_scope_proof_required",
@@ -488,10 +521,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "Instagram Business",
     "platform_family": "social_distribution",
-    "preferred_adapter": "supervised_browser_cdp_adapter"
+    "preferred_adapter": "supervised_browser_cdp_adapter",
+    "recommended_adapter_class": "supervised_browser_cdp_adapter",
+    "source_adapter_class": "official_api_adapter",
+    "source_capability_class": "credential_present_scope_proof_required"
   },
   {
-    "adapter_class": "official_api_adapter",
+    "adapter_class": "supervised_browser_cdp_adapter",
+    "adapter_policy_decision": "supervised_browser_cdp_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Official Meta API requires high-friction app review. Prefer supervised browser CDP.",
     "blocker_class": "live_gate_or_scope_proof_required",
@@ -555,10 +592,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "Threads separate app/user",
     "platform_family": "social_distribution",
-    "preferred_adapter": "supervised_browser_cdp_adapter"
+    "preferred_adapter": "supervised_browser_cdp_adapter",
+    "recommended_adapter_class": "supervised_browser_cdp_adapter",
+    "source_adapter_class": "official_api_adapter",
+    "source_capability_class": "credential_present_scope_proof_required"
   },
   {
     "adapter_class": "official_api_adapter",
+    "adapter_policy_decision": "official_api_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Fallback integration rule",
     "blocker_class": "none",
@@ -593,10 +634,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "YouTube OAuth/client credentials",
     "platform_family": "video_distribution",
-    "preferred_adapter": "official_api_adapter"
+    "preferred_adapter": "official_api_adapter",
+    "recommended_adapter_class": "official_api_adapter",
+    "source_adapter_class": "official_api_adapter",
+    "source_capability_class": "ready_api"
   },
   {
     "adapter_class": "manual_fallback_adapter",
+    "adapter_policy_decision": "manual_fallback_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Official API is paid and quota-gated. Manual fallback is preferred.",
     "blocker_class": "none",
@@ -654,10 +699,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "X manual",
     "platform_family": "social_distribution",
-    "preferred_adapter": "manual_fallback_adapter"
+    "preferred_adapter": "manual_fallback_adapter",
+    "recommended_adapter_class": "manual_fallback_adapter",
+    "source_adapter_class": "manual_fallback_adapter",
+    "source_capability_class": "manual_only"
   },
   {
-    "adapter_class": "deferred_adapter",
+    "adapter_class": "supervised_browser_cdp_adapter",
+    "adapter_policy_decision": "supervised_browser_cdp_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Official API is deferred/review-heavy. Prefer supervised browser CDP or manual fallback.",
     "blocker_class": "deferred_by_plan",
@@ -715,10 +764,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "LinkedIn personal deferred",
     "platform_family": "social_distribution",
-    "preferred_adapter": "supervised_browser_cdp_adapter"
+    "preferred_adapter": "supervised_browser_cdp_adapter",
+    "recommended_adapter_class": "supervised_browser_cdp_adapter",
+    "source_adapter_class": "deferred_adapter",
+    "source_capability_class": "deferred_review_required"
   },
   {
-    "adapter_class": "deferred_adapter",
+    "adapter_class": "supervised_browser_cdp_adapter",
+    "adapter_policy_decision": "supervised_browser_cdp_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Official API is deferred/review-heavy. Prefer supervised browser CDP or manual fallback.",
     "blocker_class": "deferred_by_plan",
@@ -776,10 +829,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "LinkedIn organization deferred",
     "platform_family": "social_distribution",
-    "preferred_adapter": "supervised_browser_cdp_adapter"
+    "preferred_adapter": "supervised_browser_cdp_adapter",
+    "recommended_adapter_class": "supervised_browser_cdp_adapter",
+    "source_adapter_class": "deferred_adapter",
+    "source_capability_class": "deferred_review_required"
   },
   {
-    "adapter_class": "deferred_adapter",
+    "adapter_class": "supervised_browser_cdp_adapter",
+    "adapter_policy_decision": "supervised_browser_cdp_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Official API is deferred/review-heavy. Prefer supervised browser CDP or manual fallback.",
     "blocker_class": "deferred_by_plan",
@@ -840,10 +897,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "TikTok deferred",
     "platform_family": "social_distribution",
-    "preferred_adapter": "supervised_browser_cdp_adapter"
+    "preferred_adapter": "supervised_browser_cdp_adapter",
+    "recommended_adapter_class": "supervised_browser_cdp_adapter",
+    "source_adapter_class": "deferred_adapter",
+    "source_capability_class": "deferred_review_required"
   },
   {
     "adapter_class": "official_api_adapter",
+    "adapter_policy_decision": "official_api_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Paid but official API is practical and mandatory for generation.",
     "blocker_class": "live_gate_or_scope_proof_required",
@@ -893,10 +954,14 @@
     "official_api_practical_for_required_actions": true,
     "platform": "9router / AI provider",
     "platform_family": "ai_provider",
-    "preferred_adapter": "official_api_adapter"
+    "preferred_adapter": "official_api_adapter",
+    "recommended_adapter_class": "official_api_adapter",
+    "source_adapter_class": "official_api_adapter",
+    "source_capability_class": "provider_present_live_gate_required"
   },
   {
     "adapter_class": "official_api_adapter",
+    "adapter_policy_decision": "official_api_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Paid but official API is practical and mandatory for generation.",
     "blocker_class": "credential_missing",
@@ -931,10 +996,14 @@
     "official_api_practical_for_required_actions": true,
     "platform": "Vertex fallback / service account path",
     "platform_family": "ai_provider",
-    "preferred_adapter": "official_api_adapter"
+    "preferred_adapter": "official_api_adapter",
+    "recommended_adapter_class": "official_api_adapter",
+    "source_adapter_class": "official_api_adapter",
+    "source_capability_class": "deferred_credentials_missing"
   },
   {
-    "adapter_class": "browser_cdp_adapter",
+    "adapter_class": "supervised_browser_cdp_adapter",
+    "adapter_policy_decision": "supervised_browser_cdp_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "Operator profile management via CDP.",
     "blocker_class": "credential_missing",
@@ -1007,10 +1076,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "Browser operator profiles",
     "platform_family": "operator_local",
-    "preferred_adapter": "supervised_browser_cdp_adapter"
+    "preferred_adapter": "supervised_browser_cdp_adapter",
+    "recommended_adapter_class": "supervised_browser_cdp_adapter",
+    "source_adapter_class": "browser_cdp_adapter",
+    "source_capability_class": "deferred_credentials_missing"
   },
   {
     "adapter_class": "manual_fallback_adapter",
+    "adapter_policy_decision": "manual_fallback_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "File storage and local workflows.",
     "blocker_class": "credential_missing",
@@ -1045,10 +1118,14 @@
     "official_api_practical_for_required_actions": false,
     "platform": "Media dirs",
     "platform_family": "local_assets",
-    "preferred_adapter": "manual_fallback_adapter"
+    "preferred_adapter": "manual_fallback_adapter",
+    "recommended_adapter_class": "manual_fallback_adapter",
+    "source_adapter_class": "manual_fallback_adapter",
+    "source_capability_class": "unknown"
   },
   {
     "adapter_class": "manual_fallback_adapter",
+    "adapter_policy_decision": "manual_fallback_adapter",
     "adapter_policy_version": "6.0.0",
     "adapter_selection_reason": "File storage and local workflows.",
     "blocker_class": "credential_missing",
@@ -1083,6 +1160,9 @@
     "official_api_practical_for_required_actions": false,
     "platform": "Approval/outbox/audit paths",
     "platform_family": "governance",
-    "preferred_adapter": "manual_fallback_adapter"
+    "preferred_adapter": "manual_fallback_adapter",
+    "recommended_adapter_class": "manual_fallback_adapter",
+    "source_adapter_class": "manual_fallback_adapter",
+    "source_capability_class": "unknown"
   }
 ]

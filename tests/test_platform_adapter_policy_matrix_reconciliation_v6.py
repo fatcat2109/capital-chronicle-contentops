@@ -4,18 +4,26 @@ from live_contentops import platform_adapter_policy_matrix_reconciliation_v6 as 
 
 
 def test_telegram_prefers_official_api_adapter():
-    row = {"platform": "Telegram channel", "platform_family": "remote_operator", "adapter_class": "official_api_adapter"}
+    row = {"platform": "Telegram channel", "platform_family": "remote_operator", "adapter_class": "official_api_adapter", "capability_class": "ready_api"}
     res = recon.reconcile_platform_row(row)
     assert res["preferred_adapter"] == "official_api_adapter"
+    assert res["recommended_adapter_class"] == "official_api_adapter"
+    assert res["adapter_class"] == "official_api_adapter"
+    assert res["source_adapter_class"] == "official_api_adapter"
+    assert res["source_capability_class"] == "ready_api"
     assert res["free_practical_api_available"] is True
     assert res["official_api_practical_for_required_actions"] is True
     assert res["cdp_allowed_supervised_only"] is False
 
 
 def test_substack_prefers_supervised_browser_cdp_adapter():
-    row = {"platform": "Substack publication", "platform_family": "owned_long_form", "adapter_class": "browser_cdp_adapter"}
+    row = {"platform": "Substack publication", "platform_family": "owned_long_form", "adapter_class": "browser_cdp_adapter", "capability_class": "ready_browser"}
     res = recon.reconcile_platform_row(row)
     assert res["preferred_adapter"] == "supervised_browser_cdp_adapter"
+    assert res["recommended_adapter_class"] == "supervised_browser_cdp_adapter"
+    assert res["adapter_class"] == "supervised_browser_cdp_adapter"
+    assert res["source_adapter_class"] == "browser_cdp_adapter"
+    assert res["source_capability_class"] == "ready_browser"
     assert res["free_practical_api_available"] is False
     assert res["official_api_practical_for_required_actions"] is False
     assert res["cdp_allowed_supervised_only"] is True
@@ -23,18 +31,25 @@ def test_substack_prefers_supervised_browser_cdp_adapter():
 
 
 def test_twitter_prefers_manual_fallback_adapter():
-    row = {"platform": "X manual", "platform_family": "social_distribution", "adapter_class": "manual_fallback_adapter"}
+    row = {"platform": "X manual", "platform_family": "social_distribution", "adapter_class": "manual_fallback_adapter", "capability_class": "manual_only"}
     res = recon.reconcile_platform_row(row)
     assert res["preferred_adapter"] == "manual_fallback_adapter"
+    assert res["recommended_adapter_class"] == "manual_fallback_adapter"
+    assert res["adapter_class"] == "manual_fallback_adapter"
+    assert res["source_adapter_class"] == "manual_fallback_adapter"
     assert res["free_practical_api_available"] is False
     assert res["official_api_practical_for_required_actions"] is False
     assert res["cdp_allowed_supervised_only"] is True
 
 
 def test_meta_prefers_supervised_browser_cdp_adapter():
-    row = {"platform": "Facebook Page", "platform_family": "social_distribution", "adapter_class": "official_api_adapter"}
+    row = {"platform": "Facebook Page", "platform_family": "social_distribution", "adapter_class": "official_api_adapter", "capability_class": "ready_api"}
     res = recon.reconcile_platform_row(row)
     assert res["preferred_adapter"] == "supervised_browser_cdp_adapter"
+    assert res["recommended_adapter_class"] == "supervised_browser_cdp_adapter"
+    assert res["adapter_class"] == "supervised_browser_cdp_adapter"
+    assert res["source_adapter_class"] == "official_api_adapter"
+    assert res["source_capability_class"] == "ready_api"
     assert res["free_practical_api_available"] is False
     assert res["official_api_practical_for_required_actions"] is False
     assert res["cdp_allowed_supervised_only"] is True
@@ -56,6 +71,17 @@ def test_reconciled_packet_contains_no_sensitive_values():
     # check that we do not write webhook templates or token lengths
     assert data.get("raw_secret_output", False) is False
     assert data.get("webhook_url_printed", False) is False
+
+    # Check reconciled rows from file
+    rows_file = out_dir / "reconciled_platform_adapter_matrix.json"
+    assert rows_file.exists()
+    rows = json.loads(rows_file.read_text(encoding="utf-8"))
+    for r in rows:
+        assert r["dispatch_allowed_now"] is False
+        assert r["live_write_allowed_now"] is False
+        assert r["browser_session_started"] is False
+        assert r["credentials_hydrated"] is False
+        assert r["adapter_class"] == r["preferred_adapter"]
 
 
 def test_module_contains_no_forbidden_behavior():

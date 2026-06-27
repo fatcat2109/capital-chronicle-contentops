@@ -129,10 +129,18 @@ def reconcile_platform_row(row: dict[str, Any]) -> dict[str, Any]:
         official_api_practical = False
         cdp_allowed = False
 
+    source_adapter = row.get("adapter_class")
+    source_capability = row.get("capability_class")
+
     reconciled = dict(row)
     reconciled.update({
-        "adapter_policy_version": "6.0.0",
+        "source_adapter_class": source_adapter,
+        "source_capability_class": source_capability,
+        "adapter_class": pref_adapter,
         "preferred_adapter": pref_adapter,
+        "recommended_adapter_class": pref_adapter,
+        "adapter_policy_decision": pref_adapter,
+        "adapter_policy_version": "6.0.0",
         "adapter_selection_reason": reason,
         "free_practical_api_available": free_api,
         "official_api_practical_for_required_actions": official_api_practical,
