@@ -2,6 +2,6 @@
 
 Recommended next task:
 
-`TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0`
+`TASK_CONTENTOPS_V6_FAST_SHIP_OPERATING_PROFILE_AND_PROMPT_CEREMONY_REDUCTION_HEAVY_BATCH_V0`
 
-Goal: Proceed back to validating the operator facts and manual evidence fixture once Jim has filled the template values.
+Goal: Establish fast ship operating profile and prompt ceremony reduction standards.

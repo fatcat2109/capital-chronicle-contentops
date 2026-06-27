@@ -98,7 +98,7 @@ def test_current_state_summary_details(tmp_path):
     assert "Baseline before upload bundle task" in summary
     assert "Current generation HEAD" in summary
     assert "master" in summary
-    assert "TASK_CONTENTOPS_V6_PROJECT_SOURCES_UPLOAD_BUNDLE_FINAL_HEAD_REPAIR_AND_REFRESH_HEAVY_BATCH_V0" in summary
+    assert upload_lane.TASK_LABEL in summary
     assert "Post-Push Audit Required" in summary
 
 

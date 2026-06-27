@@ -4,12 +4,11 @@ TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V
 - **Repository**: cc-live-contentops
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Upload bundle generation HEAD**: 6fc5818934500818da15a35547b100751c9e701a
-- **Latest Accepted Task**: TASK_CONTENTOPS_V6_PROJECT_SOURCES_UPLOAD_BUNDLE_FINAL_HEAD_REPAIR_AND_REFRESH_HEAVY_BATCH_V0
+- **Upload bundle generation HEAD**: dcac159da827f801428bfe6083bfdcc5d480141c
+- **Latest Accepted Task**: TASK_CONTENTOPS_V6_FAST_SHIP_OPERATING_PROFILE_AND_PROMPT_CEREMONY_REDUCTION_HEAVY_BATCH_V0
 
-## Safety Rules
-- Preserve no-live, no-env, no-network, no-provider, no-browser, no-dispatch state.
-- No live platform writes. No outbox writes. No credential reads.
+## Safety & Governance Rules
+- Environment access, provider integrations, and live adapter capabilities are permitted only when explicitly scoped via a task contract under the V6 Fast Ship Operating Profile.
 - Never output raw secret values, webhook URLs, tokens, or cookies.
 
 ## Current Blockers
@@ -27,5 +26,5 @@ TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V
 > Future Antigravity prompts in this workflow must start with the active task label on line one.
 
 ## Next Recommended Task
-- **Task**: `TASK_CONTENTOPS_V6_OPERATOR_FACTS_INTAKE_PACKET_AND_MANUAL_EVIDENCE_FIXTURE_HEAVY_BATCH_V0`
-- **Goal**: Initialize the facts intake and manual evidence fixture template for the operator.
+- **Task**: `TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0`
+- **Goal**: Validate the operator facts and manual evidence fixture once Jim has populated the template values.
