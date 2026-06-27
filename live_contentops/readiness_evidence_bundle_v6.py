@@ -156,13 +156,16 @@ def materialize_readiness_bundle_packets(
         "note": "Combined Rollup of all unresolved preflight requirements."
     }
 
+    intent_status_field = "intent_class" if ("intent_class" in intent_data and "intent_status" not in intent_data) else "intent_status"
+    intent_status_val = intent_data.get(intent_status_field) or intent_data.get("intent_status") or intent_data.get("intent_class") or "UNKNOWN"
+
     # Pipeline Status Matrix
     pipeline_matrix = [
         {
             "lane_name": "operator_intent",
             "source_packet_file": "docs/automation/V6_OPERATOR_INTENT/operator_intent_packet.json",
-            "status_field": "intent_status",
-            "status_value": intent_data.get("intent_status", "UNKNOWN"),
+            "status_field": intent_status_field,
+            "status_value": intent_status_val,
             "public_postable": intent_data.get("public_postable", False),
             "dispatch_allowed_now": intent_data.get("dispatch_allowed_now", False),
             "unresolved_blockers": sorted(intent_data.get("blockers", [])),
@@ -211,8 +214,8 @@ def materialize_readiness_bundle_packets(
         {
             "lane_name": "discord_community_drop",
             "source_packet_file": "docs/automation/V6_DISCORD_COMMUNITY_DROP/discord_drop_packet.json",
-            "status_field": "drop_status",
-            "status_value": drop_data.get("drop_status", "UNKNOWN"),
+            "status_field": "discord_drop_status",
+            "status_value": drop_data.get("discord_drop_status") or drop_data.get("drop_status") or "UNKNOWN",
             "public_postable": drop_data.get("public_postable", False),
             "dispatch_allowed_now": drop_data.get("dispatch_allowed_now", False),
             "unresolved_blockers": sorted(drop_data.get("blockers", [])),
@@ -221,8 +224,8 @@ def materialize_readiness_bundle_packets(
         {
             "lane_name": "source_evidence_preflight",
             "source_packet_file": "docs/automation/V6_SOURCE_EVIDENCE_PREFLIGHT/source_evidence_intake_packet.json",
-            "status_field": "preflight_status",
-            "status_value": preflight_data.get("preflight_status", "UNKNOWN"),
+            "status_field": "intake_status",
+            "status_value": preflight_data.get("intake_status") or preflight_data.get("preflight_status") or "UNKNOWN",
             "public_postable": preflight_data.get("public_postable", False),
             "dispatch_allowed_now": preflight_data.get("dispatch_allowed_now", False),
             "unresolved_blockers": sorted(preflight_data.get("blockers", [])),
@@ -299,7 +302,7 @@ def materialize_readiness_bundle_packets(
         "live_write_attempted": False,
         "outbox_entry_created": False,
         "approval_ledger_entry_created": False,
-        "unresolved_blockers": sorted(list(blocker_rollup.keys())),
+        "unresolved_blockers": sorted([k for k in blocker_rollup.keys() if k != "note"]),
         "project_sources_candidate_manifest_file": "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_project_sources_candidate_manifest.json",
         "operator_review_summary_file": "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_operator_review_summary.md",
         "next_operator_actions_file": "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_next_operator_actions.md",

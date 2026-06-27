@@ -156,3 +156,35 @@ def test_module_contains_no_forbidden_behavior():
     assert "httpx" not in attrs
     assert "getenv" not in attrs
     assert "environ" not in attrs
+
+
+def test_readiness_evidence_bundle_repaired_status_fields(tmp_path):
+    int_p, art_p, grd_p, seo_p, var_p, drp_p, pre_p, sub_p, gat_p, red_p = write_temp_inputs(tmp_path)
+    
+    # Override files with the structures we want to test:
+    intent_data = {"intent_class": "create_canonical_article", "blockers": []}
+    int_p.write_text(json.dumps(intent_data, indent=2), encoding="utf-8")
+    
+    drop_data = {"discord_drop_status": "DISCORD_DROP_REVIEW_READY_WITH_SOURCE_GAP", "blockers": [], "discord_drop_packet_id": "drop_ca78"}
+    drp_p.write_text(json.dumps(drop_data, indent=2), encoding="utf-8")
+    
+    preflight_data = {"intake_status": "AWAITING_OPERATOR_SOURCE_EVIDENCE", "blockers": []}
+    pre_p.write_text(json.dumps(preflight_data, indent=2), encoding="utf-8")
+    
+    sub, matrix, rollup, manifest, _ = bundle_lane.materialize_readiness_bundle_packets(
+        int_p, art_p, grd_p, seo_p, var_p, drp_p, pre_p, sub_p, gat_p, red_p
+    )
+    
+    assert "note" not in sub["unresolved_blockers"]
+    
+    lane_map = {row["lane_name"]: row for row in matrix}
+    
+    assert lane_map["operator_intent"]["status_field"] == "intent_class"
+    assert lane_map["operator_intent"]["status_value"] == "create_canonical_article"
+    
+    assert lane_map["discord_community_drop"]["status_field"] == "discord_drop_status"
+    assert lane_map["discord_community_drop"]["status_value"] == "DISCORD_DROP_REVIEW_READY_WITH_SOURCE_GAP"
+    
+    assert lane_map["source_evidence_preflight"]["status_field"] == "intake_status"
+    assert lane_map["source_evidence_preflight"]["status_value"] == "AWAITING_OPERATOR_SOURCE_EVIDENCE"
+

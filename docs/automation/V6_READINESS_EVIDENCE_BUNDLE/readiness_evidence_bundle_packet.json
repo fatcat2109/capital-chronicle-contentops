@@ -36,7 +36,6 @@
     "evidence_incomplete",
     "kill_switch_active",
     "live_write_authorization_missing",
-    "note",
     "operator_approval_incomplete",
     "operator_idea_source_ref_missing",
     "outbox_creation_blocked",

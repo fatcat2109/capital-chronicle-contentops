@@ -5,8 +5,8 @@
     "next_required_action": "Complete canonical outline.",
     "public_postable": false,
     "source_packet_file": "docs/automation/V6_OPERATOR_INTENT/operator_intent_packet.json",
-    "status_field": "intent_status",
-    "status_value": "UNKNOWN",
+    "status_field": "intent_class",
+    "status_value": "create_canonical_article",
     "unresolved_blockers": []
   },
   {
@@ -55,8 +55,8 @@
     "next_required_action": "Map preflight source references.",
     "public_postable": false,
     "source_packet_file": "docs/automation/V6_DISCORD_COMMUNITY_DROP/discord_drop_packet.json",
-    "status_field": "drop_status",
-    "status_value": "UNKNOWN",
+    "status_field": "discord_drop_status",
+    "status_value": "DISCORD_DROP_REVIEW_READY_WITH_SOURCE_GAP",
     "unresolved_blockers": []
   },
   {
@@ -65,8 +65,8 @@
     "next_required_action": "Run operator submission validator.",
     "public_postable": false,
     "source_packet_file": "docs/automation/V6_SOURCE_EVIDENCE_PREFLIGHT/source_evidence_intake_packet.json",
-    "status_field": "preflight_status",
-    "status_value": "UNKNOWN",
+    "status_field": "intake_status",
+    "status_value": "AWAITING_OPERATOR_SOURCE_EVIDENCE",
     "unresolved_blockers": []
   },
   {
