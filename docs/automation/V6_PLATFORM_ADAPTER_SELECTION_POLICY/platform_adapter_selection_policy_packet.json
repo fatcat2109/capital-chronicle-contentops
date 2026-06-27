@@ -1,0 +1,37 @@
+{
+  "browser_session_started": false,
+  "cdp_governance_rules": {
+    "bypass_forbidden_checkpoints": [
+      "exact_preview",
+      "payload_hash",
+      "destination_binding",
+      "jim_approval",
+      "outbox_revalidation",
+      "redacted_audit",
+      "idempotency",
+      "kill_switch",
+      "manual_fallback"
+    ],
+    "prohibited_actions": [
+      "selfbot_behavior",
+      "hidden_posting",
+      "dms",
+      "scraping",
+      "account_switching",
+      "cookie_extraction",
+      "localstorage_extraction",
+      "sessionstorage_extraction",
+      "token_extraction",
+      "raw_token_persistence",
+      "approval_bypass"
+    ]
+  },
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "live_write_allowed_now": false,
+  "policy_name": "V6 Platform Adapter Selection Policy",
+  "raw_secret_output": false,
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_PLATFORM_ADAPTER_SELECTION_POLICY_AND_CDP_PREFERENCE_REFRESH_V0",
+  "webhook_url_printed": false
+}

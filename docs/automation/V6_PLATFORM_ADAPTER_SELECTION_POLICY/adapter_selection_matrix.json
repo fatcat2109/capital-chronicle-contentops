@@ -1,0 +1,56 @@
+[
+  {
+    "api_restrictions": [],
+    "has_free_practical_api": true,
+    "platform": "Discord webhooks",
+    "preferred_adapter": "webhook_adapter",
+    "rationale": "Free and practical webhook API for community channel delivery."
+  },
+  {
+    "api_restrictions": [],
+    "has_free_practical_api": true,
+    "platform": "Telegram channel",
+    "preferred_adapter": "official_api_adapter",
+    "rationale": "Free and highly practical official broadcast API."
+  },
+  {
+    "api_restrictions": [
+      "unavailable",
+      "no_free_publishing_api"
+    ],
+    "has_free_practical_api": false,
+    "platform": "Substack publication",
+    "preferred_adapter": "supervised_browser_cdp_adapter",
+    "rationale": "No public free publishing API is provided. Supervised browser CDP is the preferred lane."
+  },
+  {
+    "api_restrictions": [
+      "paid",
+      "quota_gated"
+    ],
+    "has_free_practical_api": false,
+    "platform": "X (Twitter)",
+    "preferred_adapter": "manual_fallback_adapter",
+    "rationale": "Official API is paid and quota-gated. Prefer manual or supervised fallback."
+  },
+  {
+    "api_restrictions": [
+      "review_heavy",
+      "restricted"
+    ],
+    "has_free_practical_api": false,
+    "platform": "Meta Graph / Facebook Page",
+    "preferred_adapter": "supervised_browser_cdp_adapter",
+    "rationale": "Official API requires high-friction app review. Prefer supervised browser automation."
+  },
+  {
+    "api_restrictions": [
+      "review_heavy",
+      "restricted"
+    ],
+    "has_free_practical_api": false,
+    "platform": "LinkedIn organization",
+    "preferred_adapter": "supervised_browser_cdp_adapter",
+    "rationale": "Official API is heavily review-gated. Prefer supervised browser automation."
+  }
+]
