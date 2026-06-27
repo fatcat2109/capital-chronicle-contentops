@@ -1,0 +1,40 @@
+{
+  "approval_performed": false,
+  "approval_preflight_file": "docs/automation/V6_SOURCE_EVIDENCE_PREFLIGHT/approval_preflight_packet.json",
+  "approval_required": true,
+  "blocked_reasons": [],
+  "dispatch_allowed_now": false,
+  "dispatch_readiness_snapshot_file": "docs/automation/V6_SOURCE_EVIDENCE_PREFLIGHT/dispatch_readiness_snapshot.json",
+  "evidence_complete": false,
+  "human_review_required": true,
+  "intake_stage": "source_evidence_preflight",
+  "intake_status": "AWAITING_OPERATOR_SOURCE_EVIDENCE",
+  "missing_source_refs": [
+    "operator_idea_source_ref"
+  ],
+  "next_recommended_task": "TASK_CONTENTOPS_V6_PLATFORM_NATIVE_VARIANT_GENERATOR_V0",
+  "no_env_read_in_this_task": true,
+  "no_live_request_in_this_task": true,
+  "no_network_call_in_this_task": true,
+  "no_provider_call_in_this_task": true,
+  "not_approved": true,
+  "not_dispatchable": true,
+  "not_public_postable": true,
+  "public_postable": false,
+  "raw_secret_output": false,
+  "registered_source_refs": [],
+  "schema_version": "6.0.0",
+  "source_discord_drop_packet_id": "discord_drop_ce89baf48671",
+  "source_evidence_intake_packet_id": "intake_a01e278a6d47",
+  "source_evidence_required": false,
+  "source_needed": true,
+  "source_operator_review_packet_id": "review_packet_ce89baf4",
+  "source_platform_variant_packet_id": "platform_variants_f4e590ab1f3c",
+  "source_reference_registry_file": "docs/automation/V6_SOURCE_EVIDENCE_PREFLIGHT/source_reference_registry.json",
+  "source_research_packet_id": "substack_research_6a7a2be45f6e",
+  "task_label": "TASK_CONTENTOPS_V6_SOURCE_EVIDENCE_INTAKE_AND_APPROVAL_PREFLIGHT_HEAVY_BATCH_V0",
+  "unresolved_source_refs": [
+    "operator_idea_source_ref"
+  ],
+  "webhook_url_printed": false
+}

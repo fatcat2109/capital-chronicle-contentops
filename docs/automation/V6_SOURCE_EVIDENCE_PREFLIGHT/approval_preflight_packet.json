@@ -1,0 +1,24 @@
+{
+  "approval_preflight_packet_id": "preflight_a01e278a",
+  "approval_valid_for_dispatch": false,
+  "blockers": [
+    "missing_source_references",
+    "payload_hash_uncalculated",
+    "destination_binding_unconfirmed"
+  ],
+  "destination_binding_present": false,
+  "destination_binding_required": true,
+  "dispatch_allowed_now": false,
+  "evidence_complete": false,
+  "exact_payload_hash_present": false,
+  "exact_payload_hash_required": true,
+  "not_approved": true,
+  "not_dispatchable": true,
+  "public_postable": false,
+  "review_status": "AWAITING_SOURCE_EVIDENCE",
+  "source_evidence_intake_packet_id": "intake_a01e278a6d47",
+  "source_refs_required": true,
+  "unresolved_source_refs": [
+    "operator_idea_source_ref"
+  ]
+}

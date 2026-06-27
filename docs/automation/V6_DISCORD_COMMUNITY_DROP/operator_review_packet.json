@@ -1,7 +1,7 @@
 {
   "approval_valid_for_dispatch": false,
   "checklist": [
-    "Confirm underlying metrics have been verified byJim.",
+    "Confirm underlying metrics have been verified by Jim.",
     "Verify that no signal language or financial target framing is present.",
     "Confirm that correct payload hash is calculated and matching."
   ],

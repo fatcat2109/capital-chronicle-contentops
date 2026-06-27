@@ -1,0 +1,17 @@
+[
+  {
+    "accepted_evidence_types": [
+      "local_doc_path",
+      "repo_file_path",
+      "screenshot_path",
+      "official_source_url_to_be_reviewed_later",
+      "operator_note"
+    ],
+    "required": true,
+    "source_ref_id": "operator_idea_source_ref",
+    "status": "MISSING_OPERATOR_SUPPLIED_EVIDENCE",
+    "supplied_value": null,
+    "verification_notes": null,
+    "verified": false
+  }
+]

@@ -207,7 +207,7 @@ def materialize_drop_packets(
         "no_network_call_in_this_task": True,
         "raw_secret_output": False,
         "blocked_reasons": sorted(blocked_reasons),
-        "next_recommended_task": "TASK_CONTENTOPS_V6_DISCORD_COMMUNITY_DROP_LANE_V0" if status == "BLOCKED_BY_PLATFORM_VARIANT" else "TASK_CONTENTOPS_V6_PLATFORM_NATIVE_VARIANT_GENERATOR_V0"
+        "next_recommended_task": "TASK_CONTENTOPS_V6_DISCORD_COMMUNITY_DROP_LANE_V0" if status == "BLOCKED_BY_PLATFORM_VARIANT" else "TASK_CONTENTOPS_V6_SOURCE_EVIDENCE_INTAKE_AND_APPROVAL_PREFLIGHT_HEAVY_BATCH_V0"
     }
 
     # Operator review packet
@@ -230,7 +230,7 @@ def materialize_drop_packets(
         "not_dispatchable": True,
         "public_postable": False,
         "checklist": [
-            "Confirm underlying metrics have been verified byJim.",
+            "Confirm underlying metrics have been verified by Jim.",
             "Verify that no signal language or financial target framing is present.",
             "Confirm that correct payload hash is calculated and matching."
         ]

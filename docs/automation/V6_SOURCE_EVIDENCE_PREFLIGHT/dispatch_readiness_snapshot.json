@@ -1,0 +1,10 @@
+{
+  "destination_binding_complete": false,
+  "dispatch_allowed_now": false,
+  "dispatch_readiness_status": "BLOCKED_SOURCE_EVIDENCE_MISSING",
+  "next_required_operator_action": "Supply local file, screenshot, or verified URL reference evidence to unblock missing references checklist.",
+  "operator_approval_complete": false,
+  "payload_hash_complete": false,
+  "public_postable": false,
+  "source_evidence_complete": false
+}

@@ -15,7 +15,7 @@
   "missing_source_refs": [
     "operator_idea_source_ref"
   ],
-  "next_recommended_task": "TASK_CONTENTOPS_V6_PLATFORM_NATIVE_VARIANT_GENERATOR_V0",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_SOURCE_EVIDENCE_INTAKE_AND_APPROVAL_PREFLIGHT_HEAVY_BATCH_V0",
   "no_env_read_in_this_task": true,
   "no_live_request_in_this_task": true,
   "no_network_call_in_this_task": true,
