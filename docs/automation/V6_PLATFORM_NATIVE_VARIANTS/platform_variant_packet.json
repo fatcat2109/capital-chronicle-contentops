@@ -1,0 +1,66 @@
+{
+  "approval_performed": false,
+  "approval_required": true,
+  "blocked_reasons": [],
+  "dispatch_allowed_now": false,
+  "evidence_blockers": {
+    "missing_source_refs": [
+      "operator_idea_source_ref"
+    ],
+    "source_needed": true
+  },
+  "human_review_required": true,
+  "missing_source_refs": [
+    "operator_idea_source_ref"
+  ],
+  "next_recommended_task": "TASK_CONTENTOPS_V6_DISCORD_COMMUNITY_DROP_LANE_V0",
+  "no_env_read_in_this_task": true,
+  "no_live_request_in_this_task": true,
+  "no_network_call_in_this_task": true,
+  "no_provider_call_in_this_task": true,
+  "not_approved": true,
+  "not_dispatchable": true,
+  "not_public_postable": true,
+  "platform_variant_packet_id": "platform_variants_f4e590ab1f3c",
+  "public_postable": false,
+  "raw_secret_output": false,
+  "schema_version": "6.0.0",
+  "source_article_id": "substack_article_053c35205d67",
+  "source_article_status": "OUTLINE_SCAFFOLD_READY",
+  "source_evidence_required": false,
+  "source_grounding_status": "RESEARCH_BACKLOG_READY",
+  "source_intent_id": "discord_operator_intent_d1720f70a937",
+  "source_mode": "operator_idea_only",
+  "source_needed": true,
+  "source_refinement_status": "SEO_EDITORIAL_REVIEW_READY_WITH_SOURCE_GAP",
+  "source_research_packet_id": "substack_research_6a7a2be45f6e",
+  "source_seo_editorial_packet_id": "seo_editorial_69ec0b8ce1a0",
+  "target_platforms": [
+    "substack",
+    "discord",
+    "linkedin",
+    "x",
+    "threads",
+    "telegram"
+  ],
+  "task_label": "TASK_CONTENTOPS_V6_PLATFORM_NATIVE_VARIANT_GENERATOR_V0",
+  "variant_files": {
+    "discord": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/discord_variant.md",
+    "linkedin": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/linkedin_variant.md",
+    "substack": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/substack_variant.md",
+    "telegram": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/telegram_operator_preview.md",
+    "threads": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/threads_variant.md",
+    "x": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/x_variant.md"
+  },
+  "variant_stage": "platform_native_scaffold",
+  "variant_status": "VARIANT_SCAFFOLD_READY_WITH_SOURCE_GAP",
+  "variants": {
+    "discord": "short_form_drop_scaffold",
+    "linkedin": "professional_update_scaffold",
+    "substack": "long_form_scaffold",
+    "telegram": "operator_preview_scaffold",
+    "threads": "conversational_scaffold",
+    "x": "concise_thread_scaffold"
+  },
+  "webhook_url_printed": false
+}
