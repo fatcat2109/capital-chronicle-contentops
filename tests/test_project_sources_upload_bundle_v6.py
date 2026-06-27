@@ -68,10 +68,13 @@ def test_new_chat_continuation_starts_with_task_label(tmp_path):
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
     
     content = upload_lane.generate_new_chat_continuation_markdown(
-        packet["accepted_head_before_task"], packet["unresolved_blockers"]
+        packet["bundle_generation_head"], packet["unresolved_blockers"]
     )
     lines = content.strip().splitlines()
     assert lines[0] == "TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V0"
+    assert "d97bc3968e1babf48c81f384fb547b439e48515c" in content
+    # Should not treat baseline as current accepted remote HEAD
+    assert "Baseline before upload bundle task" in content
 
 
 def test_replacement_guide_safety_warnings():
@@ -89,13 +92,20 @@ def test_current_state_summary_details(tmp_path):
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
     
     summary = upload_lane.generate_current_state_summary_markdown(
-        packet["accepted_head_before_task"], packet["unresolved_blockers"]
+        packet["bundle_generation_head"], packet["unresolved_blockers"]
     )
     
-    assert packet["accepted_head_before_task"] in summary
+    assert "d97bc3968e1babf48c81f384fb547b439e48515c" in summary
     assert "master" in summary
-    assert "TASK_CONTENTOPS_V6_PROJECT_SOURCES_UPLOAD_BUNDLE_AND_EVIDENCE_QUALITY_REPAIR_HEAVY_BATCH_V0" in summary
+    assert "Baseline before" in summary
+    assert "Upload bundle generation HEAD" in summary
     assert "evidence_incomplete" in summary
+    
+    # Must not present baseline as current accepted remote HEAD
+    lines = summary.splitlines()
+    for line in lines:
+        if "Accepted HEAD" in line:
+            assert False, "Falsely claimed Accepted HEAD in summary"
 
 
 def test_webhook_and_secrets_hygiene(tmp_path):
@@ -105,10 +115,10 @@ def test_webhook_and_secrets_hygiene(tmp_path):
     # Check templates
     docs = [
         upload_lane.generate_replacement_guide_markdown(),
-        upload_lane.generate_new_chat_continuation_markdown(packet["accepted_head_before_task"], packet["unresolved_blockers"]),
-        upload_lane.generate_current_state_summary_markdown(packet["accepted_head_before_task"], packet["unresolved_blockers"]),
+        upload_lane.generate_new_chat_continuation_markdown(packet["bundle_generation_head"], packet["unresolved_blockers"]),
+        upload_lane.generate_current_state_summary_markdown(packet["bundle_generation_head"], packet["unresolved_blockers"]),
         upload_lane.generate_operator_next_actions_markdown(),
-        upload_lane.generate_implementation_report_markdown(packet["bundle_status"]),
+        upload_lane.generate_implementation_report_markdown(packet["bundle_status"], packet["bundle_generation_head"]),
         upload_lane.generate_next_task_pointer_markdown(),
         json.dumps(packet)
     ]
@@ -120,6 +130,16 @@ def test_webhook_and_secrets_hygiene(tmp_path):
         assert "cookie_value" not in doc.lower()
         assert "secret_key" not in doc.lower()
         assert "env_value" not in doc.lower()
+
+
+def test_packet_has_correct_repaired_fields(tmp_path):
+    rb_path, dr_path = write_temp_readiness_inputs(tmp_path)
+    packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
+    
+    assert packet["baseline_before_upload_bundle_task"] == "d97bc3968e1babf48c81f384fb547b439e48515c"
+    assert "bundle_generation_head" in packet
+    assert packet["final_head_requires_post_push_audit"] is True
+    assert "accepted_head_before_task" not in packet
 
 
 def test_no_forbidden_behavior_in_module():

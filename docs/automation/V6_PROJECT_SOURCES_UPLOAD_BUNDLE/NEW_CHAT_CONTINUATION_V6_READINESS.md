@@ -3,8 +3,9 @@ TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V
 ## Pipeline State Info
 - **Repository**: cc-live-contentops
 - **Branch**: master
-- **Accepted Remote HEAD**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Latest Accepted Task**: TASK_CONTENTOPS_V6_PROJECT_SOURCES_UPLOAD_BUNDLE_AND_EVIDENCE_QUALITY_REPAIR_HEAVY_BATCH_V0
+- **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
+- **Upload bundle generation HEAD**: d34a6024a86237cdc6a147702663aef81e954343
+- **Latest accepted remote HEAD**: Must be taken from final ChatGPT audit after push, not assumed inside the file.
 
 ## Safety Rules
 - Preserve no-live, no-env, no-network, no-provider, no-browser, no-dispatch state.
