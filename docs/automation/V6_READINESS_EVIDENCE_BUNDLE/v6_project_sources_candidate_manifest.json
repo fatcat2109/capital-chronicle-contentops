@@ -1,0 +1,16 @@
+{
+  "candidate_files": [
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+    "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json",
+    "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_pipeline_status_matrix.json",
+    "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_blocker_rollup.json",
+    "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_operator_review_summary.md",
+    "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_next_operator_actions.md",
+    "docs/automation/V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json",
+    "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_gate_packet.json",
+    "docs/automation/V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION/operator_source_evidence_submission_packet.json",
+    "docs/automation/V6_SOURCE_EVIDENCE_PREFLIGHT/source_evidence_intake_packet.json"
+  ],
+  "description": "Evidence-grade local files for ChatGPT Project Sources context refreshment.",
+  "project_sources_title": "Capital Chronicle ContentOps V6 Pipeline State"
+}

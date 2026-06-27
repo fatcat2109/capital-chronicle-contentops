@@ -235,7 +235,7 @@ def materialize_readiness_packets(
         "raw_secret_output": False,
         "webhook_url_printed": False,
         "blocked_reasons": blocked_reasons,
-        "next_recommended_task": "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_READINESS_LANE_V0" if readiness_status == "BLOCKED_BY_OPERATOR_APPROVAL_GATE" else "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_AND_SAFE_DOC_TIGHTENING_HEAVY_BATCH_V0"
+        "next_recommended_task": "TASK_CONTENTOPS_V6_READINESS_EVIDENCE_BUNDLE_AND_FORWARD_POINTER_ALIGNMENT_HEAVY_BATCH_V0"
     }
 
     # Pre-dispatch Blocker Matrix
@@ -365,10 +365,7 @@ The pre-dispatch readiness state machine is successfully initialized and locked.
 
 def next_task_pointer(packet: dict[str, Any]) -> str:
     next_task = packet.get("next_recommended_task")
-    if packet.get("blocked_reasons"):
-        goal = "Resolve operator intent, source evidence, grounding, refinement, variant, preflight, validation, or gate block conditions."
-    else:
-        goal = "Proceed back to Operator Approval Gate for decision loop reconciliation once requirements are ready."
+    goal = "Proceed forward to compile the Readiness Evidence Bundle and align V6 pipeline forward pointers."
     return f"""# Next Task Pointer
 
 Recommended next task:

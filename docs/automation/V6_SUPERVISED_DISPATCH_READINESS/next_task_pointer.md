@@ -2,6 +2,6 @@
 
 Recommended next task:
 
-`TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_AND_SAFE_DOC_TIGHTENING_HEAVY_BATCH_V0`
+`TASK_CONTENTOPS_V6_READINESS_EVIDENCE_BUNDLE_AND_FORWARD_POINTER_ALIGNMENT_HEAVY_BATCH_V0`
 
-Goal: Proceed back to Operator Approval Gate for decision loop reconciliation once requirements are ready.
+Goal: Proceed forward to compile the Readiness Evidence Bundle and align V6 pipeline forward pointers.

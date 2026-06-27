@@ -25,7 +25,7 @@
   "kill_switch_active": true,
   "kill_switch_snapshot_file": "docs/automation/V6_SUPERVISED_DISPATCH_READINESS/kill_switch_snapshot.json",
   "live_write_attempted": false,
-  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_AND_SAFE_DOC_TIGHTENING_HEAVY_BATCH_V0",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_READINESS_EVIDENCE_BUNDLE_AND_FORWARD_POINTER_ALIGNMENT_HEAVY_BATCH_V0",
   "no_env_read_in_this_task": true,
   "no_live_request_in_this_task": true,
   "no_network_call_in_this_task": true,

@@ -1,0 +1,117 @@
+[
+  {
+    "dispatch_allowed_now": false,
+    "lane_name": "operator_intent",
+    "next_required_action": "Complete canonical outline.",
+    "public_postable": false,
+    "source_packet_file": "docs/automation/V6_OPERATOR_INTENT/operator_intent_packet.json",
+    "status_field": "intent_status",
+    "status_value": "UNKNOWN",
+    "unresolved_blockers": []
+  },
+  {
+    "dispatch_allowed_now": false,
+    "lane_name": "canonical_substack_article",
+    "next_required_action": "Execute AI grounding lane.",
+    "public_postable": false,
+    "source_packet_file": "docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json",
+    "status_field": "article_status",
+    "status_value": "OUTLINE_SCAFFOLD_READY",
+    "unresolved_blockers": []
+  },
+  {
+    "dispatch_allowed_now": false,
+    "lane_name": "ai_research_grounding",
+    "next_required_action": "Execute SEO editorial lane.",
+    "public_postable": false,
+    "source_packet_file": "docs/automation/V6_AI_RESEARCH_GROUNDING/research_grounding_packet.json",
+    "status_field": "grounding_status",
+    "status_value": "RESEARCH_BACKLOG_READY",
+    "unresolved_blockers": []
+  },
+  {
+    "dispatch_allowed_now": false,
+    "lane_name": "seo_editorial_refinement",
+    "next_required_action": "Generate platform variants.",
+    "public_postable": false,
+    "source_packet_file": "docs/automation/V6_SEO_EDITORIAL_REFINEMENT/seo_editorial_packet.json",
+    "status_field": "refinement_status",
+    "status_value": "SEO_EDITORIAL_REVIEW_READY_WITH_SOURCE_GAP",
+    "unresolved_blockers": []
+  },
+  {
+    "dispatch_allowed_now": false,
+    "lane_name": "platform_native_variants",
+    "next_required_action": "Review Discord drop variant.",
+    "public_postable": false,
+    "source_packet_file": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json",
+    "status_field": "variant_status",
+    "status_value": "VARIANT_SCAFFOLD_READY_WITH_SOURCE_GAP",
+    "unresolved_blockers": []
+  },
+  {
+    "dispatch_allowed_now": false,
+    "lane_name": "discord_community_drop",
+    "next_required_action": "Map preflight source references.",
+    "public_postable": false,
+    "source_packet_file": "docs/automation/V6_DISCORD_COMMUNITY_DROP/discord_drop_packet.json",
+    "status_field": "drop_status",
+    "status_value": "UNKNOWN",
+    "unresolved_blockers": []
+  },
+  {
+    "dispatch_allowed_now": false,
+    "lane_name": "source_evidence_preflight",
+    "next_required_action": "Run operator submission validator.",
+    "public_postable": false,
+    "source_packet_file": "docs/automation/V6_SOURCE_EVIDENCE_PREFLIGHT/source_evidence_intake_packet.json",
+    "status_field": "preflight_status",
+    "status_value": "UNKNOWN",
+    "unresolved_blockers": []
+  },
+  {
+    "dispatch_allowed_now": false,
+    "lane_name": "operator_source_evidence_submission",
+    "next_required_action": "Evaluate operator approval gate.",
+    "public_postable": false,
+    "source_packet_file": "docs/automation/V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION/operator_source_evidence_submission_packet.json",
+    "status_field": "submission_status",
+    "status_value": "AWAITING_OPERATOR_EVIDENCE",
+    "unresolved_blockers": []
+  },
+  {
+    "dispatch_allowed_now": false,
+    "lane_name": "operator_approval_gate",
+    "next_required_action": "Evaluate supervised dispatch readiness.",
+    "public_postable": false,
+    "source_packet_file": "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_gate_packet.json",
+    "status_field": "approval_gate_status",
+    "status_value": "APPROVAL_GATE_BLOCKED_PENDING_REQUIREMENTS",
+    "unresolved_blockers": [
+      "destination_binding_incomplete",
+      "evidence_incomplete",
+      "operator_approval_incomplete",
+      "payload_hash_incomplete",
+      "safety_review_incomplete"
+    ]
+  },
+  {
+    "dispatch_allowed_now": false,
+    "lane_name": "supervised_dispatch_readiness",
+    "next_required_action": "Compile readiness evidence bundle.",
+    "public_postable": false,
+    "source_packet_file": "docs/automation/V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json",
+    "status_field": "readiness_status",
+    "status_value": "DISPATCH_READINESS_BLOCKED_PENDING_REQUIREMENTS",
+    "unresolved_blockers": [
+      "destination_binding_incomplete",
+      "evidence_incomplete",
+      "kill_switch_active",
+      "live_write_authorization_missing",
+      "operator_approval_incomplete",
+      "outbox_creation_blocked",
+      "payload_hash_incomplete",
+      "safety_review_incomplete"
+    ]
+  }
+]
