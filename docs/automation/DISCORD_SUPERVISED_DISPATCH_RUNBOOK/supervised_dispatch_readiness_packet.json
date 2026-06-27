@@ -1,0 +1,59 @@
+{
+  "adapter_module": "live_contentops.discord_dispatch_adapter",
+  "hard_runtime_rules": [
+    "no autonomous dispatch",
+    "no scheduler",
+    "no retry by default",
+    "request budget explicit",
+    "raw webhook URL never printed/stored",
+    "response body/header not recorded by default",
+    "wait=false unless a future task explicitly changes it"
+  ],
+  "no_env_read_in_this_task": true,
+  "no_live_request_in_this_task": true,
+  "operator_workflow": [
+    "select approved payload",
+    "verify target binding",
+    "verify payload hash",
+    "explicit operator authorization",
+    "exactly one dispatch",
+    "write redacted result packet",
+    "closeout/update readiness"
+  ],
+  "platform": "discord",
+  "raw_secret_output": false,
+  "readiness_status": "PASS",
+  "source_closeout_packet": "docs/automation/DISCORD_TRI_TARGET_DISPATCH_CLOSEOUT/tri_target_dispatch_closeout_packet.json",
+  "supervised_discord_dispatch_ready": true,
+  "task_label": "TASK_CONTENTOPS_V6_DISCORD_SUPERVISED_DISPATCH_RUNBOOK_AND_UI_READINESS_PANEL_V0",
+  "verified_targets": {
+    "announcements": {
+      "allowed_payload_type": "announcement",
+      "env_key_name": "DISCORD_ANNOUNCEMENTS_WEBHOOK_URL",
+      "last_dispatch_result": "PASS",
+      "last_http_status_code": 204,
+      "payload_hash": "b166aebf1f53956f04ffa5122d6d065fc09e4f7953ec816e1b0b66a01be9d17d",
+      "payload_id": "discord_dryrun_announcement_001",
+      "ready_for_supervised_dispatch": true
+    },
+    "product_updates": {
+      "allowed_payload_type": "product_update",
+      "env_key_name": "DISCORD_PRODUCT_UPDATES_WEBHOOK_URL",
+      "last_dispatch_result": "PASS",
+      "last_http_status_code": 204,
+      "payload_hash": "81075439dcafcdc979482d51dd56ce7cb0a704827a9fbe702a2994b3f329efdd",
+      "payload_id": "discord_dryrun_product_update_001",
+      "ready_for_supervised_dispatch": true
+    },
+    "substack_drops": {
+      "allowed_payload_type": "substack_drop",
+      "env_key_name": "DISCORD_SUBSTACK_DROPS_WEBHOOK_URL",
+      "last_dispatch_result": "PASS",
+      "last_http_status_code": 204,
+      "payload_hash": "a084ced7249d9b764132e17888c15c5cfd6177329dbe5ce718311e07e849175d",
+      "payload_id": "discord_dryrun_substack_drop_001",
+      "ready_for_supervised_dispatch": true
+    }
+  },
+  "wrapper_module": "live_contentops.discord_approved_outbox_live_dispatch"
+}

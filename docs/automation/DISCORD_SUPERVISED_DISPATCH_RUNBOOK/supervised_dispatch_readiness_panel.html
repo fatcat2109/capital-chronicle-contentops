@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Discord Supervised Dispatch Readiness</title>
+  <meta name="description" content="Static non-live operator readiness panel for Discord supervised dispatch.">
+  <style>
+    :root { color-scheme: dark; --bg:#141313; --panel:#1b1b1b; --line:#45474a; --text:#f2eee8; --muted:#a9a29a; --ok:#9ad7b4; --warn:#f0c36a; }
+    body { margin:0; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background:var(--bg); color:var(--text); }
+    main { max-width:1120px; margin:0 auto; padding:32px; }
+    .rail { border:1px solid var(--line); background:linear-gradient(135deg,#1f1e1e,#151515); padding:24px; }
+    h1 { margin:0 0 8px; font-size:28px; letter-spacing:-.03em; }
+    .status { color:var(--ok); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin-top:18px; }
+    .card { border:1px solid var(--line); background:var(--panel); padding:18px; }
+    .eyebrow { margin:0 0 10px; color:var(--muted); text-transform:uppercase; letter-spacing:.12em; font-size:12px; }
+    h2 { margin:0 0 14px; color:var(--ok); font-size:18px; }
+    dl { margin:0; display:grid; grid-template-columns:90px 1fr; gap:8px; }
+    dt { color:var(--muted); } dd { margin:0; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; overflow-wrap:anywhere; }
+    .rules { margin-top:18px; color:var(--warn); font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+  </style>
+</head>
+<body>
+<main>
+  <section class="rail" aria-labelledby="page-title">
+    <p class="eyebrow">Capital Chronicle ContentOps</p>
+    <h1 id="page-title">Discord supervised dispatch readiness</h1>
+    <p class="status">PASS · 3/3 targets adapter-dispatch verified · no live request in this view</p>
+    <div class="grid"><article class='card'><p class='eyebrow'>announcements</p><h2>READY</h2><dl><dt>Payload</dt><dd>discord_dryrun_announcement_001</dd><dt>HTTP</dt><dd>204</dd><dt>Result</dt><dd>PASS</dd><dt>Env key</dt><dd>DISCORD_ANNOUNCEMENTS_WEBHOOK_URL</dd></dl></article><article class='card'><p class='eyebrow'>substack_drops</p><h2>READY</h2><dl><dt>Payload</dt><dd>discord_dryrun_substack_drop_001</dd><dt>HTTP</dt><dd>204</dd><dt>Result</dt><dd>PASS</dd><dt>Env key</dt><dd>DISCORD_SUBSTACK_DROPS_WEBHOOK_URL</dd></dl></article><article class='card'><p class='eyebrow'>product_updates</p><h2>READY</h2><dl><dt>Payload</dt><dd>discord_dryrun_product_update_001</dd><dt>HTTP</dt><dd>204</dd><dt>Result</dt><dd>PASS</dd><dt>Env key</dt><dd>DISCORD_PRODUCT_UPDATES_WEBHOOK_URL</dd></dl></article></div>
+    <p class="rules">Rules: explicit operator authorization only · one dispatch · no retry by default · no raw webhook URL display.</p>
+  </section>
+</main>
+</body>
+</html>
