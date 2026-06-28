@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN_AND_BROWSER_SAFETY_QA_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_COMMUNITY_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
@@ -27,6 +27,7 @@ NEXT_UNIFIED_HASH_APPROVAL_OUTBOX_UPGRADE_TASK = "TASK_CONTENTOPS_V6_UNIFIED_PAY
 NEXT_DISCORD_TELEGRAM_BRIDGE_TASK = "TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0"
 NEXT_SUBSTACK_COMPOSE_TASK = "TASK_CONTENTOPS_V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN_AND_BROWSER_SAFETY_QA_HEAVY_BATCH_V0"
 NEXT_FEEDBACK_INTAKE_TASK = "TASK_CONTENTOPS_V6_COMMUNITY_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_HEAVY_BATCH_V0"
+NEXT_LLM_FEEDBACK_SUMMARIZER_TASK = "TASK_CONTENTOPS_V6_LLM_FEEDBACK_SUMMARIZER_AND_NEXT_IDEA_GENERATOR_DRY_RUN_HEAVY_BATCH_V0"
 
 DEFAULT_READINESS_BUNDLE = Path("docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json")
 DEFAULT_DISPATCH_READINESS = Path("docs/automation/V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json")
@@ -709,7 +710,19 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN/substack_browser_blocker_report.md",
         "docs/automation/V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN/substack_browser_runbook.md",
         "docs/automation/V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN/implementation_report.md",
-        "docs/automation/V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN/next_task_pointer.md"
+        "docs/automation/V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN/next_task_pointer.md",
+        "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP/community_feedback_intake_packet.json",
+        "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP/manual_feedback_snapshot_template.json",
+        "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP/redacted_feedback_snapshot_sample.json",
+        "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP/community_question_cluster_report.json",
+        "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP/feedback_summary_ready_packet.json",
+        "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP/content_backlog_candidates.json",
+        "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP/next_canonical_article_idea_candidates.json",
+        "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP/feedback_loop_validation_report.json",
+        "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP/feedback_loop_blocker_report.md",
+        "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP/feedback_loop_runbook.md",
+        "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP/implementation_report.md",
+        "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP/next_task_pointer.md"
     ]
 
     packet = {
@@ -747,7 +760,7 @@ def materialize_project_sources_upload_bundle_packets(
         "no_network_call_in_this_task": True,
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": NEXT_FEEDBACK_INTAKE_TASK
+        "next_recommended_task": NEXT_LLM_FEEDBACK_SUMMARIZER_TASK
     }
 
     return packet, upload_candidate_files

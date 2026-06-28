@@ -1,0 +1,36 @@
+[
+  {
+    "allowed_for_publication": false,
+    "human_review_required": true,
+    "idea_id": "idea_06cc7dd3b9fb",
+    "required_verification_checklist": [
+      "Verify primary sources are documented",
+      "Ensure no forward-looking signal language",
+      "Review against compliance guidelines"
+    ],
+    "source_backlog_id": "backlog_ee097c4c4e7b",
+    "suggested_outline": [
+      "Which primary sources ground our recent yield volatility analysis?",
+      "What database or index matches the cited unverified sample metrics?"
+    ],
+    "target_word_count": 800,
+    "title_candidate": "Deep Dive: source verification and data provenance of recent macroeconomic reports."
+  },
+  {
+    "allowed_for_publication": false,
+    "human_review_required": true,
+    "idea_id": "idea_b46cee389e80",
+    "required_verification_checklist": [
+      "Verify primary sources are documented",
+      "Ensure no forward-looking signal language",
+      "Review against compliance guidelines"
+    ],
+    "source_backlog_id": "backlog_758893ac01f8",
+    "suggested_outline": [
+      "What is the mathematical structure behind historical yield curve adjustments?",
+      "How do different models weigh interest rate volatility over a multi-decade horizon?"
+    ],
+    "target_word_count": 800,
+    "title_candidate": "Breakdown: calculation models and methodology used in yield curve parsing."
+  }
+]

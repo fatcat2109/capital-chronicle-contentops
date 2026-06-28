@@ -1,0 +1,52 @@
+[
+  {
+    "backlog_candidate_allowed": true,
+    "blocked_reasons": [],
+    "cluster_id": "cluster_380728d62695",
+    "cluster_label": "methodology_question",
+    "representative_feedback_refs": [
+      "snap_002_substack_safe"
+    ],
+    "safe_summary": "Operator-redacted feedback questions challenge related to methodology_question.",
+    "suggested_response_mode": "MANUAL_OPERATOR_REVIEW"
+  },
+  {
+    "backlog_candidate_allowed": true,
+    "blocked_reasons": [],
+    "cluster_id": "cluster_5b7a82e76a74",
+    "cluster_label": "source_request",
+    "representative_feedback_refs": [
+      "snap_001_discord_safe"
+    ],
+    "safe_summary": "Operator-redacted feedback questions challenge related to source_request.",
+    "suggested_response_mode": "MANUAL_SOURCE_LINK_ONLY"
+  },
+  {
+    "backlog_candidate_allowed": false,
+    "blocked_reasons": [
+      "dm_or_private_message_detected",
+      "private_identifier_detected",
+      "unredacted_personal_data_detected"
+    ],
+    "cluster_id": "cluster_36b1371bd1d7",
+    "cluster_label": "spam_or_low_signal",
+    "representative_feedback_refs": [
+      "snap_004_personal_data"
+    ],
+    "safe_summary": "Operator-redacted feedback questions challenge related to spam_or_low_signal.",
+    "suggested_response_mode": "DISMISS_NO_ACTION"
+  },
+  {
+    "backlog_candidate_allowed": false,
+    "blocked_reasons": [
+      "unsafe_financial_advice_request_detected"
+    ],
+    "cluster_id": "cluster_731f38660b15",
+    "cluster_label": "unsafe_financial_advice_request",
+    "representative_feedback_refs": [
+      "snap_003_unsafe_advice"
+    ],
+    "safe_summary": "Operator-redacted feedback questions challenge related to unsafe_financial_advice_request.",
+    "suggested_response_mode": "BLOCKED_NO_RESPONSE"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "allowed_for_llm_summary": true,
+  "allowed_for_publication": false,
+  "author_handle_redacted": "[HANDLE]",
+  "blocked_reasons": [],
+  "collected_at_manual": "YYYY-MM-DDTHH:MM:SSZ",
+  "contains_personal_data": false,
+  "human_review_required": true,
+  "metrics_optional": null,
+  "metrics_verified": false,
+  "public_url_optional": null,
+  "public_url_verified": false,
+  "raw_feedback_text_redacted": "[TEXT]",
+  "redaction_required": true,
+  "related_article_id": "[ARTICLE_ID]",
+  "related_payload_hash": "[SHA256_PAYLOAD_HASH]",
+  "related_platform_variant_id": "[VARIANT_ID]",
+  "snapshot_id": "manual_snapshot_[UUID]",
+  "source_mode": "manual_discord_feedback_snapshot",
+  "source_platform": "[discord / telegram / substack / manual / internal]",
+  "submitted_by_operator": "operator_name"
+}

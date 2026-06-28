@@ -1,0 +1,21 @@
+{
+  "blocker_count": 3,
+  "blockers": [
+    "dm_or_private_message_detected",
+    "private_identifier_detected",
+    "unredacted_personal_data_detected"
+  ],
+  "safety_checks": {
+    "no_browser_session_started": true,
+    "no_credentials_hydration": true,
+    "no_env_read": true,
+    "no_live_platform_writes": true,
+    "no_provider_calls": true,
+    "no_scraping_performed": true,
+    "no_webhook_leak": true,
+    "review_only_enforced": true
+  },
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_COMMUNITY_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_HEAVY_BATCH_V0",
+  "validation_status": "FAILED_WITH_BLOCKERS"
+}

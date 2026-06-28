@@ -1,0 +1,26 @@
+{
+  "allowed_for_llm_summary": false,
+  "allowed_for_publication": false,
+  "author_handle_redacted": "user_delta_real_name_john_smith",
+  "blocked_reasons": [
+    "dm_or_private_message_detected",
+    "private_identifier_detected",
+    "unredacted_personal_data_detected"
+  ],
+  "collected_at_manual": "2026-06-28T19:15:00Z",
+  "contains_personal_data": true,
+  "human_review_required": true,
+  "metrics_optional": null,
+  "metrics_verified": false,
+  "public_url_optional": null,
+  "public_url_verified": false,
+  "raw_feedback_text_redacted": "Hello, my email is [EMAIL_REDACTED], please contact me about the private DM conversation.",
+  "redaction_required": true,
+  "related_article_id": "art_123",
+  "related_payload_hash": "9da4958812fbc5e91b3247e372f160ea3a47f5886fc2630d08a54d91433e0b67",
+  "related_platform_variant_id": "var_discord_drop",
+  "snapshot_id": "snap_004_personal_data",
+  "source_mode": "manual_discord_feedback_snapshot",
+  "source_platform": "discord",
+  "submitted_by_operator": "operator_jim"
+}

@@ -1,0 +1,27 @@
+{
+  "allowed_for_publication": false,
+  "autonomous_engagement_enabled": false,
+  "blocker_count": 3,
+  "blockers": [
+    "dm_or_private_message_detected",
+    "private_identifier_detected",
+    "unredacted_personal_data_detected"
+  ],
+  "browser_session_started": false,
+  "community_feedback_loop_status": "READY_FOR_REVIEW_ONLY_MANUAL_INTAKE",
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "dm_read_performed": false,
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "live_platform_read_performed": false,
+  "live_write_allowed_now": false,
+  "llm_provider_call_performed": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_LLM_FEEDBACK_SUMMARIZER_AND_NEXT_IDEA_GENERATOR_DRY_RUN_HEAVY_BATCH_V0",
+  "provider_credentials_hydrated": false,
+  "public_postable": false,
+  "reply_or_comment_created": false,
+  "schema_version": "6.0.0",
+  "scraping_performed": false,
+  "task_label": "TASK_CONTENTOPS_V6_COMMUNITY_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_HEAVY_BATCH_V0"
+}
