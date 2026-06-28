@@ -77,3 +77,168 @@ def test_no_forbidden_imports_in_validator():
     forbidden = ["urlopen", "requests", "httpx", "getenv", "environ", "openai", "anthropic", "google"]
     for f in forbidden:
         assert f not in attrs
+
+
+def test_validator_fails_on_source_name_leak():
+    packet = packet_builder.make_canonical_draft_eligibility_packet()
+    summary = summary_builder.make_approved_redacted_source_pack_summary()
+    matrix = coordinator.make_claim_eligibility_matrix()
+    preview = coordinator.make_generation_blocked_preview()
+    # leak in packet
+    packet["source_name"] = "Federal Reserve"
+
+    report, blockers = validator.validate_canonical_draft_eligibility(
+        packet, summary, matrix, preview
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "source_name_leak_detected" in blockers
+
+
+def test_validator_fails_on_source_publisher_leak():
+    packet = packet_builder.make_canonical_draft_eligibility_packet()
+    summary = summary_builder.make_approved_redacted_source_pack_summary()
+    matrix = coordinator.make_claim_eligibility_matrix()
+    preview = coordinator.make_generation_blocked_preview()
+    # leak in summary
+    summary["source_publisher"] = "US Treasury"
+
+    report, blockers = validator.validate_canonical_draft_eligibility(
+        packet, summary, matrix, preview
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "source_name_leak_detected" in blockers
+
+
+def test_validator_fails_on_preview_source_name_leak():
+    packet = packet_builder.make_canonical_draft_eligibility_packet()
+    summary = summary_builder.make_approved_redacted_source_pack_summary()
+    matrix = coordinator.make_claim_eligibility_matrix()
+    preview = coordinator.make_generation_blocked_preview() + "\nSource name: Federal Reserve"
+
+    report, blockers = validator.validate_canonical_draft_eligibility(
+        packet, summary, matrix, preview
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "source_name_leak_detected" in blockers
+
+
+def test_validator_does_not_fail_on_safe_references():
+    packet = packet_builder.make_canonical_draft_eligibility_packet()
+    summary = summary_builder.make_approved_redacted_source_pack_summary()
+    matrix = coordinator.make_claim_eligibility_matrix()
+    # Safe fields in matrix
+    matrix[0]["source_requirement_refs"] = ["req_e6edaf8e7750"]
+    matrix[0]["blockers"] = ["raw_source_values_not_available_for_model"]
+    preview = coordinator.make_generation_blocked_preview()
+
+    report, blockers = validator.validate_canonical_draft_eligibility(
+        packet, summary, matrix, preview
+    )
+    assert report["validation_status"] == "PASSED_WITH_REVIEW_ONLY_BLOCKERS"
+    assert "source_name_leak_detected" not in blockers
+
+
+def test_validator_fails_on_arbitrary_url():
+    packet = packet_builder.make_canonical_draft_eligibility_packet()
+    summary = summary_builder.make_approved_redacted_source_pack_summary()
+    matrix = coordinator.make_claim_eligibility_matrix()
+    preview = coordinator.make_generation_blocked_preview() + "\nSee https://example.com/data"
+
+    report, blockers = validator.validate_canonical_draft_eligibility(
+        packet, summary, matrix, preview
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "url_leak_in_runtime_artifact" in blockers
+
+
+def test_validator_fails_on_64_char_hash():
+    packet = packet_builder.make_canonical_draft_eligibility_packet()
+    summary = summary_builder.make_approved_redacted_source_pack_summary()
+    matrix = coordinator.make_claim_eligibility_matrix()
+    preview = coordinator.make_generation_blocked_preview() + "\nHash: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+    report, blockers = validator.validate_canonical_draft_eligibility(
+        packet, summary, matrix, preview
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "hash_leak_in_runtime_artifact" in blockers
+
+
+def test_validator_fails_on_sha256_prefix():
+    packet = packet_builder.make_canonical_draft_eligibility_packet()
+    summary = summary_builder.make_approved_redacted_source_pack_summary()
+    matrix = coordinator.make_claim_eligibility_matrix()
+    preview = coordinator.make_generation_blocked_preview() + "\nsha256:abcd"
+
+    report, blockers = validator.validate_canonical_draft_eligibility(
+        packet, summary, matrix, preview
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "hash_leak_in_runtime_artifact" in blockers
+
+
+def test_validator_fails_on_citation_marker():
+    packet = packet_builder.make_canonical_draft_eligibility_packet()
+    summary = summary_builder.make_approved_redacted_source_pack_summary()
+    matrix = coordinator.make_claim_eligibility_matrix()
+    preview = coordinator.make_generation_blocked_preview() + "\nAs seen in [1]"
+
+    report, blockers = validator.validate_canonical_draft_eligibility(
+        packet, summary, matrix, preview
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "citation_or_source_reference_leak_detected" in blockers
+
+
+def test_validator_fails_on_source_excerpt():
+    packet = packet_builder.make_canonical_draft_eligibility_packet()
+    summary = summary_builder.make_approved_redacted_source_pack_summary()
+    matrix = coordinator.make_claim_eligibility_matrix()
+    preview = coordinator.make_generation_blocked_preview() + "\nExcerpt: the yield curve inverted"
+
+    report, blockers = validator.validate_canonical_draft_eligibility(
+        packet, summary, matrix, preview
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "source_excerpt_leak_in_runtime_artifact" in blockers
+
+
+def test_validator_fails_on_metric_term():
+    packet = packet_builder.make_canonical_draft_eligibility_packet()
+    summary = summary_builder.make_approved_redacted_source_pack_summary()
+    matrix = coordinator.make_claim_eligibility_matrix()
+    preview = coordinator.make_generation_blocked_preview() + "\nCTR was 5%"
+
+    report, blockers = validator.validate_canonical_draft_eligibility(
+        packet, summary, matrix, preview
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "metric_leak_detected" in blockers
+
+
+def test_validator_fails_on_public_ready_phrase():
+    packet = packet_builder.make_canonical_draft_eligibility_packet()
+    summary = summary_builder.make_approved_redacted_source_pack_summary()
+    matrix = coordinator.make_claim_eligibility_matrix()
+    preview = coordinator.make_generation_blocked_preview() + "\nThis is ready_to_publish"
+
+    report, blockers = validator.validate_canonical_draft_eligibility(
+        packet, summary, matrix, preview
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "public_ready_claim_detected" in blockers
+
+
+def test_validator_fails_on_active_dispatch_flags():
+    packet = packet_builder.make_canonical_draft_eligibility_packet()
+    packet["public_postable"] = True
+    summary = summary_builder.make_approved_redacted_source_pack_summary()
+    matrix = coordinator.make_claim_eligibility_matrix()
+    preview = coordinator.make_generation_blocked_preview()
+
+    report, blockers = validator.validate_canonical_draft_eligibility(
+        packet, summary, matrix, preview
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "forbidden_active_dispatch_flags" in blockers
+

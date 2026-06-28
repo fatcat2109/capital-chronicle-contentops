@@ -41,9 +41,11 @@ def is_placeholder(val: Any) -> bool:
         return True
     if isinstance(val, str):
         val_lower = val.lower()
+        if "redacted" in val_lower or "placeholder" in val_lower or "unverified" in val_lower or "missing" in val_lower:
+            return True
         placeholders = [
-            "missing", "unverified", "none: verification pending",
-            "placeholder:", "manual_ingestion_pending",
+            "none: verification pending",
+            "manual_ingestion_pending",
             "manual_operator_research_pending", "null",
             "test_only_approval_simulation_review",
             "source_pack_draft_generation_review_only"
@@ -169,7 +171,7 @@ def validate_canonical_draft_eligibility(
             blockers.append("source_excerpt_leak_in_runtime_artifact")
             failed = True
         if "excerpt:" in t_lower:
-            parts = t.split("excerpt:")
+            parts = t_lower.split("excerpt:")
             if len(parts) > 1 and not is_placeholder(parts[1].strip()):
                 blockers.append("source_excerpt_leak_in_runtime_artifact")
                 failed = True
@@ -233,6 +235,37 @@ def validate_canonical_draft_eligibility(
         if any(k in t_lower for k in FINANCIAL_ADVICE_KEYWORDS):
             blockers.append("financial_advice_or_signal_language_detected")
             failed = True
+
+        # J. Source Name / Publisher check
+        raw_source_names = [
+            "Federal Reserve", "US Treasury", "Treasury", "Bloomberg",
+            "Reuters", "FRED", "BLS", "BEA", "Census", "EIA"
+        ]
+
+        is_source_identity_key = key_name.lower() in [
+            "source_name", "source_publisher", "publisher",
+            "source_title", "source_label", "source_display_name"
+        ]
+        if is_source_identity_key and not is_placeholder(t):
+            blockers.append("source_name_leak_detected")
+            failed = True
+
+        for name in raw_source_names:
+            pattern = re.compile(rf"\b{re.escape(name)}\b", re.IGNORECASE)
+            if pattern.search(t):
+                blockers.append("source_name_leak_detected")
+                failed = True
+
+        # Check explicit text patterns
+        patterns = [
+            re.compile(r"\bsource\s+name\s*:\s*(?!\b(?:redacted|placeholder|null|missing|pending)\b)(\S+)", re.IGNORECASE),
+            re.compile(r"\bsource\s+publisher\s*:\s*(?!\b(?:redacted|placeholder|null|missing|pending)\b)(\S+)", re.IGNORECASE),
+            re.compile(r"\bpublisher\s*:\s*(?!\b(?:redacted|placeholder|null|missing|pending)\b)(\S+)", re.IGNORECASE)
+        ]
+        for pat in patterns:
+            if pat.search(t):
+                blockers.append("source_name_leak_detected")
+                failed = True
 
     check_value(eligibility_packet)
     check_value(summary)
