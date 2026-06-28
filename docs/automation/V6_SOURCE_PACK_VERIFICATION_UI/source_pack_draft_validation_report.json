@@ -1,0 +1,17 @@
+{
+  "blocker_count": 4,
+  "blockers": [
+    "claim_binding_missing",
+    "operator_source_entries_missing",
+    "publication_blocked_until_source_verification",
+    "source_verification_required"
+  ],
+  "safety_checks": {
+    "no_financial_advice_language": true,
+    "no_live_provider_call": true,
+    "no_secrets_leaked": true,
+    "verified_fields_complete": true
+  },
+  "schema_version": "6.0.0",
+  "validation_status": "FAILED_WITH_BLOCKERS"
+}
