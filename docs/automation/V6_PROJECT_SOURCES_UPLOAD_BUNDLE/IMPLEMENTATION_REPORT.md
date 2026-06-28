@@ -1,9 +1,9 @@
 # V6 Project Sources Upload Bundle Implementation Report
 
-- **Task Label**: TASK_CONTENTOPS_V6_APPROVAL_LEDGER_AND_OUTBOX_RECORDING_LANE_HEAVY_BATCH_V0
+- **Task Label**: TASK_CONTENTOPS_V6_AI_PRODUCTION_CORE_HEAVY_BATCH_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: fb993cce05e2e7c3e340afa0369917a97bf7973b (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 13f5a2a2d14d521fd12c5e5f0e2e9ab2fb43da27 (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
@@ -81,6 +81,20 @@
   - approval_ledger_outbox_runbook.md
   - recording_implementation_report.md
   - recording_next_task_pointer.md
+  - provider_gate_packet.json
+  - prompt_registry_packet.json
+  - sample_operator_intents.json
+  - sample_content_idea_packet.json
+  - sample_research_grounding_packet.json
+  - sample_canonical_article_packet.json
+  - sample_seo_editorial_packet.json
+  - ai_production_core_packet.json
+  - ai_production_core_validation_report.json
+  - ai_production_core_blocker_report.md
+  - ai_production_core_runbook.md
+  - core_implementation_report.md
+  - core_next_task_pointer.md
+
 
 - **Safety Checks Pass**:
   - No secret output: `true`

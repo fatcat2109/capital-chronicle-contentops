@@ -152,7 +152,7 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
     
     # 1. Assert packet values
-    assert packet["task_label"] == "TASK_CONTENTOPS_V6_APPROVAL_LEDGER_AND_OUTBOX_RECORDING_LANE_HEAVY_BATCH_V0"
+    assert packet["task_label"] == "TASK_CONTENTOPS_V6_AI_PRODUCTION_CORE_HEAVY_BATCH_V0"
     assert packet["final_head_requires_post_push_audit"] is True
     assert packet["previous_accepted_pipeline_status_head"] == "9571d900552122c0d1c110017d718c7e4b7f375d"
     assert "pre_commit_generation_head_input_only" in packet["bundle_generation_head_label"]
@@ -182,6 +182,11 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_runbook.md" in files
     assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/implementation_report.md" in files
     assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/next_task_pointer.md" in files
+    assert "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_hash_packet.json" in files
+    assert "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_exact_review.json" in files
+    assert "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_hash_record.json" in files
+    assert "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_hash_inputs_redacted.json" in files
+    assert "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_runbook.md" in files
     assert "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_binding_packet.json" in files
     assert "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_binding_review_packet.json" in files
     assert "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_template.json" in files
@@ -221,6 +226,19 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_runbook.md" in files
     assert "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/implementation_report.md" in files
     assert "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/next_task_pointer.md" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/provider_gate_packet.json" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/prompt_registry_packet.json" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/sample_operator_intents.json" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/sample_content_idea_packet.json" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/sample_research_grounding_packet.json" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/sample_canonical_article_packet.json" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/sample_seo_editorial_packet.json" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/ai_production_core_packet.json" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/ai_production_core_validation_report.json" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/ai_production_core_blocker_report.md" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/ai_production_core_runbook.md" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/implementation_report.md" in files
+    assert "docs/automation/V6_AI_PRODUCTION_CORE/next_task_pointer.md" in files
     
     # 2. Check generate_current_state_summary_markdown details
     summary = upload_lane.generate_current_state_summary_markdown(
@@ -236,7 +254,7 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "no force push" in note.lower() or "never use `git push -f`" in note.lower()
     
     # 4. Check recommended task
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0"
     
     # 5. Check flags are locked
     assert packet["dispatch_allowed_now"] is False
@@ -252,7 +270,7 @@ def test_valid_payload_hash_unblocks_hash_pointer(tmp_path):
     packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
 
     assert "payload_hash_incomplete" not in packet["unresolved_blockers"]
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0"
 
 
 def test_valid_signature_routes_to_supervised_dispatch_readiness(tmp_path):
@@ -268,7 +286,7 @@ def test_valid_signature_routes_to_supervised_dispatch_readiness(tmp_path):
     packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
 
     assert "payload_hash_incomplete" not in packet["unresolved_blockers"]
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_APPROVAL_LEDGER_AND_OUTBOX_RECORDING_LANE_HEAVY_BATCH_V0"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0"
 
 
 def test_placeholder_hash_does_not_unblock_hash_pointer(tmp_path):
@@ -278,4 +296,4 @@ def test_placeholder_hash_does_not_unblock_hash_pointer(tmp_path):
     packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
 
     assert "payload_hash_incomplete" in packet["unresolved_blockers"]
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0"

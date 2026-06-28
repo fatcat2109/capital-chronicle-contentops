@@ -1,0 +1,33 @@
+{
+  "allowed_for_drafting": true,
+  "allowed_for_publication": true,
+  "blocked_reasons": [],
+  "freshness_status": "fresh",
+  "missing_evidence": [],
+  "no_advice_status": true,
+  "no_signal_status": true,
+  "non_official_source_refs": [],
+  "official_source_refs": [
+    "Fed H.15 database Release 2026-06-25"
+  ],
+  "required_caveats": [
+    "This content is for educational purposes only.",
+    "No financial recommendations or trade suggestions are made."
+  ],
+  "research_packet_id": "research_2aa392f80057",
+  "safe_angles": [
+    "Educational analysis of historical volatility of Treasury yields",
+    "Historical context of historical volatility of Treasury yields"
+  ],
+  "source_mode": "dry_run_stub",
+  "source_quality_status": "high_official",
+  "source_refs": [
+    "Fed H.15 database Release 2026-06-25"
+  ],
+  "topic": "historical volatility of Treasury yields",
+  "unsafe_angles": [
+    "Price targets",
+    "Forecasts",
+    "Investment recommendations"
+  ]
+}

@@ -29,6 +29,7 @@ def test_no_forbidden_imports_or_env_vars():
         "cli.py",
         "operator_browser_lab.py",
         "social_credential_setup_workbench.py",
+        "ai_provider_gate_v6.py",
     }
 
     for p in root.rglob("*.py"):

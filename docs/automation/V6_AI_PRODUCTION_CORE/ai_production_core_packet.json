@@ -1,0 +1,18 @@
+{
+  "ai_production_core_status": "READY_FOR_REVIEW_ONLY_DRY_RUN",
+  "allowed_for_drafting": true,
+  "allowed_for_publication": false,
+  "approval_valid_for_dispatch": false,
+  "blockers": [],
+  "browser_session_started": false,
+  "dispatch_allowed_now": false,
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "live_provider_call_performed": false,
+  "live_write_allowed_now": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0",
+  "provider_credentials_hydrated": false,
+  "public_postable": false,
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_AI_PRODUCTION_CORE_HEAVY_BATCH_V0"
+}

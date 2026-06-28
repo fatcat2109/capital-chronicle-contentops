@@ -1,0 +1,10 @@
+{
+  "canonical_article_valid": true,
+  "operator_intent_valid": true,
+  "research_grounding_valid": true,
+  "safety_checks_pass": true,
+  "schema_version": "6.0.0",
+  "seo_refinement_valid": true,
+  "unexpected_claims_detected": false,
+  "unsafe_material_detected": false
+}

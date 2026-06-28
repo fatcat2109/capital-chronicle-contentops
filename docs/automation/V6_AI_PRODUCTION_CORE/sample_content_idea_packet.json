@@ -1,0 +1,11 @@
+{
+  "grounding_required": true,
+  "idea_id": "idea_5e8ebcb60342",
+  "idea_text": "Analyzing the historical volatility of Treasury yields",
+  "operator_name": "Jim",
+  "schema_version": "6.0.0",
+  "source_context": {
+    "ref_source": "Fed H.15 database Release 2026-06-25"
+  },
+  "target_audience": "general_financial_education"
+}

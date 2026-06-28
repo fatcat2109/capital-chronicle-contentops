@@ -1,0 +1,7 @@
+{
+  "blockers": [],
+  "intent_class": "create_canonical_article",
+  "is_valid": true,
+  "original_intent_text": "Create educational analysis on volatility of treasury yields H.15",
+  "validated_intent_text": "Create educational analysis on volatility of treasury yields H.15"
+}

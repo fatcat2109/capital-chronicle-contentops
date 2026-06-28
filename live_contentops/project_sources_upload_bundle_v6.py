@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_APPROVAL_LEDGER_AND_OUTBOX_RECORDING_LANE_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_AI_PRODUCTION_CORE_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
@@ -21,6 +21,7 @@ NEXT_MANUAL_SIGN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_SIGN_PAYLOAD_HASH_MANUAL_ST
 NEXT_CAPTURE_RUN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP"
 NEXT_DISPATCH_READINESS_TASK = "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION_LANE_HEAVY_BATCH_V0"
 NEXT_APPROVAL_LEDGER_TASK = "TASK_CONTENTOPS_V6_APPROVAL_LEDGER_AND_OUTBOX_RECORDING_LANE_HEAVY_BATCH_V0"
+NEXT_PLATFORM_CONTENT_TASK = "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0"
 
 DEFAULT_READINESS_BUNDLE = Path("docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json")
 DEFAULT_DISPATCH_READINESS = Path("docs/automation/V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json")
@@ -319,6 +320,20 @@ def generate_implementation_report_markdown(bundle_status: str, head_sha: str) -
   - approval_ledger_outbox_runbook.md
   - recording_implementation_report.md
   - recording_next_task_pointer.md
+  - provider_gate_packet.json
+  - prompt_registry_packet.json
+  - sample_operator_intents.json
+  - sample_content_idea_packet.json
+  - sample_research_grounding_packet.json
+  - sample_canonical_article_packet.json
+  - sample_seo_editorial_packet.json
+  - ai_production_core_packet.json
+  - ai_production_core_validation_report.json
+  - ai_production_core_blocker_report.md
+  - ai_production_core_runbook.md
+  - core_implementation_report.md
+  - core_next_task_pointer.md
+
 
 - **Safety Checks Pass**:
   - No secret output: `true`
@@ -625,7 +640,20 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_blocker_report.md",
         "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_runbook.md",
         "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/implementation_report.md",
-        "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/next_task_pointer.md"
+        "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/next_task_pointer.md",
+        "docs/automation/V6_AI_PRODUCTION_CORE/provider_gate_packet.json",
+        "docs/automation/V6_AI_PRODUCTION_CORE/prompt_registry_packet.json",
+        "docs/automation/V6_AI_PRODUCTION_CORE/sample_operator_intents.json",
+        "docs/automation/V6_AI_PRODUCTION_CORE/sample_content_idea_packet.json",
+        "docs/automation/V6_AI_PRODUCTION_CORE/sample_research_grounding_packet.json",
+        "docs/automation/V6_AI_PRODUCTION_CORE/sample_canonical_article_packet.json",
+        "docs/automation/V6_AI_PRODUCTION_CORE/sample_seo_editorial_packet.json",
+        "docs/automation/V6_AI_PRODUCTION_CORE/ai_production_core_packet.json",
+        "docs/automation/V6_AI_PRODUCTION_CORE/ai_production_core_validation_report.json",
+        "docs/automation/V6_AI_PRODUCTION_CORE/ai_production_core_blocker_report.md",
+        "docs/automation/V6_AI_PRODUCTION_CORE/ai_production_core_runbook.md",
+        "docs/automation/V6_AI_PRODUCTION_CORE/implementation_report.md",
+        "docs/automation/V6_AI_PRODUCTION_CORE/next_task_pointer.md"
     ]
 
     packet = {
@@ -663,10 +691,7 @@ def materialize_project_sources_upload_bundle_packets(
         "no_network_call_in_this_task": True,
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": (
-            NEXT_APPROVAL_LEDGER_TASK if operator_signature_valid
-            else NEXT_CAPTURE_RUN_TASK
-        )
+        "next_recommended_task": NEXT_PLATFORM_CONTENT_TASK
     }
 
     return packet, upload_candidate_files

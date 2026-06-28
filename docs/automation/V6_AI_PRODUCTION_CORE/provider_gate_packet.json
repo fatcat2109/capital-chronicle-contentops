@@ -1,0 +1,10 @@
+{
+  "ai_provider_mode": "dry_run_stub",
+  "credentials_present": {
+    "ANTHROPIC_API_KEY": true,
+    "NINE_ROUTER_API_KEY": true,
+    "OPENAI_API_KEY": false,
+    "VERTEX_CREDENTIALS": false
+  },
+  "schema_version": "6.0.0"
+}

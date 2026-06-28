@@ -1,0 +1,29 @@
+{
+  "article_id": "article_3a0874a3fc6e",
+  "audience_fit_score": 95.0,
+  "blockers": [],
+  "editorial_score": 90.0,
+  "limitations_preserved": true,
+  "meta_description": "Read about the historical volatility of Treasury yields in our educational deep dive.",
+  "primary_keyword": "Treasury yields historical volatility",
+  "readability_score": 85.0,
+  "rejected_clickbait": [],
+  "search_intent": "educational_information",
+  "secondary_keywords": [
+    "Treasury yields",
+    "volatility",
+    "Fed H.15"
+  ],
+  "seo_packet_id": "seo_d0032780aa1e",
+  "slug_candidates": [
+    "analyzing-treasury-yield-volatility",
+    "treasury-yield-volatility:-a-fed-h.15-study"
+  ],
+  "subtitle_candidates": [
+    "Deep dive analysis of Treasury yields historical volatility"
+  ],
+  "title_candidates": [
+    "Analyzing Treasury Yield Volatility",
+    "Treasury Yield Volatility: A Fed H.15 Study"
+  ]
+}

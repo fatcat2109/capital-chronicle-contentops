@@ -1,0 +1,18 @@
+{
+  "prompt_families": [
+    "idea_classifier",
+    "research_question_generator",
+    "research_brief_writer",
+    "canonical_substack_writer",
+    "seo_optimizer",
+    "discord_drop_writer",
+    "telegram_post_writer",
+    "platform_variant_writer",
+    "media_concept_writer",
+    "draft_inspector_explainer",
+    "community_signal_summarizer",
+    "manual_fallback_writer"
+  ],
+  "schema_version": "6.0.0",
+  "templates_count": 12
+}

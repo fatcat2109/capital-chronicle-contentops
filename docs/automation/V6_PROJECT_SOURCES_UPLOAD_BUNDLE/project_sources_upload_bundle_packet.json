@@ -4,7 +4,7 @@
   "approval_required": true,
   "approval_valid_for_dispatch": false,
   "baseline_before_upload_bundle_task": "d97bc3968e1babf48c81f384fb547b439e48515c",
-  "bundle_generation_head": "fb993cce05e2e7c3e340afa0369917a97bf7973b",
+  "bundle_generation_head": "13f5a2a2d14d521fd12c5e5f0e2e9ab2fb43da27",
   "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
   "bundle_stage": "v6_project_sources_upload_bundle",
   "bundle_status": "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS",
@@ -15,7 +15,7 @@
   "kill_switch_active": true,
   "live_write_attempted": false,
   "new_chat_continuation_file": "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/NEW_CHAT_CONTINUATION_V6_READINESS.md",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0",
   "no_env_read_in_this_task": true,
   "no_live_request_in_this_task": true,
   "no_network_call_in_this_task": true,
@@ -30,7 +30,7 @@
   "schema_version": "6.0.0",
   "source_readiness_evidence_bundle_packet_id": "bundle_fbe34af9e66e",
   "source_supervised_dispatch_readiness_packet_id": "readiness_34edf10af116",
-  "task_label": "TASK_CONTENTOPS_V6_APPROVAL_LEDGER_AND_OUTBOX_RECORDING_LANE_HEAVY_BATCH_V0",
+  "task_label": "TASK_CONTENTOPS_V6_AI_PRODUCTION_CORE_HEAVY_BATCH_V0",
   "unresolved_blockers": [
     "destination_binding_incomplete",
     "kill_switch_active",
@@ -123,7 +123,20 @@
     "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_blocker_report.md",
     "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_runbook.md",
     "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/implementation_report.md",
-    "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/next_task_pointer.md"
+    "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/next_task_pointer.md",
+    "docs/automation/V6_AI_PRODUCTION_CORE/provider_gate_packet.json",
+    "docs/automation/V6_AI_PRODUCTION_CORE/prompt_registry_packet.json",
+    "docs/automation/V6_AI_PRODUCTION_CORE/sample_operator_intents.json",
+    "docs/automation/V6_AI_PRODUCTION_CORE/sample_content_idea_packet.json",
+    "docs/automation/V6_AI_PRODUCTION_CORE/sample_research_grounding_packet.json",
+    "docs/automation/V6_AI_PRODUCTION_CORE/sample_canonical_article_packet.json",
+    "docs/automation/V6_AI_PRODUCTION_CORE/sample_seo_editorial_packet.json",
+    "docs/automation/V6_AI_PRODUCTION_CORE/ai_production_core_packet.json",
+    "docs/automation/V6_AI_PRODUCTION_CORE/ai_production_core_validation_report.json",
+    "docs/automation/V6_AI_PRODUCTION_CORE/ai_production_core_blocker_report.md",
+    "docs/automation/V6_AI_PRODUCTION_CORE/ai_production_core_runbook.md",
+    "docs/automation/V6_AI_PRODUCTION_CORE/implementation_report.md",
+    "docs/automation/V6_AI_PRODUCTION_CORE/next_task_pointer.md"
   ],
   "webhook_url_printed": false
 }
