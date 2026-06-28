@@ -1,0 +1,14 @@
+{
+  "allowed_for_publication": false,
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "env_read_performed": false,
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "provider_call_performed": false,
+  "public_postable": false,
+  "real_source_fetch_performed": false,
+  "source_verification_required": true,
+  "verified_source_pack_import_status": "READY_FOR_REVIEW_ONLY_IMPORT_DRY_RUN"
+}

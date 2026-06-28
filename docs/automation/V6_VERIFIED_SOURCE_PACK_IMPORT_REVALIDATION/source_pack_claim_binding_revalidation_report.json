@@ -1,0 +1,63 @@
+{
+  "all_claims_bound_to_sources": false,
+  "blockers": [
+    "claim_binding_missing"
+  ],
+  "rebound_claims": [
+    {
+      "allowed_in_article_draft": false,
+      "blockers": [
+        "source_verification_required",
+        "claim_binding_missing"
+      ],
+      "claim_id": "claim_d474a9fdbcd6",
+      "missing_source_refs": [
+        [
+          "req_67a5db6704f5"
+        ]
+      ],
+      "source_entries_found": [],
+      "source_requirement_refs": [
+        "req_67a5db6704f5"
+      ],
+      "source_support_status": "missing"
+    },
+    {
+      "allowed_in_article_draft": false,
+      "blockers": [
+        "source_verification_required",
+        "claim_binding_missing"
+      ],
+      "claim_id": "claim_63d1cf20e9bf",
+      "missing_source_refs": [
+        [
+          "req_bfcb46cc38cc"
+        ]
+      ],
+      "source_entries_found": [],
+      "source_requirement_refs": [
+        "req_bfcb46cc38cc"
+      ],
+      "source_support_status": "missing"
+    },
+    {
+      "allowed_in_article_draft": false,
+      "blockers": [
+        "source_verification_required",
+        "claim_binding_missing"
+      ],
+      "claim_id": "claim_492c29ad9746",
+      "missing_source_refs": [
+        [
+          "req_e6edaf8e7750"
+        ]
+      ],
+      "source_entries_found": [],
+      "source_requirement_refs": [
+        "req_e6edaf8e7750"
+      ],
+      "source_support_status": "missing"
+    }
+  ],
+  "schema_version": "6.0.0"
+}

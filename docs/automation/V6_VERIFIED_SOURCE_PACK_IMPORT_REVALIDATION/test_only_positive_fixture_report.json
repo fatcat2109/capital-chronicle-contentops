@@ -1,0 +1,10 @@
+{
+  "draft_generation_possible_on_this_fixture": true,
+  "pos_all_claims_bound": true,
+  "pos_blockers": [
+    "publication_blocked_until_source_verification"
+  ],
+  "pos_blockers_count": 1,
+  "pos_gate_status": "PASSED_VERIFIED_SOURCE_PACK_VALID",
+  "synthetic_fixture_loaded": true
+}

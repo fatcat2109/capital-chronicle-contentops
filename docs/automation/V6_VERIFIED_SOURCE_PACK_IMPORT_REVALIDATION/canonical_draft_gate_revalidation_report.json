@@ -1,0 +1,28 @@
+{
+  "all_claims_bound_to_sources": false,
+  "all_required_sources_verified": false,
+  "allowed_for_publication": false,
+  "blockers": [
+    "claim_binding_missing",
+    "draft_generation_blocked",
+    "evidence_hash_missing",
+    "operator_signature_missing",
+    "operator_source_entries_missing",
+    "operator_source_pack_missing",
+    "publication_blocked_until_source_verification",
+    "retrieved_at_missing",
+    "source_excerpt_ref_missing",
+    "source_url_missing",
+    "source_verification_required",
+    "verified_source_pack_missing"
+  ],
+  "dispatch_allowed_now": false,
+  "draft_copy_generation_allowed": false,
+  "gate_status": "BLOCKED_MISSING_VERIFIED_SOURCE_PACK",
+  "human_research_required": true,
+  "live_write_allowed_now": false,
+  "public_postable": false,
+  "publication_allowed": false,
+  "schema_version": "6.0.0",
+  "source_pack_complete": false
+}

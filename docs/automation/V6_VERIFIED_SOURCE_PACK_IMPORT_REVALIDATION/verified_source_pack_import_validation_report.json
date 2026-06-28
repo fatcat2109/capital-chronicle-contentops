@@ -1,0 +1,27 @@
+{
+  "blocker_count": 12,
+  "blockers": [
+    "claim_binding_missing",
+    "draft_generation_blocked",
+    "evidence_hash_missing",
+    "operator_signature_missing",
+    "operator_source_entries_missing",
+    "operator_source_pack_missing",
+    "publication_blocked_until_source_verification",
+    "retrieved_at_missing",
+    "source_excerpt_ref_missing",
+    "source_url_missing",
+    "source_verification_required",
+    "verified_source_pack_missing"
+  ],
+  "missing_fields_by_source_requirement_id": {},
+  "missing_required_field_counts": 0,
+  "safety_checks": {
+    "no_financial_advice_language": true,
+    "no_live_provider_call": true,
+    "no_secrets_leaked": true,
+    "verified_fields_complete": false
+  },
+  "schema_version": "6.0.0",
+  "validation_status": "FAILED_WITH_BLOCKERS"
+}

@@ -1,0 +1,20 @@
+{
+  "all_claims_bound_to_sources": false,
+  "all_required_sources_verified": false,
+  "allowed_for_article_use": false,
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "draft_generation_allowed": false,
+  "env_read_performed": false,
+  "human_review_required": true,
+  "import_mode": "manual_local_file_deferred",
+  "kill_switch_active": true,
+  "live_source_fetch_performed": false,
+  "provider_call_performed": false,
+  "public_postable": false,
+  "source_entries": [],
+  "source_pack_complete": false,
+  "source_pack_import_status": "OPERATOR_SOURCE_PACK_REQUIRED",
+  "source_verification_required": true
+}

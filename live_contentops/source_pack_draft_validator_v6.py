@@ -128,7 +128,7 @@ def validate_source_pack_draft(source_pack: dict[str, Any]) -> tuple[dict[str, A
                 blockers.append("financial_advice_or_signal_language_detected")
 
     # Standard pipeline protections
-    if source_pack.get("allowed_for_article_use") is True or source_pack.get("draft_generation_allowed") is True:
+    if (source_pack.get("allowed_for_article_use") is True or source_pack.get("draft_generation_allowed") is True) and source_pack.get("source_pack_draft_status") != "VERIFIED_OPERATOR_INPUT_COMPLETE":
         blockers.append("publication_blocked_until_source_verification")
 
     # Deduplicate blockers
