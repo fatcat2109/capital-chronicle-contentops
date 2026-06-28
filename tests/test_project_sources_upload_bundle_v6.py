@@ -198,6 +198,14 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_runbook.md" in files
     assert "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/implementation_report.md" in files
     assert "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/next_task_pointer.md" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_outbox_draft_packet.json" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_review_matrix.json" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/outbox_draft_preview_packet.json" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/outbox_draft_validation_report.json" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_blocker_report.md" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_runbook.md" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/implementation_report.md" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/next_task_pointer.md" in files
     
     # 2. Check generate_current_state_summary_markdown details
     summary = upload_lane.generate_current_state_summary_markdown(

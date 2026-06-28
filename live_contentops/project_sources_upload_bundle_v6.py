@@ -290,6 +290,14 @@ def generate_implementation_report_markdown(bundle_status: str, head_sha: str) -
   - operator_approval_capture_runbook.md
   - operator_approval_capture_implementation_report.md
   - operator_approval_capture_next_task_pointer.md
+  - destination_binding_outbox_draft_packet.json
+  - destination_binding_review_matrix.json
+  - outbox_draft_preview_packet.json
+  - outbox_draft_validation_report.json
+  - destination_binding_blocker_report.md
+  - destination_binding_runbook.md
+  - destination_binding_implementation_report.md
+  - destination_binding_next_task_pointer.md
 
 - **Safety Checks Pass**:
   - No secret output: `true`
@@ -534,7 +542,15 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_blocker_report.md",
         "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_runbook.md",
         "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/implementation_report.md",
-        "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/next_task_pointer.md"
+        "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/next_task_pointer.md",
+        "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_outbox_draft_packet.json",
+        "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_review_matrix.json",
+        "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/outbox_draft_preview_packet.json",
+        "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/outbox_draft_validation_report.json",
+        "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_blocker_report.md",
+        "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_runbook.md",
+        "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/implementation_report.md",
+        "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/next_task_pointer.md"
     ]
 
     packet = {

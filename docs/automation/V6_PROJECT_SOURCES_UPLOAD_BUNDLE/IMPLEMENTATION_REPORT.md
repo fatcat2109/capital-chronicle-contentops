@@ -3,7 +3,7 @@
 - **Task Label**: TASK_CONTENTOPS_V6_DESTINATION_BINDING_AND_OUTBOX_DRAFT_LANE_HEAVY_BATCH_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: e72d1c7c0fc3dd917ff2b85570b9df08b3ea3e87 (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 3debd0b5840697beeee11b872395e19424c4ac8b (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
@@ -57,6 +57,14 @@
   - operator_approval_capture_runbook.md
   - operator_approval_capture_implementation_report.md
   - operator_approval_capture_next_task_pointer.md
+  - destination_binding_outbox_draft_packet.json
+  - destination_binding_review_matrix.json
+  - outbox_draft_preview_packet.json
+  - outbox_draft_validation_report.json
+  - destination_binding_blocker_report.md
+  - destination_binding_runbook.md
+  - destination_binding_implementation_report.md
+  - destination_binding_next_task_pointer.md
 
 - **Safety Checks Pass**:
   - No secret output: `true`

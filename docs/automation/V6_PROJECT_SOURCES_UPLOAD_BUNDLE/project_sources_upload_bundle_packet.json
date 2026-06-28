@@ -4,7 +4,7 @@
   "approval_required": true,
   "approval_valid_for_dispatch": false,
   "baseline_before_upload_bundle_task": "d97bc3968e1babf48c81f384fb547b439e48515c",
-  "bundle_generation_head": "e72d1c7c0fc3dd917ff2b85570b9df08b3ea3e87",
+  "bundle_generation_head": "3debd0b5840697beeee11b872395e19424c4ac8b",
   "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
   "bundle_stage": "v6_project_sources_upload_bundle",
   "bundle_status": "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS",
@@ -99,7 +99,15 @@
     "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_blocker_report.md",
     "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_runbook.md",
     "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/implementation_report.md",
-    "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/next_task_pointer.md"
+    "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/next_task_pointer.md",
+    "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_outbox_draft_packet.json",
+    "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_review_matrix.json",
+    "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/outbox_draft_preview_packet.json",
+    "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/outbox_draft_validation_report.json",
+    "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_blocker_report.md",
+    "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_runbook.md",
+    "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/implementation_report.md",
+    "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/next_task_pointer.md"
   ],
   "webhook_url_printed": false
 }
