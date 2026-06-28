@@ -1,9 +1,9 @@
 # V6 Project Sources Upload Bundle Implementation Report
 
-- **Task Label**: TASK_CONTENTOPS_V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE_DRY_RUN_AND_AUDIT_TRAIL_HEAVY_BATCH_V0
+- **Task Label**: TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR_AND_BLOCKED_PIPELINE_ROLLUP_HEAVY_BATCH_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 8c7ca6f7f4fa6bf24ea6e3d64f9ce337b62b203b (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 24dcfbf875fe10d59cf8a240272b03c3a398c022 (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
@@ -27,6 +27,9 @@
   - fixture_dry_run_validation_report.json
   - fixture_audit_trail_template.json
   - fixture_submission_recovery_runbook.md
+  - manual_evidence_refresh_orchestrator_packet.json
+  - manual_evidence_refresh_rollup.json
+  - manual_evidence_refresh_operator_runbook.md
 
 - **Safety Checks Pass**:
   - No secret output: `true`

@@ -1,0 +1,19 @@
+{
+  "approval_valid_for_dispatch": false,
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "evidence_complete": false,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0",
+  "operator_fixture_exists": false,
+  "orchestrator_packet_id": "orchestrator_30bb20a396ef",
+  "orchestrator_status": "BLOCKED_AWAITING_OPERATOR_EVIDENCE",
+  "outbox_entry_created": false,
+  "payload_hash_created": false,
+  "public_postable": false,
+  "schema_version": "6.0.0",
+  "source_preflight_ready": false,
+  "task_label": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR_AND_BLOCKED_PIPELINE_ROLLUP_HEAVY_BATCH_V0"
+}

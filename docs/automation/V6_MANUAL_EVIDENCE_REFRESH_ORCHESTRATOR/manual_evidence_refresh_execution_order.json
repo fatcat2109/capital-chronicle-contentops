@@ -1,0 +1,13 @@
+{
+  "execution_order": [
+    "scoped_network_policy_v6",
+    "operator_evidence_intake_studio_v6",
+    "operator_evidence_console_v6",
+    "manual_evidence_fixture_validator_v6",
+    "manual_evidence_to_source_preflight_bridge_v6",
+    "operator_evidence_fixture_lifecycle_v6",
+    "operator_pipeline_status_consolidation_v6",
+    "project_sources_upload_bundle_v6"
+  ],
+  "schema_version": "6.0.0"
+}
