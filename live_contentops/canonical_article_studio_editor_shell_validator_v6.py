@@ -1,6 +1,6 @@
-"""V6 Canonical Article Studio Review Queue Validator.
+"""V6 Canonical Article Studio Editor Shell Validator.
 
-Ensures blocked queue states are secure, redacted, and unapproved.
+Ensures empty editor draft shell states are secure, redacted, and unapproved.
 """
 from __future__ import annotations
 
@@ -47,9 +47,9 @@ def is_placeholder(val: Any) -> bool:
             "none: verification pending",
             "manual_ingestion_pending",
             "manual_operator_research_pending", "null",
-            "review_queue_ready_with_blockers",
-            "editor_review_blocked_pending_source_approval",
-            "blocked_waiting_for_real_source_approval"
+            "browserless_editor_shell_ready_with_blockers",
+            "empty_draft_shell_blocked",
+            "empty_or_placeholder_only"
         ]
         if any(p in val_lower for p in placeholders):
             return True
@@ -66,22 +66,26 @@ def has_actual_citation(text: str) -> bool:
     return False
 
 
-def validate_canonical_article_studio_review_queue(
-    queue_packet: dict[str, Any],
-    review_item: dict[str, Any],
+def validate_canonical_article_studio_editor_shell(
+    shell_packet: dict[str, Any],
+    slot_schema: list[dict[str, Any]],
+    shell_instance: dict[str, Any],
     editor_checklist: dict[str, Any],
     mock_html: str,
     manifest: dict[str, Any]
 ) -> tuple[dict[str, Any], list[str]]:
-    """Validates unapproved review queue state and reports blockers."""
+    """Validates unapproved editor draft shell state and reports blockers."""
     blockers = []
     failed = False
 
-    # 1. Default required checkers when unapproved
+    # 1. Default required blockers when unapproved
     blockers.extend([
-        "runtime_operator_approval_missing",
         "real_source_pack_not_approved",
+        "runtime_operator_approval_missing",
         "article_copy_generation_blocked",
+        "title_generation_blocked",
+        "citation_generation_blocked",
+        "seo_generation_blocked",
         "editor_review_required",
         "jim_review_required",
         "publication_blocked",
@@ -90,29 +94,54 @@ def validate_canonical_article_studio_review_queue(
     ])
 
     # 2. Block active copy or draft creation claims
-    if queue_packet.get("article_copy_generated") is True or review_item.get("article_copy_generated") is True:
-        blockers.append("article_copy_generation_blocked")
-        failed = True
-    if queue_packet.get("draft_markdown_created") is True:
-        blockers.append("draft_markdown_created")
-        failed = True
-    if queue_packet.get("canonical_draft_generation_allowed") is True:
-        blockers.append("canonical_draft_generation_allowed")
-        failed = True
+    copy_keys = [
+        "article_copy_generated", "article_body_generated",
+        "title_generated", "dek_generated", "citations_generated", "seo_metadata_generated"
+    ]
+    for key in copy_keys:
+        if shell_packet.get(key) is True or shell_instance.get(key) is True:
+            blockers.append("article_copy_generation_blocked")
+            failed = True
 
-    # 3. Block active review flags
-    if review_item.get("ready_for_editor_review") is True:
+    # 3. Fail if any draft slot has a non-null current_value
+    for slot in slot_schema:
+        if slot.get("current_value") is not None:
+            blockers.append("non_empty_slot_value_detected")
+            failed = True
+        if slot.get("generated") is True:
+            blockers.append("non_empty_slot_value_detected")
+            failed = True
+
+    if "slots" in shell_instance:
+        for slot in shell_instance["slots"]:
+            if slot.get("current_value") is not None:
+                blockers.append("non_empty_slot_value_detected")
+                failed = True
+            if slot.get("generated") is True:
+                blockers.append("non_empty_slot_value_detected")
+                failed = True
+
+    # 4. Fail if word counts or citation/excerpt counts are non-zero
+    count_keys = ["body_word_count", "source_citation_count", "evidence_excerpt_count"]
+    for key in count_keys:
+        if shell_instance.get(key, 0) > 0:
+            blockers.append("non_zero_word_or_citation_count_detected")
+            failed = True
+
+    # 5. Block active review flags
+    if shell_packet.get("ready_for_editor_review") is True:
         blockers.append("editor_review_required")
         failed = True
-    if review_item.get("ready_for_jim_approval") is True:
+    if shell_packet.get("ready_for_jim_approval") is True:
         blockers.append("jim_review_required")
         failed = True
-    if review_item.get("ready_for_publication") is True:
+    if shell_packet.get("ready_for_publication") is True:
         blockers.append("publication_blocked")
         failed = True
 
-    # 4. Block dispatch / publication flags
+    # 6. Block dispatch / publication flags
     forbidden_flags = [
+        "canonical_draft_generation_allowed",
         "allowed_for_publication",
         "public_postable",
         "dispatch_allowed_now",
@@ -120,11 +149,11 @@ def validate_canonical_article_studio_review_queue(
         "outbox_entry_created"
     ]
     for flag in forbidden_flags:
-        if queue_packet.get(flag) is True or review_item.get(flag) is True:
+        if shell_packet.get(flag) is True or shell_instance.get(flag) is True:
             blockers.append("forbidden_active_dispatch_flags")
             failed = True
 
-    # 5. Check real browser/provider behavior claims
+    # 7. Check real browser/provider behavior claims
     behavior_flags = [
         "provider_call_performed",
         "browser_session_started",
@@ -132,16 +161,16 @@ def validate_canonical_article_studio_review_queue(
         "credentials_hydrated"
     ]
     for flag in behavior_flags:
-        if queue_packet.get(flag) is True or manifest.get(flag) is True:
+        if shell_packet.get(flag) is True or manifest.get(flag) is True:
             blockers.append("forbidden_behavior_claims")
             failed = True
 
-    # 6. Check approval claims
-    if queue_packet.get("real_source_pack_approved") is True or queue_packet.get("real_operator_approval_created") is True:
+    # 8. Check approval claims
+    if shell_packet.get("source_pack_approved") is True or shell_packet.get("jim_review_completed") is True:
         blockers.append("real_source_pack_approved_claimed")
         failed = True
 
-    # 7. Scan text fields recursively for leaks
+    # 9. Scan text fields recursively for leaks
     texts_to_scan: list[str] = [mock_html]
 
     def check_value(val: Any, key_name: str = ""):
@@ -162,7 +191,6 @@ def validate_canonical_article_studio_review_queue(
 
         # A. URL check
         if URL_re.search(t):
-            # check if it is raw federalreserve/treasury url
             blockers.append("url_leak_in_runtime_artifact")
             failed = True
 
@@ -278,8 +306,9 @@ def validate_canonical_article_studio_review_queue(
                 blockers.append("source_name_leak_detected")
                 failed = True
 
-    check_value(queue_packet)
-    check_value(review_item)
+    check_value(shell_packet)
+    check_value(slot_schema)
+    check_value(shell_instance)
     check_value(editor_checklist)
     check_value(manifest)
     for text in texts_to_scan:
@@ -292,7 +321,7 @@ def validate_canonical_article_studio_review_queue(
         "schema_version": "6.0.0",
         "validation_status": status,
         "runtime_truth": False,
-        "review_queue_validated": True,
+        "editor_shell_validated": True,
         "blockers": blockers,
         "blocker_count": len(blockers)
     }

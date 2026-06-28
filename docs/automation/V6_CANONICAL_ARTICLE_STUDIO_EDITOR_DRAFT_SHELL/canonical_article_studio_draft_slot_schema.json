@@ -1,0 +1,83 @@
+[
+  {
+    "allowed_content_state": "empty_or_placeholder_only",
+    "blocks_publication": true,
+    "current_value": null,
+    "generated": false,
+    "slot_id": "slot_title",
+    "slot_type": "title",
+    "source_binding_required": true
+  },
+  {
+    "allowed_content_state": "empty_or_placeholder_only",
+    "blocks_publication": true,
+    "current_value": null,
+    "generated": false,
+    "slot_id": "slot_dek",
+    "slot_type": "dek",
+    "source_binding_required": true
+  },
+  {
+    "allowed_content_state": "empty_or_placeholder_only",
+    "blocks_publication": true,
+    "current_value": null,
+    "generated": false,
+    "slot_id": "slot_thesis",
+    "slot_type": "thesis",
+    "source_binding_required": true
+  },
+  {
+    "allowed_content_state": "empty_or_placeholder_only",
+    "blocks_publication": true,
+    "current_value": null,
+    "generated": false,
+    "slot_id": "slot_claim_summary",
+    "slot_type": "claim_summary",
+    "source_binding_required": true
+  },
+  {
+    "allowed_content_state": "empty_or_placeholder_only",
+    "blocks_publication": true,
+    "current_value": null,
+    "generated": false,
+    "slot_id": "slot_evidence_placeholder",
+    "slot_type": "evidence_placeholder",
+    "source_binding_required": true
+  },
+  {
+    "allowed_content_state": "empty_or_placeholder_only",
+    "blocks_publication": true,
+    "current_value": null,
+    "generated": false,
+    "slot_id": "slot_risk_and_limitations",
+    "slot_type": "risk_and_limitations",
+    "source_binding_required": true
+  },
+  {
+    "allowed_content_state": "empty_or_placeholder_only",
+    "blocks_publication": true,
+    "current_value": null,
+    "generated": false,
+    "slot_id": "slot_conclusion",
+    "slot_type": "conclusion",
+    "source_binding_required": true
+  },
+  {
+    "allowed_content_state": "empty_or_placeholder_only",
+    "blocks_publication": true,
+    "current_value": null,
+    "generated": false,
+    "slot_id": "slot_seo_title",
+    "slot_type": "seo_title",
+    "source_binding_required": false
+  },
+  {
+    "allowed_content_state": "empty_or_placeholder_only",
+    "blocks_publication": true,
+    "current_value": null,
+    "generated": false,
+    "slot_id": "slot_seo_meta_description",
+    "slot_type": "seo_meta_description",
+    "source_binding_required": false
+  }
+]

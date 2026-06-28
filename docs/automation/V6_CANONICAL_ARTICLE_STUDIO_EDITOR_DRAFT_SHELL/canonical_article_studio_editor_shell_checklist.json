@@ -1,0 +1,75 @@
+{
+  "checklist_status": "EDITOR_SHELL_BLOCKED_PENDING_SOURCE_APPROVAL",
+  "items": [
+    {
+      "blocks_generation": true,
+      "blocks_publication": true,
+      "current_status": "blocked",
+      "evidence_ref": "source_pack_operator_approval_gate_packet.json",
+      "item_id": "source_approval_required"
+    },
+    {
+      "blocks_generation": true,
+      "blocks_publication": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_draft_claim_eligibility_matrix.json",
+      "item_id": "source_binding_required"
+    },
+    {
+      "blocks_generation": true,
+      "blocks_publication": true,
+      "current_status": "blocked",
+      "evidence_ref": "canonical_article_studio_queue_packet.json",
+      "item_id": "title_generation_blocked"
+    },
+    {
+      "blocks_generation": true,
+      "blocks_publication": true,
+      "current_status": "blocked",
+      "evidence_ref": "canonical_article_studio_queue_packet.json",
+      "item_id": "article_body_generation_blocked"
+    },
+    {
+      "blocks_generation": true,
+      "blocks_publication": true,
+      "current_status": "blocked",
+      "evidence_ref": "canonical_article_studio_queue_packet.json",
+      "item_id": "citation_generation_blocked"
+    },
+    {
+      "blocks_generation": true,
+      "blocks_publication": true,
+      "current_status": "blocked",
+      "evidence_ref": "canonical_article_studio_queue_packet.json",
+      "item_id": "seo_generation_blocked"
+    },
+    {
+      "blocks_generation": false,
+      "blocks_publication": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_editor_shell_validation_report.json",
+      "item_id": "financial_advice_scan_required"
+    },
+    {
+      "blocks_generation": false,
+      "blocks_publication": true,
+      "current_status": "pending",
+      "evidence_ref": "source_pack_operator_approval_gate_packet.json",
+      "item_id": "jim_final_review_required"
+    },
+    {
+      "blocks_generation": false,
+      "blocks_publication": true,
+      "current_status": "blocked",
+      "evidence_ref": "canonical_article_studio_draft_shell_packet.json",
+      "item_id": "publication_blocked"
+    },
+    {
+      "blocks_generation": false,
+      "blocks_publication": true,
+      "current_status": "blocked",
+      "evidence_ref": "canonical_article_studio_draft_shell_packet.json",
+      "item_id": "dispatch_blocked"
+    }
+  ]
+}

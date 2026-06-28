@@ -232,9 +232,11 @@ def validate_canonical_draft_eligibility(
         if any(k in t_lower for k in DM_KEYWORDS):
             blockers.append("dm_or_private_message_detected")
             failed = True
-        if any(k in t_lower for k in FINANCIAL_ADVICE_KEYWORDS):
-            blockers.append("financial_advice_or_signal_language_detected")
-            failed = True
+        for k in FINANCIAL_ADVICE_KEYWORDS:
+            if re.search(rf"\b{re.escape(k)}\b", t_lower):
+                blockers.append("financial_advice_or_signal_language_detected")
+                failed = True
+                break
 
         # J. Source Name / Publisher check
         raw_source_names = [
