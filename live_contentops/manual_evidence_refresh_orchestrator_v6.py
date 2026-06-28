@@ -311,7 +311,10 @@ def main(argv: list[str] | None = None) -> int:
         "browser_session_started": False,
         "public_postable": False,
         "kill_switch_active": True,
-        "next_recommended_task": consol_packet.get("next_recommended_task", "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0")
+        "next_recommended_task": consol_packet.get(
+            "next_recommended_task",
+            "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0",
+        )
     }
     write_json(orchestrator_dir / "manual_evidence_refresh_orchestrator_packet.json", orchestrator_packet)
 

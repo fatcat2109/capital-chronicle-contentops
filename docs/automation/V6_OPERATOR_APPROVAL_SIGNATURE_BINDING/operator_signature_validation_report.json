@@ -1,0 +1,20 @@
+{
+  "approval_valid_for_dispatch": false,
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "destination_binding_complete": false,
+  "dispatch_allowed_now": false,
+  "exact_payload_preview_bound": true,
+  "is_local_only": true,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "operator_signature_present": false,
+  "operator_signature_valid": false,
+  "outbox_entry_created": false,
+  "payload_hash_bound": true,
+  "payload_hash_checked": "4bcbbf4eeab1bdfa2f3f94b4dbb042877c67efdb515f7feecaac5ffa3a2e71ff",
+  "public_postable": false,
+  "validation_blockers": [
+    "operator_approval_incomplete"
+  ]
+}

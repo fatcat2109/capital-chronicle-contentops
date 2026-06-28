@@ -138,8 +138,8 @@ def test_operator_approval_runbook_dispatch_validity_boundary():
     assert "valid_for_dispatch to true" not in content.lower()
     assert "keep `valid_for_dispatch=false`" in content.lower()
     
-    # Assert runbook points to payload preview/hash as the next control stage
-    assert "task_contentops_v6_payload_preview_and_hash_lane_v0" in content.lower()
+    # Assert runbook points to signature-binding as next control stage after payload hash exists
+    assert "task_contentops_v6_operator_approval_signature_binding_lane_heavy_batch_v0" in content.lower()
 
 
 def test_operator_approval_review_packet_keeps_safety_boundaries():

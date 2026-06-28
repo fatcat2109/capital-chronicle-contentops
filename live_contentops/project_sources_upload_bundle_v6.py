@@ -17,6 +17,7 @@ SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
 NEXT_APPROVAL_TASK = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
+NEXT_MANUAL_SIGN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_SIGN_PAYLOAD_HASH_MANUAL_STEP"
 
 DEFAULT_READINESS_BUNDLE = Path("docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json")
 DEFAULT_DISPATCH_READINESS = Path("docs/automation/V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json")
@@ -119,6 +120,12 @@ You can deprioritize or remove older V6 draft outlines, platform variant files, 
 
 
 def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) -> str:
+    next_task = NEXT_APPROVAL_TASK if "payload_hash_incomplete" not in blockers else PAYLOAD_HASH_TASK
+    next_goal = (
+        "Bind Jim's future approval intent to exact payload preview and deterministic payload hash."
+        if next_task == NEXT_APPROVAL_TASK
+        else "Produce or repair exact safe payload preview and deterministic non-placeholder payload hash."
+    )
     return f"""TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V0
 
 ## Pipeline State Info
@@ -148,13 +155,14 @@ def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) 
 > Future Antigravity prompts in this workflow must start with the active task label on line one.
 
 ## Next Recommended Task
-- **Task**: `{PAYLOAD_HASH_TASK}`
-- **Goal**: Produce or repair exact safe payload preview and deterministic non-placeholder payload hash.
+- **Task**: `{next_task}`
+- **Goal**: {next_goal}
 """
 
 
 def generate_current_state_summary_markdown(head_sha: str, blockers: list[str]) -> str:
     blockers_list = "\n".join(f"- {b}" for b in blockers) if blockers else "- None"
+    next_task = NEXT_APPROVAL_TASK if "payload_hash_incomplete" not in blockers else PAYLOAD_HASH_TASK
     return f"""# Current State Summary (V6 Readiness)
 
 ## Repository Metadata
@@ -171,7 +179,7 @@ def generate_current_state_summary_markdown(head_sha: str, blockers: list[str]) 
 - All 10 lanes from operator intent to supervised dispatch readiness are summarized.
 
 > [!IMPORTANT]
-> **V6 Operator Evidence Pipeline Blocked**: Dispatch remains blocked until exact safe payload preview, deterministic non-placeholder payload hash, destination binding, approval ledger, outbox, and supervised dispatch gates all exist together.
+> **V6 Operator Evidence Pipeline Blocked**: Dispatch remains blocked until exact safe payload preview, deterministic non-placeholder payload hash, operator signature binding, destination binding, approval ledger, outbox, and supervised dispatch gates all exist together.
 
 - **Dispatch Allowed Now**: false
 - **Approval Valid for Dispatch**: false
@@ -184,7 +192,7 @@ def generate_current_state_summary_markdown(head_sha: str, blockers: list[str]) 
 {blockers_list}
 
 ## Next Recommended Task
-- **Recommended next task**: `{PAYLOAD_HASH_TASK}`
+- **Recommended next task**: `{next_task}`
 """
 
 
@@ -256,6 +264,12 @@ def generate_implementation_report_markdown(bundle_status: str, head_sha: str) -
   - operator_approval_signature_template.json
   - operator_approval_blocker_report.md
   - operator_approval_runbook.md
+  - operator_signature_binding_packet.json
+  - operator_signature_binding_review_packet.json
+  - operator_signature_template.json
+  - operator_signature_validation_report.json
+  - operator_signature_blocker_report.md
+  - operator_signature_runbook.md
 
 - **Safety Checks Pass**:
   - No secret output: `true`
@@ -273,9 +287,9 @@ def generate_next_task_pointer_markdown() -> str:
 
 Recommended next task at time of bundle generation (not permanent authority):
 
-`{PAYLOAD_HASH_TASK}`
+`{NEXT_MANUAL_SIGN_TASK}`
 
-Goal: Produce or repair exact safe payload preview and verify deterministic non-placeholder payload hash.
+Goal: Jim manually signs payload hash review intent while keeping dispatch validity disabled.
 """
 
 
@@ -461,7 +475,15 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_exact_review.json",
         "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_hash_record.json",
         "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_hash_inputs_redacted.json",
-        "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_runbook.md"
+        "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_runbook.md",
+        "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_binding_packet.json",
+        "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_binding_review_packet.json",
+        "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_template.json",
+        "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_validation_report.json",
+        "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_blocker_report.md",
+        "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_runbook.md",
+        "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/implementation_report.md",
+        "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/next_task_pointer.md"
     ]
 
     packet = {

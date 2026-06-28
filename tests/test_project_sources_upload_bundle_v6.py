@@ -182,6 +182,14 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_runbook.md" in files
     assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/implementation_report.md" in files
     assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/next_task_pointer.md" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_binding_packet.json" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_binding_review_packet.json" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_template.json" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_validation_report.json" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_blocker_report.md" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature_runbook.md" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/implementation_report.md" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/next_task_pointer.md" in files
     
     # 2. Check generate_current_state_summary_markdown details
     summary = upload_lane.generate_current_state_summary_markdown(

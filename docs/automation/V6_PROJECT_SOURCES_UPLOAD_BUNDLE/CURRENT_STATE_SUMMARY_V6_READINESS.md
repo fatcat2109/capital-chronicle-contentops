@@ -3,7 +3,7 @@
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: df6a9220097c20535b83ce796c31ddeae007db1d (requires GitHub audit after push)
+- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: cbf28e5aa3900d2e8cc9633e3a5451540054b823 (requires GitHub audit after push)
 - **Latest Task**: TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0
 - **Previous Accepted Status Task**: TASK_CONTENTOPS_V6_OPERATOR_PIPELINE_STATUS_AND_BLOCKED_RUNBOOK_HEAVY_BATCH_V0
 
@@ -14,7 +14,7 @@
 - All 10 lanes from operator intent to supervised dispatch readiness are summarized.
 
 > [!IMPORTANT]
-> **V6 Operator Evidence Pipeline Blocked**: Dispatch remains blocked until exact safe payload preview, deterministic non-placeholder payload hash, destination binding, approval ledger, outbox, and supervised dispatch gates all exist together.
+> **V6 Operator Evidence Pipeline Blocked**: Dispatch remains blocked until exact safe payload preview, deterministic non-placeholder payload hash, operator signature binding, destination binding, approval ledger, outbox, and supervised dispatch gates all exist together.
 
 - **Dispatch Allowed Now**: false
 - **Approval Valid for Dispatch**: false
@@ -32,4 +32,4 @@
 - safety_review_incomplete
 
 ## Next Recommended Task
-- **Recommended next task**: `TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0`
+- **Recommended next task**: `TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0`

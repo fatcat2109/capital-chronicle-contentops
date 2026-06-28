@@ -482,8 +482,10 @@ def main(argv: list[str] | None = None) -> int:
         "webhook_url_printed": False,
         "next_recommended_task": (
             "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0" if payload_hash_created
-            else ("TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0" if evidence_complete
-                  else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0")
+            else (
+                "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0" if evidence_complete
+                else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
+            )
         )
     }
     write_json(out_dir / "operator_pipeline_status_packet.json", consolidated_packet)

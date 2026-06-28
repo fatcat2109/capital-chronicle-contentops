@@ -3,7 +3,7 @@
 - **Task Label**: TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: df6a9220097c20535b83ce796c31ddeae007db1d (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: cbf28e5aa3900d2e8cc9633e3a5451540054b823 (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
@@ -43,6 +43,12 @@
   - operator_approval_signature_template.json
   - operator_approval_blocker_report.md
   - operator_approval_runbook.md
+  - operator_signature_binding_packet.json
+  - operator_signature_binding_review_packet.json
+  - operator_signature_template.json
+  - operator_signature_validation_report.json
+  - operator_signature_blocker_report.md
+  - operator_signature_runbook.md
 
 - **Safety Checks Pass**:
   - No secret output: `true`

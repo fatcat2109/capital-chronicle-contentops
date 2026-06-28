@@ -1,0 +1,12 @@
+{
+  "approval_decision": "PENDING",
+  "is_local_only": true,
+  "operator_id": "PLACEHOLDER_OPERATOR_ID",
+  "operator_notes_redacted_or_absent": true,
+  "payload_hash": "4bcbbf4eeab1bdfa2f3f94b4dbb042877c67efdb515f7feecaac5ffa3a2e71ff",
+  "payload_hash_record_ref": "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_hash_record.json",
+  "payload_preview_ref": "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_exact_review.json",
+  "revoked": false,
+  "signed_at": null,
+  "valid_for_dispatch": false
+}

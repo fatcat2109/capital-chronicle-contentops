@@ -1,0 +1,15 @@
+{
+  "dispatch_not_authorized": true,
+  "exact_payload_preview_bound": true,
+  "is_local_only": true,
+  "live_write_not_authorized": true,
+  "operator_signature_present": false,
+  "operator_signature_valid": false,
+  "payload_hash": "4bcbbf4eeab1bdfa2f3f94b4dbb042877c67efdb515f7feecaac5ffa3a2e71ff",
+  "payload_hash_bound": true,
+  "payload_hash_record_ref": "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_hash_record.json",
+  "payload_preview_ref": "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_exact_review.json",
+  "public_postable": false,
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
+}

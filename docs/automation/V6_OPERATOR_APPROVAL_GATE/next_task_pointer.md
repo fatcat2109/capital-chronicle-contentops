@@ -2,6 +2,6 @@
 
 Recommended next task at time of bundle generation (not permanent authority):
 
-`TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0`
+`TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0`
 
 Goal: Use exact payload preview and deterministic hash as review controls for approval gate progression.

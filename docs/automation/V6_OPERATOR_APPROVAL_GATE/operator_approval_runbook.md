@@ -11,5 +11,5 @@ Jim, follow these steps to sign off and approve evidence candidate review intent
   - `"approval_decision": "APPROVED"`
 - [ ] **Step 4**: Keep `valid_for_dispatch=false` (do NOT mark dispatch-valid in this lane). Fill only operator identity and review decision intent.
 - [ ] **Step 5**: Save the file.
-- [ ] **Step 6**: Proceed to `TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0` only after exact payload preview and payload hash controls exist.
-- [ ] **Step 7**: Note that dispatch validity can only be evaluated after payload hash, destination binding, approval ledger, outbox, and dispatch-readiness gates exist.
+- [ ] **Step 6**: Proceed to `TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0` only after exact payload preview and payload hash controls exist.
+- [ ] **Step 7**: Note that dispatch validity can only be evaluated after payload hash, operator signature binding, destination binding, approval ledger, outbox, and dispatch-readiness gates exist.

@@ -13,7 +13,7 @@ from typing import Any
 TASK_LABEL = "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 NEXT_PAYLOAD_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
-NEXT_APPROVAL_TASK = "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0"
+NEXT_APPROVAL_TASK = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
 
 DEFAULT_OUTPUT_DIR = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
 
@@ -81,8 +81,8 @@ Jim, follow these steps to sign off and approve evidence candidate review intent
   - `"approval_decision": "APPROVED"`
 - [ ] **Step 4**: Keep `valid_for_dispatch=false` (do NOT mark dispatch-valid in this lane). Fill only operator identity and review decision intent.
 - [ ] **Step 5**: Save the file.
-- [ ] **Step 6**: Proceed to `TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0` only after exact payload preview and payload hash controls exist.
-- [ ] **Step 7**: Note that dispatch validity can only be evaluated after payload hash, destination binding, approval ledger, outbox, and dispatch-readiness gates exist.
+- [ ] **Step 6**: Proceed to `TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0` only after exact payload preview and payload hash controls exist.
+- [ ] **Step 7**: Note that dispatch validity can only be evaluated after payload hash, operator signature binding, destination binding, approval ledger, outbox, and dispatch-readiness gates exist.
 """
 
 
