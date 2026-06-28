@@ -1,27 +1,27 @@
 {
-  "article_id": "article_3a0874a3fc6e",
+  "article_id": "article_51dd651b47d0",
   "blockers": [],
   "body_markdown": "Treasury yields represent key cost of capital metrics. Historically, yield volatility reflects macroeconomic adjustments.",
   "citations": [
-    "Fed H.15 database Release 2026-06-25"
+    "UNVERIFIED_SAMPLE_SOURCE_REF"
   ],
   "disclosure": "No financial recommendations or trade positioning suggestions are made.",
-  "draft_status": "draft_completed",
+  "draft_status": "review_only_draft_requires_source_verification",
   "human_review_required": true,
-  "lede": "An educational analysis of yield movements based on Fed H.15 release",
-  "limitations": "This analysis is limited by the parameters of the H.15 dataset and does not account for future policy changes. Yield analysis is uncertain.",
+  "lede": "An educational analysis of yield movements based on unverified dry-run sample",
+  "limitations": "This analysis is limited by the parameters of the unverified dry-run sample dataset. Yield analysis is uncertain and source verification is required.",
   "media_request": {
     "description": "Historical chart concept related to Historical Volatility of Treasury Yields",
     "media_type": "chart_concept"
   },
-  "research_packet_id": "research_2aa392f80057",
+  "research_packet_id": "research_b8903be061e6",
   "section_map": {
     "analysis": "historical observations only",
     "introduction": "Historical Volatility of Treasury Yields",
-    "limitations": "This analysis is limited by the parameters of the H.15 dataset and does not account for future policy changes. Yield analysis is uncertain."
+    "limitations": "This analysis is limited by the parameters of the unverified dry-run sample dataset. Yield analysis is uncertain and source verification is required."
   },
   "seo_packet_id": null,
   "slug_candidate": "historical-volatility-of-treasury-yields",
-  "subtitle": "An educational analysis of yield movements based on Fed H.15 release",
+  "subtitle": "An educational analysis of yield movements based on unverified dry-run sample",
   "title": "Historical Volatility of Treasury Yields"
 }

@@ -53,6 +53,10 @@ def create_seo_editorial_packet(
             if kw in title.lower():
                 blockers.append("trade_call_phrasing_detected_in_seo")
                 
+    # Rule 4: Source verification caveat is preserved/added if canonical article requires it
+    if article_packet.get("draft_status") == "review_only_draft_requires_source_verification":
+        blockers.append("source_verification_required")
+                
     packet_id = f"seo_{uuid.uuid4().hex[:12]}"
     
     return {

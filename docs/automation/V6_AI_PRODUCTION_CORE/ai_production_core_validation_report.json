@@ -6,5 +6,6 @@
   "schema_version": "6.0.0",
   "seo_refinement_valid": true,
   "unexpected_claims_detected": false,
-  "unsafe_material_detected": false
+  "unsafe_material_detected": false,
+  "validation_note": "Dry-run source verification missing. Allowed for drafting but publication-ready blocks exist."
 }

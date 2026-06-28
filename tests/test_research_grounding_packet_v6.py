@@ -31,3 +31,21 @@ def test_unsupported_claims_block_publication():
     )
     assert packet["allowed_for_publication"] is False
     assert "unsupported_claims_present" in packet["blocked_reasons"]
+
+def test_dry_run_stub_unverified_source_assertions():
+    packet = grounding_packet.construct_research_grounding_packet(
+        topic="test topic",
+        source_refs=["UNVERIFIED_SAMPLE_SOURCE_REF"],
+        freshness_status="unverified_dry_run",
+        source_quality_status="unverified_stub_source"
+    )
+    assert packet["allowed_for_publication"] is False
+    assert packet["allowed_for_drafting"] is True
+    assert packet["freshness_status"] == "unverified_dry_run"
+    assert packet["source_quality_status"] == "unverified_stub_source"
+    assert packet["official_source_refs"] == []
+    assert packet["non_official_source_refs"] == []
+    assert "source_verification_required" in packet["missing_evidence"]
+    assert "freshness_verification_required" in packet["missing_evidence"]
+    assert "publication_blocked_until_source_verification" in packet["blocked_reasons"]
+

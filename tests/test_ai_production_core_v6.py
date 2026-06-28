@@ -30,3 +30,19 @@ def test_production_core_dry_run_materialization(tmp_path):
     
     assert provider["ai_provider_mode"] == "dry_run_stub"
     assert "idea_classifier" in prompt["prompt_families"]
+    
+    # Assert sample outputs are correctly blocked for publication and require verification
+    sample_grounding = json.loads((tmp_path / "sample_research_grounding_packet.json").read_text(encoding="utf-8"))
+    assert sample_grounding["allowed_for_publication"] is False
+    assert sample_grounding["allowed_for_drafting"] is True
+    assert sample_grounding["freshness_status"] == "unverified_dry_run"
+    assert sample_grounding["source_quality_status"] == "unverified_stub_source"
+    assert "publication_blocked_until_source_verification" in sample_grounding["blocked_reasons"]
+    
+    sample_article = json.loads((tmp_path / "sample_canonical_article_packet.json").read_text(encoding="utf-8"))
+    assert sample_article["draft_status"] == "review_only_draft_requires_source_verification"
+    assert "UNVERIFIED_SAMPLE_SOURCE_REF" in sample_article["citations"]
+    
+    sample_seo = json.loads((tmp_path / "sample_seo_editorial_packet.json").read_text(encoding="utf-8"))
+    assert "source_verification_required" in sample_seo["blockers"]
+

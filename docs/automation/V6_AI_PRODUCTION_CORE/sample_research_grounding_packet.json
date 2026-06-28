@@ -1,28 +1,32 @@
 {
   "allowed_for_drafting": true,
-  "allowed_for_publication": true,
-  "blocked_reasons": [],
-  "freshness_status": "fresh",
-  "missing_evidence": [],
+  "allowed_for_publication": false,
+  "blocked_reasons": [
+    "publication_blocked_until_source_verification",
+    "source_freshness_unverified"
+  ],
+  "freshness_status": "unverified_dry_run",
+  "missing_evidence": [
+    "source_verification_required",
+    "freshness_verification_required"
+  ],
   "no_advice_status": true,
   "no_signal_status": true,
   "non_official_source_refs": [],
-  "official_source_refs": [
-    "Fed H.15 database Release 2026-06-25"
-  ],
+  "official_source_refs": [],
   "required_caveats": [
     "This content is for educational purposes only.",
     "No financial recommendations or trade suggestions are made."
   ],
-  "research_packet_id": "research_2aa392f80057",
+  "research_packet_id": "research_b8903be061e6",
   "safe_angles": [
     "Educational analysis of historical volatility of Treasury yields",
     "Historical context of historical volatility of Treasury yields"
   ],
   "source_mode": "dry_run_stub",
-  "source_quality_status": "high_official",
+  "source_quality_status": "unverified_stub_source",
   "source_refs": [
-    "Fed H.15 database Release 2026-06-25"
+    "UNVERIFIED_SAMPLE_SOURCE_REF"
   ],
   "topic": "historical volatility of Treasury yields",
   "unsafe_angles": [

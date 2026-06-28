@@ -3,7 +3,11 @@
   "allowed_for_drafting": true,
   "allowed_for_publication": false,
   "approval_valid_for_dispatch": false,
-  "blockers": [],
+  "blockers": [
+    "publication_blocked_until_source_verification",
+    "source_freshness_unverified",
+    "source_verification_required"
+  ],
   "browser_session_started": false,
   "dispatch_allowed_now": false,
   "human_review_required": true,

@@ -29,12 +29,24 @@ def construct_research_grounding_packet(
     
     blocked_reasons = []
     
+    # Dry run stub sample checks
+    if freshness_status == "unverified_dry_run" or source_quality_status == "unverified_stub_source":
+        freshness_status = "unverified_dry_run"
+        source_quality_status = "unverified_stub_source"
+        official_refs = []
+        non_official_refs = []
+        if "source_verification_required" not in missing_ev:
+            missing_ev.append("source_verification_required")
+        if "freshness_verification_required" not in missing_ev:
+            missing_ev.append("freshness_verification_required")
+        blocked_reasons.append("publication_blocked_until_source_verification")
+    
     # Rule 1: Source missing state is preserved
     if not source_refs and not official_refs:
         blocked_reasons.append("source_evidence_missing")
         
     # Rule 2: Unknown freshness blocks public-ready state (allowed_for_publication=False)
-    if freshness_status == "unknown" or freshness_status == "stale":
+    if freshness_status == "unknown" or freshness_status == "stale" or freshness_status == "unverified_dry_run":
         blocked_reasons.append("source_freshness_unverified")
         
     # Rule 3: Unsupported claims cannot pass

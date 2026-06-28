@@ -3,7 +3,8 @@ from live_contentops import canonical_article_workflow_v6 as article_workflow
 def test_article_creation_is_review_only_by_default():
     grounding = {
         "research_packet_id": "res_123",
-        "source_refs": ["valid_ref"]
+        "source_refs": ["valid_ref"],
+        "allowed_for_publication": True
     }
     art = article_workflow.create_canonical_article(
         research_packet=grounding,
@@ -17,10 +18,29 @@ def test_article_creation_is_review_only_by_default():
     assert art["draft_status"] == "draft_completed"
     assert art["human_review_required"] is True
 
+def test_article_with_unverified_source_requires_verification():
+    grounding = {
+        "research_packet_id": "res_123",
+        "source_refs": ["UNVERIFIED_SAMPLE_SOURCE_REF"],
+        "missing_evidence": ["source_verification_required"],
+        "allowed_for_publication": False
+    }
+    art = article_workflow.create_canonical_article(
+        research_packet=grounding,
+        title="Valid Title",
+        subtitle="Valid Subtitle",
+        body_markdown="This is valid historical treasury yield research text.",
+        citations=["UNVERIFIED_SAMPLE_SOURCE_REF"],
+        limitations="This has yield analysis parameters that are limited and uncertain.",
+        disclosure="No financial recommendations."
+    )
+    assert art["draft_status"] == "review_only_draft_requires_source_verification"
+
 def test_missing_limitations_section_blocks():
     grounding = {
         "research_packet_id": "res_123",
-        "source_refs": ["valid_ref"]
+        "source_refs": ["valid_ref"],
+        "allowed_for_publication": True
     }
     art = article_workflow.create_canonical_article(
         research_packet=grounding,
@@ -37,7 +57,8 @@ def test_missing_limitations_section_blocks():
 def test_fake_citations_are_rejected():
     grounding = {
         "research_packet_id": "res_123",
-        "source_refs": ["valid_ref"]
+        "source_refs": ["valid_ref"],
+        "allowed_for_publication": True
     }
     art = article_workflow.create_canonical_article(
         research_packet=grounding,
@@ -54,7 +75,8 @@ def test_fake_citations_are_rejected():
 def test_financial_advice_phrasing_is_blocked():
     grounding = {
         "research_packet_id": "res_123",
-        "source_refs": ["valid_ref"]
+        "source_refs": ["valid_ref"],
+        "allowed_for_publication": True
     }
     art = article_workflow.create_canonical_article(
         research_packet=grounding,

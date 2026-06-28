@@ -47,7 +47,12 @@ def create_canonical_article(
         if kw in body_markdown.lower() or kw in title.lower():
             blockers.append("financial_advice_detected")
             
-    draft_status = "review_only" if blockers else "draft_completed"
+    if "source_verification_required" in research_packet.get("missing_evidence", []) or not research_packet.get("allowed_for_publication", False):
+        draft_status = "review_only_draft_requires_source_verification"
+    elif blockers:
+        draft_status = "review_only"
+    else:
+        draft_status = "draft_completed"
     
     return {
         "article_id": article_id,

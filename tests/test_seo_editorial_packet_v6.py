@@ -61,3 +61,19 @@ def test_trade_call_meta_description_is_blocked():
         limitations_preserved=True
     )
     assert "trade_call_phrasing_detected_in_seo" in seo["blockers"]
+
+def test_seo_requires_source_verification():
+    article = {
+        "article_id": "art_123",
+        "draft_status": "review_only_draft_requires_source_verification"
+    }
+    seo = seo_packet.create_seo_editorial_packet(
+        article_packet=article,
+        primary_keyword="treasury volatility",
+        secondary_keywords=["yields"],
+        title_candidates=["Analyzing Volatility"],
+        meta_description="A study on volatility.",
+        limitations_preserved=True
+    )
+    assert "source_verification_required" in seo["blockers"]
+
