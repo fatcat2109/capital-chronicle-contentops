@@ -1,0 +1,21 @@
+{
+  "approval_created": false,
+  "approval_id": null,
+  "approval_revoked": false,
+  "approval_scope": "source_pack_draft_generation_review_only",
+  "approval_template_status": "BLANK_OPERATOR_APPROVAL_REQUIRED",
+  "approved_at_redacted": null,
+  "approved_claim_ids": [],
+  "approved_source_requirement_ids": [],
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "operator_id_redacted": null,
+  "operator_signature_redacted": null,
+  "raw_values_persisted": false,
+  "runtime_truth": false,
+  "source_pack_hash_redacted": null,
+  "valid_for_article_use": false,
+  "valid_for_dispatch": false,
+  "valid_for_draft_generation": false,
+  "valid_for_publication": false
+}

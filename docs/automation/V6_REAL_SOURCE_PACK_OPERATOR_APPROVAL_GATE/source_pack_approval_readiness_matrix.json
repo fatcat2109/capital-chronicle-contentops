@@ -1,0 +1,97 @@
+[
+  {
+    "blockers": [
+      "operator_approval_missing",
+      "approval_signature_missing",
+      "source_pack_hash_approval_missing",
+      "draft_generation_blocked",
+      "publication_blocked",
+      "dispatch_blocked"
+    ],
+    "claim_binding_present": true,
+    "hash_presence_available": true,
+    "operator_approval_present": false,
+    "operator_approval_required": true,
+    "redacted_presence_available": true,
+    "required_source_type": "treasury_yield_series",
+    "source_requirement_id": "req_67a5db6704f5",
+    "valid_for_draft_generation": false,
+    "valid_for_publication": false
+  },
+  {
+    "blockers": [
+      "operator_approval_missing",
+      "approval_signature_missing",
+      "source_pack_hash_approval_missing",
+      "draft_generation_blocked",
+      "publication_blocked",
+      "dispatch_blocked"
+    ],
+    "claim_binding_present": true,
+    "hash_presence_available": true,
+    "operator_approval_present": false,
+    "operator_approval_required": true,
+    "redacted_presence_available": true,
+    "required_source_type": "yield_curve_calculation",
+    "source_requirement_id": "req_bfcb46cc38cc",
+    "valid_for_draft_generation": false,
+    "valid_for_publication": false
+  },
+  {
+    "blockers": [
+      "operator_approval_missing",
+      "approval_signature_missing",
+      "source_pack_hash_approval_missing",
+      "draft_generation_blocked",
+      "publication_blocked",
+      "dispatch_blocked"
+    ],
+    "claim_binding_present": true,
+    "hash_presence_available": true,
+    "operator_approval_present": false,
+    "operator_approval_required": true,
+    "redacted_presence_available": true,
+    "required_source_type": "historical_volatility",
+    "source_requirement_id": "req_e6edaf8e7750",
+    "valid_for_draft_generation": false,
+    "valid_for_publication": false
+  },
+  {
+    "blockers": [
+      "operator_approval_missing",
+      "approval_signature_missing",
+      "source_pack_hash_approval_missing",
+      "draft_generation_blocked",
+      "publication_blocked",
+      "dispatch_blocked"
+    ],
+    "claim_binding_present": false,
+    "hash_presence_available": true,
+    "operator_approval_present": false,
+    "operator_approval_required": true,
+    "redacted_presence_available": true,
+    "required_source_type": "chart_table_data",
+    "source_requirement_id": "req_af610e135cf8",
+    "valid_for_draft_generation": false,
+    "valid_for_publication": false
+  },
+  {
+    "blockers": [
+      "operator_approval_missing",
+      "approval_signature_missing",
+      "source_pack_hash_approval_missing",
+      "draft_generation_blocked",
+      "publication_blocked",
+      "dispatch_blocked"
+    ],
+    "claim_binding_present": false,
+    "hash_presence_available": true,
+    "operator_approval_present": false,
+    "operator_approval_required": true,
+    "redacted_presence_available": true,
+    "required_source_type": "limitations_disclaimer",
+    "source_requirement_id": "req_91a0125c71fd",
+    "valid_for_draft_generation": false,
+    "valid_for_publication": false
+  }
+]
