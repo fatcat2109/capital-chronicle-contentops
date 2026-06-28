@@ -3,7 +3,7 @@
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: 6c6fb2530a7df5958931b267169dfad4b981284b (requires GitHub audit after push)
+- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: 87c3a50a690500664d548f10d4426a7834bc565e (requires GitHub audit after push)
 - **Latest Task**: TASK_CONTENTOPS_V6_UNIFIED_PAYLOAD_HASH_APPROVAL_OUTBOX_UPGRADE_HEAVY_BATCH_V0
 - **Previous Accepted Status Task**: TASK_CONTENTOPS_V6_OPERATOR_PIPELINE_STATUS_AND_BLOCKED_RUNBOOK_HEAVY_BATCH_V0
 

@@ -3,7 +3,7 @@
 - **Task Label**: TASK_CONTENTOPS_V6_UNIFIED_PAYLOAD_HASH_APPROVAL_OUTBOX_UPGRADE_HEAVY_BATCH_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 6c6fb2530a7df5958931b267169dfad4b981284b (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 87c3a50a690500664d548f10d4426a7834bc565e (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
