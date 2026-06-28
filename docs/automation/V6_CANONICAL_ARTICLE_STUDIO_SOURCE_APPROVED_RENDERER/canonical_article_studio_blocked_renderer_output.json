@@ -1,0 +1,30 @@
+{
+  "allowed_for_publication": false,
+  "article_copy_generated": false,
+  "blockers": [
+    "real_source_pack_not_approved",
+    "runtime_operator_approval_missing",
+    "source_approval_hash_missing",
+    "renderer_execution_blocked",
+    "article_copy_generation_blocked",
+    "jim_review_required",
+    "publication_blocked",
+    "dispatch_blocked"
+  ],
+  "body": null,
+  "body_word_count": 0,
+  "citations": [],
+  "dek": null,
+  "dispatch_allowed_now": false,
+  "evidence_excerpt_count": 0,
+  "evidence_refs": [],
+  "public_postable": false,
+  "renderer_execution_performed": false,
+  "renderer_output_status": "BLOCKED_NO_DRAFT_RENDERED",
+  "runtime_truth": false,
+  "seo_meta_description": null,
+  "seo_title": null,
+  "source_citation_count": 0,
+  "source_names": [],
+  "title": null
+}

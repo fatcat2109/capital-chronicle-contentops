@@ -1,0 +1,147 @@
+[
+  {
+    "blocks_publication": true,
+    "claim_id_refs": [],
+    "generated": false,
+    "placeholder_id": "placeholder_id_slot_title",
+    "placeholder_value": null,
+    "rendered_value": null,
+    "renderer_input_status": "blocked_missing_source_approval",
+    "slot_id": "slot_title",
+    "slot_type": "title",
+    "source_binding_required": true,
+    "source_requirement_refs": [],
+    "source_values_materialized": false,
+    "valid_for_publication": false
+  },
+  {
+    "blocks_publication": true,
+    "claim_id_refs": [],
+    "generated": false,
+    "placeholder_id": "placeholder_id_slot_dek",
+    "placeholder_value": null,
+    "rendered_value": null,
+    "renderer_input_status": "blocked_missing_source_approval",
+    "slot_id": "slot_dek",
+    "slot_type": "dek",
+    "source_binding_required": true,
+    "source_requirement_refs": [],
+    "source_values_materialized": false,
+    "valid_for_publication": false
+  },
+  {
+    "blocks_publication": true,
+    "claim_id_refs": [],
+    "generated": false,
+    "placeholder_id": "placeholder_id_slot_thesis",
+    "placeholder_value": null,
+    "rendered_value": null,
+    "renderer_input_status": "blocked_missing_source_approval",
+    "slot_id": "slot_thesis",
+    "slot_type": "thesis",
+    "source_binding_required": true,
+    "source_requirement_refs": [],
+    "source_values_materialized": false,
+    "valid_for_publication": false
+  },
+  {
+    "blocks_publication": true,
+    "claim_id_refs": [
+      "claim_d474a9fdbcd6"
+    ],
+    "generated": false,
+    "placeholder_id": "placeholder_id_slot_claim_summary",
+    "placeholder_value": null,
+    "rendered_value": null,
+    "renderer_input_status": "blocked_missing_source_approval",
+    "slot_id": "slot_claim_summary",
+    "slot_type": "claim_summary",
+    "source_binding_required": true,
+    "source_requirement_refs": [
+      "req_67a5db6704f5"
+    ],
+    "source_values_materialized": false,
+    "valid_for_publication": false
+  },
+  {
+    "blocks_publication": true,
+    "claim_id_refs": [
+      "claim_d474a9fdbcd6",
+      "claim_63d1cf20e9bf"
+    ],
+    "generated": false,
+    "placeholder_id": "placeholder_id_slot_evidence_placeholder",
+    "placeholder_value": null,
+    "rendered_value": null,
+    "renderer_input_status": "blocked_missing_source_approval",
+    "slot_id": "slot_evidence_placeholder",
+    "slot_type": "evidence_placeholder",
+    "source_binding_required": true,
+    "source_requirement_refs": [
+      "req_67a5db6704f5",
+      "req_bfcb46cc38cc"
+    ],
+    "source_values_materialized": false,
+    "valid_for_publication": false
+  },
+  {
+    "blocks_publication": true,
+    "claim_id_refs": [],
+    "generated": false,
+    "placeholder_id": "placeholder_id_slot_risk_and_limitations",
+    "placeholder_value": null,
+    "rendered_value": null,
+    "renderer_input_status": "blocked_missing_source_approval",
+    "slot_id": "slot_risk_and_limitations",
+    "slot_type": "risk_and_limitations",
+    "source_binding_required": true,
+    "source_requirement_refs": [],
+    "source_values_materialized": false,
+    "valid_for_publication": false
+  },
+  {
+    "blocks_publication": true,
+    "claim_id_refs": [],
+    "generated": false,
+    "placeholder_id": "placeholder_id_slot_conclusion",
+    "placeholder_value": null,
+    "rendered_value": null,
+    "renderer_input_status": "blocked_missing_source_approval",
+    "slot_id": "slot_conclusion",
+    "slot_type": "conclusion",
+    "source_binding_required": true,
+    "source_requirement_refs": [],
+    "source_values_materialized": false,
+    "valid_for_publication": false
+  },
+  {
+    "blocks_publication": true,
+    "claim_id_refs": [],
+    "generated": false,
+    "placeholder_id": "placeholder_id_slot_seo_title",
+    "placeholder_value": null,
+    "rendered_value": null,
+    "renderer_input_status": "blocked_missing_source_approval",
+    "slot_id": "slot_seo_title",
+    "slot_type": "seo_title",
+    "source_binding_required": false,
+    "source_requirement_refs": [],
+    "source_values_materialized": false,
+    "valid_for_publication": false
+  },
+  {
+    "blocks_publication": true,
+    "claim_id_refs": [],
+    "generated": false,
+    "placeholder_id": "placeholder_id_slot_seo_meta_description",
+    "placeholder_value": null,
+    "rendered_value": null,
+    "renderer_input_status": "blocked_missing_source_approval",
+    "slot_id": "slot_seo_meta_description",
+    "slot_type": "seo_meta_description",
+    "source_binding_required": false,
+    "source_requirement_refs": [],
+    "source_values_materialized": false,
+    "valid_for_publication": false
+  }
+]

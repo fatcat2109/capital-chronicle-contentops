@@ -4,7 +4,7 @@
   "approval_required": true,
   "approval_valid_for_dispatch": false,
   "baseline_before_upload_bundle_task": "d97bc3968e1babf48c81f384fb547b439e48515c",
-  "bundle_generation_head": "b8ce5c78b393b65df897b357429da2019c74ac23",
+  "bundle_generation_head": "1adda2544ba81e82213dc1e7be9840f93ad70f10",
   "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
   "bundle_stage": "v6_project_sources_upload_bundle",
   "bundle_status": "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS",
@@ -15,7 +15,7 @@
   "kill_switch_active": true,
   "live_write_attempted": false,
   "new_chat_continuation_file": "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/NEW_CHAT_CONTINUATION_V6_READINESS.md",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_DRAFT_RENDERER_DRY_RUN_HEAVY_BATCH_V0",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_EDITORIAL_REFINEMENT_QUEUE_DRY_RUN_HEAVY_BATCH_V0",
   "no_env_read_in_this_task": true,
   "no_live_request_in_this_task": true,
   "no_network_call_in_this_task": true,
@@ -30,7 +30,7 @@
   "schema_version": "6.0.0",
   "source_readiness_evidence_bundle_packet_id": "bundle_fbe34af9e66e",
   "source_supervised_dispatch_readiness_packet_id": "readiness_34edf10af116",
-  "task_label": "TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_APPROVED_DRAFT_PLACEHOLDER_BINDING_DRY_RUN_HEAVY_BATCH_V0",
+  "task_label": "TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_DRAFT_RENDERER_DRY_RUN_HEAVY_BATCH_V0",
   "unresolved_blockers": [
     "destination_binding_incomplete",
     "kill_switch_active",
@@ -340,7 +340,16 @@
     "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_PLACEHOLDER_BINDING/canonical_article_studio_placeholder_binding_blocker_report.md",
     "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_PLACEHOLDER_BINDING/canonical_article_studio_placeholder_binding_runbook.md",
     "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_PLACEHOLDER_BINDING/implementation_report.md",
-    "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_PLACEHOLDER_BINDING/next_task_pointer.md"
+    "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_PLACEHOLDER_BINDING/next_task_pointer.md",
+    "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_RENDERER/canonical_article_studio_renderer_gate_packet.json",
+    "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_RENDERER/canonical_article_studio_renderer_input_contract.json",
+    "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_RENDERER/canonical_article_studio_blocked_renderer_output.json",
+    "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_RENDERER/canonical_article_studio_renderer_slot_status_matrix.json",
+    "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_RENDERER/canonical_article_studio_renderer_validation_report.json",
+    "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_RENDERER/canonical_article_studio_renderer_blocker_report.md",
+    "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_RENDERER/canonical_article_studio_renderer_runbook.md",
+    "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_RENDERER/implementation_report.md",
+    "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_RENDERER/next_task_pointer.md"
   ],
   "webhook_url_printed": false
 }

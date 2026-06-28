@@ -1,0 +1,62 @@
+{
+  "contract_status": "FUTURE_INPUT_CONTRACT_ONLY",
+  "required_inputs": [
+    {
+      "blocks_renderer_execution": true,
+      "current_status": "missing",
+      "input_name": "approved_source_pack_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_renderer_execution": true,
+      "current_status": "missing",
+      "input_name": "operator_approval_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_renderer_execution": true,
+      "current_status": "missing",
+      "input_name": "source_approval_hash_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_renderer_execution": true,
+      "current_status": "missing",
+      "input_name": "redacted_claim_binding_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_renderer_execution": true,
+      "current_status": "missing",
+      "input_name": "placeholder_binding_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_renderer_execution": true,
+      "current_status": "missing",
+      "input_name": "editor_shell_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_renderer_execution": true,
+      "current_status": "missing",
+      "input_name": "jim_review_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    }
+  ],
+  "runtime_truth": false
+}

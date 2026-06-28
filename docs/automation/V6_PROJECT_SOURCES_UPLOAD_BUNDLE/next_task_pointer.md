@@ -2,6 +2,6 @@
 
 Recommended next task at time of bundle generation (not permanent authority):
 
-`TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_DRAFT_RENDERER_DRY_RUN_HEAVY_BATCH_V0`
+`TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_EDITORIAL_REFINEMENT_QUEUE_DRY_RUN_HEAVY_BATCH_V0`
 
 Goal: Progress the pipeline by resolving the next recommended gate.
