@@ -30,7 +30,9 @@ def validate_source_pack_draft(source_pack: dict[str, Any]) -> tuple[dict[str, A
     pack_complete = source_pack.get("source_pack_complete", False)
     pack_status = source_pack.get("verified_source_pack_status")
 
-    if pack_status == "MISSING_REQUIRED_SOURCE_VERIFICATION" or not pack_complete:
+    is_missing_state = pack_status == "MISSING_REQUIRED_SOURCE_VERIFICATION" or not pack_complete
+
+    if is_missing_state:
         blockers.append("operator_source_entries_missing")
         blockers.append("source_verification_required")
 
@@ -42,8 +44,10 @@ def validate_source_pack_draft(source_pack: dict[str, Any]) -> tuple[dict[str, A
     if source_pack.get("source_claim_binding_pending", True):
         blockers.append("claim_binding_missing")
 
+    missing_fields_by_source_requirement_id = {}
+
     for entry in entries:
-        req_id = entry.get("source_requirement_id")
+        req_id = entry.get("source_requirement_id", "stub_id")
         vstatus = entry.get("verification_status", "missing")
         url = entry.get("source_url")
         eh = entry.get("evidence_hash")
@@ -64,6 +68,27 @@ def validate_source_pack_draft(source_pack: dict[str, Any]) -> tuple[dict[str, A
             if any(f in eh_lower for f in ["fake", "example", "test", "placeholder", "stub_hash"]):
                 blockers.append("fake_source_or_evidence_detected")
                 blockers.append("evidence_hash_missing")
+
+        # Mandatory missing field triggers for draft / missing state
+        if vstatus == "missing" or is_missing_state:
+            missing_reqs = []
+            if not url:
+                blockers.append("source_url_missing")
+                missing_reqs.append("source_url")
+            if not eh:
+                blockers.append("evidence_hash_missing")
+                missing_reqs.append("evidence_hash")
+            if not rat:
+                blockers.append("retrieved_at_missing")
+                missing_reqs.append("retrieved_at")
+            if not ovb:
+                blockers.append("operator_signature_missing")
+                missing_reqs.append("operator_verified_by")
+            if not sex:
+                blockers.append("source_excerpt_ref_missing")
+                missing_reqs.append("source_excerpt_ref")
+            if missing_reqs:
+                missing_fields_by_source_requirement_id[req_id] = missing_reqs
 
         if vstatus == "verified":
             if not url:
@@ -109,6 +134,13 @@ def validate_source_pack_draft(source_pack: dict[str, Any]) -> tuple[dict[str, A
     # Deduplicate blockers
     blockers = sorted(list(set(blockers)))
 
+    verified_fields_complete = not any(
+        b in blockers for b in [
+            "source_url_missing", "evidence_hash_missing", "retrieved_at_missing",
+            "operator_signature_missing", "source_excerpt_ref_missing"
+        ]
+    )
+
     validation_report = {
         "schema_version": "6.0.0",
         "validation_status": "FAILED_WITH_BLOCKERS" if blockers else "PASSED",
@@ -118,8 +150,10 @@ def validate_source_pack_draft(source_pack: dict[str, Any]) -> tuple[dict[str, A
             "no_live_provider_call": True,
             "no_secrets_leaked": True,
             "no_financial_advice_language": True,
-            "verified_fields_complete": not any(b in blockers for b in ["source_url_missing", "evidence_hash_missing", "retrieved_at_missing"])
-        }
+            "verified_fields_complete": verified_fields_complete
+        },
+        "missing_fields_by_source_requirement_id": missing_fields_by_source_requirement_id,
+        "missing_required_field_counts": sum(len(v) for v in missing_fields_by_source_requirement_id.values())
     }
 
     return validation_report, blockers

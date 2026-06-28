@@ -4,8 +4,13 @@
   "allowed_for_article_use": false,
   "blockers": [
     "claim_binding_missing",
+    "evidence_hash_missing",
+    "operator_signature_missing",
     "operator_source_entries_missing",
     "publication_blocked_until_source_verification",
+    "retrieved_at_missing",
+    "source_excerpt_ref_missing",
+    "source_url_missing",
     "source_verification_required"
   ],
   "draft_generation_allowed": false,

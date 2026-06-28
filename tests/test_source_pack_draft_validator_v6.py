@@ -25,6 +25,13 @@ def test_validator_detects_fakes_or_missing_fields():
     assert "operator_source_entries_missing" in blockers
     assert "source_verification_required" in blockers
     assert "claim_binding_missing" in blockers
+    assert "source_url_missing" in blockers
+    assert "evidence_hash_missing" in blockers
+    assert "retrieved_at_missing" in blockers
+    assert "operator_signature_missing" in blockers
+    assert "source_excerpt_ref_missing" in blockers
+    assert report["safety_checks"]["verified_fields_complete"] is False
+    assert report["missing_required_field_counts"] == 5
 
     # 2. Re-test with a faked URL entry
     pack = {

@@ -1,16 +1,59 @@
 {
-  "blocker_count": 4,
+  "blocker_count": 9,
   "blockers": [
     "claim_binding_missing",
+    "evidence_hash_missing",
+    "operator_signature_missing",
     "operator_source_entries_missing",
     "publication_blocked_until_source_verification",
+    "retrieved_at_missing",
+    "source_excerpt_ref_missing",
+    "source_url_missing",
     "source_verification_required"
   ],
+  "missing_fields_by_source_requirement_id": {
+    "req_67a5db6704f5": [
+      "source_url",
+      "evidence_hash",
+      "retrieved_at",
+      "operator_verified_by",
+      "source_excerpt_ref"
+    ],
+    "req_91a0125c71fd": [
+      "source_url",
+      "evidence_hash",
+      "retrieved_at",
+      "operator_verified_by",
+      "source_excerpt_ref"
+    ],
+    "req_af610e135cf8": [
+      "source_url",
+      "evidence_hash",
+      "retrieved_at",
+      "operator_verified_by",
+      "source_excerpt_ref"
+    ],
+    "req_bfcb46cc38cc": [
+      "source_url",
+      "evidence_hash",
+      "retrieved_at",
+      "operator_verified_by",
+      "source_excerpt_ref"
+    ],
+    "req_e6edaf8e7750": [
+      "source_url",
+      "evidence_hash",
+      "retrieved_at",
+      "operator_verified_by",
+      "source_excerpt_ref"
+    ]
+  },
+  "missing_required_field_counts": 25,
   "safety_checks": {
     "no_financial_advice_language": true,
     "no_live_provider_call": true,
     "no_secrets_leaked": true,
-    "verified_fields_complete": true
+    "verified_fields_complete": false
   },
   "schema_version": "6.0.0",
   "validation_status": "FAILED_WITH_BLOCKERS"
