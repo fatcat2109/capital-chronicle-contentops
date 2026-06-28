@@ -1,0 +1,133 @@
+[
+  {
+    "blocks_publication": true,
+    "blocks_real_draft_generation": true,
+    "bound_claim_ids": [
+      "claim_d474a9fdbcd6"
+    ],
+    "checklist_item_id": "item_req_67a5db6704f5",
+    "claim_binding_required": true,
+    "current_status": "missing",
+    "evidence_hash_required": true,
+    "operator_verified_by_required": true,
+    "required_operator_fields": [
+      "source_name",
+      "source_url",
+      "source_publisher",
+      "retrieval_method",
+      "retrieved_at",
+      "evidence_hash",
+      "source_excerpt_ref"
+    ],
+    "required_source_type": "treasury_yield_series",
+    "retrieved_at_required": true,
+    "review_notes_placeholder": null,
+    "source_excerpt_ref_required": true,
+    "source_requirement_id": "req_67a5db6704f5",
+    "source_url_required": true
+  },
+  {
+    "blocks_publication": true,
+    "blocks_real_draft_generation": true,
+    "bound_claim_ids": [
+      "claim_63d1cf20e9bf"
+    ],
+    "checklist_item_id": "item_req_bfcb46cc38cc",
+    "claim_binding_required": true,
+    "current_status": "missing",
+    "evidence_hash_required": true,
+    "operator_verified_by_required": true,
+    "required_operator_fields": [
+      "source_name",
+      "source_url",
+      "source_publisher",
+      "retrieval_method",
+      "retrieved_at",
+      "evidence_hash",
+      "source_excerpt_ref"
+    ],
+    "required_source_type": "yield_curve_calculation",
+    "retrieved_at_required": true,
+    "review_notes_placeholder": null,
+    "source_excerpt_ref_required": true,
+    "source_requirement_id": "req_bfcb46cc38cc",
+    "source_url_required": true
+  },
+  {
+    "blocks_publication": true,
+    "blocks_real_draft_generation": true,
+    "bound_claim_ids": [
+      "claim_492c29ad9746"
+    ],
+    "checklist_item_id": "item_req_e6edaf8e7750",
+    "claim_binding_required": true,
+    "current_status": "missing",
+    "evidence_hash_required": true,
+    "operator_verified_by_required": true,
+    "required_operator_fields": [
+      "source_name",
+      "source_url",
+      "source_publisher",
+      "retrieval_method",
+      "retrieved_at",
+      "evidence_hash",
+      "source_excerpt_ref"
+    ],
+    "required_source_type": "historical_volatility",
+    "retrieved_at_required": true,
+    "review_notes_placeholder": null,
+    "source_excerpt_ref_required": true,
+    "source_requirement_id": "req_e6edaf8e7750",
+    "source_url_required": true
+  },
+  {
+    "blocks_publication": true,
+    "blocks_real_draft_generation": true,
+    "bound_claim_ids": [],
+    "checklist_item_id": "item_req_af610e135cf8",
+    "claim_binding_required": true,
+    "current_status": "missing",
+    "evidence_hash_required": true,
+    "operator_verified_by_required": true,
+    "required_operator_fields": [
+      "source_name",
+      "source_url",
+      "source_publisher",
+      "retrieval_method",
+      "retrieved_at",
+      "evidence_hash",
+      "source_excerpt_ref"
+    ],
+    "required_source_type": "chart_table_data",
+    "retrieved_at_required": true,
+    "review_notes_placeholder": null,
+    "source_excerpt_ref_required": true,
+    "source_requirement_id": "req_af610e135cf8",
+    "source_url_required": true
+  },
+  {
+    "blocks_publication": true,
+    "blocks_real_draft_generation": true,
+    "bound_claim_ids": [],
+    "checklist_item_id": "item_req_91a0125c71fd",
+    "claim_binding_required": true,
+    "current_status": "missing",
+    "evidence_hash_required": true,
+    "operator_verified_by_required": true,
+    "required_operator_fields": [
+      "source_name",
+      "source_url",
+      "source_publisher",
+      "retrieval_method",
+      "retrieved_at",
+      "evidence_hash",
+      "source_excerpt_ref"
+    ],
+    "required_source_type": "limitations_disclaimer",
+    "retrieved_at_required": true,
+    "review_notes_placeholder": null,
+    "source_excerpt_ref_required": true,
+    "source_requirement_id": "req_91a0125c71fd",
+    "source_url_required": true
+  }
+]

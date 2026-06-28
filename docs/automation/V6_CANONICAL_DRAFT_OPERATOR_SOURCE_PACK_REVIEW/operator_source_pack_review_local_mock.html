@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Operator Source Pack Review UI</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            padding: 24px;
+        }
+        .banner {
+            background-color: #8b1c1c;
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .notice {
+            background-color: #382c0c;
+            border-left: 4px solid #d29922;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 0 4px 4px 0;
+        }
+        h1, h2, h3 {
+            color: #f0f6fc;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #30363d;
+        }
+        th {
+            background-color: #21262d;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #21262d;
+            color: #8b949e;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 1px solid #30363d;
+            cursor: not-allowed;
+            margin-right: 10px;
+        }
+        .disabled-info {
+            color: #f85149;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .blockers-panel {
+            background-color: #21262d;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="banner">
+            TEST-ONLY / NOT RUNTIME TRUTH
+        </div>
+
+        <h1>Operator Source Pack Review UI</h1>
+        
+        <div class="notice">
+            <strong>V6 operating profile alert</strong>: Positive-path logic has been proven in unit-test dry-runs,
+            but real runtime source verification and operator signatures are still missing.
+        </div>
+
+        <div class="blockers-panel">
+            <h2>Active Blockers</h2>
+            <ul>
+                <li><code>claim_binding_missing</code></li>
+<li><code>dispatch_blocked</code></li>
+<li><code>evidence_hash_missing</code></li>
+<li><code>human_review_required</code></li>
+<li><code>operator_signature_missing</code></li>
+<li><code>operator_source_pack_missing</code></li>
+<li><code>publication_blocked_until_real_source_verification</code></li>
+<li><code>real_draft_generation_blocked</code></li>
+<li><code>retrieved_at_missing</code></li>
+<li><code>source_excerpt_ref_missing</code></li>
+<li><code>source_url_missing</code></li>
+<li><code>source_verification_required</code></li>
+            </ul>
+        </div>
+
+        <h2>Required Evidence Checklist</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Requirement ID</th>
+                    <th>Source Type</th>
+                    <th>Status</th>
+                    <th>Bound Claims</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr>
+            <td>req_67a5db6704f5</td>
+            <td>treasury_yield_series</td>
+            <td>missing</td>
+            <td>claim_d474a9fdbcd6</td>
+        </tr>
+        
+
+        <tr>
+            <td>req_bfcb46cc38cc</td>
+            <td>yield_curve_calculation</td>
+            <td>missing</td>
+            <td>claim_63d1cf20e9bf</td>
+        </tr>
+        
+
+        <tr>
+            <td>req_e6edaf8e7750</td>
+            <td>historical_volatility</td>
+            <td>missing</td>
+            <td>claim_492c29ad9746</td>
+        </tr>
+        
+
+        <tr>
+            <td>req_af610e135cf8</td>
+            <td>chart_table_data</td>
+            <td>missing</td>
+            <td></td>
+        </tr>
+        
+
+        <tr>
+            <td>req_91a0125c71fd</td>
+            <td>limitations_disclaimer</td>
+            <td>missing</td>
+            <td></td>
+        </tr>
+        
+            </tbody>
+        </table>
+
+        <h2>Claim Ledger Scaffolding</h2>
+        <ul>
+            
+        <li>
+            <strong>[Claim claim_d474a9fdbcd6]</strong>: Treasury yield curve spreads have experienced heightened volatility over the last quarter. 
+            (Refs: req_67a5db6704f5)
+        </li>
+        
+
+        <li>
+            <strong>[Claim claim_63d1cf20e9bf]</strong>: The methodology for computing yield curve adjustments relies on the Nelson-Siegel model parameters. 
+            (Refs: req_bfcb46cc38cc)
+        </li>
+        
+
+        <li>
+            <strong>[Claim claim_492c29ad9746]</strong>: Historical yield volatility patterns under similar macro tightening cycles show mean reversion trends. 
+            (Refs: req_e6edaf8e7750)
+        </li>
+        
+        </ul>
+
+        <h2>Approval Action Panel</h2>
+        <div>
+            <span class="btn">Import Real Source Pack Manually</span>
+            <span class="btn">Operator Signature Required</span>
+            <span class="btn">Draft Generation Blocked</span>
+            <span class="btn">Publication Blocked</span>
+            <p class="disabled-info">All buttons are disabled: Operator signature must be submitted to the CLI validator to unblock.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -154,7 +154,7 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
     
     # 1. Assert packet values
-    assert packet["task_label"] == "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_GENERATION_FROM_VERIFIED_SOURCE_PACK_POSITIVE_PATH_DRY_RUN_HEAVY_BATCH_V0"
+    assert packet["task_label"] == "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_OPERATOR_SOURCE_PACK_IMPORT_UI_AND_APPROVAL_REVIEW_HEAVY_BATCH_V0"
     assert packet["final_head_requires_post_push_audit"] is True
     assert packet["previous_accepted_pipeline_status_head"] == "9571d900552122c0d1c110017d718c7e4b7f375d"
     assert "pre_commit_generation_head_input_only" in packet["bundle_generation_head_label"]
@@ -257,6 +257,7 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "docs/automation/V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN/substack_compose_dry_run_packet.json" in files
     assert "docs/automation/V6_VERIFIED_SOURCE_PACK_IMPORT_REVALIDATION/verified_source_pack_import_packet.json" in files
     assert "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN/canonical_draft_positive_path_packet.json" in files
+    assert "docs/automation/V6_CANONICAL_DRAFT_OPERATOR_SOURCE_PACK_REVIEW/operator_source_pack_review_packet.json" in files
     
     # 2. Check generate_current_state_summary_markdown details
     summary = upload_lane.generate_current_state_summary_markdown(
@@ -272,7 +273,7 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "no force push" in note.lower() or "never use `git push -f`" in note.lower()
     
     # 4. Check recommended task
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_OPERATOR_SOURCE_PACK_IMPORT_UI_AND_APPROVAL_REVIEW_HEAVY_BATCH_V0"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_REAL_SOURCE_PACK_MANUAL_IMPORT_FIXTURE_SCHEMA_AND_HASH_REVIEW_DRY_RUN_HEAVY_BATCH_V0"
     
     # 5. Check flags are locked
     assert packet["dispatch_allowed_now"] is False
@@ -288,7 +289,7 @@ def test_valid_payload_hash_unblocks_hash_pointer(tmp_path):
     packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
 
     assert "payload_hash_incomplete" not in packet["unresolved_blockers"]
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_OPERATOR_SOURCE_PACK_IMPORT_UI_AND_APPROVAL_REVIEW_HEAVY_BATCH_V0"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_REAL_SOURCE_PACK_MANUAL_IMPORT_FIXTURE_SCHEMA_AND_HASH_REVIEW_DRY_RUN_HEAVY_BATCH_V0"
 
 
 def test_valid_signature_routes_to_supervised_dispatch_readiness(tmp_path):
@@ -304,7 +305,7 @@ def test_valid_signature_routes_to_supervised_dispatch_readiness(tmp_path):
     packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
 
     assert "payload_hash_incomplete" not in packet["unresolved_blockers"]
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_OPERATOR_SOURCE_PACK_IMPORT_UI_AND_APPROVAL_REVIEW_HEAVY_BATCH_V0"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_REAL_SOURCE_PACK_MANUAL_IMPORT_FIXTURE_SCHEMA_AND_HASH_REVIEW_DRY_RUN_HEAVY_BATCH_V0"
 
 
 def test_placeholder_hash_does_not_unblock_hash_pointer(tmp_path):
@@ -314,4 +315,4 @@ def test_placeholder_hash_does_not_unblock_hash_pointer(tmp_path):
     packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
 
     assert "payload_hash_incomplete" in packet["unresolved_blockers"]
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_OPERATOR_SOURCE_PACK_IMPORT_UI_AND_APPROVAL_REVIEW_HEAVY_BATCH_V0"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_REAL_SOURCE_PACK_MANUAL_IMPORT_FIXTURE_SCHEMA_AND_HASH_REVIEW_DRY_RUN_HEAVY_BATCH_V0"

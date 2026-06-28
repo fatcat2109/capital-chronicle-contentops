@@ -1,0 +1,15 @@
+{
+  "approval_scope": "source_pack_review_only",
+  "approval_template_status": "OPERATOR_SIGNATURE_REQUIRED",
+  "approved_at": null,
+  "approved_claim_ids": [],
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "operator_id": null,
+  "reviewed_source_requirement_ids": [],
+  "revoked": false,
+  "source_pack_hash": null,
+  "valid_for_dispatch": false,
+  "valid_for_draft_generation": false,
+  "valid_for_publication": false
+}
