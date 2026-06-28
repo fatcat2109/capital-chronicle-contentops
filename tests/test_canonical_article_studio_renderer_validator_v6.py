@@ -78,3 +78,123 @@ def test_no_forbidden_imports_in_validator():
     forbidden = ["urlopen", "requests", "httpx", "getenv", "environ", "openai", "anthropic", "google"]
     for f in forbidden:
         assert f not in attrs
+
+
+def test_validator_fails_when_required_inputs_missing_or_empty():
+    renderer_gate_packet = packet_builder.make_canonical_article_studio_renderer_gate_packet()
+    renderer_input_contract = contract_builder.make_canonical_article_studio_renderer_input_contract()
+    blocked_renderer_output = coordinator.make_blocked_renderer_output()
+    renderer_slot_status_matrix = coordinator.make_renderer_slot_status_matrix()
+
+    renderer_input_contract["required_inputs"] = []
+    report, blockers = validator.validate_canonical_article_studio_source_approved_renderer(
+        renderer_gate_packet, renderer_input_contract, blocked_renderer_output, renderer_slot_status_matrix
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "renderer_input_contract_invalid" in blockers
+
+
+def test_validator_fails_when_expected_input_missing():
+    renderer_gate_packet = packet_builder.make_canonical_article_studio_renderer_gate_packet()
+    renderer_input_contract = contract_builder.make_canonical_article_studio_renderer_input_contract()
+    blocked_renderer_output = coordinator.make_blocked_renderer_output()
+    renderer_slot_status_matrix = coordinator.make_renderer_slot_status_matrix()
+
+    renderer_input_contract["required_inputs"].pop(0)  # remove "approved_source_pack_ref"
+    report, blockers = validator.validate_canonical_article_studio_source_approved_renderer(
+        renderer_gate_packet, renderer_input_contract, blocked_renderer_output, renderer_slot_status_matrix
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "renderer_input_contract_invalid" in blockers
+
+
+def test_validator_fails_when_unexpected_input_present():
+    renderer_gate_packet = packet_builder.make_canonical_article_studio_renderer_gate_packet()
+    renderer_input_contract = contract_builder.make_canonical_article_studio_renderer_input_contract()
+    blocked_renderer_output = coordinator.make_blocked_renderer_output()
+    renderer_slot_status_matrix = coordinator.make_renderer_slot_status_matrix()
+
+    renderer_input_contract["required_inputs"].append({
+        "input_name": "unexpected_input_ref",
+        "required": True,
+        "current_status": "missing",
+        "value_ref": None,
+        "raw_value_persisted": False,
+        "blocks_renderer_execution": True
+    })
+    report, blockers = validator.validate_canonical_article_studio_source_approved_renderer(
+        renderer_gate_packet, renderer_input_contract, blocked_renderer_output, renderer_slot_status_matrix
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "renderer_input_contract_invalid" in blockers
+
+
+def test_validator_fails_when_required_is_false():
+    renderer_gate_packet = packet_builder.make_canonical_article_studio_renderer_gate_packet()
+    renderer_input_contract = contract_builder.make_canonical_article_studio_renderer_input_contract()
+    blocked_renderer_output = coordinator.make_blocked_renderer_output()
+    renderer_slot_status_matrix = coordinator.make_renderer_slot_status_matrix()
+
+    renderer_input_contract["required_inputs"][0]["required"] = False
+    report, blockers = validator.validate_canonical_article_studio_source_approved_renderer(
+        renderer_gate_packet, renderer_input_contract, blocked_renderer_output, renderer_slot_status_matrix
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "renderer_input_contract_invalid" in blockers
+
+
+def test_validator_fails_when_current_status_not_missing():
+    renderer_gate_packet = packet_builder.make_canonical_article_studio_renderer_gate_packet()
+    renderer_input_contract = contract_builder.make_canonical_article_studio_renderer_input_contract()
+    blocked_renderer_output = coordinator.make_blocked_renderer_output()
+    renderer_slot_status_matrix = coordinator.make_renderer_slot_status_matrix()
+
+    renderer_input_contract["required_inputs"][0]["current_status"] = "present"
+    report, blockers = validator.validate_canonical_article_studio_source_approved_renderer(
+        renderer_gate_packet, renderer_input_contract, blocked_renderer_output, renderer_slot_status_matrix
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "renderer_input_contract_invalid" in blockers
+
+
+def test_validator_fails_when_value_ref_is_present():
+    renderer_gate_packet = packet_builder.make_canonical_article_studio_renderer_gate_packet()
+    renderer_input_contract = contract_builder.make_canonical_article_studio_renderer_input_contract()
+    blocked_renderer_output = coordinator.make_blocked_renderer_output()
+    renderer_slot_status_matrix = coordinator.make_renderer_slot_status_matrix()
+
+    renderer_input_contract["required_inputs"][0]["value_ref"] = "approved_source_pack_artifact_ref"
+    report, blockers = validator.validate_canonical_article_studio_source_approved_renderer(
+        renderer_gate_packet, renderer_input_contract, blocked_renderer_output, renderer_slot_status_matrix
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "renderer_input_value_ref_present" in blockers
+
+
+def test_validator_fails_when_raw_value_persisted_is_true():
+    renderer_gate_packet = packet_builder.make_canonical_article_studio_renderer_gate_packet()
+    renderer_input_contract = contract_builder.make_canonical_article_studio_renderer_input_contract()
+    blocked_renderer_output = coordinator.make_blocked_renderer_output()
+    renderer_slot_status_matrix = coordinator.make_renderer_slot_status_matrix()
+
+    renderer_input_contract["required_inputs"][0]["raw_value_persisted"] = True
+    report, blockers = validator.validate_canonical_article_studio_source_approved_renderer(
+        renderer_gate_packet, renderer_input_contract, blocked_renderer_output, renderer_slot_status_matrix
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "renderer_input_raw_value_persisted" in blockers
+
+
+def test_validator_fails_when_blocks_renderer_execution_is_false():
+    renderer_gate_packet = packet_builder.make_canonical_article_studio_renderer_gate_packet()
+    renderer_input_contract = contract_builder.make_canonical_article_studio_renderer_input_contract()
+    blocked_renderer_output = coordinator.make_blocked_renderer_output()
+    renderer_slot_status_matrix = coordinator.make_renderer_slot_status_matrix()
+
+    renderer_input_contract["required_inputs"][0]["blocks_renderer_execution"] = False
+    report, blockers = validator.validate_canonical_article_studio_source_approved_renderer(
+        renderer_gate_packet, renderer_input_contract, blocked_renderer_output, renderer_slot_status_matrix
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "renderer_input_not_blocking_execution" in blockers
+

@@ -181,7 +181,58 @@ def validate_canonical_article_studio_source_approved_renderer(
         if renderer_gate_packet.get(flag) is True:
             blockers.append("forbidden_behavior_claims")
             failed = True
+    # 10b. Check renderer input contract details
+    required_inputs = renderer_input_contract.get("required_inputs")
+    expected_names = {
+        "approved_source_pack_ref",
+        "operator_approval_ref",
+        "source_approval_hash_ref",
+        "redacted_claim_binding_ref",
+        "placeholder_binding_ref",
+        "editor_shell_ref",
+        "jim_review_ref"
+    }
 
+    if not isinstance(required_inputs, list) or len(required_inputs) == 0:
+        blockers.append("renderer_input_contract_invalid")
+        failed = True
+    else:
+        found_names = set()
+        for inp in required_inputs:
+            if not isinstance(inp, dict):
+                blockers.append("renderer_input_contract_invalid")
+                failed = True
+                continue
+            name = inp.get("input_name")
+            if name is None or name not in expected_names:
+                blockers.append("renderer_input_contract_invalid")
+                failed = True
+                continue
+            found_names.add(name)
+
+            if inp.get("required") is not True:
+                blockers.append("renderer_input_contract_invalid")
+                failed = True
+
+            if inp.get("current_status") != "missing":
+                blockers.append("renderer_input_contract_invalid")
+                failed = True
+
+            if inp.get("value_ref") is not None:
+                blockers.append("renderer_input_value_ref_present")
+                failed = True
+
+            if inp.get("raw_value_persisted") is not False:
+                blockers.append("renderer_input_raw_value_persisted")
+                failed = True
+
+            if inp.get("blocks_renderer_execution") is not True:
+                blockers.append("renderer_input_not_blocking_execution")
+                failed = True
+
+        if found_names != expected_names:
+            blockers.append("renderer_input_contract_invalid")
+            failed = True
     # 11. Scan text fields recursively for leaks
     texts_to_scan: list[str] = []
 

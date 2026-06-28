@@ -3,7 +3,7 @@
 - **Task Label**: TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_DRAFT_RENDERER_DRY_RUN_HEAVY_BATCH_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 1adda2544ba81e82213dc1e7be9840f93ad70f10 (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: e1ac4bf9b2a1668301376e926452726bcb8d4781 (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
