@@ -1,0 +1,24 @@
+{
+  "approval_capture_status": "AWAITING_OPERATOR_ACTION",
+  "approval_valid_for_dispatch": false,
+  "browser_session_started": false,
+  "capture_blockers": [
+    "operator_approval_incomplete"
+  ],
+  "credentials_hydrated": false,
+  "destination_binding_complete": false,
+  "dispatch_allowed_now": false,
+  "exact_payload_preview_displayed": true,
+  "is_local_only": true,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_SIGN_PAYLOAD_HASH_MANUAL_STEP",
+  "operator_approval_captured": false,
+  "operator_signature_created": false,
+  "operator_signature_valid": false,
+  "outbox_entry_created": false,
+  "payload_hash_displayed": true,
+  "public_postable": false,
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_UI_AND_SIGNATURE_VALIDATION_LANE_HEAVY_BATCH_V0"
+}

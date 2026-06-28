@@ -36,3 +36,8 @@ client_secret*.json
 
 # Local Operator Evidence Fixture - Do Not Commit Real Evidence
 docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json
+
+# Local Operator Signature Files
+docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_signature.local.json
+docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature.json
+

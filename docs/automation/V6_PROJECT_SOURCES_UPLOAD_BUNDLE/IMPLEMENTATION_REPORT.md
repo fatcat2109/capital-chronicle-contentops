@@ -3,7 +3,7 @@
 - **Task Label**: TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 0e00f6118a89696b5c3fac500eb1acf1d9ec3ce5 (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 80c7e8a4e2593a8b8a0f15367fe32bd2450ffb68 (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
@@ -49,6 +49,14 @@
   - operator_signature_validation_report.json
   - operator_signature_blocker_report.md
   - operator_signature_runbook.md
+  - operator_approval_capture_packet.json
+  - operator_approval_capture_ui_spec.md
+  - operator_approval_capture_cli_reference.md
+  - operator_approval_capture_validation_report.json
+  - operator_approval_capture_blocker_report.md
+  - operator_approval_capture_runbook.md
+  - operator_approval_capture_implementation_report.md
+  - operator_approval_capture_next_task_pointer.md
 
 - **Safety Checks Pass**:
   - No secret output: `true`

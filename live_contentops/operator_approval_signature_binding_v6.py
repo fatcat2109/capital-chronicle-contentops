@@ -1,4 +1,4 @@
-﻿"""V6 Operator Approval Signature Binding Lane.
+"""V6 Operator Approval Signature Binding Lane.
 
 Binds operator approval intent to exact payload preview and deterministic payload hash
 without granting dispatch authority, live-write capability, or public readiness.
@@ -261,6 +261,9 @@ def materialize_signature_binding_packets(base_automation_dir: str | Path) -> di
 
     signature_packet_path = base_dir / "V6_OPERATOR_APPROVAL_SIGNATURE_BINDING/operator_signature.json"
     signature_packet = load_json(signature_packet_path)
+    if signature_packet is None:
+        fallback_path = base_dir / "V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_signature.local.json"
+        signature_packet = load_json(fallback_path)
 
     operator_signature_present, operator_signature_valid, blockers, validation_report = validate_signature_packet(
         signature_packet,

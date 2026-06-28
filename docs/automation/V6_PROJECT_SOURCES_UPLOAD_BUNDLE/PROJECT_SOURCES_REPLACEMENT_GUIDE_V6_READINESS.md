@@ -41,6 +41,14 @@ Please upload the following files to the ChatGPT Project Sources:
 35. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_signature_template.json`
 36. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_blocker_report.md`
 37. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_runbook.md`
+38. `docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_packet.json`
+39. `docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_ui_spec.md`
+40. `docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_cli_reference.md`
+41. `docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_validation_report.json`
+42. `docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_blocker_report.md`
+43. `docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_runbook.md`
+44. `docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/implementation_report.md`
+45. `docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/next_task_pointer.md`
 
 ## Deprioritized Older Documents
 You can deprioritize or remove older V6 draft outlines, platform variant files, or temporary preflight logs that are not listed above, to keep context usage clean.
