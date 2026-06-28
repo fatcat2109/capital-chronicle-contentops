@@ -1,0 +1,9 @@
+{
+  "dispatch_blocked": true,
+  "evidence_complete": false,
+  "kill_switch_active": true,
+  "next_required_action": "Jim must fill operator_evidence_fixture.json with verified manual evidence.",
+  "preflight_bridge_status": "BLOCKED_AWAITING_OPERATOR_EVIDENCE",
+  "source_evidence_status": "EMPTY_FIXTURE_AWAITING_OPERATOR_INPUT",
+  "source_preflight_ready": false
+}

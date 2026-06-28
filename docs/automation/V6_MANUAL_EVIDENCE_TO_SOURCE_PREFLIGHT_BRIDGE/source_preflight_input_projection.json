@@ -1,0 +1,18 @@
+{
+  "bridge_blockers": [
+    "kill_switch_active",
+    "missing_or_incomplete_operator_evidence",
+    "operator_approval_signature_pending",
+    "payload_hash_verification_incomplete"
+  ],
+  "citation_candidates_status": "MISSING_OR_EMPTY",
+  "factual_claims_status": "MISSING_OR_EMPTY",
+  "intended_canonical_article_angle_status": "MISSING_OR_EMPTY",
+  "intended_content_lane_status": "MISSING_OR_EMPTY",
+  "limitation_notes_status": "MISSING_OR_EMPTY",
+  "next_required_operator_action": "Jim must fill operator_evidence_fixture.json with verified manual evidence.",
+  "no_signal_disclosure_status": "MISSING_OR_EMPTY",
+  "operator_idea_source_ref_status": "MISSING_OR_EMPTY",
+  "supporting_artifacts_status": "MISSING_OR_EMPTY",
+  "topic_statement_status": "MISSING_OR_EMPTY"
+}
