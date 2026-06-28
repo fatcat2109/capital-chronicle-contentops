@@ -1,0 +1,47 @@
+{
+  "allowed_redacted_fields": [
+    "source_requirement_id",
+    "required_source_type",
+    "source_name_redacted",
+    "source_url_redacted",
+    "source_publisher_redacted",
+    "retrieval_method",
+    "retrieved_at_redacted",
+    "evidence_hash_present",
+    "evidence_hash_redacted",
+    "source_excerpt_ref_redacted",
+    "source_excerpt_text_redacted",
+    "source_supports_claim_ids",
+    "operator_verified_by_redacted",
+    "verification_status",
+    "allowed_for_article_use",
+    "human_review_required",
+    "source_verification_required",
+    "redaction_status",
+    "raw_values_persisted",
+    "runtime_truth"
+  ],
+  "forbidden_raw_fields": [
+    "source_url",
+    "evidence_hash",
+    "source_excerpt",
+    "source_excerpt_ref",
+    "source_excerpt_text",
+    "operator_verified_by",
+    "operator_signature"
+  ],
+  "never_persist_raw_evidence_hash": true,
+  "never_persist_raw_operator_signature": true,
+  "never_persist_raw_source_excerpt": true,
+  "never_persist_raw_source_url": true,
+  "persist_presence_booleans_only": true,
+  "persist_redacted_labels_only": true,
+  "violation_blockers": [
+    "raw_source_url_persisted",
+    "raw_evidence_hash_persisted",
+    "raw_source_excerpt_persisted",
+    "raw_operator_signature_persisted",
+    "fake_source_or_hash_detected",
+    "public_ready_claim_detected"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "all_claims_bound_to_sources": false,
+  "all_required_sources_verified": false,
+  "allowed_for_article_use": false,
+  "allowed_for_publication": false,
+  "browser_session_started": false,
+  "canonical_draft_generation_allowed": false,
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "env_read_performed": false,
+  "evidence_hash_present": false,
+  "human_review_required": true,
+  "import_fixture_status": "OPERATOR_MANUAL_SOURCE_PACK_REQUIRED",
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "provider_call_performed": false,
+  "public_postable": false,
+  "raw_values_persisted": false,
+  "real_source_pack_imported": false,
+  "runtime_truth": false,
+  "source_entries": [],
+  "source_pack_complete": false
+}

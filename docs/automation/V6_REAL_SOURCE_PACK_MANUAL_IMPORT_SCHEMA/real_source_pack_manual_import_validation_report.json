@@ -1,0 +1,20 @@
+{
+  "blocker_count": 11,
+  "blockers": [
+    "claim_binding_missing",
+    "dispatch_blocked",
+    "evidence_hash_presence_missing",
+    "human_review_required",
+    "operator_signature_missing",
+    "operator_source_pack_missing",
+    "publication_blocked_until_real_source_verification",
+    "real_draft_generation_blocked",
+    "redacted_source_pack_required",
+    "source_requirement_coverage_missing",
+    "source_verification_required"
+  ],
+  "real_source_pack_manual_import_validated": true,
+  "runtime_truth": false,
+  "schema_version": "6.0.0",
+  "validation_status": "PASSED_WITH_REVIEW_ONLY_BLOCKERS"
+}

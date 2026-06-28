@@ -1,0 +1,22 @@
+{
+  "allowed_for_article_use": "boolean",
+  "evidence_hash_present": "boolean",
+  "evidence_hash_redacted": "string",
+  "human_review_required": "boolean",
+  "operator_verified_by_redacted": "string",
+  "raw_values_persisted": "boolean",
+  "redaction_status": "string",
+  "required_source_type": "string",
+  "retrieval_method": "string",
+  "retrieved_at_redacted": "string",
+  "runtime_truth": "boolean",
+  "source_excerpt_ref_redacted": "string",
+  "source_excerpt_text_redacted": "string",
+  "source_name_redacted": "string",
+  "source_publisher_redacted": "string",
+  "source_requirement_id": "string",
+  "source_supports_claim_ids": "array_of_strings",
+  "source_url_redacted": "string",
+  "source_verification_required": "boolean",
+  "verification_status": "string"
+}
