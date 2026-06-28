@@ -3,11 +3,11 @@ from pathlib import Path
 from live_contentops import project_sources_upload_bundle_v6 as upload_lane
 
 
-def write_temp_readiness_inputs(tmp_path, missing_bundle=False, **kwargs):
+def write_temp_readiness_inputs(tmp_path, missing_bundle=False, include_valid_hash=False, include_placeholder_hash=False, **kwargs):
     readiness_bundle = {
         "readiness_evidence_bundle_packet_id": "bundle_fbe34af9e66e",
         "source_supervised_dispatch_readiness_packet_id": "readiness_34edf10af116",
-        "unresolved_blockers": ["evidence_incomplete", "operator_idea_source_ref_missing", "note"]
+        "unresolved_blockers": ["evidence_incomplete", "operator_idea_source_ref_missing", "payload_hash_incomplete", "note"]
     }
     dispatch_readiness = {
         "supervised_dispatch_readiness_packet_id": "readiness_34edf10af116",
@@ -20,6 +20,18 @@ def write_temp_readiness_inputs(tmp_path, missing_bundle=False, **kwargs):
     if not missing_bundle:
         rb_path.write_text(json.dumps(readiness_bundle, indent=2), encoding="utf-8")
     dr_path.write_text(json.dumps(dispatch_readiness, indent=2), encoding="utf-8")
+
+    if include_valid_hash or include_placeholder_hash:
+        hash_packet = {
+            "payload_hash_created": True,
+            "exact_payload_preview_created": True,
+            "payload_preview_status": "READY_FOR_OPERATOR_REVIEW",
+            "payload_hash": "a" * 64,
+            "payload_preview_id": "preview_ok"
+        }
+        if include_placeholder_hash:
+            hash_packet["payload_preview_id"] = "PLACEHOLDER_preview"
+        (tmp_path / "payload_preview_hash_packet.json").write_text(json.dumps(hash_packet, indent=2), encoding="utf-8")
 
     return rb_path, dr_path
 
@@ -37,17 +49,17 @@ def test_missing_artifacts_triggers_blocked_status(tmp_path):
 
 def test_valid_readiness_produces_ready_with_blockers(tmp_path):
     rb_path, dr_path = write_temp_readiness_inputs(tmp_path)
-    
+
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
-    
+
     assert packet["bundle_status"] == "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS"
     assert packet["dispatch_allowed_now"] is False
     assert packet["approval_valid_for_dispatch"] is False
     assert packet["public_postable"] is False
-    
-    # Verify note is filtered out
+
     assert "note" not in packet["unresolved_blockers"]
     assert "evidence_incomplete" in packet["unresolved_blockers"]
+    assert "payload_hash_incomplete" in packet["unresolved_blockers"]
 
 
 def test_file_list_contents_and_safety(tmp_path):
@@ -140,7 +152,7 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
     
     # 1. Assert packet values
-    assert packet["task_label"] == "TASK_CONTENTOPS_V6_REPAIR_OPERATOR_APPROVAL_GATE_RUNBOOK_DISPATCH_VALIDITY_BOUNDARY_V0"
+    assert packet["task_label"] == "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
     assert packet["final_head_requires_post_push_audit"] is True
     assert packet["previous_accepted_pipeline_status_head"] == "9571d900552122c0d1c110017d718c7e4b7f375d"
     assert "pre_commit_generation_head_input_only" in packet["bundle_generation_head_label"]
@@ -192,3 +204,23 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert packet["approval_valid_for_dispatch"] is False
     assert packet["public_postable"] is False
     assert packet["kill_switch_active"] is True
+
+
+def test_valid_payload_hash_unblocks_hash_pointer(tmp_path):
+    rb_path, dr_path = write_temp_readiness_inputs(tmp_path, include_valid_hash=True)
+    (tmp_path / "delegated_evidence_refresh_result.json").write_text(json.dumps({"evidence_complete": True}), encoding="utf-8")
+
+    packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
+
+    assert "payload_hash_incomplete" not in packet["unresolved_blockers"]
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
+
+
+def test_placeholder_hash_does_not_unblock_hash_pointer(tmp_path):
+    rb_path, dr_path = write_temp_readiness_inputs(tmp_path, include_placeholder_hash=True)
+    (tmp_path / "delegated_evidence_refresh_result.json").write_text(json.dumps({"evidence_complete": True}), encoding="utf-8")
+
+    packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
+
+    assert "payload_hash_incomplete" in packet["unresolved_blockers"]
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"

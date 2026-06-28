@@ -10,7 +10,7 @@
   "live_write_allowed_now": false,
   "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0",
   "outbox_entry_created": false,
-  "payload_hash": "904a7366028d959647eac4f0413a1499af09bf0317d8b429c9592f1e06ddde7c",
+  "payload_hash": "4bcbbf4eeab1bdfa2f3f94b4dbb042877c67efdb515f7feecaac5ffa3a2e71ff",
   "payload_hash_created": true,
   "payload_preview_status": "READY_FOR_OPERATOR_REVIEW",
   "public_postable": false,

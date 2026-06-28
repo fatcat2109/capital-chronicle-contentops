@@ -3,8 +3,8 @@
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: 3d7731a702469dc45eec0df589ca9ad276d7ce9a (requires GitHub audit after push)
-- **Latest Task**: TASK_CONTENTOPS_V6_REPAIR_OPERATOR_APPROVAL_GATE_RUNBOOK_DISPATCH_VALIDITY_BOUNDARY_V0
+- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: 23dc08a8106bcd3ca43366b309a44cd2a3c09303 (requires GitHub audit after push)
+- **Latest Task**: TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0
 - **Previous Accepted Status Task**: TASK_CONTENTOPS_V6_OPERATOR_PIPELINE_STATUS_AND_BLOCKED_RUNBOOK_HEAVY_BATCH_V0
 
 > [!WARNING]
@@ -14,7 +14,7 @@
 - All 10 lanes from operator intent to supervised dispatch readiness are summarized.
 
 > [!IMPORTANT]
-> **V6 Operator Evidence Pipeline Blocked**: The V6 operator evidence pipeline is structurally wired, but is currently blocked because Jim has not supplied a real operator evidence fixture in `docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json`. Do not fabricate evidence, mark approval-ready, or unlock dispatch.
+> **V6 Operator Evidence Pipeline Blocked**: Dispatch remains blocked until exact safe payload preview, deterministic non-placeholder payload hash, destination binding, approval ledger, outbox, and supervised dispatch gates all exist together.
 
 - **Dispatch Allowed Now**: false
 - **Approval Valid for Dispatch**: false
@@ -32,4 +32,4 @@
 - safety_review_incomplete
 
 ## Next Recommended Task
-- **Recommended next task**: `TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0`
+- **Recommended next task**: `TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0`

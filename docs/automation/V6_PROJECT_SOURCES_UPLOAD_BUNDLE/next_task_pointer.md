@@ -2,6 +2,6 @@
 
 Recommended next task at time of bundle generation (not permanent authority):
 
-`TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0`
+`TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0`
 
-Goal: Generate the final drop payload preview and verify its integrity hash.
+Goal: Produce or repair exact safe payload preview and verify deterministic non-placeholder payload hash.

@@ -1,8 +1,8 @@
 {
   "adapter_class": "review_only_preview",
   "approval_required": true,
-  "body_text": "Topic Statement: PLACEHOLDER_TOPIC\nFactual Claims:\nEditorial Angle: PLACEHOLDER_ANGLE",
-  "content_lane": "PLACEHOLDER_LANE",
+  "body_text": "Review scope: internal operator payload approval preview only.\nevidence_complete=true\nsource_preflight_ready=true\nverification_state=PASS\nfactual_claims_count=3\ncitation_candidates_count=3\nsource_map_refs=docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_rollup.json, docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_refresh_packet.json, docs/automation/V6_NETWORK_SCOPE_POLICY/scoped_network_policy_v6.md, docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_lifecycle_stage_matrix.json, docs/automation/V6_OPERATOR_PIPELINE_STATUS_CONSOLIDATION/operator_pipeline_status_packet.json\nno_signal_disclosure=verified\nno_financial_advice_disclosure=verified\nremaining_blockers=destination_binding_incomplete, kill_switch_active, live_write_scope_missing, operator_approval_incomplete, outbox_creation_blocked, safety_review_incomplete",
+  "content_lane": "operator_internal_review",
   "dispatch_ready": false,
   "human_review_required": true,
   "is_local_only": true,
@@ -11,6 +11,9 @@
   "payload_schema_version": "6.0.0",
   "payload_type": "review_only_payload_preview",
   "public_postable": false,
-  "title": "Review Preview: PLACEHOLDER_TOPIC",
+  "refresh_result_ref": "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_refresh_result.json",
+  "source_map_ref": "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_source_map.json",
+  "source_summary_ref": "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_fixture_redacted_summary.json",
+  "title": "Review Preview: V6 delegated evidence candidate is ready for payload approval",
   "visibility_class": "review_only_payload_preview"
 }

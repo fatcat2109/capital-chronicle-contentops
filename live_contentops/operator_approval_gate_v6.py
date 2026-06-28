@@ -12,6 +12,8 @@ from typing import Any
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
+NEXT_PAYLOAD_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
+NEXT_APPROVAL_TASK = "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0"
 
 DEFAULT_OUTPUT_DIR = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
 
@@ -32,6 +34,19 @@ def load_json(path: str | Path) -> dict[str, Any] | None:
         return None
 
 
+def packet_has_valid_payload_hash(packet: dict[str, Any]) -> bool:
+    payload_hash = packet.get("payload_hash")
+    if packet.get("payload_hash_created") is not True:
+        return False
+    if packet.get("exact_payload_preview_created") is not True:
+        return False
+    if packet.get("payload_preview_status") != "READY_FOR_OPERATOR_REVIEW":
+        return False
+    if not isinstance(payload_hash, str) or len(payload_hash) < 32:
+        return False
+    return "placeholder" not in json.dumps(packet, sort_keys=True).lower()
+
+
 def generate_blocker_report(status: str, blockers: list[str]) -> str:
     blocker_lines = "\n".join(f"- `{b}`" for b in blockers)
     return f"""# Operator Approval Gate Blocker Report
@@ -44,9 +59,9 @@ def generate_blocker_report(status: str, blockers: list[str]) -> str:
 ## Active Blockers Details
 
 1. **operator_approval_incomplete**
-   - *Detail*: Jim must fill in the approval signature template to sign off on the preflight drop.
+   - *Detail*: Jim must fill in the approval signature template to sign off on preflight candidate review.
 2. **payload_hash_incomplete**
-   - *Detail*: The final drop payload must be hashed for integrity before dispatch.
+   - *Detail*: Exact safe review payload and deterministic hash must exist before approval signature binding can advance.
 3. **kill_switch_active**
    - *Detail*: Safety kill switch blocks dispatch.
 """
@@ -55,7 +70,7 @@ def generate_blocker_report(status: str, blockers: list[str]) -> str:
 def generate_approval_runbook() -> str:
     return """# Operator Approval Gate Runbook
 
-Jim, follow these steps to sign off and approve the evidence candidate:
+Jim, follow these steps to sign off and approve evidence candidate review intent:
 
 ## Approval Steps
 
@@ -66,7 +81,7 @@ Jim, follow these steps to sign off and approve the evidence candidate:
   - `"approval_decision": "APPROVED"`
 - [ ] **Step 4**: Keep `valid_for_dispatch=false` (do NOT mark dispatch-valid in this lane). Fill only operator identity and review decision intent.
 - [ ] **Step 5**: Save the file.
-- [ ] **Step 6**: Proceed to `TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0` to create exact payload preview and payload hash.
+- [ ] **Step 6**: Proceed to `TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0` only after exact payload preview and payload hash controls exist.
 - [ ] **Step 7**: Note that dispatch validity can only be evaluated after payload hash, destination binding, approval ledger, outbox, and dispatch-readiness gates exist.
 """
 
@@ -87,10 +102,13 @@ def generate_implementation_report(status: str) -> str:
 """
 
 
-def generate_next_task_pointer(evidence_complete: bool) -> str:
-    if evidence_complete:
-        next_task = "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0"
-        goal = "Generate the final drop payload preview and verify its integrity hash."
+def generate_next_task_pointer(evidence_complete: bool, payload_hash_created: bool) -> str:
+    if evidence_complete and payload_hash_created:
+        next_task = NEXT_APPROVAL_TASK
+        goal = "Use exact payload preview and deterministic hash as review controls for approval gate progression."
+    elif evidence_complete:
+        next_task = NEXT_PAYLOAD_TASK
+        goal = "Create exact safe payload preview and deterministic non-placeholder payload hash."
     else:
         next_task = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_AND_DELEGATED_EVIDENCE_ROLLUP_REPAIR_HEAVY_BATCH_V0"
         goal = "Re-run approval gate check once evidence console is complete."
@@ -114,8 +132,7 @@ def main(argv: list[str] | None = None) -> int:
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # Resolve output subdirectories
-    is_default = (args.output_dir == str(DEFAULT_OUTPUT_DIR))
+    is_default = args.output_dir == str(DEFAULT_OUTPUT_DIR)
     if is_default:
         gate_dir = out_dir
         base_automation_dir = Path("docs/automation")
@@ -124,21 +141,13 @@ def main(argv: list[str] | None = None) -> int:
         gate_dir.mkdir(parents=True, exist_ok=True)
         base_automation_dir = out_dir
 
-    # Determine candidate readiness
     evidence_complete = False
     source_preflight_ready = False
 
-    # Check delegated refresh result
-    delegated_result = load_json("docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_refresh_result.json")
+    delegated_result = load_json(base_automation_dir / "V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_refresh_result.json")
     if delegated_result:
         evidence_complete = delegated_result.get("evidence_complete", False)
         source_preflight_ready = delegated_result.get("source_preflight_ready", False)
-
-    # Check local console fixture on disk or if explicitly passed
-    fixture_path = args.fixture_file or "docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json"
-    if Path(fixture_path).exists():
-        evidence_complete = True
-        source_preflight_ready = True
 
     if evidence_complete and source_preflight_ready:
         status = "AWAITING_OPERATOR_SIGNATURE"
@@ -155,12 +164,11 @@ def main(argv: list[str] | None = None) -> int:
         "outbox_creation_blocked"
     ]
 
-    # Load payload hash if available
-    hash_record_path = base_automation_dir / "V6_PAYLOAD_PREVIEW_HASH/payload_hash_record.json"
-    hash_record = load_json(hash_record_path) or {}
-    payload_hash_ref = hash_record.get("payload_hash")
+    payload_packet_path = base_automation_dir / "V6_PAYLOAD_PREVIEW_HASH/payload_preview_hash_packet.json"
+    payload_packet = load_json(payload_packet_path) or {}
+    payload_hash_created = packet_has_valid_payload_hash(payload_packet)
+    payload_hash_ref = payload_packet.get("payload_hash") if payload_hash_created else None
 
-    # 1. operator_approval_gate_packet.json
     gate_packet = {
         "task_label": TASK_LABEL,
         "schema_version": SCHEMA_VERSION,
@@ -173,17 +181,16 @@ def main(argv: list[str] | None = None) -> int:
         "dispatch_allowed_now": False,
         "live_write_allowed_now": False,
         "outbox_entry_created": False,
-        "payload_hash_created": payload_hash_ref is not None,
+        "payload_hash_created": payload_hash_created,
         "payload_hash_reference": payload_hash_ref,
         "credentials_hydrated": False,
         "browser_session_started": False,
         "public_postable": False,
         "kill_switch_active": True,
-        "next_recommended_task": "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0" if evidence_complete else TASK_LABEL
+        "next_recommended_task": NEXT_APPROVAL_TASK if payload_hash_created else (NEXT_PAYLOAD_TASK if evidence_complete else TASK_LABEL)
     }
     write_json(gate_dir / "operator_approval_gate_packet.json", gate_packet)
 
-    # 2. operator_approval_review_packet.json
     review_packet = {
         "task_label": TASK_LABEL,
         "schema_version": SCHEMA_VERSION,
@@ -198,7 +205,6 @@ def main(argv: list[str] | None = None) -> int:
     }
     write_json(gate_dir / "operator_approval_review_packet.json", review_packet)
 
-    # 3. operator_approval_signature_template.json
     signature_template = {
         "operator_id": "PLACEHOLDER_OPERATOR_ID",
         "approval_decision": "PENDING",
@@ -209,15 +215,10 @@ def main(argv: list[str] | None = None) -> int:
     }
     write_json(gate_dir / "operator_approval_signature_template.json", signature_template)
 
-    # 4. operator_approval_blocker_report.md
     (gate_dir / "operator_approval_blocker_report.md").write_text(generate_blocker_report(status, blockers), encoding="utf-8")
-
-    # 5. operator_approval_runbook.md
     (gate_dir / "operator_approval_runbook.md").write_text(generate_approval_runbook(), encoding="utf-8")
-
-    # 6. reports & pointer
     (gate_dir / "implementation_report.md").write_text(generate_implementation_report(status), encoding="utf-8")
-    (gate_dir / "next_task_pointer.md").write_text(generate_next_task_pointer(evidence_complete), encoding="utf-8")
+    (gate_dir / "next_task_pointer.md").write_text(generate_next_task_pointer(evidence_complete, payload_hash_created), encoding="utf-8")
 
     print(json.dumps({
         "approval_gate_status": status,

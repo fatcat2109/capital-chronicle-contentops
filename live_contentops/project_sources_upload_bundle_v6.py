@@ -12,9 +12,11 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_REPAIR_OPERATOR_APPROVAL_GATE_RUNBOOK_DISPATCH_VALIDITY_BOUNDARY_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
+PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
+NEXT_APPROVAL_TASK = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
 
 DEFAULT_READINESS_BUNDLE = Path("docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json")
 DEFAULT_DISPATCH_READINESS = Path("docs/automation/V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json")
@@ -38,6 +40,26 @@ def verify_git_head() -> str:
     except Exception:
         # Fallback to actual pre-repair remote HEAD if git command fails
         return "d34a6024a86237cdc6a147702663aef81e954343"
+
+
+def _contains_placeholder(value: Any) -> bool:
+    if isinstance(value, str):
+        return "placeholder" in value.lower()
+    if isinstance(value, dict):
+        return any(_contains_placeholder(v) for v in value.values())
+    if isinstance(value, (list, tuple, set)):
+        return any(_contains_placeholder(v) for v in value)
+    return False
+
+
+def _packet_has_valid_payload_hash(packet: dict[str, Any]) -> bool:
+    payload_hash = packet.get("payload_hash")
+    if packet.get("payload_hash_created") is not True:
+        return False
+    if not isinstance(payload_hash, str) or len(payload_hash) < 32:
+        return False
+    return not _contains_placeholder(packet)
+
 
 
 def generate_replacement_guide_markdown() -> str:
@@ -113,7 +135,7 @@ def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) 
 
 ## Current Blockers
 - Operator intent through supervised dispatch readiness is ready, but dispatch remains blocked.
-- Blocker: `operator_idea_source_ref` is missing from preflight.
+- Blocker: `payload_hash_incomplete` remains active unless exact safe preview and non-placeholder hash exist.
 
 ## Pipeline Dispatch State
 - `public_postable`: false
@@ -126,8 +148,8 @@ def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) 
 > Future Antigravity prompts in this workflow must start with the active task label on line one.
 
 ## Next Recommended Task
-- **Task**: `TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0`
-- **Goal**: Validate the operator facts and manual evidence fixture once Jim has populated the template values.
+- **Task**: `{PAYLOAD_HASH_TASK}`
+- **Goal**: Produce or repair exact safe payload preview and deterministic non-placeholder payload hash.
 """
 
 
@@ -149,7 +171,7 @@ def generate_current_state_summary_markdown(head_sha: str, blockers: list[str]) 
 - All 10 lanes from operator intent to supervised dispatch readiness are summarized.
 
 > [!IMPORTANT]
-> **V6 Operator Evidence Pipeline Blocked**: The V6 operator evidence pipeline is structurally wired, but is currently blocked because Jim has not supplied a real operator evidence fixture in `docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json`. Do not fabricate evidence, mark approval-ready, or unlock dispatch.
+> **V6 Operator Evidence Pipeline Blocked**: Dispatch remains blocked until exact safe payload preview, deterministic non-placeholder payload hash, destination binding, approval ledger, outbox, and supervised dispatch gates all exist together.
 
 - **Dispatch Allowed Now**: false
 - **Approval Valid for Dispatch**: false
@@ -162,7 +184,7 @@ def generate_current_state_summary_markdown(head_sha: str, blockers: list[str]) 
 {blockers_list}
 
 ## Next Recommended Task
-- **Recommended next task**: `TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0`
+- **Recommended next task**: `{PAYLOAD_HASH_TASK}`
 """
 
 
@@ -247,13 +269,13 @@ def generate_implementation_report_markdown(bundle_status: str, head_sha: str) -
 
 
 def generate_next_task_pointer_markdown() -> str:
-    return """# Next Task Pointer
+    return f"""# Next Task Pointer
 
 Recommended next task at time of bundle generation (not permanent authority):
 
-`TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0`
+`{PAYLOAD_HASH_TASK}`
 
-Goal: Generate the final drop payload preview and verify its integrity hash.
+Goal: Produce or repair exact safe payload preview and verify deterministic non-placeholder payload hash.
 """
 
 
@@ -327,27 +349,23 @@ def materialize_project_sources_upload_bundle_packets(
     if rel_hash_path.exists():
         try:
             res_hash = json.loads(rel_hash_path.read_text(encoding="utf-8"))
-            if res_hash.get("payload_hash_created") is True:
+            if _packet_has_valid_payload_hash(res_hash):
                 payload_hash_created = True
         except Exception:
             pass
 
-    if (readiness_bundle_path.parent / "operator_evidence_fixture.json").exists():
-        evidence_complete = True
-
-    # Check parent directory sibling structure (for test isolation)
     if readiness_bundle_path.parent.parent:
         sibling_hash_path = readiness_bundle_path.parent.parent / "V6_PAYLOAD_PREVIEW_HASH/payload_preview_hash_packet.json"
         if sibling_hash_path.exists():
             try:
                 res_hash = json.loads(sibling_hash_path.read_text(encoding="utf-8"))
-                if res_hash.get("payload_hash_created") is True:
+                if _packet_has_valid_payload_hash(res_hash):
                     payload_hash_created = True
             except Exception:
                 pass
 
     # 2. Check default/committed paths
-    is_default_rb = (str(readiness_bundle_path) == str(DEFAULT_READINESS_BUNDLE))
+    is_default_rb = str(readiness_bundle_path) == str(DEFAULT_READINESS_BUNDLE)
     if is_default_rb:
         refresh_packet_path = Path("docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_refresh_packet.json")
         if refresh_packet_path.exists():
@@ -367,14 +385,11 @@ def materialize_project_sources_upload_bundle_packets(
             except Exception:
                 pass
 
-        if Path("docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json").exists():
-            evidence_complete = True
-
         default_hash_path = Path("docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_hash_packet.json")
         if default_hash_path.exists():
             try:
                 res_hash = json.loads(default_hash_path.read_text(encoding="utf-8"))
-                if res_hash.get("payload_hash_created") is True:
+                if _packet_has_valid_payload_hash(res_hash):
                     payload_hash_created = True
             except Exception:
                 pass
@@ -485,8 +500,8 @@ def materialize_project_sources_upload_bundle_packets(
         "raw_secret_output": False,
         "webhook_url_printed": False,
         "next_recommended_task": (
-            "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0" if payload_hash_created
-            else ("TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0" if evidence_complete
+            NEXT_APPROVAL_TASK if payload_hash_created
+            else (PAYLOAD_HASH_TASK if evidence_complete
                   else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0")
         )
     }

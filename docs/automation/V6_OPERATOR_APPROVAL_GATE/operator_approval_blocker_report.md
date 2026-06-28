@@ -14,8 +14,8 @@
 ## Active Blockers Details
 
 1. **operator_approval_incomplete**
-   - *Detail*: Jim must fill in the approval signature template to sign off on the preflight drop.
+   - *Detail*: Jim must fill in the approval signature template to sign off on preflight candidate review.
 2. **payload_hash_incomplete**
-   - *Detail*: The final drop payload must be hashed for integrity before dispatch.
+   - *Detail*: Exact safe review payload and deterministic hash must exist before approval signature binding can advance.
 3. **kill_switch_active**
    - *Detail*: Safety kill switch blocks dispatch.
