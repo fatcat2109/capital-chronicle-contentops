@@ -17,10 +17,21 @@ LOCAL_PATH_re = re.compile(r"\b([a-zA-Z]:\\[Uu]sers\\[a-zA-Z0-9_-]+|/home/[a-zA-
 HASH_re = re.compile(r"\b[a-fA-F0-9]{64}\b")
 HASH_SHA256_re = re.compile(r"\bsha256[:_][a-fA-F0-9]+\b", re.IGNORECASE)
 URL_re = re.compile(r"https?://\S+")
+DATE_re = re.compile(r"\b\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}:\d{2}Z)?\b")
 
 SECRET_KEYWORDS = ["cookie", "sessionid", "session_id", "localstorage", "sessionstorage", "document.cookie", "jwt", "access_token"]
 DM_KEYWORDS = ["dm", "direct message", "private message", "private chat"]
 FINANCIAL_ADVICE_KEYWORDS = ["buy", "sell", "hold", "target price", "stop loss", "position size", "trade setup", "alpha call", "guaranteed return"]
+METRICS = ["impressions", "clicks", "views", "ctr", "engagement", "followers"]
+
+CITATION_MARKERS = [
+    re.compile(r"\[\d+\]"),
+    re.compile(r"\bSource:\s*\S+"),
+    re.compile(r"\bcitation:\s*\S+"),
+    re.compile(r"\breference_url:\s*\S+"),
+    re.compile(r"\bsource_url:\s*\S+"),
+    re.compile(r"\(Source:\s*\S+\)")
+]
 
 
 def is_placeholder(val: Any) -> bool:
@@ -36,6 +47,17 @@ def is_placeholder(val: Any) -> bool:
             "manual_operator_research_pending", "null"
         ]
         if any(p in val_lower for p in placeholders):
+            return True
+    return False
+
+
+def has_actual_citation(text: str) -> bool:
+    for pattern in CITATION_MARKERS:
+        for match in pattern.finditer(text):
+            matched_str = match.group(0).lower()
+            # If the matched text only contains placeholders or requirement names, allow it
+            if any(p in matched_str for p in ["redacted", "required", "missing", "unverified", "pending", "placeholder", "null"]):
+                continue
             return True
     return False
 
@@ -95,7 +117,32 @@ def validate_real_source_pack_manual_import(
             blockers.append("raw_source_data_persisted")
             failed = True
 
-    # 5. Scan all strings in nested dict structures
+    # 5. allowed_for_article_use approval separation check
+    if import_fixture.get("allowed_for_article_use") is True:
+        blockers.append("source_approval_missing")
+        failed = True
+
+    # 6. real_source_pack_imported checks
+    if import_fixture.get("real_source_pack_imported") is True:
+        if (import_fixture.get("runtime_truth") is not False or
+            import_fixture.get("raw_values_persisted") is not False or
+            import_fixture.get("human_review_required") is not True or
+            hash_review.get("raw_hash_values_persisted") is not False or
+            hash_review.get("raw_source_urls_persisted") is not False or
+            hash_review.get("raw_source_excerpts_persisted") is not False or
+            hash_review.get("redacted_hash_presence_only") is not True):
+            blockers.append("real_source_pack_import_requires_redacted_review")
+            failed = True
+
+    # 7. source_pack_complete checks
+    if import_fixture.get("source_pack_complete") is True:
+        if (import_fixture.get("raw_values_persisted") is not False or
+            import_fixture.get("allowed_for_article_use") is not False or
+            import_fixture.get("all_required_sources_verified") is not True):
+            blockers.append("source_pack_complete_without_coverage")
+            failed = True
+
+    # 8. Scan all strings in nested dict structures
     texts_to_scan: list[str] = []
 
     def check_value(val: Any, key_name: str = ""):
@@ -125,13 +172,33 @@ def validate_real_source_pack_manual_import(
             failed = True
 
         # C. Excerpt check
-        is_excerpt_key = any(x in key_name.lower() for x in ["excerpt", "excerpt_content"])
+        is_excerpt_key = "excerpt" in key_name.lower() and not key_name.lower().endswith("_redacted")
         if is_excerpt_key and not is_placeholder(t):
             blockers.append("source_excerpt_leak_in_runtime_artifact")
             failed = True
+        if "excerpt:" in t_lower:
+            parts = t.split("excerpt:")
+            if len(parts) > 1 and not is_placeholder(parts[1].strip()):
+                blockers.append("source_excerpt_leak_in_runtime_artifact")
+                failed = True
 
-        # D. Operator signature check
-        is_op_key = key_name.lower() in ["operator_id", "operator_verified_by", "approved_by", "operator_signature", "operator"]
+        # D. Citation check
+        is_citation_key = key_name.lower() in ["source_url", "reference_url", "citation"]
+        if is_citation_key and not is_placeholder(t):
+            blockers.append("citation_or_source_reference_leak_detected")
+            failed = True
+        if has_actual_citation(t):
+            blockers.append("citation_or_source_reference_leak_detected")
+            failed = True
+
+        # E. Raw source name/publisher check
+        is_raw_src_key = key_name.lower() in ["source_name", "source_publisher", "publisher"]
+        if is_raw_src_key and not is_placeholder(t):
+            blockers.append("raw_source_name_or_publisher_persisted")
+            failed = True
+
+        # F. Operator signature check
+        is_op_key = key_name.lower() in ["operator_id", "operator_verified_by", "operator_signature", "approved_by", "operator"]
         if is_op_key and not is_placeholder(t):
             blockers.append("operator_signature_leaked")
             failed = True
@@ -139,12 +206,26 @@ def validate_real_source_pack_manual_import(
             blockers.append("operator_signature_leaked")
             failed = True
 
-        # E. Metric checks
-        if any(m in t_lower for m in ["impressions", "clicks", "views", "ctr", "engagement", "followers"]):
+        # G. Timestamp check
+        is_date_key = key_name.lower() in ["approved_at", "retrieved_at", "created_at"] or (key_name.lower().endswith("_at") and not key_name.lower().endswith("_redacted"))
+        if is_date_key and not is_placeholder(t):
+            blockers.append("fake_approval_timestamp_detected")
+            failed = True
+        if DATE_re.search(t):
+            blockers.append("fake_approval_timestamp_detected")
+            failed = True
+
+        # H. Public ready checks
+        if re.search(r"\b(public_ready|publication_ready|ready_to_publish)\b", t_lower):
+            blockers.append("public_ready_claim_detected")
+            failed = True
+
+        # I. Metric checks
+        if any(m in t_lower for m in METRICS):
             blockers.append("metric_leak_detected")
             failed = True
 
-        # F. Private details check
+        # J. Private details check
         if EMAIL_re.search(t) or PHONE_re.search(t) or DISCORD_USER_ID_re.search(t):
             blockers.append("private_or_secret_material_detected")
             failed = True
