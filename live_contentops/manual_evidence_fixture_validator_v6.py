@@ -205,6 +205,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="V6 Manual Evidence Fixture Validator")
     parser.add_argument("--fixture-file", default=None)
     parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR))
+    parser.add_argument("--wiring-output-dir", default="docs/automation/V6_MANUAL_EVIDENCE_VALIDATOR_WIRING")
     args = parser.parse_args(argv)
 
     out_dir = Path(args.output_dir)
@@ -317,8 +318,8 @@ def main(argv: list[str] | None = None) -> int:
     # 8. Staging report
     (out_dir / "implementation_report.md").write_text(generate_implementation_report(status), encoding="utf-8")
 
-    # --- Part C: Generate Wiring Artifacts under docs/automation/V6_MANUAL_EVIDENCE_VALIDATOR_WIRING ---
-    wiring_dir = Path("docs/automation/V6_MANUAL_EVIDENCE_VALIDATOR_WIRING")
+    # --- Part C: Generate Wiring Artifacts under args.wiring_output_dir ---
+    wiring_dir = Path(args.wiring_output_dir)
     wiring_dir.mkdir(parents=True, exist_ok=True)
 
     wiring_packet = {

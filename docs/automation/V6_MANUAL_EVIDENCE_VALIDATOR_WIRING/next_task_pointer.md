@@ -2,6 +2,6 @@
 
 Recommended next task at time of bundle generation (not permanent authority):
 
-`TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_V0`
+`TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0`
 
-Goal: Proceed to the operator review and approval gate to authorize preflight drop.
+Goal: Re-run validation once the operator has filled in the manual evidence fixture.

@@ -1,7 +1,7 @@
 {
-  "evidence_complete": true,
-  "file_exists": true,
-  "resolution_reason": "Explicit CLI --fixture-file argument supplied.",
-  "selected_fixture_file": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-5554\\test_cli_override_console0\\cli_fixture.json",
-  "status_at_resolution": "VALIDATION_SUCCESS_READY_FOR_HUMAN_REVIEW"
+  "evidence_complete": false,
+  "file_exists": false,
+  "resolution_reason": "No fixture files found on disk.",
+  "selected_fixture_file": null,
+  "status_at_resolution": "EMPTY_FIXTURE_AWAITING_OPERATOR_INPUT"
 }

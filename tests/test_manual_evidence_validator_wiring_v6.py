@@ -84,12 +84,17 @@ def test_cli_override_console(tmp_path):
     }
     cli_file.write_text(json.dumps(cli_fixture), encoding="utf-8")
     
-    # We call main specifying CLI argument
+    # We call main specifying CLI argument and isolated test directories
     output_dir = tmp_path / "validator_output"
-    validator.main(["--fixture-file", str(cli_file), "--output-dir", str(output_dir)])
+    wiring_dir = tmp_path / "wiring_output"
+    validator.main([
+        "--fixture-file", str(cli_file),
+        "--output-dir", str(output_dir),
+        "--wiring-output-dir", str(wiring_dir)
+    ])
     
-    # Verify resolution snapshot
-    snap_file = Path("docs/automation/V6_MANUAL_EVIDENCE_VALIDATOR_WIRING/operator_fixture_resolution_snapshot.json")
+    # Verify resolution snapshot in isolated temp directory
+    snap_file = wiring_dir / "operator_fixture_resolution_snapshot.json"
     assert snap_file.exists()
     
     snap = json.loads(snap_file.read_text(encoding="utf-8"))
@@ -99,8 +104,54 @@ def test_cli_override_console(tmp_path):
     assert snap["status_at_resolution"] == "VALIDATION_SUCCESS_READY_FOR_HUMAN_REVIEW"
 
 
-def test_wiring_packet_safety():
+def test_committed_artifacts_honesty():
+    # Verify the committed repo artifacts reflect honest, unpolluted awaiting state
     wiring_file = Path("docs/automation/V6_MANUAL_EVIDENCE_VALIDATOR_WIRING/validator_wiring_packet.json")
+    snap_file = Path("docs/automation/V6_MANUAL_EVIDENCE_VALIDATOR_WIRING/operator_fixture_resolution_snapshot.json")
+    pointer_file = Path("docs/automation/V6_MANUAL_EVIDENCE_VALIDATOR_WIRING/next_task_pointer.md")
+
+    assert wiring_file.exists()
+    assert snap_file.exists()
+    assert pointer_file.exists()
+
+    wiring = json.loads(wiring_file.read_text(encoding="utf-8"))
+    snap = json.loads(snap_file.read_text(encoding="utf-8"))
+    pointer = pointer_file.read_text(encoding="utf-8")
+
+    # Contaminated paths checks
+    for path_str in [str(wiring.get("resolved_fixture_file")), str(snap.get("selected_fixture_file"))]:
+        if path_str and path_str != "None":
+            assert "pytest" not in path_str
+            assert "AppData" not in path_str
+            assert "Temp" not in path_str
+            assert Path(path_str).is_absolute() is False
+
+    # Honest awaiting checks
+    assert wiring["dispatch_allowed_now"] is False
+    assert wiring["live_write_allowed_now"] is False
+    assert wiring["approval_valid_for_dispatch"] is False
+    assert wiring["credentials_hydrated"] is False
+    assert wiring["browser_session_started"] is False
+    assert wiring["kill_switch_active"] is True
+
+    assert snap["evidence_complete"] is False
+    assert snap["status_at_resolution"] == "EMPTY_FIXTURE_AWAITING_OPERATOR_INPUT"
+
+    # Pointer checks
+    assert "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_V0" not in pointer
+    assert "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0" in pointer
+
+
+def test_wiring_packet_safety(tmp_path):
+    # Test generated wiring file safety
+    output_dir = tmp_path / "validator_output"
+    wiring_dir = tmp_path / "wiring_output"
+    validator.main([
+        "--output-dir", str(output_dir),
+        "--wiring-output-dir", str(wiring_dir)
+    ])
+
+    wiring_file = wiring_dir / "validator_wiring_packet.json"
     assert wiring_file.exists()
     
     data = json.loads(wiring_file.read_text(encoding="utf-8"))
