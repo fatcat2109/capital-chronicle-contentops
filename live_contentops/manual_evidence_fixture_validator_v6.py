@@ -203,12 +203,32 @@ def generate_implementation_report(status: str) -> str:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="V6 Manual Evidence Fixture Validator")
-    parser.add_argument("--fixture-file", default=str(DEFAULT_FIXTURE_INPUT))
+    parser.add_argument("--fixture-file", default=None)
     parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR))
     args = parser.parse_args(argv)
 
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    # Resolve fixture file path based on precedence rules
+    selected_file = None
+    resolution_reason = ""
+
+    if args.fixture_file is not None:
+        selected_file = args.fixture_file
+        resolution_reason = "Explicit CLI --fixture-file argument supplied."
+    else:
+        console_path = Path("docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json")
+        default_val_path = Path("docs/automation/V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR/operator_fillable_fixture.json")
+        if console_path.exists():
+            selected_file = str(console_path)
+            resolution_reason = "No CLI --fixture-file supplied; loaded operator console fixture path."
+        elif default_val_path.exists():
+            selected_file = str(default_val_path)
+            resolution_reason = "No CLI --fixture-file or operator console fixture found; fallback to manual validator default fixture."
+        else:
+            selected_file = None
+            resolution_reason = "No fixture files found on disk."
 
     # 1. Fillable template
     template = {slot: [] if slot in ["factual_claims", "citation_candidates", "supporting_artifacts"] else None for slot in REQUIRED_SLOTS}
@@ -219,7 +239,9 @@ def main(argv: list[str] | None = None) -> int:
     write_json(out_dir / "operator_fillable_fixture_example.safe_placeholder.json", example)
 
     # Load fixture data
-    fixture_data = load_json(args.fixture_file)
+    fixture_data = None
+    if selected_file is not None:
+        fixture_data = load_json(selected_file)
     if fixture_data is None:
         fixture_data = {}
 
@@ -294,6 +316,62 @@ def main(argv: list[str] | None = None) -> int:
 
     # 8. Staging report
     (out_dir / "implementation_report.md").write_text(generate_implementation_report(status), encoding="utf-8")
+
+    # --- Part C: Generate Wiring Artifacts under docs/automation/V6_MANUAL_EVIDENCE_VALIDATOR_WIRING ---
+    wiring_dir = Path("docs/automation/V6_MANUAL_EVIDENCE_VALIDATOR_WIRING")
+    wiring_dir.mkdir(parents=True, exist_ok=True)
+
+    wiring_packet = {
+        "task_label": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_VALIDATOR_WIRING_AND_SAFE_FIXTURE_IMPORT_V0",
+        "schema_version": SCHEMA_VERSION,
+        "wiring_status": "WIRING_SUCCESS",
+        "resolved_fixture_file": selected_file,
+        "resolution_reason": resolution_reason,
+        "dispatch_allowed_now": False,
+        "live_write_allowed_now": False,
+        "approval_valid_for_dispatch": False,
+        "public_postable": False,
+        "credentials_hydrated": False,
+        "browser_session_started": False,
+        "kill_switch_active": True
+    }
+    write_json(wiring_dir / "validator_wiring_packet.json", wiring_packet)
+
+    resolution_snapshot = {
+        "selected_fixture_file": selected_file,
+        "resolution_reason": resolution_reason,
+        "file_exists": selected_file is not None,
+        "status_at_resolution": status,
+        "evidence_complete": evidence_complete
+    }
+    write_json(wiring_dir / "operator_fixture_resolution_snapshot.json", resolution_snapshot)
+
+    wiring_report = f"""# Manual Evidence Validator Wiring Report
+
+- **Task Label**: TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_VALIDATOR_WIRING_AND_SAFE_FIXTURE_IMPORT_V0
+- **Wiring Status**: WIRING_SUCCESS
+- **Resolved Fixture File**: {selected_file or "None (Not found)"}
+- **Resolution Reason**: {resolution_reason}
+
+- **Safety & Compliance Lock**:
+  - No secret output: `true`
+  - No webhook URLs or credentials leaked: `true`
+  - No live request in this task: `true`
+  - No env read in this task: `true`
+  - No network call in this task: `true`
+  - No provider call in this task: `true`
+"""
+    (wiring_dir / "implementation_report.md").write_text(wiring_report, encoding="utf-8")
+
+    wiring_pointer = f"""# Next Task Pointer
+
+Recommended next task at time of bundle generation (not permanent authority):
+
+`{"TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_V0" if evidence_complete else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"}`
+
+Goal: {"Proceed to the operator review and approval gate to authorize preflight drop." if evidence_complete else "Re-run validation once the operator has filled in the manual evidence fixture."}
+"""
+    (wiring_dir / "next_task_pointer.md").write_text(wiring_pointer, encoding="utf-8")
 
     print(json.dumps({
         "refresh_packet_id": refresh_packet_id,

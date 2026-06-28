@@ -1,0 +1,14 @@
+{
+  "approval_valid_for_dispatch": false,
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "public_postable": false,
+  "resolution_reason": "Explicit CLI --fixture-file argument supplied.",
+  "resolved_fixture_file": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-5554\\test_cli_override_console0\\cli_fixture.json",
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_VALIDATOR_WIRING_AND_SAFE_FIXTURE_IMPORT_V0",
+  "wiring_status": "WIRING_SUCCESS"
+}
