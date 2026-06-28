@@ -1,0 +1,33 @@
+{
+  "approval_valid_for_dispatch": false,
+  "blockers": [
+    "destination_binding_incomplete",
+    "kill_switch_active",
+    "live_write_authorization_missing",
+    "operator_approval_incomplete",
+    "operator_signature_missing",
+    "outbox_creation_blocked",
+    "publication_blocked_until_source_verification",
+    "safety_review_incomplete",
+    "source_verification_required"
+  ],
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "discord_status_preview_created": true,
+  "dispatch_allowed_now": false,
+  "env_read_performed": false,
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "live_discord_webhook_call_performed": false,
+  "live_telegram_api_call_performed": false,
+  "live_write_allowed_now": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN_AND_BROWSER_SAFETY_QA_HEAVY_BATCH_V0",
+  "operator_bridge_status": "READY_FOR_REVIEW_ONLY_REDACTED_STATUS",
+  "outbox_entry_created": false,
+  "platform_api_call_performed": false,
+  "provider_call_performed": false,
+  "public_postable": false,
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0",
+  "telegram_status_preview_created": true
+}

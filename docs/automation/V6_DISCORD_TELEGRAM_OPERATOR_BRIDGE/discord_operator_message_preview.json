@@ -1,0 +1,6 @@
+{
+  "content_body": "**ContentOps V6 Operator Status**\n**[REVIEW-ONLY PREVIEW - PUBLICATION BLOCKED]**\n**Payload Hash**: `9da49588` (Full: `9da4958812fbc5e91b3247e372f160ea3a47f5886fc2630d08a54d91433e0b67`)\n**Platform Families**: discord_drop, facebook_manual_post, instagram_manual_caption, linkedin_manual_post, manual_fallback_export, substack_canonical, telegram_operator_post, threads_manual_post, x_manual_thread\n**Status**: READY_FOR_REVIEW_ONLY_HASHED_PAYLOADS\n**Source Verification Warning**: Source verification is missing. Publication is blocked.\n**Approval Required Warning**: Jim must manually sign and review before dispatch.\n**Manual Fallback Instructions**: Copy generated variant payload files from `docs/automation/` and publish manually if needed.\n**Active Blockers**:\n- `destination_binding_incomplete`\n- `kill_switch_active`\n- `live_write_authorization_missing`\n- `operator_approval_incomplete`\n- `operator_signature_missing`\n- `outbox_creation_blocked`\n- `publication_blocked_until_source_verification`\n- `safety_review_incomplete`\n- `source_verification_required`",
+  "raw_text_length": 1065,
+  "review_only": true,
+  "title": "ContentOps V6 Operator Status"
+}

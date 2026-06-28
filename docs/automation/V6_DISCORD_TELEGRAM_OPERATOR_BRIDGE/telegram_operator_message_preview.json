@@ -1,0 +1,5 @@
+{
+  "content_body": "*ContentOps V6 Operator Status*\n*[REVIEW-ONLY PREVIEW - PUBLICATION BLOCKED]*\nPayload Hash: `9da4958812fbc5e91b3247e372f160ea3a47f5886fc2630d08a54d91433e0b67`\nDraft Status: BLOCKED_REVIEW_ONLY_ISSUES_FOUND\nSource Verification Required: TRUE\nApproval Not Valid for Dispatch: TRUE\nKill Switch Active: TRUE\nTop Blockers:\n- `destination_binding_incomplete`\n- `kill_switch_active`\n- `live_write_authorization_missing`\nManual Fallback Instructions: Copy variant JSON payloads and perform manual operator post.\nReview-Only Label: Pending Verification.",
+  "raw_text_length": 544,
+  "review_only": true
+}

@@ -1,0 +1,39 @@
+{
+  "approval_valid_for_dispatch": false,
+  "blocker_count": 9,
+  "blockers": [
+    "destination_binding_incomplete",
+    "kill_switch_active",
+    "live_write_authorization_missing",
+    "operator_approval_incomplete",
+    "operator_signature_missing",
+    "outbox_creation_blocked",
+    "publication_blocked_until_source_verification",
+    "safety_review_incomplete",
+    "source_verification_required"
+  ],
+  "destination_binding_complete": false,
+  "dispatch_allowed_now": false,
+  "draft_inspector_status": "BLOCKED_REVIEW_ONLY_ISSUES_FOUND",
+  "kill_switch_active": true,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN_AND_BROWSER_SAFETY_QA_HEAVY_BATCH_V0",
+  "operator_signature_valid": false,
+  "outbox_dispatchable": false,
+  "per_platform_payload_count": 9,
+  "platform_families": [
+    "discord_drop",
+    "facebook_manual_post",
+    "instagram_manual_caption",
+    "linkedin_manual_post",
+    "manual_fallback_export",
+    "substack_canonical",
+    "telegram_operator_post",
+    "threads_manual_post",
+    "x_manual_thread"
+  ],
+  "publication_allowed": false,
+  "redaction_policy": "NO_SECRET_VALUES_NO_IDS_NO_URLS",
+  "source_verification_required": true,
+  "unified_payload_bundle_hash": "9da4958812fbc5e91b3247e372f160ea3a47f5886fc2630d08a54d91433e0b67",
+  "unified_payload_status": "READY_FOR_REVIEW_ONLY_HASHED_PAYLOADS"
+}
