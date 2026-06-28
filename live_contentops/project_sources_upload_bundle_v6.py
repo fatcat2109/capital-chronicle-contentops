@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_OPERATOR_EVIDENCE_INTAKE_STUDIO_AND_VALIDATION_WORKBENCH_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_NETWORK_SCOPE_POLICY_REFRESH_AND_INTAKE_STUDIO_RECLASSIFICATION_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 
@@ -60,6 +60,9 @@ Please upload the following files to the ChatGPT Project Sources:
 11. `docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_intake_studio_packet.json`
 12. `docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_fixture.validation_preview.json`
 13. `docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_submission_runbook.md`
+14. `docs/automation/V6_NETWORK_SCOPE_POLICY/scoped_network_policy_v6.md`
+15. `docs/automation/V6_NETWORK_SCOPE_POLICY/network_resource_allowlist.json`
+16. `docs/automation/V6_NETWORK_SCOPE_POLICY/network_scope_policy_packet.json`
 
 ## Deprioritized Older Documents
 You can deprioritize or remove older V6 draft outlines, platform variant files, or temporary preflight logs that are not listed above, to keep context usage clean.
@@ -80,8 +83,8 @@ def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) 
 - **Branch**: master
 - **Baseline before upload bundle task**: {BASELINE_BEFORE_UPLOAD_BUNDLE_TASK}
 - **Upload bundle generation HEAD (pre-commit generation input only, not runtime authority)**: {head_sha} (requires GitHub audit after push)
-- **Latest Accepted Task**: TASK_CONTENTOPS_V6_PROJECT_SOURCES_METADATA_REPAIR_AND_PIPELINE_STATUS_HARDENING_HEAVY_BATCH_V0
-- **Current Intake Studio Task**: TASK_CONTENTOPS_V6_OPERATOR_EVIDENCE_INTAKE_STUDIO_AND_VALIDATION_WORKBENCH_HEAVY_BATCH_V0
+- **Latest Accepted Task**: TASK_CONTENTOPS_V6_OPERATOR_EVIDENCE_INTAKE_STUDIO_AND_VALIDATION_WORKBENCH_HEAVY_BATCH_V0
+- **Current Network Scope Policy Task**: TASK_CONTENTOPS_V6_NETWORK_SCOPE_POLICY_REFRESH_AND_INTAKE_STUDIO_RECLASSIFICATION_HEAVY_BATCH_V0
 
 ## Safety & Governance Rules
 - Environment access, provider integrations, and live adapter capabilities are permitted only when explicitly scoped via a task contract under the V6 Fast Ship Operating Profile.
@@ -186,6 +189,9 @@ def generate_implementation_report_markdown(bundle_status: str, head_sha: str) -
   - operator_evidence_intake_studio_packet.json
   - operator_evidence_fixture.validation_preview.json
   - operator_evidence_submission_runbook.md
+  - scoped_network_policy_v6.md
+  - network_resource_allowlist.json
+  - network_scope_policy_packet.json
 
 - **Safety Checks Pass**:
   - No secret output: `true`
@@ -275,7 +281,10 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
         "docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_intake_studio_packet.json",
         "docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_fixture.validation_preview.json",
-        "docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_submission_runbook.md"
+        "docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_submission_runbook.md",
+        "docs/automation/V6_NETWORK_SCOPE_POLICY/scoped_network_policy_v6.md",
+        "docs/automation/V6_NETWORK_SCOPE_POLICY/network_resource_allowlist.json",
+        "docs/automation/V6_NETWORK_SCOPE_POLICY/network_scope_policy_packet.json"
     ]
 
     packet = {
@@ -285,7 +294,7 @@ def materialize_project_sources_upload_bundle_packets(
         "source_readiness_evidence_bundle_packet_id": source_readiness_bundle_packet_id,
         "source_supervised_dispatch_readiness_packet_id": source_supervised_dispatch_readiness_packet_id,
         "baseline_before_upload_bundle_task": BASELINE_BEFORE_UPLOAD_BUNDLE_TASK,
-        "previous_accepted_pipeline_status_head": "a3ea3d3b9f01ba26eb89912d2577190c927200f8",
+        "previous_accepted_pipeline_status_head": "669bcb48285116d4b1cef8d08c63afcfae4e198c",
         "bundle_generation_head": head_sha,
         "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
         "final_head_requires_post_push_audit": True,

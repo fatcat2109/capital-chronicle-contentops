@@ -17,6 +17,9 @@ Please upload the following files to the ChatGPT Project Sources:
 11. `docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_intake_studio_packet.json`
 12. `docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_fixture.validation_preview.json`
 13. `docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_submission_runbook.md`
+14. `docs/automation/V6_NETWORK_SCOPE_POLICY/scoped_network_policy_v6.md`
+15. `docs/automation/V6_NETWORK_SCOPE_POLICY/network_resource_allowlist.json`
+16. `docs/automation/V6_NETWORK_SCOPE_POLICY/network_scope_policy_packet.json`
 
 ## Deprioritized Older Documents
 You can deprioritize or remove older V6 draft outlines, platform variant files, or temporary preflight logs that are not listed above, to keep context usage clean.

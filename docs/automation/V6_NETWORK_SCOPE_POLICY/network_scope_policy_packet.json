@@ -1,0 +1,23 @@
+{
+  "action_classes": [
+    "passive_static_resource",
+    "active_read_api",
+    "provider_generation_api",
+    "browser_cdp_readonly",
+    "browser_cdp_supervised_write",
+    "platform_api_supervised_write",
+    "live_dispatch_write",
+    "credential_presence_check",
+    "credential_hydration",
+    "forbidden_session_or_secret_extraction"
+  ],
+  "approval_valid_for_dispatch": false,
+  "dispatch_allowed_now": false,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "policy_compliance_status": "POLICY_COMPLIANCE_SUCCESS",
+  "policy_packet_id": "policy_ce12f69b794c",
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_NETWORK_SCOPE_POLICY_REFRESH_AND_INTAKE_STUDIO_RECLASSIFICATION_HEAVY_BATCH_V0",
+  "violations": []
+}

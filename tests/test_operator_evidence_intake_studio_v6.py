@@ -16,6 +16,9 @@ def test_committed_packet_is_blocked():
     assert data["live_write_allowed_now"] is False
     assert data["approval_valid_for_dispatch"] is False
     assert data["kill_switch_active"] is True
+    assert data["network_scope"] == "passive_static_resource"
+    assert "google_fonts" in data["declared_external_resources"]
+    assert data["offline_fallback_enabled"] is True
     assert data["next_recommended_task"] == "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
 
 

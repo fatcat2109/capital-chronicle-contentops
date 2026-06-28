@@ -9,8 +9,8 @@
   --neon-red: #f44336;
   --text-primary: #e0e0e5;
   --text-secondary: #a0a2b0;
-  --font-main: 'Outfit', sans-serif;
-  --font-header: 'Space Grotesk', sans-serif;
+  --font-main: 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-header: 'Space Grotesk', system-ui, -apple-system, sans-serif;
 }
 
 * {

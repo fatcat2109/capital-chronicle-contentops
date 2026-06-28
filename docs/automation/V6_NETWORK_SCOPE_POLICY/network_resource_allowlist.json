@@ -1,0 +1,19 @@
+[
+  {
+    "action_class": "passive_static_resource",
+    "audit_required": true,
+    "cookies_or_storage_access": false,
+    "credentials_required": false,
+    "dispatch_related": false,
+    "domains": [
+      "fonts.googleapis.com",
+      "fonts.gstatic.com"
+    ],
+    "fallback": "system font stack if offline",
+    "live_write": false,
+    "platform_api": false,
+    "provider_api": false,
+    "purpose": "passive typography/cosmetic UI only",
+    "resource_family": "google_fonts"
+  }
+]

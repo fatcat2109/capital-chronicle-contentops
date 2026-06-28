@@ -295,6 +295,10 @@ def main(argv: list[str] | None = None) -> int:
         "live_write_allowed_now": False,
         "approval_valid_for_dispatch": False,
         "kill_switch_active": True,
+        "network_scope": "passive_static_resource",
+        "declared_external_resources": ["google_fonts"],
+        "offline_fallback_enabled": True,
+        "offline_fallback_note": "If offline, UI font styling falls back to system font stack (system-ui, -apple-system, sans-serif) to ensure full local-first operability.",
         "next_recommended_task": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
     }
     write_json(out_dir / "operator_evidence_intake_studio_packet.json", studio_packet)
