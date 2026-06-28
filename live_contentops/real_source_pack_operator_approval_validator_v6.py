@@ -101,6 +101,23 @@ def validate_operator_approval_gate(
         blockers.append("operator_approval_creation_detected")
         failed = True
 
+    # Check non-null/non-empty template fields
+    if template.get("approval_id") is not None and template.get("approval_id") != "":
+        blockers.append("approval_id_present")
+        failed = True
+    if template.get("operator_id_redacted") is not None and template.get("operator_id_redacted") != "":
+        blockers.append("operator_identity_present")
+        failed = True
+    if template.get("operator_signature_redacted") is not None and template.get("operator_signature_redacted") != "":
+        blockers.append("operator_signature_present")
+        failed = True
+    if template.get("source_pack_hash_redacted") is not None and template.get("source_pack_hash_redacted") != "":
+        blockers.append("source_pack_hash_present")
+        failed = True
+    if template.get("approved_at_redacted") is not None and template.get("approved_at_redacted") != "":
+        blockers.append("approval_timestamp_present")
+        failed = True
+
     # 4. Check non-null approved IDs
     if len(gate_packet.get("approved_source_requirement_ids", [])) > 0 or len(gate_packet.get("approved_claim_ids", [])) > 0:
         blockers.append("active_approval_claims_detected")

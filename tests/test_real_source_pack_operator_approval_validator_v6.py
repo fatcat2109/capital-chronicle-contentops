@@ -70,3 +70,106 @@ def test_no_forbidden_imports_in_validator():
     forbidden = ["urlopen", "requests", "httpx", "getenv", "environ", "openai", "anthropic", "google"]
     for f in forbidden:
         assert f not in attrs
+
+
+def test_validator_fails_on_non_null_approval_id():
+    gate_packet = {
+        "approval_gate_status": "OPERATOR_APPROVAL_REQUIRED",
+        "runtime_truth": False,
+        "operator_approval_created": False,
+        "operator_signature_present": False,
+        "source_pack_hash_present": False
+    }
+    template = template_builder.make_operator_approval_template()
+    template["approval_id"] = "approval_123"
+    matrix = gate_mod.make_approval_readiness_matrix()
+
+    report, blockers = validator.validate_operator_approval_gate(gate_packet, template, matrix)
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "approval_id_present" in blockers
+
+
+def test_validator_fails_on_non_null_operator_identity():
+    gate_packet = {
+        "approval_gate_status": "OPERATOR_APPROVAL_REQUIRED",
+        "runtime_truth": False,
+        "operator_approval_created": False,
+        "operator_signature_present": False,
+        "source_pack_hash_present": False
+    }
+    template = template_builder.make_operator_approval_template()
+    template["operator_id_redacted"] = "jim"
+    matrix = gate_mod.make_approval_readiness_matrix()
+
+    report, blockers = validator.validate_operator_approval_gate(gate_packet, template, matrix)
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_identity_present" in blockers
+
+
+def test_validator_fails_on_non_null_operator_signature():
+    gate_packet = {
+        "approval_gate_status": "OPERATOR_APPROVAL_REQUIRED",
+        "runtime_truth": False,
+        "operator_approval_created": False,
+        "operator_signature_present": False,
+        "source_pack_hash_present": False
+    }
+    template = template_builder.make_operator_approval_template()
+    template["operator_signature_redacted"] = "jim_sig"
+    matrix = gate_mod.make_approval_readiness_matrix()
+
+    report, blockers = validator.validate_operator_approval_gate(gate_packet, template, matrix)
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_signature_present" in blockers
+
+
+def test_validator_fails_on_non_null_source_pack_hash():
+    gate_packet = {
+        "approval_gate_status": "OPERATOR_APPROVAL_REQUIRED",
+        "runtime_truth": False,
+        "operator_approval_created": False,
+        "operator_signature_present": False,
+        "source_pack_hash_present": False
+    }
+    template = template_builder.make_operator_approval_template()
+    template["source_pack_hash_redacted"] = "hash123"
+    matrix = gate_mod.make_approval_readiness_matrix()
+
+    report, blockers = validator.validate_operator_approval_gate(gate_packet, template, matrix)
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "source_pack_hash_present" in blockers
+
+
+def test_validator_fails_on_non_null_approved_at():
+    gate_packet = {
+        "approval_gate_status": "OPERATOR_APPROVAL_REQUIRED",
+        "runtime_truth": False,
+        "operator_approval_created": False,
+        "operator_signature_present": False,
+        "source_pack_hash_present": False
+    }
+    template = template_builder.make_operator_approval_template()
+    template["approved_at_redacted"] = "2026-06-28T00:00:00Z"
+    matrix = gate_mod.make_approval_readiness_matrix()
+
+    report, blockers = validator.validate_operator_approval_gate(gate_packet, template, matrix)
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "approval_timestamp_present" in blockers
+
+
+def test_validator_fails_on_non_empty_approved_lists():
+    gate_packet = {
+        "approval_gate_status": "OPERATOR_APPROVAL_REQUIRED",
+        "runtime_truth": False,
+        "operator_approval_created": False,
+        "operator_signature_present": False,
+        "source_pack_hash_present": False,
+        "approved_source_requirement_ids": ["req_123"]
+    }
+    template = template_builder.make_operator_approval_template()
+    matrix = gate_mod.make_approval_readiness_matrix()
+
+    report, blockers = validator.validate_operator_approval_gate(gate_packet, template, matrix)
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "active_approval_claims_detected" in blockers
+
