@@ -1,0 +1,19 @@
+{
+  "approval_simulation_used": true,
+  "approval_valid_for_draft_generation_only_in_test": true,
+  "approved_at_persisted": false,
+  "committed_runtime_approval_created": false,
+  "dispatch_allowed_now": false,
+  "operator_signature_persisted": false,
+  "public_postable": false,
+  "publication_allowed": false,
+  "raw_evidence_hashes_persisted": false,
+  "raw_source_excerpts_persisted": false,
+  "raw_source_urls_persisted": false,
+  "raw_values_persisted": false,
+  "real_jim_approval_created": false,
+  "real_operator_approval_created": false,
+  "runtime_truth": false,
+  "source_pack_hash_persisted": false,
+  "test_only": true
+}

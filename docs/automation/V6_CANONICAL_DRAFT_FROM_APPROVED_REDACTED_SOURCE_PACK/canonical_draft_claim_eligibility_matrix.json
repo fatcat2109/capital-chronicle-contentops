@@ -1,0 +1,56 @@
+[
+  {
+    "allowed_for_publication": false,
+    "blockers": [
+      "runtime_operator_approval_missing",
+      "raw_source_values_not_available_for_model",
+      "publication_blocked",
+      "dispatch_blocked"
+    ],
+    "claim_id": "claim_d474a9fdbcd6",
+    "eligible_for_runtime_draft": false,
+    "eligible_for_test_only_draft_outline": true,
+    "redacted_presence_available": true,
+    "runtime_approval_present": false,
+    "source_pack_approval_simulated": true,
+    "source_requirement_refs": [
+      "req_67a5db6704f5"
+    ]
+  },
+  {
+    "allowed_for_publication": false,
+    "blockers": [
+      "runtime_operator_approval_missing",
+      "raw_source_values_not_available_for_model",
+      "publication_blocked",
+      "dispatch_blocked"
+    ],
+    "claim_id": "claim_63d1cf20e9bf",
+    "eligible_for_runtime_draft": false,
+    "eligible_for_test_only_draft_outline": true,
+    "redacted_presence_available": true,
+    "runtime_approval_present": false,
+    "source_pack_approval_simulated": true,
+    "source_requirement_refs": [
+      "req_bfcb46cc38cc"
+    ]
+  },
+  {
+    "allowed_for_publication": false,
+    "blockers": [
+      "runtime_operator_approval_missing",
+      "raw_source_values_not_available_for_model",
+      "publication_blocked",
+      "dispatch_blocked"
+    ],
+    "claim_id": "claim_492c29ad9746",
+    "eligible_for_runtime_draft": false,
+    "eligible_for_test_only_draft_outline": true,
+    "redacted_presence_available": true,
+    "runtime_approval_present": false,
+    "source_pack_approval_simulated": true,
+    "source_requirement_refs": [
+      "req_e6edaf8e7750"
+    ]
+  }
+]
