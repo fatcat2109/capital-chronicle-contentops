@@ -6,14 +6,17 @@
   "evidence_complete": false,
   "kill_switch_active": true,
   "live_write_allowed_now": false,
-  "next_recommended_task": "TASK_CONTENTOPS_V6_ADAPTER_RECONCILIATION_FIELD_NORMALIZATION_AND_OPERATOR_EVIDENCE_CONSOLE_V0",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0",
+  "next_task_pointer_is_soft": true,
   "operator_evidence_console_packet_id": "console_2920ae741c46",
   "operator_idea_source_ref_resolved": false,
+  "operator_next_action": "Jim fills operator_evidence_fixture.json with verified evidence.",
   "outbox_entry_created": false,
   "payload_hash_created": false,
   "public_postable": false,
   "raw_secret_output": false,
   "schema_version": "6.0.0",
   "task_label": "TASK_CONTENTOPS_V6_ADAPTER_RECONCILIATION_FIELD_NORMALIZATION_AND_OPERATOR_EVIDENCE_CONSOLE_V0",
+  "validator_next_task": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0",
   "webhook_url_printed": false
 }

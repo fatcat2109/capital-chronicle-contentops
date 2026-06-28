@@ -41,11 +41,12 @@ def generate_fill_instructions() -> str:
 
 Jim, please use this console folder to submit verified evidence.
 
-## Instructions
-1. Copy the file `operator_evidence_fixture.blank.json` to `operator_evidence_fixture.json` in this directory.
-2. Complete each slot with verified manual evidence.
-3. Once completed, run the validator:
-   `python live_contentops/manual_evidence_fixture_validator_v6.py`
+## Core Workflow Steps
+* **Step 1**: Jim copies the file `operator_evidence_fixture.blank.json` to `operator_evidence_fixture.json` and fills it with verified manual evidence.
+* **Step 2**: Antigravity runs the validator lane after the filled fixture is available.
+* **Step 3**: The validator scans the inputs and refreshes evidence/source submission status.
+
+Note: Filling out the fixture does NOT automatically trigger approval, outbox posting, payload hash generation, or live dispatch.
 
 ## Slots to Complete
 * `operator_idea_source_ref`: Reference link or path to the original source.
@@ -74,13 +75,18 @@ Before submitting, check the following guidelines:
 
 
 def generate_next_task_pointer() -> str:
-    return f"""# Next Task Pointer
+    return """# Next Task Pointer
 
 Recommended next task at time of bundle generation (not permanent authority):
 
-`{TASK_LABEL}`
+`TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0`
 
-Goal: Run the validator lane once Jim has supplied the manual evidence fixture.
+Goal: Run the validator lane after the operator has supplied the manual evidence fixture in operator_evidence_fixture.json.
+
+Workflow Steps:
+1. Step 1: Jim copies/fills operator_evidence_fixture.json with verified evidence slots.
+2. Step 2: Antigravity runs the manual evidence fixture validator lane after the filled fixture is available.
+3. Step 3: The validator dynamically parses, scans for unsafe values, and refreshes the evidence/source submission status.
 """
 
 
@@ -143,7 +149,10 @@ def main(argv: list[str] | None = None) -> int:
         "public_postable": False,
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": TASK_LABEL
+        "operator_next_action": "Jim fills operator_evidence_fixture.json with verified evidence.",
+        "validator_next_task": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0",
+        "next_recommended_task": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0",
+        "next_task_pointer_is_soft": True
     }
     write_json(out_dir / "operator_evidence_console_packet.json", packet)
 

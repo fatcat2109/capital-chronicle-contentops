@@ -23,6 +23,9 @@ def test_console_packet_has_secure_flags():
     assert data["kill_switch_active"] is True
     assert data["public_postable"] is False
     
+    assert data["next_recommended_task"] == "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
+    assert data["validator_next_task"] == "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
+    assert data["next_task_pointer_is_soft"] is True
     assert data.get("raw_secret_output", False) is False
     assert data.get("webhook_url_printed", False) is False
 

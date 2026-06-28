@@ -2,11 +2,12 @@
 
 Jim, please use this console folder to submit verified evidence.
 
-## Instructions
-1. Copy the file `operator_evidence_fixture.blank.json` to `operator_evidence_fixture.json` in this directory.
-2. Complete each slot with verified manual evidence.
-3. Once completed, run the validator:
-   `python live_contentops/manual_evidence_fixture_validator_v6.py`
+## Core Workflow Steps
+* **Step 1**: Jim copies the file `operator_evidence_fixture.blank.json` to `operator_evidence_fixture.json` and fills it with verified manual evidence.
+* **Step 2**: Antigravity runs the validator lane after the filled fixture is available.
+* **Step 3**: The validator scans the inputs and refreshes evidence/source submission status.
+
+Note: Filling out the fixture does NOT automatically trigger approval, outbox posting, payload hash generation, or live dispatch.
 
 ## Slots to Complete
 * `operator_idea_source_ref`: Reference link or path to the original source.
