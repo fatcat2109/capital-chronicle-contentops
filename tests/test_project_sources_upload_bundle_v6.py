@@ -152,7 +152,7 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
     
     # 1. Assert packet values
-    assert packet["task_label"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
+    assert packet["task_label"] == "TASK_CONTENTOPS_V6_DESTINATION_BINDING_AND_OUTBOX_DRAFT_LANE_HEAVY_BATCH_V0"
     assert packet["final_head_requires_post_push_audit"] is True
     assert packet["previous_accepted_pipeline_status_head"] == "9571d900552122c0d1c110017d718c7e4b7f375d"
     assert "pre_commit_generation_head_input_only" in packet["bundle_generation_head_label"]
@@ -229,7 +229,23 @@ def test_valid_payload_hash_unblocks_hash_pointer(tmp_path):
     packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
 
     assert "payload_hash_incomplete" not in packet["unresolved_blockers"]
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_SIGN_PAYLOAD_HASH_MANUAL_STEP"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP"
+
+
+def test_valid_signature_routes_to_supervised_dispatch_readiness(tmp_path):
+    rb_path, dr_path = write_temp_readiness_inputs(tmp_path, include_valid_hash=True)
+    (tmp_path / "delegated_evidence_refresh_result.json").write_text(json.dumps({"evidence_complete": True}), encoding="utf-8")
+    
+    # Write a valid signature so destination binding validates
+    (tmp_path / "destination_binding_outbox_draft_packet.json").write_text(json.dumps({
+        "operator_signature_valid": True,
+        "destination_outbox_status": "OUTBOX_DRAFT_READY_FOR_REVIEW"
+    }, indent=2), encoding="utf-8")
+
+    packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
+
+    assert "payload_hash_incomplete" not in packet["unresolved_blockers"]
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION_LANE_HEAVY_BATCH_V0"
 
 
 def test_placeholder_hash_does_not_unblock_hash_pointer(tmp_path):

@@ -12,12 +12,14 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_DESTINATION_BINDING_AND_OUTBOX_DRAFT_LANE_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
 NEXT_APPROVAL_TASK = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
 NEXT_MANUAL_SIGN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_SIGN_PAYLOAD_HASH_MANUAL_STEP"
+NEXT_CAPTURE_RUN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP"
+NEXT_DISPATCH_READINESS_TASK = "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION_LANE_HEAVY_BATCH_V0"
 
 DEFAULT_READINESS_BUNDLE = Path("docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json")
 DEFAULT_DISPATCH_READINESS = Path("docs/automation/V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json")
@@ -127,12 +129,15 @@ You can deprioritize or remove older V6 draft outlines, platform variant files, 
 """
 
 
-def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) -> str:
-    next_task = NEXT_MANUAL_SIGN_TASK if "payload_hash_incomplete" not in blockers else PAYLOAD_HASH_TASK
+def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str], next_task: str = NEXT_CAPTURE_RUN_TASK) -> str:
     next_goal = (
         "Jim manually signs payload hash review intent while keeping dispatch validity disabled."
         if next_task == NEXT_MANUAL_SIGN_TASK
-        else "Produce or repair exact safe payload preview and deterministic non-placeholder payload hash."
+        else (
+            "Verify destination binding and outbox draft after operator signature validation succeeds."
+            if next_task == NEXT_CAPTURE_RUN_TASK
+            else "Revalidate supervised dispatch readiness after outbox draft review."
+        )
     )
     return f"""TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V0
 
@@ -168,9 +173,8 @@ def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) 
 """
 
 
-def generate_current_state_summary_markdown(head_sha: str, blockers: list[str]) -> str:
+def generate_current_state_summary_markdown(head_sha: str, blockers: list[str], next_task: str = NEXT_CAPTURE_RUN_TASK) -> str:
     blockers_list = "\n".join(f"- {b}" for b in blockers) if blockers else "- None"
-    next_task = NEXT_MANUAL_SIGN_TASK if "payload_hash_incomplete" not in blockers else PAYLOAD_HASH_TASK
     return f"""# Current State Summary (V6 Readiness)
 
 ## Repository Metadata
@@ -298,14 +302,14 @@ def generate_implementation_report_markdown(bundle_status: str, head_sha: str) -
 """
 
 
-def generate_next_task_pointer_markdown() -> str:
+def generate_next_task_pointer_markdown(next_task: str = NEXT_CAPTURE_RUN_TASK) -> str:
     return f"""# Next Task Pointer
 
 Recommended next task at time of bundle generation (not permanent authority):
 
-`{NEXT_MANUAL_SIGN_TASK}`
+`{next_task}`
 
-Goal: Jim manually signs payload hash review intent while keeping dispatch validity disabled.
+Goal: Progress the pipeline by resolving the next recommended gate.
 """
 
 
@@ -383,6 +387,29 @@ def materialize_project_sources_upload_bundle_packets(
                 payload_hash_created = True
         except Exception:
             pass
+
+    operator_signature_valid = False
+
+    # Check relative paths first (for test isolation)
+    rel_dest_path = readiness_bundle_path.parent / "destination_binding_outbox_draft_packet.json"
+    if rel_dest_path.exists():
+        try:
+            dest_packet = json.loads(rel_dest_path.read_text(encoding="utf-8"))
+            if dest_packet.get("operator_signature_valid") is True:
+                operator_signature_valid = True
+        except Exception:
+            pass
+
+    # Check default paths if sibling is not found/valid
+    if not operator_signature_valid:
+        default_dest_path = Path("docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_outbox_draft_packet.json")
+        if default_dest_path.exists():
+            try:
+                dest_packet = json.loads(default_dest_path.read_text(encoding="utf-8"))
+                if dest_packet.get("operator_signature_valid") is True:
+                    operator_signature_valid = True
+            except Exception:
+                pass
 
     if readiness_bundle_path.parent.parent:
         sibling_hash_path = readiness_bundle_path.parent.parent / "V6_PAYLOAD_PREVIEW_HASH/payload_preview_hash_packet.json"
@@ -546,9 +573,10 @@ def materialize_project_sources_upload_bundle_packets(
         "raw_secret_output": False,
         "webhook_url_printed": False,
         "next_recommended_task": (
-            NEXT_MANUAL_SIGN_TASK if payload_hash_created
-            else (PAYLOAD_HASH_TASK if evidence_complete
-                  else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0")
+            NEXT_DISPATCH_READINESS_TASK if operator_signature_valid
+            else (NEXT_CAPTURE_RUN_TASK if payload_hash_created
+                  else (PAYLOAD_HASH_TASK if evidence_complete
+                        else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"))
         )
     }
 
@@ -583,13 +611,13 @@ def main(argv: list[str] | None = None) -> int:
 
     # NEW_CHAT_CONTINUATION_V6_READINESS.md
     (out_dir / "NEW_CHAT_CONTINUATION_V6_READINESS.md").write_text(
-        generate_new_chat_continuation_markdown(packet["bundle_generation_head"], packet["unresolved_blockers"]),
+        generate_new_chat_continuation_markdown(packet["bundle_generation_head"], packet["unresolved_blockers"], packet["next_recommended_task"]),
         encoding="utf-8"
     )
 
     # CURRENT_STATE_SUMMARY_V6_READINESS.md
     (out_dir / "CURRENT_STATE_SUMMARY_V6_READINESS.md").write_text(
-        generate_current_state_summary_markdown(packet["bundle_generation_head"], packet["unresolved_blockers"]),
+        generate_current_state_summary_markdown(packet["bundle_generation_head"], packet["unresolved_blockers"], packet["next_recommended_task"]),
         encoding="utf-8"
     )
 
@@ -605,7 +633,7 @@ def main(argv: list[str] | None = None) -> int:
 
     # next_task_pointer.md
     (out_dir / "next_task_pointer.md").write_text(
-        generate_next_task_pointer_markdown(), encoding="utf-8"
+        generate_next_task_pointer_markdown(packet["next_recommended_task"]), encoding="utf-8"
     )
 
     # METADATA_INTEGRITY_NOTE.md

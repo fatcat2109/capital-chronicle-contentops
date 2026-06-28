@@ -1,0 +1,14 @@
+[
+  {
+    "account_binding_required_before_live": true,
+    "credential_handle_required_later": true,
+    "credential_hydrated": false,
+    "destination_class": "operator_review_only",
+    "destination_identifier_redacted_or_absent": true,
+    "dispatch_adapter_class": "not_enabled",
+    "live_destination_bound": false,
+    "manual_fallback_required": true,
+    "official_docs_required_before_live": true,
+    "platform_family": "telegram"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "destination_binding_complete": false,
+  "dispatch_allowed_now": false,
+  "is_local_only": true,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "operator_signature_valid": false,
+  "outbox_draft_created": false,
+  "outbox_entry_created": false,
+  "public_postable": false,
+  "validation_blockers": [
+    "operator_signature_missing"
+  ]
+}

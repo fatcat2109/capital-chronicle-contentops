@@ -1,0 +1,22 @@
+{
+  "approval_valid_for_dispatch": false,
+  "blockers": [
+    "operator_signature_missing"
+  ],
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "destination_binding_complete": false,
+  "destination_outbox_status": "BLOCKED_AWAITING_OPERATOR_SIGNATURE",
+  "dispatch_allowed_now": false,
+  "is_local_only": true,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP",
+  "operator_signature_valid": false,
+  "outbox_dispatchable": false,
+  "outbox_draft_created": false,
+  "outbox_entry_created": false,
+  "public_postable": false,
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_DESTINATION_BINDING_AND_OUTBOX_DRAFT_LANE_HEAVY_BATCH_V0"
+}

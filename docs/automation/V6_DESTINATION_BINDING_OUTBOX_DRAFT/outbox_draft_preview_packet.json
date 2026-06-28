@@ -1,0 +1,7 @@
+{
+  "blockers": [
+    "operator_signature_missing"
+  ],
+  "dispatchable": false,
+  "outbox_draft_created": false
+}
