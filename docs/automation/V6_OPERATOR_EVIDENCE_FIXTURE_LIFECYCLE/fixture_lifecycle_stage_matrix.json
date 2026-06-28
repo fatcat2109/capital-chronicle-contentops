@@ -1,0 +1,45 @@
+{
+  "schema_version": "6.0.0",
+  "stages": {
+    "approval_gate_pending": {
+      "description": "Awaiting approval gate review after preflight.",
+      "status": "PENDING"
+    },
+    "authoring_template_available": {
+      "description": "Intake Studio authoring templates are generated.",
+      "status": "PASS"
+    },
+    "blank_template_available": {
+      "description": "docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.blank.json exists.",
+      "status": "PASS"
+    },
+    "dispatch_locked": {
+      "description": "Kill switch is active. Supervised dispatch is blocked.",
+      "status": "LOCKED"
+    },
+    "dry_run_validation_available": {
+      "description": "Lifecycle validation workbench dry-run checks are callable.",
+      "status": "PASS"
+    },
+    "evidence_complete_check": {
+      "description": "Verification errors: 1 found.",
+      "status": "FAIL"
+    },
+    "operator_fixture_missing": {
+      "description": "True if fixture has not been initialized.",
+      "status": "FAIL"
+    },
+    "placeholder_scan_available": {
+      "description": "Scanner looks for template placeholder strings.",
+      "status": "PASS"
+    },
+    "source_preflight_bridge_pending": {
+      "description": "Awaiting bridge execution after evidence completion.",
+      "status": "PENDING"
+    },
+    "unsafe_value_scan_available": {
+      "description": "Scanner searches for cookies, local paths, credentials, and webhooks.",
+      "status": "PASS"
+    }
+  }
+}

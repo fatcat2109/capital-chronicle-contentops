@@ -1,0 +1,8 @@
+{
+  "dry_run_status": "EMPTY_FIXTURE_AWAITING_OPERATOR_INPUT",
+  "errors_detected": [
+    "Fixture file is missing or unreadable."
+  ],
+  "safe_to_submit": false,
+  "schema_version": "6.0.0"
+}

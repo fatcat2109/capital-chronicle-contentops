@@ -20,6 +20,11 @@ Please upload the following files to the ChatGPT Project Sources:
 14. `docs/automation/V6_NETWORK_SCOPE_POLICY/scoped_network_policy_v6.md`
 15. `docs/automation/V6_NETWORK_SCOPE_POLICY/network_resource_allowlist.json`
 16. `docs/automation/V6_NETWORK_SCOPE_POLICY/network_scope_policy_packet.json`
+17. `docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_lifecycle_packet.json`
+18. `docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_lifecycle_stage_matrix.json`
+19. `docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_dry_run_validation_report.json`
+20. `docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_audit_trail_template.json`
+21. `docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_submission_recovery_runbook.md`
 
 ## Deprioritized Older Documents
 You can deprioritize or remove older V6 draft outlines, platform variant files, or temporary preflight logs that are not listed above, to keep context usage clean.

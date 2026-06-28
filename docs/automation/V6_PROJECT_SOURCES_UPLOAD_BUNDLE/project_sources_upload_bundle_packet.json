@@ -4,7 +4,7 @@
   "approval_required": true,
   "approval_valid_for_dispatch": false,
   "baseline_before_upload_bundle_task": "d97bc3968e1babf48c81f384fb547b439e48515c",
-  "bundle_generation_head": "669bcb48285116d4b1cef8d08c63afcfae4e198c",
+  "bundle_generation_head": "8c7ca6f7f4fa6bf24ea6e3d64f9ce337b62b203b",
   "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
   "bundle_stage": "v6_project_sources_upload_bundle",
   "bundle_status": "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS",
@@ -22,7 +22,7 @@
   "no_provider_call_in_this_task": true,
   "operator_next_actions_file": "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/OPERATOR_NEXT_ACTIONS_V6_READINESS.md",
   "outbox_entry_created": false,
-  "previous_accepted_pipeline_status_head": "669bcb48285116d4b1cef8d08c63afcfae4e198c",
+  "previous_accepted_pipeline_status_head": "8c7ca6f7f4fa6bf24ea6e3d64f9ce337b62b203b",
   "project_sources_upload_bundle_packet_id": "upload_bundle_f1b14f3a439f",
   "public_postable": false,
   "raw_secret_output": false,
@@ -30,7 +30,7 @@
   "schema_version": "6.0.0",
   "source_readiness_evidence_bundle_packet_id": "bundle_fbe34af9e66e",
   "source_supervised_dispatch_readiness_packet_id": "readiness_34edf10af116",
-  "task_label": "TASK_CONTENTOPS_V6_NETWORK_SCOPE_POLICY_REFRESH_AND_INTAKE_STUDIO_RECLASSIFICATION_HEAVY_BATCH_V0",
+  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE_DRY_RUN_AND_AUDIT_TRAIL_HEAVY_BATCH_V0",
   "unresolved_blockers": [
     "destination_binding_incomplete",
     "evidence_incomplete",
@@ -58,7 +58,12 @@
     "docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_submission_runbook.md",
     "docs/automation/V6_NETWORK_SCOPE_POLICY/scoped_network_policy_v6.md",
     "docs/automation/V6_NETWORK_SCOPE_POLICY/network_resource_allowlist.json",
-    "docs/automation/V6_NETWORK_SCOPE_POLICY/network_scope_policy_packet.json"
+    "docs/automation/V6_NETWORK_SCOPE_POLICY/network_scope_policy_packet.json",
+    "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_lifecycle_packet.json",
+    "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_lifecycle_stage_matrix.json",
+    "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_dry_run_validation_report.json",
+    "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_audit_trail_template.json",
+    "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_submission_recovery_runbook.md"
   ],
   "webhook_url_printed": false
 }

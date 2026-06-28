@@ -140,13 +140,18 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
     
     # 1. Assert packet values
-    assert packet["task_label"] == "TASK_CONTENTOPS_V6_NETWORK_SCOPE_POLICY_REFRESH_AND_INTAKE_STUDIO_RECLASSIFICATION_HEAVY_BATCH_V0"
+    assert packet["task_label"] == "TASK_CONTENTOPS_V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE_DRY_RUN_AND_AUDIT_TRAIL_HEAVY_BATCH_V0"
     assert packet["final_head_requires_post_push_audit"] is True
-    assert packet["previous_accepted_pipeline_status_head"] == "669bcb48285116d4b1cef8d08c63afcfae4e198c"
+    assert packet["previous_accepted_pipeline_status_head"] == "8c7ca6f7f4fa6bf24ea6e3d64f9ce337b62b203b"
     assert "pre_commit_generation_head_input_only" in packet["bundle_generation_head_label"]
     assert "docs/automation/V6_NETWORK_SCOPE_POLICY/scoped_network_policy_v6.md" in files
     assert "docs/automation/V6_NETWORK_SCOPE_POLICY/network_resource_allowlist.json" in files
     assert "docs/automation/V6_NETWORK_SCOPE_POLICY/network_scope_policy_packet.json" in files
+    assert "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_lifecycle_packet.json" in files
+    assert "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_lifecycle_stage_matrix.json" in files
+    assert "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_dry_run_validation_report.json" in files
+    assert "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_audit_trail_template.json" in files
+    assert "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_submission_recovery_runbook.md" in files
     
     # 2. Check generate_current_state_summary_markdown details
     summary = upload_lane.generate_current_state_summary_markdown(

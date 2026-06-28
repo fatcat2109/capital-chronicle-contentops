@@ -1,0 +1,19 @@
+{
+  "audit_trail_template": {
+    "approval_valid_for_dispatch": false,
+    "blockers": [
+      "operator_idea_source_ref_missing",
+      "evidence_incomplete"
+    ],
+    "dispatch_allowed_now": false,
+    "event_id": "audit_event_placeholder",
+    "event_type": "LIFECYCLE_DRY_RUN_AUDIT",
+    "fixture_hash_redacted_or_absent": "absent (no real fixture supplied)",
+    "fixture_path": "docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json",
+    "live_write_allowed_now": false,
+    "operator_action_required": "Provide verified facts matching the required 10 slots.",
+    "timestamp_placeholder": "YYYY-MM-DDTHH:MM:SSZ",
+    "validation_status": "EMPTY_FIXTURE_AWAITING_OPERATOR_INPUT"
+  },
+  "schema_version": "6.0.0"
+}
