@@ -1,6 +1,6 @@
 import os
 import json
-from live_contentops.approval_audit_contracts import validate_approval_record
+from live_contentops.approval_ledger import validate_approval_record
 
 FIX_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "fixtures", "approval_ledger")
 
