@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
@@ -120,10 +120,10 @@ You can deprioritize or remove older V6 draft outlines, platform variant files, 
 
 
 def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) -> str:
-    next_task = NEXT_APPROVAL_TASK if "payload_hash_incomplete" not in blockers else PAYLOAD_HASH_TASK
+    next_task = NEXT_MANUAL_SIGN_TASK if "payload_hash_incomplete" not in blockers else PAYLOAD_HASH_TASK
     next_goal = (
-        "Bind Jim's future approval intent to exact payload preview and deterministic payload hash."
-        if next_task == NEXT_APPROVAL_TASK
+        "Jim manually signs payload hash review intent while keeping dispatch validity disabled."
+        if next_task == NEXT_MANUAL_SIGN_TASK
         else "Produce or repair exact safe payload preview and deterministic non-placeholder payload hash."
     )
     return f"""TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V0
@@ -162,7 +162,7 @@ def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) 
 
 def generate_current_state_summary_markdown(head_sha: str, blockers: list[str]) -> str:
     blockers_list = "\n".join(f"- {b}" for b in blockers) if blockers else "- None"
-    next_task = NEXT_APPROVAL_TASK if "payload_hash_incomplete" not in blockers else PAYLOAD_HASH_TASK
+    next_task = NEXT_MANUAL_SIGN_TASK if "payload_hash_incomplete" not in blockers else PAYLOAD_HASH_TASK
     return f"""# Current State Summary (V6 Readiness)
 
 ## Repository Metadata
@@ -522,7 +522,7 @@ def materialize_project_sources_upload_bundle_packets(
         "raw_secret_output": False,
         "webhook_url_printed": False,
         "next_recommended_task": (
-            NEXT_APPROVAL_TASK if payload_hash_created
+            NEXT_MANUAL_SIGN_TASK if payload_hash_created
             else (PAYLOAD_HASH_TASK if evidence_complete
                   else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0")
         )
