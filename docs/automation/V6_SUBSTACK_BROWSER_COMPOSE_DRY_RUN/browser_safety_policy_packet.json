@@ -1,0 +1,18 @@
+{
+  "account_switching_allowed": false,
+  "cdp_token_inspection_allowed": false,
+  "cookie_read_allowed": false,
+  "credentials_hydrated": false,
+  "env_read_allowed": false,
+  "live_publish_click_allowed": false,
+  "live_schedule_click_allowed": false,
+  "local_storage_read_allowed": false,
+  "manual_fallback_available": true,
+  "network_allowed": false,
+  "public_url_capture_allowed": false,
+  "real_browser_profile_allowed": false,
+  "real_substack_navigation_allowed": false,
+  "schema_version": "6.0.0",
+  "screenshot_allowed_local_mock_only": true,
+  "session_storage_read_allowed": false
+}

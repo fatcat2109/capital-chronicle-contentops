@@ -1,0 +1,9 @@
+{
+  "blocker_count": 2,
+  "blockers": [
+    "publication_blocked_until_source_verification",
+    "source_verification_required"
+  ],
+  "schema_version": "6.0.0",
+  "validation_passed": false
+}

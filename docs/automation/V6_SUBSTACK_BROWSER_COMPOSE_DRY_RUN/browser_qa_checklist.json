@@ -1,0 +1,15 @@
+{
+  "blocker_summary_visible": true,
+  "limitations_and_disclosure_visible": true,
+  "local_mock_file_only": true,
+  "no_cookies_or_session_storage": true,
+  "no_hidden_account_or_destination_selector": true,
+  "no_live_publish_controls_enabled": true,
+  "no_network_or_api_calls": true,
+  "no_public_url_or_metrics": true,
+  "no_real_substack_domain": true,
+  "no_secret_material": true,
+  "payload_hash_visible": true,
+  "review_only_banner_visible": true,
+  "schema_version": "6.0.0"
+}

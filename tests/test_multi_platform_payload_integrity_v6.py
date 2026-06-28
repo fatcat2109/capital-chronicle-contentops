@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 from live_contentops import multi_platform_payload_integrity_v6 as integrity
 
 def test_integrity_validation_checks(tmp_path):
@@ -28,9 +27,6 @@ def test_mutation_after_hash_detected(tmp_path):
     hash_manifest_path.write_text(json.dumps(hash_manifest_data), encoding="utf-8")
     
     # We expect that if the variant pack is recomputed and does not match, a mutation is detected.
-    # Since docs/automation/V6_PLATFORM_CONTENT_GENERATORS/platform_variant_pack.json exists,
-    # the validator will read it, compute its hash, and compare it to "different_hash_value".
-    # Because "different_hash_value" is definitely wrong, it will mismatch and trigger the blocker.
     report = integrity.validate_integrity(tmp_path, manifest)
     assert report["payload_integrity_valid"] is False
     assert "payload_mutation_after_hash_detected" in report["blockers"]
