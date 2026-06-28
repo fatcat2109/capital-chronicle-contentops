@@ -1,0 +1,14 @@
+{
+  "destination_binding_complete": false,
+  "kill_switch_active": true,
+  "operator_signature_valid": false,
+  "outbox_dispatchable": false,
+  "outbox_draft_created": false,
+  "public_postable": false,
+  "safety_checks_pass": false,
+  "supervised_dispatch_readiness_status": "BLOCKED",
+  "unexpected_dispatch_claims_detected": false,
+  "unexpected_dispatch_claims_findings": [],
+  "unsafe_material_detected": false,
+  "unsafe_material_findings": []
+}

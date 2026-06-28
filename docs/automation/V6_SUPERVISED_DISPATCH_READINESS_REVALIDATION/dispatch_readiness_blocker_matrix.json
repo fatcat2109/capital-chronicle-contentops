@@ -1,0 +1,51 @@
+[
+  {
+    "blocker_id": "operator_signature_missing",
+    "dispatch_blocking": true,
+    "required_next_action": "Jim runs operator approval capture local run step to create valid signature.",
+    "severity": "CRITICAL",
+    "source_ref": "docs\\automation\\V6_OPERATOR_APPROVAL_SIGNATURE_BINDING\\operator_signature_validation_report.json"
+  },
+  {
+    "blocker_id": "destination_binding_incomplete",
+    "dispatch_blocking": true,
+    "required_next_action": "Verify target destination bindings and confirm review-only state is mapped.",
+    "severity": "CRITICAL",
+    "source_ref": "docs\\automation\\V6_DESTINATION_BINDING_OUTBOX_DRAFT\\destination_binding_outbox_draft_packet.json"
+  },
+  {
+    "blocker_id": "outbox_creation_blocked",
+    "dispatch_blocking": true,
+    "required_next_action": "Supervised review must construct outbox draft before dispatch queueing.",
+    "severity": "CRITICAL",
+    "source_ref": "docs\\automation\\V6_DESTINATION_BINDING_OUTBOX_DRAFT\\outbox_draft_validation_report.json"
+  },
+  {
+    "blocker_id": "live_write_authorization_missing",
+    "dispatch_blocking": true,
+    "required_next_action": "Dispatch authorization token/override must be requested in a separate task.",
+    "severity": "CRITICAL",
+    "source_ref": "live_contentops/supervised_dispatch_readiness_revalidation_v6.py"
+  },
+  {
+    "blocker_id": "safety_review_incomplete",
+    "dispatch_blocking": true,
+    "required_next_action": "Review that content contains no financial predictions, hype, or mock statistics.",
+    "severity": "CRITICAL",
+    "source_ref": "live_contentops/supervised_dispatch_readiness_revalidation_v6.py"
+  },
+  {
+    "blocker_id": "kill_switch_active",
+    "dispatch_blocking": true,
+    "required_next_action": "Keep global dispatch kill-switch enabled until final manual approval.",
+    "severity": "CRITICAL",
+    "source_ref": "live_contentops/supervised_dispatch_readiness_revalidation_v6.py"
+  },
+  {
+    "blocker_id": "public_postable_false",
+    "dispatch_blocking": true,
+    "required_next_action": "Content postable capability is locked; do not mark public postable.",
+    "severity": "CRITICAL",
+    "source_ref": "live_contentops/supervised_dispatch_readiness_revalidation_v6.py"
+  }
+]

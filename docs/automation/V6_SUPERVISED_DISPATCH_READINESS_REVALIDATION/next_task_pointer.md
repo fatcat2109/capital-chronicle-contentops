@@ -1,0 +1,5 @@
+# Next Task Pointer
+
+Recommended next task:
+
+`TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP`

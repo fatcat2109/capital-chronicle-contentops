@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_DESTINATION_BINDING_AND_OUTBOX_DRAFT_LANE_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION_LANE_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
@@ -20,6 +20,7 @@ NEXT_APPROVAL_TASK = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LAN
 NEXT_MANUAL_SIGN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_SIGN_PAYLOAD_HASH_MANUAL_STEP"
 NEXT_CAPTURE_RUN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP"
 NEXT_DISPATCH_READINESS_TASK = "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION_LANE_HEAVY_BATCH_V0"
+NEXT_APPROVAL_LEDGER_TASK = "TASK_CONTENTOPS_V6_APPROVAL_LEDGER_AND_OUTBOX_RECORDING_LANE_HEAVY_BATCH_V0"
 
 DEFAULT_READINESS_BUNDLE = Path("docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json")
 DEFAULT_DISPATCH_READINESS = Path("docs/automation/V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json")
@@ -136,7 +137,11 @@ def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str], 
         else (
             "Verify destination binding and outbox draft after operator signature validation succeeds."
             if next_task == NEXT_CAPTURE_RUN_TASK
-            else "Revalidate supervised dispatch readiness after outbox draft review."
+            else (
+                "Record approved signature to the public/audit ledger and prepare outbox dispatch recording."
+                if next_task == NEXT_APPROVAL_LEDGER_TASK
+                else "Revalidate supervised dispatch readiness after outbox draft review."
+            )
         )
     )
     return f"""TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V0
@@ -298,6 +303,13 @@ def generate_implementation_report_markdown(bundle_status: str, head_sha: str) -
   - destination_binding_runbook.md
   - destination_binding_implementation_report.md
   - destination_binding_next_task_pointer.md
+  - supervised_dispatch_readiness_packet.json
+  - dispatch_readiness_blocker_matrix.json
+  - dispatch_readiness_validation_report.json
+  - dispatch_readiness_runbook.md
+  - dispatch_readiness_blocker_report.md
+  - revalidation_implementation_report.md
+  - revalidation_next_task_pointer.md
 
 - **Safety Checks Pass**:
   - No secret output: `true`
@@ -418,6 +430,25 @@ def materialize_project_sources_upload_bundle_packets(
                     operator_signature_valid = True
             except Exception:
                 pass
+
+    # Also check revalidation packet
+    rel_reval_path = readiness_bundle_path.parent / "supervised_dispatch_readiness_packet.json"
+    if rel_reval_path.exists():
+        try:
+            reval_packet = json.loads(rel_reval_path.read_text(encoding="utf-8"))
+            if reval_packet.get("operator_signature_valid") is True:
+                operator_signature_valid = True
+        except Exception:
+            pass
+
+    default_reval_path = Path("docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/supervised_dispatch_readiness_packet.json")
+    if default_reval_path.exists():
+        try:
+            reval_packet = json.loads(default_reval_path.read_text(encoding="utf-8"))
+            if reval_packet.get("operator_signature_valid") is True:
+                operator_signature_valid = True
+        except Exception:
+            pass
 
     if readiness_bundle_path.parent.parent:
         sibling_hash_path = readiness_bundle_path.parent.parent / "V6_PAYLOAD_PREVIEW_HASH/payload_preview_hash_packet.json"
@@ -550,7 +581,14 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_blocker_report.md",
         "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_runbook.md",
         "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/implementation_report.md",
-        "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/next_task_pointer.md"
+        "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/next_task_pointer.md",
+        "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/supervised_dispatch_readiness_packet.json",
+        "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/dispatch_readiness_blocker_matrix.json",
+        "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/dispatch_readiness_validation_report.json",
+        "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/dispatch_readiness_runbook.md",
+        "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/dispatch_readiness_blocker_report.md",
+        "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/implementation_report.md",
+        "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/next_task_pointer.md"
     ]
 
     packet = {
@@ -589,10 +627,8 @@ def materialize_project_sources_upload_bundle_packets(
         "raw_secret_output": False,
         "webhook_url_printed": False,
         "next_recommended_task": (
-            NEXT_DISPATCH_READINESS_TASK if operator_signature_valid
-            else (NEXT_CAPTURE_RUN_TASK if payload_hash_created
-                  else (PAYLOAD_HASH_TASK if evidence_complete
-                        else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"))
+            NEXT_APPROVAL_LEDGER_TASK if operator_signature_valid
+            else NEXT_CAPTURE_RUN_TASK
         )
     }
 
