@@ -12,12 +12,14 @@ SCHEMA_VERSION = "6.0.0"
 
 
 def map_canonical_to_preview(
-    contract_packet: dict[str, Any]
+    contract_packet: dict[str, Any],
+    hash_manifest: dict[str, Any] | None = None
 ) -> dict[str, Any]:
     """Extracts canonical article parameters and maps them into compose preview schema."""
     canonical_article = contract_packet.get("canonical_article", {})
     seo_packet = contract_packet.get("seo_packet", {})
-    hash_manifest = contract_packet.get("hash_manifest", {})
+    if hash_manifest is None:
+        hash_manifest = contract_packet.get("hash_manifest") or {}
     
     title = canonical_article.get("title", "Stub Title")
     subtitle = canonical_article.get("subtitle", "Stub Subtitle")
@@ -25,7 +27,11 @@ def map_canonical_to_preview(
     limitations = canonical_article.get("limitations", "No limits.")
     disclosure = canonical_article.get("disclosure", "No disclosure.")
     citations = canonical_article.get("citations", ["UNVERIFIED_SAMPLE_SOURCE_REF"])
-    seo_desc = seo_packet.get("seo_meta_description", "SEO Description Stub")
+    
+    # Read meta description preferring meta_description, fallback to seo_meta_description
+    seo_desc = seo_packet.get("meta_description")
+    if seo_desc is None:
+        seo_desc = seo_packet.get("seo_meta_description")
     
     # Create simple slug from title
     slug = "-".join(title.lower().split()[:5])
@@ -40,7 +46,9 @@ def map_canonical_to_preview(
         "disclosure": disclosure,
         "citations": citations,
         "seo_meta_description": seo_desc,
-        "payload_hash": hash_manifest.get("canonical_article_hash", "unhashed"),
+        "payload_hash": hash_manifest.get("unified_payload_bundle_hash", "unhashed"),
+        "canonical_article_hash": hash_manifest.get("canonical_article_hash", "unhashed"),
+        "hash_manifest_ref": "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/unified_payload_hash_manifest.json",
         "source_verification_required": True,
         "human_review_required": True,
         "review_only": True,
@@ -54,6 +62,7 @@ def validate_compose_payload(
     preview_data: dict[str, Any]
 ) -> dict[str, Any]:
     """Performs validation checks against Substack compose payload values."""
+    import re
     blockers = []
     
     # Check for empty body/title
@@ -73,6 +82,30 @@ def validate_compose_payload(
     for trigger in advice_triggers:
         if trigger in body_lower:
             blockers.append("unsafe_financial_advice_phrase_detected")
+            
+    # Validate payload_hash and canonical_article_hash
+    p_hash = preview_data.get("payload_hash")
+    if p_hash is None:
+        blockers.append("payload_hash_missing")
+    elif p_hash == "unhashed":
+        blockers.append("payload_hash_unhashed")
+    elif not isinstance(p_hash, str) or not re.match(r"^[0-9a-f]{64}$", p_hash):
+        blockers.append("payload_hash_invalid")
+        
+    c_hash = preview_data.get("canonical_article_hash")
+    if c_hash is None:
+        blockers.append("canonical_article_hash_missing")
+    elif c_hash == "unhashed":
+        blockers.append("canonical_article_hash_invalid")
+    elif not isinstance(c_hash, str) or not re.match(r"^[0-9a-f]{64}$", c_hash):
+        blockers.append("canonical_article_hash_invalid")
+        
+    # Validate SEO meta description
+    seo_desc = preview_data.get("seo_meta_description")
+    if seo_desc is None:
+        blockers.append("seo_meta_description_missing")
+    elif seo_desc == "SEO Description Stub":
+        blockers.append("seo_meta_description_stub_detected")
             
     validation_passed = len(blockers) == 0
     

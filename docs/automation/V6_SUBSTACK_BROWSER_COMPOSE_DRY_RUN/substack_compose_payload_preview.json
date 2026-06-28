@@ -1,18 +1,20 @@
 {
   "allowed_for_publication": false,
   "body_markdown": "Treasury yields represent key cost of capital metrics. Historically, yield volatility reflects macroeconomic adjustments.",
+  "canonical_article_hash": "a5c9162d20d4a0d5c72f7c57f3fa3e9814c3ad88c2d394ce508f280e3b5d8eee",
   "citations": [
     "UNVERIFIED_SAMPLE_SOURCE_REF"
   ],
   "disclosure": "No financial recommendations or trade positioning suggestions are made.",
   "dispatch_allowed_now": false,
+  "hash_manifest_ref": "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/unified_payload_hash_manifest.json",
   "human_review_required": true,
   "limitations": "This analysis is limited by the parameters of the unverified dry-run sample dataset. Yield analysis is uncertain and source verification is required.",
-  "payload_hash": "unhashed",
+  "payload_hash": "9da4958812fbc5e91b3247e372f160ea3a47f5886fc2630d08a54d91433e0b67",
   "public_postable": false,
   "review_only": true,
   "schema_version": "6.0.0",
-  "seo_meta_description": "SEO Description Stub",
+  "seo_meta_description": "Read about the historical volatility of Treasury yields in our educational deep dive.",
   "slug_candidate": "historical-volatility-of-treasury-yields",
   "source_verification_required": true,
   "subtitle": "An educational analysis of yield movements based on unverified dry-run sample",

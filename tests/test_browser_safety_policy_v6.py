@@ -18,3 +18,14 @@ def test_safety_compliance_checks():
     state2 = {"live_publish_control_enabled": True}
     report2 = safety.validate_safety_compliance(state2)
     assert "executable_publish_control_detected" in report2["blockers"]
+    
+    # Secret access and fake result checks
+    state3 = {
+        "browser_session_secret_accessed": True,
+        "public_url_captured": True,
+        "dispatch_allowed_now": True
+    }
+    report3 = safety.validate_safety_compliance(state3)
+    assert "browser_secret_access_detected" in report3["blockers"]
+    assert "fake_public_result_detected" in report3["blockers"]
+    assert "unexpected_live_status_claim" in report3["blockers"]

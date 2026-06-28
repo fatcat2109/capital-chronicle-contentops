@@ -72,6 +72,12 @@ def generate_mock_html(
         f"    <strong>Payload Hash:</strong> <code>{preview.get('payload_hash')}</code>",
         "  </div>",
         "  <div class='meta-item'>",
+        f"    <strong>Canonical Article Hash:</strong> <code>{preview.get('canonical_article_hash')}</code>",
+        "  </div>",
+        "  <div class='meta-item'>",
+        f"    <strong>SEO Meta Description:</strong> {preview.get('seo_meta_description')}",
+        "  </div>",
+        "  <div class='meta-item'>",
         f"    <strong>Slug Candidate:</strong> {preview.get('slug_candidate')}",
         "  </div>",
         "  <div style='margin-top: 20px;'>",
@@ -88,15 +94,17 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="V6 Substack Browser Compose Dry-Run Builder")
     parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR))
     parser.add_argument("--contract-packet", default="docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/unified_payload_contract_packet.json")
+    parser.add_argument("--hash-manifest", default="docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/unified_payload_hash_manifest.json")
     args = parser.parse_args(argv)
     
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     
     contract_data = load_json_or_fallback(args.contract_packet, {})
+    hash_manifest_data = load_json_or_fallback(args.hash_manifest, {})
     
     # 1. Map preview
-    preview_data = mapper.map_canonical_to_preview(contract_data)
+    preview_data = mapper.map_canonical_to_preview(contract_data, hash_manifest_data)
     Path(out_dir / "substack_compose_payload_preview.json").write_text(
         json.dumps(preview_data, indent=2, sort_keys=True) + "\n",
         encoding="utf-8"
