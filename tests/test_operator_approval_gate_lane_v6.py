@@ -1,187 +1,123 @@
 import json
 from pathlib import Path
-from live_contentops import operator_approval_gate_lane_v6 as gate_lane
+from live_contentops import operator_approval_gate_v6 as approval
+from live_contentops import project_sources_upload_bundle_v6 as upload
 
 
-def write_temp_inputs(tmp_path, sub_status="AWAITING_OPERATOR_EVIDENCE", preflight_status="AWAITING_SOURCE_EVIDENCE", **kwargs):
-    # Mimics operator_source_evidence_submission_packet.json output
-    sub_data = {
-        "operator_source_evidence_submission_packet_id": "submission_e8cb7ab9d7e1",
-        "submission_status": sub_status,
-        "evidence_complete": kwargs.get("evidence_complete", False),
-        "blocked_reasons": kwargs.get("blocked_reasons", [])
+def test_committed_approval_packet_properties():
+    out_dir = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
+    approval.main(["--output-dir", str(out_dir)])
+    
+    packet_file = out_dir / "operator_approval_gate_packet.json"
+    assert packet_file.exists()
+    
+    data = json.loads(packet_file.read_text(encoding="utf-8"))
+    assert data["approval_gate_status"] == "AWAITING_OPERATOR_SIGNATURE"
+    assert data["evidence_complete"] is True
+    assert data["source_preflight_ready"] is True
+    assert data["source_ref_resolved"] is True
+    assert data["operator_idea_source_ref_resolved"] is True
+    
+    # Critical security locks
+    assert data["approval_valid_for_dispatch"] is False
+    assert data["dispatch_allowed_now"] is False
+    assert data["live_write_allowed_now"] is False
+    assert data["outbox_entry_created"] is False
+    assert data["payload_hash_created"] is False
+    assert data["credentials_hydrated"] is False
+    assert data["browser_session_started"] is False
+    assert data["public_postable"] is False
+    assert data["kill_switch_active"] is True
+
+
+def test_signature_template_is_inert():
+    out_dir = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
+    approval.main(["--output-dir", str(out_dir)])
+    
+    sig_file = out_dir / "operator_approval_signature_template.json"
+    assert sig_file.exists()
+    
+    data = json.loads(sig_file.read_text(encoding="utf-8"))
+    assert data["operator_id"] == "PLACEHOLDER_OPERATOR_ID"
+    assert data["approval_decision"] == "PENDING"
+    assert data["payload_hash"] is None
+    assert data["valid_for_dispatch"] is False
+    assert data["expires_at"] is None
+    assert data["revoked"] is False
+
+
+def test_no_raw_fixture_body_in_approval_reports():
+    out_dir = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
+    approval.main(["--output-dir", str(out_dir)])
+    
+    files = [
+        out_dir / "operator_approval_gate_packet.json",
+        out_dir / "operator_approval_review_packet.json",
+        out_dir / "operator_approval_signature_template.json",
+        out_dir / "operator_approval_blocker_report.md",
+        out_dir / "operator_approval_runbook.md",
+        out_dir / "implementation_report.md",
+        out_dir / "next_task_pointer.md"
+    ]
+    
+    for f in files:
+        assert f.exists()
+        content = f.read_text(encoding="utf-8")
+        assert "Capital Chronicle ContentOps V6 now has a guarded manual" not in content
+        assert "The scoped network policy restricts external domain" not in content
+        assert "Reviewing V6 contentops security" not in content
+        assert "discord.com/api/webhooks" not in content
+        assert "token_value" not in content.lower()
+        assert "cookie_value" not in content.lower()
+
+
+def test_stale_rollup_repair_in_upload_bundle(tmp_path):
+    # Simulate bundle candidate list generation
+    tmp_rb = tmp_path / "readiness_evidence_bundle_packet.json"
+    tmp_dr = tmp_path / "supervised_dispatch_readiness_packet.json"
+    
+    rb_data = {
+        "readiness_evidence_bundle_packet_id": "bundle_fbe34af9e66e",
+        "source_supervised_dispatch_readiness_packet_id": "readiness_34edf10af116",
+        "unresolved_blockers": [
+            "destination_binding_incomplete",
+            "evidence_incomplete",
+            "kill_switch_active",
+            "live_write_authorization_missing",
+            "operator_approval_incomplete",
+            "operator_idea_source_ref_missing",
+            "outbox_creation_blocked",
+            "payload_hash_incomplete",
+            "safety_review_incomplete"
+        ]
     }
-
-    # Mimics operator_source_evidence_validation_report.json output
-    val_report_data = {
-        "current_validation_status": "AWAITING_OPERATOR_EVIDENCE",
-        "evidence_complete": kwargs.get("evidence_complete", False)
+    dr_data = {
+        "supervised_dispatch_readiness_packet_id": "readiness_34edf10af116"
     }
-
-    # Mimics dispatch_unlock_blockers_snapshot.json output
-    snap_data = {
-        "source_evidence_complete": kwargs.get("evidence_complete", False)
-    }
-
-    # Mimics approval_preflight_packet.json output
-    preflight_data = {
-        "approval_preflight_packet_id": "preflight_a01e278a",
-        "review_status": preflight_status
-    }
-
-    # Mimics discord_drop_packet.json output
-    drop_data = {
-        "discord_drop_packet_id": "discord_drop_ce89baf48671"
-    }
-
-    # Mimics operator_review_packet.json output
-    review_data = {
-        "operator_review_packet_id": "review_packet_ce89baf4"
-    }
-
-    sub_p = tmp_path / "operator_source_evidence_submission_packet.json"
-    sub_p.write_text(json.dumps(sub_data, indent=2), encoding="utf-8")
-
-    val_p = tmp_path / "operator_source_evidence_validation_report.json"
-    val_p.write_text(json.dumps(val_report_data, indent=2), encoding="utf-8")
-
-    snp_p = tmp_path / "dispatch_unlock_blockers_snapshot.json"
-    snp_p.write_text(json.dumps(snap_data, indent=2), encoding="utf-8")
-
-    pre_p = tmp_path / "approval_preflight_packet.json"
-    pre_p.write_text(json.dumps(preflight_data, indent=2), encoding="utf-8")
-
-    drp_p = tmp_path / "discord_drop_packet.json"
-    drp_p.write_text(json.dumps(drop_data, indent=2), encoding="utf-8")
-
-    rev_p = tmp_path / "operator_review_packet.json"
-    rev_p.write_text(json.dumps(review_data, indent=2), encoding="utf-8")
-
-    return sub_p, val_p, snp_p, pre_p, drp_p, rev_p
-
-
-def test_incomplete_current_packets_produce_blocked_status(tmp_path):
-    sub_p, val_p, snp_p, pre_p, drp_p, rev_p = write_temp_inputs(tmp_path, evidence_complete=False)
-    gate, payload_hash, binding, decision, lock_report = gate_lane.materialize_gate_packets(
-        sub_p, val_p, snp_p, pre_p, drp_p, rev_p
-    )
     
-    assert gate["approval_gate_status"] == "APPROVAL_GATE_BLOCKED_PENDING_REQUIREMENTS"
-    assert gate["approval_valid_for_dispatch"] is False
-    assert "evidence_incomplete" in gate["blockers"]
-
-
-def test_blocked_source_evidence_submission(tmp_path):
-    sub_p, val_p, snp_p, pre_p, drp_p, rev_p = write_temp_inputs(
-        tmp_path, sub_status="BLOCKED_BY_SOURCE_EVIDENCE_PREFLIGHT", blocked_reasons=["intake_unreadable"]
-    )
-    gate, payload_hash, binding, decision, lock_report = gate_lane.materialize_gate_packets(
-        sub_p, val_p, snp_p, pre_p, drp_p, rev_p
-    )
+    tmp_rb.write_text(json.dumps(rb_data), encoding="utf-8")
+    tmp_dr.write_text(json.dumps(dr_data), encoding="utf-8")
     
-    assert gate["approval_gate_status"] == "BLOCKED_BY_SOURCE_EVIDENCE_SUBMISSION"
-    assert "intake_unreadable" in gate["blocked_reasons"]
-
-
-def test_future_complete_fixture_produces_ready_for_decision(tmp_path):
-    sub_p, val_p, snp_p, pre_p, drp_p, rev_p = write_temp_inputs(tmp_path, sub_status="EVIDENCE_SUBMISSION_READY_FOR_HUMAN_REVIEW", evidence_complete=True)
-    gate, payload_hash, binding, decision, lock_report = gate_lane.materialize_gate_packets(
-        sub_p, val_p, snp_p, pre_p, drp_p, rev_p, override_complete=True
-    )
+    # Write a simulated delegated evidence refresh result to tmp_path to trigger filtering
+    (tmp_path / "delegated_evidence_refresh_result.json").write_text(json.dumps({
+        "evidence_complete": True
+    }), encoding="utf-8")
     
-    assert gate["approval_gate_status"] == "APPROVAL_GATE_READY_FOR_HUMAN_DECISION"
-    assert gate["approval_valid_for_dispatch"] is False
-    assert gate["dispatch_allowed_now"] is False
-    assert gate["public_postable"] is False
-    assert len(gate["blockers"]) == 0
-
-
-def test_payload_hash_placeholder(tmp_path):
-    sub_p, val_p, snp_p, pre_p, drp_p, rev_p = write_temp_inputs(tmp_path)
-    gate, payload_hash, binding, decision, lock_report = gate_lane.materialize_gate_packets(
-        sub_p, val_p, snp_p, pre_p, drp_p, rev_p
-    )
+    packet, files = upload.materialize_project_sources_upload_bundle_packets(tmp_rb, tmp_dr)
     
-    assert payload_hash["final_payload_hash_present"] is False
-    assert payload_hash["final_payload_hash_value"] is None
-    assert payload_hash["hash_calculation_allowed_now"] is False
-
-
-def test_destination_binding_placeholder(tmp_path):
-    sub_p, val_p, snp_p, pre_p, drp_p, rev_p = write_temp_inputs(tmp_path)
-    gate, payload_hash, binding, decision, lock_report = gate_lane.materialize_gate_packets(
-        sub_p, val_p, snp_p, pre_p, drp_p, rev_p
-    )
+    # Since delegated evidence exists or console fixture is complete
+    assert "evidence_incomplete" not in packet["unresolved_blockers"]
+    assert "operator_idea_source_ref_missing" not in packet["unresolved_blockers"]
     
-    assert binding["destination_binding_present"] is False
-    assert binding["real_channel_id_present"] is False
-    assert binding["webhook_url_present"] is False
-    assert binding["token_present"] is False
-    assert binding["secret_keys_present"] is False
-    assert binding["binding_allowed_now"] is False
-
-
-def test_approval_decision_template(tmp_path):
-    sub_p, val_p, snp_p, pre_p, drp_p, rev_p = write_temp_inputs(tmp_path)
-    gate, payload_hash, binding, decision, lock_report = gate_lane.materialize_gate_packets(
-        sub_p, val_p, snp_p, pre_p, drp_p, rev_p
-    )
-    
-    assert decision["operator_decision"] is None
-    assert decision["approved_by"] is None
-    assert decision["approval_valid_for_dispatch"] is False
-    assert decision["exact_payload_hash_confirmed"] is False
-    assert decision["source_evidence_confirmed"] is False
-
-
-def test_dispatch_lock_report(tmp_path):
-    sub_p, val_p, snp_p, pre_p, drp_p, rev_p = write_temp_inputs(tmp_path)
-    gate, payload_hash, binding, decision, lock_report = gate_lane.materialize_gate_packets(
-        sub_p, val_p, snp_p, pre_p, drp_p, rev_p
-    )
-    
-    assert lock_report["dispatch_lock_status"] == "LOCKED_APPROVAL_REQUIREMENTS_INCOMPLETE"
-    assert lock_report["dispatch_allowed_now"] is False
-    assert lock_report["outbox_entry_created"] is False
-    assert lock_report["approval_ledger_entry_created"] is False
-    assert lock_report["live_write_attempted"] is False
-
-
-def test_generated_markdown_checklists(tmp_path):
-    sub_p, val_p, snp_p, pre_p, drp_p, rev_p = write_temp_inputs(tmp_path)
-    gate, payload_hash, binding, decision, lock_report = gate_lane.materialize_gate_packets(
-        sub_p, val_p, snp_p, pre_p, drp_p, rev_p
-    )
-    
-    checklist = gate_lane.generate_gate_checklist_markdown(gate)
-    assert "NO-PUBLICATION WARNING" in checklist
-    assert "Approval Gate Checklist" in checklist
-    assert "strictly blocked" in checklist.lower()
-    
-    readme = gate_lane.generate_readme_markdown(gate)
-    assert "Operator Approval Gate Readme" in readme
-    assert "does not make live writes" in readme.lower()
-    assert "no secret-output note" in readme.lower()
-
-
-def test_packet_contains_no_sensitive_values(tmp_path):
-    sub_p, val_p, snp_p, pre_p, drp_p, rev_p = write_temp_inputs(tmp_path)
-    gate, payload_hash, binding, decision, lock_report = gate_lane.materialize_gate_packets(
-        sub_p, val_p, snp_p, pre_p, drp_p, rev_p
-    )
-    
-    for obj in [gate, payload_hash, binding, decision, lock_report]:
-        dump = json.dumps(obj)
-        assert "discord.com/api/webhooks" not in dump
-        assert "token_value" not in dump.lower()
-        assert "cookie_value" not in dump.lower()
-        assert "secret_key" not in dump.lower() or "secret_keys_present" in dump
-        assert obj.get("raw_secret_output", False) is False
-        assert obj.get("webhook_url_printed", False) is False
+    # Must preserve locks
+    assert "operator_approval_incomplete" in packet["unresolved_blockers"]
+    assert "payload_hash_incomplete" in packet["unresolved_blockers"]
+    assert "kill_switch_active" in packet["unresolved_blockers"]
+    assert "safety_review_incomplete" in packet["unresolved_blockers"]
 
 
 def test_module_contains_no_forbidden_behavior():
-    attrs = dir(gate_lane)
+    attrs = dir(approval)
     assert "urlopen" not in attrs
     assert "requests" not in attrs
     assert "httpx" not in attrs

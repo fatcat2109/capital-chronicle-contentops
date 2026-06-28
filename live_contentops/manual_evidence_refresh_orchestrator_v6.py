@@ -298,7 +298,7 @@ def main(argv: list[str] | None = None) -> int:
         "browser_session_started": False,
         "public_postable": False,
         "kill_switch_active": True,
-        "next_recommended_task": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
+        "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_V0" if evidence_complete else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
     }
     write_json(orchestrator_dir / "manual_evidence_refresh_orchestrator_packet.json", orchestrator_packet)
 

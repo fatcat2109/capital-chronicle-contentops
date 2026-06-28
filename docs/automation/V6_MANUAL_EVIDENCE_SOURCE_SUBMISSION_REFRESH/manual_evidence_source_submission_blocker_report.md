@@ -1,14 +1,12 @@
 # Manual Evidence Source Submission Blocker Report
 
-- **Refresh Status**: BLOCKED_AWAITING_OPERATOR_EVIDENCE
+- **Refresh Status**: PREFLIGHT_CANDIDATE_READY_FOR_APPROVAL
 - **Active Dispatch Blockers**:
 
 - `destination_binding_incomplete`
-- `evidence_incomplete`
 - `kill_switch_active`
 - `live_write_authorization_missing`
 - `operator_approval_incomplete`
-- `operator_idea_source_ref_missing`
 - `outbox_creation_blocked`
 - `payload_hash_incomplete`
 - `safety_review_incomplete`

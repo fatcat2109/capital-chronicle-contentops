@@ -15,11 +15,11 @@
     },
     "manual_evidence_validator": {
       "description": "Validation scan for unsafe keywords and empty slots.",
-      "status": "FAIL"
+      "status": "PASS"
     },
     "operator_fixture_expected": {
       "description": "True if operator fixture file exists and is populated.",
-      "status": "FAIL"
+      "status": "PASS"
     },
     "pipeline_consolidation": {
       "description": "Unified pipeline state consolidation.",
@@ -27,11 +27,11 @@
     },
     "source_evidence_preflight": {
       "description": "Preflight check for URL references and sources.",
-      "status": "PENDING"
+      "status": "PASS"
     },
     "source_preflight_bridge": {
       "description": "Bridges validated fixture slots to preflight checking.",
-      "status": "PENDING"
+      "status": "PASS"
     },
     "validator_wiring": {
       "description": "Fixture path resolution and wiring mapping.",

@@ -220,16 +220,32 @@ def main(argv: list[str] | None = None) -> int:
     out_dir = Path(args.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    # Resolve sibling paths if output_dir is custom (dry-run isolation)
+    is_default = (args.output_dir == str(DEFAULT_OUTPUT_DIR))
+    if not is_default:
+        base_dir = out_dir.parent
+        preflight_path = base_dir / "V6_SOURCE_EVIDENCE_PREFLIGHT/source_evidence_intake_packet.json"
+        approval_path = base_dir / "V6_OPERATOR_APPROVAL_GATE/operator_approval_gate_packet.json"
+        dispatch_path = base_dir / "V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json"
+        selection_path = base_dir / "V6_PLATFORM_ADAPTER_SELECTION_POLICY/platform_adapter_selection_policy_packet.json"
+        capability_path = base_dir / "V6_CREDENTIAL_CAPABILITY_MATRIX/redacted_capability_matrix_packet.json"
+    else:
+        preflight_path = Path(args.preflight_packet)
+        approval_path = Path(args.approval_packet)
+        dispatch_path = Path(args.dispatch_packet)
+        selection_path = Path(args.selection_packet)
+        capability_path = Path(args.capability_packet)
+
     # 1. Load packets
     console = load_json(args.console_packet) or {}
     validator = load_json(args.validator_summary) or {}
     wiring = load_json(args.wiring_packet) or {}
     bridge = load_json(args.bridge_packet) or {}
-    preflight = load_json(args.preflight_packet) or {}
-    approval = load_json(args.approval_packet) or {}
-    dispatch = load_json(args.dispatch_packet) or {}
-    selection = load_json(args.selection_packet) or {}
-    capability = load_json(args.capability_packet) or {}
+    preflight = load_json(preflight_path) or {}
+    approval = load_json(approval_path) or {}
+    dispatch = load_json(dispatch_path) or {}
+    selection = load_json(selection_path) or {}
+    capability = load_json(capability_path) or {}
 
     evidence_complete = (
         console.get("evidence_complete", False) or
@@ -460,7 +476,7 @@ def main(argv: list[str] | None = None) -> int:
         "next_required_operator_action": "Jim fills docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json with verified evidence.",
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
+        "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_V0" if evidence_complete else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
     }
     write_json(out_dir / "operator_pipeline_status_packet.json", consolidated_packet)
 

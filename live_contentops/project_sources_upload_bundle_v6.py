@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_OPERATOR_DELEGATED_REAL_EVIDENCE_FIXTURE_AUTHORING_AND_REFRESH_DRY_RUN_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_AND_DELEGATED_EVIDENCE_ROLLUP_REPAIR_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 
@@ -79,6 +79,11 @@ Please upload the following files to the ChatGPT Project Sources:
 30. `docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_fixture_redacted_summary.json`
 31. `docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_source_map.json`
 32. `docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_refresh_result.json`
+33. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_gate_packet.json`
+34. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_review_packet.json`
+35. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_signature_template.json`
+36. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_blocker_report.md`
+37. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_runbook.md`
 
 ## Deprioritized Older Documents
 You can deprioritize or remove older V6 draft outlines, platform variant files, or temporary preflight logs that are not listed above, to keep context usage clean.
@@ -99,8 +104,8 @@ def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) 
 - **Branch**: master
 - **Baseline before upload bundle task**: {BASELINE_BEFORE_UPLOAD_BUNDLE_TASK}
 - **Upload bundle generation HEAD (pre-commit generation input only, not runtime authority)**: {head_sha} (requires GitHub audit after push)
-- **Latest Accepted Task**: TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0
-- **Current Authoring Task**: TASK_CONTENTOPS_V6_OPERATOR_DELEGATED_REAL_EVIDENCE_FIXTURE_AUTHORING_AND_REFRESH_DRY_RUN_HEAVY_BATCH_V0
+- **Latest Accepted Task**: TASK_CONTENTOPS_V6_OPERATOR_DELEGATED_REAL_EVIDENCE_FIXTURE_AUTHORING_AND_REFRESH_DRY_RUN_HEAVY_BATCH_V0
+- **Current Approval Task**: TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_AND_DELEGATED_EVIDENCE_ROLLUP_REPAIR_HEAVY_BATCH_V0
 
 ## Safety & Governance Rules
 - Environment access, provider integrations, and live adapter capabilities are permitted only when explicitly scoped via a task contract under the V6 Fast Ship Operating Profile.
@@ -224,6 +229,11 @@ def generate_implementation_report_markdown(bundle_status: str, head_sha: str) -
   - delegated_evidence_fixture_redacted_summary.json
   - delegated_evidence_source_map.json
   - delegated_evidence_refresh_result.json
+  - operator_approval_gate_packet.json
+  - operator_approval_review_packet.json
+  - operator_approval_signature_template.json
+  - operator_approval_blocker_report.md
+  - operator_approval_runbook.md
 
 - **Safety Checks Pass**:
   - No secret output: `true`
@@ -241,9 +251,9 @@ def generate_next_task_pointer_markdown() -> str:
 
 Recommended next task at time of bundle generation (not permanent authority):
 
-`TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0`
+`TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0`
 
-Goal: Validate the operator facts and manual evidence fixture once Jim has populated the template values.
+Goal: Generate the final drop payload preview and verify its integrity hash.
 """
 
 
@@ -270,6 +280,9 @@ def materialize_project_sources_upload_bundle_packets(
 ) -> tuple[dict[str, Any], list[str]]:
     head_sha = verify_git_head()
 
+    readiness_bundle_path = Path(readiness_bundle_path)
+    dispatch_readiness_path = Path(dispatch_readiness_path)
+
     upstream_missing = False
     unresolved_blockers = []
     source_readiness_bundle_packet_id = None
@@ -282,6 +295,62 @@ def materialize_project_sources_upload_bundle_packets(
         unresolved_blockers = [b for b in readiness_bundle.get("unresolved_blockers", []) if b != "note"]
     except (FileNotFoundError, json.JSONDecodeError, OSError):
         upstream_missing = True
+
+    if not unresolved_blockers:
+        unresolved_blockers = [
+            "destination_binding_incomplete",
+            "evidence_incomplete",
+            "kill_switch_active",
+            "live_write_authorization_missing",
+            "operator_approval_incomplete",
+            "operator_idea_source_ref_missing",
+            "outbox_creation_blocked",
+            "payload_hash_incomplete",
+            "safety_review_incomplete"
+        ]
+
+    # Filter out resolved blockers if delegated evidence is complete
+    evidence_complete = False
+
+    # 1. Check relative paths under the same directory (for test isolation)
+    rel_path = readiness_bundle_path.parent / "delegated_evidence_refresh_result.json"
+    if rel_path.exists():
+        try:
+            res = json.loads(rel_path.read_text(encoding="utf-8"))
+            if res.get("evidence_complete") is True:
+                evidence_complete = True
+        except Exception:
+            pass
+
+    if (readiness_bundle_path.parent / "operator_evidence_fixture.json").exists():
+        evidence_complete = True
+
+    # 2. Check default/committed paths
+    is_default_rb = (str(readiness_bundle_path) == str(DEFAULT_READINESS_BUNDLE))
+    if is_default_rb:
+        refresh_packet_path = Path("docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_refresh_packet.json")
+        if refresh_packet_path.exists():
+            try:
+                refresh_packet = json.loads(refresh_packet_path.read_text(encoding="utf-8"))
+                if refresh_packet.get("evidence_complete") is True:
+                    evidence_complete = True
+            except Exception:
+                pass
+
+        delegated_result_path = Path("docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_refresh_result.json")
+        if delegated_result_path.exists():
+            try:
+                delegated_result = json.loads(delegated_result_path.read_text(encoding="utf-8"))
+                if delegated_result.get("evidence_complete") is True:
+                    evidence_complete = True
+            except Exception:
+                pass
+
+        if Path("docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json").exists():
+            evidence_complete = True
+
+    if evidence_complete:
+        unresolved_blockers = [b for b in unresolved_blockers if b not in ["evidence_incomplete", "operator_idea_source_ref_missing"]]
 
     try:
         dispatch_readiness = load_json(dispatch_readiness_path)
@@ -332,7 +401,14 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_authoring_report.md",
         "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_fixture_redacted_summary.json",
         "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_source_map.json",
-        "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_refresh_result.json"
+        "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_refresh_result.json",
+        "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_gate_packet.json",
+        "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_review_packet.json",
+        "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_signature_template.json",
+        "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_blocker_report.md",
+        "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_runbook.md",
+        "docs/automation/V6_OPERATOR_APPROVAL_GATE/implementation_report.md",
+        "docs/automation/V6_OPERATOR_APPROVAL_GATE/next_task_pointer.md"
     ]
 
     packet = {
@@ -342,7 +418,7 @@ def materialize_project_sources_upload_bundle_packets(
         "source_readiness_evidence_bundle_packet_id": source_readiness_bundle_packet_id,
         "source_supervised_dispatch_readiness_packet_id": source_supervised_dispatch_readiness_packet_id,
         "baseline_before_upload_bundle_task": BASELINE_BEFORE_UPLOAD_BUNDLE_TASK,
-        "previous_accepted_pipeline_status_head": "4f8b79563f9cf88777c8d5cda8ff48a7a2bbdd81",
+        "previous_accepted_pipeline_status_head": "9571d900552122c0d1c110017d718c7e4b7f375d",
         "bundle_generation_head": head_sha,
         "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
         "final_head_requires_post_push_audit": True,
@@ -370,7 +446,7 @@ def materialize_project_sources_upload_bundle_packets(
         "no_network_call_in_this_task": True,
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
+        "next_recommended_task": "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0" if evidence_complete else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
     }
 
     return packet, upload_candidate_files

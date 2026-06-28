@@ -1,0 +1,8 @@
+{
+  "approval_decision": "PENDING",
+  "expires_at": null,
+  "operator_id": "PLACEHOLDER_OPERATOR_ID",
+  "payload_hash": null,
+  "revoked": false,
+  "valid_for_dispatch": false
+}

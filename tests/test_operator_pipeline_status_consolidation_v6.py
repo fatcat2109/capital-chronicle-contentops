@@ -13,9 +13,9 @@ def test_committed_consolidation_packet_is_blocked():
     assert pointer_file.exists()
 
     data = json.loads(packet_file.read_text(encoding="utf-8"))
-    assert data["overall_status"] == "BLOCKED_AWAITING_OPERATOR_EVIDENCE"
-    assert data["evidence_complete"] is False
-    assert data["source_preflight_ready"] is False
+    assert data["overall_status"] == "PREFLIGHT_CANDIDATE_READY_FOR_APPROVAL"
+    assert data["evidence_complete"] is True
+    assert data["source_preflight_ready"] is True
     
     # Check flags are locked
     assert data["dispatch_allowed_now"] is False

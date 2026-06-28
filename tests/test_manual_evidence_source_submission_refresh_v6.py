@@ -23,15 +23,14 @@ def test_committed_refresh_packet_is_blocked():
     assert packet_file.exists()
     
     data = json.loads(packet_file.read_text(encoding="utf-8"))
-    assert data["refresh_status"] == "BLOCKED_AWAITING_OPERATOR_EVIDENCE"
-    assert data["evidence_complete"] is False
-    assert data["operator_fixture_exists"] is False
-    assert data["source_preflight_ready"] is False
+    assert data["refresh_status"] == "PREFLIGHT_CANDIDATE_READY_FOR_APPROVAL"
+    assert data["evidence_complete"] is True
+    assert data["source_preflight_ready"] is True
     assert data["dispatch_allowed_now"] is False
     assert data["live_write_allowed_now"] is False
     assert data["approval_valid_for_dispatch"] is False
     assert data["kill_switch_active"] is True
-    assert data["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_POPULATE_REAL_EVIDENCE_FIXTURE_AND_RERUN_REFRESH_MANUAL_STEP"
+    assert data["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_V0"
 
 
 def test_stage_matrix_includes_all_required_stages():

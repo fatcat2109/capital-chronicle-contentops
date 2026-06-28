@@ -140,9 +140,9 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
     
     # 1. Assert packet values
-    assert packet["task_label"] == "TASK_CONTENTOPS_V6_OPERATOR_DELEGATED_REAL_EVIDENCE_FIXTURE_AUTHORING_AND_REFRESH_DRY_RUN_HEAVY_BATCH_V0"
+    assert packet["task_label"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_AND_DELEGATED_EVIDENCE_ROLLUP_REPAIR_HEAVY_BATCH_V0"
     assert packet["final_head_requires_post_push_audit"] is True
-    assert packet["previous_accepted_pipeline_status_head"] == "4f8b79563f9cf88777c8d5cda8ff48a7a2bbdd81"
+    assert packet["previous_accepted_pipeline_status_head"] == "9571d900552122c0d1c110017d718c7e4b7f375d"
     assert "pre_commit_generation_head_input_only" in packet["bundle_generation_head_label"]
     assert "docs/automation/V6_NETWORK_SCOPE_POLICY/scoped_network_policy_v6.md" in files
     assert "docs/automation/V6_NETWORK_SCOPE_POLICY/network_resource_allowlist.json" in files
@@ -163,6 +163,13 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_fixture_redacted_summary.json" in files
     assert "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_source_map.json" in files
     assert "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_refresh_result.json" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_gate_packet.json" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_review_packet.json" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_signature_template.json" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_blocker_report.md" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_runbook.md" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/implementation_report.md" in files
+    assert "docs/automation/V6_OPERATOR_APPROVAL_GATE/next_task_pointer.md" in files
     
     # 2. Check generate_current_state_summary_markdown details
     summary = upload_lane.generate_current_state_summary_markdown(

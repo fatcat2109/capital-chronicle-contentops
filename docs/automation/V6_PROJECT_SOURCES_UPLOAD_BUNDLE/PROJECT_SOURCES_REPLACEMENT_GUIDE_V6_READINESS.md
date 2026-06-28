@@ -36,6 +36,11 @@ Please upload the following files to the ChatGPT Project Sources:
 30. `docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_fixture_redacted_summary.json`
 31. `docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_source_map.json`
 32. `docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_refresh_result.json`
+33. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_gate_packet.json`
+34. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_review_packet.json`
+35. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_signature_template.json`
+36. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_blocker_report.md`
+37. `docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_runbook.md`
 
 ## Deprioritized Older Documents
 You can deprioritize or remove older V6 draft outlines, platform variant files, or temporary preflight logs that are not listed above, to keep context usage clean.
