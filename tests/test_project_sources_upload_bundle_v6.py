@@ -152,10 +152,19 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
     
     # 1. Assert packet values
-    assert packet["task_label"] == "TASK_CONTENTOPS_V6_AI_PRODUCTION_CORE_HEAVY_BATCH_V0"
+    assert packet["task_label"] == "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0"
     assert packet["final_head_requires_post_push_audit"] is True
     assert packet["previous_accepted_pipeline_status_head"] == "9571d900552122c0d1c110017d718c7e4b7f375d"
     assert "pre_commit_generation_head_input_only" in packet["bundle_generation_head_label"]
+    assert "docs/automation/V6_PLATFORM_CONTENT_GENERATORS/platform_content_generators_packet.json" in files
+    assert "docs/automation/V6_PLATFORM_CONTENT_GENERATORS/platform_variant_constraint_registry.json" in files
+    assert "docs/automation/V6_PLATFORM_CONTENT_GENERATORS/platform_variant_pack.json" in files
+    assert "docs/automation/V6_PLATFORM_CONTENT_GENERATORS/thread_continuation_pack.json" in files
+    assert "docs/automation/V6_PLATFORM_CONTENT_GENERATORS/platform_variant_validation_report.json" in files
+    assert "docs/automation/V6_PLATFORM_CONTENT_GENERATORS/platform_variant_blocker_report.md" in files
+    assert "docs/automation/V6_PLATFORM_CONTENT_GENERATORS/platform_variant_runbook.md" in files
+    assert "docs/automation/V6_PLATFORM_CONTENT_GENERATORS/implementation_report.md" in files
+    assert "docs/automation/V6_PLATFORM_CONTENT_GENERATORS/next_task_pointer.md" in files
     assert "docs/automation/V6_NETWORK_SCOPE_POLICY/scoped_network_policy_v6.md" in files
     assert "docs/automation/V6_NETWORK_SCOPE_POLICY/network_resource_allowlist.json" in files
     assert "docs/automation/V6_NETWORK_SCOPE_POLICY/network_scope_policy_packet.json" in files
@@ -254,7 +263,7 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "no force push" in note.lower() or "never use `git push -f`" in note.lower()
     
     # 4. Check recommended task
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_DRAFT_INSPECTOR_V2_AND_CONTENT_QUALITY_QA_HEAVY_BATCH_V0"
     
     # 5. Check flags are locked
     assert packet["dispatch_allowed_now"] is False
@@ -270,7 +279,7 @@ def test_valid_payload_hash_unblocks_hash_pointer(tmp_path):
     packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
 
     assert "payload_hash_incomplete" not in packet["unresolved_blockers"]
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_DRAFT_INSPECTOR_V2_AND_CONTENT_QUALITY_QA_HEAVY_BATCH_V0"
 
 
 def test_valid_signature_routes_to_supervised_dispatch_readiness(tmp_path):
@@ -286,7 +295,7 @@ def test_valid_signature_routes_to_supervised_dispatch_readiness(tmp_path):
     packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
 
     assert "payload_hash_incomplete" not in packet["unresolved_blockers"]
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_DRAFT_INSPECTOR_V2_AND_CONTENT_QUALITY_QA_HEAVY_BATCH_V0"
 
 
 def test_placeholder_hash_does_not_unblock_hash_pointer(tmp_path):
@@ -296,4 +305,4 @@ def test_placeholder_hash_does_not_unblock_hash_pointer(tmp_path):
     packet, _ = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
 
     assert "payload_hash_incomplete" in packet["unresolved_blockers"]
-    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0"
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_DRAFT_INSPECTOR_V2_AND_CONTENT_QUALITY_QA_HEAVY_BATCH_V0"

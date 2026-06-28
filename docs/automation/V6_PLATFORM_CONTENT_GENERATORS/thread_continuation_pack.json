@@ -1,0 +1,24 @@
+{
+  "x_manual_thread": [
+    {
+      "dispatch_allowed_now": false,
+      "public_postable": false,
+      "review_only": true,
+      "segment_hash": "9e90f2ceb6c4156b07ea218e13d40ab1c9cd1b20cb46e3a6818619cbd54e144a",
+      "segment_index": 1,
+      "segment_text": "(1/2) Historical Volatility of Treasury Yields\nAn educational analysis of yield movements based on unverified dry-run sample\n\nTreasury yields represent key cost of capital metrics. Historically, yield volatility reflects macroeconomic adjustments.\n\nThis analysis\n\n[Unverified ...",
+      "sequence_label": "(1/2)",
+      "total_segments": 2
+    },
+    {
+      "dispatch_allowed_now": false,
+      "public_postable": false,
+      "review_only": true,
+      "segment_hash": "86a44561def1281cd7ac5f3279a99bfbe10a1124631a275c32102fd6442b8e91",
+      "segment_index": 2,
+      "segment_text": "(2/2) is limited by the parameters of the unverified dry-run sample dataset. Yield analysis is uncertain and source verification is required.\n\nNo financial recommendations or trade positioning suggestions are made.\n\n[Unverified Source: Verification Required]",
+      "sequence_label": "(2/2)",
+      "total_segments": 2
+    }
+  ]
+}

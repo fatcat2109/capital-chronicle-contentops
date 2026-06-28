@@ -1,0 +1,5 @@
+# Next Task Pointer
+
+Recommended next task:
+
+`TASK_CONTENTOPS_V6_DRAFT_INSPECTOR_V2_AND_CONTENT_QUALITY_QA_HEAVY_BATCH_V0`

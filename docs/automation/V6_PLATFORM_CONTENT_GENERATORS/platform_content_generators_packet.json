@@ -1,0 +1,21 @@
+{
+  "allowed_for_drafting": true,
+  "allowed_for_publication": false,
+  "approval_valid_for_dispatch": false,
+  "blockers": [
+    "publication_blocked_until_source_verification",
+    "source_verification_required"
+  ],
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_DRAFT_INSPECTOR_V2_AND_CONTENT_QUALITY_QA_HEAVY_BATCH_V0",
+  "outbox_entry_created": false,
+  "platform_generation_status": "READY_FOR_REVIEW_ONLY_DRY_RUN",
+  "public_postable": false,
+  "schema_version": "6.0.0",
+  "source_verification_required": true,
+  "task_label": "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0"
+}
