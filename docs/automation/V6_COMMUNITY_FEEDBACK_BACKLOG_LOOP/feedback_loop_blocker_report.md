@@ -2,11 +2,12 @@
 
 - **Task Label**: TASK_CONTENTOPS_V6_COMMUNITY_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_HEAVY_BATCH_V0
 - **Loop Status**: READY_FOR_REVIEW_ONLY_MANUAL_INTAKE
-- **Blocker Count**: 3
+- **Blocker Count**: 4
 
 ## Active Blockers
 - `dm_or_private_message_detected`
 - `private_identifier_detected`
+- `private_name_marker_detected`
 - `unredacted_personal_data_detected`
 
 ## Mitigation Requirements

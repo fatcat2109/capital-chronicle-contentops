@@ -1,10 +1,11 @@
 {
   "allowed_for_llm_summary": false,
   "allowed_for_publication": false,
-  "author_handle_redacted": "user_delta_real_name_john_smith",
+  "author_handle_redacted": "[PRIVATE_NAME_REDACTED]",
   "blocked_reasons": [
     "dm_or_private_message_detected",
     "private_identifier_detected",
+    "private_name_marker_detected",
     "unredacted_personal_data_detected"
   ],
   "collected_at_manual": "2026-06-28T19:15:00Z",

@@ -315,7 +315,7 @@ Runs local ingestion and safety checks on feedback snapshots.
 
 - **Task Label**: {TASK_LABEL}
 - **Baseline starting HEAD**: 23d0785dc49646e49fe9cbd385f08b468806213e
-- **Safety checks**: All safety validations passed.
+- **Safety posture**: review-only runtime controls passed; content validation remains FAILED_WITH_BLOCKERS due to redacted personal-data/DM sample blockers.
 - **Provider calls made**: Zero.
 - **Scraping or live API read**: Zero.
 """

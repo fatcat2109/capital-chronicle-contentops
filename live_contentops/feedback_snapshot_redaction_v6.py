@@ -41,6 +41,15 @@ def redact_text(text: str) -> tuple[str, list[str]]:
     blockers = []
     redacted = text
 
+    # Redact private-name-looking markers (run first)
+    private_name_markers = ["real_name", "full_name", "john_smith", "first_last"]
+    for marker in private_name_markers:
+        if marker in redacted.lower():
+            pattern = re.compile(re.escape(marker), re.IGNORECASE)
+            redacted = pattern.sub("[PRIVATE_NAME_REDACTED]", redacted)
+            blockers.append("private_name_marker_detected")
+            blockers.append("private_identifier_detected")
+
     # Redact Webhook URLs (run first)
     if WEBHOOK_URL_re.search(redacted):
         redacted = WEBHOOK_URL_re.sub("[WEBHOOK_REDACTED]", redacted)
@@ -118,7 +127,11 @@ def redact_snapshot(snapshot: dict[str, Any]) -> tuple[dict[str, Any], list[str]
 
     # Redact author handle
     author_handle = redacted_snap.get("author_handle_redacted", "")
-    redacted_handle, handle_blockers = redact_text(author_handle)
+    if any(m in author_handle.lower() for m in ["real_name", "full_name", "john_smith", "first_last"]):
+        redacted_handle = "[PRIVATE_NAME_REDACTED]"
+        handle_blockers = ["private_name_marker_detected", "private_identifier_detected"]
+    else:
+        redacted_handle, handle_blockers = redact_text(author_handle)
     redacted_snap["author_handle_redacted"] = redacted_handle
     blockers.extend(handle_blockers)
 

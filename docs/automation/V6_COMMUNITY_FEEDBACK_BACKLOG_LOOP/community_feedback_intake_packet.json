@@ -1,10 +1,11 @@
 {
   "allowed_for_publication": false,
   "autonomous_engagement_enabled": false,
-  "blocker_count": 3,
+  "blocker_count": 4,
   "blockers": [
     "dm_or_private_message_detected",
     "private_identifier_detected",
+    "private_name_marker_detected",
     "unredacted_personal_data_detected"
   ],
   "browser_session_started": false,

@@ -68,3 +68,29 @@ def test_redact_snapshot_fake_url_and_metrics():
     assert redacted_snap["metrics_verified"] is False
     assert "creates_fake_public_url" in blockers
     assert "claims_metrics_verified_without_evidence" in blockers
+
+
+def test_redact_private_name_markers():
+    # Handle check
+    snap = {
+        "snapshot_id": "snap_test_name",
+        "raw_feedback_text_redacted": "Hello world",
+        "author_handle_redacted": "user_delta_real_name_john_smith",
+        "contains_personal_data": True,
+        "redaction_required": True,
+        "blocked_reasons": []
+    }
+    redacted_snap, blockers = redaction.redact_snapshot(snap)
+    assert redacted_snap["author_handle_redacted"] == "[PRIVATE_NAME_REDACTED]"
+    assert "private_name_marker_detected" in blockers
+    assert "private_identifier_detected" in blockers
+
+    # Text check
+    text = "The user full_name is first_last."
+    redacted, text_blockers = redaction.redact_text(text)
+    assert "[PRIVATE_NAME_REDACTED]" in redacted
+    assert "full_name" not in redacted.lower()
+    assert "first_last" not in redacted.lower()
+    assert "private_name_marker_detected" in text_blockers
+    assert "private_identifier_detected" in text_blockers
+

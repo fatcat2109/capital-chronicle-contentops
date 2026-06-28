@@ -65,3 +65,20 @@ def test_main_execution(tmp_path):
     assert intake_data["live_write_allowed_now"] is False
     assert intake_data["human_review_required"] is True
     assert intake_data["kill_switch_active"] is True
+
+    # 1. Assert validation report status and blockers
+    validation_data = json.loads((out_dir / "feedback_loop_validation_report.json").read_text(encoding="utf-8"))
+    assert validation_data["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "private_name_marker_detected" in validation_data["blockers"]
+
+    # 2. Assert implementation report doesn't claim safety validations passed
+    impl_report = (out_dir / "implementation_report.md").read_text(encoding="utf-8")
+    assert "All safety validations passed" not in impl_report
+    assert "**Safety posture**: review-only runtime controls passed; content validation remains FAILED_WITH_BLOCKERS due to redacted personal-data/DM sample blockers." in impl_report
+
+    # 3. Assert redacted sample safety
+    sample_data = json.loads((out_dir / "redacted_feedback_snapshot_sample.json").read_text(encoding="utf-8"))
+    assert sample_data["author_handle_redacted"] == "[PRIVATE_NAME_REDACTED]"
+    assert "real_name" not in sample_data["author_handle_redacted"]
+    assert "john_smith" not in sample_data["author_handle_redacted"]
+

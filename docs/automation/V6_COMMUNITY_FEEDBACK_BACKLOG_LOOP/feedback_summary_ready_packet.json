@@ -56,6 +56,7 @@
   "blocked_reasons": [
     "dm_or_private_message_detected",
     "private_identifier_detected",
+    "private_name_marker_detected",
     "unredacted_personal_data_detected"
   ],
   "clusters": [
@@ -86,6 +87,7 @@
       "blocked_reasons": [
         "dm_or_private_message_detected",
         "private_identifier_detected",
+        "private_name_marker_detected",
         "unredacted_personal_data_detected"
       ],
       "cluster_id": "cluster_36b1371bd1d7",
@@ -132,6 +134,7 @@
       "blocked_reasons": [
         "dm_or_private_message_detected",
         "private_identifier_detected",
+        "private_name_marker_detected",
         "unredacted_personal_data_detected"
       ],
       "snapshot_id": "snap_004_personal_data"
