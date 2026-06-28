@@ -35,7 +35,42 @@ def test_main_execution(tmp_path):
 
     # Load and check positive fixture summary (UNBLOCKED FOR TEST)
     pos = json.loads((out_dir / "test_only_positive_fixture_report.json").read_text(encoding="utf-8"))
+    assert pos["test_only"] is True
+    assert pos["runtime_truth"] is False
     assert pos["synthetic_fixture_loaded"] is True
-    assert pos["pos_blockers_count"] == 1
-    assert pos["pos_gate_status"] == "PASSED_VERIFIED_SOURCE_PACK_VALID"
-    assert pos["draft_generation_possible_on_this_fixture"] is True
+    assert pos["committed_runtime_verified_source_pack_created"] is False
+    assert pos["real_source_fetch_performed"] is False
+    assert pos["operator_verification_performed"] is False
+    assert pos["source_urls_persisted_in_runtime_artifact"] is False
+    assert pos["evidence_hashes_persisted_in_runtime_artifact"] is False
+    assert pos["positive_path_unit_test_only"] is True
+    assert pos["publication_allowed"] is False
+    assert pos["dispatch_allowed_now"] is False
+    assert pos["public_postable"] is False
+
+    # Check task labels in markdown files
+    blocker_md = (out_dir / "verified_source_pack_import_blocker_report.md").read_text(encoding="utf-8")
+    assert "TASK_CONTENTOPS_V6_VERIFIED_SOURCE_PACK_IMPORT_AND_REVALIDATION_DRY_RUN_HEAVY_BATCH_V0" in blocker_md
+    assert "V6_SOURCE_PACK_VERIFICATION_UI" not in blocker_md
+
+    impl_md = (out_dir / "implementation_report.md").read_text(encoding="utf-8")
+    assert "TASK_CONTENTOPS_V6_VERIFIED_SOURCE_PACK_IMPORT_AND_REVALIDATION_DRY_RUN_HEAVY_BATCH_V0" in impl_md
+    assert "V6_SOURCE_PACK_VERIFICATION_UI" not in impl_md
+
+    # Check for no leak of operator_jim_sig or real URLs/hashes in all output files
+    for name in expected_files:
+        content = (out_dir / name).read_text(encoding="utf-8")
+        assert "operator_jim_sig" not in content
+        assert "federalreserve.gov" not in content
+        assert "V6_SOURCE_PACK_VERIFICATION_UI" not in content
+
+    # Check runtime default import artifacts remain blocked and do not set generation/dispatch flags
+    import_report = json.loads((out_dir / "verified_source_pack_import_validation_report.json").read_text(encoding="utf-8"))
+    assert import_report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "draft_generation_blocked" in import_report["blockers"]
+
+    import_packet = json.loads((out_dir / "verified_source_pack_import_packet.json").read_text(encoding="utf-8"))
+    assert import_packet["allowed_for_publication"] is False
+    assert import_packet["public_postable"] is False
+    assert import_packet["dispatch_allowed_now"] is False
+

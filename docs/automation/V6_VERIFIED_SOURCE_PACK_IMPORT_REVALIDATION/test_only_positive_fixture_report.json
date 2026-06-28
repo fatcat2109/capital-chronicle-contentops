@@ -1,10 +1,32 @@
 {
-  "draft_generation_possible_on_this_fixture": true,
-  "pos_all_claims_bound": true,
+  "committed_runtime_verified_source_pack_created": false,
+  "dispatch_allowed_now": false,
+  "draft_generation_possible_on_this_fixture": false,
+  "evidence_hashes_persisted_in_runtime_artifact": false,
+  "operator_verification_performed": false,
+  "pos_all_claims_bound": false,
   "pos_blockers": [
-    "publication_blocked_until_source_verification"
+    "claim_binding_missing",
+    "draft_generation_blocked",
+    "evidence_hash_missing",
+    "operator_signature_missing",
+    "operator_source_entries_missing",
+    "operator_source_pack_missing",
+    "publication_blocked_until_source_verification",
+    "retrieved_at_missing",
+    "source_excerpt_ref_missing",
+    "source_url_missing",
+    "source_verification_required",
+    "verified_source_pack_missing"
   ],
-  "pos_blockers_count": 1,
-  "pos_gate_status": "PASSED_VERIFIED_SOURCE_PACK_VALID",
-  "synthetic_fixture_loaded": true
+  "pos_blockers_count": 12,
+  "pos_gate_status": "BLOCKED_MISSING_VERIFIED_SOURCE_PACK",
+  "positive_path_unit_test_only": true,
+  "public_postable": false,
+  "publication_allowed": false,
+  "real_source_fetch_performed": false,
+  "runtime_truth": false,
+  "source_urls_persisted_in_runtime_artifact": false,
+  "synthetic_fixture_loaded": true,
+  "test_only": true
 }

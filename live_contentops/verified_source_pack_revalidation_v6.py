@@ -13,7 +13,7 @@ from live_contentops import source_pack_claim_binding_revalidator_v6 as binding_
 from live_contentops import verified_source_pack_fixture_factory_v6 as positive_factory
 from live_contentops import verified_source_pack_import_v6 as import_handler
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_SOURCE_PACK_VERIFICATION_UI_AND_OPERATOR_RESEARCH_CHECKLIST_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_VERIFIED_SOURCE_PACK_IMPORT_AND_REVALIDATION_DRY_RUN_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 
 DEFAULT_OUTPUT_DIR = Path("docs/automation/V6_VERIFIED_SOURCE_PACK_IMPORT_REVALIDATION")
@@ -99,7 +99,18 @@ def main(argv: list[str] | None = None) -> int:
     pos_gate_report = run_gate_revalidation(positive_pack, pos_all_bound, pos_blockers)
 
     pos_fixture_summary = {
+        "test_only": True,
+        "runtime_truth": False,
         "synthetic_fixture_loaded": True,
+        "committed_runtime_verified_source_pack_created": False,
+        "real_source_fetch_performed": False,
+        "operator_verification_performed": False,
+        "source_urls_persisted_in_runtime_artifact": False,
+        "evidence_hashes_persisted_in_runtime_artifact": False,
+        "positive_path_unit_test_only": True,
+        "publication_allowed": False,
+        "dispatch_allowed_now": False,
+        "public_postable": False,
         "pos_blockers_count": len(pos_blockers),
         "pos_blockers": pos_blockers,
         "pos_all_claims_bound": pos_all_bound,
