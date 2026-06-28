@@ -1,0 +1,7 @@
+{
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "operator_filled_redacted_fixture": true,
+  "redacted_fixture_review_status": "REDACTED_FIXTURE_WAITING_FOR_OPERATOR",
+  "runtime_truth": false
+}

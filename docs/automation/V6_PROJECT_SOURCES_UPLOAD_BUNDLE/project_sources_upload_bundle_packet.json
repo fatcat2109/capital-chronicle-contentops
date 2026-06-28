@@ -4,7 +4,7 @@
   "approval_required": true,
   "approval_valid_for_dispatch": false,
   "baseline_before_upload_bundle_task": "d97bc3968e1babf48c81f384fb547b439e48515c",
-  "bundle_generation_head": "1b55a5f786021ee34b32ecece12be37a44f66620",
+  "bundle_generation_head": "7e6b504250d9258f217207e2b5ee37f36a996e53",
   "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
   "bundle_stage": "v6_project_sources_upload_bundle",
   "bundle_status": "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS",
@@ -15,7 +15,7 @@
   "kill_switch_active": true,
   "live_write_attempted": false,
   "new_chat_continuation_file": "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/NEW_CHAT_CONTINUATION_V6_READINESS.md",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_REAL_SOURCE_PACK_OPERATOR_FILLED_REDACTED_FIXTURE_DRY_RUN_REVIEW_HEAVY_BATCH_V0",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_REAL_SOURCE_PACK_OPERATOR_APPROVAL_GATE_DRY_RUN_HEAVY_BATCH_V0",
   "no_env_read_in_this_task": true,
   "no_live_request_in_this_task": true,
   "no_network_call_in_this_task": true,
@@ -30,7 +30,7 @@
   "schema_version": "6.0.0",
   "source_readiness_evidence_bundle_packet_id": "bundle_fbe34af9e66e",
   "source_supervised_dispatch_readiness_packet_id": "readiness_34edf10af116",
-  "task_label": "TASK_CONTENTOPS_V6_REAL_SOURCE_PACK_MANUAL_IMPORT_FIXTURE_SCHEMA_AND_HASH_REVIEW_DRY_RUN_HEAVY_BATCH_V0",
+  "task_label": "TASK_CONTENTOPS_V6_REAL_SOURCE_PACK_OPERATOR_FILLED_REDACTED_FIXTURE_DRY_RUN_REVIEW_HEAVY_BATCH_V0",
   "unresolved_blockers": [
     "destination_binding_incomplete",
     "kill_switch_active",
@@ -284,7 +284,16 @@
     "docs/automation/V6_REAL_SOURCE_PACK_MANUAL_IMPORT_SCHEMA/real_source_pack_manual_import_blocker_report.md",
     "docs/automation/V6_REAL_SOURCE_PACK_MANUAL_IMPORT_SCHEMA/real_source_pack_manual_import_runbook.md",
     "docs/automation/V6_REAL_SOURCE_PACK_MANUAL_IMPORT_SCHEMA/implementation_report.md",
-    "docs/automation/V6_REAL_SOURCE_PACK_MANUAL_IMPORT_SCHEMA/next_task_pointer.md"
+    "docs/automation/V6_REAL_SOURCE_PACK_MANUAL_IMPORT_SCHEMA/next_task_pointer.md",
+    "docs/automation/V6_REAL_SOURCE_PACK_REDACTED_FIXTURE_REVIEW/real_source_pack_redacted_fixture_packet.json",
+    "docs/automation/V6_REAL_SOURCE_PACK_REDACTED_FIXTURE_REVIEW/operator_filled_redacted_fixture_example.json",
+    "docs/automation/V6_REAL_SOURCE_PACK_REDACTED_FIXTURE_REVIEW/redacted_hash_presence_review.json",
+    "docs/automation/V6_REAL_SOURCE_PACK_REDACTED_FIXTURE_REVIEW/redacted_claim_binding_review.json",
+    "docs/automation/V6_REAL_SOURCE_PACK_REDACTED_FIXTURE_REVIEW/redacted_fixture_validation_report.json",
+    "docs/automation/V6_REAL_SOURCE_PACK_REDACTED_FIXTURE_REVIEW/redacted_fixture_blocker_report.md",
+    "docs/automation/V6_REAL_SOURCE_PACK_REDACTED_FIXTURE_REVIEW/redacted_fixture_review_runbook.md",
+    "docs/automation/V6_REAL_SOURCE_PACK_REDACTED_FIXTURE_REVIEW/implementation_report.md",
+    "docs/automation/V6_REAL_SOURCE_PACK_REDACTED_FIXTURE_REVIEW/next_task_pointer.md"
   ],
   "webhook_url_printed": false
 }

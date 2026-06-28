@@ -1,0 +1,18 @@
+{
+  "all_entries_redacted": true,
+  "all_hashes_present": true,
+  "hash_count": 5,
+  "hash_review_status": "REDACTED_HASH_PRESENCE_REVIEW_ONLY",
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "raw_hash_values_persisted": false,
+  "raw_source_excerpts_persisted": false,
+  "raw_source_urls_persisted": false,
+  "redacted_hash_presence_only": true,
+  "runtime_truth": false,
+  "source_entry_count": 5,
+  "valid_for_dispatch": false,
+  "valid_for_draft_generation": false,
+  "valid_for_publication": false,
+  "valid_for_source_approval": false
+}

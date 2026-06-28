@@ -1,0 +1,58 @@
+{
+  "claims_bindings": [
+    {
+      "allowed_for_publication": false,
+      "allowed_in_article_draft": false,
+      "allowed_in_review": false,
+      "blockers": [
+        "operator_source_approval_missing",
+        "runtime_truth_false",
+        "raw_source_values_not_available_for_model"
+      ],
+      "claim_id": "claim_d474a9fdbcd6",
+      "source_entries_found_by_requirement_id": [
+        "req_67a5db6704f5"
+      ],
+      "source_requirement_refs": [
+        "req_67a5db6704f5"
+      ],
+      "source_support_status": "redacted_presence_only_not_approved"
+    },
+    {
+      "allowed_for_publication": false,
+      "allowed_in_article_draft": false,
+      "allowed_in_review": false,
+      "blockers": [
+        "operator_source_approval_missing",
+        "runtime_truth_false",
+        "raw_source_values_not_available_for_model"
+      ],
+      "claim_id": "claim_63d1cf20e9bf",
+      "source_entries_found_by_requirement_id": [
+        "req_bfcb46cc38cc"
+      ],
+      "source_requirement_refs": [
+        "req_bfcb46cc38cc"
+      ],
+      "source_support_status": "redacted_presence_only_not_approved"
+    },
+    {
+      "allowed_for_publication": false,
+      "allowed_in_article_draft": false,
+      "allowed_in_review": false,
+      "blockers": [
+        "operator_source_approval_missing",
+        "runtime_truth_false",
+        "raw_source_values_not_available_for_model"
+      ],
+      "claim_id": "claim_492c29ad9746",
+      "source_entries_found_by_requirement_id": [
+        "req_e6edaf8e7750"
+      ],
+      "source_requirement_refs": [
+        "req_e6edaf8e7750"
+      ],
+      "source_support_status": "redacted_presence_only_not_approved"
+    }
+  ]
+}
