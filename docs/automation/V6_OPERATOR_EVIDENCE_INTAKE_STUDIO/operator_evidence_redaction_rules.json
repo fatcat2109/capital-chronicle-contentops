@@ -1,0 +1,32 @@
+{
+  "restricted_keywords": [
+    "webhook",
+    "discord.com/api/webhooks",
+    "token",
+    "cookie",
+    "authorization",
+    "bearer",
+    ".env",
+    "secret",
+    "password",
+    "pkey",
+    "private_key",
+    "session",
+    "localstorage",
+    "sessionstorage",
+    "header",
+    "appdata",
+    "temp"
+  ],
+  "rules_version": "6.0.0",
+  "strict_redactions": {
+    "dumps": "Forbidden. No cookie, session storage, localStorage, or browser profile dumps.",
+    "fake_citations": "Forbidden. All citations must correspond to verified sources.",
+    "fake_market_numbers": "Forbidden. Statistics and metrics must be manually verified and truthful.",
+    "fake_urls": "Forbidden. URLs must be valid and manually checked.",
+    "financial_advice": "Forbidden. No trading signals, buy/sell targets, position sizing, or predictions.",
+    "local_paths": "Forbidden. No environmental paths, pytest paths, Temp, or AppData references.",
+    "secrets_tokens": "Forbidden. No API keys, passwords, bearer tokens, or authorization headers.",
+    "webhooks": "Forbidden. Webhook URLs must not be printed or stored."
+  }
+}

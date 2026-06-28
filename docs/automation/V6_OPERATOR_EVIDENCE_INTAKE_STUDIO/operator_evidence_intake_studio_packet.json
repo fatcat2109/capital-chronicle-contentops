@@ -1,0 +1,11 @@
+{
+  "approval_valid_for_dispatch": false,
+  "dispatch_allowed_now": false,
+  "evidence_complete": false,
+  "intake_studio_status": "EMPTY_FIXTURE_AWAITING_OPERATOR_INPUT",
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0",
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_EVIDENCE_INTAKE_STUDIO_AND_VALIDATION_WORKBENCH_HEAVY_BATCH_V0"
+}

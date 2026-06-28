@@ -1,0 +1,13 @@
+{
+  "approval_valid_for_dispatch": false,
+  "dispatch_allowed_now": false,
+  "evidence_complete": false,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "public_postable": false,
+  "source_preflight_ready": false,
+  "validation_errors": [
+    "Fixture file is missing or unreadable."
+  ],
+  "validation_preview_status": "EMPTY_FIXTURE_AWAITING_OPERATOR_INPUT"
+}

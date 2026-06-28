@@ -1,9 +1,9 @@
 # V6 Project Sources Upload Bundle Implementation Report
 
-- **Task Label**: TASK_CONTENTOPS_V6_PROJECT_SOURCES_METADATA_REPAIR_AND_PIPELINE_STATUS_HARDENING_HEAVY_BATCH_V0
+- **Task Label**: TASK_CONTENTOPS_V6_OPERATOR_EVIDENCE_INTAKE_STUDIO_AND_VALIDATION_WORKBENCH_HEAVY_BATCH_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 4dc102c4ed555375613b1323dfdc184db064cfaf (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: a3ea3d3b9f01ba26eb89912d2577190c927200f8 (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
@@ -16,6 +16,9 @@
   - v6_project_sources_candidate_manifest.json
   - current_v6_master_plan.md
   - v6_25_task_ledger.md
+  - operator_evidence_intake_studio_packet.json
+  - operator_evidence_fixture.validation_preview.json
+  - operator_evidence_submission_runbook.md
 
 - **Safety Checks Pass**:
   - No secret output: `true`

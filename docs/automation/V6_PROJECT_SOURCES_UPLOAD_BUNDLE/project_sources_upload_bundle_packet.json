@@ -4,7 +4,7 @@
   "approval_required": true,
   "approval_valid_for_dispatch": false,
   "baseline_before_upload_bundle_task": "d97bc3968e1babf48c81f384fb547b439e48515c",
-  "bundle_generation_head": "4dc102c4ed555375613b1323dfdc184db064cfaf",
+  "bundle_generation_head": "a3ea3d3b9f01ba26eb89912d2577190c927200f8",
   "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
   "bundle_stage": "v6_project_sources_upload_bundle",
   "bundle_status": "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS",
@@ -22,7 +22,7 @@
   "no_provider_call_in_this_task": true,
   "operator_next_actions_file": "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/OPERATOR_NEXT_ACTIONS_V6_READINESS.md",
   "outbox_entry_created": false,
-  "previous_accepted_pipeline_status_head": "4dc102c4ed555375613b1323dfdc184db064cfaf",
+  "previous_accepted_pipeline_status_head": "a3ea3d3b9f01ba26eb89912d2577190c927200f8",
   "project_sources_upload_bundle_packet_id": "upload_bundle_f1b14f3a439f",
   "public_postable": false,
   "raw_secret_output": false,
@@ -30,7 +30,7 @@
   "schema_version": "6.0.0",
   "source_readiness_evidence_bundle_packet_id": "bundle_fbe34af9e66e",
   "source_supervised_dispatch_readiness_packet_id": "readiness_34edf10af116",
-  "task_label": "TASK_CONTENTOPS_V6_PROJECT_SOURCES_METADATA_REPAIR_AND_PIPELINE_STATUS_HARDENING_HEAVY_BATCH_V0",
+  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_EVIDENCE_INTAKE_STUDIO_AND_VALIDATION_WORKBENCH_HEAVY_BATCH_V0",
   "unresolved_blockers": [
     "destination_binding_incomplete",
     "evidence_incomplete",
@@ -52,7 +52,10 @@
     "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_blocker_rollup.json",
     "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_project_sources_candidate_manifest.json",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md"
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_intake_studio_packet.json",
+    "docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_fixture.validation_preview.json",
+    "docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_submission_runbook.md"
   ],
   "webhook_url_printed": false
 }

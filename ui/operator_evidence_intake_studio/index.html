@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>V6 Operator Evidence Intake Studio</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="glow-container">
+    <div class="glow-orb main-glow"></div>
+  </div>
+
+  <header class="header">
+    <div class="header-logo">
+      <span class="logo-text">ANTIGRAVITY</span>
+      <span class="logo-subtext">INTAKE STUDIO v6.0</span>
+    </div>
+    <div class="pipeline-badge">
+      <span class="badge-dot"></span>
+      <span class="badge-label">PIPELINE STATE: BLOCKED AWAITING OPERATOR INPUT</span>
+    </div>
+  </header>
+
+  <main class="dashboard-grid">
+    <!-- Left Column: Guidelines & Policies -->
+    <section class="side-panel">
+      <div class="glass-card rules-card">
+        <h2>System Invariants & Governance</h2>
+        <div class="alert alert-important">
+          <strong>Project Sources are Context Only</strong><br>
+          Commit/remote fetched files on GitHub are the true runtime authority. soft task labels and next task pointers in upload bundles must be audited directly from GitHub.
+        </div>
+        <div class="alert alert-caution">
+          <strong>Strict Safety Rules</strong><br>
+          Never perform a force push (<code>git push -f</code>). If a push is rejected, stop and report remote drift.
+        </div>
+        
+        <h3>Required Workflow Steps</h3>
+        <ol class="runbook-steps">
+          <li><strong>Step 1</strong>: Copy <code>operator_evidence_fixture.blank.json</code> to <code>operator_evidence_fixture.json</code>.</li>
+          <li><strong>Step 2</strong>: Fill out all 10 slots in the fixture with real manually verified evidence.</li>
+          <li><strong>Step 3</strong>: Run the manual evidence validator command.</li>
+          <li><strong>Step 4</strong>: Run the source preflight bridge script.</li>
+          <li><strong>Step 5</strong>: Refresh pipeline status consolidation.</li>
+          <li><strong>Step 6</strong>: Move to operator approval gate (approval gate does not dispatch).</li>
+        </ol>
+      </div>
+
+      <div class="glass-card checklist-card">
+        <h2>Validation Checklist</h2>
+        <ul class="checklist-items">
+          <li><label><input type="checkbox" id="check-no-secrets" checked disabled> No raw secrets, keys, or passwords</label></li>
+          <li><label><input type="checkbox" id="check-no-webhooks" checked disabled> No Discord webhook URLs</label></li>
+          <li><label><input type="checkbox" id="check-no-env" checked disabled> No env configuration references (e.g. <code>.env</code>)</label></li>
+          <li><label><input type="checkbox" id="check-no-fake" checked disabled> No fake citations, metrics, or market values</label></li>
+          <li><label><input type="checkbox" id="check-no-signals" checked disabled> No financial advice or trading signals</label></li>
+          <li><label><input type="checkbox" id="check-no-local" checked disabled> No local folder paths (AppData/Temp)</label></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Right Column: Interactive Editor / Sandbox -->
+    <section class="main-panel">
+      <div class="glass-card editor-card">
+        <div class="card-header">
+          <h2>Factual Evidence Authoring Workbench</h2>
+          <button id="btn-validate" class="btn btn-primary">Analyze Fields</button>
+        </div>
+        <p class="section-desc">Paste your draft evidence below to run local client-side inspections for safety compliance before saving.</p>
+
+        <form id="evidence-form" class="evidence-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="operator_idea_source_ref">operator_idea_source_ref <span class="required">*</span></label>
+              <input type="text" id="operator_idea_source_ref" name="operator_idea_source_ref" placeholder="PLACEHOLDER_REPLACE_BEFORE_REVIEW">
+              <span class="field-guidance">Citations link or repository relative file path (e.g. docs/sources/verified_fact.pdf).</span>
+            </div>
+            <div class="form-group">
+              <label for="topic_statement">topic_statement <span class="required">*</span></label>
+              <input type="text" id="topic_statement" name="topic_statement" placeholder="PLACEHOLDER_REPLACE_BEFORE_REVIEW">
+              <span class="field-guidance">Short statement summarizing the factual topic.</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="factual_claims">factual_claims (Comma-separated list) <span class="required">*</span></label>
+            <textarea id="factual_claims" name="factual_claims" placeholder="PLACEHOLDER_REPLACE_BEFORE_REVIEW"></textarea>
+            <span class="field-guidance">Factual claims checkable against source. Allowed in public-postable content.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="source_notes">source_notes <span class="required">*</span></label>
+            <textarea id="source_notes" name="source_notes" placeholder="PLACEHOLDER_REPLACE_BEFORE_REVIEW"></textarea>
+            <span class="field-guidance">Detailed manual validation checks. Raw content allowed.</span>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="citation_candidates">citation_candidates (Comma-separated URLs) <span class="required">*</span></label>
+              <input type="text" id="citation_candidates" name="citation_candidates" placeholder="PLACEHOLDER_REPLACE_BEFORE_REVIEW">
+            </div>
+            <div class="form-group">
+              <label for="supporting_artifacts">supporting_artifacts (Comma-separated paths) <span class="required">*</span></label>
+              <input type="text" id="supporting_artifacts" name="supporting_artifacts" placeholder="PLACEHOLDER_REPLACE_BEFORE_REVIEW">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="limitation_notes">limitation_notes <span class="required">*</span></label>
+              <input type="text" id="limitation_notes" name="limitation_notes" placeholder="PLACEHOLDER_REPLACE_BEFORE_REVIEW">
+            </div>
+            <div class="form-group">
+              <label for="no_signal_disclosure">no_signal_disclosure <span class="required">*</span></label>
+              <input type="text" id="no_signal_disclosure" name="no_signal_disclosure" placeholder="PLACEHOLDER_REPLACE_BEFORE_REVIEW">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="intended_content_lane">intended_content_lane <span class="required">*</span></label>
+              <input type="text" id="intended_content_lane" name="intended_content_lane" placeholder="PLACEHOLDER_REPLACE_BEFORE_REVIEW">
+            </div>
+            <div class="form-group">
+              <label for="intended_canonical_article_angle">intended_canonical_article_angle <span class="required">*</span></label>
+              <input type="text" id="intended_canonical_article_angle" name="intended_canonical_article_angle" placeholder="PLACEHOLDER_REPLACE_BEFORE_REVIEW">
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Real-time validation logs -->
+      <div class="glass-card logs-card">
+        <h2>Local Validation Sandbox Result</h2>
+        <div id="validation-output" class="validation-output idle">
+          Await validation check...
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Antigravity V6 Compliance Engine - Confined Local Workspace</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
