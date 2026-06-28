@@ -1,0 +1,68 @@
+{
+  "checklist_status": "EDITOR_REVIEW_BLOCKED_PENDING_SOURCE_APPROVAL",
+  "items": [
+    {
+      "blocks_article_generation": true,
+      "blocks_publication": true,
+      "current_status": "blocked",
+      "evidence_ref": "source_pack_operator_approval_gate_packet.json",
+      "item_id": "real_source_pack_approval_required"
+    },
+    {
+      "blocks_article_generation": true,
+      "blocks_publication": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_draft_claim_eligibility_matrix.json",
+      "item_id": "runtime_claim_binding_required"
+    },
+    {
+      "blocks_article_generation": false,
+      "blocks_publication": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_draft_eligibility_validation_report.json",
+      "item_id": "source_name_redaction_required"
+    },
+    {
+      "blocks_article_generation": true,
+      "blocks_publication": true,
+      "current_status": "blocked",
+      "evidence_ref": "canonical_draft_eligibility_packet.json",
+      "item_id": "article_copy_not_generated"
+    },
+    {
+      "blocks_article_generation": false,
+      "blocks_publication": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_draft_eligibility_validation_report.json",
+      "item_id": "no_publication_ready_claim"
+    },
+    {
+      "blocks_article_generation": false,
+      "blocks_publication": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_draft_eligibility_validation_report.json",
+      "item_id": "no_dispatch_ready_claim"
+    },
+    {
+      "blocks_article_generation": false,
+      "blocks_publication": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_draft_eligibility_validation_report.json",
+      "item_id": "no_financial_advice_language"
+    },
+    {
+      "blocks_article_generation": false,
+      "blocks_publication": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_draft_eligibility_validation_report.json",
+      "item_id": "no_fake_metrics_or_citations"
+    },
+    {
+      "blocks_article_generation": false,
+      "blocks_publication": true,
+      "current_status": "pending",
+      "evidence_ref": "source_pack_operator_approval_gate_packet.json",
+      "item_id": "jim_final_review_required"
+    }
+  ]
+}

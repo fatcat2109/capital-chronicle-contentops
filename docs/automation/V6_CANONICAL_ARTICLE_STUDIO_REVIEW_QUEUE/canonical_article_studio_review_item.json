@@ -1,0 +1,34 @@
+{
+  "article_body_placeholder": null,
+  "article_copy_generated": false,
+  "article_topic_ref": "article_packet_6e40db810195",
+  "blockers": [
+    "runtime_operator_approval_missing",
+    "real_source_pack_not_approved",
+    "article_copy_generation_blocked",
+    "editor_review_required",
+    "jim_review_required",
+    "publication_blocked",
+    "dispatch_blocked"
+  ],
+  "claim_ids": [
+    "claim_d474a9fdbcd6",
+    "claim_63d1cf20e9bf",
+    "claim_492c29ad9746"
+  ],
+  "dek_placeholder": null,
+  "dispatch_allowed_now": false,
+  "public_postable": false,
+  "ready_for_editor_review": false,
+  "ready_for_jim_approval": false,
+  "ready_for_publication": false,
+  "review_item_id": "review_item_6e40db810195",
+  "review_item_status": "BLOCKED_WAITING_FOR_REAL_SOURCE_APPROVAL",
+  "source_eligibility_ref": "canonical_draft_eligibility_packet",
+  "source_requirement_refs": [
+    "req_67a5db6704f5",
+    "req_bfcb46cc38cc",
+    "req_e6edaf8e7750"
+  ],
+  "title_placeholder": null
+}

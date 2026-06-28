@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FROM_APPROVED_REDACTED_SOURCE_PACK_DRY_RUN_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE_DRY_RUN_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
@@ -23,6 +23,7 @@ NEXT_REAL_SOURCE_PACK_OPERATOR_FILLED_REDACTED_FIXTURE_TASK = "TASK_CONTENTOPS_V
 NEXT_REAL_SOURCE_PACK_OPERATOR_APPROVAL_GATE_TASK = "TASK_CONTENTOPS_V6_REAL_SOURCE_PACK_OPERATOR_APPROVAL_GATE_DRY_RUN_HEAVY_BATCH_V0"
 NEXT_CANONICAL_DRAFT_FROM_APPROVED_REDACTED_SOURCE_PACK_TASK = "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FROM_APPROVED_REDACTED_SOURCE_PACK_DRY_RUN_HEAVY_BATCH_V0"
 NEXT_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE_TASK = "TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE_DRY_RUN_HEAVY_BATCH_V0"
+NEXT_CANONICAL_ARTICLE_STUDIO_BROWSERLESS_EDITOR_DRAFT_SHELL_TASK = "TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_BROWSERLESS_EDITOR_DRAFT_SHELL_DRY_RUN_HEAVY_BATCH_V0"
 NEXT_MANUAL_SIGN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_SIGN_PAYLOAD_HASH_MANUAL_STEP"
 NEXT_CAPTURE_RUN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP"
 NEXT_DISPATCH_READINESS_TASK = "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION_LANE_HEAVY_BATCH_V0"
@@ -847,7 +848,17 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_CANONICAL_DRAFT_FROM_APPROVED_REDACTED_SOURCE_PACK/canonical_draft_eligibility_blocker_report.md",
         "docs/automation/V6_CANONICAL_DRAFT_FROM_APPROVED_REDACTED_SOURCE_PACK/canonical_draft_eligibility_runbook.md",
         "docs/automation/V6_CANONICAL_DRAFT_FROM_APPROVED_REDACTED_SOURCE_PACK/implementation_report.md",
-        "docs/automation/V6_CANONICAL_DRAFT_FROM_APPROVED_REDACTED_SOURCE_PACK/next_task_pointer.md"
+        "docs/automation/V6_CANONICAL_DRAFT_FROM_APPROVED_REDACTED_SOURCE_PACK/next_task_pointer.md",
+        "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE/canonical_article_studio_queue_packet.json",
+        "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE/canonical_article_studio_review_item.json",
+        "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE/canonical_article_studio_editor_checklist.json",
+        "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE/canonical_article_studio_review_queue_validation_report.json",
+        "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE/canonical_article_studio_local_mock.html",
+        "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE/canonical_article_studio_screenshot_manifest.json",
+        "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE/canonical_article_studio_blocker_report.md",
+        "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE/canonical_article_studio_runbook.md",
+        "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE/implementation_report.md",
+        "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE/next_task_pointer.md"
     ]
 
     packet = {
@@ -885,7 +896,7 @@ def materialize_project_sources_upload_bundle_packets(
         "no_network_call_in_this_task": True,
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": NEXT_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE_TASK
+        "next_recommended_task": NEXT_CANONICAL_ARTICLE_STUDIO_BROWSERLESS_EDITOR_DRAFT_SHELL_TASK
     }
 
     return packet, upload_candidate_files
