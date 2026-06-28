@@ -3,7 +3,7 @@
 - **Task Label**: TASK_CONTENTOPS_V6_REPAIR_OPERATOR_APPROVAL_GATE_RUNBOOK_DISPATCH_VALIDITY_BOUNDARY_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: cd8f28e3302fc70b14fe38f3b142d3e1643561ff (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 3d7731a702469dc45eec0df589ca9ad276d7ce9a (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md

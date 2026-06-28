@@ -1,0 +1,16 @@
+{
+  "adapter_class": "review_only_preview",
+  "approval_required": true,
+  "body_text": "Topic Statement: PLACEHOLDER_TOPIC\nFactual Claims:\nEditorial Angle: PLACEHOLDER_ANGLE",
+  "content_lane": "PLACEHOLDER_LANE",
+  "dispatch_ready": false,
+  "human_review_required": true,
+  "is_local_only": true,
+  "no_financial_advice": true,
+  "no_signal_language": true,
+  "payload_schema_version": "6.0.0",
+  "payload_type": "review_only_payload_preview",
+  "public_postable": false,
+  "title": "Review Preview: PLACEHOLDER_TOPIC",
+  "visibility_class": "review_only_payload_preview"
+}

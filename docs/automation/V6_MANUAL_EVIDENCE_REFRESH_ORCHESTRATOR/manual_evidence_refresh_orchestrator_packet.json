@@ -6,7 +6,7 @@
   "evidence_complete": true,
   "kill_switch_active": true,
   "live_write_allowed_now": false,
-  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_V0",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0",
   "operator_fixture_exists": false,
   "orchestrator_packet_id": "orchestrator_ce8ed1da7f83",
   "orchestrator_status": "PREFLIGHT_CANDIDATE_READY_FOR_APPROVAL",

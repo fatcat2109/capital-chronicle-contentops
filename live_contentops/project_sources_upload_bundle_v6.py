@@ -311,6 +311,7 @@ def materialize_project_sources_upload_bundle_packets(
 
     # Filter out resolved blockers if delegated evidence is complete
     evidence_complete = False
+    payload_hash_created = False
 
     # 1. Check relative paths under the same directory (for test isolation)
     rel_path = readiness_bundle_path.parent / "delegated_evidence_refresh_result.json"
@@ -322,8 +323,28 @@ def materialize_project_sources_upload_bundle_packets(
         except Exception:
             pass
 
+    rel_hash_path = readiness_bundle_path.parent / "payload_preview_hash_packet.json"
+    if rel_hash_path.exists():
+        try:
+            res_hash = json.loads(rel_hash_path.read_text(encoding="utf-8"))
+            if res_hash.get("payload_hash_created") is True:
+                payload_hash_created = True
+        except Exception:
+            pass
+
     if (readiness_bundle_path.parent / "operator_evidence_fixture.json").exists():
         evidence_complete = True
+
+    # Check parent directory sibling structure (for test isolation)
+    if readiness_bundle_path.parent.parent:
+        sibling_hash_path = readiness_bundle_path.parent.parent / "V6_PAYLOAD_PREVIEW_HASH/payload_preview_hash_packet.json"
+        if sibling_hash_path.exists():
+            try:
+                res_hash = json.loads(sibling_hash_path.read_text(encoding="utf-8"))
+                if res_hash.get("payload_hash_created") is True:
+                    payload_hash_created = True
+            except Exception:
+                pass
 
     # 2. Check default/committed paths
     is_default_rb = (str(readiness_bundle_path) == str(DEFAULT_READINESS_BUNDLE))
@@ -349,8 +370,20 @@ def materialize_project_sources_upload_bundle_packets(
         if Path("docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json").exists():
             evidence_complete = True
 
+        default_hash_path = Path("docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_hash_packet.json")
+        if default_hash_path.exists():
+            try:
+                res_hash = json.loads(default_hash_path.read_text(encoding="utf-8"))
+                if res_hash.get("payload_hash_created") is True:
+                    payload_hash_created = True
+            except Exception:
+                pass
+
     if evidence_complete:
         unresolved_blockers = [b for b in unresolved_blockers if b not in ["evidence_incomplete", "operator_idea_source_ref_missing"]]
+
+    if payload_hash_created:
+        unresolved_blockers = [b for b in unresolved_blockers if b != "payload_hash_incomplete"]
 
     try:
         dispatch_readiness = load_json(dispatch_readiness_path)
@@ -408,7 +441,12 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_blocker_report.md",
         "docs/automation/V6_OPERATOR_APPROVAL_GATE/operator_approval_runbook.md",
         "docs/automation/V6_OPERATOR_APPROVAL_GATE/implementation_report.md",
-        "docs/automation/V6_OPERATOR_APPROVAL_GATE/next_task_pointer.md"
+        "docs/automation/V6_OPERATOR_APPROVAL_GATE/next_task_pointer.md",
+        "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_hash_packet.json",
+        "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_exact_review.json",
+        "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_hash_record.json",
+        "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_hash_inputs_redacted.json",
+        "docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_runbook.md"
     ]
 
     packet = {
@@ -446,7 +484,11 @@ def materialize_project_sources_upload_bundle_packets(
         "no_network_call_in_this_task": True,
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0" if evidence_complete else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
+        "next_recommended_task": (
+            "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0" if payload_hash_created
+            else ("TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0" if evidence_complete
+                  else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0")
+        )
     }
 
     return packet, upload_candidate_files

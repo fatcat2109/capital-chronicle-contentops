@@ -17,7 +17,8 @@ def test_committed_orchestrator_packet_is_blocked():
     assert data["live_write_allowed_now"] is False
     assert data["approval_valid_for_dispatch"] is False
     assert data["kill_switch_active"] is True
-    assert data["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_V0"
+    assert data["next_recommended_task"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
+
 
 
 def test_execution_order_includes_all_required_lanes():

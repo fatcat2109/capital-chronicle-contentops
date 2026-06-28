@@ -229,12 +229,14 @@ def main(argv: list[str] | None = None) -> int:
         dispatch_path = base_dir / "V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json"
         selection_path = base_dir / "V6_PLATFORM_ADAPTER_SELECTION_POLICY/platform_adapter_selection_policy_packet.json"
         capability_path = base_dir / "V6_CREDENTIAL_CAPABILITY_MATRIX/redacted_capability_matrix_packet.json"
+        payload_hash_path = base_dir / "V6_PAYLOAD_PREVIEW_HASH/payload_preview_hash_packet.json"
     else:
         preflight_path = Path(args.preflight_packet)
         approval_path = Path(args.approval_packet)
         dispatch_path = Path(args.dispatch_packet)
         selection_path = Path(args.selection_packet)
         capability_path = Path(args.capability_packet)
+        payload_hash_path = Path("docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_hash_packet.json")
 
     # 1. Load packets
     console = load_json(args.console_packet) or {}
@@ -246,6 +248,8 @@ def main(argv: list[str] | None = None) -> int:
     dispatch = load_json(dispatch_path) or {}
     selection = load_json(selection_path) or {}
     capability = load_json(capability_path) or {}
+    payload_hash_packet = load_json(payload_hash_path) or {}
+    payload_hash_created = payload_hash_packet.get("payload_hash_created", False)
 
     evidence_complete = (
         console.get("evidence_complete", False) or
@@ -468,7 +472,7 @@ def main(argv: list[str] | None = None) -> int:
         "dispatch_allowed_now": False,
         "live_write_allowed_now": False,
         "outbox_entry_created": False,
-        "payload_hash_created": False,
+        "payload_hash_created": payload_hash_created,
         "credentials_hydrated": False,
         "browser_session_started": False,
         "public_postable": False,
@@ -476,7 +480,11 @@ def main(argv: list[str] | None = None) -> int:
         "next_required_operator_action": "Jim fills docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json with verified evidence.",
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_V0" if evidence_complete else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
+        "next_recommended_task": (
+            "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0" if payload_hash_created
+            else ("TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0" if evidence_complete
+                  else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0")
+        )
     }
     write_json(out_dir / "operator_pipeline_status_packet.json", consolidated_packet)
 

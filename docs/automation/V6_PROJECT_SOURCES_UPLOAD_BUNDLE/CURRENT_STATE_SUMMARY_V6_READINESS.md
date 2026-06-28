@@ -3,7 +3,7 @@
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: cd8f28e3302fc70b14fe38f3b142d3e1643561ff (requires GitHub audit after push)
+- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: 3d7731a702469dc45eec0df589ca9ad276d7ce9a (requires GitHub audit after push)
 - **Latest Task**: TASK_CONTENTOPS_V6_REPAIR_OPERATOR_APPROVAL_GATE_RUNBOOK_DISPATCH_VALIDITY_BOUNDARY_V0
 - **Previous Accepted Status Task**: TASK_CONTENTOPS_V6_OPERATOR_PIPELINE_STATUS_AND_BLOCKED_RUNBOOK_HEAVY_BATCH_V0
 
@@ -29,7 +29,6 @@
 - live_write_authorization_missing
 - operator_approval_incomplete
 - outbox_creation_blocked
-- payload_hash_incomplete
 - safety_review_incomplete
 
 ## Next Recommended Task

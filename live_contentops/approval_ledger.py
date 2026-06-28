@@ -396,3 +396,39 @@ def approval_ledger_demo_packet() -> dict[str, Any]:
         "model_version": MODEL_VERSION,
         "demo_events": demo_list,
     }
+
+
+def validate_approval_record(record: dict[str, Any], dry_run_payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Deterministic validation of a legacy format approval ledger record against approval_ledger_packet schema."""
+    errors = []
+    schema_path = os.path.join(os.path.dirname(__file__), "..", "schemas", "approval_ledger_packet.schema.json")
+    with open(schema_path, "r", encoding="utf-8") as f:
+        schema = json.load(f)
+    
+    import jsonschema
+    try:
+        jsonschema.validate(instance=record, schema=schema)
+    except jsonschema.ValidationError as e:
+        errors.append(f"schema_invalid:{e.message}")
+
+    if not record.get("operator_approval_ref"):
+        errors.append("missing_operator_approval_ref")
+    
+    # Mock approval requirements
+    if record.get("approval_state") == "operator_approved_for_mock_publish":
+        if not record.get("manual_review_completed"): errors.append("manual_review_missing")
+        if not record.get("operator_final_check_completed"): errors.append("final_check_missing")
+        if not record.get("limitations_acknowledged"): errors.append("limitations_not_acknowledged")
+        if not record.get("freshness_acknowledged"): errors.append("freshness_not_acknowledged")
+        if not record.get("not_financial_advice_acknowledged"): errors.append("not_financial_advice_not_acknowledged")
+        if not record.get("no_signal_language_acknowledged"): errors.append("no_signal_language_not_acknowledged")
+
+    if record.get("approval_state") == "operator_approved_for_live_publish_later":
+        errors.append("live_publish_attempt_without_explicit_future_gate")
+    
+    if dry_run_payload:
+        if dry_run_payload.get("live_posting_enabled"): errors.append("payload_live_posting_enabled_is_true")
+        if dry_run_payload.get("platform_api_payload_generated"): errors.append("payload_platform_api_payload_generated_is_true")
+    
+    return {"valid": len(errors) == 0, "errors": errors}
+

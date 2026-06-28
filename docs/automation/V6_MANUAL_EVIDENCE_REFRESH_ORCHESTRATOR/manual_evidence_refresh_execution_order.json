@@ -6,6 +6,7 @@
     "manual_evidence_fixture_validator_v6",
     "manual_evidence_to_source_preflight_bridge_v6",
     "operator_evidence_fixture_lifecycle_v6",
+    "payload_preview_hash_v6",
     "operator_pipeline_status_consolidation_v6",
     "project_sources_upload_bundle_v6"
   ],

@@ -22,7 +22,7 @@ def test_committed_consolidation_packet_is_blocked():
     assert data["live_write_allowed_now"] is False
     assert data["approval_valid_for_dispatch"] is False
     assert data["outbox_entry_created"] is False
-    assert data["payload_hash_created"] is False
+    assert data["payload_hash_created"] is True
     assert data["credentials_hydrated"] is False
     assert data["browser_session_started"] is False
     assert data["public_postable"] is False

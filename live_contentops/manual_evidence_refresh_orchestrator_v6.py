@@ -19,6 +19,7 @@ from live_contentops import manual_evidence_to_source_preflight_bridge_v6 as bri
 from live_contentops import operator_evidence_fixture_lifecycle_v6 as lifecycle
 from live_contentops import operator_pipeline_status_consolidation_v6 as consolidation
 from live_contentops import project_sources_upload_bundle_v6 as upload_bundle
+from live_contentops import payload_preview_hash_v6 as payload_hash
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR_AND_BLOCKED_PIPELINE_ROLLUP_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
@@ -32,6 +33,7 @@ EXECUTION_ORDER = [
     "manual_evidence_fixture_validator_v6",
     "manual_evidence_to_source_preflight_bridge_v6",
     "operator_evidence_fixture_lifecycle_v6",
+    "payload_preview_hash_v6",
     "operator_pipeline_status_consolidation_v6",
     "project_sources_upload_bundle_v6"
 ]
@@ -154,6 +156,7 @@ def main(argv: list[str] | None = None) -> int:
     lifecycle_dir = base_dir / "V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE"
     consolidation_dir = base_dir / "V6_OPERATOR_PIPELINE_STATUS_CONSOLIDATION"
     upload_bundle_dir = base_dir / "V6_PROJECT_SOURCES_UPLOAD_BUNDLE"
+    payload_hash_dir = base_dir / "V6_PAYLOAD_PREVIEW_HASH"
 
     # 1. Execute Lanes Sequentially
     executed = []
@@ -223,7 +226,17 @@ def main(argv: list[str] | None = None) -> int:
     except Exception as e:
         failed.append(f"operator_evidence_fixture_lifecycle_v6: {e}")
 
-    # Lane 7: operator_pipeline_status_consolidation_v6
+    # Lane 7: payload_preview_hash_v6
+    try:
+        hash_args = ["--output-dir", str(payload_hash_dir)]
+        if fixture_override:
+            hash_args += ["--fixture-file", fixture_override]
+        payload_hash.main(hash_args)
+        executed.append("payload_preview_hash_v6")
+    except Exception as e:
+        failed.append(f"payload_preview_hash_v6: {e}")
+
+    # Lane 8: operator_pipeline_status_consolidation_v6
     try:
         consolidation.main([
             "--console-packet", str(console_dir / "operator_evidence_console_packet.json"),
@@ -236,7 +249,7 @@ def main(argv: list[str] | None = None) -> int:
     except Exception as e:
         failed.append(f"operator_pipeline_status_consolidation_v6: {e}")
 
-    # Lane 8: project_sources_upload_bundle_v6
+    # Lane 9: project_sources_upload_bundle_v6
     try:
         upload_bundle.main(["--output-dir", str(upload_bundle_dir)])
         executed.append("project_sources_upload_bundle_v6")
@@ -298,7 +311,7 @@ def main(argv: list[str] | None = None) -> int:
         "browser_session_started": False,
         "public_postable": False,
         "kill_switch_active": True,
-        "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_V0" if evidence_complete else "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
+        "next_recommended_task": consol_packet.get("next_recommended_task", "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0")
     }
     write_json(orchestrator_dir / "manual_evidence_refresh_orchestrator_packet.json", orchestrator_packet)
 

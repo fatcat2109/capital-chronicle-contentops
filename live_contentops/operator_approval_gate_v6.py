@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_REPAIR_OPERATOR_APPROVAL_GATE_RUNBOOK_DISPATCH_VALIDITY_BOUNDARY_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 
 DEFAULT_OUTPUT_DIR = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
@@ -118,9 +118,11 @@ def main(argv: list[str] | None = None) -> int:
     is_default = (args.output_dir == str(DEFAULT_OUTPUT_DIR))
     if is_default:
         gate_dir = out_dir
+        base_automation_dir = Path("docs/automation")
     else:
         gate_dir = out_dir / "V6_OPERATOR_APPROVAL_GATE"
         gate_dir.mkdir(parents=True, exist_ok=True)
+        base_automation_dir = out_dir
 
     # Determine candidate readiness
     evidence_complete = False
@@ -153,6 +155,11 @@ def main(argv: list[str] | None = None) -> int:
         "outbox_creation_blocked"
     ]
 
+    # Load payload hash if available
+    hash_record_path = base_automation_dir / "V6_PAYLOAD_PREVIEW_HASH/payload_hash_record.json"
+    hash_record = load_json(hash_record_path) or {}
+    payload_hash_ref = hash_record.get("payload_hash")
+
     # 1. operator_approval_gate_packet.json
     gate_packet = {
         "task_label": TASK_LABEL,
@@ -166,7 +173,8 @@ def main(argv: list[str] | None = None) -> int:
         "dispatch_allowed_now": False,
         "live_write_allowed_now": False,
         "outbox_entry_created": False,
-        "payload_hash_created": False,
+        "payload_hash_created": payload_hash_ref is not None,
+        "payload_hash_reference": payload_hash_ref,
         "credentials_hydrated": False,
         "browser_session_started": False,
         "public_postable": False,

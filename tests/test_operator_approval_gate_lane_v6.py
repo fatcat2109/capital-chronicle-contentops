@@ -23,7 +23,7 @@ def test_committed_approval_packet_properties():
     assert data["dispatch_allowed_now"] is False
     assert data["live_write_allowed_now"] is False
     assert data["outbox_entry_created"] is False
-    assert data["payload_hash_created"] is False
+    assert data["payload_hash_created"] is True
     assert data["credentials_hydrated"] is False
     assert data["browser_session_started"] is False
     assert data["public_postable"] is False
