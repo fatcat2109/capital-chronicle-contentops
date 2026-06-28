@@ -1,0 +1,65 @@
+{
+  "checklist_status": "SEO_METADATA_BLOCKED_PENDING_REFINED_DRAFT",
+  "items": {
+    "editorial_refinement_output_required": {
+      "blocks_publication": true,
+      "blocks_seo_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_seo_metadata_packet.json"
+    },
+    "jim_final_review_required": {
+      "blocks_publication": true,
+      "blocks_seo_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_seo_metadata_packet.json"
+    },
+    "keyword_brief_required": {
+      "blocks_publication": true,
+      "blocks_seo_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_seo_metadata_packet.json"
+    },
+    "no_dispatch_ready_claim": {
+      "blocks_publication": true,
+      "blocks_seo_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_seo_metadata_packet.json"
+    },
+    "no_financial_advice_language": {
+      "blocks_publication": true,
+      "blocks_seo_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_seo_metadata_packet.json"
+    },
+    "no_publication_ready_claim": {
+      "blocks_publication": true,
+      "blocks_seo_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_seo_metadata_packet.json"
+    },
+    "no_seo_metadata_generated": {
+      "blocks_publication": true,
+      "blocks_seo_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_seo_metadata_packet.json"
+    },
+    "refined_draft_required": {
+      "blocks_publication": true,
+      "blocks_seo_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_seo_metadata_packet.json"
+    },
+    "seo_style_guide_required": {
+      "blocks_publication": true,
+      "blocks_seo_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_seo_metadata_packet.json"
+    },
+    "slug_policy_required": {
+      "blocks_publication": true,
+      "blocks_seo_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_seo_metadata_packet.json"
+    }
+  }
+}

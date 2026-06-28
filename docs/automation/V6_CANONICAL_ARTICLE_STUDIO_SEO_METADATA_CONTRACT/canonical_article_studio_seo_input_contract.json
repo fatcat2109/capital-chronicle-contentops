@@ -1,0 +1,54 @@
+{
+  "contract_status": "FUTURE_SEO_INPUT_CONTRACT_ONLY",
+  "required_inputs": [
+    {
+      "blocks_seo_generation": true,
+      "current_status": "missing",
+      "input_name": "refined_canonical_draft_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_seo_generation": true,
+      "current_status": "missing",
+      "input_name": "editorial_refinement_output_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_seo_generation": true,
+      "current_status": "missing",
+      "input_name": "keyword_brief_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_seo_generation": true,
+      "current_status": "missing",
+      "input_name": "seo_style_guide_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_seo_generation": true,
+      "current_status": "missing",
+      "input_name": "canonical_article_slug_policy_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_seo_generation": true,
+      "current_status": "missing",
+      "input_name": "jim_review_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    }
+  ],
+  "runtime_truth": false
+}

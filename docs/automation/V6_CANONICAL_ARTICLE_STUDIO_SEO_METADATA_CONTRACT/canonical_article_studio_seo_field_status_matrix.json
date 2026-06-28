@@ -1,0 +1,82 @@
+[
+  {
+    "blocks_publication": true,
+    "field_name": "seo_title",
+    "field_type": "string",
+    "generated": false,
+    "materialized": false,
+    "seo_input_status": "blocked_missing_refined_draft",
+    "valid_for_publication": false,
+    "value": null
+  },
+  {
+    "blocks_publication": true,
+    "field_name": "seo_meta_description",
+    "field_type": "string",
+    "generated": false,
+    "materialized": false,
+    "seo_input_status": "blocked_missing_refined_draft",
+    "valid_for_publication": false,
+    "value": null
+  },
+  {
+    "blocks_publication": true,
+    "field_name": "slug",
+    "field_type": "string",
+    "generated": false,
+    "materialized": false,
+    "seo_input_status": "blocked_missing_refined_draft",
+    "valid_for_publication": false,
+    "value": null
+  },
+  {
+    "blocks_publication": true,
+    "field_name": "canonical_url",
+    "field_type": "string",
+    "generated": false,
+    "materialized": false,
+    "seo_input_status": "blocked_missing_refined_draft",
+    "valid_for_publication": false,
+    "value": null
+  },
+  {
+    "blocks_publication": true,
+    "field_name": "tags",
+    "field_type": "list",
+    "generated": false,
+    "materialized": false,
+    "seo_input_status": "blocked_missing_refined_draft",
+    "valid_for_publication": false,
+    "value": []
+  },
+  {
+    "blocks_publication": true,
+    "field_name": "social_preview_title",
+    "field_type": "string",
+    "generated": false,
+    "materialized": false,
+    "seo_input_status": "blocked_missing_refined_draft",
+    "valid_for_publication": false,
+    "value": null
+  },
+  {
+    "blocks_publication": true,
+    "field_name": "social_preview_description",
+    "field_type": "string",
+    "generated": false,
+    "materialized": false,
+    "seo_input_status": "blocked_missing_refined_draft",
+    "valid_for_publication": false,
+    "value": null
+  },
+  {
+    "blocks_publication": true,
+    "field_name": "keyword_targets",
+    "field_type": "list",
+    "generated": false,
+    "materialized": false,
+    "seo_input_status": "blocked_missing_refined_draft",
+    "valid_for_publication": false,
+    "value": []
+  }
+]
