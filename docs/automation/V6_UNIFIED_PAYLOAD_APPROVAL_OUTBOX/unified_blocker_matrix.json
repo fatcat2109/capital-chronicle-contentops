@@ -1,0 +1,65 @@
+[
+  {
+    "blocker_id": "destination_binding_incomplete",
+    "dispatch_blocking": true,
+    "required_next_action": "Awaiting manual operator verify actions",
+    "severity": "HIGH",
+    "source_ref": "pipeline_governance"
+  },
+  {
+    "blocker_id": "kill_switch_active",
+    "dispatch_blocking": true,
+    "required_next_action": "Release kill switch config once fully reviewed",
+    "severity": "CRITICAL",
+    "source_ref": "pipeline_governance"
+  },
+  {
+    "blocker_id": "live_write_authorization_missing",
+    "dispatch_blocking": true,
+    "required_next_action": "Awaiting manual operator verify actions",
+    "severity": "CRITICAL",
+    "source_ref": "pipeline_governance"
+  },
+  {
+    "blocker_id": "operator_approval_incomplete",
+    "dispatch_blocking": true,
+    "required_next_action": "Awaiting manual operator verify actions",
+    "severity": "HIGH",
+    "source_ref": "pipeline_governance"
+  },
+  {
+    "blocker_id": "operator_signature_missing",
+    "dispatch_blocking": true,
+    "required_next_action": "Awaiting manual operator verify actions",
+    "severity": "HIGH",
+    "source_ref": "pipeline_governance"
+  },
+  {
+    "blocker_id": "outbox_creation_blocked",
+    "dispatch_blocking": true,
+    "required_next_action": "Awaiting manual operator verify actions",
+    "severity": "HIGH",
+    "source_ref": "pipeline_governance"
+  },
+  {
+    "blocker_id": "publication_blocked_until_source_verification",
+    "dispatch_blocking": true,
+    "required_next_action": "Awaiting manual operator verify actions",
+    "severity": "HIGH",
+    "source_ref": "draft_inspector_v2"
+  },
+  {
+    "blocker_id": "safety_review_incomplete",
+    "dispatch_blocking": true,
+    "required_next_action": "Awaiting manual operator verify actions",
+    "severity": "HIGH",
+    "source_ref": "pipeline_governance"
+  },
+  {
+    "blocker_id": "source_verification_required",
+    "dispatch_blocking": true,
+    "required_next_action": "Awaiting manual operator verify actions",
+    "severity": "CRITICAL",
+    "source_ref": "draft_inspector_v2"
+  }
+]

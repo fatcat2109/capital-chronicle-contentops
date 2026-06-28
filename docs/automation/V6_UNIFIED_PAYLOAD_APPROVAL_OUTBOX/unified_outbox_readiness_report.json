@@ -1,0 +1,21 @@
+{
+  "blockers": [
+    "destination_binding_incomplete",
+    "kill_switch_active",
+    "live_write_authorization_missing",
+    "operator_approval_incomplete",
+    "operator_signature_missing",
+    "outbox_creation_blocked",
+    "publication_blocked_until_source_verification",
+    "safety_review_incomplete",
+    "source_verification_required"
+  ],
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "destination_binding_complete": false,
+  "dispatch_allowed_now": false,
+  "live_write_allowed_now": false,
+  "outbox_dispatchable": false,
+  "outbox_entry_created": false,
+  "schema_version": "6.0.0"
+}

@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_DRAFT_INSPECTOR_V2_AND_CONTENT_QUALITY_QA_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_UNIFIED_PAYLOAD_HASH_APPROVAL_OUTBOX_UPGRADE_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
@@ -24,6 +24,7 @@ NEXT_APPROVAL_LEDGER_TASK = "TASK_CONTENTOPS_V6_APPROVAL_LEDGER_AND_OUTBOX_RECOR
 NEXT_PLATFORM_CONTENT_TASK = "TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0"
 NEXT_DRAFT_INSPECTOR_TASK = "TASK_CONTENTOPS_V6_DRAFT_INSPECTOR_V2_AND_CONTENT_QUALITY_QA_HEAVY_BATCH_V0"
 NEXT_UNIFIED_HASH_APPROVAL_OUTBOX_UPGRADE_TASK = "TASK_CONTENTOPS_V6_UNIFIED_PAYLOAD_HASH_APPROVAL_OUTBOX_UPGRADE_HEAVY_BATCH_V0"
+NEXT_DISCORD_TELEGRAM_BRIDGE_TASK = "TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0"
 
 DEFAULT_READINESS_BUNDLE = Path("docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json")
 DEFAULT_DISPATCH_READINESS = Path("docs/automation/V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json")
@@ -675,7 +676,17 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_DRAFT_INSPECTOR_V2/draft_inspector_blocker_report.md",
         "docs/automation/V6_DRAFT_INSPECTOR_V2/draft_inspector_runbook.md",
         "docs/automation/V6_DRAFT_INSPECTOR_V2/implementation_report.md",
-        "docs/automation/V6_DRAFT_INSPECTOR_V2/next_task_pointer.md"
+        "docs/automation/V6_DRAFT_INSPECTOR_V2/next_task_pointer.md",
+        "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/unified_payload_contract_packet.json",
+        "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/multi_platform_payload_manifest.json",
+        "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/unified_payload_hash_manifest.json",
+        "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/payload_integrity_validation_report.json",
+        "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/unified_approval_readiness_report.json",
+        "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/unified_outbox_readiness_report.json",
+        "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/unified_blocker_matrix.json",
+        "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/unified_payload_runbook.md",
+        "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/implementation_report.md",
+        "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX/next_task_pointer.md"
     ]
 
     packet = {
@@ -713,7 +724,7 @@ def materialize_project_sources_upload_bundle_packets(
         "no_network_call_in_this_task": True,
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": NEXT_UNIFIED_HASH_APPROVAL_OUTBOX_UPGRADE_TASK
+        "next_recommended_task": NEXT_DISCORD_TELEGRAM_BRIDGE_TASK
     }
 
     return packet, upload_candidate_files

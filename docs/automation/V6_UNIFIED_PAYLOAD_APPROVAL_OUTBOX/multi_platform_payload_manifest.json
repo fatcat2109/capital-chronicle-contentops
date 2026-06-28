@@ -1,0 +1,301 @@
+{
+  "discord_drop": {
+    "approval_required": true,
+    "blocked_reasons": [
+      "publication_blocked_until_source_verification",
+      "source_verification_required"
+    ],
+    "dispatch_allowed_now": false,
+    "draft_inspector_status": "BLOCKED_REVIEW_ONLY_ISSUES_FOUND",
+    "exact_payload_hash_required": true,
+    "payload_mutation_after_hash_forbidden": true,
+    "platform_family": "discord_drop",
+    "public_postable": false,
+    "quality_score_refs": {
+      "SEO_quality_score": 90.0,
+      "audience_fit_score": 95.0,
+      "caveat_preservation_score": 100.0,
+      "editorial_clarity_score": 90.0,
+      "platform_fit_score": 60.0,
+      "qa_signal_status": "REVIEW_ONLY_QA_COMPLETE",
+      "readability_score": 85.0,
+      "source_integrity_score": 40.0,
+      "thread_continuity_score": 95.0
+    },
+    "review_only": true,
+    "segment_count": 1,
+    "segment_hashes": [
+      "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+    ],
+    "source_article_id": "article_51dd651b47d0",
+    "source_verification_required": true,
+    "variant_id": "variant_743c4664c8f0",
+    "variant_text_hash": "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+  },
+  "facebook_manual_post": {
+    "approval_required": true,
+    "blocked_reasons": [
+      "publication_blocked_until_source_verification",
+      "source_verification_required"
+    ],
+    "dispatch_allowed_now": false,
+    "draft_inspector_status": "BLOCKED_REVIEW_ONLY_ISSUES_FOUND",
+    "exact_payload_hash_required": true,
+    "payload_mutation_after_hash_forbidden": true,
+    "platform_family": "facebook_manual_post",
+    "public_postable": false,
+    "quality_score_refs": {
+      "SEO_quality_score": 90.0,
+      "audience_fit_score": 95.0,
+      "caveat_preservation_score": 100.0,
+      "editorial_clarity_score": 90.0,
+      "platform_fit_score": 60.0,
+      "qa_signal_status": "REVIEW_ONLY_QA_COMPLETE",
+      "readability_score": 85.0,
+      "source_integrity_score": 40.0,
+      "thread_continuity_score": 95.0
+    },
+    "review_only": true,
+    "segment_count": 1,
+    "segment_hashes": [
+      "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+    ],
+    "source_article_id": "article_51dd651b47d0",
+    "source_verification_required": true,
+    "variant_id": "variant_68e52effc6c1",
+    "variant_text_hash": "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+  },
+  "instagram_manual_caption": {
+    "approval_required": true,
+    "blocked_reasons": [
+      "publication_blocked_until_source_verification",
+      "source_verification_required"
+    ],
+    "dispatch_allowed_now": false,
+    "draft_inspector_status": "BLOCKED_REVIEW_ONLY_ISSUES_FOUND",
+    "exact_payload_hash_required": true,
+    "payload_mutation_after_hash_forbidden": true,
+    "platform_family": "instagram_manual_caption",
+    "public_postable": false,
+    "quality_score_refs": {
+      "SEO_quality_score": 90.0,
+      "audience_fit_score": 95.0,
+      "caveat_preservation_score": 100.0,
+      "editorial_clarity_score": 90.0,
+      "platform_fit_score": 60.0,
+      "qa_signal_status": "REVIEW_ONLY_QA_COMPLETE",
+      "readability_score": 85.0,
+      "source_integrity_score": 40.0,
+      "thread_continuity_score": 95.0
+    },
+    "review_only": true,
+    "segment_count": 1,
+    "segment_hashes": [
+      "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+    ],
+    "source_article_id": "article_51dd651b47d0",
+    "source_verification_required": true,
+    "variant_id": "variant_3961bcd28271",
+    "variant_text_hash": "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+  },
+  "linkedin_manual_post": {
+    "approval_required": true,
+    "blocked_reasons": [
+      "publication_blocked_until_source_verification",
+      "source_verification_required"
+    ],
+    "dispatch_allowed_now": false,
+    "draft_inspector_status": "BLOCKED_REVIEW_ONLY_ISSUES_FOUND",
+    "exact_payload_hash_required": true,
+    "payload_mutation_after_hash_forbidden": true,
+    "platform_family": "linkedin_manual_post",
+    "public_postable": false,
+    "quality_score_refs": {
+      "SEO_quality_score": 90.0,
+      "audience_fit_score": 95.0,
+      "caveat_preservation_score": 100.0,
+      "editorial_clarity_score": 90.0,
+      "platform_fit_score": 60.0,
+      "qa_signal_status": "REVIEW_ONLY_QA_COMPLETE",
+      "readability_score": 85.0,
+      "source_integrity_score": 40.0,
+      "thread_continuity_score": 95.0
+    },
+    "review_only": true,
+    "segment_count": 1,
+    "segment_hashes": [
+      "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+    ],
+    "source_article_id": "article_51dd651b47d0",
+    "source_verification_required": true,
+    "variant_id": "variant_69176e99f529",
+    "variant_text_hash": "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+  },
+  "manual_fallback_export": {
+    "approval_required": true,
+    "blocked_reasons": [
+      "publication_blocked_until_source_verification",
+      "source_verification_required"
+    ],
+    "dispatch_allowed_now": false,
+    "draft_inspector_status": "BLOCKED_REVIEW_ONLY_ISSUES_FOUND",
+    "exact_payload_hash_required": true,
+    "payload_mutation_after_hash_forbidden": true,
+    "platform_family": "manual_fallback_export",
+    "public_postable": false,
+    "quality_score_refs": {
+      "SEO_quality_score": 90.0,
+      "audience_fit_score": 95.0,
+      "caveat_preservation_score": 100.0,
+      "editorial_clarity_score": 90.0,
+      "platform_fit_score": 60.0,
+      "qa_signal_status": "REVIEW_ONLY_QA_COMPLETE",
+      "readability_score": 85.0,
+      "source_integrity_score": 40.0,
+      "thread_continuity_score": 95.0
+    },
+    "review_only": true,
+    "segment_count": 1,
+    "segment_hashes": [
+      "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+    ],
+    "source_article_id": "article_51dd651b47d0",
+    "source_verification_required": true,
+    "variant_id": "variant_253e804c9d04",
+    "variant_text_hash": "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+  },
+  "substack_canonical": {
+    "approval_required": true,
+    "blocked_reasons": [
+      "publication_blocked_until_source_verification",
+      "source_verification_required"
+    ],
+    "dispatch_allowed_now": false,
+    "draft_inspector_status": "BLOCKED_REVIEW_ONLY_ISSUES_FOUND",
+    "exact_payload_hash_required": true,
+    "payload_mutation_after_hash_forbidden": true,
+    "platform_family": "substack_canonical",
+    "public_postable": false,
+    "quality_score_refs": {
+      "SEO_quality_score": 90.0,
+      "audience_fit_score": 95.0,
+      "caveat_preservation_score": 100.0,
+      "editorial_clarity_score": 90.0,
+      "platform_fit_score": 60.0,
+      "qa_signal_status": "REVIEW_ONLY_QA_COMPLETE",
+      "readability_score": 85.0,
+      "source_integrity_score": 40.0,
+      "thread_continuity_score": 95.0
+    },
+    "review_only": true,
+    "segment_count": 1,
+    "segment_hashes": [
+      "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+    ],
+    "source_article_id": "article_51dd651b47d0",
+    "source_verification_required": true,
+    "variant_id": "variant_2ebb60d203da",
+    "variant_text_hash": "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+  },
+  "telegram_operator_post": {
+    "approval_required": true,
+    "blocked_reasons": [
+      "publication_blocked_until_source_verification",
+      "source_verification_required"
+    ],
+    "dispatch_allowed_now": false,
+    "draft_inspector_status": "BLOCKED_REVIEW_ONLY_ISSUES_FOUND",
+    "exact_payload_hash_required": true,
+    "payload_mutation_after_hash_forbidden": true,
+    "platform_family": "telegram_operator_post",
+    "public_postable": false,
+    "quality_score_refs": {
+      "SEO_quality_score": 90.0,
+      "audience_fit_score": 95.0,
+      "caveat_preservation_score": 100.0,
+      "editorial_clarity_score": 90.0,
+      "platform_fit_score": 60.0,
+      "qa_signal_status": "REVIEW_ONLY_QA_COMPLETE",
+      "readability_score": 85.0,
+      "source_integrity_score": 40.0,
+      "thread_continuity_score": 95.0
+    },
+    "review_only": true,
+    "segment_count": 1,
+    "segment_hashes": [
+      "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+    ],
+    "source_article_id": "article_51dd651b47d0",
+    "source_verification_required": true,
+    "variant_id": "variant_b04aca9bbe9a",
+    "variant_text_hash": "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+  },
+  "threads_manual_post": {
+    "approval_required": true,
+    "blocked_reasons": [
+      "publication_blocked_until_source_verification",
+      "source_verification_required"
+    ],
+    "dispatch_allowed_now": false,
+    "draft_inspector_status": "BLOCKED_REVIEW_ONLY_ISSUES_FOUND",
+    "exact_payload_hash_required": true,
+    "payload_mutation_after_hash_forbidden": true,
+    "platform_family": "threads_manual_post",
+    "public_postable": false,
+    "quality_score_refs": {
+      "SEO_quality_score": 90.0,
+      "audience_fit_score": 95.0,
+      "caveat_preservation_score": 100.0,
+      "editorial_clarity_score": 90.0,
+      "platform_fit_score": 60.0,
+      "qa_signal_status": "REVIEW_ONLY_QA_COMPLETE",
+      "readability_score": 85.0,
+      "source_integrity_score": 40.0,
+      "thread_continuity_score": 95.0
+    },
+    "review_only": true,
+    "segment_count": 1,
+    "segment_hashes": [
+      "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+    ],
+    "source_article_id": "article_51dd651b47d0",
+    "source_verification_required": true,
+    "variant_id": "variant_fe0d15588db0",
+    "variant_text_hash": "ed2c6d6bde6bef6d7446e6c08683aa00747b19f60e437c88a3850d852168c771"
+  },
+  "x_manual_thread": {
+    "approval_required": true,
+    "blocked_reasons": [
+      "publication_blocked_until_source_verification",
+      "source_verification_required"
+    ],
+    "dispatch_allowed_now": false,
+    "draft_inspector_status": "BLOCKED_REVIEW_ONLY_ISSUES_FOUND",
+    "exact_payload_hash_required": true,
+    "payload_mutation_after_hash_forbidden": true,
+    "platform_family": "x_manual_thread",
+    "public_postable": false,
+    "quality_score_refs": {
+      "SEO_quality_score": 90.0,
+      "audience_fit_score": 95.0,
+      "caveat_preservation_score": 100.0,
+      "editorial_clarity_score": 90.0,
+      "platform_fit_score": 60.0,
+      "qa_signal_status": "REVIEW_ONLY_QA_COMPLETE",
+      "readability_score": 85.0,
+      "source_integrity_score": 40.0,
+      "thread_continuity_score": 95.0
+    },
+    "review_only": true,
+    "segment_count": 3,
+    "segment_hashes": [
+      "73ca69d96e9142bf12fae2b8802636ba63be0a4f27cb88bb852261b2b020190e",
+      "217e0a549ca2c76ddb04b842ec0859d619cccde3f7e6a6532bb1b24b683b5e6e",
+      "0b4442ba0c2a54019e66e90d2325dfc7b210d596b522e0761ecd18794ce4dba0"
+    ],
+    "source_article_id": "article_51dd651b47d0",
+    "source_verification_required": true,
+    "variant_id": "variant_4f04a786496b",
+    "variant_text_hash": "0ad1cde02ede29b6ac9d68ad4c242bd2c28049058bd6978832d3245dd18043f6"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "canonical_article_hash": "a5c9162d20d4a0d5c72f7c57f3fa3e9814c3ad88c2d394ce508f280e3b5d8eee",
+  "draft_inspector_packet_hash": "006238f56d4bfd7ce6aee8f0b35accb0f0545e253a0ccbe88e05015605da83e0",
+  "input_files": {
+    "canonical_article": "docs/automation/V6_AI_PRODUCTION_CORE/sample_canonical_article_packet.json",
+    "draft_inspector": "docs/automation/V6_DRAFT_INSPECTOR_V2/draft_inspector_v2_packet.json",
+    "seo_packet": "docs/automation/V6_AI_PRODUCTION_CORE/sample_seo_editorial_packet.json",
+    "thread_pack": "docs/automation/V6_PLATFORM_CONTENT_GENERATORS/thread_continuation_pack.json",
+    "variant_pack": "docs/automation/V6_PLATFORM_CONTENT_GENERATORS/platform_variant_pack.json"
+  },
+  "per_platform_payload_hashes": {
+    "discord_drop": "c16bd21edf19939ff8c5ad1576ae945d7cfa00fd0b38be4d6b817c0f7c405e08",
+    "facebook_manual_post": "5c6c10bee67c3e3a755dcee06d64245b870c88387f0840c9ee0e3c1f1ce032ce",
+    "instagram_manual_caption": "6b6c5e285f914f7f0a39bd99e61b6299ff6a0d4a3a918a9470fe453ce2d123dd",
+    "linkedin_manual_post": "cd4993121ff351bd0495be876e2b75dacbc87be0077a908b6e70cefbe011e517",
+    "manual_fallback_export": "c28b0669fae912f4c1c0b8098a41b5a514a6d7c969ad1f179d2fc812b1015ce4",
+    "substack_canonical": "cc0746d7398c714b1f1c1edf05007ce1653c5062afefa441e9c7da7516c87f8b",
+    "telegram_operator_post": "99c1f25f27d24cc2563ab740fb656f340ae26aa4f341c3993881eccbbcbfe9c0",
+    "threads_manual_post": "76f6165790f2b2b885011db21a34d906285b1bce64bf3079f4b8461c75576c22",
+    "x_manual_thread": "736e7cf24153867a9faaddd5a20e657e117478f0581f735a9e31cf175be43f61"
+  },
+  "platform_variant_pack_hash": "f93f7a201907b5508527eea1c8195d7cd9dff0cfe12d1e4020f5718e76427f42",
+  "schema_version": "6.0.0",
+  "seo_packet_hash": "a7d981d768d8ea1776d7de3174f00182aeefeb62f7ec04d6fd99d6f331744174",
+  "thread_continuation_pack_hash": "8b2de520a30b5beb3f7c41b325f9101da7503a78afc2217c794164e54ec611ae",
+  "unified_payload_bundle_hash": "9da4958812fbc5e91b3247e372f160ea3a47f5886fc2630d08a54d91433e0b67"
+}

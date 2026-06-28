@@ -1,0 +1,23 @@
+{
+  "allowed_for_drafting": true,
+  "allowed_for_publication": false,
+  "approval_valid_for_dispatch": false,
+  "blockers": [
+    "destination_binding_incomplete",
+    "kill_switch_active",
+    "live_write_authorization_missing",
+    "operator_approval_incomplete",
+    "operator_signature_missing",
+    "outbox_creation_blocked",
+    "publication_blocked_until_source_verification",
+    "safety_review_incomplete",
+    "source_verification_required"
+  ],
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0",
+  "operator_signature_valid": false,
+  "public_postable": false,
+  "schema_version": "6.0.0",
+  "unified_payload_status": "READY_FOR_REVIEW_ONLY_HASHED_PAYLOADS"
+}
