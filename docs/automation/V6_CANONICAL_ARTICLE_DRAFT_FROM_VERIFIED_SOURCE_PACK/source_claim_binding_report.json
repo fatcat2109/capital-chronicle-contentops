@@ -1,0 +1,52 @@
+{
+  "all_claims_bound_to_sources": false,
+  "bindings": [
+    {
+      "allowed_in_article_draft": false,
+      "blockers": [
+        "source_verification_required"
+      ],
+      "claim_id": "claim_d474a9fdbcd6",
+      "claim_text_draft": "Treasury yield curve spreads have experienced heightened volatility over the last quarter.",
+      "source_pack_entries_found": [
+        "req_67a5db6704f5"
+      ],
+      "source_requirement_refs": [
+        "req_67a5db6704f5"
+      ],
+      "source_support_status": "missing"
+    },
+    {
+      "allowed_in_article_draft": false,
+      "blockers": [
+        "source_verification_required"
+      ],
+      "claim_id": "claim_63d1cf20e9bf",
+      "claim_text_draft": "The methodology for computing yield curve adjustments relies on the Nelson-Siegel model parameters.",
+      "source_pack_entries_found": [
+        "req_bfcb46cc38cc"
+      ],
+      "source_requirement_refs": [
+        "req_bfcb46cc38cc"
+      ],
+      "source_support_status": "missing"
+    },
+    {
+      "allowed_in_article_draft": false,
+      "blockers": [
+        "source_verification_required"
+      ],
+      "claim_id": "claim_492c29ad9746",
+      "claim_text_draft": "Historical yield volatility patterns under similar macro tightening cycles show mean reversion trends.",
+      "source_pack_entries_found": [
+        "req_e6edaf8e7750"
+      ],
+      "source_requirement_refs": [
+        "req_e6edaf8e7750"
+      ],
+      "source_support_status": "missing"
+    }
+  ],
+  "human_review_required": true,
+  "schema_version": "6.0.0"
+}

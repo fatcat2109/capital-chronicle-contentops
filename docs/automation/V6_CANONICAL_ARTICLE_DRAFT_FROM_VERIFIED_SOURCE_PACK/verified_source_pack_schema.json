@@ -1,0 +1,114 @@
+{
+  "properties": {
+    "human_research_required": {
+      "type": "boolean"
+    },
+    "source_entries": {
+      "items": {
+        "properties": {
+          "allowed_for_article_use": {
+            "type": "boolean"
+          },
+          "caveats": {
+            "type": "string"
+          },
+          "evidence_hash": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "human_review_required": {
+            "type": "boolean"
+          },
+          "limitations": {
+            "type": "string"
+          },
+          "operator_verified_by": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "required_source_type": {
+            "type": "string"
+          },
+          "retrieval_method": {
+            "type": "string"
+          },
+          "retrieved_at": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_excerpt_ref": {
+            "type": "string"
+          },
+          "source_name": {
+            "type": "string"
+          },
+          "source_publisher": {
+            "type": "string"
+          },
+          "source_requirement_id": {
+            "type": "string"
+          },
+          "source_supports_claim_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "source_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "verification_status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_requirement_id",
+          "required_source_type",
+          "source_name",
+          "source_url",
+          "source_publisher",
+          "retrieval_method",
+          "retrieved_at",
+          "evidence_hash",
+          "source_excerpt_ref",
+          "verification_status",
+          "operator_verified_by",
+          "source_supports_claim_ids",
+          "limitations",
+          "caveats",
+          "allowed_for_article_use",
+          "human_review_required"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "source_pack_complete": {
+      "type": "boolean"
+    },
+    "source_verification_required": {
+      "type": "boolean"
+    },
+    "verified_source_pack_status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "verified_source_pack_status",
+    "source_pack_complete",
+    "human_research_required",
+    "source_verification_required",
+    "source_entries"
+  ],
+  "title": "VerifiedSourcePack",
+  "type": "object"
+}

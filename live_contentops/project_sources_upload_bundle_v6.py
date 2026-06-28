@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_NEXT_CANONICAL_ARTICLE_PACKET_FROM_BACKLOG_DRY_RUN_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK_DRY_RUN_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
@@ -30,6 +30,10 @@ NEXT_FEEDBACK_INTAKE_TASK = "TASK_CONTENTOPS_V6_COMMUNITY_FEEDBACK_INTAKE_AND_BA
 NEXT_LLM_FEEDBACK_SUMMARIZER_TASK = "TASK_CONTENTOPS_V6_LLM_FEEDBACK_SUMMARIZER_AND_NEXT_IDEA_GENERATOR_DRY_RUN_HEAVY_BATCH_V0"
 NEXT_NEXT_CANONICAL_ARTICLE_TASK = "TASK_CONTENTOPS_V6_NEXT_CANONICAL_ARTICLE_PACKET_FROM_BACKLOG_DRY_RUN_HEAVY_BATCH_V0"
 NEXT_CANONICAL_DRAFT_TASK = "TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK_DRY_RUN_HEAVY_BATCH_V0"
+NEXT_SOURCE_UI_TASK = "TASK_CONTENTOPS_V6_SOURCE_PACK_VERIFICATION_UI_AND_OPERATOR_RESEARCH_CHECKLIST_HEAVY_BATCH_V0"
+
+DEFAULT_READINESS_BUNDLE = Path("docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json")
+DEFAULT_DISPATCH_READINESS = Path("docs/automation/V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json")
 
 DEFAULT_READINESS_BUNDLE = Path("docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json")
 DEFAULT_DISPATCH_READINESS = Path("docs/automation/V6_SUPERVISED_DISPATCH_READINESS/supervised_dispatch_readiness_packet.json")
@@ -747,9 +751,19 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_NEXT_CANONICAL_ARTICLE_FROM_BACKLOG/downstream_platform_readiness_placeholders.json",
         "docs/automation/V6_NEXT_CANONICAL_ARTICLE_FROM_BACKLOG/article_planning_validation_report.json",
         "docs/automation/V6_NEXT_CANONICAL_ARTICLE_FROM_BACKLOG/article_planning_blocker_report.md",
-        "docs/automation/V6_NEXT_CANONICAL_ARTICLE_FROM_BACKLOG/article_planning_runbook.md",
         "docs/automation/V6_NEXT_CANONICAL_ARTICLE_FROM_BACKLOG/implementation_report.md",
-        "docs/automation/V6_NEXT_CANONICAL_ARTICLE_FROM_BACKLOG/next_task_pointer.md"
+        "docs/automation/V6_NEXT_CANONICAL_ARTICLE_FROM_BACKLOG/next_task_pointer.md",
+        "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK/verified_source_pack_schema.json",
+        "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK/verified_source_pack_missing_default.json",
+        "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK/source_pack_gate_report.json",
+        "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK/source_claim_binding_report.json",
+        "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK/canonical_article_draft_packet.json",
+        "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK/canonical_article_draft_preview.md",
+        "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK/canonical_article_draft_validation_report.json",
+        "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK/canonical_article_draft_blocker_report.md",
+        "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK/canonical_article_draft_runbook.md",
+        "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK/implementation_report.md",
+        "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK/next_task_pointer.md"
     ]
 
     packet = {
@@ -787,7 +801,7 @@ def materialize_project_sources_upload_bundle_packets(
         "no_network_call_in_this_task": True,
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": NEXT_CANONICAL_DRAFT_TASK
+        "next_recommended_task": NEXT_SOURCE_UI_TASK
     }
 
     return packet, upload_candidate_files

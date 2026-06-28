@@ -3,8 +3,8 @@
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: 9631127c67caa37e634e15c67f155f75703b3dc9 (requires GitHub audit after push)
-- **Latest Task**: TASK_CONTENTOPS_V6_NEXT_CANONICAL_ARTICLE_PACKET_FROM_BACKLOG_DRY_RUN_HEAVY_BATCH_V0
+- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: aba1d6448cd545df2035bcc0d0e4082779106a47 (requires GitHub audit after push)
+- **Latest Task**: TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK_DRY_RUN_HEAVY_BATCH_V0
 - **Previous Accepted Status Task**: TASK_CONTENTOPS_V6_OPERATOR_PIPELINE_STATUS_AND_BLOCKED_RUNBOOK_HEAVY_BATCH_V0
 
 > [!WARNING]
@@ -32,4 +32,4 @@
 - safety_review_incomplete
 
 ## Next Recommended Task
-- **Recommended next task**: `TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK_DRY_RUN_HEAVY_BATCH_V0`
+- **Recommended next task**: `TASK_CONTENTOPS_V6_SOURCE_PACK_VERIFICATION_UI_AND_OPERATOR_RESEARCH_CHECKLIST_HEAVY_BATCH_V0`
