@@ -2,12 +2,11 @@
   "all_claims_bound_to_sources": false,
   "allowed_for_publication": false,
   "article_copy_generated": false,
-  "blocker_count": 9,
+  "blocker_count": 8,
   "blockers": [
     "all_claims_not_bound_to_verified_sources",
     "article_copy_not_generated",
     "claim_ledger_unverified",
-    "financial_advice_or_signal_language_detected",
     "human_research_required",
     "no_publication_allowed",
     "publication_blocked_until_source_verification",

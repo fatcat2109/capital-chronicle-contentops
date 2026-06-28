@@ -17,7 +17,33 @@ LOCAL_PATH_re = re.compile(r"\b([a-zA-Z]:\\[Uu]sers\\[a-zA-Z0-9_-]+|/home/[a-zA-
 
 SECRET_KEYWORDS = ["cookie", "sessionid", "session_id", "localstorage", "sessionstorage", "document.cookie", "jwt", "access_token"]
 DM_KEYWORDS = ["dm", "direct message", "private message", "private chat"]
-FINANCIAL_ADVICE_KEYWORDS = ["buy", "sell", "hold", "target price", "stop loss", "position size", "trade setup", "alpha call", "guaranteed return"]
+
+FINANCIAL_ADVICE_PATTERNS = [
+    re.compile(r"\bbuy\b", re.IGNORECASE),
+    re.compile(r"\bsell\b", re.IGNORECASE),
+    re.compile(r"\bhold\b", re.IGNORECASE),
+    re.compile(r"\btarget\s+price\b", re.IGNORECASE),
+    re.compile(r"\bentry\b", re.IGNORECASE),
+    re.compile(r"\bexit\b", re.IGNORECASE),
+    re.compile(r"\bstop\s+loss\b", re.IGNORECASE),
+    re.compile(r"\bposition\s+size\b", re.IGNORECASE),
+    re.compile(r"\bposition\s+sizing\b", re.IGNORECASE),
+    re.compile(r"\btrade\s+setup\b", re.IGNORECASE),
+    re.compile(r"\balpha\s+call\b", re.IGNORECASE),
+    re.compile(r"\bguaranteed\s+return\b", re.IGNORECASE),
+    re.compile(r"\btrading\s+signals?\b", re.IGNORECASE)
+]
+
+
+def detect_financial_advice_language(text: str) -> list[str]:
+    """Detects actual standalone financial-advice or signal terms, returning matched phrases."""
+    matches = []
+    for pattern in FINANCIAL_ADVICE_PATTERNS:
+        # Find all occurrences
+        found = pattern.findall(text)
+        if found:
+            matches.extend(found)
+    return sorted(list(set(matches)))
 
 
 def validate_article_draft(
@@ -95,6 +121,7 @@ def validate_article_draft(
         draft_preview_markdown
     ]
 
+    financial_advice_matches = []
     for t in all_texts:
         if not t:
             continue
@@ -109,8 +136,15 @@ def validate_article_draft(
             blockers.append("private_or_secret_material_detected")
         if any(k in t_lower for k in DM_KEYWORDS):
             blockers.append("dm_or_private_message_detected")
-        if any(k in t_lower for k in FINANCIAL_ADVICE_KEYWORDS):
-            blockers.append("financial_advice_or_signal_language_detected")
+        
+        # Word boundary aware matching
+        detected_phrases = detect_financial_advice_language(t)
+        if detected_phrases:
+            financial_advice_matches.extend(detected_phrases)
+
+    financial_advice_matches = sorted(list(set(financial_advice_matches)))
+    if financial_advice_matches:
+        blockers.append("financial_advice_or_signal_language_detected")
 
     # Deduplicate and sort blockers
     blockers = sorted(list(set(blockers)))
@@ -123,10 +157,13 @@ def validate_article_draft(
         "safety_checks": {
             "no_live_provider_call": True,
             "no_secrets_leaked": True,
-            "no_financial_advice_language": True,
+            "no_financial_advice_language": not bool(financial_advice_matches),
             "gate_compliance_verified": True
-        }
+        },
+        "financial_advice_matches": financial_advice_matches
     }
 
     return validation_report, blockers
+
+
 PostPathVerification_gate = True
