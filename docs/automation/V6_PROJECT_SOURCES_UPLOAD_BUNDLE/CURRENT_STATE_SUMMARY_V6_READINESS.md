@@ -3,7 +3,7 @@
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Current generation HEAD**: 8960d482f6e3c68f04408aacb11690d5225ec0d8
+- **Current generation HEAD**: 173cb1d07f6f48c659680e8a1dd02478520efe5f
 - **Latest Task**: TASK_CONTENTOPS_V6_FAST_SHIP_OPERATING_PROFILE_AND_PROMPT_CEREMONY_REDUCTION_HEAVY_BATCH_V0
 
 > [!WARNING]
@@ -11,6 +11,10 @@
 
 ## Current V6 Lane Status Summary
 - All 10 lanes from operator intent to supervised dispatch readiness are summarized.
+
+> [!IMPORTANT]
+> **V6 Operator Evidence Pipeline Blocked**: The V6 operator evidence pipeline is structurally wired, but is currently blocked because Jim has not supplied a real operator evidence fixture in `docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json`. Do not fabricate evidence, mark approval-ready, or unlock dispatch.
+
 - **Dispatch Allowed Now**: false
 - **Approval Valid for Dispatch**: false
 - **Public Postable**: false

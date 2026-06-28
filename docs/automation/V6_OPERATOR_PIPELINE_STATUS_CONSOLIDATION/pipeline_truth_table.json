@@ -1,0 +1,47 @@
+[
+  {
+    "dispatch_allowed": false,
+    "evidence_complete": false,
+    "kill_switch_active": true,
+    "live_write_allowed": false,
+    "operator_approved": false,
+    "overall_status": "BLOCKED_AWAITING_OPERATOR_EVIDENCE",
+    "source_preflight_ready": false
+  },
+  {
+    "dispatch_allowed": false,
+    "evidence_complete": true,
+    "kill_switch_active": true,
+    "live_write_allowed": false,
+    "operator_approved": false,
+    "overall_status": "BLOCKED_AWAITING_SOURCE_PREFLIGHT",
+    "source_preflight_ready": false
+  },
+  {
+    "dispatch_allowed": false,
+    "evidence_complete": true,
+    "kill_switch_active": true,
+    "live_write_allowed": false,
+    "operator_approved": false,
+    "overall_status": "PREFLIGHT_CANDIDATE_READY_FOR_APPROVAL",
+    "source_preflight_ready": true
+  },
+  {
+    "dispatch_allowed": false,
+    "evidence_complete": true,
+    "kill_switch_active": true,
+    "live_write_allowed": false,
+    "operator_approved": true,
+    "overall_status": "APPROVED_BUT_DISPATCH_BLOCKED_BY_KILL_SWITCH",
+    "source_preflight_ready": true
+  },
+  {
+    "dispatch_allowed": true,
+    "evidence_complete": true,
+    "kill_switch_active": false,
+    "live_write_allowed": false,
+    "operator_approved": true,
+    "overall_status": "SUPERVISED_DISPATCH_READY",
+    "source_preflight_ready": true
+  }
+]

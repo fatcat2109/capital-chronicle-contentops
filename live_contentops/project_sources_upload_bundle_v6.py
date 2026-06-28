@@ -110,13 +110,17 @@ def generate_current_state_summary_markdown(head_sha: str, blockers: list[str]) 
 - **Branch**: master
 - **Baseline before upload bundle task**: {BASELINE_BEFORE_UPLOAD_BUNDLE_TASK}
 - **Current generation HEAD**: {head_sha}
-- **Latest Task**: TASK_CONTENTOPS_V6_FAST_SHIP_OPERATING_PROFILE_AND_PROMPT_CEREMONY_REDUCTION_HEAVY_BATCH_V0
+- **Latest Task**: {TASK_LABEL}
 
 > [!WARNING]
 > **Post-Push Audit Required**: The final post-commit HEAD of this repository is not hardcoded here; it must be verified by ChatGPT/GitHub audit after push.
 
 ## Current V6 Lane Status Summary
 - All 10 lanes from operator intent to supervised dispatch readiness are summarized.
+
+> [!IMPORTANT]
+> **V6 Operator Evidence Pipeline Blocked**: The V6 operator evidence pipeline is structurally wired, but is currently blocked because Jim has not supplied a real operator evidence fixture in `docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json`. Do not fabricate evidence, mark approval-ready, or unlock dispatch.
+
 - **Dispatch Allowed Now**: false
 - **Approval Valid for Dispatch**: false
 - **Public Postable**: false
