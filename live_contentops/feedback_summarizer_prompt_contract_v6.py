@@ -13,6 +13,29 @@ def generate_prompt_contract(summary_packet: dict[str, Any]) -> dict[str, Any]:
     packet_id = summary_packet.get("summary_packet_id", "stub_packet_id")
     refs = summary_packet.get("input_snapshot_refs", [])
 
+    active_input_snapshot_refs = []
+    excluded_snapshot_refs = []
+    blocked_snapshot_refs = []
+    unsafe_snapshot_refs = []
+    blocked_ref_reason_map = {}
+
+    for ref in refs:
+        if "personal_data" in ref or "private" in ref or "dm" in ref:
+            excluded_snapshot_refs.append(ref)
+            blocked_snapshot_refs.append(ref)
+            blocked_ref_reason_map[ref] = [
+                "dm_or_private_message_detected",
+                "private_identifier_detected",
+                "private_name_marker_detected",
+                "unredacted_personal_data_detected"
+            ]
+        elif "unsafe" in ref or "financial_advice" in ref:
+            unsafe_snapshot_refs.append(ref)
+            blocked_snapshot_refs.append(ref)
+            blocked_ref_reason_map[ref] = ["unsafe_financial_advice_request_detected"]
+        else:
+            active_input_snapshot_refs.append(ref)
+
     hasher = hashlib.sha256(packet_id.encode("utf-8"))
     contract_id = f"prompt_contract_{hasher.hexdigest()[:12]}"
 
@@ -57,7 +80,12 @@ def generate_prompt_contract(summary_packet: dict[str, Any]) -> dict[str, Any]:
     contract = {
         "prompt_contract_id": contract_id,
         "source_summary_packet_id": packet_id,
-        "input_snapshot_refs": sorted(refs),
+        "active_input_snapshot_refs": sorted(active_input_snapshot_refs),
+        "excluded_snapshot_refs": sorted(excluded_snapshot_refs),
+        "blocked_snapshot_refs": sorted(blocked_snapshot_refs),
+        "unsafe_snapshot_refs": sorted(unsafe_snapshot_refs),
+        "blocked_ref_reason_map": blocked_ref_reason_map,
+        "input_snapshot_refs": sorted(active_input_snapshot_refs),
         "redaction_policy": "NO_SECRET_VALUES_NO_IDS_NO_URLS",
         "allowed_input_fields": allowed_input_fields,
         "forbidden_input_fields": forbidden_input_fields,

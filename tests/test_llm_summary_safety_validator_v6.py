@@ -65,3 +65,50 @@ def test_validation_with_leaks_and_unsafe():
     assert "dm_or_private_message_detected" in blockers
     assert "fake_public_result_detected" in blockers
     assert "unsafe_financial_advice_request_detected" in blockers
+
+
+def test_validation_exclusion_truth():
+    # 1. Private snapshot in active prompt inputs
+    intake = {}
+    contract = {
+        "active_input_snapshot_refs": ["snap_004_personal_data"],
+        "excluded_snapshot_refs": ["snap_004_personal_data"]
+    }
+    summary = {}
+    ideas = []
+    backlog = []
+    unsafe = {
+        "private_or_dm_snapshots_refs": ["snap_004_personal_data"]
+    }
+
+    report, blockers = validator.validate_summary_artifacts(
+        intake, contract, summary, ideas, backlog, unsafe
+    )
+    assert "private_snapshot_in_active_prompt_inputs_detected" in blockers
+
+    # 2. Unsafe snapshot in active prompt inputs
+    contract = {
+        "active_input_snapshot_refs": ["snap_003_unsafe_advice"],
+        "unsafe_snapshot_refs": ["snap_003_unsafe_advice"]
+    }
+    unsafe = {
+        "unsafe_advice_snapshots_refs": ["snap_003_unsafe_advice"]
+    }
+    report, blockers = validator.validate_summary_artifacts(
+        intake, contract, summary, ideas, backlog, unsafe
+    )
+    assert "unsafe_snapshot_in_active_prompt_inputs_detected" in blockers
+
+    # 3. Prompt exclusion truth mismatch (e.g. not listed in excluded list)
+    contract = {
+        "active_input_snapshot_refs": [],
+        "excluded_snapshot_refs": []
+    }
+    unsafe = {
+        "private_or_dm_snapshots_refs": ["snap_004_personal_data"]
+    }
+    report, blockers = validator.validate_summary_artifacts(
+        intake, contract, summary, ideas, backlog, unsafe
+    )
+    assert "prompt_exclusion_truth_mismatch_detected" in blockers
+

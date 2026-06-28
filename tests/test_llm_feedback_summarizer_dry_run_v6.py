@@ -51,6 +51,25 @@ def test_main_execution(tmp_path):
     assert status_data["human_review_required"] is True
     assert status_data["kill_switch_active"] is True
 
+    # Check exclusions match in contract
+    contract = json.loads((out_dir / "feedback_summarizer_prompt_contract.json").read_text(encoding="utf-8"))
+    assert "snap_004_personal_data" not in contract["active_input_snapshot_refs"]
+    assert "snap_003_unsafe_advice" not in contract["active_input_snapshot_refs"]
+    assert contract["excluded_snapshot_refs"] == ["snap_004_personal_data"]
+    assert contract["unsafe_snapshot_refs"] == ["snap_003_unsafe_advice"]
+
+    # Check unsafe handling report
+    unsafe_rep = json.loads((out_dir / "unsafe_feedback_handling_report.json").read_text(encoding="utf-8"))
+    assert unsafe_rep["private_or_dm_snapshots_refs"] == ["snap_004_personal_data"]
+    assert unsafe_rep["unsafe_advice_snapshots_refs"] == ["snap_003_unsafe_advice"]
+
+    # Check validator report has no truth mismatch blockers
+    val_report = json.loads((out_dir / "llm_summary_safety_validation_report.json").read_text(encoding="utf-8"))
+    assert "private_snapshot_in_active_prompt_inputs_detected" not in val_report["blockers"]
+    assert "unsafe_snapshot_in_active_prompt_inputs_detected" not in val_report["blockers"]
+    assert "prompt_exclusion_truth_mismatch_detected" not in val_report["blockers"]
+
+
 
 def test_main_execution_scoping_blocker(tmp_path):
     out_dir = tmp_path / "V6_LLM_FEEDBACK_SUMMARIZER_NEXT_IDEA"

@@ -1,4 +1,8 @@
 {
+  "active_input_snapshot_refs": [
+    "snap_001_discord_safe",
+    "snap_002_substack_safe"
+  ],
   "allowed_input_fields": [
     "snapshot_id",
     "source_platform",
@@ -7,11 +11,29 @@
     "raw_feedback_text_redacted",
     "author_handle_redacted"
   ],
+  "blocked_ref_reason_map": {
+    "snap_003_unsafe_advice": [
+      "unsafe_financial_advice_request_detected"
+    ],
+    "snap_004_personal_data": [
+      "dm_or_private_message_detected",
+      "private_identifier_detected",
+      "private_name_marker_detected",
+      "unredacted_personal_data_detected"
+    ]
+  },
+  "blocked_snapshot_refs": [
+    "snap_003_unsafe_advice",
+    "snap_004_personal_data"
+  ],
   "blocked_topic_rules": [
     "No direct investment advice",
     "No signal-service framing"
   ],
   "dispatch_allowed_now": false,
+  "excluded_snapshot_refs": [
+    "snap_004_personal_data"
+  ],
   "forbidden_input_fields": [
     "email",
     "phone",
@@ -31,9 +53,7 @@
   "human_review_required": true,
   "input_snapshot_refs": [
     "snap_001_discord_safe",
-    "snap_002_substack_safe",
-    "snap_003_unsafe_advice",
-    "snap_004_personal_data"
+    "snap_002_substack_safe"
   ],
   "no_auto_reply_rules": [
     "Do not output executable comments",
@@ -75,5 +95,8 @@
   ],
   "safety_instruction": "CRITICAL: Do not output any buy/sell/hold signal or target pricing. If a user asks for financial advice, summarize it strictly as an unsafe_financial_advice_request. Do not write comments or reply drafts. Do not include raw handles.",
   "source_summary_packet_id": "summary_packet_0b7b71e720e2",
-  "summarizer_instruction": "Analyze the provided redacted feedback snapshots. Identify high-frequency clarification questions, disagreement themes, and topic requests. Summarize them synthetically into distinct categories according to the output schema."
+  "summarizer_instruction": "Analyze the provided redacted feedback snapshots. Identify high-frequency clarification questions, disagreement themes, and topic requests. Summarize them synthetically into distinct categories according to the output schema.",
+  "unsafe_snapshot_refs": [
+    "snap_003_unsafe_advice"
+  ]
 }

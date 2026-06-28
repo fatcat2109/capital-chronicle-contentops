@@ -86,6 +86,30 @@ def validate_summary_artifacts(
         blockers.append("unsafe_financial_advice_request_detected")
         blockers.append("source_verification_required")
 
+    # 6. Validate prompt exclusions and truth alignments
+    active_prompt_refs = prompt_contract.get("active_input_snapshot_refs", [])
+    legacy_refs = prompt_contract.get("input_snapshot_refs", [])
+
+    private_refs = unsafe_handling.get("private_or_dm_snapshots_refs", [])
+    for ref in private_refs:
+        if ref in active_prompt_refs or ref in legacy_refs:
+            blockers.append("private_snapshot_in_active_prompt_inputs_detected")
+
+    unsafe_refs = unsafe_handling.get("unsafe_advice_snapshots_refs", [])
+    for ref in unsafe_refs:
+        if ref in active_prompt_refs or ref in legacy_refs:
+            blockers.append("unsafe_snapshot_in_active_prompt_inputs_detected")
+
+    excluded_prompt_refs = prompt_contract.get("excluded_snapshot_refs", [])
+    for ref in private_refs:
+        if ref not in excluded_prompt_refs:
+            blockers.append("prompt_exclusion_truth_mismatch_detected")
+
+    unsafe_prompt_refs = prompt_contract.get("unsafe_snapshot_refs", [])
+    for ref in unsafe_refs:
+        if ref not in unsafe_prompt_refs:
+            blockers.append("prompt_exclusion_truth_mismatch_detected")
+
     # Deduplicate and sort blockers
     blockers = sorted(list(set(blockers)))
 
