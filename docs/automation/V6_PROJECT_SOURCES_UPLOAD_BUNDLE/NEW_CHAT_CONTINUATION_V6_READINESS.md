@@ -4,8 +4,9 @@ TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V
 - **Repository**: cc-live-contentops
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Upload bundle generation HEAD**: 173cb1d07f6f48c659680e8a1dd02478520efe5f
-- **Latest Accepted Task**: TASK_CONTENTOPS_V6_FAST_SHIP_OPERATING_PROFILE_AND_PROMPT_CEREMONY_REDUCTION_HEAVY_BATCH_V0
+- **Upload bundle generation HEAD (pre-commit generation input only, not runtime authority)**: 4dc102c4ed555375613b1323dfdc184db064cfaf (requires GitHub audit after push)
+- **Latest Accepted Task**: TASK_CONTENTOPS_V6_OPERATOR_PIPELINE_STATUS_AND_BLOCKED_RUNBOOK_HEAVY_BATCH_V0
+- **Current Repair Task**: TASK_CONTENTOPS_V6_PROJECT_SOURCES_METADATA_REPAIR_AND_PIPELINE_STATUS_HARDENING_HEAVY_BATCH_V0
 
 ## Safety & Governance Rules
 - Environment access, provider integrations, and live adapter capabilities are permitted only when explicitly scoped via a task contract under the V6 Fast Ship Operating Profile.

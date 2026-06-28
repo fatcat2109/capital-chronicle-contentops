@@ -3,8 +3,9 @@
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Current generation HEAD**: 173cb1d07f6f48c659680e8a1dd02478520efe5f
-- **Latest Task**: TASK_CONTENTOPS_V6_FAST_SHIP_OPERATING_PROFILE_AND_PROMPT_CEREMONY_REDUCTION_HEAVY_BATCH_V0
+- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: 4dc102c4ed555375613b1323dfdc184db064cfaf (requires GitHub audit after push)
+- **Latest Task**: TASK_CONTENTOPS_V6_PROJECT_SOURCES_METADATA_REPAIR_AND_PIPELINE_STATUS_HARDENING_HEAVY_BATCH_V0
+- **Previous Accepted Status Task**: TASK_CONTENTOPS_V6_OPERATOR_PIPELINE_STATUS_AND_BLOCKED_RUNBOOK_HEAVY_BATCH_V0
 
 > [!WARNING]
 > **Post-Push Audit Required**: The final post-commit HEAD of this repository is not hardcoded here; it must be verified by ChatGPT/GitHub audit after push.

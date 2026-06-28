@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_OPERATING_PROFILE_AND_PROMPT_CEREMONY_REDUCTION_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_PROJECT_SOURCES_METADATA_REPAIR_AND_PIPELINE_STATUS_HARDENING_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 
@@ -50,12 +50,13 @@ Please upload the following files to the ChatGPT Project Sources:
 1. `docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/CURRENT_STATE_SUMMARY_V6_READINESS.md`
 2. `docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/NEW_CHAT_CONTINUATION_V6_READINESS.md`
 3. `docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/OPERATOR_NEXT_ACTIONS_V6_READINESS.md`
-4. `docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json`
-5. `docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_pipeline_status_matrix.json`
-6. `docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_blocker_rollup.json`
-7. `docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_project_sources_candidate_manifest.json`
-8. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
-9. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
+4. `docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/METADATA_INTEGRITY_NOTE.md`
+5. `docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json`
+6. `docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_pipeline_status_matrix.json`
+7. `docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_blocker_rollup.json`
+8. `docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_project_sources_candidate_manifest.json`
+9. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
+10. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
 
 ## Deprioritized Older Documents
 You can deprioritize or remove older V6 draft outlines, platform variant files, or temporary preflight logs that are not listed above, to keep context usage clean.
@@ -75,8 +76,9 @@ def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) 
 - **Repository**: cc-live-contentops
 - **Branch**: master
 - **Baseline before upload bundle task**: {BASELINE_BEFORE_UPLOAD_BUNDLE_TASK}
-- **Upload bundle generation HEAD**: {head_sha}
-- **Latest Accepted Task**: TASK_CONTENTOPS_V6_FAST_SHIP_OPERATING_PROFILE_AND_PROMPT_CEREMONY_REDUCTION_HEAVY_BATCH_V0
+- **Upload bundle generation HEAD (pre-commit generation input only, not runtime authority)**: {head_sha} (requires GitHub audit after push)
+- **Latest Accepted Task**: TASK_CONTENTOPS_V6_OPERATOR_PIPELINE_STATUS_AND_BLOCKED_RUNBOOK_HEAVY_BATCH_V0
+- **Current Repair Task**: TASK_CONTENTOPS_V6_PROJECT_SOURCES_METADATA_REPAIR_AND_PIPELINE_STATUS_HARDENING_HEAVY_BATCH_V0
 
 ## Safety & Governance Rules
 - Environment access, provider integrations, and live adapter capabilities are permitted only when explicitly scoped via a task contract under the V6 Fast Ship Operating Profile.
@@ -109,8 +111,9 @@ def generate_current_state_summary_markdown(head_sha: str, blockers: list[str]) 
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: {BASELINE_BEFORE_UPLOAD_BUNDLE_TASK}
-- **Current generation HEAD**: {head_sha}
+- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: {head_sha} (requires GitHub audit after push)
 - **Latest Task**: {TASK_LABEL}
+- **Previous Accepted Status Task**: TASK_CONTENTOPS_V6_OPERATOR_PIPELINE_STATUS_AND_BLOCKED_RUNBOOK_HEAVY_BATCH_V0
 
 > [!WARNING]
 > **Post-Push Audit Required**: The final post-commit HEAD of this repository is not hardcoded here; it must be verified by ChatGPT/GitHub audit after push.
@@ -164,12 +167,13 @@ def generate_implementation_report_markdown(bundle_status: str, head_sha: str) -
 - **Task Label**: {TASK_LABEL}
 - **Bundle Status**: {bundle_status}
 - **Baseline before upload bundle task**: {BASELINE_BEFORE_UPLOAD_BUNDLE_TASK}
-- **Generation HEAD**: {head_sha}
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: {head_sha} (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
   - NEW_CHAT_CONTINUATION_V6_READINESS.md
   - OPERATOR_NEXT_ACTIONS_V6_READINESS.md
+  - METADATA_INTEGRITY_NOTE.md
   - readiness_evidence_bundle_packet.json
   - v6_pipeline_status_matrix.json
   - v6_blocker_rollup.json
@@ -196,6 +200,23 @@ Recommended next task at time of bundle generation (not permanent authority):
 `TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0`
 
 Goal: Validate the operator facts and manual evidence fixture once Jim has populated the template values.
+"""
+
+
+def generate_metadata_integrity_note_markdown() -> str:
+    return """# Project Sources Metadata Integrity Note (V6)
+
+## Context vs. Runtime Authority
+
+> [!IMPORTANT]
+> **Project Sources are Context Only**: Any task labels, HEAD hashes, or next pointers stored in the upload bundle are soft/advisory and provided for context only.
+> **GitHub Remote is Runtime Authority**: The official GitHub remote repository commits and fetched files are the sole source of runtime truth and authority. Always run a local git audit to verify HEAD and current task state.
+
+## Push Policies & Drift Detection
+
+> [!CAUTION]
+> **No Force Push Allowed**: Never use `git push -f` or force push under normal ContentOps operations.
+> **Report Drift/Divergence**: If a normal `git push` is rejected, immediately stop execution and report the protected remote drift or divergence.
 """
 
 
@@ -239,6 +260,7 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/CURRENT_STATE_SUMMARY_V6_READINESS.md",
         "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/NEW_CHAT_CONTINUATION_V6_READINESS.md",
         "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/OPERATOR_NEXT_ACTIONS_V6_READINESS.md",
+        "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/METADATA_INTEGRITY_NOTE.md",
         "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json",
         "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_pipeline_status_matrix.json",
         "docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_blocker_rollup.json",
@@ -254,7 +276,9 @@ def materialize_project_sources_upload_bundle_packets(
         "source_readiness_evidence_bundle_packet_id": source_readiness_bundle_packet_id,
         "source_supervised_dispatch_readiness_packet_id": source_supervised_dispatch_readiness_packet_id,
         "baseline_before_upload_bundle_task": BASELINE_BEFORE_UPLOAD_BUNDLE_TASK,
+        "previous_accepted_pipeline_status_head": "4dc102c4ed555375613b1323dfdc184db064cfaf",
         "bundle_generation_head": head_sha,
+        "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
         "final_head_requires_post_push_audit": True,
         "bundle_stage": "v6_project_sources_upload_bundle",
         "bundle_status": bundle_status,
@@ -337,6 +361,11 @@ def main(argv: list[str] | None = None) -> int:
     # next_task_pointer.md
     (out_dir / "next_task_pointer.md").write_text(
         generate_next_task_pointer_markdown(), encoding="utf-8"
+    )
+
+    # METADATA_INTEGRITY_NOTE.md
+    (out_dir / "METADATA_INTEGRITY_NOTE.md").write_text(
+        generate_metadata_integrity_note_markdown(), encoding="utf-8"
     )
 
     print(json.dumps({

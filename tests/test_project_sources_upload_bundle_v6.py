@@ -133,3 +133,36 @@ def test_no_forbidden_behavior_in_module():
     assert "httpx" not in attrs
     assert "getenv" not in attrs
     assert "environ" not in attrs
+
+
+def test_metadata_integrity_and_hardenings(tmp_path):
+    rb_path, dr_path = write_temp_readiness_inputs(tmp_path)
+    packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
+    
+    # 1. Assert packet values
+    assert packet["task_label"] == "TASK_CONTENTOPS_V6_PROJECT_SOURCES_METADATA_REPAIR_AND_PIPELINE_STATUS_HARDENING_HEAVY_BATCH_V0"
+    assert packet["final_head_requires_post_push_audit"] is True
+    assert packet["previous_accepted_pipeline_status_head"] == "4dc102c4ed555375613b1323dfdc184db064cfaf"
+    assert "pre_commit_generation_head_input_only" in packet["bundle_generation_head_label"]
+    
+    # 2. Check generate_current_state_summary_markdown details
+    summary = upload_lane.generate_current_state_summary_markdown(
+        packet["bundle_generation_head"], packet["unresolved_blockers"]
+    )
+    assert "TASK_CONTENTOPS_V6_FAST_SHIP_OPERATING_PROFILE_AND_PROMPT_CEREMONY_REDUCTION_HEAVY_BATCH_V0" not in summary
+    assert "requires GitHub audit after push" in summary
+    assert "pre-commit generation input only, not runtime authority" in summary
+    
+    # 3. Check METADATA_INTEGRITY_NOTE.md contents
+    note = upload_lane.generate_metadata_integrity_note_markdown()
+    assert "github remote is runtime authority" in note.lower() or "github remote/fetched files are runtime authority" in note.lower()
+    assert "no force push" in note.lower() or "never use `git push -f`" in note.lower()
+    
+    # 4. Check recommended task
+    assert packet["next_recommended_task"] == "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
+    
+    # 5. Check flags are locked
+    assert packet["dispatch_allowed_now"] is False
+    assert packet["approval_valid_for_dispatch"] is False
+    assert packet["public_postable"] is False
+    assert packet["kill_switch_active"] is True
