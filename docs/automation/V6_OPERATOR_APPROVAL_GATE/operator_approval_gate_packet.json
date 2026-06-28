@@ -15,5 +15,5 @@
   "schema_version": "6.0.0",
   "source_preflight_ready": true,
   "source_ref_resolved": true,
-  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_AND_DELEGATED_EVIDENCE_ROLLUP_REPAIR_HEAVY_BATCH_V0"
+  "task_label": "TASK_CONTENTOPS_V6_REPAIR_OPERATOR_APPROVAL_GATE_RUNBOOK_DISPATCH_VALIDITY_BOUNDARY_V0"
 }

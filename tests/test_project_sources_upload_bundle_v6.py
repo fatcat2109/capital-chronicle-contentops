@@ -140,7 +140,7 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
     
     # 1. Assert packet values
-    assert packet["task_label"] == "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_AND_DELEGATED_EVIDENCE_ROLLUP_REPAIR_HEAVY_BATCH_V0"
+    assert packet["task_label"] == "TASK_CONTENTOPS_V6_REPAIR_OPERATOR_APPROVAL_GATE_RUNBOOK_DISPATCH_VALIDITY_BOUNDARY_V0"
     assert packet["final_head_requires_post_push_audit"] is True
     assert packet["previous_accepted_pipeline_status_head"] == "9571d900552122c0d1c110017d718c7e4b7f375d"
     assert "pre_commit_generation_head_input_only" in packet["bundle_generation_head_label"]

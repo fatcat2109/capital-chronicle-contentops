@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_AND_DELEGATED_EVIDENCE_ROLLUP_REPAIR_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_REPAIR_OPERATOR_APPROVAL_GATE_RUNBOOK_DISPATCH_VALIDITY_BOUNDARY_V0"
 SCHEMA_VERSION = "6.0.0"
 
 DEFAULT_OUTPUT_DIR = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
@@ -64,9 +64,10 @@ Jim, follow these steps to sign off and approve the evidence candidate:
   - `"operator_id": "JIM_OPERATOR"`
 - [ ] **Step 3**: Update the approval decision to APPROVED:
   - `"approval_decision": "APPROVED"`
-- [ ] **Step 4**: Confirm that `valid_for_dispatch` is updated to true if authorized.
+- [ ] **Step 4**: Keep `valid_for_dispatch=false` (do NOT mark dispatch-valid in this lane). Fill only operator identity and review decision intent.
 - [ ] **Step 5**: Save the file.
-- [ ] **Step 6**: Execute the approval validation check.
+- [ ] **Step 6**: Proceed to `TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_V0` to create exact payload preview and payload hash.
+- [ ] **Step 7**: Note that dispatch validity can only be evaluated after payload hash, destination binding, approval ledger, outbox, and dispatch-readiness gates exist.
 """
 
 

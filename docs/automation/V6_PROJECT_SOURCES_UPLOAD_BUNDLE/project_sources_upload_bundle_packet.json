@@ -4,7 +4,7 @@
   "approval_required": true,
   "approval_valid_for_dispatch": false,
   "baseline_before_upload_bundle_task": "d97bc3968e1babf48c81f384fb547b439e48515c",
-  "bundle_generation_head": "9571d900552122c0d1c110017d718c7e4b7f375d",
+  "bundle_generation_head": "cd8f28e3302fc70b14fe38f3b142d3e1643561ff",
   "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
   "bundle_stage": "v6_project_sources_upload_bundle",
   "bundle_status": "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS",
@@ -30,7 +30,7 @@
   "schema_version": "6.0.0",
   "source_readiness_evidence_bundle_packet_id": "bundle_fbe34af9e66e",
   "source_supervised_dispatch_readiness_packet_id": "readiness_34edf10af116",
-  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_AND_DELEGATED_EVIDENCE_ROLLUP_REPAIR_HEAVY_BATCH_V0",
+  "task_label": "TASK_CONTENTOPS_V6_REPAIR_OPERATOR_APPROVAL_GATE_RUNBOOK_DISPATCH_VALIDITY_BOUNDARY_V0",
   "unresolved_blockers": [
     "destination_binding_incomplete",
     "kill_switch_active",

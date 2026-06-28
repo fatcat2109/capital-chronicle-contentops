@@ -123,3 +123,33 @@ def test_module_contains_no_forbidden_behavior():
     assert "httpx" not in attrs
     assert "getenv" not in attrs
     assert "environ" not in attrs
+
+
+def test_operator_approval_runbook_dispatch_validity_boundary():
+    out_dir = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
+    approval.main(["--output-dir", str(out_dir)])
+    
+    runbook_file = out_dir / "operator_approval_runbook.md"
+    assert runbook_file.exists()
+    content = runbook_file.read_text(encoding="utf-8")
+    
+    # Assert runbook does not instruct setting dispatch validity to true / near true
+    assert "valid_for_dispatch=true" not in content.replace(" ", "").lower()
+    assert "valid_for_dispatch to true" not in content.lower()
+    assert "keep `valid_for_dispatch=false`" in content.lower()
+    
+    # Assert runbook points to payload preview/hash as the next control stage
+    assert "task_contentops_v6_payload_preview_and_hash_lane_v0" in content.lower()
+
+
+def test_operator_approval_review_packet_keeps_safety_boundaries():
+    out_dir = Path("docs/automation/V6_OPERATOR_APPROVAL_GATE")
+    approval.main(["--output-dir", str(out_dir)])
+    
+    review_file = out_dir / "operator_approval_review_packet.json"
+    assert review_file.exists()
+    
+    data = json.loads(review_file.read_text(encoding="utf-8"))
+    assert data["exact_approved_content_unavailable"] is True
+    assert data["dispatch_not_authorized"] is True
+    assert data["live_write_not_authorized"] is True

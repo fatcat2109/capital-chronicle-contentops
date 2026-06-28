@@ -1,9 +1,9 @@
 # V6 Project Sources Upload Bundle Implementation Report
 
-- **Task Label**: TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_AND_DELEGATED_EVIDENCE_ROLLUP_REPAIR_HEAVY_BATCH_V0
+- **Task Label**: TASK_CONTENTOPS_V6_REPAIR_OPERATOR_APPROVAL_GATE_RUNBOOK_DISPATCH_VALIDITY_BOUNDARY_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 9571d900552122c0d1c110017d718c7e4b7f375d (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: cd8f28e3302fc70b14fe38f3b142d3e1643561ff (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
