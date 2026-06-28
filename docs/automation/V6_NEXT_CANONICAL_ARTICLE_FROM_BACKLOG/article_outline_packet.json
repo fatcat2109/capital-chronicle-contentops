@@ -1,0 +1,27 @@
+{
+  "caveat_slots": [
+    "Caveat 1: Macroeconomic parameter uncertainty"
+  ],
+  "conclusion_boundary": "A summary of verified reference links and structural caveats.",
+  "evidence_slots": [
+    "Slot 1: Verified Historical Series",
+    "Slot 2: Computation Model parameters"
+  ],
+  "opening_question": "Which primary sources ground our recent macroeconomic curve analysis?",
+  "prohibited_language": [
+    "buy target",
+    "sell target",
+    "guaranteed prediction",
+    "trading signals",
+    "position sizing"
+  ],
+  "reader_takeaway": "Grounding curves under model uncertainty.",
+  "section_outline": [
+    "I. Introduction to Yield Curve Parameters",
+    "II. Historical Trend Analysis & Sourcing",
+    "III. Sourcing Volatility Data",
+    "IV. Conclusion and limitations"
+  ],
+  "subtitle_candidate": "An educational analysis on interest rate structures and data grounding.",
+  "title_candidate": "Refined Study: source verification and data provenance of recent macroeconomic reports."
+}

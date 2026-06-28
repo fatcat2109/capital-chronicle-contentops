@@ -1,0 +1,20 @@
+{
+  "blocker_count": 6,
+  "blockers": [
+    "article_copy_not_generated",
+    "claim_ledger_unverified",
+    "human_research_required",
+    "no_publication_allowed",
+    "publication_blocked_until_source_verification",
+    "source_verification_required"
+  ],
+  "safety_checks": {
+    "claim_ledger_scaffold_present": true,
+    "no_financial_advice_language": true,
+    "no_live_provider_call": true,
+    "no_secrets_leaked": true,
+    "source_verification_checklist_present": true
+  },
+  "schema_version": "6.0.0",
+  "validation_status": "FAILED_WITH_BLOCKERS"
+}

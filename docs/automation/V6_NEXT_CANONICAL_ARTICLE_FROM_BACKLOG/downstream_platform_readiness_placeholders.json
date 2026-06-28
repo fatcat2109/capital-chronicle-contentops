@@ -1,0 +1,44 @@
+{
+  "discord_drop_pending": {
+    "dispatch_allowed_now": false,
+    "generated": false,
+    "human_review_required": true,
+    "public_postable": false,
+    "source_verification_required": true
+  },
+  "linkedin_manual_post_pending": {
+    "dispatch_allowed_now": false,
+    "generated": false,
+    "human_review_required": true,
+    "public_postable": false,
+    "source_verification_required": true
+  },
+  "manual_fallback_export_pending": {
+    "dispatch_allowed_now": false,
+    "generated": false,
+    "human_review_required": true,
+    "public_postable": false,
+    "source_verification_required": true
+  },
+  "substack_canonical_article_draft_pending": {
+    "dispatch_allowed_now": false,
+    "generated": false,
+    "human_review_required": true,
+    "public_postable": false,
+    "source_verification_required": true
+  },
+  "telegram_operator_status_pending": {
+    "dispatch_allowed_now": false,
+    "generated": false,
+    "human_review_required": true,
+    "public_postable": false,
+    "source_verification_required": true
+  },
+  "x_manual_thread_pending": {
+    "dispatch_allowed_now": false,
+    "generated": false,
+    "human_review_required": true,
+    "public_postable": false,
+    "source_verification_required": true
+  }
+}

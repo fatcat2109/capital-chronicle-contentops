@@ -1,0 +1,32 @@
+{
+  "allowed_for_drafting": true,
+  "allowed_for_publication": false,
+  "audience_need": "Understanding underlying interest rate structures and data provenance.",
+  "blocked_reasons": [],
+  "evidence_required": "Verified historical series of Treasury yields and curve metrics.",
+  "human_review_required": true,
+  "no_auto_response": true,
+  "outline": [
+    "Which primary sources ground our recent yield volatility analysis?",
+    "What database or index matches the cited unverified sample metrics?"
+  ],
+  "platform_variant_targets": [
+    "substack_canonical",
+    "discord_drop"
+  ],
+  "priority_score": 8.0,
+  "public_postable": false,
+  "readiness_state": "REVIEW_ONLY_REQUIRES_SOURCE_VERIFICATION",
+  "refined_idea_id": "refined_idea_06cc7dd3b9fb",
+  "required_caveats": [
+    "Macroeconomic parameters are highly uncertain and model-dependent.",
+    "This analysis is for educational purposes only; consult licensed financial professionals."
+  ],
+  "source_backlog_id": "backlog_ee097c4c4e7b",
+  "source_cluster_ids": [
+    "cluster_5b7a82e76a74"
+  ],
+  "source_verification_required": true,
+  "thesis_candidate": "Macroeconomic data suggests historical trends are relevant to understanding current yield curves.",
+  "title_candidate": "Refined Study: source verification and data provenance of recent macroeconomic reports."
+}

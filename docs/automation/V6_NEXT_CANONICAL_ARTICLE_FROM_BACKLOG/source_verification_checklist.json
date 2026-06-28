@@ -1,0 +1,59 @@
+{
+  "audit_pass_ready": false,
+  "checklist_id": "checklist_35b14c4053fc",
+  "checklist_items": [
+    {
+      "operator_verification_performed": false,
+      "required_source_type": "treasury_yield_series",
+      "research_requirement_id": "req_67a5db6704f5",
+      "source_name_placeholder": "Placeholder: Primary Source for Treasury Yield Series",
+      "verification_audit_pass": false,
+      "verification_evidence_hash": null,
+      "verification_status": "missing",
+      "verification_timestamp": null
+    },
+    {
+      "operator_verification_performed": false,
+      "required_source_type": "yield_curve_calculation",
+      "research_requirement_id": "req_bfcb46cc38cc",
+      "source_name_placeholder": "Placeholder: Methodology / Source for Yield Curve Calculation",
+      "verification_audit_pass": false,
+      "verification_evidence_hash": null,
+      "verification_status": "missing",
+      "verification_timestamp": null
+    },
+    {
+      "operator_verification_performed": false,
+      "required_source_type": "historical_volatility",
+      "research_requirement_id": "req_e6edaf8e7750",
+      "source_name_placeholder": "Placeholder: Source for Historical Volatility / Statistical Claim",
+      "verification_audit_pass": false,
+      "verification_evidence_hash": null,
+      "verification_status": "missing",
+      "verification_timestamp": null
+    },
+    {
+      "operator_verification_performed": false,
+      "required_source_type": "chart_table_data",
+      "research_requirement_id": "req_af610e135cf8",
+      "source_name_placeholder": "Placeholder: Source for Yield Curve Charts / Reference Tables",
+      "verification_audit_pass": false,
+      "verification_evidence_hash": null,
+      "verification_status": "missing",
+      "verification_timestamp": null
+    },
+    {
+      "operator_verification_performed": false,
+      "required_source_type": "limitations_disclaimer",
+      "research_requirement_id": "req_91a0125c71fd",
+      "source_name_placeholder": "Placeholder: Limitations / Disclaimer Source or Policy Note",
+      "verification_audit_pass": false,
+      "verification_evidence_hash": null,
+      "verification_status": "missing",
+      "verification_timestamp": null
+    }
+  ],
+  "human_review_required": true,
+  "requirements_validated": false,
+  "source_packet_ref_id": "article_packet_6e40db810195"
+}

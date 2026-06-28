@@ -1,0 +1,57 @@
+[
+  {
+    "claim_supported": false,
+    "human_research_required": true,
+    "official_source_required": true,
+    "required_before_publication": true,
+    "required_source_type": "treasury_yield_series",
+    "research_requirement_id": "req_67a5db6704f5",
+    "source_name_placeholder": "Placeholder: Primary Source for Treasury Yield Series",
+    "source_url_placeholder": null,
+    "source_verification_status": "missing"
+  },
+  {
+    "claim_supported": false,
+    "human_research_required": true,
+    "official_source_required": true,
+    "required_before_publication": true,
+    "required_source_type": "yield_curve_calculation",
+    "research_requirement_id": "req_bfcb46cc38cc",
+    "source_name_placeholder": "Placeholder: Methodology / Source for Yield Curve Calculation",
+    "source_url_placeholder": null,
+    "source_verification_status": "missing"
+  },
+  {
+    "claim_supported": false,
+    "human_research_required": true,
+    "official_source_required": true,
+    "required_before_publication": true,
+    "required_source_type": "historical_volatility",
+    "research_requirement_id": "req_e6edaf8e7750",
+    "source_name_placeholder": "Placeholder: Source for Historical Volatility / Statistical Claim",
+    "source_url_placeholder": null,
+    "source_verification_status": "missing"
+  },
+  {
+    "claim_supported": false,
+    "human_research_required": true,
+    "official_source_required": true,
+    "required_before_publication": true,
+    "required_source_type": "chart_table_data",
+    "research_requirement_id": "req_af610e135cf8",
+    "source_name_placeholder": "Placeholder: Source for Yield Curve Charts / Reference Tables",
+    "source_url_placeholder": null,
+    "source_verification_status": "missing"
+  },
+  {
+    "claim_supported": false,
+    "human_research_required": true,
+    "official_source_required": true,
+    "required_before_publication": true,
+    "required_source_type": "limitations_disclaimer",
+    "research_requirement_id": "req_91a0125c71fd",
+    "source_name_placeholder": "Placeholder: Limitations / Disclaimer Source or Policy Note",
+    "source_url_placeholder": null,
+    "source_verification_status": "missing"
+  }
+]

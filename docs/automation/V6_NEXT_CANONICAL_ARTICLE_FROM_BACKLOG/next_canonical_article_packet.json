@@ -1,0 +1,55 @@
+{
+  "allowed_for_drafting": true,
+  "allowed_for_publication": false,
+  "article_copy_generated": false,
+  "article_packet_id": "article_packet_6e40db810195",
+  "audience_need": "Understanding underlying interest rate structures and data provenance.",
+  "blocker_count": 6,
+  "blockers": [
+    "article_copy_not_generated",
+    "claim_ledger_unverified",
+    "human_research_required",
+    "no_publication_allowed",
+    "publication_blocked_until_source_verification",
+    "source_verification_required"
+  ],
+  "browser_session_started": false,
+  "canonical_platform": "substack_canonical",
+  "claim_ledger_required": true,
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "downstream_platform_targets": [
+    "substack_canonical",
+    "discord_drop"
+  ],
+  "evidence_required": "Verified historical series of Treasury yields and curve metrics.",
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "next_canonical_article_status": "READY_FOR_REVIEW_ONLY_ARTICLE_PLANNING",
+  "outline": [
+    "Which primary sources ground our recent yield volatility analysis?",
+    "What database or index matches the cited unverified sample metrics?"
+  ],
+  "provider_call_performed": false,
+  "public_postable": false,
+  "required_caveats": [
+    "Macroeconomic parameters are highly uncertain and model-dependent.",
+    "This analysis is for educational purposes only; consult licensed financial professionals."
+  ],
+  "required_sources": [
+    "operator_verified_data_ref"
+  ],
+  "research_questions": [
+    "Which primary sources ground our recent yield volatility analysis?",
+    "What database or index matches the cited unverified sample metrics?"
+  ],
+  "source_backlog_id": "backlog_ee097c4c4e7b",
+  "source_cluster_ids": [
+    "cluster_5b7a82e76a74"
+  ],
+  "source_refined_idea_id": "refined_idea_06cc7dd3b9fb",
+  "source_verification_required": true,
+  "thesis_candidate": "Macroeconomic data suggests historical trends are relevant to understanding current yield curves.",
+  "title_candidate": "Refined Study: source verification and data provenance of recent macroeconomic reports."
+}

@@ -4,7 +4,7 @@ TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V
 - **Repository**: cc-live-contentops
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Upload bundle generation HEAD (pre-commit generation input only, not runtime authority)**: 46b8793c1d4b5dbaba18723f8b02eef22f0c5041 (requires GitHub audit after push)
+- **Upload bundle generation HEAD (pre-commit generation input only, not runtime authority)**: 9631127c67caa37e634e15c67f155f75703b3dc9 (requires GitHub audit after push)
 - **Latest Accepted Task**: TASK_CONTENTOPS_V6_OPERATOR_DELEGATED_REAL_EVIDENCE_FIXTURE_AUTHORING_AND_REFRESH_DRY_RUN_HEAVY_BATCH_V0
 - **Current Approval Task**: TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_AND_DELEGATED_EVIDENCE_ROLLUP_REPAIR_HEAVY_BATCH_V0
 
@@ -27,5 +27,5 @@ TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V
 > Future Antigravity prompts in this workflow must start with the active task label on line one.
 
 ## Next Recommended Task
-- **Task**: `TASK_CONTENTOPS_V6_NEXT_CANONICAL_ARTICLE_PACKET_FROM_BACKLOG_DRY_RUN_HEAVY_BATCH_V0`
+- **Task**: `TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK_DRY_RUN_HEAVY_BATCH_V0`
 - **Goal**: Revalidate supervised dispatch readiness after outbox draft review.

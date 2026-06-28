@@ -1,0 +1,58 @@
+[
+  {
+    "affected_artifact": "substack_canonical",
+    "blocks_publication": true,
+    "mitigation_required": "Operator must match yield database keys.",
+    "risk_id": "risk_source_missing",
+    "severity": "high"
+  },
+  {
+    "affected_artifact": "substack_canonical",
+    "blocks_publication": true,
+    "mitigation_required": "Draft Nelson-Siegel model parameters reference.",
+    "risk_id": "risk_methodology_unclear",
+    "severity": "medium"
+  },
+  {
+    "affected_artifact": "substack_canonical",
+    "blocks_publication": true,
+    "mitigation_required": "Ensure all numbers trace to official source rows.",
+    "risk_id": "risk_unsupported_numeric_claim",
+    "severity": "high"
+  },
+  {
+    "affected_artifact": "substack_canonical",
+    "blocks_publication": true,
+    "mitigation_required": "Include macroeconomic parameter uncertainty caveats.",
+    "risk_id": "risk_financial_advice_misread",
+    "severity": "high"
+  },
+  {
+    "affected_artifact": "substack_canonical",
+    "blocks_publication": true,
+    "mitigation_required": "Preserve review-only labeling.",
+    "risk_id": "risk_overconfidence",
+    "severity": "medium"
+  },
+  {
+    "affected_artifact": "substack_canonical",
+    "blocks_publication": true,
+    "mitigation_required": "Refresh timestamps manually on ingestion.",
+    "risk_id": "risk_stale_context",
+    "severity": "medium"
+  },
+  {
+    "affected_artifact": "substack_canonical",
+    "blocks_publication": true,
+    "mitigation_required": "Confirm author handles are fully redacted.",
+    "risk_id": "risk_community_feedback_privacy",
+    "severity": "high"
+  },
+  {
+    "affected_artifact": "discord_drop",
+    "blocks_publication": true,
+    "mitigation_required": "Review post previews manually.",
+    "risk_id": "risk_platform_overcompression",
+    "severity": "medium"
+  }
+]
