@@ -1,0 +1,41 @@
+{
+  "schema_version": "6.0.0",
+  "stages": {
+    "approval_gate_blocked": {
+      "description": "Approval gate requires positive review signatures.",
+      "status": "BLOCKED"
+    },
+    "dispatch_locked": {
+      "description": "Kill switch is active. Supervised dispatch is blocked.",
+      "status": "LOCKED"
+    },
+    "lifecycle_audit": {
+      "description": "Audit trail log and diagnostic workbench.",
+      "status": "PASS"
+    },
+    "manual_evidence_validator": {
+      "description": "Validation scan for unsafe keywords and empty slots.",
+      "status": "FAIL"
+    },
+    "operator_fixture_expected": {
+      "description": "True if operator fixture file exists and is populated.",
+      "status": "FAIL"
+    },
+    "pipeline_consolidation": {
+      "description": "Unified pipeline state consolidation.",
+      "status": "PASS"
+    },
+    "source_evidence_preflight": {
+      "description": "Preflight check for URL references and sources.",
+      "status": "PENDING"
+    },
+    "source_preflight_bridge": {
+      "description": "Bridges validated fixture slots to preflight checking.",
+      "status": "PENDING"
+    },
+    "validator_wiring": {
+      "description": "Fixture path resolution and wiring mapping.",
+      "status": "PASS"
+    }
+  }
+}

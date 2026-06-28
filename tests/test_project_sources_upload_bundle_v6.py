@@ -140,9 +140,9 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
     
     # 1. Assert packet values
-    assert packet["task_label"] == "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR_AND_BLOCKED_PIPELINE_ROLLUP_HEAVY_BATCH_V0"
+    assert packet["task_label"] == "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
     assert packet["final_head_requires_post_push_audit"] is True
-    assert packet["previous_accepted_pipeline_status_head"] == "24dcfbf875fe10d59cf8a240272b03c3a398c022"
+    assert packet["previous_accepted_pipeline_status_head"] == "316c54540d8125222d7fbf4345b1675233fbc0f3"
     assert "pre_commit_generation_head_input_only" in packet["bundle_generation_head_label"]
     assert "docs/automation/V6_NETWORK_SCOPE_POLICY/scoped_network_policy_v6.md" in files
     assert "docs/automation/V6_NETWORK_SCOPE_POLICY/network_resource_allowlist.json" in files
@@ -155,6 +155,10 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_orchestrator_packet.json" in files
     assert "docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_rollup.json" in files
     assert "docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_operator_runbook.md" in files
+    assert "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_refresh_packet.json" in files
+    assert "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_stage_matrix.json" in files
+    assert "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_operator_checklist.md" in files
+    assert "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_recovery_runbook.md" in files
     
     # 2. Check generate_current_state_summary_markdown details
     summary = upload_lane.generate_current_state_summary_markdown(

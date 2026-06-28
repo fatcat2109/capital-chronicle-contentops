@@ -3,8 +3,8 @@
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: 24dcfbf875fe10d59cf8a240272b03c3a398c022 (requires GitHub audit after push)
-- **Latest Task**: TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR_AND_BLOCKED_PIPELINE_ROLLUP_HEAVY_BATCH_V0
+- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: 316c54540d8125222d7fbf4345b1675233fbc0f3 (requires GitHub audit after push)
+- **Latest Task**: TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0
 - **Previous Accepted Status Task**: TASK_CONTENTOPS_V6_OPERATOR_PIPELINE_STATUS_AND_BLOCKED_RUNBOOK_HEAVY_BATCH_V0
 
 > [!WARNING]

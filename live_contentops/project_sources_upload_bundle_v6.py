@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR_AND_BLOCKED_PIPELINE_ROLLUP_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 
@@ -71,6 +71,10 @@ Please upload the following files to the ChatGPT Project Sources:
 22. `docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_orchestrator_packet.json`
 23. `docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_rollup.json`
 24. `docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_operator_runbook.md`
+25. `docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_refresh_packet.json`
+26. `docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_stage_matrix.json`
+27. `docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_operator_checklist.md`
+28. `docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_recovery_runbook.md`
 
 ## Deprioritized Older Documents
 You can deprioritize or remove older V6 draft outlines, platform variant files, or temporary preflight logs that are not listed above, to keep context usage clean.
@@ -91,8 +95,8 @@ def generate_new_chat_continuation_markdown(head_sha: str, blockers: list[str]) 
 - **Branch**: master
 - **Baseline before upload bundle task**: {BASELINE_BEFORE_UPLOAD_BUNDLE_TASK}
 - **Upload bundle generation HEAD (pre-commit generation input only, not runtime authority)**: {head_sha} (requires GitHub audit after push)
-- **Latest Accepted Task**: TASK_CONTENTOPS_V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE_DRY_RUN_AND_AUDIT_TRAIL_HEAVY_BATCH_V0
-- **Current Orchestrator Task**: TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR_AND_BLOCKED_PIPELINE_ROLLUP_HEAVY_BATCH_V0
+- **Latest Accepted Task**: TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR_AND_BLOCKED_PIPELINE_ROLLUP_HEAVY_BATCH_V0
+- **Current Refresh Task**: TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0
 
 ## Safety & Governance Rules
 - Environment access, provider integrations, and live adapter capabilities are permitted only when explicitly scoped via a task contract under the V6 Fast Ship Operating Profile.
@@ -208,6 +212,10 @@ def generate_implementation_report_markdown(bundle_status: str, head_sha: str) -
   - manual_evidence_refresh_orchestrator_packet.json
   - manual_evidence_refresh_rollup.json
   - manual_evidence_refresh_operator_runbook.md
+  - manual_evidence_source_submission_refresh_packet.json
+  - manual_evidence_source_submission_stage_matrix.json
+  - manual_evidence_source_submission_operator_checklist.md
+  - manual_evidence_source_submission_recovery_runbook.md
 
 - **Safety Checks Pass**:
   - No secret output: `true`
@@ -308,7 +316,11 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_submission_recovery_runbook.md",
         "docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_orchestrator_packet.json",
         "docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_rollup.json",
-        "docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_operator_runbook.md"
+        "docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_operator_runbook.md",
+        "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_refresh_packet.json",
+        "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_stage_matrix.json",
+        "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_operator_checklist.md",
+        "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_recovery_runbook.md"
     ]
 
     packet = {
@@ -318,7 +330,7 @@ def materialize_project_sources_upload_bundle_packets(
         "source_readiness_evidence_bundle_packet_id": source_readiness_bundle_packet_id,
         "source_supervised_dispatch_readiness_packet_id": source_supervised_dispatch_readiness_packet_id,
         "baseline_before_upload_bundle_task": BASELINE_BEFORE_UPLOAD_BUNDLE_TASK,
-        "previous_accepted_pipeline_status_head": "24dcfbf875fe10d59cf8a240272b03c3a398c022",
+        "previous_accepted_pipeline_status_head": "316c54540d8125222d7fbf4345b1675233fbc0f3",
         "bundle_generation_head": head_sha,
         "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
         "final_head_requires_post_push_audit": True,
