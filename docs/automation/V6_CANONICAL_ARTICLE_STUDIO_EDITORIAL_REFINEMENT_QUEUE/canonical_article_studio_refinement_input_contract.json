@@ -1,0 +1,54 @@
+{
+  "contract_status": "FUTURE_REFINEMENT_INPUT_CONTRACT_ONLY",
+  "required_inputs": [
+    {
+      "blocks_refinement_execution": true,
+      "current_status": "missing",
+      "input_name": "rendered_canonical_draft_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_refinement_execution": true,
+      "current_status": "missing",
+      "input_name": "source_approved_renderer_output_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_refinement_execution": true,
+      "current_status": "missing",
+      "input_name": "citation_manifest_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_refinement_execution": true,
+      "current_status": "missing",
+      "input_name": "seo_brief_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_refinement_execution": true,
+      "current_status": "missing",
+      "input_name": "editorial_style_guide_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    },
+    {
+      "blocks_refinement_execution": true,
+      "current_status": "missing",
+      "input_name": "jim_review_ref",
+      "raw_value_persisted": false,
+      "required": true,
+      "value_ref": null
+    }
+  ],
+  "runtime_truth": false
+}

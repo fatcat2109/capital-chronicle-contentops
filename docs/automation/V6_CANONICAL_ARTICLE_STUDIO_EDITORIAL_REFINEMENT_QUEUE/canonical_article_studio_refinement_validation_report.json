@@ -1,0 +1,18 @@
+{
+  "blocker_count": 9,
+  "blockers": [
+    "article_copy_generation_blocked",
+    "dispatch_blocked",
+    "editorial_review_required",
+    "human_review_required",
+    "jim_review_required",
+    "publication_blocked",
+    "refinement_execution_blocked",
+    "rendered_draft_missing",
+    "source_approved_renderer_blocked"
+  ],
+  "refinement_validated": true,
+  "runtime_truth": false,
+  "schema_version": "6.0.0",
+  "validation_status": "PASSED_WITH_REVIEW_ONLY_BLOCKERS"
+}

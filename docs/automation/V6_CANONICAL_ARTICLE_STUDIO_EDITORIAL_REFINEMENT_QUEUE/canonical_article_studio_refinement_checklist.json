@@ -1,0 +1,65 @@
+{
+  "checklist_status": "REFINEMENT_BLOCKED_PENDING_RENDERED_DRAFT",
+  "items": {
+    "citation_manifest_required": {
+      "blocks_publication": true,
+      "blocks_refinement": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_refinement_queue_packet.json"
+    },
+    "editorial_style_guide_required": {
+      "blocks_publication": true,
+      "blocks_refinement": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_refinement_queue_packet.json"
+    },
+    "jim_final_review_required": {
+      "blocks_publication": true,
+      "blocks_refinement": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_refinement_queue_packet.json"
+    },
+    "no_dispatch_ready_claim": {
+      "blocks_publication": true,
+      "blocks_refinement": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_refinement_queue_packet.json"
+    },
+    "no_financial_advice_language": {
+      "blocks_publication": true,
+      "blocks_refinement": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_refinement_queue_packet.json"
+    },
+    "no_publication_ready_claim": {
+      "blocks_publication": true,
+      "blocks_refinement": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_refinement_queue_packet.json"
+    },
+    "no_refinement_generated": {
+      "blocks_publication": true,
+      "blocks_refinement": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_refinement_queue_packet.json"
+    },
+    "rendered_draft_required": {
+      "blocks_publication": true,
+      "blocks_refinement": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_refinement_queue_packet.json"
+    },
+    "seo_brief_required": {
+      "blocks_publication": true,
+      "blocks_refinement": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_refinement_queue_packet.json"
+    },
+    "source_approved_renderer_required": {
+      "blocks_publication": true,
+      "blocks_refinement": true,
+      "current_status": "pending",
+      "evidence_ref": "canonical_article_studio_refinement_queue_packet.json"
+    }
+  }
+}
