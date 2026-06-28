@@ -33,3 +33,6 @@ client_secret*.json
 *credential*cache*.json
 *.local.secret
 *.local.secrets.json
+
+# Local Operator Evidence Fixture - Do Not Commit Real Evidence
+docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE/operator_evidence_fixture.json

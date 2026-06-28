@@ -140,9 +140,9 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     packet, files = upload_lane.materialize_project_sources_upload_bundle_packets(rb_path, dr_path)
     
     # 1. Assert packet values
-    assert packet["task_label"] == "TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0"
+    assert packet["task_label"] == "TASK_CONTENTOPS_V6_OPERATOR_DELEGATED_REAL_EVIDENCE_FIXTURE_AUTHORING_AND_REFRESH_DRY_RUN_HEAVY_BATCH_V0"
     assert packet["final_head_requires_post_push_audit"] is True
-    assert packet["previous_accepted_pipeline_status_head"] == "316c54540d8125222d7fbf4345b1675233fbc0f3"
+    assert packet["previous_accepted_pipeline_status_head"] == "4f8b79563f9cf88777c8d5cda8ff48a7a2bbdd81"
     assert "pre_commit_generation_head_input_only" in packet["bundle_generation_head_label"]
     assert "docs/automation/V6_NETWORK_SCOPE_POLICY/scoped_network_policy_v6.md" in files
     assert "docs/automation/V6_NETWORK_SCOPE_POLICY/network_resource_allowlist.json" in files
@@ -159,6 +159,10 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_stage_matrix.json" in files
     assert "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_operator_checklist.md" in files
     assert "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_recovery_runbook.md" in files
+    assert "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_authoring_report.md" in files
+    assert "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_fixture_redacted_summary.json" in files
+    assert "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_source_map.json" in files
+    assert "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_refresh_result.json" in files
     
     # 2. Check generate_current_state_summary_markdown details
     summary = upload_lane.generate_current_state_summary_markdown(

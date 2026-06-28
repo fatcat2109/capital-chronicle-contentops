@@ -1,9 +1,9 @@
 # V6 Project Sources Upload Bundle Implementation Report
 
-- **Task Label**: TASK_CONTENTOPS_V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR_AND_SOURCE_SUBMISSION_REFRESH_HEAVY_BATCH_V0
+- **Task Label**: TASK_CONTENTOPS_V6_OPERATOR_DELEGATED_REAL_EVIDENCE_FIXTURE_AUTHORING_AND_REFRESH_DRY_RUN_HEAVY_BATCH_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 316c54540d8125222d7fbf4345b1675233fbc0f3 (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 4f8b79563f9cf88777c8d5cda8ff48a7a2bbdd81 (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
@@ -34,6 +34,10 @@
   - manual_evidence_source_submission_stage_matrix.json
   - manual_evidence_source_submission_operator_checklist.md
   - manual_evidence_source_submission_recovery_runbook.md
+  - delegated_evidence_authoring_report.md
+  - delegated_evidence_fixture_redacted_summary.json
+  - delegated_evidence_source_map.json
+  - delegated_evidence_refresh_result.json
 
 - **Safety Checks Pass**:
   - No secret output: `true`

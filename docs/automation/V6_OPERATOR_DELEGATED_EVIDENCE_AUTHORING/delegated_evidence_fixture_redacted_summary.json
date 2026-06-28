@@ -1,0 +1,20 @@
+{
+  "schema_version": "6.0.0",
+  "fixture_completions": {
+    "citation_candidates": true,
+    "factual_claims": true,
+    "intended_canonical_article_angle": true,
+    "intended_content_lane": true,
+    "limitation_notes": true,
+    "no_signal_disclosure": true,
+    "operator_idea_source_ref": true,
+    "source_notes": true,
+    "supporting_artifacts": true,
+    "topic_statement": true
+  },
+  "factual_claims_count": 3,
+  "citation_candidates_count": 3,
+  "verification_state": "PASS",
+  "contains_secrets_or_credentials": false,
+  "contains_webhooks_or_cookies": false
+}

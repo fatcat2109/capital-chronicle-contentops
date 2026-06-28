@@ -1,0 +1,12 @@
+{
+  "schema_version": "6.0.0",
+  "refresh_execution_status": "SUCCESS",
+  "refresh_status": "PREFLIGHT_CANDIDATE_READY_FOR_APPROVAL",
+  "evidence_complete": true,
+  "source_preflight_ready": true,
+  "failed_lanes_count": 0,
+  "kill_switch_active": true,
+  "dispatch_allowed_now": false,
+  "live_write_allowed_now": false,
+  "approval_valid_for_dispatch": false
+}
