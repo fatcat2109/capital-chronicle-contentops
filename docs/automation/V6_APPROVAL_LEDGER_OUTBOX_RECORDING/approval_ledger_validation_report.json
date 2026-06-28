@@ -1,0 +1,10 @@
+{
+  "ledger_entry_committed": false,
+  "ledger_entry_preview_created": true,
+  "operator_signature_valid": false,
+  "safety_checks_pass": false,
+  "unexpected_claims_detected": false,
+  "unexpected_claims_findings": [],
+  "unsafe_material_detected": false,
+  "unsafe_material_findings": []
+}

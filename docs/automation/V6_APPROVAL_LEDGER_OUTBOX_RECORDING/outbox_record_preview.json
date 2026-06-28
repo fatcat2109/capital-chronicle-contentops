@@ -1,0 +1,14 @@
+{
+  "credential_hydrated": false,
+  "destination_class": "operator_review_only",
+  "destination_identifier_redacted_or_absent": true,
+  "dispatch_adapter_enabled": false,
+  "dispatchable": false,
+  "live_destination_bound": false,
+  "manual_fallback_required": true,
+  "metrics": null,
+  "outbox_record_created": false,
+  "outbox_record_preview_created": true,
+  "platform_family": "telegram",
+  "public_url": null
+}

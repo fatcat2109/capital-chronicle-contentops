@@ -4,7 +4,7 @@
   "approval_required": true,
   "approval_valid_for_dispatch": false,
   "baseline_before_upload_bundle_task": "d97bc3968e1babf48c81f384fb547b439e48515c",
-  "bundle_generation_head": "1e3550b78b7ea563a384973673439c7415795aa4",
+  "bundle_generation_head": "a2e5025e5fc6f82c0aee830afd6744537a5958b3",
   "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
   "bundle_stage": "v6_project_sources_upload_bundle",
   "bundle_status": "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS",
@@ -114,7 +114,16 @@
     "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/dispatch_readiness_runbook.md",
     "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/dispatch_readiness_blocker_report.md",
     "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/implementation_report.md",
-    "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/next_task_pointer.md"
+    "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/next_task_pointer.md",
+    "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_packet.json",
+    "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_entry_preview.json",
+    "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/outbox_record_preview.json",
+    "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/outbox_record_validation_report.json",
+    "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_validation_report.json",
+    "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_blocker_report.md",
+    "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_runbook.md",
+    "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/implementation_report.md",
+    "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/next_task_pointer.md"
   ],
   "webhook_url_printed": false
 }

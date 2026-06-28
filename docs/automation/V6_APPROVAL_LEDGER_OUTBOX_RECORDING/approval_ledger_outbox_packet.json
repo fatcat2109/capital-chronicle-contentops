@@ -1,0 +1,30 @@
+{
+  "approval_ledger_entry_created": false,
+  "approval_ledger_outbox_status": "BLOCKED_AWAITING_OPERATOR_SIGNATURE",
+  "approval_valid_for_dispatch": false,
+  "blockers": [
+    "destination_binding_incomplete",
+    "kill_switch_active",
+    "live_write_authorization_missing",
+    "operator_signature_missing",
+    "outbox_creation_blocked",
+    "public_postable_false",
+    "safety_review_incomplete"
+  ],
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "destination_binding_complete": false,
+  "dispatch_allowed_now": false,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "live_write_authorization_present": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP",
+  "operator_signature_valid": false,
+  "outbox_dispatchable": false,
+  "outbox_entry_created": false,
+  "outbox_record_created": false,
+  "public_postable": false,
+  "schema_version": "6.0.0",
+  "supervised_dispatch_readiness_status": "BLOCKED",
+  "task_label": "TASK_CONTENTOPS_V6_APPROVAL_LEDGER_AND_OUTBOX_RECORDING_LANE_HEAVY_BATCH_V0"
+}

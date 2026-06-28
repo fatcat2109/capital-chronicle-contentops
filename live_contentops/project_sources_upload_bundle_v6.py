@@ -310,6 +310,15 @@ def generate_implementation_report_markdown(bundle_status: str, head_sha: str) -
   - dispatch_readiness_blocker_report.md
   - revalidation_implementation_report.md
   - revalidation_next_task_pointer.md
+  - approval_ledger_outbox_packet.json
+  - approval_ledger_entry_preview.json
+  - outbox_record_preview.json
+  - outbox_record_validation_report.json
+  - approval_ledger_validation_report.json
+  - approval_ledger_outbox_blocker_report.md
+  - approval_ledger_outbox_runbook.md
+  - recording_implementation_report.md
+  - recording_next_task_pointer.md
 
 - **Safety Checks Pass**:
   - No secret output: `true`
@@ -446,6 +455,25 @@ def materialize_project_sources_upload_bundle_packets(
         try:
             reval_packet = json.loads(default_reval_path.read_text(encoding="utf-8"))
             if reval_packet.get("operator_signature_valid") is True:
+                operator_signature_valid = True
+        except Exception:
+            pass
+
+    # Also check ledger packet
+    rel_ledger_path = readiness_bundle_path.parent / "approval_ledger_outbox_packet.json"
+    if rel_ledger_path.exists():
+        try:
+            ledger_packet = json.loads(rel_ledger_path.read_text(encoding="utf-8"))
+            if ledger_packet.get("operator_signature_valid") is True:
+                operator_signature_valid = True
+        except Exception:
+            pass
+
+    default_ledger_path = Path("docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_packet.json")
+    if default_ledger_path.exists():
+        try:
+            ledger_packet = json.loads(default_ledger_path.read_text(encoding="utf-8"))
+            if ledger_packet.get("operator_signature_valid") is True:
                 operator_signature_valid = True
         except Exception:
             pass
@@ -588,7 +616,16 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/dispatch_readiness_runbook.md",
         "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/dispatch_readiness_blocker_report.md",
         "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/implementation_report.md",
-        "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/next_task_pointer.md"
+        "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/next_task_pointer.md",
+        "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_packet.json",
+        "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_entry_preview.json",
+        "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/outbox_record_preview.json",
+        "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/outbox_record_validation_report.json",
+        "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_validation_report.json",
+        "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_blocker_report.md",
+        "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_runbook.md",
+        "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/implementation_report.md",
+        "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/next_task_pointer.md"
     ]
 
     packet = {

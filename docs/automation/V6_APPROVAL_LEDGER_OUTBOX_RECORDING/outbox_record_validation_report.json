@@ -1,0 +1,9 @@
+{
+  "credential_hydrated": false,
+  "destination_class": "operator_review_only",
+  "dispatchable": false,
+  "live_destination_bound": false,
+  "outbox_record_created": false,
+  "outbox_record_preview_created": true,
+  "safety_checks_pass": false
+}

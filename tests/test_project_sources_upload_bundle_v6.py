@@ -197,6 +197,12 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_blocker_report.md" in files
     assert "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/operator_approval_capture_runbook.md" in files
     assert "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE/implementation_report.md" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_outbox_draft_packet.json" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_review_matrix.json" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/outbox_draft_preview_packet.json" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/outbox_draft_validation_report.json" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_blocker_report.md" in files
+    assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/destination_binding_runbook.md" in files
     assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/implementation_report.md" in files
     assert "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT/next_task_pointer.md" in files
     assert "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/supervised_dispatch_readiness_packet.json" in files
@@ -206,6 +212,15 @@ def test_metadata_integrity_and_hardenings(tmp_path):
     assert "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/dispatch_readiness_blocker_report.md" in files
     assert "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/implementation_report.md" in files
     assert "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION/next_task_pointer.md" in files
+    assert "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_packet.json" in files
+    assert "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_entry_preview.json" in files
+    assert "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/outbox_record_preview.json" in files
+    assert "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/outbox_record_validation_report.json" in files
+    assert "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_validation_report.json" in files
+    assert "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_blocker_report.md" in files
+    assert "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/approval_ledger_outbox_runbook.md" in files
+    assert "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/implementation_report.md" in files
+    assert "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING/next_task_pointer.md" in files
     
     # 2. Check generate_current_state_summary_markdown details
     summary = upload_lane.generate_current_state_summary_markdown(

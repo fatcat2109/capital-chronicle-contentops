@@ -1,0 +1,12 @@
+{
+  "approval_decision_source": "local_operator_signature_required",
+  "immutable_audit_required_later": true,
+  "ledger_entry_committed": false,
+  "ledger_entry_preview_created": true,
+  "ledger_mutation_allowed": false,
+  "operator_signature_required": true,
+  "operator_signature_valid": false,
+  "payload_hash": "4bcbbf4eeab1bdfa2f3f94b4dbb042877c67efdb515f7feecaac5ffa3a2e71ff",
+  "payload_preview_ref": "docs\\automation\\V6_PAYLOAD_PREVIEW_HASH\\payload_preview_exact_review.json",
+  "valid_for_dispatch": false
+}

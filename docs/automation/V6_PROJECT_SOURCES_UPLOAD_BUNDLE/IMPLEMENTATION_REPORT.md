@@ -3,7 +3,7 @@
 - **Task Label**: TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION_LANE_HEAVY_BATCH_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 1e3550b78b7ea563a384973673439c7415795aa4 (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: a2e5025e5fc6f82c0aee830afd6744537a5958b3 (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
@@ -72,6 +72,15 @@
   - dispatch_readiness_blocker_report.md
   - revalidation_implementation_report.md
   - revalidation_next_task_pointer.md
+  - approval_ledger_outbox_packet.json
+  - approval_ledger_entry_preview.json
+  - outbox_record_preview.json
+  - outbox_record_validation_report.json
+  - approval_ledger_validation_report.json
+  - approval_ledger_outbox_blocker_report.md
+  - approval_ledger_outbox_runbook.md
+  - recording_implementation_report.md
+  - recording_next_task_pointer.md
 
 - **Safety Checks Pass**:
   - No secret output: `true`
