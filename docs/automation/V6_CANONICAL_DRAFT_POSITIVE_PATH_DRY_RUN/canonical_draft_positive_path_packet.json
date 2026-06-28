@@ -1,0 +1,20 @@
+{
+  "allowed_for_publication": false,
+  "article_copy_generated": true,
+  "browser_session_started": false,
+  "committed_runtime_verified_source_pack_created": false,
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "env_read_performed": false,
+  "evidence_hashes_persisted_in_runtime_artifact": false,
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "positive_path_status": "READY_FOR_TEST_ONLY_DRY_RUN",
+  "provider_call_performed": false,
+  "public_postable": false,
+  "real_source_fetch_performed": false,
+  "runtime_truth": false,
+  "source_urls_persisted_in_runtime_artifact": false,
+  "test_only_fixture_used": true
+}

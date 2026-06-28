@@ -1,0 +1,14 @@
+{
+  "blocker_count": 5,
+  "blockers": [
+    "dispatch_blocked",
+    "human_review_required",
+    "public_postable_blocked",
+    "publication_blocked_until_real_source_verification",
+    "runtime_source_pack_not_verified"
+  ],
+  "runtime_truth": false,
+  "schema_version": "6.0.0",
+  "test_only_fixture_validated": true,
+  "validation_status": "PASSED_WITH_REVIEW_ONLY_BLOCKERS"
+}

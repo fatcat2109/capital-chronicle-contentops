@@ -1,0 +1,15 @@
+{
+  "all_claims_bound_to_sources": true,
+  "all_required_sources_verified": true,
+  "committed_runtime_verified_source_pack_created": false,
+  "dispatch_allowed_now": false,
+  "operator_verification_performed": false,
+  "operator_verified_by": "TEST_ONLY_OPERATOR_NOT_REAL_VERIFICATION",
+  "public_postable": false,
+  "publication_allowed": false,
+  "real_source_fetch_performed": false,
+  "runtime_truth": false,
+  "source_pack_complete": true,
+  "synthetic_fixture_loaded": true,
+  "test_only": true
+}

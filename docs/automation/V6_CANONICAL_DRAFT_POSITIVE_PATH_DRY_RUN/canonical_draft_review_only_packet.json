@@ -1,0 +1,20 @@
+{
+  "all_claims_bound_to_runtime_sources": false,
+  "all_claims_bound_to_test_sources": true,
+  "allowed_for_publication": false,
+  "article_copy_generated": true,
+  "browser_session_started": false,
+  "canonical_draft_status": "REVIEW_ONLY_SYNTHETIC_POSITIVE_PATH",
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "draft_markdown_created": true,
+  "draft_source": "test_only_verified_source_pack_fixture",
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "llm_provider_call_performed": false,
+  "provider_call_performed": false,
+  "public_postable": false,
+  "runtime_truth": false,
+  "source_verification_required_for_runtime": true
+}

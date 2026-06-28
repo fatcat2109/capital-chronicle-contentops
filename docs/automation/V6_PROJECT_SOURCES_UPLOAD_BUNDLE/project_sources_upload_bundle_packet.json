@@ -4,7 +4,7 @@
   "approval_required": true,
   "approval_valid_for_dispatch": false,
   "baseline_before_upload_bundle_task": "d97bc3968e1babf48c81f384fb547b439e48515c",
-  "bundle_generation_head": "10d2f5a305e0cfcdbf6479cc71b45b4740790b15",
+  "bundle_generation_head": "0497afa699637d709d69cb718d056ad041ffddee",
   "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
   "bundle_stage": "v6_project_sources_upload_bundle",
   "bundle_status": "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS",
@@ -15,7 +15,7 @@
   "kill_switch_active": true,
   "live_write_attempted": false,
   "new_chat_continuation_file": "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/NEW_CHAT_CONTINUATION_V6_READINESS.md",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_GENERATION_FROM_VERIFIED_SOURCE_PACK_POSITIVE_PATH_DRY_RUN_HEAVY_BATCH_V0",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_OPERATOR_SOURCE_PACK_IMPORT_UI_AND_APPROVAL_REVIEW_HEAVY_BATCH_V0",
   "no_env_read_in_this_task": true,
   "no_live_request_in_this_task": true,
   "no_network_call_in_this_task": true,
@@ -30,7 +30,7 @@
   "schema_version": "6.0.0",
   "source_readiness_evidence_bundle_packet_id": "bundle_fbe34af9e66e",
   "source_supervised_dispatch_readiness_packet_id": "readiness_34edf10af116",
-  "task_label": "TASK_CONTENTOPS_V6_VERIFIED_SOURCE_PACK_IMPORT_AND_REVALIDATION_DRY_RUN_HEAVY_BATCH_V0",
+  "task_label": "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_GENERATION_FROM_VERIFIED_SOURCE_PACK_POSITIVE_PATH_DRY_RUN_HEAVY_BATCH_V0",
   "unresolved_blockers": [
     "destination_binding_incomplete",
     "kill_switch_active",
@@ -255,7 +255,17 @@
     "docs/automation/V6_VERIFIED_SOURCE_PACK_IMPORT_REVALIDATION/verified_source_pack_import_blocker_report.md",
     "docs/automation/V6_VERIFIED_SOURCE_PACK_IMPORT_REVALIDATION/verified_source_pack_import_runbook.md",
     "docs/automation/V6_VERIFIED_SOURCE_PACK_IMPORT_REVALIDATION/implementation_report.md",
-    "docs/automation/V6_VERIFIED_SOURCE_PACK_IMPORT_REVALIDATION/next_task_pointer.md"
+    "docs/automation/V6_VERIFIED_SOURCE_PACK_IMPORT_REVALIDATION/next_task_pointer.md",
+    "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN/canonical_draft_positive_path_packet.json",
+    "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN/test_only_verified_source_pack_fixture_summary.json",
+    "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN/test_only_claim_source_binding_proof.json",
+    "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN/canonical_draft_review_only_packet.json",
+    "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN/canonical_draft_review_only_preview.md",
+    "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN/canonical_draft_positive_path_validation_report.json",
+    "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN/canonical_draft_positive_path_blocker_report.md",
+    "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN/canonical_draft_positive_path_runbook.md",
+    "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN/implementation_report.md",
+    "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN/next_task_pointer.md"
   ],
   "webhook_url_printed": false
 }

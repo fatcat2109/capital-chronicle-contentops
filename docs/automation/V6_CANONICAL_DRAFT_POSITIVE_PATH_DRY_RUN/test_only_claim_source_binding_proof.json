@@ -1,0 +1,32 @@
+[
+  {
+    "allowed_in_publication": false,
+    "allowed_in_review_draft": true,
+    "claim_id": "claim_d474a9fdbcd6",
+    "runtime_truth": false,
+    "source_requirement_refs": [
+      "req_67a5db6704f5"
+    ],
+    "source_support_status": "test_only_bound"
+  },
+  {
+    "allowed_in_publication": false,
+    "allowed_in_review_draft": true,
+    "claim_id": "claim_63d1cf20e9bf",
+    "runtime_truth": false,
+    "source_requirement_refs": [
+      "req_bfcb46cc38cc"
+    ],
+    "source_support_status": "test_only_bound"
+  },
+  {
+    "allowed_in_publication": false,
+    "allowed_in_review_draft": true,
+    "claim_id": "claim_492c29ad9746",
+    "runtime_truth": false,
+    "source_requirement_refs": [
+      "req_e6edaf8e7750"
+    ],
+    "source_support_status": "test_only_bound"
+  }
+]
