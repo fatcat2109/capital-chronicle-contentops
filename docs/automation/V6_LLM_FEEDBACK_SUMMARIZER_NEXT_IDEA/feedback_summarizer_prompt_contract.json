@@ -1,0 +1,79 @@
+{
+  "allowed_input_fields": [
+    "snapshot_id",
+    "source_platform",
+    "source_mode",
+    "collected_at_manual",
+    "raw_feedback_text_redacted",
+    "author_handle_redacted"
+  ],
+  "blocked_topic_rules": [
+    "No direct investment advice",
+    "No signal-service framing"
+  ],
+  "dispatch_allowed_now": false,
+  "forbidden_input_fields": [
+    "email",
+    "phone",
+    "precise_address",
+    "discord_user_id",
+    "telegram_chat_id",
+    "webhook_url",
+    "bot_token",
+    "cookie",
+    "session",
+    "localStorage",
+    "sessionStorage",
+    "env",
+    "local_path",
+    "access_token"
+  ],
+  "human_review_required": true,
+  "input_snapshot_refs": [
+    "snap_001_discord_safe",
+    "snap_002_substack_safe",
+    "snap_003_unsafe_advice",
+    "snap_004_personal_data"
+  ],
+  "no_auto_reply_rules": [
+    "Do not output executable comments",
+    "Do not output platform-native dispatch structures"
+  ],
+  "no_financial_advice_rules": [
+    "No target entries or exits",
+    "No stop loss or position sizing guidelines"
+  ],
+  "output_schema": {
+    "properties": {
+      "themes": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      },
+      "unsafe_topics_detected": {
+        "items": {
+          "type": "string"
+        },
+        "type": "array"
+      }
+    },
+    "required": [
+      "themes",
+      "unsafe_topics_detected"
+    ],
+    "type": "object"
+  },
+  "prompt_contract_id": "prompt_contract_1562ecd2a21f",
+  "provider_call_performed": false,
+  "provider_credentials_hydrated": false,
+  "public_postable": false,
+  "redaction_policy": "NO_SECRET_VALUES_NO_IDS_NO_URLS",
+  "required_caveats": [
+    "Macroeconomic parameters are highly uncertain and model-dependent.",
+    "Consult licensed professionals before making any positioning adjustments."
+  ],
+  "safety_instruction": "CRITICAL: Do not output any buy/sell/hold signal or target pricing. If a user asks for financial advice, summarize it strictly as an unsafe_financial_advice_request. Do not write comments or reply drafts. Do not include raw handles.",
+  "source_summary_packet_id": "summary_packet_0b7b71e720e2",
+  "summarizer_instruction": "Analyze the provided redacted feedback snapshots. Identify high-frequency clarification questions, disagreement themes, and topic requests. Summarize them synthetically into distinct categories according to the output schema."
+}

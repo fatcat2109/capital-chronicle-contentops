@@ -1,0 +1,30 @@
+{
+  "allowed_for_publication": false,
+  "autonomous_engagement_enabled": false,
+  "blocker_count": 2,
+  "blockers": [
+    "source_verification_required",
+    "unsafe_financial_advice_request_detected"
+  ],
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "dm_read_performed": false,
+  "env_read_performed": false,
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "live_platform_read_performed": false,
+  "live_write_allowed_now": false,
+  "llm_feedback_summarizer_status": "READY_FOR_REVIEW_ONLY_DRY_RUN",
+  "llm_provider_call_performed": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_NEXT_CANONICAL_ARTICLE_PACKET_FROM_BACKLOG_DRY_RUN_HEAVY_BATCH_V0",
+  "output_mode": "dry_run_stub_not_model_output",
+  "provider_credentials_hydrated": false,
+  "provider_mode": "dry_run_stub",
+  "public_postable": false,
+  "reply_or_comment_created": false,
+  "schema_version": "6.0.0",
+  "scraping_performed": false,
+  "summarizer_mode": "dry_run_stub",
+  "task_label": "TASK_CONTENTOPS_V6_LLM_FEEDBACK_SUMMARIZER_AND_NEXT_IDEA_GENERATOR_DRY_RUN_HEAVY_BATCH_V0"
+}

@@ -1,0 +1,60 @@
+[
+  {
+    "allowed_for_drafting": true,
+    "allowed_for_publication": false,
+    "auto_reply_created": false,
+    "backlog_id": "backlog_ee097c4c4e7b",
+    "blocked_reasons": [],
+    "human_review_required": true,
+    "no_auto_response": true,
+    "priority_score": 8.0,
+    "proposed_canonical_article_angle": "Deep dive into source verification and data provenance of recent macroeconomic reports.",
+    "public_ready": false,
+    "required_caveats": [
+      "Macroeconomic parameters are highly uncertain and model-dependent.",
+      "This analysis is for educational purposes only; consult licensed financial professionals."
+    ],
+    "required_sources": [
+      "operator_verified_data_ref"
+    ],
+    "research_questions": [
+      "Which primary sources ground our recent yield volatility analysis?",
+      "What database or index matches the cited unverified sample metrics?"
+    ],
+    "source_cluster_id": "cluster_5b7a82e76a74",
+    "source_verification_required": true,
+    "suggested_platform_variants": [
+      "substack_canonical",
+      "discord_drop"
+    ]
+  },
+  {
+    "allowed_for_drafting": true,
+    "allowed_for_publication": false,
+    "auto_reply_created": false,
+    "backlog_id": "backlog_758893ac01f8",
+    "blocked_reasons": [],
+    "human_review_required": true,
+    "no_auto_response": true,
+    "priority_score": 7.0,
+    "proposed_canonical_article_angle": "Educational breakdown of calculation models and methodology used in yield curve parsing.",
+    "public_ready": false,
+    "required_caveats": [
+      "Macroeconomic parameters are highly uncertain and model-dependent.",
+      "This analysis is for educational purposes only; consult licensed financial professionals."
+    ],
+    "required_sources": [
+      "operator_verified_data_ref"
+    ],
+    "research_questions": [
+      "What is the mathematical structure behind historical yield curve adjustments?",
+      "How do different models weigh interest rate volatility over a multi-decade horizon?"
+    ],
+    "source_cluster_id": "cluster_380728d62695",
+    "source_verification_required": true,
+    "suggested_platform_variants": [
+      "substack_canonical",
+      "discord_drop"
+    ]
+  }
+]

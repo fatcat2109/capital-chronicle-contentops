@@ -1,0 +1,14 @@
+{
+  "action_taken_private": "EXCLUDED_FROM_PROMPT_CONTRACT",
+  "action_taken_unsafe": "BLOCKED_NO_RESPONSE_OR_DRAFT",
+  "no_platform_destination_selected": true,
+  "no_response_command_generated": true,
+  "private_or_dm_snapshots_count": 1,
+  "private_or_dm_snapshots_refs": [
+    "snap_004_personal_data"
+  ],
+  "unsafe_advice_snapshots_count": 1,
+  "unsafe_advice_snapshots_refs": [
+    "snap_003_unsafe_advice"
+  ]
+}

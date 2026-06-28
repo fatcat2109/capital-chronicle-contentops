@@ -1,0 +1,27 @@
+{
+  "allowed_for_publication": false,
+  "blocked_or_unsafe_themes": "Theme C: Unsafe requests for trade signals and positioning targets.",
+  "caveats_to_preserve": [
+    "Macroeconomic parameters are highly uncertain and model-dependent.",
+    "This analysis is for educational purposes only; consult licensed financial professionals."
+  ],
+  "correction_request_summary": "None.",
+  "dispatch_allowed_now": false,
+  "high_signal_feedback_themes": "Theme A: Request for primary source documentation on volatility indices. Theme B: Clarification on yield calculation models.",
+  "human_review_required": true,
+  "llm_provider_call_performed": false,
+  "methodology_question_summary": "Users query model parameters behind historical curve adjustments.",
+  "model_name": null,
+  "model_output_claimed": false,
+  "no_auto_response": true,
+  "output_mode": "dry_run_stub_not_model_output",
+  "product_interest_summary": "General product interest registered.",
+  "recommended_editorial_followups": [
+    "Draft an educational article clarifying interest rate curve models.",
+    "Integrate official data reference listings in the canonical Substack draft."
+  ],
+  "source_request_summary": "Users request direct reference links for historical yield figures.",
+  "source_summary_packet_id": "summary_packet_0b7b71e720e2",
+  "summary_id": "dry_run_summary_1562ecd2a21f",
+  "unsafe_financial_advice_request_summary": "Requests for stop-loss and entry targets were flagged and blocked from backlog drafting."
+}
