@@ -36,3 +36,19 @@ def test_continuation_preserves_caveats():
     )
     assert len(segments) == 1
     assert "Source unverified" in segments[0]["segment_text"]
+
+def test_no_segment_contains_ellipsis_truncation():
+    text = "A" * 1500
+    segments = thread_continuation.segment_text_by_limits(
+        text=text,
+        max_length=280,
+        platform_family="x_manual_thread",
+        required_caveats=["Source unverified check list caveat warning"]
+    )
+    assert len(segments) > 1
+    for seg in segments:
+        assert not seg["segment_text"].endswith("...")
+        assert len(seg["segment_text"]) <= 280
+        import re
+        assert re.match(r"^[0-9a-f]{64}$", seg["segment_hash"])
+

@@ -79,20 +79,31 @@ def generate_platform_variant(
             platform_family=platform_family,
             required_caveats=article_packet.get("required_caveats")
         )
-        # Use first segment text as main variant text
-        variant_text = segments[0]["segment_text"] if segments else variant_raw_text[:max_len]
+        if constraints["supports_threading"] or constraints["supports_continuation_comment"]:
+            variant_text = "\n\n---\n\n".join(s["segment_text"] for s in segments)
+        else:
+            variant_text = variant_raw_text
+            blockers.append("platform_length_limit_requires_manual_editorial_shortening")
     else:
         variant_text = variant_raw_text
+        import hashlib
+        h = hashlib.sha256(variant_text.encode("utf-8")).hexdigest()
         segments = [{
             "segment_index": 1,
             "total_segments": 1,
             "sequence_label": "(1/1)",
             "segment_text": variant_text,
-            "segment_hash": "stub_hash_value",
+            "segment_hash": h,
             "review_only": True,
             "public_postable": False,
             "dispatch_allowed_now": False
         }]
+        
+    for s in segments:
+        if len(s["segment_text"]) > max_len:
+            blockers.append("segment_length_limit_exceeded")
+        if s["segment_text"].endswith("..."):
+            blockers.append("segment_truncation_detected")
         
     # Check if segment count exceeds allowed threads
     if len(segments) > 1 and not constraints["supports_threading"] and not constraints["supports_continuation_comment"]:
@@ -188,6 +199,54 @@ def main(argv: list[str] | None = None) -> int:
     all_blockers = []
     for fam, var in variant_pack.items():
         all_blockers.extend(var["blocked_reasons"])
+        
+    # Validation checks
+    no_stub_hashes = True
+    no_truncation_markers = True
+    all_segment_hashes_sha256 = True
+    all_segments_within_platform_limits = True
+    continuation_not_bypass_or_spam = True
+    
+    import re
+    for fam, var in variant_pack.items():
+        # Check bypass or spam framing in variant text
+        for word in ["bypass", "spam", "autonomous", "reply"]:
+            if word in var["variant_text"].lower():
+                continuation_not_bypass_or_spam = False
+                if "continuation_bypass_or_spam_framing_detected" not in all_blockers:
+                    all_blockers.append("continuation_bypass_or_spam_framing_detected")
+                    
+        for s in var["segments"]:
+            if s["segment_hash"] == "stub_hash_value":
+                no_stub_hashes = False
+                if "stub_segment_hash_detected" not in all_blockers:
+                    all_blockers.append("stub_segment_hash_detected")
+                    
+            if not isinstance(s["segment_hash"], str) or not re.match(r"^[0-9a-f]{64}$", s["segment_hash"]):
+                all_segment_hashes_sha256 = False
+                
+            if s["segment_text"].endswith("..."):
+                no_truncation_markers = False
+                if "segment_truncation_detected" not in all_blockers:
+                    all_blockers.append("segment_truncation_detected")
+                    
+            constraints = constraint_registry.get_constraints(fam)
+            if len(s["segment_text"]) > constraints["max_text_length"]:
+                all_segments_within_platform_limits = False
+                if "segment_length_limit_exceeded" not in all_blockers:
+                    all_blockers.append("segment_length_limit_exceeded")
+                    
+    critical_blocker_ids = {
+        "stub_segment_hash_detected",
+        "segment_truncation_detected",
+        "segment_length_limit_exceeded",
+        "platform_length_limit_requires_manual_editorial_shortening",
+        "continuation_bypass_or_spam_framing_detected"
+    }
+    
+    has_critical_blockers = any(b in critical_blocker_ids for b in all_blockers)
+    safety_checks_pass = not has_critical_blockers
+    
     all_blockers = sorted(list(set(all_blockers)))
     
     # Status packet
@@ -216,11 +275,16 @@ def main(argv: list[str] | None = None) -> int:
     
     validation_report = {
         "schema_version": SCHEMA_VERSION,
-        "safety_checks_pass": True,
+        "safety_checks_pass": safety_checks_pass,
         "all_variants_review_only": True,
         "no_dispatch_flags_set": True,
         "no_live_api_flags_set": True,
-        "source_verification_caveats_preserved": True
+        "source_verification_caveats_preserved": True,
+        "no_stub_hashes": no_stub_hashes,
+        "no_truncation_markers": no_truncation_markers,
+        "all_segment_hashes_sha256": all_segment_hashes_sha256,
+        "all_segments_within_platform_limits": all_segments_within_platform_limits,
+        "continuation_not_bypass_or_spam": continuation_not_bypass_or_spam
     }
     Path(out_dir / "platform_variant_validation_report.json").write_text(
         json.dumps(validation_report, indent=2, sort_keys=True) + "\n",

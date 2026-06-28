@@ -1,7 +1,12 @@
 {
+  "all_segment_hashes_sha256": true,
+  "all_segments_within_platform_limits": true,
   "all_variants_review_only": true,
+  "continuation_not_bypass_or_spam": true,
   "no_dispatch_flags_set": true,
   "no_live_api_flags_set": true,
+  "no_stub_hashes": true,
+  "no_truncation_markers": true,
   "safety_checks_pass": true,
   "schema_version": "6.0.0",
   "source_verification_caveats_preserved": true

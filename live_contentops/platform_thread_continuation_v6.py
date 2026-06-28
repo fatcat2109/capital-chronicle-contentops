@@ -21,23 +21,49 @@ def segment_text_by_limits(
     caveats = required_caveats or []
     caveat_text = "\n".join(caveats) if caveats else ""
     
-    # Estimate sequence label length (e.g. (10/10) is 7 chars)
-    est_seq_len = 8
-    
-    # Determine maximum chunk size per segment
-    first_segment_reserved = est_seq_len + len(caveat_text) + 15
-    other_segments_reserved = est_seq_len + 55
-    
-    # Pre-split the text based on available space
+    # First pass to estimate the number of segments
     chunks = []
     current_idx = 0
     while current_idx < len(text):
-        reserved = first_segment_reserved if len(chunks) == 0 else other_segments_reserved
-        available_len = max_length - reserved
-        if available_len <= 10:
-            available_len = max_length - est_seq_len - 5
+        if len(chunks) == 0 and caveat_text:
+            footer = f"\n\n[Warning: {caveat_text}]"
+        else:
+            footer = "\n\n[Unverified Source: Verification Required]"
             
-        chunk = text[current_idx:current_idx + available_len]
+        reserved = 10 + len(footer)
+        available = max_length - reserved
+        if available <= 0:
+            available = 1
+            
+        chunk = text[current_idx:current_idx + available]
+        if not chunk:
+            break
+        chunks.append(chunk.strip())
+        current_idx += len(chunk)
+        
+    total_count = len(chunks)
+    if total_count == 0:
+        total_count = 1
+        
+    # Second pass with exact sequence label length
+    chunks = []
+    current_idx = 0
+    while current_idx < len(text):
+        seg_num = len(chunks) + 1
+        sequence_label = f"({seg_num}/{total_count})"
+        if len(chunks) == 0 and caveat_text:
+            footer = f"\n\n[Warning: {caveat_text}]"
+        else:
+            footer = "\n\n[Unverified Source: Verification Required]"
+            
+        header = f"{sequence_label} "
+        reserved = len(header) + len(footer)
+        available = max_length - reserved
+        
+        if available <= 0:
+            available = 1
+            
+        chunk = text[current_idx:current_idx + available]
         if not chunk:
             break
         chunks.append(chunk.strip())
@@ -49,21 +75,16 @@ def segment_text_by_limits(
     for idx, chunk in enumerate(chunks):
         seg_num = idx + 1
         sequence_label = f"({seg_num}/{total_count})"
+        header = f"{sequence_label} "
         
-        # Build segment text safely
-        seg_body = f"{sequence_label} {chunk}"
-        
-        # If it is the first segment, or if we want to preserve caveats
         if idx == 0 and caveat_text:
-            seg_body += f"\n\n[Warning: {caveat_text}]"
+            footer = f"\n\n[Warning: {caveat_text}]"
         else:
-            seg_body += "\n\n[Unverified Source: Verification Required]"
+            footer = "\n\n[Unverified Source: Verification Required]"
             
-        # Enforce max length constraint verification
-        if len(seg_body) > max_length:
-            seg_body = seg_body[:max_length - 4] + "..."
-            
-        # Deterministic payload hashing for segment
+        seg_body = f"{header}{chunk}{footer}"
+        
+        # Calculate SHA-256 hash deterministically
         h = hashlib.sha256(seg_body.encode("utf-8")).hexdigest()
         
         segments.append({
