@@ -4,7 +4,7 @@ TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_CONTINUATION_AFTER_READINESS_BUNDLE_V
 - **Repository**: cc-live-contentops
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Upload bundle generation HEAD (pre-commit generation input only, not runtime authority)**: 8f2794c77c88e738e2e049a865c400ab5d07f710 (requires GitHub audit after push)
+- **Upload bundle generation HEAD (pre-commit generation input only, not runtime authority)**: f567bac3543c4687571e37e42df459e97ec6ac51 (requires GitHub audit after push)
 - **Latest Accepted Task**: TASK_CONTENTOPS_V6_OPERATOR_DELEGATED_REAL_EVIDENCE_FIXTURE_AUTHORING_AND_REFRESH_DRY_RUN_HEAVY_BATCH_V0
 - **Current Approval Task**: TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_GATE_LANE_AND_DELEGATED_EVIDENCE_ROLLUP_REPAIR_HEAVY_BATCH_V0
 
