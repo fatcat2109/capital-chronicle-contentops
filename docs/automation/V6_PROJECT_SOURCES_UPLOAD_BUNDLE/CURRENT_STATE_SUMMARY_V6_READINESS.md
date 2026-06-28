@@ -3,8 +3,8 @@
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: aa905297d113e6d80db66c24d2f02eef2e4aba3d (requires GitHub audit after push)
-- **Latest Task**: TASK_CONTENTOPS_V6_PLATFORM_CONTENT_GENERATORS_AND_THREAD_CONTINUATION_HEAVY_BATCH_V0
+- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: 22b98a742ff10842f705eb80db8b1391ed5630bd (requires GitHub audit after push)
+- **Latest Task**: TASK_CONTENTOPS_V6_DRAFT_INSPECTOR_V2_AND_CONTENT_QUALITY_QA_HEAVY_BATCH_V0
 - **Previous Accepted Status Task**: TASK_CONTENTOPS_V6_OPERATOR_PIPELINE_STATUS_AND_BLOCKED_RUNBOOK_HEAVY_BATCH_V0
 
 > [!WARNING]
@@ -32,4 +32,4 @@
 - safety_review_incomplete
 
 ## Next Recommended Task
-- **Recommended next task**: `TASK_CONTENTOPS_V6_DRAFT_INSPECTOR_V2_AND_CONTENT_QUALITY_QA_HEAVY_BATCH_V0`
+- **Recommended next task**: `TASK_CONTENTOPS_V6_UNIFIED_PAYLOAD_HASH_APPROVAL_OUTBOX_UPGRADE_HEAVY_BATCH_V0`

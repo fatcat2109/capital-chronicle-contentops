@@ -35,6 +35,17 @@ def segment_text_by_limits(
         if available <= 0:
             available = 1
             
+        # Smart boundary split to avoid mid-word splits
+        candidate = text[current_idx:current_idx + available]
+        if len(candidate) < len(text) - current_idx:
+            last_space = -1
+            for idx_c, char in enumerate(reversed(candidate)):
+                if char.isspace() or char in [".", ",", ";", "!", "?", "-"]:
+                    last_space = len(candidate) - 1 - idx_c
+                    break
+            if last_space != -1 and last_space > available // 2:
+                available = last_space + 1
+                
         chunk = text[current_idx:current_idx + available]
         if not chunk:
             break
@@ -63,6 +74,17 @@ def segment_text_by_limits(
         if available <= 0:
             available = 1
             
+        # Smart boundary split to avoid mid-word splits
+        candidate = text[current_idx:current_idx + available]
+        if len(candidate) < len(text) - current_idx:
+            last_space = -1
+            for idx_c, char in enumerate(reversed(candidate)):
+                if char.isspace() or char in [".", ",", ";", "!", "?", "-"]:
+                    last_space = len(candidate) - 1 - idx_c
+                    break
+            if last_space != -1 and last_space > available // 2:
+                available = last_space + 1
+                
         chunk = text[current_idx:current_idx + available]
         if not chunk:
             break
