@@ -1,0 +1,134 @@
+{
+  "article_copy_generated": false,
+  "article_topic_ref": "article_packet_6e40db810195",
+  "blockers": [
+    "real_source_pack_not_approved",
+    "runtime_operator_approval_missing",
+    "placeholder_values_not_materialized",
+    "article_copy_generation_blocked",
+    "editor_review_required",
+    "jim_review_required",
+    "publication_blocked",
+    "dispatch_blocked"
+  ],
+  "body_word_count": 0,
+  "claim_ids": [
+    "claim_d474a9fdbcd6",
+    "claim_63d1cf20e9bf",
+    "claim_492c29ad9746"
+  ],
+  "dek_generated": false,
+  "dispatch_allowed_now": false,
+  "evidence_excerpt_count": 0,
+  "public_postable": false,
+  "seo_metadata_generated": false,
+  "shell_instance_status": "PLACEHOLDER_BOUND_EMPTY_DRAFT_SHELL_BLOCKED",
+  "slots": [
+    {
+      "allowed_content_state": "placeholder_bound_review_only",
+      "blocks_publication": true,
+      "current_value": null,
+      "generated": false,
+      "placeholder_id": "placeholder_id_slot_title",
+      "placeholder_label": "PLACEHOLDER_ONLY_NOT_CONTENT",
+      "slot_id": "slot_title",
+      "slot_type": "title",
+      "source_binding_required": true
+    },
+    {
+      "allowed_content_state": "placeholder_bound_review_only",
+      "blocks_publication": true,
+      "current_value": null,
+      "generated": false,
+      "placeholder_id": "placeholder_id_slot_dek",
+      "placeholder_label": "PLACEHOLDER_ONLY_NOT_CONTENT",
+      "slot_id": "slot_dek",
+      "slot_type": "dek",
+      "source_binding_required": true
+    },
+    {
+      "allowed_content_state": "placeholder_bound_review_only",
+      "blocks_publication": true,
+      "current_value": null,
+      "generated": false,
+      "placeholder_id": "placeholder_id_slot_thesis",
+      "placeholder_label": "PLACEHOLDER_ONLY_NOT_CONTENT",
+      "slot_id": "slot_thesis",
+      "slot_type": "thesis",
+      "source_binding_required": true
+    },
+    {
+      "allowed_content_state": "placeholder_bound_review_only",
+      "blocks_publication": true,
+      "current_value": null,
+      "generated": false,
+      "placeholder_id": "placeholder_id_slot_claim_summary",
+      "placeholder_label": "PLACEHOLDER_ONLY_NOT_CONTENT",
+      "slot_id": "slot_claim_summary",
+      "slot_type": "claim_summary",
+      "source_binding_required": true
+    },
+    {
+      "allowed_content_state": "placeholder_bound_review_only",
+      "blocks_publication": true,
+      "current_value": null,
+      "generated": false,
+      "placeholder_id": "placeholder_id_slot_evidence_placeholder",
+      "placeholder_label": "PLACEHOLDER_ONLY_NOT_CONTENT",
+      "slot_id": "slot_evidence_placeholder",
+      "slot_type": "evidence_placeholder",
+      "source_binding_required": true
+    },
+    {
+      "allowed_content_state": "placeholder_bound_review_only",
+      "blocks_publication": true,
+      "current_value": null,
+      "generated": false,
+      "placeholder_id": "placeholder_id_slot_risk_and_limitations",
+      "placeholder_label": "PLACEHOLDER_ONLY_NOT_CONTENT",
+      "slot_id": "slot_risk_and_limitations",
+      "slot_type": "risk_and_limitations",
+      "source_binding_required": true
+    },
+    {
+      "allowed_content_state": "placeholder_bound_review_only",
+      "blocks_publication": true,
+      "current_value": null,
+      "generated": false,
+      "placeholder_id": "placeholder_id_slot_conclusion",
+      "placeholder_label": "PLACEHOLDER_ONLY_NOT_CONTENT",
+      "slot_id": "slot_conclusion",
+      "slot_type": "conclusion",
+      "source_binding_required": true
+    },
+    {
+      "allowed_content_state": "placeholder_bound_review_only",
+      "blocks_publication": true,
+      "current_value": null,
+      "generated": false,
+      "placeholder_id": "placeholder_id_slot_seo_title",
+      "placeholder_label": "PLACEHOLDER_ONLY_NOT_CONTENT",
+      "slot_id": "slot_seo_title",
+      "slot_type": "seo_title",
+      "source_binding_required": false
+    },
+    {
+      "allowed_content_state": "placeholder_bound_review_only",
+      "blocks_publication": true,
+      "current_value": null,
+      "generated": false,
+      "placeholder_id": "placeholder_id_slot_seo_meta_description",
+      "placeholder_label": "PLACEHOLDER_ONLY_NOT_CONTENT",
+      "slot_id": "slot_seo_meta_description",
+      "slot_type": "seo_meta_description",
+      "source_binding_required": false
+    }
+  ],
+  "source_citation_count": 0,
+  "source_requirement_refs": [
+    "req_67a5db6704f5",
+    "req_bfcb46cc38cc",
+    "req_e6edaf8e7750"
+  ],
+  "title_generated": false
+}

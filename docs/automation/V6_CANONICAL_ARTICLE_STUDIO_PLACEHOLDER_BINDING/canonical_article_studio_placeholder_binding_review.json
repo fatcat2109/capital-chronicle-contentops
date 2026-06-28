@@ -1,0 +1,21 @@
+{
+  "all_placeholder_values_null": true,
+  "all_slots_bound_to_empty_placeholders": true,
+  "blockers": [
+    "real_source_pack_not_approved",
+    "runtime_operator_approval_missing",
+    "placeholder_values_not_materialized",
+    "article_copy_generation_blocked",
+    "editor_review_required",
+    "jim_review_required",
+    "publication_blocked",
+    "dispatch_blocked"
+  ],
+  "dispatch_allowed": false,
+  "no_article_copy_generated": true,
+  "no_source_values_materialized": true,
+  "placeholder_count": 9,
+  "publication_allowed": false,
+  "review_status": "PLACEHOLDER_BINDING_REVIEW_ONLY_BLOCKED",
+  "runtime_generation_allowed": false
+}
