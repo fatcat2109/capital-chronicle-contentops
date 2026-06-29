@@ -1,0 +1,47 @@
+{
+  "approved_canonical_article_available": false,
+  "blockers": [],
+  "dispatch_allowed": false,
+  "edit_checklist": [
+    "structure_review_required",
+    "clarity_review_required",
+    "source_grounding_review_required",
+    "no_financial_advice_review_required",
+    "publication_approval_required_later"
+  ],
+  "editorial_workflow_id": "accepted_review_editorial_workflow_sample_non_runtime",
+  "editorial_workflow_packet_available": true,
+  "factual_review_queue": [
+    "verify_claims_against_operator_sources",
+    "identify_missing_sources",
+    "flag_unsupported_numbers_or_dates",
+    "flag_market_advice_language"
+  ],
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "outbox_creation_allowed": false,
+  "platform_variant_generation_allowed": false,
+  "public_metrics": null,
+  "public_url": null,
+  "publication_ready": false,
+  "required_operator_actions": [
+    "provide_or_confirm_source_pack",
+    "complete_editorial_review",
+    "explicitly_approve_canonical_article_in_future_gate"
+  ],
+  "review_only": true,
+  "runtime_truth": false,
+  "sample_packet_non_runtime": true,
+  "schema_version": "6.0.0",
+  "source_candidate_id": "canonical_article_review_candidate_sample_non_runtime",
+  "source_decision_id": "canonical_article_review_decision_sample_non_runtime",
+  "source_decision_sha256": "sample_non_runtime_hash_not_runtime_truth",
+  "source_grounding_requirements": [
+    "operator_source_pack_required",
+    "citation_evidence_required_later",
+    "no_generated_citations_allowed"
+  ],
+  "task_label": "TASK_CONTENTOPS_V6_ACCEPTED_REVIEW_EDITORIAL_WORKFLOW_PACKET_CONTRACT_V0",
+  "warnings": [],
+  "workflow_status": "EDITORIAL_WORKFLOW_PACKET_READY_FOR_OPERATOR_REVIEW"
+}
