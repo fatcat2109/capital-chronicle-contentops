@@ -1,0 +1,102 @@
+{
+  "contract_status": "FUTURE_COMMUNITY_FEEDBACK_CAPTURE_INPUT_CONTRACT_ONLY",
+  "runtime_truth": false,
+  "required_inputs": [
+    {
+      "input_name": "publication_audit_record_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_community_feedback_capture": true
+    },
+    {
+      "input_name": "supervised_dispatch_result_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_community_feedback_capture": true
+    },
+    {
+      "input_name": "public_url_proof_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_community_feedback_capture": true
+    },
+    {
+      "input_name": "platform_publication_id_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_community_feedback_capture": true
+    },
+    {
+      "input_name": "destination_binding_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_community_feedback_capture": true
+    },
+    {
+      "input_name": "account_binding_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_community_feedback_capture": true
+    },
+    {
+      "input_name": "feedback_capture_policy_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_community_feedback_capture": true
+    },
+    {
+      "input_name": "feedback_source_binding_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_community_feedback_capture": true
+    },
+    {
+      "input_name": "community_channel_binding_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_community_feedback_capture": true
+    },
+    {
+      "input_name": "audit_redaction_policy_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_community_feedback_capture": true
+    },
+    {
+      "input_name": "operator_feedback_capture_authorization_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_community_feedback_capture": true
+    },
+    {
+      "input_name": "jim_feedback_review_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_community_feedback_capture": true
+    }
+  ]
+}

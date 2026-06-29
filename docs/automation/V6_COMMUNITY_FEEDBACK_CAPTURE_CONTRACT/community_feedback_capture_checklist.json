@@ -1,0 +1,138 @@
+{
+  "checklist_status": "COMMUNITY_FEEDBACK_CAPTURE_BLOCKED_PENDING_PUBLICATION_AUDIT_AND_SOURCE_BINDING",
+  "items": [
+    {
+      "item_name": "publication_audit_record_required",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "publication_confirmation_required",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "public_url_proof_required",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "platform_publication_id_required",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "feedback_capture_policy_required",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "feedback_source_binding_required",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "community_channel_binding_required",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "operator_feedback_capture_authorization_required",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "jim_feedback_review_required",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "feedback_capture_blocked",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "no_comment_capture_performed",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "no_reaction_capture_performed",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "no_metric_capture_performed",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "no_feedback_summary_created",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "no_backlog_item_created",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "no_audit_record_mutated",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "no_public_url_created",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "no_publication_ready_claim",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    },
+    {
+      "item_name": "no_financial_advice_language",
+      "current_status": "blocked",
+      "blocks_community_feedback_capture": true,
+      "blocks_publication": true,
+      "evidence_ref": "community_feedback_capture_input_contract.json"
+    }
+  ]
+}
