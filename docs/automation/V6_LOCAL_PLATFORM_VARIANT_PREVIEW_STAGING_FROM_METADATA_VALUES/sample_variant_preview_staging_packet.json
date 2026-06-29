@@ -1,0 +1,40 @@
+{
+  "approved_canonical_article_available": false,
+  "blockers": [],
+  "canonical_slug": "sample-canonical-slug",
+  "canonical_title": "Sample Title For Preview Staging",
+  "citations_verified": false,
+  "dispatch_allowed": false,
+  "editorial_workflow_id": "accepted_review_editorial_workflow_sample_non_runtime",
+  "generated_citations_allowed": false,
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "metadata_proposal_id": "seo_editorial_metadata_proposal_sample_non_runtime",
+  "metadata_values_id": "operator_metadata_values_sample_non_runtime",
+  "metadata_values_review_id": "operator_metadata_values_review_sample_non_runtime",
+  "metadata_values_review_sha256": "sample_non_runtime_values_review_hash",
+  "outbox_creation_allowed": false,
+  "platform_variant_generation_allowed": false,
+  "preview_files": [
+    "A:/staging/sample-canonical-slug_substack_preview.md",
+    "A:/staging/sample-canonical-slug_discord_preview.md"
+  ],
+  "preview_only": true,
+  "preview_platforms": [
+    "substack",
+    "discord"
+  ],
+  "public_metrics": null,
+  "public_url": null,
+  "publication_ready": false,
+  "review_only": true,
+  "runtime_truth": false,
+  "sample_packet_non_runtime": true,
+  "schema_version": "6.0.0",
+  "source_pack_id": "operator_source_pack_sample_non_runtime",
+  "source_pack_intake_id": "operator_source_pack_intake_sample_non_runtime",
+  "variant_preview_staging_available": true,
+  "variant_preview_staging_id": "local_platform_variant_preview_staging_sample_non_runtime",
+  "variant_previews_generated": true,
+  "warnings": []
+}
