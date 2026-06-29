@@ -68,6 +68,16 @@ def has_actual_citation(text: str) -> bool:
     return False
 
 
+def is_non_empty_forbidden_value(val: Any) -> bool:
+    if val is None:
+        return False
+    if isinstance(val, (list, tuple, set)):
+        return len(val) > 0 and any(not is_placeholder(x) for x in val)
+    if isinstance(val, dict):
+        return len(val) > 0
+    return not is_placeholder(val)
+
+
 def validate_canonical_article_studio_seo_metadata_contract(
     seo_metadata_packet: dict[str, Any],
     seo_input_contract: dict[str, Any],
@@ -241,6 +251,17 @@ def validate_canonical_article_studio_seo_metadata_contract(
             check_text(val, key_name)
         elif isinstance(val, dict):
             for k, v in val.items():
+                k_lower = k.lower()
+                if k_lower in ["citations", "evidence_refs", "source_citations", "source_urls"]:
+                    if is_non_empty_forbidden_value(v):
+                        blockers.append("citation_or_source_reference_leak_detected")
+                        blockers.append("non_empty_forbidden_output_lists_detected")
+                        failed = True
+                elif k_lower in ["source_names", "source_publishers", "publishers", "source_titles", "source_labels", "source_display_names"]:
+                    if is_non_empty_forbidden_value(v):
+                        blockers.append("source_name_leak_detected")
+                        blockers.append("non_empty_forbidden_output_lists_detected")
+                        failed = True
                 check_value(v, k)
         elif isinstance(val, list):
             for item in val:
