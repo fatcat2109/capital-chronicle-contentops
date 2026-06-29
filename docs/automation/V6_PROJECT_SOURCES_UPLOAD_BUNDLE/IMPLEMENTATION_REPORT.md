@@ -3,7 +3,7 @@
 - **Task Label**: TASK_CONTENTOPS_V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE_DRY_RUN_HEAVY_BATCH_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 8cdc886aa76fcadae0acdd9953ea12a3e0e3efb9 (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 6f2810b578f031622e85730c7847d3d22ba2e45c (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md

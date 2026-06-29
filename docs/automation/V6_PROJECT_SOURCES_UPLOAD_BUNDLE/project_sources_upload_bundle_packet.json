@@ -4,7 +4,7 @@
   "approval_required": true,
   "approval_valid_for_dispatch": false,
   "baseline_before_upload_bundle_task": "d97bc3968e1babf48c81f384fb547b439e48515c",
-  "bundle_generation_head": "8cdc886aa76fcadae0acdd9953ea12a3e0e3efb9",
+  "bundle_generation_head": "6f2810b578f031622e85730c7847d3d22ba2e45c",
   "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
   "bundle_stage": "v6_project_sources_upload_bundle",
   "bundle_status": "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS",

@@ -199,6 +199,11 @@ def validate_platform_variant_input_contract_queue(
 
     # 8. Check readiness matrix rows
     readiness_keys_to_block = [
+        "approved_canonical_article_available",
+        "seo_metadata_available",
+        "platform_style_rules_available",
+        "destination_binding_completed",
+        "exact_payload_approval_completed",
         "platform_copy_generated",
         "payload_hash_created",
         "outbox_entry_created",
@@ -207,11 +212,35 @@ def validate_platform_variant_input_contract_queue(
         "public_url_created",
         "valid_for_publication"
     ]
+    required_row_blockers = {
+        "approved_canonical_article_missing",
+        "seo_metadata_missing",
+        "destination_binding_missing",
+        "exact_payload_approval_missing",
+        "dispatch_blocked"
+    }
     for row in platform_variant_readiness_matrix:
+        # A. Check active flags
         for rk in readiness_keys_to_block:
             if row.get(rk) is True:
                 blockers.append("readiness_matrix_active_lane_detected")
                 failed = True
+        
+        # B. Check blocks_publication is True
+        if row.get("blocks_publication") is not True:
+            blockers.append("readiness_matrix_publication_unblocked_detected")
+            failed = True
+
+        # C. Check variant_generation_status is correct
+        if row.get("variant_generation_status") != "blocked_missing_approved_canonical_article":
+            blockers.append("readiness_matrix_active_lane_detected")
+            failed = True
+
+        # D. Check blockers list contains all expected values
+        row_blockers = row.get("blockers")
+        if not isinstance(row_blockers, list) or not required_row_blockers.issubset(set(row_blockers)):
+            blockers.append("readiness_matrix_active_lane_detected")
+            failed = True
 
     # 9. Check input contract details
     required_inputs = platform_variant_input_contract.get("required_inputs")

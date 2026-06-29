@@ -89,6 +89,11 @@ def test_validator_fails_on_non_empty_lists():
 
 def test_validator_fails_on_readiness_matrix_active_lane():
     readiness_keys_to_block = [
+        "approved_canonical_article_available",
+        "seo_metadata_available",
+        "platform_style_rules_available",
+        "destination_binding_completed",
+        "exact_payload_approval_completed",
         "platform_copy_generated",
         "payload_hash_created",
         "outbox_entry_created",
@@ -110,6 +115,51 @@ def test_validator_fails_on_readiness_matrix_active_lane():
         )
         assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
         assert "readiness_matrix_active_lane_detected" in blockers
+
+
+def test_validator_fails_on_readiness_matrix_unblocked_publication():
+    packet = packet_builder.make_platform_variant_queue_packet()
+    contract = contract_builder.make_platform_variant_input_contract()
+    output = coordinator.make_blocked_platform_variant_output()
+    matrix = coordinator.make_platform_variant_readiness_matrix()
+    checklist = coordinator.make_platform_variant_checklist()
+
+    matrix[0]["blocks_publication"] = False
+    report, blockers = validator.validate_platform_variant_input_contract_queue(
+        packet, contract, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "readiness_matrix_publication_unblocked_detected" in blockers
+
+
+def test_validator_fails_on_readiness_matrix_invalid_variant_status():
+    packet = packet_builder.make_platform_variant_queue_packet()
+    contract = contract_builder.make_platform_variant_input_contract()
+    output = coordinator.make_blocked_platform_variant_output()
+    matrix = coordinator.make_platform_variant_readiness_matrix()
+    checklist = coordinator.make_platform_variant_checklist()
+
+    matrix[0]["variant_generation_status"] = "something_else"
+    report, blockers = validator.validate_platform_variant_input_contract_queue(
+        packet, contract, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "readiness_matrix_active_lane_detected" in blockers
+
+
+def test_validator_fails_on_readiness_matrix_missing_blockers():
+    packet = packet_builder.make_platform_variant_queue_packet()
+    contract = contract_builder.make_platform_variant_input_contract()
+    output = coordinator.make_blocked_platform_variant_output()
+    matrix = coordinator.make_platform_variant_readiness_matrix()
+    checklist = coordinator.make_platform_variant_checklist()
+
+    matrix[0]["blockers"] = ["approved_canonical_article_missing"] # Missing other required blockers
+    report, blockers = validator.validate_platform_variant_input_contract_queue(
+        packet, contract, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "readiness_matrix_active_lane_detected" in blockers
 
 
 def test_validator_fails_on_contract_invalidation():
