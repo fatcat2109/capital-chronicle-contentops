@@ -1,0 +1,131 @@
+{
+  "checklist_status": "OUTBOX_ENTRY_BLOCKED_PENDING_APPROVED_PAYLOAD_AND_DESTINATION",
+  "items": [
+    {
+      "item_name": "approved_exact_payload_review_required",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "rendered_platform_payloads_required",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "exact_payload_preview_required",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "payload_hash_required",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "destination_binding_required",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "account_binding_required",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "approval_id_required",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "approval_hash_required",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "dispatch_policy_required",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "outbox_entry_creation_blocked",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "dispatch_authorization_missing",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "no_outbox_entry_id_created",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "no_outbox_payload_hash_created",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "no_dispatch_attempt_created",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "no_publication_ready_claim",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "no_dispatch_ready_claim",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "no_financial_advice_language",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    },
+    {
+      "item_name": "jim_final_review_required",
+      "current_status": "blocked",
+      "blocks_outbox_entry_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "outbox_entry_input_contract.json"
+    }
+  ]
+}
