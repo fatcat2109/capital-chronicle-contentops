@@ -1,0 +1,40 @@
+{
+  "approved_canonical_article_available": false,
+  "blockers": [],
+  "citations_verified": false,
+  "created_at_manual": "2026-06-29T23:00:00+07:00",
+  "dispatch_allowed": false,
+  "editorial_workflow_id": "accepted_review_editorial_workflow_sample_non_runtime",
+  "evidence_roles": [
+    "thesis_support"
+  ],
+  "generated_citations_allowed": false,
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "operator_id": "jim",
+  "outbox_creation_allowed": false,
+  "platform_variant_generation_allowed": false,
+  "public_metrics": null,
+  "public_url": null,
+  "publication_ready": false,
+  "review_only": true,
+  "runtime_truth": false,
+  "sample_packet_non_runtime": true,
+  "schema_version": "6.0.0",
+  "source_editorial_workflow_sha256": "sample_non_runtime_workflow_hash",
+  "source_ids": [
+    "source_sample"
+  ],
+  "source_pack_id": "operator_source_pack_sample_non_runtime",
+  "source_pack_intake_available": true,
+  "source_pack_manifest_sha256": "sample_non_runtime_manifest_hash",
+  "source_pack_purpose": "Sample non-runtime operator purpose statement.",
+  "source_types": [
+    "operator_note"
+  ],
+  "sources_count": 1,
+  "source_pack_intake_id": "operator_source_pack_intake_sample_non_runtime",
+  "source_grounding_available_for_editorial_review": true,
+  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_PACK_INTAKE_FOR_EDITORIAL_WORKFLOW_V0",
+  "warnings": []
+}
