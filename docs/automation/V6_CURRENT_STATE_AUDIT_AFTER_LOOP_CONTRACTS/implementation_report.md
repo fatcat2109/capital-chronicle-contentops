@@ -4,7 +4,9 @@
 - **Starting HEAD**: 36c300625662e70d3a0073d10b64c897033a913d
 - **Audit commit under repair**: 73ad839f14b954d11bf32dc1352749eb9dd90069
 - **This repair task starts from**: 73ad839f14b954d11bf32dc1352749eb9dd90069
-- **Final HEAD**: 363b7937bd27385b5e2afa0401867583a2e22cf7
+- **Committed repair HEAD**: externally verified after push by ChatGPT/GitHub audit; do not hardcode self-referential final SHA inside this committed file.
+
+Note: Exact final commit SHA must be reported in the worker evidence packet and verified externally from GitHub remote, not self-embedded in this committed report.
 
 ## Files Inspected
 - `live_contentops/generate_project_sources_bundle_after_v6_loop_contracts.py`
