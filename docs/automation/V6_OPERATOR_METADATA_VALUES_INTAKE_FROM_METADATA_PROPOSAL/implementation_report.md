@@ -54,6 +54,14 @@ Adds a local operator-supplied SEO/editorial metadata values intake contract, va
 - No public URLs, metrics, comments, citations, or fake readiness.
 - No env, provider, browser, live API, webhook, network, scraping, or credential validation behavior.
 
+## Repair Note
+
+- Enforces the `notes` field as a required field in the operator metadata values intake packet.
+- Missing `notes` field triggers `values_notes_missing`.
+- Empty-string notes are allowed (`notes: ""`).
+- Non-string notes trigger `values_notes_not_string` and fail closed.
+- Note values are not copied into the output review packet, but are scanned for prohibited content (secrets, public claims, advice).
+
 ## Caveats
 
 Metadata values are ingested for review and validation only. Future finalization/approval remains separate.

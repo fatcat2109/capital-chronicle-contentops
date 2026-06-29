@@ -20,7 +20,7 @@ This contract ingests operator-supplied metadata values for review and validatio
 - `focus_keywords`: non-empty list of 1-10 strings, each 2-60 chars.
 - `editorial_summary`: non-empty string, 30-500 chars.
 - `intended_search_intent`: non-empty string, 10-300 chars.
-- `notes`: string, may be empty.
+- `notes`: required string, may be empty, must not be a non-string type. Notes are scanned for prohibited content but are not copied into the output review packet.
 - `metadata_values.metadata_proposal_id` must match `metadata_proposal.metadata_proposal_id`.
 
 ## Prohibited Content

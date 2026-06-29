@@ -283,3 +283,27 @@ def test_new_files_and_sample_json_are_utf8_without_bom():
     loaded = json.loads((docs_dir / "sample_metadata_values_review_packet.json").read_text(encoding="utf-8"))
     assert loaded["sample_packet_non_runtime"] is True
     assert loaded["runtime_truth"] is False
+
+
+def test_missing_notes_fails_closed():
+    v = _values()
+    del v["notes"]
+    packet = make_metadata_values_review_packet(_proposal(), v)
+    assert packet.metadata_values_available_for_editorial_review is False
+    assert "values_notes_missing" in packet.blockers
+
+
+def test_empty_string_notes_passes():
+    v = _values()
+    v["notes"] = ""
+    packet = make_metadata_values_review_packet(_proposal(), v)
+    assert packet.metadata_values_available_for_editorial_review is True
+    assert not packet.blockers
+
+
+def test_non_string_notes_fails_closed():
+    v = _values()
+    v["notes"] = 123
+    packet = make_metadata_values_review_packet(_proposal(), v)
+    assert packet.metadata_values_available_for_editorial_review is False
+    assert "values_notes_not_string" in packet.blockers

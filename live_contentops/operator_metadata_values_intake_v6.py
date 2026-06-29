@@ -191,6 +191,11 @@ def _validate_values(values: dict[str, Any], proposal_id: str) -> list[str]:
         if key not in values or values[key] is None or values[key] == "":
             blockers.append(f"values_{key}_missing")
 
+    if "notes" not in values or values["notes"] is None:
+        blockers.append("values_notes_missing")
+    elif not isinstance(values["notes"], str):
+        blockers.append("values_notes_not_string")
+
     if "metadata_proposal_id" in values and values["metadata_proposal_id"] != proposal_id:
         blockers.append("values_metadata_proposal_id_mismatch")
 
