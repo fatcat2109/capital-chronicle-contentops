@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_SEO_METADATA_CONTRACT_DRY_RUN_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE_DRY_RUN_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
@@ -29,6 +29,7 @@ NEXT_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_DRAFT_RENDERER_TASK = "TASK_CONTEN
 NEXT_CANONICAL_ARTICLE_STUDIO_EDITORIAL_REFINEMENT_QUEUE_TASK = "TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_EDITORIAL_REFINEMENT_QUEUE_DRY_RUN_HEAVY_BATCH_V0"
 NEXT_CANONICAL_ARTICLE_STUDIO_SEO_METADATA_CONTRACT_TASK = "TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_STUDIO_SEO_METADATA_CONTRACT_DRY_RUN_HEAVY_BATCH_V0"
 NEXT_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE_TASK = "TASK_CONTENTOPS_V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE_DRY_RUN_HEAVY_BATCH_V0"
+NEXT_PLATFORM_VARIANT_RENDERER_BLOCKED_OUTPUT_TASK = "TASK_CONTENTOPS_V6_PLATFORM_VARIANT_RENDERER_BLOCKED_OUTPUT_DRY_RUN_HEAVY_BATCH_V0"
 NEXT_MANUAL_SIGN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_SIGN_PAYLOAD_HASH_MANUAL_STEP"
 NEXT_CAPTURE_RUN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP"
 NEXT_DISPATCH_READINESS_TASK = "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION_LANE_HEAVY_BATCH_V0"
@@ -912,7 +913,17 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SEO_METADATA_CONTRACT/canonical_article_studio_seo_metadata_blocker_report.md",
         "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SEO_METADATA_CONTRACT/canonical_article_studio_seo_metadata_runbook.md",
         "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SEO_METADATA_CONTRACT/implementation_report.md",
-        "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SEO_METADATA_CONTRACT/next_task_pointer.md"
+        "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SEO_METADATA_CONTRACT/next_task_pointer.md",
+        "docs/automation/V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE/platform_variant_queue_packet.json",
+        "docs/automation/V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE/platform_variant_input_contract.json",
+        "docs/automation/V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE/platform_variant_blocked_output.json",
+        "docs/automation/V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE/platform_variant_readiness_matrix.json",
+        "docs/automation/V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE/platform_variant_checklist.json",
+        "docs/automation/V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE/platform_variant_queue_validation_report.json",
+        "docs/automation/V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE/platform_variant_blocker_report.md",
+        "docs/automation/V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE/platform_variant_runbook.md",
+        "docs/automation/V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE/implementation_report.md",
+        "docs/automation/V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE/next_task_pointer.md"
     ]
 
     packet = {
@@ -950,7 +961,7 @@ def materialize_project_sources_upload_bundle_packets(
         "no_network_call_in_this_task": True,
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": NEXT_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE_TASK
+        "next_recommended_task": NEXT_PLATFORM_VARIANT_RENDERER_BLOCKED_OUTPUT_TASK
     }
 
     return packet, upload_candidate_files

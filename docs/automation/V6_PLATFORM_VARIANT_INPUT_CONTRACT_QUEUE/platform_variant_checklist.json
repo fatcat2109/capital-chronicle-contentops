@@ -1,0 +1,77 @@
+{
+  "checklist_status": "PLATFORM_VARIANTS_BLOCKED_PENDING_APPROVED_CANONICAL_ARTICLE",
+  "items": {
+    "approved_canonical_article_required": {
+      "blocks_publication": true,
+      "blocks_variant_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_queue_packet.json"
+    },
+    "destination_binding_required": {
+      "blocks_publication": true,
+      "blocks_variant_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_queue_packet.json"
+    },
+    "exact_payload_approval_required": {
+      "blocks_publication": true,
+      "blocks_variant_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_queue_packet.json"
+    },
+    "jim_final_review_required": {
+      "blocks_publication": true,
+      "blocks_variant_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_queue_packet.json"
+    },
+    "no_dispatch_ready_claim": {
+      "blocks_publication": true,
+      "blocks_variant_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_queue_packet.json"
+    },
+    "no_financial_advice_language": {
+      "blocks_publication": true,
+      "blocks_variant_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_queue_packet.json"
+    },
+    "no_outbox_entry_created": {
+      "blocks_publication": true,
+      "blocks_variant_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_queue_packet.json"
+    },
+    "no_platform_copy_generated": {
+      "blocks_publication": true,
+      "blocks_variant_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_queue_packet.json"
+    },
+    "no_publication_ready_claim": {
+      "blocks_publication": true,
+      "blocks_variant_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_queue_packet.json"
+    },
+    "platform_style_rules_required": {
+      "blocks_publication": true,
+      "blocks_variant_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_queue_packet.json"
+    },
+    "refined_draft_required": {
+      "blocks_publication": true,
+      "blocks_variant_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_queue_packet.json"
+    },
+    "seo_metadata_required": {
+      "blocks_publication": true,
+      "blocks_variant_generation": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_queue_packet.json"
+    }
+  }
+}
