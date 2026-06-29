@@ -1,0 +1,218 @@
+{
+  "schema_version": "6.0.0",
+  "lanes": [
+    {
+      "lane_name": "AI Provider Gate / Prompt Registry",
+      "classification": "implemented_real_component",
+      "evidence_paths": [
+        "live_contentops/ai_provider_gate_v6.py",
+        "live_contentops/prompt_template_registry_v6.py"
+      ],
+      "runtime_truth": true,
+      "blockers": []
+    },
+    {
+      "lane_name": "Operator Intent / Content Idea",
+      "classification": "implemented_real_component",
+      "evidence_paths": [
+        "live_contentops/operator_intent_v6.py",
+        "live_contentops/content_idea_packet_v6.py"
+      ],
+      "runtime_truth": true,
+      "blockers": []
+    },
+    {
+      "lane_name": "Research Grounding",
+      "classification": "implemented_real_component",
+      "evidence_paths": [
+        "live_contentops/ai_research_grounding_lane_v6.py"
+      ],
+      "runtime_truth": true,
+      "blockers": []
+    },
+    {
+      "lane_name": "Canonical Article Workflow",
+      "classification": "implemented_real_component",
+      "evidence_paths": [
+        "live_contentops/canonical_substack_article_v6.py"
+      ],
+      "runtime_truth": true,
+      "blockers": []
+    },
+    {
+      "lane_name": "SEO / Editorial Packet",
+      "classification": "dry_run_blocked_contract",
+      "evidence_paths": [
+        "live_contentops/canonical_article_studio_seo_metadata_contract_v6.py"
+      ],
+      "runtime_truth": false,
+      "blockers": [
+        "approved_canonical_article_missing",
+        "seo_metadata_missing",
+        "seo_newsletter_ready_matrix_unblocked",
+        "editor_checklist_review_required"
+      ]
+    },
+    {
+      "lane_name": "Platform Variant Generator",
+      "classification": "dry_run_blocked_contract",
+      "evidence_paths": [
+        "live_contentops/platform_variant_input_contract_queue_v6.py"
+      ],
+      "runtime_truth": false,
+      "blockers": [
+        "approved_canonical_article_missing",
+        "seo_metadata_missing",
+        "styling_policy_missing",
+        "platform_variant_input_contract_blocked",
+        "jim_variant_review_required",
+        "audit_mutation_blocked"
+      ]
+    },
+    {
+      "lane_name": "Platform Variant Renderer",
+      "classification": "dry_run_blocked_contract",
+      "evidence_paths": [
+        "live_contentops/platform_variant_renderer_blocked_output_v6.py"
+      ],
+      "runtime_truth": false,
+      "blockers": [
+        "platform_variant_input_contract_missing",
+        "rendered_variants_missing",
+        "variant_generation_status_incorrect",
+        "renderer_matrix_active_lane_detected"
+      ]
+    },
+    {
+      "lane_name": "Platform Variant Approval",
+      "classification": "dry_run_blocked_contract",
+      "evidence_paths": [
+        "live_contentops/platform_variant_approval_packet_contract_v6.py"
+      ],
+      "runtime_truth": false,
+      "blockers": [
+        "rendered_variants_missing",
+        "variant_approval_packet_missing",
+        "jim_variant_approval_required"
+      ]
+    },
+    {
+      "lane_name": "Approval Queue Exact Payload Review",
+      "classification": "dry_run_blocked_contract",
+      "evidence_paths": [
+        "live_contentops/approval_queue_exact_payload_review_contract_v6.py"
+      ],
+      "runtime_truth": false,
+      "blockers": [
+        "approval_packet_missing",
+        "exact_payload_preview_missing",
+        "payload_review_blocked"
+      ]
+    },
+    {
+      "lane_name": "Outbox Entry Contract",
+      "classification": "dry_run_blocked_contract",
+      "evidence_paths": [
+        "live_contentops/outbox_entry_contract_v6.py"
+      ],
+      "runtime_truth": false,
+      "blockers": [
+        "approved_exact_payload_review_missing",
+        "outbox_entry_blocked",
+        "outbox_destination_binding_missing",
+        "outbox_account_binding_missing"
+      ]
+    },
+    {
+      "lane_name": "Supervised Dispatch",
+      "classification": "dry_run_blocked_contract",
+      "evidence_paths": [
+        "live_contentops/supervised_dispatch_contract_v6.py"
+      ],
+      "runtime_truth": false,
+      "blockers": [
+        "valid_outbox_entry_missing",
+        "supervised_dispatch_blocked",
+        "operator_dispatch_authorization_missing"
+      ]
+    },
+    {
+      "lane_name": "Publication Audit Record",
+      "classification": "dry_run_blocked_contract",
+      "evidence_paths": [
+        "live_contentops/publication_audit_record_contract_v6.py"
+      ],
+      "runtime_truth": false,
+      "blockers": [
+        "supervised_dispatch_result_missing",
+        "publication_audit_blocked",
+        "audit_mutation_blocked"
+      ]
+    },
+    {
+      "lane_name": "Community Feedback Capture",
+      "classification": "dry_run_blocked_contract",
+      "evidence_paths": [
+        "live_contentops/community_feedback_capture_contract_v6.py"
+      ],
+      "runtime_truth": false,
+      "blockers": [
+        "publication_audit_record_missing",
+        "community_feedback_capture_blocked",
+        "redacted_feedback_records_missing"
+      ]
+    },
+    {
+      "lane_name": "Feedback Summary / Backlog",
+      "classification": "dry_run_blocked_contract",
+      "evidence_paths": [
+        "live_contentops/feedback_summary_backlog_contract_v6.py"
+      ],
+      "runtime_truth": false,
+      "blockers": [
+        "community_feedback_capture_missing",
+        "feedback_summarization_blocked",
+        "backlog_item_creation_blocked"
+      ]
+    },
+    {
+      "lane_name": "Next Article Planning",
+      "classification": "dry_run_blocked_contract",
+      "evidence_paths": [
+        "live_contentops/next_article_planning_from_feedback_contract_v6.py"
+      ],
+      "runtime_truth": false,
+      "blockers": [
+        "feedback_summary_backlog_missing",
+        "feedback_summary_missing",
+        "backlog_items_missing",
+        "next_article_signals_missing",
+        "planning_policy_missing",
+        "source_research_policy_missing",
+        "next_article_planning_blocked",
+        "source_pack_request_blocked",
+        "jim_planning_review_required",
+        "audit_mutation_blocked",
+        "human_review_required"
+      ]
+    },
+    {
+      "lane_name": "Adapter Surfaces",
+      "classification": "missing",
+      "evidence_paths": [],
+      "runtime_truth": false,
+      "blockers": [
+        " Substacks, Discord, and Telegram loops lack live adapters."
+      ]
+    },
+    {
+      "lane_name": "UI Command Surface",
+      "classification": "missing",
+      "evidence_paths": [],
+      "runtime_truth": false,
+      "blockers": [
+        "Dashboard UI is not wired to V6 loop contracts."
+      ]
+    }
+  ]
+}
