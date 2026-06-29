@@ -1,42 +1,43 @@
 {
   "schema_version": "6.0.0",
+  "audit_policy_note": "Dry-run contracts and schema-valid files verify interface compatibility and data schema structure constraints only. They do not constitute proof of runtime publication readiness, active publishing pipelines, or operational provider connections.",
   "lanes": [
     {
       "lane_name": "AI Provider Gate / Prompt Registry",
-      "classification": "implemented_real_component",
+      "classification": "partial_contract_component",
       "evidence_paths": [
         "live_contentops/ai_provider_gate_v6.py",
         "live_contentops/prompt_template_registry_v6.py"
       ],
-      "runtime_truth": true,
+      "runtime_truth": false,
       "blockers": []
     },
     {
       "lane_name": "Operator Intent / Content Idea",
-      "classification": "implemented_real_component",
+      "classification": "partial_contract_component",
       "evidence_paths": [
         "live_contentops/operator_intent_v6.py",
         "live_contentops/content_idea_packet_v6.py"
       ],
-      "runtime_truth": true,
+      "runtime_truth": false,
       "blockers": []
     },
     {
       "lane_name": "Research Grounding",
-      "classification": "implemented_real_component",
+      "classification": "partial_contract_component",
       "evidence_paths": [
         "live_contentops/ai_research_grounding_lane_v6.py"
       ],
-      "runtime_truth": true,
+      "runtime_truth": false,
       "blockers": []
     },
     {
       "lane_name": "Canonical Article Workflow",
-      "classification": "implemented_real_component",
+      "classification": "partial_contract_component",
       "evidence_paths": [
         "live_contentops/canonical_substack_article_v6.py"
       ],
-      "runtime_truth": true,
+      "runtime_truth": false,
       "blockers": []
     },
     {
@@ -202,7 +203,7 @@
       "evidence_paths": [],
       "runtime_truth": false,
       "blockers": [
-        " Substacks, Discord, and Telegram loops lack live adapters."
+        "Substacks, Discord, and Telegram loops lack live adapters."
       ]
     },
     {

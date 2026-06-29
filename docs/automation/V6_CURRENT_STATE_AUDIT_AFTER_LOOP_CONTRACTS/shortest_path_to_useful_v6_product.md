@@ -1,33 +1,33 @@
 # Shortest Path to Useful V6 Product
 
-To evolve the cc-live-contentops codebase from a series of blocked dry-run contracts into a useful, live AI-native editorial/publishing system, we must implement active adapters. We should transition from dry-run templates to real component logic in the following sequence:
+To evolve the cc-live-contentops codebase from a series of blocked dry-run contracts into a useful, live AI-native operating system, we must build out local/manual components and review workflows before introducing live platform/provider integrations. Live integrations must remain deferred until explicitly scoped under independent tasks.
 
-## Recommended Build Sequence (Next 3 to 7 Tasks)
+## Recommended Build Sequence
 
-### 1. V6 Substack Article Real Intake & Import
-- **Objective**: Transition from blocked dry-run source-pack checking to a real manual/semi-automated intake path that imports actual Substack draft files from local workspace folders.
-- **Why it matters**: Resolves the very first loop requirement ("approved canonical article missing") by staging concrete markdown articles instead of placeholders.
+### 1. Canonical article review-candidate intake from local markdown, review-only
+- **Objective**: Import operator-provided local Markdown drafts into the workflow queue as review candidates.
+- **Goal**: Transition from blocked preflight validations to parsing and staging actual draft text files on disk without committing to final approvals.
 
-### 2. V6 AI Research Grounding Integration
-- **Objective**: Implement active local file searches and external API queries to fetch reference data, matching operator factual intents.
-- **Why it matters**: Replaces missing source pack validations with real reference context.
+### 2. Research grounding/source-pack import contract for operator-provided sources, review-only
+- **Objective**: Implement review-only source pack import templates allowing operator-provided references to ground the drafted contents.
+- **Goal**: Reconcile factual checks with local files rather than using placeholder data.
 
-### 3. V6 SEO and Editorial Prompt Execution
-- **Objective**: Integrate real LLM provider API credentials validation to perform prompt compilation and draft polishing.
-- **Why it matters**: Turns the dry-run SEO contract into an active refinement module.
+### 3. SEO/editorial packet generation dry-run or provider-gated stub
+- **Objective**: Setup prompt registry and provider gate dry-runs or explicitly scoped provider API stubs.
+- **Goal**: Polish the drafts using simulated/stubbed LLM operations under the operator's supervision.
 
-### 4. V6 Platform Variant Staging & Preview
-- **Objective**: Stage real platform variant payloads (Discord community drops, Substack short-form updates) in a local preview folder.
-- **Why it matters**: Produces actual variant markdown files instead of blocked rendering templates.
+### 4. Platform variant staging/preview, review-only
+- **Objective**: Generate and preview localized platform variant Markdown drafts (e.g. Discord drop previews) in local directories.
+- **Goal**: Allow operators to review formatting and structure before any approval action.
 
-### 5. V6 Operator Signature Binding Gate
-- **Objective**: Implement operator cryptographic key checks or manual approval ledger database recordings.
-- **Why it matters**: Unblocks the signature matrix validation with real verification records.
+### 5. Payload preview/hash and approval ledger strengthening
+- **Objective**: Build cryptographic and hash-checking utilities to trace and lock approved payloads locally.
+- **Goal**: Bind the operator's decision signature directly to the payload hash.
 
-### 6. V6 Supervised Webhook Dispatch
-- **Objective**: Transition the dry-run dispatch lane into an active caller using python request libraries to push approved payloads to live platforms.
-- **Why it matters**: Replaces the blocked outbox/dispatch templates with active webhooks.
+### 6. Discord webhook contract/outbox dry-run
+- **Objective**: Establish the outbox contract and webhook dispatch templates in dry-run mode.
+- **Goal**: Prove that payload serialization is correct and ready for future transmission.
 
-### 7. V6 Loop Feedback and Planning Integration
-- **Objective**: Read real Discord comments/reactions and summarize them into future next-article signal records.
-- **Why it matters**: Completes the loop back to the initial intake step.
+### 7. Separately scoped live webhook pilot only after explicit approval
+- **Objective**: Implement active webhooks to dispatch approved messages to live platforms, deferred until a separately scoped pilot task with explicit Jim authorization.
+- **Goal**: Test live writing under full security and manual gate conditions.

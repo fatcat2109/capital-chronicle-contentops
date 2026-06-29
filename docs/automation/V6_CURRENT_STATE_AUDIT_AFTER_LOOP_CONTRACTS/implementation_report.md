@@ -2,7 +2,9 @@
 
 - **Task Label**: TASK_CONTENTOPS_V6_CURRENT_STATE_AUDIT_AND_NEXT_BUILD_SEQUENCE_AFTER_LOOP_CONTRACTS_V0
 - **Starting HEAD**: 36c300625662e70d3a0073d10b64c897033a913d
-- **Final HEAD**: `36c300625662e70d3a0073d10b64c897033a913d` (pending git commit/push verification)
+- **Audit commit under repair**: 73ad839f14b954d11bf32dc1352749eb9dd90069
+- **This repair task starts from**: 73ad839f14b954d11bf32dc1352749eb9dd90069
+- **Final HEAD**: 363b7937bd27385b5e2afa0401867583a2e22cf7
 
 ## Files Inspected
 - `live_contentops/generate_project_sources_bundle_after_v6_loop_contracts.py`
@@ -24,4 +26,4 @@
 - Confirmed no fake metrics, fake URLs, or fake readiness claims were generated.
 
 ## Next Recommendation
-- `TASK_CONTENTOPS_V6_SUBSTACK_ARTICLE_REAL_INTAKE_AND_IMPORT_V0` to import actual markdown files.
+- `TASK_CONTENTOPS_V6_CANONICAL_ARTICLE_REVIEW_CANDIDATE_INTAKE_FROM_MARKDOWN_V0` to import markdown files as review-only candidates.
