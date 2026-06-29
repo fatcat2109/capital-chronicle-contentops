@@ -1,4 +1,4 @@
-﻿# Review Candidate Intake Contract
+# Review Candidate Intake Contract
 
 ## Purpose
 
@@ -26,6 +26,8 @@ Each packet includes:
 - `public_metrics`
 - `review_only`
 - `kill_switch_active`
+- `redaction_applied`
+- `redaction_reason`
 
 ## State Rules
 
@@ -40,6 +42,24 @@ Each packet includes:
 - `public_metrics` is always `null`.
 - `review_only` is always `true`.
 - `kill_switch_active` is always `true`.
+
+## Redaction Policy
+
+If a secret-like marker appears anywhere in metadata or body:
+
+- `body_markdown` is replaced with `[REDACTED_SECRET_MARKER_DETECTED]`.
+- `body_text` is replaced with `[REDACTED_SECRET_MARKER_DETECTED]`.
+- `detected_frontmatter` keeps only keys with redacted sentinel values.
+- `validation_warnings` includes `redaction_applied_secret_marker_detected`.
+- `blockers` use sanitized labels only.
+- `redaction_applied` is `true`.
+- `redaction_reason` is `secret_marker_detected`.
+
+`write_intake_packets()` serializes the already-redacted candidate object and must not write raw secret-bearing body or metadata values.
+
+## Hash Policy
+
+`source_file_sha256` is computed from raw file bytes before Markdown decoding. Parsing then decodes as UTF-8-SIG for BOM tolerance.
 
 ## Blockers
 

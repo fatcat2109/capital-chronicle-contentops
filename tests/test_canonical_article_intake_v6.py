@@ -1,4 +1,6 @@
-﻿import json
+﻿import hashlib
+import json
+from dataclasses import asdict
 from pathlib import Path
 
 from live_contentops.canonical_article_intake_v6 import (
@@ -102,18 +104,27 @@ def test_secret_like_marker_in_metadata_blocks_without_printing_raw_value(tmp_pa
         _write(tmp_path / "draft.md", _valid_markdown("token: do-not-print-this-value\n"))
     )
 
-    dumped = json.dumps(candidate.blockers)
+    dumped = json.dumps(asdict(candidate), sort_keys=True)
     assert "raw_secret_marker_detected_token" in candidate.blockers
+    assert candidate.redaction_applied is True
+    assert candidate.redaction_reason == "secret_marker_detected"
+    assert "redaction_applied_secret_marker_detected" in candidate.validation_warnings
     assert "do-not-print-this-value" not in dumped
+    assert candidate.body_markdown == "[REDACTED_SECRET_MARKER_DETECTED]"
+    assert candidate.detected_frontmatter["token"] == "[REDACTED_SECRET_MARKER_DETECTED]"
 
 
 def test_secret_like_marker_in_body_blocks_without_printing_raw_value(tmp_path):
     body = "# Required H1 Title\n\nThis body mentions password value do-not-print-body-value.\n"
     candidate = parse_markdown_review_candidate(_write(tmp_path / "draft.md", _valid_markdown(body=body)))
 
-    dumped = json.dumps(candidate.blockers)
+    dumped = json.dumps(asdict(candidate), sort_keys=True)
     assert "raw_secret_marker_detected_password" in candidate.blockers
+    assert candidate.redaction_applied is True
+    assert candidate.redaction_reason == "secret_marker_detected"
+    assert "redaction_applied_secret_marker_detected" in candidate.validation_warnings
     assert "do-not-print-body-value" not in dumped
+    assert candidate.body_text == "[REDACTED_SECRET_MARKER_DETECTED]"
 
 
 def test_advice_signal_trading_language_in_body_blocks_intake(tmp_path):
@@ -157,6 +168,45 @@ def test_module_contains_no_getenv_environ_network_provider_browser_imports():
 
     forbidden = ["getenv", "environ", "requests", "urllib", "httpx", "provider_gateway", "browser", "webbrowser"]
     assert not any(marker in source for marker in forbidden)
+
+
+def test_raw_bytes_sha256_is_used_for_crlf_and_bom(tmp_path):
+    raw_bytes = b"\xef\xbb\xbf---\r\nsubtitle: Byte Hash\r\n---\r\n# Required H1 Title\r\n\r\nBody text.\r\n"
+    draft = tmp_path / "draft.md"
+    draft.write_bytes(raw_bytes)
+
+    candidate = parse_markdown_review_candidate(draft)
+
+    assert candidate.source_file_sha256 == hashlib.sha256(raw_bytes).hexdigest()
+
+
+def test_written_packets_do_not_contain_secret_values(tmp_path):
+    raw_metadata_value = "do-not-print-this-value"
+    raw_body_value = "do-not-print-body-value"
+    draft = _write(
+        tmp_path / "draft.md",
+        _valid_markdown(f"token: {raw_metadata_value}\n", body=f"# Required H1 Title\n\npassword {raw_body_value}\n"),
+    )
+    output_dir = tmp_path / "out"
+
+    exit_code = main([str(draft), "--output-dir", str(output_dir)])
+
+    assert exit_code == 1
+    all_output = "\n".join(path.read_text(encoding="utf-8") for path in output_dir.glob("*.json"))
+    assert raw_metadata_value not in all_output
+    assert raw_body_value not in all_output
+    assert "[REDACTED_SECRET_MARKER_DETECTED]" in all_output
+
+
+def test_committed_docs_and_sample_are_utf8_without_bom_and_sample_loads():
+    docs_dir = Path("docs/automation/V6_CANONICAL_ARTICLE_REVIEW_CANDIDATE_INTAKE_FROM_MARKDOWN")
+    for path in docs_dir.glob("*"):
+        assert not path.read_bytes().startswith(b"\xef\xbb\xbf")
+    sample = docs_dir / "sample_review_candidate_packet.json"
+    loaded = json.loads(sample.read_text(encoding="utf-8"))
+    assert loaded["sample_packet_non_runtime"] is True
+    assert loaded["runtime_truth"] is False
+    assert loaded["source_file_sha256"] is None
 
 
 def test_cli_writes_summary_and_candidate_packets(tmp_path):

@@ -94,6 +94,8 @@ class ArticleReviewCandidate:
     public_metrics: None = None
     review_only: bool = True
     kill_switch_active: bool = True
+    redaction_applied: bool = False
+    redaction_reason: str = ""
 
 
 @dataclass(frozen=True)
@@ -130,6 +132,7 @@ def _parse_scalar(value: str) -> Any:
 
 
 def split_frontmatter(markdown: str) -> tuple[dict[str, Any], str, list[str]]:
+    markdown = markdown.replace("\r\n", "\n").replace("\r", "\n")
     warnings: list[str] = []
     if not markdown.startswith("---\n"):
         return {}, markdown, ["frontmatter_missing"]
@@ -206,6 +209,17 @@ def _metadata_text(metadata: dict[str, Any]) -> str:
     return " ".join(f"{key} {value}" for key, value in metadata.items())
 
 
+def _secret_markers_for_content(metadata: dict[str, Any], body: str) -> list[str]:
+    combined = f"{_metadata_text(metadata)} {body}"
+    return _has_marker(combined, SECRET_MARKERS)
+
+
+def _redacted_frontmatter(metadata: dict[str, Any]) -> dict[str, str]:
+    if not metadata:
+        return {"_redacted": "secret_marker_detected"}
+    return {str(key): "[REDACTED_SECRET_MARKER_DETECTED]" for key in sorted(metadata)}
+
+
 def _blockers_for_content(path: Path, markdown: str, metadata: dict[str, Any], body: str) -> list[str]:
     blockers: list[str] = []
     if path.suffix.lower() != ".md":
@@ -216,7 +230,7 @@ def _blockers_for_content(path: Path, markdown: str, metadata: dict[str, Any], b
         blockers.append("missing_h1_title")
 
     combined = f"{_metadata_text(metadata)} {body}"
-    for marker in _has_marker(combined, SECRET_MARKERS):
+    for marker in _secret_markers_for_content(metadata, body):
         blockers.append(f"raw_secret_marker_detected_{marker}")
     for marker in _has_marker(combined, PUBLIC_READY_MARKERS):
         blockers.append(f"public_ready_or_approval_claim_detected_{marker}")
@@ -245,6 +259,8 @@ def _failed_candidate(path: Path, blockers: list[str]) -> ArticleReviewCandidate
         validation_warnings=[],
         blockers=sorted(set(blockers)),
         canonical_article_review_candidate_available=False,
+        redaction_applied=False,
+        redaction_reason="",
     )
 
 
@@ -252,11 +268,12 @@ def parse_markdown_review_candidate(path: Path) -> ArticleReviewCandidate:
     source_path = Path(path)
     if source_path.suffix.lower() != ".md":
         return _failed_candidate(source_path, ["non_markdown_extension"])
+    raw_bytes = source_path.read_bytes()
+    source_sha256 = hashlib.sha256(raw_bytes).hexdigest()
     try:
-        markdown = source_path.read_text(encoding="utf-8")
+        markdown = raw_bytes.decode("utf-8-sig")
     except UnicodeDecodeError:
         return _failed_candidate(source_path, ["markdown_utf8_decode_failed"])
-    source_sha256 = hashlib.sha256(markdown.encode("utf-8")).hexdigest()
     metadata, body, warnings = split_frontmatter(markdown)
     h1_match = H1_RE.search(body)
     title = h1_match.group(1).strip() if h1_match else ""
@@ -265,6 +282,17 @@ def parse_markdown_review_candidate(path: Path) -> ArticleReviewCandidate:
     headings = _headings(body)
     body_text = _plain_text(body)
     blockers = _blockers_for_content(source_path, markdown, metadata, body)
+    secret_detected = bool(_secret_markers_for_content(metadata, body))
+    redaction_applied = secret_detected
+    redaction_reason = "secret_marker_detected" if secret_detected else ""
+    if secret_detected:
+        warnings = sorted(set(warnings + ["redaction_applied_secret_marker_detected"]))
+        metadata = _redacted_frontmatter(metadata)
+        body = "[REDACTED_SECRET_MARKER_DETECTED]"
+        body_text = "[REDACTED_SECRET_MARKER_DETECTED]"
+        subtitle = ""
+        description = ""
+        headings = []
     status = BLOCKED_STATUS if blockers else REVIEW_STATUS
     candidate_id = f"canonical_article_review_candidate_{source_sha256[:16]}"
     return ArticleReviewCandidate(
@@ -280,11 +308,13 @@ def parse_markdown_review_candidate(path: Path) -> ArticleReviewCandidate:
         headings=headings,
         body_text=body_text,
         body_markdown=body,
-        word_count=len(WORD_RE.findall(body_text)),
+        word_count=len(WORD_RE.findall(body_text)) if not redaction_applied else 0,
         detected_frontmatter=metadata,
         validation_warnings=warnings,
         blockers=blockers,
         canonical_article_review_candidate_available=(not blockers),
+        redaction_applied=redaction_applied,
+        redaction_reason=redaction_reason,
     )
 
 
