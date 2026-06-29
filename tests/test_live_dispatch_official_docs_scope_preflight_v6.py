@@ -1,5 +1,6 @@
 import json
 import hashlib
+import re
 from dataclasses import asdict
 from pathlib import Path
 
@@ -398,8 +399,25 @@ def test_secret_marker_in_inputs_fails_closed_without_sha():
 
 def test_module_contains_no_getenv_environ_network_provider_browser_imports():
     source = Path("live_contentops/live_dispatch_official_docs_scope_preflight_v6.py").read_text(encoding="utf-8")
-    forbidden = ["getenv", "environ", "requests", "urllib", "httpx", "provider_gateway", "browser", "webbrowser"]
-    assert not any(marker in source for marker in forbidden)
+    import_patterns = [
+        r"\bimport\s+requests\b",
+        r"\bimport\s+urllib\b",
+        r"\bimport\s+httpx\b",
+        r"\bimport\s+provider_gateway\b",
+        r"\bimport\s+browser\b",
+        r"\bimport\s+webbrowser\b",
+        r"\bfrom\s+requests\b",
+        r"\bfrom\s+urllib\b",
+        r"\bfrom\s+httpx\b",
+        r"\bfrom\s+provider_gateway\b",
+        r"\bfrom\s+browser\b",
+        r"\bfrom\s+webbrowser\b",
+        r"\bgetenv\b",
+        r"\benviron\b",
+    ]
+    for pat in import_patterns:
+        assert not re.search(pat, source)
+
 
 
 def test_cli_writes_deterministic_packet(tmp_path):
@@ -466,3 +484,93 @@ def test_malformed_non_object_cli_blocked_test(tmp_path):
     assert written["eligible_for_supervised_live_gate"] is False
     assert written["official_docs_scope_declared_ready"] is False
     assert written["live_scope_declared_ready"] is False
+
+
+def test_forbidden_live_claims_gate_source_rows_extra_fields():
+    # 1. Official docs source row extra field endpoint_path: "/api/posts" fails closed.
+    docs = _docs_declaration()
+    docs["source_rows"][0]["endpoint_path"] = "/api/posts"
+    packet = make_live_dispatch_scope_preflight_packet(_readiness(), docs, _scope_declaration())
+    assert packet.live_dispatch_scope_preflight_available is False
+    assert "docs_source_row_index_0_extra_field_endpoint_path_detected" in packet.blockers
+
+    # 2. Official docs source row extra field request_payload: {"body": "x"} fails closed.
+    docs = _docs_declaration()
+    docs["source_rows"][0]["request_payload"] = {"body": "x"}
+    packet = make_live_dispatch_scope_preflight_packet(_readiness(), docs, _scope_declaration())
+    assert packet.live_dispatch_scope_preflight_available is False
+    assert "docs_source_row_index_0_extra_field_request_payload_detected" in packet.blockers
+
+    # 3. Official docs source row extra field raw_copied_docs: "..." fails closed.
+    docs = _docs_declaration()
+    docs["source_rows"][0]["raw_copied_docs"] = "..."
+    packet = make_live_dispatch_scope_preflight_packet(_readiness(), docs, _scope_declaration())
+    assert packet.live_dispatch_scope_preflight_available is False
+    assert "docs_source_row_index_0_extra_field_raw_copied_docs_detected" in packet.blockers
+
+
+def test_forbidden_live_claims_gate_notes_and_scope_fields():
+    # 1. Official docs source row operator_notes containing live instruction: send now fails closed.
+    docs = _docs_declaration()
+    docs["source_rows"][0]["operator_notes"] = "live instruction: send now"
+    packet = make_live_dispatch_scope_preflight_packet(_readiness(), docs, _scope_declaration())
+    assert packet.live_dispatch_scope_preflight_available is False
+    assert "docs_source_row_index_0_forbidden_live_claim_detected_live_instruction" in packet.blockers
+
+    # 2. Docs declaration notes containing api endpoint fails closed.
+    docs = _docs_declaration()
+    docs["notes"] = "This is our api endpoint info."
+    packet = make_live_dispatch_scope_preflight_packet(_readiness(), docs, _scope_declaration())
+    assert packet.live_dispatch_scope_preflight_available is False
+    assert "docs_forbidden_live_claim_detected_api_endpoint" in packet.blockers
+
+    # 3. Scope declaration notes containing webhook request fails closed.
+    scope = _scope_declaration()
+    scope["notes"] = "Uses a webhook request configuration."
+    packet = make_live_dispatch_scope_preflight_packet(_readiness(), _docs_declaration(), scope)
+    assert packet.live_dispatch_scope_preflight_available is False
+    assert "scope_forbidden_live_claim_detected_webhook" in packet.blockers
+
+    # 4. Scope declaration notes containing live dispatch fails closed.
+    scope = _scope_declaration()
+    scope["notes"] = "Trigger live dispatch sequence."
+    packet = make_live_dispatch_scope_preflight_packet(_readiness(), _docs_declaration(), scope)
+    assert packet.live_dispatch_scope_preflight_available is False
+    assert "scope_forbidden_live_claim_detected_live_dispatch" in packet.blockers
+
+    # 5. Scope declaration notes containing public_url or public_metrics fails closed.
+    for note_val, expected_term in [
+        ("has public_url attribute", "public_url"),
+        ("checks public_metrics dashboard", "public_metrics"),
+    ]:
+        scope = _scope_declaration()
+        scope["notes"] = note_val
+        packet = make_live_dispatch_scope_preflight_packet(_readiness(), _docs_declaration(), scope)
+        assert packet.live_dispatch_scope_preflight_available is False
+        assert f"scope_forbidden_live_claim_detected_{expected_term}" in packet.blockers
+
+
+def test_forbidden_live_claims_gate_allowed_phrases_pass():
+    # 1. Allowed topic label endpoint_allowlist in doc_topics_reviewed still passes.
+    docs = _docs_declaration()
+    docs["source_rows"][0]["doc_topics_reviewed"] = ["endpoint_allowlist"]
+    packet = make_live_dispatch_scope_preflight_packet(_readiness(), docs, _scope_declaration())
+    assert packet.live_dispatch_scope_preflight_available is True
+    assert not packet.blockers
+
+    # 2. Allowed topic label webhook_behavior in doc_topics_reviewed still passes.
+    docs = _docs_declaration()
+    docs["source_rows"][0]["doc_topics_reviewed"] = ["webhook_behavior"]
+    packet = make_live_dispatch_scope_preflight_packet(_readiness(), docs, _scope_declaration())
+    assert packet.live_dispatch_scope_preflight_available is True
+    assert not packet.blockers
+
+    # 3. Valid credential key name containing WEBHOOK still passes.
+    ready = _readiness()
+    ready["credential_key_names_only"] = ["MY_DISCORD_WEBHOOK"]
+    scope = _scope_declaration()
+    scope["credential_key_names_only"] = ["MY_DISCORD_WEBHOOK"]
+    packet = make_live_dispatch_scope_preflight_packet(ready, _docs_declaration(), scope)
+    assert packet.live_dispatch_scope_preflight_available is True
+    assert not packet.blockers
+

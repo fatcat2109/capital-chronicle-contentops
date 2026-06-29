@@ -64,6 +64,116 @@ TRADING_ADVICE_PATTERNS = (
 )
 TRADING_ADVICE_RE = [re.compile(p, re.IGNORECASE) for p in TRADING_ADVICE_PATTERNS]
 
+FORBIDDEN_LIVE_CLAIMS = (
+    "endpoint_path", "endpoint path",
+    "api_endpoint", "api endpoint",
+    "request_payload", "request payload",
+    "payload_body", "payload body",
+    "raw_copied_docs", "raw copied docs",
+    "copied_docs", "copied docs",
+    "raw_docs", "raw docs",
+    "live_instructions", "live instructions",
+    "live_instruction", "live instruction",
+    "send_instruction", "send instruction",
+    "dispatch_instruction", "dispatch instruction",
+    "platform_live", "platform live",
+    "live_dispatch", "live dispatch",
+    "live_send", "live send",
+    "send_now", "send now",
+    "publish_now", "publish now",
+    "webhook_url", "webhook url",
+    "webhook",
+    "endpoint",
+    "api_request", "api request",
+    "browser_request", "browser request",
+    "platform_request", "platform request",
+    "public_url", "public url",
+    "public_metrics", "public metrics",
+    "ready_for_publication", "ready for publication",
+    "publication_ready", "publication ready",
+    "dispatch_allowed", "dispatch allowed"
+)
+
+ALLOWED_SCHEMA_PHRASES = (
+    "supervised_live_dispatch_future_gate",
+    "mark_scope_ready_for_future_supervised_live_gate",
+    "mark_scope_ready_for_future_supervised_live_gate_only_not_send",
+    "live_scope_preflight_only",
+    "endpoint_allowlist_later_required",
+    "endpoint_allowlist_required_later",
+    "webhook_family_target",
+    "webhook_behavior",
+    "endpoint_allowlist",
+    "operator_declared_official_docs_review_only",
+    "official_docs_operator_declared_reference",
+    "declare_official_docs_reviewed_for_future_gate_only",
+    "official_docs_scope_preflight_only",
+    "mark_official_docs_review_declared",
+    "supervised_dispatch_future_gate",
+    "live_dispatch_readiness_preflight_id",
+    "live_dispatch_readiness_preflight_sha256",
+    "live_dispatch_readiness_declaration_id",
+    "live_dispatch_scope_preflight_id",
+    "live_dispatch_scope_preflight_available",
+    "eligible_for_supervised_live_gate",
+    "live_scope_declared_ready",
+    "live_send_request_created",
+    "approval_for_live_dispatch",
+    "dispatch_family",
+    "action_class",
+    "webhook_url",
+)
+
+
+def _scan_for_forbidden_live_claims(text: str) -> str | None:
+    lowered = text.lower()
+    for phrase in ALLOWED_SCHEMA_PHRASES:
+        lowered = lowered.replace(phrase.lower(), "")
+    for term in FORBIDDEN_LIVE_CLAIMS:
+        if term in lowered:
+            return term
+    return None
+
+
+FORBIDDEN_SOURCE_ROW_CLAIMS = (
+    "endpoint_path", "endpoint path",
+    "api_endpoint", "api endpoint",
+    "request_payload", "request payload",
+    "payload_body", "payload body",
+    "raw_copied_docs", "raw copied docs",
+    "copied_docs", "copied docs",
+    "raw_docs", "raw docs",
+    "live_instructions", "live instructions",
+    "live_instruction", "live instruction",
+    "send_instruction", "send instruction",
+    "dispatch_instruction", "dispatch instruction",
+    "platform_live", "platform live",
+    "live_dispatch", "live dispatch",
+    "live_send", "live send",
+    "send_now", "send now",
+    "publish_now", "publish now",
+    "webhook_url", "webhook url",
+    "api_request", "api request",
+    "browser_request", "browser request",
+    "platform_request", "platform request",
+    "public_url", "public url",
+    "public_metrics", "public metrics",
+    "ready_for_publication", "ready for publication",
+    "publication_ready", "publication ready",
+    "dispatch_allowed", "dispatch allowed"
+)
+
+
+def _scan_for_forbidden_source_row_claims(text: str) -> str | None:
+    lowered = text.lower()
+    for phrase in ALLOWED_SCHEMA_PHRASES:
+        lowered = lowered.replace(phrase.lower(), "")
+    for term in FORBIDDEN_SOURCE_ROW_CLAIMS:
+        if term in lowered:
+            return term
+    return None
+
+
 
 @dataclass(frozen=True)
 class LiveDispatchScopePreflightPacket:
@@ -407,6 +517,11 @@ def _validate_docs_declaration(docs: dict[str, Any], readiness: dict[str, Any]) 
             if not isinstance(op_notes, str):
                 blockers.append(f"docs_source_row_index_{idx}_operator_notes_invalid")
 
+            # Check for extra keys/fields in the source row
+            extra_keys = set(row.keys()) - set(row_req)
+            for ek in sorted(extra_keys):
+                blockers.append(f"docs_source_row_index_{idx}_extra_field_{ek}_detected")
+
             # Content safety check: no URLs, webhook links, secrets, app IDs, etc.
             row_serialized = json.dumps(row)
             if "http://" in row_serialized or "https://" in row_serialized:
@@ -414,6 +529,10 @@ def _validate_docs_declaration(docs: dict[str, Any], readiness: dict[str, Any]) 
 
             if _has_secret_marker(row_serialized):
                 blockers.append(f"docs_source_row_index_{idx}_secret_marker_detected")
+
+            forbidden_term = _scan_for_forbidden_source_row_claims(row_serialized)
+            if forbidden_term:
+                blockers.append(f"docs_source_row_index_{idx}_forbidden_live_claim_detected_{forbidden_term.replace(' ', '_')}")
 
         if len(platforms_found) != 2 or sorted(platforms_found) != ["discord", "substack"]:
             blockers.append("docs_source_rows_platforms_mismatch")
@@ -473,6 +592,10 @@ def _validate_scope_declaration(scope: dict[str, Any], readiness: dict[str, Any]
     for key in required_keys:
         if scope.get(key) is None:
             blockers.append(f"scope_field_missing_{key}")
+
+    extra_keys = set(scope.keys()) - set(required_keys)
+    for ek in sorted(extra_keys):
+        blockers.append(f"scope_extra_field_{ek}_detected")
 
     # Matching with readiness packet
     if scope.get("live_dispatch_readiness_preflight_id") != readiness.get("live_dispatch_readiness_preflight_id"):
@@ -546,6 +669,7 @@ def _check_declaration_safety(decl_packet: dict[str, Any], prefix: str) -> list[
     # Popping credential key names and scanning
     decl_copy = dict(decl_packet)
     decl_copy.pop("credential_key_names_only", None)
+    decl_copy.pop("source_rows", None)
     serialized = json.dumps(decl_copy)
 
     if _has_secret_marker(serialized):
@@ -561,6 +685,11 @@ def _check_declaration_safety(decl_packet: dict[str, Any], prefix: str) -> list[
         if pat.search(serialized):
             blockers.append(f"{prefix}_financial_advice_or_signal_framing_detected")
             break
+
+    # Check forbidden live claims
+    forbidden_term = _scan_for_forbidden_live_claims(serialized)
+    if forbidden_term:
+        blockers.append(f"{prefix}_forbidden_live_claim_detected_{forbidden_term.replace(' ', '_')}")
 
     return blockers
 

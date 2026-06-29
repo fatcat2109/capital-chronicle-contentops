@@ -31,6 +31,8 @@
 - Emits a local live dispatch scope preflight packet JSON only.
 - Reject/defer decisions in both official-docs and live-scope declarations fail closed with blockers.
 - Operator declaration notes are fully required for both declarations.
+- Official-docs source rows and live-scope declarations fail closed if they contain forbidden live claims (e.g., endpoint paths, API/platform-live claims, copied docs, or live instructions).
+- Source rows fail closed if any extra keys/fields are detected.
 - Does not contain credentials, tokens, webhooks, or platform identifiers.
 - Does not copy raw markdown body into output packet.
 - No env, provider, browser, live API, webhook, network, scraping, or credential validation behavior.

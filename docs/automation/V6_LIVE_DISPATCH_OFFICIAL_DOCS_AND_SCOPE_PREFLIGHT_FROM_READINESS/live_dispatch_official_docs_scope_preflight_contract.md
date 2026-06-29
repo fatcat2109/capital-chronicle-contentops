@@ -32,3 +32,6 @@ The live dispatch official-docs/scope preflight contract consumes a valid live d
     - `human_review_required` must remain `true`.
     - `kill_switch_active` must remain `true`.
     - `runtime_truth` must remain `false`.
+11. **Forbidden Live Claims Gate**: Official-docs source rows and live-scope declarations fail closed (emitting clear blockers like `{prefix}_forbidden_live_claim_detected_{term}`) if they contain forbidden live claims (e.g. endpoint paths, API/platform-live claims, request payloads, raw copied docs, or live instructions).
+12. **Source Row Structure**: Official-docs source rows must contain exactly the 6 defined required keys. Extra fields in source rows fail closed.
+
