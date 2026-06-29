@@ -14,7 +14,10 @@ The official platform documentation verification gate consumes a valid local liv
 6. **No Platform Verification**: This contract does not validate credentials, accounts, workspaces, channels, permissions, or scopes with providers.
 7. **No Request Artifacts**: This contract does not create endpoint, webhook, API, or browser request artifacts.
 8. **Future Mapping and Execution Requirements**: Future endpoint mapping and live execution tasks must independently verify account identity, permissions, exact endpoint allowlists, payload hashes, kill switches, request budgets, timeout/retry policies, redacted audit fields, and exact operator approval before executing any live-send operations.
-9. **Banned States**:
+9. **Substack Support Truth Gate**: Substack live API publishing must not be classified as official API supported unless a current official Substack documentation source can be verified from official Substack domains. If unverified, Substack must be set to `unclear_requires_operator_decision` or `unsupported_by_official_docs`, and `live_write_allowed_later` must be false.
+10. **Discord Developer Webhook Resource requirement**: Discord support remains supported under `official_webhook_supported_for_required_action` only if backed by official Discord Developer Webhook Resource documentation.
+11. **Ineligibility on Unclear/Unsupported Platforms**: If any required platform row is `unsupported_by_official_docs` or `unclear_requires_operator_decision`, the final output packet's `eligible_for_future_endpoint_mapping_gate` must be false.
+12. **Banned States**:
     - `live_send_request_created` must remain `false`.
     - `approval_for_live_dispatch` must remain `false`.
     - `dispatch_allowed` must remain `false`.

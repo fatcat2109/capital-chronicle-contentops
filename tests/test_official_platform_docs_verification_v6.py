@@ -189,19 +189,19 @@ def _source_summary():
                 "official_source_title": "Substack Publishing API Specs",
                 "official_source_url_label": "https://substack.com/help/api",
                 "official_source_accessed_at_manual": "2026-06-30T02:00:00+07:00",
-                "dispatch_capability_classification": "official_api_supported_for_required_action",
-                "supported_dispatch_mechanism": "api_post_draft",
-                "auth_or_permission_requirements_summary": "requires_token_header",
-                "endpoint_or_surface_summary": "post_endpoint",
-                "rate_limit_or_budget_summary": "100_per_hour",
+                "dispatch_capability_classification": "unclear_requires_operator_decision",
+                "supported_dispatch_mechanism": "unclear",
+                "auth_or_permission_requirements_summary": "unclear",
+                "endpoint_or_surface_summary": "unclear",
+                "rate_limit_or_budget_summary": "unclear",
                 "media_payload_constraints_summary": "markdown_text_only",
                 "error_handling_summary": "json_error_responses",
                 "app_review_or_policy_constraints_summary": "terms_of_service",
-                "live_write_allowed_later": True,
+                "live_write_allowed_later": False,
                 "manual_fallback_required": True,
                 "blockers": [],
                 "caveats": ["Requires publisher-level dashboard access token."],
-                "reviewer_notes": "All checks passed on Substack API."
+                "reviewer_notes": "Substack official API publishing documentation not verified from official public docs; manual/browser fallback or later operator-provided official source required."
             },
             {
                 "platform": "discord",
@@ -275,12 +275,13 @@ def _assert_no_public_state(packet):
     assert packet.runtime_truth is False
 
 
-def test_valid_inputs_emits_eligible_packet():
+def test_valid_inputs_emits_available_but_ineligible_packet():
     packet = make_official_platform_docs_verification_packet(_request_gate(), _declaration(), _source_summary())
     assert packet.docs_verification_available is True
     assert packet.docs_verification_declared_ready is True
-    assert packet.eligible_for_future_endpoint_mapping_gate is True
+    assert packet.eligible_for_future_endpoint_mapping_gate is False
     assert not packet.blockers
+    assert "substack_official_api_docs_unverified" in packet.warnings
     _assert_no_public_state(packet)
 
 
@@ -291,6 +292,7 @@ def test_unsupported_by_official_docs_on_one_platform_emits_available_but_not_el
     packet = make_official_platform_docs_verification_packet(_request_gate(), _declaration(), summary)
     assert packet.docs_verification_available is True
     assert packet.eligible_for_future_endpoint_mapping_gate is False
+    assert "substack_official_api_docs_unverified" in packet.warnings
 
 
 def test_unclear_requires_operator_decision_emits_available_but_not_eligible():
@@ -300,6 +302,7 @@ def test_unclear_requires_operator_decision_emits_available_but_not_eligible():
     packet = make_official_platform_docs_verification_packet(_request_gate(), _declaration(), summary)
     assert packet.docs_verification_available is True
     assert packet.eligible_for_future_endpoint_mapping_gate is False
+    assert "substack_official_api_docs_unverified" in packet.warnings
     assert "docs_verification_unclear_capability_classifications_detected" in packet.warnings
 
 
@@ -511,3 +514,34 @@ def test_malformed_non_object_cli_blocked_test(tmp_path):
     assert written["docs_verification_available"] is False
     assert written["docs_verification_declared_ready"] is False
     assert written["eligible_for_future_endpoint_mapping_gate"] is False
+
+
+def test_substack_official_api_supported_fails_closed():
+    summary = _source_summary()
+    summary["platform_rows"][0]["dispatch_capability_classification"] = "official_api_supported_for_required_action"
+    packet = make_official_platform_docs_verification_packet(_request_gate(), _declaration(), summary)
+    assert packet.docs_verification_available is False
+    assert "substack_official_api_docs_unverified" in packet.blockers
+
+
+def test_substack_live_write_allowed_later_fails_closed():
+    summary = _source_summary()
+    summary["platform_rows"][0]["live_write_allowed_later"] = True
+    packet = make_official_platform_docs_verification_packet(_request_gate(), _declaration(), summary)
+    assert packet.docs_verification_available is False
+    assert "substack_official_api_docs_unverified" in packet.blockers
+
+
+def test_discord_official_webhook_docs_valid():
+    summary = _source_summary()
+    # Discord row must match official developers docs and classification
+    row = summary["platform_rows"][1]
+    assert row["platform"] == "discord"
+    assert row["dispatch_capability_classification"] == "official_webhook_supported_for_required_action"
+    assert "webhook" in row["official_source_url_label"]
+    assert "webhook" in row["official_source_title"].lower()
+    assert row["supported_dispatch_mechanism"] == "execute_webhook"
+    packet = make_official_platform_docs_verification_packet(_request_gate(), _declaration(), summary)
+    assert packet.docs_verification_available is True
+    assert packet.docs_verification_declared_ready is True
+

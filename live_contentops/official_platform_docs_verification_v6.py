@@ -252,7 +252,9 @@ ALLOWED_SCHEMA_PHRASES = (
     "Substack Publishing API Specs",
     "Discord Webhook Reference Documentation",
     "TASK_CONTENTOPS_V6_LOCAL_LIVE_DISPATCH_REQUEST_PACKAGE_GATE_FROM_ACCOUNT_BINDING_V0",
-    "TASK_CONTENTOPS_V6_LIVE_DISPATCH_ACCOUNT_BINDING_PREFLIGHT_FROM_CREDENTIAL_ALLOWLIST_V0"
+    "TASK_CONTENTOPS_V6_LIVE_DISPATCH_ACCOUNT_BINDING_PREFLIGHT_FROM_CREDENTIAL_ALLOWLIST_V0",
+    "Substack official API publishing documentation not verified from official public docs; manual/browser fallback or later operator-provided official source required.",
+    "substack_official_api_docs_unverified"
 )
 
 
@@ -589,6 +591,43 @@ def _validate_docs_source_summary(summary: dict[str, Any]) -> list[str]:
                 if not isinstance(row_blockers, list) or len(row_blockers) > 0:
                     blockers.append(f"summary_platform_row_{idx}_live_write_allowed_later_requires_empty_blockers")
 
+            # Platform specific validation rules
+            if platform == "substack":
+                # Check domain
+                domain = ""
+                if url_label and "://" in url_label:
+                    domain = url_label.split("://")[1].split("/")[0].split(":")[0]
+                if not (domain == "substack.com" or domain.endswith(".substack.com")):
+                    blockers.append("substack_official_api_docs_unverified")
+
+                # Check if trying to claim supported or live write allowed later
+                if classif == "official_api_supported_for_required_action" or live_write is True:
+                    # Verified Substack URL allowlist is empty because no current official api docs are verified
+                    verified_substack_urls = []
+                    if url_label not in verified_substack_urls:
+                        blockers.append("substack_official_api_docs_unverified")
+                
+                # Check for assertions in notes
+                if "checks passed on substack" in row.get("reviewer_notes", "").lower():
+                    blockers.append("substack_official_api_docs_unverified")
+
+            if platform == "discord":
+                # Check domain
+                domain = ""
+                if url_label and "://" in url_label:
+                    domain = url_label.split("://")[1].split("/")[0].split(":")[0]
+                if not (domain in ["discord.com", "discordapp.com", "discord.gg"] or domain.endswith(".discord.com") or domain.endswith(".discordapp.com") or domain.endswith(".discord.gg")):
+                    blockers.append("discord_official_docs_unverified")
+
+                # Must be webhook documentation
+                if classif == "official_webhook_supported_for_required_action":
+                    if "webhook" not in url_label.lower():
+                        blockers.append("discord_official_docs_unverified")
+                    if "webhook" not in row.get("official_source_title", "").lower():
+                        blockers.append("discord_official_docs_unverified")
+                    if row.get("supported_dispatch_mechanism") != "execute_webhook":
+                        blockers.append("discord_official_docs_unverified")
+
             if not isinstance(row.get("blockers"), list):
                 blockers.append(f"summary_platform_row_{idx}_blockers_field_invalid")
 
@@ -924,6 +963,13 @@ def make_official_platform_docs_verification_packet(
                 has_unclear = True
     if prepared and has_unclear:
         warnings.append("docs_verification_unclear_capability_classifications_detected")
+
+    # Add substack unverified warning
+    if prepared and summary_is_dict and isinstance(platform_docs_rows, list):
+        for row in platform_docs_rows:
+            if isinstance(row, dict) and row.get("platform") == "substack":
+                if row.get("dispatch_capability_classification") in ["unclear_requires_operator_decision", "unsupported_by_official_docs"]:
+                    warnings.append("substack_official_api_docs_unverified")
 
     return OfficialPlatformDocsVerificationPacket(
         schema_version=SCHEMA_VERSION,
