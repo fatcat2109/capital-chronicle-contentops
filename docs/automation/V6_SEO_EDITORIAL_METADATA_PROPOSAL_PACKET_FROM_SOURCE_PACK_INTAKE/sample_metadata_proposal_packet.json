@@ -1,0 +1,65 @@
+{
+  "approved_canonical_article_available": false,
+  "blockers": [],
+  "citations_verified": false,
+  "dispatch_allowed": false,
+  "editorial_metadata_checklist": [
+    "confirm_canonical_article_title_later",
+    "confirm_subtitle_or_deck_later",
+    "confirm_article_summary_later",
+    "confirm_section_structure_later",
+    "confirm_no_financial_advice_language"
+  ],
+  "editorial_workflow_id": "accepted_review_editorial_workflow_sample_non_runtime",
+  "generated_citations_allowed": false,
+  "generated_metadata_values": null,
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "metadata_proposal_available": true,
+  "metadata_proposal_id": "seo_editorial_metadata_proposal_sample_non_runtime",
+  "outbox_creation_allowed": false,
+  "platform_variant_generation_allowed": false,
+  "proposal_status": "METADATA_PROPOSAL_READY_FOR_OPERATOR_REVIEW",
+  "proposed_description_policy": "future_human_or_llm_editorial_description_must_summarize_accurately_without_hype",
+  "proposed_keyword_policy": "future_human_or_llm_editorial_keywords_must_align_with_grounding_sources",
+  "proposed_slug_policy": "future_human_or_llm_editorial_slug_must_be_lowercase_hyphenated_alphanumeric",
+  "proposed_title_policy": "future_human_or_llm_editorial_title_must_reflect_h1_and_contain_focus_keywords",
+  "public_metrics": null,
+  "public_url": null,
+  "publication_ready": false,
+  "required_operator_actions": [
+    "review_source_pack_quality",
+    "confirm_editorial_direction",
+    "approve_future_metadata_generation_gate",
+    "approve_future_canonical_article_gate"
+  ],
+  "review_only": true,
+  "risk_review_checklist": [
+    "no_fake_urls",
+    "no_fake_metrics",
+    "no_publication_readiness_claim",
+    "no_dispatch_or_outbox_claim",
+    "no_trading_signal_or_advice_framing"
+  ],
+  "runtime_truth": false,
+  "sample_packet_non_runtime": true,
+  "schema_version": "6.0.0",
+  "seo_review_checklist": [
+    "define_search_intent_later",
+    "validate_title_against_article_later",
+    "validate_slug_against_final_title_later",
+    "validate_meta_description_against_final_article_later",
+    "no_keyword_stuffing_review_required"
+  ],
+  "source_grounding_checklist": [
+    "source_pack_review_required",
+    "verify_claims_before_metadata_finalization",
+    "citations_not_verified_in_this_lane",
+    "generated_citations_prohibited"
+  ],
+  "source_pack_id": "operator_source_pack_sample_non_runtime",
+  "source_pack_intake_id": "operator_source_pack_intake_sample_non_runtime",
+  "source_pack_intake_sha256": "sample_non_runtime_intake_hash",
+  "task_label": "TASK_CONTENTOPS_V6_SEO_EDITORIAL_METADATA_PROPOSAL_PACKET_FROM_SOURCE_PACK_INTAKE_V0",
+  "warnings": []
+}
