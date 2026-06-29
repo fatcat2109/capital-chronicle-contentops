@@ -1,0 +1,138 @@
+{
+  "checklist_status": "SUPERVISED_DISPATCH_BLOCKED_PENDING_OUTBOX_AUTHORIZATION_AND_KILL_SWITCH",
+  "items": [
+    {
+      "item_name": "valid_outbox_entry_required",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "approved_exact_payload_review_required",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "payload_hash_required",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "destination_binding_required",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "account_binding_required",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "dispatch_policy_required",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "credential_scope_proof_required",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "platform_endpoint_allowlist_required",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "kill_switch_must_be_open",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "operator_dispatch_authorization_required",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "jim_dispatch_authorization_required",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "dispatch_preflight_blocked",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "no_dispatch_attempt_created",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "no_live_write_attempted",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "no_retry_attempted",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "no_public_url_created",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "no_publication_ready_claim",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "no_dispatch_ready_claim",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    },
+    {
+      "item_name": "no_financial_advice_language",
+      "current_status": "blocked",
+      "blocks_supervised_dispatch": true,
+      "blocks_publication": true,
+      "evidence_ref": "supervised_dispatch_input_contract.json"
+    }
+  ]
+}
