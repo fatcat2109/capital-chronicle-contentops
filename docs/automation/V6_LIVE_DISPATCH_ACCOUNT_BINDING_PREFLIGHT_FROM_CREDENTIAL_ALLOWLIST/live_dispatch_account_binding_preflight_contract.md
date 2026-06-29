@@ -14,7 +14,8 @@ The live dispatch account binding preflight contract consumes a valid credential
 6. **No Platform Verification**: This contract does not validate credentials, accounts, workspaces, channels, permissions, or scopes with providers.
 7. **No Request Artifacts**: This contract does not create endpoint, webhook, API, or browser request artifacts.
 8. **Future Live Gates Requirements**: Future live dispatch modules must independently verify account identity, permissions, official docs, endpoint allowlists, payload hashes, kill switches, budgets, timeout/retry policies, redacted audit fields, and exact operator approvals before executing live-send operations.
-9. **Banned States**:
+9. **Credential Presence Revalidation**: Input `credential_presence_rows` are strictly revalidated against the exact keys/order of `credential_key_names_only`, with no extra fields (such as value, length, hash, env lines) permitted.
+10. **Banned States**:
     - `live_send_request_created` must remain `false`.
     - `approval_for_live_dispatch` must remain `false`.
     - `dispatch_allowed` must remain `false`.

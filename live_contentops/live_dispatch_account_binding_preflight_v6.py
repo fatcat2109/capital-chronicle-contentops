@@ -445,23 +445,64 @@ def _validate_preflight_packet(preflight: dict[str, Any]) -> list[str]:
     if preflight.get("blockers"):
         blockers.append("preflight_blockers_not_empty")
 
-    rows = preflight.get("credential_presence_rows", [])
-    if not isinstance(rows, list) or not rows:
-        blockers.append("preflight_credential_presence_rows_invalid")
+    declared_keys = preflight.get("credential_key_names_only")
+    if not isinstance(declared_keys, list) or not declared_keys or not all(isinstance(k, str) for k in declared_keys):
+        blockers.append("preflight_credential_key_names_only_invalid")
+        declared_keys = []
+
+    rows = preflight.get("credential_presence_rows")
+    if not isinstance(rows, list):
+        blockers.append("preflight_credential_presence_rows_missing")
+    elif len(rows) != len(declared_keys):
+        blockers.append("preflight_credential_presence_rows_count_invalid")
     else:
+        allowed_row_keys = {
+            "key_name",
+            "present",
+            "checked_by_exact_declared_key_name",
+            "value_observed",
+            "value_length_observed",
+            "value_hash_observed",
+            "value_prefix_observed",
+            "value_suffix_observed",
+        }
         for idx, row in enumerate(rows):
-            row_req = {
-                "checked_by_exact_declared_key_name": True,
-                "present": True,
-                "value_observed": False,
-                "value_length_observed": False,
-                "value_hash_observed": False,
-                "value_prefix_observed": False,
-                "value_suffix_observed": False,
-            }
-            for rk, rv in row_req.items():
-                if row.get(rk) != rv:
-                    blockers.append(f"preflight_credential_row_{idx}_field_{rk}_invalid")
+            if not isinstance(row, dict):
+                blockers.append(f"preflight_credential_row_{idx}_not_dict")
+                continue
+
+            row_keys = set(row.keys())
+            extra_fields = row_keys - allowed_row_keys
+            for field_name in sorted(extra_fields):
+                blockers.append(f"preflight_credential_row_{idx}_extra_field_{field_name}_detected")
+
+            key_name = row.get("key_name")
+            if not isinstance(key_name, str):
+                blockers.append(f"preflight_credential_row_{idx}_key_name_missing_or_invalid")
+            elif idx < len(declared_keys) and key_name != declared_keys[idx]:
+                blockers.append(f"preflight_credential_row_{idx}_key_name_mismatch")
+
+            if row.get("present") is not True:
+                blockers.append(f"preflight_credential_row_{idx}_field_present_invalid")
+            if row.get("checked_by_exact_declared_key_name") is not True:
+                blockers.append(f"preflight_credential_row_{idx}_field_checked_by_exact_declared_key_name_invalid")
+
+            for f in [
+                "value_observed",
+                "value_length_observed",
+                "value_hash_observed",
+                "value_prefix_observed",
+                "value_suffix_observed"
+            ]:
+                if row.get(f) is not False:
+                    blockers.append(f"preflight_credential_row_{idx}_field_{f}_invalid")
+
+            # Check safety in row text
+            row_copy = dict(row)
+            row_copy.pop("key_name", None)
+            row_serialized = json.dumps(row_copy)
+            if _has_secret_marker(row_serialized):
+                blockers.append(f"preflight_credential_row_{idx}_secret_marker_detected")
 
     allowlist_rows = preflight.get("endpoint_allowlist_rows", [])
     if not isinstance(allowlist_rows, list) or len(allowlist_rows) != 2:
@@ -825,9 +866,21 @@ def make_account_binding_preflight_packet(
         combined_payload_hash = str(preflight_packet.get("combined_payload_hash") or "")
 
         # Compute SHA256 of preflight packet only if no secret markers are present
-        preflight_copy = dict(preflight_packet)
-        preflight_copy.pop("credential_key_names_only", None)
-        if not _has_secret_marker(json.dumps(preflight_copy)):
+        preflight_sha_check = dict(preflight_packet)
+        preflight_sha_check.pop("credential_key_names_only", None)
+        preflight_sha_check.pop("endpoint_allowlist_rows", None)
+        preflight_sha_check.pop("destinations", None)
+        clean_rows = []
+        for r in preflight_packet.get("credential_presence_rows", []):
+            if isinstance(r, dict):
+                rc = dict(r)
+                rc.pop("key_name", None)
+                clean_rows.append(rc)
+            else:
+                clean_rows.append(r)
+        preflight_sha_check["credential_presence_rows"] = clean_rows
+
+        if not _has_secret_marker(json.dumps(preflight_sha_check)) and not any("secret_marker_detected" in b for b in blockers):
             credential_allowlist_preflight_sha256 = hashlib.sha256(_canonical_json(preflight_packet).encode("utf-8")).hexdigest()
 
         if decl_is_dict and "binding_secret_marker_detected" not in blockers:

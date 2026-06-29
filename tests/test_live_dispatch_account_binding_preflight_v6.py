@@ -467,3 +467,103 @@ def test_malformed_non_object_cli_blocked_test(tmp_path):
     assert written["account_binding_preflight_available"] is False
     assert written["account_binding_declared_ready"] is False
     assert written["eligible_for_live_dispatch_request_package_gate"] is False
+
+
+def test_credential_presence_rows_missing_fails_closed():
+    pref = _preflight()
+    pref.pop("credential_presence_rows", None)
+    packet = make_account_binding_preflight_packet(pref, _binding())
+    assert packet.account_binding_preflight_available is False
+    assert "preflight_credential_presence_rows_missing" in packet.blockers
+
+
+def test_credential_presence_rows_count_mismatch_fails_closed():
+    # count less than declared keys
+    pref = _preflight()
+    pref["credential_presence_rows"] = pref["credential_presence_rows"][:1]
+    packet = make_account_binding_preflight_packet(pref, _binding())
+    assert packet.account_binding_preflight_available is False
+    assert "preflight_credential_presence_rows_count_invalid" in packet.blockers
+
+    # count greater than declared keys
+    pref = _preflight()
+    pref["credential_presence_rows"].append({
+        "key_name": "EXTRA_KEY",
+        "present": True,
+        "checked_by_exact_declared_key_name": True,
+        "value_observed": False,
+        "value_length_observed": False,
+        "value_hash_observed": False,
+        "value_prefix_observed": False,
+        "value_suffix_observed": False
+    })
+    packet = make_account_binding_preflight_packet(pref, _binding())
+    assert packet.account_binding_preflight_available is False
+    assert "preflight_credential_presence_rows_count_invalid" in packet.blockers
+
+
+def test_credential_row_key_name_missing_or_mismatch_fails_closed():
+    # key_name missing
+    pref = _preflight()
+    pref["credential_presence_rows"][0].pop("key_name", None)
+    packet = make_account_binding_preflight_packet(pref, _binding())
+    assert packet.account_binding_preflight_available is False
+    assert "preflight_credential_row_0_key_name_missing_or_invalid" in packet.blockers
+
+    # key_name mismatch / wrong order
+    pref = _preflight()
+    pref["credential_presence_rows"][0]["key_name"] = "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK"
+    pref["credential_presence_rows"][1]["key_name"] = "SUBSTACK_API_KEY_DRAFT_STAGE"
+    packet = make_account_binding_preflight_packet(pref, _binding())
+    assert packet.account_binding_preflight_available is False
+    assert "preflight_credential_row_0_key_name_mismatch" in packet.blockers
+
+
+def test_credential_row_extra_fields_fail_closed():
+    for field_name in ["value", "raw_value", "env_line", "value_hash"]:
+        pref = _preflight()
+        pref["credential_presence_rows"][0][field_name] = "some_secret_or_env_marker"
+        packet = make_account_binding_preflight_packet(pref, _binding())
+        assert packet.account_binding_preflight_available is False
+        assert f"preflight_credential_row_0_extra_field_{field_name}_detected" in packet.blockers
+
+
+def test_credential_row_fields_invalid_values_fail_closed():
+    # present false
+    pref = _preflight()
+    pref["credential_presence_rows"][0]["present"] = False
+    packet = make_account_binding_preflight_packet(pref, _binding())
+    assert packet.account_binding_preflight_available is False
+    assert "preflight_credential_row_0_field_present_invalid" in packet.blockers
+
+    # checked_by_exact_declared_key_name false
+    pref = _preflight()
+    pref["credential_presence_rows"][0]["checked_by_exact_declared_key_name"] = False
+    packet = make_account_binding_preflight_packet(pref, _binding())
+    assert packet.account_binding_preflight_available is False
+    assert "preflight_credential_row_0_field_checked_by_exact_declared_key_name_invalid" in packet.blockers
+
+    # observed fields true
+    observed_fields = [
+        "value_observed",
+        "value_length_observed",
+        "value_hash_observed",
+        "value_prefix_observed",
+        "value_suffix_observed"
+    ]
+    for f in observed_fields:
+        pref = _preflight()
+        pref["credential_presence_rows"][0][f] = True
+        packet = make_account_binding_preflight_packet(pref, _binding())
+        assert packet.account_binding_preflight_available is False
+        assert f"preflight_credential_row_0_field_{f}_invalid" in packet.blockers
+
+
+def test_secret_marker_in_credential_row_fails_closed():
+    pref = _preflight()
+    pref["credential_presence_rows"][0]["present"] = "this is private_key text"
+    packet = make_account_binding_preflight_packet(pref, _binding())
+    assert packet.account_binding_preflight_available is False
+    assert "preflight_credential_row_0_secret_marker_detected" in packet.blockers
+    assert packet.credential_allowlist_preflight_sha256 == ""
+

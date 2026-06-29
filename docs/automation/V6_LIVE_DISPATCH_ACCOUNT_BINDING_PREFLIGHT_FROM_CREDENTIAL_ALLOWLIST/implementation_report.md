@@ -2,11 +2,11 @@
 
 ## Task Label
 
-`TASK_CONTENTOPS_V6_LIVE_DISPATCH_ACCOUNT_BINDING_PREFLIGHT_FROM_CREDENTIAL_ALLOWLIST_V0`
+`TASK_CONTENTOPS_V6_REPAIR_ACCOUNT_BINDING_PREFLIGHT_CREDENTIAL_PRESENCE_ROWS_VALIDATION_V0`
 
 ## Starting HEAD
 
-`f6d508f2faf16360eb539141bd8afd737256529a`
+`651859eb41d8a583cc601a0a7d502b91b62d7cb9`
 
 ## Files Added/Changed
 
@@ -29,6 +29,7 @@
 ## Safety Confirmation
 
 - Does not read `os.environ`, `.env`, or repo configuration env files. Missing credentials are reported as missing key names only.
+- Input credential presence status rows are revalidated by exact key name list/order and extra fields fail closed.
 - Reject/defer decisions in account-binding declarations fail closed with blockers.
 - Rows must not include URLs, domains, endpoint paths, webhook URLs, tokens, cookies, account IDs, channel IDs, workspace IDs, app IDs, request bodies, raw payloads, raw docs, live-send instructions, platform-live claims, public URL/metrics, or actual account/destination identifiers.
 - Platform binding rows must be exactly two objects for substack and discord, in that order, with no extra fields.
