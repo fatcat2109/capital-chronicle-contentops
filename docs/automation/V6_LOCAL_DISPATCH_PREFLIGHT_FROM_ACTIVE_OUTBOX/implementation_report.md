@@ -1,37 +1,37 @@
-# V6 Local Active Outbox Creation from Operator Review Decision - Implementation Report
+# V6 Local Dispatch Preflight from Active Outbox - Implementation Report
 
 ## Task Label
 
-`TASK_CONTENTOPS_V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION_V0`
+`TASK_CONTENTOPS_V6_LOCAL_DISPATCH_PREFLIGHT_FROM_ACTIVE_OUTBOX_V0`
 
 ## Starting HEAD
 
-`6ca70950aa1a49205a16a231fd122a91bfe8f50b`
+`463d254d01cb586bb24bb8a281f79127d0cbfd50`
 
 ## Scope
 
-Builds a local active outbox creation contract that consumes a valid operator active-outbox review decision packet and the exact reviewed staged payload files, then writes local active outbox entries and copied platform payload files into a local active outbox directory.
+Builds a local dispatch preflight contract that consumes a valid local active outbox manifest plus exact active outbox entry JSON files and copied payload markdown files, revalidates hashes/safety states, and emits a local dispatch preflight review packet.
 
 ## Files Added/Changed
 
-- `live_contentops/local_active_outbox_creation_v6.py`
-- `tests/test_local_active_outbox_creation_v6.py`
-- `docs/automation/V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION/implementation_report.md`
-- `docs/automation/V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION/local_active_outbox_creation_contract.md`
-- `docs/automation/V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION/sample_local_active_outbox_manifest.json`
+- `live_contentops/local_dispatch_preflight_v6.py`
+- `tests/test_local_dispatch_preflight_v6.py`
+- `docs/automation/V6_LOCAL_DISPATCH_PREFLIGHT_FROM_ACTIVE_OUTBOX/implementation_report.md`
+- `docs/automation/V6_LOCAL_DISPATCH_PREFLIGHT_FROM_ACTIVE_OUTBOX/local_dispatch_preflight_contract.md`
+- `docs/automation/V6_LOCAL_DISPATCH_PREFLIGHT_FROM_ACTIVE_OUTBOX/sample_local_dispatch_preflight_packet.json`
 
 ## Files Inspected
 
+- `live_contentops/local_active_outbox_creation_v6.py`
 - `live_contentops/operator_active_outbox_review_decision_v6.py`
-- `live_contentops/active_outbox_eligibility_gate_v6.py`
-- `live_contentops/local_outbox_package_staging_v6.py`
-- `tests/test_operator_active_outbox_review_decision_v6.py`
+- `tests/test_local_active_outbox_creation_v6.py`
+- `docs/automation/V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION/local_active_outbox_creation_contract.md`
+- `docs/automation/V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION/implementation_report.md`
 - `docs/automation/V6_OPERATOR_ACTIVE_OUTBOX_REVIEW_DECISION_FROM_ELIGIBILITY_GATE/operator_active_outbox_review_decision_contract.md`
-- `docs/automation/V6_ACTIVE_OUTBOX_ELIGIBILITY_GATE_FROM_LOCAL_PACKAGE_STAGING/active_outbox_eligibility_gate_contract.md`
-- `docs/automation/V6_LOCAL_OUTBOX_PACKAGE_STAGING_FROM_PAYLOAD_REVIEW_LEDGER/outbox_package_staging_contract.md`
 
 ## Validation Commands
 
+- `python -m pytest -q tests/test_local_dispatch_preflight_v6.py`
 - `python -m pytest -q tests/test_local_active_outbox_creation_v6.py`
 - `python -m pytest -q tests/test_operator_active_outbox_review_decision_v6.py`
 - `python -m pytest -q tests/test_active_outbox_eligibility_gate_v6.py`
@@ -50,7 +50,7 @@ Builds a local active outbox creation contract that consumes a valid operator ac
 ## Safety Confirmation
 
 - Local-only.
-- Active-outbox-file-creation-only.
+- Dispatch-preflight-review-only.
 - No canonical article approval.
 - No publication readiness.
 - No platform variant generation (preview files only).
@@ -62,7 +62,7 @@ Builds a local active outbox creation contract that consumes a valid operator ac
 
 ## Caveats
 
-The active outbox entry status remains `local_active_outbox_pending_dispatch_review` with active outbox creation complete but dispatch/send disabled.
+The preflight review packet records dispatch preflight readiness only. It does not dispatch variants.
 
 ## Next Recommendation
 

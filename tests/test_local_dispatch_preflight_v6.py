@@ -1,0 +1,473 @@
+import json
+from dataclasses import asdict
+from pathlib import Path
+
+from live_contentops.local_dispatch_preflight_v6 import (
+    make_local_dispatch_preflight_packet,
+    write_local_dispatch_preflight_packet,
+    load_json_packet,
+    main,
+    _normalize_path,
+)
+
+
+def _manifest():
+    return {
+        "schema_version": "6.0.0",
+        "task_label": "TASK_CONTENTOPS_V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION_V0",
+        "local_active_outbox_manifest_id": "local_active_outbox_manifest_abc123",
+        "operator_active_outbox_review_decision_id": "operator_active_outbox_review_decision_abc123",
+        "operator_review_decision_sha256": "decision_sha256_xyz",
+        "active_outbox_eligibility_id": "active_outbox_eligibility_abc123",
+        "outbox_package_staging_id": "outbox_package_staging_abc123",
+        "payload_review_ledger_id": "payload_review_ledger_abc123",
+        "approval_intent_id": "approval_intent_abc123",
+        "variant_preview_staging_id": "local_platform_variant_preview_staging_abc123",
+        "metadata_values_review_id": "operator_metadata_values_review_abc123",
+        "metadata_values_id": "operator_metadata_values_abc123",
+        "metadata_proposal_id": "seo_editorial_metadata_proposal_abc123",
+        "source_pack_intake_id": "operator_source_pack_intake_abc123",
+        "source_pack_id": "operator_source_pack_abc123",
+        "editorial_workflow_id": "accepted_review_editorial_workflow_abc123",
+        "canonical_title": "Sample Title Grounding Analysis",
+        "canonical_slug": "sample-title-grounding-analysis",
+        "active_outbox_dir": "A:/outbox/sample-title-grounding-analysis_xyz",
+        "active_outbox_entries": [
+            "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json",
+            "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json"
+        ],
+        "active_outbox_payload_files": [
+            "A:/outbox/sample-title-grounding-analysis_xyz/substack_payload.md",
+            "A:/outbox/sample-title-grounding-analysis_xyz/discord_payload.md"
+        ],
+        "active_outbox_payload_file_hashes": {
+            "a:/outbox/sample-title-grounding-analysis_xyz/substack_payload.md": "a659cc763b018861df43d4617a2241b1ea407c08a90da3084ba37f375001a182",
+            "a:/outbox/sample-title-grounding-analysis_xyz/discord_payload.md": "06b005118749e7a858e38d9dc100d0f7300c082729a6da304ba37f375001a182",
+        },
+        "source_staged_payload_file_hashes": {
+            "a:/staging/sample-title-grounding-analysis_substack_preview.md": "a659cc763b018861df43d4617a2241b1ea407c08a90da3084ba37f375001a182",
+            "a:/staging/sample-title-grounding-analysis_discord_preview.md": "06b005118749e7a858e38d9dc100d0f7300c082729a6da304ba37f375001a182",
+        },
+        "combined_payload_hash": "29cf1251e60055d78001ba1617a2241b1ea407c08a90da308ba37f375001a182",
+        "local_active_outbox_created": True,
+        "active_outbox_entry_created": True,
+        "dispatch_payload_created": False,
+        "approval_for_dispatch": False,
+        "approval_for_publication": False,
+        "approved_canonical_article_available": False,
+        "publication_ready": False,
+        "dispatch_allowed": False,
+        "platform_variant_generation_allowed": False,
+        "outbox_creation_allowed": False,
+        "generated_citations_allowed": False,
+        "citations_verified": False,
+        "public_url": None,
+        "public_metrics": None,
+        "review_only": True,
+        "human_review_required": True,
+        "kill_switch_active": True,
+        "runtime_truth": False,
+        "blockers": [],
+        "warnings": [],
+    }
+
+
+def _substack_entry():
+    return {
+        "schema_version": "6.0.0",
+        "task_label": "TASK_CONTENTOPS_V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION_V0",
+        "active_outbox_entry_id": "active_outbox_entry_substack_abc123",
+        "platform": "substack",
+        "payload_file": "A:/outbox/sample-title-grounding-analysis_xyz/substack_payload.md",
+        "payload_sha256": "a659cc763b018861df43d4617a2241b1ea407c08a90da3084ba37f375001a182",
+        "source_staged_payload_file": "a:/staging/sample-title-grounding-analysis_substack_preview.md",
+        "source_staged_payload_sha256": "a659cc763b018861df43d4617a2241b1ea407c08a90da3084ba37f375001a182",
+        "combined_payload_hash": "29cf1251e60055d78001ba1617a2241b1ea407c08a90da308ba37f375001a182",
+        "operator_active_outbox_review_decision_id": "operator_active_outbox_review_decision_abc123",
+        "active_outbox_eligibility_id": "active_outbox_eligibility_abc123",
+        "outbox_package_staging_id": "outbox_package_staging_abc123",
+        "canonical_slug": "sample-title-grounding-analysis",
+        "canonical_title": "Sample Title Grounding Analysis",
+        "entry_status": "local_active_outbox_pending_dispatch_review",
+        "dispatch_payload_created": False,
+        "dispatch_allowed": False,
+        "approval_for_dispatch": False,
+        "publication_ready": False,
+        "public_url": None,
+        "public_metrics": None,
+        "review_only": True,
+        "human_review_required": True,
+        "kill_switch_active": True,
+        "runtime_truth": False,
+        "blockers": [],
+        "warnings": [],
+    }
+
+
+def _discord_entry():
+    val = _substack_entry()
+    val["platform"] = "discord"
+    val["payload_file"] = "A:/outbox/sample-title-grounding-analysis_xyz/discord_payload.md"
+    val["payload_sha256"] = "06b005118749e7a858e38d9dc100d0f7300c082729a6da304ba37f375001a182"
+    val["source_staged_payload_file"] = "a:/staging/sample-title-grounding-analysis_discord_preview.md"
+    val["source_staged_payload_sha256"] = "06b005118749e7a858e38d9dc100d0f7300c082729a6da304ba37f375001a182"
+    return val
+
+
+def _preview_texts():
+    return {
+        "A:/outbox/sample-title-grounding-analysis_xyz/substack_payload.md": "# Sample Title\nLOCAL PREVIEW ONLY - NOT APPROVED FOR PUBLICATION\nSafe body content.",
+        "A:/outbox/sample-title-grounding-analysis_xyz/discord_payload.md": "LOCAL PREVIEW ONLY - NOT APPROVED FOR DISCORD DISPATCH\nSafe discord content.",
+    }
+
+
+def _entry_paths():
+    return [
+        Path("A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json"),
+        Path("A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json"),
+    ]
+
+
+def _payload_paths():
+    return [
+        Path("A:/outbox/sample-title-grounding-analysis_xyz/substack_payload.md"),
+        Path("A:/outbox/sample-title-grounding-analysis_xyz/discord_payload.md"),
+    ]
+
+
+def _assert_no_public_state(packet):
+    assert packet.dispatch_payload_created is False
+    assert packet.approval_for_dispatch is False
+    assert packet.approval_for_publication is False
+    assert packet.approved_canonical_article_available is False
+    assert packet.publication_ready is False
+    assert packet.dispatch_allowed is False
+    assert packet.platform_variant_generation_allowed is False
+    assert packet.outbox_creation_allowed is False
+    assert packet.generated_citations_allowed is False
+    assert packet.citations_verified is False
+    assert packet.public_url is None
+    assert packet.public_metrics is None
+    assert packet.review_only is True
+    assert packet.human_review_required is True
+    assert packet.kill_switch_active is True
+    assert packet.runtime_truth is False
+
+
+def test_valid_inputs_emits_dispatch_preflight_packet():
+    mf = _manifest()
+    epaths = _entry_paths()
+    epackets = {
+        "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+        "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+    }
+    ppaths = _payload_paths()
+    texts = _preview_texts()
+    
+    # Overwrite manifest file hashes
+    import hashlib
+    h1 = hashlib.sha256(texts["A:/outbox/sample-title-grounding-analysis_xyz/substack_payload.md"].encode("utf-8")).hexdigest()
+    h2 = hashlib.sha256(texts["A:/outbox/sample-title-grounding-analysis_xyz/discord_payload.md"].encode("utf-8")).hexdigest()
+    
+    mf["active_outbox_payload_file_hashes"] = {
+        _normalize_path(ppaths[0]): h1,
+        _normalize_path(ppaths[1]): h2
+    }
+    
+    epackets["A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json"]["payload_sha256"] = h1
+    epackets["A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json"]["payload_sha256"] = h2
+    
+    packet = make_local_dispatch_preflight_packet(mf, epaths, epackets, ppaths, texts)
+    assert packet.dispatch_preflight_available is True
+    assert packet.eligible_for_operator_dispatch_review is True
+    assert not packet.blockers
+    
+    _assert_no_public_state(packet)
+    
+    # Assert output does not leak raw markdown body
+    dumped = json.dumps(asdict(packet))
+    assert "Safe body content." not in dumped
+
+
+def test_wrong_manifest_task_label_fails_closed():
+    mf = _manifest()
+    mf["task_label"] = "wrong"
+    
+    epackets = {
+        "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+        "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+    }
+    packet = make_local_dispatch_preflight_packet(mf, _entry_paths(), epackets, _payload_paths(), _preview_texts())
+    assert packet.dispatch_preflight_available is False
+    assert "manifest_task_label_invalid" in packet.blockers
+
+
+def test_manifest_packet_eligibility_failures():
+    for fld, val in [
+        ("local_active_outbox_created", False),
+        ("active_outbox_entry_created", False),
+        ("dispatch_payload_created", True),
+        ("blockers", ["some_blocker"]),
+        ("publication_ready", True),
+        ("public_url", "https://example.invalid"),
+    ]:
+        mf = _manifest()
+        mf[fld] = val
+        
+        epackets = {
+            "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+            "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+        }
+        packet = make_local_dispatch_preflight_packet(mf, _entry_paths(), epackets, _payload_paths(), _preview_texts())
+        assert packet.dispatch_preflight_available is False
+        assert packet.blockers
+
+
+def test_entry_path_matching_failures():
+    # Order mismatch
+    epaths = [
+        Path("A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json"),
+        Path("A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json"),
+    ]
+    epackets = {
+        "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+        "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+    }
+    packet = make_local_dispatch_preflight_packet(_manifest(), epaths, epackets, _payload_paths(), _preview_texts())
+    assert packet.dispatch_preflight_available is False
+    assert "entry_file_paths_order_mismatch" in packet.blockers
+
+
+def test_payload_path_matching_failures():
+    # Order mismatch
+    ppaths = [
+        Path("A:/outbox/sample-title-grounding-analysis_xyz/discord_payload.md"),
+        Path("A:/outbox/sample-title-grounding-analysis_xyz/substack_payload.md"),
+    ]
+    epackets = {
+        "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+        "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+    }
+    packet = make_local_dispatch_preflight_packet(_manifest(), _entry_paths(), epackets, ppaths, _preview_texts())
+    assert packet.dispatch_preflight_available is False
+    assert "payload_file_paths_order_mismatch" in packet.blockers
+
+
+def test_entry_json_mismatch_failures():
+    epackets = {
+        "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+        "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+    }
+    epackets["A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json"]["combined_payload_hash"] = "wrong"
+    
+    packet = make_local_dispatch_preflight_packet(_manifest(), _entry_paths(), epackets, _payload_paths(), _preview_texts())
+    assert packet.dispatch_preflight_available is False
+    assert "entry_substack_combined_payload_hash_mismatch" in packet.blockers
+
+
+def test_payload_file_hash_mismatch_fails_closed():
+    texts = _preview_texts()
+    texts["A:/outbox/sample-title-grounding-analysis_xyz/substack_payload.md"] = "# Sample Title\nLOCAL PREVIEW ONLY - NOT APPROVED FOR PUBLICATION\nDifferent content to mismatch hash."
+    
+    epackets = {
+        "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+        "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+    }
+    packet = make_local_dispatch_preflight_packet(_manifest(), _entry_paths(), epackets, _payload_paths(), texts)
+    assert packet.dispatch_preflight_available is False
+    assert any("hash_mismatch" in blocker for blocker in packet.blockers)
+
+
+def test_preview_file_missing_local_only_warning_fails_closed():
+    texts = _preview_texts()
+    texts["A:/outbox/sample-title-grounding-analysis_xyz/substack_payload.md"] = "# Title\nSafe content but no warning."
+    
+    epackets = {
+        "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+        "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+    }
+    packet = make_local_dispatch_preflight_packet(_manifest(), _entry_paths(), epackets, _payload_paths(), texts)
+    assert packet.dispatch_preflight_available is False
+    assert "staged_substack_warning_missing" in packet.blockers
+
+
+def test_secret_marker_in_inputs_fails_closed_and_hashes_cleared():
+    # Secret in manifest
+    mf = _manifest()
+    mf["canonical_title"] = "my api_key is secret-val"
+    epackets = {
+        "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+        "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+    }
+    packet = make_local_dispatch_preflight_packet(mf, _entry_paths(), epackets, _payload_paths(), _preview_texts())
+    assert packet.dispatch_preflight_available is False
+    assert "manifest_secret_marker_detected" in packet.blockers
+    assert packet.local_active_outbox_manifest_sha256 == ""
+    assert packet.canonical_title == "[REDACTED_SECRET_MARKER_DETECTED]"
+
+    # Secret in entry JSON
+    epackets = {
+        "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+        "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+    }
+    epackets["A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json"]["notes"] = "some private_key check done."
+    packet = make_local_dispatch_preflight_packet(_manifest(), _entry_paths(), epackets, _payload_paths(), _preview_texts())
+    assert packet.dispatch_preflight_available is False
+    assert "entry_secret_marker_detected" in packet.blockers
+
+
+def test_fake_claims_in_preview_fail_closed():
+    for claim in ["fake_url", "fake_metrics", "fake_comments", "fake_readiness", "fake_citation"]:
+        texts = _preview_texts()
+        texts["A:/outbox/sample-title-grounding-analysis_xyz/substack_payload.md"] = f"# Title\nLOCAL PREVIEW ONLY - NOT APPROVED FOR PUBLICATION\n{claim} is supported."
+        
+        epackets = {
+            "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+            "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+        }
+        packet = make_local_dispatch_preflight_packet(_manifest(), _entry_paths(), epackets, _payload_paths(), texts)
+        assert packet.dispatch_preflight_available is False
+        assert any(claim in blocker for blocker in packet.blockers)
+
+
+def test_financial_advice_in_preview_fails_closed():
+    for pattern in ["buy target", "exit strategy", "trading advice", "signal service", "guaranteed prediction"]:
+        texts = _preview_texts()
+        texts["A:/outbox/sample-title-grounding-analysis_xyz/substack_payload.md"] = f"# Title\nLOCAL PREVIEW ONLY - NOT APPROVED FOR PUBLICATION\nsome {pattern} advice."
+        
+        epackets = {
+            "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+            "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+        }
+        packet = make_local_dispatch_preflight_packet(_manifest(), _entry_paths(), epackets, _payload_paths(), texts)
+        assert packet.dispatch_preflight_available is False
+        assert "staged_substack_financial_advice_or_signal_framing_detected" in packet.blockers
+
+
+def test_malformed_json_fails_closed(tmp_path):
+    bad = tmp_path / "bad.json"
+    bad.write_text("{bad", encoding="utf-8")
+    try:
+        load_json_packet(bad, "malformed_local_active_outbox_manifest_json")
+    except ValueError as exc:
+        assert str(exc) == "malformed_local_active_outbox_manifest_json"
+    else:
+        raise AssertionError("expected malformed_local_active_outbox_manifest_json")
+
+
+def test_non_object_json_fails_closed_without_exception_and_cli_returns_1(tmp_path):
+    packet = make_local_dispatch_preflight_packet([], [], {}, [], {})
+    assert "malformed_local_active_outbox_manifest_json" in packet.blockers
+    assert packet.dispatch_preflight_available is False
+    
+    mf_path = tmp_path / "manifest.json"
+    mf_path.write_text("[]", encoding="utf-8")
+    
+    output_dir = tmp_path / "out"
+    exit_code = main([
+        str(mf_path),
+        "--entry-files", "A:/a.json", "A:/b.json",
+        "--payload-files", "A:/a.md", "A:/b.md",
+        "--output-dir", str(output_dir)
+    ])
+    assert exit_code == 1
+    
+    packets = list(output_dir.glob("local_dispatch_preflight_*.json"))
+    assert len(packets) == 1
+    written = json.loads(packets[0].read_text(encoding="utf-8"))
+    assert "malformed_local_active_outbox_manifest_json" in written["blockers"]
+    assert written["dispatch_preflight_available"] is False
+
+
+def test_module_contains_no_getenv_environ_network_provider_browser_imports():
+    source = Path("live_contentops/local_dispatch_preflight_v6.py").read_text(encoding="utf-8")
+    forbidden = ["getenv", "environ", "requests", "urllib", "httpx", "provider_gateway", "browser", "webbrowser"]
+    assert not any(marker in source for marker in forbidden)
+
+
+def test_cli_writes_deterministic_packet(tmp_path):
+    # Setup manifest and entries with correct hashes for test paths
+    mf_path = tmp_path / "manifest.json"
+    
+    substack_payload_path = tmp_path / "substack_payload.md"
+    substack_payload_path.write_text(_preview_texts()["A:/outbox/sample-title-grounding-analysis_xyz/substack_payload.md"], encoding="utf-8")
+    
+    discord_payload_path = tmp_path / "discord_payload.md"
+    discord_payload_path.write_text(_preview_texts()["A:/outbox/sample-title-grounding-analysis_xyz/discord_payload.md"], encoding="utf-8")
+    
+    import hashlib
+    h1 = hashlib.sha256(substack_payload_path.read_text(encoding="utf-8").encode("utf-8")).hexdigest()
+    h2 = hashlib.sha256(discord_payload_path.read_text(encoding="utf-8").encode("utf-8")).hexdigest()
+    
+    substack_entry_path = tmp_path / "substack_outbox_entry.json"
+    substack_entry_data = _substack_entry()
+    substack_entry_data["payload_file"] = _normalize_path(substack_payload_path)
+    substack_entry_data["payload_sha256"] = h1
+    substack_entry_path.write_text(json.dumps(substack_entry_data, sort_keys=True), encoding="utf-8")
+    
+    discord_entry_path = tmp_path / "discord_outbox_entry.json"
+    discord_entry_data = _discord_entry()
+    discord_entry_data["payload_file"] = _normalize_path(discord_payload_path)
+    discord_entry_data["payload_sha256"] = h2
+    discord_entry_path.write_text(json.dumps(discord_entry_data, sort_keys=True), encoding="utf-8")
+    
+    mf_data = _manifest()
+    mf_data["active_outbox_entries"] = [
+        _normalize_path(substack_entry_path),
+        _normalize_path(discord_entry_path)
+    ]
+    mf_data["active_outbox_payload_files"] = [
+        _normalize_path(substack_payload_path),
+        _normalize_path(discord_payload_path)
+    ]
+    mf_data["active_outbox_payload_file_hashes"] = {
+        _normalize_path(substack_payload_path): h1,
+        _normalize_path(discord_payload_path): h2
+    }
+    
+    mf_path.write_text(json.dumps(mf_data, sort_keys=True), encoding="utf-8")
+    
+    output_dir = tmp_path / "out"
+    assert main([
+        str(mf_path),
+        "--entry-files", str(substack_entry_path), str(discord_entry_path),
+        "--payload-files", str(substack_payload_path), str(discord_payload_path),
+        "--output-dir", str(output_dir)
+    ]) == 0
+    
+    first = list(output_dir.glob("local_dispatch_preflight_*.json"))[0]
+    first_packet = json.loads(first.read_text(encoding="utf-8"))
+    
+    assert main([
+        str(mf_path),
+        "--entry-files", str(substack_entry_path), str(discord_entry_path),
+        "--payload-files", str(substack_payload_path), str(discord_payload_path),
+        "--output-dir", str(output_dir)
+    ]) == 0
+    
+    second = list(output_dir.glob("local_dispatch_preflight_*.json"))[0]
+    second_packet = json.loads(second.read_text(encoding="utf-8"))
+    
+    assert first_packet["local_dispatch_preflight_id"] == second_packet["local_dispatch_preflight_id"]
+    assert first_packet["dispatch_preflight_available"] is True
+
+
+def test_new_files_and_sample_json_are_utf8_without_bom():
+    docs_dir = Path("docs/automation/V6_LOCAL_DISPATCH_PREFLIGHT_FROM_ACTIVE_OUTBOX")
+    paths = [
+        Path("live_contentops/local_dispatch_preflight_v6.py"),
+        Path("tests/test_local_dispatch_preflight_v6.py"),
+    ]
+    paths.extend(path for path in docs_dir.glob("*") if path.is_file())
+    for path in paths:
+        assert not path.read_bytes().startswith(b"\xef\xbb\xbf")
+    loaded = json.loads((docs_dir / "sample_local_dispatch_preflight_packet.json").read_text(encoding="utf-8"))
+    assert loaded["sample_packet_non_runtime"] is True
+    assert loaded["runtime_truth"] is False
+
+
+def test_previous_implementation_report_patched():
+    report_path = Path("docs/automation/V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION/implementation_report.md")
+    content = report_path.read_text(encoding="utf-8")
+    assert "No active payload files." not in content
+    assert "No dispatch/live-send payload files." in content
