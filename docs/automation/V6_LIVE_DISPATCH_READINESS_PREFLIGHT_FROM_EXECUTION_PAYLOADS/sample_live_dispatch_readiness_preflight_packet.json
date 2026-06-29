@@ -1,0 +1,101 @@
+{
+  "sample_packet_non_runtime": true,
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_LIVE_DISPATCH_READINESS_PREFLIGHT_FROM_EXECUTION_PAYLOADS_V0",
+  "live_dispatch_readiness_preflight_id": "live_dispatch_readiness_preflight_sample123",
+  "live_dispatch_readiness_declaration_id": "live_dispatch_readiness_declaration_sample123",
+  "operator_id": "jim",
+  "created_at_manual": "2026-06-30T01:10:00+07:00",
+  "local_dispatch_execution_payload_manifest_id": "local_dispatch_execution_payload_manifest_sample123",
+  "local_dispatch_execution_payload_manifest_sha256": "manifest_sha256_sample123",
+  "operator_supervised_dispatch_review_decision_packet_id": "operator_supervised_dispatch_review_decision_packet_sample123",
+  "local_destination_binding_preflight_id": "local_destination_binding_preflight_sample123",
+  "destination_binding_id": "destination_binding_sample123",
+  "local_dispatch_payload_manifest_id": "local_dispatch_payload_manifest_sample123",
+  "operator_dispatch_review_decision_packet_id": "operator_dispatch_review_decision_packet_sample123",
+  "local_dispatch_preflight_id": "local_dispatch_preflight_sample123",
+  "local_active_outbox_manifest_id": "local_active_outbox_manifest_sample123",
+  "operator_active_outbox_review_decision_id": "operator_active_outbox_review_decision_sample123",
+  "active_outbox_eligibility_id": "active_outbox_eligibility_sample123",
+  "outbox_package_staging_id": "outbox_package_staging_sample123",
+  "payload_review_ledger_id": "payload_review_ledger_sample123",
+  "approval_intent_id": "approval_intent_sample123",
+  "variant_preview_staging_id": "local_platform_variant_preview_staging_sample123",
+  "metadata_values_review_id": "operator_metadata_values_review_sample123",
+  "metadata_values_id": "operator_metadata_values_sample123",
+  "metadata_proposal_id": "seo_editorial_metadata_proposal_sample123",
+  "source_pack_intake_id": "operator_source_pack_intake_sample123",
+  "source_pack_id": "operator_source_pack_sample123",
+  "editorial_workflow_id": "accepted_review_editorial_workflow_sample123",
+  "canonical_slug": "sample-title-grounding-analysis",
+  "canonical_title": "Sample Title Grounding Analysis",
+  "execution_preparation_json_files": [
+    "a:/prepared_payloads/sample-title-grounding-analysis_xyz/substack_execution_preparation.json",
+    "a:/prepared_payloads/sample-title-grounding-analysis_xyz/discord_execution_preparation.json"
+  ],
+  "execution_preparation_json_hashes": {
+    "a:/prepared_payloads/sample-title-grounding-analysis_xyz/substack_execution_preparation.json": "exec_json_sha_substack",
+    "a:/prepared_payloads/sample-title-grounding-analysis_xyz/discord_execution_preparation.json": "exec_json_sha_discord"
+  },
+  "execution_preparation_markdown_files": [
+    "a:/prepared_payloads/sample-title-grounding-analysis_xyz/substack_execution_preparation.md",
+    "a:/prepared_payloads/sample-title-grounding-analysis_xyz/discord_execution_preparation.md"
+  ],
+  "execution_preparation_markdown_hashes": {
+    "a:/prepared_payloads/sample-title-grounding-analysis_xyz/substack_execution_preparation.md": "exec_md_sha_substack",
+    "a:/prepared_payloads/sample-title-grounding-analysis_xyz/discord_execution_preparation.md": "exec_md_sha_discord"
+  },
+  "destinations": [
+    {
+      "platform": "substack",
+      "destination_label": "Production Substack",
+      "destination_type": "draft_console_target",
+      "destination_binding_kind": "non_secret_label_only",
+      "manual_operator_confirmed": true
+    },
+    {
+      "platform": "discord",
+      "destination_label": "Announcements Channel",
+      "destination_type": "webhook_family_target",
+      "destination_binding_kind": "non_secret_label_only",
+      "manual_operator_confirmed": true
+    }
+  ],
+  "platform_action_class": "supervised_dispatch_future_gate",
+  "dispatch_family": "substack_discord_dispatch_family",
+  "official_docs_required": true,
+  "credentials_required_later": true,
+  "credential_key_names_only": [
+    "SUBSTACK_API_KEY_DRAFT_STAGE",
+    "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK"
+  ],
+  "destination_binding_required_later": true,
+  "endpoint_allowlist_required_later": true,
+  "payload_hash_required_later": true,
+  "explicit_operator_approval_required_later": true,
+  "kill_switch_required": true,
+  "combined_payload_hash": "29cf1251e60055d78001ba1617a2241b1ea407c08a90da308ba37f375001a182",
+  "live_dispatch_readiness_preflight_available": true,
+  "eligible_for_future_live_dispatch_gate": true,
+  "live_dispatch_readiness_preflight_approved": true,
+  "live_send_request_created": false,
+  "approval_for_live_dispatch": false,
+  "approval_for_publication": false,
+  "generated_citations_allowed": false,
+  "citations_verified": false,
+  "approved_canonical_article_available": false,
+  "publication_ready": false,
+  "dispatch_allowed": false,
+  "platform_variant_generation_allowed": false,
+  "outbox_creation_allowed": false,
+  "public_url": null,
+  "public_metrics": null,
+  "review_only": true,
+  "human_review_required": true,
+  "kill_switch_active": true,
+  "runtime_truth": false,
+  "blockers": [],
+  "warnings": [
+    "sample_packet_non_runtime"
+  ]
+}
