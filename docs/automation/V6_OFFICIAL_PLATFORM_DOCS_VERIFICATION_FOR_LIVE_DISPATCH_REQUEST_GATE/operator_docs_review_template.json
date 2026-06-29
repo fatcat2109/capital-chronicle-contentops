@@ -1,0 +1,52 @@
+{
+  "schema_version": "6.0.0",
+  "official_docs_source_summary_id": "source_summary_template_id",
+  "created_at_manual": "2026-06-30T02:00:00+07:00",
+  "reviewer_id": "operator_reviewer_id",
+  "docs_review_scope": "live_dispatch_v6_evaluation",
+  "platform_rows": [
+    {
+      "platform": "substack",
+      "source_family": "official_platform_documentation",
+      "official_source_type": "api_documentation_page",
+      "official_source_title": "Substack API Docs Reference",
+      "official_source_url_label": "https://substack.com/help/api",
+      "official_source_accessed_at_manual": "2026-06-30T02:00:00+07:00",
+      "dispatch_capability_classification": "official_api_supported_for_required_action",
+      "supported_dispatch_mechanism": "api_post_draft",
+      "auth_or_permission_requirements_summary": "requires_token_header",
+      "endpoint_or_surface_summary": "post_endpoint",
+      "rate_limit_or_budget_summary": "100_per_hour",
+      "media_payload_constraints_summary": "markdown_text_only",
+      "error_handling_summary": "json_error_responses",
+      "app_review_or_policy_constraints_summary": "terms_of_service",
+      "live_write_allowed_later": true,
+      "manual_fallback_required": true,
+      "blockers": [],
+      "caveats": [],
+      "reviewer_notes": ""
+    },
+    {
+      "platform": "discord",
+      "source_family": "official_platform_documentation",
+      "official_source_type": "api_documentation_page",
+      "official_source_title": "Discord Webhook Docs Reference",
+      "official_source_url_label": "https://discord.com/developers/docs/resources/webhook",
+      "official_source_accessed_at_manual": "2026-06-30T02:00:00+07:00",
+      "dispatch_capability_classification": "official_webhook_supported_for_required_action",
+      "supported_dispatch_mechanism": "execute_webhook",
+      "auth_or_permission_requirements_summary": "webhook_token_in_url",
+      "endpoint_or_surface_summary": "webhook_post_endpoint",
+      "rate_limit_or_budget_summary": "5_per_5_seconds",
+      "media_payload_constraints_summary": "embed_json_content",
+      "error_handling_summary": "standard_http_error_codes",
+      "app_review_or_policy_constraints_summary": "discord_developer_policy",
+      "live_write_allowed_later": true,
+      "manual_fallback_required": true,
+      "blockers": [],
+      "caveats": [],
+      "reviewer_notes": ""
+    }
+  ],
+  "notes": ""
+}
