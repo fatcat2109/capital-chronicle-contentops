@@ -425,3 +425,60 @@ def test_malformed_non_object_cli_blocked_test(tmp_path):
     assert written["credential_allowlist_preflight_available"] is False
     assert written["endpoint_allowlist_declared_ready"] is False
     assert written["eligible_for_supervised_live_dispatch_request_gate"] is False
+
+
+class SentinelEnvMapping:
+    def __init__(self, allowed_keys):
+        self.allowed_keys = set(allowed_keys)
+
+    def __contains__(self, key):
+        return key in self.allowed_keys
+
+    def get(self, *args, **kwargs):
+        raise AssertionError("get called")
+
+    def __getitem__(self, key):
+        raise AssertionError("__getitem__ called")
+
+    def items(self, *args, **kwargs):
+        raise AssertionError("items called")
+
+    def values(self, *args, **kwargs):
+        raise AssertionError("values called")
+
+    def keys(self, *args, **kwargs):
+        raise AssertionError("keys called")
+
+    def __iter__(self):
+        raise AssertionError("__iter__ called")
+
+
+def test_sentinel_env_mapping_safety():
+    scope = _scope()
+    decl = _allowlist()
+    sentinel = SentinelEnvMapping([
+        "SUBSTACK_API_KEY_DRAFT_STAGE",
+        "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK"
+    ])
+    packet = make_credential_allowlist_preflight_packet(scope, decl, check_env=True, env_mapping=sentinel)
+    assert packet.credential_allowlist_preflight_available is True
+    assert packet.eligible_for_supervised_live_dispatch_request_gate is True
+    assert not packet.blockers
+
+
+def test_static_presence_check_rules():
+    src_path = Path("live_contentops/live_dispatch_credential_allowlist_preflight_v6.py")
+    source = src_path.read_text(encoding="utf-8")
+
+    match = re.search(r"if check_env:.*?(?=prepared =)", source, re.DOTALL)
+    assert match is not None
+    presence_section = match.group(0)
+
+    assert ".get(" not in presence_section
+    assert "__getitem__" not in presence_section
+    assert ".items(" not in presence_section
+    assert ".values(" not in presence_section
+    assert ".keys(" not in presence_section
+
+    assert "dict(os.environ)" not in source
+

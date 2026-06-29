@@ -28,7 +28,7 @@
 
 ## Safety Confirmation
 
-- Checks process environment presence using exact key names only (never enumerates env or reads `.env` files).
+- Checks process environment presence using pure key-membership checks (`key in env`) only and never retrieves or accesses credential values (never uses `.get()`, `__getitem__`, `.items()`, etc.).
 - Never records, prints, hashes, compares, or exposes credential values, lengths, prefixes, suffixes, digests, or env lines.
 - Reject/defer decisions in allowlist declarations fail closed with blockers.
 - Host labels must not contain URLs or domain values.

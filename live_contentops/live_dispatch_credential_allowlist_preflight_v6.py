@@ -767,7 +767,7 @@ def make_credential_allowlist_preflight_packet(
                 if env_mapping is not None:
                     is_present = key in env_mapping
                 else:
-                    is_present = getattr(os, "environ").get(key) is not None
+                    is_present = key in getattr(os, "environ")
 
                 if not is_present:
                     all_present = False

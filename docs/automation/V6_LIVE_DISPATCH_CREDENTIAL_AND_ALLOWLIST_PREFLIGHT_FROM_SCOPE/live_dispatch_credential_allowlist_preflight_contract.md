@@ -9,8 +9,8 @@ The live dispatch credential and allowlist preflight contract consumes a valid l
 1. **Create Local Credential/Allowlist Preflight Packet Only**: This contract creates a local credential/allowlist preflight packet only.
 2. **Not Live Dispatch Approval**: This contract does not authorize live dispatching.
 3. **Not Publication Approval**: This contract does not authorize canonical article publication.
-4. **Env Presence Check Limits**: Env reading is limited to presence-only checks for exact declared key names, only when explicitly enabled via `--check-env-presence`.
-5. **Credential Leak Prevention**: Credential values, lengths, prefixes, suffixes, hashes, env lines, and raw env contents are strictly forbidden from output, logs, docs, and tests.
+4. **Env Presence Check Limits**: Env reading is limited to pure key membership presence-only checks for exact declared key names, only when explicitly enabled via `--check-env-presence`.
+5. **Credential Leak Prevention**: Credential values, lengths, prefixes, suffixes, hashes, env lines, and raw env contents are strictly forbidden from output, logs, docs, and tests. No value retrieval (e.g. `.get()`, `__getitem__`) is allowed.
 6. **No Platform API Calls**: This contract does not call Substack, Discord, or any platform APIs.
 7. **No Credential/Permission Validation**: This contract does not validate credentials with providers.
 8. **No Request Artifacts**: This contract does not create endpoint, webhook, API, or browser request artifacts.
