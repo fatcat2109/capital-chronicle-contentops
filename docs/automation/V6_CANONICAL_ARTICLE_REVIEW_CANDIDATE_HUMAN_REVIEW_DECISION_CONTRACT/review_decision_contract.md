@@ -1,4 +1,4 @@
-﻿# Review Decision Contract
+# Review Decision Contract
 
 ## Purpose
 
@@ -58,6 +58,10 @@ Decision packets always keep:
 - `review_only: true`
 - `kill_switch_active: true`
 - `runtime_truth: false`
+
+## Malformed Input Policy
+
+Malformed input includes invalid JSON and valid JSON whose top-level value is not an object, including arrays, strings, numbers, booleans, and null. Non-object packets fail closed into deterministic blocked decision packets with malformed_candidate_json and all public/live states false or null.
 
 ## Safety Rules
 

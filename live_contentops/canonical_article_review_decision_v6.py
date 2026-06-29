@@ -1,4 +1,4 @@
-﻿"""V6 canonical article review-candidate human review decision contract."""
+"""V6 canonical article review-candidate human review decision contract."""
 from __future__ import annotations
 
 import argparse
@@ -142,9 +142,10 @@ def make_review_decision(
     safe_notes, warnings = _redact_notes(review_notes)
     if safe_notes != review_notes:
         blockers.append("review_notes_secret_marker_detected")
-    candidate_id = str(candidate_packet.get("candidate_id") or "")
+    candidate_is_dict = isinstance(candidate_packet, dict)
+    candidate_id = str(candidate_packet.get("candidate_id") or "") if candidate_is_dict else ""
     source_hash = hashlib.sha256(_canonical_json(candidate_packet).encode("utf-8")).hexdigest()
-    source_file_hash = str(candidate_packet.get("source_file_sha256") or "")
+    source_file_hash = str(candidate_packet.get("source_file_sha256") or "") if candidate_is_dict else ""
     decision_material = {
         "source_candidate_id": candidate_id,
         "source_candidate_sha256": source_hash,

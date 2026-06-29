@@ -1,4 +1,4 @@
-﻿import json
+import json
 from dataclasses import asdict
 from pathlib import Path
 
@@ -175,3 +175,64 @@ def test_wrong_task_label_or_status_fails_closed(tmp_path):
     candidate["candidate_status"] = "BLOCKED"
     assert "candidate_status_not_pending_human_review" in _decision(candidate).blockers
     assert INTAKE_TASK_LABEL.endswith("INTAKE_FROM_MARKDOWN_V0")
+
+
+def test_non_dict_candidate_list_fails_closed_without_exception():
+    decision = make_review_decision([], "accept_for_editorial_workflow", "jim", "2026-06-29T22:00:00+07:00")
+    assert "malformed_candidate_json" in decision.blockers
+    assert decision.accepted_for_editorial_workflow is False
+    assert decision.rejected is False
+    assert decision.deferred is False
+    _assert_review_only(decision)
+    assert decision.source_candidate_id == ""
+    assert decision.source_candidate_sha256
+
+
+def test_non_dict_candidate_string_fails_closed_without_exception():
+    decision = make_review_decision("bad", "accept_for_editorial_workflow", "jim", "2026-06-29T22:00:00+07:00")
+    assert "malformed_candidate_json" in decision.blockers
+    assert decision.accepted_for_editorial_workflow is False
+    assert decision.rejected is False
+    assert decision.deferred is False
+    _assert_review_only(decision)
+
+
+def test_cli_non_object_json_writes_blocked_packet(tmp_path):
+    candidate_path = tmp_path / "candidate.json"
+    candidate_path.write_text("[]", encoding="utf-8")
+    output_dir = tmp_path / "out"
+    exit_code = main([
+        str(candidate_path),
+        "--decision", "accept_for_editorial_workflow",
+        "--reviewer-id", "jim",
+        "--reviewed-at-manual", "2026-06-29T22:00:00+07:00",
+        "--output-dir", str(output_dir),
+    ])
+    assert exit_code == 1
+    packets = list(output_dir.glob("canonical_article_review_decision_*.json"))
+    assert len(packets) == 1
+    packet = json.loads(packets[0].read_text(encoding="utf-8"))
+    assert "malformed_candidate_json" in packet["blockers"]
+    assert packet["accepted_for_editorial_workflow"] is False
+    assert packet["approved_canonical_article_available"] is False
+    assert packet["publication_ready"] is False
+    assert packet["dispatch_allowed"] is False
+    assert packet["platform_variant_generation_allowed"] is False
+    assert packet["outbox_creation_allowed"] is False
+    assert packet["public_url"] is None
+    assert packet["public_metrics"] is None
+
+
+def test_review_decision_files_are_bom_free_and_sample_loads():
+    paths = [
+        Path("live_contentops/canonical_article_review_decision_v6.py"),
+        Path("tests/test_canonical_article_review_decision_v6.py"),
+    ]
+    docs_dir = Path("docs/automation/V6_CANONICAL_ARTICLE_REVIEW_CANDIDATE_HUMAN_REVIEW_DECISION_CONTRACT")
+    paths.extend(path for path in docs_dir.glob("*") if path.is_file())
+    for path in paths:
+        assert not path.read_bytes().startswith(b"\xef\xbb\xbf")
+    sample = docs_dir / "sample_review_decision_packet.json"
+    loaded = json.loads(sample.read_text(encoding="utf-8"))
+    assert loaded["sample_packet_non_runtime"] is True
+    assert loaded["runtime_truth"] is False

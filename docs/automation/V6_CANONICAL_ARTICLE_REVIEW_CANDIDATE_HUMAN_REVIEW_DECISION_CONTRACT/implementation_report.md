@@ -1,4 +1,4 @@
-﻿# V6 Canonical Article Review-Candidate Human Review Decision Contract - Implementation Report
+# V6 Canonical Article Review-Candidate Human Review Decision Contract - Implementation Report
 
 ## Task Label
 
@@ -44,6 +44,12 @@ This is editorial workflow intake only. It is not publication approval.
 - `python -m pytest -q tests/test_canonical_article_intake_v6.py`
 - `python -m pytest -q tests/test_project_sources_bundle_after_v6_loop_contracts.py tests/test_project_sources_upload_bundle_v6.py tests/test_security_scans.py`
 - `python -m pytest -q tests/test_canonical_article_draft_gate_v6.py tests/test_canonical_article_draft_from_source_pack_v6.py tests/test_canonical_article_draft_safety_validator_v6.py tests/test_canonical_draft_eligibility_validator_v6.py`
+
+## Repair Note
+
+- Valid JSON with non-object top-level candidate packets now fails closed into blocked decision packets.
+- Patched files were rewritten as UTF-8 without BOM.
+- No publication, dispatch, outbox, or platform-variant behavior was added.
 
 ## Safety Confirmation
 
