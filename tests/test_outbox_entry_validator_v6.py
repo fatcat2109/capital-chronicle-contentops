@@ -262,6 +262,233 @@ def test_validator_fails_on_leakage_scans():
         assert expected_blocker in blockers
 
 
+def test_broad_substrings_leak():
+    # 1. source_name="Refinitiv"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    packet["outbox_entry_status"] = "Source Name: Refinitiv"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "source_name_leak_detected" in blockers
+
+    # 2. source_publisher="Reference Data Inc"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    packet["outbox_entry_status"] = "Publisher: Reference Data Inc"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "source_name_leak_detected" in blockers
+
+    # 3. source_names=["Refinitiv"]
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    output["source_names"] = ["Refinitiv"]
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "source_name_leak_detected" in blockers
+
+    # 4. operator_signature="contract_operator_signature"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    template["operator_signature"] = "contract_operator_signature"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_signature_leaked" in blockers
+
+    # 5. operator_id="policy_operator_id"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    template["operator_id"] = "policy_operator_id"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_signature_leaked" in blockers
+
+    # 6. approval_id="policy_approval_id"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    template["approval_id"] = "policy_approval_id"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_signature_leaked" in blockers
+
+    # 7. approval_hash="contract_approval_hash"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    template["approval_hash"] = "contract_approval_hash"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_signature_leaked" in blockers
+
+    # 8. payload_hash="policy_payload_hash"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    template["payload_hash"] = "policy_payload_hash"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_signature_leaked" in blockers
+
+    # 9. outbox_payload_hash="manifest_payload_hash"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    template["outbox_payload_hash"] = "manifest_payload_hash"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_signature_leaked" in blockers
+
+    # 10. outbox_entry_id="contract_outbox_entry_id"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    template["outbox_entry_id"] = "contract_outbox_entry_id"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_signature_leaked" in blockers
+
+    # 11. approval_queue_entry_id="status_queue_entry"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    template["approval_queue_entry_id"] = "status_queue_entry"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_signature_leaked" in blockers
+
+    # 12. destination_binding_ref="ref_destination_binding"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    template["destination_binding_ref"] = "ref_destination_binding"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_signature_leaked" in blockers
+
+    # 13. account_binding_ref="ref_account_binding"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    template["account_binding_ref"] = "ref_account_binding"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_signature_leaked" in blockers
+
+    # 14. dispatch_statement="contract dispatch statement"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    template["dispatch_statement"] = "contract dispatch statement"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "operator_signature_leaked" in blockers
+
+    # 15. public_url="https://example.com/ref"
+    packet = packet_builder.make_outbox_entry_packet()
+    contract = contract_builder.make_outbox_entry_input_contract()
+    template = coordinator.make_outbox_entry_blocked_template()
+    output = coordinator.make_outbox_entry_blocked_output()
+    matrix = coordinator.make_outbox_entry_gate_matrix()
+    checklist = coordinator.make_outbox_entry_checklist()
+
+    packet["outbox_entry_status"] = "https://example.com/ref"
+    report, blockers = validator.validate_outbox_entry_contract(
+        packet, contract, template, output, matrix, checklist
+    )
+    assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+    assert "url_leak_in_runtime_artifact" in blockers
+
+
 def test_no_forbidden_behavior_in_validator():
     import live_contentops.outbox_entry_validator_v6 as target_module
     attrs = dir(target_module)

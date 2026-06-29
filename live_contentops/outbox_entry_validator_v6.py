@@ -41,28 +41,53 @@ def is_placeholder(val: Any) -> bool:
         return True
     if isinstance(val, str):
         val_lower = val.lower()
-        if "redacted" in val_lower or "placeholder" in val_lower or "unverified" in val_lower or "missing" in val_lower or "required" in val_lower or "blocked" in val_lower or "ref" in val_lower or "policy" in val_lower or "status" in val_lower or "manifest" in val_lower or "contract" in val_lower:
+        if "redacted" in val_lower or "placeholder" in val_lower or "unverified" in val_lower or "missing" in val_lower or "pending" in val_lower:
             return True
-        placeholders = [
+        exact_placeholders = {
+            "none", "null", "blocked",
             "none: verification pending",
             "manual_ingestion_pending",
-            "manual_operator_research_pending", "null",
+            "manual_operator_research_pending",
             "outbox_entry_blocked_waiting_for_approved_exact_payload_review",
             "future_outbox_entry_input_contract_only",
             "blocked_template_only_not_outbox_entry",
             "blocked_no_outbox_entry_created",
             "blocked_missing_approved_payload_and_destination",
             "outbox_entry_blocked_pending_approved_payload_and_destination",
+            "outbox_entry_input_contract.json",
+            "operator_signature_absent",
+            "approved_exact_payload_review_ref",
+            "approval_queue_review_output_ref",
+            "rendered_platform_payloads_ref",
+            "exact_payload_preview_ref",
+            "platform_payload_manifest_ref",
+            "payload_hash_ref",
+            "destination_binding_ref",
+            "account_binding_ref",
+            "approval_id_ref",
+            "approval_hash_ref",
+            "dispatch_policy_ref",
+            "jim_review_ref",
+            "approved_exact_payload_review_required",
+            "rendered_platform_payloads_required",
+            "exact_payload_preview_required",
+            "payload_hash_required",
+            "destination_binding_required",
+            "account_binding_required",
+            "approval_id_required",
+            "approval_hash_required",
+            "dispatch_policy_required",
+            "outbox_entry_creation_blocked",
+            "dispatch_authorization_missing",
             "no_outbox_entry_id_created",
             "no_outbox_payload_hash_created",
             "no_dispatch_attempt_created",
-            "no_approval_id_created",
-            "no_approval_hash_created",
-            "no_payload_hash_created",
-            "no_outbox_entry_created",
-            "operator_signature_absent"
-        ]
-        if any(p in val_lower for p in placeholders):
+            "no_publication_ready_claim",
+            "no_dispatch_ready_claim",
+            "no_financial_advice_language",
+            "jim_final_review_required"
+        }
+        if val_lower in exact_placeholders:
             return True
     return False
 
@@ -398,7 +423,10 @@ def validate_outbox_entry_contract(
         # E. Operator signature / Approval ID / Approval Hash / Dispatch statement checks
         is_op_key = key_name.lower() in [
             "operator_id", "operator_verified_by", "operator_signature",
-            "approved_by", "operator", "approval_id", "approval_hash", "dispatch_statement", "outbox_entry_id"
+            "approved_by", "operator", "approval_id", "approval_hash", "dispatch_statement", 
+            "outbox_entry_id", "approval_queue_entry_id", "outbox_payload_hash",
+            "destination_binding_ref", "account_binding_ref", "destination_binding", "account_binding",
+            "payload_hash"
         ] or (key_name.lower().startswith("operator_id") and not key_name.lower().endswith("_redacted"))
         if is_op_key and not is_placeholder(t):
             blockers.append("operator_signature_leaked")
@@ -408,6 +436,13 @@ def validate_outbox_entry_contract(
             failed = True
         if "approval_123" in t_lower or "approval_id" in t_lower and not is_placeholder(t):
             blockers.append("approval_id_present")
+            failed = True
+
+        is_url_or_account_key = key_name.lower() in [
+            "public_url", "public_urls", "webhook_url", "webhook_urls", "webhook_request_url", "platform_account_id"
+        ]
+        if is_url_or_account_key and not is_placeholder(t):
+            blockers.append("private_or_secret_material_detected")
             failed = True
 
         # F. Timestamp check
