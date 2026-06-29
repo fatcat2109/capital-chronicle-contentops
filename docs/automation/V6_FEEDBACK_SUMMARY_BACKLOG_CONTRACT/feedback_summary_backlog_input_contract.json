@@ -1,0 +1,86 @@
+{
+  "contract_status": "FUTURE_FEEDBACK_SUMMARY_BACKLOG_INPUT_CONTRACT_ONLY",
+  "runtime_truth": false,
+  "required_inputs": [
+    {
+      "input_name": "community_feedback_capture_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_feedback_summary_backlog_creation": true
+    },
+    {
+      "input_name": "redacted_feedback_records_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_feedback_summary_backlog_creation": true
+    },
+    {
+      "input_name": "feedback_capture_policy_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_feedback_summary_backlog_creation": true
+    },
+    {
+      "input_name": "feedback_summarization_policy_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_feedback_summary_backlog_creation": true
+    },
+    {
+      "input_name": "backlog_routing_policy_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_feedback_summary_backlog_creation": true
+    },
+    {
+      "input_name": "public_url_proof_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_feedback_summary_backlog_creation": true
+    },
+    {
+      "input_name": "platform_publication_id_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_feedback_summary_backlog_creation": true
+    },
+    {
+      "input_name": "audit_redaction_policy_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_feedback_summary_backlog_creation": true
+    },
+    {
+      "input_name": "operator_summary_authorization_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_feedback_summary_backlog_creation": true
+    },
+    {
+      "input_name": "jim_feedback_review_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_feedback_summary_backlog_creation": true
+    }
+  ]
+}

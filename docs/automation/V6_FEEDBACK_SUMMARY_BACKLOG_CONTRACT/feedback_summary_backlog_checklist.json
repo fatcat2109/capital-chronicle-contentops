@@ -1,0 +1,145 @@
+{
+  "checklist_status": "FEEDBACK_SUMMARY_BACKLOG_BLOCKED_PENDING_FEEDBACK_CAPTURE_AND_POLICIES",
+  "items": [
+    {
+      "item_name": "community_feedback_capture_required",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "redacted_feedback_records_required",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "feedback_summarization_policy_required",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "backlog_routing_policy_required",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "public_url_proof_required",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "platform_publication_id_required",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "operator_summary_authorization_required",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "jim_feedback_review_required",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "feedback_summary_generation_blocked",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "backlog_item_creation_blocked",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "no_feedback_summaries_created",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "no_backlog_items_created",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "no_next_article_signals_created",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "no_redacted_feedback_records_created",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "no_comment_capture_performed",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "no_reaction_capture_performed",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "no_metric_capture_performed",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "no_public_url_created",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "no_publication_ready_claim",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    },
+    {
+      "item_name": "no_financial_advice_language",
+      "current_status": "blocked",
+      "blocks_feedback_summary_backlog_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "feedback_summary_backlog_input_contract.json"
+    }
+  ]
+}

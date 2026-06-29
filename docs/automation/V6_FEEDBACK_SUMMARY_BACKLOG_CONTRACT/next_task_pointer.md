@@ -1,0 +1,4 @@
+# Next Recommended Task Pointer
+
+The next task in the V6 loop mapping is:
+`TASK_CONTENTOPS_V6_NEXT_ARTICLE_PLANNING_PACKET_FROM_FEEDBACK_CONTRACT_DRY_RUN_HEAVY_BATCH_V0`

@@ -3,8 +3,8 @@
 ## Repository Metadata
 - **Branch**: master
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: 7912d98522851cc2cf2cf497c3f93dde7fb1edda (requires GitHub audit after push)
-- **Latest Task**: TASK_CONTENTOPS_V6_COMMUNITY_FEEDBACK_CAPTURE_CONTRACT_DRY_RUN_HEAVY_BATCH_V0
+- **Current generation HEAD (pre-commit generation input only, not runtime authority)**: 2e0ec87b6cd2528d9f9c3beae9174b357733c5b4 (requires GitHub audit after push)
+- **Latest Task**: TASK_CONTENTOPS_V6_FEEDBACK_SUMMARY_BACKLOG_CONTRACT_DRY_RUN_HEAVY_BATCH_V0
 - **Previous Accepted Status Task**: TASK_CONTENTOPS_V6_OPERATOR_PIPELINE_STATUS_AND_BLOCKED_RUNBOOK_HEAVY_BATCH_V0
 
 > [!WARNING]
@@ -32,4 +32,4 @@
 - safety_review_incomplete
 
 ## Next Recommended Task
-- **Recommended next task**: `TASK_CONTENTOPS_V6_FEEDBACK_SUMMARY_BACKLOG_CONTRACT_DRY_RUN_HEAVY_BATCH_V0`
+- **Recommended next task**: `TASK_CONTENTOPS_V6_NEXT_ARTICLE_PLANNING_PACKET_FROM_FEEDBACK_CONTRACT_DRY_RUN_HEAVY_BATCH_V0`

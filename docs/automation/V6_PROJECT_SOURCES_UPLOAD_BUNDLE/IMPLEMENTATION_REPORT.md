@@ -1,9 +1,9 @@
 # V6 Project Sources Upload Bundle Implementation Report
 
-- **Task Label**: TASK_CONTENTOPS_V6_COMMUNITY_FEEDBACK_CAPTURE_CONTRACT_DRY_RUN_HEAVY_BATCH_V0
+- **Task Label**: TASK_CONTENTOPS_V6_FEEDBACK_SUMMARY_BACKLOG_CONTRACT_DRY_RUN_HEAVY_BATCH_V0
 - **Bundle Status**: PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS
 - **Baseline before upload bundle task**: d97bc3968e1babf48c81f384fb547b439e48515c
-- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 7912d98522851cc2cf2cf497c3f93dde7fb1edda (requires GitHub audit after push)
+- **Generation HEAD (pre-commit generation input only, not runtime authority)**: 2e0ec87b6cd2528d9f9c3beae9174b357733c5b4 (requires GitHub audit after push)
 - **Post-commit HEAD Verification**: Final HEAD requires post-push audit after push.
 - **Files Packaged**:
   - CURRENT_STATE_SUMMARY_V6_READINESS.md
