@@ -12,7 +12,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT_DRY_RUN_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT_DRY_RUN_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
@@ -32,6 +32,7 @@ NEXT_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE_TASK = "TASK_CONTENTOPS_V6_PLATFORM_V
 NEXT_PLATFORM_VARIANT_RENDERER_BLOCKED_OUTPUT_TASK = "TASK_CONTENTOPS_V6_PLATFORM_VARIANT_RENDERER_BLOCKED_OUTPUT_DRY_RUN_HEAVY_BATCH_V0"
 NEXT_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT_TASK = "TASK_CONTENTOPS_V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT_DRY_RUN_HEAVY_BATCH_V0"
 NEXT_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT_TASK = "TASK_CONTENTOPS_V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT_DRY_RUN_HEAVY_BATCH_V0"
+NEXT_OUTBOX_ENTRY_CONTRACT_TASK = "TASK_CONTENTOPS_V6_OUTBOX_ENTRY_CONTRACT_DRY_RUN_HEAVY_BATCH_V0"
 NEXT_MANUAL_SIGN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_SIGN_PAYLOAD_HASH_MANUAL_STEP"
 NEXT_CAPTURE_RUN_TASK = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_CAPTURE_LOCAL_RUN_STEP"
 NEXT_DISPATCH_READINESS_TASK = "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION_LANE_HEAVY_BATCH_V0"
@@ -946,7 +947,18 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT/platform_variant_approval_blocker_report.md",
         "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT/platform_variant_approval_runbook.md",
         "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT/implementation_report.md",
-        "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT/next_task_pointer.md"
+        "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT/next_task_pointer.md",
+        "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_exact_payload_review_packet.json",
+        "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_exact_payload_review_input_contract.json",
+        "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_blocked_review_template.json",
+        "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_blocked_review_output.json",
+        "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_review_gate_matrix.json",
+        "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_review_checklist.json",
+        "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_review_validation_report.json",
+        "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_review_blocker_report.md",
+        "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_review_runbook.md",
+        "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/implementation_report.md",
+        "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/next_task_pointer.md"
     ]
 
     packet = {
@@ -984,7 +996,7 @@ def materialize_project_sources_upload_bundle_packets(
         "no_network_call_in_this_task": True,
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": NEXT_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT_TASK
+        "next_recommended_task": NEXT_OUTBOX_ENTRY_CONTRACT_TASK
     }
 
     return packet, upload_candidate_files

@@ -4,7 +4,7 @@
   "approval_required": true,
   "approval_valid_for_dispatch": false,
   "baseline_before_upload_bundle_task": "d97bc3968e1babf48c81f384fb547b439e48515c",
-  "bundle_generation_head": "f00fa8a2bd0bf1e7ba73568ae5fbc92d87118bf3",
+  "bundle_generation_head": "4c1af910b4c89d79909a54af299314abb3bad974",
   "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
   "bundle_stage": "v6_project_sources_upload_bundle",
   "bundle_status": "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS",
@@ -15,7 +15,7 @@
   "kill_switch_active": true,
   "live_write_attempted": false,
   "new_chat_continuation_file": "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/NEW_CHAT_CONTINUATION_V6_READINESS.md",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT_DRY_RUN_HEAVY_BATCH_V0",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_OUTBOX_ENTRY_CONTRACT_DRY_RUN_HEAVY_BATCH_V0",
   "no_env_read_in_this_task": true,
   "no_live_request_in_this_task": true,
   "no_network_call_in_this_task": true,
@@ -30,7 +30,7 @@
   "schema_version": "6.0.0",
   "source_readiness_evidence_bundle_packet_id": "bundle_fbe34af9e66e",
   "source_supervised_dispatch_readiness_packet_id": "readiness_34edf10af116",
-  "task_label": "TASK_CONTENTOPS_V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT_DRY_RUN_HEAVY_BATCH_V0",
+  "task_label": "TASK_CONTENTOPS_V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT_DRY_RUN_HEAVY_BATCH_V0",
   "unresolved_blockers": [
     "destination_binding_incomplete",
     "kill_switch_active",
@@ -400,7 +400,18 @@
     "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT/platform_variant_approval_blocker_report.md",
     "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT/platform_variant_approval_runbook.md",
     "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT/implementation_report.md",
-    "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT/next_task_pointer.md"
+    "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT/next_task_pointer.md",
+    "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_exact_payload_review_packet.json",
+    "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_exact_payload_review_input_contract.json",
+    "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_blocked_review_template.json",
+    "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_blocked_review_output.json",
+    "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_review_gate_matrix.json",
+    "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_review_checklist.json",
+    "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_review_validation_report.json",
+    "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_review_blocker_report.md",
+    "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/approval_queue_review_runbook.md",
+    "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/implementation_report.md",
+    "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT/next_task_pointer.md"
   ],
   "webhook_url_printed": false
 }
