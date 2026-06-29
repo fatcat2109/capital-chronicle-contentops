@@ -406,3 +406,144 @@ def test_malformed_non_object_cli_blocked_test(tmp_path):
     assert written["dispatch_request_package_gate_available"] is False
     assert written["dispatch_request_package_gate_declared_ready"] is False
     assert written["eligible_for_future_supervised_dispatch_request_package"] is False
+
+
+def test_endpoint_allowlist_rows_extra_fields_fail_closed():
+    for field_name in ["webhook_url", "endpoint_path", "request_payload"]:
+        pref = _preflight()
+        pref["endpoint_allowlist_rows"][0][field_name] = "value"
+        packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+        assert packet.dispatch_request_package_gate_available is False
+        assert f"preflight_endpoint_allowlist_row_0_extra_field_{field_name}_detected" in packet.blockers
+
+
+def test_endpoint_allowlist_rows_host_label_invalid_fails_closed():
+    for bad in ["http://domain.com", "domain.com", "host/path"]:
+        pref = _preflight()
+        pref["endpoint_allowlist_rows"][0]["host_label"] = bad
+        packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+        assert packet.dispatch_request_package_gate_available is False
+        assert "preflight_endpoint_allowlist_row_0_host_label_contains_url_or_domain" in packet.blockers
+
+
+def test_endpoint_allowlist_rows_path_label_invalid_fails_closed():
+    pref = _preflight()
+    pref["endpoint_allowlist_rows"][0]["path_label"] = "/start-with-slash"
+    packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+    assert packet.dispatch_request_package_gate_available is False
+    assert "preflight_endpoint_allowlist_row_0_path_label_starts_with_slash" in packet.blockers
+
+    for term in ["api", "webhook", "token", "account", "channel", "workspace", "app"]:
+        pref = _preflight()
+        pref["endpoint_allowlist_rows"][0]["path_label"] = f"safe_{term}_label"
+        packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+        assert packet.dispatch_request_package_gate_available is False
+        assert "preflight_endpoint_allowlist_row_0_path_label_contains_restricted_terms" in packet.blockers or "preflight_endpoint_allowlist_row_0_path_label_contains_url_or_domain" in packet.blockers
+
+
+def test_endpoint_allowlist_rows_request_budget_exceeds_fails_closed():
+    pref = _preflight()
+    pref["endpoint_allowlist_rows"][0]["request_budget"] = 999
+    packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+    assert packet.dispatch_request_package_gate_available is False
+    assert "preflight_endpoint_allowlist_row_0_request_budget_invalid" in packet.blockers
+
+
+def test_endpoint_allowlist_rows_policy_mismatches_fail_closed():
+    pref = _preflight()
+    pref["endpoint_allowlist_rows"][0]["timeout_policy_label"] = "wrong_timeout"
+    packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+    assert packet.dispatch_request_package_gate_available is False
+    assert "preflight_endpoint_allowlist_row_0_timeout_policy_mismatch" in packet.blockers
+
+
+def test_platform_binding_rows_extra_fields_fail_closed():
+    for field_name in ["account_id", "channel_id", "live_send_instruction"]:
+        pref = _preflight()
+        pref["platform_binding_rows"][0][field_name] = "value"
+        packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+        assert packet.dispatch_request_package_gate_available is False
+        assert f"preflight_platform_binding_row_0_extra_field_{field_name}_detected" in packet.blockers
+
+
+def test_platform_binding_rows_labels_invalid_fail_closed():
+    # URL/domain
+    pref = _preflight()
+    pref["platform_binding_rows"][0]["account_label"] = "domain.com"
+    packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+    assert packet.dispatch_request_package_gate_available is False
+    assert "preflight_platform_binding_row_0_account_label_contains_url_or_domain" in packet.blockers
+
+    # hex ID
+    pref = _preflight()
+    pref["platform_binding_rows"][0]["account_label"] = "account_abcdef12345"
+    packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+    assert packet.dispatch_request_package_gate_available is False
+    assert "preflight_platform_binding_row_0_account_label_contains_hex_id" in packet.blockers
+
+
+def test_platform_binding_rows_endpoint_mismatch_fails_closed():
+    pref = _preflight()
+    pref["platform_binding_rows"][0]["endpoint_host_label"] = "wrong_host"
+    packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+    assert packet.dispatch_request_package_gate_available is False
+    assert "preflight_platform_binding_row_0_endpoint_host_label_mismatch" in packet.blockers
+
+
+def test_platform_binding_rows_credential_mismatch_fails_closed():
+    pref = _preflight()
+    pref["platform_binding_rows"][0]["credential_key_name"] = "DISCORD_KEY"
+    packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+    assert packet.dispatch_request_package_gate_available is False
+    assert "preflight_platform_binding_row_0_credential_key_name_mismatch" in packet.blockers
+
+
+def test_destinations_extra_fields_fail_closed():
+    for field_name in ["channel_id", "account_id", "webhook_url"]:
+        pref = _preflight()
+        pref["destinations"][0][field_name] = "value"
+        packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+        assert packet.dispatch_request_package_gate_available is False
+        assert f"preflight_destination_row_0_extra_field_{field_name}_detected" in packet.blockers
+
+
+def test_destinations_labels_invalid_fail_closed():
+    # URL/domain
+    pref = _preflight()
+    pref["destinations"][0]["destination_label"] = "http://bad.com"
+    packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+    assert packet.dispatch_request_package_gate_available is False
+    assert "preflight_destination_row_0_destination_label_contains_url_or_domain" in packet.blockers
+
+    # hex ID
+    pref = _preflight()
+    pref["destinations"][0]["destination_label"] = "dest_abcdef12345"
+    packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+    assert packet.dispatch_request_package_gate_available is False
+    assert "preflight_destination_row_0_destination_label_contains_hex_id" in packet.blockers
+
+
+def test_destinations_manual_confirmed_false_fails_closed():
+    pref = _preflight()
+    pref["destinations"][0]["manual_operator_confirmed"] = False
+    packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+    assert packet.dispatch_request_package_gate_available is False
+    assert "preflight_destination_row_0_manual_operator_confirmed_not_true" in packet.blockers
+
+
+def test_inherited_row_secret_marker_blocks_sha():
+    pref = _preflight()
+    pref["endpoint_allowlist_rows"][0]["operator_notes"] = "Accessing private_key term."
+    packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+    assert packet.dispatch_request_package_gate_available is False
+    assert "preflight_endpoint_allowlist_row_0_secret_marker_detected" in packet.blockers
+    assert packet.account_binding_preflight_sha256 == ""
+
+
+def test_inherited_row_forbidden_live_claim_fails_closed():
+    pref = _preflight()
+    pref["endpoint_allowlist_rows"][0]["operator_notes"] = "This is a live_dispatch claim."
+    packet = make_dispatch_request_package_gate_packet(pref, _declaration())
+    assert packet.dispatch_request_package_gate_available is False
+    assert "preflight_endpoint_allowlist_row_0_forbidden_live_claim_detected_live_dispatch" in packet.blockers
+

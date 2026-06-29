@@ -164,6 +164,25 @@ ALLOWED_SCHEMA_PHRASES = (
     "dispatch_request_package_gate_available",
     "dispatch_request_package_gate_declared_ready",
     "account_binding_preflight_sha256",
+    "cc_announcements_channel_webhook",
+    "staff_webhook_send_access",
+    "discord webhook",
+    "webhook access",
+    "webhook host",
+    "webhook path",
+    "webhook method",
+    "endpoint host",
+    "endpoint path",
+    "endpoint method",
+    "endpoint kind",
+    "endpoint value",
+    "endpoint allowlist row",
+    "endpoint allowlist rows",
+    "endpoint path label",
+    "endpoint host label",
+    "webhook path label",
+    "webhook host label",
+    "webhook method label"
 )
 
 
@@ -175,6 +194,22 @@ def _scan_for_forbidden_live_claims(text: str) -> str | None:
         if term in lowered:
             return term
     return None
+
+
+def _scan_for_forbidden_binding_row_claims(row: dict[str, Any]) -> str | None:
+    for k, v in row.items():
+        if k == "credential_key_name":
+            continue
+        if isinstance(v, str):
+            lowered = v.lower()
+            for phrase in ALLOWED_SCHEMA_PHRASES:
+                lowered = lowered.replace(phrase.lower(), "")
+            for term in FORBIDDEN_LIVE_CLAIMS:
+                if term in lowered:
+                    return term
+    return None
+
+
 
 
 @dataclass(frozen=True)
@@ -453,21 +488,242 @@ def _validate_preflight_packet(preflight: dict[str, Any]) -> list[str]:
     if preflight.get("blockers"):
         blockers.append("preflight_blockers_not_empty")
 
+    # 1. Revalidate endpoint_allowlist_rows
     allowlist_rows = preflight.get("endpoint_allowlist_rows", [])
     if not isinstance(allowlist_rows, list) or len(allowlist_rows) != 2:
         blockers.append("preflight_endpoint_allowlist_rows_count_invalid")
     else:
-        platforms_found = [row.get("platform") for row in allowlist_rows if isinstance(row, dict)]
-        if platforms_found != ["substack", "discord"]:
-            blockers.append("preflight_endpoint_allowlist_rows_platforms_invalid")
+        allowed_allowlist_keys = {
+            "platform",
+            "action_family",
+            "host_label",
+            "path_label",
+            "method_label",
+            "endpoint_allowlist_kind",
+            "request_budget",
+            "timeout_policy_label",
+            "retry_policy_label",
+            "audit_redaction_required",
+            "manual_fallback_required",
+            "operator_notes"
+        }
+        for idx, row in enumerate(allowlist_rows):
+            if not isinstance(row, dict):
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_not_dict")
+                continue
 
+            row_keys = set(row.keys())
+            extra = row_keys - allowed_allowlist_keys
+            for f in sorted(extra):
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_extra_field_{f}_detected")
+
+            platform = row.get("platform")
+            expected_plat = "substack" if idx == 0 else "discord"
+            if platform != expected_plat:
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_platform_invalid")
+
+            if row.get("action_family") != "future_supervised_live_dispatch":
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_action_family_invalid")
+
+            host_label = row.get("host_label")
+            if not isinstance(host_label, str) or not host_label.strip():
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_host_label_invalid")
+            else:
+                if "http" in host_label or "/" in host_label or "." in host_label:
+                    blockers.append(f"preflight_endpoint_allowlist_row_{idx}_host_label_contains_url_or_domain")
+                if any(k in host_label.lower() for k in ["token", "account", "channel", "workspace", "app", "cookie", "secret"]):
+                    blockers.append(f"preflight_endpoint_allowlist_row_{idx}_host_label_contains_restricted_terms")
+
+            path_label = row.get("path_label")
+            if not isinstance(path_label, str) or not path_label.strip():
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_path_label_invalid")
+            else:
+                if path_label.startswith("/"):
+                    blockers.append(f"preflight_endpoint_allowlist_row_{idx}_path_label_starts_with_slash")
+                if "http" in path_label or ".com" in path_label or "api" in path_label or "webhook" in path_label:
+                    blockers.append(f"preflight_endpoint_allowlist_row_{idx}_path_label_contains_url_or_domain")
+                if "/" in path_label or "." in path_label:
+                    blockers.append(f"preflight_endpoint_allowlist_row_{idx}_path_label_contains_slash_or_dot")
+                if any(k in path_label.lower() for k in ["token", "account", "channel", "workspace", "app", "cookie", "secret"]):
+                    blockers.append(f"preflight_endpoint_allowlist_row_{idx}_path_label_contains_restricted_terms")
+
+            method = row.get("method_label")
+            if method not in ["post_method_label_only", "browser_manual_method_label_only", "webhook_method_label_only"]:
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_method_label_invalid")
+
+            if row.get("endpoint_allowlist_kind") != "label_only_no_endpoint_value":
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_kind_invalid")
+
+            budget = row.get("request_budget")
+            max_budget = preflight.get("live_write_request_budget_confirmed", 0)
+            if not isinstance(budget, int) or budget < 1 or budget > max_budget:
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_request_budget_invalid")
+
+            if row.get("timeout_policy_label") != preflight.get("timeout_policy_confirmed"):
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_timeout_policy_mismatch")
+
+            if row.get("retry_policy_label") != preflight.get("retry_policy_confirmed"):
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_retry_policy_mismatch")
+
+            if row.get("audit_redaction_required") is not True:
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_audit_redaction_not_true")
+
+            if row.get("manual_fallback_required") is not True:
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_manual_fallback_not_true")
+
+            if not isinstance(row.get("operator_notes"), str):
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_notes_invalid")
+
+            row_serialized = json.dumps(row)
+            if _has_secret_marker(row_serialized):
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_secret_marker_detected")
+            forbidden_term = _scan_for_forbidden_binding_row_claims(row)
+            if forbidden_term:
+                blockers.append(f"preflight_endpoint_allowlist_row_{idx}_forbidden_live_claim_detected_{forbidden_term.replace(' ', '_')}")
+
+    # 2. Revalidate platform_binding_rows
     binding_rows = preflight.get("platform_binding_rows", [])
     if not isinstance(binding_rows, list) or len(binding_rows) != 2:
         blockers.append("preflight_platform_binding_rows_count_invalid")
     else:
-        platforms_found = [row.get("platform") for row in binding_rows if isinstance(row, dict)]
-        if platforms_found != ["substack", "discord"]:
-            blockers.append("preflight_platform_binding_rows_platforms_invalid")
+        allowed_binding_keys = {
+            "platform",
+            "destination_label",
+            "account_label",
+            "permission_label",
+            "binding_kind",
+            "credential_key_name",
+            "endpoint_host_label",
+            "endpoint_path_label",
+            "method_label",
+            "operator_confirmed_destination",
+            "operator_confirmed_account_context",
+            "operator_notes"
+        }
+        for idx, row in enumerate(binding_rows):
+            if not isinstance(row, dict):
+                blockers.append(f"preflight_platform_binding_row_{idx}_not_dict")
+                continue
+
+            row_keys = set(row.keys())
+            extra = row_keys - allowed_binding_keys
+            for f in sorted(extra):
+                blockers.append(f"preflight_platform_binding_row_{idx}_extra_field_{f}_detected")
+
+            platform = row.get("platform")
+            expected_plat = "substack" if idx == 0 else "discord"
+            if platform != expected_plat:
+                blockers.append(f"preflight_platform_binding_row_{idx}_platform_invalid")
+
+            for label_field in ["destination_label", "account_label", "permission_label"]:
+                val = row.get(label_field)
+                if not isinstance(val, str) or not val.strip():
+                    blockers.append(f"preflight_platform_binding_row_{idx}_{label_field}_invalid")
+                else:
+                    if "http" in val or "/" in val or "." in val:
+                        blockers.append(f"preflight_platform_binding_row_{idx}_{label_field}_contains_url_or_domain")
+                    if re.search(r"[0-9a-fA-F]{8,}", val):
+                        blockers.append(f"preflight_platform_binding_row_{idx}_{label_field}_contains_hex_id")
+                    if re.search(r"\b\d{8,}\b", val):
+                        blockers.append(f"preflight_platform_binding_row_{idx}_{label_field}_contains_numeric_id")
+
+            if row.get("binding_kind") != "non_secret_label_only_not_verified":
+                blockers.append(f"preflight_platform_binding_row_{idx}_binding_kind_invalid")
+
+            cred_key = row.get("credential_key_name")
+            cred_key_names_only = preflight.get("credential_key_names_only", [])
+            matched_keys = [k for k in cred_key_names_only if k.lower().startswith(platform)]
+            if cred_key not in matched_keys:
+                blockers.append(f"preflight_platform_binding_row_{idx}_credential_key_name_mismatch")
+
+            allowlist_row = allowlist_rows[idx] if idx < len(allowlist_rows) and isinstance(allowlist_rows[idx], dict) else None
+            if allowlist_row:
+                if row.get("endpoint_host_label") != allowlist_row.get("host_label"):
+                    blockers.append(f"preflight_platform_binding_row_{idx}_endpoint_host_label_mismatch")
+                if row.get("endpoint_path_label") != allowlist_row.get("path_label"):
+                    blockers.append(f"preflight_platform_binding_row_{idx}_endpoint_path_label_mismatch")
+                if row.get("method_label") != allowlist_row.get("method_label"):
+                    blockers.append(f"preflight_platform_binding_row_{idx}_method_label_mismatch")
+
+            if row.get("operator_confirmed_destination") is not True:
+                blockers.append(f"preflight_platform_binding_row_{idx}_operator_confirmed_destination_not_true")
+
+            if row.get("operator_confirmed_account_context") is not True:
+                blockers.append(f"preflight_platform_binding_row_{idx}_operator_confirmed_account_context_not_true")
+
+            if not isinstance(row.get("operator_notes"), str):
+                blockers.append(f"preflight_platform_binding_row_{idx}_notes_invalid")
+
+            row_copy = dict(row)
+            row_copy.pop("credential_key_name", None)
+            row_serialized = json.dumps(row_copy)
+            if _has_secret_marker(row_serialized):
+                blockers.append(f"preflight_platform_binding_row_{idx}_secret_marker_detected")
+            forbidden_term = _scan_for_forbidden_binding_row_claims(row_copy)
+            if forbidden_term:
+                blockers.append(f"preflight_platform_binding_row_{idx}_forbidden_live_claim_detected_{forbidden_term.replace(' ', '_')}")
+
+    # 3. Revalidate destinations
+    destinations = preflight.get("destinations", [])
+    if not isinstance(destinations, list) or len(destinations) != 2:
+        blockers.append("preflight_destinations_count_invalid")
+    else:
+        allowed_dest_keys = {
+            "platform",
+            "destination_label",
+            "destination_type",
+            "destination_binding_kind",
+            "manual_operator_confirmed"
+        }
+        for idx, row in enumerate(destinations):
+            if not isinstance(row, dict):
+                blockers.append(f"preflight_destination_row_{idx}_not_dict")
+                continue
+
+            row_keys = set(row.keys())
+            extra = row_keys - allowed_dest_keys
+            for f in sorted(extra):
+                blockers.append(f"preflight_destination_row_{idx}_extra_field_{f}_detected")
+
+            platform = row.get("platform")
+            expected_plat = "substack" if idx == 0 else "discord"
+            if platform != expected_plat:
+                blockers.append(f"preflight_destination_row_{idx}_platform_invalid")
+
+            dest_label = row.get("destination_label")
+            if not isinstance(dest_label, str) or not dest_label.strip():
+                blockers.append(f"preflight_destination_row_{idx}_destination_label_invalid")
+            else:
+                if "http" in dest_label or "/" in dest_label or "." in dest_label:
+                    blockers.append(f"preflight_destination_row_{idx}_destination_label_contains_url_or_domain")
+                if re.search(r"[0-9a-fA-F]{8,}", dest_label):
+                    blockers.append(f"preflight_destination_row_{idx}_destination_label_contains_hex_id")
+                if re.search(r"\b\d{8,}\b", dest_label):
+                    blockers.append(f"preflight_destination_row_{idx}_destination_label_contains_numeric_id")
+
+            dest_type = row.get("destination_type")
+            if not isinstance(dest_type, str) or not dest_type.strip():
+                blockers.append(f"preflight_destination_row_{idx}_destination_type_invalid")
+            else:
+                if "http" in dest_type or "/" in dest_type or "." in dest_type:
+                    blockers.append(f"preflight_destination_row_{idx}_destination_type_contains_url_or_domain")
+                if re.search(r"[0-9a-fA-F]{8,}", dest_type):
+                    blockers.append(f"preflight_destination_row_{idx}_destination_type_contains_hex_id")
+                if re.search(r"\b\d{8,}\b", dest_type):
+                    blockers.append(f"preflight_destination_row_{idx}_destination_type_contains_numeric_id")
+
+            if row.get("destination_binding_kind") != "non_secret_label_only":
+                blockers.append(f"preflight_destination_row_{idx}_destination_binding_kind_invalid")
+
+            if row.get("manual_operator_confirmed") is not True:
+                blockers.append(f"preflight_destination_row_{idx}_manual_operator_confirmed_not_true")
+
+            row_serialized = json.dumps(row)
+            if _has_secret_marker(row_serialized):
+                blockers.append(f"preflight_destination_row_{idx}_secret_marker_detected")
+            forbidden_term = _scan_for_forbidden_binding_row_claims(row)
+            if forbidden_term:
+                blockers.append(f"preflight_destination_row_{idx}_forbidden_live_claim_detected_{forbidden_term.replace(' ', '_')}")
 
     return blockers
 
@@ -735,7 +991,7 @@ def make_dispatch_request_package_gate_packet(
         preflight_sha_check.pop("endpoint_allowlist_rows", None)
         preflight_sha_check.pop("platform_binding_rows", None)
         preflight_sha_check.pop("destinations", None)
-        if not _has_secret_marker(json.dumps(preflight_sha_check)) and not any("secret_marker_detected" in b for b in blockers):
+        if not _has_secret_marker(json.dumps(preflight_sha_check)) and not any("secret_marker_detected" in b or "forbidden" in b for b in blockers):
             account_binding_preflight_sha256 = hashlib.sha256(_canonical_json(preflight_packet).encode("utf-8")).hexdigest()
 
         if decl_is_dict and "declaration_secret_marker_detected" not in blockers:

@@ -31,3 +31,5 @@ The local live dispatch request package gate contract consumes a valid account-b
     - `human_review_required` must remain `true`.
     - `kill_switch_active` must remain `true`.
     - `runtime_truth` must remain `false`.
+10. **Inherited Row Revalidation**: All inherited endpoint allowlist rows, platform binding rows, and destinations from the preflight packet are strictly revalidated before output copying.
+

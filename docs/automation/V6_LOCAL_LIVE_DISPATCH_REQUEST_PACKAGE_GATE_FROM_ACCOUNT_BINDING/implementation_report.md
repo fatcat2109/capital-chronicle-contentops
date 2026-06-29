@@ -33,6 +33,7 @@
 - Declarations must not include URLs, domains, endpoint paths, webhook URLs, tokens, cookies, account IDs, channel IDs, workspace IDs, app IDs, request bodies, raw payloads, raw docs, live-send instructions, platform-live claims, public URL/metrics, or actual account/destination identifiers.
 - No network, provider, browser, session, account, or live dispatch verification behavior.
 - Does not create HTTP/webhook request payloads or browser instructions.
+- Inherited endpoint allowlist rows, platform binding rows, and destinations are fully revalidated before output copying.
 
 ## Caveats
 
