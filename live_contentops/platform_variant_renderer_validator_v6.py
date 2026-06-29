@@ -214,6 +214,8 @@ def validate_platform_variant_renderer_blocked_output(
         "platform_style_rules_available",
         "destination_binding_completed",
         "exact_payload_approval_completed",
+        "renderer_execution_allowed",
+        "renderer_execution_performed",
         "platform_copy_generated",
         "platform_payload_created",
         "payload_hash_created",

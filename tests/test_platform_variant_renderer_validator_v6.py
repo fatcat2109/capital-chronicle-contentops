@@ -94,6 +94,8 @@ def test_validator_fails_on_readiness_matrix_active_lane():
         "platform_style_rules_available",
         "destination_binding_completed",
         "exact_payload_approval_completed",
+        "renderer_execution_allowed",
+        "renderer_execution_performed",
         "platform_copy_generated",
         "platform_payload_created",
         "payload_hash_created",
@@ -221,6 +223,36 @@ def test_validator_fails_on_leakage_scans():
         )
         assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
         assert expected_blocker in blockers
+
+
+def test_validator_fails_on_active_packet_flags():
+    flags = [
+        "substack_variant_generated",
+        "discord_variant_generated",
+        "telegram_variant_generated",
+        "x_variant_generated",
+        "linkedin_variant_generated",
+        "threads_variant_generated",
+        "renderer_execution_allowed",
+        "renderer_execution_performed",
+        "platform_variant_generation_allowed",
+        "platform_variant_generation_performed",
+        "platform_payload_hash_created",
+        "approval_packet_created"
+    ]
+    for flag in flags:
+        packet = packet_builder.make_platform_variant_renderer_packet()
+        contract = contract_builder.make_platform_variant_renderer_input_contract()
+        output = coordinator.make_blocked_platform_variant_renderer_output()
+        matrix = coordinator.make_platform_variant_renderer_matrix()
+        checklist = coordinator.make_platform_variant_renderer_checklist()
+
+        packet[flag] = True
+        report, blockers = validator.validate_platform_variant_renderer_blocked_output(
+            packet, contract, output, matrix, checklist
+        )
+        assert report["validation_status"] == "FAILED_WITH_BLOCKERS"
+        assert "platform_variant_renderer_blocked" in blockers
 
 
 def test_no_forbidden_behavior_in_validator():
