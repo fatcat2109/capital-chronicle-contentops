@@ -40,6 +40,12 @@ The source-pack manifest must align with the target `editorial_workflow_id`. The
 
 Source packs must not claim citations are verified/generated, claim article approval/publication readiness, or contain fake public URLs, fake metrics, fake comments, or fake readiness.
 
+For `public_url`, do not block merely because `source_type` is `public_url_reference`. `public_url_reference` is an allowed source reference type only. URL references are never fetched and are not public publication URLs. We block only if public ready/public URL claims appear as a readiness/output/publication claim field or unsafe note claim that attempts to claim publication/readiness/output state.
+
+## Secret-Marker Hash Policy
+
+If the input accepted-review editorial workflow packet or the operator source-pack manifest contains a secret-like marker, the respective SHA256 field (`source_editorial_workflow_sha256` or `source_pack_manifest_sha256`) is not computed from that secret-bearing JSON. Instead, it is persisted as an empty string `""` to prevent storing or leaking hashes derived from secret values.
+
 ## Hard State Rules
 
 Output packets always keep:

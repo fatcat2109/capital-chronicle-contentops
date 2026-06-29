@@ -41,6 +41,11 @@ Adds local operator source-pack intake for accepted-review editorial workflow pa
 - `python -m pytest -q tests/test_project_sources_bundle_after_v6_loop_contracts.py tests/test_project_sources_upload_bundle_v6.py tests/test_security_scans.py`
 - `python -m pytest -q tests/test_canonical_article_draft_gate_v6.py tests/test_canonical_article_draft_from_source_pack_v6.py tests/test_canonical_article_draft_safety_validator_v6.py tests/test_canonical_draft_eligibility_validator_v6.py`
 
+## Repair Note
+
+- Fixes the false-positive blocking of the allowed `source_type: public_url_reference` caused by general string inclusion scanning of public ready markers.
+- Hardens secret-marker behavior: if a secret-like marker is detected in the input manifest or workflow packets, the output SHA256 fields (`source_pack_manifest_sha256` or `source_editorial_workflow_sha256`) are cleared to empty string `""` instead of being computed from the secret-bearing JSON.
+
 ## Safety Confirmation
 
 - Local-only.

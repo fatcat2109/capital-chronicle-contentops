@@ -319,3 +319,60 @@ def test_new_files_and_sample_json_are_utf8_without_bom():
     loaded = json.loads((docs_dir / "sample_source_pack_intake_packet.json").read_text(encoding="utf-8"))
     assert loaded["sample_packet_non_runtime"] is True
     assert loaded["runtime_truth"] is False
+
+def test_public_url_reference_allowed_passes():
+    wf = _workflow()
+    mf = _manifest()
+    mf["sources"][0]["source_type"] = "public_url_reference"
+    mf["sources"][0]["locator"] = "https://example.com/some/grounding/page"
+    mf["sources"][0]["notes"] = "Safe URL reference for research grounding."
+    packet = make_source_pack_intake_packet(wf, mf)
+    assert packet.source_pack_intake_available is True
+    assert not packet.blockers
+    assert packet.source_types == ["public_url_reference"]
+
+
+def test_explicit_public_url_claim_in_notes_fails_closed():
+    wf = _workflow()
+    mf = _manifest()
+    mf["sources"][0]["source_type"] = "public_url_reference"
+    mf["sources"][0]["notes"] = "Here is the public_url of the published post."
+    packet = make_source_pack_intake_packet(wf, mf)
+    assert packet.source_pack_intake_available is False
+    assert any("public_url" in blocker for blocker in packet.blockers)
+
+
+def test_hard_claims_in_manifest_fail_closed():
+    wf = _workflow()
+    claims = [
+        "publication_ready",
+        "dispatch_allowed",
+        "outbox_creation_allowed",
+        "public_metrics",
+        "approved",
+        "canonical_public_url",
+    ]
+    for claim in claims:
+        mf = _manifest()
+        mf["sources"][0]["notes"] = f"notes claim: {claim}"
+        packet = make_source_pack_intake_packet(wf, mf)
+        assert packet.source_pack_intake_available is False
+        assert any(claim in blocker for blocker in packet.blockers)
+
+
+def test_secret_in_manifest_hardens_hashes():
+    wf = _workflow()
+    mf = _manifest()
+    mf["sources"][0]["notes"] = "my password is secret-val"
+    packet = make_source_pack_intake_packet(wf, mf)
+    assert packet.source_pack_intake_available is False
+    assert packet.source_pack_manifest_sha256 == ""
+
+
+def test_secret_in_workflow_hardens_hashes():
+    wf = _workflow()
+    wf["edit_checklist"].append("my secret_marker password")
+    mf = _manifest()
+    packet = make_source_pack_intake_packet(wf, mf)
+    assert packet.source_pack_intake_available is False
+    assert packet.source_editorial_workflow_sha256 == ""

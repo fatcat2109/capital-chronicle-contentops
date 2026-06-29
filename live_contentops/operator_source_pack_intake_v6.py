@@ -216,7 +216,14 @@ def _validate_source_pack_manifest(manifest: dict[str, Any], workflow_id: str) -
         if "locator" in item and not item["locator"]:
             blockers.append(f"source_item_{idx}_locator_empty")
 
-    text_repr = _canonical_json(manifest).lower()
+    import copy
+    manifest_copy = copy.deepcopy(manifest)
+    if isinstance(manifest_copy.get("sources"), list):
+        for item in manifest_copy["sources"]:
+            if isinstance(item, dict) and "source_type" in item:
+                item["source_type"] = "safe_enum"
+
+    text_repr = _canonical_json(manifest_copy).lower()
     for marker in PUBLIC_READY_MARKERS:
         if marker in text_repr:
             blockers.append(f"source_pack_public_ready_or_approval_claim_detected_{marker}")
@@ -291,11 +298,11 @@ def make_source_pack_intake_packet(
         source_pack_purpose = "[REDACTED_SECRET_MARKER_DETECTED]"
 
     source_editorial_workflow_sha256 = ""
-    if workflow_is_dict:
+    if workflow_is_dict and "workflow_secret_marker_detected" not in blockers:
         source_editorial_workflow_sha256 = hashlib.sha256(_canonical_json(editorial_workflow_packet).encode("utf-8")).hexdigest()
 
     source_pack_manifest_sha256 = ""
-    if manifest_is_dict:
+    if manifest_is_dict and "manifest_secret_marker_detected" not in blockers:
         source_pack_manifest_sha256 = hashlib.sha256(_canonical_json(source_pack_manifest).encode("utf-8")).hexdigest()
 
     intake_material = {
