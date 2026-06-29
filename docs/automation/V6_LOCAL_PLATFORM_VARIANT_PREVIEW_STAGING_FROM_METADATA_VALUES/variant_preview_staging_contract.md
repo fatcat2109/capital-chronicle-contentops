@@ -8,6 +8,7 @@ This contract consumes one valid operator metadata values review packet and a ca
 
 - Emits local preview files only.
 - Previews are not approved platform variants.
+- Both the operator-supplied metadata values and the markdown body are scanned for fake/public/citation/advice/dispatch claims before preview files can be generated.
 - Does not create outbox entries or dispatch anything.
 - Does not call Discord/Substack/platform APIs or webhooks.
 - Future approval/outbox/dispatch gates remain separate.

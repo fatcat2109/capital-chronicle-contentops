@@ -55,6 +55,11 @@ Adds a local platform variant preview staging contract that consumes a valid ope
 - No public URLs, metrics, comments, citations, or fake readiness.
 - No env, provider, browser, live API, webhook, network, scraping, or credential validation behavior.
 
+## Repair Note
+
+- Metadata text fields copied into previews (such as canonical_title, meta_description, etc.) are now scanned for fake/public/citation/advice/dispatch claims.
+- Blocked metadata text prevents preview file generation (fails closed).
+
 ## Caveats
 
 Previews are local markdown files with warning headers only. Future approval/outbox/dispatch gates remain separate.

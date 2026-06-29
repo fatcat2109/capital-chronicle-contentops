@@ -260,3 +260,39 @@ def test_new_files_and_sample_json_are_utf8_without_bom():
     loaded = json.loads((docs_dir / "sample_variant_preview_staging_packet.json").read_text(encoding="utf-8"))
     assert loaded["sample_packet_non_runtime"] is True
     assert loaded["runtime_truth"] is False
+
+
+def test_metadata_fake_claim_title_fails_closed(tmp_path):
+    wf = _metadata()
+    wf["canonical_title"] = "Fake Title with fake_metrics"
+    packet = make_variant_preview_staging_packet(wf, _markdown(), tmp_path)
+    assert packet.variant_preview_staging_available is False
+    assert any("fake_metrics" in blocker for blocker in packet.blockers)
+    
+    written = write_variant_preview_files(packet, wf, _markdown(), tmp_path)
+    assert len(written) == 0
+
+
+def test_metadata_public_readiness_fails_closed(tmp_path):
+    for fld, claim in [("meta_description", "publication_ready"), ("editorial_summary", "dispatch_allowed")]:
+        wf = _metadata()
+        wf[fld] = f"Some dummy text with {claim} marker in it."
+        packet = make_variant_preview_staging_packet(wf, _markdown(), tmp_path)
+        assert packet.variant_preview_staging_available is False
+        assert any(claim in blocker for blocker in packet.blockers)
+
+
+def test_metadata_citation_verification_fails_closed(tmp_path):
+    wf = _metadata()
+    wf["intended_search_intent"] = "intent with citations_verified indicator"
+    packet = make_variant_preview_staging_packet(wf, _markdown(), tmp_path)
+    assert packet.variant_preview_staging_available is False
+    assert any("citations_verified" in blocker for blocker in packet.blockers)
+
+
+def test_metadata_financial_advice_fails_closed(tmp_path):
+    wf = _metadata()
+    wf["focus_keywords"] = ["testing", "trading advice"]
+    packet = make_variant_preview_staging_packet(wf, _markdown(), tmp_path)
+    assert packet.variant_preview_staging_available is False
+    assert "metadata_financial_advice_or_signal_framing_detected" in packet.blockers

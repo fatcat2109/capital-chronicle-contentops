@@ -137,6 +137,56 @@ def _check_public_and_live_fields(packet: dict[str, Any], prefix: str) -> list[s
     return blockers
 
 
+def _validate_metadata_text_claims(packet: dict[str, Any]) -> list[str]:
+    blockers: list[str] = []
+    fields_to_scan = [
+        "canonical_title",
+        "canonical_slug",
+        "meta_description",
+        "editorial_summary",
+        "intended_search_intent",
+    ]
+    
+    texts_to_scan: list[str] = []
+    for fld in fields_to_scan:
+        val = packet.get(fld)
+        if isinstance(val, str):
+            texts_to_scan.append(val)
+            
+    focus_kws = packet.get("focus_keywords")
+    if isinstance(focus_kws, list):
+        for kw in focus_kws:
+            if isinstance(kw, str):
+                texts_to_scan.append(kw)
+                
+    for text in texts_to_scan:
+        lowered = text.lower()
+        
+        # Prohibited claims
+        for marker in PUBLIC_READY_MARKERS:
+            if marker in lowered:
+                blockers.append(f"metadata_public_ready_or_approval_claim_detected_{marker}")
+        for marker in FAKE_CLAIMS_MARKERS:
+            if marker in lowered:
+                blockers.append(f"metadata_fake_readiness_or_metrics_claim_detected_{marker}")
+        for marker in CITATION_CLAIMS_MARKERS:
+            if marker in lowered:
+                blockers.append(f"metadata_citations_verified_or_generated_claim_detected_{marker}")
+
+        # Trading/financial advice checks
+        for rx in TRADING_ADVICE_RE:
+            if rx.search(lowered):
+                blockers.append("metadata_financial_advice_or_signal_framing_detected")
+                break
+
+        # Dispatch instructions check
+        dispatch_instructions = ["dispatch_allowed: true", "publish: true", "supervised_dispatch"]
+        if any(inst in lowered for inst in dispatch_instructions):
+            blockers.append("metadata_live_dispatch_instructions_detected")
+
+    return blockers
+
+
 def _validate_metadata_values_review(packet: dict[str, Any]) -> list[str]:
     blockers: list[str] = []
     if packet.get("task_label") != SOURCE_TASK_LABEL:
@@ -176,6 +226,10 @@ def _validate_metadata_values_review(packet: dict[str, Any]) -> list[str]:
     for val in required_values:
         if not packet.get(val):
             blockers.append(f"metadata_{val}_missing_or_empty")
+
+    # Only run claim scans on metadata text fields if the required fields are present
+    if not any(f"metadata_{val}_missing_or_empty" in blockers for val in required_values):
+        blockers.extend(_validate_metadata_text_claims(packet))
 
     return blockers
 
