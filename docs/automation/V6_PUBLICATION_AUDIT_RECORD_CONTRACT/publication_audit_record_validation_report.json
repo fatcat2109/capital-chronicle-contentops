@@ -1,0 +1,20 @@
+{
+  "schema_version": "6.0.0",
+  "validation_status": "PASSED_WITH_REVIEW_ONLY_BLOCKERS",
+  "runtime_truth": false,
+  "publication_audit_record_validated": true,
+  "blockers": [
+    "account_binding_missing",
+    "audit_redaction_policy_missing",
+    "destination_binding_missing",
+    "dispatch_response_missing",
+    "human_review_required",
+    "jim_audit_review_required",
+    "payload_hash_missing",
+    "public_url_proof_missing",
+    "publication_audit_record_creation_blocked",
+    "publication_confirmation_blocked",
+    "supervised_dispatch_result_missing"
+  ],
+  "blocker_count": 11
+}

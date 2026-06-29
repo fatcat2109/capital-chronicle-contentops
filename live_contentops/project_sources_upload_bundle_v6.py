@@ -12,11 +12,12 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-TASK_LABEL = "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_CONTRACT_DRY_RUN_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_PUBLICATION_AUDIT_RECORD_CONTRACT_DRY_RUN_HEAVY_BATCH_V0"
 SCHEMA_VERSION = "6.0.0"
 BASELINE_BEFORE_UPLOAD_BUNDLE_TASK = "d97bc3968e1babf48c81f384fb547b439e48515c"
 PAYLOAD_HASH_TASK = "TASK_CONTENTOPS_V6_REPAIR_PAYLOAD_PREVIEW_HASH_PLACEHOLDER_AND_SCOPE_CONTAMINATION_V0"
 NEXT_PUBLICATION_AUDIT_RECORD_CONTRACT_TASK = "TASK_CONTENTOPS_V6_PUBLICATION_AUDIT_RECORD_CONTRACT_DRY_RUN_HEAVY_BATCH_V0"
+NEXT_COMMUNITY_FEEDBACK_CAPTURE_CONTRACT_TASK = "TASK_CONTENTOPS_V6_COMMUNITY_FEEDBACK_CAPTURE_CONTRACT_DRY_RUN_HEAVY_BATCH_V0"
 NEXT_APPROVAL_TASK = "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0"
 NEXT_CANONICAL_DRAFT_OPERATOR_IMPORT_UI_APPROVAL_TASK = "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_OPERATOR_SOURCE_PACK_IMPORT_UI_AND_APPROVAL_REVIEW_HEAVY_BATCH_V0"
 NEXT_REAL_SOURCE_PACK_MANUAL_IMPORT_FIXTURE_TASK = "TASK_CONTENTOPS_V6_REAL_SOURCE_PACK_MANUAL_IMPORT_FIXTURE_SCHEMA_AND_HASH_REVIEW_DRY_RUN_HEAVY_BATCH_V0"
@@ -982,7 +983,18 @@ def materialize_project_sources_upload_bundle_packets(
         "docs/automation/V6_SUPERVISED_DISPATCH_CONTRACT/supervised_dispatch_blocker_report.md",
         "docs/automation/V6_SUPERVISED_DISPATCH_CONTRACT/supervised_dispatch_runbook.md",
         "docs/automation/V6_SUPERVISED_DISPATCH_CONTRACT/implementation_report.md",
-        "docs/automation/V6_SUPERVISED_DISPATCH_CONTRACT/next_task_pointer.md"
+        "docs/automation/V6_SUPERVISED_DISPATCH_CONTRACT/next_task_pointer.md",
+        "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT/publication_audit_record_packet.json",
+        "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT/publication_audit_record_input_contract.json",
+        "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT/publication_audit_record_blocked_template.json",
+        "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT/publication_audit_record_blocked_output.json",
+        "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT/publication_audit_record_gate_matrix.json",
+        "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT/publication_audit_record_checklist.json",
+        "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT/publication_audit_record_validation_report.json",
+        "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT/publication_audit_record_blocker_report.md",
+        "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT/publication_audit_record_runbook.md",
+        "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT/implementation_report.md",
+        "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT/next_task_pointer.md"
     ]
 
     packet = {
@@ -1020,7 +1032,7 @@ def materialize_project_sources_upload_bundle_packets(
         "no_network_call_in_this_task": True,
         "raw_secret_output": False,
         "webhook_url_printed": False,
-        "next_recommended_task": NEXT_PUBLICATION_AUDIT_RECORD_CONTRACT_TASK
+        "next_recommended_task": NEXT_COMMUNITY_FEEDBACK_CAPTURE_CONTRACT_TASK
     }
 
     return packet, upload_candidate_files

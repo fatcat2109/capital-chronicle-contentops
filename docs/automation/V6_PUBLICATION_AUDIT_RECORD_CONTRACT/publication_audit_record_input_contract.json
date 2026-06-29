@@ -1,0 +1,102 @@
+{
+  "contract_status": "FUTURE_PUBLICATION_AUDIT_RECORD_INPUT_CONTRACT_ONLY",
+  "runtime_truth": false,
+  "required_inputs": [
+    {
+      "input_name": "supervised_dispatch_result_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_publication_audit_record_creation": true
+    },
+    {
+      "input_name": "dispatch_attempt_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_publication_audit_record_creation": true
+    },
+    {
+      "input_name": "dispatch_response_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_publication_audit_record_creation": true
+    },
+    {
+      "input_name": "outbox_entry_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_publication_audit_record_creation": true
+    },
+    {
+      "input_name": "approved_exact_payload_review_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_publication_audit_record_creation": true
+    },
+    {
+      "input_name": "payload_hash_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_publication_audit_record_creation": true
+    },
+    {
+      "input_name": "destination_binding_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_publication_audit_record_creation": true
+    },
+    {
+      "input_name": "account_binding_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_publication_audit_record_creation": true
+    },
+    {
+      "input_name": "public_url_proof_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_publication_audit_record_creation": true
+    },
+    {
+      "input_name": "platform_publication_id_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_publication_audit_record_creation": true
+    },
+    {
+      "input_name": "audit_redaction_policy_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_publication_audit_record_creation": true
+    },
+    {
+      "input_name": "jim_audit_review_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_publication_audit_record_creation": true
+    }
+  ]
+}

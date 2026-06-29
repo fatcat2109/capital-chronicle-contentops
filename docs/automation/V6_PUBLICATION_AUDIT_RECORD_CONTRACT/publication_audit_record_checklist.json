@@ -1,0 +1,124 @@
+{
+  "checklist_status": "PUBLICATION_AUDIT_RECORD_BLOCKED_PENDING_DISPATCH_RESULT_AND_PUBLIC_URL_PROOF",
+  "items": [
+    {
+      "item_name": "supervised_dispatch_result_required",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "dispatch_response_required",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "public_url_proof_required",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "payload_hash_required",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "destination_binding_required",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "account_binding_required",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "audit_redaction_policy_required",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "jim_audit_review_required",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "audit_record_creation_blocked",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "no_audit_record_created",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "no_audit_record_mutated",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "no_public_url_created",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "no_publication_confirmed",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "no_metrics_collected",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "no_feedback_capture_started",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "no_publication_ready_claim",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    },
+    {
+      "item_name": "no_financial_advice_language",
+      "current_status": "blocked",
+      "blocks_publication_audit_record_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "publication_audit_record_input_contract.json"
+    }
+  ]
+}
