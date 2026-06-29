@@ -31,3 +31,6 @@ The live dispatch readiness preflight contract consumes a valid local dispatch e
     - `human_review_required` must remain `true`.
     - `kill_switch_active` must remain `true`.
     - `runtime_truth` must remain `false`.
+10. **Reject and Defer Fail Closed**: Reject or defer decisions fail closed by emitting clear blockers (`declaration_rejected_or_deferred_reject` / `declaration_rejected_or_deferred_defer`), setting `live_dispatch_readiness_preflight_available=false`, `eligible_for_future_live_dispatch_gate=false`, and `live_dispatch_readiness_preflight_approved=false`.
+11. **Notes Requirement**: The declaration `notes` field is required, must be present, and must be a string (empty string is permitted). Missing or non-str notes must block.
+

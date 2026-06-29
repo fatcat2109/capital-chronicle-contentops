@@ -543,6 +543,8 @@ def _validate_declaration(decl: dict[str, Any], manifest: dict[str, Any]) -> lis
             blockers.append("declaration_approval_phrase_invalid")
         if decl.get("approval_scope") != "future_live_dispatch_gate_preflight_only":
             blockers.append("declaration_approval_scope_invalid")
+    elif dec in ["reject", "defer"]:
+        blockers.append(f"declaration_rejected_or_deferred_{dec}")
 
     # Match manifest references
     if decl.get("local_dispatch_execution_payload_manifest_id") != manifest.get("local_dispatch_execution_payload_manifest_id"):
@@ -570,8 +572,8 @@ def _validate_declaration(decl: dict[str, Any], manifest: dict[str, Any]) -> lis
     blockers.extend(_validate_credential_keys(decl.get("credential_key_names_only", [])))
 
     # Scan overall declaration for secrets/env lines
-    if "notes" in decl and not isinstance(decl["notes"], str):
-        blockers.append("declaration_notes_invalid_type")
+    if "notes" not in decl or not isinstance(decl["notes"], str):
+        blockers.append("declaration_notes_missing_or_invalid")
 
     return blockers
 

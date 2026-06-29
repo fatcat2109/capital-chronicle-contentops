@@ -325,7 +325,7 @@ def test_valid_inputs_emits_readiness_preflight_packet():
     _assert_no_public_state(packet)
 
 
-def test_reject_or_defer_decision_disapproves():
+def test_reject_and_defer_fail_closed_with_blockers():
     for val in ["reject", "defer"]:
         m = _manifest()
         dec = _declaration()
@@ -339,10 +339,42 @@ def test_reject_or_defer_decision_disapproves():
         }
         _align_hashes(m, dec, jpackets, _preview_texts())
         packet = make_live_dispatch_readiness_preflight_packet(m, _json_paths(), jpackets, _md_paths(), _preview_texts(), dec)
-        assert packet.live_dispatch_readiness_preflight_available is True
-        assert packet.eligible_for_future_live_dispatch_gate is True
+        assert packet.live_dispatch_readiness_preflight_available is False
+        assert packet.eligible_for_future_live_dispatch_gate is False
         assert packet.live_dispatch_readiness_preflight_approved is False
-        assert not packet.blockers
+        assert f"declaration_rejected_or_deferred_{val}" in packet.blockers
+
+
+def test_missing_notes_fails_closed():
+    m = _manifest()
+    dec = _declaration()
+    dec.pop("notes", None)
+    jpackets = {
+        "A:/prepared_payloads/sample-title-grounding-analysis_xyz/substack_execution_preparation.json": _execution_substack_json(),
+        "A:/prepared_payloads/sample-title-grounding-analysis_xyz/discord_execution_preparation.json": _execution_discord_json()
+    }
+    _align_hashes(m, dec, jpackets, _preview_texts())
+    packet = make_live_dispatch_readiness_preflight_packet(m, _json_paths(), jpackets, _md_paths(), _preview_texts(), dec)
+    assert packet.live_dispatch_readiness_preflight_available is False
+    assert packet.eligible_for_future_live_dispatch_gate is False
+    assert packet.live_dispatch_readiness_preflight_approved is False
+    assert "declaration_notes_missing_or_invalid" in packet.blockers
+
+
+def test_non_string_notes_fails_closed():
+    m = _manifest()
+    dec = _declaration()
+    dec["notes"] = 12345
+    jpackets = {
+        "A:/prepared_payloads/sample-title-grounding-analysis_xyz/substack_execution_preparation.json": _execution_substack_json(),
+        "A:/prepared_payloads/sample-title-grounding-analysis_xyz/discord_execution_preparation.json": _execution_discord_json()
+    }
+    _align_hashes(m, dec, jpackets, _preview_texts())
+    packet = make_live_dispatch_readiness_preflight_packet(m, _json_paths(), jpackets, _md_paths(), _preview_texts(), dec)
+    assert packet.live_dispatch_readiness_preflight_available is False
+    assert packet.eligible_for_future_live_dispatch_gate is False
+    assert packet.live_dispatch_readiness_preflight_approved is False
+    assert "declaration_notes_missing_or_invalid" in packet.blockers
 
 
 def test_wrong_manifest_task_label_fails_closed():

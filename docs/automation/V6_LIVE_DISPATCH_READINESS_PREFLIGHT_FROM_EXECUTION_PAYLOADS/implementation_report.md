@@ -10,7 +10,9 @@
 
 ## Scope
 
-Builds a local live dispatch readiness preflight contract that consumes a valid local dispatch execution payload manifest plus exact execution-preparation JSON/markdown files and an explicit operator live dispatch readiness declaration JSON, then emits a local live dispatch readiness preflight packet.
+Builds and repairs a local live dispatch readiness preflight contract that consumes a valid local dispatch execution payload manifest plus exact execution-preparation JSON/markdown files and an explicit operator live dispatch readiness declaration JSON, then emits a local live dispatch readiness preflight packet. 
+
+Reject/defer decisions fail closed with blockers, and operator declaration notes are required.
 
 ## Files Added/Changed
 
