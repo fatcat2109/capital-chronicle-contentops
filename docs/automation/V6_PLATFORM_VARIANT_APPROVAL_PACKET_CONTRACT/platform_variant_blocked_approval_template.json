@@ -1,0 +1,21 @@
+{
+  "approval_template_status": "BLOCKED_TEMPLATE_ONLY_NOT_APPROVAL",
+  "runtime_truth": false,
+  "approval_id": null,
+  "approval_hash": null,
+  "payload_hash": null,
+  "operator_id_redacted": null,
+  "operator_signature_redacted": null,
+  "approved_at_redacted": null,
+  "destination_binding_ref": null,
+  "account_binding_ref": null,
+  "platform_payload_manifest_ref": null,
+  "approval_statement": null,
+  "approval_valid_for_dispatch": false,
+  "approval_packet_created": false,
+  "exact_payload_approval_completed": false,
+  "outbox_entry_created": false,
+  "dispatch_allowed_now": false,
+  "public_postable": false,
+  "live_write_allowed_now": false
+}

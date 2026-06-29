@@ -1,0 +1,117 @@
+{
+  "checklist_status": "APPROVAL_PACKET_CONTRACT_BLOCKED_PENDING_RENDERED_PAYLOADS",
+  "items": [
+    {
+      "item_name": "rendered_platform_variants_required",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "exact_payload_preview_required",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "destination_binding_required",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "account_binding_required",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "payload_hash_policy_required",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "approval_policy_required",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "operator_signature_absent",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "approval_packet_creation_blocked",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "no_approval_id_created",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "no_approval_hash_created",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "no_payload_hash_created",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "no_outbox_entry_created",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "no_publication_ready_claim",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "no_dispatch_ready_claim",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "no_financial_advice_language",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    },
+    {
+      "item_name": "jim_final_review_required",
+      "current_status": "blocked",
+      "blocks_approval_packet_creation": true,
+      "blocks_publication": true,
+      "evidence_ref": "platform_variant_approval_input_contract.json"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "contract_status": "FUTURE_PLATFORM_VARIANT_APPROVAL_INPUT_CONTRACT_ONLY",
+  "runtime_truth": false,
+  "required_inputs": [
+    {
+      "input_name": "rendered_platform_variants_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_approval_packet_creation": true
+    },
+    {
+      "input_name": "exact_payload_preview_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_approval_packet_creation": true
+    },
+    {
+      "input_name": "platform_payload_manifest_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_approval_packet_creation": true
+    },
+    {
+      "input_name": "destination_binding_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_approval_packet_creation": true
+    },
+    {
+      "input_name": "account_binding_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_approval_packet_creation": true
+    },
+    {
+      "input_name": "payload_hash_policy_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_approval_packet_creation": true
+    },
+    {
+      "input_name": "approval_policy_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_approval_packet_creation": true
+    },
+    {
+      "input_name": "jim_review_ref",
+      "required": true,
+      "current_status": "missing",
+      "value_ref": null,
+      "raw_value_persisted": false,
+      "blocks_approval_packet_creation": true
+    }
+  ]
+}
