@@ -1,0 +1,173 @@
+{
+  "checklist_status": "NEXT_ARTICLE_PLANNING_BLOCKED_PENDING_FEEDBACK_SUMMARY_AND_PLANNING_POLICY",
+  "items": [
+    {
+      "item_name": "feedback_summary_backlog_required",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "feedback_summary_required",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "backlog_items_required",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "next_article_signals_required",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "redacted_feedback_records_required",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "public_url_proof_required",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "platform_publication_id_required",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "planning_policy_required",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "source_research_policy_required",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "operator_planning_authorization_required",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "jim_planning_review_required",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "next_article_planning_blocked",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "source_pack_request_blocked",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "no_article_ideas_created",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "no_research_questions_created",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "no_source_pack_requests_created",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "no_canonical_draft_requests_created",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "no_feedback_summaries_created",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "no_backlog_items_created",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "no_next_article_signals_created",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "no_redacted_feedback_records_created",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "no_public_url_created",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "no_publication_ready_claim",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    },
+    {
+      "item_name": "no_financial_advice_language",
+      "current_status": "blocked",
+      "blocks_next_article_planning": true,
+      "blocks_publication": true,
+      "evidence_ref": "next_article_planning_from_feedback_input_contract.json"
+    }
+  ]
+}

@@ -4,7 +4,7 @@
   "approval_required": true,
   "approval_valid_for_dispatch": false,
   "baseline_before_upload_bundle_task": "d97bc3968e1babf48c81f384fb547b439e48515c",
-  "bundle_generation_head": "2e0ec87b6cd2528d9f9c3beae9174b357733c5b4",
+  "bundle_generation_head": "4e2135e21357553036b2e1704901eb74a5ce5678",
   "bundle_generation_head_label": "pre_commit_generation_head_input_only_requires_github_audit",
   "bundle_stage": "v6_project_sources_upload_bundle",
   "bundle_status": "PROJECT_SOURCES_UPLOAD_BUNDLE_READY_WITH_DISPATCH_BLOCKERS",
@@ -15,7 +15,7 @@
   "kill_switch_active": true,
   "live_write_attempted": false,
   "new_chat_continuation_file": "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/NEW_CHAT_CONTINUATION_V6_READINESS.md",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_NEXT_ARTICLE_PLANNING_PACKET_FROM_FEEDBACK_CONTRACT_DRY_RUN_HEAVY_BATCH_V0",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_PROJECT_SOURCES_REFRESH_AND_UPLOAD_BUNDLE_AFTER_V6_LOOP_CONTRACTS_V0",
   "no_env_read_in_this_task": true,
   "no_live_request_in_this_task": true,
   "no_network_call_in_this_task": true,
@@ -30,7 +30,7 @@
   "schema_version": "6.0.0",
   "source_readiness_evidence_bundle_packet_id": "bundle_fbe34af9e66e",
   "source_supervised_dispatch_readiness_packet_id": "readiness_34edf10af116",
-  "task_label": "TASK_CONTENTOPS_V6_FEEDBACK_SUMMARY_BACKLOG_CONTRACT_DRY_RUN_HEAVY_BATCH_V0",
+  "task_label": "TASK_CONTENTOPS_V6_NEXT_ARTICLE_PLANNING_PACKET_FROM_FEEDBACK_CONTRACT_DRY_RUN_HEAVY_BATCH_V0",
   "unresolved_blockers": [
     "destination_binding_incomplete",
     "kill_switch_active",
@@ -466,7 +466,18 @@
     "docs/automation/V6_FEEDBACK_SUMMARY_BACKLOG_CONTRACT/feedback_summary_backlog_blocker_report.md",
     "docs/automation/V6_FEEDBACK_SUMMARY_BACKLOG_CONTRACT/feedback_summary_backlog_runbook.md",
     "docs/automation/V6_FEEDBACK_SUMMARY_BACKLOG_CONTRACT/implementation_report.md",
-    "docs/automation/V6_FEEDBACK_SUMMARY_BACKLOG_CONTRACT/next_task_pointer.md"
+    "docs/automation/V6_FEEDBACK_SUMMARY_BACKLOG_CONTRACT/next_task_pointer.md",
+    "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT/next_article_planning_from_feedback_packet.json",
+    "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT/next_article_planning_from_feedback_input_contract.json",
+    "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT/next_article_planning_blocked_template.json",
+    "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT/next_article_planning_blocked_output.json",
+    "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT/next_article_planning_gate_matrix.json",
+    "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT/next_article_planning_checklist.json",
+    "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT/next_article_planning_validation_report.json",
+    "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT/next_article_planning_blocker_report.md",
+    "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT/next_article_planning_runbook.md",
+    "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT/implementation_report.md",
+    "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT/next_task_pointer.md"
   ],
   "webhook_url_printed": false
 }
