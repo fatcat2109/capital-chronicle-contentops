@@ -187,6 +187,7 @@ def test_valid_inputs_emits_payload_preparation_manifest_and_files(tmp_path):
     
     manifest = make_local_dispatch_payload_manifest(dec, epaths, epackets, ppaths, texts, tmp_path)
     assert manifest.local_dispatch_payload_prepared is True
+    assert manifest.dispatch_payload_created is True
     assert not manifest.blockers
     
     # Write and check files
@@ -216,6 +217,7 @@ def test_valid_inputs_emits_payload_preparation_manifest_and_files(tmp_path):
     # Ensure manifest does not leak raw markdown body
     manifest_json = json.loads((payload_dir / "local_dispatch_payload_manifest.json").read_text(encoding="utf-8"))
     assert "Safe body content." not in json.dumps(manifest_json)
+    assert manifest_json["dispatch_payload_created"] is True
     
     _assert_no_public_state(manifest)
 
@@ -230,6 +232,7 @@ def test_wrong_decision_task_label_fails_closed():
     }
     manifest = make_local_dispatch_payload_manifest(dec, _entry_paths(), epackets, _payload_paths(), _preview_texts(), Path("A:/"))
     assert manifest.local_dispatch_payload_prepared is False
+    assert manifest.dispatch_payload_created is False
     assert "decision_task_label_invalid" in manifest.blockers
 
 
@@ -252,6 +255,7 @@ def test_decision_packet_eligibility_failures():
         }
         manifest = make_local_dispatch_payload_manifest(dec, _entry_paths(), epackets, _payload_paths(), _preview_texts(), Path("A:/"))
         assert manifest.local_dispatch_payload_prepared is False
+        assert manifest.dispatch_payload_created is False
         assert manifest.blockers
 
 
@@ -267,6 +271,7 @@ def test_entry_path_matching_failures():
     }
     manifest = make_local_dispatch_payload_manifest(_decision(), epaths, epackets, _payload_paths(), _preview_texts(), Path("A:/"))
     assert manifest.local_dispatch_payload_prepared is False
+    assert manifest.dispatch_payload_created is False
     assert "entry_file_paths_order_mismatch" in manifest.blockers
 
 
@@ -282,6 +287,7 @@ def test_payload_path_matching_failures():
     }
     manifest = make_local_dispatch_payload_manifest(_decision(), _entry_paths(), epackets, ppaths, _preview_texts(), Path("A:/"))
     assert manifest.local_dispatch_payload_prepared is False
+    assert manifest.dispatch_payload_created is False
     assert "payload_file_paths_order_mismatch" in manifest.blockers
 
 
@@ -294,6 +300,7 @@ def test_entry_json_mismatch_failures():
     
     manifest = make_local_dispatch_payload_manifest(_decision(), _entry_paths(), epackets, _payload_paths(), _preview_texts(), Path("A:/"))
     assert manifest.local_dispatch_payload_prepared is False
+    assert manifest.dispatch_payload_created is False
     assert "entry_substack_combined_payload_hash_mismatch" in manifest.blockers
 
 
@@ -307,6 +314,7 @@ def test_payload_file_hash_mismatch_fails_closed():
     }
     manifest = make_local_dispatch_payload_manifest(_decision(), _entry_paths(), epackets, _payload_paths(), texts, Path("A:/"))
     assert manifest.local_dispatch_payload_prepared is False
+    assert manifest.dispatch_payload_created is False
     assert any("hash_mismatch" in blocker for blocker in manifest.blockers)
 
 
@@ -320,6 +328,7 @@ def test_preview_file_missing_local_only_warning_fails_closed():
     }
     manifest = make_local_dispatch_payload_manifest(_decision(), _entry_paths(), epackets, _payload_paths(), texts, Path("A:/"))
     assert manifest.local_dispatch_payload_prepared is False
+    assert manifest.dispatch_payload_created is False
     assert "staged_substack_warning_missing" in manifest.blockers
 
 
@@ -333,6 +342,7 @@ def test_secret_marker_in_inputs_fails_closed_and_hashes_cleared():
     }
     manifest = make_local_dispatch_payload_manifest(dec, _entry_paths(), epackets, _payload_paths(), _preview_texts(), Path("A:/"))
     assert manifest.local_dispatch_payload_prepared is False
+    assert manifest.dispatch_payload_created is False
     assert "decision_secret_marker_detected" in manifest.blockers
     assert manifest.operator_dispatch_decision_sha256 == ""
     assert manifest.canonical_title == "[REDACTED_SECRET_MARKER_DETECTED]"
@@ -345,6 +355,7 @@ def test_secret_marker_in_inputs_fails_closed_and_hashes_cleared():
     epackets["A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json"]["notes"] = "some private_key check done."
     manifest = make_local_dispatch_payload_manifest(_decision(), _entry_paths(), epackets, _payload_paths(), _preview_texts(), Path("A:/"))
     assert manifest.local_dispatch_payload_prepared is False
+    assert manifest.dispatch_payload_created is False
     assert "entry_secret_marker_detected" in manifest.blockers
 
 
@@ -359,6 +370,7 @@ def test_fake_claims_in_preview_fail_closed():
         }
         manifest = make_local_dispatch_payload_manifest(_decision(), _entry_paths(), epackets, _payload_paths(), texts, Path("A:/"))
         assert manifest.local_dispatch_payload_prepared is False
+        assert manifest.dispatch_payload_created is False
         assert any(claim in blocker for blocker in manifest.blockers)
 
 
@@ -373,6 +385,7 @@ def test_financial_advice_in_preview_fails_closed():
         }
         manifest = make_local_dispatch_payload_manifest(_decision(), _entry_paths(), epackets, _payload_paths(), texts, Path("A:/"))
         assert manifest.local_dispatch_payload_prepared is False
+        assert manifest.dispatch_payload_created is False
         assert "staged_substack_financial_advice_or_signal_framing_detected" in manifest.blockers
 
 
@@ -387,12 +400,18 @@ def test_no_dispatch_payload_files_are_written_on_blocked_inputs_except_blocked_
     
     manifest = make_local_dispatch_payload_manifest(dec, _entry_paths(), epackets, _payload_paths(), _preview_texts(), tmp_path)
     assert manifest.local_dispatch_payload_prepared is False
+    assert manifest.dispatch_payload_created is False
     
     manifest_path = write_local_dispatch_payloads(manifest, dec, _entry_paths(), epackets, _payload_paths(), _preview_texts(), tmp_path)
     assert manifest_path.exists()
     
     # Directory for prepared files must not exist because it was blocked
     assert manifest.dispatch_payload_dir == ""
+    
+    # Verify the written blocked manifest
+    written = json.loads(manifest_path.read_text(encoding="utf-8"))
+    assert written["local_dispatch_payload_prepared"] is False
+    assert written["dispatch_payload_created"] is False
 
 
 def test_module_contains_no_getenv_environ_network_provider_browser_imports():
@@ -465,6 +484,7 @@ def test_cli_writes_deterministic_manifest_and_package_names(tmp_path):
     
     assert first_packet["local_dispatch_payload_manifest_id"] == second_packet["local_dispatch_payload_manifest_id"]
     assert first_packet["local_dispatch_payload_prepared"] is True
+    assert first_packet["dispatch_payload_created"] is True
 
 
 def test_new_files_and_sample_json_are_utf8_without_bom():
@@ -479,3 +499,40 @@ def test_new_files_and_sample_json_are_utf8_without_bom():
     loaded = json.loads((docs_dir / "sample_local_dispatch_payload_manifest.json").read_text(encoding="utf-8"))
     assert loaded["sample_packet_non_runtime"] is True
     assert loaded["runtime_truth"] is False
+
+
+def test_malformed_non_object_cli_blocked_test(tmp_path):
+    pf_path = tmp_path / "decision.json"
+    pf_path.write_text("[]", encoding="utf-8")
+    
+    output_dir = tmp_path / "out"
+    exit_code = main([
+        str(pf_path),
+        "--entry-files", "A:/a.json", "A:/b.json",
+        "--payload-files", "A:/a.md", "A:/b.md",
+        "--output-dir", str(output_dir)
+    ])
+    assert exit_code == 1
+    
+    packets = list(output_dir.glob("local_dispatch_payload_manifest_*.json"))
+    assert len(packets) == 1
+    written = json.loads(packets[0].read_text(encoding="utf-8"))
+    assert written["local_dispatch_payload_prepared"] is False
+    assert written["dispatch_payload_created"] is False
+    assert written["dispatch_execution_payload_created"] is False
+    assert written["live_send_request_created"] is False
+    assert written["approval_for_live_dispatch"] is False
+    assert written["dispatch_allowed"] is False
+
+
+def test_blocked_manifest_never_claims_dispatch_payload_created():
+    dec = _decision()
+    dec["dispatch_payload_preparation_approved"] = False
+    
+    epackets = {
+        "A:/outbox/sample-title-grounding-analysis_xyz/substack_outbox_entry.json": _substack_entry(),
+        "A:/outbox/sample-title-grounding-analysis_xyz/discord_outbox_entry.json": _discord_entry()
+    }
+    manifest = make_local_dispatch_payload_manifest(dec, _entry_paths(), epackets, _payload_paths(), _preview_texts(), Path("A:/"))
+    assert manifest.local_dispatch_payload_prepared is False
+    assert manifest.dispatch_payload_created is False

@@ -66,7 +66,7 @@ Builds a local dispatch payload preparation contract that consumes a valid opera
 
 ## Caveats
 
-Prepared payloads are placed in a staging folder ready for supervisor dispatch gates, but no account or binding is bound.
+Prepared payloads are placed in a staging folder ready for supervisor dispatch gates, but no account or binding is bound. Blocked manifests now correctly set `dispatch_payload_created` to `false` and do not claim payload creation.
 
 ## Next Recommendation
 

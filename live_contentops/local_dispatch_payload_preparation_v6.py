@@ -89,7 +89,7 @@ class LocalDispatchPayloadManifest:
     source_active_outbox_payload_hashes: dict[str, str]
     combined_payload_hash: str
     local_dispatch_payload_prepared: bool
-    dispatch_payload_created: bool = True
+    dispatch_payload_created: bool = False
     dispatch_execution_payload_created: bool = False
     live_send_request_created: bool = False
     approval_for_live_dispatch: bool = False
@@ -649,6 +649,7 @@ def make_local_dispatch_payload_manifest(
         source_active_outbox_payload_hashes=source_active_outbox_payload_hashes,
         combined_payload_hash=combined_payload_hash,
         local_dispatch_payload_prepared=prepared,
+        dispatch_payload_created=prepared,
         blockers=blockers,
         warnings=warnings,
     )
@@ -833,7 +834,9 @@ def main(argv: list[str] | None = None) -> int:
         out_path = Path(args.output_dir)
         out_path.mkdir(parents=True, exist_ok=True)
         manifest_path = out_path / f"{manifest.local_dispatch_payload_manifest_id}.json"
-        manifest_path.write_text(json.dumps(asdict(manifest), indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        with open(manifest_path, "w", encoding="utf-8", newline="\n") as f:
+            json.dump(asdict(manifest), f, indent=2, sort_keys=True)
+            f.write("\n")
         return 1
 
     manifest = make_local_dispatch_payload_manifest(decision, entry_paths, entry_packets, payload_paths, payload_texts, Path(args.output_dir))
