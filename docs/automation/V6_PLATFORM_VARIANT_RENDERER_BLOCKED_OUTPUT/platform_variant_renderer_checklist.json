@@ -1,0 +1,89 @@
+{
+  "checklist_status": "PLATFORM_VARIANT_RENDERER_BLOCKED_PENDING_APPROVED_INPUTS",
+  "items": {
+    "approved_canonical_article_required": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "destination_binding_required": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "exact_payload_approval_required": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "jim_final_review_required": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "no_dispatch_ready_claim": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "no_financial_advice_language": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "no_outbox_entry_created": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "no_payload_hash_created": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "no_platform_copy_generated": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "no_publication_ready_claim": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "platform_style_rules_required": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "refined_draft_required": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "renderer_execution_blocked": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    },
+    "seo_metadata_required": {
+      "blocks_publication": true,
+      "blocks_renderer_execution": true,
+      "current_status": "pending",
+      "evidence_ref": "platform_variant_renderer_packet.json"
+    }
+  }
+}
