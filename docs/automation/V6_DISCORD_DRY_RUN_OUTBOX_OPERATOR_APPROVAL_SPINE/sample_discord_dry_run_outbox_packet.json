@@ -1,0 +1,82 @@
+{
+  "approved_payload_hash": "9dbe01060256b07f5f83af6f24688f3f6f83685b89abcba2b593bd768aa8cc9a",
+  "approved_payload_preview_id": "discord_preview_9dbe01060256b07f",
+  "blockers": [],
+  "browser_call_made": false,
+  "canonical_content_id": "capital_chronicle_discord_dry_run_article_001",
+  "discord_capability_status": "configured_for_supervised_live_scope_candidate",
+  "discord_key_present": true,
+  "discord_payload_model": {
+    "call_to_action": "Review the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
+    "canonical_url": null,
+    "content_hash": "content_hash_public_fixture_001",
+    "created_at": "2026-07-01T02:25:31+07:00",
+    "key_points": [
+      "Macro calendar items remain the main near-term driver for risk appetite.",
+      "The editorial desk is tracking policy commentary, liquidity conditions, and earnings-season breadth.",
+      "Readers should use the full Chronicle note for source links, assumptions, and follow-up questions."
+    ],
+    "source_article_id": "capital_chronicle_discord_dry_run_article_001",
+    "summary": "A concise operator-reviewed briefing for the community watchlist, focused on context, process, and source review rather than trade direction.",
+    "title": "Capital Chronicle dry-run briefing: policy watch and market context"
+  },
+  "discord_preview_text": "**Capital Chronicle dry-run briefing: policy watch and market context**\n\nA concise operator-reviewed briefing for the community watchlist, focused on context, process, and source review rather than trade direction.\n\nKey points:\n- Macro calendar items remain the main near-term driver for risk appetite.\n- The editorial desk is tracking policy commentary, liquidity conditions, and earnings-season breadth.\n- Readers should use the full Chronicle note for source links, assumptions, and follow-up questions.\n\nReview the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
+  "discord_required_key_name": "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK",
+  "env_lines_serialized": false,
+  "live_pilot_candidate": true,
+  "live_send_performed": false,
+  "manual_fallback_record": {
+    "available": true,
+    "copyable_discord_message_preview": "**Capital Chronicle dry-run briefing: policy watch and market context**\n\nA concise operator-reviewed briefing for the community watchlist, focused on context, process, and source review rather than trade direction.\n\nKey points:\n- Macro calendar items remain the main near-term driver for risk appetite.\n- The editorial desk is tracking policy commentary, liquidity conditions, and earnings-season breadth.\n- Readers should use the full Chronicle note for source links, assumptions, and follow-up questions.\n\nReview the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
+    "exact_payload_hash": "9dbe01060256b07f5f83af6f24688f3f6f83685b89abcba2b593bd768aa8cc9a",
+    "manual_fallback_id": "manual_fallback_9dbe01060256b07f",
+    "operator_instructions": "Jim/operator must manually paste this preview only after reviewing the exact payload hash; this packet performs no live send.",
+    "operator_only_warning": "Manual paste must be done by Jim/operator; no automated Discord send is authorized by this packet.",
+    "platform": "discord"
+  },
+  "network_call_made": false,
+  "operator_approval_record": {
+    "approval_record_id": "operator_approval_9dbe01060256b07f",
+    "approved_at": null,
+    "approved_by": null,
+    "exact_payload_hash": "9dbe01060256b07f5f83af6f24688f3f6f83685b89abcba2b593bd768aa8cc9a",
+    "live_send_allowed": false,
+    "operator_approval_status": "pending",
+    "platform": "discord",
+    "preview_hash": "9dbe01060256b07f5f83af6f24688f3f6f83685b89abcba2b593bd768aa8cc9a",
+    "preview_id": "discord_preview_9dbe01060256b07f"
+  },
+  "outbox_dry_run_record": {
+    "action_class": "dry_run_outbox",
+    "approval_required": true,
+    "approval_status": "pending",
+    "credential_key_name": "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK",
+    "credential_present": true,
+    "destination_binding": "symbolic_discord_live_announcements_destination_binding",
+    "exact_payload_hash": "9dbe01060256b07f5f83af6f24688f3f6f83685b89abcba2b593bd768aa8cc9a",
+    "live_send_performed": false,
+    "outbox_id": "discord_outbox_dry_run_9dbe01060256b07f",
+    "platform": "discord",
+    "ready_for_live_pilot_candidate": true
+  },
+  "packet_id": "discord_dry_run_outbox_9dbe01060256b07f",
+  "provider_call_made": false,
+  "raw_secret_values_serialized": false,
+  "redacted_audit_record": {
+    "audit_id": "redacted_audit_9dbe01060256b07f",
+    "dry_run_outbox_id_present": true,
+    "env_lines_serialized": false,
+    "exact_payload_hash_present": true,
+    "live_send_performed": false,
+    "manual_fallback_available": true,
+    "network_call_made": false,
+    "platform": "discord",
+    "provider_call_made": false,
+    "raw_secret_values_serialized": false
+  },
+  "schema_version": "6.0.0",
+  "source_capability_env_readiness_packet_id": null,
+  "source_capability_env_readiness_packet_status": "unified_capability_env_readiness_available_for_product_lane_selection",
+  "task_label": "TASK_CONTENTOPS_V6_DISCORD_DRY_RUN_OUTBOX_AND_OPERATOR_APPROVAL_SPINE_HEAVY_BATCH_V0",
+  "warnings": []
+}

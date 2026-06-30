@@ -1,4 +1,4 @@
-﻿# Next Product Lane Pointer
+# Next Product Lane Pointer
 
 Recommended next heavy task:
 

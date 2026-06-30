@@ -1,4 +1,4 @@
-﻿# V6 Fast Ship Runtime Spine Consolidation Report
+# V6 Fast Ship Runtime Spine Consolidation Report
 
 ## Accepted Baseline
 

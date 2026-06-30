@@ -1,4 +1,4 @@
-﻿# V6 Unified Capability Env Readiness Operator Runbook
+# V6 Unified Capability Env Readiness Operator Runbook
 
 ## Purpose
 

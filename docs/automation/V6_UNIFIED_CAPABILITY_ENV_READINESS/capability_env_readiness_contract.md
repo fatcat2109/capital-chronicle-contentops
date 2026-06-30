@@ -1,4 +1,4 @@
-﻿# V6 Unified Capability Env Readiness Contract
+# V6 Unified Capability Env Readiness Contract
 
 This packet is the Fast Ship presence-only readiness model for Discord, Telegram, Substack, AI provider, browser operator, and manual fallback lanes.
 
