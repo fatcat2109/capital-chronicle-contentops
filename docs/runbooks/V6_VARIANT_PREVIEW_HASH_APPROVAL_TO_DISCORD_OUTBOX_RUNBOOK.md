@@ -1,4 +1,4 @@
-﻿# V6 Variant Preview/Hash Approval to Discord Outbox Runbook
+# V6 Variant Preview/Hash Approval to Discord Outbox Runbook
 
 This runbook covers the deterministic dry-run bridge from the AI research
 canonical article packet into platform-native variants, exact preview hashes,

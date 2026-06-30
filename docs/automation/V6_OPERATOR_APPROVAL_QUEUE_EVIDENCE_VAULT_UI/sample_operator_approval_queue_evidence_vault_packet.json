@@ -1,0 +1,247 @@
+{
+  "approval_queue_items": [
+    {
+      "approval_status": "pending_operator_review",
+      "approved_at": null,
+      "approved_by": null,
+      "exact_preview_text_excerpt": "[discord] Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries An educational breakdown of macro calibration and metadata context regarding Evaluate historical volatility\u2026",
+      "live_dispatch_allowed": false,
+      "platform": "discord",
+      "preview_hash": "1cd58fd896f19c77638e62c52f34700c8166bd9644a8d830071d174924ca9172",
+      "preview_id": "preview_discord_1cd58fd896f19c77",
+      "queue_item_id": "queue_approval_discord_1cd58fd896f19c77",
+      "required_operator_action": "Review exact preview hash and content in future approval queue; no live dispatch is enabled.",
+      "source_canonical_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "variant_id": "variant_discord_d4a5afd3ecf03b1b"
+    },
+    {
+      "approval_status": "pending_operator_review",
+      "approved_at": null,
+      "approved_by": null,
+      "exact_preview_text_excerpt": "[telegram_operator] Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries Operator checkpoint | An educational breakdown of macro calibration and metadata context regardin\u2026",
+      "live_dispatch_allowed": false,
+      "platform": "telegram_operator",
+      "preview_hash": "974e8509d7999acad8cdf4855dc874d2d7182e766a51d4d1b4a6d6749126eb32",
+      "preview_id": "preview_telegram_operator_974e8509d7999aca",
+      "queue_item_id": "queue_approval_telegram_operator_974e8509d7999aca",
+      "required_operator_action": "Review exact preview hash and content in future approval queue; no live dispatch is enabled.",
+      "source_canonical_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "variant_id": "variant_telegram_d4a5afd3ecf03b1b"
+    },
+    {
+      "approval_status": "pending_operator_review",
+      "approved_at": null,
+      "approved_by": null,
+      "exact_preview_text_excerpt": "[substack] Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries Process-led analysis tailored for general_financial_education This briefing grounds our editorial desk's a\u2026",
+      "live_dispatch_allowed": false,
+      "platform": "substack",
+      "preview_hash": "c19e65c51abb0967d25dde12e8c1b5ff2a3fa32ccac3b9e14eb7d73aa30b1b59",
+      "preview_id": "preview_substack_c19e65c51abb0967",
+      "queue_item_id": "queue_approval_substack_c19e65c51abb0967",
+      "required_operator_action": "Review exact preview hash and content in future approval queue; no live dispatch is enabled.",
+      "source_canonical_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "variant_id": "variant_substack_d4a5afd3ecf03b1b"
+    }
+  ],
+  "article_preview_summary": {
+    "canonical_article_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+    "editorial_status": "pass",
+    "provider_mode": "dry_run_fixture",
+    "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+    "subtitle": "Process-led analysis tailored for general_financial_education",
+    "title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries"
+  },
+  "blockers": [
+    "live_dispatch_controls_disabled",
+    "operator_approval_write_behavior_not_scoped",
+    "operator_approval_declaration_missing",
+    "operator_approval_status_not_approved",
+    "approved_by_missing",
+    "approved_at_missing",
+    "operator_approval_exact_payload_hash_mismatch",
+    "env_key_missing:DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK"
+  ],
+  "browser_session_used": false,
+  "discord_outbox_card": {
+    "approved_payload_hash": "e59579adf7eb8db3839080f3b1b6f6744012d064f1fa58a96abb02bdff73bb80",
+    "display_status": "amber_review_pending",
+    "live_send_allowed": false,
+    "live_send_performed": false,
+    "operator_approval_status": "pending",
+    "outbox_id": "discord_outbox_dry_run_e59579adf7eb8db3",
+    "packet_id": "discord_dry_run_outbox_e59579adf7eb8db3",
+    "sample_key_presence": {
+      "credential_present_committed_value": true,
+      "discord_key_present_committed_value": true,
+      "evidence_scope": "sample_fixture_only",
+      "runtime_proof": false
+    }
+  },
+  "env_lines_serialized": false,
+  "evidence_vault_items": [
+    {
+      "caveats": [
+        "Committed sample packet only."
+      ],
+      "display_status": "green_verified",
+      "evidence_id": "evidence_article_d4a5afd3ecf03b1b",
+      "evidence_type": "canonical_article_packet",
+      "safety_flags": {
+        "browser_call_made": false,
+        "browser_session_used": false,
+        "env_lines_serialized": false,
+        "live_send_performed": false,
+        "network_call_made": false,
+        "provider_call_made": false,
+        "raw_provider_key_serialized": false,
+        "raw_secret_values_serialized": false,
+        "response_body_serialized": false,
+        "webhook_url_serialized": false
+      },
+      "source_file_path": "docs\\automation\\V6_AI_RESEARCH_CANONICAL_ARTICLE_ENGINE\\sample_ai_research_canonical_article_packet.json",
+      "source_hash_or_preview_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_packet_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "caveats": [
+        "Approval records remain pending."
+      ],
+      "display_status": "green_verified",
+      "evidence_id": "evidence_variant_d4a5afd3ecf03b1b",
+      "evidence_type": "variant_preview_hash_approval_packet",
+      "safety_flags": {
+        "browser_call_made": false,
+        "browser_session_used": false,
+        "env_lines_serialized": false,
+        "live_send_performed": false,
+        "network_call_made": false,
+        "provider_call_made": false,
+        "raw_provider_key_serialized": false,
+        "raw_secret_values_serialized": false,
+        "response_body_serialized": false,
+        "webhook_url_serialized": false
+      },
+      "source_file_path": "docs\\automation\\V6_VARIANT_PREVIEW_HASH_APPROVAL_TO_DISCORD_OUTBOX\\sample_variant_preview_hash_approval_packet.json",
+      "source_hash_or_preview_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_packet_id": "variant_approval_bridge_d4a5afd3ecf03b1b"
+    },
+    {
+      "caveats": [
+        "Dry-run outbox only; sample credential evidence is sample_fixture_only, not runtime proof."
+      ],
+      "display_status": "amber_review",
+      "evidence_id": "evidence_discord_outbox_e59579adf7eb8db3",
+      "evidence_type": "discord_dry_run_outbox",
+      "safety_flags": {
+        "browser_call_made": false,
+        "browser_session_used": false,
+        "env_lines_serialized": false,
+        "live_send_performed": false,
+        "network_call_made": false,
+        "provider_call_made": false,
+        "raw_provider_key_serialized": false,
+        "raw_secret_values_serialized": false,
+        "response_body_serialized": false,
+        "webhook_url_serialized": false
+      },
+      "source_file_path": "docs\\automation\\V6_VARIANT_PREVIEW_HASH_APPROVAL_TO_DISCORD_OUTBOX\\sample_variant_preview_hash_approval_packet.json",
+      "source_hash_or_preview_hash": "e59579adf7eb8db3839080f3b1b6f6744012d064f1fa58a96abb02bdff73bb80",
+      "source_packet_id": "discord_dry_run_outbox_e59579adf7eb8db3"
+    },
+    {
+      "caveats": [
+        "operator_approval_declaration_missing",
+        "operator_approval_status_not_approved",
+        "approved_by_missing",
+        "approved_at_missing",
+        "operator_approval_exact_payload_hash_mismatch",
+        "env_key_missing:DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK"
+      ],
+      "display_status": "red_blocked",
+      "evidence_id": "evidence_live_pilot_e59579adf7eb8db3",
+      "evidence_type": "discord_live_pilot_blocked_result",
+      "safety_flags": {
+        "browser_call_made": false,
+        "browser_session_used": false,
+        "env_lines_serialized": false,
+        "live_send_performed": false,
+        "network_call_made": false,
+        "provider_call_made": false,
+        "raw_provider_key_serialized": false,
+        "raw_secret_values_serialized": false,
+        "response_body_serialized": false,
+        "webhook_url_serialized": false
+      },
+      "source_file_path": "docs\\automation\\V6_DISCORD_SUPERVISED_LIVE_PILOT_FROM_APPROVED_OUTBOX\\sample_discord_supervised_live_pilot_result_blocked.json",
+      "source_hash_or_preview_hash": "9dbe01060256b07f5f83af6f24688f3f6f83685b89abcba2b593bd768aa8cc9a",
+      "source_packet_id": "discord_dry_run_outbox_9dbe01060256b07f"
+    }
+  ],
+  "live_pilot_status_card": {
+    "blockers": [
+      "operator_approval_declaration_missing",
+      "operator_approval_status_not_approved",
+      "approved_by_missing",
+      "approved_at_missing",
+      "operator_approval_exact_payload_hash_mismatch",
+      "env_key_missing:DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK"
+    ],
+    "display_status": "red_blocked",
+    "exact_payload_hash": "9dbe01060256b07f5f83af6f24688f3f6f83685b89abcba2b593bd768aa8cc9a",
+    "live_send_attempted": false,
+    "live_send_succeeded": false,
+    "result_class": "blocked",
+    "source_outbox_packet_id": "discord_dry_run_outbox_9dbe01060256b07f"
+  },
+  "live_send_performed": false,
+  "network_call_made": false,
+  "packet_id": "operator_approval_queue_evidence_vault_d4a5afd3ecf03b1b",
+  "provider_call_made": false,
+  "raw_secret_values_serialized": false,
+  "recommended_next_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_AND_ARTICLE_STUDIO_HEAVY_BATCH_V0",
+  "redacted_audit_summary": {
+    "approval_records_all_pending": true,
+    "evidence_vault_item_count": 4,
+    "live_dispatch_allowed_any": false,
+    "no_enabled_live_controls": true,
+    "queue_item_count": 3,
+    "runtime_credential_proof": false,
+    "sample_key_presence_scope": "sample_fixture_only"
+  },
+  "schema_version": "6.0.0",
+  "source_article_packet_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_QUEUE_AND_EVIDENCE_VAULT_UI_HEAVY_BATCH_V0",
+  "variant_preview_cards": [
+    {
+      "display_status": "amber_review_pending",
+      "platform": "discord",
+      "preview_excerpt": "[discord] Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries An educational breakdown of macro calibration and metadata context regarding Evaluate historical volatility\u2026",
+      "preview_hash": "1cd58fd896f19c77638e62c52f34700c8166bd9644a8d830071d174924ca9172",
+      "preview_id": "preview_discord_1cd58fd896f19c77",
+      "title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries",
+      "variant_id": "variant_discord_d4a5afd3ecf03b1b"
+    },
+    {
+      "display_status": "amber_review_pending",
+      "platform": "telegram_operator",
+      "preview_excerpt": "[telegram_operator] Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries Operator checkpoint | An educational breakdown of macro calibration and metadata context regardin\u2026",
+      "preview_hash": "974e8509d7999acad8cdf4855dc874d2d7182e766a51d4d1b4a6d6749126eb32",
+      "preview_id": "preview_telegram_operator_974e8509d7999aca",
+      "title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries",
+      "variant_id": "variant_telegram_d4a5afd3ecf03b1b"
+    },
+    {
+      "display_status": "amber_review_pending",
+      "platform": "substack",
+      "preview_excerpt": "[substack] Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries Process-led analysis tailored for general_financial_education This briefing grounds our editorial desk's a\u2026",
+      "preview_hash": "c19e65c51abb0967d25dde12e8c1b5ff2a3fa32ccac3b9e14eb7d73aa30b1b59",
+      "preview_id": "preview_substack_c19e65c51abb0967",
+      "title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries",
+      "variant_id": "variant_substack_d4a5afd3ecf03b1b"
+    }
+  ],
+  "warnings": [
+    "sample_key_presence_is_fixture_only_not_runtime_proof"
+  ]
+}
