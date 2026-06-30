@@ -1,5 +1,5 @@
-/*
- * Operator Cockpit V4 — Canonical View Model
+﻿/*
+ * Operator Cockpit V4 â€” Canonical View Model
  * TASK_CONTENTOPS_0174E clean-room build.
  *
  * Local-only, static, deterministic. No network, no fetch, no storage, no
@@ -13,6 +13,24 @@ var CC_OPERATOR_EVIDENCE_BASELINES = {
   source_evidence_baseline_head: "add55ea1c7447770cb9382f86af1794b951ae8f1",
   prep02_bridge_head: "8e57c4aa8af6e5089c8d7bc07d8104d5260eea27",
   protected_truth_rail_head: "992a7d0"
+};
+var CC_V6_OPERATOR_APPROVAL_QUEUE_EVIDENCE = {
+  packet_id: "operator_approval_queue_evidence_vault_d4a5afd3ecf03b1b",
+  canonical_dashboard_path: "ui/institutional_operator_cockpit_v4/index.html",
+  standalone_ui_status: "removed_non_canonical",
+  source_article_packet_hash: "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  queue_item_count: 3,
+  evidence_vault_item_count: 4,
+  sample_key_presence_scope: "sample_fixture_only",
+  runtime_credential_proof: false,
+  no_enabled_live_controls: true,
+  approval_queue_items: [
+    { platform: "discord", approval_status: "pending_operator_review", live_dispatch_allowed: false, variant_id: "variant_discord_d4a5afd3ecf03b1b", preview_id: "preview_discord_1cd58fd896f19c77", preview_hash: "1cd58fd896f19c77638e62c52f34700c8166bd9644a8d830071d174924ca9172" },
+    { platform: "telegram_operator", approval_status: "pending_operator_review", live_dispatch_allowed: false, variant_id: "variant_telegram_d4a5afd3ecf03b1b", preview_id: "preview_telegram_operator_974e8509d7999aca", preview_hash: "974e8509d7999acad8cdf4855dc874d2d7182e766a51d4d1b4a6d6749126eb32" },
+    { platform: "substack", approval_status: "pending_operator_review", live_dispatch_allowed: false, variant_id: "variant_substack_d4a5afd3ecf03b1b", preview_id: "preview_substack_c19e65c51abb0967", preview_hash: "c19e65c51abb0967d25dde12e8c1b5ff2a3fa32ccac3b9e14eb7d73aa30b1b59" }
+  ],
+  discord_dry_run_outbox: { packet_id: "discord_dry_run_outbox_e59579adf7eb8db3", outbox_id: "discord_outbox_dry_run_e59579adf7eb8db3", approved_payload_hash: "e59579adf7eb8db3839080f3b1b6f6744012d064f1fa58a96abb02bdff73bb80", operator_approval_status: "pending", live_send_allowed: false, live_send_performed: false },
+  live_pilot_status: { result_class: "blocked", display_status: "red_blocked", live_send_attempted: false, live_send_succeeded: false, blockers: ["operator_approval_declaration_missing", "operator_approval_status_not_approved", "approved_by_missing", "approved_at_missing", "operator_approval_exact_payload_hash_mismatch", "env_key_missing:DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK"] }
 };
 var CC_OPERATOR_ENV_BOUNDARY_PATH = "A:\\Capital Chronicle\\tools\\cc-live-contentops\\.env";
 var CC_OPERATOR_SURFACE_TRUE_FLAGS = [
@@ -158,6 +176,7 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
   },
 
   operator_evidence_surface_truth: operatorEvidenceSurfaceTruth(),
+  v6_operator_approval_queue: CC_V6_OPERATOR_APPROVAL_QUEUE_EVIDENCE,
 
   /* Compact grouped Safety Rail. Critical locks are always visible; the rest are
      grouped into a single system-locks cluster with a count. */
@@ -241,25 +260,25 @@ window.CC_OPERATOR_COCKPIT_V4_MODEL = {
     },
     {
       role_label: "V3 Failed-Candidate Build",
-      value: "ui/institutional_operator_cockpit_v3 — historical, NOT accepted as north-star UI",
+      value: "ui/institutional_operator_cockpit_v3 â€” historical, NOT accepted as north-star UI",
       kind: "historical",
       runtime_authority: false
     },
     {
       role_label: "V2 Historical Build Candidate",
-      value: "ui/institutional_operator_cockpit_v2 — historical reference only",
+      value: "ui/institutional_operator_cockpit_v2 â€” historical reference only",
       kind: "historical",
       runtime_authority: false
     },
     {
       role_label: "Reference Quarantine",
-      value: "docs/design_references/stitch_institutional_ai_operator_cockpit — reference-only, Not Runtime Authority",
+      value: "docs/design_references/stitch_institutional_ai_operator_cockpit â€” reference-only, Not Runtime Authority",
       kind: "reference_only",
       runtime_authority: false
     },
     {
       role_label: "Historical Screen Provenance",
-      value: "15b87ff / 1c03ca0 / 444ef2c — Not Runtime Authority",
+      value: "15b87ff / 1c03ca0 / 444ef2c â€” Not Runtime Authority",
       kind: "historical",
       runtime_authority: false
     }

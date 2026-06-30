@@ -2719,3 +2719,26 @@ table.matrix thead th,
     padding-right: 14px;
   }
 }
+.v6-approval-summary,
+.v6-approval-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+.v6-approval-summary-cell,
+.v6-approval-card,
+.v6-evidence-vault-panel .reg-row {
+  border: 1px solid var(--outline);
+  background: var(--surface-sunken);
+  border-radius: 14px;
+  padding: 12px;
+}
+.v6-approval-card .mono-value,
+.v6-evidence-vault-panel .mono {
+  overflow-wrap: anywhere;
+}
+.v6-disabled-control[disabled] {
+  opacity: 0.62;
+  cursor: not-allowed;
+  filter: grayscale(0.25);
+}

@@ -1,5 +1,5 @@
-/*
- * Operator Cockpit V4 — Renderer.
+﻿/*
+ * Operator Cockpit V4 â€” Renderer.
  * Local-only, static. Nav switching + inspect rendering only.
  * No runtime network calls, no remote requests, no realtime sockets, no beacons.
  * No browser storage. No forms, no submit, no platform/credential controls.
@@ -113,13 +113,13 @@
     clear(footer);
     footer.classList.add("audit-footer", "status-dock");
     var sum = MODEL.truth_rail_summary || {};
-    var head = (sum.product_head || "").split(" / ")[0] || "—";
+    var head = (sum.product_head || "").split(" / ")[0] || "â€”";
     var nextShort = MODEL.truth_rail.filter(function (t) { return t.role_label === "Next Allowed Action"; })[0];
     var nextLabel = nextShort ? (nextShort.value.split(".")[0]) : "";
     var cells = [
       ["mono", "Product HEAD", head],
       [null, "Next allowed action", nextLabel],
-      [null, "Safety", "live · API · scheduler disabled · kill switch active"]
+      [null, "Safety", "live Â· API Â· scheduler disabled Â· kill switch active"]
     ];
     cells.forEach(function (c, i) {
       if (i > 0) footer.appendChild(el("span", "dock-divider"));
@@ -171,17 +171,17 @@
 
   /* --- Inspection command tiles (0174AF) ---
      Large, read-only command surfaces. Each tile is local UI navigation to an
-     inspection screen — NOT an operational control. No publish/run/send/approve
+     inspection screen â€” NOT an operational control. No publish/run/send/approve
      behavior, no network, no storage. */
   function renderInspectionCommands(body) {
     var row = el("div", "command-tile-row section-gap");
     var lanes = (MODEL.screens.filter(function (x) { return x.screen_id === "content_studio"; })[0] || {}).lanes || [];
     [["Inspect", "View Evidence Vault", "evidence_vault",
-      MODEL.evidence_refs.length + " evidence refs · " + MODEL.blocker_stack.length + " blockers"],
+      MODEL.evidence_refs.length + " evidence refs Â· " + MODEL.blocker_stack.length + " blockers"],
      ["Inspect", "Inspect Publish Gate", "publish_readiness",
-      "gate matrix · all platforms blocked"],
+      "gate matrix Â· all platforms blocked"],
      ["Inspect", "Review Editorial Lanes", "content_studio",
-      lanes.length + " lanes · review-only"]
+      lanes.length + " lanes Â· review-only"]
     ].forEach(function (t) {
       var tile = el("div", "command-tile");
       tile.setAttribute("data-screen-link", t[2]);
@@ -190,7 +190,7 @@
       tile.appendChild(el("span", "command-tile-meta", t[3]));
       var open = el("button", "command-tile-cue inspect-affordance");
       open.setAttribute("type", "button");
-      open.textContent = "Inspect ›";
+      open.textContent = "Inspect â€º";
       open.setAttribute("aria-label", "Inspect " + t[1]);
       open.addEventListener("click", function (e) { e.stopPropagation(); renderScreen(t[2]); });
       tile.appendChild(open);
@@ -219,10 +219,10 @@
     spine.appendChild(head);
     spine.appendChild(el("div", "decision-spine-verdict", v.text || v.label || "Nothing may proceed to publishing."));
     var spineObj = inspectObject({ kind: "decision", id: "command-verdict",
-      label: (v.label || "Current Verdict") + " · " + (v.status || "BLOCKED"),
+      label: (v.label || "Current Verdict") + " Â· " + (v.status || "BLOCKED"),
       state: v.status, severity: v.severity || "blocked", reason: v.reason,
-      evidence_refs: v.evidence_ref_ids, allowed_local_action: (v.allowed_actions || []).join(" · ") || "inspect",
-      blocked_action: (v.blocked_actions || []).join(" · ") });
+      evidence_refs: v.evidence_ref_ids, allowed_local_action: (v.allowed_actions || []).join(" Â· ") || "inspect",
+      blocked_action: (v.blocked_actions || []).join(" Â· ") });
     makeSelectable(head, spineObj);
 
     var grid = el("div", "decision-spine-grid");
@@ -233,16 +233,16 @@
       if (obj) makeSelectable(cell, obj);
       grid.appendChild(cell);
     }
-    spineCell("Top blocker", top.id + " · " + top.label,
+    spineCell("Top blocker", top.id + " Â· " + top.label,
       top.severity === "blocked" ? "blocked" : "review",
       inspectObject({ kind: "blocker", id: top.id, label: top.label, state: top.severity,
         severity: top.severity === "blocked" ? "blocked" : "review", reason: top.reason,
         evidence_refs: top.evidence_ref_ids, allowed_local_action: "Review Blocker",
         blocked_action: "publish / post / schedule" }));
-    spineCell("Evidence", MODEL.evidence_refs.length + " refs · validation PASS", "safe");
-    spineCell("Allowed (local)", (v.allowed_actions || ["inspect"]).join(" · "), null);
-    spineCell("Disabled surfaces", "live · API · scheduler · posting · credential", "blocked");
-    spineCell("Recent delta", (s.what_changed && s.what_changed[0]) || "—", null);
+    spineCell("Evidence", MODEL.evidence_refs.length + " refs Â· validation PASS", "safe");
+    spineCell("Allowed (local)", (v.allowed_actions || ["inspect"]).join(" Â· "), null);
+    spineCell("Disabled surfaces", "live Â· API Â· scheduler Â· posting Â· credential", "blocked");
+    spineCell("Recent delta", (s.what_changed && s.what_changed[0]) || "â€”", null);
     spine.appendChild(grid);
     body.appendChild(spine);
   }
@@ -262,7 +262,7 @@
     var ledger = el("div", "change-ledger");
     s.what_changed.forEach(function (c) {
       var row = el("div", "ledger-entry");
-      row.appendChild(el("span", "ledger-mark", "Δ"));
+      row.appendChild(el("span", "ledger-mark", "Î”"));
       row.appendChild(el("span", "ledger-text", c));
       ledger.appendChild(row);
     });
@@ -303,7 +303,7 @@
       proof.appendChild(row);
     });
     dep.appendChild(proof);
-    var depDd = drilldown("Evidence Dependency Map", "proof ledger · drilldown");
+    var depDd = drilldown("Evidence Dependency Map", "proof ledger Â· drilldown");
     depDd.body.appendChild(dep);
     body.appendChild(depDd.details);
 
@@ -320,6 +320,71 @@
     body.appendChild(counters);
   }
 
+
+  function renderV6ApprovalQueue(body) {
+    var q = MODEL.v6_operator_approval_queue || window.CC_V6_OPERATOR_APPROVAL_QUEUE_EVIDENCE || {};
+    var panelNode = panel("V6 Operator Approval Queue (existing dashboard integration)");
+    panelNode.classList.add("v6-approval-queue-panel", "section-gap");
+    var summary = el("div", "v6-approval-summary");
+    [["canonical article hash", q.source_article_packet_hash], ["queue items", String(q.queue_item_count || 0)], ["sample scope", q.sample_key_presence_scope], ["runtime proof", q.runtime_credential_proof ? "true" : "false"]].forEach(function (m) {
+      var cell = el("div", "v6-approval-summary-cell");
+      cell.appendChild(el("span", "data-label", m[0]));
+      cell.appendChild(el("span", "mono-value", m[1] || "—"));
+      summary.appendChild(cell);
+    });
+    panelNode.appendChild(summary);
+    var list = el("div", "v6-approval-card-grid");
+    (q.approval_queue_items || []).forEach(function (item) {
+      var cardNode = el("div", "v6-approval-card sev-review");
+      cardNode.appendChild(el("span", "rq-eyebrow", "Pending approval record"));
+      var title = el("div", "lane-name");
+      title.appendChild(document.createTextNode(item.platform + " "));
+      title.appendChild(el("span", "token REVIEW_REQUIRED", item.approval_status));
+      cardNode.appendChild(title);
+      cardNode.appendChild(el("div", "mono-value wrap", "preview hash: " + item.preview_hash));
+      cardNode.appendChild(el("div", "muted", "variant: " + item.variant_id + " · live_dispatch_allowed=false"));
+      var disabled = el("button", "inspect-affordance v6-disabled-control", "Approve disabled — inspect only");
+      disabled.setAttribute("type", "button");
+      disabled.setAttribute("disabled", "disabled");
+      disabled.setAttribute("aria-disabled", "true");
+      cardNode.appendChild(disabled);
+      makeSelectable(cardNode, inspectObject({ kind: "V6 approval queue item", id: item.queue_item_id || item.preview_id, label: item.platform, state: item.approval_status, severity: "review", reason: "Pending operator review; no live dispatch enabled.", allowed_local_action: "Inspect", blocked_action: "approve / send / dispatch" }));
+      list.appendChild(cardNode);
+    });
+    panelNode.appendChild(list);
+    body.appendChild(panelNode);
+  }
+
+  function renderV6EvidenceVaultSummary(body) {
+    var q = MODEL.v6_operator_approval_queue || window.CC_V6_OPERATOR_APPROVAL_QUEUE_EVIDENCE || {};
+    var panelNode = panel("V6 Evidence Vault — Approval Packet Trace");
+    panelNode.classList.add("v6-evidence-vault-panel", "section-gap");
+    var outbox = q.discord_dry_run_outbox || {};
+    var live = q.live_pilot_status || {};
+    var rows = [
+      ["Discord dry-run outbox ID", outbox.packet_id || outbox.outbox_id],
+      ["Discord dry-run payload hash", outbox.approved_payload_hash],
+      ["Live pilot status", live.result_class || "blocked"],
+      ["sample_fixture_only", "not runtime proof"],
+      ["No enabled live controls", q.no_enabled_live_controls ? "true" : "false"]
+    ];
+    rows.forEach(function (row) {
+      var r = el("div", "reg-row");
+      r.appendChild(el("span", "reg-key", row[0]));
+      r.appendChild(el("span", "reg-val mono", row[1] || "—"));
+      panelNode.appendChild(r);
+    });
+    var blocked = el("div", "band sev-blocked");
+    blocked.appendChild(el("span", "band-label", "Live pilot blocked"));
+    blocked.appendChild(el("div", "band-text", "live_send_attempted=false · live_send_succeeded=false · send/approve/dispatch controls disabled"));
+    panelNode.appendChild(blocked);
+    var disabled = el("button", "inspect-affordance v6-disabled-control", "Send / Dispatch disabled — evidence only");
+    disabled.setAttribute("type", "button");
+    disabled.setAttribute("disabled", "disabled");
+    disabled.setAttribute("aria-disabled", "true");
+    panelNode.appendChild(disabled);
+    body.appendChild(panelNode);
+  }
   /* --- Content Studio --- */
   function renderContentStudio(s, body) {
     /* LaneHealthStrip (0174AE): screen-specific editorial-lane health summary.
@@ -351,7 +416,7 @@
 
     /* ReviewQueue choreography (0174AM-A): lead with the single highest-priority
        object the operator must act on, then a severity-ranked pipeline. Built
-       only from existing lane data — no new capability, no market data. */
+       only from existing lane data â€” no new capability, no market data. */
     function laneSeverity(l) { return l.status === "BLOCKED" ? 0 : (l.status === "REVIEW_REQUIRED" ? 1 : 2); }
     function laneSevClass(l) { return l.status === "BLOCKED" ? "blocked" : (l.status === "REVIEW_REQUIRED" ? "review" : "safe"); }
     var ranked = lanes.slice().sort(function (a, b) {
@@ -394,7 +459,7 @@
       row.appendChild(main);
       var risk = el("div", "pipeline-risk");
       risk.appendChild(el("span", "pipeline-risk-label", "forbidden-language"));
-      risk.appendChild(el("span", "pipeline-risk-value", lane.forbidden_language || "—"));
+      risk.appendChild(el("span", "pipeline-risk-value", lane.forbidden_language || "â€”"));
       row.appendChild(risk);
       var tok = el("div"); tok.appendChild(el("span", "token " + lane.status, lane.status));
       row.appendChild(tok);
@@ -407,6 +472,7 @@
     });
     queue.appendChild(pipeline);
     body.appendChild(queue);
+    renderV6ApprovalQueue(body);
 
     var grid = el("div", "grid grid-2 lane-control-grid");
     s.lanes.forEach(function (lane) {
@@ -542,18 +608,18 @@
     table.appendChild(tbody);
     wrap.appendChild(table);
     mp.appendChild(wrap);
-    var gmDd = drilldown("Gate Matrix", "platform gate control · drilldown");
+    var gmDd = drilldown("Gate Matrix", "platform gate control Â· drilldown");
     gmDd.body.appendChild(mp);
     body.appendChild(gmDd.details);
 
     var rec = panel("Platform Readiness Records (inspect-only)");
     s.platform_records.forEach(function (p) {
       var row = el("div", "reg-row");
-      row.appendChild(el("span", "reg-key", p.platform + " — allowed: " + p.allowed_now));
+      row.appendChild(el("span", "reg-key", p.platform + " â€” allowed: " + p.allowed_now));
       row.appendChild(el("span", "reg-val", "forbidden: " + p.forbidden_now));
       rec.appendChild(row);
     });
-    var recDd = drilldown("Platform Readiness Records", "inspect-only · drilldown");
+    var recDd = drilldown("Platform Readiness Records", "inspect-only Â· drilldown");
     recDd.body.appendChild(rec);
     body.appendChild(recDd.details);
 
@@ -574,7 +640,7 @@
     [["Evidence confidence", es.status === "PASS" ? "high (caveated)" : (es.status || "unknown"), "safe"],
      ["Lineage health", currentEvents + " current / " + (s.evidence_timeline || []).length + " tracked", "safe"],
      ["Validation state", passN + " / " + totalN + " PASS", passN === totalN ? "safe" : "review"],
-     ["Recency / QA", "0174C capture · worker judgment caveat", "review"],
+     ["Recency / QA", "0174C capture Â· worker judgment caveat", "review"],
      ["Blocking caveats", String(blockingCav), blockingCav ? "blocked" : "safe"]
     ].forEach(function (m) {
       var cell = el("div", "confidence-cell sev-" + m[2]);
@@ -596,7 +662,7 @@
     var firstCav = (s.caveat_registry || [])[0] || {};
     var firstReg = (s.active_blocker_registry || [])[0] || {};
     var chainStages = [
-      { step: "01", label: "Evidence source", value: (es.evidence_ref_ids || []).join(" · ") || "—", sev: "safe",
+      { step: "01", label: "Evidence source", value: (es.evidence_ref_ids || []).join(" Â· ") || "â€”", sev: "safe",
         obj: inspectObject({ kind: "evidence ref", id: "evidence-source", label: "Evidence source",
           state: es.status, severity: "safe", reason: es.reason, evidence_refs: es.evidence_ref_ids,
           allowed_local_action: "View Evidence", blocked_action: "evidence mutation / export" }) },
@@ -605,12 +671,12 @@
           state: passN + "/" + totalN + " PASS", severity: passN === totalN ? "safe" : "review",
           reason: "External-dependency, current-state, forbidden-control, and secret scans.",
           allowed_local_action: "View Evidence", blocked_action: "evidence mutation" }) },
-      { step: "03", label: "Caveat", value: firstCav.caveat_id ? (firstCav.caveat_id + " · " + (firstCav.blocking ? "blocking" : "non-blocking")) : "none", sev: firstCav.blocking ? "blocked" : "review",
+      { step: "03", label: "Caveat", value: firstCav.caveat_id ? (firstCav.caveat_id + " Â· " + (firstCav.blocking ? "blocking" : "non-blocking")) : "none", sev: firstCav.blocking ? "blocked" : "review",
         obj: inspectObject({ kind: "QA caveat", id: firstCav.caveat_id, label: firstCav.caveat_id || "Caveat",
           state: "historical", severity: firstCav.blocking ? "blocked" : "review", reason: firstCav.note,
           evidence_refs: [firstCav.source_evidence], allowed_local_action: "View Evidence",
           blocked_action: "evidence mutation", posture: "historical" }) },
-      { step: "04", label: "Active blocker", value: firstReg.id ? (firstReg.id + " · " + firstReg.status) : "none", sev: /LIVE_DISABLED|BLOCKED/.test(firstReg.status || "") ? "blocked" : "review",
+      { step: "04", label: "Active blocker", value: firstReg.id ? (firstReg.id + " Â· " + firstReg.status) : "none", sev: /LIVE_DISABLED|BLOCKED/.test(firstReg.status || "") ? "blocked" : "review",
         obj: inspectObject({ kind: "blocker", id: firstReg.id, label: firstReg.label,
           state: firstReg.status, severity: "review", reason: firstReg.label,
           allowed_local_action: "Review Blocker", blocked_action: "publish / post / schedule" }) }
@@ -628,6 +694,7 @@
     body.appendChild(chain);
 
     renderEvidenceSurfaceHost(body);
+    renderV6EvidenceVaultSummary(body);
 
     var mp = panel("Validation Matrix");
     var wrap = el("div", "matrix-wrap audit-room-grid");
@@ -646,18 +713,18 @@
       tbody.appendChild(tr);
     });
     table.appendChild(tbody); wrap.appendChild(table); mp.appendChild(wrap);
-    var vmDd = drilldown("Validation Matrix", "check / expected / observed · drilldown");
+    var vmDd = drilldown("Validation Matrix", "check / expected / observed Â· drilldown");
     vmDd.body.appendChild(mp);
     body.appendChild(vmDd.details);
 
     var tl = panel("Evidence Timeline");
     s.evidence_timeline.forEach(function (e) {
       var row = el("div", "reg-row");
-      row.appendChild(el("span", "reg-key mono", e.commit + " — " + e.task));
+      row.appendChild(el("span", "reg-key mono", e.commit + " â€” " + e.task));
       row.appendChild(el("span", "reg-val", e.classification));
       tl.appendChild(row);
     });
-    var tlDd = drilldown("Evidence Timeline", "commit lineage · drilldown");
+    var tlDd = drilldown("Evidence Timeline", "commit lineage Â· drilldown");
     tlDd.body.appendChild(tl);
     body.appendChild(tlDd.details);
 
@@ -672,7 +739,7 @@
     });
     grid.appendChild(cav);
     var fsr = panel("Forbidden-Scope Registry");
-    s.forbidden_scope_registry.forEach(function (f) { fsr.appendChild(el("div", "muted", "• " + f)); });
+    s.forbidden_scope_registry.forEach(function (f) { fsr.appendChild(el("div", "muted", "â€¢ " + f)); });
     grid.appendChild(fsr);
     var abr = panel("Active Blocker Registry");
     s.active_blocker_registry.forEach(function (b) {
@@ -682,12 +749,12 @@
       abr.appendChild(row);
     });
     grid.appendChild(abr);
-    var gridDd = drilldown("Evidence Registries", "caveat / forbidden-scope / blocker · drilldown");
+    var gridDd = drilldown("Evidence Registries", "caveat / forbidden-scope / blocker Â· drilldown");
     gridDd.body.appendChild(grid);
     body.appendChild(gridDd.details);
 
     var leg = panel("Evidence Confidence Legend");
-    s.confidence_legend.forEach(function (l) { leg.appendChild(el("div", "muted", "• " + l)); });
+    s.confidence_legend.forEach(function (l) { leg.appendChild(el("div", "muted", "â€¢ " + l)); });
     leg.classList.add("section-gap");
     body.appendChild(leg);
 
@@ -734,8 +801,8 @@
         items.push({ title: it.title, lane: it.lane, state: it.state, period: lane.period, evidence_ref: it.evidence_ref });
       });
     });
-    /* WorkflowPriorityRail (0174AM-C): choreograph the two items that matter —
-       the top blocked item and the next actionable item — above the full board.
+    /* WorkflowPriorityRail (0174AM-C): choreograph the two items that matter â€”
+       the top blocked item and the next actionable item â€” above the full board.
        Manual-only; no scheduler, no auto-post. */
     var blockedItem = items.filter(function (it) { return it.state === "blocked"; })[0];
     var nextItem = items.filter(function (it) { return it.state !== "blocked"; }).sort(function (a, b) {
@@ -765,7 +832,7 @@
         blocked_action: "schedule / auto-post / dispatch" }));
       return slot;
     }
-    prioRail.appendChild(prioritySlot("Blocked — resolve first", "slot-blocked", blockedItem));
+    prioRail.appendChild(prioritySlot("Blocked â€” resolve first", "slot-blocked", blockedItem));
     prioRail.appendChild(prioritySlot("Next manual action", "slot-next", nextItem));
     body.appendChild(prioRail);
 
@@ -778,7 +845,7 @@
       ch.appendChild(el("span", "workflow-column-count", String(colItems.length)));
       col.appendChild(ch);
       if (!colItems.length) {
-        col.appendChild(el("div", "workflow-empty", "—"));
+        col.appendChild(el("div", "workflow-empty", "â€”"));
       }
       colItems.forEach(function (it) {
         var card = el("div", "workflow-card" + (it.state === "blocked" ? " sev-blocked" : ""));
@@ -795,7 +862,7 @@
         makeSelectable(card, inspectObject({
           kind: "workflow item", id: it.lane, label: it.title, state: it.state,
           severity: it.state === "blocked" ? "blocked" : "review",
-          reason: "Manual workflow stage: " + it.state + " · source: " + (sourceByState[it.state] || "n/a"),
+          reason: "Manual workflow stage: " + it.state + " Â· source: " + (sourceByState[it.state] || "n/a"),
           evidence_refs: [it.evidence_ref], allowed_local_action: "Inspect Workflow Item",
           blocked_action: "schedule / auto-post / dispatch" }));
         col.appendChild(card);
@@ -807,11 +874,11 @@
     var locked = panel("Forbidden Automated States (disabled / future-only)");
     s.forbidden_states.forEach(function (f) {
       var row = el("div", "reg-row");
-      row.appendChild(el("span", "reg-key muted", f.state + " — " + f.note));
+      row.appendChild(el("span", "reg-key muted", f.state + " â€” " + f.note));
       var rv = el("span", "reg-val"); rv.appendChild(el("span", "token " + f.status, f.status)); row.appendChild(rv);
       locked.appendChild(row);
     });
-    var lockedDd = drilldown("Forbidden Automated States (disabled / future-only)", "policy-locked · drilldown");
+    var lockedDd = drilldown("Forbidden Automated States (disabled / future-only)", "policy-locked Â· drilldown");
     lockedDd.body.appendChild(locked);
     body.appendChild(lockedDd.details);
   }
@@ -823,7 +890,7 @@
     var cards = el("div", "grid grid-2 screenshot-prep-grid section-gap");
     s.report_cards.forEach(function (rc) {
       var p = el("div", "lane");
-      p.appendChild(el("div", "lane-name", rc.surface + " — screenshot-safe report card"));
+      p.appendChild(el("div", "lane-name", rc.surface + " â€” screenshot-safe report card"));
       var ul = el("ul");
       rc.labels.forEach(function (l) { ul.appendChild(el("li", null, "label: " + l)); });
       rc.redactions.forEach(function (r) { ul.appendChild(el("li", null, "redacts: " + r)); });
@@ -844,7 +911,7 @@
     s.redaction_preview.forEach(function (r) { rp.appendChild(el("div", "mono", r)); });
     grid.appendChild(rp);
     var lp = panel("Limitation Strip");
-    s.limitation_strip.forEach(function (l) { lp.appendChild(el("div", "muted", "• " + l)); });
+    s.limitation_strip.forEach(function (l) { lp.appendChild(el("div", "muted", "â€¢ " + l)); });
     grid.appendChild(lp);
     body.appendChild(grid);
 
@@ -861,13 +928,13 @@
 
     var bf = panel("Blocked Forecast Explainer");
     bf.appendChild(el("div", "muted", s.blocked_forecast_explainer));
-    var bfDd = drilldown("Blocked Forecast Explainer", "why forecasting is blocked · drilldown");
+    var bfDd = drilldown("Blocked Forecast Explainer", "why forecasting is blocked Â· drilldown");
     bfDd.body.appendChild(bf);
     body.appendChild(bfDd.details);
 
     var ff = panel(s.failure_forensics_card.title);
     ff.appendChild(el("div", "muted", s.failure_forensics_card.note));
-    var ffDd = drilldown("Failure Forensics", "post-mortem · drilldown");
+    var ffDd = drilldown("Failure Forensics", "post-mortem Â· drilldown");
     ffDd.body.appendChild(ff);
     body.appendChild(ffDd.details);
   }
@@ -891,12 +958,12 @@
       makeSelectable(tr, inspectObject({
         kind: "policy group", id: r.policy, label: r.policy, state: r.value,
         severity: /disabled|prohibited/i.test(r.value) ? "blocked" : "safe",
-        reason: r.enforcement + " — " + r.rationale, allowed_local_action: "Open Policy Group",
+        reason: r.enforcement + " â€” " + r.rationale, allowed_local_action: "Open Policy Group",
         blocked_action: "enable live / display credential" }));
       tbody.appendChild(tr);
     });
     table.appendChild(tbody); wrap.appendChild(table); mp.appendChild(wrap);
-    var pmDd = drilldown("Policy Matrix", "policy / enforcement / rationale · drilldown");
+    var pmDd = drilldown("Policy Matrix", "policy / enforcement / rationale Â· drilldown");
     pmDd.body.appendChild(mp);
     body.appendChild(pmDd.details);
 
@@ -927,7 +994,7 @@
       var rv = el("span", "reg-val"); rv.appendChild(el("span", "token " + g.status, g.status)); row.appendChild(rv);
       fg.appendChild(row);
     });
-    var fgDd = drilldown("Future Gate Requirements", "future-only gates · drilldown");
+    var fgDd = drilldown("Future Gate Requirements", "future-only gates Â· drilldown");
     fgDd.body.appendChild(fg);
     body.appendChild(fgDd.details);
 
@@ -1011,7 +1078,7 @@
     var cards = el("div", "top-blocker-cards");
     MODEL.blocker_stack.slice(0, 3).forEach(function (b) {
       var card = el("div", "blocker-card sev-" + b.severity);
-      card.appendChild(el("span", "scan-label", b.id + " · " + b.severity));
+      card.appendChild(el("span", "scan-label", b.id + " Â· " + b.severity));
       card.appendChild(el("div", "blocker-card-text", b.label));
       cards.appendChild(card);
     });
@@ -1215,7 +1282,7 @@
 
   /* --- Screen-specific inspector rail (0174AH) ---
      Read-only, high-signal, purpose-built per screen. Built only from existing
-     model data — no new capability, no operational control, no dump. Each screen
+     model data â€” no new capability, no operational control, no dump. Each screen
      answers its own institutional questions instead of a generic template. */
   function renderInspectorRail(screen, rail) {
     var head = el("div", "inspector-head");
@@ -1277,7 +1344,7 @@
       rail.appendChild(lc);
     }
     function evidenceRefsValue(n) {
-      return MODEL.evidence_refs.slice(0, n).map(evidenceRefId).filter(Boolean).join(" · ") || "—";
+      return MODEL.evidence_refs.slice(0, n).map(evidenceRefId).filter(Boolean).join(" Â· ") || "â€”";
     }
 
     var sid = screen.screen_id;
@@ -1286,17 +1353,17 @@
       var v = screen.verdict || {};
       var top = MODEL.blocker_stack[0] || {};
       var cnt = screen.safety_counters || {};
-      card("Active decision", (v.label || "Verdict") + " · " + (v.status || "BLOCKED"), "blocked");
-      card("Priority blocker", top.id + " · " + top.label, top.severity === "blocked" ? "blocked" : "review");
-      card("Evidence confidence", MODEL.evidence_refs.length + " refs · validation PASS", "safe", true);
-      card("Operator next action", (v.allowed_actions || []).join(" · ") || "inspect", null);
-      card("Safety locks", (cnt.locks_active || 13) + " active · live disabled", "blocked");
-      card("Recent change", (screen.what_changed && screen.what_changed[0]) || "—", null);
+      card("Active decision", (v.label || "Verdict") + " Â· " + (v.status || "BLOCKED"), "blocked");
+      card("Priority blocker", top.id + " Â· " + top.label, top.severity === "blocked" ? "blocked" : "review");
+      card("Evidence confidence", MODEL.evidence_refs.length + " refs Â· validation PASS", "safe", true);
+      card("Operator next action", (v.allowed_actions || []).join(" Â· ") || "inspect", null);
+      card("Safety locks", (cnt.locks_active || 13) + " active Â· live disabled", "blocked");
+      card("Recent change", (screen.what_changed && screen.what_changed[0]) || "â€”", null);
     } else if (sid === "publish_readiness") {
       var rv = screen.readiness_verdict || {};
-      card("Gate checkpoint", "No platform can publish · " + (rv.status || "BLOCKED"), "blocked");
+      card("Gate checkpoint", "No platform can publish Â· " + (rv.status || "BLOCKED"), "blocked");
       card("Next blocker", rv.text || "Supervised publishing blocked", "blocked");
-      card("Gate matrix", (screen.gate_matrix || []).length + " platforms · all gates blocked", "blocked", true);
+      card("Gate matrix", (screen.gate_matrix || []).length + " platforms Â· all gates blocked", "blocked", true);
       disabledLocks();
     } else if (sid === "evidence_vault") {
       var es = screen.evidence_state || {};
@@ -1331,7 +1398,7 @@
       (screen.date_lanes || []).forEach(function (l) { (l.items || []).forEach(function (it) { items.push(it); }); });
       var blockedItems = items.filter(function (it) { return it.state === "blocked"; }).length;
       card("Plan state", (screen.plan_state || {}).status || "REVIEW_REQUIRED", "review");
-      card("Workflow items", items.length + " tracked · manual only", null, true);
+      card("Workflow items", items.length + " tracked Â· manual only", null, true);
       card("Blocked items", String(blockedItems), blockedItems ? "blocked" : "safe", true);
       card("Manual next", "manual review / draft (no scheduler)", null);
       card("Automation", "scheduler & auto-post disabled (future-only)", "blocked");
@@ -1346,13 +1413,13 @@
       var ps = screen.policy_state || {};
       card("Active policy state", ps.status || "PASS", "safe");
       card("Runtime boundaries", "network / live / scheduler / API disabled", "blocked");
-      card("Content boundaries", "no advice · no signal · no targets", "review");
-      card("Credential never-display", (screen.credential_never_display_registry || []).length + " items · SECRET_REDACTED", "safe", true);
+      card("Content boundaries", "no advice Â· no signal Â· no targets", "review");
+      card("Credential never-display", (screen.credential_never_display_registry || []).length + " items Â· SECRET_REDACTED", "safe", true);
       card("Platform gates", (screen.future_gate_requirements || []).length + " future-only gates", "blocked", true);
       card("Redaction posture", "secrets stay out-of-band", "safe");
     } else {
       var fb = screen.verdict || screen.policy_state || {};
-      card("Current state", (fb.label || screen.title) + (fb.status ? " · " + fb.status : ""), "safe");
+      card("Current state", (fb.label || screen.title) + (fb.status ? " Â· " + fb.status : ""), "safe");
       card("Evidence backing", evidenceRefsValue(5), null, true);
       disabledLocks();
     }
@@ -1494,7 +1561,7 @@
     return banner;
   }
 
-  /* Command Center — compact evidence summary near the decision spine. */
+  /* Command Center â€” compact evidence summary near the decision spine. */
   function renderEvidenceSurfaceSummary(body) {
     var verdict = surfaceIntegrity();
     var wrap = el("div", "instrument-panel evidence-surface-summary section-gap");
@@ -1612,7 +1679,7 @@
     body.appendChild(room);
   }
 
-  /* Evidence Vault — primary host: chain map, component matrix, required-false
+  /* Evidence Vault â€” primary host: chain map, component matrix, required-false
      matrix, hostile rollup, lineage. All within drilldowns; nothing deleted. */
   function renderEvidenceSurfaceHost(body) {
     var verdict = surfaceIntegrity();
@@ -1762,7 +1829,7 @@
     body.appendChild(lDd.details);
   }
 
-  /* Publish Readiness Tower — no-grant communication matrix. */
+  /* Publish Readiness Tower â€” no-grant communication matrix. */
   function renderEvidenceSurfaceNoGrant(body) {
     var verdict = surfaceIntegrity();
     var p = el("div", "instrument-panel es-no-grant-matrix section-gap");
@@ -1818,7 +1885,7 @@
     body.appendChild(p);
   }
 
-  /* Settings / Safety — evidence surface boundary policy group. */
+  /* Settings / Safety â€” evidence surface boundary policy group. */
   function renderEvidenceSurfaceBoundary(body) {
     var verdict = surfaceIntegrity();
     var p = panel("Evidence Surface Boundary");

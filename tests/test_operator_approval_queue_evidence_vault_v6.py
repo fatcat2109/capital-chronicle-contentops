@@ -1,4 +1,4 @@
-﻿from dataclasses import asdict
+from dataclasses import asdict
 import json
 from pathlib import Path
 
@@ -70,17 +70,34 @@ def test_missing_source_packet_fields_fail_closed():
         build_packet(article, variant, live)
 
 
-def test_ui_static_html_contains_required_labels_and_no_enabled_live_controls():
-    html = Path("ui/operator_approval_queue_evidence_vault/index.html").read_text(encoding="utf-8-sig").lower()
-    assert "operator approval queue" in html
-    assert "evidence vault" in html
-    assert "sample_fixture_only" in html
-    assert "send disabled" in html
-    assert "approve disabled" in html
-    assert "dispatch disabled" in html
-    assert 'id="send-live-discord" disabled' in html
-    assert "<button>send" not in html
-    assert "<button>dispatch" not in html
+def test_canonical_dashboard_contains_required_queue_evidence_labels_and_no_enabled_controls():
+    cockpit_dir = Path("ui/institutional_operator_cockpit_v4")
+    html = (cockpit_dir / "index.html").read_text(encoding="utf-8-sig").lower()
+    model = (cockpit_dir / "view_model.js").read_text(encoding="utf-8-sig").lower()
+    renderer = (cockpit_dir / "cockpit.js").read_text(encoding="utf-8-sig").lower()
+    combined = "\n".join([html, model, renderer])
+    assert "operator approval queue" in combined
+    assert "evidence vault" in combined
+    assert "sample_fixture_only" in combined
+    assert "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e" in combined
+    assert "1cd58fd896f19c77638e62c52f34700c8166bd9644a8d830071d174924ca9172" in combined
+    assert "974e8509d7999acad8cdf4855dc874d2d7182e766a51d4d1b4a6d6749126eb32" in combined
+    assert "c19e65c51abb0967d25dde12e8c1b5ff2a3fa32ccac3b9e14eb7d73aa30b1b59" in combined
+    assert "discord_dry_run_outbox_e59579adf7eb8db3" in combined
+    assert "e59579adf7eb8db3839080f3b1b6f6744012d064f1fa58a96abb02bdff73bb80" in combined
+    assert "live pilot blocked" in combined
+    assert "approve disabled" in combined
+    assert "send / dispatch disabled" in combined
+    assert "<button>send" not in combined
+    assert "<button>dispatch" not in combined
+    assert "<button>approve" not in combined
+
+
+def test_standalone_ui_removed_and_not_canonical():
+    assert not Path("ui/operator_approval_queue_evidence_vault/index.html").exists()
+    runbook = Path("docs/runbooks/V6_OPERATOR_APPROVAL_QUEUE_EVIDENCE_VAULT_UI_RUNBOOK.md").read_text(encoding="utf-8-sig")
+    assert "ui/institutional_operator_cockpit_v4/index.html" in runbook
+    assert "ui/operator_approval_queue_evidence_vault/index.html" not in runbook
 
 
 def test_next_task_pointer():
