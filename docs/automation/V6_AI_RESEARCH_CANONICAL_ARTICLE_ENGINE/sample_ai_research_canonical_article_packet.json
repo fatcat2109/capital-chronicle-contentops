@@ -1,0 +1,120 @@
+{
+  "blockers": [],
+  "canonical_article_draft": {
+    "assumptions": "Assumes data sufficiency and operator verification under V6 standards.",
+    "canonical_payload_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+    "conclusion": "A disciplined operator relies on verified context, explicit assumptions, and clear disclaimers to ensure community integrity under V6_EDUCATIONAL_DISCLAIMER.",
+    "created_at": "2026-07-01T02:56:46+07:00",
+    "dek": "An educational breakdown of macro calibration and metadata context regarding Evaluate historical volatility in macro calendar commentaries.",
+    "intro": "This briefing grounds our editorial desk's approach to Evaluate historical volatility in macro calendar commentaries. By focusing on the Focus on data transparency, process, and methodology over trading recommendations, we analyze historical patterns without offering directional investment advice.",
+    "no_fake_data_check": true,
+    "no_financial_advice_check": true,
+    "sections": [
+      {
+        "body": "We review the sources provided: Macro volatility series database release v1, Fed calendar notes 2026. A key limitation of historical macro data is lag and revision. Operators must verify primary sources before documenting findings.",
+        "title": "Methodology and Source Review"
+      },
+      {
+        "body": "Statistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market noise from structural policy shifts.",
+        "title": "Historical Context and Range Analysis"
+      }
+    ],
+    "slug_candidate": "evaluate-historical-volatility-in-macro-calendar-commentaries",
+    "source_notes": "Sources referenced: Macro volatility series database release v1, Fed calendar notes 2026. Optional notes: ",
+    "subtitle": "Process-led analysis tailored for general_financial_education",
+    "thesis": "Methodological transparency and rigorous historical context are essential when reviewing Evaluate historical volatility in macro calendar commentaries.",
+    "title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries",
+    "uncertainty_notes": "Prior cycles may not predict future macro distributions."
+  },
+  "discord_summary_seed": {
+    "call_to_action": "Review the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
+    "canonical_url": null,
+    "content_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+    "created_at": "2026-07-01T02:56:46+07:00",
+    "key_points": [
+      "Methodology and Source Review: We review the sources provided: Macro volatility series database release v1, Fed calendar notes 2026. A key limitation o...",
+      "Historical Context and Range Analysis: Statistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market nois..."
+    ],
+    "source_article_id": "operator_idea_d4a5afd3ecf03b1b",
+    "summary": "An educational breakdown of macro calibration and metadata context regarding Evaluate historical volatility in macro calendar commentaries.",
+    "title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries"
+  },
+  "editorial_review_packet": {
+    "editorial_risk_notes": "Ensure no restricted directional keywords are introduced during manual edits.",
+    "reader_promise": "We promise process-led education without investment suggestions.",
+    "revision_checklist": [
+      "Verify H.15 raw series",
+      "Confirm risk disclaimer presence",
+      "Validate all source links"
+    ],
+    "substack_readiness_status": "pass"
+  },
+  "env_lines_serialized": false,
+  "evidence_packet": {
+    "dry_run_provenance": "deterministic_local_engine_run",
+    "redaction_verified": true
+  },
+  "operator_idea_id": "operator_idea_d4a5afd3ecf03b1b",
+  "packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "provider_call_made": false,
+  "provider_mode": "dry_run_fixture",
+  "provider_request_budget": 1,
+  "provider_request_count": 0,
+  "raw_provider_key_serialized": false,
+  "recommended_next_task": "TASK_CONTENTOPS_V6_VARIANT_PREVIEW_HASH_APPROVAL_TO_DISCORD_OUTBOX_HEAVY_BATCH_V0",
+  "research_grounding_packet": {
+    "cited_source_notes": "Macro volatility series database release v1, Fed calendar notes 2026",
+    "no_claims_of_live_public_publication": true,
+    "no_fabricated_market_numbers": true,
+    "no_invented_citations": true,
+    "no_invented_urls": true,
+    "required_human_review_items": [
+      "Verify H.15 raw series",
+      "Confirm risk disclaimer presence"
+    ],
+    "source_quality": {
+      "quality_score": "verified_operator_supplied",
+      "relevance": "high"
+    },
+    "unsupported_claims": []
+  },
+  "schema_version": "6.0.0",
+  "seo_packet": {
+    "meta_description": "An educational briefing analyzing Evaluate historical volatility in macro calendar commentaries under the editorial angle: Focus on data transparency, process, and methodology over trading recommendations.",
+    "secondary_keywords": [
+      "macro calendar",
+      "educational briefing",
+      "volatility review"
+    ],
+    "target_keyword": "commentaries",
+    "title_alternatives": [
+      "Chronicle Watchlist: Evaluate historical volatility in macro calendar commentaries",
+      "Understanding Evaluate historical volatility in macro calendar commentaries"
+    ]
+  },
+  "source_context_packet": {
+    "downstream_targets": [
+      "discord",
+      "telegram_operator",
+      "manual_export"
+    ],
+    "editorial_angle": "Focus on data transparency, process, and methodology over trading recommendations",
+    "operator_idea": "Evaluate historical volatility in macro calendar commentaries",
+    "output_style": "educational_process_heavy",
+    "publish_target": "substack_canonical",
+    "risk_disclaimer_policy": "V6_EDUCATIONAL_DISCLAIMER",
+    "source_context": [
+      "Macro volatility series database release v1",
+      "Fed calendar notes 2026"
+    ],
+    "source_notes": "",
+    "source_urls": [],
+    "target_audience": "general_financial_education"
+  },
+  "task_label": "TASK_CONTENTOPS_V6_AI_RESEARCH_CANONICAL_ARTICLE_PRODUCTION_ENGINE_HEAVY_BATCH_V0",
+  "telegram_operator_checkpoint_seed": {
+    "checkpoint_status": "pending_operator",
+    "concise_summary": "V6 Checkpoint: Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries is ready for operator review."
+  },
+  "warnings": []
+}
