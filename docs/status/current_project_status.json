@@ -1,0 +1,90 @@
+﻿{
+  "schema_version": "1.0.0",
+  "status_doc_kind": "contentops_current_project_status",
+  "repo_full_name": "fatcat2109/capital-chronicle-contentops",
+  "branch": "master",
+  "last_verified_remote_sha": "f0cffe4d99bdc5d619f387bbd3e6a6455438a95a",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_CURRENT_PROJECT_STATUS_LEDGER_AND_DASHBOARD_AUTHORITY_GUARDRAIL_V0",
+  "current_product_phase": "V6 local-first product loop consolidation on the V5 dashboard surface",
+  "current_product_lane": "status ledger and dashboard authority guardrail",
+  "canonical_dashboard_surface": "ui/contentops_v5/",
+  "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
+  "canonical_dashboard_package": "ui/contentops_v5/package.json",
+  "canonical_dashboard_test_command": "npm test -- --run",
+  "canonical_dashboard_build_command": "npm run build",
+  "legacy_reference_surfaces": [
+    "ui/institutional_operator_cockpit_v4/",
+    "ui/institutional_operator_cockpit_v3/",
+    "ui/institutional_operator_cockpit_v2/",
+    "ui/institutional_shell/",
+    "ui/daily_content_studio/",
+    "ui/operator_evidence_intake_studio/"
+  ],
+  "stale_wrong_surfaces": [
+    "ui/operator_approval_queue_evidence_vault/"
+  ],
+  "backend_status_modules": [
+    "live_contentops/unified_capability_env_readiness_v6.py",
+    "live_contentops/discord_dry_run_outbox_operator_approval_spine_v6.py",
+    "live_contentops/discord_supervised_live_pilot_from_approved_outbox_v6.py",
+    "live_contentops/ai_research_canonical_article_engine_v6.py",
+    "live_contentops/variant_preview_hash_approval_to_discord_outbox_v6.py",
+    "live_contentops/operator_approval_queue_evidence_vault_v6.py"
+  ],
+  "current_loop_components": [
+    "AI research packet",
+    "canonical article draft",
+    "editorial and SEO review packet",
+    "platform-native variants",
+    "preview hash approval records",
+    "Discord dry-run outbox",
+    "redacted audit/manual fallback packets",
+    "blocked supervised live-pilot state"
+  ],
+  "dispatch_live_status": "blocked; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, or live send authorized",
+  "provider_env_credential_status": "gated; no env value or credential value reads; committed evidence may use boolean/key-name status only",
+  "active_blockers": [
+    "V6 approval queue/evidence vault must be integrated into V5 dashboard",
+    "recent V4 integration is non-canonical and needs dashboard authority reconciliation",
+    "standalone approval queue UI must not be canonical",
+    "live/provider/platform execution remains disabled"
+  ],
+  "accepted_caveats": [
+    "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
+    "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
+    "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
+  ],
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_CURRENT_PROJECT_STATUS_LEDGER_AND_DASHBOARD_AUTHORITY_GUARDRAIL_V0",
+  "latest_accepted_task_result": "created mandatory current-status ledger and dashboard surface authority guardrail",
+  "latest_evidence_summary": "status docs and pytest guardrail enforce V5 as canonical dashboard and V4 as fallback/reference only",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP_REPAIR_V0",
+  "mandatory_read_before_task": [
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json"
+  ],
+  "mandatory_update_after_task": [
+    "last_updated_by_task",
+    "last_verified_remote_sha",
+    "current_product_phase",
+    "current_product_lane",
+    "accepted_baseline_summary",
+    "canonical_dashboard_surface",
+    "stale_or_deprecated_surfaces",
+    "current_v6_loop_status",
+    "dispatch_live_status",
+    "provider_env_credential_status",
+    "active_blockers",
+    "latest_accepted_task",
+    "latest_changed_areas",
+    "current next recommended task"
+  ],
+  "guardrail_rules": [
+    "read status before work",
+    "update status after task",
+    "do not target V4 as canonical product UI",
+    "do not create standalone dashboard as canonical",
+    "stop on status/repo authority conflict",
+    "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
+    "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
+  ]
+}
