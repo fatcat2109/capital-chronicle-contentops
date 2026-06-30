@@ -1,0 +1,221 @@
+{
+  "blockers": [],
+  "browser_session_used": false,
+  "canonical_article_review_packet": {
+    "article_id": "article_61f70bd3b41f475f",
+    "blocked_reasons": [],
+    "body_markdown": "## Review draft\n\nThis packet is local-only and requires human review before any publication path.",
+    "citation_status": "source_review_required",
+    "citations": [],
+    "disclosure": "Educational review draft only. Not personal guidance or alert service.",
+    "draft_status": "review_only",
+    "human_review_required": true,
+    "lede": "This review-only draft frames the topic for human editorial inspection.",
+    "limitations": [
+      "No external source verification performed",
+      "Requires separate publication review"
+    ],
+    "media_request": null,
+    "no_advice_status": "pass",
+    "no_signal_status": "pass",
+    "publication_ready": false,
+    "research_packet_id": "research_b34673ea2faafe84",
+    "section_map": [
+      "lede",
+      "context",
+      "limitations",
+      "review questions"
+    ],
+    "seo_packet_id": "seo_38b96c1260e7dbd6",
+    "slug_candidate": "review-draft-0a60ab46",
+    "subtitle": "Review-only educational draft for human inspection.",
+    "title": "Review draft: How to evaluate forecast readiness before publishing educational macro commentary"
+  },
+  "content_production_review_bundle_id": "content_production_review_bundle_24fc5d3ab2ee8703",
+  "credential_value_read": false,
+  "discord_drop_candidate_packet": {
+    "approval_required": true,
+    "article_id": "article_61f70bd3b41f475f",
+    "blocked_reasons": [],
+    "disclosure": "Educational review draft only. Not personal guidance or alert service.",
+    "discord_drop_id": "discord_drop_d02183993fd8f049",
+    "discussion_question": "What source checks should happen before this becomes a publishable draft?",
+    "dispatch_allowed": false,
+    "drop_type": "substack_drop",
+    "human_review_required": true,
+    "no_advice_status": "pass",
+    "no_signal_status": "pass",
+    "one_line_thesis": "Review-only discussion seed for human inspection.",
+    "payload_hash_candidate": "d02183993fd8f04997e6bd440975c849bd04b0dc7dd65a82bdd265e7e98e1fda",
+    "publication_ready": false,
+    "source_link_placeholder": null,
+    "summary": "Local candidate only; not approved for posting.",
+    "target_channel_class": "substack_drops",
+    "title": "Review draft: How to evaluate forecast readiness before publishing educational macro commentary",
+    "why_it_matters": "Helps evaluate whether the topic deserves deeper sourced review."
+  },
+  "dispatch_allowed": false,
+  "eligible_for_future_draft_inspection_task": true,
+  "eligible_for_live_send_now": false,
+  "eligible_for_payload_hash_approval_task": true,
+  "env_read": false,
+  "human_review_required": true,
+  "metrics_created": false,
+  "network_call_made": false,
+  "operator_intent_packet": {
+    "browser_requested": false,
+    "content_lane": "forecast_readiness_explainer",
+    "created_at_manual": "2026-06-30T08:45:00+07:00",
+    "dispatch_requested": false,
+    "financial_advice_requested": false,
+    "intended_platforms": [
+      "substack",
+      "discord",
+      "x_manual",
+      "linkedin_org_deferred",
+      "tiktok_deferred"
+    ],
+    "intent_class": "create_canonical_article",
+    "live_write_requested": false,
+    "notes": "",
+    "operator_id": "jim",
+    "operator_intent_id": "intent_001",
+    "provider_call_requested": false,
+    "publication_requested": false,
+    "raw_operator_topic": "How to evaluate forecast readiness before publishing educational macro commentary",
+    "schema_version": "6.0.0",
+    "signal_service_requested": false
+  },
+  "packet_sha256": "ed99dfc6dd0cb4f96ef1d8ef5b7c0016966b89319c73b02b33a37873ed0e0f89",
+  "platform_variant_set_candidate_packet": {
+    "approval_required": true,
+    "article_id": "article_61f70bd3b41f475f",
+    "blocked_reasons": [],
+    "deferred_platforms": [
+      "linkedin_org_deferred",
+      "tiktok_deferred"
+    ],
+    "dispatch_allowed": false,
+    "execution_readiness_by_platform": {
+      "discord": false,
+      "linkedin_org_deferred": false,
+      "substack": false,
+      "tiktok_deferred": false,
+      "x_manual": false
+    },
+    "inspection_required": true,
+    "manual_fallback_by_platform": {
+      "discord": false,
+      "linkedin_org_deferred": false,
+      "substack": false,
+      "tiktok_deferred": false,
+      "x_manual": true
+    },
+    "no_advice_status": "pass",
+    "no_signal_status": "pass",
+    "publication_ready": false,
+    "variant_set_id": "variant_set_41cda6ea9b27b6db",
+    "variants": {
+      "discord": {
+        "dispatch_ready": false,
+        "review_only_text": "Review-only discord candidate for Review draft: How to evaluate forecast readiness before publishing educational macro commentary"
+      },
+      "linkedin_org_deferred": {
+        "dispatch_ready": false,
+        "review_only_text": "Review-only linkedin_org_deferred candidate for Review draft: How to evaluate forecast readiness before publishing educational macro commentary"
+      },
+      "substack": {
+        "dispatch_ready": false,
+        "review_only_text": "Review-only substack candidate for Review draft: How to evaluate forecast readiness before publishing educational macro commentary"
+      },
+      "tiktok_deferred": {
+        "dispatch_ready": false,
+        "review_only_text": "Review-only tiktok_deferred candidate for Review draft: How to evaluate forecast readiness before publishing educational macro commentary"
+      },
+      "x_manual": {
+        "dispatch_ready": false,
+        "review_only_text": "Review-only x_manual candidate for Review draft: How to evaluate forecast readiness before publishing educational macro commentary"
+      }
+    }
+  },
+  "provider_call_made": false,
+  "public_url_created": false,
+  "publication_ready": false,
+  "research_grounding_packet": {
+    "allowed_for_drafting": true,
+    "allowed_for_publication": false,
+    "blocked_reasons": [],
+    "freshness_status": "source_review_required",
+    "human_review_required": true,
+    "missing_evidence": [
+      "fresh external source review",
+      "official citation verification"
+    ],
+    "no_advice_status": "pass",
+    "no_signal_status": "pass",
+    "non_official_source_refs": [],
+    "official_source_refs": [],
+    "operator_intent_id": "intent_001",
+    "required_caveats": [
+      "Review packet only",
+      "No external research performed",
+      "Human review required"
+    ],
+    "research_packet_id": "research_b34673ea2faafe84",
+    "safe_angles": [
+      "educational framing",
+      "source limitations",
+      "human review before publication"
+    ],
+    "source_mode": "operator_supplied_context_only",
+    "source_quality_status": "unverified_review_only",
+    "source_refs": [],
+    "topic": "How to evaluate forecast readiness before publishing educational macro commentary",
+    "unsafe_angles": [
+      "market calls",
+      "certainty claims",
+      "advice framing"
+    ]
+  },
+  "runtime_truth": false,
+  "schema_version": "6.0.0",
+  "seo_editorial_packet": {
+    "article_id": "article_61f70bd3b41f475f",
+    "audience_fit_score": "review_required",
+    "caveats_preserved": true,
+    "editorial_score": "review_required",
+    "limitations_preserved": true,
+    "meta_description": "Review-only draft requiring human inspection and source verification.",
+    "primary_keyword": "review draft",
+    "readability_score": "review_required",
+    "rejected_clickbait": [
+      "certainty claim",
+      "market call",
+      "guaranteed outcome"
+    ],
+    "review_only": true,
+    "search_intent": "educational_review",
+    "secondary_keywords": [
+      "source review",
+      "human inspection",
+      "content operations"
+    ],
+    "seo_packet_id": "seo_38b96c1260e7dbd6",
+    "slug_candidates": [
+      "review-draft-0a60ab46"
+    ],
+    "subtitle_candidates": [
+      "Review-only educational draft for human inspection."
+    ],
+    "title_candidates": [
+      "Review draft: How to evaluate forecast readiness before publishing educational macro commentary"
+    ]
+  },
+  "task_label": "TASK_CONTENTOPS_V6_CONTENT_PRODUCTION_CORE_REVIEW_PACKETS_HEAVY_BATCH_NO_PROVIDER_NO_SEND_V0",
+  "warnings": [
+    "review_only",
+    "no_provider_call",
+    "no_live_send",
+    "human_review_required"
+  ]
+}
