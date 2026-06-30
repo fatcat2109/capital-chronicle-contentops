@@ -1,0 +1,40 @@
+﻿{
+  "schema_version": "1.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP_REPAIR_V0",
+  "canonical_dashboard_surface": "ui/contentops_v5/",
+  "standalone_stale_surface": {
+    "path": "ui/operator_approval_queue_evidence_vault/",
+    "exists_after_cleanup": false,
+    "classification": "stale_wrong_surface",
+    "cleanup_action": "keep_absent_and_forbid_canonical_references"
+  },
+  "v4_surface": {
+    "path": "ui/institutional_operator_cockpit_v4/",
+    "classification": "active_reference",
+    "cleanup_action": "remove_non_canonical_v6_feature_integration",
+    "new_features_allowed": false,
+    "browser_qa_primary_target": false
+  },
+  "v5_surface": {
+    "path": "ui/contentops_v5/",
+    "classification": "canonical_current",
+    "cleanup_action": "integrate_fixture_only_v6_operator_approval_evidence_into_existing_views",
+    "new_features_allowed": true,
+    "browser_qa_primary_target": true
+  },
+  "backend_read_model_retained": [
+    "live_contentops/operator_approval_queue_evidence_vault_v6.py",
+    "tests/test_operator_approval_queue_evidence_vault_v6.py",
+    "docs/automation/V6_OPERATOR_APPROVAL_QUEUE_EVIDENCE_VAULT_UI/sample_operator_approval_queue_evidence_vault_packet.json"
+  ],
+  "safety_invariants": {
+    "network_call_made": false,
+    "provider_call_made": false,
+    "credential_read_made": false,
+    "env_value_read_made": false,
+    "browser_session_read_made": false,
+    "live_send_performed": false,
+    "enabled_live_controls_allowed": false,
+    "sample_scope_label": "sample_fixture_only"
+  }
+}

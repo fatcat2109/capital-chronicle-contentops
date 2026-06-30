@@ -1,4 +1,4 @@
-// Capital Chronicle ContentOps V5 — Approval Queue + Dispatch Control view.
+// Capital Chronicle ContentOps V5 â€” Approval Queue + Dispatch Control view.
 // Dispatch is visibly future-gated and DISABLED. No live publish/post/
 // schedule/API affordance. No network, no storage, no credentials.
 
@@ -16,6 +16,7 @@ import {
 export function ApprovalQueue() {
   const { select, selected } = useApp();
   const packet = viewModel.approval_packets[0];
+  const v6Packet = viewModel.v6_operator_approval_evidence;
   const clearedCount = packet.gates.filter((g) => g.cleared).length;
 
   return (
@@ -40,7 +41,7 @@ export function ApprovalQueue() {
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <Panel
-          title={`Approval packet · ${packet.id}`}
+          title={`Approval packet Â· ${packet.id}`}
           subtitle={packet.title}
           actions={
             <StatusChip status={packet.approval_status}>
@@ -82,7 +83,7 @@ export function ApprovalQueue() {
 
         <Panel
           title="Dispatch gate hierarchy"
-          subtitle={`${clearedCount}/${packet.gates.length} gates cleared · dispatch globally disabled`}
+          subtitle={`${clearedCount}/${packet.gates.length} gates cleared Â· dispatch globally disabled`}
           actions={<StatusChip status="blocked">Future-gated</StatusChip>}
         >
           <ul className="space-y-1.5">
@@ -122,6 +123,41 @@ export function ApprovalQueue() {
           </div>
         </Panel>
       </div>
+      <Panel
+        title="V6 operator approval queue · fixture-only"
+        subtitle={`${v6Packet.approval_queue_items.length} pending previews · ${v6Packet.sample_scope}`}
+        actions={<StatusChip status="review">sample_fixture_only</StatusChip>}
+      >
+        <div className="mb-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Committed sample packet only. Runtime proof is false; live send, dispatch,
+          provider calls, network, browser session use, raw secret serialization,
+          and env line serialization are all disabled/false.
+        </div>
+        <ul className="space-y-2">
+          {v6Packet.approval_queue_items.map((item) => (
+            <li key={item.queue_item_id} className="rounded-lg border border-line bg-surface-2 p-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div className="min-w-0">
+                  <div className="font-mono text-[11px] font-bold uppercase tracking-wide text-fg-subtle">
+                    {item.platform}
+                  </div>
+                  <div className="mt-1 truncate text-sm font-semibold text-fg">
+                    {item.preview_id}
+                  </div>
+                </div>
+                <StatusChip status="review">{item.approval_status}</StatusChip>
+              </div>
+              <div className="mt-2 break-all font-mono text-[11px] text-fg-muted">
+                preview_hash: {item.preview_hash}
+              </div>
+              <p className="mt-2 text-xs leading-relaxed text-fg-muted">
+                {item.required_operator_action}
+              </p>
+              <StatusChip status="blocked">live blocked</StatusChip>
+            </li>
+          ))}
+        </ul>
+      </Panel>
     </div>
   );
 }

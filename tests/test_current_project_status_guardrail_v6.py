@@ -90,3 +90,15 @@ def test_no_secret_or_session_data_terms() -> None:
     ]
     for pattern in forbidden_patterns:
         assert not re.search(pattern, combined, flags=re.IGNORECASE)
+
+
+def test_canonical_recon_outputs_point_to_v5() -> None:
+    recon_dir = ROOT / "docs" / "automation" / "V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP"
+    pointer = _read(recon_dir / "canonical_dashboard_pointer.md").lower()
+    plan = json.loads(_read(recon_dir / "stale_ui_cleanup_plan.json"))
+    assert plan["canonical_dashboard_surface"] == "ui/contentops_v5/"
+    assert plan["v4_surface"]["classification"] == "active_reference"
+    assert plan["standalone_stale_surface"]["exists_after_cleanup"] is False
+    assert "ui/contentops_v5/" in pointer
+    assert "fallback/reference only" in pointer
+    assert "ui/operator_approval_queue_evidence_vault/" in pointer

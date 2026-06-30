@@ -1,4 +1,4 @@
-// Capital Chronicle ContentOps V5 — local fixture view-model.
+// Capital Chronicle ContentOps V5 â€” local fixture view-model.
 // LOCAL FIXTURE DATA ONLY. No runtime network, no credentials, no platform API.
 // All ids/hashes are synthetic placeholders for UI demonstration.
 
@@ -27,10 +27,10 @@ export const viewModel: ContentOpsViewModel = {
       { code: 'NO_SCHEDULER', active: true },
       { code: 'NO_SCRAPING', active: true },
     ],
-    verdict: 'SAFE — LOCAL REVIEW ONLY',
+    verdict: 'SAFE â€” LOCAL REVIEW ONLY',
     verdict_status: 'verified',
     baseline_ref: 'baseline@342fc91',
-    build_provenance: 'local-fixture · no-network · build-time-only',
+    build_provenance: 'local-fixture Â· no-network Â· build-time-only',
     next_allowed_action: 'Review grounded news draft GN-0042 in Writer Studio',
     blockers: [
       {
@@ -119,11 +119,11 @@ export const viewModel: ContentOpsViewModel = {
     },
     {
       id: 'CA-0009',
-      title: 'Artifact-backed macro brief (BLOCKED — future)',
+      title: 'Artifact-backed macro brief (BLOCKED â€” future)',
       lane: 'C_artifact_backed',
       content_type: 'artifact_backed_packet',
       status: 'blocked',
-      status_label: 'Blocked — intake gate',
+      status_label: 'Blocked â€” intake gate',
       platform_fit: [],
       citation_state: 'blocked',
       media_state: 'neutral',
@@ -175,7 +175,7 @@ export const viewModel: ContentOpsViewModel = {
       editorial_score: 82,
       seo_score: 74,
       platform_fit_score: 88,
-      readability: 'Grade 9 · clear',
+      readability: 'Grade 9 Â· clear',
     },
     ai_outputs: [
       {
@@ -272,7 +272,7 @@ export const viewModel: ContentOpsViewModel = {
       {
         id: 'KG-3',
         label: 'Forecast intent (excluded)',
-        intent: 'Excluded — implies prediction',
+        intent: 'Excluded â€” implies prediction',
         keywords: ['CPI forecast', 'rate prediction', 'buy signal'],
         seo_score: 0,
         status: 'blocked',
@@ -395,10 +395,10 @@ export const viewModel: ContentOpsViewModel = {
   approval_packets: [
     {
       id: 'AP-0031',
-      title: 'CPI hook explainer — manual approval packet',
+      title: 'CPI hook explainer â€” manual approval packet',
       required_approver: 'Jim',
-      draft_hash: 'sha256:9f2a…c4e1',
-      payload_hash: 'sha256:1b77…aa90',
+      draft_hash: 'sha256:9f2aâ€¦c4e1',
+      payload_hash: 'sha256:1b77â€¦aa90',
       approval_state: 'Awaiting signature',
       approval_status: 'review',
       revocation_state: 'none',
@@ -448,7 +448,92 @@ export const viewModel: ContentOpsViewModel = {
       ],
     },
   ],
-  audit_events: [
+  v6_operator_approval_evidence: {
+    packet_id: 'operator_approval_queue_evidence_vault_d4a5afd3ecf03b1b',
+    source_article_packet_id: 'article_engine_packet_d4a5afd3ecf03b1b',
+    source_article_packet_hash: 'd4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e',
+    sample_scope: 'sample_fixture_only',
+    runtime_proof: false,
+    provider_call_made: false,
+    network_call_made: false,
+    live_send_performed: false,
+    browser_session_used: false,
+    raw_secret_values_serialized: false,
+    env_lines_serialized: false,
+    approval_queue_items: [
+      {
+        queue_item_id: 'queue_approval_discord_1cd58fd896f19c77',
+        platform: 'discord',
+        variant_id: 'variant_discord_d4a5afd3ecf03b1b',
+        preview_id: 'preview_discord_1cd58fd896f19c77',
+        preview_hash: '1cd58fd896f19c77638e62c52f34700c8166bd9644a8d830071d174924ca9172',
+        approval_status: 'pending_operator_review',
+        live_dispatch_allowed: false,
+        exact_preview_text_excerpt: '[discord] Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries...',
+        required_operator_action: 'Review exact preview hash and content; no live dispatch is enabled.',
+      },
+      {
+        queue_item_id: 'queue_approval_telegram_operator_974e8509d7999aca',
+        platform: 'telegram_operator',
+        variant_id: 'variant_telegram_d4a5afd3ecf03b1b',
+        preview_id: 'preview_telegram_operator_974e8509d7999aca',
+        preview_hash: '974e8509d7999acad8cdf4855dc874d2d7182e766a51d4d1b4a6d6749126eb32',
+        approval_status: 'pending_operator_review',
+        live_dispatch_allowed: false,
+        exact_preview_text_excerpt: '[telegram_operator] Capital Chronicle Educational Briefing: operator checkpoint...',
+        required_operator_action: 'Review exact preview hash and content; no live dispatch is enabled.',
+      },
+      {
+        queue_item_id: 'queue_approval_substack_c19e65c51abb0967',
+        platform: 'substack',
+        variant_id: 'variant_substack_d4a5afd3ecf03b1b',
+        preview_id: 'preview_substack_c19e65c51abb0967',
+        preview_hash: 'c19e65c51abb0967d25dde12e8c1b5ff2a3fa32ccac3b9e14eb7d73aa30b1b59',
+        approval_status: 'pending_operator_review',
+        live_dispatch_allowed: false,
+        exact_preview_text_excerpt: '[substack] Capital Chronicle Educational Briefing: process-led analysis...',
+        required_operator_action: 'Review exact preview hash and content; no live dispatch is enabled.',
+      },
+    ],
+    evidence_vault_items: [
+      {
+        evidence_id: 'evidence_article_d4a5afd3ecf03b1b',
+        evidence_type: 'canonical_article_packet',
+        source_file_path: 'docs/automation/V6_AI_RESEARCH_CANONICAL_ARTICLE_ENGINE/sample_ai_research_canonical_article_packet.json',
+        source_packet_id: 'article_engine_packet_d4a5afd3ecf03b1b',
+        source_hash_or_preview_hash: 'd4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e',
+        display_status: 'green_verified',
+        caveats: ['Committed sample packet only.'],
+        safety_flags: { provider_call_made: false, network_call_made: false, live_send_performed: false, browser_session_used: false, raw_secret_values_serialized: false, env_lines_serialized: false },
+      },
+      {
+        evidence_id: 'evidence_variant_d4a5afd3ecf03b1b',
+        evidence_type: 'variant_preview_hash_approval_packet',
+        source_file_path: 'docs/automation/V6_VARIANT_PREVIEW_HASH_APPROVAL_TO_DISCORD_OUTBOX/sample_variant_preview_hash_approval_packet.json',
+        source_packet_id: 'variant_preview_hash_packet_d4a5afd3ecf03b1b',
+        source_hash_or_preview_hash: '1cd58fd896f19c77638e62c52f34700c8166bd9644a8d830071d174924ca9172',
+        display_status: 'green_verified',
+        caveats: ['Approval records remain pending.'],
+        safety_flags: { provider_call_made: false, network_call_made: false, live_send_performed: false, browser_session_used: false, raw_secret_values_serialized: false, env_lines_serialized: false },
+      },
+    ],
+    discord_outbox_card: {
+      packet_id: 'discord_dry_run_outbox_e59579adf7eb8db3',
+      outbox_id: 'discord_outbox_dry_run_e59579adf7eb8db3',
+      approved_payload_hash: 'e59579adf7eb8db3839080f3b1b6f6744012d064f1fa58a96abb02bdff73bb80',
+      operator_approval_status: 'pending',
+      live_send_allowed: false,
+      live_send_performed: false,
+      sample_key_presence: { evidence_scope: 'sample_fixture_only', runtime_proof: false },
+    },
+    live_pilot_status_card: {
+      result_class: 'blocked',
+      display_status: 'red_blocked',
+      live_send_attempted: false,
+      live_send_succeeded: false,
+      blockers: ['operator_approval_declaration_missing', 'operator_approval_status_not_approved', 'operator_approval_exact_payload_hash_mismatch'],
+    },
+  },  audit_events: [
     { id: 'AE-1', timestamp: '2026-06-15T09:00:00+07:00', actor: 'operator', action: 'Committed V5 master plan + references', ref: '342fc91' },
     { id: 'AE-2', timestamp: '2026-06-15T09:22:00+07:00', actor: 'agent', action: 'Scaffolded V5 frontend foundation', ref: 'pending' },
   ],

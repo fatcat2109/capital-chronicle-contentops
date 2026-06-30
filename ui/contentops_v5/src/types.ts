@@ -1,4 +1,4 @@
-// Capital Chronicle ContentOps V5 — local view-model types.
+// Capital Chronicle ContentOps V5 â€” local view-model types.
 // All data is local fixture only. No runtime network, no credentials.
 
 export type ThemeMode = 'light' | 'dark-evidence';
@@ -513,6 +513,63 @@ export interface CockpitViewModel {
   accepted_baseline: string;
 }
 
+export interface V6OperatorApprovalQueueItem {
+  queue_item_id: string;
+  platform: string;
+  variant_id: string;
+  preview_id: string;
+  preview_hash: string;
+  approval_status: string;
+  live_dispatch_allowed: false;
+  exact_preview_text_excerpt: string;
+  required_operator_action: string;
+}
+
+export interface V6OperatorEvidenceVaultItem {
+  evidence_id: string;
+  evidence_type: string;
+  source_file_path: string;
+  source_packet_id: string;
+  source_hash_or_preview_hash: string;
+  display_status: string;
+  caveats: string[];
+  safety_flags: Record<string, boolean>;
+}
+
+export interface V6OperatorApprovalEvidencePacket {
+  packet_id: string;
+  source_article_packet_id: string;
+  source_article_packet_hash: string;
+  sample_scope: 'sample_fixture_only';
+  runtime_proof: false;
+  provider_call_made: false;
+  network_call_made: false;
+  live_send_performed: false;
+  browser_session_used: false;
+  raw_secret_values_serialized: false;
+  env_lines_serialized: false;
+  approval_queue_items: V6OperatorApprovalQueueItem[];
+  evidence_vault_items: V6OperatorEvidenceVaultItem[];
+  discord_outbox_card: {
+    packet_id: string;
+    outbox_id: string;
+    approved_payload_hash: string;
+    operator_approval_status: string;
+    live_send_allowed: false;
+    live_send_performed: false;
+    sample_key_presence: {
+      evidence_scope: 'sample_fixture_only';
+      runtime_proof: false;
+    };
+  };
+  live_pilot_status_card: {
+    result_class: string;
+    display_status: string;
+    live_send_attempted: false;
+    live_send_succeeded: false;
+    blockers: string[];
+  };
+}
 export interface ContentOpsViewModel {
   system_state: SystemState;
   cockpit: CockpitViewModel;
@@ -527,6 +584,7 @@ export interface ContentOpsViewModel {
   audit_events: AuditEvent[];
   policy_boundaries: PolicyBoundary[];
   internal_alpha_artifacts: InternalAlphaArtifactPlaceholder[];
+  v6_operator_approval_evidence: V6OperatorApprovalEvidencePacket;
 }
 
 export interface SelectableObject {

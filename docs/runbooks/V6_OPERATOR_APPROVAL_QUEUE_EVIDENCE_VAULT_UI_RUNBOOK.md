@@ -1,4 +1,4 @@
-﻿# V6 Operator Approval Queue + Evidence Vault UI Runbook
+# V6 Operator Approval Queue + Evidence Vault UI Runbook
 
 ## Purpose
 
@@ -15,7 +15,7 @@ python -m live_contentops.operator_approval_queue_evidence_vault_v6 --output doc
 Open locally:
 
 ```text
-ui/institutional_operator_cockpit_v4/index.html
+ui/contentops_v5/
 ```
 
 ## Operator Rules
@@ -27,4 +27,4 @@ ui/institutional_operator_cockpit_v4/index.html
 
 ## Canonical Surface Repair
 
-The standalone approval queue UI was removed. The canonical product surface is ui/institutional_operator_cockpit_v4/index.html.
+The standalone approval queue UI was removed. The canonical product surface is ui/contentops_v5/. V4 is fallback/reference only and must not receive new product features.

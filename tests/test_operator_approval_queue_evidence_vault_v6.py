@@ -71,11 +71,12 @@ def test_missing_source_packet_fields_fail_closed():
 
 
 def test_canonical_dashboard_contains_required_queue_evidence_labels_and_no_enabled_controls():
-    cockpit_dir = Path("ui/institutional_operator_cockpit_v4")
-    html = (cockpit_dir / "index.html").read_text(encoding="utf-8-sig").lower()
-    model = (cockpit_dir / "view_model.js").read_text(encoding="utf-8-sig").lower()
-    renderer = (cockpit_dir / "cockpit.js").read_text(encoding="utf-8-sig").lower()
-    combined = "\n".join([html, model, renderer])
+    dashboard_dir = Path("ui/contentops_v5/src")
+    app = (dashboard_dir / "App.tsx").read_text(encoding="utf-8-sig").lower()
+    fixtures = (dashboard_dir / "fixtures.ts").read_text(encoding="utf-8-sig").lower()
+    approval = (dashboard_dir / "views" / "ApprovalQueue.tsx").read_text(encoding="utf-8-sig").lower()
+    evidence = (dashboard_dir / "views" / "EvidenceVault.tsx").read_text(encoding="utf-8-sig").lower()
+    combined = "\n".join([app, fixtures, approval, evidence])
     assert "operator approval queue" in combined
     assert "evidence vault" in combined
     assert "sample_fixture_only" in combined
@@ -86,8 +87,8 @@ def test_canonical_dashboard_contains_required_queue_evidence_labels_and_no_enab
     assert "discord_dry_run_outbox_e59579adf7eb8db3" in combined
     assert "e59579adf7eb8db3839080f3b1b6f6744012d064f1fa58a96abb02bdff73bb80" in combined
     assert "live pilot blocked" in combined
-    assert "approve disabled" in combined
-    assert "send / dispatch disabled" in combined
+    assert "live blocked" in combined
+    assert "dispatch to platform" in combined
     assert "<button>send" not in combined
     assert "<button>dispatch" not in combined
     assert "<button>approve" not in combined
@@ -96,7 +97,8 @@ def test_canonical_dashboard_contains_required_queue_evidence_labels_and_no_enab
 def test_standalone_ui_removed_and_not_canonical():
     assert not Path("ui/operator_approval_queue_evidence_vault/index.html").exists()
     runbook = Path("docs/runbooks/V6_OPERATOR_APPROVAL_QUEUE_EVIDENCE_VAULT_UI_RUNBOOK.md").read_text(encoding="utf-8-sig")
-    assert "ui/institutional_operator_cockpit_v4/index.html" in runbook
+    assert "ui/contentops_v5/" in runbook
+    assert "ui/institutional_operator_cockpit_v4/index.html" not in runbook
     assert "ui/operator_approval_queue_evidence_vault/index.html" not in runbook
 
 

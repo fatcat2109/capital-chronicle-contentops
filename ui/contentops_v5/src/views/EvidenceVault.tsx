@@ -1,4 +1,4 @@
-// Capital Chronicle ContentOps V5 — Evidence Vault view.
+// Capital Chronicle ContentOps V5 â€” Evidence Vault view.
 // Forensic / compliance mode. Always rendered in dark-evidence theme (App
 // forces it). Read-only audit surface. No network, storage, or credentials.
 
@@ -28,6 +28,7 @@ export function EvidenceVault() {
   const { select, selected } = useApp();
   const [activeTab, setActiveTab] = useState<VaultTab>('validation');
   const packet = viewModel.evidence_packets[0];
+  const v6Packet = viewModel.v6_operator_approval_evidence;
 
   const handleTabChange = (tab: VaultTab) => {
     setActiveTab(tab);
@@ -102,6 +103,47 @@ export function EvidenceVault() {
         </button>
       </div>
 
+
+      <Panel
+        title="V6 operator evidence vault · fixture-only"
+        subtitle={`${v6Packet.evidence_vault_items.length} evidence cards · ${v6Packet.sample_scope}`}
+        actions={<StatusChip status="review">sample_fixture_only</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {v6Packet.evidence_vault_items.map((item) => (
+            <article key={item.evidence_id} className="rounded-lg border border-line bg-surface-2 p-3">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">
+                    {item.evidence_type}
+                  </div>
+                  <h3 className="mt-1 truncate text-sm font-semibold text-fg">{item.evidence_id}</h3>
+                </div>
+                <StatusChip status="verified">{item.display_status}</StatusChip>
+              </div>
+              <div className="mt-2 break-all font-mono text-[11px] text-fg-muted">
+                {item.source_hash_or_preview_hash}
+              </div>
+              <p className="mt-2 text-xs text-fg-muted">{item.source_file_path}</p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3">
+          <div className="font-mono text-[11px] font-bold uppercase tracking-wide text-status-blocked">
+            Live pilot blocked · no runtime proof
+          </div>
+          <p className="mt-1 text-xs leading-relaxed text-fg-muted">
+            Runtime proof is false; provider, network, browser session, env line,
+            raw secret, live send, and dispatch behavior remain disabled.
+          </p>
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {v6Packet.live_pilot_status_card.blockers.map((blocker) => (
+              <EvidenceChip key={blocker}>{blocker}</EvidenceChip>
+            ))}
+          </div>
+        </div>
+      </Panel>
+
       {activeTab === 'validation' ? (
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
           <div className="space-y-6 xl:col-span-2">
@@ -137,7 +179,7 @@ export function EvidenceVault() {
               </ul>
             </Panel>
 
-            <Panel title="Forbidden scope — proven absent" subtitle="Static guarantees enforced for V5">
+            <Panel title="Forbidden scope â€” proven absent" subtitle="Static guarantees enforced for V5">
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {packet.forbidden_scope.map((f) => (
                   <div
@@ -208,7 +250,7 @@ export function EvidenceVault() {
                     <span className="absolute left-0 top-1.5 h-2 w-2 rounded-full bg-accent" />
                     <div className="text-[12px] text-fg">{e.action}</div>
                     <div className="mt-0.5 font-mono text-[10.5px] text-fg-subtle">
-                      {e.actor} · {e.ref} · {e.timestamp}
+                      {e.actor} Â· {e.ref} Â· {e.timestamp}
                     </div>
                   </li>
                 ))}
