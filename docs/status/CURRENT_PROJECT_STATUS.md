@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-8c2f490adf2cd28fe81fd738ed88ef0ada04c774
+f688294d210065c21fe74740db8818ee09c526d2
 
 ## current_product_phase
 V6 local-first product loop consolidation on the canonical V5 dashboard surface.
@@ -19,7 +19,7 @@ V6 local-first product loop consolidation on the canonical V5 dashboard surface.
 Substack manual export article studio integrated into the canonical V5 dashboard using fixture-only packets and deterministic hashes.
 
 ## accepted_baseline_summary
-The accepted baseline before this task is commit `8c2f490adf2cd28fe81fd738ed88ef0ada04c774` on `origin/master`. This task adds a fixture-only V6 Substack manual export article studio lane to canonical V5 without authorizing live publish.
+The accepted baseline is commit `f688294d210065c21fe74740db8818ee09c526d2` on `origin/master`. The V6 Substack manual export article studio lane is integrated into canonical V5 with fixture-only packets and deterministic hashes; live publish remains disabled.
 
 ## canonical_dashboard_surface
 `ui/contentops_v5/` is the canonical current dashboard/app surface unless a newer committed authority document supersedes it.
@@ -61,16 +61,14 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Do not use chat memory or Project Sources as runtime authority when status doc and repo files disagree.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP_REPAIR_V0
+TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_AND_ARTICLE_STUDIO_ON_CANONICAL_V5_DASHBOARD_HEAVY_BATCH_V0
 
 ## latest changed areas
-- `docs/automation/V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP/`
-- `docs/runbooks/V6_OPERATOR_APPROVAL_QUEUE_EVIDENCE_VAULT_UI_RUNBOOK.md`
-- `docs/status/`
-- `tests/test_current_project_status_guardrail_v6.py`
-- `tests/test_operator_approval_queue_evidence_vault_v6.py`
+- `live_contentops/substack_manual_export_article_studio_v6.py`
+- `docs/automation/V6_SUBSTACK_MANUAL_EXPORT_ARTICLE_STUDIO/`
+- `docs/runbooks/V6_SUBSTACK_MANUAL_EXPORT_ARTICLE_STUDIO_RUNBOOK.md`
+- `tests/test_substack_manual_export_article_studio_v6.py`
 - `ui/contentops_v5/src/`
-- `ui/institutional_operator_cockpit_v4/view_model.js`
 
 ## current next recommended task
 TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0
