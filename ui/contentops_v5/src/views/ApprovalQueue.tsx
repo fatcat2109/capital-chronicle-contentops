@@ -2,6 +2,7 @@
 // Dispatch is visibly future-gated and DISABLED. No live publish/post/
 // schedule/API affordance. No network, no storage, no credentials.
 
+import { SubstackArticleStudioCard } from './SubstackArticleStudioCard';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -21,6 +22,7 @@ export function ApprovalQueue() {
 
   return (
     <div className="space-y-6">
+      <SubstackArticleStudioCard mode="approval" />
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-fg-subtle">

@@ -2,6 +2,7 @@
 // Forensic / compliance mode. Always rendered in dark-evidence theme (App
 // forces it). Read-only audit surface. No network, storage, or credentials.
 
+import { SubstackArticleStudioCard } from './SubstackArticleStudioCard';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -41,6 +42,7 @@ export function EvidenceVault() {
 
   return (
     <div className="space-y-6">
+      <SubstackArticleStudioCard mode="evidence" />
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-fg-subtle">

@@ -7,6 +7,7 @@
 // a payload field, or a constraint updates the inspector. No network, no
 // storage, no credentials.
 
+import { SubstackArticleStudioCard } from './SubstackArticleStudioCard';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -27,6 +28,7 @@ export function PlatformPayloadPreview() {
 
   return (
     <div className="space-y-6">
+      <SubstackArticleStudioCard mode="preview" />
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex items-center gap-2 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-fg-subtle">

@@ -1,0 +1,69 @@
+﻿// V6 Substack manual export article studio adapter.
+// Static fixture only. No network, no credentials, no storage, no publish.
+
+export const substackManualExportArticleStudioPacket = {
+  "approval_status": "pending",
+  "article_body_markdown": "# Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\n_Process-led analysis tailored for general_financial_education_\n\n## Thesis\nMethodological transparency and rigorous historical context are essential when reviewing Evaluate historical volatility in macro calendar commentaries.\n\n## Briefing\nThis briefing grounds our editorial desk's approach to Evaluate historical volatility in macro calendar commentaries. By focusing on the Focus on data transparency, process, and methodology over trading recommendations, we analyze historical patterns without offering directional investment advice.\n\n## Methodology and Source Review\nWe review the sources provided: Macro volatility series database release v1, Fed calendar notes 2026. A key limitation of historical macro data is lag and revision. Operators must verify primary sources before documenting findings.\n\n## Historical Context and Range Analysis\nStatistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market noise from structural policy shifts.\n\n## Operator conclusion\nA disciplined operator relies on verified context, explicit assumptions, and clear disclaimers to ensure community integrity under V6_EDUCATIONAL_DISCLAIMER.\n\n---\nManual copy only. Substack API not used. Live publish disabled. No runtime proof.",
+  "article_subtitle": "Process-led analysis tailored for general_financial_education",
+  "article_title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries",
+  "blockers": [
+    "live_publish_disabled",
+    "operator_approval_pending"
+  ],
+  "browser_session_used": false,
+  "canonical_slug_candidate": "evaluate-historical-volatility-in-macro-calendar-commentaries",
+  "env_lines_serialized": false,
+  "exact_payload_hash": "e556b07116d81110da7f8b96f5e5d39b80d65ce16c0c190eb51cdc9fdbd1f335",
+  "export_packet_id": "substack_manual_export_e556b07116d81110",
+  "export_status": "ready_for_manual_review",
+  "grounding_state": {
+    "no_claims_of_live_public_publication": true,
+    "no_fabricated_market_numbers": true,
+    "no_invented_citations": true,
+    "no_invented_urls": true,
+    "required_human_review_items": [
+      "Verify H.15 raw series",
+      "Confirm risk disclaimer presence"
+    ]
+  },
+  "hash_algorithm": "sha256_json_v6",
+  "live_publish_allowed": false,
+  "live_publish_performed": false,
+  "manual_copy_payload": {
+    "body_markdown": "# Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\n_Process-led analysis tailored for general_financial_education_\n\n## Thesis\nMethodological transparency and rigorous historical context are essential when reviewing Evaluate historical volatility in macro calendar commentaries.\n\n## Briefing\nThis briefing grounds our editorial desk's approach to Evaluate historical volatility in macro calendar commentaries. By focusing on the Focus on data transparency, process, and methodology over trading recommendations, we analyze historical patterns without offering directional investment advice.\n\n## Methodology and Source Review\nWe review the sources provided: Macro volatility series database release v1, Fed calendar notes 2026. A key limitation of historical macro data is lag and revision. Operators must verify primary sources before documenting findings.\n\n## Historical Context and Range Analysis\nStatistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market noise from structural policy shifts.\n\n## Operator conclusion\nA disciplined operator relies on verified context, explicit assumptions, and clear disclaimers to ensure community integrity under V6_EDUCATIONAL_DISCLAIMER.\n\n---\nManual copy only. Substack API not used. Live publish disabled. No runtime proof.",
+    "copy_mode": "manual copy only",
+    "operator_instructions": "Review in V5, then manually copy into Substack only if an operator separately approves outside this packet.",
+    "safety_labels": [
+      "sample_fixture_only",
+      "manual copy only",
+      "Substack API not used",
+      "live publish disabled",
+      "no runtime proof"
+    ],
+    "seo_description": "An educational briefing analyzing Evaluate historical volatility in macro calendar commentaries under the editorial angle: Focus on data transparency, process, and methodology over trading recommendations.",
+    "seo_title": "Chronicle Watchlist: Evaluate historical volatility in macro calendar commentaries",
+    "slug_candidate": "evaluate-historical-volatility-in-macro-calendar-commentaries",
+    "subtitle": "Process-led analysis tailored for general_financial_education",
+    "target": "substack_manual_copy",
+    "title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries"
+  },
+  "network_call_made": false,
+  "provider_call_made": false,
+  "raw_secret_values_serialized": false,
+  "recommended_next_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "seo_description": "An educational briefing analyzing Evaluate historical volatility in macro calendar commentaries under the editorial angle: Focus on data transparency, process, and methodology over trading recommendations.",
+  "seo_title": "Chronicle Watchlist: Evaluate historical volatility in macro calendar commentaries",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_canonical_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "task_label": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_AND_ARTICLE_STUDIO_ON_CANONICAL_V5_DASHBOARD_HEAVY_BATCH_V0",
+  "warnings": [
+    "sample_fixture_only",
+    "manual_copy_only_no_substack_api",
+    "no_runtime_proof"
+  ]
+} as const;
+
+export const substackManualExportSafetyLabels = substackManualExportArticleStudioPacket.manual_copy_payload.safety_labels;
+

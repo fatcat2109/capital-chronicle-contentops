@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP_REPAIR_V0
+TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_AND_ARTICLE_STUDIO_ON_CANONICAL_V5_DASHBOARD_HEAVY_BATCH_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -16,10 +16,10 @@ master
 V6 local-first product loop consolidation on the canonical V5 dashboard surface.
 
 ## current_product_lane
-Dashboard authority reconciliation, stale UI cleanup, and fixture-only V6 approval/evidence integration into V5.
+Substack manual export article studio integrated into the canonical V5 dashboard using fixture-only packets and deterministic hashes.
 
 ## accepted_baseline_summary
-The accepted baseline is commit `8c2f490adf2cd28fe81fd738ed88ef0ada04c774` on `origin/master`. The dashboard authority mistake has been repaired: V5 is the canonical dashboard, V4 is fallback/reference only, and the standalone approval queue surface remains non-canonical/absent.
+The accepted baseline before this task is commit `8c2f490adf2cd28fe81fd738ed88ef0ada04c774` on `origin/master`. This task adds a fixture-only V6 Substack manual export article studio lane to canonical V5 without authorizing live publish.
 
 ## canonical_dashboard_surface
 `ui/contentops_v5/` is the canonical current dashboard/app surface unless a newer committed authority document supersedes it.
@@ -42,7 +42,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components exist for research packets, canonical article drafts, editorial review, variant preview/hash approval, Discord dry-run outbox, redacted audit, manual fallback, approval queue/evidence vault packets, and live-pilot blocked/ready state. Fixture-only V6 approval/evidence cards are integrated into the canonical V5 Approval & Dispatch and Evidence Vault views.
+V6 local deterministic loop components exist for research packets, canonical article drafts, Substack manual export packets, editorial review, variant preview/hash approval, Discord dry-run outbox, redacted audit, manual fallback, approval queue/evidence vault packets, and live-pilot blocked/ready state. Fixture-only V6 approval/evidence and Substack article studio cards are integrated into the canonical V5 dashboard views.
 
 ## dispatch/live status
 Dispatch/live remains blocked. No autonomous publish, schedule, retry, queue execution, platform API call, provider call, credential read, env value read, or live send is authorized by this status ledger.
@@ -73,7 +73,7 @@ TASK_CONTENTOPS_V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP_REPAIR_V0
 - `ui/institutional_operator_cockpit_v4/view_model.js`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_AND_ARTICLE_STUDIO_ON_CANONICAL_V5_DASHBOARD_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, or local storage. Do not dispatch or publish.
