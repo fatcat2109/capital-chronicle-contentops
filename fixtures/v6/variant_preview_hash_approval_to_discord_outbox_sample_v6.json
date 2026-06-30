@@ -1,0 +1,240 @@
+{
+  "approval_records": [
+    {
+      "approval_record_id": "approval_discord_1cd58fd896f19c77",
+      "approval_status": "pending_operator_review",
+      "approved_at": null,
+      "approved_by": null,
+      "exact_preview_hash": "1cd58fd896f19c77638e62c52f34700c8166bd9644a8d830071d174924ca9172",
+      "live_dispatch_allowed": false,
+      "platform": "discord",
+      "preview_id": "preview_discord_1cd58fd896f19c77",
+      "variant_id": "variant_discord_d4a5afd3ecf03b1b"
+    },
+    {
+      "approval_record_id": "approval_telegram_operator_974e8509d7999aca",
+      "approval_status": "pending_operator_review",
+      "approved_at": null,
+      "approved_by": null,
+      "exact_preview_hash": "974e8509d7999acad8cdf4855dc874d2d7182e766a51d4d1b4a6d6749126eb32",
+      "live_dispatch_allowed": false,
+      "platform": "telegram_operator",
+      "preview_id": "preview_telegram_operator_974e8509d7999aca",
+      "variant_id": "variant_telegram_d4a5afd3ecf03b1b"
+    },
+    {
+      "approval_record_id": "approval_substack_c19e65c51abb0967",
+      "approval_status": "pending_operator_review",
+      "approved_at": null,
+      "approved_by": null,
+      "exact_preview_hash": "c19e65c51abb0967d25dde12e8c1b5ff2a3fa32ccac3b9e14eb7d73aa30b1b59",
+      "live_dispatch_allowed": false,
+      "platform": "substack",
+      "preview_id": "preview_substack_c19e65c51abb0967",
+      "variant_id": "variant_substack_d4a5afd3ecf03b1b"
+    }
+  ],
+  "blockers": [],
+  "browser_call_made": false,
+  "discord_dry_run_outbox_packet": {
+    "approved_payload_hash": "e59579adf7eb8db3839080f3b1b6f6744012d064f1fa58a96abb02bdff73bb80",
+    "approved_payload_preview_id": "discord_preview_e59579adf7eb8db3",
+    "blockers": [],
+    "browser_call_made": false,
+    "canonical_content_id": "operator_idea_d4a5afd3ecf03b1b",
+    "discord_capability_status": "configured_for_supervised_live_scope_candidate",
+    "discord_key_present": true,
+    "discord_payload_model": {
+      "call_to_action": "Review the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
+      "canonical_url": null,
+      "content_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "created_at": "2026-07-01T02:56:46+07:00",
+      "key_points": [
+        "Methodology and Source Review: We review the sources provided: Macro volatility series database release v1, Fed calendar notes 2026. A key limitation o...",
+        "Historical Context and Range Analysis: Statistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market nois..."
+      ],
+      "source_article_id": "operator_idea_d4a5afd3ecf03b1b",
+      "summary": "An educational breakdown of macro calibration and metadata context regarding Evaluate historical volatility in macro calendar commentaries.",
+      "title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries"
+    },
+    "discord_preview_text": "**Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries**\n\nAn educational breakdown of macro calibration and metadata context regarding Evaluate historical volatility in macro calendar commentaries.\n\nKey points:\n- Methodology and Source Review: We review the sources provided: Macro volatility series database release v1, Fed calendar notes 2026. A key limitation o...\n- Historical Context and Range Analysis: Statistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market nois...\n\nReview the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
+    "discord_required_key_name": "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK",
+    "env_lines_serialized": false,
+    "live_pilot_candidate": true,
+    "live_send_performed": false,
+    "manual_fallback_record": {
+      "available": true,
+      "copyable_discord_message_preview": "**Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries**\n\nAn educational breakdown of macro calibration and metadata context regarding Evaluate historical volatility in macro calendar commentaries.\n\nKey points:\n- Methodology and Source Review: We review the sources provided: Macro volatility series database release v1, Fed calendar notes 2026. A key limitation o...\n- Historical Context and Range Analysis: Statistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market nois...\n\nReview the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
+      "exact_payload_hash": "e59579adf7eb8db3839080f3b1b6f6744012d064f1fa58a96abb02bdff73bb80",
+      "manual_fallback_id": "manual_fallback_e59579adf7eb8db3",
+      "operator_instructions": "Jim/operator must manually paste this preview only after reviewing the exact payload hash; this packet performs no live send.",
+      "operator_only_warning": "Manual paste must be done by Jim/operator; no automated Discord send is authorized by this packet.",
+      "platform": "discord"
+    },
+    "network_call_made": false,
+    "operator_approval_record": {
+      "approval_record_id": "operator_approval_e59579adf7eb8db3",
+      "approved_at": null,
+      "approved_by": null,
+      "exact_payload_hash": "e59579adf7eb8db3839080f3b1b6f6744012d064f1fa58a96abb02bdff73bb80",
+      "live_send_allowed": false,
+      "operator_approval_status": "pending",
+      "platform": "discord",
+      "preview_hash": "e59579adf7eb8db3839080f3b1b6f6744012d064f1fa58a96abb02bdff73bb80",
+      "preview_id": "discord_preview_e59579adf7eb8db3"
+    },
+    "outbox_dry_run_record": {
+      "action_class": "dry_run_outbox",
+      "approval_required": true,
+      "approval_status": "pending",
+      "credential_key_name": "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK",
+      "credential_present": true,
+      "destination_binding": "symbolic_discord_live_announcements_destination_binding",
+      "exact_payload_hash": "e59579adf7eb8db3839080f3b1b6f6744012d064f1fa58a96abb02bdff73bb80",
+      "live_send_performed": false,
+      "outbox_id": "discord_outbox_dry_run_e59579adf7eb8db3",
+      "platform": "discord",
+      "ready_for_live_pilot_candidate": true
+    },
+    "packet_id": "discord_dry_run_outbox_e59579adf7eb8db3",
+    "provider_call_made": false,
+    "raw_secret_values_serialized": false,
+    "redacted_audit_record": {
+      "audit_id": "redacted_audit_e59579adf7eb8db3",
+      "dry_run_outbox_id_present": true,
+      "env_lines_serialized": false,
+      "exact_payload_hash_present": true,
+      "live_send_performed": false,
+      "manual_fallback_available": true,
+      "network_call_made": false,
+      "platform": "discord",
+      "provider_call_made": false,
+      "raw_secret_values_serialized": false
+    },
+    "schema_version": "6.0.0",
+    "source_capability_env_readiness_packet_id": null,
+    "source_capability_env_readiness_packet_status": "unified_capability_env_readiness_available_for_product_lane_selection",
+    "task_label": "TASK_CONTENTOPS_V6_DISCORD_DRY_RUN_OUTBOX_AND_OPERATOR_APPROVAL_SPINE_HEAVY_BATCH_V0",
+    "warnings": []
+  },
+  "discord_outbox_compatibility": {
+    "discord_dry_run_only": true,
+    "discord_outbox_approval_status": "pending",
+    "discord_outbox_packet_id": "discord_dry_run_outbox_e59579adf7eb8db3",
+    "discord_seed_accepted_by_outbox_spine": true,
+    "discord_variant_approval_record_id": "approval_discord_1cd58fd896f19c77",
+    "discord_variant_preview_id": "preview_discord_1cd58fd896f19c77",
+    "live_send_performed": false
+  },
+  "discord_summary_seed": {
+    "call_to_action": "Review the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
+    "canonical_url": null,
+    "content_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+    "created_at": "2026-07-01T02:56:46+07:00",
+    "key_points": [
+      "Methodology and Source Review: We review the sources provided: Macro volatility series database release v1, Fed calendar notes 2026. A key limitation o...",
+      "Historical Context and Range Analysis: Statistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market nois..."
+    ],
+    "source_article_id": "operator_idea_d4a5afd3ecf03b1b",
+    "summary": "An educational breakdown of macro calibration and metadata context regarding Evaluate historical volatility in macro calendar commentaries.",
+    "title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries"
+  },
+  "env_lines_serialized": false,
+  "live_send_performed": false,
+  "network_call_made": false,
+  "packet_id": "variant_approval_bridge_d4a5afd3ecf03b1b",
+  "preview_hash_records": [
+    {
+      "exact_preview_hash": "1cd58fd896f19c77638e62c52f34700c8166bd9644a8d830071d174924ca9172",
+      "executable_request_artifact_created": false,
+      "hash_algorithm": "sha256_json_v6",
+      "platform": "discord",
+      "preview_id": "preview_discord_1cd58fd896f19c77",
+      "preview_text": "[discord] Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\nAn educational breakdown of macro calibration and metadata context regarding Evaluate historical volatility in macro calendar commentaries.\n\nKey points:\n- Methodology and Source Review: We review the sources provided: Macro volatility series database release v1, Fed calendar notes 2026. A key limitation o...\n- Historical Context and Range Analysis: Statistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market nois...\n\nReview the Chronicle note, add questions for the operator, and keep discussion evidence-led.\n\nSource: operator_idea_d4a5afd3ecf03b1b",
+      "variant_id": "variant_discord_d4a5afd3ecf03b1b"
+    },
+    {
+      "exact_preview_hash": "974e8509d7999acad8cdf4855dc874d2d7182e766a51d4d1b4a6d6749126eb32",
+      "executable_request_artifact_created": false,
+      "hash_algorithm": "sha256_json_v6",
+      "platform": "telegram_operator",
+      "preview_id": "preview_telegram_operator_974e8509d7999aca",
+      "preview_text": "[telegram_operator] Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\nOperator checkpoint | An educational breakdown of macro calibration and metadata context regarding Evaluate historical volatility in macro calendar commentaries. | Review required before any public distribution.\n\nSource: operator_idea_d4a5afd3ecf03b1b",
+      "variant_id": "variant_telegram_d4a5afd3ecf03b1b"
+    },
+    {
+      "exact_preview_hash": "c19e65c51abb0967d25dde12e8c1b5ff2a3fa32ccac3b9e14eb7d73aa30b1b59",
+      "executable_request_artifact_created": false,
+      "hash_algorithm": "sha256_json_v6",
+      "platform": "substack",
+      "preview_id": "preview_substack_c19e65c51abb0967",
+      "preview_text": "[substack] Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\nProcess-led analysis tailored for general_financial_education\n\nThis briefing grounds our editorial desk's approach to Evaluate historical volatility in macro calendar commentaries. By focusing on the Focus on data transparency, process, and methodology over trading recommendations, we analyze historical patterns without offering directional investment advice.\n\nA disciplined operator relies on verified context, explicit assumptions, and clear disclaimers to ensure community integrity under V6_EDUCATIONAL_DISCLAIMER.\n\nSource: operator_idea_d4a5afd3ecf03b1b",
+      "variant_id": "variant_substack_d4a5afd3ecf03b1b"
+    }
+  ],
+  "provider_call_made": false,
+  "raw_secret_values_serialized": false,
+  "recommended_next_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_QUEUE_AND_EVIDENCE_VAULT_UI_HEAVY_BATCH_V0",
+  "redacted_audit_packet": {
+    "approval_count": 3,
+    "audit_id": "variant_bridge_audit_d4a5afd3ecf03b1b",
+    "browser_call_made": false,
+    "env_lines_serialized": false,
+    "executable_request_artifacts_created": false,
+    "live_send_performed": false,
+    "network_call_made": false,
+    "provider_call_made": false,
+    "raw_secret_values_serialized": false,
+    "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+    "variant_count": 3
+  },
+  "schema_version": "6.0.0",
+  "source_article_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "task_label": "TASK_CONTENTOPS_V6_VARIANT_PREVIEW_HASH_APPROVAL_TO_DISCORD_OUTBOX_HEAVY_BATCH_V0",
+  "variants": [
+    {
+      "body": "An educational breakdown of macro calibration and metadata context regarding Evaluate historical volatility in macro calendar commentaries.\n\nKey points:\n- Methodology and Source Review: We review the sources provided: Macro volatility series database release v1, Fed calendar notes 2026. A key limitation o...\n- Historical Context and Range Analysis: Statistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market nois...\n\nReview the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
+      "constraints": {
+        "max_key_points": 3,
+        "requires_operator_approval": true
+      },
+      "content_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "created_at": "2026-07-01T03:09:15+07:00",
+      "platform": "discord",
+      "source_article_id": "operator_idea_d4a5afd3ecf03b1b",
+      "title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries",
+      "variant_id": "variant_discord_d4a5afd3ecf03b1b",
+      "variant_role": "community_summary_seed"
+    },
+    {
+      "body": "Operator checkpoint | An educational breakdown of macro calibration and metadata context regarding Evaluate historical volatility in macro calendar commentaries. | Review required before any public distribution.",
+      "constraints": {
+        "requires_operator_approval": true,
+        "single_message_checkpoint": true
+      },
+      "content_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "created_at": "2026-07-01T03:09:15+07:00",
+      "platform": "telegram_operator",
+      "source_article_id": "operator_idea_d4a5afd3ecf03b1b",
+      "title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries",
+      "variant_id": "variant_telegram_d4a5afd3ecf03b1b",
+      "variant_role": "operator_checkpoint"
+    },
+    {
+      "body": "Process-led analysis tailored for general_financial_education\n\nThis briefing grounds our editorial desk's approach to Evaluate historical volatility in macro calendar commentaries. By focusing on the Focus on data transparency, process, and methodology over trading recommendations, we analyze historical patterns without offering directional investment advice.\n\nA disciplined operator relies on verified context, explicit assumptions, and clear disclaimers to ensure community integrity under V6_EDUCATIONAL_DISCLAIMER.",
+      "constraints": {
+        "manual_export_only": true,
+        "requires_editorial_review": true
+      },
+      "content_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "created_at": "2026-07-01T03:09:15+07:00",
+      "platform": "substack",
+      "source_article_id": "operator_idea_d4a5afd3ecf03b1b",
+      "title": "Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries",
+      "variant_id": "variant_substack_d4a5afd3ecf03b1b",
+      "variant_role": "canonical_article_preview"
+    }
+  ],
+  "warnings": []
+}
