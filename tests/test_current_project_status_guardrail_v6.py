@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 import re
@@ -36,6 +36,11 @@ def test_status_json_contract() -> None:
         assert "ui/operator_approval_queue_evidence_vault/" in data["stale_wrong_surfaces"]
     assert "docs/status/CURRENT_PROJECT_STATUS.md" in data["mandatory_read_before_task"]
     assert "docs/status/current_project_status.json" in data["mandatory_read_before_task"]
+    assert data["last_verified_remote_sha"] == "8c2f490adf2cd28fe81fd738ed88ef0ada04c774"
+    if data["latest_accepted_task"] == "TASK_CONTENTOPS_V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP_REPAIR_V0":
+        assert data["accepted_baseline_summary"].startswith(
+            "The accepted baseline is commit `8c2f490adf2cd28fe81fd738ed88ef0ada04c774`"
+        )
     assert data["mandatory_update_after_task"]
 
 

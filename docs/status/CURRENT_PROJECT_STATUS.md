@@ -1,4 +1,4 @@
-﻿# Capital Chronicle ContentOps — Current Project Status
+# Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
 TASK_CONTENTOPS_V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP_REPAIR_V0
@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-787c022b7ba2f970b4958a91d92c4bc15011b0b5
+8c2f490adf2cd28fe81fd738ed88ef0ada04c774
 
 ## current_product_phase
 V6 local-first product loop consolidation on the canonical V5 dashboard surface.
@@ -19,7 +19,7 @@ V6 local-first product loop consolidation on the canonical V5 dashboard surface.
 Dashboard authority reconciliation, stale UI cleanup, and fixture-only V6 approval/evidence integration into V5.
 
 ## accepted_baseline_summary
-The accepted baseline is commit `787c022b7ba2f970b4958a91d92c4bc15011b0b5` on `origin/master`. The dashboard authority mistake has been repaired: V5 is the canonical dashboard, V4 is fallback/reference only, and the standalone approval queue surface remains non-canonical/absent.
+The accepted baseline is commit `8c2f490adf2cd28fe81fd738ed88ef0ada04c774` on `origin/master`. The dashboard authority mistake has been repaired: V5 is the canonical dashboard, V4 is fallback/reference only, and the standalone approval queue surface remains non-canonical/absent.
 
 ## canonical_dashboard_surface
 `ui/contentops_v5/` is the canonical current dashboard/app surface unless a newer committed authority document supersedes it.
