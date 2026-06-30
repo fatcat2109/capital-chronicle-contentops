@@ -1,0 +1,45 @@
+{
+  "approval_declaration_status": "not_approved_or_rejected",
+  "approval_declaration_validation_result": {
+    "blockers": [
+      "approval_declaration_missing"
+    ],
+    "declaration_supplied": false,
+    "synthetic_test_fixture_only": false,
+    "valid": false
+  },
+  "approval_granted_now": false,
+  "approval_valid_for_payload_hashes_only": false,
+  "approved_payload_hashes": [],
+  "approved_payload_preview_ids": [],
+  "approved_platforms": [],
+  "blockers": [
+    "approval_declaration_missing"
+  ],
+  "browser_session_used": false,
+  "credential_value_read": false,
+  "dispatch_allowed": false,
+  "eligible_for_future_outbox_preparation_task": false,
+  "eligible_for_live_send_now": false,
+  "env_read": false,
+  "exact_jim_approval_declaration_intake_gate_bundle_id": "exact_jim_approval_declaration_intake_gate_bundle_2b8b10a88c400b61",
+  "executable_request_artifact_created": false,
+  "human_review_required": true,
+  "live_send_allowed": false,
+  "metrics_created": false,
+  "network_call_made": false,
+  "packet_sha256": "045a79e12fc6184e32798f4495d85af35ed852dd66f369fdc9f502719f23789e",
+  "provider_call_made": false,
+  "public_url_created": false,
+  "publication_ready": false,
+  "runtime_truth": false,
+  "schema_version": "6.0.0",
+  "source_exact_operator_approval_signature_verifier_scaffold_bundle_id": "exact_operator_approval_signature_verifier_scaffold_bundle_6a2369c5a15f74ea",
+  "task_label": "TASK_CONTENTOPS_V6_EXACT_JIM_APPROVAL_DECLARATION_INTAKE_GATE_HEAVY_BATCH_NO_PROVIDER_NO_LIVE_SEND_V0",
+  "warnings": [
+    "approval_intake_only",
+    "no_provider",
+    "no_live_send",
+    "future_outbox_preparation_only"
+  ]
+}
