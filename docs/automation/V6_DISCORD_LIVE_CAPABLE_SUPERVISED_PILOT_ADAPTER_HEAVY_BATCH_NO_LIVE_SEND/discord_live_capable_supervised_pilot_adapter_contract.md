@@ -1,4 +1,4 @@
-﻿# V6 Discord Live-Capable Supervised Pilot Adapter Contract
+# V6 Discord Live-Capable Supervised Pilot Adapter Contract
 
 Local-only adapter scaffold. Disabled by default.
 
@@ -12,14 +12,6 @@ Local-only adapter scaffold. Disabled by default.
 - No public URLs or metrics.
 - No live dispatch approval or publication readiness claim.
 
-## Future-Live Requirements
+## Future Requirements
 
-Future execution remains blocked until separate explicit live task supplies:
-
-- exact operator confirmation;
-- credential-presence membership-only proof;
-- destination binding;
-- payload hash revalidation;
-- kill switch;
-- redacted audit;
-- manual fallback.
+Future separate explicit task remains blocked until operator supplies exact confirmation, credential-presence membership-only proof, destination binding, payload hash revalidation, kill switch, redacted audit, and manual fallback.

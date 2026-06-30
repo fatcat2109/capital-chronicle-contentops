@@ -1,4 +1,4 @@
-﻿# V6 Discord Supervised Live Pilot Operator Runbook - No Live Send
+# V6 Discord Supervised Live Pilot Operator Runbook - No Live Send
 
 Purpose: operator review guide for local-only adapter scaffold.
 
@@ -8,7 +8,7 @@ Purpose: operator review guide for local-only adapter scaffold.
 - Do not read env or `.env` values.
 - Do not read webhook values, tokens, channel IDs, headers, methods, paths, or bodies.
 - Do not open browser sessions.
-- Do not create executable HTTP artifacts, curl commands, fetch snippets, or provider requests.
+- Do not create executable HTTP artifacts, request snippets, or provider requests.
 - Do not claim publication readiness or live dispatch approval.
 
 ## Operator Steps
