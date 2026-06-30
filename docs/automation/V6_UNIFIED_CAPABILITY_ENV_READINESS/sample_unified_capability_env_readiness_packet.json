@@ -1,0 +1,160 @@
+{
+  "blockers": [],
+  "capabilities": [
+    {
+      "action_class": "webhook_dry_run_outbox_then_supervised_live_candidate",
+      "approval_required": true,
+      "audit_required": true,
+      "blockers": [],
+      "capability_id": "discord_webhook",
+      "capability_status": "configured_for_supervised_live_scope_candidate",
+      "key_presence": {
+        "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK": true
+      },
+      "live_write_requires_separate_scope": true,
+      "manual_fallback_available": true,
+      "next_allowed_task_class": "discord_dry_run_outbox_and_operator_approval_spine",
+      "optional_key_names": [],
+      "platform_family": "discord",
+      "required_key_names": [
+        "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK"
+      ]
+    },
+    {
+      "action_class": "bot_dry_run_outbox_then_supervised_live_candidate",
+      "approval_required": true,
+      "audit_required": true,
+      "blockers": [
+        "missing_required_key_name:TELEGRAM_CHAT_ID"
+      ],
+      "capability_id": "telegram_bot",
+      "capability_status": "unavailable",
+      "key_presence": {
+        "TELEGRAM_BOT_TOKEN": true,
+        "TELEGRAM_CHAT_ID": false
+      },
+      "live_write_requires_separate_scope": true,
+      "manual_fallback_available": true,
+      "next_allowed_task_class": "telegram_dry_run_outbox_and_operator_approval_spine",
+      "optional_key_names": [],
+      "platform_family": "telegram",
+      "required_key_names": [
+        "TELEGRAM_BOT_TOKEN",
+        "TELEGRAM_CHAT_ID"
+      ]
+    },
+    {
+      "action_class": "manual_or_browser_compose",
+      "approval_required": true,
+      "audit_required": true,
+      "blockers": [],
+      "capability_id": "substack_manual_or_browser_compose",
+      "capability_status": "configured_for_dry_run",
+      "key_presence": {
+        "SUBSTACK_EMAIL": false
+      },
+      "live_write_requires_separate_scope": true,
+      "manual_fallback_available": true,
+      "next_allowed_task_class": "substack_manual_browser_compose_dry_run",
+      "optional_key_names": [
+        "SUBSTACK_EMAIL"
+      ],
+      "platform_family": "substack",
+      "required_key_names": []
+    },
+    {
+      "action_class": "research_writer_generation",
+      "approval_required": true,
+      "audit_required": true,
+      "blockers": [],
+      "capability_id": "ai_provider_research_writer",
+      "capability_status": "configured_for_dry_run",
+      "key_presence": {
+        "ANTHROPIC_API_KEY": false,
+        "OPENAI_API_KEY": true
+      },
+      "live_write_requires_separate_scope": false,
+      "manual_fallback_available": true,
+      "next_allowed_task_class": "ai_research_canonical_article_production_engine",
+      "optional_key_names": [
+        "OPENAI_API_KEY",
+        "ANTHROPIC_API_KEY"
+      ],
+      "platform_family": "ai_provider",
+      "required_key_names": []
+    },
+    {
+      "action_class": "operator_supervised_browser_loop",
+      "approval_required": true,
+      "audit_required": true,
+      "blockers": [],
+      "capability_id": "browser_operator",
+      "capability_status": "configured_for_dry_run",
+      "key_presence": {},
+      "live_write_requires_separate_scope": true,
+      "manual_fallback_available": true,
+      "next_allowed_task_class": "browser_operator_command_center_ui_evidence_loop",
+      "optional_key_names": [],
+      "platform_family": "browser",
+      "required_key_names": []
+    },
+    {
+      "action_class": "manual_export_fallback",
+      "approval_required": false,
+      "audit_required": true,
+      "blockers": [],
+      "capability_id": "manual_export_fallback",
+      "capability_status": "configured_for_dry_run",
+      "key_presence": {},
+      "live_write_requires_separate_scope": true,
+      "manual_fallback_available": true,
+      "next_allowed_task_class": "manual_export_fallback_packet",
+      "optional_key_names": [],
+      "platform_family": "manual",
+      "required_key_names": []
+    }
+  ],
+  "env_lines_serialized": false,
+  "env_scan": {
+    "checked_key_names": [
+      "ANTHROPIC_API_KEY",
+      "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK",
+      "OPENAI_API_KEY",
+      "SUBSTACK_EMAIL",
+      "TELEGRAM_BOT_TOKEN",
+      "TELEGRAM_CHAT_ID"
+    ],
+    "dotenv_key_names_checked": false,
+    "dotenv_missing_is_blocker": false,
+    "dotenv_path_present": false,
+    "env_lines_serialized": false,
+    "key_presence": {
+      "ANTHROPIC_API_KEY": false,
+      "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK": true,
+      "OPENAI_API_KEY": true,
+      "SUBSTACK_EMAIL": false,
+      "TELEGRAM_BOT_TOKEN": true,
+      "TELEGRAM_CHAT_ID": false
+    },
+    "process_env_checked": true,
+    "raw_values_serialized": false,
+    "scan_mode": "process_env_only",
+    "value_digests_serialized": false,
+    "value_hashes_serialized": false,
+    "value_lengths_serialized": false,
+    "value_prefixes_serialized": false,
+    "value_suffixes_serialized": false
+  },
+  "live_provider_write_performed": false,
+  "packet_status": "unified_capability_env_readiness_available_for_product_lane_selection",
+  "provider_live_write_requires_separate_scope": true,
+  "raw_secret_values_serialized": false,
+  "recommended_next_task": "TASK_CONTENTOPS_V6_DISCORD_DRY_RUN_OUTBOX_AND_OPERATOR_APPROVAL_SPINE_HEAVY_BATCH_V0",
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_FAST_SHIP_RUNTIME_SPINE_CONSOLIDATION_UNIFIED_CAPABILITY_ENV_READINESS_HEAVY_BATCH_V0",
+  "value_digests_serialized": false,
+  "value_hashes_serialized": false,
+  "value_lengths_serialized": false,
+  "value_prefixes_serialized": false,
+  "value_suffixes_serialized": false
+}

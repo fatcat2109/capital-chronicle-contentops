@@ -8,17 +8,8 @@ SCHEMA_VERSION="6.0.0"
 TASK_LABEL="TASK_CONTENTOPS_V6_ENDPOINT_ALLOWLIST_GATE_FROM_OFFICIAL_PROVIDER_DOCS_SCOPE_HEAVY_BATCH_DOCS_ONLY_NO_PROVIDER_NO_DISPATCH_NO_LIVE_V0"
 UPSTREAM_TASK_LABEL="TASK_CONTENTOPS_V6_OFFICIAL_PROVIDER_DOCS_SCOPE_GATE_FROM_PROVIDER_SCOPED_PREP_HEAVY_BATCH_DOCS_ONLY_NO_PROVIDER_NO_DISPATCH_NO_LIVE_V0"
 UPSTREAM_STATUS="official_provider_docs_scope_gate_ready_for_future_endpoint_allowlist_gate_only"
-AUDIT_MODE="local_audit_safe_metadata_only"
-KILL_MODE="symbolic_local_kill_switch_required_before_dispatch_execution"
-KILL_STATE="armed_for_future_dispatch_preparation_only"
-FALLBACK_MODE="symbolic_manual_fallback_required_before_dispatch_execution"
-FALLBACK_STATE="available_redacted_for_future_dispatch_preparation_only"
-PREP_MODE="redacted_symbolic_dispatch_execution_preparation_only"
-PREP_STATUS="prepared_for_future_provider_scoped_dispatch_execution_task_only"
-GATE_STATUS="dispatch_execution_preparation_ready_for_future_provider_scoped_dispatch_execution_task_only"
 ALLOWED_REQUIRED_KEY_NAMES={"DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK","TELEGRAM_BOT_TOKEN","TELEGRAM_CHAT_ID","SUBSTACK_MANUAL_EXPORT_ONLY","X_MANUAL_EXPORT_ONLY","LINKEDIN_ORG_DEFERRED","TIKTOK_DEFERRED"}
 FALSE_FLAGS=("credential_value_read","credential_value_stored","credential_value_logged","env_read","dotenv_read","env_iterated","env_value_length_checked","env_value_prefix_checked","env_value_suffix_checked","env_value_hash_computed","env_value_digest_computed","env_value_redacted_fragment_created","provider_call_made","network_call_made","browser_session_used","executable_request_artifact_created","endpoint_url_present","webhook_url_present","channel_id_present","account_id_present","token_present","payload_body_present","public_url_created","metrics_created","publication_ready","dispatch_allowed","live_send_allowed","runtime_truth")
-BUNDLE_FALSE_FLAGS=("eligible_for_future_provider_runtime_authority_gate_task","eligible_for_future_provider_scoped_dispatch_execution_task","eligible_for_future_dispatch_execution_task","eligible_for_live_send_now") + FALSE_FLAGS
 SECRET_OR_URL_RE=re.compile(r"https?://|[A-Za-z0-9_-]{3,}\.[A-Za-z0-9_-]{6,}\.[A-Za-z0-9_-]{20,}",re.I)
 SHA256_HEX_RE=re.compile(r"^[A-Fa-f0-9]{64}$")
 
