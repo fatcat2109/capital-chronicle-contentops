@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_STATUS_LEDGER_SHA_MODEL_AND_SUBSTACK_VISUAL_QA_HARDENING_V0
+TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -16,7 +16,7 @@ master
 V6 local-first product loop consolidation on the canonical V5 dashboard surface.
 
 ## current_product_lane
-Substack manual export article studio integrated into the canonical V5 dashboard using fixture-only packets and deterministic hashes.
+Substack manual approval/export evidence integrated into the canonical V5 dashboard using fixture-only packets, deterministic hashes, pending operator review, and blocked live publish proof.
 
 ## accepted_baseline_summary
 Accepted product baseline is commit `f688294d210065c21fe74740db8818ee09c526d2` on `origin/master`. Current repo/status repair HEAD is commit `84c65844a5ae55178463390fb29d8d9325cf2771`; do not treat status-only SHA repairs as new product baselines.
@@ -49,7 +49,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components exist for research packets, canonical article drafts, Substack manual export packets, editorial review, variant preview/hash approval, Discord dry-run outbox, redacted audit, manual fallback, approval queue/evidence vault packets, and live-pilot blocked/ready state. Fixture-only V6 approval/evidence and Substack article studio cards are integrated into the canonical V5 dashboard views.
+V6 local deterministic loop components exist for research packets, canonical article drafts, Substack manual export packets, Substack manual approval/export evidence packets, editorial review, variant preview/hash approval, Discord dry-run outbox, redacted audit, manual fallback, approval queue/evidence vault packets, and live-pilot blocked/ready state. Fixture-only V6 approval/evidence, Substack article studio, and Substack manual approval/export evidence cards are integrated into the canonical V5 dashboard views.
 
 ## dispatch/live status
 Dispatch/live remains blocked. No autonomous publish, schedule, retry, queue execution, platform API call, provider call, credential read, env value read, or live send is authorized by this status ledger.
@@ -68,17 +68,23 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Do not use chat memory or Project Sources as runtime authority when status doc and repo files disagree.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_STATUS_LEDGER_SHA_MODEL_AND_SUBSTACK_VISUAL_QA_HARDENING_V0
+TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0
 
 ## latest changed areas
+- `live_contentops/substack_manual_approval_export_evidence_v6.py`
+- `tests/test_substack_manual_approval_export_evidence_v6.py`
+- `docs/automation/V6_SUBSTACK_MANUAL_APPROVAL_EXPORT_EVIDENCE/`
+- `docs/runbooks/V6_SUBSTACK_MANUAL_APPROVAL_EXPORT_EVIDENCE_RUNBOOK.md`
+- `ui/contentops_v5/src/data/substackManualExportArticleStudioAdapter.ts`
+- `ui/contentops_v5/src/views/SubstackArticleStudioCard.tsx`
+- `ui/contentops_v5/src/views/ApprovalQueue.tsx`
+- `ui/contentops_v5/src/views/EvidenceVault.tsx`
+- `docs/browser_qa/contentops_v5_substack_manual_approval_export_evidence/`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
-- `docs/status/STATUS_LEDGER_SHA_MODEL.md`
-- `tests/test_current_project_status_guardrail_v6.py`
-- `docs/browser_qa/contentops_v5_substack_article_studio/`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0
+TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_PACKET_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, or local storage. Do not dispatch or publish.

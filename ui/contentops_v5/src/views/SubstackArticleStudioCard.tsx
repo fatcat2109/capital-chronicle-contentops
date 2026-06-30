@@ -1,4 +1,7 @@
-﻿import { substackManualExportArticleStudioPacket as packet } from '../data/substackManualExportArticleStudioAdapter';
+import {
+  substackManualApprovalExportEvidencePacket as evidencePacket,
+  substackManualExportArticleStudioPacket as packet,
+} from '../data/substackManualExportArticleStudioAdapter';
 import { StatusChip } from '../ui/primitives';
 
 export function SubstackArticleStudioCard({ mode }: { mode: 'writer' | 'seo' | 'preview' | 'manual' | 'approval' | 'evidence' }) {
@@ -30,13 +33,14 @@ export function SubstackArticleStudioCard({ mode }: { mode: 'writer' | 'seo' | '
           <div className="mt-1 break-all font-mono text-[11px] text-fg">{packet.export_packet_id}</div>
         </div>
         <div className="rounded-xl border border-line bg-surface-2 p-3">
-          <div className="font-mono text-[10px] font-bold uppercase text-fg-subtle">Exact preview hash</div>
-          <div className="mt-1 break-all font-mono text-[11px] text-fg">{packet.exact_payload_hash}</div>
+          <div className="font-mono text-[10px] font-bold uppercase text-fg-subtle">Approval evidence</div>
+          <div className="mt-1 break-all font-mono text-[11px] text-fg">{evidencePacket.approval_export_evidence_packet_id}</div>
         </div>
         <div className="rounded-xl border border-line bg-surface-2 p-3">
           <div className="font-mono text-[10px] font-bold uppercase text-fg-subtle">Live state</div>
-          <div className="mt-1 font-mono text-[11px] text-status-blocked">live_publish_allowed={String(packet.live_publish_allowed)}</div>
-          <div className="font-mono text-[11px] text-status-blocked">provider_call_made={String(packet.provider_call_made)}</div>
+          <div className="mt-1 font-mono text-[11px] text-status-blocked">live_publish_allowed={String(evidencePacket.live_publish_allowed)}</div>
+          <div className="font-mono text-[11px] text-status-blocked">substack_api_used={String(evidencePacket.substack_api_used)}</div>
+          <div className="font-mono text-[11px] text-status-blocked">provider_call_made={String(evidencePacket.provider_call_made)}</div>
         </div>
       </div>
 
@@ -49,16 +53,34 @@ export function SubstackArticleStudioCard({ mode }: { mode: 'writer' | 'seo' | '
       )}
 
       {(mode === 'preview' || mode === 'manual') && (
-        <pre className="mt-4 max-h-72 overflow-auto whitespace-pre-wrap rounded-xl border border-line bg-surface-2 p-3 font-mono text-[11px] leading-relaxed text-fg-muted">
-          {packet.article_body_markdown}
-        </pre>
+        <>
+          <pre className="mt-4 max-h-72 overflow-auto whitespace-pre-wrap rounded-xl border border-line bg-surface-2 p-3 font-mono text-[11px] leading-relaxed text-fg-muted">
+            {packet.article_body_markdown}
+          </pre>
+          {mode === 'manual' && (
+            <div className="mt-4 rounded-xl border border-accent/25 bg-accent/5 p-3">
+              <div className="font-mono text-[10px] font-bold uppercase text-accent">Manual copy checklist · pending review</div>
+              <ul className="mt-2 space-y-1.5">
+                {evidencePacket.manual_copy_checklist.map((item) => (
+                  <li key={item.check_id} className="flex items-center justify-between gap-3 rounded-lg border border-line bg-surface-2 px-3 py-2 text-xs text-fg-muted">
+                    <span>{item.label}</span>
+                    <StatusChip status="review">{item.status}</StatusChip>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </>
       )}
 
       {(mode === 'approval' || mode === 'evidence') && (
         <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
-          {packet.blockers.map((blocker) => (
-            <div key={blocker} className="rounded-xl border border-status-blocked/30 bg-status-blocked/5 p-3 font-mono text-[11px] text-status-blocked">
-              {blocker}
+          {evidencePacket.evidence_cards.map((card) => (
+            <div key={card.card_id} className="rounded-xl border border-status-blocked/30 bg-status-blocked/5 p-3">
+              <div className="font-mono text-[10px] font-bold uppercase text-status-blocked">{card.card_type}</div>
+              <div className="mt-1 break-all font-mono text-[11px] text-fg">{card.source_id}</div>
+              <div className="mt-1 break-all font-mono text-[10px] text-fg-muted">{card.hash}</div>
+              <StatusChip status={card.display_status === 'blocked' ? 'blocked' : 'review'}>{card.display_status}</StatusChip>
             </div>
           ))}
         </div>

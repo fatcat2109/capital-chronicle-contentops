@@ -1,4 +1,4 @@
-﻿// V6 Substack manual export article studio adapter.
+// V6 Substack manual export article studio adapter.
 // Static fixture only. No network, no credentials, no storage, no publish.
 
 export const substackManualExportArticleStudioPacket = {
@@ -67,3 +67,104 @@ export const substackManualExportArticleStudioPacket = {
 
 export const substackManualExportSafetyLabels = substackManualExportArticleStudioPacket.manual_copy_payload.safety_labels;
 
+
+export const substackManualApprovalExportEvidencePacket = {
+  "approval_export_evidence_hash": "ba20cf65f42da3691a30690fc90be7f09ac0b446ced30920a5f489595d80ffb8",
+  "approval_export_evidence_packet_id": "substack_manual_approval_export_evidence_ba20cf65f42da369",
+  "approval_status": "pending",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "article_source_packet",
+      "card_type": "article_source_packet",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "substack_export_packet",
+      "card_type": "substack_export_packet",
+      "display_status": "bound",
+      "hash": "e556b07116d81110da7f8b96f5e5d39b80d65ce16c0c190eb51cdc9fdbd1f335",
+      "source_id": "substack_manual_export_e556b07116d81110"
+    },
+    {
+      "card_id": "approval_checkpoint",
+      "card_type": "approval_checkpoint",
+      "display_status": "pending_review",
+      "hash": "e556b07116d81110da7f8b96f5e5d39b80d65ce16c0c190eb51cdc9fdbd1f335",
+      "source_id": "operator_review_status"
+    },
+    {
+      "card_id": "manual_copy_checklist",
+      "card_type": "manual_copy_checklist",
+      "display_status": "ready_for_manual_copy",
+      "hash": "50ab1ffc89c2f44e34e1bd8e73ff716af1a17449b59f4316cd49e43c961f690e",
+      "source_id": "manual_copy_payload"
+    },
+    {
+      "card_id": "blocked_live_publish_state",
+      "card_type": "blocked_live_publish_state",
+      "display_status": "blocked",
+      "hash": "b654e7a930df0af32c0f4a9e5b0da9b8275053d0d2272002e4cd7e15b023f793",
+      "source_id": "live_publish_allowed=false"
+    }
+  ],
+  "exact_payload_hash": "e556b07116d81110da7f8b96f5e5d39b80d65ce16c0c190eb51cdc9fdbd1f335",
+  "hash_algorithm": "sha256_json_v6",
+  "live_publish_allowed": false,
+  "live_publish_performed": false,
+  "manual_copy_checklist": [
+    {
+      "check_id": "manual_copy_payload_present",
+      "label": "Manual copy payload reviewed in V5",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_no_live_publish",
+      "label": "Operator confirms no publish/send/dispatch action is enabled",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_substack_api_absent",
+      "label": "Operator confirms Substack API was not used",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_hash_match",
+      "label": "Operator confirms exact payload hash before manual copy",
+      "required": true,
+      "status": "pending_review"
+    }
+  ],
+  "manual_export_status": "ready_for_manual_copy",
+  "network_call_made": false,
+  "operator_review_proof": "pending operator review; deterministic fixture only; no runtime proof",
+  "operator_review_status": "pending_review",
+  "provider_call_made": false,
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_canonical_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_export_packet_id": "substack_manual_export_e556b07116d81110",
+  "substack_api_used": false,
+  "task_label": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0",
+  "warnings": [
+    "sample_fixture_only",
+    "manual_copy_only_no_substack_api",
+    "live_publish_disabled",
+    "operator_review_pending"
+  ]
+} as const;

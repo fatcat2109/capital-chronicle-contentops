@@ -3,6 +3,7 @@
 // schedule/API affordance. No network, no storage, no credentials.
 
 import { SubstackArticleStudioCard } from './SubstackArticleStudioCard';
+import { substackManualApprovalExportEvidencePacket } from '../data/substackManualExportArticleStudioAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -125,6 +126,20 @@ export function ApprovalQueue() {
           </div>
         </Panel>
       </div>
+      <Panel
+        title="Substack manual approval/export evidence"
+        subtitle={substackManualApprovalExportEvidencePacket.approval_export_evidence_packet_id}
+        actions={<StatusChip status="review">{substackManualApprovalExportEvidencePacket.operator_review_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          <Row label="Approval" value={substackManualApprovalExportEvidencePacket.approval_status} />
+          <Row label="Manual export" value={substackManualApprovalExportEvidencePacket.manual_export_status} />
+          <Row label="Substack API" value={String(substackManualApprovalExportEvidencePacket.substack_api_used)} mono />
+        </div>
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 font-mono text-[11px] text-status-blocked">
+          approve/send/publish/dispatch controls enabled={String(substackManualApprovalExportEvidencePacket.enabled_publish_send_dispatch_approve_controls)}
+        </div>
+      </Panel>
       <Panel
         title="V6 operator approval queue · fixture-only"
         subtitle={`${v6Packet.approval_queue_items.length} pending previews · ${v6Packet.sample_scope}`}

@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "84c65844a5ae55178463390fb29d8d9325cf2771",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_STATUS_LEDGER_SHA_MODEL_AND_SUBSTACK_VISUAL_QA_HARDENING_V0",
+  "last_verified_remote_sha": "53869e12d1befd3a81c21304ab1d97a49f56c3ae",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0",
   "current_product_phase": "V6 local-first product loop consolidation on the canonical V5 dashboard surface",
-  "current_product_lane": "Substack manual export article studio integrated into canonical V5 with fixture-only packets and deterministic hashes",
-  "accepted_baseline_summary": "Accepted product baseline is commit `f688294d210065c21fe74740db8818ee09c526d2` on `origin/master`. Current repo/status repair HEAD is commit `84c65844a5ae55178463390fb29d8d9325cf2771`; do not treat status-only SHA repairs as new product baselines.",
+  "current_product_lane": "Substack manual approval/export evidence integrated into canonical V5 with fixture-only packets, deterministic hashes, pending operator review, and blocked live publish proof",
+  "accepted_baseline_summary": "Accepted product baseline field is set to 53869e12d1befd3a81c21304ab1d97a49f56c3ae for TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0 status update before final push evidence. Previous accepted product baseline was f688294d210065c21fe74740db8818ee09c526d2; status-only repair commit remains 84c65844a5ae55178463390fb29d8d9325cf2771.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -31,7 +31,8 @@
     "live_contentops/ai_research_canonical_article_engine_v6.py",
     "live_contentops/variant_preview_hash_approval_to_discord_outbox_v6.py",
     "live_contentops/operator_approval_queue_evidence_vault_v6.py",
-    "live_contentops/substack_manual_export_article_studio_v6.py"
+    "live_contentops/substack_manual_export_article_studio_v6.py",
+    "live_contentops/substack_manual_approval_export_evidence_v6.py"
   ],
   "current_loop_components": [
     "AI research packet",
@@ -43,7 +44,8 @@
     "redacted audit/manual fallback packets",
     "blocked supervised live-pilot state",
     "V5 fixture-only approval queue and evidence vault cards",
-    "Substack manual export article studio"
+    "Substack manual export article studio",
+    "Substack manual approval/export evidence packet"
   ],
   "dispatch_live_status": "blocked; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, or live send authorized",
   "provider_env_credential_status": "gated; no env value or credential value reads; committed evidence may use boolean/key-name status only",
@@ -57,10 +59,10 @@
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_STATUS_LEDGER_SHA_MODEL_AND_SUBSTACK_VISUAL_QA_HARDENING_V0",
-  "latest_accepted_task_result": "hardened status ledger SHA semantics and added V5-only Substack article studio visual QA evidence without product feature changes",
-  "latest_evidence_summary": "Status SHA model distinguishes current remote HEAD/status repair SHA from accepted product baseline; V5 visual QA screenshots are recorded under docs/browser_qa/contentops_v5_substack_article_studio/; no V4 product target or live/API/provider/env/credential/session access.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0",
+  "latest_accepted_task_result": "hardened deterministic Substack manual approval/export evidence packets and surfaced pending operator review, checklist, blocked live publish proof, and evidence cards in canonical V5",
+  "latest_evidence_summary": "Approval/export evidence packet substack_manual_approval_export_evidence_ba20cf65f42da369 binds export packet substack_manual_export_e556b07116d81110 and payload hash e556b07116d81110da7f8b96f5e5d39b80d65ce16c0c190eb51cdc9fdbd1f335; V5 browser QA screenshots recorded under docs/browser_qa/contentops_v5_substack_manual_approval_export_evidence/; no V4 product target or live/API/provider/env/credential/session access.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_PACKET_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json"
@@ -90,7 +92,7 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "f688294d210065c21fe74740db8818ee09c526d2",
+  "accepted_product_baseline_sha": "53869e12d1befd3a81c21304ab1d97a49f56c3ae",
   "last_status_commit_sha": "84c65844a5ae55178463390fb29d8d9325cf2771",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed when this status ledger was updated; accepted_product_baseline_sha is the latest accepted product feature baseline; last_status_commit_sha is the status-only repair commit that corrected ledger metadata."
 }
