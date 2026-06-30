@@ -125,18 +125,29 @@ def test_scaffold_declaration_constraints():
 
 
 def test_extra_fields_fail_closed():
-    data = _prep_bundle()
-    # We want to check if extra fields in declaration scaffolding triggers error
-    # Wait, the scaffold function generates the declaration scaffold internally.
-    # But if the input prep bundle has extra fields, does it fail?
-    # Our upstream blockers doesn't check for extra fields in the input prep bundle, but let's check
-    # if it fails if the declaration gets mutated or verified?
-    # Wait! The requirement says: "declaration extra field fails closed".
-    # So if we validate an operator approval declaration block, and it contains extra fields, it fails closed!
-    # Let's verify that our _upstream_blockers or safe checkers check fields if needed, or if we define
-    # DECLARATION_FIELDS verification for the declaration scaffold itself.
-    # Yes! Let's check that if we load/validate a declaration with extra fields, it fails closed.
-    pass
+    decl = dict(_bundle().operator_approval_declaration_scaffold)
+    assert validate_operator_approval_declaration(decl) == []
+
+    with_extra = dict(decl)
+    with_extra["unexpected_field"] = "unexpected"
+    assert "declaration_extra_fields" in validate_operator_approval_declaration(with_extra)
+
+    for field in DECLARATION_FIELDS:
+        missing = dict(decl)
+        missing.pop(field)
+        assert f"missing_declaration_{field}" in validate_operator_approval_declaration(missing)
+
+    from live_contentops.exact_operator_approval_signature_verifier_scaffold_v6 import (
+        DECLARATION_FALSE_FLAGS as EXACT_DECLARATION_FALSE_FLAGS,
+        make_future_exact_operator_approval_declaration_template,
+        validate_future_exact_operator_approval_declaration,
+    )
+
+    future_decl = make_future_exact_operator_approval_declaration_template(asdict(_bundle()))
+    for flag in EXACT_DECLARATION_FALSE_FLAGS:
+        flagged = dict(future_decl)
+        flagged[flag] = True
+        assert f"declaration_{flag}_not_false" in validate_future_exact_operator_approval_declaration(flagged)
 
 
 def test_forbidden_notes_interception():
