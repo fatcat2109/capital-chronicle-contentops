@@ -157,7 +157,7 @@ def validate_verifier_scaffold_bundle(verifier_bundle: dict[str, Any]) -> list[s
         return ["upstream_not_object"]
     blockers.extend(safety_blockers(verifier_bundle, "upstream"))
     _add(blockers, verifier_bundle.get("schema_version") == SCHEMA_VERSION, "upstream_schema_version_invalid")
-    _add(blockers, verifier_bundle.get("task_label", UPSTREAM_TASK_LABEL) == UPSTREAM_TASK_LABEL, "upstream_task_label_invalid")
+    _add(blockers, verifier_bundle.get("task_label") == UPSTREAM_TASK_LABEL, "upstream_task_label_invalid")
     _add(blockers, isinstance(verifier_bundle.get("future_exact_operator_approval_declaration_template"), dict), "upstream_declaration_template_missing")
     _add(blockers, verifier_bundle.get("eligible_for_future_exact_operator_approval_task") is True, "upstream_future_exact_operator_approval_eligibility_not_true")
     for key in UPSTREAM_FALSE_FLAGS:

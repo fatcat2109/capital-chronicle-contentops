@@ -156,6 +156,8 @@ def test_forbidden_text_fails_closed_without_echoing_values():
 
 
 def test_invalid_upstream_verifier_scaffold_fails_closed():
+    upstream = _verifier_bundle(); upstream.pop("task_label")
+    assert "upstream_task_label_invalid" in _bundle(upstream, _accepted_declaration()).blockers
     upstream = _verifier_bundle(); upstream["eligible_for_future_exact_operator_approval_task"] = False
     assert "upstream_future_exact_operator_approval_eligibility_not_true" in _bundle(upstream, _accepted_declaration()).blockers
     upstream = _verifier_bundle(); upstream["approval_granted_now"] = True

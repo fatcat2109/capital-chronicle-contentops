@@ -19,6 +19,7 @@ def _bundle(source=None):
 
 def test_valid_operator_approval_ledger_gate_scaffold_emits_verifier_scaffold():
     b = _bundle()
+    assert b.task_label == TASK_LABEL
     assert b.eligible_for_future_exact_operator_approval_task is True
     assert b.eligible_for_future_outbox_preparation_task is False
     assert b.approval_granted_now is False

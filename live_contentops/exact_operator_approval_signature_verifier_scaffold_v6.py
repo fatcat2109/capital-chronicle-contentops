@@ -55,6 +55,7 @@ SECRET_OR_URL_RE = re.compile(r"https?://|[A-Za-z0-9_-]{24,}\.[A-Za-z0-9_-]{6,}\
 @dataclass(frozen=True)
 class ExactOperatorApprovalSignatureVerifierScaffoldBundle:
     schema_version: str
+    task_label: str
     exact_operator_approval_signature_verifier_scaffold_bundle_id: str
     source_operator_approval_ledger_gate_scaffold_bundle_id: str
     future_exact_operator_approval_declaration_template: dict[str, Any]
@@ -263,6 +264,7 @@ def make_exact_operator_approval_signature_verifier_scaffold_bundle(operator_app
     status = "shape_valid_review_only_no_approval" if not blockers else "blocked_fail_closed_no_approval"
     bundle = ExactOperatorApprovalSignatureVerifierScaffoldBundle(
         schema_version=SCHEMA_VERSION,
+        task_label=TASK_LABEL,
         exact_operator_approval_signature_verifier_scaffold_bundle_id=f"exact_operator_approval_signature_verifier_scaffold_bundle_{short}",
         source_operator_approval_ledger_gate_scaffold_bundle_id=source_id,
         future_exact_operator_approval_declaration_template=template,
