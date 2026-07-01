@@ -179,3 +179,16 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Changed artifact families | `ui/contentops_v5/src/views/ManualExportPilotVerification.tsx`, `tests/test_operator_feedback_backlog_ui_guardrail_v6.py`, `docs/browser_qa/contentops_v5_operator_feedback_backlog_loop/`. |
 | Validation | `pytest -q tests/test_operator_supplied_feedback_intake_and_backlog_v6.py tests/test_operator_feedback_backlog_ui_guardrail_v6.py`; `npm --prefix ui/contentops_v5 test -- --run`; `npm --prefix ui/contentops_v5 run build`. |
 | Caveats | Browser QA is local canonical V5 only; committed screenshots are evidence, not live-readiness claims. |
+
+## Operator Feedback Backlog Adapter Regen Guardrail and QA README Polish
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_OPERATOR_FEEDBACK_BACKLOG_ADAPTER_REGEN_AND_QA_README_POLISH_V0` |
+| Accepted product/UI baseline SHA | `c3d60d49966dfebb3af1a31c3f0c89690dd652f7` until feature push/readback acceptance. |
+| Starting HEAD | `3c77003bf9b80d5dcb6462b7f3c35e0e370bb062` |
+| Result classification | `deterministic_adapter_regen_guardrail` |
+| Scope | Added local V5 adapter codegen/check guardrail and polished committed browser QA README to list all three screenshots. |
+| Safety posture | No backend packet semantics changed; no new platform lane; no LLM/provider/API/network/env/credential/browser-session/public URL/live action. |
+| Changed artifact families | `live_contentops/operator_feedback_backlog_v5_adapter_codegen_v6.py`, `tests/test_operator_feedback_backlog_v5_adapter_codegen_v6.py`, feedback/backlog QA README, runbook, status docs. |
+| Caveats | Adapter reads committed local packets only and checks sync; screenshots remain visual QA evidence, not live-readiness evidence. |

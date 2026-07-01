@@ -1,18 +1,25 @@
-﻿# ContentOps V5 operator feedback backlog browser QA
+# ContentOps V5 operator feedback backlog browser QA
 
 Local-only browser QA for `TASK_CONTENTOPS_V6_REPAIR_OPERATOR_FEEDBACK_BACKLOG_UI_QA_AND_GUARDRAILS_V0`.
 
-- App URL: `http://127.0.0.1:5173/`
-- Scope: canonical V5 only (`ui/contentops_v5`)
-- Network/provider/platform actions: none
-- Env/credential reads: none
+- Canonical target: `ui/contentops_v5/`
+- Local QA URL: `http://127.0.0.1:5173/`
+- No V4 or standalone dashboard was targeted.
+- No LLM/provider/API/network/env/credential/browser-session/public URL/live action occurred.
+- No cookie, localStorage, sessionStorage, token, credential, or browser-session inspection occurred.
 
-## Captured artifacts
+## Visible V5 surfaces
 
-- `manual_export_feedback_backlog_surface.png` — Manual Export / Pilot Verification feedback backlog surface.
-- `evidence_vault_feedback_backlog_surface.png` — Evidence Vault feedback intake/backlog evidence surface.
-- `feedback_qa_1782932174547.webp` — browser-recorded local QA session retained in Antigravity artifact storage.
+- Manual Export feedback/backlog surface
+- Approval Queue feedback/backlog review surface
+- Evidence Vault feedback/backlog evidence surface
 
-## QA note
+## Committed screenshots
 
-The browser QA session also exposed a pre-existing Evidence Vault tab-navigation lockout when entering the Manual Pilot Audit tab. This repair does not change backend packet semantics or platform lanes; the finding is documented for follow-up unless addressed in this targeted UI repair.
+- `manual_export_feedback_backlog_surface.png` — Manual Export feedback/backlog surface.
+- `approval_queue_feedback_backlog_surface.png` — Approval Queue feedback/backlog review surface.
+- `evidence_vault_feedback_backlog_surface.png` — Evidence Vault feedback/backlog evidence surface.
+
+## QA interpretation
+
+These artifacts are visual QA evidence for local canonical V5 rendering only. They are not live-readiness evidence, public URL verification evidence, platform-auth evidence, provider-readiness evidence, or dispatch-readiness evidence.

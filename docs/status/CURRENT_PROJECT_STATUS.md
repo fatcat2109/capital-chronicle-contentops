@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_REPAIR_OPERATOR_FEEDBACK_BACKLOG_UI_QA_AND_GUARDRAILS_V0
+TASK_CONTENTOPS_V6_OPERATOR_FEEDBACK_BACKLOG_ADAPTER_REGEN_AND_QA_README_POLISH_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,19 +10,19 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-c3d60d49966dfebb3af1a31c3f0c89690dd652f7
+3c77003bf9b80d5dcb6462b7f3c35e0e370bb062
 
 ## current_product_phase
 V6 local-first product loop consolidation on the canonical V5 dashboard surface, with repo-native status/progress governance refreshed after LinkedIn manual evidence acceptance.
 
 ## current_product_lane
-Operator-supplied feedback intake and deterministic backlog summary loop, with V5 UI QA guardrails and committed browser QA artifacts.
+Operator feedback/backlog adapter regen guardrail and QA README polish.
 
 ## accepted_baseline_summary
-Feedback/backlog UI QA repair is accepted after push/readback at `c3d60d49966dfebb3af1a31c3f0c89690dd652f7`; the feature/product baseline before this targeted repair was `184062956f4c70509ad1c14b63d7837d9bcb1c58`. This repair added V5 UI guardrails, Manual Export visibility, and committed browser QA artifacts without changing backend packet semantics.
+Operator feedback/backlog adapter regen guardrail and QA README polish is being completed from starting HEAD `3c77003bf9b80d5dcb6462b7f3c35e0e370bb062`; accepted product/UI baseline remains `c3d60d49966dfebb3af1a31c3f0c89690dd652f7` until push/readback acceptance. Backend packet semantics remain unchanged.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `c3d60d49966dfebb3af1a31c3f0c89690dd652f7`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `3c77003bf9b80d5dcb6462b7f3c35e0e370bb062`
 - accepted product baseline (`accepted_product_baseline_sha`): `c3d60d49966dfebb3af1a31c3f0c89690dd652f7`
 - previous accepted product baseline: `184062956f4c70509ad1c14b63d7837d9bcb1c58`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
@@ -48,7 +48,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components exist for research packets, canonical article drafts, manual distribution evidence registry/readiness summaries, Substack/LinkedIn/X manual publication evidence, and operator-supplied feedback intake/backlog summary. The canonical V5 dashboard now includes read-only feedback/backlog evidence on Manual Export, Approval Queue, and Evidence Vault, with committed local browser QA artifacts and UI guardrail coverage.
+V6 local deterministic loop components exist for research packets, canonical article drafts, manual distribution evidence registry/readiness summaries, Substack/LinkedIn/X manual publication evidence, operator-supplied feedback intake/backlog summary, and the local V5 feedback/backlog adapter regen/check guardrail. The canonical V5 dashboard remains `ui/contentops_v5/`.
 
 ## dispatch/live status
 Dispatch/live remains blocked. No autonomous publish, schedule, retry, queue execution, platform API call, provider call, credential read, env value read, browser session read, DM, comment, like, reaction, or live send is authorized by this status ledger.
@@ -70,12 +70,13 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_REPAIR_OPERATOR_FEEDBACK_BACKLOG_UI_QA_AND_GUARDRAILS_V0
+TASK_CONTENTOPS_V6_OPERATOR_FEEDBACK_BACKLOG_ADAPTER_REGEN_AND_QA_README_POLISH_V0
 
 ## latest changed areas
-- `ui/contentops_v5/src/views/ManualExportPilotVerification.tsx`
-- `tests/test_operator_feedback_backlog_ui_guardrail_v6.py`
-- `docs/browser_qa/contentops_v5_operator_feedback_backlog_loop/`
+- `live_contentops/operator_feedback_backlog_v5_adapter_codegen_v6.py`
+- `tests/test_operator_feedback_backlog_v5_adapter_codegen_v6.py`
+- `docs/browser_qa/contentops_v5_operator_feedback_backlog_loop/README.md`
+- `docs/runbooks/V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG_RUNBOOK.md`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 - `docs/status/PROJECT_PROGRESS_LEDGER.md`
