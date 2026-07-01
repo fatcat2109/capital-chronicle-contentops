@@ -28,6 +28,7 @@ import { nextArticleDraftAuthorizationReadinessPacket } from '../data/nextArticl
 import { localCanonicalDraftPreviewReviewPacket } from '../data/localCanonicalDraftPreviewReviewAdapter';
 import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonicalDraftFinalReviewVariantPreviewAdapter';
 import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVariantApprovalPacketPreviewAdapter';
+import { dispatchOutboxDryRunPacket } from '../data/dispatchOutboxDryRunAdapter';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -277,6 +278,54 @@ export function EvidenceVault() {
             <div>approval_ledger_entry_created=false</div>
             <div>platform_payloads_approved=false</div>
             <div>dispatch_outbox_ready=false</div>
+            <div>ready_for_dispatch=false</div>
+            <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-lg border border-line bg-surface-2 p-3 font-mono">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">V6 dispatch outbox dry-run preview</div>
+          <h3 className="mt-1 break-all text-sm font-semibold text-fg">{dispatchOutboxDryRunPacket.task_label}</h3>
+          <p className="mt-2 text-xs leading-relaxed text-fg-muted">status: {dispatchOutboxDryRunPacket.dispatch_outbox_dry_run_status}</p>
+          <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30 space-y-1.5 font-mono">
+            <div><span className="font-semibold text-fg">dispatch_outbox_dry_run_status:</span> {dispatchOutboxDryRunPacket.dispatch_outbox_dry_run_status}</div>
+            <div><span className="font-semibold text-fg">dry_run_outbox_package_created:</span> {String(dispatchOutboxDryRunPacket.dry_run_outbox_package_created)}</div>
+            <div><span className="font-semibold text-fg">dry_run_entries_created:</span> {String(dispatchOutboxDryRunPacket.dry_run_entries_created)}</div>
+            <div><span className="font-semibold text-fg">executable_outbox_entry_created:</span> {String(dispatchOutboxDryRunPacket.executable_outbox_entry_created)}</div>
+            <div><span className="font-semibold text-fg">real_outbox_entry_created:</span> {String(dispatchOutboxDryRunPacket.real_outbox_entry_created)}</div>
+            <div><span className="font-semibold text-fg">dispatch_outbox_ready:</span> {String(dispatchOutboxDryRunPacket.dispatch_outbox_ready)}</div>
+            <div><span className="font-semibold text-fg">dispatch_attempted:</span> {String(dispatchOutboxDryRunPacket.dispatch_attempted)}</div>
+            <div><span className="font-semibold text-fg">dispatch_request_count:</span> {dispatchOutboxDryRunPacket.dispatch_request_count}</div>
+            <div><span className="font-semibold text-fg">webhook_request_count:</span> {dispatchOutboxDryRunPacket.webhook_request_count}</div>
+            <div><span className="font-semibold text-fg">platform_api_request_count:</span> {dispatchOutboxDryRunPacket.platform_api_request_count}</div>
+            <div><span className="font-semibold text-fg">kill_switch_active:</span> {String(dispatchOutboxDryRunPacket.kill_switch_active)}</div>
+            <div><span className="font-semibold text-fg">ready_for_dispatch:</span> {String(dispatchOutboxDryRunPacket.ready_for_dispatch)}</div>
+          </div>
+          <div className="mt-2 border-t border-line pt-2">
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle mb-1 font-mono">Dry-Run Outbox Entries (10)</div>
+            <div className="space-y-2">
+              {Object.entries(dispatchOutboxDryRunPacket.dry_run_entries).slice(0, 4).map(([key, entry]) => (
+                <div key={key} className="p-2 border border-line bg-surface-1 rounded text-xs">
+                  <div className="font-semibold text-accent uppercase text-[10px]">{entry.platform_id}</div>
+                  <div className="text-fg-muted text-[11px] leading-snug mt-0.5 italic">"{entry.dry_run_payload_text.slice(0, 60)}..."</div>
+                  <div className="mt-1 font-mono text-[10px] text-fg-subtle">
+                    hash: {entry.dry_run_payload_hash.slice(0, 16)}...
+                  </div>
+                </div>
+              ))}
+              <div className="text-[10px] text-fg-subtle italic">Showing first 4 of 10 targets. Go to Platform Preview to view all.</div>
+            </div>
+          </div>
+          <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30 font-mono font-mono">
+            <div>dispatch_outbox_dry_run_status=dispatch_outbox_dry_run_created_for_operator_review</div>
+            <div>executable_outbox_entry_created=false</div>
+            <div>real_outbox_entry_created=false</div>
+            <div>dispatch_outbox_ready=false</div>
+            <div>dispatch_attempted=false</div>
+            <div>dispatch_request_count=0</div>
+            <div>webhook_request_count=0</div>
+            <div>platform_api_request_count=0</div>
+            <div>kill_switch_active=true</div>
             <div>ready_for_dispatch=false</div>
             <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
           </div>

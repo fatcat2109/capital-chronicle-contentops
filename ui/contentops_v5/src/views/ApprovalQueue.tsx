@@ -26,6 +26,7 @@ import { nextArticleDraftAuthorizationReadinessPacket } from '../data/nextArticl
 import { localCanonicalDraftPreviewReviewPacket } from '../data/localCanonicalDraftPreviewReviewAdapter';
 import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonicalDraftFinalReviewVariantPreviewAdapter';
 import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVariantApprovalPacketPreviewAdapter';
+import { dispatchOutboxDryRunPacket } from '../data/dispatchOutboxDryRunAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -308,6 +309,66 @@ export function ApprovalQueue() {
           <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
         </div>
       </Panel>
+
+      <Panel
+        title="V6 dispatch outbox dry-run preview"
+        subtitle={`${dispatchOutboxDryRunPacket.task_label} · status: ${dispatchOutboxDryRunPacket.dispatch_outbox_dry_run_status}`}
+        actions={<StatusChip status="blocked">{dispatchOutboxDryRunPacket.dispatch_outbox_dry_run_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Dry-Run Outbox Package" value={String(dispatchOutboxDryRunPacket.dry_run_outbox_package_created)} status="verified" />
+          <Metric label="Dry-Run Entries Created" value={String(dispatchOutboxDryRunPacket.dry_run_entries_created)} status="verified" />
+          <Metric label="Executable Outbox Entry" value={String(dispatchOutboxDryRunPacket.executable_outbox_entry_created)} status="blocked" />
+          <Metric label="Real Outbox Entry Created" value={String(dispatchOutboxDryRunPacket.real_outbox_entry_created)} status="blocked" />
+          <Metric label="Dispatch Outbox Ready" value={String(dispatchOutboxDryRunPacket.dispatch_outbox_ready)} status="blocked" />
+          <Metric label="Dispatch Attempted" value={String(dispatchOutboxDryRunPacket.dispatch_attempted)} status="blocked" />
+          <Metric label="Dispatch Request Count" value={String(dispatchOutboxDryRunPacket.dispatch_request_count)} status="verified" />
+          <Metric label="Webhook Request Count" value={String(dispatchOutboxDryRunPacket.webhook_request_count)} status="verified" />
+          <Metric label="Platform API Request Count" value={String(dispatchOutboxDryRunPacket.platform_api_request_count)} status="verified" />
+          <Metric label="Kill Switch Active" value={String(dispatchOutboxDryRunPacket.kill_switch_active)} status="verified" />
+          <Metric label="Ready For Dispatch" value={String(dispatchOutboxDryRunPacket.ready_for_dispatch)} status="blocked" />
+        </div>
+
+        <div className="mt-4 border-t border-line pt-3">
+          <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle mb-2">Dry-Run Outbox Entries (10)</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {Object.entries(dispatchOutboxDryRunPacket.dry_run_entries).map(([key, entry]) => (
+              <div key={key} className="p-3 border border-line bg-surface-1 rounded-lg">
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold text-xs text-accent uppercase">{entry.platform_id}</span>
+                  <StatusChip status="review">{entry.destination_binding_status}</StatusChip>
+                </div>
+                <div className="text-xs font-bold text-fg mt-1 italic">"{entry.dry_run_payload_text.slice(0, 60)}..."</div>
+                <div className="mt-1 font-mono text-[10px] text-fg-subtle">
+                  hash: {entry.dry_run_payload_hash.slice(0, 16)}...
+                </div>
+                <div className="mt-1.5 flex flex-wrap gap-2 text-[10px] text-fg-subtle">
+                  <span>Method: {entry.request_method_preview}</span>
+                  <span>URL: {entry.request_url_preview_status}</span>
+                  <span>No Network: {String(entry.no_network_request_made)}</span>
+                </div>
+                <div className="mt-1 text-[10px] text-status-blocked bg-status-blocked/5 p-1 rounded border border-status-blocked/10 font-mono">
+                  {entry.blocked_reason ? `blocked: ${entry.blocked_reason}` : `deferred: ${entry.deferred_reason}`}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
+          <div>dispatch_outbox_dry_run_status=dispatch_outbox_dry_run_created_for_operator_review</div>
+          <div>executable_outbox_entry_created=false</div>
+          <div>real_outbox_entry_created=false</div>
+          <div>dispatch_outbox_ready=false</div>
+          <div>dispatch_attempted=false</div>
+          <div>dispatch_request_count=0</div>
+          <div>webhook_request_count=0</div>
+          <div>platform_api_request_count=0</div>
+          <div>kill_switch_active=true</div>
+          <div>ready_for_dispatch=false</div>
+          <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
+        </div>
+      </Panel>
       <SubstackArticleStudioCard mode="approval" />
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div>
@@ -566,6 +627,29 @@ function Row({
       >
         {value}
       </dd>
+    </div>
+  );
+}
+
+function Metric({
+  label,
+  value,
+  mono,
+  status,
+}: {
+  label: string;
+  value: string;
+  mono?: boolean;
+  status?: 'verified' | 'review' | 'blocked';
+}) {
+  return (
+    <div className="rounded-xl border border-line bg-surface-2 p-3">
+      <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+        {label}
+      </div>
+      <div className={`mt-1 break-all text-sm font-semibold text-fg ${mono ? 'font-mono text-[12px] font-normal' : ''}`}>
+        {status ? <StatusChip status={status}>{value}</StatusChip> : value}
+      </div>
     </div>
   );
 }

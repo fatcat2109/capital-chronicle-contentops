@@ -297,3 +297,18 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Caveats | Approval preview targets are not live dispatch payloads, contain no financial advice, and require separate operator final signature. |
 | Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
 | Next recommendation at time of update | `TASK_CONTENTOPS_V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN_HEAVY_BATCH_V0` |
+
+## Platform Variant Approval Packet Preview to Dispatch Outbox Dry Run
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN_HEAVY_BATCH_V0` |
+| Accepted product/audit baseline SHA | `073e1488c035655519db1d6006c646ef67e23b20` (remains unchanged until push/readback). |
+| Repo HEAD / evidence commit | Reported in final evidence. |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Deterministic platform variant approval packet preview to dispatch outbox dry run generation. |
+| Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |
+| Changed artifact families | `live_contentops/approval_packet_preview_to_dispatch_outbox_dry_run_v6.py`, codegen, runbook, tests, and V5 dashboard cards. |
+| Caveats | Dry-run outbox entries are not live dispatch payloads, contain no financial advice, and require separate operator final signoff. |
+| Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
+| Next recommendation at time of update | `TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0` |

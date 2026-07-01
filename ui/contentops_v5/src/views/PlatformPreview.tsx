@@ -20,6 +20,7 @@ import { LockedAction, Panel, SectionLabel, StatusChip, StatusDot } from '../ui/
 import type { PlatformPayloadPreview as Preview } from '../types';
 import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonicalDraftFinalReviewVariantPreviewAdapter';
 import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVariantApprovalPacketPreviewAdapter';
+import { dispatchOutboxDryRunPacket } from '../data/dispatchOutboxDryRunAdapter';
 
 export function PlatformPreview() {
   const { select, selected } = useApp();
@@ -238,6 +239,64 @@ export function PlatformPreview() {
           <div>approval_ledger_entry_created=false</div>
           <div>platform_payloads_approved=false</div>
           <div>dispatch_outbox_ready=false</div>
+          <div>ready_for_dispatch=false</div>
+          <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
+        </div>
+      </div>
+
+      <div className="mb-6 p-4 border border-line bg-surface-2 rounded-xl">
+        <div className="flex justify-between items-start gap-4 flex-wrap">
+          <div>
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-fg-subtle">
+              V6 dispatch outbox dry-run preview (10)
+            </div>
+            <h2 className="text-base font-bold text-fg mt-1">
+              Dry-run outbox rows with hash binding and blocked/deferred states
+            </h2>
+          </div>
+          <StatusChip status="blocked">{dispatchOutboxDryRunPacket.dispatch_outbox_dry_run_status}</StatusChip>
+        </div>
+
+        <div className="mt-4">
+          <div className="font-semibold text-sm text-fg mb-2">Per-Platform Outbox Dry-Run Rows (10):</div>
+          <div className="space-y-3">
+            {Object.entries(dispatchOutboxDryRunPacket.dry_run_entries).map(([key, entry]) => (
+              <div key={key} className="p-3 border border-line bg-surface-1 rounded-lg">
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold text-xs text-accent uppercase">{entry.platform_id}</span>
+                  <StatusChip status="review">{entry.destination_binding_status}</StatusChip>
+                </div>
+                <div className="mt-1 font-mono text-[10px] text-fg-subtle">
+                  hash: <span className="text-fg">{entry.dry_run_payload_hash}</span> ·
+                  adapter: <span className="text-fg">{entry.adapter_class}</span> ·
+                  credentials: <span className="text-fg">{entry.credential_handle_status}</span>
+                </div>
+                <div className="mt-1.5 p-2 bg-surface-2 border border-line rounded text-xs font-mono text-fg-muted whitespace-pre-wrap">
+                  {entry.dry_run_payload_text}
+                </div>
+                <div className="mt-2 flex gap-3 text-[10.5px]">
+                  <span className="text-fg-subtle">Approval required: <strong className="text-fg">true</strong></span>
+                  <span className="text-fg-subtle">Approved: <strong className="text-status-blocked">false</strong></span>
+                  <span className="text-fg-subtle">Dispatchable: <strong className="text-status-blocked">false</strong></span>
+                </div>
+                <div className="mt-1 text-[10.5px] text-status-blocked bg-status-blocked/5 p-1 px-2 rounded border border-status-blocked/10 font-mono">
+                  {entry.blocked_reason ? `blocked_reason: ${entry.blocked_reason}` : `deferred_reason: ${entry.deferred_reason}`}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-3 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30 font-mono">
+          <div>dispatch_outbox_dry_run_status=dispatch_outbox_dry_run_created_for_operator_review</div>
+          <div>executable_outbox_entry_created=false</div>
+          <div>real_outbox_entry_created=false</div>
+          <div>dispatch_outbox_ready=false</div>
+          <div>dispatch_attempted=false</div>
+          <div>dispatch_request_count=0</div>
+          <div>webhook_request_count=0</div>
+          <div>platform_api_request_count=0</div>
+          <div>kill_switch_active=true</div>
           <div>ready_for_dispatch=false</div>
           <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
         </div>
