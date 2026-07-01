@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "3c77003bf9b80d5dcb6462b7f3c35e0e370bb062",
+  "last_verified_remote_sha": "c990111d95d8fe88d2f1e9b355ca63a19d8d49b8",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_FEEDBACK_BACKLOG_ADAPTER_REGEN_AND_QA_README_POLISH_V0",
   "current_product_phase": "V6 local-first product loop consolidation on the canonical V5 dashboard surface, with repo-native status/progress governance refreshed after LinkedIn manual evidence acceptance",
   "current_product_lane": "operator feedback/backlog adapter regen guardrail and QA README polish",
-  "accepted_baseline_summary": "Operator feedback/backlog adapter regen guardrail and QA README polish is in progress from starting HEAD 3c77003bf9b80d5dcb6462b7f3c35e0e370bb062; accepted product/UI baseline remains c3d60d49966dfebb3af1a31c3f0c89690dd652f7 until push/readback acceptance.",
+  "accepted_baseline_summary": "Operator feedback/backlog adapter regen guardrail and QA README polish accepted after push/readback at c990111d95d8fe88d2f1e9b355ca63a19d8d49b8; previous accepted product/UI baseline was c3d60d49966dfebb3af1a31c3f0c89690dd652f7.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -103,8 +103,8 @@
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
   "latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_FEEDBACK_BACKLOG_ADAPTER_REGEN_AND_QA_README_POLISH_V0",
-  "latest_accepted_task_result": "in progress; deterministic V5 adapter regen/check guardrail and QA README polish",
-  "latest_evidence_summary": "Local deterministic adapter checker reads committed feedback/backlog packets only and confirms V5 adapter sync. No backend packet semantics changed; no LLM/provider/API/env/credential/browser-session/public URL/live action.",
+  "latest_accepted_task_result": "complete; pushed/read back deterministic V5 adapter regen/check guardrail and QA README polish",
+  "latest_evidence_summary": "Local deterministic adapter checker reads committed feedback/backlog packets only and confirms V5 adapter sync. QA README explicitly lists Manual Export, Approval Queue, and Evidence Vault screenshots. No backend packet semantics changed; no LLM/provider/API/env/credential/browser-session/public URL/live action.",
   "next_recommended_task": "TASK_CONTENTOPS_V6_REVIEW_FEEDBACK_BACKLOG_OR_NEXT_MANUAL_LOOP_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
@@ -138,7 +138,7 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "c3d60d49966dfebb3af1a31c3f0c89690dd652f7",
-  "last_status_commit_sha": "3c77003bf9b80d5dcb6462b7f3c35e0e370bb062",
+  "accepted_product_baseline_sha": "c990111d95d8fe88d2f1e9b355ca63a19d8d49b8",
+  "last_status_commit_sha": "c990111d95d8fe88d2f1e9b355ca63a19d8d49b8",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work."
 }

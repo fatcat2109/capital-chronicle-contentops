@@ -185,7 +185,7 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Field | Value |
 |---|---|
 | Task label | `TASK_CONTENTOPS_V6_OPERATOR_FEEDBACK_BACKLOG_ADAPTER_REGEN_AND_QA_README_POLISH_V0` |
-| Accepted product/UI baseline SHA | `c3d60d49966dfebb3af1a31c3f0c89690dd652f7` until feature push/readback acceptance. |
+| Accepted product/UI baseline SHA | `c990111d95d8fe88d2f1e9b355ca63a19d8d49b8` after push/readback; previous accepted product/UI baseline was `c3d60d49966dfebb3af1a31c3f0c89690dd652f7`. |
 | Starting HEAD | `3c77003bf9b80d5dcb6462b7f3c35e0e370bb062` |
 | Result classification | `deterministic_adapter_regen_guardrail` |
 | Scope | Added local V5 adapter codegen/check guardrail and polished committed browser QA README to list all three screenshots. |

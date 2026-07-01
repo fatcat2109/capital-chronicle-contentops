@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-3c77003bf9b80d5dcb6462b7f3c35e0e370bb062
+c990111d95d8fe88d2f1e9b355ca63a19d8d49b8
 
 ## current_product_phase
 V6 local-first product loop consolidation on the canonical V5 dashboard surface, with repo-native status/progress governance refreshed after LinkedIn manual evidence acceptance.
@@ -19,12 +19,12 @@ V6 local-first product loop consolidation on the canonical V5 dashboard surface,
 Operator feedback/backlog adapter regen guardrail and QA README polish.
 
 ## accepted_baseline_summary
-Operator feedback/backlog adapter regen guardrail and QA README polish is being completed from starting HEAD `3c77003bf9b80d5dcb6462b7f3c35e0e370bb062`; accepted product/UI baseline remains `c3d60d49966dfebb3af1a31c3f0c89690dd652f7` until push/readback acceptance. Backend packet semantics remain unchanged.
+Operator feedback/backlog adapter regen guardrail and QA README polish accepted after push/readback at `c990111d95d8fe88d2f1e9b355ca63a19d8d49b8`; previous accepted product/UI baseline was `c3d60d49966dfebb3af1a31c3f0c89690dd652f7`. Backend packet semantics remain unchanged.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `3c77003bf9b80d5dcb6462b7f3c35e0e370bb062`
-- accepted product baseline (`accepted_product_baseline_sha`): `c3d60d49966dfebb3af1a31c3f0c89690dd652f7`
-- previous accepted product baseline: `184062956f4c70509ad1c14b63d7837d9bcb1c58`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `c990111d95d8fe88d2f1e9b355ca63a19d8d49b8`
+- accepted product baseline (`accepted_product_baseline_sha`): `c990111d95d8fe88d2f1e9b355ca63a19d8d49b8`
+- previous accepted product baseline: `c3d60d49966dfebb3af1a31c3f0c89690dd652f7`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
 ## canonical_dashboard_surface
