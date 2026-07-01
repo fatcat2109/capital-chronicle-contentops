@@ -122,3 +122,11 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 - Scope: add read-only packet ID/hash drilldown for export, approval, handoff, URL audit, and metrics bindings across Substack, LinkedIn, and X.
 - Accepted product baseline is `76f4ba616693aac1462e32dbbe80cc652154f928` after packet drilldown push/readback; previous product baseline was `9375e6ef8b5d109161f5e27350a8d458419e5809`.
 - Live/provider/platform execution remains blocked.
+
+## Manual Distribution Registry Packet Source-Path Audit
+
+- Latest task: `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_PACKET_SOURCE_PATH_AUDIT_V0`.
+- Current lane: manual distribution registry packet source-path audit.
+- Scope: deterministic local verification that every registry packet binding source path exists under `docs/automation/` and that packet IDs/hashes match source packet fields.
+- Accepted product baseline remains `76f4ba616693aac1462e32dbbe80cc652154f928` until push/readback acceptance of this audit behavior.
+- Live/provider/platform execution remains blocked; canonical dashboard remains `ui/contentops_v5/`.

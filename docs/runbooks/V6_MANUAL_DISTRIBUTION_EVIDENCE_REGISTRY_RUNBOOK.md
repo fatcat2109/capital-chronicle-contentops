@@ -18,3 +18,12 @@ Consolidates accepted Substack, LinkedIn, and X manual publication evidence loop
 - Registry packet: `docs/automation/V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY/manual_distribution_evidence_registry_packet.json`
 - Audit note: `docs/automation/V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY/manual_distribution_registry_audit_note.md`
 - Builder: `live_contentops/manual_distribution_evidence_registry_v6.py`
+
+## Source-path audit
+
+- Audit packet: `docs/automation/V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY/manual_distribution_registry_source_path_audit_packet.json`
+- Builder: `live_contentops/manual_distribution_evidence_registry_source_path_audit_v6.py`
+- Semantics: deterministic local file verification only.
+- Confirms each registry source packet path exists under `docs/automation/`.
+- Confirms each bound packet ID and hash matches the expected source packet field.
+- Does not fetch URLs, verify public URLs, call providers, read env or credentials, inspect browser sessions, or perform live platform actions.
