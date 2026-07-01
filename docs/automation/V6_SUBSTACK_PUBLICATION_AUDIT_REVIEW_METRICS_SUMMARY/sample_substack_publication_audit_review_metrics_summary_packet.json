@@ -1,0 +1,107 @@
+{
+  "approval_export_evidence_hash": "ba20cf65f42da3691a30690fc90be7f09ac0b446ced30920a5f489595d80ffb8",
+  "approval_export_evidence_packet_id": "substack_manual_approval_export_evidence_ba20cf65f42da369",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "publication_url_audit_packet",
+      "card_type": "publication_url_audit_packet",
+      "display_status": "bound",
+      "hash": "cc4097c256f27c8616ef99d73ea1a142a8a99a13498e8bc5f82a3cbcfa40bd40",
+      "source_id": "substack_manual_publication_url_audit_cc4097c256f27c86"
+    },
+    {
+      "card_id": "operator_handoff_packet",
+      "card_type": "operator_handoff_packet",
+      "display_status": "bound",
+      "hash": "e1b56c301ad768777b1478a4b3f334e1b92bfb4b923535cbebc1b50b78cf13f6",
+      "source_id": "substack_manual_export_operator_handoff_e1b56c301ad76877"
+    },
+    {
+      "card_id": "manual_export_payload",
+      "card_type": "manual_export_payload",
+      "display_status": "bound",
+      "hash": "e556b07116d81110da7f8b96f5e5d39b80d65ce16c0c190eb51cdc9fdbd1f335",
+      "source_id": "substack_manual_export_e556b07116d81110"
+    },
+    {
+      "card_id": "approval_export_evidence_packet",
+      "card_type": "approval_export_evidence_packet",
+      "display_status": "bound",
+      "hash": "ba20cf65f42da3691a30690fc90be7f09ac0b446ced30920a5f489595d80ffb8",
+      "source_id": "substack_manual_approval_export_evidence_ba20cf65f42da369"
+    },
+    {
+      "card_id": "canonical_article_source",
+      "card_type": "canonical_article_source",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "operator_supplied_publication_url",
+      "card_type": "operator_supplied_publication_url",
+      "display_status": "verified",
+      "hash": "52a0c3b6e2d461acdc84556138ab533d5825fa571e69ee625480a17b58f6f3da",
+      "source_id": "operator_supplied_publication_url"
+    }
+  ],
+  "exact_payload_hash": "6026312f893feba98fd01a88bf316bd94dd58bad23e3a5ef29abd6fcf864714a",
+  "hash_algorithm": "sha256_json_v6",
+  "live_publish_performed_by_contentops": false,
+  "manual_metrics": {
+    "comments": 8,
+    "likes": 45,
+    "notes": "Fixture metrics for evaluation purposes only.",
+    "opens": 820,
+    "restacks": 3,
+    "shares": 12,
+    "subscribers_delta": 15,
+    "views": 1240
+  },
+  "manual_metrics_claim_operator_supplied": true,
+  "manual_publication_claim_operator_supplied": true,
+  "metrics_network_verified": false,
+  "metrics_provider_api_used": false,
+  "metrics_source": "operator_supplied_manual_entry",
+  "metrics_summary_status": "manual_metrics_fixture_only_pending_operator_confirmation",
+  "network_call_made": false,
+  "operator_handoff_hash": "e1b56c301ad768777b1478a4b3f334e1b92bfb4b923535cbebc1b50b78cf13f6",
+  "operator_handoff_packet_id": "substack_manual_export_operator_handoff_e1b56c301ad76877",
+  "operator_review_status": "pending_review",
+  "operator_supplied_publication_timestamp": "2026-07-01T05:00:00Z",
+  "operator_supplied_publication_url": "https://capitalchronicle.substack.com/p/evaluate-historical-volatility-in-macro-calendar-commentaries",
+  "operator_supplied_publication_url_hash": "52a0c3b6e2d461acdc84556138ab533d5825fa571e69ee625480a17b58f6f3da",
+  "provider_call_made": false,
+  "publication_audit_review_hash": "83d3fdcfab6bba6f5502f8a06b78c439ddea7b2d720f0003977c692154456871",
+  "publication_audit_review_packet_id": "substack_publication_audit_review_83d3fdcfab6bba6f",
+  "publication_audit_status": "manual_url_import_reviewed_pending_metrics_confirmation",
+  "publication_url_audit_hash": "cc4097c256f27c8616ef99d73ea1a142a8a99a13498e8bc5f82a3cbcfa40bd40",
+  "publication_url_audit_packet_id": "substack_manual_publication_url_audit_cc4097c256f27c86",
+  "recommended_next_task": "TASK_CONTENTOPS_V6_SUBSTACK_PUBLICATION_METRICS_CONFIRMATION_OR_LANE_COMPLETE_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_export_packet_id": "substack_manual_export_e556b07116d81110",
+  "source_export_payload_hash": "e556b07116d81110da7f8b96f5e5d39b80d65ce16c0c190eb51cdc9fdbd1f335",
+  "substack_api_used": false,
+  "task_label": "TASK_CONTENTOPS_V6_SUBSTACK_PUBLICATION_AUDIT_REVIEW_OR_METRICS_SUMMARY_V0",
+  "url_network_verified": false,
+  "warnings": [
+    "sample_fixture_only",
+    "operator_supplied_metrics_not_network_verified",
+    "no_metrics_api_used",
+    "manual_metrics_claim_not_contentops_metrics"
+  ]
+}

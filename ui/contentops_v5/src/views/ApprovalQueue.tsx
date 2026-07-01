@@ -7,6 +7,7 @@ import {
   substackManualApprovalExportEvidencePacket,
   substackManualExportOperatorHandoffPacket,
   substackManualPublicationUrlAuditImportPacket,
+  substackPublicationAuditReviewMetricsSummaryPacket,
 } from '../data/substackManualExportArticleStudioAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -171,6 +172,22 @@ export function ApprovalQueue() {
         </div>
         <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 font-mono text-[11px] text-status-blocked">
           blocked controls: {substackManualPublicationUrlAuditImportPacket.blocked_controls.join(', ')} ? enabled={String(substackManualPublicationUrlAuditImportPacket.enabled_publish_send_dispatch_approve_controls)} ? no URL fetch/scrape
+        </div>
+      </Panel>
+
+
+      <Panel
+        title="Substack publication audit review pending metrics confirmation"
+        subtitle={substackPublicationAuditReviewMetricsSummaryPacket.publication_audit_review_packet_id}
+        actions={<StatusChip status="review">{substackPublicationAuditReviewMetricsSummaryPacket.operator_review_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          <Row label="Audit review status" value={substackPublicationAuditReviewMetricsSummaryPacket.publication_audit_status} />
+          <Row label="Metrics status" value={substackPublicationAuditReviewMetricsSummaryPacket.metrics_summary_status} />
+          <Row label="Metrics source" value={substackPublicationAuditReviewMetricsSummaryPacket.metrics_source} />
+        </div>
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 font-mono text-[11px] text-status-blocked">
+          blocked controls: {substackPublicationAuditReviewMetricsSummaryPacket.blocked_controls.join(', ')} ? enabled={String(substackPublicationAuditReviewMetricsSummaryPacket.enabled_publish_send_dispatch_approve_controls)} ? no metrics API or URL fetch
         </div>
       </Panel>
       <Panel

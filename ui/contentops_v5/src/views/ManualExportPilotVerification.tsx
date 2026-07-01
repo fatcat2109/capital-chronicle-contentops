@@ -5,6 +5,7 @@ import { SubstackArticleStudioCard } from './SubstackArticleStudioCard';
 import {
   substackManualExportOperatorHandoffPacket,
   substackManualPublicationUrlAuditImportPacket,
+  substackPublicationAuditReviewMetricsSummaryPacket,
 } from '../data/substackManualExportArticleStudioAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
@@ -151,6 +152,35 @@ export function ManualExportPilotVerification() {
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
           Operator-supplied URL text only; not opened, fetched, scraped, or network verified.
           substack_api_used={String(substackManualPublicationUrlAuditImportPacket.substack_api_used)} ? network_call_made={String(substackManualPublicationUrlAuditImportPacket.network_call_made)} ? manual_publication_claim_operator_supplied={String(substackManualPublicationUrlAuditImportPacket.manual_publication_claim_operator_supplied)}
+        </div>
+      </Panel>
+
+
+
+      <Panel
+        title="Substack publication audit review &amp; manual metrics summary"
+        subtitle={substackPublicationAuditReviewMetricsSummaryPacket.publication_audit_review_packet_id}
+        actions={<StatusChip status="review">{substackPublicationAuditReviewMetricsSummaryPacket.publication_audit_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
+          <Metric label="Audit status" value={substackPublicationAuditReviewMetricsSummaryPacket.publication_audit_status} mono status="review" />
+          <Metric label="Metrics status" value={substackPublicationAuditReviewMetricsSummaryPacket.metrics_summary_status} mono status="review" />
+          <Metric label="Metrics source" value={substackPublicationAuditReviewMetricsSummaryPacket.metrics_source} mono status="verified" />
+          <Metric label="Metrics verified" value={String(substackPublicationAuditReviewMetricsSummaryPacket.metrics_network_verified)} mono status="blocked" />
+        </div>
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+          <Metric label="Views" value={String(substackPublicationAuditReviewMetricsSummaryPacket.manual_metrics.views)} status="verified" />
+          <Metric label="Opens" value={String(substackPublicationAuditReviewMetricsSummaryPacket.manual_metrics.opens)} status="verified" />
+          <Metric label="Likes" value={String(substackPublicationAuditReviewMetricsSummaryPacket.manual_metrics.likes)} status="verified" />
+          <Metric label="Comments" value={String(substackPublicationAuditReviewMetricsSummaryPacket.manual_metrics.comments)} status="verified" />
+          <Metric label="Shares" value={String(substackPublicationAuditReviewMetricsSummaryPacket.manual_metrics.shares)} status="verified" />
+          <Metric label="Restacks" value={String(substackPublicationAuditReviewMetricsSummaryPacket.manual_metrics.restacks)} status="verified" />
+          <Metric label="Sub subscribers" value={String(substackPublicationAuditReviewMetricsSummaryPacket.manual_metrics.subscribers_delta)} status="verified" />
+          <Metric label="Notes" value={substackPublicationAuditReviewMetricsSummaryPacket.manual_metrics.notes || 'None'} status="verified" />
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Operator-supplied publication metrics only; no live API calls, scraping, or network requests performed.
+          substack_api_used={String(substackPublicationAuditReviewMetricsSummaryPacket.substack_api_used)} ? metrics_network_verified={String(substackPublicationAuditReviewMetricsSummaryPacket.metrics_network_verified)} ? manual_metrics_claim_operator_supplied={String(substackPublicationAuditReviewMetricsSummaryPacket.manual_metrics_claim_operator_supplied)}
         </div>
       </Panel>
 
