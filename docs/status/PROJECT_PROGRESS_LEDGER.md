@@ -213,8 +213,8 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Field | Value |
 |---|---|
 | Task label | `TASK_CONTENTOPS_V6_NEXT_ARTICLE_BRIEF_SOURCE_PACK_AND_REVIEW_WORKFLOW_V0` |
-| Accepted product/audit baseline SHA | `c092a8f5bf5f34fd784eead8dc3af1fc7cdd15ee` (retains previous baseline during push/readback). |
-| Repo HEAD / evidence commit | Reported in final evidence. |
+| Accepted product/audit baseline SHA | `b96a517acaf8422723d5bbea1888f0f245ab2325` |
+| Repo HEAD / evidence commit | `b96a517acaf8422723d5bbea1888f0f245ab2325` |
 | Result classification | `complete_review_only_local_manual` |
 | Scope | Deterministic checklist and review packet for the next article brief, integrated into V5 views (Manual Export, Approval Queue, Evidence Vault). |
 | Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |

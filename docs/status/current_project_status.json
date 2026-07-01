@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "ca2f183d74aff93216eb5eeeb764a23fcbf5efe8",
+  "last_verified_remote_sha": "b96a517acaf8422723d5bbea1888f0f245ab2325",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_NEXT_ARTICLE_BRIEF_SOURCE_PACK_AND_REVIEW_WORKFLOW_V0",
   "current_product_phase": "V6 local-first source-pack and operator review workflow bridge on the canonical V5 dashboard surface",
   "current_product_lane": "next article brief source-pack and operator review workflow",
-  "accepted_baseline_summary": "Next article brief source-pack and review workflow accepted after push/readback; previous accepted baseline was c092a8f5bf5f34fd784eead8dc3af1fc7cdd15ee.",
+  "accepted_baseline_summary": "Next article brief source-pack and review workflow accepted after push/readback at b96a517acaf8422723d5bbea1888f0f245ab2325; previous accepted baseline was c092a8f5bf5f34fd784eead8dc3af1fc7cdd15ee.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -144,7 +144,7 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "c092a8f5bf5f34fd784eead8dc3af1fc7cdd15ee",
+  "accepted_product_baseline_sha": "b96a517acaf8422723d5bbea1888f0f245ab2325",
   "last_status_commit_sha": "83b8886ca41ef8db0af76de07da4f3f4fa1dcaf1",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work."
 }
