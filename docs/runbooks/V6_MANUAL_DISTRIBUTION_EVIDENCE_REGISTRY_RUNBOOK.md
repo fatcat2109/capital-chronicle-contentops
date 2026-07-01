@@ -36,3 +36,12 @@ Consolidates accepted Substack, LinkedIn, and X manual publication evidence loop
 - It binds the registry packet and source-path audit packet into one deterministic local readiness summary.
 - It is not live dispatch readiness and does not enable approve/send/publish/dispatch/schedule controls.
 - It does not prove public URL reachability, platform authentication readiness, or platform-side state.
+
+## V5 adapter regeneration/check guardrail
+
+- Guardrail: `live_contentops/manual_distribution_registry_v5_adapter_codegen_v6.py`
+- Test: `tests/test_manual_distribution_registry_v5_adapter_codegen_v6.py`
+- Canonical packets remain the committed JSON files in `docs/automation/V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY/`.
+- The V5 adapter must match deterministic generated output from those packets.
+- Run `python live_contentops/manual_distribution_registry_v5_adapter_codegen_v6.py` to check sync.
+- The guardrail performs local file reads only and does not call providers, inspect browser sessions, fetch public URLs, read env values, or perform live platform actions.
