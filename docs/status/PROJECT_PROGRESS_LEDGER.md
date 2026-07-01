@@ -192,3 +192,18 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Safety posture | No backend packet semantics changed; no new platform lane; no LLM/provider/API/network/env/credential/browser-session/public URL/live action. |
 | Changed artifact families | `live_contentops/operator_feedback_backlog_v5_adapter_codegen_v6.py`, `tests/test_operator_feedback_backlog_v5_adapter_codegen_v6.py`, feedback/backlog QA README, runbook, status docs. |
 | Caveats | Adapter reads committed local packets only and checks sync; screenshots remain visual QA evidence, not live-readiness evidence. |
+
+## Feedback Backlog Review → Next Article Brief
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_FEEDBACK_BACKLOG_REVIEW_TO_NEXT_ARTICLE_BRIEF_LOOP_V0` |
+| Accepted product/audit baseline SHA | `c092a8f5bf5f34fd784eead8dc3af1fc7cdd15ee` |
+| Repo HEAD / evidence commit | `c092a8f5bf5f34fd784eead8dc3af1fc7cdd15ee` after push/readback. |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Deterministic bridge from operator feedback backlog summary into a committed next article brief candidate packet and V5 read-only visibility. |
+| Safety posture | No env, credential, provider, LLM, platform API, browser-session read, public URL fetch/scrape, publish, send, approve, dispatch, schedule, or live action. |
+| Changed artifact families | `live_contentops/feedback_backlog_next_article_brief_v6.py`, `docs/automation/V6_FEEDBACK_BACKLOG_REVIEW_TO_NEXT_ARTICLE_BRIEF/`, tests, and `ui/contentops_v5/` adapter/views. |
+| Caveats | Brief candidate is not a canonical draft; source pack, operator review, and separate drafting authorization remain required. |
+| Validation | Python tests, V5 focused/full tests, V5 build, and local browser QA passed. |
+| Next recommendation at time of update | Build a source-pack/review workflow before any canonical draft request. |
