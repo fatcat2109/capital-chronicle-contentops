@@ -18,6 +18,7 @@ import {
   xPublicationAuditReviewMetricsSummaryPacket,
 } from '../data/substackManualExportArticleStudioAdapter';
 import { ManualDistributionRegistryPanel } from './ManualDistributionRegistryPanel';
+import { operatorSuppliedFeedbackIntakePacket, operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBacklogAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -120,6 +121,26 @@ export function ManualExportPilotVerification() {
               </div>
             ))}
           </div>
+        </div>
+      </Panel>
+
+      <Panel
+        title="Operator feedback backlog · manual export review"
+        subtitle={`${operatorFeedbackBacklogSummaryPacket.candidate_count} candidates · ${operatorFeedbackBacklogSummaryPacket.summary_method}`}
+        actions={<StatusChip status="review">operator-supplied feedback only</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Feedback intake packet" value={operatorSuppliedFeedbackIntakePacket.feedback_intake_packet_id} mono status="review" />
+          <Metric label="Feedback intake hash" value={operatorSuppliedFeedbackIntakePacket.exact_payload_hash} mono status="verified" />
+          <Metric label="Backlog summary packet" value={operatorFeedbackBacklogSummaryPacket.backlog_summary_packet_id} mono status="review" />
+          <Metric label="Backlog summary hash" value={operatorFeedbackBacklogSummaryPacket.exact_payload_hash} mono status="verified" />
+          <Metric label="feedback_count" value={String(operatorFeedbackBacklogSummaryPacket.feedback_count)} status="verified" />
+          <Metric label="candidate_count" value={String(operatorFeedbackBacklogSummaryPacket.candidate_count)} status="verified" />
+          <Metric label="summary_method" value={operatorFeedbackBacklogSummaryPacket.summary_method} mono status="verified" />
+          <Metric label="operator-supplied only" value={operatorSuppliedFeedbackIntakePacket.intake_status} mono status="review" />
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Operator-supplied feedback only. No LLM/provider call, public URL fetch, platform API, browser session, env/credential read, publish, send, dispatch, approve, or schedule action. No approve/send/publish/dispatch/schedule controls are enabled on this read-only Manual Export surface.
         </div>
       </Panel>
 
