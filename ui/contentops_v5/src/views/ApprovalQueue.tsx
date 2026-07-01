@@ -22,6 +22,7 @@ import { operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBa
 import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
 import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBriefSourcePackReviewAdapter';
 import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticleSourcePackIntakeValidationAdapter';
+import { nextArticleDraftAuthorizationReadinessPacket } from '../data/nextArticleDraftAuthorizationReadinessAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -137,6 +138,28 @@ export function ApprovalQueue() {
           Checklist coverage: source_pack_collection_status={nextArticleSourcePackIntakeValidationPacket.source_pack_collection_status}.
           Verified URLs: network_verified_url_count=0. Verified sources: api_verified_source_count=0.
           Drafting status: ready_for_llm_drafting=false · ready_for_canonical_draft=false · ready_for_auto_publish=false · ready_for_dispatch=false.
+          No LLM/provider call is allowed on this local-first review workflow.
+        </div>
+      </Panel>
+
+      <Panel
+        title="Next article draft authorization and readiness"
+        subtitle={`${nextArticleDraftAuthorizationReadinessPacket.draft_authorization_packet_id} · ready: ${String(nextArticleDraftAuthorizationReadinessPacket.ready_for_local_canonical_draft_workflow)}`}
+        actions={<StatusChip status="verified">{nextArticleDraftAuthorizationReadinessPacket.local_draft_readiness_status}</StatusChip>}
+      >
+        <div className="rounded-lg border border-line bg-surface-2 p-3 font-mono text-[11.5px] text-fg-muted space-y-2">
+          <div><span className="font-semibold text-fg">draft_authorization_packet_id:</span> {nextArticleDraftAuthorizationReadinessPacket.draft_authorization_packet_id}</div>
+          <div><span className="font-semibold text-fg">draft_readiness_packet_id:</span> {nextArticleDraftAuthorizationReadinessPacket.draft_readiness_packet_id}</div>
+          <div><span className="font-semibold text-fg">source_pack_intake_packet_id:</span> {nextArticleDraftAuthorizationReadinessPacket.source_pack_intake_packet_id}</div>
+          <div><span className="font-semibold text-fg">authorization_record_status:</span> {nextArticleDraftAuthorizationReadinessPacket.authorization_record_status}</div>
+          <div><span className="font-semibold text-fg">authorization_scope:</span> {nextArticleDraftAuthorizationReadinessPacket.authorization_scope}</div>
+          <div><span className="font-semibold text-fg">local_draft_readiness_status:</span> {nextArticleDraftAuthorizationReadinessPacket.local_draft_readiness_status}</div>
+          <div><span className="font-semibold text-fg">source_entry_count:</span> {nextArticleDraftAuthorizationReadinessPacket.source_entry_count}</div>
+        </div>
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Authorization record status is operator_drafting_authorization_recorded. Scope is local_canonical_draft_preparation_only.
+          Local draft readiness status: ready_for_local_canonical_draft_workflow=true.
+          Drafting/publishing gates remain locked: ready_for_llm_drafting=false · ready_for_provider_drafting=false · canonical_draft_created=false · article_body_created=false · ready_for_auto_publish=false · ready_for_dispatch=false.
           No LLM/provider call is allowed on this local-first review workflow.
         </div>
       </Panel>

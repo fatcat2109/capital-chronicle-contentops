@@ -4,10 +4,10 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "last_verified_remote_sha": "1761db85d74ef741a4beba548893d3c901a7077b",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION_V0",
-  "current_product_phase": "V6 local-first source-pack intake and metadata validation bridge on the canonical V5 dashboard surface",
-  "current_product_lane": "next article source-pack intake and local metadata validation",
-  "accepted_baseline_summary": "Next article source-pack intake and validation workflow accepted after push/readback at 1761db85d74ef741a4beba548893d3c901a7077b; previous accepted baseline was b96a517acaf8422723d5bbea1888f0f245ab2325.",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_TO_DRAFT_AUTHORIZATION_AND_LOCAL_DRAFT_READINESS_HEAVY_BATCH_V0",
+  "current_product_phase": "V6 local-first source-pack draft authorization and local draft readiness on the canonical V5 dashboard surface",
+  "current_product_lane": "source-pack intake to local draft authorization and readiness",
+  "accepted_baseline_summary": "Next article source-pack draft authorization and readiness workflow accepted after push/readback; previous accepted baseline was 1761db85d74ef741a4beba548893d3c901a7077b.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -55,7 +55,9 @@
     "live_contentops/operator_feedback_backlog_v5_adapter_codegen_v6.py",
     "live_contentops/feedback_backlog_next_article_brief_v6.py",
     "live_contentops/next_article_brief_source_pack_review_v6.py",
-    "live_contentops/next_article_source_pack_intake_validation_v6.py"
+    "live_contentops/next_article_source_pack_intake_validation_v6.py",
+    "live_contentops/next_article_draft_authorization_and_readiness_v6.py",
+    "live_contentops/next_article_draft_authorization_v5_adapter_codegen_v6.py"
   ],
   "current_loop_components": [
     "AI research packet",
@@ -91,7 +93,8 @@
     "V5 feedback/backlog read-only evidence cards",
     "Review-only next article brief candidate from feedback backlog",
     "Deterministic next article brief source-pack and operator review checklist",
-    "Deterministic next article source-pack intake and validation checklist"
+    "Deterministic next article source-pack intake and validation checklist",
+    "Deterministic next article draft authorization and readiness checklist"
   ],
   "dispatch_live_status": "blocked; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, or live send authorized",
   "provider_env_credential_status": "gated; no env value or credential value reads; committed evidence may use boolean/key-name status only",
@@ -104,17 +107,18 @@
     "future feedback summaries must not claim LLM/provider synthesis unless explicitly scoped and evidenced",
     "next article brief candidate is review-only; source pack, human review, and separate drafting authorization are required before drafting or publication",
     "next article brief source-pack review is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
-    "next article source-pack intake validation is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized"
+    "next article source-pack intake validation is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
+    "next article draft authorization and readiness is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized"
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION_V0",
-  "latest_accepted_task_result": "complete; pushed/read back deterministic next article source-pack intake and local metadata validation",
-  "latest_evidence_summary": "Local builder validates source-pack checklist completeness over operator-supplied source metadata. No LLM/provider/API/env/credentials/browser-session/public URL/live action. Compact cards integrated into all three canonical V5 dashboard views.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_TO_DRAFT_AUTHORIZATION_AND_LOCAL_DRAFT_READINESS_HEAVY_BATCH_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_TO_DRAFT_AUTHORIZATION_AND_LOCAL_DRAFT_READINESS_HEAVY_BATCH_V0",
+  "latest_accepted_task_result": "complete; pushed/read back deterministic next article source-pack draft authorization and readiness packet and V5 dashboard visibility",
+  "latest_evidence_summary": "Local builder converts source-pack intake validation state into an explicit operator drafting authorization record and a local draft-readiness verification gate. Renders ready_for_local_canonical_draft_workflow=true and surfaces compact cards in V5 dashboard. Pytest/Vitest/build and browser QA passed.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",

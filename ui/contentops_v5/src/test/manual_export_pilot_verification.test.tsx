@@ -113,7 +113,7 @@ describe('Manual Export / Pilot Verification UI', () => {
 
     expect(screen.getByText(/Feedback backlog → next article brief candidate/i)).toBeInTheDocument();
     expect(screen.getByText(/Review-only working headline/i)).toBeInTheDocument();
-    expect(screen.getByText(/Cash-flow quality explainer for audience follow-up/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/Cash-flow quality explainer for audience follow-up/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/source_pack_required_before_drafting=true/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/canonical_draft_created=false/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/llm_provider_call_made=false/i).length).toBeGreaterThan(0);

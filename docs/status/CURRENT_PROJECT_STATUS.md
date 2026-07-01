@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION_V0
+TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_TO_DRAFT_AUTHORIZATION_AND_LOCAL_DRAFT_READINESS_HEAVY_BATCH_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -13,13 +13,13 @@ master
 1761db85d74ef741a4beba548893d3c901a7077b
 
 ## current_product_phase
-V6 local-first source-pack intake and metadata validation bridge on the canonical V5 dashboard surface, checking checklist item coverage of operator-supplied entries.
+V6 local-first source-pack draft authorization and local draft readiness on the canonical V5 dashboard surface
 
 ## current_product_lane
-Next article source-pack intake and local metadata validation
+source-pack intake to local draft authorization and readiness
 
 ## accepted_baseline_summary
-Next article source-pack intake and validation workflow accepted after push/readback at `1761db85d74ef741a4beba548893d3c901a7077b`; previous accepted baseline was `b96a517acaf8422723d5bbea1888f0f245ab2325`. No live/provider/platform/LLM execution occurred.
+Next article source-pack draft authorization and readiness workflow accepted after push/readback; previous accepted baseline was `1761db85d74ef741a4beba548893d3c901a7077b`. No live/provider/platform/LLM execution occurred.
 
 ## status_sha_model
 - current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `1761db85d74ef741a4beba548893d3c901a7077b`
@@ -70,18 +70,20 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION_V0
+TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_TO_DRAFT_AUTHORIZATION_AND_LOCAL_DRAFT_READINESS_HEAVY_BATCH_V0
 
 ## latest changed areas
-- `live_contentops/next_article_source_pack_intake_validation_v6.py`
-- `docs/automation/V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION/`
-- `tests/test_next_article_source_pack_intake_validation_v6.py`
-- `tests/test_next_article_source_pack_intake_validation_ui_guardrail_v6.py`
-- `docs/runbooks/V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION_RUNBOOK.md`
-- `ui/contentops_v5/src/data/nextArticleSourcePackIntakeValidationAdapter.ts`
+- `live_contentops/next_article_draft_authorization_and_readiness_v6.py`
+- `live_contentops/next_article_draft_authorization_v5_adapter_codegen_v6.py`
+- `docs/automation/V6_NEXT_ARTICLE_DRAFT_AUTHORIZATION_AND_READINESS/`
+- `tests/test_next_article_draft_authorization_and_readiness_v6.py`
+- `tests/test_next_article_draft_authorization_readiness_ui_guardrail_v6.py`
+- `tests/test_next_article_draft_authorization_v5_adapter_codegen_v6.py`
+- `docs/runbooks/V6_NEXT_ARTICLE_DRAFT_AUTHORIZATION_AND_READINESS_RUNBOOK.md`
+- `ui/contentops_v5/src/data/nextArticleDraftAuthorizationReadinessAdapter.ts`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_TO_DRAFT_AUTHORIZATION_AND_LOCAL_DRAFT_READINESS_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.

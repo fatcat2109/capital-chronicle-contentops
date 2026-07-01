@@ -237,3 +237,18 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Caveats | Complete checklist does not grant LLM or canonical drafting authorization. |
 | Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
 | Next recommendation at time of update | `TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_TO_DRAFT_AUTHORIZATION_AND_LOCAL_DRAFT_READINESS_HEAVY_BATCH_V0` |
+
+## Next Article Draft Authorization and Local Draft Readiness
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_TO_DRAFT_AUTHORIZATION_AND_LOCAL_DRAFT_READINESS_HEAVY_BATCH_V0` |
+| Accepted product/audit baseline SHA | `1761db85d74ef741a4beba548893d3c901a7077b` (retains previous baseline during push/readback). |
+| Repo HEAD / evidence commit | Reported in final evidence. |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Deterministic draft authorization and local draft-readiness verification checklist mapping. |
+| Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |
+| Changed artifact families | `live_contentops/next_article_draft_authorization_and_readiness_v6.py`, codegen, runbook, tests, and V5 dashboard cards. |
+| Caveats | Authorized state does not construct the draft body copy or verify public URLs. |
+| Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
+| Next recommendation at time of update | `TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0` |

@@ -24,6 +24,7 @@ import { operatorSuppliedFeedbackIntakePacket, operatorFeedbackBacklogSummaryPac
 import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
 import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBriefSourcePackReviewAdapter';
 import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticleSourcePackIntakeValidationAdapter';
+import { nextArticleDraftAuthorizationReadinessPacket } from '../data/nextArticleDraftAuthorizationReadinessAdapter';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -128,6 +129,29 @@ export function EvidenceVault() {
             Checklist coverage: source_pack_collection_status={nextArticleSourcePackIntakeValidationPacket.source_pack_collection_status}.
             Verified URLs: network_verified_url_count=0. Verified sources: api_verified_source_count=0.
             Drafting status: ready_for_llm_drafting=false · ready_for_canonical_draft=false · ready_for_auto_publish=false · ready_for_dispatch=false.
+            No LLM/provider call is allowed on this local-first review workflow.
+          </div>
+        </div>
+        <div className="mt-4 rounded-lg border border-line bg-surface-2 p-3">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">Next article draft authorization and readiness packet</div>
+          <h3 className="mt-1 break-all text-sm font-semibold text-fg">{nextArticleDraftAuthorizationReadinessPacket.draft_authorization_packet_id}</h3>
+          <p className="mt-2 text-xs leading-relaxed text-fg-muted">readiness: {nextArticleDraftAuthorizationReadinessPacket.local_draft_readiness_status} · entries: {nextArticleDraftAuthorizationReadinessPacket.source_entry_count}</p>
+          <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30 space-y-1.5">
+            <div><span className="font-semibold text-fg">authorization_record_status:</span> {nextArticleDraftAuthorizationReadinessPacket.authorization_record_status}</div>
+            <div><span className="font-semibold text-fg">authorization_scope:</span> {nextArticleDraftAuthorizationReadinessPacket.authorization_scope}</div>
+            <div><span className="font-semibold text-fg">local_draft_readiness_status:</span> {nextArticleDraftAuthorizationReadinessPacket.local_draft_readiness_status}</div>
+            <div><span className="font-semibold text-fg">ready_for_local_canonical_draft_workflow:</span> {String(nextArticleDraftAuthorizationReadinessPacket.ready_for_local_canonical_draft_workflow)}</div>
+            <div><span className="font-semibold text-fg">ready_for_llm_drafting:</span> {String(nextArticleDraftAuthorizationReadinessPacket.ready_for_llm_drafting)}</div>
+            <div><span className="font-semibold text-fg">ready_for_provider_drafting:</span> {String(nextArticleDraftAuthorizationReadinessPacket.ready_for_provider_drafting)}</div>
+            <div><span className="font-semibold text-fg">canonical_draft_created:</span> {String(nextArticleDraftAuthorizationReadinessPacket.canonical_draft_created)}</div>
+            <div><span className="font-semibold text-fg">article_body_created:</span> {String(nextArticleDraftAuthorizationReadinessPacket.article_body_created)}</div>
+            <div><span className="font-semibold text-fg">ready_for_auto_publish:</span> {String(nextArticleDraftAuthorizationReadinessPacket.ready_for_auto_publish)}</div>
+            <div><span className="font-semibold text-fg">ready_for_dispatch:</span> {String(nextArticleDraftAuthorizationReadinessPacket.ready_for_dispatch)}</div>
+          </div>
+          <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30">
+            Authorization record status is operator_drafting_authorization_recorded. Scope is local_canonical_draft_preparation_only.
+            Local draft readiness status: ready_for_local_canonical_draft_workflow=true.
+            Drafting/publishing gates remain locked: ready_for_llm_drafting=false · ready_for_provider_drafting=false · canonical_draft_created=false · article_body_created=false · ready_for_auto_publish=false · ready_for_dispatch=false.
             No LLM/provider call is allowed on this local-first review workflow.
           </div>
         </div>

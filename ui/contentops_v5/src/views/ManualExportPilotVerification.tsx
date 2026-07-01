@@ -22,6 +22,7 @@ import { operatorSuppliedFeedbackIntakePacket, operatorFeedbackBacklogSummaryPac
 import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
 import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBriefSourcePackReviewAdapter';
 import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticleSourcePackIntakeValidationAdapter';
+import { nextArticleDraftAuthorizationReadinessPacket } from '../data/nextArticleDraftAuthorizationReadinessAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -249,6 +250,32 @@ export function ManualExportPilotVerification() {
           Checklist coverage: source_pack_collection_status={nextArticleSourcePackIntakeValidationPacket.source_pack_collection_status}.
           Verified URLs: network_verified_url_count=0. Verified sources: api_verified_source_count=0.
           Drafting status: ready_for_llm_drafting=false · ready_for_canonical_draft=false · ready_for_auto_publish=false · ready_for_dispatch=false.
+          No LLM/provider call is allowed on this local-first review workflow.
+        </div>
+      </Panel>
+
+      <Panel
+        title="Next article draft authorization and readiness"
+        subtitle={`${nextArticleDraftAuthorizationReadinessPacket.draft_authorization_packet_id} · ready: ${String(nextArticleDraftAuthorizationReadinessPacket.ready_for_local_canonical_draft_workflow)}`}
+        actions={<StatusChip status="verified">{nextArticleDraftAuthorizationReadinessPacket.local_draft_readiness_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Authorization Packet" value={nextArticleDraftAuthorizationReadinessPacket.draft_authorization_packet_id} mono status="verified" />
+          <Metric label="Readiness Packet" value={nextArticleDraftAuthorizationReadinessPacket.draft_readiness_packet_id} mono status="verified" />
+          <Metric label="Intake Packet ID" value={nextArticleDraftAuthorizationReadinessPacket.source_pack_intake_packet_id} mono status="verified" />
+          <Metric label="Intake Packet Hash" value={nextArticleDraftAuthorizationReadinessPacket.source_pack_intake_packet_hash} mono status="verified" />
+          <Metric label="Working Headline" value={nextArticleDraftAuthorizationReadinessPacket.article_working_headline} status="verified" />
+          <Metric label="Authorization Scope" value={nextArticleDraftAuthorizationReadinessPacket.authorization_scope} mono status="verified" />
+          <Metric label="Local Draft Readiness" value={String(nextArticleDraftAuthorizationReadinessPacket.ready_for_local_canonical_draft_workflow)} status="verified" />
+          <Metric label="Drafting Status" value={nextArticleDraftAuthorizationReadinessPacket.local_draft_readiness_status} mono status="verified" />
+          <Metric label="Source Entry Count" value={String(nextArticleDraftAuthorizationReadinessPacket.source_entry_count)} status="verified" />
+          <Metric label="Network Verified URLs" value={String(nextArticleDraftAuthorizationReadinessPacket.network_verified_url_count)} status="blocked" />
+          <Metric label="API Verified Sources" value={String(nextArticleDraftAuthorizationReadinessPacket.api_verified_source_count)} status="blocked" />
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Authorization record status is operator_drafting_authorization_recorded. Scope is local_canonical_draft_preparation_only.
+          Local draft readiness status: ready_for_local_canonical_draft_workflow=true.
+          Drafting/publishing gates remain locked: ready_for_llm_drafting=false · ready_for_provider_drafting=false · canonical_draft_created=false · article_body_created=false · ready_for_auto_publish=false · ready_for_dispatch=false.
           No LLM/provider call is allowed on this local-first review workflow.
         </div>
       </Panel>
