@@ -146,5 +146,5 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 - Latest task: `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_UI_SUMMARY_V0`.
 - Current lane: manual distribution registry audit index UI summary.
 - Scope: surface registry readiness, source-path audit status, blockers, caveats, non-readiness claims, and safety flags in canonical V5.
-- Accepted product/audit baseline remains `1796277bbcbf9a92c7bb54c5005678d3cbbf1e6c` until push/readback acceptance of this UI behavior.
+- Accepted product/audit baseline is `68ac1e1b8e3f6fb806515fe9ea0f26dc373fe2db` after audit index UI summary push/readback; previous baseline was `1796277bbcbf9a92c7bb54c5005678d3cbbf1e6c`.
 - Live/provider/platform execution remains blocked; canonical dashboard remains `ui/contentops_v5/`.
