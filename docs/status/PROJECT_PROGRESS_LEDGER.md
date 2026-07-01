@@ -105,4 +105,4 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Scope | Consolidate accepted Substack, LinkedIn, and X manual evidence lanes into a local registry/read model. |
 | Safety posture | Fixture/manual/operator-supplied only; no platform API, env, credential, browser session, public URL fetch/scrape, or live action. |
 | Canonical UI | `ui/contentops_v5/` registry summary panels. |
-| Baseline note | `accepted_product_baseline_sha` remains `98fce130a9f98e34cc8ac0454986081697efc8c1` until post-push acceptance/repair. |
+| Baseline note | `accepted_product_baseline_sha` is `d86b0831f32de504288545edcf0321f89f9a1cbd` after post-push acceptance/repair; previous product baseline was `98fce130a9f98e34cc8ac0454986081697efc8c1`. |

@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "98fce130a9f98e34cc8ac0454986081697efc8c1",
+  "last_verified_remote_sha": "d86b0831f32de504288545edcf0321f89f9a1cbd",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY_CONSOLIDATION_HEAVY_BATCH_V0",
   "current_product_phase": "V6 local-first product loop consolidation on the canonical V5 dashboard surface, with repo-native status/progress governance refreshed after LinkedIn manual evidence acceptance",
   "current_product_lane": "Manual distribution evidence registry consolidation across Substack, LinkedIn, and X; no new platform lane.",
-  "accepted_baseline_summary": "Accepted product baseline remains X manual publication evidence loop at 98fce130a9f98e34cc8ac0454986081697efc8c1 until the registry consolidation feature commit is pushed/read back and accepted.",
+  "accepted_baseline_summary": "Manual Distribution Evidence Registry v0 accepted after push/readback at d86b0831f32de504288545edcf0321f89f9a1cbd. Previous product baseline was X manual publication evidence loop at 98fce130a9f98e34cc8ac0454986081697efc8c1.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -90,7 +90,7 @@
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
   "latest_accepted_task": "TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY_CONSOLIDATION_HEAVY_BATCH_V0",
-  "latest_accepted_task_result": "pending push/readback; local registry consolidation implemented as fixture/manual/operator-supplied read model with canonical V5 summary panels",
+  "latest_accepted_task_result": "complete; pushed/read back Manual Distribution Evidence Registry v0 feature commit",
   "latest_evidence_summary": "Manual Distribution Evidence Registry v0 consolidates Substack, LinkedIn, and X committed sample packets. No platform API, env, credential, browser-session, public URL, or live action.",
   "next_recommended_task": "TASK_CONTENTOPS_V6_ROADMAP_REVIEW_OR_NEXT_MANUAL_DISTRIBUTION_LANE_V0",
   "mandatory_read_before_task": [
@@ -125,7 +125,7 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "98fce130a9f98e34cc8ac0454986081697efc8c1",
+  "accepted_product_baseline_sha": "d86b0831f32de504288545edcf0321f89f9a1cbd",
   "last_status_commit_sha": "d077a22bf4faf16153ea5b2e79993d7666aa44a5",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work."
 }

@@ -135,5 +135,5 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Current lane: manual distribution evidence registry consolidation across Substack, LinkedIn, and X; no new platform lane.
 - Canonical dashboard remains `ui/contentops_v5/`.
 - Registry consolidates committed fixture/operator-supplied packet IDs, hashes, provenance, safety flags, blocked controls, and V5 labels.
-- Accepted product baseline remains `98fce130a9f98e34cc8ac0454986081697efc8c1` until push/readback acceptance of this feature commit.
+- Accepted product baseline is `d86b0831f32de504288545edcf0321f89f9a1cbd` after registry feature push/readback; previous product baseline was `98fce130a9f98e34cc8ac0454986081697efc8c1`.
 - Live/provider/platform execution remains blocked; Project Sources/chat memory remain context only.
