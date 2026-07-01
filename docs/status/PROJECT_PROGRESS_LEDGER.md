@@ -166,3 +166,16 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 - Product/audit baseline is `184062956f4c70509ad1c14b63d7837d9bcb1c58` after push/readback; previous accepted baseline was `3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc`.
 - Live/provider/platform/LLM/browser/public URL execution remains blocked.
 
+## Operator Feedback Backlog UI QA Repair
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_REPAIR_OPERATOR_FEEDBACK_BACKLOG_UI_QA_AND_GUARDRAILS_V0` |
+| Accepted product baseline SHA | `c3d60d49966dfebb3af1a31c3f0c89690dd652f7` |
+| Repo HEAD / evidence commit | `c3d60d49966dfebb3af1a31c3f0c89690dd652f7` after push/readback. |
+| Result classification | `complete_targeted_ui_qa_repair` |
+| Scope | Added V5 Manual Export feedback/backlog visibility, UI guardrail test, and committed local browser QA screenshots/README. |
+| Safety posture | No backend packet semantics changed; no new product lanes; no LLM/provider/API/public URL fetch/browser credential/session/live action. |
+| Changed artifact families | `ui/contentops_v5/src/views/ManualExportPilotVerification.tsx`, `tests/test_operator_feedback_backlog_ui_guardrail_v6.py`, `docs/browser_qa/contentops_v5_operator_feedback_backlog_loop/`. |
+| Validation | `pytest -q tests/test_operator_supplied_feedback_intake_and_backlog_v6.py tests/test_operator_feedback_backlog_ui_guardrail_v6.py`; `npm --prefix ui/contentops_v5 test -- --run`; `npm --prefix ui/contentops_v5 run build`. |
+| Caveats | Browser QA is local canonical V5 only; committed screenshots are evidence, not live-readiness claims. |
