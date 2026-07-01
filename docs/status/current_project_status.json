@@ -4,10 +4,10 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "last_verified_remote_sha": "16d29f86a1f81c8c39da1ccf8bac46623cf19c27",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_PACKET_SOURCE_PATH_AUDIT_V0",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_AND_READINESS_SUMMARY_V0",
   "current_product_phase": "V6 local-first product loop consolidation on the canonical V5 dashboard surface, with repo-native status/progress governance refreshed after LinkedIn manual evidence acceptance",
-  "current_product_lane": "Manual distribution registry packet source-path audit.",
-  "accepted_baseline_summary": "Manual Distribution Registry source-path audit accepted after push/readback at 16d29f86a1f81c8c39da1ccf8bac46623cf19c27. Previous product baseline was packet drilldown feature commit 76f4ba616693aac1462e32dbbe80cc652154f928.",
+  "current_product_lane": "Manual distribution registry audit index/readiness summary.",
+  "accepted_baseline_summary": "Accepted product baseline remains source-path audit feature commit 16d29f86a1f81c8c39da1ccf8bac46623cf19c27 until audit index behavior is pushed/read back and accepted.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -46,7 +46,9 @@
     "live_contentops/x_manual_operator_handoff_v6.py",
     "live_contentops/x_manual_publication_url_audit_import_v6.py",
     "live_contentops/x_publication_audit_review_metrics_summary_v6.py",
-    "live_contentops/manual_distribution_evidence_registry_v6.py"
+    "live_contentops/manual_distribution_evidence_registry_v6.py",
+    "live_contentops/manual_distribution_evidence_registry_source_path_audit_v6.py",
+    "live_contentops/manual_distribution_registry_audit_index_v6.py"
   ],
   "current_loop_components": [
     "AI research packet",
@@ -73,7 +75,9 @@
     "X manual operator handoff packet",
     "X manual publication URL/audit import packet",
     "X manual metrics summary packet",
-    "Manual Distribution Evidence Registry v0"
+    "Manual Distribution Evidence Registry v0",
+    "Manual Distribution Registry source-path audit",
+    "Manual Distribution Registry audit index/readiness summary"
   ],
   "dispatch_live_status": "blocked; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, or live send authorized",
   "provider_env_credential_status": "gated; no env value or credential value reads; committed evidence may use boolean/key-name status only",
@@ -89,8 +93,8 @@
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_PACKET_SOURCE_PATH_AUDIT_V0",
-  "latest_accepted_task_result": "complete; pushed/read back deterministic local source-path audit packet and tests",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_AND_READINESS_SUMMARY_V0",
+  "latest_accepted_task_result": "pending push/readback; deterministic audit index/readiness summary implemented locally",
   "latest_evidence_summary": "Manual Distribution Evidence Registry v0 consolidates Substack, LinkedIn, and X committed sample packets. No platform API, env, credential, browser-session, public URL, or live action.",
   "next_recommended_task": "TASK_CONTENTOPS_V6_ROADMAP_REVIEW_OR_NEXT_MANUAL_DISTRIBUTION_LANE_V0",
   "mandatory_read_before_task": [

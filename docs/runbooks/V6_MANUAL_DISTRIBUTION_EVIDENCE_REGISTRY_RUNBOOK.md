@@ -27,3 +27,12 @@ Consolidates accepted Substack, LinkedIn, and X manual publication evidence loop
 - Confirms each registry source packet path exists under `docs/automation/`.
 - Confirms each bound packet ID and hash matches the expected source packet field.
 - Does not fetch URLs, verify public URLs, call providers, read env or credentials, inspect browser sessions, or perform live platform actions.
+
+## Audit index/readiness summary
+
+- Audit index packet: `docs/automation/V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY/manual_distribution_registry_audit_index_packet.json`
+- Builder: `live_contentops/manual_distribution_registry_audit_index_v6.py`
+- Use only for local operator review readiness.
+- It binds the registry packet and source-path audit packet into one deterministic local readiness summary.
+- It is not live dispatch readiness and does not enable approve/send/publish/dispatch/schedule controls.
+- It does not prove public URL reachability, platform authentication readiness, or platform-side state.
