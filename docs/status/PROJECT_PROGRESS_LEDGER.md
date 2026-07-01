@@ -163,6 +163,6 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 - Latest task: `TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_V0`.
 - Current lane: local/manual-only community feedback/questions intake and deterministic backlog candidates.
 - Scope: operator-supplied intake packet, deterministic tag-grouped backlog summary packet, runbook, tests, and V5 read-only Approval Queue/Evidence Vault cards.
-- Product/audit baseline is pending final push/readback; previous accepted baseline was `3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc`.
+- Product/audit baseline is `184062956f4c70509ad1c14b63d7837d9bcb1c58` after push/readback; previous accepted baseline was `3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc`.
 - Live/provider/platform/LLM/browser/public URL execution remains blocked.
 

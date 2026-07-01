@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc
+184062956f4c70509ad1c14b63d7837d9bcb1c58
 
 ## current_product_phase
 V6 local-first product loop consolidation on the canonical V5 dashboard surface, with repo-native status/progress governance refreshed after LinkedIn manual evidence acceptance.
@@ -194,5 +194,5 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Current lane: local/manual-only operator feedback and questions intake feeding deterministic next-article backlog candidates.
 - Scope: feedback intake packet, backlog summary packet, runbook, focused tests, and canonical V5 Approval Queue/Evidence Vault read-only cards.
 - Safety: operator-supplied fixture text only; no LLM/provider call, URL fetch/scrape, platform API, browser session read, env/credential read, live publish, send, approve, dispatch, schedule, reply, DM, like, repost, or quote-post.
-- Accepted product/audit baseline will be the pushed/readback commit for this task; previous baseline was `3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc`.
+- Accepted product/audit baseline is `184062956f4c70509ad1c14b63d7837d9bcb1c58` after feedback/backlog loop push/readback; previous baseline was `3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc`.
 
