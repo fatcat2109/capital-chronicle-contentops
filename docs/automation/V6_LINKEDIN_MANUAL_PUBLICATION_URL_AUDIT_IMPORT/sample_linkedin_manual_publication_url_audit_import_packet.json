@@ -1,0 +1,86 @@
+{
+  "approval_export_evidence_hash": "6fefc99b74dd9e5b8fd282dbe8361b4ed200be6b66b9112ad2273eb8a3451884",
+  "approval_export_evidence_packet_id": "linkedin_manual_approval_export_evidence_6fefc99b74dd9e5b",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "operator_handoff_packet",
+      "card_type": "operator_handoff_packet",
+      "display_status": "bound",
+      "hash": "48edd2fac668bdc23ff673eca24969c3ead5122499c85882fb121a3092d2b93e",
+      "source_id": "linkedin_manual_operator_handoff_48edd2fac668bdc2"
+    },
+    {
+      "card_id": "manual_export_payload",
+      "card_type": "manual_export_payload",
+      "display_status": "bound",
+      "hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+      "source_id": "linkedin_manual_export_79cc3f65a34689de"
+    },
+    {
+      "card_id": "approval_export_evidence_packet",
+      "card_type": "approval_export_evidence_packet",
+      "display_status": "bound",
+      "hash": "6fefc99b74dd9e5b8fd282dbe8361b4ed200be6b66b9112ad2273eb8a3451884",
+      "source_id": "linkedin_manual_approval_export_evidence_6fefc99b74dd9e5b"
+    },
+    {
+      "card_id": "canonical_article_source",
+      "card_type": "canonical_article_source",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "operator_supplied_publication_url",
+      "card_type": "operator_supplied_publication_url",
+      "display_status": "operator_supplied_not_network_verified",
+      "hash": "cd27e1719e84c0dcced884797f972c8713486c804577617a580dc1a0ac2f8fb2",
+      "source_id": "operator_supplied_publication_url"
+    }
+  ],
+  "exact_payload_hash": "40373df27f51c48d4c90efd4df174123d7a5b6defa44469e361d024bdb50e4ee",
+  "hash_algorithm": "sha256_json_v6",
+  "linkedin_api_used": false,
+  "live_publish_performed_by_contentops": false,
+  "manual_publication_claim_operator_supplied": true,
+  "network_call_made": false,
+  "operator_handoff_hash": "48edd2fac668bdc23ff673eca24969c3ead5122499c85882fb121a3092d2b93e",
+  "operator_handoff_packet_id": "linkedin_manual_operator_handoff_48edd2fac668bdc2",
+  "operator_review_status": "pending_review",
+  "operator_supplied_publication_platform": "linkedin",
+  "operator_supplied_publication_status": "manually_published_outside_contentops",
+  "operator_supplied_publication_timestamp": "2026-07-01T06:00:00Z",
+  "operator_supplied_publication_url": "https://www.linkedin.com/posts/capital-chronicle_evaluate-historical-volatility-in-macro-calendar-commentaries-activity-0000000000000000000",
+  "operator_supplied_publication_url_hash": "cd27e1719e84c0dcced884797f972c8713486c804577617a580dc1a0ac2f8fb2",
+  "operator_supplied_url_verification_status": "operator_supplied_not_network_verified",
+  "provider_call_made": false,
+  "publication_audit_status": "manual_url_imported_pending_operator_review",
+  "publication_url_audit_hash": "501e7b85a5a3beef3c7104ab529682cee2a367d7fa5c179717c60652a15185d7",
+  "publication_url_audit_packet_id": "linkedin_manual_publication_url_audit_501e7b85a5a3beef",
+  "recommended_next_task": "TASK_CONTENTOPS_V6_LINKEDIN_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_export_packet_id": "linkedin_manual_export_79cc3f65a34689de",
+  "source_export_payload_hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+  "task_label": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0",
+  "url_network_verified": false,
+  "warnings": [
+    "sample_fixture_only",
+    "operator_supplied_url_not_network_verified",
+    "no_url_fetch_no_scrape",
+    "manual_publication_claim_not_contentops_publish"
+  ]
+}

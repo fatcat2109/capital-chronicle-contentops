@@ -1,0 +1,51 @@
+{
+  "approval_status": "pending",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "exact_payload_hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+  "export_packet_id": "linkedin_manual_export_79cc3f65a34689de",
+  "export_status": "ready_for_manual_review",
+  "hash_algorithm": "sha256_json_v6",
+  "linkedin_api_used": false,
+  "live_publish_allowed": false,
+  "live_publish_performed": false,
+  "manual_copy_only": true,
+  "manual_copy_payload": {
+    "copy_mode": "manual copy only",
+    "operator_instructions": "Review in canonical V5, then manually copy into LinkedIn only if separately approved outside ContentOps.",
+    "platform": "linkedin",
+    "post_body": "Capital Chronicle educational briefing: Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\nProcess note: This manual LinkedIn post is fixture-only evidence for operator review. It summarizes methodology, source review, and educational context without recommendations.\n\nOperators must verify primary sources independently before any manual external publication.\n\nManual copy only. LinkedIn API not used. Live publish disabled. No runtime proof.",
+    "safety_labels": [
+      "sample_fixture_only",
+      "manual copy only",
+      "LinkedIn API not used",
+      "live publish disabled",
+      "no runtime proof"
+    ],
+    "target": "linkedin_manual_copy"
+  },
+  "network_call_made": false,
+  "platform": "linkedin",
+  "post_body_fixture": "Capital Chronicle educational briefing: Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\nProcess note: This manual LinkedIn post is fixture-only evidence for operator review. It summarizes methodology, source review, and educational context without recommendations.\n\nOperators must verify primary sources independently before any manual external publication.\n\nManual copy only. LinkedIn API not used. Live publish disabled. No runtime proof.",
+  "provider_call_made": false,
+  "recommended_next_task": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_APPROVAL_EXPORT_EVIDENCE_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_canonical_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "task_label": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0",
+  "warnings": [
+    "sample_fixture_only",
+    "manual_copy_only_no_linkedin_api",
+    "no_runtime_proof"
+  ]
+}

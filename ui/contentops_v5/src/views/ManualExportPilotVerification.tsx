@@ -6,6 +6,11 @@ import {
   substackManualExportOperatorHandoffPacket,
   substackManualPublicationUrlAuditImportPacket,
   substackPublicationAuditReviewMetricsSummaryPacket,
+  linkedinManualExportPacket,
+  linkedinManualApprovalExportEvidencePacket,
+  linkedinManualOperatorHandoffPacket,
+  linkedinManualPublicationUrlAuditImportPacket,
+  linkedinPublicationAuditReviewMetricsSummaryPacket,
 } from '../data/substackManualExportArticleStudioAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
@@ -181,6 +186,35 @@ export function ManualExportPilotVerification() {
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
           Operator-supplied publication metrics only; no live API calls, scraping, or network requests performed.
           substack_api_used={String(substackPublicationAuditReviewMetricsSummaryPacket.substack_api_used)} ? metrics_network_verified={String(substackPublicationAuditReviewMetricsSummaryPacket.metrics_network_verified)} ? manual_metrics_claim_operator_supplied={String(substackPublicationAuditReviewMetricsSummaryPacket.manual_metrics_claim_operator_supplied)}
+        </div>
+      </Panel>
+
+
+
+      <Panel
+        title="LinkedIn manual publication evidence loop"
+        subtitle={linkedinManualOperatorHandoffPacket.operator_handoff_packet_id}
+        actions={<StatusChip status="review">fixture-only</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
+          <Metric label="Export" value={linkedinManualExportPacket.export_packet_id} mono status="verified" />
+          <Metric label="Approval evidence" value={linkedinManualApprovalExportEvidencePacket.approval_export_evidence_packet_id} mono status="review" />
+          <Metric label="URL audit" value={linkedinManualPublicationUrlAuditImportPacket.publication_url_audit_packet_id} mono status="review" />
+          <Metric label="Metrics" value={linkedinPublicationAuditReviewMetricsSummaryPacket.publication_audit_review_packet_id} mono status="review" />
+          <Metric label="LinkedIn API" value={String(linkedinManualExportPacket.linkedin_api_used)} mono status="blocked" />
+        </div>
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7">
+          <Metric label="Impressions" value={String(linkedinPublicationAuditReviewMetricsSummaryPacket.manual_metrics.impressions)} status="verified" />
+          <Metric label="Reactions" value={String(linkedinPublicationAuditReviewMetricsSummaryPacket.manual_metrics.reactions)} status="verified" />
+          <Metric label="Comments" value={String(linkedinPublicationAuditReviewMetricsSummaryPacket.manual_metrics.comments)} status="verified" />
+          <Metric label="Reposts" value={String(linkedinPublicationAuditReviewMetricsSummaryPacket.manual_metrics.reposts)} status="verified" />
+          <Metric label="Clicks" value={String(linkedinPublicationAuditReviewMetricsSummaryPacket.manual_metrics.clicks)} status="verified" />
+          <Metric label="Profile views" value={String(linkedinPublicationAuditReviewMetricsSummaryPacket.manual_metrics.profile_views)} status="verified" />
+          <Metric label="Followers" value={String(linkedinPublicationAuditReviewMetricsSummaryPacket.manual_metrics.followers_delta)} status="verified" />
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          LinkedIn manual fixture only; no LinkedIn API, browser automation, credential/session/env read, URL fetch/scrape/network verification, post, DM, comment, like, reaction, scheduler, dispatch, send, or approval control.
+          enabled={String(linkedinManualOperatorHandoffPacket.enabled_publish_send_dispatch_approve_controls)} · url_network_verified={String(linkedinManualPublicationUrlAuditImportPacket.url_network_verified)} · metrics_network_verified={String(linkedinPublicationAuditReviewMetricsSummaryPacket.metrics_network_verified)}
         </div>
       </Panel>
 

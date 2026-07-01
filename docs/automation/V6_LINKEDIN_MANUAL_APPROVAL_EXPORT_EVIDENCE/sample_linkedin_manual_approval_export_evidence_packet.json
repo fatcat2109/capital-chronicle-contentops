@@ -1,0 +1,94 @@
+{
+  "approval_export_evidence_hash": "6fefc99b74dd9e5b8fd282dbe8361b4ed200be6b66b9112ad2273eb8a3451884",
+  "approval_export_evidence_packet_id": "linkedin_manual_approval_export_evidence_6fefc99b74dd9e5b",
+  "approval_status": "pending",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "article_source_packet",
+      "card_type": "article_source_packet",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "linkedin_export_packet",
+      "card_type": "linkedin_export_packet",
+      "display_status": "bound",
+      "hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+      "source_id": "linkedin_manual_export_79cc3f65a34689de"
+    },
+    {
+      "card_id": "approval_checkpoint",
+      "card_type": "approval_checkpoint",
+      "display_status": "pending_review",
+      "hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+      "source_id": "operator_review_status"
+    },
+    {
+      "card_id": "blocked_live_publish_state",
+      "card_type": "blocked_live_publish_state",
+      "display_status": "blocked",
+      "hash": "61317f01a1f70a7b29565c901a7118a6765e200afccfbe95f9af66a2ea0bd98d",
+      "source_id": "live_publish_allowed=false"
+    }
+  ],
+  "exact_payload_hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+  "hash_algorithm": "sha256_json_v6",
+  "linkedin_api_used": false,
+  "live_publish_allowed": false,
+  "live_publish_performed": false,
+  "manual_copy_checklist": [
+    {
+      "check_id": "manual_copy_payload_present",
+      "label": "LinkedIn manual copy payload reviewed in V5",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_no_live_publish",
+      "label": "Operator confirms no publish/send/dispatch/schedule action is enabled",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_linkedin_api_absent",
+      "label": "Operator confirms LinkedIn API was not used",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_hash_match",
+      "label": "Operator confirms exact payload hash before manual copy",
+      "required": true,
+      "status": "pending_review"
+    }
+  ],
+  "manual_export_status": "ready_for_manual_copy",
+  "network_call_made": false,
+  "operator_review_proof": "pending operator review; deterministic fixture only; no runtime proof",
+  "operator_review_status": "pending_review",
+  "provider_call_made": false,
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_canonical_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_export_packet_id": "linkedin_manual_export_79cc3f65a34689de",
+  "task_label": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0",
+  "warnings": [
+    "sample_fixture_only",
+    "manual_copy_only_no_linkedin_api",
+    "live_publish_disabled",
+    "operator_review_pending"
+  ]
+}

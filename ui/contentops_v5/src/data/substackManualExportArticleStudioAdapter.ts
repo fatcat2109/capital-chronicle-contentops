@@ -506,3 +506,479 @@ export const substackPublicationAuditReviewMetricsSummaryPacket = {
     "manual_metrics_claim_not_contentops_metrics"
   ]
 } as const;
+
+// V6 LinkedIn manual publication evidence loop adapter.
+// Static fixture only. No LinkedIn API, no browser automation, no credentials, no storage, no publish.
+
+export const linkedinManualExportPacket = {
+  "approval_status": "pending",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "exact_payload_hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+  "export_packet_id": "linkedin_manual_export_79cc3f65a34689de",
+  "export_status": "ready_for_manual_review",
+  "hash_algorithm": "sha256_json_v6",
+  "linkedin_api_used": false,
+  "live_publish_allowed": false,
+  "live_publish_performed": false,
+  "manual_copy_only": true,
+  "manual_copy_payload": {
+    "copy_mode": "manual copy only",
+    "operator_instructions": "Review in canonical V5, then manually copy into LinkedIn only if separately approved outside ContentOps.",
+    "platform": "linkedin",
+    "post_body": "Capital Chronicle educational briefing: Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\nProcess note: This manual LinkedIn post is fixture-only evidence for operator review. It summarizes methodology, source review, and educational context without recommendations.\n\nOperators must verify primary sources independently before any manual external publication.\n\nManual copy only. LinkedIn API not used. Live publish disabled. No runtime proof.",
+    "safety_labels": [
+      "sample_fixture_only",
+      "manual copy only",
+      "LinkedIn API not used",
+      "live publish disabled",
+      "no runtime proof"
+    ],
+    "target": "linkedin_manual_copy"
+  },
+  "network_call_made": false,
+  "platform": "linkedin",
+  "post_body_fixture": "Capital Chronicle educational briefing: Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\nProcess note: This manual LinkedIn post is fixture-only evidence for operator review. It summarizes methodology, source review, and educational context without recommendations.\n\nOperators must verify primary sources independently before any manual external publication.\n\nManual copy only. LinkedIn API not used. Live publish disabled. No runtime proof.",
+  "provider_call_made": false,
+  "recommended_next_task": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_APPROVAL_EXPORT_EVIDENCE_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_canonical_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "task_label": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0",
+  "warnings": [
+    "sample_fixture_only",
+    "manual_copy_only_no_linkedin_api",
+    "no_runtime_proof"
+  ]
+} as const;
+
+export const linkedinManualApprovalExportEvidencePacket = {
+  "approval_export_evidence_hash": "6fefc99b74dd9e5b8fd282dbe8361b4ed200be6b66b9112ad2273eb8a3451884",
+  "approval_export_evidence_packet_id": "linkedin_manual_approval_export_evidence_6fefc99b74dd9e5b",
+  "approval_status": "pending",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "article_source_packet",
+      "card_type": "article_source_packet",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "linkedin_export_packet",
+      "card_type": "linkedin_export_packet",
+      "display_status": "bound",
+      "hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+      "source_id": "linkedin_manual_export_79cc3f65a34689de"
+    },
+    {
+      "card_id": "approval_checkpoint",
+      "card_type": "approval_checkpoint",
+      "display_status": "pending_review",
+      "hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+      "source_id": "operator_review_status"
+    },
+    {
+      "card_id": "blocked_live_publish_state",
+      "card_type": "blocked_live_publish_state",
+      "display_status": "blocked",
+      "hash": "61317f01a1f70a7b29565c901a7118a6765e200afccfbe95f9af66a2ea0bd98d",
+      "source_id": "live_publish_allowed=false"
+    }
+  ],
+  "exact_payload_hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+  "hash_algorithm": "sha256_json_v6",
+  "linkedin_api_used": false,
+  "live_publish_allowed": false,
+  "live_publish_performed": false,
+  "manual_copy_checklist": [
+    {
+      "check_id": "manual_copy_payload_present",
+      "label": "LinkedIn manual copy payload reviewed in V5",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_no_live_publish",
+      "label": "Operator confirms no publish/send/dispatch/schedule action is enabled",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_linkedin_api_absent",
+      "label": "Operator confirms LinkedIn API was not used",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_hash_match",
+      "label": "Operator confirms exact payload hash before manual copy",
+      "required": true,
+      "status": "pending_review"
+    }
+  ],
+  "manual_export_status": "ready_for_manual_copy",
+  "network_call_made": false,
+  "operator_review_proof": "pending operator review; deterministic fixture only; no runtime proof",
+  "operator_review_status": "pending_review",
+  "provider_call_made": false,
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_canonical_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_export_packet_id": "linkedin_manual_export_79cc3f65a34689de",
+  "task_label": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0",
+  "warnings": [
+    "sample_fixture_only",
+    "manual_copy_only_no_linkedin_api",
+    "live_publish_disabled",
+    "operator_review_pending"
+  ]
+} as const;
+
+export const linkedinManualOperatorHandoffPacket = {
+  "approval_export_evidence_hash": "6fefc99b74dd9e5b8fd282dbe8361b4ed200be6b66b9112ad2273eb8a3451884",
+  "approval_export_evidence_packet_id": "linkedin_manual_approval_export_evidence_6fefc99b74dd9e5b",
+  "approval_status": "pending",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "blockers": [
+    "operator_approval_pending",
+    "live_publish_disabled",
+    "manual_copy_only",
+    "linkedin_api_disabled"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "canonical_article_source",
+      "card_type": "canonical_article_source",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "manual_export_payload",
+      "card_type": "manual_export_payload",
+      "display_status": "bound",
+      "hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+      "source_id": "linkedin_manual_export_79cc3f65a34689de"
+    },
+    {
+      "card_id": "approval_export_evidence_packet",
+      "card_type": "approval_export_evidence_packet",
+      "display_status": "bound",
+      "hash": "6fefc99b74dd9e5b8fd282dbe8361b4ed200be6b66b9112ad2273eb8a3451884",
+      "source_id": "linkedin_manual_approval_export_evidence_6fefc99b74dd9e5b"
+    },
+    {
+      "card_id": "manual_copy_checklist",
+      "card_type": "manual_copy_checklist",
+      "display_status": "pending_review",
+      "hash": "0585eac799e3f53f9e1ef577694b4376c02f6a342895891bf54ac39de6050a85",
+      "source_id": "operator_handoff_checklist"
+    },
+    {
+      "card_id": "operator_handoff_packet",
+      "card_type": "operator_handoff_packet",
+      "display_status": "ready_for_manual_review",
+      "hash": "fdfadafcab350f0aa0b617fc8c26ecc99cb71f8e494617741361b8f4e4fc39a3",
+      "source_id": "operator_handoff"
+    }
+  ],
+  "exact_payload_hash": "40373df27f51c48d4c90efd4df174123d7a5b6defa44469e361d024bdb50e4ee",
+  "hash_algorithm": "sha256_json_v6",
+  "linkedin_api_used": false,
+  "live_publish_allowed": false,
+  "live_publish_performed": false,
+  "manual_copy_checklist": [
+    {
+      "check_id": "confirm_article_source",
+      "label": "Confirm canonical article source packet and hash",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "confirm_export_payload",
+      "label": "Confirm LinkedIn manual export payload hash before copy",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "confirm_approval_evidence",
+      "label": "Confirm approval/export evidence packet remains pending",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "confirm_manual_copy_only",
+      "label": "Confirm manual copy only; no LinkedIn API, publish, send, dispatch, scheduler, DM, comment, like, or reaction",
+      "required": true,
+      "status": "pending_review"
+    }
+  ],
+  "manual_copy_only": true,
+  "manual_copy_payload": {
+    "copy_mode": "manual copy only",
+    "operator_instructions": "Review in canonical V5, then manually copy into LinkedIn only if separately approved outside ContentOps.",
+    "platform": "linkedin",
+    "post_body": "Capital Chronicle educational briefing: Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\nProcess note: This manual LinkedIn post is fixture-only evidence for operator review. It summarizes methodology, source review, and educational context without recommendations.\n\nOperators must verify primary sources independently before any manual external publication.\n\nManual copy only. LinkedIn API not used. Live publish disabled. No runtime proof.",
+    "safety_labels": [
+      "sample_fixture_only",
+      "manual copy only",
+      "LinkedIn API not used",
+      "live publish disabled",
+      "no runtime proof"
+    ],
+    "target": "linkedin_manual_copy"
+  },
+  "network_call_made": false,
+  "operator_handoff_hash": "48edd2fac668bdc23ff673eca24969c3ead5122499c85882fb121a3092d2b93e",
+  "operator_handoff_packet_id": "linkedin_manual_operator_handoff_48edd2fac668bdc2",
+  "operator_handoff_status": "ready_for_manual_review",
+  "operator_instructions": [
+    "Open canonical V5 Manual Export, Approval Queue, and Evidence Vault views only.",
+    "Compare article, export, approval/export evidence, and handoff hashes before manual copy.",
+    "If separate human approval is granted outside this packet, manually copy the payload into LinkedIn outside ContentOps.",
+    "Do not use LinkedIn API, browser automation, live publish, dispatch, scheduler, provider calls, env values, credentials, browser sessions, cookies, localStorage, tokens, DMs, comments, likes, or reactions."
+  ],
+  "provider_call_made": false,
+  "recommended_next_task": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_URL_AUDIT_IMPORT_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_export_packet_id": "linkedin_manual_export_79cc3f65a34689de",
+  "source_export_payload_hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+  "task_label": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0",
+  "warnings": [
+    "sample_fixture_only",
+    "manual_copy_only_no_linkedin_api",
+    "live_publish_disabled",
+    "operator_handoff_pending_review"
+  ]
+} as const;
+
+export const linkedinManualPublicationUrlAuditImportPacket = {
+  "approval_export_evidence_hash": "6fefc99b74dd9e5b8fd282dbe8361b4ed200be6b66b9112ad2273eb8a3451884",
+  "approval_export_evidence_packet_id": "linkedin_manual_approval_export_evidence_6fefc99b74dd9e5b",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "operator_handoff_packet",
+      "card_type": "operator_handoff_packet",
+      "display_status": "bound",
+      "hash": "48edd2fac668bdc23ff673eca24969c3ead5122499c85882fb121a3092d2b93e",
+      "source_id": "linkedin_manual_operator_handoff_48edd2fac668bdc2"
+    },
+    {
+      "card_id": "manual_export_payload",
+      "card_type": "manual_export_payload",
+      "display_status": "bound",
+      "hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+      "source_id": "linkedin_manual_export_79cc3f65a34689de"
+    },
+    {
+      "card_id": "approval_export_evidence_packet",
+      "card_type": "approval_export_evidence_packet",
+      "display_status": "bound",
+      "hash": "6fefc99b74dd9e5b8fd282dbe8361b4ed200be6b66b9112ad2273eb8a3451884",
+      "source_id": "linkedin_manual_approval_export_evidence_6fefc99b74dd9e5b"
+    },
+    {
+      "card_id": "canonical_article_source",
+      "card_type": "canonical_article_source",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "operator_supplied_publication_url",
+      "card_type": "operator_supplied_publication_url",
+      "display_status": "operator_supplied_not_network_verified",
+      "hash": "cd27e1719e84c0dcced884797f972c8713486c804577617a580dc1a0ac2f8fb2",
+      "source_id": "operator_supplied_publication_url"
+    }
+  ],
+  "exact_payload_hash": "40373df27f51c48d4c90efd4df174123d7a5b6defa44469e361d024bdb50e4ee",
+  "hash_algorithm": "sha256_json_v6",
+  "linkedin_api_used": false,
+  "live_publish_performed_by_contentops": false,
+  "manual_publication_claim_operator_supplied": true,
+  "network_call_made": false,
+  "operator_handoff_hash": "48edd2fac668bdc23ff673eca24969c3ead5122499c85882fb121a3092d2b93e",
+  "operator_handoff_packet_id": "linkedin_manual_operator_handoff_48edd2fac668bdc2",
+  "operator_review_status": "pending_review",
+  "operator_supplied_publication_platform": "linkedin",
+  "operator_supplied_publication_status": "manually_published_outside_contentops",
+  "operator_supplied_publication_timestamp": "2026-07-01T06:00:00Z",
+  "operator_supplied_publication_url": "https://www.linkedin.com/posts/capital-chronicle_evaluate-historical-volatility-in-macro-calendar-commentaries-activity-0000000000000000000",
+  "operator_supplied_publication_url_hash": "cd27e1719e84c0dcced884797f972c8713486c804577617a580dc1a0ac2f8fb2",
+  "operator_supplied_url_verification_status": "operator_supplied_not_network_verified",
+  "provider_call_made": false,
+  "publication_audit_status": "manual_url_imported_pending_operator_review",
+  "publication_url_audit_hash": "501e7b85a5a3beef3c7104ab529682cee2a367d7fa5c179717c60652a15185d7",
+  "publication_url_audit_packet_id": "linkedin_manual_publication_url_audit_501e7b85a5a3beef",
+  "recommended_next_task": "TASK_CONTENTOPS_V6_LINKEDIN_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_export_packet_id": "linkedin_manual_export_79cc3f65a34689de",
+  "source_export_payload_hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+  "task_label": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0",
+  "url_network_verified": false,
+  "warnings": [
+    "sample_fixture_only",
+    "operator_supplied_url_not_network_verified",
+    "no_url_fetch_no_scrape",
+    "manual_publication_claim_not_contentops_publish"
+  ]
+} as const;
+
+export const linkedinPublicationAuditReviewMetricsSummaryPacket = {
+  "approval_export_evidence_hash": "6fefc99b74dd9e5b8fd282dbe8361b4ed200be6b66b9112ad2273eb8a3451884",
+  "approval_export_evidence_packet_id": "linkedin_manual_approval_export_evidence_6fefc99b74dd9e5b",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "publication_url_audit_packet",
+      "card_type": "publication_url_audit_packet",
+      "display_status": "bound",
+      "hash": "501e7b85a5a3beef3c7104ab529682cee2a367d7fa5c179717c60652a15185d7",
+      "source_id": "linkedin_manual_publication_url_audit_501e7b85a5a3beef"
+    },
+    {
+      "card_id": "operator_handoff_packet",
+      "card_type": "operator_handoff_packet",
+      "display_status": "bound",
+      "hash": "48edd2fac668bdc23ff673eca24969c3ead5122499c85882fb121a3092d2b93e",
+      "source_id": "linkedin_manual_operator_handoff_48edd2fac668bdc2"
+    },
+    {
+      "card_id": "manual_export_payload",
+      "card_type": "manual_export_payload",
+      "display_status": "bound",
+      "hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+      "source_id": "linkedin_manual_export_79cc3f65a34689de"
+    },
+    {
+      "card_id": "approval_export_evidence_packet",
+      "card_type": "approval_export_evidence_packet",
+      "display_status": "bound",
+      "hash": "6fefc99b74dd9e5b8fd282dbe8361b4ed200be6b66b9112ad2273eb8a3451884",
+      "source_id": "linkedin_manual_approval_export_evidence_6fefc99b74dd9e5b"
+    },
+    {
+      "card_id": "canonical_article_source",
+      "card_type": "canonical_article_source",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "operator_supplied_publication_url",
+      "card_type": "operator_supplied_publication_url",
+      "display_status": "operator_supplied_not_network_verified",
+      "hash": "cd27e1719e84c0dcced884797f972c8713486c804577617a580dc1a0ac2f8fb2",
+      "source_id": "operator_supplied_publication_url"
+    }
+  ],
+  "exact_payload_hash": "40373df27f51c48d4c90efd4df174123d7a5b6defa44469e361d024bdb50e4ee",
+  "hash_algorithm": "sha256_json_v6",
+  "linkedin_api_used": false,
+  "live_publish_performed_by_contentops": false,
+  "manual_metrics": {
+    "clicks": 33,
+    "comments": 9,
+    "followers_delta": 6,
+    "impressions": 2310,
+    "notes": "Fixture LinkedIn metrics for evaluation purposes only.",
+    "profile_views": 21,
+    "reactions": 67,
+    "reposts": 4
+  },
+  "manual_metrics_claim_operator_supplied": true,
+  "manual_publication_claim_operator_supplied": true,
+  "metrics_network_verified": false,
+  "metrics_provider_api_used": false,
+  "metrics_source": "operator_supplied_manual_entry",
+  "metrics_summary_status": "manual_metrics_fixture_only_pending_operator_confirmation",
+  "network_call_made": false,
+  "operator_handoff_hash": "48edd2fac668bdc23ff673eca24969c3ead5122499c85882fb121a3092d2b93e",
+  "operator_handoff_packet_id": "linkedin_manual_operator_handoff_48edd2fac668bdc2",
+  "operator_review_status": "pending_review",
+  "operator_supplied_publication_timestamp": "2026-07-01T06:00:00Z",
+  "operator_supplied_publication_url": "https://www.linkedin.com/posts/capital-chronicle_evaluate-historical-volatility-in-macro-calendar-commentaries-activity-0000000000000000000",
+  "operator_supplied_publication_url_hash": "cd27e1719e84c0dcced884797f972c8713486c804577617a580dc1a0ac2f8fb2",
+  "provider_call_made": false,
+  "publication_audit_review_hash": "b14aa8810b74a9c672a2271503b38f92a7747361b8c73c770200143ab7095a3d",
+  "publication_audit_review_packet_id": "linkedin_publication_audit_review_b14aa8810b74a9c6",
+  "publication_audit_status": "manual_url_import_reviewed_pending_metrics_confirmation",
+  "publication_url_audit_hash": "501e7b85a5a3beef3c7104ab529682cee2a367d7fa5c179717c60652a15185d7",
+  "publication_url_audit_packet_id": "linkedin_manual_publication_url_audit_501e7b85a5a3beef",
+  "recommended_next_task": "TASK_CONTENTOPS_V6_LINKEDIN_PUBLICATION_EVIDENCE_LOOP_ACCEPTANCE_OR_NEXT_LANE_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_export_packet_id": "linkedin_manual_export_79cc3f65a34689de",
+  "source_export_payload_hash": "79cc3f65a34689de30155e4bed6764ffb5c947ab300b6399e61d88b30934088e",
+  "task_label": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0",
+  "url_network_verified": false,
+  "warnings": [
+    "sample_fixture_only",
+    "operator_supplied_metrics_not_network_verified",
+    "no_metrics_api_used",
+    "manual_metrics_claim_not_contentops_metrics"
+  ]
+} as const;

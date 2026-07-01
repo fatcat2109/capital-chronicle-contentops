@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "6dde149fd71b06637ff7bb394ae6ba8f3184482b",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_SUBSTACK_PUBLICATION_AUDIT_REVIEW_OR_METRICS_SUMMARY_V0",
+  "last_verified_remote_sha": "fbfd64c8975df7b5ac2daa549641a4b8e31a90c5",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0",
   "current_product_phase": "V6 local-first product loop consolidation on the canonical V5 dashboard surface",
-  "current_product_lane": "Substack publication audit review & manual metrics summary integrated into canonical V5 with operator-supplied manual metrics stubs, pending operator review, and no network/API calls.",
-  "accepted_baseline_summary": "Accepted product baseline is 6dde149fd71b06637ff7bb394ae6ba8f3184482b; this commit adds deterministic Substack publication audit review / manual metrics summary evidence and canonical V5 fixture-only visibility. Metrics are operator-supplied manual fixture values only; no URL fetch, scraping, browsing, network verification, Substack API, provider call, env/credential read, browser-session access, dispatch, send, schedule, approve, or ContentOps publish is authorized.",
+  "current_product_lane": "LinkedIn manual publication evidence loop integrated into canonical V5 with local fixture-only export, approval/export evidence, operator handoff, URL/audit import, and manual metrics summary; no LinkedIn API/network/browser/publish actions.",
+  "accepted_baseline_summary": "Accepted product baseline before this lane is fbfd64c8975df7b5ac2daa549641a4b8e31a90c5; this task adds deterministic local LinkedIn manual publication evidence loop packets and canonical V5 visibility. All publication URLs and metrics are operator-supplied fixture evidence only; no LinkedIn API, browser automation, URL fetch/scrape/network verification, env/credential/session read, publish, dispatch, schedule, send, approve, DM, comment, like, or reaction is authorized.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -35,7 +35,12 @@
     "live_contentops/substack_manual_approval_export_evidence_v6.py",
     "live_contentops/substack_manual_export_operator_handoff_v6.py",
     "live_contentops/substack_manual_publication_url_audit_import_v6.py",
-    "live_contentops/substack_publication_audit_review_metrics_summary_v6.py"
+    "live_contentops/substack_publication_audit_review_metrics_summary_v6.py",
+    "live_contentops/linkedin_manual_export_v6.py",
+    "live_contentops/linkedin_manual_approval_export_evidence_v6.py",
+    "live_contentops/linkedin_manual_operator_handoff_v6.py",
+    "live_contentops/linkedin_manual_publication_url_audit_import_v6.py",
+    "live_contentops/linkedin_publication_audit_review_metrics_summary_v6.py"
   ],
   "current_loop_components": [
     "AI research packet",
@@ -51,7 +56,12 @@
     "Substack manual approval/export evidence packet",
     "Substack manual export operator handoff packet",
     "Substack manual publication URL/audit import packet",
-    "Substack publication audit review & manual metrics summary packet"
+    "Substack publication audit review & manual metrics summary packet",
+    "LinkedIn manual post export packet",
+    "LinkedIn manual approval/export evidence packet",
+    "LinkedIn manual operator handoff packet",
+    "LinkedIn manual publication URL/audit import packet",
+    "LinkedIn manual metrics summary packet"
   ],
   "dispatch_live_status": "blocked; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, or live send authorized",
   "provider_env_credential_status": "gated; no env value or credential value reads; committed evidence may use boolean/key-name status only",
@@ -65,10 +75,10 @@
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_SUBSTACK_PUBLICATION_AUDIT_REVIEW_OR_METRICS_SUMMARY_V0",
-  "latest_accepted_task_result": "created deterministic Substack publication audit review & manual metrics summary packet binding operator-supplied manual metrics stubs to the URL audit, handoff, export payload, approval/export evidence, and article hashes; surfaced read-only pending review evidence in canonical V5 Manual Export, Approval Queue, and Evidence Vault",
-  "latest_evidence_summary": "Audit review packet docs/automation/V6_SUBSTACK_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY/sample_substack_publication_audit_review_metrics_summary_packet.json records views=1240, opens=820, likes=45, comments=8, shares=12, restacks=3, subscribers_delta=15, and all safety/API/publish flags false/disabled.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_SUBSTACK_PUBLICATION_METRICS_CONFIRMATION_OR_LANE_COMPLETE_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0",
+  "latest_accepted_task_result": "created deterministic LinkedIn manual publication evidence loop packets binding export, approval/export evidence, handoff, operator-supplied URL/audit import, and manual metrics summary; surfaced read-only pending review evidence in canonical V5 Manual Export, Approval Queue, and Evidence Vault",
+  "latest_evidence_summary": "LinkedIn sample packets under docs/automation/V6_LINKEDIN_* record fixture-only export, approval evidence, handoff, operator-supplied URL hash, and manual metrics; all safety/API/publish/network/browser flags are false/disabled.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_LINKEDIN_PUBLICATION_EVIDENCE_LOOP_ACCEPTANCE_OR_NEXT_LANE_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json"
@@ -98,7 +108,7 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "6dde149fd71b06637ff7bb394ae6ba8f3184482b",
+  "accepted_product_baseline_sha": "fbfd64c8975df7b5ac2daa549641a4b8e31a90c5",
   "last_status_commit_sha": "d077a22bf4faf16153ea5b2e79993d7666aa44a5",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed when this status ledger was updated; accepted_product_baseline_sha is the latest accepted product feature baseline; last_status_commit_sha is the status-only repair commit that corrected ledger metadata."
 }

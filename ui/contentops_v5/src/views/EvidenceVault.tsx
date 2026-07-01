@@ -8,6 +8,11 @@ import {
   substackManualExportOperatorHandoffPacket,
   substackManualPublicationUrlAuditImportPacket,
   substackPublicationAuditReviewMetricsSummaryPacket,
+  linkedinManualExportPacket,
+  linkedinManualApprovalExportEvidencePacket,
+  linkedinManualOperatorHandoffPacket,
+  linkedinManualPublicationUrlAuditImportPacket,
+  linkedinPublicationAuditReviewMetricsSummaryPacket,
 } from '../data/substackManualExportArticleStudioAdapter';
 import { useState } from 'react';
 import { useApp } from '../state';
@@ -149,6 +154,28 @@ export function EvidenceVault() {
               <EvidenceChip key={blocker}>{blocker}</EvidenceChip>
             ))}
           </div>
+        </div>
+      </Panel>
+
+
+
+      <Panel
+        title="LinkedIn manual publication evidence vault"
+        subtitle={`${linkedinManualExportPacket.export_packet_id} · ${linkedinPublicationAuditReviewMetricsSummaryPacket.publication_audit_review_packet_id}`}
+        actions={<StatusChip status="review">sample_fixture_only</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {[...linkedinManualApprovalExportEvidencePacket.evidence_cards, ...linkedinManualOperatorHandoffPacket.evidence_cards, ...linkedinManualPublicationUrlAuditImportPacket.evidence_cards, ...linkedinPublicationAuditReviewMetricsSummaryPacket.evidence_cards].map((card, index) => (
+            <article key={`${card.card_id}-${index}`} className="rounded-lg border border-line bg-surface-2 p-3">
+              <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">{card.card_type}</div>
+              <h3 className="mt-1 break-all text-sm font-semibold text-fg">{card.source_id}</h3>
+              <div className="mt-2 break-all font-mono text-[11px] text-fg-muted">{card.hash}</div>
+              <StatusChip status={card.display_status === 'blocked' ? 'blocked' : card.display_status === 'bound' ? 'verified' : 'review'}>{card.display_status}</StatusChip>
+            </article>
+          ))}
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          LinkedIn fixture-only forensic surface: linkedin_api_used={String(linkedinPublicationAuditReviewMetricsSummaryPacket.linkedin_api_used)} · network_call_made={String(linkedinPublicationAuditReviewMetricsSummaryPacket.network_call_made)} · url_network_verified={String(linkedinPublicationAuditReviewMetricsSummaryPacket.url_network_verified)} · metrics_network_verified={String(linkedinPublicationAuditReviewMetricsSummaryPacket.metrics_network_verified)} · controls_enabled={String(linkedinPublicationAuditReviewMetricsSummaryPacket.enabled_publish_send_dispatch_approve_controls)}
         </div>
       </Panel>
 

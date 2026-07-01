@@ -8,6 +8,10 @@ import {
   substackManualExportOperatorHandoffPacket,
   substackManualPublicationUrlAuditImportPacket,
   substackPublicationAuditReviewMetricsSummaryPacket,
+  linkedinManualApprovalExportEvidencePacket,
+  linkedinManualOperatorHandoffPacket,
+  linkedinManualPublicationUrlAuditImportPacket,
+  linkedinPublicationAuditReviewMetricsSummaryPacket,
 } from '../data/substackManualExportArticleStudioAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -188,6 +192,24 @@ export function ApprovalQueue() {
         </div>
         <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 font-mono text-[11px] text-status-blocked">
           blocked controls: {substackPublicationAuditReviewMetricsSummaryPacket.blocked_controls.join(', ')} ? enabled={String(substackPublicationAuditReviewMetricsSummaryPacket.enabled_publish_send_dispatch_approve_controls)} ? no metrics API or URL fetch
+        </div>
+      </Panel>
+
+      <Panel
+        title="LinkedIn manual publication evidence pending review"
+        subtitle={linkedinManualApprovalExportEvidencePacket.approval_export_evidence_packet_id}
+        actions={<StatusChip status="review">{linkedinManualOperatorHandoffPacket.operator_handoff_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          <Row label="Approval" value={linkedinManualApprovalExportEvidencePacket.approval_status} />
+          <Row label="Manual export" value={linkedinManualApprovalExportEvidencePacket.manual_export_status} />
+          <Row label="LinkedIn API" value={String(linkedinManualApprovalExportEvidencePacket.linkedin_api_used)} mono />
+          <Row label="URL verified" value={String(linkedinManualPublicationUrlAuditImportPacket.url_network_verified)} mono />
+          <Row label="Metrics verified" value={String(linkedinPublicationAuditReviewMetricsSummaryPacket.metrics_network_verified)} mono />
+          <Row label="Controls enabled" value={String(linkedinManualOperatorHandoffPacket.enabled_publish_send_dispatch_approve_controls)} mono />
+        </div>
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 font-mono text-[11px] text-status-blocked">
+          blocked controls: {linkedinManualOperatorHandoffPacket.blocked_controls.join(', ')} · no LinkedIn API/browser automation/URL fetch/scrape/post/reaction/comment/DM/scheduler
         </div>
       </Panel>
       <Panel
