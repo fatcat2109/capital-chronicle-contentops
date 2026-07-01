@@ -25,6 +25,7 @@ import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNe
 import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBriefSourcePackReviewAdapter';
 import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticleSourcePackIntakeValidationAdapter';
 import { nextArticleDraftAuthorizationReadinessPacket } from '../data/nextArticleDraftAuthorizationReadinessAdapter';
+import { localCanonicalDraftPreviewReviewPacket } from '../data/localCanonicalDraftPreviewReviewAdapter';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -152,6 +153,34 @@ export function EvidenceVault() {
             Authorization record status is operator_drafting_authorization_recorded. Scope is local_canonical_draft_preparation_only.
             Local draft readiness status: ready_for_local_canonical_draft_workflow=true.
             Drafting/publishing gates remain locked: ready_for_llm_drafting=false · ready_for_provider_drafting=false · canonical_draft_created=false · article_body_created=false · ready_for_auto_publish=false · ready_for_dispatch=false.
+            No LLM/provider call is allowed on this local-first review workflow.
+          </div>
+        </div>
+        <div className="mt-4 rounded-lg border border-line bg-surface-2 p-3">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">Local canonical draft preview and review packet</div>
+          <h3 className="mt-1 break-all text-sm font-semibold text-fg">{localCanonicalDraftPreviewReviewPacket.local_draft_preview_packet_id}</h3>
+          <p className="mt-2 text-xs leading-relaxed text-fg-muted">status: {localCanonicalDraftPreviewReviewPacket.draft_preview_status} · review: {localCanonicalDraftPreviewReviewPacket.draft_review_status}</p>
+          <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30 space-y-1.5 font-mono">
+            <div><span className="font-semibold text-fg">local_draft_preview_packet_id:</span> {localCanonicalDraftPreviewReviewPacket.local_draft_preview_packet_id}</div>
+            <div><span className="font-semibold text-fg">draft_review_packet_id:</span> {localCanonicalDraftPreviewReviewPacket.draft_review_packet_id}</div>
+            <div><span className="font-semibold text-fg">draft_preview_status:</span> {localCanonicalDraftPreviewReviewPacket.draft_preview_status}</div>
+            <div><span className="font-semibold text-fg">draft_review_status:</span> {localCanonicalDraftPreviewReviewPacket.draft_review_status}</div>
+            <div><span className="font-semibold text-fg">draft_generation_method:</span> {localCanonicalDraftPreviewReviewPacket.draft_generation_method}</div>
+            <div><span className="font-semibold text-fg">canonical_draft_created:</span> {String(localCanonicalDraftPreviewReviewPacket.canonical_draft_created)}</div>
+            <div><span className="font-semibold text-fg">article_body_created:</span> {String(localCanonicalDraftPreviewReviewPacket.article_body_created)}</div>
+            <div><span className="font-semibold text-fg">final_article_approved:</span> {String(localCanonicalDraftPreviewReviewPacket.final_article_approved)}</div>
+            <div><span className="font-semibold text-fg">ready_for_llm_drafting:</span> {String(localCanonicalDraftPreviewReviewPacket.ready_for_llm_drafting)}</div>
+            <div><span className="font-semibold text-fg">ready_for_provider_drafting:</span> {String(localCanonicalDraftPreviewReviewPacket.ready_for_provider_drafting)}</div>
+            <div><span className="font-semibold text-fg">ready_for_auto_publish:</span> {String(localCanonicalDraftPreviewReviewPacket.ready_for_auto_publish)}</div>
+            <div><span className="font-semibold text-fg">ready_for_dispatch:</span> {String(localCanonicalDraftPreviewReviewPacket.ready_for_dispatch)}</div>
+            <div><span className="font-semibold text-fg">public_url_verification_performed:</span> {String(localCanonicalDraftPreviewReviewPacket.public_url_verification_performed)}</div>
+          </div>
+          <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30">
+            Draft preview status is local_draft_preview_created_for_review. Review status is pending_operator_review.
+            Draft generation method: deterministic_template_no_llm.
+            Gates: canonical_draft_created=true · article_body_created=true · final_article_approved=false.
+            Readiness locks: separate_final_approval_task_required=true · separate_platform_variant_task_required=true · separate_publish_authorization_required=true · public_url_verification_performed=false.
+            Drafting/publishing gates remain locked: ready_for_llm_drafting=false · ready_for_provider_drafting=false · ready_for_auto_publish=false · ready_for_dispatch=false.
             No LLM/provider call is allowed on this local-first review workflow.
           </div>
         </div>

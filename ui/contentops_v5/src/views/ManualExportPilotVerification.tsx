@@ -23,6 +23,7 @@ import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNe
 import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBriefSourcePackReviewAdapter';
 import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticleSourcePackIntakeValidationAdapter';
 import { nextArticleDraftAuthorizationReadinessPacket } from '../data/nextArticleDraftAuthorizationReadinessAdapter';
+import { localCanonicalDraftPreviewReviewPacket } from '../data/localCanonicalDraftPreviewReviewAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -277,6 +278,100 @@ export function ManualExportPilotVerification() {
           Local draft readiness status: ready_for_local_canonical_draft_workflow=true.
           Drafting/publishing gates remain locked: ready_for_llm_drafting=false · ready_for_provider_drafting=false · canonical_draft_created=false · article_body_created=false · ready_for_auto_publish=false · ready_for_dispatch=false.
           No LLM/provider call is allowed on this local-first review workflow.
+        </div>
+      </Panel>
+
+      <Panel
+        title="Local canonical draft preview and review"
+        subtitle={`${localCanonicalDraftPreviewReviewPacket.local_draft_preview_packet_id} · review: ${localCanonicalDraftPreviewReviewPacket.draft_review_status}`}
+        actions={<StatusChip status="review">{localCanonicalDraftPreviewReviewPacket.draft_preview_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Preview Packet ID" value={localCanonicalDraftPreviewReviewPacket.local_draft_preview_packet_id} mono status="review" />
+          <Metric label="Review Packet ID" value={localCanonicalDraftPreviewReviewPacket.draft_review_packet_id} mono status="review" />
+          <Metric label="Preview status" value={localCanonicalDraftPreviewReviewPacket.draft_preview_status} mono status="review" />
+          <Metric label="Review status" value={localCanonicalDraftPreviewReviewPacket.draft_review_status} mono status="review" />
+          <Metric label="Source Auth ID" value={localCanonicalDraftPreviewReviewPacket.source_draft_authorization_packet_id} mono status="verified" />
+          <Metric label="Source Auth Hash" value={localCanonicalDraftPreviewReviewPacket.source_draft_authorization_packet_hash.slice(0, 16) + '...'} mono status="verified" />
+          <Metric label="Section Count" value={String(localCanonicalDraftPreviewReviewPacket.draft_preview_sections.length)} status="verified" />
+          <Metric label="Evidence Callouts" value={String(localCanonicalDraftPreviewReviewPacket.evidence_callouts.length)} status="verified" />
+          <Metric label="Definitions Count" value={String(localCanonicalDraftPreviewReviewPacket.definitions_to_include.length)} status="verified" />
+          <Metric label="Caveats Count" value={String(localCanonicalDraftPreviewReviewPacket.caveats_to_include.length)} status="verified" />
+          <Metric label="Generation Method" value={localCanonicalDraftPreviewReviewPacket.draft_generation_method} mono status="verified" />
+          <Metric label="Final Approved" value={String(localCanonicalDraftPreviewReviewPacket.final_article_approved)} status="blocked" />
+        </div>
+
+        <article className="mt-4 rounded-lg border border-line bg-surface-2 p-4 space-y-4">
+          <div>
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">Working Title</div>
+            <h3 className="text-base font-semibold text-fg mt-0.5">{localCanonicalDraftPreviewReviewPacket.working_title}</h3>
+            <p className="text-sm text-fg-muted mt-1">{localCanonicalDraftPreviewReviewPacket.dek}</p>
+          </div>
+
+          <div className="border-t border-line pt-3">
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">Core Thesis</div>
+            <p className="text-sm text-fg-muted mt-1 font-medium">{localCanonicalDraftPreviewReviewPacket.thesis}</p>
+          </div>
+
+          <div className="border-t border-line pt-3">
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">Audience Question</div>
+            <p className="text-sm text-fg-muted mt-1">{localCanonicalDraftPreviewReviewPacket.audience_question}</p>
+          </div>
+
+          <div className="border-t border-line pt-3">
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">Draft Preview Sections</div>
+            <div className="mt-2 space-y-3">
+              {localCanonicalDraftPreviewReviewPacket.draft_preview_sections.map((sect, idx) => (
+                <div key={idx} className="rounded border border-line bg-surface-1 p-3">
+                  <h4 className="text-sm font-semibold text-fg">{sect.section_title}</h4>
+                  <p className="mt-1 text-xs leading-relaxed text-fg-muted">{sect.section_body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="border-t border-line pt-3">
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">Definitions to Include</div>
+            <ul className="mt-1 list-disc list-inside text-xs text-fg-muted space-y-1">
+              {localCanonicalDraftPreviewReviewPacket.definitions_to_include.map((def, idx) => (
+                <li key={idx}>{def}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="border-t border-line pt-3">
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">Caveats to Include</div>
+            <ul className="mt-1 list-disc list-inside text-xs text-fg-muted space-y-1">
+              {localCanonicalDraftPreviewReviewPacket.caveats_to_include.map((cav, idx) => (
+                <li key={idx}>{cav}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="border-t border-line pt-3">
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">Non-Advisory Disclaimer</div>
+            <p className="mt-1 text-xs font-semibold text-status-review bg-status-review/5 p-2 rounded border border-status-review/25">
+              {localCanonicalDraftPreviewReviewPacket.non_advisory_disclaimer}
+            </p>
+          </div>
+
+          <div className="border-t border-line pt-3">
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">Operator Review Questions</div>
+            <ul className="mt-1 list-decimal list-inside text-xs text-fg-muted space-y-1">
+              {localCanonicalDraftPreviewReviewPacket.operator_review_questions.map((q, idx) => (
+                <li key={idx}>{q}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
+
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted space-y-1">
+          <div>Draft preview status is local_draft_preview_created_for_review. Review status is pending_operator_review.</div>
+          <div>Draft generation method: deterministic_template_no_llm.</div>
+          <div>Gates: canonical_draft_created=true · article_body_created=true · final_article_approved=false.</div>
+          <div>Readiness locks: separate_final_approval_task_required=true · separate_platform_variant_task_required=true · separate_publish_authorization_required=true · public_url_verification_performed=false.</div>
+          <div>Drafting/publishing gates remain locked: ready_for_llm_drafting=false · ready_for_provider_drafting=false · ready_for_auto_publish=false · ready_for_dispatch=false.</div>
+          <div>No LLM/provider call is allowed on this local-first review workflow.</div>
         </div>
       </Panel>
 

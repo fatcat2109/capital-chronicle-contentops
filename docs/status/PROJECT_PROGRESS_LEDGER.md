@@ -252,3 +252,18 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Caveats | Authorized state does not construct the draft body copy or verify public URLs. |
 | Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
 | Next recommendation at time of update | `TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0` |
+
+## Local Canonical Draft Preview and Operator Review
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0` |
+| Accepted product/audit baseline SHA | `064acd3333b70c8dd84c621c47af5cb395e387df` (remains unchanged until push/readback). |
+| Repo HEAD / evidence commit | Reported in final evidence. |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Deterministic draft preview generation using a local template and operator review checklist mapping. |
+| Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |
+| Changed artifact families | `live_contentops/local_canonical_draft_preview_and_review_v6.py`, codegen, runbook, tests, and V5 dashboard cards. |
+| Caveats | Preview is not an LLM-synthesized draft, not final approved copy, and contains no live dispatch payload. |
+| Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
+| Next recommendation at time of update | `TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_HEAVY_BATCH_V0` |

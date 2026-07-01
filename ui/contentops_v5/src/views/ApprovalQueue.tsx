@@ -23,6 +23,7 @@ import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNe
 import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBriefSourcePackReviewAdapter';
 import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticleSourcePackIntakeValidationAdapter';
 import { nextArticleDraftAuthorizationReadinessPacket } from '../data/nextArticleDraftAuthorizationReadinessAdapter';
+import { localCanonicalDraftPreviewReviewPacket } from '../data/localCanonicalDraftPreviewReviewAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -161,6 +162,33 @@ export function ApprovalQueue() {
           Local draft readiness status: ready_for_local_canonical_draft_workflow=true.
           Drafting/publishing gates remain locked: ready_for_llm_drafting=false · ready_for_provider_drafting=false · canonical_draft_created=false · article_body_created=false · ready_for_auto_publish=false · ready_for_dispatch=false.
           No LLM/provider call is allowed on this local-first review workflow.
+        </div>
+      </Panel>
+
+      <Panel
+        title="Local canonical draft preview and review"
+        subtitle={`${localCanonicalDraftPreviewReviewPacket.local_draft_preview_packet_id} · review: ${localCanonicalDraftPreviewReviewPacket.draft_review_status}`}
+        actions={<StatusChip status="review">{localCanonicalDraftPreviewReviewPacket.draft_preview_status}</StatusChip>}
+      >
+        <div className="rounded-lg border border-line bg-surface-2 p-3 font-mono text-[11.5px] text-fg-muted space-y-2">
+          <div><span className="font-semibold text-fg">local_draft_preview_packet_id:</span> {localCanonicalDraftPreviewReviewPacket.local_draft_preview_packet_id}</div>
+          <div><span className="font-semibold text-fg">draft_review_packet_id:</span> {localCanonicalDraftPreviewReviewPacket.draft_review_packet_id}</div>
+          <div><span className="font-semibold text-fg">draft_preview_status:</span> {localCanonicalDraftPreviewReviewPacket.draft_preview_status}</div>
+          <div><span className="font-semibold text-fg">draft_review_status:</span> {localCanonicalDraftPreviewReviewPacket.draft_review_status}</div>
+          <div><span className="font-semibold text-fg">source_draft_authorization_packet_id:</span> {localCanonicalDraftPreviewReviewPacket.source_draft_authorization_packet_id}</div>
+          <div><span className="font-semibold text-fg">draft_generation_method:</span> {localCanonicalDraftPreviewReviewPacket.draft_generation_method}</div>
+          <div><span className="font-semibold text-fg">canonical_draft_created:</span> {String(localCanonicalDraftPreviewReviewPacket.canonical_draft_created)}</div>
+          <div><span className="font-semibold text-fg">article_body_created:</span> {String(localCanonicalDraftPreviewReviewPacket.article_body_created)}</div>
+          <div><span className="font-semibold text-fg">final_article_approved:</span> {String(localCanonicalDraftPreviewReviewPacket.final_article_approved)}</div>
+          <div><span className="font-semibold text-fg">working_title:</span> {localCanonicalDraftPreviewReviewPacket.working_title}</div>
+        </div>
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted space-y-1">
+          <div>Draft preview status is local_draft_preview_created_for_review. Review status is pending_operator_review.</div>
+          <div>Draft generation method: deterministic_template_no_llm.</div>
+          <div>Gates: canonical_draft_created=true · article_body_created=true · final_article_approved=false.</div>
+          <div>Readiness locks: separate_final_approval_task_required=true · separate_platform_variant_task_required=true · separate_publish_authorization_required=true · public_url_verification_performed=false.</div>
+          <div>Drafting/publishing gates remain locked: ready_for_llm_drafting=false · ready_for_provider_drafting=false · ready_for_auto_publish=false · ready_for_dispatch=false.</div>
+          <div>No LLM/provider call is allowed on this local-first review workflow.</div>
         </div>
       </Panel>
       <SubstackArticleStudioCard mode="approval" />

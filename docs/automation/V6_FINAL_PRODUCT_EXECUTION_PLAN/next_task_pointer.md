@@ -1,13 +1,13 @@
 # V6 Next Task Pointer
 
-Current task: `TASK_CONTENTOPS_V6_BOOTSTRAP_ENV_RECON_AND_CAPABILITY_MATRIX_V0`
+Current task: `TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0`
 
 Recommended next task:
 
 ```text
-TASK_CONTENTOPS_V6_PLATFORM_REGISTRY_AND_ADAPTER_TAXONOMY_RECONCILIATION_V0
+TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_HEAVY_BATCH_V0
 ```
 
-Purpose: reconcile platform universe registry, destination binding IDs, payload classes, and adapter taxonomy against the V6 capability matrix.
+Purpose: review the deterministic local canonical draft preview and produce the platform-native variant preview candidate package.
 
-Do not start live writes or browser/CDP probes as part of the next task unless explicitly authorized.
+Do not start live writes, browser/CDP probes, or LLM/provider API calls as part of the next task unless explicitly authorized.
