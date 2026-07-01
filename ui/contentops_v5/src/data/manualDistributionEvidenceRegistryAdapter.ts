@@ -175,3 +175,55 @@ export const manualDistributionEvidenceRegistry = {
 } as const;
 
 export const manualDistributionRegistryPlatforms = manualDistributionEvidenceRegistry.platforms;
+
+
+export const manualDistributionRegistryAuditIndex = {
+  "schema_version": "6.0.0",
+  "audit_index_kind": "manual_distribution_registry_audit_index_v0",
+  "registry_packet_id": "manual_distribution_evidence_registry_7f75feba8ed20f2d",
+  "registry_hash": "7f75feba8ed20f2d98b4ee15aff0f41a4271a76e3634fbec2563d17bc8f66fac",
+  "source_path_audit_packet_id": "manual_distribution_registry_source_path_audit_0a88829f638feac4",
+  "source_path_audit_hash": "0a88829f638feac498a669966b6d5b0fc5d83adb1dacb7f16ab93070d868155c",
+  "platforms_included": [
+    "Substack",
+    "LinkedIn",
+    "X"
+  ],
+  "registry_status": "fixture_manual_operator_supplied_only",
+  "source_path_audit_status": "passed",
+  "all_paths_exist": true,
+  "all_packet_ids_match": true,
+  "all_hashes_match": true,
+  "all_paths_within_docs_automation": true,
+  "no_url_like_source_paths": true,
+  "registry_readiness_status": "ready_for_manual_operator_review_only",
+  "blockers": [
+    "live/provider/platform execution disabled",
+    "platform API/auth/dispatch readiness is out of scope",
+    "approve/send/publish/dispatch/schedule controls remain blocked"
+  ],
+  "caveats": [
+    "fixture/operator-supplied/manual only",
+    "public URL reachability is not verified",
+    "platform-side state is not proven",
+    "operator review is required before any external manual action"
+  ],
+  "next_manual_operator_action": "review committed registry and audit packets locally; do not dispatch or perform live platform actions from ContentOps",
+  "non_readiness_claims": {
+    "live_readiness_claimed": false,
+    "api_readiness_claimed": false,
+    "public_url_verification_claimed": false,
+    "platform_auth_readiness_claimed": false,
+    "dispatch_readiness_claimed": false
+  },
+  "network_call_made": false,
+  "provider_call_made": false,
+  "env_value_read_made": false,
+  "credential_read_made": false,
+  "browser_session_used": false,
+  "public_url_fetch_made": false,
+  "live_publish_performed_by_contentops": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "exact_payload_hash": "b968984b920bbf93edef7941ab3c93f229db393f6be7bcf0025a713b82cc5477",
+  "audit_index_packet_id": "manual_distribution_registry_audit_index_b968984b920bbf93"
+} as const;

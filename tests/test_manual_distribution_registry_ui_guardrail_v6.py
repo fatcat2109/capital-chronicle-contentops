@@ -39,3 +39,24 @@ def test_registry_panel_packet_drilldown_roles_and_safe_hash_separator():
         assert role in text
     assert "packet_id=" in text
     assert "..." in text
+
+
+
+def test_registry_panel_audit_index_readiness_summary():
+    text = COMPONENT.read_text(encoding="utf-8")
+    assert "Audit Index / Operator Review Readiness" in text
+    assert "ready_for_manual_operator_review_only" in text
+    assert "manual operator review only" in text
+    assert "not live readiness" in text
+    for phrase in ["ready for live", "api ready", "dispatch ready", "public url verified", "platform auth ready"]:
+        assert phrase not in text.lower()
+    for field in [
+        "live_readiness_claimed", "api_readiness_claimed", "public_url_verification_claimed",
+        "platform_auth_readiness_claimed", "dispatch_readiness_claimed", "network_call_made",
+        "provider_call_made", "env_value_read_made", "credential_read_made", "browser_session_used",
+        "public_url_fetch_made", "live_publish_performed_by_contentops",
+        "enabled_publish_send_dispatch_approve_controls",
+    ]:
+        assert field in text
+    assert "manualDistributionRegistryAuditIndex.blockers" in text
+    assert "manualDistributionRegistryAuditIndex.caveats" in text

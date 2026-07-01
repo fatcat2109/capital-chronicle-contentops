@@ -1,4 +1,4 @@
-import { manualDistributionEvidenceRegistry, manualDistributionRegistryPlatforms } from '../data/manualDistributionEvidenceRegistryAdapter';
+import { manualDistributionEvidenceRegistry, manualDistributionRegistryAuditIndex, manualDistributionRegistryPlatforms } from '../data/manualDistributionEvidenceRegistryAdapter';
 import { Panel, StatusChip } from '../ui/primitives';
 
 const packetRoles = ['export', 'approval', 'handoff', 'url', 'metrics'] as const;
@@ -41,6 +41,57 @@ export function ManualDistributionRegistryPanel() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div className="border-t border-line bg-surface-1/60 px-4 py-4">
+          <div className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-fg-subtle">Audit Index / Operator Review Readiness</div>
+          <div className="mt-2 text-sm font-semibold text-fg">manual operator review only - not live readiness</div>
+          <div className="mt-3 grid gap-3 lg:grid-cols-3">
+            <div className="rounded-lg border border-line bg-surface-2 p-3">
+              <div className="font-mono text-[10px] text-fg-muted">readiness={manualDistributionRegistryAuditIndex.registry_readiness_status}</div>
+              <div className="sr-only">ready_for_manual_operator_review_only</div>
+              <div className="mt-1 font-mono text-[10px] text-fg-muted">source_path_audit_status={manualDistributionRegistryAuditIndex.source_path_audit_status}</div>
+              <div className="mt-1 font-mono text-[10px] text-fg-muted">registry={shortHash(manualDistributionRegistryAuditIndex.registry_hash)}</div>
+              <div className="mt-1 font-mono text-[10px] text-fg-muted">audit_index={shortHash(manualDistributionRegistryAuditIndex.exact_payload_hash)}</div>
+              <div className="mt-1 font-mono text-[10px] text-fg-muted">source_path_audit={shortHash(manualDistributionRegistryAuditIndex.source_path_audit_hash)}</div>
+            </div>
+            <div className="rounded-lg border border-line bg-surface-2 p-3 font-mono text-[10px] text-status-ready">
+              <div>all_paths_exist={String(manualDistributionRegistryAuditIndex.all_paths_exist)}</div>
+              <div>all_packet_ids_match={String(manualDistributionRegistryAuditIndex.all_packet_ids_match)}</div>
+              <div>all_hashes_match={String(manualDistributionRegistryAuditIndex.all_hashes_match)}</div>
+              <div>all_paths_within_docs_automation={String(manualDistributionRegistryAuditIndex.all_paths_within_docs_automation)}</div>
+              <div>no_url_like_source_paths={String(manualDistributionRegistryAuditIndex.no_url_like_source_paths)}</div>
+            </div>
+            <div className="rounded-lg border border-line bg-surface-2 p-3 font-mono text-[10px] text-status-blocked">
+              <div>live_readiness_claimed={String(manualDistributionRegistryAuditIndex.non_readiness_claims.live_readiness_claimed)}</div>
+              <div>api_readiness_claimed={String(manualDistributionRegistryAuditIndex.non_readiness_claims.api_readiness_claimed)}</div>
+              <div>public_url_verification_claimed={String(manualDistributionRegistryAuditIndex.non_readiness_claims.public_url_verification_claimed)}</div>
+              <div>platform_auth_readiness_claimed={String(manualDistributionRegistryAuditIndex.non_readiness_claims.platform_auth_readiness_claimed)}</div>
+              <div>dispatch_readiness_claimed={String(manualDistributionRegistryAuditIndex.non_readiness_claims.dispatch_readiness_claimed)}</div>
+              <div>network_call_made={String(manualDistributionRegistryAuditIndex.network_call_made)}</div>
+              <div>provider_call_made={String(manualDistributionRegistryAuditIndex.provider_call_made)}</div>
+              <div>env_value_read_made={String(manualDistributionRegistryAuditIndex.env_value_read_made)}</div>
+              <div>credential_read_made={String(manualDistributionRegistryAuditIndex.credential_read_made)}</div>
+              <div>browser_session_used={String(manualDistributionRegistryAuditIndex.browser_session_used)}</div>
+              <div>public_url_fetch_made={String(manualDistributionRegistryAuditIndex.public_url_fetch_made)}</div>
+              <div>live_publish_performed_by_contentops={String(manualDistributionRegistryAuditIndex.live_publish_performed_by_contentops)}</div>
+              <div>enabled_publish_send_dispatch_approve_controls={String(manualDistributionRegistryAuditIndex.enabled_publish_send_dispatch_approve_controls)}</div>
+            </div>
+          </div>
+          <div className="mt-3 grid gap-3 lg:grid-cols-2">
+            <div className="rounded-lg border border-line bg-surface-2 p-3">
+              <div className="text-xs font-semibold uppercase tracking-[0.12em] text-fg-subtle">Blockers</div>
+              <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-fg-muted">
+                {manualDistributionRegistryAuditIndex.blockers.map((blocker) => <li key={blocker}>{blocker}</li>)}
+              </ul>
+            </div>
+            <div className="rounded-lg border border-line bg-surface-2 p-3">
+              <div className="text-xs font-semibold uppercase tracking-[0.12em] text-fg-subtle">Caveats</div>
+              <ul className="mt-2 list-disc space-y-1 pl-5 text-xs text-fg-muted">
+                {manualDistributionRegistryAuditIndex.caveats.map((caveat) => <li key={caveat}>{caveat}</li>)}
+              </ul>
+            </div>
+          </div>
         </div>
         <div className="border-t border-line bg-surface-1/60 px-4 py-4">
           <div className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-fg-subtle">Packet drilldown audit</div>

@@ -171,3 +171,11 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Current loop components include Manual Distribution Registry source-path audit and audit index/readiness summary.
 - Backend status modules include `live_contentops/manual_distribution_evidence_registry_source_path_audit_v6.py` and `live_contentops/manual_distribution_registry_audit_index_v6.py`.
 - Live/provider/platform execution remains blocked; canonical dashboard remains `ui/contentops_v5/`.
+
+## Manual Distribution Registry Audit Index UI Summary
+
+- Latest task: `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_UI_SUMMARY_V0`.
+- Current lane: manual distribution registry audit index UI summary.
+- Scope: surface registry readiness, source-path audit status, blockers, caveats, non-readiness claims, and safety flags in canonical V5.
+- Accepted product/audit baseline remains `1796277bbcbf9a92c7bb54c5005678d3cbbf1e6c` until push/readback acceptance of this UI behavior.
+- Live/provider/platform execution remains blocked; canonical dashboard remains `ui/contentops_v5/`.
