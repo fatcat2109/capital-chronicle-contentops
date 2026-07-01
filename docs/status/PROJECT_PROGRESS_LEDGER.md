@@ -267,3 +267,18 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Caveats | Preview is not an LLM-synthesized draft, not final approved copy, and contains no live dispatch payload. |
 | Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
 | Next recommendation at time of update | `TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_HEAVY_BATCH_V0` |
+
+## Canonical Draft Final Review and Platform Variant Preview
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_HEAVY_BATCH_V0` |
+| Accepted product/audit baseline SHA | `3c4af3cf7baeeb1a46a748c0efa585ff41e74210` (remains unchanged until push/readback). |
+| Repo HEAD / evidence commit | Reported in final evidence. |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Deterministic draft final review and platform variant preview generation. |
+| Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |
+| Changed artifact families | `live_contentops/canonical_draft_final_review_to_platform_variant_preview_v6.py`, codegen, runbook, tests, and V5 dashboard cards. |
+| Caveats | Preview variants are not live dispatch payloads, contain no financial advice, and require separate operator final approval. |
+| Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
+| Next recommendation at time of update | `TASK_CONTENTOPS_V6_PLATFORM_VARIANT_FINAL_REVIEW_TO_APPROVAL_PACKET_PREVIEW_HEAVY_BATCH_V0` |

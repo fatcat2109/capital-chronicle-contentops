@@ -24,6 +24,7 @@ import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBrief
 import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticleSourcePackIntakeValidationAdapter';
 import { nextArticleDraftAuthorizationReadinessPacket } from '../data/nextArticleDraftAuthorizationReadinessAdapter';
 import { localCanonicalDraftPreviewReviewPacket } from '../data/localCanonicalDraftPreviewReviewAdapter';
+import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonicalDraftFinalReviewVariantPreviewAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -372,6 +373,50 @@ export function ManualExportPilotVerification() {
           <div>Readiness locks: separate_final_approval_task_required=true · separate_platform_variant_task_required=true · separate_publish_authorization_required=true · public_url_verification_performed=false.</div>
           <div>Drafting/publishing gates remain locked: ready_for_llm_drafting=false · ready_for_provider_drafting=false · ready_for_auto_publish=false · ready_for_dispatch=false.</div>
           <div>No LLM/provider call is allowed on this local-first review workflow.</div>
+        </div>
+      </Panel>
+
+      <Panel
+        title="V6 canonical draft final review and platform variant preview"
+        subtitle={`${canonicalDraftFinalReviewVariantPreviewPacket.canonical_draft_final_review_to_platform_variant_preview_packet_id} · status: ${canonicalDraftFinalReviewVariantPreviewPacket.canonical_draft_final_review_status}`}
+        actions={<StatusChip status="review">{canonicalDraftFinalReviewVariantPreviewPacket.platform_variant_preview_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Final Review Packet" value={canonicalDraftFinalReviewVariantPreviewPacket.canonical_draft_final_review_to_platform_variant_preview_packet_id} mono status="review" />
+          <Metric label="Variant Preview status" value={canonicalDraftFinalReviewVariantPreviewPacket.platform_variant_preview_status} mono status="review" />
+          <Metric label="Final Article Approved" value={String(canonicalDraftFinalReviewVariantPreviewPacket.final_article_approved)} status="blocked" />
+          <Metric label="Operator Final Approval" value={String(canonicalDraftFinalReviewVariantPreviewPacket.operator_final_approval_required)} status="review" />
+          <Metric label="Platform Payload Approved" value={String(canonicalDraftFinalReviewVariantPreviewPacket.platform_payloads_approved)} status="blocked" />
+          <Metric label="Variants Created" value={String(canonicalDraftFinalReviewVariantPreviewPacket.platform_variants_created)} status="verified" />
+          <Metric label="Auto-Publish Ready" value={String(canonicalDraftFinalReviewVariantPreviewPacket.ready_for_auto_publish)} status="blocked" />
+          <Metric label="Dispatch Ready" value={String(canonicalDraftFinalReviewVariantPreviewPacket.ready_for_dispatch)} status="blocked" />
+          <Metric label="LLM/Provider Call" value={String(canonicalDraftFinalReviewVariantPreviewPacket.llm_provider_call_made)} status="blocked" />
+          <Metric label="Network Call Made" value={String(canonicalDraftFinalReviewVariantPreviewPacket.network_call_made)} status="blocked" />
+          <Metric label="Public URL Verified" value={String(canonicalDraftFinalReviewVariantPreviewPacket.public_url_verification_performed)} status="blocked" />
+          <Metric label="Advice/Signal wording" value={String(canonicalDraftFinalReviewVariantPreviewPacket.forbidden_financial_advice_or_signal_wording_present)} status="verified" />
+        </div>
+
+        <div className="mt-4 border-t border-line pt-3">
+          <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle mb-2">Committed Preview Variants</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {Object.entries(canonicalDraftFinalReviewVariantPreviewPacket.preview_variants).map(([platform, preview]) => (
+              <div key={platform} className="p-3 border border-line bg-surface-2 rounded-lg">
+                <div className="font-semibold text-xs text-accent uppercase">{platform.replace(/_/g, ' ')}</div>
+                <div className="font-bold text-xs text-fg mt-1">{preview.title}</div>
+                <div className="text-xs text-fg-muted mt-1 leading-relaxed">{preview.body}</div>
+                <div className="text-[10px] text-fg-subtle mt-1 font-mono">status: {preview.status}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Platform variant preview status is platform_variant_preview_created_for_operator_review.
+          Draft final review status is ready_for_operator_final_review.
+          Approval record and outbox entries remain uncreated.
+          Readiness locks: final_article_approved=false · platform_payloads_approved=false.
+          Drafting/publishing gates remain locked: ready_for_auto_publish=false · ready_for_dispatch=false.
+          No LLM/provider call is allowed on this local-first review workflow.
         </div>
       </Panel>
 

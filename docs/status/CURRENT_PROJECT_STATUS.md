@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_HEAVY_BATCH_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,19 +10,19 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-3c4af3cf7baeeb1a46a748c0efa585ff41e74210
+727e80d70797f81367db496e0a5268a2a63e06dd
 
 ## current_product_phase
-V6 local-first local canonical draft preview and operator review workflow on the V5 dashboard surface
+V6 local-first canonical draft final review and platform variant preview on the canonical V5 dashboard surface
 
 ## current_product_lane
-local canonical draft preview and operator review workflow
+canonical draft final review and platform variant preview
 
 ## accepted_baseline_summary
-Next article local canonical draft preview and review workflow completed and accepted after push/readback at `3c4af3cf7baeeb1a46a748c0efa585ff41e74210`; previous accepted baseline was `064acd3333b70c8dd84c621c47af5cb395e387df`. No live/provider/platform/LLM execution occurred.
+Next article canonical draft final review and platform variant preview completed; accepted product baseline SHA remains `3c4af3cf7baeeb1a46a748c0efa585ff41e74210` until push/readback. No live/provider/platform/LLM execution occurred.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `3c4af3cf7baeeb1a46a748c0efa585ff41e74210`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `727e80d70797f81367db496e0a5268a2a63e06dd`
 - accepted product baseline (`accepted_product_baseline_sha`): `3c4af3cf7baeeb1a46a748c0efa585ff41e74210`
 - previous accepted product baseline: `064acd3333b70c8dd84c621c47af5cb395e387df`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
@@ -70,20 +70,20 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_HEAVY_BATCH_V0
 
 ## latest changed areas
-- `live_contentops/local_canonical_draft_preview_and_review_v6.py`
-- `live_contentops/local_canonical_draft_preview_v5_adapter_codegen_v6.py`
-- `docs/automation/V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW/`
-- `tests/test_local_canonical_draft_preview_and_review_v6.py`
-- `tests/test_local_canonical_draft_preview_review_ui_guardrail_v6.py`
-- `tests/test_local_canonical_draft_preview_v5_adapter_codegen_v6.py`
-- `docs/runbooks/V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_RUNBOOK.md`
-- `ui/contentops_v5/src/data/localCanonicalDraftPreviewReviewAdapter.ts`
+- `live_contentops/canonical_draft_final_review_to_platform_variant_preview_v6.py`
+- `live_contentops/canonical_draft_final_review_variant_preview_v5_adapter_codegen_v6.py`
+- `docs/automation/V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW/`
+- `tests/test_canonical_draft_final_review_to_platform_variant_preview_v6.py`
+- `tests/test_canonical_draft_final_review_variant_preview_ui_guardrail_v6.py`
+- `tests/test_canonical_draft_final_review_variant_preview_v5_adapter_codegen_v6.py`
+- `docs/runbooks/V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_RUNBOOK.md`
+- `ui/contentops_v5/src/data/canonicalDraftFinalReviewVariantPreviewAdapter.ts`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_PLATFORM_VARIANT_FINAL_REVIEW_TO_APPROVAL_PACKET_PREVIEW_HEAVY_BATCH_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.

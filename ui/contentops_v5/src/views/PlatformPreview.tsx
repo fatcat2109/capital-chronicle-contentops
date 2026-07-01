@@ -1,4 +1,4 @@
-// Capital Chronicle ContentOps V5 — Platform Payload Preview view.
+// Capital Chronicle ContentOps V5 — Platform Payload Preview view (PlatformPreview).
 // DRY-RUN ONLY. This surface shows the exact LOCAL fixture payload that WOULD
 // be assembled for each platform, with zero posting, scheduling, credential
 // use, provider call, or platform API behavior. Every preview carries
@@ -18,8 +18,9 @@ import {
 import { IconBlock, IconLayers } from '../ui/icons';
 import { LockedAction, Panel, SectionLabel, StatusChip, StatusDot } from '../ui/primitives';
 import type { PlatformPayloadPreview as Preview } from '../types';
+import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonicalDraftFinalReviewVariantPreviewAdapter';
 
-export function PlatformPayloadPreview() {
+export function PlatformPreview() {
   const { select, selected } = useApp();
   const previews = viewModel.platform_payload_previews;
   const [activeKey, setActiveKey] = useState(previews[0].platform_key);
@@ -81,6 +82,72 @@ export function PlatformPayloadPreview() {
               NO_SCHEDULER
             </span>
           </div>
+        </div>
+      </div>
+
+      {/* V6 Canonical Draft Final Review and Platform Variant Preview card */}
+      <div className="rounded-lg border border-line bg-surface-2 p-4">
+        <div className="flex items-center justify-between">
+          <span className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">
+            V6 CANONICAL DRAFT FINAL REVIEW & PLATFORM VARIANT PREVIEW
+          </span>
+          <StatusChip status="blocked" icon>
+            operator_final_approval_required
+          </StatusChip>
+        </div>
+        <h2 className="mt-2 text-base font-bold text-fg">
+          {canonicalDraftFinalReviewVariantPreviewPacket.canonical_draft_final_review_to_platform_variant_preview_packet_id}
+        </h2>
+        <p className="mt-1 text-xs text-fg-muted">
+          status: {canonicalDraftFinalReviewVariantPreviewPacket.canonical_draft_final_review_status} · variant status: {canonicalDraftFinalReviewVariantPreviewPacket.platform_variant_preview_status}
+        </p>
+
+        {/* Detailed JSON fields */}
+        <div className="mt-3 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30 space-y-1.5 font-mono">
+          <div><span className="font-semibold text-fg">canonical_draft_final_review_to_platform_variant_preview_packet_id:</span> {canonicalDraftFinalReviewVariantPreviewPacket.canonical_draft_final_review_to_platform_variant_preview_packet_id}</div>
+          <div><span className="font-semibold text-fg">canonical_draft_final_review_status:</span> {canonicalDraftFinalReviewVariantPreviewPacket.canonical_draft_final_review_status}</div>
+          <div><span className="font-semibold text-fg">platform_variant_preview_status:</span> {canonicalDraftFinalReviewVariantPreviewPacket.platform_variant_preview_status}</div>
+          <div><span className="font-semibold text-fg">final_article_approved:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.final_article_approved)}</div>
+          <div><span className="font-semibold text-fg">operator_final_approval_required:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.operator_final_approval_required)}</div>
+          <div><span className="font-semibold text-fg">platform_variants_created:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.platform_variants_created)}</div>
+          <div><span className="font-semibold text-fg">platform_variants_are_preview_only:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.platform_variants_are_preview_only)}</div>
+          <div><span className="font-semibold text-fg">platform_payloads_approved:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.platform_payloads_approved)}</div>
+          <div><span className="font-semibold text-fg">ready_for_auto_publish:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.ready_for_auto_publish)}</div>
+          <div><span className="font-semibold text-fg">ready_for_dispatch:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.ready_for_dispatch)}</div>
+          <div><span className="font-semibold text-fg">llm_provider_call_made:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.llm_provider_call_made)}</div>
+          <div><span className="font-semibold text-fg">provider_call_made:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.provider_call_made)}</div>
+          <div><span className="font-semibold text-fg">platform_api_used:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.platform_api_used)}</div>
+          <div><span className="font-semibold text-fg">network_call_made:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.network_call_made)}</div>
+          <div><span className="font-semibold text-fg">public_url_fetch_made:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.public_url_fetch_made)}</div>
+          <div><span className="font-semibold text-fg">env_value_read_made:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.env_value_read_made)}</div>
+          <div><span className="font-semibold text-fg">credential_read_made:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.credential_read_made)}</div>
+          <div><span className="font-semibold text-fg">browser_session_used:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.browser_session_used)}</div>
+          <div><span className="font-semibold text-fg">public_url_verification_performed:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.public_url_verification_performed)}</div>
+          <div><span className="font-semibold text-fg">forbidden_financial_advice_or_signal_wording_present:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.forbidden_financial_advice_or_signal_wording_present)}</div>
+        </div>
+
+        {/* Previews map */}
+        <div className="mt-4 border-t border-line pt-3">
+          <div className="font-semibold text-sm text-fg mb-2">Committed Preview Variants:</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {Object.entries(canonicalDraftFinalReviewVariantPreviewPacket.preview_variants).map(([platform, preview]) => (
+              <div key={platform} className="p-2 border border-line bg-surface-1 rounded-md">
+                <div className="font-semibold text-xs text-accent uppercase">{platform.replace(/_/g, ' ')}</div>
+                <div className="font-bold text-xs text-fg mt-1">{preview.title}</div>
+                <div className="text-xs text-fg-muted mt-1 leading-relaxed">{preview.body}</div>
+                <div className="text-[10px] text-fg-subtle mt-1 font-mono">status: {preview.status}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-3 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30">
+          Platform variant preview status is platform_variant_preview_created_for_operator_review.
+          Draft final review status is ready_for_operator_final_review.
+          Approval record and outbox entries remain uncreated.
+          Readiness locks: final_article_approved=false · platform_payloads_approved=false.
+          Drafting/publishing gates remain locked: ready_for_auto_publish=false · ready_for_dispatch=false.
+          No LLM/provider call is allowed on this local-first review workflow.
         </div>
       </div>
 

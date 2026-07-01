@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "3c4af3cf7baeeb1a46a748c0efa585ff41e74210",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0",
-  "current_product_phase": "V6 local-first local canonical draft preview and operator review workflow on the V5 dashboard surface",
-  "current_product_lane": "local canonical draft preview and operator review workflow",
-  "accepted_baseline_summary": "Next article local canonical draft preview and review workflow completed and accepted after push/readback at 3c4af3cf7baeeb1a46a748c0efa585ff41e74210; previous accepted baseline was 064acd3333b70c8dd84c621c47af5cb395e387df.",
+  "last_verified_remote_sha": "727e80d70797f81367db496e0a5268a2a63e06dd",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_HEAVY_BATCH_V0",
+  "current_product_phase": "V6 local-first canonical draft final review and platform variant preview on the canonical V5 dashboard surface",
+  "current_product_lane": "canonical draft final review and platform variant preview",
+  "accepted_baseline_summary": "Next article canonical draft final review and platform variant preview completed; accepted product baseline SHA remains 3c4af3cf7baeeb1a46a748c0efa585ff41e74210 until push/readback.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -58,8 +58,9 @@
     "live_contentops/next_article_source_pack_intake_validation_v6.py",
     "live_contentops/next_article_draft_authorization_and_readiness_v6.py",
     "live_contentops/next_article_draft_authorization_v5_adapter_codegen_v6.py",
-    "live_contentops/local_canonical_draft_preview_and_review_v6.py",
-    "live_contentops/local_canonical_draft_preview_v5_adapter_codegen_v6.py"
+    "live_contentops/local_canonical_draft_preview_v5_adapter_codegen_v6.py",
+    "live_contentops/canonical_draft_final_review_to_platform_variant_preview_v6.py",
+    "live_contentops/canonical_draft_final_review_variant_preview_v5_adapter_codegen_v6.py"
   ],
   "current_loop_components": [
     "AI research packet",
@@ -97,7 +98,8 @@
     "Deterministic next article brief source-pack and operator review checklist",
     "Deterministic next article source-pack intake and validation checklist",
     "Deterministic next article draft authorization and readiness checklist",
-    "Deterministic next article draft preview and review checklist"
+    "Deterministic next article draft preview and review checklist",
+    "Deterministic next article draft final review and platform variant preview checklist"
   ],
   "dispatch_live_status": "blocked; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, or live send authorized",
   "provider_env_credential_status": "gated; no env value or credential value reads; committed evidence may use boolean/key-name status only",
@@ -112,17 +114,18 @@
     "next article brief source-pack review is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
     "next article source-pack intake validation is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
     "next article draft authorization and readiness is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
-    "next article draft preview and review is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized"
+    "next article draft preview and review is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
+    "next article draft final review and platform variant preview is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized"
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0",
-  "latest_accepted_task_result": "complete; local canonical draft preview packet and V5 surfaces successfully updated",
-  "latest_evidence_summary": "Local builder converts authorised draft readiness state into a deterministic template-based local canonical draft preview and review packet. Surfaces compact preview cards in V5 dashboard. Visual QA screenshots committed.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_HEAVY_BATCH_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_HEAVY_BATCH_V0",
+  "latest_accepted_task_result": "complete; canonical draft final review and platform variant preview packet generated and V5 dashboard views updated",
+  "latest_evidence_summary": "Local builder converts preview draft state into a deterministic final review packet and platform variant preview package. Surfaces variant preview card and previews on V5 dashboard. Visual QA screenshots committed.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_PLATFORM_VARIANT_FINAL_REVIEW_TO_APPROVAL_PACKET_PREVIEW_HEAVY_BATCH_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",

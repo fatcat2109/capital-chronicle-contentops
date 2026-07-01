@@ -13,7 +13,7 @@ import { ContentInventory } from './views/ContentInventory';
 import { WriterStudio } from './views/WriterStudio';
 import { AiWriterSeoLab } from './views/AiWriterSeoLab';
 import { DraftInspector } from './views/DraftInspector';
-import { PlatformPayloadPreview } from './views/PlatformPayloadPreview';
+import { PlatformPreview } from './views/PlatformPreview';
 import { ManualPublishMetrics } from './views/ManualPublishMetrics';
 import { ManualExportPilotVerification } from './views/ManualExportPilotVerification';
 import { OperatorReviewQueue } from './views/OperatorReviewQueue';
@@ -257,7 +257,7 @@ function ActiveView() {
     case 'draft_inspector':
       return <DraftInspector />;
     case 'platform_payload_preview':
-      return <PlatformPayloadPreview />;
+      return <PlatformPreview />;
     case 'manual_publish_metrics':
       return <ManualPublishMetrics />;
     case 'manual_export_pilot_verification':

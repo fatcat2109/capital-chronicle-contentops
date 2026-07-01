@@ -1,0 +1,91 @@
+// V6 Canonical draft final review and platform variant preview adapter.
+// Generated from committed local/manual-only packet; no network/env/browser/provider access.
+
+export const canonicalDraftFinalReviewVariantPreviewPacket = {
+  "approval_record_created": false,
+  "browser_session_used": false,
+  "canonical_draft_final_review_status": "ready_for_operator_final_review",
+  "canonical_draft_final_review_to_platform_variant_preview_packet_id": "final_review_preview_11fc52e6e452c4d3",
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "exact_payload_hash": "11fc52e6e452c4d3fedd306ffbf796fae459e061c784eed86cc1e8f65b9d38f2",
+  "final_article_approved": false,
+  "forbidden_financial_advice_or_signal_wording_present": false,
+  "live_action_allowed": false,
+  "live_publish_performed_by_contentops": false,
+  "llm_provider_call_made": false,
+  "network_call_made": false,
+  "operator_final_approval_required": true,
+  "outbox_entry_created": false,
+  "packet_kind": "canonical_draft_final_review_to_platform_variant_preview_v0",
+  "platform_api_used": false,
+  "platform_payloads_approved": false,
+  "platform_variant_preview_status": "platform_variant_preview_created_for_operator_review",
+  "platform_variants_are_preview_only": true,
+  "platform_variants_created": true,
+  "preview_variants": {
+    "discord_drop_preview": {
+      "body": "How do we evaluate the quality of a firm's reported cash flows without reliance on advisory predictions? Let's discuss Days Sales Outstanding and Cash Conversion Cycle metrics.",
+      "status": "preview_only",
+      "title": "Cash-Flow Quality Discussion Starter"
+    },
+    "facebook_page_preview": {
+      "body": "Earnings Quality analysis: comparing net income to operating cash flows to identify qualitative discrepancies. Standard financial literacy.",
+      "status": "preview_only",
+      "title": "Facebook Article Outline"
+    },
+    "instagram_caption_preview": {
+      "body": "Profits vs Cash: A look at cash conversion cycle mechanics. Details and formulas inside. #finance #education #accounting",
+      "status": "preview_only",
+      "title": "Instagram Photo Caption Draft"
+    },
+    "linkedin_personal_deferred_preview": {
+      "body": "A qualitative overview of Earnings Quality, cash conversion speed, and dividend safety cushions based on historical SEC filing structures. Strictly educational.",
+      "status": "preview_only",
+      "title": "LinkedIn Article Draft"
+    },
+    "substack_canonical_preview": {
+      "body": "Financial reporting lists profits, but cash quality shows underlying strength. This educational explainer focuses on understanding standard accounting principles.",
+      "status": "preview_only",
+      "title": "Educational Explainer: Cash-Flow Quality and Key Accounting Formulas"
+    },
+    "telegram_operator_preview": {
+      "body": "Local canonical draft preview is ready for operator final review. No LLM or provider API was called.",
+      "status": "preview_only",
+      "title": "V6 Operator Notification"
+    },
+    "threads_preview": {
+      "body": "Understanding standard accounting metrics like Days Inventory Outstanding (DIO) without guaranteed market predictions. What indicators do you prioritize?",
+      "status": "preview_only",
+      "title": "Threads Update Draft"
+    },
+    "tiktok_metadata_deferred_preview": {
+      "body": "Why cash conversion matter. Educational outline on DSO and DPO formulas.",
+      "status": "preview_only",
+      "title": "TikTok Video Captions Preview"
+    },
+    "x_manual_preview": {
+      "body": "Profits are fine, but cash is king. Let's learn standard cash conversion cycle components qualitatively: DIO + DSO - DPO. Educational only, no financial advice.",
+      "status": "preview_only",
+      "title": "X Thread Draft"
+    },
+    "youtube_metadata_future_preview": {
+      "body": "Educational video script outline: How to qualitatively verify earnings quality and cash cycles from historical SEC documents.",
+      "status": "preview_only",
+      "title": "YouTube Video Metadata Preview"
+    }
+  },
+  "provider_call_made": false,
+  "public_url_fetch_made": false,
+  "public_url_verification_performed": false,
+  "ready_for_auto_publish": false,
+  "ready_for_dispatch": false,
+  "source_draft_authorization_packet_hash": "80882c581b07e355e7be27ceef62fcc86edfd297db9766c4328de4adedda0486",
+  "source_draft_review_packet_id": "draft_review_1f81b17970b6c151",
+  "source_exact_payload_hash": "1f81b17970b6c151d301c63af23e7adcc814e6ddf65bcd4e9a6b2c5def0c8b97",
+  "source_local_draft_preview_packet_id": "local_draft_preview_1f81b17970b6c151",
+  "source_next_article_brief_packet_hash": "63c639189791ee71dd6ac33365c34b890b2d91558212e538467d5735c30251c6",
+  "source_pack_intake_packet_hash": "410e6b646cfe2f4b2307885826fa416b8aac95bc10c0a06cb89aeafef587a685",
+  "task_label": "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_HEAVY_BATCH_V0"
+} as const;

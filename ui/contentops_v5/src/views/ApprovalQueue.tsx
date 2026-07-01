@@ -24,6 +24,7 @@ import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBrief
 import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticleSourcePackIntakeValidationAdapter';
 import { nextArticleDraftAuthorizationReadinessPacket } from '../data/nextArticleDraftAuthorizationReadinessAdapter';
 import { localCanonicalDraftPreviewReviewPacket } from '../data/localCanonicalDraftPreviewReviewAdapter';
+import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonicalDraftFinalReviewVariantPreviewAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -189,6 +190,52 @@ export function ApprovalQueue() {
           <div>Readiness locks: separate_final_approval_task_required=true · separate_platform_variant_task_required=true · separate_publish_authorization_required=true · public_url_verification_performed=false.</div>
           <div>Drafting/publishing gates remain locked: ready_for_llm_drafting=false · ready_for_provider_drafting=false · ready_for_auto_publish=false · ready_for_dispatch=false.</div>
           <div>No LLM/provider call is allowed on this local-first review workflow.</div>
+        </div>
+      </Panel>
+
+      <Panel
+        title="V6 canonical draft final review and platform variant preview"
+        subtitle={`${canonicalDraftFinalReviewVariantPreviewPacket.canonical_draft_final_review_to_platform_variant_preview_packet_id} · status: ${canonicalDraftFinalReviewVariantPreviewPacket.canonical_draft_final_review_status}`}
+        actions={<StatusChip status="review">{canonicalDraftFinalReviewVariantPreviewPacket.platform_variant_preview_status}</StatusChip>}
+      >
+        <div className="rounded-lg border border-line bg-surface-2 p-3 font-mono text-[11.5px] text-fg-muted space-y-2">
+          <div><span className="font-semibold text-fg">final_review_packet_id:</span> {canonicalDraftFinalReviewVariantPreviewPacket.canonical_draft_final_review_to_platform_variant_preview_packet_id}</div>
+          <div><span className="font-semibold text-fg">canonical_draft_final_review_status:</span> {canonicalDraftFinalReviewVariantPreviewPacket.canonical_draft_final_review_status}</div>
+          <div><span className="font-semibold text-fg">platform_variant_preview_status:</span> {canonicalDraftFinalReviewVariantPreviewPacket.platform_variant_preview_status}</div>
+          <div><span className="font-semibold text-fg">final_article_approved:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.final_article_approved)}</div>
+          <div><span className="font-semibold text-fg">operator_final_approval_required:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.operator_final_approval_required)}</div>
+          <div><span className="font-semibold text-fg">platform_variants_created:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.platform_variants_created)}</div>
+          <div><span className="font-semibold text-fg">platform_variants_are_preview_only:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.platform_variants_are_preview_only)}</div>
+          <div><span className="font-semibold text-fg">platform_payloads_approved:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.platform_payloads_approved)}</div>
+          <div><span className="font-semibold text-fg">ready_for_auto_publish:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.ready_for_auto_publish)}</div>
+          <div><span className="font-semibold text-fg">ready_for_dispatch:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.ready_for_dispatch)}</div>
+          <div><span className="font-semibold text-fg">llm_provider_call_made:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.llm_provider_call_made)}</div>
+          <div><span className="font-semibold text-fg">network_call_made:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.network_call_made)}</div>
+          <div><span className="font-semibold text-fg">public_url_verification_performed:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.public_url_verification_performed)}</div>
+          <div><span className="font-semibold text-fg">forbidden_financial_advice_wording:</span> {String(canonicalDraftFinalReviewVariantPreviewPacket.forbidden_financial_advice_or_signal_wording_present)}</div>
+        </div>
+
+        <div className="mt-3 border-t border-line pt-2">
+          <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle mb-1">Preview Variants</div>
+          <div className="space-y-2">
+            {Object.entries(canonicalDraftFinalReviewVariantPreviewPacket.preview_variants).slice(0, 4).map(([platform, preview]) => (
+              <div key={platform} className="p-2 border border-line bg-surface-1 rounded text-xs">
+                <div className="font-semibold text-accent uppercase text-[10px]">{platform.replace(/_/g, ' ')}</div>
+                <div className="font-bold mt-0.5 text-fg">{preview.title}</div>
+                <p className="text-fg-muted text-[11px] leading-snug mt-0.5">{preview.body}</p>
+              </div>
+            ))}
+            <div className="text-[10px] text-fg-subtle italic">Showing first 4 of 10 variants. Go to Platform Preview to view all.</div>
+          </div>
+        </div>
+
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Platform variant preview status is platform_variant_preview_created_for_operator_review.
+          Draft final review status is ready_for_operator_final_review.
+          Approval record and outbox entries remain uncreated.
+          Readiness locks: final_article_approved=false · platform_payloads_approved=false.
+          Drafting/publishing gates remain locked: ready_for_auto_publish=false · ready_for_dispatch=false.
+          No LLM/provider call is allowed on this local-first review workflow.
         </div>
       </Panel>
       <SubstackArticleStudioCard mode="approval" />
