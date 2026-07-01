@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-25c80299695efad344db6fdf24316d9a1c1d0537
+6e55edbef71eb8ab45a0ea2313cbbf6621a06626
 
 ## current_product_phase
 V6 local-first platform variant dispatch outbox dry-run to operator runbook and recovery on the canonical V5 dashboard surface
@@ -22,7 +22,7 @@ dispatch outbox dry-run to operator runbook and recovery
 Next article dispatch outbox dry-run to operator runbook and recovery completed and accepted after push/readback at `25c80299695efad344db6fdf24316d9a1c1d0537`; previous accepted baseline was `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44`. No live/provider/platform/LLM execution occurred.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `25c80299695efad344db6fdf24316d9a1c1d0537`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `6e55edbef71eb8ab45a0ea2313cbbf6621a06626`
 - accepted product baseline (`accepted_product_baseline_sha`): `25c80299695efad344db6fdf24316d9a1c1d0537`
 - previous accepted product baseline: `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
