@@ -8,17 +8,18 @@
 
 ## Current values
 
-- current remote HEAD verified before this status-only repair: `6dde149fd71b06637ff7bb394ae6ba8f3184482b`
-- accepted product baseline SHA: `6dde149fd71b06637ff7bb394ae6ba8f3184482b`
-- previous accepted product baseline: `4c04d74b54a9aef9405aaa6c9a05dae999ce09f6`
-- status-only repair commit SHA: `d077a22bf4faf16153ea5b2e79993d7666aa44a5` until this repair commit is accepted; final evidence reports the new repo HEAD separately.
+- current remote HEAD verified before this docs/status refresh: `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb`
+- accepted product baseline SHA: `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb`
+- previous accepted product baseline: `6dde149fd71b06637ff7bb394ae6ba8f3184482b`
+- docs/status refresh commit SHA: reported in final evidence after commit/push; it must not become product baseline unless explicitly accepted as product work.
 
 ## Update rules
 
 1. Update `last_verified_remote_sha` when a task verifies the current remote HEAD and updates the status ledger.
-2. Update `accepted_product_baseline_sha` only when a product or feature commit is accepted.
+2. Update `accepted_product_baseline_sha` only when a product or feature commit is accepted after push/readback.
 3. Update `last_status_commit_sha` when a status-only repair commit is accepted.
 4. Status-only repair commits must not become product baselines.
+5. Docs/status refresh commits must not replace accepted product baselines unless the user explicitly accepts them as product work.
 
 ## Avoiding infinite SHA repair loops
 
@@ -28,7 +29,6 @@ A status-only commit may cause `origin/master` to advance beyond the product bas
 
 Browser QA and product UI work target `ui/contentops_v5/`. V4 remains fallback/reference only and must not be used as the product target.
 
+## V6 LinkedIn manual publication evidence loop baseline note
 
-## V6 Substack publication audit review / manual metrics summary baseline note
-
-Substack publication audit review / manual metrics summary feature commits are product baselines only after push and remote readback. Status-only repairs may advance HEAD but must not replace the accepted product baseline unless explicitly accepted as feature work. Previous baseline 4c04d74b54a9aef9405aaa6c9a05dae999ce09f6 is archived in status history.
+LinkedIn manual publication evidence loop feature commit `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb` is the accepted product baseline after push/readback. Its evidence remains fixture/manual/operator-supplied where publication URL or metrics fields appear. No LinkedIn API, URL fetch/scrape, browser automation, platform action, credential read, provider call, live publish, dispatch, send, schedule, approve, DM, comment, like, or reaction is implied by this SHA model.
