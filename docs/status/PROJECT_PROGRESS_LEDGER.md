@@ -318,8 +318,8 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Field | Value |
 |---|---|
 | Task label | `TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0` |
-| Accepted product/audit baseline SHA | `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44` (remains unchanged until push/readback). |
-| Repo HEAD / evidence commit | Reported in final evidence. |
+| Accepted product/audit baseline SHA | `25c80299695efad344db6fdf24316d9a1c1d0537` |
+| Repo HEAD / evidence commit | `25c80299695efad344db6fdf24316d9a1c1d0537` |
 | Result classification | `complete_review_only_local_manual` |
 | Scope | Deterministic operator recovery & runbook package for dispatch outbox dry-run state. |
 | Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |

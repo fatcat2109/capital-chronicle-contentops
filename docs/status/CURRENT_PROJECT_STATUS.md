@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-f3f2b536e203d4e142191bc47929d6abbaf692c4
+25c80299695efad344db6fdf24316d9a1c1d0537
 
 ## current_product_phase
 V6 local-first platform variant dispatch outbox dry-run to operator runbook and recovery on the canonical V5 dashboard surface
@@ -19,12 +19,12 @@ V6 local-first platform variant dispatch outbox dry-run to operator runbook and 
 dispatch outbox dry-run to operator runbook and recovery
 
 ## accepted_baseline_summary
-Next article dispatch outbox dry-run to operator runbook and recovery completed; accepted product baseline SHA remains `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44` until push/readback. No live/provider/platform/LLM execution occurred.
+Next article dispatch outbox dry-run to operator runbook and recovery completed and accepted after push/readback at `25c80299695efad344db6fdf24316d9a1c1d0537`; previous accepted baseline was `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44`. No live/provider/platform/LLM execution occurred.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `f3f2b536e203d4e142191bc47929d6abbaf692c4`
-- accepted product baseline (`accepted_product_baseline_sha`): `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44`
-- previous accepted product baseline: `073e1488c035655519db1d6006c646ef67e23b20`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `25c80299695efad344db6fdf24316d9a1c1d0537`
+- accepted product baseline (`accepted_product_baseline_sha`): `25c80299695efad344db6fdf24316d9a1c1d0537`
+- previous accepted product baseline: `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
 ## canonical_dashboard_surface
