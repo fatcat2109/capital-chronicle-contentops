@@ -136,7 +136,7 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 - Latest task: `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_AND_READINESS_SUMMARY_V0`.
 - Current lane: manual distribution registry audit index/readiness summary.
 - Scope: bind registry and source-path audit packets into deterministic local operator-review readiness packet.
-- Accepted product/audit baseline remains `16d29f86a1f81c8c39da1ccf8bac46623cf19c27` until push/readback acceptance of this audit behavior.
+- Accepted product/audit baseline is `1796277bbcbf9a92c7bb54c5005678d3cbbf1e6c` after audit index push/readback; previous baseline was `16d29f86a1f81c8c39da1ccf8bac46623cf19c27`.
 - Current loop components include Manual Distribution Registry source-path audit and audit index/readiness summary.
 - Backend status modules include `live_contentops/manual_distribution_evidence_registry_source_path_audit_v6.py` and `live_contentops/manual_distribution_registry_audit_index_v6.py`.
 - Live/provider/platform execution remains blocked; canonical dashboard remains `ui/contentops_v5/`.
