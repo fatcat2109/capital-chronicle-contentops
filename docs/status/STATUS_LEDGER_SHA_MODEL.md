@@ -8,9 +8,9 @@
 
 ## Current values
 
-- current remote HEAD verified before this docs/status refresh: `073e1488c035655519db1d6006c646ef67e23b20`
-- accepted product baseline SHA: `073e1488c035655519db1d6006c646ef67e23b20`
-- previous accepted product baseline: `dbfd6e3bc6ec2cfc345a995383f9a74421b44cb7`
+- current remote HEAD verified before this docs/status refresh: `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44`
+- accepted product baseline SHA: `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44`
+- previous accepted product baseline: `073e1488c035655519db1d6006c646ef67e23b20`
 - docs/status refresh commit SHA: reported in final evidence after commit/push; it must not become product baseline unless explicitly accepted as product work.
 
 ## Update rules

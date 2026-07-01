@@ -303,8 +303,8 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Field | Value |
 |---|---|
 | Task label | `TASK_CONTENTOPS_V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN_HEAVY_BATCH_V0` |
-| Accepted product/audit baseline SHA | `073e1488c035655519db1d6006c646ef67e23b20` (remains unchanged until push/readback). |
-| Repo HEAD / evidence commit | Reported in final evidence. |
+| Accepted product/audit baseline SHA | `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44` |
+| Repo HEAD / evidence commit | `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44` |
 | Result classification | `complete_review_only_local_manual` |
 | Scope | Deterministic platform variant approval packet preview to dispatch outbox dry run generation. |
 | Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |
