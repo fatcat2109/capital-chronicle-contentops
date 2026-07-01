@@ -127,4 +127,4 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Current lane: X manual publication evidence loop integrated into canonical V5.
 - Components: X manual export, approval/export evidence, operator handoff, URL/audit import, and manual metrics summary.
 - Safety: fixture/operator-supplied only; `x_api_used=false`, `url_network_verified=false`, `metrics_network_verified=false`, no env/credential/browser session/network/live action.
-- Baseline note: `accepted_product_baseline_sha` advances only after push/readback; if final pushed feature SHA differs from status JSON, perform a targeted status-only repair.
+- Baseline note: `accepted_product_baseline_sha` is now repaired to the pushed/readback X feature commit `98fce130a9f98e34cc8ac0454986081697efc8c1`.

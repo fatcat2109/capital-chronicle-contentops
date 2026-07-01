@@ -92,7 +92,7 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Field | Value |
 |---|---|
 | Task label | `TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0` |
-| Result classification | `complete_fixture_only` after implementation evidence exists and tests pass. |
+| Result classification | `accepted_product_baseline` at `98fce130a9f98e34cc8ac0454986081697efc8c1` after push/readback. |
 | Scope | X manual export, approval/export evidence, operator handoff, URL/audit import, and manual metrics summary with canonical V5 visibility. |
 | Safety posture | Fixture/operator-supplied only; no X API, env, credentials, browser session, network, URL fetch/scrape, or live posting. |
 | Caveats | URL and metrics are operator-supplied text only and not network verified. |
