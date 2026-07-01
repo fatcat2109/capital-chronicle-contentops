@@ -19,6 +19,7 @@ import {
 } from '../data/substackManualExportArticleStudioAdapter';
 import { ManualDistributionRegistryPanel } from './ManualDistributionRegistryPanel';
 import { operatorSuppliedFeedbackIntakePacket, operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBacklogAdapter';
+import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -141,6 +142,30 @@ export function ManualExportPilotVerification() {
         </div>
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
           Operator-supplied feedback only. No LLM/provider call, public URL fetch, platform API, browser session, env/credential read, publish, send, dispatch, approve, or schedule action. No approve/send/publish/dispatch/schedule controls are enabled on this read-only Manual Export surface.
+        </div>
+      </Panel>
+
+      <Panel
+        title="Feedback backlog → next article brief candidate"
+        subtitle={`${feedbackBacklogNextArticleBriefPacket.selected_backlog_candidate_id} · ${feedbackBacklogNextArticleBriefPacket.selection_method}`}
+        actions={<StatusChip status="review">{feedbackBacklogNextArticleBriefPacket.candidate_review_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Brief packet" value={feedbackBacklogNextArticleBriefPacket.next_article_brief_packet_id} mono status="review" />
+          <Metric label="Brief hash" value={feedbackBacklogNextArticleBriefPacket.exact_payload_hash} mono status="verified" />
+          <Metric label="Source backlog" value={feedbackBacklogNextArticleBriefPacket.source_backlog_summary_packet_id} mono status="verified" />
+          <Metric label="Priority score" value={String(feedbackBacklogNextArticleBriefPacket.selected_priority_score)} status="review" />
+        </div>
+        <article className="mt-4 rounded-lg border border-line bg-surface-2 p-4">
+          <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">Review-only working headline</div>
+          <h3 className="mt-1 text-base font-semibold text-fg">{feedbackBacklogNextArticleBriefPacket.brief_candidate.working_headline}</h3>
+          <p className="mt-2 text-sm leading-relaxed text-fg-muted">{feedbackBacklogNextArticleBriefPacket.brief_candidate.editorial_angle}</p>
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            {feedbackBacklogNextArticleBriefPacket.selected_topic_tags.map((tag) => <StatusChip key={tag} status="review">{tag}</StatusChip>)}
+          </div>
+        </article>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Review-only bridge from operator-supplied feedback backlog. source_pack_required_before_drafting={String(feedbackBacklogNextArticleBriefPacket.source_pack_required_before_drafting)} · canonical_draft_created={String(feedbackBacklogNextArticleBriefPacket.canonical_draft_created)} · llm_provider_call_made={String(feedbackBacklogNextArticleBriefPacket.llm_provider_call_made)} · platform_api_used={String(feedbackBacklogNextArticleBriefPacket.platform_api_used)} · public_url_fetch_made={String(feedbackBacklogNextArticleBriefPacket.public_url_fetch_made)}.
         </div>
       </Panel>
 

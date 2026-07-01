@@ -19,6 +19,7 @@ import {
 } from '../data/substackManualExportArticleStudioAdapter';
 import { ManualDistributionRegistryPanel } from './ManualDistributionRegistryPanel';
 import { operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBacklogAdapter';
+import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -63,6 +64,21 @@ export function ApprovalQueue() {
               </div>
             </article>
           ))}
+        </div>
+      </Panel>
+
+      <Panel
+        title="Next article brief candidate · review-only"
+        subtitle={feedbackBacklogNextArticleBriefPacket.next_article_brief_packet_id}
+        actions={<StatusChip status="review">{feedbackBacklogNextArticleBriefPacket.candidate_review_status}</StatusChip>}
+      >
+        <div className="rounded-lg border border-line bg-surface-2 p-3">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">{feedbackBacklogNextArticleBriefPacket.selected_backlog_candidate_id}</div>
+          <h3 className="mt-1 text-sm font-semibold text-fg">{feedbackBacklogNextArticleBriefPacket.brief_candidate.working_headline}</h3>
+          <p className="mt-2 text-xs leading-relaxed text-fg-muted">{feedbackBacklogNextArticleBriefPacket.brief_candidate.editorial_angle}</p>
+        </div>
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Operator review required. source_pack_required_before_drafting={String(feedbackBacklogNextArticleBriefPacket.source_pack_required_before_drafting)} · canonical_draft_created={String(feedbackBacklogNextArticleBriefPacket.canonical_draft_created)} · dispatch_readiness_claimed={String(feedbackBacklogNextArticleBriefPacket.non_readiness_claims.dispatch_readiness_claimed)}.
         </div>
       </Panel>
       <SubstackArticleStudioCard mode="approval" />

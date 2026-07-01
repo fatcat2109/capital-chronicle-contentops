@@ -21,6 +21,7 @@ import {
 } from '../data/substackManualExportArticleStudioAdapter';
 import { ManualDistributionRegistryPanel } from './ManualDistributionRegistryPanel';
 import { operatorSuppliedFeedbackIntakePacket, operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBacklogAdapter';
+import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -80,6 +81,12 @@ export function EvidenceVault() {
         </div>
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
           Backlog summary: {operatorFeedbackBacklogSummaryPacket.summary_method} · candidates={operatorFeedbackBacklogSummaryPacket.candidate_count} · llm_provider_call_made={String(operatorFeedbackBacklogSummaryPacket.llm_provider_call_made)} · platform_api_used={String(operatorFeedbackBacklogSummaryPacket.platform_api_used)} · public_url_fetch_made={String(operatorFeedbackBacklogSummaryPacket.public_url_fetch_made)}
+        </div>
+        <div className="mt-4 rounded-lg border border-line bg-surface-2 p-3">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">Next article brief candidate packet</div>
+          <h3 className="mt-1 break-all text-sm font-semibold text-fg">{feedbackBacklogNextArticleBriefPacket.next_article_brief_packet_id}</h3>
+          <p className="mt-2 text-xs leading-relaxed text-fg-muted">{feedbackBacklogNextArticleBriefPacket.brief_candidate.brief_title} · {feedbackBacklogNextArticleBriefPacket.selection_method}</p>
+          <div className="mt-2 break-all font-mono text-[11px] text-fg-muted">source_backlog_hash={feedbackBacklogNextArticleBriefPacket.source_backlog_summary_hash} · canonical_draft_created={String(feedbackBacklogNextArticleBriefPacket.canonical_draft_created)} · public_url_fetch_made={String(feedbackBacklogNextArticleBriefPacket.public_url_fetch_made)}</div>
         </div>
       </Panel>
       <SubstackArticleStudioCard mode="evidence" />

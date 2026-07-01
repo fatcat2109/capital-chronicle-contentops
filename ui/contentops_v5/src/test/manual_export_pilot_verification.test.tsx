@@ -107,12 +107,16 @@ describe('Manual Export / Pilot Verification UI', () => {
     expect(nav.className).toContain('translate-x-0');
   });
 
-  it('proves break-all and containment classes exist on primitives', () => {
+  it('renders feedback backlog next article brief candidate as review-only', () => {
     openView();
-    const verifiedChips = screen.getAllByText('true');
-    expect(verifiedChips[0].className).toContain('whitespace-nowrap');
 
-    const disabledBlocks = screen.getAllByText(/manual_export_pilot_verification_only_no_live_affordance/i);
-    expect(disabledBlocks[0].className).toContain('break-all');
+    expect(screen.getByText(/Feedback backlog → next article brief candidate/i)).toBeInTheDocument();
+    expect(screen.getByText(/Review-only working headline/i)).toBeInTheDocument();
+    expect(screen.getByText(/Cash-flow quality explainer for audience follow-up/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/source_pack_required_before_drafting=true/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/canonical_draft_created=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/llm_provider_call_made=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/platform_api_used=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/public_url_fetch_made=false/i).length).toBeGreaterThan(0);
   });
 });
