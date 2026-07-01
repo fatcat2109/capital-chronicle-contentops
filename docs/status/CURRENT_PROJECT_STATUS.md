@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_REGEN_GUARDRAIL_V0
+TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -16,7 +16,7 @@ master
 V6 local-first product loop consolidation on the canonical V5 dashboard surface, with repo-native status/progress governance refreshed after LinkedIn manual evidence acceptance.
 
 ## current_product_lane
-Manual distribution registry audit-index adapter regen guardrail.
+Operator-supplied feedback intake and deterministic backlog summary loop.
 
 ## accepted_baseline_summary
 LinkedIn manual publication evidence loop is accepted as the current product baseline after push/readback at `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb`. The previous status ledger incorrectly left `accepted_product_baseline_sha` at `fbfd64c8975df7b5ac2daa549641a4b8e31a90c5`; that SHA is not the current accepted product baseline for `TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0`. This docs/status refresh commit repairs metadata and does not become a product baseline unless explicitly accepted as product work.
@@ -70,7 +70,7 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_REGEN_GUARDRAIL_V0
+TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_V0
 
 ## latest changed areas
 - `docs/status/CURRENT_PROJECT_STATUS.md`
@@ -84,7 +84,7 @@ TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_REGEN_GUARDRAIL_V0
 - `tests/test_status_progress_docs_v6.py`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_ROADMAP_REVIEW_OR_NEXT_MANUAL_DISTRIBUTION_LANE_V0
+TASK_CONTENTOPS_V6_REVIEW_FEEDBACK_BACKLOG_OR_NEXT_MANUAL_LOOP_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -182,9 +182,17 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 
 ## Manual Distribution Registry Audit Index Adapter Regen Guardrail
 
-- Latest task: `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_REGEN_GUARDRAIL_V0`.
+- Latest task: `TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_V0`.
 - Current lane: manual distribution registry audit-index adapter regen guardrail.
 - Scope: add deterministic local V5 adapter regeneration/check guardrail for committed registry and audit-index packets.
 - Accepted product/audit baseline is `3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc` after guardrail push/readback; previous baseline was `68ac1e1b8e3f6fb806515fe9ea0f26dc373fe2db`.
 - Final status repair commit updates governance metadata only and does not become the product/audit baseline.
 - Live/provider/platform execution remains blocked; canonical dashboard remains `ui/contentops_v5/`.
+## Operator-Supplied Feedback Intake and Backlog Loop
+
+- Latest task: `TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_V0`.
+- Current lane: local/manual-only operator feedback and questions intake feeding deterministic next-article backlog candidates.
+- Scope: feedback intake packet, backlog summary packet, runbook, focused tests, and canonical V5 Approval Queue/Evidence Vault read-only cards.
+- Safety: operator-supplied fixture text only; no LLM/provider call, URL fetch/scrape, platform API, browser session read, env/credential read, live publish, send, approve, dispatch, schedule, reply, DM, like, repost, or quote-post.
+- Accepted product/audit baseline will be the pushed/readback commit for this task; previous baseline was `3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc`.
+

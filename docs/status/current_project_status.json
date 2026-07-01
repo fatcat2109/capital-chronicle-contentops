@@ -4,10 +4,10 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "last_verified_remote_sha": "3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_REGEN_GUARDRAIL_V0",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_V0",
   "current_product_phase": "V6 local-first product loop consolidation on the canonical V5 dashboard surface, with repo-native status/progress governance refreshed after LinkedIn manual evidence acceptance",
-  "current_product_lane": "manual distribution registry audit-index adapter regen guardrail",
-  "accepted_baseline_summary": "Manual Distribution Registry audit-index adapter regen/check guardrail accepted after push/readback at 3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc. Final status repair commit updates governance metadata only and does not become the product/audit baseline.",
+  "current_product_lane": "operator-supplied feedback intake and deterministic backlog summary loop",
+  "accepted_baseline_summary": "Operator-supplied feedback intake/backlog loop implemented locally pending final push/readback; current accepted product/audit baseline remains 3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc until this task commit is pushed and accepted.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -49,7 +49,9 @@
     "live_contentops/manual_distribution_evidence_registry_v6.py",
     "live_contentops/manual_distribution_evidence_registry_source_path_audit_v6.py",
     "live_contentops/manual_distribution_registry_audit_index_v6.py",
-    "live_contentops/manual_distribution_registry_v5_adapter_codegen_v6.py"
+    "live_contentops/manual_distribution_registry_v5_adapter_codegen_v6.py",
+    "live_contentops/operator_supplied_feedback_intake_v6.py",
+    "live_contentops/operator_feedback_backlog_summary_v6.py"
   ],
   "current_loop_components": [
     "AI research packet",
@@ -79,7 +81,10 @@
     "Manual Distribution Evidence Registry v0",
     "Manual Distribution Registry source-path audit",
     "Manual Distribution Registry audit index/readiness summary",
-    "Manual Distribution Registry audit-index adapter regen guardrail"
+    "Manual Distribution Registry audit-index adapter regen guardrail",
+    "Operator-supplied feedback intake packet",
+    "Deterministic operator feedback backlog summary",
+    "V5 feedback/backlog read-only evidence cards"
   ],
   "dispatch_live_status": "blocked; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, or live send authorized",
   "provider_env_credential_status": "gated; no env value or credential value reads; committed evidence may use boolean/key-name status only",
@@ -87,18 +92,19 @@
     "live/provider/platform execution remains disabled",
     "future product UI work must target ui/contentops_v5/ unless newer committed authority supersedes it",
     "standalone approval queue UI must not be revived as canonical",
-    "LinkedIn lane is fixture/operator-supplied evidence only; no API, browser automation, URL fetch/scrape, public URL verification, or platform action is authorized",
-    "X lane is fixture/operator-supplied evidence only; no X API, browser automation, URL fetch/scrape, public URL verification, platform action, or live post is authorized"
+    "X lane is fixture/operator-supplied evidence only; no X API, browser automation, URL fetch/scrape, public URL verification, platform action, or live post is authorized",
+    "operator feedback/backlog is fixture/operator-supplied text only; no LLM/provider/API/browser/public URL/live action is authorized",
+    "future feedback summaries must not claim LLM/provider synthesis unless explicitly scoped and evidenced"
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_REGEN_GUARDRAIL_V0",
-  "latest_accepted_task_result": "complete; pushed/read back deterministic V5 adapter regeneration/check guardrail for committed registry audit-index packets",
-  "latest_evidence_summary": "Manual Distribution Registry V5 adapter regeneration/check guardrail confirms adapter_in_sync=true from committed local JSON packets. No platform API, env, credential, browser-session, public URL, provider, or live action.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_ROADMAP_REVIEW_OR_NEXT_MANUAL_DISTRIBUTION_LANE_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_V0",
+  "latest_accepted_task_result": "local implementation complete pending commit/push/readback",
+  "latest_evidence_summary": "Deterministic local feedback intake and backlog packets are generated from operator-supplied fixture text only; V5 read-only cards surface intake/backlog evidence. No LLM/provider/API/browser/public URL/live action.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_REVIEW_FEEDBACK_BACKLOG_OR_NEXT_MANUAL_LOOP_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",

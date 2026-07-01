@@ -18,6 +18,7 @@ import {
   xPublicationAuditReviewMetricsSummaryPacket,
 } from '../data/substackManualExportArticleStudioAdapter';
 import { ManualDistributionRegistryPanel } from './ManualDistributionRegistryPanel';
+import { operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBacklogAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -27,6 +28,7 @@ import {
   SectionLabel,
   StatusChip,
   StatusDot,
+  EvidenceChip,
 } from '../ui/primitives';
 
 export function ApprovalQueue() {
@@ -39,6 +41,30 @@ export function ApprovalQueue() {
     <div className="space-y-6">
 
       <ManualDistributionRegistryPanel />
+
+      <Panel
+        title="Operator feedback backlog · manual-only"
+        subtitle={`${operatorFeedbackBacklogSummaryPacket.candidate_count} backlog candidates · ${operatorFeedbackBacklogSummaryPacket.summary_method}`}
+        actions={<StatusChip status="review">{operatorFeedbackBacklogSummaryPacket.backlog_status}</StatusChip>}
+      >
+        <div className="mb-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Operator-supplied feedback only. No LLM/provider call, public URL fetch, platform API, browser session, publish, send, dispatch, approve, or schedule action.
+        </div>
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
+          {operatorFeedbackBacklogSummaryPacket.backlog_candidates.map((candidate) => (
+            <article key={candidate.candidate_id} className="rounded-lg border border-line bg-surface-2 p-3">
+              <div className="flex items-start justify-between gap-2">
+                <h3 className="text-sm font-semibold text-fg">{candidate.title}</h3>
+                <StatusChip status="review">score {candidate.priority_score}</StatusChip>
+              </div>
+              <p className="mt-2 text-xs leading-relaxed text-fg-muted">{candidate.article_angle}</p>
+              <div className="mt-2 flex flex-wrap gap-1.5">
+                {candidate.source_platforms.map((platform) => <EvidenceChip key={platform}>{platform}</EvidenceChip>)}
+              </div>
+            </article>
+          ))}
+        </div>
+      </Panel>
       <SubstackArticleStudioCard mode="approval" />
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div>

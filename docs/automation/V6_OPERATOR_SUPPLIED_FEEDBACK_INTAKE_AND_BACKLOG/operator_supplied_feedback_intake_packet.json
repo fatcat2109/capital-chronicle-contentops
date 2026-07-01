@@ -1,0 +1,134 @@
+{
+  "accepted_manual_platforms": [
+    "Substack",
+    "LinkedIn",
+    "X"
+  ],
+  "audit_index_hash": "b968984b920bbf93edef7941ab3c93f229db393f6be7bcf0025a713b82cc5477",
+  "audit_index_packet_id": "manual_distribution_registry_audit_index_b968984b920bbf93",
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "env_value_read_made": false,
+  "exact_payload_hash": "4b0ff2791a5398184621325ba8ce5fe843963cbc826885e29eb823f5a05e7dd4",
+  "feedback_count": 4,
+  "feedback_intake_packet_id": "operator_supplied_feedback_intake_4b0ff2791a539818",
+  "feedback_items": [
+    {
+      "feedback_item_id": "operator_feedback_substack_question_001",
+      "operator_supplied_claim": true,
+      "operator_supplied_text": "Reader asked for a plain-English follow-up on how dividend coverage connects to free cash flow quality.",
+      "operator_supplied_timestamp": "2026-07-01T12:10:00Z",
+      "safety_flags": {
+        "no_llm_provider_call": true,
+        "operator_supplied_only": true,
+        "source_api_used": false,
+        "source_scraped": false,
+        "source_url_network_verified": false
+      },
+      "sentiment_label": "question",
+      "source_api_used": false,
+      "source_kind": "question",
+      "source_platform": "substack",
+      "source_scraped": false,
+      "source_url_hash_optional": "7a2be8e6fbbfb0d21c9d6fa93335e4349c0838528d75b84e1f3fb1786698c48d",
+      "source_url_network_verified": false,
+      "source_url_text_optional": "operator-redacted-substack-comment-reference",
+      "topic_tags": [
+        "dividend_coverage",
+        "free_cash_flow",
+        "reader_education"
+      ]
+    },
+    {
+      "feedback_item_id": "operator_feedback_linkedin_comment_001",
+      "operator_supplied_claim": true,
+      "operator_supplied_text": "Operator noted that LinkedIn commenters wanted a checklist for distinguishing durable margins from one-quarter cost cuts.",
+      "operator_supplied_timestamp": "2026-07-01T12:14:00Z",
+      "safety_flags": {
+        "no_llm_provider_call": true,
+        "operator_supplied_only": true,
+        "source_api_used": false,
+        "source_scraped": false,
+        "source_url_network_verified": false
+      },
+      "sentiment_label": "feature_request",
+      "source_api_used": false,
+      "source_kind": "comment",
+      "source_platform": "linkedin",
+      "source_scraped": false,
+      "source_url_hash_optional": "ef94d26d87eccf5c9678d93b079a4f36e2706fa016d4b7f499d3122e8d99ade5",
+      "source_url_network_verified": false,
+      "source_url_text_optional": "operator-redacted-linkedin-comment-reference",
+      "topic_tags": [
+        "margin_quality",
+        "checklist",
+        "operator_workflow"
+      ]
+    },
+    {
+      "feedback_item_id": "operator_feedback_x_reply_001",
+      "operator_supplied_claim": true,
+      "operator_supplied_text": "Manual X reply note requested a short explainer on why revenue growth can look strong while cash conversion weakens.",
+      "operator_supplied_timestamp": "2026-07-01T12:18:00Z",
+      "safety_flags": {
+        "no_llm_provider_call": true,
+        "operator_supplied_only": true,
+        "source_api_used": false,
+        "source_scraped": false,
+        "source_url_network_verified": false
+      },
+      "sentiment_label": "question",
+      "source_api_used": false,
+      "source_kind": "reply",
+      "source_platform": "x",
+      "source_scraped": false,
+      "source_url_hash_optional": "27a5df0cbb562e675f9b39b660978913d60835342520784035776cab28f85123",
+      "source_url_network_verified": false,
+      "source_url_text_optional": "operator-redacted-x-reply-reference",
+      "topic_tags": [
+        "cash_conversion",
+        "revenue_quality",
+        "explainer"
+      ]
+    },
+    {
+      "feedback_item_id": "operator_feedback_manual_note_001",
+      "operator_supplied_claim": true,
+      "operator_supplied_text": "Editorial note: collect recurring audience questions into a review-only FAQ candidate before drafting the next article.",
+      "operator_supplied_timestamp": "2026-07-01T12:20:00Z",
+      "safety_flags": {
+        "no_llm_provider_call": true,
+        "operator_supplied_only": true,
+        "source_api_used": false,
+        "source_scraped": false,
+        "source_url_network_verified": false
+      },
+      "sentiment_label": "neutral",
+      "source_api_used": false,
+      "source_kind": "manual_note",
+      "source_platform": "manual_note",
+      "source_scraped": false,
+      "source_url_hash_optional": "",
+      "source_url_network_verified": false,
+      "source_url_text_optional": "",
+      "topic_tags": [
+        "faq",
+        "backlog",
+        "editorial_planning"
+      ]
+    }
+  ],
+  "forbidden_financial_advice_or_signal_wording_present": false,
+  "intake_status": "operator_supplied_only",
+  "live_publish_performed_by_contentops": false,
+  "llm_provider_call_made": false,
+  "network_call_made": false,
+  "packet_kind": "operator_supplied_feedback_intake_v0",
+  "platform_api_used": false,
+  "provider_call_made": false,
+  "public_url_fetch_made": false,
+  "registry_hash": "7f75feba8ed20f2d98b4ee15aff0f41a4271a76e3634fbec2563d17bc8f66fac",
+  "registry_packet_id": "manual_distribution_evidence_registry_7f75feba8ed20f2d",
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_V0"
+}

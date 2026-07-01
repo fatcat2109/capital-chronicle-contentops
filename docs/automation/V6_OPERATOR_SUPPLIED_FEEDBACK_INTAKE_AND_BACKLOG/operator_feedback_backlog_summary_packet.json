@@ -1,0 +1,119 @@
+{
+  "audit_index_hash": "b968984b920bbf93edef7941ab3c93f229db393f6be7bcf0025a713b82cc5477",
+  "audit_index_packet_id": "manual_distribution_registry_audit_index_b968984b920bbf93",
+  "backlog_candidates": [
+    {
+      "article_angle": "Explain how cash conversion, revenue quality, and dividend coverage fit together without giving financial advice.",
+      "candidate_id": "backlog_candidate_cash_flow_quality_explainer",
+      "not_financial_advice": true,
+      "priority_score": 36,
+      "rationale": "Multiple operator-supplied questions ask for plain-English cash-flow and revenue-quality context.",
+      "readiness_status": "ready_for_operator_review_only",
+      "source_feedback_item_ids": [
+        "operator_feedback_substack_question_001",
+        "operator_feedback_x_reply_001"
+      ],
+      "source_platforms": [
+        "substack",
+        "x"
+      ],
+      "title": "Cash-flow quality explainer for audience follow-up",
+      "topic_tags": [
+        "cash_conversion",
+        "dividend_coverage",
+        "explainer",
+        "free_cash_flow",
+        "reader_education",
+        "revenue_quality"
+      ]
+    },
+    {
+      "article_angle": "Turn recurring manual feedback into a review-only FAQ backlog candidate.",
+      "candidate_id": "backlog_candidate_manual_distribution_faq",
+      "not_financial_advice": true,
+      "priority_score": 18,
+      "rationale": "Operator editorial note asks to consolidate recurring audience questions before the next draft.",
+      "readiness_status": "ready_for_operator_review_only",
+      "source_feedback_item_ids": [
+        "operator_feedback_manual_note_001"
+      ],
+      "source_platforms": [
+        "manual_note"
+      ],
+      "title": "Manual distribution feedback FAQ",
+      "topic_tags": [
+        "backlog",
+        "editorial_planning",
+        "faq"
+      ]
+    },
+    {
+      "article_angle": "Create an educational checklist for margin durability signals and caveats.",
+      "candidate_id": "backlog_candidate_margin_quality_checklist",
+      "not_financial_advice": true,
+      "priority_score": 18,
+      "rationale": "Operator-supplied LinkedIn feedback requested a checklist for separating durable margins from temporary cost actions.",
+      "readiness_status": "ready_for_operator_review_only",
+      "source_feedback_item_ids": [
+        "operator_feedback_linkedin_comment_001"
+      ],
+      "source_platforms": [
+        "linkedin"
+      ],
+      "title": "Durable margin quality checklist",
+      "topic_tags": [
+        "checklist",
+        "margin_quality",
+        "operator_workflow"
+      ]
+    }
+  ],
+  "backlog_status": "ready_for_operator_review_only",
+  "backlog_summary_packet_id": "operator_feedback_backlog_summary_24b783562e91a600",
+  "blocked_controls": [
+    "approve",
+    "dispatch",
+    "publish",
+    "schedule",
+    "send"
+  ],
+  "browser_session_used": false,
+  "candidate_count": 3,
+  "credential_read_made": false,
+  "env_value_read_made": false,
+  "exact_payload_hash": "24b783562e91a600284c252c85a4e6757e11b1030743850869ef6d39c93addd8",
+  "feedback_count": 4,
+  "feedback_intake_hash": "4b0ff2791a5398184621325ba8ce5fe843963cbc826885e29eb823f5a05e7dd4",
+  "feedback_intake_packet_id": "operator_supplied_feedback_intake_4b0ff2791a539818",
+  "live_publish_performed_by_contentops": false,
+  "llm_provider_call_made": false,
+  "network_call_made": false,
+  "non_readiness_claims": {
+    "api_readiness_claimed": false,
+    "dispatch_readiness_claimed": false,
+    "live_readiness_claimed": false,
+    "llm_summary_claimed": false,
+    "public_url_verification_claimed": false
+  },
+  "packet_kind": "operator_feedback_backlog_summary_v0",
+  "platform_api_used": false,
+  "provider_call_made": false,
+  "public_url_fetch_made": false,
+  "schema_version": "6.0.0",
+  "summary_method": "deterministic_tag_grouping_no_llm",
+  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_V0",
+  "topic_counts": {
+    "backlog": 1,
+    "cash_conversion": 1,
+    "checklist": 1,
+    "dividend_coverage": 1,
+    "editorial_planning": 1,
+    "explainer": 1,
+    "faq": 1,
+    "free_cash_flow": 1,
+    "margin_quality": 1,
+    "operator_workflow": 1,
+    "reader_education": 1,
+    "revenue_quality": 1
+  }
+}

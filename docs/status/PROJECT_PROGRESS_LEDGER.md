@@ -157,3 +157,12 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 - Accepted product/audit baseline is `3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc` after guardrail push/readback; previous baseline was `68ac1e1b8e3f6fb806515fe9ea0f26dc373fe2db`.
 - Final status repair commit updates governance metadata only and does not become the product/audit baseline.
 - Live/provider/platform execution remains blocked; canonical dashboard remains `ui/contentops_v5/`.
+
+## Operator-Supplied Feedback Intake and Backlog Loop
+
+- Latest task: `TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG_LOOP_V0`.
+- Current lane: local/manual-only community feedback/questions intake and deterministic backlog candidates.
+- Scope: operator-supplied intake packet, deterministic tag-grouped backlog summary packet, runbook, tests, and V5 read-only Approval Queue/Evidence Vault cards.
+- Product/audit baseline is pending final push/readback; previous accepted baseline was `3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc`.
+- Live/provider/platform/LLM/browser/public URL execution remains blocked.
+

@@ -20,6 +20,7 @@ import {
   xPublicationAuditReviewMetricsSummaryPacket,
 } from '../data/substackManualExportArticleStudioAdapter';
 import { ManualDistributionRegistryPanel } from './ManualDistributionRegistryPanel';
+import { operatorSuppliedFeedbackIntakePacket, operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBacklogAdapter';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -61,6 +62,26 @@ export function EvidenceVault() {
     <div className="space-y-6">
 
       <ManualDistributionRegistryPanel />
+
+      <Panel
+        title="Operator feedback intake and backlog evidence"
+        subtitle={`${operatorSuppliedFeedbackIntakePacket.feedback_intake_packet_id} · ${operatorFeedbackBacklogSummaryPacket.backlog_summary_packet_id}`}
+        actions={<StatusChip status="review">manual-only</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {operatorSuppliedFeedbackIntakePacket.feedback_items.map((item) => (
+            <article key={item.feedback_item_id} className="rounded-lg border border-line bg-surface-2 p-3">
+              <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">{item.source_platform} · {item.source_kind}</div>
+              <h3 className="mt-1 break-all text-sm font-semibold text-fg">{item.feedback_item_id}</h3>
+              <p className="mt-2 text-xs leading-relaxed text-fg-muted">{item.operator_supplied_text}</p>
+              <div className="mt-2 break-all font-mono text-[11px] text-fg-muted">url_hash={item.source_url_hash_optional || 'none'} · verified={String(item.source_url_network_verified)}</div>
+            </article>
+          ))}
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Backlog summary: {operatorFeedbackBacklogSummaryPacket.summary_method} · candidates={operatorFeedbackBacklogSummaryPacket.candidate_count} · llm_provider_call_made={String(operatorFeedbackBacklogSummaryPacket.llm_provider_call_made)} · platform_api_used={String(operatorFeedbackBacklogSummaryPacket.platform_api_used)} · public_url_fetch_made={String(operatorFeedbackBacklogSummaryPacket.public_url_fetch_made)}
+        </div>
+      </Panel>
       <SubstackArticleStudioCard mode="evidence" />
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">

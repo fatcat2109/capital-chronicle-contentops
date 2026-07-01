@@ -27,9 +27,9 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 | 09 | Telegram remote operator lane | deferred | Operator lane direction exists; live execution requires future explicit scope. |
 | 10 | Approval/outbox/audit integration | partially_complete | Payload hash, approval, outbox, and audit artifacts exist across lanes. |
 | 11 | Public URL capture and reconciliation | complete_fixture_only | Substack and LinkedIn URL/audit imports are operator-supplied/manual only. |
-| 12 | Community feedback intake | partially_complete | Feedback/backlog docs exist; no live community activity is claimed. |
-| 13 | LLM feedback summarizer | partially_complete | Feedback summarizer/backlog direction exists; validate in scoped future work. |
-| 14 | Backlog/next-idea generator | partially_complete | Backlog direction exists; recommendations must remain soft. |
+| 12 | Community feedback intake | complete_fixture_only | Operator-supplied feedback intake packet exists locally; no live community activity, scrape, fetch, API, browser, or provider call is claimed. |
+| 13 | LLM feedback summarizer | deferred | Current backlog summary uses deterministic tag grouping only; no LLM/provider call is claimed. |
+| 14 | Backlog/next-idea generator | complete_fixture_only | Deterministic backlog candidates are generated from operator-supplied fixture feedback; recommendations remain review-only. |
 | 15 | Media asset export lane | pending | No accepted live/media lane completion claimed by this refresh. |
 | 16 | V6 UI command surface | partially_complete | Canonical dashboard is `ui/contentops_v5/`; read-only evidence cards are integrated. |
 | 17 | Operator review dashboard | partially_complete | V5 Approval Queue/Evidence Vault show fixture/manual evidence; no live controls authorized. |
