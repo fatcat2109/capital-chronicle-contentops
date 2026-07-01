@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-47dafa048b6b3380971c98636ae693bda0fae2da
+073e1488c035655519db1d6006c646ef67e23b20
 
 ## current_product_phase
 V6 local-first platform variant final review and approval packet preview on the canonical V5 dashboard surface
@@ -19,12 +19,12 @@ V6 local-first platform variant final review and approval packet preview on the 
 platform variant final review and approval packet preview
 
 ## accepted_baseline_summary
-Next article platform variant final review and approval packet preview completed; accepted product baseline SHA remains `dbfd6e3bc6ec2cfc345a995383f9a74421b44cb7` until push/readback. No live/provider/platform/LLM execution occurred.
+Next article platform variant final review and approval packet preview completed and accepted after push/readback at `073e1488c035655519db1d6006c646ef67e23b20`; previous accepted baseline was `dbfd6e3bc6ec2cfc345a995383f9a74421b44cb7`. No live/provider/platform/LLM execution occurred.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `47dafa048b6b3380971c98636ae693bda0fae2da`
-- accepted product baseline (`accepted_product_baseline_sha`): `dbfd6e3bc6ec2cfc345a995383f9a74421b44cb7`
-- previous accepted product baseline: `3c4af3cf7baeeb1a46a748c0efa585ff41e74210`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `073e1488c035655519db1d6006c646ef67e23b20`
+- accepted product baseline (`accepted_product_baseline_sha`): `073e1488c035655519db1d6006c646ef67e23b20`
+- previous accepted product baseline: `dbfd6e3bc6ec2cfc345a995383f9a74421b44cb7`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
 ## canonical_dashboard_surface

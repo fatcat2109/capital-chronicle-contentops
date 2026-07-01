@@ -288,8 +288,8 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Field | Value |
 |---|---|
 | Task label | `TASK_CONTENTOPS_V6_PLATFORM_VARIANT_FINAL_REVIEW_TO_APPROVAL_PACKET_PREVIEW_HEAVY_BATCH_V0` |
-| Accepted product/audit baseline SHA | `dbfd6e3bc6ec2cfc345a995383f9a74421b44cb7` (remains unchanged until push/readback). |
-| Repo HEAD / evidence commit | Reported in final evidence. |
+| Accepted product/audit baseline SHA | `073e1488c035655519db1d6006c646ef67e23b20` |
+| Repo HEAD / evidence commit | `073e1488c035655519db1d6006c646ef67e23b20` |
 | Result classification | `complete_review_only_local_manual` |
 | Scope | Deterministic platform variant final review and approval packet preview generation. |
 | Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |
