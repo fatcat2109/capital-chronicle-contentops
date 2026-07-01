@@ -26,3 +26,8 @@ A status-only commit may cause `origin/master` to advance beyond the product bas
 ## Canonical UI surface
 
 Browser QA and product UI work target `ui/contentops_v5/`. V4 remains fallback/reference only and must not be used as the product target.
+
+
+## V6 Substack operator handoff baseline note
+
+Operator handoff feature commits are product baselines only after push and remote readback. Status-only repairs may advance HEAD but must not replace the accepted product baseline unless explicitly accepted as feature work.

@@ -3,7 +3,10 @@
 // schedule/API affordance. No network, no storage, no credentials.
 
 import { SubstackArticleStudioCard } from './SubstackArticleStudioCard';
-import { substackManualApprovalExportEvidencePacket } from '../data/substackManualExportArticleStudioAdapter';
+import {
+  substackManualApprovalExportEvidencePacket,
+  substackManualExportOperatorHandoffPacket,
+} from '../data/substackManualExportArticleStudioAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -138,6 +141,20 @@ export function ApprovalQueue() {
         </div>
         <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 font-mono text-[11px] text-status-blocked">
           approve/send/publish/dispatch controls enabled={String(substackManualApprovalExportEvidencePacket.enabled_publish_send_dispatch_approve_controls)}
+        </div>
+      </Panel>
+      <Panel
+        title="Substack operator handoff pending review"
+        subtitle={substackManualExportOperatorHandoffPacket.operator_handoff_packet_id}
+        actions={<StatusChip status="review">{substackManualExportOperatorHandoffPacket.operator_handoff_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          <Row label="Approval" value={substackManualExportOperatorHandoffPacket.approval_status} />
+          <Row label="Manual copy only" value={String(substackManualExportOperatorHandoffPacket.manual_copy_only)} mono />
+          <Row label="Live publish" value={String(substackManualExportOperatorHandoffPacket.live_publish_allowed)} mono />
+        </div>
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 font-mono text-[11px] text-status-blocked">
+          blocked controls: {substackManualExportOperatorHandoffPacket.blocked_controls.join(', ')} · enabled={String(substackManualExportOperatorHandoffPacket.enabled_publish_send_dispatch_approve_controls)}
         </div>
       </Panel>
       <Panel

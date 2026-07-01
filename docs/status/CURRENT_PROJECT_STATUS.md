@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0
+TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_PACKET_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -16,10 +16,10 @@ master
 V6 local-first product loop consolidation on the canonical V5 dashboard surface.
 
 ## current_product_lane
-Substack manual approval/export evidence integrated into the canonical V5 dashboard using fixture-only packets, deterministic hashes, pending operator review, and blocked live publish proof.
+Substack manual export operator handoff integrated into the canonical V5 dashboard using fixture-only packets, deterministic hashes, pending operator review, and blocked live publish proof.
 
 ## accepted_baseline_summary
-Accepted product baseline is commit `49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a` on `origin/master`. This commit adds deterministic Substack manual approval/export evidence and canonical V5 fixture-only UI visibility. Live publish, Substack/API/provider calls, env/credential reads, and browser-session access remain blocked. The next status-only repair commit may advance repo HEAD and must be reported separately in final evidence, not promoted as a product baseline.
+Accepted product baseline is commit `49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a` on `origin/master`. This commit adds deterministic Substack manual export operator handoff and canonical V5 fixture-only UI visibility. Live publish, Substack/API/provider calls, env/credential reads, and browser-session access remain blocked. The next status-only repair commit may advance repo HEAD and must be reported separately in final evidence, not promoted as a product baseline.
 
 
 ## status_sha_model
@@ -49,7 +49,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components exist for research packets, canonical article drafts, Substack manual export packets, Substack manual approval/export evidence packets, editorial review, variant preview/hash approval, Discord dry-run outbox, redacted audit, manual fallback, approval queue/evidence vault packets, and live-pilot blocked/ready state. Fixture-only V6 approval/evidence, Substack article studio, and Substack manual approval/export evidence cards are integrated into the canonical V5 dashboard views.
+V6 local deterministic loop components exist for research packets, canonical article drafts, Substack manual export packets, Substack manual export operator handoff packets, editorial review, variant preview/hash approval, Discord dry-run outbox, redacted audit, manual fallback, approval queue/evidence vault packets, and live-pilot blocked/ready state. Fixture-only V6 approval/evidence, Substack article studio, and Substack manual export operator handoff cards are integrated into the canonical V5 dashboard views.
 
 ## dispatch/live status
 Dispatch/live remains blocked. No autonomous publish, schedule, retry, queue execution, platform API call, provider call, credential read, env value read, or live send is authorized by this status ledger.
@@ -68,7 +68,7 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Do not use chat memory or Project Sources as runtime authority when status doc and repo files disagree.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0
+TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_PACKET_V0
 
 ## latest changed areas
 - `live_contentops/substack_manual_approval_export_evidence_v6.py`
@@ -110,3 +110,14 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - latest accepted task
 - latest changed areas
 - current next recommended task
+
+
+## Latest V6 Operator Handoff Update
+
+- Added `live_contentops/substack_manual_export_operator_handoff_v6.py`.
+- Added deterministic handoff sample packet under `docs/automation/V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF/`.
+- Surfaced fixture-only handoff evidence in canonical V5 Manual Export, Approval Queue, and Evidence Vault.
+- Live publish, Substack API, provider calls, dispatch/send/schedule/approve controls, env/credential reads, and browser-session access remain disabled/false.
+
+
+Remote/status SHA note for operator handoff: accepted product baseline and last verified remote SHA target `71cc473a398bc1810d6abcb7bc94136e1c961ef4` after push/readback.

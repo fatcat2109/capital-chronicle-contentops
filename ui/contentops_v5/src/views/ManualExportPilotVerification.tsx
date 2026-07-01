@@ -2,6 +2,7 @@
 // Read-only local package preview. No API calls, credentials, scheduling, or posting.
 
 import { SubstackArticleStudioCard } from './SubstackArticleStudioCard';
+import { substackManualExportOperatorHandoffPacket } from '../data/substackManualExportArticleStudioAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -102,6 +103,33 @@ export function ManualExportPilotVerification() {
               </div>
             ))}
           </div>
+        </div>
+      </Panel>
+
+
+
+      <Panel
+        title="Substack operator handoff packet"
+        subtitle={substackManualExportOperatorHandoffPacket.operator_handoff_packet_id}
+        actions={<StatusChip status="review">{substackManualExportOperatorHandoffPacket.operator_handoff_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          <Metric label="Handoff hash" value={substackManualExportOperatorHandoffPacket.operator_handoff_hash} mono status="verified" />
+          <Metric label="Export payload" value={substackManualExportOperatorHandoffPacket.source_export_payload_hash} mono status="verified" />
+          <Metric label="Approval evidence" value={substackManualExportOperatorHandoffPacket.approval_export_evidence_hash} mono status="verified" />
+        </div>
+        <div className="mt-4 grid grid-cols-1 gap-2 md:grid-cols-2">
+          {substackManualExportOperatorHandoffPacket.manual_copy_checklist.map((item) => (
+            <div key={item.check_id} className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-sm font-semibold text-fg">{item.label}</span>
+                <StatusChip status="review">{item.status}</StatusChip>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          manual_copy_only={String(substackManualExportOperatorHandoffPacket.manual_copy_only)} ? live_publish_allowed={String(substackManualExportOperatorHandoffPacket.live_publish_allowed)} ? substack_api_used={String(substackManualExportOperatorHandoffPacket.substack_api_used)} ? enabled controls={String(substackManualExportOperatorHandoffPacket.enabled_publish_send_dispatch_approve_controls)}
         </div>
       </Panel>
 
