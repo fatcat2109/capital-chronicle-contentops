@@ -85,6 +85,8 @@ export interface DispatchOutboxDryRunPacket {{
   live_publish_performed_by_contentops: boolean;
   enabled_publish_send_dispatch_approve_controls: boolean;
   forbidden_financial_advice_or_signal_wording_present: boolean;
+  dispatch_outbox_dry_run_packet_id: string;
+  exact_payload_hash: string;
   source_approval_preview_packet_id: string;
   source_approval_preview_exact_payload_hash: string;
   source_final_review_packet_id: string;

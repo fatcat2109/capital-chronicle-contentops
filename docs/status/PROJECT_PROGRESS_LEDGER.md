@@ -312,3 +312,18 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Caveats | Dry-run outbox entries are not live dispatch payloads, contain no financial advice, and require separate operator final signoff. |
 | Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
 | Next recommendation at time of update | `TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0` |
+
+## Dispatch Outbox Dry Run to Operator Runbook and Recovery
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0` |
+| Accepted product/audit baseline SHA | `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44` (remains unchanged until push/readback). |
+| Repo HEAD / evidence commit | Reported in final evidence. |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Deterministic operator recovery & runbook package for dispatch outbox dry-run state. |
+| Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |
+| Changed artifact families | `live_contentops/dispatch_outbox_dry_run_operator_recovery_v6.py`, codegen, runbook, tests, and V5 dashboard cards. |
+| Caveats | Recovery entries are not live dispatch payloads, contain no financial advice, and require separate operator final signoff. |
+| Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
+| Next recommendation at time of update | `TASK_CONTENTOPS_V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_HEAVY_BATCH_V0` |

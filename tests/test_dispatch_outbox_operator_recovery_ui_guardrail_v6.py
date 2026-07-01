@@ -1,4 +1,4 @@
-"""UI guardrail tests for V6 Dispatch Outbox Dry Run."""
+"""UI guardrail tests for V6 Operator Recovery Runbook."""
 from __future__ import annotations
 
 import re
@@ -10,11 +10,11 @@ PLATFORM_PREVIEW = V5 / "views" / "PlatformPreview.tsx"
 MANUAL_EXPORT = V5 / "views" / "ManualExportPilotVerification.tsx"
 APPROVAL_QUEUE = V5 / "views" / "ApprovalQueue.tsx"
 EVIDENCE_VAULT = V5 / "views" / "EvidenceVault.tsx"
-ADAPTER = V5 / "data" / "dispatchOutboxDryRunAdapter.ts"
+ADAPTER = V5 / "data" / "dispatchOutboxOperatorRecoveryAdapter.ts"
 
 SURFACES = [PLATFORM_PREVIEW, MANUAL_EXPORT, APPROVAL_QUEUE, EVIDENCE_VAULT]
 REQUIRED_PHRASES = [
-    "dispatch_outbox_dry_run_status=dispatch_outbox_dry_run_created_for_operator_review",
+    "operator_recovery_status=operator_recovery_runbook_created_for_review",
     "executable_outbox_entry_created=false",
     "real_outbox_entry_created=false",
     "dispatch_outbox_ready=false",
@@ -24,6 +24,7 @@ REQUIRED_PHRASES = [
     "platform_api_request_count=0",
     "kill_switch_active=true",
     "ready_for_dispatch=false",
+    "blocked_until_explicit_live_scope=true",
     "no llm/provider/api/env/credential/public url/live action",
 ]
 EXTERNAL_URL_RE = re.compile(r"https?://", re.IGNORECASE)
@@ -47,8 +48,8 @@ def test_surfaces_exist() -> None:
 def test_surfaces_import_adapter() -> None:
     for path in SURFACES:
         text = _read(path)
-        assert "dispatchoutboxdryrunadapter" in text
-        assert "dispatchoutboxdryrunpacket" in text
+        assert "dispatchoutboxoperatorrecoveryadapter" in text
+        assert "dispatchoutboxoperatorrecoverypacket" in text
 
 
 def test_ui_safety_phrases() -> None:
@@ -76,6 +77,7 @@ def test_adapter_is_local_manual_only() -> None:
     assert "platform_api_request_count\":0" in text
     assert "kill_switch_active\":true" in text
     assert "ready_for_dispatch\":false" in text
+    assert "blocked_until_explicit_live_scope\":true" in text
     assert "llm_provider_call_made\":false" in text
     assert "provider_call_made\":false" in text
     assert "platform_api_used\":false" in text
@@ -85,5 +87,3 @@ def test_adapter_is_local_manual_only() -> None:
     assert "credential_read_made\":false" in text
     assert "browser_session_used\":false" in text
     assert "public_url_verification_performed\":false" in text
-    assert "dispatch_outbox_dry_run_packet_id\":\"outbox_dry_run_" in text
-    assert "exact_payload_hash\":" in text

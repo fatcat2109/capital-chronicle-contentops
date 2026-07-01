@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN_HEAVY_BATCH_V0",
-  "current_product_phase": "V6 local-first platform variant approval packet preview to dispatch outbox dry run on the canonical V5 dashboard surface",
-  "current_product_lane": "platform variant approval packet preview to dispatch outbox dry run",
-  "accepted_baseline_summary": "Next article platform variant approval packet preview to dispatch outbox dry run completed and accepted after push/readback at 7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44; previous accepted baseline was 073e1488c035655519db1d6006c646ef67e23b20.",
+  "last_verified_remote_sha": "f3f2b536e203d4e142191bc47929d6abbaf692c4",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0",
+  "current_product_phase": "V6 local-first platform variant dispatch outbox dry-run to operator runbook and recovery on the canonical V5 dashboard surface",
+  "current_product_lane": "dispatch outbox dry-run to operator runbook and recovery",
+  "accepted_baseline_summary": "Next article platform variant dispatch outbox dry-run to operator runbook and recovery completed; accepted product baseline SHA remains 7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44 until push/readback; previous accepted baseline was 073e1488c035655519db1d6006c646ef67e23b20.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -63,7 +63,9 @@
     "live_contentops/platform_variant_final_review_to_approval_packet_preview_v6.py",
     "live_contentops/platform_variant_approval_packet_preview_v5_adapter_codegen_v6.py",
     "live_contentops/approval_packet_preview_to_dispatch_outbox_dry_run_v6.py",
-    "live_contentops/dispatch_outbox_dry_run_v5_adapter_codegen_v6.py"
+    "live_contentops/dispatch_outbox_dry_run_v5_adapter_codegen_v6.py",
+    "live_contentops/dispatch_outbox_dry_run_operator_recovery_v6.py",
+    "live_contentops/dispatch_outbox_operator_recovery_v5_adapter_codegen_v6.py"
   ],
   "current_loop_components": [
     "AI research packet",
@@ -104,7 +106,8 @@
     "Deterministic next article draft preview and review checklist",
     "Deterministic next article draft final review and platform variant preview checklist",
     "Deterministic next article platform variant final review and approval packet preview checklist",
-    "Deterministic next article platform variant approval packet preview to dispatch outbox dry run checklist"
+    "Deterministic next article platform variant approval packet preview to dispatch outbox dry run checklist",
+    "Deterministic next article platform variant dispatch outbox dry-run to operator runbook and recovery checklist"
   ],
   "dispatch_live_status": "blocked; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, or live send authorized",
   "provider_env_credential_status": "gated; no env value or credential value reads; committed evidence may use boolean/key-name status only",
@@ -122,17 +125,18 @@
     "next article draft preview and review is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
     "next article draft final review and platform variant preview is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
     "next article platform variant final review and approval packet preview is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
-    "next article platform variant approval packet preview to dispatch outbox dry run is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized"
+    "next article platform variant approval packet preview to dispatch outbox dry run is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
+    "next article platform variant dispatch outbox dry-run to operator runbook and recovery is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized"
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN_HEAVY_BATCH_V0",
-  "latest_accepted_task_result": "complete; platform variant approval packet preview to dispatch outbox dry run generated and V5 dashboard views updated",
-  "latest_evidence_summary": "Local builder converts variant approval preview packet into a deterministic outbox dry-run package. Surfaces dry-run outbox checklist and details on V5 Approval Queue. Visual QA screenshots committed.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0",
+  "latest_accepted_task_result": "complete; platform variant dispatch outbox dry-run to operator runbook and recovery generated and V5 dashboard views updated",
+  "latest_evidence_summary": "Local builder converts dry-run preview package into a deterministic operator recovery & runbook package. Surfaces fallback steps and recovery matrix on V5 Approval Queue. Visual QA screenshots committed.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_HEAVY_BATCH_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -166,6 +170,6 @@
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
   "accepted_product_baseline_sha": "7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44",
-  "last_status_commit_sha": "e124fec9f1f4e4bc308c326db2699c6735f67ce7",
+  "last_status_commit_sha": "f3f2b536e203d4e142191bc47929d6abbaf692c4",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work."
 }

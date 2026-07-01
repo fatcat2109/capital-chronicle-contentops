@@ -1,0 +1,188 @@
+{
+  "actual_operator_approval_recorded": false,
+  "approval_ledger_entry_created": false,
+  "approval_record_created": false,
+  "approval_signature_present": false,
+  "approval_signature_required": true,
+  "blocked_until_explicit_live_scope": true,
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "dispatch_attempted": false,
+  "dispatch_outbox_operator_recovery_packet_id": "operator_recovery_e30e17729faebb93",
+  "dispatch_outbox_ready": false,
+  "dispatch_preflight_checklist_created": true,
+  "dispatch_request_count": 0,
+  "dry_run_replay_plan_created": true,
+  "dry_run_replay_steps": [
+    {
+      "action": "Regenerate dry-run outbox structures locally from source approval preview to verify build parity",
+      "replay_id": "replay_001",
+      "status": "verified"
+    },
+    {
+      "action": "Inspect outbox dry-run payload text and formatting against UI container styling",
+      "replay_id": "replay_002",
+      "status": "verified"
+    },
+    {
+      "action": "Ensure dry-run hashes match across local execution files",
+      "replay_id": "replay_003",
+      "status": "verified"
+    }
+  ],
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_collection_checklist": [
+    {
+      "item_id": "ev_001",
+      "label": "Collect generated dispatch outbox dry-run payload hashes",
+      "status": "pending"
+    },
+    {
+      "item_id": "ev_002",
+      "label": "Capture local browser screenshots of all V5 dispatch & platform panels",
+      "status": "pending"
+    },
+    {
+      "item_id": "ev_003",
+      "label": "Verify zero live/webhook calls are recorded in local transaction logger",
+      "status": "verified"
+    },
+    {
+      "item_id": "ev_004",
+      "label": "Save operator recovery runbook and preflight checklist to automation docs",
+      "status": "pending"
+    }
+  ],
+  "evidence_collection_checklist_created": true,
+  "exact_payload_hash": "e30e17729faebb933a21045ac03b6e1be640aa33b8f4d424a06bbf79655d1fe2",
+  "executable_outbox_entry_created": false,
+  "failure_mode_matrix": [
+    {
+      "failure_mode": "Platform API connection timed out",
+      "impact": "Deferred platform entries fail to load preview metadata",
+      "recovery_action": "Retain deferred state; do not retry network calls; fallback to manual publishing"
+    },
+    {
+      "failure_mode": "Webhook validation error",
+      "impact": "Discord/Telegram webhook dry-run target fails local JSON serialization",
+      "recovery_action": "Check structure formats; regenerate JSON payload templates; do not send requests"
+    },
+    {
+      "failure_mode": "Formatting error or text truncation",
+      "impact": "Platform payload preview truncated or layout distorted",
+      "recovery_action": "Adjust styling containment classes (e.g. break-all); regenerate preview"
+    }
+  ],
+  "failure_mode_matrix_created": true,
+  "final_article_approved": false,
+  "forbidden_financial_advice_or_signal_wording_present": false,
+  "kill_switch_active": true,
+  "kill_switch_required": true,
+  "live_action_allowed": false,
+  "live_publish_performed_by_contentops": false,
+  "llm_provider_call_made": false,
+  "manual_dispatch_fallback_steps": [
+    {
+      "action": "Copy platform-native variant payload from Platform Preview tab",
+      "step_id": "fallback_001",
+      "target": "all_active_platforms"
+    },
+    {
+      "action": "Authenticate manually to the respective platform web interfaces (Substack, Discord, Telegram, X, Threads, Facebook)",
+      "step_id": "fallback_002",
+      "target": "all_active_platforms"
+    },
+    {
+      "action": "Paste payloads into the draft composer, perform a final visual validation, and post/dispatch",
+      "step_id": "fallback_003",
+      "target": "all_active_platforms"
+    },
+    {
+      "action": "Wait for public URL generation on live platforms, and copy URL for the audit import phase",
+      "step_id": "fallback_004",
+      "target": "all_active_platforms"
+    }
+  ],
+  "manual_fallback_plan_created": true,
+  "network_call_made": false,
+  "operator_preflight_checklist": [
+    {
+      "check_id": "pre_001",
+      "label": "Verify local kill-switch flag is active",
+      "status": "verified"
+    },
+    {
+      "check_id": "pre_002",
+      "label": "Assert all live credentials and secrets are fully redacted from local database",
+      "status": "verified"
+    },
+    {
+      "check_id": "pre_003",
+      "label": "Validate destination room/channel binding descriptors match manual-only fixtures",
+      "status": "verified"
+    },
+    {
+      "check_id": "pre_004",
+      "label": "Confirm dry-run payload hash matches the signed canonical draft approval record",
+      "status": "verified"
+    },
+    {
+      "check_id": "pre_005",
+      "label": "Ensure manual fallback guidelines are accessible by local operator",
+      "status": "verified"
+    }
+  ],
+  "operator_recovery_status": "operator_recovery_runbook_created_for_review",
+  "packet_kind": "dispatch_outbox_dry_run_operator_runbook_and_recovery_v0",
+  "platform_api_request_count": 0,
+  "platform_api_used": false,
+  "platform_payloads_approved": false,
+  "platform_specific_recovery_notes": {
+    "discord_webhook_preview_recovery": "Verify mock payload matches Discord webhook body schema; do not invoke live webhooks.",
+    "facebook_manual_recovery": "Facebook page post must be created manually via Meta Business Suite interface.",
+    "instagram_deferred_recovery": "Instagram is deferred. Maintain deferred status. Do not try to authenticate via mobile/API.",
+    "linkedin_deferred_recovery": "LinkedIn is future-gated. Maintain deferred status until explicit live distribution scope is granted.",
+    "substack_manual_recovery": "Use Substack dashboard draft editor to paste preview content; schedule manually if needed.",
+    "telegram_operator_preview_recovery": "Confirm telegram JSON structure meets bot message requirements; copy manually to client.",
+    "threads_manual_recovery": "Threads requires manual copy-paste from browser; automation endpoints remain disabled.",
+    "tiktok_deferred_recovery": "TikTok video caption is deferred. Maintain deferred status.",
+    "x_manual_recovery": "Paste text into composer; ensure character counts remain within post limits; do not automate tweet dispatch.",
+    "youtube_deferred_recovery": "YouTube video description is deferred. Maintain deferred status."
+  },
+  "provider_call_made": false,
+  "public_url_fetch_made": false,
+  "public_url_verification_performed": false,
+  "ready_for_auto_publish": false,
+  "ready_for_dispatch": false,
+  "real_outbox_entry_created": false,
+  "recovery_runbook_created": true,
+  "retry_enabled": false,
+  "rollback_and_stop_conditions": [
+    {
+      "action": "Halt immediately, delete temporary draft preview, and restart intake validation",
+      "condition_id": "rollback_001",
+      "event": "Payload hash mismatch against signed approval record"
+    },
+    {
+      "action": "Trigger kill-switch, lock credentials, and stop local build server",
+      "condition_id": "rollback_002",
+      "event": "Unexpected live request or platform API call attempted during local run"
+    },
+    {
+      "action": "Reject draft, flag compliance violation, and notify operator",
+      "condition_id": "rollback_003",
+      "event": "Wording warning triggered (e.g., trading recommendation language found)"
+    }
+  ],
+  "rollback_plan_created": true,
+  "scheduler_enabled": false,
+  "source_approval_preview_exact_hash": "b02ec50b38399194d087d12c1e168ceef64fc527ddab1885517ca542f7a72678",
+  "source_approval_preview_packet_id": "approval_preview_28f5ef142e404225",
+  "source_dispatch_outbox_dry_run_exact_hash": "7cfc24c5b0c0ededb530c3d5ede21490ad49b0d46969e7d7ed3d8c7758769439",
+  "source_dispatch_outbox_dry_run_packet_id": "outbox_dry_run_7cfc24c5b0c0eded",
+  "source_final_review_hash": "11fc52e6e452c4d3fedd306ffbf796fae459e061c784eed86cc1e8f65b9d38f2",
+  "source_final_review_packet_id": "final_review_preview_11fc52e6e452c4d3",
+  "task_label": "TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0",
+  "webhook_request_count": 0
+}

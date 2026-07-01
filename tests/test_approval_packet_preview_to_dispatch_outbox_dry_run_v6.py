@@ -13,6 +13,9 @@ def test_dry_run_packet_creation_and_contents() -> None:
     packet = build_dry_run_package()
     assert packet["packet_kind"] == "approval_packet_preview_to_dispatch_outbox_dry_run_v0"
     assert packet["dispatch_outbox_dry_run_status"] == "dispatch_outbox_dry_run_created_for_operator_review"
+    assert "dispatch_outbox_dry_run_packet_id" in packet
+    assert packet["dispatch_outbox_dry_run_packet_id"].startswith("outbox_dry_run_")
+    assert len(packet["exact_payload_hash"]) == 64
     assert packet["dry_run_outbox_package_created"] is True
     assert packet["dry_run_entries_created"] is True
     assert packet["executable_outbox_entry_created"] is False

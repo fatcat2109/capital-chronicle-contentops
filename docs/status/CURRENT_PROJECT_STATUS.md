@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,19 +10,19 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44
+f3f2b536e203d4e142191bc47929d6abbaf692c4
 
 ## current_product_phase
-V6 local-first platform variant approval packet preview to dispatch outbox dry run on the canonical V5 dashboard surface
+V6 local-first platform variant dispatch outbox dry-run to operator runbook and recovery on the canonical V5 dashboard surface
 
 ## current_product_lane
-platform variant approval packet preview to dispatch outbox dry run
+dispatch outbox dry-run to operator runbook and recovery
 
 ## accepted_baseline_summary
-Next article platform variant approval packet preview to dispatch outbox dry run completed and accepted after push/readback at `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44`; previous accepted baseline was `073e1488c035655519db1d6006c646ef67e23b20`. No live/provider/platform/LLM execution occurred.
+Next article dispatch outbox dry-run to operator runbook and recovery completed; accepted product baseline SHA remains `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44` until push/readback. No live/provider/platform/LLM execution occurred.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `f3f2b536e203d4e142191bc47929d6abbaf692c4`
 - accepted product baseline (`accepted_product_baseline_sha`): `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44`
 - previous accepted product baseline: `073e1488c035655519db1d6006c646ef67e23b20`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
@@ -70,20 +70,20 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0
 
 ## latest changed areas
-- `live_contentops/approval_packet_preview_to_dispatch_outbox_dry_run_v6.py`
-- `live_contentops/dispatch_outbox_dry_run_v5_adapter_codegen_v6.py`
-- `docs/automation/V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN/`
-- `tests/test_approval_packet_preview_to_dispatch_outbox_dry_run_v6.py`
-- `tests/test_dispatch_outbox_dry_run_ui_guardrail_v6.py`
-- `tests/test_dispatch_outbox_dry_run_v5_adapter_codegen_v6.py`
-- `docs/runbooks/V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN_RUNBOOK.md`
-- `ui/contentops_v5/src/data/dispatchOutboxDryRunAdapter.ts`
+- `live_contentops/dispatch_outbox_dry_run_operator_recovery_v6.py`
+- `live_contentops/dispatch_outbox_operator_recovery_v5_adapter_codegen_v6.py`
+- `docs/automation/V6_DISPATCH_OUTBOX_DRY_RUN_OPERATOR_RUNBOOK_AND_RECOVERY/`
+- `tests/test_dispatch_outbox_dry_run_operator_recovery_v6.py`
+- `tests/test_dispatch_outbox_operator_recovery_ui_guardrail_v6.py`
+- `tests/test_dispatch_outbox_operator_recovery_v5_adapter_codegen_v6.py`
+- `docs/runbooks/V6_DISPATCH_OUTBOX_DRY_RUN_OPERATOR_RUNBOOK_AND_RECOVERY_RUNBOOK.md`
+- `ui/contentops_v5/src/data/dispatchOutboxOperatorRecoveryAdapter.ts`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_HEAVY_BATCH_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.

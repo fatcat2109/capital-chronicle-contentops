@@ -65,6 +65,8 @@ export interface DispatchOutboxDryRunPacket {
   live_publish_performed_by_contentops: boolean;
   enabled_publish_send_dispatch_approve_controls: boolean;
   forbidden_financial_advice_or_signal_wording_present: boolean;
+  dispatch_outbox_dry_run_packet_id: string;
+  exact_payload_hash: string;
   source_approval_preview_packet_id: string;
   source_approval_preview_exact_payload_hash: string;
   source_final_review_packet_id: string;
@@ -85,6 +87,7 @@ export const dispatchOutboxDryRunPacket: DispatchOutboxDryRunPacket = {
   "browser_session_used": false,
   "credential_read_made": false,
   "dispatch_attempted": false,
+  "dispatch_outbox_dry_run_packet_id": "outbox_dry_run_7cfc24c5b0c0eded",
   "dispatch_outbox_dry_run_status": "dispatch_outbox_dry_run_created_for_operator_review",
   "dispatch_outbox_ready": false,
   "dispatch_request_count": 0,
@@ -324,6 +327,7 @@ export const dispatchOutboxDryRunPacket: DispatchOutboxDryRunPacket = {
   "dry_run_outbox_package_created": true,
   "enabled_publish_send_dispatch_approve_controls": false,
   "env_value_read_made": false,
+  "exact_payload_hash": "7cfc24c5b0c0ededb530c3d5ede21490ad49b0d46969e7d7ed3d8c7758769439",
   "exact_payload_hashes_preserved": true,
   "executable_outbox_entry_created": false,
   "final_article_approved": false,

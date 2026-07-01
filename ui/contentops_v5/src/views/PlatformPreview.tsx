@@ -21,6 +21,7 @@ import type { PlatformPayloadPreview as Preview } from '../types';
 import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonicalDraftFinalReviewVariantPreviewAdapter';
 import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVariantApprovalPacketPreviewAdapter';
 import { dispatchOutboxDryRunPacket } from '../data/dispatchOutboxDryRunAdapter';
+import { dispatchOutboxOperatorRecoveryPacket } from '../data/dispatchOutboxOperatorRecoveryAdapter';
 
 export function PlatformPreview() {
   const { select, selected } = useApp();
@@ -298,6 +299,89 @@ export function PlatformPreview() {
           <div>platform_api_request_count=0</div>
           <div>kill_switch_active=true</div>
           <div>ready_for_dispatch=false</div>
+          <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
+        </div>
+      </div>
+
+      <div className="mb-6 p-4 border border-line bg-surface-2 rounded-xl">
+        <div className="flex justify-between items-start gap-4 flex-wrap">
+          <div>
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-fg-subtle">
+              V6 dispatch outbox operator runbook & recovery (10)
+            </div>
+            <h2 className="text-base font-bold text-fg mt-1">
+              Manual fallback steps, rollback conditions, and failure mode matrix
+            </h2>
+          </div>
+          <StatusChip status="blocked">{dispatchOutboxOperatorRecoveryPacket.operator_recovery_status}</StatusChip>
+        </div>
+
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <div className="font-semibold text-xs text-accent uppercase tracking-wider mb-2 font-mono">Manual Dispatch Fallback Steps</div>
+            <div className="space-y-2">
+              {dispatchOutboxOperatorRecoveryPacket.manual_dispatch_fallback_steps.map((item) => (
+                <div key={item.step_id} className="p-2.5 border border-line bg-surface-1 rounded-lg text-xs">
+                  <div className="font-semibold text-fg font-mono uppercase text-[9.5px]">{item.step_id} · target: {item.target}</div>
+                  <div className="mt-1 text-fg-muted leading-relaxed">{item.action}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="font-semibold text-xs text-accent uppercase tracking-wider mb-2 font-mono">Dry-Run Replay Verification Steps</div>
+            <div className="space-y-2">
+              {dispatchOutboxOperatorRecoveryPacket.dry_run_replay_steps.map((item) => (
+                <div key={item.replay_id} className="p-2.5 border border-line bg-surface-1 rounded-lg text-xs">
+                  <div className="flex justify-between items-center font-mono text-[9.5px]">
+                    <span className="font-semibold text-fg uppercase">{item.replay_id}</span>
+                    <StatusChip status="verified">{item.status}</StatusChip>
+                  </div>
+                  <div className="mt-1 text-fg-muted leading-relaxed">{item.action}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 border-t border-line pt-3">
+          <div className="font-semibold text-xs text-accent uppercase tracking-wider mb-2 font-mono">Failure Mode & Recovery Matrix</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {dispatchOutboxOperatorRecoveryPacket.failure_mode_matrix.map((item, idx) => (
+              <div key={idx} className="p-3 border border-line bg-surface-1 rounded-lg text-xs font-mono">
+                <div className="font-bold text-fg">Mode: {item.failure_mode}</div>
+                <div className="mt-1 text-status-blocked">Impact: {item.impact}</div>
+                <div className="mt-1 text-fg-subtle">Action: {item.recovery_action}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-4 border-t border-line pt-3">
+          <div className="font-semibold text-xs text-accent uppercase tracking-wider mb-2 font-mono">Platform-Specific Manual Handoff & Recovery Notes</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {Object.entries(dispatchOutboxOperatorRecoveryPacket.platform_specific_recovery_notes).map(([key, val]) => (
+              <div key={key} className="p-2.5 border border-line bg-surface-1 rounded-lg text-xs">
+                <div className="font-bold text-accent uppercase text-[10px] font-mono">{key.replace('_', ' ')}</div>
+                <div className="mt-1 text-fg-muted leading-relaxed font-mono">{val}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
+          <div>operator_recovery_status=operator_recovery_runbook_created_for_review</div>
+          <div>executable_outbox_entry_created=false</div>
+          <div>real_outbox_entry_created=false</div>
+          <div>dispatch_outbox_ready=false</div>
+          <div>dispatch_attempted=false</div>
+          <div>dispatch_request_count=0</div>
+          <div>webhook_request_count=0</div>
+          <div>platform_api_request_count=0</div>
+          <div>kill_switch_active=true</div>
+          <div>ready_for_dispatch=false</div>
+          <div>blocked_until_explicit_live_scope=true</div>
           <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
         </div>
       </div>

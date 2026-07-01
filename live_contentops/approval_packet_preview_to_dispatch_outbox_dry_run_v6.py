@@ -137,6 +137,12 @@ def build_dry_run_package() -> dict:
         "task_label": "TASK_CONTENTOPS_V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN_HEAVY_BATCH_V0"
     }
 
+    # Deterministic payload hashing excluding id and hash fields
+    payload_bytes = json.dumps(packet, sort_keys=True).encode("utf-8")
+    exact_hash = hashlib.sha256(payload_bytes).hexdigest()
+    packet["exact_payload_hash"] = exact_hash
+    packet["dispatch_outbox_dry_run_packet_id"] = f"outbox_dry_run_{exact_hash[:16]}"
+
     return packet
 
 

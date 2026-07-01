@@ -1,0 +1,67 @@
+{
+  "task": "TASK_CONTENTOPS_0174YO_YP_YQ_EXISTING_DASHBOARD_INTEGRATION_RECON_AND_REPLAN_V0",
+  "mode": "Browser QA + Repo Recon Mode",
+  "repo": "A:/Capital Chronicle/tools/cc-live-contentops",
+  "branch": "master",
+  "baseline": {
+    "head": "d28cc111e9d65cf161513c1c0a504085ea0cf629",
+    "origin_master": "d28cc111e9d65cf161513c1c0a504085ea0cf629"
+  },
+  "decision": {
+    "authoritative_target": "ui/contentops_v5",
+    "rejected_targets": [
+      "ui/institutional_operator_cockpit_v4",
+      "docs/automation/0174YL_YM_YN/cockpit_ui_shell.html"
+    ],
+    "summary": "V5 is the product cockpit surface. V4 is frozen fallback/safety reference. Static shell is debug/data-contract evidence only."
+  },
+  "browser_qa": {
+    "url": "http://127.0.0.1:5175/",
+    "viewport": "1440x900",
+    "dev_command": "npm run dev -- --host 127.0.0.1 --port 5175",
+    "screenshots": [
+      "C:/Users/bullw/.gemini/antigravity-ide/brain/4613f36c-ae6a-4891-9653-ecf19e65b08d/command_center_default_1781789328735.png",
+      "C:/Users/bullw/.gemini/antigravity-ide/brain/4613f36c-ae6a-4891-9653-ecf19e65b08d/platform_preview_x_1781789338333.png",
+      "C:/Users/bullw/.gemini/antigravity-ide/brain/4613f36c-ae6a-4891-9653-ecf19e65b08d/platform_preview_telegram_1781789343923.png",
+      "C:/Users/bullw/.gemini/antigravity-ide/brain/4613f36c-ae6a-4891-9653-ecf19e65b08d/manual_publish_default_1781789352160.png",
+      "C:/Users/bullw/.gemini/antigravity-ide/brain/4613f36c-ae6a-4891-9653-ecf19e65b08d/evidence_vault_dark_1781789381648.png"
+    ],
+    "recording": "C:/Users/bullw/.gemini/antigravity-ide/brain/4613f36c-ae6a-4891-9653-ecf19e65b08d/v5_recon_1781789317155.webp"
+  },
+  "source_files_inspected": [
+    "ui/contentops_v5/package.json",
+    "ui/contentops_v5/src/App.tsx",
+    "ui/contentops_v5/src/index.css",
+    "ui/contentops_v5/src/fixtures.ts",
+    "ui/contentops_v5/src/selectors.ts",
+    "ui/contentops_v5/src/views/CommandCenter.tsx",
+    "ui/contentops_v5/src/views/WriterStudio.tsx",
+    "ui/contentops_v5/src/views/PlatformPayloadPreview.tsx",
+    "ui/contentops_v5/src/views/ApprovalQueue.tsx",
+    "ui/contentops_v5/src/views/EvidenceVault.tsx",
+    "docs/automation/0174YF_YG_YH/cockpit_read_model_packet.json",
+    "docs/automation/0174YL_YM_YN/cockpit_ui_shell.html"
+  ],
+  "replan": {
+    "integration_seam": "V5 fixture/view-model layer plus selectors/inspector rail",
+    "recommended_new_component": "ui/contentops_v5/src/data/cockpitReadModelAdapter.ts",
+    "recommended_fixture_strategy": "static import, no runtime fetch",
+    "views_to_update": [
+      "CommandCenter",
+      "PlatformPayloadPreview",
+      "ManualPublishMetrics",
+      "ApprovalQueue",
+      "EvidenceVault"
+    ],
+    "guardrails": [
+      "no V4 integration",
+      "no standalone HTML productization",
+      "no runtime network",
+      "no credentials/env read",
+      "no scheduler",
+      "no enabled live dispatch",
+      "dispatchable remains false"
+    ]
+  },
+  "report": "docs/automation/0174YO_YP_YQ/v5_existing_dashboard_integration_recon_and_replan.md"
+}

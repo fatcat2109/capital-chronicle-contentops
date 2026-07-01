@@ -29,6 +29,7 @@ import { localCanonicalDraftPreviewReviewPacket } from '../data/localCanonicalDr
 import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonicalDraftFinalReviewVariantPreviewAdapter';
 import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVariantApprovalPacketPreviewAdapter';
 import { dispatchOutboxDryRunPacket } from '../data/dispatchOutboxDryRunAdapter';
+import { dispatchOutboxOperatorRecoveryPacket } from '../data/dispatchOutboxOperatorRecoveryAdapter';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -327,6 +328,44 @@ export function EvidenceVault() {
             <div>platform_api_request_count=0</div>
             <div>kill_switch_active=true</div>
             <div>ready_for_dispatch=false</div>
+            <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-lg border border-line bg-surface-2 p-3 font-mono">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">V6 dispatch outbox operator runbook & recovery</div>
+          <h3 className="mt-1 break-all text-sm font-semibold text-fg">{dispatchOutboxOperatorRecoveryPacket.task_label}</h3>
+          <p className="mt-2 text-xs leading-relaxed text-fg-muted font-mono">status: {dispatchOutboxOperatorRecoveryPacket.operator_recovery_status}</p>
+          <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30 space-y-1.5 font-mono">
+            <div><span className="font-semibold text-fg font-mono">operator_recovery_status:</span> {dispatchOutboxOperatorRecoveryPacket.operator_recovery_status}</div>
+            <div><span className="font-semibold text-fg font-mono">recovery_runbook_created:</span> {String(dispatchOutboxOperatorRecoveryPacket.recovery_runbook_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">manual_fallback_plan_created:</span> {String(dispatchOutboxOperatorRecoveryPacket.manual_fallback_plan_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">rollback_plan_created:</span> {String(dispatchOutboxOperatorRecoveryPacket.rollback_plan_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">dry_run_replay_plan_created:</span> {String(dispatchOutboxOperatorRecoveryPacket.dry_run_replay_plan_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">failure_mode_matrix_created:</span> {String(dispatchOutboxOperatorRecoveryPacket.failure_mode_matrix_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">evidence_collection_checklist_created:</span> {String(dispatchOutboxOperatorRecoveryPacket.evidence_collection_checklist_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">dispatch_preflight_checklist_created:</span> {String(dispatchOutboxOperatorRecoveryPacket.dispatch_preflight_checklist_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">executable_outbox_entry_created:</span> {String(dispatchOutboxOperatorRecoveryPacket.executable_outbox_entry_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">real_outbox_entry_created:</span> {String(dispatchOutboxOperatorRecoveryPacket.real_outbox_entry_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">dispatch_outbox_ready:</span> {String(dispatchOutboxOperatorRecoveryPacket.dispatch_outbox_ready)}</div>
+            <div><span className="font-semibold text-fg font-mono">dispatch_attempted:</span> {String(dispatchOutboxOperatorRecoveryPacket.dispatch_attempted)}</div>
+            <div><span className="font-semibold text-fg font-mono">dispatch_request_count:</span> {dispatchOutboxOperatorRecoveryPacket.dispatch_request_count}</div>
+            <div><span className="font-semibold text-fg font-mono">kill_switch_active:</span> {String(dispatchOutboxOperatorRecoveryPacket.kill_switch_active)}</div>
+            <div><span className="font-semibold text-fg font-mono">ready_for_dispatch:</span> {String(dispatchOutboxOperatorRecoveryPacket.ready_for_dispatch)}</div>
+            <div><span className="font-semibold text-fg font-mono">blocked_until_explicit_live_scope:</span> {String(dispatchOutboxOperatorRecoveryPacket.blocked_until_explicit_live_scope)}</div>
+          </div>
+          <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30 font-mono font-mono font-mono">
+            <div>operator_recovery_status=operator_recovery_runbook_created_for_review</div>
+            <div>executable_outbox_entry_created=false</div>
+            <div>real_outbox_entry_created=false</div>
+            <div>dispatch_outbox_ready=false</div>
+            <div>dispatch_attempted=false</div>
+            <div>dispatch_request_count=0</div>
+            <div>webhook_request_count=0</div>
+            <div>platform_api_request_count=0</div>
+            <div>kill_switch_active=true</div>
+            <div>ready_for_dispatch=false</div>
+            <div>blocked_until_explicit_live_scope=true</div>
             <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
           </div>
         </div>

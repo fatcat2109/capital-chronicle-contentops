@@ -27,6 +27,7 @@ import { localCanonicalDraftPreviewReviewPacket } from '../data/localCanonicalDr
 import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonicalDraftFinalReviewVariantPreviewAdapter';
 import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVariantApprovalPacketPreviewAdapter';
 import { dispatchOutboxDryRunPacket } from '../data/dispatchOutboxDryRunAdapter';
+import { dispatchOutboxOperatorRecoveryPacket } from '../data/dispatchOutboxOperatorRecoveryAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -539,6 +540,45 @@ export function ManualExportPilotVerification() {
           <div>platform_api_request_count=0</div>
           <div>kill_switch_active=true</div>
           <div>ready_for_dispatch=false</div>
+          <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
+        </div>
+      </Panel>
+
+      <Panel
+        title="V6 dispatch outbox operator runbook & recovery"
+        subtitle={`${dispatchOutboxOperatorRecoveryPacket.task_label} · status: ${dispatchOutboxOperatorRecoveryPacket.operator_recovery_status}`}
+        actions={<StatusChip status="blocked">{dispatchOutboxOperatorRecoveryPacket.operator_recovery_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Runbook Created" value={String(dispatchOutboxOperatorRecoveryPacket.recovery_runbook_created)} status="verified" />
+          <Metric label="Manual Fallback" value={String(dispatchOutboxOperatorRecoveryPacket.manual_fallback_plan_created)} status="verified" />
+          <Metric label="Rollback Plan" value={String(dispatchOutboxOperatorRecoveryPacket.rollback_plan_created)} status="verified" />
+          <Metric label="Dry-Run Replay" value={String(dispatchOutboxOperatorRecoveryPacket.dry_run_replay_plan_created)} status="verified" />
+          <Metric label="Failure Matrix" value={String(dispatchOutboxOperatorRecoveryPacket.failure_mode_matrix_created)} status="verified" />
+          <Metric label="Evidence Checklist" value={String(dispatchOutboxOperatorRecoveryPacket.evidence_collection_checklist_created)} status="verified" />
+          <Metric label="Preflight Checklist" value={String(dispatchOutboxOperatorRecoveryPacket.dispatch_preflight_checklist_created)} status="verified" />
+          <Metric label="Executable Outbox Entry" value={String(dispatchOutboxOperatorRecoveryPacket.executable_outbox_entry_created)} status="blocked" />
+          <Metric label="Real Outbox Entry" value={String(dispatchOutboxOperatorRecoveryPacket.real_outbox_entry_created)} status="blocked" />
+          <Metric label="Dispatch Outbox Ready" value={String(dispatchOutboxOperatorRecoveryPacket.dispatch_outbox_ready)} status="blocked" />
+          <Metric label="Dispatch Attempted" value={String(dispatchOutboxOperatorRecoveryPacket.dispatch_attempted)} status="blocked" />
+          <Metric label="Dispatch Count" value={String(dispatchOutboxOperatorRecoveryPacket.dispatch_request_count)} status="verified" />
+          <Metric label="Kill Switch Active" value={String(dispatchOutboxOperatorRecoveryPacket.kill_switch_active)} status="verified" />
+          <Metric label="Ready For Dispatch" value={String(dispatchOutboxOperatorRecoveryPacket.ready_for_dispatch)} status="blocked" />
+          <Metric label="Blocked Until Live Scope" value={String(dispatchOutboxOperatorRecoveryPacket.blocked_until_explicit_live_scope)} status="blocked" />
+        </div>
+
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
+          <div>operator_recovery_status=operator_recovery_runbook_created_for_review</div>
+          <div>executable_outbox_entry_created=false</div>
+          <div>real_outbox_entry_created=false</div>
+          <div>dispatch_outbox_ready=false</div>
+          <div>dispatch_attempted=false</div>
+          <div>dispatch_request_count=0</div>
+          <div>webhook_request_count=0</div>
+          <div>platform_api_request_count=0</div>
+          <div>kill_switch_active=true</div>
+          <div>ready_for_dispatch=false</div>
+          <div>blocked_until_explicit_live_scope=true</div>
           <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
         </div>
       </Panel>
