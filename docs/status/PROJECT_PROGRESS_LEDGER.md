@@ -228,8 +228,8 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Field | Value |
 |---|---|
 | Task label | `TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION_V0` |
-| Accepted product/audit baseline SHA | `b96a517acaf8422723d5bbea1888f0f245ab2325` (retains previous baseline during push/readback). |
-| Repo HEAD / evidence commit | Reported in final evidence. |
+| Accepted product/audit baseline SHA | `1761db8ac62c64b638706b83f443b71569e5d4cb` |
+| Repo HEAD / evidence commit | `1761db8ac62c64b638706b83f443b71569e5d4cb` |
 | Result classification | `complete_review_only_local_manual` |
 | Scope | Deterministic intake and local metadata validation of operator-supplied source entries against brief review checklist. |
 | Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. URLs are plain text/hash metadata. |

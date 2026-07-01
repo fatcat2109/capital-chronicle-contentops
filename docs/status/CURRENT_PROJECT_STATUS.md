@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-11b8ae5eb14286b2863ec06084278bbbf60614ba
+1761db8ac62c64b638706b83f443b71569e5d4cb
 
 ## current_product_phase
 V6 local-first source-pack intake and metadata validation bridge on the canonical V5 dashboard surface, checking checklist item coverage of operator-supplied entries.
@@ -19,12 +19,12 @@ V6 local-first source-pack intake and metadata validation bridge on the canonica
 Next article source-pack intake and local metadata validation
 
 ## accepted_baseline_summary
-Next article source-pack intake and validation workflow accepted after push/readback; previous accepted baseline was `b96a517acaf8422723d5bbea1888f0f245ab2325`. No live/provider/platform/LLM execution occurred.
+Next article source-pack intake and validation workflow accepted after push/readback at `1761db8ac62c64b638706b83f443b71569e5d4cb`; previous accepted baseline was `b96a517acaf8422723d5bbea1888f0f245ab2325`. No live/provider/platform/LLM execution occurred.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `11b8ae5eb14286b2863ec06084278bbbf60614ba`
-- accepted product baseline (`accepted_product_baseline_sha`): `b96a517acaf8422723d5bbea1888f0f245ab2325`
-- previous accepted product baseline: `c092a8f5bf5f34fd784eead8dc3af1fc7cdd15ee`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `1761db8ac62c64b638706b83f443b71569e5d4cb`
+- accepted product baseline (`accepted_product_baseline_sha`): `1761db8ac62c64b638706b83f443b71569e5d4cb`
+- previous accepted product baseline: `b96a517acaf8422723d5bbea1888f0f245ab2325`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
 ## canonical_dashboard_surface
