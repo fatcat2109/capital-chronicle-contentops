@@ -228,12 +228,12 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Field | Value |
 |---|---|
 | Task label | `TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION_V0` |
-| Accepted product/audit baseline SHA | `1761db8ac62c64b638706b83f443b71569e5d4cb` |
-| Repo HEAD / evidence commit | `1761db8ac62c64b638706b83f443b71569e5d4cb` |
+| Accepted product/audit baseline SHA | `1761db85d74ef741a4beba548893d3c901a7077b` |
+| Repo HEAD / evidence commit | `1761db85d74ef741a4beba548893d3c901a7077b` |
 | Result classification | `complete_review_only_local_manual` |
 | Scope | Deterministic intake and local metadata validation of operator-supplied source entries against brief review checklist. |
 | Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. URLs are plain text/hash metadata. |
 | Changed artifact families | `live_contentops/next_article_source_pack_intake_validation_v6.py`, `docs/automation/V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION/`, tests, runbook, and V5 dashboard cards. |
 | Caveats | Complete checklist does not grant LLM or canonical drafting authorization. |
 | Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
-| Next recommendation at time of update | Build the V6 canonical drafting workflow. |
+| Next recommendation at time of update | `TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_TO_DRAFT_AUTHORIZATION_AND_LOCAL_DRAFT_READINESS_HEAVY_BATCH_V0` |
