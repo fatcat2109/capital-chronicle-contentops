@@ -11,6 +11,11 @@ import {
   linkedinManualOperatorHandoffPacket,
   linkedinManualPublicationUrlAuditImportPacket,
   linkedinPublicationAuditReviewMetricsSummaryPacket,
+  xManualExportPacket,
+  xManualApprovalExportEvidencePacket,
+  xManualOperatorHandoffPacket,
+  xManualPublicationUrlAuditImportPacket,
+  xPublicationAuditReviewMetricsSummaryPacket,
 } from '../data/substackManualExportArticleStudioAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
@@ -215,6 +220,36 @@ export function ManualExportPilotVerification() {
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
           LinkedIn manual fixture only; no LinkedIn API, browser automation, credential/session/env read, URL fetch/scrape/network verification, post, DM, comment, like, reaction, scheduler, dispatch, send, or approval control.
           enabled={String(linkedinManualOperatorHandoffPacket.enabled_publish_send_dispatch_approve_controls)} · url_network_verified={String(linkedinManualPublicationUrlAuditImportPacket.url_network_verified)} · metrics_network_verified={String(linkedinPublicationAuditReviewMetricsSummaryPacket.metrics_network_verified)}
+        </div>
+      </Panel>
+
+
+
+      <Panel
+        title="X manual publication evidence loop"
+        subtitle={xManualOperatorHandoffPacket.operator_handoff_packet_id}
+        actions={<StatusChip status="review">fixture-only</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
+          <Metric label="X draft" value={xManualExportPacket.export_packet_id} mono status="verified" />
+          <Metric label="Approval evidence" value={xManualApprovalExportEvidencePacket.approval_export_evidence_packet_id} mono status="review" />
+          <Metric label="URL audit" value={xManualPublicationUrlAuditImportPacket.publication_url_audit_packet_id} mono status="review" />
+          <Metric label="Metrics" value={xPublicationAuditReviewMetricsSummaryPacket.publication_audit_review_packet_id} mono status="review" />
+          <Metric label="X API" value={String(xManualExportPacket.x_api_used)} mono status="blocked" />
+        </div>
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-8">
+          <Metric label="Impressions" value={String(xPublicationAuditReviewMetricsSummaryPacket.manual_metrics.impressions)} status="verified" />
+          <Metric label="Likes" value={String(xPublicationAuditReviewMetricsSummaryPacket.manual_metrics.likes)} status="verified" />
+          <Metric label="Replies" value={String(xPublicationAuditReviewMetricsSummaryPacket.manual_metrics.replies)} status="verified" />
+          <Metric label="Reposts" value={String(xPublicationAuditReviewMetricsSummaryPacket.manual_metrics.reposts)} status="verified" />
+          <Metric label="Quotes" value={String(xPublicationAuditReviewMetricsSummaryPacket.manual_metrics.quotes)} status="verified" />
+          <Metric label="Bookmarks" value={String(xPublicationAuditReviewMetricsSummaryPacket.manual_metrics.bookmarks)} status="verified" />
+          <Metric label="Profile visits" value={String(xPublicationAuditReviewMetricsSummaryPacket.manual_metrics.profile_visits)} status="verified" />
+          <Metric label="Link clicks" value={String(xPublicationAuditReviewMetricsSummaryPacket.manual_metrics.link_clicks)} status="verified" />
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          X manual fixture only; no X API, browser automation, credential/session/env read, URL fetch/scrape/network verification, post, DM, reply, like, repost, quote-post, scheduler, dispatch, send, or approval control.
+          enabled={String(xManualOperatorHandoffPacket.enabled_publish_send_dispatch_approve_controls)} ? url_network_verified={String(xManualPublicationUrlAuditImportPacket.url_network_verified)} ? metrics_network_verified={String(xPublicationAuditReviewMetricsSummaryPacket.metrics_network_verified)}
         </div>
       </Panel>
 

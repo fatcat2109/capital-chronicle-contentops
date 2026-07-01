@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "83c53fd3a39b377d9f74fa70cd8b6a5357689ecb",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_STATUS_PROGRESS_MASTER_PLAN_REFRESH_AFTER_LINKEDIN_MANUAL_LOOP_V0",
+  "last_verified_remote_sha": "03e78058ac676da325cb29f3afa9430f035a1745",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0",
   "current_product_phase": "V6 local-first product loop consolidation on the canonical V5 dashboard surface, with repo-native status/progress governance refreshed after LinkedIn manual evidence acceptance",
-  "current_product_lane": "Docs/status/progress governance refresh after LinkedIn manual publication evidence loop acceptance; no new product feature lane is opened by this update.",
-  "accepted_baseline_summary": "LinkedIn manual publication evidence loop is accepted as the current product baseline after push/readback at 83c53fd3a39b377d9f74fa70cd8b6a5357689ecb. The previous status ledger incorrectly left accepted_product_baseline_sha at fbfd64c8975df7b5ac2daa549641a4b8e31a90c5; that SHA is not the current accepted product baseline for TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0. This docs/status refresh commit repairs metadata and does not become a product baseline unless explicitly accepted as product work.",
+  "current_product_lane": "X manual publication evidence loop integrated into canonical V5 as fixture/operator-supplied manual evidence; no X API/live/browser/network verification.",
+  "accepted_baseline_summary": "LinkedIn manual publication evidence loop remains accepted pre-task baseline at 83c53fd3a39b377d9f74fa70cd8b6a5357689ecb. X lane is implemented in this task but accepted_product_baseline_sha must advance only after push/readback; a post-push status-only repair may be required.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -40,7 +40,12 @@
     "live_contentops/linkedin_manual_approval_export_evidence_v6.py",
     "live_contentops/linkedin_manual_operator_handoff_v6.py",
     "live_contentops/linkedin_manual_publication_url_audit_import_v6.py",
-    "live_contentops/linkedin_publication_audit_review_metrics_summary_v6.py"
+    "live_contentops/linkedin_publication_audit_review_metrics_summary_v6.py",
+    "live_contentops/x_manual_export_v6.py",
+    "live_contentops/x_manual_approval_export_evidence_v6.py",
+    "live_contentops/x_manual_operator_handoff_v6.py",
+    "live_contentops/x_manual_publication_url_audit_import_v6.py",
+    "live_contentops/x_publication_audit_review_metrics_summary_v6.py"
   ],
   "current_loop_components": [
     "AI research packet",
@@ -61,7 +66,12 @@
     "LinkedIn manual approval/export evidence packet",
     "LinkedIn manual operator handoff packet",
     "LinkedIn manual publication URL/audit import packet",
-    "LinkedIn manual metrics summary packet"
+    "LinkedIn manual metrics summary packet",
+    "X manual post/thread export packet",
+    "X manual approval/export evidence packet",
+    "X manual operator handoff packet",
+    "X manual publication URL/audit import packet",
+    "X manual metrics summary packet"
   ],
   "dispatch_live_status": "blocked; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, or live send authorized",
   "provider_env_credential_status": "gated; no env value or credential value reads; committed evidence may use boolean/key-name status only",
@@ -69,15 +79,16 @@
     "live/provider/platform execution remains disabled",
     "future product UI work must target ui/contentops_v5/ unless newer committed authority supersedes it",
     "standalone approval queue UI must not be revived as canonical",
-    "LinkedIn lane is fixture/operator-supplied evidence only; no API, browser automation, URL fetch/scrape, public URL verification, or platform action is authorized"
+    "LinkedIn lane is fixture/operator-supplied evidence only; no API, browser automation, URL fetch/scrape, public URL verification, or platform action is authorized",
+    "X lane is fixture/operator-supplied evidence only; no X API, browser automation, URL fetch/scrape, public URL verification, platform action, or live post is authorized"
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0",
-  "latest_accepted_task_result": "accepted LinkedIn manual publication evidence loop as product baseline after push/readback; refreshed repo-native status, progress, north-star, and roadmap governance without changing product runtime behavior",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0",
+  "latest_accepted_task_result": "pending final push/readback; X manual publication evidence loop implemented locally with status note that accepted_product_baseline_sha must advance only after push/readback",
   "latest_evidence_summary": "LinkedIn sample packets under docs/automation/V6_LINKEDIN_* remain fixture/operator-supplied local evidence only. This refresh repairs accepted baseline metadata and adds status/progress governance docs; no live/API/browser/network verification was performed.",
   "next_recommended_task": "TASK_CONTENTOPS_V6_ROADMAP_REVIEW_OR_NEXT_MANUAL_DISTRIBUTION_LANE_V0",
   "mandatory_read_before_task": [

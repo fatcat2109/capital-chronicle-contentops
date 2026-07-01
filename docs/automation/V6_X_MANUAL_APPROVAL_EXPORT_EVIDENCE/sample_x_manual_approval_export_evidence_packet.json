@@ -1,0 +1,94 @@
+{
+  "approval_export_evidence_hash": "029ea52504bc707f1ab48d37e36278f885819da229bfb73167046823990c0f01",
+  "approval_export_evidence_packet_id": "x_manual_approval_export_evidence_029ea52504bc707f",
+  "approval_status": "pending",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "article_source_packet",
+      "card_type": "article_source_packet",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "x_export_packet",
+      "card_type": "x_export_packet",
+      "display_status": "bound",
+      "hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+      "source_id": "x_manual_export_00705bd0bac1e58a"
+    },
+    {
+      "card_id": "approval_checkpoint",
+      "card_type": "approval_checkpoint",
+      "display_status": "pending_review",
+      "hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+      "source_id": "operator_review_status"
+    },
+    {
+      "card_id": "blocked_live_publish_state",
+      "card_type": "blocked_live_publish_state",
+      "display_status": "blocked",
+      "hash": "c96e0862efc7de6d9539b70d620043a0f089d3cb215cc7b44c1e36e9a53c1545",
+      "source_id": "live_publish_allowed=false"
+    }
+  ],
+  "exact_payload_hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+  "hash_algorithm": "sha256_json_v6",
+  "live_publish_allowed": false,
+  "live_publish_performed": false,
+  "manual_copy_checklist": [
+    {
+      "check_id": "manual_copy_payload_present",
+      "label": "X manual copy payload reviewed in V5",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_no_live_publish",
+      "label": "Operator confirms no publish/send/dispatch/schedule action is enabled",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_x_api_absent",
+      "label": "Operator confirms X API was not used",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_hash_match",
+      "label": "Operator confirms exact payload hash before manual copy",
+      "required": true,
+      "status": "pending_review"
+    }
+  ],
+  "manual_export_status": "ready_for_manual_copy",
+  "network_call_made": false,
+  "operator_review_proof": "pending operator review; deterministic fixture only; no runtime proof",
+  "operator_review_status": "pending_review",
+  "provider_call_made": false,
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_canonical_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_export_packet_id": "x_manual_export_00705bd0bac1e58a",
+  "task_label": "TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0",
+  "warnings": [
+    "sample_fixture_only",
+    "manual_copy_only_no_x_api",
+    "live_publish_disabled",
+    "operator_review_pending"
+  ],
+  "x_api_used": false
+}

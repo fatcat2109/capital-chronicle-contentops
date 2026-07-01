@@ -1,0 +1,21 @@
+from pathlib import Path
+import json
+ROOT=Path(__file__).resolve().parents[1]
+def load(rel): return json.loads((ROOT/rel).read_text(encoding='utf-8'))
+def assert_common_false(p):
+    for k in ['x_api_used','provider_call_made','network_call_made','credential_read_made','env_value_read_made','browser_session_used']:
+        assert p[k] is False
+    assert p['sample_scope']=='sample_fixture_only'
+
+from live_contentops.x_manual_export_v6 import build_x_manual_export_packet
+def test_x_manual_export_packet_fixture():
+    p=load('docs/automation/V6_X_MANUAL_EXPORT/sample_x_manual_export_packet.json')
+    assert p['platform']=='x'
+    assert p['manual_copy_payload']['target']=='x_manual_copy'
+    assert p['manual_copy_only'] is True
+    assert p['live_publish_allowed'] is False and p['live_publish_performed'] is False
+    assert 'buy' not in p['post_body_fixture'].lower()
+    assert_common_false(p)
+def test_builder_is_deterministic():
+    src=load('docs/automation/V6_AI_RESEARCH_CANONICAL_ARTICLE_ENGINE/sample_ai_research_canonical_article_packet.json')
+    assert build_x_manual_export_packet(src)==load('docs/automation/V6_X_MANUAL_EXPORT/sample_x_manual_export_packet.json')

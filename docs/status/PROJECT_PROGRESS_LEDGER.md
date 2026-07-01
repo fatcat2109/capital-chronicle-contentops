@@ -85,3 +85,14 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Changed artifact families | To be determined per future task. |
 | Caveats | Soft recommendations only; never use stale Project Sources or chat memory as authority. |
 | Next recommendation at time of update | Roadmap review or next manual/deferred distribution lane. |
+
+
+## X Manual Publication Evidence
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0` |
+| Result classification | `complete_fixture_only` after implementation evidence exists and tests pass. |
+| Scope | X manual export, approval/export evidence, operator handoff, URL/audit import, and manual metrics summary with canonical V5 visibility. |
+| Safety posture | Fixture/operator-supplied only; no X API, env, credentials, browser session, network, URL fetch/scrape, or live posting. |
+| Caveats | URL and metrics are operator-supplied text only and not network verified. |

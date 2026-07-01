@@ -1,0 +1,86 @@
+{
+  "approval_export_evidence_hash": "029ea52504bc707f1ab48d37e36278f885819da229bfb73167046823990c0f01",
+  "approval_export_evidence_packet_id": "x_manual_approval_export_evidence_029ea52504bc707f",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "operator_handoff_packet",
+      "card_type": "operator_handoff_packet",
+      "display_status": "bound",
+      "hash": "fc7bd7206e4bcbac3d9d8e44a4fcfc37dad1240e6084eca50d510ccfbea8c96b",
+      "source_id": "x_manual_operator_handoff_fc7bd7206e4bcbac"
+    },
+    {
+      "card_id": "manual_export_payload",
+      "card_type": "manual_export_payload",
+      "display_status": "bound",
+      "hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+      "source_id": "x_manual_export_00705bd0bac1e58a"
+    },
+    {
+      "card_id": "approval_export_evidence_packet",
+      "card_type": "approval_export_evidence_packet",
+      "display_status": "bound",
+      "hash": "029ea52504bc707f1ab48d37e36278f885819da229bfb73167046823990c0f01",
+      "source_id": "x_manual_approval_export_evidence_029ea52504bc707f"
+    },
+    {
+      "card_id": "canonical_article_source",
+      "card_type": "canonical_article_source",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "operator_supplied_publication_url",
+      "card_type": "operator_supplied_publication_url",
+      "display_status": "operator_supplied_not_network_verified",
+      "hash": "97bd825f19d5132f977ada8d21329d1280f92956956468f48bb2e94007c6ba4a",
+      "source_id": "operator_supplied_publication_url"
+    }
+  ],
+  "exact_payload_hash": "2f6d98267c4bcc64c66c97d51d1d8a423ccc7c66938cb40cf925cc5098fd1fed",
+  "hash_algorithm": "sha256_json_v6",
+  "live_publish_performed_by_contentops": false,
+  "manual_publication_claim_operator_supplied": true,
+  "network_call_made": false,
+  "operator_handoff_hash": "fc7bd7206e4bcbac3d9d8e44a4fcfc37dad1240e6084eca50d510ccfbea8c96b",
+  "operator_handoff_packet_id": "x_manual_operator_handoff_fc7bd7206e4bcbac",
+  "operator_review_status": "pending_review",
+  "operator_supplied_publication_platform": "x",
+  "operator_supplied_publication_status": "manually_published_outside_contentops",
+  "operator_supplied_publication_timestamp": "2026-07-01T15:35:00Z",
+  "operator_supplied_publication_url": "https://x.com/capitalchronicle/status/fixture-manual-x-post-001",
+  "operator_supplied_publication_url_hash": "97bd825f19d5132f977ada8d21329d1280f92956956468f48bb2e94007c6ba4a",
+  "operator_supplied_url_verification_status": "operator_supplied_not_network_verified",
+  "provider_call_made": false,
+  "publication_audit_status": "manual_url_imported_pending_operator_review",
+  "publication_url_audit_hash": "bfa2b9e33779b5828041826bce3d29f0d0846f125148bfddd05097387cef9aad",
+  "publication_url_audit_packet_id": "x_manual_publication_url_audit_bfa2b9e33779b582",
+  "recommended_next_task": "TASK_CONTENTOPS_V6_X_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_export_packet_id": "x_manual_export_00705bd0bac1e58a",
+  "source_export_payload_hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+  "task_label": "TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0",
+  "url_network_verified": false,
+  "warnings": [
+    "sample_fixture_only",
+    "operator_supplied_url_not_network_verified",
+    "no_url_fetch_no_scrape",
+    "manual_publication_claim_not_contentops_publish"
+  ],
+  "x_api_used": false
+}

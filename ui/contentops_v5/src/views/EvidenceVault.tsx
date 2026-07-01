@@ -13,6 +13,11 @@ import {
   linkedinManualOperatorHandoffPacket,
   linkedinManualPublicationUrlAuditImportPacket,
   linkedinPublicationAuditReviewMetricsSummaryPacket,
+  xManualExportPacket,
+  xManualApprovalExportEvidencePacket,
+  xManualOperatorHandoffPacket,
+  xManualPublicationUrlAuditImportPacket,
+  xPublicationAuditReviewMetricsSummaryPacket,
 } from '../data/substackManualExportArticleStudioAdapter';
 import { useState } from 'react';
 import { useApp } from '../state';
@@ -646,6 +651,25 @@ export function EvidenceVault() {
           </div>
         </div>
       )}
+
+      <Panel
+        title="X manual publication evidence vault"
+        subtitle={`${xManualExportPacket.export_packet_id} ? ${xPublicationAuditReviewMetricsSummaryPacket.publication_audit_review_packet_id}`}
+        actions={<StatusChip status="blocked">manual fixture only</StatusChip>}
+      >
+        <div className="grid gap-2 md:grid-cols-2">
+          {[...xManualApprovalExportEvidencePacket.evidence_cards, ...xManualOperatorHandoffPacket.evidence_cards, ...xManualPublicationUrlAuditImportPacket.evidence_cards, ...xPublicationAuditReviewMetricsSummaryPacket.evidence_cards].map((card, index) => (
+            <div key={`${card.card_id}-${index}`} className="rounded-lg border border-line bg-surface-2 p-3">
+              <div className="text-xs font-semibold text-fg">{card.card_id}</div>
+              <div className="mt-1 font-mono text-[10px] text-fg-muted">{card.source_id}</div>
+              <div className="mt-1 break-all font-mono text-[10px] text-accent">{card.hash}</div>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          X evidence is operator-supplied fixture evidence only: x_api_used={String(xManualExportPacket.x_api_used)} ? url_network_verified={String(xManualPublicationUrlAuditImportPacket.url_network_verified)} ? metrics_network_verified={String(xPublicationAuditReviewMetricsSummaryPacket.metrics_network_verified)} ? controls_enabled={String(xManualOperatorHandoffPacket.enabled_publish_send_dispatch_approve_controls)}.
+        </div>
+      </Panel>
     </div>
   );
 }

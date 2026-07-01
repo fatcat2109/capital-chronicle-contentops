@@ -982,3 +982,480 @@ export const linkedinPublicationAuditReviewMetricsSummaryPacket = {
     "manual_metrics_claim_not_contentops_metrics"
   ]
 } as const;
+
+
+// V6 X manual publication evidence loop adapter. Static fixture only. No X API, network, credentials, storage, browser session, or live publish.
+export const xManualExportPacket = {
+  "approval_status": "pending",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "exact_payload_hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+  "export_packet_id": "x_manual_export_00705bd0bac1e58a",
+  "export_status": "ready_for_manual_review",
+  "hash_algorithm": "sha256_json_v6",
+  "live_publish_allowed": false,
+  "live_publish_performed": false,
+  "manual_copy_only": true,
+  "manual_copy_payload": {
+    "copy_mode": "manual copy only",
+    "operator_instructions": "Review in canonical V5, then manually copy into X only if separately approved outside ContentOps.",
+    "platform": "x",
+    "post_body": "Capital Chronicle educational briefing: Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\nProcess note: This manual X post is fixture-only evidence for operator review. It summarizes methodology, source review, and educational context without recommendations.\n\nOperators must verify primary sources independently before any manual external publication.\n\nManual copy only. X API not used. Live publish disabled. No runtime proof.",
+    "safety_labels": [
+      "sample_fixture_only",
+      "manual copy only",
+      "X API not used",
+      "live publish disabled",
+      "no runtime proof"
+    ],
+    "target": "x_manual_copy"
+  },
+  "network_call_made": false,
+  "platform": "x",
+  "post_body_fixture": "Capital Chronicle educational briefing: Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\nProcess note: This manual X post is fixture-only evidence for operator review. It summarizes methodology, source review, and educational context without recommendations.\n\nOperators must verify primary sources independently before any manual external publication.\n\nManual copy only. X API not used. Live publish disabled. No runtime proof.",
+  "provider_call_made": false,
+  "recommended_next_task": "TASK_CONTENTOPS_V6_X_MANUAL_APPROVAL_EXPORT_EVIDENCE_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_canonical_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "task_label": "TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0",
+  "warnings": [
+    "sample_fixture_only",
+    "manual_copy_only_no_x_api",
+    "no_runtime_proof"
+  ],
+  "x_api_used": false
+} as const;
+
+export const xManualApprovalExportEvidencePacket = {
+  "approval_export_evidence_hash": "029ea52504bc707f1ab48d37e36278f885819da229bfb73167046823990c0f01",
+  "approval_export_evidence_packet_id": "x_manual_approval_export_evidence_029ea52504bc707f",
+  "approval_status": "pending",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "article_source_packet",
+      "card_type": "article_source_packet",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "x_export_packet",
+      "card_type": "x_export_packet",
+      "display_status": "bound",
+      "hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+      "source_id": "x_manual_export_00705bd0bac1e58a"
+    },
+    {
+      "card_id": "approval_checkpoint",
+      "card_type": "approval_checkpoint",
+      "display_status": "pending_review",
+      "hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+      "source_id": "operator_review_status"
+    },
+    {
+      "card_id": "blocked_live_publish_state",
+      "card_type": "blocked_live_publish_state",
+      "display_status": "blocked",
+      "hash": "c96e0862efc7de6d9539b70d620043a0f089d3cb215cc7b44c1e36e9a53c1545",
+      "source_id": "live_publish_allowed=false"
+    }
+  ],
+  "exact_payload_hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+  "hash_algorithm": "sha256_json_v6",
+  "live_publish_allowed": false,
+  "live_publish_performed": false,
+  "manual_copy_checklist": [
+    {
+      "check_id": "manual_copy_payload_present",
+      "label": "X manual copy payload reviewed in V5",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_no_live_publish",
+      "label": "Operator confirms no publish/send/dispatch/schedule action is enabled",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_x_api_absent",
+      "label": "Operator confirms X API was not used",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "operator_confirms_hash_match",
+      "label": "Operator confirms exact payload hash before manual copy",
+      "required": true,
+      "status": "pending_review"
+    }
+  ],
+  "manual_export_status": "ready_for_manual_copy",
+  "network_call_made": false,
+  "operator_review_proof": "pending operator review; deterministic fixture only; no runtime proof",
+  "operator_review_status": "pending_review",
+  "provider_call_made": false,
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_canonical_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_export_packet_id": "x_manual_export_00705bd0bac1e58a",
+  "task_label": "TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0",
+  "warnings": [
+    "sample_fixture_only",
+    "manual_copy_only_no_x_api",
+    "live_publish_disabled",
+    "operator_review_pending"
+  ],
+  "x_api_used": false
+} as const;
+
+export const xManualOperatorHandoffPacket = {
+  "approval_export_evidence_hash": "029ea52504bc707f1ab48d37e36278f885819da229bfb73167046823990c0f01",
+  "approval_export_evidence_packet_id": "x_manual_approval_export_evidence_029ea52504bc707f",
+  "approval_status": "pending",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "blockers": [
+    "operator_approval_pending",
+    "live_publish_disabled",
+    "manual_copy_only",
+    "x_api_disabled"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "canonical_article_source",
+      "card_type": "canonical_article_source",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "manual_export_payload",
+      "card_type": "manual_export_payload",
+      "display_status": "bound",
+      "hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+      "source_id": "x_manual_export_00705bd0bac1e58a"
+    },
+    {
+      "card_id": "approval_export_evidence_packet",
+      "card_type": "approval_export_evidence_packet",
+      "display_status": "bound",
+      "hash": "029ea52504bc707f1ab48d37e36278f885819da229bfb73167046823990c0f01",
+      "source_id": "x_manual_approval_export_evidence_029ea52504bc707f"
+    },
+    {
+      "card_id": "manual_copy_checklist",
+      "card_type": "manual_copy_checklist",
+      "display_status": "pending_review",
+      "hash": "e0ac10a2323c23130bc131894df9ce317c901da7804e79bdd8ead5d69e56861c",
+      "source_id": "operator_handoff_checklist"
+    },
+    {
+      "card_id": "operator_handoff_packet",
+      "card_type": "operator_handoff_packet",
+      "display_status": "ready_for_manual_review",
+      "hash": "ca37a7e2673fd34f176171f6068bb06980d28b017a8bf6ba064d978df981c814",
+      "source_id": "operator_handoff"
+    }
+  ],
+  "exact_payload_hash": "2f6d98267c4bcc64c66c97d51d1d8a423ccc7c66938cb40cf925cc5098fd1fed",
+  "hash_algorithm": "sha256_json_v6",
+  "live_publish_allowed": false,
+  "live_publish_performed": false,
+  "manual_copy_checklist": [
+    {
+      "check_id": "confirm_article_source",
+      "label": "Confirm canonical article source packet and hash",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "confirm_export_payload",
+      "label": "Confirm X manual export payload hash before copy",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "confirm_approval_evidence",
+      "label": "Confirm approval/export evidence packet remains pending",
+      "required": true,
+      "status": "pending_review"
+    },
+    {
+      "check_id": "confirm_manual_copy_only",
+      "label": "Confirm manual copy only; no X API, publish, send, dispatch, scheduler, DM, comment, like, or reaction",
+      "required": true,
+      "status": "pending_review"
+    }
+  ],
+  "manual_copy_only": true,
+  "manual_copy_payload": {
+    "copy_mode": "manual copy only",
+    "operator_instructions": "Review in canonical V5, then manually copy into X only if separately approved outside ContentOps.",
+    "platform": "x",
+    "post_body": "Capital Chronicle educational briefing: Capital Chronicle Educational Briefing: Evaluate historical volatility in macro calendar commentaries\n\nProcess note: This manual X post is fixture-only evidence for operator review. It summarizes methodology, source review, and educational context without recommendations.\n\nOperators must verify primary sources independently before any manual external publication.\n\nManual copy only. X API not used. Live publish disabled. No runtime proof.",
+    "safety_labels": [
+      "sample_fixture_only",
+      "manual copy only",
+      "X API not used",
+      "live publish disabled",
+      "no runtime proof"
+    ],
+    "target": "x_manual_copy"
+  },
+  "network_call_made": false,
+  "operator_handoff_hash": "fc7bd7206e4bcbac3d9d8e44a4fcfc37dad1240e6084eca50d510ccfbea8c96b",
+  "operator_handoff_packet_id": "x_manual_operator_handoff_fc7bd7206e4bcbac",
+  "operator_handoff_status": "ready_for_manual_review",
+  "operator_instructions": [
+    "Open canonical V5 Manual Export, Approval Queue, and Evidence Vault views only.",
+    "Compare article, export, approval/export evidence, and handoff hashes before manual copy.",
+    "If separate human approval is granted outside this packet, manually copy the payload into X outside ContentOps.",
+    "Do not use X API, browser automation, live publish, dispatch, scheduler, provider calls, env values, credentials, browser sessions, cookies, localStorage, tokens, DMs, comments, likes, or reactions."
+  ],
+  "provider_call_made": false,
+  "recommended_next_task": "TASK_CONTENTOPS_V6_X_MANUAL_PUBLICATION_URL_AUDIT_IMPORT_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_export_packet_id": "x_manual_export_00705bd0bac1e58a",
+  "source_export_payload_hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+  "task_label": "TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0",
+  "warnings": [
+    "sample_fixture_only",
+    "manual_copy_only_no_x_api",
+    "live_publish_disabled",
+    "operator_handoff_pending_review"
+  ],
+  "x_api_used": false
+} as const;
+
+export const xManualPublicationUrlAuditImportPacket = {
+  "approval_export_evidence_hash": "029ea52504bc707f1ab48d37e36278f885819da229bfb73167046823990c0f01",
+  "approval_export_evidence_packet_id": "x_manual_approval_export_evidence_029ea52504bc707f",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "operator_handoff_packet",
+      "card_type": "operator_handoff_packet",
+      "display_status": "bound",
+      "hash": "fc7bd7206e4bcbac3d9d8e44a4fcfc37dad1240e6084eca50d510ccfbea8c96b",
+      "source_id": "x_manual_operator_handoff_fc7bd7206e4bcbac"
+    },
+    {
+      "card_id": "manual_export_payload",
+      "card_type": "manual_export_payload",
+      "display_status": "bound",
+      "hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+      "source_id": "x_manual_export_00705bd0bac1e58a"
+    },
+    {
+      "card_id": "approval_export_evidence_packet",
+      "card_type": "approval_export_evidence_packet",
+      "display_status": "bound",
+      "hash": "029ea52504bc707f1ab48d37e36278f885819da229bfb73167046823990c0f01",
+      "source_id": "x_manual_approval_export_evidence_029ea52504bc707f"
+    },
+    {
+      "card_id": "canonical_article_source",
+      "card_type": "canonical_article_source",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "operator_supplied_publication_url",
+      "card_type": "operator_supplied_publication_url",
+      "display_status": "operator_supplied_not_network_verified",
+      "hash": "97bd825f19d5132f977ada8d21329d1280f92956956468f48bb2e94007c6ba4a",
+      "source_id": "operator_supplied_publication_url"
+    }
+  ],
+  "exact_payload_hash": "2f6d98267c4bcc64c66c97d51d1d8a423ccc7c66938cb40cf925cc5098fd1fed",
+  "hash_algorithm": "sha256_json_v6",
+  "live_publish_performed_by_contentops": false,
+  "manual_publication_claim_operator_supplied": true,
+  "network_call_made": false,
+  "operator_handoff_hash": "fc7bd7206e4bcbac3d9d8e44a4fcfc37dad1240e6084eca50d510ccfbea8c96b",
+  "operator_handoff_packet_id": "x_manual_operator_handoff_fc7bd7206e4bcbac",
+  "operator_review_status": "pending_review",
+  "operator_supplied_publication_platform": "x",
+  "operator_supplied_publication_status": "manually_published_outside_contentops",
+  "operator_supplied_publication_timestamp": "2026-07-01T15:35:00Z",
+  "operator_supplied_publication_url": "https://x.com/capitalchronicle/status/fixture-manual-x-post-001",
+  "operator_supplied_publication_url_hash": "97bd825f19d5132f977ada8d21329d1280f92956956468f48bb2e94007c6ba4a",
+  "operator_supplied_url_verification_status": "operator_supplied_not_network_verified",
+  "provider_call_made": false,
+  "publication_audit_status": "manual_url_imported_pending_operator_review",
+  "publication_url_audit_hash": "bfa2b9e33779b5828041826bce3d29f0d0846f125148bfddd05097387cef9aad",
+  "publication_url_audit_packet_id": "x_manual_publication_url_audit_bfa2b9e33779b582",
+  "recommended_next_task": "TASK_CONTENTOPS_V6_X_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_export_packet_id": "x_manual_export_00705bd0bac1e58a",
+  "source_export_payload_hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+  "task_label": "TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0",
+  "url_network_verified": false,
+  "warnings": [
+    "sample_fixture_only",
+    "operator_supplied_url_not_network_verified",
+    "no_url_fetch_no_scrape",
+    "manual_publication_claim_not_contentops_publish"
+  ],
+  "x_api_used": false
+} as const;
+
+export const xPublicationAuditReviewMetricsSummaryPacket = {
+  "approval_export_evidence_hash": "029ea52504bc707f1ab48d37e36278f885819da229bfb73167046823990c0f01",
+  "approval_export_evidence_packet_id": "x_manual_approval_export_evidence_029ea52504bc707f",
+  "blocked_controls": [
+    "approve",
+    "send",
+    "publish",
+    "dispatch",
+    "schedule"
+  ],
+  "browser_session_used": false,
+  "credential_read_made": false,
+  "enabled_publish_send_dispatch_approve_controls": false,
+  "env_value_read_made": false,
+  "evidence_cards": [
+    {
+      "card_id": "publication_url_audit_packet",
+      "card_type": "publication_url_audit_packet",
+      "display_status": "bound",
+      "hash": "bfa2b9e33779b5828041826bce3d29f0d0846f125148bfddd05097387cef9aad",
+      "source_id": "x_manual_publication_url_audit_bfa2b9e33779b582"
+    },
+    {
+      "card_id": "operator_handoff_packet",
+      "card_type": "operator_handoff_packet",
+      "display_status": "bound",
+      "hash": "fc7bd7206e4bcbac3d9d8e44a4fcfc37dad1240e6084eca50d510ccfbea8c96b",
+      "source_id": "x_manual_operator_handoff_fc7bd7206e4bcbac"
+    },
+    {
+      "card_id": "manual_export_payload",
+      "card_type": "manual_export_payload",
+      "display_status": "bound",
+      "hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+      "source_id": "x_manual_export_00705bd0bac1e58a"
+    },
+    {
+      "card_id": "approval_export_evidence_packet",
+      "card_type": "approval_export_evidence_packet",
+      "display_status": "bound",
+      "hash": "029ea52504bc707f1ab48d37e36278f885819da229bfb73167046823990c0f01",
+      "source_id": "x_manual_approval_export_evidence_029ea52504bc707f"
+    },
+    {
+      "card_id": "canonical_article_source",
+      "card_type": "canonical_article_source",
+      "display_status": "bound",
+      "hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+      "source_id": "article_engine_packet_d4a5afd3ecf03b1b"
+    },
+    {
+      "card_id": "operator_supplied_publication_url",
+      "card_type": "operator_supplied_publication_url",
+      "display_status": "operator_supplied_not_network_verified",
+      "hash": "97bd825f19d5132f977ada8d21329d1280f92956956468f48bb2e94007c6ba4a",
+      "source_id": "operator_supplied_publication_url"
+    }
+  ],
+  "exact_payload_hash": "2f6d98267c4bcc64c66c97d51d1d8a423ccc7c66938cb40cf925cc5098fd1fed",
+  "hash_algorithm": "sha256_json_v6",
+  "live_publish_performed_by_contentops": false,
+  "manual_metrics": {
+    "bookmarks": 13,
+    "followers_delta": 3,
+    "impressions": 1840,
+    "likes": 41,
+    "link_clicks": 22,
+    "notes": "Fixture-only manual metrics entered by operator; not network/API verified.",
+    "profile_visits": 17,
+    "quotes": 2,
+    "replies": 6,
+    "reposts": 8
+  },
+  "manual_metrics_claim_operator_supplied": true,
+  "manual_publication_claim_operator_supplied": true,
+  "metrics_network_verified": false,
+  "metrics_provider_api_used": false,
+  "metrics_source": "operator_supplied_manual_entry",
+  "metrics_summary_status": "manual_metrics_fixture_only_pending_operator_confirmation",
+  "network_call_made": false,
+  "operator_handoff_hash": "fc7bd7206e4bcbac3d9d8e44a4fcfc37dad1240e6084eca50d510ccfbea8c96b",
+  "operator_handoff_packet_id": "x_manual_operator_handoff_fc7bd7206e4bcbac",
+  "operator_review_status": "pending_review",
+  "operator_supplied_publication_timestamp": "2026-07-01T15:35:00Z",
+  "operator_supplied_publication_url": "https://x.com/capitalchronicle/status/fixture-manual-x-post-001",
+  "operator_supplied_publication_url_hash": "97bd825f19d5132f977ada8d21329d1280f92956956468f48bb2e94007c6ba4a",
+  "provider_call_made": false,
+  "publication_audit_review_hash": "2417b5a05058d6c096c417aab27257e5a4a80258c8ccfafdb2cc897458acc705",
+  "publication_audit_review_packet_id": "x_publication_audit_review_2417b5a05058d6c0",
+  "publication_audit_status": "manual_url_import_reviewed_pending_metrics_confirmation",
+  "publication_url_audit_hash": "bfa2b9e33779b5828041826bce3d29f0d0846f125148bfddd05097387cef9aad",
+  "publication_url_audit_packet_id": "x_manual_publication_url_audit_bfa2b9e33779b582",
+  "recommended_next_task": "TASK_CONTENTOPS_V6_X_PUBLICATION_EVIDENCE_LOOP_ACCEPTANCE_OR_NEXT_LANE_V0",
+  "sample_scope": "sample_fixture_only",
+  "schema_version": "6.0.0",
+  "source_article_hash": "d4a5afd3ecf03b1b93caf5b9dbd204d93eb80237eb8d368c9eea24680fabe44e",
+  "source_article_packet_id": "article_engine_packet_d4a5afd3ecf03b1b",
+  "source_export_packet_id": "x_manual_export_00705bd0bac1e58a",
+  "source_export_payload_hash": "00705bd0bac1e58ab8f9ffc61c70b3058fbab81813193640352be6776ffb7067",
+  "task_label": "TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0",
+  "url_network_verified": false,
+  "warnings": [
+    "sample_fixture_only",
+    "operator_supplied_metrics_not_network_verified",
+    "no_metrics_api_used",
+    "manual_metrics_claim_not_contentops_metrics"
+  ],
+  "x_api_used": false
+} as const;

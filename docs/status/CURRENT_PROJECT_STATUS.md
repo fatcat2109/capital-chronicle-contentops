@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_STATUS_PROGRESS_MASTER_PLAN_REFRESH_AFTER_LINKEDIN_MANUAL_LOOP_V0
+TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -120,3 +120,11 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Added runbooks and tests for every LinkedIn packet stage.
 - Surfaced LinkedIn fixture evidence in canonical V5 Manual Export, Approval Queue, and Evidence Vault.
 - LinkedIn API, browser automation, URL fetch/scrape/network verification, live publish, provider calls, dispatch/send/schedule/approve controls, DMs, comments, likes, reactions, env/credential reads, and browser-session access remain disabled/false.
+
+
+## X Manual Publication Evidence Loop Update
+
+- Current lane: X manual publication evidence loop integrated into canonical V5.
+- Components: X manual export, approval/export evidence, operator handoff, URL/audit import, and manual metrics summary.
+- Safety: fixture/operator-supplied only; `x_api_used=false`, `url_network_verified=false`, `metrics_network_verified=false`, no env/credential/browser session/network/live action.
+- Baseline note: `accepted_product_baseline_sha` advances only after push/readback; if final pushed feature SHA differs from status JSON, perform a targeted status-only repair.
