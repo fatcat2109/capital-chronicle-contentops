@@ -3,7 +3,7 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "6e55edbef71eb8ab45a0ea2313cbbf6621a06626",
+  "last_verified_remote_sha": "a38e1a268a8677c77d4c2b989c7d42cf38a6a682",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0",
   "current_product_phase": "V6 local-first platform variant dispatch outbox dry-run to operator runbook and recovery on the canonical V5 dashboard surface",
   "current_product_lane": "dispatch outbox dry-run to operator runbook and recovery",
@@ -170,6 +170,6 @@
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
   "accepted_product_baseline_sha": "25c80299695efad344db6fdf24316d9a1c1d0537",
-  "last_status_commit_sha": "6e55edbef71eb8ab45a0ea2313cbbf6621a06626",
+  "last_status_commit_sha": "a38e1a268a8677c77d4c2b989c7d42cf38a6a682",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work."
 }
