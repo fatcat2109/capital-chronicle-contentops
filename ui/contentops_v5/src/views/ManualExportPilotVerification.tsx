@@ -2,7 +2,10 @@
 // Read-only local package preview. No API calls, credentials, scheduling, or posting.
 
 import { SubstackArticleStudioCard } from './SubstackArticleStudioCard';
-import { substackManualExportOperatorHandoffPacket } from '../data/substackManualExportArticleStudioAdapter';
+import {
+  substackManualExportOperatorHandoffPacket,
+  substackManualPublicationUrlAuditImportPacket,
+} from '../data/substackManualExportArticleStudioAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -130,6 +133,24 @@ export function ManualExportPilotVerification() {
         </div>
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
           manual_copy_only={String(substackManualExportOperatorHandoffPacket.manual_copy_only)} ? live_publish_allowed={String(substackManualExportOperatorHandoffPacket.live_publish_allowed)} ? substack_api_used={String(substackManualExportOperatorHandoffPacket.substack_api_used)} ? enabled controls={String(substackManualExportOperatorHandoffPacket.enabled_publish_send_dispatch_approve_controls)}
+        </div>
+      </Panel>
+
+
+
+      <Panel
+        title="Substack manual publication URL audit import"
+        subtitle={substackManualPublicationUrlAuditImportPacket.publication_url_audit_packet_id}
+        actions={<StatusChip status="review">{substackManualPublicationUrlAuditImportPacket.publication_audit_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          <Metric label="URL hash" value={substackManualPublicationUrlAuditImportPacket.operator_supplied_publication_url_hash} mono status="verified" />
+          <Metric label="Network verified" value={String(substackManualPublicationUrlAuditImportPacket.url_network_verified)} mono status="blocked" />
+          <Metric label="ContentOps publish" value={String(substackManualPublicationUrlAuditImportPacket.live_publish_performed_by_contentops)} mono status="blocked" />
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Operator-supplied URL text only; not opened, fetched, scraped, or network verified.
+          substack_api_used={String(substackManualPublicationUrlAuditImportPacket.substack_api_used)} ? network_call_made={String(substackManualPublicationUrlAuditImportPacket.network_call_made)} ? manual_publication_claim_operator_supplied={String(substackManualPublicationUrlAuditImportPacket.manual_publication_claim_operator_supplied)}
         </div>
       </Panel>
 

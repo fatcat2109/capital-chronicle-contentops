@@ -4,10 +4,10 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "last_verified_remote_sha": "af911eaf3fd1f0a85878ccb73361379732a7595b",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_PACKET_V0",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT_LANE_V0",
   "current_product_phase": "V6 local-first product loop consolidation on the canonical V5 dashboard surface",
-  "current_product_lane": "Substack manual export operator handoff packet integrated into canonical V5 with fixture-only packet bindings, deterministic hashes, pending operator review, blocked controls, and manual-copy-only instructions",
-  "accepted_baseline_summary": "Accepted product baseline is af911eaf3fd1f0a85878ccb73361379732a7595b. This commit adds deterministic Substack manual export operator handoff packet and canonical V5 fixture-only visibility. Live publish, Substack/API/provider calls, env/credential reads, browser-session access, dispatch, send, schedule, and approve controls remain blocked.",
+  "current_product_lane": "Substack manual publication URL/audit import integrated into canonical V5 with operator-supplied URL text, deterministic URL hash, bound handoff/export/evidence/article hashes, pending operator review, and no network verification.",
+  "accepted_baseline_summary": "Accepted product baseline remains af911eaf3fd1f0a85878ccb73361379732a7595b until the Substack manual publication URL/audit import feature commit is pushed and read back. The URL/audit lane imports operator-supplied URL text only; no URL fetch, scraping, Substack/API/provider calls, env/credential reads, browser-session access, dispatch, send, schedule, approve, or ContentOps publish is authorized.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -33,7 +33,8 @@
     "live_contentops/operator_approval_queue_evidence_vault_v6.py",
     "live_contentops/substack_manual_export_article_studio_v6.py",
     "live_contentops/substack_manual_approval_export_evidence_v6.py",
-    "live_contentops/substack_manual_export_operator_handoff_v6.py"
+    "live_contentops/substack_manual_export_operator_handoff_v6.py",
+    "live_contentops/substack_manual_publication_url_audit_import_v6.py"
   ],
   "current_loop_components": [
     "AI research packet",
@@ -47,7 +48,8 @@
     "V5 fixture-only approval queue and evidence vault cards",
     "Substack manual export article studio",
     "Substack manual approval/export evidence packet",
-    "Substack manual export operator handoff packet"
+    "Substack manual export operator handoff packet",
+    "Substack manual publication URL/audit import packet"
   ],
   "dispatch_live_status": "blocked; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, or live send authorized",
   "provider_env_credential_status": "gated; no env value or credential value reads; committed evidence may use boolean/key-name status only",
@@ -61,10 +63,10 @@
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_PACKET_V0",
-  "latest_accepted_task_result": "created deterministic Substack manual export operator handoff packet binding the canonical article source, manual export payload, approval/export evidence packet, manual-copy checklist, blockers, and safety flags; surfaced read-only evidence in canonical V5 Manual Export, Approval Queue, and Evidence Vault",
-  "latest_evidence_summary": "Operator handoff packet docs/automation/V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF/sample_substack_manual_export_operator_handoff_packet.json binds export packet substack_manual_export_e556b07116d81110 and approval/export evidence packet substack_manual_approval_export_evidence_ba20cf65f42da369; all live/API/provider/env/credential/browser-session flags remain false and manual_copy_only remains true.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_RELEASE_REVIEW_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT_LANE_V0",
+  "latest_accepted_task_result": "created deterministic Substack manual publication URL/audit import packet binding operator-supplied URL text to the existing operator handoff, export payload, approval/export evidence, and canonical article hashes; surfaced read-only pending review evidence in canonical V5 Manual Export, Approval Queue, and Evidence Vault",
+  "latest_evidence_summary": "URL audit packet docs/automation/V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT/sample_substack_manual_publication_url_audit_import_packet.json records operator_supplied_url_verification_status=operator_supplied_not_network_verified, url_network_verified=false, network_call_made=false, substack_api_used=false, provider/env/credential/browser-session flags false, and manual_publication_claim_operator_supplied=true.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_SUBSTACK_PUBLICATION_AUDIT_REVIEW_OR_METRICS_SUMMARY_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json"

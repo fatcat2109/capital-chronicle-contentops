@@ -6,6 +6,7 @@ import { SubstackArticleStudioCard } from './SubstackArticleStudioCard';
 import {
   substackManualApprovalExportEvidencePacket,
   substackManualExportOperatorHandoffPacket,
+  substackManualPublicationUrlAuditImportPacket,
 } from '../data/substackManualExportArticleStudioAdapter';
 import { useState } from 'react';
 import { useApp } from '../state';
@@ -197,6 +198,32 @@ export function EvidenceVault() {
             <div key={key} className="flex items-center justify-between gap-2 rounded-lg border border-status-blocked/30 bg-status-blocked/5 px-3 py-2">
               <span className="font-mono text-[11px] text-fg-muted">{key}</span>
               <StatusChip status={key === 'manual_copy_only' ? 'verified' : 'blocked'}>{String(substackManualExportOperatorHandoffPacket[key])}</StatusChip>
+            </div>
+          ))}
+        </div>
+      </Panel>
+
+
+      <Panel
+        title="Substack publication URL audit evidence"
+        subtitle={substackManualPublicationUrlAuditImportPacket.publication_url_audit_packet_id}
+        actions={<StatusChip status="review">{substackManualPublicationUrlAuditImportPacket.publication_audit_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
+          {substackManualPublicationUrlAuditImportPacket.evidence_cards.map((card) => (
+            <article key={card.card_id} className="rounded-lg border border-line bg-surface-2 p-3">
+              <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">{card.card_type}</div>
+              <h3 className="mt-1 break-all text-sm font-semibold text-fg">{card.source_id}</h3>
+              <div className="mt-2 break-all font-mono text-[11px] text-fg-muted">{card.hash}</div>
+              <StatusChip status={card.display_status === 'bound' ? 'verified' : 'review'}>{card.display_status}</StatusChip>
+            </article>
+          ))}
+        </div>
+        <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {(['url_network_verified', 'network_call_made', 'substack_api_used', 'provider_call_made', 'credential_read_made', 'env_value_read_made', 'browser_session_used', 'live_publish_performed_by_contentops'] as const).map((key) => (
+            <div key={key} className="flex items-center justify-between gap-2 rounded-lg border border-status-blocked/30 bg-status-blocked/5 px-3 py-2">
+              <span className="font-mono text-[11px] text-fg-muted">{key}</span>
+              <StatusChip status="blocked">{String(substackManualPublicationUrlAuditImportPacket[key])}</StatusChip>
             </div>
           ))}
         </div>

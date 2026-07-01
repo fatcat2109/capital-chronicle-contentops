@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_PACKET_V0
+TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT_LANE_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -16,10 +16,10 @@ af911eaf3fd1f0a85878ccb73361379732a7595b
 V6 local-first product loop consolidation on the canonical V5 dashboard surface.
 
 ## current_product_lane
-Substack manual export operator handoff integrated into the canonical V5 dashboard using fixture-only packets, deterministic hashes, pending operator review, and blocked live publish proof.
+Substack manual publication URL/audit import integrated into the canonical V5 dashboard using operator-supplied URL text, deterministic URL hash, bound handoff/export/evidence/article hashes, pending operator review, and no network verification.
 
 ## accepted_baseline_summary
-Accepted product baseline is commit `af911eaf3fd1f0a85878ccb73361379732a7595b` on `origin/master`. This commit adds deterministic Substack manual export operator handoff packet and canonical V5 fixture-only visibility. Live publish, Substack/API/provider calls, env/credential reads, browser-session access, dispatch, send, schedule, and approve controls remain blocked. The next status-only repair commit may advance repo HEAD and must be reported separately in final evidence, not promoted as a product baseline.
+Accepted product baseline remains commit `af911eaf3fd1f0a85878ccb73361379732a7595b` until the Substack manual publication URL/audit import feature commit is pushed and read back. The URL/audit lane imports operator-supplied URL text only, records a deterministic URL hash, and does not fetch, scrape, browse, or network-verify the URL. Live publish, Substack/API/provider calls, env/credential reads, browser-session access, dispatch, send, schedule, and approve controls remain blocked.
 
 
 ## status_sha_model
@@ -49,7 +49,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components exist for research packets, canonical article drafts, Substack manual export packets, Substack manual export operator handoff packets, editorial review, variant preview/hash approval, Discord dry-run outbox, redacted audit, manual fallback, approval queue/evidence vault packets, and live-pilot blocked/ready state. Fixture-only V6 approval/evidence, Substack article studio, and Substack manual export operator handoff cards are integrated into the canonical V5 dashboard views.
+V6 local deterministic loop components exist for research packets, canonical article drafts, Substack manual export packets, Substack manual export operator handoff packets, Substack manual publication URL/audit import packets, editorial review, variant preview/hash approval, Discord dry-run outbox, redacted audit, manual fallback, approval queue/evidence vault packets, and live-pilot blocked/ready state. Fixture-only V6 approval/evidence, Substack article studio, Substack manual export operator handoff, and Substack manual publication URL/audit import cards are integrated into the canonical V5 dashboard views.
 
 ## dispatch/live status
 Dispatch/live remains blocked. No autonomous publish, schedule, retry, queue execution, platform API call, provider call, credential read, env value read, or live send is authorized by this status ledger.
@@ -68,7 +68,7 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Do not use chat memory or Project Sources as runtime authority when status doc and repo files disagree.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_PACKET_V0
+TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT_LANE_V0
 
 ## latest changed areas
 - `live_contentops/substack_manual_approval_export_evidence_v6.py`
@@ -84,7 +84,7 @@ TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_PACKET_V0
 - `docs/status/current_project_status.json`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_PACKET_V0
+TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT_LANE_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, or local storage. Do not dispatch or publish.
@@ -112,12 +112,12 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - current next recommended task
 
 
-## Latest V6 Operator Handoff Update
+## Latest V6 Manual Publication URL Audit Import Update
 
-- Added `live_contentops/substack_manual_export_operator_handoff_v6.py`.
-- Added deterministic handoff sample packet under `docs/automation/V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF/`.
-- Surfaced fixture-only handoff evidence in canonical V5 Manual Export, Approval Queue, and Evidence Vault.
-- Live publish, Substack API, provider calls, dispatch/send/schedule/approve controls, env/credential reads, and browser-session access remain disabled/false.
+- Added `live_contentops/substack_manual_publication_url_audit_import_v6.py`.
+- Added deterministic URL audit sample packet under `docs/automation/V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT/`.
+- Surfaced operator-supplied URL audit evidence in canonical V5 Manual Export, Approval Queue, and Evidence Vault.
+- URL fetch/scrape/network verification, live publish, Substack API, provider calls, dispatch/send/schedule/approve controls, env/credential reads, and browser-session access remain disabled/false.
 
 
-Remote/status SHA note for operator handoff: accepted product baseline and last verified remote SHA target `af911eaf3fd1f0a85878ccb73361379732a7595b` after push/readback.
+Remote/status SHA note: accepted product baseline remains `af911eaf3fd1f0a85878ccb73361379732a7595b` until this URL/audit import feature commit is pushed/read back; final evidence must report any required status repair if the pushed SHA differs from ledger metadata.

@@ -6,6 +6,7 @@ import { SubstackArticleStudioCard } from './SubstackArticleStudioCard';
 import {
   substackManualApprovalExportEvidencePacket,
   substackManualExportOperatorHandoffPacket,
+  substackManualPublicationUrlAuditImportPacket,
 } from '../data/substackManualExportArticleStudioAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -155,6 +156,21 @@ export function ApprovalQueue() {
         </div>
         <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 font-mono text-[11px] text-status-blocked">
           blocked controls: {substackManualExportOperatorHandoffPacket.blocked_controls.join(', ')} · enabled={String(substackManualExportOperatorHandoffPacket.enabled_publish_send_dispatch_approve_controls)}
+        </div>
+      </Panel>
+
+      <Panel
+        title="Substack manual URL audit import pending review"
+        subtitle={substackManualPublicationUrlAuditImportPacket.publication_url_audit_packet_id}
+        actions={<StatusChip status="review">{substackManualPublicationUrlAuditImportPacket.operator_review_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+          <Row label="Audit status" value={substackManualPublicationUrlAuditImportPacket.publication_audit_status} />
+          <Row label="URL verified" value={String(substackManualPublicationUrlAuditImportPacket.url_network_verified)} mono />
+          <Row label="Operator supplied" value={String(substackManualPublicationUrlAuditImportPacket.manual_publication_claim_operator_supplied)} mono />
+        </div>
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 font-mono text-[11px] text-status-blocked">
+          blocked controls: {substackManualPublicationUrlAuditImportPacket.blocked_controls.join(', ')} ? enabled={String(substackManualPublicationUrlAuditImportPacket.enabled_publish_send_dispatch_approve_controls)} ? no URL fetch/scrape
         </div>
       </Panel>
       <Panel
