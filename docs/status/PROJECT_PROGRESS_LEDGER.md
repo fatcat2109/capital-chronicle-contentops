@@ -106,3 +106,11 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Safety posture | Fixture/manual/operator-supplied only; no platform API, env, credential, browser session, public URL fetch/scrape, or live action. |
 | Canonical UI | `ui/contentops_v5/` registry summary panels. |
 | Baseline note | `accepted_product_baseline_sha` is `d86b0831f32de504288545edcf0321f89f9a1cbd` after post-push acceptance/repair; previous product baseline was `98fce130a9f98e34cc8ac0454986081697efc8c1`. |
+
+## Manual Distribution Registry Operator Audit View Refinement
+
+- Latest task: `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_OPERATOR_AUDIT_VIEW_REFINEMENT_V0`.
+- Current lane: registry operator audit view refinement on canonical `ui/contentops_v5/`.
+- Scope: replace duplicated registry summary JSX with a reusable registry-first panel while preserving detailed evidence cards.
+- Accepted product baseline remains `d86b0831f32de504288545edcf0321f89f9a1cbd` until push/readback acceptance of this UI refinement.
+- Live/provider/platform execution remains blocked.

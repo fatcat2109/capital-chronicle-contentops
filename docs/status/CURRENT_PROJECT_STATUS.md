@@ -137,3 +137,11 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Registry consolidates committed fixture/operator-supplied packet IDs, hashes, provenance, safety flags, blocked controls, and V5 labels.
 - Accepted product baseline is `d86b0831f32de504288545edcf0321f89f9a1cbd` after registry feature push/readback; previous product baseline was `98fce130a9f98e34cc8ac0454986081697efc8c1`.
 - Live/provider/platform execution remains blocked; Project Sources/chat memory remain context only.
+
+## Manual Distribution Registry Operator Audit View Refinement
+
+- Latest task: `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_OPERATOR_AUDIT_VIEW_REFINEMENT_V0`.
+- Current lane: registry operator audit view refinement on canonical `ui/contentops_v5/`.
+- Scope: replace duplicated registry summary JSX with a reusable registry-first panel while preserving detailed evidence cards.
+- Accepted product baseline remains `d86b0831f32de504288545edcf0321f89f9a1cbd` until push/readback acceptance of this UI refinement.
+- Live/provider/platform execution remains blocked.
