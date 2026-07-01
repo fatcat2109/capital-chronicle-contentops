@@ -112,5 +112,5 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 - Latest task: `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_OPERATOR_AUDIT_VIEW_REFINEMENT_V0`.
 - Current lane: registry operator audit view refinement on canonical `ui/contentops_v5/`.
 - Scope: replace duplicated registry summary JSX with a reusable registry-first panel while preserving detailed evidence cards.
-- Accepted product baseline remains `d86b0831f32de504288545edcf0321f89f9a1cbd` until push/readback acceptance of this UI refinement.
+- Accepted product baseline is `9375e6ef8b5d109161f5e27350a8d458419e5809` after UI refinement push/readback; previous product baseline was `d86b0831f32de504288545edcf0321f89f9a1cbd`.
 - Live/provider/platform execution remains blocked.
