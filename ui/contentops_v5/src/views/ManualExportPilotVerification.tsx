@@ -25,6 +25,7 @@ import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticle
 import { nextArticleDraftAuthorizationReadinessPacket } from '../data/nextArticleDraftAuthorizationReadinessAdapter';
 import { localCanonicalDraftPreviewReviewPacket } from '../data/localCanonicalDraftPreviewReviewAdapter';
 import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonicalDraftFinalReviewVariantPreviewAdapter';
+import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVariantApprovalPacketPreviewAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -417,6 +418,67 @@ export function ManualExportPilotVerification() {
           Readiness locks: final_article_approved=false · platform_payloads_approved=false.
           Drafting/publishing gates remain locked: ready_for_auto_publish=false · ready_for_dispatch=false.
           No LLM/provider call is allowed on this local-first review workflow.
+        </div>
+      </Panel>
+
+      <Panel
+        title="V6 platform variant approval packet preview"
+        subtitle={`${platformVariantApprovalPacketPreviewPacket.platform_variant_final_review_to_approval_packet_preview_packet_id} · status: ${platformVariantApprovalPacketPreviewPacket.platform_variant_final_review_status}`}
+        actions={<StatusChip status="review">{platformVariantApprovalPacketPreviewPacket.approval_packet_preview_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Approval Packet Preview" value={platformVariantApprovalPacketPreviewPacket.platform_variant_final_review_to_approval_packet_preview_packet_id} mono status="review" />
+          <Metric label="Approval Preview Status" value={platformVariantApprovalPacketPreviewPacket.approval_packet_preview_status} mono status="review" />
+          <Metric label="Operator Approval Recorded" value={String(platformVariantApprovalPacketPreviewPacket.actual_operator_approval_recorded)} status="blocked" />
+          <Metric label="Approval Signature Required" value={String(platformVariantApprovalPacketPreviewPacket.approval_signature_required)} status="review" />
+          <Metric label="Approval Signature Present" value={String(platformVariantApprovalPacketPreviewPacket.approval_signature_present)} status="blocked" />
+          <Metric label="Approval Ledger Entry" value={String(platformVariantApprovalPacketPreviewPacket.approval_ledger_entry_created)} status="blocked" />
+          <Metric label="Outbox Entry Created" value={String(platformVariantApprovalPacketPreviewPacket.outbox_entry_created)} status="blocked" />
+          <Metric label="Dispatch Outbox Ready" value={String(platformVariantApprovalPacketPreviewPacket.dispatch_outbox_ready)} status="blocked" />
+          <Metric label="Platform Payload Approved" value={String(platformVariantApprovalPacketPreviewPacket.platform_payloads_approved)} status="blocked" />
+          <Metric label="Auto-Publish Ready" value={String(platformVariantApprovalPacketPreviewPacket.ready_for_auto_publish)} status="blocked" />
+          <Metric label="Dispatch Ready" value={String(platformVariantApprovalPacketPreviewPacket.ready_for_dispatch)} status="blocked" />
+          <Metric label="LLM/Provider Call" value={String(platformVariantApprovalPacketPreviewPacket.llm_provider_call_made)} status="blocked" />
+          <Metric label="Network Call Made" value={String(platformVariantApprovalPacketPreviewPacket.network_call_made)} status="blocked" />
+          <Metric label="Public URL Verified" value={String(platformVariantApprovalPacketPreviewPacket.public_url_verification_performed)} status="blocked" />
+          <Metric label="Advice/Signal wording" value={String(platformVariantApprovalPacketPreviewPacket.forbidden_financial_advice_or_signal_wording_present)} status="verified" />
+        </div>
+
+        <div className="mt-4 border-t border-line pt-3">
+          <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle mb-2">Committed Preview Targets (10)</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {Object.entries(platformVariantApprovalPacketPreviewPacket.approval_targets).map(([key, target]) => (
+              <div key={key} className="p-3 border border-line bg-surface-2 rounded-lg">
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold text-xs text-accent uppercase">{target.platform_id}</span>
+                  <StatusChip status="review">{target.destination_binding_status}</StatusChip>
+                </div>
+                <div className="text-xs font-bold text-fg mt-1 italic">"{target.exact_preview_text.slice(0, 60)}..."</div>
+                <div className="mt-1 font-mono text-[10px] text-fg-subtle">
+                  hash: {target.payload_hash.slice(0, 16)}...
+                </div>
+                <div className="mt-1.5 flex gap-2 text-[10px]">
+                  <span>Required: true</span>
+                  <span className="text-status-blocked">Approved: false</span>
+                  <span className="text-status-blocked">Dispatchable: false</span>
+                </div>
+                <div className="mt-1 text-[10px] text-status-blocked bg-status-blocked/5 p-1 rounded border border-status-blocked/10 font-mono">
+                  blocked_reason: {target.blocked_reason}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
+          <div>platform_variant_final_review_status=ready_for_operator_approval_packet_review</div>
+          <div>approval_packet_preview_status=approval_packet_preview_created_for_operator_review</div>
+          <div>actual_operator_approval_recorded=false</div>
+          <div>approval_ledger_entry_created=false</div>
+          <div>platform_payloads_approved=false</div>
+          <div>dispatch_outbox_ready=false</div>
+          <div>ready_for_dispatch=false</div>
+          <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
         </div>
       </Panel>
 

@@ -25,6 +25,7 @@ import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticle
 import { nextArticleDraftAuthorizationReadinessPacket } from '../data/nextArticleDraftAuthorizationReadinessAdapter';
 import { localCanonicalDraftPreviewReviewPacket } from '../data/localCanonicalDraftPreviewReviewAdapter';
 import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonicalDraftFinalReviewVariantPreviewAdapter';
+import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVariantApprovalPacketPreviewAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -236,6 +237,75 @@ export function ApprovalQueue() {
           Readiness locks: final_article_approved=false · platform_payloads_approved=false.
           Drafting/publishing gates remain locked: ready_for_auto_publish=false · ready_for_dispatch=false.
           No LLM/provider call is allowed on this local-first review workflow.
+        </div>
+      </Panel>
+
+      <Panel
+        title="V6 platform variant approval packet preview · primary"
+        subtitle={`${platformVariantApprovalPacketPreviewPacket.platform_variant_final_review_to_approval_packet_preview_packet_id} · status: ${platformVariantApprovalPacketPreviewPacket.platform_variant_final_review_status}`}
+        actions={<StatusChip status="review">{platformVariantApprovalPacketPreviewPacket.approval_packet_preview_status}</StatusChip>}
+      >
+        <div className="rounded-lg border border-line bg-surface-2 p-3 font-mono text-[11.5px] text-fg-muted space-y-2">
+          <div><span className="font-semibold text-fg">approval_packet_preview_id:</span> {platformVariantApprovalPacketPreviewPacket.platform_variant_final_review_to_approval_packet_preview_packet_id}</div>
+          <div><span className="font-semibold text-fg">platform_variant_final_review_status:</span> {platformVariantApprovalPacketPreviewPacket.platform_variant_final_review_status}</div>
+          <div><span className="font-semibold text-fg">approval_packet_preview_status:</span> {platformVariantApprovalPacketPreviewPacket.approval_packet_preview_status}</div>
+          <div><span className="font-semibold text-fg">exact_platform_payload_previews_created:</span> {String(platformVariantApprovalPacketPreviewPacket.exact_platform_payload_previews_created)}</div>
+          <div><span className="font-semibold text-fg">exact_payload_hashes_created:</span> {String(platformVariantApprovalPacketPreviewPacket.exact_payload_hashes_created)}</div>
+          <div><span className="font-semibold text-fg">approval_packet_preview_created:</span> {String(platformVariantApprovalPacketPreviewPacket.approval_packet_preview_created)}</div>
+          <div><span className="font-semibold text-fg">actual_operator_approval_recorded:</span> {String(platformVariantApprovalPacketPreviewPacket.actual_operator_approval_recorded)}</div>
+          <div><span className="font-semibold text-fg">approval_ledger_entry_created:</span> {String(platformVariantApprovalPacketPreviewPacket.approval_ledger_entry_created)}</div>
+          <div><span className="font-semibold text-fg">approval_record_created:</span> {String(platformVariantApprovalPacketPreviewPacket.approval_record_created)}</div>
+          <div><span className="font-semibold text-fg">approval_signature_present:</span> {String(platformVariantApprovalPacketPreviewPacket.approval_signature_present)}</div>
+          <div><span className="font-semibold text-fg">approval_signature_required:</span> {String(platformVariantApprovalPacketPreviewPacket.approval_signature_required)}</div>
+          <div><span className="font-semibold text-fg">outbox_entry_created:</span> {String(platformVariantApprovalPacketPreviewPacket.outbox_entry_created)}</div>
+          <div><span className="font-semibold text-fg">dispatch_outbox_ready:</span> {String(platformVariantApprovalPacketPreviewPacket.dispatch_outbox_ready)}</div>
+          <div><span className="font-semibold text-fg">platform_payloads_approved:</span> {String(platformVariantApprovalPacketPreviewPacket.platform_payloads_approved)}</div>
+          <div><span className="font-semibold text-fg">final_article_approved:</span> {String(platformVariantApprovalPacketPreviewPacket.final_article_approved)}</div>
+          <div><span className="font-semibold text-fg">ready_for_auto_publish:</span> {String(platformVariantApprovalPacketPreviewPacket.ready_for_auto_publish)}</div>
+          <div><span className="font-semibold text-fg">ready_for_dispatch:</span> {String(platformVariantApprovalPacketPreviewPacket.ready_for_dispatch)}</div>
+          <div><span className="font-semibold text-fg">llm_provider_call_made:</span> {String(platformVariantApprovalPacketPreviewPacket.llm_provider_call_made)}</div>
+          <div><span className="font-semibold text-fg">network_call_made:</span> {String(platformVariantApprovalPacketPreviewPacket.network_call_made)}</div>
+          <div><span className="font-semibold text-fg">public_url_verification_performed:</span> {String(platformVariantApprovalPacketPreviewPacket.public_url_verification_performed)}</div>
+          <div><span className="font-semibold text-fg">forbidden_financial_advice_or_signal_wording:</span> {String(platformVariantApprovalPacketPreviewPacket.forbidden_financial_advice_or_signal_wording_present)}</div>
+        </div>
+
+        <div className="mt-4 border-t border-line pt-3">
+          <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle mb-2">Committed Approval Targets (10)</div>
+          <div className="space-y-3">
+            {Object.entries(platformVariantApprovalPacketPreviewPacket.approval_targets).map(([key, target]) => (
+              <div key={key} className="p-3 border border-line bg-surface-1 rounded-lg">
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold text-xs text-accent uppercase">{target.platform_id}</span>
+                  <StatusChip status="review">{target.destination_binding_status}</StatusChip>
+                </div>
+                <div className="mt-1 font-mono text-[10px] text-fg-subtle">
+                  hash: <span className="text-fg">{target.payload_hash.slice(0, 12)}...</span> ·
+                  adapter: <span className="text-fg">{target.adapter_class}</span> ·
+                  credentials: <span className="text-fg">{target.credential_handle_status}</span>
+                </div>
+                <div className="mt-1 text-xs text-fg-muted italic line-clamp-2">"{target.exact_preview_text}"</div>
+                <div className="mt-1.5 flex gap-3 text-[10.5px]">
+                  <span className="text-fg-subtle">Approval required: <strong className="text-fg">true</strong></span>
+                  <span className="text-fg-subtle">Approved: <strong className="text-status-blocked">false</strong></span>
+                  <span className="text-fg-subtle">Dispatchable: <strong className="text-status-blocked">false</strong></span>
+                </div>
+                <div className="mt-1 text-[10.5px] text-status-blocked bg-status-blocked/5 p-1 px-2 rounded border border-status-blocked/10 font-mono">
+                  blocked_reason: {target.blocked_reason}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
+          <div>platform_variant_final_review_status=ready_for_operator_approval_packet_review</div>
+          <div>approval_packet_preview_status=approval_packet_preview_created_for_operator_review</div>
+          <div>actual_operator_approval_recorded=false</div>
+          <div>approval_ledger_entry_created=false</div>
+          <div>platform_payloads_approved=false</div>
+          <div>dispatch_outbox_ready=false</div>
+          <div>ready_for_dispatch=false</div>
+          <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
         </div>
       </Panel>
       <SubstackArticleStudioCard mode="approval" />

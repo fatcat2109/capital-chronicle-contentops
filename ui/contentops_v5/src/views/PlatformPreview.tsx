@@ -19,6 +19,7 @@ import { IconBlock, IconLayers } from '../ui/icons';
 import { LockedAction, Panel, SectionLabel, StatusChip, StatusDot } from '../ui/primitives';
 import type { PlatformPayloadPreview as Preview } from '../types';
 import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonicalDraftFinalReviewVariantPreviewAdapter';
+import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVariantApprovalPacketPreviewAdapter';
 
 export function PlatformPreview() {
   const { select, selected } = useApp();
@@ -148,6 +149,97 @@ export function PlatformPreview() {
           Readiness locks: final_article_approved=false · platform_payloads_approved=false.
           Drafting/publishing gates remain locked: ready_for_auto_publish=false · ready_for_dispatch=false.
           No LLM/provider call is allowed on this local-first review workflow.
+        </div>
+      </div>
+
+      {/* V6 Platform variant final review and approval packet preview card */}
+      <div className="rounded-lg border border-line bg-surface-2 p-4">
+        <div className="flex items-center justify-between">
+          <span className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">
+            V6 PLATFORM VARIANT FINAL REVIEW & APPROVAL PACKET PREVIEW
+          </span>
+          <StatusChip status="review">
+            {platformVariantApprovalPacketPreviewPacket.approval_packet_preview_status}
+          </StatusChip>
+        </div>
+        <h2 className="mt-2 text-base font-bold text-fg">
+          {platformVariantApprovalPacketPreviewPacket.platform_variant_final_review_to_approval_packet_preview_packet_id}
+        </h2>
+        <p className="mt-1 text-xs text-fg-muted">
+          status: {platformVariantApprovalPacketPreviewPacket.platform_variant_final_review_status} · variant status: {platformVariantApprovalPacketPreviewPacket.approval_packet_preview_status}
+        </p>
+
+        {/* Detailed JSON fields */}
+        <div className="mt-3 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30 space-y-1.5 font-mono">
+          <div><span className="font-semibold text-fg">approval_packet_preview_id:</span> {platformVariantApprovalPacketPreviewPacket.platform_variant_final_review_to_approval_packet_preview_packet_id}</div>
+          <div><span className="font-semibold text-fg">platform_variant_final_review_status:</span> {platformVariantApprovalPacketPreviewPacket.platform_variant_final_review_status}</div>
+          <div><span className="font-semibold text-fg">approval_packet_preview_status:</span> {platformVariantApprovalPacketPreviewPacket.approval_packet_preview_status}</div>
+          <div><span className="font-semibold text-fg">exact_platform_payload_previews_created:</span> {String(platformVariantApprovalPacketPreviewPacket.exact_platform_payload_previews_created)}</div>
+          <div><span className="font-semibold text-fg">exact_payload_hashes_created:</span> {String(platformVariantApprovalPacketPreviewPacket.exact_payload_hashes_created)}</div>
+          <div><span className="font-semibold text-fg">approval_packet_preview_created:</span> {String(platformVariantApprovalPacketPreviewPacket.approval_packet_preview_created)}</div>
+          <div><span className="font-semibold text-fg">actual_operator_approval_recorded:</span> {String(platformVariantApprovalPacketPreviewPacket.actual_operator_approval_recorded)}</div>
+          <div><span className="font-semibold text-fg">approval_ledger_entry_created:</span> {String(platformVariantApprovalPacketPreviewPacket.approval_ledger_entry_created)}</div>
+          <div><span className="font-semibold text-fg">approval_record_created:</span> {String(platformVariantApprovalPacketPreviewPacket.approval_record_created)}</div>
+          <div><span className="font-semibold text-fg">approval_signature_present:</span> {String(platformVariantApprovalPacketPreviewPacket.approval_signature_present)}</div>
+          <div><span className="font-semibold text-fg">approval_signature_required:</span> {String(platformVariantApprovalPacketPreviewPacket.approval_signature_required)}</div>
+          <div><span className="font-semibold text-fg">outbox_entry_created:</span> {String(platformVariantApprovalPacketPreviewPacket.outbox_entry_created)}</div>
+          <div><span className="font-semibold text-fg">dispatch_outbox_ready:</span> {String(platformVariantApprovalPacketPreviewPacket.dispatch_outbox_ready)}</div>
+          <div><span className="font-semibold text-fg">platform_payloads_approved:</span> {String(platformVariantApprovalPacketPreviewPacket.platform_payloads_approved)}</div>
+          <div><span className="font-semibold text-fg">final_article_approved:</span> {String(platformVariantApprovalPacketPreviewPacket.final_article_approved)}</div>
+          <div><span className="font-semibold text-fg">ready_for_auto_publish:</span> {String(platformVariantApprovalPacketPreviewPacket.ready_for_auto_publish)}</div>
+          <div><span className="font-semibold text-fg">ready_for_dispatch:</span> {String(platformVariantApprovalPacketPreviewPacket.ready_for_dispatch)}</div>
+          <div><span className="font-semibold text-fg">llm_provider_call_made:</span> {String(platformVariantApprovalPacketPreviewPacket.llm_provider_call_made)}</div>
+          <div><span className="font-semibold text-fg">provider_call_made:</span> {String(platformVariantApprovalPacketPreviewPacket.provider_call_made)}</div>
+          <div><span className="font-semibold text-fg">platform_api_used:</span> {String(platformVariantApprovalPacketPreviewPacket.platform_api_used)}</div>
+          <div><span className="font-semibold text-fg">network_call_made:</span> {String(platformVariantApprovalPacketPreviewPacket.network_call_made)}</div>
+          <div><span className="font-semibold text-fg">public_url_fetch_made:</span> {String(platformVariantApprovalPacketPreviewPacket.public_url_fetch_made)}</div>
+          <div><span className="font-semibold text-fg">env_value_read_made:</span> {String(platformVariantApprovalPacketPreviewPacket.env_value_read_made)}</div>
+          <div><span className="font-semibold text-fg">credential_read_made:</span> {String(platformVariantApprovalPacketPreviewPacket.credential_read_made)}</div>
+          <div><span className="font-semibold text-fg">browser_session_used:</span> {String(platformVariantApprovalPacketPreviewPacket.browser_session_used)}</div>
+          <div><span className="font-semibold text-fg">public_url_verification_performed:</span> {String(platformVariantApprovalPacketPreviewPacket.public_url_verification_performed)}</div>
+          <div><span className="font-semibold text-fg">forbidden_financial_advice_or_signal_wording_present:</span> {String(platformVariantApprovalPacketPreviewPacket.forbidden_financial_advice_or_signal_wording_present)}</div>
+        </div>
+
+        {/* Pre-platform hash-bound preview rows */}
+        <div className="mt-4 border-t border-line pt-3">
+          <div className="font-semibold text-sm text-fg mb-2">Per-Platform Hash-Bound Previews (10):</div>
+          <div className="space-y-3">
+            {Object.entries(platformVariantApprovalPacketPreviewPacket.approval_targets).map(([key, target]) => (
+              <div key={key} className="p-3 border border-line bg-surface-1 rounded-lg">
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold text-xs text-accent uppercase">{target.platform_id}</span>
+                  <StatusChip status="review">{target.destination_binding_status}</StatusChip>
+                </div>
+                <div className="mt-1 font-mono text-[10px] text-fg-subtle">
+                  hash: <span className="text-fg">{target.payload_hash}</span> ·
+                  adapter: <span className="text-fg">{target.adapter_class}</span> ·
+                  credentials: <span className="text-fg">{target.credential_handle_status}</span>
+                </div>
+                <div className="mt-1.5 p-2 bg-surface-2 border border-line rounded text-xs font-mono text-fg-muted whitespace-pre-wrap">
+                  {target.exact_preview_text}
+                </div>
+                <div className="mt-2 flex gap-3 text-[10.5px]">
+                  <span className="text-fg-subtle">Approval required: <strong className="text-fg">true</strong></span>
+                  <span className="text-fg-subtle">Approved: <strong className="text-status-blocked">false</strong></span>
+                  <span className="text-fg-subtle">Dispatchable: <strong className="text-status-blocked">false</strong></span>
+                </div>
+                <div className="mt-1 text-[10.5px] text-status-blocked bg-status-blocked/5 p-1 px-2 rounded border border-status-blocked/10 font-mono">
+                  blocked_reason: {target.blocked_reason}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-3 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30 font-mono">
+          <div>platform_variant_final_review_status=ready_for_operator_approval_packet_review</div>
+          <div>approval_packet_preview_status=approval_packet_preview_created_for_operator_review</div>
+          <div>actual_operator_approval_recorded=false</div>
+          <div>approval_ledger_entry_created=false</div>
+          <div>platform_payloads_approved=false</div>
+          <div>dispatch_outbox_ready=false</div>
+          <div>ready_for_dispatch=false</div>
+          <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
         </div>
       </div>
 
