@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-84c65844a5ae55178463390fb29d8d9325cf2771
+49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a
 
 ## current_product_phase
 V6 local-first product loop consolidation on the canonical V5 dashboard surface.
@@ -19,13 +19,13 @@ V6 local-first product loop consolidation on the canonical V5 dashboard surface.
 Substack manual approval/export evidence integrated into the canonical V5 dashboard using fixture-only packets, deterministic hashes, pending operator review, and blocked live publish proof.
 
 ## accepted_baseline_summary
-Accepted product baseline is commit `f688294d210065c21fe74740db8818ee09c526d2` on `origin/master`. Current repo/status repair HEAD is commit `84c65844a5ae55178463390fb29d8d9325cf2771`; do not treat status-only SHA repairs as new product baselines.
+Accepted product baseline is commit `49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a` on `origin/master`. This commit adds deterministic Substack manual approval/export evidence and canonical V5 fixture-only UI visibility. Live publish, Substack/API/provider calls, env/credential reads, and browser-session access remain blocked. The next status-only repair commit may advance repo HEAD and must be reported separately in final evidence, not promoted as a product baseline.
 
 
 ## status_sha_model
-- current remote/status HEAD (`last_verified_remote_sha`): `84c65844a5ae55178463390fb29d8d9325cf2771`
-- accepted product baseline (`accepted_product_baseline_sha`): `f688294d210065c21fe74740db8818ee09c526d2`
-- status-only repair commit (`last_status_commit_sha`): `84c65844a5ae55178463390fb29d8d9325cf2771`
+- current remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a`
+- accepted product baseline (`accepted_product_baseline_sha`): `49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a`
+- status-only repair commit (`last_status_commit_sha`): `84c65844a5ae55178463390fb29d8d9325cf2771` until this repair commit is accepted; final evidence must report the new repo HEAD separately.
 - Rule: status-only SHA repair commits update ledger metadata but do not become new product baselines. This prevents infinite SHA-repair loops.
 
 ## canonical_dashboard_surface

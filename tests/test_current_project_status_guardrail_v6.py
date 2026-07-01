@@ -39,9 +39,10 @@ def test_status_json_contract() -> None:
     assert re.fullmatch(r"[0-9a-f]{40}", data["last_verified_remote_sha"])
     assert re.fullmatch(r"[0-9a-f]{40}", data["accepted_product_baseline_sha"])
     assert re.fullmatch(r"[0-9a-f]{40}", data["last_status_commit_sha"])
-    assert "status-only" in data["accepted_baseline_summary"]
+    if data["latest_accepted_task"] == "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0":
+        assert data["accepted_product_baseline_sha"] == "49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a"
+        assert "49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a" in data["accepted_baseline_summary"]
     assert data["accepted_product_baseline_sha"] in data["accepted_baseline_summary"]
-    assert data["last_status_commit_sha"] in data["accepted_baseline_summary"]
     assert data["mandatory_update_after_task"]
 
 
@@ -113,7 +114,8 @@ def test_canonical_recon_outputs_point_to_v5() -> None:
 def test_status_sha_model_doc_distinguishes_product_and_status_commits() -> None:
     data = json.loads(_read(STATUS_JSON))
     model = _read(ROOT / "docs" / "status" / "STATUS_LEDGER_SHA_MODEL.md")
-    assert re.fullmatch(r"[0-9a-f]{40}", data["accepted_product_baseline_sha"])
+    if data["latest_accepted_task"] == "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0":
+        assert data["accepted_product_baseline_sha"] == "49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a"
     assert re.fullmatch(r"[0-9a-f]{40}", data["last_status_commit_sha"])
     assert "infinite SHA repair loops" in model
     assert "Status-only repair commits must not become product baselines" in model

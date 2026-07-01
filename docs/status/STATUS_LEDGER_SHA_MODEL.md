@@ -1,4 +1,4 @@
-﻿# Status Ledger SHA Model
+# Status Ledger SHA Model
 
 ## Definitions
 
@@ -8,9 +8,9 @@
 
 ## Current values
 
-- current remote HEAD: `84c65844a5ae55178463390fb29d8d9325cf2771`
-- accepted product baseline SHA: `f688294d210065c21fe74740db8818ee09c526d2`
-- status-only repair commit SHA: `84c65844a5ae55178463390fb29d8d9325cf2771`
+- current remote HEAD verified before this status-only repair: `49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a`
+- accepted product baseline SHA: `49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a`
+- status-only repair commit SHA: `84c65844a5ae55178463390fb29d8d9325cf2771` until this repair commit is accepted; final evidence reports the new repo HEAD separately.
 
 ## Update rules
 
@@ -21,7 +21,7 @@
 
 ## Avoiding infinite SHA repair loops
 
-A status-only commit may cause `origin/master` to advance beyond the product baseline. This is expected. Do not open another SHA repair solely because `last_verified_remote_sha` differs from `accepted_product_baseline_sha`; compare each SHA against its own field semantics.
+A status-only commit may cause `origin/master` to advance beyond the product baseline. This is expected. Do not open another SHA repair solely because the post-repair repo HEAD differs from the pre-repair `last_verified_remote_sha`; report the final repo HEAD in task evidence and compare each SHA against its own field semantics.
 
 ## Canonical UI surface
 
