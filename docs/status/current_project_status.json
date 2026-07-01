@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "af911eaf3fd1f0a85878ccb73361379732a7595b",
+  "last_verified_remote_sha": "3725675126ee24aaf0fad9abafa9b2bbedb19f94",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT_LANE_V0",
   "current_product_phase": "V6 local-first product loop consolidation on the canonical V5 dashboard surface",
   "current_product_lane": "Substack manual publication URL/audit import integrated into canonical V5 with operator-supplied URL text, deterministic URL hash, bound handoff/export/evidence/article hashes, pending operator review, and no network verification.",
-  "accepted_baseline_summary": "Accepted product baseline remains af911eaf3fd1f0a85878ccb73361379732a7595b until the Substack manual publication URL/audit import feature commit is pushed and read back. The URL/audit lane imports operator-supplied URL text only; no URL fetch, scraping, Substack/API/provider calls, env/credential reads, browser-session access, dispatch, send, schedule, approve, or ContentOps publish is authorized.",
+  "accepted_baseline_summary": "Accepted product baseline is 4c04d74b54a9aef9405aaa6c9a05dae999ce09f6. Browser QA evidence commit is 3725675126ee24aaf0fad9abafa9b2bbedb19f94. The URL/audit import lane records operator-supplied URL text only; no URL fetch, scraping, browsing, network verification, Substack API, provider call, env/credential read, browser-session access, dispatch, send, schedule, approve, or ContentOps publish is authorized.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -96,7 +96,7 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "af911eaf3fd1f0a85878ccb73361379732a7595b",
-  "last_status_commit_sha": "84c65844a5ae55178463390fb29d8d9325cf2771",
+  "accepted_product_baseline_sha": "4c04d74b54a9aef9405aaa6c9a05dae999ce09f6",
+  "last_status_commit_sha": "61623f0b3218c0b045507e7c808f2c57637ecc7e",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed when this status ledger was updated; accepted_product_baseline_sha is the latest accepted product feature baseline; last_status_commit_sha is the status-only repair commit that corrected ledger metadata."
 }

@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-af911eaf3fd1f0a85878ccb73361379732a7595b
+3725675126ee24aaf0fad9abafa9b2bbedb19f94
 
 ## current_product_phase
 V6 local-first product loop consolidation on the canonical V5 dashboard surface.
@@ -19,13 +19,14 @@ V6 local-first product loop consolidation on the canonical V5 dashboard surface.
 Substack manual publication URL/audit import integrated into the canonical V5 dashboard using operator-supplied URL text, deterministic URL hash, bound handoff/export/evidence/article hashes, pending operator review, and no network verification.
 
 ## accepted_baseline_summary
-Accepted product baseline remains commit `af911eaf3fd1f0a85878ccb73361379732a7595b` until the Substack manual publication URL/audit import feature commit is pushed and read back. The URL/audit lane imports operator-supplied URL text only, records a deterministic URL hash, and does not fetch, scrape, browse, or network-verify the URL. Live publish, Substack/API/provider calls, env/credential reads, browser-session access, dispatch, send, schedule, and approve controls remain blocked.
+Accepted product baseline is `4c04d74b54a9aef9405aaa6c9a05dae999ce09f6`. Browser QA evidence commit is `3725675126ee24aaf0fad9abafa9b2bbedb19f94`. The URL/audit import lane records operator-supplied URL text only; no URL fetch, scraping, browsing, network verification, Substack API, provider call, env/credential read, browser-session access, dispatch, send, schedule, approve, or ContentOps publish is authorized.
 
 
 ## status_sha_model
-- current remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `af911eaf3fd1f0a85878ccb73361379732a7595b`
-- accepted product baseline (`accepted_product_baseline_sha`): `af911eaf3fd1f0a85878ccb73361379732a7595b`
-- status-only repair commit (`last_status_commit_sha`): `84c65844a5ae55178463390fb29d8d9325cf2771` until this repair commit is accepted; final evidence must report the new repo HEAD separately.
+- current remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `3725675126ee24aaf0fad9abafa9b2bbedb19f94`
+- accepted product baseline (`accepted_product_baseline_sha`): `4c04d74b54a9aef9405aaa6c9a05dae999ce09f6`
+- previous accepted product baseline: `af911eaf3fd1f0a85878ccb73361379732a7595b`
+- status-only repair commit (`last_status_commit_sha`): `61623f0b3218c0b045507e7c808f2c57637ecc7e` until this repair commit is accepted; final evidence must report the new repo HEAD separately.
 - Rule: status-only SHA repair commits update ledger metadata but do not become new product baselines. This prevents infinite SHA-repair loops.
 
 ## canonical_dashboard_surface
@@ -120,4 +121,4 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - URL fetch/scrape/network verification, live publish, Substack API, provider calls, dispatch/send/schedule/approve controls, env/credential reads, and browser-session access remain disabled/false.
 
 
-Remote/status SHA note: accepted product baseline remains `af911eaf3fd1f0a85878ccb73361379732a7595b` until this URL/audit import feature commit is pushed/read back; final evidence must report any required status repair if the pushed SHA differs from ledger metadata.
+Remote/status SHA note: accepted product baseline is `4c04d74b54a9aef9405aaa6c9a05dae999ce09f6` and verified remote/browser QA evidence commit is `3725675126ee24aaf0fad9abafa9b2bbedb19f94`.

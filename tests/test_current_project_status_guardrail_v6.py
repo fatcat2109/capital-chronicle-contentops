@@ -45,6 +45,10 @@ def test_status_json_contract() -> None:
     if data["latest_accepted_task"] == "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_PACKET_V0":
         assert data["accepted_product_baseline_sha"] == "af911eaf3fd1f0a85878ccb73361379732a7595b"
         assert "af911eaf3fd1f0a85878ccb73361379732a7595b" in data["accepted_baseline_summary"]
+    if data["latest_accepted_task"] == "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT_LANE_V0":
+        assert data["accepted_product_baseline_sha"] == "4c04d74b54a9aef9405aaa6c9a05dae999ce09f6"
+        assert "4c04d74b54a9aef9405aaa6c9a05dae999ce09f6" in data["accepted_baseline_summary"]
+        assert "3725675126ee24aaf0fad9abafa9b2bbedb19f94" in data["accepted_baseline_summary"]
     assert data["accepted_product_baseline_sha"] in data["accepted_baseline_summary"]
     assert data["mandatory_update_after_task"]
 
@@ -123,6 +127,8 @@ def test_status_sha_model_doc_distinguishes_product_and_status_commits() -> None
     model = _read(ROOT / "docs" / "status" / "STATUS_LEDGER_SHA_MODEL.md")
     if data["latest_accepted_task"] == "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_APPROVAL_AND_EXPORT_EVIDENCE_HARDENING_V0":
         assert data["accepted_product_baseline_sha"] == "49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a"
+    if data["latest_accepted_task"] == "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT_LANE_V0":
+        assert data["accepted_product_baseline_sha"] == "4c04d74b54a9aef9405aaa6c9a05dae999ce09f6"
     assert re.fullmatch(r"[0-9a-f]{40}", data["last_status_commit_sha"])
     assert "infinite SHA repair loops" in model
     assert "Status-only repair commits must not become product baselines" in model
