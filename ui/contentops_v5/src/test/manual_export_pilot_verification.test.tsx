@@ -3,6 +3,7 @@ import { render, screen, fireEvent, within } from '@testing-library/react';
 import { createElement } from 'react';
 import App from '../App';
 import { manualExportPilotVerificationPacket as packet } from '../data/manualExportPilotVerificationPacket';
+import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
 
 function openView() {
   render(createElement(App));
@@ -118,5 +119,30 @@ describe('Manual Export / Pilot Verification UI', () => {
     expect(screen.getAllByText(/llm_provider_call_made=false/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/platform_api_used=false/i).length).toBeGreaterThan(0);
     expect(screen.getAllByText(/public_url_fetch_made=false/i).length).toBeGreaterThan(0);
+  });
+
+  it('guards the next article brief surface as a review-only candidate without live readiness claims', () => {
+    openView();
+
+    expect(screen.getAllByText(feedbackBacklogNextArticleBriefPacket.next_article_brief_packet_id).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(feedbackBacklogNextArticleBriefPacket.brief_candidate.working_headline).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(String(feedbackBacklogNextArticleBriefPacket.selected_priority_score)).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(feedbackBacklogNextArticleBriefPacket.candidate_review_status).length).toBeGreaterThan(0);
+
+    expect(feedbackBacklogNextArticleBriefPacket.operator_review_required).toBe(true);
+    expect(feedbackBacklogNextArticleBriefPacket.source_pack_required_before_drafting).toBe(true);
+    expect(feedbackBacklogNextArticleBriefPacket.canonical_draft_created).toBe(false);
+    expect(feedbackBacklogNextArticleBriefPacket.live_publish_performed_by_contentops).toBe(false);
+    expect(feedbackBacklogNextArticleBriefPacket.llm_provider_call_made).toBe(false);
+    expect(feedbackBacklogNextArticleBriefPacket.platform_api_used).toBe(false);
+    expect(feedbackBacklogNextArticleBriefPacket.public_url_fetch_made).toBe(false);
+    expect(feedbackBacklogNextArticleBriefPacket.non_readiness_claims.dispatch_readiness_claimed).toBe(false);
+    expect(feedbackBacklogNextArticleBriefPacket.blocked_controls).toEqual([
+      'approve',
+      'dispatch',
+      'publish',
+      'schedule',
+      'send',
+    ]);
   });
 });
