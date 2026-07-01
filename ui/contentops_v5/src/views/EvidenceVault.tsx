@@ -23,6 +23,7 @@ import { ManualDistributionRegistryPanel } from './ManualDistributionRegistryPan
 import { operatorSuppliedFeedbackIntakePacket, operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBacklogAdapter';
 import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
 import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBriefSourcePackReviewAdapter';
+import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticleSourcePackIntakeValidationAdapter';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -104,6 +105,29 @@ export function EvidenceVault() {
           <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30">
             Source pack status is source_pack_required_pending_operator_collection. Operator review status is pending_operator_review.
             Drafting and dispatch gates remain locked: ready_for_llm_drafting=false · ready_for_canonical_draft=false · ready_for_auto_publish=false · ready_for_dispatch=false.
+            No LLM/provider call is allowed on this local-first review workflow.
+          </div>
+        </div>
+        <div className="mt-4 rounded-lg border border-line bg-surface-2 p-3">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">Next article source-pack intake and validation packet</div>
+          <h3 className="mt-1 break-all text-sm font-semibold text-fg">{nextArticleSourcePackIntakeValidationPacket.source_pack_intake_packet_id}</h3>
+          <p className="mt-2 text-xs leading-relaxed text-fg-muted">coverage: {nextArticleSourcePackIntakeValidationPacket.checklist_coverage_status} · entries: {nextArticleSourcePackIntakeValidationPacket.source_entry_count}</p>
+          <div className="mt-2 space-y-1">
+            {nextArticleSourcePackIntakeValidationPacket.source_entries.map((entry) => (
+              <div key={entry.source_entry_id} className="rounded border border-line bg-surface-1 p-2 text-xs">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="font-medium text-fg">{entry.source_title}</span>
+                  <StatusChip status="review">{entry.validation_status}</StatusChip>
+                </div>
+                <p className="mt-1 text-[11px] text-fg-muted">{entry.operator_supplied_summary}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30">
+            Intake status: operator_source_pack_supplied_for_review. Validation status: local_metadata_validation_pending_operator_review.
+            Checklist coverage: source_pack_collection_status={nextArticleSourcePackIntakeValidationPacket.source_pack_collection_status}.
+            Verified URLs: network_verified_url_count=0. Verified sources: api_verified_source_count=0.
+            Drafting status: ready_for_llm_drafting=false · ready_for_canonical_draft=false · ready_for_auto_publish=false · ready_for_dispatch=false.
             No LLM/provider call is allowed on this local-first review workflow.
           </div>
         </div>

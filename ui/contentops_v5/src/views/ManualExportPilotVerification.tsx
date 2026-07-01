@@ -21,6 +21,7 @@ import { ManualDistributionRegistryPanel } from './ManualDistributionRegistryPan
 import { operatorSuppliedFeedbackIntakePacket, operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBacklogAdapter';
 import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
 import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBriefSourcePackReviewAdapter';
+import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticleSourcePackIntakeValidationAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -197,6 +198,57 @@ export function ManualExportPilotVerification() {
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
           Source pack status is source_pack_required_pending_operator_collection. Operator review status is pending_operator_review.
           Drafting and dispatch gates remain locked: ready_for_llm_drafting=false · ready_for_canonical_draft=false · ready_for_auto_publish=false · ready_for_dispatch=false.
+          No LLM/provider call is allowed on this local-first review workflow.
+        </div>
+      </Panel>
+
+      <Panel
+        title="Next article source-pack intake and validation"
+        subtitle={`${nextArticleSourcePackIntakeValidationPacket.source_pack_intake_packet_id} · coverage: ${nextArticleSourcePackIntakeValidationPacket.checklist_coverage_status}`}
+        actions={<StatusChip status="review">{nextArticleSourcePackIntakeValidationPacket.source_pack_collection_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Intake Packet" value={nextArticleSourcePackIntakeValidationPacket.source_pack_intake_packet_id} mono status="review" />
+          <Metric label="Validation Hash" value={nextArticleSourcePackIntakeValidationPacket.exact_payload_hash} mono status="verified" />
+          <Metric label="Review Packet" value={nextArticleSourcePackIntakeValidationPacket.source_pack_review_packet_id} mono status="verified" />
+          <Metric label="Intake Status" value={nextArticleSourcePackIntakeValidationPacket.intake_status} mono status="review" />
+          <Metric label="Source Entry Count" value={String(nextArticleSourcePackIntakeValidationPacket.source_entry_count)} status="verified" />
+          <Metric label="Source URL Count" value={String(nextArticleSourcePackIntakeValidationPacket.source_url_count)} status="verified" />
+          <Metric label="Network Verified URLs" value={String(nextArticleSourcePackIntakeValidationPacket.network_verified_url_count)} status="blocked" />
+          <Metric label="API Verified Sources" value={String(nextArticleSourcePackIntakeValidationPacket.api_verified_source_count)} status="blocked" />
+        </div>
+        <div className="mt-4 rounded-lg border border-line bg-surface-2 p-4">
+          <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+            Operator-supplied source entries metadata
+          </div>
+          <div className="mt-2 grid gap-2">
+            {nextArticleSourcePackIntakeValidationPacket.source_entries.map((entry) => (
+              <div key={entry.source_entry_id} className="rounded-lg border border-line bg-surface-1 p-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <span className="font-mono text-[10.5px] uppercase tracking-wide text-fg-subtle">{entry.source_type} · check: {entry.required_for_check_id}</span>
+                    <h4 className="text-sm font-semibold text-fg mt-0.5">{entry.source_title}</h4>
+                  </div>
+                  <StatusChip status="review">{entry.validation_status}</StatusChip>
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-fg-muted">{entry.operator_supplied_summary}</p>
+                {entry.source_url_text_optional && (
+                  <div className="mt-2 font-mono text-[11px] text-fg-subtle bg-surface-2 p-1.5 rounded border border-line break-all">
+                    URL (unclickable/unverified): {entry.source_url_text_optional}
+                  </div>
+                )}
+                <div className="mt-1 font-mono text-[10.5px] text-fg-muted">
+                  url_hash={entry.source_url_hash_optional || 'none'} · path={entry.local_evidence_path_optional || 'none'} · verified={String(entry.source_url_network_verified)} · api={String(entry.source_api_used)} · scraped={String(entry.source_scraped)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Intake status: operator_source_pack_supplied_for_review. Validation status: local_metadata_validation_pending_operator_review.
+          Checklist coverage: source_pack_collection_status={nextArticleSourcePackIntakeValidationPacket.source_pack_collection_status}.
+          Verified URLs: network_verified_url_count=0. Verified sources: api_verified_source_count=0.
+          Drafting status: ready_for_llm_drafting=false · ready_for_canonical_draft=false · ready_for_auto_publish=false · ready_for_dispatch=false.
           No LLM/provider call is allowed on this local-first review workflow.
         </div>
       </Panel>

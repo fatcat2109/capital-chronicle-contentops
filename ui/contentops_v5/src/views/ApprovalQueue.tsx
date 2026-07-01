@@ -21,6 +21,7 @@ import { ManualDistributionRegistryPanel } from './ManualDistributionRegistryPan
 import { operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBacklogAdapter';
 import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
 import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBriefSourcePackReviewAdapter';
+import { nextArticleSourcePackIntakeValidationPacket } from '../data/nextArticleSourcePackIntakeValidationAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -105,6 +106,37 @@ export function ApprovalQueue() {
         <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
           Source pack status is source_pack_required_pending_operator_collection. Operator review status is pending_operator_review.
           Drafting and dispatch gates remain locked: ready_for_llm_drafting=false · ready_for_canonical_draft=false · ready_for_auto_publish=false · ready_for_dispatch=false.
+          No LLM/provider call is allowed on this local-first review workflow.
+        </div>
+      </Panel>
+
+      <Panel
+        title="Next article source-pack intake and validation"
+        subtitle={`${nextArticleSourcePackIntakeValidationPacket.source_pack_intake_packet_id} · coverage: ${nextArticleSourcePackIntakeValidationPacket.checklist_coverage_status}`}
+        actions={<StatusChip status="review">{nextArticleSourcePackIntakeValidationPacket.source_pack_collection_status}</StatusChip>}
+      >
+        <div className="rounded-lg border border-line bg-surface-2 p-3 font-mono text-[11.5px] text-fg-muted space-y-2">
+          <div><span className="font-semibold text-fg">source_pack_intake_packet_id:</span> {nextArticleSourcePackIntakeValidationPacket.source_pack_intake_packet_id}</div>
+          <div><span className="font-semibold text-fg">checklist_coverage_status:</span> {nextArticleSourcePackIntakeValidationPacket.checklist_coverage_status}</div>
+          <div><span className="font-semibold text-fg">source_entry_count:</span> {nextArticleSourcePackIntakeValidationPacket.source_entry_count}</div>
+          <div><span className="font-semibold text-fg">source_url_count:</span> {nextArticleSourcePackIntakeValidationPacket.source_url_count}</div>
+        </div>
+        <div className="mt-3 space-y-1">
+          {nextArticleSourcePackIntakeValidationPacket.source_entries.map((entry) => (
+            <div key={entry.source_entry_id} className="rounded border border-line bg-surface-1 p-2 text-xs">
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-medium text-fg">{entry.source_title}</span>
+                <StatusChip status="review">{entry.validation_status}</StatusChip>
+              </div>
+              <p className="mt-1 text-[11px] text-fg-muted">{entry.operator_supplied_summary}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Intake status: operator_source_pack_supplied_for_review. Validation status: local_metadata_validation_pending_operator_review.
+          Checklist coverage: source_pack_collection_status={nextArticleSourcePackIntakeValidationPacket.source_pack_collection_status}.
+          Verified URLs: network_verified_url_count=0. Verified sources: api_verified_source_count=0.
+          Drafting status: ready_for_llm_drafting=false · ready_for_canonical_draft=false · ready_for_auto_publish=false · ready_for_dispatch=false.
           No LLM/provider call is allowed on this local-first review workflow.
         </div>
       </Panel>

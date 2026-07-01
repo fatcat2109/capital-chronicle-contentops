@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_NEXT_ARTICLE_BRIEF_SOURCE_PACK_AND_REVIEW_WORKFLOW_V0
+TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,19 +10,19 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-b96a517acaf8422723d5bbea1888f0f245ab2325
+11b8ae5eb14286b2863ec06084278bbbf60614ba
 
 ## current_product_phase
-V6 local-first source-pack and operator review workflow bridge on the canonical V5 dashboard surface, with checklist elements and pending operator review gates.
+V6 local-first source-pack intake and metadata validation bridge on the canonical V5 dashboard surface, checking checklist item coverage of operator-supplied entries.
 
 ## current_product_lane
-Next article brief source-pack and operator review workflow
+Next article source-pack intake and local metadata validation
 
 ## accepted_baseline_summary
-Next article brief source-pack and review workflow accepted after push/readback at `b96a517acaf8422723d5bbea1888f0f245ab2325`; previous accepted baseline was `c092a8f5bf5f34fd784eead8dc3af1fc7cdd15ee`. No live/provider/platform/LLM execution occurred.
+Next article source-pack intake and validation workflow accepted after push/readback; previous accepted baseline was `b96a517acaf8422723d5bbea1888f0f245ab2325`. No live/provider/platform/LLM execution occurred.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `b96a517acaf8422723d5bbea1888f0f245ab2325`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `11b8ae5eb14286b2863ec06084278bbbf60614ba`
 - accepted product baseline (`accepted_product_baseline_sha`): `b96a517acaf8422723d5bbea1888f0f245ab2325`
 - previous accepted product baseline: `c092a8f5bf5f34fd784eead8dc3af1fc7cdd15ee`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
@@ -70,18 +70,18 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_FEEDBACK_BACKLOG_REVIEW_TO_NEXT_ARTICLE_BRIEF_LOOP_V0
+TASK_CONTENTOPS_V6_NEXT_ARTICLE_BRIEF_SOURCE_PACK_AND_REVIEW_WORKFLOW_V0
 
 ## latest changed areas
-- `live_contentops/next_article_brief_source_pack_review_v6.py`
-- `docs/automation/V6_NEXT_ARTICLE_BRIEF_SOURCE_PACK_AND_REVIEW/`
-- `tests/test_next_article_brief_source_pack_review_v6.py`
-- `tests/test_next_article_brief_source_pack_review_ui_guardrail_v6.py`
-- `docs/runbooks/V6_NEXT_ARTICLE_BRIEF_SOURCE_PACK_AND_REVIEW_RUNBOOK.md`
-- `ui/contentops_v5/src/data/nextArticleBriefSourcePackReviewAdapter.ts`
+- `live_contentops/next_article_source_pack_intake_validation_v6.py`
+- `docs/automation/V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION/`
+- `tests/test_next_article_source_pack_intake_validation_v6.py`
+- `tests/test_next_article_source_pack_intake_validation_ui_guardrail_v6.py`
+- `docs/runbooks/V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION_RUNBOOK.md`
+- `ui/contentops_v5/src/data/nextArticleSourcePackIntakeValidationAdapter.ts`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_NEXT_ARTICLE_BRIEF_CANONICAL_DRAFT_WORKFLOW_V0
+TASK_CONTENTOPS_V6_NEXT_ARTICLE_CANONICAL_DRAFT_WORKFLOW_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.

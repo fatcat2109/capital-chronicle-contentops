@@ -222,3 +222,18 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Caveats | Prepared source pack is not a canonical draft and does not claim LLM or live readiness. |
 | Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
 | Next recommendation at time of update | Build the V6 canonical draft workflow from this source-pack gate. |
+
+## Next Article Source-Pack Intake and Local Metadata Validation
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION_V0` |
+| Accepted product/audit baseline SHA | `b96a517acaf8422723d5bbea1888f0f245ab2325` (retains previous baseline during push/readback). |
+| Repo HEAD / evidence commit | Reported in final evidence. |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Deterministic intake and local metadata validation of operator-supplied source entries against brief review checklist. |
+| Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. URLs are plain text/hash metadata. |
+| Changed artifact families | `live_contentops/next_article_source_pack_intake_validation_v6.py`, `docs/automation/V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION/`, tests, runbook, and V5 dashboard cards. |
+| Caveats | Complete checklist does not grant LLM or canonical drafting authorization. |
+| Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
+| Next recommendation at time of update | Build the V6 canonical drafting workflow. |
