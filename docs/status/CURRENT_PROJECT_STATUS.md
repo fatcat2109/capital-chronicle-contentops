@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a
+af911eaf3fd1f0a85878ccb73361379732a7595b
 
 ## current_product_phase
 V6 local-first product loop consolidation on the canonical V5 dashboard surface.
@@ -19,12 +19,12 @@ V6 local-first product loop consolidation on the canonical V5 dashboard surface.
 Substack manual export operator handoff integrated into the canonical V5 dashboard using fixture-only packets, deterministic hashes, pending operator review, and blocked live publish proof.
 
 ## accepted_baseline_summary
-Accepted product baseline is commit `49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a` on `origin/master`. This commit adds deterministic Substack manual export operator handoff and canonical V5 fixture-only UI visibility. Live publish, Substack/API/provider calls, env/credential reads, and browser-session access remain blocked. The next status-only repair commit may advance repo HEAD and must be reported separately in final evidence, not promoted as a product baseline.
+Accepted product baseline is commit `af911eaf3fd1f0a85878ccb73361379732a7595b` on `origin/master`. This commit adds deterministic Substack manual export operator handoff packet and canonical V5 fixture-only visibility. Live publish, Substack/API/provider calls, env/credential reads, browser-session access, dispatch, send, schedule, and approve controls remain blocked. The next status-only repair commit may advance repo HEAD and must be reported separately in final evidence, not promoted as a product baseline.
 
 
 ## status_sha_model
-- current remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a`
-- accepted product baseline (`accepted_product_baseline_sha`): `49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a`
+- current remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `af911eaf3fd1f0a85878ccb73361379732a7595b`
+- accepted product baseline (`accepted_product_baseline_sha`): `af911eaf3fd1f0a85878ccb73361379732a7595b`
 - status-only repair commit (`last_status_commit_sha`): `84c65844a5ae55178463390fb29d8d9325cf2771` until this repair commit is accepted; final evidence must report the new repo HEAD separately.
 - Rule: status-only SHA repair commits update ledger metadata but do not become new product baselines. This prevents infinite SHA-repair loops.
 
@@ -120,4 +120,4 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Live publish, Substack API, provider calls, dispatch/send/schedule/approve controls, env/credential reads, and browser-session access remain disabled/false.
 
 
-Remote/status SHA note for operator handoff: accepted product baseline and last verified remote SHA target `71cc473a398bc1810d6abcb7bc94136e1c961ef4` after push/readback.
+Remote/status SHA note for operator handoff: accepted product baseline and last verified remote SHA target `af911eaf3fd1f0a85878ccb73361379732a7595b` after push/readback.

@@ -8,8 +8,8 @@
 
 ## Current values
 
-- current remote HEAD verified before this status-only repair: `49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a`
-- accepted product baseline SHA: `49d1f472c7778d3acbb3b71e48e2283cbc4e5d7a`
+- current remote HEAD verified before this status-only repair: `af911eaf3fd1f0a85878ccb73361379732a7595b`
+- accepted product baseline SHA: `af911eaf3fd1f0a85878ccb73361379732a7595b`
 - status-only repair commit SHA: `84c65844a5ae55178463390fb29d8d9325cf2771` until this repair commit is accepted; final evidence reports the new repo HEAD separately.
 
 ## Update rules

@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "71cc473a398bc1810d6abcb7bc94136e1c961ef4",
+  "last_verified_remote_sha": "af911eaf3fd1f0a85878ccb73361379732a7595b",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF_PACKET_V0",
   "current_product_phase": "V6 local-first product loop consolidation on the canonical V5 dashboard surface",
   "current_product_lane": "Substack manual export operator handoff packet integrated into canonical V5 with fixture-only packet bindings, deterministic hashes, pending operator review, blocked controls, and manual-copy-only instructions",
-  "accepted_baseline_summary": "Accepted product baseline is 71cc473a398bc1810d6abcb7bc94136e1c961ef4. This commit adds deterministic Substack manual export operator handoff evidence and canonical V5 fixture-only visibility. Live publish, Substack/API/provider calls, env/credential reads, browser-session access, dispatch, send, schedule, and approve controls remain blocked.",
+  "accepted_baseline_summary": "Accepted product baseline is af911eaf3fd1f0a85878ccb73361379732a7595b. This commit adds deterministic Substack manual export operator handoff packet and canonical V5 fixture-only visibility. Live publish, Substack/API/provider calls, env/credential reads, browser-session access, dispatch, send, schedule, and approve controls remain blocked.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -94,7 +94,7 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "71cc473a398bc1810d6abcb7bc94136e1c961ef4",
+  "accepted_product_baseline_sha": "af911eaf3fd1f0a85878ccb73361379732a7595b",
   "last_status_commit_sha": "84c65844a5ae55178463390fb29d8d9325cf2771",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed when this status ledger was updated; accepted_product_baseline_sha is the latest accepted product feature baseline; last_status_commit_sha is the status-only repair commit that corrected ledger metadata."
 }
