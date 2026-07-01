@@ -29,3 +29,13 @@ def test_registry_panel_has_safety_labels_without_external_urls_or_enabled_contr
     assert "disabled={false}" not in text.lower()
     for control in ["approve", "send", "publish", "dispatch", "schedule"]:
         assert control in text.lower()
+
+
+def test_registry_panel_packet_drilldown_roles_and_safe_hash_separator():
+    text = COMPONENT.read_text(encoding="utf-8")
+    assert "Packet drilldown audit" in text
+    assert "?" not in text
+    for role in ["export", "approval", "handoff", "url", "metrics"]:
+        assert role in text
+    assert "packet_id=" in text
+    assert "..." in text

@@ -1,7 +1,9 @@
 import { manualDistributionEvidenceRegistry, manualDistributionRegistryPlatforms } from '../data/manualDistributionEvidenceRegistryAdapter';
 import { Panel, StatusChip } from '../ui/primitives';
 
-const shortHash = (value: string) => `${value.slice(0, 12)}?${value.slice(-8)}`;
+const packetRoles = ['export', 'approval', 'handoff', 'url', 'metrics'] as const;
+
+const shortHash = (value: string) => `${value.slice(0, 12)}...${value.slice(-8)}`;
 
 export function ManualDistributionRegistryPanel() {
   return (
@@ -39,6 +41,30 @@ export function ManualDistributionRegistryPanel() {
               </div>
             </div>
           ))}
+        </div>
+        <div className="border-t border-line bg-surface-1/60 px-4 py-4">
+          <div className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-fg-subtle">Packet drilldown audit</div>
+          <div className="mt-3 grid gap-3 lg:grid-cols-3">
+            {manualDistributionRegistryPlatforms.map((platform) => (
+              <div key={`${platform.platform}-packet-drilldown`} className="rounded-lg border border-line bg-surface-2 p-3">
+                <div className="text-sm font-semibold text-fg">{platform.platform_label} packet bindings</div>
+                <div className="mt-3 space-y-2">
+                  {packetRoles.map((role) => {
+                    const packet = platform.source_packets[role];
+                    return (
+                      <div key={`${platform.platform}-${role}`} className="rounded-md border border-line bg-surface-1 p-2">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-fg-subtle">{role}</span>
+                          <span className="break-all font-mono text-[10px] text-accent">{shortHash(packet.hash)}</span>
+                        </div>
+                        <div className="mt-1 break-all font-mono text-[10px] text-fg-muted">packet_id={packet.packet_id}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </Panel>
