@@ -148,3 +148,12 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 - Scope: surface registry readiness, source-path audit status, blockers, caveats, non-readiness claims, and safety flags in canonical V5.
 - Accepted product/audit baseline is `68ac1e1b8e3f6fb806515fe9ea0f26dc373fe2db` after audit index UI summary push/readback; previous baseline was `1796277bbcbf9a92c7bb54c5005678d3cbbf1e6c`.
 - Live/provider/platform execution remains blocked; canonical dashboard remains `ui/contentops_v5/`.
+
+## Manual Distribution Registry Audit Index Adapter Regen Guardrail
+
+- Latest task: `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_REGEN_GUARDRAIL_V0`.
+- Current lane: manual distribution registry audit-index adapter regen guardrail.
+- Scope: add deterministic local V5 adapter regeneration/check guardrail for committed registry and audit-index packets.
+- Accepted product/audit baseline is `3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc` after guardrail push/readback; previous baseline was `68ac1e1b8e3f6fb806515fe9ea0f26dc373fe2db`.
+- Final status repair commit updates governance metadata only and does not become the product/audit baseline.
+- Live/provider/platform execution remains blocked; canonical dashboard remains `ui/contentops_v5/`.

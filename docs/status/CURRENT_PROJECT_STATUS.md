@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_REGEN_GUARDRAIL_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,13 +10,13 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-83c53fd3a39b377d9f74fa70cd8b6a5357689ecb
+3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc
 
 ## current_product_phase
 V6 local-first product loop consolidation on the canonical V5 dashboard surface, with repo-native status/progress governance refreshed after LinkedIn manual evidence acceptance.
 
 ## current_product_lane
-Docs/status/progress governance refresh after LinkedIn manual publication evidence loop acceptance. No new product feature lane is opened by this update.
+Manual distribution registry audit-index adapter regen guardrail.
 
 ## accepted_baseline_summary
 LinkedIn manual publication evidence loop is accepted as the current product baseline after push/readback at `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb`. The previous status ledger incorrectly left `accepted_product_baseline_sha` at `fbfd64c8975df7b5ac2daa549641a4b8e31a90c5`; that SHA is not the current accepted product baseline for `TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0`. This docs/status refresh commit repairs metadata and does not become a product baseline unless explicitly accepted as product work.
@@ -70,7 +70,7 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_LINKEDIN_MANUAL_PUBLICATION_EVIDENCE_LOOP_V0
+TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_REGEN_GUARDRAIL_V0
 
 ## latest changed areas
 - `docs/status/CURRENT_PROJECT_STATUS.md`
@@ -178,4 +178,13 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Current lane: manual distribution registry audit index UI summary.
 - Scope: surface registry readiness, source-path audit status, blockers, caveats, non-readiness claims, and safety flags in canonical V5.
 - Accepted product/audit baseline is `68ac1e1b8e3f6fb806515fe9ea0f26dc373fe2db` after audit index UI summary push/readback; previous baseline was `1796277bbcbf9a92c7bb54c5005678d3cbbf1e6c`.
+- Live/provider/platform execution remains blocked; canonical dashboard remains `ui/contentops_v5/`.
+
+## Manual Distribution Registry Audit Index Adapter Regen Guardrail
+
+- Latest task: `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_AUDIT_INDEX_REGEN_GUARDRAIL_V0`.
+- Current lane: manual distribution registry audit-index adapter regen guardrail.
+- Scope: add deterministic local V5 adapter regeneration/check guardrail for committed registry and audit-index packets.
+- Accepted product/audit baseline is `3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc` after guardrail push/readback; previous baseline was `68ac1e1b8e3f6fb806515fe9ea0f26dc373fe2db`.
+- Final status repair commit updates governance metadata only and does not become the product/audit baseline.
 - Live/provider/platform execution remains blocked; canonical dashboard remains `ui/contentops_v5/`.
