@@ -20,6 +20,7 @@ import {
 import { ManualDistributionRegistryPanel } from './ManualDistributionRegistryPanel';
 import { operatorSuppliedFeedbackIntakePacket, operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBacklogAdapter';
 import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
+import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBriefSourcePackReviewAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -166,6 +167,37 @@ export function ManualExportPilotVerification() {
         </article>
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
           Review-only bridge from operator-supplied feedback backlog. source_pack_required_before_drafting={String(feedbackBacklogNextArticleBriefPacket.source_pack_required_before_drafting)} · canonical_draft_created={String(feedbackBacklogNextArticleBriefPacket.canonical_draft_created)} · llm_provider_call_made={String(feedbackBacklogNextArticleBriefPacket.llm_provider_call_made)} · platform_api_used={String(feedbackBacklogNextArticleBriefPacket.platform_api_used)} · public_url_fetch_made={String(feedbackBacklogNextArticleBriefPacket.public_url_fetch_made)}.
+        </div>
+      </Panel>
+
+      <Panel
+        title="Next article brief source-pack and review"
+        subtitle={`${nextArticleBriefSourcePackReviewPacket.source_pack_review_packet_id} · checklist items: ${nextArticleBriefSourcePackReviewPacket.source_pack_checklist.length}`}
+        actions={<StatusChip status="review">{nextArticleBriefSourcePackReviewPacket.operator_review_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Source Pack Packet" value={nextArticleBriefSourcePackReviewPacket.source_pack_review_packet_id} mono status="review" />
+          <Metric label="Source Pack Hash" value={nextArticleBriefSourcePackReviewPacket.exact_payload_hash} mono status="verified" />
+          <Metric label="Source Brief Packet" value={nextArticleBriefSourcePackReviewPacket.source_next_article_brief_packet_id} mono status="verified" />
+          <Metric label="Source Pack Status" value={nextArticleBriefSourcePackReviewPacket.source_pack_status} mono status="review" />
+        </div>
+        <div className="mt-4 rounded-lg border border-line bg-surface-2 p-4">
+          <div className="font-mono text-[10.5px] font-bold uppercase tracking-wide text-fg-subtle">
+            Required source-pack checklist
+          </div>
+          <div className="mt-2 grid gap-2">
+            {nextArticleBriefSourcePackReviewPacket.source_pack_checklist.map((item) => (
+              <div key={item.check_id} className="flex items-center justify-between gap-2 rounded-lg border border-line bg-surface-1 px-3 py-2">
+                <span className="text-sm font-semibold text-fg">{item.label}</span>
+                <StatusChip status="review">{item.status}</StatusChip>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Source pack status is source_pack_required_pending_operator_collection. Operator review status is pending_operator_review.
+          Drafting and dispatch gates remain locked: ready_for_llm_drafting=false · ready_for_canonical_draft=false · ready_for_auto_publish=false · ready_for_dispatch=false.
+          No LLM/provider call is allowed on this local-first review workflow.
         </div>
       </Panel>
 

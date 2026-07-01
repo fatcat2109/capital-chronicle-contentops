@@ -22,6 +22,7 @@ import {
 import { ManualDistributionRegistryPanel } from './ManualDistributionRegistryPanel';
 import { operatorSuppliedFeedbackIntakePacket, operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBacklogAdapter';
 import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
+import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBriefSourcePackReviewAdapter';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -87,6 +88,24 @@ export function EvidenceVault() {
           <h3 className="mt-1 break-all text-sm font-semibold text-fg">{feedbackBacklogNextArticleBriefPacket.next_article_brief_packet_id}</h3>
           <p className="mt-2 text-xs leading-relaxed text-fg-muted">{feedbackBacklogNextArticleBriefPacket.brief_candidate.brief_title} · {feedbackBacklogNextArticleBriefPacket.selection_method}</p>
           <div className="mt-2 break-all font-mono text-[11px] text-fg-muted">source_backlog_hash={feedbackBacklogNextArticleBriefPacket.source_backlog_summary_hash} · canonical_draft_created={String(feedbackBacklogNextArticleBriefPacket.canonical_draft_created)} · public_url_fetch_made={String(feedbackBacklogNextArticleBriefPacket.public_url_fetch_made)}</div>
+        </div>
+        <div className="mt-4 rounded-lg border border-line bg-surface-2 p-3">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">Next article brief source-pack and review packet</div>
+          <h3 className="mt-1 break-all text-sm font-semibold text-fg">{nextArticleBriefSourcePackReviewPacket.source_pack_review_packet_id}</h3>
+          <p className="mt-2 text-xs leading-relaxed text-fg-muted">{nextArticleBriefSourcePackReviewPacket.source_pack_status} · {nextArticleBriefSourcePackReviewPacket.operator_review_status}</p>
+          <div className="mt-2 space-y-1">
+            {nextArticleBriefSourcePackReviewPacket.source_pack_checklist.map((item) => (
+              <div key={item.check_id} className="flex items-center justify-between gap-2 rounded border border-line bg-surface-1 px-2.5 py-1.5 text-xs">
+                <span className="font-medium text-fg">{item.label}</span>
+                <StatusChip status="review">{item.status}</StatusChip>
+              </div>
+            ))}
+          </div>
+          <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30">
+            Source pack status is source_pack_required_pending_operator_collection. Operator review status is pending_operator_review.
+            Drafting and dispatch gates remain locked: ready_for_llm_drafting=false · ready_for_canonical_draft=false · ready_for_auto_publish=false · ready_for_dispatch=false.
+            No LLM/provider call is allowed on this local-first review workflow.
+          </div>
         </div>
       </Panel>
       <SubstackArticleStudioCard mode="evidence" />

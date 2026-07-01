@@ -20,6 +20,7 @@ import {
 import { ManualDistributionRegistryPanel } from './ManualDistributionRegistryPanel';
 import { operatorFeedbackBacklogSummaryPacket } from '../data/operatorFeedbackBacklogAdapter';
 import { feedbackBacklogNextArticleBriefPacket } from '../data/feedbackBacklogNextArticleBriefAdapter';
+import { nextArticleBriefSourcePackReviewPacket } from '../data/nextArticleBriefSourcePackReviewAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -79,6 +80,32 @@ export function ApprovalQueue() {
         </div>
         <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
           Operator review required. source_pack_required_before_drafting={String(feedbackBacklogNextArticleBriefPacket.source_pack_required_before_drafting)} · canonical_draft_created={String(feedbackBacklogNextArticleBriefPacket.canonical_draft_created)} · dispatch_readiness_claimed={String(feedbackBacklogNextArticleBriefPacket.non_readiness_claims.dispatch_readiness_claimed)}.
+        </div>
+      </Panel>
+
+      <Panel
+        title="Next article brief source-pack and review"
+        subtitle={`${nextArticleBriefSourcePackReviewPacket.source_pack_review_packet_id} · checklist items: ${nextArticleBriefSourcePackReviewPacket.source_pack_checklist.length}`}
+        actions={<StatusChip status="review">{nextArticleBriefSourcePackReviewPacket.operator_review_status}</StatusChip>}
+      >
+        <div className="rounded-lg border border-line bg-surface-2 p-3 font-mono text-[11.5px] text-fg-muted space-y-2">
+          <div><span className="font-semibold text-fg">source_pack_review_packet_id:</span> {nextArticleBriefSourcePackReviewPacket.source_pack_review_packet_id}</div>
+          <div><span className="font-semibold text-fg">source_next_article_brief_packet_id:</span> {nextArticleBriefSourcePackReviewPacket.source_next_article_brief_packet_id}</div>
+          <div><span className="font-semibold text-fg">source_pack_status:</span> {nextArticleBriefSourcePackReviewPacket.source_pack_status}</div>
+          <div><span className="font-semibold text-fg">operator_review_status:</span> {nextArticleBriefSourcePackReviewPacket.operator_review_status}</div>
+        </div>
+        <div className="mt-3 space-y-1">
+          {nextArticleBriefSourcePackReviewPacket.source_pack_checklist.map((item) => (
+            <div key={item.check_id} className="flex items-center justify-between gap-2 rounded border border-line bg-surface-1 px-2.5 py-1.5 text-xs">
+              <span className="font-medium text-fg">{item.label}</span>
+              <StatusChip status="review">{item.status}</StatusChip>
+            </div>
+          ))}
+        </div>
+        <div className="mt-3 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
+          Source pack status is source_pack_required_pending_operator_collection. Operator review status is pending_operator_review.
+          Drafting and dispatch gates remain locked: ready_for_llm_drafting=false · ready_for_canonical_draft=false · ready_for_auto_publish=false · ready_for_dispatch=false.
+          No LLM/provider call is allowed on this local-first review workflow.
         </div>
       </Panel>
       <SubstackArticleStudioCard mode="approval" />
