@@ -120,5 +120,5 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 - Latest task: `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_REGISTRY_PACKET_DRILLDOWN_AUDIT_V0`.
 - Current lane: manual distribution registry packet drilldown audit on canonical `ui/contentops_v5/`.
 - Scope: add read-only packet ID/hash drilldown for export, approval, handoff, URL audit, and metrics bindings across Substack, LinkedIn, and X.
-- Accepted product baseline remains `9375e6ef8b5d109161f5e27350a8d458419e5809` until push/readback acceptance of this UI refinement.
+- Accepted product baseline is `76f4ba616693aac1462e32dbbe80cc652154f928` after packet drilldown push/readback; previous product baseline was `9375e6ef8b5d109161f5e27350a8d458419e5809`.
 - Live/provider/platform execution remains blocked.
