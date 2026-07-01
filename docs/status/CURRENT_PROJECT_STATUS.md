@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-e6d734f64f8a0cd1888d17f436a71a8929aa6a6d
+3c4af3cf7baeeb1a46a748c0efa585ff41e74210
 
 ## current_product_phase
 V6 local-first local canonical draft preview and operator review workflow on the V5 dashboard surface
@@ -19,12 +19,12 @@ V6 local-first local canonical draft preview and operator review workflow on the
 local canonical draft preview and operator review workflow
 
 ## accepted_baseline_summary
-Next article local canonical draft preview and review workflow completed; accepted product baseline SHA remains `064acd3333b70c8dd84c621c47af5cb395e387df` until push/readback. No live/provider/platform/LLM execution occurred.
+Next article local canonical draft preview and review workflow completed and accepted after push/readback at `3c4af3cf7baeeb1a46a748c0efa585ff41e74210`; previous accepted baseline was `064acd3333b70c8dd84c621c47af5cb395e387df`. No live/provider/platform/LLM execution occurred.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `e6d734f64f8a0cd1888d17f436a71a8929aa6a6d`
-- accepted product baseline (`accepted_product_baseline_sha`): `064acd3333b70c8dd84c621c47af5cb395e387df`
-- previous accepted product baseline: `1761db85d74ef741a4beba548893d3c901a7077b`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `3c4af3cf7baeeb1a46a748c0efa585ff41e74210`
+- accepted product baseline (`accepted_product_baseline_sha`): `3c4af3cf7baeeb1a46a748c0efa585ff41e74210`
+- previous accepted product baseline: `064acd3333b70c8dd84c621c47af5cb395e387df`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
 ## canonical_dashboard_surface

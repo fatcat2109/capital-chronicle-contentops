@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "e6d734f64f8a0cd1888d17f436a71a8929aa6a6d",
+  "last_verified_remote_sha": "3c4af3cf7baeeb1a46a748c0efa585ff41e74210",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0",
   "current_product_phase": "V6 local-first local canonical draft preview and operator review workflow on the V5 dashboard surface",
   "current_product_lane": "local canonical draft preview and operator review workflow",
-  "accepted_baseline_summary": "Next article local canonical draft preview and review workflow completed; accepted product baseline SHA remains 064acd3333b70c8dd84c621c47af5cb395e387df until push/readback.",
+  "accepted_baseline_summary": "Next article local canonical draft preview and review workflow completed and accepted after push/readback at 3c4af3cf7baeeb1a46a748c0efa585ff41e74210; previous accepted baseline was 064acd3333b70c8dd84c621c47af5cb395e387df.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -155,7 +155,7 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "064acd3333b70c8dd84c621c47af5cb395e387df",
+  "accepted_product_baseline_sha": "3c4af3cf7baeeb1a46a748c0efa585ff41e74210",
   "last_status_commit_sha": "83b8886ca41ef8db0af76de07da4f3f4fa1dcaf1",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work."
 }

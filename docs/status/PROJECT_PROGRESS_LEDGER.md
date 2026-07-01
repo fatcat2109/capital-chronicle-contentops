@@ -258,8 +258,8 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Field | Value |
 |---|---|
 | Task label | `TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0` |
-| Accepted product/audit baseline SHA | `064acd3333b70c8dd84c621c47af5cb395e387df` (remains unchanged until push/readback). |
-| Repo HEAD / evidence commit | Reported in final evidence. |
+| Accepted product/audit baseline SHA | `3c4af3cf7baeeb1a46a748c0efa585ff41e74210` |
+| Repo HEAD / evidence commit | `3c4af3cf7baeeb1a46a748c0efa585ff41e74210` |
 | Result classification | `complete_review_only_local_manual` |
 | Scope | Deterministic draft preview generation using a local template and operator review checklist mapping. |
 | Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |
