@@ -654,7 +654,7 @@ export function EvidenceVault() {
 
       <Panel
         title="X manual publication evidence vault"
-        subtitle={`${xManualExportPacket.export_packet_id} ? ${xPublicationAuditReviewMetricsSummaryPacket.publication_audit_review_packet_id}`}
+        subtitle={`${xManualExportPacket.export_packet_id} | ${xPublicationAuditReviewMetricsSummaryPacket.publication_audit_review_packet_id}`}
         actions={<StatusChip status="blocked">manual fixture only</StatusChip>}
       >
         <div className="grid gap-2 md:grid-cols-2">
@@ -667,7 +667,7 @@ export function EvidenceVault() {
           ))}
         </div>
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted">
-          X evidence is operator-supplied fixture evidence only: x_api_used={String(xManualExportPacket.x_api_used)} ? url_network_verified={String(xManualPublicationUrlAuditImportPacket.url_network_verified)} ? metrics_network_verified={String(xPublicationAuditReviewMetricsSummaryPacket.metrics_network_verified)} ? controls_enabled={String(xManualOperatorHandoffPacket.enabled_publish_send_dispatch_approve_controls)}.
+          X evidence is operator-supplied fixture evidence only: x_api_used={String(xManualExportPacket.x_api_used)} | url_network_verified={String(xManualPublicationUrlAuditImportPacket.url_network_verified)} | metrics_network_verified={String(xPublicationAuditReviewMetricsSummaryPacket.metrics_network_verified)} | controls_enabled={String(xManualOperatorHandoffPacket.enabled_publish_send_dispatch_approve_controls)}.
         </div>
       </Panel>
     </div>
