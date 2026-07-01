@@ -4,10 +4,10 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "last_verified_remote_sha": "98fce130a9f98e34cc8ac0454986081697efc8c1",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY_CONSOLIDATION_HEAVY_BATCH_V0",
   "current_product_phase": "V6 local-first product loop consolidation on the canonical V5 dashboard surface, with repo-native status/progress governance refreshed after LinkedIn manual evidence acceptance",
-  "current_product_lane": "X manual publication evidence loop integrated into canonical V5 as fixture/operator-supplied manual evidence; no X API/live/browser/network verification.",
-  "accepted_baseline_summary": "X manual publication evidence loop accepted as current product baseline after push/readback at 98fce130a9f98e34cc8ac0454986081697efc8c1. LinkedIn manual publication evidence remains included as prior accepted baseline lineage at 83c53fd3a39b377d9f74fa70cd8b6a5357689ecb.",
+  "current_product_lane": "Manual distribution evidence registry consolidation across Substack, LinkedIn, and X; no new platform lane.",
+  "accepted_baseline_summary": "Accepted product baseline remains X manual publication evidence loop at 98fce130a9f98e34cc8ac0454986081697efc8c1 until the registry consolidation feature commit is pushed/read back and accepted.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -45,7 +45,8 @@
     "live_contentops/x_manual_approval_export_evidence_v6.py",
     "live_contentops/x_manual_operator_handoff_v6.py",
     "live_contentops/x_manual_publication_url_audit_import_v6.py",
-    "live_contentops/x_publication_audit_review_metrics_summary_v6.py"
+    "live_contentops/x_publication_audit_review_metrics_summary_v6.py",
+    "live_contentops/manual_distribution_evidence_registry_v6.py"
   ],
   "current_loop_components": [
     "AI research packet",
@@ -71,7 +72,8 @@
     "X manual approval/export evidence packet",
     "X manual operator handoff packet",
     "X manual publication URL/audit import packet",
-    "X manual metrics summary packet"
+    "X manual metrics summary packet",
+    "Manual Distribution Evidence Registry v0"
   ],
   "dispatch_live_status": "blocked; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, or live send authorized",
   "provider_env_credential_status": "gated; no env value or credential value reads; committed evidence may use boolean/key-name status only",
@@ -87,9 +89,9 @@
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_ROADMAP_AUDIT_AND_X_MANUAL_PUBLICATION_EVIDENCE_LOOP_HEAVY_BATCH_V0",
-  "latest_accepted_task_result": "accepted X manual publication evidence loop as product baseline after push/readback; fixture/operator-supplied only with no X API/live/browser/network verification",
-  "latest_evidence_summary": "X sample packets under docs/automation/V6_X_* are fixture/operator-supplied local evidence only. Browser QA screenshots/recording are stored under docs/browser_qa/contentops_v5_x_manual_publication_evidence_loop/. No X API, browser automation against X, URL fetch/scrape, public URL verification, or live platform action was performed.",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY_CONSOLIDATION_HEAVY_BATCH_V0",
+  "latest_accepted_task_result": "pending push/readback; local registry consolidation implemented as fixture/manual/operator-supplied read model with canonical V5 summary panels",
+  "latest_evidence_summary": "Manual Distribution Evidence Registry v0 consolidates Substack, LinkedIn, and X committed sample packets. No platform API, env, credential, browser-session, public URL, or live action.",
   "next_recommended_task": "TASK_CONTENTOPS_V6_ROADMAP_REVIEW_OR_NEXT_MANUAL_DISTRIBUTION_LANE_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",

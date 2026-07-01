@@ -96,3 +96,13 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Scope | X manual export, approval/export evidence, operator handoff, URL/audit import, and manual metrics summary with canonical V5 visibility. |
 | Safety posture | Fixture/operator-supplied only; no X API, env, credentials, browser session, network, URL fetch/scrape, or live posting. |
 | Caveats | URL and metrics are operator-supplied text only and not network verified. |
+
+## Manual Distribution Evidence Registry Consolidation
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY_CONSOLIDATION_HEAVY_BATCH_V0` |
+| Scope | Consolidate accepted Substack, LinkedIn, and X manual evidence lanes into a local registry/read model. |
+| Safety posture | Fixture/manual/operator-supplied only; no platform API, env, credential, browser session, public URL fetch/scrape, or live action. |
+| Canonical UI | `ui/contentops_v5/` registry summary panels. |
+| Baseline note | `accepted_product_baseline_sha` remains `98fce130a9f98e34cc8ac0454986081697efc8c1` until post-push acceptance/repair. |

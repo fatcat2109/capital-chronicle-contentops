@@ -128,3 +128,12 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Components: X manual export, approval/export evidence, operator handoff, URL/audit import, and manual metrics summary.
 - Safety: fixture/operator-supplied only; `x_api_used=false`, `url_network_verified=false`, `metrics_network_verified=false`, no env/credential/browser session/network/live action.
 - Baseline note: `accepted_product_baseline_sha` is now repaired to the pushed/readback X feature commit `98fce130a9f98e34cc8ac0454986081697efc8c1`.
+
+## Manual Distribution Evidence Registry v0 Update
+
+- Latest task: `TASK_CONTENTOPS_V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY_CONSOLIDATION_HEAVY_BATCH_V0`.
+- Current lane: manual distribution evidence registry consolidation across Substack, LinkedIn, and X; no new platform lane.
+- Canonical dashboard remains `ui/contentops_v5/`.
+- Registry consolidates committed fixture/operator-supplied packet IDs, hashes, provenance, safety flags, blocked controls, and V5 labels.
+- Accepted product baseline remains `98fce130a9f98e34cc8ac0454986081697efc8c1` until push/readback acceptance of this feature commit.
+- Live/provider/platform execution remains blocked; Project Sources/chat memory remain context only.
