@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "727e80d70797f81367db496e0a5268a2a63e06dd",
+  "last_verified_remote_sha": "dbfd6e3bc6ec2cfc345a995383f9a74421b44cb7",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW_HEAVY_BATCH_V0",
   "current_product_phase": "V6 local-first canonical draft final review and platform variant preview on the canonical V5 dashboard surface",
   "current_product_lane": "canonical draft final review and platform variant preview",
-  "accepted_baseline_summary": "Next article canonical draft final review and platform variant preview completed; accepted product baseline SHA remains 3c4af3cf7baeeb1a46a748c0efa585ff41e74210 until push/readback.",
+  "accepted_baseline_summary": "Next article canonical draft final review and platform variant preview completed and accepted after push/readback at dbfd6e3bc6ec2cfc345a995383f9a74421b44cb7; previous accepted baseline was 3c4af3cf7baeeb1a46a748c0efa585ff41e74210.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -158,7 +158,7 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "3c4af3cf7baeeb1a46a748c0efa585ff41e74210",
+  "accepted_product_baseline_sha": "dbfd6e3bc6ec2cfc345a995383f9a74421b44cb7",
   "last_status_commit_sha": "83b8886ca41ef8db0af76de07da4f3f4fa1dcaf1",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work."
 }
