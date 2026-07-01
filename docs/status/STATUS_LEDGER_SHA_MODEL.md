@@ -8,10 +8,10 @@
 
 ## Current values
 
-- current remote HEAD verified before this status-only repair: `3725675126ee24aaf0fad9abafa9b2bbedb19f94`
-- accepted product baseline SHA: `4c04d74b54a9aef9405aaa6c9a05dae999ce09f6`
-- previous accepted product baseline: `af911eaf3fd1f0a85878ccb73361379732a7595b`
-- status-only repair commit SHA: `61623f0b3218c0b045507e7c808f2c57637ecc7e` until this repair commit is accepted; final evidence reports the new repo HEAD separately.
+- current remote HEAD verified before this status-only repair: `6dde149fd71b06637ff7bb394ae6ba8f3184482b`
+- accepted product baseline SHA: `6dde149fd71b06637ff7bb394ae6ba8f3184482b`
+- previous accepted product baseline: `4c04d74b54a9aef9405aaa6c9a05dae999ce09f6`
+- status-only repair commit SHA: `d077a22bf4faf16153ea5b2e79993d7666aa44a5` until this repair commit is accepted; final evidence reports the new repo HEAD separately.
 
 ## Update rules
 
@@ -29,6 +29,6 @@ A status-only commit may cause `origin/master` to advance beyond the product bas
 Browser QA and product UI work target `ui/contentops_v5/`. V4 remains fallback/reference only and must not be used as the product target.
 
 
-## V6 Substack manual publication URL/audit import baseline note
+## V6 Substack publication audit review / manual metrics summary baseline note
 
-Substack manual publication URL/audit import feature commits are product baselines only after push and remote readback. Status-only repairs may advance HEAD but must not replace the accepted product baseline unless explicitly accepted as feature work. Previous baseline af911eaf3fd1f0a85878ccb73361379732a7595b is archived in status history.
+Substack publication audit review / manual metrics summary feature commits are product baselines only after push and remote readback. Status-only repairs may advance HEAD but must not replace the accepted product baseline unless explicitly accepted as feature work. Previous baseline 4c04d74b54a9aef9405aaa6c9a05dae999ce09f6 is archived in status history.
