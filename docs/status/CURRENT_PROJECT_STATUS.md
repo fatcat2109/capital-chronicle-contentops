@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-1761db85d74ef741a4beba548893d3c901a7077b
+064acd3333b70c8dd84c621c47af5cb395e387df
 
 ## current_product_phase
 V6 local-first source-pack draft authorization and local draft readiness on the canonical V5 dashboard surface
@@ -19,12 +19,12 @@ V6 local-first source-pack draft authorization and local draft readiness on the 
 source-pack intake to local draft authorization and readiness
 
 ## accepted_baseline_summary
-Next article source-pack draft authorization and readiness workflow accepted after push/readback; previous accepted baseline was `1761db85d74ef741a4beba548893d3c901a7077b`. No live/provider/platform/LLM execution occurred.
+Next article source-pack draft authorization and readiness workflow accepted after push/readback at `064acd3333b70c8dd84c621c47af5cb395e387df`; previous accepted baseline was `1761db85d74ef741a4beba548893d3c901a7077b`. No live/provider/platform/LLM execution occurred.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `1761db85d74ef741a4beba548893d3c901a7077b`
-- accepted product baseline (`accepted_product_baseline_sha`): `1761db85d74ef741a4beba548893d3c901a7077b`
-- previous accepted product baseline: `b96a517acaf8422723d5bbea1888f0f245ab2325`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `064acd3333b70c8dd84c621c47af5cb395e387df`
+- accepted product baseline (`accepted_product_baseline_sha`): `064acd3333b70c8dd84c621c47af5cb395e387df`
+- previous accepted product baseline: `1761db85d74ef741a4beba548893d3c901a7077b`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
 ## canonical_dashboard_surface

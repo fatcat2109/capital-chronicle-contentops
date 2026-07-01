@@ -243,8 +243,8 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Field | Value |
 |---|---|
 | Task label | `TASK_CONTENTOPS_V6_NEXT_ARTICLE_SOURCE_PACK_TO_DRAFT_AUTHORIZATION_AND_LOCAL_DRAFT_READINESS_HEAVY_BATCH_V0` |
-| Accepted product/audit baseline SHA | `1761db85d74ef741a4beba548893d3c901a7077b` (retains previous baseline during push/readback). |
-| Repo HEAD / evidence commit | Reported in final evidence. |
+| Accepted product/audit baseline SHA | `064acd3333b70c8dd84c621c47af5cb395e387df` |
+| Repo HEAD / evidence commit | `064acd3333b70c8dd84c621c47af5cb395e387df` |
 | Result classification | `complete_review_only_local_manual` |
 | Scope | Deterministic draft authorization and local draft-readiness verification checklist mapping. |
 | Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |
