@@ -1,3 +1,6 @@
+> [!WARNING]
+> **SUPERSEDED EXECUTION ORDER / HISTORICAL BRIDGE.** This 0174AO roadmap is retained for lineage. Current execution guidance lives in `docs/Capital Chronicle ContentOps V6 ? Final Product 25-Task Execution Plan.md` and `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md`. V5 is now the canonical UI surface; V4 references below are historical context only.
+
 # ContentOps Final Product Roadmap (After 0174AO)
 
 **Task authority:** `CAPITAL_CHRONICLE_CONTENTOPS_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AFTER_0174AO.md`

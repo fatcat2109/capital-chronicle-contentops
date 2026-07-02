@@ -1,3 +1,6 @@
+> [!WARNING]
+> **HISTORICAL RECOVERY RECORD.** This index records 0174AO recovery evidence. It is not current strategy authority. Current direction is automation-first supervised ContentOps V6; use `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md`, the V6 AI-native master plan, and the V6 final-product execution plan. V4-frozen notes below are historical only; V5 is current canonical UI authority.
+
 # ContentOps Strategy Recovery Index (After 0174AO)
 
 **Task:** `TASK_CONTENTOPS_0174AO_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AND_STRATEGY_RECOVERY_V0`

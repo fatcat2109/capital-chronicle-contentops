@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "187f7134f8da8d1cda0d902e2b41ac5cbb8e67ab",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_REDACTED_OPERATOR_REVIEW_PACKET_TO_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_V0",
-  "current_product_phase": "V6 Discord operator-supplied review decision packet lane",
-  "current_product_lane": "fail-closed Discord operator review decision packet with redacted review evidence",
-  "accepted_baseline_summary": "Discord operator source + GO phrase intake now emits an operator-supplied review decision packet. Committed default intake packet discord_source_go_intake_534cead869fe4cd4 has exact payload hash 534cead869fe4cd4eb36ad6b063ce3e34435d19f9b7a9a7ae242ad166f4e27af; redacted review packet discord_redacted_review_ec61cd3fe91ff64d remains blocked with hash ec61cd3fe91ff64d706ca274529abeb07eba5caa7901f0041b7fdc2d1addd753; operator review decision packet discord_review_decision_71604115f431e9e6 remains blocked with hash 71604115f431e9e6c2f31b64258cc80c5f0d243f0b0614f5121fa5abdea5f30d because no real operator decision artifact is committed. The decision path parses approve/reject/hold artifacts by redacted packet id/hash and exact review-only phrases, stores hashes/flags only, and remains non-dispatchable.",
+  "last_verified_remote_sha": "8d9738334f5ce195c092a331a08f9935f2a4f73b",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT_AND_STALE_DOC_CLEANUP_V0",
+  "current_product_phase": "V6 automation-first final product strategy and stale-doc cleanup lane",
+  "current_product_lane": "automation-first final product readiness report and supersession cleanup; no live execution",
+  "accepted_baseline_summary": "Automation-first final product readiness report added. V6 supersession map now identifies current strategy/execution/follow-guide authority, and stale manual-first / 0174AO bridge docs are clearly marked historical. Final product direction is maximum automation before approval, supervised dispatch at the live edge, automated API/webhook where safe, and one-step CDP/operator assist for platforms where clean automation is paid, blocked, or brittle. No live dispatch, provider/API call, webhook validation, credential/env read, browser session read, outbox execution, scheduler, retry, DM, comment, like, reaction, or scrape occurred.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -142,8 +142,8 @@
     "Discord redacted review V5 visibility",
     "Discord operator-supplied review decision packet"
   ],
-  "dispatch_live_status": "blocked; operator review decision packet, redacted operator review packet, operator input contract, real-vs-fixture source intake, live-preflight evidence, review-only dry-run envelope normalization, destination proof, kill-switch evidence, credential presence evidence, and pre-dispatch readiness only; no Discord send, webhook validation, dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, or live action authorized",
-  "provider_env_credential_status": "gated; operator review decision and redacted review use hashes/key names/flags only; no env value, credential value, webhook URL value, body value, GO phrase value, operator id value, or raw decision notes are stored",
+  "dispatch_live_status": "blocked; strategy/docs cleanup only; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, webhook validation, or live action authorized",
+  "provider_env_credential_status": "gated; no env value, credential value, webhook URL value, token material, browser/session value, provider key, or secret-derived metadata was read, printed, or committed",
   "active_blockers": [
     "live/provider/platform execution remains disabled",
     "future product UI work must target ui/contentops_v5/ unless newer committed authority supersedes it",
@@ -169,11 +169,12 @@
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
-    "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
+    "Do not use chat memory or Project Sources as runtime authority when repo files disagree",
+    "automation-first final product follow guide is current strategy companion; manual-first docs are historical only"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_REDACTED_OPERATOR_REVIEW_PACKET_TO_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_V0",
-  "latest_accepted_task_result": "complete_blocked_operator_review_decision_packet; approve/reject/hold decision intake path runnable and non-dispatchable",
-  "latest_evidence_summary": "Intake builder, redacted operator review packet, operator review decision packet, TS adapter, V5 read-only panel, pytest, V5 tests, and V5 build verified.",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT_AND_STALE_DOC_CLEANUP_V0",
+  "latest_accepted_task_result": "complete_docs_cleanup; automation-first final product follow guide created and stale manual-first docs marked historical",
+  "latest_evidence_summary": "Final automation pipeline readiness report, supersession map update, stale-doc banners, and status docs verified locally.",
   "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_TO_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
@@ -207,29 +208,16 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "c99f2d02869fd9c6ca0f0a3b072088eac1409df1",
-  "last_status_commit_sha": "c99f2d02869fd9c6ca0f0a3b072088eac1409df1",
+  "accepted_product_baseline_sha": "8d9738334f5ce195c092a331a08f9935f2a4f73b",
+  "last_status_commit_sha": "8d9738334f5ce195c092a331a08f9935f2a4f73b",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work.",
   "latest_changed_areas": [
-    "live_contentops/discord_operator_source_go_phrase_intake_v6.py",
-    "live_contentops/discord_operator_source_go_phrase_intake_v5_adapter_codegen_v6.py",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/review_only_dry_run_envelope/",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/",
-    "tests/test_discord_operator_source_go_phrase_intake_v6.py",
-    "ui/contentops_v5/src/data/discordOperatorSourceGoPhraseIntakeAdapter.ts",
-    "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/credential_presence_evidence/",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/kill_switch_evidence/",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/pre_dispatch_readiness/",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/fixture_review/",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/fixtures/",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/live_preflight/",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_safety_signature.json",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_input_contract/",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/redacted_operator_review/",
+    "docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+    "docs/CAPITAL_CHRONICLE_CONTENTOPS_MANUAL_FIRST_SOCIAL_DISTRIBUTION_AND_FUTURE_API_PLUG_PORT_MASTER_PLAN_AFTER_0174EA.md",
+    "docs/CONTENTOPS_FINAL_PRODUCT_ROADMAP_AFTER_0174AO.md",
+    "docs/CONTENTOPS_STRATEGY_RECOVERY_INDEX_AFTER_0174AO.md",
     "docs/status/CURRENT_PROJECT_STATUS.md",
-    "docs/status/current_project_status.json",
-    "docs/status/PROJECT_PROGRESS_LEDGER.md",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_review_decision/"
+    "docs/status/current_project_status.json"
   ]
 }

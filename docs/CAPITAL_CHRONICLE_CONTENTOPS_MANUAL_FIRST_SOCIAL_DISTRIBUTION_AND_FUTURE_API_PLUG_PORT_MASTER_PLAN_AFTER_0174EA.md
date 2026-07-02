@@ -1,3 +1,6 @@
+> [!WARNING]
+> **SUPERSEDED / HISTORICAL.** Current direction is automation-first supervised ContentOps V6. Manual is fallback, recovery, or one-step CDP/operator assist only. Do not use this document as current product authority; use `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md`, the V6 AI-native master plan, and the V6 final-product execution plan.
+
 # Capital Chronicle ContentOps — Manual-First Social Distribution + Future API Plug-Port Master Plan
 
 ## 0. Owner Decision
