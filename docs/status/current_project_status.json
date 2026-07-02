@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "e9ab8cd3bc2647eaf18258c00fa273b273ce5f23",
-  "last_updated_by_task": "TASK_0008",
-  "current_product_phase": "TASK 0008 approved one-shot Discord CLI send completed with task-scoped label",
-  "current_product_lane": "one-shot supervised Discord operator-send CLI used with --task-id 0008; no retry/scheduler/queue/browser",
-  "accepted_baseline_summary": "TASK 0008 used the reusable Discord operator-send CLI with --task-id 0008 for one approved supervised live send. Redacted evidence records task_label=TASK_0008, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, no scheduler, queue, browser/CDP, scraping, autonomous dispatch, DM/comment/reaction, or secret exposure.",
+  "last_verified_remote_sha": "c503c665c5e22d925ed769252eca59a0720c450b",
+  "last_updated_by_task": "TASK_0009",
+  "current_product_phase": "TASK 0009 Telegram operator-send CLI added",
+  "current_product_lane": "one-shot supervised Telegram operator-send CLI added; dry-run default; execute gated; no real POST in tests",
+  "accepted_baseline_summary": "TASK 0009 added a reusable one-shot Telegram operator-send CLI mirroring the Discord CLI shape: required --message, optional --task-id default 0000, dry-run default, --execute gated one-message send path through existing Telegram supervised send code, request budget 1, retry budget 0, and redacted evidence. Tests cover dry-run no network, missing env block, and mocked execute success; no real Telegram POST was performed.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -159,10 +159,12 @@
     "Discord reusable one-shot operator-send CLI",
     "Discord reusable one-shot operator-send CLI approved-send evidence",
     "Discord operator-send CLI task-id evidence label fix",
-    "Discord operator-send CLI task-id approved-send evidence"
+    "Discord operator-send CLI task-id approved-send evidence",
+    "Telegram reusable one-shot operator-send CLI",
+    "Telegram operator-send CLI dry-run evidence"
   ],
-  "dispatch_live_status": "TASK 0008 completed exactly one Discord POST through the reusable CLI with --task-id 0008: task_label=TASK_0008, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0. This does not authorize ongoing live dispatch beyond this one approved send.",
-  "provider_env_credential_status": "gated; TASK 0008 used runtime env credential through the CLI/adapter without printing, committing, hashing, logging, or recording webhook/env/credential/token values or secret-derived metadata; no response body/header recorded.",
+  "dispatch_live_status": "TASK 0009 was code/test/dry-run evidence only. No real Telegram POST was performed. Telegram CLI defaults to dry-run; --execute uses request_budget_max=1 and retry_budget_max=0 via the existing supervised send path.",
+  "provider_env_credential_status": "gated; TASK 0009 tests used mocked env and mocked transport only. CLI output remains redacted and does not print, commit, hash, log, or record token/destination values or response body/header data.",
   "active_blockers": [
     "Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.",
     "live/provider/platform execution remains disabled",
@@ -195,10 +197,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_0008",
-  "latest_accepted_task_result": "pass_one_supervised_discord_cli_post_task_label_0008_2xx",
-  "latest_evidence_summary": "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0008_cli_send_evidence.json records TASK 0008 task_label=TASK_0008, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, and redaction flags confirming no secret exposure.",
-  "next_recommended_task": "Treat the Discord operator-send CLI as proven with task-scoped labels for one approved announcement only; any future live send requires another exact operator-approved message and one-shot authorization.",
+  "latest_accepted_task": "TASK_0009",
+  "latest_accepted_task_result": "pass_telegram_operator_send_cli_no_real_post",
+  "latest_evidence_summary": "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0009_cli_dry_run_evidence.json records TASK_0009 dry-run evidence with sent=false, request_count_attempted=0, retry_count_attempted=0, and redaction/safety flags.",
+  "next_recommended_task": "Use the Telegram operator-send CLI only with an exact future operator-approved message and explicit --execute authorization; keep tests mocked and no-post.",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -252,6 +254,9 @@
     "tests/test_discord_operator_send_cli.py",
     "pyproject.toml",
     "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0006_cli_send_evidence.json",
-    "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0008_cli_send_evidence.json"
+    "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0008_cli_send_evidence.json",
+    "live_contentops/telegram_operator_send_cli.py",
+    "tests/test_telegram_operator_send_cli.py",
+    "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0009_cli_dry_run_evidence.json"
   ]
 }

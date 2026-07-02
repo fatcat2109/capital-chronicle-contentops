@@ -8,3 +8,4 @@ version = "0.0.1"
 description = "Capital Chronicle Live ContentOps Control Plane Skeleton"
 [project.scripts]
 cc-discord-operator-send = "live_contentops.discord_operator_send_cli:main"
+cc-telegram-operator-send = "live_contentops.telegram_operator_send_cli:main"
