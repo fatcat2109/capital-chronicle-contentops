@@ -1,0 +1,32 @@
+{
+  "autonomous_dispatch_created": false,
+  "blocker": "env_key_missing_DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK",
+  "browser_cdp_used": false,
+  "channel_label_safe": "discord-live-announcements-label-key-missing",
+  "created_at_utc": "2026-07-02T19:34:31Z",
+  "env_key_name": "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK",
+  "http_status_code": null,
+  "live_send_happened": false,
+  "message_sha256": "1ed3e9e8d5c3e2c37f4d27d8219c3207e10cb30d90e97865875d3bf686dbed33",
+  "message_summary": "non-financial supervised Discord live smoke test; no advice; operator-authorized",
+  "message_text": "Capital Chronicle ContentOps supervised live smoke test. No financial advice. Operator-authorized test.",
+  "missing_required_env_key_names": [
+    "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK"
+  ],
+  "platform": "discord",
+  "raw_secret_output": false,
+  "request_budget_max": 1,
+  "request_count_attempted": 0,
+  "response_body_recorded": false,
+  "response_headers_recorded": false,
+  "result_status": "BLOCKED",
+  "retry_budget_max": 0,
+  "retry_count_attempted": 0,
+  "route_name": "live_announcements",
+  "scheduler_created": false,
+  "secret_derived_metadata_recorded": false,
+  "status_code_class": "not_attempted",
+  "task_label": "TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_LIVE_SMOKE_R0",
+  "unique_code": "CCOPS-V6-20260703-B267B1D-LIVE-SMOKE-R0",
+  "webhook_url_printed": false
+}

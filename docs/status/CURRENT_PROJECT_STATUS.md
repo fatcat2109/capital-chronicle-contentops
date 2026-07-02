@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_ROUTE_PREVIEW_TO_OPERATOR_SUPERVISION_CONTRACT_V0
+TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_LIVE_SMOKE_R0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,16 +10,16 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-64b6a2788f2a175c9a172f5cd14e04d675cc78f9
+b267b1d8a31d07af3647479442796f1673119a7d
 
 ## current_product_phase
-V6 operator supervision contract; non-executable Discord live-edge supervision readiness
+V6 supervised Discord live smoke attempt; blocked before network by missing runtime credential key
 
 ## current_product_lane
-Discord supervised dispatch route preview to operator supervision contract; supervision contract only; no live execution
+one-shot supervised Discord live smoke; existing adapter path; no send because runtime env key missing
 
 ## accepted_baseline_summary
-Added deterministic non-executable Discord operator supervision contract packet and V5 read-only visibility. Committed state remains blocked because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed. Approved real-decision test path can reach ready_for_operator_supervision_not_dispatch, but still keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.
+Supervised Discord live smoke used existing Discord adapter path but stopped BLOCKED before any network call because the runtime env key DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK was absent. Evidence is key-name-only and redacted: request_count_attempted=0, retry_count_attempted=0, live_send_happened=false, no scheduler, no browser/CDP, no autonomous dispatch, and no webhook/credential/env value or secret-derived metadata was printed or committed.
 
 ## status_sha_model
 - pre-repair remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `64b6a2788f2a175c9a172f5cd14e04d675cc78f9`
@@ -53,12 +53,13 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, supervised dispatch route preview packet, operator supervision contract packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
 
 ## dispatch/live status
-Dispatch/live remains blocked. No autonomous publish, schedule, retry, queue execution, platform API call, provider call, credential read, env value read, browser session read, browser/CDP action, DM, comment, like, reaction, webhook validation, or live send is authorized by this status ledger.
+Dispatch/live remains blocked. Exact supervised Discord live smoke was authorized for one POST, but no live send occurred because `DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK` was not present at runtime. No webhook validation, platform call, scheduler, retry, browser/CDP action, or autonomous dispatch occurred.
 
 ## provider/env/credential status
-Provider/env/credential handling remains gated. Env/key presence appears only as committed key-name evidence. No raw env values, credential values, webhook URLs, provider keys, browser session data, token material, cookie/localStorage/sessionStorage data, or secret-derived metadata may be printed or committed.
+Provider/env/credential handling remains gated. Runtime check looked only for key presence by key name `DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK`; no env value, credential value, webhook URL, token material, provider key, browser/session value, or secret-derived metadata was printed, hashed, derived, logged, screenshotted, or committed.
 
 ## active blockers
+- Supervised Discord live smoke is blocked until runtime env key `DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK` is provided by the operator; do not commit or print the value.
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
 - Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.
 - LinkedIn lane is fixture/operator-supplied evidence only; no API, browser automation, URL fetch/scrape, public URL verification, or platform action is authorized.
@@ -73,7 +74,7 @@ Provider/env/credential handling remains gated. Env/key presence appears only as
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_ROUTE_PREVIEW_TO_OPERATOR_SUPERVISION_CONTRACT_V0
+TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_LIVE_SMOKE_R0
 
 ## latest changed areas
 - `live_contentops/discord_operator_source_go_phrase_intake_v6.py`
@@ -86,9 +87,10 @@ TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_ROUTE_PREVIEW_TO_OPERATOR_SUPERVISION_CON
 - `tests/test_discord_operator_source_go_phrase_intake_v6.py`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
+- `docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_OPERATOR_SUPERVISION_CONTRACT_TO_EXACT_LIVE_SCOPE_ARTIFACT_CONTRACT_V0
+Provide `DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK` only in runtime environment, then rerun `TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_LIVE_SMOKE_R0` for exactly one supervised Discord POST.
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -294,4 +296,17 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Committed state: `operator_supervision_contract_status=blocked`, `supervision_state=deferred_blocked`, `route_class=deferred_blocked`.
 - Future exact live-scope artifact is required and absent.
 - Safety: `dispatchable=false`, `ready_for_dispatch=false`, `live_action_allowed=false`, `webhook_validation_performed=false`, no outbox, no ledger, no scheduler, no retry, no browser/CDP action, and no env/credential/body/GO phrase value storage.
+
+
+## Discord Supervised Live Smoke R0
+
+- Latest task: `TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_LIVE_SMOKE_R0`.
+- Unique code: `CCOPS-V6-20260703-B267B1D-LIVE-SMOKE-R0`.
+- Evidence: `docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json`.
+- Result: `BLOCKED`.
+- Blocker: `env_key_missing_DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK`.
+- Request count attempted: `0`.
+- Retry count attempted: `0`.
+- Live send happened: `false`.
+- Safety: no webhook URL print, no raw secret output, no secret-derived metadata, no response body/header recording, no scheduler, no browser/CDP action, no autonomous dispatch, and no network call.
 

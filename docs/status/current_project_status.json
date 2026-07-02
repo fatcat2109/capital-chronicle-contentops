@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "64b6a2788f2a175c9a172f5cd14e04d675cc78f9",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_ROUTE_PREVIEW_TO_OPERATOR_SUPERVISION_CONTRACT_V0",
-  "current_product_phase": "V6 operator supervision contract; non-executable Discord live-edge supervision readiness",
-  "current_product_lane": "Discord supervised dispatch route preview to operator supervision contract; supervision contract only; no live execution",
-  "accepted_baseline_summary": "Added deterministic non-executable Discord operator supervision contract packet and V5 read-only visibility. Committed state remains blocked because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed. Approved real-decision test path can reach ready_for_operator_supervision_not_dispatch, but still keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.",
+  "last_verified_remote_sha": "b267b1d8a31d07af3647479442796f1673119a7d",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_LIVE_SMOKE_R0",
+  "current_product_phase": "V6 supervised Discord live smoke attempt; blocked before network by missing runtime credential key",
+  "current_product_lane": "one-shot supervised Discord live smoke; existing adapter path; no send because runtime env key missing",
+  "accepted_baseline_summary": "Supervised Discord live smoke used existing Discord adapter path but stopped BLOCKED before any network call because the runtime env key DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK was absent. Evidence is key-name-only and redacted: request_count_attempted=0, retry_count_attempted=0, live_send_happened=false, no scheduler, no browser/CDP, no autonomous dispatch, and no webhook/credential/env value or secret-derived metadata was printed or committed.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -151,11 +151,13 @@
     "Discord dispatch route class normalization",
     "V5 Discord route preview visibility",
     "Discord operator supervision contract packet",
-    "Discord operator supervision contract V5 visibility"
+    "Discord operator supervision contract V5 visibility",
+    "Discord supervised live smoke blocked evidence"
   ],
-  "dispatch_live_status": "blocked; operator supervision contract is non-executable and authorizes no Discord send, webhook validation, outbox execution, approval ledger, scheduler, retry, provider call, platform API, browser/CDP action, credential read, env value read, public URL fetch, or live action",
-  "provider_env_credential_status": "gated; supervision contract uses key-name/presence evidence only and did not read, print, hash, derive, or commit env values, credential values, webhook URL values, token material, browser/session values, provider keys, body values, GO phrase values, or secret-derived metadata",
+  "dispatch_live_status": "blocked; exact supervised Discord live smoke was authorized for one POST, but no live send occurred because DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK was not present at runtime; no webhook validation, platform call, scheduler, retry, browser/CDP action, or autonomous dispatch occurred",
+  "provider_env_credential_status": "gated; runtime check looked only for key presence by key name DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK; no env value, credential value, webhook URL, token material, provider key, browser/session value, or secret-derived metadata was printed, hashed, derived, logged, screenshotted, or committed",
   "active_blockers": [
+    "Supervised Discord live smoke is blocked until runtime env key DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK is provided by the operator; do not commit or print the value.",
     "Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.",
     "live/provider/platform execution remains disabled",
     "future product UI work must target ui/contentops_v5/ unless newer committed authority supersedes it",
@@ -187,10 +189,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_ROUTE_PREVIEW_TO_OPERATOR_SUPERVISION_CONTRACT_V0",
-  "latest_accepted_task_result": "complete_operator_supervision_contract_non_executable",
-  "latest_evidence_summary": "Operator supervision contract packet discord_operator_supervision_19a7135f3b2a35a2 / 19a7135f3b2a35a2e504e94782762ba1b324c1f501436816c84ca13dd579d9af is generated with status=blocked, supervision_state=deferred_blocked, route_class=deferred_blocked, dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, future_exact_live_scope_artifact_required=true, and future_exact_live_scope_artifact_present=false.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_SUPERVISION_CONTRACT_TO_EXACT_LIVE_SCOPE_ARTIFACT_CONTRACT_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_LIVE_SMOKE_R0",
+  "latest_accepted_task_result": "blocked_missing_runtime_env_key_no_network_attempt",
+  "latest_evidence_summary": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json records result_status=BLOCKED, request_count_attempted=0, retry_count_attempted=0, live_send_happened=false, blocker=env_key_missing_DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK, and redaction flags confirming no secret exposure.",
+  "next_recommended_task": "Provide DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK only in runtime environment, then rerun TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_LIVE_SMOKE_R0 for exactly one supervised Discord POST.",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -224,7 +226,7 @@
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
   "accepted_product_baseline_sha": "66e1538cecce3126ef447b8e472ec4ad9c2ef504",
-  "last_status_commit_sha": "64b6a2788f2a175c9a172f5cd14e04d675cc78f9",
+  "last_status_commit_sha": "b267b1d8a31d07af3647479442796f1673119a7d",
   "sha_model": "last_verified_remote_sha is the pre-repair origin/master HEAD observed before this status-only repair. accepted_product_baseline_sha remains the latest accepted product feature baseline and does not advance for status-only repairs. last_status_commit_sha is the latest accepted status/evidence repair commit that updated governance metadata without changing product packets, builders, tests, UI behavior, generated adapter values, or live/dispatch behavior.",
   "latest_changed_areas": [
     "live_contentops/discord_operator_source_go_phrase_intake_v6.py",
@@ -236,6 +238,7 @@
     "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx",
     "tests/test_discord_operator_source_go_phrase_intake_v6.py",
     "docs/status/CURRENT_PROJECT_STATUS.md",
-    "docs/status/current_project_status.json"
+    "docs/status/current_project_status.json",
+    "docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json"
   ]
 }
