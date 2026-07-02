@@ -232,7 +232,9 @@
     "do not create standalone dashboard as canonical",
     "stop on status/repo authority conflict",
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
-    "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
+    "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison",
+    "verify telegram bot token corresponds to the publisher bot and not the orchestrator bot",
+    "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
   "accepted_product_baseline_sha": "66e1538cecce3126ef447b8e472ec4ad9c2ef504",
   "last_status_commit_sha": "99556cc39d8398d3d3f792ad321b54be17aa2d08",

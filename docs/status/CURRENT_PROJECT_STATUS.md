@@ -459,4 +459,8 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Retry count attempted: `0`.
 - Result: success `2xx`.
 - Safety: no token/destination/env value output, no scheduler, no queue, no browser/CDP, no scraping, no autonomous dispatch, no response body/header recording.
+- Lessons Learned & Safeguards:
+  1. **Token Identity Verification**: Ensure `TELEGRAM_BOT_TOKEN` represents the active publisher bot (`CapitalChroniclePublisherBot`) rather than the orchestrator bot (`cc_ui_orchestrator_bot`), which lacks administrator write permissions for the channel.
+  2. **Channel Destination Binding**: Ensure `TEST_TELEGRAM_CHANNEL` is set as either a valid `@username` (e.g., `@CapitalChronicle`) or a numeric channel ID (e.g., `-1003857411155`), not a Telegram web URL (e.g., `https://t.me/...`), to avoid `4xx` provider exceptions.
+  3. **Registry and Process Reloading**: Remember that updating environment variables in the Windows User registry requires opening a new command shell process to reload `os.environ` changes.
 
