@@ -23,7 +23,7 @@ Discord operator source + GO phrase intake now emits evidence-grade destination 
 
 ## status_sha_model
 - current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `d3673257fccc445072a4663c8a3e4b3b3784e1dd`
-- accepted product baseline (`accepted_product_baseline_sha`): pending final commit/push readback for this feature batch.
+- accepted product baseline (`accepted_product_baseline_sha`): `133713d63af53e611cd60d661d3f4b0433f5f96c`
 - previous accepted product baseline: `d3673257fccc445072a4663c8a3e4b3b3784e1dd`
 - latest status-only repair commit prior to this task: `72b816f97f819032a3a93008bd1cacbbd50c29ce`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
