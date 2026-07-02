@@ -86,18 +86,39 @@ def assert_no_private_capture_fields(evidence):
     assert evidence["raw_secret_output"] is False
 
 
+def assert_signal_fields(evidence):
+    assert isinstance(evidence["editor_signal_detected"], bool)
+    assert isinstance(evidence["publish_signal_detected"], bool)
+    assert isinstance(evidence["continue_signal_detected"], bool)
+    assert isinstance(evidence["schedule_signal_detected"], bool)
+    assert isinstance(evidence["email_signal_detected"], bool)
+    assert evidence["assist_hint"] in {
+        "open_draft_editor",
+        "editor_detected_publish_control_missing",
+        "publish_control_detected_no_click",
+        "login_required",
+        "unknown_ui_state",
+    }
+
+
+def assert_safe_evidence(evidence):
+    assert_no_private_capture_fields(evidence)
+    assert_signal_fields(evidence)
+    assert evidence["publish_attempted"] is False
+    assert evidence["schedule_attempted"] is False
+    assert evidence["email_send_attempted"] is False
+
+
 def test_preflight_dry_run_no_browser(capsys):
     code = cli.main(["--draft-url", "https://substack.example/placeholder", "--task-id", "0018"])
     evidence = json.loads(capsys.readouterr().out)
     assert code == 0
     assert evidence["result_status"] == "DRY_RUN"
     assert evidence["current_page_class"] == "unknown"
+    assert evidence["assist_hint"] == "unknown_ui_state"
     assert evidence["publish_preflight_completed"] is False
-    assert evidence["publish_attempted"] is False
-    assert evidence["schedule_attempted"] is False
-    assert evidence["email_send_attempted"] is False
     assert evidence["browser_cdp_used"] is False
-    assert_no_private_capture_fields(evidence)
+    assert_safe_evidence(evidence)
 
 
 @patch("playwright.sync_api.sync_playwright")
@@ -110,8 +131,8 @@ def test_preflight_missing_cdp_blocks(mock_sync, capsys):
     assert evidence["result_status"] == "BLOCKED"
     assert evidence["blocker"] == "missing_cdp"
     assert evidence["current_page_class"] == "unknown"
-    assert evidence["publish_attempted"] is False
-    assert_no_private_capture_fields(evidence)
+    assert evidence["assist_hint"] == "unknown_ui_state"
+    assert_safe_evidence(evidence)
 
 
 @patch("playwright.sync_api.sync_playwright")
@@ -124,9 +145,10 @@ def test_preflight_login_ui_signal_blocks_without_private_url(mock_sync, capsys)
     assert evidence["blocker"] == "login_or_account_mismatch"
     assert evidence["current_page_class"] == "login"
     assert evidence["current_page_reason"] == "login_ui_signal"
-    assert evidence["diagnostic_interpretation"] == "redirected_to_login"
+    assert evidence["assist_hint"] == "login_required"
+    assert evidence["publish_signal_detected"] is False
     assert evidence["publish_controls_detected"] is False
-    assert_no_private_capture_fields(evidence)
+    assert_safe_evidence(evidence)
 
 
 @patch("playwright.sync_api.sync_playwright")
@@ -139,14 +161,16 @@ def test_preflight_detects_controls_and_risks_without_clicking(mock_sync, capsys
     assert code == 0
     assert evidence["result_status"] == "PASS"
     assert evidence["current_page_class"] == "editor_or_draft_candidate"
-    assert evidence["current_page_reason"] == "editor_ui_signal"
+    assert evidence["assist_hint"] == "publish_control_detected_no_click"
     assert evidence["publish_preflight_completed"] is True
+    assert evidence["publish_signal_detected"] is True
     assert evidence["publish_controls_detected"] is True
+    assert evidence["schedule_signal_detected"] is True
+    assert evidence["email_signal_detected"] is True
     assert evidence["schedule_risk_detected"] is True
     assert evidence["email_send_risk_detected"] is True
-    assert evidence["publish_attempted"] is False
     assert not page.get_by_role.return_value.first.click.called
-    assert_no_private_capture_fields(evidence)
+    assert_safe_evidence(evidence)
 
 
 @patch("playwright.sync_api.sync_playwright")
@@ -158,8 +182,8 @@ def test_use_current_draft_no_pages_blocks_current_draft_not_active(mock_sync, c
     assert evidence["blocker"] == "current_draft_not_active"
     assert evidence["current_page_class"] == "unknown"
     assert evidence["current_page_reason"] == "no_active_pages"
-    assert evidence["publish_attempted"] is False
-    assert_no_private_capture_fields(evidence)
+    assert evidence["assist_hint"] == "unknown_ui_state"
+    assert_safe_evidence(evidence)
 
 
 @patch("playwright.sync_api.sync_playwright")
@@ -171,9 +195,8 @@ def test_use_current_draft_dashboard_blocks_current_draft_not_active(mock_sync, 
     assert code == 2
     assert evidence["blocker"] == "current_draft_not_active"
     assert evidence["current_page_class"] == "dashboard"
-    assert evidence["current_page_reason"] == "dashboard_ui_signal"
-    assert evidence["publish_attempted"] is False
-    assert_no_private_capture_fields(evidence)
+    assert evidence["assist_hint"] == "open_draft_editor"
+    assert_safe_evidence(evidence)
 
 
 @patch("playwright.sync_api.sync_playwright")
@@ -185,9 +208,28 @@ def test_use_current_draft_editor_candidate_missing_publish_controls_blocks_ui_u
     assert code == 2
     assert evidence["blocker"] == "ui_uncertainty"
     assert evidence["current_page_class"] == "editor_or_draft_candidate"
+    assert evidence["assist_hint"] == "editor_detected_publish_control_missing"
+    assert evidence["editor_signal_detected"] is True
+    assert evidence["publish_signal_detected"] is False
     assert evidence["diagnostic_interpretation"] == "publish_controls_not_detected"
-    assert evidence["publish_attempted"] is False
-    assert_no_private_capture_fields(evidence)
+    assert_safe_evidence(evidence)
+
+
+@patch("playwright.sync_api.sync_playwright")
+def test_task_0026_state_editor_signal_true_publish_signal_false_blocks_with_assist_hint(mock_sync, capsys):
+    page = make_page(editor=1, url_raises=True)
+    wire_browser(mock_sync, pages=[page])
+    code = cli.main(["--use-current-draft", "--task-id", "0026", "--execute"])
+    evidence = json.loads(capsys.readouterr().out)
+    assert code == 2
+    assert evidence["task_label"] == "TASK_0026"
+    assert evidence["result_status"] == "BLOCKED"
+    assert evidence["blocker"] == "ui_uncertainty"
+    assert evidence["current_page_class"] == "editor_or_draft_candidate"
+    assert evidence["editor_signal_detected"] is True
+    assert evidence["publish_signal_detected"] is False
+    assert evidence["assist_hint"] == "editor_detected_publish_control_missing"
+    assert_safe_evidence(evidence)
 
 
 @patch("playwright.sync_api.sync_playwright")
@@ -199,11 +241,13 @@ def test_use_current_draft_editor_candidate_with_publish_controls_passes(mock_sy
     assert code == 0
     assert evidence["result_status"] == "PASS"
     assert evidence["current_page_class"] == "editor_or_draft_candidate"
+    assert evidence["assist_hint"] == "publish_control_detected_no_click"
     assert evidence["publish_preflight_completed"] is True
+    assert evidence["publish_signal_detected"] is True
     assert evidence["publish_controls_detected"] is True
+    assert evidence["continue_signal_detected"] is True
     assert evidence["continue_controls_detected"] is True
-    assert evidence["publish_attempted"] is False
-    assert_no_private_capture_fields(evidence)
+    assert_safe_evidence(evidence)
 
 
 @patch("playwright.sync_api.sync_playwright")
@@ -215,4 +259,5 @@ def test_page_url_property_raises_if_accessed_but_cli_still_works(mock_sync, cap
     assert code == 0
     assert evidence["result_status"] == "PASS"
     assert evidence["current_page_class"] == "editor_or_draft_candidate"
-    assert_no_private_capture_fields(evidence)
+    assert evidence["assist_hint"] == "publish_control_detected_no_click"
+    assert_safe_evidence(evidence)
