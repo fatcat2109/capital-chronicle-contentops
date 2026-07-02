@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "3435decbea7f8ad006b32a4374307f07bfa9ebf7",
+  "last_verified_remote_sha": "177bf320c4c4146a81e9fbf2cb7d10e052bf485e",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_EXPLICIT_LIVE_SCOPE_GATE_TO_DISCORD_SUPERVISED_LIVE_PREFLIGHT_HEAVY_BATCH_V0",
   "current_product_phase": "V6 Discord supervised live preflight",
   "current_product_lane": "supervised live preflight",
-  "accepted_baseline_summary": "Discord supervised live preflight completed and verified against product baseline c5c8d641ea636fa099517590897e68f3099951ca and current remote HEAD 3435decbea7f8ad006b32a4374307f07bfa9ebf7.",
+  "accepted_baseline_summary": "Discord supervised live preflight completed and verified against product baseline c5c8d641ea636fa099517590897e68f3099951ca and current remote HEAD 177bf320c4c4146a81e9fbf2cb7d10e052bf485e.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -170,6 +170,6 @@
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
   "accepted_product_baseline_sha": "c5c8d641ea636fa099517590897e68f3099951ca",
-  "last_status_commit_sha": "3435decbea7f8ad006b32a4374307f07bfa9ebf7",
+  "last_status_commit_sha": "177bf320c4c4146a81e9fbf2cb7d10e052bf485e",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work."
 }

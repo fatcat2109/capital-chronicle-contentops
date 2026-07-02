@@ -349,7 +349,7 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 |---|---|
 | Task label | `TASK_CONTENTOPS_V6_EXPLICIT_LIVE_SCOPE_GATE_TO_DISCORD_SUPERVISED_LIVE_PREFLIGHT_HEAVY_BATCH_V0` |
 | Accepted product/audit baseline SHA | `c5c8d641ea636fa099517590897e68f3099951ca` |
-| Repo HEAD / evidence commit | `3435decbea7f8ad006b32a4374307f07bfa9ebf7` |
+| Repo HEAD / evidence commit | `177bf320c4c4146a81e9fbf2cb7d10e052bf485e` |
 | Result classification | `complete_review_only_local_manual` |
 | Scope | Supervised live preflight packet, request envelope preview, operator live go phrase, runbook, and V5 view cards. |
 | Safety posture | Read-only presence checks of environment keys; no raw tokens read or logged; no Discord webhook connection or live posting. |

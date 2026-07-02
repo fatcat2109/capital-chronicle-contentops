@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-3435decbea7f8ad006b32a4374307f07bfa9ebf7
+177bf320c4c4146a81e9fbf2cb7d10e052bf485e
 
 ## current_product_phase
 V6 Discord supervised live preflight
@@ -19,13 +19,13 @@ V6 Discord supervised live preflight
 supervised live preflight
 
 ## accepted_baseline_summary
-Discord supervised live preflight completed and verified against product baseline `c5c8d641ea636fa099517590897e68f3099951ca` and current remote HEAD `3435decbea7f8ad006b32a4374307f07bfa9ebf7`.
+Discord supervised live preflight completed and verified against product baseline `c5c8d641ea636fa099517590897e68f3099951ca` and current remote HEAD `177bf320c4c4146a81e9fbf2cb7d10e052bf485e`.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `3435decbea7f8ad006b32a4374307f07bfa9ebf7`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `177bf320c4c4146a81e9fbf2cb7d10e052bf485e`
 - accepted product baseline (`accepted_product_baseline_sha`): `c5c8d641ea636fa099517590897e68f3099951ca`
 - previous accepted product baseline: `25c80299695efad344db6fdf24316d9a1c1d0537`
-- latest status-only repair commit prior to this task: `3435decbea7f8ad006b32a4374307f07bfa9ebf7`
+- latest status-only repair commit prior to this task: `177bf320c4c4146a81e9fbf2cb7d10e052bf485e`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
 
