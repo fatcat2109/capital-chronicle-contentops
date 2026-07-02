@@ -22,7 +22,9 @@ ADAPTER = ROOT / "ui" / "contentops_v5" / "src" / "data" / "discordOperatorSourc
 DESTINATION = PACKET_DIR / "destination_binding_proof.json"
 KILL_SWITCH = PACKET_DIR / "kill_switch_evidence" / "discord_kill_switch_evidence.json"
 CREDENTIAL_PRESENCE = PACKET_DIR / "credential_presence_evidence" / "discord_credential_presence_evidence.json"
+FIXTURE_REVIEW = PACKET_DIR / "fixture_review" / "discord_operator_source_artifact_fixture_review.json"
 PRE_DISPATCH = PACKET_DIR / "pre_dispatch_readiness" / "discord_pre_dispatch_readiness.json"
+FIXTURE_EXAMPLE = PACKET_DIR / "fixtures" / "non_real_operator_source_fixture.example.json"
 SURFACES = [
     ROOT / "ui" / "contentops_v5" / "src" / "views" / "ApprovalQueue.tsx",
     ROOT / "ui" / "contentops_v5" / "src" / "views" / "PlatformPreview.tsx",
@@ -37,6 +39,15 @@ def _clean_inbox() -> None:
     for path in INBOX.iterdir():
         if path.name != ".gitkeep":
             path.unlink()
+
+
+def _present_keys(monkeypatch) -> None:
+    for key in [
+        "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK",
+        "DISCORD_LIVE_ANNOUNCEMENTS_CHANNEL_LABEL",
+        "CONTENTOPS_LIVE_KILL_SWITCH",
+    ]:
+        monkeypatch.setenv(key, "present-marker-not-read")
 
 
 def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
@@ -55,6 +66,10 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
     assert stored == packet
     assert packet["intake_status"] == "blocked"
     assert packet["operator_source_artifact_path"] == ""
+    assert packet["operator_source_artifact_kind"] == "missing"
+    assert packet["operator_source_artifact_real_claimed"] is False
+    assert packet["fixture_only"] is False
+    assert packet["not_public_postable"] is True
     assert packet["operator_go_phrase_recorded"] is False
     assert packet["operator_go_phrase_valid"] is False
     assert packet["destination_binding_confirmed"] is False
@@ -68,6 +83,7 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
     destination = json.loads(DESTINATION.read_text(encoding="utf-8"))
     kill_switch = json.loads(KILL_SWITCH.read_text(encoding="utf-8"))
     credential_presence = json.loads(CREDENTIAL_PRESENCE.read_text(encoding="utf-8"))
+    fixture_review = json.loads(FIXTURE_REVIEW.read_text(encoding="utf-8"))
     pre_dispatch = json.loads(PRE_DISPATCH.read_text(encoding="utf-8"))
     assert destination["destination_proof_status"] == "blocked"
     assert destination["destination_binding_confirmed"] is False
@@ -77,6 +93,9 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
     assert kill_switch["kill_switch_value_read_made"] is False
     assert credential_presence["credential_presence_status"] == "blocked"
     assert credential_presence["credential_values_read_made"] is False
+    assert fixture_review["fixture_review_status"] == "blocked"
+    assert fixture_review["real_operator_artifact_claimed"] is False
+    assert fixture_review["ready_for_dispatch"] is False
     assert pre_dispatch["pre_dispatch_readiness_status"] == "blocked"
     assert pre_dispatch["operator_review_ready"] is False
     assert pre_dispatch["ready_for_dispatch"] is False
@@ -94,18 +113,18 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
         assert reason in packet["blocked_reasons"]
 
 
-def test_valid_local_json_never_dispatches_or_stores_go_phrase(monkeypatch) -> None:
+def test_valid_non_real_fixture_ready_for_fixture_review_never_dispatches(monkeypatch) -> None:
     _clean_inbox()
-    for key in [
-        "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK",
-        "DISCORD_LIVE_ANNOUNCEMENTS_CHANNEL_LABEL",
-        "CONTENTOPS_LIVE_KILL_SWITCH",
-    ]:
-        monkeypatch.setenv(key, "present-marker-not-read")
-    (INBOX / "operator_source.json").write_text(
+    _present_keys(monkeypatch)
+    (INBOX / "operator_source_fixture.json").write_text(
         json.dumps(
             {
-                "body": "Capital Chronicle supervised Discord pilot update. Review-only local source artifact.",
+                "fixture_kind": "discord_operator_source_artifact_non_real_fixture_v0",
+                "non_real_fixture": True,
+                "fixture_only": True,
+                "not_public_postable": True,
+                "real_operator_artifact_claimed": False,
+                "body": "Capital Chronicle supervised Discord pilot fixture update. Local review only; not public postable.",
                 "go_phrase": GO_PHRASE,
                 "destination_label": "discord-live-announcements",
                 "destination_binding_confirmed": True,
@@ -118,39 +137,42 @@ def test_valid_local_json_never_dispatches_or_stores_go_phrase(monkeypatch) -> N
 
     packet = build_operator_source_go_phrase_intake()
     normalized = json.loads(NORMALIZED.read_text(encoding="utf-8"))
+    envelope = json.loads(ENVELOPE.read_text(encoding="utf-8"))
+    fixture_review = json.loads(FIXTURE_REVIEW.read_text(encoding="utf-8"))
+    pre_dispatch = json.loads(PRE_DISPATCH.read_text(encoding="utf-8"))
 
     assert packet["intake_status"] == "ready_for_operator_review_not_dispatch"
+    assert packet["operator_source_artifact_kind"] == "non_real_fixture"
+    assert packet["operator_source_artifact_real_claimed"] is False
+    assert packet["non_real_fixture"] is True
+    assert packet["fixture_only"] is True
+    assert packet["not_public_postable"] is True
     assert packet["operator_go_phrase_valid"] is True
     assert packet["operator_go_phrase_value_stored"] is False
     assert packet["dry_run_envelope_normalization_performed"] is True
     assert packet["dry_run_request_envelope_preview_created"] is True
     assert packet["dry_run_envelope_value_stored"] is False
-    envelope = json.loads(ENVELOPE.read_text(encoding="utf-8"))
+    assert packet["fixture_review_status"] == "ready_for_fixture_review_not_dispatch"
+    assert packet["fixture_review_ready"] is True
+    assert fixture_review["fixture_review_status"] == "ready_for_fixture_review_not_dispatch"
+    assert fixture_review["real_operator_artifact_claimed"] is False
+    assert fixture_review["real_operator_artifact_required_for_dispatch"] is True
+    assert fixture_review["request_envelope_executable"] is False
+    assert fixture_review["ready_for_dispatch"] is False
+    assert fixture_review["live_action_allowed"] is False
     assert envelope["envelope_status"] == "ready_for_operator_review_not_dispatch"
     assert envelope["normalized_allowed_mentions_parse"] == []
     assert envelope["request_envelope_executable"] is False
     assert envelope["dispatchable"] is False
+    assert pre_dispatch["pre_dispatch_readiness_status"] == "ready_for_operator_review_not_dispatch"
+    assert pre_dispatch["fixture_review_ready"] is True
+    assert pre_dispatch["ready_for_dispatch"] is False
     assert GO_PHRASE not in PACKET.read_text(encoding="utf-8")
     assert GO_PHRASE not in NORMALIZED.read_text(encoding="utf-8")
     assert GO_PHRASE not in ENVELOPE.read_text(encoding="utf-8")
-    destination = json.loads(DESTINATION.read_text(encoding="utf-8"))
-    kill_switch = json.loads(KILL_SWITCH.read_text(encoding="utf-8"))
-    credential_presence = json.loads(CREDENTIAL_PRESENCE.read_text(encoding="utf-8"))
-    pre_dispatch = json.loads(PRE_DISPATCH.read_text(encoding="utf-8"))
-    assert destination["destination_proof_status"] == "destination_binding_proof_present"
-    assert destination["destination_proof_id"].startswith("discord_destination_proof_")
-    assert destination["webhook_url_value_read_made"] is False
-    assert kill_switch["kill_switch_status"] == "active"
-    assert kill_switch["kill_switch_key_presence"] == "present"
-    assert kill_switch["credential_value_read_made"] is False
-    assert credential_presence["credential_presence_status"] == "all_required_keys_present"
-    assert credential_presence["credential_values_read_made"] is False
-    assert pre_dispatch["pre_dispatch_readiness_status"] == "ready_for_operator_review_not_dispatch"
-    assert pre_dispatch["operator_review_ready"] is True
-    assert pre_dispatch["ready_for_dispatch"] is False
     assert "present-marker-not-read" not in PACKET.read_text(encoding="utf-8")
     assert "present-marker-not-read" not in CREDENTIAL_PRESENCE.read_text(encoding="utf-8")
-    assert "Capital Chronicle supervised Discord pilot update" not in ENVELOPE.read_text(encoding="utf-8")
+    assert "Capital Chronicle supervised Discord pilot fixture update" not in ENVELOPE.read_text(encoding="utf-8")
     assert normalized["dispatchable"] is False
     for key in [
         "webhook_validation_performed",
@@ -179,6 +201,17 @@ def test_valid_local_json_never_dispatches_or_stores_go_phrase(monkeypatch) -> N
     build_operator_source_go_phrase_intake()
 
 
+def test_fixture_example_is_safe_and_non_real() -> None:
+    _clean_inbox()
+    build_operator_source_go_phrase_intake()
+    fixture = json.loads(FIXTURE_EXAMPLE.read_text(encoding="utf-8"))
+    assert fixture["non_real_fixture"] is True
+    assert fixture["fixture_only"] is True
+    assert fixture["not_public_postable"] is True
+    assert fixture["real_operator_artifact_claimed"] is False
+    assert "Non-real fixture" in fixture["fixture_caveat"]
+
+
 def test_adapter_sync_and_ui_surfaces() -> None:
     build_operator_source_go_phrase_intake()
     generate_operator_source_go_phrase_intake_adapter()
@@ -186,11 +219,17 @@ def test_adapter_sync_and_ui_surfaces() -> None:
         "adapter_in_sync": True,
         "packet_hash_matches": True,
     }
-    assert "discordOperatorSourceGoPhraseIntakePacket" in ADAPTER.read_text(encoding="utf-8")
+    assert "discordOperatorSourceArtifactFixtureReview" in ADAPTER.read_text(encoding="utf-8")
     combined = "\n".join(path.read_text(encoding="utf-8") for path in SURFACES)
     assert combined.count("DiscordOperatorSourceGoPhraseIntakePanel") >= len(SURFACES)
+    panel = (ROOT / "ui" / "contentops_v5" / "src" / "views" / "DiscordOperatorSourceGoPhraseIntakePanel.tsx").read_text(encoding="utf-8")
     for term in [
         "operator_source_go_phrase_intake_status=blocked",
+        "operator_source_artifact_kind=",
+        "operator_source_artifact_real_claimed=",
+        "non_real_fixture=",
+        "fixture_only=",
+        "not_public_postable=",
         "operator_go_phrase_value_stored=false",
         "dry_run_envelope_normalization_performed=true",
         "dry_run_request_envelope_preview_created=true",
@@ -206,8 +245,12 @@ def test_adapter_sync_and_ui_surfaces() -> None:
         "destination_proof_id=",
         "kill_switch_evidence_id=",
         "credential_presence_evidence_id=",
+        "fixture_review_id=",
+        "fixture_review_hash=",
+        "fixture_review_status=",
+        "fixture_review_ready=",
         "pre_dispatch_readiness_id=",
         "normalized_pre_dispatch_readiness_evaluated=true",
         "operator_review_ready=",
     ]:
-        assert term in (ROOT / "ui" / "contentops_v5" / "src" / "views" / "DiscordOperatorSourceGoPhraseIntakePanel.tsx").read_text(encoding="utf-8")
+        assert term in panel

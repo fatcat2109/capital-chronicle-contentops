@@ -32,6 +32,7 @@ def generate_operator_source_go_phrase_intake_adapter(verify_only: bool = False)
     destination = _load(DESTINATION_FILE)
     kill_switch = _load(KILL_SWITCH_FILE)
     credential_presence = _load(CREDENTIAL_PRESENCE_FILE)
+    fixture_review = _load(PACKET_DIR / "fixture_review" / "discord_operator_source_artifact_fixture_review.json")
     pre_dispatch = _load(PRE_DISPATCH_FILE)
     safety = _load(SAFETY_FILE)
     code = f"""// Capital Chronicle ContentOps V5 — Discord Operator Source + GO Phrase Intake Adapter.
@@ -50,6 +51,8 @@ export const discordDestinationBindingProof = {json.dumps(destination, indent=2)
 export const discordKillSwitchEvidence = {json.dumps(kill_switch, indent=2)};
 
 export const discordCredentialPresenceEvidence = {json.dumps(credential_presence, indent=2)};
+
+export const discordOperatorSourceArtifactFixtureReview = {json.dumps(fixture_review, indent=2)};
 
 export const discordPreDispatchReadiness = {json.dumps(pre_dispatch, indent=2)};
 

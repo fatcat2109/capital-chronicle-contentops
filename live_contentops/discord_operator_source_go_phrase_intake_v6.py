@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-TASK_LABEL = "TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_TO_OPERATOR_SOURCE_ARTIFACT_FIXTURE_REVIEW_READY_V0"
 SOURCE_TASK_LABEL = "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0"
 SOURCE_DRY_RUN_GATE_PACKET_ID = "discord_dry_run_gate_f9d4f7f1945dc120"
 SOURCE_DRY_RUN_GATE_HASH = "f9d4f7f1945dc120e02c372436122068a76d3b8d117b5cf88b17c45ffe49838a"
@@ -23,6 +23,8 @@ GO_PHRASE_HASH = hashlib.sha256(GO_PHRASE.encode("utf-8")).hexdigest()
 SOURCE_GATE_FILE = ROOT / "docs" / "automation" / "V6_DISCORD_SUPERVISED_LIVE_DISPATCH_DRY_RUN_GATE" / "discord_supervised_live_dispatch_dry_run_gate_packet.json"
 INTAKE_DIR = ROOT / "docs" / "automation" / "V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE"
 INBOX_DIR = INTAKE_DIR / "inbox"
+FIXTURE_DIR = INTAKE_DIR / "fixtures"
+FIXTURE_EXAMPLE_FILE = FIXTURE_DIR / "non_real_operator_source_fixture.example.json"
 NORMALIZED_FILE = INTAKE_DIR / "normalized_candidate" / "normalized_operator_source_go_phrase_candidate.json"
 ENVELOPE_FILE = INTAKE_DIR / "review_only_dry_run_envelope" / "discord_review_only_dry_run_envelope_normalization.json"
 INTAKE_PACKET_FILE = INTAKE_DIR / "operator_source_go_phrase_intake_packet.json"
@@ -31,6 +33,7 @@ DESTINATION_PROOF_FILE = INTAKE_DIR / "destination_binding_proof.json"
 KILL_SWITCH_FILE = INTAKE_DIR / "kill_switch_evidence" / "discord_kill_switch_evidence.json"
 CREDENTIAL_PRESENCE_FILE = INTAKE_DIR / "credential_presence_evidence" / "discord_credential_presence_evidence.json"
 PRE_DISPATCH_FILE = INTAKE_DIR / "pre_dispatch_readiness" / "discord_pre_dispatch_readiness.json"
+FIXTURE_REVIEW_FILE = INTAKE_DIR / "fixture_review" / "discord_operator_source_artifact_fixture_review.json"
 SAFETY_SIGNATURE_FILE = INTAKE_DIR / "operator_source_go_phrase_safety_signature.json"
 
 PLACEHOLDER_WORDS = ("todo", "placeholder", "lorem ipsum", "sample only", "viết nội dung thật ở đây")
@@ -43,6 +46,9 @@ CREDENTIAL_KEYS = (
     "DISCORD_LIVE_ANNOUNCEMENTS_CHANNEL_LABEL",
     "CONTENTOPS_LIVE_KILL_SWITCH",
 )
+NON_REAL_FIXTURE_KIND = "non_real_fixture"
+MISSING_SOURCE_KIND = "missing"
+OPERATOR_SUPPLIED_SOURCE_KIND = "operator_supplied_local"
 
 
 def _sha(payload: dict[str, Any], *drop_keys: str) -> str:
@@ -70,6 +76,14 @@ def _first_inbox_file(inbox_dir: Path) -> Path | None:
     return files[0] if files else None
 
 
+def _source_kind(parsed: dict[str, Any], path: Path | None) -> str:
+    if path is None:
+        return MISSING_SOURCE_KIND
+    if parsed.get("non_real_fixture") is True or parsed.get("fixture_only") is True:
+        return NON_REAL_FIXTURE_KIND
+    return OPERATOR_SUPPLIED_SOURCE_KIND
+
+
 def _extract_source(path: Path | None) -> tuple[dict[str, Any], list[str]]:
     if path is None:
         return (
@@ -83,6 +97,12 @@ def _extract_source(path: Path | None) -> tuple[dict[str, Any], list[str]]:
                 "source_artifact_path": "",
                 "source_artifact_hash": "",
                 "content_type": "",
+                "operator_source_artifact_kind": MISSING_SOURCE_KIND,
+                "operator_source_artifact_real_claimed": False,
+                "fixture_only": False,
+                "non_real_fixture": False,
+                "not_public_postable": True,
+                "fixture_review_required": True,
             },
             [
                 "blocked_missing_operator_source_artifact",
@@ -114,6 +134,11 @@ def _extract_source(path: Path | None) -> tuple[dict[str, Any], list[str]]:
         else:
             reasons.append("blocked_json_source_artifact_not_object")
 
+    kind = _source_kind(parsed, path)
+    non_real_fixture = kind == NON_REAL_FIXTURE_KIND
+    fixture_only = non_real_fixture
+    real_claimed = kind == OPERATOR_SUPPLIED_SOURCE_KIND
+
     lower = body.lower()
     reasons.extend(f"blocked_placeholder_text:{word}" for word in PLACEHOLDER_WORDS if word in lower)
     reasons.extend(f"blocked_forbidden_financial_advice:{word}" for word in FORBIDDEN_FINANCIAL_WORDS if word in lower)
@@ -138,7 +163,26 @@ def _extract_source(path: Path | None) -> tuple[dict[str, Any], list[str]]:
     if not kill_switch_active:
         reasons.append("blocked_kill_switch_not_active")
 
-    return ({"body": body, "go_phrase_present": phrase_present, "go_phrase_valid": phrase_valid, "destination_label": destination_label, "destination_binding_confirmed": destination_confirmed, "kill_switch_active": kill_switch_active, "source_artifact_path": str(path.relative_to(ROOT)).replace("\\", "/"), "source_artifact_hash": source_hash, "content_type": content_type}, reasons)
+    return (
+        {
+            "body": body,
+            "go_phrase_present": phrase_present,
+            "go_phrase_valid": phrase_valid,
+            "destination_label": destination_label,
+            "destination_binding_confirmed": destination_confirmed,
+            "kill_switch_active": kill_switch_active,
+            "source_artifact_path": str(path.relative_to(ROOT)).replace("\\", "/"),
+            "source_artifact_hash": source_hash,
+            "content_type": content_type,
+            "operator_source_artifact_kind": kind,
+            "operator_source_artifact_real_claimed": real_claimed,
+            "fixture_only": fixture_only,
+            "non_real_fixture": non_real_fixture,
+            "not_public_postable": True,
+            "fixture_review_required": True,
+        },
+        reasons,
+    )
 
 
 def _normalize_review_only_envelope(source: dict[str, Any], reasons: list[str]) -> dict[str, Any]:
@@ -156,6 +200,9 @@ def _normalize_review_only_envelope(source: dict[str, Any], reasons: list[str]) 
         "platform_family": "discord",
         "source_artifact_path": source["source_artifact_path"],
         "source_artifact_hash": source["source_artifact_hash"],
+        "operator_source_artifact_kind": source["operator_source_artifact_kind"],
+        "fixture_only": source["fixture_only"],
+        "not_public_postable": source["not_public_postable"],
         "body_hash_preview": body_hash,
         "body_value_stored": False,
         "go_phrase_present": source["go_phrase_present"],
@@ -206,6 +253,8 @@ def _destination_proof(source: dict[str, Any], reasons: list[str]) -> dict[str, 
         "platform_family": "discord",
         "source_artifact_path": source["source_artifact_path"],
         "source_artifact_hash": source["source_artifact_hash"],
+        "operator_source_artifact_kind": source["operator_source_artifact_kind"],
+        "fixture_only": source["fixture_only"],
         "destination_label": source["destination_label"],
         "destination_label_present": bool(source["destination_label"].strip()),
         "destination_label_value_stored": True,
@@ -242,6 +291,8 @@ def _kill_switch_evidence(source: dict[str, Any], credential_presence: dict[str,
         "credential_value_read_made": False,
         "source_artifact_path": source["source_artifact_path"],
         "source_artifact_hash": source["source_artifact_hash"],
+        "operator_source_artifact_kind": source["operator_source_artifact_kind"],
+        "fixture_only": source["fixture_only"],
         "ready_for_dispatch": False,
         "live_action_allowed": False,
         "blocked_reasons": sorted(reason for reason in set(reasons) if "kill_switch" in reason),
@@ -276,12 +327,76 @@ def _credential_presence_evidence(credential_presence: dict[str, str], reasons: 
     return proof
 
 
+def _fixture_review(
+    source: dict[str, Any],
+    normalized: dict[str, Any],
+    envelope: dict[str, Any],
+    destination: dict[str, Any],
+    kill_switch: dict[str, Any],
+    credential_presence: dict[str, Any],
+    reasons: list[str],
+) -> dict[str, Any]:
+    fixture_ready = source["non_real_fixture"] and not reasons
+    proof = {
+        "fixture_review_kind": "discord_operator_source_artifact_fixture_review_v0",
+        "fixture_review_status": "ready_for_fixture_review_not_dispatch" if fixture_ready else "blocked",
+        "platform_family": "discord",
+        "source_artifact_path": source["source_artifact_path"],
+        "source_artifact_hash": source["source_artifact_hash"],
+        "operator_source_artifact_kind": source["operator_source_artifact_kind"],
+        "operator_source_artifact_real_claimed": source["operator_source_artifact_real_claimed"],
+        "non_real_fixture": source["non_real_fixture"],
+        "fixture_only": source["fixture_only"],
+        "not_public_postable": source["not_public_postable"],
+        "fixture_review_required": True,
+        "fixture_review_ready": fixture_ready,
+        "real_operator_artifact_claimed": False,
+        "real_operator_artifact_required_for_dispatch": True,
+        "normalized_candidate_id": normalized["candidate_id"],
+        "normalized_candidate_hash": normalized["candidate_hash"],
+        "dry_run_request_envelope_id": envelope["dry_run_request_envelope_id"],
+        "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"],
+        "destination_proof_id": destination["destination_proof_id"],
+        "destination_proof_hash": destination["destination_proof_hash"],
+        "kill_switch_evidence_id": kill_switch["kill_switch_evidence_id"],
+        "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"],
+        "credential_presence_evidence_id": credential_presence["credential_presence_evidence_id"],
+        "credential_presence_evidence_hash": credential_presence["credential_presence_evidence_hash"],
+        "go_phrase_valid": source["go_phrase_valid"],
+        "go_phrase_value_stored": False,
+        "body_value_stored": False,
+        "review_only": True,
+        "request_envelope_executable": False,
+        "dispatchable": False,
+        "ready_for_dispatch": False,
+        "live_action_allowed": False,
+        "approval_ledger_entry_created": False,
+        "executable_outbox_entry_created": False,
+        "webhook_validation_performed": False,
+        "credential_value_read_made": False,
+        "env_value_read_made": False,
+        "dispatch_request_count": 0,
+        "webhook_request_count": 0,
+        "platform_api_request_count": 0,
+        "fixture_caveats": [
+            "non_real_fixture_never_claimed_as_real",
+            "fixture_review_ready_is_not_dispatch_ready",
+            "real_operator_artifact_required_before_live_authorization",
+        ],
+        "blocked_reasons": sorted(set(reasons)),
+    }
+    proof["fixture_review_hash"] = _sha(proof, "fixture_review_hash", "fixture_review_id")
+    proof["fixture_review_id"] = f"discord_fixture_review_{proof['fixture_review_hash'][:16]}"
+    return proof
+
+
 def _pre_dispatch_readiness(
     normalized: dict[str, Any],
     envelope: dict[str, Any],
     destination: dict[str, Any],
     kill_switch: dict[str, Any],
     credential_presence: dict[str, Any],
+    fixture_review: dict[str, Any],
     reasons: list[str],
 ) -> dict[str, Any]:
     review_ready = not reasons
@@ -299,7 +414,13 @@ def _pre_dispatch_readiness(
         "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"],
         "credential_presence_evidence_id": credential_presence["credential_presence_evidence_id"],
         "credential_presence_evidence_hash": credential_presence["credential_presence_evidence_hash"],
+        "fixture_review_id": fixture_review["fixture_review_id"],
+        "fixture_review_hash": fixture_review["fixture_review_hash"],
+        "operator_source_artifact_kind": normalized["operator_source_artifact_kind"],
+        "fixture_only": normalized["fixture_only"],
+        "not_public_postable": normalized["not_public_postable"],
         "operator_review_ready": review_ready,
+        "fixture_review_ready": fixture_review["fixture_review_ready"],
         "normalized_pre_dispatch_readiness_evaluated": True,
         "destination_binding_confirmed": destination["destination_binding_confirmed"],
         "kill_switch_active": kill_switch["kill_switch_active"],
@@ -323,9 +444,28 @@ def _pre_dispatch_readiness(
     return readiness
 
 
+def _write_fixture_example() -> None:
+    FIXTURE_DIR.mkdir(parents=True, exist_ok=True)
+    fixture = {
+        "fixture_kind": "discord_operator_source_artifact_non_real_fixture_v0",
+        "non_real_fixture": True,
+        "fixture_only": True,
+        "not_public_postable": True,
+        "real_operator_artifact_claimed": False,
+        "body": "Capital Chronicle supervised Discord pilot fixture update. Local review only; not public postable.",
+        "go_phrase": GO_PHRASE,
+        "destination_label": "discord-live-announcements",
+        "destination_binding_confirmed": True,
+        "kill_switch_active": True,
+        "fixture_caveat": "Non-real fixture for parser/normalizer tests only. Do not treat as live operator artifact.",
+    }
+    FIXTURE_EXAMPLE_FILE.write_text(json.dumps(fixture, sort_keys=True, indent=2), encoding="utf-8")
+
+
 def build_operator_source_go_phrase_intake() -> dict[str, Any]:
     INBOX_DIR.mkdir(parents=True, exist_ok=True)
-    for path in [NORMALIZED_FILE, ENVELOPE_FILE, DESTINATION_PROOF_FILE, KILL_SWITCH_FILE, CREDENTIAL_PRESENCE_FILE, PRE_DISPATCH_FILE]:
+    _write_fixture_example()
+    for path in [NORMALIZED_FILE, ENVELOPE_FILE, DESTINATION_PROOF_FILE, KILL_SWITCH_FILE, CREDENTIAL_PRESENCE_FILE, PRE_DISPATCH_FILE, FIXTURE_REVIEW_FILE]:
         path.parent.mkdir(parents=True, exist_ok=True)
     gate = _load_json(SOURCE_GATE_FILE, {})
     credential_presence = {key: _presence(key) for key in CREDENTIAL_KEYS}
@@ -345,6 +485,11 @@ def build_operator_source_go_phrase_intake() -> dict[str, Any]:
         "candidate_status": "blocked" if reasons else "ready_for_operator_review_not_dispatch",
         "source_artifact_path": source["source_artifact_path"],
         "source_artifact_hash": source["source_artifact_hash"],
+        "operator_source_artifact_kind": source["operator_source_artifact_kind"],
+        "operator_source_artifact_real_claimed": source["operator_source_artifact_real_claimed"],
+        "fixture_only": source["fixture_only"],
+        "non_real_fixture": source["non_real_fixture"],
+        "not_public_postable": source["not_public_postable"],
         "platform_family": "discord",
         "content_type": source["content_type"],
         "body_hash_preview": body_hash,
@@ -381,15 +526,18 @@ def build_operator_source_go_phrase_intake() -> dict[str, Any]:
     credential_evidence = _credential_presence_evidence(credential_presence, reasons)
     CREDENTIAL_PRESENCE_FILE.write_text(json.dumps(credential_evidence, sort_keys=True, indent=2), encoding="utf-8")
 
-    pre_dispatch = _pre_dispatch_readiness(normalized, envelope, destination, kill_switch, credential_evidence, reasons)
+    fixture_review = _fixture_review(source, normalized, envelope, destination, kill_switch, credential_evidence, reasons)
+    FIXTURE_REVIEW_FILE.write_text(json.dumps(fixture_review, sort_keys=True, indent=2), encoding="utf-8")
+
+    pre_dispatch = _pre_dispatch_readiness(normalized, envelope, destination, kill_switch, credential_evidence, fixture_review, reasons)
     PRE_DISPATCH_FILE.write_text(json.dumps(pre_dispatch, sort_keys=True, indent=2), encoding="utf-8")
 
-    safety = {"safety_signature_kind": "discord_operator_source_go_phrase_intake_safety_signature_v1", "review_only": True, "source_dry_run_gate_packet_id": SOURCE_DRY_RUN_GATE_PACKET_ID, "source_dry_run_gate_hash": SOURCE_DRY_RUN_GATE_HASH, "dry_run_envelope_normalization_performed": True, "dry_run_request_envelope_preview_created": True, "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"], "destination_proof_hash": destination["destination_proof_hash"], "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"], "credential_presence_evidence_hash": credential_evidence["credential_presence_evidence_hash"], "pre_dispatch_readiness_hash": pre_dispatch["pre_dispatch_readiness_hash"], "request_envelope_executable": False, "executable_outbox_entry_created": False, "approval_ledger_entry_created": False, "webhook_validation_performed": False, "discord_api_call_made": False, "platform_api_call_made": False, "provider_call_made": False, "credential_value_read_made": False, "env_value_read_made": False, "dispatch_request_count": 0, "webhook_request_count": 0, "platform_api_request_count": 0, "ready_for_dispatch": False, "live_action_allowed": False, "blocked_reasons": sorted(set(reasons))}
+    safety = {"safety_signature_kind": "discord_operator_source_go_phrase_intake_safety_signature_v2", "review_only": True, "source_dry_run_gate_packet_id": SOURCE_DRY_RUN_GATE_PACKET_ID, "source_dry_run_gate_hash": SOURCE_DRY_RUN_GATE_HASH, "operator_source_artifact_kind": source["operator_source_artifact_kind"], "operator_source_artifact_real_claimed": source["operator_source_artifact_real_claimed"], "fixture_only": source["fixture_only"], "not_public_postable": source["not_public_postable"], "dry_run_envelope_normalization_performed": True, "dry_run_request_envelope_preview_created": True, "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"], "destination_proof_hash": destination["destination_proof_hash"], "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"], "credential_presence_evidence_hash": credential_evidence["credential_presence_evidence_hash"], "fixture_review_hash": fixture_review["fixture_review_hash"], "pre_dispatch_readiness_hash": pre_dispatch["pre_dispatch_readiness_hash"], "request_envelope_executable": False, "executable_outbox_entry_created": False, "approval_ledger_entry_created": False, "webhook_validation_performed": False, "discord_api_call_made": False, "platform_api_call_made": False, "provider_call_made": False, "credential_value_read_made": False, "env_value_read_made": False, "dispatch_request_count": 0, "webhook_request_count": 0, "platform_api_request_count": 0, "ready_for_dispatch": False, "live_action_allowed": False, "blocked_reasons": sorted(set(reasons))}
     safety["safety_signature_hash"] = _sha(safety, "safety_signature_hash")
     SAFETY_SIGNATURE_FILE.write_text(json.dumps(safety, sort_keys=True, indent=2), encoding="utf-8")
 
     packet = {
-        "task_label": TASK_LABEL, "packet_kind": "discord_operator_source_go_phrase_intake_v1", "intake_status": normalized["candidate_status"], "source_task_label": SOURCE_TASK_LABEL, "source_dry_run_gate_packet_id": SOURCE_DRY_RUN_GATE_PACKET_ID, "source_dry_run_gate_exact_payload_hash": SOURCE_DRY_RUN_GATE_HASH, "source_dry_run_gate_path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_DISPATCH_DRY_RUN_GATE/discord_supervised_live_dispatch_dry_run_gate_packet.json", "normalized_candidate_id": normalized["candidate_id"], "normalized_candidate_hash": normalized["candidate_hash"], "operator_source_artifact_path": source["source_artifact_path"], "operator_source_artifact_hash": source["source_artifact_hash"], "operator_go_phrase_expected_hash": GO_PHRASE_HASH, "operator_go_phrase_recorded": source["go_phrase_present"], "operator_go_phrase_valid": source["go_phrase_valid"], "operator_go_phrase_value_stored": False, "destination_label": source["destination_label"], "destination_binding_confirmed": source["destination_binding_confirmed"], "destination_proof_id": destination["destination_proof_id"], "destination_proof_hash": destination["destination_proof_hash"], "kill_switch_evidence_id": kill_switch["kill_switch_evidence_id"], "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"], "credential_presence_evidence_id": credential_evidence["credential_presence_evidence_id"], "credential_presence_evidence_hash": credential_evidence["credential_presence_evidence_hash"], "pre_dispatch_readiness_id": pre_dispatch["pre_dispatch_readiness_id"], "pre_dispatch_readiness_hash": pre_dispatch["pre_dispatch_readiness_hash"], "normalized_pre_dispatch_readiness_evaluated": True, "operator_review_ready": pre_dispatch["operator_review_ready"], "credential_presence_check_performed": True, "credential_presence_key_names_only": True, "credential_presence_states": credential_presence, "credential_value_read_made": False, "env_value_read_made": False, "webhook_url_value_read_made": False, "webhook_validation_performed": False, "dry_run_envelope_normalization_performed": True, "dry_run_request_envelope_preview_created": True, "dry_run_request_envelope_id": envelope["dry_run_request_envelope_id"], "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"], "dry_run_request_body_hash_preview": envelope["normalized_request_body_hash_preview"], "dry_run_envelope_value_stored": False, "request_envelope_executable": False, "approval_ledger_entry_created": False, "executable_outbox_entry_created": False, "real_outbox_entry_created": False, "dispatch_outbox_ready": False, "dispatch_attempted": False, "dispatch_request_count": 0, "webhook_request_count": 0, "platform_api_request_count": 0, "scheduler_enabled": False, "retry_enabled": False, "kill_switch_required": True, "kill_switch_active": source["kill_switch_active"], "ready_for_auto_publish": False, "ready_for_dispatch": False, "live_action_allowed": False, "public_url_verification_performed": False, "llm_provider_call_made": False, "provider_call_made": False, "platform_api_used": False, "public_url_fetch_made": False, "browser_session_used": False, "live_publish_performed_by_contentops": False, "enabled_publish_send_dispatch_approve_controls": False, "phrase_evidence_hash": phrase["phrase_evidence_hash"], "safety_signature_hash": safety["safety_signature_hash"], "blocked_reasons": sorted(set(reasons)),
+        "task_label": TASK_LABEL, "packet_kind": "discord_operator_source_go_phrase_intake_v2", "intake_status": normalized["candidate_status"], "source_task_label": SOURCE_TASK_LABEL, "source_dry_run_gate_packet_id": SOURCE_DRY_RUN_GATE_PACKET_ID, "source_dry_run_gate_exact_payload_hash": SOURCE_DRY_RUN_GATE_HASH, "source_dry_run_gate_path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_DISPATCH_DRY_RUN_GATE/discord_supervised_live_dispatch_dry_run_gate_packet.json", "normalized_candidate_id": normalized["candidate_id"], "normalized_candidate_hash": normalized["candidate_hash"], "operator_source_artifact_path": source["source_artifact_path"], "operator_source_artifact_hash": source["source_artifact_hash"], "operator_source_artifact_kind": source["operator_source_artifact_kind"], "operator_source_artifact_real_claimed": source["operator_source_artifact_real_claimed"], "non_real_fixture": source["non_real_fixture"], "fixture_only": source["fixture_only"], "not_public_postable": source["not_public_postable"], "operator_go_phrase_expected_hash": GO_PHRASE_HASH, "operator_go_phrase_recorded": source["go_phrase_present"], "operator_go_phrase_valid": source["go_phrase_valid"], "operator_go_phrase_value_stored": False, "destination_label": source["destination_label"], "destination_binding_confirmed": source["destination_binding_confirmed"], "destination_proof_id": destination["destination_proof_id"], "destination_proof_hash": destination["destination_proof_hash"], "kill_switch_evidence_id": kill_switch["kill_switch_evidence_id"], "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"], "credential_presence_evidence_id": credential_evidence["credential_presence_evidence_id"], "credential_presence_evidence_hash": credential_evidence["credential_presence_evidence_hash"], "fixture_review_id": fixture_review["fixture_review_id"], "fixture_review_hash": fixture_review["fixture_review_hash"], "fixture_review_status": fixture_review["fixture_review_status"], "fixture_review_ready": fixture_review["fixture_review_ready"], "pre_dispatch_readiness_id": pre_dispatch["pre_dispatch_readiness_id"], "pre_dispatch_readiness_hash": pre_dispatch["pre_dispatch_readiness_hash"], "normalized_pre_dispatch_readiness_evaluated": True, "operator_review_ready": pre_dispatch["operator_review_ready"], "credential_presence_check_performed": True, "credential_presence_key_names_only": True, "credential_presence_states": credential_presence, "credential_value_read_made": False, "env_value_read_made": False, "webhook_url_value_read_made": False, "webhook_validation_performed": False, "dry_run_envelope_normalization_performed": True, "dry_run_request_envelope_preview_created": True, "dry_run_request_envelope_id": envelope["dry_run_request_envelope_id"], "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"], "dry_run_request_body_hash_preview": envelope["normalized_request_body_hash_preview"], "dry_run_envelope_value_stored": False, "request_envelope_executable": False, "approval_ledger_entry_created": False, "executable_outbox_entry_created": False, "real_outbox_entry_created": False, "dispatch_outbox_ready": False, "dispatch_attempted": False, "dispatch_request_count": 0, "webhook_request_count": 0, "platform_api_request_count": 0, "scheduler_enabled": False, "retry_enabled": False, "kill_switch_required": True, "kill_switch_active": source["kill_switch_active"], "ready_for_auto_publish": False, "ready_for_dispatch": False, "live_action_allowed": False, "public_url_verification_performed": False, "llm_provider_call_made": False, "provider_call_made": False, "platform_api_used": False, "public_url_fetch_made": False, "browser_session_used": False, "live_publish_performed_by_contentops": False, "enabled_publish_send_dispatch_approve_controls": False, "phrase_evidence_hash": phrase["phrase_evidence_hash"], "safety_signature_hash": safety["safety_signature_hash"], "blocked_reasons": sorted(set(reasons)),
     }
     packet["exact_payload_hash"] = _sha(packet, "exact_payload_hash", "intake_packet_id")
     packet["intake_packet_id"] = f"discord_source_go_intake_{packet['exact_payload_hash'][:16]}"

@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0
+TASK_CONTENTOPS_V6_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_TO_OPERATOR_SOURCE_ARTIFACT_FIXTURE_REVIEW_READY_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,21 +10,21 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-d3673257fccc445072a4663c8a3e4b3b3784e1dd
+31ec6a2455d28f9306388c5258baa6e0b457ad03
 
 ## current_product_phase
-V6 Discord operator destination proof + kill-switch evidence
+V6 Discord operator source artifact fixture review-ready lane
 
 ## current_product_lane
-fail-closed Discord review-only dry-run envelope normalization to operator destination proof and kill-switch evidence
+fail-closed Discord operator source artifact fixture review with non-real fixture evidence
 
 ## accepted_baseline_summary
-Discord operator source + GO phrase intake now emits evidence-grade destination proof, kill-switch evidence, key-name-only credential presence evidence, and normalized pre-dispatch readiness. Intake packet `discord_source_go_intake_9863178c822b73c8` has exact payload hash `9863178c822b73c8aa447dfab07cf189791adae48488e4abb5b370285a449c2e`; pre-dispatch readiness `discord_pre_dispatch_d00c9d4062517f50` has hash `d00c9d4062517f507bffb45c087f172e2cc3a74ed77d69abc412e343e7093e2a`. Committed state remains blocked/fail-closed until source artifact, exact GO phrase, destination binding, key-name-only credential presence, and active kill switch are all present.
+Discord operator source + GO phrase intake now includes a safe non-real fixture review lane. Committed intake packet `discord_source_go_intake_840e0448f084ea14` has exact payload hash `840e0448f084ea14fe1cfcd68765345a19e803676c184b960bc5fae8c88bd2d5`; fixture review packet `discord_fixture_review_d2a52f30ff1ea131` has hash `d2a52f30ff1ea1317271e00e5fd3df66b094bbf631be685d79eec34c19ae3bd9`; pre-dispatch readiness `discord_pre_dispatch_2b236bdc8a70d771` has hash `2b236bdc8a70d771b5d2ddf67ba965d9406ea6d3c915e722ada6767ec76f4d08`. Committed state remains blocked/fail-closed because no real operator source artifact or credential key presence is committed; fixture review is explicit non-real, not public-postable, and never dispatch-ready.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `d3673257fccc445072a4663c8a3e4b3b3784e1dd`
-- accepted product baseline (`accepted_product_baseline_sha`): `133713d63af53e611cd60d661d3f4b0433f5f96c`
-- previous accepted product baseline: `d3673257fccc445072a4663c8a3e4b3b3784e1dd`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `31ec6a2455d28f9306388c5258baa6e0b457ad03`
+- accepted product baseline (`accepted_product_baseline_sha`): `PENDING_FINAL_COMMIT_SHA`
+- previous accepted product baseline: `31ec6a2455d28f9306388c5258baa6e0b457ad03`
 - latest status-only repair commit prior to this task: `72b816f97f819032a3a93008bd1cacbbd50c29ce`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
@@ -50,7 +50,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, normalized pre-dispatch readiness, safety signature, and V5 read-only intake panel. The canonical V5 dashboard remains `ui/contentops_v5/`.
+V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, normalized pre-dispatch readiness, safety signature, and V5 read-only intake panel. The canonical V5 dashboard remains `ui/contentops_v5/`.
 
 ## dispatch/live status
 Dispatch/live remains blocked. No autonomous publish, schedule, retry, queue execution, platform API call, provider call, credential read, env value read, browser session read, DM, comment, like, reaction, webhook validation, or live send is authorized by this status ledger.
@@ -60,7 +60,7 @@ Provider/env/credential handling remains gated. Env/key presence appears only as
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
-- Discord operator source + GO phrase intake remains blocked in committed state because no local operator source artifact or key presence is committed; destination proof, kill-switch evidence, credential presence evidence, and pre-dispatch readiness are runnable but non-executable.
+- Discord operator source + GO phrase intake remains blocked in committed state because no real local operator source artifact or key presence is committed; destination proof, kill-switch evidence, credential presence evidence, non-real fixture review evidence, and pre-dispatch readiness are runnable but non-executable.
 - LinkedIn lane is fixture/operator-supplied evidence only; no API, browser automation, URL fetch/scrape, public URL verification, or platform action is authorized.
 - Substack manual publication evidence remains fixture/operator-supplied where public URL or metrics evidence is present.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
@@ -73,18 +73,20 @@ Provider/env/credential handling remains gated. Env/key presence appears only as
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0
+TASK_CONTENTOPS_V6_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_TO_OPERATOR_SOURCE_ARTIFACT_FIXTURE_REVIEW_READY_V0
 
 ## latest changed areas
 - `live_contentops/discord_operator_source_go_phrase_intake_v6.py`
 - `live_contentops/discord_operator_source_go_phrase_intake_v5_adapter_codegen_v6.py`
 - `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/`
+- `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/fixture_review/`
+- `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/fixtures/`
 - `tests/test_discord_operator_source_go_phrase_intake_v6.py`
 - `ui/contentops_v5/src/data/discordOperatorSourceGoPhraseIntakeAdapter.ts`
 - `ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_TO_OPERATOR_SOURCE_ARTIFACT_FIXTURE_REVIEW_READY_V0
+TASK_CONTENTOPS_V6_OPERATOR_SOURCE_ARTIFACT_FIXTURE_REVIEW_READY_TO_REAL_OPERATOR_ARTIFACT_HANDOFF_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -221,3 +223,17 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Safety: `request_envelope_executable=false`, `dispatch_attempted=false`, `webhook_request_count=0`, `ready_for_dispatch=false`, `live_action_allowed=false`, `credential_value_read_made=false`, `env_value_read_made=false`, `webhook_validation_performed=false`.
 - Blocked reasons: blocked_contentops_live_kill_switch_key_missing, blocked_destination_binding_not_confirmed, blocked_destination_label_missing, blocked_discord_live_announcements_channel_label_key_missing, blocked_discord_live_announcements_webhook_key_missing, blocked_kill_switch_not_active, blocked_missing_operator_source_artifact, blocked_operator_go_phrase_not_recorded, blocked_operator_go_phrase_not_valid.
 - No Discord send, webhook validation, executable outbox, approval ledger entry, scheduler, retry, provider call, platform API call, public URL fetch, browser session read, credential value read, env value read, or live action.
+
+
+## Discord Operator Source Fixture Review-Ready Lane
+
+- Latest task: `TASK_CONTENTOPS_V6_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_TO_OPERATOR_SOURCE_ARTIFACT_FIXTURE_REVIEW_READY_V0`.
+- Current lane: non-real fixture review-ready evidence for Discord operator source artifact intake.
+- Accepted product baseline is `PENDING_FINAL_COMMIT_SHA` after push/readback; previous baseline was `31ec6a2455d28f9306388c5258baa6e0b457ad03`.
+- Intake packet `discord_source_go_intake_840e0448f084ea14` has exact payload hash `840e0448f084ea14fe1cfcd68765345a19e803676c184b960bc5fae8c88bd2d5`.
+- Fixture review packet `discord_fixture_review_d2a52f30ff1ea131` has hash `d2a52f30ff1ea1317271e00e5fd3df66b094bbf631be685d79eec34c19ae3bd9`.
+- Pre-dispatch readiness `discord_pre_dispatch_2b236bdc8a70d771` has hash `2b236bdc8a70d771b5d2ddf67ba965d9406ea6d3c915e722ada6767ec76f4d08`.
+- Added safe fixture classification: `missing`, `non_real_fixture`, and `operator_supplied_local`.
+- Committed state remains blocked because no real operator source artifact or credential key presence is committed.
+- Fixture lane is explicit non-real, fixture-only, not public-postable, review-only, and never dispatch-ready.
+- No Discord webhook send, webhook URL validation, env value read, credential value read, outbox, approval ledger, schedule, retry, provider call, platform API call, browser session read, or live action occurred.

@@ -1,0 +1,13 @@
+{
+  "body": "Capital Chronicle supervised Discord pilot fixture update. Local review only; not public postable.",
+  "destination_binding_confirmed": true,
+  "destination_label": "discord-live-announcements",
+  "fixture_caveat": "Non-real fixture for parser/normalizer tests only. Do not treat as live operator artifact.",
+  "fixture_kind": "discord_operator_source_artifact_non_real_fixture_v0",
+  "fixture_only": true,
+  "go_phrase": "CAPITAL_CHRONICLE_SUPERVISED_DISCORD_PILOT_VERIFIED_GO_PHRASE_2026",
+  "kill_switch_active": true,
+  "non_real_fixture": true,
+  "not_public_postable": true,
+  "real_operator_artifact_claimed": false
+}
