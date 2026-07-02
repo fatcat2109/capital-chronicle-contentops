@@ -4,6 +4,7 @@
 import {
   discordDestinationBindingProof,
   discordOperatorSourceGoPhraseIntakePacket,
+  discordReviewOnlyDryRunEnvelopeNormalization,
   normalizedOperatorSourceGoPhraseCandidate,
   operatorGoPhraseEvidence,
   operatorSourceGoPhraseSafetySignature,
@@ -13,6 +14,7 @@ import { Metric, Panel, StatusChip } from '../ui/primitives';
 export function DiscordOperatorSourceGoPhraseIntakePanel() {
   const packet = discordOperatorSourceGoPhraseIntakePacket;
   const normalized = normalizedOperatorSourceGoPhraseCandidate;
+  const envelope = discordReviewOnlyDryRunEnvelopeNormalization;
 
   return (
     <Panel
@@ -31,6 +33,9 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <Metric label="Channel key" value={packet.credential_presence_states.DISCORD_LIVE_ANNOUNCEMENTS_CHANNEL_LABEL} status="blocked" />
         <Metric label="Kill-switch key" value={packet.credential_presence_states.CONTENTOPS_LIVE_KILL_SWITCH} status="blocked" />
         <Metric label="Phrase evidence" value={operatorGoPhraseEvidence.phrase_evidence_hash} status="verified" />
+        <Metric label="Envelope normalized" value={String(packet.dry_run_envelope_normalization_performed)} status="verified" />
+        <Metric label="Envelope hash" value={envelope.dry_run_request_envelope_hash} status="verified" />
+        <Metric label="Envelope executable" value={String(envelope.request_envelope_executable)} status="blocked" />
         <Metric label="Destination proof" value={discordDestinationBindingProof.destination_proof_hash} status="verified" />
         <Metric label="Safety hash" value={operatorSourceGoPhraseSafetySignature.safety_signature_hash} status="verified" />
       </div>
@@ -42,7 +47,15 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <div>operator_go_phrase_valid={String(packet.operator_go_phrase_valid)}</div>
         <div>operator_go_phrase_value_stored=false</div>
         <div>destination_binding_confirmed={String(packet.destination_binding_confirmed)}</div>
+        <div>dry_run_envelope_normalization_performed=true</div>
+        <div>dry_run_request_envelope_preview_created=true</div>
+        <div>dry_run_request_envelope_id={packet.dry_run_request_envelope_id}</div>
+        <div>dry_run_request_envelope_hash={packet.dry_run_request_envelope_hash}</div>
+        <div>dry_run_request_body_hash_preview={packet.dry_run_request_body_hash_preview}</div>
+        <div>dry_run_envelope_value_stored=false</div>
         <div>request_envelope_executable=false</div>
+        <div>envelope_status={envelope.envelope_status}</div>
+        <div>envelope_dispatchable={String(envelope.dispatchable)}</div>
         <div>dispatch_attempted=false</div>
         <div>dispatch_request_count=0</div>
         <div>webhook_request_count=0</div>

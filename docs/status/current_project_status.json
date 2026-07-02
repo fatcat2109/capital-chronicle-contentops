@@ -4,10 +4,10 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "last_verified_remote_sha": "d1e1df41f2c1f69da720658b30ecdf743fb37473",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_DRY_RUN_GATE_TO_OPERATOR_SOURCE_ARTIFACT_AND_GO_PHRASE_INTAKE_V0",
-  "current_product_phase": "V6 Discord operator source artifact and GO phrase intake",
-  "current_product_lane": "fail-closed Discord operator source + GO phrase intake",
-  "accepted_baseline_summary": "Discord operator source artifact + GO phrase intake packet discord_source_go_intake_ca679bca13842222 exact payload hash ca679bca13842222c0ac50ccaf74da9e463963180a2f557ff738aa03a8279f73 generated from dry-run gate discord_dry_run_gate_f9d4f7f1945dc120 and remains blocked/fail-closed.",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0",
+  "current_product_phase": "V6 Discord review-only dry-run envelope normalization",
+  "current_product_lane": "fail-closed Discord operator source + GO phrase intake to review-only dry-run envelope normalization",
+  "accepted_baseline_summary": "Discord operator source + GO phrase intake now emits a review-only dry-run envelope normalization artifact. Intake packet discord_source_go_intake_206aa320bab9a898 has exact payload hash 206aa320bab9a898ec8432005e227482280376b0a7e6812b1ce5ad9ba9656d97 and envelope discord_review_envelope_491b6a6fac122cfa has hash 491b6a6fac122cfa3a1b3e5b16461e029c2542fac94ddb55245149d0a5db2703; committed state remains blocked/fail-closed until source artifact, exact GO phrase, destination binding, key-name-only credential presence, and active kill switch are all present.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -127,10 +127,11 @@
     "Discord operator GO phrase hash evidence",
     "Discord destination binding proof",
     "Discord operator source + GO phrase safety signature",
-    "V5 Discord operator source + GO phrase intake read-only panel"
+    "V5 Discord operator source + GO phrase intake read-only panel",
+    "Discord review-only dry-run envelope normalization"
   ],
-  "dispatch_live_status": "blocked; operator source + GO phrase intake only; no Discord send, webhook validation, dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, or live action authorized",
-  "provider_env_credential_status": "gated; intake uses key-name-only credential presence states; no env value or credential value reads",
+  "dispatch_live_status": "blocked; operator source + GO phrase intake and review-only dry-run envelope normalization only; no Discord send, webhook validation, dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, or live action authorized",
+  "provider_env_credential_status": "gated; envelope normalization uses key-name-only credential presence states; no env value or credential value reads",
   "active_blockers": [
     "live/provider/platform execution remains disabled",
     "future product UI work must target ui/contentops_v5/ unless newer committed authority supersedes it",
@@ -149,17 +150,17 @@
     "next article platform variant dispatch outbox dry-run to operator runbook and recovery is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
     "Discord operator GO packet remains blocked until operator source artifact, exact GO phrase, destination confirmation, and explicit future live authorization are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized",
     "Discord supervised live-dispatch dry-run gate remains blocked until operator source artifact, exact GO phrase, destination binding, credential key presence, and active kill switch are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized",
-    "Discord operator source + GO phrase intake remains blocked until local operator source artifact, exact GO phrase, destination binding, key-name-only credential presence, and active kill switch are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized"
+    "Discord operator source + GO phrase intake to review-only dry-run envelope normalization remains blocked until local operator source artifact, exact GO phrase, destination binding, key-name-only credential presence, and active kill switch are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized"
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_DRY_RUN_GATE_TO_OPERATOR_SOURCE_ARTIFACT_AND_GO_PHRASE_INTAKE_V0",
-  "latest_accepted_task_result": "complete_review_only_local_manual; operator source + GO phrase intake generated fail-closed",
-  "latest_evidence_summary": "Intake builder, normalized candidate, GO phrase hash evidence, destination proof, safety signature, TS adapter, V5 read-only panel, targeted pytest verified.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0",
+  "latest_accepted_task_result": "complete_review_only_local_manual; dry-run envelope normalization generated fail-closed",
+  "latest_evidence_summary": "Intake builder, normalized candidate, review-only dry-run envelope normalization, GO phrase hash evidence, destination proof, safety signature, TS adapter, V5 read-only panel, targeted pytest verified.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -198,14 +199,10 @@
   "latest_changed_areas": [
     "live_contentops/discord_operator_source_go_phrase_intake_v6.py",
     "live_contentops/discord_operator_source_go_phrase_intake_v5_adapter_codegen_v6.py",
+    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/review_only_dry_run_envelope/",
     "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/",
     "tests/test_discord_operator_source_go_phrase_intake_v6.py",
     "ui/contentops_v5/src/data/discordOperatorSourceGoPhraseIntakeAdapter.ts",
-    "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx",
-    "ui/contentops_v5/src/views/ApprovalQueue.tsx",
-    "ui/contentops_v5/src/views/PlatformPreview.tsx",
-    "ui/contentops_v5/src/views/PreflightBundle.tsx",
-    "ui/contentops_v5/src/views/EvidenceVault.tsx",
-    "ui/contentops_v5/src/views/ManualExportPilotVerification.tsx"
+    "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx"
   ]
 }

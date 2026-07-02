@@ -1,4 +1,4 @@
-﻿"""Codegen for V5 Discord operator source + GO phrase intake adapter."""
+"""Codegen for V5 Discord operator source + GO phrase intake adapter."""
 from __future__ import annotations
 
 import json
@@ -24,6 +24,7 @@ def _load(path: Path) -> dict:
 def generate_operator_source_go_phrase_intake_adapter(verify_only: bool = False) -> dict:
     packet = _load(PACKET_FILE)
     normalized = _load(NORMALIZED_FILE)
+    envelope = _load(PACKET_DIR / "review_only_dry_run_envelope" / "discord_review_only_dry_run_envelope_normalization.json")
     phrase = _load(PHRASE_FILE)
     destination = _load(DESTINATION_FILE)
     safety = _load(SAFETY_FILE)
@@ -33,6 +34,8 @@ def generate_operator_source_go_phrase_intake_adapter(verify_only: bool = False)
 export const discordOperatorSourceGoPhraseIntakePacket = {json.dumps(packet, indent=2)};
 
 export const normalizedOperatorSourceGoPhraseCandidate = {json.dumps(normalized, indent=2)};
+
+export const discordReviewOnlyDryRunEnvelopeNormalization = {json.dumps(envelope, indent=2)};
 
 export const operatorGoPhraseEvidence = {json.dumps(phrase, indent=2)};
 

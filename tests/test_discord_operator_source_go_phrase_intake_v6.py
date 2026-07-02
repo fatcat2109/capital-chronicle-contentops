@@ -1,4 +1,4 @@
-﻿"""Tests for V6 Discord operator source + GO phrase intake."""
+"""Tests for V6 Discord operator source + GO phrase intake."""
 from __future__ import annotations
 
 import json
@@ -17,6 +17,7 @@ PACKET_DIR = ROOT / "docs" / "automation" / "V6_DISCORD_OPERATOR_SOURCE_AND_GO_P
 INBOX = PACKET_DIR / "inbox"
 PACKET = PACKET_DIR / "operator_source_go_phrase_intake_packet.json"
 NORMALIZED = PACKET_DIR / "normalized_candidate" / "normalized_operator_source_go_phrase_candidate.json"
+ENVELOPE = PACKET_DIR / "review_only_dry_run_envelope" / "discord_review_only_dry_run_envelope_normalization.json"
 ADAPTER = ROOT / "ui" / "contentops_v5" / "src" / "data" / "discordOperatorSourceGoPhraseIntakeAdapter.ts"
 SURFACES = [
     ROOT / "ui" / "contentops_v5" / "src" / "views" / "ApprovalQueue.tsx",
@@ -55,7 +56,18 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
     assert packet["destination_binding_confirmed"] is False
     assert packet["ready_for_dispatch"] is False
     assert packet["live_action_allowed"] is False
+    assert packet["dry_run_envelope_normalization_performed"] is True
+    assert packet["dry_run_request_envelope_preview_created"] is True
+    assert packet["dry_run_envelope_value_stored"] is False
+    assert packet["dry_run_request_envelope_id"].startswith("discord_review_envelope_")
     assert normalized["candidate_status"] == "blocked"
+    envelope = json.loads(ENVELOPE.read_text(encoding="utf-8"))
+    assert envelope["envelope_status"] == "blocked"
+    assert envelope["request_envelope_executable"] is False
+    assert envelope["dispatchable"] is False
+    assert envelope["ready_for_dispatch"] is False
+    assert envelope["live_action_allowed"] is False
+    assert envelope["dry_run_envelope_value_stored"] is False
     for reason in [
         "blocked_missing_operator_source_artifact",
         "blocked_operator_go_phrase_not_recorded",
@@ -98,8 +110,18 @@ def test_valid_local_json_never_dispatches_or_stores_go_phrase(monkeypatch) -> N
     assert packet["intake_status"] == "ready_for_operator_review_not_dispatch"
     assert packet["operator_go_phrase_valid"] is True
     assert packet["operator_go_phrase_value_stored"] is False
+    assert packet["dry_run_envelope_normalization_performed"] is True
+    assert packet["dry_run_request_envelope_preview_created"] is True
+    assert packet["dry_run_envelope_value_stored"] is False
+    envelope = json.loads(ENVELOPE.read_text(encoding="utf-8"))
+    assert envelope["envelope_status"] == "ready_for_operator_review_not_dispatch"
+    assert envelope["normalized_allowed_mentions_parse"] == []
+    assert envelope["request_envelope_executable"] is False
+    assert envelope["dispatchable"] is False
     assert GO_PHRASE not in PACKET.read_text(encoding="utf-8")
     assert GO_PHRASE not in NORMALIZED.read_text(encoding="utf-8")
+    assert GO_PHRASE not in ENVELOPE.read_text(encoding="utf-8")
+    assert "Capital Chronicle supervised Discord pilot update" not in ENVELOPE.read_text(encoding="utf-8")
     assert normalized["dispatchable"] is False
     for key in [
         "webhook_validation_performed",
@@ -141,6 +163,9 @@ def test_adapter_sync_and_ui_surfaces() -> None:
     for term in [
         "operator_source_go_phrase_intake_status=blocked",
         "operator_go_phrase_value_stored=false",
+        "dry_run_envelope_normalization_performed=true",
+        "dry_run_request_envelope_preview_created=true",
+        "dry_run_envelope_value_stored=false",
         "request_envelope_executable=false",
         "dispatch_attempted=false",
         "webhook_request_count=0",

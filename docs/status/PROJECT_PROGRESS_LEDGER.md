@@ -405,3 +405,19 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Safety posture | No Discord send, webhook validation, executable outbox, approval ledger, scheduler, retry, provider call, platform API, public URL fetch, browser session read, credential value read, or env value read. |
 | Caveats | Current committed candidate remains blocked because inbox/operator source and key presence are missing in local committed state. |
 | Next recommendation | `TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0` |
+
+## Discord Review-Only Dry-Run Envelope Normalization
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0` |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Local/manual Discord operator source + GO phrase intake now emits hash-bound review-only dry-run envelope normalization without storing raw body, raw GO phrase, webhook URL value, or executable request material. |
+| Packet | `discord_source_go_intake_206aa320bab9a898` |
+| Exact payload hash | `206aa320bab9a898ec8432005e227482280376b0a7e6812b1ce5ad9ba9656d97` |
+| Normalized candidate | `discord_operator_source_go_3094a7339d55a673` / `3094a7339d55a6731ed72d9cdfe92617448cfb51856a0f05853e4f7504301c5e` |
+| Review-only envelope | `discord_review_envelope_491b6a6fac122cfa` / `491b6a6fac122cfa3a1b3e5b16461e029c2542fac94ddb55245149d0a5db2703` |
+| Safety posture | No Discord send, webhook validation, executable outbox, approval ledger, scheduler, retry, provider call, platform API, public URL fetch, browser session read, credential value read, env value read, or live action. |
+| Caveats | Current committed candidate remains blocked because inbox/operator source and key presence are missing in local committed state. Envelope is review-only and non-executable. |
+| Validation | Targeted pytest pass; V5 Vitest suite and production build pass. |
+| Next recommendation | `TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0` |
