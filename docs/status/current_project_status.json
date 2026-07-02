@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "99556cc39d8398d3d3f792ad321b54be17aa2d08",
-  "last_updated_by_task": "TASK_0003",
-  "current_product_phase": "TASK 0003 supervised Discord live smoke completed with one successful 2xx POST",
-  "current_product_lane": "one-shot supervised Discord live smoke; existing adapter path; live smoke evidence recorded; no retry/scheduler/queue/browser",
-  "accepted_baseline_summary": "TASK 0003 loaded local .env into the runtime process without printing secrets, persisted valid missing .env keys to User environment variables, mapped the existing Discord announcements webhook credential into DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK for future runs, and sent exactly one supervised Discord POST through the existing adapter. Redacted evidence records live_send_happened=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, no scheduler, no queue, no browser/CDP, no autonomous dispatch, and no webhook/env/credential/token value or secret-derived metadata exposure.",
+  "last_verified_remote_sha": "9bd1a1ec2e6d1f0f4e154604886ea20d75508a4d",
+  "last_updated_by_task": "TASK_0004",
+  "current_product_phase": "TASK 0004 supervised operator-send command blocked pending operator approval of announcement draft",
+  "current_product_lane": "one-shot supervised Discord operator-send command; safe draft created; no live send without explicit operator-approved message",
+  "accepted_baseline_summary": "TASK 0004 searched for an operator-approved real Capital Chronicle announcement message, found none, created a safe default announcement draft, and stopped before dispatch. No Discord POST was attempted: sent=false, request_count_attempted=0, status_code_class=not_attempted, no retry, scheduler, queue, browser/CDP, autonomous dispatch, DM/comment/reaction, scraping, or secret exposure.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -153,11 +153,13 @@
     "Discord operator supervision contract packet",
     "Discord operator supervision contract V5 visibility",
     "Discord supervised live smoke blocked evidence",
-    "Discord supervised live smoke PASS evidence"
+    "Discord supervised live smoke PASS evidence",
+    "Discord supervised operator-send command draft/no-send evidence"
   ],
-  "dispatch_live_status": "TASK 0003 completed exactly one supervised Discord POST through the existing adapter with live_send_happened=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, no scheduler, no queue, no browser/CDP, no DM/comment/reaction, no public scraping, and no autonomous dispatch; this does not authorize ongoing live dispatch beyond the one approved smoke",
-  "provider_env_credential_status": "gated; TASK 0003 loaded .env values into runtime/User env without printing them, persisted valid missing key names for future runs, and recorded only redacted evidence; no webhook URL, env value, credential value, token, provider key, browser/session value, response body/header, or secret-derived metadata was printed, logged, screenshotted, or committed",
+  "dispatch_live_status": "TASK 0004 did not send. It found no operator-approved announcement message, created a safe default draft, and stopped pending approval. request_count_attempted=0, status_code_class=not_attempted; this preserves one-shot only live dispatch rules.",
+  "provider_env_credential_status": "gated; TASK 0004 did not read, print, log, hash, commit, or derive webhook/env/credential/token values or secret metadata; no network request was attempted.",
   "active_blockers": [
+    "TASK 0004 Discord operator-send command is blocked until the safe default announcement draft or another exact message is explicitly operator-approved; do not send without approval.",
     "Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.",
     "live/provider/platform execution remains disabled",
     "future product UI work must target ui/contentops_v5/ unless newer committed authority supersedes it",
@@ -189,10 +191,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_0003",
-  "latest_accepted_task_result": "pass_one_supervised_discord_post_2xx",
-  "latest_evidence_summary": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json records TASK 0003 result_status=PASS, live_send_happened=true, request_count_attempted=1, retry_count_attempted=0, status_code_class=2xx, and redaction flags confirming no secret exposure.",
-  "next_recommended_task": "Treat Discord live smoke as proven for one supervised POST only; next work should return to automation-first pipeline product steps and require explicit operator authorization for any further live sends.",
+  "latest_accepted_task": "TASK_0004",
+  "latest_accepted_task_result": "blocked_pending_operator_approval_no_send",
+  "latest_evidence_summary": "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0004_operator_send_evidence.json records TASK 0004 sent=false, operator_approved_message_found=false, safe default announcement draft created, request_count_attempted=0, status_code_class=not_attempted, and redaction flags confirming no secret exposure.",
+  "next_recommended_task": "Operator should approve exact TASK 0004 announcement text, then rerun one-shot send with existing Discord adapter and request budget 1.",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -239,6 +241,8 @@
     "tests/test_discord_operator_source_go_phrase_intake_v6.py",
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
-    "docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json"
+    "docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json",
+    "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0004_operator_send_evidence.json",
+    "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0004_safe_default_announcement_draft.md"
   ]
 }
