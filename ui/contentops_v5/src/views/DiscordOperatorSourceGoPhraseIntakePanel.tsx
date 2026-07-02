@@ -7,6 +7,7 @@ import {
   discordKillSwitchEvidence,
   discordLivePreflightEvidence,
   discordOperatorInputContract,
+  discordOperatorReviewDecisionPacket,
   discordOperatorSourceArtifactFixtureReview,
   discordOperatorSourceGoPhraseIntakePacket,
   discordPreDispatchReadiness,
@@ -27,6 +28,7 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
   const inputContract = discordOperatorInputContract;
   const readiness = discordPreDispatchReadiness;
   const redactedReview = discordRedactedOperatorReviewPacket;
+  const reviewDecision = discordOperatorReviewDecisionPacket;
 
   return (
     <Panel
@@ -67,6 +69,9 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <Metric label="Redacted review" value={redactedReview.redacted_operator_review_status} status="blocked" />
         <Metric label="Redacted review hash" value={redactedReview.redacted_operator_review_hash} status="verified" />
         <Metric label="Redaction performed" value={String(redactedReview.redaction_performed)} status="verified" />
+        <Metric label="Review decision" value={reviewDecision.operator_review_decision_status} status="blocked" />
+        <Metric label="Review decision hash" value={reviewDecision.operator_review_decision_hash} status="verified" />
+        <Metric label="Decision" value={reviewDecision.decision} status="blocked" />
         <Metric label="Pre-dispatch readiness" value={readiness.pre_dispatch_readiness_status} status="blocked" />
         <Metric label="Safety hash" value={operatorSourceGoPhraseSafetySignature.safety_signature_hash} status="verified" />
       </div>
@@ -126,6 +131,18 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <div>redacted_webhook_url_value_stored={String(redactedReview.webhook_url_value_stored)}</div>
         <div>redacted_credential_value_stored={String(redactedReview.credential_value_stored)}</div>
         <div>redacted_review_blocked_reasons={JSON.stringify(redactedReview.blocked_reasons)}</div>
+        <div>operator_review_decision_id={packet.operator_review_decision_id}</div>
+        <div>operator_review_decision_hash={packet.operator_review_decision_hash}</div>
+        <div>operator_review_decision_status={packet.operator_review_decision_status}</div>
+        <div>operator_review_decision_available={String(packet.operator_review_decision_available)}</div>
+        <div>operator_review_decision_approved={String(packet.operator_review_decision_approved)}</div>
+        <div>operator_review_decision_rejected={String(packet.operator_review_decision_rejected)}</div>
+        <div>operator_review_decision_held={String(packet.operator_review_decision_held)}</div>
+        <div>operator_review_decision_value={reviewDecision.decision}</div>
+        <div>operator_review_decision_scope={reviewDecision.decision_scope}</div>
+        <div>operator_review_decision_phrase_valid={String(reviewDecision.decision_phrase_valid)}</div>
+        <div>operator_review_decision_notes_value_stored={String(reviewDecision.notes_value_stored)}</div>
+        <div>operator_review_decision_blocked_reasons={JSON.stringify(reviewDecision.blocked_reasons)}</div>
         <div>pre_dispatch_readiness_id={packet.pre_dispatch_readiness_id}</div>
         <div>pre_dispatch_readiness_hash={packet.pre_dispatch_readiness_hash}</div>
         <div>normalized_pre_dispatch_readiness_evaluated=true</div>

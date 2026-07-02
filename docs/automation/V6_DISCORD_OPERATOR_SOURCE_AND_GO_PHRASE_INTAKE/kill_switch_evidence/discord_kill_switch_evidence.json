@@ -1,18 +1,17 @@
 {
   "blocked_reasons": [
-    "blocked_contentops_live_kill_switch_key_missing",
     "blocked_kill_switch_not_active"
   ],
   "credential_value_read_made": false,
   "env_value_read_made": false,
   "fixture_only": false,
   "kill_switch_active": false,
-  "kill_switch_evidence_hash": "cdfbcc628d6370f3ae758dd7942e6cbf1990b31f5b7901937d128aec34c18ec2",
-  "kill_switch_evidence_id": "discord_kill_switch_cdfbcc628d6370f3",
+  "kill_switch_evidence_hash": "391f02b3b5e4ab19da154e27663635c58b42151a1651dfaa5e004a9866dd022f",
+  "kill_switch_evidence_id": "discord_kill_switch_391f02b3b5e4ab19",
   "kill_switch_evidence_kind": "discord_kill_switch_evidence_v0",
   "kill_switch_key_name": "CONTENTOPS_LIVE_KILL_SWITCH",
   "kill_switch_key_name_only": true,
-  "kill_switch_key_presence": "missing",
+  "kill_switch_key_presence": "present",
   "kill_switch_key_presence_checked": true,
   "kill_switch_required": true,
   "kill_switch_status": "blocked",

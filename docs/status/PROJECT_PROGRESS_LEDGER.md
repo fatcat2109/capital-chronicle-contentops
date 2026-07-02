@@ -491,3 +491,15 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Safety posture | Review-only; no Discord send, webhook validation, executable outbox, approval ledger, schedule, retry, provider/API call, credential value read, env value read, or live action. |
 | Caveats | Default committed state remains blocked because no real operator artifact is present. Body, GO phrase, webhook URL, env values, and credential values are not stored. |
 | Next recommendation | `TASK_CONTENTOPS_V6_REDACTED_OPERATOR_REVIEW_PACKET_TO_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_V0` |
+## Discord Operator Review Decision Packet
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_REDACTED_OPERATOR_REVIEW_PACKET_TO_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_V0` |
+| Scope | Add deterministic operator-supplied review decision packet for Discord redacted operator review, with V5 visibility and tests. |
+| Packet | `discord_review_decision_71604115f431e9e6` |
+| Packet hash | `71604115f431e9e6c2f31b64258cc80c5f0d243f0b0614f5121fa5abdea5f30d` |
+| Result classification | `complete_blocked_operator_review_decision_packet` |
+| Safety posture | Review-only; no Discord send, webhook validation, executable outbox, approval ledger, schedule, retry, provider/API call, credential value read, env value read, raw decision notes storage, or live action. |
+| Caveats | Default committed state remains blocked because no real operator decision artifact is present. Approve/reject/hold parser is runnable only for redacted review packet linkage. |
+| Next recommendation | `TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_TO_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_V0` |

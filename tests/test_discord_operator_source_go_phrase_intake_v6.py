@@ -8,6 +8,8 @@ from live_contentops.discord_operator_source_go_phrase_intake_v5_adapter_codegen
     generate_operator_source_go_phrase_intake_adapter,
 )
 from live_contentops.discord_operator_source_go_phrase_intake_v6 import (
+    DECISION_PHRASES,
+    DECISION_SCOPE,
     GO_PHRASE,
     build_operator_source_go_phrase_intake,
 )
@@ -27,6 +29,8 @@ PRE_DISPATCH = PACKET_DIR / "pre_dispatch_readiness" / "discord_pre_dispatch_rea
 LIVE_PREFLIGHT = PACKET_DIR / "live_preflight" / "discord_blocked_live_preflight.json"
 OPERATOR_INPUT_CONTRACT = PACKET_DIR / "operator_input_contract" / "discord_operator_supplied_live_preflight_input_contract.json"
 REDACTED_REVIEW = PACKET_DIR / "redacted_operator_review" / "discord_redacted_operator_review_packet.json"
+OPERATOR_REVIEW_DECISION = PACKET_DIR / "operator_review_decision" / "discord_operator_review_decision_packet.json"
+OPERATOR_REVIEW_DECISION_INBOX = PACKET_DIR / "operator_review_decision" / "inbox"
 FIXTURE_EXAMPLE = PACKET_DIR / "fixtures" / "non_real_operator_source_fixture.example.json"
 SURFACES = [
     ROOT / "ui" / "contentops_v5" / "src" / "views" / "ApprovalQueue.tsx",
@@ -40,6 +44,10 @@ SURFACES = [
 def _clean_inbox() -> None:
     INBOX.mkdir(parents=True, exist_ok=True)
     for path in INBOX.iterdir():
+        if path.name != ".gitkeep":
+            path.unlink()
+    OPERATOR_REVIEW_DECISION_INBOX.mkdir(parents=True, exist_ok=True)
+    for path in OPERATOR_REVIEW_DECISION_INBOX.iterdir():
         if path.name != ".gitkeep":
             path.unlink()
 
@@ -93,12 +101,18 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
     redacted_review = json.loads(REDACTED_REVIEW.read_text(encoding="utf-8"))
     assert packet["operator_input_contract_status"] == "blocked"
     assert packet["redacted_operator_review_status"] == "blocked"
+    assert packet["operator_review_decision_status"] == "blocked"
     assert redacted_review["redacted_operator_review_status"] == "blocked"
     assert redacted_review["redaction_performed"] is True
     assert redacted_review["body_value_stored"] is False
     assert redacted_review["go_phrase_value_stored"] is False
     assert redacted_review["webhook_url_value_stored"] is False
     assert redacted_review["credential_value_stored"] is False
+    review_decision = json.loads(OPERATOR_REVIEW_DECISION.read_text(encoding="utf-8"))
+    assert review_decision["operator_review_decision_status"] == "blocked"
+    assert "blocked_operator_review_decision_artifact_missing" in review_decision["blocked_reasons"]
+    assert review_decision["notes_value_stored"] is False
+    assert review_decision["dispatchable"] is False
     assert input_contract["operator_input_contract_status"] == "blocked"
     assert input_contract["fixture_can_satisfy_contract"] is False
     assert input_contract["required_inbox_path"] == "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/inbox/"
@@ -195,6 +209,7 @@ def test_valid_non_real_fixture_ready_for_fixture_review_never_dispatches(monkey
     assert packet["dry_run_envelope_value_stored"] is False
     assert packet["fixture_review_status"] == "ready_for_fixture_review_not_dispatch"
     assert packet["redacted_operator_review_status"] == "blocked"
+    assert packet["operator_review_decision_status"] == "blocked"
     assert redacted_review["redacted_operator_review_status"] == "blocked"
     assert "blocked_fixture_cannot_enter_redacted_operator_review" in redacted_review["blocked_reasons"]
     assert redacted_review["dispatchable"] is False
@@ -290,6 +305,7 @@ def test_valid_real_operator_artifact_ready_for_preflight_review_never_dispatche
     assert packet["fixture_only"] is False
     assert live_preflight["live_preflight_status"] == "ready_for_real_operator_artifact_review_not_dispatch"
     assert packet["redacted_operator_review_status"] == "ready_for_redacted_operator_review_not_dispatch"
+    assert packet["operator_review_decision_status"] == "blocked"
     assert redacted_review["redacted_operator_review_status"] == "ready_for_redacted_operator_review_not_dispatch"
     assert redacted_review["redacted_review_packet_ready"] is True
     assert redacted_review["body_value_stored"] is False
@@ -364,6 +380,7 @@ def test_adapter_sync_and_ui_surfaces() -> None:
     assert "discordLivePreflightEvidence" in ADAPTER.read_text(encoding="utf-8")
     assert "discordOperatorInputContract" in ADAPTER.read_text(encoding="utf-8")
     assert "discordRedactedOperatorReviewPacket" in ADAPTER.read_text(encoding="utf-8")
+    assert "discordOperatorReviewDecisionPacket" in ADAPTER.read_text(encoding="utf-8")
     combined = "\n".join(path.read_text(encoding="utf-8") for path in SURFACES)
     assert combined.count("DiscordOperatorSourceGoPhraseIntakePanel") >= len(SURFACES)
     panel = (ROOT / "ui" / "contentops_v5" / "src" / "views" / "DiscordOperatorSourceGoPhraseIntakePanel.tsx").read_text(encoding="utf-8")
@@ -404,6 +421,18 @@ def test_adapter_sync_and_ui_surfaces() -> None:
         "redacted_webhook_url_value_stored=",
         "redacted_credential_value_stored=",
         "redacted_review_blocked_reasons=",
+        "operator_review_decision_id=",
+        "operator_review_decision_hash=",
+        "operator_review_decision_status=",
+        "operator_review_decision_available=",
+        "operator_review_decision_approved=",
+        "operator_review_decision_rejected=",
+        "operator_review_decision_held=",
+        "operator_review_decision_value=",
+        "operator_review_decision_scope=",
+        "operator_review_decision_phrase_valid=",
+        "operator_review_decision_notes_value_stored=",
+        "operator_review_decision_blocked_reasons=",
         "pre_dispatch_readiness_id=",
         "normalized_pre_dispatch_readiness_evaluated=true",
         "real_operator_artifact_present=",
@@ -424,3 +453,93 @@ def test_adapter_sync_and_ui_surfaces() -> None:
         "operator_review_ready=",
     ]:
         assert term in panel
+
+
+def _write_real_source() -> None:
+    (INBOX / "operator_source_real.json").write_text(
+        json.dumps(
+            {
+                "artifact_kind": "discord_operator_source_artifact_v0",
+                "real_operator_artifact_claimed": True,
+                "non_real_fixture": False,
+                "fixture_only": False,
+                "not_public_postable": False,
+                "body": "Capital Chronicle supervised Discord pilot real operator artifact for review decision.",
+                "go_phrase": GO_PHRASE,
+                "destination_label": "discord-live-announcements",
+                "destination_binding_confirmed": True,
+                "kill_switch_active": True,
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+
+def test_valid_operator_review_decisions_parse_without_dispatch(monkeypatch) -> None:
+    for decision in ["approve", "reject", "hold"]:
+        _clean_inbox()
+        _present_keys(monkeypatch)
+        _write_real_source()
+        first = build_operator_source_go_phrase_intake()
+        (OPERATOR_REVIEW_DECISION_INBOX / "decision.json").write_text(
+            json.dumps(
+                {
+                    "redacted_operator_review_id": first["redacted_operator_review_id"],
+                    "redacted_operator_review_hash": first["redacted_operator_review_hash"],
+                    "decision": decision,
+                    "decision_scope": DECISION_SCOPE,
+                    "decision_phrase": DECISION_PHRASES[decision],
+                    "operator_id": "operator-jim",
+                    "created_at_manual": "2026-07-03T00:00:00+07:00",
+                    "notes": "Reviewed redacted packet only.",
+                },
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+        packet = build_operator_source_go_phrase_intake()
+        review_decision = json.loads(OPERATOR_REVIEW_DECISION.read_text(encoding="utf-8"))
+        assert packet["operator_review_decision_status"] == "decision_recorded_not_dispatch"
+        assert review_decision["operator_review_decision_available"] is True
+        assert review_decision["operator_review_decision_approved"] is (decision == "approve")
+        assert review_decision["operator_review_decision_rejected"] is (decision == "reject")
+        assert review_decision["operator_review_decision_held"] is (decision == "hold")
+        assert review_decision["dispatchable"] is False
+        assert review_decision["ready_for_dispatch"] is False
+        assert review_decision["live_action_allowed"] is False
+        assert review_decision["notes_value_stored"] is False
+        assert "Reviewed redacted packet only." not in OPERATOR_REVIEW_DECISION.read_text(encoding="utf-8")
+    _clean_inbox()
+    build_operator_source_go_phrase_intake()
+
+
+def test_operator_review_decision_wrong_link_or_phrase_blocks(monkeypatch) -> None:
+    _clean_inbox()
+    _present_keys(monkeypatch)
+    _write_real_source()
+    first = build_operator_source_go_phrase_intake()
+    (OPERATOR_REVIEW_DECISION_INBOX / "decision.json").write_text(
+        json.dumps(
+            {
+                "redacted_operator_review_id": first["redacted_operator_review_id"],
+                "redacted_operator_review_hash": "wrong",
+                "decision": "approve",
+                "decision_scope": DECISION_SCOPE,
+                "decision_phrase": "wrong",
+                "operator_id": "operator-jim",
+                "created_at_manual": "2026-07-03T00:00:00+07:00",
+                "notes": "Reviewed redacted packet only.",
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    build_operator_source_go_phrase_intake()
+    review_decision = json.loads(OPERATOR_REVIEW_DECISION.read_text(encoding="utf-8"))
+    assert review_decision["operator_review_decision_status"] == "blocked"
+    assert "blocked_operator_review_decision_redacted_review_hash_mismatch" in review_decision["blocked_reasons"]
+    assert "blocked_operator_review_decision_phrase_invalid" in review_decision["blocked_reasons"]
+    assert review_decision["dispatchable"] is False
+    _clean_inbox()
+    build_operator_source_go_phrase_intake()
