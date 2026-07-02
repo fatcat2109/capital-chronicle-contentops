@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "b952ef042509048482995e7e3c897c689c21b19b",
-  "last_updated_by_task": "TASK_0007",
-  "current_product_phase": "TASK 0007 Discord CLI evidence task label fixed",
-  "current_product_lane": "one-shot supervised Discord operator-send CLI with caller-supplied task_label evidence; dry-run default preserved",
-  "accepted_baseline_summary": "TASK 0007 added optional --task-id to the Discord operator-send CLI. Evidence task_label now renders as TASK_<task-id>, defaults to TASK_0000, and preserves dry-run default, --execute behavior, request budget 1, retry budget 0, and no real POST during validation.",
+  "last_verified_remote_sha": "e9ab8cd3bc2647eaf18258c00fa273b273ce5f23",
+  "last_updated_by_task": "TASK_0008",
+  "current_product_phase": "TASK 0008 approved one-shot Discord CLI send completed with task-scoped label",
+  "current_product_lane": "one-shot supervised Discord operator-send CLI used with --task-id 0008; no retry/scheduler/queue/browser",
+  "accepted_baseline_summary": "TASK 0008 used the reusable Discord operator-send CLI with --task-id 0008 for one approved supervised live send. Redacted evidence records task_label=TASK_0008, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, no scheduler, queue, browser/CDP, scraping, autonomous dispatch, DM/comment/reaction, or secret exposure.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -158,10 +158,11 @@
     "Discord supervised operator-send command approved-send evidence",
     "Discord reusable one-shot operator-send CLI",
     "Discord reusable one-shot operator-send CLI approved-send evidence",
-    "Discord operator-send CLI task-id evidence label fix"
+    "Discord operator-send CLI task-id evidence label fix",
+    "Discord operator-send CLI task-id approved-send evidence"
   ],
-  "dispatch_live_status": "TASK 0007 made a code/test-only CLI evidence-label fix. No real Discord POST was performed. The CLI still defaults to dry-run; --execute still uses request_budget_max=1 and retry_budget_max=0.",
-  "provider_env_credential_status": "gated; TASK 0007 did not perform live credential use. CLI output remains redacted and does not print, commit, hash, log, or record webhook/env/credential/token values or secret-derived metadata.",
+  "dispatch_live_status": "TASK 0008 completed exactly one Discord POST through the reusable CLI with --task-id 0008: task_label=TASK_0008, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0. This does not authorize ongoing live dispatch beyond this one approved send.",
+  "provider_env_credential_status": "gated; TASK 0008 used runtime env credential through the CLI/adapter without printing, committing, hashing, logging, or recording webhook/env/credential/token values or secret-derived metadata; no response body/header recorded.",
   "active_blockers": [
     "Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.",
     "live/provider/platform execution remains disabled",
@@ -194,10 +195,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_0007",
-  "latest_accepted_task_result": "pass_discord_cli_task_id_label_fix_no_post",
-  "latest_evidence_summary": "TASK 0007 tests validate default task_label TASK_0000, custom --task-id 0007 rendering TASK_0007, dry-run no network, mocked execute single transport call, and existing Discord adapter/smoke suites. No real POST.",
-  "next_recommended_task": "Use --task-id for future evidence labels, e.g. --task-id 0008, and require exact one-shot operator approval before any --execute send.",
+  "latest_accepted_task": "TASK_0008",
+  "latest_accepted_task_result": "pass_one_supervised_discord_cli_post_task_label_0008_2xx",
+  "latest_evidence_summary": "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0008_cli_send_evidence.json records TASK 0008 task_label=TASK_0008, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, and redaction flags confirming no secret exposure.",
+  "next_recommended_task": "Treat the Discord operator-send CLI as proven with task-scoped labels for one approved announcement only; any future live send requires another exact operator-approved message and one-shot authorization.",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -250,6 +251,7 @@
     "live_contentops/discord_operator_send_cli.py",
     "tests/test_discord_operator_send_cli.py",
     "pyproject.toml",
-    "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0006_cli_send_evidence.json"
+    "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0006_cli_send_evidence.json",
+    "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0008_cli_send_evidence.json"
   ]
 }
