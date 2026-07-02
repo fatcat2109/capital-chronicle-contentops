@@ -667,3 +667,30 @@ def test_operator_review_decision_wrong_link_or_phrase_blocks(monkeypatch) -> No
     assert review_decision["dispatchable"] is False
     _clean_inbox()
     build_operator_source_go_phrase_intake()
+
+
+def test_operator_supervision_contract_evidence_surfaces_stay_in_sync(monkeypatch) -> None:
+    _clean_inbox()
+    _present_keys(monkeypatch)
+    packet = build_operator_source_go_phrase_intake()
+    generate_operator_source_go_phrase_intake_adapter()
+
+    contract = json.loads(OPERATOR_SUPERVISION_CONTRACT.read_text(encoding="utf-8"))
+    safety = json.loads((PACKET_DIR / "operator_source_go_phrase_safety_signature.json").read_text(encoding="utf-8"))
+    adapter = ADAPTER.read_text(encoding="utf-8")
+    status_md = (ROOT / "docs" / "status" / "CURRENT_PROJECT_STATUS.md").read_text(encoding="utf-8")
+    status_json = json.loads((ROOT / "docs" / "status" / "current_project_status.json").read_text(encoding="utf-8"))
+
+    contract_id = contract["operator_supervision_contract_id"]
+    contract_hash = contract["operator_supervision_contract_hash"]
+    assert packet["operator_supervision_contract_id"] == contract_id
+    assert packet["operator_supervision_contract_hash"] == contract_hash
+    assert safety["operator_supervision_contract_id"] == contract_id
+    assert safety["operator_supervision_contract_hash"] == contract_hash
+    assert adapter.count(contract_id) == 3
+    assert adapter.count(contract_hash) == 3
+    assert contract_id in status_md
+    assert contract_hash in status_md
+    assert contract_id in status_json["latest_evidence_summary"]
+    assert contract_hash in status_json["latest_evidence_summary"]
+    assert generate_operator_source_go_phrase_intake_adapter(verify_only=True)["adapter_in_sync"] is True

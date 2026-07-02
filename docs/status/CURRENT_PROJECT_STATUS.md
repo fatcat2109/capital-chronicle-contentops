@@ -289,8 +289,8 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 
 - Latest task: `TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_ROUTE_PREVIEW_TO_OPERATOR_SUPERVISION_CONTRACT_V0`.
 - Current lane: non-executable Discord operator supervision contract after supervised route preview.
-- Packet: `discord_operator_supervision_d2f19bac86ac8777`.
-- Contract hash: `d2f19bac86ac8777f9688e8331fcfbbb16cb6b4295fc9b14fbfe965039a41fc2`.
+- Packet: `discord_operator_supervision_19a7135f3b2a35a2`.
+- Contract hash: `19a7135f3b2a35a2e504e94782762ba1b324c1f501436816c84ca13dd579d9af`.
 - Committed state: `operator_supervision_contract_status=blocked`, `supervision_state=deferred_blocked`, `route_class=deferred_blocked`.
 - Future exact live-scope artifact is required and absent.
 - Safety: `dispatchable=false`, `ready_for_dispatch=false`, `live_action_allowed=false`, `webhook_validation_performed=false`, no outbox, no ledger, no scheduler, no retry, no browser/CDP action, and no env/credential/body/GO phrase value storage.

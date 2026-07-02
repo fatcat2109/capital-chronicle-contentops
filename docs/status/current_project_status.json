@@ -189,7 +189,7 @@
   ],
   "latest_accepted_task": "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_ROUTE_PREVIEW_TO_OPERATOR_SUPERVISION_CONTRACT_V0",
   "latest_accepted_task_result": "complete_operator_supervision_contract_non_executable",
-  "latest_evidence_summary": "Operator supervision contract packet discord_operator_supervision_d2f19bac86ac8777 / d2f19bac86ac8777f9688e8331fcfbbb16cb6b4295fc9b14fbfe965039a41fc2 is generated with status=blocked, supervision_state=deferred_blocked, route_class=deferred_blocked, dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, future_exact_live_scope_artifact_required=true, and future_exact_live_scope_artifact_present=false.",
+  "latest_evidence_summary": "Operator supervision contract packet discord_operator_supervision_19a7135f3b2a35a2 / 19a7135f3b2a35a2e504e94782762ba1b324c1f501436816c84ca13dd579d9af is generated with status=blocked, supervision_state=deferred_blocked, route_class=deferred_blocked, dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, future_exact_live_scope_artifact_required=true, and future_exact_live_scope_artifact_present=false.",
   "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_SUPERVISION_CONTRACT_TO_EXACT_LIVE_SCOPE_ARTIFACT_CONTRACT_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
