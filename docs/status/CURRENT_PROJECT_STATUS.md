@@ -53,10 +53,10 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, supervised dispatch route preview packet, operator supervision contract packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
 
 ## dispatch/live status
-TASK 0014 live draft compose was attempted once, patched for IPv4 CDP fallback, then rerun once. Both runs blocked before browser action because CDP port 9222 refused connection.
+Discord one-shot proven; Telegram one-shot proven; Substack draft proven; Substack publish not proven and hard-locked; TASK_0021 was status-only and made no new live run claims.
 
 ## provider/env/credential status
-gated; no cookies, localStorage, sessionStorage, credentials, env values, or browser secrets were read or output.
+gated; no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, response bodies, headers, or DOM dumps were read/output.
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
