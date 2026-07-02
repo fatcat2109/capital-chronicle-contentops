@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-4c035d07452c202e5b6ec72359393e37383176d5
+4a95391765f2b81e986a460b2c410df40a88ef84
 
 ## current_product_phase
 V6 automation-first Discord dispatch decision readiness lane
@@ -22,8 +22,8 @@ operator review decision packet to non-executable dispatch decision readiness; n
 Built non-executable Discord dispatch decision readiness from the operator review decision packet. The new packet binds normalized source intake, dry-run envelope, destination proof, kill-switch evidence, key-name-only credential presence, live preflight, redacted review, and approve/reject/hold review decision state without creating any executable outbox, approval ledger, scheduler, retry, webhook validation, Discord send, platform API call, provider call, browser session read, env value read, or credential value read. Committed state remains blocked because no real operator source artifact or review decision artifact is committed.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `4c035d07452c202e5b6ec72359393e37383176d5`
-- accepted product baseline (`accepted_product_baseline_sha`): `4c035d07452c202e5b6ec72359393e37383176d5`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `4a95391765f2b81e986a460b2c410df40a88ef84`
+- accepted product baseline (`accepted_product_baseline_sha`): `4a95391765f2b81e986a460b2c410df40a88ef84`
 - previous accepted product baseline: `03f8580ff89558418bb41b6c404abbc10f36a570`
 - latest status-only repair commit prior to this task: `72b816f97f819032a3a93008bd1cacbbd50c29ce`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.

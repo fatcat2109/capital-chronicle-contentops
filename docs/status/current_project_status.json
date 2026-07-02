@@ -3,7 +3,7 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "4c035d07452c202e5b6ec72359393e37383176d5",
+  "last_verified_remote_sha": "4a95391765f2b81e986a460b2c410df40a88ef84",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_TO_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_V0",
   "current_product_phase": "V6 automation-first Discord dispatch decision readiness lane",
   "current_product_lane": "operator review decision packet to non-executable dispatch decision readiness; no live execution",
@@ -212,8 +212,8 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "4c035d07452c202e5b6ec72359393e37383176d5",
-  "last_status_commit_sha": "4c035d07452c202e5b6ec72359393e37383176d5",
+  "accepted_product_baseline_sha": "4a95391765f2b81e986a460b2c410df40a88ef84",
+  "last_status_commit_sha": "4a95391765f2b81e986a460b2c410df40a88ef84",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work.",
   "latest_changed_areas": [
     "live_contentops/discord_operator_source_go_phrase_intake_v6.py",
