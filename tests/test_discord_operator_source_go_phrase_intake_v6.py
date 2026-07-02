@@ -26,6 +26,7 @@ FIXTURE_REVIEW = PACKET_DIR / "fixture_review" / "discord_operator_source_artifa
 PRE_DISPATCH = PACKET_DIR / "pre_dispatch_readiness" / "discord_pre_dispatch_readiness.json"
 LIVE_PREFLIGHT = PACKET_DIR / "live_preflight" / "discord_blocked_live_preflight.json"
 OPERATOR_INPUT_CONTRACT = PACKET_DIR / "operator_input_contract" / "discord_operator_supplied_live_preflight_input_contract.json"
+REDACTED_REVIEW = PACKET_DIR / "redacted_operator_review" / "discord_redacted_operator_review_packet.json"
 FIXTURE_EXAMPLE = PACKET_DIR / "fixtures" / "non_real_operator_source_fixture.example.json"
 SURFACES = [
     ROOT / "ui" / "contentops_v5" / "src" / "views" / "ApprovalQueue.tsx",
@@ -89,7 +90,15 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
     pre_dispatch = json.loads(PRE_DISPATCH.read_text(encoding="utf-8"))
     live_preflight = json.loads(LIVE_PREFLIGHT.read_text(encoding="utf-8"))
     input_contract = json.loads(OPERATOR_INPUT_CONTRACT.read_text(encoding="utf-8"))
+    redacted_review = json.loads(REDACTED_REVIEW.read_text(encoding="utf-8"))
     assert packet["operator_input_contract_status"] == "blocked"
+    assert packet["redacted_operator_review_status"] == "blocked"
+    assert redacted_review["redacted_operator_review_status"] == "blocked"
+    assert redacted_review["redaction_performed"] is True
+    assert redacted_review["body_value_stored"] is False
+    assert redacted_review["go_phrase_value_stored"] is False
+    assert redacted_review["webhook_url_value_stored"] is False
+    assert redacted_review["credential_value_stored"] is False
     assert input_contract["operator_input_contract_status"] == "blocked"
     assert input_contract["fixture_can_satisfy_contract"] is False
     assert input_contract["required_inbox_path"] == "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/inbox/"
@@ -163,6 +172,7 @@ def test_valid_non_real_fixture_ready_for_fixture_review_never_dispatches(monkey
     pre_dispatch = json.loads(PRE_DISPATCH.read_text(encoding="utf-8"))
     live_preflight = json.loads(LIVE_PREFLIGHT.read_text(encoding="utf-8"))
     input_contract = json.loads(OPERATOR_INPUT_CONTRACT.read_text(encoding="utf-8"))
+    redacted_review = json.loads(REDACTED_REVIEW.read_text(encoding="utf-8"))
 
     assert packet["intake_status"] == "ready_for_operator_review_not_dispatch"
     assert packet["operator_source_artifact_kind"] == "non_real_fixture"
@@ -184,6 +194,10 @@ def test_valid_non_real_fixture_ready_for_fixture_review_never_dispatches(monkey
     assert packet["dry_run_request_envelope_preview_created"] is True
     assert packet["dry_run_envelope_value_stored"] is False
     assert packet["fixture_review_status"] == "ready_for_fixture_review_not_dispatch"
+    assert packet["redacted_operator_review_status"] == "blocked"
+    assert redacted_review["redacted_operator_review_status"] == "blocked"
+    assert "blocked_fixture_cannot_enter_redacted_operator_review" in redacted_review["blocked_reasons"]
+    assert redacted_review["dispatchable"] is False
     assert packet["fixture_review_ready"] is True
     assert fixture_review["fixture_review_status"] == "ready_for_fixture_review_not_dispatch"
     assert fixture_review["real_operator_artifact_claimed"] is False
@@ -259,6 +273,7 @@ def test_valid_real_operator_artifact_ready_for_preflight_review_never_dispatche
     live_preflight = json.loads(LIVE_PREFLIGHT.read_text(encoding="utf-8"))
     fixture_review = json.loads(FIXTURE_REVIEW.read_text(encoding="utf-8"))
     input_contract = json.loads(OPERATOR_INPUT_CONTRACT.read_text(encoding="utf-8"))
+    redacted_review = json.loads(REDACTED_REVIEW.read_text(encoding="utf-8"))
 
     assert packet["operator_input_contract_status"] == "satisfied_for_real_artifact_review"
     assert input_contract["operator_input_contract_status"] == "satisfied_for_real_artifact_review"
@@ -274,6 +289,12 @@ def test_valid_real_operator_artifact_ready_for_preflight_review_never_dispatche
     assert packet["non_real_fixture"] is False
     assert packet["fixture_only"] is False
     assert live_preflight["live_preflight_status"] == "ready_for_real_operator_artifact_review_not_dispatch"
+    assert packet["redacted_operator_review_status"] == "ready_for_redacted_operator_review_not_dispatch"
+    assert redacted_review["redacted_operator_review_status"] == "ready_for_redacted_operator_review_not_dispatch"
+    assert redacted_review["redacted_review_packet_ready"] is True
+    assert redacted_review["body_value_stored"] is False
+    assert redacted_review["go_phrase_value_stored"] is False
+    assert redacted_review["dispatchable"] is False
     assert live_preflight["blocked_reasons"] == []
     assert fixture_review["fixture_review_status"] == "blocked"
     assert fixture_review["real_operator_artifact_claimed"] is True
@@ -283,6 +304,7 @@ def test_valid_real_operator_artifact_ready_for_preflight_review_never_dispatche
     assert GO_PHRASE not in PACKET.read_text(encoding="utf-8")
     assert "present-marker-not-read" not in PACKET.read_text(encoding="utf-8")
     assert "Capital Chronicle supervised Discord pilot real operator artifact" not in LIVE_PREFLIGHT.read_text(encoding="utf-8")
+    assert "Capital Chronicle supervised Discord pilot real operator artifact" not in REDACTED_REVIEW.read_text(encoding="utf-8")
     _clean_inbox()
     build_operator_source_go_phrase_intake()
 
@@ -341,6 +363,7 @@ def test_adapter_sync_and_ui_surfaces() -> None:
     assert "discordOperatorSourceArtifactFixtureReview" in ADAPTER.read_text(encoding="utf-8")
     assert "discordLivePreflightEvidence" in ADAPTER.read_text(encoding="utf-8")
     assert "discordOperatorInputContract" in ADAPTER.read_text(encoding="utf-8")
+    assert "discordRedactedOperatorReviewPacket" in ADAPTER.read_text(encoding="utf-8")
     combined = "\n".join(path.read_text(encoding="utf-8") for path in SURFACES)
     assert combined.count("DiscordOperatorSourceGoPhraseIntakePanel") >= len(SURFACES)
     panel = (ROOT / "ui" / "contentops_v5" / "src" / "views" / "DiscordOperatorSourceGoPhraseIntakePanel.tsx").read_text(encoding="utf-8")
@@ -370,6 +393,17 @@ def test_adapter_sync_and_ui_surfaces() -> None:
         "fixture_review_hash=",
         "fixture_review_status=",
         "fixture_review_ready=",
+        "redacted_operator_review_id=",
+        "redacted_operator_review_hash=",
+        "redacted_operator_review_status=",
+        "redacted_review_packet_ready=",
+        "redaction_performed=",
+        "redaction_fields=",
+        "redacted_body_value_stored=",
+        "redacted_go_phrase_value_stored=",
+        "redacted_webhook_url_value_stored=",
+        "redacted_credential_value_stored=",
+        "redacted_review_blocked_reasons=",
         "pre_dispatch_readiness_id=",
         "normalized_pre_dispatch_readiness_evaluated=true",
         "real_operator_artifact_present=",

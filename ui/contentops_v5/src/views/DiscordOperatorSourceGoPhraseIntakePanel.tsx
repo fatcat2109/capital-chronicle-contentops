@@ -10,6 +10,7 @@ import {
   discordOperatorSourceArtifactFixtureReview,
   discordOperatorSourceGoPhraseIntakePacket,
   discordPreDispatchReadiness,
+  discordRedactedOperatorReviewPacket,
   discordReviewOnlyDryRunEnvelopeNormalization,
   normalizedOperatorSourceGoPhraseCandidate,
   operatorGoPhraseEvidence,
@@ -25,6 +26,7 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
   const livePreflight = discordLivePreflightEvidence;
   const inputContract = discordOperatorInputContract;
   const readiness = discordPreDispatchReadiness;
+  const redactedReview = discordRedactedOperatorReviewPacket;
 
   return (
     <Panel
@@ -62,6 +64,9 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <Metric label="Required inbox" value={inputContract.required_inbox_path} status="blocked" />
         <Metric label="Live preflight" value={livePreflight.live_preflight_status} status="blocked" />
         <Metric label="Live preflight hash" value={livePreflight.live_preflight_hash} status="verified" />
+        <Metric label="Redacted review" value={redactedReview.redacted_operator_review_status} status="blocked" />
+        <Metric label="Redacted review hash" value={redactedReview.redacted_operator_review_hash} status="verified" />
+        <Metric label="Redaction performed" value={String(redactedReview.redaction_performed)} status="verified" />
         <Metric label="Pre-dispatch readiness" value={readiness.pre_dispatch_readiness_status} status="blocked" />
         <Metric label="Safety hash" value={operatorSourceGoPhraseSafetySignature.safety_signature_hash} status="verified" />
       </div>
@@ -110,6 +115,17 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <div>live_preflight_id={packet.live_preflight_id}</div>
         <div>live_preflight_hash={packet.live_preflight_hash}</div>
         <div>live_preflight_status={packet.live_preflight_status}</div>
+        <div>redacted_operator_review_id={packet.redacted_operator_review_id}</div>
+        <div>redacted_operator_review_hash={packet.redacted_operator_review_hash}</div>
+        <div>redacted_operator_review_status={packet.redacted_operator_review_status}</div>
+        <div>redacted_review_packet_ready={String(packet.redacted_review_packet_ready)}</div>
+        <div>redaction_performed={String(redactedReview.redaction_performed)}</div>
+        <div>redaction_fields={JSON.stringify(redactedReview.redaction_fields)}</div>
+        <div>redacted_body_value_stored={String(redactedReview.body_value_stored)}</div>
+        <div>redacted_go_phrase_value_stored={String(redactedReview.go_phrase_value_stored)}</div>
+        <div>redacted_webhook_url_value_stored={String(redactedReview.webhook_url_value_stored)}</div>
+        <div>redacted_credential_value_stored={String(redactedReview.credential_value_stored)}</div>
+        <div>redacted_review_blocked_reasons={JSON.stringify(redactedReview.blocked_reasons)}</div>
         <div>pre_dispatch_readiness_id={packet.pre_dispatch_readiness_id}</div>
         <div>pre_dispatch_readiness_hash={packet.pre_dispatch_readiness_hash}</div>
         <div>normalized_pre_dispatch_readiness_evaluated=true</div>
