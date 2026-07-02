@@ -5,9 +5,9 @@
   "branch": "master",
   "last_verified_remote_sha": "7b0d616b04da64bc13469bcc63dc4dfe29629d68",
   "last_updated_by_task": "TASK_0010",
-  "current_product_phase": "TASK 0010 approved Telegram CLI send attempted and provider-blocked",
-  "current_product_lane": "one-shot supervised Telegram operator-send CLI execute attempted once; provider returned redacted 4xx; no retry/scheduler/queue/browser",
-  "accepted_baseline_summary": "TASK 0010 ran the approved Telegram operator-send CLI once after targeted tests passed. The CLI attempted exactly one Telegram send, used retry budget 0, recorded redacted evidence only, and failed closed with provider error class 4xx; sent=false and live_send_happened=false.",
+  "current_product_phase": "TASK 0010 approved one-shot Telegram CLI send completed with task-scoped label",
+  "current_product_lane": "one-shot supervised Telegram operator-send CLI used with --task-id 0010; no retry/scheduler/queue/browser",
+  "accepted_baseline_summary": "TASK 0010 used the reusable Telegram operator-send CLI with --task-id 0010 for one approved supervised live send. Redacted evidence records task_label=TASK_0010, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, no scheduler, queue, browser/CDP, scraping, autonomous dispatch, DM/comment/reaction, or secret exposure.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -162,10 +162,10 @@
     "Discord operator-send CLI task-id approved-send evidence",
     "Telegram reusable one-shot operator-send CLI",
     "Telegram operator-send CLI dry-run evidence",
-    "Telegram operator-send CLI approved-send attempt provider-blocked evidence"
+    "Telegram reusable one-shot operator-send CLI approved-send evidence"
   ],
-  "dispatch_live_status": "TASK 0010 attempted exactly one Telegram send through the reusable CLI: task_label=TASK_0010, sent=false, request_count_attempted=1, status_code_class=4xx, retry_count_attempted=0. No retry, scheduler, queue, browser/CDP, scraping, or autonomous dispatch occurred.",
-  "provider_env_credential_status": "gated; TASK 0010 used runtime Telegram env/config through the CLI/adapter without printing, committing, hashing, logging, or recording token/destination/env values or secret-derived metadata; no response body/header recorded. Provider response was recorded only as redacted status_code_class=4xx and redacted diagnostic class.",
+  "dispatch_live_status": "TASK 0010 completed exactly one Telegram POST through the reusable CLI with --task-id 0010: task_label=TASK_0010, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0. This does not authorize ongoing live dispatch beyond this one approved send.",
+  "provider_env_credential_status": "gated; TASK 0010 used runtime env credential through the CLI/adapter without printing, committing, hashing, logging, or recording token/destination values or secret-derived metadata; no response body/header recorded.",
   "active_blockers": [
     "Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.",
     "live/provider/platform execution remains disabled",
@@ -199,9 +199,9 @@
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
   "latest_accepted_task": "TASK_0010",
-  "latest_accepted_task_result": "provider_blocked_one_telegram_cli_attempt_redacted_4xx",
-  "latest_evidence_summary": "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0010_cli_send_evidence.json records TASK_0010 sent=false, request_count_attempted=1, status_code_class=4xx, retry_count_attempted=0, and redaction/safety flags.",
-  "next_recommended_task": "Fix Telegram provider-side 4xx cause by checking bot/channel permission or destination binding outside repo logs, then run a new exact approved one-shot task if needed.",
+  "latest_accepted_task_result": "pass_one_supervised_telegram_cli_post_task_label_0010_2xx",
+  "latest_evidence_summary": "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0010_cli_send_evidence.json records TASK 0010 task_label=TASK_0010, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, and redaction flags confirming no secret exposure.",
+  "next_recommended_task": "Treat the Telegram operator-send CLI as proven with task-scoped labels for one approved announcement only; any future live send requires another exact operator-approved message and one-shot authorization.",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
