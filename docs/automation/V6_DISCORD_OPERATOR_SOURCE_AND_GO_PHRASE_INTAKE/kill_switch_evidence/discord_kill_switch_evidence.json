@@ -1,0 +1,24 @@
+{
+  "blocked_reasons": [
+    "blocked_contentops_live_kill_switch_key_missing",
+    "blocked_kill_switch_not_active"
+  ],
+  "credential_value_read_made": false,
+  "env_value_read_made": false,
+  "kill_switch_active": false,
+  "kill_switch_evidence_hash": "fbb1bb442a794335593c3fe91ff6a6e9ef7176183c8173f6cae233cc1548a435",
+  "kill_switch_evidence_id": "discord_kill_switch_fbb1bb442a794335",
+  "kill_switch_evidence_kind": "discord_kill_switch_evidence_v0",
+  "kill_switch_key_name": "CONTENTOPS_LIVE_KILL_SWITCH",
+  "kill_switch_key_name_only": true,
+  "kill_switch_key_presence": "missing",
+  "kill_switch_key_presence_checked": true,
+  "kill_switch_required": true,
+  "kill_switch_status": "blocked",
+  "kill_switch_value_read_made": false,
+  "live_action_allowed": false,
+  "platform_family": "discord",
+  "ready_for_dispatch": false,
+  "source_artifact_hash": "",
+  "source_artifact_path": ""
+}

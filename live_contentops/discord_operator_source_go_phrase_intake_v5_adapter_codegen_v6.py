@@ -10,6 +10,9 @@ PACKET_FILE = PACKET_DIR / "operator_source_go_phrase_intake_packet.json"
 NORMALIZED_FILE = PACKET_DIR / "normalized_candidate" / "normalized_operator_source_go_phrase_candidate.json"
 PHRASE_FILE = PACKET_DIR / "operator_go_phrase_evidence.json"
 DESTINATION_FILE = PACKET_DIR / "destination_binding_proof.json"
+KILL_SWITCH_FILE = PACKET_DIR / "kill_switch_evidence" / "discord_kill_switch_evidence.json"
+CREDENTIAL_PRESENCE_FILE = PACKET_DIR / "credential_presence_evidence" / "discord_credential_presence_evidence.json"
+PRE_DISPATCH_FILE = PACKET_DIR / "pre_dispatch_readiness" / "discord_pre_dispatch_readiness.json"
 SAFETY_FILE = PACKET_DIR / "operator_source_go_phrase_safety_signature.json"
 TS_ADAPTER_FILE = ROOT / "ui" / "contentops_v5" / "src" / "data" / "discordOperatorSourceGoPhraseIntakeAdapter.ts"
 
@@ -27,6 +30,9 @@ def generate_operator_source_go_phrase_intake_adapter(verify_only: bool = False)
     envelope = _load(PACKET_DIR / "review_only_dry_run_envelope" / "discord_review_only_dry_run_envelope_normalization.json")
     phrase = _load(PHRASE_FILE)
     destination = _load(DESTINATION_FILE)
+    kill_switch = _load(KILL_SWITCH_FILE)
+    credential_presence = _load(CREDENTIAL_PRESENCE_FILE)
+    pre_dispatch = _load(PRE_DISPATCH_FILE)
     safety = _load(SAFETY_FILE)
     code = f"""// Capital Chronicle ContentOps V5 — Discord Operator Source + GO Phrase Intake Adapter.
 // Generated from local fail-closed intake artifacts. Do not manually edit.
@@ -40,6 +46,12 @@ export const discordReviewOnlyDryRunEnvelopeNormalization = {json.dumps(envelope
 export const operatorGoPhraseEvidence = {json.dumps(phrase, indent=2)};
 
 export const discordDestinationBindingProof = {json.dumps(destination, indent=2)};
+
+export const discordKillSwitchEvidence = {json.dumps(kill_switch, indent=2)};
+
+export const discordCredentialPresenceEvidence = {json.dumps(credential_presence, indent=2)};
+
+export const discordPreDispatchReadiness = {json.dumps(pre_dispatch, indent=2)};
 
 export const operatorSourceGoPhraseSafetySignature = {json.dumps(safety, indent=2)};
 """

@@ -1,9 +1,26 @@
 {
+  "blocked_reasons": [
+    "blocked_destination_binding_not_confirmed",
+    "blocked_destination_label_missing",
+    "blocked_missing_operator_source_artifact"
+  ],
   "destination_binding_confirmed": false,
+  "destination_binding_source": "missing_operator_source_artifact",
   "destination_label": "",
-  "destination_proof_hash": "6fa5036480cb8cb5067f659062dd85d700c7b9bd8cf53551447cf13693f2b43b",
-  "destination_proof_kind": "discord_destination_binding_proof_v0",
+  "destination_label_present": false,
+  "destination_label_value_stored": true,
+  "destination_proof_hash": "92d3d5df42e538612521875ffd886cdcd9b35324b0e2f840fb578854aa0fcd42",
+  "destination_proof_id": "discord_destination_proof_92d3d5df42e53861",
+  "destination_proof_kind": "discord_destination_binding_proof_v1",
+  "destination_proof_status": "blocked",
+  "discord_api_call_made": false,
+  "live_action_allowed": false,
   "platform_api_request_count": 0,
+  "platform_family": "discord",
+  "ready_for_dispatch": false,
+  "source_artifact_hash": "",
+  "source_artifact_path": "",
   "webhook_url_value_read_made": false,
+  "webhook_url_value_stored": false,
   "webhook_validation_performed": false
 }

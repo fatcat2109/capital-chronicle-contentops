@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0
+TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,21 +10,21 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-d1e1df41f2c1f69da720658b30ecdf743fb37473
+d3673257fccc445072a4663c8a3e4b3b3784e1dd
 
 ## current_product_phase
-V6 Discord review-only dry-run envelope normalization
+V6 Discord operator destination proof + kill-switch evidence
 
 ## current_product_lane
-fail-closed Discord operator source + GO phrase intake to review-only dry-run envelope normalization
+fail-closed Discord review-only dry-run envelope normalization to operator destination proof and kill-switch evidence
 
 ## accepted_baseline_summary
-Discord operator source + GO phrase intake now emits a review-only dry-run envelope normalization artifact. Intake packet `discord_source_go_intake_206aa320bab9a898` has exact payload hash `206aa320bab9a898ec8432005e227482280376b0a7e6812b1ce5ad9ba9656d97` and envelope `discord_review_envelope_491b6a6fac122cfa` has hash `491b6a6fac122cfa3a1b3e5b16461e029c2542fac94ddb55245149d0a5db2703`; committed state remains blocked/fail-closed until source artifact, exact GO phrase, destination binding, key-name-only credential presence, and active kill switch are all present.
+Discord operator source + GO phrase intake now emits evidence-grade destination proof, kill-switch evidence, key-name-only credential presence evidence, and normalized pre-dispatch readiness. Intake packet `discord_source_go_intake_9863178c822b73c8` has exact payload hash `9863178c822b73c8aa447dfab07cf189791adae48488e4abb5b370285a449c2e`; pre-dispatch readiness `discord_pre_dispatch_d00c9d4062517f50` has hash `d00c9d4062517f507bffb45c087f172e2cc3a74ed77d69abc412e343e7093e2a`. Committed state remains blocked/fail-closed until source artifact, exact GO phrase, destination binding, key-name-only credential presence, and active kill switch are all present.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `d1e1df41f2c1f69da720658b30ecdf743fb37473`
-- accepted product baseline (`accepted_product_baseline_sha`): `d1e1df41f2c1f69da720658b30ecdf743fb37473`
-- previous accepted product baseline: `177bf32da72040414c62ef54cbf5e54f059e84e6`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `d3673257fccc445072a4663c8a3e4b3b3784e1dd`
+- accepted product baseline (`accepted_product_baseline_sha`): pending final commit/push readback for this feature batch.
+- previous accepted product baseline: `d3673257fccc445072a4663c8a3e4b3b3784e1dd`
 - latest status-only repair commit prior to this task: `72b816f97f819032a3a93008bd1cacbbd50c29ce`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
@@ -50,17 +50,17 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, safety signature, and V5 read-only intake panel. The canonical V5 dashboard remains `ui/contentops_v5/`.
+V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, normalized pre-dispatch readiness, safety signature, and V5 read-only intake panel. The canonical V5 dashboard remains `ui/contentops_v5/`.
 
 ## dispatch/live status
-Dispatch/live remains blocked. No autonomous publish, schedule, retry, queue execution, platform API call, provider call, credential read, env value read, browser session read, DM, comment, like, reaction, or live send is authorized by this status ledger.
+Dispatch/live remains blocked. No autonomous publish, schedule, retry, queue execution, platform API call, provider call, credential read, env value read, browser session read, DM, comment, like, reaction, webhook validation, or live send is authorized by this status ledger.
 
 ## provider/env/credential status
-Provider/env/credential handling remains gated. Env/key presence may appear only as committed boolean/key-name evidence in approved tasks. No raw env values, credential values, webhook URLs, provider keys, browser session data, token material, cookie/localStorage/sessionStorage data, or secret-derived metadata may be printed or committed.
+Provider/env/credential handling remains gated. Env/key presence appears only as committed key-name evidence. No raw env values, credential values, webhook URLs, provider keys, browser session data, token material, cookie/localStorage/sessionStorage data, or secret-derived metadata may be printed or committed.
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
-- Discord operator source + GO phrase intake to review-only dry-run envelope normalization remains blocked until local operator source artifact, exact GO phrase, destination binding, key-name-only credential presence, and active kill switch are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized.
+- Discord operator source + GO phrase intake remains blocked in committed state because no local operator source artifact or key presence is committed; destination proof, kill-switch evidence, credential presence evidence, and pre-dispatch readiness are runnable but non-executable.
 - LinkedIn lane is fixture/operator-supplied evidence only; no API, browser automation, URL fetch/scrape, public URL verification, or platform action is authorized.
 - Substack manual publication evidence remains fixture/operator-supplied where public URL or metrics evidence is present.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
@@ -73,7 +73,7 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0
+TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0
 
 ## latest changed areas
 - `live_contentops/discord_operator_source_go_phrase_intake_v6.py`
@@ -82,14 +82,9 @@ TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVEL
 - `tests/test_discord_operator_source_go_phrase_intake_v6.py`
 - `ui/contentops_v5/src/data/discordOperatorSourceGoPhraseIntakeAdapter.ts`
 - `ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx`
-- `ui/contentops_v5/src/views/ApprovalQueue.tsx`
-- `ui/contentops_v5/src/views/PlatformPreview.tsx`
-- `ui/contentops_v5/src/views/PreflightBundle.tsx`
-- `ui/contentops_v5/src/views/EvidenceVault.tsx`
-- `ui/contentops_v5/src/views/ManualExportPilotVerification.tsx`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0
+TASK_CONTENTOPS_V6_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_TO_OPERATOR_SOURCE_ARTIFACT_FIXTURE_REVIEW_READY_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -213,15 +208,16 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - No Discord send, webhook validation, executable outbox, approval ledger entry, scheduler, retry, provider call, platform API call, public URL fetch, browser session read, credential value read, or env value read.
 
 
-## Discord Operator Source Artifact + GO Phrase Intake to Review-Only Dry-Run Envelope Normalization
+## Discord Operator Destination Proof + Kill-Switch Evidence
 
-- Latest task: `TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0`.
-- Current lane: local/manual operator source artifact + exact GO phrase intake feeding review-only dry-run envelope normalization.
-- Packet: `discord_source_go_intake_206aa320bab9a898`.
-- Exact payload hash: `206aa320bab9a898ec8432005e227482280376b0a7e6812b1ce5ad9ba9656d97`.
-- Normalized candidate: `discord_operator_source_go_3094a7339d55a673` / `3094a7339d55a6731ed72d9cdfe92617448cfb51856a0f05853e4f7504301c5e`.
-- Review-only envelope: `discord_review_envelope_491b6a6fac122cfa` / `491b6a6fac122cfa3a1b3e5b16461e029c2542fac94ddb55245149d0a5db2703`.
-- Envelope request body hash preview: `d32c6d8641de187782e86b46872a4286d700b30505a0b310dc6576fa2a0c5052`.
-- Safety: `dry_run_envelope_normalization_performed=true`, `dry_run_envelope_value_stored=false`, `request_envelope_executable=false`, `dispatch_attempted=false`, `webhook_request_count=0`, `ready_for_dispatch=false`, `live_action_allowed=false`, `operator_go_phrase_value_stored=false`.
+- Latest task: `TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0`.
+- Current lane: local/manual Discord review-only dry-run envelope normalization feeding operator destination proof, kill-switch evidence, key-name-only credential presence evidence, and normalized pre-dispatch readiness.
+- Packet: `discord_source_go_intake_9863178c822b73c8`.
+- Exact payload hash: `9863178c822b73c8aa447dfab07cf189791adae48488e4abb5b370285a449c2e`.
+- Destination proof: `discord_destination_proof_92d3d5df42e53861` / `92d3d5df42e538612521875ffd886cdcd9b35324b0e2f840fb578854aa0fcd42`.
+- Kill-switch evidence: `discord_kill_switch_fbb1bb442a794335` / `fbb1bb442a794335593c3fe91ff6a6e9ef7176183c8173f6cae233cc1548a435`.
+- Credential presence evidence: `discord_credential_presence_4f6548fe491721f5` / `4f6548fe491721f50ee06ce95d37e1295d21d847872fcc6874c9ce01c9a1c9ed`.
+- Pre-dispatch readiness: `discord_pre_dispatch_d00c9d4062517f50` / `d00c9d4062517f507bffb45c087f172e2cc3a74ed77d69abc412e343e7093e2a`.
+- Safety: `request_envelope_executable=false`, `dispatch_attempted=false`, `webhook_request_count=0`, `ready_for_dispatch=false`, `live_action_allowed=false`, `credential_value_read_made=false`, `env_value_read_made=false`, `webhook_validation_performed=false`.
 - Blocked reasons: blocked_contentops_live_kill_switch_key_missing, blocked_destination_binding_not_confirmed, blocked_destination_label_missing, blocked_discord_live_announcements_channel_label_key_missing, blocked_discord_live_announcements_webhook_key_missing, blocked_kill_switch_not_active, blocked_missing_operator_source_artifact, blocked_operator_go_phrase_not_recorded, blocked_operator_go_phrase_not_valid.
-- No Discord send, webhook validation, executable outbox, approval ledger entry, scheduler, retry, provider call, platform API call, public URL fetch, browser session read, credential value read, or env value read.
+- No Discord send, webhook validation, executable outbox, approval ledger entry, scheduler, retry, provider call, platform API call, public URL fetch, browser session read, credential value read, env value read, or live action.

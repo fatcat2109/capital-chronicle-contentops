@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "d1e1df41f2c1f69da720658b30ecdf743fb37473",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0",
-  "current_product_phase": "V6 Discord review-only dry-run envelope normalization",
-  "current_product_lane": "fail-closed Discord operator source + GO phrase intake to review-only dry-run envelope normalization",
-  "accepted_baseline_summary": "Discord operator source + GO phrase intake now emits a review-only dry-run envelope normalization artifact. Intake packet discord_source_go_intake_206aa320bab9a898 has exact payload hash 206aa320bab9a898ec8432005e227482280376b0a7e6812b1ce5ad9ba9656d97 and envelope discord_review_envelope_491b6a6fac122cfa has hash 491b6a6fac122cfa3a1b3e5b16461e029c2542fac94ddb55245149d0a5db2703; committed state remains blocked/fail-closed until source artifact, exact GO phrase, destination binding, key-name-only credential presence, and active kill switch are all present.",
+  "last_verified_remote_sha": "d3673257fccc445072a4663c8a3e4b3b3784e1dd",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0",
+  "current_product_phase": "V6 Discord operator destination proof + kill-switch evidence",
+  "current_product_lane": "fail-closed Discord review-only dry-run envelope normalization to operator destination proof and kill-switch evidence",
+  "accepted_baseline_summary": "Discord operator source + GO phrase intake now emits evidence-grade destination proof, kill-switch evidence, key-name-only credential presence evidence, and normalized pre-dispatch readiness. Intake packet discord_source_go_intake_9863178c822b73c8 has exact payload hash 9863178c822b73c8aa447dfab07cf189791adae48488e4abb5b370285a449c2e; pre-dispatch readiness discord_pre_dispatch_d00c9d4062517f50 has hash d00c9d4062517f507bffb45c087f172e2cc3a74ed77d69abc412e343e7093e2a. Committed state remains blocked/fail-closed until source artifact, exact GO phrase, destination binding, key-name-only credential presence, and active kill switch are all present.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -128,10 +128,13 @@
     "Discord destination binding proof",
     "Discord operator source + GO phrase safety signature",
     "V5 Discord operator source + GO phrase intake read-only panel",
-    "Discord review-only dry-run envelope normalization"
+    "Discord review-only dry-run envelope normalization",
+    "Discord kill-switch evidence",
+    "Discord key-name-only credential presence evidence",
+    "Discord normalized pre-dispatch readiness"
   ],
-  "dispatch_live_status": "blocked; operator source + GO phrase intake and review-only dry-run envelope normalization only; no Discord send, webhook validation, dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, or live action authorized",
-  "provider_env_credential_status": "gated; envelope normalization uses key-name-only credential presence states; no env value or credential value reads",
+  "dispatch_live_status": "blocked; operator source + GO phrase intake, review-only dry-run envelope normalization, destination proof, kill-switch evidence, credential presence evidence, and pre-dispatch readiness only; no Discord send, webhook validation, dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, or live action authorized",
+  "provider_env_credential_status": "gated; evidence uses key-name-only credential presence states; no env value or credential value reads",
   "active_blockers": [
     "live/provider/platform execution remains disabled",
     "future product UI work must target ui/contentops_v5/ unless newer committed authority supersedes it",
@@ -150,17 +153,17 @@
     "next article platform variant dispatch outbox dry-run to operator runbook and recovery is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
     "Discord operator GO packet remains blocked until operator source artifact, exact GO phrase, destination confirmation, and explicit future live authorization are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized",
     "Discord supervised live-dispatch dry-run gate remains blocked until operator source artifact, exact GO phrase, destination binding, credential key presence, and active kill switch are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized",
-    "Discord operator source + GO phrase intake to review-only dry-run envelope normalization remains blocked until local operator source artifact, exact GO phrase, destination binding, key-name-only credential presence, and active kill switch are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized"
+    "Discord operator source + GO phrase intake remains blocked in committed state because no local operator source artifact or key presence is committed; destination proof, kill-switch evidence, credential presence evidence, and pre-dispatch readiness are runnable but non-executable"
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0",
-  "latest_accepted_task_result": "complete_review_only_local_manual; dry-run envelope normalization generated fail-closed",
-  "latest_evidence_summary": "Intake builder, normalized candidate, review-only dry-run envelope normalization, GO phrase hash evidence, destination proof, safety signature, TS adapter, V5 read-only panel, targeted pytest verified.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0",
+  "latest_accepted_task_result": "complete_review_only_local_manual; destination proof, kill-switch evidence, credential presence evidence, and pre-dispatch readiness generated fail-closed",
+  "latest_evidence_summary": "Intake builder, normalized candidate, review-only envelope, destination proof, kill-switch evidence, key-name-only credential presence evidence, pre-dispatch readiness, safety signature, TS adapter, V5 read-only panel, pytest, V5 tests, and V5 build verified.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_TO_OPERATOR_SOURCE_ARTIFACT_FIXTURE_REVIEW_READY_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -193,8 +196,8 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "d1e1df41f2c1f69da720658b30ecdf743fb37473",
-  "last_status_commit_sha": "d1e1df41f2c1f69da720658b30ecdf743fb37473",
+  "accepted_product_baseline_sha": "pending final commit/push readback for this feature batch",
+  "last_status_commit_sha": "d3673257fccc445072a4663c8a3e4b3b3784e1dd",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work.",
   "latest_changed_areas": [
     "live_contentops/discord_operator_source_go_phrase_intake_v6.py",
@@ -203,6 +206,9 @@
     "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/",
     "tests/test_discord_operator_source_go_phrase_intake_v6.py",
     "ui/contentops_v5/src/data/discordOperatorSourceGoPhraseIntakeAdapter.ts",
-    "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx"
+    "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx",
+    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/credential_presence_evidence/",
+    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/kill_switch_evidence/",
+    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/pre_dispatch_readiness/"
   ]
 }

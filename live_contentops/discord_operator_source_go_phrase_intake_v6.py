@@ -13,8 +13,8 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-TASK_LABEL = "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0"
-SOURCE_TASK_LABEL = "TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_DRY_RUN_GATE_TO_OPERATOR_SOURCE_ARTIFACT_AND_GO_PHRASE_INTAKE_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0"
+SOURCE_TASK_LABEL = "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0"
 SOURCE_DRY_RUN_GATE_PACKET_ID = "discord_dry_run_gate_f9d4f7f1945dc120"
 SOURCE_DRY_RUN_GATE_HASH = "f9d4f7f1945dc120e02c372436122068a76d3b8d117b5cf88b17c45ffe49838a"
 GO_PHRASE = "CAPITAL_CHRONICLE_SUPERVISED_DISCORD_PILOT_VERIFIED_GO_PHRASE_2026"
@@ -28,6 +28,9 @@ ENVELOPE_FILE = INTAKE_DIR / "review_only_dry_run_envelope" / "discord_review_on
 INTAKE_PACKET_FILE = INTAKE_DIR / "operator_source_go_phrase_intake_packet.json"
 PHRASE_EVIDENCE_FILE = INTAKE_DIR / "operator_go_phrase_evidence.json"
 DESTINATION_PROOF_FILE = INTAKE_DIR / "destination_binding_proof.json"
+KILL_SWITCH_FILE = INTAKE_DIR / "kill_switch_evidence" / "discord_kill_switch_evidence.json"
+CREDENTIAL_PRESENCE_FILE = INTAKE_DIR / "credential_presence_evidence" / "discord_credential_presence_evidence.json"
+PRE_DISPATCH_FILE = INTAKE_DIR / "pre_dispatch_readiness" / "discord_pre_dispatch_readiness.json"
 SAFETY_SIGNATURE_FILE = INTAKE_DIR / "operator_source_go_phrase_safety_signature.json"
 
 PLACEHOLDER_WORDS = ("todo", "placeholder", "lorem ipsum", "sample only", "viết nội dung thật ở đây")
@@ -192,10 +195,138 @@ def _normalize_review_only_envelope(source: dict[str, Any], reasons: list[str]) 
     return envelope
 
 
+def _destination_proof(source: dict[str, Any], reasons: list[str]) -> dict[str, Any]:
+    proof_reasons = sorted(
+        reason for reason in set(reasons)
+        if reason.startswith("blocked_destination_") or reason == "blocked_missing_operator_source_artifact"
+    )
+    proof = {
+        "destination_proof_kind": "discord_destination_binding_proof_v1",
+        "destination_proof_status": "blocked" if proof_reasons else "destination_binding_proof_present",
+        "platform_family": "discord",
+        "source_artifact_path": source["source_artifact_path"],
+        "source_artifact_hash": source["source_artifact_hash"],
+        "destination_label": source["destination_label"],
+        "destination_label_present": bool(source["destination_label"].strip()),
+        "destination_label_value_stored": True,
+        "destination_binding_confirmed": source["destination_binding_confirmed"],
+        "destination_binding_source": "operator_source_artifact" if source["source_artifact_path"] else "missing_operator_source_artifact",
+        "webhook_url_value_read_made": False,
+        "webhook_url_value_stored": False,
+        "webhook_validation_performed": False,
+        "discord_api_call_made": False,
+        "platform_api_request_count": 0,
+        "ready_for_dispatch": False,
+        "live_action_allowed": False,
+        "blocked_reasons": proof_reasons,
+    }
+    proof["destination_proof_hash"] = _sha(proof, "destination_proof_hash", "destination_proof_id")
+    proof["destination_proof_id"] = f"discord_destination_proof_{proof['destination_proof_hash'][:16]}"
+    return proof
+
+
+def _kill_switch_evidence(source: dict[str, Any], credential_presence: dict[str, str], reasons: list[str]) -> dict[str, Any]:
+    key_state = credential_presence["CONTENTOPS_LIVE_KILL_SWITCH"]
+    proof = {
+        "kill_switch_evidence_kind": "discord_kill_switch_evidence_v0",
+        "kill_switch_status": "active" if source["kill_switch_active"] and key_state == "present" else "blocked",
+        "platform_family": "discord",
+        "kill_switch_required": True,
+        "kill_switch_key_name": "CONTENTOPS_LIVE_KILL_SWITCH",
+        "kill_switch_key_presence": key_state,
+        "kill_switch_key_presence_checked": True,
+        "kill_switch_key_name_only": True,
+        "kill_switch_active": source["kill_switch_active"],
+        "kill_switch_value_read_made": False,
+        "env_value_read_made": False,
+        "credential_value_read_made": False,
+        "source_artifact_path": source["source_artifact_path"],
+        "source_artifact_hash": source["source_artifact_hash"],
+        "ready_for_dispatch": False,
+        "live_action_allowed": False,
+        "blocked_reasons": sorted(reason for reason in set(reasons) if "kill_switch" in reason),
+    }
+    proof["kill_switch_evidence_hash"] = _sha(proof, "kill_switch_evidence_hash", "kill_switch_evidence_id")
+    proof["kill_switch_evidence_id"] = f"discord_kill_switch_{proof['kill_switch_evidence_hash'][:16]}"
+    return proof
+
+
+def _credential_presence_evidence(credential_presence: dict[str, str], reasons: list[str]) -> dict[str, Any]:
+    missing = [key for key, state in credential_presence.items() if state != "present"]
+    proof = {
+        "credential_presence_evidence_kind": "discord_key_name_only_credential_presence_evidence_v0",
+        "credential_presence_status": "blocked" if missing else "all_required_keys_present",
+        "platform_family": "discord",
+        "required_key_names": list(CREDENTIAL_KEYS),
+        "credential_presence_states": credential_presence,
+        "missing_key_names": missing,
+        "credential_presence_check_performed": True,
+        "credential_presence_key_names_only": True,
+        "credential_values_read_made": False,
+        "env_values_read_made": False,
+        "webhook_url_value_read_made": False,
+        "webhook_validation_performed": False,
+        "platform_api_request_count": 0,
+        "ready_for_dispatch": False,
+        "live_action_allowed": False,
+        "blocked_reasons": sorted(reason for reason in set(reasons) if reason.endswith("_key_missing")),
+    }
+    proof["credential_presence_evidence_hash"] = _sha(proof, "credential_presence_evidence_hash", "credential_presence_evidence_id")
+    proof["credential_presence_evidence_id"] = f"discord_credential_presence_{proof['credential_presence_evidence_hash'][:16]}"
+    return proof
+
+
+def _pre_dispatch_readiness(
+    normalized: dict[str, Any],
+    envelope: dict[str, Any],
+    destination: dict[str, Any],
+    kill_switch: dict[str, Any],
+    credential_presence: dict[str, Any],
+    reasons: list[str],
+) -> dict[str, Any]:
+    review_ready = not reasons
+    readiness = {
+        "pre_dispatch_readiness_kind": "discord_normalized_pre_dispatch_readiness_v0",
+        "pre_dispatch_readiness_status": "ready_for_operator_review_not_dispatch" if review_ready else "blocked",
+        "platform_family": "discord",
+        "normalized_candidate_id": normalized["candidate_id"],
+        "normalized_candidate_hash": normalized["candidate_hash"],
+        "dry_run_request_envelope_id": envelope["dry_run_request_envelope_id"],
+        "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"],
+        "destination_proof_id": destination["destination_proof_id"],
+        "destination_proof_hash": destination["destination_proof_hash"],
+        "kill_switch_evidence_id": kill_switch["kill_switch_evidence_id"],
+        "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"],
+        "credential_presence_evidence_id": credential_presence["credential_presence_evidence_id"],
+        "credential_presence_evidence_hash": credential_presence["credential_presence_evidence_hash"],
+        "operator_review_ready": review_ready,
+        "normalized_pre_dispatch_readiness_evaluated": True,
+        "destination_binding_confirmed": destination["destination_binding_confirmed"],
+        "kill_switch_active": kill_switch["kill_switch_active"],
+        "credential_presence_status": credential_presence["credential_presence_status"],
+        "review_only": True,
+        "request_envelope_executable": False,
+        "dispatchable": False,
+        "dispatch_outbox_ready": False,
+        "ready_for_dispatch": False,
+        "live_action_allowed": False,
+        "approval_ledger_entry_created": False,
+        "executable_outbox_entry_created": False,
+        "webhook_validation_performed": False,
+        "dispatch_request_count": 0,
+        "webhook_request_count": 0,
+        "platform_api_request_count": 0,
+        "blocked_reasons": sorted(set(reasons)),
+    }
+    readiness["pre_dispatch_readiness_hash"] = _sha(readiness, "pre_dispatch_readiness_hash", "pre_dispatch_readiness_id")
+    readiness["pre_dispatch_readiness_id"] = f"discord_pre_dispatch_{readiness['pre_dispatch_readiness_hash'][:16]}"
+    return readiness
+
+
 def build_operator_source_go_phrase_intake() -> dict[str, Any]:
     INBOX_DIR.mkdir(parents=True, exist_ok=True)
-    NORMALIZED_FILE.parent.mkdir(parents=True, exist_ok=True)
-    ENVELOPE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    for path in [NORMALIZED_FILE, ENVELOPE_FILE, DESTINATION_PROOF_FILE, KILL_SWITCH_FILE, CREDENTIAL_PRESENCE_FILE, PRE_DISPATCH_FILE]:
+        path.parent.mkdir(parents=True, exist_ok=True)
     gate = _load_json(SOURCE_GATE_FILE, {})
     credential_presence = {key: _presence(key) for key in CREDENTIAL_KEYS}
     source, reasons = _extract_source(_first_inbox_file(INBOX_DIR))
@@ -225,6 +356,7 @@ def build_operator_source_go_phrase_intake() -> dict[str, Any]:
         "destination_binding_confirmed": source["destination_binding_confirmed"],
         "kill_switch_active": source["kill_switch_active"],
         "dry_run_envelope_normalization_performed": True,
+        "normalized_pre_dispatch_readiness_evaluated": True,
         "request_envelope_executable": False,
         "dispatchable": False,
         "blocked_reasons": sorted(set(reasons)),
@@ -240,16 +372,24 @@ def build_operator_source_go_phrase_intake() -> dict[str, Any]:
     phrase["phrase_evidence_hash"] = _sha(phrase, "phrase_evidence_hash")
     PHRASE_EVIDENCE_FILE.write_text(json.dumps(phrase, sort_keys=True, indent=2), encoding="utf-8")
 
-    destination = {"destination_proof_kind": "discord_destination_binding_proof_v0", "destination_label": source["destination_label"], "destination_binding_confirmed": source["destination_binding_confirmed"], "webhook_url_value_read_made": False, "webhook_validation_performed": False, "platform_api_request_count": 0}
-    destination["destination_proof_hash"] = _sha(destination, "destination_proof_hash")
+    destination = _destination_proof(source, reasons)
     DESTINATION_PROOF_FILE.write_text(json.dumps(destination, sort_keys=True, indent=2), encoding="utf-8")
 
-    safety = {"safety_signature_kind": "discord_operator_source_go_phrase_intake_safety_signature_v0", "review_only": True, "source_dry_run_gate_packet_id": SOURCE_DRY_RUN_GATE_PACKET_ID, "source_dry_run_gate_hash": SOURCE_DRY_RUN_GATE_HASH, "dry_run_envelope_normalization_performed": True, "dry_run_request_envelope_preview_created": True, "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"], "request_envelope_executable": False, "executable_outbox_entry_created": False, "approval_ledger_entry_created": False, "webhook_validation_performed": False, "discord_api_call_made": False, "platform_api_call_made": False, "provider_call_made": False, "credential_value_read_made": False, "env_value_read_made": False, "dispatch_request_count": 0, "webhook_request_count": 0, "platform_api_request_count": 0, "ready_for_dispatch": False, "live_action_allowed": False, "blocked_reasons": sorted(set(reasons))}
+    kill_switch = _kill_switch_evidence(source, credential_presence, reasons)
+    KILL_SWITCH_FILE.write_text(json.dumps(kill_switch, sort_keys=True, indent=2), encoding="utf-8")
+
+    credential_evidence = _credential_presence_evidence(credential_presence, reasons)
+    CREDENTIAL_PRESENCE_FILE.write_text(json.dumps(credential_evidence, sort_keys=True, indent=2), encoding="utf-8")
+
+    pre_dispatch = _pre_dispatch_readiness(normalized, envelope, destination, kill_switch, credential_evidence, reasons)
+    PRE_DISPATCH_FILE.write_text(json.dumps(pre_dispatch, sort_keys=True, indent=2), encoding="utf-8")
+
+    safety = {"safety_signature_kind": "discord_operator_source_go_phrase_intake_safety_signature_v1", "review_only": True, "source_dry_run_gate_packet_id": SOURCE_DRY_RUN_GATE_PACKET_ID, "source_dry_run_gate_hash": SOURCE_DRY_RUN_GATE_HASH, "dry_run_envelope_normalization_performed": True, "dry_run_request_envelope_preview_created": True, "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"], "destination_proof_hash": destination["destination_proof_hash"], "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"], "credential_presence_evidence_hash": credential_evidence["credential_presence_evidence_hash"], "pre_dispatch_readiness_hash": pre_dispatch["pre_dispatch_readiness_hash"], "request_envelope_executable": False, "executable_outbox_entry_created": False, "approval_ledger_entry_created": False, "webhook_validation_performed": False, "discord_api_call_made": False, "platform_api_call_made": False, "provider_call_made": False, "credential_value_read_made": False, "env_value_read_made": False, "dispatch_request_count": 0, "webhook_request_count": 0, "platform_api_request_count": 0, "ready_for_dispatch": False, "live_action_allowed": False, "blocked_reasons": sorted(set(reasons))}
     safety["safety_signature_hash"] = _sha(safety, "safety_signature_hash")
     SAFETY_SIGNATURE_FILE.write_text(json.dumps(safety, sort_keys=True, indent=2), encoding="utf-8")
 
     packet = {
-        "task_label": TASK_LABEL, "packet_kind": "discord_operator_source_go_phrase_intake_v0", "intake_status": normalized["candidate_status"], "source_task_label": SOURCE_TASK_LABEL, "source_dry_run_gate_packet_id": SOURCE_DRY_RUN_GATE_PACKET_ID, "source_dry_run_gate_exact_payload_hash": SOURCE_DRY_RUN_GATE_HASH, "source_dry_run_gate_path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_DISPATCH_DRY_RUN_GATE/discord_supervised_live_dispatch_dry_run_gate_packet.json", "normalized_candidate_id": normalized["candidate_id"], "normalized_candidate_hash": normalized["candidate_hash"], "operator_source_artifact_path": source["source_artifact_path"], "operator_source_artifact_hash": source["source_artifact_hash"], "operator_go_phrase_expected_hash": GO_PHRASE_HASH, "operator_go_phrase_recorded": source["go_phrase_present"], "operator_go_phrase_valid": source["go_phrase_valid"], "operator_go_phrase_value_stored": False, "destination_label": source["destination_label"], "destination_binding_confirmed": source["destination_binding_confirmed"], "destination_proof_hash": destination["destination_proof_hash"], "credential_presence_check_performed": True, "credential_presence_key_names_only": True, "credential_presence_states": credential_presence, "credential_value_read_made": False, "env_value_read_made": False, "webhook_url_value_read_made": False, "webhook_validation_performed": False, "dry_run_envelope_normalization_performed": True, "dry_run_request_envelope_preview_created": True, "dry_run_request_envelope_id": envelope["dry_run_request_envelope_id"], "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"], "dry_run_request_body_hash_preview": envelope["normalized_request_body_hash_preview"], "dry_run_envelope_value_stored": False, "request_envelope_executable": False, "approval_ledger_entry_created": False, "executable_outbox_entry_created": False, "real_outbox_entry_created": False, "dispatch_outbox_ready": False, "dispatch_attempted": False, "dispatch_request_count": 0, "webhook_request_count": 0, "platform_api_request_count": 0, "scheduler_enabled": False, "retry_enabled": False, "kill_switch_required": True, "kill_switch_active": source["kill_switch_active"], "ready_for_auto_publish": False, "ready_for_dispatch": False, "live_action_allowed": False, "public_url_verification_performed": False, "llm_provider_call_made": False, "provider_call_made": False, "platform_api_used": False, "public_url_fetch_made": False, "browser_session_used": False, "live_publish_performed_by_contentops": False, "enabled_publish_send_dispatch_approve_controls": False, "phrase_evidence_hash": phrase["phrase_evidence_hash"], "safety_signature_hash": safety["safety_signature_hash"], "blocked_reasons": sorted(set(reasons)),
+        "task_label": TASK_LABEL, "packet_kind": "discord_operator_source_go_phrase_intake_v1", "intake_status": normalized["candidate_status"], "source_task_label": SOURCE_TASK_LABEL, "source_dry_run_gate_packet_id": SOURCE_DRY_RUN_GATE_PACKET_ID, "source_dry_run_gate_exact_payload_hash": SOURCE_DRY_RUN_GATE_HASH, "source_dry_run_gate_path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_DISPATCH_DRY_RUN_GATE/discord_supervised_live_dispatch_dry_run_gate_packet.json", "normalized_candidate_id": normalized["candidate_id"], "normalized_candidate_hash": normalized["candidate_hash"], "operator_source_artifact_path": source["source_artifact_path"], "operator_source_artifact_hash": source["source_artifact_hash"], "operator_go_phrase_expected_hash": GO_PHRASE_HASH, "operator_go_phrase_recorded": source["go_phrase_present"], "operator_go_phrase_valid": source["go_phrase_valid"], "operator_go_phrase_value_stored": False, "destination_label": source["destination_label"], "destination_binding_confirmed": source["destination_binding_confirmed"], "destination_proof_id": destination["destination_proof_id"], "destination_proof_hash": destination["destination_proof_hash"], "kill_switch_evidence_id": kill_switch["kill_switch_evidence_id"], "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"], "credential_presence_evidence_id": credential_evidence["credential_presence_evidence_id"], "credential_presence_evidence_hash": credential_evidence["credential_presence_evidence_hash"], "pre_dispatch_readiness_id": pre_dispatch["pre_dispatch_readiness_id"], "pre_dispatch_readiness_hash": pre_dispatch["pre_dispatch_readiness_hash"], "normalized_pre_dispatch_readiness_evaluated": True, "operator_review_ready": pre_dispatch["operator_review_ready"], "credential_presence_check_performed": True, "credential_presence_key_names_only": True, "credential_presence_states": credential_presence, "credential_value_read_made": False, "env_value_read_made": False, "webhook_url_value_read_made": False, "webhook_validation_performed": False, "dry_run_envelope_normalization_performed": True, "dry_run_request_envelope_preview_created": True, "dry_run_request_envelope_id": envelope["dry_run_request_envelope_id"], "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"], "dry_run_request_body_hash_preview": envelope["normalized_request_body_hash_preview"], "dry_run_envelope_value_stored": False, "request_envelope_executable": False, "approval_ledger_entry_created": False, "executable_outbox_entry_created": False, "real_outbox_entry_created": False, "dispatch_outbox_ready": False, "dispatch_attempted": False, "dispatch_request_count": 0, "webhook_request_count": 0, "platform_api_request_count": 0, "scheduler_enabled": False, "retry_enabled": False, "kill_switch_required": True, "kill_switch_active": source["kill_switch_active"], "ready_for_auto_publish": False, "ready_for_dispatch": False, "live_action_allowed": False, "public_url_verification_performed": False, "llm_provider_call_made": False, "provider_call_made": False, "platform_api_used": False, "public_url_fetch_made": False, "browser_session_used": False, "live_publish_performed_by_contentops": False, "enabled_publish_send_dispatch_approve_controls": False, "phrase_evidence_hash": phrase["phrase_evidence_hash"], "safety_signature_hash": safety["safety_signature_hash"], "blocked_reasons": sorted(set(reasons)),
     }
     packet["exact_payload_hash"] = _sha(packet, "exact_payload_hash", "intake_packet_id")
     packet["intake_packet_id"] = f"discord_source_go_intake_{packet['exact_payload_hash'][:16]}"

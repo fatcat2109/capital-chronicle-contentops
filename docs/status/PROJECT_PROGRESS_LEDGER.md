@@ -421,3 +421,21 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Caveats | Current committed candidate remains blocked because inbox/operator source and key presence are missing in local committed state. Envelope is review-only and non-executable. |
 | Validation | Targeted pytest pass; V5 Vitest suite and production build pass. |
 | Next recommendation | `TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0` |
+
+## Discord Destination Proof + Kill-Switch Evidence
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_TO_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_V0` |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Expanded the Discord intake normalization path with evidence-grade destination proof, kill-switch state proof, key-name-only credential presence proof, and normalized pre-dispatch readiness. |
+| Packet | `discord_source_go_intake_9863178c822b73c8` |
+| Exact payload hash | `9863178c822b73c8aa447dfab07cf189791adae48488e4abb5b370285a449c2e` |
+| Destination proof | `discord_destination_proof_92d3d5df42e53861` / `92d3d5df42e538612521875ffd886cdcd9b35324b0e2f840fb578854aa0fcd42` |
+| Kill-switch evidence | `discord_kill_switch_fbb1bb442a794335` / `fbb1bb442a794335593c3fe91ff6a6e9ef7176183c8173f6cae233cc1548a435` |
+| Credential presence evidence | `discord_credential_presence_4f6548fe491721f5` / `4f6548fe491721f50ee06ce95d37e1295d21d847872fcc6874c9ce01c9a1c9ed` |
+| Pre-dispatch readiness | `discord_pre_dispatch_d00c9d4062517f50` / `d00c9d4062517f507bffb45c087f172e2cc3a74ed77d69abc412e343e7093e2a` |
+| Safety posture | No Discord send, webhook validation, executable outbox, approval ledger, scheduler, retry, provider call, platform API, public URL fetch, browser session read, credential value read, env value read, or live action. |
+| Caveats | Current committed packet remains blocked because no operator source artifact or key presence is committed; readiness is operator-review only and never dispatch-ready. |
+| Validation | Targeted pytest, full V5 Vitest suite, and V5 production build pass. |
+| Next recommendation | `TASK_CONTENTOPS_V6_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_TO_OPERATOR_SOURCE_ARTIFACT_FIXTURE_REVIEW_READY_V0` |

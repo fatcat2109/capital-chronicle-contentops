@@ -19,6 +19,10 @@ PACKET = PACKET_DIR / "operator_source_go_phrase_intake_packet.json"
 NORMALIZED = PACKET_DIR / "normalized_candidate" / "normalized_operator_source_go_phrase_candidate.json"
 ENVELOPE = PACKET_DIR / "review_only_dry_run_envelope" / "discord_review_only_dry_run_envelope_normalization.json"
 ADAPTER = ROOT / "ui" / "contentops_v5" / "src" / "data" / "discordOperatorSourceGoPhraseIntakeAdapter.ts"
+DESTINATION = PACKET_DIR / "destination_binding_proof.json"
+KILL_SWITCH = PACKET_DIR / "kill_switch_evidence" / "discord_kill_switch_evidence.json"
+CREDENTIAL_PRESENCE = PACKET_DIR / "credential_presence_evidence" / "discord_credential_presence_evidence.json"
+PRE_DISPATCH = PACKET_DIR / "pre_dispatch_readiness" / "discord_pre_dispatch_readiness.json"
 SURFACES = [
     ROOT / "ui" / "contentops_v5" / "src" / "views" / "ApprovalQueue.tsx",
     ROOT / "ui" / "contentops_v5" / "src" / "views" / "PlatformPreview.tsx",
@@ -61,13 +65,21 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
     assert packet["dry_run_envelope_value_stored"] is False
     assert packet["dry_run_request_envelope_id"].startswith("discord_review_envelope_")
     assert normalized["candidate_status"] == "blocked"
-    envelope = json.loads(ENVELOPE.read_text(encoding="utf-8"))
-    assert envelope["envelope_status"] == "blocked"
-    assert envelope["request_envelope_executable"] is False
-    assert envelope["dispatchable"] is False
-    assert envelope["ready_for_dispatch"] is False
-    assert envelope["live_action_allowed"] is False
-    assert envelope["dry_run_envelope_value_stored"] is False
+    destination = json.loads(DESTINATION.read_text(encoding="utf-8"))
+    kill_switch = json.loads(KILL_SWITCH.read_text(encoding="utf-8"))
+    credential_presence = json.loads(CREDENTIAL_PRESENCE.read_text(encoding="utf-8"))
+    pre_dispatch = json.loads(PRE_DISPATCH.read_text(encoding="utf-8"))
+    assert destination["destination_proof_status"] == "blocked"
+    assert destination["destination_binding_confirmed"] is False
+    assert destination["webhook_validation_performed"] is False
+    assert kill_switch["kill_switch_status"] == "blocked"
+    assert kill_switch["kill_switch_key_presence"] == "missing"
+    assert kill_switch["kill_switch_value_read_made"] is False
+    assert credential_presence["credential_presence_status"] == "blocked"
+    assert credential_presence["credential_values_read_made"] is False
+    assert pre_dispatch["pre_dispatch_readiness_status"] == "blocked"
+    assert pre_dispatch["operator_review_ready"] is False
+    assert pre_dispatch["ready_for_dispatch"] is False
     for reason in [
         "blocked_missing_operator_source_artifact",
         "blocked_operator_go_phrase_not_recorded",
@@ -121,6 +133,23 @@ def test_valid_local_json_never_dispatches_or_stores_go_phrase(monkeypatch) -> N
     assert GO_PHRASE not in PACKET.read_text(encoding="utf-8")
     assert GO_PHRASE not in NORMALIZED.read_text(encoding="utf-8")
     assert GO_PHRASE not in ENVELOPE.read_text(encoding="utf-8")
+    destination = json.loads(DESTINATION.read_text(encoding="utf-8"))
+    kill_switch = json.loads(KILL_SWITCH.read_text(encoding="utf-8"))
+    credential_presence = json.loads(CREDENTIAL_PRESENCE.read_text(encoding="utf-8"))
+    pre_dispatch = json.loads(PRE_DISPATCH.read_text(encoding="utf-8"))
+    assert destination["destination_proof_status"] == "destination_binding_proof_present"
+    assert destination["destination_proof_id"].startswith("discord_destination_proof_")
+    assert destination["webhook_url_value_read_made"] is False
+    assert kill_switch["kill_switch_status"] == "active"
+    assert kill_switch["kill_switch_key_presence"] == "present"
+    assert kill_switch["credential_value_read_made"] is False
+    assert credential_presence["credential_presence_status"] == "all_required_keys_present"
+    assert credential_presence["credential_values_read_made"] is False
+    assert pre_dispatch["pre_dispatch_readiness_status"] == "ready_for_operator_review_not_dispatch"
+    assert pre_dispatch["operator_review_ready"] is True
+    assert pre_dispatch["ready_for_dispatch"] is False
+    assert "present-marker-not-read" not in PACKET.read_text(encoding="utf-8")
+    assert "present-marker-not-read" not in CREDENTIAL_PRESENCE.read_text(encoding="utf-8")
     assert "Capital Chronicle supervised Discord pilot update" not in ENVELOPE.read_text(encoding="utf-8")
     assert normalized["dispatchable"] is False
     for key in [
@@ -174,5 +203,11 @@ def test_adapter_sync_and_ui_surfaces() -> None:
         "credential_value_read_made=false",
         "env_value_read_made=false",
         "webhook_validation_performed=false",
+        "destination_proof_id=",
+        "kill_switch_evidence_id=",
+        "credential_presence_evidence_id=",
+        "pre_dispatch_readiness_id=",
+        "normalized_pre_dispatch_readiness_evaluated=true",
+        "operator_review_ready=",
     ]:
         assert term in (ROOT / "ui" / "contentops_v5" / "src" / "views" / "DiscordOperatorSourceGoPhraseIntakePanel.tsx").read_text(encoding="utf-8")

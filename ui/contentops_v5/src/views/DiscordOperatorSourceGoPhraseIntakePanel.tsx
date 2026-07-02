@@ -2,8 +2,11 @@
 // Read-only. No network, storage, credentials, dispatch, webhook validation, or live action.
 
 import {
+  discordCredentialPresenceEvidence,
   discordDestinationBindingProof,
+  discordKillSwitchEvidence,
   discordOperatorSourceGoPhraseIntakePacket,
+  discordPreDispatchReadiness,
   discordReviewOnlyDryRunEnvelopeNormalization,
   normalizedOperatorSourceGoPhraseCandidate,
   operatorGoPhraseEvidence,
@@ -15,6 +18,7 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
   const packet = discordOperatorSourceGoPhraseIntakePacket;
   const normalized = normalizedOperatorSourceGoPhraseCandidate;
   const envelope = discordReviewOnlyDryRunEnvelopeNormalization;
+  const readiness = discordPreDispatchReadiness;
 
   return (
     <Panel
@@ -36,7 +40,10 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <Metric label="Envelope normalized" value={String(packet.dry_run_envelope_normalization_performed)} status="verified" />
         <Metric label="Envelope hash" value={envelope.dry_run_request_envelope_hash} status="verified" />
         <Metric label="Envelope executable" value={String(envelope.request_envelope_executable)} status="blocked" />
-        <Metric label="Destination proof" value={discordDestinationBindingProof.destination_proof_hash} status="verified" />
+        <Metric label="Destination proof" value={discordDestinationBindingProof.destination_proof_id} status="verified" />
+        <Metric label="Kill-switch proof" value={discordKillSwitchEvidence.kill_switch_evidence_id} status="blocked" />
+        <Metric label="Credential proof" value={discordCredentialPresenceEvidence.credential_presence_evidence_id} status="blocked" />
+        <Metric label="Pre-dispatch readiness" value={readiness.pre_dispatch_readiness_status} status="blocked" />
         <Metric label="Safety hash" value={operatorSourceGoPhraseSafetySignature.safety_signature_hash} status="verified" />
       </div>
 
@@ -56,6 +63,16 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <div>request_envelope_executable=false</div>
         <div>envelope_status={envelope.envelope_status}</div>
         <div>envelope_dispatchable={String(envelope.dispatchable)}</div>
+        <div>destination_proof_id={packet.destination_proof_id}</div>
+        <div>destination_proof_hash={packet.destination_proof_hash}</div>
+        <div>kill_switch_evidence_id={packet.kill_switch_evidence_id}</div>
+        <div>kill_switch_evidence_hash={packet.kill_switch_evidence_hash}</div>
+        <div>credential_presence_evidence_id={packet.credential_presence_evidence_id}</div>
+        <div>credential_presence_evidence_hash={packet.credential_presence_evidence_hash}</div>
+        <div>pre_dispatch_readiness_id={packet.pre_dispatch_readiness_id}</div>
+        <div>pre_dispatch_readiness_hash={packet.pre_dispatch_readiness_hash}</div>
+        <div>normalized_pre_dispatch_readiness_evaluated=true</div>
+        <div>operator_review_ready={String(packet.operator_review_ready)}</div>
         <div>dispatch_attempted=false</div>
         <div>dispatch_request_count=0</div>
         <div>webhook_request_count=0</div>
