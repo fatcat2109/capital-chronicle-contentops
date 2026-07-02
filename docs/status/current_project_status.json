@@ -4,10 +4,10 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "last_verified_remote_sha": "c98df7b9f5824a8fb3f53ed415ba98037de71d28",
-  "last_updated_by_task": "TASK_0014",
-  "current_product_phase": "TASK 0014 Substack live draft run blocked on CDP unavailable",
-  "current_product_lane": "substack live draft compose attempted; CDP unavailable; no draft/publish/schedule/email created",
-  "accepted_baseline_summary": "TASK 0014 attempted one supervised Substack CDP draft compose live run. The first run blocked on missing CDP; the CLI was patched to retry CDP via IPv4 loopback after localhost/IPv6 failure; the single allowed patched rerun still blocked on missing CDP at 127.0.0.1:9222. No draft was created and no publish/schedule/email action occurred.",
+  "last_updated_by_task": "TASK_0015",
+  "current_product_phase": "TASK 0015 Substack live draft rerun blocked after selector patch",
+  "current_product_lane": "substack draft compose attempted; selector fallback added; final rerun blocked missing CDP; no draft/publish/schedule/email created",
+  "accepted_baseline_summary": "TASK 0015 reran the supervised Substack CDP draft compose flow after CDP precheck. Precheck confirmed Edge CDP and light Substack login signals. First live compose attempt reached UI but blocked on title selector uncertainty. One selector fallback patch was applied and tests passed. The allowed rerun then blocked before browser action because CDP was no longer reachable at 127.0.0.1:9222. No draft, publish, schedule, or email-send action occurred.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -168,8 +168,8 @@
     "Substack supervised CDP draft CLI",
     "Substack CDP draft CLI mock tests"
   ],
-  "dispatch_live_status": "TASK 0014 live draft compose was attempted once, patched for IPv4 CDP fallback, then rerun once. Both runs blocked before browser action because CDP port 9222 refused connection.",
-  "provider_env_credential_status": "gated; no cookies, localStorage, sessionStorage, credentials, env values, or browser secrets were read or output.",
+  "dispatch_live_status": "TASK 0015 precheck confirmed CDP and signed-in UI signals; first compose attempt blocked on title selector; one selector patch was applied; rerun blocked on missing CDP before browser action.",
+  "provider_env_credential_status": "gated; no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, or DOM dumps were read or output.",
   "active_blockers": [
     "Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.",
     "live/provider/platform execution remains disabled",
@@ -202,10 +202,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_0014",
-  "latest_accepted_task_result": "blocked_missing_cdp_no_draft_created",
-  "latest_evidence_summary": "Evidence recorded at docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0014_substack_draft_evidence.json; result_status=BLOCKED; blocker=missing_cdp; request_count_attempted=0; draft_created=false.",
-  "next_recommended_task": "Start the operator browser with an active CDP listener on 9222, verify port connectivity, then rerun Substack draft compose once.",
+  "latest_accepted_task": "TASK_0015",
+  "latest_accepted_task_result": "blocked_missing_cdp_after_selector_patch_no_draft_created",
+  "latest_evidence_summary": "Evidence recorded at docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0015_substack_draft_evidence.json; result_status=BLOCKED; blocker=missing_cdp; request_count_attempted=0; draft_created=false.",
+  "next_recommended_task": "Stabilize foreground CDP lifetime so Edge remains listening through pytest and compose CLI, then rerun a single Substack draft compose attempt.",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -269,6 +269,7 @@
     "live_contentops/cli_safety.py",
     "live_contentops/substack_operator_draft_cli.py",
     "tests/test_substack_operator_draft_cli.py",
-    "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0014_substack_draft_evidence.json"
+    "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0014_substack_draft_evidence.json",
+    "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0015_substack_draft_evidence.json"
   ]
 }

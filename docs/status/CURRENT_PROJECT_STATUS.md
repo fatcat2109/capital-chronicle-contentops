@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0014
+TASK_0015
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -13,10 +13,10 @@ master
 c98df7b9f5824a8fb3f53ed415ba98037de71d28
 
 ## current_product_phase
-TASK 0014 Substack live draft run blocked on CDP unavailable
+TASK 0015 Substack live draft rerun blocked after selector patch
 
 ## current_product_lane
-substack live draft compose attempted; CDP unavailable; no draft/publish/schedule/email created
+substack draft compose attempted; selector fallback added; final rerun blocked missing CDP; no draft/publish/schedule/email created
 
 ## accepted_baseline_summary
 TASK 0014 attempted one supervised Substack CDP draft compose live run. The first run blocked on missing CDP; the CLI was patched to retry CDP via IPv4 loopback after localhost/IPv6 failure; the single allowed patched rerun still blocked on missing CDP at 127.0.0.1:9222. No draft was created and no publish/schedule/email action occurred.
@@ -518,4 +518,28 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Tests: `python -m pytest tests/test_substack_operator_draft_cli.py` -> `10 passed`.
 - Patch: CDP connect now falls back from `localhost` to `127.0.0.1` before blocking.
 - Safety: no publish, schedule, email send, cookies, localStorage, sessionStorage, credentials, env values, or browser secrets.
+
+### TASK 0014 CDP Launch Lesson
+
+- Failure cause: CDP browser was not listening on `9222`; probes to `::1`, `127.0.0.1`, and `localhost` refused/timed out.
+- Failed launch mode: passing `--user-data-dir=A:\Capital Chronicle\...` as an unquoted argument let Chromium/Edge split the path at the space after `Capital`, so the operator profile/remote debugging process exited or never exposed CDP.
+- Chrome direct launch also failed to leave a reachable CDP listener with this profile during the retry window.
+- Successful launch mode: Microsoft Edge started with quoted profile path: `--user-data-dir="A:\Capital Chronicle\operator-browser-profiles\contentops-social-main" --remote-debugging-port=9222 --no-first-run --disable-default-apps --new-window https://substack.com/`.
+- Success check: `Invoke-WebRequest http://127.0.0.1:9222/json/version` returned `Browser=Edg/149.0.4022.98`, `Protocol-Version=1.3`, and a `webSocketDebuggerUrl`.
+- Current operator action: browser is open for manual account/login verification; no draft compose command rerun yet.
+
+
+## Substack Live Draft Rerun TASK 0015
+
+- Latest task: `TASK_0015`.
+- Evidence: [`task_0015_substack_draft_evidence.json`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0015_substack_draft_evidence.json).
+- Draft created: `false`.
+- Final blocker: `missing_cdp`.
+- First compose attempt blocker: `ui_uncertainty` on title selector.
+- Selector patch: added Dashboard -> New post fallback and role/textbox fallbacks.
+- Tests: `python -m pytest tests/test_substack_operator_draft_cli.py` -> `10 passed` after patch.
+- Precheck: Edge CDP returned `Browser=Edg/149.0.4022.98` and websocket present.
+- Login check: light UI signals only; `Dashboard` visible, `Sign in` absent, account/profile signal present.
+- Safety: no publish, schedule, email send, cookies, localStorage, sessionStorage, credentials, env values, browser secrets, or DOM dump.
+- Next fix: keep Edge CDP process alive across pytest plus compose CLI, or launch/check/compose inside one foreground process with stable CDP.
 

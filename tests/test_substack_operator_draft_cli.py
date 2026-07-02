@@ -78,7 +78,11 @@ def test_cli_execute_ui_uncertainty_title(mock_sync, capsys):
     mock_locator = MagicMock()
     mock_locator.first = mock_locator
     mock_locator.wait_for.side_effect = Exception("timeout finding title")
+    mock_role = MagicMock()
+    mock_role.first = mock_role
+    mock_role.wait_for.side_effect = Exception("timeout finding role textbox")
     mock_page.locator.return_value = mock_locator
+    mock_page.get_by_role.return_value = mock_role
 
     code = cli.main([
         "--title", "Test Title",
@@ -116,7 +120,10 @@ def test_cli_execute_ui_uncertainty_body(mock_sync, capsys):
             return mock_title_locator
         return mock_body_locator
 
+    mock_role = MagicMock()
+    mock_role.nth.return_value = mock_body_locator
     mock_page.locator = mock_loc
+    mock_page.get_by_role.return_value = mock_role
 
     code = cli.main([
         "--title", "Test Title",
