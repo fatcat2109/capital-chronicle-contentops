@@ -15,6 +15,7 @@ from live_contentops import operator_browser_lab
 DEFAULT_TASK_ID = "0000"
 REQUEST_BUDGET_MAX = 1
 RETRY_BUDGET_MAX = 0
+PUBLISH_BOUNDARY_CONFIRMATION = "PUBLISH_BOUNDARY_NOT_YET_APPROVED"
 
 
 def _count(locator: Any) -> int:
@@ -88,11 +89,15 @@ def run_cdp_publish(*, draft_url: str, expected_title_sha256: str, email_mode: s
         return {"result_status": "FAIL", "blocker": "execution_failed", "diagnostic": f"unhandled_error: {str(exc)}", "attempted": 1, "completed": False}
 
 
-def build_evidence(*, draft_url: str | None, expected_title_sha256: str | None, allow_publication: bool, email_mode: str | None, allow_schedule: bool, execute: bool, task_id: str, secrets: list[str] | None = None) -> dict[str, Any]:
+def build_evidence(*, draft_url: str | None, expected_title_sha256: str | None, allow_publication: bool, i_understand_this_can_publish: bool, operator_confirmation: str | None, email_mode: str | None, allow_schedule: bool, execute: bool, task_id: str, secrets: list[str] | None = None) -> dict[str, Any]:
     if not execute:
         res = {"result_status": "DRY_RUN", "blocker": None, "diagnostic": "dry_run_no_browser_action", "attempted": 0, "completed": False}
     elif not allow_publication:
         res = {"result_status": "BLOCKED", "blocker": "missing_operator_publish_approval", "diagnostic": "allow_publication_required", "attempted": 0, "completed": False}
+    elif not i_understand_this_can_publish or operator_confirmation != PUBLISH_BOUNDARY_CONFIRMATION:
+        res = {"result_status": "BLOCKED", "blocker": "publish_boundary_not_approved", "diagnostic": "publish_boundary_confirmation_required", "attempted": 0, "completed": False}
+    elif operator_confirmation == PUBLISH_BOUNDARY_CONFIRMATION:
+        res = {"result_status": "BLOCKED", "blocker": "publish_boundary_not_approved", "diagnostic": "current_confirmation_phrase_is_a_lock_not_an_approval", "attempted": 0, "completed": False}
     elif not draft_url or not expected_title_sha256 or email_mode not in {"no-email", "send-email"}:
         res = {"result_status": "BLOCKED", "blocker": "missing_publish_inputs", "diagnostic": "draft_url_expected_title_sha256_email_mode_required", "attempted": 0, "completed": False}
     else:
@@ -110,6 +115,7 @@ def build_evidence(*, draft_url: str | None, expected_title_sha256: str | None, 
         "retry_count_attempted": 0,
         "diagnostic_interpretation": res["diagnostic"],
         "publish_attempted": bool(execute and allow_publication and res["attempted"]),
+        "publish_boundary_required_confirmation": PUBLISH_BOUNDARY_CONFIRMATION,
         "publish_completed": completed,
         "draft_created": True if completed else False,
         "sent": completed,
@@ -147,6 +153,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--draft-url")
     parser.add_argument("--expected-title-sha256")
     parser.add_argument("--allow-publication", action="store_true")
+    parser.add_argument("--i-understand-this-can-publish", action="store_true")
+    parser.add_argument("--operator-confirmation")
     parser.add_argument("--email-mode", choices=["no-email", "send-email"])
     parser.add_argument("--allow-schedule", action="store_true")
     parser.add_argument("--task-id", default=DEFAULT_TASK_ID)
@@ -157,7 +165,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
 
 def main(argv: list[str] | None = None, secrets: list[str] | None = None) -> int:
     args = parse_args(argv)
-    evidence = build_evidence(draft_url=args.draft_url, expected_title_sha256=args.expected_title_sha256, allow_publication=args.allow_publication, email_mode=args.email_mode, allow_schedule=args.allow_schedule, execute=args.execute, task_id=args.task_id, secrets=secrets)
+    evidence = build_evidence(draft_url=args.draft_url, expected_title_sha256=args.expected_title_sha256, allow_publication=args.allow_publication, i_understand_this_can_publish=args.i_understand_this_can_publish, operator_confirmation=args.operator_confirmation, email_mode=args.email_mode, allow_schedule=args.allow_schedule, execute=args.execute, task_id=args.task_id, secrets=secrets)
     write_evidence(evidence, args.output)
     print(json.dumps(evidence, indent=2, sort_keys=True))
     return 0 if evidence["result_status"] in {"DRY_RUN", "PASS"} else 2

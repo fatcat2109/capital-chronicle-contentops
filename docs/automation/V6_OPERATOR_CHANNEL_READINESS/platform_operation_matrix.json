@@ -44,14 +44,16 @@
     },
     "substack.publish_post": {
       "cli": "python -m live_contentops.substack_operator_publish_cli",
-      "state": "mock_tested_guarded_not_live_proven",
+      "state": "hard_locked_mock_tested_only_no_live_publish_possible",
       "latest_evidence_path": null,
-      "publish_allowed": "requires explicit --allow-publication, --draft-url, --expected-title-sha256, --email-mode, --execute",
+      "publish_allowed": "false until future exact task changes PUBLISH_BOUNDARY_NOT_YET_APPROVED lock phrase",
       "schedule_allowed": "requires explicit --allow-schedule",
       "email_send_allowed": "requires explicit --email-mode send-email",
       "request_budget_max": 1,
       "retry_budget_max": 0,
-      "safe_next_action": "run preflight first; only publish in separate explicit supervised task"
+      "safe_next_action": "do not live publish; only run dry-run tests or preflight CLI until future boundary approval task changes lock phrase",
+      "hard_lock_confirmation_phrase": "PUBLISH_BOUNDARY_NOT_YET_APPROVED",
+      "hard_lock_blocks_even_with_current_phrase": true
     }
   },
   "global_invariants": {
