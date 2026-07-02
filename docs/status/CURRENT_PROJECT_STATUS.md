@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-32719576d639978edbcacf2d31aae12906b9c482
+9306266db0430196617d8badac377407c3adf0da
 
 ## current_product_phase
 V6 Discord real operator artifact intake readiness / blocked live-preflight lane
@@ -23,7 +23,7 @@ Discord operator source + GO phrase intake now includes a safe non-real fixture 
 
 ## status_sha_model
 - current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `31ec6a2455d28f9306388c5258baa6e0b457ad03`
-- accepted product baseline (`accepted_product_baseline_sha`): `32719576d639978edbcacf2d31aae12906b9c482`
+- accepted product baseline (`accepted_product_baseline_sha`): `9306266db0430196617d8badac377407c3adf0da`
 - previous accepted product baseline: `03f8580ff89558418bb41b6c404abbc10f36a570`
 - latest status-only repair commit prior to this task: `72b816f97f819032a3a93008bd1cacbbd50c29ce`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
