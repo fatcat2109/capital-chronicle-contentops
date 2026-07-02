@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0015U
+TASK_0021
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,13 +10,13 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-c98df7b9f5824a8fb3f53ed415ba98037de71d28
+a4b2b9e8a9529253249d09b10f959e0e44ed02a5
 
 ## current_product_phase
-TASK 0015U Substack live supervised draft compose succeeded
+TASK 0021 operator platform readiness status points to quickstart and matrix
 
 ## current_product_lane
-substack draft created via CDP using Dashboard -> Create -> Create post; no publish/schedule/email
+operator platform readiness: Discord one-shot proven, Telegram one-shot proven, Substack draft proven, Substack publish hard-locked/not proven
 
 ## accepted_baseline_summary
 TASK 0014 attempted one supervised Substack CDP draft compose live run. The first run blocked on missing CDP; the CLI was patched to retry CDP via IPv4 loopback after localhost/IPv6 failure; the single allowed patched rerun still blocked on missing CDP at 127.0.0.1:9222. No draft was created and no publish/schedule/email action occurred.
@@ -73,7 +73,7 @@ gated; no cookies, localStorage, sessionStorage, credentials, env values, or bro
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_0014
+TASK_0021
 
 ## latest changed areas
 - `live_contentops/substack_operator_draft_cli.py`
@@ -124,7 +124,7 @@ TASK_0014
 - `docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json`
 
 ## current next recommended task
-Start the operator browser with an active CDP listener on 9222, verify port connectivity, then rerun Substack draft compose once.
+Use `docs/automation/V6_OPERATOR_CHANNEL_READINESS/operator_platform_quickstart.md` and `docs/automation/V6_OPERATOR_CHANNEL_READINESS/platform_operation_matrix.json` as the operator platform readiness entrypoints. Do not live publish Substack; publish remains hard-locked/not proven.
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -151,6 +151,18 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - latest accepted task
 - latest changed areas
 - current next recommended task
+
+
+## TASK 0021 Operator Platform Readiness Status Update
+
+- Latest task/status: `TASK_0021`.
+- Discord: one-shot supervised operator-send is proven; no autonomous dispatch, queue, scheduler, or retry loop.
+- Telegram: one-shot supervised `sendMessage` is proven; no autonomous dispatch, queue, scheduler, or retry loop.
+- Substack draft: supervised CDP draft compose is proven; draft only.
+- Substack publish: not proven and hard-locked; current confirmation phrase intentionally blocks before CDP publish.
+- Operator quickstart: `docs/automation/V6_OPERATOR_CHANNEL_READINESS/operator_platform_quickstart.md`.
+- Platform operation matrix: `docs/automation/V6_OPERATOR_CHANNEL_READINESS/platform_operation_matrix.json`.
+- No new live run claims were added for this status update.
 
 ## Latest V6 LinkedIn Manual Publication Evidence Loop Update
 

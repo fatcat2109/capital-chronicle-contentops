@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "c98df7b9f5824a8fb3f53ed415ba98037de71d28",
-  "last_updated_by_task": "TASK_0015U",
-  "current_product_phase": "TASK 0015U Substack live supervised draft compose succeeded",
-  "current_product_lane": "substack draft created via CDP using Dashboard -> Create -> Create post; no publish/schedule/email",
-  "accepted_baseline_summary": "Earlier draft_created=false happened because the first UI path used direct publish URL / New post text nodes. Substack dashboard rendered New post as inert DIV text, not a clickable button/link, and body selector later hit a non-editable editor wrapper. Working path is Dashboard -> Create -> Create post, then fill title and editable body field. Final live run TASK_0015U passed with draft_created_and_autosaved.",
+  "last_verified_remote_sha": "a4b2b9e8a9529253249d09b10f959e0e44ed02a5",
+  "last_updated_by_task": "TASK_0021",
+  "current_product_phase": "TASK 0021 operator platform readiness status points to quickstart and matrix",
+  "current_product_lane": "operator platform readiness: Discord one-shot proven, Telegram one-shot proven, Substack draft proven, Substack publish hard-locked/not proven",
+  "accepted_baseline_summary": "Operator platform readiness docs now point to quickstart and matrix. Discord one-shot and Telegram one-shot are proven, Substack draft is proven, and Substack publish remains not proven and hard-locked. No new live run claims.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -166,9 +166,15 @@
     "CLI shared secret-hygiene guard module",
     "CLI safety leak assertion tests",
     "Substack supervised CDP draft CLI",
-    "Substack CDP draft CLI mock tests"
+    "Substack CDP draft CLI mock tests",
+    "Discord one-shot supervised operator-send proven",
+    "Telegram one-shot supervised sendMessage proven",
+    "Substack supervised CDP draft proven",
+    "Substack publish hard-locked/not proven",
+    "Operator platform quickstart",
+    "Platform operation matrix"
   ],
-  "dispatch_live_status": "TASK 0015U PASS: Substack draft created and autosaved through supervised local CDP browser. Earlier false was selector/path failure, not account failure.",
+  "dispatch_live_status": "Discord one-shot proven; Telegram one-shot proven; Substack draft proven; Substack publish not proven and hard-locked. TASK_0021 made status-only doc updates and no new live run claims.",
   "provider_env_credential_status": "gated; no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, response bodies, headers, or DOM dumps were read/output.",
   "active_blockers": [
     "Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.",
@@ -192,7 +198,8 @@
     "Discord operator source + GO phrase intake remains blocked in committed state because the operator input contract is unsatisfied and no real local operator source artifact, GO phrase, destination binding, credential key presence, or active kill-switch proof is committed; real-vs-fixture separation, live-preflight evidence, destination proof, kill-switch evidence, credential presence evidence, non-real fixture review evidence, and pre-dispatch readiness are runnable but non-executable",
     "Discord redacted operator review packet remains blocked in committed state because no real local operator source artifact, GO phrase, destination binding, credential key presence, or active kill-switch proof is committed; redaction path is runnable but non-dispatchable and stores no body, GO phrase, webhook URL, env values, or credential values",
     "Discord operator review decision packet remains blocked in committed state because no real operator decision artifact is committed; approve/reject/hold parser path is runnable but non-dispatchable and stores no raw notes, body, GO phrase, webhook URL, env values, or credential values",
-    "ChatGPT Project Sources remain context only; stale uploaded transcripts/no-extension responses must not override committed repo authority"
+    "ChatGPT Project Sources remain context only; stale uploaded transcripts/no-extension responses must not override committed repo authority",
+    "Substack publish remains not proven and hard-locked; current confirmation phrase intentionally blocks before CDP publish, with publish_attempted=false and request_count_attempted=0."
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
@@ -202,10 +209,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_0015U",
-  "latest_accepted_task_result": "pass_substack_draft_created_and_autosaved",
-  "latest_evidence_summary": "Evidence recorded at docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0015_success3_substack_draft_evidence.json; result_status=PASS; blocker=null; request_count_attempted=1; diagnostic=draft_created_and_autosaved.",
-  "next_recommended_task": "Keep Substack CLI path as Dashboard -> Create -> Create post and avoid inert New post text nodes; only rerun live compose when a new supervised draft is needed.",
+  "latest_accepted_task": "TASK_0021",
+  "latest_accepted_task_result": "pass_status_points_to_operator_quickstart_and_platform_matrix",
+  "latest_evidence_summary": "Status references docs/automation/V6_OPERATOR_CHANNEL_READINESS/operator_platform_quickstart.md and docs/automation/V6_OPERATOR_CHANNEL_READINESS/platform_operation_matrix.json; no live browser action or publish run was performed.",
+  "next_recommended_task": "Use operator_platform_quickstart.md and platform_operation_matrix.json as entrypoints for proven platform operations; do not live publish Substack until a future exact task changes the hard lock.",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -244,6 +251,8 @@
   "last_status_commit_sha": "99556cc39d8398d3d3f792ad321b54be17aa2d08",
   "sha_model": "last_verified_remote_sha is the pre-repair origin/master HEAD observed before this status-only repair. accepted_product_baseline_sha remains the latest accepted product feature baseline and does not advance for status-only repairs. last_status_commit_sha is the latest accepted status/evidence repair commit that updated governance metadata without changing product packets, builders, tests, UI behavior, generated adapter values, or live/dispatch behavior.",
   "latest_changed_areas": [
+    "docs/automation/V6_OPERATOR_CHANNEL_READINESS/platform_operation_matrix.json",
+    "docs/automation/V6_OPERATOR_CHANNEL_READINESS/operator_platform_quickstart.md",
     "live_contentops/discord_operator_source_go_phrase_intake_v6.py",
     "live_contentops/discord_operator_source_go_phrase_intake_v5_adapter_codegen_v6.py",
     "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_supervision_contract/discord_operator_supervision_contract.json",
@@ -272,5 +281,15 @@
     "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0014_substack_draft_evidence.json",
     "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0015_substack_draft_evidence.json",
     "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0015_success3_substack_draft_evidence.json"
-  ]
+  ],
+  "operator_platform_readiness": {
+    "latest_task": "TASK_0021",
+    "discord": "one-shot proven",
+    "telegram": "one-shot proven",
+    "substack_draft": "draft proven",
+    "substack_publish": "hard-locked/not proven",
+    "operator_quickstart_path": "docs/automation/V6_OPERATOR_CHANNEL_READINESS/operator_platform_quickstart.md",
+    "platform_operation_matrix_path": "docs/automation/V6_OPERATOR_CHANNEL_READINESS/platform_operation_matrix.json",
+    "new_live_run_claims": false
+  }
 }
