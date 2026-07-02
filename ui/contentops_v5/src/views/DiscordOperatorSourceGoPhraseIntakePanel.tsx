@@ -12,6 +12,7 @@ import {
   discordOperatorReviewDecisionPacket,
   discordOperatorSourceArtifactFixtureReview,
   discordOperatorSourceGoPhraseIntakePacket,
+  discordOperatorSupervisionContract,
   discordPreDispatchReadiness,
   discordRedactedOperatorReviewPacket,
   discordReviewOnlyDryRunEnvelopeNormalization,
@@ -33,6 +34,7 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
   const reviewDecision = discordOperatorReviewDecisionPacket;
   const dispatchDecision = discordDispatchDecisionReadiness;
   const routePreview = discordDispatchRoutePreview;
+  const supervisionContract = discordOperatorSupervisionContract;
 
   return (
     <Panel
@@ -83,6 +85,9 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <Metric label="Supervised live edge" value={String(dispatchDecision.supervised_live_edge_required)} status="blocked" />
         <Metric label="Dispatch route preview" value={routePreview.dispatch_route_preview_status} status="blocked" />
         <Metric label="Route class" value={routePreview.route_class} status="blocked" />
+        <Metric label="Supervision contract" value={supervisionContract.operator_supervision_contract_status} status="blocked" />
+        <Metric label="Supervision state" value={supervisionContract.supervision_state} status="blocked" />
+        <Metric label="Future live scope required" value={String(supervisionContract.future_exact_live_scope_artifact_required)} status="blocked" />
         <Metric label="Pre-dispatch readiness" value={readiness.pre_dispatch_readiness_status} status="blocked" />
         <Metric label="Safety hash" value={operatorSourceGoPhraseSafetySignature.safety_signature_hash} status="verified" />
       </div>
@@ -180,6 +185,24 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <div>dispatch_route_ready_for_dispatch={String(routePreview.ready_for_dispatch)}</div>
         <div>dispatch_route_live_action_allowed={String(routePreview.live_action_allowed)}</div>
         <div>dispatch_route_blocked_reasons={JSON.stringify(routePreview.blocked_reasons)}</div>
+        <div>operator_supervision_contract_id={packet.operator_supervision_contract_id}</div>
+        <div>operator_supervision_contract_hash={packet.operator_supervision_contract_hash}</div>
+        <div>operator_supervision_contract_status={packet.operator_supervision_contract_status}</div>
+        <div>operator_supervision_state={supervisionContract.supervision_state}</div>
+        <div>operator_supervision_contract_ready_not_dispatch={String(supervisionContract.operator_supervision_contract_ready_not_dispatch)}</div>
+        <div>operator_supervision_jim_final_authority_required={String(supervisionContract.jim_final_authority_required)}</div>
+        <div>operator_supervision_jim_must_supervise_live_edge={String(supervisionContract.jim_must_supervise_live_edge)}</div>
+        <div>operator_supervision_route_class={supervisionContract.route_class}</div>
+        <div>operator_supervision_required_actions={JSON.stringify(supervisionContract.operator_supervision_required_actions)}</div>
+        <div>operator_supervision_required_artifacts={JSON.stringify(supervisionContract.required_operator_artifacts)}</div>
+        <div>operator_supervision_future_exact_live_scope_artifact_required={String(supervisionContract.future_exact_live_scope_artifact_required)}</div>
+        <div>operator_supervision_future_exact_live_scope_artifact_present={String(supervisionContract.future_exact_live_scope_artifact_present)}</div>
+        <div>operator_supervision_request_envelope_executable={String(supervisionContract.request_envelope_executable)}</div>
+        <div>operator_supervision_dispatchable={String(supervisionContract.dispatchable)}</div>
+        <div>operator_supervision_ready_for_dispatch={String(supervisionContract.ready_for_dispatch)}</div>
+        <div>operator_supervision_live_action_allowed={String(supervisionContract.live_action_allowed)}</div>
+        <div>operator_supervision_webhook_validation_performed={String(supervisionContract.webhook_validation_performed)}</div>
+        <div>operator_supervision_blocked_reasons={JSON.stringify(supervisionContract.blocked_reasons)}</div>
         <div>pre_dispatch_readiness_id={packet.pre_dispatch_readiness_id}</div>
         <div>pre_dispatch_readiness_hash={packet.pre_dispatch_readiness_hash}</div>
         <div>normalized_pre_dispatch_readiness_evaluated=true</div>

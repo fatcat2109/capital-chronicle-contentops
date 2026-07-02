@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_TO_SUPERVISED_DISPATCH_ROUTE_PREVIEW_V0
+TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_ROUTE_PREVIEW_TO_OPERATOR_SUPERVISION_CONTRACT_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,16 +10,16 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-91271bd7a66cea15a3530c54f69dd9b1f5ef21f5
+4e3a158a52a619147beed45cf064ee5f7599ddf6
 
 ## current_product_phase
-V6 supervised dispatch route preview; non-executable Discord live-edge planning
+V6 operator supervision contract; non-executable Discord live-edge supervision readiness
 
 ## current_product_lane
-Discord dispatch decision readiness to supervised route preview; route planning only; no live execution
+Discord supervised dispatch route preview to operator supervision contract; supervision contract only; no live execution
 
 ## accepted_baseline_summary
-Added non-executable Discord supervised dispatch route preview packet and V5 read-only visibility. Current committed state remains blocked/deferred because no real local operator source artifact or operator review decision artifact is committed. Approved real operator decision test path previews supervised_webhook, still with dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, and no raw env/credential/body/GO phrase value storage.
+Added deterministic non-executable Discord operator supervision contract packet and V5 read-only visibility. Committed state remains blocked because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed. Approved real-decision test path can reach ready_for_operator_supervision_not_dispatch, but still keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.
 
 ## status_sha_model
 - current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `91271bd7a66cea15a3530c54f69dd9b1f5ef21f5`
@@ -50,17 +50,17 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, supervised dispatch route preview packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
+V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, supervised dispatch route preview packet, operator supervision contract packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
 
 ## dispatch/live status
-Dispatch/live remains blocked. No autonomous publish, schedule, retry, queue execution, platform API call, provider call, credential read, env value read, browser session read, DM, comment, like, reaction, webhook validation, or live send is authorized by this status ledger.
+Dispatch/live remains blocked. No autonomous publish, schedule, retry, queue execution, platform API call, provider call, credential read, env value read, browser session read, browser/CDP action, DM, comment, like, reaction, webhook validation, or live send is authorized by this status ledger.
 
 ## provider/env/credential status
 Provider/env/credential handling remains gated. Env/key presence appears only as committed key-name evidence. No raw env values, credential values, webhook URLs, provider keys, browser session data, token material, cookie/localStorage/sessionStorage data, or secret-derived metadata may be printed or committed.
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
-- Discord supervised dispatch route preview remains blocked/deferred in committed state because no real local operator source artifact or operator review decision artifact is committed; route preview path is runnable in tests, approved real-decision sample maps to `supervised_webhook`, but committed packet stays `route_class=deferred_blocked` and keeps `dispatchable=false`, `ready_for_dispatch=false`, `live_action_allowed=false`, no outbox, no ledger, no scheduler, no retry, no webhook validation, and no raw env/credential/body/GO phrase value storage.
+- Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.
 - LinkedIn lane is fixture/operator-supplied evidence only; no API, browser automation, URL fetch/scrape, public URL verification, or platform action is authorized.
 - Substack manual publication evidence remains fixture/operator-supplied where public URL or metrics evidence is present.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
@@ -73,12 +73,12 @@ Provider/env/credential handling remains gated. Env/key presence appears only as
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_TO_SUPERVISED_DISPATCH_ROUTE_PREVIEW_V0
+TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_ROUTE_PREVIEW_TO_OPERATOR_SUPERVISION_CONTRACT_V0
 
 ## latest changed areas
 - `live_contentops/discord_operator_source_go_phrase_intake_v6.py`
 - `live_contentops/discord_operator_source_go_phrase_intake_v5_adapter_codegen_v6.py`
-- `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/dispatch_route_preview/discord_dispatch_route_preview.json`
+- `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_supervision_contract/discord_operator_supervision_contract.json`
 - `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_intake_packet.json`
 - `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_safety_signature.json`
 - `ui/contentops_v5/src/data/discordOperatorSourceGoPhraseIntakeAdapter.ts`
@@ -88,7 +88,7 @@ TASK_CONTENTOPS_V6_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_TO_SUPERVISED_DISP
 - `docs/status/current_project_status.json`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_ROUTE_PREVIEW_TO_OPERATOR_SUPERVISION_CONTRACT_V0
+TASK_CONTENTOPS_V6_OPERATOR_SUPERVISION_CONTRACT_TO_EXACT_LIVE_SCOPE_ARTIFACT_CONTRACT_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -284,3 +284,14 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Scope: seven required files under `docs/CHATGPT_PROJECT_BOOTSTRAP/` covering replacement ChatGPT Project Instructions, required reading, authority model, automation-first north star, source retention policy, and stale Project Sources delete guide.
 - Retention state: old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub; if any source is kept, keep only `docs/CHATGPT_PROJECT_BOOTSTRAP/`.
 - Safety: docs-only; no live dispatch, API/browser/provider call, env value read, credential value read, webhook validation, scheduler, retry, executable outbox, approval ledger, public URL fetch, platform action, or product runtime change.
+
+## Discord Operator Supervision Contract
+
+- Latest task: `TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_ROUTE_PREVIEW_TO_OPERATOR_SUPERVISION_CONTRACT_V0`.
+- Current lane: non-executable Discord operator supervision contract after supervised route preview.
+- Packet: `discord_operator_supervision_d2f19bac86ac8777`.
+- Contract hash: `d2f19bac86ac8777f9688e8331fcfbbb16cb6b4295fc9b14fbfe965039a41fc2`.
+- Committed state: `operator_supervision_contract_status=blocked`, `supervision_state=deferred_blocked`, `route_class=deferred_blocked`.
+- Future exact live-scope artifact is required and absent.
+- Safety: `dispatchable=false`, `ready_for_dispatch=false`, `live_action_allowed=false`, `webhook_validation_performed=false`, no outbox, no ledger, no scheduler, no retry, no browser/CDP action, and no env/credential/body/GO phrase value storage.
+

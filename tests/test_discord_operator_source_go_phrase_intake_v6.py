@@ -32,6 +32,7 @@ REDACTED_REVIEW = PACKET_DIR / "redacted_operator_review" / "discord_redacted_op
 OPERATOR_REVIEW_DECISION = PACKET_DIR / "operator_review_decision" / "discord_operator_review_decision_packet.json"
 DISPATCH_DECISION_READINESS = PACKET_DIR / "dispatch_decision_readiness" / "discord_dispatch_decision_readiness.json"
 DISPATCH_ROUTE_PREVIEW = PACKET_DIR / "dispatch_route_preview" / "discord_dispatch_route_preview.json"
+OPERATOR_SUPERVISION_CONTRACT = PACKET_DIR / "operator_supervision_contract" / "discord_operator_supervision_contract.json"
 OPERATOR_REVIEW_DECISION_INBOX = PACKET_DIR / "operator_review_decision" / "inbox"
 FIXTURE_EXAMPLE = PACKET_DIR / "fixtures" / "non_real_operator_source_fixture.example.json"
 SURFACES = [
@@ -103,6 +104,7 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
     redacted_review = json.loads(REDACTED_REVIEW.read_text(encoding="utf-8"))
     dispatch_decision = json.loads(DISPATCH_DECISION_READINESS.read_text(encoding="utf-8"))
     route_preview = json.loads(DISPATCH_ROUTE_PREVIEW.read_text(encoding="utf-8"))
+    supervision_contract = json.loads(OPERATOR_SUPERVISION_CONTRACT.read_text(encoding="utf-8"))
     assert packet["operator_input_contract_status"] == "blocked"
     assert packet["redacted_operator_review_status"] == "blocked"
     assert packet["operator_review_decision_status"] == "blocked"
@@ -129,6 +131,19 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
     assert route_preview["route_preview_ready_not_dispatch"] is False
     assert route_preview["ready_for_dispatch"] is False
     assert route_preview["live_action_allowed"] is False
+    assert packet["operator_supervision_contract_status"] == "blocked"
+    assert supervision_contract["operator_supervision_contract_status"] == "blocked"
+    assert supervision_contract["supervision_state"] == "deferred_blocked"
+    assert supervision_contract["route_class"] == "deferred_blocked"
+    assert supervision_contract["operator_supervision_contract_ready_not_dispatch"] is False
+    assert supervision_contract["future_exact_live_scope_artifact_required"] is True
+    assert supervision_contract["future_exact_live_scope_artifact_present"] is False
+    assert supervision_contract["request_envelope_executable"] is False
+    assert supervision_contract["dispatchable"] is False
+    assert supervision_contract["ready_for_dispatch"] is False
+    assert supervision_contract["live_action_allowed"] is False
+    assert supervision_contract["webhook_validation_performed"] is False
+    assert "blocked_dispatch_route_deferred" in supervision_contract["blocked_reasons"]
     assert input_contract["operator_input_contract_status"] == "blocked"
     assert input_contract["fixture_can_satisfy_contract"] is False
     assert input_contract["required_inbox_path"] == "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/inbox/"
@@ -205,6 +220,7 @@ def test_valid_non_real_fixture_ready_for_fixture_review_never_dispatches(monkey
     redacted_review = json.loads(REDACTED_REVIEW.read_text(encoding="utf-8"))
     dispatch_decision = json.loads(DISPATCH_DECISION_READINESS.read_text(encoding="utf-8"))
     route_preview = json.loads(DISPATCH_ROUTE_PREVIEW.read_text(encoding="utf-8"))
+    supervision_contract = json.loads(OPERATOR_SUPERVISION_CONTRACT.read_text(encoding="utf-8"))
 
     assert packet["intake_status"] == "ready_for_operator_review_not_dispatch"
     assert packet["operator_source_artifact_kind"] == "non_real_fixture"
@@ -235,6 +251,10 @@ def test_valid_non_real_fixture_ready_for_fixture_review_never_dispatches(monkey
     assert "blocked_fixture_cannot_enter_dispatch_decision_readiness" in dispatch_decision["blocked_reasons"]
     assert route_preview["dispatch_route_preview_status"] == "blocked"
     assert route_preview["route_class"] == "deferred_blocked"
+    assert supervision_contract["operator_supervision_contract_status"] == "blocked"
+    assert supervision_contract["dispatchable"] is False
+    assert supervision_contract["ready_for_dispatch"] is False
+    assert "blocked_dispatch_route_deferred" in supervision_contract["blocked_reasons"]
     assert packet["fixture_review_ready"] is True
     assert fixture_review["fixture_review_status"] == "ready_for_fixture_review_not_dispatch"
     assert fixture_review["real_operator_artifact_claimed"] is False
@@ -312,6 +332,7 @@ def test_valid_real_operator_artifact_ready_for_preflight_review_never_dispatche
     input_contract = json.loads(OPERATOR_INPUT_CONTRACT.read_text(encoding="utf-8"))
     redacted_review = json.loads(REDACTED_REVIEW.read_text(encoding="utf-8"))
     dispatch_decision = json.loads(DISPATCH_DECISION_READINESS.read_text(encoding="utf-8"))
+    supervision_contract = json.loads(OPERATOR_SUPERVISION_CONTRACT.read_text(encoding="utf-8"))
 
     assert packet["operator_input_contract_status"] == "satisfied_for_real_artifact_review"
     assert input_contract["operator_input_contract_status"] == "satisfied_for_real_artifact_review"
@@ -337,9 +358,11 @@ def test_valid_real_operator_artifact_ready_for_preflight_review_never_dispatche
     assert live_preflight["blocked_reasons"] == []
     assert fixture_review["fixture_review_status"] == "blocked"
     assert fixture_review["real_operator_artifact_claimed"] is True
-    assert packet["ready_for_dispatch"] is False
     assert packet["live_action_allowed"] is False
     assert packet["request_envelope_executable"] is False
+    assert supervision_contract["operator_supervision_contract_status"] == "blocked"
+    assert supervision_contract["dispatchable"] is False
+    assert "blocked_operator_review_decision_artifact_missing" in supervision_contract["blocked_reasons"]
     assert GO_PHRASE not in PACKET.read_text(encoding="utf-8")
     assert "present-marker-not-read" not in PACKET.read_text(encoding="utf-8")
     assert "Capital Chronicle supervised Discord pilot real operator artifact" not in LIVE_PREFLIGHT.read_text(encoding="utf-8")
@@ -406,6 +429,7 @@ def test_adapter_sync_and_ui_surfaces() -> None:
     assert "discordOperatorReviewDecisionPacket" in ADAPTER.read_text(encoding="utf-8")
     assert "discordDispatchDecisionReadiness" in ADAPTER.read_text(encoding="utf-8")
     assert "discordDispatchRoutePreview" in ADAPTER.read_text(encoding="utf-8")
+    assert "discordOperatorSupervisionContract" in ADAPTER.read_text(encoding="utf-8")
     combined = "\n".join(path.read_text(encoding="utf-8") for path in SURFACES)
     assert combined.count("DiscordOperatorSourceGoPhraseIntakePanel") >= len(SURFACES)
     panel = (ROOT / "ui" / "contentops_v5" / "src" / "views" / "DiscordOperatorSourceGoPhraseIntakePanel.tsx").read_text(encoding="utf-8")
@@ -484,6 +508,24 @@ def test_adapter_sync_and_ui_surfaces() -> None:
         "dispatch_route_ready_for_dispatch=",
         "dispatch_route_live_action_allowed=",
         "dispatch_route_blocked_reasons=",
+        "operator_supervision_contract_id=",
+        "operator_supervision_contract_hash=",
+        "operator_supervision_contract_status=",
+        "operator_supervision_state=",
+        "operator_supervision_contract_ready_not_dispatch=",
+        "operator_supervision_jim_final_authority_required=",
+        "operator_supervision_jim_must_supervise_live_edge=",
+        "operator_supervision_route_class=",
+        "operator_supervision_required_actions=",
+        "operator_supervision_required_artifacts=",
+        "operator_supervision_future_exact_live_scope_artifact_required=",
+        "operator_supervision_future_exact_live_scope_artifact_present=",
+        "operator_supervision_request_envelope_executable=",
+        "operator_supervision_dispatchable=",
+        "operator_supervision_ready_for_dispatch=",
+        "operator_supervision_live_action_allowed=",
+        "operator_supervision_webhook_validation_performed=",
+        "operator_supervision_blocked_reasons=",
         "pre_dispatch_readiness_id=",
         "normalized_pre_dispatch_readiness_evaluated=true",
         "real_operator_artifact_present=",
@@ -553,6 +595,7 @@ def test_valid_operator_review_decisions_parse_without_dispatch(monkeypatch) -> 
         review_decision = json.loads(OPERATOR_REVIEW_DECISION.read_text(encoding="utf-8"))
         dispatch_decision = json.loads(DISPATCH_DECISION_READINESS.read_text(encoding="utf-8"))
         route_preview = json.loads(DISPATCH_ROUTE_PREVIEW.read_text(encoding="utf-8"))
+        supervision_contract = json.loads(OPERATOR_SUPERVISION_CONTRACT.read_text(encoding="utf-8"))
         assert packet["operator_review_decision_status"] == "decision_recorded_not_dispatch"
         assert review_decision["operator_review_decision_available"] is True
         assert review_decision["operator_review_decision_approved"] is (decision == "approve")
@@ -580,6 +623,15 @@ def test_valid_operator_review_decisions_parse_without_dispatch(monkeypatch) -> 
         assert route_preview["ready_for_dispatch"] is False
         assert route_preview["live_action_allowed"] is False
         assert route_preview["webhook_validation_performed"] is False
+        assert supervision_contract["operator_supervision_contract_status"] == ("ready_for_operator_supervision_not_dispatch" if decision == "approve" else "blocked")
+        assert supervision_contract["operator_supervision_contract_ready_not_dispatch"] is (decision == "approve")
+        assert supervision_contract["route_class"] == ("supervised_webhook" if decision == "approve" else "deferred_blocked")
+        assert supervision_contract["future_exact_live_scope_artifact_required"] is True
+        assert supervision_contract["future_exact_live_scope_artifact_present"] is False
+        assert supervision_contract["dispatchable"] is False
+        assert supervision_contract["ready_for_dispatch"] is False
+        assert supervision_contract["live_action_allowed"] is False
+        assert supervision_contract["webhook_validation_performed"] is False
         assert "Reviewed redacted packet only." not in OPERATOR_REVIEW_DECISION.read_text(encoding="utf-8")
     _clean_inbox()
     build_operator_source_go_phrase_intake()

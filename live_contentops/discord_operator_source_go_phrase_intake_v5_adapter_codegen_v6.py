@@ -20,6 +20,7 @@ REDACTED_OPERATOR_REVIEW_FILE = PACKET_DIR / "redacted_operator_review" / "disco
 OPERATOR_REVIEW_DECISION_FILE = PACKET_DIR / "operator_review_decision" / "discord_operator_review_decision_packet.json"
 DISPATCH_DECISION_READINESS_FILE = PACKET_DIR / "dispatch_decision_readiness" / "discord_dispatch_decision_readiness.json"
 DISPATCH_ROUTE_PREVIEW_FILE = PACKET_DIR / "dispatch_route_preview" / "discord_dispatch_route_preview.json"
+OPERATOR_SUPERVISION_CONTRACT_FILE = PACKET_DIR / "operator_supervision_contract" / "discord_operator_supervision_contract.json"
 TS_ADAPTER_FILE = ROOT / "ui" / "contentops_v5" / "src" / "data" / "discordOperatorSourceGoPhraseIntakeAdapter.ts"
 
 
@@ -46,6 +47,7 @@ def generate_operator_source_go_phrase_intake_adapter(verify_only: bool = False)
     review_decision = _load(OPERATOR_REVIEW_DECISION_FILE)
     dispatch_decision_readiness = _load(DISPATCH_DECISION_READINESS_FILE)
     dispatch_route_preview = _load(DISPATCH_ROUTE_PREVIEW_FILE)
+    operator_supervision_contract = _load(OPERATOR_SUPERVISION_CONTRACT_FILE)
     safety = _load(SAFETY_FILE)
     code = f"""// Capital Chronicle ContentOps V5 — Discord Operator Source + GO Phrase Intake Adapter.
 // Generated from local fail-closed intake artifacts. Do not manually edit.
@@ -79,6 +81,8 @@ export const discordOperatorReviewDecisionPacket = {json.dumps(review_decision, 
 export const discordDispatchDecisionReadiness = {json.dumps(dispatch_decision_readiness, indent=2)};
 
 export const discordDispatchRoutePreview = {json.dumps(dispatch_route_preview, indent=2)};
+
+export const discordOperatorSupervisionContract = {json.dumps(operator_supervision_contract, indent=2)};
 
 export const operatorSourceGoPhraseSafetySignature = {json.dumps(safety, indent=2)};
 """
