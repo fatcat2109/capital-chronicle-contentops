@@ -32,6 +32,7 @@ import { explicitLiveScopeGatePacket } from '../data/explicitLiveScopeGateSource
 import { discordSupervisedLivePreflightPacket } from '../data/discordSupervisedLivePreflightAdapter';
 import { discordOperatorGoPacket, operatorGoPhraseValidationModel, operatorGoSafetySignaturePreview } from '../data/discordOperatorGoPacketAdapter';
 import { discordSupervisedLiveDispatchDryRunGatePacket, discordDryRunRequestEnvelopePreview, discordDryRunSafetySignature } from '../data/discordSupervisedLiveDispatchDryRunGateAdapter';
+import { DiscordOperatorSourceGoPhraseIntakePanel } from './DiscordOperatorSourceGoPhraseIntakePanel';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -136,6 +137,8 @@ export function ManualExportPilotVerification() {
           </div>
         </div>
       </Panel>
+
+      <DiscordOperatorSourceGoPhraseIntakePanel />
 
       <Panel
         title="Operator feedback backlog · manual export review"

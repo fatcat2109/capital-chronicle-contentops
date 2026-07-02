@@ -34,6 +34,7 @@ import { explicitLiveScopeGatePacket } from '../data/explicitLiveScopeGateSource
 import { discordSupervisedLivePreflightPacket, requestEnvelopePreview } from '../data/discordSupervisedLivePreflightAdapter';
 import { discordOperatorGoPacket, operatorGoPhraseValidationModel, operatorGoSafetySignaturePreview } from '../data/discordOperatorGoPacketAdapter';
 import { discordSupervisedLiveDispatchDryRunGatePacket, discordDryRunRequestEnvelopePreview, discordDryRunSafetySignature } from '../data/discordSupervisedLiveDispatchDryRunGateAdapter';
+import { DiscordOperatorSourceGoPhraseIntakePanel } from './DiscordOperatorSourceGoPhraseIntakePanel';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -492,6 +493,8 @@ export function EvidenceVault() {
           <div>Locks: review-only GO scaffold; no Discord send/webhook validation/outbox/ledger/scheduler/retry/provider/API/credential value read</div>
         </div>
           </Panel>
+
+      <DiscordOperatorSourceGoPhraseIntakePanel />
 
       <Panel
         title="V6 Discord supervised live-dispatch dry-run gate"

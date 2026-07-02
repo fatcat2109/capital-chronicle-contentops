@@ -1,0 +1,9 @@
+{
+  "destination_binding_confirmed": false,
+  "destination_label": "",
+  "destination_proof_hash": "6fa5036480cb8cb5067f659062dd85d700c7b9bd8cf53551447cf13693f2b43b",
+  "destination_proof_kind": "discord_destination_binding_proof_v0",
+  "platform_api_request_count": 0,
+  "webhook_url_value_read_made": false,
+  "webhook_validation_performed": false
+}

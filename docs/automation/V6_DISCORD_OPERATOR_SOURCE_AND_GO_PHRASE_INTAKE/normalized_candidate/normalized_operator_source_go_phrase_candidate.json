@@ -1,0 +1,30 @@
+{
+  "blocked_reasons": [
+    "blocked_contentops_live_kill_switch_key_missing",
+    "blocked_destination_binding_not_confirmed",
+    "blocked_destination_label_missing",
+    "blocked_discord_live_announcements_channel_label_key_missing",
+    "blocked_discord_live_announcements_webhook_key_missing",
+    "blocked_kill_switch_not_active",
+    "blocked_missing_operator_source_artifact",
+    "blocked_operator_go_phrase_not_recorded",
+    "blocked_operator_go_phrase_not_valid"
+  ],
+  "body_hash_preview": "",
+  "body_value_stored": false,
+  "candidate_hash": "8cd7d29208765fec50e495e81a479b04ecb85b1352243c6ddfb4d0a55fc6a22a",
+  "candidate_id": "discord_operator_source_go_8cd7d29208765fec",
+  "candidate_kind": "discord_operator_source_go_phrase_candidate_v0",
+  "candidate_status": "blocked",
+  "content_type": "",
+  "destination_binding_confirmed": false,
+  "destination_label": "",
+  "dispatchable": false,
+  "go_phrase_present": false,
+  "go_phrase_valid": false,
+  "go_phrase_value_stored": false,
+  "kill_switch_active": false,
+  "platform_family": "discord",
+  "source_artifact_hash": "",
+  "source_artifact_path": ""
+}

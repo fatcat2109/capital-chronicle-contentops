@@ -391,3 +391,17 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Caveats | Gate remains blocked due to missing operator source artifact, exact GO phrase, destination confirmation, credential key presence, and future live authorization. |
 | Validation | Targeted pytest, full Vitest suite, and production Vite build pass successfully. |
 | Next recommendation at time of update | `TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_DRY_RUN_GATE_TO_OPERATOR_SOURCE_ARTIFACT_AND_GO_PHRASE_INTAKE_V0` |
+
+
+## Discord Operator Source Artifact + GO Phrase Intake
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_DRY_RUN_GATE_TO_OPERATOR_SOURCE_ARTIFACT_AND_GO_PHRASE_INTAKE_V0` |
+| Result classification | `complete_fail_closed_local_intake` |
+| Scope | Local/manual operator Discord source artifact, exact GO phrase evidence, destination binding proof, key-name-only credential presence, kill-switch state, V5 read-only visibility. |
+| Packet | `discord_source_go_intake_ca679bca13842222` |
+| Exact payload hash | `ca679bca13842222c0ac50ccaf74da9e463963180a2f557ff738aa03a8279f73` |
+| Safety posture | No Discord send, webhook validation, executable outbox, approval ledger, scheduler, retry, provider call, platform API, public URL fetch, browser session read, credential value read, or env value read. |
+| Caveats | Current committed candidate remains blocked because inbox/operator source and key presence are missing in local committed state. |
+| Next recommendation | `TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0` |

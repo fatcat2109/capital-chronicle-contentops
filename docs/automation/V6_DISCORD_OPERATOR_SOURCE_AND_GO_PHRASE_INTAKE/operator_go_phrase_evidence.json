@@ -1,0 +1,9 @@
+{
+  "expected_phrase_hash": "6bcb999238cff59929d6be1675b003f6f48533710b245aec7d93a1348168be28",
+  "phrase_evidence_hash": "0ab8aad39aa40bf75b6da54ceb8e8203380db4ff12806948eaba8f1b8274ad4f",
+  "phrase_evidence_kind": "discord_operator_go_phrase_evidence_v0",
+  "phrase_exact_match": false,
+  "phrase_present": false,
+  "phrase_value_logged": false,
+  "phrase_value_stored": false
+}

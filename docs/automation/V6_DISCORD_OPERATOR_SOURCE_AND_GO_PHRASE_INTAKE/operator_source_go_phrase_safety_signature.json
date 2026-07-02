@@ -1,0 +1,29 @@
+{
+  "approval_ledger_entry_created": false,
+  "blocked_reasons": [
+    "blocked_contentops_live_kill_switch_key_missing",
+    "blocked_destination_binding_not_confirmed",
+    "blocked_destination_label_missing",
+    "blocked_discord_live_announcements_channel_label_key_missing",
+    "blocked_discord_live_announcements_webhook_key_missing",
+    "blocked_kill_switch_not_active",
+    "blocked_missing_operator_source_artifact",
+    "blocked_operator_go_phrase_not_recorded",
+    "blocked_operator_go_phrase_not_valid"
+  ],
+  "credential_value_read_made": false,
+  "discord_api_call_made": false,
+  "env_value_read_made": false,
+  "executable_outbox_entry_created": false,
+  "live_action_allowed": false,
+  "platform_api_call_made": false,
+  "provider_call_made": false,
+  "ready_for_dispatch": false,
+  "request_envelope_executable": false,
+  "review_only": true,
+  "safety_signature_hash": "22f32cd92c860102e9f70d49a8cd48ee021c935d1d5b995d9624dbdb2a2e866c",
+  "safety_signature_kind": "discord_operator_source_go_phrase_intake_safety_signature_v0",
+  "source_dry_run_gate_hash": "f9d4f7f1945dc120e02c372436122068a76d3b8d117b5cf88b17c45ffe49838a",
+  "source_dry_run_gate_packet_id": "discord_dry_run_gate_f9d4f7f1945dc120",
+  "webhook_validation_performed": false
+}

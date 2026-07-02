@@ -32,6 +32,7 @@ import { explicitLiveScopeGatePacket, normalizedDispatchCandidate } from '../dat
 import { discordSupervisedLivePreflightPacket } from '../data/discordSupervisedLivePreflightAdapter';
 import { discordOperatorGoPacket, operatorGoPhraseValidationModel, operatorGoSafetySignaturePreview } from '../data/discordOperatorGoPacketAdapter';
 import { discordSupervisedLiveDispatchDryRunGatePacket, discordDryRunRequestEnvelopePreview, discordDryRunSafetySignature } from '../data/discordSupervisedLiveDispatchDryRunGateAdapter';
+import { DiscordOperatorSourceGoPhraseIntakePanel } from './DiscordOperatorSourceGoPhraseIntakePanel';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -78,6 +79,8 @@ export function ApprovalQueue() {
           ))}
         </div>
       </Panel>
+
+      <DiscordOperatorSourceGoPhraseIntakePanel />
 
       <Panel
         title="Next article brief candidate · review-only"

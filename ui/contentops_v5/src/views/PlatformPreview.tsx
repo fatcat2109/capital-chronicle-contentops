@@ -26,6 +26,7 @@ import { explicitLiveScopeGatePacket, normalizedDispatchCandidate } from '../dat
 import { discordSupervisedLivePreflightPacket, normalizedDiscordPayloadCandidate } from '../data/discordSupervisedLivePreflightAdapter';
 import { discordOperatorGoPacket, operatorGoPhraseValidationModel, operatorGoSafetySignaturePreview } from '../data/discordOperatorGoPacketAdapter';
 import { discordSupervisedLiveDispatchDryRunGatePacket, discordDryRunRequestEnvelopePreview, discordDryRunSafetySignature } from '../data/discordSupervisedLiveDispatchDryRunGateAdapter';
+import { DiscordOperatorSourceGoPhraseIntakePanel } from './DiscordOperatorSourceGoPhraseIntakePanel';
 
 export function PlatformPreview() {
   const { select, selected } = useApp();
@@ -551,6 +552,8 @@ export function PlatformPreview() {
           <div>Locks: review-only GO scaffold; no Discord send/webhook validation/outbox/ledger/scheduler/retry/provider/API/credential value read</div>
         </div>
       </Panel>
+
+      <DiscordOperatorSourceGoPhraseIntakePanel />
 
       <Panel
         title="V6 Discord supervised live-dispatch dry-run gate"

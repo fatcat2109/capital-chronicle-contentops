@@ -9,6 +9,7 @@ import { explicitLiveScopeGatePacket } from '../data/explicitLiveScopeGateSource
 import { discordSupervisedLivePreflightPacket } from '../data/discordSupervisedLivePreflightAdapter';
 import { discordOperatorGoPacket, operatorGoPhraseValidationModel, operatorGoSafetySignaturePreview } from '../data/discordOperatorGoPacketAdapter';
 import { discordSupervisedLiveDispatchDryRunGatePacket, discordDryRunRequestEnvelopePreview, discordDryRunSafetySignature } from '../data/discordSupervisedLiveDispatchDryRunGateAdapter';
+import { DiscordOperatorSourceGoPhraseIntakePanel } from './DiscordOperatorSourceGoPhraseIntakePanel';
 import {
   selectPreflightBundlePacket,
   selectPreflightPlatformState,
@@ -201,6 +202,8 @@ export function PreflightBundle() {
               </tbody>
             </table>
           </Panel>
+
+      <DiscordOperatorSourceGoPhraseIntakePanel />
 
           {/* Blockers & Missing Proofs summary */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
