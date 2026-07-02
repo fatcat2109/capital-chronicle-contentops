@@ -3,7 +3,7 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "4e3a158a52a619147beed45cf064ee5f7599ddf6",
+  "last_verified_remote_sha": "64b6a2788f2a175c9a172f5cd14e04d675cc78f9",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_SUPERVISED_DISPATCH_ROUTE_PREVIEW_TO_OPERATOR_SUPERVISION_CONTRACT_V0",
   "current_product_phase": "V6 operator supervision contract; non-executable Discord live-edge supervision readiness",
   "current_product_lane": "Discord supervised dispatch route preview to operator supervision contract; supervision contract only; no live execution",
@@ -223,9 +223,9 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "4a95391765f2b81e986a460b2c410df40a88ef84",
-  "last_status_commit_sha": "91271bd7a66cea15a3530c54f69dd9b1f5ef21f5",
-  "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work.",
+  "accepted_product_baseline_sha": "66e1538cecce3126ef447b8e472ec4ad9c2ef504",
+  "last_status_commit_sha": "64b6a2788f2a175c9a172f5cd14e04d675cc78f9",
+  "sha_model": "last_verified_remote_sha is the pre-repair origin/master HEAD observed before this status-only repair. accepted_product_baseline_sha remains the latest accepted product feature baseline and does not advance for status-only repairs. last_status_commit_sha is the latest accepted status/evidence repair commit that updated governance metadata without changing product packets, builders, tests, UI behavior, generated adapter values, or live/dispatch behavior.",
   "latest_changed_areas": [
     "live_contentops/discord_operator_source_go_phrase_intake_v6.py",
     "live_contentops/discord_operator_source_go_phrase_intake_v5_adapter_codegen_v6.py",

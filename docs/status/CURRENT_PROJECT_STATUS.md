@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-4e3a158a52a619147beed45cf064ee5f7599ddf6
+64b6a2788f2a175c9a172f5cd14e04d675cc78f9
 
 ## current_product_phase
 V6 operator supervision contract; non-executable Discord live-edge supervision readiness
@@ -22,11 +22,11 @@ Discord supervised dispatch route preview to operator supervision contract; supe
 Added deterministic non-executable Discord operator supervision contract packet and V5 read-only visibility. Committed state remains blocked because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed. Approved real-decision test path can reach ready_for_operator_supervision_not_dispatch, but still keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `91271bd7a66cea15a3530c54f69dd9b1f5ef21f5`
-- accepted product baseline (`accepted_product_baseline_sha`): `4a95391765f2b81e986a460b2c410df40a88ef84`
-- previous accepted product baseline: `03f8580ff89558418bb41b6c404abbc10f36a570`
-- latest status-only repair commit prior to this task: `72b816f97f819032a3a93008bd1cacbbd50c29ce`
-- Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
+- pre-repair remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `64b6a2788f2a175c9a172f5cd14e04d675cc78f9`
+- accepted product baseline (`accepted_product_baseline_sha`): `66e1538cecce3126ef447b8e472ec4ad9c2ef504`
+- previous accepted product baseline: `4e3a158a52a619147beed45cf064ee5f7599ddf6`
+- latest status/evidence repair commit before this SHA metadata repair (`last_status_commit_sha`): `64b6a2788f2a175c9a172f5cd14e04d675cc78f9`
+- Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
 ## canonical_dashboard_surface
