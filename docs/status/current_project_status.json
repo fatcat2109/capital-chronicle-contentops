@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "4a95391765f2b81e986a460b2c410df40a88ef84",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_TO_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_V0",
-  "current_product_phase": "V6 automation-first Discord dispatch decision readiness lane",
-  "current_product_lane": "operator review decision packet to non-executable dispatch decision readiness; no live execution",
-  "accepted_baseline_summary": "Built non-executable Discord dispatch decision readiness from the operator review decision packet. The new packet binds normalized source intake, dry-run envelope, destination proof, kill-switch evidence, key-name-only credential presence, live preflight, redacted review, and approve/reject/hold review decision state without creating any executable outbox, approval ledger, scheduler, retry, webhook validation, Discord send, platform API call, provider call, browser session read, env value read, or credential value read. Committed state remains blocked because no real operator source artifact or review decision artifact is committed.",
+  "last_verified_remote_sha": "91271bd7a66cea15a3530c54f69dd9b1f5ef21f5",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_CHATGPT_PROJECT_BOOTSTRAP_FOLDER_AND_INSTRUCTION_REALIGN_V0",
+  "current_product_phase": "V6 ChatGPT Project bootstrap and source-retention governance",
+  "current_product_lane": "repo-native ChatGPT bootstrap folder; docs-only; no live execution",
+  "accepted_baseline_summary": "Created docs/CHATGPT_PROJECT_BOOTSTRAP/ as the repo-native ChatGPT Project Source replacement so Jim can safely delete stale Project Sources after GitHub verification. The bootstrap defines replacement ChatGPT Project Instructions, required reading, repo authority hierarchy, automation-first north star, source retention policy, and stale source delete guide. No product runtime behavior, live dispatch, API/browser/provider call, env read, credential read, webhook validation, scheduler, retry, executable outbox, or approval ledger was added.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -143,10 +143,13 @@
     "Discord operator-supplied review decision packet",
     "Discord non-executable dispatch decision readiness packet",
     "Discord dispatch decision approval/reject/hold route normalization",
-    "V5 Discord dispatch decision readiness visibility"
+    "V5 Discord dispatch decision readiness visibility",
+    "ChatGPT Project Bootstrap folder",
+    "ChatGPT replacement Project Instructions",
+    "ChatGPT Project Source retention/delete policy"
   ],
-  "dispatch_live_status": "blocked; dispatch decision readiness is non-executable; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, webhook validation, or live action authorized",
-  "provider_env_credential_status": "gated; key-name presence only; no env value, credential value, webhook URL value, token material, browser/session value, provider key, body value, GO phrase value, or secret-derived metadata was read, printed, or committed",
+  "dispatch_live_status": "blocked; ChatGPT bootstrap is docs-only and authorizes no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, webhook validation, or live action",
+  "provider_env_credential_status": "gated; bootstrap docs contain policy only and did not read, print, hash, derive, or commit env values, credential values, webhook URL values, token material, browser/session values, provider keys, body values, GO phrase values, or secret-derived metadata",
   "active_blockers": [
     "live/provider/platform execution remains disabled",
     "future product UI work must target ui/contentops_v5/ unless newer committed authority supersedes it",
@@ -168,17 +171,20 @@
     "Discord operator source + GO phrase intake remains blocked in committed state because the operator input contract is unsatisfied and no real local operator source artifact, GO phrase, destination binding, credential key presence, or active kill-switch proof is committed; real-vs-fixture separation, live-preflight evidence, destination proof, kill-switch evidence, credential presence evidence, non-real fixture review evidence, and pre-dispatch readiness are runnable but non-executable",
     "Discord redacted operator review packet remains blocked in committed state because no real local operator source artifact, GO phrase, destination binding, credential key presence, or active kill-switch proof is committed; redaction path is runnable but non-dispatchable and stores no body, GO phrase, webhook URL, env values, or credential values",
     "Discord operator review decision packet remains blocked in committed state because no real operator decision artifact is committed; approve/reject/hold parser path is runnable but non-dispatchable and stores no raw notes, body, GO phrase, webhook URL, env values, or credential values",
-    "Discord dispatch decision readiness remains blocked in committed state because no real local operator source artifact or operator review decision artifact is committed; approve/reject/hold route normalization is runnable in tests but non-executable and keeps `dispatchable=false`, `ready_for_dispatch=false`, `live_action_allowed=false`, no outbox, no ledger, no scheduler, no retry, no webhook validation, and no raw env/credential/body/GO phrase value storage."
+    "Discord dispatch decision readiness remains blocked in committed state because no real local operator source artifact or operator review decision artifact is committed; approve/reject/hold route normalization is runnable in tests but non-executable and keeps `dispatchable=false`, `ready_for_dispatch=false`, `live_action_allowed=false`, no outbox, no ledger, no scheduler, no retry, no webhook validation, and no raw env/credential/body/GO phrase value storage.",
+    "ChatGPT Project Sources remain context only; stale uploaded transcripts/no-extension responses must not override committed repo authority"
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree",
-    "automation-first final product follow guide is current strategy companion; manual-first docs are historical only"
+    "automation-first final product follow guide is current strategy companion; manual-first docs are historical only",
+    "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
+    "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_TO_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_V0",
-  "latest_accepted_task_result": "complete_non_executable_dispatch_decision_readiness_packet",
-  "latest_evidence_summary": "Dispatch decision readiness packet discord_dispatch_decision_ce672aeb7f5ff957 / ce672aeb7f5ff95771fcd7fae8a2d2ba56fd16733a1cf831807a3dbf0ec43d09 generated and surfaced in V5; committed state remains blocked/non-executable.",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_CHATGPT_PROJECT_BOOTSTRAP_FOLDER_AND_INSTRUCTION_REALIGN_V0",
+  "latest_accepted_task_result": "complete_chatgpt_project_bootstrap_docs",
+  "latest_evidence_summary": "Created seven-file docs/CHATGPT_PROJECT_BOOTSTRAP/ folder with replacement ChatGPT Project Instructions, authority model, required reading, automation-first north star, source retention policy, and stale Project Sources delete guide.",
   "next_recommended_task": "TASK_CONTENTOPS_V6_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_TO_SUPERVISED_DISPATCH_ROUTE_PREVIEW_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
@@ -213,17 +219,16 @@
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
   "accepted_product_baseline_sha": "4a95391765f2b81e986a460b2c410df40a88ef84",
-  "last_status_commit_sha": "4a95391765f2b81e986a460b2c410df40a88ef84",
+  "last_status_commit_sha": "91271bd7a66cea15a3530c54f69dd9b1f5ef21f5",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work.",
   "latest_changed_areas": [
-    "live_contentops/discord_operator_source_go_phrase_intake_v6.py",
-    "live_contentops/discord_operator_source_go_phrase_intake_v5_adapter_codegen_v6.py",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/dispatch_decision_readiness/discord_dispatch_decision_readiness.json",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_intake_packet.json",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_safety_signature.json",
-    "ui/contentops_v5/src/data/discordOperatorSourceGoPhraseIntakeAdapter.ts",
-    "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx",
-    "tests/test_discord_operator_source_go_phrase_intake_v6.py",
+    "docs/CHATGPT_PROJECT_BOOTSTRAP/README.md",
+    "docs/CHATGPT_PROJECT_BOOTSTRAP/CHATGPT_PROJECT_INSTRUCTION.md",
+    "docs/CHATGPT_PROJECT_BOOTSTRAP/REQUIRED_READING_INDEX.md",
+    "docs/CHATGPT_PROJECT_BOOTSTRAP/AUTHORITY_MODEL.md",
+    "docs/CHATGPT_PROJECT_BOOTSTRAP/CURRENT_AUTOMATION_FIRST_NORTH_STAR.md",
+    "docs/CHATGPT_PROJECT_BOOTSTRAP/SOURCE_RETENTION_POLICY.md",
+    "docs/CHATGPT_PROJECT_BOOTSTRAP/STALE_PROJECT_SOURCES_DELETE_GUIDE.md",
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json"
   ]

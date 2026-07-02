@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_TO_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_V0
+TASK_CONTENTOPS_V6_CHATGPT_PROJECT_BOOTSTRAP_FOLDER_AND_INSTRUCTION_REALIGN_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,19 +10,19 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-4a95391765f2b81e986a460b2c410df40a88ef84
+91271bd7a66cea15a3530c54f69dd9b1f5ef21f5
 
 ## current_product_phase
-V6 automation-first Discord dispatch decision readiness lane
+V6 ChatGPT Project bootstrap and source-retention governance
 
 ## current_product_lane
-operator review decision packet to non-executable dispatch decision readiness; no live execution
+repo-native ChatGPT bootstrap folder; docs-only; no live execution
 
 ## accepted_baseline_summary
-Built non-executable Discord dispatch decision readiness from the operator review decision packet. The new packet binds normalized source intake, dry-run envelope, destination proof, kill-switch evidence, key-name-only credential presence, live preflight, redacted review, and approve/reject/hold review decision state without creating any executable outbox, approval ledger, scheduler, retry, webhook validation, Discord send, platform API call, provider call, browser session read, env value read, or credential value read. Committed state remains blocked because no real operator source artifact or review decision artifact is committed.
+Created docs/CHATGPT_PROJECT_BOOTSTRAP/ as the repo-native ChatGPT Project Source replacement so Jim can safely delete stale Project Sources after GitHub verification. The bootstrap defines replacement ChatGPT Project Instructions, required reading, repo authority hierarchy, automation-first north star, source retention policy, and stale source delete guide. No product runtime behavior, live dispatch, API/browser/provider call, env read, credential read, webhook validation, scheduler, retry, executable outbox, or approval ledger was added.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `4a95391765f2b81e986a460b2c410df40a88ef84`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `91271bd7a66cea15a3530c54f69dd9b1f5ef21f5`
 - accepted product baseline (`accepted_product_baseline_sha`): `4a95391765f2b81e986a460b2c410df40a88ef84`
 - previous accepted product baseline: `03f8580ff89558418bb41b6c404abbc10f36a570`
 - latest status-only repair commit prior to this task: `72b816f97f819032a3a93008bd1cacbbd50c29ce`
@@ -50,7 +50,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, normalized pre-dispatch readiness, safety signature, and V5 read-only intake panel. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
+V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
 
 ## dispatch/live status
 Dispatch/live remains blocked. No autonomous publish, schedule, retry, queue execution, platform API call, provider call, credential read, env value read, browser session read, DM, comment, like, reaction, webhook validation, or live send is authorized by this status ledger.
@@ -73,17 +73,16 @@ Provider/env/credential handling remains gated. Env/key presence appears only as
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_TO_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_V0
+TASK_CONTENTOPS_V6_CHATGPT_PROJECT_BOOTSTRAP_FOLDER_AND_INSTRUCTION_REALIGN_V0
 
 ## latest changed areas
-- `live_contentops/discord_operator_source_go_phrase_intake_v6.py`
-- `live_contentops/discord_operator_source_go_phrase_intake_v5_adapter_codegen_v6.py`
-- `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/dispatch_decision_readiness/discord_dispatch_decision_readiness.json`
-- `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_intake_packet.json`
-- `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_safety_signature.json`
-- `ui/contentops_v5/src/data/discordOperatorSourceGoPhraseIntakeAdapter.ts`
-- `ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx`
-- `tests/test_discord_operator_source_go_phrase_intake_v6.py`
+- `docs/CHATGPT_PROJECT_BOOTSTRAP/README.md`
+- `docs/CHATGPT_PROJECT_BOOTSTRAP/CHATGPT_PROJECT_INSTRUCTION.md`
+- `docs/CHATGPT_PROJECT_BOOTSTRAP/REQUIRED_READING_INDEX.md`
+- `docs/CHATGPT_PROJECT_BOOTSTRAP/AUTHORITY_MODEL.md`
+- `docs/CHATGPT_PROJECT_BOOTSTRAP/CURRENT_AUTOMATION_FIRST_NORTH_STAR.md`
+- `docs/CHATGPT_PROJECT_BOOTSTRAP/SOURCE_RETENTION_POLICY.md`
+- `docs/CHATGPT_PROJECT_BOOTSTRAP/STALE_PROJECT_SOURCES_DELETE_GUIDE.md`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 
@@ -261,3 +260,11 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Real-vs-fixture state: `real_operator_artifact_present=False`, `fixture_only=False`, `non_real_fixture=False`.
 - Approval route candidate: `False`; reject route recorded: `False`; hold route recorded: `False`.
 - Safety: `dispatchable=false`, `ready_for_dispatch=false`, `live_action_allowed=false`, `request_envelope_executable=false`, no executable outbox, no approval ledger, no scheduler, no retry, no webhook validation, no Discord send, no platform API call, no provider call, no browser session read, no env value read, no credential value read.
+
+## ChatGPT Project Bootstrap Folder
+
+- Latest task: `TASK_CONTENTOPS_V6_CHATGPT_PROJECT_BOOTSTRAP_FOLDER_AND_INSTRUCTION_REALIGN_V0`.
+- Current lane: repo-native ChatGPT Project Bootstrap folder and source-retention governance.
+- Scope: seven required files under `docs/CHATGPT_PROJECT_BOOTSTRAP/` covering replacement ChatGPT Project Instructions, required reading, authority model, automation-first north star, source retention policy, and stale Project Sources delete guide.
+- Retention state: old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub; if any source is kept, keep only `docs/CHATGPT_PROJECT_BOOTSTRAP/`.
+- Safety: docs-only; no live dispatch, API/browser/provider call, env value read, credential value read, webhook validation, scheduler, retry, executable outbox, approval ledger, public URL fetch, platform action, or product runtime change.
