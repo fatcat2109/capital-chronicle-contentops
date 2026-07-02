@@ -1,0 +1,60 @@
+{
+  "approval_ledger_entry_created": false,
+  "blocked_reasons": [
+    "blocked_missing_operator_source_artifact",
+    "blocked_operator_go_phrase_not_recorded",
+    "blocked_operator_go_phrase_not_valid",
+    "blocked_operator_supplied_input_contract_unsatisfied"
+  ],
+  "body_value_stored": false,
+  "credential_value_read_made": false,
+  "dispatchable": false,
+  "env_value_read_made": false,
+  "executable_outbox_entry_created": false,
+  "fixture_can_satisfy_contract": false,
+  "fixture_vs_real_separation_enforced": true,
+  "forbidden_fixture_markers": [
+    "non_real_fixture=true",
+    "fixture_only=true"
+  ],
+  "go_phrase_value_stored": false,
+  "live_action_allowed": false,
+  "operator_input_contract_hash": "b3489e58ecfbaf7419a9532239d64290eefc8608867bc9810a56737fe8adc5a0",
+  "operator_input_contract_id": "discord_operator_input_contract_b3489e58ecfbaf74",
+  "operator_input_contract_kind": "discord_operator_supplied_live_preflight_input_contract_v0",
+  "operator_input_contract_status": "blocked",
+  "operator_source_artifact_kind": "missing",
+  "platform_family": "discord",
+  "ready_for_dispatch": false,
+  "real_operator_artifact_intake_ready": false,
+  "real_operator_artifact_present": false,
+  "request_envelope_executable": false,
+  "required_inbox_path": "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/inbox/",
+  "required_json_field_values": {
+    "destination_binding_confirmed": true,
+    "fixture_only": false,
+    "kill_switch_active": true,
+    "non_real_fixture": false,
+    "not_public_postable": false,
+    "real_operator_artifact_claimed": true
+  },
+  "required_json_fields": [
+    "real_operator_artifact_claimed",
+    "non_real_fixture",
+    "fixture_only",
+    "not_public_postable",
+    "body",
+    "go_phrase",
+    "destination_label",
+    "destination_binding_confirmed",
+    "kill_switch_active"
+  ],
+  "single_artifact_expected": true,
+  "source_artifact_hash": "",
+  "source_artifact_path": "",
+  "supported_file_extensions": [
+    ".json"
+  ],
+  "webhook_url_value_stored": false,
+  "webhook_validation_performed": false
+}

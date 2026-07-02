@@ -462,3 +462,18 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 - Real-vs-fixture state: committed default has `operator_source_artifact_kind=missing`, `real_operator_artifact_present=false`, `real_operator_artifact_intake_ready=false`, `fixture_vs_real_separation_enforced=true`.
 - Safety: no Discord send, webhook validation, raw env/credential reads, executable outbox, approval ledger, schedule, retry, provider/API/browser/live action.
 - Next: `TASK_CONTENTOPS_V6_REAL_OPERATOR_ARTIFACT_INTAKE_TO_OPERATOR_SUPPLIED_LIVE_PREFLIGHT_REVIEW_V0`.
+
+## Discord Operator-Supplied Live-Preflight Input Contract
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_REAL_OPERATOR_ARTIFACT_INTAKE_TO_OPERATOR_SUPPLIED_LIVE_PREFLIGHT_REVIEW_V0` |
+| Accepted product baseline SHA | Final feature commit reported after push/readback; starting baseline `6e7a439a316ee41c4aaa6ba6a065619e546b2ed5`. |
+| Result classification | `complete_blocked_operator_input_contract` |
+| Scope | Added explicit operator-supplied live-preflight input contract evidence, wired contract IDs/hashes into intake, live-preflight, pre-dispatch readiness, safety signature, TS adapter, and canonical V5 read-only panel. |
+| Packet | `discord_source_go_intake_c61f23f100b0313d` / `c61f23f100b0313da75d79b6928643fc1d46a9fc3e1fb176e64e2c653f1b0cd1` |
+| Operator input contract | `discord_operator_input_contract_b3489e58ecfbaf74` / `b3489e58ecfbaf7419a9532239d64290eefc8608867bc9810a56737fe8adc5a0` / `blocked` |
+| Live preflight | `discord_live_preflight_9cc5e25e291bae28` / `9cc5e25e291bae289ba3b951d6b8b1b1c7151048d7dfd4354f008a7d29eb6822` / `blocked` |
+| Safety posture | No Discord send, webhook validation, webhook URL read, executable outbox, approval ledger entry, scheduler, retry, provider/API call, browser session read, raw env read, or credential value read. |
+| Caveats | Committed state remains blocked because no real operator artifact is present in inbox; non-real fixtures cannot satisfy this contract. |
+| Next recommendation | `TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_LIVE_PREFLIGHT_REVIEW_TO_REDACTED_OPERATOR_REVIEW_PACKET_V0` |

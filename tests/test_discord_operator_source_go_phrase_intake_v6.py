@@ -25,6 +25,7 @@ CREDENTIAL_PRESENCE = PACKET_DIR / "credential_presence_evidence" / "discord_cre
 FIXTURE_REVIEW = PACKET_DIR / "fixture_review" / "discord_operator_source_artifact_fixture_review.json"
 PRE_DISPATCH = PACKET_DIR / "pre_dispatch_readiness" / "discord_pre_dispatch_readiness.json"
 LIVE_PREFLIGHT = PACKET_DIR / "live_preflight" / "discord_blocked_live_preflight.json"
+OPERATOR_INPUT_CONTRACT = PACKET_DIR / "operator_input_contract" / "discord_operator_supplied_live_preflight_input_contract.json"
 FIXTURE_EXAMPLE = PACKET_DIR / "fixtures" / "non_real_operator_source_fixture.example.json"
 SURFACES = [
     ROOT / "ui" / "contentops_v5" / "src" / "views" / "ApprovalQueue.tsx",
@@ -87,6 +88,17 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
     fixture_review = json.loads(FIXTURE_REVIEW.read_text(encoding="utf-8"))
     pre_dispatch = json.loads(PRE_DISPATCH.read_text(encoding="utf-8"))
     live_preflight = json.loads(LIVE_PREFLIGHT.read_text(encoding="utf-8"))
+    input_contract = json.loads(OPERATOR_INPUT_CONTRACT.read_text(encoding="utf-8"))
+    assert packet["operator_input_contract_status"] == "blocked"
+    assert input_contract["operator_input_contract_status"] == "blocked"
+    assert input_contract["fixture_can_satisfy_contract"] is False
+    assert input_contract["required_inbox_path"] == "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/inbox/"
+    assert "blocked_operator_supplied_input_contract_unsatisfied" in input_contract["blocked_reasons"]
+    assert input_contract["body_value_stored"] is False
+    assert input_contract["go_phrase_value_stored"] is False
+    assert input_contract["credential_value_read_made"] is False
+    assert input_contract["env_value_read_made"] is False
+    assert input_contract["webhook_validation_performed"] is False
     assert packet["real_operator_artifact_present"] is False
     assert packet["real_operator_artifact_intake_ready"] is False
     assert packet["fixture_vs_real_separation_enforced"] is True
@@ -150,6 +162,7 @@ def test_valid_non_real_fixture_ready_for_fixture_review_never_dispatches(monkey
     fixture_review = json.loads(FIXTURE_REVIEW.read_text(encoding="utf-8"))
     pre_dispatch = json.loads(PRE_DISPATCH.read_text(encoding="utf-8"))
     live_preflight = json.loads(LIVE_PREFLIGHT.read_text(encoding="utf-8"))
+    input_contract = json.loads(OPERATOR_INPUT_CONTRACT.read_text(encoding="utf-8"))
 
     assert packet["intake_status"] == "ready_for_operator_review_not_dispatch"
     assert packet["operator_source_artifact_kind"] == "non_real_fixture"
@@ -160,6 +173,9 @@ def test_valid_non_real_fixture_ready_for_fixture_review_never_dispatches(monkey
     assert packet["real_operator_artifact_present"] is False
     assert packet["real_operator_artifact_intake_ready"] is False
     assert packet["fixture_vs_real_separation_enforced"] is True
+    assert input_contract["operator_input_contract_status"] == "blocked"
+    assert input_contract["fixture_can_satisfy_contract"] is False
+    assert "blocked_operator_supplied_input_contract_fixture_not_allowed" in input_contract["blocked_reasons"]
     assert live_preflight["live_preflight_status"] == "blocked"
     assert "blocked_non_real_fixture_cannot_satisfy_real_operator_artifact" in live_preflight["blocked_reasons"]
     assert packet["operator_go_phrase_valid"] is True
@@ -242,7 +258,14 @@ def test_valid_real_operator_artifact_ready_for_preflight_review_never_dispatche
     packet = build_operator_source_go_phrase_intake()
     live_preflight = json.loads(LIVE_PREFLIGHT.read_text(encoding="utf-8"))
     fixture_review = json.loads(FIXTURE_REVIEW.read_text(encoding="utf-8"))
+    input_contract = json.loads(OPERATOR_INPUT_CONTRACT.read_text(encoding="utf-8"))
 
+    assert packet["operator_input_contract_status"] == "satisfied_for_real_artifact_review"
+    assert input_contract["operator_input_contract_status"] == "satisfied_for_real_artifact_review"
+    assert input_contract["blocked_reasons"] == []
+    assert input_contract["dispatchable"] is False
+    assert input_contract["ready_for_dispatch"] is False
+    assert input_contract["live_action_allowed"] is False
     assert packet["operator_source_artifact_kind"] == "real_operator_artifact"
     assert packet["operator_source_artifact_real_claimed"] is True
     assert packet["real_operator_artifact_present"] is True
@@ -317,6 +340,7 @@ def test_adapter_sync_and_ui_surfaces() -> None:
     }
     assert "discordOperatorSourceArtifactFixtureReview" in ADAPTER.read_text(encoding="utf-8")
     assert "discordLivePreflightEvidence" in ADAPTER.read_text(encoding="utf-8")
+    assert "discordOperatorInputContract" in ADAPTER.read_text(encoding="utf-8")
     combined = "\n".join(path.read_text(encoding="utf-8") for path in SURFACES)
     assert combined.count("DiscordOperatorSourceGoPhraseIntakePanel") >= len(SURFACES)
     panel = (ROOT / "ui" / "contentops_v5" / "src" / "views" / "DiscordOperatorSourceGoPhraseIntakePanel.tsx").read_text(encoding="utf-8")
@@ -351,6 +375,14 @@ def test_adapter_sync_and_ui_surfaces() -> None:
         "real_operator_artifact_present=",
         "real_operator_artifact_intake_ready=",
         "fixture_vs_real_separation_enforced=",
+        "operator_input_contract_id=",
+        "operator_input_contract_hash=",
+        "operator_input_contract_status=",
+        "operator_input_contract_required_inbox_path=",
+        "operator_input_contract_required_json_fields=",
+        "operator_input_contract_forbidden_fixture_markers=",
+        "fixture_can_satisfy_contract=",
+        "operator_input_contract_blocked_reasons=",
         "live_preflight_id=",
         "live_preflight_hash=",
         "live_preflight_status=",

@@ -6,6 +6,7 @@ import {
   discordDestinationBindingProof,
   discordKillSwitchEvidence,
   discordLivePreflightEvidence,
+  discordOperatorInputContract,
   discordOperatorSourceArtifactFixtureReview,
   discordOperatorSourceGoPhraseIntakePacket,
   discordPreDispatchReadiness,
@@ -22,6 +23,7 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
   const envelope = discordReviewOnlyDryRunEnvelopeNormalization;
   const fixtureReview = discordOperatorSourceArtifactFixtureReview;
   const livePreflight = discordLivePreflightEvidence;
+  const inputContract = discordOperatorInputContract;
   const readiness = discordPreDispatchReadiness;
 
   return (
@@ -55,6 +57,9 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <Metric label="Credential proof" value={discordCredentialPresenceEvidence.credential_presence_evidence_id} status="blocked" />
         <Metric label="Fixture review" value={fixtureReview.fixture_review_status} status="blocked" />
         <Metric label="Fixture review hash" value={fixtureReview.fixture_review_hash} status="verified" />
+        <Metric label="Operator input contract" value={inputContract.operator_input_contract_status} status="blocked" />
+        <Metric label="Input contract hash" value={inputContract.operator_input_contract_hash} status="verified" />
+        <Metric label="Required inbox" value={inputContract.required_inbox_path} status="blocked" />
         <Metric label="Live preflight" value={livePreflight.live_preflight_status} status="blocked" />
         <Metric label="Live preflight hash" value={livePreflight.live_preflight_hash} status="verified" />
         <Metric label="Pre-dispatch readiness" value={readiness.pre_dispatch_readiness_status} status="blocked" />
@@ -95,6 +100,13 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <div>fixture_review_hash={packet.fixture_review_hash}</div>
         <div>fixture_review_status={packet.fixture_review_status}</div>
         <div>fixture_review_ready={String(packet.fixture_review_ready)}</div>
+        <div>operator_input_contract_id={packet.operator_input_contract_id}</div>
+        <div>operator_input_contract_hash={packet.operator_input_contract_hash}</div>
+        <div>operator_input_contract_status={packet.operator_input_contract_status}</div>
+        <div>operator_input_contract_required_inbox_path={inputContract.required_inbox_path}</div>
+        <div>operator_input_contract_required_json_fields={JSON.stringify(inputContract.required_json_fields)}</div>
+        <div>operator_input_contract_forbidden_fixture_markers={JSON.stringify(inputContract.forbidden_fixture_markers)}</div>
+        <div>fixture_can_satisfy_contract={String(inputContract.fixture_can_satisfy_contract)}</div>
         <div>live_preflight_id={packet.live_preflight_id}</div>
         <div>live_preflight_hash={packet.live_preflight_hash}</div>
         <div>live_preflight_status={packet.live_preflight_status}</div>
@@ -111,6 +123,7 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <div>env_value_read_made=false</div>
         <div>webhook_validation_performed=false</div>
         <div>blocked_reasons={JSON.stringify(packet.blocked_reasons)}</div>
+        <div>operator_input_contract_blocked_reasons={JSON.stringify(inputContract.blocked_reasons)}</div>
         <div>live_preflight_blocked_reasons={JSON.stringify(livePreflight.blocked_reasons)}</div>
         <div>fixture_caveats={JSON.stringify(fixtureReview.fixture_caveats)}</div>
         <div>Locks: intake/normalization/fixture review only; no Discord send/webhook validation/outbox/ledger/scheduler/retry/provider/API/credential value read</div>

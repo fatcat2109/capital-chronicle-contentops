@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "9306266db0430196617d8badac377407c3adf0da",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_FIXTURE_REVIEW_READY_TO_REAL_OPERATOR_ARTIFACT_INTAKE_OR_BLOCKED_LIVE_PREFLIGHT_V0",
-  "current_product_phase": "V6 Discord real operator artifact intake readiness / blocked live-preflight lane",
-  "current_product_lane": "fail-closed Discord real-vs-fixture source intake with blocked live-preflight evidence",
-  "accepted_baseline_summary": "Discord operator source + GO phrase intake now has explicit real-vs-fixture separation and a blocked live-preflight evidence packet. Committed default packet discord_source_go_intake_f4bfb9047893f89c has exact payload hash f4bfb9047893f89c217e4ad076d67a558a663f62143a7648237344f0aad3a363; live-preflight packet discord_live_preflight_52f88614ea61c3cc has hash 52f88614ea61c3ccbc07287910058ed78d08a84150d04d34935736fd3cca7b2f; pre-dispatch readiness discord_pre_dispatch_2a4b41d44caaf670 has hash 2a4b41d44caaf670f82f377e3aad55652219f7a32e525f83777d7ea36db77fdf. Committed state remains blocked/fail-closed because no real operator source artifact, GO phrase, destination binding, credential key presence, or active kill-switch proof is committed. Non-real fixtures are test/review-only and cannot satisfy real operator artifact preflight.",
+  "last_verified_remote_sha": "662f742386459609decef3e7b884616156ace2d0",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_REAL_OPERATOR_ARTIFACT_INTAKE_TO_OPERATOR_SUPPLIED_LIVE_PREFLIGHT_REVIEW_V0",
+  "current_product_phase": "V6 Discord operator-supplied live-preflight review contract lane",
+  "current_product_lane": "fail-closed Discord operator input contract with blocked live-preflight evidence",
+  "accepted_baseline_summary": "Discord operator source + GO phrase intake now emits an explicit operator-supplied live-preflight input contract. Committed default packet discord_source_go_intake_c61f23f100b0313d has exact payload hash c61f23f100b0313da75d79b6928643fc1d46a9fc3e1fb176e64e2c653f1b0cd1; operator input contract discord_operator_input_contract_b3489e58ecfbaf74 has hash b3489e58ecfbaf7419a9532239d64290eefc8608867bc9810a56737fe8adc5a0 and status blocked; live-preflight packet discord_live_preflight_9cc5e25e291bae28 has hash 9cc5e25e291bae289ba3b951d6b8b1b1c7151048d7dfd4354f008a7d29eb6822 and status blocked; pre-dispatch readiness discord_pre_dispatch_ddddc470f0c64b05 has hash ddddc470f0c64b0563be121e9a062b10b7e2e71717ba7c7a2ebcc565da22e3e3. Committed state remains blocked/fail-closed because no real operator source artifact, GO phrase, destination binding, credential key presence, or active kill-switch proof is committed. Contract evidence is key-name/value-free and fixtures cannot satisfy real operator artifact review.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -135,10 +135,12 @@
     "Discord operator source artifact non-real fixture review packet",
     "Discord operator source artifact non-real fixture example",
     "Discord blocked live-preflight evidence packet",
-    "Discord real-vs-fixture operator source separation"
+    "Discord real-vs-fixture operator source separation",
+    "Discord operator-supplied live-preflight input contract packet",
+    "Discord operator input contract V5 visibility"
   ],
-  "dispatch_live_status": "blocked; real-vs-fixture operator source intake, live-preflight evidence, non-real fixture review evidence, review-only dry-run envelope normalization, destination proof, kill-switch evidence, credential presence evidence, and pre-dispatch readiness only; no Discord send, webhook validation, dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, or live action authorized",
-  "provider_env_credential_status": "gated; evidence uses key-name-only credential presence states; no env value or credential value reads; no webhook URL value reads; fixtures remain non-real and not public-postable",
+  "dispatch_live_status": "blocked; operator-supplied input contract, real-vs-fixture source intake, live-preflight evidence, non-real fixture review evidence, review-only dry-run envelope normalization, destination proof, kill-switch evidence, credential presence evidence, and pre-dispatch readiness only; no Discord send, webhook validation, dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, or live action authorized",
+  "provider_env_credential_status": "gated; operator input contract and credential evidence use key names/flags only; no env value, credential value, webhook URL value, body value, or GO phrase value reads/stores; fixtures remain non-real and cannot satisfy real operator artifact review",
   "active_blockers": [
     "live/provider/platform execution remains disabled",
     "future product UI work must target ui/contentops_v5/ unless newer committed authority supersedes it",
@@ -157,17 +159,17 @@
     "next article platform variant dispatch outbox dry-run to operator runbook and recovery is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
     "Discord operator GO packet remains blocked until operator source artifact, exact GO phrase, destination confirmation, and explicit future live authorization are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized",
     "Discord supervised live-dispatch dry-run gate remains blocked until operator source artifact, exact GO phrase, destination binding, credential key presence, and active kill switch are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized",
-    "Discord operator source + GO phrase intake remains blocked in committed state because no real local operator source artifact, GO phrase, destination binding, credential key presence, or active kill-switch proof is committed; real-vs-fixture separation, live-preflight evidence, destination proof, kill-switch evidence, credential presence evidence, non-real fixture review evidence, and pre-dispatch readiness are runnable but non-executable"
+    "Discord operator source + GO phrase intake remains blocked in committed state because the operator input contract is unsatisfied and no real local operator source artifact, GO phrase, destination binding, credential key presence, or active kill-switch proof is committed; real-vs-fixture separation, live-preflight evidence, destination proof, kill-switch evidence, credential presence evidence, non-real fixture review evidence, and pre-dispatch readiness are runnable but non-executable"
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_FIXTURE_REVIEW_READY_TO_REAL_OPERATOR_ARTIFACT_INTAKE_OR_BLOCKED_LIVE_PREFLIGHT_V0",
-  "latest_accepted_task_result": "complete_blocked_live_preflight; real-vs-fixture source separation generated fail-closed and non-dispatchable",
-  "latest_evidence_summary": "Intake builder, normalized candidate, review-only envelope, destination proof, kill-switch evidence, key-name-only credential presence evidence, fixture review packet, blocked live-preflight packet, pre-dispatch readiness, safety signature, TS adapter, V5 read-only panel, pytest, V5 tests, and V5 build verified.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_REAL_OPERATOR_ARTIFACT_INTAKE_TO_OPERATOR_SUPPLIED_LIVE_PREFLIGHT_REVIEW_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_REAL_OPERATOR_ARTIFACT_INTAKE_TO_OPERATOR_SUPPLIED_LIVE_PREFLIGHT_REVIEW_V0",
+  "latest_accepted_task_result": "complete_blocked_operator_input_contract; real artifact review path runnable and non-dispatchable",
+  "latest_evidence_summary": "Intake builder, operator input contract, normalized candidate, review-only envelope, destination proof, kill-switch evidence, key-name-only credential presence evidence, fixture review packet, blocked live-preflight packet, pre-dispatch readiness, safety signature, TS adapter, V5 read-only panel, pytest, V5 tests, and V5 build verified.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_LIVE_PREFLIGHT_REVIEW_TO_REDACTED_OPERATOR_REVIEW_PACKET_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -200,8 +202,8 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "9306266db0430196617d8badac377407c3adf0da",
-  "last_status_commit_sha": "9306266db0430196617d8badac377407c3adf0da",
+  "accepted_product_baseline_sha": "662f742386459609decef3e7b884616156ace2d0",
+  "last_status_commit_sha": "662f742386459609decef3e7b884616156ace2d0",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work.",
   "latest_changed_areas": [
     "live_contentops/discord_operator_source_go_phrase_intake_v6.py",
@@ -217,6 +219,7 @@
     "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/fixture_review/",
     "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/fixtures/",
     "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/live_preflight/",
-    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_safety_signature.json"
+    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_safety_signature.json",
+    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_input_contract/"
   ]
 }

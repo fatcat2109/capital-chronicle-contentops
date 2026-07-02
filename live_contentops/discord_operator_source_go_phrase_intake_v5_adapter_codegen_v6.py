@@ -15,6 +15,7 @@ CREDENTIAL_PRESENCE_FILE = PACKET_DIR / "credential_presence_evidence" / "discor
 PRE_DISPATCH_FILE = PACKET_DIR / "pre_dispatch_readiness" / "discord_pre_dispatch_readiness.json"
 SAFETY_FILE = PACKET_DIR / "operator_source_go_phrase_safety_signature.json"
 LIVE_PREFLIGHT_FILE = PACKET_DIR / "live_preflight" / "discord_blocked_live_preflight.json"
+OPERATOR_INPUT_CONTRACT_FILE = PACKET_DIR / "operator_input_contract" / "discord_operator_supplied_live_preflight_input_contract.json"
 TS_ADAPTER_FILE = ROOT / "ui" / "contentops_v5" / "src" / "data" / "discordOperatorSourceGoPhraseIntakeAdapter.ts"
 
 
@@ -36,6 +37,7 @@ def generate_operator_source_go_phrase_intake_adapter(verify_only: bool = False)
     fixture_review = _load(PACKET_DIR / "fixture_review" / "discord_operator_source_artifact_fixture_review.json")
     pre_dispatch = _load(PRE_DISPATCH_FILE)
     live_preflight = _load(LIVE_PREFLIGHT_FILE)
+    operator_input_contract = _load(OPERATOR_INPUT_CONTRACT_FILE)
     safety = _load(SAFETY_FILE)
     code = f"""// Capital Chronicle ContentOps V5 — Discord Operator Source + GO Phrase Intake Adapter.
 // Generated from local fail-closed intake artifacts. Do not manually edit.
@@ -59,6 +61,8 @@ export const discordOperatorSourceArtifactFixtureReview = {json.dumps(fixture_re
 export const discordPreDispatchReadiness = {json.dumps(pre_dispatch, indent=2)};
 
 export const discordLivePreflightEvidence = {json.dumps(live_preflight, indent=2)};
+
+export const discordOperatorInputContract = {json.dumps(operator_input_contract, indent=2)};
 
 export const operatorSourceGoPhraseSafetySignature = {json.dumps(safety, indent=2)};
 """
