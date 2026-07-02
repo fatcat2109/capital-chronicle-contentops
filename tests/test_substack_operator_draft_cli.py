@@ -167,3 +167,51 @@ def test_cli_requires_args():
         assert exc.code == 2
     else:
         raise AssertionError("missing args should exit")
+
+
+def test_cli_secret_leakage_guard():
+    from live_contentops.cli_safety import assert_clean_of_secrets
+    import pytest
+    bad_evidence = {"task_label": "TASK_0013", "leaked_secret": "my_secret_token_123"}
+    with pytest.raises(AssertionError, match="Secret leakage detected"):
+        assert_clean_of_secrets(bad_evidence, ["my_secret_token_123"])
+
+
+def test_cli_dry_run_excludes_env_secrets_from_output(tmp_path, capsys):
+    fake_secret = "SECRET_SUBSTACK_COOKIE_ABC"
+    out = tmp_path / "evidence.json"
+    code = cli.main(
+        [
+            "--title", "Test Title",
+            "--body", "Test Body",
+            "--output", str(out)
+        ],
+        secrets=[fake_secret]
+    )
+    assert code == 0
+    evidence = json.loads(out.read_text(encoding="utf-8"))
+    printed = capsys.readouterr().out
+    assert fake_secret not in printed
+    assert fake_secret not in json.dumps(evidence)
+
+
+def test_cli_dry_run_fails_if_secret_leaked(tmp_path):
+    fake_secret = "Test Body" # Exists in the body, which might go into evidence fields if not careful, wait, body is NOT printed raw in the evidence except as message_sha256/message_length. But if we try to inject it as task-id or title, it would leak.
+    # Let's test that if we inject a secret that is in the title, it gets caught!
+    fake_secret = "SECRET_IN_TITLE_XYZ"
+    out = tmp_path / "evidence.json"
+    
+    # Wait, the CLI doesn't print title in evidence. Let's see if we inject a secret that matches "TASK_0013" (which is in task_label)
+    # Yes, task_label contains TASK_0013. If we inject "TASK_0013" as a secret, assert_clean_of_secrets should raise AssertionError!
+    import pytest
+    with pytest.raises(AssertionError, match="Secret leakage detected"):
+        cli.main(
+            [
+                "--title", "Test Title",
+                "--body", "Test Body",
+                "--task-id", "0013",
+                "--output", str(out)
+            ],
+            secrets=["TASK_0013"]
+        )
+
