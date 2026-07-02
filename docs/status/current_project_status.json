@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "04b45dfcbddf7870ab30a3b9ca0f2b3168532a8e",
-  "last_updated_by_task": "TASK_0023",
-  "current_product_phase": "TASK 0023 Substack publish preflight blocked safely",
+  "last_verified_remote_sha": "6f26ab5b400a2dc41b25d7269bcb48e4ef45d09b",
+  "last_updated_by_task": "TASK_0026",
+  "current_product_phase": "TASK 0026 Substack publish preflight blocked safely",
   "current_product_lane": "Substack publish preflight only; publish remains not proven and hard-locked",
-  "accepted_baseline_summary": "TASK 0023 supervised Substack publish preflight used current active draft only and blocked safely with blocker=ui_uncertainty because publish controls were not detected. No publish, schedule, email, private URL, body, title, screenshot, cookies, localStorage, sessionStorage, DOM dump, or secrets were recorded.",
+  "accepted_baseline_summary": "TASK 0026 supervised Substack publish preflight used UI-signal-only classification on the current active draft/editor tab and blocked safely with blocker=ui_uncertainty because publish controls were not detected. current_page_class=editor_or_draft_candidate; current_page_reason=editor_ui_signal. No publish, schedule, email, private URL, title, body, screenshot, DOM dump, cookies, storage, env values, or secrets were recorded.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -174,7 +174,7 @@
     "Operator platform quickstart",
     "Platform operation matrix"
   ],
-  "dispatch_live_status": "TASK_0023 ran one supervised Substack publish preflight on the current active draft tab. Result was BLOCKED with blocker=ui_uncertainty; no publish, schedule, email, private URL, body, title, screenshot, cookies, localStorage, sessionStorage, DOM dump, or secrets were recorded.",
+  "dispatch_live_status": "TASK_0026 ran one supervised Substack publish preflight on the current active draft/editor tab using UI-signal-only classification. Result was BLOCKED with blocker=ui_uncertainty; current_page_class=editor_or_draft_candidate; current_page_reason=editor_ui_signal; no publish, schedule, email, private URL, title, body, screenshot, DOM dump, cookies, storage, env values, or secrets were recorded.",
   "provider_env_credential_status": "gated; no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, response bodies, headers, DOM dumps, private URLs, title text, body text, or screenshots were read/output.",
   "active_blockers": [
     "Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.",
@@ -209,10 +209,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_0023",
-  "latest_accepted_task_result": "blocked_substack_publish_preflight_ui_uncertainty_no_publish",
-  "latest_evidence_summary": "Evidence recorded at docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0023_publish_preflight_evidence.json; result_status=BLOCKED; blocker=ui_uncertainty; publish_attempted=false; schedule_attempted=false; email_send_attempted=false.",
-  "next_recommended_task": "Keep Substack publish hard-locked/not proven. If preflight is retried, ensure current active tab is a draft/editor page and stop on any UI uncertainty.",
+  "latest_accepted_task": "TASK_0026",
+  "latest_accepted_task_result": "blocked_substack_publish_preflight_ui_uncertainty_no_publish_ui_signal_classifier",
+  "latest_evidence_summary": "Evidence recorded at docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0026_publish_preflight_evidence.json; result_status=BLOCKED; blocker=ui_uncertainty; current_page_class=editor_or_draft_candidate; current_page_reason=editor_ui_signal; publish_attempted=false; schedule_attempted=false; email_send_attempted=false.",
+  "next_recommended_task": "Keep Substack publish hard-locked/not proven. If preflight is retried, ensure current active tab is a draft/editor page; UI-signal-only classifier must remain URL/title/body/DOM-free.",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -251,6 +251,7 @@
   "last_status_commit_sha": "99556cc39d8398d3d3f792ad321b54be17aa2d08",
   "sha_model": "last_verified_remote_sha is the pre-repair origin/master HEAD observed before this status-only repair. accepted_product_baseline_sha remains the latest accepted product feature baseline and does not advance for status-only repairs. last_status_commit_sha is the latest accepted status/evidence repair commit that updated governance metadata without changing product packets, builders, tests, UI behavior, generated adapter values, or live/dispatch behavior.",
   "latest_changed_areas": [
+    "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0026_publish_preflight_evidence.json",
     "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0023_publish_preflight_evidence.json",
     "docs/automation/V6_OPERATOR_CHANNEL_READINESS/platform_operation_matrix.json",
     "docs/automation/V6_OPERATOR_CHANNEL_READINESS/operator_platform_quickstart.md",
@@ -305,6 +306,27 @@
     "content_body_recorded": false,
     "title_text_recorded": false,
     "screenshot_recorded": false,
+    "new_live_publish_claims": false
+  },
+  "substack_publish_preflight_task_0026": {
+    "evidence_path": "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0026_publish_preflight_evidence.json",
+    "result_status": "BLOCKED",
+    "blocker": "ui_uncertainty",
+    "current_page_class": "editor_or_draft_candidate",
+    "current_page_reason": "editor_ui_signal",
+    "diagnostic": "publish_controls_not_detected",
+    "publish_attempted": false,
+    "schedule_attempted": false,
+    "email_send_attempted": false,
+    "private_url_recorded": false,
+    "title_text_recorded": false,
+    "content_body_recorded": false,
+    "screenshot_recorded": false,
+    "dom_dump_recorded": false,
+    "cookies_recorded": false,
+    "storage_recorded": false,
+    "env_values_recorded": false,
+    "secrets_recorded": false,
     "new_live_publish_claims": false
   }
 }
