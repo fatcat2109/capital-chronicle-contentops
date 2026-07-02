@@ -23,26 +23,23 @@ def _count(locator: Any) -> int:
         return 0
 
 
-def _safe_page_text(page: Any) -> str:
-    try:
-        return str(getattr(page, "url", "") or "").lower()
-    except Exception:
-        return ""
+def _visible_count(page: Any, label: str) -> int:
+    return _count(page.get_by_role("button", name=label)) + _count(page.get_by_text(label, exact=False))
 
 
 def classify_current_page(page: Any) -> tuple[str, str]:
-    safe_hint = _safe_page_text(page)
-    if not safe_hint:
-        return "unknown", "no_safe_page_hint"
-    if "sign-in" in safe_hint or "login" in safe_hint:
-        return "login", "login_path_hint"
-    if "new-post" in safe_hint or "/publish" in safe_hint or "/p/" in safe_hint or "draft" in safe_hint or "post" in safe_hint:
-        return "editor_or_draft_candidate", "editor_path_hint"
-    if "dashboard" in safe_hint:
-        return "dashboard", "dashboard_path_hint"
-    if safe_hint.rstrip("/").endswith("substack.com") or safe_hint == "about:blank":
-        return "substack_home", "home_path_hint"
-    return "other", "other_path_hint"
+    login_controls = _visible_count(page, "Sign in") + _visible_count(page, "Log in") + _visible_count(page, "Login")
+    publish_controls = _visible_count(page, "Publish") + _visible_count(page, "Continue")
+    editor_controls = _count(page.locator("[contenteditable='true']")) + _count(page.get_by_text("Untitled", exact=False))
+    dashboard_controls = _visible_count(page, "Dashboard") + _visible_count(page, "Create") + _visible_count(page, "New post")
+
+    if login_controls > 0:
+        return "login", "login_ui_signal"
+    if publish_controls > 0 or editor_controls > 0:
+        return "editor_or_draft_candidate", "editor_ui_signal"
+    if dashboard_controls > 0:
+        return "dashboard", "dashboard_ui_signal"
+    return "unknown", "ui_signals_inconclusive"
 
 
 def run_cdp_preflight(*, draft_url: str | None, use_current_draft: bool, cdp_port: int) -> dict[str, Any]:

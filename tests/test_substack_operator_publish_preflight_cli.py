@@ -26,6 +26,47 @@ def make_locator(count):
     return loc
 
 
+def make_page(*, publish=0, schedule=0, email=0, send_email=0, continue_count=0, dashboard=0, create=0, new_post=0, login=0, editor=0, url_raises=False):
+    page = MagicMock()
+    if url_raises:
+        type(page).url = property(lambda self: (_ for _ in ()).throw(AssertionError("page.url must not be read")))
+
+    def text_locator(text, exact=False):
+        counts = {
+            "Publish": publish,
+            "Schedule": schedule,
+            "Email": email,
+            "Send email": send_email,
+            "Continue": continue_count,
+            "Dashboard": dashboard,
+            "Create": create,
+            "New post": new_post,
+            "Sign in": login,
+            "Log in": login,
+            "Login": login,
+            "Untitled": editor,
+        }
+        return make_locator(counts.get(text, 0))
+
+    def role_locator(role, name=None):
+        counts = {
+            "Publish": publish,
+            "Continue": continue_count,
+            "Dashboard": dashboard,
+            "Create": create,
+            "New post": new_post,
+            "Sign in": login,
+            "Log in": login,
+            "Login": login,
+        }
+        return make_locator(counts.get(name, 0))
+
+    page.get_by_text.side_effect = text_locator
+    page.get_by_role.side_effect = role_locator
+    page.locator.return_value = make_locator(editor)
+    return page
+
+
 def wire_browser(mock_sync, *, pages=None, new_page=None):
     mock_p = mock_sync.return_value.__enter__.return_value
     browser = mock_p.chromium.connect_over_cdp.return_value
@@ -37,25 +78,6 @@ def wire_browser(mock_sync, *, pages=None, new_page=None):
     return context
 
 
-def wire_control_counts(page, *, publish=0, schedule=0, email=0, send_email=0, continue_count=0):
-    def text_locator(text, exact=False):
-        counts = {
-            "Publish": publish,
-            "Schedule": schedule,
-            "Email": email,
-            "Send email": send_email,
-            "Continue": continue_count,
-        }
-        return make_locator(counts.get(text, 0))
-
-    def role_locator(role, name=None):
-        counts = {"Publish": publish, "Continue": continue_count}
-        return make_locator(counts.get(name, 0))
-
-    page.get_by_text.side_effect = text_locator
-    page.get_by_role.side_effect = role_locator
-
-
 def assert_no_private_capture_fields(evidence):
     forbidden = PRIVATE_FIELD_NAMES & set(evidence)
     assert forbidden == set()
@@ -65,7 +87,7 @@ def assert_no_private_capture_fields(evidence):
 
 
 def test_preflight_dry_run_no_browser(capsys):
-    code = cli.main(["--draft-url", "https://substack.com/p/test", "--task-id", "0018"])
+    code = cli.main(["--draft-url", "https://substack.example/placeholder", "--task-id", "0018"])
     evidence = json.loads(capsys.readouterr().out)
     assert code == 0
     assert evidence["result_status"] == "DRY_RUN"
@@ -82,7 +104,7 @@ def test_preflight_dry_run_no_browser(capsys):
 def test_preflight_missing_cdp_blocks(mock_sync, capsys):
     mock_p = mock_sync.return_value.__enter__.return_value
     mock_p.chromium.connect_over_cdp.side_effect = Exception("refused")
-    code = cli.main(["--draft-url", "https://substack.com/p/test", "--execute"])
+    code = cli.main(["--draft-url", "https://substack.example/placeholder", "--execute"])
     evidence = json.loads(capsys.readouterr().out)
     assert code == 2
     assert evidence["result_status"] == "BLOCKED"
@@ -93,15 +115,15 @@ def test_preflight_missing_cdp_blocks(mock_sync, capsys):
 
 
 @patch("playwright.sync_api.sync_playwright")
-def test_preflight_login_redirect_blocks_without_private_url(mock_sync, capsys):
-    page = MagicMock()
-    page.url = "https://substack.com/sign-in"
+def test_preflight_login_ui_signal_blocks_without_private_url(mock_sync, capsys):
+    page = make_page(login=1, url_raises=True)
     wire_browser(mock_sync, new_page=page)
-    code = cli.main(["--draft-url", "https://substack.com/p/test", "--execute"])
+    code = cli.main(["--draft-url", "https://substack.example/placeholder", "--execute"])
     evidence = json.loads(capsys.readouterr().out)
     assert code == 2
     assert evidence["blocker"] == "login_or_account_mismatch"
     assert evidence["current_page_class"] == "login"
+    assert evidence["current_page_reason"] == "login_ui_signal"
     assert evidence["diagnostic_interpretation"] == "redirected_to_login"
     assert evidence["publish_controls_detected"] is False
     assert_no_private_capture_fields(evidence)
@@ -109,16 +131,15 @@ def test_preflight_login_redirect_blocks_without_private_url(mock_sync, capsys):
 
 @patch("playwright.sync_api.sync_playwright")
 def test_preflight_detects_controls_and_risks_without_clicking(mock_sync, capsys):
-    page = MagicMock()
-    page.url = "https://substack.com/p/test"
+    page = make_page(publish=1, schedule=1, email=1, send_email=1, url_raises=True)
     wire_browser(mock_sync, new_page=page)
-    wire_control_counts(page, publish=1, schedule=1, email=1, send_email=1)
 
-    code = cli.main(["--draft-url", "https://substack.com/p/test", "--execute"])
+    code = cli.main(["--draft-url", "https://substack.example/placeholder", "--execute"])
     evidence = json.loads(capsys.readouterr().out)
     assert code == 0
     assert evidence["result_status"] == "PASS"
     assert evidence["current_page_class"] == "editor_or_draft_candidate"
+    assert evidence["current_page_reason"] == "editor_ui_signal"
     assert evidence["publish_preflight_completed"] is True
     assert evidence["publish_controls_detected"] is True
     assert evidence["schedule_risk_detected"] is True
@@ -143,25 +164,22 @@ def test_use_current_draft_no_pages_blocks_current_draft_not_active(mock_sync, c
 
 @patch("playwright.sync_api.sync_playwright")
 def test_use_current_draft_dashboard_blocks_current_draft_not_active(mock_sync, capsys):
-    page = MagicMock()
-    page.url = "https://substack.com/dashboard"
+    page = make_page(dashboard=1, create=1, new_post=1, url_raises=True)
     wire_browser(mock_sync, pages=[page])
     code = cli.main(["--use-current-draft", "--execute"])
     evidence = json.loads(capsys.readouterr().out)
     assert code == 2
     assert evidence["blocker"] == "current_draft_not_active"
     assert evidence["current_page_class"] == "dashboard"
-    assert evidence["current_page_reason"] == "dashboard_path_hint"
+    assert evidence["current_page_reason"] == "dashboard_ui_signal"
     assert evidence["publish_attempted"] is False
     assert_no_private_capture_fields(evidence)
 
 
 @patch("playwright.sync_api.sync_playwright")
 def test_use_current_draft_editor_candidate_missing_publish_controls_blocks_ui_uncertainty(mock_sync, capsys):
-    page = MagicMock()
-    page.url = "https://substack.com/p/test"
+    page = make_page(editor=1, url_raises=True)
     wire_browser(mock_sync, pages=[page])
-    wire_control_counts(page, publish=0)
     code = cli.main(["--use-current-draft", "--execute"])
     evidence = json.loads(capsys.readouterr().out)
     assert code == 2
@@ -174,10 +192,8 @@ def test_use_current_draft_editor_candidate_missing_publish_controls_blocks_ui_u
 
 @patch("playwright.sync_api.sync_playwright")
 def test_use_current_draft_editor_candidate_with_publish_controls_passes(mock_sync, capsys):
-    page = MagicMock()
-    page.url = "https://substack.com/p/test"
+    page = make_page(publish=1, continue_count=1, url_raises=True)
     wire_browser(mock_sync, pages=[page])
-    wire_control_counts(page, publish=1, continue_count=1)
     code = cli.main(["--use-current-draft", "--execute"])
     evidence = json.loads(capsys.readouterr().out)
     assert code == 0
@@ -187,4 +203,16 @@ def test_use_current_draft_editor_candidate_with_publish_controls_passes(mock_sy
     assert evidence["publish_controls_detected"] is True
     assert evidence["continue_controls_detected"] is True
     assert evidence["publish_attempted"] is False
+    assert_no_private_capture_fields(evidence)
+
+
+@patch("playwright.sync_api.sync_playwright")
+def test_page_url_property_raises_if_accessed_but_cli_still_works(mock_sync, capsys):
+    page = make_page(publish=1, url_raises=True)
+    wire_browser(mock_sync, pages=[page])
+    code = cli.main(["--use-current-draft", "--execute"])
+    evidence = json.loads(capsys.readouterr().out)
+    assert code == 0
+    assert evidence["result_status"] == "PASS"
+    assert evidence["current_page_class"] == "editor_or_draft_candidate"
     assert_no_private_capture_fields(evidence)
