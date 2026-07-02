@@ -18,6 +18,10 @@ def test_cli_dry_run_writes_redacted_evidence(tmp_path, capsys):
     assert evidence["task_label"] == "TASK_0000"
     assert evidence["result_status"] == "DRY_RUN"
     assert evidence["sent"] is False
+    assert evidence["draft_created"] is False
+    assert evidence["publish_attempted"] is False
+    assert evidence["schedule_attempted"] is False
+    assert evidence["email_send_attempted"] is False
     assert evidence["request_count_attempted"] == 0
     assert evidence["browser_cdp_used"] is False
 
@@ -38,6 +42,11 @@ def test_cli_execute_missing_cdp(mock_sync, capsys):
     assert evidence["blocker"] == "missing_cdp"
     assert "cdp_connection_failed" in evidence["diagnostic_interpretation"]
     assert evidence["request_count_attempted"] == 0
+    assert evidence["draft_created"] is False
+    assert evidence["sent"] is False
+    assert evidence["publish_attempted"] is False
+    assert evidence["schedule_attempted"] is False
+    assert evidence["email_send_attempted"] is False
 
 
 @patch("playwright.sync_api.sync_playwright")
@@ -161,7 +170,11 @@ def test_cli_execute_success(mock_sync, capsys):
     assert code == 0
     evidence = json.loads(capsys.readouterr().out)
     assert evidence["result_status"] == "PASS"
+    assert evidence["draft_created"] is True
     assert evidence["sent"] is True
+    assert evidence["publish_attempted"] is False
+    assert evidence["schedule_attempted"] is False
+    assert evidence["email_send_attempted"] is False
     assert evidence["blocker"] is None
     assert evidence["diagnostic_interpretation"] == "draft_created_and_autosaved"
     assert evidence["request_count_attempted"] == 1

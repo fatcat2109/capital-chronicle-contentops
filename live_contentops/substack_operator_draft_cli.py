@@ -194,14 +194,14 @@ def build_evidence(
         status = "DRY_RUN"
         blocker = None
         diagnostic = "dry_run_no_browser_action"
-        sent = False
+        draft_created = False
         attempted = 0
     else:
         res = run_cdp_draft(title, body, cdp_port)
         status = res["result_status"]
         blocker = res["blocker"]
         diagnostic = res["diagnostic"]
-        sent = res["sent"]
+        draft_created = bool(res["sent"])
         attempted = res["attempted"]
 
     evidence = {
@@ -216,10 +216,14 @@ def build_evidence(
         "request_count_attempted": attempted,
         "retry_budget_max": RETRY_BUDGET_MAX,
         "retry_count_attempted": 0,
-        "status_code_class": "2xx" if sent else ("4xx" if blocker else None),
+        "status_code_class": "2xx" if draft_created else ("4xx" if blocker else None),
         "diagnostic_interpretation": diagnostic,
-        "sent": sent,
+        "draft_created": draft_created,
+        "sent": draft_created,
         "live_send_happened": False,
+        "publish_attempted": False,
+        "schedule_attempted": False,
+        "email_send_attempted": False,
         "blocker": blocker,
         "raw_secret_output": False,
         "secret_derived_metadata_recorded": False,
