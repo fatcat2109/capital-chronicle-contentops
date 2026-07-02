@@ -4,6 +4,7 @@
 import {
   discordCredentialPresenceEvidence,
   discordDispatchDecisionReadiness,
+  discordDispatchRoutePreview,
   discordDestinationBindingProof,
   discordKillSwitchEvidence,
   discordLivePreflightEvidence,
@@ -31,6 +32,7 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
   const redactedReview = discordRedactedOperatorReviewPacket;
   const reviewDecision = discordOperatorReviewDecisionPacket;
   const dispatchDecision = discordDispatchDecisionReadiness;
+  const routePreview = discordDispatchRoutePreview;
 
   return (
     <Panel
@@ -79,6 +81,8 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <Metric label="Approval route candidate" value={String(dispatchDecision.approval_route_candidate_ready_not_dispatch)} status="blocked" />
         <Metric label="Jim final authority" value={String(dispatchDecision.jim_final_authority_required)} status="blocked" />
         <Metric label="Supervised live edge" value={String(dispatchDecision.supervised_live_edge_required)} status="blocked" />
+        <Metric label="Dispatch route preview" value={routePreview.dispatch_route_preview_status} status="blocked" />
+        <Metric label="Route class" value={routePreview.route_class} status="blocked" />
         <Metric label="Pre-dispatch readiness" value={readiness.pre_dispatch_readiness_status} status="blocked" />
         <Metric label="Safety hash" value={operatorSourceGoPhraseSafetySignature.safety_signature_hash} status="verified" />
       </div>
@@ -165,6 +169,17 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <div>dispatch_decision_ready_for_dispatch={String(dispatchDecision.ready_for_dispatch)}</div>
         <div>dispatch_decision_live_action_allowed={String(dispatchDecision.live_action_allowed)}</div>
         <div>dispatch_decision_blocked_reasons={JSON.stringify(dispatchDecision.blocked_reasons)}</div>
+        <div>dispatch_route_preview_id={packet.dispatch_route_preview_id}</div>
+        <div>dispatch_route_preview_hash={packet.dispatch_route_preview_hash}</div>
+        <div>dispatch_route_preview_status={packet.dispatch_route_preview_status}</div>
+        <div>dispatch_route_class={routePreview.route_class}</div>
+        <div>dispatch_route_selection_reason={routePreview.route_selection_reason}</div>
+        <div>route_preview_ready_not_dispatch={String(routePreview.route_preview_ready_not_dispatch)}</div>
+        <div>dispatch_route_request_envelope_executable={String(routePreview.request_envelope_executable)}</div>
+        <div>dispatch_route_dispatchable={String(routePreview.dispatchable)}</div>
+        <div>dispatch_route_ready_for_dispatch={String(routePreview.ready_for_dispatch)}</div>
+        <div>dispatch_route_live_action_allowed={String(routePreview.live_action_allowed)}</div>
+        <div>dispatch_route_blocked_reasons={JSON.stringify(routePreview.blocked_reasons)}</div>
         <div>pre_dispatch_readiness_id={packet.pre_dispatch_readiness_id}</div>
         <div>pre_dispatch_readiness_hash={packet.pre_dispatch_readiness_hash}</div>
         <div>normalized_pre_dispatch_readiness_evaluated=true</div>

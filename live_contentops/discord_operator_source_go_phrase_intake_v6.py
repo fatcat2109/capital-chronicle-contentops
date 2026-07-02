@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-TASK_LABEL = "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_TO_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_TO_SUPERVISED_DISPATCH_ROUTE_PREVIEW_V0"
 SOURCE_TASK_LABEL = "TASK_CONTENTOPS_V6_OPERATOR_SOURCE_GO_PHRASE_INTAKE_TO_REVIEW_ONLY_DRY_RUN_ENVELOPE_NORMALIZATION_V0"
 SOURCE_DRY_RUN_GATE_PACKET_ID = "discord_dry_run_gate_f9d4f7f1945dc120"
 SOURCE_DRY_RUN_GATE_HASH = "f9d4f7f1945dc120e02c372436122068a76d3b8d117b5cf88b17c45ffe49838a"
@@ -41,6 +41,7 @@ REDACTED_OPERATOR_REVIEW_FILE = INTAKE_DIR / "redacted_operator_review" / "disco
 OPERATOR_REVIEW_DECISION_INBOX_DIR = INTAKE_DIR / "operator_review_decision" / "inbox"
 OPERATOR_REVIEW_DECISION_FILE = INTAKE_DIR / "operator_review_decision" / "discord_operator_review_decision_packet.json"
 DISPATCH_DECISION_READINESS_FILE = INTAKE_DIR / "dispatch_decision_readiness" / "discord_dispatch_decision_readiness.json"
+DISPATCH_ROUTE_PREVIEW_FILE = INTAKE_DIR / "dispatch_route_preview" / "discord_dispatch_route_preview.json"
 
 PLACEHOLDER_WORDS = ("todo", "placeholder", "lorem ipsum", "sample only", "viết nội dung thật ở đây")
 FORBIDDEN_FINANCIAL_WORDS = (
@@ -62,6 +63,13 @@ DECISION_PHRASES = {
     "reject": "REJECT_REDACTED_DISCORD_REVIEW_ONLY_NOT_DISPATCH",
     "hold": "HOLD_REDACTED_DISCORD_REVIEW_ONLY_NOT_DISPATCH",
 }
+ROUTE_CLASSES = (
+    "supervised_webhook",
+    "official_api_future",
+    "one_step_cdp_assist",
+    "manual_fallback",
+    "deferred_blocked",
+)
 
 
 def _sha(payload: dict[str, Any], *drop_keys: str) -> str:
@@ -906,6 +914,110 @@ def _dispatch_decision_readiness(
     packet["dispatch_decision_readiness_id"] = f"discord_dispatch_decision_{packet['dispatch_decision_readiness_hash'][:16]}"
     return packet
 
+
+def _supervised_dispatch_route_preview(
+    normalized: dict[str, Any],
+    envelope: dict[str, Any],
+    destination: dict[str, Any],
+    kill_switch: dict[str, Any],
+    credential_presence: dict[str, Any],
+    live_preflight: dict[str, Any],
+    redacted_review: dict[str, Any],
+    operator_review_decision: dict[str, Any],
+    dispatch_decision_readiness: dict[str, Any],
+) -> dict[str, Any]:
+    blocked_reasons: set[str] = set(dispatch_decision_readiness["blocked_reasons"])
+    approved = dispatch_decision_readiness["approval_route_candidate_ready_not_dispatch"] and not blocked_reasons
+    if operator_review_decision["operator_review_decision_rejected"]:
+        blocked_reasons.add("blocked_operator_review_decision_rejected")
+    if operator_review_decision["operator_review_decision_held"]:
+        blocked_reasons.add("blocked_operator_review_decision_held")
+
+    if approved:
+        route_class = "supervised_webhook"
+        status = "ready_for_supervised_route_review_not_dispatch"
+        route_selection_reason = "discord_webhook_lane_after_operator_approval_requires_jim_supervised_live_edge"
+    else:
+        route_class = "deferred_blocked"
+        status = "blocked"
+        route_selection_reason = "blocked_until_real_operator_approval_and_dispatch_decision_readiness"
+
+    packet = {
+        "dispatch_route_preview_kind": "discord_supervised_dispatch_route_preview_v0",
+        "dispatch_route_preview_status": status,
+        "platform_family": "discord",
+        "route_class": route_class,
+        "route_class_allowed_values": list(ROUTE_CLASSES),
+        "route_selection_reason": route_selection_reason,
+        "route_preview_ready_not_dispatch": approved,
+        "automation_first_alignment": True,
+        "jim_final_authority_required": True,
+        "supervised_live_edge_required": True,
+        "one_step_cdp_assist_supported": True,
+        "manual_fallback_supported": True,
+        "official_api_future_supported": True,
+        "normalized_candidate_id": normalized["candidate_id"],
+        "normalized_candidate_hash": normalized["candidate_hash"],
+        "dry_run_request_envelope_id": envelope["dry_run_request_envelope_id"],
+        "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"],
+        "destination_proof_id": destination["destination_proof_id"],
+        "destination_proof_hash": destination["destination_proof_hash"],
+        "kill_switch_evidence_id": kill_switch["kill_switch_evidence_id"],
+        "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"],
+        "credential_presence_evidence_id": credential_presence["credential_presence_evidence_id"],
+        "credential_presence_evidence_hash": credential_presence["credential_presence_evidence_hash"],
+        "live_preflight_id": live_preflight["live_preflight_id"],
+        "live_preflight_hash": live_preflight["live_preflight_hash"],
+        "redacted_operator_review_id": redacted_review["redacted_operator_review_id"],
+        "redacted_operator_review_hash": redacted_review["redacted_operator_review_hash"],
+        "operator_review_decision_id": operator_review_decision["operator_review_decision_id"],
+        "operator_review_decision_hash": operator_review_decision["operator_review_decision_hash"],
+        "operator_decision": operator_review_decision["decision"],
+        "operator_decision_approved": operator_review_decision["operator_review_decision_approved"],
+        "operator_decision_rejected": operator_review_decision["operator_review_decision_rejected"],
+        "operator_decision_held": operator_review_decision["operator_review_decision_held"],
+        "dispatch_decision_readiness_id": dispatch_decision_readiness["dispatch_decision_readiness_id"],
+        "dispatch_decision_readiness_hash": dispatch_decision_readiness["dispatch_decision_readiness_hash"],
+        "dispatch_decision_readiness_status": dispatch_decision_readiness["dispatch_decision_readiness_status"],
+        "approval_route_candidate_ready_not_dispatch": dispatch_decision_readiness["approval_route_candidate_ready_not_dispatch"],
+        "rejection_route_recorded_not_dispatch": dispatch_decision_readiness["rejection_route_recorded_not_dispatch"],
+        "hold_route_recorded_not_dispatch": dispatch_decision_readiness["hold_route_recorded_not_dispatch"],
+        "real_operator_artifact_present": dispatch_decision_readiness["real_operator_artifact_present"],
+        "real_operator_artifact_intake_ready": dispatch_decision_readiness["real_operator_artifact_intake_ready"],
+        "non_real_fixture": dispatch_decision_readiness["non_real_fixture"],
+        "fixture_only": dispatch_decision_readiness["fixture_only"],
+        "review_only": True,
+        "request_envelope_executable": False,
+        "dispatchable": False,
+        "dispatch_outbox_ready": False,
+        "ready_for_dispatch": False,
+        "live_action_allowed": False,
+        "approval_ledger_entry_created": False,
+        "executable_outbox_entry_created": False,
+        "scheduler_enabled": False,
+        "retry_enabled": False,
+        "webhook_validation_performed": False,
+        "body_value_stored": False,
+        "go_phrase_value_stored": False,
+        "webhook_url_value_stored": False,
+        "credential_value_stored": False,
+        "env_value_stored": False,
+        "credential_value_read_made": False,
+        "env_value_read_made": False,
+        "browser_session_used": False,
+        "browser_cdp_session_used": False,
+        "dispatch_request_count": 0,
+        "webhook_request_count": 0,
+        "platform_api_request_count": 0,
+        "official_api_request_count": 0,
+        "cdp_action_count": 0,
+        "manual_action_count": 0,
+        "blocked_reasons": sorted(blocked_reasons),
+    }
+    packet["dispatch_route_preview_hash"] = _sha(packet, "dispatch_route_preview_hash", "dispatch_route_preview_id")
+    packet["dispatch_route_preview_id"] = f"discord_route_preview_{packet['dispatch_route_preview_hash'][:16]}"
+    return packet
+
 def _pre_dispatch_readiness(
     normalized: dict[str, Any],
     envelope: dict[str, Any],
@@ -993,7 +1105,7 @@ def build_operator_source_go_phrase_intake() -> dict[str, Any]:
     INBOX_DIR.mkdir(parents=True, exist_ok=True)
     OPERATOR_REVIEW_DECISION_INBOX_DIR.mkdir(parents=True, exist_ok=True)
     _write_fixture_example()
-    for path in [NORMALIZED_FILE, ENVELOPE_FILE, DESTINATION_PROOF_FILE, KILL_SWITCH_FILE, CREDENTIAL_PRESENCE_FILE, PRE_DISPATCH_FILE, FIXTURE_REVIEW_FILE, LIVE_PREFLIGHT_FILE, OPERATOR_INPUT_CONTRACT_FILE, REDACTED_OPERATOR_REVIEW_FILE, OPERATOR_REVIEW_DECISION_FILE, DISPATCH_DECISION_READINESS_FILE]:
+    for path in [NORMALIZED_FILE, ENVELOPE_FILE, DESTINATION_PROOF_FILE, KILL_SWITCH_FILE, CREDENTIAL_PRESENCE_FILE, PRE_DISPATCH_FILE, FIXTURE_REVIEW_FILE, LIVE_PREFLIGHT_FILE, OPERATOR_INPUT_CONTRACT_FILE, REDACTED_OPERATOR_REVIEW_FILE, OPERATOR_REVIEW_DECISION_FILE, DISPATCH_DECISION_READINESS_FILE, DISPATCH_ROUTE_PREVIEW_FILE]:
         path.parent.mkdir(parents=True, exist_ok=True)
     gate = _load_json(SOURCE_GATE_FILE, {})
     credential_presence = {key: _presence(key) for key in CREDENTIAL_KEYS}
@@ -1078,12 +1190,15 @@ def build_operator_source_go_phrase_intake() -> dict[str, Any]:
     dispatch_decision_readiness = _dispatch_decision_readiness(normalized, envelope, destination, kill_switch, credential_evidence, live_preflight, redacted_review, operator_review_decision)
     DISPATCH_DECISION_READINESS_FILE.write_text(json.dumps(dispatch_decision_readiness, sort_keys=True, indent=2), encoding="utf-8")
 
-    safety = {"safety_signature_kind": "discord_operator_source_go_phrase_intake_safety_signature_v2", "review_only": True, "source_dry_run_gate_packet_id": SOURCE_DRY_RUN_GATE_PACKET_ID, "source_dry_run_gate_hash": SOURCE_DRY_RUN_GATE_HASH, "operator_source_artifact_kind": source["operator_source_artifact_kind"], "operator_source_artifact_real_claimed": source["operator_source_artifact_real_claimed"], "fixture_only": source["fixture_only"], "not_public_postable": source["not_public_postable"], "dry_run_envelope_normalization_performed": True, "dry_run_request_envelope_preview_created": True, "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"], "destination_proof_hash": destination["destination_proof_hash"], "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"], "credential_presence_evidence_hash": credential_evidence["credential_presence_evidence_hash"], "fixture_review_hash": fixture_review["fixture_review_hash"], "operator_input_contract_hash": operator_input_contract["operator_input_contract_hash"], "operator_input_contract_status": operator_input_contract["operator_input_contract_status"], "live_preflight_hash": live_preflight["live_preflight_hash"], "live_preflight_status": live_preflight["live_preflight_status"], "real_operator_artifact_present": source["real_operator_artifact_present"], "real_operator_artifact_intake_ready": source["real_operator_artifact_intake_ready"], "fixture_vs_real_separation_enforced": source["fixture_vs_real_separation_enforced"], "pre_dispatch_readiness_hash": pre_dispatch["pre_dispatch_readiness_hash"], "redacted_operator_review_id": redacted_review["redacted_operator_review_id"], "redacted_operator_review_hash": redacted_review["redacted_operator_review_hash"], "redacted_operator_review_status": redacted_review["redacted_operator_review_status"], "redaction_performed": redacted_review["redaction_performed"], "operator_review_decision_id": operator_review_decision["operator_review_decision_id"], "operator_review_decision_hash": operator_review_decision["operator_review_decision_hash"], "operator_review_decision_status": operator_review_decision["operator_review_decision_status"], "operator_review_decision_available": operator_review_decision["operator_review_decision_available"], "operator_review_decision_approved": operator_review_decision["operator_review_decision_approved"], "dispatch_decision_readiness_id": dispatch_decision_readiness["dispatch_decision_readiness_id"], "dispatch_decision_readiness_hash": dispatch_decision_readiness["dispatch_decision_readiness_hash"], "dispatch_decision_readiness_status": dispatch_decision_readiness["dispatch_decision_readiness_status"], "approval_route_candidate_ready_not_dispatch": dispatch_decision_readiness["approval_route_candidate_ready_not_dispatch"], "request_envelope_executable": False, "executable_outbox_entry_created": False, "approval_ledger_entry_created": False, "webhook_validation_performed": False, "discord_api_call_made": False, "platform_api_call_made": False, "provider_call_made": False, "credential_value_read_made": False, "env_value_read_made": False, "dispatch_request_count": 0, "webhook_request_count": 0, "platform_api_request_count": 0, "ready_for_dispatch": False, "live_action_allowed": False, "blocked_reasons": sorted(set(reasons))}
+    dispatch_route_preview = _supervised_dispatch_route_preview(normalized, envelope, destination, kill_switch, credential_evidence, live_preflight, redacted_review, operator_review_decision, dispatch_decision_readiness)
+    DISPATCH_ROUTE_PREVIEW_FILE.write_text(json.dumps(dispatch_route_preview, sort_keys=True, indent=2), encoding="utf-8")
+
+    safety = {"safety_signature_kind": "discord_operator_source_go_phrase_intake_safety_signature_v2", "review_only": True, "source_dry_run_gate_packet_id": SOURCE_DRY_RUN_GATE_PACKET_ID, "source_dry_run_gate_hash": SOURCE_DRY_RUN_GATE_HASH, "operator_source_artifact_kind": source["operator_source_artifact_kind"], "operator_source_artifact_real_claimed": source["operator_source_artifact_real_claimed"], "fixture_only": source["fixture_only"], "not_public_postable": source["not_public_postable"], "dry_run_envelope_normalization_performed": True, "dry_run_request_envelope_preview_created": True, "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"], "destination_proof_hash": destination["destination_proof_hash"], "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"], "credential_presence_evidence_hash": credential_evidence["credential_presence_evidence_hash"], "fixture_review_hash": fixture_review["fixture_review_hash"], "operator_input_contract_hash": operator_input_contract["operator_input_contract_hash"], "operator_input_contract_status": operator_input_contract["operator_input_contract_status"], "live_preflight_hash": live_preflight["live_preflight_hash"], "live_preflight_status": live_preflight["live_preflight_status"], "real_operator_artifact_present": source["real_operator_artifact_present"], "real_operator_artifact_intake_ready": source["real_operator_artifact_intake_ready"], "fixture_vs_real_separation_enforced": source["fixture_vs_real_separation_enforced"], "pre_dispatch_readiness_hash": pre_dispatch["pre_dispatch_readiness_hash"], "redacted_operator_review_id": redacted_review["redacted_operator_review_id"], "redacted_operator_review_hash": redacted_review["redacted_operator_review_hash"], "redacted_operator_review_status": redacted_review["redacted_operator_review_status"], "redaction_performed": redacted_review["redaction_performed"], "operator_review_decision_id": operator_review_decision["operator_review_decision_id"], "operator_review_decision_hash": operator_review_decision["operator_review_decision_hash"], "operator_review_decision_status": operator_review_decision["operator_review_decision_status"], "operator_review_decision_available": operator_review_decision["operator_review_decision_available"], "operator_review_decision_approved": operator_review_decision["operator_review_decision_approved"], "dispatch_decision_readiness_id": dispatch_decision_readiness["dispatch_decision_readiness_id"], "dispatch_decision_readiness_hash": dispatch_decision_readiness["dispatch_decision_readiness_hash"], "dispatch_decision_readiness_status": dispatch_decision_readiness["dispatch_decision_readiness_status"], "approval_route_candidate_ready_not_dispatch": dispatch_decision_readiness["approval_route_candidate_ready_not_dispatch"], "dispatch_route_preview_id": dispatch_route_preview["dispatch_route_preview_id"], "dispatch_route_preview_hash": dispatch_route_preview["dispatch_route_preview_hash"], "dispatch_route_preview_status": dispatch_route_preview["dispatch_route_preview_status"], "dispatch_route_class": dispatch_route_preview["route_class"], "route_preview_ready_not_dispatch": dispatch_route_preview["route_preview_ready_not_dispatch"], "request_envelope_executable": False, "executable_outbox_entry_created": False, "approval_ledger_entry_created": False, "webhook_validation_performed": False, "discord_api_call_made": False, "platform_api_call_made": False, "provider_call_made": False, "credential_value_read_made": False, "env_value_read_made": False, "dispatch_request_count": 0, "webhook_request_count": 0, "platform_api_request_count": 0, "ready_for_dispatch": False, "live_action_allowed": False, "blocked_reasons": sorted(set(reasons))}
     safety["safety_signature_hash"] = _sha(safety, "safety_signature_hash")
     SAFETY_SIGNATURE_FILE.write_text(json.dumps(safety, sort_keys=True, indent=2), encoding="utf-8")
 
     packet = {
-        "task_label": TASK_LABEL, "packet_kind": "discord_operator_source_go_phrase_intake_v2", "intake_status": normalized["candidate_status"], "source_task_label": SOURCE_TASK_LABEL, "source_dry_run_gate_packet_id": SOURCE_DRY_RUN_GATE_PACKET_ID, "source_dry_run_gate_exact_payload_hash": SOURCE_DRY_RUN_GATE_HASH, "source_dry_run_gate_path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_DISPATCH_DRY_RUN_GATE/discord_supervised_live_dispatch_dry_run_gate_packet.json", "normalized_candidate_id": normalized["candidate_id"], "normalized_candidate_hash": normalized["candidate_hash"], "operator_source_artifact_path": source["source_artifact_path"], "operator_source_artifact_hash": source["source_artifact_hash"], "operator_source_artifact_kind": source["operator_source_artifact_kind"], "operator_source_artifact_real_claimed": source["operator_source_artifact_real_claimed"], "non_real_fixture": source["non_real_fixture"], "fixture_only": source["fixture_only"], "not_public_postable": source["not_public_postable"], "real_operator_artifact_present": source["real_operator_artifact_present"], "real_operator_artifact_intake_ready": source["real_operator_artifact_intake_ready"], "fixture_vs_real_separation_enforced": source["fixture_vs_real_separation_enforced"], "operator_go_phrase_expected_hash": GO_PHRASE_HASH, "operator_go_phrase_recorded": source["go_phrase_present"], "operator_go_phrase_valid": source["go_phrase_valid"], "operator_go_phrase_value_stored": False, "destination_label": source["destination_label"], "destination_binding_confirmed": source["destination_binding_confirmed"], "destination_proof_id": destination["destination_proof_id"], "destination_proof_hash": destination["destination_proof_hash"], "kill_switch_evidence_id": kill_switch["kill_switch_evidence_id"], "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"], "credential_presence_evidence_id": credential_evidence["credential_presence_evidence_id"], "credential_presence_evidence_hash": credential_evidence["credential_presence_evidence_hash"], "fixture_review_id": fixture_review["fixture_review_id"], "fixture_review_hash": fixture_review["fixture_review_hash"], "fixture_review_status": fixture_review["fixture_review_status"], "fixture_review_ready": fixture_review["fixture_review_ready"], "operator_input_contract_id": operator_input_contract["operator_input_contract_id"], "operator_input_contract_hash": operator_input_contract["operator_input_contract_hash"], "operator_input_contract_status": operator_input_contract["operator_input_contract_status"], "live_preflight_id": live_preflight["live_preflight_id"], "live_preflight_hash": live_preflight["live_preflight_hash"], "live_preflight_status": live_preflight["live_preflight_status"], "pre_dispatch_readiness_id": pre_dispatch["pre_dispatch_readiness_id"], "pre_dispatch_readiness_hash": pre_dispatch["pre_dispatch_readiness_hash"], "redacted_operator_review_id": redacted_review["redacted_operator_review_id"], "redacted_operator_review_hash": redacted_review["redacted_operator_review_hash"], "redacted_operator_review_status": redacted_review["redacted_operator_review_status"], "redacted_review_packet_ready": redacted_review["redacted_review_packet_ready"], "redaction_performed": redacted_review["redaction_performed"], "operator_review_decision_id": operator_review_decision["operator_review_decision_id"], "operator_review_decision_hash": operator_review_decision["operator_review_decision_hash"], "operator_review_decision_status": operator_review_decision["operator_review_decision_status"], "operator_review_decision_available": operator_review_decision["operator_review_decision_available"], "operator_review_decision_approved": operator_review_decision["operator_review_decision_approved"], "operator_review_decision_rejected": operator_review_decision["operator_review_decision_rejected"], "operator_review_decision_held": operator_review_decision["operator_review_decision_held"], "dispatch_decision_readiness_id": dispatch_decision_readiness["dispatch_decision_readiness_id"], "dispatch_decision_readiness_hash": dispatch_decision_readiness["dispatch_decision_readiness_hash"], "dispatch_decision_readiness_status": dispatch_decision_readiness["dispatch_decision_readiness_status"], "approval_route_candidate_ready_not_dispatch": dispatch_decision_readiness["approval_route_candidate_ready_not_dispatch"], "rejection_route_recorded_not_dispatch": dispatch_decision_readiness["rejection_route_recorded_not_dispatch"], "hold_route_recorded_not_dispatch": dispatch_decision_readiness["hold_route_recorded_not_dispatch"], "automation_first_alignment": dispatch_decision_readiness["automation_first_alignment"], "jim_final_authority_required": dispatch_decision_readiness["jim_final_authority_required"], "supervised_live_edge_required": dispatch_decision_readiness["supervised_live_edge_required"], "normalized_pre_dispatch_readiness_evaluated": True, "operator_review_ready": pre_dispatch["operator_review_ready"], "credential_presence_check_performed": True, "credential_presence_key_names_only": True, "credential_presence_states": credential_presence, "credential_value_read_made": False, "env_value_read_made": False, "webhook_url_value_read_made": False, "webhook_validation_performed": False, "dry_run_envelope_normalization_performed": True, "dry_run_request_envelope_preview_created": True, "dry_run_request_envelope_id": envelope["dry_run_request_envelope_id"], "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"], "dry_run_request_body_hash_preview": envelope["normalized_request_body_hash_preview"], "dry_run_envelope_value_stored": False, "request_envelope_executable": False, "approval_ledger_entry_created": False, "executable_outbox_entry_created": False, "real_outbox_entry_created": False, "dispatch_outbox_ready": False, "dispatch_attempted": False, "dispatch_request_count": 0, "webhook_request_count": 0, "platform_api_request_count": 0, "scheduler_enabled": False, "retry_enabled": False, "kill_switch_required": True, "kill_switch_active": source["kill_switch_active"], "ready_for_auto_publish": False, "ready_for_dispatch": False, "live_action_allowed": False, "public_url_verification_performed": False, "llm_provider_call_made": False, "provider_call_made": False, "platform_api_used": False, "public_url_fetch_made": False, "browser_session_used": False, "live_publish_performed_by_contentops": False, "enabled_publish_send_dispatch_approve_controls": False, "phrase_evidence_hash": phrase["phrase_evidence_hash"], "safety_signature_hash": safety["safety_signature_hash"], "blocked_reasons": sorted(set(reasons)),
+        "task_label": TASK_LABEL, "packet_kind": "discord_operator_source_go_phrase_intake_v2", "intake_status": normalized["candidate_status"], "source_task_label": SOURCE_TASK_LABEL, "source_dry_run_gate_packet_id": SOURCE_DRY_RUN_GATE_PACKET_ID, "source_dry_run_gate_exact_payload_hash": SOURCE_DRY_RUN_GATE_HASH, "source_dry_run_gate_path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_DISPATCH_DRY_RUN_GATE/discord_supervised_live_dispatch_dry_run_gate_packet.json", "normalized_candidate_id": normalized["candidate_id"], "normalized_candidate_hash": normalized["candidate_hash"], "operator_source_artifact_path": source["source_artifact_path"], "operator_source_artifact_hash": source["source_artifact_hash"], "operator_source_artifact_kind": source["operator_source_artifact_kind"], "operator_source_artifact_real_claimed": source["operator_source_artifact_real_claimed"], "non_real_fixture": source["non_real_fixture"], "fixture_only": source["fixture_only"], "not_public_postable": source["not_public_postable"], "real_operator_artifact_present": source["real_operator_artifact_present"], "real_operator_artifact_intake_ready": source["real_operator_artifact_intake_ready"], "fixture_vs_real_separation_enforced": source["fixture_vs_real_separation_enforced"], "operator_go_phrase_expected_hash": GO_PHRASE_HASH, "operator_go_phrase_recorded": source["go_phrase_present"], "operator_go_phrase_valid": source["go_phrase_valid"], "operator_go_phrase_value_stored": False, "destination_label": source["destination_label"], "destination_binding_confirmed": source["destination_binding_confirmed"], "destination_proof_id": destination["destination_proof_id"], "destination_proof_hash": destination["destination_proof_hash"], "kill_switch_evidence_id": kill_switch["kill_switch_evidence_id"], "kill_switch_evidence_hash": kill_switch["kill_switch_evidence_hash"], "credential_presence_evidence_id": credential_evidence["credential_presence_evidence_id"], "credential_presence_evidence_hash": credential_evidence["credential_presence_evidence_hash"], "fixture_review_id": fixture_review["fixture_review_id"], "fixture_review_hash": fixture_review["fixture_review_hash"], "fixture_review_status": fixture_review["fixture_review_status"], "fixture_review_ready": fixture_review["fixture_review_ready"], "operator_input_contract_id": operator_input_contract["operator_input_contract_id"], "operator_input_contract_hash": operator_input_contract["operator_input_contract_hash"], "operator_input_contract_status": operator_input_contract["operator_input_contract_status"], "live_preflight_id": live_preflight["live_preflight_id"], "live_preflight_hash": live_preflight["live_preflight_hash"], "live_preflight_status": live_preflight["live_preflight_status"], "pre_dispatch_readiness_id": pre_dispatch["pre_dispatch_readiness_id"], "pre_dispatch_readiness_hash": pre_dispatch["pre_dispatch_readiness_hash"], "redacted_operator_review_id": redacted_review["redacted_operator_review_id"], "redacted_operator_review_hash": redacted_review["redacted_operator_review_hash"], "redacted_operator_review_status": redacted_review["redacted_operator_review_status"], "redacted_review_packet_ready": redacted_review["redacted_review_packet_ready"], "redaction_performed": redacted_review["redaction_performed"], "operator_review_decision_id": operator_review_decision["operator_review_decision_id"], "operator_review_decision_hash": operator_review_decision["operator_review_decision_hash"], "operator_review_decision_status": operator_review_decision["operator_review_decision_status"], "operator_review_decision_available": operator_review_decision["operator_review_decision_available"], "operator_review_decision_approved": operator_review_decision["operator_review_decision_approved"], "operator_review_decision_rejected": operator_review_decision["operator_review_decision_rejected"], "operator_review_decision_held": operator_review_decision["operator_review_decision_held"], "dispatch_decision_readiness_id": dispatch_decision_readiness["dispatch_decision_readiness_id"], "dispatch_decision_readiness_hash": dispatch_decision_readiness["dispatch_decision_readiness_hash"], "dispatch_decision_readiness_status": dispatch_decision_readiness["dispatch_decision_readiness_status"], "approval_route_candidate_ready_not_dispatch": dispatch_decision_readiness["approval_route_candidate_ready_not_dispatch"], "rejection_route_recorded_not_dispatch": dispatch_decision_readiness["rejection_route_recorded_not_dispatch"], "hold_route_recorded_not_dispatch": dispatch_decision_readiness["hold_route_recorded_not_dispatch"], "dispatch_route_preview_id": dispatch_route_preview["dispatch_route_preview_id"], "dispatch_route_preview_hash": dispatch_route_preview["dispatch_route_preview_hash"], "dispatch_route_preview_status": dispatch_route_preview["dispatch_route_preview_status"], "dispatch_route_class": dispatch_route_preview["route_class"], "dispatch_route_selection_reason": dispatch_route_preview["route_selection_reason"], "route_preview_ready_not_dispatch": dispatch_route_preview["route_preview_ready_not_dispatch"], "automation_first_alignment": dispatch_decision_readiness["automation_first_alignment"], "jim_final_authority_required": dispatch_decision_readiness["jim_final_authority_required"], "supervised_live_edge_required": dispatch_decision_readiness["supervised_live_edge_required"], "normalized_pre_dispatch_readiness_evaluated": True, "operator_review_ready": pre_dispatch["operator_review_ready"], "credential_presence_check_performed": True, "credential_presence_key_names_only": True, "credential_presence_states": credential_presence, "credential_value_read_made": False, "env_value_read_made": False, "webhook_url_value_read_made": False, "webhook_validation_performed": False, "dry_run_envelope_normalization_performed": True, "dry_run_request_envelope_preview_created": True, "dry_run_request_envelope_id": envelope["dry_run_request_envelope_id"], "dry_run_request_envelope_hash": envelope["dry_run_request_envelope_hash"], "dry_run_request_body_hash_preview": envelope["normalized_request_body_hash_preview"], "dry_run_envelope_value_stored": False, "request_envelope_executable": False, "approval_ledger_entry_created": False, "executable_outbox_entry_created": False, "real_outbox_entry_created": False, "dispatch_outbox_ready": False, "dispatch_attempted": False, "dispatch_request_count": 0, "webhook_request_count": 0, "platform_api_request_count": 0, "scheduler_enabled": False, "retry_enabled": False, "kill_switch_required": True, "kill_switch_active": source["kill_switch_active"], "ready_for_auto_publish": False, "ready_for_dispatch": False, "live_action_allowed": False, "public_url_verification_performed": False, "llm_provider_call_made": False, "provider_call_made": False, "platform_api_used": False, "public_url_fetch_made": False, "browser_session_used": False, "live_publish_performed_by_contentops": False, "enabled_publish_send_dispatch_approve_controls": False, "phrase_evidence_hash": phrase["phrase_evidence_hash"], "safety_signature_hash": safety["safety_signature_hash"], "blocked_reasons": sorted(set(reasons)),
     }
     packet["exact_payload_hash"] = _sha(packet, "exact_payload_hash", "intake_packet_id")
     packet["intake_packet_id"] = f"discord_source_go_intake_{packet['exact_payload_hash'][:16]}"
