@@ -22,6 +22,7 @@ import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonical
 import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVariantApprovalPacketPreviewAdapter';
 import { dispatchOutboxDryRunPacket } from '../data/dispatchOutboxDryRunAdapter';
 import { dispatchOutboxOperatorRecoveryPacket } from '../data/dispatchOutboxOperatorRecoveryAdapter';
+import { explicitLiveScopeGatePacket, normalizedDispatchCandidate } from '../data/explicitLiveScopeGateSourceCandidateAdapter';
 
 export function PlatformPreview() {
   const { select, selected } = useApp();
@@ -372,6 +373,68 @@ export function PlatformPreview() {
 
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
           <div>operator_recovery_status=operator_recovery_runbook_created_for_review</div>
+          <div>executable_outbox_entry_created=false</div>
+          <div>real_outbox_entry_created=false</div>
+          <div>dispatch_outbox_ready=false</div>
+          <div>dispatch_attempted=false</div>
+          <div>dispatch_request_count=0</div>
+          <div>webhook_request_count=0</div>
+          <div>platform_api_request_count=0</div>
+          <div>kill_switch_active=true</div>
+          <div>ready_for_dispatch=false</div>
+          <div>blocked_until_explicit_live_scope=true</div>
+          <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
+        </div>
+      </div>
+
+      <div className="mb-6 p-4 border border-line bg-surface-2 rounded-xl">
+        <div className="flex justify-between items-start gap-4 flex-wrap">
+          <div>
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-fg-subtle">
+              V6 explicit live scope gate & source candidate (10)
+            </div>
+            <h2 className="text-base font-bold text-fg mt-1">
+              Parsed Discord normalized candidate message or blocked status
+            </h2>
+          </div>
+          <StatusChip status="blocked">{explicitLiveScopeGatePacket.explicit_live_scope_gate_status}</StatusChip>
+        </div>
+
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <div className="font-semibold text-xs text-accent uppercase tracking-wider mb-2 font-mono">Normalized Message Candidate Body</div>
+            <div className="p-3 border border-line bg-surface-1 rounded-lg text-xs leading-relaxed font-mono whitespace-pre-wrap min-h-[100px] text-fg-muted">
+              {normalizedDispatchCandidate.normalized_body_text || "No normalized content body available. Operator source draft is missing or blocked."}
+            </div>
+          </div>
+
+          <div>
+            <div className="font-semibold text-xs text-accent uppercase tracking-wider mb-2 font-mono">Safety Compliance Scans</div>
+            <div className="space-y-2">
+              <div className="p-2.5 border border-line bg-surface-1 rounded-lg text-xs flex justify-between items-center">
+                <span className="text-fg-muted font-mono">safety_scan:</span>
+                <StatusChip status={normalizedDispatchCandidate.safety_scan === 'passed' ? 'verified' : 'blocked'}>
+                  {normalizedDispatchCandidate.safety_scan}
+                </StatusChip>
+              </div>
+              <div className="p-2.5 border border-line bg-surface-1 rounded-lg text-xs font-mono">
+                <div className="text-fg-subtle">blocked_reasons:</div>
+                <div className="mt-1 text-status-blocked">{JSON.stringify(normalizedDispatchCandidate.blocked_reasons)}</div>
+              </div>
+              <div className="p-2.5 border border-line bg-surface-1 rounded-lg text-xs flex justify-between items-center font-mono">
+                <span className="text-fg-muted">no_secret_material_present:</span>
+                <span className="font-semibold text-fg">{String(normalizedDispatchCandidate.no_secret_material_present)}</span>
+              </div>
+              <div className="p-2.5 border border-line bg-surface-1 rounded-lg text-xs flex justify-between items-center font-mono">
+                <span className="text-fg-muted">live_scope_required:</span>
+                <span className="font-semibold text-fg">{String(normalizedDispatchCandidate.live_scope_required)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
+          <div>explicit_live_scope_gate_status=created_for_operator_review</div>
           <div>executable_outbox_entry_created=false</div>
           <div>real_outbox_entry_created=false</div>
           <div>dispatch_outbox_ready=false</div>

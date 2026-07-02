@@ -327,3 +327,19 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Caveats | Recovery entries are not live dispatch payloads, contain no financial advice, and require separate operator final signoff. |
 | Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
 | Next recommendation at time of update | `TASK_CONTENTOPS_V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_HEAVY_BATCH_V0` |
+
+## Operator Recovery to Explicit Live Scope Gate & Source Candidate Normalization
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_INTAKE_NORMALIZED_CANDIDATE_HEAVY_BATCH_V0` |
+| Accepted product/audit baseline SHA | `25c80299695efad344db6fdf24316d9a1c1d0537` |
+| Repo HEAD / evidence commit | `b75b372a130a0c0eb8cfc16ec590e5db93a6d9a1` before status/feature commit |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Intake parser and candidate normalizer for explicit live-scope webhook readiness validation. |
+| Safety posture | Read-only presence-check for webhook keys. No token or secret value exposed. No live requests. |
+| Changed artifact families | `live_contentops/explicit_live_scope_source_intake_parser_v6.py`, `live_contentops/operator_recovery_to_explicit_live_scope_gate_source_candidate_v6.py`, codegen, runbook, tests, and V5 dashboard cards. |
+| Caveats | Full dispatch blocked. Read-only gate. |
+| Validation | Python tests, UI guardrail tests, Vitest, and production Vite compilation pass successfully. |
+| Next recommendation at time of update | `TASK_CONTENTOPS_V6_EXPLICIT_LIVE_SCOPE_GATE_TO_DISCORD_SUPERVISED_LIVE_PREFLIGHT_HEAVY_BATCH_V0` |
+

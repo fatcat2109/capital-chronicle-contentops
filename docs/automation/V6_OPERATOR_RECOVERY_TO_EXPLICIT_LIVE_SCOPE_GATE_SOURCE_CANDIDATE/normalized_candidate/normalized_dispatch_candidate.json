@@ -1,0 +1,20 @@
+{
+  "approval_required": true,
+  "blocked_reasons": [
+    "blocked_missing_operator_source_artifact"
+  ],
+  "candidate_id": "",
+  "content_type": "",
+  "dispatchable": false,
+  "live_scope_required": true,
+  "no_metrics_claim": true,
+  "no_public_url_claim": true,
+  "no_secret_material_present": true,
+  "normalized_body_text": "",
+  "operator_destination_label": "",
+  "payload_hash": "bd87835f6885c74fa48b3bb52ee6bb4ead8caed357abe2df8e55e99f8ca38184",
+  "platform_family": "discord",
+  "safety_scan": "pending",
+  "source_artifact_hash": "",
+  "source_artifact_path": ""
+}

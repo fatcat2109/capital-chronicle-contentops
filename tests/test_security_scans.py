@@ -30,6 +30,7 @@ def test_no_forbidden_imports_or_env_vars():
         "operator_browser_lab.py",
         "social_credential_setup_workbench.py",
         "ai_provider_gate_v6.py",
+        "operator_recovery_to_explicit_live_scope_gate_source_candidate_v6.py",
     }
 
     for p in root.rglob("*.py"):

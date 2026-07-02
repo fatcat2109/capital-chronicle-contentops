@@ -28,6 +28,7 @@ import { canonicalDraftFinalReviewVariantPreviewPacket } from '../data/canonical
 import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVariantApprovalPacketPreviewAdapter';
 import { dispatchOutboxDryRunPacket } from '../data/dispatchOutboxDryRunAdapter';
 import { dispatchOutboxOperatorRecoveryPacket } from '../data/dispatchOutboxOperatorRecoveryAdapter';
+import { explicitLiveScopeGatePacket } from '../data/explicitLiveScopeGateSourceCandidateAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -569,6 +570,42 @@ export function ManualExportPilotVerification() {
 
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
           <div>operator_recovery_status=operator_recovery_runbook_created_for_review</div>
+          <div>executable_outbox_entry_created=false</div>
+          <div>real_outbox_entry_created=false</div>
+          <div>dispatch_outbox_ready=false</div>
+          <div>dispatch_attempted=false</div>
+          <div>dispatch_request_count=0</div>
+          <div>webhook_request_count=0</div>
+          <div>platform_api_request_count=0</div>
+          <div>kill_switch_active=true</div>
+          <div>ready_for_dispatch=false</div>
+          <div>blocked_until_explicit_live_scope=true</div>
+          <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
+        </div>
+      </Panel>
+
+      <Panel
+        title="V6 explicit live scope gate & source candidate"
+        subtitle={`${explicitLiveScopeGatePacket.task_label} · status: ${explicitLiveScopeGatePacket.explicit_live_scope_gate_status}`}
+        actions={<StatusChip status="blocked">{explicitLiveScopeGatePacket.explicit_live_scope_gate_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Parser Created" value={String(explicitLiveScopeGatePacket.source_intake_parser_created)} status="verified" />
+          <Metric label="Candidate Created" value={String(explicitLiveScopeGatePacket.normalized_dispatch_candidate_created)} status="verified" />
+          <Metric label="Official Docs Evidence" value={String(explicitLiveScopeGatePacket.official_docs_evidence_created)} status="verified" />
+          <Metric label="Allowlist Created" value={String(explicitLiveScopeGatePacket.endpoint_allowlist_created)} status="verified" />
+          <Metric label="Env Check Performed" value={String(explicitLiveScopeGatePacket.credential_presence_check_performed)} status="verified" />
+          <Metric label="Env Read Made" value={String(explicitLiveScopeGatePacket.env_value_read_made)} status="blocked" />
+          <Metric label="Webhook Present" value={explicitLiveScopeGatePacket.credential_presence_states.DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK} status={explicitLiveScopeGatePacket.credential_presence_states.DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK === 'present' ? 'verified' : 'blocked'} />
+          <Metric label="Channel Label Present" value={explicitLiveScopeGatePacket.credential_presence_states.DISCORD_LIVE_ANNOUNCEMENTS_CHANNEL_LABEL} status={explicitLiveScopeGatePacket.credential_presence_states.DISCORD_LIVE_ANNOUNCEMENTS_CHANNEL_LABEL === 'present' ? 'verified' : 'blocked'} />
+          <Metric label="Endpoint Allowlisted" value={explicitLiveScopeGatePacket.endpoint_allowlist[0].host} status="verified" />
+          <Metric label="Kill Switch Active" value={String(explicitLiveScopeGatePacket.kill_switch_active)} status="verified" />
+          <Metric label="Ready For Dispatch" value={String(explicitLiveScopeGatePacket.ready_for_dispatch)} status="blocked" />
+          <Metric label="Auto-Publish Enabled" value={String(explicitLiveScopeGatePacket.ready_for_auto_publish)} status="blocked" />
+        </div>
+
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
+          <div>explicit_live_scope_gate_status=created_for_operator_review</div>
           <div>executable_outbox_entry_created=false</div>
           <div>real_outbox_entry_created=false</div>
           <div>dispatch_outbox_ready=false</div>

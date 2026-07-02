@@ -5,6 +5,7 @@
 import { useState } from 'react';
 import { useApp } from '../state';
 import { preflightBundlePacket } from '../data/preflightBundlePacket';
+import { explicitLiveScopeGatePacket } from '../data/explicitLiveScopeGateSourceCandidateAdapter';
 import {
   selectPreflightBundlePacket,
   selectPreflightPlatformState,
@@ -481,6 +482,52 @@ export function PreflightBundle() {
                 <p className="font-mono text-[11px] text-fg-muted">
                   {p.u9_audit_entry_ids.length} immutable ledger entries indexed.
                 </p>
+              </div>
+            </Panel>
+
+            <Panel
+              title="V6 explicit live scope gate & source candidate"
+              subtitle={`${explicitLiveScopeGatePacket.task_label} · status: ${explicitLiveScopeGatePacket.explicit_live_scope_gate_status}`}
+              bodyClassName="p-4 space-y-3 font-mono text-xs"
+            >
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                <div><span className="font-semibold text-fg font-mono">explicit_live_scope_gate_status:</span> {explicitLiveScopeGatePacket.explicit_live_scope_gate_status}</div>
+                <div><span className="font-semibold text-fg font-mono">source_intake_parser_created:</span> {String(explicitLiveScopeGatePacket.source_intake_parser_created)}</div>
+                <div><span className="font-semibold text-fg font-mono">normalized_dispatch_candidate_created:</span> {String(explicitLiveScopeGatePacket.normalized_dispatch_candidate_created)}</div>
+                <div><span className="font-semibold text-fg font-mono">normalized_candidate_status:</span> {explicitLiveScopeGatePacket.normalized_candidate_status}</div>
+                <div><span className="font-semibold text-fg font-mono">discord_live_scope_candidate_created:</span> {String(explicitLiveScopeGatePacket.discord_live_scope_candidate_created)}</div>
+                <div><span className="font-semibold text-fg font-mono">official_docs_evidence_created:</span> {String(explicitLiveScopeGatePacket.official_docs_evidence_created)}</div>
+                <div><span className="font-semibold text-fg font-mono">endpoint_allowlist_created:</span> {String(explicitLiveScopeGatePacket.endpoint_allowlist_created)}</div>
+                <div><span className="font-semibold text-fg font-mono">credential_presence_check_performed:</span> {String(explicitLiveScopeGatePacket.credential_presence_check_performed)}</div>
+                <div><span className="font-semibold text-fg font-mono">credential_value_read_made:</span> {String(explicitLiveScopeGatePacket.credential_value_read_made)}</div>
+                <div><span className="font-semibold text-fg font-mono">env_value_read_made:</span> {String(explicitLiveScopeGatePacket.env_value_read_made)}</div>
+                <div><span className="font-semibold text-fg font-mono">credential_presence_key_names_only:</span> {String(explicitLiveScopeGatePacket.credential_presence_key_names_only)}</div>
+                <div><span className="font-semibold text-fg font-mono">destination_binding_status:</span> {explicitLiveScopeGatePacket.destination_binding_status}</div>
+                <div><span className="font-semibold text-fg font-mono">payload_hash_preview_created:</span> {String(explicitLiveScopeGatePacket.payload_hash_preview_created)}</div>
+                <div><span className="font-semibold text-fg font-mono">exact_payload_preview_created:</span> {String(explicitLiveScopeGatePacket.exact_payload_preview_created)}</div>
+                <div><span className="font-semibold text-fg font-mono">executable_outbox_entry_created:</span> {String(explicitLiveScopeGatePacket.executable_outbox_entry_created)}</div>
+                <div><span className="font-semibold text-fg font-mono">real_outbox_entry_created:</span> {String(explicitLiveScopeGatePacket.real_outbox_entry_created)}</div>
+                <div><span className="font-semibold text-fg font-mono">approval_ledger_entry_created:</span> {String(explicitLiveScopeGatePacket.approval_ledger_entry_created)}</div>
+                <div><span className="font-semibold text-fg font-mono">dispatch_outbox_ready:</span> {String(explicitLiveScopeGatePacket.dispatch_outbox_ready)}</div>
+                <div><span className="font-semibold text-fg font-mono">dispatch_attempted:</span> {String(explicitLiveScopeGatePacket.dispatch_attempted)}</div>
+                <div><span className="font-semibold text-fg font-mono">dispatch_request_count:</span> {explicitLiveScopeGatePacket.dispatch_request_count}</div>
+                <div><span className="font-semibold text-fg font-mono">kill_switch_active:</span> {String(explicitLiveScopeGatePacket.kill_switch_active)}</div>
+                <div><span className="font-semibold text-fg font-mono">ready_for_dispatch:</span> {String(explicitLiveScopeGatePacket.ready_for_dispatch)}</div>
+              </div>
+
+              <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-[11px] leading-relaxed text-fg-muted font-mono">
+                <div>explicit_live_scope_gate_status=created_for_operator_review</div>
+                <div>executable_outbox_entry_created=false</div>
+                <div>real_outbox_entry_created=false</div>
+                <div>dispatch_outbox_ready=false</div>
+                <div>dispatch_attempted=false</div>
+                <div>dispatch_request_count=0</div>
+                <div>webhook_request_count=0</div>
+                <div>platform_api_request_count=0</div>
+                <div>kill_switch_active=true</div>
+                <div>ready_for_dispatch=false</div>
+                <div>blocked_until_explicit_live_scope=true</div>
+                <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
               </div>
             </Panel>
           </div>
