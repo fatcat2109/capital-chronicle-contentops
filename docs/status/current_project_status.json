@@ -3,7 +3,7 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "b75b372a130a0c0eb8cfc16ec590e5db93a6d9a1",
+  "last_verified_remote_sha": "c5c8d641ea636fa099517590897e68f3099951ca",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_INTAKE_NORMALIZED_CANDIDATE_HEAVY_BATCH_V0",
   "current_product_phase": "V6 operator recovery to explicit live scope gate and source candidate normalization check",
   "current_product_lane": "operator recovery to explicit live scope gate source candidate",
@@ -170,6 +170,6 @@
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
   "accepted_product_baseline_sha": "25c80299695efad344db6fdf24316d9a1c1d0537",
-  "last_status_commit_sha": "b75b372a130a0c0eb8cfc16ec590e5db93a6d9a1",
+  "last_status_commit_sha": "c5c8d641ea636fa099517590897e68f3099951ca",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work."
 }

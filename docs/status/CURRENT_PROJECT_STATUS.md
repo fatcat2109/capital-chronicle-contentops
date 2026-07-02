@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-b75b372a130a0c0eb8cfc16ec590e5db93a6d9a1
+c5c8d641ea636fa099517590897e68f3099951ca
 
 ## current_product_phase
 V6 operator recovery to explicit live scope gate and source candidate normalization check
@@ -19,13 +19,13 @@ V6 operator recovery to explicit live scope gate and source candidate normalizat
 operator recovery to explicit live scope gate source candidate
 
 ## accepted_baseline_summary
-Explicit live-scope gate and source candidate checks completed and verified against product baseline `25c80299695efad344db6fdf24316d9a1c1d0537` and current remote HEAD `b75b372a130a0c0eb8cfc16ec590e5db93a6d9a1`.
+Explicit live-scope gate and source candidate checks completed and verified against product baseline `25c80299695efad344db6fdf24316d9a1c1d0537` and current remote HEAD `c5c8d641ea636fa099517590897e68f3099951ca`.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `b75b372a130a0c0eb8cfc16ec590e5db93a6d9a1`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `c5c8d641ea636fa099517590897e68f3099951ca`
 - accepted product baseline (`accepted_product_baseline_sha`): `25c80299695efad344db6fdf24316d9a1c1d0537`
 - previous accepted product baseline: `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44`
-- latest status-only repair commit prior to this task: `b75b372a130a0c0eb8cfc16ec590e5db93a6d9a1`
+- latest status-only repair commit prior to this task: `c5c8d641ea636fa099517590897e68f3099951ca`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
 ## canonical_dashboard_surface
