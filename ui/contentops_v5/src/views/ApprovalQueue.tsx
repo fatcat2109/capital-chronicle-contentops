@@ -31,6 +31,7 @@ import { dispatchOutboxOperatorRecoveryPacket } from '../data/dispatchOutboxOper
 import { explicitLiveScopeGatePacket, normalizedDispatchCandidate } from '../data/explicitLiveScopeGateSourceCandidateAdapter';
 import { discordSupervisedLivePreflightPacket } from '../data/discordSupervisedLivePreflightAdapter';
 import { discordOperatorGoPacket, operatorGoPhraseValidationModel, operatorGoSafetySignaturePreview } from '../data/discordOperatorGoPacketAdapter';
+import { discordSupervisedLiveDispatchDryRunGatePacket, discordDryRunRequestEnvelopePreview, discordDryRunSafetySignature } from '../data/discordSupervisedLiveDispatchDryRunGateAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -576,6 +577,41 @@ export function ApprovalQueue() {
           <div>live_action_allowed=false</div>
           <div>blocked_reasons={JSON.stringify(discordOperatorGoPacket.blocked_reasons)}</div>
           <div>Locks: review-only GO scaffold; no Discord send/webhook validation/outbox/ledger/scheduler/retry/provider/API/credential value read</div>
+        </div>
+      </Panel>
+
+      <Panel
+        title="V6 Discord supervised live-dispatch dry-run gate"
+        subtitle={`${discordSupervisedLiveDispatchDryRunGatePacket.task_label} · status: ${discordSupervisedLiveDispatchDryRunGatePacket.dry_run_gate_status}`}
+        actions={<StatusChip status="blocked">{discordSupervisedLiveDispatchDryRunGatePacket.dry_run_gate_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Dry-run gate" value={discordSupervisedLiveDispatchDryRunGatePacket.dry_run_gate_packet_id} mono status="blocked" />
+          <Metric label="Source GO packet" value={discordSupervisedLiveDispatchDryRunGatePacket.source_operator_go_packet_id} mono status="verified" />
+          <Metric label="Source GO phrase" value={String(discordSupervisedLiveDispatchDryRunGatePacket.source_operator_go_phrase_valid)} status="blocked" />
+          <Metric label="Destination binding" value={discordSupervisedLiveDispatchDryRunGatePacket.source_destination_binding_status} mono status="blocked" />
+          <Metric label="Request executable" value={String(discordSupervisedLiveDispatchDryRunGatePacket.request_envelope_executable)} status="blocked" />
+          <Metric label="Dispatch attempted" value={String(discordSupervisedLiveDispatchDryRunGatePacket.dispatch_attempted)} status="blocked" />
+          <Metric label="Webhook count" value={String(discordSupervisedLiveDispatchDryRunGatePacket.webhook_request_count)} status="verified" />
+          <Metric label="Dispatch ready" value={String(discordSupervisedLiveDispatchDryRunGatePacket.ready_for_dispatch)} status="blocked" />
+          <Metric label="Envelope hash" value={discordDryRunRequestEnvelopePreview.dry_run_request_envelope_hash} mono status="verified" />
+          <Metric label="Safety hash" value={discordDryRunSafetySignature.dry_run_safety_signature_hash} mono status="verified" />
+          <Metric label="Webhook key" value={discordSupervisedLiveDispatchDryRunGatePacket.credential_presence_states.DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK} status="blocked" />
+          <Metric label="Kill switch key" value={discordSupervisedLiveDispatchDryRunGatePacket.credential_presence_states.CONTENTOPS_LIVE_KILL_SWITCH} status="blocked" />
+        </div>
+
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
+          <div>dry_run_gate_status=blocked</div>
+          <div>request_envelope_executable=false</div>
+          <div>dispatch_attempted=false</div>
+          <div>dispatch_request_count=0</div>
+          <div>webhook_request_count=0</div>
+          <div>ready_for_dispatch=false</div>
+          <div>live_action_allowed=false</div>
+          <div>credential_value_read_made=false</div>
+          <div>env_value_read_made=false</div>
+          <div>blocked_reasons={JSON.stringify(discordSupervisedLiveDispatchDryRunGatePacket.blocked_reasons)}</div>
+          <div>Locks: dry-run gate only; no Discord send/webhook validation/outbox/ledger/scheduler/retry/provider/API/credential value read</div>
         </div>
       </Panel>
       <SubstackArticleStudioCard mode="approval" />

@@ -374,3 +374,20 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Validation | Python compile, targeted pytest, full Vitest suite, and production Vite build pass successfully. |
 | Next recommendation at time of update | `TASK_CONTENTOPS_V6_OPERATOR_GO_PACKET_TO_SUPERVISED_DISCORD_LIVE_DISPATCH_DRY_RUN_GATE_HEAVY_BATCH_V0` |
 
+
+
+## Discord Supervised Live-Dispatch Dry-Run Gate
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_OPERATOR_GO_PACKET_TO_SUPERVISED_DISCORD_LIVE_DISPATCH_DRY_RUN_GATE_HEAVY_BATCH_V0` |
+| Starting HEAD | `72b816f97f819032a3a93008bd1cacbbd50c29ce` |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Fail-closed dry-run gate packet, non-executable request envelope preview, safety signature, V5 adapter, and canonical V5 read-only cards. |
+| Packet ID | `discord_dry_run_gate_f9d4f7f1945dc120` |
+| Exact payload hash | `f9d4f7f1945dc120e02c372436122068a76d3b8d117b5cf88b17c45ffe49838a` |
+| Safety posture | Dry-run gate only; no Discord send, webhook validation, executable outbox, approval ledger entry, scheduler, retry, provider call, platform API call, public URL fetch, browser session read, credential/env value read, or live action. |
+| Changed artifact families | `live_contentops/discord_supervised_live_dispatch_dry_run_gate_v6.py`, codegen, packet JSON artifacts, tests, and V5 dashboard cards. |
+| Caveats | Gate remains blocked due to missing operator source artifact, exact GO phrase, destination confirmation, credential key presence, and future live authorization. |
+| Validation | Targeted pytest, full Vitest suite, and production Vite build pass successfully. |
+| Next recommendation at time of update | `TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_DRY_RUN_GATE_TO_OPERATOR_SOURCE_ARTIFACT_AND_GO_PHRASE_INTAKE_V0` |

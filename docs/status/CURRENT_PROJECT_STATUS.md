@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_DISCORD_SUPERVISED_PREFLIGHT_TO_OPERATOR_GO_PACKET_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_OPERATOR_GO_PACKET_TO_SUPERVISED_DISCORD_LIVE_DISPATCH_DRY_RUN_GATE_HEAVY_BATCH_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,22 +10,22 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-5ea92d834aeb896f7188a9b54f13b95ee9498cf7
+72b816f97f819032a3a93008bd1cacbbd50c29ce
 
 ## current_product_phase
-V6 Discord operator GO packet
+V6 Discord supervised live-dispatch dry-run gate
 
 ## current_product_lane
-review-only Discord operator GO packet
+fail-closed Discord live-dispatch dry-run gate
 
 ## accepted_baseline_summary
-Discord operator GO packet scaffold generated from supervised live preflight evidence and verified against accepted feature baseline `177bf32da72040414c62ef54cbf5e54f059e84e6` and starting remote HEAD `5ea92d834aeb896f7188a9b54f13b95ee9498cf7`.
+Discord supervised live-dispatch dry-run gate generated from review-only operator GO packet at starting HEAD `72b816f97f819032a3a93008bd1cacbbd50c29ce`. Packet `discord_dry_run_gate_f9d4f7f1945dc120` has exact payload hash `f9d4f7f1945dc120e02c372436122068a76d3b8d117b5cf88b17c45ffe49838a` and remains blocked/fail-closed.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `5ea92d834aeb896f7188a9b54f13b95ee9498cf7`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `72b816f97f819032a3a93008bd1cacbbd50c29ce`
 - accepted product baseline (`accepted_product_baseline_sha`): `177bf32da72040414c62ef54cbf5e54f059e84e6`
 - previous accepted product baseline: `25c80299695efad344db6fdf24316d9a1c1d0537`
-- latest status-only repair commit prior to this task: `5ea92d834aeb896f7188a9b54f13b95ee9498cf7`
+- latest status-only repair commit prior to this task: `72b816f97f819032a3a93008bd1cacbbd50c29ce`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
 
@@ -60,7 +60,7 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
-- Discord operator GO packet remains blocked until operator source artifact, exact GO phrase, destination confirmation, and explicit future live authorization are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized.
+- Discord supervised live-dispatch dry-run gate remains blocked until operator source artifact, exact GO phrase, destination binding, credential key presence, and active kill switch are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized.
 - LinkedIn lane is fixture/operator-supplied evidence only; no API, browser automation, URL fetch/scrape, public URL verification, or platform action is authorized.
 - Substack manual publication evidence remains fixture/operator-supplied where public URL or metrics evidence is present.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
@@ -73,15 +73,14 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_DISCORD_SUPERVISED_PREFLIGHT_TO_OPERATOR_GO_PACKET_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_OPERATOR_GO_PACKET_TO_SUPERVISED_DISCORD_LIVE_DISPATCH_DRY_RUN_GATE_HEAVY_BATCH_V0
 
 ## latest changed areas
-- `live_contentops/discord_operator_go_packet_v6.py`
-- `live_contentops/discord_operator_go_packet_v5_adapter_codegen_v6.py`
-- `live_contentops/explicit_live_scope_source_intake_parser_v6.py`
-- `docs/automation/V6_DISCORD_OPERATOR_GO_PACKET/`
-- `tests/test_discord_operator_go_packet_v6.py`
-- `ui/contentops_v5/src/data/discordOperatorGoPacketAdapter.ts`
+- `live_contentops/discord_supervised_live_dispatch_dry_run_gate_v6.py`
+- `live_contentops/discord_supervised_live_dispatch_dry_run_gate_v5_adapter_codegen_v6.py`
+- `docs/automation/V6_DISCORD_SUPERVISED_LIVE_DISPATCH_DRY_RUN_GATE/`
+- `tests/test_discord_supervised_live_dispatch_dry_run_gate_v6.py`
+- `ui/contentops_v5/src/data/discordSupervisedLiveDispatchDryRunGateAdapter.ts`
 - `ui/contentops_v5/src/views/ApprovalQueue.tsx`
 - `ui/contentops_v5/src/views/PlatformPreview.tsx`
 - `ui/contentops_v5/src/views/PreflightBundle.tsx`
@@ -89,7 +88,7 @@ TASK_CONTENTOPS_V6_DISCORD_SUPERVISED_PREFLIGHT_TO_OPERATOR_GO_PACKET_HEAVY_BATC
 - `ui/contentops_v5/src/views/ManualExportPilotVerification.tsx`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_OPERATOR_GO_PACKET_TO_SUPERVISED_DISCORD_LIVE_DISPATCH_DRY_RUN_GATE_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_DRY_RUN_GATE_TO_OPERATOR_SOURCE_ARTIFACT_AND_GO_PHRASE_INTAKE_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -200,3 +199,14 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Scope: feedback intake packet, backlog summary packet, runbook, focused tests, and canonical V5 Approval Queue/Evidence Vault read-only cards.
 - Safety: operator-supplied fixture text only; no LLM/provider call, URL fetch/scrape, platform API, browser session read, env/credential read, live publish, send, approve, dispatch, schedule, reply, DM, like, repost, or quote-post.
 - Accepted product/audit baseline is `184062956f4c70509ad1c14b63d7837d9bcb1c58` after feedback/backlog loop push/readback; previous baseline was `3543afe8207bbb8c63eaa90fcbb0f413e57a0bcc`.
+
+
+## Discord Supervised Live-Dispatch Dry-Run Gate
+
+- Latest task: `TASK_CONTENTOPS_V6_OPERATOR_GO_PACKET_TO_SUPERVISED_DISCORD_LIVE_DISPATCH_DRY_RUN_GATE_HEAVY_BATCH_V0`.
+- Current lane: fail-closed Discord dry-run gate consuming review-only operator GO packet evidence.
+- Packet: `discord_dry_run_gate_f9d4f7f1945dc120`.
+- Exact payload hash: `f9d4f7f1945dc120e02c372436122068a76d3b8d117b5cf88b17c45ffe49838a`.
+- Safety: `request_envelope_executable=false`, `dispatch_attempted=false`, `webhook_request_count=0`, `ready_for_dispatch=false`, `live_action_allowed=false`.
+- Blocked reasons: missing operator source artifact, GO phrase, destination confirmation, webhook/channel-label/kill-switch key presence.
+- No Discord send, webhook validation, executable outbox, approval ledger entry, scheduler, retry, provider call, platform API call, public URL fetch, browser session read, credential value read, or env value read.

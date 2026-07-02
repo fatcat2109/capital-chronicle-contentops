@@ -1,0 +1,17 @@
+{
+  "allowed_mentions_parse_empty": true,
+  "body_hash_source": "blocked_until_operator_go_source_artifact_and_exact_phrase_valid",
+  "body_value_stored": false,
+  "dispatch_request_count": 0,
+  "dry_run_request_envelope_hash": "7caa3f215ee6ef608b707d8259f9d684995c1a5c03641d825d8bfc6f6cd68b36",
+  "envelope_kind": "discord_supervised_live_dispatch_dry_run_preview_v0",
+  "host_label": "discord.com",
+  "method_label": "POST",
+  "non_executable_preview_only": true,
+  "path_shape_label": "/api/webhooks/{webhook.id}/{webhook.token}",
+  "request_envelope_executable": false,
+  "webhook_request_count": 0,
+  "webhook_token_redacted": true,
+  "webhook_validation_performed": false,
+  "webhook_value_read_made": false
+}

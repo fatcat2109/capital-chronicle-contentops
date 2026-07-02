@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "5ea92d834aeb896f7188a9b54f13b95ee9498cf7",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_DISCORD_SUPERVISED_PREFLIGHT_TO_OPERATOR_GO_PACKET_HEAVY_BATCH_V0",
-  "current_product_phase": "V6 Discord operator GO packet",
-  "current_product_lane": "review-only Discord operator GO packet",
-  "accepted_baseline_summary": "Discord operator GO packet scaffold generated from supervised live preflight evidence and verified against accepted feature baseline 177bf32da72040414c62ef54cbf5e54f059e84e6 and starting remote HEAD 5ea92d834aeb896f7188a9b54f13b95ee9498cf7.",
+  "last_verified_remote_sha": "72b816f97f819032a3a93008bd1cacbbd50c29ce",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_GO_PACKET_TO_SUPERVISED_DISCORD_LIVE_DISPATCH_DRY_RUN_GATE_HEAVY_BATCH_V0",
+  "current_product_phase": "V6 Discord supervised live-dispatch dry-run gate",
+  "current_product_lane": "fail-closed Discord live-dispatch dry-run gate from operator GO packet",
+  "accepted_baseline_summary": "Discord supervised live-dispatch dry-run gate generated from review-only operator GO packet at starting HEAD 72b816f97f819032a3a93008bd1cacbbd50c29ce; packet discord_dry_run_gate_f9d4f7f1945dc120 has exact payload hash f9d4f7f1945dc120e02c372436122068a76d3b8d117b5cf88b17c45ffe49838a and remains blocked/fail-closed.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -67,7 +67,9 @@
     "live_contentops/dispatch_outbox_dry_run_operator_recovery_v6.py",
     "live_contentops/dispatch_outbox_operator_recovery_v5_adapter_codegen_v6.py",
     "live_contentops/discord_operator_go_packet_v6.py",
-    "live_contentops/discord_operator_go_packet_v5_adapter_codegen_v6.py"
+    "live_contentops/discord_operator_go_packet_v5_adapter_codegen_v6.py",
+    "live_contentops/discord_supervised_live_dispatch_dry_run_gate_v6.py",
+    "live_contentops/discord_supervised_live_dispatch_dry_run_gate_v5_adapter_codegen_v6.py"
   ],
   "current_loop_components": [
     "AI research packet",
@@ -113,10 +115,14 @@
     "Review-only Discord operator GO packet scaffold",
     "Discord operator GO phrase validation model",
     "Discord operator GO safety signature preview",
-    "V5 Discord operator GO packet read-only cards"
+    "V5 Discord operator GO packet read-only cards",
+    "Discord supervised live-dispatch dry-run gate packet",
+    "Discord dry-run request envelope preview",
+    "Discord dry-run safety signature",
+    "V5 Discord supervised live-dispatch dry-run gate read-only cards"
   ],
-  "dispatch_live_status": "blocked; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, or live send authorized",
-  "provider_env_credential_status": "gated; no env value or credential value reads; committed evidence may use boolean/key-name status only",
+  "dispatch_live_status": "blocked; dry-run gate only; no Discord send, webhook validation, dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, or live action authorized",
+  "provider_env_credential_status": "gated; dry-run gate uses key-name-only credential presence states; no env value or credential value reads",
   "active_blockers": [
     "live/provider/platform execution remains disabled",
     "future product UI work must target ui/contentops_v5/ unless newer committed authority supersedes it",
@@ -133,17 +139,18 @@
     "next article platform variant final review and approval packet preview is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
     "next article platform variant approval packet preview to dispatch outbox dry run is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
     "next article platform variant dispatch outbox dry-run to operator runbook and recovery is fixture/operator-supplied only; no LLM/provider/API/browser/public URL/live action is authorized",
-    "Discord operator GO packet remains blocked until operator source artifact, exact GO phrase, destination confirmation, and explicit future live authorization are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized"
+    "Discord operator GO packet remains blocked until operator source artifact, exact GO phrase, destination confirmation, and explicit future live authorization are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized",
+    "Discord supervised live-dispatch dry-run gate remains blocked until operator source artifact, exact GO phrase, destination binding, credential key presence, and active kill switch are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized"
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, stop and report BLOCKED",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_DISCORD_SUPERVISED_PREFLIGHT_TO_OPERATOR_GO_PACKET_HEAVY_BATCH_V0",
-  "latest_accepted_task_result": "complete_review_only_local_manual; operator GO packet scaffold generated fail-closed",
-  "latest_evidence_summary": "GO packet builder, normalized GO source candidate path, phrase validation model, safety signature preview, TS adapter, V5 read-only cards, Python tests, Vitest, and Vite build verified.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_GO_PACKET_TO_SUPERVISED_DISCORD_LIVE_DISPATCH_DRY_RUN_GATE_HEAVY_BATCH_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_GO_PACKET_TO_SUPERVISED_DISCORD_LIVE_DISPATCH_DRY_RUN_GATE_HEAVY_BATCH_V0",
+  "latest_accepted_task_result": "complete_review_only_local_manual; supervised Discord dry-run gate generated fail-closed",
+  "latest_evidence_summary": "Dry-run gate builder, envelope preview, safety signature, TS adapter, V5 read-only cards, targeted pytest, Vitest, and Vite build verified.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_SUPERVISED_DISCORD_DRY_RUN_GATE_TO_OPERATOR_SOURCE_ARTIFACT_AND_GO_PHRASE_INTAKE_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -177,6 +184,18 @@
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
   "accepted_product_baseline_sha": "177bf32da72040414c62ef54cbf5e54f059e84e6",
-  "last_status_commit_sha": "5ea92d834aeb896f7188a9b54f13b95ee9498cf7",
-  "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work."
+  "last_status_commit_sha": "72b816f97f819032a3a93008bd1cacbbd50c29ce",
+  "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work.",
+  "latest_changed_areas": [
+    "live_contentops/discord_supervised_live_dispatch_dry_run_gate_v6.py",
+    "live_contentops/discord_supervised_live_dispatch_dry_run_gate_v5_adapter_codegen_v6.py",
+    "docs/automation/V6_DISCORD_SUPERVISED_LIVE_DISPATCH_DRY_RUN_GATE/",
+    "tests/test_discord_supervised_live_dispatch_dry_run_gate_v6.py",
+    "ui/contentops_v5/src/data/discordSupervisedLiveDispatchDryRunGateAdapter.ts",
+    "ui/contentops_v5/src/views/ApprovalQueue.tsx",
+    "ui/contentops_v5/src/views/PlatformPreview.tsx",
+    "ui/contentops_v5/src/views/PreflightBundle.tsx",
+    "ui/contentops_v5/src/views/EvidenceVault.tsx",
+    "ui/contentops_v5/src/views/ManualExportPilotVerification.tsx"
+  ]
 }
