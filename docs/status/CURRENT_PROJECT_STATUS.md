@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0011
+TASK_0012
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,16 +10,16 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-f3106caed800eed01731e57a79ec81204439532c
+6633fb5e836c9606a004a3f5b678240d643136c4
 
 ## current_product_phase
-TASK 0011 CLI secret-hygiene safety guard added
+TASK 0012 Substack supervised CDP draft CLI added
 
 ## current_product_lane
-operator-send CLIs secret-hygiene protection with leakage checks, tests, and operator notes
+first Substack supervised CDP draft CLI added; dry-run default; execute uses browser CDP profile; no publish/schedule
 
 ## accepted_baseline_summary
-TASK 0011 added a shared cli_safety module with assert_clean_of_secrets and an operator safety note for external token revocation. Integrated the safety check in both Discord and Telegram operator-send CLIs, scanning and blocking evidence generation if raw credentials leak. Added tests verifying that fake env secrets (webhook and token values) are excluded from stdout and evidence files.
+TASK 0012 built a supervised operator-send CLI that connects to a running Chrome/Edge browser session via Chrome DevTools Protocol (CDP) to compose a draft on Substack, never publishing or scheduling. Features robust selectors for composing the title and body, autodetecting login redirection to block on auth mismatch, and verifying selector timeout to abort on UI uncertainty. Includes mock-based testing suite validating all success and blocker scenarios without invoking network or browser.
 
 ## status_sha_model
 - pre-repair remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `64b6a2788f2a175c9a172f5cd14e04d675cc78f9`
@@ -53,10 +53,10 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, supervised dispatch route preview packet, operator supervision contract packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
 
 ## dispatch/live status
-TASK 0011 was code, tests, and safety verification only. No real platform POST occurred. The CLIs dry-run/execute safety verification was successfully added.
+TASK 0012 was code, tests, and dry-run/execute safety verification only. No real browser action occurred during the tests. The Substack CDP draft creation CLI and tests are ready.
 
 ## provider/env/credential status
-gated; TASK 0011 tests used fake env values and mocked transport only. CLIs run the assert_clean_of_secrets guardrail before writing/printing to guarantee no secret exposure.
+gated; TASK 0012 connects over user-controlled local CDP profile only. No raw token, webhook, or cookie values are logged, printed, or saved, backed by a comprehensive cli_safety guard.
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
@@ -73,9 +73,13 @@ gated; TASK 0011 tests used fake env values and mocked transport only. CLIs run 
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_0011
+TASK_0012
 
 ## latest changed areas
+- `live_contentops/substack_operator_draft_cli.py`
+- `tests/test_substack_operator_draft_cli.py`
+- `docs/status/CURRENT_PROJECT_STATUS.md`
+- `docs/status/current_project_status.json`
 - `live_contentops/cli_safety.py`
 - `live_contentops/discord_operator_send_cli.py`
 - `live_contentops/telegram_operator_send_cli.py`
@@ -116,7 +120,7 @@ TASK_0011
 - `docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json`
 
 ## current next recommended task
-Maintain the secret-hygiene guard across any future CLI or adapter modifications, ensuring new credentials or destinations are added to the safety check lists.
+Run one real Substack draft compose execution under supervision with explicit --execute to verify CDP integration on the active browser profile.
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -481,4 +485,13 @@ Read this status ledger and the JSON status file before planning. For UI work, t
   1. `assert_clean_of_secrets` verifies that evidence dictionaries and stdout serialized content do not contain raw secrets.
   2. Fake webhook URLs and Telegram tokens are successfully caught by testing assertions.
   3. Operator note is explicitly stated in module docstrings.
+
+
+## Substack Supervised CDP Draft CLI TASK 0012
+
+- Latest task: `TASK_0012`.
+- CLI: `python -m live_contentops.substack_operator_draft_cli`.
+- Args: `--title`, `--body`, `--task-id`, `--execute`, `--output`.
+- Validation: 7 tests passed (success, cdp offline, login mismatch redirect, title/body selector timeouts).
+- Safety: uses `cli_safety.assert_clean_of_secrets` to scan output for any sensitive token/env/cookie values; no publish, schedule, comment, reaction, or scraping.
 
