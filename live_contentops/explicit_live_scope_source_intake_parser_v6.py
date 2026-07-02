@@ -16,6 +16,9 @@ GATE_NORMALIZED_FILE = GATE_NORMALIZED_DIR / "normalized_dispatch_candidate.json
 PREFLIGHT_INBOX_DIR = ROOT / "docs" / "automation" / "V6_DISCORD_SUPERVISED_LIVE_PREFLIGHT" / "inbox"
 PREFLIGHT_NORMALIZED_DIR = ROOT / "docs" / "automation" / "V6_DISCORD_SUPERVISED_LIVE_PREFLIGHT" / "normalized_candidate"
 PREFLIGHT_NORMALIZED_FILE = PREFLIGHT_NORMALIZED_DIR / "normalized_discord_payload_candidate.json"
+GO_PACKET_INBOX_DIR = ROOT / "docs" / "automation" / "V6_DISCORD_OPERATOR_GO_PACKET" / "inbox"
+GO_PACKET_NORMALIZED_DIR = ROOT / "docs" / "automation" / "V6_DISCORD_OPERATOR_GO_PACKET" / "normalized_candidate"
+GO_PACKET_NORMALIZED_FILE = GO_PACKET_NORMALIZED_DIR / "normalized_operator_go_source_candidate.json"
 INBOX_DIR = GATE_INBOX_DIR
 
 PLACEHOLDER_WORDS = ["viết nội dung thật ở đây", "todo", "placeholder", "lorem ipsum", "sample only"]
@@ -130,6 +133,7 @@ def _write_normalized(candidate: dict, normalized_file: Path) -> None:
 def parse_and_normalize() -> dict:
     # Keep compatibility with previous task which calls parse_and_normalize()
     parse_and_normalize_dir(PREFLIGHT_INBOX_DIR, PREFLIGHT_NORMALIZED_FILE)
+    parse_and_normalize_dir(GO_PACKET_INBOX_DIR, GO_PACKET_NORMALIZED_FILE)
     return parse_and_normalize_dir(GATE_INBOX_DIR, GATE_NORMALIZED_FILE)
 
 if __name__ == "__main__":

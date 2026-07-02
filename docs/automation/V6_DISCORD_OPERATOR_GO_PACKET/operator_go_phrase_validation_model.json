@@ -1,0 +1,11 @@
+{
+  "operator_go_phrase_exact_match_required": true,
+  "operator_go_phrase_expected_hash": "6bcb999238cff59929d6be1675b003f6f48533710b245aec7d93a1348168be28",
+  "operator_go_phrase_recorded": false,
+  "operator_go_phrase_required": true,
+  "operator_go_phrase_valid": false,
+  "operator_go_phrase_value_logged": false,
+  "operator_go_phrase_value_stored": false,
+  "validation_model_hash": "706eaa0d00fa84c1be2056d7bbd2d00da0c4080dd7ca2b2d82639c0d5a4b81e6",
+  "validation_scope": "review_only_model_no_live_send"
+}

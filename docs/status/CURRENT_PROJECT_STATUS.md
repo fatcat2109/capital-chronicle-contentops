@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_EXPLICIT_LIVE_SCOPE_GATE_TO_DISCORD_SUPERVISED_LIVE_PREFLIGHT_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_DISCORD_SUPERVISED_PREFLIGHT_TO_OPERATOR_GO_PACKET_HEAVY_BATCH_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,22 +10,22 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-177bf320c4c4146a81e9fbf2cb7d10e052bf485e
+5ea92d834aeb896f7188a9b54f13b95ee9498cf7
 
 ## current_product_phase
-V6 Discord supervised live preflight
+V6 Discord operator GO packet
 
 ## current_product_lane
-supervised live preflight
+review-only Discord operator GO packet
 
 ## accepted_baseline_summary
-Discord supervised live preflight completed and verified against product baseline `c5c8d641ea636fa099517590897e68f3099951ca` and current remote HEAD `177bf320c4c4146a81e9fbf2cb7d10e052bf485e`.
+Discord operator GO packet scaffold generated from supervised live preflight evidence and verified against accepted feature baseline `177bf32da72040414c62ef54cbf5e54f059e84e6` and starting remote HEAD `5ea92d834aeb896f7188a9b54f13b95ee9498cf7`.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `177bf320c4c4146a81e9fbf2cb7d10e052bf485e`
-- accepted product baseline (`accepted_product_baseline_sha`): `c5c8d641ea636fa099517590897e68f3099951ca`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `5ea92d834aeb896f7188a9b54f13b95ee9498cf7`
+- accepted product baseline (`accepted_product_baseline_sha`): `177bf32da72040414c62ef54cbf5e54f059e84e6`
 - previous accepted product baseline: `25c80299695efad344db6fdf24316d9a1c1d0537`
-- latest status-only repair commit prior to this task: `177bf320c4c4146a81e9fbf2cb7d10e052bf485e`
+- latest status-only repair commit prior to this task: `5ea92d834aeb896f7188a9b54f13b95ee9498cf7`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
 
@@ -60,6 +60,7 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
+- Discord operator GO packet remains blocked until operator source artifact, exact GO phrase, destination confirmation, and explicit future live authorization are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized.
 - LinkedIn lane is fixture/operator-supplied evidence only; no API, browser automation, URL fetch/scrape, public URL verification, or platform action is authorized.
 - Substack manual publication evidence remains fixture/operator-supplied where public URL or metrics evidence is present.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
@@ -72,22 +73,23 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_INTAKE_NORMALIZED_CANDIDATE_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_DISCORD_SUPERVISED_PREFLIGHT_TO_OPERATOR_GO_PACKET_HEAVY_BATCH_V0
 
 ## latest changed areas
+- `live_contentops/discord_operator_go_packet_v6.py`
+- `live_contentops/discord_operator_go_packet_v5_adapter_codegen_v6.py`
 - `live_contentops/explicit_live_scope_source_intake_parser_v6.py`
-- `live_contentops/operator_recovery_to_explicit_live_scope_gate_source_candidate_v6.py`
-- `live_contentops/explicit_live_scope_gate_source_candidate_v5_adapter_codegen_v6.py`
-- `docs/automation/V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_CANDIDATE/`
-- `tests/test_operator_recovery_to_explicit_live_scope_gate_source_candidate_v6.py`
-- `tests/test_explicit_live_scope_source_intake_parser_v6.py`
-- `tests/test_explicit_live_scope_gate_source_candidate_ui_guardrail_v6.py`
-- `tests/test_explicit_live_scope_gate_source_candidate_v5_adapter_codegen_v6.py`
-- `docs/runbooks/V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_CANDIDATE_RUNBOOK.md`
-- `ui/contentops_v5/src/data/explicitLiveScopeGateSourceCandidateAdapter.ts`
+- `docs/automation/V6_DISCORD_OPERATOR_GO_PACKET/`
+- `tests/test_discord_operator_go_packet_v6.py`
+- `ui/contentops_v5/src/data/discordOperatorGoPacketAdapter.ts`
+- `ui/contentops_v5/src/views/ApprovalQueue.tsx`
+- `ui/contentops_v5/src/views/PlatformPreview.tsx`
+- `ui/contentops_v5/src/views/PreflightBundle.tsx`
+- `ui/contentops_v5/src/views/EvidenceVault.tsx`
+- `ui/contentops_v5/src/views/ManualExportPilotVerification.tsx`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_EXPLICIT_LIVE_SCOPE_GATE_TO_DISCORD_SUPERVISED_LIVE_PREFLIGHT_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_OPERATOR_GO_PACKET_TO_SUPERVISED_DISCORD_LIVE_DISPATCH_DRY_RUN_GATE_HEAVY_BATCH_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.

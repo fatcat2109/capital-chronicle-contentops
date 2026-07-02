@@ -1,0 +1,21 @@
+{
+  "approval_ledger_entry_created": false,
+  "blocked_reasons": [
+    "blocked_missing_operator_go_source_artifact",
+    "blocked_missing_operator_source_artifact"
+  ],
+  "credential_value_read_made": false,
+  "discord_api_call_made": false,
+  "env_value_read_made": false,
+  "executable_outbox_entry_created": false,
+  "live_action_allowed": false,
+  "operator_source_payload_hash": "3c3c41c599fb5d2464b8851f467ed13427647a0bb98076f16992a794648aaa04",
+  "platform_api_call_made": false,
+  "provider_call_made": false,
+  "ready_for_dispatch": false,
+  "request_envelope_executable": false,
+  "review_only": true,
+  "safety_signature_hash": "af6b7d26bb5727c0a93bedef931a60c6d20070fe75cff154a75470874ef4a5b8",
+  "source_preflight_hash": "ef5371b837e94bd46030d91af3b2946a39a6e0466d076e6974d82c87e554cb25",
+  "webhook_validation_performed": false
+}

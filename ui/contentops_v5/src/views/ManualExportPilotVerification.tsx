@@ -30,6 +30,7 @@ import { dispatchOutboxDryRunPacket } from '../data/dispatchOutboxDryRunAdapter'
 import { dispatchOutboxOperatorRecoveryPacket } from '../data/dispatchOutboxOperatorRecoveryAdapter';
 import { explicitLiveScopeGatePacket } from '../data/explicitLiveScopeGateSourceCandidateAdapter';
 import { discordSupervisedLivePreflightPacket } from '../data/discordSupervisedLivePreflightAdapter';
+import { discordOperatorGoPacket, operatorGoPhraseValidationModel, operatorGoSafetySignaturePreview } from '../data/discordOperatorGoPacketAdapter';
 import { manualExportPilotVerificationPacket as p } from '../data/manualExportPilotVerificationPacket';
 import { useApp } from '../state';
 import {
@@ -654,6 +655,43 @@ export function ManualExportPilotVerification() {
           <div>live_action_allowed=false</div>
           <div>blocked_until_operator_explicit_live_scope=true</div>
           <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
+        </div>
+      </Panel>
+
+
+      <Panel
+        title="V6 Discord operator GO packet"
+        subtitle={`${discordOperatorGoPacket.task_label} · status: ${discordOperatorGoPacket.operator_go_packet_status}`}
+        actions={<StatusChip status="blocked">{discordOperatorGoPacket.operator_go_packet_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="GO packet" value={discordOperatorGoPacket.operator_go_packet_id} mono status="review" />
+          <Metric label="Source preflight" value={discordOperatorGoPacket.source_supervised_live_preflight_packet_id} mono status="verified" />
+          <Metric label="Phrase model" value={operatorGoPhraseValidationModel.validation_scope} mono status="blocked" />
+          <Metric label="Safety signature" value={operatorGoSafetySignaturePreview.safety_signature_hash} mono status="verified" />
+          <Metric label="Webhook validation" value={String(discordOperatorGoPacket.webhook_validation_performed)} status="blocked" />
+          <Metric label="Ledger entry" value={String(discordOperatorGoPacket.approval_ledger_entry_created)} status="blocked" />
+          <Metric label="Executable outbox" value={String(discordOperatorGoPacket.executable_outbox_entry_created)} status="blocked" />
+          <Metric label="Ready for dispatch" value={String(discordOperatorGoPacket.ready_for_dispatch)} status="blocked" />
+        </div>
+
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
+          <div>operator_go_packet_status=created_for_operator_review</div>
+          <div>webhook_validation_performed=false</div>
+          <div>request_envelope_executable=false</div>
+          <div>approval_ledger_entry_created=false</div>
+          <div>executable_outbox_entry_created=false</div>
+          <div>operator_go_phrase_required=true</div>
+          <div>operator_go_phrase_recorded=false</div>
+          <div>operator_go_phrase_valid=false</div>
+          <div>credential_value_read_made=false</div>
+          <div>env_value_read_made=false</div>
+          <div>dispatch_request_count=0</div>
+          <div>webhook_request_count=0</div>
+          <div>ready_for_dispatch=false</div>
+          <div>live_action_allowed=false</div>
+          <div>blocked_reasons={JSON.stringify(discordOperatorGoPacket.blocked_reasons)}</div>
+          <div>Locks: review-only GO scaffold; no Discord send/webhook validation/outbox/ledger/scheduler/retry/provider/API/credential value read</div>
         </div>
       </Panel>
 
