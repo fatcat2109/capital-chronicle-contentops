@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0010
+TASK_0011
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,16 +10,16 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-7b0d616b04da64bc13469bcc63dc4dfe29629d68
+f3106caed800eed01731e57a79ec81204439532c
 
 ## current_product_phase
-TASK 0010 approved one-shot Telegram CLI send completed with task-scoped label
+TASK 0011 CLI secret-hygiene safety guard added
 
 ## current_product_lane
-one-shot supervised Telegram operator-send CLI used with --task-id 0010; no retry/scheduler/queue/browser
+operator-send CLIs secret-hygiene protection with leakage checks, tests, and operator notes
 
 ## accepted_baseline_summary
-TASK 0010 used the reusable Telegram operator-send CLI with --task-id 0010 for one approved supervised live send. Redacted evidence records task_label=TASK_0010, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, no scheduler, queue, browser/CDP, scraping, autonomous dispatch, DM/comment/reaction, or secret exposure.
+TASK 0011 added a shared cli_safety module with assert_clean_of_secrets and an operator safety note for external token revocation. Integrated the safety check in both Discord and Telegram operator-send CLIs, scanning and blocking evidence generation if raw credentials leak. Added tests verifying that fake env secrets (webhook and token values) are excluded from stdout and evidence files.
 
 ## status_sha_model
 - pre-repair remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `64b6a2788f2a175c9a172f5cd14e04d675cc78f9`
@@ -53,10 +53,10 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, supervised dispatch route preview packet, operator supervision contract packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
 
 ## dispatch/live status
-TASK 0010 completed exactly one Telegram POST through the reusable CLI with --task-id 0010: task_label=TASK_0010, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0. This does not authorize ongoing live dispatch beyond this one approved send.
+TASK 0011 was code, tests, and safety verification only. No real platform POST occurred. The CLIs dry-run/execute safety verification was successfully added.
 
 ## provider/env/credential status
-Provider/env/credential handling remains gated. TASK 0010 used runtime env credential through the CLI/adapter without printing, committing, hashing, logging, or recording token/destination values or secret-derived metadata; no response body/header recorded.
+gated; TASK 0011 tests used fake env values and mocked transport only. CLIs run the assert_clean_of_secrets guardrail before writing/printing to guarantee no secret exposure.
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
@@ -73,9 +73,16 @@ Provider/env/credential handling remains gated. TASK 0010 used runtime env crede
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_0010
+TASK_0011
 
 ## latest changed areas
+- `live_contentops/cli_safety.py`
+- `live_contentops/discord_operator_send_cli.py`
+- `live_contentops/telegram_operator_send_cli.py`
+- `tests/test_discord_operator_send_cli.py`
+- `tests/test_telegram_operator_send_cli.py`
+- `docs/status/CURRENT_PROJECT_STATUS.md`
+- `docs/status/current_project_status.json`
 - `docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0010_cli_send_evidence.json`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
@@ -109,7 +116,7 @@ TASK_0010
 - `docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json`
 
 ## current next recommended task
-Treat the Telegram operator-send CLI as proven with task-scoped labels for one approved announcement only; any future live send requires another exact operator-approved message and one-shot authorization.
+Maintain the secret-hygiene guard across any future CLI or adapter modifications, ensuring new credentials or destinations are added to the safety check lists.
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -463,4 +470,15 @@ Read this status ledger and the JSON status file before planning. For UI work, t
   1. **Token Identity Verification**: Ensure `TELEGRAM_BOT_TOKEN` represents the active publisher bot (`CapitalChroniclePublisherBot`) rather than the orchestrator bot (`cc_ui_orchestrator_bot`), which lacks administrator write permissions for the channel.
   2. **Channel Destination Binding**: Ensure `TEST_TELEGRAM_CHANNEL` is set as either a valid `@username` (e.g., `@CapitalChronicle`) or a numeric channel ID (e.g., `-1003857411155`), not a Telegram web URL (e.g., `https://t.me/...`), to avoid `4xx` provider exceptions.
   3. **Registry and Process Reloading**: Remember that updating environment variables in the Windows User registry requires opening a new command shell process to reload `os.environ` changes.
+
+
+## CLI Secret-Hygiene Guard TASK 0011
+
+- Latest task: `TASK_0011`.
+- Helper module: `live_contentops/cli_safety.py`.
+- Validation: 77 tests passed.
+- Redaction / hygiene checks:
+  1. `assert_clean_of_secrets` verifies that evidence dictionaries and stdout serialized content do not contain raw secrets.
+  2. Fake webhook URLs and Telegram tokens are successfully caught by testing assertions.
+  3. Operator note is explicitly stated in module docstrings.
 

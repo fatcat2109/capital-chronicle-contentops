@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "7b0d616b04da64bc13469bcc63dc4dfe29629d68",
-  "last_updated_by_task": "TASK_0010",
-  "current_product_phase": "TASK 0010 approved one-shot Telegram CLI send completed with task-scoped label",
-  "current_product_lane": "one-shot supervised Telegram operator-send CLI used with --task-id 0010; no retry/scheduler/queue/browser",
-  "accepted_baseline_summary": "TASK 0010 used the reusable Telegram operator-send CLI with --task-id 0010 for one approved supervised live send. Redacted evidence records task_label=TASK_0010, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, no scheduler, queue, browser/CDP, scraping, autonomous dispatch, DM/comment/reaction, or secret exposure.",
+  "last_verified_remote_sha": "f3106caed800eed01731e57a79ec81204439532c",
+  "last_updated_by_task": "TASK_0011",
+  "current_product_phase": "TASK 0011 CLI secret-hygiene safety guard added",
+  "current_product_lane": "operator-send CLIs secret-hygiene protection with leakage checks, tests, and operator notes",
+  "accepted_baseline_summary": "TASK 0011 added a shared cli_safety module with assert_clean_of_secrets and an operator safety note for external token revocation. Integrated the safety check in both Discord and Telegram operator-send CLIs, scanning and blocking evidence generation if raw credentials leak. Added tests verifying that fake env secrets (webhook and token values) are excluded from stdout and evidence files.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -162,10 +162,12 @@
     "Discord operator-send CLI task-id approved-send evidence",
     "Telegram reusable one-shot operator-send CLI",
     "Telegram operator-send CLI dry-run evidence",
-    "Telegram reusable one-shot operator-send CLI approved-send evidence"
+    "Telegram reusable one-shot operator-send CLI approved-send evidence",
+    "CLI shared secret-hygiene guard module",
+    "CLI safety leak assertion tests"
   ],
-  "dispatch_live_status": "TASK 0010 completed exactly one Telegram POST through the reusable CLI with --task-id 0010: task_label=TASK_0010, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0. This does not authorize ongoing live dispatch beyond this one approved send.",
-  "provider_env_credential_status": "gated; TASK 0010 used runtime env credential through the CLI/adapter without printing, committing, hashing, logging, or recording token/destination values or secret-derived metadata; no response body/header recorded.",
+  "dispatch_live_status": "TASK 0011 was code, tests, and safety verification only. No real platform POST occurred. The CLIs dry-run/execute safety verification was successfully added.",
+  "provider_env_credential_status": "gated; TASK 0011 tests used fake env values and mocked transport only. CLIs run the assert_clean_of_secrets guardrail before writing/printing to guarantee no secret exposure.",
   "active_blockers": [
     "Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.",
     "live/provider/platform execution remains disabled",
@@ -198,10 +200,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_0010",
-  "latest_accepted_task_result": "pass_one_supervised_telegram_cli_post_task_label_0010_2xx",
-  "latest_evidence_summary": "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0010_cli_send_evidence.json records TASK 0010 task_label=TASK_0010, sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, and redaction flags confirming no secret exposure.",
-  "next_recommended_task": "Treat the Telegram operator-send CLI as proven with task-scoped labels for one approved announcement only; any future live send requires another exact operator-approved message and one-shot authorization.",
+  "latest_accepted_task": "TASK_0011",
+  "latest_accepted_task_result": "pass_cli_secret_hygiene_guard_and_redaction_tests",
+  "latest_evidence_summary": "Automated test suite (77 passed) verifies that raw webhook and token values are not printed to stdout or recorded in output evidence files during CLI runs.",
+  "next_recommended_task": "Maintain the secret-hygiene guard across any future CLI or adapter modifications, ensuring new credentials or destinations are added to the safety check lists.",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -261,6 +263,7 @@
     "live_contentops/telegram_operator_send_cli.py",
     "tests/test_telegram_operator_send_cli.py",
     "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0009_cli_dry_run_evidence.json",
-    "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0010_cli_send_evidence.json"
+    "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0010_cli_send_evidence.json",
+    "live_contentops/cli_safety.py"
   ]
 }

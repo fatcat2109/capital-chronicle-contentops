@@ -1,4 +1,11 @@
-"""One-shot Telegram operator-send CLI around the existing supervised send path."""
+"""One-shot Telegram operator-send CLI around the existing supervised send path.
+
+OPERATOR NOTE: If a credential, webhook URL, or bot token is ever exposed in
+chat logs, stdout, or repository files, you must IMMEDIATELY revoke and
+regenerate it externally (e.g. via Discord Developer Portal or Telegram
+BotFather). Never commit raw credentials to the repository or paste them into
+chat transcripts.
+"""
 from __future__ import annotations
 
 import argparse
@@ -9,7 +16,9 @@ import sys
 from pathlib import Path
 from typing import Any, Callable
 
+from live_contentops import cli_safety
 from tools import telegram_run_single_supervised_sendmessage as telegram_runner
+
 
 DEFAULT_TASK_ID = "0000"
 REQUEST_BUDGET_MAX = 1
@@ -63,7 +72,7 @@ def build_evidence(
             for reason in {telegram_runner.BLOCK_CREDENTIAL_MISSING, telegram_runner.BLOCK_DESTINATION_MISSING}
         ) else (blocked_reasons[0] if blocked_reasons else result["outcome_class"])
 
-    return {
+    evidence = {
         "task_label": f"TASK_{task_id}",
         "mode": "execute" if execute else "dry_run",
         "result_status": status,
@@ -92,6 +101,21 @@ def build_evidence(
         "dm_comment_reaction_created": False,
         "scraping_used": False,
     }
+
+    # Run the safety/redaction assertion check
+    secrets = []
+    if token:
+        secrets.append(token)
+    if destination:
+        secrets.append(destination)
+    for k, val in env.items():
+        if "TOKEN" in k.upper() or "CHANNEL" in k.upper() or "WEBHOOK" in k.upper():
+            if val:
+                secrets.append(val)
+    cli_safety.assert_clean_of_secrets(evidence, secrets)
+
+    return evidence
+
 
 
 def write_evidence(evidence: dict[str, Any], output: str | None) -> None:

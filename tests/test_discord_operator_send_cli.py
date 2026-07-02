@@ -86,3 +86,32 @@ def test_cli_requires_message():
         assert exc.code == 2
     else:
         raise AssertionError("missing --message should exit")
+
+
+def test_cli_secret_leakage_guard():
+    from live_contentops.cli_safety import assert_clean_of_secrets
+    import pytest
+    bad_evidence = {"task_label": "TASK_0011", "leaked_secret": "my_secret_token_123"}
+    with pytest.raises(AssertionError, match="Secret leakage detected"):
+        assert_clean_of_secrets(bad_evidence, ["my_secret_token_123"])
+
+
+def test_cli_dry_run_excludes_env_secrets_from_output(tmp_path, capsys):
+    fake_webhook = "https://discord.com/api/webhooks/999/SECRET_DISCORD_TOKEN_XYZ"
+    env = {"DISCORD_ANNOUNCEMENTS_WEBHOOK_URL": fake_webhook}
+
+    def forbidden(*args, **kwargs):
+        raise AssertionError("network should not be called")
+
+    out = tmp_path / "evidence.json"
+    code = cli.main(
+        ["--message", "Capital Chronicle CLI dry run. No financial advice.", "--output", str(out)],
+        adapter_factory=lambda: DiscordDispatchAdapter(environ=env, opener=forbidden),
+    )
+    evidence = json.loads(out.read_text(encoding="utf-8"))
+    printed = capsys.readouterr().out
+
+    assert code == 0
+    assert "SECRET_DISCORD_TOKEN_XYZ" not in printed
+    assert "SECRET_DISCORD_TOKEN_XYZ" not in json.dumps(evidence)
+

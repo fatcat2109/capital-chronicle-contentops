@@ -84,3 +84,36 @@ def test_cli_requires_message():
         assert exc.code == 2
     else:
         raise AssertionError("missing --message should exit")
+
+
+def test_cli_secret_leakage_guard():
+    from live_contentops.cli_safety import assert_clean_of_secrets
+    import pytest
+    bad_evidence = {"task_label": "TASK_0011", "leaked_secret": "my_secret_token_123"}
+    with pytest.raises(AssertionError, match="Secret leakage detected"):
+        assert_clean_of_secrets(bad_evidence, ["my_secret_token_123"])
+
+
+def test_cli_dry_run_excludes_env_secrets_from_output(tmp_path, capsys):
+    fake_token = "888888:SECRET_TELEGRAM_BOT_TOKEN_ABC"
+    fake_channel = "@secret_telegram_channel_123"
+    env = {"TELEGRAM_BOT_TOKEN": fake_token, "TEST_TELEGRAM_CHANNEL": fake_channel}
+
+    def forbidden():
+        raise AssertionError("network should not be called")
+
+    out = tmp_path / "evidence.json"
+    code = cli.main(
+        ["--message", "Capital Chronicle Telegram CLI dry run. No market guidance.", "--output", str(out)],
+        env_provider=lambda: env,
+        http_transport=forbidden,
+    )
+    evidence = json.loads(out.read_text(encoding="utf-8"))
+    printed = capsys.readouterr().out
+
+    assert code == 0
+    assert "SECRET_TELEGRAM_BOT_TOKEN_ABC" not in printed
+    assert "SECRET_TELEGRAM_BOT_TOKEN_ABC" not in json.dumps(evidence)
+    assert "secret_telegram_channel_123" not in printed
+    assert "secret_telegram_channel_123" not in json.dumps(evidence)
+

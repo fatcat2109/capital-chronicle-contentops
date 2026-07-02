@@ -1,4 +1,11 @@
-"""One-shot Discord operator-send CLI around the proven dispatch adapter path."""
+"""One-shot Discord operator-send CLI around the proven dispatch adapter path.
+
+OPERATOR NOTE: If a credential, webhook URL, or bot token is ever exposed in
+chat logs, stdout, or repository files, you must IMMEDIATELY revoke and
+regenerate it externally (e.g. via Discord Developer Portal or Telegram
+BotFather). Never commit raw credentials to the repository or paste them into
+chat transcripts.
+"""
 from __future__ import annotations
 
 import argparse
@@ -8,11 +15,13 @@ import sys
 from pathlib import Path
 from typing import Any, Callable
 
+from live_contentops import cli_safety
 from live_contentops.discord_dispatch_adapter import DiscordDispatchAdapter, TARGET_CONFIGS
 
 DEFAULT_TASK_ID = "0000"
 DEFAULT_TARGET = "announcements"
 DEFAULT_PAYLOAD_ID = "operator_send_cli_message"
+
 
 
 def build_evidence(
@@ -26,7 +35,8 @@ def build_evidence(
     config = TARGET_CONFIGS[target]
     message_hash = hashlib.sha256(message.encode("utf-8")).hexdigest()
     payload = {"payload_id": DEFAULT_PAYLOAD_ID, "content": message}
-    result = adapter_factory().dispatch(
+    adapter = adapter_factory()
+    result = adapter.dispatch(
         payload,
         target_name=target,
         destination_binding_id=config.destination_binding_id,
@@ -34,7 +44,7 @@ def build_evidence(
         payload_hash=message_hash,
         execute=execute,
     )
-    return {
+    evidence = {
         "task_label": f"TASK_{task_id}",
         "mode": "execute" if execute else "dry_run",
         "result_status": result["result_status"],
@@ -67,6 +77,21 @@ def build_evidence(
         "dm_comment_reaction_created": False,
         "scraping_used": False,
     }
+
+    # Run the safety/redaction assertion check
+    secrets = []
+    for cfg in TARGET_CONFIGS.values():
+        val = adapter.environ.get(cfg.env_key_name)
+        if val:
+            secrets.append(val)
+    for k, val in adapter.environ.items():
+        if "WEBHOOK" in k.upper() or "TOKEN" in k.upper():
+            if val:
+                secrets.append(val)
+    cli_safety.assert_clean_of_secrets(evidence, secrets)
+
+    return evidence
+
 
 
 def write_evidence(evidence: dict[str, Any], output: str | None) -> None:
