@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "5c08122b853e20d6a98ca08b39cde81c17e0e9ac",
-  "last_updated_by_task": "TASK_0004_APPROVED_SEND",
-  "current_product_phase": "TASK 0004 approved supervised operator-send command completed one Discord POST",
-  "current_product_lane": "one-shot supervised Discord operator-send command; exact operator-approved message sent once; no retry/scheduler/queue/browser",
-  "accepted_baseline_summary": "TASK 0004 received explicit operator approval for the exact safe announcement text and sent exactly one Discord POST through the existing adapter. Redacted evidence records sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, no scheduler, queue, browser/CDP, autonomous dispatch, DM/comment/reaction, scraping, or secret exposure.",
+  "last_verified_remote_sha": "3ac5984afbc832f2b950ae0cd72b69f236782996",
+  "last_updated_by_task": "TASK_0005",
+  "current_product_phase": "TASK 0005 reusable one-shot Discord operator-send CLI added and tested",
+  "current_product_lane": "one-shot supervised Discord operator-send CLI; dry-run by default; --execute sends at most one POST through existing adapter",
+  "accepted_baseline_summary": "TASK 0005 added a reusable one-shot Discord operator-send CLI around the proven adapter path. The CLI requires explicit --message text, defaults to dry-run unless --execute is present, preserves request budget 1 and retry budget 0 through the existing adapter, and emits redacted evidence JSON without printing or storing webhook/env/credential/token values or secret-derived metadata. Tests cover dry-run, missing env, mocked execute success, required --message, and existing Discord adapter/smoke suites with no real POST in tests.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -155,10 +155,11 @@
     "Discord supervised live smoke blocked evidence",
     "Discord supervised live smoke PASS evidence",
     "Discord supervised operator-send command draft/no-send evidence",
-    "Discord supervised operator-send command approved-send evidence"
+    "Discord supervised operator-send command approved-send evidence",
+    "Discord reusable one-shot operator-send CLI"
   ],
-  "dispatch_live_status": "TASK 0004 approved send completed exactly one Discord POST through the existing adapter: sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0; this does not authorize ongoing live dispatch beyond this one approved announcement.",
-  "provider_env_credential_status": "gated; TASK 0004 approved send used runtime env credential through existing adapter without printing, logging, hashing, committing, or deriving webhook/env/credential/token values or secret metadata; no response body/header recorded.",
+  "dispatch_live_status": "TASK 0005 added CLI only and did not perform a real Discord POST. The CLI defaults to dry-run; --execute uses existing adapter request_budget_max=1 and retry_budget_max=0. Tests use mocked transport only.",
+  "provider_env_credential_status": "gated; TASK 0005 CLI emits only redacted evidence and never prints, commits, hashes, logs, or records webhook/env/credential/token values or secret-derived metadata. Missing env reports key name only.",
   "active_blockers": [
     "Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.",
     "live/provider/platform execution remains disabled",
@@ -191,10 +192,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_0004_APPROVED_SEND",
-  "latest_accepted_task_result": "pass_one_supervised_operator_approved_discord_post_2xx",
-  "latest_evidence_summary": "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0004_operator_send_evidence.json records TASK 0004 approved send sent=true, operator_approved_message_found=true, request_count_attempted=1, status_code_class=2xx, and redaction flags confirming no secret exposure.",
-  "next_recommended_task": "Treat TASK 0004 operator-send command as proven for one approved announcement only; next live send requires another explicit operator-approved exact message and one-shot authorization.",
+  "latest_accepted_task": "TASK_0005",
+  "latest_accepted_task_result": "pass_reusable_one_shot_discord_operator_send_cli",
+  "latest_evidence_summary": "TASK 0005 code/tests validate reusable CLI dry-run, missing env block, mocked execute success, required --message, redacted evidence, request_count_attempted 0 for dry-run/missing-env, request_count_attempted 1 for mocked execute, and no real POST in tests.",
+  "next_recommended_task": "Use `python -m live_contentops.discord_operator_send_cli --message \"...\" --output evidence.json` for dry-run, then add `--execute` only for exact operator-approved one-shot sends.",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -243,6 +244,9 @@
     "docs/status/current_project_status.json",
     "docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json",
     "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0004_operator_send_evidence.json",
-    "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0004_safe_default_announcement_draft.md"
+    "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0004_safe_default_announcement_draft.md",
+    "live_contentops/discord_operator_send_cli.py",
+    "tests/test_discord_operator_send_cli.py",
+    "pyproject.toml"
   ]
 }

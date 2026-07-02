@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0004_APPROVED_SEND
+TASK_0005
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -13,13 +13,13 @@ master
 99556cc39d8398d3d3f792ad321b54be17aa2d08
 
 ## current_product_phase
-TASK 0004 approved supervised operator-send command completed one Discord POST
+TASK 0005 reusable one-shot Discord operator-send CLI added and tested
 
 ## current_product_lane
-one-shot supervised Discord operator-send command; exact operator-approved message sent once; no retry/scheduler/queue/browser
+one-shot supervised Discord operator-send CLI; dry-run by default; --execute sends at most one POST through existing adapter
 
 ## accepted_baseline_summary
-TASK 0004 received explicit operator approval for the exact safe announcement text and sent exactly one Discord POST through the existing adapter. Redacted evidence records sent=true, request_count_attempted=1, status_code_class=2xx, retry_count_attempted=0, no scheduler, queue, browser/CDP, autonomous dispatch, DM/comment/reaction, scraping, or secret exposure.
+TASK 0005 added a reusable one-shot Discord operator-send CLI around the proven adapter path. The CLI requires explicit --message text, defaults to dry-run unless --execute is present, preserves request budget 1 and retry budget 0 through the existing adapter, and emits redacted evidence JSON without printing or storing webhook/env/credential/token values or secret-derived metadata. Tests cover dry-run, missing env, mocked execute success, required --message, and existing Discord adapter/smoke suites with no real POST in tests.
 
 ## status_sha_model
 - pre-repair remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `64b6a2788f2a175c9a172f5cd14e04d675cc78f9`
@@ -53,10 +53,10 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, supervised dispatch route preview packet, operator supervision contract packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
 
 ## dispatch/live status
-TASK 0004 approved send completed exactly one Discord POST through the existing adapter: `sent=true`, `request_count_attempted=1`, `status_code_class=2xx`, `retry_count_attempted=0`. This does not authorize ongoing live dispatch beyond this one approved announcement.
+TASK 0005 added CLI only and did not perform a real Discord POST. The CLI defaults to dry-run; `--execute` uses existing adapter `request_budget_max=1` and `retry_budget_max=0`. Tests use mocked transport only.
 
 ## provider/env/credential status
-Provider/env/credential handling remains gated. TASK 0004 approved send used runtime env credential through existing adapter without printing, logging, hashing, committing, or deriving webhook/env/credential/token values or secret metadata; no response body/header recorded.
+Provider/env/credential handling remains gated. TASK 0005 CLI emits only redacted evidence and never prints, commits, hashes, logs, or records webhook/env/credential/token values or secret-derived metadata. Missing env reports key name only.
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
@@ -73,9 +73,14 @@ Provider/env/credential handling remains gated. TASK 0004 approved send used run
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_0004_APPROVED_SEND
+TASK_0005
 
 ## latest changed areas
+- `live_contentops/discord_operator_send_cli.py`
+- `tests/test_discord_operator_send_cli.py`
+- `pyproject.toml`
+- `docs/status/CURRENT_PROJECT_STATUS.md`
+- `docs/status/current_project_status.json`
 - `live_contentops/discord_operator_source_go_phrase_intake_v6.py`
 - `live_contentops/discord_operator_source_go_phrase_intake_v5_adapter_codegen_v6.py`
 - `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_supervision_contract/discord_operator_supervision_contract.json`
@@ -89,7 +94,7 @@ TASK_0004_APPROVED_SEND
 - `docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json`
 
 ## current next recommended task
-Treat TASK 0004 operator-send command as proven for one approved announcement only; next live send requires another explicit operator-approved exact message and one-shot authorization.
+Use `python -m live_contentops.discord_operator_send_cli --message "..." --output evidence.json` for dry-run, then add `--execute` only for exact operator-approved one-shot sends.
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -362,4 +367,15 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Status code class: `2xx`.
 - Exact message: `Capital Chronicle announcement test: Discord operator-send command is ready for supervised use. This is a safe default announcement draft pending final operator approval. No financial advice.`
 - Safety: no webhook/env/credential/token value exposure, no retry, no scheduler, no queue, no browser/CDP, no DM/comment/reaction, no scraping, no autonomous dispatch.
+
+
+## Discord Operator Send CLI TASK 0005
+
+- Latest task: `TASK_0005`.
+- CLI module: `live_contentops.discord_operator_send_cli`.
+- Script entry: `cc-discord-operator-send`.
+- Dry-run usage: `python -m live_contentops.discord_operator_send_cli --message "..." --output evidence.json`.
+- Execute usage: `python -m live_contentops.discord_operator_send_cli --message "..." --execute --output evidence.json`.
+- Safety: `--message` required, dry-run default, request budget 1, retry budget 0, redacted evidence only, no webhook/env/credential/token value output, no secret-derived metadata, no scheduler, no queue, no browser/CDP, no autonomous dispatch.
+- Validation: CLI tests plus existing Discord tests passed with mocked execute transport only; no real POST in tests.
 
