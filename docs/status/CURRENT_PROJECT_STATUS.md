@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0009
+TASK_0010
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,16 +10,16 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-c503c665c5e22d925ed769252eca59a0720c450b
+7b0d616b04da64bc13469bcc63dc4dfe29629d68
 
 ## current_product_phase
-TASK 0009 Telegram operator-send CLI added
+TASK 0010 approved Telegram CLI send attempted and provider-blocked
 
 ## current_product_lane
-one-shot supervised Telegram operator-send CLI added; dry-run default; execute gated; no real POST in tests
+one-shot supervised Telegram operator-send CLI execute attempted once; provider returned redacted 4xx; no retry/scheduler/queue/browser
 
 ## accepted_baseline_summary
-TASK 0009 added a reusable one-shot Telegram operator-send CLI mirroring the Discord CLI shape: required --message, optional --task-id default 0000, dry-run default, --execute gated one-message send path through existing Telegram supervised send code, request budget 1, retry budget 0, and redacted evidence. Tests cover dry-run no network, missing env block, and mocked execute success; no real Telegram POST was performed.
+TASK 0010 ran the approved Telegram operator-send CLI once after targeted tests passed. The CLI attempted exactly one Telegram send, used retry budget 0, recorded redacted evidence only, and failed closed with provider error class 4xx; sent=false and live_send_happened=false.
 
 ## status_sha_model
 - pre-repair remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `64b6a2788f2a175c9a172f5cd14e04d675cc78f9`
@@ -53,10 +53,10 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, supervised dispatch route preview packet, operator supervision contract packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
 
 ## dispatch/live status
-TASK 0009 was code/test/dry-run evidence only. No real Telegram POST was performed. Telegram CLI defaults to dry-run; `--execute` uses `request_budget_max=1` and `retry_budget_max=0` via the existing supervised send path.
+TASK 0010 attempted exactly one Telegram send through the reusable CLI: task_label=TASK_0010, sent=false, `request_count_attempted=1`, `status_code_class=4xx`, `retry_count_attempted=0`. No retry, scheduler, queue, browser/CDP, scraping, or autonomous dispatch occurred.
 
 ## provider/env/credential status
-Provider/env/credential handling remains gated. TASK 0009 tests used mocked env and mocked transport only. CLI output remains redacted and does not print, commit, hash, log, or record token/destination values or response body/header data.
+gated; TASK 0010 used runtime Telegram env/config through the CLI/adapter without printing, committing, hashing, logging, or recording token/destination/env values or secret-derived metadata; no response body/header recorded. Provider response was recorded only as redacted status_code_class=4xx and redacted diagnostic class.
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
@@ -73,9 +73,12 @@ Provider/env/credential handling remains gated. TASK 0009 tests used mocked env 
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_0009
+TASK_0010
 
 ## latest changed areas
+- `docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0010_cli_send_evidence.json`
+- `docs/status/CURRENT_PROJECT_STATUS.md`
+- `docs/status/current_project_status.json`
 - `live_contentops/telegram_operator_send_cli.py`
 - `tests/test_telegram_operator_send_cli.py`
 - `pyproject.toml`
@@ -106,7 +109,7 @@ TASK_0009
 - `docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json`
 
 ## current next recommended task
-Use the Telegram operator-send CLI only with an exact future operator-approved message and explicit `--execute` authorization; keep tests mocked and no-post.
+Fix Telegram provider-side `4xx` cause by checking bot/channel permission or destination binding outside repo logs, then run a new exact approved one-shot task if needed.
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -443,4 +446,17 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Retry budget: `0`.
 - Validation: Telegram CLI/runner/adapter tests passed (`69 passed`).
 - Safety: no real POST in tests, no scheduler, no queue, no browser/CDP, no autonomous dispatch, no token/destination output, no response body/header recording.
+
+
+## Telegram CLI TASK 0010
+
+- Latest task: `TASK_0010`.
+- Evidence: `docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0010_cli_send_evidence.json`.
+- Tests before send: `69 passed`.
+- Sent: `false`.
+- Request count attempted: `1`.
+- Status code class: `4xx`.
+- Retry count attempted: `0`.
+- Result: provider-side redacted `4xx`; no retry.
+- Safety: no token/destination/env value output, no scheduler, no queue, no browser/CDP, no scraping, no autonomous dispatch, no response body/header recording.
 
