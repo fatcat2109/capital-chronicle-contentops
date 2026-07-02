@@ -44,7 +44,10 @@ def run_cdp_draft(
     try:
         with sync_playwright() as p:
             try:
-                browser = p.chromium.connect_over_cdp(f"http://localhost:{cdp_port}")
+                try:
+                    browser = p.chromium.connect_over_cdp(f"http://localhost:{cdp_port}")
+                except Exception:
+                    browser = p.chromium.connect_over_cdp(f"http://127.0.0.1:{cdp_port}")
             except Exception as exc:
                 return {
                     "result_status": "BLOCKED",
