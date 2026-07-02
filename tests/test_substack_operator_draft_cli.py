@@ -113,6 +113,7 @@ def test_cli_execute_ui_uncertainty_body(mock_sync, capsys):
     
     mock_body_locator = MagicMock()
     mock_body_locator.first = mock_body_locator
+    mock_body_locator.nth.return_value = mock_body_locator
     mock_body_locator.wait_for.side_effect = Exception("timeout finding body")
     
     def mock_loc(sel):

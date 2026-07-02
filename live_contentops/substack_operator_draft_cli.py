@@ -96,7 +96,7 @@ def run_cdp_draft(
             # Locate Title
             try:
                 title_selector = "textarea[placeholder='Title'], textarea.post-title, textarea[placeholder*='Title'], [contenteditable='true'][data-placeholder*='Title'], [role='textbox'][aria-label*='Title']"
-                body_selector = ".ProseMirror, div[contenteditable='true'], .editor, [role='textbox']"
+                body_selector = ".ProseMirror, div[contenteditable='true'], textarea, [role='textbox'], .editor"
 
                 title_textarea = page.locator(title_selector).first
                 try:
@@ -107,9 +107,13 @@ def run_cdp_draft(
                         dashboard.first.click(timeout=5000)
                         page.wait_for_load_state("domcontentloaded", timeout=15000)
                         page.wait_for_timeout(1500)
-                    new_post = page.get_by_text("New post", exact=False)
-                    if new_post.count():
-                        new_post.first.click(timeout=5000)
+                    create = page.get_by_role("button", name="Create")
+                    if create.count():
+                        create.first.click(timeout=5000)
+                        page.wait_for_timeout(1000)
+                    create_post = page.get_by_text("Create post", exact=False)
+                    if create_post.count():
+                        create_post.first.click(timeout=5000)
                         page.wait_for_load_state("domcontentloaded", timeout=15000)
                         page.wait_for_timeout(2500)
                     title_textarea = page.locator(title_selector).first
@@ -131,12 +135,16 @@ def run_cdp_draft(
 
             # Locate Body
             try:
-                body_editor = page.locator(body_selector).first
+                body_editor = page.locator(".ProseMirror, div[contenteditable='true']").first
                 try:
                     body_editor.wait_for(timeout=5000)
                 except Exception:
-                    body_editor = page.get_by_role("textbox").nth(1)
-                    body_editor.wait_for(timeout=5000)
+                    try:
+                        body_editor = page.get_by_role("textbox").nth(1)
+                        body_editor.wait_for(timeout=5000)
+                    except Exception:
+                        body_editor = page.locator("textarea").nth(1)
+                        body_editor.wait_for(timeout=5000)
                 body_editor.focus()
                 body_editor.fill(body)
             except Exception as exc:

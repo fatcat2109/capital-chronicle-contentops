@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0015
+TASK_0015U
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -13,10 +13,10 @@ master
 c98df7b9f5824a8fb3f53ed415ba98037de71d28
 
 ## current_product_phase
-TASK 0015 Substack live draft rerun blocked after selector patch
+TASK 0015U Substack live supervised draft compose succeeded
 
 ## current_product_lane
-substack draft compose attempted; selector fallback added; final rerun blocked missing CDP; no draft/publish/schedule/email created
+substack draft created via CDP using Dashboard -> Create -> Create post; no publish/schedule/email
 
 ## accepted_baseline_summary
 TASK 0014 attempted one supervised Substack CDP draft compose live run. The first run blocked on missing CDP; the CLI was patched to retry CDP via IPv4 loopback after localhost/IPv6 failure; the single allowed patched rerun still blocked on missing CDP at 127.0.0.1:9222. No draft was created and no publish/schedule/email action occurred.
@@ -542,4 +542,19 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Login check: light UI signals only; `Dashboard` visible, `Sign in` absent, account/profile signal present.
 - Safety: no publish, schedule, email send, cookies, localStorage, sessionStorage, credentials, env values, browser secrets, or DOM dump.
 - Next fix: keep Edge CDP process alive across pytest plus compose CLI, or launch/check/compose inside one foreground process with stable CDP.
+
+
+## Substack Live Draft Success TASK 0015U
+
+- Latest task: `TASK_0015U`.
+- Evidence: [`task_0015_success3_substack_draft_evidence.json`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0015_success3_substack_draft_evidence.json).
+- Result: `PASS`.
+- Diagnostic: `draft_created_and_autosaved`.
+- Request count: `1`.
+- Publish/schedule/email: `false`.
+- Why earlier `draft_created=false`: direct compose path and `New post` text did not open editor; `New post` was inert dashboard `DIV` text, not clickable control.
+- Working path: `Dashboard -> Create -> Create post -> Editing newsletter`.
+- Body selector lesson: do not fill generic `.editor` wrapper; use `.ProseMirror`, `div[contenteditable=true]`, second textbox, or second textarea.
+- Safety: no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, response bodies, headers, or DOM dumps were read/output.
+- Tests: `python -m pytest tests/test_substack_operator_draft_cli.py` -> `10 passed`.
 
