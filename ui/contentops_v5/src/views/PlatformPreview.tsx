@@ -23,6 +23,7 @@ import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVari
 import { dispatchOutboxDryRunPacket } from '../data/dispatchOutboxDryRunAdapter';
 import { dispatchOutboxOperatorRecoveryPacket } from '../data/dispatchOutboxOperatorRecoveryAdapter';
 import { explicitLiveScopeGatePacket, normalizedDispatchCandidate } from '../data/explicitLiveScopeGateSourceCandidateAdapter';
+import { discordSupervisedLivePreflightPacket, normalizedDiscordPayloadCandidate } from '../data/discordSupervisedLivePreflightAdapter';
 
 export function PlatformPreview() {
   const { select, selected } = useApp();
@@ -445,6 +446,68 @@ export function PlatformPreview() {
           <div>kill_switch_active=true</div>
           <div>ready_for_dispatch=false</div>
           <div>blocked_until_explicit_live_scope=true</div>
+          <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
+        </div>
+      </div>
+
+      <div className="mb-6 p-4 border border-line bg-surface-2 rounded-xl">
+        <div className="flex justify-between items-start gap-4 flex-wrap">
+          <div>
+            <div className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-fg-subtle">
+              V6 Discord supervised live preflight (10)
+            </div>
+            <h2 className="text-base font-bold text-fg mt-1">
+              Supervised live preflight payload candidate message or blocked status
+            </h2>
+          </div>
+          <StatusChip status="blocked">{discordSupervisedLivePreflightPacket.supervised_live_preflight_status}</StatusChip>
+        </div>
+
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <div className="font-semibold text-xs text-accent uppercase tracking-wider mb-2 font-mono">Normalized Preflight Candidate Body</div>
+            <div className="p-3 border border-line bg-surface-1 rounded-lg text-xs leading-relaxed font-mono whitespace-pre-wrap min-h-[100px] text-fg-muted">
+              {normalizedDiscordPayloadCandidate.normalized_body_text || "No normalized preflight content body available. Operator source draft is missing or blocked."}
+            </div>
+          </div>
+
+          <div>
+            <div className="font-semibold text-xs text-accent uppercase tracking-wider mb-2 font-mono">Safety Compliance Scans</div>
+            <div className="space-y-2">
+              <div className="p-2.5 border border-line bg-surface-1 rounded-lg text-xs flex justify-between items-center font-mono">
+                <span className="text-fg-muted">safety_scan:</span>
+                <StatusChip status={normalizedDiscordPayloadCandidate.safety_scan === 'passed' ? 'verified' : 'blocked'}>
+                  {normalizedDiscordPayloadCandidate.safety_scan}
+                </StatusChip>
+              </div>
+              <div className="p-2.5 border border-line bg-surface-1 rounded-lg text-xs font-mono">
+                <div className="text-fg-subtle">blocked_reasons:</div>
+                <div className="mt-1 text-status-blocked">{JSON.stringify(normalizedDiscordPayloadCandidate.blocked_reasons)}</div>
+              </div>
+              <div className="p-2.5 border border-line bg-surface-1 rounded-lg text-xs flex justify-between items-center font-mono">
+                <span className="text-fg-muted">no_secret_material_present:</span>
+                <span className="font-semibold text-fg">{String(normalizedDiscordPayloadCandidate.no_secret_material_present)}</span>
+              </div>
+              <div className="p-2.5 border border-line bg-surface-1 rounded-lg text-xs flex justify-between items-center font-mono">
+                <span className="text-fg-muted">live_scope_required:</span>
+                <span className="font-semibold text-fg">{String(normalizedDiscordPayloadCandidate.live_scope_required)}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
+          <div>supervised_live_preflight_status=created_for_operator_review</div>
+          <div>request_envelope_executable=false</div>
+          <div>operator_go_phrase_required=true</div>
+          <div>operator_go_phrase_recorded=false</div>
+          <div>credential_value_read_made=false</div>
+          <div>env_value_read_made=false</div>
+          <div>dispatch_request_count=0</div>
+          <div>webhook_request_count=0</div>
+          <div>ready_for_dispatch=false</div>
+          <div>live_action_allowed=false</div>
+          <div>blocked_until_operator_explicit_live_scope=true</div>
           <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
         </div>
       </div>

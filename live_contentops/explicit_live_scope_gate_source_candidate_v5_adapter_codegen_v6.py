@@ -96,10 +96,12 @@ export interface NormalizedDispatchCandidate {{
   source_artifact_path: string;
   source_artifact_hash: string;
   platform_family: string;
+  content_length: number;
   content_type: string;
   operator_destination_label: string;
   normalized_body_text: string;
   payload_hash: string;
+  request_body_hash_preview: string | null;
   safety_scan: string;
   blocked_reasons: string[];
   dispatchable: boolean;

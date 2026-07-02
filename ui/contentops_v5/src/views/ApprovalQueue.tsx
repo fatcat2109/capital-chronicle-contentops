@@ -29,6 +29,7 @@ import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVari
 import { dispatchOutboxDryRunPacket } from '../data/dispatchOutboxDryRunAdapter';
 import { dispatchOutboxOperatorRecoveryPacket } from '../data/dispatchOutboxOperatorRecoveryAdapter';
 import { explicitLiveScopeGatePacket, normalizedDispatchCandidate } from '../data/explicitLiveScopeGateSourceCandidateAdapter';
+import { discordSupervisedLivePreflightPacket } from '../data/discordSupervisedLivePreflightAdapter';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
 import { selectDispatchGate } from '../selectors';
@@ -500,6 +501,42 @@ export function ApprovalQueue() {
           <div>kill_switch_active=true</div>
           <div>ready_for_dispatch=false</div>
           <div>blocked_until_explicit_live_scope=true</div>
+          <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
+        </div>
+      </Panel>
+
+      <Panel
+        title="V6 Discord supervised live preflight"
+        subtitle={`${discordSupervisedLivePreflightPacket.task_label} · status: ${discordSupervisedLivePreflightPacket.supervised_live_preflight_status}`}
+        actions={<StatusChip status="blocked">{discordSupervisedLivePreflightPacket.supervised_live_preflight_status}</StatusChip>}
+      >
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <Metric label="Candidate Status" value={discordSupervisedLivePreflightPacket.source_candidate_status} status="blocked" />
+          <Metric label="Envelope Created" value={String(discordSupervisedLivePreflightPacket.request_envelope_preview_created)} status="verified" />
+          <Metric label="Envelope Executable" value={String(discordSupervisedLivePreflightPacket.request_envelope_executable)} status="blocked" />
+          <Metric label="Redacted Token" value={String(discordSupervisedLivePreflightPacket.endpoint_token_redacted)} status="verified" />
+          <Metric label="Webhook Value Read" value={String(discordSupervisedLivePreflightPacket.webhook_url_value_read_made)} status="blocked" />
+          <Metric label="Webhook Present" value={discordSupervisedLivePreflightPacket.credential_presence_states.DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK} status={discordSupervisedLivePreflightPacket.credential_presence_states.DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK === 'present' ? 'verified' : 'blocked'} />
+          <Metric label="Channel Present" value={discordSupervisedLivePreflightPacket.credential_presence_states.DISCORD_LIVE_ANNOUNCEMENTS_CHANNEL_LABEL} status={discordSupervisedLivePreflightPacket.credential_presence_states.DISCORD_LIVE_ANNOUNCEMENTS_CHANNEL_LABEL === 'present' ? 'verified' : 'blocked'} />
+          <Metric label="Kill Switch Present" value={discordSupervisedLivePreflightPacket.credential_presence_states.CONTENTOPS_LIVE_KILL_SWITCH} status={discordSupervisedLivePreflightPacket.credential_presence_states.CONTENTOPS_LIVE_KILL_SWITCH === 'present' ? 'verified' : 'blocked'} />
+          <Metric label="Go Phrase Required" value={String(discordSupervisedLivePreflightPacket.operator_go_phrase_required)} status="verified" />
+          <Metric label="Go Phrase Recorded" value={String(discordSupervisedLivePreflightPacket.operator_go_phrase_recorded)} status="blocked" />
+          <Metric label="Ready For Dispatch" value={String(discordSupervisedLivePreflightPacket.ready_for_dispatch)} status="blocked" />
+          <Metric label="Auto-Publish" value={String(discordSupervisedLivePreflightPacket.ready_for_auto_publish)} status="blocked" />
+        </div>
+
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
+          <div>supervised_live_preflight_status=created_for_operator_review</div>
+          <div>request_envelope_executable=false</div>
+          <div>operator_go_phrase_required=true</div>
+          <div>operator_go_phrase_recorded=false</div>
+          <div>credential_value_read_made=false</div>
+          <div>env_value_read_made=false</div>
+          <div>dispatch_request_count=0</div>
+          <div>webhook_request_count=0</div>
+          <div>ready_for_dispatch=false</div>
+          <div>live_action_allowed=false</div>
+          <div>blocked_until_operator_explicit_live_scope=true</div>
           <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
         </div>
       </Panel>

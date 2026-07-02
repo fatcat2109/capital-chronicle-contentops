@@ -1,0 +1,11 @@
+{
+  "allowed_mentions": {
+    "parse": []
+  },
+  "body_hash_preview": "blocked_no_payload_hash",
+  "content_length": 0,
+  "host": "discord.com",
+  "method": "POST",
+  "path_shape": "/api/webhooks/{webhook.id}/{webhook.token}",
+  "payload_hash_preview": "3c3c41c599fb5d2464b8851f467ed13427647a0bb98076f16992a794648aaa04"
+}

@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_INTAKE_NORMALIZED_CANDIDATE_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_EXPLICIT_LIVE_SCOPE_GATE_TO_DISCORD_SUPERVISED_LIVE_PREFLIGHT_HEAVY_BATCH_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,23 +10,24 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-c5c8d641ea636fa099517590897e68f3099951ca
+3435decbea7f8ad006b32a4374307f07bfa9ebf7
 
 ## current_product_phase
-V6 operator recovery to explicit live scope gate and source candidate normalization check
+V6 Discord supervised live preflight
 
 ## current_product_lane
-operator recovery to explicit live scope gate source candidate
+supervised live preflight
 
 ## accepted_baseline_summary
-Explicit live-scope gate and source candidate checks completed and verified against product baseline `25c80299695efad344db6fdf24316d9a1c1d0537` and current remote HEAD `c5c8d641ea636fa099517590897e68f3099951ca`.
+Discord supervised live preflight completed and verified against product baseline `c5c8d641ea636fa099517590897e68f3099951ca` and current remote HEAD `3435decbea7f8ad006b32a4374307f07bfa9ebf7`.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `c5c8d641ea636fa099517590897e68f3099951ca`
-- accepted product baseline (`accepted_product_baseline_sha`): `25c80299695efad344db6fdf24316d9a1c1d0537`
-- previous accepted product baseline: `7bbd0714bfa4d8ee948fe4d5093fcad5d24d9c44`
-- latest status-only repair commit prior to this task: `c5c8d641ea636fa099517590897e68f3099951ca`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `3435decbea7f8ad006b32a4374307f07bfa9ebf7`
+- accepted product baseline (`accepted_product_baseline_sha`): `c5c8d641ea636fa099517590897e68f3099951ca`
+- previous accepted product baseline: `25c80299695efad344db6fdf24316d9a1c1d0537`
+- latest status-only repair commit prior to this task: `3435decbea7f8ad006b32a4374307f07bfa9ebf7`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
+
 
 ## canonical_dashboard_surface
 `ui/contentops_v5/` is the canonical current dashboard/app surface unless a newer committed authority document supersedes it.
@@ -71,20 +72,22 @@ Provider/env/credential handling remains gated. Env/key presence may appear only
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_INTAKE_NORMALIZED_CANDIDATE_HEAVY_BATCH_V0
 
 ## latest changed areas
-- `live_contentops/dispatch_outbox_dry_run_operator_recovery_v6.py`
-- `live_contentops/dispatch_outbox_operator_recovery_v5_adapter_codegen_v6.py`
-- `docs/automation/V6_DISPATCH_OUTBOX_DRY_RUN_OPERATOR_RUNBOOK_AND_RECOVERY/`
-- `tests/test_dispatch_outbox_dry_run_operator_recovery_v6.py`
-- `tests/test_dispatch_outbox_operator_recovery_ui_guardrail_v6.py`
-- `tests/test_dispatch_outbox_operator_recovery_v5_adapter_codegen_v6.py`
-- `docs/runbooks/V6_DISPATCH_OUTBOX_DRY_RUN_OPERATOR_RUNBOOK_AND_RECOVERY_RUNBOOK.md`
-- `ui/contentops_v5/src/data/dispatchOutboxOperatorRecoveryAdapter.ts`
+- `live_contentops/explicit_live_scope_source_intake_parser_v6.py`
+- `live_contentops/operator_recovery_to_explicit_live_scope_gate_source_candidate_v6.py`
+- `live_contentops/explicit_live_scope_gate_source_candidate_v5_adapter_codegen_v6.py`
+- `docs/automation/V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_CANDIDATE/`
+- `tests/test_operator_recovery_to_explicit_live_scope_gate_source_candidate_v6.py`
+- `tests/test_explicit_live_scope_source_intake_parser_v6.py`
+- `tests/test_explicit_live_scope_gate_source_candidate_ui_guardrail_v6.py`
+- `tests/test_explicit_live_scope_gate_source_candidate_v5_adapter_codegen_v6.py`
+- `docs/runbooks/V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_CANDIDATE_RUNBOOK.md`
+- `ui/contentops_v5/src/data/explicitLiveScopeGateSourceCandidateAdapter.ts`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_EXPLICIT_LIVE_SCOPE_GATE_TO_DISCORD_SUPERVISED_LIVE_PREFLIGHT_HEAVY_BATCH_V0
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.

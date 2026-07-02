@@ -1,4 +1,4 @@
-"""Source Intake Parser for V6 Operator Recovery to Explicit Live Scope Gate."""
+"""Source Intake Parser for V6 Operator Recovery to Explicit Live Scope Gate & Discord Supervised Live Preflight."""
 from __future__ import annotations
 
 import os
@@ -7,19 +7,26 @@ import hashlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-INBOX_DIR = ROOT / "docs" / "automation" / "V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_CANDIDATE" / "inbox"
-NORMALIZED_DIR = ROOT / "docs" / "automation" / "V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_CANDIDATE" / "normalized_candidate"
-NORMALIZED_FILE = NORMALIZED_DIR / "normalized_dispatch_candidate.json"
+
+# Path configurations
+GATE_INBOX_DIR = ROOT / "docs" / "automation" / "V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_CANDIDATE" / "inbox"
+GATE_NORMALIZED_DIR = ROOT / "docs" / "automation" / "V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_CANDIDATE" / "normalized_candidate"
+GATE_NORMALIZED_FILE = GATE_NORMALIZED_DIR / "normalized_dispatch_candidate.json"
+
+PREFLIGHT_INBOX_DIR = ROOT / "docs" / "automation" / "V6_DISCORD_SUPERVISED_LIVE_PREFLIGHT" / "inbox"
+PREFLIGHT_NORMALIZED_DIR = ROOT / "docs" / "automation" / "V6_DISCORD_SUPERVISED_LIVE_PREFLIGHT" / "normalized_candidate"
+PREFLIGHT_NORMALIZED_FILE = PREFLIGHT_NORMALIZED_DIR / "normalized_discord_payload_candidate.json"
+INBOX_DIR = GATE_INBOX_DIR
 
 PLACEHOLDER_WORDS = ["viết nội dung thật ở đây", "todo", "placeholder", "lorem ipsum", "sample only"]
 FINANCIAL_WORDS = ["buy", "sell", "hold", "price target", "position sizing", "entry/exit", "trade recommendation", "guaranteed prediction", "signal-service"]
 
-def parse_and_normalize() -> dict:
-    INBOX_DIR.mkdir(parents=True, exist_ok=True)
-    NORMALIZED_DIR.mkdir(parents=True, exist_ok=True)
+def parse_and_normalize_dir(inbox_dir: Path, normalized_file: Path) -> dict:
+    inbox_dir.mkdir(parents=True, exist_ok=True)
+    normalized_file.parent.mkdir(parents=True, exist_ok=True)
 
     # Search for first JSON or MD file in the inbox (excluding .gitkeep)
-    files = [f for f in INBOX_DIR.glob("*") if f.name != ".gitkeep" and f.suffix in [".json", ".md"]]
+    files = [f for f in inbox_dir.glob("*") if f.name != ".gitkeep" and f.suffix in [".json", ".md"]]
 
     if not files:
         # Blocked state: missing source artifact
@@ -31,6 +38,8 @@ def parse_and_normalize() -> dict:
             "content_type": "",
             "operator_destination_label": "",
             "normalized_body_text": "",
+            "content_length": 0,
+            "request_body_hash_preview": None,
             "safety_scan": "pending",
             "blocked_reasons": ["blocked_missing_operator_source_artifact"],
             "dispatchable": False,
@@ -40,7 +49,7 @@ def parse_and_normalize() -> dict:
             "no_metrics_claim": True,
             "no_secret_material_present": True
         }
-        _write_normalized(res)
+        _write_normalized(res, normalized_file)
         return res
 
     source_path = files[0]
@@ -82,6 +91,8 @@ def parse_and_normalize() -> dict:
     else:
         safety_scan = "failed"
 
+    body_hash_preview = hashlib.sha256(body.encode("utf-8")).hexdigest()
+
     res = {
         "candidate_id": f"discord_candidate_{source_hash[:16]}",
         "source_artifact_path": str(source_path.relative_to(ROOT)).replace("\\", "/"),
@@ -90,6 +101,8 @@ def parse_and_normalize() -> dict:
         "content_type": content_type,
         "operator_destination_label": dest_label,
         "normalized_body_text": body,
+        "content_length": len(body),
+        "request_body_hash_preview": body_hash_preview,
         "safety_scan": safety_scan,
         "blocked_reasons": blocked_reasons,
         "dispatchable": False,
@@ -100,10 +113,10 @@ def parse_and_normalize() -> dict:
         "no_secret_material_present": True
     }
 
-    _write_normalized(res)
+    _write_normalized(res, normalized_file)
     return res
 
-def _write_normalized(candidate: dict) -> None:
+def _write_normalized(candidate: dict, normalized_file: Path) -> None:
     # Sort keys excluding payload_hash
     clean_dict = {k: v for k, v in candidate.items() if k != "payload_hash"}
     serialized = json.dumps(clean_dict, sort_keys=True, indent=2)
@@ -112,8 +125,13 @@ def _write_normalized(candidate: dict) -> None:
     candidate["payload_hash"] = payload_hash
     
     # Save back
-    NORMALIZED_FILE.write_text(json.dumps(candidate, sort_keys=True, indent=2), encoding="utf-8")
+    normalized_file.write_text(json.dumps(candidate, sort_keys=True, indent=2), encoding="utf-8")
+
+def parse_and_normalize() -> dict:
+    # Keep compatibility with previous task which calls parse_and_normalize()
+    parse_and_normalize_dir(PREFLIGHT_INBOX_DIR, PREFLIGHT_NORMALIZED_FILE)
+    return parse_and_normalize_dir(GATE_INBOX_DIR, GATE_NORMALIZED_FILE)
 
 if __name__ == "__main__":
     parse_and_normalize()
-    print("Intake normalization completed.")
+    print("Intake normalization completed for both directories.")

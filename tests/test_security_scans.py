@@ -31,6 +31,7 @@ def test_no_forbidden_imports_or_env_vars():
         "social_credential_setup_workbench.py",
         "ai_provider_gate_v6.py",
         "operator_recovery_to_explicit_live_scope_gate_source_candidate_v6.py",
+        "discord_supervised_live_preflight_v6.py",
     }
 
     for p in root.rglob("*.py"):

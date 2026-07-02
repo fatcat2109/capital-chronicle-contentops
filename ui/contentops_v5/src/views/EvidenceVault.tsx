@@ -31,6 +31,7 @@ import { platformVariantApprovalPacketPreviewPacket } from '../data/platformVari
 import { dispatchOutboxDryRunPacket } from '../data/dispatchOutboxDryRunAdapter';
 import { dispatchOutboxOperatorRecoveryPacket } from '../data/dispatchOutboxOperatorRecoveryAdapter';
 import { explicitLiveScopeGatePacket } from '../data/explicitLiveScopeGateSourceCandidateAdapter';
+import { discordSupervisedLivePreflightPacket, requestEnvelopePreview } from '../data/discordSupervisedLivePreflightAdapter';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
@@ -411,6 +412,60 @@ export function EvidenceVault() {
             <div>kill_switch_active=true</div>
             <div>ready_for_dispatch=false</div>
             <div>blocked_until_explicit_live_scope=true</div>
+            <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
+          </div>
+        </div>
+
+        <div className="mt-4 rounded-lg border border-line bg-surface-2 p-3 font-mono">
+          <div className="font-mono text-[11px] uppercase tracking-wide text-fg-subtle">V6 Discord supervised live preflight</div>
+          <h3 className="mt-1 break-all text-sm font-semibold text-fg">{discordSupervisedLivePreflightPacket.task_label}</h3>
+          <p className="mt-2 text-xs leading-relaxed text-fg-muted font-mono">status: {discordSupervisedLivePreflightPacket.supervised_live_preflight_status}</p>
+          <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30 space-y-1.5 font-mono">
+            <div><span className="font-semibold text-fg font-mono">supervised_live_preflight_status:</span> {discordSupervisedLivePreflightPacket.supervised_live_preflight_status}</div>
+            <div><span className="font-semibold text-fg font-mono">source_candidate_status:</span> {discordSupervisedLivePreflightPacket.source_candidate_status}</div>
+            <div><span className="font-semibold text-fg font-mono">normalized_discord_payload_candidate_created:</span> {String(discordSupervisedLivePreflightPacket.normalized_discord_payload_candidate_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">request_envelope_preview_created:</span> {String(discordSupervisedLivePreflightPacket.request_envelope_preview_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">request_envelope_executable:</span> {String(discordSupervisedLivePreflightPacket.request_envelope_executable)}</div>
+            <div><span className="font-semibold text-fg font-mono">endpoint_allowlist_host:</span> {discordSupervisedLivePreflightPacket.endpoint_allowlist_host}</div>
+            <div><span className="font-semibold text-fg font-mono">endpoint_allowlist_path_shape:</span> {discordSupervisedLivePreflightPacket.endpoint_allowlist_path_shape}</div>
+            <div><span className="font-semibold text-fg font-mono">credential_presence_check_performed:</span> {String(discordSupervisedLivePreflightPacket.credential_presence_check_performed)}</div>
+            <div><span className="font-semibold text-fg font-mono">credential_value_read_made:</span> {String(discordSupervisedLivePreflightPacket.credential_value_read_made)}</div>
+            <div><span className="font-semibold text-fg font-mono">env_value_read_made:</span> {String(discordSupervisedLivePreflightPacket.env_value_read_made)}</div>
+            <div><span className="font-semibold text-fg font-mono">operator_go_phrase_required:</span> {String(discordSupervisedLivePreflightPacket.operator_go_phrase_required)}</div>
+            <div><span className="font-semibold text-fg font-mono">operator_go_phrase_recorded:</span> {String(discordSupervisedLivePreflightPacket.operator_go_phrase_recorded)}</div>
+            <div><span className="font-semibold text-fg font-mono">executable_outbox_entry_created:</span> {String(discordSupervisedLivePreflightPacket.executable_outbox_entry_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">real_outbox_entry_created:</span> {String(discordSupervisedLivePreflightPacket.real_outbox_entry_created)}</div>
+            <div><span className="font-semibold text-fg font-mono">dispatch_outbox_ready:</span> {String(discordSupervisedLivePreflightPacket.dispatch_outbox_ready)}</div>
+            <div><span className="font-semibold text-fg font-mono">dispatch_attempted:</span> {String(discordSupervisedLivePreflightPacket.dispatch_attempted)}</div>
+            <div><span className="font-semibold text-fg font-mono">dispatch_request_count:</span> {discordSupervisedLivePreflightPacket.dispatch_request_count}</div>
+            <div><span className="font-semibold text-fg font-mono">webhook_request_count:</span> {discordSupervisedLivePreflightPacket.webhook_request_count}</div>
+            <div><span className="font-semibold text-fg font-mono">kill_switch_active:</span> {String(discordSupervisedLivePreflightPacket.kill_switch_active)}</div>
+            <div><span className="font-semibold text-fg font-mono">ready_for_dispatch:</span> {String(discordSupervisedLivePreflightPacket.ready_for_dispatch)}</div>
+          </div>
+
+          <div className="mt-4 border-t border-line pt-3 font-mono">
+            <div className="font-semibold text-xs text-accent uppercase tracking-wider mb-2">Request Envelope Preview</div>
+            <div className="p-3 border border-line bg-surface-1 rounded-lg text-xs space-y-1">
+              <div>Host: {requestEnvelopePreview.host}</div>
+              <div>Method: {requestEnvelopePreview.method}</div>
+              <div>Path Shape: {requestEnvelopePreview.path_shape}</div>
+              <div className="break-all">Body Hash: {requestEnvelopePreview.body_hash_preview}</div>
+              <div className="break-all">Payload Hash: {requestEnvelopePreview.payload_hash_preview}</div>
+            </div>
+          </div>
+
+          <div className="mt-2 text-xs leading-relaxed text-fg-muted bg-status-blocked/5 p-2 rounded-lg border border-status-blocked/30 font-mono font-mono font-mono">
+            <div>supervised_live_preflight_status=created_for_operator_review</div>
+            <div>request_envelope_executable=false</div>
+            <div>operator_go_phrase_required=true</div>
+            <div>operator_go_phrase_recorded=false</div>
+            <div>credential_value_read_made=false</div>
+            <div>env_value_read_made=false</div>
+            <div>dispatch_request_count=0</div>
+            <div>webhook_request_count=0</div>
+            <div>ready_for_dispatch=false</div>
+            <div>live_action_allowed=false</div>
+            <div>blocked_until_operator_explicit_live_scope=true</div>
             <div>Locks: no LLM/provider/API/env/credential/public URL/live action</div>
           </div>
         </div>

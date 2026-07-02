@@ -343,3 +343,19 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Validation | Python tests, UI guardrail tests, Vitest, and production Vite compilation pass successfully. |
 | Next recommendation at time of update | `TASK_CONTENTOPS_V6_EXPLICIT_LIVE_SCOPE_GATE_TO_DISCORD_SUPERVISED_LIVE_PREFLIGHT_HEAVY_BATCH_V0` |
 
+## Discord Supervised Live Preflight
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_CONTENTOPS_V6_EXPLICIT_LIVE_SCOPE_GATE_TO_DISCORD_SUPERVISED_LIVE_PREFLIGHT_HEAVY_BATCH_V0` |
+| Accepted product/audit baseline SHA | `c5c8d641ea636fa099517590897e68f3099951ca` |
+| Repo HEAD / evidence commit | `3435decbea7f8ad006b32a4374307f07bfa9ebf7` |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Supervised live preflight packet, request envelope preview, operator live go phrase, runbook, and V5 view cards. |
+| Safety posture | Read-only presence checks of environment keys; no raw tokens read or logged; no Discord webhook connection or live posting. |
+| Changed artifact families | `live_contentops/discord_supervised_live_preflight_v6.py`, codegen, runbook, tests, V5 dashboard views, typescript adapter. |
+| Caveats | Preflight is review-only. Source parser is currently in a blocked state due to missing operator source artifact. |
+| Validation | 47 Python tests, Vitest suite, and production Vite compilation successfully verified. |
+| Next recommendation at time of update | `TASK_CONTENTOPS_V6_DISCORD_SUPERVISED_PREFLIGHT_TO_OPERATOR_GO_PACKET_HEAVY_BATCH_V0` |
+
+
