@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0021
+TASK_0023
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -13,10 +13,10 @@ master
 a4b2b9e8a9529253249d09b10f959e0e44ed02a5
 
 ## current_product_phase
-TASK 0021 operator platform readiness status points to quickstart and matrix
+TASK 0023 Substack publish preflight blocked safely
 
 ## current_product_lane
-operator platform readiness: Discord one-shot proven, Telegram one-shot proven, Substack draft proven, Substack publish hard-locked/not proven
+Substack publish preflight only; publish remains not proven and hard-locked
 
 ## accepted_baseline_summary
 TASK 0014 attempted one supervised Substack CDP draft compose live run. The first run blocked on missing CDP; the CLI was patched to retry CDP via IPv4 loopback after localhost/IPv6 failure; the single allowed patched rerun still blocked on missing CDP at 127.0.0.1:9222. No draft was created and no publish/schedule/email action occurred.
@@ -53,7 +53,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, supervised dispatch route preview packet, operator supervision contract packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
 
 ## dispatch/live status
-Discord one-shot proven; Telegram one-shot proven; Substack draft proven; Substack publish not proven and hard-locked; TASK_0021 was status-only and made no new live run claims.
+TASK_0023 ran one supervised Substack publish preflight on the current active draft tab. Result was BLOCKED with blocker=ui_uncertainty; no publish, schedule, email, private URL, body, title, screenshot, cookies, localStorage, sessionStorage, DOM dump, or secrets were recorded.
 
 ## provider/env/credential status
 gated; no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, response bodies, headers, or DOM dumps were read/output.
@@ -73,7 +73,7 @@ gated; no cookies, localStorage, sessionStorage, credentials, env values, browse
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_0021
+TASK_0023
 
 ## latest changed areas
 - `live_contentops/substack_operator_draft_cli.py`
@@ -124,7 +124,7 @@ TASK_0021
 - `docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json`
 
 ## current next recommended task
-Use `docs/automation/V6_OPERATOR_CHANNEL_READINESS/operator_platform_quickstart.md` and `docs/automation/V6_OPERATOR_CHANNEL_READINESS/platform_operation_matrix.json` as the operator platform readiness entrypoints. Do not live publish Substack; publish remains hard-locked/not proven.
+Keep Substack publish hard-locked/not proven. If preflight is retried, ensure current active tab is a draft/editor page and stop on any UI uncertainty.
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -152,6 +152,17 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - latest changed areas
 - current next recommended task
 
+
+
+## TASK 0023 Substack Publish Preflight
+
+- Latest task/status: `TASK_0023`.
+- Evidence: `docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0023_publish_preflight_evidence.json`.
+- Result: `BLOCKED`.
+- Blocker: `ui_uncertainty`.
+- Diagnostic: `publish_controls_not_detected`.
+- Scope: supervised publish preflight only on current active draft tab.
+- Safety: no publish, schedule, email, private URL, body, title, screenshot, cookies, localStorage, sessionStorage, DOM dump, or secrets recorded.
 
 ## TASK 0021 Operator Platform Readiness Status Update
 
