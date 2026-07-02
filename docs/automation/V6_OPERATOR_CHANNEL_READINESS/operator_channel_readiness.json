@@ -1,76 +1,79 @@
 {
-  "channels": {
-    "discord": {
-      "blocked_risks": [
-        "autonomous dispatch remains blocked",
-        "scheduler, queue, retry loop, DM, comment, and reaction actions remain blocked",
-        "raw webhook URL or credential output remains blocked",
-        "destination binding and operator approval must be rechecked before each live send"
-      ],
-      "capability": "one-shot supervised Discord webhook send through operator CLI",
-      "latest_evidence_path": "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0008_cli_send_evidence.json",
-      "live_proven_state": "supervised one-shot send proven; autonomous dispatch not created",
-      "safe_next_action": "Use only exact operator-approved one-shot send with request_budget_max=1 and retry_budget_max=0.",
-      "safety_semantics": {
-        "autonomous_dispatch_created": false,
-        "live_send_happened_in_latest_evidence": true,
-        "one_shot_supervised": true,
-        "request_budget_max": 1,
-        "retry_budget_max": 0
-      }
-    },
-    "substack": {
-      "blocked_risks": [
-        "publish not proven and remains blocked",
-        "schedule and email-send actions remain blocked",
-        "browser secrets, cookies, localStorage, sessionStorage, DOM dumps, and credentials remain blocked",
-        "account/login mismatch or selector uncertainty must stop execution"
-      ],
-      "capability": "supervised Substack draft compose through local CDP operator browser",
-      "latest_evidence_path": "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0015_success3_substack_draft_evidence.json",
-      "live_proven_state": "draft_created proven; publish not proven",
-      "safe_next_action": "Use Dashboard -> Create -> Create post for draft-only supervised compose; do not publish, schedule, or send email.",
-      "safety_semantics": {
-        "autonomous_dispatch_created": false,
-        "browser_cdp_used_in_latest_evidence": true,
-        "draft_created_proven": true,
-        "email_send_attempted": false,
-        "live_send_happened_in_latest_evidence": false,
-        "publish_attempted": false,
-        "publish_proven": false,
-        "request_budget_max": 1,
-        "retry_budget_max": 0,
-        "schedule_attempted": false
-      }
-    },
-    "telegram": {
-      "blocked_risks": [
-        "autonomous dispatch remains blocked",
-        "scheduler, queue, retry loop, DM, comment, and reaction actions remain blocked",
-        "raw bot token, chat id, channel id, or credential output remains blocked",
-        "bot identity and destination binding must be rechecked before each live send"
-      ],
-      "capability": "one-shot supervised Telegram sendMessage through operator CLI",
-      "latest_evidence_path": "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0010_cli_send_evidence.json",
-      "live_proven_state": "supervised one-shot sendMessage proven; autonomous dispatch not created",
-      "safe_next_action": "Use only exact operator-approved one-shot sendMessage with request_budget_max=1 and retry_budget_max=0.",
-      "safety_semantics": {
-        "autonomous_dispatch_created": false,
-        "live_send_happened_in_latest_evidence": true,
-        "one_shot_supervised": true,
-        "request_budget_max": 1,
-        "retry_budget_max": 0
-      }
-    }
-  },
-  "global_safety_notes": [
-    "No live run was performed to create this readiness summary.",
-    "Evidence paths are references only; no credential, env, cookie, localStorage, sessionStorage, browser secret, response body, or response header value is included.",
-    "Discord and Telegram remain one-shot supervised operator-send paths only, not autonomous dispatch systems.",
-    "Substack is draft-only proven; publishing remains unproven and blocked."
-  ],
-  "live_runs_performed_for_this_summary": false,
-  "mode": "non_live_status_summary",
-  "schema_version": "operator_channel_readiness.v1",
-  "task_label": "TASK_0017"
+    "channels":  {
+                     "discord":  {
+                                     "blocked_risks":  [
+                                                           "autonomous dispatch remains blocked",
+                                                           "scheduler, queue, retry loop, DM, comment, and reaction actions remain blocked",
+                                                           "raw webhook URL or credential output remains blocked",
+                                                           "destination binding and operator approval must be rechecked before each live send"
+                                                       ],
+                                     "capability":  "one-shot supervised Discord webhook send through operator CLI",
+                                     "latest_evidence_path":  "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0008_cli_send_evidence.json",
+                                     "live_proven_state":  "supervised one-shot send proven; autonomous dispatch not created",
+                                     "safe_next_action":  "Use only exact operator-approved one-shot send with request_budget_max=1 and retry_budget_max=0.",
+                                     "safety_semantics":  {
+                                                              "autonomous_dispatch_created":  false,
+                                                              "live_send_happened_in_latest_evidence":  true,
+                                                              "one_shot_supervised":  true,
+                                                              "request_budget_max":  1,
+                                                              "retry_budget_max":  0
+                                                          }
+                                 },
+                     "substack":  {
+                                      "blocked_risks":  [
+                                                            "publish not proven and remains blocked",
+                                                            "schedule and email-send actions remain blocked",
+                                                            "browser secrets, cookies, localStorage, sessionStorage, DOM dumps, and credentials remain blocked",
+                                                            "account/login mismatch or selector uncertainty must stop execution"
+                                                        ],
+                                      "capability":  "supervised Substack draft compose through local CDP operator browser",
+                                      "latest_evidence_path":  "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0015_success3_substack_draft_evidence.json",
+                                      "live_proven_state":  "draft_created proven; publish not proven",
+                                      "safe_next_action":  "Run publish preflight first; only publish in a separate explicit supervised task with --allow-publication, --draft-url, --expected-title-sha256, and --email-mode.",
+                                      "safety_semantics":  {
+                                                               "autonomous_dispatch_created":  false,
+                                                               "browser_cdp_used_in_latest_evidence":  true,
+                                                               "draft_created_proven":  true,
+                                                               "email_send_attempted":  false,
+                                                               "live_send_happened_in_latest_evidence":  false,
+                                                               "publish_attempted":  false,
+                                                               "publish_proven":  false,
+                                                               "request_budget_max":  1,
+                                                               "retry_budget_max":  0,
+                                                               "schedule_attempted":  false,
+                                                               "publish_preflight_ready":  true,
+                                                               "guarded_publish_cli_mock_tested":  true
+                                                           }
+                                  },
+                     "telegram":  {
+                                      "blocked_risks":  [
+                                                            "autonomous dispatch remains blocked",
+                                                            "scheduler, queue, retry loop, DM, comment, and reaction actions remain blocked",
+                                                            "raw bot token, chat id, channel id, or credential output remains blocked",
+                                                            "bot identity and destination binding must be rechecked before each live send"
+                                                        ],
+                                      "capability":  "one-shot supervised Telegram sendMessage through operator CLI",
+                                      "latest_evidence_path":  "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0010_cli_send_evidence.json",
+                                      "live_proven_state":  "supervised one-shot sendMessage proven; autonomous dispatch not created",
+                                      "safe_next_action":  "Use only exact operator-approved one-shot sendMessage with request_budget_max=1 and retry_budget_max=0.",
+                                      "safety_semantics":  {
+                                                               "autonomous_dispatch_created":  false,
+                                                               "live_send_happened_in_latest_evidence":  true,
+                                                               "one_shot_supervised":  true,
+                                                               "request_budget_max":  1,
+                                                               "retry_budget_max":  0
+                                                           }
+                                  }
+                 },
+    "global_safety_notes":  [
+                                "No live run was performed to create this readiness summary.",
+                                "Evidence paths are references only; no credential, env, cookie, localStorage, sessionStorage, browser secret, response body, or response header value is included.",
+                                "Discord and Telegram remain one-shot supervised operator-send paths only, not autonomous dispatch systems.",
+                                "Substack is draft-only proven; publishing remains unproven and blocked.",
+                                "Substack publish preflight and guarded publish CLIs are mock-tested only; no live publish has been performed."
+                            ],
+    "live_runs_performed_for_this_summary":  false,
+    "mode":  "non_live_status_summary",
+    "schema_version":  "operator_channel_readiness.v1",
+    "task_label":  "TASK_0017"
 }

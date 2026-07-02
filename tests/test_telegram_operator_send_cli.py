@@ -19,6 +19,13 @@ def test_cli_dry_run_writes_redacted_evidence_without_network(tmp_path, capsys):
     assert evidence["task_label"] == "TASK_0000"
     assert evidence["result_status"] == "DRY_RUN"
     assert evidence["sent"] is False
+    assert evidence["publish_attempted"] is False
+    assert evidence["schedule_attempted"] is False
+    assert evidence["email_send_attempted"] is False
+    assert evidence["publish_attempted"] is False
+    assert evidence["schedule_attempted"] is False
+    assert evidence["email_send_attempted"] is False
+    assert evidence["operator_approved_one_shot"] is False
     assert evidence["request_count_attempted"] == 0
     assert evidence["retry_count_attempted"] == 0
     assert evidence["raw_secret_output"] is False
@@ -69,6 +76,10 @@ def test_cli_execute_success_uses_mocked_transport_once(capsys):
     assert evidence["task_label"] == "TASK_0009"
     assert evidence["result_status"] == "PASS"
     assert evidence["sent"] is True
+    assert evidence["publish_attempted"] is False
+    assert evidence["schedule_attempted"] is False
+    assert evidence["email_send_attempted"] is False
+    assert evidence["operator_approved_one_shot"] is True
     assert evidence["request_count_attempted"] == 1
     assert evidence["retry_count_attempted"] == 0
     assert evidence["status_code_class"] == "2xx"

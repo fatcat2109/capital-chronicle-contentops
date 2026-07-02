@@ -1,0 +1,64 @@
+{
+  "schema_version": "platform_operation_matrix.v1",
+  "task_label": "TASK_PLATFORM_OPERATIONS_PLAN_EXECUTION",
+  "operations": {
+    "discord.send_message": {
+      "cli": "python -m live_contentops.discord_operator_send_cli",
+      "state": "live_one_shot_proven",
+      "latest_evidence_path": "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0008_cli_send_evidence.json",
+      "autonomous_dispatch_allowed": false,
+      "request_budget_max": 1,
+      "retry_budget_max": 0,
+      "safe_next_action": "exact operator-approved one-shot send only"
+    },
+    "telegram.send_message": {
+      "cli": "python -m live_contentops.telegram_operator_send_cli",
+      "state": "live_one_shot_proven",
+      "latest_evidence_path": "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0010_cli_send_evidence.json",
+      "autonomous_dispatch_allowed": false,
+      "request_budget_max": 1,
+      "retry_budget_max": 0,
+      "safe_next_action": "exact operator-approved one-shot sendMessage only"
+    },
+    "substack.create_draft": {
+      "cli": "python -m live_contentops.substack_operator_draft_cli",
+      "state": "draft_created_proven",
+      "latest_evidence_path": "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0015_success3_substack_draft_evidence.json",
+      "publish_allowed": false,
+      "schedule_allowed": false,
+      "email_send_allowed": false,
+      "request_budget_max": 1,
+      "retry_budget_max": 0,
+      "safe_next_action": "draft-only supervised compose through Dashboard -> Create -> Create post"
+    },
+    "substack.publish_preflight": {
+      "cli": "python -m live_contentops.substack_operator_publish_preflight_cli",
+      "state": "mock_tested_no_live_preflight_ready",
+      "latest_evidence_path": null,
+      "publish_allowed": false,
+      "schedule_allowed": false,
+      "email_send_allowed": false,
+      "request_budget_max": 1,
+      "retry_budget_max": 0,
+      "safe_next_action": "detect publish controls and email/schedule risks without clicking publish"
+    },
+    "substack.publish_post": {
+      "cli": "python -m live_contentops.substack_operator_publish_cli",
+      "state": "mock_tested_guarded_not_live_proven",
+      "latest_evidence_path": null,
+      "publish_allowed": "requires explicit --allow-publication, --draft-url, --expected-title-sha256, --email-mode, --execute",
+      "schedule_allowed": "requires explicit --allow-schedule",
+      "email_send_allowed": "requires explicit --email-mode send-email",
+      "request_budget_max": 1,
+      "retry_budget_max": 0,
+      "safe_next_action": "run preflight first; only publish in separate explicit supervised task"
+    }
+  },
+  "global_invariants": {
+    "autonomous_dispatch_allowed": false,
+    "scheduler_allowed": false,
+    "retry_loop_allowed": false,
+    "raw_secret_output_allowed": false,
+    "cookies_localstorage_sessionstorage_output_allowed": false
+  }
+}
