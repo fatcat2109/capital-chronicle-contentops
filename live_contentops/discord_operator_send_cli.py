@@ -10,12 +10,19 @@ from typing import Any, Callable
 
 from live_contentops.discord_dispatch_adapter import DiscordDispatchAdapter, TARGET_CONFIGS
 
-TASK_LABEL = "TASK_0005_DISCORD_OPERATOR_SEND_CLI"
+DEFAULT_TASK_ID = "0000"
 DEFAULT_TARGET = "announcements"
 DEFAULT_PAYLOAD_ID = "operator_send_cli_message"
 
 
-def build_evidence(*, message: str, target: str, execute: bool, adapter_factory: Callable[[], DiscordDispatchAdapter]) -> dict[str, Any]:
+def build_evidence(
+    *,
+    message: str,
+    target: str,
+    execute: bool,
+    task_id: str,
+    adapter_factory: Callable[[], DiscordDispatchAdapter],
+) -> dict[str, Any]:
     config = TARGET_CONFIGS[target]
     message_hash = hashlib.sha256(message.encode("utf-8")).hexdigest()
     payload = {"payload_id": DEFAULT_PAYLOAD_ID, "content": message}
@@ -28,7 +35,7 @@ def build_evidence(*, message: str, target: str, execute: bool, adapter_factory:
         execute=execute,
     )
     return {
-        "task_label": TASK_LABEL,
+        "task_label": f"TASK_{task_id}",
         "mode": "execute" if execute else "dry_run",
         "result_status": result["result_status"],
         "platform": result["platform"],
@@ -73,6 +80,7 @@ def write_evidence(evidence: dict[str, Any], output: str | None) -> None:
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Send one operator-approved Discord message via existing adapter.")
     parser.add_argument("--message", required=True, help="Exact message text to dry-run or send.")
+    parser.add_argument("--task-id", default=DEFAULT_TASK_ID, help="Task id for evidence label, e.g. 0007 -> TASK_0007.")
     parser.add_argument("--target", default=DEFAULT_TARGET, choices=sorted(TARGET_CONFIGS), help="Discord target route.")
     parser.add_argument("--execute", action="store_true", help="Send exactly one POST. Omit for dry-run.")
     parser.add_argument("--output", help="Optional path for redacted evidence JSON.")
@@ -85,6 +93,7 @@ def main(argv: list[str] | None = None, *, adapter_factory: Callable[[], Discord
         message=args.message,
         target=args.target,
         execute=args.execute,
+        task_id=args.task_id,
         adapter_factory=adapter_factory,
     )
     write_evidence(evidence, args.output)

@@ -20,6 +20,7 @@ def test_cli_dry_run_writes_redacted_evidence_without_network(tmp_path, capsys):
     evidence = json.loads(out.read_text(encoding="utf-8"))
     printed = capsys.readouterr().out
     assert code == 0
+    assert evidence["task_label"] == "TASK_0000"
     assert evidence["result_status"] == "DRY_RUN"
     assert evidence["sent"] is False
     assert evidence["request_count_attempted"] == 0
@@ -55,12 +56,19 @@ def test_cli_execute_success_uses_mocked_transport_once(capsys):
 
     env = {"DISCORD_ANNOUNCEMENTS_WEBHOOK_URL": "https://discord.com/api/webhooks/111/mock_token"}
     code = cli.main(
-        ["--message", "Capital Chronicle mocked send. No financial advice.", "--execute"],
+        [
+            "--message",
+            "Capital Chronicle mocked send. No financial advice.",
+            "--task-id",
+            "0007",
+            "--execute",
+        ],
         adapter_factory=lambda: DiscordDispatchAdapter(environ=env, opener=opener),
     )
     evidence = json.loads(capsys.readouterr().out)
     assert code == 0
     assert len(calls) == 1
+    assert evidence["task_label"] == "TASK_0007"
     assert evidence["result_status"] == "PASS"
     assert evidence["sent"] is True
     assert evidence["request_count_attempted"] == 1
