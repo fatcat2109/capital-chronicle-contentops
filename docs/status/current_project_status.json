@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "8d9738334f5ce195c092a331a08f9935f2a4f73b",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT_AND_STALE_DOC_CLEANUP_V0",
-  "current_product_phase": "V6 automation-first final product strategy and stale-doc cleanup lane",
-  "current_product_lane": "automation-first final product readiness report and supersession cleanup; no live execution",
-  "accepted_baseline_summary": "Automation-first final product readiness report added. V6 supersession map now identifies current strategy/execution/follow-guide authority, and stale manual-first / 0174AO bridge docs are clearly marked historical. Final product direction is maximum automation before approval, supervised dispatch at the live edge, automated API/webhook where safe, and one-step CDP/operator assist for platforms where clean automation is paid, blocked, or brittle. No live dispatch, provider/API call, webhook validation, credential/env read, browser session read, outbox execution, scheduler, retry, DM, comment, like, reaction, or scrape occurred.",
+  "last_verified_remote_sha": "4c035d07452c202e5b6ec72359393e37383176d5",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_TO_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_V0",
+  "current_product_phase": "V6 automation-first Discord dispatch decision readiness lane",
+  "current_product_lane": "operator review decision packet to non-executable dispatch decision readiness; no live execution",
+  "accepted_baseline_summary": "Built non-executable Discord dispatch decision readiness from the operator review decision packet. The new packet binds normalized source intake, dry-run envelope, destination proof, kill-switch evidence, key-name-only credential presence, live preflight, redacted review, and approve/reject/hold review decision state without creating any executable outbox, approval ledger, scheduler, retry, webhook validation, Discord send, platform API call, provider call, browser session read, env value read, or credential value read. Committed state remains blocked because no real operator source artifact or review decision artifact is committed.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -140,10 +140,13 @@
     "Discord operator input contract V5 visibility",
     "Discord redacted operator review packet",
     "Discord redacted review V5 visibility",
-    "Discord operator-supplied review decision packet"
+    "Discord operator-supplied review decision packet",
+    "Discord non-executable dispatch decision readiness packet",
+    "Discord dispatch decision approval/reject/hold route normalization",
+    "V5 Discord dispatch decision readiness visibility"
   ],
-  "dispatch_live_status": "blocked; strategy/docs cleanup only; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, webhook validation, or live action authorized",
-  "provider_env_credential_status": "gated; no env value, credential value, webhook URL value, token material, browser/session value, provider key, or secret-derived metadata was read, printed, or committed",
+  "dispatch_live_status": "blocked; dispatch decision readiness is non-executable; no dispatch, publish, scheduler, retry, queue execution, provider call, platform API, credential read, env value read, public URL fetch, browser session read, webhook validation, or live action authorized",
+  "provider_env_credential_status": "gated; key-name presence only; no env value, credential value, webhook URL value, token material, browser/session value, provider key, body value, GO phrase value, or secret-derived metadata was read, printed, or committed",
   "active_blockers": [
     "live/provider/platform execution remains disabled",
     "future product UI work must target ui/contentops_v5/ unless newer committed authority supersedes it",
@@ -164,7 +167,8 @@
     "Discord supervised live-dispatch dry-run gate remains blocked until operator source artifact, exact GO phrase, destination binding, credential key presence, and active kill switch are present; no live send/webhook validation/outbox/ledger/scheduler/retry is authorized",
     "Discord operator source + GO phrase intake remains blocked in committed state because the operator input contract is unsatisfied and no real local operator source artifact, GO phrase, destination binding, credential key presence, or active kill-switch proof is committed; real-vs-fixture separation, live-preflight evidence, destination proof, kill-switch evidence, credential presence evidence, non-real fixture review evidence, and pre-dispatch readiness are runnable but non-executable",
     "Discord redacted operator review packet remains blocked in committed state because no real local operator source artifact, GO phrase, destination binding, credential key presence, or active kill-switch proof is committed; redaction path is runnable but non-dispatchable and stores no body, GO phrase, webhook URL, env values, or credential values",
-    "Discord operator review decision packet remains blocked in committed state because no real operator decision artifact is committed; approve/reject/hold parser path is runnable but non-dispatchable and stores no raw notes, body, GO phrase, webhook URL, env values, or credential values"
+    "Discord operator review decision packet remains blocked in committed state because no real operator decision artifact is committed; approve/reject/hold parser path is runnable but non-dispatchable and stores no raw notes, body, GO phrase, webhook URL, env values, or credential values",
+    "Discord dispatch decision readiness remains blocked in committed state because no real local operator source artifact or operator review decision artifact is committed; approve/reject/hold route normalization is runnable in tests but non-executable and keeps `dispatchable=false`, `ready_for_dispatch=false`, `live_action_allowed=false`, no outbox, no ledger, no scheduler, no retry, no webhook validation, and no raw env/credential/body/GO phrase value storage."
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
@@ -172,10 +176,10 @@
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree",
     "automation-first final product follow guide is current strategy companion; manual-first docs are historical only"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT_AND_STALE_DOC_CLEANUP_V0",
-  "latest_accepted_task_result": "complete_docs_cleanup; automation-first final product follow guide created and stale manual-first docs marked historical",
-  "latest_evidence_summary": "Final automation pipeline readiness report, supersession map update, stale-doc banners, and status docs verified locally.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_TO_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_V0",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_SUPPLIED_REVIEW_DECISION_PACKET_TO_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_V0",
+  "latest_accepted_task_result": "complete_non_executable_dispatch_decision_readiness_packet",
+  "latest_evidence_summary": "Dispatch decision readiness packet discord_dispatch_decision_ce672aeb7f5ff957 / ce672aeb7f5ff95771fcd7fae8a2d2ba56fd16733a1cf831807a3dbf0ec43d09 generated and surfaced in V5; committed state remains blocked/non-executable.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_NON_EXECUTABLE_DISPATCH_DECISION_READINESS_TO_SUPERVISED_DISPATCH_ROUTE_PREVIEW_V0",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
@@ -208,15 +212,18 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "8d9738334f5ce195c092a331a08f9935f2a4f73b",
-  "last_status_commit_sha": "8d9738334f5ce195c092a331a08f9935f2a4f73b",
+  "accepted_product_baseline_sha": "4c035d07452c202e5b6ec72359393e37383176d5",
+  "last_status_commit_sha": "4c035d07452c202e5b6ec72359393e37383176d5",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work.",
   "latest_changed_areas": [
-    "docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
-    "docs/CAPITAL_CHRONICLE_CONTENTOPS_MANUAL_FIRST_SOCIAL_DISTRIBUTION_AND_FUTURE_API_PLUG_PORT_MASTER_PLAN_AFTER_0174EA.md",
-    "docs/CONTENTOPS_FINAL_PRODUCT_ROADMAP_AFTER_0174AO.md",
-    "docs/CONTENTOPS_STRATEGY_RECOVERY_INDEX_AFTER_0174AO.md",
+    "live_contentops/discord_operator_source_go_phrase_intake_v6.py",
+    "live_contentops/discord_operator_source_go_phrase_intake_v5_adapter_codegen_v6.py",
+    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/dispatch_decision_readiness/discord_dispatch_decision_readiness.json",
+    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_intake_packet.json",
+    "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_safety_signature.json",
+    "ui/contentops_v5/src/data/discordOperatorSourceGoPhraseIntakeAdapter.ts",
+    "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx",
+    "tests/test_discord_operator_source_go_phrase_intake_v6.py",
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json"
   ]

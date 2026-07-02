@@ -30,6 +30,7 @@ LIVE_PREFLIGHT = PACKET_DIR / "live_preflight" / "discord_blocked_live_preflight
 OPERATOR_INPUT_CONTRACT = PACKET_DIR / "operator_input_contract" / "discord_operator_supplied_live_preflight_input_contract.json"
 REDACTED_REVIEW = PACKET_DIR / "redacted_operator_review" / "discord_redacted_operator_review_packet.json"
 OPERATOR_REVIEW_DECISION = PACKET_DIR / "operator_review_decision" / "discord_operator_review_decision_packet.json"
+DISPATCH_DECISION_READINESS = PACKET_DIR / "dispatch_decision_readiness" / "discord_dispatch_decision_readiness.json"
 OPERATOR_REVIEW_DECISION_INBOX = PACKET_DIR / "operator_review_decision" / "inbox"
 FIXTURE_EXAMPLE = PACKET_DIR / "fixtures" / "non_real_operator_source_fixture.example.json"
 SURFACES = [
@@ -99,9 +100,12 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
     live_preflight = json.loads(LIVE_PREFLIGHT.read_text(encoding="utf-8"))
     input_contract = json.loads(OPERATOR_INPUT_CONTRACT.read_text(encoding="utf-8"))
     redacted_review = json.loads(REDACTED_REVIEW.read_text(encoding="utf-8"))
+    dispatch_decision = json.loads(DISPATCH_DECISION_READINESS.read_text(encoding="utf-8"))
     assert packet["operator_input_contract_status"] == "blocked"
     assert packet["redacted_operator_review_status"] == "blocked"
     assert packet["operator_review_decision_status"] == "blocked"
+    assert dispatch_decision["dispatch_decision_readiness_status"] == "blocked"
+    assert "blocked_operator_review_decision_artifact_missing" in dispatch_decision["blocked_reasons"]
     assert redacted_review["redacted_operator_review_status"] == "blocked"
     assert redacted_review["redaction_performed"] is True
     assert redacted_review["body_value_stored"] is False
@@ -113,6 +117,11 @@ def test_empty_inbox_candidate_blocks_precisely(monkeypatch) -> None:
     assert "blocked_operator_review_decision_artifact_missing" in review_decision["blocked_reasons"]
     assert review_decision["notes_value_stored"] is False
     assert review_decision["dispatchable"] is False
+    assert dispatch_decision["dispatch_decision_readiness_status"] == "blocked"
+    assert "blocked_operator_review_decision_artifact_missing" in dispatch_decision["blocked_reasons"]
+    assert dispatch_decision["dispatchable"] is False
+    assert dispatch_decision["ready_for_dispatch"] is False
+    assert dispatch_decision["live_action_allowed"] is False
     assert input_contract["operator_input_contract_status"] == "blocked"
     assert input_contract["fixture_can_satisfy_contract"] is False
     assert input_contract["required_inbox_path"] == "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/inbox/"
@@ -187,6 +196,7 @@ def test_valid_non_real_fixture_ready_for_fixture_review_never_dispatches(monkey
     live_preflight = json.loads(LIVE_PREFLIGHT.read_text(encoding="utf-8"))
     input_contract = json.loads(OPERATOR_INPUT_CONTRACT.read_text(encoding="utf-8"))
     redacted_review = json.loads(REDACTED_REVIEW.read_text(encoding="utf-8"))
+    dispatch_decision = json.loads(DISPATCH_DECISION_READINESS.read_text(encoding="utf-8"))
 
     assert packet["intake_status"] == "ready_for_operator_review_not_dispatch"
     assert packet["operator_source_artifact_kind"] == "non_real_fixture"
@@ -213,6 +223,8 @@ def test_valid_non_real_fixture_ready_for_fixture_review_never_dispatches(monkey
     assert redacted_review["redacted_operator_review_status"] == "blocked"
     assert "blocked_fixture_cannot_enter_redacted_operator_review" in redacted_review["blocked_reasons"]
     assert redacted_review["dispatchable"] is False
+    assert dispatch_decision["dispatch_decision_readiness_status"] == "blocked"
+    assert "blocked_fixture_cannot_enter_dispatch_decision_readiness" in dispatch_decision["blocked_reasons"]
     assert packet["fixture_review_ready"] is True
     assert fixture_review["fixture_review_status"] == "ready_for_fixture_review_not_dispatch"
     assert fixture_review["real_operator_artifact_claimed"] is False
@@ -289,6 +301,7 @@ def test_valid_real_operator_artifact_ready_for_preflight_review_never_dispatche
     fixture_review = json.loads(FIXTURE_REVIEW.read_text(encoding="utf-8"))
     input_contract = json.loads(OPERATOR_INPUT_CONTRACT.read_text(encoding="utf-8"))
     redacted_review = json.loads(REDACTED_REVIEW.read_text(encoding="utf-8"))
+    dispatch_decision = json.loads(DISPATCH_DECISION_READINESS.read_text(encoding="utf-8"))
 
     assert packet["operator_input_contract_status"] == "satisfied_for_real_artifact_review"
     assert input_contract["operator_input_contract_status"] == "satisfied_for_real_artifact_review"
@@ -381,6 +394,7 @@ def test_adapter_sync_and_ui_surfaces() -> None:
     assert "discordOperatorInputContract" in ADAPTER.read_text(encoding="utf-8")
     assert "discordRedactedOperatorReviewPacket" in ADAPTER.read_text(encoding="utf-8")
     assert "discordOperatorReviewDecisionPacket" in ADAPTER.read_text(encoding="utf-8")
+    assert "discordDispatchDecisionReadiness" in ADAPTER.read_text(encoding="utf-8")
     combined = "\n".join(path.read_text(encoding="utf-8") for path in SURFACES)
     assert combined.count("DiscordOperatorSourceGoPhraseIntakePanel") >= len(SURFACES)
     panel = (ROOT / "ui" / "contentops_v5" / "src" / "views" / "DiscordOperatorSourceGoPhraseIntakePanel.tsx").read_text(encoding="utf-8")
@@ -433,6 +447,21 @@ def test_adapter_sync_and_ui_surfaces() -> None:
         "operator_review_decision_phrase_valid=",
         "operator_review_decision_notes_value_stored=",
         "operator_review_decision_blocked_reasons=",
+        "dispatch_decision_readiness_id=",
+        "dispatch_decision_readiness_hash=",
+        "dispatch_decision_readiness_status=",
+        "dispatch_decision_approval_route_candidate_ready_not_dispatch=",
+        "dispatch_decision_rejection_route_recorded_not_dispatch=",
+        "dispatch_decision_hold_route_recorded_not_dispatch=",
+        "dispatch_decision_tier_model=",
+        "automation_first_alignment=",
+        "jim_final_authority_required=",
+        "supervised_live_edge_required=",
+        "dispatch_decision_request_envelope_executable=",
+        "dispatch_decision_dispatchable=",
+        "dispatch_decision_ready_for_dispatch=",
+        "dispatch_decision_live_action_allowed=",
+        "dispatch_decision_blocked_reasons=",
         "pre_dispatch_readiness_id=",
         "normalized_pre_dispatch_readiness_evaluated=true",
         "real_operator_artifact_present=",
@@ -500,6 +529,7 @@ def test_valid_operator_review_decisions_parse_without_dispatch(monkeypatch) -> 
         )
         packet = build_operator_source_go_phrase_intake()
         review_decision = json.loads(OPERATOR_REVIEW_DECISION.read_text(encoding="utf-8"))
+        dispatch_decision = json.loads(DISPATCH_DECISION_READINESS.read_text(encoding="utf-8"))
         assert packet["operator_review_decision_status"] == "decision_recorded_not_dispatch"
         assert review_decision["operator_review_decision_available"] is True
         assert review_decision["operator_review_decision_approved"] is (decision == "approve")
@@ -509,6 +539,18 @@ def test_valid_operator_review_decisions_parse_without_dispatch(monkeypatch) -> 
         assert review_decision["ready_for_dispatch"] is False
         assert review_decision["live_action_allowed"] is False
         assert review_decision["notes_value_stored"] is False
+        expected_status = {"approve": "ready_for_approval_route_review_not_dispatch", "reject": "rejected_not_dispatch", "hold": "held_not_dispatch"}[decision]
+        assert dispatch_decision["dispatch_decision_readiness_status"] == expected_status
+        assert dispatch_decision["approval_route_candidate_ready_not_dispatch"] is (decision == "approve")
+        assert dispatch_decision["rejection_route_recorded_not_dispatch"] is (decision == "reject")
+        assert dispatch_decision["hold_route_recorded_not_dispatch"] is (decision == "hold")
+        assert dispatch_decision["automation_first_alignment"] is True
+        assert dispatch_decision["jim_final_authority_required"] is True
+        assert dispatch_decision["supervised_live_edge_required"] is True
+        assert dispatch_decision["request_envelope_executable"] is False
+        assert dispatch_decision["dispatchable"] is False
+        assert dispatch_decision["ready_for_dispatch"] is False
+        assert dispatch_decision["live_action_allowed"] is False
         assert "Reviewed redacted packet only." not in OPERATOR_REVIEW_DECISION.read_text(encoding="utf-8")
     _clean_inbox()
     build_operator_source_go_phrase_intake()
@@ -537,6 +579,7 @@ def test_operator_review_decision_wrong_link_or_phrase_blocks(monkeypatch) -> No
     )
     build_operator_source_go_phrase_intake()
     review_decision = json.loads(OPERATOR_REVIEW_DECISION.read_text(encoding="utf-8"))
+    dispatch_decision = json.loads(DISPATCH_DECISION_READINESS.read_text(encoding="utf-8"))
     assert review_decision["operator_review_decision_status"] == "blocked"
     assert "blocked_operator_review_decision_redacted_review_hash_mismatch" in review_decision["blocked_reasons"]
     assert "blocked_operator_review_decision_phrase_invalid" in review_decision["blocked_reasons"]

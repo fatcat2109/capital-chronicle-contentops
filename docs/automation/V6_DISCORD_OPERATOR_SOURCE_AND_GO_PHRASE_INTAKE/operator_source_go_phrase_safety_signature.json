@@ -1,5 +1,6 @@
 {
   "approval_ledger_entry_created": false,
+  "approval_route_candidate_ready_not_dispatch": false,
   "blocked_reasons": [
     "blocked_destination_binding_not_confirmed",
     "blocked_destination_label_missing",
@@ -12,6 +13,9 @@
   "credential_value_read_made": false,
   "destination_proof_hash": "237024a9e14d87dd896e7cce75c4e4697948355a090766a786b38e4c4fc2742a",
   "discord_api_call_made": false,
+  "dispatch_decision_readiness_hash": "dd8c8a4c616142707ca2c99d438164e4764104c3d01043a0e9611fee7a8aec33",
+  "dispatch_decision_readiness_id": "discord_dispatch_decision_dd8c8a4c61614270",
+  "dispatch_decision_readiness_status": "blocked",
   "dispatch_request_count": 0,
   "dry_run_envelope_normalization_performed": true,
   "dry_run_request_envelope_hash": "377d2bd012c57eed2d09292ac1fba18d0a8b1584dadf5c718ba0fef86661f110",
@@ -48,7 +52,7 @@
   "redaction_performed": true,
   "request_envelope_executable": false,
   "review_only": true,
-  "safety_signature_hash": "d37e67814c9f39d16f61c2666467eb9a5daef6a52029f523e30e86f8e817b0e0",
+  "safety_signature_hash": "11ea16e9923064c99c49b2e05e73beb09d2d26ce94fbc63d422bcb1f617511d6",
   "safety_signature_kind": "discord_operator_source_go_phrase_intake_safety_signature_v2",
   "source_dry_run_gate_hash": "f9d4f7f1945dc120e02c372436122068a76d3b8d117b5cf88b17c45ffe49838a",
   "source_dry_run_gate_packet_id": "discord_dry_run_gate_f9d4f7f1945dc120",

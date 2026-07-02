@@ -3,6 +3,7 @@
 
 import {
   discordCredentialPresenceEvidence,
+  discordDispatchDecisionReadiness,
   discordDestinationBindingProof,
   discordKillSwitchEvidence,
   discordLivePreflightEvidence,
@@ -29,6 +30,7 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
   const readiness = discordPreDispatchReadiness;
   const redactedReview = discordRedactedOperatorReviewPacket;
   const reviewDecision = discordOperatorReviewDecisionPacket;
+  const dispatchDecision = discordDispatchDecisionReadiness;
 
   return (
     <Panel
@@ -72,6 +74,11 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <Metric label="Review decision" value={reviewDecision.operator_review_decision_status} status="blocked" />
         <Metric label="Review decision hash" value={reviewDecision.operator_review_decision_hash} status="verified" />
         <Metric label="Decision" value={reviewDecision.decision} status="blocked" />
+        <Metric label="Dispatch decision" value={dispatchDecision.dispatch_decision_readiness_status} status="blocked" />
+        <Metric label="Dispatch decision hash" value={dispatchDecision.dispatch_decision_readiness_hash} status="verified" />
+        <Metric label="Approval route candidate" value={String(dispatchDecision.approval_route_candidate_ready_not_dispatch)} status="blocked" />
+        <Metric label="Jim final authority" value={String(dispatchDecision.jim_final_authority_required)} status="blocked" />
+        <Metric label="Supervised live edge" value={String(dispatchDecision.supervised_live_edge_required)} status="blocked" />
         <Metric label="Pre-dispatch readiness" value={readiness.pre_dispatch_readiness_status} status="blocked" />
         <Metric label="Safety hash" value={operatorSourceGoPhraseSafetySignature.safety_signature_hash} status="verified" />
       </div>
@@ -143,6 +150,21 @@ export function DiscordOperatorSourceGoPhraseIntakePanel() {
         <div>operator_review_decision_phrase_valid={String(reviewDecision.decision_phrase_valid)}</div>
         <div>operator_review_decision_notes_value_stored={String(reviewDecision.notes_value_stored)}</div>
         <div>operator_review_decision_blocked_reasons={JSON.stringify(reviewDecision.blocked_reasons)}</div>
+        <div>dispatch_decision_readiness_id={packet.dispatch_decision_readiness_id}</div>
+        <div>dispatch_decision_readiness_hash={packet.dispatch_decision_readiness_hash}</div>
+        <div>dispatch_decision_readiness_status={packet.dispatch_decision_readiness_status}</div>
+        <div>dispatch_decision_approval_route_candidate_ready_not_dispatch={String(packet.approval_route_candidate_ready_not_dispatch)}</div>
+        <div>dispatch_decision_rejection_route_recorded_not_dispatch={String(packet.rejection_route_recorded_not_dispatch)}</div>
+        <div>dispatch_decision_hold_route_recorded_not_dispatch={String(packet.hold_route_recorded_not_dispatch)}</div>
+        <div>dispatch_decision_tier_model={JSON.stringify(dispatchDecision.dispatch_tier_model)}</div>
+        <div>automation_first_alignment={String(dispatchDecision.automation_first_alignment)}</div>
+        <div>jim_final_authority_required={String(dispatchDecision.jim_final_authority_required)}</div>
+        <div>supervised_live_edge_required={String(dispatchDecision.supervised_live_edge_required)}</div>
+        <div>dispatch_decision_request_envelope_executable={String(dispatchDecision.request_envelope_executable)}</div>
+        <div>dispatch_decision_dispatchable={String(dispatchDecision.dispatchable)}</div>
+        <div>dispatch_decision_ready_for_dispatch={String(dispatchDecision.ready_for_dispatch)}</div>
+        <div>dispatch_decision_live_action_allowed={String(dispatchDecision.live_action_allowed)}</div>
+        <div>dispatch_decision_blocked_reasons={JSON.stringify(dispatchDecision.blocked_reasons)}</div>
         <div>pre_dispatch_readiness_id={packet.pre_dispatch_readiness_id}</div>
         <div>pre_dispatch_readiness_hash={packet.pre_dispatch_readiness_hash}</div>
         <div>normalized_pre_dispatch_readiness_evaluated=true</div>
