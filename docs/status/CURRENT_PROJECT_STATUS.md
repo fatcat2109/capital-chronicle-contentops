@@ -23,7 +23,7 @@ Discord operator source + GO phrase intake now includes a safe non-real fixture 
 
 ## status_sha_model
 - current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `31ec6a2455d28f9306388c5258baa6e0b457ad03`
-- accepted product baseline (`accepted_product_baseline_sha`): `PENDING_FINAL_COMMIT_SHA`
+- accepted product baseline (`accepted_product_baseline_sha`): `03f8580ff89558418bb41b6c404abbc10f36a570`
 - previous accepted product baseline: `31ec6a2455d28f9306388c5258baa6e0b457ad03`
 - latest status-only repair commit prior to this task: `72b816f97f819032a3a93008bd1cacbbd50c29ce`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
@@ -229,7 +229,7 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 
 - Latest task: `TASK_CONTENTOPS_V6_OPERATOR_DESTINATION_PROOF_AND_KILL_SWITCH_EVIDENCE_TO_OPERATOR_SOURCE_ARTIFACT_FIXTURE_REVIEW_READY_V0`.
 - Current lane: non-real fixture review-ready evidence for Discord operator source artifact intake.
-- Accepted product baseline is `PENDING_FINAL_COMMIT_SHA` after push/readback; previous baseline was `31ec6a2455d28f9306388c5258baa6e0b457ad03`.
+- Accepted product baseline is `03f8580ff89558418bb41b6c404abbc10f36a570` after push/readback; previous baseline was `31ec6a2455d28f9306388c5258baa6e0b457ad03`.
 - Intake packet `discord_source_go_intake_840e0448f084ea14` has exact payload hash `840e0448f084ea14fe1cfcd68765345a19e803676c184b960bc5fae8c88bd2d5`.
 - Fixture review packet `discord_fixture_review_d2a52f30ff1ea131` has hash `d2a52f30ff1ea1317271e00e5fd3df66b094bbf631be685d79eec34c19ae3bd9`.
 - Pre-dispatch readiness `discord_pre_dispatch_2b236bdc8a70d771` has hash `2b236bdc8a70d771b5d2ddf67ba965d9406ea6d3c915e722ada6767ec76f4d08`.

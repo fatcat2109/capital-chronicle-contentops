@@ -198,7 +198,7 @@
     "future product UI work must target ui/contentops_v5/ unless a newer committed authority doc supersedes it",
     "browser QA target is V5, not V4/static pages, unless explicitly performing reference comparison"
   ],
-  "accepted_product_baseline_sha": "PENDING_FINAL_COMMIT_SHA",
+  "accepted_product_baseline_sha": "03f8580ff89558418bb41b6c404abbc10f36a570",
   "last_status_commit_sha": "31ec6a2455d28f9306388c5258baa6e0b457ad03",
   "sha_model": "last_verified_remote_sha is the current remote HEAD observed before this docs/status refresh; accepted_product_baseline_sha is the latest accepted product feature baseline; status/docs refresh commits update governance metadata but do not become product baselines unless explicitly accepted as product work.",
   "latest_changed_areas": [
