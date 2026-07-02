@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-872618d67937bc4145eeb61a1bd521f3faada63c
+d1e1df41f2c1f69da720658b30ecdf743fb37473
 
 ## current_product_phase
 V6 Discord operator source artifact and GO phrase intake
@@ -22,9 +22,9 @@ fail-closed Discord operator source + GO phrase intake
 Discord operator source artifact + GO phrase intake generated from dry-run gate packet `discord_dry_run_gate_f9d4f7f1945dc120`. Intake packet `discord_source_go_intake_ca679bca13842222` has exact payload hash `ca679bca13842222c0ac50ccaf74da9e463963180a2f557ff738aa03a8279f73` and remains blocked/fail-closed until source artifact, exact GO phrase, destination binding, key-name-only credential presence, and active kill switch are all present.
 
 ## status_sha_model
-- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `72b816f97f819032a3a93008bd1cacbbd50c29ce`
-- accepted product baseline (`accepted_product_baseline_sha`): `177bf32da72040414c62ef54cbf5e54f059e84e6`
-- previous accepted product baseline: `25c80299695efad344db6fdf24316d9a1c1d0537`
+- current remote HEAD verified before this docs/status refresh (`last_verified_remote_sha`): `d1e1df41f2c1f69da720658b30ecdf743fb37473`
+- accepted product baseline (`accepted_product_baseline_sha`): `d1e1df41f2c1f69da720658b30ecdf743fb37473`
+- previous accepted product baseline: `177bf32da72040414c62ef54cbf5e54f059e84e6`
 - latest status-only repair commit prior to this task: `72b816f97f819032a3a93008bd1cacbbd50c29ce`
 - Rule: feature commits may advance repo HEAD beyond the accepted product baseline; status-only repair commits update ledger metadata but do not become product baselines unless explicitly accepted.
 
