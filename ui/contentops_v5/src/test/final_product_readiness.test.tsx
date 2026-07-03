@@ -67,6 +67,23 @@ describe('Final Product Readiness UI', () => {
     expect(screen.getByText('No browser/CDP/live/network/env/credential action is enabled here.')).toBeInTheDocument();
   });
 
+  it('renders operator handoff checklist without adding inputs or links', () => {
+    openView();
+
+    expect(screen.getByText('Operator Handoff Checklist')).toBeInTheDocument();
+    expect(screen.getByText('Review Final Readiness verdict')).toBeInTheDocument();
+    expect(screen.getByText('Review Evidence Trail')).toBeInTheDocument();
+    expect(screen.getByText('Confirm public URL is not verified')).toBeInTheDocument();
+    expect(screen.getByText('Do not rerun live publish')).toBeInTheDocument();
+    expect(screen.getByText('Use separate operator-supplied public URL audit only if needed')).toBeInTheDocument();
+    expect(screen.getByText('Keep dispatch/live write locked')).toBeInTheDocument();
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+    const lockedActionButtons = screen.getAllByRole('button', { name: /Publish \/ Dispatch \/ Verify public URL/i });
+    expect(lockedActionButtons).toHaveLength(1);
+    expect(lockedActionButtons[0]).toBeDisabled();
+  });
+
   it('proves unsafe actions stay disabled', () => {
     openView();
 

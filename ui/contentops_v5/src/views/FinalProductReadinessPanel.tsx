@@ -147,6 +147,23 @@ export function FinalProductReadinessPanel() {
         </div>
       </Panel>
 
+      <Panel title="Operator Handoff Checklist" subtitle="Safe next steps only; no dispatch clearance">
+        <ul className="grid gap-2 text-sm md:grid-cols-2">
+          {[
+            'Review Final Readiness verdict',
+            'Review Evidence Trail',
+            'Confirm public URL is not verified',
+            'Do not rerun live publish',
+            'Use separate operator-supplied public URL audit only if needed',
+            'Keep dispatch/live write locked',
+          ].map((item) => (
+            <li key={item} className="rounded-lg border border-line bg-surface-2 px-3 py-2 font-semibold text-fg-muted">
+              {item}
+            </li>
+          ))}
+        </ul>
+      </Panel>
+
       <LockedAction
         label="Publish / Dispatch / Verify public URL"
         reason="Disabled in TASK_0059. Public URL audit requires a separate operator-supplied URL artifact and no private data capture."
