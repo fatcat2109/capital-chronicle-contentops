@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0030
+TASK_0031
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -13,13 +13,13 @@ master
 7d83c8fd1ef11d4cfab70d0562b0090b8a2ad9d5
 
 ## current_product_phase
-TASK 0030 Substack Continue-preflight blocked safely (CDP missing)
+TASK 0031 Substack Continue-preflight blocked safely (CDP precheck missing)
 
 ## current_product_lane
 Substack publish preflight only; publish remains not proven and hard-locked
 
 ## accepted_baseline_summary
-TASK 0030 supervised Substack Continue-preflight run blocked safely with blocker=missing_cdp because CDP port 9222 was not listening (connection refused). No Continue click was performed; publish, schedule, email, private URL, title, body, screenshot, DOM dump, cookies, storage, env values, or secrets were not recorded.
+TASK 0031 CDP precheck failed before Continue-preflight; blocked safely with blocker=missing_cdp because http://127.0.0.1:9222/json/version refused connection. No Continue-preflight command was run; no Continue click, publish, schedule, email, private URL, title, body, screenshot, DOM dump, cookies, storage, env values, or secrets were recorded.
 
 ## status_sha_model
 - pre-repair remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `64b6a2788f2a175c9a172f5cd14e04d675cc78f9`
@@ -53,7 +53,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, supervised dispatch route preview packet, operator supervision contract packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
 
 ## dispatch/live status
-TASK_0030 ran one supervised Substack Continue-preflight on the current active tab. Result was BLOCKED with blocker=missing_cdp because CDP connection refused; no publish, schedule, email, private URL, title, body, screenshot, DOM dump, cookies, storage, env values, or secrets were recorded.
+TASK_0031 CDP precheck failed before Continue-preflight. Result was BLOCKED with blocker=missing_cdp; no Continue-preflight command was run; no publish, schedule, email, private URL, title, body, screenshot, DOM dump, cookies, storage, env values, or secrets were recorded.
 
 ## provider/env/credential status
 gated; no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, response bodies, headers, DOM dumps, private URLs, title text, body text, or screenshots were read/output.
@@ -73,7 +73,7 @@ gated; no cookies, localStorage, sessionStorage, credentials, env values, browse
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_0030
+TASK_0031
 
 ## latest changed areas
 - `live_contentops/substack_operator_draft_cli.py`
@@ -124,7 +124,7 @@ TASK_0030
 - `docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json`
 
 ## current next recommended task
-Keep Substack publish hard-locked/not proven. If Continue-preflight is retried, ensure browser is open with remote debugging enabled and focused on Substack editor tab.
+Keep Substack publish hard-locked/not proven. Before retrying Continue-preflight, start Edge with CDP on 127.0.0.1:9222 and focus the Substack editor tab with Continue visible.
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
@@ -157,6 +157,17 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 
 
 
+
+
+## TASK 0031 Substack Continue Preflight CDP Precheck
+
+- Latest task/status: `TASK_0031`.
+- Evidence: `docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0031_continue_preflight_evidence.json`.
+- Result: `BLOCKED`.
+- Blocker: `missing_cdp`.
+- Diagnostics: `cdp_precheck_connection_refused`.
+- Continue preflight command: not run because precheck failed.
+- Safety: no Continue click, publish, schedule, email, private URL, title, body, screenshot, DOM dump, cookies, storage, env values, or secrets recorded.
 
 ## TASK 0030 Substack Continue Preflight Retry
 
