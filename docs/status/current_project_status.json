@@ -3,10 +3,10 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "31205f1f750f8996e88d4eb8a55d613abbdef166",
-  "last_updated_by_task": "TASK_0031",
-  "current_product_phase": "TASK 0031 Substack Continue-preflight blocked safely (CDP precheck missing)",
-  "current_product_lane": "Substack publish preflight only; publish remains not proven and hard-locked",
+  "last_verified_remote_sha": "6af62b70306dedc551db40dd172ae3f25e21be77",
+  "last_updated_by_task": "TASK_0057",
+  "current_product_phase": "TASK 0057 Substack live publish success accepted by committed local evidence",
+  "current_product_lane": "Substack supervised browser-assisted live publish accepted; public URL not verified by committed artifact",
   "accepted_baseline_summary": "TASK 0031 CDP precheck failed before Continue-preflight; blocked safely with blocker=missing_cdp because http://127.0.0.1:9222/json/version refused connection. No Continue-preflight command was run; no Continue click, publish, schedule, email, private URL, title, body, screenshot, DOM dump, cookies, storage, env values, or secrets were recorded.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
@@ -174,8 +174,8 @@
     "Operator platform quickstart",
     "Platform operation matrix"
   ],
-  "dispatch_live_status": "TASK_0031 CDP precheck failed before Continue-preflight. Result was BLOCKED with blocker=missing_cdp; no Continue-preflight command was run; no publish, schedule, email, private URL, title, body, screenshot, DOM dump, cookies, storage, env values, or secrets were recorded.",
-  "provider_env_credential_status": "gated; no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, response bodies, headers, DOM dumps, private URLs, title text, body text, or screenshots were read/output.",
+  "dispatch_live_status": "TASK_0057 accepts operator-reported Substack live publish success using committed TASK_0055/TASK_0056 evidence. Final success task TASK_0055 recorded continue_click_succeeded=true, final_button_label=Send to everyone now, final_click_succeeded=true, schedule_action_signal_detected=false. No private URL, title/body text, DOM dump, screenshot, cookies, storage, env values, secrets, response bodies, or response headers were recorded. Public URL verification is not claimed.",
+  "provider_env_credential_status": "gated; TASK_0057 evidence records no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, response bodies, headers, DOM dumps, private URLs, title text, body text, screenshots, webhook URLs, or token material.",
   "active_blockers": [
     "Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.",
     "live/provider/platform execution remains disabled",
@@ -199,7 +199,7 @@
     "Discord redacted operator review packet remains blocked in committed state because no real local operator source artifact, GO phrase, destination binding, credential key presence, or active kill-switch proof is committed; redaction path is runnable but non-dispatchable and stores no body, GO phrase, webhook URL, env values, or credential values",
     "Discord operator review decision packet remains blocked in committed state because no real operator decision artifact is committed; approve/reject/hold parser path is runnable but non-dispatchable and stores no raw notes, body, GO phrase, webhook URL, env values, or credential values",
     "ChatGPT Project Sources remain context only; stale uploaded transcripts/no-extension responses must not override committed repo authority",
-    "Substack publish remains not proven and hard-locked; current confirmation phrase intentionally blocks before CDP publish, with publish_attempted=false and request_count_attempted=0."
+    "Substack public URL verification is not claimed; no committed safe public URL audit artifact exists."
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
@@ -209,10 +209,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_0031",
-  "latest_accepted_task_result": "blocked_substack_continue_preflight_cdp_precheck_missing",
-  "latest_evidence_summary": "Evidence recorded at docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0031_continue_preflight_evidence.json; result_status=BLOCKED; blocker=missing_cdp; continue_preflight_clicked=false; publish_attempted=false; schedule_attempted=false; email_send_attempted=false.",
-  "next_recommended_task": "Keep Substack publish hard-locked/not proven. Before retrying Continue-preflight, start Edge with CDP on 127.0.0.1:9222 and focus the Substack editor tab with Continue visible.",
+  "latest_accepted_task": "TASK_0057",
+  "latest_accepted_task_result": "substack_live_publish_success_accepted_by_committed_safe_evidence_public_url_not_verified",
+  "latest_evidence_summary": "Evidence recorded at docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0057_substack_live_publish_acceptance_reconciliation.json; result_status=PASS; can_accept_substack_live_publish_success=true; final_success_task=TASK_0055; final_button_label=Send to everyone now; continue_click_succeeded=true; final_click_succeeded=true; no private content or secrets recorded.",
+  "next_recommended_task": "Do not rerun live publish. If needed, create a separate safe public URL audit artifact without recording private URL, title/body text, cookies, storage, secrets, DOM, screenshots, response bodies, or headers.",
   "mandatory_read_before_task": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",

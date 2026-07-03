@@ -1,0 +1,20 @@
+{
+  "blocker": null,
+  "continue_click_attempted": true,
+  "continue_click_succeeded": true,
+  "continue_label": "Continue",
+  "dom_dump_recorded": false,
+  "final_button_label": "Send to everyone now",
+  "final_click_attempted": true,
+  "final_click_succeeded": true,
+  "method": "retryEnabledContinueThenFinalPublish",
+  "platform": "substack",
+  "private_url_recorded": false,
+  "raw_secret_output": false,
+  "response_body_recorded": false,
+  "response_headers_recorded": false,
+  "result_status": "PASS",
+  "schedule_action_signal_detected": false,
+  "screenshot_recorded": false,
+  "task_label": "TASK_0055"
+}

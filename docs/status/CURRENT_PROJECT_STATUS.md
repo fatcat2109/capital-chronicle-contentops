@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0031
+TASK_0057
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,13 +10,13 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-7d83c8fd1ef11d4cfab70d0562b0090b8a2ad9d5
+6af62b70306dedc551db40dd172ae3f25e21be77
 
 ## current_product_phase
-TASK 0031 Substack Continue-preflight blocked safely (CDP precheck missing)
+TASK 0057 Substack live publish success accepted by committed local evidence
 
 ## current_product_lane
-Substack publish preflight only; publish remains not proven and hard-locked
+Substack supervised browser-assisted live publish accepted; public URL not verified by committed artifact
 
 ## accepted_baseline_summary
 TASK 0031 CDP precheck failed before Continue-preflight; blocked safely with blocker=missing_cdp because http://127.0.0.1:9222/json/version refused connection. No Continue-preflight command was run; no Continue click, publish, schedule, email, private URL, title, body, screenshot, DOM dump, cookies, storage, env values, or secrets were recorded.
@@ -53,7 +53,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, supervised dispatch route preview packet, operator supervision contract packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
 
 ## dispatch/live status
-TASK_0031 CDP precheck failed before Continue-preflight. Result was BLOCKED with blocker=missing_cdp; no Continue-preflight command was run; no publish, schedule, email, private URL, title, body, screenshot, DOM dump, cookies, storage, env values, or secrets were recorded.
+TASK_0057 accepts operator-reported Substack live publish success using committed TASK_0055/TASK_0056 evidence. Final success task TASK_0055 recorded continue_click_succeeded=true, final_button_label=Send to everyone now, final_click_succeeded=true, schedule_action_signal_detected=false. No private URL, title/body text, DOM dump, screenshot, cookies, storage, env values, secrets, response bodies, or response headers were recorded. Public URL verification is not claimed.
 
 ## provider/env/credential status
 gated; no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, response bodies, headers, DOM dumps, private URLs, title text, body text, or screenshots were read/output.
@@ -62,7 +62,7 @@ gated; no cookies, localStorage, sessionStorage, credentials, env values, browse
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
 - Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.
 - LinkedIn lane is fixture/operator-supplied evidence only; no API, browser automation, URL fetch/scrape, public URL verification, or platform action is authorized.
-- Substack manual publication evidence remains fixture/operator-supplied where public URL or metrics evidence is present.
+- Substack live publish success is accepted by committed local TASK_0055/TASK_0056 evidence; public URL verification is not claimed until a separate safe audit artifact exists.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
 - Standalone approval queue UI must not be revived as canonical.
 
@@ -73,7 +73,7 @@ gated; no cookies, localStorage, sessionStorage, credentials, env values, browse
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_0031
+TASK_0057
 
 ## latest changed areas
 - `live_contentops/substack_operator_draft_cli.py`
@@ -124,7 +124,7 @@ TASK_0031
 - `docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json`
 
 ## current next recommended task
-Keep Substack publish hard-locked/not proven. Before retrying Continue-preflight, start Edge with CDP on 127.0.0.1:9222 and focus the Substack editor tab with Continue visible.
+Do not rerun live publish. If needed, create a separate safe public URL audit artifact without recording private URL, title/body text, cookies, storage, secrets, DOM, screenshots, response bodies, or headers.
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
