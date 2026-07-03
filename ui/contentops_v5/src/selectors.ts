@@ -490,6 +490,7 @@ export function selectFinalProductReadinessPacket(): SelectableObject {
       { label: 'Public URL verified', value: String(finalProductReadinessPacket.substack_public_url_verified), status: 'review' },
       { label: 'Dispatch allowed now', value: String(finalProductReadinessPacket.dispatch_allowed_now), status: 'blocked' },
       { label: 'Network performed', value: String(finalProductReadinessPacket.network_call_performed), status: 'verified' },
+      { label: 'Operator next action', value: finalProductReadinessPacket.operator_next_action },
       { label: 'Source evidence', value: finalProductReadinessPacket.source_substack_acceptance, mono: true },
     ],
   };

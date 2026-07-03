@@ -41,6 +41,26 @@ export function FinalProductReadinessPanel() {
         <Metric label="Live write" value="locked" status="blocked" hint="dispatch_allowed_now=false" />
       </div>
 
+      <Panel title="Operator Decision" subtitle="Read-only facts; no action enabled">
+        <ul className="grid gap-2 text-sm md:grid-cols-2">
+          <li className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2 font-semibold text-status-review">
+            Ready for local operator review only
+          </li>
+          <li className="rounded-lg border border-status-verified/30 bg-status-verified/10 px-3 py-2 font-semibold text-status-verified">
+            Substack live publish accepted by committed evidence
+          </li>
+          <li className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2 font-semibold text-status-review">
+            Public URL not verified
+          </li>
+          <li className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2 font-semibold text-status-blocked">
+            Dispatch/live write locked
+          </li>
+          <li className="rounded-lg border border-status-verified/30 bg-status-verified/10 px-3 py-2 font-semibold text-status-verified md:col-span-2">
+            Browser/CDP/network/env/credential action not performed
+          </li>
+        </ul>
+      </Panel>
+
       <Panel title="Packet Sources" subtitle="Committed local evidence only">
         <dl className="space-y-3 text-sm">
           {[p.source_readiness_bundle, p.source_pipeline_matrix, p.source_substack_acceptance].map((path) => (
