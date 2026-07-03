@@ -14,6 +14,7 @@ from live_contentops import operator_browser_lab
 DEFAULT_TASK_ID = "0000"
 REQUEST_BUDGET_MAX = 1
 RETRY_BUDGET_MAX = 0
+CONTINUE_PREFLIGHT_CONFIRMATION = "CONTINUE_PREFLIGHT_ONLY_NO_PUBLISH"
 
 
 def _count(locator: Any) -> int:
@@ -23,18 +24,18 @@ def _count(locator: Any) -> int:
         return 0
 
 
-def _visible_count(page: Any, label: str) -> int:
-    return _count(page.get_by_role("button", name=label)) + _count(page.get_by_text(label, exact=False))
+def _visible_count(page: Any, label: str, exact: bool = True) -> int:
+    return _count(page.get_by_role("button", name=label, exact=exact)) + _count(page.get_by_text(label, exact=exact))
 
 
 def collect_ui_signals(page: Any) -> dict[str, bool]:
-    publish_signal = _visible_count(page, "Publish") > 0
-    continue_signal = _visible_count(page, "Continue") > 0
+    publish_signal = _visible_count(page, "Publish", exact=True) > 0
+    continue_signal = _visible_count(page, "Continue", exact=True) > 0
     schedule_signal = _count(page.get_by_text("Schedule", exact=False)) > 0
     email_signal = (_count(page.get_by_text("Email", exact=False)) + _count(page.get_by_text("Send email", exact=False))) > 0
-    login_signal = (_visible_count(page, "Sign in") + _visible_count(page, "Log in") + _visible_count(page, "Login")) > 0
-    editor_signal = (_count(page.locator("[contenteditable='true']")) + _count(page.get_by_text("Untitled", exact=False))) > 0
-    dashboard_signal = (_visible_count(page, "Dashboard") + _visible_count(page, "Create") + _visible_count(page, "New post")) > 0
+    login_signal = (_visible_count(page, "Sign in", exact=True) + _visible_count(page, "Log in", exact=True) + _visible_count(page, "Login", exact=True)) > 0
+    editor_signal = (_count(page.locator("[contenteditable='true']")) + _count(page.get_by_text("Untitled", exact=True))) > 0
+    dashboard_signal = (_visible_count(page, "Dashboard", exact=True) + _visible_count(page, "Create", exact=True) + _visible_count(page, "New post", exact=True)) > 0
     return {
         "editor_signal_detected": editor_signal,
         "publish_signal_detected": publish_signal,
@@ -65,13 +66,11 @@ def _assist_hint(page_class: str, signals: dict[str, bool]) -> str:
         return "publish_control_detected_no_click"
     if page_class == "editor_or_draft_candidate":
         return "editor_detected_publish_control_missing"
-    if page_class == "unknown":
-        return "unknown_ui_state"
     return "unknown_ui_state"
 
 
-def _base_preflight(result_status: str, blocker: str | None, diagnostic: str, attempted: int, page_class: str = "unknown", page_reason: str = "ui_signals_inconclusive", signals: dict[str, bool] | None = None) -> dict[str, Any]:
-    safe_signals = signals or {
+def _empty_signals() -> dict[str, bool]:
+    return {
         "editor_signal_detected": False,
         "publish_signal_detected": False,
         "continue_signal_detected": False,
@@ -80,6 +79,19 @@ def _base_preflight(result_status: str, blocker: str | None, diagnostic: str, at
         "login_signal_detected": False,
         "dashboard_signal_detected": False,
     }
+
+
+def _base_preflight(
+    result_status: str,
+    blocker: str | None,
+    diagnostic: str,
+    attempted: int,
+    page_class: str = "unknown",
+    page_reason: str = "ui_signals_inconclusive",
+    signals: dict[str, bool] | None = None,
+    **extra: Any,
+) -> dict[str, Any]:
+    safe_signals = signals or _empty_signals()
     return {
         "result_status": result_status,
         "blocker": blocker,
@@ -89,14 +101,56 @@ def _base_preflight(result_status: str, blocker: str | None, diagnostic: str, at
         "current_page_reason": page_reason,
         "assist_hint": _assist_hint(page_class, safe_signals),
         **safe_signals,
+        **extra,
     }
 
 
-def run_cdp_preflight(*, draft_url: str | None, use_current_draft: bool, cdp_port: int) -> dict[str, Any]:
+def _continue_defaults() -> dict[str, Any]:
+    return {
+        "before_continue_signal_detected": False,
+        "after_publish_signal_detected": False,
+        "after_continue_signal_detected": False,
+        "after_schedule_signal_detected": False,
+        "after_email_signal_detected": False,
+        "continue_preflight_clicked": False,
+        "continue_preflight_click_count": 0,
+        "continue_preflight_result": "not_requested",
+    }
+
+
+def _block_continue_before_click(blocker: str, diagnostic: str, attempted: int, page_class: str = "unknown", page_reason: str = "ui_signals_inconclusive", signals: dict[str, bool] | None = None) -> dict[str, Any]:
+    return _base_preflight(
+        "BLOCKED",
+        blocker,
+        diagnostic,
+        attempted,
+        page_class,
+        page_reason,
+        signals,
+        **{**_continue_defaults(), "continue_preflight_result": "blocked_before_click"},
+    )
+
+
+def _settle_after_click(page: Any) -> None:
+    try:
+        page.wait_for_load_state("load", timeout=3000)
+    except Exception:
+        pass
+    try:
+        page.wait_for_timeout(1000)
+    except Exception:
+        pass
+
+
+def _click_continue_once(page: Any) -> None:
+    page.get_by_role("button", name="Continue").first.click(timeout=3000)
+
+
+def run_cdp_preflight(*, draft_url: str | None, use_current_draft: bool, cdp_port: int, allow_continue_preflight_click: bool = False, operator_confirmation: str | None = None) -> dict[str, Any]:
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
-        return _base_preflight("BLOCKED", "missing_cdp", "playwright_not_installed", 0, page_reason="playwright_not_installed")
+        return _base_preflight("BLOCKED", "missing_cdp", "playwright_not_installed", 0, page_reason="playwright_not_installed", **_continue_defaults())
 
     try:
         with sync_playwright() as p:
@@ -106,28 +160,28 @@ def run_cdp_preflight(*, draft_url: str | None, use_current_draft: bool, cdp_por
                 except Exception:
                     browser = p.chromium.connect_over_cdp(f"http://127.0.0.1:{cdp_port}")
             except Exception as exc:
-                return _base_preflight("BLOCKED", "missing_cdp", f"cdp_connection_failed: {str(exc)}", 0, page_reason="cdp_connection_failed")
+                return _base_preflight("BLOCKED", "missing_cdp", f"cdp_connection_failed: {str(exc)}", 0, page_reason="cdp_connection_failed", **_continue_defaults())
 
             if not browser.contexts:
-                return _base_preflight("BLOCKED", "missing_cdp", "no_active_contexts", 1, page_reason="no_active_contexts")
+                return _base_preflight("BLOCKED", "missing_cdp", "no_active_contexts", 1, page_reason="no_active_contexts", **_continue_defaults())
 
             context = browser.contexts[0]
             page = None
             if use_current_draft:
                 pages = list(getattr(context, "pages", []) or [])
                 if not pages:
-                    return _base_preflight("BLOCKED", "current_draft_not_active", "no_active_pages", 1, page_reason="no_active_pages")
+                    return _block_continue_before_click("current_draft_not_active", "no_active_pages", 1)
                 page = pages[-1]
                 signals = collect_ui_signals(page)
                 current_page_class, current_page_reason = classify_current_page(signals)
                 if current_page_class != "editor_or_draft_candidate":
-                    return _base_preflight("BLOCKED", "current_draft_not_active", "current_page_not_editor_or_draft_candidate", 1, current_page_class, current_page_reason, signals)
+                    return _block_continue_before_click("current_draft_not_active", "current_page_not_editor_or_draft_candidate", 1, current_page_class, current_page_reason, signals)
             if page is None:
                 page = context.new_page()
                 current_page_class, current_page_reason = "unknown", "navigation_target_not_recorded"
                 signals = None
                 if not draft_url:
-                    return _base_preflight("BLOCKED", "missing_draft_url", "draft_url_required_without_current_page", 0, current_page_class, current_page_reason)
+                    return _base_preflight("BLOCKED", "missing_draft_url", "draft_url_required_without_current_page", 0, current_page_class, current_page_reason, **_continue_defaults())
                 try:
                     page.goto(draft_url, timeout=15000)
                     page.wait_for_load_state("load", timeout=15000)
@@ -135,33 +189,114 @@ def run_cdp_preflight(*, draft_url: str | None, use_current_draft: bool, cdp_por
                     current_page_class, current_page_reason = classify_current_page(signals)
                 except Exception as exc:
                     page.close()
-                    return _base_preflight("BLOCKED", "ui_uncertainty", f"navigation_failed: {str(exc)}", 1, page_reason="navigation_failed")
+                    return _base_preflight("BLOCKED", "ui_uncertainty", f"navigation_failed: {str(exc)}", 1, page_reason="navigation_failed", **_continue_defaults())
 
             if current_page_class == "login":
                 if not use_current_draft:
                     page.close()
-                return _base_preflight("BLOCKED", "login_or_account_mismatch", "redirected_to_login", 1, current_page_class, current_page_reason, signals)
+                return _base_preflight("BLOCKED", "login_or_account_mismatch", "redirected_to_login", 1, current_page_class, current_page_reason, signals, **_continue_defaults())
+
+            if allow_continue_preflight_click:
+                if not use_current_draft:
+                    if not use_current_draft:
+                        page.close()
+                    return _block_continue_before_click("continue_preflight_requires_current_draft", "use_current_draft_required", 1, current_page_class, current_page_reason, signals)
+                if operator_confirmation != CONTINUE_PREFLIGHT_CONFIRMATION:
+                    return _block_continue_before_click("continue_preflight_confirmation_required", "operator_confirmation_mismatch", 1, current_page_class, current_page_reason, signals)
+                if not signals["continue_signal_detected"]:
+                    return _block_continue_before_click("continue_preflight_not_available", "continue_signal_not_detected", 1, current_page_class, current_page_reason, signals)
+                if signals["publish_signal_detected"]:
+                    return _block_continue_before_click("continue_preflight_not_needed", "publish_signal_already_detected", 1, current_page_class, current_page_reason, signals)
+                if signals["schedule_signal_detected"] or signals["email_signal_detected"]:
+                    return _block_continue_before_click("pre_continue_schedule_or_email_risk_detected", "schedule_or_email_signal_before_continue", 1, current_page_class, current_page_reason, signals)
+
+                _click_continue_once(page)
+                _settle_after_click(page)
+                after_signals = collect_ui_signals(page)
+                after_class, after_reason = classify_current_page(after_signals)
+                continue_fields = {
+                    "before_continue_signal_detected": signals["continue_signal_detected"],
+                    "after_publish_signal_detected": after_signals["publish_signal_detected"],
+                    "after_continue_signal_detected": after_signals["continue_signal_detected"],
+                    "after_schedule_signal_detected": after_signals["schedule_signal_detected"],
+                    "after_email_signal_detected": after_signals["email_signal_detected"],
+                    "continue_preflight_clicked": True,
+                    "continue_preflight_click_count": 1,
+                }
+                if after_signals["schedule_signal_detected"] or after_signals["email_signal_detected"]:
+                    return _base_preflight(
+                        "BLOCKED",
+                        "post_continue_schedule_or_email_risk_detected",
+                        "schedule_or_email_signal_after_continue",
+                        1,
+                        after_class,
+                        after_reason,
+                        after_signals,
+                        **{**continue_fields, "continue_preflight_result": "clicked_risk_detected"},
+                    )
+                if after_signals["publish_signal_detected"]:
+                    return {
+                        **_base_preflight(
+                            "PASS",
+                            None,
+                            "publish_preflight_controls_detected_after_continue",
+                            1,
+                            after_class,
+                            after_reason,
+                            after_signals,
+                            **{**continue_fields, "continue_preflight_result": "clicked_publish_detected"},
+                        ),
+                        "publish_controls_detected": True,
+                        "continue_controls_detected": after_signals["continue_signal_detected"],
+                        "schedule_risk_detected": after_signals["schedule_signal_detected"],
+                        "email_send_risk_detected": after_signals["email_signal_detected"],
+                    }
+                return _base_preflight(
+                    "BLOCKED",
+                    "ui_uncertainty",
+                    "publish_controls_not_detected_after_continue",
+                    1,
+                    after_class,
+                    after_reason,
+                    after_signals,
+                    **{**continue_fields, "continue_preflight_result": "clicked_publish_missing"},
+                )
 
             if not use_current_draft:
                 page.close()
             if not signals["publish_signal_detected"]:
-                return _base_preflight("BLOCKED", "ui_uncertainty", "publish_controls_not_detected", 1, current_page_class, current_page_reason, signals)
+                return _base_preflight("BLOCKED", "ui_uncertainty", "publish_controls_not_detected", 1, current_page_class, current_page_reason, signals, **_continue_defaults())
             return {
-                **_base_preflight("PASS", None, "publish_preflight_controls_detected", 1, current_page_class, current_page_reason, signals),
+                **_base_preflight("PASS", None, "publish_preflight_controls_detected", 1, current_page_class, current_page_reason, signals, **_continue_defaults()),
                 "publish_controls_detected": True,
                 "continue_controls_detected": signals["continue_signal_detected"],
                 "schedule_risk_detected": signals["schedule_signal_detected"],
                 "email_send_risk_detected": signals["email_signal_detected"],
             }
     except Exception as exc:
-        return _base_preflight("FAIL", "execution_failed", f"unhandled_error: {str(exc)}", 1, page_reason="execution_failed")
+        return _base_preflight("FAIL", "execution_failed", f"unhandled_error: {str(exc)}", 1, page_reason="execution_failed", **_continue_defaults())
 
 
-def build_evidence(*, draft_url: str | None, use_current_draft: bool, execute: bool, task_id: str, secrets: list[str] | None = None) -> dict[str, Any]:
+def build_evidence(
+    *,
+    draft_url: str | None,
+    use_current_draft: bool,
+    execute: bool,
+    task_id: str,
+    allow_continue_preflight_click: bool = False,
+    operator_confirmation: str | None = None,
+    secrets: list[str] | None = None,
+) -> dict[str, Any]:
     if not execute:
-        res = _base_preflight("DRY_RUN", None, "dry_run_no_browser_action", 0, page_reason="dry_run_no_browser_action")
+        res = _base_preflight("DRY_RUN", None, "dry_run_no_browser_action", 0, page_reason="dry_run_no_browser_action", **_continue_defaults())
     else:
-        res = run_cdp_preflight(draft_url=draft_url, use_current_draft=use_current_draft, cdp_port=operator_browser_lab.resolve_cdp_port(os.environ))
+        res = run_cdp_preflight(
+            draft_url=draft_url,
+            use_current_draft=use_current_draft,
+            cdp_port=operator_browser_lab.resolve_cdp_port(os.environ),
+            allow_continue_preflight_click=allow_continue_preflight_click,
+            operator_confirmation=operator_confirmation,
+        )
     evidence = {
         "task_label": f"TASK_{task_id}",
         "mode": "execute" if execute else "dry_run",
@@ -181,6 +316,14 @@ def build_evidence(*, draft_url: str | None, use_current_draft: bool, execute: b
         "continue_signal_detected": bool(res.get("continue_signal_detected", False)),
         "schedule_signal_detected": bool(res.get("schedule_signal_detected", False)),
         "email_signal_detected": bool(res.get("email_signal_detected", False)),
+        "before_continue_signal_detected": bool(res.get("before_continue_signal_detected", False)),
+        "after_publish_signal_detected": bool(res.get("after_publish_signal_detected", False)),
+        "after_continue_signal_detected": bool(res.get("after_continue_signal_detected", False)),
+        "after_schedule_signal_detected": bool(res.get("after_schedule_signal_detected", False)),
+        "after_email_signal_detected": bool(res.get("after_email_signal_detected", False)),
+        "continue_preflight_clicked": bool(res.get("continue_preflight_clicked", False)),
+        "continue_preflight_click_count": int(res.get("continue_preflight_click_count", 0)),
+        "continue_preflight_result": res.get("continue_preflight_result", "not_requested"),
         "publish_preflight_completed": res["result_status"] == "PASS",
         "publish_controls_detected": bool(res.get("publish_controls_detected", res.get("publish_signal_detected", False))),
         "continue_controls_detected": bool(res.get("continue_controls_detected", res.get("continue_signal_detected", False))),
@@ -223,13 +366,23 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--use-current-draft", action="store_true")
     parser.add_argument("--task-id", default=DEFAULT_TASK_ID)
     parser.add_argument("--execute", action="store_true")
+    parser.add_argument("--allow-continue-preflight-click", action="store_true")
+    parser.add_argument("--operator-confirmation")
     parser.add_argument("--output")
     return parser.parse_args(argv)
 
 
 def main(argv: list[str] | None = None, secrets: list[str] | None = None) -> int:
     args = parse_args(argv)
-    evidence = build_evidence(draft_url=args.draft_url, use_current_draft=args.use_current_draft, execute=args.execute, task_id=args.task_id, secrets=secrets)
+    evidence = build_evidence(
+        draft_url=args.draft_url,
+        use_current_draft=args.use_current_draft,
+        execute=args.execute,
+        task_id=args.task_id,
+        allow_continue_preflight_click=args.allow_continue_preflight_click,
+        operator_confirmation=args.operator_confirmation,
+        secrets=secrets,
+    )
     write_evidence(evidence, args.output)
     print(json.dumps(evidence, indent=2, sort_keys=True))
     return 0 if evidence["result_status"] in {"DRY_RUN", "PASS"} else 2
