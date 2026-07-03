@@ -272,3 +272,68 @@ def test_final_readiness_hardening_tasks_do_not_imply_network_or_api_activity():
     ]
     for claim in forbidden_network_claims:
         assert claim not in combined
+
+
+def test_final_readiness_hardening_tasks_do_not_imply_env_or_credential_access():
+    packet = _read_json(GENERATED_PACKET)
+    status = _read_json(STATUS_JSON)
+    md_text = STATUS_MD.read_text(encoding="utf-8")
+    scoped_status = "\n".join([
+        status["current_product_phase"],
+        status["current_product_lane"],
+        status["accepted_baseline_summary"],
+        status["latest_evidence_summary"],
+        status["next_recommended_task"],
+    ])
+    md_scoped = "\n".join([
+        md_text.split("## current_product_phase", 1)[1].split("## status_sha_model", 1)[0],
+        md_text.split("## provider/env/credential status", 1)[1].split("## active blockers", 1)[0],
+        md_text.split("## current next recommended task", 1)[1].split("## next-task safety notes", 1)[0],
+    ])
+    combined = f"{scoped_status}\n{md_scoped}".lower()
+
+    assert packet["env_or_credential_read_performed"] is False
+    assert "env_or_credential_read_performed=false" in status["latest_evidence_summary"]
+    assert "no browser/cdp/live/network/env/credential action" in combined
+    assert "ui/status hardening tasks after task_0059 are non-semantic" in combined
+
+    forbidden_env_claims = [
+        "task_0060 env",
+        "task_0061 env",
+        "task_0062 env",
+        "task_0063 env",
+        "task_0064 env",
+        "task_0065 env",
+        "task_0066 env",
+        "task_0067 env",
+        "task_0068 env",
+        "task_0069 env",
+        "task_0070 env",
+        "task_0071 env",
+        "task_0072 env",
+        "task_0073 env",
+        "task_0060 credential",
+        "task_0061 credential",
+        "task_0062 credential",
+        "task_0063 credential",
+        "task_0064 credential",
+        "task_0065 credential",
+        "task_0066 credential",
+        "task_0067 credential",
+        "task_0068 credential",
+        "task_0069 credential",
+        "task_0070 credential",
+        "task_0071 credential",
+        "task_0072 credential",
+        "task_0073 credential",
+        "env read performed",
+        "credential read performed",
+        "env_or_credential_read_performed=true",
+        "env values read",
+        "credential values read",
+        "secret read",
+        "token read",
+        "provider key read",
+    ]
+    for claim in forbidden_env_claims:
+        assert claim not in combined
