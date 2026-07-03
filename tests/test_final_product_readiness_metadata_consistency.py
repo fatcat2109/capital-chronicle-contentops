@@ -222,3 +222,53 @@ def test_final_readiness_public_url_audit_remains_operator_supplied_only():
     ]
     for claim in forbidden_url_claims:
         assert claim not in normalized
+
+
+def test_final_readiness_hardening_tasks_do_not_imply_network_or_api_activity():
+    packet = _read_json(GENERATED_PACKET)
+    status = _read_json(STATUS_JSON)
+    md_text = STATUS_MD.read_text(encoding="utf-8")
+    scoped_status = "\n".join([
+        status["current_product_phase"],
+        status["current_product_lane"],
+        status["accepted_baseline_summary"],
+        status["latest_evidence_summary"],
+        status["next_recommended_task"],
+    ])
+    md_scoped = "\n".join([
+        md_text.split("## current_product_phase", 1)[1].split("## status_sha_model", 1)[0],
+        md_text.split("## current next recommended task", 1)[1].split("## next-task safety notes", 1)[0],
+    ])
+    combined = f"{scoped_status}\n{md_scoped}".lower()
+
+    assert packet["network_call_performed"] is False
+    assert "network_call_performed=false" in status["latest_evidence_summary"]
+    assert "no browser/cdp/live/network/env/credential action" in combined
+    assert "ui/status hardening tasks after task_0059 are non-semantic" in combined
+
+    forbidden_network_claims = [
+        "task_0060 network",
+        "task_0061 network",
+        "task_0062 network",
+        "task_0063 network",
+        "task_0064 network",
+        "task_0065 network",
+        "task_0066 network",
+        "task_0067 network",
+        "task_0068 network",
+        "task_0069 network",
+        "task_0070 network",
+        "task_0071 network",
+        "task_0072 network",
+        "network performed",
+        "network call performed=true",
+        "api action performed",
+        "api call performed",
+        "platform api call",
+        "provider call",
+        "fetch performed",
+        "remote fetch",
+        "http request",
+    ]
+    for claim in forbidden_network_claims:
+        assert claim not in combined
