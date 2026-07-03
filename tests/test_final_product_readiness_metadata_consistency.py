@@ -41,8 +41,8 @@ def test_status_last_updated_and_accepted_task_are_consistent_after_metadata_rep
     status = _read_json(STATUS_JSON)
     md_text = STATUS_MD.read_text(encoding="utf-8")
 
-    assert status["last_updated_by_task"] == "TASK_0067"
-    assert "## last_updated_by_task\nTASK_0067" in md_text
+    assert status["last_updated_by_task"] == "TASK_0069"
+    assert "## last_updated_by_task\nTASK_0069" in md_text
     assert status["latest_accepted_task"] == "TASK_0059"
     assert "## latest accepted task\nTASK_0059" in md_text
 
@@ -59,16 +59,17 @@ def test_public_url_verification_remains_unclaimed_and_locked():
     assert "Substack public URL verification is not claimed" in status_text
 
 
-def test_task_0067_status_includes_v5_final_readiness_ui_hardening_entries():
+def test_task_0069_status_includes_v5_final_readiness_ui_hardening_entries():
     status = _read_json(STATUS_JSON)
     components = status["current_loop_components"]
 
     assert "V5 Final Readiness verdict strip" in components
     assert "V5 Final Readiness evidence trail" in components
     assert "V5 Final Readiness remaining blockers panel" in components
+    assert "V5 Final Readiness operator handoff checklist" in components
 
 
-def test_task_0067_status_preserves_public_url_and_dispatch_locks():
+def test_task_0069_status_preserves_public_url_and_dispatch_locks():
     status = _read_json(STATUS_JSON)
     status_text = json.dumps(status, sort_keys=True).lower()
 
@@ -80,11 +81,14 @@ def test_task_0067_status_preserves_public_url_and_dispatch_locks():
         "public url verified",
         "dispatch allowed",
         "live write allowed",
-        "task_0067 browser",
-        "task_0067 cdp",
-        "task_0067 live action",
-        "task_0067 live publish",
-        "task_0067 platform action",
+        "task_0069 browser",
+        "task_0069 cdp",
+        "task_0069 live action",
+        "task_0069 live publish",
+        "task_0069 platform action",
+        "task_0069 network",
+        "task_0069 env",
+        "task_0069 credential",
     ]
     for claim in forbidden_claims:
         assert claim not in status_text

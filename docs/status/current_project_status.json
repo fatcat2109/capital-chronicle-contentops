@@ -3,8 +3,8 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "4a44ffdedcd8004b963a7cf66593d71f108c5ef4",
-  "last_updated_by_task": "TASK_0067",
+  "last_verified_remote_sha": "7cb5641f06dc85b4e01e5687a13afd79192317ff",
+  "last_updated_by_task": "TASK_0069",
   "current_product_phase": "TASK 0059 Final Product Readiness panel and packet implemented",
   "current_product_lane": "V5 final readiness cockpit; Substack success accepted; public URL not verified; live actions locked",
   "accepted_baseline_summary": "TASK 0059 adds a local-only final product readiness packet and V5 read-only Final Readiness panel. It summarizes TASK_0057 Substack acceptance, V6 readiness bundle, and pipeline matrix without browser/CDP, network, env, credential, private URL, DOM, screenshot, title/body, cookie, storage, secret, response body, or response header capture. Public URL verification is still not claimed; publish/dispatch/URL verification actions stay disabled.",
@@ -177,7 +177,8 @@
     "V5 Final Readiness read-only panel",
     "V5 Final Readiness verdict strip",
     "V5 Final Readiness evidence trail",
-    "V5 Final Readiness remaining blockers panel"
+    "V5 Final Readiness remaining blockers panel",
+    "V5 Final Readiness operator handoff checklist"
   ],
   "dispatch_live_status": "TASK_0057 accepts operator-reported Substack live publish success using committed TASK_0055/TASK_0056 evidence. Final success task TASK_0055 recorded continue_click_succeeded=true, final_button_label=Send to everyone now, final_click_succeeded=true, schedule_action_signal_detected=false. No private URL, title/body text, DOM dump, screenshot, cookies, storage, env values, secrets, response bodies, or response headers were recorded. Public URL verification is not claimed.",
   "provider_env_credential_status": "gated; TASK_0057 evidence records no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, response bodies, headers, DOM dumps, private URLs, title text, body text, screenshots, webhook URLs, or token material.",
