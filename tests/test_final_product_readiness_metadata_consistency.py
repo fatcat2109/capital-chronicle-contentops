@@ -41,8 +41,8 @@ def test_status_last_updated_and_accepted_task_are_consistent_after_metadata_rep
     status = _read_json(STATUS_JSON)
     md_text = STATUS_MD.read_text(encoding="utf-8")
 
-    assert status["last_updated_by_task"] == "TASK_0060"
-    assert "## last_updated_by_task\nTASK_0060" in md_text
+    assert status["last_updated_by_task"] == "TASK_0067"
+    assert "## last_updated_by_task\nTASK_0067" in md_text
     assert status["latest_accepted_task"] == "TASK_0059"
     assert "## latest accepted task\nTASK_0059" in md_text
 
@@ -59,18 +59,32 @@ def test_public_url_verification_remains_unclaimed_and_locked():
     assert "Substack public URL verification is not claimed" in status_text
 
 
-def test_task_0060_metadata_does_not_claim_forbidden_actions():
+def test_task_0067_status_includes_v5_final_readiness_ui_hardening_entries():
+    status = _read_json(STATUS_JSON)
+    components = status["current_loop_components"]
+
+    assert "V5 Final Readiness verdict strip" in components
+    assert "V5 Final Readiness evidence trail" in components
+    assert "V5 Final Readiness remaining blockers panel" in components
+
+
+def test_task_0067_status_preserves_public_url_and_dispatch_locks():
     status = _read_json(STATUS_JSON)
     status_text = json.dumps(status, sort_keys=True).lower()
 
+    assert "substack_public_url_verified=false" in status["latest_evidence_summary"]
+    assert "dispatch_allowed_now=false" in status["latest_evidence_summary"]
+    assert "live_write_allowed_now=false" in status["latest_evidence_summary"]
+    assert "public url remains unverified" in STATUS_MD.read_text(encoding="utf-8").lower()
     forbidden_claims = [
-        "task_0060 browser",
-        "task_0060 cdp",
-        "task_0060 live publish",
-        "task_0060 platform action",
-        "task_0060 network",
-        "task_0060 env",
-        "task_0060 credential",
+        "public url verified",
+        "dispatch allowed",
+        "live write allowed",
+        "task_0067 browser",
+        "task_0067 cdp",
+        "task_0067 live action",
+        "task_0067 live publish",
+        "task_0067 platform action",
     ]
     for claim in forbidden_claims:
         assert claim not in status_text

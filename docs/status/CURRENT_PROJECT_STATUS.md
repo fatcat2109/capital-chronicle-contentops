@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0060
+TASK_0067
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-51e1689c63e3f0e9b485ab669f1fda8c4c0401c5
+4a44ffdedcd8004b963a7cf66593d71f108c5ef4
 
 ## current_product_phase
 TASK 0059 Final Product Readiness panel and packet implemented
@@ -83,7 +83,10 @@ TASK_0059
 - `ui/contentops_v5/src/test/final_product_readiness.test.tsx`
 
 ## current next recommended task
-Open V5 Final Readiness panel for operator review. Do not rerun live publish. If needed, run a separate safe public URL audit only with operator-supplied public URL and no private data capture.
+Open V5 Final Readiness panel for operator review. Current read-only surface includes verdict strip, evidence trail, and remaining blockers panel. Do not rerun live publish. If needed, run a separate safe public URL audit only with operator-supplied public URL and no private data capture.
+
+## latest UI hardening status
+TASK_0067 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, and remaining blockers panel. This does not change TASK_0059 product semantics: public URL remains unverified, dispatch/live write stays locked, and no browser/CDP/live/network/env/credential action is authorized.
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
