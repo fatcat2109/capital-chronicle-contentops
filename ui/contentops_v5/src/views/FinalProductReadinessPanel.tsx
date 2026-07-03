@@ -34,6 +34,26 @@ export function FinalProductReadinessPanel() {
         </div>
       </div>
 
+      <section aria-label="Readiness Verdict" className="rounded-2xl border border-accent/25 bg-accent/10 p-4 shadow-glow">
+        <div className="grid gap-3 md:grid-cols-5">
+          <p className="rounded-lg border border-line bg-surface-2 px-3 py-2 font-mono text-[12px] font-semibold text-accent">
+            Verdict: {p.readiness_status}
+          </p>
+          <p className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2 text-sm font-semibold text-status-blocked">
+            Dispatch: {p.dispatch_allowed_now ? 'allowed' : 'blocked'}
+          </p>
+          <p className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2 text-sm font-semibold text-status-blocked">
+            Live write: {p.live_write_allowed_now ? 'allowed' : 'blocked'}
+          </p>
+          <p className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2 text-sm font-semibold text-status-review">
+            Public URL: {p.substack_public_url_verified ? 'verified' : 'not verified'}
+          </p>
+          <p className="rounded-lg border border-line bg-surface-2 px-3 py-2 text-sm font-semibold text-fg">
+            Next: Review V5 Final Product Readiness panel
+          </p>
+        </div>
+      </section>
+
       <div className="grid gap-4 md:grid-cols-4">
         <Metric label="Lanes" value={String(p.lanes_summarized)} status="verified" hint="matrix rows" />
         <Metric label="Substack" value="accepted" status="verified" hint="TASK_0057 evidence" />

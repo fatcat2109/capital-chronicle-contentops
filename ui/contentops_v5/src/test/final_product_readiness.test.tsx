@@ -30,6 +30,17 @@ describe('Final Product Readiness UI', () => {
     expect(screen.getByText('Browser/CDP/network/env/credential action not performed')).toBeInTheDocument();
   });
 
+  it('renders readiness verdict strip as review-only and not dispatch-ready', () => {
+    openView();
+
+    expect(screen.getByLabelText('Readiness Verdict')).toBeInTheDocument();
+    expect(screen.getAllByText('FINAL_PRODUCT_READY_FOR_LOCAL_OPERATOR_REVIEW_ONLY').length).toBeGreaterThan(0);
+    expect(screen.getByText('Dispatch: blocked')).toBeInTheDocument();
+    expect(screen.getByText('Live write: blocked')).toBeInTheDocument();
+    expect(screen.getByText('Public URL: not verified')).toBeInTheDocument();
+    expect(screen.getByText('Next: Review V5 Final Product Readiness panel')).toBeInTheDocument();
+  });
+
   it('proves unsafe actions stay disabled', () => {
     openView();
 
