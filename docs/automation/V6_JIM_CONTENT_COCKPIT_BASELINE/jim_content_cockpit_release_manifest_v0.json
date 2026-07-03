@@ -1,0 +1,58 @@
+{
+  "task_label": "TASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0",
+  "baseline_sha": "48007f422c86a2e689201356232c32f62bde0238",
+  "canonical_dashboard_surface": "ui/contentops_v5/",
+  "operator_id": "Jim",
+  "release_status": "LOCAL_OPERATOR_REVIEW_BASELINE_PROMOTED",
+  "packet_chain": [
+    {
+      "stage": "daily_content_run",
+      "builder": "live_contentops/jim_daily_content_run_packet_v6.py",
+      "fixture": "fixtures/v6/jim_daily_content_run_packet_sample_v6.json",
+      "test": "tests/test_jim_daily_content_run_packet_v6.py"
+    },
+    {
+      "stage": "intent_to_variant_preview",
+      "builder": "live_contentops/jim_content_intent_to_variant_preview_bundle_v6.py",
+      "fixture": "fixtures/v6/jim_content_intent_to_variant_preview_bundle_sample_v6.json",
+      "test": "tests/test_jim_content_intent_to_variant_preview_bundle_v6.py"
+    },
+    {
+      "stage": "manual_export_approval_workbench",
+      "builder": "live_contentops/jim_manual_export_approval_workbench_v6.py",
+      "fixture": "fixtures/v6/jim_manual_export_approval_workbench_sample_v6.json",
+      "test": "tests/test_jim_manual_export_approval_workbench_v6.py"
+    },
+    {
+      "stage": "redacted_audit_metrics_import_loop",
+      "builder": "live_contentops/jim_redacted_audit_metrics_import_loop_v6.py",
+      "fixture": "fixtures/v6/jim_redacted_audit_metrics_import_loop_sample_v6.json",
+      "test": "tests/test_jim_redacted_audit_metrics_import_loop_v6.py"
+    }
+  ],
+  "status_docs": [
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json"
+  ],
+  "validation_commands": [
+    "python -m pytest tests/test_jim_daily_content_run_packet_v6.py tests/test_jim_content_intent_to_variant_preview_bundle_v6.py tests/test_jim_manual_export_approval_workbench_v6.py tests/test_jim_redacted_audit_metrics_import_loop_v6.py tests/test_jim_content_cockpit_baseline_status_v6.py -q",
+    "python -m pytest tests/test_final_product_readiness_metadata_consistency.py -q",
+    "npm test -- --run src/test/jim_daily_run.test.tsx",
+    "npm run build"
+  ],
+  "safety_flags": {
+    "local_only": true,
+    "jim_review_required": true,
+    "operator_supplied_values_only": true,
+    "browser_or_cdp_used": false,
+    "network_called": false,
+    "provider_api_called": false,
+    "platform_api_called": false,
+    "credential_or_env_read": false,
+    "scraping_performed": false,
+    "public_url_verified": false,
+    "live_write_allowed": false,
+    "dispatch_allowed": false,
+    "scheduler_enabled": false
+  }
+}

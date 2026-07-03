@@ -41,12 +41,12 @@ def test_status_last_updated_and_accepted_task_are_consistent_after_metadata_rep
     status = _read_json(STATUS_JSON)
     md_text = STATUS_MD.read_text(encoding="utf-8")
 
-    assert status["last_updated_by_task"] == "TASK_0069"
-    assert "## last_updated_by_task\nTASK_0069" in md_text
-    assert status["latest_accepted_task"] == "TASK_0059"
-    assert status["current_product_phase"] == "TASK 0059 Final Product Readiness panel and packet implemented"
-    assert "## latest accepted task\nTASK_0059" in md_text
-    assert status["last_updated_by_task"] != status["latest_accepted_task"]
+    assert status["last_updated_by_task"] == "TASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0"
+    assert "## last_updated_by_task\nTASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0" in md_text
+    assert status["latest_accepted_task"] == "TASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0"
+    assert status["current_product_phase"] == "TASK 0081 Jim content cockpit baseline promoted after heavy Batches 1-4"
+    assert "## latest accepted task\nTASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0" in md_text
+    assert status["last_updated_by_task"] == status["latest_accepted_task"]
 
 
 def test_public_url_verification_remains_unclaimed_and_locked():
@@ -102,13 +102,13 @@ def test_ui_status_hardening_after_task_0059_is_non_semantic():
     md_text = STATUS_MD.read_text(encoding="utf-8").lower()
     guardrail = (
         "ui/status hardening tasks after task_0059 are non-semantic unless explicitly promoted; "
-        "task_0059 remains latest accepted product baseline"
+        "explicitly promoted by task_0081"
     )
 
-    assert status["latest_accepted_task"] == "TASK_0059"
-    assert status["current_product_phase"] == "TASK 0059 Final Product Readiness panel and packet implemented"
-    assert status["last_updated_by_task"] >= "TASK_0069"
-    assert status["last_updated_by_task"] != status["latest_accepted_task"]
+    assert status["latest_accepted_task"] == "TASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0"
+    assert status["current_product_phase"] == "TASK 0081 Jim content cockpit baseline promoted after heavy Batches 1-4"
+    assert status["last_updated_by_task"] == "TASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0"
+    assert status["last_updated_by_task"] == status["latest_accepted_task"]
     assert guardrail in status_text
     assert guardrail in md_text
 
@@ -176,8 +176,8 @@ def test_status_never_calls_v5_final_readiness_dispatch_or_publish_ready():
         "live actions locked" in combined
         or "dispatch/live write stays locked" in combined
     )
-    assert status["latest_accepted_task"] == "TASK_0059"
-    assert status["current_product_phase"] == "TASK 0059 Final Product Readiness panel and packet implemented"
+    assert status["latest_accepted_task"] == "TASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0"
+    assert status["current_product_phase"] == "TASK 0081 Jim content cockpit baseline promoted after heavy Batches 1-4"
 
 
 def test_final_readiness_public_url_audit_remains_operator_supplied_only():
@@ -244,7 +244,7 @@ def test_final_readiness_hardening_tasks_do_not_imply_network_or_api_activity():
     assert packet["network_call_performed"] is False
     assert "network_call_performed=false" in status["latest_evidence_summary"]
     assert "no browser/cdp/live/network/env/credential action" in combined
-    assert "ui/status hardening tasks after task_0059 are non-semantic" in combined
+    assert "ui/status hardening tasks after task_0059 are non-semantic unless explicitly promoted; explicitly promoted by task_0081" in combined
 
     forbidden_network_claims = [
         "task_0060 network",
@@ -295,7 +295,7 @@ def test_final_readiness_hardening_tasks_do_not_imply_env_or_credential_access()
     assert packet["env_or_credential_read_performed"] is False
     assert "env_or_credential_read_performed=false" in status["latest_evidence_summary"]
     assert "no browser/cdp/live/network/env/credential action" in combined
-    assert "ui/status hardening tasks after task_0059 are non-semantic" in combined
+    assert "ui/status hardening tasks after task_0059 are non-semantic unless explicitly promoted; explicitly promoted by task_0081" in combined
 
     forbidden_env_claims = [
         "task_0060 env",
@@ -359,7 +359,7 @@ def test_final_readiness_hardening_tasks_do_not_imply_browser_or_cdp_activity():
     assert packet["browser_or_cdp_action_performed"] is False
     assert "browser_or_cdp_action_performed=false" in status["latest_evidence_summary"]
     assert "no browser/cdp/live/network/env/credential action" in combined
-    assert "ui/status hardening tasks after task_0059 are non-semantic" in combined
+    assert "ui/status hardening tasks after task_0059 are non-semantic unless explicitly promoted; explicitly promoted by task_0081" in combined
 
     forbidden_browser_claims = [
         "task_0060 browser",
@@ -427,7 +427,7 @@ def test_final_readiness_hardening_tasks_do_not_imply_live_or_platform_action():
     assert "dispatch_allowed_now=false" in status["latest_evidence_summary"]
     assert "live_write_allowed_now=false" in status["latest_evidence_summary"]
     assert "live actions locked" in combined or "dispatch/live write stays locked" in combined
-    assert "ui/status hardening tasks after task_0059 are non-semantic" in combined
+    assert "ui/status hardening tasks after task_0059 are non-semantic unless explicitly promoted; explicitly promoted by task_0081" in combined
 
     forbidden_live_claims = [
         "task_0060 live action",

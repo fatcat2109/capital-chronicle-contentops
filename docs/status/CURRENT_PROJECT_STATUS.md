@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0069
+TASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,22 +10,21 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-7cb5641f06dc85b4e01e5687a13afd79192317ff
+48007f422c86a2e689201356232c32f62bde0238
 
 ## current_product_phase
-TASK 0059 Final Product Readiness panel and packet implemented
+TASK 0081 Jim content cockpit baseline promoted after heavy Batches 1-4
 
 ## current_product_lane
-V5 final readiness cockpit; Substack success accepted; public URL not verified; live actions locked
+V5 Jim daily supervised content cockpit; local-only packet chain; manual export and redacted audit feedback loop; live actions locked
 
 ## accepted_baseline_summary
-TASK 0059 adds a local-only final product readiness packet and V5 read-only Final Readiness panel for local operator review only. It summarizes TASK_0057 Substack acceptance, V6 readiness bundle, and pipeline matrix without browser/CDP, network, env, credential, private URL, DOM, screenshot, title/body, cookie, storage, secret, response body, or response header capture. Public URL verification is still not claimed; publish/dispatch/URL verification actions stay disabled. UI/status hardening tasks after TASK_0059 are non-semantic unless explicitly promoted; TASK_0059 remains latest accepted product baseline.
+TASK 0081 promotes the completed Jim heavy-batch packet chain as the accepted local-first product baseline: daily content run packet, content intent to platform variant preview bundle, manual export and approval workbench, and redacted audit plus operator-supplied metrics import loop. UI/status hardening tasks after TASK_0059 are non-semantic unless explicitly promoted; explicitly promoted by TASK_0081. The canonical UI remains ui/contentops_v5/ with Jim Daily Run as the operator cockpit surface. No browser/CDP, network, provider API, platform API, env, credential, scraping, public URL verification, live write, scheduler, or autonomous dispatch action is authorized or claimed. This remains a local operator review baseline for Jim.
 
 ## status_sha_model
-- pre-repair remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `64b6a2788f2a175c9a172f5cd14e04d675cc78f9`
-- accepted product baseline (`accepted_product_baseline_sha`): `66e1538cecce3126ef447b8e472ec4ad9c2ef504`
-- previous accepted product baseline: `4e3a158a52a619147beed45cf064ee5f7599ddf6`
-- latest status/evidence repair commit before this SHA metadata repair (`last_status_commit_sha`): `64b6a2788f2a175c9a172f5cd14e04d675cc78f9`
+- accepted product baseline (`accepted_product_baseline_sha`): `48007f422c86a2e689201356232c32f62bde0238`
+- previous accepted product baseline: `66e1538cecce3126ef447b8e472ec4ad9c2ef504`
+- latest status/promotion task (`last_status_commit_sha`): `48007f422c86a2e689201356232c32f62bde0238` until the Batch 5 docs commit is created.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -50,19 +49,19 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components now include Discord operator source artifact + GO phrase intake, real-vs-fixture source classification, normalized candidate, review-only dry-run envelope normalization, phrase evidence, destination proof, kill-switch evidence, key-name-only credential presence evidence, non-real fixture review evidence, blocked live-preflight evidence, operator-supplied input contract evidence, redacted operator review packet, operator-supplied review decision packet, non-executable dispatch decision readiness packet, supervised dispatch route preview packet, operator supervision contract packet, normalized pre-dispatch readiness, safety signature, V5 read-only intake panel, and repo-native ChatGPT Project Bootstrap docs. The canonical V5 dashboard remains `ui/contentops_v5/`. Current strategy companion report `docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md` defines automation-first completion lanes and one-step CDP/operator-assist fallback semantics.
+V6 local deterministic loop components now include the promoted Jim content cockpit chain: daily content run packet, content intent to platform variant preview bundle, manual export and approval workbench, and redacted audit plus operator-supplied metrics import loop. The canonical V5 dashboard remains `ui/contentops_v5/`, with Jim Daily Run as the current operator cockpit surface. Existing Discord/manual-distribution components remain historical or supporting evidence; no live/provider/platform/browser/network/env/credential action is authorized.
 
 ## dispatch/live status
-TASK_0057 accepts operator-reported Substack live publish success using committed TASK_0055/TASK_0056 evidence. Final success task TASK_0055 recorded continue_click_succeeded=true, final_button_label=Send to everyone now, final_click_succeeded=true, schedule_action_signal_detected=false. No private URL, title/body text, DOM dump, screenshot, cookies, storage, env values, secrets, response bodies, or response headers were recorded. Public URL verification is not claimed.
+Jim content cockpit baseline is local operator review only. Manual export packets and redacted audit/metrics packets are review records, not live actions. Public URL verification is not claimed; Substack public URL verification is not claimed and substack_public_url_verified=false; live write, platform dispatch, scheduler, and autonomous posting remain locked. Any future public URL audit must use an operator-supplied public URL only.
 
 ## provider/env/credential status
-gated; no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, response bodies, headers, DOM dumps, private URLs, title text, body text, or screenshots were read/output.
+No provider/API/browser/network/env/credential action is authorized for the Jim content cockpit baseline. Batch 1-4 packets are deterministic local fixtures/builders and operator-supplied/redacted records only.
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
-- Discord operator supervision contract remains blocked/deferred in committed state because no real local operator source artifact, operator review decision artifact, or future exact live-scope artifact is committed; contract path is runnable in tests, approved real-decision sample maps to ready_for_operator_supervision_not_dispatch with route_class=supervised_webhook, but committed packet stays supervision_state=deferred_blocked and keeps dispatchable=false, ready_for_dispatch=false, live_action_allowed=false, no outbox, no ledger, no scheduler, no retry, no webhook validation, no browser/CDP action, and no raw env/credential/body/GO phrase value storage.
-- LinkedIn lane is fixture/operator-supplied evidence only; no API, browser automation, URL fetch/scrape, public URL verification, or platform action is authorized.
-- Substack live publish success is accepted by committed local TASK_0055/TASK_0056 evidence; public URL verification is not claimed until a separate safe audit artifact exists.
+- Jim content cockpit remains local/operator-review only; no provider/API/browser/network/env/credential action is authorized.
+- Manual export is allowed only as human off-platform copy after Jim review; repo code performs no live write.
+- Redacted audit and metrics loop accepts operator-supplied/redacted values only; no scraping, API sync, or public URL verification is claimed.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
 - Standalone approval queue UI must not be revived as canonical.
 
@@ -73,17 +72,17 @@ gated; no cookies, localStorage, sessionStorage, credentials, env values, browse
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_0059
+TASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0
 
 ## latest changed areas
-- `live_contentops/final_product_readiness_v6.py`
-- `docs/automation/V6_FINAL_PRODUCT_READINESS/final_product_readiness_packet.json`
-- `ui/contentops_v5/src/views/FinalProductReadinessPanel.tsx`
-- `ui/contentops_v5/src/data/finalProductReadinessPacket.ts`
-- `ui/contentops_v5/src/test/final_product_readiness.test.tsx`
+- `docs/status/CURRENT_PROJECT_STATUS.md`
+- `docs/status/current_project_status.json`
+- `docs/automation/V6_JIM_CONTENT_COCKPIT_BASELINE/jim_content_cockpit_release_handoff_v0.md`
+- `docs/automation/V6_JIM_CONTENT_COCKPIT_BASELINE/jim_content_cockpit_release_manifest_v0.json`
+- `tests/test_jim_content_cockpit_baseline_status_v6.py`
 
 ## current next recommended task
-Open V5 Final Readiness panel for operator review. Current read-only surface includes verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Do not rerun live publish. If needed, run a separate safe public URL audit only with operator-supplied public URL and no private data capture.
+Use V5 Jim Daily Run as the local operator cockpit for the next content cycle. Next product batch should deepen source-pack intake and draft-authoring readiness without provider/API/browser/network/env/credential or live platform action.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. This does not change TASK_0059 product semantics: public URL remains unverified, dispatch/live write stays locked, and no browser/CDP/live/network/env/credential action is authorized.
@@ -119,6 +118,17 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 
 
 
+
+
+## TASK 0081 Jim Content Cockpit Baseline Promotion
+
+- Latest task: `TASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0`.
+- Accepted product baseline SHA: `48007f422c86a2e689201356232c32f62bde0238`.
+- Current lane: V5 Jim daily supervised content cockpit.
+- Promoted packet chain: daily content run, content intent to platform variant preview, manual export and approval workbench, redacted audit plus operator-supplied metrics import loop.
+- Release handoff: `docs/automation/V6_JIM_CONTENT_COCKPIT_BASELINE/jim_content_cockpit_release_handoff_v0.md`.
+- Release manifest: `docs/automation/V6_JIM_CONTENT_COCKPIT_BASELINE/jim_content_cockpit_release_manifest_v0.json`.
+- Safety: no browser/CDP, network, provider API, platform API, env, credential, scraping, scheduler, autonomous dispatch, live write, or public URL verification is authorized or claimed.
 
 
 ## TASK 0031 Substack Continue Preflight CDP Precheck
@@ -319,7 +329,7 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Pre-dispatch readiness `discord_pre_dispatch_2b236bdc8a70d771` has hash `2b236bdc8a70d771b5d2ddf67ba965d9406ea6d3c915e722ada6767ec76f4d08`.
 - Added safe fixture classification: `missing`, `non_real_fixture`, and `operator_supplied_local`.
 - Committed state remains blocked because no real operator source artifact or credential key presence is committed.
-- Fixture lane is explicit non-real, fixture-only, not public-postable, review-only, and never dispatch-ready.
+- Fixture lane is explicit non-real, fixture-only, not public-postable, review-only, and never eligible for dispatch.
 - No Discord webhook send, webhook URL validation, env value read, credential value read, outbox, approval ledger, schedule, retry, provider call, platform API call, browser session read, or live action occurred.
 
 
