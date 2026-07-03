@@ -178,3 +178,47 @@ def test_status_never_calls_v5_final_readiness_dispatch_or_publish_ready():
     )
     assert status["latest_accepted_task"] == "TASK_0059"
     assert status["current_product_phase"] == "TASK 0059 Final Product Readiness panel and packet implemented"
+
+
+def test_final_readiness_public_url_audit_remains_operator_supplied_only():
+    packet = _read_json(GENERATED_PACKET)
+    status = _read_json(STATUS_JSON)
+    md_text = STATUS_MD.read_text(encoding="utf-8")
+    scoped_status = "\n".join([
+        status["current_product_phase"],
+        status["current_product_lane"],
+        status["accepted_baseline_summary"],
+        status["dispatch_live_status"],
+        status["latest_evidence_summary"],
+        status["next_recommended_task"],
+    ])
+    md_scoped = "\n".join([
+        md_text.split("## current_product_phase", 1)[1].split("## status_sha_model", 1)[0],
+        md_text.split("## dispatch/live status", 1)[1].split("## provider/env/credential status", 1)[0],
+        md_text.split("## current next recommended task", 1)[1].split("## next-task safety notes", 1)[0],
+    ])
+    combined = f"{scoped_status}\n{md_scoped}".lower()
+
+    assert packet["substack_public_url_verified"] is False
+    assert "substack_public_url_verified=false" in status["latest_evidence_summary"]
+    assert (
+        "public url not verified" in combined
+        or "public url verification is not claimed" in combined
+    )
+    assert "operator-supplied public url" in combined
+
+    normalized = combined.replace("substack_public_url_verified=false", "")
+    forbidden_url_claims = [
+        "public_url",
+        "publicurl",
+        "http://",
+        "https://",
+        "substack.com/p/",
+        "verified public url",
+        "public url verified",
+        "url fetch",
+        "scrape",
+        "browser verification",
+    ]
+    for claim in forbidden_url_claims:
+        assert claim not in normalized
