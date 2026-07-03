@@ -133,3 +133,48 @@ def test_ui_status_hardening_after_task_0059_is_non_semantic():
     ]
     for fragment in forbidden_fragments:
         assert fragment not in status_text
+
+
+def test_status_never_calls_v5_final_readiness_dispatch_or_publish_ready():
+    status = _read_json(STATUS_JSON)
+    scoped_status = "\n".join([
+        status["current_product_phase"],
+        status["current_product_lane"],
+        status["accepted_baseline_summary"],
+        status["latest_evidence_summary"],
+        status["next_recommended_task"],
+        "\n".join(status["current_loop_components"][-8:]),
+    ])
+    md_text = STATUS_MD.read_text(encoding="utf-8")
+    md_scoped = "\n".join([
+        md_text.split("## current_product_phase", 1)[1].split("## status_sha_model", 1)[0],
+        md_text.split("## current next recommended task", 1)[1].split("## next-task safety notes", 1)[0],
+    ])
+    combined = f"{scoped_status}\n{md_scoped}".lower()
+
+    forbidden_wording = [
+        "dispatch-ready",
+        "dispatch ready",
+        "publish-ready",
+        "publish ready",
+        "ready for dispatch",
+        "ready for publishing",
+        "ready to publish",
+        "ready to dispatch",
+        "dispatch clearance",
+        "publish clearance",
+    ]
+    for wording in forbidden_wording:
+        assert wording not in combined
+
+    assert "local operator review" in combined
+    assert (
+        "public url not verified" in combined
+        or "public url verification is not claimed" in combined
+    )
+    assert (
+        "live actions locked" in combined
+        or "dispatch/live write stays locked" in combined
+    )
+    assert status["latest_accepted_task"] == "TASK_0059"
+    assert status["current_product_phase"] == "TASK 0059 Final Product Readiness panel and packet implemented"
