@@ -4,6 +4,7 @@ import { IconShield } from '../ui/icons';
 
 export function JimDailyRun() {
   const p = viewModel.jim_daily_content_run;
+  const bundle = viewModel.jim_variant_preview_bundle;
   const flags = p.safety_flags;
 
   return (
@@ -68,6 +69,68 @@ export function JimDailyRun() {
                 </ul>
               )}
             </article>
+          ))}
+        </div>
+      </Panel>
+
+
+      <Panel title="Content Intent + Platform Variant Preview Bundle" subtitle="Placeholder previews only; no final public copy">
+        <div className="grid gap-3 md:grid-cols-3">
+          <div className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Bundle status</div>
+            <div className="mt-1 text-sm font-semibold text-status-review">{bundle.bundle_status}</div>
+          </div>
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Platform previews</div>
+            <div className="mt-1 text-sm font-semibold text-fg">{bundle.platform_preview_count}</div>
+          </div>
+          <div className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Manual export</div>
+            <div className="mt-1 text-sm font-semibold text-status-blocked">not ready</div>
+          </div>
+        </div>
+        <div className="mt-4 grid gap-3">
+          {bundle.content_intents.map((intent) => (
+            <article key={intent.intent_id} className="rounded-xl border border-line bg-surface-2 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <h2 className="text-sm font-semibold text-fg">{intent.title}</h2>
+                  <p className="mt-1 font-mono text-[11px] text-fg-subtle">{intent.intent_id} · {intent.claim_risk}</p>
+                </div>
+                <StatusChip status={intent.status === 'BLOCKED' ? 'blocked' : 'review'}>{intent.status}</StatusChip>
+              </div>
+              <p className="mt-2 text-sm text-fg-muted">{intent.draft_objective}</p>
+              <div className="mt-3 grid gap-2 md:grid-cols-2">
+                {bundle.platform_previews.filter((preview) => preview.source_intent_id === intent.intent_id).map((preview) => (
+                  <div key={preview.preview_id} className="rounded-lg border border-line bg-surface-1 p-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-sm font-semibold text-fg">{preview.platform}</span>
+                      <StatusChip status={preview.preview_status === 'BLOCKED_WAITING_FOR_INPUTS' ? 'blocked' : 'review'}>{preview.preview_status}</StatusChip>
+                    </div>
+                    <p className="mt-2 text-xs leading-relaxed text-fg-muted">{preview.preview_text_excerpt}</p>
+                    <p className="mt-2 font-mono text-[10.5px] text-status-blocked">manual_export_ready=false · dispatch_ready=false</p>
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </Panel>
+
+      <Panel title="Variant Preview Safety Flags" subtitle="False keeps bundle non-live and non-public-postable">
+        <div className="grid gap-2 md:grid-cols-2">
+          {[
+            ['final_public_copy_created', bundle.safety_flags.final_public_copy_created],
+            ['llm_provider_called', bundle.safety_flags.llm_provider_called],
+            ['platform_api_called', bundle.safety_flags.platform_api_called],
+            ['public_postable', bundle.safety_flags.public_postable],
+            ['publish_ready', bundle.safety_flags.publish_ready],
+            ['dispatch_ready', bundle.safety_flags.dispatch_ready],
+          ].map(([label, value]) => (
+            <div key={String(label)} className="flex items-center justify-between rounded-lg border border-line bg-surface-2 px-3 py-2">
+              <span className="font-mono text-[11px] text-fg-muted">{label}</span>
+              <StatusChip status={value ? 'blocked' : 'verified'}>{String(value)}</StatusChip>
+            </div>
           ))}
         </div>
       </Panel>

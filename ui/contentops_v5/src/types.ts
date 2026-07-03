@@ -621,10 +621,85 @@ export interface JimDailyContentRunPacket {
   packet_hash_algorithm: string;
 }
 
+export interface JimContentIntent {
+  intent_id: string;
+  source_idea_id: string;
+  title: string;
+  content_lane: 'A_pre_alpha' | 'B_grounded_news' | 'C_artifact_backed';
+  audience_mode: string;
+  draft_objective: string;
+  status: 'READY_FOR_JIM_REVIEW' | 'BLOCKED';
+  source_requirement: string;
+  claim_risk: string;
+  forbidden_language_clear: boolean;
+  blockers: string[];
+  next_manual_step: string;
+  final_public_copy_created: false;
+  public_postable: false;
+}
+
+export interface JimPlatformPreviewPlaceholder {
+  preview_id: string;
+  platform: 'Substack' | 'X' | 'LinkedIn' | 'Telegram';
+  source_intent_id: string;
+  preview_shape: string;
+  preview_status: 'PREVIEW_PLACEHOLDER_READY_FOR_JIM_REVIEW' | 'BLOCKED_WAITING_FOR_INPUTS';
+  preview_text_excerpt: string;
+  constraints: string[];
+  missing_inputs: string[];
+  approval_preconditions: string[];
+  manual_export_ready: false;
+  dispatch_ready: false;
+  public_postable: false;
+}
+
+export interface JimVariantPreviewBundleSafetyFlags {
+  local_only: boolean;
+  fixture_only: boolean;
+  jim_final_review_required: boolean;
+  content_intent_created: boolean;
+  platform_preview_placeholders_created: boolean;
+  final_public_copy_created: boolean;
+  llm_provider_called: boolean;
+  provider_api_called: boolean;
+  network_called: boolean;
+  browser_or_cdp_used: boolean;
+  credential_or_env_read: boolean;
+  platform_api_called: boolean;
+  platform_dispatch_performed: boolean;
+  scheduler_enabled: boolean;
+  public_url_verified: boolean;
+  public_postable: boolean;
+  publish_ready: boolean;
+  dispatch_ready: boolean;
+}
+
+export interface JimVariantPreviewBundle {
+  task_label: string;
+  contract_version: string;
+  bundle_id: string;
+  source_run_id: string;
+  operator_id: string;
+  bundle_status: string;
+  content_intents: JimContentIntent[];
+  platform_targets: string[];
+  platform_previews: JimPlatformPreviewPlaceholder[];
+  intent_count: number;
+  platform_preview_count: number;
+  blocked_intent_count: number;
+  manual_export_state: string;
+  next_allowed_action: string;
+  forbidden_actions: string[];
+  safety_flags: JimVariantPreviewBundleSafetyFlags;
+  packet_hash: string;
+  packet_hash_algorithm: string;
+}
+
 export interface ContentOpsViewModel {
   system_state: SystemState;
   cockpit: CockpitViewModel;
   jim_daily_content_run: JimDailyContentRunPacket;
+  jim_variant_preview_bundle: JimVariantPreviewBundle;
   content_items: ContentItem[];
   editorial_draft: EditorialDraft;
   ai_writer_lab: AiWriterLab;

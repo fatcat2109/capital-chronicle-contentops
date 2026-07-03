@@ -1,0 +1,403 @@
+{
+  "blocked_intent_count": 2,
+  "bundle_id": "variant_preview_bundle_for_jim_daily_run_0077_sample",
+  "bundle_status": "JIM_REVIEW_REQUIRED_PREVIEW_ONLY",
+  "content_intents": [
+    {
+      "audience_mode": "operator_review",
+      "blockers": [],
+      "claim_risk": "process_context_low_risk",
+      "content_lane": "A_pre_alpha",
+      "draft_objective": "turn approved framing into bounded editorial preview only",
+      "final_public_copy_created": false,
+      "forbidden_language_clear": true,
+      "intent_id": "INTENT-JDR-PA-001",
+      "next_manual_step": "Jim may review process framing and request a bounded draft.",
+      "public_postable": false,
+      "source_idea_id": "JDR-PA-001",
+      "source_requirement": "operator review",
+      "status": "READY_FOR_JIM_REVIEW",
+      "title": "Why no forecast can be the correct output"
+    },
+    {
+      "audience_mode": "operator_review",
+      "blockers": [
+        "official-source citation must be confirmed by Jim",
+        "forbidden market signal language detected"
+      ],
+      "claim_risk": "source_context_review",
+      "content_lane": "B_grounded_news",
+      "draft_objective": "turn approved framing into bounded editorial preview only",
+      "final_public_copy_created": false,
+      "forbidden_language_clear": false,
+      "intent_id": "INTENT-JDR-GN-001",
+      "next_manual_step": "Jim may confirm source refs before any copy is drafted.",
+      "public_postable": false,
+      "source_idea_id": "JDR-GN-001",
+      "source_requirement": "official-source confirmation",
+      "status": "BLOCKED",
+      "title": "CPI print as context, not a signal"
+    },
+    {
+      "audience_mode": "operator_review",
+      "blockers": [
+        "Lane C blocked without approved artifact evidence",
+        "approved artifact evidence required"
+      ],
+      "claim_risk": "artifact_gate",
+      "content_lane": "C_artifact_backed",
+      "draft_objective": "turn approved framing into bounded editorial preview only",
+      "final_public_copy_created": false,
+      "forbidden_language_clear": true,
+      "intent_id": "INTENT-JDR-CA-001",
+      "next_manual_step": "Attach approved artifact evidence before drafting.",
+      "public_postable": false,
+      "source_idea_id": "JDR-CA-001",
+      "source_requirement": "approved artifact evidence",
+      "status": "BLOCKED",
+      "title": "Artifact-backed macro brief"
+    }
+  ],
+  "contract_version": "jim_content_intent_to_variant_preview_bundle_v6.0",
+  "forbidden_actions": [
+    "No LLM/provider generation",
+    "No final public copy",
+    "No platform API",
+    "No live dispatch",
+    "No scheduler",
+    "No public URL verification"
+  ],
+  "intent_count": 3,
+  "manual_export_state": "not_ready_waiting_for_jim_review_and_exact_payload_approval",
+  "next_allowed_action": "Jim may review content intent, missing inputs, and preview placeholders.",
+  "operator_id": "jim",
+  "packet_hash": "cb9c5e4a1a9c63351809c25896a0e6945292ff4a3fc3b08e25ad9e32d6927bcf",
+  "packet_hash_algorithm": "sha256",
+  "platform_preview_count": 12,
+  "platform_previews": [
+    {
+      "approval_preconditions": [
+        "Jim final review",
+        "exact payload approval",
+        "manual export decision"
+      ],
+      "constraints": [
+        "needs Jim approval",
+        "needs source confirmation",
+        "not final public copy"
+      ],
+      "dispatch_ready": false,
+      "manual_export_ready": false,
+      "missing_inputs": [
+        "Jim final review"
+      ],
+      "platform": "Substack",
+      "preview_id": "PV-JDR-PA-001-SUBSTACK",
+      "preview_shape": "newsletter_outline_placeholder",
+      "preview_status": "PREVIEW_PLACEHOLDER_READY_FOR_JIM_REVIEW",
+      "preview_text_excerpt": "[Substack placeholder] Why no forecast can be the correct output \u2014 framing only; no final public copy, no advice, no dispatch.",
+      "public_postable": false,
+      "source_intent_id": "INTENT-JDR-PA-001"
+    },
+    {
+      "approval_preconditions": [
+        "Jim final review",
+        "exact payload approval",
+        "manual export decision"
+      ],
+      "constraints": [
+        "short-form hook only",
+        "no signal language",
+        "not dispatchable"
+      ],
+      "dispatch_ready": false,
+      "manual_export_ready": false,
+      "missing_inputs": [
+        "Jim final review"
+      ],
+      "platform": "X",
+      "preview_id": "PV-JDR-PA-001-X",
+      "preview_shape": "thread_outline_placeholder",
+      "preview_status": "PREVIEW_PLACEHOLDER_READY_FOR_JIM_REVIEW",
+      "preview_text_excerpt": "[X placeholder] Why no forecast can be the correct output \u2014 framing only; no final public copy, no advice, no dispatch.",
+      "public_postable": false,
+      "source_intent_id": "INTENT-JDR-PA-001"
+    },
+    {
+      "approval_preconditions": [
+        "Jim final review",
+        "exact payload approval",
+        "manual export decision"
+      ],
+      "constraints": [
+        "context-first framing",
+        "no advice claim",
+        "not dispatchable"
+      ],
+      "dispatch_ready": false,
+      "manual_export_ready": false,
+      "missing_inputs": [
+        "Jim final review"
+      ],
+      "platform": "LinkedIn",
+      "preview_id": "PV-JDR-PA-001-LINKEDIN",
+      "preview_shape": "professional_post_outline_placeholder",
+      "preview_status": "PREVIEW_PLACEHOLDER_READY_FOR_JIM_REVIEW",
+      "preview_text_excerpt": "[LinkedIn placeholder] Why no forecast can be the correct output \u2014 framing only; no final public copy, no advice, no dispatch.",
+      "public_postable": false,
+      "source_intent_id": "INTENT-JDR-PA-001"
+    },
+    {
+      "approval_preconditions": [
+        "Jim final review",
+        "exact payload approval",
+        "manual export decision"
+      ],
+      "constraints": [
+        "manual export only",
+        "no live send",
+        "not dispatchable"
+      ],
+      "dispatch_ready": false,
+      "manual_export_ready": false,
+      "missing_inputs": [
+        "Jim final review"
+      ],
+      "platform": "Telegram",
+      "preview_id": "PV-JDR-PA-001-TELEGRAM",
+      "preview_shape": "channel_note_outline_placeholder",
+      "preview_status": "PREVIEW_PLACEHOLDER_READY_FOR_JIM_REVIEW",
+      "preview_text_excerpt": "[Telegram placeholder] Why no forecast can be the correct output \u2014 framing only; no final public copy, no advice, no dispatch.",
+      "public_postable": false,
+      "source_intent_id": "INTENT-JDR-PA-001"
+    },
+    {
+      "approval_preconditions": [
+        "Jim final review",
+        "exact payload approval",
+        "manual export decision"
+      ],
+      "constraints": [
+        "needs Jim approval",
+        "needs source confirmation",
+        "not final public copy"
+      ],
+      "dispatch_ready": false,
+      "manual_export_ready": false,
+      "missing_inputs": [
+        "official-source citation must be confirmed by Jim",
+        "forbidden market signal language detected"
+      ],
+      "platform": "Substack",
+      "preview_id": "PV-JDR-GN-001-SUBSTACK",
+      "preview_shape": "newsletter_outline_placeholder",
+      "preview_status": "BLOCKED_WAITING_FOR_INPUTS",
+      "preview_text_excerpt": "[Substack placeholder] CPI print as context, not a signal \u2014 framing only; no final public copy, no advice, no dispatch.",
+      "public_postable": false,
+      "source_intent_id": "INTENT-JDR-GN-001"
+    },
+    {
+      "approval_preconditions": [
+        "Jim final review",
+        "exact payload approval",
+        "manual export decision"
+      ],
+      "constraints": [
+        "short-form hook only",
+        "no signal language",
+        "not dispatchable"
+      ],
+      "dispatch_ready": false,
+      "manual_export_ready": false,
+      "missing_inputs": [
+        "official-source citation must be confirmed by Jim",
+        "forbidden market signal language detected"
+      ],
+      "platform": "X",
+      "preview_id": "PV-JDR-GN-001-X",
+      "preview_shape": "thread_outline_placeholder",
+      "preview_status": "BLOCKED_WAITING_FOR_INPUTS",
+      "preview_text_excerpt": "[X placeholder] CPI print as context, not a signal \u2014 framing only; no final public copy, no advice, no dispatch.",
+      "public_postable": false,
+      "source_intent_id": "INTENT-JDR-GN-001"
+    },
+    {
+      "approval_preconditions": [
+        "Jim final review",
+        "exact payload approval",
+        "manual export decision"
+      ],
+      "constraints": [
+        "context-first framing",
+        "no advice claim",
+        "not dispatchable"
+      ],
+      "dispatch_ready": false,
+      "manual_export_ready": false,
+      "missing_inputs": [
+        "official-source citation must be confirmed by Jim",
+        "forbidden market signal language detected"
+      ],
+      "platform": "LinkedIn",
+      "preview_id": "PV-JDR-GN-001-LINKEDIN",
+      "preview_shape": "professional_post_outline_placeholder",
+      "preview_status": "BLOCKED_WAITING_FOR_INPUTS",
+      "preview_text_excerpt": "[LinkedIn placeholder] CPI print as context, not a signal \u2014 framing only; no final public copy, no advice, no dispatch.",
+      "public_postable": false,
+      "source_intent_id": "INTENT-JDR-GN-001"
+    },
+    {
+      "approval_preconditions": [
+        "Jim final review",
+        "exact payload approval",
+        "manual export decision"
+      ],
+      "constraints": [
+        "manual export only",
+        "no live send",
+        "not dispatchable"
+      ],
+      "dispatch_ready": false,
+      "manual_export_ready": false,
+      "missing_inputs": [
+        "official-source citation must be confirmed by Jim",
+        "forbidden market signal language detected"
+      ],
+      "platform": "Telegram",
+      "preview_id": "PV-JDR-GN-001-TELEGRAM",
+      "preview_shape": "channel_note_outline_placeholder",
+      "preview_status": "BLOCKED_WAITING_FOR_INPUTS",
+      "preview_text_excerpt": "[Telegram placeholder] CPI print as context, not a signal \u2014 framing only; no final public copy, no advice, no dispatch.",
+      "public_postable": false,
+      "source_intent_id": "INTENT-JDR-GN-001"
+    },
+    {
+      "approval_preconditions": [
+        "Jim final review",
+        "exact payload approval",
+        "manual export decision"
+      ],
+      "constraints": [
+        "needs Jim approval",
+        "needs source confirmation",
+        "not final public copy"
+      ],
+      "dispatch_ready": false,
+      "manual_export_ready": false,
+      "missing_inputs": [
+        "Lane C blocked without approved artifact evidence",
+        "approved artifact evidence required"
+      ],
+      "platform": "Substack",
+      "preview_id": "PV-JDR-CA-001-SUBSTACK",
+      "preview_shape": "newsletter_outline_placeholder",
+      "preview_status": "BLOCKED_WAITING_FOR_INPUTS",
+      "preview_text_excerpt": "[Substack placeholder] Artifact-backed macro brief \u2014 framing only; no final public copy, no advice, no dispatch.",
+      "public_postable": false,
+      "source_intent_id": "INTENT-JDR-CA-001"
+    },
+    {
+      "approval_preconditions": [
+        "Jim final review",
+        "exact payload approval",
+        "manual export decision"
+      ],
+      "constraints": [
+        "short-form hook only",
+        "no signal language",
+        "not dispatchable"
+      ],
+      "dispatch_ready": false,
+      "manual_export_ready": false,
+      "missing_inputs": [
+        "Lane C blocked without approved artifact evidence",
+        "approved artifact evidence required"
+      ],
+      "platform": "X",
+      "preview_id": "PV-JDR-CA-001-X",
+      "preview_shape": "thread_outline_placeholder",
+      "preview_status": "BLOCKED_WAITING_FOR_INPUTS",
+      "preview_text_excerpt": "[X placeholder] Artifact-backed macro brief \u2014 framing only; no final public copy, no advice, no dispatch.",
+      "public_postable": false,
+      "source_intent_id": "INTENT-JDR-CA-001"
+    },
+    {
+      "approval_preconditions": [
+        "Jim final review",
+        "exact payload approval",
+        "manual export decision"
+      ],
+      "constraints": [
+        "context-first framing",
+        "no advice claim",
+        "not dispatchable"
+      ],
+      "dispatch_ready": false,
+      "manual_export_ready": false,
+      "missing_inputs": [
+        "Lane C blocked without approved artifact evidence",
+        "approved artifact evidence required"
+      ],
+      "platform": "LinkedIn",
+      "preview_id": "PV-JDR-CA-001-LINKEDIN",
+      "preview_shape": "professional_post_outline_placeholder",
+      "preview_status": "BLOCKED_WAITING_FOR_INPUTS",
+      "preview_text_excerpt": "[LinkedIn placeholder] Artifact-backed macro brief \u2014 framing only; no final public copy, no advice, no dispatch.",
+      "public_postable": false,
+      "source_intent_id": "INTENT-JDR-CA-001"
+    },
+    {
+      "approval_preconditions": [
+        "Jim final review",
+        "exact payload approval",
+        "manual export decision"
+      ],
+      "constraints": [
+        "manual export only",
+        "no live send",
+        "not dispatchable"
+      ],
+      "dispatch_ready": false,
+      "manual_export_ready": false,
+      "missing_inputs": [
+        "Lane C blocked without approved artifact evidence",
+        "approved artifact evidence required"
+      ],
+      "platform": "Telegram",
+      "preview_id": "PV-JDR-CA-001-TELEGRAM",
+      "preview_shape": "channel_note_outline_placeholder",
+      "preview_status": "BLOCKED_WAITING_FOR_INPUTS",
+      "preview_text_excerpt": "[Telegram placeholder] Artifact-backed macro brief \u2014 framing only; no final public copy, no advice, no dispatch.",
+      "public_postable": false,
+      "source_intent_id": "INTENT-JDR-CA-001"
+    }
+  ],
+  "platform_targets": [
+    "Substack",
+    "X",
+    "LinkedIn",
+    "Telegram"
+  ],
+  "safety_flags": {
+    "browser_or_cdp_used": false,
+    "content_intent_created": true,
+    "credential_or_env_read": false,
+    "dispatch_ready": false,
+    "final_public_copy_created": false,
+    "fixture_only": true,
+    "jim_final_review_required": true,
+    "llm_provider_called": false,
+    "local_only": true,
+    "network_called": false,
+    "platform_api_called": false,
+    "platform_dispatch_performed": false,
+    "platform_preview_placeholders_created": true,
+    "provider_api_called": false,
+    "public_postable": false,
+    "public_url_verified": false,
+    "publish_ready": false,
+    "scheduler_enabled": false
+  },
+  "source_run_id": "jim_daily_run_0077_sample",
+  "task_label": "TASK_0078_HEAVY_BATCH_CONTENT_INTENT_TO_PLATFORM_VARIANT_PREVIEW_BUNDLE_V0"
+}

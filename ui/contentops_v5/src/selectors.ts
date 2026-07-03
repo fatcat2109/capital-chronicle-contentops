@@ -77,6 +77,7 @@ import type {
   LaneCArtifactConnectorIndexPacket,
   LaneCConnectorFamily,
   JimDailyContentRunPacket,
+  JimVariantPreviewBundle,
 } from './types';
 
 
@@ -493,6 +494,27 @@ export function selectJimDailyRunPacket(p: JimDailyContentRunPacket): Selectable
       { label: 'Summary', value: p.operator_summary },
       { label: 'Next', value: p.next_allowed_action },
       { label: 'Targets', value: p.platform_preview_targets.join(', ') },
+      { label: 'Variant bundle', value: viewModel.jim_variant_preview_bundle.bundle_status, status: 'review' },
+      { label: 'Public postable', value: String(p.safety_flags.public_postable), status: 'blocked' },
+      { label: 'Dispatch ready', value: String(p.safety_flags.dispatch_ready), status: 'blocked' },
+      { label: 'Provider API', value: String(p.safety_flags.provider_api_called), status: 'verified' },
+      { label: 'Packet hash', value: p.packet_hash, mono: true },
+    ],
+  };
+}
+
+
+export function selectJimVariantPreviewBundle(p: JimVariantPreviewBundle): SelectableObject {
+  return {
+    kind: 'jim_variant_preview_bundle',
+    id: p.bundle_id,
+    title: 'Intent → Variant Preview Bundle',
+    fields: [
+      { label: 'Status', value: p.bundle_status, status: 'review' },
+      { label: 'Intents', value: String(p.intent_count), status: 'review' },
+      { label: 'Previews', value: String(p.platform_preview_count), status: 'review' },
+      { label: 'Blocked intents', value: String(p.blocked_intent_count), status: p.blocked_intent_count > 0 ? 'blocked' : 'verified' },
+      { label: 'Manual export', value: p.manual_export_state, status: 'blocked' },
       { label: 'Public postable', value: String(p.safety_flags.public_postable), status: 'blocked' },
       { label: 'Dispatch ready', value: String(p.safety_flags.dispatch_ready), status: 'blocked' },
       { label: 'Provider API', value: String(p.safety_flags.provider_api_called), status: 'verified' },

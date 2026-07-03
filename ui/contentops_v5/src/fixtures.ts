@@ -2,8 +2,9 @@
 // LOCAL FIXTURE DATA ONLY. No runtime network, no credentials, no platform API.
 // All ids/hashes are synthetic placeholders for UI demonstration.
 
-import type { ContentOpsViewModel, JimDailyContentRunPacket } from './types';
+import type { ContentOpsViewModel, JimDailyContentRunPacket, JimVariantPreviewBundle } from './types';
 import jimDailyContentRun from '../../../fixtures/v6/jim_daily_content_run_packet_sample_v6.json';
+import jimVariantPreviewBundle from '../../../fixtures/v6/jim_content_intent_to_variant_preview_bundle_sample_v6.json';
 import {
   buildCockpitManualRecords,
   buildCockpitPreviews,
@@ -73,6 +74,7 @@ export const viewModel: ContentOpsViewModel = {
   }),
   cockpit: cockpitViewModel,
   jim_daily_content_run: jimDailyContentRun as JimDailyContentRunPacket,
+  jim_variant_preview_bundle: jimVariantPreviewBundle as JimVariantPreviewBundle,
   content_items: [
     {
       id: 'PA-0017',
