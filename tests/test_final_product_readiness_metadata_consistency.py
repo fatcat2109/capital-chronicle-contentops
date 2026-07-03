@@ -337,3 +337,68 @@ def test_final_readiness_hardening_tasks_do_not_imply_env_or_credential_access()
     ]
     for claim in forbidden_env_claims:
         assert claim not in combined
+
+
+def test_final_readiness_hardening_tasks_do_not_imply_browser_or_cdp_activity():
+    packet = _read_json(GENERATED_PACKET)
+    status = _read_json(STATUS_JSON)
+    md_text = STATUS_MD.read_text(encoding="utf-8")
+    scoped_status = "\n".join([
+        status["current_product_phase"],
+        status["current_product_lane"],
+        status["accepted_baseline_summary"],
+        status["latest_evidence_summary"],
+        status["next_recommended_task"],
+    ])
+    md_scoped = "\n".join([
+        md_text.split("## current_product_phase", 1)[1].split("## status_sha_model", 1)[0],
+        md_text.split("## current next recommended task", 1)[1].split("## next-task safety notes", 1)[0],
+    ])
+    combined = f"{scoped_status}\n{md_scoped}".lower()
+
+    assert packet["browser_or_cdp_action_performed"] is False
+    assert "browser_or_cdp_action_performed=false" in status["latest_evidence_summary"]
+    assert "no browser/cdp/live/network/env/credential action" in combined
+    assert "ui/status hardening tasks after task_0059 are non-semantic" in combined
+
+    forbidden_browser_claims = [
+        "task_0060 browser",
+        "task_0061 browser",
+        "task_0062 browser",
+        "task_0063 browser",
+        "task_0064 browser",
+        "task_0065 browser",
+        "task_0066 browser",
+        "task_0067 browser",
+        "task_0068 browser",
+        "task_0069 browser",
+        "task_0070 browser",
+        "task_0071 browser",
+        "task_0072 browser",
+        "task_0073 browser",
+        "task_0074 browser",
+        "task_0060 cdp",
+        "task_0061 cdp",
+        "task_0062 cdp",
+        "task_0063 cdp",
+        "task_0064 cdp",
+        "task_0065 cdp",
+        "task_0066 cdp",
+        "task_0067 cdp",
+        "task_0068 cdp",
+        "task_0069 cdp",
+        "task_0070 cdp",
+        "task_0071 cdp",
+        "task_0072 cdp",
+        "task_0073 cdp",
+        "task_0074 cdp",
+        "browser action performed",
+        "cdp action performed",
+        "browser_or_cdp_action_performed=true",
+        "dom captured",
+        "screenshot captured",
+        "cookie captured",
+        "storage captured",
+    ]
+    for claim in forbidden_browser_claims:
+        assert claim not in combined
