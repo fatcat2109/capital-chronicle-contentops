@@ -97,6 +97,26 @@ export function FinalProductReadinessPanel() {
         </dl>
       </Panel>
 
+      <Panel title="Remaining Blockers" subtitle="Why this is review-only, not dispatch-ready">
+        <ul className="grid gap-2 text-sm md:grid-cols-2">
+          <li className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2 font-semibold text-status-blocked">
+            This is not dispatch clearance.
+          </li>
+          <li className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2 font-semibold text-status-review">
+            Public URL verification is {p.substack_public_url_verified ? 'complete' : 'pending'}.
+          </li>
+          <li className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2 font-semibold text-status-blocked">
+            Operator approval/live dispatch gates remain blocked: {p.blocked_lanes.join(', ')}.
+          </li>
+          <li className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2 font-semibold text-status-review">
+            Future public URL audit must use operator-supplied public URL only.
+          </li>
+          <li className="rounded-lg border border-status-verified/30 bg-status-verified/10 px-3 py-2 font-semibold text-status-verified md:col-span-2">
+            No browser/CDP/live/network/env/credential action is enabled here.
+          </li>
+        </ul>
+      </Panel>
+
       <Panel title="Blocked Lanes" subtitle="Still not dispatch clearance">
         <div className="grid gap-2 md:grid-cols-2">
           {p.blocked_lanes.map((lane) => (

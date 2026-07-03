@@ -56,6 +56,17 @@ describe('Final Product Readiness UI', () => {
     expect(screen.getByText('docs/automation/V6_FINAL_PRODUCT_READINESS/final_product_readiness_packet.json')).toBeInTheDocument();
   });
 
+  it('renders remaining blockers without enabling dispatch', () => {
+    openView();
+
+    expect(screen.getByText('Remaining Blockers')).toBeInTheDocument();
+    expect(screen.getByText('This is not dispatch clearance.')).toBeInTheDocument();
+    expect(screen.getByText('Public URL verification is pending.')).toBeInTheDocument();
+    expect(screen.getByText('Operator approval/live dispatch gates remain blocked: operator_approval_gate, supervised_dispatch_readiness.')).toBeInTheDocument();
+    expect(screen.getByText('Future public URL audit must use operator-supplied public URL only.')).toBeInTheDocument();
+    expect(screen.getByText('No browser/CDP/live/network/env/credential action is enabled here.')).toBeInTheDocument();
+  });
+
   it('proves unsafe actions stay disabled', () => {
     openView();
 
