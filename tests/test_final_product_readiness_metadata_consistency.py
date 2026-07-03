@@ -402,3 +402,73 @@ def test_final_readiness_hardening_tasks_do_not_imply_browser_or_cdp_activity():
     ]
     for claim in forbidden_browser_claims:
         assert claim not in combined
+
+
+def test_final_readiness_hardening_tasks_do_not_imply_live_or_platform_action():
+    packet = _read_json(GENERATED_PACKET)
+    status = _read_json(STATUS_JSON)
+    md_text = STATUS_MD.read_text(encoding="utf-8")
+    scoped_status = "\n".join([
+        status["current_product_phase"],
+        status["current_product_lane"],
+        status["accepted_baseline_summary"],
+        status["latest_evidence_summary"],
+        status["next_recommended_task"],
+    ])
+    md_scoped = "\n".join([
+        md_text.split("## current_product_phase", 1)[1].split("## status_sha_model", 1)[0],
+        md_text.split("## dispatch/live status", 1)[1].split("## provider/env/credential status", 1)[0],
+        md_text.split("## current next recommended task", 1)[1].split("## next-task safety notes", 1)[0],
+    ])
+    combined = f"{scoped_status}\n{md_scoped}".lower()
+
+    assert packet["dispatch_allowed_now"] is False
+    assert packet["live_write_allowed_now"] is False
+    assert "dispatch_allowed_now=false" in status["latest_evidence_summary"]
+    assert "live_write_allowed_now=false" in status["latest_evidence_summary"]
+    assert "live actions locked" in combined or "dispatch/live write stays locked" in combined
+    assert "ui/status hardening tasks after task_0059 are non-semantic" in combined
+
+    forbidden_live_claims = [
+        "task_0060 live action",
+        "task_0061 live action",
+        "task_0062 live action",
+        "task_0063 live action",
+        "task_0064 live action",
+        "task_0065 live action",
+        "task_0066 live action",
+        "task_0067 live action",
+        "task_0068 live action",
+        "task_0069 live action",
+        "task_0070 live action",
+        "task_0071 live action",
+        "task_0072 live action",
+        "task_0073 live action",
+        "task_0074 live action",
+        "task_0075 live action",
+        "task_0060 platform action",
+        "task_0061 platform action",
+        "task_0062 platform action",
+        "task_0063 platform action",
+        "task_0064 platform action",
+        "task_0065 platform action",
+        "task_0066 platform action",
+        "task_0067 platform action",
+        "task_0068 platform action",
+        "task_0069 platform action",
+        "task_0070 platform action",
+        "task_0071 platform action",
+        "task_0072 platform action",
+        "task_0073 platform action",
+        "task_0074 platform action",
+        "task_0075 platform action",
+        "dispatch_allowed_now=true",
+        "live_write_allowed_now=true",
+        "live action performed",
+        "platform action performed",
+        "live dispatch performed",
+        "publish performed",
+        "send performed",
+    ]
+    for claim in forbidden_live_claims:
+        assert claim not in combined
