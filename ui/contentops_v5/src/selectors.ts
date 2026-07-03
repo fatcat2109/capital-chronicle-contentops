@@ -76,6 +76,7 @@ import type {
   ArtifactIntakeCandidate,
   LaneCArtifactConnectorIndexPacket,
   LaneCConnectorFamily,
+  JimDailyContentRunPacket,
 } from './types';
 
 
@@ -442,6 +443,8 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectSystemVerdict(vm.system_state);
     case 'content_inventory':
       return selectContentItem(defaultContentItem(vm.content_items));
+    case 'jim_daily_run':
+      return selectJimDailyRunPacket(vm.jim_daily_content_run);
     case 'writer_studio':
       return selectAiVariant(vm.editorial_draft.ai_outputs[0]);
     case 'ai_writer_seo_lab':
@@ -477,6 +480,26 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
   }
 }
 
+
+
+export function selectJimDailyRunPacket(p: JimDailyContentRunPacket): SelectableObject {
+  return {
+    kind: 'jim_daily_content_run_packet',
+    id: p.run_id,
+    title: p.surface_label,
+    fields: [
+      { label: 'Operator', value: p.operator_id },
+      { label: 'Status', value: p.run_status, status: 'review' },
+      { label: 'Summary', value: p.operator_summary },
+      { label: 'Next', value: p.next_allowed_action },
+      { label: 'Targets', value: p.platform_preview_targets.join(', ') },
+      { label: 'Public postable', value: String(p.safety_flags.public_postable), status: 'blocked' },
+      { label: 'Dispatch ready', value: String(p.safety_flags.dispatch_ready), status: 'blocked' },
+      { label: 'Provider API', value: String(p.safety_flags.provider_api_called), status: 'verified' },
+      { label: 'Packet hash', value: p.packet_hash, mono: true },
+    ],
+  };
+}
 
 export function selectFinalProductReadinessPacket(): SelectableObject {
   return {

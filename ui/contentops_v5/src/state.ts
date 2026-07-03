@@ -38,6 +38,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { id: 'command_center', label: 'Command Center', icon: 'dashboard' },
       { id: 'content_inventory', label: 'Content Inventory', icon: 'inventory' },
+      { id: 'jim_daily_run', label: 'Jim Daily Run', icon: 'shield' },
       { id: 'platform_payload_preview', label: 'Platform Preview', icon: 'layers' },
       { id: 'manual_publish_metrics', label: 'Manual Publish', icon: 'send' },
     ],

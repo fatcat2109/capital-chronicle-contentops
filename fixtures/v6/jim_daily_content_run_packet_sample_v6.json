@@ -1,0 +1,106 @@
+{
+  "contract_version": "jim_daily_content_run_v6.0",
+  "forbidden_actions": [
+    "No provider API",
+    "No platform dispatch",
+    "No browser/CDP action",
+    "No credential/env read",
+    "No scheduler",
+    "No public URL verification"
+  ],
+  "ideas": [
+    {
+      "allowed_transformations": [
+        "outline",
+        "draft",
+        "platform preview"
+      ],
+      "blockers": [],
+      "forbidden_transformations": [
+        "market call",
+        "forecast authority claim"
+      ],
+      "idea_id": "JDR-PA-001",
+      "lane": "A_pre_alpha",
+      "next_allowed_manual_step": "Jim may review process framing and request a bounded draft.",
+      "source_type": "operator_process_note",
+      "status": "REVIEW_REQUIRED",
+      "title": "Why no forecast can be the correct output"
+    },
+    {
+      "allowed_transformations": [
+        "source checklist",
+        "educational angle",
+        "platform preview"
+      ],
+      "blockers": [
+        "official-source citation must be confirmed by Jim"
+      ],
+      "forbidden_transformations": [
+        "buy/sell/hold",
+        "target levels",
+        "watchlist call"
+      ],
+      "idea_id": "JDR-GN-001",
+      "lane": "B_grounded_news",
+      "next_allowed_manual_step": "Jim may confirm source refs before any copy is drafted.",
+      "source_type": "grounded_news_brief",
+      "status": "REVIEW_REQUIRED",
+      "title": "CPI print as context, not a signal"
+    },
+    {
+      "allowed_transformations": [],
+      "blockers": [
+        "Lane C blocked without approved artifact evidence"
+      ],
+      "forbidden_transformations": [
+        "draft generation",
+        "platform preview",
+        "public-postable claim"
+      ],
+      "idea_id": "JDR-CA-001",
+      "lane": "C_artifact_backed",
+      "next_allowed_manual_step": "Attach approved artifact evidence before drafting.",
+      "source_type": "future_artifact_context",
+      "status": "BLOCKED",
+      "title": "Artifact-backed macro brief"
+    }
+  ],
+  "lane_counts": {
+    "A_pre_alpha": 1,
+    "B_grounded_news": 1,
+    "C_artifact_backed": 1
+  },
+  "manual_export_state": "manual_export_not_prepared",
+  "next_allowed_action": "Jim may review lane classification and source blockers.",
+  "operator_id": "jim",
+  "operator_summary": "Jim final review required; review-only daily run packet.",
+  "packet_hash": "6060c6b3dd7af0ec74658c88a4ad32d25a130e985681abd2a38962c2dffc6bb6",
+  "packet_hash_algorithm": "sha256",
+  "platform_preview_targets": [
+    "Substack",
+    "X",
+    "LinkedIn",
+    "Telegram"
+  ],
+  "run_id": "jim_daily_run_0077_sample",
+  "run_status": "JIM_FINAL_REVIEW_REQUIRED",
+  "safety_flags": {
+    "browser_or_cdp_used": false,
+    "credential_or_env_read": false,
+    "dispatch_ready": false,
+    "fixture_only": true,
+    "jim_final_review_required": true,
+    "local_only": true,
+    "manual_export_only": true,
+    "network_called": false,
+    "platform_dispatch_performed": false,
+    "provider_api_called": false,
+    "public_postable": false,
+    "public_url_verified": false,
+    "publish_ready": false,
+    "scheduler_enabled": false
+  },
+  "surface_label": "Jim Daily Content Run",
+  "task_label": "TASK_0077_HEAVY_BATCH_JIM_DAILY_CONTENT_RUN_PACKET_AND_V5_PANEL_V0"
+}

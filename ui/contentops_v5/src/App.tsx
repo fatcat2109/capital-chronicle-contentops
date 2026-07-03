@@ -10,6 +10,7 @@ import { StatusChip, StatusDot } from './ui/primitives';
 import { VIEW_ICONS, IconClose, IconShield, IconSun, IconMoon, IconMenu } from './ui/icons';
 import { CommandCenter } from './views/CommandCenter';
 import { ContentInventory } from './views/ContentInventory';
+import { JimDailyRun } from './views/JimDailyRun';
 import { WriterStudio } from './views/WriterStudio';
 import { AiWriterSeoLab } from './views/AiWriterSeoLab';
 import { DraftInspector } from './views/DraftInspector';
@@ -251,6 +252,8 @@ function ActiveView() {
       return <CommandCenter />;
     case 'content_inventory':
       return <ContentInventory />;
+    case 'jim_daily_run':
+      return <JimDailyRun />;
     case 'writer_studio':
       return <WriterStudio />;
     case 'ai_writer_seo_lab':

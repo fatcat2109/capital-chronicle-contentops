@@ -8,6 +8,7 @@ export type StatusKind = 'verified' | 'review' | 'blocked' | 'neutral';
 export type ViewId =
   | 'command_center'
   | 'content_inventory'
+  | 'jim_daily_run'
   | 'writer_studio'
   | 'ai_writer_seo_lab'
   | 'draft_inspector'
@@ -571,9 +572,59 @@ export interface V6OperatorApprovalEvidencePacket {
     blockers: string[];
   };
 }
+
+export interface JimDailyRunIdea {
+  idea_id: string;
+  title: string;
+  lane: 'A_pre_alpha' | 'B_grounded_news' | 'C_artifact_backed';
+  source_type: string;
+  status: 'REVIEW_REQUIRED' | 'BLOCKED';
+  allowed_transformations: string[];
+  forbidden_transformations: string[];
+  blockers: string[];
+  next_allowed_manual_step: string;
+}
+
+export interface JimDailyRunSafetyFlags {
+  local_only: boolean;
+  fixture_only: boolean;
+  jim_final_review_required: boolean;
+  manual_export_only: boolean;
+  public_postable: boolean;
+  publish_ready: boolean;
+  dispatch_ready: boolean;
+  provider_api_called: boolean;
+  network_called: boolean;
+  browser_or_cdp_used: boolean;
+  credential_or_env_read: boolean;
+  platform_dispatch_performed: boolean;
+  scheduler_enabled: boolean;
+  public_url_verified: boolean;
+}
+
+export interface JimDailyContentRunPacket {
+  task_label: string;
+  contract_version: string;
+  run_id: string;
+  operator_id: string;
+  run_status: string;
+  surface_label: string;
+  operator_summary: string;
+  lane_counts: Record<string, number>;
+  ideas: JimDailyRunIdea[];
+  platform_preview_targets: string[];
+  manual_export_state: string;
+  next_allowed_action: string;
+  forbidden_actions: string[];
+  safety_flags: JimDailyRunSafetyFlags;
+  packet_hash: string;
+  packet_hash_algorithm: string;
+}
+
 export interface ContentOpsViewModel {
   system_state: SystemState;
   cockpit: CockpitViewModel;
+  jim_daily_content_run: JimDailyContentRunPacket;
   content_items: ContentItem[];
   editorial_draft: EditorialDraft;
   ai_writer_lab: AiWriterLab;
