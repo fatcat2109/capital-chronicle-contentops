@@ -70,4 +70,15 @@ describe('Jim Daily Content Run UI', () => {
     expect(screen.getByText(/valid_for_dispatch=false/i)).toBeInTheDocument();
   });
 
+
+  it('renders redacted audit metrics loop as operator-supplied review only', () => {
+    openView();
+
+    expect(screen.getByText('Redacted Audit + Metrics Import Loop')).toBeInTheDocument();
+    expect(screen.getAllByText('JIM_REVIEW_REQUIRED_OPERATOR_SUPPLIED_METRICS_ONLY').length).toBeGreaterThan(0);
+    expect(screen.getByText('Baseline promoted')).toBeInTheDocument();
+    expect(screen.getAllByText('operator_supplied_values_only=true · network_called=false · baseline_promoted=false').length).toBeGreaterThan(0);
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  });
+
 });

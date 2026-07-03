@@ -2,10 +2,11 @@
 // LOCAL FIXTURE DATA ONLY. No runtime network, no credentials, no platform API.
 // All ids/hashes are synthetic placeholders for UI demonstration.
 
-import type { ContentOpsViewModel, JimDailyContentRunPacket, JimManualExportApprovalWorkbench, JimVariantPreviewBundle } from './types';
+import type { ContentOpsViewModel, JimDailyContentRunPacket, JimManualExportApprovalWorkbench, JimRedactedAuditMetricsImportLoop, JimVariantPreviewBundle } from './types';
 import jimDailyContentRun from '../../../fixtures/v6/jim_daily_content_run_packet_sample_v6.json';
 import jimVariantPreviewBundle from '../../../fixtures/v6/jim_content_intent_to_variant_preview_bundle_sample_v6.json';
 import jimManualExportWorkbench from '../../../fixtures/v6/jim_manual_export_approval_workbench_sample_v6.json';
+import jimRedactedAuditMetricsLoop from '../../../fixtures/v6/jim_redacted_audit_metrics_import_loop_sample_v6.json';
 import {
   buildCockpitManualRecords,
   buildCockpitPreviews,
@@ -77,6 +78,7 @@ export const viewModel: ContentOpsViewModel = {
   jim_daily_content_run: jimDailyContentRun as JimDailyContentRunPacket,
   jim_variant_preview_bundle: jimVariantPreviewBundle as JimVariantPreviewBundle,
   jim_manual_export_workbench: jimManualExportWorkbench as JimManualExportApprovalWorkbench,
+  jim_redacted_audit_metrics_loop: jimRedactedAuditMetricsLoop as unknown as JimRedactedAuditMetricsImportLoop,
   content_items: [
     {
       id: 'PA-0017',

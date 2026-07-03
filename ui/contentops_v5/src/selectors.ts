@@ -79,6 +79,7 @@ import type {
   JimDailyContentRunPacket,
   JimVariantPreviewBundle,
   JimManualExportApprovalWorkbench,
+  JimRedactedAuditMetricsImportLoop,
 } from './types';
 
 
@@ -541,6 +542,26 @@ export function selectJimManualExportWorkbench(p: JimManualExportApprovalWorkben
       { label: 'Dispatch ready', value: String(p.safety_flags.dispatch_ready), status: 'blocked' },
       { label: 'Valid for dispatch', value: String(p.safety_flags.approval_valid_for_dispatch), status: 'blocked' },
       { label: 'Workbench hash', value: p.workbench_hash, mono: true },
+    ],
+  };
+}
+
+
+
+export function selectJimRedactedAuditMetricsLoop(p: JimRedactedAuditMetricsImportLoop): SelectableObject {
+  return {
+    kind: 'jim_redacted_audit_metrics_loop',
+    id: p.loop_id,
+    title: 'Redacted Audit + Metrics Import Loop',
+    fields: [
+      { label: 'Status', value: p.loop_status, status: 'review' },
+      { label: 'Audit cards', value: String(p.audit_card_count), status: 'review' },
+      { label: 'Metrics packets', value: String(p.metrics_packet_count), status: 'review' },
+      { label: 'Backlog candidates', value: String(p.backlog_candidate_count), status: 'review' },
+      { label: 'Operator supplied only', value: String(p.safety_flags.operator_supplied_values_only), status: 'verified' },
+      { label: 'Network called', value: String(p.safety_flags.network_called), status: 'verified' },
+      { label: 'Baseline promoted', value: String(p.safety_flags.baseline_promoted), status: 'blocked' },
+      { label: 'Loop hash', value: p.loop_hash, mono: true },
     ],
   };
 }

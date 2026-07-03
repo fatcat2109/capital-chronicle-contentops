@@ -6,6 +6,7 @@ export function JimDailyRun() {
   const p = viewModel.jim_daily_content_run;
   const bundle = viewModel.jim_variant_preview_bundle;
   const manualWorkbench = viewModel.jim_manual_export_workbench;
+  const auditMetricsLoop = viewModel.jim_redacted_audit_metrics_loop;
   const flags = p.safety_flags;
 
   return (
@@ -154,7 +155,54 @@ export function JimDailyRun() {
           ))}
         </div>
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/10 p-3 text-xs leading-relaxed text-status-blocked">
-          Approval records are previews only: valid_for_dispatch=false. No buttons, no links, no inputs, no URL fields, no platform writes.
+          Approval records are previews only: valid_for_dispatch=false. No buttons, no inputs, no public reference fields, no platform writes.
+        </div>
+      </Panel>
+
+
+      <Panel title="Redacted Audit + Metrics Import Loop" subtitle="Operator-supplied values only; no network collection">
+        <div className="grid gap-3 md:grid-cols-4">
+          <div className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Loop status</div>
+            <div className="mt-1 text-sm font-semibold text-status-review">{auditMetricsLoop.loop_status}</div>
+          </div>
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Audit cards</div>
+            <div className="mt-1 text-sm font-semibold text-fg">{auditMetricsLoop.audit_card_count}</div>
+          </div>
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Metrics packets</div>
+            <div className="mt-1 text-sm font-semibold text-fg">{auditMetricsLoop.metrics_packet_count}</div>
+          </div>
+          <div className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Baseline promoted</div>
+            <div className="mt-1 text-sm font-semibold text-status-blocked">false</div>
+          </div>
+        </div>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          {auditMetricsLoop.metrics_import_packets.slice(0, 4).map((packet) => (
+            <article key={packet.metrics_packet_id} className="rounded-xl border border-line bg-surface-2 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <h2 className="text-sm font-semibold text-fg">{packet.platform} operator metrics</h2>
+                  <p className="mt-1 font-mono text-[11px] text-fg-subtle">{packet.metrics_packet_id}</p>
+                </div>
+                <StatusChip status="review">{packet.metrics_status}</StatusChip>
+              </div>
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                {Object.entries(packet.metrics).slice(0, 6).map(([label, value]) => (
+                  <div key={label} className="rounded-lg border border-line bg-surface-1 px-2 py-1.5">
+                    <div className="font-mono text-[9.5px] uppercase text-fg-subtle">{label}</div>
+                    <div className="mt-0.5 text-sm font-semibold tabular-nums text-fg">{value}</div>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-2 font-mono text-[10.5px] text-status-blocked">operator_supplied_values_only=true · network_called=false · baseline_promoted=false</p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-4 rounded-lg border border-status-review/30 bg-status-review/10 p-3 text-xs leading-relaxed text-status-review">
+          Evidence vault cards and feedback candidates are review-only. Jim decides next content backlog moves; no automatic promotion.
         </div>
       </Panel>
 

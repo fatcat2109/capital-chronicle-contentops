@@ -761,12 +761,110 @@ export interface JimManualExportApprovalWorkbench {
   workbench_hash_algorithm: string;
 }
 
+
+export interface JimRedactedAuditMetricsSafetyFlags {
+  local_only: boolean;
+  operator_supplied_values_only: boolean;
+  redacted_public_reference_only: boolean;
+  jim_review_required: boolean;
+  feedback_candidate_created: boolean;
+  final_public_copy_created: boolean;
+  llm_provider_called: boolean;
+  provider_api_called: boolean;
+  network_called: boolean;
+  browser_or_cdp_used: boolean;
+  credential_or_env_read: boolean;
+  platform_api_called: boolean;
+  platform_dispatch_performed: boolean;
+  scheduler_enabled: boolean;
+  scraping_performed: boolean;
+  metrics_api_called: boolean;
+  public_reference_verified: boolean;
+  public_postable: boolean;
+  publish_ready: boolean;
+  dispatch_ready: boolean;
+  baseline_promoted: boolean;
+}
+
+export interface JimManualPublishRecordPacket {
+  audit_card_id: string;
+  source_export_packet_id: string;
+  source_export_hash: string;
+  platform: 'Substack' | 'X' | 'LinkedIn' | 'Telegram';
+  title: string;
+  audit_status: string;
+  operator_id: string;
+  public_reference_redacted: string;
+  operator_supplied_reference_only: boolean;
+  public_reference_verified: false;
+  network_checked: false;
+  scraping_performed: false;
+  captured_at_local: string;
+  redaction_notes: string[];
+  safety_flags: JimRedactedAuditMetricsSafetyFlags;
+  audit_card_hash: string;
+}
+
+export interface JimMetricsImportPacket {
+  metrics_packet_id: string;
+  source_audit_card_id: string;
+  source_audit_card_hash: string;
+  platform: 'Substack' | 'X' | 'LinkedIn' | 'Telegram';
+  metrics_status: string;
+  operator_id: string;
+  metrics_source: string;
+  metrics_network_verified: false;
+  metrics_api_called: false;
+  metrics: Record<string, number>;
+  normalized_engagement_total: number;
+  quality_notes: string[];
+  safety_flags: JimRedactedAuditMetricsSafetyFlags;
+  metrics_packet_hash: string;
+}
+
+export interface JimFeedbackBacklogCandidate {
+  candidate_id: string;
+  source_audit_card_id: string;
+  source_metrics_packet_id: string;
+  platform: 'Substack' | 'X' | 'LinkedIn' | 'Telegram';
+  title: string;
+  candidate_status: string;
+  recommendation: string;
+  reason: string;
+  requires_jim_review: boolean;
+  baseline_promoted: false;
+  safety_flags: JimRedactedAuditMetricsSafetyFlags;
+  candidate_hash: string;
+}
+
+export interface JimRedactedAuditMetricsImportLoop {
+  task_label: string;
+  contract_version: string;
+  loop_id: string;
+  source_workbench_id: string;
+  operator_id: string;
+  loop_status: string;
+  audit_card_count: number;
+  metrics_packet_count: number;
+  backlog_candidate_count: number;
+  manual_publish_record_packets: JimManualPublishRecordPacket[];
+  metrics_import_packets: JimMetricsImportPacket[];
+  evidence_vault_cards: JimManualPublishRecordPacket[];
+  feedback_backlog_candidates: JimFeedbackBacklogCandidate[];
+  operator_next_action: string;
+  forbidden_actions: string[];
+  safety_flags: JimRedactedAuditMetricsSafetyFlags;
+  loop_hash: string;
+  loop_hash_algorithm: string;
+}
+
 export interface ContentOpsViewModel {
   system_state: SystemState;
   cockpit: CockpitViewModel;
   jim_daily_content_run: JimDailyContentRunPacket;
   jim_variant_preview_bundle: JimVariantPreviewBundle;
   jim_manual_export_workbench: JimManualExportApprovalWorkbench;
+  jim_redacted_audit_metrics_loop: JimRedactedAuditMetricsImportLoop;
   content_items: ContentItem[];
   editorial_draft: EditorialDraft;
   ai_writer_lab: AiWriterLab;
