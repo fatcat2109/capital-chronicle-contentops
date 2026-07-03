@@ -22,6 +22,7 @@ import { ApprovalQueue } from './views/ApprovalQueue';
 import { EvidenceVault } from './views/EvidenceVault';
 import { PreflightBundle } from './views/PreflightBundle';
 import { OperatorRunbookIndex } from './views/OperatorRunbookIndex';
+import { FinalProductReadinessPanel } from './views/FinalProductReadinessPanel';
 
 export default function App() {
   const [view, setView] = useState<ViewId>('command_center');
@@ -34,7 +35,7 @@ export default function App() {
 
   // Evidence Vault and Operator Runbook force dark evidence mode; other views use chosen theme.
   const effectiveTheme: ThemeMode =
-    view === 'evidence_vault' || view === 'operator_runbook_index'
+    view === 'evidence_vault' || view === 'operator_runbook_index' || view === 'final_product_readiness'
       ? 'dark-evidence'
       : theme;
 
@@ -274,6 +275,8 @@ function ActiveView() {
       return <PreflightBundle />;
     case 'operator_runbook_index':
       return <OperatorRunbookIndex />;
+    case 'final_product_readiness':
+      return <FinalProductReadinessPanel />;
     default:
       return null;
   }

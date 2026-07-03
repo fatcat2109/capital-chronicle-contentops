@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0058
+TASK_0059
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -13,13 +13,13 @@ master
 da324a4af6ac3ad0bbb296f2f0aa58bfc7e921d9
 
 ## current_product_phase
-TASK 0057 Substack live publish success accepted by committed local evidence
+TASK 0059 Final Product Readiness panel and packet implemented
 
 ## current_product_lane
-Substack supervised browser-assisted live publish accepted; public URL not verified by committed artifact
+V5 final readiness cockpit; Substack success accepted; public URL not verified; live actions locked
 
 ## accepted_baseline_summary
-TASK 0057 accepts operator-reported Substack live publish success using committed TASK_0055/TASK_0056 evidence. Final success task TASK_0055 recorded continue_click_succeeded=true, final_button_label=Send to everyone now, final_click_succeeded=true, schedule_action_signal_detected=false. No private URL, title/body text, DOM dump, screenshot, cookies, storage, env values, secrets, response bodies, or response headers were recorded. Public URL verification is not claimed.
+TASK 0059 adds a local-only final product readiness packet and V5 read-only Final Readiness panel. It summarizes TASK_0057 Substack acceptance, V6 readiness bundle, and pipeline matrix without browser/CDP, network, env, credential, private URL, DOM, screenshot, title/body, cookie, storage, secret, response body, or response header capture. Public URL verification is still not claimed; publish/dispatch/URL verification actions stay disabled.
 
 ## status_sha_model
 - pre-repair remote HEAD verified before this status-only repair (`last_verified_remote_sha`): `64b6a2788f2a175c9a172f5cd14e04d675cc78f9`
@@ -73,58 +73,17 @@ gated; no cookies, localStorage, sessionStorage, credentials, env values, browse
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_0057
+TASK_0059
 
 ## latest changed areas
-- `live_contentops/substack_operator_draft_cli.py`
-- `docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0014_substack_draft_evidence.json`
-- `docs/status/CURRENT_PROJECT_STATUS.md`
-- `docs/status/current_project_status.json`
-- `live_contentops/substack_operator_draft_cli.py`
-- `tests/test_substack_operator_draft_cli.py`
-- `docs/status/CURRENT_PROJECT_STATUS.md`
-- `docs/status/current_project_status.json`
-- `live_contentops/cli_safety.py`
-- `live_contentops/discord_operator_send_cli.py`
-- `live_contentops/telegram_operator_send_cli.py`
-- `tests/test_discord_operator_send_cli.py`
-- `tests/test_telegram_operator_send_cli.py`
-- `docs/status/CURRENT_PROJECT_STATUS.md`
-- `docs/status/current_project_status.json`
-- `docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0010_cli_send_evidence.json`
-- `docs/status/CURRENT_PROJECT_STATUS.md`
-- `docs/status/current_project_status.json`
-- `live_contentops/telegram_operator_send_cli.py`
-- `tests/test_telegram_operator_send_cli.py`
-- `pyproject.toml`
-- `docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND/task_0009_cli_dry_run_evidence.json`
-- `docs/status/CURRENT_PROJECT_STATUS.md`
-- `docs/status/current_project_status.json`
-- `docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0008_cli_send_evidence.json`
-- `docs/status/CURRENT_PROJECT_STATUS.md`
-- `docs/status/current_project_status.json`
-- `docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND/task_0006_cli_send_evidence.json`
-- `docs/status/CURRENT_PROJECT_STATUS.md`
-- `docs/status/current_project_status.json`
-- `live_contentops/discord_operator_send_cli.py`
-- `tests/test_discord_operator_send_cli.py`
-- `pyproject.toml`
-- `docs/status/CURRENT_PROJECT_STATUS.md`
-- `docs/status/current_project_status.json`
-- `live_contentops/discord_operator_source_go_phrase_intake_v6.py`
-- `live_contentops/discord_operator_source_go_phrase_intake_v5_adapter_codegen_v6.py`
-- `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_supervision_contract/discord_operator_supervision_contract.json`
-- `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_intake_packet.json`
-- `docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE/operator_source_go_phrase_safety_signature.json`
-- `ui/contentops_v5/src/data/discordOperatorSourceGoPhraseIntakeAdapter.ts`
-- `ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx`
-- `tests/test_discord_operator_source_go_phrase_intake_v6.py`
-- `docs/status/CURRENT_PROJECT_STATUS.md`
-- `docs/status/current_project_status.json`
-- `docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE/discord_supervised_live_smoke_evidence.json`
+- `live_contentops/final_product_readiness_v6.py`
+- `docs/automation/V6_FINAL_PRODUCT_READINESS/final_product_readiness_packet.json`
+- `ui/contentops_v5/src/views/FinalProductReadinessPanel.tsx`
+- `ui/contentops_v5/src/data/finalProductReadinessPacket.ts`
+- `ui/contentops_v5/src/test/final_product_readiness.test.tsx`
 
 ## current next recommended task
-Do not rerun live publish. If needed, create a separate safe public URL audit artifact without recording private URL, title/body text, cookies, storage, secrets, DOM, screenshots, response bodies, or headers.
+Open V5 Final Readiness panel for operator review. Do not rerun live publish. If needed, run a separate safe public URL audit only with operator-supplied public URL and no private data capture.
 
 ## next-task safety notes
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.

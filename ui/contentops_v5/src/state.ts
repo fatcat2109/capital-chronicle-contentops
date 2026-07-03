@@ -65,6 +65,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { id: 'preflight_bundle', label: 'Preflight Bundle', icon: 'shield' },
       { id: 'evidence_vault', label: 'Evidence Vault', icon: 'lock' },
       { id: 'operator_runbook_index', label: 'Operator Runbook', icon: 'lock' },
+      { id: 'final_product_readiness', label: 'Final Readiness', icon: 'shield' },
     ],
   },
 ];

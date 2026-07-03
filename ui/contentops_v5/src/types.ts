@@ -19,7 +19,8 @@ export type ViewId =
   | 'approval_queue'
   | 'evidence_vault'
   | 'preflight_bundle'
-  | 'operator_runbook_index';
+  | 'operator_runbook_index'
+  | 'final_product_readiness';
 
 export interface SystemMode {
   code: string;

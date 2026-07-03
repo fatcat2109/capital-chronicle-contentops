@@ -8,6 +8,7 @@ import { manualExportPilotVerificationPacket } from './data/manualExportPilotVer
 import { operatorReviewQueuePacket } from './data/operatorReviewQueuePacket';
 import { manualPilotTrailReconciliationPacket } from './data/manualPilotTrailReconciliationPacket';
 import { operatorRunbookIndexPacket } from './data/operatorRunbookIndexPacket';
+import { finalProductReadinessPacket } from './data/finalProductReadinessPacket';
 import { LifecycleStage, getStatusColor } from './data/contentLifecycleReadModelAdapter';
 import type {
   CandidateReviewItem,
@@ -471,7 +472,27 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectPreflightBundlePacket(preflightBundlePacket);
     case 'operator_runbook_index':
       return selectRunbookStep(operatorRunbookIndexPacket.runbook_steps[0]);
+    case 'final_product_readiness':
+      return selectFinalProductReadinessPacket();
   }
+}
+
+
+export function selectFinalProductReadinessPacket(): SelectableObject {
+  return {
+    kind: 'final_product_readiness_packet',
+    id: finalProductReadinessPacket.packet_id,
+    title: `Final Readiness · ${finalProductReadinessPacket.task_label}`,
+    fields: [
+      { label: 'Status', value: finalProductReadinessPacket.readiness_status, status: 'review' },
+      { label: 'Lanes', value: String(finalProductReadinessPacket.lanes_summarized) },
+      { label: 'Substack accepted', value: String(finalProductReadinessPacket.substack_live_publish_success_accepted), status: 'verified' },
+      { label: 'Public URL verified', value: String(finalProductReadinessPacket.substack_public_url_verified), status: 'review' },
+      { label: 'Dispatch allowed now', value: String(finalProductReadinessPacket.dispatch_allowed_now), status: 'blocked' },
+      { label: 'Network performed', value: String(finalProductReadinessPacket.network_call_performed), status: 'verified' },
+      { label: 'Source evidence', value: finalProductReadinessPacket.source_substack_acceptance, mono: true },
+    ],
+  };
 }
 
 export function selectPreflightBundlePacket(
