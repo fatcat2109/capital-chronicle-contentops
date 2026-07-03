@@ -1,4 +1,4 @@
-﻿"""Operator-owned browser lab for social credential setup.
+"""Operator-owned browser lab for social credential setup.
 
 Opens official developer portals in persistent operator profile. Not runtime publish
 authority. Never inspects browser state.
@@ -122,7 +122,14 @@ def assert_no_secret_like_command(command: Sequence[str]) -> None:
         raise ValueError("secret_like_browser_command_blocked")
 
 def build_browser_command(browser_binary: str, profile_root: Path, cdp_port: int, platform: str) -> list[str]:
-    command = [browser_binary, f"--user-data-dir={profile_root}", f"--remote-debugging-port={cdp_port}", "--no-first-run", "--disable-default-apps"]
+    command = [
+        browser_binary,
+        f"--user-data-dir={profile_root}",
+        f"--remote-debugging-port={cdp_port}",
+        "--no-first-run",
+        "--disable-default-apps",
+        "--new-window",
+    ]
     command.extend(urls_for_platform(platform))
     assert_no_secret_like_command(command)
     return command

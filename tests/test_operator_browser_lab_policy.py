@@ -23,6 +23,7 @@ def test_browser_command_never_includes_secrets():
     assert "client_secret" not in joined
     assert "access_token" not in joined
     assert "cookie" not in joined
+    assert "--new-window" in cmd
     assert "https://core.telegram.org/bots/api" in cmd
 
 

@@ -1,4 +1,4 @@
-﻿# Operator Browser Lab Runbook
+# Operator Browser Lab Runbook
 
 Task: `TASK_CONTENTOPS_OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP_WORKBENCH_V0`
 
@@ -14,6 +14,42 @@ Browser Lab gives operator persistent Chrome/CDP profile for manual social accou
 - CDP override env key: `CONTENTOPS_OPERATOR_BROWSER_CDP_PORT`
 
 Default profile is outside repo. Repo-local override is sensitive and must remain gitignored.
+
+## Known Good Substack/CDP Profile
+
+Use the operator Browser Lab profile, not Edge's built-in `Default`, `Profile 1`, or `Profile 2` folders. Those Edge profiles may be logged out or unrelated.
+
+Known-good profile root:
+
+```text
+A:\Capital Chronicle\operator-browser-profiles\contentops-social-main
+```
+
+Preferred launch command:
+
+```powershell
+python -m live_contentops.operator_browser_lab open --platform substack
+```
+
+Equivalent direct Edge command, with quoted `--user-data-dir` because the path contains spaces:
+
+```powershell
+& "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --user-data-dir="A:\Capital Chronicle\operator-browser-profiles\contentops-social-main" --remote-debugging-port=9222 --no-first-run --disable-default-apps --new-window "https://substack.com/"
+```
+
+CDP readiness check:
+
+```powershell
+python -c "import json, urllib.request; data=json.load(urllib.request.urlopen('http://127.0.0.1:9222/json/version', timeout=3)); print(json.dumps({'Browser': bool(data.get('Browser')), 'webSocketDebuggerUrl': bool(data.get('webSocketDebuggerUrl'))}, sort_keys=True))"
+```
+
+Expected output:
+
+```json
+{"Browser": true, "webSocketDebuggerUrl": true}
+```
+
+If CDP fails, close all `msedge.exe` processes and relaunch with the preferred Browser Lab command. Do not switch to Edge built-in profiles unless intentionally rebuilding login state.
 
 ## Commands
 
