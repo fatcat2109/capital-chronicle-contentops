@@ -45,6 +45,7 @@ describe('Final Product Readiness UI', () => {
     openView();
 
     expect(screen.getByText('Evidence Trail')).toBeInTheDocument();
+    expect(screen.queryByText('Packet Sources')).not.toBeInTheDocument();
     expect(screen.getByText('TASK_0057 Substack acceptance reconciliation')).toBeInTheDocument();
     expect(screen.getByText('V6 readiness evidence bundle')).toBeInTheDocument();
     expect(screen.getByText('V6 pipeline status matrix')).toBeInTheDocument();

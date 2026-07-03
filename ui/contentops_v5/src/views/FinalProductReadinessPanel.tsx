@@ -97,17 +97,6 @@ export function FinalProductReadinessPanel() {
         </dl>
       </Panel>
 
-      <Panel title="Packet Sources" subtitle="Committed local evidence only">
-        <dl className="space-y-3 text-sm">
-          {[p.source_readiness_bundle, p.source_pipeline_matrix, p.source_substack_acceptance].map((path) => (
-            <div key={path} className="rounded-lg border border-line bg-surface-2 p-3">
-              <dt className="font-mono text-[10px] uppercase tracking-wide text-fg-subtle">source</dt>
-              <dd className="mt-1 break-all font-mono text-[12px] text-fg-muted">{path}</dd>
-            </div>
-          ))}
-        </dl>
-      </Panel>
-
       <Panel title="Blocked Lanes" subtitle="Still not dispatch clearance">
         <div className="grid gap-2 md:grid-cols-2">
           {p.blocked_lanes.map((lane) => (
