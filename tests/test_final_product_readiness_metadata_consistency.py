@@ -44,7 +44,9 @@ def test_status_last_updated_and_accepted_task_are_consistent_after_metadata_rep
     assert status["last_updated_by_task"] == "TASK_0069"
     assert "## last_updated_by_task\nTASK_0069" in md_text
     assert status["latest_accepted_task"] == "TASK_0059"
+    assert status["current_product_phase"] == "TASK 0059 Final Product Readiness panel and packet implemented"
     assert "## latest accepted task\nTASK_0059" in md_text
+    assert status["last_updated_by_task"] != status["latest_accepted_task"]
 
 
 def test_public_url_verification_remains_unclaimed_and_locked():
@@ -92,3 +94,42 @@ def test_task_0069_status_preserves_public_url_and_dispatch_locks():
     ]
     for claim in forbidden_claims:
         assert claim not in status_text
+
+
+def test_ui_status_hardening_after_task_0059_is_non_semantic():
+    status = _read_json(STATUS_JSON)
+    status_text = json.dumps(status, sort_keys=True).lower()
+    md_text = STATUS_MD.read_text(encoding="utf-8").lower()
+    guardrail = (
+        "ui/status hardening tasks after task_0059 are non-semantic unless explicitly promoted; "
+        "task_0059 remains latest accepted product baseline"
+    )
+
+    assert status["latest_accepted_task"] == "TASK_0059"
+    assert status["current_product_phase"] == "TASK 0059 Final Product Readiness panel and packet implemented"
+    assert status["last_updated_by_task"] >= "TASK_0069"
+    assert status["last_updated_by_task"] != status["latest_accepted_task"]
+    assert guardrail in status_text
+    assert guardrail in md_text
+
+    forbidden_fragments = [
+        "task_0060 public url verified",
+        "task_0061 public url verified",
+        "task_0062 public url verified",
+        "task_0063 public url verified",
+        "task_0064 public url verified",
+        "task_0065 public url verified",
+        "task_0066 public url verified",
+        "task_0067 public url verified",
+        "task_0068 public url verified",
+        "task_0069 public url verified",
+        "dispatch clearance",
+        "live write clearance",
+        "browser/cdp execution",
+        "platform action performed",
+        "network/api action",
+        "env/credential access",
+        "generated packet semantic change",
+    ]
+    for fragment in forbidden_fragments:
+        assert fragment not in status_text
