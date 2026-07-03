@@ -78,6 +78,7 @@ import type {
   LaneCConnectorFamily,
   JimDailyContentRunPacket,
   JimVariantPreviewBundle,
+  JimManualExportApprovalWorkbench,
 } from './types';
 
 
@@ -519,6 +520,27 @@ export function selectJimVariantPreviewBundle(p: JimVariantPreviewBundle): Selec
       { label: 'Dispatch ready', value: String(p.safety_flags.dispatch_ready), status: 'blocked' },
       { label: 'Provider API', value: String(p.safety_flags.provider_api_called), status: 'verified' },
       { label: 'Packet hash', value: p.packet_hash, mono: true },
+    ],
+  };
+}
+
+
+
+export function selectJimManualExportWorkbench(p: JimManualExportApprovalWorkbench): SelectableObject {
+  return {
+    kind: 'jim_manual_export_workbench',
+    id: p.workbench_id,
+    title: 'Manual Export + Approval Workbench',
+    fields: [
+      { label: 'Status', value: p.workbench_status, status: 'review' },
+      { label: 'Export packets', value: String(p.export_packet_count), status: 'review' },
+      { label: 'Ready after Jim approval', value: String(p.ready_export_packet_count), status: 'review' },
+      { label: 'Blocked', value: String(p.blocked_export_packet_count), status: p.blocked_export_packet_count > 0 ? 'blocked' : 'verified' },
+      { label: 'Approval previews', value: String(p.approval_record_preview_count), status: 'review' },
+      { label: 'Public postable', value: String(p.safety_flags.public_postable), status: 'blocked' },
+      { label: 'Dispatch ready', value: String(p.safety_flags.dispatch_ready), status: 'blocked' },
+      { label: 'Valid for dispatch', value: String(p.safety_flags.approval_valid_for_dispatch), status: 'blocked' },
+      { label: 'Workbench hash', value: p.workbench_hash, mono: true },
     ],
   };
 }

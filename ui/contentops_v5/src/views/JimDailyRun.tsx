@@ -5,6 +5,7 @@ import { IconShield } from '../ui/icons';
 export function JimDailyRun() {
   const p = viewModel.jim_daily_content_run;
   const bundle = viewModel.jim_variant_preview_bundle;
+  const manualWorkbench = viewModel.jim_manual_export_workbench;
   const flags = p.safety_flags;
 
   return (
@@ -114,6 +115,46 @@ export function JimDailyRun() {
               </div>
             </article>
           ))}
+        </div>
+      </Panel>
+
+
+      <Panel title="Manual Export + Approval Packet Workbench" subtitle="Read-only packets; Jim approval required before any manual copy">
+        <div className="grid gap-3 md:grid-cols-4">
+          <div className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Workbench status</div>
+            <div className="mt-1 text-sm font-semibold text-status-review">{manualWorkbench.workbench_status}</div>
+          </div>
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Export packets</div>
+            <div className="mt-1 text-sm font-semibold text-fg">{manualWorkbench.export_packet_count}</div>
+          </div>
+          <div className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Ready after Jim approval</div>
+            <div className="mt-1 text-sm font-semibold text-status-review">{manualWorkbench.ready_export_packet_count}</div>
+          </div>
+          <div className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Valid for dispatch</div>
+            <div className="mt-1 text-sm font-semibold text-status-blocked">false</div>
+          </div>
+        </div>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          {manualWorkbench.manual_export_packets.slice(0, 6).map((packet) => (
+            <article key={packet.export_packet_id} className="rounded-xl border border-line bg-surface-2 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <h2 className="text-sm font-semibold text-fg">{packet.platform} manual export packet</h2>
+                  <p className="mt-1 font-mono text-[11px] text-fg-subtle">{packet.export_packet_id}</p>
+                </div>
+                <StatusChip status={packet.manual_export_status === 'BLOCKED_WAITING_FOR_INPUTS' ? 'blocked' : 'review'}>{packet.manual_export_status}</StatusChip>
+              </div>
+              <p className="mt-2 text-xs leading-relaxed text-fg-muted">{packet.title}</p>
+              <p className="mt-2 font-mono text-[10.5px] text-status-blocked">public_postable=false · dispatch_ready=false · public_url_verified=false</p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/10 p-3 text-xs leading-relaxed text-status-blocked">
+          Approval records are previews only: valid_for_dispatch=false. No buttons, no links, no inputs, no URL fields, no platform writes.
         </div>
       </Panel>
 

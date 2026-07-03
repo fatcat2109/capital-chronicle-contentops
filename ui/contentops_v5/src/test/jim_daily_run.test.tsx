@@ -59,4 +59,15 @@ describe('Jim Daily Content Run UI', () => {
     expect(screen.getAllByText('dispatch_ready').length).toBeGreaterThan(0);
   });
 
+
+  it('renders manual export approval workbench without dispatch authority', () => {
+    openView();
+
+    expect(screen.getByText('Manual Export + Approval Packet Workbench')).toBeInTheDocument();
+    expect(screen.getAllByText('JIM_APPROVAL_REQUIRED_MANUAL_EXPORT_ONLY').length).toBeGreaterThan(0);
+    expect(screen.getByText('Ready after Jim approval')).toBeInTheDocument();
+    expect(screen.getAllByText('public_postable=false · dispatch_ready=false · public_url_verified=false').length).toBeGreaterThan(0);
+    expect(screen.getByText(/valid_for_dispatch=false/i)).toBeInTheDocument();
+  });
+
 });

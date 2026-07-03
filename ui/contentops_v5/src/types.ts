@@ -695,11 +695,78 @@ export interface JimVariantPreviewBundle {
   packet_hash_algorithm: string;
 }
 
+
+export interface JimManualExportPacket {
+  export_packet_id: string;
+  source_intent_id: string;
+  source_preview_id: string;
+  platform: 'Substack' | 'X' | 'LinkedIn' | 'Telegram';
+  title: string;
+  manual_export_status: 'READY_FOR_MANUAL_COPY_AFTER_JIM_APPROVAL' | 'BLOCKED_WAITING_FOR_INPUTS';
+  markdown_body: string;
+  manual_export_checklist: string[];
+  missing_inputs: string[];
+  blocked_reasons: string[];
+  requires_jim_final_approval: boolean;
+  manual_copy_allowed_after_approval: boolean;
+  final_public_copy_created: false;
+  public_postable: false;
+  dispatch_ready: false;
+  public_url_verified: false;
+  safety_flags: JimManualExportWorkbenchSafetyFlags;
+  markdown_hash: string;
+  export_hash: string;
+}
+
+export interface JimApprovalRecordPreview {
+  approval_record_id: string;
+  source_export_packet_id: string;
+  source_export_hash: string;
+  operator_id: string;
+  approval_channel: string;
+  approval_status: string;
+  approval_text_redacted: string;
+  valid_for_dispatch: false;
+  public_postable: false;
+  dispatch_ready: false;
+  blocked_reasons: string[];
+  safety_flags: JimManualExportWorkbenchSafetyFlags;
+  approval_record_hash: string;
+}
+
+export interface JimManualExportWorkbenchSafetyFlags extends JimVariantPreviewBundleSafetyFlags {
+  manual_export_only: boolean;
+  jim_final_approval_required: boolean;
+  approval_record_preview_created: boolean;
+  approval_valid_for_dispatch: boolean;
+}
+
+export interface JimManualExportApprovalWorkbench {
+  task_label: string;
+  contract_version: string;
+  workbench_id: string;
+  source_bundle_id: string;
+  operator_id: string;
+  workbench_status: string;
+  export_packet_count: number;
+  ready_export_packet_count: number;
+  blocked_export_packet_count: number;
+  approval_record_preview_count: number;
+  manual_export_packets: JimManualExportPacket[];
+  approval_record_previews: JimApprovalRecordPreview[];
+  operator_next_action: string;
+  forbidden_actions: string[];
+  safety_flags: JimManualExportWorkbenchSafetyFlags;
+  workbench_hash: string;
+  workbench_hash_algorithm: string;
+}
+
 export interface ContentOpsViewModel {
   system_state: SystemState;
   cockpit: CockpitViewModel;
   jim_daily_content_run: JimDailyContentRunPacket;
   jim_variant_preview_bundle: JimVariantPreviewBundle;
+  jim_manual_export_workbench: JimManualExportApprovalWorkbench;
   content_items: ContentItem[];
   editorial_draft: EditorialDraft;
   ai_writer_lab: AiWriterLab;
