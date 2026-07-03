@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-da324a4af6ac3ad0bbb296f2f0aa58bfc7e921d9
+51e1689c63e3f0e9b485ab669f1fda8c4c0401c5
 
 ## current_product_phase
 TASK 0059 Final Product Readiness panel and packet implemented
