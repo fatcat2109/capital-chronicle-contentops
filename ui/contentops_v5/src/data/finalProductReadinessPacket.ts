@@ -12,7 +12,7 @@ export const finalProductReadinessPacket = {
   missing_inputs: [],
   network_call_performed: false,
   operator_next_action: "Review V5 Final Product Readiness panel; do not rerun live publish; optionally supply public URL for later safe audit.",
-  packet_id: "final_product_readiness_static_task_0059",
+  packet_id: "final_product_readiness_de17cfce57b74fe2",
   private_url_or_dom_recorded: false,
   public_postable: false,
   raw_secret_output: false,
