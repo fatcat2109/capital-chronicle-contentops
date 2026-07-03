@@ -41,6 +41,20 @@ describe('Final Product Readiness UI', () => {
     expect(screen.getByText('Next: Review V5 Final Product Readiness panel')).toBeInTheDocument();
   });
 
+  it('renders evidence trail labels and committed local paths only', () => {
+    openView();
+
+    expect(screen.getByText('Evidence Trail')).toBeInTheDocument();
+    expect(screen.getByText('TASK_0057 Substack acceptance reconciliation')).toBeInTheDocument();
+    expect(screen.getByText('V6 readiness evidence bundle')).toBeInTheDocument();
+    expect(screen.getByText('V6 pipeline status matrix')).toBeInTheDocument();
+    expect(screen.getByText('Final readiness packet')).toBeInTheDocument();
+    expect(screen.getAllByText('docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND/task_0057_substack_live_publish_acceptance_reconciliation.json').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('docs/automation/V6_READINESS_EVIDENCE_BUNDLE/readiness_evidence_bundle_packet.json').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('docs/automation/V6_READINESS_EVIDENCE_BUNDLE/v6_pipeline_status_matrix.json').length).toBeGreaterThan(0);
+    expect(screen.getByText('docs/automation/V6_FINAL_PRODUCT_READINESS/final_product_readiness_packet.json')).toBeInTheDocument();
+  });
+
   it('proves unsafe actions stay disabled', () => {
     openView();
 

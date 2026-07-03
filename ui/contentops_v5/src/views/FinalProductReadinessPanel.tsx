@@ -81,6 +81,22 @@ export function FinalProductReadinessPanel() {
         </ul>
       </Panel>
 
+      <Panel title="Evidence Trail" subtitle="Committed files supporting this verdict; no public/live URL links">
+        <dl className="grid gap-3 text-sm md:grid-cols-2">
+          {[
+            ['TASK_0057 Substack acceptance reconciliation', p.source_substack_acceptance],
+            ['V6 readiness evidence bundle', p.source_readiness_bundle],
+            ['V6 pipeline status matrix', p.source_pipeline_matrix],
+            ['Final readiness packet', 'docs/automation/V6_FINAL_PRODUCT_READINESS/final_product_readiness_packet.json'],
+          ].map(([label, path]) => (
+            <div key={label} className="rounded-lg border border-line bg-surface-2 p-3">
+              <dt className="text-xs font-semibold text-fg">{label}</dt>
+              <dd className="mt-1 break-all font-mono text-[12px] text-fg-muted">{path}</dd>
+            </div>
+          ))}
+        </dl>
+      </Panel>
+
       <Panel title="Packet Sources" subtitle="Committed local evidence only">
         <dl className="space-y-3 text-sm">
           {[p.source_readiness_bundle, p.source_pipeline_matrix, p.source_substack_acceptance].map((path) => (
