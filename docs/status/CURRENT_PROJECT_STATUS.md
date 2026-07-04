@@ -22,9 +22,9 @@ V5 Jim source-to-audit cockpit lane: adapter-built payload hashes now show opera
 TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0 extends the canonical V5 Command Center and deterministic final operator flow adapter with local approve/hold/reject decision packet intake bound to exact adapter-built payload hashes. The decision lane is operator-supplied fixture/manual evidence only: approval does not grant dispatch permission, execute outboxes, verify public URLs, call providers/APIs, use browser/CDP, fetch media, read env/credentials/session data, schedule, publish, or perform any live write.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): advances with the commit for `TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0` after push/readback.
+- accepted product baseline (`accepted_product_baseline_sha`): `eab4b69e316cc5a502c2ce40a8b7453443b4b3fd`
 - previous accepted product baseline: `98740da577d50b47ef31bc42ae9d591292771d02`
-- latest status/promotion task (`last_status_commit_sha`): advances with the same task commit after push/readback.
+- latest status/promotion task (`last_status_commit_sha`): `e1892a949cde08223b5d433fac02087d2620650f` until amended/pushed readback changes it.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 

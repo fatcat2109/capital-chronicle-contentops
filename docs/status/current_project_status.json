@@ -347,9 +347,9 @@
     "verify telegram bot token corresponds to the publisher bot and not the orchestrator bot",
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
-  "accepted_product_baseline_sha": "pending_task_commit_after_push",
-  "last_status_commit_sha": "pending_task_commit_after_push",
-  "sha_model": "last_verified_remote_sha is the pre-task origin/master HEAD observed before this product/status update. accepted_product_baseline_sha and last_status_commit_sha advance together after TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0 is committed, pushed, and read back from origin/master.",
+  "accepted_product_baseline_sha": "eab4b69e316cc5a502c2ce40a8b7453443b4b3fd",
+  "last_status_commit_sha": "e1892a949cde08223b5d433fac02087d2620650f",
+  "sha_model": "last_verified_remote_sha is the pre-task origin/master HEAD observed before this product/status update. accepted_product_baseline_sha is the product commit for TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0; last_status_commit_sha is the status commit recorded for this task before final push/readback.",
   "latest_changed_areas": [
     "docs/CURRENT_CONTEXT.md",
     "README.md",
