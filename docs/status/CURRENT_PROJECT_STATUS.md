@@ -24,7 +24,7 @@ TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0 extends the canon
 ## status_sha_model
 - accepted product baseline (`accepted_product_baseline_sha`): `eab4b69e316cc5a502c2ce40a8b7453443b4b3fd`
 - previous accepted product baseline: `98740da577d50b47ef31bc42ae9d591292771d02`
-- latest status/promotion task (`last_status_commit_sha`): `e1892a949cde08223b5d433fac02087d2620650f` until amended/pushed readback changes it.
+- latest status/promotion task (`last_status_commit_sha`): final pushed status SHA is verified by `git ls-remote origin refs/heads/master` readback after commit/push.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
