@@ -355,7 +355,7 @@
     "verify telegram bot token corresponds to the publisher bot and not the orchestrator bot",
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
-  "accepted_product_baseline_sha": "c23f4de0360345f3c0555edaf0ca357f5c10b3e9",
+  "accepted_product_baseline_sha": "7c1d245575fc8f354cc2f8ce6dbc3a4caf7172dd",
   "last_status_commit_sha": "verified_by_git_ls_remote_readback_after_push",
   "sha_model": "last_verified_remote_sha is the pre-status origin/master HEAD observed before committing this status update. accepted_product_baseline_sha records the implementation baseline for TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0; the final pushed status SHA is verified by git ls-remote origin refs/heads/master readback after commit/push.",
   "latest_changed_areas": [

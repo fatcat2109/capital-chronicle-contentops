@@ -22,7 +22,7 @@ Canonical V5 Command Center now consolidates Discord dry-run and Telegram checkp
 TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0 extends the existing V5 final operator flow adapter and Command Center with a Discord/Telegram operator bridge lane. The lane shows redacted dry-run/checkpoint status, stable payload hashes, and manual handoff text only. It does not send messages, read webhook URLs or bot tokens, call platform/provider APIs, use browser/CDP, fetch public URLs, wire schedulers/retries, download media, or write live approval ledgers.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `c23f4de0360345f3c0555edaf0ca357f5c10b3e9`
+- accepted product baseline (`accepted_product_baseline_sha`): `7c1d245575fc8f354cc2f8ce6dbc3a4caf7172dd`
 - previous accepted product baseline: `78c5197da985cac539807acf79a5ad69f9425eaf`
 - latest status/promotion task (`last_status_commit_sha`): final pushed status SHA is verified by `git ls-remote origin refs/heads/master` readback after commit/push.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
