@@ -5,6 +5,9 @@ import type {
   StatusKind,
   V6FinalOperatorProductFlowModel,
   V6InternalChartCandidate,
+  V6LocalOutboxReadinessLaneModel,
+  V6LocalOutboxReadinessRow,
+  V6LocalOutboxReadinessState,
   V6ManualAuditRow,
   V6NewsImageCandidate,
   V6OperatorApprovalDecisionPacket,
@@ -12,7 +15,7 @@ import type {
   V6PlatformUniverseRow,
 } from '../types';
 
-const TASK_LABEL = 'TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0';
+const TASK_LABEL = 'TASK_CONTENTOPS_V6_APPROVAL_DECISION_TO_LOCAL_OUTBOX_READINESS_RECONCILIATION_V0';
 
 function stableHash(input: string): string {
   let hash = 0x811c9dc5;
@@ -57,6 +60,7 @@ const flowStages: V6OperatorFlowStage[] = [
   { stage_id: 'source', label: 'Source intake', status: 'review', summary: 'Jim selects news/current-event or Capital Chronicle internal report source class.', evidence_ref: 'source_class=operator_selected' },
   { stage_id: 'draft', label: 'Canonical draft', status: 'review', summary: 'Local canonical Substack-style draft preview remains review-only.', evidence_ref: 'draft_preview_hash=local_adapter' },
   { stage_id: 'approval', label: 'Hash approval', status: 'review', summary: 'Operator-supplied approve/hold/reject packets bind to exact adapter payload hashes.', evidence_ref: 'operator_decision_intake=local_fixture_only' },
+  { stage_id: 'readiness', label: 'Outbox readiness', status: 'review', summary: 'Decision packets reconcile into local manual-readiness rows without executable outboxes.', evidence_ref: 'outbox_dispatchable=false' },
   { stage_id: 'variants', label: 'Platform variants', status: 'review', summary: 'Full platform universe gets deterministic platform-fit rows before manual export.', evidence_ref: 'variants=local_builder_output' },
   { stage_id: 'media', label: 'Media selection', status: 'review', summary: 'News uses grounded metadata candidates; internal reports use built-in chart/card candidates.', evidence_ref: 'media_search_or_download_performed=false' },
   { stage_id: 'audit', label: 'Manual dispatch / audit', status: 'blocked', summary: 'Manual handoff and redacted audit rows are shown; live dispatch remains locked.', evidence_ref: 'live_write_allowed=false' },
@@ -170,6 +174,75 @@ const decisionPackets = [
   decisionPacket(platformUniverse[7], 'reject', 'jim-local-fixture-reject-001', 'Instagram lane is rejected until rights/account constraints are solved.'),
 ] as const satisfies V6OperatorApprovalDecisionPacket[];
 
+const readinessState = (
+  row: V6PlatformUniverseRow,
+  decision?: V6OperatorApprovalDecisionPacket,
+): V6LocalOutboxReadinessState => {
+  if (decision?.decision === 'approve' && row.dispatch_gate === 'manual_review_only') return 'approved_manual_ready';
+  if (decision?.decision === 'hold') return 'held_for_revision';
+  if (decision?.decision === 'reject') return 'rejected_blocked';
+  if (row.dispatch_gate !== 'manual_review_only') return 'blocked_live_scope_required';
+  return 'blocked_no_decision';
+};
+
+const readinessStatus = (state: V6LocalOutboxReadinessState): StatusKind => {
+  if (state === 'approved_manual_ready') return 'verified';
+  if (state === 'held_for_revision' || state === 'blocked_no_decision') return 'review';
+  return 'blocked';
+};
+
+const readinessNextAction = (state: V6LocalOutboxReadinessState): string => {
+  if (state === 'approved_manual_ready') return 'Manual export evidence may be prepared by operator; no executable outbox exists.';
+  if (state === 'held_for_revision') return 'Revise or re-review the exact payload hash before manual export evidence.';
+  if (state === 'rejected_blocked') return 'Keep this payload blocked; regenerate or archive after operator review.';
+  if (state === 'blocked_live_scope_required') return 'Future explicit live/platform scope is required before this lane can progress.';
+  return 'Collect an operator approve/hold/reject packet bound to this payload hash.';
+};
+
+const readinessRow = (row: V6PlatformUniverseRow): V6LocalOutboxReadinessRow => {
+  const decision = decisionPackets.find((packet) => packet.payload_hash === row.payload_hash);
+  const state = readinessState(row, decision);
+  return {
+    row_id: `readiness_${row.platform_id}`,
+    platform_id: row.platform_id,
+    platform: row.platform,
+    source_variant_key: row.variant_key,
+    payload_hash: row.payload_hash,
+    decision: decision?.decision,
+    decision_packet_id: decision?.decision_packet_id,
+    decision_packet_hash: decision?.decision_packet_hash,
+    readiness_state: state,
+    readiness_status: readinessStatus(state),
+    manual_next_action: readinessNextAction(state),
+    outbox_entry_created: false,
+    outbox_dispatchable: false,
+    dispatch_allowed_now: false,
+    live_write_allowed_now: false,
+    scheduler_or_retry_wired: false,
+    public_url_fetch_made: false,
+    provider_or_api_call_made: false,
+    browser_or_cdp_used: false,
+    approval_ledger_live_write_made: false,
+  };
+};
+
+const readinessRows = platformUniverse.map(readinessRow);
+
+const readinessCounts = readinessRows.reduce<V6LocalOutboxReadinessLaneModel['counts']>((counts, row) => {
+  counts.total += 1;
+  counts[row.readiness_state] += 1;
+  if (row.outbox_dispatchable) counts.dispatchable += 1;
+  return counts;
+}, {
+  approved_manual_ready: 0,
+  held_for_revision: 0,
+  rejected_blocked: 0,
+  blocked_no_decision: 0,
+  blocked_live_scope_required: 0,
+  total: 0,
+  dispatchable: 0,
+});
+
 const auditRow = (row: V6PlatformUniverseRow): V6ManualAuditRow => {
   const decision = decisionPackets.find((packet) => packet.payload_hash === row.payload_hash);
   return {
@@ -200,8 +273,8 @@ const internalChartCandidates = [
 
 export const finalOperatorProductFlow: V6FinalOperatorProductFlowModel = {
   packet_id: `final_operator_flow_${stableHash(TASK_LABEL + platformUniverse.length)}`,
-  packet_hash: payloadHash('final_operator_flow', TASK_LABEL, `${platformUniverse.length}|${newsCandidates.length}|${internalChartCandidates.length}|${decisionPackets.length}`),
-  builder_version: 'operator_approval_decision_packet_intake_v0',
+  packet_hash: payloadHash('final_operator_flow', TASK_LABEL, `${platformUniverse.length}|${newsCandidates.length}|${internalChartCandidates.length}|${decisionPackets.length}|${readinessRows.length}`),
+  builder_version: 'approval_decision_to_local_outbox_readiness_reconciliation_v0',
   task_label: TASK_LABEL,
   source_classes: ['news_current_event', 'capital_chronicle_internal_report'],
   flow_stages: flowStages,
@@ -221,6 +294,14 @@ export const finalOperatorProductFlow: V6FinalOperatorProductFlowModel = {
     evidence_policy: 'Approve means manual-review evidence only. It does not grant dispatch, public URL verification, scheduler, API, browser/CDP, provider, or live-write permission.',
     decision_packets: [...decisionPackets],
     forbidden_actions: ['dispatch', 'publish', 'schedule', 'execute outbox', 'verify public URL', 'call provider/API', 'use browser/CDP', 'read credentials'],
+  },
+  local_outbox_readiness_lane: {
+    lane_status: 'review',
+    reconciliation_summary: 'Operator decision packets are reconciled into local manual-readiness rows. No executable outbox is created.',
+    safety_policy: 'Readiness is review evidence only: dispatchable=false, live_write_allowed=false, scheduler_or_retry_wired=false, public_url_fetch=false, provider_or_api_call=false, browser_or_cdp=false, approval_ledger_live_write=false.',
+    counts: readinessCounts,
+    readiness_rows: [...readinessRows],
+    blocked_actions: ['execute outbox', 'dispatch', 'publish', 'schedule', 'retry', 'verify public URL', 'call provider/API', 'use browser/CDP', 'download media', 'write live approval ledger'],
   },
   manual_audit_lane: {
     approval_status: 'review',

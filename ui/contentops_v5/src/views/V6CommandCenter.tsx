@@ -167,6 +167,43 @@ export function V6CommandCenter() {
         </div>
       </Panel>
 
+      <Panel title="Local Outbox Readiness Reconciliation" subtitle={flow.local_outbox_readiness_lane.safety_policy}>
+        <div className="mb-3 rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2 text-[12px] font-semibold text-status-review">
+          {flow.local_outbox_readiness_lane.reconciliation_summary}
+        </div>
+        <div className="grid gap-3 md:grid-cols-6">
+          <Metric label="Manual ready" value={String(flow.local_outbox_readiness_lane.counts.approved_manual_ready)} status="verified" hint="not dispatchable" />
+          <Metric label="Held" value={String(flow.local_outbox_readiness_lane.counts.held_for_revision)} status="review" hint="needs revision" />
+          <Metric label="Rejected" value={String(flow.local_outbox_readiness_lane.counts.rejected_blocked)} status="blocked" hint="do not use" />
+          <Metric label="No decision" value={String(flow.local_outbox_readiness_lane.counts.blocked_no_decision)} status="review" hint="packet required" />
+          <Metric label="Live-scope blocked" value={String(flow.local_outbox_readiness_lane.counts.blocked_live_scope_required)} status="blocked" hint="future scope" />
+          <Metric label="Dispatchable" value={String(flow.local_outbox_readiness_lane.counts.dispatchable)} status="blocked" hint="always zero" />
+        </div>
+        <div className="mt-4 overflow-hidden rounded-xl border border-line">
+          <div className="grid grid-cols-[1fr_0.8fr_1.1fr_1.5fr_1.5fr_1.7fr] gap-2 border-b border-line bg-surface-2 px-3 py-2 font-mono text-[10.5px] font-bold uppercase text-fg-subtle">
+            <span>Platform</span><span>Decision</span><span>Readiness</span><span>Payload hash</span><span>Packet hash</span><span>Manual next action</span>
+          </div>
+          {flow.local_outbox_readiness_lane.readiness_rows.map((row) => (
+            <div key={row.row_id} className="grid grid-cols-[1fr_0.8fr_1.1fr_1.5fr_1.5fr_1.7fr] gap-2 border-b border-line px-3 py-2 text-[11px] last:border-b-0">
+              <span className="text-fg">{row.platform}</span>
+              <span className="font-mono text-fg-muted">{row.decision ?? 'none'}</span>
+              <StatusChip status={row.readiness_status}>{row.readiness_state}</StatusChip>
+              <span className="break-all font-mono text-fg-muted">{row.payload_hash}</span>
+              <span className="break-all font-mono text-fg-muted">{row.decision_packet_hash ?? 'no_packet'}</span>
+              <span className="text-fg-muted">{row.manual_next_action}</span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-3 font-mono text-[10.5px] text-fg-subtle">
+          outbox_entry_created=false · outbox_dispatchable=false · dispatch_allowed_now=false · live_write_allowed_now=false · scheduler_or_retry_wired=false · approval_ledger_live_write_made=false
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {flow.local_outbox_readiness_lane.blocked_actions.map((action) => (
+            <StatusChip key={action} status="blocked">{action} locked</StatusChip>
+          ))}
+        </div>
+      </Panel>
+
       <Panel title="Manual Dispatch and Audit Lane" subtitle="Operator-supplied evidence only; no public verification or platform write">
         <div className="grid gap-3 md:grid-cols-3">
           <div className="rounded-xl border border-status-blocked/30 bg-status-blocked/10 p-4">

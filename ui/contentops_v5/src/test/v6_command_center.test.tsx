@@ -13,7 +13,7 @@ describe('V6 Command Center', () => {
     openView();
     expect(screen.getByText('Jim Source-to-Audit Command Center')).toBeInTheDocument();
     expect(screen.getByLabelText('Jim Source-to-Audit Operator Flow')).toBeInTheDocument();
-    for (const label of ['Source intake', 'Canonical draft', 'Hash approval', 'Platform variants', 'Media selection', 'Manual dispatch / audit']) {
+    for (const label of ['Source intake', 'Canonical draft', 'Hash approval', 'Outbox readiness', 'Platform variants', 'Media selection', 'Manual dispatch / audit']) {
       expect(screen.getByText(label)).toBeInTheDocument();
     }
   });
@@ -45,7 +45,7 @@ describe('V6 Command Center', () => {
     openView();
     expect(screen.getByText('Operator Decision Intake')).toBeInTheDocument();
     for (const decision of ['approve', 'hold', 'reject']) {
-      expect(screen.getByText(decision)).toBeInTheDocument();
+      expect(screen.getAllByText(decision).length).toBeGreaterThan(0);
     }
     expect(screen.getByText('Canonical Substack payload approved for manual export evidence only.')).toBeInTheDocument();
     expect(screen.getByText('X wording needs another operator pass before any manual copy.')).toBeInTheDocument();
@@ -54,6 +54,22 @@ describe('V6 Command Center', () => {
     expect(screen.getAllByText(/decision_packet_id=decision_/i).length).toBe(3);
     expect(screen.getAllByText(/dispatch_permission_granted=false/i).length).toBe(3);
     expect(screen.getAllByText(/live_write_allowed=false/i).length).toBeGreaterThan(2);
+  });
+
+  it('renders local outbox readiness reconciliation as non-executable', () => {
+    openView();
+    expect(screen.getByText('Local Outbox Readiness Reconciliation')).toBeInTheDocument();
+    for (const state of ['approved_manual_ready', 'held_for_revision', 'rejected_blocked', 'blocked_no_decision', 'blocked_live_scope_required']) {
+      expect(screen.getAllByText(state).length).toBeGreaterThan(0);
+    }
+    expect(screen.getByText('Manual export evidence may be prepared by operator; no executable outbox exists.')).toBeInTheDocument();
+    expect(screen.getAllByText('Collect an operator approve/hold/reject packet bound to this payload hash.').length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/outbox_entry_created=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/outbox_dispatchable=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/dispatch_allowed_now=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/scheduler_or_retry_wired=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/approval_ledger_live_write_made=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/execute outbox locked/i).length).toBeGreaterThan(0);
   });
 
   it('keeps unsafe actions disabled and avoids inputs/links', () => {

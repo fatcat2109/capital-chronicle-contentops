@@ -284,6 +284,42 @@ export interface V6OperatorApprovalDecisionIntakeLaneModel {
   decision_packets: V6OperatorApprovalDecisionPacket[];
   forbidden_actions: string[];
 }
+export type V6LocalOutboxReadinessState =
+  | 'approved_manual_ready'
+  | 'held_for_revision'
+  | 'rejected_blocked'
+  | 'blocked_no_decision'
+  | 'blocked_live_scope_required';
+export interface V6LocalOutboxReadinessRow {
+  row_id: string;
+  platform_id: string;
+  platform: string;
+  source_variant_key: string;
+  payload_hash: string;
+  decision?: V6OperatorApprovalDecisionPacket['decision'];
+  decision_packet_id?: string;
+  decision_packet_hash?: string;
+  readiness_state: V6LocalOutboxReadinessState;
+  readiness_status: StatusKind;
+  manual_next_action: string;
+  outbox_entry_created: false;
+  outbox_dispatchable: false;
+  dispatch_allowed_now: false;
+  live_write_allowed_now: false;
+  scheduler_or_retry_wired: false;
+  public_url_fetch_made: false;
+  provider_or_api_call_made: false;
+  browser_or_cdp_used: false;
+  approval_ledger_live_write_made: false;
+}
+export interface V6LocalOutboxReadinessLaneModel {
+  lane_status: StatusKind;
+  reconciliation_summary: string;
+  safety_policy: string;
+  counts: Record<V6LocalOutboxReadinessState | 'total' | 'dispatchable', number>;
+  readiness_rows: V6LocalOutboxReadinessRow[];
+  blocked_actions: string[];
+}
 export interface V6MediaLaneModel {
   news_topic_id: string;
   news_policy: string;
@@ -326,6 +362,7 @@ export interface V6FinalOperatorProductFlowModel {
   platform_universe: V6PlatformUniverseRow[];
   media_lane: V6MediaLaneModel;
   operator_decision_intake_lane: V6OperatorApprovalDecisionIntakeLaneModel;
+  local_outbox_readiness_lane: V6LocalOutboxReadinessLaneModel;
   manual_audit_lane: V6ManualAuditLaneModel;
 }
 export interface V6CommandCenterModel {
