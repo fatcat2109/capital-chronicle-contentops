@@ -3,7 +3,7 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "PENDING_FINAL_COMMIT",
+  "last_verified_remote_sha": "9427632a2f9a9ea605dcf576db8be033c0d00eab",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0",
   "current_product_phase": "V6 final operator action strip now consolidates handoff, audit, bridge, manual/deferred, and locked execution status in the canonical Command Center",
   "current_product_lane": "Canonical V5 Command Center now displays a final operator action strip with approved manual export evidence, hold/reject queues, Discord/Telegram bridge handoff, manual/deferred social handoffs, and global blocked execution flags",
@@ -357,8 +357,8 @@
     "verify telegram bot token corresponds to the publisher bot and not the orchestrator bot",
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
-  "accepted_product_baseline_sha": "PENDING_FINAL_COMMIT",
-  "last_status_commit_sha": "PENDING_FINAL_COMMIT",
+  "accepted_product_baseline_sha": "9427632a2f9a9ea605dcf576db8be033c0d00eab",
+  "last_status_commit_sha": "9427632a2f9a9ea605dcf576db8be033c0d00eab",
   "sha_model": "last_verified_remote_sha records the pushed origin/master HEAD for TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0 after git ls-remote readback. accepted_product_baseline_sha records the accepted implementation/status baseline for the task.",
   "latest_changed_areas": [
     "ui/contentops_v5/src/data/finalOperatorProductFlowAdapter.ts",
