@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-33f95383748187cbb9913b889d9e42f9d7c849eb
+0c98a7b7563b745183d50651b15eb4846373138e
 
 ## current_product_phase
 V6 manual/deferred distribution lanes now display local-only readiness/status in the canonical Command Center
@@ -22,9 +22,9 @@ Canonical V5 Command Center now hardens Facebook Page, Threads, Instagram, TikTo
 TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0 extends the existing V5 final operator flow adapter and Command Center with a Manual/Deferred Distribution Lanes panel. The lane shows Facebook Page, Threads, Instagram, TikTok, and Generic Manual readiness/status rows only. It does not post, edit, comment, DM, react, call Meta/TikTok/platform APIs, use browser/CDP, fetch public URLs, download or upload media, wire schedulers/retries, read credential/env/session material, or write live approval ledgers.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `7c1d245575fc8f354cc2f8ce6dbc3a4caf7172dd`
-- previous accepted product baseline: `78c5197da985cac539807acf79a5ad69f9425eaf`
-- latest status/promotion task (`last_status_commit_sha`): final pushed status SHA is verified by `git ls-remote origin refs/heads/master` readback after commit/push.
+- accepted product baseline (`accepted_product_baseline_sha`): `0c98a7b7563b745183d50651b15eb4846373138e`
+- previous accepted product baseline: `33f95383748187cbb9913b889d9e42f9d7c849eb`
+- latest status/promotion task (`last_status_commit_sha`): `0c98a7b7563b745183d50651b15eb4846373138e` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
