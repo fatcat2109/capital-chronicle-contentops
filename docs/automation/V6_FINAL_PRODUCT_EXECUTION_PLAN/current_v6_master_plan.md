@@ -100,15 +100,16 @@ Manual fallback is a first-class lane. Browser/CDP work, if later approved, must
 - Advisory capability registry/docs for Facebook Page, Threads, Instagram, TikTok, Telegram, and generic manual fallback.
 - Discord pre-live/dry-run/outbox governance artifacts and Telegram checkpoint/manual lane evidence are consolidated in the canonical V5 Command Center as redacted local-only bridge status; no live send is claimed.
 - Facebook Page, Threads, Instagram, TikTok, and Generic Manual are hardened in the canonical V5 Command Center as local-only manual/deferred distribution handoffs with deterministic payload hashes, media requirements, audit evidence modes, and explicit blocked execution flags.
+- The final operator handoff / next-action strip is implemented in the canonical V5 Command Center as display-only consolidated evidence for approved manual export, hold/reject rows, Discord/Telegram bridge status, manual/deferred social handoffs, manual audit evidence, and global locked execution flags.
 - Internal visual-card packet specs and media rights manifest exist locally; rendered media export, Google image search execution, image download, and rights verification remain future work.
-- Deterministic V5 Command Center adapter output now covers full-platform variant rows, source-aware media candidates, stable hashes, local operator approve/hold/reject decision packet intake, local outbox readiness reconciliation, Discord/Telegram local bridge rows, manual/deferred distribution rows, and manual audit rows.
+- Deterministic V5 Command Center adapter output now covers full-platform variant rows, source-aware media candidates, stable hashes, local operator approve/hold/reject decision packet intake, local outbox readiness reconciliation, Discord/Telegram local bridge rows, manual/deferred distribution rows, manual audit rows, and final operator action-strip rows.
 
 ## Remaining Roadmap Direction
 
 Recommended future work should remain soft and evidence-driven:
 
 - Reconcile roadmap priorities against current repo state before opening any new lane.
-- Consolidate approved/blocked rows, audit evidence, bridge status, manual/deferred distribution handoffs, and blocked execution flags into a final operator handoff / next-action strip.
+- Archive stale one-off scripts/test helpers only after confirming no current tests, docs, imports, or release evidence still reference them; refresh final release evidence indexes if needed.
 - Continue improving canonical V5 visibility for accepted packets.
 - Only pursue live/provider/platform actions through exact live scope contracts, approval gates, safety tests, and final operator go decisions.
 - Keep Project Sources lean and contextual; never use them as runtime authority over GitHub remote.

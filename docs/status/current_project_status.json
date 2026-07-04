@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "0c98a7b7563b745183d50651b15eb4846373138e",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0",
-  "current_product_phase": "V6 manual/deferred distribution lanes now display local-only readiness/status in the canonical Command Center",
-  "current_product_lane": "Canonical V5 Command Center now hardens Facebook Page, Threads, Instagram, TikTok, and Generic Manual lanes as local-only manual/deferred handoffs with deterministic payload hashes, media requirements, audit evidence modes, and explicit blocked execution flags",
-  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0 extends the existing V5 final operator flow adapter and Command Center with a Manual/Deferred Distribution Lanes panel. The lane shows Facebook Page, Threads, Instagram, TikTok, and Generic Manual readiness/status rows only. It does not post, edit, comment, DM, react, call Meta/TikTok/platform APIs, use browser/CDP, fetch public URLs, download or upload media, wire schedulers/retries, read credential/env/session material, or write live approval ledgers.",
+  "last_verified_remote_sha": "PENDING_FINAL_COMMIT",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0",
+  "current_product_phase": "V6 final operator action strip now consolidates handoff, audit, bridge, manual/deferred, and locked execution status in the canonical Command Center",
+  "current_product_lane": "Canonical V5 Command Center now displays a final operator action strip with approved manual export evidence, hold/reject queues, Discord/Telegram bridge handoff, manual/deferred social handoffs, and global blocked execution flags",
+  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0 extends the existing V5 final operator flow adapter and Command Center with a display-only Final Operator Action Strip. The strip consolidates approved/blocked rows, audit evidence, Discord/Telegram bridge status, manual/deferred distribution handoffs, and blocked execution flags. It does not post, edit, comment, DM, react, execute outboxes, call platform/API/provider surfaces, use browser/CDP, fetch public URLs, download/upload media, wire schedulers/retries, read credential/env/session material, or write live approval ledgers.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -302,6 +302,7 @@
     "X exact live-click registry reconciliation is local audit evidence only; public URL verification and live/platform action remain blocked unless separately authorized.",
     "Google image grounding is candidate metadata only unless a future exact approved task authorizes search execution, URL fetch, download, rights verification, and storage.",
     "Capital Chronicle Internal alpha / analysis-report posts should prefer built-in chart/card media from the report system when available; external images are fallback candidates only after operator review.",
+    "Final operator action-strip rows are display-only consolidated handoff evidence; they do not grant publish, dispatch, outbox execution, provider/API/browser/CDP, public URL fetch, media transfer, scheduler/retry, credential/env/session read, or live ledger permission.",
     "AI builder bootstrap contract is governance-only; it does not authorize live/provider/platform/browser/env/credential actions."
   ],
   "accepted_caveats": [
@@ -312,10 +313,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0",
-  "latest_accepted_task_result": "PASS_MANUAL_DEFERRED_DISTRIBUTION_LANES_LOCAL_ONLY",
-  "latest_evidence_summary": "Added manual/deferred distribution lane model, deterministic adapter rows, a canonical V5 Command Center panel, and focused UI assertions for Facebook Page, Threads, Instagram, TikTok, and Generic Manual local-only handoffs. No post, edit, comment, DM, reaction, platform API call, browser/CDP action, public URL fetch, media download/upload, credential/env/session read, scheduler/retry wiring, or live approval-ledger write was created.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0: consolidate approved/blocked rows, audit evidence, bridge status, manual/deferred distribution handoffs, and blocked execution flags into a final-product operator action strip in the canonical V5 Command Center without live writes, APIs, browser/CDP, public URL fetches, media downloads/uploads, schedulers/retries, or credential/env/session reads.",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0",
+  "latest_accepted_task_result": "PASS_FINAL_OPERATOR_ACTION_STRIP_LOCAL_ONLY",
+  "latest_evidence_summary": "Added final operator action-strip model, deterministic adapter rows, a canonical V5 Command Center panel, and focused UI assertions that consolidate approved manual export evidence, hold/reject decisions, Discord/Telegram bridge status, manual/deferred handoffs, audit evidence, and global locked execution flags. No post, edit, comment, DM, reaction, outbox execution, platform/API/provider call, browser/CDP action, public URL fetch, media download/upload, credential/env/session read, scheduler/retry wiring, or live approval-ledger write was created.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0: archive stale one-off scripts/test helpers only after confirming no current tests, docs, imports, or release evidence still reference them; then refresh final release evidence indexes if needed without live writes, APIs, browser/CDP, public URL fetches, media downloads/uploads, schedulers/retries, or credential/env/session reads.",
   "mandatory_read_before_task": [
     "AGENTS.md",
     "docs/AI_BUILDER_BOOTSTRAP.md",
@@ -356,9 +357,9 @@
     "verify telegram bot token corresponds to the publisher bot and not the orchestrator bot",
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
-  "accepted_product_baseline_sha": "0c98a7b7563b745183d50651b15eb4846373138e",
-  "last_status_commit_sha": "0c98a7b7563b745183d50651b15eb4846373138e",
-  "sha_model": "last_verified_remote_sha records the pushed origin/master HEAD for TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0 after git ls-remote readback. accepted_product_baseline_sha records the accepted implementation/status baseline for the task.",
+  "accepted_product_baseline_sha": "PENDING_FINAL_COMMIT",
+  "last_status_commit_sha": "PENDING_FINAL_COMMIT",
+  "sha_model": "last_verified_remote_sha records the pushed origin/master HEAD for TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0 after git ls-remote readback. accepted_product_baseline_sha records the accepted implementation/status baseline for the task.",
   "latest_changed_areas": [
     "ui/contentops_v5/src/data/finalOperatorProductFlowAdapter.ts",
     "ui/contentops_v5/src/test/v6_command_center.test.tsx",

@@ -406,6 +406,33 @@ export interface V6ManualAuditLaneModel {
   audit_rows: V6ManualAuditRow[];
   locked_actions: string[];
 }
+export interface V6FinalOperatorActionStripRow {
+  action_id: string;
+  label: string;
+  source_lanes: string[];
+  status: StatusKind;
+  next_action: string;
+  evidence_summary: string;
+  payload_refs: string[];
+  operator_owned: true;
+  live_write_allowed: false;
+  dispatch_allowed: false;
+  platform_api_allowed: false;
+  browser_or_cdp_allowed: false;
+  public_url_fetch_allowed: false;
+  media_download_or_upload_allowed: false;
+  scheduler_or_retry_allowed: false;
+  credential_or_env_read_allowed: false;
+  approval_ledger_live_write_allowed: false;
+}
+export interface V6FinalOperatorActionStripLaneModel {
+  strip_status: StatusKind;
+  strip_summary: string;
+  evidence_policy: string;
+  rows: V6FinalOperatorActionStripRow[];
+  blocked_actions: string[];
+  terminal_next_task: string;
+}
 export interface V6FinalOperatorProductFlowModel {
   packet_id: string;
   packet_hash: string;
@@ -420,6 +447,7 @@ export interface V6FinalOperatorProductFlowModel {
   operator_bridge_lane: V6OperatorBridgeLaneModel;
   manual_deferred_distribution_lane: V6ManualDeferredDistributionLaneModel;
   manual_audit_lane: V6ManualAuditLaneModel;
+  final_operator_action_strip_lane: V6FinalOperatorActionStripLaneModel;
 }
 export interface V6CommandCenterModel {
   packet_id: string;

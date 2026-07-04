@@ -316,6 +316,48 @@ export function V6CommandCenter() {
         </div>
       </Panel>
 
+      <Panel title="Final Operator Action Strip" subtitle={flow.final_operator_action_strip_lane.evidence_policy}>
+        <div className="mb-3 rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2 text-[12px] font-semibold text-status-blocked">
+          {flow.final_operator_action_strip_lane.strip_summary}
+        </div>
+        <div className="grid gap-3 xl:grid-cols-2">
+          {flow.final_operator_action_strip_lane.rows.map((row) => (
+            <article key={row.action_id} className="rounded-xl border border-line bg-surface-2 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <h2 className="text-sm font-semibold text-fg">{row.label}</h2>
+                  <p className="mt-1 font-mono text-[10.5px] text-fg-subtle">{row.action_id}</p>
+                </div>
+                <StatusChip status={row.status}>{row.status}</StatusChip>
+              </div>
+              <p className="mt-3 text-[12px] leading-relaxed text-fg-muted">{row.next_action}</p>
+              <p className="mt-2 text-[12px] leading-relaxed text-fg-muted">{row.evidence_summary}</p>
+              <dl className="mt-3 grid gap-1 border-t border-line pt-3 text-[11px]">
+                <div><dt className="font-mono uppercase text-fg-subtle">Source lanes</dt><dd className="break-all text-fg-muted">{row.source_lanes.join(' · ')}</dd></div>
+                <div><dt className="font-mono uppercase text-fg-subtle">Payload refs</dt><dd className="break-all font-mono text-fg-muted">{row.payload_refs.join(' · ')}</dd></div>
+              </dl>
+              <p className="mt-3 font-mono text-[10.5px] text-fg-subtle">
+                operator_owned={String(row.operator_owned)} · live_write_allowed={String(row.live_write_allowed)} · dispatch_allowed={String(row.dispatch_allowed)} · platform_api_allowed={String(row.platform_api_allowed)}
+              </p>
+              <p className="mt-1 font-mono text-[10.5px] text-fg-subtle">
+                browser_or_cdp_allowed={String(row.browser_or_cdp_allowed)} · public_url_fetch_allowed={String(row.public_url_fetch_allowed)} · media_download_or_upload_allowed={String(row.media_download_or_upload_allowed)}
+              </p>
+              <p className="mt-1 font-mono text-[10.5px] text-fg-subtle">
+                scheduler_or_retry_allowed={String(row.scheduler_or_retry_allowed)} · credential_or_env_read_allowed={String(row.credential_or_env_read_allowed)} · approval_ledger_live_write_allowed={String(row.approval_ledger_live_write_allowed)}
+              </p>
+            </article>
+          ))}
+        </div>
+        <p className="mt-4 rounded-lg border border-line bg-surface-1 px-3 py-2 font-mono text-[11px] text-fg-muted">
+          terminal_next_task={flow.final_operator_action_strip_lane.terminal_next_task}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {flow.final_operator_action_strip_lane.blocked_actions.map((action) => (
+            <StatusChip key={action} status="blocked">{action} blocked</StatusChip>
+          ))}
+        </div>
+      </Panel>
+
       <Panel title="Safety Evidence" subtitle="Existing release evidence plus red-team and local registry readback">
         <div className="grid gap-4 lg:grid-cols-2">
           <div>

@@ -108,7 +108,28 @@ describe('V6 Command Center', () => {
     expect(screen.getAllByText(/credential_or_env_read=false/i).length).toBe(5);
     expect(screen.getAllByText(/approval_ledger_live_write_made=false/i).length).toBeGreaterThanOrEqual(5);
     for (const action of ['publish/post/edit/comment blocked', 'DM/reply/react blocked', 'call Meta/TikTok/platform API blocked', 'download or upload media blocked', 'read credential/env/session blocked']) {
-      expect(screen.getByText(action)).toBeInTheDocument();
+      expect(screen.getAllByText(action).length).toBeGreaterThan(0);
+    }
+  });
+
+  it('renders the final operator action strip without unlocking execution', () => {
+    openView();
+    expect(screen.getByText('Final Operator Action Strip')).toBeInTheDocument();
+    for (const label of ['Approved manual export evidence', 'Hold/reject queue', 'Discord/Telegram bridge status handoff', 'Deferred social/manual lane handoff', 'Global locked execution flags']) {
+      expect(screen.getByText(label)).toBeInTheDocument();
+    }
+    expect(screen.getByText(/Jim may use the approved Substack payload hash for operator-owned manual export evidence/i)).toBeInTheDocument();
+    expect(screen.getByText(/Use Discord\/Telegram bridge rows as redacted status only/i)).toBeInTheDocument();
+    expect(screen.getByText(/terminal_next_task=Archive stale one-off task scripts/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/operator_owned=true/i).length).toBe(5);
+    expect(screen.getAllByText(/dispatch_allowed=false/i).length).toBe(5);
+    expect(screen.getAllByText(/platform_api_allowed=false/i).length).toBe(5);
+    expect(screen.getAllByText(/browser_or_cdp_allowed=false/i).length).toBe(5);
+    expect(screen.getAllByText(/public_url_fetch_allowed=false/i).length).toBe(5);
+    expect(screen.getAllByText(/credential_or_env_read_allowed=false/i).length).toBe(5);
+    expect(screen.getAllByText(/approval_ledger_live_write_allowed=false/i).length).toBe(5);
+    for (const action of ['execute outbox blocked', 'call platform/API/provider blocked', 'write live approval ledger blocked']) {
+      expect(screen.getAllByText(action).length).toBeGreaterThan(0);
     }
   });
 

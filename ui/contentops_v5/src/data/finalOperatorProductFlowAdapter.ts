@@ -3,6 +3,7 @@
 
 import type {
   StatusKind,
+  V6FinalOperatorActionStripRow,
   V6FinalOperatorProductFlowModel,
   V6InternalChartCandidate,
   V6LocalOutboxReadinessLaneModel,
@@ -17,7 +18,7 @@ import type {
   V6PlatformUniverseRow,
 } from '../types';
 
-const TASK_LABEL = 'TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0';
+const TASK_LABEL = 'TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0';
 
 function stableHash(input: string): string {
   let hash = 0x811c9dc5;
@@ -352,10 +353,86 @@ const manualDeferredRows = [
   manualDeferredRow(platformUniverse[9], 'generic_manual', 'fallback_manual_only', 'Generic Manual is an operator fallback; it does not imply provider capability for any specific platform.', 'Use only for copy/export evidence when a platform-specific lane is not productized.', 'Operator chooses an already-reviewed candidate; no external fetch, download, upload, or verification.'),
 ] as const satisfies V6ManualDeferredDistributionRow[];
 
+const actionStripRow = (
+  action_id: string,
+  label: string,
+  source_lanes: string[],
+  status: StatusKind,
+  next_action: string,
+  evidence_summary: string,
+  payload_refs: string[],
+): V6FinalOperatorActionStripRow => ({
+  action_id,
+  label,
+  source_lanes,
+  status,
+  next_action,
+  evidence_summary,
+  payload_refs,
+  operator_owned: true,
+  live_write_allowed: false,
+  dispatch_allowed: false,
+  platform_api_allowed: false,
+  browser_or_cdp_allowed: false,
+  public_url_fetch_allowed: false,
+  media_download_or_upload_allowed: false,
+  scheduler_or_retry_allowed: false,
+  credential_or_env_read_allowed: false,
+  approval_ledger_live_write_allowed: false,
+});
+
+const finalOperatorActionStripRows = [
+  actionStripRow(
+    'action_strip_approved_manual_export',
+    'Approved manual export evidence',
+    ['operator_decision_intake_lane', 'local_outbox_readiness_lane', 'manual_audit_lane'],
+    'verified',
+    'Jim may use the approved Substack payload hash for operator-owned manual export evidence; repo dispatch stays locked.',
+    'One approve packet reconciles to approved_manual_ready and manual audit evidence without creating an executable outbox.',
+    [platformUniverse[0].payload_hash, decisionPackets[0].decision_packet_hash],
+  ),
+  actionStripRow(
+    'action_strip_revision_or_reject_queue',
+    'Hold/reject queue',
+    ['operator_decision_intake_lane', 'local_outbox_readiness_lane'],
+    'review',
+    'Revise the held X payload and keep the rejected Instagram payload blocked until Jim supplies a new decision packet.',
+    'Held and rejected hashes are visible beside their decision packet hashes so operators cannot confuse them with approved payloads.',
+    [platformUniverse[2].payload_hash, platformUniverse[7].payload_hash],
+  ),
+  actionStripRow(
+    'action_strip_bridge_status_handoff',
+    'Discord/Telegram bridge status handoff',
+    ['operator_bridge_lane'],
+    'blocked',
+    'Use Discord/Telegram bridge rows as redacted status only; any message send remains outside repo and future scoped.',
+    'Bridge rows prove dry-run/checkpoint status while message_send_attempted, token reads, API calls, browser/CDP, schedulers, and ledger writes remain false.',
+    bridgeRows.map((row) => row.payload_hash),
+  ),
+  actionStripRow(
+    'action_strip_deferred_social_lanes',
+    'Deferred social/manual lane handoff',
+    ['manual_deferred_distribution_lane'],
+    'blocked',
+    'Keep Facebook Page, Threads, Instagram, TikTok, and Generic Manual rows as local handoff/status evidence only.',
+    'Manual/deferred rows expose blockers, media requirements, audit modes, and explicit false execution flags for every deferred lane.',
+    manualDeferredRows.map((row) => row.payload_hash),
+  ),
+  actionStripRow(
+    'action_strip_locked_execution_flags',
+    'Global locked execution flags',
+    ['media_lane', 'operator_decision_intake_lane', 'local_outbox_readiness_lane', 'manual_audit_lane'],
+    'blocked',
+    'Do not post, edit, comment, DM, react, fetch public URLs, use browser/CDP, call APIs, download/upload media, schedule/retry, read credentials/env/session, or write live ledgers.',
+    'All consolidated rows repeat blocked flags so the final strip cannot be mistaken for a live automation surface.',
+    [payloadHash('final_action_strip', 'locked_execution_flags', TASK_LABEL)],
+  ),
+] as const satisfies V6FinalOperatorActionStripRow[];
+
 export const finalOperatorProductFlow: V6FinalOperatorProductFlowModel = {
   packet_id: `final_operator_flow_${stableHash(TASK_LABEL + platformUniverse.length)}`,
-  packet_hash: payloadHash('final_operator_flow', TASK_LABEL, `${platformUniverse.length}|${newsCandidates.length}|${internalChartCandidates.length}|${decisionPackets.length}|${readinessRows.length}|${bridgeRows.length}|${manualDeferredRows.length}`),
-  builder_version: 'manual_deferred_distribution_lanes_hardening_v0',
+  packet_hash: payloadHash('final_operator_flow', TASK_LABEL, `${platformUniverse.length}|${newsCandidates.length}|${internalChartCandidates.length}|${decisionPackets.length}|${readinessRows.length}|${bridgeRows.length}|${manualDeferredRows.length}|${finalOperatorActionStripRows.length}`),
+  builder_version: 'final_operator_action_strip_hardening_v0',
   task_label: TASK_LABEL,
   source_classes: ['news_current_event', 'capital_chronicle_internal_report'],
   flow_stages: flowStages,
@@ -406,5 +483,13 @@ export const finalOperatorProductFlow: V6FinalOperatorProductFlowModel = {
     audit_summary: 'Audit accepts operator-supplied public URL/metrics only and labels them manual evidence.',
     audit_rows: platformUniverse.map(auditRow),
     locked_actions: ['publish', 'dispatch', 'schedule', 'verify public URL', 'scrape', 'download media', 'read credentials'],
+  },
+  final_operator_action_strip_lane: {
+    strip_status: 'blocked',
+    strip_summary: 'Final operator action strip consolidates approved manual export evidence, hold/reject decisions, Discord/Telegram bridge status, manual/deferred handoffs, audit evidence, and global locked execution flags.',
+    evidence_policy: 'The strip is display-only and operator-owned. It never grants dispatch, live write, platform API, browser/CDP, public URL fetch, media download/upload, scheduler/retry, credential/env/session read, or live approval-ledger permission.',
+    rows: [...finalOperatorActionStripRows],
+    blocked_actions: ['publish/post/edit/comment', 'DM/reply/react', 'execute outbox', 'call platform/API/provider', 'use browser/CDP', 'fetch public URL', 'download/upload media', 'schedule/retry', 'read credential/env/session', 'write live approval ledger'],
+    terminal_next_task: 'Archive stale one-off task scripts only after confirming no current tests/docs/imports reference them; then refresh final release evidence index if needed.',
   },
 };
