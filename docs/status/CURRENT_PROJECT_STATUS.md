@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_SOURCE_AWARE_MEDIA_PLATFORM_PACKET_BUILDERS_V0
+TASK_CONTENTOPS_AI_BUILDER_ONBOARDING_CONTRACT_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,16 +10,16 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-17916f785a31b2c1cb9055b840866b134a4c24ca
+41af570a171fbd117f3cfbda5cf38500d43b5126
 
 ## current_product_phase
-V6 source-aware media/platform packet builders integrated in canonical V5 UI
+AI builder onboarding contract established for future repo-native IDE/CLI sessions
 
 ## current_product_lane
-Jim-facing source-to-audit Command Center now consumes deterministic local adapter output for full-platform variants, source-aware media candidates, stable hashes, and manual audit rows
+Governance/onboarding lane: AGENTS.md entrypoint plus durable AI builder onboarding contract; product runtime unchanged
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_SOURCE_AWARE_MEDIA_PLATFORM_PACKET_BUILDERS_V0 replaces the remaining inline V5 Command Center operator-flow samples with a deterministic local adapter for Jim's north star source → draft → approval → variants → media → manual audit lane. The adapter builds stable packet IDs/hashes, full-platform variant rows, news image candidate metadata rows, Capital Chronicle internal chart/card rows, and operator-supplied manual audit rows. The UI now surfaces those adapter-built hashes and audit rows directly. This remains local/operator-review productization only: no browser launch, CDP probe, Google scraping, image download, DOM read, cookie/storage/header/token/session read, platform API, paid API, provider call, env/credential read, public URL fetch, scheduler, retry, dispatch, comment, DM, reaction, or multi-post publishing is introduced.
+TASK_CONTENTOPS_AI_BUILDER_ONBOARDING_CONTRACT_V0 creates the repo-native first-read contract for future AI IDE/CLI builder sessions. It adds AGENTS.md and docs/AI_BUILDER_ONBOARDING.md to define authority order, read order, north star, canonical surfaces, safety invariants, environment/credential boundaries, task intake, validation, evidence, and blocker protocols. Product runtime behavior is unchanged: no browser, CDP, session, API, provider, network, env/credential read, dispatch, publish, scheduler, or live write is introduced.
 
 ## status_sha_model
 - accepted product baseline (`accepted_product_baseline_sha`): `17916f785a31b2c1cb9055b840866b134a4c24ca`
@@ -76,22 +76,18 @@ No provider/API/browser/network/env/credential/session action is authorized or r
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_SOURCE_AWARE_MEDIA_PLATFORM_PACKET_BUILDERS_V0
+TASK_CONTENTOPS_AI_BUILDER_ONBOARDING_CONTRACT_V0
 
 ## latest changed areas
-- `ui/contentops_v5/src/types.ts`
-- `ui/contentops_v5/src/data/finalOperatorProductFlowAdapter.ts`
-- `ui/contentops_v5/src/fixtures.ts`
-- `ui/contentops_v5/src/views/V6CommandCenter.tsx`
-- `ui/contentops_v5/src/test/v6_command_center.test.tsx`
-- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
-- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
-- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
+- `AGENTS.md`
+- `docs/AI_BUILDER_ONBOARDING.md`
+- `README.md`
+- `docs/CURRENT_CONTEXT.md`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0` — add deterministic local approve/hold/reject decision packet intake for the adapter-built payload hashes, surface it in the V5 Command Center, and keep approval records operator-supplied only with no dispatch, browser/CDP, provider/API, public URL fetch, or media action.
+Next heavy batch: `TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0` — add deterministic local approve/hold/reject decision packet intake for the adapter-built payload hashes, surface it in the V5 Command Center, and keep approval records operator-supplied only with no dispatch, browser/CDP, provider/API, public URL fetch, media action, scheduler, or live write.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. This does not change TASK_0059 product semantics: public URL remains unverified, dispatch/live write stays locked, and no browser/CDP/live/network/env/credential action is authorized.
@@ -100,14 +96,17 @@ TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict 
 Read this status ledger and the JSON status file before planning. For UI work, target `ui/contentops_v5/`, not V4/static pages. Do not read env values, credentials, browser session data, provider keys, webhook URLs, cookies, local storage, or session storage. Do not dispatch or publish. Treat next-task text as a soft recommendation only.
 
 ## mandatory read-before-work files
+- `AGENTS.md`
+- `docs/AI_BUILDER_ONBOARDING.md`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
-- `live_contentops/x_cdp_operator_go_phrase_live_click_gate_dry_run_v6.py`
-- `tests/test_x_cdp_operator_go_phrase_live_click_gate_dry_run_v6.py`
-- `docs/automation/X_SUPERVISED_CDP_GO_PHRASE_GATE/`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 - `docs/status/DASHBOARD_SURFACE_AUTHORITY.md`
 - `docs/status/STATUS_LEDGER_SHA_MODEL.md`
 - `docs/status/STATUS_AND_PROGRESS_DOCS_MAP.md`
+- `docs/status/TASK_STATUS_UPDATE_PROTOCOL.md`
 
 ## mandatory update-after-work fields
 - last_updated_by_task
@@ -133,6 +132,17 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 
 
 
+
+
+## AI Builder Onboarding Contract
+
+- Latest task: `TASK_CONTENTOPS_AI_BUILDER_ONBOARDING_CONTRACT_V0`.
+- Current lane: repo-native AI IDE/CLI builder onboarding and governance contract.
+- Entrypoint: `AGENTS.md`.
+- Contract: `docs/AI_BUILDER_ONBOARDING.md`.
+- Scope: durable read order, authority order, north star, canonical surfaces, live/env/credential boundaries, task intake, validation, evidence-packet template, and blocker protocol.
+- Safety: docs/governance only; no product runtime change, browser/CDP action, env/credential/session read, provider/API/network call, public URL fetch, scraping, dispatch, publish, schedule, retry, comment, DM, reaction, or live write.
+- Next: `TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0`.
 
 ## X CDP Exact Live-Click Registry Reconciliation
 

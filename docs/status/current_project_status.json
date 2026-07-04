@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "17916f785a31b2c1cb9055b840866b134a4c24ca",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_SOURCE_AWARE_MEDIA_PLATFORM_PACKET_BUILDERS_V0",
-  "current_product_phase": "V6 source-aware media/platform packet builders integrated in canonical V5 UI",
-  "current_product_lane": "Jim-facing source-to-audit Command Center now consumes deterministic local adapter output for full-platform variants, source-aware media candidates, stable hashes, and manual audit rows",
-  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_SOURCE_AWARE_MEDIA_PLATFORM_PACKET_BUILDERS_V0 replaces the remaining inline V5 Command Center operator-flow samples with a deterministic local adapter for Jim's north star source → draft → approval → variants → media → manual audit lane. The adapter builds stable packet IDs/hashes, full-platform variant rows, news image candidate metadata rows, Capital Chronicle internal chart/card rows, and operator-supplied manual audit rows. The UI now surfaces those adapter-built hashes and audit rows directly. This remains local/operator-review productization only: no browser launch, CDP probe, Google scraping, image download, DOM read, cookie/storage/header/token/session read, platform API, paid API, provider call, env/credential read, public URL fetch, scheduler, retry, dispatch, comment, DM, reaction, or multi-post publishing is introduced.",
+  "last_verified_remote_sha": "41af570a171fbd117f3cfbda5cf38500d43b5126",
+  "last_updated_by_task": "TASK_CONTENTOPS_AI_BUILDER_ONBOARDING_CONTRACT_V0",
+  "current_product_phase": "AI builder onboarding contract established for future repo-native IDE/CLI sessions",
+  "current_product_lane": "Governance/onboarding lane: AGENTS.md entrypoint plus durable AI builder onboarding contract; product runtime unchanged",
+  "accepted_baseline_summary": "TASK_CONTENTOPS_AI_BUILDER_ONBOARDING_CONTRACT_V0 creates the repo-native first-read contract for future AI IDE/CLI builder sessions. It adds AGENTS.md and docs/AI_BUILDER_ONBOARDING.md to define authority order, read order, north star, canonical surfaces, safety invariants, environment/credential boundaries, task intake, validation, evidence, and blocker protocols. Product runtime behavior is unchanged.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -258,7 +258,9 @@
     "X CDP exact live-click registry reconciliation evidence bundle",
     "Full north-star platform universe in active V6 master plan: Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram, TikTok, and generic manual fallback",
     "Source-aware media policy: grounded news image candidate metadata and Capital Chronicle internal/report built-in chart/card media preference",
-    "V5 Command Center source-to-audit cockpit: full platform universe, source-aware media lanes, and manual dispatch/audit lane"
+    "V5 Command Center source-to-audit cockpit: full platform universe, source-aware media lanes, and manual dispatch/audit lane",
+    "AI builder onboarding entrypoint",
+    "AI builder onboarding contract"
   ],
   "dispatch_live_status": "Repo-driven dispatch/live write remains locked. The final operator cockpit is a local deterministic adapter/manual-evidence UI and performs no platform/API/browser/network action.",
   "provider_env_credential_status": "No provider/API/browser/network/env/credential/session action is authorized or required for the source-aware packet builder integration. Google image grounding remains candidate metadata only; repo code must not scrape Google, download images, fetch public image URLs, or claim rights verification unless a future exact approved task adds it.",
@@ -291,7 +293,8 @@
     "X exact live-click registry workflow is local packet-to-registry validation, idempotent append, and readback audit only; it does not verify public URLs by fetching them.",
     "X exact live-click registry reconciliation is local audit evidence only; public URL verification and live/platform action remain blocked unless separately authorized.",
     "Google image grounding is candidate metadata only unless a future exact approved task authorizes search execution, URL fetch, download, rights verification, and storage.",
-    "Capital Chronicle Internal alpha / analysis-report posts should prefer built-in chart/card media from the report system when available; external images are fallback candidates only after operator review."
+    "Capital Chronicle Internal alpha / analysis-report posts should prefer built-in chart/card media from the report system when available; external images are fallback candidates only after operator review.",
+    "AI builder onboarding contract is governance-only; it does not authorize live/provider/platform/browser/env/credential actions."
   ],
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
@@ -301,11 +304,13 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_SOURCE_AWARE_MEDIA_PLATFORM_PACKET_BUILDERS_V0",
-  "latest_accepted_task_result": "PASS_LOCAL_V5_DETERMINISTIC_PACKET_BUILDER_INTEGRATION",
-  "latest_evidence_summary": "Replaced remaining inline V5 Command Center operator-flow samples with deterministic local adapter output for Jim's source-to-audit loop. Adapter-built data now supplies stable packet IDs/hashes, full-platform variant rows, source-aware news image candidate metadata, Capital Chronicle internal chart/card candidates, and operator-supplied manual audit rows. Focused V6 Command Center Vitest coverage and production build passed. No browser, CDP, session, API, provider, Google scraping, image download, public URL fetch, dispatch, or live write occurred.",
+  "latest_accepted_task": "TASK_CONTENTOPS_AI_BUILDER_ONBOARDING_CONTRACT_V0",
+  "latest_accepted_task_result": "PASS_DOCS_GOVERNANCE_CONTRACT",
+  "latest_evidence_summary": "Added AGENTS.md and docs/AI_BUILDER_ONBOARDING.md; refreshed README/current context/status pointers. No runtime, env, credential, browser, provider/API, network, dispatch, publish, or live action occurred.",
   "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0: add deterministic local approve/hold/reject decision packet intake for the adapter-built payload hashes, surface it in the V5 Command Center, and keep approval records operator-supplied only with no dispatch, browser/CDP, provider/API, public URL fetch, media action, scheduler, or live write.",
   "mandatory_read_before_task": [
+    "docs/AI_BUILDER_ONBOARDING.md",
+    "AGENTS.md",
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
     "docs/status/DASHBOARD_SURFACE_AUTHORITY.md",
@@ -343,6 +348,10 @@
   "last_status_commit_sha": "653a7ed883a76a294d0bab58be1d267daeb253bb",
   "sha_model": "last_verified_remote_sha is the pre-repair origin/master HEAD observed before this status-only repair. accepted_product_baseline_sha remains the latest accepted product feature baseline and does not advance for status-only repairs. last_status_commit_sha is the latest accepted status/evidence repair commit that updated governance metadata without changing product packets, builders, tests, UI behavior, generated adapter values, or live/dispatch behavior.",
   "latest_changed_areas": [
+    "docs/CURRENT_CONTEXT.md",
+    "README.md",
+    "docs/AI_BUILDER_ONBOARDING.md",
+    "AGENTS.md",
     "live_contentops/platform_publication_identity_registry_v6.py",
     "live_contentops/operator_browser_lab.py",
     "tests/test_platform_publication_identity_registry_v6.py",

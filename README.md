@@ -1,4 +1,4 @@
-> Current project context: see [docs/CURRENT_CONTEXT.md](docs/CURRENT_CONTEXT.md).
+> AI builders start here: [AGENTS.md](AGENTS.md). Current project context: see [docs/CURRENT_CONTEXT.md](docs/CURRENT_CONTEXT.md).
 
 # Capital Chronicle ContentOps
 
@@ -17,7 +17,8 @@ We have transitioned from passive waiting-state and planning mode to **Active Pr
 ## Core Authority Documentation
 - **Pre-Launch Operating Policy:** [CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md](docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md)
 - **Cleanup Manifest:** [PRELAUNCH_REPO_DOCS_AND_RULES_CLEANUP_MANIFEST_0174CG.md](docs/governance/PRELAUNCH_REPO_DOCS_AND_RULES_CLEANUP_MANIFEST_0174CG.md)
-- **V5 Master Plan & North Star:** [CAPITAL_CHRONICLE_CONTENTOPS_V5_FINAL_MASTER_PLAN_AND_NORTH_STAR.md](docs/CAPITAL_CHRONICLE_CONTENTOPS_V5_FINAL_MASTER_PLAN_AND_NORTH_STAR.md)
+- **AI Builder Onboarding Contract:** [AI_BUILDER_ONBOARDING.md](docs/AI_BUILDER_ONBOARDING.md)
+- **V6 Current Master Plan:** [current_v6_master_plan.md](docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md)
 - **Standing Operating Rules:** [CONTENTOPS_OPERATING_RULES_AND_DESIGN_SYSTEM_GOVERNANCE.md](docs/CONTENTOPS_OPERATING_RULES_AND_DESIGN_SYSTEM_GOVERNANCE.md)
 - **Latest Accepted Evidence Folder:** [qa_evidence_0174AM](qa_evidence_0174AM/)
 
