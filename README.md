@@ -17,7 +17,7 @@ We have transitioned from passive waiting-state and planning mode to **Active Pr
 ## Core Authority Documentation
 - **Pre-Launch Operating Policy:** [CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md](docs/governance/CONTENTOPS_PRELAUNCH_OPERATING_POLICY.md)
 - **Cleanup Manifest:** [PRELAUNCH_REPO_DOCS_AND_RULES_CLEANUP_MANIFEST_0174CG.md](docs/governance/PRELAUNCH_REPO_DOCS_AND_RULES_CLEANUP_MANIFEST_0174CG.md)
-- **AI Builder Onboarding Contract:** [AI_BUILDER_ONBOARDING.md](docs/AI_BUILDER_ONBOARDING.md)
+- **AI Builder Bootstrap:** [AI_BUILDER_BOOTSTRAP.md](docs/AI_BUILDER_BOOTSTRAP.md)
 - **V6 Current Master Plan:** [current_v6_master_plan.md](docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md)
 - **Standing Operating Rules:** [CONTENTOPS_OPERATING_RULES_AND_DESIGN_SYSTEM_GOVERNANCE.md](docs/CONTENTOPS_OPERATING_RULES_AND_DESIGN_SYSTEM_GOVERNANCE.md)
 - **Latest Accepted Evidence Folder:** [qa_evidence_0174AM](qa_evidence_0174AM/)

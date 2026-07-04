@@ -5,7 +5,7 @@
 
 ## Current authority
 
-1. [AI builder onboarding contract](AI_BUILDER_ONBOARDING.md)
+1. [AI builder bootstrap](AI_BUILDER_BOOTSTRAP.md)
 2. [Final automation readiness report](CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md)
 3. [V6 final product master plan](Capital%20Chronicle%20ContentOps%20V6%20%E2%80%94%20AI-Native%20Editorial,%20Publishing,%20and%20Community%20Operating%20System%20Master%20Plan.md)
 4. [V6 25-task execution plan](Capital%20Chronicle%20ContentOps%20V6%20%E2%80%94%20Final%20Product%2025-Task%20Execution%20Plan.md)
@@ -21,7 +21,7 @@
 
 ## Current next task
 
-`TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0`
+`TASK_CONTENTOPS_V6_APPROVAL_DECISION_TO_LOCAL_OUTBOX_READINESS_RECONCILIATION_V0`
 
 ## Cleanup closure
 

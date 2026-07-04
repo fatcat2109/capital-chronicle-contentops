@@ -1,10 +1,10 @@
-﻿# ContentOps AI Builder Entry Contract
+# ContentOps AI Builder Entry Contract
 
 This file is the first file every AI IDE/CLI builder must read before touching this repo.
 
 ## Read Order
 
-1. [AI builder onboarding contract](docs/AI_BUILDER_ONBOARDING.md)
+1. [AI builder bootstrap](docs/AI_BUILDER_BOOTSTRAP.md)
 2. [Current project status](docs/status/CURRENT_PROJECT_STATUS.md)
 3. [Current project status JSON](docs/status/current_project_status.json)
 4. [V6 current master plan](docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md)
