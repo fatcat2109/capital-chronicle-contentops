@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_AI_BUILDER_BOOTSTRAP_V0
+TASK_CONTENTOPS_V6_APPROVAL_DECISION_TO_LOCAL_OUTBOX_READINESS_RECONCILIATION_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,20 +10,20 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-b6176e0c64b6106f391899052d8c08ad37127f0e
+6a80649a14c3c260b90abfc62fd2846853a09f85
 
 ## current_product_phase
-AI builder bootstrap contract is canonicalized for fresh AI IDE/CLI sessions
+V6 local operator decision packets now reconcile into non-executable outbox readiness summaries
 
 ## current_product_lane
-Repo-governance lane: root AGENTS.md now points to docs/AI_BUILDER_BOOTSTRAP.md as the durable bootstrap/read-order contract; product runtime remains unchanged and local/manual evidence only
+Canonical V5 Command Center and unified readiness read-model now show local-only manual-readiness reconciliation for approve/hold/reject/no-decision/live-scope-blocked payloads; product behavior remains review-only with all dispatch/live/provider/browser/public-fetch/media actions locked
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_AI_BUILDER_BOOTSTRAP_V0 renames and enhances the existing AI builder bootstrap/onboarding contract into `docs/AI_BUILDER_BOOTSTRAP.md`, updates root/status/context references, and preserves the required fresh-session read order, authority order, canonical surfaces, live/env/credential/browser boundaries, validation protocol, evidence template, and blocker labels. This is governance-only and does not change product runtime behavior.
+TASK_CONTENTOPS_V6_APPROVAL_DECISION_TO_LOCAL_OUTBOX_READINESS_RECONCILIATION_V0 extends the existing V5 final operator flow adapter, Command Center, and unified outbox readiness read-model to reconcile hash-bound operator approve/hold/reject decision packets into local-only readiness rows. Approved rows become manual-ready evidence only; held, rejected, no-decision, and live-scope-required rows remain blocked/review states. No executable outbox, dispatch path, scheduler/retry wiring, provider/API call, browser/CDP action, public URL fetch, Google scrape, media download, credential/env/session read, or live approval-ledger write is created.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `eab4b69e316cc5a502c2ce40a8b7453443b4b3fd`
-- previous accepted product baseline: `98740da577d50b47ef31bc42ae9d591292771d02`
+- accepted product baseline (`accepted_product_baseline_sha`): `78c5197da985cac539807acf79a5ad69f9425eaf`
+- previous accepted product baseline: `6a80649a14c3c260b90abfc62fd2846853a09f85`
 - latest status/promotion task (`last_status_commit_sha`): final pushed status SHA is verified by `git ls-remote origin refs/heads/master` readback after commit/push.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
@@ -49,18 +49,19 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, and the V5 Command Center Registry Readback panel. The canonical V5 Command Center now productizes Jim's source-to-audit operator flow from deterministic adapter output with stable packet/hash identifiers, the full platform universe, source-aware media candidate/chart rows, hash-bound operator decision rows, and manual audit rows. Media grounding remains source-aware: news topics use grounded image candidate metadata; Capital Chronicle internal alpha/report topics use built-in chart/card media when available.
+V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, local approval-decision to outbox readiness reconciliation, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, and the V5 Command Center Registry Readback panel. The canonical V5 Command Center now productizes Jim's source-to-audit operator flow from deterministic adapter output with stable packet/hash identifiers, the full platform universe, source-aware media candidate/chart rows, hash-bound operator decision rows, local outbox readiness reconciliation rows, and manual audit rows. Media grounding remains source-aware: news topics use grounded image candidate metadata; Capital Chronicle internal alpha/report topics use built-in chart/card media when available.
 
 ## dispatch/live status
-Repo-driven dispatch/live write remains locked. The AI builder bootstrap is a governance/read-order contract only and performs no platform/API/browser/network action. Operator approve/hold/reject packets remain review evidence only and never grant dispatch permission.
+Repo-driven dispatch/live write remains locked. Local outbox readiness reconciliation creates review evidence only: `outbox_entry_created=false`, `outbox_dispatchable=false`, `dispatch_allowed_now=false`, `live_write_allowed_now=false`, `scheduler_or_retry_wired=false`, and `approval_ledger_live_write_made=false`. Operator approve/hold/reject packets never grant dispatch permission.
 
 ## provider/env/credential status
-No provider/API/browser/network/env/credential/session action is authorized or required for the bootstrap contract update. Google image grounding remains candidate metadata only; repo code must not scrape Google, download images, fetch public image URLs, or claim rights verification unless a future exact approved task adds it.
+No provider/API/browser/network/env/credential/session action is authorized or required for local outbox readiness reconciliation. Google image grounding remains candidate metadata only; repo code must not scrape Google, download images, fetch public image URLs, or claim rights verification unless a future exact approved task adds it.
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
 - Jim content cockpit remains local/operator-review only; no provider/API/browser/network/env/credential action is authorized.
 - Operator approve/hold/reject decisions are local/manual evidence only; `approve` does not authorize dispatch, publish, schedule, retry, public URL verification, provider/API calls, browser/CDP actions, media download, or live writes.
+- Local outbox readiness rows are non-executable; they do not create outbox entries or dispatchable records.
 - Dispatch outbox dry-run and operator recovery/runbook previews are informational only; no executable outbox or live dispatch exists.
 - Manual export is allowed only as human off-platform copy after Jim review; repo code performs no live write.
 - Redacted audit and metrics loop accepts operator-supplied/redacted values only; no scraping, API sync, or public URL verification is claimed.
@@ -77,18 +78,23 @@ No provider/API/browser/network/env/credential/session action is authorized or r
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_AI_BUILDER_BOOTSTRAP_V0
+TASK_CONTENTOPS_V6_APPROVAL_DECISION_TO_LOCAL_OUTBOX_READINESS_RECONCILIATION_V0
 
 ## latest changed areas
-- `AGENTS.md`
-- `README.md`
-- `docs/CURRENT_CONTEXT.md`
-- `docs/AI_BUILDER_BOOTSTRAP.md`
+- `live_contentops/unified_approval_outbox_readiness_v6.py`
+- `tests/test_unified_approval_outbox_readiness_v6.py`
+- `ui/contentops_v5/src/data/finalOperatorProductFlowAdapter.ts`
+- `ui/contentops_v5/src/test/v6_command_center.test.tsx`
+- `ui/contentops_v5/src/types.ts`
+- `ui/contentops_v5/src/views/V6CommandCenter.tsx`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_APPROVAL_DECISION_TO_LOCAL_OUTBOX_READINESS_RECONCILIATION_V0` — reconcile operator decision packet states into local-only outbox readiness summaries without creating executable outboxes, live dispatch paths, browser/CDP actions, provider/API calls, public URL fetches, media actions, scheduler/retry wiring, or approval-ledger live writes.
+Next heavy batch: `TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0` — consolidate existing Discord/Telegram operator-send evidence into a canonical local-only operator bridge/status surface without sending messages, reading secrets, calling APIs, using browser/CDP, or wiring schedulers/retries.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. This does not change TASK_0059 product semantics: public URL remains unverified, dispatch/live write stays locked, and no browser/CDP/live/network/env/credential action is authorized.
