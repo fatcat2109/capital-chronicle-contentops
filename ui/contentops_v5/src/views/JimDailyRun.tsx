@@ -7,6 +7,9 @@ export function JimDailyRun() {
   const bundle = viewModel.jim_variant_preview_bundle;
   const manualWorkbench = viewModel.jim_manual_export_workbench;
   const auditMetricsLoop = viewModel.jim_redacted_audit_metrics_loop;
+  const approvalPreview = viewModel.platform_variant_approval_packet_preview;
+  const dryRunOutbox = viewModel.dispatch_outbox_dry_run;
+  const operatorRecovery = viewModel.dispatch_outbox_operator_recovery;
   const flags = p.safety_flags;
 
   return (
@@ -117,6 +120,332 @@ export function JimDailyRun() {
             </article>
           ))}
         </div>
+      </Panel>
+
+      <Panel title="Local Canonical Draft Preview + Review" subtitle="Deterministic template output; no LLM, provider, network, or platform action">
+        <div className="grid gap-3 md:grid-cols-4">
+          <div className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Draft status</div>
+            <div className="mt-1 text-sm font-semibold text-status-review">{viewModel.local_canonical_draft_preview_review.draft_preview_status}</div>
+          </div>
+          <div className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Review status</div>
+            <div className="mt-1 text-sm font-semibold text-status-review">{viewModel.local_canonical_draft_preview_review.draft_review_status}</div>
+          </div>
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Generation method</div>
+            <div className="mt-1 text-sm font-semibold text-fg">{viewModel.local_canonical_draft_preview_review.draft_generation_method}</div>
+          </div>
+          <div className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Final approval</div>
+            <div className="mt-1 text-sm font-semibold text-status-blocked">final_article_approved=false</div>
+          </div>
+        </div>
+        <article className="mt-4 rounded-xl border border-line bg-surface-2 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-2">
+            <div>
+              <h2 className="text-sm font-semibold text-fg">{viewModel.local_canonical_draft_preview_review.working_title}</h2>
+              <p className="mt-1 font-mono text-[11px] text-fg-subtle">
+                {viewModel.local_canonical_draft_preview_review.source_pack_intake_packet_id} · {viewModel.local_canonical_draft_preview_review.source_draft_authorization_packet_id}
+              </p>
+            </div>
+            <StatusChip status="review">{viewModel.local_canonical_draft_preview_review.packet_kind}</StatusChip>
+          </div>
+          <div className="mt-3 grid gap-2 md:grid-cols-2">
+            {viewModel.local_canonical_draft_preview_review.draft_preview_sections.map((section) => (
+              <div key={section.section_title} className="rounded-lg border border-line bg-surface-1 p-3">
+                <div className="text-xs font-semibold text-fg">{section.section_title}</div>
+                <p className="mt-1 text-xs leading-relaxed text-fg-muted">{section.section_body}</p>
+              </div>
+            ))}
+          </div>
+          <ul className="mt-3 grid gap-2 text-xs md:grid-cols-3">
+            {viewModel.local_canonical_draft_preview_review.operator_review_questions.map((question) => (
+              <li key={question} className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2 text-status-review">
+                {question}
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 font-mono text-[10.5px] text-status-blocked">
+            ready_for_llm_drafting=false · ready_for_provider_drafting=false · ready_for_dispatch=false · enabled_publish_send_dispatch_approve_controls=false
+          </p>
+        </article>
+      </Panel>
+
+      <Panel title="Canonical Draft Final Review + Platform Variant Preview" subtitle="Preview-only variants for Jim review; no publish, dispatch, network, provider, browser, env, or credential action">
+        <div className="grid gap-3 md:grid-cols-4">
+          <div className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Final review status</div>
+            <div className="mt-1 text-sm font-semibold text-status-review">{viewModel.canonical_draft_final_review_variant_preview.canonical_draft_final_review_status}</div>
+          </div>
+          <div className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Variant preview status</div>
+            <div className="mt-1 text-sm font-semibold text-status-review">{viewModel.canonical_draft_final_review_variant_preview.platform_variant_preview_status}</div>
+          </div>
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Preview variants</div>
+            <div className="mt-1 text-sm font-semibold text-fg">{Object.keys(viewModel.canonical_draft_final_review_variant_preview.preview_variants).length}</div>
+          </div>
+          <div className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Payload approval</div>
+            <div className="mt-1 text-sm font-semibold text-status-blocked">platform_payloads_approved=false</div>
+          </div>
+        </div>
+        <article className="mt-4 rounded-xl border border-line bg-surface-2 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-2">
+            <div>
+              <h2 className="break-all text-sm font-semibold text-fg">{viewModel.canonical_draft_final_review_variant_preview.canonical_draft_final_review_to_platform_variant_preview_packet_id}</h2>
+              <p className="mt-1 font-mono text-[11px] text-fg-subtle">
+                {viewModel.canonical_draft_final_review_variant_preview.source_local_draft_preview_packet_id} · {viewModel.canonical_draft_final_review_variant_preview.source_draft_review_packet_id}
+              </p>
+            </div>
+            <StatusChip status="review">{viewModel.canonical_draft_final_review_variant_preview.packet_kind}</StatusChip>
+          </div>
+          <div className="mt-3 grid gap-2 md:grid-cols-2">
+            {Object.entries(viewModel.canonical_draft_final_review_variant_preview.preview_variants).map(([platform, preview]) => (
+              <div key={platform} className="rounded-lg border border-line bg-surface-1 p-3">
+                <div className="font-mono text-[10.5px] uppercase text-fg-subtle">{platform}</div>
+                <div className="mt-1 text-xs font-semibold text-fg">{preview.title}</div>
+                <p className="mt-1 text-xs leading-relaxed text-fg-muted">{preview.body}</p>
+                <p className="mt-2 font-mono text-[10.5px] text-status-review">status={preview.status}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 font-mono text-[10.5px] text-status-blocked">
+            final_article_approved=false · platform_variants_are_preview_only=true · ready_for_auto_publish=false · ready_for_dispatch=false · live_action_allowed=false
+          </p>
+          <p className="mt-2 font-mono text-[10.5px] text-status-blocked">
+            llm_provider_call_made=false · provider_call_made=false · platform_api_used=false · network_call_made=false · browser_session_used=false · env_value_read_made=false · credential_read_made=false · public_url_verification_performed=false
+          </p>
+        </article>
+      </Panel>
+
+
+      <Panel title="Platform Variant Approval Packet Preview" subtitle="Exact approval targets for Jim review; no approval record, outbox, dispatch, network, provider, browser, env, credential, or public URL action">
+        <div className="grid gap-3 md:grid-cols-4">
+          <div className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Approval preview status</div>
+            <div className="mt-1 text-sm font-semibold text-status-review">{approvalPreview.approval_packet_preview_status}</div>
+          </div>
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Approval targets</div>
+            <div className="mt-1 text-sm font-semibold text-fg">{Object.keys(approvalPreview.approval_targets).length}</div>
+          </div>
+          <div className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Operator approval</div>
+            <div className="mt-1 text-sm font-semibold text-status-blocked">actual_operator_approval_recorded=false</div>
+          </div>
+          <div className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Dispatch outbox</div>
+            <div className="mt-1 text-sm font-semibold text-status-blocked">dispatch_outbox_ready=false</div>
+          </div>
+        </div>
+        <article className="mt-4 rounded-xl border border-line bg-surface-2 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-2">
+            <div>
+              <h2 className="break-all text-sm font-semibold text-fg">{approvalPreview.platform_variant_final_review_to_approval_packet_preview_packet_id}</h2>
+              <p className="mt-1 font-mono text-[11px] text-fg-subtle">
+                {approvalPreview.source_final_review_packet_id} · {approvalPreview.source_local_draft_preview_packet_id}
+              </p>
+            </div>
+            <StatusChip status="review">{approvalPreview.packet_kind}</StatusChip>
+          </div>
+          <div className="mt-3 grid gap-2 md:grid-cols-2">
+            {Object.entries(approvalPreview.approval_targets).map(([targetId, target]) => (
+              <div key={targetId} className="rounded-lg border border-line bg-surface-1 p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="font-mono text-[10.5px] uppercase text-fg-subtle">{target.platform_id}</span>
+                  <StatusChip status="blocked">approved={String(target.approved)}</StatusChip>
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-fg-muted">{target.exact_preview_text}</p>
+                <p className="mt-2 font-mono text-[10.5px] text-status-blocked">
+                  dispatchable={String(target.dispatchable)} · approval_required={String(target.approval_required)} · no_public_url_claim={String(target.no_public_url_claim)}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 font-mono text-[10.5px] text-status-blocked">
+            approval_ledger_entry_created=false · approval_record_created=false · platform_payloads_approved=false · outbox_entry_created=false · ready_for_dispatch=false · live_action_allowed=false
+          </p>
+          <p className="mt-2 font-mono text-[10.5px] text-status-blocked">
+            llm_provider_call_made=false · provider_call_made=false · platform_api_used=false · network_call_made=false · browser_session_used=false · env_value_read_made=false · credential_read_made=false · public_url_verification_performed=false
+          </p>
+        </article>
+      </Panel>
+
+
+      <Panel title="Dispatch Outbox Dry-Run Preview" subtitle="Review-only dry-run entries; no executable outbox, dispatch attempt, webhook request, platform API request, scheduler, retry, browser, env, credential, network, or public URL action">
+        <div className="grid gap-3 md:grid-cols-4">
+          <div className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Dry-run status</div>
+            <div className="mt-1 text-sm font-semibold text-status-review">{dryRunOutbox.dispatch_outbox_dry_run_status}</div>
+          </div>
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Dry-run entries</div>
+            <div className="mt-1 text-sm font-semibold text-fg">{Object.keys(dryRunOutbox.dry_run_entries).length}</div>
+          </div>
+          <div className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Executable outbox</div>
+            <div className="mt-1 text-sm font-semibold text-status-blocked">executable_outbox_entry_created=false</div>
+          </div>
+          <div className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Dispatch attempted</div>
+            <div className="mt-1 text-sm font-semibold text-status-blocked">dispatch_attempted=false</div>
+          </div>
+        </div>
+        <article className="mt-4 rounded-xl border border-line bg-surface-2 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-2">
+            <div>
+              <h2 className="break-all text-sm font-semibold text-fg">{dryRunOutbox.dispatch_outbox_dry_run_packet_id}</h2>
+              <p className="mt-1 font-mono text-[11px] text-fg-subtle">
+                {dryRunOutbox.source_approval_preview_packet_id} · {dryRunOutbox.source_final_review_packet_id} · {dryRunOutbox.source_local_draft_preview_packet_id}
+              </p>
+            </div>
+            <StatusChip status="blocked">{dryRunOutbox.packet_kind}</StatusChip>
+          </div>
+          <div className="mt-3 grid gap-2 md:grid-cols-2">
+            {Object.entries(dryRunOutbox.dry_run_entries).map(([entryKey, entry]) => (
+              <div key={entryKey} className="rounded-lg border border-line bg-surface-1 p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="font-mono text-[10.5px] uppercase text-fg-subtle">{entry.platform_id}</span>
+                  <StatusChip status="blocked">dispatchable={String(entry.dispatchable)}</StatusChip>
+                </div>
+                <p className="mt-1 break-all font-mono text-[10.5px] text-fg-subtle">{entry.dry_run_entry_id}</p>
+                <p className="mt-2 text-xs leading-relaxed text-fg-muted">{entry.dry_run_payload_text}</p>
+                <p className="mt-2 font-mono text-[10.5px] text-status-blocked">
+                  executable={String(entry.executable)} · approved={String(entry.approved)} · request_method_preview={entry.request_method_preview} · request_url_preview_status={entry.request_url_preview_status}
+                </p>
+                <p className="mt-1 break-all font-mono text-[10.5px] text-fg-subtle">request_body_hash_preview={entry.request_body_hash_preview}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-3 font-mono text-[10.5px] text-status-blocked">
+            dry_run_outbox_package_created=true · dry_run_entries_created=true · executable_outbox_entry_created=false · real_outbox_entry_created=false · dispatch_outbox_ready=false · dispatch_attempted=false
+          </p>
+          <p className="mt-2 font-mono text-[10.5px] text-status-blocked">
+            dispatch_request_count=0 · webhook_request_count=0 · platform_api_request_count=0 · scheduler_enabled=false · retry_enabled=false · kill_switch_active=true · ready_for_dispatch=false · live_action_allowed=false
+          </p>
+          <p className="mt-2 font-mono text-[10.5px] text-status-blocked">
+            llm_provider_call_made=false · provider_call_made=false · platform_api_used=false · network_call_made=false · browser_session_used=false · env_value_read_made=false · credential_read_made=false · public_url_verification_performed=false
+          </p>
+        </article>
+      </Panel>
+
+
+      <Panel title="Dispatch Outbox Operator Runbook + Recovery Preview" subtitle="Runbook-only recovery packet for Jim review; no executable outbox, approval record, dispatch, scheduler, retry, webhook, platform API, provider, browser, env, credential, network, or public URL action">
+        <div className="grid gap-3 md:grid-cols-4">
+          <div className="rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Recovery status</div>
+            <div className="mt-1 text-sm font-semibold text-status-review">{operatorRecovery.operator_recovery_status}</div>
+          </div>
+          <div className="rounded-lg border border-line bg-surface-2 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Runbook sections</div>
+            <div className="mt-1 text-sm font-semibold text-fg">preflight · replay · rollback · matrix</div>
+          </div>
+          <div className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Executable outbox</div>
+            <div className="mt-1 text-sm font-semibold text-status-blocked">executable_outbox_entry_created=false</div>
+          </div>
+          <div className="rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2">
+            <div className="font-mono text-[10.5px] uppercase text-fg-muted">Live scope</div>
+            <div className="mt-1 text-sm font-semibold text-status-blocked">blocked_until_explicit_live_scope=true</div>
+          </div>
+        </div>
+        <article className="mt-4 rounded-xl border border-line bg-surface-2 p-4">
+          <div className="flex flex-wrap items-start justify-between gap-2">
+            <div>
+              <h2 className="break-all text-sm font-semibold text-fg">{operatorRecovery.dispatch_outbox_operator_recovery_packet_id}</h2>
+              <p className="mt-1 font-mono text-[11px] text-fg-subtle">
+                {operatorRecovery.source_dispatch_outbox_dry_run_packet_id} · {operatorRecovery.source_approval_preview_packet_id} · {operatorRecovery.source_final_review_packet_id}
+              </p>
+            </div>
+            <StatusChip status="blocked">{operatorRecovery.packet_kind}</StatusChip>
+          </div>
+          <div className="mt-3 grid gap-3 md:grid-cols-2">
+            <section className="rounded-lg border border-line bg-surface-1 p-3">
+              <h3 className="text-xs font-semibold text-fg">Operator preflight checklist</h3>
+              <ul className="mt-2 grid gap-2">
+                {operatorRecovery.operator_preflight_checklist.map((check) => (
+                  <li key={check.check_id} className="rounded-md border border-line bg-surface-2 px-2 py-1.5 text-xs text-fg-muted">
+                    <span className="font-semibold text-fg">{check.label}</span>
+                    <span className="ml-2 font-mono text-status-review">status={check.status}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+            <section className="rounded-lg border border-line bg-surface-1 p-3">
+              <h3 className="text-xs font-semibold text-fg">Dry-run replay plan</h3>
+              <ul className="mt-2 grid gap-2">
+                {operatorRecovery.dry_run_replay_steps.map((step) => (
+                  <li key={step.replay_id} className="rounded-md border border-line bg-surface-2 px-2 py-1.5 text-xs text-fg-muted">
+                    <span className="font-semibold text-fg">{step.action}</span>
+                    <span className="ml-2 font-mono text-status-review">status={step.status}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+            <section className="rounded-lg border border-line bg-surface-1 p-3">
+              <h3 className="text-xs font-semibold text-fg">Rollback and stop conditions</h3>
+              <ul className="mt-2 grid gap-2">
+                {operatorRecovery.rollback_and_stop_conditions.map((condition) => (
+                  <li key={condition.condition_id} className="rounded-md border border-status-blocked/30 bg-status-blocked/10 px-2 py-1.5 text-xs text-status-blocked">
+                    <span className="font-semibold">{condition.event}</span>
+                    <span className="block text-fg-muted">{condition.action}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+            <section className="rounded-lg border border-line bg-surface-1 p-3">
+              <h3 className="text-xs font-semibold text-fg">Failure mode recovery matrix</h3>
+              <ul className="mt-2 grid gap-2">
+                {operatorRecovery.failure_mode_matrix.map((failure) => (
+                  <li key={failure.failure_mode} className="rounded-md border border-line bg-surface-2 px-2 py-1.5 text-xs text-fg-muted">
+                    <span className="font-semibold text-fg">{failure.failure_mode}</span>
+                    <span className="block">impact={failure.impact}</span>
+                    <span className="block text-status-review">recovery={failure.recovery_action}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </div>
+          <section className="mt-3 rounded-lg border border-line bg-surface-1 p-3">
+            <h3 className="text-xs font-semibold text-fg">Evidence collection checklist</h3>
+            <div className="mt-2 grid gap-2 md:grid-cols-2">
+              {operatorRecovery.evidence_collection_checklist.map((item) => (
+                <div key={item.item_id} className="rounded-md border border-line bg-surface-2 px-2 py-1.5 text-xs text-fg-muted">
+                  <span className="font-semibold text-fg">{item.label}</span>
+                  <span className="ml-2 font-mono text-status-review">status={item.status}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+          <section className="mt-3 rounded-lg border border-line bg-surface-1 p-3">
+            <h3 className="text-xs font-semibold text-fg">Platform-specific recovery notes</h3>
+            <div className="mt-2 grid gap-2 md:grid-cols-2">
+              {Object.entries(operatorRecovery.platform_specific_recovery_notes).map(([noteKey, note]) => (
+                <div key={noteKey} className="rounded-md border border-line bg-surface-2 px-2 py-1.5 text-xs text-fg-muted">
+                  <div className="break-all font-mono text-[10.5px] uppercase text-fg-subtle">{noteKey}</div>
+                  <p className="mt-1 leading-relaxed">{note}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+          <p className="mt-3 font-mono text-[10.5px] text-status-blocked">
+            recovery_runbook_created={String(operatorRecovery.recovery_runbook_created)} · manual_fallback_plan_created={String(operatorRecovery.manual_fallback_plan_created)} · rollback_plan_created={String(operatorRecovery.rollback_plan_created)} · dry_run_replay_plan_created={String(operatorRecovery.dry_run_replay_plan_created)} · failure_mode_matrix_created={String(operatorRecovery.failure_mode_matrix_created)}
+          </p>
+          <p className="mt-2 font-mono text-[10.5px] text-status-blocked">
+            evidence_collection_checklist_created={String(operatorRecovery.evidence_collection_checklist_created)} · dispatch_preflight_checklist_created={String(operatorRecovery.dispatch_preflight_checklist_created)} · real_outbox_entry_created={String(operatorRecovery.real_outbox_entry_created)} · dispatch_outbox_ready={String(operatorRecovery.dispatch_outbox_ready)} · dispatch_attempted={String(operatorRecovery.dispatch_attempted)}
+          </p>
+          <p className="mt-2 font-mono text-[10.5px] text-status-blocked">
+            dispatch_request_count={operatorRecovery.dispatch_request_count} · webhook_request_count={operatorRecovery.webhook_request_count} · platform_api_request_count={operatorRecovery.platform_api_request_count} · scheduler_enabled={String(operatorRecovery.scheduler_enabled)} · retry_enabled={String(operatorRecovery.retry_enabled)} · kill_switch_active={String(operatorRecovery.kill_switch_active)}
+          </p>
+          <p className="mt-2 font-mono text-[10.5px] text-status-blocked">
+            approval_ledger_entry_created={String(operatorRecovery.approval_ledger_entry_created)} · approval_record_created={String(operatorRecovery.approval_record_created)} · platform_payloads_approved={String(operatorRecovery.platform_payloads_approved)} · ready_for_dispatch={String(operatorRecovery.ready_for_dispatch)} · live_action_allowed={String(operatorRecovery.live_action_allowed)}
+          </p>
+          <p className="mt-2 font-mono text-[10.5px] text-status-blocked">
+            llm_provider_call_made={String(operatorRecovery.llm_provider_call_made)} · provider_call_made={String(operatorRecovery.provider_call_made)} · platform_api_used={String(operatorRecovery.platform_api_used)} · network_call_made={String(operatorRecovery.network_call_made)} · browser_session_used={String(operatorRecovery.browser_session_used)} · env_value_read_made={String(operatorRecovery.env_value_read_made)} · credential_read_made={String(operatorRecovery.credential_read_made)} · public_url_verification_performed={String(operatorRecovery.public_url_verification_performed)}
+          </p>
+        </article>
       </Panel>
 
 

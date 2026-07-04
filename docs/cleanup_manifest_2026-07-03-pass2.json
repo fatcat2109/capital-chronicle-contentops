@@ -1,0 +1,1225 @@
+{
+  "generated_at": "2026-07-03T15:12:17.695285+00:00",
+  "entries": [
+    {
+      "path": "live_contentops/__pycache__",
+      "action": "delete",
+      "reason": "generated Python bytecode cache"
+    },
+    {
+      "path": "live_contentops/adapters/__pycache__",
+      "action": "delete",
+      "reason": "generated Python bytecode cache"
+    },
+    {
+      "path": "tests/__pycache__",
+      "action": "delete",
+      "reason": "generated Python bytecode cache"
+    },
+    {
+      "path": "tools/__pycache__",
+      "action": "delete",
+      "reason": "generated Python bytecode cache"
+    },
+    {
+      "path": "ui/contentops_v5/dist",
+      "action": "delete",
+      "reason": "ignored Vite build output"
+    },
+    {
+      "path": "ui/contentops_v5/tsconfig.tsbuildinfo",
+      "action": "delete",
+      "reason": "ignored generated UI build/config artifact"
+    },
+    {
+      "path": "ui/contentops_v5/tsconfig.node.tsbuildinfo",
+      "action": "delete",
+      "reason": "ignored generated UI build/config artifact"
+    },
+    {
+      "path": "ui/contentops_v5/vite.config.js",
+      "action": "delete",
+      "reason": "ignored generated UI build/config artifact"
+    },
+    {
+      "path": "ui/contentops_v5/vite.config.d.ts",
+      "action": "delete",
+      "reason": "ignored generated UI build/config artifact"
+    },
+    {
+      "path": "ui/contentops_v5/tailwind.config.js",
+      "action": "delete",
+      "reason": "ignored generated UI build/config artifact"
+    },
+    {
+      "path": "ui/contentops_v5/tailwind.config.d.ts",
+      "action": "delete",
+      "reason": "ignored generated UI build/config artifact"
+    },
+    {
+      "path": "project_sources_bundle_AFTER_DISCORD_PRE_LIVE_READINESS",
+      "action": "review",
+      "reason": "locked during delete: [WinError 32] The process cannot access the file because it is being used by another process: 'A:\\\\Capital Chronicle\\\\tools\\\\cc-live-contentops\\\\project_sources_bundle_AFTER_DISCORD_PRE_LIVE_READINESS'"
+    },
+    {
+      "path": "scratch/add_metric_helpers.py",
+      "action": "delete",
+      "reason": "unreferenced one-off scratch/generated helper"
+    },
+    {
+      "path": "scratch/capture_preflight_ui.py",
+      "action": "delete",
+      "reason": "unreferenced one-off scratch/generated helper"
+    },
+    {
+      "path": "scratch/exact_env_membership_process_fixture.json",
+      "action": "delete",
+      "reason": "unreferenced one-off scratch/generated helper"
+    },
+    {
+      "path": "scratch/exact_env_membership_process_result.json",
+      "action": "delete",
+      "reason": "unreferenced one-off scratch/generated helper"
+    },
+    {
+      "path": "scratch/prepare_0174AM_evidence.py",
+      "action": "delete",
+      "reason": "unreferenced one-off scratch/generated helper"
+    },
+    {
+      "path": "docs/APPROVAL_LEDGER_KILL_SWITCH_AND_AUDIT_AFTER_0079.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/Capital Chronicle ContentOps V6 \u2014 AI-Native Editorial, Publishing, and Community Operating System Master Plan.md",
+      "action": "keep",
+      "reason": "current authority/policy/root manifest"
+    },
+    {
+      "path": "docs/Capital Chronicle ContentOps V6 \u2014 Final Product 25-Task Execution Plan.md",
+      "action": "keep",
+      "reason": "current authority/policy/root manifest"
+    },
+    {
+      "path": "docs/cleanup_manifest_2026-07-03.json",
+      "action": "keep",
+      "reason": "current authority/policy/root manifest"
+    },
+    {
+      "path": "docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md",
+      "action": "keep",
+      "reason": "current authority/policy/root manifest"
+    },
+    {
+      "path": "docs/CONTENTOPS_FINAL_ENVIRONMENT_FORMAT.md",
+      "action": "keep",
+      "reason": "current authority/policy/root manifest"
+    },
+    {
+      "path": "docs/CONTENTOPS_LLM_QUOTA_RETRY_DISCIPLINE_ADDENDUM_AFTER_0174AY.md",
+      "action": "keep",
+      "reason": "current authority/policy/root manifest"
+    },
+    {
+      "path": "docs/CONTENTOPS_OPERATING_RULES_AND_DESIGN_SYSTEM_GOVERNANCE.md",
+      "action": "keep",
+      "reason": "current authority/policy/root manifest"
+    },
+    {
+      "path": "docs/CREDENTIAL_ENVELOPE_AND_SECRET_POLICY_AFTER_0082.md",
+      "action": "keep",
+      "reason": "current authority/policy/root manifest"
+    },
+    {
+      "path": "docs/CROSS_PLATFORM_DRY_RUN_ADAPTER_AUDIT_AFTER_0044.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/CROSS_REPO_AUDIT_AFTER_0037.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/CURRENT_CONTEXT.md",
+      "action": "keep",
+      "reason": "current authority/policy/root manifest"
+    },
+    {
+      "path": "docs/DETERMINISTIC_LIVE_POLICY_ENGINE.md",
+      "action": "review",
+      "reason": "root doc not classified by pass2"
+    },
+    {
+      "path": "docs/DRAFT_REVIEW_PACKET_AFTER_0077.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/FINAL_MASTER_PLAN_PRE_ALPHA_CONTENT_AND_API_AUTOMATION_READINESS_AFTER_0077.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/FRONTEND_STATIC_PROTOTYPE_SPEC_AND_FIXTURES_AFTER_0136.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/Grounded News Research Context Lane.pdf",
+      "action": "review",
+      "reason": "root doc not classified by pass2"
+    },
+    {
+      "path": "docs/GROUNDED_RESEARCH_BRIEF_SCHEMA_AFTER_0076.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/INSTAGRAM_ASSET_EXPORT_AND_META_CAPABILITY_REVIEW.md",
+      "action": "review",
+      "reason": "root doc not classified by pass2"
+    },
+    {
+      "path": "docs/LINKEDIN_SCOPE_VERIFICATION_AND_DRY_RUN_CONTRACT.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/LIVE_CONTRACTS_AND_VALIDATION.md",
+      "action": "review",
+      "reason": "root doc not classified by pass2"
+    },
+    {
+      "path": "docs/LIVE_PILOT_OPERATOR_PREREQUISITES_V1.json",
+      "action": "archive",
+      "reason": "stale root doc referenced by active text; archived with manifest trail: live_contentops/cli.py, tests/test_pilot_prerequisites.py"
+    },
+    {
+      "path": "docs/LIVE_PILOT_OPERATOR_PREREQUISITE_PACKET.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/LIVE_PILOT_STAGING_ENVIRONMENT_DESIGN.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/MOCK_ADAPTER_PUBLISH_FLOW_AND_METRICS_CAPTURE_AFTER_0080.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/OPERATOR_APPROVAL_QUEUE_AND_AUDIT_LOG.md",
+      "action": "review",
+      "reason": "root doc not classified by pass2"
+    },
+    {
+      "path": "docs/OPERATOR_LOCAL_SECRET_RUNBOOK_AFTER_0085.md",
+      "action": "keep",
+      "reason": "current authority/policy/root manifest"
+    },
+    {
+      "path": "docs/OPERATOR_UI_UX_AND_CONTENT_CALENDAR_SPEC_AFTER_0135.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/PLATFORM_ADAPTER_CONTRACTS_AFTER_0078.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/PLATFORM_OFFICIAL_DOCS_VERIFICATION_PACK_AFTER_0081.md",
+      "action": "keep",
+      "reason": "current authority/policy/root manifest"
+    },
+    {
+      "path": "docs/PROVIDER_GATEWAY_DRY_RUN_NO_LIVE_KEYS.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/SEO_NEWSLETTER_CONTENT_ARCHITECTURE_AFTER_0137.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/X_ADAPTER_DRY_RUN_AND_STAGING_CONTRACT.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded context"
+    },
+    {
+      "path": "docs/automation/ACCOUNT_BINDING_PERMISSION_SCOPE_VERIFIER_CORE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/FINAL_ENVIRONMENT_FORMAT_INVENTORY",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/PLATFORM_UNIVERSE_REGISTRY_V2_PRIMARY_PAYLOAD_CLASSES_CORE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/PUBLICATION_IDENTITY_REGISTRY",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_ACCEPTED_REVIEW_EDITORIAL_WORKFLOW_PACKET_CONTRACT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_ACTIVE_OUTBOX_ELIGIBILITY_GATE_FROM_LOCAL_PACKAGE_STAGING",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_AI_PRODUCTION_CORE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_AI_RESEARCH_CANONICAL_ARTICLE_ENGINE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_AI_RESEARCH_GROUNDING",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT",
+      "action": "archive",
+      "reason": "stale automation packet; refs: docs/automation/V6_CURRENT_STATE_AUDIT_AFTER_LOOP_CONTRACTS/current_state_audit_after_loop_contracts.md, docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT/next_task_pointer.md, docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/project_sources_upload_bundle_packet.json, docs/cleanup_manifest_2026-07-03.json, live_contentops/approval_queue_exact_payload_review_contract_v6.py"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_REVIEW_CANDIDATE_HUMAN_REVIEW_DECISION_CONTRACT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_REVIEW_CANDIDATE_INTAKE_FROM_MARKDOWN",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_EDITORIAL_REFINEMENT_QUEUE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_EDITOR_DRAFT_SHELL",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_PLACEHOLDER_BINDING",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SEO_METADATA_CONTRACT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_RENDERER",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_DRAFT_FROM_APPROVED_REDACTED_SOURCE_PACK",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_DRAFT_OPERATOR_SOURCE_PACK_REVIEW",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_TO_DISCORD_APPROVED_PAYLOAD_OUTBOX_HEAVY_BATCH_NO_SEND",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_COMMUNITY_FEEDBACK_CAPTURE_CONTRACT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CONTENT_PRODUCTION_CORE_REVIEW_PACKETS_HEAVY_BATCH_NO_PROVIDER_NO_SEND",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CREDENTIAL_CAPABILITY_MATRIX",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CREDENTIAL_HANDLE_MEMBERSHIP_PROOF_SCAFFOLD_FROM_DESTINATION_BINDING_PROOF_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CREDENTIAL_HYDRATION_GATE_FROM_PROVIDER_RUNTIME_AUTHORITY_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CREDENTIAL_PRESENCE_MEMBERSHIP_SCAFFOLD_FROM_DESTINATION_BINDING_REVIEW_HEAVY_BATCH_NO_ENV_READ_NO_CREDENTIAL_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_CURRENT_STATE_AUDIT_AFTER_LOOP_CONTRACTS",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP",
+      "action": "archive",
+      "reason": "stale automation packet; refs: docs/automation/V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP/stale_ui_cleanup_plan.json, docs/cleanup_manifest_2026-07-03.json, tests/test_current_project_status_guardrail_v6.py"
+    },
+    {
+      "path": "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_DESTINATION_BINDING_PROOF_SCAFFOLD_FROM_ENV_MEMBERSHIP_GATE_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DESTINATION_BINDING_REVIEW_SCAFFOLD_FROM_DISPATCH_GATE_HEAVY_BATCH_NO_ENV_NO_CREDENTIAL_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_COMMUNITY_DROP",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_DRY_RUN_OUTBOX_OPERATOR_APPROVAL_SPINE",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_DRY_RUN_PAYLOAD_GATE_FROM_PERMISSION_PROBE_PREFLIGHT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_ENDPOINT_MAPPING_PREFLIGHT_FROM_CAPABILITY_LANE_SPLIT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_EXACT_OPERATOR_LIVE_DISPATCH_APPROVAL_GATE_FROM_MATERIALIZATION",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_EXPLICIT_LIVE_PILOT_GATE_PREP_HEAVY_BATCH_NO_SEND",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_FINAL_MANUAL_EXECUTION_REVIEW_FROM_REQUEST_PACKAGE_STAGING",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_FINAL_PRE_LIVE_RELEASE_AND_OPERATOR_GO_READINESS_HEAVY_BATCH_NO_SEND",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_HEAVY_LOCAL_PRE_LIVE_BATCH_FROM_EXACT_OPERATOR_APPROVAL",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_LIVE_CAPABLE_SUPERVISED_PILOT_ADAPTER_HEAVY_BATCH_NO_LIVE_SEND",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_OPERATOR_GO_PACKET",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_OPERATOR_PAYLOAD_REVIEW_GATE_FROM_DRY_RUN_PAYLOAD",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_PERMISSION_PROBE_PREFLIGHT_FROM_WEBHOOK_VALUE_BINDING",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_REQUEST_POLICY_GATE_FROM_OPERATOR_PAYLOAD_REVIEW",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_DISPATCH_DRY_RUN_GATE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_PILOT_FROM_APPROVED_OUTBOX",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_PILOT_GATE_PLANNING_FROM_FINAL_MANUAL_REVIEW",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_PILOT_MATERIALIZATION_GATE_FROM_EXPLICIT_LIVE_SCOPE_CONTRACT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_PREFLIGHT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_REQUEST_PACKAGE_STAGING_FROM_REQUEST_POLICY",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_WEBHOOK_VALUE_BINDING_PREFLIGHT_FROM_ENDPOINT_MAPPING",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISPATCH_EXECUTION_PREPARATION_GATE_FROM_REDACTED_AUDIT_KILL_SWITCH_MANUAL_FALLBACK_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DISPATCH_GATE_SCAFFOLD_FROM_PREPARED_OUTBOX_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_DISPATCH_OUTBOX_DRY_RUN_OPERATOR_RUNBOOK_AND_RECOVERY",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_DRAFT_INSPECTOR_FOR_CONTENT_PRODUCTION_REVIEW_BUNDLE_HEAVY_BATCH_NO_PROVIDER_NO_SEND",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_DRAFT_INSPECTOR_V2",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_ENDPOINT_ALLOWLIST_GATE_FROM_OFFICIAL_PROVIDER_DOCS_SCOPE_HEAVY_BATCH_DOCS_ONLY_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_EXACT_ENV_KEY_MEMBERSHIP_CHECK_GATE_FROM_CREDENTIAL_MEMBERSHIP_SCAFFOLD_HEAVY_BATCH_MEMBERSHIP_ONLY_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_EXACT_JIM_APPROVAL_DECLARATION_INTAKE_GATE_HEAVY_BATCH_NO_PROVIDER_NO_LIVE_SEND",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_EXACT_OPERATOR_APPROVAL_SIGNATURE_VERIFIER_SCAFFOLD_HEAVY_BATCH_NO_APPROVAL_NO_SEND",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_EXACT_OPERATOR_DISPATCH_GO_GATE_FROM_PAYLOAD_HASH_REVALIDATION_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_EXPLICIT_DISCORD_LIVE_SCOPE_CONTRACT_GATE_FROM_SUPERVISED_LIVE_PILOT_PLANNING",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_FAST_SHIP_OPERATING_PROFILE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_FAST_SHIP_RUNTIME_SPINE_CONSOLIDATION",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_FEEDBACK_BACKLOG_REVIEW_TO_NEXT_ARTICLE_BRIEF",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_FEEDBACK_SUMMARY_BACKLOG_CONTRACT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_READINESS",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_JIM_CANONICAL_DRAFT_FINAL_REVIEW_VARIANT_PREVIEW_PROMOTION",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_JIM_CONTENT_COCKPIT_BASELINE",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_JIM_DISPATCH_OUTBOX_DRY_RUN_PROMOTION",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_JIM_DISPATCH_OUTBOX_OPERATOR_RECOVERY_PROMOTION",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_JIM_LOCAL_CANONICAL_DRAFT_PREVIEW_PROMOTION",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_JIM_PLATFORM_VARIANT_APPROVAL_PACKET_PREVIEW_PROMOTION",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_MANUAL_APPROVAL_EXPORT_EVIDENCE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_MANUAL_EXPORT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_MANUAL_OPERATOR_HANDOFF",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_MANUAL_PUBLICATION_URL_AUDIT_IMPORT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_DISPATCH_ACCOUNT_BINDING_PREFLIGHT_FROM_CREDENTIAL_ALLOWLIST",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_DISPATCH_CREDENTIAL_AND_ALLOWLIST_PREFLIGHT_FROM_SCOPE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_DISPATCH_OFFICIAL_DOCS_AND_SCOPE_PREFLIGHT_FROM_READINESS",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_DISPATCH_READINESS_PREFLIGHT_FROM_EXECUTION_PAYLOADS",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LLM_FEEDBACK_SUMMARIZER_NEXT_IDEA",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_DESTINATION_BINDING_PREFLIGHT_FROM_DISPATCH_PAYLOADS",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_DISPATCH_EXECUTION_PAYLOAD_PREPARATION_FROM_SUPERVISED_DECISION",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_DISPATCH_PAYLOAD_PREPARATION_FROM_OPERATOR_DECISION",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_DISPATCH_PREFLIGHT_FROM_ACTIVE_OUTBOX",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_LIVE_DISPATCH_REQUEST_PACKAGE_GATE_FROM_ACCOUNT_BINDING",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_OUTBOX_PACKAGE_STAGING_FROM_PAYLOAD_REVIEW_LEDGER",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_PAYLOAD_REVIEW_HASH_AND_APPROVAL_LEDGER_STRENGTHENING",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_PLATFORM_VARIANT_PREVIEW_STAGING_FROM_METADATA_VALUES",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_TO_SOURCE_PREFLIGHT_BRIDGE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_VALIDATOR_WIRING",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_NETWORK_SCOPE_POLICY",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_ARTICLE_BRIEF_SOURCE_PACK_AND_REVIEW",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_ARTICLE_DRAFT_AUTHORIZATION_AND_READINESS",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_CANONICAL_ARTICLE_FROM_BACKLOG",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OFFICIAL_PLATFORM_DOCS_VERIFICATION_FOR_LIVE_DISPATCH_REQUEST_GATE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OFFICIAL_PROVIDER_DOCS_SCOPE_GATE_FROM_PROVIDER_SCOPED_PREP_HEAVY_BATCH_DOCS_ONLY_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_ACTIVE_OUTBOX_REVIEW_DECISION_FROM_ELIGIBILITY_GATE",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_GATE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_LEDGER_GATE_SCAFFOLD_FROM_PAYLOAD_HASH_PREP_HEAVY_BATCH_NO_APPROVAL_NO_SEND",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_QUEUE_EVIDENCE_VAULT_UI",
+      "action": "archive",
+      "reason": "stale automation packet; refs: docs/automation/V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP/dashboard_authority_recon_report.md, docs/automation/V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP/stale_ui_cleanup_plan.json, docs/cleanup_manifest_2026-07-03.json, docs/runbooks/V6_OPERATOR_APPROVAL_QUEUE_EVIDENCE_VAULT_UI_RUNBOOK.md, tests/test_operator_approval_queue_evidence_vault_v6.py"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_CHANNEL_READINESS",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_DISPATCH_REVIEW_DECISION_FROM_PREFLIGHT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE",
+      "action": "archive",
+      "reason": "stale automation packet; refs: docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_operator_runbook.md, docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR/manual_evidence_refresh_rollup.json, docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_operator_checklist.md, docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH/manual_evidence_source_submission_recovery_runbook.md, docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_audit_trail_template.json"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE",
+      "action": "archive",
+      "reason": "stale automation packet; refs: docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_source_map.json, docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/fixture_lifecycle_packet.json, docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE/implementation_report.md, docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_hash_inputs_redacted.json, docs/automation/V6_PAYLOAD_PREVIEW_HASH/payload_preview_exact_review.json"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO",
+      "action": "archive",
+      "reason": "stale automation packet; refs: docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/implementation_report.md, docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO/operator_evidence_intake_studio_packet.json, docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/PROJECT_SOURCES_REPLACEMENT_GUIDE_V6_READINESS.md, docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/project_sources_upload_bundle_packet.json, docs/cleanup_manifest_2026-07-03.json"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_FACTS_INTAKE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_INTENT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_METADATA_VALUES_INTAKE_FROM_METADATA_PROPOSAL",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_PIPELINE_STATUS_CONSOLIDATION",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_CANDIDATE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_SOURCE_PACK_INTAKE_FOR_EDITORIAL_WORKFLOW",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_SUPERVISED_DISPATCH_REVIEW_DECISION_FROM_DESTINATION_PREFLIGHT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_OUTBOX_ENTRY_CONTRACT",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_OUTBOX_PREPARATION_GATE_FROM_EXACT_JIM_APPROVAL_INTAKE_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_PAYLOAD_HASH_PREVIEW_AND_APPROVAL_LEDGER_PREP_FROM_DRAFT_INSPECTION_HEAVY_BATCH_NO_PROVIDER_NO_SEND",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_PAYLOAD_HASH_REVALIDATION_GATE_FROM_CREDENTIAL_HANDLE_MEMBERSHIP_PROOF_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_PAYLOAD_PREVIEW_HASH",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_ADAPTER_POLICY_MATRIX_RECONCILIATION",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_ADAPTER_SELECTION_POLICY",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_CAPABILITY_LANE_SPLIT_FROM_OFFICIAL_DOCS",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_CONTENT_GENERATORS",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_VARIANT_FINAL_REVIEW_TO_APPROVAL_PACKET_PREVIEW",
+      "action": "archive",
+      "reason": "stale automation packet; refs: docs/automation/V6_JIM_PLATFORM_VARIANT_APPROVAL_PACKET_PREVIEW_PROMOTION/jim_platform_variant_approval_packet_preview_manifest_v0.json, docs/automation/V6_PLATFORM_VARIANT_FINAL_REVIEW_TO_APPROVAL_PACKET_PREVIEW/platform_variant_final_review_to_approval_packet_preview.json, docs/cleanup_manifest_2026-07-03.json, docs/runbooks/V6_PLATFORM_VARIANT_FINAL_REVIEW_TO_APPROVAL_PACKET_PREVIEW_RUNBOOK.md, docs/status/PROJECT_PROGRESS_LEDGER.md"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE",
+      "action": "archive",
+      "reason": "stale automation packet; refs: docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SEO_METADATA_CONTRACT/next_task_pointer.md, docs/automation/V6_CURRENT_STATE_AUDIT_AFTER_LOOP_CONTRACTS/current_state_audit_after_loop_contracts.md, docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/project_sources_upload_bundle_packet.json, docs/cleanup_manifest_2026-07-03.json, live_contentops/canonical_article_studio_seo_metadata_contract_v6.py"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_VARIANT_RENDERER_BLOCKED_OUTPUT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_PROJECT_SOURCES_EVERGREEN",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE",
+      "action": "archive",
+      "reason": "stale automation packet; refs: docs/automation/V6_CURRENT_STATE_AUDIT_AFTER_LOOP_CONTRACTS/implementation_report.md, docs/automation/V6_PROJECT_SOURCES_EVERGREEN/CONTENTOPS_V6_EVERGREEN_BUNDLE_PACKET.json, docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/PROJECT_SOURCES_REPLACEMENT_GUIDE_V6_READINESS.md, docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/project_sources_upload_bundle_packet.json, docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE_AFTER_V6_LOOP_CONTRACTS/PROJECT_SOURCES_DELETE_REPLACE_GUIDE_AFTER_V6_LOOP_CONTRACTS.md"
+    },
+    {
+      "path": "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE_AFTER_V6_LOOP_CONTRACTS",
+      "action": "archive",
+      "reason": "stale automation packet; refs: docs/automation/V6_CURRENT_STATE_AUDIT_AFTER_LOOP_CONTRACTS/implementation_report.md, docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE_AFTER_V6_LOOP_CONTRACTS/PROJECT_SOURCES_DELETE_REPLACE_GUIDE_AFTER_V6_LOOP_CONTRACTS.md, docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE_AFTER_V6_LOOP_CONTRACTS/UPLOAD_BUNDLE_MANIFEST_AFTER_V6_LOOP_CONTRACTS.json, docs/cleanup_manifest_2026-07-03.json, live_contentops/generate_project_sources_bundle_after_v6_loop_contracts.py"
+    },
+    {
+      "path": "docs/automation/V6_PROVIDER_RUNTIME_AUTHORITY_GATE_FROM_ENDPOINT_ALLOWLIST_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_PROVIDER_SCOPED_DISPATCH_EXECUTION_GATE_PREP_FROM_DISPATCH_PREPARATION_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_READINESS_EVIDENCE_BUNDLE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_REAL_SOURCE_PACK_MANUAL_IMPORT_SCHEMA",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_REAL_SOURCE_PACK_OPERATOR_APPROVAL_GATE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_REAL_SOURCE_PACK_REDACTED_FIXTURE_REVIEW",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_REDACTED_AUDIT_KILL_SWITCH_MANUAL_FALLBACK_GATE_FROM_EXACT_OPERATOR_GO_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_SEO_EDITORIAL_METADATA_PROPOSAL_PACKET_FROM_SOURCE_PACK_INTAKE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_SEO_EDITORIAL_REFINEMENT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_SOURCE_EVIDENCE_PREFLIGHT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_SOURCE_PACK_VERIFICATION_UI",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN",
+      "action": "archive",
+      "reason": "stale automation packet; refs: docs/automation/V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE/next_task_pointer.md, docs/automation/V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE/operator_bridge_packet.json, docs/automation/V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE/redacted_status_packet.json, docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE/project_sources_upload_bundle_packet.json, docs/automation/V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN/implementation_report.md"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_MANUAL_APPROVAL_EXPORT_EVIDENCE",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_MANUAL_EXPORT_ARTICLE_STUDIO",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_SUPERVISED_DISPATCH_CONTRACT",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_SUPERVISED_DISPATCH_READINESS",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_UNIFIED_CAPABILITY_ENV_READINESS",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_VARIANT_PREVIEW_HASH_APPROVAL_TO_DISCORD_OUTBOX",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_VERIFIED_SOURCE_PACK_IMPORT_REVALIDATION",
+      "action": "keep",
+      "reason": "unmatched V6 automation packet kept for cautious later pass"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_APPROVAL_EXPORT_EVIDENCE",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_EXPORT",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_OPERATOR_HANDOFF",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_PUBLICATION_EVIDENCE_LOOP",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_PUBLICATION_URL_AUDIT_IMPORT",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_X_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    },
+    {
+      "path": "docs/automation/X_SUPERVISED_CDP_REAL_TEST_POST",
+      "action": "keep",
+      "reason": "current/live/identity automation keep rule"
+    }
+  ]
+}

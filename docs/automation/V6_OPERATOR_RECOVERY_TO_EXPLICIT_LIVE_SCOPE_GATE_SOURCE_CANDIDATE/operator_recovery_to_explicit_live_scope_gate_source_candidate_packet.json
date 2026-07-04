@@ -6,7 +6,7 @@
   "credential_presence_key_names_only": true,
   "credential_presence_states": {
     "DISCORD_LIVE_ANNOUNCEMENTS_CHANNEL_LABEL": "missing",
-    "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK": "missing"
+    "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK": "present"
   },
   "credential_value_read_made": false,
   "destination_binding_status": "blocked_until_operator_confirms_destination",
@@ -24,10 +24,10 @@
   ],
   "endpoint_allowlist_created": true,
   "env_value_read_made": false,
-  "exact_payload_hash": "cc1a6320629a1ee0548afc8c8719116c5d20b282b4f00318b87047e7b7e6aeb8",
+  "exact_payload_hash": "17d6a329de18bffac658ef7ea8849b66799317fefa9347316829977408ab9a3f",
   "exact_payload_preview_created": false,
   "executable_outbox_entry_created": false,
-  "explicit_live_scope_gate_packet_id": "explicit_live_scope_cc1a6320629a1ee0",
+  "explicit_live_scope_gate_packet_id": "explicit_live_scope_17d6a329de18bffa",
   "explicit_live_scope_gate_status": "created_for_operator_review",
   "forbidden_financial_advice_or_signal_wording_present": false,
   "kill_switch_active": true,

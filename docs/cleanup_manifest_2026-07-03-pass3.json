@@ -1,0 +1,2576 @@
+{
+  "generated_at": "2026-07-03T15:20:39.695499+00:00",
+  "entries": [
+    {
+      "path": "project_sources_bundle_AFTER_DISCORD_PRE_LIVE_READINESS",
+      "action": "review",
+      "reason": "locked during delete: [WinError 32] The process cannot access the file because it is being used by another process: 'A:\\\\Capital Chronicle\\\\tools\\\\cc-live-contentops\\\\project_sources_bundle_AFTER_DISCORD_PRE_LIVE_READINESS'"
+    },
+    {
+      "path": "live_contentops/telegram_approval_ledger_candidate_contract.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_batch_b_readonly_proof.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_credential_setup_operator_guide.py",
+      "action": "review",
+      "reason": "protected word in filename refused"
+    },
+    {
+      "path": "live_contentops/telegram_first_supervised_live_post_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_ledger10_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_ledger11_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_ledger12_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_ledger4_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_ledger5_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_ledger6_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_ledger7_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_ledger8_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_ledger9_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_live_authority_core.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_live_getme_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_live_pilot.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_live_pilot_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_live_precheck.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_live_sendmessage_pilot.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_local_adapter_contract.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_manual_gate_packet_builder.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_official_docs_credential_validation_gate.py",
+      "action": "review",
+      "reason": "protected word in filename refused"
+    },
+    {
+      "path": "live_contentops/telegram_one_platform_live_pilot_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_one_shot_execution_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_one_shot_go_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_operator_cockpit_html_render.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_operator_cockpit_read_model.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_operator_replay_console.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_operator_send_cli.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_post_pilot_ledger_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_readonly_channel_binding_permission_proof.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_read_only_identity_pilot.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_redacted_credential_presence_check.py",
+      "action": "review",
+      "reason": "protected word in filename refused"
+    },
+    {
+      "path": "live_contentops/telegram_remote_operator_inbox.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_remote_operator_inbox_contract.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_review_challenge_contract.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_second_live_post_reconciliation_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_second_sandbox_dry_run_prep.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_second_supervised_live_post_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_second_supervised_post_dry_run_ledger_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_staging_flow.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_supervised_dispatch_capability_registry.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_supervised_post_dry_run_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_supervised_post_queue.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_supervised_sendmessage_dry_run_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_supervised_send_outcome_ledger.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_target_binding_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/telegram_transport_boundary_contract.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/discord_telegram_operator_bridge_v6.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/prelaunch_telegram_credential_readiness.py",
+      "action": "review",
+      "reason": "protected word in filename refused"
+    },
+    {
+      "path": "tests/test_telegram_adapter.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_approval_ledger_candidate_contract.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_batch_b_readonly_proof.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_build_exact_test4_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_build_ledger10_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_build_ledger11_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_build_ledger3_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_build_ledger4_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_build_ledger5_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_build_ledger6_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_build_ledger7_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_build_ledger8_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_build_ledger9_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_credential_setup_operator_guide.py",
+      "action": "review",
+      "reason": "protected word in filename refused"
+    },
+    {
+      "path": "tests/test_telegram_first_supervised_live_post_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_ledger10_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_ledger11_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_ledger12_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_ledger4_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_ledger5_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_ledger6_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_ledger7_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_ledger8_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_ledger9_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_live_authority_core.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_live_getme_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_live_idempotency_and_kill_switch.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_live_pilot.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_live_pilot_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_live_precheck.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_live_sendmessage_no_secret_output.py",
+      "action": "review",
+      "reason": "protected word in filename refused"
+    },
+    {
+      "path": "tests/test_telegram_live_sendmessage_pilot.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_local_adapter_contract.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_manual_gate_packet_builder.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_official_docs_credential_validation_gate.py",
+      "action": "review",
+      "reason": "protected word in filename refused"
+    },
+    {
+      "path": "tests/test_telegram_one_platform_live_pilot_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_one_shot_execution_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_one_shot_go_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_operator_cockpit_html_render.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_operator_cockpit_read_model.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_operator_replay_console.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_operator_send_cli.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_post_pilot_ledger_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_readonly_channel_binding_permission_no_live_write.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_readonly_channel_binding_permission_proof.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_read_only_identity_pilot.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_redacted_credential_presence_check.py",
+      "action": "review",
+      "reason": "protected word in filename refused"
+    },
+    {
+      "path": "tests/test_telegram_remote_operator_inbox.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_remote_operator_inbox_contract.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_remote_operator_loop_state.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_review_challenge_contract.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_ledger10_manual_gate_backed_twelfth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_ledger11_manual_gate_backed_thirteenth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_ledger3_manual_gate_backed_fifth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_ledger4_manual_gate_backed_sixth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_ledger5_manual_gate_backed_seventh_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_ledger6_manual_gate_backed_eighth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_ledger7_manual_gate_backed_ninth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_ledger8_manual_gate_backed_tenth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_ledger9_manual_gate_backed_eleventh_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_ledger_guarded_supervised_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_manual_gate_backed_supervised_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_read_only_identity_pilot.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_run_single_supervised_sendmessage.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_second_live_post_reconciliation_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_second_sandbox_dry_run_prep.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_second_supervised_live_post_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_second_supervised_post_dry_run_ledger_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_supervised_dispatch_capability_registry.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_supervised_post_dry_run_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_supervised_post_queue.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_supervised_sendmessage_dry_run_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_supervised_sendmessage_no_live_write_behavior.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_supervised_send_outcome_ledger.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_target_binding_gate.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tests/test_telegram_transport_boundary_contract.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_build_exact_test4_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_build_ledger10_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_build_ledger11_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_build_ledger3_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_build_ledger4_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_build_ledger5_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_build_ledger6_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_build_ledger7_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_build_ledger8_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_build_ledger9_next_manual_gate_packet.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_ledger10_manual_gate_backed_twelfth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_ledger11_manual_gate_backed_thirteenth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_ledger3_manual_gate_backed_fifth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_ledger4_manual_gate_backed_sixth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_ledger5_manual_gate_backed_seventh_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_ledger6_manual_gate_backed_eighth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_ledger7_manual_gate_backed_ninth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_ledger8_manual_gate_backed_tenth_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_ledger9_manual_gate_backed_eleventh_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_ledger_guarded_supervised_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_manual_gate_backed_supervised_send.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_read_only_identity_pilot.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "tools/telegram_run_single_supervised_sendmessage.py",
+      "action": "archive",
+      "reason": "legacy Telegram stack"
+    },
+    {
+      "path": "live_contentops/discord_approval_ledger_outbox_contract.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_approved_outbox_live_dispatch.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_community_drop_lane_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_dispatch_adapter.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_dry_run_outbox_operator_approval_spine_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_dry_run_payload_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_endpoint_mapping_preflight_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_environment_contract.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_exact_operator_live_dispatch_approval_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_explicit_live_pilot_gate_prep_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_final_manual_execution_review_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_final_pre_live_release_readiness_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_heavy_local_pre_live_batch_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_live_capable_supervised_pilot_adapter_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_live_dispatch_closeout.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_live_pilot_authorization_gate.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_multi_target_live_smoke.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_one_action_explicit_live_dispatch.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_one_action_live_dispatch_closeout.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_one_request_live_pilot.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_operator_approval_gate.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_operator_go_packet_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_operator_go_packet_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_operator_payload_review_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_operator_review_candidate_contract.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_operator_send_cli.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_operator_source_go_phrase_intake_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_operator_source_go_phrase_intake_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_payload_hash_approval_gate.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_permission_probe_preflight_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_real_content_filled_intake.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_real_content_filled_intake_from_source.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_real_content_intake_approval.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_real_content_queue.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_real_content_source_artifact.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_request_policy_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_supervised_dispatch_actions.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_supervised_dispatch_readiness.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_supervised_live_dispatch_dry_run_gate_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_supervised_live_dispatch_dry_run_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_supervised_live_pilot_from_approved_outbox_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_supervised_live_pilot_gate_planning_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_supervised_live_pilot_materialization_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_supervised_live_preflight_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_supervised_live_preflight_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_supervised_request_package_staging_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_tri_target_dispatch_closeout.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_webhook_payload_contract.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/discord_webhook_value_binding_preflight_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/canonical_to_discord_approved_payload_outbox_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/explicit_discord_live_scope_contract_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/variant_preview_hash_approval_to_discord_outbox_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_approval_ledger_outbox_contract.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_approved_outbox_live_dispatch.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_community_drop_lane_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_dispatch_adapter.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_dry_run_outbox_operator_approval_spine_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_dry_run_payload_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_endpoint_mapping_preflight_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_environment_contract.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_exact_operator_live_dispatch_approval_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_explicit_live_pilot_gate_prep_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_final_manual_execution_review_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_final_pre_live_release_readiness_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_heavy_local_pre_live_batch_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_live_capable_supervised_pilot_adapter_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_live_dispatch_closeout.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_live_pilot_authorization_gate.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_multi_target_live_smoke.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_one_action_explicit_live_dispatch.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_one_action_live_dispatch_closeout.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_one_request_live_pilot.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_operator_approval_gate.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_operator_go_packet_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_operator_payload_review_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_operator_review_candidate_contract.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_operator_send_cli.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_operator_source_go_phrase_intake_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_payload_hash_approval_gate.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_permission_probe_preflight_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_real_content_filled_intake.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_real_content_filled_intake_from_source.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_real_content_intake_approval.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_real_content_queue.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_real_content_source_artifact.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_request_policy_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_supervised_dispatch_actions.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_supervised_dispatch_readiness.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_supervised_live_dispatch_dry_run_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_supervised_live_pilot_from_approved_outbox_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_supervised_live_pilot_gate_planning_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_supervised_live_pilot_materialization_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_supervised_live_preflight_ui_guardrail_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_supervised_live_preflight_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_supervised_live_preflight_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_supervised_request_package_staging_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_telegram_operator_bridge_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_tri_target_dispatch_closeout.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_webhook_payload_contract.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_discord_webhook_value_binding_preflight_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_canonical_to_discord_approved_payload_outbox_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_explicit_discord_live_scope_contract_gate_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "tests/test_variant_preview_hash_approval_to_discord_outbox_v6.py",
+      "action": "archive",
+      "reason": "legacy Discord stack"
+    },
+    {
+      "path": "live_contentops/x_oauth_callback_pkce_dry_run_design_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "live_contentops/x_oauth_callback_server_policy_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "live_contentops/x_oauth_credential_readiness_policy_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "live_contentops/x_oauth_live_read_only_identity_proof_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "live_contentops/x_oauth_local_callback_handler_dry_run_stub_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "live_contentops/x_oauth_redacted_credential_presence_check_design_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "live_contentops/x_oauth_redirect_ledger_callback_fixture_contract_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "live_contentops/x_oauth_supervised_live_readiness_bridge_bundle_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "live_contentops/x_oauth_user_context_design_policy_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "tests/test_x_oauth_callback_pkce_dry_run_design_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "tests/test_x_oauth_callback_server_policy_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "tests/test_x_oauth_credential_readiness_policy_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "tests/test_x_oauth_live_read_only_identity_proof_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "tests/test_x_oauth_local_callback_handler_dry_run_stub_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "tests/test_x_oauth_redacted_credential_presence_check_design_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "tests/test_x_oauth_redirect_ledger_callback_fixture_contract_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "tests/test_x_oauth_supervised_live_readiness_bridge_bundle_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "tests/test_x_oauth_user_context_design_policy_gate.py",
+      "action": "archive",
+      "reason": "legacy X OAuth paid/API stack; X CDP preserved"
+    },
+    {
+      "path": "live_contentops/v5_local_operator_runbook_index_contract.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/v5_manual_export_pilot_verification_contract.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/v5_manual_pilot_trail_reconciliation_audit_contract.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/v5_manual_pilot_trail_reconciliation_contract.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/v5_operator_review_queue_manual_pilot_trail_contract.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/canonical_draft_final_review_variant_preview_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/dispatch_outbox_dry_run_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/dispatch_outbox_operator_recovery_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/explicit_live_scope_gate_source_candidate_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/local_canonical_draft_preview_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/local_preflight_bundle_v5_read_model_precheck_contract.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/manual_distribution_registry_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/next_article_draft_authorization_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/operator_feedback_backlog_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "live_contentops/platform_variant_approval_packet_preview_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "tests/test_v5_local_operator_runbook_index_contract.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "tests/test_v5_manual_export_pilot_verification_contract.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "tests/test_v5_manual_pilot_trail_reconciliation_audit_contract.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "tests/test_v5_manual_pilot_trail_reconciliation_contract.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "tests/test_v5_operator_review_queue_manual_pilot_trail_contract.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "tools/export_v5_content_intent_gate_precheck_packet.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "tools/export_v5_draft_eligibility_gate_precheck_packet.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "tools/export_v5_editorial_brief_review_packet.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "tools/export_v5_lifecycle_read_model.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "tools/export_v5_operator_input_capture_precheck_packet.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "tools/export_v5_review_only_content_intent_packet.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "tools/export_v5_supervised_input_stub_contract_packet.py",
+      "action": "archive",
+      "reason": "stale V5 version stack"
+    },
+    {
+      "path": "docs/automation/ACCOUNT_BINDING_PERMISSION_SCOPE_VERIFIER_CORE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/FINAL_ENVIRONMENT_FORMAT_INVENTORY",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/PLATFORM_UNIVERSE_REGISTRY_V2_PRIMARY_PAYLOAD_CLASSES_CORE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/PUBLICATION_IDENTITY_REGISTRY",
+      "action": "keep",
+      "reason": "current automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_ACCEPTED_REVIEW_EDITORIAL_WORKFLOW_PACKET_CONTRACT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_ACTIVE_OUTBOX_ELIGIBILITY_GATE_FROM_LOCAL_PACKAGE_STAGING",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_AI_PRODUCTION_CORE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_AI_RESEARCH_CANONICAL_ARTICLE_ENGINE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_AI_RESEARCH_GROUNDING",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_REVIEW_CANDIDATE_HUMAN_REVIEW_DECISION_CONTRACT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_REVIEW_CANDIDATE_INTAKE_FROM_MARKDOWN",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_EDITORIAL_REFINEMENT_QUEUE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_EDITOR_DRAFT_SHELL",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_PLACEHOLDER_BINDING",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SEO_METADATA_CONTRACT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_RENDERER",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_DRAFT_FROM_APPROVED_REDACTED_SOURCE_PACK",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_DRAFT_OPERATOR_SOURCE_PACK_REVIEW",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_TO_DISCORD_APPROVED_PAYLOAD_OUTBOX_HEAVY_BATCH_NO_SEND",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_COMMUNITY_FEEDBACK_CAPTURE_CONTRACT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CONTENT_PRODUCTION_CORE_REVIEW_PACKETS_HEAVY_BATCH_NO_PROVIDER_NO_SEND",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_CREDENTIAL_CAPABILITY_MATRIX",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_CREDENTIAL_HANDLE_MEMBERSHIP_PROOF_SCAFFOLD_FROM_DESTINATION_BINDING_PROOF_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_CREDENTIAL_HYDRATION_GATE_FROM_PROVIDER_RUNTIME_AUTHORITY_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_CREDENTIAL_PRESENCE_MEMBERSHIP_SCAFFOLD_FROM_DESTINATION_BINDING_REVIEW_HEAVY_BATCH_NO_ENV_READ_NO_CREDENTIAL_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_CURRENT_STATE_AUDIT_AFTER_LOOP_CONTRACTS",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_DESTINATION_BINDING_PROOF_SCAFFOLD_FROM_ENV_MEMBERSHIP_GATE_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DESTINATION_BINDING_REVIEW_SCAFFOLD_FROM_DISPATCH_GATE_HEAVY_BATCH_NO_ENV_NO_CREDENTIAL_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_COMMUNITY_DROP",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_DRY_RUN_OUTBOX_OPERATOR_APPROVAL_SPINE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_DRY_RUN_PAYLOAD_GATE_FROM_PERMISSION_PROBE_PREFLIGHT",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_ENDPOINT_MAPPING_PREFLIGHT_FROM_CAPABILITY_LANE_SPLIT",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_EXACT_OPERATOR_LIVE_DISPATCH_APPROVAL_GATE_FROM_MATERIALIZATION",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_EXPLICIT_LIVE_PILOT_GATE_PREP_HEAVY_BATCH_NO_SEND",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_FINAL_MANUAL_EXECUTION_REVIEW_FROM_REQUEST_PACKAGE_STAGING",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_FINAL_PRE_LIVE_RELEASE_AND_OPERATOR_GO_READINESS_HEAVY_BATCH_NO_SEND",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_HEAVY_LOCAL_PRE_LIVE_BATCH_FROM_EXACT_OPERATOR_APPROVAL",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_LIVE_CAPABLE_SUPERVISED_PILOT_ADAPTER_HEAVY_BATCH_NO_LIVE_SEND",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_OPERATOR_GO_PACKET",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_OPERATOR_PAYLOAD_REVIEW_GATE_FROM_DRY_RUN_PAYLOAD",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_PERMISSION_PROBE_PREFLIGHT_FROM_WEBHOOK_VALUE_BINDING",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_REQUEST_POLICY_GATE_FROM_OPERATOR_PAYLOAD_REVIEW",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_DISPATCH_DRY_RUN_GATE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_PILOT_FROM_APPROVED_OUTBOX",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_PILOT_GATE_PLANNING_FROM_FINAL_MANUAL_REVIEW",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_PILOT_MATERIALIZATION_GATE_FROM_EXPLICIT_LIVE_SCOPE_CONTRACT",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_PREFLIGHT",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_REQUEST_PACKAGE_STAGING_FROM_REQUEST_POLICY",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_WEBHOOK_VALUE_BINDING_PREFLIGHT_FROM_ENDPOINT_MAPPING",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISPATCH_EXECUTION_PREPARATION_GATE_FROM_REDACTED_AUDIT_KILL_SWITCH_MANUAL_FALLBACK_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISPATCH_GATE_SCAFFOLD_FROM_PREPARED_OUTBOX_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DISPATCH_OUTBOX_DRY_RUN_OPERATOR_RUNBOOK_AND_RECOVERY",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_DRAFT_INSPECTOR_FOR_CONTENT_PRODUCTION_REVIEW_BUNDLE_HEAVY_BATCH_NO_PROVIDER_NO_SEND",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_DRAFT_INSPECTOR_V2",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_ENDPOINT_ALLOWLIST_GATE_FROM_OFFICIAL_PROVIDER_DOCS_SCOPE_HEAVY_BATCH_DOCS_ONLY_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_EXACT_ENV_KEY_MEMBERSHIP_CHECK_GATE_FROM_CREDENTIAL_MEMBERSHIP_SCAFFOLD_HEAVY_BATCH_MEMBERSHIP_ONLY_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_EXACT_JIM_APPROVAL_DECLARATION_INTAKE_GATE_HEAVY_BATCH_NO_PROVIDER_NO_LIVE_SEND",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_EXACT_OPERATOR_APPROVAL_SIGNATURE_VERIFIER_SCAFFOLD_HEAVY_BATCH_NO_APPROVAL_NO_SEND",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_EXACT_OPERATOR_DISPATCH_GO_GATE_FROM_PAYLOAD_HASH_REVALIDATION_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_EXPLICIT_DISCORD_LIVE_SCOPE_CONTRACT_GATE_FROM_SUPERVISED_LIVE_PILOT_PLANNING",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_FAST_SHIP_OPERATING_PROFILE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_FAST_SHIP_RUNTIME_SPINE_CONSOLIDATION",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_FEEDBACK_BACKLOG_REVIEW_TO_NEXT_ARTICLE_BRIEF",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_FEEDBACK_SUMMARY_BACKLOG_CONTRACT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN",
+      "action": "keep",
+      "reason": "current automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_READINESS",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_JIM_CANONICAL_DRAFT_FINAL_REVIEW_VARIANT_PREVIEW_PROMOTION",
+      "action": "keep",
+      "reason": "current automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_JIM_CONTENT_COCKPIT_BASELINE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_JIM_DISPATCH_OUTBOX_DRY_RUN_PROMOTION",
+      "action": "keep",
+      "reason": "current automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_JIM_DISPATCH_OUTBOX_OPERATOR_RECOVERY_PROMOTION",
+      "action": "keep",
+      "reason": "current automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_JIM_LOCAL_CANONICAL_DRAFT_PREVIEW_PROMOTION",
+      "action": "keep",
+      "reason": "current automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_JIM_PLATFORM_VARIANT_APPROVAL_PACKET_PREVIEW_PROMOTION",
+      "action": "keep",
+      "reason": "current automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_MANUAL_APPROVAL_EXPORT_EVIDENCE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_MANUAL_EXPORT",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_MANUAL_OPERATOR_HANDOFF",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_MANUAL_PUBLICATION_URL_AUDIT_IMPORT",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_DISPATCH_ACCOUNT_BINDING_PREFLIGHT_FROM_CREDENTIAL_ALLOWLIST",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_DISPATCH_CREDENTIAL_AND_ALLOWLIST_PREFLIGHT_FROM_SCOPE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_DISPATCH_OFFICIAL_DOCS_AND_SCOPE_PREFLIGHT_FROM_READINESS",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_DISPATCH_READINESS_PREFLIGHT_FROM_EXECUTION_PAYLOADS",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LLM_FEEDBACK_SUMMARIZER_NEXT_IDEA",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_DESTINATION_BINDING_PREFLIGHT_FROM_DISPATCH_PAYLOADS",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_DISPATCH_EXECUTION_PAYLOAD_PREPARATION_FROM_SUPERVISED_DECISION",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_DISPATCH_PAYLOAD_PREPARATION_FROM_OPERATOR_DECISION",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_DISPATCH_PREFLIGHT_FROM_ACTIVE_OUTBOX",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_LIVE_DISPATCH_REQUEST_PACKAGE_GATE_FROM_ACCOUNT_BINDING",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_OUTBOX_PACKAGE_STAGING_FROM_PAYLOAD_REVIEW_LEDGER",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_PAYLOAD_REVIEW_HASH_AND_APPROVAL_LEDGER_STRENGTHENING",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_PLATFORM_VARIANT_PREVIEW_STAGING_FROM_METADATA_VALUES",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_TO_SOURCE_PREFLIGHT_BRIDGE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_VALIDATOR_WIRING",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_NETWORK_SCOPE_POLICY",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_ARTICLE_BRIEF_SOURCE_PACK_AND_REVIEW",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_ARTICLE_DRAFT_AUTHORIZATION_AND_READINESS",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_CANONICAL_ARTICLE_FROM_BACKLOG",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OFFICIAL_PLATFORM_DOCS_VERIFICATION_FOR_LIVE_DISPATCH_REQUEST_GATE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OFFICIAL_PROVIDER_DOCS_SCOPE_GATE_FROM_PROVIDER_SCOPED_PREP_HEAVY_BATCH_DOCS_ONLY_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_ACTIVE_OUTBOX_REVIEW_DECISION_FROM_ELIGIBILITY_GATE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_GATE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_LEDGER_GATE_SCAFFOLD_FROM_PAYLOAD_HASH_PREP_HEAVY_BATCH_NO_APPROVAL_NO_SEND",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_CHANNEL_READINESS",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_DISPATCH_REVIEW_DECISION_FROM_PREFLIGHT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_FACTS_INTAKE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_INTENT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_METADATA_VALUES_INTAKE_FROM_METADATA_PROPOSAL",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_PIPELINE_STATUS_CONSOLIDATION",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_CANDIDATE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_SOURCE_PACK_INTAKE_FOR_EDITORIAL_WORKFLOW",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_SUPERVISED_DISPATCH_REVIEW_DECISION_FROM_DESTINATION_PREFLIGHT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OUTBOX_ENTRY_CONTRACT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_OUTBOX_PREPARATION_GATE_FROM_EXACT_JIM_APPROVAL_INTAKE_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_PAYLOAD_HASH_PREVIEW_AND_APPROVAL_LEDGER_PREP_FROM_DRAFT_INSPECTION_HEAVY_BATCH_NO_PROVIDER_NO_SEND",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_PAYLOAD_HASH_REVALIDATION_GATE_FROM_CREDENTIAL_HANDLE_MEMBERSHIP_PROOF_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_PAYLOAD_PREVIEW_HASH",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_ADAPTER_POLICY_MATRIX_RECONCILIATION",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_ADAPTER_SELECTION_POLICY",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_CAPABILITY_LANE_SPLIT_FROM_OFFICIAL_DOCS",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_CONTENT_GENERATORS",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_VARIANT_RENDERER_BLOCKED_OUTPUT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_PROJECT_SOURCES_EVERGREEN",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_PROVIDER_RUNTIME_AUTHORITY_GATE_FROM_ENDPOINT_ALLOWLIST_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_PROVIDER_SCOPED_DISPATCH_EXECUTION_GATE_PREP_FROM_DISPATCH_PREPARATION_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_READINESS_EVIDENCE_BUNDLE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_REAL_SOURCE_PACK_MANUAL_IMPORT_SCHEMA",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_REAL_SOURCE_PACK_OPERATOR_APPROVAL_GATE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_REAL_SOURCE_PACK_REDACTED_FIXTURE_REVIEW",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_REDACTED_AUDIT_KILL_SWITCH_MANUAL_FALLBACK_GATE_FROM_EXACT_OPERATOR_GO_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_SEO_EDITORIAL_METADATA_PROPOSAL_PACKET_FROM_SOURCE_PACK_INTAKE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_SEO_EDITORIAL_REFINEMENT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_SOURCE_EVIDENCE_PREFLIGHT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_SOURCE_PACK_VERIFICATION_UI",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_MANUAL_APPROVAL_EXPORT_EVIDENCE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_MANUAL_EXPORT_ARTICLE_STUDIO",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND",
+      "action": "keep",
+      "reason": "current automation keep rule"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_SUPERVISED_DISPATCH_CONTRACT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_SUPERVISED_DISPATCH_READINESS",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_UNIFIED_CAPABILITY_ENV_READINESS",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_VARIANT_PREVIEW_HASH_APPROVAL_TO_DISCORD_OUTBOX",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_VERIFIED_SOURCE_PACK_IMPORT_REVALIDATION",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_APPROVAL_EXPORT_EVIDENCE",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_EXPORT",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_OPERATOR_HANDOFF",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_PUBLICATION_EVIDENCE_LOOP",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_PUBLICATION_URL_AUDIT_IMPORT",
+      "action": "keep",
+      "reason": "not matched by pass3 stale automation rules"
+    },
+    {
+      "path": "docs/automation/V6_X_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY",
+      "action": "archive",
+      "reason": "stale automation packet family"
+    },
+    {
+      "path": "docs/automation/X_SUPERVISED_CDP_REAL_TEST_POST",
+      "action": "keep",
+      "reason": "current automation keep rule"
+    },
+    {
+      "path": "docs/DETERMINISTIC_LIVE_POLICY_ENGINE.md",
+      "action": "archive",
+      "reason": "remaining stale root doc not referenced by current authority"
+    },
+    {
+      "path": "docs/Grounded News Research Context Lane.pdf",
+      "action": "archive",
+      "reason": "remaining stale root doc not referenced by current authority"
+    },
+    {
+      "path": "docs/INSTAGRAM_ASSET_EXPORT_AND_META_CAPABILITY_REVIEW.md",
+      "action": "archive",
+      "reason": "remaining stale root doc not referenced by current authority"
+    },
+    {
+      "path": "docs/LIVE_CONTRACTS_AND_VALIDATION.md",
+      "action": "archive",
+      "reason": "remaining stale root doc not referenced by current authority"
+    },
+    {
+      "path": "docs/OPERATOR_APPROVAL_QUEUE_AND_AUDIT_LOG.md",
+      "action": "archive",
+      "reason": "remaining stale root doc not referenced by current authority"
+    },
+    {
+      "path": "live_contentops/telegram_credential_setup_operator_guide.py",
+      "action": "archive",
+      "reason": "approved pass3 legacy Telegram stack leftover; moved without reading contents"
+    },
+    {
+      "path": "live_contentops/telegram_official_docs_credential_validation_gate.py",
+      "action": "archive",
+      "reason": "approved pass3 legacy Telegram stack leftover; moved without reading contents"
+    },
+    {
+      "path": "live_contentops/telegram_redacted_credential_presence_check.py",
+      "action": "archive",
+      "reason": "approved pass3 legacy Telegram stack leftover; moved without reading contents"
+    },
+    {
+      "path": "live_contentops/prelaunch_telegram_credential_readiness.py",
+      "action": "archive",
+      "reason": "approved pass3 legacy Telegram stack leftover; moved without reading contents"
+    },
+    {
+      "path": "tests/test_telegram_credential_setup_operator_guide.py",
+      "action": "archive",
+      "reason": "approved pass3 legacy Telegram stack leftover; moved without reading contents"
+    },
+    {
+      "path": "tests/test_telegram_live_sendmessage_no_secret_output.py",
+      "action": "archive",
+      "reason": "approved pass3 legacy Telegram stack leftover; moved without reading contents"
+    },
+    {
+      "path": "tests/test_telegram_official_docs_credential_validation_gate.py",
+      "action": "archive",
+      "reason": "approved pass3 legacy Telegram stack leftover; moved without reading contents"
+    },
+    {
+      "path": "tests/test_telegram_redacted_credential_presence_check.py",
+      "action": "archive",
+      "reason": "approved pass3 legacy Telegram stack leftover; moved without reading contents"
+    },
+    {
+      "path": "tests/test_prelaunch_telegram_credential_readiness.py",
+      "action": "archive",
+      "reason": "approved pass3 legacy Telegram stack leftover; moved without reading contents"
+    },
+    {
+      "path": "tests/test_canonical_draft_final_review_variant_preview_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_dispatch_outbox_dry_run_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_dispatch_outbox_operator_recovery_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_explicit_live_scope_gate_source_candidate_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_local_canonical_draft_preview_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_manual_distribution_registry_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_next_article_draft_authorization_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_operator_feedback_backlog_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_platform_variant_approval_packet_preview_v5_adapter_codegen_v6.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_export_v5_content_intent_gate_precheck_packet.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_export_v5_draft_eligibility_gate_precheck_packet.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_export_v5_editorial_brief_review_packet.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_export_v5_lifecycle_read_model.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_export_v5_operator_input_capture_precheck_packet.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_export_v5_review_only_content_intent_packet.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_export_v5_supervised_input_stub_contract_packet.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    },
+    {
+      "path": "tests/test_local_preflight_bundle_v5_read_model_precheck_contract.py",
+      "action": "archive",
+      "reason": "approved pass3 stale V5/codegen test leftover"
+    }
+  ],
+  "updated_at": "2026-07-03T15:21:56.213643+00:00"
+}

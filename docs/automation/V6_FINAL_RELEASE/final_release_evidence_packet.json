@@ -1,0 +1,277 @@
+{
+  "acceptance_criteria": [
+    {
+      "label": "Idea intake is represented by local operator-selected metadata.",
+      "live_action_required": false,
+      "status": "PASS_LOCAL_REVIEW_ONLY",
+      "step_id": "idea"
+    },
+    {
+      "label": "Research packet is required before claim use.",
+      "live_action_required": false,
+      "status": "PASS_LOCAL_REVIEW_ONLY",
+      "step_id": "research_packet"
+    },
+    {
+      "label": "Canonical Substack article workflow is represented.",
+      "live_action_required": false,
+      "status": "PASS_LOCAL_REVIEW_ONLY",
+      "step_id": "canonical_article"
+    },
+    {
+      "label": "SEO metadata exists as review-only payload data.",
+      "live_action_required": false,
+      "status": "PASS_LOCAL_REVIEW_ONLY",
+      "step_id": "seo_metadata"
+    },
+    {
+      "label": "Discord community drop exists as hash-lockable payload.",
+      "live_action_required": false,
+      "status": "PASS_LOCAL_REVIEW_ONLY",
+      "step_id": "discord_drop"
+    },
+    {
+      "label": "Telegram/X/LinkedIn/manual/deferred variants are modeled.",
+      "live_action_required": false,
+      "status": "PASS_LOCAL_REVIEW_ONLY",
+      "step_id": "platform_variants"
+    },
+    {
+      "label": "Approval is exact-payload or bundle-hash locked.",
+      "live_action_required": false,
+      "status": "PASS_LOCAL_REVIEW_ONLY",
+      "step_id": "hash_approval"
+    },
+    {
+      "label": "Dispatch/audit/manual fallback is explicit and blocked for live automation.",
+      "live_action_required": false,
+      "status": "PASS_LOCAL_REVIEW_ONLY",
+      "step_id": "dispatch_audit_manual_fallback"
+    },
+    {
+      "label": "Community feedback intake is public/operator-selected and summarized.",
+      "live_action_required": false,
+      "status": "PASS_LOCAL_REVIEW_ONLY",
+      "step_id": "feedback"
+    },
+    {
+      "label": "Feedback creates the next backlog candidate.",
+      "live_action_required": false,
+      "status": "PASS_LOCAL_REVIEW_ONLY",
+      "step_id": "next_idea"
+    }
+  ],
+  "api_readiness_claimed": false,
+  "blockers": [],
+  "credential_capability_matrix": "disabled_handles_only_no_values",
+  "deferred_until_post_final": [
+    "Discord bot/slash commands",
+    "LinkedIn business page live posting",
+    "TikTok live posting",
+    "YouTube upload automation",
+    "full autonomous metrics ingestion",
+    "X API posting",
+    "autonomous browser self-posting",
+    "DM/reply engagement automation"
+  ],
+  "dispatch_allowed_now": false,
+  "final_verdict": "PASS_FINAL_LOCAL_RELEASE_REVIEW",
+  "live_write_allowed_now": false,
+  "manual_remains_fallback": true,
+  "metrics_matrix": [
+    {
+      "api_or_scrape_used": false,
+      "detail": "Human-entered counts only.",
+      "metric_id": "manual_metrics_entry",
+      "source_mode": "operator_supplied",
+      "status": "ready"
+    },
+    {
+      "api_or_scrape_used": false,
+      "detail": "Derived from local public/operator-selected packets.",
+      "metric_id": "discord_feedback_summary",
+      "source_mode": "audit_backed",
+      "status": "ready"
+    },
+    {
+      "api_or_scrape_used": false,
+      "detail": "No public URL fetch or browser verification.",
+      "metric_id": "substack_url_record",
+      "source_mode": "operator_supplied",
+      "status": "manual"
+    },
+    {
+      "api_or_scrape_used": false,
+      "detail": "No bot or webhook query.",
+      "metric_id": "discord_message_url_result",
+      "source_mode": "operator_supplied",
+      "status": "manual"
+    },
+    {
+      "api_or_scrape_used": false,
+      "detail": "Bridge result can be recorded without API use.",
+      "metric_id": "telegram_dispatch_result",
+      "source_mode": "operator_supplied",
+      "status": "manual"
+    },
+    {
+      "api_or_scrape_used": false,
+      "detail": "Manual X output only.",
+      "metric_id": "x_manual_url_record",
+      "source_mode": "operator_supplied",
+      "status": "manual"
+    },
+    {
+      "api_or_scrape_used": false,
+      "detail": "Business-page automation deferred.",
+      "metric_id": "linkedin_manual_or_deferred_url_record",
+      "source_mode": "operator_supplied",
+      "status": "deferred"
+    },
+    {
+      "api_or_scrape_used": false,
+      "detail": "Notes become next backlog candidates.",
+      "metric_id": "campaign_performance_notes",
+      "source_mode": "operator_supplied",
+      "status": "ready"
+    }
+  ],
+  "north_star_loop": [
+    "idea",
+    "research_packet",
+    "canonical_article",
+    "seo_metadata",
+    "discord_drop",
+    "platform_variants",
+    "hash_approval",
+    "dispatch_audit_manual_fallback",
+    "feedback",
+    "next_idea"
+  ],
+  "packet_hash": "b975c963b9b82957692d5fbe9376a602b8126494c80f83bbce8a735c82667676",
+  "packet_id": "v6_final_release_bfa6fd42ed2f86f7",
+  "packet_kind": "v6_final_release_evidence_packet_v0",
+  "public_url_verification_claimed": false,
+  "red_team_cases": [
+    {
+      "attack": {
+        "api_key": "redacted"
+      },
+      "case_id": "secret_like_key_rejected",
+      "expected": "BLOCK",
+      "result": "PASS_BLOCKED"
+    },
+    {
+      "attack": {
+        "credential_read_made": true
+      },
+      "case_id": "credential_read_claim_rejected",
+      "expected": "BLOCK",
+      "result": "PASS_BLOCKED"
+    },
+    {
+      "attack": {
+        "browser_or_cdp_action_performed": true
+      },
+      "case_id": "browser_or_cdp_claim_rejected",
+      "expected": "BLOCK",
+      "result": "PASS_BLOCKED"
+    },
+    {
+      "attack": {
+        "question_text": "Fact: this will happen",
+        "required_sources": []
+      },
+      "case_id": "unsupported_community_claim_blocked",
+      "expected": "BLOCK",
+      "result": "PASS_BLOCKED"
+    },
+    {
+      "attack": {
+        "approval_source": "ai_self_approved",
+        "llm_provider_call_made": true
+      },
+      "case_id": "provider_self_approval_rejected",
+      "expected": "BLOCK",
+      "result": "PASS_BLOCKED"
+    },
+    {
+      "attack": {
+        "api_readiness_claimed": true,
+        "platform": "linkedin",
+        "platform_state": "manual"
+      },
+      "case_id": "manual_platform_api_readiness_rejected",
+      "expected": "BLOCK",
+      "result": "PASS_BLOCKED"
+    },
+    {
+      "attack": {
+        "public_url_fetch_made": true,
+        "public_url_verified": true
+      },
+      "case_id": "public_url_verification_claim_rejected",
+      "expected": "BLOCK",
+      "result": "PASS_BLOCKED"
+    },
+    {
+      "attack": {
+        "dispatch_allowed_now": true,
+        "live_write_performed": true
+      },
+      "case_id": "live_dispatch_claim_rejected",
+      "expected": "BLOCK",
+      "result": "PASS_BLOCKED"
+    },
+    {
+      "attack": {
+        "body": "This is financial advice and a buy signal."
+      },
+      "case_id": "forbidden_financial_wording_rejected",
+      "expected": "BLOCK",
+      "result": "PASS_BLOCKED"
+    },
+    {
+      "attack": {
+        "approval_mode": "bundle_review",
+        "payload_hash_locked": false
+      },
+      "case_id": "hash_lock_required_for_bundle",
+      "expected": "BLOCK",
+      "result": "PASS_BLOCKED"
+    }
+  ],
+  "red_team_status": "PASS_LOCAL_BLOCKING_HARNESS",
+  "release_evidence_paths": [
+    "docs/automation/V6_FINAL_RELEASE/final_release_evidence_packet.json",
+    "docs/automation/V6_FINAL_RELEASE/red_team_report.md",
+    "docs/automation/V6_FINAL_RELEASE/browser_qa_report.md",
+    "docs/automation/V6_FINAL_RELEASE/final_acceptance_record.md"
+  ],
+  "release_status": "FINAL_V6_READY_FOR_LOCAL_OPERATOR_REVIEW_ONLY",
+  "safety_flags": {
+    "browser_or_cdp_action_performed": false,
+    "comment_dm_or_reaction_performed": false,
+    "cookie_or_session_read_made": false,
+    "credential_read_made": false,
+    "env_value_read_made": false,
+    "live_write_performed": false,
+    "llm_provider_call_made": false,
+    "network_call_made": false,
+    "platform_api_used": false,
+    "provider_call_made": false,
+    "public_url_fetch_made": false,
+    "retry_enabled": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "webhook_request_made": false
+  },
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_METRICS_FINAL_UI_COMMAND_CENTER_RED_TEAM_RELEASE_EVIDENCE_V0",
+  "ui_command_center": {
+    "canonical_ui_package": "ui/contentops_v5",
+    "reason": "V5 package is the canonical maintained local UI shell.",
+    "standalone_v6_ui_created": false,
+    "view_id": "v6_command_center"
+  }
+}

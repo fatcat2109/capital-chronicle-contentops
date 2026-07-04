@@ -1,0 +1,160 @@
+{
+  "classes": {
+    "implementation_batch": {
+      "env_allowed": false,
+      "browser_allowed": false,
+      "provider_allowed": false,
+      "network_allowed": false,
+      "live_write_allowed": false,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": false,
+      "required_scope_fields": ["task_label", "changed_files", "tests_run"]
+    },
+    "evidence_repair_batch": {
+      "env_allowed": false,
+      "browser_allowed": false,
+      "provider_allowed": false,
+      "network_allowed": false,
+      "live_write_allowed": false,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": false,
+      "required_scope_fields": ["task_label", "changed_files", "blockers_repaired"]
+    },
+    "project_sources_refresh": {
+      "env_allowed": false,
+      "browser_allowed": false,
+      "provider_allowed": false,
+      "network_allowed": false,
+      "live_write_allowed": false,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": false,
+      "required_scope_fields": ["task_label", "upload_candidate_files", "baseline_head"]
+    },
+    "env_capability_check": {
+      "env_allowed": true,
+      "browser_allowed": false,
+      "provider_allowed": false,
+      "network_allowed": false,
+      "live_write_allowed": false,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": true,
+      "required_scope_fields": ["task_label", "credential_key_names_only", "validation_logic"]
+    },
+    "provider_live_call": {
+      "env_allowed": true,
+      "browser_allowed": false,
+      "provider_allowed": true,
+      "network_allowed": true,
+      "live_write_allowed": false,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": true,
+      "required_scope_fields": ["task_label", "cost_budget", "redaction_policy", "prompt_contract"]
+    },
+    "browser_qa": {
+      "env_allowed": false,
+      "browser_allowed": true,
+      "provider_allowed": false,
+      "network_allowed": true,
+      "live_write_allowed": false,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": false,
+      "required_scope_fields": ["task_label", "browser_tool_used", "qa_scenarios"]
+    },
+    "browser_compose_dry_run": {
+      "env_allowed": true,
+      "browser_allowed": true,
+      "provider_allowed": false,
+      "network_allowed": true,
+      "live_write_allowed": false,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": true,
+      "required_scope_fields": ["task_label", "browser_tool_used", "credential_key_names_only", "dry_run_dispatch_plan"]
+    },
+    "live_api_read_probe": {
+      "env_allowed": true,
+      "browser_allowed": false,
+      "provider_allowed": false,
+      "network_allowed": true,
+      "live_write_allowed": false,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": true,
+      "required_scope_fields": ["task_label", "platform", "credential_key_names_only", "host_path_method_allowlist", "request_count", "timeout"]
+    },
+    "live_webhook_pilot": {
+      "env_allowed": true,
+      "browser_allowed": false,
+      "provider_allowed": false,
+      "network_allowed": true,
+      "live_write_allowed": true,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": true,
+      "required_scope_fields": ["task_label", "platform", "credential_key_names_only", "host_path_method_allowlist", "request_count", "timeout", "approval_condition"]
+    },
+    "supervised_dispatch_pilot": {
+      "env_allowed": true,
+      "browser_allowed": true,
+      "provider_allowed": true,
+      "network_allowed": true,
+      "live_write_allowed": true,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": true,
+      "required_scope_fields": ["task_label", "platform", "credential_key_names_only", "request_budget", "timeout", "payload_hash_requirement", "destination_binding", "approval_condition", "redacted_audit_fields"]
+    },
+    "red_team_security": {
+      "env_allowed": true,
+      "browser_allowed": true,
+      "provider_allowed": false,
+      "network_allowed": true,
+      "live_write_allowed": false,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": true,
+      "required_scope_fields": ["task_label", "red_team_scenario", "secrets_scan_results"]
+    },
+    "visual_ui_build": {
+      "env_allowed": false,
+      "browser_allowed": false,
+      "provider_allowed": false,
+      "network_allowed": false,
+      "live_write_allowed": false,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": false,
+      "required_scope_fields": ["task_label", "changed_files", "ui_design_tokens"]
+    },
+    "visual_browser_qa": {
+      "env_allowed": false,
+      "browser_allowed": true,
+      "provider_allowed": false,
+      "network_allowed": true,
+      "live_write_allowed": false,
+      "commit_allowed": true,
+      "push_allowed": true,
+      "evidence_required": true,
+      "approval_required": false,
+      "required_scope_fields": ["task_label", "browser_tool_used", "screenshot_capture_results"]
+    }
+  }
+}

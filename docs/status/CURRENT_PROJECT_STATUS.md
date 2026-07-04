@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0
+TASK_CONTENTOPS_V6_SOURCE_AWARE_MEDIA_PLATFORM_PACKET_BUILDERS_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,21 +10,21 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-48007f422c86a2e689201356232c32f62bde0238
+17916f785a31b2c1cb9055b840866b134a4c24ca
 
 ## current_product_phase
-TASK 0081 Jim content cockpit baseline promoted after heavy Batches 1-4
+V6 source-aware media/platform packet builders integrated in canonical V5 UI
 
 ## current_product_lane
-V5 Jim daily supervised content cockpit; local-only packet chain; manual export and redacted audit feedback loop; live actions locked
+Jim-facing source-to-audit Command Center now consumes deterministic local adapter output for full-platform variants, source-aware media candidates, stable hashes, and manual audit rows
 
 ## accepted_baseline_summary
-TASK 0081 promotes the completed Jim heavy-batch packet chain as the accepted local-first product baseline: daily content run packet, content intent to platform variant preview bundle, manual export and approval workbench, and redacted audit plus operator-supplied metrics import loop. UI/status hardening tasks after TASK_0059 are non-semantic unless explicitly promoted; explicitly promoted by TASK_0081. The canonical UI remains ui/contentops_v5/ with Jim Daily Run as the operator cockpit surface. No browser/CDP, network, provider API, platform API, env, credential, scraping, public URL verification, live write, scheduler, or autonomous dispatch action is authorized or claimed. This remains a local operator review baseline for Jim.
+TASK_CONTENTOPS_V6_SOURCE_AWARE_MEDIA_PLATFORM_PACKET_BUILDERS_V0 replaces the remaining inline V5 Command Center operator-flow samples with a deterministic local adapter for Jim's north star source → draft → approval → variants → media → manual audit lane. The adapter builds stable packet IDs/hashes, full-platform variant rows, news image candidate metadata rows, Capital Chronicle internal chart/card rows, and operator-supplied manual audit rows. The UI now surfaces those adapter-built hashes and audit rows directly. This remains local/operator-review productization only: no browser launch, CDP probe, Google scraping, image download, DOM read, cookie/storage/header/token/session read, platform API, paid API, provider call, env/credential read, public URL fetch, scheduler, retry, dispatch, comment, DM, reaction, or multi-post publishing is introduced.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `48007f422c86a2e689201356232c32f62bde0238`
-- previous accepted product baseline: `66e1538cecce3126ef447b8e472ec4ad9c2ef504`
-- latest status/promotion task (`last_status_commit_sha`): `48007f422c86a2e689201356232c32f62bde0238` until the Batch 5 docs commit is created.
+- accepted product baseline (`accepted_product_baseline_sha`): `17916f785a31b2c1cb9055b840866b134a4c24ca`
+- previous accepted product baseline: `653a7ed883a76a294d0bab58be1d267daeb253bb`
+- latest status/promotion task (`last_status_commit_sha`): `17916f785a31b2c1cb9055b840866b134a4c24ca` until the next docs/status commit is created.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -49,19 +49,23 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components now include the promoted Jim content cockpit chain: daily content run packet, content intent to platform variant preview bundle, manual export and approval workbench, and redacted audit plus operator-supplied metrics import loop. The canonical V5 dashboard remains `ui/contentops_v5/`, with Jim Daily Run as the current operator cockpit surface. Existing Discord/manual-distribution components remain historical or supporting evidence; no live/provider/platform/browser/network/env/credential action is authorized.
+V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, and the V5 Command Center Registry Readback panel. The canonical V5 Command Center now productizes Jim's source-to-audit operator flow from deterministic adapter output with stable packet/hash identifiers, the full platform universe, source-aware media candidate/chart rows, and manual audit rows. Media grounding remains source-aware: news topics use grounded image candidate metadata; Capital Chronicle internal alpha/report topics use built-in chart/card media when available.
 
 ## dispatch/live status
-Jim content cockpit baseline is local operator review only. Manual export packets and redacted audit/metrics packets are review records, not live actions. Public URL verification is not claimed; Substack public URL verification is not claimed and substack_public_url_verified=false; live write, platform dispatch, scheduler, and autonomous posting remain locked. Any future public URL audit must use an operator-supplied public URL only.
+Repo-driven dispatch/live write remains locked. The final operator cockpit is a local deterministic adapter/manual-evidence UI and performs no platform/API/browser/network action.
 
 ## provider/env/credential status
-No provider/API/browser/network/env/credential action is authorized for the Jim content cockpit baseline. Batch 1-4 packets are deterministic local fixtures/builders and operator-supplied/redacted records only.
+No provider/API/browser/network/env/credential/session action is authorized or required for the source-aware packet builder integration. Google image grounding remains candidate metadata only; repo code must not scrape Google, download images, fetch public image URLs, or claim rights verification unless a future exact approved task adds it.
 
 ## active blockers
 - Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.
 - Jim content cockpit remains local/operator-review only; no provider/API/browser/network/env/credential action is authorized.
+- Dispatch outbox dry-run and operator recovery/runbook previews are informational only; no executable outbox or live dispatch exists.
 - Manual export is allowed only as human off-platform copy after Jim review; repo code performs no live write.
 - Redacted audit and metrics loop accepts operator-supplied/redacted values only; no scraping, API sync, or public URL verification is claimed.
+- X exact live-click registry workflow is local packet-to-registry validation, idempotent append, and readback audit only; it does not verify public URLs by fetching them.
+- Google image grounding is candidate metadata only unless a future exact approved task authorizes search execution, URL fetch, download, rights verification, and storage.
+- Capital Chronicle Internal alpha / analysis-report posts should prefer built-in chart/card media from the report system when available; external images are fallback candidates only after operator review.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
 - Standalone approval queue UI must not be revived as canonical.
 
@@ -72,17 +76,22 @@ No provider/API/browser/network/env/credential action is authorized for the Jim 
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_0081_STRATEGY_CONSOLIDATION_STATUS_PROMOTION_V0
+TASK_CONTENTOPS_V6_SOURCE_AWARE_MEDIA_PLATFORM_PACKET_BUILDERS_V0
 
 ## latest changed areas
+- `ui/contentops_v5/src/types.ts`
+- `ui/contentops_v5/src/data/finalOperatorProductFlowAdapter.ts`
+- `ui/contentops_v5/src/fixtures.ts`
+- `ui/contentops_v5/src/views/V6CommandCenter.tsx`
+- `ui/contentops_v5/src/test/v6_command_center.test.tsx`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
-- `docs/automation/V6_JIM_CONTENT_COCKPIT_BASELINE/jim_content_cockpit_release_handoff_v0.md`
-- `docs/automation/V6_JIM_CONTENT_COCKPIT_BASELINE/jim_content_cockpit_release_manifest_v0.json`
-- `tests/test_jim_content_cockpit_baseline_status_v6.py`
 
 ## current next recommended task
-Use V5 Jim Daily Run as the local operator cockpit for the next content cycle. Next product batch should deepen source-pack intake and draft-authoring readiness without provider/API/browser/network/env/credential or live platform action.
+Next heavy batch: `TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0` — add deterministic local approve/hold/reject decision packet intake for the adapter-built payload hashes, surface it in the V5 Command Center, and keep approval records operator-supplied only with no dispatch, browser/CDP, provider/API, public URL fetch, or media action.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. This does not change TASK_0059 product semantics: public URL remains unverified, dispatch/live write stays locked, and no browser/CDP/live/network/env/credential action is authorized.
@@ -93,6 +102,9 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 ## mandatory read-before-work files
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
+- `live_contentops/x_cdp_operator_go_phrase_live_click_gate_dry_run_v6.py`
+- `tests/test_x_cdp_operator_go_phrase_live_click_gate_dry_run_v6.py`
+- `docs/automation/X_SUPERVISED_CDP_GO_PHRASE_GATE/`
 - `docs/status/DASHBOARD_SURFACE_AUTHORITY.md`
 - `docs/status/STATUS_LEDGER_SHA_MODEL.md`
 - `docs/status/STATUS_AND_PROGRESS_DOCS_MAP.md`
@@ -119,6 +131,76 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 
 
 
+
+
+
+## X CDP Exact Live-Click Registry Reconciliation
+
+- Latest task: `TASK_CONTENTOPS_V6_X_CDP_EXACT_LIVE_CLICK_REGISTRY_RECONCILIATION_V0`.
+- Current lane: exact execution outcome to public identity registry reconciliation.
+- Reconciliation gate: `live_contentops/platform_publication_identity_registry_v6.py`.
+- Tests: `tests/test_platform_publication_identity_registry_v6.py`.
+- Safety: registry rows can be built from exact execution packets only when payload hash, operator-confirmed payload hash, captured public X status URL, registry-ready status, no-prior-append flag, and no API/probe/fetch flags all reconcile.
+- Next: `TASK_CONTENTOPS_V6_X_CDP_EXACT_LIVE_CLICK_REGISTRY_IDEMPOTENCY_AUDIT_V0`.
+
+## X CDP Exact Live-Click Registry Reconciliation
+
+- Latest task: `TASK_CONTENTOPS_V6_X_CDP_EXACT_LIVE_CLICK_REGISTRY_RECONCILIATION_V0`.
+- Current lane: exact operator-supervised X execution evidence to local publication registry reconciliation.
+- Packet: `live_contentops/x_cdp_exact_live_click_registry_reconciliation_v6.py`.
+- Evidence: `docs/automation/X_SUPERVISED_CDP_EXACT_LIVE_CLICK_REGISTRY_RECONCILIATION/task_contentops_v6_x_cdp_exact_live_click_registry_reconciliation_evidence.json`.
+- Safety: local deterministic reconciliation only. Dry-run evidence does not mutate the canonical registry. No browser launch, CDP probe, DOM/session/cookie/storage/header/token read, X API, provider call, public URL fetch, dispatch, scheduler, retry, comment, DM, reaction, or multi-post publishing.
+- Next: `TASK_CONTENTOPS_V6_X_CDP_EXACT_LIVE_CLICK_REGISTRY_IDEMPOTENCY_AUDIT_V0`.
+
+## X CDP Exact Live-Click Execution Outcome
+
+- Latest task: `TASK_CONTENTOPS_V6_X_CDP_EXACT_LIVE_CLICK_REGISTRY_RECONCILIATION_V0`.
+- Current lane: exact operator-supervised X execution outcome evidence.
+- Packet: `live_contentops/x_cdp_exact_live_click_execution_v6.py`.
+- Evidence: `docs/automation/X_SUPERVISED_CDP_EXACT_LIVE_CLICK_EXECUTION/task_contentops_v6_x_cdp_exact_live_click_execution_evidence.json`.
+- Safety: repo code records operator-supplied click/public URL outcome only. It does not drive the browser, probe CDP, read session stores, call X APIs, fetch the public URL, schedule, retry, comment, DM, react, or publish multiple posts.
+- Registry: exact execution packets now require registry reconciliation before append.
+
+## TASK 0085 Jim Dispatch Outbox Dry-Run Promotion
+
+- Latest task: `TASK_0086_JIM_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_RECOVERY_PROMOTION_V0`.
+- Accepted product baseline SHA before commit: `17916f785a31b2c1cb9055b840866b134a4c24ca`.
+- Current lane: V5 Jim daily supervised content cockpit with dispatch outbox dry-run preview visible.
+- Promoted chain: source-pack intake, draft authorization/readiness, local canonical draft preview, final review variant preview, approval-packet preview, and dispatch outbox dry-run preview.
+- Release handoff: `docs/automation/V6_JIM_DISPATCH_OUTBOX_DRY_RUN_PROMOTION/jim_dispatch_outbox_dry_run_promotion_v0.md`.
+- Release manifest: `docs/automation/V6_JIM_DISPATCH_OUTBOX_DRY_RUN_PROMOTION/jim_dispatch_outbox_dry_run_manifest_v0.json`.
+- Safety: dry-run entries remain non-executable and preview-only; no approval record, ledger entry, real outbox, dispatch attempt, LLM/provider/browser/CDP/network/platform/env/credential/scraping/public URL verification/live write/scheduler/autonomous dispatch is authorized or claimed.
+
+## TASK 0084 Jim Platform Variant Approval-Packet Preview Promotion
+
+- Latest task: `TASK_0084_JIM_PLATFORM_VARIANT_FINAL_REVIEW_TO_APPROVAL_PACKET_PREVIEW_PROMOTION_V0`.
+- Accepted product baseline SHA before commit: `17916f785a31b2c1cb9055b840866b134a4c24ca`.
+- Current lane: V5 Jim daily supervised content cockpit with platform variant approval-packet preview visible.
+- Promoted chain: source-pack intake, draft authorization/readiness, local canonical draft preview, final review variant preview, and approval-packet preview.
+- Release handoff: `docs/automation/V6_JIM_PLATFORM_VARIANT_APPROVAL_PACKET_PREVIEW_PROMOTION/jim_platform_variant_approval_packet_preview_promotion_v0.md`.
+- Release manifest: `docs/automation/V6_JIM_PLATFORM_VARIANT_APPROVAL_PACKET_PREVIEW_PROMOTION/jim_platform_variant_approval_packet_preview_manifest_v0.json`.
+- Safety: approval targets remain preview-only; no approval record, ledger entry, outbox, LLM/provider/browser/CDP/network/platform/env/credential/scraping/public URL verification/live write/scheduler/autonomous dispatch is authorized or claimed.
+
+## TASK 0083 Jim Canonical Draft Final Review Variant Preview Promotion
+
+- Latest task: `TASK_0083_JIM_CANONICAL_DRAFT_FINAL_REVIEW_VARIANT_PREVIEW_PROMOTION_V0`.
+- Accepted product baseline SHA before commit: `17916f785a31b2c1cb9055b840866b134a4c24ca`.
+- Current lane: V5 Jim daily supervised content cockpit with canonical draft final review and platform variants visible.
+- Promoted chain: source-pack intake, draft authorization/readiness, local canonical draft preview, final review, and platform variant preview.
+- Release handoff: `docs/automation/V6_JIM_CANONICAL_DRAFT_FINAL_REVIEW_VARIANT_PREVIEW_PROMOTION/jim_canonical_draft_final_review_variant_preview_promotion_v0.md`.
+- Release manifest: `docs/automation/V6_JIM_CANONICAL_DRAFT_FINAL_REVIEW_VARIANT_PREVIEW_PROMOTION/jim_canonical_draft_final_review_variant_preview_manifest_v0.json`.
+- Safety: deterministic/template-only platform previews; no LLM/provider/browser/CDP/network/platform/env/credential/scraping/public URL verification/live write/scheduler/autonomous dispatch is authorized or claimed.
+
+## TASK 0082 Jim Local Canonical Draft Preview Promotion
+
+- Latest task: `TASK_0082_JIM_LOCAL_CANONICAL_DRAFT_PREVIEW_PROMOTION_V0`.
+- Accepted product baseline SHA before commit: `17916f785a31b2c1cb9055b840866b134a4c24ca`.
+- Current lane: V5 Jim daily supervised content cockpit with local canonical draft preview/review visible.
+- Promoted chain: source-pack intake, draft authorization/readiness, local canonical draft preview, and operator review checklist.
+- Release handoff: `docs/automation/V6_JIM_LOCAL_CANONICAL_DRAFT_PREVIEW_PROMOTION/jim_local_canonical_draft_preview_promotion_v0.md`.
+- Release manifest: `docs/automation/V6_JIM_LOCAL_CANONICAL_DRAFT_PREVIEW_PROMOTION/jim_local_canonical_draft_preview_manifest_v0.json`.
+- Cleanup posture: unrelated dirty workspace files preserved and classified in `docs/status/TASK_0082_UNRELATED_DIRTY_WORKSPACE_AUDIT.md`.
+- Safety: deterministic/template-only draft preview; no LLM/provider/browser/CDP/network/platform/env/credential/scraping/public URL verification/live write/scheduler/autonomous dispatch is authorized or claimed.
 
 ## TASK 0081 Jim Content Cockpit Baseline Promotion
 
@@ -614,3 +696,107 @@ Read this status ledger and the JSON status file before planning. For UI work, t
 - Safety: no cookies, localStorage, sessionStorage, credentials, env values, browser secrets, response bodies, headers, or DOM dumps were read/output.
 - Tests: `python -m pytest tests/test_substack_operator_draft_cli.py` -> `10 passed`.
 
+
+## No-API Publication Identity Registry TASK 0087AA
+
+- Latest task: `TASK_0087AA`.
+- Scope: browser/CDP-only publication identity capture for X; no paid X API required.
+- New module: [`platform_publication_identity_registry_v6.py`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/platform_publication_identity_registry_v6.py).
+- New module: [`x_cdp_publication_identity_capture_v6.py`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/x_cdp_publication_identity_capture_v6.py).
+- Rule: no reply/thread continuation without stored parent `public_url` or `platform_publication_id`.
+- Safety: no cookies, localStorage, sessionStorage, tokens, headers, X API calls, paid API path, or raw secrets.
+- Tests: `python -m pytest tests/test_platform_publication_identity_registry_v6.py tests/test_x_cdp_publication_identity_capture_v6.py` -> `14 passed`.
+- Next live-safe diagnostic: `TASK_0087AB_X_CDP_CAPTURE_OPERATOR_OPENED_POST_IDENTITY_NO_REPLY_V0`.
+
+
+## X Standard ContentOps Profile Live Retest TASK 0087AD
+
+- Latest task: `TASK_0087AD_X_STANDARD_CONTENTOPS_PROFILE_REAL_RETEST_V0`.
+- Result: `POST_CAPTURE_REPLY_SUCCESS`.
+- Evidence: [`task_0087ad_x_standard_profile_post_capture_reply_evidence.json`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/docs/automation/X_SUPERVISED_CDP_REAL_TEST_POST/task_0087ad_x_standard_profile_post_capture_reply_evidence.json).
+- Profile: `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`.
+- CDP port: `9223` because `9222` was occupied by Antigravity Chrome profile.
+- Root URL: `https://x.com/Capitalnicle/status/2073053300807933995`.
+- Root capture: `visible_article_permalink`.
+- Reply gate: parent URL verified before replying.
+- Registry: root `pubid_x_34c13904ff88c752`; reply `pubid_x_2a9d7aa8ac108d6c`.
+- Why success happened: script avoided the wrong Antigravity Chrome CDP profile, launched the standard ContentOps Edge profile, captured a browser-visible status permalink immediately, then replied only after navigating to and verifying the stored parent URL.
+- Safety: no X API, paid API, cookies, localStorage, sessionStorage, tokens, headers, raw secrets, DM, repost, like, or follow.
+- Next task: promote the port/profile guard into the reusable X CDP operator command so it refuses Antigravity browser profiles before any live click.
+
+### TASK 0087AD detailed root-cause and success notes
+
+- Failed path observed first: CDP `9222` was already owned by Antigravity Chrome using `C:\Users\bullw\.gemini\antigravity-browser-profile`.
+- Failure symptom: X compose redirected to login/onboarding at `https://x.com/i/jf/onboarding/web?...`, so the script blocked before any root or reply click.
+- Important safety fact: failed attempts had `root_click_attempt_count=0`, `reply_click_attempt_count=0`, `live_root_write_performed=false`, and `live_reply_write_performed=false`.
+- Corrected path: use standard ContentOps profile `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main` on free CDP port `9223`.
+- Browser class: Edge ContentOps profile, not Antigravity Chrome and not built-in Edge `Default`/`Profile 1` folders.
+- Root write: exactly one root post click.
+- Root identity capture: browser-visible `article` permalink produced `https://x.com/Capitalnicle/status/2073053300807933995`.
+- Root registry write: `pubid_x_34c13904ff88c752`, platform publication ID `2073053300807933995`.
+- Reply gate: script navigated to the stored parent URL and verified parent text before opening the reply control.
+- Reply write: exactly one reply click after parent verification.
+- Reply registry write: `pubid_x_2a9d7aa8ac108d6c`, parent URL attached to root post identity.
+- Launch-era product meaning: X can remain Tier 2 supervised browser/CDP assist; no paid X API is needed for final-product acceptance if URL capture and registry audit are deterministic.
+- Guard requirement from this incident: live X CDP tasks must classify the active CDP process/profile before any click and block Antigravity or unknown profiles with evidence.
+
+
+## V6 Post-Release Hardening TASK_CONTENTOPS_V6_POST_RELEASE_HARDENING_IDEMPOTENT_TASK25_AND_UI_VERIFY_V0
+
+- Latest task: `TASK_CONTENTOPS_V6_POST_RELEASE_HARDENING_IDEMPOTENT_TASK25_AND_UI_VERIFY_V0`.
+- Result: `PASS_LOCAL_POST_RELEASE_HARDENING`.
+- Evidence writer: [`v6_release_readiness.py`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/v6_release_readiness.py) now skips unchanged final-release evidence writes and returns a write summary.
+- Evidence packet: [`final_release_evidence_packet.json`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/docs/automation/V6_FINAL_RELEASE/final_release_evidence_packet.json) remains `PASS_FINAL_LOCAL_RELEASE_REVIEW` with `dispatch_allowed_now=false` and `live_write_allowed_now=false`.
+- Python verification: `python -m pytest tests/test_v6_release_readiness.py` -> `8 passed`.
+- Idempotency verification: `python -m live_contentops.v6_release_readiness` second run -> `write_summary.changed_count=0`.
+- UI dependencies: restored locally under ignored `ui/contentops_v5/node_modules`; no dependency version changes needed.
+- UI production build: `npm run build` in `ui/contentops_v5/` -> passed.
+- UI Vitest: `npm test -- --run` in `ui/contentops_v5/` -> `23 passed`, `174 passed`.
+- Production npm audit: `npm audit --omit=dev` -> `found 0 vulnerabilities`; npm install reported dev/dependency-chain audit warnings only.
+- Stale scripts: Task 25/post-task apply scripts remain archived under `docs/archive`; no active reusable tests were archived in this pass.
+- Safety: no live writes, provider/API/browser/CDP/env/credential/session reads, cookies, storage, scraping, public URL verification, comments, DMs, reactions, scheduler, retry, or dispatch were performed.
+- Next task: `TASK_CONTENTOPS_V6_X_CDP_PROFILE_GUARD_REUSABLE_OPERATOR_COMMAND_V0`.
+
+## V6 X CDP Profile Guard TASK_CONTENTOPS_V6_X_CDP_PROFILE_GUARD_REUSABLE_OPERATOR_COMMAND_V0
+
+- Latest task: `TASK_CONTENTOPS_V6_X_CDP_PROFILE_GUARD_REUSABLE_OPERATOR_COMMAND_V0`.
+- Result: `PASS_LOCAL_PRELIVE_PROFILE_GUARD_PROMOTION`.
+- Reusable guard: [`x_cdp_profile_guard_v6.py`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/x_cdp_profile_guard_v6.py) now exposes a dry-run command/report builder and deterministic fixture evidence bundle.
+- Operator wrapper: [`operator_browser_lab.py`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/operator_browser_lab.py) now exposes `guard-x-cdp --dry-run` without browser launch, CDP probing, or live click behavior.
+- Guard states: `contentops_profile_ok`, `antigravity_profile_blocked`, `builtin_browser_profile_blocked`, `unknown_profile_blocked`, and `cdp_unavailable_blocked`.
+- Evidence packet: [`task_contentops_v6_x_cdp_profile_guard_reusable_operator_command_evidence.json`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/docs/automation/X_SUPERVISED_CDP_PROFILE_GUARD/task_contentops_v6_x_cdp_profile_guard_reusable_operator_command_evidence.json) records 5 deterministic cases with all unsafe cases blocked and the approved ContentOps profile allowed.
+- Operator runbook: [`task_contentops_v6_x_cdp_profile_guard_reusable_operator_command.md`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/docs/automation/X_SUPERVISED_CDP_PROFILE_GUARD/task_contentops_v6_x_cdp_profile_guard_reusable_operator_command.md).
+- Focused verification: `python -m pytest tests/test_x_cdp_profile_guard_v6.py tests/test_operator_browser_lab_policy.py` -> `23 passed`.
+- Related verification: `python -m pytest tests/test_x_cdp_profile_guard_v6.py tests/test_x_cdp_publication_identity_capture_v6.py tests/test_platform_publication_identity_registry_v6.py tests/test_operator_browser_lab_policy.py` -> `37 passed`.
+- CLI evidence verification: `python -m live_contentops.x_cdp_profile_guard_v6 --dry-run --fixture-bundle` -> emitted safe/blocked fixture bundle with no live action.
+- Cleanup posture: no project scratch/test scripts were created; no reusable guard tests were archived.
+- Safety: no live writes, browser/CDP probes, X API, paid API, provider calls, env/credential/session reads, cookies, localStorage, sessionStorage, tokens, headers, DOM reads, scraping, public URL fetches, comments, DMs, reactions, scheduler, retry, or dispatch were performed.
+- Next task: `TASK_CONTENTOPS_V6_X_CDP_SUPERVISED_POST_COMMAND_PRELIVE_DRY_RUN_V0`.
+
+## V6 X CDP Supervised Post Command Pre-Live Dry Run TASK_CONTENTOPS_V6_X_CDP_SUPERVISED_POST_COMMAND_PRELIVE_DRY_RUN_V0
+
+- Latest task: `TASK_CONTENTOPS_V6_X_CDP_SUPERVISED_POST_COMMAND_PRELIVE_DRY_RUN_V0`.
+- Result: `PASS_LOCAL_PRELIVE_X_POST_DRY_RUN_PROMOTION`.
+- Pre-live dry-run module: [`x_cdp_supervised_post_command_prelive_dry_run_v6.py`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/x_cdp_supervised_post_command_prelive_dry_run_v6.py) validates X payload text, stable hash, profile guard status, and registry identity expectations before any live click.
+- Operator wrapper: [`operator_browser_lab.py`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/operator_browser_lab.py) now exposes `prelive-x-post --dry-run` without browser launch, CDP probing, DOM reads, or live click behavior.
+- Evidence packet: [`task_contentops_v6_x_cdp_supervised_post_command_prelive_dry_run_evidence.json`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/docs/automation/X_SUPERVISED_CDP_PRELIVE_POST_COMMAND/task_contentops_v6_x_cdp_supervised_post_command_prelive_dry_run_evidence.json) records 7 deterministic cases with the approved ContentOps profile ready for operator review and all unsafe cases blocked before click.
+- Operator runbook: [`task_contentops_v6_x_cdp_supervised_post_command_prelive_dry_run.md`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/docs/automation/X_SUPERVISED_CDP_PRELIVE_POST_COMMAND/task_contentops_v6_x_cdp_supervised_post_command_prelive_dry_run.md).
+- Focused/related verification: `python -m pytest tests/test_x_cdp_supervised_post_command_prelive_dry_run_v6.py tests/test_x_cdp_profile_guard_v6.py tests/test_x_cdp_publication_identity_capture_v6.py tests/test_platform_publication_identity_registry_v6.py tests/test_operator_browser_lab_policy.py` -> `49 passed`.
+- CLI evidence verification: `python -m live_contentops.x_cdp_supervised_post_command_prelive_dry_run_v6 --dry-run --fixture-bundle` -> emitted safe 7-case fixture bundle with no live action.
+- Cleanup posture: no throwaway project scripts were created; reusable tests and runbook/evidence artifacts were kept active, not archived.
+- Safety: no live writes, browser/CDP probes, X API, paid API, provider calls, env/credential/session reads, cookies, localStorage, sessionStorage, tokens, headers, DOM reads, scraping, public URL fetches, comments, DMs, reactions, scheduler, retry, registry appends, clicks, publishes, or dispatch were performed.
+- Next task: `TASK_CONTENTOPS_V6_X_CDP_OPERATOR_GO_PHRASE_LIVE_CLICK_GATE_DRY_RUN_V0`.
+
+## V6 X CDP Operator GO-Phrase Live-Click Gate Dry Run TASK_CONTENTOPS_V6_X_CDP_OPERATOR_GO_PHRASE_LIVE_CLICK_GATE_DRY_RUN_V0
+
+- Latest task: `TASK_CONTENTOPS_V6_X_CDP_OPERATOR_GO_PHRASE_LIVE_CLICK_GATE_DRY_RUN_V0`.
+- Result: `PASS_LOCAL_X_CDP_GO_PHRASE_GATE_DRY_RUN_PROMOTION`.
+- GO-phrase gate module: [`x_cdp_operator_go_phrase_live_click_gate_dry_run_v6.py`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/x_cdp_operator_go_phrase_live_click_gate_dry_run_v6.py) validates pre-live packet ID, payload hash, ContentOps profile guard result, registry identity expectation, and exact operator GO phrase hash before any possible future live click.
+- Operator wrapper: [`operator_browser_lab.py`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/operator_browser_lab.py) now exposes `gate-x-live-click --dry-run` without browser launch, CDP probing, DOM reads, or live click behavior.
+- Evidence packet: [`task_contentops_v6_x_cdp_operator_go_phrase_live_click_gate_dry_run_evidence.json`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/docs/automation/X_SUPERVISED_CDP_GO_PHRASE_GATE/task_contentops_v6_x_cdp_operator_go_phrase_live_click_gate_dry_run_evidence.json) records 6 deterministic cases with the approved pre-live/exact-phrase case eligible only for a separate future live task and all cases blocked before click.
+- Operator runbook: [`task_contentops_v6_x_cdp_operator_go_phrase_live_click_gate_dry_run.md`](file:///A:/Capital%20Chronicle/tools/cc-live-contentops/docs/automation/X_SUPERVISED_CDP_GO_PHRASE_GATE/task_contentops_v6_x_cdp_operator_go_phrase_live_click_gate_dry_run.md).
+- Focused/related verification: `python -m pytest tests/test_x_cdp_operator_go_phrase_live_click_gate_dry_run_v6.py tests/test_x_cdp_supervised_post_command_prelive_dry_run_v6.py tests/test_x_cdp_profile_guard_v6.py tests/test_platform_publication_identity_registry_v6.py tests/test_operator_browser_lab_policy.py` -> `52 passed`.
+- CLI evidence verification: `python -m live_contentops.x_cdp_operator_go_phrase_live_click_gate_dry_run_v6 --dry-run --fixture-bundle` and `python -m live_contentops.operator_browser_lab gate-x-live-click --dry-run ...` emitted safe non-executable gate packets with no live action.
+- Cleanup posture: no throwaway project scripts were created; reusable tests and runbook/evidence artifacts were kept active, not archived.
+- Safety: no live writes, browser/CDP probes, X API, paid API, provider calls, env/credential/session reads, cookies, localStorage, sessionStorage, tokens, headers, DOM reads, scraping, public URL fetches, comments, DMs, reactions, scheduler, retry, registry appends, clicks, publishes, or dispatch were performed. Raw GO phrases are not stored in evidence.
+- Next task: `TASK_CONTENTOPS_V6_X_CDP_FINAL_PRE_CLICK_REHEARSAL_DRY_RUN_V0`.

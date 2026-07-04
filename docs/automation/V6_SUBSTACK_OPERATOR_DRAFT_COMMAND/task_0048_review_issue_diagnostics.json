@@ -1,0 +1,44 @@
+{
+  "active_element": {
+    "ariaLabel": null,
+    "placeholder": null,
+    "role": null,
+    "scrollY": 0,
+    "tag": "BUTTON",
+    "valueLen": 0
+  },
+  "continue_buttons": [
+    {
+      "aria_disabled": null,
+      "disabled_attr": true,
+      "enabled": false,
+      "index": 0,
+      "visible": true
+    }
+  ],
+  "dom_dump_recorded": false,
+  "private_url_recorded": false,
+  "publish_buttons": [],
+  "raw_secret_output": false,
+  "response_body_recorded": false,
+  "response_headers_recorded": false,
+  "review_issue_clicked": false,
+  "review_issue_count": 0,
+  "screenshot_recorded": false,
+  "task_label": "TASK_0048",
+  "text_content_recorded": false,
+  "title_value_lengths": [
+    {
+      "ariaLabel": null,
+      "disabled": false,
+      "placeholder": "Add a title...",
+      "valueLen": 19
+    },
+    {
+      "ariaLabel": "title",
+      "disabled": false,
+      "placeholder": "Title",
+      "valueLen": 19
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "blocked_controls": [
+    "approve_next_content",
+    "dispatch",
+    "publish",
+    "schedule",
+    "scrape",
+    "bot_collect",
+    "private_message_ingest"
+  ],
+  "blocked_signal_packet_ids": [],
+  "community_input_cannot_be_factual_claim_without_research_grounding": true,
+  "confusing_terms": [
+    "fed_inflation_context",
+    "real yields"
+  ],
+  "date_range": "operator_selected_sample_no_clock_dependency",
+  "exact_payload_hash": "be38a6f852622b12eaec6c8ba04cf96c827c03f0f0c5a7146d2468a5e2249105",
+  "llm_cannot_approve_next_content": true,
+  "llm_provider_call_made": false,
+  "llm_summary_allowed_later": true,
+  "moderation_flags": [],
+  "non_readiness_claims": {
+    "api_ready_claimed": false,
+    "bot_ready_claimed": false,
+    "claim_grounding_complete": false,
+    "dispatch_readiness_claimed": false,
+    "llm_approved_claimed": false
+  },
+  "objections": [],
+  "packet_kind": "discord_feedback_summary_v0",
+  "product_feedback": [],
+  "recommended_content_backlog": [
+    {
+      "backlog_candidate": "fed_language_vs_inflation_data_explainer",
+      "operator_review_required_before_next_content": true,
+      "question_count": 1,
+      "readiness_status": "ready_for_operator_backlog_review_only",
+      "ready_for_article_claim_use": false,
+      "recommended_next_action": "add_to_research_backlog",
+      "required_sources": [
+        "cpi_release",
+        "fomc_statement",
+        "treasury_yield_context"
+      ],
+      "research_grounding_required_before_claim_use": true,
+      "source_signal_hashes": [
+        "1f7f1064596d18ef5bd43668f755e411b9ffd43bf68b7f310a5d6021ce54e84c"
+      ],
+      "source_signal_packet_ids": [
+        "community_signal_1f7f1064596d18ef"
+      ],
+      "theme": "fed_inflation_context"
+    },
+    {
+      "backlog_candidate": "real_yields_plain_english_explainer",
+      "operator_review_required_before_next_content": true,
+      "question_count": 1,
+      "readiness_status": "ready_for_operator_backlog_review_only",
+      "ready_for_article_claim_use": false,
+      "recommended_next_action": "prepare_source_pack_candidate",
+      "required_sources": [
+        "inflation_expectations_source",
+        "treasury_yield_data"
+      ],
+      "research_grounding_required_before_claim_use": true,
+      "source_signal_hashes": [
+        "40fcaaa21f30e0986ebeff7ccde8072830f0423afe4cd5b0c8d8cfe74c6775f4"
+      ],
+      "source_signal_packet_ids": [
+        "community_signal_40fcaaa21f30e098"
+      ],
+      "theme": "real_yields_education"
+    }
+  ],
+  "recurring_questions": [
+    {
+      "count": 1,
+      "question_texts": [
+        "How should readers think about inflation data when Fed messaging changes tone?"
+      ],
+      "theme": "fed_inflation_context"
+    },
+    {
+      "count": 1,
+      "question_texts": [
+        "Several readers were confused by real yields versus nominal yields."
+      ],
+      "theme": "real_yields_education"
+    }
+  ],
+  "requested_topics": [
+    "fed_inflation_context",
+    "real_yields_education"
+  ],
+  "safety_flags": {
+    "bot_collection_performed": false,
+    "bot_required": false,
+    "browser_or_cdp_action_performed": false,
+    "credential_read_made": false,
+    "env_value_read_made": false,
+    "live_write_performed": false,
+    "llm_provider_call_made": false,
+    "message_scraping_performed": false,
+    "network_call_made": false,
+    "next_content_approved_by_llm": false,
+    "next_content_approved_by_system": false,
+    "platform_api_used": false,
+    "private_message_ingested": false,
+    "provider_call_made": false,
+    "public_url_fetch_made": false,
+    "summary_generated_by_llm": false
+  },
+  "schema_version": "6.0.0",
+  "source_channels": [
+    "discord_channel_macro_discussion_operator_supplied",
+    "discord_channel_reader_questions_operator_supplied"
+  ],
+  "source_signal_hashes": [
+    "1f7f1064596d18ef5bd43668f755e411b9ffd43bf68b7f310a5d6021ce54e84c",
+    "40fcaaa21f30e0986ebeff7ccde8072830f0423afe4cd5b0c8d8cfe74c6775f4"
+  ],
+  "source_signal_packet_ids": [
+    "community_signal_1f7f1064596d18ef",
+    "community_signal_40fcaaa21f30e098"
+  ],
+  "summary_hash": "a8c659e9d69e0dd669294d5b79c3bb54e126de4e370f22c947499ba6d8a24da5",
+  "summary_id": "discord_feedback_summary_a8c659e9d69e0dd6",
+  "summary_method": "deterministic_theme_grouping_no_llm",
+  "summary_status": "READY_FOR_OPERATOR_BACKLOG_REVIEW_ONLY",
+  "task_label": "TASK_CONTENTOPS_V6_COMMUNITY_SIGNAL_INTAKE_AND_FEEDBACK_SUMMARY_V0"
+}

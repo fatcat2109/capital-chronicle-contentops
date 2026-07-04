@@ -2,17 +2,101 @@
 // LOCAL FIXTURE DATA ONLY. No runtime network, no credentials, no platform API.
 // All ids/hashes are synthetic placeholders for UI demonstration.
 
-import type { ContentOpsViewModel, JimDailyContentRunPacket, JimManualExportApprovalWorkbench, JimRedactedAuditMetricsImportLoop, JimVariantPreviewBundle } from './types';
+import type { CanonicalDraftFinalReviewVariantPreviewPacket, ContentOpsViewModel, JimDailyContentRunPacket, JimManualExportApprovalWorkbench, JimRedactedAuditMetricsImportLoop, JimVariantPreviewBundle, V6CommandCenterModel, LocalCanonicalDraftPreviewReviewPacket, PlatformVariantApprovalPacketPreviewPacket, JimDispatchOutboxDryRunPacket, JimDispatchOutboxOperatorRecoveryPacket } from './types';
 import jimDailyContentRun from '../../../fixtures/v6/jim_daily_content_run_packet_sample_v6.json';
 import jimVariantPreviewBundle from '../../../fixtures/v6/jim_content_intent_to_variant_preview_bundle_sample_v6.json';
 import jimManualExportWorkbench from '../../../fixtures/v6/jim_manual_export_approval_workbench_sample_v6.json';
 import jimRedactedAuditMetricsLoop from '../../../fixtures/v6/jim_redacted_audit_metrics_import_loop_sample_v6.json';
+import { localCanonicalDraftPreviewReviewPacket } from './data/localCanonicalDraftPreviewReviewAdapter';
+import { canonicalDraftFinalReviewVariantPreviewPacket } from './data/canonicalDraftFinalReviewVariantPreviewAdapter';
+import { platformVariantApprovalPacketPreviewPacket } from './data/platformVariantApprovalPacketPreviewAdapter';
+import { dispatchOutboxDryRunPacket } from './data/dispatchOutboxDryRunAdapter';
+import { dispatchOutboxOperatorRecoveryPacket } from './data/dispatchOutboxOperatorRecoveryAdapter';
 import {
   buildCockpitManualRecords,
   buildCockpitPreviews,
   buildCockpitSystemState,
   cockpitViewModel,
 } from './data/cockpitReadModelAdapter';
+import { finalOperatorProductFlow } from './data/finalOperatorProductFlowAdapter';
+
+export const v6CommandCenter: V6CommandCenterModel = {
+  packet_id: 'v6_final_release_bfa6fd42ed2f86f7',
+  task_label: 'TASK_CONTENTOPS_V6_METRICS_FINAL_UI_COMMAND_CENTER_RED_TEAM_RELEASE_EVIDENCE_V0',
+  release_status: 'FINAL_V6_READY_FOR_LOCAL_OPERATOR_REVIEW_ONLY',
+  final_verdict: 'PASS_FINAL_LOCAL_RELEASE_REVIEW',
+  packet_hash: 'b975c963b9b82957692d5fbe9376a602b8126494c80f83bbce8a735c82667676',
+  north_star_loop: ['Idea', 'Research packet', 'Canonical article', 'SEO metadata', 'Discord drop', 'Platform variants', 'Hash approval', 'Dispatch/audit/manual fallback', 'Feedback', 'Next idea'],
+  rooms: [
+    { room_id: 'command_center', label: 'Command Center', status: 'verified', detail: 'Final V6 operator overview.' },
+    { room_id: 'ai_writer_studio', label: 'AI Writer Studio', status: 'review', detail: 'Review-only AI draft surface; no provider call.' },
+    { room_id: 'research_workbench', label: 'Research Workbench', status: 'review', detail: 'Grounding required before claims.' },
+    { room_id: 'canonical_article_studio', label: 'Canonical Article Studio', status: 'verified', detail: 'Canonical Substack workflow represented.' },
+    { room_id: 'platform_variant_studio', label: 'Platform Variant Studio', status: 'verified', detail: 'Discord, Telegram, X, LinkedIn/manual/deferred variants.' },
+    { room_id: 'discord_community_console', label: 'Discord Community Console', status: 'review', detail: 'Public/operator-selected feedback only.' },
+    { room_id: 'media_studio', label: 'Media Studio', status: 'verified', detail: 'Internal visual card and rights manifest available.' },
+    { room_id: 'draft_inspector', label: 'Draft Inspector', status: 'verified', detail: 'No-signal, citation, limitation, and payload checks.' },
+    { room_id: 'platform_preview', label: 'Platform Preview', status: 'verified', detail: 'Exact local payload preview with hash locks.' },
+    { room_id: 'approval_queue', label: 'Approval Queue', status: 'review', detail: 'Per-payload or bundle-locked approval only.' },
+    { room_id: 'dispatch_outbox', label: 'Dispatch Outbox', status: 'blocked', detail: 'Live dispatch locked; manual fallback preserved.' },
+    { room_id: 'browser_operator_console', label: 'Browser Operator Console', status: 'blocked', detail: 'Browser/CDP disabled in final local release.' },
+    { room_id: 'evidence_vault', label: 'Evidence Vault', status: 'verified', detail: 'Audit and release evidence paths are local text.' },
+    { room_id: 'metrics_feedback', label: 'Metrics and Feedback', status: 'review', detail: 'Manual metrics and public/operator-selected feedback.' },
+    { room_id: 'settings_capability_matrix', label: 'Settings / Credential Capability Matrix', status: 'blocked', detail: 'Credential handles disabled; no values read.' },
+  ],
+  acceptance_criteria: [
+    { step_id: 'idea', label: 'Give one serious content idea', status: 'verified', live_action_required: false },
+    { step_id: 'research_packet', label: 'Receive a grounded research packet', status: 'verified', live_action_required: false },
+    { step_id: 'canonical_article', label: 'Generate a canonical Substack article', status: 'verified', live_action_required: false },
+    { step_id: 'seo_metadata', label: 'Generate SEO metadata', status: 'verified', live_action_required: false },
+    { step_id: 'discord_drop', label: 'Generate a Discord drop', status: 'verified', live_action_required: false },
+    { step_id: 'platform_variants', label: 'Generate Telegram and platform variants', status: 'verified', live_action_required: false },
+    { step_id: 'hash_approval', label: 'Approve exact payload hashes', status: 'review', live_action_required: false },
+    { step_id: 'dispatch_audit_manual_fallback', label: 'Dispatch/audit/manual fallback recorded', status: 'blocked', live_action_required: false },
+    { step_id: 'feedback', label: 'Capture public/operator-selected feedback', status: 'review', live_action_required: false },
+    { step_id: 'next_idea', label: 'Turn feedback into next backlog item', status: 'verified', live_action_required: false },
+  ],
+  metrics_matrix: [
+    { metric_id: 'manual_metrics_entry', source_mode: 'operator_supplied', status: 'verified', detail: 'Human-entered counts only.', api_or_scrape_used: false },
+    { metric_id: 'discord_feedback_summary', source_mode: 'audit_backed', status: 'verified', detail: 'Local public/operator-selected summary.', api_or_scrape_used: false },
+    { metric_id: 'substack_url_record', source_mode: 'operator_supplied', status: 'review', detail: 'No public URL fetch or browser verification.', api_or_scrape_used: false },
+    { metric_id: 'telegram_dispatch_result', source_mode: 'operator_supplied', status: 'review', detail: 'Bridge result can be recorded without API use.', api_or_scrape_used: false },
+    { metric_id: 'campaign_performance_notes', source_mode: 'operator_supplied', status: 'verified', detail: 'Notes become next backlog candidates.', api_or_scrape_used: false },
+  ],
+  red_team_cases: [
+    { case_id: 'secret_like_key_rejected', expected: 'BLOCK', result: 'verified' },
+    { case_id: 'credential_read_claim_rejected', expected: 'BLOCK', result: 'verified' },
+    { case_id: 'browser_or_cdp_claim_rejected', expected: 'BLOCK', result: 'verified' },
+    { case_id: 'unsupported_community_claim_blocked', expected: 'BLOCK', result: 'verified' },
+    { case_id: 'provider_self_approval_rejected', expected: 'BLOCK', result: 'verified' },
+    { case_id: 'manual_platform_api_readiness_rejected', expected: 'BLOCK', result: 'verified' },
+    { case_id: 'public_url_verification_claim_rejected', expected: 'BLOCK', result: 'verified' },
+    { case_id: 'live_dispatch_claim_rejected', expected: 'BLOCK', result: 'verified' },
+    { case_id: 'forbidden_financial_wording_rejected', expected: 'BLOCK', result: 'verified' },
+    { case_id: 'hash_lock_required_for_bundle', expected: 'BLOCK', result: 'verified' },
+  ],
+  release_evidence_paths: [
+    'docs/automation/V6_FINAL_RELEASE/final_release_evidence_packet.json',
+    'docs/automation/V6_FINAL_RELEASE/red_team_report.md',
+    'docs/automation/V6_FINAL_RELEASE/browser_qa_report.md',
+    'docs/automation/V6_FINAL_RELEASE/final_acceptance_record.md',
+  ],
+  manual_remains_fallback: true,
+  dispatch_allowed_now: false,
+  live_write_allowed_now: false,
+  deferred_until_post_final: ['Discord bot/slash commands', 'LinkedIn business page live posting', 'full autonomous metrics ingestion', 'X API posting', 'autonomous browser self-posting', 'DM/reply engagement automation'],
+  final_operator_product_flow: finalOperatorProductFlow,
+  publication_registry_audit: {
+    task_label: 'TASK_CONTENTOPS_V6_X_CDP_REGISTRY_TO_OPERATOR_WORKFLOW_BATCH_V0',
+    status: 'verified',
+    detail: 'Exact X execution rows append idempotently and audit by local JSONL readback only.',
+    row_count: 0,
+    duplicate_natural_key_count: 0,
+    browser_or_cdp_probe_performed: false,
+    public_url_fetch_made: false,
+    x_api_used: false,
+  },
+};
 
 export const viewModel: ContentOpsViewModel = {
   system_state: buildCockpitSystemState({
@@ -75,7 +159,13 @@ export const viewModel: ContentOpsViewModel = {
     ],
   }),
   cockpit: cockpitViewModel,
+  v6_command_center: v6CommandCenter,
   jim_daily_content_run: jimDailyContentRun as JimDailyContentRunPacket,
+  local_canonical_draft_preview_review: localCanonicalDraftPreviewReviewPacket as LocalCanonicalDraftPreviewReviewPacket,
+  canonical_draft_final_review_variant_preview: canonicalDraftFinalReviewVariantPreviewPacket as CanonicalDraftFinalReviewVariantPreviewPacket,
+  platform_variant_approval_packet_preview: platformVariantApprovalPacketPreviewPacket as PlatformVariantApprovalPacketPreviewPacket,
+  dispatch_outbox_dry_run: dispatchOutboxDryRunPacket as JimDispatchOutboxDryRunPacket,
+  dispatch_outbox_operator_recovery: dispatchOutboxOperatorRecoveryPacket as JimDispatchOutboxOperatorRecoveryPacket,
   jim_variant_preview_bundle: jimVariantPreviewBundle as JimVariantPreviewBundle,
   jim_manual_export_workbench: jimManualExportWorkbench as JimManualExportApprovalWorkbench,
   jim_redacted_audit_metrics_loop: jimRedactedAuditMetricsLoop as unknown as JimRedactedAuditMetricsImportLoop,

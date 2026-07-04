@@ -480,6 +480,8 @@ export function defaultSelectionFor(view: ViewId): SelectableObject {
       return selectRunbookStep(operatorRunbookIndexPacket.runbook_steps[0]);
     case 'final_product_readiness':
       return selectFinalProductReadinessPacket();
+    case 'v6_command_center':
+      return selectV6CommandCenterPacket();
   }
 }
 
@@ -562,6 +564,26 @@ export function selectJimRedactedAuditMetricsLoop(p: JimRedactedAuditMetricsImpo
       { label: 'Network called', value: String(p.safety_flags.network_called), status: 'verified' },
       { label: 'Baseline promoted', value: String(p.safety_flags.baseline_promoted), status: 'blocked' },
       { label: 'Loop hash', value: p.loop_hash, mono: true },
+    ],
+  };
+}
+
+
+
+export function selectV6CommandCenterPacket(): SelectableObject {
+  return {
+    kind: 'v6_command_center',
+    id: viewModel.v6_command_center.packet_id,
+    title: 'V6 Command Center · Final Release',
+    fields: [
+      { label: 'Status', value: viewModel.v6_command_center.release_status, status: 'verified' },
+      { label: 'Verdict', value: viewModel.v6_command_center.final_verdict, status: 'verified' },
+      { label: 'Rooms', value: String(viewModel.v6_command_center.rooms.length), status: 'verified' },
+      { label: 'Criteria', value: String(viewModel.v6_command_center.acceptance_criteria.length), status: 'verified' },
+      { label: 'Red-team cases', value: String(viewModel.v6_command_center.red_team_cases.length), status: 'verified' },
+      { label: 'Manual fallback', value: String(viewModel.v6_command_center.manual_remains_fallback), status: 'verified' },
+      { label: 'Dispatch allowed now', value: String(viewModel.v6_command_center.dispatch_allowed_now), status: 'blocked' },
+      { label: 'Packet hash', value: viewModel.v6_command_center.packet_hash, mono: true },
     ],
   };
 }

@@ -1,0 +1,48 @@
+{
+  "task_label": "TASK_0082_JIM_LOCAL_CANONICAL_DRAFT_PREVIEW_PROMOTION_V0",
+  "result": "local_canonical_draft_preview_promoted_to_jim_cockpit",
+  "accepted_product_baseline_sha_before_task": "17916f785a31b2c1cb9055b840866b134a4c24ca",
+  "source_modules": [
+    "live_contentops/local_canonical_draft_preview_and_review_v6.py",
+    "live_contentops/local_canonical_draft_preview_v5_adapter_codegen_v6.py"
+  ],
+  "source_packets": [
+    "docs/automation/V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW/local_canonical_draft_preview_and_review_packet.json"
+  ],
+  "ui_surfaces": [
+    "ui/contentops_v5/src/data/localCanonicalDraftPreviewReviewAdapter.ts",
+    "ui/contentops_v5/src/fixtures.ts",
+    "ui/contentops_v5/src/views/JimDailyRun.tsx",
+    "ui/contentops_v5/src/types.ts"
+  ],
+  "tests": [
+    "tests/test_local_canonical_draft_preview_and_review_v6.py",
+    "tests/test_local_canonical_draft_preview_v5_adapter_codegen_v6.py",
+    "tests/test_local_canonical_draft_preview_review_ui_guardrail_v6.py",
+    "tests/test_jim_local_canonical_draft_preview_promotion_v6.py"
+  ],
+  "runbooks": [
+    "docs/runbooks/V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_RUNBOOK.md",
+    "docs/automation/V6_JIM_LOCAL_CANONICAL_DRAFT_PREVIEW_PROMOTION/jim_local_canonical_draft_preview_promotion_v0.md"
+  ],
+  "safety_flags": {
+    "browser_or_cdp_action_performed": false,
+    "credential_read_performed": false,
+    "env_read_performed": false,
+    "llm_provider_call_performed": false,
+    "network_call_performed": false,
+    "platform_api_call_performed": false,
+    "public_url_verification_performed": false,
+    "live_action_allowed": false,
+    "ready_for_llm_drafting": false,
+    "ready_for_provider_drafting": false,
+    "ready_for_auto_publish": false,
+    "ready_for_dispatch": false
+  },
+  "validation_commands": [
+    "python -m pytest tests/test_local_canonical_draft_preview_and_review_v6.py tests/test_local_canonical_draft_preview_v5_adapter_codegen_v6.py tests/test_local_canonical_draft_preview_review_ui_guardrail_v6.py -q",
+    "python -m pytest tests/test_jim_local_canonical_draft_preview_promotion_v6.py tests/test_final_product_readiness_metadata_consistency.py -q",
+    "npm test -- --run src/test/jim_daily_run.test.tsx",
+    "npm run build"
+  ]
+}

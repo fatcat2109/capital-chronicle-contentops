@@ -1,0 +1,12 @@
+{
+  "dispatch_not_authorized": true,
+  "evidence_summary_ref": "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_fixture_redacted_summary.json",
+  "exact_approved_content_unavailable": true,
+  "live_write_not_authorized": true,
+  "operator_signature_required": true,
+  "refresh_result_ref": "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_refresh_result.json",
+  "review_required": true,
+  "schema_version": "6.0.0",
+  "source_map_ref": "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING/delegated_evidence_source_map.json",
+  "task_label": "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_HEAVY_BATCH_V0"
+}

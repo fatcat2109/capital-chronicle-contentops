@@ -1,0 +1,21 @@
+{
+  "blocker": "continue_not_enabled_after_coordinate_title_fill",
+  "continue_click_attempted": false,
+  "continue_click_succeeded": false,
+  "continue_enabled_after_fill": false,
+  "coordinate_title_fill_attempted": true,
+  "dom_dump_recorded": false,
+  "email_action_signal_detected": false,
+  "method": "livePublishBrowserGuard",
+  "platform": "substack",
+  "private_url_recorded": false,
+  "publish_click_attempted": false,
+  "publish_click_succeeded": false,
+  "raw_secret_output": false,
+  "response_body_recorded": false,
+  "response_headers_recorded": false,
+  "result_status": "BLOCKED",
+  "schedule_action_signal_detected": false,
+  "screenshot_recorded": false,
+  "task_label": "TASK_0038"
+}

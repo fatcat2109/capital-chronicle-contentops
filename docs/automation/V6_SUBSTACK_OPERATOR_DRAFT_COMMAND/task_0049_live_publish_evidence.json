@@ -1,0 +1,23 @@
+{
+  "blocker": "publish_button_not_enabled",
+  "body_replaced": true,
+  "continue_click_attempted": true,
+  "continue_click_succeeded": true,
+  "continue_enabled_after_fill": true,
+  "dom_dump_recorded": false,
+  "email_action_signal_detected": false,
+  "method": "livePublishBrowserGuard",
+  "platform": "substack",
+  "private_url_recorded": false,
+  "publish_click_attempted": false,
+  "publish_click_succeeded": false,
+  "raw_secret_output": false,
+  "response_body_recorded": false,
+  "response_headers_recorded": false,
+  "result_status": "BLOCKED",
+  "schedule_action_signal_detected": false,
+  "screenshot_recorded": false,
+  "subtitle_typed": true,
+  "task_label": "TASK_0049",
+  "title_typed": true
+}

@@ -21,7 +21,8 @@ export type ViewId =
   | 'evidence_vault'
   | 'preflight_bundle'
   | 'operator_runbook_index'
-  | 'final_product_readiness';
+  | 'final_product_readiness'
+  | 'v6_command_center';
 
 export interface SystemMode {
   code: string;
@@ -179,6 +180,151 @@ export interface DraftInspection {
   approval_readiness_status: StatusKind;
   human_review_required: boolean;
   publish_ready: false;
+}
+
+
+
+export interface V6CommandCenterRoom {
+  room_id: string;
+  label: string;
+  status: StatusKind;
+  detail: string;
+}
+export interface V6CommandCenterCriterion {
+  step_id: string;
+  label: string;
+  status: StatusKind;
+  live_action_required: boolean;
+}
+export interface V6CommandCenterMetricRow {
+  metric_id: string;
+  source_mode: string;
+  status: StatusKind;
+  detail: string;
+  api_or_scrape_used: boolean;
+}
+export interface V6CommandCenterRedTeamCase {
+  case_id: string;
+  expected: string;
+  result: StatusKind;
+}
+export interface V6OperatorFlowStage {
+  stage_id: string;
+  label: string;
+  status: StatusKind;
+  summary: string;
+  evidence_ref: string;
+}
+export interface V6PlatformUniverseRow {
+  platform_id: string;
+  platform: string;
+  role: string;
+  posture: string;
+  status: StatusKind;
+  manual_action: string;
+  variant_key: string;
+  payload_hash: string;
+  copy_mode: string;
+  media_fit: string;
+  audit_evidence_mode: string;
+  dispatch_gate: 'manual_review_only' | 'blocked_deferred' | 'blocked_live_scope_required';
+}
+export interface V6NewsImageCandidate {
+  candidate_id: string;
+  source_class: 'news_current_event';
+  title: string;
+  search_query: string;
+  source_url_metadata: string;
+  image_url_metadata: string;
+  metadata_hash: string;
+  selected_for_platforms: string[];
+  license_notes: string;
+  relevance_notes: string;
+  public_fetch_performed: false;
+  download_performed: false;
+  rights_status: StatusKind;
+}
+export interface V6InternalChartCandidate {
+  chart_id: string;
+  source_class: 'capital_chronicle_internal_report';
+  title: string;
+  source_report: string;
+  format: string;
+  media_hash: string;
+  selected_for_platforms: string[];
+  fit_notes: string;
+  alt_text: string;
+  external_image_needed: false;
+  rights_status: StatusKind;
+}
+export interface V6MediaLaneModel {
+  news_topic_id: string;
+  news_policy: string;
+  news_candidates: V6NewsImageCandidate[];
+  internal_report_id: string;
+  internal_policy: string;
+  internal_chart_candidates: V6InternalChartCandidate[];
+  forbidden_actions: string[];
+}
+export interface V6ManualAuditRow {
+  row_id: string;
+  platform: string;
+  source_variant_key: string;
+  payload_hash: string;
+  approval_recorded: false;
+  public_url_status: 'operator_supplied_only' | 'not_applicable_until_manual_post';
+  metrics_status: 'operator_supplied_only' | 'not_applicable_until_manual_post';
+  evidence_mode: string;
+  live_dispatch_performed: false;
+  status: StatusKind;
+}
+export interface V6ManualAuditLaneModel {
+  approval_status: StatusKind;
+  approval_summary: string;
+  dispatch_status: StatusKind;
+  dispatch_summary: string;
+  audit_summary: string;
+  audit_rows: V6ManualAuditRow[];
+  locked_actions: string[];
+}
+export interface V6FinalOperatorProductFlowModel {
+  packet_id: string;
+  packet_hash: string;
+  builder_version: string;
+  task_label: string;
+  source_classes: string[];
+  flow_stages: V6OperatorFlowStage[];
+  platform_universe: V6PlatformUniverseRow[];
+  media_lane: V6MediaLaneModel;
+  manual_audit_lane: V6ManualAuditLaneModel;
+}
+export interface V6CommandCenterModel {
+  packet_id: string;
+  task_label: string;
+  release_status: string;
+  final_verdict: string;
+  packet_hash: string;
+  north_star_loop: string[];
+  rooms: V6CommandCenterRoom[];
+  acceptance_criteria: V6CommandCenterCriterion[];
+  metrics_matrix: V6CommandCenterMetricRow[];
+  red_team_cases: V6CommandCenterRedTeamCase[];
+  release_evidence_paths: string[];
+  manual_remains_fallback: true;
+  dispatch_allowed_now: false;
+  live_write_allowed_now: false;
+  deferred_until_post_final: string[];
+  final_operator_product_flow: V6FinalOperatorProductFlowModel;
+  publication_registry_audit: {
+    task_label: string;
+    status: StatusKind;
+    detail: string;
+    row_count: number;
+    duplicate_natural_key_count: number;
+    browser_or_cdp_probe_performed: false;
+    public_url_fetch_made: false;
+    x_api_used: false;
+  };
 }
 
 export interface MediaAsset {
@@ -621,6 +767,305 @@ export interface JimDailyContentRunPacket {
   packet_hash_algorithm: string;
 }
 
+export interface LocalCanonicalDraftPreviewReviewPacket {
+  article_working_headline: string;
+  canonical_draft_created: boolean;
+  draft_generation_method: string;
+  draft_preview_sections: readonly { section_title: string; section_body: string }[];
+  draft_preview_status: string;
+  draft_review_status: string;
+  enabled_publish_send_dispatch_approve_controls: false;
+  final_article_approved: false;
+  final_operator_approval_required: boolean;
+  live_action_allowed: false;
+  llm_provider_call_made: false;
+  network_call_made: false;
+  platform_api_used: false;
+  public_url_verification_performed: false;
+  ready_for_auto_publish: false;
+  ready_for_dispatch: false;
+  ready_for_llm_drafting: false;
+  ready_for_provider_drafting: false;
+  operator_review_questions: readonly string[];
+  packet_kind: string;
+  separate_final_approval_task_required: boolean;
+  separate_platform_variant_task_required: boolean;
+  separate_publish_authorization_required: boolean;
+  source_draft_authorization_packet_id: string;
+  source_pack_intake_packet_id: string;
+  task_label: string;
+  working_title: string;
+}
+
+export interface PlatformVariantApprovalTarget {
+  adapter_class: string;
+  approval_required: boolean;
+  approved: false;
+  blocked_reason: string;
+  credential_handle_status: string;
+  destination_binding_status: string;
+  dispatchable: false;
+  exact_preview_text: string;
+  no_metrics_claim: boolean;
+  no_public_url_claim: boolean;
+  payload_hash: string;
+  platform_id: string;
+  source_variant_key: string;
+}
+
+export interface PlatformVariantApprovalPacketPreviewPacket {
+  actual_operator_approval_recorded: false;
+  approval_ledger_entry_created: false;
+  approval_packet_preview_created: boolean;
+  approval_packet_preview_status: string;
+  approval_record_created: false;
+  approval_signature_present: false;
+  approval_signature_required: boolean;
+  approval_targets: Readonly<Record<string, PlatformVariantApprovalTarget>>;
+  browser_session_used: false;
+  credential_read_made: false;
+  dispatch_outbox_ready: false;
+  enabled_publish_send_dispatch_approve_controls: false;
+  env_value_read_made: false;
+  exact_payload_hash: string;
+  exact_payload_hashes_created: boolean;
+  exact_platform_payload_previews_created: boolean;
+  final_article_approved: false;
+  forbidden_financial_advice_or_signal_wording_present: false;
+  live_action_allowed: false;
+  live_publish_performed_by_contentops: false;
+  llm_provider_call_made: false;
+  network_call_made: false;
+  outbox_entry_created: false;
+  packet_kind: string;
+  platform_api_used: false;
+  platform_payloads_approved: false;
+  platform_variant_final_review_status: string;
+  platform_variant_final_review_to_approval_packet_preview_packet_id: string;
+  provider_call_made: false;
+  public_url_fetch_made: false;
+  public_url_verification_performed: false;
+  ready_for_auto_publish: false;
+  ready_for_dispatch: false;
+  source_final_review_packet_id: string;
+  source_local_draft_preview_packet_id: string;
+  task_label: string;
+}
+
+export interface CanonicalDraftFinalReviewVariantPreviewPacket {
+  approval_record_created: false;
+  browser_session_used: false;
+  canonical_draft_final_review_status: string;
+  canonical_draft_final_review_to_platform_variant_preview_packet_id: string;
+  credential_read_made: false;
+  enabled_publish_send_dispatch_approve_controls: false;
+  env_value_read_made: false;
+  exact_payload_hash: string;
+  final_article_approved: false;
+  forbidden_financial_advice_or_signal_wording_present: false;
+  live_action_allowed: false;
+  live_publish_performed_by_contentops: false;
+  llm_provider_call_made: false;
+  network_call_made: false;
+  operator_final_approval_required: boolean;
+  outbox_entry_created: false;
+  packet_kind: string;
+  platform_api_used: false;
+  platform_payloads_approved: false;
+  platform_variant_preview_status: string;
+  platform_variants_are_preview_only: boolean;
+  platform_variants_created: boolean;
+  preview_variants: Readonly<Record<string, { readonly title: string; readonly body: string; readonly status: string }>>;
+  provider_call_made: false;
+  public_url_fetch_made: false;
+  public_url_verification_performed: false;
+  ready_for_auto_publish: false;
+  ready_for_dispatch: false;
+  source_draft_authorization_packet_hash: string;
+  source_draft_review_packet_id: string;
+  source_exact_payload_hash: string;
+  source_local_draft_preview_packet_id: string;
+  source_next_article_brief_packet_hash: string;
+  source_pack_intake_packet_hash: string;
+  task_label: string;
+}
+
+export interface JimDispatchOutboxDryRunEntry {
+  adapter_class: string;
+  approval_required: boolean;
+  approved: boolean;
+  blocked_reason?: string;
+  credential_handle_status: string;
+  deferred_reason?: string;
+  destination_binding_status: string;
+  dispatchable: boolean;
+  dry_run_entry_id: string;
+  dry_run_payload_hash: string;
+  dry_run_payload_text: string;
+  executable: boolean;
+  no_metrics_claim: boolean;
+  no_network_request_made: boolean;
+  no_public_url_claim: boolean;
+  no_secret_material_present: boolean;
+  platform_id: string;
+  request_body_hash_preview: string;
+  request_method_preview: string;
+  request_url_preview_status: string;
+  source_approval_payload_hash: string;
+  source_approval_target_key: string;
+}
+
+export interface JimDispatchOutboxDryRunPacket {
+  actual_operator_approval_recorded: boolean;
+  approval_ledger_entry_created: boolean;
+  approval_record_created: boolean;
+  approval_signature_present: boolean;
+  approval_signature_required: boolean;
+  browser_session_used: boolean;
+  credential_read_made: boolean;
+  dispatch_attempted: boolean;
+  dispatch_outbox_dry_run_packet_id: string;
+  dispatch_outbox_dry_run_status: string;
+  dispatch_outbox_ready: boolean;
+  dispatch_request_count: number;
+  dry_run_entries: Readonly<Record<string, JimDispatchOutboxDryRunEntry>>;
+  dry_run_entries_created: boolean;
+  dry_run_outbox_package_created: boolean;
+  enabled_publish_send_dispatch_approve_controls: boolean;
+  env_value_read_made: boolean;
+  exact_payload_hash: string;
+  exact_payload_hashes_preserved: boolean;
+  executable_outbox_entry_created: boolean;
+  final_article_approved: boolean;
+  forbidden_financial_advice_or_signal_wording_present: boolean;
+  kill_switch_active: boolean;
+  kill_switch_required: boolean;
+  live_action_allowed: boolean;
+  live_publish_performed_by_contentops: boolean;
+  llm_provider_call_made: boolean;
+  network_call_made: boolean;
+  packet_kind: string;
+  platform_api_request_count: number;
+  platform_api_used: boolean;
+  platform_payloads_approved: boolean;
+  provider_call_made: boolean;
+  public_url_fetch_made: boolean;
+  public_url_verification_performed: boolean;
+  ready_for_auto_publish: boolean;
+  ready_for_dispatch: boolean;
+  real_outbox_entry_created: boolean;
+  retry_enabled: boolean;
+  scheduler_enabled: boolean;
+  source_approval_preview_exact_payload_hash: string;
+  source_approval_preview_packet_id: string;
+  source_draft_review_packet_id: string;
+  source_final_review_hash: string;
+  source_final_review_packet_id: string;
+  source_local_draft_hash: string;
+  source_local_draft_preview_packet_id: string;
+  task_label: string;
+  webhook_request_count: number;
+}
+
+
+export interface JimOperatorPreflightChecklist {
+  check_id: string;
+  label: string;
+  status: string;
+}
+
+export interface JimManualDispatchFallbackStep {
+  step_id: string;
+  action: string;
+  target: string;
+}
+
+export interface JimDryRunReplayStep {
+  replay_id: string;
+  action: string;
+  status: string;
+}
+
+export interface JimRollbackAndStopCondition {
+  condition_id: string;
+  event: string;
+  action: string;
+}
+
+export interface JimFailureModeMatrix {
+  failure_mode: string;
+  impact: string;
+  recovery_action: string;
+}
+
+export interface JimEvidenceCollectionChecklist {
+  item_id: string;
+  label: string;
+  status: string;
+}
+
+export interface JimDispatchOutboxOperatorRecoveryPacket {
+  packet_kind: string;
+  operator_recovery_status: string;
+  recovery_runbook_created: boolean;
+  manual_fallback_plan_created: boolean;
+  rollback_plan_created: boolean;
+  dry_run_replay_plan_created: boolean;
+  failure_mode_matrix_created: boolean;
+  evidence_collection_checklist_created: boolean;
+  dispatch_preflight_checklist_created: boolean;
+  executable_outbox_entry_created: boolean;
+  real_outbox_entry_created: boolean;
+  dispatch_outbox_ready: boolean;
+  dispatch_attempted: boolean;
+  dispatch_request_count: number;
+  webhook_request_count: number;
+  platform_api_request_count: number;
+  scheduler_enabled: boolean;
+  retry_enabled: boolean;
+  kill_switch_required: boolean;
+  kill_switch_active: boolean;
+  actual_operator_approval_recorded: boolean;
+  approval_ledger_entry_created: boolean;
+  approval_record_created: boolean;
+  approval_signature_present: boolean;
+  approval_signature_required: boolean;
+  platform_payloads_approved: boolean;
+  final_article_approved: boolean;
+  ready_for_auto_publish: boolean;
+  ready_for_dispatch: boolean;
+  live_action_allowed: boolean;
+  public_url_verification_performed: boolean;
+  llm_provider_call_made: boolean;
+  provider_call_made: boolean;
+  platform_api_used: boolean;
+  network_call_made: boolean;
+  public_url_fetch_made: boolean;
+  env_value_read_made: boolean;
+  credential_read_made: boolean;
+  browser_session_used: boolean;
+  live_publish_performed_by_contentops: boolean;
+  enabled_publish_send_dispatch_approve_controls: boolean;
+  forbidden_financial_advice_or_signal_wording_present: boolean;
+  dispatch_outbox_operator_recovery_packet_id: string;
+  exact_payload_hash: string;
+  source_dispatch_outbox_dry_run_packet_id: string;
+  source_dispatch_outbox_dry_run_exact_hash: string;
+  source_approval_preview_packet_id: string;
+  source_approval_preview_exact_hash: string;
+  source_final_review_packet_id: string;
+  source_final_review_hash: string;
+  operator_preflight_checklist: JimOperatorPreflightChecklist[];
+  manual_dispatch_fallback_steps: JimManualDispatchFallbackStep[];
+  dry_run_replay_steps: JimDryRunReplayStep[];
+  rollback_and_stop_conditions: JimRollbackAndStopCondition[];
+  failure_mode_matrix: JimFailureModeMatrix[];
+  evidence_collection_checklist: JimEvidenceCollectionChecklist[];
+  platform_specific_recovery_notes: Record<string, string>;
+  blocked_until_explicit_live_scope: boolean;
+  task_label: string;
+}
+
 export interface JimContentIntent {
   intent_id: string;
   source_idea_id: string;
@@ -861,7 +1306,13 @@ export interface JimRedactedAuditMetricsImportLoop {
 export interface ContentOpsViewModel {
   system_state: SystemState;
   cockpit: CockpitViewModel;
+  v6_command_center: V6CommandCenterModel;
   jim_daily_content_run: JimDailyContentRunPacket;
+  local_canonical_draft_preview_review: LocalCanonicalDraftPreviewReviewPacket;
+  canonical_draft_final_review_variant_preview: CanonicalDraftFinalReviewVariantPreviewPacket;
+  platform_variant_approval_packet_preview: PlatformVariantApprovalPacketPreviewPacket;
+  dispatch_outbox_dry_run: JimDispatchOutboxDryRunPacket;
+  dispatch_outbox_operator_recovery: JimDispatchOutboxOperatorRecoveryPacket;
   jim_variant_preview_bundle: JimVariantPreviewBundle;
   jim_manual_export_workbench: JimManualExportApprovalWorkbench;
   jim_redacted_audit_metrics_loop: JimRedactedAuditMetricsImportLoop;

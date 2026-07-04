@@ -1,0 +1,131 @@
+{
+  "citation_candidates": {
+    "accepted_value_type": "array of strings",
+    "example_placeholder_only": [
+      "PLACEHOLDER_REPLACE_BEFORE_REVIEW"
+    ],
+    "minimum_completeness_requirement": "Must contain at least one non-empty string.",
+    "public_postable_allowed": false,
+    "raw_content_allowed": false,
+    "redaction_warnings": "Do not include passwords, API keys, tokens, local paths, or webhook URLs.",
+    "rejection_reasons": [
+      "Value is empty.",
+      "Value contains placeholders."
+    ]
+  },
+  "factual_claims": {
+    "accepted_value_type": "array of strings",
+    "example_placeholder_only": [
+      "PLACEHOLDER_REPLACE_BEFORE_REVIEW"
+    ],
+    "minimum_completeness_requirement": "Must be a list of distinct factual assertions checkable against source reference.",
+    "public_postable_allowed": true,
+    "raw_content_allowed": false,
+    "redaction_warnings": "Do not include passwords, API keys, tokens, local paths, or webhook URLs.",
+    "rejection_reasons": [
+      "Value is empty.",
+      "Value contains placeholders."
+    ]
+  },
+  "intended_canonical_article_angle": {
+    "accepted_value_type": "string",
+    "example_placeholder_only": "PLACEHOLDER_REPLACE_BEFORE_REVIEW",
+    "minimum_completeness_requirement": "Must be a non-empty, non-placeholder string.",
+    "public_postable_allowed": false,
+    "raw_content_allowed": false,
+    "redaction_warnings": "Do not include passwords, API keys, tokens, local paths, or webhook URLs.",
+    "rejection_reasons": [
+      "Value is empty.",
+      "Value contains placeholders."
+    ]
+  },
+  "intended_content_lane": {
+    "accepted_value_type": "string",
+    "example_placeholder_only": "PLACEHOLDER_REPLACE_BEFORE_REVIEW",
+    "minimum_completeness_requirement": "Must name an authorized distribution channel (e.g. Substack).",
+    "public_postable_allowed": false,
+    "raw_content_allowed": false,
+    "redaction_warnings": "Do not include passwords, API keys, tokens, local paths, or webhook URLs.",
+    "rejection_reasons": [
+      "Value is empty.",
+      "Value contains placeholders.",
+      "Unsupported lane name."
+    ]
+  },
+  "limitation_notes": {
+    "accepted_value_type": "string",
+    "example_placeholder_only": "PLACEHOLDER_REPLACE_BEFORE_REVIEW",
+    "minimum_completeness_requirement": "Must be a non-empty, non-placeholder string.",
+    "public_postable_allowed": false,
+    "raw_content_allowed": false,
+    "redaction_warnings": "Do not include passwords, API keys, tokens, local paths, or webhook URLs.",
+    "rejection_reasons": [
+      "Value is empty.",
+      "Value contains placeholders."
+    ]
+  },
+  "no_signal_disclosure": {
+    "accepted_value_type": "string",
+    "example_placeholder_only": "PLACEHOLDER_REPLACE_BEFORE_REVIEW",
+    "minimum_completeness_requirement": "Must affirm that no trading signals, position advice, or price predictions are present.",
+    "public_postable_allowed": false,
+    "raw_content_allowed": false,
+    "redaction_warnings": "Do not include passwords, API keys, tokens, local paths, or webhook URLs.",
+    "rejection_reasons": [
+      "Value is empty.",
+      "Value contains placeholders.",
+      "Advice disclosure is missing or ambiguous."
+    ]
+  },
+  "operator_idea_source_ref": {
+    "accepted_value_type": "string",
+    "example_placeholder_only": "PLACEHOLDER_REPLACE_BEFORE_REVIEW",
+    "minimum_completeness_requirement": "Must be a valid, manually verified URL or repository path.",
+    "public_postable_allowed": false,
+    "raw_content_allowed": false,
+    "redaction_warnings": "Do not include passwords, API keys, tokens, local paths, or webhook URLs.",
+    "rejection_reasons": [
+      "Value is empty.",
+      "Value contains placeholders.",
+      "Not a valid URL or local file path."
+    ]
+  },
+  "source_notes": {
+    "accepted_value_type": "string",
+    "example_placeholder_only": "PLACEHOLDER_REPLACE_BEFORE_REVIEW",
+    "minimum_completeness_requirement": "Detail validation checks performed by operator.",
+    "public_postable_allowed": false,
+    "raw_content_allowed": true,
+    "redaction_warnings": "Do not include passwords, API keys, tokens, local paths, or webhook URLs.",
+    "rejection_reasons": [
+      "Value is empty.",
+      "Value contains placeholders."
+    ]
+  },
+  "supporting_artifacts": {
+    "accepted_value_type": "array of strings",
+    "example_placeholder_only": [
+      "PLACEHOLDER_REPLACE_BEFORE_REVIEW"
+    ],
+    "minimum_completeness_requirement": "Must contain at least one non-empty string.",
+    "public_postable_allowed": false,
+    "raw_content_allowed": false,
+    "redaction_warnings": "Do not include passwords, API keys, tokens, local paths, or webhook URLs.",
+    "rejection_reasons": [
+      "Value is empty.",
+      "Value contains placeholders."
+    ]
+  },
+  "topic_statement": {
+    "accepted_value_type": "string",
+    "example_placeholder_only": "PLACEHOLDER_REPLACE_BEFORE_REVIEW",
+    "minimum_completeness_requirement": "Must describe the core factual topic statement.",
+    "public_postable_allowed": false,
+    "raw_content_allowed": false,
+    "redaction_warnings": "Do not include passwords, API keys, tokens, local paths, or webhook URLs.",
+    "rejection_reasons": [
+      "Value is empty.",
+      "Value contains placeholders."
+    ]
+  }
+}

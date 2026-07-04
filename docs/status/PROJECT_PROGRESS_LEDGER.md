@@ -253,6 +253,36 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
 | Next recommendation at time of update | `TASK_CONTENTOPS_V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW_HEAVY_BATCH_V0` |
 
+
+## TASK 0083 Jim Canonical Draft Final Review Variant Preview Promotion
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_0083_JIM_CANONICAL_DRAFT_FINAL_REVIEW_VARIANT_PREVIEW_PROMOTION_V0` |
+| Accepted product/audit baseline SHA before commit | `17916f785a31b2c1cb9055b840866b134a4c24ca` |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Promoted the existing deterministic canonical draft final review to platform variant preview packet into Jim's V5 daily cockpit baseline. |
+| Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |
+| Changed artifact families | `ui/contentops_v5/src/views/JimDailyRun.tsx`, typed fixture wiring, TASK 0083 release handoff/manifest, status docs, and promotion guard test. |
+| Caveats | Preview variants are not approved payloads, not outbox entries, not final public copy, and not dispatch/publish ready. |
+| Validation | Focused Python/UI/build checks recorded in TASK 0083 walkthrough. |
+| Next recommendation at time of update | `TASK_0084_JIM_PLATFORM_VARIANT_FINAL_REVIEW_TO_APPROVAL_PACKET_PREVIEW_PROMOTION_V0` |
+
+## TASK 0082 Jim Local Canonical Draft Preview Promotion
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_0082_JIM_LOCAL_CANONICAL_DRAFT_PREVIEW_PROMOTION_V0` |
+| Accepted product/audit baseline SHA before commit | `17916f785a31b2c1cb9055b840866b134a4c24ca` |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Promoted the existing deterministic local canonical draft preview/review packet into Jim's V5 daily cockpit baseline. |
+| Safety posture | No LLM/provider/API/env/credentials/browser-session/public URL/live action. |
+| Changed artifact families | `ui/contentops_v5/src/views/JimDailyRun.tsx`, typed fixture wiring, TASK 0082 release handoff/manifest, status docs, and promotion guard test. |
+| Cleanup posture | Unrelated dirty workspace files were not touched; a non-destructive audit note classifies them for later explicit cleanup. |
+| Caveats | Preview is template-generated, pending Jim review, not final public copy, not platform variant, and not dispatch/publish ready. |
+| Validation | Focused Python/UI/build checks recorded in TASK 0082 walkthrough. |
+| Next recommendation at time of update | Harden canonical draft final review to platform variant preview after Jim reviews the local draft preview. |
+
 ## Local Canonical Draft Preview and Operator Review
 
 | Field | Value |
@@ -298,6 +328,22 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
 | Next recommendation at time of update | `TASK_CONTENTOPS_V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN_HEAVY_BATCH_V0` |
 
+
+## TASK 0084 Jim Platform Variant Approval-Packet Preview Promotion
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_0084_JIM_PLATFORM_VARIANT_FINAL_REVIEW_TO_APPROVAL_PACKET_PREVIEW_PROMOTION_V0` |
+| Accepted product/audit baseline SHA | `pending_post_task_commit` |
+| Repo HEAD / evidence commit | `pending_post_task_commit` |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Promoted existing platform variant final review to approval-packet preview packet into Jim Daily Run cockpit. |
+| Safety posture | No approval record, ledger entry, outbox, LLM/provider/API/env/credentials/browser-session/public URL/live action. |
+| Changed artifact families | `ui/contentops_v5/src/types.ts`, `fixtures.ts`, `views/JimDailyRun.tsx`, Jim UI tests, promotion manifest, and status docs. |
+| Caveats | Approval preview targets are not live dispatch payloads and require a future dry-run outbox preview promotion before any later supervised gate. |
+| Validation | Python tests, Jim Daily Run test, and V5 build. |
+| Next recommendation at time of update | `TASK_0085_JIM_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN_PROMOTION_V0` |
+
 ## Platform Variant Approval Packet Preview to Dispatch Outbox Dry Run
 
 | Field | Value |
@@ -312,6 +358,22 @@ This is a human-readable progress ledger for accepted V6 milestones. It is not r
 | Caveats | Dry-run outbox entries are not live dispatch payloads, contain no financial advice, and require separate operator final signoff. |
 | Validation | Python tests, UI guardrail tests, V5 npm tests/build fully pass. |
 | Next recommendation at time of update | `TASK_CONTENTOPS_V6_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_AND_RECOVERY_HEAVY_BATCH_V0` |
+
+
+## TASK 0085 Jim Dispatch Outbox Dry-Run Promotion
+
+| Field | Value |
+|---|---|
+| Task label | `TASK_0085_JIM_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN_PROMOTION_V0` |
+| Accepted product/audit baseline SHA | `pending_post_task_commit` |
+| Repo HEAD / evidence commit | `pending_post_task_commit` |
+| Result classification | `complete_review_only_local_manual` |
+| Scope | Promoted existing approval-packet preview to dispatch outbox dry-run packet into Jim Daily Run cockpit. |
+| Safety posture | No executable outbox, real outbox, dispatch attempt, approval record, ledger entry, LLM/provider/API/env/credentials/browser-session/public URL/live action. |
+| Changed artifact families | `ui/contentops_v5/src/types.ts`, `fixtures.ts`, `views/JimDailyRun.tsx`, Jim UI tests, promotion manifest, and status docs. |
+| Caveats | Dry-run entries are not live dispatch payloads and require a future operator runbook/recovery promotion before any later supervised gate. |
+| Validation | Python tests, Jim Daily Run test, and V5 build. |
+| Next recommendation at time of update | `TASK_0086_JIM_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_RECOVERY_PROMOTION_V0` |
 
 ## Dispatch Outbox Dry Run to Operator Runbook and Recovery
 

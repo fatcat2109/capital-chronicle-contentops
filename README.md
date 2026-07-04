@@ -1,3 +1,5 @@
+> Current project context: see [docs/CURRENT_CONTEXT.md](docs/CURRENT_CONTEXT.md).
+
 # Capital Chronicle ContentOps
 
 Capital Chronicle ContentOps is the local-first institutional editorial operating system and supervisor console.

@@ -1,0 +1,20 @@
+{
+  "approval_gate_status": "AWAITING_OPERATOR_SIGNATURE",
+  "approval_valid_for_dispatch": false,
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "dispatch_allowed_now": false,
+  "evidence_complete": true,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0",
+  "operator_idea_source_ref_resolved": true,
+  "outbox_entry_created": false,
+  "payload_hash_created": true,
+  "payload_hash_reference": "4bcbbf4eeab1bdfa2f3f94b4dbb042877c67efdb515f7feecaac5ffa3a2e71ff",
+  "public_postable": false,
+  "schema_version": "6.0.0",
+  "source_preflight_ready": true,
+  "source_ref_resolved": true,
+  "task_label": "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_HEAVY_BATCH_V0"
+}

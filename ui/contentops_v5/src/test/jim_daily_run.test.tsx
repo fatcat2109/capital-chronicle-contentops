@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import { createElement } from 'react';
 import App from '../App';
 
@@ -79,6 +79,112 @@ describe('Jim Daily Content Run UI', () => {
     expect(screen.getByText('Baseline promoted')).toBeInTheDocument();
     expect(screen.getAllByText('operator_supplied_values_only=true · network_called=false · baseline_promoted=false').length).toBeGreaterThan(0);
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  });
+
+
+  it('renders local canonical draft preview as deterministic review-only output', () => {
+    openView();
+
+    expect(screen.getByText('Local Canonical Draft Preview + Review')).toBeInTheDocument();
+    expect(screen.getByText('deterministic_template_no_llm')).toBeInTheDocument();
+    expect(screen.getByText('local_draft_preview_created_for_review')).toBeInTheDocument();
+    expect(screen.getByText('pending_operator_review')).toBeInTheDocument();
+    expect(screen.getByText('final_article_approved=false')).toBeInTheDocument();
+    expect(screen.getByText(/ready_for_llm_drafting=false/i)).toBeInTheDocument();
+    expect(screen.getByText(/enabled_publish_send_dispatch_approve_controls=false/i)).toBeInTheDocument();
+  });
+
+
+  it('renders canonical draft final review platform variants as preview-only output', () => {
+    openView();
+
+    expect(screen.getByText('Canonical Draft Final Review + Platform Variant Preview')).toBeInTheDocument();
+    expect(screen.getByText('ready_for_operator_final_review')).toBeInTheDocument();
+    expect(screen.getByText('platform_variant_preview_created_for_operator_review')).toBeInTheDocument();
+    expect(screen.getByText('final_review_preview_11fc52e6e452c4d3')).toBeInTheDocument();
+    expect(screen.getByText('platform_payloads_approved=false')).toBeInTheDocument();
+    expect(screen.getByText(/platform_variants_are_preview_only=true/i)).toBeInTheDocument();
+    expect(screen.getByText(/ready_for_auto_publish=false/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/ready_for_dispatch=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/llm_provider_call_made=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/public_url_verification_performed=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText('status=preview_only').length).toBeGreaterThan(0);
+  });
+
+
+  it('renders platform variant approval packet preview as locked review-only output', () => {
+    openView();
+
+    expect(screen.getByText('Platform Variant Approval Packet Preview')).toBeInTheDocument();
+    expect(screen.getByText('approval_packet_preview_created_for_operator_review')).toBeInTheDocument();
+    expect(screen.getByText('approval_preview_28f5ef142e404225')).toBeInTheDocument();
+    expect(screen.getAllByText(/approved=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/dispatchable=false/i).length).toBeGreaterThan(0);
+    expect(screen.getByText('actual_operator_approval_recorded=false')).toBeInTheDocument();
+    expect(screen.getByText('dispatch_outbox_ready=false')).toBeInTheDocument();
+    expect(screen.getAllByText(/approval_ledger_entry_created=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/platform_payloads_approved=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/ready_for_dispatch=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/live_action_allowed=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/network_call_made=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/credential_read_made=false/i).length).toBeGreaterThan(0);
+  });
+
+
+  it('renders dispatch outbox dry-run preview as locked review-only output', () => {
+    openView();
+
+    expect(screen.getByText('Dispatch Outbox Dry-Run Preview')).toBeInTheDocument();
+    expect(screen.getByText('dispatch_outbox_dry_run_created_for_operator_review')).toBeInTheDocument();
+    expect(screen.getByText('outbox_dry_run_7cfc24c5b0c0eded')).toBeInTheDocument();
+    expect(screen.getAllByText(/dispatchable=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/executable=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/approved=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText('executable_outbox_entry_created=false').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('dispatch_attempted=false').length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/real_outbox_entry_created=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/dispatch_request_count=0/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/webhook_request_count=0/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/platform_api_request_count=0/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/kill_switch_active=true/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/ready_for_dispatch=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/live_action_allowed=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/network_call_made=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/credential_read_made=false/i).length).toBeGreaterThan(0);
+    expect(screen.queryByRole('link')).not.toBeInTheDocument();
+  });
+
+
+  it('renders dispatch outbox operator runbook recovery preview as locked read-only output', () => {
+    openView();
+
+    expect(screen.getByText('Dispatch Outbox Operator Runbook + Recovery Preview')).toBeInTheDocument();
+    expect(screen.getByText('operator_recovery_runbook_created_for_review')).toBeInTheDocument();
+    expect(screen.getByText('operator_recovery_e30e17729faebb93')).toBeInTheDocument();
+    expect(screen.getByText('Operator preflight checklist')).toBeInTheDocument();
+    expect(screen.getByText('Dry-run replay plan')).toBeInTheDocument();
+    expect(screen.getByText('Rollback and stop conditions')).toBeInTheDocument();
+    expect(screen.getByText('Failure mode recovery matrix')).toBeInTheDocument();
+    expect(screen.getByText('Evidence collection checklist')).toBeInTheDocument();
+    expect(screen.getAllByText(/recovery_runbook_created=true/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/manual_fallback_plan_created=true/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/failure_mode_matrix_created=true/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/executable_outbox_entry_created=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/real_outbox_entry_created=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/dispatch_outbox_ready=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/dispatch_attempted=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/dispatch_request_count=0/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/webhook_request_count=0/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/platform_api_request_count=0/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/scheduler_enabled=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/retry_enabled=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/kill_switch_active=true/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/ready_for_dispatch=false/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/live_action_allowed=false/i).length).toBeGreaterThan(0);
+    const panel = screen.getByText('Dispatch Outbox Operator Runbook + Recovery Preview').closest('section')!;
+    expect(within(panel).queryByRole('link')).not.toBeInTheDocument();
+    expect(within(panel).queryByRole('button')).not.toBeInTheDocument();
+    expect(within(panel).queryByRole('textbox')).not.toBeInTheDocument();
   });
 
 });

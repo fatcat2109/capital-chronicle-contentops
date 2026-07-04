@@ -1,0 +1,26 @@
+{
+  "continue_button_box": {
+    "height": 40.0,
+    "width": 93.8,
+    "x": 3326.2,
+    "y": 12.0
+  },
+  "continue_button_count": 1,
+  "dom_dump_recorded": false,
+  "private_url_recorded": false,
+  "raw_secret_output": false,
+  "response_body_recorded": false,
+  "response_headers_recorded": false,
+  "screenshot_recorded": false,
+  "subtitle_text_box": null,
+  "subtitle_text_count": 0,
+  "task_label": "TASK_0039",
+  "title_text_box": {
+    "height": 21.0,
+    "width": 385.0,
+    "x": 3488.0,
+    "y": 90.0
+  },
+  "title_text_count": 1,
+  "viewport": null
+}

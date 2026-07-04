@@ -51,6 +51,38 @@ Expected output:
 
 If CDP fails, close all `msedge.exe` processes and relaunch with the preferred Browser Lab command. Do not switch to Edge built-in profiles unless intentionally rebuilding login state.
 
+## Known Good X/CDP Profile and Port Guard
+
+TASK 0087AD proved the X no-paid-API path works when the browser is the standard ContentOps profile:
+
+```text
+A:\Capital Chronicle\operator-browser-profiles\contentops-social-main
+```
+
+Do not attach live publishing scripts to Antigravity's internal Chrome profile:
+
+```text
+C:\Users\bullw\.gemini\antigravity-browser-profile
+```
+
+Why this matters:
+
+- Antigravity Chrome may own CDP `9222`.
+- Attaching to that port can target a logged-out X onboarding page.
+- A live script must block before click if the CDP process command line is Antigravity or unknown.
+- If `9222` is occupied by Antigravity Chrome, use a free Edge ContentOps CDP port such as `9223`.
+
+Safe verification uses only non-secret metadata:
+
+```text
+/json/version Browser + webSocketDebuggerUrl
+Windows process command line containing --remote-debugging-port=<port> and --user-data-dir=<profile>
+```
+
+Never verify by reading cookies, localStorage, sessionStorage, authorization headers, tokens, DOM dumps, or screenshots containing secrets.
+
+TASK 0087AE promotes this rule into reusable guard code: `live_contentops/x_cdp_profile_guard_v6.py`.
+
 ## Commands
 
 ```powershell

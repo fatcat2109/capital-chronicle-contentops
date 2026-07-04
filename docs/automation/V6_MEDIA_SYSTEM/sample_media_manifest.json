@@ -1,0 +1,113 @@
+{
+  "blocked_controls": [
+    "download",
+    "fetch",
+    "generate_image",
+    "publish",
+    "dispatch",
+    "schedule",
+    "scrape"
+  ],
+  "blockers": [],
+  "campaign_id": "campaign_redacted_001",
+  "exact_payload_hash": "9776efb5b9885c839d16649c3e41620e37a2e10c8096cabe0fe6fd5c37895d39",
+  "media_items": [
+    {
+      "alt_text": "Text card showing a reviewed article quote for operator approval.",
+      "attribution": "Capital Chronicle internal visual system",
+      "blockers": [],
+      "card_packet": {
+        "alt_text": "Text card showing a reviewed article quote for operator approval.",
+        "blockers": [],
+        "body": "Key excerpt prepared for internal editorial review.",
+        "card_hash": "5a2802f5f875773480534260e47bd4ce1af5e9f24581b0d9ce0fbd17d03e185b",
+        "card_id": "card_quote_001",
+        "card_type": "article_quote_card",
+        "claims": [],
+        "packet_kind": "internal_visual_card_v0",
+        "render_status": "not_rendered_spec_only",
+        "safety_flags": {
+          "browser_or_cdp_action_performed": false,
+          "credential_read_made": false,
+          "env_value_read_made": false,
+          "image_provider_call_made": false,
+          "network_call_made": false,
+          "provider_call_made": false,
+          "public_url_fetch_made": false,
+          "rendered_image_created": false,
+          "scraping_performed": false
+        },
+        "schema_version": "6.0.0",
+        "source_refs": [
+          "canonical_article_redacted_001"
+        ],
+        "status": "READY_FOR_MEDIA_MANIFEST_REVIEW",
+        "task_label": "TASK_CONTENTOPS_V6_MEDIA_RIGHTS_AND_INTERNAL_VISUAL_CARD_SYSTEM_V0",
+        "title": "Quote Card - Policy Watch"
+      },
+      "fetch_or_download_claimed": false,
+      "media_hash": "82f03010f5094d2865d6e89b942f0ca1ccd4b85b4bfcf1e405854a3410226e18",
+      "media_id": "media_internal_quote_card_001",
+      "media_type": "article_quote_card",
+      "origin": "internal_spec_only",
+      "platform_optional": true,
+      "rights_status": "owned",
+      "source_label": "canonical_article_redacted_001",
+      "status": "READY_FOR_MEDIA_MANIFEST_REVIEW"
+    },
+    {
+      "alt_text": "Rights-checked external hero image candidate for operator review.",
+      "attribution": "operator_supplied_attribution_pending_final_copy",
+      "blockers": [],
+      "card_packet": null,
+      "fetch_or_download_claimed": false,
+      "media_hash": "f432d92f2b601f5c966c510b6513f55a2e86e4dddaba54727674be0916aa2a05",
+      "media_id": "media_external_hero_candidate_001",
+      "media_type": "rights_checked_external_image",
+      "origin": "external_metadata_only_no_fetch",
+      "platform_optional": true,
+      "rights_status": "operator_supplied_rights_checked",
+      "source_label": "operator_supplied_source_label",
+      "status": "READY_FOR_MEDIA_MANIFEST_REVIEW"
+    }
+  ],
+  "media_manifest_hash": "74157767566113d7155cbe72b685f7a10b588774e836c3e50aa3f2994d5a02b0",
+  "media_optional_for_platforms": [
+    "substack",
+    "discord",
+    "x",
+    "linkedin"
+  ],
+  "media_required_for_platforms": [],
+  "non_readiness_claims": {
+    "external_downloads_claimed": false,
+    "provider_generation_claimed": false,
+    "public_url_verification_claimed": false,
+    "rendered_images_claimed": false
+  },
+  "packet_kind": "media_rights_manifest_v0",
+  "safety_flags": {
+    "browser_or_cdp_action_performed": false,
+    "credential_read_made": false,
+    "download_performed": false,
+    "env_value_read_made": false,
+    "image_provider_call_made": false,
+    "live_write_allowed_now": false,
+    "media_file_written": false,
+    "network_call_made": false,
+    "provider_call_made": false,
+    "public_url_fetch_made": false,
+    "rendered_image_created": false,
+    "rights_url_verified": false,
+    "scraping_performed": false
+  },
+  "schema_version": "6.0.0",
+  "selected_platforms": [
+    "substack",
+    "discord",
+    "x",
+    "linkedin"
+  ],
+  "status": "READY_FOR_OPERATOR_MEDIA_REVIEW",
+  "task_label": "TASK_CONTENTOPS_V6_MEDIA_RIGHTS_AND_INTERNAL_VISUAL_CARD_SYSTEM_V0"
+}

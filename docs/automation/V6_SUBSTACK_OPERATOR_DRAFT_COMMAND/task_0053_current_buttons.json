@@ -1,0 +1,249 @@
+{
+  "dom_dump_recorded": false,
+  "page_count": 1,
+  "pages": [
+    {
+      "button_count": 33,
+      "buttons": [
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 0,
+          "label": "Exit",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 1,
+          "label": "Saved",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 2,
+          "label": "Preview",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 3,
+          "label": "Continue",
+          "visible": true
+        },
+        {
+          "disabled": true,
+          "enabled": false,
+          "index": 5,
+          "label": "Undo2",
+          "visible": true
+        },
+        {
+          "disabled": true,
+          "enabled": false,
+          "index": 6,
+          "label": "Redo2",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 7,
+          "label": "Style",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 8,
+          "label": "Bold",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 9,
+          "label": "Italic",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 10,
+          "label": "Strikethrough",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 11,
+          "label": "Code",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 15,
+          "label": "Link",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 16,
+          "label": "Image",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 17,
+          "label": "Headphones",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 18,
+          "label": "Video",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 19,
+          "label": "Message Square Quote",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 20,
+          "label": "List",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 21,
+          "label": "List Ordered",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 23,
+          "label": "Button",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 24,
+          "label": "Template",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 25,
+          "label": "More",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 27,
+          "label": "Email header / footer",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 28,
+          "label": "Capital Chronicle",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 29,
+          "label": "Plus",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 30,
+          "label": "Subscribe",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 31,
+          "label": "Version history",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 32,
+          "label": "Info",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 33,
+          "label": "Settings",
+          "visible": true
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 34,
+          "label": "close",
+          "visible": false
+        },
+        {
+          "disabled": true,
+          "enabled": false,
+          "index": 39,
+          "label": "on",
+          "visible": false
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 40,
+          "label": "Bold",
+          "visible": false
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 41,
+          "label": "Italic",
+          "visible": false
+        },
+        {
+          "disabled": false,
+          "enabled": true,
+          "index": 42,
+          "label": "Link",
+          "visible": false
+        }
+      ],
+      "page_index": 0
+    }
+  ],
+  "private_url_recorded": false,
+  "raw_secret_output": false,
+  "response_body_recorded": false,
+  "response_headers_recorded": false,
+  "screenshot_recorded": false,
+  "task_label": "TASK_0053"
+}

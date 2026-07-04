@@ -138,7 +138,7 @@ Final product can pass with mixed tiers. It does not need every external platfor
 | Discord | community drop and feedback flywheel | webhook-first automated supervised dispatch |
 | Telegram | remote operator lane | bot/channel supervised automation |
 | LinkedIn | professional variant | CDP/manual one-step until API viable |
-| X | short-form/thread variant | CDP/manual one-step until API cost/policy worth it |
+| X | short-form/thread variant | Tier 2 CDP assist proven by TASK 0087AD; product-ready after TASK 0087AE profile/port guard blocks Antigravity or unknown profiles before live click |
 | Threads/Meta | social variants | API/CDP when business setup viable |
 | Instagram | caption/media package | API/CDP/manual fallback depending media constraints |
 | TikTok/YouTube | future metadata/video lanes | deferred until content format exists |

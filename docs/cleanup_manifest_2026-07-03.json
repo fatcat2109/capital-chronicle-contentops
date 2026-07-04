@@ -1,0 +1,3130 @@
+{
+  "generated_at": "2026-07-03T15:01:33.873706+00:00",
+  "entries": [
+    {
+      "path": "docs/CURRENT_CONTEXT.md",
+      "action": "keep",
+      "reason": "new current authority entrypoint"
+    },
+    {
+      "path": "project_sources_bundle_AFTER_DISCORD_PRE_LIVE_READINESS",
+      "action": "review",
+      "reason": "locked during archive: [WinError 32] The process cannot access the file because it is being used by another process: 'A:\\\\Capital Chronicle\\\\tools\\\\cc-live-contentops\\\\project_sources_bundle_AFTER_DISCORD_PRE_LIVE_READINESS'"
+    },
+    {
+      "path": "qa_evidence_0174AA",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AB",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AC",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AD",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AE",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AF",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AG",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AH",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AI",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AIa",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AJ_AK",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AJ_AK_FINAL_TRUTH",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AL",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174AM",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_evidence_0174CF",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "qa_script_results.json",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "qa_script_results_visible.json",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "qa_script_v3_results.json",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "recovered_strategy_docs",
+      "action": "archive",
+      "reason": "duplicate bundle or historical QA evidence"
+    },
+    {
+      "path": "scratch_v4_full_qa.py",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "scratch_v4_qa.py",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "scratch_v4_recheck.py",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "scratch_v4_recheck_0174M.py",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "scratch_v4_recheck_0174N.py",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "scratch_v4_recheck_0174Q.py",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "scratch_v4_recheck_0174T.py",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "scratch_v4_recheck_0174U.py",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "scratch_v4_recheck_0174W.py",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "scratch_v4_recheck_0174Y.py",
+      "action": "delete",
+      "reason": "generated/debug root clutter"
+    },
+    {
+      "path": "static_prototypes",
+      "action": "archive",
+      "reason": "generated or historical prototype output"
+    },
+    {
+      "path": "docs/architecture",
+      "action": "archive",
+      "reason": "historical doc subdirectory not current entrypoint"
+    },
+    {
+      "path": "docs/browser_qa",
+      "action": "archive",
+      "reason": "historical doc subdirectory not current entrypoint"
+    },
+    {
+      "path": "docs/BUNDLE_FILE_LIST_AFTER_0153.txt",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/BUNDLE_FILE_LIST_AFTER_0169.txt",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/BUNDLE_README_AFTER_0153.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/BUNDLE_README_AFTER_0169.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/Capital Chronicle ContentOps Plan.pdf",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/Capital Chronicle ContentOps Strategy.pdf",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/Capital Chronicle ContentOps V6 \u2014 AI-Native Editorial, Publishing, and Community Operating System Master Plan.md",
+      "action": "keep",
+      "reason": "current authority or active policy"
+    },
+    {
+      "path": "docs/Capital Chronicle ContentOps V6 \u2014 Final Product 25-Task Execution Plan.md",
+      "action": "keep",
+      "reason": "current authority or active policy"
+    },
+    {
+      "path": "docs/Capital Chronicle ContentOps \u2014 AI-Native Automation and Browser Operator Master Plan.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/CAPITAL_CHRONICLE_CONTENTOPS_HEAVY_BATCH_MASTER_PLAN_AFTER_0174U0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/CAPITAL_CHRONICLE_CONTENTOPS_INSTITUTIONAL_COCKPIT_MASTER_PLAN.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/CAPITAL_CHRONICLE_CONTENTOPS_MANUAL_FIRST_SOCIAL_DISTRIBUTION_AND_FUTURE_API_PLUG_PORT_MASTER_PLAN_AFTER_0174EA.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/CAPITAL_CHRONICLE_CONTENTOPS_MULTI_PLATFORM_SUPERVISED_LIVE_PUBLISHING_MASTER_PLAN.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/CAPITAL_CHRONICLE_CONTENTOPS_RECONCILED_FINAL_PRODUCT_MASTER_PLAN_AFTER_0174AO.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/CAPITAL_CHRONICLE_CONTENTOPS_V5_FINAL_MASTER_PLAN_AND_NORTH_STAR.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/CHATGPT_PROJECT_BOOTSTRAP",
+      "action": "archive",
+      "reason": "historical doc subdirectory not current entrypoint"
+    },
+    {
+      "path": "docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md",
+      "action": "keep",
+      "reason": "current authority or active policy"
+    },
+    {
+      "path": "docs/CONTENTOPS_FINAL_ENVIRONMENT_FORMAT.md",
+      "action": "keep",
+      "reason": "current authority or active policy"
+    },
+    {
+      "path": "docs/CONTENTOPS_FINAL_PRODUCT_ROADMAP_AFTER_0174AO.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/CONTENTOPS_OPERATING_RULES_AND_DESIGN_SYSTEM_GOVERNANCE.md",
+      "action": "keep",
+      "reason": "current authority or active policy"
+    },
+    {
+      "path": "docs/CONTENTOPS_PROGRESS_LEDGER_AND_FINAL_PRODUCT_CHECKLIST.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/CONTENTOPS_STRATEGY_RECOVERY_INDEX_AFTER_0174AO.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/CREDENTIAL_ENVELOPE_AND_SECRET_POLICY_AFTER_0082.md",
+      "action": "keep",
+      "reason": "current authority or active policy"
+    },
+    {
+      "path": "docs/credential_readiness",
+      "action": "archive",
+      "reason": "historical doc subdirectory not current entrypoint"
+    },
+    {
+      "path": "docs/CURRENT_CONTEXT.md",
+      "action": "keep",
+      "reason": "current authority or active policy"
+    },
+    {
+      "path": "docs/decisions",
+      "action": "archive",
+      "reason": "historical doc subdirectory not current entrypoint"
+    },
+    {
+      "path": "docs/design_references",
+      "action": "archive",
+      "reason": "historical doc subdirectory not current entrypoint"
+    },
+    {
+      "path": "docs/examples",
+      "action": "archive",
+      "reason": "historical doc subdirectory not current entrypoint"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_ANTIGRAVITY_BROWSER_QA_EVIDENCE_PACKET_TEMPLATE_AFTER_0168.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_ANTIGRAVITY_BROWSER_QA_MANUAL_RUNBOOK_AFTER_0168.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_ANTIGRAVITY_BROWSER_QA_MANUAL_RUNBOOK_DRAFT_AFTER_0167.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_ANTIGRAVITY_BROWSER_QA_STRATEGY_AFTER_0168.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_BROWSER_QA_EVIDENCE_AFTER_0169.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_BROWSER_QA_EVIDENCE_HANDOFF_TO_PROJECT_SOURCES_REFRESH_AFTER_0170.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_BROWSER_QA_EVIDENCE_PACKET_AFTER_0169.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_COMMAND_CENTER_HANDOFF_TO_CONTENT_STUDIO_AFTER_0161.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_COMMAND_CENTER_SCREEN_AFTER_0161.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_CONTENT_CALENDAR_AND_WORKFLOW_BOARD_SCREEN_AFTER_0165.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_CONTENT_CALENDAR_HANDOFF_TO_VISUAL_EXPORT_AFTER_0165.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_CONTENT_STUDIO_HANDOFF_TO_PUBLISH_READINESS_TOWER_AFTER_0162.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_CONTENT_STUDIO_REBUILD_SCREEN_AFTER_0162.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_DESIGN_SYSTEM_AND_FUTURISTIC_FINTECH_VISUAL_CONTRACT_AFTER_0158.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_DESIGN_SYSTEM_HANDOFF_TO_VIEW_MODEL_AFTER_0158.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_EVIDENCE_VAULT_AND_AUDIT_TIMELINE_SCREEN_AFTER_0164.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_EVIDENCE_VAULT_HANDOFF_TO_CALENDAR_WORKFLOW_AFTER_0164.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_GLOBAL_HEADER_METADATA_RECONCILIATION_AFTER_0170.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_PRE_ANTIGRAVITY_STATIC_QA_HARDENING_AFTER_0167.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_PUBLISH_READINESS_TOWER_HANDOFF_TO_EVIDENCE_VAULT_AFTER_0163.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_PUBLISH_READINESS_TOWER_SCREEN_AFTER_0163.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_SCREENSHOT_SAFE_AND_REDACTED_VISUAL_EXPORT_RULES_AFTER_0158.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_SHELL_PROTOTYPE_HANDOFF_TO_COMMAND_CENTER_AFTER_0160.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_SHELL_PROTOTYPE_STATIC_LOCAL_AFTER_0160.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_SHELL_VIEW_MODEL_SOURCE_OF_TRUTH_AND_DRIFT_GUARD_AFTER_0172.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_STATIC_POLISH_AND_UI_CONSISTENCY_HARDENING_AFTER_0171.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_STATUS_SEMANTICS_AND_SAFETY_BANNERS_AFTER_0158.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_UI_COMPONENT_TAXONOMY_AFTER_0158.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_UI_SCREEN_VIEW_MODELS_AFTER_0159.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_UI_UX_FRONTEND_REBUILD_BACKLOG_AFTER_0157.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_UI_UX_FRONTEND_REBUILD_MASTER_PLAN_AFTER_0157.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_UI_UX_QUALITY_BAR_AND_ACCEPTANCE_MATRIX_AFTER_0157.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_UI_VIEW_MODEL_CONTRACT_V2_AFTER_0159.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_UI_VIEW_MODEL_FIXTURE_AND_BINDING_STRATEGY_AFTER_0159.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_UI_VIEW_MODEL_HANDOFF_TO_SHELL_PROTOTYPE_AFTER_0159.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_VISUAL_EXPORT_AND_SCREENSHOT_SAFE_MODE_SCREEN_AFTER_0166.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/INSTITUTIONAL_VISUAL_EXPORT_HANDOFF_TO_ANTIGRAVITY_BROWSER_QA_AFTER_0166.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/LIMITED_LIVE_PILOT_DESIGN_IF_FUTURE_GO.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/LIMITED_LIVE_PILOT_GO_NO_GO_PACKET.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/LIMITED_LIVE_PILOT_READINESS_MATRIX.json",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/LIMITED_LIVE_PILOT_RISK_REGISTER.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/LIVE_CONTROL_PLANE_CLI_COMMAND_INVENTORY.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/LIVE_CONTROL_PLANE_FULL_COMMAND_GAUNTLET_AFTER_0051.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/LIVE_CONTROL_PLANE_LOCAL_NEXT_PHASE_PLAN_AFTER_0054.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/LIVE_CONTROL_PLANE_LOCAL_RELEASE_RECAP_AFTER_0050.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/LIVE_CONTROL_PLANE_NEXT_PHASE_DECISION_AFTER_0053.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/LIVE_CONTROL_PLANE_OPERATOR_HANDOFF_AFTER_0050.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/LIVE_CONTROL_PLANE_PROJECT_SOURCES_REFRESH_CHECKLIST_AFTER_0054.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PLATFORM_OFFICIAL_DOCS_VERIFICATION_PACK_AFTER_0081.md",
+      "action": "keep",
+      "reason": "current authority or active policy"
+    },
+    {
+      "path": "docs/PRE_ALPHA_APPROVED_CC_ARTIFACT_INTAKE_AFTER_0123.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_CONTENT_ENGINE_AFTER_0095.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_CONTENT_PERFORMANCE_REVIEW_PACKET_AFTER_0117.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_CONTENT_SEED_LIBRARY_AND_EDITORIAL_CALENDAR_AFTER_0103.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_DAILY_MANUAL_PUBLISH_RUNBOOK_AFTER_0112.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_DAILY_OPERATOR_CONTENT_RUN_PACKET_AFTER_0111.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_DRAFT_RENDERER_AND_REVIEW_QUEUE_AFTER_0097.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_EDITORIAL_BATCH_REVIEW_PACKET_AFTER_0105.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_END_TO_END_LOCAL_DEMO_PACKET_AFTER_0101.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_GENERAL_PROCESS_AND_GROUNDED_NEWS_MASTER_PLAN_AFTER_0075.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_LOCAL_OPERATOR_WORKFLOW_DRY_RUN_AND_GAP_REPORT_AFTER_0120.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_MANUAL_DECISION_BATCH_PACKET_AFTER_0106.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_MANUAL_EXPORT_BATCH_PACKET_AFTER_0107.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_MANUAL_EXPORT_PACKETS_AND_CONTENT_LEDGER_AFTER_0099.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_MANUAL_PERFORMANCE_RECORD_PACKET_AFTER_0116.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_MANUAL_PUBLISH_RECORD_PACKET_AFTER_0108.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_MANUAL_REVIEW_WORKFLOW_AFTER_0098.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_OPERATOR_DASHBOARD_PACKET_AFTER_0104.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_OPERATOR_MARKDOWN_EXPORT_AFTER_0121.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_OPERATOR_MARKDOWN_EXPORT_AFTER_0125.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_OPERATOR_WORKFLOW_CONSOLIDATION_AFTER_0118.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_PLATFORM_SPECIFIC_MANUAL_EXPORT_TEMPLATES_AFTER_0110.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_PROMPT_PACK_AND_STYLE_PROFILE_AFTER_0096.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/PRE_ALPHA_WORKFLOW_AUDIT_AND_SIMPLIFICATION_MAP_AFTER_0114.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/reports",
+      "action": "archive",
+      "reason": "historical doc subdirectory not current entrypoint"
+    },
+    {
+      "path": "docs/research",
+      "action": "archive",
+      "reason": "historical doc subdirectory not current entrypoint"
+    },
+    {
+      "path": "docs/roadmaps",
+      "action": "archive",
+      "reason": "historical doc subdirectory not current entrypoint"
+    },
+    {
+      "path": "docs/TASK_0048_0049_RECONCILIATION_AUDIT_AND_REPAIR.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_0052A_DEEP_REPO_EVIDENCE_AUDIT_AND_REPAIR_BEFORE_RELEASE_BUNDLE.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_0054_RELEASE_BUNDLE_AUDIT_AND_NEXT_PHASE_DECISION.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_0055_PROJECT_SOURCES_REFRESH_AND_LOCAL_NEXT_PHASE_PLAN.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0056_POST_REFRESH_VALIDATION_AND_NEXT_SELECTION.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0057_LOCAL_PROMPT_QUALITY_POLICY_STYLE_QA_HARNESS_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0058_LOCAL_EDITORIAL_VARIANT_PREVIEW_AND_NO_PUBLIC_POST_REPORT_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0059_LOCAL_EDITORIAL_SELECTION_PACKET_AND_VARIANT_COMPARISON_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0060_GROUNDED_RESEARCH_CONTEXT_AND_SEO_METADATA_CONTRACT_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0061_GROUNDED_LLM_PROMPT_INJECTION_AND_CITATION_GUARDRAIL_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0062_LOCAL_GROUNDED_EDITORIAL_PACKET_EXPORT_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0063_LOCAL_GROUNDED_PACKET_AUDIT_AND_OPERATOR_REVIEW_QUEUE_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0064_LOCAL_OPERATOR_DECISION_CAPTURE_AND_REVIEW_HISTORY_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0065_LOCAL_REVIEW_HISTORY_LEDGER_AND_PACKET_REGISTRY_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0066_LOCAL_PACKET_REGISTRY_QUERY_AND_OPERATOR_DASHBOARD_SUMMARY_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0067_LOCAL_PACKET_DASHBOARD_EXPORT_AND_OPERATOR_HANDOFF_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0068_LOCAL_REVIEW_PACKET_BUNDLE_MANIFEST_AND_PROJECT_SOURCE_EXPORT_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0069_LOCAL_BUNDLE_REFRESH_AND_NEXT_PHASE_SELECTION_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0070_LOCAL_REAL_ARTIFACT_INTAKE_CONTRACT_AND_READINESS_GATE_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0071_LOCAL_REAL_ARTIFACT_TO_PACKET_BRIDGE_AND_SYNTHETIC_ROUTE_GUARD_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0072_EXTREME_LOCAL_REAL_ARTIFACT_PIPELINE_TRACE_REVIEW_PACKET_AND_BUNDLE_REFRESH_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0073_EXTREME_LOCAL_ALPHA_WAIT_STATE_OPERATOR_RUNBOOK_FINAL_BUNDLE_AND_PATH_REPAIR_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0074_LOCAL_IDE_CLI_DOCUMENT_BUNDLE_FOR_ALPHA_WAIT_STATE_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0075_PRE_ALPHA_GENERAL_PROCESS_AND_GROUNDED_NEWS_MASTER_PLAN_DOCS_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0076_LOCAL_GROUNDED_RESEARCH_BRIEF_SCHEMA_TEMPLATE_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0077A_FINAL_MASTER_PLAN_AND_NEW_CHAT_UPLOAD_BUNDLE_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0077_LLM_ASSISTED_DRAFT_REVIEW_PACKET_DRY_RUN_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0078_LOCAL_PLATFORM_ADAPTER_CONTRACTS_AND_DRY_RUN_RENDERER_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0079_LOCAL_APPROVAL_LEDGER_KILL_SWITCH_AND_AUDIT_CONTRACT_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0080_LOCAL_MOCK_ADAPTER_PUBLISH_FLOW_AND_METRICS_CAPTURE_DRY_RUN_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0081_PLATFORM_OFFICIAL_DOCS_VERIFICATION_PACK_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0082A_CREDENTIAL_POLICY_PLACEHOLDER_SCOPE_SELF_AUDIT_AND_DOC_CLARIFICATION_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0082_CREDENTIAL_ENVELOPE_AND_SECRET_POLICY_DESIGN_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0083_TELEGRAM_SUPERVISED_LIVE_PILOT_DESIGN_GATE_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0084_TELEGRAM_LIVE_PILOT_EXECUTION_EVIDENCE_AND_SECRET_BOUNDARY_AUDIT_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0084_TELEGRAM_SUPERVISED_LIVE_PILOT_EXECUTION_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0085_OPERATOR_LOCAL_SECRET_RUNBOOK_AND_ENV_EXAMPLE_NO_SECRET_VALUES_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0086A_AUTOMATION_POLICY_MODES_EVIDENCE_ADDENDUM_AND_SCOPE_AUDIT_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0086_POLICY_GATED_AUTOMATION_MODES_AND_CAPABILITY_ESCALATION_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0087A_TELEGRAM_QUEUE_EVIDENCE_ADDENDUM_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0087_TELEGRAM_SUPERVISED_POST_QUEUE_AND_IDEMPOTENCY_DRY_RUN_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0088_TELEGRAM_OPERATOR_APPROVED_ONE_SHOT_EXECUTION_PACKET_DRY_RUN_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0089_TELEGRAM_ONE_SHOT_LIVE_EXECUTION_POLICY_BRIDGE_AND_OPERATOR_GO_GATE_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0090_TELEGRAM_PRIVATE_SANDBOX_ONE_SHOT_LIVE_EXECUTION_FROM_GO_GATE_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0091_TELEGRAM_ONE_SHOT_LIVE_EXECUTION_EVIDENCE_AUDIT_AND_ROLLBACK_READINESS_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0092_TELEGRAM_LIVE_RUN_PRECHECK_HARDENING_AND_NO_WRAPPER_POLICY_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0093_TELEGRAM_SUPERVISED_LIVE_RUNBOOK_AND_SECOND_PRIVATE_SANDBOX_DRY_RUN_PREP_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0094B_TELEGRAM_SECOND_PRIVATE_SANDBOX_ONE_SHOT_LIVE_EXECUTION_RETRY_AFTER_ENV_FIX_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0094C_TELEGRAM_0094B_FAILED_LIVE_ATTEMPT_AUDIT_AND_ENV_CONTRACT_RECONCILIATION_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0094D_A_WORKING_TREE_DRIFT_EVIDENCE_ADDENDUM_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0094D_NEW_IDE_CONTEXT_AUDIT_AND_TELEGRAM_LANE_DECISION_PACKET_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0094_TELEGRAM_SECOND_PRIVATE_SANDBOX_ONE_SHOT_LIVE_EXECUTION_FROM_PRECHECK_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0095_PRE_ALPHA_CONTENT_ENGINE_AND_EDITORIAL_PACKET_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0096_PRE_ALPHA_LLM_PROMPT_PACK_AND_STYLE_PROFILE_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0097_PRE_ALPHA_DRAFT_RENDERER_AND_REVIEW_QUEUE_INTEGRATION_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0098_PRE_ALPHA_MANUAL_REVIEW_WORKFLOW_AND_APPROVAL_PACKET_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0099_PRE_ALPHA_MANUAL_EXPORT_PACKETS_AND_CONTENT_LEDGER_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0100_PROJECT_SOURCES_REFRESH_AND_UPLOAD_BUNDLE_AFTER_0099_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0138_SOCIAL_PLATFORM_FOUNDATION_CONTROL_PLANE_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0139_LLM_ASSISTED_CONTENT_WRITER_WORKBENCH_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0140_GROUNDED_NEWS_ANGLE_WORKBENCH_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0141_DAILY_CONTENT_STUDIO_RUN_PACKET_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0142_DAILY_CONTENT_STUDIO_MARKDOWN_REVIEW_EXPORT_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0143_DAILY_CONTENT_STUDIO_OPERATOR_DECISION_LEDGER_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0144_DAILY_CONTENT_STUDIO_EXTERNAL_DRAFT_REVIEW_PACKET_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0145_DAILY_CONTENT_STUDIO_LOCAL_UI_DATA_CONTRACT_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0146_DAILY_CONTENT_STUDIO_STATIC_FRONTEND_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0147_DAILY_CONTENT_STUDIO_STATIC_UI_REVIEW_WORKFLOW_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0148_PUBLISH_AUTOMATION_READINESS_AND_PLATFORM_CAPABILITY_REGISTRY_DRY_RUN_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0149_DRY_RUN_PUBLISH_BATCH_MANIFEST_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0150_CREDENTIAL_AND_SECRET_POLICY_FOR_PUBLISH_ADAPTERS_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0151_REDACTED_PUBLISH_AUDIT_LOG_AND_SECRET_EVIDENCE_GUARD_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0152_ONE_PLATFORM_LIVE_PILOT_GATE_TELEGRAM_READINESS_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0153_TELEGRAM_CREDENTIAL_SETUP_OPERATOR_GUIDE_AND_ENV_SLOT_STUB_V0.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0174AD_DASHBOARD_PREMIUM_TRANSITION_PLAN.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0174AI_TO_0174AM_PREMIUM_QUALITY_SYSTEM_ROADMAP.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0174B_V3_BRANDKIT_EXTRACTION.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0174B_V3_TASTE_ALIGNMENT_PLAN.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0174D_V4_COMPOSITION_BLUEPRINT.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0174D_V4_NORTH_STAR_GAP_MAP.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0174D_V4_SCREEN_WIREFRAME_CONTRACT.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0174D_V4_TEST_AND_REGRESSION_PLAN.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0174R_STITCH_REFERENCE_EXTRACTION.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TASK_CONTENTOPS_0174X_OPERATOR_COCKPIT_V4_FINAL_QA_ACCEPTANCE_RECORD.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_ADAPTER_DRY_RUN_AND_STAGING_CONTRACT.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_LIVE_PRECHECK_HARDENING_AFTER_0092.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_ONE_SHOT_EXECUTION_PACKET_AFTER_0088.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_ONE_SHOT_GO_GATE_AFTER_0089.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_PRIVATE_STAGING_DRY_RUN_OPERATOR_PACKET.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_PRIVATE_STAGING_DRY_RUN_OPERATOR_PACKET_V1.json",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_STAGING_DRY_RUN_ARTIFACT_FLOW_V1.json",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_STAGING_LIVE_BLOCKER_MATRIX_V1.json",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_STAGING_LIVE_PILOT_NO_GO_REINFORCEMENT.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_STAGING_OPERATOR_ROLLBACK_DRILL_V1.json",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_SUPERVISED_LIVE_PILOT_DESIGN_GATE_AFTER_0083.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_SUPERVISED_LIVE_RUNBOOK_AFTER_0093.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/TELEGRAM_SUPERVISED_POST_QUEUE_AFTER_0087.md",
+      "action": "archive",
+      "reason": "stale root doc / superseded plan"
+    },
+    {
+      "path": "docs/automation/0174EC",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174ED",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174EE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174TG",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174TG_TH_TI",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174TH",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174TI",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174TJ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174TJ_TK_TL",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174TM_TN_TO",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174TP_TQ_TR",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174TS_TT_TU",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174TV_TW_TX",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174TY_TZ_UA",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174U0",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174U1",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174U2",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174U3",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174U4",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174U5",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174U6",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174U7",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174U8",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174U9",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UA",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UB",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UB_UC_UD",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UC",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UD",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UE_UF_UG",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UG",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UH",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UH_UI_UJ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UI",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UI_R3_STATE_RECON",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UJ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UK",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UK_UL_UM",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UL",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UM",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UN",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UN_UO_UP",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UO",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UP",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UQ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UQ_UR_US",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UR",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174US",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UT",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UT_UU_UV",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UU",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UW",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UW_UX_UY",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UY",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UZ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174UZ_VA_VB",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174VC_VD_VE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174VF_VG_VH",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174VI_VJ_VK",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174VL_VM_VN",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174VO_VP_VQ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174VR_VS_VT",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174VU_VV_VW",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174VX_VY_VZ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174WA_WB_WC",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174WD_WE_WF",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174WG_WH_WI",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174WJ_WK_WL",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174WM_WN_WO",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174WP_WQ_WR",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174WS_WT_WU",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174WV_WW_WX",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174WY_WZ_XA",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174XB_XC_XD",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174XE_XF_XG",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174XH_XI_XJ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174XK_XL_XM",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174XN_XO_XP",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174XQ_XR_XS",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174XT_XU_XV",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174XW_XX_XY",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174XZ_YA_YB",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174YC_YD_YE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174YF_YG_YH",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174YI_YJ_YK",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0174YL_YM_YN",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AA",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AD",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AF",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AG",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AI",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AJ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AK",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AL",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AM",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AN",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AO",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AP",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AQ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AR",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AS",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AT",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AU",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AV",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AW",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AX",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AY",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175AZ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BA",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BB",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BC",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BD",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BF",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BG",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BH",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BI",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BJ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BK",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BL",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BM",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BN",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BO",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BP",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BQ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BS",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BT",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BV",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BW",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BX",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BY",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175BZ",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175CA",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175CB",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/0175CC",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/AUTHORITY_CORE_APPROVAL_LEDGER_PAYLOAD_HASH_INVALIDATION",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/AUTHORITY_CORE_OUTBOX_IDEMPOTENCY_KILL_SWITCH_AUDIT",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_APPROVAL_LEDGER_OUTBOX",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_APPROVED_OUTBOX_LIVE_DISPATCH",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_DISPATCH_ADAPTER",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_ENVIRONMENT_CONTRACT",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_LIVE_DISPATCH_CLOSEOUT",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_LIVE_PILOT_AUTHORIZATION_GATE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_MULTI_TARGET_LIVE_SMOKE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_ONE_ACTION_EXPLICIT_LIVE_DISPATCH",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_ONE_ACTION_LIVE_DISPATCH_CLOSEOUT",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_ONE_REQUEST_LIVE_PILOT",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_ONE_REQUEST_LIVE_PILOT_REPAIR",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_OPERATOR_APPROVAL_GATE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_OPERATOR_REVIEW_CANDIDATE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_PAYLOAD_HASH_APPROVAL_GATE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_PRODUCT_UPDATES_APPROVED_OUTBOX_LIVE_DISPATCH",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_REAL_CONTENT_APPROVED_QUEUE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_REAL_CONTENT_FILLED_INTAKE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_REAL_CONTENT_FILLED_INTAKE_FROM_SOURCE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_REAL_CONTENT_INTAKE_APPROVAL",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_SUBSTACK_APPROVED_OUTBOX_LIVE_DISPATCH",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_SUPERVISED_DISPATCH_ACTIONS",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_SUPERVISED_DISPATCH_RUNBOOK",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_TRI_TARGET_DISPATCH_CLOSEOUT",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/DISCORD_WEBHOOK_PAYLOAD_CONTRACT",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/LIVE_GATE_STATE_MACHINE_AND_ERROR_CLASSIFIER_CORE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/MULTI_PLATFORM_LIVE_FOUNDATION_BATCH_A",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/MULTI_PLATFORM_LIVE_FOUNDATION_BATCH_B",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP",
+      "action": "keep",
+      "reason": "current automation authority/evidence"
+    },
+    {
+      "path": "docs/automation/PUBLICATION_IDENTITY_REGISTRY",
+      "action": "keep",
+      "reason": "current automation authority/evidence"
+    },
+    {
+      "path": "docs/automation/TELEGRAM_LIVE_WRITE_BATCH_C_MINIMAL_AUTHORITY",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/TELEGRAM_READONLY_CHANNEL_BINDING_PERMISSION_PROOF",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/TELEGRAM_SUPERVISED_SENDMESSAGE_DRY_RUN_GATE",
+      "action": "archive",
+      "reason": "historical automation task packet"
+    },
+    {
+      "path": "docs/automation/V6_ACCEPTED_REVIEW_EDITORIAL_WORKFLOW_PACKET_CONTRACT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_ACTIVE_OUTBOX_ELIGIBILITY_GATE_FROM_LOCAL_PACKAGE_STAGING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_AI_PRODUCTION_CORE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_AI_RESEARCH_CANONICAL_ARTICLE_ENGINE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_AI_RESEARCH_GROUNDING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_APPROVAL_LEDGER_OUTBOX_RECORDING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_APPROVAL_PACKET_PREVIEW_TO_DISPATCH_OUTBOX_DRY_RUN",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_APPROVAL_QUEUE_EXACT_PAYLOAD_REVIEW_CONTRACT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_DRAFT_FROM_VERIFIED_SOURCE_PACK",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_REVIEW_CANDIDATE_HUMAN_REVIEW_DECISION_CONTRACT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_REVIEW_CANDIDATE_INTAKE_FROM_MARKDOWN",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_EDITORIAL_REFINEMENT_QUEUE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_EDITOR_DRAFT_SHELL",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_PLACEHOLDER_BINDING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_REVIEW_QUEUE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SEO_METADATA_CONTRACT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_ARTICLE_STUDIO_SOURCE_APPROVED_RENDERER",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_DRAFT_FINAL_REVIEW_TO_PLATFORM_VARIANT_PREVIEW",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_DRAFT_FROM_APPROVED_REDACTED_SOURCE_PACK",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_DRAFT_OPERATOR_SOURCE_PACK_REVIEW",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_DRAFT_POSITIVE_PATH_DRY_RUN",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CANONICAL_TO_DISCORD_APPROVED_PAYLOAD_OUTBOX_HEAVY_BATCH_NO_SEND",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_COMMUNITY_FEEDBACK_BACKLOG_LOOP",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_COMMUNITY_FEEDBACK_CAPTURE_CONTRACT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CONTENT_PRODUCTION_CORE_REVIEW_PACKETS_HEAVY_BATCH_NO_PROVIDER_NO_SEND",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CREDENTIAL_CAPABILITY_MATRIX",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CREDENTIAL_HANDLE_MEMBERSHIP_PROOF_SCAFFOLD_FROM_DESTINATION_BINDING_PROOF_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CREDENTIAL_HYDRATION_GATE_FROM_PROVIDER_RUNTIME_AUTHORITY_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CREDENTIAL_PRESENCE_MEMBERSHIP_SCAFFOLD_FROM_DESTINATION_BINDING_REVIEW_HEAVY_BATCH_NO_ENV_READ_NO_CREDENTIAL_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_CURRENT_STATE_AUDIT_AFTER_LOOP_CONTRACTS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DESTINATION_BINDING_OUTBOX_DRAFT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DESTINATION_BINDING_PROOF_SCAFFOLD_FROM_ENV_MEMBERSHIP_GATE_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DESTINATION_BINDING_REVIEW_SCAFFOLD_FROM_DISPATCH_GATE_HEAVY_BATCH_NO_ENV_NO_CREDENTIAL_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_COMMUNITY_DROP",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_DRY_RUN_OUTBOX_OPERATOR_APPROVAL_SPINE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_DRY_RUN_PAYLOAD_GATE_FROM_PERMISSION_PROBE_PREFLIGHT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_ENDPOINT_MAPPING_PREFLIGHT_FROM_CAPABILITY_LANE_SPLIT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_EXACT_OPERATOR_LIVE_DISPATCH_APPROVAL_GATE_FROM_MATERIALIZATION",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_EXPLICIT_LIVE_PILOT_GATE_PREP_HEAVY_BATCH_NO_SEND",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_FINAL_MANUAL_EXECUTION_REVIEW_FROM_REQUEST_PACKAGE_STAGING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_FINAL_PRE_LIVE_RELEASE_AND_OPERATOR_GO_READINESS_HEAVY_BATCH_NO_SEND",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_HEAVY_LOCAL_PRE_LIVE_BATCH_FROM_EXACT_OPERATOR_APPROVAL",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_LIVE_CAPABLE_SUPERVISED_PILOT_ADAPTER_HEAVY_BATCH_NO_LIVE_SEND",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_OPERATOR_GO_PACKET",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_OPERATOR_PAYLOAD_REVIEW_GATE_FROM_DRY_RUN_PAYLOAD",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_OPERATOR_SEND_COMMAND",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_OPERATOR_SOURCE_AND_GO_PHRASE_INTAKE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_PERMISSION_PROBE_PREFLIGHT_FROM_WEBHOOK_VALUE_BINDING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_REQUEST_POLICY_GATE_FROM_OPERATOR_PAYLOAD_REVIEW",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_DISPATCH_DRY_RUN_GATE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_PILOT_FROM_APPROVED_OUTBOX",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_PILOT_GATE_PLANNING_FROM_FINAL_MANUAL_REVIEW",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_PILOT_MATERIALIZATION_GATE_FROM_EXPLICIT_LIVE_SCOPE_CONTRACT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_PREFLIGHT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_LIVE_SMOKE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_SUPERVISED_REQUEST_PACKAGE_STAGING_FROM_REQUEST_POLICY",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISCORD_WEBHOOK_VALUE_BINDING_PREFLIGHT_FROM_ENDPOINT_MAPPING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISPATCH_EXECUTION_PREPARATION_GATE_FROM_REDACTED_AUDIT_KILL_SWITCH_MANUAL_FALLBACK_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISPATCH_GATE_SCAFFOLD_FROM_PREPARED_OUTBOX_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DISPATCH_OUTBOX_DRY_RUN_OPERATOR_RUNBOOK_AND_RECOVERY",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DRAFT_INSPECTOR_FOR_CONTENT_PRODUCTION_REVIEW_BUNDLE_HEAVY_BATCH_NO_PROVIDER_NO_SEND",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_DRAFT_INSPECTOR_V2",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_ENDPOINT_ALLOWLIST_GATE_FROM_OFFICIAL_PROVIDER_DOCS_SCOPE_HEAVY_BATCH_DOCS_ONLY_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_EXACT_ENV_KEY_MEMBERSHIP_CHECK_GATE_FROM_CREDENTIAL_MEMBERSHIP_SCAFFOLD_HEAVY_BATCH_MEMBERSHIP_ONLY_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_EXACT_JIM_APPROVAL_DECLARATION_INTAKE_GATE_HEAVY_BATCH_NO_PROVIDER_NO_LIVE_SEND",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_EXACT_OPERATOR_APPROVAL_SIGNATURE_VERIFIER_SCAFFOLD_HEAVY_BATCH_NO_APPROVAL_NO_SEND",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_EXACT_OPERATOR_DISPATCH_GO_GATE_FROM_PAYLOAD_HASH_REVALIDATION_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_EXPLICIT_DISCORD_LIVE_SCOPE_CONTRACT_GATE_FROM_SUPERVISED_LIVE_PILOT_PLANNING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_FAST_SHIP_OPERATING_PROFILE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_FAST_SHIP_RUNTIME_SPINE_CONSOLIDATION",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_FEEDBACK_BACKLOG_REVIEW_TO_NEXT_ARTICLE_BRIEF",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_FEEDBACK_SUMMARY_BACKLOG_CONTRACT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN",
+      "action": "keep",
+      "reason": "current automation authority/evidence"
+    },
+    {
+      "path": "docs/automation/V6_FINAL_PRODUCT_READINESS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_JIM_CANONICAL_DRAFT_FINAL_REVIEW_VARIANT_PREVIEW_PROMOTION",
+      "action": "keep",
+      "reason": "current automation authority/evidence"
+    },
+    {
+      "path": "docs/automation/V6_JIM_CONTENT_COCKPIT_BASELINE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_JIM_DISPATCH_OUTBOX_DRY_RUN_PROMOTION",
+      "action": "keep",
+      "reason": "current automation authority/evidence"
+    },
+    {
+      "path": "docs/automation/V6_JIM_DISPATCH_OUTBOX_OPERATOR_RECOVERY_PROMOTION",
+      "action": "keep",
+      "reason": "current automation authority/evidence"
+    },
+    {
+      "path": "docs/automation/V6_JIM_LOCAL_CANONICAL_DRAFT_PREVIEW_PROMOTION",
+      "action": "keep",
+      "reason": "current automation authority/evidence"
+    },
+    {
+      "path": "docs/automation/V6_JIM_PLATFORM_VARIANT_APPROVAL_PACKET_PREVIEW_PROMOTION",
+      "action": "keep",
+      "reason": "current automation authority/evidence"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_MANUAL_APPROVAL_EXPORT_EVIDENCE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_MANUAL_EXPORT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_MANUAL_OPERATOR_HANDOFF",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_MANUAL_PUBLICATION_URL_AUDIT_IMPORT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LINKEDIN_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_DISPATCH_ACCOUNT_BINDING_PREFLIGHT_FROM_CREDENTIAL_ALLOWLIST",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_DISPATCH_CREDENTIAL_AND_ALLOWLIST_PREFLIGHT_FROM_SCOPE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_DISPATCH_OFFICIAL_DOCS_AND_SCOPE_PREFLIGHT_FROM_READINESS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LIVE_DISPATCH_READINESS_PREFLIGHT_FROM_EXECUTION_PAYLOADS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LLM_FEEDBACK_SUMMARIZER_NEXT_IDEA",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_ACTIVE_OUTBOX_CREATION_FROM_OPERATOR_REVIEW_DECISION",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_CANONICAL_DRAFT_PREVIEW_AND_REVIEW",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_DESTINATION_BINDING_PREFLIGHT_FROM_DISPATCH_PAYLOADS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_DISPATCH_EXECUTION_PAYLOAD_PREPARATION_FROM_SUPERVISED_DECISION",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_DISPATCH_PAYLOAD_PREPARATION_FROM_OPERATOR_DECISION",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_DISPATCH_PREFLIGHT_FROM_ACTIVE_OUTBOX",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_LIVE_DISPATCH_REQUEST_PACKAGE_GATE_FROM_ACCOUNT_BINDING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_OUTBOX_PACKAGE_STAGING_FROM_PAYLOAD_REVIEW_LEDGER",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_PAYLOAD_REVIEW_HASH_AND_APPROVAL_LEDGER_STRENGTHENING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_LOCAL_PLATFORM_VARIANT_PREVIEW_STAGING_FROM_METADATA_VALUES",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_DISTRIBUTION_EVIDENCE_REGISTRY",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_FIXTURE_VALIDATOR",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_REFRESH_ORCHESTRATOR",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_SOURCE_SUBMISSION_REFRESH",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_TO_SOURCE_PREFLIGHT_BRIDGE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_MANUAL_EVIDENCE_VALIDATOR_WIRING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_NETWORK_SCOPE_POLICY",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_ARTICLE_BRIEF_SOURCE_PACK_AND_REVIEW",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_ARTICLE_DRAFT_AUTHORIZATION_AND_READINESS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_ARTICLE_PLANNING_FROM_FEEDBACK_CONTRACT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_ARTICLE_SOURCE_PACK_INTAKE_AND_VALIDATION",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_NEXT_CANONICAL_ARTICLE_FROM_BACKLOG",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OFFICIAL_PLATFORM_DOCS_VERIFICATION_FOR_LIVE_DISPATCH_REQUEST_GATE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OFFICIAL_PROVIDER_DOCS_SCOPE_GATE_FROM_PROVIDER_SCOPED_PREP_HEAVY_BATCH_DOCS_ONLY_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_ACTIVE_OUTBOX_REVIEW_DECISION_FROM_ELIGIBILITY_GATE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_CAPTURE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_GATE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_LEDGER_GATE_SCAFFOLD_FROM_PAYLOAD_HASH_PREP_HEAVY_BATCH_NO_APPROVAL_NO_SEND",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_QUEUE_EVIDENCE_VAULT_UI",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_APPROVAL_SIGNATURE_BINDING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_CHANNEL_READINESS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_DELEGATED_EVIDENCE_AUTHORING",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_DISPATCH_REVIEW_DECISION_FROM_PREFLIGHT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_EVIDENCE_CONSOLE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_EVIDENCE_FIXTURE_LIFECYCLE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_EVIDENCE_INTAKE_STUDIO",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_FACTS_INTAKE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_INTENT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_METADATA_VALUES_INTAKE_FROM_METADATA_PROPOSAL",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_PIPELINE_STATUS_CONSOLIDATION",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_RECOVERY_TO_EXPLICIT_LIVE_SCOPE_GATE_SOURCE_CANDIDATE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_SOURCE_EVIDENCE_SUBMISSION",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_SOURCE_PACK_INTAKE_FOR_EDITORIAL_WORKFLOW",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_SUPERVISED_DISPATCH_REVIEW_DECISION_FROM_DESTINATION_PREFLIGHT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OPERATOR_SUPPLIED_FEEDBACK_INTAKE_AND_BACKLOG",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OUTBOX_ENTRY_CONTRACT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_OUTBOX_PREPARATION_GATE_FROM_EXACT_JIM_APPROVAL_INTAKE_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PAYLOAD_HASH_PREVIEW_AND_APPROVAL_LEDGER_PREP_FROM_DRAFT_INSPECTION_HEAVY_BATCH_NO_PROVIDER_NO_SEND",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PAYLOAD_HASH_REVALIDATION_GATE_FROM_CREDENTIAL_HANDLE_MEMBERSHIP_PROOF_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PAYLOAD_PREVIEW_HASH",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_ADAPTER_POLICY_MATRIX_RECONCILIATION",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_ADAPTER_SELECTION_POLICY",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_CAPABILITY_LANE_SPLIT_FROM_OFFICIAL_DOCS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_CONTENT_GENERATORS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_VARIANT_APPROVAL_PACKET_CONTRACT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_VARIANT_FINAL_REVIEW_TO_APPROVAL_PACKET_PREVIEW",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_VARIANT_INPUT_CONTRACT_QUEUE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PLATFORM_VARIANT_RENDERER_BLOCKED_OUTPUT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PROJECT_SOURCES_EVERGREEN",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PROJECT_SOURCES_UPLOAD_BUNDLE_AFTER_V6_LOOP_CONTRACTS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PROVIDER_RUNTIME_AUTHORITY_GATE_FROM_ENDPOINT_ALLOWLIST_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PROVIDER_SCOPED_DISPATCH_EXECUTION_GATE_PREP_FROM_DISPATCH_PREPARATION_HEAVY_BATCH_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_PUBLICATION_AUDIT_RECORD_CONTRACT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_READINESS_EVIDENCE_BUNDLE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_REAL_SOURCE_PACK_MANUAL_IMPORT_SCHEMA",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_REAL_SOURCE_PACK_OPERATOR_APPROVAL_GATE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_REAL_SOURCE_PACK_REDACTED_FIXTURE_REVIEW",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_REDACTED_AUDIT_KILL_SWITCH_MANUAL_FALLBACK_GATE_FROM_EXACT_OPERATOR_GO_HEAVY_BATCH_NO_VALUE_NO_PROVIDER_NO_DISPATCH_NO_LIVE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SEO_EDITORIAL_METADATA_PROPOSAL_PACKET_FROM_SOURCE_PACK_INTAKE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SEO_EDITORIAL_REFINEMENT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SOURCE_EVIDENCE_PREFLIGHT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SOURCE_PACK_VERIFICATION_UI",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_BROWSER_COMPOSE_DRY_RUN",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_MANUAL_APPROVAL_EXPORT_EVIDENCE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_MANUAL_EXPORT_ARTICLE_STUDIO",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_MANUAL_EXPORT_OPERATOR_HANDOFF",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_MANUAL_PUBLICATION_URL_AUDIT_IMPORT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_OPERATOR_DRAFT_COMMAND",
+      "action": "keep",
+      "reason": "current automation authority/evidence"
+    },
+    {
+      "path": "docs/automation/V6_SUBSTACK_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SUPERVISED_DISPATCH_CONTRACT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SUPERVISED_DISPATCH_READINESS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_SUPERVISED_DISPATCH_READINESS_REVALIDATION",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_TELEGRAM_OPERATOR_SEND_COMMAND",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_UNIFIED_CAPABILITY_ENV_READINESS",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_UNIFIED_PAYLOAD_APPROVAL_OUTBOX",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_VARIANT_PREVIEW_HASH_APPROVAL_TO_DISCORD_OUTBOX",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_VERIFIED_SOURCE_PACK_IMPORT_REVALIDATION",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_APPROVAL_EXPORT_EVIDENCE",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_EXPORT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_OPERATOR_HANDOFF",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_PUBLICATION_EVIDENCE_LOOP",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_X_MANUAL_PUBLICATION_URL_AUDIT_IMPORT",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/V6_X_PUBLICATION_AUDIT_REVIEW_METRICS_SUMMARY",
+      "action": "keep",
+      "reason": "V6 packet kept for reference-safe first cleanup pass"
+    },
+    {
+      "path": "docs/automation/X_SUPERVISED_CDP_REAL_TEST_POST",
+      "action": "keep",
+      "reason": "current automation authority/evidence"
+    },
+    {
+      "path": "ui/contentops_v5/node_modules",
+      "action": "delete",
+      "reason": "dependency cache; reproducible from package-lock"
+    },
+    {
+      "path": "ui/daily_content_studio",
+      "action": "archive",
+      "reason": "old UI prototype; current UI is contentops_v5 only"
+    },
+    {
+      "path": "ui/institutional_operator_cockpit_v2",
+      "action": "archive",
+      "reason": "old UI prototype; current UI is contentops_v5 only"
+    },
+    {
+      "path": "ui/institutional_operator_cockpit_v3",
+      "action": "archive",
+      "reason": "old UI prototype; current UI is contentops_v5 only"
+    },
+    {
+      "path": "ui/institutional_operator_cockpit_v4",
+      "action": "archive",
+      "reason": "old UI prototype; current UI is contentops_v5 only"
+    },
+    {
+      "path": "ui/institutional_shell",
+      "action": "archive",
+      "reason": "old UI prototype; current UI is contentops_v5 only"
+    },
+    {
+      "path": "ui/operator_evidence_intake_studio",
+      "action": "archive",
+      "reason": "old UI prototype; current UI is contentops_v5 only"
+    },
+    {
+      "path": "scratch/check_logins.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    },
+    {
+      "path": "scratch/debug_dom.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    },
+    {
+      "path": "scratch/dedupe_discord_intake_ui.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    },
+    {
+      "path": "scratch/finalize_discord_intake_status_sha.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    },
+    {
+      "path": "scratch/find_post_button.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    },
+    {
+      "path": "scratch/fix_operator_go_status_format.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    },
+    {
+      "path": "scratch/repair_discord_intake_status_sha.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    },
+    {
+      "path": "scratch/tidy_operator_go_ui.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    },
+    {
+      "path": "scratch/unused_status_sha_placeholder.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    },
+    {
+      "path": "scratch/update_discord_intake_status.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    },
+    {
+      "path": "scratch/update_operator_go_status.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    },
+    {
+      "path": "scratch/v4_full_qa_screenshots",
+      "action": "delete",
+      "reason": "scratch screenshot/cache directory"
+    },
+    {
+      "path": "scratch/v4_qa_screenshots",
+      "action": "delete",
+      "reason": "scratch screenshot/cache directory"
+    },
+    {
+      "path": "scratch/v4_recheck_0174M",
+      "action": "delete",
+      "reason": "scratch screenshot/cache directory"
+    },
+    {
+      "path": "scratch/v4_recheck_0174N",
+      "action": "delete",
+      "reason": "scratch screenshot/cache directory"
+    },
+    {
+      "path": "scratch/v4_recheck_0174Q",
+      "action": "delete",
+      "reason": "scratch screenshot/cache directory"
+    },
+    {
+      "path": "scratch/v4_recheck_0174T",
+      "action": "delete",
+      "reason": "scratch screenshot/cache directory"
+    },
+    {
+      "path": "scratch/v4_recheck_0174U",
+      "action": "delete",
+      "reason": "scratch screenshot/cache directory"
+    },
+    {
+      "path": "scratch/v4_recheck_0174W",
+      "action": "delete",
+      "reason": "scratch screenshot/cache directory"
+    },
+    {
+      "path": "scratch/v4_recheck_0174Y",
+      "action": "delete",
+      "reason": "scratch screenshot/cache directory"
+    },
+    {
+      "path": "scratch/v4_recheck_0174Z1",
+      "action": "delete",
+      "reason": "scratch screenshot/cache directory"
+    },
+    {
+      "path": "scratch/v4_recheck_screenshots",
+      "action": "delete",
+      "reason": "scratch screenshot/cache directory"
+    },
+    {
+      "path": "scratch/wire_discord_intake_ui.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    },
+    {
+      "path": "scratch/wire_operator_go_ui.py",
+      "action": "delete",
+      "reason": "untracked one-off scratch/debug helper"
+    }
+  ]
+}

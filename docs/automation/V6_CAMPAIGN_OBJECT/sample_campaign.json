@@ -1,0 +1,127 @@
+{
+  "approval_mode": "bundle_review",
+  "approval_packet_id": "approval_preview_28f5ef142e404225",
+  "blocked_controls": [
+    "approve",
+    "dispatch",
+    "publish",
+    "schedule",
+    "send",
+    "scrape",
+    "reply",
+    "dm",
+    "react"
+  ],
+  "blockers": [],
+  "campaign_id": "campaign_6d42e069f8893aae",
+  "canonical_article_id": "canonical_article_redacted_001",
+  "discord_drop_ids": [
+    "discord_drop_redacted_001"
+  ],
+  "dispatch_results": [
+    {
+      "platform": "substack",
+      "public_url_verified": false,
+      "status": "not_dispatched_local_only"
+    },
+    {
+      "platform": "discord",
+      "public_url_verified": false,
+      "status": "not_dispatched_local_only"
+    },
+    {
+      "platform": "x",
+      "public_url_verified": false,
+      "status": "not_dispatched_local_only"
+    },
+    {
+      "platform": "linkedin",
+      "public_url_verified": false,
+      "status": "not_dispatched_local_only"
+    }
+  ],
+  "exact_payload_hash": "5550cbb1bb520913aac9aef89117d563b80f4bd06f792a71528ab9d4e7270728",
+  "feedback_summary": {
+    "community_signal_status": "operator_supplied_only_no_scrape_no_bot",
+    "feedback_backlog_summary_packet_id": "feedback_backlog_summary_redacted_001",
+    "next_article_brief_packet_id": "next_article_brief_redacted_001"
+  },
+  "final_product_loop_position": "idea_to_campaign_to_audit_to_feedback_to_next_idea",
+  "metrics_records": [
+    {
+      "record_id": "metrics_redacted_001",
+      "scraped": false,
+      "source": "operator_supplied_redacted"
+    }
+  ],
+  "non_readiness_claims": {
+    "api_readiness_claimed": false,
+    "bot_or_slash_command_claimed": false,
+    "community_scrape_claimed": false,
+    "dispatch_readiness_claimed": false,
+    "live_readiness_claimed": false,
+    "public_url_verification_claimed": false
+  },
+  "outbox_entries": [
+    {
+      "dispatchable": false,
+      "outbox_entry_id": "outbox_substack_manual_001",
+      "payload_hash_locked": true,
+      "platform": "substack",
+      "platform_state": "manual"
+    },
+    {
+      "dispatchable": false,
+      "outbox_entry_id": "outbox_discord_drop_001",
+      "payload_hash_locked": true,
+      "platform": "discord",
+      "platform_state": "ready"
+    },
+    {
+      "dispatchable": false,
+      "outbox_entry_id": "outbox_x_manual_001",
+      "payload_hash_locked": true,
+      "platform": "x",
+      "platform_state": "manual"
+    },
+    {
+      "dispatchable": false,
+      "outbox_entry_id": "outbox_linkedin_deferred_001",
+      "payload_hash_locked": true,
+      "platform": "linkedin",
+      "platform_state": "deferred"
+    }
+  ],
+  "packet_kind": "campaign_object_v0",
+  "platform_state_counts": {
+    "deferred": 1,
+    "manual": 2,
+    "ready": 1
+  },
+  "safety_flags": {
+    "browser_or_cdp_action_performed": false,
+    "comment_dm_or_reaction_performed": false,
+    "credential_read_made": false,
+    "dispatch_attempted": false,
+    "env_value_read_made": false,
+    "live_write_allowed_now": false,
+    "network_call_made": false,
+    "platform_api_used": false,
+    "provider_call_made": false,
+    "public_url_fetch_made": false,
+    "retry_enabled": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "webhook_request_made": false
+  },
+  "schema_version": "6.0.0",
+  "selected_platforms": [
+    "substack",
+    "discord",
+    "x",
+    "linkedin"
+  ],
+  "status": "REVIEW_WITH_MANUAL_OR_DEFERRED_PLATFORMS",
+  "task_label": "TASK_CONTENTOPS_V6_CAMPAIGN_OBJECT_AND_FINAL_LOOP_INTEGRATION_V0",
+  "variant_set_id": "variant_set_redacted_001"
+}

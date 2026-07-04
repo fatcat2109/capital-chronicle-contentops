@@ -1,0 +1,262 @@
+{
+  "audit_backed_publication_context": {
+    "approval_id": "approval_audit_feedback_001",
+    "dispatch_attempt_id": "dispatch_audit_feedback_001",
+    "explicit_audit_record_ref_present": true,
+    "outbox_entry_id": "outbox_audit_feedback_001",
+    "platform": "x",
+    "platform_publication_id": "1800000000000000000",
+    "public_url": "https://x.com/CapitalChron/status/1800000000000000000",
+    "publication_audit_ready": true,
+    "registry_record_id": "pubid_x_58e868151359a7b7"
+  },
+  "backlog_candidates": [
+    {
+      "article_angle": "Explain how cash conversion, revenue quality, and dividend coverage fit together without giving financial advice.",
+      "candidate_id": "backlog_candidate_cash_flow_quality_explainer",
+      "not_financial_advice": true,
+      "priority_score": 36,
+      "rationale": "Multiple operator-supplied questions ask for plain-English cash-flow and revenue-quality context.",
+      "readiness_status": "ready_for_operator_review_only",
+      "source_feedback_item_ids": [
+        "operator_feedback_substack_question_001",
+        "operator_feedback_x_reply_001"
+      ],
+      "source_platforms": [
+        "substack",
+        "x"
+      ],
+      "title": "Cash-flow quality explainer for audience follow-up",
+      "topic_tags": [
+        "cash_conversion",
+        "dividend_coverage",
+        "explainer",
+        "free_cash_flow",
+        "reader_education",
+        "revenue_quality"
+      ]
+    },
+    {
+      "article_angle": "Turn recurring manual feedback into a review-only FAQ backlog candidate.",
+      "candidate_id": "backlog_candidate_manual_distribution_faq",
+      "not_financial_advice": true,
+      "priority_score": 18,
+      "rationale": "Operator editorial note asks to consolidate recurring audience questions before the next draft.",
+      "readiness_status": "ready_for_operator_review_only",
+      "source_feedback_item_ids": [
+        "operator_feedback_manual_note_001"
+      ],
+      "source_platforms": [
+        "manual_note"
+      ],
+      "title": "Manual distribution feedback FAQ",
+      "topic_tags": [
+        "backlog",
+        "editorial_planning",
+        "faq"
+      ]
+    },
+    {
+      "article_angle": "Create an educational checklist for margin durability signals and caveats.",
+      "candidate_id": "backlog_candidate_margin_quality_checklist",
+      "not_financial_advice": true,
+      "priority_score": 18,
+      "rationale": "Operator-supplied LinkedIn feedback requested a checklist for separating durable margins from temporary cost actions.",
+      "readiness_status": "ready_for_operator_review_only",
+      "source_feedback_item_ids": [
+        "operator_feedback_linkedin_comment_001"
+      ],
+      "source_platforms": [
+        "linkedin"
+      ],
+      "title": "Durable margin quality checklist",
+      "topic_tags": [
+        "checklist",
+        "margin_quality",
+        "operator_workflow"
+      ]
+    }
+  ],
+  "blocked_controls": [
+    "approve",
+    "dispatch",
+    "publish",
+    "schedule",
+    "send",
+    "scrape",
+    "reply",
+    "dm",
+    "react"
+  ],
+  "blockers": [],
+  "bridge_status": "READY_FOR_OPERATOR_BACKLOG_REVIEW",
+  "community_signal_status": "operator_supplied_only_no_scrape_no_bot",
+  "distribution_record_id": "distribution_feedback_record_c4d717609e61cac9",
+  "exact_payload_hash": "b22b80ae944e6a8f811ba3667ad53c2ab665e8efb938706e992e024f86263d53",
+  "feedback_backlog_summary_packet_id": "operator_feedback_backlog_summary_24b783562e91a600",
+  "feedback_items": [
+    {
+      "feedback_item_id": "operator_feedback_substack_question_001",
+      "operator_supplied_claim": true,
+      "operator_supplied_text": "Reader asked for a plain-English follow-up on how dividend coverage connects to free cash flow quality.",
+      "operator_supplied_timestamp": "2026-07-01T12:10:00Z",
+      "safety_flags": {
+        "no_llm_provider_call": true,
+        "operator_supplied_only": true,
+        "source_api_used": false,
+        "source_scraped": false,
+        "source_url_network_verified": false
+      },
+      "sentiment_label": "question",
+      "source_api_used": false,
+      "source_kind": "question",
+      "source_platform": "substack",
+      "source_scraped": false,
+      "source_url_hash_optional": "7a2be8e6fbbfb0d21c9d6fa93335e4349c0838528d75b84e1f3fb1786698c48d",
+      "source_url_network_verified": false,
+      "source_url_text_optional": "operator-redacted-substack-comment-reference",
+      "topic_tags": [
+        "dividend_coverage",
+        "free_cash_flow",
+        "reader_education"
+      ]
+    },
+    {
+      "feedback_item_id": "operator_feedback_linkedin_comment_001",
+      "operator_supplied_claim": true,
+      "operator_supplied_text": "Operator noted that LinkedIn commenters wanted a checklist for distinguishing durable margins from one-quarter cost cuts.",
+      "operator_supplied_timestamp": "2026-07-01T12:14:00Z",
+      "safety_flags": {
+        "no_llm_provider_call": true,
+        "operator_supplied_only": true,
+        "source_api_used": false,
+        "source_scraped": false,
+        "source_url_network_verified": false
+      },
+      "sentiment_label": "feature_request",
+      "source_api_used": false,
+      "source_kind": "comment",
+      "source_platform": "linkedin",
+      "source_scraped": false,
+      "source_url_hash_optional": "ef94d26d87eccf5c9678d93b079a4f36e2706fa016d4b7f499d3122e8d99ade5",
+      "source_url_network_verified": false,
+      "source_url_text_optional": "operator-redacted-linkedin-comment-reference",
+      "topic_tags": [
+        "margin_quality",
+        "checklist",
+        "operator_workflow"
+      ]
+    },
+    {
+      "feedback_item_id": "operator_feedback_x_reply_001",
+      "operator_supplied_claim": true,
+      "operator_supplied_text": "Manual X reply note requested a short explainer on why revenue growth can look strong while cash conversion weakens.",
+      "operator_supplied_timestamp": "2026-07-01T12:18:00Z",
+      "safety_flags": {
+        "no_llm_provider_call": true,
+        "operator_supplied_only": true,
+        "source_api_used": false,
+        "source_scraped": false,
+        "source_url_network_verified": false
+      },
+      "sentiment_label": "question",
+      "source_api_used": false,
+      "source_kind": "reply",
+      "source_platform": "x",
+      "source_scraped": false,
+      "source_url_hash_optional": "27a5df0cbb562e675f9b39b660978913d60835342520784035776cab28f85123",
+      "source_url_network_verified": false,
+      "source_url_text_optional": "operator-redacted-x-reply-reference",
+      "topic_tags": [
+        "cash_conversion",
+        "revenue_quality",
+        "explainer"
+      ]
+    },
+    {
+      "feedback_item_id": "operator_feedback_manual_note_001",
+      "operator_supplied_claim": true,
+      "operator_supplied_text": "Editorial note: collect recurring audience questions into a review-only FAQ candidate before drafting the next article.",
+      "operator_supplied_timestamp": "2026-07-01T12:20:00Z",
+      "safety_flags": {
+        "no_llm_provider_call": true,
+        "operator_supplied_only": true,
+        "source_api_used": false,
+        "source_scraped": false,
+        "source_url_network_verified": false
+      },
+      "sentiment_label": "neutral",
+      "source_api_used": false,
+      "source_kind": "manual_note",
+      "source_platform": "manual_note",
+      "source_scraped": false,
+      "source_url_hash_optional": "",
+      "source_url_network_verified": false,
+      "source_url_text_optional": "",
+      "topic_tags": [
+        "faq",
+        "backlog",
+        "editorial_planning"
+      ]
+    }
+  ],
+  "final_product_loop_position": "audit_to_feedback_to_next_idea",
+  "metrics_notes": [],
+  "next_article_brief_packet_id": "feedback_backlog_next_article_brief_63c639189791ee71",
+  "non_readiness_claims": {
+    "api_readiness_claimed": false,
+    "bot_or_slash_command_claimed": false,
+    "canonical_draft_readiness_claimed": false,
+    "community_scrape_claimed": false,
+    "dispatch_readiness_claimed": false,
+    "live_readiness_claimed": false,
+    "llm_summary_claimed": false,
+    "public_url_verification_claimed": false
+  },
+  "operator_feedback_intake_packet_id": "operator_supplied_feedback_intake_4b0ff2791a539818",
+  "packet_kind": "audit_backed_feedback_backlog_packet_v0",
+  "safety_flags": {
+    "browser_or_cdp_action_performed": false,
+    "browser_session_used": false,
+    "comment_or_reply_performed": false,
+    "credential_read_made": false,
+    "dm_or_private_message_performed": false,
+    "env_value_read_made": false,
+    "live_publish_performed_by_contentops": false,
+    "llm_provider_call_made": false,
+    "network_call_made": false,
+    "platform_api_used": false,
+    "provider_call_made": false,
+    "public_url_fetch_made": false,
+    "reaction_performed": false,
+    "retry_enabled": false,
+    "scheduler_enabled": false,
+    "scraping_performed": false,
+    "webhook_request_made": false
+  },
+  "schema_version": "6.0.0",
+  "selected_next_article_brief": {
+    "audience_need": "Multiple operator-supplied questions ask for plain-English cash-flow and revenue-quality context.",
+    "brief_id": "next_article_brief_candidate_backlog_candidate_cash_flow_quality_explainer",
+    "brief_title": "Review-only brief candidate: Cash-flow quality explainer for audience follow-up",
+    "canonical_draft_requested": false,
+    "editorial_angle": "Explain how cash conversion, revenue quality, and dividend coverage fit together without giving financial advice.",
+    "not_financial_advice": true,
+    "publication_or_dispatch_requested": false,
+    "required_operator_review_notes": [
+      "Confirm the source feedback text is approved for editorial planning use.",
+      "Attach a separate source pack before any canonical draft is requested.",
+      "Keep all copy educational and non-advisory."
+    ],
+    "suggested_outline": [
+      "Restate the audience question in plain English.",
+      "Define the key financial-quality concepts without advice wording.",
+      "Show caveats operators should verify before drafting.",
+      "Close with educational takeaways and human-review notes."
+    ],
+    "working_headline": "Cash-flow quality explainer for audience follow-up"
+  },
+  "source_audit_record_ref": "audit_record_redacted_ref_001",
+  "source_identity_link_hash": "c4d717609e61cac98c24e08807e57276136758d2173f5806559b62fa3c88f5ca",
+  "task_label": "TASK_CONTENTOPS_V6_AUDIT_BACKED_DISTRIBUTION_RECORD_TO_FEEDBACK_BACKLOG_V0"
+}

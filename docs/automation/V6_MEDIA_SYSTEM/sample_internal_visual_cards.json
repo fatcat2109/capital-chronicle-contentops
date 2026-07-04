@@ -1,0 +1,91 @@
+[
+  {
+    "alt_text": "Text card showing a reviewed article quote for operator approval.",
+    "blockers": [],
+    "body": "Key excerpt prepared for internal editorial review.",
+    "card_hash": "b52cdd1eb434ba091562bd1178fc609c445b67fb1f771a103ce9054023972cb6",
+    "card_id": "card_quote_001",
+    "card_type": "article_quote_card",
+    "claims": [
+      "excerpt_reviewed_for_context"
+    ],
+    "packet_kind": "internal_visual_card_v0",
+    "render_status": "not_rendered_spec_only",
+    "safety_flags": {
+      "browser_or_cdp_action_performed": false,
+      "credential_read_made": false,
+      "env_value_read_made": false,
+      "image_provider_call_made": false,
+      "network_call_made": false,
+      "provider_call_made": false,
+      "public_url_fetch_made": false,
+      "rendered_image_created": false,
+      "scraping_performed": false
+    },
+    "schema_version": "6.0.0",
+    "source_refs": [
+      "canonical_article_redacted_001"
+    ],
+    "status": "READY_FOR_MEDIA_MANIFEST_REVIEW",
+    "task_label": "TASK_CONTENTOPS_V6_MEDIA_RIGHTS_AND_INTERNAL_VISUAL_CARD_SYSTEM_V0",
+    "title": "Quote Card - Policy Watch"
+  },
+  {
+    "alt_text": "Internal card stating evidence is sufficient for commentary but not forecasting.",
+    "blockers": [],
+    "body": "Evidence is sufficient for commentary, not for a forecast.",
+    "card_hash": "68cf97d04faf6f33480bf3d28ca30abc929369267d640d86fbe121584ee8ab13",
+    "card_id": "card_sufficiency_001",
+    "card_type": "data_sufficiency_card",
+    "claims": [],
+    "packet_kind": "internal_visual_card_v0",
+    "render_status": "not_rendered_spec_only",
+    "safety_flags": {
+      "browser_or_cdp_action_performed": false,
+      "credential_read_made": false,
+      "env_value_read_made": false,
+      "image_provider_call_made": false,
+      "network_call_made": false,
+      "provider_call_made": false,
+      "public_url_fetch_made": false,
+      "rendered_image_created": false,
+      "scraping_performed": false
+    },
+    "schema_version": "6.0.0",
+    "source_refs": [
+      "source_pack_review_redacted_001"
+    ],
+    "status": "READY_FOR_MEDIA_MANIFEST_REVIEW",
+    "task_label": "TASK_CONTENTOPS_V6_MEDIA_RIGHTS_AND_INTERNAL_VISUAL_CARD_SYSTEM_V0",
+    "title": "Data Sufficiency"
+  },
+  {
+    "alt_text": "Warning-style internal card indicating forecast readiness is blocked.",
+    "blockers": [],
+    "body": "Forecast language remains blocked until a future approved evidence gate.",
+    "card_hash": "eadbe9e0f5dd5ed9ab9d48958dd766a67e4c44a899cc8d821cfe68cd5648357f",
+    "card_id": "card_forecast_blocked_001",
+    "card_type": "forecast_readiness_blocked_card",
+    "claims": [],
+    "packet_kind": "internal_visual_card_v0",
+    "render_status": "not_rendered_spec_only",
+    "safety_flags": {
+      "browser_or_cdp_action_performed": false,
+      "credential_read_made": false,
+      "env_value_read_made": false,
+      "image_provider_call_made": false,
+      "network_call_made": false,
+      "provider_call_made": false,
+      "public_url_fetch_made": false,
+      "rendered_image_created": false,
+      "scraping_performed": false
+    },
+    "schema_version": "6.0.0",
+    "source_refs": [
+      "draft_inspector_redacted_001"
+    ],
+    "status": "READY_FOR_MEDIA_MANIFEST_REVIEW",
+    "task_label": "TASK_CONTENTOPS_V6_MEDIA_RIGHTS_AND_INTERNAL_VISUAL_CARD_SYSTEM_V0",
+    "title": "Forecast Blocked"
+  }
+]

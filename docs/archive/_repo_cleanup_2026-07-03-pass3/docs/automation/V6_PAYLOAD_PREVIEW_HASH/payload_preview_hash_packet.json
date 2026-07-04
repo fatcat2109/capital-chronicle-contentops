@@ -1,0 +1,20 @@
+{
+  "approval_valid_for_dispatch": false,
+  "browser_session_started": false,
+  "credentials_hydrated": false,
+  "destination_binding_complete": false,
+  "dispatch_allowed_now": false,
+  "evidence_complete": true,
+  "exact_payload_preview_created": true,
+  "kill_switch_active": true,
+  "live_write_allowed_now": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_SIGNATURE_BINDING_LANE_HEAVY_BATCH_V0",
+  "outbox_entry_created": false,
+  "payload_hash": "4bcbbf4eeab1bdfa2f3f94b4dbb042877c67efdb515f7feecaac5ffa3a2e71ff",
+  "payload_hash_created": true,
+  "payload_preview_status": "READY_FOR_OPERATOR_REVIEW",
+  "public_postable": false,
+  "schema_version": "6.0.0",
+  "source_preflight_ready": true,
+  "task_label": "TASK_CONTENTOPS_V6_PAYLOAD_PREVIEW_AND_HASH_LANE_HEAVY_BATCH_V0"
+}

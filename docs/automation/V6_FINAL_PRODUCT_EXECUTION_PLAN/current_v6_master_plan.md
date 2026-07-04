@@ -32,14 +32,28 @@ The product is not a signal service, broker, trading bot, portfolio manager, inv
 | Platform | Current role | Current execution posture |
 |---|---|---|
 | Substack | Canonical long-form authority | Manual/export evidence lane is locally complete as fixture/operator-supplied evidence. |
+| LinkedIn | Professional distribution lane | Manual publication evidence loop is accepted; evidence is fixture/operator-supplied, not API/network verified. |
+| X | Real-time market commentary lane | Manual/deferred plus supervised packet evidence exists; registry append/readback is local and idempotent. |
 | Discord | Community feedback flywheel | Pre-live/dry-run/outbox/governance docs and packets exist; no live send is claimed by this plan. |
-| Telegram | Operator lane | Remote operator/checkpoint lane direction; live execution remains gated. |
-| LinkedIn | Manual/deferred distribution lane | Manual publication evidence loop is accepted at `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb`; evidence is fixture/operator-supplied, not API/network verified. |
-| X | Manual/deferred distribution lane | Deferred unless explicit live gates and platform policy scope are approved later. |
+| Telegram | Remote operator lane | Remote operator/checkpoint lane direction exists; live execution remains gated. |
+| Facebook Page | Meta-family page distribution lane | Advisory capability docs exist; future manual/Meta Business Suite path first, API/live posting blocked. |
+| Threads | Meta-family short-form conversation lane | Advisory capability docs and dry-run/manual recovery notes exist; API/live posting blocked. |
+| Instagram | Visual/social media lane | Advisory capability docs exist; deferred until media rights, account constraints, and Meta review are solved. |
+| TikTok | High-friction short-video lane | Advisory capability docs exist; last-priority future lane, no current product execution. |
+| Generic manual | Operator-controlled fallback lane | Manual copy/export evidence only; no platform capability or live automation claimed. |
 
 ## AI / LLM Production Role
 
 LLMs may assist with research synthesis, editorial drafting, SEO refinement, platform-native variant proposals, feedback summaries, and backlog suggestions. LLM output must flow through deterministic packet builders, review artifacts, exact payload hashes, and operator approval boundaries before any distribution lane treats it as ready.
+
+## Media Grounding and Asset Policy
+
+ContentOps must choose post media based on source class, not convenience:
+
+1. **News/current-event topics** should produce grounded image candidate packets. The first safe implementation is operator-supplied or search-result metadata only: candidate title/source URL/image URL/license notes/relevance notes. Repo code must not scrape Google Images, download media, fetch public image URLs, or claim rights verification unless a future exact approved task adds that capability.
+2. **Capital Chronicle Internal alpha / analysis-report topics** should prefer built-in chart/card media from the internal report or chart system. These posts should not use random external web images when a report-native chart/card is available.
+3. **Fallback external media** is allowed only as reviewed candidate metadata with operator approval, rights notes, alt text, source attribution, and stable media hash participation in the media manifest.
+4. **Visual social lanes** such as Instagram, Threads, Facebook Page, TikTok, LinkedIn, and X must receive platform-specific media fit notes before approval. Media fit is local review evidence only, not platform upload readiness.
 
 ## Deterministic Validators and Approval Boundaries
 
@@ -67,9 +81,13 @@ Manual fallback is a first-class lane. Browser/CDP work, if later approved, must
 
 - Status governance docs/protocol exist under `docs/status/`.
 - Canonical dashboard authority is `ui/contentops_v5/`.
-- V6 local deterministic packets exist for research, canonical drafts, Substack manual publication evidence, and LinkedIn manual publication evidence.
+- V6 local deterministic packets exist for research, canonical drafts, Substack manual publication evidence, LinkedIn manual publication evidence, X supervised packet evidence, and advisory platform capability metadata.
+- The north-star platform universe includes Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram, TikTok, and generic manual fallback.
+- The canonical V5 Command Center now productizes that full platform universe in one source-to-audit operator cockpit backed by deterministic local adapter output.
 - LinkedIn manual publication evidence loop is accepted as product baseline at `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb` after push/readback.
-- Substack and LinkedIn publication URL/metrics evidence remains fixture/manual/operator-supplied unless a future task provides explicit verified evidence.
+- Substack, LinkedIn, X, Discord, Telegram, Meta-family, TikTok, and generic manual evidence remains fixture/manual/operator-supplied unless a future task provides explicit verified evidence.
+- Media policy is split by source class: news uses grounded image candidate metadata; Capital Chronicle internal alpha/report content uses built-in chart/card media when available.
+- The canonical V5 Command Center now displays both media lanes and manual audit rows as adapter-built local review evidence.
 - Live/provider/platform execution remains blocked unless separately scoped and approved.
 
 ## Currently Completed Local / Manual Lanes
@@ -78,7 +96,11 @@ Manual fallback is a first-class lane. Browser/CDP work, if later approved, must
 - Canonical V5 dashboard integration for read-only manual evidence cards.
 - Substack manual export, approval/export evidence, operator handoff, URL/audit import, and manual metrics summary as local/manual evidence.
 - LinkedIn manual export, approval/export evidence, operator handoff, URL/audit import, and manual metrics summary as local/manual evidence.
+- X supervised packet evidence and local publication registry idempotency/readback audit.
+- Advisory capability registry/docs for Facebook Page, Threads, Instagram, TikTok, Telegram, and generic manual fallback.
 - Discord pre-live/dry-run/outbox governance artifacts exist in repo, but this plan does not claim a live send.
+- Internal visual-card packet specs and media rights manifest exist locally; rendered media export, Google image search execution, image download, and rights verification remain future work.
+- Deterministic V5 Command Center adapter output now covers full-platform variant rows, source-aware media candidates, stable hashes, and manual audit rows.
 
 ## Remaining Roadmap Direction
 
@@ -86,6 +108,7 @@ Recommended future work should remain soft and evidence-driven:
 
 - Reconcile roadmap priorities against current repo state before opening any new lane.
 - Harden manual/deferred distribution lanes without live writes unless explicitly scoped.
+- Add deterministic local approve/hold/reject decision packet intake for adapter-built payload hashes.
 - Continue improving canonical V5 visibility for accepted packets.
 - Only pursue live/provider/platform actions through exact live scope contracts, approval gates, safety tests, and final operator go decisions.
 - Keep Project Sources lean and contextual; never use them as runtime authority over GitHub remote.

@@ -1,0 +1,147 @@
+{
+  "editable_count_capped": 9,
+  "editables": [
+    {
+      "aria_label": null,
+      "box": {
+        "height": 47.0,
+        "width": 385.0,
+        "x": 3488.0,
+        "y": 117.0
+      },
+      "enabled": true,
+      "index": 0,
+      "placeholder": "Add a title...",
+      "role": null,
+      "tag": "INPUT",
+      "visible": true
+    },
+    {
+      "aria_label": null,
+      "box": {
+        "height": 200.0,
+        "width": 385.0,
+        "x": 3488.0,
+        "y": 215.0
+      },
+      "enabled": true,
+      "index": 1,
+      "placeholder": "Add a description...",
+      "role": null,
+      "tag": "TEXTAREA",
+      "visible": true
+    },
+    {
+      "aria_label": "title",
+      "box": {
+        "height": 42.0,
+        "width": 728.0,
+        "x": 1344.5,
+        "y": -1657.0
+      },
+      "enabled": true,
+      "index": 3,
+      "placeholder": "Title",
+      "role": null,
+      "tag": "TEXTAREA",
+      "visible": true
+    },
+    {
+      "aria_label": null,
+      "box": {
+        "height": 25.0,
+        "width": 728.0,
+        "x": 1344.5,
+        "y": -1599.0
+      },
+      "enabled": true,
+      "index": 4,
+      "placeholder": "Add a subtitle\u2026",
+      "role": null,
+      "tag": "TEXTAREA",
+      "visible": true
+    },
+    {
+      "aria_label": null,
+      "box": {
+        "height": 2782.1,
+        "width": 728.0,
+        "x": 1344.5,
+        "y": -1490.0
+      },
+      "enabled": true,
+      "index": 5,
+      "placeholder": null,
+      "role": null,
+      "tag": "DIV",
+      "visible": true
+    },
+    {
+      "aria_label": null,
+      "box": {
+        "height": 52.0,
+        "width": 277.0,
+        "x": 1515.0,
+        "y": 501.7
+      },
+      "enabled": true,
+      "index": 6,
+      "placeholder": "Type your email\u2026",
+      "role": null,
+      "tag": "INPUT",
+      "visible": true
+    },
+    {
+      "aria_label": null,
+      "box": {
+        "height": 52.0,
+        "width": 110.0,
+        "x": 1792.0,
+        "y": 501.7
+      },
+      "enabled": true,
+      "index": 7,
+      "placeholder": null,
+      "role": null,
+      "tag": "INPUT",
+      "visible": true
+    },
+    {
+      "aria_label": "Upload file",
+      "box": {
+        "height": 1.0,
+        "width": 1.0,
+        "x": 3478.0,
+        "y": 231.0
+      },
+      "enabled": true,
+      "index": 8,
+      "placeholder": null,
+      "role": null,
+      "tag": "INPUT",
+      "visible": false
+    },
+    {
+      "aria_label": null,
+      "box": {
+        "height": 1030.0,
+        "width": 421.0,
+        "x": 3457.0,
+        "y": 628.0
+      },
+      "enabled": true,
+      "index": 9,
+      "placeholder": null,
+      "role": "textbox",
+      "tag": "DIV",
+      "visible": false
+    }
+  ],
+  "private_url_recorded": false,
+  "raw_secret_output": false,
+  "response_body_recorded": false,
+  "response_headers_recorded": false,
+  "screenshot_recorded": false,
+  "task_label": "TASK_0040",
+  "text_content_recorded": false
+}

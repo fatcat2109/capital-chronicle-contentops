@@ -1,0 +1,148 @@
+{
+  "matrix": [
+    {
+      "source_type": "v6_master_plan",
+      "keep_policy": "keep_always",
+      "why": "Pins V6 product loop and lane structures",
+      "stale_risk": "low",
+      "upload_default": true,
+      "replacement_rule": "Update only on major product structure revisions"
+    },
+    {
+      "source_type": "v6_25_task_execution_plan",
+      "keep_policy": "keep_always",
+      "why": "Defines sequence and ledger of tasks",
+      "stale_risk": "medium",
+      "upload_default": true,
+      "replacement_rule": "Mark tasks complete as execution progresses"
+    },
+    {
+      "source_type": "fast_ship_operating_profile",
+      "keep_policy": "keep_always",
+      "why": "Core posture on heavy batches and env/live permissions",
+      "stale_risk": "low",
+      "upload_default": true,
+      "replacement_rule": "Durable posture authority"
+    },
+    {
+      "source_type": "prompt_style_guide",
+      "keep_policy": "keep_always",
+      "why": "Durable prompt architecture guidelines",
+      "stale_risk": "low",
+      "upload_default": true,
+      "replacement_rule": "Omit ceremony in all future prompts"
+    },
+    {
+      "source_type": "task_classification_matrix",
+      "keep_policy": "keep_always",
+      "why": "Durable class matrix defining allowed tools",
+      "stale_risk": "low",
+      "upload_default": true,
+      "replacement_rule": "Governs capabilities per task class"
+    },
+    {
+      "source_type": "live_env_scope_contract",
+      "keep_policy": "keep_always",
+      "why": "Governance contract for env/live tasks",
+      "stale_risk": "low",
+      "upload_default": true,
+      "replacement_rule": "Durable safety boundary contract"
+    },
+    {
+      "source_type": "standing_operating_rules_design_governance",
+      "keep_policy": "keep_until_lean_replacement_exists",
+      "why": "Historical design system rules",
+      "stale_risk": "medium",
+      "upload_default": true,
+      "replacement_rule": "Deprecated when overridden by Fast Ship operating profile"
+    },
+    {
+      "source_type": "current_state_summary",
+      "keep_policy": "replace_only_when_project_sources_refresh_runs",
+      "why": "Provides state summaries of the lanes",
+      "stale_risk": "high",
+      "upload_default": true,
+      "replacement_rule": "Replace only during project sources refresh tasks"
+    },
+    {
+      "source_type": "new_chat_continuation",
+      "keep_policy": "replace_only_when_project_sources_refresh_runs",
+      "why": "Starts next chat with context",
+      "stale_risk": "high",
+      "upload_default": true,
+      "replacement_rule": "Replace only during project sources refresh tasks"
+    },
+    {
+      "source_type": "operator_next_actions",
+      "keep_policy": "replace_only_when_project_sources_refresh_runs",
+      "why": "Documents operator manual next steps",
+      "stale_risk": "high",
+      "upload_default": true,
+      "replacement_rule": "Replace only during project sources refresh tasks"
+    },
+    {
+      "source_type": "upload_bundle_packet",
+      "keep_policy": "replace_only_when_project_sources_refresh_runs",
+      "why": "Upload metadata",
+      "stale_risk": "high",
+      "upload_default": true,
+      "replacement_rule": "Replace only during project sources refresh tasks"
+    },
+    {
+      "source_type": "next_task_pointer",
+      "keep_policy": "ephemeral_replace_frequently",
+      "why": "Recommends next task to perform",
+      "stale_risk": "very_high",
+      "upload_default": true,
+      "replacement_rule": "Soft pointer, verify from Git remote commit logs"
+    },
+    {
+      "source_type": "implementation_report",
+      "keep_policy": "do_not_keep_as_project_source",
+      "why": "Task-specific staging details",
+      "stale_risk": "very_high",
+      "upload_default": false,
+      "replacement_rule": "Discard immediately from Project Sources after staging"
+    },
+    {
+      "source_type": "upload_file_list",
+      "keep_policy": "do_not_keep_after_upload",
+      "why": "Lists uploaded files for manifest check",
+      "stale_risk": "very_high",
+      "upload_default": false,
+      "replacement_rule": "Discard after verification"
+    },
+    {
+      "source_type": "replacement_guide",
+      "keep_policy": "do_not_keep_after_upload",
+      "why": "Guides replacing old files",
+      "stale_risk": "very_high",
+      "upload_default": false,
+      "replacement_rule": "Discard after replacement is completed"
+    },
+    {
+      "source_type": "ingestion_recon_notes",
+      "keep_policy": "optional_only_for_ingestion_connector_tasks",
+      "why": "Contains raw database structure context",
+      "stale_risk": "high",
+      "upload_default": false,
+      "replacement_rule": "Upload only when working on ingestion integrations"
+    },
+    {
+      "source_type": "visual_design_docs",
+      "keep_policy": "optional_only_for_visual_tasks",
+      "why": "UI element layouts",
+      "stale_risk": "medium",
+      "upload_default": false,
+      "replacement_rule": "Upload only when modifying user interface templates"
+    },
+    {
+      "source_type": "task_evidence_packet",
+      "keep_policy": "current_audit_cycle_only",
+      "why": "Task-specific verification metrics",
+      "stale_risk": "very_high",
+      "upload_default": false,
+      "replacement_rule": "Discard after current audit cycle completes"
+    }
+  ]
+}

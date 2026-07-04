@@ -1,0 +1,34 @@
+{
+  "continue_aria_disabled": null,
+  "continue_button_count": 1,
+  "continue_disabled_attr": true,
+  "continue_enabled": false,
+  "continue_visible": true,
+  "dom_dump_recorded": false,
+  "private_url_recorded": false,
+  "raw_secret_output": false,
+  "response_body_recorded": false,
+  "response_headers_recorded": false,
+  "screenshot_recorded": false,
+  "task_label": "TASK_0044",
+  "title_field_states": [
+    {
+      "aria_label": null,
+      "enabled": true,
+      "index": 0,
+      "placeholder": "Add a title...",
+      "value_len": 19,
+      "visible": true
+    },
+    {
+      "aria_label": "title",
+      "enabled": true,
+      "index": 1,
+      "placeholder": "Title",
+      "value_len": 19,
+      "visible": true
+    }
+  ],
+  "title_fields_matched": 2,
+  "title_fields_set_by_js": 2
+}
