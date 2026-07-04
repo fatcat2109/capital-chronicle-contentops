@@ -1,13 +1,13 @@
 # V6 Next Task Pointer
 
-Current task: `TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0` — complete local-only consolidation of Discord dry-run and Telegram checkpoint/manual evidence into a redacted operator bridge/status surface in the canonical V5 Command Center.
+Current task: `TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0` — complete local-only hardening of Facebook Page, Threads, Instagram, TikTok, and Generic Manual lanes as manual/deferred handoff/status rows in the canonical V5 Command Center.
 
 Recommended next task:
 
 ```text
-TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0
+TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0
 ```
 
-Purpose: harden Facebook Page, Threads, Instagram, TikTok, and generic manual/deferred lanes as local-only readiness/status surfaces in the canonical V5 Command Center, preserving manual handoff and explicit blockers without claiming live/API capability.
+Purpose: consolidate approved/blocked rows, audit evidence, Discord/Telegram bridge status, manual/deferred distribution handoffs, and blocked execution flags into a final-product operator action strip in the canonical V5 Command Center.
 
-Do not start Google scraping, image URL fetching, image downloads, rights-verification claims, generic browser/CDP automation, secret/session reads, API calls, provider calls, public URL fetching, scheduler/retry wiring, approval-ledger live writes, comments, DMs, reactions, or live/multi-post publishing.
+Do not start Google scraping, image URL fetching, image downloads/uploads, rights-verification claims, generic browser/CDP automation, secret/session/env reads, API calls, provider calls, public URL fetching, scheduler/retry wiring, approval-ledger live writes, comments, DMs, reactions, or live/multi-post publishing.

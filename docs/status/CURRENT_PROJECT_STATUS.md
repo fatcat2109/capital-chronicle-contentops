@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,16 +10,16 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-d40ca988baaae1b14ad4032ab6c89f33cae4165d
+33f95383748187cbb9913b889d9e42f9d7c849eb
 
 ## current_product_phase
-V6 Discord/Telegram operator bridge now displays redacted local-only status in the canonical Command Center
+V6 manual/deferred distribution lanes now display local-only readiness/status in the canonical Command Center
 
 ## current_product_lane
-Canonical V5 Command Center now consolidates Discord dry-run and Telegram checkpoint evidence into one local-only operator bridge/status panel with all sends, secret reads, APIs, browser/CDP, public fetches, schedulers/retries, and live approval-ledger writes blocked
+Canonical V5 Command Center now hardens Facebook Page, Threads, Instagram, TikTok, and Generic Manual lanes as local-only manual/deferred handoffs with deterministic payload hashes, media requirements, audit evidence modes, and explicit blocked execution flags
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0 extends the existing V5 final operator flow adapter and Command Center with a Discord/Telegram operator bridge lane. The lane shows redacted dry-run/checkpoint status, stable payload hashes, and manual handoff text only. It does not send messages, read webhook URLs or bot tokens, call platform/provider APIs, use browser/CDP, fetch public URLs, wire schedulers/retries, download media, or write live approval ledgers.
+TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0 extends the existing V5 final operator flow adapter and Command Center with a Manual/Deferred Distribution Lanes panel. The lane shows Facebook Page, Threads, Instagram, TikTok, and Generic Manual readiness/status rows only. It does not post, edit, comment, DM, react, call Meta/TikTok/platform APIs, use browser/CDP, fetch public URLs, download or upload media, wire schedulers/retries, read credential/env/session material, or write live approval ledgers.
 
 ## status_sha_model
 - accepted product baseline (`accepted_product_baseline_sha`): `7c1d245575fc8f354cc2f8ce6dbc3a4caf7172dd`
@@ -49,10 +49,10 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, local approval-decision to outbox readiness reconciliation, Discord/Telegram local-only operator bridge status, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, and the V5 Command Center Registry Readback panel. The canonical V5 Command Center now productizes Jim's source-to-audit operator flow from deterministic adapter output with stable packet/hash identifiers, the full platform universe, source-aware media candidate/chart rows, hash-bound operator decision rows, local outbox readiness reconciliation rows, Discord/Telegram redacted bridge rows, and manual audit rows. Media grounding remains source-aware: news topics use grounded image candidate metadata; Capital Chronicle internal alpha/report topics use built-in chart/card media when available.
+V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, local approval-decision to outbox readiness reconciliation, Discord/Telegram local-only operator bridge status, manual/deferred distribution lane hardening for Facebook Page/Threads/Instagram/TikTok/Generic Manual, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, and the V5 Command Center Registry Readback panel. The canonical V5 Command Center now productizes Jim's source-to-audit operator flow from deterministic adapter output with stable packet/hash identifiers, the full platform universe, source-aware media candidate/chart rows, hash-bound operator decision rows, local outbox readiness reconciliation rows, Discord/Telegram redacted bridge rows, manual/deferred distribution rows, and manual audit rows. Media grounding remains source-aware: news topics use grounded image candidate metadata; Capital Chronicle internal alpha/report topics use built-in chart/card media when available.
 
 ## dispatch/live status
-Repo-driven dispatch/live write remains locked. Local outbox readiness reconciliation and Discord/Telegram operator bridge rows create review/status evidence only: `outbox_dispatchable=false`, `message_send_attempted=false`, `platform_api_called=false`, `webhook_or_bot_token_read=false`, `scheduler_or_retry_wired=false`, and `live_approval_ledger_written=false`. Operator approve/hold/reject packets never grant dispatch permission.
+Repo-driven dispatch/live write remains locked. Local outbox readiness reconciliation, Discord/Telegram operator bridge rows, and manual/deferred distribution rows create review/status evidence only: `outbox_dispatchable=false`, `message_send_attempted=false`, `live_write_allowed=false`, `platform_api_called=false`, `browser_or_cdp_used=false`, `public_url_fetch_made=false`, `media_download_or_upload_performed=false`, `credential_or_env_read=false`, `scheduler_or_retry_wired=false`, and `approval_ledger_live_write_made=false`. Operator approve/hold/reject packets never grant dispatch permission.
 
 ## provider/env/credential status
 No provider/API/browser/network/env/credential/session action is authorized or required for local outbox readiness reconciliation. Google image grounding remains candidate metadata only; repo code must not scrape Google, download images, fetch public image URLs, or claim rights verification unless a future exact approved task adds it.
@@ -63,6 +63,7 @@ No provider/API/browser/network/env/credential/session action is authorized or r
 - Operator approve/hold/reject decisions are local/manual evidence only; `approve` does not authorize dispatch, publish, schedule, retry, public URL verification, provider/API calls, browser/CDP actions, media download, or live writes.
 - Local outbox readiness rows are non-executable; they do not create outbox entries or dispatchable records.
 - Discord/Telegram bridge rows are redacted local-only status; they do not read webhooks/bot tokens, send messages, call platform APIs, use browser/CDP, fetch URLs, wire schedulers/retries, or write live approval ledgers.
+- Manual/deferred distribution rows are local-only handoff/status evidence; they do not post, edit, comment, DM, react, call Meta/TikTok/platform APIs, use browser/CDP, fetch public URLs, download/upload media, read credentials/env/session data, wire schedulers/retries, or write live approval ledgers.
 - Dispatch outbox dry-run and operator recovery/runbook previews are informational only; no executable outbox or live dispatch exists.
 - Manual export is allowed only as human off-platform copy after Jim review; repo code performs no live write.
 - Redacted audit and metrics loop accepts operator-supplied/redacted values only; no scraping, API sync, or public URL verification is claimed.
@@ -79,7 +80,7 @@ No provider/API/browser/network/env/credential/session action is authorized or r
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0
+TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0
 
 ## latest changed areas
 - `ui/contentops_v5/src/data/finalOperatorProductFlowAdapter.ts`
@@ -93,7 +94,7 @@ TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BA
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0` — harden Facebook Page, Threads, Instagram, TikTok, and generic manual/deferred lanes as local-only readiness/status surfaces in the canonical V5 Command Center without live writes, APIs, browser/CDP, public URL fetches, media downloads, schedulers/retries, or credential/env reads.
+Next heavy batch: `TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0` — consolidate approved/blocked rows, audit evidence, bridge status, manual/deferred distribution handoffs, and blocked execution flags into a final-product operator action strip in the canonical V5 Command Center without live writes, APIs, browser/CDP, public URL fetches, media downloads/uploads, schedulers/retries, or credential/env/session reads.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. This does not change TASK_0059 product semantics: public URL remains unverified, dispatch/live write stays locked, and no browser/CDP/live/network/env/credential action is authorized.

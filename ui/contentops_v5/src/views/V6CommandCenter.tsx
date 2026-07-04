@@ -241,6 +241,44 @@ export function V6CommandCenter() {
         </div>
       </Panel>
 
+      <Panel title="Manual/Deferred Distribution Lanes" subtitle={flow.manual_deferred_distribution_lane.evidence_policy}>
+        <div className="mb-3 rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2 text-[12px] font-semibold text-status-blocked">
+          {flow.manual_deferred_distribution_lane.lane_summary}
+        </div>
+        <div className="grid gap-3 xl:grid-cols-2">
+          {flow.manual_deferred_distribution_lane.rows.map((row) => (
+            <article key={row.lane_id} className="rounded-xl border border-line bg-surface-2 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <h2 className="text-sm font-semibold text-fg">{row.platform} manual/deferred lane</h2>
+                  <p className="mt-1 font-mono text-[10.5px] text-fg-subtle">{row.lane_id}</p>
+                </div>
+                <StatusChip status={row.status}>{row.readiness_state}</StatusChip>
+              </div>
+              <p className="mt-3 text-[12px] leading-relaxed text-fg-muted">{row.blocker_summary}</p>
+              <p className="mt-2 text-[12px] leading-relaxed text-fg-muted">{row.manual_handoff}</p>
+              <dl className="mt-3 grid gap-1 border-t border-line pt-3 text-[11px]">
+                <div><dt className="font-mono uppercase text-fg-subtle">Variant</dt><dd className="break-all text-fg-muted">{row.source_variant_key}</dd></div>
+                <div><dt className="font-mono uppercase text-fg-subtle">Payload hash</dt><dd className="break-all font-mono text-fg-muted">{row.payload_hash}</dd></div>
+                <div><dt className="font-mono uppercase text-fg-subtle">Media requirement</dt><dd className="text-fg-muted">{row.media_requirement}</dd></div>
+                <div><dt className="font-mono uppercase text-fg-subtle">Audit evidence</dt><dd className="text-fg-muted">{row.audit_evidence_mode}</dd></div>
+              </dl>
+              <p className="mt-3 font-mono text-[10.5px] text-fg-subtle">
+                live_write_allowed={String(row.live_write_allowed)} · platform_api_called={String(row.platform_api_called)} · browser_or_cdp_used={String(row.browser_or_cdp_used)} · public_url_fetch_made={String(row.public_url_fetch_made)}
+              </p>
+              <p className="mt-1 font-mono text-[10.5px] text-fg-subtle">
+                media_download_or_upload_performed={String(row.media_download_or_upload_performed)} · scheduler_or_retry_wired={String(row.scheduler_or_retry_wired)} · credential_or_env_read={String(row.credential_or_env_read)} · approval_ledger_live_write_made={String(row.approval_ledger_live_write_made)}
+              </p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {flow.manual_deferred_distribution_lane.blocked_actions.map((action) => (
+            <StatusChip key={action} status="blocked">{action} blocked</StatusChip>
+          ))}
+        </div>
+      </Panel>
+
       <Panel title="Manual Dispatch and Audit Lane" subtitle="Operator-supplied evidence only; no public verification or platform write">
         <div className="grid gap-3 md:grid-cols-3">
           <div className="rounded-xl border border-status-blocked/30 bg-status-blocked/10 p-4">

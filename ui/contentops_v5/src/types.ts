@@ -346,6 +346,34 @@ export interface V6OperatorBridgeLaneModel {
   bridge_rows: V6OperatorBridgeStatusRow[];
   blocked_actions: string[];
 }
+export interface V6ManualDeferredDistributionRow {
+  lane_id: string;
+  platform_id: 'facebook' | 'threads' | 'instagram' | 'tiktok' | 'generic_manual';
+  platform: string;
+  readiness_state: 'manual_handoff_only' | 'blocked_deferred' | 'fallback_manual_only';
+  status: StatusKind;
+  payload_hash: string;
+  source_variant_key: string;
+  blocker_summary: string;
+  manual_handoff: string;
+  media_requirement: string;
+  audit_evidence_mode: string;
+  live_write_allowed: false;
+  platform_api_called: false;
+  browser_or_cdp_used: false;
+  public_url_fetch_made: false;
+  media_download_or_upload_performed: false;
+  scheduler_or_retry_wired: false;
+  credential_or_env_read: false;
+  approval_ledger_live_write_made: false;
+}
+export interface V6ManualDeferredDistributionLaneModel {
+  lane_status: StatusKind;
+  lane_summary: string;
+  evidence_policy: string;
+  rows: V6ManualDeferredDistributionRow[];
+  blocked_actions: string[];
+}
 export interface V6MediaLaneModel {
   news_topic_id: string;
   news_policy: string;
@@ -390,6 +418,7 @@ export interface V6FinalOperatorProductFlowModel {
   operator_decision_intake_lane: V6OperatorApprovalDecisionIntakeLaneModel;
   local_outbox_readiness_lane: V6LocalOutboxReadinessLaneModel;
   operator_bridge_lane: V6OperatorBridgeLaneModel;
+  manual_deferred_distribution_lane: V6ManualDeferredDistributionLaneModel;
   manual_audit_lane: V6ManualAuditLaneModel;
 }
 export interface V6CommandCenterModel {

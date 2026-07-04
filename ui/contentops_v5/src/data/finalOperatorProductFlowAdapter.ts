@@ -9,6 +9,7 @@ import type {
   V6LocalOutboxReadinessRow,
   V6LocalOutboxReadinessState,
   V6ManualAuditRow,
+  V6ManualDeferredDistributionRow,
   V6NewsImageCandidate,
   V6OperatorApprovalDecisionPacket,
   V6OperatorBridgeStatusRow,
@@ -16,7 +17,7 @@ import type {
   V6PlatformUniverseRow,
 } from '../types';
 
-const TASK_LABEL = 'TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0';
+const TASK_LABEL = 'TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0';
 
 function stableHash(input: string): string {
   let hash = 0x811c9dc5;
@@ -314,10 +315,47 @@ const bridgeRows = [
   },
 ] as const satisfies V6OperatorBridgeStatusRow[];
 
+const manualDeferredRow = (
+  row: V6PlatformUniverseRow,
+  platform_id: V6ManualDeferredDistributionRow['platform_id'],
+  readiness_state: V6ManualDeferredDistributionRow['readiness_state'],
+  blocker_summary: string,
+  manual_handoff: string,
+  media_requirement: string,
+): V6ManualDeferredDistributionRow => ({
+  lane_id: `manual_deferred_${platform_id}`,
+  platform_id,
+  platform: row.platform,
+  readiness_state,
+  status: row.status,
+  payload_hash: row.payload_hash,
+  source_variant_key: row.variant_key,
+  blocker_summary,
+  manual_handoff,
+  media_requirement,
+  audit_evidence_mode: row.audit_evidence_mode,
+  live_write_allowed: false,
+  platform_api_called: false,
+  browser_or_cdp_used: false,
+  public_url_fetch_made: false,
+  media_download_or_upload_performed: false,
+  scheduler_or_retry_wired: false,
+  credential_or_env_read: false,
+  approval_ledger_live_write_made: false,
+});
+
+const manualDeferredRows = [
+  manualDeferredRow(platformUniverse[5], 'facebook', 'manual_handoff_only', 'Meta-family Facebook Page lane is advisory/manual only; Page/API posting and live edits are blocked.', 'Prepare reviewed copy and media-fit notes for Meta Business Suite manual paste outside repo.', 'Use a reviewed 1200x627 internal report card or operator-approved metadata-only news candidate; no upload performed.'),
+  manualDeferredRow(platformUniverse[6], 'threads', 'manual_handoff_only', 'Threads lane is short-form manual copy only; platform API, browser posting, replies, and reactions are blocked.', 'Prepare concise reviewed copy for operator paste outside repo after Jim approval.', 'Square card may be referenced when already reviewed; no media upload readiness is claimed.'),
+  manualDeferredRow(platformUniverse[7], 'instagram', 'blocked_deferred', 'Instagram is deferred because media rights, account constraints, and upload path are not cleared.', 'Do not post. Keep caption/media-fit notes for future operator-owned review.', 'Requires an internal square card or approved visual asset; external news image remains metadata-only.'),
+  manualDeferredRow(platformUniverse[8], 'tiktok', 'blocked_deferred', 'TikTok is last-priority video-script metadata only; no video asset, upload, account, or live execution path exists.', 'Keep the script outline as planning metadata; operator must create/post outside repo in a future approved scope.', 'Requires a future video asset spec; current lane contains text/script direction only.'),
+  manualDeferredRow(platformUniverse[9], 'generic_manual', 'fallback_manual_only', 'Generic Manual is an operator fallback; it does not imply provider capability for any specific platform.', 'Use only for copy/export evidence when a platform-specific lane is not productized.', 'Operator chooses an already-reviewed candidate; no external fetch, download, upload, or verification.'),
+] as const satisfies V6ManualDeferredDistributionRow[];
+
 export const finalOperatorProductFlow: V6FinalOperatorProductFlowModel = {
   packet_id: `final_operator_flow_${stableHash(TASK_LABEL + platformUniverse.length)}`,
-  packet_hash: payloadHash('final_operator_flow', TASK_LABEL, `${platformUniverse.length}|${newsCandidates.length}|${internalChartCandidates.length}|${decisionPackets.length}|${readinessRows.length}|${bridgeRows.length}`),
-  builder_version: 'discord_telegram_operator_bridge_redacted_status_v0',
+  packet_hash: payloadHash('final_operator_flow', TASK_LABEL, `${platformUniverse.length}|${newsCandidates.length}|${internalChartCandidates.length}|${decisionPackets.length}|${readinessRows.length}|${bridgeRows.length}|${manualDeferredRows.length}`),
+  builder_version: 'manual_deferred_distribution_lanes_hardening_v0',
   task_label: TASK_LABEL,
   source_classes: ['news_current_event', 'capital_chronicle_internal_report'],
   flow_stages: flowStages,
@@ -352,6 +390,13 @@ export const finalOperatorProductFlow: V6FinalOperatorProductFlowModel = {
     evidence_policy: 'Bridge rows may show redacted status and manual handoff text only. They never read secrets, call APIs, use browser/CDP, fetch URLs, wire schedulers, write live approval ledgers, or send messages.',
     bridge_rows: [...bridgeRows],
     blocked_actions: ['send Discord message', 'send Telegram message', 'read webhook URL', 'read bot token', 'call platform API', 'use browser/CDP', 'fetch public URL', 'schedule/retry', 'write live approval ledger'],
+  },
+  manual_deferred_distribution_lane: {
+    lane_status: 'blocked',
+    lane_summary: 'Facebook Page, Threads, Instagram, TikTok, and Generic Manual are hardened as local-only manual/deferred lanes with explicit blockers and operator handoff text.',
+    evidence_policy: 'Rows reuse deterministic platform payload hashes and never post, edit, comment, DM, react, fetch public URLs, call platform APIs, use browser/CDP, read credentials/env, download/upload media, schedule/retry, or write a live approval ledger.',
+    rows: [...manualDeferredRows],
+    blocked_actions: ['publish/post/edit/comment', 'DM/reply/react', 'call Meta/TikTok/platform API', 'use browser/CDP', 'fetch public URL', 'download or upload media', 'schedule/retry', 'read credential/env/session', 'write live approval ledger'],
   },
   manual_audit_lane: {
     approval_status: 'review',
