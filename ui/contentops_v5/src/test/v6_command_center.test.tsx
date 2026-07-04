@@ -72,6 +72,24 @@ describe('V6 Command Center', () => {
     expect(screen.getAllByText(/execute outbox locked/i).length).toBeGreaterThan(0);
   });
 
+  it('renders Discord and Telegram operator bridge as redacted local-only status', () => {
+    openView();
+    expect(screen.getByText('Discord/Telegram Operator Bridge')).toBeInTheDocument();
+    expect(screen.getByText('Discord bridge')).toBeInTheDocument();
+    expect(screen.getByText('Telegram bridge')).toBeInTheDocument();
+    expect(screen.getByText('dry_run_proven_no_send')).toBeInTheDocument();
+    expect(screen.getByText('checkpoint_manual_only')).toBeInTheDocument();
+    expect(screen.getByText(/webhook\/token\/url redacted and unread; send_attempted=false/i)).toBeInTheDocument();
+    expect(screen.getByText(/bot token\/channel secret unread; api_called=false/i)).toBeInTheDocument();
+    expect(screen.getAllByText(/message_send_attempted=false/i).length).toBe(2);
+    expect(screen.getAllByText(/platform_api_called=false/i).length).toBe(2);
+    expect(screen.getAllByText(/webhook_or_bot_token_read=false/i).length).toBe(2);
+    expect(screen.getAllByText(/live_approval_ledger_written=false/i).length).toBe(2);
+    for (const action of ['send Discord message blocked', 'send Telegram message blocked', 'read webhook URL blocked', 'read bot token blocked']) {
+      expect(screen.getByText(action)).toBeInTheDocument();
+    }
+  });
+
   it('keeps unsafe actions disabled and avoids inputs/links', () => {
     openView();
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();

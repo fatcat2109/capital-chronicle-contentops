@@ -11,11 +11,12 @@ import type {
   V6ManualAuditRow,
   V6NewsImageCandidate,
   V6OperatorApprovalDecisionPacket,
+  V6OperatorBridgeStatusRow,
   V6OperatorFlowStage,
   V6PlatformUniverseRow,
 } from '../types';
 
-const TASK_LABEL = 'TASK_CONTENTOPS_V6_APPROVAL_DECISION_TO_LOCAL_OUTBOX_READINESS_RECONCILIATION_V0';
+const TASK_LABEL = 'TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0';
 
 function stableHash(input: string): string {
   let hash = 0x811c9dc5;
@@ -63,6 +64,7 @@ const flowStages: V6OperatorFlowStage[] = [
   { stage_id: 'readiness', label: 'Outbox readiness', status: 'review', summary: 'Decision packets reconcile into local manual-readiness rows without executable outboxes.', evidence_ref: 'outbox_dispatchable=false' },
   { stage_id: 'variants', label: 'Platform variants', status: 'review', summary: 'Full platform universe gets deterministic platform-fit rows before manual export.', evidence_ref: 'variants=local_builder_output' },
   { stage_id: 'media', label: 'Media selection', status: 'review', summary: 'News uses grounded metadata candidates; internal reports use built-in chart/card candidates.', evidence_ref: 'media_search_or_download_performed=false' },
+  { stage_id: 'bridge', label: 'Discord/Telegram bridge', status: 'blocked', summary: 'Discord and Telegram evidence is consolidated as local-only operator bridge status with no send path.', evidence_ref: 'operator_bridge_send_attempted=false' },
   { stage_id: 'audit', label: 'Manual dispatch / audit', status: 'blocked', summary: 'Manual handoff and redacted audit rows are shown; live dispatch remains locked.', evidence_ref: 'live_write_allowed=false' },
 ];
 
@@ -271,10 +273,51 @@ const internalChartCandidates = [
   chartCandidate('CHART-ALPHA-002', 'Forecast-readiness checklist card', 'Capital Chronicle Internal alpha macro brief', 'built-in square card', ['X', 'Threads', 'Instagram'], 'Primary fit for Threads/Instagram/X image preview.', 'Checklist card explaining why the report is context, not a signal.'),
 ] as const satisfies V6InternalChartCandidate[];
 
+const bridgeRows = [
+  {
+    bridge_id: 'bridge_discord_dry_run_operator_status',
+    platform_id: 'discord',
+    platform: 'Discord',
+    source_evidence: 'discord dry-run/outbox/governance packets already exist locally; no live send is claimed',
+    operator_surface: 'community feedback flywheel preview',
+    bridge_state: 'dry_run_proven_no_send',
+    status: 'blocked',
+    payload_hash: platformUniverse[3].payload_hash,
+    manual_handoff: 'Operator may copy the reviewed Discord drop manually outside repo after Jim approval; repo must not send or validate webhook.',
+    redacted_status: 'webhook/token/url redacted and unread; send_attempted=false',
+    message_send_attempted: false,
+    platform_api_called: false,
+    webhook_or_bot_token_read: false,
+    browser_or_cdp_used: false,
+    public_url_fetch_made: false,
+    scheduler_or_retry_wired: false,
+    live_approval_ledger_written: false,
+  },
+  {
+    bridge_id: 'bridge_telegram_checkpoint_operator_status',
+    platform_id: 'telegram',
+    platform: 'Telegram',
+    source_evidence: 'telegram checkpoint/manual remote lane exists as operator handoff evidence only',
+    operator_surface: 'remote operator checkpoint preview',
+    bridge_state: 'checkpoint_manual_only',
+    status: 'blocked',
+    payload_hash: platformUniverse[4].payload_hash,
+    manual_handoff: 'Operator may copy the checkpoint text manually outside repo; repo must not use bot API, channel ID, token, browser, or scheduler.',
+    redacted_status: 'bot token/channel secret unread; api_called=false',
+    message_send_attempted: false,
+    platform_api_called: false,
+    webhook_or_bot_token_read: false,
+    browser_or_cdp_used: false,
+    public_url_fetch_made: false,
+    scheduler_or_retry_wired: false,
+    live_approval_ledger_written: false,
+  },
+] as const satisfies V6OperatorBridgeStatusRow[];
+
 export const finalOperatorProductFlow: V6FinalOperatorProductFlowModel = {
   packet_id: `final_operator_flow_${stableHash(TASK_LABEL + platformUniverse.length)}`,
-  packet_hash: payloadHash('final_operator_flow', TASK_LABEL, `${platformUniverse.length}|${newsCandidates.length}|${internalChartCandidates.length}|${decisionPackets.length}|${readinessRows.length}`),
-  builder_version: 'approval_decision_to_local_outbox_readiness_reconciliation_v0',
+  packet_hash: payloadHash('final_operator_flow', TASK_LABEL, `${platformUniverse.length}|${newsCandidates.length}|${internalChartCandidates.length}|${decisionPackets.length}|${readinessRows.length}|${bridgeRows.length}`),
+  builder_version: 'discord_telegram_operator_bridge_redacted_status_v0',
   task_label: TASK_LABEL,
   source_classes: ['news_current_event', 'capital_chronicle_internal_report'],
   flow_stages: flowStages,
@@ -302,6 +345,13 @@ export const finalOperatorProductFlow: V6FinalOperatorProductFlowModel = {
     counts: readinessCounts,
     readiness_rows: [...readinessRows],
     blocked_actions: ['execute outbox', 'dispatch', 'publish', 'schedule', 'retry', 'verify public URL', 'call provider/API', 'use browser/CDP', 'download media', 'write live approval ledger'],
+  },
+  operator_bridge_lane: {
+    lane_status: 'blocked',
+    lane_summary: 'Discord and Telegram are consolidated into one local-only operator bridge: proven/checkpoint status may be displayed, but sending stays outside repo and operator-owned.',
+    evidence_policy: 'Bridge rows may show redacted status and manual handoff text only. They never read secrets, call APIs, use browser/CDP, fetch URLs, wire schedulers, write live approval ledgers, or send messages.',
+    bridge_rows: [...bridgeRows],
+    blocked_actions: ['send Discord message', 'send Telegram message', 'read webhook URL', 'read bot token', 'call platform API', 'use browser/CDP', 'fetch public URL', 'schedule/retry', 'write live approval ledger'],
   },
   manual_audit_lane: {
     approval_status: 'review',

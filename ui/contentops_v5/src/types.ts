@@ -320,6 +320,32 @@ export interface V6LocalOutboxReadinessLaneModel {
   readiness_rows: V6LocalOutboxReadinessRow[];
   blocked_actions: string[];
 }
+export interface V6OperatorBridgeStatusRow {
+  bridge_id: string;
+  platform_id: 'discord' | 'telegram';
+  platform: 'Discord' | 'Telegram';
+  source_evidence: string;
+  operator_surface: string;
+  bridge_state: 'dry_run_proven_no_send' | 'checkpoint_manual_only';
+  status: StatusKind;
+  payload_hash: string;
+  manual_handoff: string;
+  redacted_status: string;
+  message_send_attempted: false;
+  platform_api_called: false;
+  webhook_or_bot_token_read: false;
+  browser_or_cdp_used: false;
+  public_url_fetch_made: false;
+  scheduler_or_retry_wired: false;
+  live_approval_ledger_written: false;
+}
+export interface V6OperatorBridgeLaneModel {
+  lane_status: StatusKind;
+  lane_summary: string;
+  evidence_policy: string;
+  bridge_rows: V6OperatorBridgeStatusRow[];
+  blocked_actions: string[];
+}
 export interface V6MediaLaneModel {
   news_topic_id: string;
   news_policy: string;
@@ -363,6 +389,7 @@ export interface V6FinalOperatorProductFlowModel {
   media_lane: V6MediaLaneModel;
   operator_decision_intake_lane: V6OperatorApprovalDecisionIntakeLaneModel;
   local_outbox_readiness_lane: V6LocalOutboxReadinessLaneModel;
+  operator_bridge_lane: V6OperatorBridgeLaneModel;
   manual_audit_lane: V6ManualAuditLaneModel;
 }
 export interface V6CommandCenterModel {

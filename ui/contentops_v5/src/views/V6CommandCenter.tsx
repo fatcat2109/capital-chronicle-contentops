@@ -204,6 +204,43 @@ export function V6CommandCenter() {
         </div>
       </Panel>
 
+      <Panel title="Discord/Telegram Operator Bridge" subtitle={flow.operator_bridge_lane.evidence_policy}>
+        <div className="mb-3 rounded-lg border border-status-blocked/30 bg-status-blocked/10 px-3 py-2 text-[12px] font-semibold text-status-blocked">
+          {flow.operator_bridge_lane.lane_summary}
+        </div>
+        <div className="grid gap-3 lg:grid-cols-2">
+          {flow.operator_bridge_lane.bridge_rows.map((row) => (
+            <article key={row.bridge_id} className="rounded-xl border border-line bg-surface-2 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <h2 className="text-sm font-semibold text-fg">{row.platform} bridge</h2>
+                  <p className="mt-1 font-mono text-[10.5px] text-fg-subtle">{row.bridge_id}</p>
+                </div>
+                <StatusChip status={row.status}>{row.bridge_state}</StatusChip>
+              </div>
+              <p className="mt-3 text-[12px] leading-relaxed text-fg-muted">{row.source_evidence}</p>
+              <p className="mt-2 text-[12px] leading-relaxed text-fg-muted">{row.manual_handoff}</p>
+              <dl className="mt-3 grid gap-1 border-t border-line pt-3 text-[11px]">
+                <div><dt className="font-mono uppercase text-fg-subtle">Operator surface</dt><dd className="text-fg-muted">{row.operator_surface}</dd></div>
+                <div><dt className="font-mono uppercase text-fg-subtle">Payload hash</dt><dd className="break-all font-mono text-fg-muted">{row.payload_hash}</dd></div>
+                <div><dt className="font-mono uppercase text-fg-subtle">Redacted status</dt><dd className="text-fg-muted">{row.redacted_status}</dd></div>
+              </dl>
+              <p className="mt-3 font-mono text-[10.5px] text-fg-subtle">
+                message_send_attempted={String(row.message_send_attempted)} · platform_api_called={String(row.platform_api_called)} · webhook_or_bot_token_read={String(row.webhook_or_bot_token_read)}
+              </p>
+              <p className="mt-1 font-mono text-[10.5px] text-fg-subtle">
+                browser_or_cdp_used={String(row.browser_or_cdp_used)} · public_url_fetch_made={String(row.public_url_fetch_made)} · scheduler_or_retry_wired={String(row.scheduler_or_retry_wired)} · live_approval_ledger_written={String(row.live_approval_ledger_written)}
+              </p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {flow.operator_bridge_lane.blocked_actions.map((action) => (
+            <StatusChip key={action} status="blocked">{action} blocked</StatusChip>
+          ))}
+        </div>
+      </Panel>
+
       <Panel title="Manual Dispatch and Audit Lane" subtitle="Operator-supplied evidence only; no public verification or platform write">
         <div className="grid gap-3 md:grid-cols-3">
           <div className="rounded-xl border border-status-blocked/30 bg-status-blocked/10 p-4">

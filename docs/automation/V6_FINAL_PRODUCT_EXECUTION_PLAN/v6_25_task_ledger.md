@@ -23,9 +23,9 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 | 05 | AI research grounding lane | complete | Research/canonical article packet builders exist for local deterministic workflow. |
 | 06 | SEO and editorial refinement lane | partially_complete | SEO/editorial packet docs exist; continue verifying per future task scope. |
 | 07 | Platform-native variant generator | complete_fixture_only | Deterministic adapter output now drives full-platform variant rows in the V5 Command Center with stable payload hashes and manual dispatch gates. Live platform behavior remains gated. |
-| 08 | Discord webhook/community drop lane | complete_pre_live_no_send | Discord dry-run/outbox/pre-live artifacts exist; no live send is claimed here. |
-| 09 | Telegram remote operator lane | deferred | Operator lane direction exists; live execution requires future explicit scope. |
-| 10 | Approval/outbox/audit integration | complete_fixture_only | Payload hash, approval, outbox, and audit artifacts exist across lanes; V5 Command Center now displays deterministic manual audit rows, operator-supplied approve/hold/reject decision packets bound to adapter-built payload hashes, and local outbox readiness reconciliation rows for approved/held/rejected/no-decision/live-scope-blocked states. Approval/readiness is local/manual evidence only and does not authorize dispatch. |
+| 08 | Discord webhook/community drop lane | complete_pre_live_no_send | Discord dry-run/outbox/pre-live artifacts exist and are now surfaced in the V5 Command Center bridge panel as redacted local-only status; no live send is claimed here. |
+| 09 | Telegram remote operator lane | complete_fixture_only | Telegram checkpoint/manual lane evidence is now surfaced in the V5 Command Center bridge panel as redacted local-only status; no bot/API send, token read, browser/CDP, or scheduler is claimed. |
+| 10 | Approval/outbox/audit integration | complete_fixture_only | Payload hash, approval, outbox, bridge, and audit artifacts exist across lanes; V5 Command Center now displays deterministic manual audit rows, operator-supplied approve/hold/reject decision packets bound to adapter-built payload hashes, local outbox readiness reconciliation rows, and Discord/Telegram local-only bridge rows. Approval/readiness/bridge status is local/manual evidence only and does not authorize dispatch. |
 | 11 | Public URL capture and reconciliation | complete_fixture_only | Substack and LinkedIn URL/audit imports are operator-supplied/manual only. |
 | 12 | Community feedback intake | complete_fixture_only | Operator-supplied feedback intake packet exists locally; no live community activity, scrape, fetch, API, browser, or provider call is claimed. |
 | 13 | LLM feedback summarizer | deferred | Current backlog summary uses deterministic tag grouping only; no LLM/provider call is claimed. |
@@ -53,7 +53,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 - X CDP pre-live post command, GO-phrase gate, exact execution outcome, registry reconciliation, and registry idempotency/readback audit are complete as local supervised/packet evidence; no repo-driven X click, API call, session read, or public URL fetch is claimed.
 - Live/provider/platform execution remains blocked unless separately scoped.
 
-Recommended next lane after `TASK_CONTENTOPS_V6_APPROVAL_DECISION_TO_LOCAL_OUTBOX_READINESS_RECONCILIATION_V0`: `TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0`. Consolidate existing Discord/Telegram operator-send evidence into a local-only operator bridge/status surface while preserving hard blocks on sends, browser/CDP, provider/API, public URL fetch, media download, Google scraping, scheduler/retry wiring, and live writes.
+Recommended next lane after `TASK_CONTENTOPS_V6_DISCORD_TELEGRAM_OPERATOR_BRIDGE_AND_REDACTED_STATUS_HEAVY_BATCH_V0`: `TASK_CONTENTOPS_V6_MANUAL_DEFERRED_DISTRIBUTION_LANES_HARDENING_V0`. Harden Facebook Page, Threads, Instagram, TikTok, and generic manual/deferred lanes as local-only readiness/status surfaces while preserving hard blocks on live writes, browser/CDP, provider/API, public URL fetch, media download, Google scraping, scheduler/retry wiring, and credential/env reads.
 
 ## How to Update This Ledger
 

@@ -87,7 +87,7 @@ Manual fallback is a first-class lane. Browser/CDP work, if later approved, must
 - LinkedIn manual publication evidence loop is accepted as product baseline at `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb` after push/readback.
 - Substack, LinkedIn, X, Discord, Telegram, Meta-family, TikTok, and generic manual evidence remains fixture/manual/operator-supplied unless a future task provides explicit verified evidence.
 - Media policy is split by source class: news uses grounded image candidate metadata; Capital Chronicle internal alpha/report content uses built-in chart/card media when available.
-- The canonical V5 Command Center now displays both media lanes, hash-bound approve/hold/reject operator decision packets, local outbox readiness reconciliation rows, and manual audit rows as adapter-built local review evidence.
+- The canonical V5 Command Center now displays both media lanes, hash-bound approve/hold/reject operator decision packets, local outbox readiness reconciliation rows, Discord/Telegram redacted local-only operator bridge rows, and manual audit rows as adapter-built local review evidence.
 - Live/provider/platform execution remains blocked unless separately scoped and approved.
 
 ## Currently Completed Local / Manual Lanes
@@ -98,16 +98,15 @@ Manual fallback is a first-class lane. Browser/CDP work, if later approved, must
 - LinkedIn manual export, approval/export evidence, operator handoff, URL/audit import, and manual metrics summary as local/manual evidence.
 - X supervised packet evidence and local publication registry idempotency/readback audit.
 - Advisory capability registry/docs for Facebook Page, Threads, Instagram, TikTok, Telegram, and generic manual fallback.
-- Discord pre-live/dry-run/outbox governance artifacts exist in repo, but this plan does not claim a live send.
+- Discord pre-live/dry-run/outbox governance artifacts and Telegram checkpoint/manual lane evidence are consolidated in the canonical V5 Command Center as redacted local-only bridge status; no live send is claimed.
 - Internal visual-card packet specs and media rights manifest exist locally; rendered media export, Google image search execution, image download, and rights verification remain future work.
-- Deterministic V5 Command Center adapter output now covers full-platform variant rows, source-aware media candidates, stable hashes, local operator approve/hold/reject decision packet intake, local outbox readiness reconciliation, and manual audit rows.
+- Deterministic V5 Command Center adapter output now covers full-platform variant rows, source-aware media candidates, stable hashes, local operator approve/hold/reject decision packet intake, local outbox readiness reconciliation, Discord/Telegram local bridge rows, and manual audit rows.
 
 ## Remaining Roadmap Direction
 
 Recommended future work should remain soft and evidence-driven:
 
 - Reconcile roadmap priorities against current repo state before opening any new lane.
-- Consolidate Discord/Telegram operator bridge status as local-only evidence before any future live-provider work.
 - Harden manual/deferred distribution lanes without live writes unless explicitly scoped.
 - Continue improving canonical V5 visibility for accepted packets.
 - Only pursue live/provider/platform actions through exact live scope contracts, approval gates, safety tests, and final operator go decisions.
