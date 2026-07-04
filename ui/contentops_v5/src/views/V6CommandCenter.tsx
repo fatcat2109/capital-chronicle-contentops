@@ -129,6 +129,44 @@ export function V6CommandCenter() {
         </Panel>
       </div>
 
+      <Panel title="Operator Decision Intake" subtitle={flow.operator_decision_intake_lane.evidence_policy}>
+        <div className="mb-3 rounded-lg border border-status-review/30 bg-status-review/10 px-3 py-2 text-[12px] font-semibold text-status-review">
+          {flow.operator_decision_intake_lane.intake_summary}
+        </div>
+        <div className="overflow-hidden rounded-xl border border-line">
+          <div className="grid grid-cols-[1fr_0.8fr_1.4fr_1.7fr_1.7fr] gap-2 border-b border-line bg-surface-2 px-3 py-2 font-mono text-[10.5px] font-bold uppercase text-fg-subtle">
+            <span>Platform</span><span>Decision</span><span>Payload hash</span><span>Decision packet hash</span><span>Next action</span>
+          </div>
+          {flow.operator_decision_intake_lane.decision_packets.map((packet) => (
+            <div key={packet.decision_packet_id} className="grid grid-cols-[1fr_0.8fr_1.4fr_1.7fr_1.7fr] gap-2 border-b border-line px-3 py-2 text-[11px] last:border-b-0">
+              <span className="text-fg">{packet.platform}</span>
+              <StatusChip status={packet.decision_status}>{packet.decision}</StatusChip>
+              <span className="break-all font-mono text-fg-muted">{packet.payload_hash}</span>
+              <span className="break-all font-mono text-fg-muted">{packet.decision_packet_hash}</span>
+              <span className="text-fg-muted">{packet.next_required_action}</span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 grid gap-3 md:grid-cols-3">
+          {flow.operator_decision_intake_lane.decision_packets.map((packet) => (
+            <article key={`${packet.decision_packet_id}_evidence`} className="rounded-xl border border-line bg-surface-2 p-4">
+              <div className="flex items-start justify-between gap-2">
+                <h3 className="text-sm font-semibold text-fg">{packet.operator_reference}</h3>
+                <StatusChip status={packet.decision_status}>{packet.operator_evidence_mode}</StatusChip>
+              </div>
+              <p className="mt-2 text-[12px] leading-relaxed text-fg-muted">{packet.rationale}</p>
+              <p className="mt-3 break-all font-mono text-[10.5px] text-fg-subtle">decision_packet_id={packet.decision_packet_id}</p>
+              <p className="mt-2 font-mono text-[10.5px] text-fg-subtle">dispatch_permission_granted={String(packet.dispatch_permission_granted)} · live_write_allowed={String(packet.live_write_allowed)}</p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {flow.operator_decision_intake_lane.forbidden_actions.map((action) => (
+            <StatusChip key={action} status="blocked">{action} blocked</StatusChip>
+          ))}
+        </div>
+      </Panel>
+
       <Panel title="Manual Dispatch and Audit Lane" subtitle="Operator-supplied evidence only; no public verification or platform write">
         <div className="grid gap-3 md:grid-cols-3">
           <div className="rounded-xl border border-status-blocked/30 bg-status-blocked/10 p-4">

@@ -41,6 +41,21 @@ describe('V6 Command Center', () => {
     expect(screen.getByText(/built_in_chart_preferred=true/i)).toBeInTheDocument();
   });
 
+  it('renders hash-bound operator decision intake without unlocking dispatch', () => {
+    openView();
+    expect(screen.getByText('Operator Decision Intake')).toBeInTheDocument();
+    for (const decision of ['approve', 'hold', 'reject']) {
+      expect(screen.getByText(decision)).toBeInTheDocument();
+    }
+    expect(screen.getByText('Canonical Substack payload approved for manual export evidence only.')).toBeInTheDocument();
+    expect(screen.getByText('X wording needs another operator pass before any manual copy.')).toBeInTheDocument();
+    expect(screen.getByText('Instagram lane is rejected until rights/account constraints are solved.')).toBeInTheDocument();
+    expect(screen.getAllByText(/local-[0-9a-f]{8}-[0-9a-f]{8}/i).length).toBeGreaterThan(2);
+    expect(screen.getAllByText(/decision_packet_id=decision_/i).length).toBe(3);
+    expect(screen.getAllByText(/dispatch_permission_granted=false/i).length).toBe(3);
+    expect(screen.getAllByText(/live_write_allowed=false/i).length).toBeGreaterThan(2);
+  });
+
   it('keeps unsafe actions disabled and avoids inputs/links', () => {
     openView();
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();

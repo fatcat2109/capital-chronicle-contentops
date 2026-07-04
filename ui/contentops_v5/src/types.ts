@@ -257,6 +257,33 @@ export interface V6InternalChartCandidate {
   external_image_needed: false;
   rights_status: StatusKind;
 }
+export interface V6OperatorApprovalDecisionPacket {
+  decision_packet_id: string;
+  platform_id: string;
+  platform: string;
+  source_variant_key: string;
+  payload_hash: string;
+  decision: 'approve' | 'hold' | 'reject';
+  decision_status: StatusKind;
+  operator_evidence_mode: 'operator_supplied_fixture';
+  operator_reference: string;
+  rationale: string;
+  next_required_action: string;
+  decision_packet_hash: string;
+  approval_recorded: boolean;
+  dispatch_permission_granted: false;
+  live_write_allowed: false;
+  public_url_fetch_made: false;
+  provider_or_api_call_made: false;
+  browser_or_cdp_used: false;
+}
+export interface V6OperatorApprovalDecisionIntakeLaneModel {
+  intake_status: StatusKind;
+  intake_summary: string;
+  evidence_policy: string;
+  decision_packets: V6OperatorApprovalDecisionPacket[];
+  forbidden_actions: string[];
+}
 export interface V6MediaLaneModel {
   news_topic_id: string;
   news_policy: string;
@@ -271,7 +298,9 @@ export interface V6ManualAuditRow {
   platform: string;
   source_variant_key: string;
   payload_hash: string;
-  approval_recorded: false;
+  approval_recorded: boolean;
+  decision_packet_id?: string;
+  decision?: V6OperatorApprovalDecisionPacket['decision'];
   public_url_status: 'operator_supplied_only' | 'not_applicable_until_manual_post';
   metrics_status: 'operator_supplied_only' | 'not_applicable_until_manual_post';
   evidence_mode: string;
@@ -296,6 +325,7 @@ export interface V6FinalOperatorProductFlowModel {
   flow_stages: V6OperatorFlowStage[];
   platform_universe: V6PlatformUniverseRow[];
   media_lane: V6MediaLaneModel;
+  operator_decision_intake_lane: V6OperatorApprovalDecisionIntakeLaneModel;
   manual_audit_lane: V6ManualAuditLaneModel;
 }
 export interface V6CommandCenterModel {

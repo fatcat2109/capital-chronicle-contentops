@@ -1,4 +1,4 @@
-﻿// V6 final operator flow adapter.
+// V6 final operator flow adapter.
 // Deterministic local builder only: no network, browser, provider, env, credential, scrape, fetch, or media download.
 
 import type {
@@ -7,11 +7,12 @@ import type {
   V6InternalChartCandidate,
   V6ManualAuditRow,
   V6NewsImageCandidate,
+  V6OperatorApprovalDecisionPacket,
   V6OperatorFlowStage,
   V6PlatformUniverseRow,
 } from '../types';
 
-const TASK_LABEL = 'TASK_CONTENTOPS_V6_SOURCE_AWARE_MEDIA_PLATFORM_PACKET_BUILDERS_V0';
+const TASK_LABEL = 'TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0';
 
 function stableHash(input: string): string {
   let hash = 0x811c9dc5;
@@ -55,7 +56,7 @@ const platform = (
 const flowStages: V6OperatorFlowStage[] = [
   { stage_id: 'source', label: 'Source intake', status: 'review', summary: 'Jim selects news/current-event or Capital Chronicle internal report source class.', evidence_ref: 'source_class=operator_selected' },
   { stage_id: 'draft', label: 'Canonical draft', status: 'review', summary: 'Local canonical Substack-style draft preview remains review-only.', evidence_ref: 'draft_preview_hash=local_adapter' },
-  { stage_id: 'approval', label: 'Hash approval', status: 'blocked', summary: 'Exact payload hashes are visible, but no approval record is fabricated.', evidence_ref: 'operator_approval_recorded=false' },
+  { stage_id: 'approval', label: 'Hash approval', status: 'review', summary: 'Operator-supplied approve/hold/reject packets bind to exact adapter payload hashes.', evidence_ref: 'operator_decision_intake=local_fixture_only' },
   { stage_id: 'variants', label: 'Platform variants', status: 'review', summary: 'Full platform universe gets deterministic platform-fit rows before manual export.', evidence_ref: 'variants=local_builder_output' },
   { stage_id: 'media', label: 'Media selection', status: 'review', summary: 'News uses grounded metadata candidates; internal reports use built-in chart/card candidates.', evidence_ref: 'media_search_or_download_performed=false' },
   { stage_id: 'audit', label: 'Manual dispatch / audit', status: 'blocked', summary: 'Manual handoff and redacted audit rows are shown; live dispatch remains locked.', evidence_ref: 'live_write_allowed=false' },
@@ -122,18 +123,70 @@ const chartCandidate = (
   rights_status: 'verified',
 });
 
-const auditRow = (row: V6PlatformUniverseRow): V6ManualAuditRow => ({
-  row_id: `audit_${row.platform_id}`,
-  platform: row.platform,
-  source_variant_key: row.variant_key,
-  payload_hash: row.payload_hash,
-  approval_recorded: false,
-  public_url_status: row.dispatch_gate === 'manual_review_only' ? 'operator_supplied_only' : 'not_applicable_until_manual_post',
-  metrics_status: row.dispatch_gate === 'manual_review_only' ? 'operator_supplied_only' : 'not_applicable_until_manual_post',
-  evidence_mode: row.audit_evidence_mode,
-  live_dispatch_performed: false,
-  status: row.status,
-});
+const decisionStatus = (decision: V6OperatorApprovalDecisionPacket['decision']): StatusKind => {
+  if (decision === 'approve') return 'verified';
+  if (decision === 'hold') return 'review';
+  return 'blocked';
+};
+
+const nextAction = (decision: V6OperatorApprovalDecisionPacket['decision']) => {
+  if (decision === 'approve') return 'Manual export/audit evidence may proceed after final operator handoff; dispatch stays locked.';
+  if (decision === 'hold') return 'Resolve operator notes and resubmit the same payload hash or a new reviewed hash.';
+  return 'Do not use this payload; regenerate or archive the variant after operator review.';
+};
+
+const decisionPacket = (
+  row: V6PlatformUniverseRow,
+  decision: V6OperatorApprovalDecisionPacket['decision'],
+  operator_reference: string,
+  rationale: string,
+): V6OperatorApprovalDecisionPacket => {
+  const decision_packet_id = `decision_${row.platform_id}_${stableHash(`${row.payload_hash}|${decision}|${operator_reference}`)}`;
+  return {
+    decision_packet_id,
+    platform_id: row.platform_id,
+    platform: row.platform,
+    source_variant_key: row.variant_key,
+    payload_hash: row.payload_hash,
+    decision,
+    decision_status: decisionStatus(decision),
+    operator_evidence_mode: 'operator_supplied_fixture',
+    operator_reference,
+    rationale,
+    next_required_action: nextAction(decision),
+    decision_packet_hash: payloadHash('operator_decision', decision_packet_id, row.payload_hash),
+    approval_recorded: decision === 'approve',
+    dispatch_permission_granted: false,
+    live_write_allowed: false,
+    public_url_fetch_made: false,
+    provider_or_api_call_made: false,
+    browser_or_cdp_used: false,
+  };
+};
+
+const decisionPackets = [
+  decisionPacket(platformUniverse[0], 'approve', 'jim-local-fixture-approval-001', 'Canonical Substack payload approved for manual export evidence only.'),
+  decisionPacket(platformUniverse[2], 'hold', 'jim-local-fixture-hold-001', 'X wording needs another operator pass before any manual copy.'),
+  decisionPacket(platformUniverse[7], 'reject', 'jim-local-fixture-reject-001', 'Instagram lane is rejected until rights/account constraints are solved.'),
+] as const satisfies V6OperatorApprovalDecisionPacket[];
+
+const auditRow = (row: V6PlatformUniverseRow): V6ManualAuditRow => {
+  const decision = decisionPackets.find((packet) => packet.payload_hash === row.payload_hash);
+  return {
+    row_id: `audit_${row.platform_id}`,
+    platform: row.platform,
+    source_variant_key: row.variant_key,
+    payload_hash: row.payload_hash,
+    approval_recorded: decision?.approval_recorded ?? false,
+    decision_packet_id: decision?.decision_packet_id,
+    decision: decision?.decision,
+    public_url_status: row.dispatch_gate === 'manual_review_only' ? 'operator_supplied_only' : 'not_applicable_until_manual_post',
+    metrics_status: row.dispatch_gate === 'manual_review_only' ? 'operator_supplied_only' : 'not_applicable_until_manual_post',
+    evidence_mode: row.audit_evidence_mode,
+    live_dispatch_performed: false,
+    status: decision?.decision_status ?? row.status,
+  };
+};
 
 const newsCandidates = [
   newsCandidate('IMG-CAND-001', 'Official CPI release visual context', 'CPI release official chart visual context site:bls.gov', 'https://www.bls.gov/news.release/cpi.htm (operator/search metadata only)', 'metadata-only://official-release-thumbnail', ['Substack', 'LinkedIn', 'X', 'Facebook Page'], 'Operator must confirm official-source reuse terms before manual use.', 'Best fit for CPI news hook; supports data-sufficiency framing.', 'review'),
@@ -147,8 +200,8 @@ const internalChartCandidates = [
 
 export const finalOperatorProductFlow: V6FinalOperatorProductFlowModel = {
   packet_id: `final_operator_flow_${stableHash(TASK_LABEL + platformUniverse.length)}`,
-  packet_hash: payloadHash('final_operator_flow', TASK_LABEL, `${platformUniverse.length}|${newsCandidates.length}|${internalChartCandidates.length}`),
-  builder_version: 'source_aware_media_platform_packet_builder_v0',
+  packet_hash: payloadHash('final_operator_flow', TASK_LABEL, `${platformUniverse.length}|${newsCandidates.length}|${internalChartCandidates.length}|${decisionPackets.length}`),
+  builder_version: 'operator_approval_decision_packet_intake_v0',
   task_label: TASK_LABEL,
   source_classes: ['news_current_event', 'capital_chronicle_internal_report'],
   flow_stages: flowStages,
@@ -162,9 +215,16 @@ export const finalOperatorProductFlow: V6FinalOperatorProductFlowModel = {
     internal_chart_candidates: [...internalChartCandidates],
     forbidden_actions: ['google_scrape', 'image_download', 'public_url_fetch', 'rights_verification_claim', 'platform_upload'],
   },
+  operator_decision_intake_lane: {
+    intake_status: 'review',
+    intake_summary: 'Local approve/hold/reject packets are operator-supplied fixture evidence bound to exact adapter payload hashes.',
+    evidence_policy: 'Approve means manual-review evidence only. It does not grant dispatch, public URL verification, scheduler, API, browser/CDP, provider, or live-write permission.',
+    decision_packets: [...decisionPackets],
+    forbidden_actions: ['dispatch', 'publish', 'schedule', 'execute outbox', 'verify public URL', 'call provider/API', 'use browser/CDP', 'read credentials'],
+  },
   manual_audit_lane: {
-    approval_status: 'blocked',
-    approval_summary: 'Jim approval is required and not synthesized by the UI.',
+    approval_status: 'review',
+    approval_summary: 'Operator decision packets may be displayed only when supplied and hash-bound; they never synthesize dispatch permission.',
     dispatch_status: 'blocked',
     dispatch_summary: 'Manual copy/export only; no platform/API/browser execution path exists.',
     audit_summary: 'Audit accepts operator-supplied public URL/metrics only and labels them manual evidence.',

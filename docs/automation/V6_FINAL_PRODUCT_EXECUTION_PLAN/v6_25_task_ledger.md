@@ -25,7 +25,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 | 07 | Platform-native variant generator | complete_fixture_only | Deterministic adapter output now drives full-platform variant rows in the V5 Command Center with stable payload hashes and manual dispatch gates. Live platform behavior remains gated. |
 | 08 | Discord webhook/community drop lane | complete_pre_live_no_send | Discord dry-run/outbox/pre-live artifacts exist; no live send is claimed here. |
 | 09 | Telegram remote operator lane | deferred | Operator lane direction exists; live execution requires future explicit scope. |
-| 10 | Approval/outbox/audit integration | partially_complete | Payload hash, approval, outbox, and audit artifacts exist across lanes; V5 Command Center now displays deterministic manual audit rows for adapter-built platform payloads. Operator approval decision intake remains next work. |
+| 10 | Approval/outbox/audit integration | complete_fixture_only | Payload hash, approval, outbox, and audit artifacts exist across lanes; V5 Command Center now displays deterministic manual audit rows plus operator-supplied approve/hold/reject decision packets bound to adapter-built payload hashes. Approval is local/manual evidence only and does not authorize dispatch. |
 | 11 | Public URL capture and reconciliation | complete_fixture_only | Substack and LinkedIn URL/audit imports are operator-supplied/manual only. |
 | 12 | Community feedback intake | complete_fixture_only | Operator-supplied feedback intake packet exists locally; no live community activity, scrape, fetch, API, browser, or provider call is claimed. |
 | 13 | LLM feedback summarizer | deferred | Current backlog summary uses deterministic tag grouping only; no LLM/provider call is claimed. |
@@ -53,7 +53,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 - X CDP pre-live post command, GO-phrase gate, exact execution outcome, registry reconciliation, and registry idempotency/readback audit are complete as local supervised/packet evidence; no repo-driven X click, API call, session read, or public URL fetch is claimed.
 - Live/provider/platform execution remains blocked unless separately scoped.
 
-Recommended next lane after `TASK_CONTENTOPS_V6_SOURCE_AWARE_MEDIA_PLATFORM_PACKET_BUILDERS_V0`: `TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0`. Add deterministic local approve/hold/reject decision packet intake for the adapter-built payload hashes, surface it in the V5 Command Center, and keep approval evidence operator-supplied only. Keep it conservative: no dispatch, browser/CDP, provider/API, public URL fetch, media download, Google scraping, scheduler, or live write.
+Recommended next lane after `TASK_CONTENTOPS_V6_OPERATOR_APPROVAL_DECISION_PACKET_INTAKE_V0`: `TASK_CONTENTOPS_V6_APPROVAL_DECISION_TO_LOCAL_OUTBOX_READINESS_RECONCILIATION_V0`. Reconcile operator decision packet states into local-only outbox readiness summaries while keeping outboxes non-executable and preserving the existing hard block on dispatch, browser/CDP, provider/API, public URL fetch, media download, Google scraping, scheduler/retry wiring, and live writes.
 
 ## How to Update This Ledger
 
