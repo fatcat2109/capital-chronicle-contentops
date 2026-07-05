@@ -9,7 +9,7 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-cc95b8a50588a913d480598cb23378b4d64c1af6
+ee2cd700675138de290090dc8968e2e60325dcd3
 
 ## current_product_phase
 TASK 0096 Final release go/no-go rehearsal, end-to-end evidence audit, and operator handoff verification completed for ContentOps V6
@@ -21,9 +21,9 @@ V6 final product release go/no-go rehearsal, red-team evidence audit, browser QA
 TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 completes the final release go/no-go rehearsal, red-team evidence audit, and operator handoff verification for V6 ContentOps. All 184 frontend vitest cases and 33 pytest cases pass. Verdict: PASS_FINAL_LOCAL_RELEASE_REVIEW.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `cc95b8a50588a913d480598cb23378b4d64c1af6`
-- previous accepted product baseline: `9066ec474f225291f1f50cee8f48e68db8efa580`
-- latest status/promotion task (`last_status_commit_sha`): `cc95b8a50588a913d480598cb23378b4d64c1af6` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
+- accepted product baseline (`accepted_product_baseline_sha`): `ee2cd700675138de290090dc8968e2e60325dcd3`
+- previous accepted product baseline: `cc95b8a50588a913d480598cb23378b4d64c1af6`
+- latest status/promotion task (`last_status_commit_sha`): `ee2cd700675138de290090dc8968e2e60325dcd3` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
