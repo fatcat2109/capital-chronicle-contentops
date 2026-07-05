@@ -21,9 +21,9 @@ Fully automated Meta-family live platform dispatch via Facebook Graph API, Insta
 TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0 implements and verifies Meta-family adapters for Facebook Page post/comment/edit, Instagram Business two-step media publish/comment with unsupported edit, and Threads two-step post/reply with unsupported edit. Focused adapter/scheduler tests pass. Live smoke evidence verified Facebook Page post/comment/edit and Threads post/reply; Instagram live post/comment is blocked by missing public smoke media URL or media ID while adapter behavior remains tested.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `06c4619aa5902f53e27d2cd81d9646e3c5df6e68`
+- accepted product baseline (`accepted_product_baseline_sha`): `d50ed45a4f03a7ee3e9ab4488b37ef6d37de9ba6`
 - previous accepted product baseline: `8324ab34b0065557370c4a437d0ba7bcd4c97db7`
-- latest status/promotion task (`last_status_commit_sha`): `06c4619aa5902f53e27d2cd81d9646e3c5df6e68` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
+- latest status/promotion task (`last_status_commit_sha`): `d50ed45a4f03a7ee3e9ab4488b37ef6d37de9ba6` verified by local commit readback before final status-only metadata promotion.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 

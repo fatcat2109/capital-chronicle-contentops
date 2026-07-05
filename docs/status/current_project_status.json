@@ -3,7 +3,7 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "06c4619aa5902f53e27d2cd81d9646e3c5df6e68",
+  "last_verified_remote_sha": "d50ed45a4f03a7ee3e9ab4488b37ef6d37de9ba6",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0",
   "current_product_phase": "TASK 0094 Meta-family API live dispatch implemented and smoke-verified under Fast Ship Mode for Facebook Page and Threads; Instagram remains credential/media gated with unsupported edit documented",
   "current_product_lane": "Fully automated Meta-family live platform dispatch via Facebook Graph API, Instagram Content Publishing API adapter, and Threads API",
@@ -341,9 +341,9 @@
     "verify telegram bot token corresponds to the publisher bot and not the orchestrator bot",
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
-  "accepted_product_baseline_sha": "06c4619aa5902f53e27d2cd81d9646e3c5df6e68",
-  "last_status_commit_sha": "06c4619aa5902f53e27d2cd81d9646e3c5df6e68",
-  "sha_model": "last_verified_remote_sha records the pushed origin/master HEAD for TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0 after git ls-remote readback. accepted_product_baseline_sha records the accepted implementation/status baseline for the task: 06c4619aa5902f53e27d2cd81d9646e3c5df6e68.",
+  "accepted_product_baseline_sha": "d50ed45a4f03a7ee3e9ab4488b37ef6d37de9ba6",
+  "last_status_commit_sha": "d50ed45a4f03a7ee3e9ab4488b37ef6d37de9ba6",
+  "sha_model": "accepted_product_baseline_sha records the accepted implementation/status baseline for TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0: d50ed45a4f03a7ee3e9ab4488b37ef6d37de9ba6. A later status-only metadata promotion commit may sit above this product baseline.",
   "latest_changed_areas": [
     "live_contentops/facebook_page_adapter_v6.py",
     "live_contentops/instagram_adapter_v6.py",
