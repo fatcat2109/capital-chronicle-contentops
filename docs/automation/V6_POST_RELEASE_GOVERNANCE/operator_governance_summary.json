@@ -7,7 +7,7 @@
     "status": "CLEAN"
   },
   "governance_status": "PASS_OPERATOR_GOVERNANCE_HEALTHY",
-  "packet_hash": "9889b754b8bf31f2abc4c253069c7325d6db6dcf3faeabaa22d01ab51f68807b",
+  "packet_hash": "ad639f6cebb9b8c079b0eb01534fa75e1e5c6451718e87eaefc77062be4003b9",
   "packet_kind": "v6_operator_governance_summary_v0",
   "platform_capabilities": [
     {
@@ -75,11 +75,11 @@
   "status_ledger_audit": {
     "issues": [],
     "ledger_accepted_product_baseline_sha": "37b2d2b4ed223ed1665bb174531e8c7cc25e590d",
-    "ledger_last_status_commit_sha": "9ee82cfc5c8acb235e19724049d23399286fd7aa",
-    "ledger_last_verified_remote_sha": "9ee82cfc5c8acb235e19724049d23399286fd7aa",
-    "ledger_latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
+    "ledger_last_status_commit_sha": "1a4d0e904e0ae1775ea879753e22ba203b135658",
+    "ledger_last_verified_remote_sha": "1a4d0e904e0ae1775ea879753e22ba203b135658",
+    "ledger_latest_accepted_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0",
     "ledger_matches_observed_remote": true,
-    "observed_remote_sha": "9ee82cfc5c8acb235e19724049d23399286fd7aa",
+    "observed_remote_sha": "1a4d0e904e0ae1775ea879753e22ba203b135658",
     "status": "PASS_STATUS_LEDGER_ALIGNED",
     "status_json_exists": true
   },
