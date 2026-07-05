@@ -1,0 +1,13 @@
+{
+  "created_at_utc": "2026-07-05T10:19:36Z",
+  "moved": [
+    {
+      "from": "scratch/dedup_env.py",
+      "to": "docs/archive/stale_scratch/2026-07-05_meta_fast_ship_cleanup/dedup_env.py"
+    },
+    {
+      "from": "scratch/fix_env.py",
+      "to": "docs/archive/stale_scratch/2026-07-05_meta_fast_ship_cleanup/fix_env.py"
+    }
+  ]
+}

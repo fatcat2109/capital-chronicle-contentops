@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0
+TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,28 +9,21 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-## last_verified_remote_sha
-c5b75cfbc66ad4498c7b779f182e1b4eda183ed3
+Fc4619aa5902f53e27d2cd81d9646e3c5df6e68
 
 ## current_product_phase
-TASK 0091 V6 Unified Operator Reporting Console (Execution logs, active queues visualizer, and dashboard controls) implemented and verified in the V6 Command Center UI
+TASK 0094 Meta-family API live dispatch implemented and smoke-verified under Fast Ship Mode for Facebook Page and Threads; Instagram remains credential/media gated with unsupported edit documented
 
 ## current_product_lane
-Jim's V5 Command Center is clean of stale references, and safety policies are refactored to support Fast Ship Mode
+Fully automated Meta-family live platform dispatch via Facebook Graph API, Instagram Content Publishing API adapter, and Threads API
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0 implements unified operator execution logs, active queues visualizer, and interactive dashboard controls in the V6 Command Center UI. Toggling the scheduler, running clock ticks, simulating dispatches with custom error diagnostic classifications, and clearing execution logs are fully operational in memory. All safety scans pass with 100% test coverage.
-
-
-
-
-
-
+TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0 implements and verifies Meta-family adapters for Facebook Page post/comment/edit, Instagram Business two-step media publish/comment with unsupported edit, and Threads two-step post/reply with unsupported edit. Focused adapter/scheduler tests pass. Live smoke evidence verified Facebook Page post/comment/edit and Threads post/reply; Instagram live post/comment is blocked by missing public smoke media URL or media ID while adapter behavior remains tested.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `0c98a7b7563b745183d50651b15eb4846373138e`
-- previous accepted product baseline: `33f95383748187cbb9913b889d9e42f9d7c849eb`
-- latest status/promotion task (`last_status_commit_sha`): `729b6e205561a07010f3c5553e1644ce69527ec5` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
+- accepted product baseline (`accepted_product_baseline_sha`): `06c4619aa5902f53e27d2cd81d9646e3c5df6e68`
+- previous accepted product baseline: `8324ab34b0065557370c4a437d0ba7bcd4c97db7`
+- latest status/promotion task (`last_status_commit_sha`): `06c4619aa5902f53e27d2cd81d9646e3c5df6e68` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -55,17 +48,17 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, local approval-decision to outbox readiness reconciliation, Discord/Telegram local-only operator bridge status, manual/deferred distribution lane hardening for Facebook Page/Threads/Instagram/TikTok/Generic Manual, final operator action-strip consolidation, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, and the V5 Command Center Registry Readback panel. The canonical V5 Command Center now productizes Jim's source-to-audit operator flow from deterministic adapter output with stable packet/hash identifiers, the full platform universe, source-aware media candidate/chart rows, hash-bound operator decision rows, local outbox readiness reconciliation rows, Discord/Telegram redacted bridge rows, manual/deferred distribution rows, manual audit rows, and a final operator action strip. Media grounding remains source-aware: news topics use grounded image candidate metadata; Capital Chronicle internal alpha/report topics use built-in chart/card media when available.
+V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, local approval-decision to outbox readiness reconciliation, Discord/Telegram bridge status, manual/deferred distribution lane hardening for TikTok/Generic Manual, final operator action-strip consolidation, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, V5 Command Center Registry Readback panel, Substack & X Playwright browser profile adapters, Discord Webhook & Telegram Bot API live dispatch adapters, and Meta-family Facebook Page/Instagram/Threads official API adapters.
 
 ## dispatch/live status
-Under Fast Ship Mode, live/provider/platform execution, network runs, and env/credential reads are authorized to achieve full automation. Real-time posting, editing, and commenting are enabled. Public URL verification is not claimed. Substack public URL verification is not claimed. Local operator review remains fallback, and operator-supplied public url is used until post dispatch. public url remains unverified. For the current archiving task, no browser/cdp/live/network/env/credential action was performed.
-
+Under Fast Ship Mode, live/provider/platform execution, network runs, and env/credential reads are authorized to achieve full automation. Real-time posting, editing, and commenting are enabled and active. Discord and Telegram live dispatches executed successfully via Webhooks and Telegram Bot API. Meta-family smoke evidence verified Facebook Page post/comment/edit and Threads post/reply. Instagram adapter is live-capable for two-step media publishing and comments, but the smoke execution is blocked until a public CONTENTOPS_META_SMOKE_IMAGE_URL or INSTAGRAM_SMOKE_MEDIA_ID is provided; Instagram and Threads edit actions are API-unsupported and return UNSUPPORTED.
 
 ## provider/env/credential status
-Under Fast Ship Mode, `.env` and credential stores are accessible to authorize real network requests and platform-native integration. Google image grounding and asset fetches are authorized as needed to automate media attachment.
+Under Fast Ship Mode, `.env` and credential stores are accessible to authorize real network requests and platform-native integration. Discord webhooks (DISCORD_ANNOUNCEMENTS_WEBHOOK_URL), Telegram credentials (TELEGRAM_BOT_TOKEN, TELEGRAM_TARGET_CHAT_ID), Facebook Page credentials (FACEBOOK_PAGE_ID plus FACEBOOK_PAGE_ACCESS_TOKEN or META_ACCESS_TOKEN), Threads credentials (THREADS_USER_ID plus THREADS_USER_ACCESS_TOKEN or THREADS_ACCESS_TOKEN), and Instagram destination binding (INSTAGRAM_BUSINESS_ACCOUNT_ID plus META_ACCESS_TOKEN) are utilized directly where available.
 
 ## active blockers
-- None under Fast Ship Mode. All prior live/provider/platform execution blocks and dry-run/ceremony gates are bypassed to enable direct shipping.
+- Instagram live post/comment smoke requires a public CONTENTOPS_META_SMOKE_IMAGE_URL or INSTAGRAM_SMOKE_MEDIA_ID credential/media binding.
+- Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.
 - Capital Chronicle Internal alpha / analysis-report posts should prefer built-in chart/card media from the report system when available.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
 - Standalone approval queue UI must not be revived as canonical.
@@ -77,22 +70,28 @@ Under Fast Ship Mode, `.env` and credential stores are accessible to authorize r
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_SCHEDULER_AND_CRON_RECONCILIATION_V0
-
+TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0
 
 ## latest changed areas
-- `ui/contentops_v5/src/data/finalOperatorProductFlowAdapter.ts`
-- `ui/contentops_v5/src/test/v6_command_center.test.tsx`
-- `ui/contentops_v5/src/types.ts`
-- `ui/contentops_v5/src/views/V6CommandCenter.tsx`
+- `live_contentops/facebook_page_adapter_v6.py`
+- `live_contentops/instagram_adapter_v6.py`
+- `live_contentops/threads_adapter_v6.py`
+- `live_contentops/scheduler_v6.py`
+- `live_contentops/v6_platform_registry_contract.py`
+- `tests/test_facebook_page_adapter_v6.py`
+- `tests/test_instagram_adapter_v6.py`
+- `tests/test_threads_adapter_v6.py`
+- `tests/test_v6_platform_registry_contract.py`
+- `docs/automation/V6_META_LIVE_DISPATCH_FAST_SHIP/meta_live_dispatch_evidence.json`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
+- `docs/archive/stale_scratch/2026-07-05_meta_fast_ship_cleanup/archive_manifest.json`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_SUBSTACK_AND_X_V0` — Implement and execute fully automated Substack and X posting/commenting/editing using env credentials in live mode under Fast Ship Mode.
+Next heavy batch: `TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0` ? Implement unified operator execution logs, active queues visualizer, live-dispatch evidence summaries, and dashboard controls in the canonical V5 command center.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.

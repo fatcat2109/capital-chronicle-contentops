@@ -127,51 +127,158 @@ def dispatch_platform_action(
     dry_run: bool
 ) -> dict[str, Any]:
     """Helper to dispatch actions to platform adapters, or fallback to mock dispatch."""
-    if platform_id == "facebook_page":
-        from .facebook_page_adapter_v6 import execute_facebook_post, execute_facebook_comment
+    if platform_id == "substack":
+        from .substack_browser_adapter_v6 import execute_substack_post, execute_substack_comment, execute_substack_edit
+        if action == "post":
+            return execute_substack_post(
+                title=payload.get("title", ""),
+                subtitle=payload.get("subtitle", ""),
+                body_markdown=payload.get("body_markdown", payload.get("body", "")),
+                dry_run=dry_run
+            )
+        elif action == "comment":
+            return execute_substack_comment(
+                post_url_or_slug=payload.get("post_url_or_slug", payload.get("url", "")),
+                message=payload.get("message", payload.get("text", "")),
+                dry_run=dry_run
+            )
+        elif action == "edit":
+            return execute_substack_edit(
+                post_id_or_url=payload.get("post_id_or_url", payload.get("post_id", "")),
+                title=payload.get("title", ""),
+                subtitle=payload.get("subtitle", ""),
+                body_markdown=payload.get("body_markdown", payload.get("body", "")),
+                dry_run=dry_run
+            )
+    elif platform_id == "x":
+        from .x_browser_adapter_v6 import execute_x_post, execute_x_comment, execute_x_edit
+        if action == "post":
+            return execute_x_post(
+                text=payload.get("text", payload.get("message", "")),
+                image_url=payload.get("image_url"),
+                dry_run=dry_run
+            )
+        elif action == "comment":
+            return execute_x_comment(
+                tweet_url_or_id=payload.get("tweet_url_or_id", payload.get("tweet_id", "")),
+                text=payload.get("text", payload.get("message", "")),
+                dry_run=dry_run
+            )
+        elif action == "edit":
+            return execute_x_edit(
+                tweet_url_or_id=payload.get("tweet_url_or_id", payload.get("tweet_id", "")),
+                new_text=payload.get("new_text", payload.get("text", "")),
+                dry_run=dry_run
+            )
+    elif platform_id == "discord":
+        from .discord_live_adapter_v6 import execute_discord_post, execute_discord_comment, execute_discord_edit
+        if action == "post":
+            return execute_discord_post(
+                message=payload.get("message", payload.get("text", "")),
+                webhook_url=payload.get("webhook_url"),
+                embeds=payload.get("embeds"),
+                dry_run=dry_run
+            )
+        elif action == "comment":
+            return execute_discord_comment(
+                thread_id_or_url=payload.get("thread_id_or_url", payload.get("thread_id", "")),
+                message=payload.get("message", payload.get("text", "")),
+                webhook_url=payload.get("webhook_url"),
+                dry_run=dry_run
+            )
+        elif action == "edit":
+            return execute_discord_edit(
+                message_id=payload.get("message_id", payload.get("id", "")),
+                new_message=payload.get("new_message", payload.get("message", payload.get("text", ""))),
+                webhook_url=payload.get("webhook_url"),
+                dry_run=dry_run
+            )
+    elif platform_id == "telegram":
+        from .telegram_live_adapter_v6 import execute_telegram_post, execute_telegram_comment, execute_telegram_edit
+        if action == "post":
+            return execute_telegram_post(
+                message=payload.get("message", payload.get("text", "")),
+                chat_id=payload.get("chat_id"),
+                bot_token=payload.get("bot_token"),
+                parse_mode=payload.get("parse_mode", "HTML"),
+                dry_run=dry_run
+            )
+        elif action == "comment":
+            return execute_telegram_comment(
+                reply_to_message_id=payload.get("reply_to_message_id", payload.get("message_id", "")),
+                message=payload.get("message", payload.get("text", "")),
+                chat_id=payload.get("chat_id"),
+                bot_token=payload.get("bot_token"),
+                parse_mode=payload.get("parse_mode", "HTML"),
+                dry_run=dry_run
+            )
+        elif action == "edit":
+            return execute_telegram_edit(
+                message_id=payload.get("message_id", payload.get("id", "")),
+                new_message=payload.get("new_message", payload.get("message", payload.get("text", ""))),
+                chat_id=payload.get("chat_id"),
+                bot_token=payload.get("bot_token"),
+                parse_mode=payload.get("parse_mode", "HTML"),
+                dry_run=dry_run
+            )
+    elif platform_id == "facebook_page":
+        from .facebook_page_adapter_v6 import execute_facebook_comment, execute_facebook_edit, execute_facebook_post
         if action == "post":
             return execute_facebook_post(
-                page_id=payload.get("page_id", ""),
-                access_token=payload.get("access_token", ""),
-                message=payload.get("message", ""),
+                page_id=payload.get("page_id"),
+                access_token=payload.get("access_token"),
+                message=payload.get("message", payload.get("text", "")),
                 link=payload.get("link"),
                 dry_run=dry_run
             )
         elif action == "comment":
             return execute_facebook_comment(
-                post_id=payload.get("post_id", ""),
-                access_token=payload.get("access_token", ""),
-                message=payload.get("message", ""),
+                post_id=payload.get("post_id", payload.get("id", "")),
+                access_token=payload.get("access_token"),
+                message=payload.get("message", payload.get("text", "")),
                 dry_run=dry_run
             )
-    elif platform_id == "instagram":
-        from .instagram_adapter_v6 import execute_instagram_post, execute_instagram_comment
+        elif action == "edit":
+            return execute_facebook_edit(
+                post_id=payload.get("post_id", payload.get("id", "")),
+                access_token=payload.get("access_token"),
+                message=payload.get("new_message", payload.get("message", payload.get("text"))),
+                link=payload.get("link"),
+                dry_run=dry_run
+            )
+    elif platform_id in {"instagram", "instagram_business"}:
+        from .instagram_adapter_v6 import execute_instagram_comment, execute_instagram_edit, execute_instagram_post
         if action == "post":
             return execute_instagram_post(
-                ig_id=payload.get("ig_id", ""),
-                access_token=payload.get("access_token", ""),
-                image_url=payload.get("image_url", ""),
-                caption=payload.get("caption", ""),
+                ig_id=payload.get("ig_id", payload.get("instagram_business_account_id")),
+                access_token=payload.get("access_token"),
+                image_url=payload.get("image_url", "https://example.invalid/contentops-dry-run.jpg" if dry_run else ""),
+                caption=payload.get("caption", payload.get("message", "")),
                 dry_run=dry_run
             )
         elif action == "comment":
             return execute_instagram_comment(
-                media_id=payload.get("media_id", ""),
-                access_token=payload.get("access_token", ""),
-                message=payload.get("message", ""),
+                media_id=payload.get("media_id", payload.get("id", "")),
+                access_token=payload.get("access_token"),
+                message=payload.get("message", payload.get("text", "")),
                 dry_run=dry_run
             )
+        elif action == "edit":
+            return execute_instagram_edit()
     elif platform_id == "threads":
-        from .threads_adapter_v6 import execute_threads_post
-        return execute_threads_post(
-            threads_user_id=payload.get("threads_user_id", ""),
-            access_token=payload.get("access_token", ""),
-            text=payload.get("text", ""),
-            media_type=payload.get("media_type", "TEXT"),
-            image_url=payload.get("image_url"),
-            reply_to_id=payload.get("reply_to_id"),
-            dry_run=dry_run
-        )
+        from .threads_adapter_v6 import execute_threads_edit, execute_threads_post
+        if action in {"post", "comment", "reply"}:
+            return execute_threads_post(
+                threads_user_id=payload.get("threads_user_id"),
+                access_token=payload.get("access_token"),
+                text=payload.get("text", payload.get("message", "")),
+                media_type=payload.get("media_type"),
+                image_url=payload.get("image_url"),
+                reply_to_id=payload.get("reply_to_id", payload.get("parent_id") if action in {"comment", "reply"} else None),
+                dry_run=dry_run
+            )
+        elif action == "edit":
+            return execute_threads_edit()
     
     # Fallback / Dry run mock dispatch for other platforms
     return {

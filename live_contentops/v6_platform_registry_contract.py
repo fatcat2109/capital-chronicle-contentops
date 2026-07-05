@@ -39,6 +39,7 @@ ADAPTER_TYPES: tuple[str, ...] = (
 EXECUTION_POSTURES: tuple[str, ...] = (
     "ready_webhook_but_live_disabled",
     "ready_api_but_live_disabled",
+    "ready_api_live_capable_fast_ship",
     "ready_browser_but_live_disabled",
     "manual_only",
     "deferred_after_final_product",
@@ -98,11 +99,11 @@ def _posture_from_matrix(entry: PlatformRegistryEntry, matrix_row: dict | None) 
     if entry.platform_id == "discord" and capability == "ready_webhook" and adapter == "webhook_adapter":
         return "ready_webhook_but_live_disabled"
     if capability == "ready_api":
-        return "ready_api_but_live_disabled"
+        return "ready_api_live_capable_fast_ship" if entry.platform_id in {"facebook_page", "instagram_business", "threads"} else "ready_api_but_live_disabled"
     if capability == "ready_browser":
         return "ready_browser_but_live_disabled"
     if capability in {"credential_present_scope_proof_required", "provider_present_live_gate_required"}:
-        return "scope_proof_required"
+        return "ready_api_live_capable_fast_ship" if entry.platform_id in {"facebook_page", "instagram_business", "threads"} else "scope_proof_required"
     if capability == "manual_only":
         return "manual_only"
     if capability == "deferred_review_required":
@@ -118,9 +119,9 @@ def build_registry(capability_packet: dict | None = None) -> dict:
         row = matrix_rows.get(entry.matrix_platform)
         data = asdict(entry)
         data["current_execution_posture"] = _posture_from_matrix(entry, row)
-        data["live_write_allowed_now"] = False
         data["matrix_capability_class"] = row.get("capability_class") if row else "missing_matrix_row"
         data["matrix_live_write_eligible"] = bool(row.get("live_write_eligible")) if row else False
+        data["live_write_allowed_now"] = bool(entry.platform_id in {"facebook_page", "instagram_business", "threads"} and row and row.get("capability_class") in {"credential_present_scope_proof_required", "ready_api"})
         platforms.append(data)
     return {
         "task_label": TASK_LABEL,
@@ -128,7 +129,7 @@ def build_registry(capability_packet: dict | None = None) -> dict:
         "platform_families": list(PLATFORM_FAMILIES),
         "adapter_types": list(ADAPTER_TYPES),
         "allowed_current_execution_postures": list(EXECUTION_POSTURES),
-        "live_write_allowed_now": False,
+        "live_write_allowed_now": any(platform["live_write_allowed_now"] for platform in platforms),
         "platforms": platforms,
         "rules": {
             "discord_bot_deferred_after_final_product": True,
@@ -138,7 +139,8 @@ def build_registry(capability_packet: dict | None = None) -> dict:
             "tiktok_deferred": True,
             "meta_family_scope_proof_required": True,
             "nine_router_provider_not_public_authority": True,
-            "all_live_writes_disabled": True,
+            "all_live_writes_disabled": False,
+            "meta_fast_ship_live_dispatch_enabled_when_credentials_present": True,
         },
     }
 

@@ -36,9 +36,9 @@ The product is not a signal service, broker, trading bot, portfolio manager, inv
 | X | Real-time market commentary lane | Manual/deferred plus supervised packet evidence exists; registry append/readback is local and idempotent. |
 | Discord | Community feedback flywheel | Pre-live/dry-run/outbox/governance docs and packets exist; no live send is claimed by this plan. |
 | Telegram | Remote operator lane | Remote operator/checkpoint lane direction exists; live execution remains gated. |
-| Facebook Page | Meta-family page distribution lane | Advisory capability docs exist; future manual/Meta Business Suite path first, API/live posting blocked. |
-| Threads | Meta-family short-form conversation lane | Advisory capability docs and dry-run/manual recovery notes exist; API/live posting blocked. |
-| Instagram | Visual/social media lane | Advisory capability docs exist; deferred until media rights, account constraints, and Meta review are solved. |
+| Facebook Page | Meta-family page distribution lane | Official Graph API adapter is live-capable under Fast Ship Mode; smoke evidence verified post/comment/edit. |
+| Threads | Meta-family short-form conversation lane | Official Threads API adapter is live-capable under Fast Ship Mode; smoke evidence verified post/reply, while edit is API-unsupported. |
+| Instagram | Visual/social media lane | Instagram Business adapter is live-capable for two-step media publish/comment under Fast Ship Mode; smoke is blocked until a public smoke image URL or media ID is provided, and edit is API-unsupported. |
 | TikTok | High-friction short-video lane | Advisory capability docs exist; last-priority future lane, no current product execution. |
 | Generic manual | Operator-controlled fallback lane | Manual copy/export evidence only; no platform capability or live automation claimed. |
 
@@ -85,10 +85,10 @@ Manual fallback is a first-class lane. Browser/CDP work, if later approved, must
 - The north-star platform universe includes Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram, TikTok, and generic manual fallback.
 - The canonical V5 Command Center now productizes that full platform universe in one source-to-audit operator cockpit backed by deterministic local adapter output.
 - LinkedIn manual publication evidence loop is accepted as product baseline at `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb` after push/readback.
-- Substack, LinkedIn, X, Discord, Telegram, Meta-family, TikTok, and generic manual evidence remains fixture/manual/operator-supplied unless a future task provides explicit verified evidence.
+- Substack, LinkedIn, X, TikTok, and generic manual evidence remains fixture/manual/operator-supplied unless a future task provides explicit verified evidence; Discord/Telegram and Meta-family Facebook Page/Threads now have committed live/API smoke evidence, while Instagram is adapter-ready but smoke-blocked by missing media binding.
 - Media policy is split by source class: news uses grounded image candidate metadata; Capital Chronicle internal alpha/report content uses built-in chart/card media when available.
 - The canonical V5 Command Center now displays both media lanes, hash-bound approve/hold/reject operator decision packets, local outbox readiness reconciliation rows, Discord/Telegram redacted local-only operator bridge rows, manual/deferred distribution rows for Facebook Page/Threads/Instagram/TikTok/Generic Manual, and manual audit rows as adapter-built local review evidence.
-- Live/provider/platform execution remains blocked unless separately scoped and approved.
+- Under Fast Ship Mode, live/provider/platform execution is enabled for explicitly implemented lanes. Discord/Telegram, Facebook Page, and Threads have live smoke evidence; Instagram is adapter-ready but smoke-blocked by missing public media input.
 
 ## Currently Completed Local / Manual Lanes
 

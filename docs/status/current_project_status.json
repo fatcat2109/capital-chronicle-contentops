@@ -3,12 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "c5b75cfbc66ad4498c7b779f182e1b4eda183ed3",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0",
-  "current_product_phase": "TASK 0091 V6 Unified Operator Reporting Console (Execution logs, active queues visualizer, and dashboard controls) implemented and verified in the V6 Command Center UI",
-  "current_product_lane": "Jim's V5 Command Center is clean of stale references, and safety policies are refactored to support Fast Ship Mode",
-  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0 implements unified operator execution logs, active queues visualizer, and interactive dashboard controls in the V6 Command Center UI. Toggling the scheduler, running clock ticks, simulating dispatches with custom error diagnostic classifications, and clearing execution logs are fully operational in memory. All safety scans pass with 100% test coverage.",
-
+  "last_verified_remote_sha": "06c4619aa5902f53e27d2cd81d9646e3c5df6e68",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0",
+  "current_product_phase": "TASK 0094 Meta-family API live dispatch implemented and smoke-verified under Fast Ship Mode for Facebook Page and Threads; Instagram remains credential/media gated with unsupported edit documented",
+  "current_product_lane": "Fully automated Meta-family live platform dispatch via Facebook Graph API, Instagram Content Publishing API adapter, and Threads API",
+  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0 implements and verifies Meta-family adapters for Facebook Page post/comment/edit, Instagram Business two-step media publish/comment with unsupported edit, and Threads two-step post/reply with unsupported edit. Focused adapter/scheduler tests pass. Live smoke evidence verified Facebook Page post/comment/edit and Threads post/reply; Instagram live post/comment is blocked by missing public smoke media URL or media ID while adapter behavior remains tested.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -102,7 +101,16 @@
     "tests/test_platform_publication_identity_registry_v6.py",
     "live_contentops/x_cdp_exact_live_click_registry_reconciliation_v6.py",
     "tests/test_x_cdp_exact_live_click_registry_reconciliation_v6.py",
-    "docs/automation/X_SUPERVISED_CDP_EXACT_LIVE_CLICK_REGISTRY_RECONCILIATION/"
+    "docs/automation/X_SUPERVISED_CDP_EXACT_LIVE_CLICK_REGISTRY_RECONCILIATION/",
+    "live_contentops/facebook_page_adapter_v6.py",
+    "live_contentops/instagram_adapter_v6.py",
+    "live_contentops/threads_adapter_v6.py",
+    "live_contentops/v6_platform_registry_contract.py",
+    "tests/test_facebook_page_adapter_v6.py",
+    "tests/test_instagram_adapter_v6.py",
+    "tests/test_threads_adapter_v6.py",
+    "tests/test_v6_platform_registry_contract.py",
+    "docs/automation/V6_META_LIVE_DISPATCH_FAST_SHIP/"
   ],
   "current_loop_components": [
     "AI research packet",
@@ -266,33 +274,19 @@
     "AI builder bootstrap entrypoint",
     "AI builder bootstrap contract",
     "V5 Command Center operator approval decision intake: approve/hold/reject packets bound to exact local payload hashes",
-    "V5 Command Center local outbox readiness reconciliation: approved manual-ready, held/rejected/no-decision review states, and live-scope-blocked safeguards"
+    "V5 Command Center local outbox readiness reconciliation: approved manual-ready, held/rejected/no-decision review states, and live-scope-blocked safeguards",
+    "Facebook Page Graph API live smoke post/comment/edit evidence",
+    "Threads API live smoke post/reply evidence",
+    "Instagram Business two-step Content Publishing API adapter with blocked smoke media binding",
+    "Meta-family API unsupported edit outcomes for Instagram and Threads"
   ],
-  "dispatch_live_status": "Under Fast Ship Mode, live/provider/platform execution, network runs, and env/credential reads are authorized to achieve full automation. Real-time posting, editing, and commenting are enabled. Public URL verification is not claimed. Substack public URL verification is not claimed. Local operator review remains fallback, and operator-supplied public url is used until post dispatch. public url remains unverified. For the current archiving task, no browser/cdp/live/network/env/credential action was performed.",
-  "provider_env_credential_status": "Under Fast Ship Mode, `.env` and credential stores are accessible to authorize real network requests and platform-native integration. Google image grounding and asset fetches are authorized as needed to automate media attachment.",
+  "dispatch_live_status": "Fast Ship live dispatch is active for implemented lanes. Discord/Telegram live dispatches are verified from the prior task. Meta-family smoke evidence verified Facebook Page post/comment/edit and Threads post/reply. Instagram Business adapter is live-capable but smoke execution is blocked until CONTENTOPS_META_SMOKE_IMAGE_URL or INSTAGRAM_SMOKE_MEDIA_ID is supplied; Instagram and Threads edits return UNSUPPORTED by API constraint.",
+  "provider_env_credential_status": "Fast Ship mode authorizes env/credential reads for direct network integration. Meta smoke used redacted presence checks for Facebook Page, Threads, and Instagram bindings; no raw secret values are committed.",
   "active_blockers": [
-    "Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.",
-    "Jim content cockpit remains local/operator-review only; no provider/API/browser/network/env/credential action is authorized.",
-    "Operator approve/hold/reject decisions are local/manual evidence only; approve does not authorize dispatch, publish, schedule, retry, public URL verification, provider/API calls, browser/CDP actions, media download, or live writes.",
-    "Local outbox readiness rows are non-executable; they do not create outbox entries or dispatchable records.",
-    "Dispatch outbox dry-run and operator recovery/runbook previews are informational only; no executable outbox or live dispatch exists.",
-    "Manual/deferred distribution rows are local-only handoff/status evidence; they do not post, edit, comment, DM, react, call Meta/TikTok/platform APIs, use browser/CDP, fetch public URLs, download/upload media, read credentials/env/session data, wire schedulers/retries, or write live approval ledgers.",
-    "Manual export is allowed only as human off-platform copy after Jim review; repo code performs no live write.",
-    "Redacted audit and metrics loop accepts operator-supplied/redacted values only; no scraping, API sync, or public URL verification is claimed.",
-    "Future product UI work must remain on ui/contentops_v5/ unless a newer committed authority doc supersedes this ledger.",
-    "Standalone approval queue UI must not be revived as canonical.",
-    "Identity-to-outcome link is local audit readiness only; live dispatch and public URL verification remain disabled unless a future exact approved live task clears all gates.",
-    "Audit-backed feedback bridge is local planning evidence only; real community feedback capture must be operator-supplied unless a future exact approved live task authorizes another source.",
-    "Campaign Object is local operator-review evidence only; no executable outbox, live dispatch, public URL verification, scraping, or provider/API/browser/env/credential action exists.",
-    "Bundle approval remains blocked unless exact payload hashes are locked and an explicit future approval task authorizes recording approval.",
-    "Media system is local operator-review evidence only; external media records are metadata-only and do not download, fetch, verify URLs, or generate images.",
-    "Internal visual cards are packet/spec objects only; rendered image export remains unavailable unless a future exact approved task adds it.",
-    "Community signal intake is operator-selected public-channel/manual-note only; bot collection, scraping, and private-message ingestion remain blocked.",
-    "Community input cannot become a factual claim, approval, dispatch decision, or next article authorization without research grounding and operator review.",
-    "LLM summarization is deferred metadata only in Task 24; no provider call or LLM approval exists.",
-    "None under Fast Ship Mode. All prior live/provider/platform execution blocks and dry-run/ceremony gates are bypassed to enable direct shipping.",
+    "Instagram live post/comment smoke requires a public CONTENTOPS_META_SMOKE_IMAGE_URL or INSTAGRAM_SMOKE_MEDIA_ID credential/media binding.",
+    "Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.",
     "Capital Chronicle Internal alpha / analysis-report posts should prefer built-in chart/card media from the report system when available.",
-    "Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.",
+    "Future product UI work must remain on ui/contentops_v5/ unless a newer committed authority doc supersedes this ledger.",
     "Standalone approval queue UI must not be revived as canonical."
   ],
   "accepted_caveats": [
@@ -303,11 +297,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_SCHEDULER_AND_CRON_RECONCILIATION_V0",
-  "latest_accepted_task_result": "PASS_SCHEDULER_AND_CRON_RECONCILIATION_SUCCESS",
-  "latest_evidence_summary": "Implemented localized cron schedules, scheduled outbox entry registration, and timing reconciliation loops under Fast Ship Mode. verified=true, substack_public_url_verified=false, network_call_performed=false, env_or_credential_read_performed=false, browser_or_cdp_action_performed=false, dispatch_allowed_now=false, live_write_allowed_now=false.",
-
-  "next_recommended_task": "TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0: Implement unified operator execution logs, active queues visualizer, and dashboard controls in command center.",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0",
+  "latest_accepted_task_result": "PASS_META_FAST_SHIP_LIVE_DISPATCH_PARTIAL_SUCCESS_WITH_INSTAGRAM_MEDIA_BINDING_BLOCKED",
+  "latest_evidence_summary": "Implemented Meta-family live dispatch adapters for Facebook Page, Instagram Business, and Threads under Fast Ship Mode. Live smoke evidence verified Facebook Page post/comment/edit and Threads post/reply. Instagram Business live smoke is blocked by missing public smoke image URL or media ID; Instagram adapter validation and unsupported edit behavior are covered by focused tests.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0: Implement unified operator execution logs, active queues visualizer, live-dispatch evidence summaries, and dashboard controls in the canonical V5 command center.",
   "mandatory_read_before_task": [
     "AGENTS.md",
     "docs/AI_BUILDER_BOOTSTRAP.md",
@@ -348,19 +341,26 @@
     "verify telegram bot token corresponds to the publisher bot and not the orchestrator bot",
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
-  "accepted_product_baseline_sha": "9427632a2f9a9ea605dcf576db8be033c0d00eab",
-  "last_status_commit_sha": "f16fc241b5a68c95e205cc5f985d8cd4357ac580",
-  "sha_model": "last_verified_remote_sha records the pushed origin/master HEAD for TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0 after git ls-remote readback. accepted_product_baseline_sha records the accepted implementation/status baseline for the task.",
+  "accepted_product_baseline_sha": "06c4619aa5902f53e27d2cd81d9646e3c5df6e68",
+  "last_status_commit_sha": "06c4619aa5902f53e27d2cd81d9646e3c5df6e68",
+  "sha_model": "last_verified_remote_sha records the pushed origin/master HEAD for TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0 after git ls-remote readback. accepted_product_baseline_sha records the accepted implementation/status baseline for the task: 06c4619aa5902f53e27d2cd81d9646e3c5df6e68.",
   "latest_changed_areas": [
-    "ui/contentops_v5/src/data/finalOperatorProductFlowAdapter.ts",
-    "ui/contentops_v5/src/test/v6_command_center.test.tsx",
-    "ui/contentops_v5/src/types.ts",
-    "ui/contentops_v5/src/views/V6CommandCenter.tsx",
+    "live_contentops/facebook_page_adapter_v6.py",
+    "live_contentops/instagram_adapter_v6.py",
+    "live_contentops/threads_adapter_v6.py",
+    "live_contentops/scheduler_v6.py",
+    "live_contentops/v6_platform_registry_contract.py",
+    "tests/test_facebook_page_adapter_v6.py",
+    "tests/test_instagram_adapter_v6.py",
+    "tests/test_threads_adapter_v6.py",
+    "tests/test_v6_platform_registry_contract.py",
+    "docs/automation/V6_META_LIVE_DISPATCH_FAST_SHIP/meta_live_dispatch_evidence.json",
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md"
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/archive/stale_scratch/2026-07-05_meta_fast_ship_cleanup/archive_manifest.json"
   ],
   "operator_platform_readiness": {
     "latest_task": "TASK_0021",
@@ -558,5 +558,6 @@
     "verification": "npm run test -- src/test/v6_unified_operator_reporting_console.test.tsx -> 5 passed",
     "live_action_performed": false,
     "secret_or_session_read_performed": false
-  }
+  },
+  "current_next_recommended_task": "TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0 ? Implement unified operator execution logs, active queues visualizer, live-dispatch evidence summaries, and dashboard controls in the canonical V5 command center."
 }

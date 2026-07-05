@@ -1,0 +1,85 @@
+{
+  "created_at_utc": "2026-07-05T10:10:57Z",
+  "credential_presence": {
+    "facebook": {
+      "FACEBOOK_PAGE_ACCESS_TOKEN": true,
+      "FACEBOOK_PAGE_ID": true,
+      "META_ACCESS_TOKEN": true
+    },
+    "instagram": {
+      "CONTENTOPS_META_SMOKE_IMAGE_URL": false,
+      "INSTAGRAM_ACCESS_TOKEN": false,
+      "INSTAGRAM_BUSINESS_ACCOUNT_ID": true,
+      "INSTAGRAM_SMOKE_MEDIA_ID": false,
+      "META_ACCESS_TOKEN": true
+    },
+    "threads": {
+      "THREADS_ACCESS_TOKEN": false,
+      "THREADS_USER_ACCESS_TOKEN": true,
+      "THREADS_USER_ID": true
+    }
+  },
+  "executions": {
+    "facebook_comment": {
+      "id": "1338139575171126_1038341408702022",
+      "response": {
+        "id": "1338139575171126_1038341408702022"
+      },
+      "status": "SUCCESS"
+    },
+    "facebook_edit": {
+      "id": "106091951705748_1338139575171126",
+      "response": {
+        "success": true
+      },
+      "status": "SUCCESS"
+    },
+    "facebook_post": {
+      "id": "106091951705748_1338139575171126",
+      "response": {
+        "id": "106091951705748_1338139575171126"
+      },
+      "status": "SUCCESS"
+    },
+    "instagram_comment": {
+      "status": "BLOCKED_BY_MISSING_MEDIA_ID_OR_CREDENTIAL"
+    },
+    "instagram_edit": {
+      "action": "edit",
+      "platform_id": "instagram",
+      "reason": "instagram_content_publishing_api_does_not_support_post_edit",
+      "status": "UNSUPPORTED"
+    },
+    "instagram_post": {
+      "status": "BLOCKED_BY_MISSING_CREDENTIAL_OR_PUBLIC_IMAGE_URL"
+    },
+    "threads_edit": {
+      "action": "edit",
+      "platform_id": "threads",
+      "reason": "threads_api_does_not_support_post_edit",
+      "status": "UNSUPPORTED"
+    },
+    "threads_post": {
+      "container_id": "18134437354529547",
+      "id": "18115741435904946",
+      "response": {
+        "id": "18115741435904946"
+      },
+      "status": "SUCCESS"
+    },
+    "threads_reply": {
+      "container_id": "18134437462529547",
+      "id": "18084256865170458",
+      "response": {
+        "id": "18084256865170458"
+      },
+      "status": "SUCCESS"
+    }
+  },
+  "redaction_policy": {
+    "env_values_output": false,
+    "raw_secret_output": false,
+    "token_output": false
+  },
+  "task_label": "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0"
+}

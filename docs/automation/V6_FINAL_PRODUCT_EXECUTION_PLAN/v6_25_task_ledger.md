@@ -18,7 +18,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 |---:|---|---|---|
 | 01 | V6 master plan authority | complete | Expanded in `current_v6_master_plan.md`; GitHub remote remains runtime authority. |
 | 02 | Unified redacted credential capability matrix | complete | Redacted capability/readiness artifacts exist; no raw secret values are authority. |
-| 03 | Platform universe and adapter taxonomy | complete_fixture_only | Advisory registry/docs and canonical V5 Command Center now cover Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram, TikTok, and generic manual fallback. Live platform behavior remains gated. |
+| 03 | Platform universe and adapter taxonomy | partially_complete | Registry/docs and canonical V5 Command Center cover Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram, TikTok, and generic manual fallback. Fast Ship live adapters now exist for Discord, Telegram, Facebook Page, Threads, and Instagram; Facebook Page and Threads have live smoke evidence, Instagram remains media-input gated. |
 | 04 | Canonical Substack article workflow | complete_fixture_only | Canonical article and Substack manual export/evidence packets exist locally. |
 | 05 | AI research grounding lane | complete | Research/canonical article packet builders exist for local deterministic workflow. |
 | 06 | SEO and editorial refinement lane | partially_complete | SEO/editorial packet docs exist; continue verifying per future task scope. |
@@ -34,8 +34,8 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 | 16 | V6 UI command surface | complete_fixture_only | Final V6 command center is integrated into canonical `ui/contentops_v5/` with local deterministic adapter model, inspector selectors, nav route, disabled live-action controls, full platform universe, source-aware media lanes, manual audit lane, and final operator action strip. |
 | 17 | Operator review dashboard | partially_complete | V5 Approval Queue/Evidence Vault show fixture/manual evidence; no live controls authorized. |
 | 18 | Credential setup workbench alignment | blocked_until_explicit_live_scope | Credential/env value reads are forbidden unless a future exact scope allows safe handling. |
-| 19 | Platform registry alignment | partially_complete | Registry docs exist; future tasks should verify current code before edits. |
-| 20 | Adapter safety policies | partially_complete | Safety docs and tests exist; platform/live adapters remain gated. |
+| 19 | Platform registry alignment | partially_complete | Registry contract now marks Meta-family official API lanes live-capable under Fast Ship Mode when credential rows are present; future UI/reporting tasks should surface per-platform evidence and blocked reasons. |
+| 20 | Adapter safety policies | partially_complete | Focused tests cover Meta adapter validation, dry-run, live request construction, failure shaping, env fallbacks, and unsupported edit outcomes. Platform actions remain governed by Fast Ship evidence and redacted status docs. |
 | 21 | Browser/CDP supervised adapter boundary | complete_pre_live_no_send | X TASK 0087AD proved standard ContentOps profile CDP post/capture/reply with registry audit; reusable profile guard, pre-live post packet, GO-phrase gate, exact authorization/scope/execution packets, and registry reconciliation are complete as local supervised packet evidence. `TASK_CONTENTOPS_V6_X_CDP_REGISTRY_TO_OPERATOR_WORKFLOW_BATCH_V0` finishes the remaining registry idempotency/readback lane: exact execution rows append idempotently by natural key, registry rows audit locally without public fetch, operator_browser_lab has a read-only audit command, and V5 Command Center shows Registry Readback. Browser/CDP remains supervised and cannot read session/secret stores; no public URL fetch is claimed. |
 | 22 | Manual fallback playbooks | complete_fixture_only | Substack/LinkedIn runbooks exist, and Facebook Page/Threads/Instagram/TikTok/Generic Manual manual/deferred distribution rows are hardened in the canonical V5 Command Center as local-only handoff/status evidence. |
 | 23 | Evidence packet standardization | complete_fixture_only | Final release packet, acceptance record, red-team report, and browser-QA boundary are generated under `docs/automation/V6_FINAL_RELEASE/`; no live/API/provider evidence is claimed. |
@@ -49,11 +49,11 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 - Substack manual publication evidence is complete as fixture/manual local evidence.
 - LinkedIn manual publication evidence is complete as fixture/manual local evidence and accepted at `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb` after this status repair.
 - Discord pre-live docs may exist, but this ledger does not claim live send.
-- Facebook Page, Threads, Instagram, TikTok, Telegram, and generic manual fallback are recognized in advisory platform capability docs and the active master plan; no live/API capability is claimed.
+- Facebook Page and Threads live/API smoke evidence is committed for Fast Ship; Instagram Business is adapter-ready but smoke-blocked by missing public media URL/media ID; TikTok and generic manual fallback remain manual/deferred.
 - X CDP pre-live post command, GO-phrase gate, exact execution outcome, registry reconciliation, and registry idempotency/readback audit are complete as local supervised/packet evidence; no repo-driven X click, API call, session read, or public URL fetch is claimed.
-- Live/provider/platform execution remains blocked unless separately scoped.
+- Live/provider/platform execution is enabled under Fast Ship Mode for implemented lanes with evidence; unsupported or missing-input outcomes are recorded explicitly.
 
-Recommended next lane: `TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0`. Implement unified operator execution logs, active queues visualizer, and dashboard controls in command center.
+Recommended next lane: `TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0`. Implement unified operator execution logs, active queues visualizer, live-dispatch evidence summaries, and dashboard controls in the canonical V5 command center.
 
 ## How to Update This Ledger
 
