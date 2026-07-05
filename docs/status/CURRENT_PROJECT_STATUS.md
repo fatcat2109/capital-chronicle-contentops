@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,16 +9,16 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-2b476660fab831c24d5ece0ba6db29c4ea9fdea9
+5700f67212d239a0c5c96aa2bbe436fcb653dbf5
 
 ## current_product_phase
-TASK 0097 Operator maintenance & post-release governance engine implemented with automated evidence health checks, telemetry registry maintenance, and 10-platform capability inspector
+TASK 0098 Final release go/no-go rehearsal, end-to-end evidence audit, and operator release handoff verification completed with PASS verdict.
 
 ## current_product_lane
-Post-release operator governance, live dispatch telemetry maintenance, platform capability health inspection, and stale artifact archival
+V6 final product release go/no-go rehearsal, red-team evidence audit, browser QA boundary verification, and operator release handoff
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 implements the post-release operator governance module (live_contentops/v6_post_release_operator_governance.py) covering telemetry registry audit & maintenance, platform capability health inspection across all 10 platform lanes, stale artifact archiving, and automated governance summary generation. All 184 vitest cases and pytest cases pass. Building on baseline ee2cd700675138de290090dc8968e2e60325dcd3.
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 completes the final release go/no-go rehearsal, red-team evidence audit, and operator handoff verification for V6 ContentOps. All 184 frontend vitest cases and 33 pytest cases pass. Verdict: PASS_FINAL_LOCAL_RELEASE_REVIEW.
 
 
 ## status_sha_model
@@ -71,7 +71,7 @@ Under Fast Ship Mode, `.env` and credential stores are accessible to authorize r
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 
 ## latest changed areas
 - `ui/contentops_v5/src/views/V6CommandCenter.tsx`
@@ -83,7 +83,7 @@ TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0` ? Perform final release go/no-go rehearsal, end-to-end evidence audit, and operator handoff verification for V6 ContentOps automation system.
+Next heavy batch: `TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0` ? Maintain V6 ContentOps governance, monitor live dispatch telemetry, and support ongoing operator workflows.
 
 
 ## latest UI hardening status
