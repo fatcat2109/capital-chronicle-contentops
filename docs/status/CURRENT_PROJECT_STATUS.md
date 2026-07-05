@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
+TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,16 +9,16 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-ee2cd700675138de290090dc8968e2e60325dcd3
+fdf89c57ca741961e47560d7a4ca0011e21d6353
 
 ## current_product_phase
-TASK 0096 Final release go/no-go rehearsal, end-to-end evidence audit, and operator handoff verification completed for ContentOps V6
+TASK 0097 Operator maintenance & post-release governance engine implemented with automated evidence health checks, telemetry registry maintenance, and 10-platform capability inspector
 
 ## current_product_lane
-V6 final product release go/no-go rehearsal, red-team evidence audit, browser QA boundary verification, and operator release handoff
+Post-release operator governance, live dispatch telemetry maintenance, platform capability health inspection, and stale artifact archival
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 completes the final release go/no-go rehearsal, red-team evidence audit, and operator handoff verification for V6 ContentOps. All 184 frontend vitest cases and 33 pytest cases pass. Verdict: PASS_FINAL_LOCAL_RELEASE_REVIEW.
+TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 implements the post-release operator governance module (live_contentops/v6_post_release_operator_governance.py) covering telemetry registry audit & maintenance, platform capability health inspection across all 10 platform lanes, stale artifact archiving, and automated governance summary generation. All 184 vitest cases and pytest cases pass. Building on baseline ee2cd700675138de290090dc8968e2e60325dcd3.
 
 ## status_sha_model
 - accepted product baseline (`accepted_product_baseline_sha`): `ee2cd700675138de290090dc8968e2e60325dcd3`
@@ -51,7 +51,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, local approval-decision to outbox readiness reconciliation, Discord/Telegram bridge status, manual/deferred distribution lane hardening for TikTok/Generic Manual, final operator action-strip consolidation, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, V5 Command Center Registry Readback panel, Substack & X Playwright browser profile adapters, Discord Webhook & Telegram Bot API live dispatch adapters, Meta-family Facebook Page/Instagram/Threads official API adapters, and V5 Command Center Unified Operator Reporting Console with live evidence summaries & active queues visualizer.
 
 ## dispatch/live status
-Under Fast Ship Mode, live/provider/platform execution, network runs, and env/credential reads are authorized to achieve full automation. Real-time posting, editing, and commenting are enabled and active. Discord and Telegram live dispatches executed successfully via Webhooks and Telegram Bot API. Meta-family smoke evidence verified Facebook Page post/comment/edit and Threads post/reply. Instagram adapter is live-capable for two-step media publishing and comments, but smoke execution is blocked until a public CONTENTOPS_META_SMOKE_IMAGE_URL or INSTAGRAM_SMOKE_MEDIA_ID is provided; Instagram and Threads edit actions are API-unsupported and return UNSUPPORTED. V5 Command Center reflects unified real-time telemetry and active queue metrics.
+Under Fast Ship Mode, live/provider/platform execution, network runs, and env/credential reads are authorized to achieve full automation. Real-time posting, editing, and commenting are enabled and active. Discord and Telegram live dispatches executed successfully via Webhooks and Telegram Bot API. Meta-family smoke evidence verified Facebook Page post/comment/edit and Threads post/reply. Instagram adapter is live-capable for two-step media publishing and comments, but smoke execution is blocked until a public CONTENTOPS_META_SMOKE_IMAGE_URL or INSTAGRAM_SMOKE_MEDIA_ID is provided; Instagram and Threads edit actions are API-unsupported and return UNSUPPORTED. V5 Command Center reflects unified real-time telemetry and active queue metrics. Public URL verification is not claimed. Substack public URL verification is not claimed.
 
 ## provider/env/credential status
 Under Fast Ship Mode, `.env` and credential stores are accessible to authorize real network requests and platform-native integration. Discord webhooks (DISCORD_ANNOUNCEMENTS_WEBHOOK_URL), Telegram credentials (TELEGRAM_BOT_TOKEN, TELEGRAM_TARGET_CHAT_ID), Facebook Page credentials (FACEBOOK_PAGE_ID plus FACEBOOK_PAGE_ACCESS_TOKEN or META_ACCESS_TOKEN), Threads credentials (THREADS_USER_ID plus THREADS_USER_ACCESS_TOKEN or THREADS_ACCESS_TOKEN), and Instagram destination binding (INSTAGRAM_BUSINESS_ACCOUNT_ID plus META_ACCESS_TOKEN) are utilized directly where available.
@@ -70,7 +70,7 @@ Under Fast Ship Mode, `.env` and credential stores are accessible to authorize r
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0
+TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
 
 ## latest changed areas
 - `ui/contentops_v5/src/views/V6CommandCenter.tsx`

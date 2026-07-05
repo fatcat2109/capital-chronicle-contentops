@@ -1,6 +1,6 @@
 {
-  "task_label": "TASK_CONTENTOPS_V6_SCHEDULER_AND_CRON_RECONCILIATION_V0",
-  "baseline_sha": "9427632a2f9a9ea605dcf576db8be033c0d00eab",
+  "task_label": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
+  "baseline_sha": "ee2cd700675138de290090dc8968e2e60325dcd3",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "operator_id": "Jim",
   "release_status": "LOCAL_OPERATOR_REVIEW_BASELINE_PROMOTED",

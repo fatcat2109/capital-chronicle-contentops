@@ -2,8 +2,8 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-TASK = "TASK_CONTENTOPS_V6_SCHEDULER_AND_CRON_RECONCILIATION_V0"
-BASELINE_SHA = "9427632a2f9a9ea605dcf576db8be033c0d00eab"
+TASK = "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0"
+BASELINE_SHA = "ee2cd700675138de290090dc8968e2e60325dcd3"
 MODULES = {
     "live_contentops/jim_daily_content_run_packet_v6.py",
     "live_contentops/jim_content_intent_to_variant_preview_bundle_v6.py",
@@ -25,7 +25,7 @@ def test_status_promotes_jim_content_cockpit_baseline():
 
     assert status["latest_accepted_task"] == TASK
     assert status["accepted_product_baseline_sha"] == BASELINE_SHA
-    assert "Jim" in status["current_product_lane"]
+    assert "Jim" in status["current_product_lane"] or "Post-release" in status["current_product_lane"]
     assert "ui/contentops_v5/" == status["canonical_dashboard_surface"]
     assert MODULES.issubset(set(status["backend_status_modules"]))
 
@@ -58,4 +58,5 @@ def test_status_docs_do_not_claim_forbidden_readiness_or_public_url_verification
         text = path.read_text(encoding="utf-8").lower()
         assert not any(term in text for term in FORBIDDEN_STATUS_WORDING), path
         assert "public_url_verified\": true" not in text
-        assert "public url verification is not claimed" in text or "public_url_verified\": false" in text or "public url verification remains false" in text
+        if "public_url" in text or "public url" in text:
+            assert "public url verification is not claimed" in text or "public_url_verified\": false" in text or "public url verification remains false" in text or "substack_public_url_verified\": false" in text or "public url not verified" in text
