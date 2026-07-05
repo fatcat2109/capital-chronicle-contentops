@@ -3,7 +3,7 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "612657fb593711b2c51d4634b3fd719889343665",
+  "last_verified_remote_sha": "f16fc241b5a68c95e205cc5f985d8cd4357ac580",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0",
   "current_product_phase": "TASK 0087 Stale scripts archived, release evidence refreshed, and Fast Ship Mode enabled for live posting/editing/commenting",
 
@@ -350,7 +350,7 @@
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
   "accepted_product_baseline_sha": "9427632a2f9a9ea605dcf576db8be033c0d00eab",
-  "last_status_commit_sha": "612657fb593711b2c51d4634b3fd719889343665",
+  "last_status_commit_sha": "f16fc241b5a68c95e205cc5f985d8cd4357ac580",
   "sha_model": "last_verified_remote_sha records the pushed origin/master HEAD for TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0 after git ls-remote readback. accepted_product_baseline_sha records the accepted implementation/status baseline for the task.",
   "latest_changed_areas": [
     "ui/contentops_v5/src/data/finalOperatorProductFlowAdapter.ts",
