@@ -78,6 +78,7 @@ def test_bundle_generation_and_integrity(tmp_path, monkeypatch):
 
 
 def test_no_forbidden_behavior_in_bundle_generator():
+    import subprocess
     attrs = dir(generator)
     assert "urlopen" not in attrs
     assert "requests" not in attrs
@@ -90,5 +91,20 @@ def test_no_forbidden_behavior_in_bundle_generator():
         "vertex", "discord", "telegram", "tweepy", "selenium", "playwright",
         "bs4", "scrapy"
     ]
-    for mod in forbidden_modules:
-        assert mod not in sys.modules or sys.modules[mod] is None or mod == "urllib"
+    code = f"""
+import sys
+import importlib
+try:
+    importlib.import_module("live_contentops.generate_project_sources_bundle_after_v6_loop_contracts")
+except Exception as e:
+    print(f"ImportError: {{e}}")
+    sys.exit(1)
+forbidden = {forbidden_modules}
+found = [m for m in forbidden if m in sys.modules and sys.modules[m] is not None and m != "urllib"]
+if found:
+    print("FOUND_FORBIDDEN:" + ",".join(found))
+    sys.exit(2)
+sys.exit(0)
+"""
+    res = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
+    assert res.returncode == 0, f"Forbidden imports found or import failed. Output: {res.stdout.strip()}. Stderr: {res.stderr.strip()}"

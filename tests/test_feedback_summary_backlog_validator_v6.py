@@ -350,10 +350,26 @@ def test_validator_fails_on_leakage_scans():
 
 
 def test_no_forbidden_behavior_modules():
+    import subprocess
     forbidden_modules = [
         "requests", "httpx", "urllib", "openai", "anthropic", "google.genai",
         "vertex", "discord", "telegram", "tweepy", "selenium", "playwright",
         "bs4", "scrapy"
     ]
-    for mod in forbidden_modules:
-        assert mod not in sys.modules or sys.modules[mod] is None or mod == "urllib"  # urllib is standard but shouldn't be imported in our code
+    code = f"""
+import sys
+import importlib
+try:
+    importlib.import_module("live_contentops.feedback_summary_backlog_validator_v6")
+except Exception as e:
+    print(f"ImportError: {{e}}")
+    sys.exit(1)
+forbidden = {forbidden_modules}
+found = [m for m in forbidden if m in sys.modules and sys.modules[m] is not None and m != "urllib"]
+if found:
+    print("FOUND_FORBIDDEN:" + ",".join(found))
+    sys.exit(2)
+sys.exit(0)
+"""
+    res = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
+    assert res.returncode == 0, f"Forbidden imports found or import failed. Output: {res.stdout.strip()}. Stderr: {res.stderr.strip()}"
