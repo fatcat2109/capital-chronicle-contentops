@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,22 +9,22 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-8fe71cea833982e72061cc23156ee1640c9aa1e7
+028503820c723230ccd60ded4522c5abae7bfe84
 
 ## current_product_phase
-TASK 0097 Operator maintenance & post-release governance engine implemented with automated evidence health checks, telemetry registry maintenance, and 10-platform capability inspector
+TASK 0098 Final release go/no-go rehearsal completed with PASS_FINAL_LOCAL_RELEASE_REVIEW and post-release governance loop ready
 
 ## current_product_lane
-Post-release operator governance, live dispatch telemetry maintenance, platform capability health inspection, and stale artifact archival
+Final release rehearsal, end-to-end evidence audit, operator handoff verification, and post-release governance handoff
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 implements the post-release operator governance module (live_contentops/v6_post_release_operator_governance.py) covering telemetry registry audit & maintenance, platform capability health inspection across all 10 platform lanes, stale artifact archiving, and automated governance summary generation. All 184 vitest cases and pytest cases pass. Building on baseline ee2cd700675138de290090dc8968e2e60325dcd3.
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 confirms the committed V6 final release evidence packet, red-team report, browser QA report, final acceptance record, release-readiness guardrails, post-release governance summary, and canonical V5 build/test surface remain coherent at remote HEAD 028503820c723230ccd60ded4522c5abae7bfe84. Final rehearsal remains PASS_FINAL_LOCAL_RELEASE_REVIEW and hands the next exact task back to post-release operator governance maintenance.
 
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `ee2cd700675138de290090dc8968e2e60325dcd3`
-- previous accepted product baseline: `cc95b8a50588a913d480598cb23378b4d64c1af6`
-- latest status/promotion task (`last_status_commit_sha`): `ee2cd700675138de290090dc8968e2e60325dcd3` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
+- accepted product baseline (`accepted_product_baseline_sha`): `028503820c723230ccd60ded4522c5abae7bfe84`
+- previous accepted product baseline: `ee2cd700675138de290090dc8968e2e60325dcd3`
+- latest status/promotion task (`last_status_commit_sha`): `028503820c723230ccd60ded4522c5abae7bfe84` verified by `git ls-remote origin refs/heads/master` readback before this reconciliation.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -49,7 +49,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, local approval-decision to outbox readiness reconciliation, Discord/Telegram bridge status, manual/deferred distribution lane hardening for TikTok/Generic Manual, final operator action-strip consolidation, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, V5 Command Center Registry Readback panel, Substack & X Playwright browser profile adapters, Discord Webhook & Telegram Bot API live dispatch adapters, Meta-family Facebook Page/Instagram/Threads official API adapters, and V5 Command Center Unified Operator Reporting Console with live evidence summaries & active queues visualizer.
+V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, local approval-decision to outbox readiness reconciliation, Discord/Telegram bridge status, manual/deferred distribution lane hardening for TikTok/Generic Manual, final operator action-strip consolidation, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, V5 Command Center Registry Readback panel, Substack & X Playwright browser profile adapters, Discord Webhook & Telegram Bot API live dispatch adapters, Meta-family Facebook Page/Instagram/Threads official API adapters, V5 Command Center Unified Operator Reporting Console with live evidence summaries & active queues visualizer, final release PASS rehearsal evidence, and post-release operator governance maintenance.
 
 ## dispatch/live status
 Under Fast Ship Mode, live/provider/platform execution, network runs, and env/credential reads are authorized to achieve full automation. Real-time posting, editing, and commenting are enabled and active. Discord and Telegram live dispatches executed successfully via Webhooks and Telegram Bot API. Meta-family smoke evidence verified Facebook Page post/comment/edit and Threads post/reply. Instagram adapter is live-capable for two-step media publishing and comments, but smoke execution is blocked until a public CONTENTOPS_META_SMOKE_IMAGE_URL or INSTAGRAM_SMOKE_MEDIA_ID is provided; Instagram and Threads edit actions are API-unsupported and return UNSUPPORTED. V5 Command Center reflects unified real-time telemetry and active queue metrics. Public URL verification is not claimed. Substack public URL verification is not claimed.
@@ -71,19 +71,18 @@ Under Fast Ship Mode, `.env` and credential stores are accessible to authorize r
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 
 ## latest changed areas
-- `ui/contentops_v5/src/views/V6CommandCenter.tsx`
-- `ui/contentops_v5/src/test/v6_unified_operator_reporting_console.test.tsx`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
-- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
-- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
+- `tests/test_final_product_readiness_metadata_consistency.py`
+- `docs/automation/V6_FINAL_RELEASE/`
+- `docs/automation/V6_POST_RELEASE_GOVERNANCE/operator_governance_summary.json`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0` ? Perform final release go/no-go rehearsal, end-to-end evidence audit, and operator handoff verification for V6 ContentOps automation system.
+Next heavy batch: `TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0` — Continue ongoing post-release governance, telemetry registry audit, capability checks, stale artifact review, and periodic release-readiness rehearsal support.
 
 
 ## latest UI hardening status
