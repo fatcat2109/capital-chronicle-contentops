@@ -23,6 +23,7 @@ def test_audit_telemetry_registry_with_missing_file(tmp_path):
     result = audit_telemetry_registry(fake_path)
     assert result["exists"] is False
     assert result["total_entries"] == 0
+    assert result["corrupt_entries_count"] == 0
 
 def test_audit_telemetry_registry_with_mock_log(tmp_path):
     mock_log = tmp_path / "telemetry.jsonl"
@@ -34,12 +35,14 @@ def test_audit_telemetry_registry_with_mock_log(tmp_path):
     with open(mock_log, "w", encoding="utf-8") as f:
         for e in entries:
             f.write(json.dumps(e) + "\n")
+        f.write("corrupt json line\n")
 
     result = audit_telemetry_registry(mock_log)
     assert result["exists"] is True
     assert result["total_entries"] == 3
     assert result["success_count"] == 2
     assert result["error_count"] == 1
+    assert result["corrupt_entries_count"] == 1
     assert result["platform_breakdown"]["discord"] == 1
     assert result["platform_breakdown"]["telegram"] == 1
     assert result["platform_breakdown"]["meta_facebook"] == 1
@@ -77,3 +80,4 @@ def test_generate_operator_governance_summary():
     assert "packet_hash" in summary
     assert len(summary["platform_capabilities"]) == 10
     assert summary["system_invariants"]["financial_advice_forbidden"] is True
+    assert "corrupt_entries_count" in summary["telemetry_audit"]

@@ -7,7 +7,7 @@
     "status": "CLEAN"
   },
   "governance_status": "PASS_OPERATOR_GOVERNANCE_HEALTHY",
-  "packet_hash": "600f2b7efdc3ed891d6a66b138ab2d8051f746bae1e6df0507663c924d273184",
+  "packet_hash": "145d90c7a21ef8442e0aa1a3a0308908dd45518ee5fc1a7c6a10fb4b1b4319d1",
   "packet_kind": "v6_operator_governance_summary_v0",
   "platform_capabilities": [
     {
@@ -79,6 +79,7 @@
     "operator_override_enabled": true
   },
   "telemetry_audit": {
+    "corrupt_entries_count": 0,
     "error_count": 76,
     "exists": true,
     "platform_breakdown": {

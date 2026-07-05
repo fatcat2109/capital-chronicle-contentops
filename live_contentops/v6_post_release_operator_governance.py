@@ -39,12 +39,14 @@ def audit_telemetry_registry(log_path: Optional[Path] = None) -> Dict[str, Any]:
             "total_entries": 0,
             "success_count": 0,
             "error_count": 0,
+            "corrupt_entries_count": 0,
             "platform_breakdown": {}
         }
 
     total = 0
     success = 0
     errors = 0
+    corrupt = 0
     platforms: Dict[str, int] = {}
 
     with open(target_path, "r", encoding="utf-8") as f:
@@ -62,6 +64,7 @@ def audit_telemetry_registry(log_path: Optional[Path] = None) -> Dict[str, Any]:
                 else:
                     errors += 1
             except Exception:
+                corrupt += 1
                 continue
 
     return {
@@ -69,6 +72,7 @@ def audit_telemetry_registry(log_path: Optional[Path] = None) -> Dict[str, Any]:
         "total_entries": total,
         "success_count": success,
         "error_count": errors,
+        "corrupt_entries_count": corrupt,
         "platform_breakdown": platforms
     }
 
