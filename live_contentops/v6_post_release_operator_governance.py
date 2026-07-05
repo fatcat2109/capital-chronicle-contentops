@@ -33,6 +33,27 @@ def stable_hash(value: Any) -> str:
 
 def audit_telemetry_registry(log_path: Optional[Path] = None) -> Dict[str, Any]:
     target_path = log_path or TELEMETRY_LOG_PATH
+    archive_path = target_path.parent / f"{target_path.stem}_archive.jsonl"
+
+    archive_exists = archive_path.exists()
+    archive_total = 0
+    archive_size = 0
+    if archive_exists:
+        archive_size = archive_path.stat().st_size
+        try:
+            with open(archive_path, "r", encoding="utf-8") as f:
+                for line in f:
+                    if line.strip():
+                        archive_total += 1
+        except Exception:
+            pass
+
+    archive_info = {
+        "exists": archive_exists,
+        "total_entries": archive_total,
+        "size_bytes": archive_size
+    }
+
     if not target_path.exists():
         return {
             "exists": False,
@@ -40,7 +61,8 @@ def audit_telemetry_registry(log_path: Optional[Path] = None) -> Dict[str, Any]:
             "success_count": 0,
             "error_count": 0,
             "corrupt_entries_count": 0,
-            "platform_breakdown": {}
+            "platform_breakdown": {},
+            "telemetry_archive": archive_info
         }
 
     total = 0
@@ -73,7 +95,8 @@ def audit_telemetry_registry(log_path: Optional[Path] = None) -> Dict[str, Any]:
         "success_count": success,
         "error_count": errors,
         "corrupt_entries_count": corrupt,
-        "platform_breakdown": platforms
+        "platform_breakdown": platforms,
+        "telemetry_archive": archive_info
     }
 
 def rotate_telemetry_log(log_path: Optional[Path] = None, max_lines: int = 1000) -> Dict[str, Any]:

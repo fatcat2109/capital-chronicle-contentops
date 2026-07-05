@@ -7,7 +7,7 @@
     "status": "CLEAN"
   },
   "governance_status": "PASS_OPERATOR_GOVERNANCE_HEALTHY",
-  "packet_hash": "864431c54f819f696592c8d7ca9b8ce30f029fd134c7891b562c651fb5a72a4a",
+  "packet_hash": "56523e8a90c2fa7c1e9e534c79117cef6caade8bd912ae7c471c00c9358d353c",
   "packet_kind": "v6_operator_governance_summary_v0",
   "platform_capabilities": [
     {
@@ -92,6 +92,11 @@
       "x": 1
     },
     "success_count": 82,
+    "telemetry_archive": {
+      "exists": false,
+      "size_bytes": 0,
+      "total_entries": 0
+    },
     "total_entries": 158
   },
   "telemetry_rotation": {

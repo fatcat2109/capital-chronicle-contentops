@@ -25,9 +25,14 @@ def test_audit_telemetry_registry_with_missing_file(tmp_path):
     assert result["exists"] is False
     assert result["total_entries"] == 0
     assert result["corrupt_entries_count"] == 0
+    assert result["telemetry_archive"]["exists"] is False
+    assert result["telemetry_archive"]["total_entries"] == 0
+    assert result["telemetry_archive"]["size_bytes"] == 0
 
 def test_audit_telemetry_registry_with_mock_log(tmp_path):
     mock_log = tmp_path / "telemetry.jsonl"
+    archive_log = tmp_path / "telemetry_archive.jsonl"
+    
     entries = [
         {"platform_id": "discord", "success": True},
         {"platform_id": "telegram", "success": True},
@@ -38,6 +43,15 @@ def test_audit_telemetry_registry_with_mock_log(tmp_path):
             f.write(json.dumps(e) + "\n")
         f.write("corrupt json line\n")
 
+    # Create mock archive entries
+    archive_entries = [
+        {"platform_id": "discord", "success": True},
+        {"platform_id": "threads", "success": True},
+    ]
+    with open(archive_log, "w", encoding="utf-8") as f:
+        for e in archive_entries:
+            f.write(json.dumps(e) + "\n")
+
     result = audit_telemetry_registry(mock_log)
     assert result["exists"] is True
     assert result["total_entries"] == 3
@@ -47,6 +61,10 @@ def test_audit_telemetry_registry_with_mock_log(tmp_path):
     assert result["platform_breakdown"]["discord"] == 1
     assert result["platform_breakdown"]["telegram"] == 1
     assert result["platform_breakdown"]["meta_facebook"] == 1
+    
+    assert result["telemetry_archive"]["exists"] is True
+    assert result["telemetry_archive"]["total_entries"] == 2
+    assert result["telemetry_archive"]["size_bytes"] > 0
 
 def test_audit_and_archive_stale_artifacts(tmp_path):
     scratch = tmp_path / "scratch"
