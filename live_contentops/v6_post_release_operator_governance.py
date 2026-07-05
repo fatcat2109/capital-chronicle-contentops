@@ -88,18 +88,33 @@ def inspect_platform_capabilities() -> List[Dict[str, Any]]:
     return capabilities
 
 def audit_and_archive_stale_artifacts(scratch_dir: Optional[Path] = None) -> Dict[str, Any]:
+    import shutil
     target_scratch = scratch_dir or (ROOT / "scratch")
     stale_files_found = []
+    stale_directories_found = []
     
     if target_scratch.exists():
         for item in target_scratch.iterdir():
-            if item.is_file() and item.name.startswith("temp_") or item.name.endswith(".tmp"):
-                stale_files_found.append(str(item.name))
+            if item.is_file():
+                if item.name.startswith("temp_") or item.name.endswith(".tmp"):
+                    stale_files_found.append(str(item.name))
+                    try:
+                        item.unlink()
+                    except Exception:
+                        pass
+            elif item.is_dir():
+                if item.name.startswith("temp_profile_") or item.name.startswith("temp_"):
+                    stale_directories_found.append(str(item.name))
+                    try:
+                        shutil.rmtree(item)
+                    except Exception:
+                        pass
 
     return {
         "scratch_dir_checked": str(target_scratch),
         "stale_files_found": stale_files_found,
-        "archived_count": len(stale_files_found),
+        "stale_directories_found": stale_directories_found,
+        "archived_count": len(stale_files_found) + len(stale_directories_found),
         "status": "CLEAN"
     }
 

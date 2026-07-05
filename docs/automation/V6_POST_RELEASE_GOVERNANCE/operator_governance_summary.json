@@ -1,0 +1,96 @@
+{
+  "artifact_audit": {
+    "archived_count": 0,
+    "scratch_dir_checked": "A:\\Capital Chronicle\\tools\\cc-live-contentops\\scratch",
+    "stale_directories_found": [],
+    "stale_files_found": [],
+    "status": "CLEAN"
+  },
+  "governance_status": "PASS_OPERATOR_GOVERNANCE_HEALTHY",
+  "packet_hash": "600f2b7efdc3ed891d6a66b138ab2d8051f746bae1e6df0507663c924d273184",
+  "packet_kind": "v6_operator_governance_summary_v0",
+  "platform_capabilities": [
+    {
+      "auth_mode": "official_graph_api",
+      "name": "Facebook Page",
+      "platform_id": "meta_facebook",
+      "status": "live_capable"
+    },
+    {
+      "auth_mode": "official_graph_api",
+      "name": "Instagram Business",
+      "platform_id": "meta_instagram",
+      "status": "media_input_gated"
+    },
+    {
+      "auth_mode": "official_threads_api",
+      "name": "Threads",
+      "platform_id": "meta_threads",
+      "status": "live_capable"
+    },
+    {
+      "auth_mode": "cdp_and_manual_export",
+      "name": "Substack",
+      "platform_id": "substack",
+      "status": "manual_export_active"
+    },
+    {
+      "auth_mode": "manual_export",
+      "name": "LinkedIn",
+      "platform_id": "linkedin",
+      "status": "manual_export_active"
+    },
+    {
+      "auth_mode": "cdp_profile_guard",
+      "name": "X (Twitter)",
+      "platform_id": "x",
+      "status": "cdp_supervised_active"
+    },
+    {
+      "auth_mode": "webhook_api",
+      "name": "Discord",
+      "platform_id": "discord",
+      "status": "live_capable"
+    },
+    {
+      "auth_mode": "bot_api",
+      "name": "Telegram",
+      "platform_id": "telegram",
+      "status": "live_capable"
+    },
+    {
+      "auth_mode": "manual_fallback",
+      "name": "TikTok",
+      "platform_id": "tiktok",
+      "status": "deferred"
+    },
+    {
+      "auth_mode": "operator_copy",
+      "name": "Generic Manual",
+      "platform_id": "generic_manual",
+      "status": "manual_fallback"
+    }
+  ],
+  "schema_version": "6.0.0",
+  "system_invariants": {
+    "deterministic_hash_bound": true,
+    "fast_ship_mode_active": true,
+    "financial_advice_forbidden": true,
+    "operator_override_enabled": true
+  },
+  "telemetry_audit": {
+    "error_count": 76,
+    "exists": true,
+    "platform_breakdown": {
+      "discord": 3,
+      "facebook_page": 55,
+      "instagram": 53,
+      "substack": 1,
+      "telegram": 6,
+      "threads": 39,
+      "x": 1
+    },
+    "success_count": 82,
+    "total_entries": 158
+  }
+}

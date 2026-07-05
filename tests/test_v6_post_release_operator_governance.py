@@ -49,11 +49,26 @@ def test_audit_and_archive_stale_artifacts(tmp_path):
     scratch.mkdir()
     (scratch / "temp_test.tmp").write_text("data")
     (scratch / "normal.txt").write_text("keep")
+    
+    stale_dir = scratch / "temp_profile_test"
+    stale_dir.mkdir()
+    (stale_dir / "nested.txt").write_text("nested data")
+
+    normal_dir = scratch / "keep_profile_test"
+    normal_dir.mkdir()
 
     result = audit_and_archive_stale_artifacts(scratch)
     assert result["status"] == "CLEAN"
     assert "temp_test.tmp" in result["stale_files_found"]
     assert len(result["stale_files_found"]) == 1
+    assert "temp_profile_test" in result["stale_directories_found"]
+    assert len(result["stale_directories_found"]) == 1
+    assert result["archived_count"] == 2
+
+    assert not (scratch / "temp_test.tmp").exists()
+    assert not stale_dir.exists()
+    assert (scratch / "normal.txt").exists()
+    assert normal_dir.exists()
 
 def test_generate_operator_governance_summary():
     summary = generate_operator_governance_summary()
