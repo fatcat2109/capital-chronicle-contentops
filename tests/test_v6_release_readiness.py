@@ -92,3 +92,20 @@ def test_verify_release_readiness_with_missing_document(tmp_path, monkeypatch):
     assert packet["write_summary"]["changed_count"] == 1
     assert any(item["path"].endswith("red_team_report.md") and item["changed"] is True for item in packet["write_summary"]["files"])
     assert all(item["changed"] is False for item in packet["write_summary"]["files"] if not item["path"].endswith("red_team_report.md"))
+
+
+def test_no_forbidden_wording_in_markdown_reports():
+    from live_contentops.v6_release_readiness import FORBIDDEN_WORDING, build_final_release_packet, _red_team_report, _browser_qa_report, _acceptance_record
+
+    packet = build_final_release_packet()
+
+    reports = [
+        _red_team_report(packet),
+        _browser_qa_report(packet),
+        _acceptance_record(packet)
+    ]
+
+    for report in reports:
+        report_lower = report.lower()
+        for term in FORBIDDEN_WORDING:
+            assert term not in report_lower
