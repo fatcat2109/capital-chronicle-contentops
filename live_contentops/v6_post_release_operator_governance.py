@@ -76,6 +76,31 @@ def audit_telemetry_registry(log_path: Optional[Path] = None) -> Dict[str, Any]:
         "platform_breakdown": platforms
     }
 
+def rotate_telemetry_log(log_path: Optional[Path] = None, max_lines: int = 1000) -> Dict[str, Any]:
+    target_path = log_path or TELEMETRY_LOG_PATH
+    if not target_path.exists():
+        return {"rotated": False, "archived_lines": 0}
+
+    with open(target_path, "r", encoding="utf-8") as f:
+        lines = f.readlines()
+
+    if len(lines) <= max_lines:
+        return {"rotated": False, "archived_lines": 0}
+
+    keep_count = max_lines // 2
+    rotate_count = len(lines) - keep_count
+    rotate_lines = lines[:rotate_count]
+    keep_lines = lines[rotate_count:]
+
+    archive_path = target_path.parent / f"{target_path.stem}_archive.jsonl"
+    with open(archive_path, "a", encoding="utf-8") as f:
+        f.writelines(rotate_lines)
+
+    with open(target_path, "w", encoding="utf-8") as f:
+        f.writelines(keep_lines)
+
+    return {"rotated": True, "archived_lines": rotate_count}
+
 def inspect_platform_capabilities() -> List[Dict[str, Any]]:
     capabilities = [
         {"platform_id": "meta_facebook", "name": "Facebook Page", "status": "live_capable", "auth_mode": "official_graph_api"},
@@ -123,6 +148,7 @@ def audit_and_archive_stale_artifacts(scratch_dir: Optional[Path] = None) -> Dic
     }
 
 def generate_operator_governance_summary() -> Dict[str, Any]:
+    rotation_status = rotate_telemetry_log()
     telemetry_audit = audit_telemetry_registry()
     platform_capabilities = inspect_platform_capabilities()
     artifact_audit = audit_and_archive_stale_artifacts()
@@ -131,6 +157,7 @@ def generate_operator_governance_summary() -> Dict[str, Any]:
         "schema_version": "6.0.0",
         "packet_kind": "v6_operator_governance_summary_v0",
         "governance_status": "PASS_OPERATOR_GOVERNANCE_HEALTHY",
+        "telemetry_rotation": rotation_status,
         "telemetry_audit": telemetry_audit,
         "platform_capabilities": platform_capabilities,
         "artifact_audit": artifact_audit,

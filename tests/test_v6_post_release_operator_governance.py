@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from live_contentops.v6_post_release_operator_governance import (
     audit_telemetry_registry,
+    rotate_telemetry_log,
     inspect_platform_capabilities,
     audit_and_archive_stale_artifacts,
     generate_operator_governance_summary,
@@ -81,3 +82,48 @@ def test_generate_operator_governance_summary():
     assert len(summary["platform_capabilities"]) == 10
     assert summary["system_invariants"]["financial_advice_forbidden"] is True
     assert "corrupt_entries_count" in summary["telemetry_audit"]
+    assert "telemetry_rotation" in summary
+
+
+def test_rotate_telemetry_log(tmp_path):
+    mock_log = tmp_path / "telemetry_rot.jsonl"
+    archive_log = tmp_path / "telemetry_rot_archive.jsonl"
+
+    # 1. Non-existent file
+    res = rotate_telemetry_log(mock_log, max_lines=2)
+    assert res["rotated"] is False
+    assert res["archived_lines"] == 0
+
+    # 2. Under max_lines limit
+    with open(mock_log, "w", encoding="utf-8") as f:
+        f.write('{"id": 1}\n')
+    res = rotate_telemetry_log(mock_log, max_lines=2)
+    assert res["rotated"] is False
+    assert res["archived_lines"] == 0
+
+    # 3. Exceeds limit -> should rotate
+    with open(mock_log, "a", encoding="utf-8") as f:
+        f.write('{"id": 2}\n')
+        f.write('{"id": 3}\n')
+        f.write('{"id": 4}\n')
+
+    # active has 4 lines now, limit is 2. Rotation keeps limit // 2 = 1 line. Rotates 3.
+    res = rotate_telemetry_log(mock_log, max_lines=2)
+    assert res["rotated"] is True
+    assert res["archived_lines"] == 3
+
+    # check remaining lines in mock_log
+    with open(mock_log, "r", encoding="utf-8") as f:
+        active_lines = f.readlines()
+    assert len(active_lines) == 1
+    assert json.loads(active_lines[0])["id"] == 4
+
+    # check archived lines
+    assert archive_log.exists()
+    with open(archive_log, "r", encoding="utf-8") as f:
+        archived_lines = f.readlines()
+    assert len(archived_lines) == 3
+    assert json.loads(archived_lines[0])["id"] == 1
+    assert json.loads(archived_lines[1])["id"] == 2
+    assert json.loads(archived_lines[2])["id"] == 3
+
