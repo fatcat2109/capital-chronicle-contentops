@@ -4,7 +4,7 @@ import pytest
 from pathlib import Path
 
 def test_readiness_matrix_validity():
-    matrix_path = Path(os.path.dirname(__file__)) / ".." / "docs" / "LIMITED_LIVE_PILOT_READINESS_MATRIX.json"
+    matrix_path = Path(os.path.dirname(__file__)) / ".." / "docs" / "archive" / "_repo_cleanup_2026-07-03" / "docs" / "LIMITED_LIVE_PILOT_READINESS_MATRIX.json"
     assert matrix_path.exists(), "Readiness matrix JSON must exist"
     
     with open(matrix_path, "r", encoding="utf-8") as f:
@@ -35,7 +35,7 @@ def test_readiness_matrix_validity():
             assert entry["human_approval_required"] is True, f"NO-GO: human approval must be required for {entry['component']}"
 
 def test_go_no_go_decision_packet():
-    packet_path = Path(os.path.dirname(__file__)) / ".." / "docs" / "LIMITED_LIVE_PILOT_GO_NO_GO_PACKET.md"
+    packet_path = Path(os.path.dirname(__file__)) / ".." / "docs" / "archive" / "_repo_cleanup_2026-07-03" / "docs" / "LIMITED_LIVE_PILOT_GO_NO_GO_PACKET.md"
     assert packet_path.exists(), "Decision packet must exist"
     content = packet_path.read_text(encoding="utf-8")
     

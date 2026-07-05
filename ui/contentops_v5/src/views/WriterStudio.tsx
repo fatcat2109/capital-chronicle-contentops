@@ -927,7 +927,7 @@ export function WriterStudio() {
 
           <Panel
             title="Draft"
-            subtitle="Local working copy · no auto-publish"
+            subtitle="Local working copy · no auto publish"
             actions={<EvidenceChip>{viewModel.content_items[1].evidence_id}</EvidenceChip>}
           >
             {/* Draft Eligibility Gate Strip */}

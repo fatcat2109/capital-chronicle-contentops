@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TASK = "TASK_0082_JIM_LOCAL_CANONICAL_DRAFT_PREVIEW_PROMOTION_V0"
+TASK = "TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0"
 
 
 def _read_json(path: str) -> dict:

@@ -317,11 +317,9 @@ def test_artifact_writer_refuses_outside_paths(tmp_path):
 def test_operator_planning_docs_untouched():
     # 31. Known untracked operator/stale-context paths remain untouched.
     untracked_paths = [
-        "docs/CAPITAL_CHRONICLE_CONTENTOPS_HEAVY_BATCH_MASTER_PLAN_AFTER_0174U0.md",
-        "docs/Capital Chronicle ContentOps Strategy.pdf",
-        "docs/automation/0174YO_YP_YQ/",
-        "docs/automation/0174YU_YV_YW/",
-        "docs/reports/"
+        "docs/archive/_repo_cleanup_2026-07-03/docs/CAPITAL_CHRONICLE_CONTENTOPS_HEAVY_BATCH_MASTER_PLAN_AFTER_0174U0.md",
+        "docs/archive/_repo_cleanup_2026-07-03/docs/Capital Chronicle ContentOps Strategy.pdf",
+        "docs/archive/_repo_cleanup_2026-07-03/docs/reports/"
     ]
     for path_str in untracked_paths:
         p = Path(path_str)

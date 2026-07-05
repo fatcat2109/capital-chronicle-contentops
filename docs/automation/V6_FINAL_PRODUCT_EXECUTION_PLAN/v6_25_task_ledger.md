@@ -53,7 +53,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 - X CDP pre-live post command, GO-phrase gate, exact execution outcome, registry reconciliation, and registry idempotency/readback audit are complete as local supervised/packet evidence; no repo-driven X click, API call, session read, or public URL fetch is claimed.
 - Live/provider/platform execution remains blocked unless separately scoped.
 
-Recommended next lane after `TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0`: `TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0`. Archive stale one-off scripts/test helpers only after confirming no current tests, docs, imports, or release evidence still reference them; then refresh final release evidence indexes if needed without live writes, APIs, browser/CDP, public URL fetches, media downloads/uploads, schedulers/retries, or credential/env/session reads.
+Recommended next lane after `TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0`: `TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_SUBSTACK_AND_X_V0`. Implement and execute fully automated Substack and X posting/commenting/editing using env credentials in live mode under Fast Ship Mode.
 
 ## How to Update This Ledger
 

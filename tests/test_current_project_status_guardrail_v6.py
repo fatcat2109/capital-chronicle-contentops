@@ -118,7 +118,7 @@ def test_no_secret_or_session_data_terms() -> None:
 
 
 def test_canonical_recon_outputs_point_to_v5() -> None:
-    recon_dir = ROOT / "docs" / "automation" / "V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP"
+    recon_dir = ROOT / "docs" / "archive" / "_repo_cleanup_2026-07-03-pass2" / "docs" / "automation" / "V6_DASHBOARD_AUTHORITY_RECON_AND_STALE_UI_CLEANUP"
     pointer = _read(recon_dir / "canonical_dashboard_pointer.md").lower()
     plan = json.loads(_read(recon_dir / "stale_ui_cleanup_plan.json"))
     assert plan["canonical_dashboard_surface"] == "ui/contentops_v5/"

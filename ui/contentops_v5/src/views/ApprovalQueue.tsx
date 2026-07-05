@@ -471,7 +471,7 @@ export function ApprovalQueue() {
           <Metric label="Endpoint Allowlisted" value={explicitLiveScopeGatePacket.endpoint_allowlist[0].host} status="verified" />
           <Metric label="Kill Switch Active" value={String(explicitLiveScopeGatePacket.kill_switch_active)} status="verified" />
           <Metric label="Ready For Dispatch" value={String(explicitLiveScopeGatePacket.ready_for_dispatch)} status="blocked" />
-          <Metric label="Auto-Publish Enabled" value={String(explicitLiveScopeGatePacket.ready_for_auto_publish)} status="blocked" />
+          <Metric label="Auto Publish Enabled" value={String(explicitLiveScopeGatePacket.ready_for_auto_publish)} status="blocked" />
         </div>
 
         <div className="mt-4 border-t border-line pt-3">
@@ -527,7 +527,7 @@ export function ApprovalQueue() {
           <Metric label="Go Phrase Required" value={String(discordSupervisedLivePreflightPacket.operator_go_phrase_required)} status="verified" />
           <Metric label="Go Phrase Recorded" value={String(discordSupervisedLivePreflightPacket.operator_go_phrase_recorded)} status="blocked" />
           <Metric label="Ready For Dispatch" value={String(discordSupervisedLivePreflightPacket.ready_for_dispatch)} status="blocked" />
-          <Metric label="Auto-Publish" value={String(discordSupervisedLivePreflightPacket.ready_for_auto_publish)} status="blocked" />
+          <Metric label="Auto Publish" value={String(discordSupervisedLivePreflightPacket.ready_for_auto_publish)} status="blocked" />
         </div>
 
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">

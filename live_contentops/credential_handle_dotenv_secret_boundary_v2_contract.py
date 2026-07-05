@@ -256,12 +256,26 @@ def _make_handle(platform_id: str, binding_id: str, kind: str, keys: tuple[str, 
     )
 
 
+LEGACY_MAP = {
+    "x_profile": "x",
+    "telegram_remote_operator_inbox": "telegram_remote_operator",
+    "linkedin_member_profile": "linkedin",
+    "threads_profile": "threads",
+    "instagram_professional_account": "instagram",
+    "facebook_page_text_link_post": "facebook_page",
+    "tiktok_account": "tiktok",
+    "youtube_channel": "youtube",
+}
+
+
 def build_default_credential_handles() -> tuple[CredentialHandle, ...]:
     handles = []
     for platform_id in bindings.PLATFORM_IDS:
-        kind, keys, scopes, modes, blockers = _HANDLE_SPECS[platform_id]
+        legacy_id = LEGACY_MAP.get(platform_id, platform_id)
+        kind, keys, scopes, modes, blockers = _HANDLE_SPECS[legacy_id]
         handles.append(_make_handle(platform_id, _binding_id_for_platform(platform_id), kind, keys, scopes, modes, blockers))
     return tuple(handles)
+
 
 
 def build_forbidden_session_cookie_handle(platform_id: str = "x") -> CredentialHandle:

@@ -4,7 +4,7 @@ import pytest
 from pathlib import Path
 
 def test_operator_prerequisites_validity():
-    prereq_path = Path(os.path.dirname(__file__)) / ".." / "docs" / "LIVE_PILOT_OPERATOR_PREREQUISITES_V1.json"
+    prereq_path = Path(os.path.dirname(__file__)) / ".." / "docs" / "archive" / "_repo_cleanup_2026-07-03-pass2" / "docs" / "LIVE_PILOT_OPERATOR_PREREQUISITES_V1.json"
     assert prereq_path.exists(), "Prerequisites JSON must exist"
     
     with open(prereq_path, "r", encoding="utf-8") as f:

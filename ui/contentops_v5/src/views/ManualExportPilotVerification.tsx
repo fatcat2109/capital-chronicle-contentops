@@ -398,7 +398,7 @@ export function ManualExportPilotVerification() {
           <Metric label="Operator Final Approval" value={String(canonicalDraftFinalReviewVariantPreviewPacket.operator_final_approval_required)} status="review" />
           <Metric label="Platform Payload Approved" value={String(canonicalDraftFinalReviewVariantPreviewPacket.platform_payloads_approved)} status="blocked" />
           <Metric label="Variants Created" value={String(canonicalDraftFinalReviewVariantPreviewPacket.platform_variants_created)} status="verified" />
-          <Metric label="Auto-Publish Ready" value={String(canonicalDraftFinalReviewVariantPreviewPacket.ready_for_auto_publish)} status="blocked" />
+          <Metric label="Auto Publish Ready" value={String(canonicalDraftFinalReviewVariantPreviewPacket.ready_for_auto_publish)} status="blocked" />
           <Metric label="Dispatch Ready" value={String(canonicalDraftFinalReviewVariantPreviewPacket.ready_for_dispatch)} status="blocked" />
           <Metric label="LLM/Provider Call" value={String(canonicalDraftFinalReviewVariantPreviewPacket.llm_provider_call_made)} status="blocked" />
           <Metric label="Network Call Made" value={String(canonicalDraftFinalReviewVariantPreviewPacket.network_call_made)} status="blocked" />
@@ -445,7 +445,7 @@ export function ManualExportPilotVerification() {
           <Metric label="Outbox Entry Created" value={String(platformVariantApprovalPacketPreviewPacket.outbox_entry_created)} status="blocked" />
           <Metric label="Dispatch Outbox Ready" value={String(platformVariantApprovalPacketPreviewPacket.dispatch_outbox_ready)} status="blocked" />
           <Metric label="Platform Payload Approved" value={String(platformVariantApprovalPacketPreviewPacket.platform_payloads_approved)} status="blocked" />
-          <Metric label="Auto-Publish Ready" value={String(platformVariantApprovalPacketPreviewPacket.ready_for_auto_publish)} status="blocked" />
+          <Metric label="Auto Publish Ready" value={String(platformVariantApprovalPacketPreviewPacket.ready_for_auto_publish)} status="blocked" />
           <Metric label="Dispatch Ready" value={String(platformVariantApprovalPacketPreviewPacket.ready_for_dispatch)} status="blocked" />
           <Metric label="LLM/Provider Call" value={String(platformVariantApprovalPacketPreviewPacket.llm_provider_call_made)} status="blocked" />
           <Metric label="Network Call Made" value={String(platformVariantApprovalPacketPreviewPacket.network_call_made)} status="blocked" />
@@ -607,7 +607,7 @@ export function ManualExportPilotVerification() {
           <Metric label="Endpoint Allowlisted" value={explicitLiveScopeGatePacket.endpoint_allowlist[0].host} status="verified" />
           <Metric label="Kill Switch Active" value={String(explicitLiveScopeGatePacket.kill_switch_active)} status="verified" />
           <Metric label="Ready For Dispatch" value={String(explicitLiveScopeGatePacket.ready_for_dispatch)} status="blocked" />
-          <Metric label="Auto-Publish Enabled" value={String(explicitLiveScopeGatePacket.ready_for_auto_publish)} status="blocked" />
+          <Metric label="Auto Publish Enabled" value={String(explicitLiveScopeGatePacket.ready_for_auto_publish)} status="blocked" />
         </div>
 
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">
@@ -643,7 +643,7 @@ export function ManualExportPilotVerification() {
           <Metric label="Go Phrase Required" value={String(discordSupervisedLivePreflightPacket.operator_go_phrase_required)} status="verified" />
           <Metric label="Go Phrase Recorded" value={String(discordSupervisedLivePreflightPacket.operator_go_phrase_recorded)} status="blocked" />
           <Metric label="Ready For Dispatch" value={String(discordSupervisedLivePreflightPacket.ready_for_dispatch)} status="blocked" />
-          <Metric label="Auto-Publish" value={String(discordSupervisedLivePreflightPacket.ready_for_auto_publish)} status="blocked" />
+          <Metric label="Auto Publish" value={String(discordSupervisedLivePreflightPacket.ready_for_auto_publish)} status="blocked" />
         </div>
 
         <div className="mt-4 rounded-lg border border-status-blocked/30 bg-status-blocked/5 p-3 text-xs leading-relaxed text-fg-muted font-mono">

@@ -3,17 +3,16 @@ import pytest
 from live_contentops import platform_universe_registry_v2 as registry
 
 REQUIRED_PLATFORMS = {
-    "x_profile",
-    "telegram_remote_operator_inbox",
+    "x",
+    "telegram_remote_operator",
     "telegram_channel_destination",
     "substack_newsletter",
-    "linkedin_member_profile",
-    "linkedin_organization_page",
-    "threads_profile",
-    "instagram_professional_account",
+    "linkedin",
+    "threads",
+    "instagram",
     "facebook_page",
-    "tiktok_account",
-    "youtube_channel",
+    "tiktok",
+    "youtube",
 }
 
 

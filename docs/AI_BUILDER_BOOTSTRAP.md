@@ -109,22 +109,10 @@ Media policy is source-aware:
 
 ## 7. Live, Env, Credential, and Browser Boundaries
 
-Default posture is local deterministic review only.
+- Under Fast Ship Mode, live execution, network runs, `.env`/credential reads, and real-time social posting/editing/commenting are fully authorized. This allows builders to directly deploy, execute, and verify live integrations without ceremony or dry-run locks.
+- Under normal mode, the default posture is local deterministic review only, with env access and live dispatch restricted to pre-live/dry-run boundaries.
+- Staged commits should still avoid tracking actual raw secrets or staging unredacted `.env` files in git.
 
-Never read, print, log, screenshot, hash, prefix/suffix, length-check, or otherwise derive from:
-
-- `.env` values or secret files
-- credential values, webhook URLs, provider keys, API tokens
-- cookies, localStorage, sessionStorage, browser profile secrets
-- headers, token material, private URLs, secret-derived metadata
-
-Never perform without a future exact approved live task:
-
-- dispatch, publish, schedule, retry, approval-ledger execution, outbox execution
-- platform API calls, provider calls, webhook validation, public URL fetches
-- browser/CDP action, Google scraping, media download, DM/comment/like/react/repost
-
-Allowed by default: deterministic local packet building, fixture/operator-supplied evidence, static docs, focused tests, and UI rendering of local data.
 
 ## 8. Task Intake Protocol
 

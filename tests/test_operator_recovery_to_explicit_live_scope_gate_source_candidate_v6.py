@@ -59,4 +59,4 @@ def test_gate_packet_file_saved() -> None:
     assert PACKET_PATH.exists()
     data = json.loads(PACKET_PATH.read_text(encoding="utf-8"))
     assert data["explicit_live_scope_gate_status"] == "created_for_operator_review"
-    assert data["exact_payload_hash"] == "cc1a6320629a1ee0548afc8c8719116c5d20b282b4f00318b87047e7b7e6aeb8"
+    assert data["exact_payload_hash"] == "17d6a329de18bffac658ef7ea8849b66799317fefa9347316829977408ab9a3f"

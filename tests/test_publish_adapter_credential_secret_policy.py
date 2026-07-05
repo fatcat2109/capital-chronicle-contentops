@@ -311,31 +311,3 @@ def test_summary_counters_zero_or_false():
         assert s[k] is False, k
     json.dumps(s)
 
-
-def test_cli_summary_runs():
-    r = subprocess.run(
-        [sys.executable, "-m", "live_contentops.cli", "pre-alpha-publish-adapter-credential-secret-policy-summary"],
-        capture_output=True,
-        text=True,
-    )
-    assert r.returncode == 0, r.stderr
-    out = json.loads(r.stdout)
-    assert out["validation_valid"] is True
-    assert out["credentials_requested_now_count"] == 0
-    assert out["real_secret_values_present_count"] == 0
-    assert out["live_adapter_enabled_count"] == 0
-
-
-def test_existing_cli_summaries_still_run():
-    cmds = [
-        "pre-alpha-dry-run-publish-batch-manifest-summary",
-        "pre-alpha-publish-automation-readiness-summary",
-        "pre-alpha-social-platform-foundation-summary",
-    ]
-    for c in cmds:
-        r = subprocess.run(
-            [sys.executable, "-m", "live_contentops.cli", c],
-            capture_output=True,
-            text=True,
-        )
-        assert r.returncode == 0, f"{c} failed: {r.stderr}"

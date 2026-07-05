@@ -41,15 +41,7 @@ from . import dashboard_handoff
 from . import operator_dashboard
 
 from . import review_ledger
-
 from . import review_history
-from . import pre_alpha_manual_performance_record
-from . import pre_alpha_content_performance_review
-from . import institutional_pre_antigravity_static_qa_hardening
-from . import institutional_antigravity_browser_qa_strategy
-from . import institutional_browser_qa_evidence_metadata_reconciliation
-from . import institutional_static_polish_ui_consistency_hardening
-from . import institutional_shell_view_model_source_of_truth
 
 import uuid
 
@@ -335,7 +327,7 @@ def meta_capability_review_checklist():
 def pilot_prerequisites_status():
     import json
     import os
-    prereq_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'LIVE_PILOT_OPERATOR_PREREQUISITES_V1.json')
+    prereq_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'archive', '_repo_cleanup_2026-07-03-pass2', 'docs', 'LIVE_PILOT_OPERATOR_PREREQUISITES_V1.json')
     if not os.path.exists(prereq_path):
         print("Prerequisites missing.")
         return
@@ -353,7 +345,7 @@ def pilot_prerequisites_status():
 def telegram_private_staging_packet_status():
     import json
     import os
-    packet_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'TELEGRAM_PRIVATE_STAGING_DRY_RUN_OPERATOR_PACKET_V1.json')
+    packet_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'archive', '_repo_cleanup_2026-07-03', 'docs', 'TELEGRAM_PRIVATE_STAGING_DRY_RUN_OPERATOR_PACKET_V1.json')
     if not os.path.exists(packet_path):
         print("Telegram packet missing.")
         return
@@ -381,7 +373,7 @@ def telegram_staging_operator_rollback_drill():
 def telegram_live_no_go_status():
     import json
     import os
-    matrix_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'TELEGRAM_STAGING_LIVE_BLOCKER_MATRIX_V1.json')
+    matrix_path = os.path.join(os.path.dirname(__file__), '..', 'docs', 'archive', '_repo_cleanup_2026-07-03', 'docs', 'TELEGRAM_STAGING_LIVE_BLOCKER_MATRIX_V1.json')
     if not os.path.exists(matrix_path):
         print("Blocker matrix missing.")
         return
@@ -569,91 +561,6 @@ def telegram_live_precheck_summary():
     }
     print(json.dumps(summary, indent=2))
 
-def pre_alpha_content_engine_summary():
-    import json
-    from live_contentops import pre_alpha_content_engine
-    print(json.dumps(pre_alpha_content_engine.summary(), indent=2))
-
-
-def pre_alpha_prompt_pack_summary():
-    import json
-    from live_contentops import pre_alpha_prompt_pack
-    print(json.dumps(pre_alpha_prompt_pack.summary(), indent=2))
-
-
-def pre_alpha_draft_renderer_summary():
-    import json
-    from live_contentops import pre_alpha_draft_renderer
-    print(json.dumps(pre_alpha_draft_renderer.summary(), indent=2))
-
-
-def pre_alpha_manual_review_summary():
-    import json
-    from live_contentops import pre_alpha_manual_review
-    print(json.dumps(pre_alpha_manual_review.summary(), indent=2))
-
-
-def pre_alpha_manual_export_summary():
-    import json
-    from live_contentops import pre_alpha_manual_export
-    print(json.dumps(pre_alpha_manual_export.summary(), indent=2))
-
-
-def pre_alpha_pipeline_demo_summary():
-    import json
-    from live_contentops import pre_alpha_pipeline_demo
-    print(json.dumps(pre_alpha_pipeline_demo.summary(), indent=2))
-
-
-def content_seed_calendar_summary():
-    import json
-    from live_contentops import pre_alpha_seed_library
-    print(json.dumps(pre_alpha_seed_library.summary(), indent=2))
-
-
-def pre_alpha_operator_dashboard_summary():
-    import json
-    from live_contentops import pre_alpha_operator_dashboard
-    print(json.dumps(pre_alpha_operator_dashboard.summary(), indent=2))
-
-
-def pre_alpha_editorial_batch_review_summary():
-    import json
-    from live_contentops import pre_alpha_editorial_batch_review
-    print(json.dumps(pre_alpha_editorial_batch_review.summary(), indent=2))
-
-
-def pre_alpha_manual_decision_batch_summary():
-    import json
-    from live_contentops import pre_alpha_manual_decision_batch
-    print(json.dumps(pre_alpha_manual_decision_batch.summary(), indent=2))
-
-
-def pre_alpha_manual_export_batch_summary():
-    import json
-    from live_contentops import pre_alpha_manual_export_batch
-    print(json.dumps(pre_alpha_manual_export_batch.summary(), indent=2))
-
-
-def pre_alpha_manual_publish_record_summary():
-    import json
-    from live_contentops import pre_alpha_manual_publish_record
-    print(json.dumps(pre_alpha_manual_publish_record.summary(), indent=2))
-
-
-def pre_alpha_platform_manual_templates_summary():
-    import json
-    from live_contentops import pre_alpha_platform_manual_templates
-    print(json.dumps(pre_alpha_platform_manual_templates.summary(), indent=2))
-
-
-def pre_alpha_daily_operator_content_run_summary():
-    import json
-    from live_contentops import pre_alpha_daily_operator_content_run
-    print(json.dumps(pre_alpha_daily_operator_content_run.summary(), indent=2))
-
-
-
 
 def telegram_second_sandbox_dry_run_prep_summary():
     import json
@@ -742,244 +649,6 @@ def telegram_one_shot_go_gate_summary():
         "kill_switch_required": "ACTIVE"
     }
     print(json.dumps(summary, indent=2))
-
-def pre_alpha_manual_performance_record_summary():
-    import json
-    print(json.dumps(pre_alpha_manual_performance_record.summary(), indent=2))
-
-def pre_alpha_content_performance_review_summary():
-    import json
-    print(json.dumps(pre_alpha_content_performance_review.summary(), indent=2))
-
-def pre_alpha_daily_operator_markdown_export():
-    import sys
-    from live_contentops import pre_alpha_operator_markdown_export
-    md, is_safe = pre_alpha_operator_markdown_export.generate_markdown_export()
-    print(md)
-    if not is_safe:
-        sys.exit(1)
-
-def pre_alpha_approved_cc_artifact_intake_summary():
-    import json
-    from live_contentops import pre_alpha_approved_cc_artifact_intake
-    print(json.dumps(pre_alpha_approved_cc_artifact_intake.summary(), indent=2))
-
-def pre_alpha_content_lane_policy_summary():
-    import json
-    summary = {
-        "packet_status": "pass",
-        "allowed_lane_count": 3,
-        "blocked_fixture_count": 3,
-        "unsafe_flag_count": 11,
-        "supported_subtype_count": 13,
-        "public_postable": False,
-        "auto_publish": False,
-        "provider_call_used_by_repo": False,
-        "search_call_used_by_repo": False,
-        "network_call_used_by_repo": False,
-        "platform_api_payload_generated": False,
-        "credential_or_env_read_used": False
-    }
-    print(json.dumps(summary, indent=2))
-
-def pre_alpha_grounded_research_brief_summary():
-    import json
-    from live_contentops import grounded_research_brief
-    print(json.dumps(grounded_research_brief.summary(), indent=2))
-
-def pre_alpha_llm_assisted_draft_review_summary():
-    import json
-    summary = {
-        "packet_status": "pass",
-        "claim_count": 1,
-        "source_reference_count": 1,
-        "blocked_fixture_count": 6,
-        "missing_citation_count": 0,
-        "unknown_source_count": 0,
-        "unsafe_flag_count": 0,
-        "provider_call_used_by_repo": False,
-        "search_call_used_by_repo": False,
-        "network_call_used_by_repo": False,
-        "platform_action_used_by_repo": False,
-        "credential_or_env_read_used": False
-    }
-    print(json.dumps(summary, indent=2))
-
-def pre_alpha_platform_dry_run_summary():
-    import json
-    from live_contentops import platform_dry_run_renderer
-    print(json.dumps(platform_dry_run_renderer.summary(), indent=2))
-
-def pre_alpha_approval_ledger_summary():
-    import json
-    from live_contentops import approval_ledger
-    print(json.dumps(approval_ledger.summary(), indent=2))
-
-def pre_alpha_mock_publish_flow_summary():
-    import json
-    from live_contentops import mock_publish_flow
-    print(json.dumps(mock_publish_flow.summary(), indent=2))
-
-def pre_alpha_platform_official_docs_verification_summary():
-    import json
-    from live_contentops import platform_official_docs_verification
-    print(json.dumps(platform_official_docs_verification.summary(), indent=2))
-
-def pre_alpha_credential_envelope_policy_summary():
-    import json
-    from live_contentops import credential_envelope_policy
-    print(json.dumps(credential_envelope_policy.summary(), indent=2))
-
-
-def pre_alpha_operator_ui_ux_summary():
-    import json
-    from live_contentops import operator_ui_ux_spec
-    print(json.dumps(operator_ui_ux_spec.summary(), indent=2))
-
-def pre_alpha_frontend_static_prototype_summary():
-    import json
-    from live_contentops import frontend_static_prototype
-    print(json.dumps(frontend_static_prototype.summary(), indent=2))
-
-def pre_alpha_seo_newsletter_architecture_summary():
-    import json
-    from live_contentops import seo_newsletter_architecture
-    print(json.dumps(seo_newsletter_architecture.summary(), indent=2))
-
-def pre_alpha_daily_content_studio_run_summary():
-    import json
-    from live_contentops import daily_content_studio_run
-    print(json.dumps(daily_content_studio_run.summary(), indent=2))
-def pre_alpha_daily_content_studio_markdown_export():
-    import sys
-    try:
-        sys.stdout.reconfigure(encoding="utf-8")
-    except Exception:
-        pass
-    from live_contentops import daily_content_studio_markdown_export
-    packet = daily_content_studio_markdown_export._load_valid_packet()
-    md = daily_content_studio_markdown_export.render_daily_content_studio_markdown_review(packet)
-    print(md)
-def pre_alpha_daily_content_studio_decision_ledger_summary():
-    import json
-    from live_contentops import daily_content_studio_operator_decision_ledger
-    print(json.dumps(daily_content_studio_operator_decision_ledger.summary(), indent=2))
-def pre_alpha_daily_content_studio_external_draft_review_summary():
-    import json
-    from live_contentops import daily_content_studio_external_draft_review
-    print(json.dumps(daily_content_studio_external_draft_review.summary(), indent=2))
-def pre_alpha_daily_content_studio_ui_data_contract_summary():
-    import json
-    from live_contentops import daily_content_studio_ui_data_contract
-    print(json.dumps(daily_content_studio_ui_data_contract.summary(), indent=2))
-def pre_alpha_daily_content_studio_static_frontend_summary():
-    import json
-    import os
-    ui_dir = os.path.join(
-        os.path.dirname(os.path.dirname(__file__)),
-        "ui",
-        "daily_content_studio",
-    )
-    assets = [
-        "index.html",
-        "styles.css",
-        "app.js",
-        "fixture_data.js",
-        "daily_content_studio_ui_data_contract_fixture.json",
-        "README.md",
-    ]
-    inventory = {a: os.path.isfile(os.path.join(ui_dir, a)) for a in assets}
-    summary = {
-        "static_frontend_mode": "local_static_fixture_only",
-        "ui_dir": "ui/daily_content_studio",
-        "asset_inventory": inventory,
-        "asset_count_present": sum(1 for v in inventory.values() if v),
-        "backend_server_required": False,
-        "api_keys_required": False,
-        "credentials_loaded": False,
-        "network_calls_used": False,
-        "remote_cdn_or_external_scripts_used": False,
-        "publish_button_present": False,
-        "schedule_button_present": False,
-        "connect_account_button_present": False,
-        "api_key_button_present": False,
-        "oauth_button_present": False,
-        "live_posting_enabled": False,
-        "platform_api_enabled": False,
-        "provider_llm_api_enabled": False,
-        "scheduler_enabled": False,
-        "scraping_enabled": False,
-        "newsletter_or_cms_enabled": False,
-        "publish_approval_present": False,
-        "final_public_ready_copy_generated": False,
-        "not_public_postable": True,
-        "manual_review_required": True,
-        "review_only": True,
-        "section_navigation_present": True,
-        "review_status_filters_present": True,
-        "selected_item_inspector_present": True,
-        "detail_cards_present": True,
-        "clipboard_write_automation_present": False,
-        "websocket_or_eventsource_used": False,
-        "post_to_all_platforms_button_present": False,
-        "approve_public_ready_button_present": False,
-    }
-    print(json.dumps(summary, indent=2))
-
-def pre_alpha_publish_automation_readiness_summary():
-    import json
-    from live_contentops import publish_automation_readiness
-    print(json.dumps(publish_automation_readiness.summary(), indent=2))
-
-
-def pre_alpha_dry_run_publish_batch_manifest_summary():
-    import json
-    from live_contentops import dry_run_publish_batch_manifest
-    print(json.dumps(dry_run_publish_batch_manifest.summary(), indent=2))
-
-
-def pre_alpha_publish_adapter_credential_secret_policy_summary():
-    import json
-    from live_contentops import publish_adapter_credential_secret_policy
-    print(json.dumps(publish_adapter_credential_secret_policy.summary(), indent=2))
-
-
-def pre_alpha_redacted_publish_audit_log_summary():
-    import json
-    from live_contentops import redacted_publish_audit_log
-    print(json.dumps(redacted_publish_audit_log.summary(), indent=2))
-
-
-def pre_alpha_telegram_live_pilot_gate_summary():
-    import json
-    from live_contentops import telegram_one_platform_live_pilot_gate
-    print(json.dumps(telegram_one_platform_live_pilot_gate.summary(), indent=2))
-
-
-def pre_alpha_telegram_credential_setup_guide_summary():
-    import json
-    from live_contentops import telegram_credential_setup_operator_guide
-    print(json.dumps(telegram_credential_setup_operator_guide.summary(), indent=2))
-
-
-def pre_alpha_telegram_redacted_credential_presence_check_summary():
-    import json
-    import os
-    import sys
-    from live_contentops import telegram_redacted_credential_presence_check as chk
-    # Approved local env source is supplied ONLY via an explicit out-of-band CLI
-    # path argument (redacted, never printed/committed). No OS environment or .env
-    # auto-read is performed. If unavailable, the checker returns a fail-closed
-    # BLOCKED summary containing no values, snippets, lengths, hashes, or paths.
-    approved_path = sys.argv[2] if len(sys.argv) > 2 else None
-    env_text = None
-    source_label = None
-    if approved_path and os.path.isfile(approved_path):
-        with open(approved_path, "r", encoding="utf-8") as f:
-            env_text = f.read()
-        source_label = "OPERATOR_LOCAL_ENV_FILE_PROVIDED_OUT_OF_BAND"
-    print(json.dumps(chk.summary(env_text=env_text, source_label=source_label), indent=2))
-
 
 def telegram_credential_readiness_summary():
     import json
@@ -1074,112 +743,6 @@ def telegram_post_pilot_ledger_gate_summary():
     print(json.dumps(gate.run_post_pilot_ledger_gate(write=write), indent=2))
 
 
-def pre_alpha_institutional_ui_ux_rebuild_plan_summary():
-    import json
-    from live_contentops import institutional_ui_ux_frontend_rebuild_plan as plan
-    print(json.dumps(plan.summary(), indent=2))
-
-
-def pre_alpha_institutional_design_system_summary():
-    import json
-    from live_contentops import institutional_design_system as ds
-    print(json.dumps(ds.summary(), indent=2))
-
-
-def pre_alpha_institutional_ui_view_model_contract_v2_summary():
-    import json
-    from live_contentops import institutional_ui_view_model_contract_v2 as vm
-    print(json.dumps(vm.summary(), indent=2))
-
-
-def pre_alpha_institutional_shell_prototype_summary():
-    import json
-    from live_contentops import institutional_shell_prototype as shell
-    print(json.dumps(shell.summary(), indent=2))
-
-
-def pre_alpha_institutional_command_center_screen_summary():
-    import json
-    from live_contentops import institutional_command_center_screen as cc
-    print(json.dumps(cc.summary(), indent=2))
-
-
-def pre_alpha_institutional_content_studio_screen_summary():
-    import json
-    from live_contentops import institutional_content_studio_screen as cs
-    print(json.dumps(cs.summary(), indent=2))
-
-
-def pre_alpha_institutional_publish_readiness_tower_screen_summary():
-    import json
-    from live_contentops import institutional_publish_readiness_tower_screen as prt
-    print(json.dumps(prt.summary(), indent=2))
-
-
-def pre_alpha_institutional_evidence_vault_audit_timeline_screen_summary():
-    import json
-    from live_contentops import institutional_evidence_vault_audit_timeline_screen as ev
-    print(json.dumps(ev.summary(), indent=2))
-
-
-def pre_alpha_institutional_content_calendar_workflow_board_screen_summary():
-    import json
-    from live_contentops import institutional_content_calendar_workflow_board_screen as cw
-    print(json.dumps(cw.summary(), indent=2))
-
-
-def pre_alpha_institutional_visual_export_screenshot_safe_mode_screen_summary():
-    import json
-    from live_contentops import institutional_visual_export_screenshot_safe_mode_screen as vx
-    print(json.dumps(vx.summary(), indent=2))
-
-
-
-def pre_alpha_telegram_official_docs_credential_validation_gate_summary():
-    import json
-    import os
-    import sys
-    from live_contentops import telegram_official_docs_credential_validation_gate as gate
-    # Official getMe docs facts are verified out-of-band from core.telegram.org and
-    # supplied as redacted notes (no live fetch performed inside the repo process).
-    fetched_docs = {
-        "source_domain": "core.telegram.org",
-        "verified": True,
-        "fetch_count": 1,
-        "notes": gate.DEFAULT_OFFICIAL_DOCS_NOTES,
-    }
-    # Approved local env source supplied ONLY via explicit out-of-band CLI path arg
-    # (redacted, never printed/committed). The live getMe credential validation runs
-    # ONLY when --live-getme-credential-validation is passed; otherwise dry/no-call.
-    args = sys.argv[2:]
-    live = "--live-getme-credential-validation" in args
-    approved_path = None
-    for a in args:
-        if not a.startswith("--"):
-            approved_path = a
-            break
-    env_text = None
-    source_label = None
-    if approved_path and os.path.isfile(approved_path):
-        with open(approved_path, "r", encoding="utf-8") as f:
-            env_text = f.read()
-        source_label = "OPERATOR_LOCAL_ENV_FILE_PROVIDED_OUT_OF_BAND"
-
-    api_caller = None
-    if live and env_text is not None:
-        api_caller = _telegram_getme_caller
-
-    print(json.dumps(
-        gate.summary(
-            env_text=env_text,
-            api_caller=api_caller,
-            source_label=source_label,
-            fetched_docs=fetched_docs,
-        ),
-        indent=2,
-    ))
-
-
 def _telegram_getme_caller(method_name, token):
     """Perform at most one bounded getMe request. Returns redacted-safe dict only.
 
@@ -1220,32 +783,6 @@ def _telegram_getme_caller(method_name, token):
 
 
 
-
-
-def pre_alpha_daily_content_studio_markdown_export_summary():
-    import json
-    from live_contentops import daily_content_studio_markdown_export
-    print(json.dumps(daily_content_studio_markdown_export.summary(), indent=2))
-
-
-
-
-def pre_alpha_grounded_news_angle_workbench_summary():
-    import json
-    from live_contentops import grounded_news_angle_workbench
-    print(json.dumps(grounded_news_angle_workbench.summary(), indent=2))
-
-
-def pre_alpha_llm_content_writer_workbench_summary():
-    import json
-    from live_contentops import llm_content_writer_workbench
-    print(json.dumps(llm_content_writer_workbench.summary(), indent=2))
-
-
-def pre_alpha_social_platform_foundation_summary():
-    import json
-    from live_contentops import social_platform_foundation
-    print(json.dumps(social_platform_foundation.summary(), indent=2))
 
 
 def next_platform_account_binding_selection_gate_summary():
@@ -1502,21 +1039,6 @@ COMMANDS = {
     "telegram-supervised-post-queue-summary": telegram_supervised_post_queue_summary,
     "telegram-one-shot-execution-packet-summary": telegram_one_shot_execution_packet_summary,
     "telegram-one-shot-go-gate-summary": telegram_one_shot_go_gate_summary,
-    "pre-alpha-content-engine-summary": pre_alpha_content_engine_summary,
-    "pre-alpha-prompt-pack-summary": pre_alpha_prompt_pack_summary,
-    "pre-alpha-draft-renderer-summary": pre_alpha_draft_renderer_summary,
-    "pre-alpha-manual-review-summary": pre_alpha_manual_review_summary,
-    "pre-alpha-manual-export-summary": pre_alpha_manual_export_summary,
-    "pre-alpha-pipeline-demo-summary": pre_alpha_pipeline_demo_summary,
-    "content-seed-calendar-summary": content_seed_calendar_summary,
-    "pre-alpha-operator-dashboard-summary": pre_alpha_operator_dashboard_summary,
-    "pre-alpha-editorial-batch-review-summary": pre_alpha_editorial_batch_review_summary,
-    "pre-alpha-manual-decision-batch-summary": pre_alpha_manual_decision_batch_summary,
-    "pre-alpha-manual-export-batch-summary": pre_alpha_manual_export_batch_summary,
-    "pre-alpha-manual-publish-record-summary": pre_alpha_manual_publish_record_summary,
-    "pre-alpha-platform-manual-templates-summary": pre_alpha_platform_manual_templates_summary,
-    "pre-alpha-daily-operator-markdown-export": pre_alpha_daily_operator_markdown_export,
-    "pre-alpha-daily-operator-content-run-summary": pre_alpha_daily_operator_content_run_summary,
 
 
     "artifact-packet-bridge-summary": artifact_packet_bridge_summary,
@@ -1528,69 +1050,16 @@ COMMANDS = {
 
     "packet-dashboard-handoff-summary": packet_dashboard_handoff_summary,
     "operator-command-summary": operator_command_summary,
-    "pre-alpha-manual-performance-record-summary": pre_alpha_manual_performance_record_summary,
-    "pre-alpha-content-performance-review-summary": pre_alpha_content_performance_review_summary,
-    "pre-alpha-approved-cc-artifact-intake-summary": pre_alpha_approved_cc_artifact_intake_summary,
-    "pre-alpha-content-lane-policy-summary": pre_alpha_content_lane_policy_summary,
-    "pre-alpha-grounded-research-brief-summary": pre_alpha_grounded_research_brief_summary,
-    "pre-alpha-llm-assisted-draft-review-summary": pre_alpha_llm_assisted_draft_review_summary,
-    "pre-alpha-platform-dry-run-summary": pre_alpha_platform_dry_run_summary,
-    "pre-alpha-approval-ledger-summary": pre_alpha_approval_ledger_summary,
-    "pre-alpha-mock-publish-flow-summary": pre_alpha_mock_publish_flow_summary,
-    "pre-alpha-platform-official-docs-verification-summary": pre_alpha_platform_official_docs_verification_summary,
-    "pre-alpha-credential-envelope-policy-summary": pre_alpha_credential_envelope_policy_summary,
-    "pre-alpha-operator-ui-ux-summary": pre_alpha_operator_ui_ux_summary,
-    "pre-alpha-frontend-static-prototype-summary": pre_alpha_frontend_static_prototype_summary,
-    "pre-alpha-seo-newsletter-architecture-summary": pre_alpha_seo_newsletter_architecture_summary,
-    "pre-alpha-daily-content-studio-ui-data-contract-summary": pre_alpha_daily_content_studio_ui_data_contract_summary,
-    "pre-alpha-daily-content-studio-static-frontend-summary": pre_alpha_daily_content_studio_static_frontend_summary,
-    "pre-alpha-publish-automation-readiness-summary": pre_alpha_publish_automation_readiness_summary,
-    "pre-alpha-dry-run-publish-batch-manifest-summary": pre_alpha_dry_run_publish_batch_manifest_summary,
-    "pre-alpha-publish-adapter-credential-secret-policy-summary": pre_alpha_publish_adapter_credential_secret_policy_summary,
-    "pre-alpha-redacted-publish-audit-log-summary": pre_alpha_redacted_publish_audit_log_summary,
-    "pre-alpha-telegram-live-pilot-gate-summary": pre_alpha_telegram_live_pilot_gate_summary,
-    "pre-alpha-telegram-credential-setup-guide-summary": pre_alpha_telegram_credential_setup_guide_summary,
-    "pre-alpha-telegram-redacted-credential-presence-check-summary": pre_alpha_telegram_redacted_credential_presence_check_summary,
-    "pre-alpha-telegram-official-docs-credential-validation-gate-summary": pre_alpha_telegram_official_docs_credential_validation_gate_summary,
-    "telegram-credential-readiness": telegram_credential_readiness_summary,
-    "telegram-live-getme-gate": telegram_live_getme_gate_summary,
-    "telegram-target-binding-gate": telegram_target_binding_gate_summary,
-    "telegram-supervised-post-dry-run-gate": telegram_supervised_post_dry_run_gate_summary,
-    "telegram-first-supervised-live-post-gate": telegram_first_supervised_live_post_gate_summary,
-    "telegram-post-pilot-ledger-gate": telegram_post_pilot_ledger_gate_summary,
     "next-platform-account-binding-selection-gate": next_platform_account_binding_selection_gate_summary,
     "telegram-second-supervised-post-dry-run-ledger-gate": telegram_second_supervised_post_dry_run_ledger_gate_summary,
     "telegram-second-supervised-live-post-gate": telegram_second_supervised_live_post_gate_summary,
-    "pre-alpha-institutional-ui-ux-rebuild-plan-summary": pre_alpha_institutional_ui_ux_rebuild_plan_summary,
-    "pre-alpha-institutional-design-system-summary": pre_alpha_institutional_design_system_summary,
-    "pre-alpha-institutional-ui-view-model-contract-v2-summary": pre_alpha_institutional_ui_view_model_contract_v2_summary,
-    "pre-alpha-institutional-shell-prototype-summary": pre_alpha_institutional_shell_prototype_summary,
-    "pre-alpha-institutional-command-center-screen-summary": pre_alpha_institutional_command_center_screen_summary,
-    "pre-alpha-institutional-content-studio-screen-summary": pre_alpha_institutional_content_studio_screen_summary,
-    "pre-alpha-institutional-publish-readiness-tower-screen-summary": pre_alpha_institutional_publish_readiness_tower_screen_summary,
-    "pre-alpha-institutional-evidence-vault-audit-timeline-screen-summary": pre_alpha_institutional_evidence_vault_audit_timeline_screen_summary,
-    "pre-alpha-institutional-content-calendar-workflow-board-screen-summary": pre_alpha_institutional_content_calendar_workflow_board_screen_summary,
-    "pre-alpha-institutional-visual-export-screenshot-safe-mode-screen-summary": pre_alpha_institutional_visual_export_screenshot_safe_mode_screen_summary,
-    "pre-alpha-institutional-pre-antigravity-static-qa-hardening-summary": lambda: print(json.dumps(institutional_pre_antigravity_static_qa_hardening.build_summary(), indent=2)),
-    "pre-alpha-institutional-antigravity-browser-qa-strategy-summary": lambda: print(json.dumps(institutional_antigravity_browser_qa_strategy.build_summary(), indent=2)),
-    "pre-alpha-institutional-browser-qa-evidence-metadata-reconciliation-summary": lambda: print(json.dumps(institutional_browser_qa_evidence_metadata_reconciliation.build_summary(), indent=2)),
-    "pre-alpha-institutional-static-polish-ui-consistency-hardening-summary": lambda: print(json.dumps(institutional_static_polish_ui_consistency_hardening.build_summary(), indent=2)),
-    "pre-alpha-institutional-shell-view-model-source-of-truth-summary": lambda: print(json.dumps(institutional_shell_view_model_source_of_truth.build_summary(), indent=2)),
 
 
-    "pre-alpha-daily-content-studio-decision-ledger-summary": pre_alpha_daily_content_studio_decision_ledger_summary,
-    "pre-alpha-daily-content-studio-external-draft-review-summary": pre_alpha_daily_content_studio_external_draft_review_summary,
 
 
-    "pre-alpha-social-platform-foundation-summary": pre_alpha_social_platform_foundation_summary,
-    "pre-alpha-daily-content-studio-markdown-export": pre_alpha_daily_content_studio_markdown_export,
-    "pre-alpha-daily-content-studio-markdown-export-summary": pre_alpha_daily_content_studio_markdown_export_summary,
 
-    "pre-alpha-daily-content-studio-run-summary": pre_alpha_daily_content_studio_run_summary,
 
-    "pre-alpha-grounded-news-angle-workbench-summary": pre_alpha_grounded_news_angle_workbench_summary,
 
-    "pre-alpha-llm-content-writer-workbench-summary": pre_alpha_llm_content_writer_workbench_summary,
 
     "telegram-second-live-post-reconciliation-gate": telegram_second_live_post_reconciliation_gate_summary,
     "operator-live-publishing-review-backlog-gate": operator_live_publishing_review_backlog_gate_summary,
