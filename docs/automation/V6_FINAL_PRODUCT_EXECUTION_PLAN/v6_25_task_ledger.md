@@ -53,7 +53,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 - X CDP pre-live post command, GO-phrase gate, exact execution outcome, registry reconciliation, and registry idempotency/readback audit are complete as local supervised/packet evidence; no repo-driven X click, API call, session read, or public URL fetch is claimed.
 - Live/provider/platform execution is enabled under Fast Ship Mode for implemented lanes with evidence; unsupported or missing-input outcomes are recorded explicitly.
 
-Completed lane: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0`. Recommended next lane: `TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0`. Perform final release go/no-go rehearsal, end-to-end evidence audit, and operator release handoff verification for V6 ContentOps.
+Completed lane: `TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0`. Recommended next lane: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0`. Perform ongoing post-release governance, telemetry registry audit, capability checks, and periodic release-readiness rehearsals.
 
 ## How to Update This Ledger
 

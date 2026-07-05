@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-TASK = "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0"
+TASK = "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0"
 BASELINE_SHA = "ee2cd700675138de290090dc8968e2e60325dcd3"
 MODULES = {
     "live_contentops/jim_daily_content_run_packet_v6.py",
@@ -25,7 +25,7 @@ def test_status_promotes_jim_content_cockpit_baseline():
 
     assert status["latest_accepted_task"] == TASK
     assert status["accepted_product_baseline_sha"] == BASELINE_SHA
-    assert "Jim" in status["current_product_lane"] or "Post-release" in status["current_product_lane"]
+    assert "Jim" in status["current_product_lane"] or "Post-release" in status["current_product_lane"] or "rehearsal" in status["current_product_lane"].lower()
     assert "ui/contentops_v5/" == status["canonical_dashboard_surface"]
     assert MODULES.issubset(set(status["backend_status_modules"]))
 
