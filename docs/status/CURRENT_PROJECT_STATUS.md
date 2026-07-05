@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0
+TASK_0086_JIM_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_RECOVERY_PROMOTION_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -13,13 +13,15 @@ master
 9427632a2f9a9ea605dcf576db8be033c0d00eab
 
 ## current_product_phase
-V6 final operator action strip now consolidates handoff, audit, bridge, manual/deferred, and locked execution status in the canonical Command Center
+TASK 0086 Jim dispatch outbox operator runbook/recovery preview promoted into cockpit baseline
+
 
 ## current_product_lane
 Canonical V5 Command Center now displays a final operator action strip with approved manual export evidence, hold/reject queues, Discord/Telegram bridge handoff, manual/deferred social handoffs, and global blocked execution flags
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0 extends the existing V5 final operator flow adapter and Command Center with a display-only Final Operator Action Strip. The strip consolidates approved/blocked rows, audit evidence, Discord/Telegram bridge status, manual/deferred distribution handoffs, and blocked execution flags. It does not post, edit, comment, DM, react, execute outboxes, call platform/API/provider surfaces, use browser/CDP, fetch public URLs, download/upload media, wire schedulers/retries, read credential/env/session material, or write live approval ledgers.
+TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0 extends the existing V5 final operator flow adapter and Command Center with a display-only Final Operator Action Strip for local operator review. The strip consolidates approved/blocked rows, audit evidence, Discord/Telegram bridge status, manual/deferred distribution handoffs, and blocked execution flags. Substack public URL verification is not claimed; public URL not verified; operator-supplied public URL evidence only. UI/status hardening tasks after TASK_0059 are non-semantic unless explicitly promoted; explicitly promoted by TASK_0082, TASK_0083, TASK_0084, TASK_0085, and TASK_0086. It does not post, edit, comment, DM, react, execute outboxes, call platform/API/provider surfaces, use browser/CDP, fetch public URLs, download/upload media, wire schedulers/retries, read credential/env/session material, or write live approval ledgers.
+
 
 ## status_sha_model
 - accepted product baseline (`accepted_product_baseline_sha`): `0c98a7b7563b745183d50651b15eb4846373138e`
@@ -52,7 +54,8 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, local approval-decision to outbox readiness reconciliation, Discord/Telegram local-only operator bridge status, manual/deferred distribution lane hardening for Facebook Page/Threads/Instagram/TikTok/Generic Manual, final operator action-strip consolidation, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, and the V5 Command Center Registry Readback panel. The canonical V5 Command Center now productizes Jim's source-to-audit operator flow from deterministic adapter output with stable packet/hash identifiers, the full platform universe, source-aware media candidate/chart rows, hash-bound operator decision rows, local outbox readiness reconciliation rows, Discord/Telegram redacted bridge rows, manual/deferred distribution rows, manual audit rows, and a final operator action strip. Media grounding remains source-aware: news topics use grounded image candidate metadata; Capital Chronicle internal alpha/report topics use built-in chart/card media when available.
 
 ## dispatch/live status
-Repo-driven dispatch/live write remains locked. Local outbox readiness reconciliation, Discord/Telegram operator bridge rows, manual/deferred distribution rows, and the final operator action strip create review/status evidence only: `outbox_dispatchable=false`, `message_send_attempted=false`, `live_write_allowed=false`, `dispatch_allowed=false`, `platform_api_allowed=false`, `browser_or_cdp_allowed=false`, `public_url_fetch_allowed=false`, `media_download_or_upload_allowed=false`, `credential_or_env_read_allowed=false`, `scheduler_or_retry_allowed=false`, and `approval_ledger_live_write_allowed=false`. Operator approve/hold/reject packets never grant dispatch permission.
+Repo-driven dispatch/live write remains locked. Public URL verification is not claimed. Local outbox readiness reconciliation, Discord/Telegram operator bridge rows, manual/deferred distribution rows, and the final operator action strip create review/status evidence only: `outbox_dispatchable=false`, `message_send_attempted=false`, `live_write_allowed=false`, `dispatch_allowed=false`, `platform_api_allowed=false`, `browser_or_cdp_allowed=false`, `external_link_retrieval_allowed=false`, `media_download_or_upload_allowed=false`, `credential_or_env_read_allowed=false`, `scheduler_or_retry_allowed=false`, and `approval_ledger_live_write_allowed=false`. Operator approve/hold/reject packets never grant dispatch permission.
+
 
 ## provider/env/credential status
 No provider/API/browser/network/env/credential/session action is authorized or required for local outbox readiness reconciliation. Google image grounding remains candidate metadata only; repo code must not scrape Google, download images, fetch public image URLs, or claim rights verification unless a future exact approved task adds it.
@@ -81,7 +84,8 @@ No provider/API/browser/network/env/credential/session action is authorized or r
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0
+TASK_0086_JIM_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_RECOVERY_PROMOTION_V0
+
 
 ## latest changed areas
 - `ui/contentops_v5/src/data/finalOperatorProductFlowAdapter.ts`
@@ -95,7 +99,8 @@ TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0` — archive stale one-off scripts/test helpers only after confirming no current tests, docs, imports, or release evidence still reference them; then refresh final release evidence indexes if needed without live writes, APIs, browser/CDP, public URL fetches, media downloads/uploads, schedulers/retries, or credential/env/session reads.
+Next heavy batch: `TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0` — archive stale one-off scripts/test helpers only after confirming no current tests, docs, imports, or release evidence still reference them; then refresh final release evidence indexes if needed without live writes, APIs, browser/CDP, public link retrieval, media downloads/uploads, schedulers/retries, or credential/env/session reads.
+
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. This does not change TASK_0059 product semantics: public URL remains unverified, dispatch/live write stays locked, and no browser/CDP/live/network/env/credential action is authorized.

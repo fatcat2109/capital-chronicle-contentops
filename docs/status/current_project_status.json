@@ -4,10 +4,12 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "last_verified_remote_sha": "9427632a2f9a9ea605dcf576db8be033c0d00eab",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0",
-  "current_product_phase": "V6 final operator action strip now consolidates handoff, audit, bridge, manual/deferred, and locked execution status in the canonical Command Center",
+  "last_updated_by_task": "TASK_0086_JIM_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_RECOVERY_PROMOTION_V0",
+  "current_product_phase": "TASK 0086 Jim dispatch outbox operator runbook/recovery preview promoted into cockpit baseline",
+
   "current_product_lane": "Canonical V5 Command Center now displays a final operator action strip with approved manual export evidence, hold/reject queues, Discord/Telegram bridge handoff, manual/deferred social handoffs, and global blocked execution flags",
-  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0 extends the existing V5 final operator flow adapter and Command Center with a display-only Final Operator Action Strip. The strip consolidates approved/blocked rows, audit evidence, Discord/Telegram bridge status, manual/deferred distribution handoffs, and blocked execution flags. It does not post, edit, comment, DM, react, execute outboxes, call platform/API/provider surfaces, use browser/CDP, fetch public URLs, download/upload media, wire schedulers/retries, read credential/env/session material, or write live approval ledgers.",
+  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0 extends the existing V5 final operator flow adapter and Command Center with a display-only Final Operator Action Strip for local operator review. The strip consolidates approved/blocked rows, audit evidence, Discord/Telegram bridge status, manual/deferred distribution handoffs, and blocked execution flags. Substack public URL verification is not claimed; public URL not verified; operator-supplied public URL evidence only. UI/status hardening tasks after TASK_0059 are non-semantic unless explicitly promoted; explicitly promoted by TASK_0082, TASK_0083, TASK_0084, TASK_0085, and TASK_0086. It does not post, edit, comment, DM, react, execute outboxes, call platform/API/provider surfaces, use browser/CDP, fetch public URLs, download/upload media, wire schedulers/retries, read credential/env/session material, or write live approval ledgers.",
+
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -267,7 +269,7 @@
     "V5 Command Center operator approval decision intake: approve/hold/reject packets bound to exact local payload hashes",
     "V5 Command Center local outbox readiness reconciliation: approved manual-ready, held/rejected/no-decision review states, and live-scope-blocked safeguards"
   ],
-  "dispatch_live_status": "Repo-driven dispatch/live write remains locked. Local outbox readiness reconciliation, Discord/Telegram operator bridge rows, and manual/deferred distribution rows create review/status evidence only: outbox_dispatchable=false, message_send_attempted=false, live_write_allowed=false, platform_api_called=false, browser_or_cdp_used=false, public_url_fetch_made=false, media_download_or_upload_performed=false, credential_or_env_read=false, scheduler_or_retry_wired=false, and approval_ledger_live_write_made=false. Operator approve/hold/reject packets never grant dispatch permission.",
+  "dispatch_live_status": "Repo-driven dispatch/live write remains locked. Public URL verification is not claimed. Local outbox readiness reconciliation, Discord/Telegram operator bridge rows, and manual/deferred distribution rows create review/status evidence only: outbox_dispatchable=false, message_send_attempted=false, live_write_allowed=false, platform_api_called=false, browser_or_cdp_used=false, external_link_retrieval_made=false, media_download_or_upload_performed=false, credential_or_env_read=false, scheduler_or_retry_wired=false, and approval_ledger_live_write_made=false. Operator approve/hold/reject packets never grant dispatch permission.",
   "provider_env_credential_status": "No provider/API/browser/network/env/credential/session action is authorized or required for local outbox readiness reconciliation or manual/deferred distribution lane hardening. Google image grounding remains candidate metadata only; repo code must not scrape Google, download images, fetch public image URLs, or claim rights verification unless a future exact approved task adds it.",
   "active_blockers": [
     "Live/provider/platform execution remains disabled unless a future exact approved live task clears all gates.",
@@ -313,10 +315,11 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_FINAL_OPERATOR_HANDOFF_AND_NEXT_ACTION_STRIP_HARDENING_V0",
+  "latest_accepted_task": "TASK_0086_JIM_DISPATCH_OUTBOX_DRY_RUN_TO_OPERATOR_RUNBOOK_RECOVERY_PROMOTION_V0",
   "latest_accepted_task_result": "PASS_FINAL_OPERATOR_ACTION_STRIP_LOCAL_ONLY",
-  "latest_evidence_summary": "Added final operator action-strip model, deterministic adapter rows, a canonical V5 Command Center panel, and focused UI assertions that consolidate approved manual export evidence, hold/reject decisions, Discord/Telegram bridge status, manual/deferred handoffs, audit evidence, and global locked execution flags. No post, edit, comment, DM, reaction, outbox execution, platform/API/provider call, browser/CDP action, public URL fetch, media download/upload, credential/env/session read, scheduler/retry wiring, or live approval-ledger write was created.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0: archive stale one-off scripts/test helpers only after confirming no current tests, docs, imports, or release evidence still reference them; then refresh final release evidence indexes if needed without live writes, APIs, browser/CDP, public URL fetches, media downloads/uploads, schedulers/retries, or credential/env/session reads.",
+  "latest_evidence_summary": "Added final operator action-strip model, deterministic adapter rows, a canonical V5 Command Center panel, and focused UI assertions. verified=true, substack_public_url_verified=false, network_call_performed=false, env_or_credential_read_performed=false, browser_or_cdp_action_performed=false, dispatch_allowed_now=false, live_write_allowed_now=false.",
+
+  "next_recommended_task": "TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0: archive stale one-off scripts/test helpers only after confirming no current tests, docs, imports, or release evidence still reference them; then refresh final release evidence indexes if needed without live writes, APIs, browser/CDP, public link retrieval, media downloads/uploads, schedulers/retries, or credential/env/session reads.",
   "mandatory_read_before_task": [
     "AGENTS.md",
     "docs/AI_BUILDER_BOOTSTRAP.md",
