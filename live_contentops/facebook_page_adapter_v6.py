@@ -53,10 +53,14 @@ def execute_facebook_post(
     req = urllib.request.Request(url, data=data, method="POST")
     req.add_header("Content-Type", "application/x-www-form-urlencoded")
 
+    import time
+    from .live_telemetry_v6 import classify_and_record_dispatch
+
+    t0 = time.perf_counter()
     try:
         with urllib.request.urlopen(req, timeout=15) as response:
             res_data = json.loads(response.read().decode("utf-8"))
-            return {
+            result = {
                 "status": "SUCCESS",
                 "id": res_data.get("id"),
                 "response": res_data,
@@ -67,16 +71,26 @@ def execute_facebook_post(
             err_json = json.loads(err_body)
         except Exception:
             err_json = {"raw_error": err_body}
-        return {
+        result = {
             "status": "FAILED",
             "error_code": e.code,
             "error_response": err_json,
         }
     except Exception as e:
-        return {
+        result = {
             "status": "FAILED",
             "error": str(e),
         }
+
+    latency_ms = (time.perf_counter() - t0) * 1000.0
+    classify_and_record_dispatch(
+        platform_id="facebook_page",
+        action="post",
+        adapter_result=result,
+        latency_ms=latency_ms,
+        payload_size_bytes=len(data),
+    )
+    return result
 
 
 def execute_facebook_comment(
@@ -109,10 +123,14 @@ def execute_facebook_comment(
     req = urllib.request.Request(url, data=data, method="POST")
     req.add_header("Content-Type", "application/x-www-form-urlencoded")
 
+    import time
+    from .live_telemetry_v6 import classify_and_record_dispatch
+
+    t0 = time.perf_counter()
     try:
         with urllib.request.urlopen(req, timeout=15) as response:
             res_data = json.loads(response.read().decode("utf-8"))
-            return {
+            result = {
                 "status": "SUCCESS",
                 "id": res_data.get("id"),
                 "response": res_data,
@@ -123,13 +141,23 @@ def execute_facebook_comment(
             err_json = json.loads(err_body)
         except Exception:
             err_json = {"raw_error": err_body}
-        return {
+        result = {
             "status": "FAILED",
             "error_code": e.code,
             "error_response": err_json,
         }
     except Exception as e:
-        return {
+        result = {
             "status": "FAILED",
             "error": str(e),
         }
+
+    latency_ms = (time.perf_counter() - t0) * 1000.0
+    classify_and_record_dispatch(
+        platform_id="facebook_page",
+        action="comment",
+        adapter_result=result,
+        latency_ms=latency_ms,
+        payload_size_bytes=len(data),
+    )
+    return result

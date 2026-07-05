@@ -64,6 +64,12 @@ def execute_threads_post(
             },
         }
 
+    import time
+    from .live_telemetry_v6 import classify_and_record_dispatch
+
+    t0 = time.perf_counter()
+    result = None
+
     # Step 1: Create threads container
     data = urllib.parse.urlencode(create_payload).encode("utf-8")
     req = urllib.request.Request(create_url, data=data, method="POST")
@@ -74,7 +80,7 @@ def execute_threads_post(
             res_data = json.loads(response.read().decode("utf-8"))
             container_id = res_data.get("id")
             if not container_id:
-                return {
+                result = {
                     "status": "FAILED",
                     "error": "No container ID returned in Step 1",
                     "response": res_data,
@@ -85,51 +91,62 @@ def execute_threads_post(
             err_json = json.loads(err_body)
         except Exception:
             err_json = {"raw_error": err_body}
-        return {
+        result = {
             "status": "FAILED_STEP_1",
             "error_code": e.code,
             "error_response": err_json,
         }
     except Exception as e:
-        return {
+        result = {
             "status": "FAILED_STEP_1",
             "error": str(e),
         }
 
-    # Step 2: Publish threads container
-    publish_url = f"https://graph.threads.net/v1.0/{threads_user_id}/threads_publish"
-    publish_payload = {
-        "creation_id": container_id,
-        "access_token": access_token,
-    }
-    data_publish = urllib.parse.urlencode(publish_payload).encode("utf-8")
-    req_publish = urllib.request.Request(publish_url, data=data_publish, method="POST")
-    req_publish.add_header("Content-Type", "application/x-www-form-urlencoded")
+    if result is None:
+        # Step 2: Publish threads container
+        publish_url = f"https://graph.threads.net/v1.0/{threads_user_id}/threads_publish"
+        publish_payload = {
+            "creation_id": container_id,
+            "access_token": access_token,
+        }
+        data_publish = urllib.parse.urlencode(publish_payload).encode("utf-8")
+        req_publish = urllib.request.Request(publish_url, data=data_publish, method="POST")
+        req_publish.add_header("Content-Type", "application/x-www-form-urlencoded")
 
-    try:
-        with urllib.request.urlopen(req_publish, timeout=15) as response:
-            res_data = json.loads(response.read().decode("utf-8"))
-            return {
-                "status": "SUCCESS",
-                "id": res_data.get("id"),
-                "container_id": container_id,
-                "response": res_data,
-            }
-    except urllib.error.HTTPError as e:
-        err_body = e.read().decode("utf-8")
         try:
-            err_json = json.loads(err_body)
-        except Exception:
-            err_json = {"raw_error": err_body}
-        return {
-            "status": "FAILED_STEP_2",
-            "error_code": e.code,
-            "error_response": err_json,
-            "container_id": container_id,
-        }
-    except Exception as e:
-        return {
-            "status": "FAILED_STEP_2",
-            "error": str(e),
-            "container_id": container_id,
-        }
+            with urllib.request.urlopen(req_publish, timeout=15) as response:
+                res_data = json.loads(response.read().decode("utf-8"))
+                result = {
+                    "status": "SUCCESS",
+                    "id": res_data.get("id"),
+                    "container_id": container_id,
+                    "response": res_data,
+                }
+        except urllib.error.HTTPError as e:
+            err_body = e.read().decode("utf-8")
+            try:
+                err_json = json.loads(err_body)
+            except Exception:
+                err_json = {"raw_error": err_body}
+            result = {
+                "status": "FAILED_STEP_2",
+                "error_code": e.code,
+                "error_response": err_json,
+                "container_id": container_id,
+            }
+        except Exception as e:
+            result = {
+                "status": "FAILED_STEP_2",
+                "error": str(e),
+                "container_id": container_id,
+            }
+
+    latency_ms = (time.perf_counter() - t0) * 1000.0
+    classify_and_record_dispatch(
+        platform_id="threads",
+        action="reply" if reply_to_id else "post",
+        adapter_result=result,
+        latency_ms=latency_ms,
+        payload_size_bytes=len(data),
+    )
+    return result

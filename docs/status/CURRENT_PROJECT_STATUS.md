@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_META_FAMILY_V0
+TASK_CONTENTOPS_V6_LIVE_TELEMETRY_AND_ERROR_CLASSIFICATION_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -10,16 +10,16 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-729b6e205561a07010f3c5553e1644ce69527ec5
+f9c0836dd0a52479e0a0d9c402120ee5dca8cbdb
 
 ## current_product_phase
-TASK 0088 Facebook Page, Threads, and Instagram Graph/official API adapters integrated and verified under Fast Ship Mode
+TASK 0089 Live telemetry logging and platform-specific error classification implemented and verified under Fast Ship Mode
 
 ## current_product_lane
 Jim's V5 Command Center is clean of stale references, and safety policies are refactored to support Fast Ship Mode
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_META_FAMILY_V0 integrates and verifies official Graph and Threads REST API adapters for Facebook Page, Instagram Business, and Threads under Fast Ship Mode. Automated posting/commenting/media-publishing features are fully wired to the readiness and dispatch outboxes, and 100% of python and Vitest tests pass. UI/status hardening tasks after TASK_0059 are non-semantic unless explicitly promoted; explicitly promoted by TASK_0082, TASK_0083, TASK_0084, TASK_0085, and TASK_0086. For the current task, no browser/cdp/live/network/env/credential action was performed. Local operator review remains fallback, and public url not verified; operator-supplied public url evidence only. dispatch/live write stays locked for the current task. accepted product baseline is 9427632a2f9a9ea605dcf576db8be033c0d00eab
+TASK_CONTENTOPS_V6_LIVE_TELEMETRY_AND_ERROR_CLASSIFICATION_V0 implements real-time logging, telemetry collection, and platform-specific error classification for all live dispatches under Fast Ship Mode. TelemetryEvents capture latency, payload size, HTTP status, and diagnosis while ensuring zero secret leakage. UI/status hardening tasks after TASK_0059 are non-semantic unless explicitly promoted; explicitly promoted by TASK_0082, TASK_0083, TASK_0084, TASK_0085, and TASK_0086. For the current task, no browser/cdp/live/network/env/credential action was performed. Local operator review remains fallback, and public url not verified; operator-supplied public url evidence only. dispatch/live write stays locked for the current task. accepted product baseline is 9427632a2f9a9ea605dcf576db8be033c0d00eab
 
 
 
@@ -76,7 +76,7 @@ Under Fast Ship Mode, `.env` and credential stores are accessible to authorize r
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_META_FAMILY_V0
+TASK_CONTENTOPS_V6_LIVE_TELEMETRY_AND_ERROR_CLASSIFICATION_V0
 
 
 ## latest changed areas

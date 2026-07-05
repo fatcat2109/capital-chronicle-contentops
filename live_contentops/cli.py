@@ -49,6 +49,18 @@ def print_status():
     s = status.get_status()
     print(json.dumps(s, indent=2))
 
+def telemetry_summary():
+    from .live_telemetry_v6 import TelemetryRegistry
+    reg = TelemetryRegistry()
+    print(json.dumps(reg.get_summary(), indent=2))
+
+def platform_errors_summary():
+    from .live_telemetry_v6 import TelemetryRegistry
+    reg = TelemetryRegistry()
+    events = reg.get_events()
+    failures = [e for e in events if not e.get("success")]
+    print(json.dumps({"failures": failures}, indent=2))
+
 def contracts_summary():
     cs = [
         c.__name__ for c in [
@@ -982,6 +994,8 @@ def operator_command_summary():
 
 COMMANDS = {
     "status": print_status,
+    "telemetry-summary": telemetry_summary,
+    "platform-errors-summary": platform_errors_summary,
     "contracts-summary": contracts_summary,
     "validate-sample-contracts": validate_samples,
     "policy-summary": policy_summary,
