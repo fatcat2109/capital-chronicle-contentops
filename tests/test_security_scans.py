@@ -26,6 +26,7 @@ def test_no_forbidden_imports_or_env_vars():
         "instagram_adapter_v6.py",
         "threads_adapter_v6.py",
         "live_telemetry_v6.py",
+        "scheduler_v6.py",
     }
 
     # Modules allowed to perform env lookups for configuration (excluding generic modules)

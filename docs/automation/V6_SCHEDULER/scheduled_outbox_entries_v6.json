@@ -1,0 +1,38 @@
+{
+  "entries": [
+    {
+      "action": "post",
+      "approved": true,
+      "cron_expression": "*/15 * * * *",
+      "entry_id": "sched_facebook_page_3a7e98b7cc98",
+      "history": [
+        {
+          "dry_run": true,
+          "result": {
+            "payload_redacted": {
+              "access_token": "<redacted>",
+              "link": null,
+              "message": "Scheduled"
+            },
+            "response": {
+              "id": "_mock_post_12345"
+            },
+            "status": "DRY_RUN_PASS",
+            "url": "https://graph.facebook.com/v21.0//feed"
+          },
+          "timestamp": "2026-07-05T09:05:00+00:00"
+        }
+      ],
+      "last_dispatch_time": "2026-07-05T09:05:00+00:00",
+      "next_execution_time": "2026-07-05T09:15:00+00:00",
+      "payload": {
+        "message": "Scheduled"
+      },
+      "platform_id": "facebook_page",
+      "retry_count": 0,
+      "status": "dispatched"
+    }
+  ],
+  "schema_version": "6.0.0",
+  "task_label": "TASK_CONTENTOPS_V6_SCHEDULER_AND_CRON_RECONCILIATION_V0"
+}

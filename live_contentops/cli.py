@@ -61,6 +61,67 @@ def platform_errors_summary():
     failures = [e for e in events if not e.get("success")]
     print(json.dumps({"failures": failures}, indent=2))
 
+def scheduler_add_command():
+    import argparse
+    from dataclasses import asdict
+    from .scheduler_v6 import OutboxScheduler
+    parser = argparse.ArgumentParser(description="Add scheduled outbox entry")
+    parser.add_argument("--platform-id", required=True)
+    parser.add_argument("--action", required=True)
+    parser.add_argument("--cron", required=True)
+    parser.add_argument("--payload", required=True, help="JSON payload dict")
+    parser.add_argument("--approved", action="store_true")
+    args = parser.parse_args(sys.argv[2:])
+    
+    try:
+        payload_dict = json.loads(args.payload)
+    except Exception as e:
+        print(json.dumps({"status": "FAILED", "error": f"Invalid payload JSON: {e}"}, indent=2))
+        return
+
+    sched = OutboxScheduler()
+    entry = sched.add_entry(
+        platform_id=args.platform_id,
+        action=args.action,
+        payload=payload_dict,
+        cron_expression=args.cron,
+        approved=args.approved
+    )
+    print(json.dumps({"status": "SUCCESS", "added": asdict(entry)}, indent=2, default=str))
+
+def scheduler_list_command():
+    from .scheduler_v6 import OutboxScheduler
+    from dataclasses import asdict
+    sched = OutboxScheduler()
+    entries = sched.load_entries()
+    print(json.dumps({"entries": [asdict(e) for e in entries]}, indent=2, default=str))
+
+def scheduler_tick_command():
+    import argparse
+    import datetime
+    from .scheduler_v6 import OutboxScheduler
+    parser = argparse.ArgumentParser(description="Execute scheduler tick")
+    parser.add_argument("--now", help="ISO format datetime override")
+    parser.add_argument("--fast-ship", action="store_true", help="Enable live platform dispatches")
+    parser.add_argument("--dry-run", action="store_true", help="Force dry run mode")
+    args = parser.parse_args(sys.argv[2:])
+    
+    current_time = None
+    if args.now:
+        try:
+            current_time = datetime.datetime.fromisoformat(args.now)
+        except Exception as e:
+            print(json.dumps({"status": "FAILED", "error": f"Invalid datetime format: {e}"}, indent=2))
+            return
+            
+    dry_run = True
+    if args.fast_ship and not args.dry_run:
+        dry_run = False
+        
+    sched = OutboxScheduler()
+    result = sched.reconcile_outbox_timing(current_time=current_time, dry_run=dry_run)
+    print(json.dumps(result, indent=2))
+
 def contracts_summary():
     cs = [
         c.__name__ for c in [
@@ -996,6 +1057,9 @@ COMMANDS = {
     "status": print_status,
     "telemetry-summary": telemetry_summary,
     "platform-errors-summary": platform_errors_summary,
+    "scheduler-add": scheduler_add_command,
+    "scheduler-list": scheduler_list_command,
+    "scheduler-tick": scheduler_tick_command,
     "contracts-summary": contracts_summary,
     "validate-sample-contracts": validate_samples,
     "policy-summary": policy_summary,
