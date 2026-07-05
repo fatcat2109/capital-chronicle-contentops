@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-9427632a2f9a9ea605dcf576db8be033c0d00eab
+612657fb593711b2c51d4634b3fd719889343665
 
 ## current_product_phase
 TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0 stale scripts archived, release evidence refreshed, and Fast Ship Mode enabled for live posting/editing/commenting
@@ -29,7 +29,7 @@ TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0 
 ## status_sha_model
 - accepted product baseline (`accepted_product_baseline_sha`): `0c98a7b7563b745183d50651b15eb4846373138e`
 - previous accepted product baseline: `33f95383748187cbb9913b889d9e42f9d7c849eb`
-- latest status/promotion task (`last_status_commit_sha`): `bd1ca333d1b79c2f187e17ee8ac786f2d9767e92` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
+- latest status/promotion task (`last_status_commit_sha`): `612657fb593711b2c51d4634b3fd719889343665` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 

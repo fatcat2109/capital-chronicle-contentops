@@ -53,7 +53,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 - X CDP pre-live post command, GO-phrase gate, exact execution outcome, registry reconciliation, and registry idempotency/readback audit are complete as local supervised/packet evidence; no repo-driven X click, API call, session read, or public URL fetch is claimed.
 - Live/provider/platform execution remains blocked unless separately scoped.
 
-Recommended next lane after `TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0`: `TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_SUBSTACK_AND_X_V0`. Implement and execute fully automated Substack and X posting/commenting/editing using env credentials in live mode under Fast Ship Mode.
+Recommended next lane after `TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_SUBSTACK_AND_X_V0`: `TASK_CONTENTOPS_V6_LIVE_TELEMETRY_AND_ERROR_CLASSIFICATION_V0`. Implement real-time logging, telemetry collection, and platform-specific error classification for live dispatches under Fast Ship Mode.
 
 ## How to Update This Ledger
 
