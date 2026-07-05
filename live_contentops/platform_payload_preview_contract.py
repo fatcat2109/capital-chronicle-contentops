@@ -22,7 +22,7 @@ SOURCE_BASELINE_COMMIT = "e77acd9f74b9ce2e65e569b6bf576e3896c1333e"
 DOC_REL_DIR = os.path.join("docs", "automation", "0174XH_XI_XJ")
 PACKET_FILENAME = "platform_payload_preview_contract_packet.json"
 DOC_FILENAME = "platform_payload_preview_contract.md"
-SUPPORTED_PLATFORMS = ["x", "telegram", "substack"]
+SUPPORTED_PLATFORMS = ["x", "telegram", "substack", "facebook_page", "threads", "instagram"]
 SUPPORTED_PAYLOAD_CLASSES = [
     "x_short_post",
     "x_thread",

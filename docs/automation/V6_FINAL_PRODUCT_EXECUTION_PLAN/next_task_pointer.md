@@ -1,6 +1,6 @@
 # V6 Next Task Pointer
 
-Current task: `TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_SUBSTACK_AND_X_V0` — Implement and execute fully automated Substack and X posting/commenting/editing using env credentials in live mode under Fast Ship Mode.
+Current task: `TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_META_FAMILY_V0` — Integrate and verify official Graph and Threads REST API adapters for Facebook Page, Instagram Business, and Threads under Fast Ship Mode.
 
 Recommended next task:
 

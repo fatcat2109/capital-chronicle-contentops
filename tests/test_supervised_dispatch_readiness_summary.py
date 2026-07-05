@@ -92,7 +92,7 @@ def test_no_live_network_env_provider_platform_behavior_flags():
 
 def test_supported_platforms_and_dry_run_capabilities():
     summary = _result()["summary"]
-    assert summary["supported_primary_platforms"] == ["x", "telegram", "substack"]
+    assert summary["supported_primary_platforms"] == ["x", "telegram", "substack", "facebook_page", "threads", "instagram"]
     for item in ["remote operator intent ingress fixture accepted", "review-only platform payload previews hashed", "dispatch gate matrix evaluated", "redacted dispatch audit dry-run events recorded"]:
         assert item in summary["dry_run_capabilities_proven"]
 

@@ -16,7 +16,7 @@ def test_contract_packet_shape_and_safety():
     from live_contentops import platform_payload_preview_contract as c
 
     packet = c.build_contract_packet()
-    assert packet["supported_platforms"] == ["x", "telegram", "substack"]
+    assert packet["supported_platforms"] == ["x", "telegram", "substack", "facebook_page", "threads", "instagram"]
     assert "x_short_post" in packet["supported_payload_classes"]
     assert "telegram_operator_review_message" in packet["supported_payload_classes"]
     assert "substack_newsletter_issue" in packet["supported_payload_classes"]

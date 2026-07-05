@@ -99,9 +99,9 @@ describe('V6 Command Center', () => {
     for (const state of ['manual_handoff_only', 'blocked_deferred', 'fallback_manual_only']) {
       expect(screen.getAllByText(state).length).toBeGreaterThan(0);
     }
-    expect(screen.getByText('Meta-family Facebook Page lane is advisory/manual only; Page/API posting and live edits are blocked.')).toBeInTheDocument();
-    expect(screen.getByText('Threads lane is short-form manual copy only; platform API, browser posting, replies, and reactions are blocked.')).toBeInTheDocument();
-    expect(screen.getByText('Instagram is deferred because media rights, account constraints, and upload path are not cleared.')).toBeInTheDocument();
+    expect(screen.getByText('Meta-family Facebook Page lane is supported via official Graph API; Page/API posting is active.')).toBeInTheDocument();
+    expect(screen.getByText('Threads lane is supported via official Threads API; API posting and replies are active.')).toBeInTheDocument();
+    expect(screen.getByText('Instagram is supported via official Graph API; container creation and media publishing are active.')).toBeInTheDocument();
     expect(screen.getByText('TikTok is last-priority video-script metadata only; no video asset, upload, account, or live execution path exists.')).toBeInTheDocument();
     expect(screen.getByText('Generic Manual is an operator fallback; it does not imply provider capability for any specific platform.')).toBeInTheDocument();
     expect(screen.getAllByText(/media_download_or_upload_performed=false/i).length).toBe(5);

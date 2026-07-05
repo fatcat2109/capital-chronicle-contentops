@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
-TASK = "TASK_CONTENTOPS_V6_STALE_ONE_OFF_SCRIPT_ARCHIVE_AND_RELEASE_EVIDENCE_REFRESH_V0"
+TASK = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_META_FAMILY_V0"
 BASELINE_SHA = "9427632a2f9a9ea605dcf576db8be033c0d00eab"
 MODULES = {
     "live_contentops/jim_daily_content_run_packet_v6.py",

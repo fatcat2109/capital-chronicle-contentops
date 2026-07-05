@@ -19,7 +19,7 @@ def test_fixed_policy_statuses():
     assert values["readiness_class"] == "NOT_READY_FOR_LIVE_DISPATCH"
     assert values["local_governance_status"] == "PASS_DRY_RUN_CHAIN"
     assert values["live_dispatch_status"] == "BLOCKED"
-    assert values["supported_primary_platforms"] == ["x", "telegram", "substack"]
+    assert values["supported_primary_platforms"] == ["x", "telegram", "substack", "facebook_page", "threads", "instagram"]
 
 
 def test_platform_readiness_values():
@@ -28,6 +28,9 @@ def test_platform_readiness_values():
     assert p.PLATFORM_READINESS["telegram"] == "DISPATCH_PROVEN_FROZEN_NO_SEND"
     assert p.PLATFORM_READINESS["x"] == "DRY_RUN_ONLY_NO_API"
     assert p.PLATFORM_READINESS["substack"] == "MANUAL_EXPORT_ONLY_NO_API"
+    assert p.PLATFORM_READINESS["facebook_page"] == "DRY_RUN_ONLY_NO_API"
+    assert p.PLATFORM_READINESS["threads"] == "DRY_RUN_ONLY_NO_API"
+    assert p.PLATFORM_READINESS["instagram"] == "DRY_RUN_ONLY_NO_API"
 
 
 def test_live_blockers_include_all_required_items():

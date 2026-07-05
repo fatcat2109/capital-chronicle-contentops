@@ -21,11 +21,14 @@ POLICY_DOC = "supervised_dispatch_readiness_policy.md"
 READINESS_CLASS = "NOT_READY_FOR_LIVE_DISPATCH"
 LOCAL_GOVERNANCE_STATUS = "PASS_DRY_RUN_CHAIN"
 LIVE_DISPATCH_STATUS = "BLOCKED"
-SUPPORTED_PRIMARY_PLATFORMS = ["x", "telegram", "substack"]
+SUPPORTED_PRIMARY_PLATFORMS = ["x", "telegram", "substack", "facebook_page", "threads", "instagram"]
 PLATFORM_READINESS = {
     "telegram": "DISPATCH_PROVEN_FROZEN_NO_SEND",
     "x": "DRY_RUN_ONLY_NO_API",
     "substack": "MANUAL_EXPORT_ONLY_NO_API",
+    "facebook_page": "DRY_RUN_ONLY_NO_API",
+    "threads": "DRY_RUN_ONLY_NO_API",
+    "instagram": "DRY_RUN_ONLY_NO_API",
 }
 REQUIRED_FUTURE_GATES = [
     "kill_switch_activation",
