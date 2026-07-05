@@ -89,6 +89,7 @@ Manual fallback is a first-class lane. Browser/CDP work, if later approved, must
 - Media policy is split by source class: news uses grounded image candidate metadata; Capital Chronicle internal alpha/report content uses built-in chart/card media when available.
 - The canonical V5 Command Center now displays both media lanes, hash-bound approve/hold/reject operator decision packets, local outbox readiness reconciliation rows, Discord/Telegram redacted local-only operator bridge rows, manual/deferred distribution rows for Facebook Page/Threads/Instagram/TikTok/Generic Manual, and manual audit rows as adapter-built local review evidence.
 - Under Fast Ship Mode, live/provider/platform execution is enabled for explicitly implemented lanes. Discord/Telegram, Facebook Page, and Threads have live smoke evidence; Instagram is adapter-ready but smoke-blocked by missing public media input.
+- Final release go/no-go rehearsal, end-to-end evidence audit, red-team verification, and operator release handoff (`TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0`) are fully completed with PASS_FINAL_LOCAL_RELEASE_REVIEW verdict.
 
 ## Currently Completed Local / Manual Lanes
 

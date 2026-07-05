@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,21 +9,21 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-1e2ac778260548ffcaf225cb72f51cf95e96f08b
+cc95b8a50588a913d480598cb23378b4d64c1af6
 
 ## current_product_phase
-TASK 0095 Unified operator reporting console implemented in canonical V5 command center with live-dispatch evidence summaries, active queues visualizer, telemetry logs stream, and interactive scheduler controls
+TASK 0096 Final release go/no-go rehearsal, end-to-end evidence audit, and operator handoff verification completed for ContentOps V6
 
 ## current_product_lane
-Unified operator execution logs, active queues visualizer, live-dispatch evidence summaries, and dashboard controls in canonical V5 command center
+V6 final product release go/no-go rehearsal, red-team evidence audit, browser QA boundary verification, and operator release handoff
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0 completes the unified operator reporting console in ui/contentops_v5/src/views/V6CommandCenter.tsx. Provides real-time execution log filtering, active queues visualizer (Draft Staging, Approval Outbox, Scheduler, Manual Retry Backlog), live-dispatch evidence summaries across all 10 platform lanes (Meta, Discord, Telegram, Substack, X, TikTok, Manual), and interactive scheduler/dispatcher controls. All 184 frontend vitest cases and 33 focused pytest cases pass.
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 completes the final release go/no-go rehearsal, red-team evidence audit, and operator handoff verification for V6 ContentOps. All 184 frontend vitest cases and 33 pytest cases pass. Verdict: PASS_FINAL_LOCAL_RELEASE_REVIEW.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `9066ec474f225291f1f50cee8f48e68db8efa580`
-- previous accepted product baseline: `8324ab34b0065557370c4a437d0ba7bcd4c97db7`
-- latest status/promotion task (`last_status_commit_sha`): `9066ec474f225291f1f50cee8f48e68db8efa580` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
+- accepted product baseline (`accepted_product_baseline_sha`): `cc95b8a50588a913d480598cb23378b4d64c1af6`
+- previous accepted product baseline: `9066ec474f225291f1f50cee8f48e68db8efa580`
+- latest status/promotion task (`last_status_commit_sha`): `cc95b8a50588a913d480598cb23378b4d64c1af6` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 

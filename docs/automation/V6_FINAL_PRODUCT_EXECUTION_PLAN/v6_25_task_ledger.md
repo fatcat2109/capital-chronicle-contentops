@@ -40,7 +40,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 | 22 | Manual fallback playbooks | complete_fixture_only | Substack/LinkedIn runbooks exist, and Facebook Page/Threads/Instagram/TikTok/Generic Manual manual/deferred distribution rows are hardened in the canonical V5 Command Center as local-only handoff/status evidence. |
 | 23 | Evidence packet standardization | complete_fixture_only | Final release packet, acceptance record, red-team report, and browser-QA boundary are generated under `docs/automation/V6_FINAL_RELEASE/`; no live/API/provider evidence is claimed. |
 | 24 | End-to-end dry-run acceptance | complete_fixture_only | Local V6 loop evidence covers idea → research packet → canonical article → Discord drop → variants → hash approval → blocked dispatch/audit/manual fallback → feedback → next idea. |
-| 25 | Final product readiness review | complete_fixture_only | `PASS_FINAL_LOCAL_RELEASE_REVIEW`; release evidence writer is idempotent; Python release-readiness regression passed; canonical `ui/contentops_v5/` production build and Vitest suite passed after local dependency restore. |
+| 25 | Final product readiness review | complete | `PASS_FINAL_LOCAL_RELEASE_REVIEW`; release evidence writer is idempotent; Python release-readiness regression passed; canonical `ui/contentops_v5/` production build and Vitest suite passed. Go/No-Go rehearsal completed. |
 
 ## Accepted Lane Highlights
 
@@ -53,7 +53,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 - X CDP pre-live post command, GO-phrase gate, exact execution outcome, registry reconciliation, and registry idempotency/readback audit are complete as local supervised/packet evidence; no repo-driven X click, API call, session read, or public URL fetch is claimed.
 - Live/provider/platform execution is enabled under Fast Ship Mode for implemented lanes with evidence; unsupported or missing-input outcomes are recorded explicitly.
 
-Completed lane: `TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0`. Recommended next lane: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0`. Implement unified operator execution logs, active queues visualizer, live-dispatch evidence summaries, and dashboard controls in the canonical V5 command center.
+Completed lane: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0`. Recommended next lane: `TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0`. Perform final release go/no-go rehearsal, end-to-end evidence audit, and operator release handoff verification for V6 ContentOps.
 
 ## How to Update This Ledger
 
