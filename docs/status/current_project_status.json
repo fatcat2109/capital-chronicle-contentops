@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "666e006cac001fe2ae798463ac57460e809ffb8c",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
-  "current_product_phase": "TASK 0099 Post-release operator governance maintenance completed with status-ledger self-audit and telemetry/capability health evidence",
-  "current_product_lane": "Post-release governance maintenance, telemetry registry audit, platform capability check, stale artifact review, and status-ledger reconciliation health",
-  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 keeps the V6 final release baseline coherent while promoting the post-release governance packet to self-audit status-ledger SHA alignment. The governance summary now reports telemetry registry health, platform capability posture, stale artifact cleanup status, and status-ledger reconciliation health against observed repo authority. Current pre-commit remote HEAD was verified as 666e006cac001fe2ae798463ac57460e809ffb8c before this maintenance update.",
+  "last_verified_remote_sha": "37b2d2b4ed223ed1665bb174531e8c7cc25e590d",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0",
+  "current_product_phase": "TASK 0100 Final release go/no-go rehearsal completed with release evidence, red-team, governance, and canonical V5 validation",
+  "current_product_lane": "Periodic release-readiness rehearsal, maintained governance packet review, release evidence audit, red-team review, and canonical V5 build/test validation",
+  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 reran the final release go/no-go rehearsal against the maintained governance packet, status-ledger posture, final release evidence packet, red-team report, browser QA report, final acceptance record, and canonical V5 UI build/test surface. Release evidence regeneration was idempotent with changed_count=0 and verdict PASS_FINAL_LOCAL_RELEASE_REVIEW. Current pre-commit remote HEAD was verified as 37b2d2b4ed223ed1665bb174531e8c7cc25e590d before this rehearsal update.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -300,10 +300,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
-  "latest_accepted_task_result": "PASS_OPERATOR_GOVERNANCE_HEALTHY",
-  "latest_evidence_summary": "Post-release governance maintenance added status-ledger SHA alignment self-audit to the governance packet and verified telemetry registry health, platform capability posture, stale artifact cleanup status, and current repo authority at remote HEAD 666e006cac001fe2ae798463ac57460e809ffb8c. Safety check: substack_public_url_verified=false, dispatch_allowed_now=false, live_write_allowed_now=false, env_or_credential_read_performed=false, browser_or_cdp_action_performed=false, network_call_performed=false.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0: Run the next periodic release-readiness rehearsal against the maintained governance packet, status-ledger self-audit, evidence packet, red-team report, browser QA report, and canonical V5 build/test surface.",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0",
+  "latest_accepted_task_result": "PASS_FINAL_LOCAL_RELEASE_REVIEW",
+  "latest_evidence_summary": "Final release go/no-go rehearsal passed against maintained governance evidence, release packet, red-team report, browser QA report, final acceptance record, and canonical V5 build/test surface. Release writer changed_count=0; backend rehearsal/status tests passed 40/40; canonical V5 Vitest passed 184/184; canonical V5 production build passed. Safety check: substack_public_url_verified=false, dispatch_allowed_now=false, live_write_allowed_now=false, env_or_credential_read_performed=false, browser_or_cdp_action_performed=false, network_call_performed=false.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0: Continue periodic post-release governance maintenance, telemetry registry audit, platform capability checks, stale artifact review, and status-ledger alignment self-audit after the passed release rehearsal.",
   "mandatory_read_before_task": [
     "AGENTS.md",
     "docs/AI_BUILDER_BOOTSTRAP.md",
@@ -344,13 +344,10 @@
     "verify telegram bot token corresponds to the publisher bot and not the orchestrator bot",
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
-  "accepted_product_baseline_sha": "666e006cac001fe2ae798463ac57460e809ffb8c",
-  "last_status_commit_sha": "666e006cac001fe2ae798463ac57460e809ffb8c",
-  "sha_model": "last_verified_remote_sha records the pushed origin/master HEAD verified before TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 status reconciliation: 666e006cac001fe2ae798463ac57460e809ffb8c.",
+  "accepted_product_baseline_sha": "37b2d2b4ed223ed1665bb174531e8c7cc25e590d",
+  "last_status_commit_sha": "37b2d2b4ed223ed1665bb174531e8c7cc25e590d",
+  "sha_model": "last_verified_remote_sha records the pushed origin/master HEAD verified before TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 status update: 37b2d2b4ed223ed1665bb174531e8c7cc25e590d.",
   "latest_changed_areas": [
-    "live_contentops/v6_post_release_operator_governance.py",
-    "tests/test_v6_post_release_operator_governance.py",
-    "docs/automation/V6_POST_RELEASE_GOVERNANCE/operator_governance_summary.json",
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md"
@@ -492,7 +489,7 @@
     "secrets_recorded": false,
     "new_live_publish_claims": false
   },
-  "current_v6_loop_status": "V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, local approval-decision to outbox readiness reconciliation, Discord/Telegram local-only operator bridge status, manual/deferred distribution lane hardening for Facebook Page/Threads/Instagram/TikTok/Generic Manual, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, and the V5 Command Center Registry Readback panel. The canonical V5 Command Center now productizes Jim's source-to-audit operator flow from deterministic adapter output with stable packet/hash identifiers, the full platform universe, source-aware media candidate/chart rows, hash-bound operator decision rows, local outbox readiness reconciliation rows, Discord/Telegram redacted bridge rows, manual/deferred distribution rows, and manual audit rows. Media grounding remains source-aware: news topics use grounded image candidate metadata; Capital Chronicle internal alpha/report topics use built-in chart/card media when available. Post-release governance now includes status-ledger SHA alignment self-audit. This maintenance task recorded no browser/cdp/live/network/env/credential action.",
+  "current_v6_loop_status": "V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, local approval-decision to outbox readiness reconciliation, Discord/Telegram local-only operator bridge status, manual/deferred distribution lane hardening for Facebook Page/Threads/Instagram/TikTok/Generic Manual, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, and the V5 Command Center Registry Readback panel. The canonical V5 Command Center now productizes Jim's source-to-audit operator flow from deterministic adapter output with stable packet/hash identifiers, the full platform universe, source-aware media candidate/chart rows, hash-bound operator decision rows, local outbox readiness reconciliation rows, Discord/Telegram redacted bridge rows, manual/deferred distribution rows, and manual audit rows. Media grounding remains source-aware: news topics use grounded image candidate metadata; Capital Chronicle internal alpha/report topics use built-in chart/card media when available. Post-release governance includes status-ledger SHA alignment self-audit. The latest final release go/no-go rehearsal passed with idempotent release evidence regeneration and canonical V5 validation. This rehearsal recorded no browser/cdp/live/network/env/credential action.",
   "x_cdp_profile_guard_reusable_operator_command": {
     "task_label": "TASK_CONTENTOPS_V6_X_CDP_PROFILE_GUARD_REUSABLE_OPERATOR_COMMAND_V0",
     "result": "PASS_LOCAL_PRELIVE_PROFILE_GUARD_PROMOTION",
@@ -552,5 +549,5 @@
     "live_action_performed": false,
     "secret_or_session_read_performed": false
   },
-  "current_next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 — Run the next periodic release-readiness rehearsal against the maintained governance packet, status-ledger self-audit, evidence packet, red-team report, browser QA report, and canonical V5 build/test surface."
+  "current_next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 — Continue periodic post-release governance maintenance, telemetry registry audit, platform capability checks, stale artifact review, and status-ledger alignment self-audit after the passed release rehearsal."
 }
