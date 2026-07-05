@@ -10,7 +10,7 @@ fatcat2109/capital-chronicle-contentops
 master
 
 ## last_verified_remote_sha
-430e19aa90112811166a63c3b7dbe09916322caa
+729b6e205561a07010f3c5553e1644ce69527ec5
 
 ## current_product_phase
 TASK 0088 Facebook Page, Threads, and Instagram Graph/official API adapters integrated and verified under Fast Ship Mode
@@ -29,7 +29,7 @@ TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_META_FAMILY_V0 integrates and verifie
 ## status_sha_model
 - accepted product baseline (`accepted_product_baseline_sha`): `0c98a7b7563b745183d50651b15eb4846373138e`
 - previous accepted product baseline: `33f95383748187cbb9913b889d9e42f9d7c849eb`
-- latest status/promotion task (`last_status_commit_sha`): `f16fc241b5a68c95e205cc5f985d8cd4357ac580` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
+- latest status/promotion task (`last_status_commit_sha`): `729b6e205561a07010f3c5553e1644ce69527ec5` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
