@@ -21,9 +21,9 @@ Unified operator execution logs, active queues visualizer, live-dispatch evidenc
 TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0 completes the unified operator reporting console in ui/contentops_v5/src/views/V6CommandCenter.tsx. Provides real-time execution log filtering, active queues visualizer (Draft Staging, Approval Outbox, Scheduler, Manual Retry Backlog), live-dispatch evidence summaries across all 10 platform lanes (Meta, Discord, Telegram, Substack, X, TikTok, Manual), and interactive scheduler/dispatcher controls. All 184 frontend vitest cases and 33 focused pytest cases pass.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `d50ed45a4f03a7ee3e9ab4488b37ef6d37de9ba6`
+- accepted product baseline (`accepted_product_baseline_sha`): `9066ec474f225291f1f50cee8f48e68db8efa580`
 - previous accepted product baseline: `8324ab34b0065557370c4a437d0ba7bcd4c97db7`
-- latest status/promotion task (`last_status_commit_sha`): `d50ed45a4f03a7ee3e9ab4488b37ef6d37de9ba6` verified by local commit readback before final status-only metadata promotion.
+- latest status/promotion task (`last_status_commit_sha`): `9066ec474f225291f1f50cee8f48e68db8efa580` verified by `git ls-remote origin refs/heads/master` readback after commit/push.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
