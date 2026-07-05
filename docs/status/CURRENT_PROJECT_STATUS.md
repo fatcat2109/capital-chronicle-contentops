@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
+TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,22 +9,22 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-37b2d2b4ed223ed1665bb174531e8c7cc25e590d
+9ee82cfc5c8acb235e19724049d23399286fd7aa
 
 ## current_product_phase
-TASK 0100 Final release go/no-go rehearsal completed with release evidence, red-team, governance, and canonical V5 validation
+TASK 0101 Operator maintenance and post-release governance completed with telemetry, platform capability, stale artifact, and status-ledger audits
 
 ## current_product_lane
-Periodic release-readiness rehearsal, maintained governance packet review, release evidence audit, red-team review, and canonical V5 build/test validation
+Post-release governance maintenance, telemetry registry audit, platform capability health inspection, stale artifact review, and status-ledger SHA alignment self-audit
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 reran the final release go/no-go rehearsal against the maintained governance packet, status-ledger posture, final release evidence packet, red-team report, browser QA report, final acceptance record, and canonical V5 UI build/test surface. Release evidence regeneration was idempotent with changed_count=0 and verdict PASS_FINAL_LOCAL_RELEASE_REVIEW. Current pre-commit remote HEAD was verified as 37b2d2b4ed223ed1665bb174531e8c7cc25e590d before this rehearsal update. Safety check: substack_public_url_verified=false, dispatch_allowed_now=false, live_write_allowed_now=false, env_or_credential_read_performed=false, browser_or_cdp_action_performed=false, network_call_performed=false.
+TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 reran the maintained post-release governance packet against current repo authority. Telemetry registry audit remains clean with 158 entries, 82 successes, 76 expected provider/error outcomes, and zero corrupt entries; telemetry rotation was not required. Platform capability inspection still covers all 10 lanes with Instagram media-input gated and TikTok deferred. Stale artifact audit found no temp scratch files/directories to archive. Status-ledger reconciliation was performed after observing origin/master at 9ee82cfc5c8acb235e19724049d23399286fd7aa; accepted product baseline remains 37b2d2b4ed223ed1665bb174531e8c7cc25e590d.
 
 
 ## status_sha_model
 - accepted product baseline (`accepted_product_baseline_sha`): `37b2d2b4ed223ed1665bb174531e8c7cc25e590d`
 - previous accepted product baseline: `666e006cac001fe2ae798463ac57460e809ffb8c`
-- latest status/promotion task (`last_status_commit_sha`): `37b2d2b4ed223ed1665bb174531e8c7cc25e590d` verified by `git ls-remote origin refs/heads/master` readback before this rehearsal.
+- latest status/promotion task (`last_status_commit_sha`): `9ee82cfc5c8acb235e19724049d23399286fd7aa` verified by `git ls-remote origin refs/heads/master` readback before this maintenance update.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -71,7 +71,7 @@ Under Fast Ship Mode, `.env` and credential stores are accessible to authorize r
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
+TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
 
 ## latest changed areas
 - `docs/status/CURRENT_PROJECT_STATUS.md`
@@ -810,6 +810,18 @@ Read this status ledger and the JSON status file before planning. Under Fast Shi
 - Result: `PASS_UNIFIED_OPERATOR_REPORTING_CONSOLE_SUCCESS`.
 - Governance engine: [`v6_post_release_operator_governance.py`](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/live_contentops/v6_post_release_operator_governance.py) manages telemetry registry maintenance, platform capability health inspection across all 10 platform lanes, stale artifact archiving, and automated governance summary generation.
 - Focused verification: `python -m pytest tests/test_v6_post_release_operator_governance.py` -> `5 passed`.
+- Next task: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0`.
+
+
+## V6 Operator Maintenance and Post-Release Governance Refresh TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
+
+- Latest task: `TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0`.
+- Result: `PASS_OPERATOR_GOVERNANCE_HEALTHY` after status-ledger reconciliation.
+- Governance packet: [`operator_governance_summary.json`](file:///a:/Capital%20Chronicle/tools/cc-live-contentops/docs/automation/V6_POST_RELEASE_GOVERNANCE/operator_governance_summary.json) reports telemetry audit, platform capability inspection, stale artifact review, and status-ledger alignment for current repo authority.
+- Telemetry audit: 158 entries, 82 successes, 76 expected provider/error outcomes, 0 corrupt entries, rotation not required.
+- Platform capability audit: all 10 platform lanes present; Instagram remains media-input gated and TikTok remains deferred/manual fallback.
+- Cleanup posture: no stale temp scratch files/directories were found, so nothing was archived.
+- Safety: no browser/CDP action, public web retrieval, dispatch, publish, schedule, comment, DM, reaction, provider/API/live platform action, or raw secret commit was performed. Safety flags remained substack_public_url_verified=false, dispatch_allowed_now=false, live_write_allowed_now=false, env_or_credential_read_performed=false, browser_or_cdp_action_performed=false, network_call_performed=false. Git remote SHA readback was used for repo authority only.
 - Next task: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0`.
 
 ## V6 Final Release Go/No-Go Rehearsal TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0

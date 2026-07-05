@@ -7,7 +7,7 @@
     "status": "CLEAN"
   },
   "governance_status": "PASS_OPERATOR_GOVERNANCE_HEALTHY",
-  "packet_hash": "f0a46bf65ee4cc85c5309b2f55e2ccc8d317b295864e55e359ee3e09747b526a",
+  "packet_hash": "9889b754b8bf31f2abc4c253069c7325d6db6dcf3faeabaa22d01ab51f68807b",
   "packet_kind": "v6_operator_governance_summary_v0",
   "platform_capabilities": [
     {
@@ -74,12 +74,12 @@
   "schema_version": "6.0.0",
   "status_ledger_audit": {
     "issues": [],
-    "ledger_accepted_product_baseline_sha": "666e006cac001fe2ae798463ac57460e809ffb8c",
-    "ledger_last_status_commit_sha": "666e006cac001fe2ae798463ac57460e809ffb8c",
-    "ledger_last_verified_remote_sha": "666e006cac001fe2ae798463ac57460e809ffb8c",
+    "ledger_accepted_product_baseline_sha": "37b2d2b4ed223ed1665bb174531e8c7cc25e590d",
+    "ledger_last_status_commit_sha": "9ee82cfc5c8acb235e19724049d23399286fd7aa",
+    "ledger_last_verified_remote_sha": "9ee82cfc5c8acb235e19724049d23399286fd7aa",
     "ledger_latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
     "ledger_matches_observed_remote": true,
-    "observed_remote_sha": "666e006cac001fe2ae798463ac57460e809ffb8c",
+    "observed_remote_sha": "9ee82cfc5c8acb235e19724049d23399286fd7aa",
     "status": "PASS_STATUS_LEDGER_ALIGNED",
     "status_json_exists": true
   },
