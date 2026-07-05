@@ -1,9 +1,95 @@
+import { useState } from 'react';
 import { v6CommandCenter as p } from '../fixtures';
 import { LockedAction, Metric, Panel, StatusChip } from '../ui/primitives';
 import { IconShield } from '../ui/icons';
 
+interface LogEntry {
+  timestamp: string;
+  platform: string;
+  action: string;
+  status: 'SUCCESS' | 'FAILED' | 'RETRYING';
+  errorClass?: string;
+  latency: string;
+  payload: string;
+}
+
 export function V6CommandCenter() {
   const flow = p.final_operator_product_flow;
+
+  const [schedulerActive, setSchedulerActive] = useState(true);
+  const [reconciliationTicks, setReconciliationTicks] = useState(0);
+  const [selectedPlatform, setSelectedPlatform] = useState('facebook_page');
+  const [selectedOutcome, setSelectedOutcome] = useState('success');
+  const [logs, setLogs] = useState<LogEntry[]>([
+    {
+      timestamp: '2026-07-05T15:45:00Z',
+      platform: 'facebook_page',
+      action: 'post',
+      status: 'SUCCESS',
+      latency: '388ms',
+      payload: '{"message": "Scheduled Facebook post..."}',
+    },
+    {
+      timestamp: '2026-07-05T15:30:00Z',
+      platform: 'instagram',
+      action: 'post',
+      status: 'SUCCESS',
+      latency: '1396ms',
+      payload: '{"caption": "Weekly chart highlights..."}',
+    },
+    {
+      timestamp: '2026-07-05T15:15:00Z',
+      platform: 'threads',
+      action: 'post',
+      status: 'FAILED',
+      errorClass: 'unknown_provider_error',
+      latency: '2255ms',
+      payload: '{"text": "Threads update..."}',
+    },
+    {
+      timestamp: '2026-07-05T15:00:00Z',
+      platform: 'substack',
+      action: 'post',
+      status: 'SUCCESS',
+      latency: '890ms',
+      payload: '{"title": "Canonical Market Analysis"}',
+    }
+  ]);
+
+  const handleRunTick = () => {
+    setReconciliationTicks(prev => prev + 1);
+    const newLog: LogEntry = {
+      timestamp: new Date().toISOString(),
+      platform: 'instagram',
+      action: 'comment',
+      status: 'SUCCESS',
+      latency: '124ms',
+      payload: '{"message": "Mock active cron tick comments auto-responder"}',
+    };
+    setLogs(prev => [newLog, ...prev]);
+  };
+
+  const handleSimulateDispatch = () => {
+    const isSuccess = selectedOutcome === 'success';
+    const newLog: LogEntry = {
+      timestamp: new Date().toISOString(),
+      platform: selectedPlatform,
+      action: 'post',
+      status: isSuccess ? 'SUCCESS' : 'FAILED',
+      errorClass: isSuccess ? undefined : selectedOutcome,
+      latency: `${Math.floor(Math.random() * 800) + 150}ms`,
+      payload: `{"text": "Simulated post on ${selectedPlatform} with outcome: ${selectedOutcome}"}`,
+    };
+    setLogs(prev => [newLog, ...prev]);
+  };
+
+  const handleClearLogs = () => {
+    setLogs([]);
+  };
+
+  const handleToggleScheduler = () => {
+    setSchedulerActive(prev => !prev);
+  };
 
   return (
     <div className="space-y-6">
@@ -75,6 +161,188 @@ export function V6CommandCenter() {
           ))}
         </div>
       </Panel>
+
+      {/* Interactive Controls & Queues Visualizer */}
+      <div className="grid gap-6 lg:grid-cols-3">
+        <div className="space-y-6 lg:col-span-2">
+          {/* Dashboard Controls Panel */}
+          <Panel title="Dashboard Controls" subtitle="Manage scheduled reconciliation loops and simulate dispatches">
+            <div className="space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <span className={`inline-block h-2.5 w-2.5 rounded-full ${schedulerActive ? 'bg-status-verified animate-pulse' : 'bg-status-review'}`} />
+                  <span className="text-sm font-semibold text-fg">
+                    Scheduler: {schedulerActive ? 'Active' : 'Paused'}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  id="toggle-scheduler-btn"
+                  onClick={handleToggleScheduler}
+                  className={`rounded-md px-3 py-1.5 text-xs font-semibold border transition-colors ${
+                    schedulerActive
+                      ? 'border-status-review/30 bg-status-review/10 text-status-review hover:bg-status-review/20'
+                      : 'border-status-verified/30 bg-status-verified/10 text-status-verified hover:bg-status-verified/20'
+                  }`}
+                >
+                  {schedulerActive ? 'Pause Scheduler' : 'Resume Scheduler'}
+                </button>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3 border-t border-line pt-4">
+                <button
+                  type="button"
+                  id="run-tick-btn"
+                  onClick={handleRunTick}
+                  className="rounded-md border border-accent bg-accent px-4 py-2 text-xs font-semibold text-bg hover:bg-accent/95 transition-colors"
+                >
+                  Run Tick ({reconciliationTicks} executed)
+                </button>
+                <button
+                  type="button"
+                  id="clear-logs-btn"
+                  onClick={handleClearLogs}
+                  className="rounded-md border border-line bg-surface-2 px-3 py-2 text-xs font-semibold text-fg-muted hover:border-line-strong hover:text-fg transition-colors"
+                >
+                  Clear Logs
+                </button>
+              </div>
+
+              <div className="border-t border-line pt-4 space-y-3">
+                <div className="text-xs font-semibold text-fg-muted">Dispatch Simulator (Fast Ship Mock)</div>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-fg-subtle mb-1">Platform</label>
+                    <select
+                      id="sim-platform-select"
+                      value={selectedPlatform}
+                      onChange={(e) => setSelectedPlatform(e.target.value)}
+                      className="w-full rounded-md border border-line bg-surface-2 px-2 py-1.5 text-xs text-fg focus:border-accent"
+                    >
+                      <option value="facebook_page">Facebook Page</option>
+                      <option value="instagram">Instagram</option>
+                      <option value="threads">Threads</option>
+                      <option value="substack">Substack</option>
+                      <option value="x">X / Twitter</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold uppercase tracking-wider text-fg-subtle mb-1">Simulated Outcome</label>
+                    <select
+                      id="sim-outcome-select"
+                      value={selectedOutcome}
+                      onChange={(e) => setSelectedOutcome(e.target.value)}
+                      className="w-full rounded-md border border-line bg-surface-2 px-2 py-1.5 text-xs text-fg focus:border-accent"
+                    >
+                      <option value="success">Success (SUCCESS)</option>
+                      <option value="permission_missing">Permission Missing (permission_missing)</option>
+                      <option value="media_requirement_missing">Media Requirement Missing (media_requirement_missing)</option>
+                      <option value="unknown_provider_error">Unknown Provider Error (unknown_provider_error)</option>
+                    </select>
+                  </div>
+                  <div className="flex items-end">
+                    <button
+                      type="button"
+                      id="simulate-dispatch-btn"
+                      onClick={handleSimulateDispatch}
+                      className="w-full rounded-md border border-line bg-surface-2 px-3 py-2 text-xs font-semibold text-fg hover:border-line-strong hover:bg-surface-3 transition-colors"
+                    >
+                      Simulate Dispatch
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Panel>
+
+          {/* Active Queues Visualizer */}
+          <Panel title="Active Queues Visualizer" subtitle="Live tracking of pipeline buffers and pending outbox queues">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-lg border border-line bg-surface-2 p-3">
+                <div className="flex justify-between items-center text-xs font-semibold text-fg">
+                  <span>Draft Staging Queue</span>
+                  <span className="font-mono text-[10px] bg-status-verified/15 text-status-verified px-1.5 py-0.5 rounded-full">2 items</span>
+                </div>
+                <div className="mt-2 w-full bg-fg/10 rounded-full h-1">
+                  <div className="bg-status-verified h-full rounded-full" style={{ width: '100%' }} />
+                </div>
+                <p className="mt-1.5 text-[10px] text-fg-subtle font-mono">Status: Ready (Sync complete)</p>
+              </div>
+
+              <div className="rounded-lg border border-line bg-surface-2 p-3">
+                <div className="flex justify-between items-center text-xs font-semibold text-fg">
+                  <span>Approval Outbox Queue</span>
+                  <span className="font-mono text-[10px] bg-status-review/15 text-status-review px-1.5 py-0.5 rounded-full">3 items</span>
+                </div>
+                <div className="mt-2 w-full bg-fg/10 rounded-full h-1">
+                  <div className="bg-status-review h-full rounded-full" style={{ width: '66%' }} />
+                </div>
+                <p className="mt-1.5 text-[10px] text-fg-subtle font-mono">Status: Pending Operator Signature</p>
+              </div>
+
+              <div className="rounded-lg border border-line bg-surface-2 p-3">
+                <div className="flex justify-between items-center text-xs font-semibold text-fg">
+                  <span>Scheduler Queue</span>
+                  <span className="font-mono text-[10px] bg-status-review/15 text-status-review px-1.5 py-0.5 rounded-full">1 item</span>
+                </div>
+                <div className="mt-2 w-full bg-fg/10 rounded-full h-1">
+                  <div className="bg-status-review h-full rounded-full" style={{ width: '50%' }} />
+                </div>
+                <p className="mt-1.5 text-[10px] text-fg-subtle font-mono">Status: Awaiting Next Cron Slot</p>
+              </div>
+
+              <div className="rounded-lg border border-line bg-surface-2 p-3">
+                <div className="flex justify-between items-center text-xs font-semibold text-fg">
+                  <span>Manual Retry Backlog</span>
+                  <span className="font-mono text-[10px] bg-status-blocked/15 text-status-blocked px-1.5 py-0.5 rounded-full">1 item</span>
+                </div>
+                <div className="mt-2 w-full bg-fg/10 rounded-full h-1">
+                  <div className="bg-status-blocked h-full rounded-full" style={{ width: '10%' }} />
+                </div>
+                <p className="mt-1.5 text-[10px] text-fg-subtle font-mono">Status: Blocked (Rate limit or error)</p>
+              </div>
+            </div>
+          </Panel>
+        </div>
+
+        {/* Unified Operator Execution Logs Terminal */}
+        <Panel
+          title="Unified Execution Logs"
+          subtitle="Real-time telemetry and error classification stream"
+          className="flex flex-col h-full"
+          bodyClassName="p-0 flex-1 flex flex-col min-h-[350px] max-h-[460px] overflow-hidden"
+        >
+          <div className="flex-1 overflow-y-auto font-mono text-[11px] p-3 bg-surface-3 space-y-2.5">
+            {logs.length === 0 ? (
+              <div className="text-fg-subtle text-center py-8">No execution logs recorded.</div>
+            ) : (
+              logs.map((log, idx) => (
+                <div key={idx} className="border-b border-line pb-2 last:border-b-0">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-fg-subtle">{log.timestamp.split('T')[1]?.slice(0, 8) || log.timestamp}</span>
+                    <span className="font-bold text-fg">{log.platform}</span>
+                    <StatusChip status={log.status === 'SUCCESS' ? 'verified' : 'blocked'}>
+                      {log.status}
+                    </StatusChip>
+                  </div>
+                  <div className="mt-1 text-fg-muted flex justify-between">
+                    <span>action: {log.action}</span>
+                    <span>latency: {log.latency}</span>
+                  </div>
+                  {log.errorClass && (
+                    <div className="mt-1 text-status-blocked bg-status-blocked/10 px-1.5 py-0.5 rounded font-semibold">
+                      diagnostic: {log.errorClass}
+                    </div>
+                  )}
+                  <div className="mt-1 text-fg-subtle truncate max-w-full">
+                    payload: {log.payload}
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </Panel>
+      </div>
 
       <div className="grid gap-4 xl:grid-cols-2">
         <Panel title="News Image Candidate Lane" subtitle={flow.media_lane.news_policy}>

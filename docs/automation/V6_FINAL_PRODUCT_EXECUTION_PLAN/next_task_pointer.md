@@ -1,11 +1,12 @@
 # V6 Next Task Pointer
 
-Current task: `TASK_CONTENTOPS_V6_SCHEDULER_AND_CRON_RECONCILIATION_V0` — Implement localized cron schedules and publication outbox timing reconciliation loops for Fast Ship Mode.
+Current task: `TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0` — Implement unified operator execution logs, active queues visualizer, and dashboard controls in command center.
 
 Recommended next task:
 
 ```text
-TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0
+TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_SUBSTACK_AND_X_V0
 ```
 
-Purpose: Implement unified operator execution logs, active queues visualizer, and dashboard controls in command center.
+Purpose: Implement and execute fully automated Substack and X posting/commenting/editing using env credentials in live mode under Fast Ship Mode.
+

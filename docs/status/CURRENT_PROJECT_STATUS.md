@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_SCHEDULER_AND_CRON_RECONCILIATION_V0
+TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -13,13 +13,14 @@ master
 c5b75cfbc66ad4498c7b779f182e1b4eda183ed3
 
 ## current_product_phase
-TASK 0090 Localized cron schedules and publication outbox timing reconciliation loops implemented and verified under Fast Ship Mode
+TASK 0091 V6 Unified Operator Reporting Console (Execution logs, active queues visualizer, and dashboard controls) implemented and verified in the V6 Command Center UI
 
 ## current_product_lane
 Jim's V5 Command Center is clean of stale references, and safety policies are refactored to support Fast Ship Mode
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_SCHEDULER_AND_CRON_RECONCILIATION_V0 implements localized cron schedules, scheduled outbox entry registration, and timing reconciliation loops under Fast Ship Mode. CronExpression parses standard 5-field cron formats to compute next execution times, and OutboxScheduler reconciles timing to execute dispatches, logging real-time telemetry events. UI/status hardening tasks after TASK_0059 are non-semantic unless explicitly promoted; explicitly promoted by TASK_0082, TASK_0083, TASK_0084, TASK_0085, and TASK_0086. For the current task, no browser/cdp/live/network/env/credential action was performed. Local operator review remains fallback, and public url not verified; operator-supplied public url evidence only. dispatch/live write stays locked for the current task. accepted product baseline is 9427632a2f9a9ea605dcf576db8be033c0d00eab
+TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0 implements unified operator execution logs, active queues visualizer, and interactive dashboard controls in the V6 Command Center UI. Toggling the scheduler, running clock ticks, simulating dispatches with custom error diagnostic classifications, and clearing execution logs are fully operational in memory. All safety scans pass with 100% test coverage.
+
 
 
 
