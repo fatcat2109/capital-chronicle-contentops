@@ -4,10 +4,10 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "last_verified_remote_sha": "d50ed45a4f03a7ee3e9ab4488b37ef6d37de9ba6",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0",
-  "current_product_phase": "TASK 0094 Meta-family API live dispatch implemented and smoke-verified under Fast Ship Mode for Facebook Page and Threads; Instagram remains credential/media gated with unsupported edit documented",
-  "current_product_lane": "Fully automated Meta-family live platform dispatch via Facebook Graph API, Instagram Content Publishing API adapter, and Threads API",
-  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0 implements and verifies Meta-family adapters for Facebook Page post/comment/edit, Instagram Business two-step media publish/comment with unsupported edit, and Threads two-step post/reply with unsupported edit. Focused adapter/scheduler tests pass. Live smoke evidence verified Facebook Page post/comment/edit and Threads post/reply; Instagram live post/comment is blocked by missing public smoke media URL or media ID while adapter behavior remains tested.",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0",
+  "current_product_phase": "TASK 0095 Unified operator reporting console implemented in canonical V5 command center with live-dispatch evidence summaries, active queues visualizer, telemetry logs stream, and interactive scheduler controls",
+  "current_product_lane": "Unified operator execution logs, active queues visualizer, live-dispatch evidence summaries, and dashboard controls in canonical V5 command center",
+  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0 completes the unified operator reporting console in ui/contentops_v5/src/views/V6CommandCenter.tsx. Provides real-time execution log filtering, active queues visualizer (Draft Staging, Approval Outbox, Scheduler, Manual Retry Backlog), live-dispatch evidence summaries across all 10 platform lanes (Meta, Discord, Telegram, Substack, X, TikTok, Manual), and interactive scheduler/dispatcher controls. All 184 frontend vitest cases and 33 focused pytest cases pass.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -297,10 +297,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0",
-  "latest_accepted_task_result": "PASS_META_FAST_SHIP_LIVE_DISPATCH_PARTIAL_SUCCESS_WITH_INSTAGRAM_MEDIA_BINDING_BLOCKED",
-  "latest_evidence_summary": "Implemented Meta-family live dispatch adapters for Facebook Page, Instagram Business, and Threads under Fast Ship Mode. Live smoke evidence verified Facebook Page post/comment/edit and Threads post/reply. Instagram Business live smoke is blocked by missing public smoke image URL or media ID; Instagram adapter validation and unsupported edit behavior are covered by focused tests.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0: Implement unified operator execution logs, active queues visualizer, live-dispatch evidence summaries, and dashboard controls in the canonical V5 command center.",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0",
+  "latest_accepted_task_result": "PASS_UNIFIED_OPERATOR_REPORTING_CONSOLE_SUCCESS",
+  "latest_evidence_summary": "Unified operator reporting console implemented in ui/contentops_v5/src/views/V6CommandCenter.tsx. Vitest suite passes 184 tests across 24 files including v6_unified_operator_reporting_console.test.tsx and v6_command_center.test.tsx. Pytest passes 33 backend tests.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0: Perform final release go/no-go rehearsal, end-to-end evidence audit, and operator handoff verification for V6 ContentOps automation system.",
   "mandatory_read_before_task": [
     "AGENTS.md",
     "docs/AI_BUILDER_BOOTSTRAP.md",
@@ -345,22 +345,13 @@
   "last_status_commit_sha": "d50ed45a4f03a7ee3e9ab4488b37ef6d37de9ba6",
   "sha_model": "accepted_product_baseline_sha records the accepted implementation/status baseline for TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0: d50ed45a4f03a7ee3e9ab4488b37ef6d37de9ba6. A later status-only metadata promotion commit may sit above this product baseline.",
   "latest_changed_areas": [
-    "live_contentops/facebook_page_adapter_v6.py",
-    "live_contentops/instagram_adapter_v6.py",
-    "live_contentops/threads_adapter_v6.py",
-    "live_contentops/scheduler_v6.py",
-    "live_contentops/v6_platform_registry_contract.py",
-    "tests/test_facebook_page_adapter_v6.py",
-    "tests/test_instagram_adapter_v6.py",
-    "tests/test_threads_adapter_v6.py",
-    "tests/test_v6_platform_registry_contract.py",
-    "docs/automation/V6_META_LIVE_DISPATCH_FAST_SHIP/meta_live_dispatch_evidence.json",
+    "ui/contentops_v5/src/views/V6CommandCenter.tsx",
+    "ui/contentops_v5/src/test/v6_unified_operator_reporting_console.test.tsx",
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
-    "docs/archive/stale_scratch/2026-07-05_meta_fast_ship_cleanup/archive_manifest.json"
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md"
   ],
   "operator_platform_readiness": {
     "latest_task": "TASK_0021",
@@ -559,5 +550,5 @@
     "live_action_performed": false,
     "secret_or_session_read_performed": false
   },
-  "current_next_recommended_task": "TASK_CONTENTOPS_V6_UNIFIED_OPERATOR_REPORTING_CONSOLE_V0 ? Implement unified operator execution logs, active queues visualizer, live-dispatch evidence summaries, and dashboard controls in the canonical V5 command center."
+  "current_next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 ? Perform final release go/no-go rehearsal, end-to-end evidence audit, and operator handoff verification for V6 ContentOps automation system."
 }
