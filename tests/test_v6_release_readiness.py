@@ -71,3 +71,24 @@ def test_write_final_release_evidence_is_idempotent(tmp_path, monkeypatch):
     assert before == after
     assert second["write_summary"]["changed_count"] == 0
     assert all(item["changed"] is False for item in second["write_summary"]["files"])
+
+
+def test_verify_release_readiness_with_missing_document(tmp_path, monkeypatch):
+    import live_contentops.v6_release_readiness as mod
+    monkeypatch.setattr(mod, "OUT_DIR", tmp_path)
+    monkeypatch.setattr(mod, "FINAL_PACKET_PATH", tmp_path / "final_release_evidence_packet.json")
+    monkeypatch.setattr(mod, "RED_TEAM_REPORT_PATH", tmp_path / "red_team_report.md")
+    monkeypatch.setattr(mod, "BROWSER_QA_REPORT_PATH", tmp_path / "browser_qa_report.md")
+    monkeypatch.setattr(mod, "ACCEPTANCE_RECORD_PATH", tmp_path / "final_acceptance_record.md")
+
+    # Initial write of all files
+    write_final_release_evidence()
+
+    # Remove one file (e.g., red_team_report.md)
+    (tmp_path / "red_team_report.md").unlink()
+
+    # Run again and assert only that file was regenerated
+    packet = write_final_release_evidence()
+    assert packet["write_summary"]["changed_count"] == 1
+    assert any(item["path"].endswith("red_team_report.md") and item["changed"] is True for item in packet["write_summary"]["files"])
+    assert all(item["changed"] is False for item in packet["write_summary"]["files"] if not item["path"].endswith("red_team_report.md"))
