@@ -1,11 +1,11 @@
 # V6 Next Task Pointer
 
-Current task: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0` — Final release go/no-go rehearsal, end-to-end evidence audit, and operator handoff verification completed with PASS_FINAL_LOCAL_RELEASE_REVIEW.
+Current task: `TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0` — Post-release operator governance maintenance completed with telemetry/capability health evidence, stale artifact review, and status-ledger SHA alignment self-audit.
 
 Recommended next task:
 
 ```text
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 ```
 
-Purpose: Continue ongoing post-release governance, telemetry registry audit, capability checks, stale artifact review, and periodic release-readiness rehearsal support.
+Purpose: Run the next periodic release-readiness rehearsal against the maintained governance packet, status-ledger self-audit, evidence packet, red-team report, browser QA report, and canonical V5 build/test surface.

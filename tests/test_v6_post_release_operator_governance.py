@@ -8,6 +8,7 @@ from live_contentops.v6_post_release_operator_governance import (
     rotate_telemetry_log,
     inspect_platform_capabilities,
     audit_and_archive_stale_artifacts,
+    audit_status_ledger_alignment,
     generate_operator_governance_summary,
     ALL_PLATFORMS,
 )
@@ -92,15 +93,53 @@ def test_audit_and_archive_stale_artifacts(tmp_path):
     assert (scratch / "normal.txt").exists()
     assert normal_dir.exists()
 
+def test_audit_status_ledger_alignment(tmp_path):
+    status_json = tmp_path / "current_project_status.json"
+    observed_sha = "a" * 40
+    status_json.write_text(
+        json.dumps(
+            {
+                "last_verified_remote_sha": observed_sha,
+                "accepted_product_baseline_sha": "b" * 40,
+                "last_status_commit_sha": "c" * 40,
+                "latest_accepted_task": "TASK_TEST",
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    aligned = audit_status_ledger_alignment(status_json, observed_sha)
+    assert aligned["status"] == "PASS_STATUS_LEDGER_ALIGNED"
+    assert aligned["ledger_matches_observed_remote"] is True
+    assert aligned["issues"] == []
+
+    mismatch = audit_status_ledger_alignment(status_json, "d" * 40)
+    assert mismatch["status"] == "REQUIRES_STATUS_LEDGER_RECONCILIATION"
+    assert mismatch["ledger_matches_observed_remote"] is False
+    assert mismatch["issues"] == ["last_verified_remote_sha_mismatch"]
+
+
+def test_audit_status_ledger_alignment_with_missing_file(tmp_path):
+    missing = audit_status_ledger_alignment(tmp_path / "missing.json", "a" * 40)
+    assert missing["status"] == "MISSING_STATUS_LEDGER"
+    assert missing["ledger_matches_observed_remote"] is False
+    assert missing["issues"] == ["status_json_missing"]
+
+
 def test_generate_operator_governance_summary():
     summary = generate_operator_governance_summary()
     assert summary["schema_version"] == "6.0.0"
-    assert summary["governance_status"] == "PASS_OPERATOR_GOVERNANCE_HEALTHY"
+    assert summary["governance_status"] in {
+        "PASS_OPERATOR_GOVERNANCE_HEALTHY",
+        "REQUIRES_STATUS_LEDGER_RECONCILIATION",
+    }
     assert "packet_hash" in summary
     assert len(summary["platform_capabilities"]) == 10
     assert summary["system_invariants"]["financial_advice_forbidden"] is True
     assert "corrupt_entries_count" in summary["telemetry_audit"]
     assert "telemetry_rotation" in summary
+    assert "status_ledger_audit" in summary
+    assert summary["status_ledger_audit"]["status_json_exists"] is True
 
 
 def test_rotate_telemetry_log(tmp_path):

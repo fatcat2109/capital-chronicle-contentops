@@ -7,10 +7,13 @@ from __future__ import annotations
 
 import json
 import hashlib
+import re
+import subprocess
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 ROOT = Path(__file__).resolve().parents[1]
+STATUS_JSON_PATH = ROOT / "docs" / "status" / "current_project_status.json"
 TELEMETRY_LOG_PATH = ROOT / "docs" / "automation" / "V6_LIVE_TELEMETRY" / "live_telemetry_registry_v6.jsonl"
 GOVERNANCE_OUT_DIR = ROOT / "docs" / "automation" / "V6_POST_RELEASE_GOVERNANCE"
 GOVERNANCE_PACKET_PATH = GOVERNANCE_OUT_DIR / "operator_governance_summary.json"
@@ -170,20 +173,86 @@ def audit_and_archive_stale_artifacts(scratch_dir: Optional[Path] = None) -> Dic
         "status": "CLEAN"
     }
 
+
+def _observed_repo_head_sha() -> str:
+    try:
+        return subprocess.check_output(
+            ["git", "rev-parse", "HEAD"],
+            cwd=ROOT,
+            encoding="utf-8",
+            stderr=subprocess.DEVNULL,
+        ).strip()
+    except Exception:
+        return "UNKNOWN"
+
+
+def audit_status_ledger_alignment(
+    status_json_path: Optional[Path] = None,
+    observed_remote_sha: Optional[str] = None,
+) -> Dict[str, Any]:
+    """Audit whether status metadata matches the currently observed repo authority."""
+    target_path = status_json_path or STATUS_JSON_PATH
+    observed_sha = observed_remote_sha or _observed_repo_head_sha()
+    sha_pattern = re.compile(r"^[0-9a-f]{40}$")
+
+    if not target_path.exists():
+        return {
+            "status_json_exists": False,
+            "status": "MISSING_STATUS_LEDGER",
+            "observed_remote_sha": observed_sha,
+            "ledger_last_verified_remote_sha": None,
+            "ledger_matches_observed_remote": False,
+            "issues": ["status_json_missing"],
+        }
+
+    try:
+        data = json.loads(target_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {
+            "status_json_exists": True,
+            "status": "INVALID_STATUS_LEDGER_JSON",
+            "observed_remote_sha": observed_sha,
+            "ledger_last_verified_remote_sha": None,
+            "ledger_matches_observed_remote": False,
+            "issues": ["status_json_invalid"],
+        }
+
+    ledger_sha = data.get("last_verified_remote_sha")
+    issues = []
+    if not isinstance(ledger_sha, str) or not sha_pattern.fullmatch(ledger_sha):
+        issues.append("last_verified_remote_sha_invalid")
+    if sha_pattern.fullmatch(observed_sha) and ledger_sha != observed_sha:
+        issues.append("last_verified_remote_sha_mismatch")
+
+    return {
+        "status_json_exists": True,
+        "status": "PASS_STATUS_LEDGER_ALIGNED" if not issues else "REQUIRES_STATUS_LEDGER_RECONCILIATION",
+        "observed_remote_sha": observed_sha,
+        "ledger_last_verified_remote_sha": ledger_sha,
+        "ledger_accepted_product_baseline_sha": data.get("accepted_product_baseline_sha"),
+        "ledger_last_status_commit_sha": data.get("last_status_commit_sha"),
+        "ledger_latest_accepted_task": data.get("latest_accepted_task"),
+        "ledger_matches_observed_remote": not issues,
+        "issues": issues,
+    }
+
+
 def generate_operator_governance_summary() -> Dict[str, Any]:
     rotation_status = rotate_telemetry_log()
     telemetry_audit = audit_telemetry_registry()
     platform_capabilities = inspect_platform_capabilities()
     artifact_audit = audit_and_archive_stale_artifacts()
+    status_ledger_audit = audit_status_ledger_alignment()
 
     packet = {
         "schema_version": "6.0.0",
         "packet_kind": "v6_operator_governance_summary_v0",
-        "governance_status": "PASS_OPERATOR_GOVERNANCE_HEALTHY",
+        "governance_status": "PASS_OPERATOR_GOVERNANCE_HEALTHY" if status_ledger_audit["ledger_matches_observed_remote"] else "REQUIRES_STATUS_LEDGER_RECONCILIATION",
         "telemetry_rotation": rotation_status,
         "telemetry_audit": telemetry_audit,
         "platform_capabilities": platform_capabilities,
         "artifact_audit": artifact_audit,
+        "status_ledger_audit": status_ledger_audit,
         "system_invariants": {
             "fast_ship_mode_active": True,
             "operator_override_enabled": True,

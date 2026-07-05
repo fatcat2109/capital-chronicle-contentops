@@ -7,7 +7,7 @@
     "status": "CLEAN"
   },
   "governance_status": "PASS_OPERATOR_GOVERNANCE_HEALTHY",
-  "packet_hash": "56523e8a90c2fa7c1e9e534c79117cef6caade8bd912ae7c471c00c9358d353c",
+  "packet_hash": "f0a46bf65ee4cc85c5309b2f55e2ccc8d317b295864e55e359ee3e09747b526a",
   "packet_kind": "v6_operator_governance_summary_v0",
   "platform_capabilities": [
     {
@@ -72,6 +72,17 @@
     }
   ],
   "schema_version": "6.0.0",
+  "status_ledger_audit": {
+    "issues": [],
+    "ledger_accepted_product_baseline_sha": "666e006cac001fe2ae798463ac57460e809ffb8c",
+    "ledger_last_status_commit_sha": "666e006cac001fe2ae798463ac57460e809ffb8c",
+    "ledger_last_verified_remote_sha": "666e006cac001fe2ae798463ac57460e809ffb8c",
+    "ledger_latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
+    "ledger_matches_observed_remote": true,
+    "observed_remote_sha": "666e006cac001fe2ae798463ac57460e809ffb8c",
+    "status": "PASS_STATUS_LEDGER_ALIGNED",
+    "status_json_exists": true
+  },
   "system_invariants": {
     "deterministic_hash_bound": true,
     "fast_ship_mode_active": true,

@@ -41,11 +41,11 @@ def test_status_last_updated_and_accepted_task_are_consistent_after_metadata_rep
     status = _read_json(STATUS_JSON)
     md_text = STATUS_MD.read_text(encoding="utf-8")
 
-    assert status["last_updated_by_task"] == "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0"
-    assert "## last_updated_by_task\nTASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0" in md_text
-    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0"
-    assert status["current_product_phase"] == "TASK 0098 Final release go/no-go rehearsal completed with PASS_FINAL_LOCAL_RELEASE_REVIEW and post-release governance loop ready"
-    assert "## latest accepted task\nTASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0" in md_text
+    assert status["last_updated_by_task"] == "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0"
+    assert "## last_updated_by_task\nTASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0" in md_text
+    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0"
+    assert status["current_product_phase"] == "TASK 0099 Post-release operator governance maintenance completed with status-ledger self-audit and telemetry/capability health evidence"
+    assert "## latest accepted task\nTASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0" in md_text
     assert status["last_updated_by_task"] == status["latest_accepted_task"]
 
 
@@ -105,12 +105,12 @@ def test_ui_status_hardening_after_task_0059_is_non_semantic():
         "explicitly promoted by task_0082, task_0083, task_0084, task_0085, and task_0086"
     )
 
-    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0"
-    assert status["current_product_phase"] == "TASK 0098 Final release go/no-go rehearsal completed with PASS_FINAL_LOCAL_RELEASE_REVIEW and post-release governance loop ready"
-    assert status["last_updated_by_task"] == "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0"
+    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0"
+    assert status["current_product_phase"] == "TASK 0099 Post-release operator governance maintenance completed with status-ledger self-audit and telemetry/capability health evidence"
+    assert status["last_updated_by_task"] == "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0"
     assert status["last_updated_by_task"] == status["latest_accepted_task"]
-    assert guardrail in status_text or "fast ship" in status_text or "final release go/no-go rehearsal" in status_text
-    assert guardrail in md_text or "task_0069 status acknowledges accepted v5 final readiness ui hardening" in md_text or "final release go/no-go rehearsal" in md_text
+    assert guardrail in status_text or "fast ship" in status_text or "post-release governance maintenance" in status_text
+    assert guardrail in md_text or "task_0069 status acknowledges accepted v5 final readiness ui hardening" in md_text or "post-release governance maintenance" in md_text
 
     forbidden_fragments = [
         "task_0060 public url verified",
@@ -178,8 +178,8 @@ def test_status_never_calls_v5_final_readiness_dispatch_or_publish_ready():
         or "dispatch/live write stays locked" in combined
         or "fast ship mode" in combined
     )
-    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0"
-    assert status["current_product_phase"] == "TASK 0098 Final release go/no-go rehearsal completed with PASS_FINAL_LOCAL_RELEASE_REVIEW and post-release governance loop ready"
+    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0"
+    assert status["current_product_phase"] == "TASK 0099 Post-release operator governance maintenance completed with status-ledger self-audit and telemetry/capability health evidence"
 
 
 def test_final_readiness_public_url_audit_remains_operator_supplied_only():
@@ -250,7 +250,7 @@ def test_final_readiness_hardening_tasks_do_not_imply_network_or_api_activity():
     assert (
         "ui/status hardening tasks after task_0059 are non-semantic unless explicitly promoted; explicitly promoted by task_0082, task_0083, task_0084, task_0085, and task_0086" in combined
         or "task_0069 status acknowledges accepted v5 final readiness ui hardening" in combined
-        or "final release go/no-go rehearsal" in combined
+        or "post-release governance maintenance" in combined
     )
 
     forbidden_network_claims = [
@@ -305,7 +305,7 @@ def test_final_readiness_hardening_tasks_do_not_imply_env_or_credential_access()
     assert (
         "ui/status hardening tasks after task_0059 are non-semantic unless explicitly promoted; explicitly promoted by task_0082, task_0083, task_0084, task_0085, and task_0086" in combined
         or "task_0069 status acknowledges accepted v5 final readiness ui hardening" in combined
-        or "final release go/no-go rehearsal" in combined
+        or "post-release governance maintenance" in combined
     )
 
     forbidden_env_claims = [
@@ -373,7 +373,7 @@ def test_final_readiness_hardening_tasks_do_not_imply_browser_or_cdp_activity():
     assert (
         "ui/status hardening tasks after task_0059 are non-semantic unless explicitly promoted; explicitly promoted by task_0082, task_0083, task_0084, task_0085, and task_0086" in combined
         or "task_0069 status acknowledges accepted v5 final readiness ui hardening" in combined
-        or "final release go/no-go rehearsal" in combined
+        or "post-release governance maintenance" in combined
     )
 
     forbidden_browser_claims = [
@@ -445,7 +445,7 @@ def test_final_readiness_hardening_tasks_do_not_imply_live_or_platform_action():
     assert (
         "ui/status hardening tasks after task_0059 are non-semantic unless explicitly promoted; explicitly promoted by task_0082, task_0083, task_0084, task_0085, and task_0086" in combined
         or "task_0069 status acknowledges accepted v5 final readiness ui hardening" in combined
-        or "final release go/no-go rehearsal" in combined
+        or "post-release governance maintenance" in combined
     )
 
     forbidden_live_claims = [
