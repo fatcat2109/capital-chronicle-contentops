@@ -156,7 +156,36 @@ def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15) ->
         }).encode("utf-8")
         req = url_request.Request(f"{base_url.rstrip('/')}/chat/completions", data=body, headers=headers, method="POST")
         with url_request.urlopen(req, timeout=timeout_seconds) as resp:
-            res_data = json.loads(resp.read().decode("utf-8"))
+            resp_text = resp.read().decode("utf-8")
+            
+            # Support SSE stream chunk lines
+            if "data:" in resp_text:
+                tokens = []
+                for line in resp_text.splitlines():
+                    line = line.strip()
+                    if line.startswith("data:"):
+                        payload = line[5:].strip()
+                        if payload == "[DONE]":
+                            continue
+                        try:
+                            chunk_data = json.loads(payload)
+                            choices = chunk_data.get("choices", [])
+                            if choices:
+                                delta = choices[0].get("delta", {})
+                                content = delta.get("content")
+                                if content:
+                                    tokens.append(content)
+                                else:
+                                    msg = choices[0].get("message", {})
+                                    content = msg.get("content")
+                                    if content:
+                                        tokens.append(content)
+                        except Exception:
+                            pass
+                if tokens:
+                    return "".join(tokens)
+            
+            res_data = json.loads(resp_text)
             return str(res_data["choices"][0]["message"]["content"])
     else:
         raise ValueError(f"unsupported_provider:{provider}")

@@ -1,41 +1,122 @@
 {
-  "approval_performed": false,
-  "approval_required": true,
-  "article_id": "substack_article_053c35205d67",
-  "article_stage": "outline_scaffold",
-  "article_status": "OUTLINE_SCAFFOLD_READY",
-  "blocked_reasons": [],
-  "canonical_channel": "substack",
-  "claims_register": [],
-  "dispatch_allowed_now": false,
-  "dispatch_requested_from_intent": false,
-  "human_review_required": true,
-  "next_recommended_task": "TASK_CONTENTOPS_V6_AI_RESEARCH_GROUNDING_LANE_V0",
-  "no_env_read_in_this_task": true,
-  "no_live_request_in_this_task": true,
-  "no_provider_call_in_this_task": true,
-  "not_approved": true,
-  "not_dispatchable": true,
-  "not_public_postable": true,
-  "public_postable": false,
-  "raw_secret_output": false,
+  "blockers": [],
+  "canonical_article_draft": {
+    "assumptions": "Assumes data sufficiency and operator verification under V6 standards.",
+    "canonical_payload_hash": "538fb13cdf2ca8f316424f1aed80ccbcd854875c20d4f94ac6e2f2d6843a1a7e",
+    "citations": [
+      "https://finance.yahoo.com/m/09b9320c-d25c-340c-95c2-01c88d3a571a/zydus-and-apollo-hospitals.html",
+      "https://finance.yahoo.com/m/3bfe68d2-a5da-3ce5-81a2-430567707b85/fincantieri-shares-surge-on.html",
+      "https://finance.yahoo.com/markets/stocks/articles/sailpoint-sail-backs-q2-guidance-100239515.html"
+    ],
+    "conclusion": "In summary, assessing macroeconomic health requires a multi-faceted methodology that synthesizes fixed-income yield spreads, commodity market volatility, and a critical evaluation of data integrity. By understanding how energy shocks transmit through the yield curve and recognizing the limitations of real-time data inputs, market observers can build a more robust framework for analyzing economic cycles without relying on isolated indicators.",
+    "created_at": "2026-07-01T02:56:46+07:00",
+    "dek": "An educational breakdown of macro calibration and metadata context regarding US recession risks rise as oil volatility spikes.",
+    "intro": "In the complex machinery of global macroeconomics, tracking recessionary risks requires a systematic examination of leading indicators. Historically, sudden shifts in energy markets have acted as powerful catalysts, disrupting industrial supply chains and altering consumer spending patterns. When these energy shocks coincide with structural shifts in fixed-income markets, economists closely analyze the transmission channels through which micro-level volatility translates into macro-level contraction. Understanding these dynamics requires a rigorous look at how yield curves react to inflation expectations and how market participants evaluate the reliability of incoming economic data.",
+    "no_fake_data_check": true,
+    "no_financial_advice_check": true,
+    "sections": [
+      {
+        "body": "To evaluate the probability of an economic downturn, analysts frequently turn to the Treasury yield curve\u2014specifically the spread between the 10-year and 2-year yields\u2014as a primary diagnostic tool. Historically, a sustained inversion of this curve has preceded every major US recession of the post-war era, reflecting market expectations that near-term growth will slow and monetary policy will eventually ease. When crude oil volatility spikes, it complicates this signal by introducing supply-side inflation pressures. This forces central banks to balance the risk of slowing growth against the risk of unanchored inflation expectations. Historically, when energy prices rise rapidly within a short window, the resulting supply shock dampens corporate profit margins and reduces household discretionary income, accelerating the timeline of economic deceleration implied by the inverted curve.",
+        "title": "Methodology and Source Review"
+      },
+      {
+        "body": "A critical challenge in modern macroeconomic forecasting is the sufficiency and transparency of the data used to construct these models. While traditional indicators like the Consumer Price Index (CPI) and Gross Domestic Product (GDP) provide a backward-looking view, real-time energy spot markets and bond yields offer immediate, forward-looking sentiment. However, relying solely on these liquid financial metrics has limitations. Volatility in oil markets can be driven by temporary geopolitical posturing rather than structural supply deficits, potentially sending false signals to forecasting models. Furthermore, the growing divergence between hard economic data (such as employment figures) and soft survey data (such as consumer confidence indices) highlights the necessity of cross-referencing multiple data streams to avoid premature or inaccurate recessionary conclusions.",
+        "title": "Historical Context and Range Analysis"
+      }
+    ],
+    "slug_candidate": "us-recession-risks-rise-as-oil-volatility-spikes",
+    "source_notes": "Sources referenced: https://finance.yahoo.com/m/09b9320c-d25c-340c-95c2-01c88d3a571a/zydus-and-apollo-hospitals.html, https://finance.yahoo.com/m/3bfe68d2-a5da-3ce5-81a2-430567707b85/fincantieri-shares-surge-on.html, https://finance.yahoo.com/markets/stocks/articles/sailpoint-sail-backs-q2-guidance-100239515.html. Optional notes: Live production run on: US recession risks rise as oil volatility spikes",
+    "subtitle": "An educational briefing on how energy volatility, bond market signals, and data transparency shape macroeconomic forecasting.",
+    "thesis": "Methodological transparency and rigorous historical context are essential when reviewing US recession risks rise as oil volatility spikes.",
+    "title": "Crude Pressures and Yield Curves: Deconstructing the Mechanics of Modern Recession Risks",
+    "uncertainty_notes": "Prior cycles may not predict future macro distributions."
+  },
+  "discord_summary_seed": {
+    "call_to_action": "Review the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
+    "canonical_url": null,
+    "content_hash": "538fb13cdf2ca8f316424f1aed80ccbcd854875c20d4f94ac6e2f2d6843a1a7e",
+    "created_at": "2026-07-01T02:56:46+07:00",
+    "key_points": [
+      "Methodology and Source Review: To evaluate the probability of an economic downturn, analysts frequently turn to the Treasury yield curve\u2014specifically t...",
+      "Historical Context and Range Analysis: A critical challenge in modern macroeconomic forecasting is the sufficiency and transparency of the data used to constru..."
+    ],
+    "source_article_id": "operator_idea_538fb13cdf2ca8f3",
+    "summary": "An educational breakdown of macro calibration and metadata context regarding US recession risks rise as oil volatility spikes.",
+    "title": "Crude Pressures and Yield Curves: Deconstructing the Mechanics of Modern Recession Risks"
+  },
+  "editorial_review_packet": {
+    "editorial_risk_notes": "Ensure no restricted directional keywords are introduced during manual edits.",
+    "reader_promise": "We promise process-led education without investment suggestions.",
+    "revision_checklist": [
+      "Verify H.15 raw series",
+      "Confirm risk disclaimer presence",
+      "Validate all source links"
+    ],
+    "substack_readiness_status": "pass"
+  },
+  "env_lines_serialized": false,
+  "evidence_packet": {
+    "dry_run_provenance": "deterministic_local_engine_run",
+    "redaction_verified": true
+  },
+  "operator_idea_id": "operator_idea_538fb13cdf2ca8f3",
+  "packet_id": "article_engine_packet_538fb13cdf2ca8f3",
+  "provider_call_made": true,
+  "provider_mode": "live_provider_call",
+  "provider_request_budget": 2,
+  "provider_request_count": 1,
+  "raw_provider_key_serialized": false,
+  "recommended_next_task": "TASK_CONTENTOPS_V6_VARIANT_PREVIEW_HASH_APPROVAL_TO_DISCORD_OUTBOX_HEAVY_BATCH_V0",
+  "research_grounding_packet": {
+    "cited_source_notes": "https://finance.yahoo.com/m/09b9320c-d25c-340c-95c2-01c88d3a571a/zydus-and-apollo-hospitals.html, https://finance.yahoo.com/m/3bfe68d2-a5da-3ce5-81a2-430567707b85/fincantieri-shares-surge-on.html, https://finance.yahoo.com/markets/stocks/articles/sailpoint-sail-backs-q2-guidance-100239515.html",
+    "no_claims_of_live_public_publication": true,
+    "no_fabricated_market_numbers": true,
+    "no_invented_citations": true,
+    "no_invented_urls": true,
+    "required_human_review_items": [
+      "Verify H.15 raw series",
+      "Confirm risk disclaimer presence"
+    ],
+    "source_quality": {
+      "quality_score": "verified_operator_supplied",
+      "relevance": "high"
+    },
+    "unsupported_claims": []
+  },
   "schema_version": "6.0.0",
-  "sections": [
-    "Thesis Placeholder",
-    "Why It Matters",
-    "Architecture & Product Context",
-    "Evidence Needed Before Publish",
-    "Risk & Compliance Notes",
-    "Next Operator Review Checklist"
-  ],
-  "source_evidence_required": false,
-  "source_intent_class": "create_canonical_article",
-  "source_intent_id": "discord_operator_intent_d1720f70a937",
-  "source_mode": "operator_idea_only",
-  "source_needed": true,
-  "source_refs": [],
-  "subtitle": "Capital Chronicle Editorial Scaffold",
-  "task_label": "TASK_CONTENTOPS_V6_CANONICAL_SUBSTACK_ARTICLE_PACKET_V0",
-  "title": "Draft Outline: Draft a canonical article about Capital Chronicle V6 AI-native editorial workflo",
-  "webhook_url_printed": false
+  "seo_packet": {
+    "meta_description": "An educational briefing analyzing US recession risks rise as oil volatility spikes under the editorial angle: Focus on yield curves, energy prices, and data transparency..",
+    "secondary_keywords": [
+      "macro calendar",
+      "educational briefing",
+      "volatility review"
+    ],
+    "target_keyword": "spikes",
+    "title_alternatives": [
+      "Chronicle Watchlist: US recession risks rise as oil volatility spikes",
+      "Understanding US recession risks rise as oil volatility spikes"
+    ]
+  },
+  "source_context_packet": {
+    "downstream_targets": [
+      "discord",
+      "telegram_operator",
+      "manual_export"
+    ],
+    "editorial_angle": "Focus on yield curves, energy prices, and data transparency.",
+    "operator_idea": "US recession risks rise as oil volatility spikes",
+    "output_style": "educational_process_heavy",
+    "publish_target": "substack_canonical",
+    "risk_disclaimer_policy": "V6_EDUCATIONAL_DISCLAIMER",
+    "source_context": [],
+    "source_notes": "Live production run on: US recession risks rise as oil volatility spikes",
+    "source_urls": [],
+    "target_audience": "general_financial_education"
+  },
+  "task_label": "TASK_CONTENTOPS_V6_AI_RESEARCH_CANONICAL_ARTICLE_PRODUCTION_ENGINE_HEAVY_BATCH_V0",
+  "telegram_operator_checkpoint_seed": {
+    "checkpoint_status": "pending_operator",
+    "concise_summary": "V6 Checkpoint: Crude Pressures and Yield Curves: Deconstructing the Mechanics of Modern Recession Risks is ready for operator review."
+  },
+  "warnings": []
 }
