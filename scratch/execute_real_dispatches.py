@@ -22,7 +22,6 @@ def load_dotenv():
             val = val.strip()
             if len(val) >= 2 and val[0] == val[-1] and val[0] in {"'", '"'}:
                 val = val[1:-1]
-            # Only set if it has a value and is not dummy placeholder
             if val and "DUMMY_PLACEHOLDER" not in val:
                 os.environ[key] = val
 
@@ -33,11 +32,14 @@ from live_contentops import facebook_page_adapter_v6 as facebook
 from live_contentops import instagram_adapter_v6 as instagram
 from live_contentops import threads_adapter_v6 as threads
 from live_contentops import discord_live_adapter_v6 as discord
+from live_contentops import substack_browser_adapter_v6 as substack_browser
+from live_contentops import x_browser_adapter_v6 as x_browser
+from live_contentops import linkedin_browser_adapter_v6 as linkedin_browser
 
 def run_real_dispatches():
     outcomes = {}
 
-    print("=================== STARTING REAL LIVE DISPATCH RUN ===================")
+    print("=================== STARTING ALL-PLATFORM REAL LIVE DISPATCH RUN ===================")
 
     # 1. Discord Webhook
     print("\n--- Dispatching to Discord ---")
@@ -50,7 +52,6 @@ def run_real_dispatches():
 
     if discord_post_res.get("status") == "SUCCESS":
         msg_id = discord_post_res["id"]
-        # Discord webhook edit
         discord_edit_res = discord.execute_discord_edit(
             message_id=msg_id,
             new_message="Capital Chronicle Integration Smoke Test - V6 Real Dispatch [Verified]",
@@ -70,8 +71,6 @@ def run_real_dispatches():
 
     if tg_post_res.get("status") == "SUCCESS":
         msg_id = tg_post_res["id"]
-        
-        # Telegram reply (comment)
         tg_comment_res = telegram.execute_telegram_comment(
             reply_to_message_id=msg_id,
             message="Real-time verification comments auto-responder active.",
@@ -80,7 +79,6 @@ def run_real_dispatches():
         print(f"Telegram Reply Result: {json.dumps(tg_comment_res, indent=2)}")
         outcomes["telegram_reply"] = tg_comment_res
 
-        # Telegram edit
         tg_edit_res = telegram.execute_telegram_edit(
             message_id=msg_id,
             new_message="Capital Chronicle Integration Smoke Test - V6 Real Dispatch [Verified]",
@@ -100,8 +98,6 @@ def run_real_dispatches():
 
     if fb_post_res.get("status") == "SUCCESS":
         post_id = fb_post_res["id"]
-
-        # Facebook comment
         fb_comment_res = facebook.execute_facebook_comment(
             post_id=post_id,
             message="Real-time verification comments auto-responder active.",
@@ -110,7 +106,6 @@ def run_real_dispatches():
         print(f"Facebook Comment Result: {json.dumps(fb_comment_res, indent=2)}")
         outcomes["facebook_comment"] = fb_comment_res
 
-        # Facebook edit
         fb_edit_res = facebook.execute_facebook_edit(
             post_id=post_id,
             message="Capital Chronicle Integration Smoke Test - V6 Real Dispatch [Verified]",
@@ -130,8 +125,6 @@ def run_real_dispatches():
 
     if threads_post_res.get("status") == "SUCCESS":
         post_id = threads_post_res["id"]
-
-        # Threads reply
         threads_reply_res = threads.execute_threads_post(
             text="Real-time verification comments auto-responder active.",
             reply_to_id=post_id,
@@ -152,8 +145,6 @@ def run_real_dispatches():
 
     if ig_post_res.get("status") == "SUCCESS":
         media_id = ig_post_res["id"]
-
-        # Instagram comment
         ig_comment_res = instagram.execute_instagram_comment(
             media_id=media_id,
             message="Real-time verification comments auto-responder active.",
@@ -162,7 +153,86 @@ def run_real_dispatches():
         print(f"Instagram Comment Result: {json.dumps(ig_comment_res, indent=2)}")
         outcomes["instagram_comment"] = ig_comment_res
 
-    print("\n=================== DISPATCH RUN COMPLETED ===================")
+    # 6. Substack (Playwright CDP)
+    print("\n--- Dispatching to Substack (Browser) ---")
+    substack_post_res = substack_browser.execute_substack_post(
+        title="Capital Chronicle Integration Smoke Test - V6 Real Dispatch",
+        subtitle="Verification run",
+        body_markdown="Automated multi-channel publication verified under Fast Ship Mode.",
+        dry_run=False
+    )
+    print(f"Substack Post Result: {json.dumps(substack_post_res, indent=2)}")
+    outcomes["substack_post"] = substack_post_res
+
+    if substack_post_res.get("status") == "SUCCESS":
+        post_id = substack_post_res["id"]
+        substack_comment_res = substack_browser.execute_substack_comment(
+            post_url_or_slug=post_id,
+            message="Real-time verification comments auto-responder active.",
+            dry_run=False
+        )
+        print(f"Substack Comment Result: {json.dumps(substack_comment_res, indent=2)}")
+        outcomes["substack_comment"] = substack_comment_res
+
+    # 7. X / Twitter (Playwright CDP)
+    print("\n--- Dispatching to X (Browser) ---")
+    x_post_res = x_browser.execute_x_post(
+        text="Capital Chronicle Integration Smoke Test - V6 Real Dispatch",
+        dry_run=False
+    )
+    print(f"X Post Result: {json.dumps(x_post_res, indent=2)}")
+    outcomes["x_post"] = x_post_res
+
+    if x_post_res.get("status") == "SUCCESS":
+        # We can extract tweet ID or reply to URL if returned
+        # Note: X Post URL split
+        tweet_url = x_post_res.get("response", {}).get("url", "")
+        tweet_id = tweet_url.split("/")[-1] if "/" in tweet_url else ""
+        if tweet_id:
+            x_reply_res = x_browser.execute_x_comment(
+                tweet_url_or_id=tweet_id,
+                text="Real-time verification comments auto-responder active.",
+                dry_run=False
+            )
+            print(f"X Reply Result: {json.dumps(x_reply_res, indent=2)}")
+            outcomes["x_reply"] = x_reply_res
+
+            x_edit_res = x_browser.execute_x_edit(
+                tweet_url_or_id=tweet_id,
+                new_text="Capital Chronicle Integration Smoke Test - V6 Real Dispatch [Verified]",
+                dry_run=False
+            )
+            print(f"X Edit Result: {json.dumps(x_edit_res, indent=2)}")
+            outcomes["x_edit"] = x_edit_res
+
+    # 8. LinkedIn (Playwright CDP)
+    print("\n--- Dispatching to LinkedIn (Browser) ---")
+    linkedin_post_res = linkedin_browser.execute_linkedin_post(
+        text="Capital Chronicle Integration Smoke Test - V6 Real Dispatch",
+        dry_run=False
+    )
+    print(f"LinkedIn Post Result: {json.dumps(linkedin_post_res, indent=2)}")
+    outcomes["linkedin_post"] = linkedin_post_res
+
+    if linkedin_post_res.get("status") == "SUCCESS":
+        post_id = linkedin_post_res["id"]
+        linkedin_comment_res = linkedin_browser.execute_linkedin_comment(
+            post_url_or_id=post_id,
+            message="Real-time verification comments auto-responder active.",
+            dry_run=False
+        )
+        print(f"LinkedIn Comment Result: {json.dumps(linkedin_comment_res, indent=2)}")
+        outcomes["linkedin_comment"] = linkedin_comment_res
+
+        linkedin_edit_res = linkedin_browser.execute_linkedin_edit(
+            post_url_or_id=post_id,
+            new_text="Capital Chronicle Integration Smoke Test - V6 Real Dispatch [Verified]",
+            dry_run=False
+        )
+        print(f"LinkedIn Edit Result: {json.dumps(linkedin_edit_res, indent=2)}")
+        outcomes["linkedin_edit"] = linkedin_edit_res
+
+    print("\n=================== ALL-PLATFORM DISPATCH RUN COMPLETED ===================")
     
     # Save outcomes to scratch for auditing
     outcomes_path = project_root / "scratch" / "last_real_dispatch_outcomes.json"

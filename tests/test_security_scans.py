@@ -27,6 +27,9 @@ def test_no_forbidden_imports_or_env_vars():
         "threads_adapter_v6.py",
         "discord_live_adapter_v6.py",
         "telegram_live_adapter_v6.py",
+        "substack_browser_adapter_v6.py",
+        "x_browser_adapter_v6.py",
+        "linkedin_browser_adapter_v6.py",
         "live_telemetry_v6.py",
         "scheduler_v6.py",
     }
