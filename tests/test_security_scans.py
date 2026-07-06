@@ -32,6 +32,10 @@ def test_no_forbidden_imports_or_env_vars():
         "linkedin_browser_adapter_v6.py",
         "live_telemetry_v6.py",
         "scheduler_v6.py",
+        "google_image_search_v6.py",
+        "platform_native_variant_generator_live_v6.py",
+        "live_production_pipeline_runner_v6.py",
+        "grounded_search_engine_v6.py",
     }
 
     # Modules allowed to perform env lookups for configuration (excluding generic modules)
@@ -42,6 +46,7 @@ def test_no_forbidden_imports_or_env_vars():
         "ai_provider_gate_v6.py",
         "operator_recovery_to_explicit_live_scope_gate_source_candidate_v6.py",
         "discord_supervised_live_preflight_v6.py",
+        "grounded_news_angle_workbench.py",
     }
 
     for p in root.rglob("*.py"):
