@@ -98,18 +98,26 @@ def search_google_image_playwright(query: str) -> list[str]:
         return []
 
 
-def execute_google_image_search_and_download(query: str, custom_filename: str | None = None) -> str | None:
+def execute_google_image_search_and_download(query: str, custom_filename: str | None = None) -> tuple[str | None, str | None]:
     """Search Google Images, retrieve the first valid match, and download it."""
     DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
     
     query_hash = hashlib.sha256(query.lower().strip().encode("utf-8")).hexdigest()[:12]
     filename = custom_filename or f"img_{query_hash}.jpg"
     output_path = DOWNLOAD_DIR / filename
+    meta_path = output_path.with_suffix(".json")
     
     # Check if we already have a cached download
     if output_path.exists() and output_path.stat().st_size > 100:
+        url = None
+        if meta_path.exists():
+            try:
+                with open(meta_path, "r", encoding="utf-8") as f:
+                    url = json.load(f).get("url")
+            except Exception:
+                pass
         print(f"[Info] Found cached Google Image for query '{query}': {output_path}")
-        return str(output_path)
+        return str(output_path), url
         
     print(f"[Info] Executing Google Image search for query: '{query}'")
     
@@ -123,12 +131,17 @@ def execute_google_image_search_and_download(query: str, custom_filename: str | 
         
     if not img_urls:
         print(f"[Warning] No Google Images found for query: '{query}'")
-        return None
+        return None, None
         
     # Attempt downloading matching candidate URLs until one succeeds
     for url in img_urls:
         if download_image(url, output_path):
             print(f"[Info] Successfully downloaded Google Image to: {output_path}")
-            return str(output_path)
+            try:
+                with open(meta_path, "w", encoding="utf-8") as f:
+                    json.dump({"url": url}, f)
+            except Exception:
+                pass
+            return str(output_path), url
             
-    return None
+    return None, None

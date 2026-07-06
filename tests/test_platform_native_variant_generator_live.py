@@ -18,7 +18,7 @@ def test_compute_packet_hash():
 @patch("live_contentops.platform_native_variant_generator_live_v6.execute_google_image_search_and_download")
 def test_generate_live_platform_variants(mock_search_download, mock_call_provider, tmp_path):
     # Mock Google Image search downloader
-    mock_search_download.return_value = str(tmp_path / "downloads" / "img_test.jpg")
+    mock_search_download.return_value = (str(tmp_path / "downloads" / "img_test.jpg"), "https://example.com/img_test.jpg")
     
     # Mock LLM 9router JSON response
     mock_call_provider.return_value = json.dumps({

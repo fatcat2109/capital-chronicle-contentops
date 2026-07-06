@@ -84,11 +84,12 @@ def generate_live_platform_variants(
     }
     
     image_path = None
+    public_image_url = None
     provider_call_made = False
     
     # 2. Run Grounded Image Search & Downloader
     try:
-        image_path = execute_google_image_search_and_download(title)
+        image_path, public_image_url = execute_google_image_search_and_download(title)
     except Exception as e:
         print(f"[Warning] Google Image search failed: {e}")
         
@@ -177,6 +178,7 @@ def generate_live_platform_variants(
         "variants": variants,
         "variant_threads": variant_threads,
         "image_path": str(image_path) if image_path else None,
+        "public_image_url": public_image_url,
         "provider_call_made": provider_call_made,
         "created_at": time.strftime("%Y-%m-%dT%H:%M:%S+00:00", time.gmtime())
     }
