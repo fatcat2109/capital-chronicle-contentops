@@ -130,7 +130,8 @@ def run_live_production_pipeline(
         inputs,
         provider_mode=provider_mode,
         live_provider="9router",
-        provider_request_budget=2
+        provider_request_budget=2,
+        timeout_seconds=timeout_seconds
     )
 
     ARTICLE_OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)

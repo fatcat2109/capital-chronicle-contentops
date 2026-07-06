@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "48767f19f6be67284a3112b4945423c47c065850",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0",
-  "current_product_phase": "Controlled V6 pipeline live rehearsal and evidence readback completed: live/provider rehearsal executed, dispatch was correctly blocked by quality gates after provider timeout/short draft, and committed evidence proves dispatch audit/readback consistency without raw secrets.",
-  "current_product_lane": "Pipeline rehearsal evidence, dispatch audit readback, provider-timeout recovery discovery, and canonical V6 automation status reconciliation.",
-  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0 added a sanitized rehearsal evidence/readback packet helper, CLI evidence writing, focused readback regressions, and a scanner fix for overbroad generic policy/economic targets. Controlled live/provider rehearsal produced DISPATCH_BLOCKED evidence because provider generation timed out and quality gates rejected the short article before platform dispatch. Audit/readback checks all passed.",
+  "last_verified_remote_sha": "a19ad3c53d21f902f7c21f30e982c8a40570b121",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_PROVIDER_TIMEOUT_AND_DRAFT_QUALITY_RECOVERY_V0",
+  "current_product_phase": "Provider timeout and draft-quality recovery hardening completed. The controlled live/provider rehearsal generated a full canonical article and platform-native variants with no content validation blockers, no dispatch attempt, sanitized evidence packet v6_pipeline_rehearsal_4ac697c381eff858, and provider attempts recorded as accepted.",
+  "current_product_lane": "Full automation pipeline hardening: provider timeout recovery, deterministic fallback metadata, runner timeout forwarding, platform variant recovery observability, and rehearsal evidence readback.",
+  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_PROVIDER_TIMEOUT_AND_DRAFT_QUALITY_RECOVERY_V0 added deterministic canonical-article recovery for provider failures/sub-quality drafts, provider attempt metadata, runner timeout forwarding, variant provider recovery metadata, generation-only rehearsal stale-audit isolation, and focused regression tests. Follow-up live/provider rehearsal produced pipeline_status=GENERATED, variant_status=VARIANT_READY, article packet article_engine_packet_75acd27da98a9a86, variant packet variant_packet_12aef3905b05, and no raw secrets persisted.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -284,11 +284,11 @@
     "Instagram Business two-step Content Publishing API adapter with blocked smoke media binding",
     "Meta-family API unsupported edit outcomes for Instagram and Threads"
   ],
-  "dispatch_live_status": "Controlled live/provider rehearsal requested --dispatch-live, but platform dispatch did not execute because pre-dispatch quality gates blocked the run. Evidence is committed as DISPATCH_BLOCKED with no successful/failed platform attempts.",
-  "provider_env_credential_status": "Existing dotenv flow loaded env under Fast Ship Mode; python-dotenv reported malformed .env lines 103-113. No raw env or credential values were persisted. Evidence packet is audit-excerpt-only with sensitive_marker_detected=false.",
+  "dispatch_live_status": "Controlled live/provider generation rehearsal ran with dispatch disabled; no platform posting occurred. Generated packets are ready for the next final go/no-go rehearsal or explicit dispatch-live run.",
+  "provider_env_credential_status": "Existing dotenv flow loaded env under Fast Ship Mode; python-dotenv still reported malformed .env lines 103-113. No raw env or credential values were persisted. Evidence packet is audit-excerpt-only with sensitive_marker_detected=false.",
   "active_blockers": [
     "Malformed .env lines 103-113 should be cleaned or isolated to avoid dotenv parse noise during live rehearsals.",
-    "Provider timeout/short draft recovery must be hardened before claiming full pipeline dispatch readiness from live/provider rehearsal.",
+    "Google Images returned no matching image for the latest article title; media fallback/rights strategy should be confirmed before Instagram-heavy dispatch.",
     "Instagram live post/comment smoke requires a public CONTENTOPS_META_SMOKE_IMAGE_URL or INSTAGRAM_SMOKE_MEDIA_ID credential/media binding.",
     "Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.",
     "Capital Chronicle Internal alpha / analysis-report posts should prefer built-in chart/card media from the report system when available.",
@@ -303,10 +303,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0",
-  "latest_accepted_task_result": "PASS_REHEARSAL_EVIDENCE_READBACK_WITH_PROVIDER_TIMEOUT_BLOCKER",
-  "latest_evidence_summary": "Controlled live/provider rehearsal executed with run_id v6_pipeline_2197b27302ff. Result: DISPATCH_BLOCKED before platform dispatch; blockers were provider_call_failed:timed out, article_too_short:1076<5000, too_few_sections, missing_specific_numbers, and substack_too_short. Evidence packet v6_pipeline_rehearsal_5ba0ea84c56a18a4 and dispatch audit readback matched on run_id, pipeline_status, and dispatch_summary; sensitive_marker_detected=false. Validation: python -m pytest tests/test_ai_research_canonical_article_engine_v6.py tests/test_pipeline_rehearsal_evidence_v6.py tests/test_live_production_pipeline_runner.py tests/test_platform_native_variant_generator_live_v6.py tests/test_server.py -> 18 passed.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_PROVIDER_TIMEOUT_AND_DRAFT_QUALITY_RECOVERY_V0: Harden provider timeout handling and draft quality recovery so live provider short/timeout responses either retry/fallback deterministically or produce richer operator-readable recovery evidence before the next live dispatch rehearsal.",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_PROVIDER_TIMEOUT_AND_DRAFT_QUALITY_RECOVERY_V0",
+  "latest_accepted_task_result": "PASS_PROVIDER_RECOVERY_HARDENED_AND_REHEARSED",
+  "latest_evidence_summary": "Controlled live/provider rehearsal executed with run_id v6_pipeline_513ae93aa2b8. Result: GENERATED with article packet article_engine_packet_75acd27da98a9a86, platform variant packet variant_packet_12aef3905b05, provider attempt status accepted for canonical article and variants, draft_chars=15575, validation_failures=[], dispatch_live=false, audit_file_present=false, and sensitive_marker_detected=false. Focused validation: python -m pytest tests/test_ai_research_canonical_article_engine_v6.py tests/test_live_production_pipeline_runner.py tests/test_platform_native_variant_generator_live.py tests/test_pipeline_rehearsal_evidence_v6.py -q -> 19 passed.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0: Clean dotenv parse noise, rerun the hardened final release go/no-go rehearsal with explicit dispatch scope, verify media fallback/rights posture, and produce final dispatch readiness evidence.",
   "mandatory_read_before_task": [
     "AGENTS.md",
     "docs/AI_BUILDER_BOOTSTRAP.md",
@@ -347,25 +347,28 @@
     "verify telegram bot token corresponds to the publisher bot and not the orchestrator bot",
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
-  "accepted_product_baseline_sha": "48767f19f6be67284a3112b4945423c47c065850",
-  "last_status_commit_sha": "48767f19f6be67284a3112b4945423c47c065850",
-  "sha_model": "last_verified_remote_sha records origin/master HEAD before TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0 final commit: 48767f19f6be67284a3112b4945423c47c065850; this task will advance after commit/push.",
+  "accepted_product_baseline_sha": "a19ad3c53d21f902f7c21f30e982c8a40570b121",
+  "last_status_commit_sha": "a19ad3c53d21f902f7c21f30e982c8a40570b121",
+  "sha_model": "last_verified_remote_sha records origin/master HEAD before TASK_CONTENTOPS_V6_PROVIDER_TIMEOUT_AND_DRAFT_QUALITY_RECOVERY_V0 final commit: a19ad3c53d21f902f7c21f30e982c8a40570b121; this task will advance after commit/push.",
   "latest_changed_areas": [
+    "docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json",
     "docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_evidence_packet.json",
     "docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_readback_summary.md",
-    "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json",
-    "docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json",
     "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json",
     "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/*_variant.md",
+    "docs/automation/V6_AI_RESEARCH_GROUNDING/search_cache/81107d47a64a0059577b2b1917fa2ac39f2d9408bde8a62b03ace0f0d45c4c93.json",
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
     "live_contentops/ai_research_canonical_article_engine_v6.py",
     "live_contentops/live_production_pipeline_runner_v6.py",
     "live_contentops/pipeline_rehearsal_evidence_v6.py",
+    "live_contentops/platform_native_variant_generator_live_v6.py",
     "ui/contentops_v5/src/data/platform_variant_packet.json",
     "tests/test_ai_research_canonical_article_engine_v6.py",
-    "tests/test_pipeline_rehearsal_evidence_v6.py"
+    "tests/test_live_production_pipeline_runner.py",
+    "tests/test_pipeline_rehearsal_evidence_v6.py",
+    "tests/test_platform_native_variant_generator_live.py"
   ],
   "operator_platform_readiness": {
     "latest_task": "TASK_0021",
@@ -504,7 +507,7 @@
     "secrets_recorded": false,
     "new_live_publish_claims": false
   },
-  "current_v6_loop_status": "Rehearsal-backed full automation path is in place. Controlled live/provider run produced DISPATCH_BLOCKED before platform posting due provider timeout and article/variant quality gates; latest dispatch audit and rehearsal evidence packet read back consistently.",
+  "current_v6_loop_status": "Hardened provider/recovery path is in place. Controlled live/provider generation rehearsal produced GENERATED with full canonical article and VARIANT_READY platform packet, accepted provider attempts, stale dispatch-audit isolation for generation-only rehearsals, and sanitized evidence readback.",
   "x_cdp_profile_guard_reusable_operator_command": {
     "task_label": "TASK_CONTENTOPS_V6_X_CDP_PROFILE_GUARD_REUSABLE_OPERATOR_COMMAND_V0",
     "result": "PASS_LOCAL_PRELIVE_PROFILE_GUARD_PROMOTION",
@@ -564,5 +567,5 @@
     "live_action_performed": false,
     "secret_or_session_read_performed": false
   },
-  "current_next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 ? Continue periodic final release go/no-go rehearsal by validating final release evidence, red-team/governance posture, status guardrails, and canonical V5 build/test surface after governance maintenance."
+  "current_next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0: Clean dotenv parse noise, rerun the hardened final release go/no-go rehearsal with explicit dispatch scope, verify media fallback/rights posture, and produce final dispatch readiness evidence."
 }

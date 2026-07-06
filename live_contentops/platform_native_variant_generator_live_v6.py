@@ -172,6 +172,8 @@ def generate_live_platform_variants(
     image_path = None
     public_image_url = None
     provider_call_made = False
+    provider_recovery_used = False
+    provider_attempts: list[dict[str, Any]] = []
     validation_failures: list[str] = []
 
     try:
@@ -195,6 +197,11 @@ def generate_live_platform_variants(
                 llm_text = call_live_provider(prompt, "9router", timeout_seconds)
                 provider_call_made = True
                 llm_data = parse_llm_json(llm_text) or {}
+                if not llm_data:
+                    provider_attempts.append({"provider": "9router", "status": "failed", "failure": "variant_provider_json_parse_empty", "timeout_seconds": timeout_seconds})
+                    validation_failures.append("variant_provider_json_parse_empty")
+                else:
+                    provider_attempts.append({"provider": "9router", "status": "accepted", "failure": None, "timeout_seconds": timeout_seconds})
                 for key in ("linkedin", "facebook", "discord", "telegram", "instagram_caption"):
                     if llm_data.get(key):
                         variants[key] = str(llm_data[key])
@@ -206,7 +213,9 @@ def generate_live_platform_variants(
                     variants["threads"] = "\n\n---\n\n".join(variant_threads["threads"])
             except Exception as exc:
                 provider_call_made = True
-                validation_failures.append(f"variant_provider_failed:{exc}")
+                provider_recovery_used = True
+                provider_attempts.append({"provider": "9router", "status": "failed", "failure": f"variant_provider_failed:{type(exc).__name__}:{exc}", "timeout_seconds": timeout_seconds})
+                validation_failures.append(f"variant_provider_failed:{type(exc).__name__}:{exc}")
 
     validation_failures.extend(validate_platform_variants(variants, variant_threads, live_run=live_run))
     validation_summary = summarize_validation(validation_failures)
@@ -237,6 +246,8 @@ def generate_live_platform_variants(
         "image_path": str(image_path) if image_path else None,
         "public_image_url": public_image_url,
         "provider_call_made": provider_call_made,
+        "provider_recovery_used": provider_recovery_used,
+        "provider_attempts": provider_attempts,
         "validation_failures": validation_failures,
         "validation_summary": validation_summary,
         "created_at": time.strftime("%Y-%m-%dT%H:%M:%S+00:00", time.gmtime())

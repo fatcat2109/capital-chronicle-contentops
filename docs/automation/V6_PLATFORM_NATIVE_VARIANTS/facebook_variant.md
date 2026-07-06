@@ -1,10 +1,14 @@
 # FACEBOOK NATIVE VARIANT
-- **Status**: VARIANT_VALIDATION_FAILED
+- **Status**: VARIANT_READY
 - **Associated Image**: None
-- **Timestamp**: 2026-07-06 21:24:19
+- **Timestamp**: 2026-07-06 21:42:26
 
-How do fluctuating Treasury yields and maritime shipping chokepoints impact the broader economy? Our latest Capital Chronicle Educational Briefing explores the transmission channels of macro risk.
+How do central bank balance sheets and physical shipping lanes collide to shape global inflation? 
 
-We analyze how interest rates, energy routes, and policy uncertainty filter down into corporate earnings and everyday household costs. By looking at historical cycles and statistical ranges, we aim to separate market noise from structural policy shifts.
+In this educational deep dive from Capital Chronicle, we break down "The Double Squeeze"—the powerful transmission channel linking Federal Reserve liquidity (QE/QT) with maritime chokepoints like the Strait of Hormuz and the Bab-el-Mandeb.
 
-Read the full educational breakdown on our platform. (Note: This briefing is for educational purposes only and does not contain investment advice.)
+When the Fed floods the system with liquidity, physical shipping disruptions quickly translate into broad-based consumer inflation as cheap credit fuels precautionary hoarding. But when the Fed is actively draining liquidity, these same shipping bottlenecks act as a direct tax on corporate profit margins, dragging down economic growth.
+
+Explore the structural mechanics of modern macroeconomics and how these dynamics are rewriting risk pricing in equity, debt, and commodity markets. 
+
+Read the full article: [Link]

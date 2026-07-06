@@ -1,0 +1,98 @@
+[
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from GDELT Project: Bitunix Analyst : The Stock Market Is About to Have a Very Bad Summer",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: Fed liquidity and shipping stress"
+    ],
+    "publisher_or_origin": "GDELT Project",
+    "retrieved_at": "2026-07-06T14:36:48+00:00",
+    "source_id": "src_b0d801d5e3bb",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "Bitunix Analyst : The Stock Market Is About to Have a Very Bad Summer",
+    "url_or_local_reference": "https://www.ibtimes.com/bitunix-analyst-stock-market-about-have-very-bad-summer-3803283"
+  },
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from GDELT Project: HTX Research : How the Hormuz Shock Is Rewriting the Pricing Logic of the Crypto Market",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: Fed liquidity and shipping stress"
+    ],
+    "publisher_or_origin": "GDELT Project",
+    "retrieved_at": "2026-07-06T14:36:48+00:00",
+    "source_id": "src_d8aaf49d4525",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "HTX Research : How the Hormuz Shock Is Rewriting the Pricing Logic of the Crypto Market",
+    "url_or_local_reference": "https://www.finanznachrichten.de/nachrichten-2026-04/68187312-htx-research-how-the-hormuz-shock-is-rewriting-the-pricing-logic-of-the-crypto-market-008.htm"
+  },
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from GDELT Project: HTX Research : How the Hormuz Shock Is Rewriting the Pricing Logic of the Crypto Market",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: Fed liquidity and shipping stress"
+    ],
+    "publisher_or_origin": "GDELT Project",
+    "retrieved_at": "2026-07-06T14:36:48+00:00",
+    "source_id": "src_01e0e0d06c51",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "HTX Research : How the Hormuz Shock Is Rewriting the Pricing Logic of the Crypto Market",
+    "url_or_local_reference": "https://www.manilatimes.net/2026/04/14/tmt-newswire/pr-newswire/htx-research-how-the-hormuz-shock-is-rewriting-the-pricing-logic-of-the-crypto-market/2319579"
+  },
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from PR Newswire: Fuchs Endothelial Corneal Dystrophy Market Forecast Highlights Significant Growth During the Forecast Period (2026-2036), Owing to the Expanding Treatment Landscape and Increasing Patient Pool | DelveInsight",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: Fed liquidity and shipping stress"
+    ],
+    "publisher_or_origin": "PR Newswire",
+    "retrieved_at": "2026-07-06T14:36:48+00:00",
+    "source_id": "src_3f19ed1e7c64",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "Fuchs Endothelial Corneal Dystrophy Market Forecast Highlights Significant Growth During the Forecast Period (2026-2036), Owing to the Expanding Treatment Landscape and Increasing Patient Pool | DelveInsight",
+    "url_or_local_reference": "https://finance.yahoo.com/healthcare/articles/fuchs-endothelial-corneal-dystrophy-market-143100193.html"
+  },
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from GlobeNewswire: When Disaster Strikes, Airbnb.org Is There: Airbnb.org Executive Director Christoph Gorder Explains How on YourUpdateTV",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: Fed liquidity and shipping stress"
+    ],
+    "publisher_or_origin": "GlobeNewswire",
+    "retrieved_at": "2026-07-06T14:36:48+00:00",
+    "source_id": "src_d2844452636f",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "When Disaster Strikes, Airbnb.org Is There: Airbnb.org Executive Director Christoph Gorder Explains How on YourUpdateTV",
+    "url_or_local_reference": "https://finance.yahoo.com/real-estate/articles/disaster-strikes-airbnb-org-airbnb-143100645.html"
+  },
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from GlobeNewswire: E-Nose Market to Reach USD 1.84 Billion by 2032, Growing at 28.0% CAGR, Says MarketsandMarkets\u2122",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: Fed liquidity and shipping stress"
+    ],
+    "publisher_or_origin": "GlobeNewswire",
+    "retrieved_at": "2026-07-06T14:36:48+00:00",
+    "source_id": "src_a36f5d055d1e",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "E-Nose Market to Reach USD 1.84 Billion by 2032, Growing at 28.0% CAGR, Says MarketsandMarkets\u2122",
+    "url_or_local_reference": "https://finance.yahoo.com/technology/ai/articles/e-nose-market-reach-usd-143100310.html"
+  }
+]

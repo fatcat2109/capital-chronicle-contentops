@@ -31,7 +31,8 @@ def test_run_live_production_pipeline(mock_generate_variants, mock_run_article, 
         result = run_live_production_pipeline(
             topic="Yield rates drop",
             editorial_angle="No advice",
-            live_run=False
+            live_run=False,
+            timeout_seconds=42
         )
         
         assert result["article_packet_id"] == "art_test_packet_123"
@@ -42,6 +43,7 @@ def test_run_live_production_pipeline(mock_generate_variants, mock_run_article, 
         assert test_article_path.exists()
         saved_data = json.loads(test_article_path.read_text(encoding="utf-8"))
         assert saved_data["packet_id"] == "art_test_packet_123"
+        assert mock_run_article.call_args.kwargs["timeout_seconds"] == 42
 
 
 @patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")

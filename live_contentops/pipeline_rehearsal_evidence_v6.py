@@ -110,7 +110,11 @@ def build_rehearsal_evidence_packet(
     repo_state: dict[str, Any] | None = None,
     audit_packet: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    audit_packet = audit_packet if audit_packet is not None else load_json_if_exists(result.get("dispatch_audit_path"))
+    should_bind_audit = bool(result.get("dispatch_live") or result.get("dispatch_blocked"))
+    if audit_packet is None and should_bind_audit:
+        audit_packet = load_json_if_exists(result.get("dispatch_audit_path"))
+    elif not should_bind_audit:
+        audit_packet = None
     core = {
         "task_label": TASK_LABEL,
         "schema_version": SCHEMA_VERSION,

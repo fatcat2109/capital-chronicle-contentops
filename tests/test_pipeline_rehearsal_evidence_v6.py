@@ -104,3 +104,35 @@ def test_readback_checks_detect_mismatched_audit():
     assert checks["pipeline_status_matches"] is True
     assert checks["dispatch_summary_matches"] is True
     assert checks["readback_ready"] is False
+
+
+def test_generation_only_rehearsal_ignores_stale_dispatch_audit(tmp_path):
+    stale_audit = tmp_path / "latest_dispatch_audit.json"
+    stale_audit.write_text(
+        json.dumps({
+            "run_id": "old_dispatch",
+            "pipeline_status": "DISPATCH_COMPLETE",
+            "dispatch_summary": {"successful_platforms": ["linkedin"]},
+        }),
+        encoding="utf-8",
+    )
+
+    packet = build_rehearsal_evidence_packet(
+        {
+            "run_id": "generated_only",
+            "pipeline_status": "GENERATED",
+            "dispatch_audit_path": str(stale_audit),
+            "dispatch_live": False,
+            "dispatch_summary": {},
+        },
+        repo_state={"branch": "master", "head_sha": "abc"},
+    )
+
+    assert packet["dispatch_audit_excerpt"] == {}
+    assert packet["readback_checks"] == {
+        "audit_file_present": False,
+        "run_id_matches": False,
+        "pipeline_status_matches": False,
+        "dispatch_summary_matches": False,
+        "readback_ready": True,
+    }

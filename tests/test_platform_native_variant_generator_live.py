@@ -59,7 +59,8 @@ def test_generate_live_platform_variants(mock_search_download, mock_call_provide
             live_run=True
         )
         
-        assert packet["variant_status"] == "VARIANT_SCAFFOLD_READY"
+        assert packet["variant_status"] == "VARIANT_VALIDATION_FAILED"
+        assert packet["provider_attempts"][0]["status"] == "accepted"
         assert packet["image_path"] == str(tmp_path / "downloads" / "img_test.jpg")
         assert packet["variants"]["linkedin"] == "LinkedIn Live Post content"
         assert packet["variants"]["discord"] == "Discord Announcements content"
@@ -69,8 +70,33 @@ def test_generate_live_platform_variants(mock_search_download, mock_call_provide
         assert packet["variant_threads"]["x"] == ["1/ X Tweet initial post", "2/ X Tweet comment thread reply"]
         assert packet["variant_threads"]["threads"] == ["1/ Threads conversational initial post", "2/ Threads reply post"]
         
-        # Verify files are written
         assert (tmp_path / "platform_variant_packet.json").exists()
         assert (tmp_path / "linkedin_variant.md").exists()
         assert (tmp_path / "x_variant.md").exists()
         assert (tmp_path / "telegram_operator_preview.md").exists()
+
+
+@patch("live_contentops.platform_native_variant_generator_live_v6.call_live_provider", side_effect=TimeoutError("variant timeout"))
+@patch("live_contentops.platform_native_variant_generator_live_v6.execute_google_image_search_and_download", return_value=(None, None))
+def test_variant_provider_failure_records_recovery_metadata(mock_search_download, mock_call_provider, tmp_path):
+    article_packet_file = tmp_path / "canonical_article_packet.json"
+    body = " ".join(["Capital Chronicle educational policy liquidity shipping data note with 3.5% source context."] * 180)
+    article_packet_file.write_text(json.dumps({
+        "packet_id": "art_test_123",
+        "operator_idea_id": "idea_test_456",
+        "canonical_article_draft": {
+            "title": "Fed Rate Decision and Yields Volatility",
+            "subtitle": "Macro briefing",
+            "intro": body,
+            "sections": [{"title": "Policy", "body": body}],
+            "conclusion": body,
+        }
+    }), encoding="utf-8")
+
+    with patch.dict("os.environ", {"NINE_ROUTER_API_KEY": "sk-dummy-123"}):
+        packet = generate_live_platform_variants(article_packet_path=article_packet_file, output_dir=tmp_path, live_run=True)
+
+    assert packet["provider_call_made"] is True
+    assert packet["provider_recovery_used"] is True
+    assert packet["provider_attempts"][0]["failure"].startswith("variant_provider_failed:TimeoutError")
+    assert any(f.startswith("variant_provider_failed:TimeoutError") for f in packet["validation_failures"])
