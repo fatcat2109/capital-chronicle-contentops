@@ -131,7 +131,7 @@ export function V6CommandCenter() {
       setLogs(prev => [newLog, ...prev]);
     };
 
-    addPipelineLog('pipeline', 'trigger', 'Triggering E2E pipeline for Macroeconomic News/Geopolitics');
+    addPipelineLog('pipeline', 'trigger', 'Triggering E2E pipeline for Macro & Geopolitical News');
 
     setTimeout(() => {
       addPipelineLog('substack', 'generate', 'Generated canonical Substack article via Gemini 3.5 Flash on 9router.');
@@ -296,7 +296,7 @@ export function V6CommandCenter() {
                     disabled={pipelineRunning}
                   >
                     <div className="flex items-center justify-between gap-2 w-full">
-                      <span className="text-xs font-semibold text-fg">Macroeconomic News</span>
+                      <span className="text-xs font-semibold text-fg">Macro & Geopolitical News</span>
                       <span className="font-mono text-[9px] font-bold bg-status-verified/15 text-status-verified px-1.5 py-0.5 rounded-full uppercase">Active</span>
                     </div>
                     <p className="mt-1 text-[10px] text-fg-muted leading-snug">

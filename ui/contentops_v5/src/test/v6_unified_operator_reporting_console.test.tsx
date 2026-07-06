@@ -87,7 +87,7 @@ describe('V6 Unified Operator Reporting Console Interactive Controls', () => {
   it('triggers the full pipeline automation flow', () => {
     openView();
     expect(screen.getByText('Full Pipeline Automation')).toBeInTheDocument();
-    expect(screen.getByText('Macroeconomic News')).toBeInTheDocument();
+    expect(screen.getByText('Macro & Geopolitical News')).toBeInTheDocument();
     
     const startBtn = document.getElementById('start-pipeline-btn');
     if (!startBtn) throw new Error('Start pipeline button not found');
