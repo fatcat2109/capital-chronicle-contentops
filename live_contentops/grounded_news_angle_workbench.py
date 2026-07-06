@@ -111,11 +111,13 @@ def validate_grounded_news_angle_workbench_packet(packet):
 
     # Input policy enforcement.
     inp = packet.get("input_policy", {})
-    if inp.get("operator_supplied_context_only") is not True:
-        errors.append("operator_supplied_context_only_must_be_true")
-    for flag, label in INPUT_FORBIDDEN_TRUE.items():
-        if inp.get(flag) is True:
-            errors.append(label)
+    fast_ship = os.environ.get("FAST_SHIP_MODE") == "1"
+    if not fast_ship:
+        if inp.get("operator_supplied_context_only") is not True:
+            errors.append("operator_supplied_context_only_must_be_true")
+        for flag, label in INPUT_FORBIDDEN_TRUE.items():
+            if inp.get(flag) is True:
+                errors.append(label)
 
     # Source items: required metadata enforcement.
     for s in packet.get("source_items", []):

@@ -79,6 +79,23 @@ def compute_canonical_hash(draft: dict[str, Any]) -> str:
     return hashlib.sha256(serialized).hexdigest()
 
 
+def parse_llm_json(text: str) -> dict[str, str] | None:
+    cleaned = text.strip()
+    if cleaned.startswith("```"):
+        cleaned = re.sub(r"^```(?:json)?\s*", "", cleaned)
+        cleaned = re.sub(r"\s*```$", "", cleaned)
+    try:
+        return json.loads(cleaned)
+    except Exception:
+        match = re.search(r"\{.*\}", cleaned, re.DOTALL)
+        if match:
+            try:
+                return json.loads(match.group(0))
+            except Exception:
+                pass
+        return None
+
+
 def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15) -> str:
     env_map = getattr(os, "environ")
     if provider == "openai":
@@ -185,6 +202,7 @@ def run_article_engine(
     provider_request_count = 0
     blockers = []
     warnings = []
+    citations = []
 
     if provider_mode == "live_provider_call":
         if provider_request_budget < 1:
@@ -202,13 +220,58 @@ def run_article_engine(
             if key_name not in env_map or not env_map.get(key_name):
                 blockers.append(f"missing_api_key:{key_name}")
             else:
-                prompt = f"Generate educational content. Idea: {inputs.operator_idea}. Angle: {inputs.editorial_angle}. Context: {inputs.source_context}."
+                # 1. Run Grounded News/Web Search Engine
+                from live_contentops.grounded_search_engine_v6 import execute_grounded_search
+                try:
+                    search_results = execute_grounded_search(inputs.operator_idea, limit_per_source=3)
+                except Exception as exc:
+                    search_results = []
+                    warnings.append(f"search_failed:{str(exc)}")
+                
+                search_context_str = ""
+                if search_results:
+                    search_context_str = "\n".join([f"- [{s['publisher_or_origin']}]: {s['title']} (URL: {s['url_or_local_reference']})" for s in search_results])
+                    citations = [s['url_or_local_reference'] for s in search_results if s['url_or_local_reference']]
+                else:
+                    search_context_str = "No search results returned."
+
+                prompt = (
+                    f"You are a macroeconomic and geopolitical writer for Capital Chronicle.\n"
+                    f"Write an educational, process-heavy briefing based on these inputs:\n"
+                    f"Topic Idea: {inputs.operator_idea}\n"
+                    f"Editorial Angle: {inputs.editorial_angle}\n"
+                    f"Target Audience: {inputs.target_audience}\n"
+                    f"Grounded Search Context:\n{search_context_str}\n\n"
+                    f"SAFETY EXCLUSIONS:\n"
+                    f"- DO NOT provide any financial advice, investment recommendations, or trade signals.\n"
+                    f"- DO NOT use transactional words like 'buy', 'sell', 'hold', 'price target', 'long', 'short'.\n\n"
+                    f"Return ONLY a raw JSON object matching the following fields (no markdown blocks around JSON):\n"
+                    f"{{\n"
+                    f"  \"title\": \"Alternative Title\",\n"
+                    f"  \"subtitle\": \"Alternative Subtitle\",\n"
+                    f"  \"intro\": \"A paragraph grounding the topic...\",\n"
+                    f"  \"section1_body\": \"Analysis of historical ranges or data...\",\n"
+                    f"  \"section2_body\": \"Sufficiency and limitations review...\",\n"
+                    f"  \"conclusion\": \"Methodology summary...\"\n"
+                    f"}}\n"
+                )
                 try:
                     llm_text = call_live_provider(prompt, live_provider, timeout_seconds)
                     provider_call_made = True
                     provider_request_count = 1
-                    # Incorporate generated content safely into the intro
-                    intro = f"[AI Generated Content]: {llm_text[:300]}... [End of AI Generated Content]. " + intro
+                    
+                    llm_data = parse_llm_json(llm_text)
+                    if llm_data:
+                        if "title" in llm_data: title = llm_data["title"]
+                        if "subtitle" in llm_data: subtitle = llm_data["subtitle"]
+                        if "intro" in llm_data: intro = llm_data["intro"]
+                        if "conclusion" in llm_data: conclusion = llm_data["conclusion"]
+                        if "section1_body" in llm_data:
+                            sections[0]["body"] = llm_data["section1_body"]
+                        if "section2_body" in llm_data:
+                            sections[1]["body"] = llm_data["section2_body"]
+                    else:
+                        intro = f"[AI Generated Content]: {llm_text[:300]}... [End of AI Generated Content]. " + intro
                 except Exception as exc:
                     provider_call_made = True
                     provider_request_count = 1
@@ -223,11 +286,12 @@ def run_article_engine(
         "intro": intro,
         "sections": sections,
         "conclusion": conclusion,
-        "source_notes": f"Sources referenced: {', '.join(inputs.source_context)}. Optional notes: {inputs.source_notes}",
+        "source_notes": f"Sources referenced: {', '.join(citations if citations else inputs.source_context)}. Optional notes: {inputs.source_notes}",
         "assumptions": "Assumes data sufficiency and operator verification under V6 standards.",
         "uncertainty_notes": "Prior cycles may not predict future macro distributions.",
         "no_financial_advice_check": True,
         "no_fake_data_check": True,
+        "citations": citations if citations else ["UNVERIFIED_SAMPLE_SOURCE_REF"],
         "created_at": DETERMINISTIC_TIMESTAMP,
     }
 
@@ -240,8 +304,8 @@ def run_article_engine(
         unsupported_claims.append("Operator notes contained unsupported claim reference.")
 
     grounding = {
-        "cited_source_notes": ", ".join(inputs.source_context) if provider_mode == "dry_run_fixture" else "cited from dynamic model query",
-        "source_quality": {"quality_score": "verified_operator_supplied", "relevance": "high"},
+        "cited_source_notes": ", ".join(citations) if citations else (", ".join(inputs.source_context) if provider_mode == "dry_run_fixture" else "cited from dynamic model query"),
+        "source_quality": {"quality_score": "verified_operator_supplied" if citations else "unverified_operator_supplied", "relevance": "high"},
         "unsupported_claims": unsupported_claims,
         "required_human_review_items": ["Verify H.15 raw series", "Confirm risk disclaimer presence"],
         "no_fabricated_market_numbers": True,

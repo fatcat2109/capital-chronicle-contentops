@@ -13,6 +13,7 @@ def generate_research_context(req: dict) -> dict:
     # Process sources to enforce contract
     processed_sources = []
     for s in source_items:
+        is_synthetic = s.get("synthetic_fixture", True)
         processed_sources.append({
             "source_id": s.get("source_id", f"src_{uuid.uuid4().hex[:8]}"),
             "title": s.get("title", "Untitled Source"),
@@ -23,9 +24,9 @@ def generate_research_context(req: dict) -> dict:
             "freshness_label": s.get("freshness_label", "unknown"),
             "claim_summary": s.get("claim_summary", ""),
             "allowed_usage": s.get("allowed_usage", "advisory_only"),
-            "limitations": s.get("limitations", ["Synthetic source - not for live use"]),
+            "limitations": s.get("limitations", ["Synthetic source - not for live use"] if is_synthetic else []),
             "citation_required": s.get("citation_required", True),
-            "synthetic_fixture": s.get("synthetic_fixture", True)
+            "synthetic_fixture": is_synthetic
         })
 
     has_synthetic = any(s["synthetic_fixture"] for s in processed_sources)
@@ -38,6 +39,9 @@ def generate_research_context(req: dict) -> dict:
         warnings.append("Current event topic lacks grounded research context.")
         blockers.append("Cannot post current events without source citations.")
         
+    search_performed = req.get("search_performed", False) or any(not s["synthetic_fixture"] for s in processed_sources)
+    advisory_only = has_synthetic or req.get("advisory_only", True)
+
     return {
         "research_context_id": f"res_{uuid.uuid4().hex[:8]}",
         "topic": req.get("topic", "Unknown"),
@@ -54,9 +58,9 @@ def generate_research_context(req: dict) -> dict:
         "claims_blocked": req.get("claims_blocked", []),
         "caveats": req.get("caveats", []),
         "cost_budget_notes": "Search once per content packet, cache current-news for short windows, cache evergreen longer.",
-        "provider_or_tool_provenance": "local_deterministic_fixture",
-        "search_performed": False,
-        "advisory_only": True,
+        "provider_or_tool_provenance": "local_deterministic_fixture" if not search_performed else "live_search_engine",
+        "search_performed": search_performed,
+        "advisory_only": advisory_only,
         "not_public_postable_reason": "Contains synthetic research fixture data" if has_synthetic else None,
         "warnings": warnings,
         "blockers": blockers
