@@ -19,11 +19,7 @@ This file is the first file every AI IDE/CLI builder must read before touching t
 4. Current V6 master-plan files under `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/`.
 5. Chat memory, pasted summaries, Project Sources, and archived docs.
 
-If status docs conflict with current repo evidence, stop and report:
-
-```text
-BLOCKED: status/repo authority conflict
-```
+If status docs conflict with current repo evidence, treat current repo evidence as higher authority, record the mismatch in final evidence or status updates, and reconcile the status docs during the same task when practical. Do not stop solely because status docs are stale when Jim explicitly directs continuation.
 
 ## Canonical Build Surface
 

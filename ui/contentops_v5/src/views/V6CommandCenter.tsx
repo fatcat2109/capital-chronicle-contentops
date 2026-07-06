@@ -184,11 +184,27 @@ export function V6CommandCenter() {
                 
                 if (statusData.status === 'SUCCESS') {
                   (window as any)['clearInterval'](pollInterval);
-                  addPipelineLog('pipeline', 'complete', 'Automated E2E pipeline dispatches complete for all active channels.');
+                  addPipelineLog(
+                    'pipeline',
+                    'complete',
+                    `Pipeline process complete: task=${(statusData.task_id || taskId).substring(0, 8)} returncode=${statusData.returncode ?? 0} audit=${statusData.dispatch_audit_path || 'not_reported'}`,
+                    statusData.stderr ? 'RETRYING' : 'SUCCESS'
+                  );
+                  if (statusData.stderr) {
+                    addPipelineLog('pipeline', 'stderr', statusData.stderr.slice(-500), 'FAILED');
+                  }
                   setPipelineRunning(false);
                 } else if (statusData.status === 'FAILED') {
                   (window as any)['clearInterval'](pollInterval);
-                  addPipelineLog('pipeline', 'error', `Live pipeline failed: ${statusData.error || 'unknown error'}`, 'FAILED');
+                  addPipelineLog(
+                    'pipeline',
+                    'error',
+                    `Live pipeline failed: task=${(statusData.task_id || taskId).substring(0, 8)} returncode=${statusData.returncode ?? 'unknown'} error=${statusData.error || 'unknown error'} audit=${statusData.dispatch_audit_path || 'not_reported'}`,
+                    'FAILED'
+                  );
+                  if (statusData.stderr) {
+                    addPipelineLog('pipeline', 'stderr', statusData.stderr.slice(-500), 'FAILED');
+                  }
                   setPipelineRunning(false);
                 }
               }

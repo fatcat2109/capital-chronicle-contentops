@@ -8,20 +8,39 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 
 # Global in-memory task registry
 TASKS = {}
+MAX_RETAINED_TASKS = 25
+PIPELINE_COMMAND = [sys.executable, "-u", "-m", "live_contentops.live_production_pipeline_runner_v6", "--live-run", "--dispatch-live"]
+
+
+def _utc_now():
+    import time
+    return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+
+
+def _trim_tasks():
+    while len(TASKS) > MAX_RETAINED_TASKS:
+        oldest = min(TASKS, key=lambda key: TASKS[key].get("started_at", ""))
+        del TASKS[oldest]
 
 def run_pipeline_thread(task_id):
     TASKS[task_id] = {
+        "task_id": task_id,
         "status": "RUNNING",
+        "started_at": _utc_now(),
+        "completed_at": None,
+        "returncode": None,
+        "command": " ".join(PIPELINE_COMMAND),
         "stdout": "",
         "stderr": "",
-        "error": None
+        "error": None,
+        "dispatch_audit_path": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json",
     }
     
     try:
         print(f"[Server] Task {task_id} started: executing live pipeline...")
         # Stream stdout and stderr in real-time
         process = subprocess.Popen(
-            [sys.executable, "-u", "-m", "live_contentops.live_production_pipeline_runner_v6", "--live-run", "--dispatch-live"],
+            PIPELINE_COMMAND,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
@@ -50,6 +69,8 @@ def run_pipeline_thread(task_id):
         t1.join()
         t2.join()
         
+        TASKS[task_id]["returncode"] = process.returncode
+        TASKS[task_id]["completed_at"] = _utc_now()
         if process.returncode == 0:
             TASKS[task_id]["status"] = "SUCCESS"
             print(f"[Server] Task {task_id} completed successfully.")
@@ -60,6 +81,8 @@ def run_pipeline_thread(task_id):
             
     except Exception as e:
         TASKS[task_id]["status"] = "FAILED"
+        TASKS[task_id]["completed_at"] = _utc_now()
+        TASKS[task_id]["returncode"] = -1
         TASKS[task_id]["error"] = str(e)
         print(f"[Server] Task {task_id} encountered exception: {e}")
 
@@ -74,6 +97,12 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
+    def _send_json(self, status, payload):
+        self.send_response(status)
+        self.send_header('Content-type', 'application/json')
+        self.end_headers()
+        self.wfile.write(json.dumps(payload).encode('utf-8'))
+
     def do_GET(self):
         parsed_url = urlparse(self.path)
         route = parsed_url.path
@@ -83,43 +112,32 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
             task_id = qs.get("task_id", [""])[0]
             
             if not task_id or task_id not in TASKS:
-                self.send_response(404)
-                self.send_header('Content-type', 'application/json')
-                self.end_headers()
-                self.wfile.write(json.dumps({"error": "Task not found"}).encode('utf-8'))
+                self._send_json(404, {"error": "Task not found", "task_id": task_id or None})
                 return
-                
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            self.wfile.write(json.dumps(TASKS[task_id]).encode('utf-8'))
+
+            self._send_json(200, TASKS[task_id])
         else:
-            self.send_response(404)
-            self.end_headers()
+            self._send_json(404, {"error": "Route not found", "route": route})
 
     def do_POST(self):
         parsed_url = urlparse(self.path)
         route = parsed_url.path
         
         if route == '/api/run-pipeline':
-            self.send_response(200)
-            self.send_header('Content-type', 'application/json')
-            self.end_headers()
-            
-            # Start background thread to run pipeline
             task_id = str(uuid.uuid4())
             thread = threading.Thread(target=run_pipeline_thread, args=(task_id,))
             thread.daemon = True
             thread.start()
-            
+            _trim_tasks()
+
             response = {
                 "status": "RUNNING",
-                "task_id": task_id
+                "task_id": task_id,
+                "dispatch_audit_path": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json",
             }
-            self.wfile.write(json.dumps(response).encode('utf-8'))
+            self._send_json(200, response)
         else:
-            self.send_response(404)
-            self.end_headers()
+            self._send_json(404, {"error": "Route not found", "route": route})
 
 def run_server(port=5174):
     server_address = ('127.0.0.1', port)

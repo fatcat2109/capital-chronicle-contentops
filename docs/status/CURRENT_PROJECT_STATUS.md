@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
+TASK_CONTENTOPS_V6_FULL_AUTOMATION_PIPELINE_HARDENING_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,21 +9,21 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-f38229d4416ef78018ef93c86ba7b6555cfe062c
+d72183874b37d314adf35ee118491a24f09a16d7
 
 ## current_product_phase
-Post-release operator governance maintenance refreshed with fully automated E2E live dispatches across all 8 platforms (Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram) under Fast Ship Mode.
+Full automation pipeline hardening completed locally: governance no longer hard-stops on stale status/repo mismatches when repo evidence and Jim's explicit direction are clear; V6 generation, variant validation, dispatch audit normalization, server task telemetry, and V5 operator recovery logs are hardened.
 
 ## current_product_lane
-Full automation of the social and publishing dispatches, Unicode/environment loading integration, and verification of real-time multi-platform dispatches.
+Full automation pipeline recovery and audit hardening across canonical article generation, platform-native variants, live dispatch adapters, local pipeline server, and canonical V5 Command Center.
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 completed post-release operator governance maintenance run, successfully automating and verifying E2E live dispatches across Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, and Instagram under Fast Ship Mode.
+TASK_CONTENTOPS_V6_FULL_AUTOMATION_PIPELINE_HARDENING_V0 added run IDs, pipeline statuses, normalized dispatch result summaries, missing-payload blockers, validation summaries, no-advice/advice-phrase checks, bounded server task telemetry, and operator-visible recovery logs. Governance changed from status/repo hard-stop to repo-evidence-wins reconciliation under explicit Jim direction.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `f38229d4416ef78018ef93c86ba7b6555cfe062c`
-- previous accepted product baseline: `b24bc500aae71f84187de6653d6f342cbc5ba822`
-- latest status/promotion task (`last_status_commit_sha`): `f38229d4416ef78018ef93c86ba7b6555cfe062c` verified by `git rev-parse origin/master` readback before this operator governance update.
+- accepted product baseline (`accepted_product_baseline_sha`): `d72183874b37d314adf35ee118491a24f09a16d7` before this commit; this task will advance after commit/push.
+- previous accepted product baseline: `f38229d4416ef78018ef93c86ba7b6555cfe062c`.
+- latest status/promotion task (`last_status_commit_sha`): `d72183874b37d314adf35ee118491a24f09a16d7` verified by `git rev-parse HEAD` and `git ls-remote origin refs/heads/master` before this hardening update.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -48,13 +48,13 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 loop now incorporates fully automated E2E live dispatches across all 8 target platforms (Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram). Google Image search and variant generation have been successfully integrated with Unicode-safe logging and environment `.env` loading under Fast Ship Mode. Verified successfully via live E2E runs.
+V6 loop now has a hardened full automation path: canonical article generation and platform variant packets feed normalized dispatch audit records with run IDs, exact pipeline statuses, per-platform ok/error metadata, dispatch summaries, and blocked/missing-payload visibility. Variant packets now include no-advice/advice-phrase validation and validation summaries.
 
 ## dispatch/live status
-Under Fast Ship Mode, E2E live dispatches executed successfully and are fully validated across all 8 channels: Substack, LinkedIn, X (Twitter), Discord, Telegram, Facebook Page, Threads, and Instagram. Real-time posting, threads, and comments are active.
+Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. This task did not run a real live dispatch; it hardened dispatch result shaping, blocked-run audit writing, and operator-visible recovery metadata. Focused tests used mocks and wrote no committed live-provider evidence.
 
 ## provider/env/credential status
-Under Fast Ship Mode, `.env` and credential stores are accessible to authorize real network requests and platform-native integration. Discord webhooks (DISCORD_ANNOUNCEMENTS_WEBHOOK_URL), Telegram credentials (TELEGRAM_BOT_TOKEN, TELEGRAM_TARGET_CHAT_ID), Facebook Page credentials (FACEBOOK_PAGE_ID plus FACEBOOK_PAGE_ACCESS_TOKEN or META_ACCESS_TOKEN), Threads credentials (THREADS_USER_ID plus THREADS_USER_ACCESS_TOKEN or THREADS_ACCESS_TOKEN), and Instagram destination binding (INSTAGRAM_BUSINESS_ACCOUNT_ID plus META_ACCESS_TOKEN) are utilized directly where available.
+Under Fast Ship Mode, `.env` and credential stores remain authorized for future live rehearsals. This task did not require raw secret reads. Tests exercised mocked adapters; transient telemetry/audit files generated during tests were removed or reverted before final docs.
 
 ## active blockers
 - Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.
@@ -64,26 +64,30 @@ Under Fast Ship Mode, `.env` and credential stores are accessible to authorize r
 
 ## accepted caveats
 - GitHub remote commits and fetched repo files remain runtime authority above this status doc.
-- If this status doc conflicts with GitHub remote or newer committed authority docs, the worker must stop and report BLOCKED for reconciliation.
+- If this status doc conflicts with GitHub remote or newer committed authority docs, current repo evidence wins; record the mismatch and reconcile status during the task when practical instead of hard-stopping solely on stale status docs.
 - Do not use chat memory or Project Sources as runtime authority when status doc and repo files disagree.
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
+TASK_CONTENTOPS_V6_FULL_AUTOMATION_PIPELINE_HARDENING_V0
 
 ## latest changed areas
-- `live_contentops/linkedin_browser_adapter_v6.py`
-- `live_contentops/live_production_pipeline_runner_v6.py`
-- `live_contentops/platform_native_variant_generator_live_v6.py`
-- `ui/contentops_v5/src/views/V6CommandCenter.tsx`
-- `ui/contentops_v5/src/test/v6_unified_operator_reporting_console.test.tsx`
-- `tests/test_linkedin_adapter.py`
-- `tests/test_live_production_pipeline_runner.py`
+- `AGENTS.md`
+- `docs/AI_BUILDER_BOOTSTRAP.md`
+- `docs/status/STATUS_AND_PROGRESS_DOCS_MAP.md`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
+- `live_contentops/live_production_pipeline_runner_v6.py`
+- `live_contentops/platform_native_variant_generator_live_v6.py`
+- `live_contentops/server.py`
+- `ui/contentops_v5/src/views/V6CommandCenter.tsx`
+- `tests/test_live_production_pipeline_runner.py`
+- `tests/test_platform_native_variant_generator_live_v6.py`
+- `tests/test_server.py`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0` · Continue ongoing post-release governance, telemetry registry audits, and periodic cockpit readiness regression test checks.
+Next heavy batch: `TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0` · Run a controlled live or dry-run rehearsal using the hardened audit/status surfaces, then read back and commit the evidence packet.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.

@@ -51,11 +51,7 @@ Start at AGENTS.md, then read docs/AI_BUILDER_BOOTSTRAP.md and follow its mandat
 5. Current root entrypoints such as [README.md](../README.md) and [AGENTS.md](../AGENTS.md).
 6. Archived docs, pasted summaries, chat memory, no-extension response files, and Project Sources.
 
-If status docs conflict with current repo evidence, stop and report:
-
-```text
-BLOCKED: status/repo authority conflict
-```
+If status docs conflict with current repo evidence, current repo evidence wins. Record the mismatch in task evidence and reconcile the status docs during the same task when practical; do not stop solely because status docs are stale when Jim explicitly directs continuation.
 
 ## 4. North Star
 
@@ -186,7 +182,7 @@ Report exact blockers instead of guessing.
 
 Use these labels:
 
-- `BLOCKED: status/repo authority conflict`
+- `STATUS_RECONCILE: status/repo authority mismatch`
 - `BLOCKED: local/remote authority conflict`
 - `BLOCKED: missing exact live approval`
 - `BLOCKED: credential/session boundary`

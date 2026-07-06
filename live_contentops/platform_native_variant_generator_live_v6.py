@@ -47,6 +47,29 @@ def _contains_placeholder(text: str) -> bool:
     return any(marker in text.lower() for marker in ("stub", "scaffold", "placeholder", "lorem ipsum"))
 
 
+def _contains_advice_phrase(text: str) -> bool:
+    lowered = text.lower()
+    return any(phrase in lowered for phrase in (
+        "you should buy",
+        "you should sell",
+        "buy now",
+        "sell now",
+        "guaranteed return",
+        "risk-free return",
+        "not financial advice but",
+    ))
+
+
+def _has_no_advice_context(text: str) -> bool:
+    lowered = text.lower()
+    return "not investment advice" in lowered or "without giving investment advice" in lowered or "educational" in lowered
+
+
+def _generic_variant(text: str) -> bool:
+    lowered = text.lower()
+    return lowered.count("capital chronicle") == 0 and not any(term in lowered for term in ("macro", "policy", "shipping", "liquidity", "geopolitic", "yield", "data"))
+
+
 def validate_platform_variants(variants: dict[str, str], variant_threads: dict[str, list[str]], live_run: bool = True) -> list[str]:
     required = {
         "substack": 1200,
@@ -64,6 +87,12 @@ def validate_platform_variants(variants: dict[str, str], variant_threads: dict[s
             failures.append(f"{platform}_too_short:{len(text)}<{min_len}")
         if _contains_placeholder(text):
             failures.append(f"{platform}_placeholder_detected")
+        if _contains_advice_phrase(text):
+            failures.append(f"{platform}_financial_advice_phrase_detected")
+        if platform in {"substack", "linkedin", "facebook", "instagram_caption"} and not _has_no_advice_context(text):
+            failures.append(f"{platform}_no_advice_context_missing")
+        if platform != "substack" and _generic_variant(text):
+            failures.append(f"{platform}_generic_language_detected")
     limits = {"x": 280, "threads": 500}
     for platform in ("x", "threads"):
         thread = [str(item).strip() for item in variant_threads.get(platform, []) if str(item).strip()]
@@ -71,10 +100,21 @@ def validate_platform_variants(variants: dict[str, str], variant_threads: dict[s
             failures.append(f"{platform}_thread_missing")
         if any(_contains_placeholder(item) for item in thread):
             failures.append(f"{platform}_thread_placeholder_detected")
+        if any(_contains_advice_phrase(item) for item in thread):
+            failures.append(f"{platform}_thread_financial_advice_phrase_detected")
         for idx, item in enumerate(thread, start=1):
             if len(item) > limits[platform]:
                 failures.append(f"{platform}_thread_item_too_long:{idx}:{len(item)}>{limits[platform]}")
     return failures
+
+
+def summarize_validation(failures: list[str]) -> dict[str, Any]:
+    blocked_platforms = sorted({failure.split("_", 1)[0] for failure in failures})
+    return {
+        "failure_count": len(failures),
+        "blocked_platforms": blocked_platforms,
+        "ready": not failures,
+    }
 
 
 def _fallback_variants(title: str, subtitle: str, body_text: str) -> tuple[dict[str, str], dict[str, list[str]]]:
@@ -169,6 +209,7 @@ def generate_live_platform_variants(
                 validation_failures.append(f"variant_provider_failed:{exc}")
 
     validation_failures.extend(validate_platform_variants(variants, variant_threads, live_run=live_run))
+    validation_summary = summarize_validation(validation_failures)
     variant_status = "VARIANT_READY" if not validation_failures else "VARIANT_VALIDATION_FAILED"
 
     for plat, text in variants.items():
@@ -197,6 +238,7 @@ def generate_live_platform_variants(
         "public_image_url": public_image_url,
         "provider_call_made": provider_call_made,
         "validation_failures": validation_failures,
+        "validation_summary": validation_summary,
         "created_at": time.strftime("%Y-%m-%dT%H:%M:%S+00:00", time.gmtime())
     }
     packet["platform_variant_packet_id"] = f"variant_packet_{compute_packet_hash(packet)[:12]}"

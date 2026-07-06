@@ -19,7 +19,7 @@ This map defines which repo-native governance docs must be updated after tasks a
 1. Next-task recommendations are soft recommendations only.
 2. GitHub remote commits and fetched repo files win over Project Sources and chat memory.
 3. Never hardcode a future next task as permanent truth.
-4. If a status/progress doc conflicts with repo evidence, stop and reconcile before feature work.
+4. If a status/progress doc conflicts with repo evidence, current repo evidence wins; record the mismatch and reconcile status during the task or final docs instead of blocking feature work.
 5. Do not claim public URL verification, provider/API readiness, live dispatch, user activity, metrics, or screenshots unless committed evidence proves it.
 6. Status-only/docs refresh commits do not become product baselines unless explicitly accepted as product work.
 
