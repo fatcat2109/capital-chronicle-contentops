@@ -1,0 +1,50 @@
+[
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from Yahoo Finance Video: A closer look at defense stocks ahead of Trump's trip to NATO summit",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: Treasury yield volatility and shipping chokepoints reshape macro risk"
+    ],
+    "publisher_or_origin": "Yahoo Finance Video",
+    "retrieved_at": "2026-07-06T14:21:29+00:00",
+    "source_id": "src_b86b33672b02",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "A closer look at defense stocks ahead of Trump's trip to NATO summit",
+    "url_or_local_reference": "https://finance.yahoo.com/video/closer-look-defense-stocks-ahead-141500251.html"
+  },
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from PR Newswire: Microscopy Software Market worth $3.09 billion by 2031 | MarketsandMarkets\u2122",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: Treasury yield volatility and shipping chokepoints reshape macro risk"
+    ],
+    "publisher_or_origin": "PR Newswire",
+    "retrieved_at": "2026-07-06T14:21:29+00:00",
+    "source_id": "src_b9bf05542f52",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "Microscopy Software Market worth $3.09 billion by 2031 | MarketsandMarkets\u2122",
+    "url_or_local_reference": "https://finance.yahoo.com/technology/articles/microscopy-software-market-worth-3-141500799.html"
+  },
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from PR Newswire: Screw Conveyor Market to Reach USD 1.7 Billion by 2036 as Industrial Automation and Infrastructure Expansion Accelerate Bulk Material Handling Demand | FMI",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: Treasury yield volatility and shipping chokepoints reshape macro risk"
+    ],
+    "publisher_or_origin": "PR Newswire",
+    "retrieved_at": "2026-07-06T14:21:29+00:00",
+    "source_id": "src_f4e7013dcf63",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "Screw Conveyor Market to Reach USD 1.7 Billion by 2036 as Industrial Automation and Infrastructure Expansion Accelerate Bulk Material Handling Demand | FMI",
+    "url_or_local_reference": "https://finance.yahoo.com/markets/articles/screw-conveyor-market-reach-usd-141500486.html"
+  }
+]

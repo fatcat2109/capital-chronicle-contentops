@@ -1,0 +1,99 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "live_contentops.live_production_pipeline_runner_v6",
+    "--topic",
+    "Treasury yield volatility and shipping chokepoints reshape macro risk",
+    "--angle",
+    "Explain how rates, energy routes, and policy uncertainty transmit through earnings and household costs without giving investment advice.",
+    "--target-audience",
+    "general_financial_education",
+    "--timeout-seconds",
+    "45",
+    "--live-run",
+    "--dispatch-live",
+    "--write-rehearsal-evidence",
+    "--rehearsal-evidence-output",
+    "docs\\automation\\V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK\\rehearsal_evidence_packet.json"
+  ],
+  "created_at": "2026-07-06T14:24:19Z",
+  "dispatch_audit_excerpt": {
+    "dispatch_blocked": true,
+    "dispatch_blockers": [
+      "article_quality_gate_failed:provider_call_failed:timed out",
+      "article_too_short:1076<5000",
+      "too_few_sections",
+      "missing_specific_numbers",
+      "substack_too_short:915<1200",
+      "substack_too_short:915<1200"
+    ],
+    "dispatch_live": false,
+    "dispatch_summary": {
+      "attempted_platforms": [],
+      "blocked_platforms": [
+        "pipeline"
+      ],
+      "failed_platforms": [],
+      "successful_platforms": []
+    },
+    "pipeline_status": "DISPATCH_BLOCKED",
+    "run_id": "v6_pipeline_2197b27302ff",
+    "timestamp": "2026-07-06T14:24:19Z"
+  },
+  "evidence_hash": "5ba0ea84c56a18a49247722d44c03a24b6adf9e0b7f7ecd98289adbdcb679598",
+  "evidence_packet_id": "v6_pipeline_rehearsal_5ba0ea84c56a18a4",
+  "mode": "controlled_rehearsal",
+  "packet_kind": "v6_pipeline_rehearsal_evidence_packet",
+  "pipeline_result": {
+    "article_packet_id": "article_engine_packet_22c296b9f19e539f",
+    "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
+    "dispatch_blocked": true,
+    "dispatch_blockers": [
+      "article_quality_gate_failed:provider_call_failed:timed out",
+      "article_too_short:1076<5000",
+      "too_few_sections",
+      "missing_specific_numbers",
+      "substack_too_short:915<1200",
+      "substack_too_short:915<1200"
+    ],
+    "dispatch_live": false,
+    "dispatch_summary": {
+      "attempted_platforms": [],
+      "blocked_platforms": [
+        "pipeline"
+      ],
+      "failed_platforms": [],
+      "successful_platforms": []
+    },
+    "pipeline_status": "DISPATCH_BLOCKED",
+    "platform_variant_packet_id": "variant_packet_f5fc11a13886",
+    "run_id": "v6_pipeline_2197b27302ff",
+    "timestamp": "2026-07-06T14:24:19Z",
+    "timestamp_gmt7": "2026-07-06T21:24:19+07:00",
+    "variant_status": "VARIANT_VALIDATION_FAILED"
+  },
+  "readback_checks": {
+    "audit_file_present": true,
+    "dispatch_summary_matches": true,
+    "pipeline_status_matches": true,
+    "readback_ready": true,
+    "run_id_matches": true
+  },
+  "repo_state": {
+    "branch": "master",
+    "dirty_state_short": "M docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/discord_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/linkedin_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/substack_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/telegram_operator_preview.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/threads_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/x_variant.md\n M live_contentops/ai_research_canonical_article_engine_v6.py\n M live_contentops/live_production_pipeline_runner_v6.py\n M ui/contentops_v5/src/data/platform_variant_packet.json\n?? docs/automation/V6_AI_RESEARCH_GROUNDING/search_cache/\n?? docs/automation/V6_PLATFORM_NATIVE_VARIANTS/facebook_variant.md\n?? docs/automation/V6_PLATFORM_NATIVE_VARIANTS/instagram_caption_variant.md\n?? docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json\n?? live_contentops/pipeline_rehearsal_evidence_v6.py\n?? tests/test_ai_research_canonical_article_engine_v6.py\n?? tests/test_pipeline_rehearsal_evidence_v6.py",
+    "head_sha": "48767f19f6be67284a3112b4945423c47c065850",
+    "remote_master_sha": "48767f19f6be67284a3112b4945423c47c065850",
+    "repo_full_name": "fatcat2109/capital-chronicle-contentops"
+  },
+  "safety": {
+    "audit_excerpt_only": true,
+    "browser_session_sensitive_value_persisted": false,
+    "raw_env_values_persisted": false,
+    "raw_sensitive_values_persisted": false
+  },
+  "schema_version": "1.0.0",
+  "sensitive_marker_detected": false,
+  "task_label": "TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0"
+}

@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_FULL_AUTOMATION_PIPELINE_HARDENING_V0
+TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,21 +9,21 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-d72183874b37d314adf35ee118491a24f09a16d7
+48767f19f6be67284a3112b4945423c47c065850
 
 ## current_product_phase
-Full automation pipeline hardening completed locally: governance no longer hard-stops on stale status/repo mismatches when repo evidence and Jim's explicit direction are clear; V6 generation, variant validation, dispatch audit normalization, server task telemetry, and V5 operator recovery logs are hardened.
+Controlled V6 pipeline live rehearsal and evidence readback completed: live/provider rehearsal executed, dispatch was correctly blocked by quality gates after provider timeout/short draft, and committed evidence proves dispatch audit/readback consistency without raw secrets.
 
 ## current_product_lane
-Full automation pipeline recovery and audit hardening across canonical article generation, platform-native variants, live dispatch adapters, local pipeline server, and canonical V5 Command Center.
+Pipeline rehearsal evidence, dispatch audit readback, provider-timeout recovery discovery, and canonical V6 automation status reconciliation.
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_FULL_AUTOMATION_PIPELINE_HARDENING_V0 added run IDs, pipeline statuses, normalized dispatch result summaries, missing-payload blockers, validation summaries, no-advice/advice-phrase checks, bounded server task telemetry, and operator-visible recovery logs. Governance changed from status/repo hard-stop to repo-evidence-wins reconciliation under explicit Jim direction.
+TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0 added run IDs, pipeline statuses, normalized dispatch result summaries, missing-payload blockers, validation summaries, no-advice/advice-phrase checks, bounded server task telemetry, and operator-visible recovery logs. Governance changed from status/repo hard-stop to repo-evidence-wins reconciliation under explicit Jim direction.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `d72183874b37d314adf35ee118491a24f09a16d7` before this commit; this task will advance after commit/push.
+- accepted product baseline (`accepted_product_baseline_sha`): `48767f19f6be67284a3112b4945423c47c065850` before this commit; this task will advance after commit/push.
 - previous accepted product baseline: `f38229d4416ef78018ef93c86ba7b6555cfe062c`.
-- latest status/promotion task (`last_status_commit_sha`): `d72183874b37d314adf35ee118491a24f09a16d7` verified by `git rev-parse HEAD` and `git ls-remote origin refs/heads/master` before this hardening update.
+- latest status/promotion task (`last_status_commit_sha`): `48767f19f6be67284a3112b4945423c47c065850` verified by `git rev-parse HEAD` and `git ls-remote origin refs/heads/master` before this hardening update.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -48,19 +48,20 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 loop now has a hardened full automation path: canonical article generation and platform variant packets feed normalized dispatch audit records with run IDs, exact pipeline statuses, per-platform ok/error metadata, dispatch summaries, and blocked/missing-payload visibility. Variant packets now include no-advice/advice-phrase validation and validation summaries.
+V6 loop now has a rehearsal-backed full automation path: canonical article generation and platform variant packets feed normalized dispatch audit records, and rehearsal evidence packets read back run_id/status/dispatch_summary consistency. The latest live/provider rehearsal correctly blocked dispatch before platform posting when provider timeout and draft quality gates failed.
 
 ## dispatch/live status
-Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. This task did not run a real live dispatch; it hardened dispatch result shaping, blocked-run audit writing, and operator-visible recovery metadata. Focused tests used mocks and wrote no committed live-provider evidence.
+Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. This task ran a controlled live/provider rehearsal with dispatch-live requested; platform dispatch did not execute because quality gates produced DISPATCH_BLOCKED. The block is committed as audit/readback evidence, not treated as success.
 
 ## provider/env/credential status
-Under Fast Ship Mode, `.env` and credential stores remain authorized for future live rehearsals. This task did not require raw secret reads. Tests exercised mocked adapters; transient telemetry/audit files generated during tests were removed or reverted before final docs.
+Under Fast Ship Mode, `.env` and credential stores remain authorized for future live rehearsals. This task loaded the environment through existing dotenv flow but persisted no raw credential/env values; the committed rehearsal evidence is audit-excerpt-only and reports sensitive_marker_detected=false.
 
 ## active blockers
 - Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.
 - Capital Chronicle Internal alpha / analysis-report posts should prefer built-in chart/card media from the report system when available.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
 - Standalone approval queue UI must not be revived as canonical.
+- Provider timeout/short draft recovery is the next hardening target before claiming platform dispatch readiness from the full pipeline rehearsal.
 
 ## accepted caveats
 - GitHub remote commits and fetched repo files remain runtime authority above this status doc.
@@ -69,22 +70,24 @@ Under Fast Ship Mode, `.env` and credential stores remain authorized for future 
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_FULL_AUTOMATION_PIPELINE_HARDENING_V0
+TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0
 
 ## latest changed areas
-- `AGENTS.md`
-- `docs/AI_BUILDER_BOOTSTRAP.md`
-- `docs/status/STATUS_AND_PROGRESS_DOCS_MAP.md`
+- `docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_evidence_packet.json`
+- `docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_readback_summary.md`
+- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`
+- `docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json`
+- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json`
+- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/*_variant.md`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
+- `live_contentops/ai_research_canonical_article_engine_v6.py`
 - `live_contentops/live_production_pipeline_runner_v6.py`
-- `live_contentops/platform_native_variant_generator_live_v6.py`
-- `live_contentops/server.py`
-- `ui/contentops_v5/src/views/V6CommandCenter.tsx`
-- `tests/test_live_production_pipeline_runner.py`
-- `tests/test_platform_native_variant_generator_live_v6.py`
-- `tests/test_server.py`
+- `live_contentops/pipeline_rehearsal_evidence_v6.py`
+- `ui/contentops_v5/src/data/platform_variant_packet.json`
+- `tests/test_ai_research_canonical_article_engine_v6.py`
+- `tests/test_pipeline_rehearsal_evidence_v6.py`
 
 ## current next recommended task
 Next heavy batch: `TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0` · Run a controlled live or dry-run rehearsal using the hardened audit/status surfaces, then read back and commit the evidence packet.

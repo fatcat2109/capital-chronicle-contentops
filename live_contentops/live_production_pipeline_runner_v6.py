@@ -29,6 +29,11 @@ from live_contentops.platform_native_variant_generator_live_v6 import (
     generate_live_platform_variants,
     validate_platform_variants,
 )
+from live_contentops.pipeline_rehearsal_evidence_v6 import (
+    DEFAULT_EVIDENCE_PACKET_PATH,
+    build_rehearsal_evidence_packet,
+    write_rehearsal_evidence,
+)
 
 ARTICLE_OUTPUT_PATH = Path("docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json")
 VARIANT_OUTPUT_DIR = Path("docs/automation/V6_PLATFORM_NATIVE_VARIANTS")
@@ -371,14 +376,34 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--angle", default="Focus on data transparency, geopolitics, and yield curves.", help="Editorial angle")
     parser.add_argument("--live-run", action="store_true", help="Enable 9router LLM and live searches")
     parser.add_argument("--dispatch-live", action="store_true", help="Enable live posting/publishing to all platforms")
+    parser.add_argument("--target-audience", default="general_financial_education", help="Target audience")
+    parser.add_argument("--timeout-seconds", type=int, default=30, help="Provider timeout seconds")
+    parser.add_argument("--write-rehearsal-evidence", action="store_true", help="Write sanitized rehearsal evidence/readback packet")
+    parser.add_argument("--rehearsal-evidence-output", default=str(DEFAULT_EVIDENCE_PACKET_PATH), help="Evidence packet output path")
     args = parser.parse_args(argv)
-    
+
+    command = ["python", "-m", "live_contentops.live_production_pipeline_runner_v6"]
+    command.extend(["--topic", args.topic, "--angle", args.angle, "--target-audience", args.target_audience, "--timeout-seconds", str(args.timeout_seconds)])
+    if args.live_run:
+        command.append("--live-run")
+    if args.dispatch_live:
+        command.append("--dispatch-live")
+    if args.write_rehearsal_evidence:
+        command.extend(["--write-rehearsal-evidence", "--rehearsal-evidence-output", args.rehearsal_evidence_output])
+
     result = run_live_production_pipeline(
         topic=args.topic,
         editorial_angle=args.angle,
+        target_audience=args.target_audience,
         live_run=args.live_run,
-        dispatch_live=args.dispatch_live
+        dispatch_live=args.dispatch_live,
+        timeout_seconds=args.timeout_seconds,
     )
+    if args.write_rehearsal_evidence:
+        evidence = build_rehearsal_evidence_packet(result, command=command)
+        evidence_path = write_rehearsal_evidence(evidence, args.rehearsal_evidence_output)
+        result["rehearsal_evidence_path"] = str(evidence_path)
+        result["rehearsal_evidence_packet_id"] = evidence["evidence_packet_id"]
     print(json.dumps(result, indent=2))
     return 0
 

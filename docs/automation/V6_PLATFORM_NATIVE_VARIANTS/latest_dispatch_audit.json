@@ -1,0 +1,166 @@
+{
+  "article_packet_id": "art_test_packet_123",
+  "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
+  "dispatch_live": true,
+  "dispatch_results": {
+    "discord": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "discord",
+      "raw": {
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": null
+    },
+    "facebook": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "facebook",
+      "raw": {
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": null
+    },
+    "instagram": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "instagram",
+      "raw": {
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": null
+    },
+    "linkedin": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "linkedin",
+      "raw": {
+        "response": {
+          "url": "https://linkedin.com/p/2"
+        },
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": "https://linkedin.com/p/2"
+    },
+    "substack": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "substack",
+      "raw": {
+        "status": "SUCCESS",
+        "url": "https://substack.com/p/1"
+      },
+      "status": "SUCCESS",
+      "url": "https://substack.com/p/1"
+    },
+    "telegram": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "telegram",
+      "raw": {
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": null
+    },
+    "threads": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "threads",
+      "raw": {
+        "id": "threads_1",
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": null
+    },
+    "threads_replies": [
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "threads_reply_1",
+        "raw": {
+          "id": "threads_1",
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      }
+    ],
+    "x_post": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "x_post",
+      "raw": {
+        "response": {
+          "url": "https://x.com/status/3"
+        },
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": "https://x.com/status/3"
+    },
+    "x_replies": [
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "x_reply_1",
+        "raw": {
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      }
+    ]
+  },
+  "dispatch_summary": {
+    "attempted_platforms": [
+      "substack",
+      "linkedin",
+      "x_post",
+      "x_reply_1",
+      "instagram",
+      "facebook",
+      "telegram",
+      "threads",
+      "threads_reply_1",
+      "discord"
+    ],
+    "blocked_platforms": [],
+    "failed_platforms": [],
+    "successful_platforms": [
+      "substack",
+      "linkedin",
+      "x_post",
+      "x_reply_1",
+      "instagram",
+      "facebook",
+      "telegram",
+      "threads",
+      "threads_reply_1",
+      "discord"
+    ]
+  },
+  "image_path": "downloads/test_image.jpg",
+  "pipeline_status": "DISPATCH_COMPLETE",
+  "platform_variant_packet_id": "var_test_packet_456",
+  "public_image_url": "https://example.com/test_image.jpg",
+  "run_id": "v6_pipeline_98b3c90bd043",
+  "timestamp": "2026-07-06T14:26:13Z",
+  "timestamp_gmt7": "2026-07-06T21:26:13+07:00",
+  "variant_status": "VARIANT_SCAFFOLD_READY"
+}

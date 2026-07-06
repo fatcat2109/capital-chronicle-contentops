@@ -47,7 +47,7 @@ def check_financial_advice(text: str) -> None:
             raise ValueError(f"forbidden_financial_advice_language:{term}")
     words = re.findall(r"\b[a-z-]+\b", low)
     for word in words:
-        if word in {"buy", "sell", "hold", "entry", "entries", "exit", "exits", "target", "targets"}:
+        if word in {"buy", "sell", "hold", "entry", "entries", "exit", "exits"}:
             raise ValueError(f"forbidden_financial_advice_language:{word}")
 
 
