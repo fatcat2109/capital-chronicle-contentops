@@ -269,13 +269,19 @@ def execute_linkedin_comment(
                     submit_btn = None
                     if post_card:
                         submit_btn = post_card.locator(
-                            "button.comments-comment-box__submit-button, button[type='submit'], "
-                            "button:has-text('Post'), button:has-text('Comment')"
+                            "form.comments-comment-box__form button[type='submit'], "
+                            "form.comments-comment-box__form button:has-text('Post'), "
+                            "form.comments-comment-box__form button:has-text('Comment'), "
+                            ".comments-comment-box button:has-text('Post'), "
+                            ".comments-comment-box button:has-text('Comment')"
                         ).first
                     if not submit_btn or not submit_btn.is_visible():
                         submit_btn = page.locator(
-                            "button.comments-comment-box__submit-button, button[type='submit'], "
-                            "button:has-text('Post'), button:has-text('Comment')"
+                            "form.comments-comment-box__form button[type='submit'], "
+                            "form.comments-comment-box__form button:has-text('Post'), "
+                            "form.comments-comment-box__form button:has-text('Comment'), "
+                            ".comments-comment-box button:has-text('Post'), "
+                            ".comments-comment-box button:has-text('Comment')"
                         ).first
 
                     if submit_btn.is_visible() and submit_btn.is_enabled():
