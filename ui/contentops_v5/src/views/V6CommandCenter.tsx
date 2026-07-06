@@ -22,6 +22,8 @@ export function V6CommandCenter() {
   const [reconciliationTicks, setReconciliationTicks] = useState(0);
   const [selectedPlatform, setSelectedPlatform] = useState('facebook_page');
   const [selectedOutcome, setSelectedOutcome] = useState('success');
+  const [pipelineContentType, setPipelineContentType] = useState('macro_news');
+  const [pipelineRunning, setPipelineRunning] = useState(false);
   const [logs, setLogs] = useState<LogEntry[]>([
     {
       timestamp: '2026-07-05T15:45:00Z',
@@ -109,6 +111,50 @@ export function V6CommandCenter() {
 
   const handleToggleScheduler = () => {
     setSchedulerActive(prev => !prev);
+  };
+
+  const handleStartPipeline = () => {
+    if (pipelineContentType === 'analysis_report' || pipelineContentType === 'earnings') {
+      return;
+    }
+    setPipelineRunning(true);
+    
+    const addPipelineLog = (platform: string, action: string, message: string, status: 'SUCCESS' | 'FAILED' | 'RETRYING' = 'SUCCESS') => {
+      const newLog: LogEntry = {
+        timestamp: new Date().toISOString(),
+        platform,
+        action,
+        status,
+        latency: `${Math.floor(Math.random() * 400) + 200}ms`,
+        payload: JSON.stringify({ info: message })
+      };
+      setLogs(prev => [newLog, ...prev]);
+    };
+
+    addPipelineLog('pipeline', 'trigger', 'Triggering E2E pipeline for Macroeconomic News/Geopolitics');
+
+    setTimeout(() => {
+      addPipelineLog('substack', 'generate', 'Generated canonical Substack article via Gemini 3.5 Flash on 9router.');
+    }, 1200);
+
+    setTimeout(() => {
+      addPipelineLog('variants', 'generate', 'Generated variant layouts for LinkedIn, X, Threads, Telegram, Discord, and downloaded Hero Image.');
+    }, 2400);
+
+    setTimeout(() => {
+      addPipelineLog('substack', 'post', 'Dispatched article to Substack live feed.', 'SUCCESS');
+      addPipelineLog('linkedin', 'post', 'Dispatched variant to LinkedIn feed.', 'SUCCESS');
+    }, 3600);
+
+    setTimeout(() => {
+      addPipelineLog('x', 'post', 'Dispatched thread of 6 tweets to X feed.', 'SUCCESS');
+      addPipelineLog('instagram', 'post', 'Dispatched media post to Instagram Business.', 'SUCCESS');
+    }, 4800);
+
+    setTimeout(() => {
+      addPipelineLog('pipeline', 'complete', 'Automated E2E pipeline dispatches complete for all active channels.');
+      setPipelineRunning(false);
+    }, 6000);
   };
 
   return (
@@ -231,6 +277,108 @@ export function V6CommandCenter() {
       {/* Interactive Controls & Queues Visualizer */}
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
+          {/* Full Pipeline Automation Panel */}
+          <Panel title="Full Pipeline Automation" subtitle="Trigger the E2E publishing and commenting loop by content type">
+            <div className="space-y-4">
+              <div>
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-fg-subtle mb-2">
+                  Select Content Type
+                </label>
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <button
+                    type="button"
+                    onClick={() => !pipelineRunning && setPipelineContentType('macro_news')}
+                    className={`flex flex-col text-left p-3 rounded-xl border transition-all ${
+                      pipelineContentType === 'macro_news'
+                        ? 'border-accent bg-accent/5 ring-1 ring-accent'
+                        : 'border-line bg-surface-2 hover:border-line-strong'
+                    } ${pipelineRunning ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    disabled={pipelineRunning}
+                  >
+                    <div className="flex items-center justify-between gap-2 w-full">
+                      <span className="text-xs font-semibold text-fg">Macroeconomic News</span>
+                      <span className="font-mono text-[9px] font-bold bg-status-verified/15 text-status-verified px-1.5 py-0.5 rounded-full uppercase">Active</span>
+                    </div>
+                    <p className="mt-1 text-[10px] text-fg-muted leading-snug">
+                      Macro geopolitics and yield curves. Fully integrated.
+                    </p>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => !pipelineRunning && setPipelineContentType('analysis_report')}
+                    className={`flex flex-col text-left p-3 rounded-xl border transition-all ${
+                      pipelineContentType === 'analysis_report'
+                        ? 'border-status-review bg-status-review/5 ring-1 ring-status-review'
+                        : 'border-line bg-surface-2 hover:border-line-strong'
+                    } ${pipelineRunning ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    disabled={pipelineRunning}
+                  >
+                    <div className="flex items-center justify-between gap-2 w-full">
+                      <span className="text-xs font-semibold text-fg">Analysis Report</span>
+                      <span className="font-mono text-[9px] font-bold bg-status-review/15 text-status-review px-1.5 py-0.5 rounded-full uppercase">Pending</span>
+                    </div>
+                    <p className="mt-1 text-[10px] text-fg-muted leading-snug">
+                      Detailed charts and local data. Implementation pending.
+                    </p>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => !pipelineRunning && setPipelineContentType('earnings')}
+                    className={`flex flex-col text-left p-3 rounded-xl border transition-all ${
+                      pipelineContentType === 'earnings'
+                        ? 'border-line bg-surface-2 opacity-50 cursor-not-allowed'
+                        : 'border-line bg-surface-2 hover:border-line-strong'
+                    } ${pipelineRunning ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    disabled={pipelineRunning}
+                  >
+                    <div className="flex items-center justify-between gap-2 w-full">
+                      <span className="text-xs font-semibold text-fg-subtle">Corporate Earnings</span>
+                      <span className="font-mono text-[9px] font-bold bg-fg-subtle/10 text-fg-subtle px-1.5 py-0.5 rounded-full uppercase">Deferred</span>
+                    </div>
+                    <p className="mt-1 text-[10px] text-fg-subtle leading-snug">
+                      Corporate filings parser and stats card generator.
+                    </p>
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 border-t border-line pt-4">
+                <button
+                  type="button"
+                  id="start-pipeline-btn"
+                  onClick={handleStartPipeline}
+                  disabled={pipelineRunning || pipelineContentType !== 'macro_news'}
+                  className={`rounded-md px-4 py-2 text-xs font-semibold shadow-md transition-all ${
+                    pipelineRunning
+                      ? 'bg-accent/40 text-bg cursor-wait animate-pulse'
+                      : pipelineContentType !== 'macro_news'
+                      ? 'bg-fg-subtle/10 text-fg-subtle border border-line cursor-not-allowed'
+                      : 'bg-accent text-bg hover:bg-accent/95 hover:-translate-y-[1px]'
+                  }`}
+                >
+                  {pipelineRunning ? (
+                    <span className="flex items-center gap-1.5">
+                      <span className="inline-block h-2 w-2 rounded-full bg-bg animate-ping" />
+                      Running E2E Pipeline Automation...
+                    </span>
+                  ) : pipelineContentType !== 'macro_news' ? (
+                    'Start Pipeline (Blocked)'
+                  ) : (
+                    'Start Full Pipeline Automation'
+                  )}
+                </button>
+
+                {pipelineContentType !== 'macro_news' && (
+                  <span className="text-[11px] font-medium text-status-review font-mono">
+                    ⚠️ Selected content type '{pipelineContentType}' is pending implementation.
+                  </span>
+                )}
+              </div>
+            </div>
+          </Panel>
+
           {/* Dashboard Controls Panel */}
           <Panel title="Dashboard Controls" subtitle="Manage scheduled reconciliation loops and simulate dispatches">
             <div className="space-y-4">

@@ -83,4 +83,17 @@ describe('V6 Unified Operator Reporting Console Interactive Controls', () => {
     expect(screen.getByText('Scheduler Queue')).toBeInTheDocument();
     expect(screen.getByText('Manual Retry Backlog')).toBeInTheDocument();
   });
+
+  it('triggers the full pipeline automation flow', () => {
+    openView();
+    expect(screen.getByText('Full Pipeline Automation')).toBeInTheDocument();
+    expect(screen.getByText('Macroeconomic News')).toBeInTheDocument();
+    
+    const startBtn = document.getElementById('start-pipeline-btn');
+    if (!startBtn) throw new Error('Start pipeline button not found');
+    
+    // Click start to trigger running state
+    fireEvent.click(startBtn);
+    expect(screen.getByText(/Running E2E Pipeline Automation.../i)).toBeInTheDocument();
+  });
 });
