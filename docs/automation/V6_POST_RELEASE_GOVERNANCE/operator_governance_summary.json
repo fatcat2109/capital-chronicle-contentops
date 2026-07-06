@@ -1,13 +1,15 @@
 {
   "artifact_audit": {
-    "archived_count": 0,
+    "archived_count": 1,
     "scratch_dir_checked": "A:\\Capital Chronicle\\tools\\cc-live-contentops\\scratch",
-    "stale_directories_found": [],
+    "stale_directories_found": [
+      "temp_profile_linkedin"
+    ],
     "stale_files_found": [],
     "status": "CLEAN"
   },
-  "governance_status": "PASS_OPERATOR_GOVERNANCE_HEALTHY",
-  "packet_hash": "110ab253276ee0458e91c9882bf416a81229f89d4f07ed1afe7f9025f269c0cd",
+  "governance_status": "REQUIRES_STATUS_LEDGER_RECONCILIATION",
+  "packet_hash": "391572a7f939005c96c42a53766ee8aabac4442efead5cc08e82098fb33607a8",
   "packet_kind": "v6_operator_governance_summary_v0",
   "platform_capabilities": [
     {
@@ -73,14 +75,16 @@
   ],
   "schema_version": "6.0.0",
   "status_ledger_audit": {
-    "issues": [],
+    "issues": [
+      "last_verified_remote_sha_mismatch"
+    ],
     "ledger_accepted_product_baseline_sha": "37b2d2b4ed223ed1665bb174531e8c7cc25e590d",
     "ledger_last_status_commit_sha": "6fb15946c1cf7a62a2a669a762e623d9d467d014",
-    "ledger_last_verified_remote_sha": "6fb15946c1cf7a62a2a669a762e623d9d467d014",
+    "ledger_last_verified_remote_sha": "eb62ac1721ec3ec23cf6170a04875ff04e876043",
     "ledger_latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
-    "ledger_matches_observed_remote": true,
-    "observed_remote_sha": "6fb15946c1cf7a62a2a669a762e623d9d467d014",
-    "status": "PASS_STATUS_LEDGER_ALIGNED",
+    "ledger_matches_observed_remote": false,
+    "observed_remote_sha": "be9a4dfeffd4d35487ed17a28c22e8845fcfa983",
+    "status": "REQUIRES_STATUS_LEDGER_RECONCILIATION",
     "status_json_exists": true
   },
   "system_invariants": {
@@ -91,24 +95,25 @@
   },
   "telemetry_audit": {
     "corrupt_entries_count": 0,
-    "error_count": 82,
+    "error_count": 107,
     "exists": true,
     "platform_breakdown": {
-      "discord": 3,
-      "facebook_page": 61,
-      "instagram": 59,
-      "substack": 1,
-      "telegram": 6,
-      "threads": 39,
-      "x": 1
+      "discord": 15,
+      "facebook_page": 82,
+      "instagram": 74,
+      "linkedin": 30,
+      "substack": 11,
+      "telegram": 24,
+      "threads": 54,
+      "x": 16
     },
-    "success_count": 88,
+    "success_count": 199,
     "telemetry_archive": {
       "exists": false,
       "size_bytes": 0,
       "total_entries": 0
     },
-    "total_entries": 170
+    "total_entries": 306
   },
   "telemetry_rotation": {
     "archived_lines": 0,

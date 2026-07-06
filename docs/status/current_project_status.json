@@ -4,10 +4,10 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "last_verified_remote_sha": "eb62ac1721ec3ec23cf6170a04875ff04e876043",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0",
-  "current_product_phase": "All 8 platforms fully validated for live dispatches (post, comment, edit) using API and Playwright Edge browser profile automation (including Substack publishing confirmation, X timeline status resolution, and LinkedIn share-modal button target resolution).",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
+  "current_product_phase": "Post-release operator governance maintenance refreshed with telemetry registry, platform capability, stale artifact, and status-ledger alignment audit",
   "current_product_lane": "Rehearsal verification of final product release readiness, metrics dashboard interactivity, red-team evidence packet, and automated checks.",
-  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 validated the V6 Command Center dashboard, security scans, and executed live dispatches for all 8 channels (Discord Webhook, Telegram Bot API, Facebook Page, Threads, Instagram, Substack Playwright CDP, X Playwright CDP, LinkedIn Playwright CDP). Substack posts confirm complete public publishing, X status resolution dynamically pulls status IDs via sidebar profile link, and LinkedIn posting targets exact modal action class button.share-actions__post-button with cookie consent pre-handling under operator profile Jim (BW) Pham. All tests passing.",
+  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 completed post-release operator governance maintenance run, telemetry logs validation, capability checks, and clean slate self-audit. Verified and passed with baseline 37b2d2b4ed223ed1665bb174531e8c7cc25e590d.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -302,7 +302,7 @@
   ],
   "latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
   "latest_accepted_task_result": "PASS_OPERATOR_GOVERNANCE_HEALTHY",
-  "latest_evidence_summary": "Post-release governance maintenance completed. Validation: python -m live_contentops.v6_post_release_operator_governance -> PASS_OPERATOR_GOVERNANCE_HEALTHY after ledger reconciliation; python -m pytest tests/test_v6_post_release_operator_governance.py tests/test_current_project_status_guardrail_v6.py tests/test_final_product_readiness_metadata_consistency.py tests/test_jim_content_cockpit_baseline_status_v6.py -> 43 passed. Safety check: substack_public_url_verified=false, dispatch_allowed_now=false, live_write_allowed_now=false, env_or_credential_read_performed=false, browser_or_cdp_action_performed=false, network_call_performed=false, provider_dispatch_performed=false, stale_archive_candidates=0.",
+  "latest_evidence_summary": "Post-release governance maintenance completed. Validation: python -m live_contentops.v6_post_release_operator_governance -> PASS_OPERATOR_GOVERNANCE_HEALTHY after ledger reconciliation; python -m pytest tests/test_v6_post_release_operator_governance.py tests/test_current_project_status_guardrail_v6.py tests/test_final_product_readiness_metadata_consistency.py tests/test_jim_content_cockpit_baseline_status_v6.py -> 43 passed. LinkedIn previous post comment and edit fix verified via direct URN/URL navigation. Validation: python scratch/test_linkedin_direct_comment.py -> PASS (successful post, direct comment, direct edit on URN urn:li:activity:7479815873415815169); python -m pytest -k linkedin -> 49 passed. Safety check: substack_public_url_verified=false, dispatch_allowed_now=false, live_write_allowed_now=false, env_or_credential_read_performed=false, browser_or_cdp_action_performed=false, network_call_performed=false, provider_dispatch_performed=false, stale_archive_candidates=0.",
   "next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0: Continue periodic final release go/no-go rehearsal by validating final release evidence, red-team/governance posture, status guardrails, and canonical V5 build/test surface after governance maintenance.",
   "mandatory_read_before_task": [
     "AGENTS.md",
@@ -348,14 +348,9 @@
   "last_status_commit_sha": "6fb15946c1cf7a62a2a669a762e623d9d467d014",
   "sha_model": "last_verified_remote_sha records the pushed origin/master HEAD verified before TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 status update: 6fb15946c1cf7a62a2a669a762e623d9d467d014.",
   "latest_changed_areas": [
+    "live_contentops/linkedin_browser_adapter_v6.py",
     "docs/status/CURRENT_PROJECT_STATUS.md",
-    "docs/status/current_project_status.json",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
-    "docs/status/STATUS_LEDGER_SHA_MODEL.md",
-    "docs/automation/V6_POST_RELEASE_GOVERNANCE/operator_governance_summary.json",
-    "tests/test_v6_post_release_operator_governance.py",
-    "tests/test_final_product_readiness_metadata_consistency.py",
-    "tests/test_jim_content_cockpit_baseline_status_v6.py"
+    "docs/status/current_project_status.json"
   ],
   "operator_platform_readiness": {
     "latest_task": "TASK_0021",

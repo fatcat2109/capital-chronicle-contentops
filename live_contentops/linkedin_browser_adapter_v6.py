@@ -96,39 +96,26 @@ def execute_linkedin_post(
             page.goto("https://www.linkedin.com/feed/", timeout=30000)
             time.sleep(6)
 
-            # Accept cookie banner if present
             accept_btn = page.locator("button:has-text('Accept')").first
             if accept_btn.is_visible():
                 accept_btn.click()
                 time.sleep(2)
 
-            # Click start a post box trigger
-            trigger = page.locator("button:has-text('Start a post'), span:has-text('Start a post'), .share-box-feed-entry__trigger").first
             posted = False
+            page.click("text=Start a post")
+            time.sleep(4)
 
-            if trigger.is_visible():
-                trigger.click()
-                time.sleep(3)
+            editor = page.locator("div.ql-editor, [role='textbox']").first
+            if editor.is_visible():
+                editor.focus()
+                page.keyboard.type(text)
+                time.sleep(2)
 
-                # Focus and fill post editor ql-editor
-                editor = page.locator("div.ql-editor").first
-                if not editor.is_visible():
-                    editor = page.locator("[role='textbox']").first
-
-                if editor.is_visible():
-                    editor.focus()
-                    page.keyboard.type(text)
-                    time.sleep(2)
-
-                    # Click post button using specific class share-actions__post-button
-                    post_btn = page.locator("button.share-actions__post-button").first
-                    if not post_btn.is_visible():
-                        post_btn = page.locator("button:has-text('Post')").filter(has_not_text="Start a post").first
-
-                    if post_btn.is_visible() and post_btn.is_enabled():
-                        post_btn.click()
-                        posted = True
-                        time.sleep(8)
+                post_btn = page.locator("button.share-actions__primary-action, button.share-actions__post-button").first
+                if post_btn.is_visible() and post_btn.is_enabled():
+                    post_btn.click()
+                    posted = True
+                    time.sleep(8)
 
             final_url = page.url
             browser.close()
@@ -146,7 +133,7 @@ def execute_linkedin_post(
                     "status": "FAILED",
                     "platform": "linkedin",
                     "action": "post",
-                    "error": "Could not click Post button in modal",
+                    "error": "Could not submit post in modal",
                 }
     except Exception as e:
         result = {
@@ -197,11 +184,15 @@ def execute_linkedin_comment(
     t0 = time.perf_counter()
     copy_essential_profile(profile_src, temp_dir)
 
-    target_url = post_url_or_id
-    if not target_url.startswith("http"):
-        target_url = f"https://www.linkedin.com/feed/update/{post_url_or_id}"
-
     try:
+        # Determine target URL or fallback to profile recent activity feed
+        target_url = None
+        if post_url_or_id.startswith("http://") or post_url_or_id.startswith("https://"):
+            target_url = post_url_or_id
+        elif "urn:li:" in post_url_or_id or (post_url_or_id.isdigit() and len(post_url_or_id) > 5):
+            urn = post_url_or_id if "urn:li:" in post_url_or_id else f"urn:li:activity:{post_url_or_id}"
+            target_url = f"https://www.linkedin.com/feed/update/{urn}/"
+
         with sync_playwright() as p:
             browser = p.chromium.launch_persistent_context(
                 user_data_dir=str(temp_dir),
@@ -209,44 +200,106 @@ def execute_linkedin_comment(
                 headless=True,
             )
             page = browser.pages[0]
-            page.goto(target_url, timeout=30000)
-            time.sleep(6)
+            
+            if target_url:
+                page.goto(target_url, timeout=30000)
+            else:
+                profile_handle = post_url_or_id if post_url_or_id and not post_url_or_id.startswith("activity_") else "jimcc"
+                page.goto(f"https://www.linkedin.com/in/{profile_handle}/recent-activity/all/", timeout=30000)
+            time.sleep(8)
 
-            # Accept cookie banner if present
             accept_btn = page.locator("button:has-text('Accept')").first
             if accept_btn.is_visible():
                 accept_btn.click()
                 time.sleep(2)
 
-            # Locate comments box area and click / focus
-            comment_btn = page.locator("button:has-text('Comment')").first
+            post_card = None
+            if target_url:
+                post_card = page.locator(".feed-shared-update-v2, [data-urn], main").first
+            else:
+                # Filter by Posts tab to guarantee top item is a commentable post
+                posts_tab = page.locator("button:has-text('Posts')").first
+                if posts_tab.is_visible():
+                    posts_tab.click()
+                    time.sleep(4)
+
+                # Locate the card containing "Capital Chronicle" (polling feed to index new post)
+                for attempt in range(5):
+                    cards = page.locator(".feed-shared-update-v2, [data-urn]").all()
+                    for card in cards:
+                        try:
+                            txt = card.inner_text()
+                            if "Capital Chronicle" in txt:
+                                post_card = card
+                                break
+                        except Exception:
+                            pass
+                    if post_card:
+                        break
+                    print("Target post card not found in feed yet, reloading page...")
+                    page.reload()
+                    time.sleep(5)
+
+                # Fallback to top card if specific card not found
+                if not post_card:
+                    post_card = page.locator(".feed-shared-update-v2, [data-urn]").first
+
+            commented = False
+            comment_btn = None
+            if post_card:
+                comment_btn = post_card.locator("button.comment-button, button:has-text('Comment'), button[aria-label*='Comment']").first
+            if not comment_btn or not comment_btn.is_visible():
+                comment_btn = page.locator("button.comment-button, button:has-text('Comment'), button[aria-label*='Comment']").first
+
             if comment_btn.is_visible():
                 comment_btn.click()
-                time.sleep(2)
+                time.sleep(4)
 
-            editor = page.locator("div.ql-editor").first
-            if not editor.is_visible():
-                editor = page.locator("[role='textbox']").first
+                editor = None
+                if post_card:
+                    editor = post_card.locator("form.comments-comment-box__form div.ql-editor, div.ql-editor, [role='textbox']").first
+                if not editor or not editor.is_visible():
+                    editor = page.locator("form.comments-comment-box__form div.ql-editor, div.ql-editor, [role='textbox']").first
 
-            if editor.is_visible():
-                editor.focus()
-                page.keyboard.type(message)
-                time.sleep(2)
+                if editor.is_visible():
+                    editor.focus()
+                    page.keyboard.type(message)
+                    time.sleep(2)
 
-                submit_btn = page.locator("button.comments-comment-box__submit-button, button:has-text('Comment')").first
-                if submit_btn.is_visible() and submit_btn.is_enabled():
-                    submit_btn.click()
-                    time.sleep(5)
+                    submit_btn = None
+                    if post_card:
+                        submit_btn = post_card.locator(
+                            "button.comments-comment-box__submit-button, button[type='submit'], "
+                            "button:has-text('Post'), button:has-text('Comment')"
+                        ).first
+                    if not submit_btn or not submit_btn.is_visible():
+                        submit_btn = page.locator(
+                            "button.comments-comment-box__submit-button, button[type='submit'], "
+                            "button:has-text('Post'), button:has-text('Comment')"
+                        ).first
+
+                    if submit_btn.is_visible() and submit_btn.is_enabled():
+                        submit_btn.click()
+                        commented = True
+                        time.sleep(5)
 
             final_url = page.url
             browser.close()
 
-            result = {
-                "status": "SUCCESS",
-                "platform": "linkedin",
-                "action": "comment",
-                "response": {"target_url": final_url},
-            }
+            if commented:
+                result = {
+                    "status": "SUCCESS",
+                    "platform": "linkedin",
+                    "action": "comment",
+                    "response": {"target_url": final_url},
+                }
+            else:
+                result = {
+                    "status": "FAILED",
+                    "platform": "linkedin",
+                    "action": "comment",
+                    "error": "Could not submit comment",
+                }
     except Exception as e:
         result = {
             "status": "FAILED",
@@ -288,9 +341,133 @@ def execute_linkedin_edit(
             },
         }
 
-    return {
-        "status": "SUCCESS",
-        "platform": "linkedin",
-        "action": "edit",
-        "response": {"target_url": f"https://www.linkedin.com/feed/update/{post_url_or_id}"},
-    }
+    from playwright.sync_api import sync_playwright
+    from .live_telemetry_v6 import classify_and_record_dispatch
+
+    t0 = time.perf_counter()
+    copy_essential_profile(profile_src, temp_dir)
+
+    try:
+        # Determine target URL or fallback to profile recent activity feed
+        target_url = None
+        if post_url_or_id.startswith("http://") or post_url_or_id.startswith("https://"):
+            target_url = post_url_or_id
+        elif "urn:li:" in post_url_or_id or (post_url_or_id.isdigit() and len(post_url_or_id) > 5):
+            urn = post_url_or_id if "urn:li:" in post_url_or_id else f"urn:li:activity:{post_url_or_id}"
+            target_url = f"https://www.linkedin.com/feed/update/{urn}/"
+
+        with sync_playwright() as p:
+            browser = p.chromium.launch_persistent_context(
+                user_data_dir=str(temp_dir),
+                channel="msedge",
+                headless=True,
+            )
+            page = browser.pages[0]
+            
+            if target_url:
+                page.goto(target_url, timeout=30000)
+            else:
+                profile_handle = post_url_or_id if post_url_or_id and not post_url_or_id.startswith("activity_") else "jimcc"
+                page.goto(f"https://www.linkedin.com/in/{profile_handle}/recent-activity/all/", timeout=30000)
+            time.sleep(8)
+
+            accept_btn = page.locator("button:has-text('Accept')").first
+            if accept_btn.is_visible():
+                accept_btn.click()
+                time.sleep(2)
+
+            post_card = None
+            if target_url:
+                post_card = page.locator(".feed-shared-update-v2, [data-urn], main").first
+            else:
+                posts_tab = page.locator("button:has-text('Posts')").first
+                if posts_tab.is_visible():
+                    posts_tab.click()
+                    time.sleep(4)
+
+                # Locate the card containing "Capital Chronicle" (polling feed to index new post)
+                for attempt in range(5):
+                    cards = page.locator(".feed-shared-update-v2, [data-urn]").all()
+                    for card in cards:
+                        try:
+                            txt = card.inner_text()
+                            if "Capital Chronicle" in txt:
+                                post_card = card
+                                break
+                        except Exception:
+                            pass
+                    if post_card:
+                        break
+                    print("Target post card not found in feed yet, reloading page...")
+                    page.reload()
+                    time.sleep(5)
+
+                # Fallback to top card if specific card not found
+                if not post_card:
+                    post_card = page.locator(".feed-shared-update-v2, [data-urn]").first
+
+            edited = False
+            three_dots = None
+            if post_card:
+                three_dots = post_card.locator("button.feed-shared-control-menu__trigger, button[aria-label*='options'], button[aria-label*='Control menu'], button:has-text('...')").first
+            if not three_dots or not three_dots.is_visible():
+                three_dots = page.locator("button.feed-shared-control-menu__trigger, button[aria-label*='options'], button[aria-label*='Control menu'], button:has-text('...')").first
+
+            if three_dots.is_visible():
+                three_dots.click()
+                time.sleep(3)
+
+                edit_option = page.locator(".option-edit, div.option-edit, [role='button']:has-text('Edit post')").first
+                if not edit_option.is_visible():
+                    edit_option = page.locator("span:has-text('Edit post'), button:has-text('Edit post'), li:has-text('Edit post')").first
+
+                if edit_option.is_visible():
+                    edit_option.click()
+                    time.sleep(4)
+
+                    editor = page.locator("div[role='dialog'] div.ql-editor, div[role='dialog'] [role='textbox'], .share-box div.ql-editor, div.ql-editor, [role='textbox']").first
+                    if editor.is_visible():
+                        editor.focus()
+                        page.keyboard.type(f" {new_text}")
+                        time.sleep(2)
+
+                        save_btn = page.locator("div[role='dialog'] button:has-text('Save'), div[role='dialog'] button.share-actions__primary-action, .share-box button:has-text('Save'), button:has-text('Save')").first
+                        if save_btn.is_visible() and save_btn.is_enabled():
+                            save_btn.click()
+                            edited = True
+                            time.sleep(6)
+
+            final_url = page.url
+            browser.close()
+
+            if edited:
+                result = {
+                    "status": "SUCCESS",
+                    "platform": "linkedin",
+                    "action": "edit",
+                    "response": {"target_url": final_url},
+                }
+            else:
+                result = {
+                    "status": "FAILED",
+                    "platform": "linkedin",
+                    "action": "edit",
+                    "error": "Could not save edit on LinkedIn post",
+                }
+    except Exception as e:
+        result = {
+            "status": "FAILED",
+            "platform": "linkedin",
+            "action": "edit",
+            "error": str(e),
+        }
+
+    latency_ms = (time.perf_counter() - t0) * 1000.0
+    classify_and_record_dispatch(
+        platform_id="linkedin",
+        action="edit",
+        adapter_result=result,
+        latency_ms=latency_ms,
+        payload_size_bytes=len(new_text),
+    )
+    return result
