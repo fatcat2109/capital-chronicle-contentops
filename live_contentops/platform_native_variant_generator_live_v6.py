@@ -187,6 +187,14 @@ def generate_live_platform_variants(
     
     write_json(output_dir / "platform_variant_packet.json", packet)
     
+    # Write to UI src/data folder to compile it directly with the dashboard
+    ui_src_path = Path("ui/contentops_v5/src/data/platform_variant_packet.json")
+    try:
+        write_json(ui_src_path, packet)
+        print(f"[Info] Copied variant packet to UI src/data folder: {ui_src_path}")
+    except Exception as e:
+        print(f"[Warning] Failed to copy variant packet to UI src/data: {e}")
+    
     return packet
 
 

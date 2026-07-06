@@ -1,0 +1,22 @@
+{
+  "platform_variant_packet_id": "variant_packet_placeholder_000",
+  "variant_status": "VARIANT_SCAFFOLD_READY_FIXTURE_ONLY",
+  "image_path": "",
+  "created_at": "2026-07-06T00:00:00+00:00",
+  "variants": {
+    "substack": "Canonical Substack article body preview.",
+    "linkedin": "LinkedIn professional post variant preview.",
+    "discord": "Discord announcements community post preview.",
+    "telegram": "Telegram notification post variant preview."
+  },
+  "variant_threads": {
+    "x": [
+      "1/ X Tweet thread comment sequence - post 1",
+      "2/ X Tweet thread comment sequence - post 2"
+    ],
+    "threads": [
+      "1/ Threads conversational comment sequence - post 1",
+      "2/ Threads conversational comment sequence - post 2"
+    ]
+  }
+}

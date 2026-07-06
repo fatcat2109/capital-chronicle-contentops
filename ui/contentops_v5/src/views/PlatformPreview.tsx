@@ -11,6 +11,7 @@ import { SubstackArticleStudioCard } from './SubstackArticleStudioCard';
 import { useState } from 'react';
 import { useApp } from '../state';
 import { viewModel } from '../fixtures';
+import platformVariantPacket from '../data/platform_variant_packet.json';
 import {
   selectPayloadConstraint,
   selectPlatformPayloadPreview,
@@ -34,6 +35,8 @@ export function PlatformPreview() {
   const [activeKey, setActiveKey] = useState(previews[0].platform_key);
   const active: Preview =
     previews.find((p) => p.platform_key === activeKey) ?? previews[0];
+
+  const hasLivePacket = platformVariantPacket && platformVariantPacket.platform_variant_packet_id !== "variant_packet_placeholder_000";
 
   return (
     <div className="space-y-6">
@@ -62,6 +65,72 @@ export function PlatformPreview() {
           </span>
         </div>
       </header>
+
+      {/* Live Generated Variants Panel */}
+      {hasLivePacket && (
+        <div className="rounded-xl border border-accent bg-accent/5 p-5 shadow-float space-y-4">
+          <div className="flex items-center justify-between border-b border-accent/20 pb-3">
+            <div>
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-accent">
+                ✓ V6 Live Generated Platform Variants
+              </span>
+              <h2 className="text-lg font-bold text-fg mt-1">
+                {platformVariantPacket.platform_variant_packet_id}
+              </h2>
+            </div>
+            <StatusChip status="verified">
+              {platformVariantPacket.variant_status}
+            </StatusChip>
+          </div>
+
+          {/* Downloaded Google Image Path */}
+          <div className="flex items-center gap-3 bg-surface-1 border border-line rounded-lg p-3 text-xs leading-relaxed text-fg-muted font-mono">
+            <span className="font-semibold text-fg">Downloaded Header Image:</span>
+            <span className="text-fg-subtle">{platformVariantPacket.image_path || 'None (No image match)'}</span>
+          </div>
+
+          {/* Render each platform draft */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {Object.entries(platformVariantPacket.variants || {}).map(([platform, text]: [string, any]) => {
+              const threads = (platformVariantPacket.variant_threads as Record<string, string[]>)?.[platform] || [];
+              const isThreaded = threads.length > 0;
+              return (
+                <div key={platform} className="p-3 border border-line bg-surface-1 rounded-lg flex flex-col justify-between">
+                  <div>
+                    <div className="flex justify-between items-center border-b border-line pb-1.5 mb-2">
+                      <span className="font-semibold text-xs text-accent uppercase tracking-wider">
+                        {platform} variant
+                      </span>
+                      {isThreaded && (
+                        <span className="text-[10px] bg-accent/15 text-accent px-1.5 py-0.5 rounded font-mono">
+                          Threaded ({threads.length} posts)
+                        </span>
+                      )}
+                    </div>
+                    {isThreaded ? (
+                      <div className="space-y-2 mt-1">
+                        {threads.map((post: string, idx: number) => (
+                          <div key={idx} className="p-2 bg-surface-2 border border-line rounded text-xs leading-relaxed">
+                            <span className="font-bold text-accent mr-1">Post {idx + 1}:</span>
+                            <span className="text-fg-muted whitespace-pre-wrap">{post}</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-xs text-fg-muted leading-relaxed whitespace-pre-wrap mt-1">
+                        {text}
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-3 text-[10px] text-fg-subtle font-mono text-right border-t border-line pt-2">
+                    created_at: {platformVariantPacket.created_at}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* Dry-run policy banner — make the no-live posture unmissable. */}
       <div className="flex items-start gap-2.5 rounded-xl border border-status-blocked/30 bg-status-blocked/5 p-4">
