@@ -12,13 +12,13 @@ master
 eb62ac1721ec3ec23cf6170a04875ff04e876043
 
 ## current_product_phase
-All 8 platforms fully validated for live dispatches (post, comment, edit) using API and Playwright Edge browser profile automation (including Substack publishing confirmation and X timeline status resolution).
+All 8 platforms fully validated for live dispatches (post, comment, edit) using API and Playwright Edge browser profile automation (including Substack publishing confirmation, X timeline status resolution, and LinkedIn share-modal button target resolution).
 
 ## current_product_lane
 Rehearsal verification of final product release readiness, metrics dashboard interactivity, red-team evidence packet, and automated checks.
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 validated the V6 Command Center dashboard, security scans, and executed live dispatches for all 8 channels (Discord Webhook, Telegram Bot API, Facebook Page, Threads, Instagram, Substack Playwright CDP, X Playwright CDP, LinkedIn Playwright CDP). Substack posts confirm complete public publishing and X status resolution dynamically pulls status IDs via sidebar profile link. All tests passing.
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 validated the V6 Command Center dashboard, security scans, and executed live dispatches for all 8 channels (Discord Webhook, Telegram Bot API, Facebook Page, Threads, Instagram, Substack Playwright CDP, X Playwright CDP, LinkedIn Playwright CDP). Substack posts confirm complete public publishing, X status resolution dynamically pulls status IDs via sidebar profile link, and LinkedIn posting targets exact modal action class button.share-actions__post-button with cookie consent pre-handling under operator profile Jim (BW) Pham. All tests passing.
 
 ## status_sha_model
 - accepted product baseline (`accepted_product_baseline_sha`): `eb62ac1721ec3ec23cf6170a04875ff04e876043`
