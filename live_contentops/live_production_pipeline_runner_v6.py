@@ -262,7 +262,7 @@ def run_live_production_pipeline(
         try:
             from live_contentops.instagram_adapter_v6 import execute_instagram_post
             caption = variants.get("instagram_caption", variants.get("telegram", ""))
-            fallback_img = "https://cdn.corporatefinanceinstitute.com/assets/geopolitics.jpeg"
+            fallback_img = "https://picsum.photos/1080/1080.jpg"
             active_img = public_image_url if public_image_url else fallback_img
             missing = _require_payload(caption, "instagram_caption") or _require_payload(active_img, "instagram_image_url")
             if missing:

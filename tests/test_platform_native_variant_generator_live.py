@@ -62,7 +62,8 @@ def test_generate_live_platform_variants(mock_search_download, mock_call_provide
         assert packet["variant_status"] == "VARIANT_VALIDATION_FAILED"
         assert packet["provider_attempts"][0]["status"] == "accepted"
         assert packet["image_path"] == str(tmp_path / "downloads" / "img_test.jpg")
-        assert packet["variants"]["linkedin"] == "LinkedIn Live Post content"
+        assert packet["variants"]["linkedin"].startswith("LinkedIn Live Post content")
+        assert packet["variants"]["linkedin"].endswith("not investment advice.")
         assert packet["variants"]["discord"] == "Discord Announcements content"
         assert packet["variants"]["telegram"] == "Telegram channel summary"
         assert packet["variants"]["x"] == "1/ X Tweet initial post\n\n---\n\n2/ X Tweet comment thread reply"

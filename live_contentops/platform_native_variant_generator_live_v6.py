@@ -65,6 +65,13 @@ def _has_no_advice_context(text: str) -> bool:
     return "not investment advice" in lowered or "without giving investment advice" in lowered or "educational" in lowered
 
 
+def _ensure_no_advice_context(text: str) -> str:
+    clean = text.strip()
+    if _has_no_advice_context(clean):
+        return clean
+    return f"{clean}\n\nCapital Chronicle frames this as educational context, not investment advice."
+
+
 def _generic_variant(text: str) -> bool:
     lowered = text.lower()
     return lowered.count("capital chronicle") == 0 and not any(term in lowered for term in ("macro", "policy", "shipping", "liquidity", "geopolitic", "yield", "data"))
@@ -216,6 +223,9 @@ def generate_live_platform_variants(
                 provider_recovery_used = True
                 provider_attempts.append({"provider": "9router", "status": "failed", "failure": f"variant_provider_failed:{type(exc).__name__}:{exc}", "timeout_seconds": timeout_seconds})
                 validation_failures.append(f"variant_provider_failed:{type(exc).__name__}:{exc}")
+
+    for key in ("substack", "linkedin", "facebook", "instagram_caption"):
+        variants[key] = _ensure_no_advice_context(str(variants.get(key, "")))
 
     validation_failures.extend(validate_platform_variants(variants, variant_threads, live_run=live_run))
     validation_summary = summarize_validation(validation_failures)

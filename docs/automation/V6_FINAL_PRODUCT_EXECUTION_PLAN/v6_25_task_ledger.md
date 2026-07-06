@@ -18,7 +18,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 |---:|---|---|---|
 | 01 | V6 master plan authority | complete | Expanded in `current_v6_master_plan.md`; GitHub remote remains runtime authority. |
 | 02 | Unified redacted credential capability matrix | complete | Redacted capability/readiness artifacts exist; no raw secret values are authority. |
-| 03 | Platform universe and adapter taxonomy | complete | Registry/docs and canonical V5 Command Center cover Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram, TikTok, and generic manual fallback. Fast Ship live adapters are integrated and successfully verified under E2E live runs for Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, and Instagram. |
+| 03 | Platform universe and adapter taxonomy | partially_complete | Registry/docs and canonical V5 Command Center cover Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram, TikTok, and generic manual fallback. Fast Ship live adapters were verified under E2E live run `v6_pipeline_737400e418e5` for Substack, LinkedIn, X, Discord, Telegram, Facebook Page, and Threads; Instagram remains adapter-ready but failed media URL validation before publish. |
 | 04 | Canonical Substack article workflow | complete_fixture_only | Canonical article and Substack manual export/evidence packets exist locally. |
 | 05 | AI research grounding lane | complete | Research/canonical article packet builders exist for local deterministic workflow. |
 | 06 | SEO and editorial refinement lane | partially_complete | SEO/editorial packet docs exist; continue verifying per future task scope. |
@@ -40,7 +40,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 | 22 | Manual fallback playbooks | complete_fixture_only | Substack/LinkedIn runbooks exist, and Facebook Page/Threads/Instagram/TikTok/Generic Manual manual/deferred distribution rows are hardened in the canonical V5 Command Center as local-only handoff/status evidence. |
 | 23 | Evidence packet standardization | complete_fixture_only | Final release packet, acceptance record, red-team report, and browser-QA boundary are generated under `docs/automation/V6_FINAL_RELEASE/`; no live/API/provider evidence is claimed. |
 | 24 | End-to-end dry-run acceptance | complete_fixture_only | Local V6 loop evidence covers idea → research packet → canonical article → Discord drop → variants → hash approval → blocked dispatch/audit/manual fallback → feedback → next idea. |
-| 25 | Final product readiness review | complete | `PASS_FINAL_LOCAL_RELEASE_REVIEW`; release evidence writer is idempotent; Python release-readiness regression passed; canonical `ui/contentops_v5/` production build and Vitest suite passed. Go/No-Go rehearsal completed. |
+| 25 | Final product readiness review | partially_complete | Final go/no-go rehearsal produced `DISPATCH_PARTIAL_FAILURE`: Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord succeeded; Instagram failed media URL validation before publish and requires scoped idempotent retry. |
 
 ## Accepted Lane Highlights
 
@@ -48,11 +48,11 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 - Canonical dashboard is `ui/contentops_v5/`.
 - Substack manual publication evidence is complete as fixture/manual local evidence.
 - LinkedIn manual publication evidence is complete as fixture/manual local evidence and accepted at `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb` after this status repair.
-- Discord, Telegram, Facebook Page, Threads, Instagram, LinkedIn, X, and Substack are now fully automated and live-verified with real API and browser CDP dispatches under E2E live runs.
+- Discord, Telegram, Facebook Page, Threads, LinkedIn, X, and Substack have live success evidence under E2E rehearsal `v6_pipeline_737400e418e5`; Instagram is adapter-ready but latest publish attempt failed media URL validation before posting.
 - X CDP pre-live post command, GO-phrase gate, exact execution outcome, registry reconciliation, and registry idempotency/readback audit are complete as local supervised/packet evidence; no repo-driven X click, API call, session read, or public URL fetch is claimed.
-- Live/provider/platform execution is enabled under Fast Ship Mode for implemented lanes with evidence; unsupported or missing-input outcomes are recorded explicitly.
+- Live/provider/platform execution is enabled under Fast Ship Mode for implemented lanes with evidence; unsupported, missing-input, and media-validation outcomes are recorded explicitly.
 
-Completed lane: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0`. Recommended next lane: `TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0`. Continue ongoing post-release governance, telemetry registry audit, capability checks, stale artifact review, and periodic release-readiness rehearsals.
+Completed lane: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0` with `DISPATCH_PARTIAL_FAILURE`. Recommended next lane: `TASK_CONTENTOPS_V6_INSTAGRAM_MEDIA_BINDING_AND_IDEMPOTENT_RETRY_REHEARSAL_V0`. Verify durable public Instagram media, prevent duplicate reposts to successful platforms, run scoped Instagram retry/readback, and reconcile final release readiness evidence.
 
 ## How to Update This Ledger
 

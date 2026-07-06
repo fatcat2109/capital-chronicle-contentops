@@ -159,8 +159,8 @@
   "pipeline_status": "DISPATCH_COMPLETE",
   "platform_variant_packet_id": "var_test_packet_456",
   "public_image_url": "https://example.com/test_image.jpg",
-  "run_id": "v6_pipeline_98b3c90bd043",
-  "timestamp": "2026-07-06T14:26:13Z",
-  "timestamp_gmt7": "2026-07-06T21:26:13+07:00",
+  "run_id": "v6_pipeline_7ffb86111ce4",
+  "timestamp": "2026-07-06T15:19:15Z",
+  "timestamp_gmt7": "2026-07-06T22:19:15+07:00",
   "variant_status": "VARIANT_SCAFFOLD_READY"
 }

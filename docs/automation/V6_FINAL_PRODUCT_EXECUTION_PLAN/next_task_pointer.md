@@ -1,11 +1,11 @@
 # V6 Next Task Pointer
 
-Current task: `TASK_CONTENTOPS_V6_PROVIDER_TIMEOUT_AND_DRAFT_QUALITY_RECOVERY_V0` — Provider timeout and draft-quality recovery hardening completed. Controlled live/provider generation rehearsal produced `GENERATED` + `VARIANT_READY` with accepted provider attempts and sanitized evidence. (COMPLETED LOCALLY; commit pending)
+Current task: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0` — Final release rehearsal executed live/provider generation and dispatch. Broad dispatch succeeded for Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord; Instagram failed before publish because the selected image URL returned HTTP 404. Runner fallback media has been hardened; final verdict remains PARTIAL_FAILURE until scoped Instagram retry passes. (COMPLETED LOCALLY; commit pending)
 
 Recommended next task:
 
 ```text
-TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
+TASK_CONTENTOPS_V6_INSTAGRAM_MEDIA_BINDING_AND_IDEMPOTENT_RETRY_REHEARSAL_V0
 ```
 
-Purpose: Clean dotenv parse noise, rerun the hardened final release go/no-go rehearsal with explicit dispatch scope, verify media fallback/rights posture, and produce final dispatch readiness evidence.
+Purpose: Verify a durable public Instagram media URL/binding, add idempotent retry controls so successful platforms are not reposted, run a scoped Instagram retry/readback, and reconcile final release readiness evidence.

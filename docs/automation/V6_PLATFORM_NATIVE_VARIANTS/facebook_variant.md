@@ -1,14 +1,6 @@
 # FACEBOOK NATIVE VARIANT
 - **Status**: VARIANT_READY
 - **Associated Image**: None
-- **Timestamp**: 2026-07-06 21:42:26
+- **Timestamp**: 2026-07-06 22:04:32
 
-How do central bank balance sheets and physical shipping lanes collide to shape global inflation? 
-
-In this educational deep dive from Capital Chronicle, we break down "The Double Squeeze"—the powerful transmission channel linking Federal Reserve liquidity (QE/QT) with maritime chokepoints like the Strait of Hormuz and the Bab-el-Mandeb.
-
-When the Fed floods the system with liquidity, physical shipping disruptions quickly translate into broad-based consumer inflation as cheap credit fuels precautionary hoarding. But when the Fed is actively draining liquidity, these same shipping bottlenecks act as a direct tax on corporate profit margins, dragging down economic growth.
-
-Explore the structural mechanics of modern macroeconomics and how these dynamics are rewriting risk pricing in equity, debt, and commodity markets. 
-
-Read the full article: [Link]
+How do central bank liquidity channels and global shipping bottlenecks interact to shape broader market structures? In our latest Capital Chronicle Recovery Briefing, we break down the educational macro transmission channels connecting Federal Reserve policy, funding stress, and supply chain friction. We analyze how geopolitical shocks—such as maritime disruptions in the Strait of Hormuz—re-evaluate asset pricing logic across traditional and digital markets. Read our full breakdown of liquidity plumbing, credit channels, and the systemic data gaps that operators must navigate in today's volatile macro landscape.

@@ -12,42 +12,115 @@
     "--timeout-seconds",
     "60",
     "--live-run",
+    "--dispatch-live",
     "--write-rehearsal-evidence",
     "--rehearsal-evidence-output",
     "docs\\automation\\V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK\\rehearsal_evidence_packet.json"
   ],
-  "created_at": "2026-07-06T14:42:26Z",
-  "dispatch_audit_excerpt": {},
-  "evidence_hash": "4ac697c381eff85811895db3f2b7af40776cd7f5a680bce1623ce39475a88668",
-  "evidence_packet_id": "v6_pipeline_rehearsal_4ac697c381eff858",
+  "created_at": "2026-07-06T15:12:13Z",
+  "dispatch_audit_excerpt": {
+    "dispatch_blocked": false,
+    "dispatch_blockers": [],
+    "dispatch_live": true,
+    "dispatch_summary": {
+      "attempted_platforms": [
+        "substack",
+        "linkedin",
+        "x_post",
+        "x_reply_1",
+        "x_reply_2",
+        "instagram",
+        "facebook",
+        "telegram",
+        "threads",
+        "threads_reply_1",
+        "threads_reply_2",
+        "discord"
+      ],
+      "blocked_platforms": [],
+      "failed_platforms": [
+        "instagram"
+      ],
+      "successful_platforms": [
+        "substack",
+        "linkedin",
+        "x_post",
+        "x_reply_1",
+        "x_reply_2",
+        "facebook",
+        "telegram",
+        "threads",
+        "threads_reply_1",
+        "threads_reply_2",
+        "discord"
+      ]
+    },
+    "pipeline_status": "DISPATCH_PARTIAL_FAILURE",
+    "run_id": "v6_pipeline_737400e418e5",
+    "timestamp": "2026-07-06T15:04:32Z"
+  },
+  "evidence_hash": "6770b3db840c62f89cd6e5bb0a98684623a8163ae374fd9ccfa7d579351982d5",
+  "evidence_packet_id": "v6_pipeline_rehearsal_6770b3db840c62f8",
   "mode": "controlled_rehearsal",
   "packet_kind": "v6_pipeline_rehearsal_evidence_packet",
   "pipeline_result": {
-    "article_packet_id": "article_engine_packet_75acd27da98a9a86",
+    "article_packet_id": "article_engine_packet_d28e35f0b8704d72",
     "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
     "dispatch_blocked": false,
     "dispatch_blockers": [],
-    "dispatch_live": false,
-    "dispatch_summary": {},
-    "pipeline_status": "GENERATED",
-    "platform_variant_packet_id": "variant_packet_12aef3905b05",
-    "run_id": "v6_pipeline_513ae93aa2b8",
-    "timestamp": "2026-07-06T14:42:26Z",
-    "timestamp_gmt7": "2026-07-06T21:42:26+07:00",
+    "dispatch_live": true,
+    "dispatch_summary": {
+      "attempted_platforms": [
+        "substack",
+        "linkedin",
+        "x_post",
+        "x_reply_1",
+        "x_reply_2",
+        "instagram",
+        "facebook",
+        "telegram",
+        "threads",
+        "threads_reply_1",
+        "threads_reply_2",
+        "discord"
+      ],
+      "blocked_platforms": [],
+      "failed_platforms": [
+        "instagram"
+      ],
+      "successful_platforms": [
+        "substack",
+        "linkedin",
+        "x_post",
+        "x_reply_1",
+        "x_reply_2",
+        "facebook",
+        "telegram",
+        "threads",
+        "threads_reply_1",
+        "threads_reply_2",
+        "discord"
+      ]
+    },
+    "pipeline_status": "DISPATCH_PARTIAL_FAILURE",
+    "platform_variant_packet_id": "variant_packet_41feba354f70",
+    "run_id": "v6_pipeline_737400e418e5",
+    "timestamp": "2026-07-06T15:04:32Z",
+    "timestamp_gmt7": "2026-07-06T22:04:32+07:00",
     "variant_status": "VARIANT_READY"
   },
   "readback_checks": {
-    "audit_file_present": false,
-    "dispatch_summary_matches": false,
-    "pipeline_status_matches": false,
+    "audit_file_present": true,
+    "dispatch_summary_matches": true,
+    "pipeline_status_matches": true,
     "readback_ready": true,
-    "run_id_matches": false
+    "run_id_matches": true
   },
   "repo_state": {
     "branch": "master",
-    "dirty_state_short": "M docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json\n M docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_evidence_packet.json\n M docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_readback_summary.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/discord_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/facebook_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/instagram_caption_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/linkedin_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/substack_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/telegram_operator_preview.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/threads_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/x_variant.md\n M live_contentops/ai_research_canonical_article_engine_v6.py\n M live_contentops/live_production_pipeline_runner_v6.py\n M live_contentops/pipeline_rehearsal_evidence_v6.py\n M live_contentops/platform_native_variant_generator_live_v6.py\n M tests/test_ai_research_canonical_article_engine_v6.py\n M tests/test_live_production_pipeline_runner.py\n M tests/test_pipeline_rehearsal_evidence_v6.py\n M tests/test_platform_native_variant_generator_live.py\n M ui/contentops_v5/src/data/platform_variant_packet.json\n?? docs/automation/V6_AI_RESEARCH_GROUNDING/search_cache/81107d47a64a0059577b2b1917fa2ac39f2d9408bde8a62b03ace0f0d45c4c93.json",
-    "head_sha": "a19ad3c53d21f902f7c21f30e982c8a40570b121",
-    "remote_master_sha": "a19ad3c53d21f902f7c21f30e982c8a40570b121",
+    "dirty_state_short": "M docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json\n M docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl\n M docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_evidence_packet.json\n M docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_readback_summary.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/discord_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/facebook_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/instagram_caption_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/linkedin_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/substack_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/telegram_operator_preview.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/threads_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/x_variant.md\n M live_contentops/platform_native_variant_generator_live_v6.py\n M tests/test_platform_native_variant_generator_live.py\n M ui/contentops_v5/src/data/platform_variant_packet.json",
+    "head_sha": "acab14b545968ca6ffd7a94af05326edf78f11f2",
+    "remote_master_sha": "",
     "repo_full_name": "fatcat2109/capital-chronicle-contentops"
   },
   "safety": {

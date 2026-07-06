@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_PROVIDER_TIMEOUT_AND_DRAFT_QUALITY_RECOVERY_V0
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,21 +9,21 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-a19ad3c53d21f902f7c21f30e982c8a40570b121
+acab14b545968ca6ffd7a94af05326edf78f11f2
 
 ## current_product_phase
-Provider timeout and draft-quality recovery hardening completed. The controlled live/provider rehearsal generated a full canonical article and platform-native variants with no content validation blockers, no dispatch attempt, sanitized evidence packet `v6_pipeline_rehearsal_4ac697c381eff858`, and provider attempts recorded as accepted.
+Final release go/no-go rehearsal reached live dispatch across the full implemented platform set, but skeptical audit verdict is `PARTIAL_FAILURE`: Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord succeeded; Instagram failed validation because the selected image URL returned HTTP 404. Follow-up hardening replaced the stale runner fallback image URL with a reachable HTTPS JPEG and added regression coverage; do not rerun all successful platforms just to retry Instagram.
 
 ## current_product_lane
-Full automation pipeline hardening: provider timeout recovery, deterministic fallback metadata, runner timeout forwarding, platform variant recovery observability, and rehearsal evidence readback.
+Full automation pipeline hardening: live/provider generation, platform-native variants, dispatch evidence readback, advice-disclaimer normalization, Instagram media fallback hardening, and partial-failure audit reconciliation.
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_PROVIDER_TIMEOUT_AND_DRAFT_QUALITY_RECOVERY_V0 added deterministic canonical-article recovery for provider failures/sub-quality drafts, provider attempt metadata, runner timeout forwarding, variant provider recovery metadata, generation-only rehearsal stale-audit isolation, and focused regression tests. Follow-up live/provider rehearsal produced `pipeline_status=GENERATED`, `variant_status=VARIANT_READY`, article packet `article_engine_packet_75acd27da98a9a86`, variant packet `variant_packet_12aef3905b05`, and no raw secrets persisted.
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 executed live/provider generation and dispatch evidence readback for run `v6_pipeline_737400e418e5`. Successful live outcomes were recorded for Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord. Instagram failed before publish with `image_url_unreachable:HTTP Error 404: Not Found`; this is not a full go verdict. Hardening in this task also normalizes missing no-advice context in generated platform variants and replaces the stale Instagram fallback image URL with a currently reachable HTTPS JPEG.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `a19ad3c53d21f902f7c21f30e982c8a40570b121` before this commit; this task will advance after commit/push.
-- previous accepted product baseline: `48767f19f6be67284a3112b4945423c47c065850`.
-- latest status/promotion task (`last_status_commit_sha`): `a19ad3c53d21f902f7c21f30e982c8a40570b121` verified by `git rev-parse HEAD` and `git ls-remote origin refs/heads/master` before this hardening update.
+- accepted product baseline (`accepted_product_baseline_sha`): `acab14b545968ca6ffd7a94af05326edf78f11f2` before this commit; this task will advance after commit/push.
+- previous accepted product baseline: `a19ad3c53d21f902f7c21f30e982c8a40570b121`.
+- latest status/promotion task (`last_status_commit_sha`): `acab14b545968ca6ffd7a94af05326edf78f11f2` verified by `git rev-parse HEAD` and `git ls-remote origin refs/heads/master` before this rehearsal reconciliation.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -48,17 +48,16 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 loop now has a hardened provider/recovery path: canonical article generation forwards timeout budgets, records provider attempts, recovers deterministically when provider output fails quality gates, emits platform variant recovery metadata, and writes sanitized rehearsal evidence. Latest live/provider rehearsal generated full article/variant packets without content blockers; dispatch was not requested in that rehearsal.
+V6 loop now has live provider generation, platform-native variant generation, dispatch evidence readback, deterministic no-advice context normalization, and broad live dispatch proof. The latest full implemented-platform rehearsal is not a final pass because Instagram failed media URL validation; successful platforms should be treated as already posted and should not be duplicated during the next retry.
 
 ## dispatch/live status
-Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. This task ran a controlled live/provider generation rehearsal with dispatch disabled; no platform posting occurred. The generated packets are ready for the next final go/no-go rehearsal or explicit dispatch-live run.
+Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. Rehearsal `v6_pipeline_737400e418e5` dispatched live: Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord succeeded; Instagram failed validation on an unreachable image URL before publish. Runner fallback media was hardened after the failed run, but Instagram needs a scoped retry/media-binding rehearsal.
 
 ## provider/env/credential status
-Under Fast Ship Mode, `.env` and credential stores remain authorized for future live rehearsals. This task loaded the environment through existing dotenv flow, persisted no raw credential/env values, and wrote audit-excerpt-only rehearsal evidence with sensitive_marker_detected=false. python-dotenv still reports malformed `.env` lines 103-113 and should be cleaned as part of the next rehearsal hygiene pass.
+Under Fast Ship Mode, `.env` and credential stores remain authorized for future live rehearsals. Local dotenv parse noise was cleaned during the rehearsal session without committing raw `.env` values. Rehearsal evidence and dispatch audit persisted excerpts/results only, with no raw credential/env values intentionally committed.
 
 ## active blockers
-- Malformed `.env` lines 103-113 create dotenv parse noise during live rehearsals.
-- Google Images returned no matching image for the latest article title; media fallback/rights strategy should be confirmed before Instagram-heavy dispatch.
+- Instagram failed the latest final release rehearsal with `image_url_unreachable:HTTP Error 404: Not Found`; rerun only after public media binding/fallback is verified and idempotent retry scope prevents duplicate successful posts.
 - Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.
 - Capital Chronicle Internal alpha / analysis-report posts should prefer built-in chart/card media from the report system when available.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
@@ -71,30 +70,29 @@ Under Fast Ship Mode, `.env` and credential stores remain authorized for future 
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_PROVIDER_TIMEOUT_AND_DRAFT_QUALITY_RECOVERY_V0
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 
 ## latest changed areas
 - `docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json`
+- `docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl`
 - `docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_evidence_packet.json`
 - `docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_readback_summary.md`
+- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`
 - `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json`
 - `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/*_variant.md`
-- `docs/automation/V6_AI_RESEARCH_GROUNDING/search_cache/81107d47a64a0059577b2b1917fa2ac39f2d9408bde8a62b03ace0f0d45c4c93.json`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
-- `live_contentops/ai_research_canonical_article_engine_v6.py`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
 - `live_contentops/live_production_pipeline_runner_v6.py`
-- `live_contentops/pipeline_rehearsal_evidence_v6.py`
 - `live_contentops/platform_native_variant_generator_live_v6.py`
 - `ui/contentops_v5/src/data/platform_variant_packet.json`
-- `tests/test_ai_research_canonical_article_engine_v6.py`
 - `tests/test_live_production_pipeline_runner.py`
-- `tests/test_pipeline_rehearsal_evidence_v6.py`
 - `tests/test_platform_native_variant_generator_live.py`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0` · Clean dotenv parse noise, rerun the hardened final release go/no-go rehearsal with explicit dispatch scope, verify media fallback/rights posture, and produce final dispatch readiness evidence.
+Next heavy batch: `TASK_CONTENTOPS_V6_INSTAGRAM_MEDIA_BINDING_AND_IDEMPOTENT_RETRY_REHEARSAL_V0` · Verify a durable public Instagram media URL/binding, add idempotent retry controls so successful platforms are not reposted, run a scoped Instagram retry/readback, and reconcile final release readiness evidence.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.
