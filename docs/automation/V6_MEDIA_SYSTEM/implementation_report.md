@@ -28,3 +28,13 @@ schedule, comment, DM, or reaction action is performed.
 ```text
 TASK_CONTENTOPS_V6_COMMUNITY_SIGNAL_INTAKE_AND_FEEDBACK_SUMMARY_V0
 ```
+
+---
+
+## 3. Design Notes & Future Extensions
+
+### Dedicated Pipeline for Capital Chronicle Analysis / Reports
+For original analytical reports generated natively by Capital Chronicle, a specialized media pipeline must be constructed:
+1. **Existing Charts Extraction**: If the original analysis report already contains pre-rendered charts, the pipeline must parse and extract those existing chart images to serve directly as media assets for the platform native posts.
+2. **Dynamic Chart Generation**: If the report contains raw structured tables or data points but lacks visuals, the system must utilize an LLM or visualization scripts (e.g., matplotlib, seaborn) to parse the data points and dynamically render charts to accompany the publications.
+
