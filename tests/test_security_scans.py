@@ -25,6 +25,8 @@ def test_no_forbidden_imports_or_env_vars():
         "facebook_page_adapter_v6.py",
         "instagram_adapter_v6.py",
         "threads_adapter_v6.py",
+        "discord_live_adapter_v6.py",
+        "telegram_live_adapter_v6.py",
         "live_telemetry_v6.py",
         "scheduler_v6.py",
     }

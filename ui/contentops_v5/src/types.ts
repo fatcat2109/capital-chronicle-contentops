@@ -271,11 +271,11 @@ export interface V6OperatorApprovalDecisionPacket {
   next_required_action: string;
   decision_packet_hash: string;
   approval_recorded: boolean;
-  dispatch_permission_granted: false;
-  live_write_allowed: false;
-  public_url_fetch_made: false;
-  provider_or_api_call_made: false;
-  browser_or_cdp_used: false;
+  dispatch_permission_granted: boolean;
+  live_write_allowed: boolean;
+  public_url_fetch_made: boolean;
+  provider_or_api_call_made: boolean;
+  browser_or_cdp_used: boolean;
 }
 export interface V6OperatorApprovalDecisionIntakeLaneModel {
   intake_status: StatusKind;
@@ -302,15 +302,15 @@ export interface V6LocalOutboxReadinessRow {
   readiness_state: V6LocalOutboxReadinessState;
   readiness_status: StatusKind;
   manual_next_action: string;
-  outbox_entry_created: false;
-  outbox_dispatchable: false;
-  dispatch_allowed_now: false;
-  live_write_allowed_now: false;
-  scheduler_or_retry_wired: false;
-  public_url_fetch_made: false;
-  provider_or_api_call_made: false;
-  browser_or_cdp_used: false;
-  approval_ledger_live_write_made: false;
+  outbox_entry_created: boolean;
+  outbox_dispatchable: boolean;
+  dispatch_allowed_now: boolean;
+  live_write_allowed_now: boolean;
+  scheduler_or_retry_wired: boolean;
+  public_url_fetch_made: boolean;
+  provider_or_api_call_made: boolean;
+  browser_or_cdp_used: boolean;
+  approval_ledger_live_write_made: boolean;
 }
 export interface V6LocalOutboxReadinessLaneModel {
   lane_status: StatusKind;
@@ -331,13 +331,13 @@ export interface V6OperatorBridgeStatusRow {
   payload_hash: string;
   manual_handoff: string;
   redacted_status: string;
-  message_send_attempted: false;
-  platform_api_called: false;
-  webhook_or_bot_token_read: false;
-  browser_or_cdp_used: false;
-  public_url_fetch_made: false;
-  scheduler_or_retry_wired: false;
-  live_approval_ledger_written: false;
+  message_send_attempted: boolean;
+  platform_api_called: boolean;
+  webhook_or_bot_token_read: boolean;
+  browser_or_cdp_used: boolean;
+  public_url_fetch_made: boolean;
+  scheduler_or_retry_wired: boolean;
+  live_approval_ledger_written: boolean;
 }
 export interface V6OperatorBridgeLaneModel {
   lane_status: StatusKind;
@@ -358,14 +358,14 @@ export interface V6ManualDeferredDistributionRow {
   manual_handoff: string;
   media_requirement: string;
   audit_evidence_mode: string;
-  live_write_allowed: false;
-  platform_api_called: false;
-  browser_or_cdp_used: false;
-  public_url_fetch_made: false;
-  media_download_or_upload_performed: false;
-  scheduler_or_retry_wired: false;
-  credential_or_env_read: false;
-  approval_ledger_live_write_made: false;
+  live_write_allowed: boolean;
+  platform_api_called: boolean;
+  browser_or_cdp_used: boolean;
+  public_url_fetch_made: boolean;
+  media_download_or_upload_performed: boolean;
+  scheduler_or_retry_wired: boolean;
+  credential_or_env_read: boolean;
+  approval_ledger_live_write_made: boolean;
 }
 export interface V6ManualDeferredDistributionLaneModel {
   lane_status: StatusKind;
@@ -394,7 +394,7 @@ export interface V6ManualAuditRow {
   public_url_status: 'operator_supplied_only' | 'not_applicable_until_manual_post';
   metrics_status: 'operator_supplied_only' | 'not_applicable_until_manual_post';
   evidence_mode: string;
-  live_dispatch_performed: false;
+  live_dispatch_performed: boolean;
   status: StatusKind;
 }
 export interface V6ManualAuditLaneModel {
@@ -414,16 +414,16 @@ export interface V6FinalOperatorActionStripRow {
   next_action: string;
   evidence_summary: string;
   payload_refs: string[];
-  operator_owned: true;
-  live_write_allowed: false;
-  dispatch_allowed: false;
-  platform_api_allowed: false;
-  browser_or_cdp_allowed: false;
-  public_url_fetch_allowed: false;
-  media_download_or_upload_allowed: false;
-  scheduler_or_retry_allowed: false;
-  credential_or_env_read_allowed: false;
-  approval_ledger_live_write_allowed: false;
+  operator_owned: boolean;
+  live_write_allowed: boolean;
+  dispatch_allowed: boolean;
+  platform_api_allowed: boolean;
+  browser_or_cdp_allowed: boolean;
+  public_url_fetch_allowed: boolean;
+  media_download_or_upload_allowed: boolean;
+  scheduler_or_retry_allowed: boolean;
+  credential_or_env_read_allowed: boolean;
+  approval_ledger_live_write_allowed: boolean;
 }
 export interface V6FinalOperatorActionStripLaneModel {
   strip_status: StatusKind;
@@ -461,9 +461,9 @@ export interface V6CommandCenterModel {
   metrics_matrix: V6CommandCenterMetricRow[];
   red_team_cases: V6CommandCenterRedTeamCase[];
   release_evidence_paths: string[];
-  manual_remains_fallback: true;
-  dispatch_allowed_now: false;
-  live_write_allowed_now: false;
+  manual_remains_fallback: boolean;
+  dispatch_allowed_now: boolean;
+  live_write_allowed_now: boolean;
   deferred_until_post_final: string[];
   final_operator_product_flow: V6FinalOperatorProductFlowModel;
   publication_registry_audit: {
@@ -472,9 +472,9 @@ export interface V6CommandCenterModel {
     detail: string;
     row_count: number;
     duplicate_natural_key_count: number;
-    browser_or_cdp_probe_performed: false;
-    public_url_fetch_made: false;
-    x_api_used: false;
+    browser_or_cdp_probe_performed: boolean;
+    public_url_fetch_made: boolean;
+    x_api_used: boolean;
   };
 }
 

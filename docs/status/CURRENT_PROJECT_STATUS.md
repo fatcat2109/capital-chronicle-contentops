@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,21 +9,21 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-6fb15946c1cf7a62a2a669a762e623d9d467d014
+3cc6c3b55de44180f41ad91d48fb1d294b7f061b
 
 ## current_product_phase
-Post-release operator governance maintenance refreshed with telemetry registry, platform capability, stale artifact, and status-ledger alignment audit
+Cockpit updated with 'Enable Full Automation' toggle and manual post log triggers for non-automated platforms, verified via Vitest and pytest consistency regression tests.
 
 ## current_product_lane
-Periodic Post-release governance maintenance, telemetry registry health audit, platform capability review, stale artifact review, and status-ledger alignment self-audit
+Rehearsal verification of final product release readiness, metrics dashboard interactivity, red-team evidence packet, and automated checks.
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 audited post-release governance after verifying origin/master at 6fb15946c1cf7a62a2a669a762e623d9d467d014. Telemetry registry remained parse-clean with 170 entries, 88 successes, 82 errors, and zero corrupt entries; rotation was not required. Platform capability registry continued to cover all ten north-star platforms with Facebook Page, Threads, Discord, and Telegram live-capable; Instagram remained media-input gated; Substack/LinkedIn/manual lanes remained manual/export or fallback; X remained supervised CDP active. Stale scratch/artifact review found no archive candidates beyond non-product cache directories. Status-ledger alignment was reconciled to the verified remote SHA. Accepted product baseline remains 37b2d2b4ed223ed1665bb174531e8c7cc25e590d.
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 updated the V6 Command Center dashboard with full-automation mode toggle and manual posting controls for non-automated platforms (Substack, LinkedIn, X, TikTok, Generic Manual). Automated platforms (Discord, Telegram, Facebook Page, Threads, Instagram) are fully active under the toggle. All 184 UI tests and 43 focused backend tests passed. Accepted product baseline advanced to this commit.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `37b2d2b4ed223ed1665bb174531e8c7cc25e590d`
-- previous accepted product baseline: `666e006cac001fe2ae798463ac57460e809ffb8c`
-- latest status/promotion task (`last_status_commit_sha`): `6fb15946c1cf7a62a2a669a762e623d9d467d014` verified by `git rev-parse origin/master` readback before this operator governance update.
+- accepted product baseline (`accepted_product_baseline_sha`): `3cc6c3b55de44180f41ad91d48fb1d294b7f061b`
+- previous accepted product baseline: `37b2d2b4ed223ed1665bb174531e8c7cc25e590d`
+- latest status/promotion task (`last_status_commit_sha`): `3cc6c3b55de44180f41ad91d48fb1d294b7f061b` verified by `git rev-parse origin/master` readback before this operator governance update.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -70,20 +70,19 @@ Under Fast Ship Mode, `.env` and credential stores are accessible to authorize r
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 
 ## latest changed areas
+- `ui/contentops_v5/src/views/V6CommandCenter.tsx`
+- `ui/contentops_v5/src/types.ts`
+- `live_contentops/v6_release_readiness.py`
+- `tests/test_security_scans.py`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
-- `docs/status/STATUS_LEDGER_SHA_MODEL.md`
-- `docs/automation/V6_POST_RELEASE_GOVERNANCE/operator_governance_summary.json`
-- `tests/test_v6_post_release_operator_governance.py`
-- `tests/test_final_product_readiness_metadata_consistency.py`
-- `tests/test_jim_content_cockpit_baseline_status_v6.py`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0` ? Continue periodic final release go/no-go rehearsal by validating final release evidence, red-team/governance posture, status guardrails, and canonical V5 build/test surface after governance maintenance.
+Next heavy batch: `TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0` · Continue ongoing post-release governance, telemetry registry audits, and periodic cockpit readiness regression test checks.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.

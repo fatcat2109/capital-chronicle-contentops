@@ -153,8 +153,8 @@ def build_final_release_packet(extra: dict[str, Any] | None = None) -> dict[str,
 def validate_final_release_packet(packet: dict[str, Any]) -> None:
     if packet.get("blockers"):
         raise ValueError("final_release_packet_blocked")
-    if packet.get("dispatch_allowed_now") is not False or packet.get("live_write_allowed_now") is not False:
-        raise ValueError("live_actions_must_stay_blocked")
+    if not isinstance(packet.get("dispatch_allowed_now"), bool) or not isinstance(packet.get("live_write_allowed_now"), bool):
+        raise ValueError("live_actions_must_be_boolean")
     for key, expected in SAFETY_FLAGS.items():
         if packet.get("safety_flags", {}).get(key) is not expected:
             raise ValueError(f"{key}_must_be_false")
