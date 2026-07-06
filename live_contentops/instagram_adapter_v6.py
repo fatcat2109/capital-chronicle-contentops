@@ -58,6 +58,20 @@ def compile_instagram_media_payload(image_url: str, caption: str) -> dict[str, A
     return {"image_url": image_url, "caption": caption}
 
 
+def validate_instagram_image_url(image_url: str, timeout_seconds: int = 10) -> list[str]:
+    if not image_url.startswith(("https://", "http://")):
+        return ["image_url_not_http"]
+    try:
+        req = urllib.request.Request(image_url, method="HEAD", headers={"User-Agent": "ContentOps/6.0"})
+        with urllib.request.urlopen(req, timeout=timeout_seconds) as response:
+            content_type = response.headers.get("Content-Type", "").lower()
+            if not content_type.startswith("image/"):
+                return [f"image_url_not_image:{content_type or 'missing_content_type'}"]
+    except Exception as exc:
+        return [f"image_url_unreachable:{exc}"]
+    return []
+
+
 def execute_instagram_post(
     ig_id: str | None = None,
     access_token: str | None = None,
@@ -82,6 +96,10 @@ def execute_instagram_post(
             "container_payload_redacted": {**create_payload, "access_token": "<redacted>"},
             "response": {"id": f"{ig_id}_mock_media_12345"},
         }
+
+    media_failures = validate_instagram_image_url(image_url)
+    if media_failures:
+        return {"status": "VALIDATION_FAILED", "missing": [], "validation_failures": media_failures}
 
     from .live_telemetry_v6 import classify_and_record_dispatch
 

@@ -2,47 +2,67 @@
   "blockers": [],
   "canonical_article_draft": {
     "assumptions": "Assumes data sufficiency and operator verification under V6 standards.",
-    "canonical_payload_hash": "fd22f4150c29581507e3378e378fa6090dfcca3753b569b7126cb62684aa754d",
+    "canonical_payload_hash": "e632dc74d25e624cd5a972a21f5619b91f1a648dbcfccecfa913a64e63448ad8",
     "citations": [
-      "https://finance.yahoo.com/m/3d0764c3-d025-32db-a2e0-88a6f11b7fad/skanska-wins-%24111m-contract.html",
-      "https://finance.yahoo.com/m/71d5b3cc-3c97-377a-8413-4ee7d0fc5476/fifa-have-%27crossed-a-red.html",
-      "https://finance.yahoo.com/markets/stocks/articles/3-consumer-stocks-questionable-fundamentals-101201104.html"
+      "https://finance.yahoo.com/markets/stocks/articles/broadcom-stock-pops-4-apple-131039879.html",
+      "https://finance.yahoo.com/technology/live/tech-stocks-live-spacex-stock-gets-its-next-catalyst-samsung-earnings-on-deck-131003284.html",
+      "https://finance.yahoo.com/healthcare/articles/foxo-technologies-inc-ceo-seamus-130700367.html"
     ],
-    "conclusion": "In summary, analyzing coordinated central bank liquidity swaps requires a methodology that tracks cross-currency basis spreads, historical swap usage volumes, and sovereign yield volatility. By examining these indicators, market observers can better understand how monetary authorities coordinate to maintain global financial stability.",
+    "conclusion": "The convergence of maritime chokepoint disruptions, central bank policy adjustments, and risk repricing highlights the complexity of the modern macroeconomic landscape. As global trade routes face persistent geopolitical friction, the assumption of frictionless commerce has been replaced by a focus on resilience, redundancy, and localized supply chains. This structural shift introduces persistent inflationary pressures that complicate the task of monetary authorities, forcing a delicate balancing act between price stability and economic growth.\n\nFor students of finance and macroeconomics, this environment emphasizes the importance of understanding the transmission channels through which geopolitical events influence asset prices and corporate strategies. Whether analyzing the multi-year silicon agreements of mega-cap technology firms or the strategic pivots of micro-cap enterprises, the common thread is the adaptation to a higher cost of capital and a more fragmented global economy. By monitoring these dynamics without relying on simplistic assumptions, market observers can better appreciate the intricate forces shaping the global financial system.",
     "created_at": "2026-07-01T02:56:46+07:00",
-    "dek": "An educational breakdown of macro calibration and metadata context regarding Major central banks coordinate on liquidity support swaps.",
-    "intro": "In times of acute financial stress, the plumbing of the global financial system can seize up as demand for reserve currencies\u2014primarily the U.S. dollar\u2014spikes. To prevent this scramble for liquidity from paralyzing international banking, major central banks utilize coordinated liquidity swap lines. This macroeconomic mechanism allows foreign central banks to obtain foreign currency liquidity, typically U.S. dollars, in exchange for their domestic currency. By establishing these temporary or standing bilateral arrangements, institutions like the Federal Reserve, the European Central Bank, and the Bank of Japan work in tandem to ensure that offshore funding markets remain functional, preventing localized liquidity shortages from spilling over into broader systemic crises.",
+    "dek": "An educational breakdown of macro calibration and metadata context regarding Macro and geopolitical news: oil shipping lanes, central-bank policy expectations, and risk repricing across global markets.",
+    "intro": "The modern global economy operates on the assumption of frictionless transit. For decades, the seamless flow of container ships through narrow maritime corridors and the predictable rhythm of central bank policy formed the twin pillars of non-inflationary growth. Today, those pillars are experiencing profound structural shifts. Geopolitical friction in critical oil shipping lanes is no longer a temporary disruption; it has become a persistent variable in corporate supply-chain planning and macroeconomic forecasting. As vessels divert around major African capes to avoid chokepoint vulnerabilities, the resulting increase in ton-mile demand is altering the global cost structure of energy and goods.\n\nSimultaneously, global financial markets are undergoing a complex repricing of risk. The era of ultra-low interest rates has given way to a regime where central banks must balance sticky, supply-driven inflation against the vulnerabilities of highly leveraged corporate balance sheets. This transition is not occurring in a vacuum. The cost of capital is interacting directly with geopolitical disruptions, creating feedback loops that challenge traditional monetary transmission channels. When shipping costs rise, the lag in consumer price index (CPI) reflection presents a persistent challenge for policymakers attempting to calibrate terminal interest rates.\n\nThis educational analysis dissects the transmission channels through which geopolitical friction, maritime logistics, and monetary policy expectations converge. By examining the mechanics of shipping bottlenecks, the structural shifts in global supply chains, and the repricing of risk across equity and debt markets, we aim to clarify the forces shaping the macroeconomic landscape. In doing so, we explore how corporate resilience is being tested from the high-tech corridors of Silicon Valley to the deep-water ports of the global trade network.",
     "no_fake_data_check": true,
     "no_financial_advice_check": true,
     "sections": [
       {
-        "body": "Historically, the deployment of central bank swap lines has correlated with periods of extreme yield volatility and dislocation in the sovereign debt markets. During the 2008 financial crisis and the 2020 market disruptions, swap line usage surged to unprecedented levels, with outstanding balances peaking in the hundreds of billions of dollars. When offshore financial institutions cannot access funding, they are often forced to liquidate their holdings of high-quality liquid assets, such as U.S. Treasuries. This forced selling pressure drives yields upward and exacerbates volatility. By analyzing historical swap data, economists observe that the activation and expansion of these swap facilities act as a pressure valve, rapidly compressing the premium on cross-currency basis swaps and restoring orderly trading conditions in sovereign bond markets.",
-        "title": "Methodology and Source Review"
+        "body": "To understand the current macroeconomic environment, one must first understand the physics of global trade. Approximately 80 percent of global trade by volume is carried by sea, with a significant portion passing through strategic maritime chokepoints such as the Bab el-Mandeb strait, the Strait of Hormuz, and the Suez Canal. When geopolitical tensions compromise the safety of these corridors, maritime operators are forced to make a costly choice: risk transit through volatile waters, pay surging war-risk insurance premiums, or reroute vessels around the Cape of Good Hope. The latter option adds roughly 10 to 14 days to a typical voyage between Asia and Northern Europe, fundamentally altering global shipping capacity.\n\nThis diversion introduces what economists call the 'ton-mile effect.' Because ships are traveling longer distances, the effective supply of global vessel capacity shrinks, even if the absolute number of ships remains constant. As capacity tightens, spot freight rates on major ocean lanes experience upward pressure. The transmission channel from ocean freight to domestic inflation is characterized by a well-documented lag, typically spanning six to nine months. This delay represents the time required for higher shipping contract rates to work their way through wholesale inventories and ultimately manifest in retail prices.\n\nFurthermore, the impact is not uniform across all sectors. Low-value, high-bulk commodities\u2014such as agricultural products and industrial metals\u2014are disproportionately affected by rising freight rates, as logistics represent a larger share of their total cost structure. Conversely, high-value, low-weight goods, such as advanced semiconductors, are less sensitive to ocean freight rates but remain highly vulnerable to broader supply-chain delays. When maritime shipping slows, manufacturers often turn to air freight, driving up transport costs across all modalities and compounding inflationary pressures within the global logistics network.",
+        "title": "1. The Mechanics of Maritime Chokepoints and Supply-Chain Transmission"
       },
       {
-        "body": "While coordinated swap lines are highly effective at mitigating short-term funding bottlenecks, their structural design carries inherent limitations. Swap lines are primarily designed to address liquidity shortages rather than fundamental solvency issues within foreign banking sectors. Furthermore, access to these standing facilities is typically restricted to a select group of major advanced economy central banks, leaving emerging markets to rely on alternative, often more expensive, safety nets. If structural imbalances persist in the global balance of payments, temporary liquidity injections may only delay necessary macroeconomic adjustments. Understanding these boundaries is essential for evaluating the overall sufficiency of global financial safety nets during prolonged geopolitical or macroeconomic shifts.",
-        "title": "Historical Context and Range Analysis"
+        "body": "For central banks, supply-side shocks present a notoriously difficult policy challenge. Traditional monetary policy tools, such as adjusting benchmark interest rates, are designed to manage demand-pull inflation. They are far less effective at addressing cost-push inflation driven by geopolitical blockages or structural labor shortages. When a central bank raises rates to combat inflation caused by rising shipping costs, it risks suppressing aggregate demand to an unnecessary degree, potentially inducing an economic slowdown while doing little to clear maritime bottlenecks.\n\nThis dilemma has led to a visible divergence in central bank policy expectations. Policymakers must constantly assess whether elevated inflation readings are 'transitory'\u2014driven by temporary supply disruptions\u2014or 'structural,' reflecting a deeper decoupling of global trade networks. If central banks miscalculate and ease policy too quickly, they risk anchoring inflation expectations at a higher level. Conversely, maintaining restrictive policy for too long can strain banking systems and corporate debt markets, particularly as trillions of dollars in corporate debt matured in recent quarters require refinancing at significantly higher yields.\n\n[IMAGE PLACE NOTE: Insert a dual-axis line chart here illustrating the historical correlation between the Shanghai Containerized Freight Index (SCFI) and the Global Core Consumer Price Index (CPI) over a ten-year period, highlighting the typical six-to-nine-month lag in transmission.]\n\nTo navigate this environment, central banks are increasingly relying on sophisticated supply-chain pressure indices alongside traditional economic indicators. By monitoring real-time vessel tracking data, port congestion metrics, and container spot rates, monetary authorities attempt to anticipate supply-side price pressures before they appear in official CPI releases. This forward-looking approach is critical, but it is also fraught with uncertainty, as geopolitical events are inherently unpredictable and resistant to econometric modeling.",
+        "title": "2. Central Bank Dilemmas: Calibrating Policy Amid Supply-Side Shocks"
+      },
+      {
+        "body": "As market participants adjust to the reality of higher-for-longer interest rates and persistent geopolitical risk, asset classes worldwide are undergoing a fundamental repricing. In equity markets, the premium placed on near-term cash flows has increased, leading to a divergence between highly profitable, cash-rich enterprises and speculative, growth-oriented firms that rely on cheap external financing. Investors are increasingly scrutinizing balance sheets, evaluating companies based on their debt-maturity profiles and their ability to pass rising input costs onto consumers.\n\nIn fixed-income markets, the term premium\u2014the compensation investors demand for holding long-term debt\u2014is reflecting heightened uncertainty. Historically, long-term government bonds served as a reliable hedge against equity market volatility. However, when inflation is driven by supply-side shocks, the correlation between stocks and bonds can turn positive, reducing the diversification benefits of traditional portfolios. This shift forces institutional investors to reallocate capital, often seeking alternative assets or inflation-protected securities to preserve purchasing power.\n\nFurthermore, the pricing of credit risk has become highly sensitive to corporate leverage. While investment-grade credit spreads have remained relatively compressed, high-yield debt markets are exhibiting greater dispersion. Companies with weak interest-coverage ratios are finding it increasingly expensive to access capital markets. This environment underscores the importance of corporate self-sufficiency, as firms that can fund their capital expenditures through organic cash flow are insulated from the rising cost of debt, while those dependent on continuous refinancing face mounting headwinds.",
+        "title": "3. Risk Repricing and the Cost of Capital in Global Markets"
+      },
+      {
+        "body": "While macroeconomic headwinds persist, certain sectors are demonstrating remarkable resilience by leveraging strategic partnerships and technological advantages. In the technology sector, particularly within the semiconductor and hardware industries, companies are actively restructuring their supply chains to mitigate geopolitical risks. A prime example of this trend is the long-term collaboration between major technology firms. For instance, Broadcom recently extended its silicon supply agreement with Apple through 2031, securing a stable revenue stream and demonstrating the value of deep, multi-year corporate alliances in an uncertain economic climate.\n\nSuch agreements are not merely commercial contracts; they are strategic hedges against supply-chain disruption. By locking in long-term commitments, technology giants can justify the massive capital expenditures required to build advanced fabrication facilities in geographically diversified regions, such as the United States and Europe. This process of 'friend-shoring' or 'near-shoring' reduces reliance on vulnerable maritime shipping lanes, though it often comes with higher initial capital costs and localized labor constraints.\n\nAt the same time, the broader technology sector continues to attract capital due to structural growth drivers like artificial intelligence and high-performance computing. Companies like Samsung and SpaceX continue to serve as key catalysts for market sentiment, with Samsung's earnings reports and SpaceX's technological milestones closely watched as indicators of global industrial demand. These developments suggest that while macroeconomic factors influence short-term valuations, long-term capital allocation remains heavily influenced by secular technological trends that operate independently of immediate monetary policy cycles.",
+        "title": "4. High-Tech Resilience: Corporate Adaptations and Strategic Alliances"
+      },
+      {
+        "body": "While multinational corporations possess the scale and financial resources to navigate supply-chain disruptions and high interest rates, smaller enterprises face a vastly different reality. Micro-cap and small-cap companies often lack the pricing power to pass on rising logistics costs to consumers, nor do they have the balance sheet strength to secure long-term supply agreements. For these firms, the cost of capital is not just a hurdle rate; it is a critical determinant of operational survival.\n\nAn illustrative example of the operational adjustments required in the micro-cap space is provided by FOXO Technologies Inc. In a mid-year update to shareholders, CEO Seamus Lagan detailed the company's strategic pivot, highlighting efforts to streamline operations, manage debt, and explore new commercial avenues in the face of challenging market conditions. This type of corporate restructuring is common among smaller firms seeking to preserve liquidity when traditional equity and debt financing channels become highly restrictive.\n\nFor educational purposes, the contrast between a mega-cap technology firm and a micro-cap enterprise highlights the non-linear impact of monetary policy. When central banks tighten policy, the transmission mechanism acts as a blunt instrument. It may take quarters for higher rates to cool demand at the macro level, but the impact on small-cap liquidity and credit availability is often immediate and pronounced. This divergence underscores why aggregate market indices can sometimes mask the underlying financial distress occurring in smaller, credit-dependent segments of the economy.",
+        "title": "5. Micro-Cap Dynamics and the Challenges of Scale"
+      },
+      {
+        "body": "Beyond immediate corporate earnings and monetary policy adjustments, the intersection of maritime disruptions and high interest rates has profound second-order effects on global energy security and the transition to low-carbon technologies. When oil shipping lanes are threatened, the immediate response is often a reliance on localized fossil fuel production to ensure energy security. This can lead to a temporary increase in carbon emissions and a reallocation of capital away from long-term renewable energy projects toward short-term fossil fuel infrastructure.\n\nMoreover, the green transition is highly capital-intensive. Projects such as offshore wind farms, solar arrays, and battery manufacturing facilities require significant upfront capital investment, making them highly sensitive to the cost of debt. When central banks maintain high interest rates to combat supply-driven inflation, the viability of these projects is compromised. The cost of capital for renewable energy projects has risen substantially, leading to delays or cancellations of major initiatives worldwide.\n\nThis creates a paradoxical situation: geopolitical disruptions in fossil fuel transit routes highlight the need for energy independence and accelerated renewable deployment, yet the monetary policy response to the resulting inflation makes financing those renewable projects more expensive. Resolving this tension requires innovative financing structures, public-private partnerships, and potentially targeted fiscal support to ensure that long-term environmental goals are not entirely sacrificed to short-term macroeconomic stabilization efforts.",
+        "title": "6. Second-Order Effects: Energy Security and the Green Transition"
       }
     ],
-    "slug_candidate": "major-central-banks-coordinate-on-liquidity-support-swaps",
-    "source_notes": "Sources referenced: https://finance.yahoo.com/m/3d0764c3-d025-32db-a2e0-88a6f11b7fad/skanska-wins-%24111m-contract.html, https://finance.yahoo.com/m/71d5b3cc-3c97-377a-8413-4ee7d0fc5476/fifa-have-%27crossed-a-red.html, https://finance.yahoo.com/markets/stocks/articles/3-consumer-stocks-questionable-fundamentals-101201104.html. Optional notes: Live production run on: Major central banks coordinate on liquidity support swaps",
-    "subtitle": "An educational guide to macroeconomic policy coordination and the plumbing of international dollar funding markets.",
-    "thesis": "Methodological transparency and rigorous historical context are essential when reviewing Major central banks coordinate on liquidity support swaps.",
-    "title": "The Mechanics of Global Liquidity: How Central Bank Swap Lines Stabilize Sovereign Yields",
+    "slug_candidate": "macro-and-geopolitical-news-oil-shipping-lanes-central-bank-policy-expectations-and-risk-repricing-across-global-markets",
+    "source_notes": "Sources referenced: https://finance.yahoo.com/markets/stocks/articles/broadcom-stock-pops-4-apple-131039879.html, https://finance.yahoo.com/technology/live/tech-stocks-live-spacex-stock-gets-its-next-catalyst-samsung-earnings-on-deck-131003284.html, https://finance.yahoo.com/healthcare/articles/foxo-technologies-inc-ceo-seamus-130700367.html. Optional notes: Live production run on: Macro and geopolitical news: oil shipping lanes, central-bank policy expectations, and risk repricing across global markets",
+    "subtitle": "As geopolitical bottlenecks squeeze trade routes, central banks navigate a delicate balance between structural inflation and market stability.",
+    "thesis": "Methodological transparency and rigorous historical context are essential when reviewing Macro and geopolitical news: oil shipping lanes, central-bank policy expectations, and risk repricing across global markets.",
+    "title": "The Friction of Distance: How Maritime Chokepoints and Monetary Policy Realign Global Capital",
     "uncertainty_notes": "Prior cycles may not predict future macro distributions."
   },
   "discord_summary_seed": {
     "call_to_action": "Review the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
     "canonical_url": null,
-    "content_hash": "fd22f4150c29581507e3378e378fa6090dfcca3753b569b7126cb62684aa754d",
+    "content_hash": "e632dc74d25e624cd5a972a21f5619b91f1a648dbcfccecfa913a64e63448ad8",
     "created_at": "2026-07-01T02:56:46+07:00",
     "key_points": [
-      "Methodology and Source Review: Historically, the deployment of central bank swap lines has correlated with periods of extreme yield volatility and disl...",
-      "Historical Context and Range Analysis: While coordinated swap lines are highly effective at mitigating short-term funding bottlenecks, their structural design ..."
+      "1. The Mechanics of Maritime Chokepoints and Supply-Chain Transmission: To understand the current macroeconomic environment, one must first understand the physics of global trade. Approximatel...",
+      "2. Central Bank Dilemmas: Calibrating Policy Amid Supply-Side Shocks: For central banks, supply-side shocks present a notoriously difficult policy challenge. Traditional monetary policy tool...",
+      "3. Risk Repricing and the Cost of Capital in Global Markets: As market participants adjust to the reality of higher-for-longer interest rates and persistent geopolitical risk, asset...",
+      "4. High-Tech Resilience: Corporate Adaptations and Strategic Alliances: While macroeconomic headwinds persist, certain sectors are demonstrating remarkable resilience by leveraging strategic p...",
+      "5. Micro-Cap Dynamics and the Challenges of Scale: While multinational corporations possess the scale and financial resources to navigate supply-chain disruptions and high...",
+      "6. Second-Order Effects: Energy Security and the Green Transition: Beyond immediate corporate earnings and monetary policy adjustments, the intersection of maritime disruptions and high i..."
     ],
-    "source_article_id": "operator_idea_fd22f4150c295815",
-    "summary": "An educational breakdown of macro calibration and metadata context regarding Major central banks coordinate on liquidity support swaps.",
-    "title": "The Mechanics of Global Liquidity: How Central Bank Swap Lines Stabilize Sovereign Yields"
+    "source_article_id": "operator_idea_e632dc74d25e624c",
+    "summary": "An educational breakdown of macro calibration and metadata context regarding Macro and geopolitical news: oil shipping lanes, central-bank policy expectations, and risk repricing across global markets.",
+    "title": "The Friction of Distance: How Maritime Chokepoints and Monetary Policy Realign Global Capital"
   },
   "editorial_review_packet": {
     "editorial_risk_notes": "Ensure no restricted directional keywords are introduced during manual edits.",
@@ -59,8 +79,8 @@
     "dry_run_provenance": "deterministic_local_engine_run",
     "redaction_verified": true
   },
-  "operator_idea_id": "operator_idea_fd22f4150c295815",
-  "packet_id": "article_engine_packet_fd22f4150c295815",
+  "operator_idea_id": "operator_idea_e632dc74d25e624c",
+  "packet_id": "article_engine_packet_e632dc74d25e624c",
   "provider_call_made": true,
   "provider_mode": "live_provider_call",
   "provider_request_budget": 2,
@@ -68,7 +88,7 @@
   "raw_provider_key_serialized": false,
   "recommended_next_task": "TASK_CONTENTOPS_V6_VARIANT_PREVIEW_HASH_APPROVAL_TO_DISCORD_OUTBOX_HEAVY_BATCH_V0",
   "research_grounding_packet": {
-    "cited_source_notes": "https://finance.yahoo.com/m/3d0764c3-d025-32db-a2e0-88a6f11b7fad/skanska-wins-%24111m-contract.html, https://finance.yahoo.com/m/71d5b3cc-3c97-377a-8413-4ee7d0fc5476/fifa-have-%27crossed-a-red.html, https://finance.yahoo.com/markets/stocks/articles/3-consumer-stocks-questionable-fundamentals-101201104.html",
+    "cited_source_notes": "https://finance.yahoo.com/markets/stocks/articles/broadcom-stock-pops-4-apple-131039879.html, https://finance.yahoo.com/technology/live/tech-stocks-live-spacex-stock-gets-its-next-catalyst-samsung-earnings-on-deck-131003284.html, https://finance.yahoo.com/healthcare/articles/foxo-technologies-inc-ceo-seamus-130700367.html",
     "no_claims_of_live_public_publication": true,
     "no_fabricated_market_numbers": true,
     "no_invented_citations": true,
@@ -85,16 +105,16 @@
   },
   "schema_version": "6.0.0",
   "seo_packet": {
-    "meta_description": "An educational briefing analyzing Major central banks coordinate on liquidity support swaps under the editorial angle: Focus on macroeconomic policy coordination, yield volatility, and historical swaps data..",
+    "meta_description": "An educational briefing analyzing Macro and geopolitical news: oil shipping lanes, central-bank policy expectations, and risk repricing across global markets under the editorial angle: Write a long-form educational newspaper-style analysis with concrete data references, source caveats, geopolitical transmission channels, and no investment advice..",
     "secondary_keywords": [
       "macro calendar",
       "educational briefing",
       "volatility review"
     ],
-    "target_keyword": "swaps",
+    "target_keyword": "markets",
     "title_alternatives": [
-      "Chronicle Watchlist: Major central banks coordinate on liquidity support swaps",
-      "Understanding Major central banks coordinate on liquidity support swaps"
+      "Chronicle Watchlist: Macro and geopolitical news: oil shipping lanes, central-bank policy expectations, and risk repricing across global markets",
+      "Understanding Macro and geopolitical news: oil shipping lanes, central-bank policy expectations, and risk repricing across global markets"
     ]
   },
   "source_context_packet": {
@@ -103,20 +123,20 @@
       "telegram_operator",
       "manual_export"
     ],
-    "editorial_angle": "Focus on macroeconomic policy coordination, yield volatility, and historical swaps data.",
-    "operator_idea": "Major central banks coordinate on liquidity support swaps",
+    "editorial_angle": "Write a long-form educational newspaper-style analysis with concrete data references, source caveats, geopolitical transmission channels, and no investment advice.",
+    "operator_idea": "Macro and geopolitical news: oil shipping lanes, central-bank policy expectations, and risk repricing across global markets",
     "output_style": "educational_process_heavy",
     "publish_target": "substack_canonical",
     "risk_disclaimer_policy": "V6_EDUCATIONAL_DISCLAIMER",
     "source_context": [],
-    "source_notes": "Live production run on: Major central banks coordinate on liquidity support swaps",
+    "source_notes": "Live production run on: Macro and geopolitical news: oil shipping lanes, central-bank policy expectations, and risk repricing across global markets",
     "source_urls": [],
     "target_audience": "general_financial_education"
   },
   "task_label": "TASK_CONTENTOPS_V6_AI_RESEARCH_CANONICAL_ARTICLE_PRODUCTION_ENGINE_HEAVY_BATCH_V0",
   "telegram_operator_checkpoint_seed": {
     "checkpoint_status": "pending_operator",
-    "concise_summary": "V6 Checkpoint: The Mechanics of Global Liquidity: How Central Bank Swap Lines Stabilize Sovereign Yields is ready for operator review."
+    "concise_summary": "V6 Checkpoint: The Friction of Distance: How Maritime Chokepoints and Monetary Policy Realign Global Capital is ready for operator review."
   },
   "warnings": []
 }

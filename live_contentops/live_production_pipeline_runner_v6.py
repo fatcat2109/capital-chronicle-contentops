@@ -22,9 +22,11 @@ load_dotenv()
 from live_contentops.ai_research_canonical_article_engine_v6 import (
     EngineInput,
     run_article_engine,
+    validate_article_quality,
 )
 from live_contentops.platform_native_variant_generator_live_v6 import (
     generate_live_platform_variants,
+    validate_platform_variants,
 )
 
 ARTICLE_OUTPUT_PATH = Path("docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json")
@@ -86,8 +88,22 @@ def run_live_production_pipeline(
         "image_path": variant_packet.get("image_path"),
         "public_image_url": public_image_url,
         "variant_status": variant_packet.get("variant_status"),
-        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "timestamp_gmt7": time.strftime("%Y-%m-%dT%H:%M:%S+07:00", time.gmtime(time.time() + 7 * 3600)),
     }
+
+    article_failures = validate_article_quality(article_packet.get("canonical_article_draft", {}), min_chars=5000) if live_run else []
+    variant_failures = validate_platform_variants(variants, variant_threads, live_run=live_run) if live_run else []
+    variant_failures.extend(variant_packet.get("validation_failures") or [])
+    blockers = list(article_packet.get("blockers") or []) + article_failures + variant_failures
+    if dispatch_live and blockers:
+        ret["dispatch_live"] = False
+        ret["dispatch_blocked"] = True
+        ret["dispatch_blockers"] = blockers
+        evidence_path = VARIANT_OUTPUT_DIR / "latest_dispatch_audit.json"
+        evidence_path.parent.mkdir(parents=True, exist_ok=True)
+        evidence_path.write_text(json.dumps(ret, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        return ret
     
     # 3. Perform automated live dispatches if requested
     if dispatch_live:
@@ -174,7 +190,7 @@ def run_live_production_pipeline(
             active_img = public_image_url if public_image_url else fallback_img
             ig_res = execute_instagram_post(
                 image_url=active_img,
-                caption=variants.get("telegram", "Capital Chronicle Macro Update"),
+                caption=variants.get("instagram_caption", variants.get("telegram", "Capital Chronicle Macro Update")),
                 dry_run=False
             )
             dispatch_results["instagram"] = ig_res
@@ -190,7 +206,7 @@ def run_live_production_pipeline(
             from live_contentops.facebook_page_adapter_v6 import execute_facebook_post
             print("[Info] Dispatching to Facebook Page...")
             fb_res = execute_facebook_post(
-                message=variants.get("linkedin", ""),
+                message=variants.get("facebook", variants.get("linkedin", "")),
                 dry_run=False
             )
             dispatch_results["facebook"] = fb_res
@@ -221,12 +237,28 @@ def run_live_production_pipeline(
         try:
             from live_contentops.threads_adapter_v6 import execute_threads_post
             print("[Info] Dispatching to Threads...")
-            threads_res = execute_threads_post(
-                text=variants.get("threads", ""),
-                dry_run=False
-            )
-            dispatch_results["threads"] = threads_res
-            print(f"[Info] Threads dispatch outcome: {threads_res.get('status')}")
+            threads_sequence = [str(item).strip() for item in variant_threads.get("threads", []) if str(item).strip()]
+            if threads_sequence:
+                threads_res = execute_threads_post(
+                    text=threads_sequence[0],
+                    dry_run=False
+                )
+                dispatch_results["threads"] = threads_res
+                thread_reply_results = []
+                parent_id = threads_res.get("id") or threads_res.get("container_id")
+                if threads_res.get("status") == "SUCCESS" and parent_id:
+                    for idx, reply_text in enumerate(threads_sequence[1:], start=1):
+                        time.sleep(6)
+                        print(f"[Info] Dispatching Threads reply {idx}/{len(threads_sequence) - 1}...")
+                        thread_reply_results.append(execute_threads_post(
+                            text=reply_text,
+                            reply_to_id=parent_id,
+                            dry_run=False
+                        ))
+                dispatch_results["threads_replies"] = thread_reply_results
+            else:
+                dispatch_results["threads"] = {"status": "VALIDATION_FAILED", "missing": ["threads_thread"]}
+            print(f"[Info] Threads dispatch outcome: {dispatch_results['threads'].get('status')}")
         except Exception as exc:
             print(f"[Warning] Threads dispatch failed: {exc}")
             dispatch_results["threads"] = {"status": "FAILED", "error": str(exc)}
@@ -252,6 +284,9 @@ def run_live_production_pipeline(
         print("[Info] Automated dispatches complete.")
         ret["dispatch_live"] = True
         ret["dispatch_results"] = dispatch_results
+        evidence_path = VARIANT_OUTPUT_DIR / "latest_dispatch_audit.json"
+        evidence_path.parent.mkdir(parents=True, exist_ok=True)
+        evidence_path.write_text(json.dumps(ret, indent=2, sort_keys=True) + "\n", encoding="utf-8")
         
     return ret
 

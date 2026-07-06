@@ -39,6 +39,7 @@ def test_execute_post_success(monkeypatch):
     mock_resp2.__enter__.return_value = mock_resp2
     calls = [mock_resp1, mock_resp2]
     monkeypatch.setattr(urllib.request, "urlopen", MagicMock(side_effect=lambda *a, **k: calls.pop(0)))
+    monkeypatch.setattr(adapter, "validate_instagram_image_url", lambda image_url: [])
 
     res = adapter.execute_instagram_post("instagram_123", "fake_token", "https://example.com/image.jpg", "Success flow test")
     assert res["status"] == "SUCCESS"
@@ -51,6 +52,7 @@ def test_execute_post_step1_failure(monkeypatch):
     mock_fp.read.return_value = b'{"error": {"message": "Invalid access token."}}'
     mock_error = urllib.error.HTTPError("https://graph.facebook.com/v21.0/instagram_123/media", 400, "Bad Request", None, mock_fp)
     monkeypatch.setattr(urllib.request, "urlopen", MagicMock(side_effect=mock_error))
+    monkeypatch.setattr(adapter, "validate_instagram_image_url", lambda image_url: [])
 
     res = adapter.execute_instagram_post("instagram_123", "fake_token", "https://example.com/image.jpg", "Step 1 failure test")
     assert res["status"] == "FAILED_STEP_1"
@@ -71,6 +73,7 @@ def test_execute_post_step2_failure(monkeypatch):
             raise val
         return val
     monkeypatch.setattr(urllib.request, "urlopen", MagicMock(side_effect=side_effect))
+    monkeypatch.setattr(adapter, "validate_instagram_image_url", lambda image_url: [])
 
     res = adapter.execute_instagram_post("instagram_123", "fake_token", "https://example.com/image.jpg", "Step 2 failure test")
     assert res["status"] == "FAILED_STEP_2"
@@ -88,3 +91,16 @@ def test_execute_edit_unsupported():
     res = adapter.execute_instagram_edit()
     assert res["status"] == "UNSUPPORTED"
     assert res["platform_id"] == "instagram"
+
+
+def test_validate_instagram_image_url_rejects_non_http():
+    assert adapter.validate_instagram_image_url("file:///tmp/image.jpg") == ["image_url_not_http"]
+
+
+def test_validate_instagram_image_url_rejects_non_image(monkeypatch):
+    mock_resp = MagicMock()
+    mock_resp.headers = {"Content-Type": "text/html"}
+    mock_resp.__enter__.return_value = mock_resp
+    monkeypatch.setattr(urllib.request, "urlopen", MagicMock(return_value=mock_resp))
+
+    assert adapter.validate_instagram_image_url("https://example.com/page") == ["image_url_not_image:text/html"]

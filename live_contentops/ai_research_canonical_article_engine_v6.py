@@ -96,7 +96,59 @@ def parse_llm_json(text: str) -> dict[str, str] | None:
         return None
 
 
-def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15) -> str:
+def article_plain_text(draft: dict[str, Any]) -> str:
+    parts = [str(draft.get("title", "")), str(draft.get("subtitle", "")), str(draft.get("intro", ""))]
+    for section in draft.get("sections", []):
+        if isinstance(section, dict):
+            parts.extend([str(section.get("title", "")), str(section.get("body", ""))])
+    parts.append(str(draft.get("conclusion", "")))
+    return "\n".join(part for part in parts if part)
+
+
+def validate_article_quality(draft: dict[str, Any], min_chars: int = 5000) -> list[str]:
+    text = article_plain_text(draft)
+    low = text.lower()
+    failures: list[str] = []
+    if len(text) < min_chars:
+        failures.append(f"article_too_short:{len(text)}<{min_chars}")
+    if len(draft.get("sections", [])) < 4:
+        failures.append("too_few_sections")
+    if any(marker in low for marker in ("stub", "scaffold", "lorem ipsum", "placeholder")):
+        failures.append("placeholder_language_detected")
+    if not re.search(r"\b\d+(?:\.\d+)?\s*(?:%|percent|bps|basis points|trillion|billion|million|days|weeks|months|years)\b", low):
+        failures.append("missing_specific_numbers")
+    if not any(term in low for term in ("source", "data", "reported", "according", "index", "shipping", "policy", "liquidity")):
+        failures.append("missing_source_or_data_language")
+    return failures
+
+
+def apply_llm_article_data(llm_data: Mapping[str, Any], fallback_sections: list[dict[str, str]]) -> tuple[str | None, str | None, str | None, list[dict[str, str]], str | None]:
+    sections = [dict(section) for section in fallback_sections]
+    raw_sections = llm_data.get("sections")
+    if isinstance(raw_sections, list) and raw_sections:
+        parsed_sections = []
+        for idx, section in enumerate(raw_sections, start=1):
+            if isinstance(section, dict):
+                parsed_sections.append({"title": str(section.get("title") or f"Section {idx}"), "body": str(section.get("body") or "")})
+        if parsed_sections:
+            sections = parsed_sections
+    else:
+        for idx in range(1, 9):
+            body = llm_data.get(f"section{idx}_body")
+            if body:
+                while len(sections) < idx:
+                    sections.append({"title": f"Section {len(sections) + 1}", "body": ""})
+                sections[idx - 1]["body"] = str(body)
+    return (
+        str(llm_data["title"]) if "title" in llm_data else None,
+        str(llm_data["subtitle"]) if "subtitle" in llm_data else None,
+        str(llm_data["intro"]) if "intro" in llm_data else None,
+        sections,
+        str(llm_data["conclusion"]) if "conclusion" in llm_data else None,
+    )
+
+
+def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15, model_override: str | None = None) -> str:
     env_map = getattr(os, "environ")
     if provider == "openai":
         api_key = env_map.get("OPENAI_API_KEY")
@@ -140,7 +192,7 @@ def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15) ->
     elif provider == "9router":
         api_key = env_map.get("NINE_ROUTER_API_KEY")
         base_url = env_map.get("NINE_ROUTER_BASE_URL") or "http://localhost:20128/v1"
-        model_name = env_map.get("NINE_ROUTER_MODEL") or "vx/gemini-3.5-flash"
+        model_name = model_override or env_map.get("NINE_ROUTER_MODEL") or "vx/gemini-3.5-flash"
         if not api_key:
             raise ValueError("NINE_ROUTER_API_KEY_missing")
         url_request = importlib.import_module("urllib.request")
@@ -151,7 +203,7 @@ def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15) ->
         body = json.dumps({
             "model": model_name,
             "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": 1200,
+            "max_tokens": 5000,
             "temperature": 0.2
         }).encode("utf-8")
         req = url_request.Request(f"{base_url.rstrip('/')}/chat/completions", data=body, headers=headers, method="POST")
@@ -265,46 +317,72 @@ def run_article_engine(
                     search_context_str = "No search results returned."
 
                 prompt = (
-                    f"You are a macroeconomic and geopolitical writer for Capital Chronicle.\n"
-                    f"Write an educational, process-heavy briefing based on these inputs:\n"
+                    f"You are a senior macroeconomic and geopolitical features writer for Capital Chronicle.\n"
+                    f"Write a long-form educational newsroom-style analysis with the depth, structure, and specificity expected from tier-1 financial journalism.\n\n"
                     f"Topic Idea: {inputs.operator_idea}\n"
                     f"Editorial Angle: {inputs.editorial_angle}\n"
                     f"Target Audience: {inputs.target_audience}\n"
                     f"Grounded Search Context:\n{search_context_str}\n\n"
+                    f"REQUIRED OUTPUT QUALITY:\n"
+                    f"- At least 1,500 words across intro, 5-7 named sections, and conclusion.\n"
+                    f"- Include concrete numbers from the provided context when available; if unavailable, explain data gaps without inventing.\n"
+                    f"- Explain transmission channels, historical context, second-order effects, and limitations.\n"
+                    f"- Use a polished newspaper feature style while staying educational and non-advisory.\n"
+                    f"- Include image placement note text in one section body if a relevant chart/photo would help.\n\n"
                     f"SAFETY EXCLUSIONS:\n"
                     f"- DO NOT provide any financial advice, investment recommendations, or trade signals.\n"
                     f"- DO NOT use transactional words like 'buy', 'sell', 'hold', 'price target', 'long', 'short'.\n\n"
-                    f"Return ONLY a raw JSON object matching the following fields (no markdown blocks around JSON):\n"
+                    f"Return ONLY a raw JSON object matching this schema, with no markdown fences:\n"
                     f"{{\n"
-                    f"  \"title\": \"Alternative Title\",\n"
-                    f"  \"subtitle\": \"Alternative Subtitle\",\n"
-                    f"  \"intro\": \"A paragraph grounding the topic...\",\n"
-                    f"  \"section1_body\": \"Analysis of historical ranges or data...\",\n"
-                    f"  \"section2_body\": \"Sufficiency and limitations review...\",\n"
-                    f"  \"conclusion\": \"Methodology summary...\"\n"
+                    f"  \"title\": \"Feature title\",\n"
+                    f"  \"subtitle\": \"Specific, analytical subtitle\",\n"
+                    f"  \"intro\": \"Three to five substantial paragraphs...\",\n"
+                    f"  \"sections\": [{{\"title\": \"Section title\", \"body\": \"Four to seven substantial paragraphs...\"}}],\n"
+                    f"  \"conclusion\": \"Two to four substantial paragraphs...\"\n"
                     f"}}\n"
                 )
-                try:
-                    llm_text = call_live_provider(prompt, live_provider, timeout_seconds)
-                    provider_call_made = True
-                    provider_request_count = 1
-                    
-                    llm_data = parse_llm_json(llm_text)
-                    if llm_data:
-                        if "title" in llm_data: title = llm_data["title"]
-                        if "subtitle" in llm_data: subtitle = llm_data["subtitle"]
-                        if "intro" in llm_data: intro = llm_data["intro"]
-                        if "conclusion" in llm_data: conclusion = llm_data["conclusion"]
-                        if "section1_body" in llm_data:
-                            sections[0]["body"] = llm_data["section1_body"]
-                        if "section2_body" in llm_data:
-                            sections[1]["body"] = llm_data["section2_body"]
-                    else:
-                        intro = f"[AI Generated Content]: {llm_text[:300]}... [End of AI Generated Content]. " + intro
-                except Exception as exc:
-                    provider_call_made = True
-                    provider_request_count = 1
-                    blockers.append(f"provider_call_failed:{str(exc)}")
+                models: list[str | None] = [None]
+                if live_provider == "9router":
+                    models.append("vx/gemini-3.1-pro-preview")
+                best_failure: list[str] = []
+                for attempt_idx, model_name in enumerate(models, start=1):
+                    try:
+                        llm_text = call_live_provider(prompt, live_provider, timeout_seconds, model_override=model_name)
+                        provider_call_made = True
+                        provider_request_count = attempt_idx
+                        llm_data = parse_llm_json(llm_text)
+                        if not llm_data:
+                            best_failure = ["provider_json_parse_failed"]
+                            continue
+                        next_title, next_subtitle, next_intro, next_sections, next_conclusion = apply_llm_article_data(llm_data, sections)
+                        candidate = {
+                            "title": next_title or title,
+                            "subtitle": next_subtitle or subtitle,
+                            "intro": next_intro or intro,
+                            "sections": next_sections,
+                            "conclusion": next_conclusion or conclusion,
+                        }
+                        failures = validate_article_quality(candidate)
+                        if failures:
+                            best_failure = failures
+                            warnings.append(f"article_quality_retry:{model_name or 'default'}:{'|'.join(failures)}")
+                            continue
+                        title = candidate["title"]
+                        subtitle = candidate["subtitle"]
+                        intro = candidate["intro"]
+                        sections = candidate["sections"]
+                        conclusion = candidate["conclusion"]
+                        if model_name:
+                            warnings.append(f"article_model_fallback_used:{model_name}")
+                        break
+                    except Exception as exc:
+                        provider_call_made = True
+                        provider_request_count = attempt_idx
+                        best_failure = [f"provider_call_failed:{str(exc)}"]
+                        warnings.append(best_failure[0])
+                else:
+                    blockers.append("article_quality_gate_failed:" + "|".join(best_failure or ["unknown"]))
+
 
     draft = {
         "title": title,

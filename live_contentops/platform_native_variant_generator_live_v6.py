@@ -43,6 +43,65 @@ def compute_packet_hash(data: dict[str, Any]) -> str:
     return hashlib.sha256(serialized).hexdigest()
 
 
+def _contains_placeholder(text: str) -> bool:
+    return any(marker in text.lower() for marker in ("stub", "scaffold", "placeholder", "lorem ipsum"))
+
+
+def validate_platform_variants(variants: dict[str, str], variant_threads: dict[str, list[str]], live_run: bool = True) -> list[str]:
+    required = {
+        "substack": 1200,
+        "linkedin": 120,
+        "facebook": 120,
+        "discord": 80,
+        "telegram": 60,
+        "threads": 80,
+        "instagram_caption": 80,
+    }
+    failures: list[str] = []
+    for platform, min_len in required.items():
+        text = str(variants.get(platform, "")).strip()
+        if len(text) < min_len:
+            failures.append(f"{platform}_too_short:{len(text)}<{min_len}")
+        if _contains_placeholder(text):
+            failures.append(f"{platform}_placeholder_detected")
+    limits = {"x": 280, "threads": 500}
+    for platform in ("x", "threads"):
+        thread = [str(item).strip() for item in variant_threads.get(platform, []) if str(item).strip()]
+        if not thread:
+            failures.append(f"{platform}_thread_missing")
+        if any(_contains_placeholder(item) for item in thread):
+            failures.append(f"{platform}_thread_placeholder_detected")
+        for idx, item in enumerate(thread, start=1):
+            if len(item) > limits[platform]:
+                failures.append(f"{platform}_thread_item_too_long:{idx}:{len(item)}>{limits[platform]}")
+    return failures
+
+
+def _fallback_variants(title: str, subtitle: str, body_text: str) -> tuple[dict[str, str], dict[str, list[str]]]:
+    short = re.sub(r"\s+", " ", body_text).strip()
+    summary = short[:900].rsplit(" ", 1)[0] if len(short) > 900 else short
+    linkedin = f"{title}\n\n{subtitle}\n\n{summary}\n\nCapital Chronicle frames this as educational macro context, not investment advice."
+    discord = f"**{title}**\n\n{summary[:1200]}\n\nDiscuss the data, assumptions, and transmission channels."
+    telegram = f"Capital Chronicle: {title}\n\n{summary[:850]}"
+    facebook = f"{title}\n\n{subtitle}\n\n{summary[:1600]}\n\nEducational macro analysis from Capital Chronicle."
+    instagram_caption = f"{title}\n\n{summary[:1800]}\n\n#CapitalChronicle #Macro #Geopolitics"
+    x_thread = []
+    chunks = [summary[i:i + 230].strip() for i in range(0, min(len(summary), 1600), 230)]
+    for idx, chunk in enumerate(chunks[:8], start=1):
+        x_thread.append(f"{idx}/ {chunk}" if idx == 1 else f"{idx}/ {chunk}")
+    threads_thread = [chunk for chunk in [summary[i:i + 450].strip() for i in range(0, min(len(summary), 2200), 450)] if chunk]
+    return {
+        "substack": body_text,
+        "linkedin": linkedin,
+        "facebook": facebook,
+        "discord": discord,
+        "telegram": telegram,
+        "x": "\n\n---\n\n".join(x_thread),
+        "threads": "\n\n---\n\n".join(threads_thread),
+        "instagram_caption": instagram_caption,
+    }, {"x": x_thread, "threads": threads_thread}
+
+
 def generate_live_platform_variants(
     article_packet_path: str | Path = DEFAULT_ARTICLE_PACKET,
     output_dir: str | Path = DEFAULT_OUTPUT_DIR,
@@ -51,156 +110,103 @@ def generate_live_platform_variants(
 ) -> dict[str, Any]:
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    
-    # 1. Load Substack Canonical Article
     try:
         with open(article_packet_path, "r", encoding="utf-8") as f:
             article_data = json.load(f)
     except Exception as exc:
         print(f"[Warning] Failed to load canonical article: {exc}")
         article_data = {}
-        
+
     article_draft = article_data.get("canonical_article_draft", {})
     title = article_draft.get("title", "Capital Chronicle Macro Volatility Briefing")
     subtitle = article_draft.get("subtitle", "Process-led macro analysis")
     intro = article_draft.get("intro", "")
     conclusion = article_draft.get("conclusion", "")
     sections = article_draft.get("sections", [])
-    
-    body_text = intro + "\n\n"
-    for s in sections:
-        body_text += f"### {s.get('title')}\n{s.get('body')}\n\n"
+    body_text = f"{intro}\n\n"
+    for section in sections:
+        body_text += f"### {section.get('title')}\n{section.get('body')}\n\n"
     body_text += conclusion
-    
-    # Defaults/Scaffold stubs
-    variants = {
-        "substack": body_text,
-        "linkedin": "LinkedIn variant scaffold stub",
-        "discord": "Discord variant scaffold stub",
-        "telegram": "Telegram variant scaffold stub",
-        "x": "X Twitter tweet thread scaffold stub",
-        "threads": "Threads conversational update scaffold stub"
-    }
-    variant_threads = {
-        "x": ["1/ X Tweet Thread - initial post stub", "2/ X Tweet Thread - reply comment stub"],
-        "threads": ["1/ Threads conversational thread stub", "2/ Threads reply comment stub"]
-    }
-    
+
+    variants, variant_threads = _fallback_variants(title, subtitle, body_text)
     image_path = None
     public_image_url = None
     provider_call_made = False
-    
-    # 2. Run Grounded Image Search & Downloader
+    validation_failures: list[str] = []
+
     try:
         image_path, public_image_url = execute_google_image_search_and_download(title)
     except Exception as e:
         print(f"[Warning] Google Image search failed: {e}")
-        
-    # 3. Call LLM for platform native conversions if live run is requested
+
     if live_run:
-        env_map = getattr(os, "environ")
-        api_key = env_map.get("NINE_ROUTER_API_KEY")
+        api_key = os.environ.get("NINE_ROUTER_API_KEY")
         if not api_key:
-            print("[Warning] NINE_ROUTER_API_KEY missing. Bypassing live variant generation.")
+            validation_failures.append("NINE_ROUTER_API_KEY_missing")
         else:
             prompt = (
-                f"You are a platform content optimizer for Capital Chronicle.\n"
-                f"Convert the following macroeconomic article into tailored native drafts for each platform:\n"
-                f"Article Title: {title}\n"
-                f"Article Subtitle: {subtitle}\n"
-                f"Article Body:\n{body_text}\n\n"
-                f"PLATFORM CONSTRAINTS & FORMATTING:\n"
-                f"- **Substack**: Use the original article text (do not change).\n"
-                f"- **LinkedIn**: Create a professional, engaging summary (max 3000 chars) with structured key points.\n"
-                f"- **Discord**: Write a community announcement (max 2000 chars) with markdown formatting.\n"
-                f"- **Telegram**: Write a concise notification (max 1024 chars).\n"
-                f"- **X (Twitter)** and **Threads** (Short-form): Break the content into a sequential list of tweets (max 280 chars per tweet for X, 500 for Threads). "
-                f"Post 1 should be the hook, and subsequent posts will be comments/replies implementing the threading method to circumvent length boundaries.\n\n"
-                f"SAFETY INVARIANTS:\n"
-                f"- ABSOLUTELY NO financial advice, recomendations, or buy/sell/hold signal trading language.\n\n"
-                f"Return ONLY a raw JSON matching the following structure (no markdown fences around JSON):\n"
-                f"{{\n"
-                f"  \"linkedin\": \"LinkedIn text...\",\n"
-                f"  \"discord\": \"Discord text...\",\n"
-                f"  \"telegram\": \"Telegram text...\",\n"
-                f"  \"x_thread\": [\"Tweet 1\", \"Tweet 2\", ...],\n"
-                f"  \"threads_thread\": [\"Post 1\", \"Post 2\", ...]\n"
-                f"}}\n"
+                f"You are a platform content editor for Capital Chronicle. Convert this canonical article into platform-native posts.\n"
+                f"Title: {title}\nSubtitle: {subtitle}\nArticle:\n{body_text}\n\n"
+                f"Return ONLY raw JSON: {{\"linkedin\": str, \"facebook\": str, \"discord\": str, \"telegram\": str, "
+                f"\"instagram_caption\": str, \"x_thread\": [str], \"threads_thread\": [str]}}.\n"
+                f"Rules: no stubs/placeholders, no financial advice, concrete article-specific language, X posts <= 280 chars, Threads posts <= 500 chars."
             )
             try:
                 llm_text = call_live_provider(prompt, "9router", timeout_seconds)
-                print(f"[Debug] Raw Gemini variant response:\n{llm_text.encode('ascii', errors='replace').decode('ascii')}")
                 provider_call_made = True
-                llm_data = parse_llm_json(llm_text)
-                if llm_data:
-                    if "linkedin" in llm_data:
-                        variants["linkedin"] = llm_data["linkedin"]
-                    if "discord" in llm_data:
-                        variants["discord"] = llm_data["discord"]
-                    if "telegram" in llm_data:
-                        variants["telegram"] = llm_data["telegram"]
-                    if "x_thread" in llm_data:
-                        variant_threads["x"] = llm_data["x_thread"]
-                        variants["x"] = "\n\n---\n\n".join(llm_data["x_thread"])
-                    if "threads_thread" in llm_data:
-                        variant_threads["threads"] = llm_data["threads_thread"]
-                        variants["threads"] = "\n\n---\n\n".join(llm_data["threads_thread"])
-                    print("[Info] Successfully generated platform variants from Gemini 3.5 Flash.")
+                llm_data = parse_llm_json(llm_text) or {}
+                for key in ("linkedin", "facebook", "discord", "telegram", "instagram_caption"):
+                    if llm_data.get(key):
+                        variants[key] = str(llm_data[key])
+                if llm_data.get("x_thread"):
+                    variant_threads["x"] = [str(x) for x in llm_data["x_thread"]]
+                    variants["x"] = "\n\n---\n\n".join(variant_threads["x"])
+                if llm_data.get("threads_thread"):
+                    variant_threads["threads"] = [str(x) for x in llm_data["threads_thread"]]
+                    variants["threads"] = "\n\n---\n\n".join(variant_threads["threads"])
             except Exception as exc:
-                print(f"[Warning] Gemini variant generation failed: {exc}")
                 provider_call_made = True
-                
-    # Build variant files locally
+                validation_failures.append(f"variant_provider_failed:{exc}")
+
+    validation_failures.extend(validate_platform_variants(variants, variant_threads, live_run=live_run))
+    variant_status = "VARIANT_READY" if not validation_failures else "VARIANT_VALIDATION_FAILED"
+
     for plat, text in variants.items():
         suffix = "telegram_operator_preview.md" if plat == "telegram" else f"{plat}_variant.md"
         out_file = output_dir / suffix
-        
-        # Format scaffold text
-        scaffold_lines = [
+        out_file.write_text("\n".join([
             f"# {plat.upper()} NATIVE VARIANT",
-            f"- **Status**: {'LIVE_GENERATED' if live_run and provider_call_made else 'SCAFFOLD_STUB'}",
+            f"- **Status**: {variant_status}",
             f"- **Associated Image**: {image_path or 'None'}",
             f"- **Timestamp**: {time.strftime('%Y-%m-%d %H:%M:%S')}",
             "",
-            text
-        ]
-        if plat in ["x", "threads"] and live_run:
-            scaffold_lines.append("\n## Thread Sequence comments")
-            for idx, tweet in enumerate(variant_threads[plat]):
-                scaffold_lines.append(f"Post {idx + 1}:\n{tweet}\n---")
-                
-        out_file.write_text("\n".join(scaffold_lines) + "\n", encoding="utf-8")
-        
+            text,
+        ]) + "\n", encoding="utf-8")
+
     packet = {
         "task_label": TASK_LABEL,
         "schema_version": SCHEMA_VERSION,
         "source_article_id": article_data.get("packet_id"),
         "source_intent_id": article_data.get("operator_idea_id"),
-        "variant_status": "VARIANT_SCAFFOLD_READY" if live_run else "VARIANT_SCAFFOLD_READY_FIXTURE_ONLY",
-        "variant_stage": "platform_native_scaffold",
-        "target_platforms": ["substack", "discord", "linkedin", "x", "threads", "telegram"],
+        "variant_status": variant_status,
+        "variant_stage": "platform_native_validated" if not validation_failures else "platform_native_validation_failed",
+        "target_platforms": ["substack", "discord", "linkedin", "facebook", "x", "threads", "telegram", "instagram"],
         "variants": variants,
         "variant_threads": variant_threads,
         "image_path": str(image_path) if image_path else None,
         "public_image_url": public_image_url,
         "provider_call_made": provider_call_made,
+        "validation_failures": validation_failures,
         "created_at": time.strftime("%Y-%m-%dT%H:%M:%S+00:00", time.gmtime())
     }
-    
-    packet_hash = compute_packet_hash(packet)
-    packet["platform_variant_packet_id"] = f"variant_packet_{packet_hash[:12]}"
+    packet["platform_variant_packet_id"] = f"variant_packet_{compute_packet_hash(packet)[:12]}"
     packet["exact_payload_hash"] = compute_packet_hash(packet)
-    
     write_json(output_dir / "platform_variant_packet.json", packet)
-    
-    # Write to UI src/data folder to compile it directly with the dashboard
-    ui_src_path = Path("ui/contentops_v5/src/data/platform_variant_packet.json")
     try:
-        write_json(ui_src_path, packet)
-        print(f"[Info] Copied variant packet to UI src/data folder: {ui_src_path}")
+        write_json(Path("ui/contentops_v5/src/data/platform_variant_packet.json"), packet)
+        print("[Info] Copied variant packet to UI src/data folder")
     except Exception as e:
         print(f"[Warning] Failed to copy variant packet to UI src/data: {e}")
-    
     return packet
 
 
