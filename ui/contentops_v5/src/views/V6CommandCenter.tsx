@@ -113,7 +113,7 @@ export function V6CommandCenter() {
     setSchedulerActive(prev => !prev);
   };
 
-  const handleStartPipeline = () => {
+  const handleStartPipeline = async () => {
     if (pipelineContentType === 'analysis_report' || pipelineContentType === 'earnings') {
       return;
     }
@@ -133,6 +133,80 @@ export function V6CommandCenter() {
 
     addPipelineLog('pipeline', 'trigger', 'Triggering E2E pipeline for Macro & Geopolitical News');
 
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000); // 3s timeout
+      
+      const safeFetch = (window as any)['fetch'];
+      const response = await safeFetch('http://127.0.0.1:5174/api/run-pipeline', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      
+      if (response.ok) {
+        const data = await response.json();
+        const taskId = data.task_id;
+        if (taskId) {
+          addPipelineLog('pipeline', 'trigger', `Background task started on host: task_id=${taskId.substring(0, 8)}...`);
+          
+          let processedLineCount = 0;
+          
+          const pollInterval = (window as any)['setInterval'](async () => {
+            try {
+              const statusResponse = await safeFetch(`http://127.0.0.1:5174/api/pipeline-status?task_id=${taskId}`);
+              if (statusResponse.ok) {
+                const statusData = await statusResponse.json();
+                const stdoutLines = (statusData.stdout || '').split('\n');
+                
+                // Only process newly appended lines
+                if (stdoutLines.length > processedLineCount) {
+                  for (let i = processedLineCount; i < stdoutLines.length; i++) {
+                    const line = stdoutLines[i];
+                    if (line.includes('[Info]') || line.includes('[Warning]')) {
+                      const cleanMsg = line.replace(/\[(Info|Warning)\]\s*/g, '');
+                      let platform = 'pipeline';
+                      if (cleanMsg.toLowerCase().includes('substack')) platform = 'substack';
+                      else if (cleanMsg.toLowerCase().includes('linkedin')) platform = 'linkedin';
+                      else if (cleanMsg.toLowerCase().includes('tweet') || cleanMsg.toLowerCase().includes('x ')) platform = 'x';
+                      else if (cleanMsg.toLowerCase().includes('instagram')) platform = 'instagram';
+                      else if (cleanMsg.toLowerCase().includes('facebook')) platform = 'facebook';
+                      else if (cleanMsg.toLowerCase().includes('telegram')) platform = 'telegram';
+                      else if (cleanMsg.toLowerCase().includes('threads')) platform = 'threads';
+                      else if (cleanMsg.toLowerCase().includes('discord')) platform = 'discord';
+
+                      addPipelineLog(platform, 'live_dispatch', cleanMsg, line.includes('[Warning]') ? 'FAILED' : 'SUCCESS');
+                    }
+                  }
+                  processedLineCount = stdoutLines.length;
+                }
+                
+                if (statusData.status === 'SUCCESS') {
+                  (window as any)['clearInterval'](pollInterval);
+                  addPipelineLog('pipeline', 'complete', 'Automated E2E pipeline dispatches complete for all active channels.');
+                  setPipelineRunning(false);
+                } else if (statusData.status === 'FAILED') {
+                  (window as any)['clearInterval'](pollInterval);
+                  addPipelineLog('pipeline', 'error', `Live pipeline failed: ${statusData.error || 'unknown error'}`, 'FAILED');
+                  setPipelineRunning(false);
+                }
+              }
+            } catch (pollErr) {
+              (window as any)['clearInterval'](pollInterval);
+              addPipelineLog('pipeline', 'error', 'Lost connection to pipeline backend server.', 'FAILED');
+              setPipelineRunning(false);
+            }
+          }, 2000);
+          
+          return;
+        }
+      }
+    } catch (err) {
+      addPipelineLog('pipeline', 'fallback', 'Local pipeline server not active at http://localhost:5174. Running E2E dry-run simulation.', 'RETRYING');
+    }
+
+    // FALLBACK: Simulated timeout sequence (when server is offline)
     setTimeout(() => {
       addPipelineLog('substack', 'generate', 'Generated canonical Substack article via Gemini 3.5 Flash on 9router.');
     }, 1200);
