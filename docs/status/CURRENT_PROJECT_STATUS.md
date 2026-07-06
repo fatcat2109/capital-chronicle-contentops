@@ -9,7 +9,7 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-4a7dc9d63890bbc33f5e6100c34a8c2898cd8f8e
+784f6320935daaac8c6f3d348f4ef696b93e7059
 
 ## current_product_phase
 Final release go/no-go rehearsal and scoped Instagram retry now have live dispatch evidence across the full implemented platform set. Rehearsal `v6_pipeline_737400e418e5` succeeded for Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord; scoped retry `v6_pipeline_2ff80fab28d4` succeeded for Instagram without reposting the prior successful platforms.
@@ -21,9 +21,9 @@ Full automation pipeline hardening: live/provider generation, platform-native va
 `TASK_CONTENTOPS_V6_INSTAGRAM_MEDIA_BINDING_AND_IDEMPOTENT_RETRY_REHEARSAL_V0` completed the partial-failure recovery from run `v6_pipeline_737400e418e5`. The runner now supports scoped platform dispatch via `--dispatch-platform`, preserving idempotent retry behavior by allowlisting only failed platforms. Instagram media validation now falls back from HEAD to a ranged GET when hosts reject HEAD with HTTP 405. Scoped live retry `v6_pipeline_2ff80fab28d4` posted Instagram successfully with evidence packet `v6_pipeline_rehearsal_81b362592d6fd3b6`; no already-successful platform was reposted.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `4a7dc9d63890bbc33f5e6100c34a8c2898cd8f8e` before this commit; this task will advance after commit/push.
+- accepted product baseline (`accepted_product_baseline_sha`): `784f6320935daaac8c6f3d348f4ef696b93e7059` accepted after commit/push.
 - previous accepted product baseline: `acab14b545968ca6ffd7a94af05326edf78f11f2`.
-- latest status/promotion task (`last_status_commit_sha`): `4a7dc9d63890bbc33f5e6100c34a8c2898cd8f8e` verified by `git rev-parse HEAD` and `git ls-remote origin refs/heads/master` before this Instagram retry reconciliation.
+- latest status/promotion task (`last_status_commit_sha`): `784f6320935daaac8c6f3d348f4ef696b93e7059` verified by `git rev-parse HEAD` and `git ls-remote origin refs/heads/master` after this Instagram retry reconciliation commit/push.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
