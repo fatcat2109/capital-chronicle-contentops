@@ -3,11 +3,11 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "368f32f7172dc7ad40a14b4900a637e62198c181",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0",
-  "current_product_phase": "Periodic final release go/no-go rehearsal refreshed release evidence, red-team posture, browser-QA boundary, and canonical V5 validation",
-  "current_product_lane": "Final release go/no-go rehearsal, release evidence idempotency, safety flag review, stale artifact review, and canonical V5 build/test validation",
-  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 reran the final release go/no-go rehearsal after verifying origin/master at 368f32f7172dc7ad40a14b4900a637e62198c181. Release evidence generation remained idempotent with write_summary.changed_count=0, final_release_evidence_packet.json retained PASS_FINAL_LOCAL_RELEASE_REVIEW, all safety flags remained false, red-team cases remained blocked, browser QA remained local-only/no-CDP, and stale scratch/artifact review found no archive candidates beyond non-product cache directories. Canonical V5 validation is required for this task before final commit. Accepted product baseline remains 37b2d2b4ed223ed1665bb174531e8c7cc25e590d.",
+  "last_verified_remote_sha": "6fb15946c1cf7a62a2a669a762e623d9d467d014",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
+  "current_product_phase": "Post-release operator governance maintenance refreshed with telemetry registry, platform capability, stale artifact, and status-ledger alignment audit",
+  "current_product_lane": "Periodic Post-release governance maintenance, telemetry registry health audit, platform capability review, stale artifact review, and status-ledger alignment self-audit",
+  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 audited post-release governance after verifying origin/master at 6fb15946c1cf7a62a2a669a762e623d9d467d014. Telemetry registry remained parse-clean with 170 entries, 88 successes, 82 errors, and zero corrupt entries; rotation was not required. Platform capability registry continued to cover all ten north-star platforms with Facebook Page, Threads, Discord, and Telegram live-capable; Instagram remained media-input gated; Substack/LinkedIn/manual lanes remained manual/export or fallback; X remained supervised CDP active. Stale scratch/artifact review found no archive candidates beyond non-product cache directories. Status-ledger alignment was reconciled to the verified remote SHA. Accepted product baseline remains 37b2d2b4ed223ed1665bb174531e8c7cc25e590d.",
   "canonical_dashboard_surface": "ui/contentops_v5/",
   "canonical_dashboard_entrypoint": "ui/contentops_v5/src/App.tsx",
   "canonical_dashboard_package": "ui/contentops_v5/package.json",
@@ -300,10 +300,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0",
-  "latest_accepted_task_result": "PASS_FINAL_LOCAL_RELEASE_REVIEW",
-  "latest_evidence_summary": "Final release go/no-go rehearsal completed. Validation: python -m live_contentops.v6_release_readiness -> PASS_FINAL_LOCAL_RELEASE_REVIEW with write_summary.changed_count=0; backend release evidence, red-team report, browser QA report, and acceptance record were regenerated idempotently with no file changes. Safety check: substack_public_url_verified=false, dispatch_allowed_now=false, live_write_allowed_now=false, env_or_credential_read_performed=false, browser_or_cdp_action_performed=false, network_call_performed=false, provider_dispatch_performed=false, stale_archive_candidates=0.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0: Continue periodic post-release governance by rechecking telemetry registry health, platform capability coverage, stale artifact archive candidates, and status-ledger alignment after the release rehearsal.",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
+  "latest_accepted_task_result": "PASS_OPERATOR_GOVERNANCE_HEALTHY",
+  "latest_evidence_summary": "Post-release governance maintenance completed. Validation: python -m live_contentops.v6_post_release_operator_governance -> PASS_OPERATOR_GOVERNANCE_HEALTHY after ledger reconciliation; python -m pytest tests/test_v6_post_release_operator_governance.py tests/test_current_project_status_guardrail_v6.py tests/test_final_product_readiness_metadata_consistency.py tests/test_jim_content_cockpit_baseline_status_v6.py -> 43 passed. Safety check: substack_public_url_verified=false, dispatch_allowed_now=false, live_write_allowed_now=false, env_or_credential_read_performed=false, browser_or_cdp_action_performed=false, network_call_performed=false, provider_dispatch_performed=false, stale_archive_candidates=0.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0: Continue periodic final release go/no-go rehearsal by validating final release evidence, red-team/governance posture, status guardrails, and canonical V5 build/test surface after governance maintenance.",
   "mandatory_read_before_task": [
     "AGENTS.md",
     "docs/AI_BUILDER_BOOTSTRAP.md",
@@ -345,17 +345,15 @@
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
   "accepted_product_baseline_sha": "37b2d2b4ed223ed1665bb174531e8c7cc25e590d",
-  "last_status_commit_sha": "368f32f7172dc7ad40a14b4900a637e62198c181",
-  "sha_model": "last_verified_remote_sha records the pushed origin/master HEAD verified before TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 status update: 368f32f7172dc7ad40a14b4900a637e62198c181.",
+  "last_status_commit_sha": "6fb15946c1cf7a62a2a669a762e623d9d467d014",
+  "sha_model": "last_verified_remote_sha records the pushed origin/master HEAD verified before TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 status update: 6fb15946c1cf7a62a2a669a762e623d9d467d014.",
   "latest_changed_areas": [
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
     "docs/status/STATUS_LEDGER_SHA_MODEL.md",
-    "docs/automation/V6_FINAL_RELEASE/final_release_evidence_packet.json",
-    "docs/automation/V6_FINAL_RELEASE/red_team_report.md",
-    "docs/automation/V6_FINAL_RELEASE/browser_qa_report.md",
-    "docs/automation/V6_FINAL_RELEASE/final_acceptance_record.md",
+    "docs/automation/V6_POST_RELEASE_GOVERNANCE/operator_governance_summary.json",
+    "tests/test_v6_post_release_operator_governance.py",
     "tests/test_final_product_readiness_metadata_consistency.py",
     "tests/test_jim_content_cockpit_baseline_status_v6.py"
   ],
@@ -556,5 +554,5 @@
     "live_action_performed": false,
     "secret_or_session_read_performed": false
   },
-  "current_next_recommended_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 ? Continue periodic post-release governance by rechecking telemetry registry health, platform capability coverage, stale artifact archive candidates, and status-ledger alignment after the release rehearsal."
+  "current_next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 ? Continue periodic final release go/no-go rehearsal by validating final release evidence, red-team/governance posture, status guardrails, and canonical V5 build/test surface after governance maintenance."
 }
