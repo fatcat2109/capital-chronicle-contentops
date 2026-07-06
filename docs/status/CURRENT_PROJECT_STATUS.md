@@ -9,7 +9,7 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-712f6736a93ebb7cca126618808ae3742a954feb
+5e1cebca8383598dab170af7414663042a3d06e0
 
 ## current_product_phase
 Post-release operator governance maintenance refreshed with telemetry registry, platform capability, stale artifact, and status-ledger alignment audit
@@ -21,9 +21,9 @@ Rehearsal verification of final product release readiness, metrics dashboard int
 TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 completed post-release operator governance maintenance run, telemetry logs validation, capability checks, and clean slate self-audit. Verified and passed with baseline 37b2d2b4ed223ed1665bb174531e8c7cc25e590d.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `712f6736a93ebb7cca126618808ae3742a954feb`
-- previous accepted product baseline: `a63593c64ca3935a40c0228df95fe8db5b56fadb`
-- latest status/promotion task (`last_status_commit_sha`): `712f6736a93ebb7cca126618808ae3742a954feb` verified by `git rev-parse origin/master` readback before this operator governance update.
+- accepted product baseline (`accepted_product_baseline_sha`): `5e1cebca8383598dab170af7414663042a3d06e0`
+- previous accepted product baseline: `712f6736a93ebb7cca126618808ae3742a954feb`
+- latest status/promotion task (`last_status_commit_sha`): `5e1cebca8383598dab170af7414663042a3d06e0` verified by `git rev-parse origin/master` readback before this operator governance update.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
