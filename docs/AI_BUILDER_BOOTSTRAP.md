@@ -103,8 +103,8 @@ The north-star platform universe includes Substack, LinkedIn, X, Discord, Telegr
 
 Media policy is source-aware:
 
-- News/current-event topics use grounded image candidate metadata first. Do not scrape Google Images, download images, fetch public image URLs, or claim rights verification unless a future exact approved task authorizes it.
-- Capital Chronicle internal alpha / analysis-report topics prefer built-in chart/card media from the report system when available.
+- News/current-event topics use the Google Image Search and Downloader pipeline (`google_image_search_v6.py`) to fetch and download header images.
+- Capital Chronicle internal alpha / analysis-report topics prefer built-in charts/cards generated from internal data. The dedicated chart rendering pipeline will be implemented AFTER the Capital Chronicle project is fully completed. Until then, these will fall back to using news Google Image search or candidate metadata.
 - External media remains candidate metadata until operator approval, rights notes, attribution, alt text, and stable media-hash participation exist.
 
 ## 7. Live, Env, Credential, and Browser Boundaries

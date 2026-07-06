@@ -50,8 +50,8 @@ LLMs may assist with research synthesis, editorial drafting, SEO refinement, pla
 
 ContentOps must choose post media based on source class, not convenience:
 
-1. **News/current-event topics** should produce grounded image candidate packets. The first safe implementation is operator-supplied or search-result metadata only: candidate title/source URL/image URL/license notes/relevance notes. Repo code must not scrape Google Images, download media, fetch public image URLs, or claim rights verification unless a future exact approved task adds that capability.
-2. **Capital Chronicle Internal alpha / analysis-report topics** should prefer built-in chart/card media from the internal report or chart system. These posts should not use random external web images when a report-native chart/card is available.
+1. **News/current-event topics**: Use the active Google Image Search and Downloader pipeline (`google_image_search_v6.py`). It searches Google Images based on the post title and caches the image locally for distribution.
+2. **Capital Chronicle Internal alpha / analysis-report topics**: Prefer built-in chart/card media generated from Capital Chronicle raw data. A dedicated chart rendering pipeline will be built specifically for this AFTER the Capital Chronicle project itself is completed. Until then, these will fall back to using news Google Image search or candidate metadata.
 3. **Fallback external media** is allowed only as reviewed candidate metadata with operator approval, rights notes, alt text, source attribution, and stable media hash participation in the media manifest.
 4. **Visual social lanes** such as Instagram, Threads, Facebook Page, TikTok, LinkedIn, and X must receive platform-specific media fit notes before approval. Media fit is local review evidence only, not platform upload readiness.
 
@@ -102,7 +102,8 @@ Manual fallback is a first-class lane. Browser/CDP work, if later approved, must
 - Discord pre-live/dry-run/outbox governance artifacts and Telegram checkpoint/manual lane evidence are consolidated in the canonical V5 Command Center as redacted local-only bridge status; no live send is claimed.
 - Facebook Page, Threads, Instagram, TikTok, and Generic Manual are hardened in the canonical V5 Command Center as local-only manual/deferred distribution handoffs with deterministic payload hashes, media requirements, audit evidence modes, and explicit blocked execution flags.
 - The final operator handoff / next-action strip is implemented in the canonical V5 Command Center as display-only consolidated evidence for approved manual export, hold/reject rows, Discord/Telegram bridge status, manual/deferred social handoffs, manual audit evidence, and global locked execution flags.
-- Internal visual-card packet specs and media rights manifest exist locally; rendered media export, Google image search execution, image download, and rights verification remain future work.
+- Internal visual-card packet specs and media rights manifest exist locally; Google image search execution and image download are implemented (`google_image_search_v6.py`), while rights verification and custom template rendering remain future extensions.
+- The Capital Chronicle Content pipeline for internal alpha/analysis-report topics (generating LLM/matplotlib charts from internal data) is explicitly planned for implementation after the main Capital Chronicle project is fully completed.
 - Deterministic V5 Command Center adapter output now covers full-platform variant rows, source-aware media candidates, stable hashes, local operator approve/hold/reject decision packet intake, local outbox readiness reconciliation, Discord/Telegram local bridge rows, manual/deferred distribution rows, manual audit rows, and final operator action-strip rows.
 
 ## Remaining Roadmap Direction
