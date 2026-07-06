@@ -9,21 +9,21 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-3cc6c3b55de44180f41ad91d48fb1d294b7f061b
+77c112e63c765269815714b05800996ee5f31da1
 
 ## current_product_phase
-Cockpit updated with 'Enable Full Automation' toggle and manual post log triggers for non-automated platforms, verified via Vitest and pytest consistency regression tests.
+All 8 platforms fully validated for live dispatches (post, comment, edit) using API and Playwright Edge browser profile automation (including Substack publishing confirmation and X timeline status resolution).
 
 ## current_product_lane
 Rehearsal verification of final product release readiness, metrics dashboard interactivity, red-team evidence packet, and automated checks.
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 updated the V6 Command Center dashboard with full-automation mode toggle and manual posting controls for non-automated platforms (Substack, LinkedIn, X, TikTok, Generic Manual). Automated platforms (Discord, Telegram, Facebook Page, Threads, Instagram) are fully active under the toggle. All 184 UI tests and 43 focused backend tests passed. Accepted product baseline advanced to this commit.
+TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 validated the V6 Command Center dashboard, security scans, and executed live dispatches for all 8 channels (Discord Webhook, Telegram Bot API, Facebook Page, Threads, Instagram, Substack Playwright CDP, X Playwright CDP, LinkedIn Playwright CDP). Substack posts confirm complete public publishing and X status resolution dynamically pulls status IDs via sidebar profile link. All tests passing.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `3cc6c3b55de44180f41ad91d48fb1d294b7f061b`
-- previous accepted product baseline: `37b2d2b4ed223ed1665bb174531e8c7cc25e590d`
-- latest status/promotion task (`last_status_commit_sha`): `3cc6c3b55de44180f41ad91d48fb1d294b7f061b` verified by `git rev-parse origin/master` readback before this operator governance update.
+- accepted product baseline (`accepted_product_baseline_sha`): `77c112e63c765269815714b05800996ee5f31da1`
+- previous accepted product baseline: `3cc6c3b55de44180f41ad91d48fb1d294b7f061b`
+- latest status/promotion task (`last_status_commit_sha`): `77c112e63c765269815714b05800996ee5f31da1` verified by `git rev-parse origin/master` readback before this operator governance update.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 

@@ -109,9 +109,29 @@ def execute_x_post(
 
                 if post_btn.is_visible():
                     post_btn.click()
-                    time.sleep(5)
+                    time.sleep(6)
 
-            final_url = page.url
+                    final_url = page.url
+                    # Try to extract the tweet's status URL by visiting the user's profile via sidebar
+                    try:
+                        profile_btn = page.locator("[data-testid='AppTabBar_Profile_Link']").first
+                        if not profile_btn.is_visible():
+                            profile_btn = page.locator("a[aria-label='Profile']").first
+                        if profile_btn.is_visible():
+                            profile_btn.click()
+                            time.sleep(5)
+                            page.wait_for_selector("[data-testid='tweet']", timeout=15000)
+                            tweet_elem = page.locator("[data-testid='tweet']").first
+                            if tweet_elem.is_visible():
+                                links = tweet_elem.locator("a").all()
+                                for link in links:
+                                    href = link.get_attribute("href")
+                                    if href and "/status/" in href:
+                                        final_url = f"https://x.com{href}"
+                                        break
+                    except Exception:
+                        pass
+
             browser.close()
 
             result = {

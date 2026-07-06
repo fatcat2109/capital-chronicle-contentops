@@ -1,6 +1,6 @@
 # V6 Next Task Pointer
 
-Current task: `TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0` · Cockpit updated with "Enable Full Automation" toggle and manual post log triggers for non-automated platforms.
+Current task: `TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0` · Rehearse live dispatches completely validated across all 8 channels under Fast Ship Mode.
 
 Recommended next task:
 

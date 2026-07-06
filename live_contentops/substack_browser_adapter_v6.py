@@ -119,20 +119,57 @@ def execute_substack_post(
                     page.keyboard.type(body_markdown)
 
             time.sleep(2)
-            # Click Continue
-            continue_btn = page.locator("button:has-text('Continue')").first
-            if continue_btn.is_visible():
+            # Click Continue / Publish button in top header
+            continue_btn = None
+            for selector in [
+                "button:has-text('Publish')",
+                "button:has-text('Publish...')",
+                "button:has-text('Continue')",
+                "button:has-text('Settings')",
+                "a:has-text('Publish')",
+            ]:
+                loc = page.locator(selector).first
+                if loc.is_visible():
+                    continue_btn = loc
+                    break
+
+            if continue_btn:
                 continue_btn.click()
+                time.sleep(5)
+
+            # Final publish button in the settings panel
+            publish_btn = None
+            for selector in [
+                "button:has-text('Send to everyone now')",
+                "button:has-text('Publish now')",
+                "button:has-text('Send now')",
+                "button:has-text('Publish post now')",
+                "button:has-text('Confirm')",
+            ]:
+                loc = page.locator(selector).first
+                if loc.is_visible():
+                    publish_btn = loc
+                    break
+
+            if publish_btn:
+                publish_btn.click()
                 time.sleep(4)
 
-            # Final publish button
-            publish_btn = page.locator("button:has-text('Send to everyone now')").first
-            if not publish_btn.is_visible():
-                publish_btn = page.locator("button:has-text('Publish now')").first
+                # Check for "Publish without buttons" confirm modal
+                confirm_btn = None
+                for selector in [
+                    "button:has-text('Publish without buttons')",
+                    "button:has-text('Publish now')",
+                    "button:has-text('Confirm')",
+                ]:
+                    loc = page.locator(selector).first
+                    if loc.is_visible():
+                        confirm_btn = loc
+                        break
 
-            if publish_btn.is_visible():
-                publish_btn.click()
-                time.sleep(6)
+                if confirm_btn:
+                    confirm_btn.click()
+                    time.sleep(6)
 
             final_url = page.url
             browser.close()
