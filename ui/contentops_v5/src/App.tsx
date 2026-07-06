@@ -37,7 +37,7 @@ export default function App() {
 
   // Evidence Vault and Operator Runbook force dark evidence mode; other views use chosen theme.
   const effectiveTheme: ThemeMode =
-    view === 'evidence_vault' || view === 'operator_runbook_index' || view === 'final_product_readiness' || view === 'v6_command_center'
+    view === 'evidence_vault' || view === 'operator_runbook_index' || view === 'final_product_readiness'
       ? 'dark-evidence'
       : theme;
 
