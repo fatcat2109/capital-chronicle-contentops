@@ -607,7 +607,18 @@ export function V6CommandCenter() {
               logs.map((log, idx) => (
                 <div key={idx} className="border-b border-line pb-2 last:border-b-0">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-fg-subtle">{log.timestamp.split('T')[1]?.slice(0, 8) || log.timestamp}</span>
+                    <span className="text-fg-subtle">{(() => {
+                      try {
+                        const d = new Date(log.timestamp);
+                        const gmt7 = new Date(d.getTime() + 7 * 60 * 60 * 1000);
+                        const h = String(gmt7.getUTCHours()).padStart(2, '0');
+                        const m = String(gmt7.getUTCMinutes()).padStart(2, '0');
+                        const s = String(gmt7.getUTCSeconds()).padStart(2, '0');
+                        return `${h}:${m}:${s}`;
+                      } catch (e) {
+                        return log.timestamp;
+                      }
+                    })()}</span>
                     <span className="font-bold text-fg">{log.platform}</span>
                     <StatusChip status={log.status === 'SUCCESS' ? 'verified' : 'blocked'}>
                       {log.status}
