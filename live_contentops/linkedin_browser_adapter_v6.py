@@ -245,49 +245,60 @@ def execute_linkedin_comment(
                     post_card = page.locator(".feed-shared-update-v2, [data-urn]").first
 
             commented = False
-            comment_btn = None
+
+            # 1. Try to find the editor directly first (common for single/direct post update pages)
+            editor = None
             if post_card:
-                comment_btn = post_card.locator("button.comment-button, button:has-text('Comment'), button[aria-label*='Comment']").first
-            if not comment_btn or not comment_btn.is_visible():
-                comment_btn = page.locator("button.comment-button, button:has-text('Comment'), button[aria-label*='Comment']").first
+                editor = post_card.locator("form.comments-comment-box__form div.ql-editor, div.ql-editor, [role='textbox']").first
+            if not editor or not editor.is_visible():
+                editor = page.locator("form.comments-comment-box__form div.ql-editor, div.ql-editor, [role='textbox']").first
 
-            if comment_btn.is_visible():
-                comment_btn.click()
-                time.sleep(4)
-
-                editor = None
+            # 2. If editor is not visible, look for comment button and click it to reveal the editor
+            if not editor or not editor.is_visible():
+                comment_btn = None
                 if post_card:
-                    editor = post_card.locator("form.comments-comment-box__form div.ql-editor, div.ql-editor, [role='textbox']").first
-                if not editor or not editor.is_visible():
-                    editor = page.locator("form.comments-comment-box__form div.ql-editor, div.ql-editor, [role='textbox']").first
+                    comment_btn = post_card.locator("button.comment-button, button:has-text('Comment'), button[aria-label*='Comment']").first
+                if not comment_btn or not comment_btn.is_visible():
+                    comment_btn = page.locator("button.comment-button, button:has-text('Comment'), button[aria-label*='Comment']").first
 
-                if editor.is_visible():
-                    editor.focus()
-                    page.keyboard.type(message)
-                    time.sleep(2)
+                if comment_btn and comment_btn.is_visible():
+                    comment_btn.click()
+                    time.sleep(4)
 
-                    submit_btn = None
+                    # Re-locate the editor after clicking
                     if post_card:
-                        submit_btn = post_card.locator(
-                            "form.comments-comment-box__form button[type='submit'], "
-                            "form.comments-comment-box__form button:has-text('Post'), "
-                            "form.comments-comment-box__form button:has-text('Comment'), "
-                            ".comments-comment-box button:has-text('Post'), "
-                            ".comments-comment-box button:has-text('Comment')"
-                        ).first
-                    if not submit_btn or not submit_btn.is_visible():
-                        submit_btn = page.locator(
-                            "form.comments-comment-box__form button[type='submit'], "
-                            "form.comments-comment-box__form button:has-text('Post'), "
-                            "form.comments-comment-box__form button:has-text('Comment'), "
-                            ".comments-comment-box button:has-text('Post'), "
-                            ".comments-comment-box button:has-text('Comment')"
-                        ).first
+                        editor = post_card.locator("form.comments-comment-box__form div.ql-editor, div.ql-editor, [role='textbox']").first
+                    if not editor or not editor.is_visible():
+                        editor = page.locator("form.comments-comment-box__form div.ql-editor, div.ql-editor, [role='textbox']").first
 
-                    if submit_btn.is_visible() and submit_btn.is_enabled():
-                        submit_btn.click()
-                        commented = True
-                        time.sleep(5)
+            # 3. If editor is visible (either initially or after click), proceed with comment entry and submission
+            if editor and editor.is_visible():
+                editor.focus()
+                page.keyboard.type(message)
+                time.sleep(2)
+
+                submit_btn = None
+                if post_card:
+                    submit_btn = post_card.locator(
+                        "form.comments-comment-box__form button[type='submit'], "
+                        "form.comments-comment-box__form button:has-text('Post'), "
+                        "form.comments-comment-box__form button:has-text('Comment'), "
+                        ".comments-comment-box button:has-text('Post'), "
+                        ".comments-comment-box button:has-text('Comment')"
+                    ).first
+                if not submit_btn or not submit_btn.is_visible():
+                    submit_btn = page.locator(
+                        "form.comments-comment-box__form button[type='submit'], "
+                        "form.comments-comment-box__form button:has-text('Post'), "
+                        "form.comments-comment-box__form button:has-text('Comment'), "
+                        ".comments-comment-box button:has-text('Post'), "
+                        ".comments-comment-box button:has-text('Comment')"
+                    ).first
+
+                if submit_btn and submit_btn.is_visible() and submit_btn.is_enabled():
+                    submit_btn.click()
+                    commented = True
+                    time.sleep(5)
 
             final_url = page.url
             browser.close()

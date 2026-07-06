@@ -72,8 +72,10 @@ Under Fast Ship Mode, `.env` and credential stores are accessible to authorize r
 TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
 
 ## latest changed areas
+- `live_contentops/linkedin_browser_adapter_v6.py`
 - `live_contentops/live_production_pipeline_runner_v6.py`
 - `live_contentops/platform_native_variant_generator_live_v6.py`
+- `tests/test_linkedin_adapter.py`
 - `tests/test_live_production_pipeline_runner.py`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
