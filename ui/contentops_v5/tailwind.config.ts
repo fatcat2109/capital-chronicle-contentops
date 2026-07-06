@@ -19,6 +19,7 @@ export default {
         fg: {
           DEFAULT: withAlpha("--fg"),
           muted: withAlpha("--fg-muted"),
+          subtle: withAlpha("--fg-subtle"),
         },
         surface: {
           1: withAlpha("--surface-1"),
@@ -26,6 +27,10 @@ export default {
           3: withAlpha("--surface-3"),
         },
         line: withAlpha("--line"),
+        accent: {
+          DEFAULT: withAlpha("--accent"),
+          soft: withAlpha("--accent-soft"),
+        },
         status: {
           verified: withAlpha("--status-verified"),
           review: withAlpha("--status-review"),
