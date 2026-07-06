@@ -9,7 +9,7 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-77c112e63c765269815714b05800996ee5f31da1
+eb62ac1721ec3ec23cf6170a04875ff04e876043
 
 ## current_product_phase
 All 8 platforms fully validated for live dispatches (post, comment, edit) using API and Playwright Edge browser profile automation (including Substack publishing confirmation and X timeline status resolution).
@@ -21,9 +21,9 @@ Rehearsal verification of final product release readiness, metrics dashboard int
 TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 validated the V6 Command Center dashboard, security scans, and executed live dispatches for all 8 channels (Discord Webhook, Telegram Bot API, Facebook Page, Threads, Instagram, Substack Playwright CDP, X Playwright CDP, LinkedIn Playwright CDP). Substack posts confirm complete public publishing and X status resolution dynamically pulls status IDs via sidebar profile link. All tests passing.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `77c112e63c765269815714b05800996ee5f31da1`
+- accepted product baseline (`accepted_product_baseline_sha`): `eb62ac1721ec3ec23cf6170a04875ff04e876043`
 - previous accepted product baseline: `3cc6c3b55de44180f41ad91d48fb1d294b7f061b`
-- latest status/promotion task (`last_status_commit_sha`): `77c112e63c765269815714b05800996ee5f31da1` verified by `git rev-parse origin/master` readback before this operator governance update.
+- latest status/promotion task (`last_status_commit_sha`): `eb62ac1721ec3ec23cf6170a04875ff04e876043` verified by `git rev-parse origin/master` readback before this operator governance update.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
