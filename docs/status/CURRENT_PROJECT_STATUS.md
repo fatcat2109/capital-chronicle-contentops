@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_INSTAGRAM_MEDIA_BINDING_AND_IDEMPOTENT_RETRY_REHEARSAL_V0
+TASK_CONTENTOPS_V6_ARTICLE_EVIDENCE_MEDIA_QUALITY_HARDENING_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,21 +9,21 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-784f6320935daaac8c6f3d348f4ef696b93e7059
+f9a561c6e1f73918ae73f1606d027b49b010855a
 
 ## current_product_phase
-Final release go/no-go rehearsal and scoped Instagram retry now have live dispatch evidence across the full implemented platform set. Rehearsal `v6_pipeline_737400e418e5` succeeded for Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord; scoped retry `v6_pipeline_2ff80fab28d4` succeeded for Instagram without reposting the prior successful platforms.
+Article/media quality hardening is implemented locally: canonical article quality gates now require 2000+ words, richer section/citation/source-trail evidence, no raw public-body URLs, and no publishable deterministic fallback when provider recovery fails. Platform variant packets now carry a media manifest, Telegram can dispatch via `sendPhoto`, Instagram no longer uses random placeholder `picsum.photos` fallback media, and local chart rendering exists for operator-supplied CSV data.
 
 ## current_product_lane
-Full automation pipeline hardening: live/provider generation, platform-native variants, dispatch evidence readback, advice-disclaimer normalization, Instagram media fallback hardening, and partial-failure audit reconciliation.
+Full automation pipeline hardening: evidence-rich article generation, source-trail formatting, local chart/media manifest readiness, Telegram photo dispatch, no-placeholder Instagram media policy, and final-readiness handoff preparation.
 
 ## accepted_baseline_summary
-`TASK_CONTENTOPS_V6_INSTAGRAM_MEDIA_BINDING_AND_IDEMPOTENT_RETRY_REHEARSAL_V0` completed the partial-failure recovery from run `v6_pipeline_737400e418e5`. The runner now supports scoped platform dispatch via `--dispatch-platform`, preserving idempotent retry behavior by allowlisting only failed platforms. Instagram media validation now falls back from HEAD to a ranged GET when hosts reject HEAD with HTTP 405. Scoped live retry `v6_pipeline_2ff80fab28d4` posted Instagram successfully with evidence packet `v6_pipeline_rehearsal_81b362592d6fd3b6`; no already-successful platform was reposted.
+`TASK_CONTENTOPS_V6_ARTICLE_EVIDENCE_MEDIA_QUALITY_HARDENING_V0` hardens the exact user-audited quality gaps before final release readiness: long-form article gates now enforce 2000+ words, minimum sections/citations/source trail, and raw-URL-free public body; recovery drafts cannot silently pass publishability. Variant generation appends source trail context, builds a media manifest, and can produce local charts from operator-supplied CSV without fabricating data. Dispatch now blocks Instagram when no real media URL exists instead of using `picsum.photos`, and Telegram uses `sendPhoto` when media is available.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `784f6320935daaac8c6f3d348f4ef696b93e7059` accepted after commit/push.
-- previous accepted product baseline: `acab14b545968ca6ffd7a94af05326edf78f11f2`.
-- latest status/promotion task (`last_status_commit_sha`): `784f6320935daaac8c6f3d348f4ef696b93e7059` verified by `git rev-parse HEAD` and `git ls-remote origin refs/heads/master` after this Instagram retry reconciliation commit/push.
+- accepted product baseline (`accepted_product_baseline_sha`): `f9a561c6e1f73918ae73f1606d027b49b010855a` accepted after commit/push.
+- previous accepted product baseline: `784f6320935daaac8c6f3d348f4ef696b93e7059`.
+- latest status/promotion task (`last_status_commit_sha`): `f9a561c6e1f73918ae73f1606d027b49b010855a` verified by `git rev-parse HEAD` and push to `origin/master` after article evidence/media quality hardening.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -48,17 +48,18 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 loop now has live provider generation, platform-native variant generation, dispatch evidence readback, deterministic no-advice context normalization, scoped idempotent retry controls, and live dispatch proof for every implemented platform lane. Instagram retry evidence is scoped to Instagram only, so previous successful platforms were not duplicated.
+V6 loop now has live provider generation, platform-native variant generation, dispatch evidence readback, deterministic no-advice context normalization, scoped idempotent retry controls, live dispatch proof for every implemented platform lane, and local quality hardening for article evidence/media readiness. Real media remains required for Instagram; the system now blocks rather than posting fake fallback media.
 
 ## dispatch/live status
-Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. Rehearsal `v6_pipeline_737400e418e5` dispatched live successfully to Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord. Scoped retry `v6_pipeline_2ff80fab28d4` dispatched Instagram successfully after validator hardening. Latest dispatch audit is `DISPATCH_COMPLETE` for the Instagram retry scope.
+Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. Prior evidence remains: rehearsal `v6_pipeline_737400e418e5` dispatched live successfully to Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord; scoped retry `v6_pipeline_2ff80fab28d4` dispatched Instagram successfully after validator hardening. New code changes are locally validated but not yet live-dispatched after the stricter media policy.
 
 ## provider/env/credential status
 Under Fast Ship Mode, `.env` and credential stores remain authorized for future live rehearsals. Local dotenv parse noise was cleaned during the rehearsal session without committing raw `.env` values. Rehearsal evidence and dispatch audit persisted excerpts/results only, with no raw credential/env values intentionally committed.
 
 ## active blockers
 - Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.
-- Capital Chronicle Internal alpha / analysis-report posts should prefer built-in chart/card media from the report system when available.
+- Instagram dispatch now requires a real selected media URL; no random placeholder fallback is allowed.
+- Local chart rendering requires operator-supplied CSV with at least one numeric column; missing source data blocks chart generation instead of fabricating visuals.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
 - Standalone approval queue UI must not be revived as canonical.
 
@@ -91,7 +92,7 @@ TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 - `tests/test_platform_native_variant_generator_live.py`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_INDEX_AND_OPERATOR_HANDOFF_V0` · Build a skeptical final-readiness evidence index that ties the broad full-platform run and scoped Instagram retry together, records remaining API-unsupported caveats, and prepares the operator handoff for real ongoing content operations.
+Next heavy batch: `TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_INDEX_AND_OPERATOR_HANDOFF_V0` · Build a skeptical final-readiness evidence index tying prior live platform proof to the new stricter article/media gates, explicitly record the no-placeholder Instagram/media requirement, and prepare the operator handoff for ongoing content operations.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.

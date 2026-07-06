@@ -16,9 +16,12 @@ from pathlib import Path
 from typing import Any, Mapping
 
 SCHEMA_VERSION = "6.0.0"
-TASK_LABEL = "TASK_CONTENTOPS_V6_AI_RESEARCH_CANONICAL_ARTICLE_PRODUCTION_ENGINE_HEAVY_BATCH_V0"
+TASK_LABEL = "TASK_CONTENTOPS_V6_ARTICLE_EVIDENCE_MEDIA_QUALITY_HARDENING_V0"
 DETERMINISTIC_TIMESTAMP = "2026-07-01T02:56:46+07:00"
-RECOMMENDED_NEXT_TASK = "TASK_CONTENTOPS_V6_VARIANT_PREVIEW_HASH_APPROVAL_TO_DISCORD_OUTBOX_HEAVY_BATCH_V0"
+RECOMMENDED_NEXT_TASK = "TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_INDEX_AND_OPERATOR_HANDOFF_V0"
+MIN_CANONICAL_ARTICLE_WORDS = 2000
+RAW_URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
+WORD_RE = re.compile(r"\b[\w'-]+\b")
 
 FINANCIAL_ADVICE_TERMS = (
     "buy", "sell", "hold", "price target", "target price", "entry", "entries", "exit", "exits",
@@ -105,20 +108,57 @@ def article_plain_text(draft: dict[str, Any]) -> str:
     return "\n".join(part for part in parts if part)
 
 
-def validate_article_quality(draft: dict[str, Any], min_chars: int = 5000) -> list[str]:
+def _word_count(text: str) -> int:
+    return len(WORD_RE.findall(text))
+
+
+def _raw_urls(text: str) -> list[str]:
+    return RAW_URL_RE.findall(text)
+
+
+def _source_trail_from_urls(urls: list[str]) -> list[dict[str, str]]:
+    trail = []
+    for idx, url in enumerate(dict.fromkeys(urls), start=1):
+        trail.append({
+            "label": f"Source {idx}",
+            "publisher_or_origin": "grounded_search",
+            "url": url,
+            "claim_supported": "operator_review_required",
+        })
+    return trail
+
+
+def validate_article_quality(draft: dict[str, Any], min_words: int = MIN_CANONICAL_ARTICLE_WORDS) -> list[str]:
     text = article_plain_text(draft)
     low = text.lower()
+    sections = draft.get("sections", [])
+    source_trail = draft.get("source_trail") or []
     failures: list[str] = []
-    if len(text) < min_chars:
-        failures.append(f"article_too_short:{len(text)}<{min_chars}")
-    if len(draft.get("sections", [])) < 4:
+    words = _word_count(text)
+    if words < min_words:
+        failures.append(f"article_too_short_words:{words}<{min_words}")
+    if len(sections) < 5:
         failures.append("too_few_sections")
     if any(marker in low for marker in ("stub", "scaffold", "lorem ipsum", "placeholder")):
         failures.append("placeholder_language_detected")
-    if not re.search(r"\b\d+(?:\.\d+)?\s*(?:%|percent|bps|basis points|trillion|billion|million|days|weeks|months|years)\b", low):
+    if low.count("this recovery draft treats") > 1:
+        failures.append("repeated_recovery_boilerplate_detected")
+    if _raw_urls(text):
+        failures.append("raw_url_in_public_body")
+    if len(source_trail) < 3 and len(draft.get("citations") or []) < 3:
+        failures.append("source_trail_too_thin")
+    if len(re.findall(r"\b\d+(?:\.\d+)?\s*(?:%|percent|bps|basis points|trillion|billion|million|days|weeks|months|years)\b", low)) < 3:
         failures.append("missing_specific_numbers")
     if not any(term in low for term in ("source", "data", "reported", "according", "index", "shipping", "policy", "liquidity")):
         failures.append("missing_source_or_data_language")
+    long_paragraphs = [p for p in re.split(r"\n\s*\n", text) if _word_count(p) > 180]
+    if len(long_paragraphs) > 2:
+        failures.append("paragraphs_too_dense")
+    callouts = "\n".join(str(item) for item in draft.get("chart_callouts", []) + draft.get("media_callouts", []))
+    if "chart" not in callouts.lower():
+        failures.append("chart_callout_missing")
+    if "image" not in callouts.lower() and "photo" not in callouts.lower():
+        failures.append("media_callout_missing")
     return failures
 
 
@@ -190,11 +230,14 @@ def make_deterministic_recovery_article(inputs: EngineInput, search_context: str
     intro = f"{base}{reviewer_note}The purpose is to preserve continuity after a provider timeout while keeping claims reviewable."
     conclusion = f"{base}Final publication should proceed only after source review, citation checks, and editor approval."
     return {
-        "title": f"Capital Chronicle Recovery Briefing: {topic}",
-        "subtitle": "Deterministic recovery draft with source and policy review notes",
-        "intro": intro,
-        "sections": sections,
-        "conclusion": conclusion,
+        "title": f"Capital Chronicle Recovery Blocked: {topic}",
+        "subtitle": "Provider recovery requires editor rebuild before publication",
+        "intro": "The live article provider did not return a publishable feature. This packet preserves source context for operator review, but it must not be dispatched as a public article.",
+        "sections": [{"title": "Recovery Status", "body": "ARTICLE_PROVIDER_RECOVERY_REQUIRED. Re-run provider generation or draft manually with verified sources, charts, and source trail before publication."}],
+        "conclusion": "Publication is blocked until a non-repetitive, 2000-word, source-backed article is produced.",
+        "source_trail": _source_trail_from_urls(_raw_urls(context)),
+        "chart_callouts": [],
+        "media_callouts": [],
     }
 
 
@@ -370,28 +413,34 @@ def run_article_engine(
                     search_context_str = "No search results returned."
 
                 prompt = (
-                    f"You are a senior macroeconomic and geopolitical features writer for Capital Chronicle.\n"
-                    f"Write a long-form educational newsroom-style analysis with the depth, structure, and specificity expected from tier-1 financial journalism.\n\n"
+                    f"You are the senior macro features editor for Capital Chronicle, writing at a world-tier institutional newsroom standard.\n"
+                    f"Produce a polished, SEO-ready, educational long-form article for Substack.\n\n"
                     f"Topic Idea: {inputs.operator_idea}\n"
                     f"Editorial Angle: {inputs.editorial_angle}\n"
                     f"Target Audience: {inputs.target_audience}\n"
                     f"Grounded Search Context:\n{search_context_str}\n\n"
-                    f"REQUIRED OUTPUT QUALITY:\n"
-                    f"- At least 1,500 words across intro, 5-7 named sections, and conclusion.\n"
-                    f"- Include concrete numbers from the provided context when available; if unavailable, explain data gaps without inventing.\n"
-                    f"- Explain transmission channels, historical context, second-order effects, and limitations.\n"
-                    f"- Use a polished newspaper feature style while staying educational and non-advisory.\n"
-                    f"- Include image placement note text in one section body if a relevant chart/photo would help.\n\n"
-                    f"SAFETY EXCLUSIONS:\n"
-                    f"- DO NOT provide any financial advice, investment recommendations, or trade signals.\n"
-                    f"- DO NOT use transactional words like 'buy', 'sell', 'hold', 'price target', 'long', 'short'.\n\n"
-                    f"Return ONLY a raw JSON object matching this schema, with no markdown fences:\n"
+                    f"NON-NEGOTIABLE QUALITY RULES:\n"
+                    f"- 2,000 to 2,400 words across intro, 5-8 named sections, and conclusion.\n"
+                    f"- Short, readable paragraphs; no wall-of-text blocks.\n"
+                    f"- Use concrete numbers only from supplied context; never invent data.\n"
+                    f"- Include at least one chart placement marker and one image/photo placement marker.\n"
+                    f"- Do not put raw URLs in the public article body. Put URLs only in source_trail.\n"
+                    f"- Separate reported evidence from interpretation and uncertainty.\n"
+                    f"- SEO title, subtitle, slug, meta description, and concise dek must be publication-grade.\n"
+                    f"- Educational analysis only; no investment advice, recommendations, or trade signals.\n\n"
+                    f"Return ONLY raw JSON with this schema and no markdown fences:\n"
                     f"{{\n"
                     f"  \"title\": \"Feature title\",\n"
-                    f"  \"subtitle\": \"Specific, analytical subtitle\",\n"
-                    f"  \"intro\": \"Three to five substantial paragraphs...\",\n"
-                    f"  \"sections\": [{{\"title\": \"Section title\", \"body\": \"Four to seven substantial paragraphs...\"}}],\n"
-                    f"  \"conclusion\": \"Two to four substantial paragraphs...\"\n"
+                    f"  \"subtitle\": \"Specific analytical subtitle\",\n"
+                    f"  \"slug_candidate\": \"seo-slug\",\n"
+                    f"  \"dek\": \"One-sentence reader promise\",\n"
+                    f"  \"meta_description\": \"150-160 character SEO description\",\n"
+                    f"  \"intro\": \"Several short paragraphs...\",\n"
+                    f"  \"sections\": [{{\"title\": \"Section title\", \"body\": \"Several short paragraphs...\"}}],\n"
+                    f"  \"conclusion\": \"Short concluding section...\",\n"
+                    f"  \"source_trail\": [{{\"label\": \"Source label\", \"publisher_or_origin\": \"Publisher\", \"url\": \"https://...\", \"claim_supported\": \"Specific claim\"}}],\n"
+                    f"  \"chart_callouts\": [\"[CHART: describe chart and source data needed]\"],\n"
+                    f"  \"media_callouts\": [\"[IMAGE: describe relevant news/photo visual]\"]\n"
                     f"}}\n"
                 )
                 models: list[str | None] = [None]
@@ -422,6 +471,9 @@ def run_article_engine(
                             "intro": next_intro or intro,
                             "sections": next_sections,
                             "conclusion": next_conclusion or conclusion,
+                            "source_trail": llm_data.get("source_trail") or _source_trail_from_urls(citations),
+                            "chart_callouts": llm_data.get("chart_callouts") or [],
+                            "media_callouts": llm_data.get("media_callouts") or [],
                         }
                         failures = validate_article_quality(candidate)
                         if failures:
@@ -435,6 +487,9 @@ def run_article_engine(
                         intro = candidate["intro"]
                         sections = candidate["sections"]
                         conclusion = candidate["conclusion"]
+                        source_trail = candidate["source_trail"]
+                        chart_callouts = candidate["chart_callouts"]
+                        media_callouts = candidate["media_callouts"]
                         attempt.update({"status": "accepted", "failure": None})
                         provider_attempts.append(attempt)
                         if model_name:
@@ -458,16 +513,9 @@ def run_article_engine(
                         "status": "accepted" if not recovery_failures else "failed",
                         "failure": "|".join(recovery_failures) if recovery_failures else None,
                     })
-                    if recovery_failures:
-                        blockers.append("article_quality_gate_failed:" + "|".join(best_failure + recovery_failures or ["unknown"]))
-                    else:
-                        title = recovery["title"]
-                        subtitle = recovery["subtitle"]
-                        intro = recovery["intro"]
-                        sections = recovery["sections"]
-                        conclusion = recovery["conclusion"]
-                        provider_recovery_used = True
-                        warnings.append("article_deterministic_recovery_used:" + "|".join(best_failure or ["provider_quality_recovery"]))
+                    blockers.append("article_provider_recovery_not_publishable")
+                    provider_recovery_used = True
+                    warnings.append("article_deterministic_recovery_blocked:" + "|".join(best_failure or recovery_failures or ["provider_quality_recovery"]))
 
 
     draft = {
@@ -479,12 +527,18 @@ def run_article_engine(
         "intro": intro,
         "sections": sections,
         "conclusion": conclusion,
-        "source_notes": f"Sources referenced: {', '.join(citations if citations else inputs.source_context)}. Optional notes: {inputs.source_notes}",
+        "source_notes": f"Sources referenced in structured source_trail only. Optional notes: {inputs.source_notes}",
+        "source_notes_for_operator": f"Raw source refs for operator verification: {', '.join(citations if citations else inputs.source_context)}",
         "assumptions": "Assumes data sufficiency and operator verification under V6 standards.",
         "uncertainty_notes": "Prior cycles may not predict future macro distributions.",
         "no_financial_advice_check": True,
         "no_fake_data_check": True,
         "citations": citations if citations else ["UNVERIFIED_SAMPLE_SOURCE_REF"],
+        "source_trail": locals().get("source_trail", _source_trail_from_urls(citations)),
+        "chart_callouts": locals().get("chart_callouts", ["[CHART: relevant macro series from approved local data]"]),
+        "media_callouts": locals().get("media_callouts", ["[IMAGE: relevant news/photo visual with operator-reviewed rights]"]),
+        "body_word_count": _word_count(article_plain_text({"title": title, "subtitle": subtitle, "intro": intro, "sections": sections, "conclusion": conclusion})),
+        "rendering_warnings": ["raw_url_removed_from_public_body"] if _raw_urls(article_plain_text({"title": title, "subtitle": subtitle, "intro": intro, "sections": sections, "conclusion": conclusion})) else [],
         "created_at": DETERMINISTIC_TIMESTAMP,
     }
 

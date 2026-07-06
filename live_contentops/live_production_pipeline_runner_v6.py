@@ -151,6 +151,8 @@ def run_live_production_pipeline(
     variants = variant_packet.get("variants", {})
     variant_threads = variant_packet.get("variant_threads", {})
     public_image_url = variant_packet.get("public_image_url")
+    media_manifest = variant_packet.get("media_manifest") if isinstance(variant_packet.get("media_manifest"), dict) else {}
+    selected_media = media_manifest.get("selected_media_by_platform") if isinstance(media_manifest.get("selected_media_by_platform"), dict) else {}
     requested_platforms = tuple(str(item).strip().lower() for item in (dispatch_platforms or []) if str(item).strip())
     selected_platforms = requested_platforms or ("substack", "linkedin", "x", "instagram", "facebook", "telegram", "threads", "discord")
 
@@ -167,9 +169,10 @@ def run_live_production_pipeline(
         "dispatch_audit_path": str(DISPATCH_AUDIT_PATH),
         "dispatch_platform_scope": list(selected_platforms),
         "dispatch_idempotency_control": "platform_scope_allowlist",
+        "media_manifest": media_manifest,
     }
 
-    article_failures = validate_article_quality(article_packet.get("canonical_article_draft", {}), min_chars=5000) if live_run else []
+    article_failures = validate_article_quality(article_packet.get("canonical_article_draft", {})) if live_run else []
     variant_failures = validate_platform_variants(variants, variant_threads, live_run=live_run) if live_run else []
     variant_failures.extend(variant_packet.get("validation_failures") or [])
     blockers = list(article_packet.get("blockers") or []) + article_failures + variant_failures
@@ -268,8 +271,7 @@ def run_live_production_pipeline(
             try:
                 from live_contentops.instagram_adapter_v6 import execute_instagram_post
                 caption = variants.get("instagram_caption", variants.get("telegram", ""))
-                fallback_img = "https://picsum.photos/1080/1080.jpg"
-                active_img = public_image_url if public_image_url else fallback_img
+                active_img = selected_media.get("instagram") or public_image_url
                 missing = _require_payload(caption, "instagram_caption") or _require_payload(active_img, "instagram_image_url")
                 if missing:
                     dispatch_results["instagram"] = _blocked_result("instagram", missing)
@@ -302,14 +304,18 @@ def run_live_production_pipeline(
 
         if "telegram" in selected_platforms:
             try:
-                from live_contentops.telegram_live_adapter_v6 import execute_telegram_post
+                from live_contentops.telegram_live_adapter_v6 import execute_telegram_post, execute_telegram_photo
                 message = variants.get("telegram", "")
+                telegram_media = selected_media.get("telegram") or public_image_url
                 missing = _require_payload(message, "telegram_message")
                 if missing:
                     dispatch_results["telegram"] = _blocked_result("telegram", missing)
                 else:
                     print("[Info] Dispatching to Telegram Channel...")
-                    tg_res = execute_telegram_post(message=message, dry_run=False)
+                    if telegram_media:
+                        tg_res = execute_telegram_photo(photo_url=telegram_media, caption=message, dry_run=False)
+                    else:
+                        tg_res = execute_telegram_post(message=message, dry_run=False)
                     dispatch_results["telegram"] = _normalize_dispatch_result("telegram", tg_res)
                     print(f"[Info] Telegram dispatch outcome: {dispatch_results['telegram']['status']}")
             except Exception as exc:

@@ -26,6 +26,7 @@ from live_contentops.ai_research_canonical_article_engine_v6 import (
 from live_contentops.google_image_search_v6 import (
     execute_google_image_search_and_download,
 )
+from live_contentops.macro_chart_renderer_v6 import render_macro_chart
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_PLATFORM_NATIVE_VARIANT_GENERATOR_V0"
 SCHEMA_VERSION = "6.0.0"
@@ -115,6 +116,44 @@ def validate_platform_variants(variants: dict[str, str], variant_threads: dict[s
     return failures
 
 
+def _build_media_manifest(
+    *,
+    title: str,
+    image_path: str | Path | None,
+    public_image_url: str | None,
+    source_csv: str | None = None,
+) -> dict[str, Any]:
+    chart = render_macro_chart(title, source_csv) if source_csv else {
+        "chart_status": "BLOCKED",
+        "warnings": ["chart_source_csv_missing"],
+        "chart_path": None,
+    }
+    chart_ready = chart.get("chart_status") == "READY"
+    news_ready = bool(public_image_url and image_path)
+    selected = {
+        "substack": public_image_url if news_ready else None,
+        "linkedin": public_image_url if news_ready else None,
+        "facebook": public_image_url if news_ready else None,
+        "x": public_image_url if news_ready else None,
+        "threads": public_image_url if news_ready else None,
+        "telegram": public_image_url if news_ready else None,
+        "discord": public_image_url if news_ready else None,
+        "instagram": public_image_url if news_ready else None,
+    }
+    readiness = {platform: bool(url) for platform, url in selected.items()}
+    return {
+        "primary_chart_path": chart.get("chart_path") if chart_ready else None,
+        "primary_chart_public_url": None,
+        "chart_metadata": chart,
+        "news_image_path": str(image_path) if image_path else None,
+        "news_image_public_url": public_image_url,
+        "selected_media_by_platform": selected,
+        "media_readiness_by_platform": readiness,
+        "media_warnings": list(chart.get("warnings") or []) + ([] if news_ready else ["news_image_missing"]),
+        "rights_status": "operator_review_required" if news_ready else "not_ready",
+    }
+
+
 def summarize_validation(failures: list[str]) -> dict[str, Any]:
     blocked_platforms = sorted({failure.split("_", 1)[0] for failure in failures})
     return {
@@ -122,6 +161,18 @@ def summarize_validation(failures: list[str]) -> dict[str, Any]:
         "blocked_platforms": blocked_platforms,
         "ready": not failures,
     }
+
+
+def _render_source_trail(source_trail: list[dict[str, Any]]) -> str:
+    if not source_trail:
+        return ""
+    lines = ["\n\n## Source trail"]
+    for idx, item in enumerate(source_trail, start=1):
+        label = item.get("label") or f"Source {idx}"
+        origin = item.get("publisher_or_origin") or "source"
+        claim = item.get("claim_supported") or "claim review required"
+        lines.append(f"- {label} — {origin}: {claim}")
+    return "\n".join(lines)
 
 
 def _fallback_variants(title: str, subtitle: str, body_text: str) -> tuple[dict[str, str], dict[str, list[str]]]:
@@ -174,6 +225,7 @@ def generate_live_platform_variants(
     for section in sections:
         body_text += f"### {section.get('title')}\n{section.get('body')}\n\n"
     body_text += conclusion
+    body_text += _render_source_trail(article_draft.get("source_trail") or [])
 
     variants, variant_threads = _fallback_variants(title, subtitle, body_text)
     image_path = None
@@ -184,9 +236,17 @@ def generate_live_platform_variants(
     validation_failures: list[str] = []
 
     try:
-        image_path, public_image_url = execute_google_image_search_and_download(title)
+        image_query = f"{title} news chart macro last 24 hours"
+        image_path, public_image_url = execute_google_image_search_and_download(image_query)
     except Exception as e:
         print(f"[Warning] Google Image search failed: {e}")
+
+    media_manifest = _build_media_manifest(
+        title=title,
+        image_path=image_path,
+        public_image_url=public_image_url,
+        source_csv=os.environ.get("CONTENTOPS_MACRO_CHART_CSV"),
+    )
 
     if live_run:
         api_key = os.environ.get("NINE_ROUTER_API_KEY")
@@ -255,6 +315,7 @@ def generate_live_platform_variants(
         "variant_threads": variant_threads,
         "image_path": str(image_path) if image_path else None,
         "public_image_url": public_image_url,
+        "media_manifest": media_manifest,
         "provider_call_made": provider_call_made,
         "provider_recovery_used": provider_recovery_used,
         "provider_attempts": provider_attempts,
@@ -262,6 +323,7 @@ def generate_live_platform_variants(
         "validation_summary": validation_summary,
         "created_at": time.strftime("%Y-%m-%dT%H:%M:%S+00:00", time.gmtime())
     }
+
     packet["platform_variant_packet_id"] = f"variant_packet_{compute_packet_hash(packet)[:12]}"
     packet["exact_payload_hash"] = compute_packet_hash(packet)
     write_json(output_dir / "platform_variant_packet.json", packet)

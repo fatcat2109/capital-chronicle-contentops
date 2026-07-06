@@ -4,6 +4,7 @@ from __future__ import annotations
 from live_contentops.telegram_live_adapter_v6 import (
     execute_telegram_comment,
     execute_telegram_edit,
+    execute_telegram_photo,
     execute_telegram_post,
 )
 
@@ -42,3 +43,16 @@ def test_execute_telegram_edit_dry_run():
     assert res["platform"] == "telegram"
     assert res["action"] == "edit"
     assert res["payload_redacted"]["new_message"] == "Updated text message"
+
+
+def test_execute_telegram_photo_dry_run():
+    res = execute_telegram_photo(
+        photo_url="https://example.com/chart.png",
+        caption="Chart caption",
+        dry_run=True,
+    )
+    assert res["status"] == "DRY_RUN_PASS"
+    assert res["platform"] == "telegram"
+    assert res["action"] == "photo"
+    assert res["payload_redacted"]["photo_url"] == "https://example.com/chart.png"
+    assert res["payload_redacted"]["caption"] == "Chart caption"

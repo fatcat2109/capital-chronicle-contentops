@@ -122,6 +122,77 @@ def execute_telegram_post(
     return result
 
 
+def execute_telegram_photo(
+    photo_url: str,
+    caption: str,
+    chat_id: str | None = None,
+    bot_token: str | None = None,
+    parse_mode: str = "HTML",
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Publishes a photo with caption via Telegram Bot API sendPhoto."""
+    token = bot_token or _get_default_bot_token()
+    target_chat = chat_id or _get_default_chat_id()
+    payload_hash = hashlib.md5(f"{target_chat}:{photo_url}:{caption}".encode("utf-8")).hexdigest()[:12]
+
+    if dry_run:
+        return {
+            "status": "DRY_RUN_PASS",
+            "platform": "telegram",
+            "action": "photo",
+            "payload_redacted": {
+                "chat_id": target_chat,
+                "photo_url": photo_url,
+                "caption": caption,
+                "parse_mode": parse_mode,
+            },
+            "response": {"id": f"telegram_mock_photo_{payload_hash}"},
+        }
+
+    if not token or not target_chat:
+        return {
+            "status": "FAILED",
+            "platform": "telegram",
+            "action": "photo",
+            "error": "Missing TELEGRAM_BOT_TOKEN or TELEGRAM_TARGET_CHAT_ID.",
+        }
+
+    from .live_telemetry_v6 import classify_and_record_dispatch
+
+    t0 = time.perf_counter()
+    api_url = f"https://api.telegram.org/bot{token}/sendPhoto"
+    payload = {"chat_id": target_chat, "photo": photo_url, "caption": caption, "parse_mode": parse_mode}
+    data = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(api_url, data=data, method="POST")
+    req.add_header("Content-Type", "application/json")
+
+    try:
+        with urllib.request.urlopen(req, timeout=15) as response:
+            res_body = response.read().decode("utf-8")
+            res_json = json.loads(res_body) if res_body else {}
+            msg_id = str(res_json.get("result", {}).get("message_id", f"photo_{payload_hash}"))
+            result = {"status": "SUCCESS", "platform": "telegram", "action": "photo", "id": msg_id, "response": res_json}
+    except urllib.error.HTTPError as e:
+        err_body = e.read().decode("utf-8")
+        try:
+            err_json = json.loads(err_body)
+        except Exception:
+            err_json = {"raw_error": err_body}
+        result = {"status": "FAILED", "platform": "telegram", "action": "photo", "error_code": e.code, "error_response": err_json}
+    except Exception as e:
+        result = {"status": "FAILED", "platform": "telegram", "action": "photo", "error": str(e)}
+
+    latency_ms = (time.perf_counter() - t0) * 1000.0
+    classify_and_record_dispatch(
+        platform_id="telegram",
+        action="photo",
+        adapter_result=result,
+        latency_ms=latency_ms,
+        payload_size_bytes=len(data),
+    )
+    return result
+
+
 def execute_telegram_comment(
     reply_to_message_id: int | str,
     message: str,
