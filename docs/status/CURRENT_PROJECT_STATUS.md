@@ -9,7 +9,7 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-b24bc500aae71f84187de6653d6f342cbc5ba822
+f38229d4416ef78018ef93c86ba7b6555cfe062c
 
 ## current_product_phase
 Post-release operator governance maintenance refreshed with fully automated E2E live dispatches across all 8 platforms (Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram) under Fast Ship Mode.
@@ -21,9 +21,9 @@ Full automation of the social and publishing dispatches, Unicode/environment loa
 TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 completed post-release operator governance maintenance run, successfully automating and verifying E2E live dispatches across Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, and Instagram under Fast Ship Mode.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `b24bc500aae71f84187de6653d6f342cbc5ba822`
-- previous accepted product baseline: `2a66e9c37197782dc222c8f089bd889704b02a3f`
-- latest status/promotion task (`last_status_commit_sha`): `b24bc500aae71f84187de6653d6f342cbc5ba822` verified by `git rev-parse origin/master` readback before this operator governance update.
+- accepted product baseline (`accepted_product_baseline_sha`): `f38229d4416ef78018ef93c86ba7b6555cfe062c`
+- previous accepted product baseline: `b24bc500aae71f84187de6653d6f342cbc5ba822`
+- latest status/promotion task (`last_status_commit_sha`): `f38229d4416ef78018ef93c86ba7b6555cfe062c` verified by `git rev-parse origin/master` readback before this operator governance update.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 

@@ -1,8 +1,8 @@
 {
-  "created_at": "2026-07-06T10:32:57+00:00",
-  "exact_payload_hash": "162aa3600dd7fcfdd8ce47a3583fb323982b04081c5d02ad9f1b9d3560ce2c5b",
-  "image_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7431\\test_generate_live_platform_va0\\downloads\\img_test.jpg",
-  "platform_variant_packet_id": "variant_packet_162aa3600dd7",
+  "created_at": "2026-07-06T10:43:28+00:00",
+  "exact_payload_hash": "7ddaf4e1706ef08639b190c237eb1b60b5cac9b72a8d0dc8c2fad3faa4e682da",
+  "image_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7434\\test_generate_live_platform_va0\\downloads\\img_test.jpg",
+  "platform_variant_packet_id": "variant_packet_7ddaf4e1706e",
   "provider_call_made": true,
   "public_image_url": "https://example.com/img_test.jpg",
   "schema_version": "6.0.0",

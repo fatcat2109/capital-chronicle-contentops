@@ -3,7 +3,7 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "b24bc500aae71f84187de6653d6f342cbc5ba822",
+  "last_verified_remote_sha": "f38229d4416ef78018ef93c86ba7b6555cfe062c",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
   "current_product_phase": "Post-release operator governance maintenance refreshed with fully automated E2E live dispatches across all 8 platforms (Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram) under Fast Ship Mode.",
   "current_product_lane": "Full automation of the social and publishing dispatches, Unicode/environment loading integration, and verification of real-time multi-platform dispatches.",
