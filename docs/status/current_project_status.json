@@ -4,7 +4,7 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "last_verified_remote_sha": "2ace89545300052e312bc3ebbb557de2573966d7",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_GROUNDED_SEARCH_INTELLIGENCE_ENGINE_V0",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
   "current_product_phase": "Post-release operator governance maintenance refreshed with telemetry registry, platform capability, stale artifact, and status-ledger alignment audit",
   "current_product_lane": "Rehearsal verification of final product release readiness, metrics dashboard interactivity, red-team evidence packet, and automated checks.",
   "accepted_baseline_summary": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 completed post-release operator governance maintenance run, telemetry logs validation, capability checks, and clean slate self-audit. Verified and passed with baseline 37b2d2b4ed223ed1665bb174531e8c7cc25e590d.",
@@ -549,5 +549,5 @@
     "live_action_performed": false,
     "secret_or_session_read_performed": false
   },
-  "current_next_recommended_task": "TASK_CONTENTOPS_V6_GROUNDED_SEARCH_INTELLIGENCE_PRODUCTION_V0 ? Execute a live content generation run using Gemini 3.5 Flash on 9router, verifying dynamic searches and caching on a trending economic/geopolitical news topic."
+  "current_next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 ? Continue periodic final release go/no-go rehearsal by validating final release evidence, red-team/governance posture, status guardrails, and canonical V5 build/test surface after governance maintenance."
 }
