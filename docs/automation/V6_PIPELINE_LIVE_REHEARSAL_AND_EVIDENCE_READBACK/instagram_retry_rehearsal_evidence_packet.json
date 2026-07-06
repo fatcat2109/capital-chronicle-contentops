@@ -1,0 +1,91 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "live_contentops.live_production_pipeline_runner_v6",
+    "--topic",
+    "US recession risks rise as oil volatility spikes",
+    "--angle",
+    "Focus on data transparency, geopolitics, yield curves, and educational market context for readers.",
+    "--target-audience",
+    "general_financial_education",
+    "--timeout-seconds",
+    "60",
+    "--live-run",
+    "--dispatch-live",
+    "--dispatch-platform",
+    "instagram",
+    "--write-rehearsal-evidence",
+    "--rehearsal-evidence-output",
+    "docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/instagram_retry_rehearsal_evidence_packet.json"
+  ],
+  "created_at": "2026-07-06T21:58:46Z",
+  "dispatch_audit_excerpt": {
+    "dispatch_blocked": false,
+    "dispatch_blockers": [],
+    "dispatch_live": true,
+    "dispatch_summary": {
+      "attempted_platforms": [
+        "instagram"
+      ],
+      "blocked_platforms": [],
+      "failed_platforms": [],
+      "successful_platforms": [
+        "instagram"
+      ]
+    },
+    "pipeline_status": "DISPATCH_COMPLETE",
+    "run_id": "v6_pipeline_2ff80fab28d4",
+    "timestamp": "2026-07-06T21:58:32Z"
+  },
+  "evidence_hash": "81b362592d6fd3b6a730a4cd33ab9a363a878e57c5cff86226cb6e67b84a7044",
+  "evidence_packet_id": "v6_pipeline_rehearsal_81b362592d6fd3b6",
+  "mode": "controlled_rehearsal",
+  "packet_kind": "v6_pipeline_rehearsal_evidence_packet",
+  "pipeline_result": {
+    "article_packet_id": "article_engine_packet_cc3708cf10fddb57",
+    "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
+    "dispatch_blocked": false,
+    "dispatch_blockers": [],
+    "dispatch_live": true,
+    "dispatch_summary": {
+      "attempted_platforms": [
+        "instagram"
+      ],
+      "blocked_platforms": [],
+      "failed_platforms": [],
+      "successful_platforms": [
+        "instagram"
+      ]
+    },
+    "pipeline_status": "DISPATCH_COMPLETE",
+    "platform_variant_packet_id": "variant_packet_d91e98521118",
+    "run_id": "v6_pipeline_2ff80fab28d4",
+    "timestamp": "2026-07-06T21:58:32Z",
+    "timestamp_gmt7": "2026-07-07T04:58:32+07:00",
+    "variant_status": "VARIANT_READY"
+  },
+  "readback_checks": {
+    "audit_file_present": true,
+    "dispatch_summary_matches": true,
+    "pipeline_status_matches": true,
+    "readback_ready": true,
+    "run_id_matches": true
+  },
+  "repo_state": {
+    "branch": "master",
+    "dirty_state_short": "M docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json\n M docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl\n M docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_readback_summary.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/discord_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/facebook_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/instagram_caption_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/linkedin_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/substack_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/telegram_operator_preview.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/threads_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/x_variant.md\n M live_contentops/instagram_adapter_v6.py\n M live_contentops/live_production_pipeline_runner_v6.py\n M tests/test_instagram_adapter_v6.py\n M tests/test_live_production_pipeline_runner.py\n M ui/contentops_v5/src/data/platform_variant_packet.json\n?? docs/automation/V6_AI_RESEARCH_GROUNDING/search_cache/72a2b4a1b8230c5de20bdbb00db66e1d9582e9c191a3e49256897c2a3823582e.json\n?? docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/instagram_retry_rehearsal_evidence_packet.json",
+    "head_sha": "4a7dc9d63890bbc33f5e6100c34a8c2898cd8f8e",
+    "remote_master_sha": "4a7dc9d63890bbc33f5e6100c34a8c2898cd8f8e",
+    "repo_full_name": "fatcat2109/capital-chronicle-contentops"
+  },
+  "safety": {
+    "audit_excerpt_only": true,
+    "browser_session_sensitive_value_persisted": false,
+    "raw_env_values_persisted": false,
+    "raw_sensitive_values_persisted": false
+  },
+  "schema_version": "1.0.0",
+  "sensitive_marker_detected": false,
+  "task_label": "TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0"
+}

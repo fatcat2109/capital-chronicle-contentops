@@ -1,7 +1,18 @@
 {
   "article_packet_id": "art_test_packet_123",
   "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
+  "dispatch_idempotency_control": "platform_scope_allowlist",
   "dispatch_live": true,
+  "dispatch_platform_scope": [
+    "substack",
+    "linkedin",
+    "x",
+    "instagram",
+    "facebook",
+    "telegram",
+    "threads",
+    "discord"
+  ],
   "dispatch_results": {
     "discord": {
       "error": null,
@@ -159,8 +170,8 @@
   "pipeline_status": "DISPATCH_COMPLETE",
   "platform_variant_packet_id": "var_test_packet_456",
   "public_image_url": "https://example.com/test_image.jpg",
-  "run_id": "v6_pipeline_7ffb86111ce4",
-  "timestamp": "2026-07-06T15:19:15Z",
-  "timestamp_gmt7": "2026-07-06T22:19:15+07:00",
+  "run_id": "v6_pipeline_fc412457d2f9",
+  "timestamp": "2026-07-06T22:03:02Z",
+  "timestamp_gmt7": "2026-07-07T05:03:02+07:00",
   "variant_status": "VARIANT_SCAFFOLD_READY"
 }

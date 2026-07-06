@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
+TASK_CONTENTOPS_V6_INSTAGRAM_MEDIA_BINDING_AND_IDEMPOTENT_RETRY_REHEARSAL_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,21 +9,21 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-acab14b545968ca6ffd7a94af05326edf78f11f2
+4a7dc9d63890bbc33f5e6100c34a8c2898cd8f8e
 
 ## current_product_phase
-Final release go/no-go rehearsal reached live dispatch across the full implemented platform set, but skeptical audit verdict is `PARTIAL_FAILURE`: Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord succeeded; Instagram failed validation because the selected image URL returned HTTP 404. Follow-up hardening replaced the stale runner fallback image URL with a reachable HTTPS JPEG and added regression coverage; do not rerun all successful platforms just to retry Instagram.
+Final release go/no-go rehearsal and scoped Instagram retry now have live dispatch evidence across the full implemented platform set. Rehearsal `v6_pipeline_737400e418e5` succeeded for Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord; scoped retry `v6_pipeline_2ff80fab28d4` succeeded for Instagram without reposting the prior successful platforms.
 
 ## current_product_lane
 Full automation pipeline hardening: live/provider generation, platform-native variants, dispatch evidence readback, advice-disclaimer normalization, Instagram media fallback hardening, and partial-failure audit reconciliation.
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0 executed live/provider generation and dispatch evidence readback for run `v6_pipeline_737400e418e5`. Successful live outcomes were recorded for Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord. Instagram failed before publish with `image_url_unreachable:HTTP Error 404: Not Found`; this is not a full go verdict. Hardening in this task also normalizes missing no-advice context in generated platform variants and replaces the stale Instagram fallback image URL with a currently reachable HTTPS JPEG.
+`TASK_CONTENTOPS_V6_INSTAGRAM_MEDIA_BINDING_AND_IDEMPOTENT_RETRY_REHEARSAL_V0` completed the partial-failure recovery from run `v6_pipeline_737400e418e5`. The runner now supports scoped platform dispatch via `--dispatch-platform`, preserving idempotent retry behavior by allowlisting only failed platforms. Instagram media validation now falls back from HEAD to a ranged GET when hosts reject HEAD with HTTP 405. Scoped live retry `v6_pipeline_2ff80fab28d4` posted Instagram successfully with evidence packet `v6_pipeline_rehearsal_81b362592d6fd3b6`; no already-successful platform was reposted.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `acab14b545968ca6ffd7a94af05326edf78f11f2` before this commit; this task will advance after commit/push.
-- previous accepted product baseline: `a19ad3c53d21f902f7c21f30e982c8a40570b121`.
-- latest status/promotion task (`last_status_commit_sha`): `acab14b545968ca6ffd7a94af05326edf78f11f2` verified by `git rev-parse HEAD` and `git ls-remote origin refs/heads/master` before this rehearsal reconciliation.
+- accepted product baseline (`accepted_product_baseline_sha`): `4a7dc9d63890bbc33f5e6100c34a8c2898cd8f8e` before this commit; this task will advance after commit/push.
+- previous accepted product baseline: `acab14b545968ca6ffd7a94af05326edf78f11f2`.
+- latest status/promotion task (`last_status_commit_sha`): `4a7dc9d63890bbc33f5e6100c34a8c2898cd8f8e` verified by `git rev-parse HEAD` and `git ls-remote origin refs/heads/master` before this Instagram retry reconciliation.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -48,16 +48,15 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 loop now has live provider generation, platform-native variant generation, dispatch evidence readback, deterministic no-advice context normalization, and broad live dispatch proof. The latest full implemented-platform rehearsal is not a final pass because Instagram failed media URL validation; successful platforms should be treated as already posted and should not be duplicated during the next retry.
+V6 loop now has live provider generation, platform-native variant generation, dispatch evidence readback, deterministic no-advice context normalization, scoped idempotent retry controls, and live dispatch proof for every implemented platform lane. Instagram retry evidence is scoped to Instagram only, so previous successful platforms were not duplicated.
 
 ## dispatch/live status
-Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. Rehearsal `v6_pipeline_737400e418e5` dispatched live: Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord succeeded; Instagram failed validation on an unreachable image URL before publish. Runner fallback media was hardened after the failed run, but Instagram needs a scoped retry/media-binding rehearsal.
+Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. Rehearsal `v6_pipeline_737400e418e5` dispatched live successfully to Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord. Scoped retry `v6_pipeline_2ff80fab28d4` dispatched Instagram successfully after validator hardening. Latest dispatch audit is `DISPATCH_COMPLETE` for the Instagram retry scope.
 
 ## provider/env/credential status
 Under Fast Ship Mode, `.env` and credential stores remain authorized for future live rehearsals. Local dotenv parse noise was cleaned during the rehearsal session without committing raw `.env` values. Rehearsal evidence and dispatch audit persisted excerpts/results only, with no raw credential/env values intentionally committed.
 
 ## active blockers
-- Instagram failed the latest final release rehearsal with `image_url_unreachable:HTTP Error 404: Not Found`; rerun only after public media binding/fallback is verified and idempotent retry scope prevents duplicate successful posts.
 - Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.
 - Capital Chronicle Internal alpha / analysis-report posts should prefer built-in chart/card media from the report system when available.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
@@ -92,7 +91,7 @@ TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 - `tests/test_platform_native_variant_generator_live.py`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_INSTAGRAM_MEDIA_BINDING_AND_IDEMPOTENT_RETRY_REHEARSAL_V0` · Verify a durable public Instagram media URL/binding, add idempotent retry controls so successful platforms are not reposted, run a scoped Instagram retry/readback, and reconcile final release readiness evidence.
+Next heavy batch: `TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_INDEX_AND_OPERATOR_HANDOFF_V0` · Build a skeptical final-readiness evidence index that ties the broad full-platform run and scoped Instagram retry together, records remaining API-unsupported caveats, and prepares the operator handoff for real ongoing content operations.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.

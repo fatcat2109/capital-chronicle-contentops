@@ -61,15 +61,30 @@ def compile_instagram_media_payload(image_url: str, caption: str) -> dict[str, A
 def validate_instagram_image_url(image_url: str, timeout_seconds: int = 10) -> list[str]:
     if not image_url.startswith(("https://", "http://")):
         return ["image_url_not_http"]
-    try:
-        req = urllib.request.Request(image_url, method="HEAD", headers={"User-Agent": "ContentOps/6.0"})
+
+    def _validate(method: str) -> list[str]:
+        headers = {"User-Agent": "ContentOps/6.0"}
+        if method == "GET":
+            headers["Range"] = "bytes=0-0"
+        req = urllib.request.Request(image_url, method=method, headers=headers)
         with urllib.request.urlopen(req, timeout=timeout_seconds) as response:
             content_type = response.headers.get("Content-Type", "").lower()
             if not content_type.startswith("image/"):
                 return [f"image_url_not_image:{content_type or 'missing_content_type'}"]
+        return []
+
+    try:
+        return _validate("HEAD")
+    except urllib.error.HTTPError as exc:
+        if exc.code != 405:
+            return [f"image_url_unreachable:{exc}"]
     except Exception as exc:
         return [f"image_url_unreachable:{exc}"]
-    return []
+
+    try:
+        return _validate("GET")
+    except Exception as exc:
+        return [f"image_url_unreachable:{exc}"]
 
 
 def execute_instagram_post(

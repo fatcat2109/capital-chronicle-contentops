@@ -158,6 +158,59 @@ def test_dispatch_uses_reachable_instagram_fallback_when_public_image_missing(
     mock_ig.assert_called_once_with(image_url="https://picsum.photos/1080/1080.jpg", caption="Instagram caption", dry_run=False)
 
 
+@patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
+@patch("live_contentops.live_production_pipeline_runner_v6.generate_live_platform_variants")
+@patch("live_contentops.live_production_pipeline_runner_v6.time.sleep", return_value=None)
+@patch("live_contentops.substack_browser_adapter_v6.execute_substack_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.linkedin_browser_adapter_v6.execute_linkedin_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.x_browser_adapter_v6.execute_x_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.instagram_adapter_v6.execute_instagram_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.facebook_page_adapter_v6.execute_facebook_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.telegram_live_adapter_v6.execute_telegram_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.threads_adapter_v6.execute_threads_post", return_value={"status": "SUCCESS", "id": "threads_1"})
+@patch("live_contentops.discord_live_adapter_v6.execute_discord_post", return_value={"status": "SUCCESS"})
+def test_dispatch_platform_scope_retries_instagram_only_without_reposting_successes(
+    mock_discord, mock_threads, mock_tg, mock_fb, mock_ig, mock_x_post, mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
+):
+    mock_run_article.return_value = {
+        "packet_id": "art_test_packet_123",
+        "canonical_article_draft": {"title": "Test Title", "subtitle": "Test Subtitle"},
+    }
+    mock_generate_variants.return_value = {
+        "platform_variant_packet_id": "var_test_packet_456",
+        "public_image_url": None,
+        "variant_status": "VARIANT_READY",
+        "variants": {
+            "substack": "Substack body",
+            "linkedin": "LinkedIn text",
+            "telegram": "Telegram summary",
+            "discord": "Discord text",
+            "instagram_caption": "Instagram caption",
+        },
+        "variant_threads": {"x": ["Tweet 1"], "threads": ["Threads post 1"]},
+    }
+    audit_path = tmp_path / "audit.json"
+    with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "article.json"), \
+         patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", audit_path):
+        result = run_live_production_pipeline(
+            "Topic",
+            "Angle",
+            live_run=False,
+            dispatch_live=True,
+            dispatch_platforms=["instagram"],
+        )
+    assert result["pipeline_status"] == "DISPATCH_COMPLETE"
+    assert result["dispatch_platform_scope"] == ["instagram"]
+    assert result["dispatch_summary"]["attempted_platforms"] == ["instagram"]
+    assert set(result["dispatch_results"]) == {"instagram"}
+    mock_ig.assert_called_once()
+    for skipped in (mock_substack, mock_linkedin, mock_x_post, mock_fb, mock_tg, mock_threads, mock_discord):
+        skipped.assert_not_called()
+    saved = json.loads(audit_path.read_text(encoding="utf-8"))
+    assert saved["dispatch_platform_scope"] == ["instagram"]
+    assert saved["dispatch_idempotency_control"] == "platform_scope_allowlist"
+
+
 def test_dispatch_summary_normalizes_success_failure_and_blocked():
     failed = _normalize_dispatch_result("linkedin", error=RuntimeError("boom"))
     summary = _dispatch_summary({

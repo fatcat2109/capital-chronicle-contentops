@@ -1,6 +1,10 @@
 # FACEBOOK NATIVE VARIANT
 - **Status**: VARIANT_READY
 - **Associated Image**: None
-- **Timestamp**: 2026-07-06 22:04:32
+- **Timestamp**: 2026-07-07 04:58:32
 
-How do central bank liquidity channels and global shipping bottlenecks interact to shape broader market structures? In our latest Capital Chronicle Recovery Briefing, we break down the educational macro transmission channels connecting Federal Reserve policy, funding stress, and supply chain friction. We analyze how geopolitical shocks—such as maritime disruptions in the Strait of Hormuz—re-evaluate asset pricing logic across traditional and digital markets. Read our full breakdown of liquidity plumbing, credit channels, and the systemic data gaps that operators must navigate in today's volatile macro landscape.
+Despite aggressive monetary tightening, the US economy has shown remarkable durability. However, beneath this surface-level tranquility, a volatile mix of geopolitical oil shocks and yield curve distortions is threatening the economic runway.
+
+In this Capital Chronicle educational feature, we trace how a barrel of crude in the Persian Gulf directly impacts the purchasing power of the American consumer. We break down the demand-side squeeze on household budgets, the supply-side cost push on manufacturing, and why the historic lag in the Federal Reserve's interest rate hikes means the real test for the banking system and credit markets is still ahead.
+
+Read the full analysis on how structural shifts in global trade and corporate divergence are reshaping the modern business cycle: [Link]

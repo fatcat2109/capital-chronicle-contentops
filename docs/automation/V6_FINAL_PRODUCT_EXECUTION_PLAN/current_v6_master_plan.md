@@ -85,11 +85,11 @@ Manual fallback is a first-class lane. Browser/CDP work, if later approved, must
 - The north-star platform universe includes Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram, TikTok, and generic manual fallback.
 - The canonical V5 Command Center now productizes that full platform universe in one source-to-audit operator cockpit backed by deterministic local adapter output.
 - LinkedIn manual publication evidence loop is accepted as product baseline at `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb` after push/readback.
-- Substack, LinkedIn, X, TikTok, and generic manual evidence remains fixture/manual/operator-supplied unless a future task provides explicit verified evidence; Discord/Telegram and Meta-family Facebook Page/Threads now have committed live/API smoke evidence, while Instagram is adapter-ready but smoke-blocked by missing media binding.
+- Substack, LinkedIn, X, TikTok, and generic manual evidence remains fixture/manual/operator-supplied unless a future task provides explicit verified evidence; Discord/Telegram, Meta-family Facebook Page/Threads, and Instagram now have committed live/API dispatch evidence under Fast Ship Mode; Instagram retry evidence is scoped and did not duplicate prior successful platforms.
 - Media policy is split by source class: news uses grounded image candidate metadata; Capital Chronicle internal alpha/report content uses built-in chart/card media when available.
 - The canonical V5 Command Center now displays both media lanes, hash-bound approve/hold/reject operator decision packets, local outbox readiness reconciliation rows, Discord/Telegram redacted local-only operator bridge rows, manual/deferred distribution rows for Facebook Page/Threads/Instagram/TikTok/Generic Manual, and manual audit rows as adapter-built local review evidence.
-- Under Fast Ship Mode, live/provider/platform execution is enabled for explicitly implemented lanes. Discord/Telegram, Facebook Page, Threads, Substack, LinkedIn, and X have current live dispatch success evidence from rehearsal `v6_pipeline_737400e418e5`; Instagram is adapter-ready but the latest full rehearsal failed before publish on unreachable media URL validation.
-- Final release go/no-go rehearsal and evidence readback (`TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0`) completed with `DISPATCH_PARTIAL_FAILURE`: all implemented platforms except Instagram succeeded, and Instagram requires scoped media binding plus idempotent retry before final PASS can be claimed.
+- Under Fast Ship Mode, live/provider/platform execution is enabled for explicitly implemented lanes. Discord/Telegram, Facebook Page, Threads, Substack, LinkedIn, and X have current live dispatch success evidence from rehearsal `v6_pipeline_737400e418e5`; Instagram has scoped retry success evidence from `v6_pipeline_2ff80fab28d4` using the idempotent platform allowlist.
+- Final release go/no-go rehearsal plus Instagram retry evidence now cover every implemented platform lane: broad run `v6_pipeline_737400e418e5` succeeded outside Instagram, and scoped retry `v6_pipeline_2ff80fab28d4` completed Instagram with `DISPATCH_COMPLETE` for the retry scope.
 
 ## Currently Completed Local / Manual Lanes
 
@@ -111,7 +111,7 @@ Manual fallback is a first-class lane. Browser/CDP work, if later approved, must
 Recommended future work should remain soft and evidence-driven:
 
 - Reconcile roadmap priorities against current repo state before opening any new lane.
-- Complete `TASK_CONTENTOPS_V6_INSTAGRAM_MEDIA_BINDING_AND_IDEMPOTENT_RETRY_REHEARSAL_V0` before claiming final all-platform PASS: verify durable public Instagram media, prevent duplicate reposts to successful platforms, run scoped Instagram retry/readback, and reconcile final release evidence.
+- Complete `TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_INDEX_AND_OPERATOR_HANDOFF_V0`: tie broad full-platform evidence and scoped Instagram retry evidence into a skeptical final-readiness index, then prepare the operator handoff for ongoing content operations.
 - Archive stale one-off scripts/test helpers only after confirming no current tests, docs, imports, or release evidence still reference them; refresh final release evidence indexes if needed.
 - Continue improving canonical V5 visibility for accepted packets.
 - Only pursue live/provider/platform actions through exact live scope contracts, approval gates, safety tests, and final operator go decisions.

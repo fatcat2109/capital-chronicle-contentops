@@ -1,0 +1,50 @@
+[
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from etf.com: $2 Trillion By Year\u2019s End? A Wild First Half Look Back in ETFs",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: US recession risks rise as oil volatility spikes"
+    ],
+    "publisher_or_origin": "etf.com",
+    "retrieved_at": "2026-07-06T21:53:58+00:00",
+    "source_id": "src_43d6e2a9cd31",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "$2 Trillion By Year\u2019s End? A Wild First Half Look Back in ETFs",
+    "url_or_local_reference": "https://finance.yahoo.com/m/3362db22-ae6b-3a01-be96-e9298b761694/%242-trillion-by-year%E2%80%99s-end%3F-a.html"
+  },
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from Reuters: Democratic AGs oppose Trump plan to impose tariffs on forced labor concerns",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: US recession risks rise as oil volatility spikes"
+    ],
+    "publisher_or_origin": "Reuters",
+    "retrieved_at": "2026-07-06T21:53:58+00:00",
+    "source_id": "src_eb145e05273c",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "Democratic AGs oppose Trump plan to impose tariffs on forced labor concerns",
+    "url_or_local_reference": "https://finance.yahoo.com/m/a8935312-3de4-3b9d-871c-2e156142d04c/democratic-ags-oppose-trump.html"
+  },
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from StockStory: Seagate, Semtech, and Teradyne Stocks Trade Up, What You Need To Know",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: US recession risks rise as oil volatility spikes"
+    ],
+    "publisher_or_origin": "StockStory",
+    "retrieved_at": "2026-07-06T21:53:58+00:00",
+    "source_id": "src_e90334932762",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "Seagate, Semtech, and Teradyne Stocks Trade Up, What You Need To Know",
+    "url_or_local_reference": "https://finance.yahoo.com/markets/stocks/articles/seagate-semtech-teradyne-stocks-trade-214801771.html"
+  }
+]

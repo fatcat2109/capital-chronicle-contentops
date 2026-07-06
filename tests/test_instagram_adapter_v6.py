@@ -104,3 +104,23 @@ def test_validate_instagram_image_url_rejects_non_image(monkeypatch):
     monkeypatch.setattr(urllib.request, "urlopen", MagicMock(return_value=mock_resp))
 
     assert adapter.validate_instagram_image_url("https://example.com/page") == ["image_url_not_image:text/html"]
+
+
+def test_validate_instagram_image_url_falls_back_to_get_when_head_is_405(monkeypatch):
+    mock_resp = MagicMock()
+    mock_resp.headers = {"Content-Type": "image/jpeg"}
+    mock_resp.__enter__.return_value = mock_resp
+    calls = []
+
+    def fake_urlopen(req, timeout):
+        calls.append((req.get_method(), dict(req.headers), timeout))
+        if req.get_method() == "HEAD":
+            raise urllib.error.HTTPError(req.full_url, 405, "Method Not Allowed", None, None)
+        return mock_resp
+
+    monkeypatch.setattr(urllib.request, "urlopen", MagicMock(side_effect=fake_urlopen))
+
+    assert adapter.validate_instagram_image_url("https://example.com/image.jpg", timeout_seconds=3) == []
+    assert [method for method, _, _ in calls] == ["HEAD", "GET"]
+    assert calls[1][1]["Range"] == "bytes=0-0"
+    assert calls[1][2] == 3

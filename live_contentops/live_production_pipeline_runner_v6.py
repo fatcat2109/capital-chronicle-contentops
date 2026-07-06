@@ -109,7 +109,8 @@ def run_live_production_pipeline(
     target_audience: str = "general_financial_education",
     live_run: bool = False,
     dispatch_live: bool = False,
-    timeout_seconds: int = 30
+    timeout_seconds: int = 30,
+    dispatch_platforms: list[str] | tuple[str, ...] | None = None,
 ) -> dict[str, Any]:
     run_id = f"v6_pipeline_{uuid.uuid4().hex[:12]}"
     print(f"[Info] Starting V6 production run {run_id} for topic: '{topic}' (live={live_run}, dispatch={dispatch_live})")
@@ -150,6 +151,8 @@ def run_live_production_pipeline(
     variants = variant_packet.get("variants", {})
     variant_threads = variant_packet.get("variant_threads", {})
     public_image_url = variant_packet.get("public_image_url")
+    requested_platforms = tuple(str(item).strip().lower() for item in (dispatch_platforms or []) if str(item).strip())
+    selected_platforms = requested_platforms or ("substack", "linkedin", "x", "instagram", "facebook", "telegram", "threads", "discord")
 
     ret = {
         "run_id": run_id,
@@ -162,6 +165,8 @@ def run_live_production_pipeline(
         "timestamp": _utc_now(),
         "timestamp_gmt7": time.strftime("%Y-%m-%dT%H:%M:%S+07:00", time.gmtime(time.time() + 7 * 3600)),
         "dispatch_audit_path": str(DISPATCH_AUDIT_PATH),
+        "dispatch_platform_scope": list(selected_platforms),
+        "dispatch_idempotency_control": "platform_scope_allowlist",
     }
 
     article_failures = validate_article_quality(article_packet.get("canonical_article_draft", {}), min_chars=5000) if live_run else []
@@ -185,180 +190,180 @@ def run_live_production_pipeline(
         return ret
 
     if dispatch_live:
-        print("[Info] Starting automated live dispatches for Substack, LinkedIn, X, and Instagram...")
+        print(f"[Info] Starting automated live dispatches for: {', '.join(selected_platforms)}")
         dispatch_results: dict[str, Any] = {}
 
-        try:
-            from live_contentops.substack_browser_adapter_v6 import execute_substack_post
-            body = variants.get("substack", "")
-            missing = _require_payload(body, "substack_body")
-            if missing:
-                dispatch_results["substack"] = _blocked_result("substack", missing)
-            else:
-                print("[Info] Dispatching to Substack...")
-                sub_res = execute_substack_post(
-                    title=article_packet.get("canonical_article_draft", {}).get("title", topic),
-                    subtitle=article_packet.get("canonical_article_draft", {}).get("subtitle", ""),
-                    body_markdown=body,
-                    dry_run=False
-                )
-                dispatch_results["substack"] = _normalize_dispatch_result("substack", sub_res)
-                print(f"[Info] Substack dispatch outcome: {dispatch_results['substack']['status']} (URL: {dispatch_results['substack'].get('url')})")
-        except Exception as exc:
-            print(f"[Warning] Substack dispatch failed: {exc}")
-            dispatch_results["substack"] = _normalize_dispatch_result("substack", error=exc)
+        if "substack" in selected_platforms:
+            try:
+                from live_contentops.substack_browser_adapter_v6 import execute_substack_post
+                body = variants.get("substack", "")
+                missing = _require_payload(body, "substack_body")
+                if missing:
+                    dispatch_results["substack"] = _blocked_result("substack", missing)
+                else:
+                    print("[Info] Dispatching to Substack...")
+                    sub_res = execute_substack_post(
+                        title=article_packet.get("canonical_article_draft", {}).get("title", topic),
+                        subtitle=article_packet.get("canonical_article_draft", {}).get("subtitle", ""),
+                        body_markdown=body,
+                        dry_run=False
+                    )
+                    dispatch_results["substack"] = _normalize_dispatch_result("substack", sub_res)
+                    print(f"[Info] Substack dispatch outcome: {dispatch_results['substack']['status']} (URL: {dispatch_results['substack'].get('url')})")
+            except Exception as exc:
+                print(f"[Warning] Substack dispatch failed: {exc}")
+                dispatch_results["substack"] = _normalize_dispatch_result("substack", error=exc)
+            time.sleep(5)
 
-        time.sleep(5)
+        if "linkedin" in selected_platforms:
+            try:
+                from live_contentops.linkedin_browser_adapter_v6 import execute_linkedin_post
+                text = variants.get("linkedin", "")
+                missing = _require_payload(text, "linkedin_text")
+                if missing:
+                    dispatch_results["linkedin"] = _blocked_result("linkedin", missing)
+                else:
+                    print("[Info] Dispatching to LinkedIn...")
+                    li_res = execute_linkedin_post(text=text, dry_run=False)
+                    dispatch_results["linkedin"] = _normalize_dispatch_result("linkedin", li_res)
+                    print(f"[Info] LinkedIn dispatch outcome: {dispatch_results['linkedin']['status']} (URL: {dispatch_results['linkedin'].get('url')})")
+            except Exception as exc:
+                print(f"[Warning] LinkedIn dispatch failed: {exc}")
+                dispatch_results["linkedin"] = _normalize_dispatch_result("linkedin", error=exc)
+            time.sleep(5)
 
-        try:
-            from live_contentops.linkedin_browser_adapter_v6 import execute_linkedin_post
-            text = variants.get("linkedin", "")
-            missing = _require_payload(text, "linkedin_text")
-            if missing:
-                dispatch_results["linkedin"] = _blocked_result("linkedin", missing)
-            else:
-                print("[Info] Dispatching to LinkedIn...")
-                li_res = execute_linkedin_post(text=text, dry_run=False)
-                dispatch_results["linkedin"] = _normalize_dispatch_result("linkedin", li_res)
-                print(f"[Info] LinkedIn dispatch outcome: {dispatch_results['linkedin']['status']} (URL: {dispatch_results['linkedin'].get('url')})")
-        except Exception as exc:
-            print(f"[Warning] LinkedIn dispatch failed: {exc}")
-            dispatch_results["linkedin"] = _normalize_dispatch_result("linkedin", error=exc)
+        if "x" in selected_platforms:
+            try:
+                from live_contentops.x_browser_adapter_v6 import execute_x_post, execute_x_comment
+                x_thread = [str(item).strip() for item in variant_threads.get("x", []) if str(item).strip()]
+                if not x_thread:
+                    dispatch_results["x_post"] = _blocked_result("x_post", "x_thread_missing")
+                    dispatch_results["x_replies"] = []
+                else:
+                    print(f"[Info] Dispatching thread of {len(x_thread)} tweets to X...")
+                    x_res = execute_x_post(text=x_thread[0], dry_run=False)
+                    dispatch_results["x_post"] = _normalize_dispatch_result("x_post", x_res)
+                    print(f"[Info] X initial post outcome: {dispatch_results['x_post']['status']}")
 
-        time.sleep(5)
+                    comment_results = []
+                    if dispatch_results["x_post"].get("ok"):
+                        post_url = dispatch_results["x_post"].get("url") or ""
+                        tweet_id = post_url.split("/status/")[-1] if "/status/" in post_url else ""
+                        target_ref = post_url if post_url else tweet_id
+                        for idx, comment_text in enumerate(x_thread[1:], start=1):
+                            time.sleep(6)
+                            print(f"[Info] Dispatching thread reply {idx}/{len(x_thread) - 1}...")
+                            try:
+                                rep_res = execute_x_comment(tweet_url_or_id=target_ref, text=comment_text, dry_run=False)
+                                comment_results.append(_normalize_dispatch_result(f"x_reply_{idx}", rep_res))
+                            except Exception as exc:
+                                comment_results.append(_normalize_dispatch_result(f"x_reply_{idx}", error=exc))
+                    dispatch_results["x_replies"] = comment_results
+            except Exception as exc:
+                print(f"[Warning] X thread dispatch failed: {exc}")
+                dispatch_results["x"] = _normalize_dispatch_result("x", error=exc)
+            time.sleep(5)
 
-        try:
-            from live_contentops.x_browser_adapter_v6 import execute_x_post, execute_x_comment
-            x_thread = [str(item).strip() for item in variant_threads.get("x", []) if str(item).strip()]
-            if not x_thread:
-                dispatch_results["x_post"] = _blocked_result("x_post", "x_thread_missing")
-                dispatch_results["x_replies"] = []
-            else:
-                print(f"[Info] Dispatching thread of {len(x_thread)} tweets to X...")
-                x_res = execute_x_post(text=x_thread[0], dry_run=False)
-                dispatch_results["x_post"] = _normalize_dispatch_result("x_post", x_res)
-                print(f"[Info] X initial post outcome: {dispatch_results['x_post']['status']}")
+        if "instagram" in selected_platforms:
+            try:
+                from live_contentops.instagram_adapter_v6 import execute_instagram_post
+                caption = variants.get("instagram_caption", variants.get("telegram", ""))
+                fallback_img = "https://picsum.photos/1080/1080.jpg"
+                active_img = public_image_url if public_image_url else fallback_img
+                missing = _require_payload(caption, "instagram_caption") or _require_payload(active_img, "instagram_image_url")
+                if missing:
+                    dispatch_results["instagram"] = _blocked_result("instagram", missing)
+                else:
+                    print("[Info] Dispatching to Instagram...")
+                    ig_res = execute_instagram_post(image_url=active_img, caption=caption, dry_run=False)
+                    dispatch_results["instagram"] = _normalize_dispatch_result("instagram", ig_res)
+                    print(f"[Info] Instagram dispatch outcome: {dispatch_results['instagram']['status']}")
+            except Exception as exc:
+                print(f"[Warning] Instagram dispatch failed: {exc}")
+                dispatch_results["instagram"] = _normalize_dispatch_result("instagram", error=exc)
+            time.sleep(5)
 
-                comment_results = []
-                if dispatch_results["x_post"].get("ok"):
-                    post_url = dispatch_results["x_post"].get("url") or ""
-                    tweet_id = post_url.split("/status/")[-1] if "/status/" in post_url else ""
-                    target_ref = post_url if post_url else tweet_id
-                    for idx, comment_text in enumerate(x_thread[1:], start=1):
-                        time.sleep(6)
-                        print(f"[Info] Dispatching thread reply {idx}/{len(x_thread) - 1}...")
-                        try:
-                            rep_res = execute_x_comment(tweet_url_or_id=target_ref, text=comment_text, dry_run=False)
-                            comment_results.append(_normalize_dispatch_result(f"x_reply_{idx}", rep_res))
-                        except Exception as exc:
-                            comment_results.append(_normalize_dispatch_result(f"x_reply_{idx}", error=exc))
-                dispatch_results["x_replies"] = comment_results
-        except Exception as exc:
-            print(f"[Warning] X thread dispatch failed: {exc}")
-            dispatch_results["x"] = _normalize_dispatch_result("x", error=exc)
+        if "facebook" in selected_platforms:
+            try:
+                from live_contentops.facebook_page_adapter_v6 import execute_facebook_post
+                message = variants.get("facebook", variants.get("linkedin", ""))
+                missing = _require_payload(message, "facebook_message")
+                if missing:
+                    dispatch_results["facebook"] = _blocked_result("facebook", missing)
+                else:
+                    print("[Info] Dispatching to Facebook Page...")
+                    fb_res = execute_facebook_post(message=message, dry_run=False)
+                    dispatch_results["facebook"] = _normalize_dispatch_result("facebook", fb_res)
+                    print(f"[Info] Facebook dispatch outcome: {dispatch_results['facebook']['status']}")
+            except Exception as exc:
+                print(f"[Warning] Facebook dispatch failed: {exc}")
+                dispatch_results["facebook"] = _normalize_dispatch_result("facebook", error=exc)
+            time.sleep(5)
 
-        time.sleep(5)
+        if "telegram" in selected_platforms:
+            try:
+                from live_contentops.telegram_live_adapter_v6 import execute_telegram_post
+                message = variants.get("telegram", "")
+                missing = _require_payload(message, "telegram_message")
+                if missing:
+                    dispatch_results["telegram"] = _blocked_result("telegram", missing)
+                else:
+                    print("[Info] Dispatching to Telegram Channel...")
+                    tg_res = execute_telegram_post(message=message, dry_run=False)
+                    dispatch_results["telegram"] = _normalize_dispatch_result("telegram", tg_res)
+                    print(f"[Info] Telegram dispatch outcome: {dispatch_results['telegram']['status']}")
+            except Exception as exc:
+                print(f"[Warning] Telegram dispatch failed: {exc}")
+                dispatch_results["telegram"] = _normalize_dispatch_result("telegram", error=exc)
+            time.sleep(5)
 
-        try:
-            from live_contentops.instagram_adapter_v6 import execute_instagram_post
-            caption = variants.get("instagram_caption", variants.get("telegram", ""))
-            fallback_img = "https://picsum.photos/1080/1080.jpg"
-            active_img = public_image_url if public_image_url else fallback_img
-            missing = _require_payload(caption, "instagram_caption") or _require_payload(active_img, "instagram_image_url")
-            if missing:
-                dispatch_results["instagram"] = _blocked_result("instagram", missing)
-            else:
-                print("[Info] Dispatching to Instagram...")
-                ig_res = execute_instagram_post(image_url=active_img, caption=caption, dry_run=False)
-                dispatch_results["instagram"] = _normalize_dispatch_result("instagram", ig_res)
-                print(f"[Info] Instagram dispatch outcome: {dispatch_results['instagram']['status']}")
-        except Exception as exc:
-            print(f"[Warning] Instagram dispatch failed: {exc}")
-            dispatch_results["instagram"] = _normalize_dispatch_result("instagram", error=exc)
+        if "threads" in selected_platforms:
+            try:
+                from live_contentops.threads_adapter_v6 import execute_threads_post
+                threads_sequence = [str(item).strip() for item in variant_threads.get("threads", []) if str(item).strip()]
+                if not threads_sequence:
+                    dispatch_results["threads"] = _blocked_result("threads", "threads_thread_missing")
+                    dispatch_results["threads_replies"] = []
+                else:
+                    print("[Info] Dispatching to Threads...")
+                    threads_res = execute_threads_post(text=threads_sequence[0], dry_run=False)
+                    dispatch_results["threads"] = _normalize_dispatch_result("threads", threads_res)
+                    thread_reply_results = []
+                    parent_id = threads_res.get("id") or threads_res.get("container_id")
+                    if dispatch_results["threads"].get("ok") and parent_id:
+                        for idx, reply_text in enumerate(threads_sequence[1:], start=1):
+                            time.sleep(6)
+                            print(f"[Info] Dispatching Threads reply {idx}/{len(threads_sequence) - 1}...")
+                            try:
+                                thread_reply_results.append(_normalize_dispatch_result(
+                                    f"threads_reply_{idx}",
+                                    execute_threads_post(text=reply_text, reply_to_id=parent_id, dry_run=False)
+                                ))
+                            except Exception as exc:
+                                thread_reply_results.append(_normalize_dispatch_result(f"threads_reply_{idx}", error=exc))
+                    dispatch_results["threads_replies"] = thread_reply_results
+                print(f"[Info] Threads dispatch outcome: {dispatch_results['threads'].get('status')}")
+            except Exception as exc:
+                print(f"[Warning] Threads dispatch failed: {exc}")
+                dispatch_results["threads"] = _normalize_dispatch_result("threads", error=exc)
+            time.sleep(5)
 
-        time.sleep(5)
-
-        try:
-            from live_contentops.facebook_page_adapter_v6 import execute_facebook_post
-            message = variants.get("facebook", variants.get("linkedin", ""))
-            missing = _require_payload(message, "facebook_message")
-            if missing:
-                dispatch_results["facebook"] = _blocked_result("facebook", missing)
-            else:
-                print("[Info] Dispatching to Facebook Page...")
-                fb_res = execute_facebook_post(message=message, dry_run=False)
-                dispatch_results["facebook"] = _normalize_dispatch_result("facebook", fb_res)
-                print(f"[Info] Facebook dispatch outcome: {dispatch_results['facebook']['status']}")
-        except Exception as exc:
-            print(f"[Warning] Facebook dispatch failed: {exc}")
-            dispatch_results["facebook"] = _normalize_dispatch_result("facebook", error=exc)
-
-        time.sleep(5)
-
-        try:
-            from live_contentops.telegram_live_adapter_v6 import execute_telegram_post
-            message = variants.get("telegram", "")
-            missing = _require_payload(message, "telegram_message")
-            if missing:
-                dispatch_results["telegram"] = _blocked_result("telegram", missing)
-            else:
-                print("[Info] Dispatching to Telegram Channel...")
-                tg_res = execute_telegram_post(message=message, dry_run=False)
-                dispatch_results["telegram"] = _normalize_dispatch_result("telegram", tg_res)
-                print(f"[Info] Telegram dispatch outcome: {dispatch_results['telegram']['status']}")
-        except Exception as exc:
-            print(f"[Warning] Telegram dispatch failed: {exc}")
-            dispatch_results["telegram"] = _normalize_dispatch_result("telegram", error=exc)
-
-        time.sleep(5)
-
-        try:
-            from live_contentops.threads_adapter_v6 import execute_threads_post
-            threads_sequence = [str(item).strip() for item in variant_threads.get("threads", []) if str(item).strip()]
-            if not threads_sequence:
-                dispatch_results["threads"] = _blocked_result("threads", "threads_thread_missing")
-                dispatch_results["threads_replies"] = []
-            else:
-                print("[Info] Dispatching to Threads...")
-                threads_res = execute_threads_post(text=threads_sequence[0], dry_run=False)
-                dispatch_results["threads"] = _normalize_dispatch_result("threads", threads_res)
-                thread_reply_results = []
-                parent_id = threads_res.get("id") or threads_res.get("container_id")
-                if dispatch_results["threads"].get("ok") and parent_id:
-                    for idx, reply_text in enumerate(threads_sequence[1:], start=1):
-                        time.sleep(6)
-                        print(f"[Info] Dispatching Threads reply {idx}/{len(threads_sequence) - 1}...")
-                        try:
-                            thread_reply_results.append(_normalize_dispatch_result(
-                                f"threads_reply_{idx}",
-                                execute_threads_post(text=reply_text, reply_to_id=parent_id, dry_run=False)
-                            ))
-                        except Exception as exc:
-                            thread_reply_results.append(_normalize_dispatch_result(f"threads_reply_{idx}", error=exc))
-                dispatch_results["threads_replies"] = thread_reply_results
-            print(f"[Info] Threads dispatch outcome: {dispatch_results['threads'].get('status')}")
-        except Exception as exc:
-            print(f"[Warning] Threads dispatch failed: {exc}")
-            dispatch_results["threads"] = _normalize_dispatch_result("threads", error=exc)
-
-        time.sleep(5)
-
-        try:
-            from live_contentops.discord_live_adapter_v6 import execute_discord_post
-            message = variants.get("discord", "")
-            missing = _require_payload(message, "discord_message")
-            if missing:
-                dispatch_results["discord"] = _blocked_result("discord", missing)
-            else:
-                print("[Info] Dispatching to Discord Channel...")
-                discord_res = execute_discord_post(message=message, dry_run=False)
-                dispatch_results["discord"] = _normalize_dispatch_result("discord", discord_res)
-                print(f"[Info] Discord dispatch outcome: {dispatch_results['discord']['status']}")
-        except Exception as exc:
-            print(f"[Warning] Discord dispatch failed: {exc}")
-            dispatch_results["discord"] = _normalize_dispatch_result("discord", error=exc)
-
-        time.sleep(5)
+        if "discord" in selected_platforms:
+            try:
+                from live_contentops.discord_live_adapter_v6 import execute_discord_post
+                message = variants.get("discord", "")
+                missing = _require_payload(message, "discord_message")
+                if missing:
+                    dispatch_results["discord"] = _blocked_result("discord", missing)
+                else:
+                    print("[Info] Dispatching to Discord Channel...")
+                    discord_res = execute_discord_post(message=message, dry_run=False)
+                    dispatch_results["discord"] = _normalize_dispatch_result("discord", discord_res)
+                    print(f"[Info] Discord dispatch outcome: {dispatch_results['discord']['status']}")
+            except Exception as exc:
+                print(f"[Warning] Discord dispatch failed: {exc}")
+                dispatch_results["discord"] = _normalize_dispatch_result("discord", error=exc)
+            time.sleep(5)
 
         summary = _dispatch_summary(dispatch_results)
         print("[Info] Automated dispatches complete.")
@@ -379,6 +384,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--dispatch-live", action="store_true", help="Enable live posting/publishing to all platforms")
     parser.add_argument("--target-audience", default="general_financial_education", help="Target audience")
     parser.add_argument("--timeout-seconds", type=int, default=30, help="Provider timeout seconds")
+    parser.add_argument(
+        "--dispatch-platform",
+        action="append",
+        default=[],
+        help="Restrict live dispatch to one platform; repeat for multiple. Defaults to all platforms.",
+    )
     parser.add_argument("--write-rehearsal-evidence", action="store_true", help="Write sanitized rehearsal evidence/readback packet")
     parser.add_argument("--rehearsal-evidence-output", default=str(DEFAULT_EVIDENCE_PACKET_PATH), help="Evidence packet output path")
     args = parser.parse_args(argv)
@@ -389,6 +400,8 @@ def main(argv: list[str] | None = None) -> int:
         command.append("--live-run")
     if args.dispatch_live:
         command.append("--dispatch-live")
+    for platform in args.dispatch_platform:
+        command.extend(["--dispatch-platform", platform])
     if args.write_rehearsal_evidence:
         command.extend(["--write-rehearsal-evidence", "--rehearsal-evidence-output", args.rehearsal_evidence_output])
 
@@ -399,6 +412,7 @@ def main(argv: list[str] | None = None) -> int:
         live_run=args.live_run,
         dispatch_live=args.dispatch_live,
         timeout_seconds=args.timeout_seconds,
+        dispatch_platforms=args.dispatch_platform,
     )
     if args.write_rehearsal_evidence:
         evidence = build_rehearsal_evidence_packet(result, command=command)
