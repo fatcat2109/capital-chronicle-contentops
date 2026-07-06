@@ -1,15 +1,17 @@
 {
   "artifact_audit": {
-    "archived_count": 1,
+    "archived_count": 3,
     "scratch_dir_checked": "A:\\Capital Chronicle\\tools\\cc-live-contentops\\scratch",
     "stale_directories_found": [
-      "temp_profile_linkedin"
+      "temp_profile_linkedin",
+      "temp_profile_substack",
+      "temp_profile_x"
     ],
     "stale_files_found": [],
     "status": "CLEAN"
   },
   "governance_status": "REQUIRES_STATUS_LEDGER_RECONCILIATION",
-  "packet_hash": "391572a7f939005c96c42a53766ee8aabac4442efead5cc08e82098fb33607a8",
+  "packet_hash": "2f39a6c8e4ec617f27d11f12adb03615ba17de5d840920546182b4f2e81217a1",
   "packet_kind": "v6_operator_governance_summary_v0",
   "platform_capabilities": [
     {
@@ -80,10 +82,10 @@
     ],
     "ledger_accepted_product_baseline_sha": "37b2d2b4ed223ed1665bb174531e8c7cc25e590d",
     "ledger_last_status_commit_sha": "6fb15946c1cf7a62a2a669a762e623d9d467d014",
-    "ledger_last_verified_remote_sha": "eb62ac1721ec3ec23cf6170a04875ff04e876043",
+    "ledger_last_verified_remote_sha": "5e1cebca8383598dab170af7414663042a3d06e0",
     "ledger_latest_accepted_task": "TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0",
     "ledger_matches_observed_remote": false,
-    "observed_remote_sha": "be9a4dfeffd4d35487ed17a28c22e8845fcfa983",
+    "observed_remote_sha": "3b1f8c9a9c9bae1f9229c6335a564175ab821ed7",
     "status": "REQUIRES_STATUS_LEDGER_RECONCILIATION",
     "status_json_exists": true
   },
@@ -95,25 +97,25 @@
   },
   "telemetry_audit": {
     "corrupt_entries_count": 0,
-    "error_count": 107,
+    "error_count": 124,
     "exists": true,
     "platform_breakdown": {
       "discord": 15,
-      "facebook_page": 82,
-      "instagram": 74,
-      "linkedin": 30,
-      "substack": 11,
+      "facebook_page": 91,
+      "instagram": 84,
+      "linkedin": 47,
+      "substack": 15,
       "telegram": 24,
-      "threads": 54,
-      "x": 16
+      "threads": 57,
+      "x": 21
     },
-    "success_count": 199,
+    "success_count": 230,
     "telemetry_archive": {
       "exists": false,
       "size_bytes": 0,
       "total_entries": 0
     },
-    "total_entries": 306
+    "total_entries": 354
   },
   "telemetry_rotation": {
     "archived_lines": 0,

@@ -1,13 +1,13 @@
 {
-  "created_at": "2026-07-06T10:20:08+00:00",
-  "exact_payload_hash": "b7f9b09abf902c35b726b2ec1b7aff74f6a130678efcec2ef58421d441aa3391",
-  "image_path": null,
-  "platform_variant_packet_id": "variant_packet_b7f9b09abf90",
+  "created_at": "2026-07-06T10:32:57+00:00",
+  "exact_payload_hash": "162aa3600dd7fcfdd8ce47a3583fb323982b04081c5d02ad9f1b9d3560ce2c5b",
+  "image_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7431\\test_generate_live_platform_va0\\downloads\\img_test.jpg",
+  "platform_variant_packet_id": "variant_packet_162aa3600dd7",
   "provider_call_made": true,
-  "public_image_url": null,
+  "public_image_url": "https://example.com/img_test.jpg",
   "schema_version": "6.0.0",
-  "source_article_id": "article_engine_packet_ce7bf33477384178",
-  "source_intent_id": "operator_idea_ce7bf33477384178",
+  "source_article_id": "art_test_123",
+  "source_intent_id": "idea_test_456",
   "target_platforms": [
     "substack",
     "discord",
@@ -21,20 +21,20 @@
   "variant_status": "VARIANT_SCAFFOLD_READY",
   "variant_threads": {
     "threads": [
-      "1/ Threads conversational thread stub",
-      "2/ Threads reply comment stub"
+      "1/ Threads conversational initial post",
+      "2/ Threads reply post"
     ],
     "x": [
-      "1/ X Tweet Thread - initial post stub",
-      "2/ X Tweet Thread - reply comment stub"
+      "1/ X Tweet initial post",
+      "2/ X Tweet comment thread reply"
     ]
   },
   "variants": {
-    "discord": "Discord variant scaffold stub",
-    "linkedin": "LinkedIn variant scaffold stub",
-    "substack": "In the complex architecture of global macroeconomics, the US dollar serves as the primary currency for international trade and finance. When global markets experience acute stress, foreign financial institutions often face severe shortages of dollar liquidity, threatening to disrupt domestic credit markets and spill back into the domestic economy. To mitigate these systemic bottlenecks, major central banks\u2014including the Federal Reserve, the European Central Bank, the Bank of Japan, the Bank of England, the Swiss National Bank, and the Bank of Canada\u2014utilize coordinated liquidity swap lines. This mechanism acts as a critical backstop, ensuring that foreign institutions can access necessary funding without triggering disorderly asset liquidations.\n\n### Methodology and Source Review\nHistorically, the deployment of central bank liquidity swaps has aligned with periods of extreme macroeconomic and geopolitical dislocation. During the 2007-2008 global financial crisis and the market disruptions of March 2020, swap line usage surged dramatically, with outstanding balances reaching hundreds of billions of dollars. By analyzing historical data, economists observe a direct correlation between the activation of these facilities and a reduction in yield volatility across sovereign debt markets. When offshore dollar funding costs spike\u2014measured by the cross-currency basis swap spread\u2014the introduction of coordinated liquidity swaps effectively caps these premiums, stabilizing short-term funding rates and preventing forced sales of high-quality liquid assets like government bonds.\n\n### Historical Context and Range Analysis\nWhile coordinated swap lines are highly effective at addressing temporary liquidity mismatches, their structural design carries inherent limitations. These facilities are primarily designed to resolve short-term distribution bottlenecks rather than fundamental solvency issues within foreign banking sectors. Furthermore, the access to these permanent standing facilities is concentrated among a select group of advanced economies, leaving emerging markets to rely on alternative, often more expensive, bilateral arrangements or foreign exchange reserves. The reliance on these swap lines also raises questions regarding long-term moral hazard, as financial institutions may underprepare for liquidity shocks under the assumption that central banks will invariably intervene to stabilize funding markets.\n\nIn summary, analyzing the operational mechanics of central bank liquidity swaps reveals how coordinated monetary policy serves as a vital shock absorber for the global financial system. By examining historical usage patterns, funding spreads, and yield volatility, market observers can better understand the structural interventions required to maintain international credit flows during periods of macroeconomic instability.",
-    "telegram": "Telegram variant scaffold stub",
-    "threads": "Threads conversational update scaffold stub",
-    "x": "X Twitter tweet thread scaffold stub"
+    "discord": "Discord Announcements content",
+    "linkedin": "LinkedIn Live Post content",
+    "substack": "Yield rates are moving...\n\n### Section Title\nTreasury yield detail...\n\nConclusion notes...",
+    "telegram": "Telegram channel summary",
+    "threads": "1/ Threads conversational initial post\n\n---\n\n2/ Threads reply post",
+    "x": "1/ X Tweet initial post\n\n---\n\n2/ X Tweet comment thread reply"
   }
 }

@@ -12,13 +12,13 @@ master
 5e1cebca8383598dab170af7414663042a3d06e0
 
 ## current_product_phase
-Post-release operator governance maintenance refreshed with telemetry registry, platform capability, stale artifact, and status-ledger alignment audit
+Post-release operator governance maintenance refreshed with fully automated E2E live dispatches across all 8 platforms (Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram) under Fast Ship Mode.
 
 ## current_product_lane
-Rehearsal verification of final product release readiness, metrics dashboard interactivity, red-team evidence packet, and automated checks.
+Full automation of the social and publishing dispatches, Unicode/environment loading integration, and verification of real-time multi-platform dispatches.
 
 ## accepted_baseline_summary
-TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 completed post-release operator governance maintenance run, telemetry logs validation, capability checks, and clean slate self-audit. Verified and passed with baseline 37b2d2b4ed223ed1665bb174531e8c7cc25e590d.
+TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0 completed post-release operator governance maintenance run, successfully automating and verifying E2E live dispatches across Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, and Instagram under Fast Ship Mode.
 
 ## status_sha_model
 - accepted product baseline (`accepted_product_baseline_sha`): `5e1cebca8383598dab170af7414663042a3d06e0`
@@ -48,16 +48,15 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 local deterministic loop components now include source-pack intake, draft authorization/readiness, canonical draft preview/review, platform variant preview, approval-packet preview, local operator approve/hold/reject decision packet intake, local approval-decision to outbox readiness reconciliation, Discord/Telegram local-only operator bridge status, manual/deferred distribution lane hardening for Facebook Page/Threads/Instagram/TikTok/Generic Manual, dispatch outbox dry-run preview, dispatch recovery preview, reusable X CDP profile guard, supervised X pre-live post command dry-run evidence, X exact execution-to-publication-registry reconciliation, idempotent registry append/readback audit, read-only operator registry audit command, and the V5 Command Center Registry Readback panel. The canonical V5 Command Center now productizes Jim's source-to-audit operator flow from deterministic adapter output with stable packet/hash identifiers, the full platform universe, source-aware media candidate/chart rows, hash-bound operator decision rows, local outbox readiness reconciliation rows, Discord/Telegram redacted bridge rows, manual/deferred distribution rows, and manual audit rows. Media grounding remains source-aware: news topics use grounded image candidate metadata; Capital Chronicle internal alpha/report topics use built-in chart/card media when available. Post-release governance includes status-ledger SHA alignment self-audit. The latest final release go/no-go rehearsal passed with idempotent release evidence regeneration (changed_count=0), red-team safety posture intact, stale artifact review clean, and canonical V5 validation pending/running for final task evidence. This rehearsal recorded no browser/cdp/live/network/env/credential action.
+V6 loop now incorporates fully automated E2E live dispatches across all 8 target platforms (Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram). Google Image search and variant generation have been successfully integrated with Unicode-safe logging and environment `.env` loading under Fast Ship Mode. Verified successfully via live E2E runs.
 
 ## dispatch/live status
-Under Fast Ship Mode, live/provider/platform execution, network runs, and env/credential reads are authorized to achieve full automation. Real-time posting, editing, and commenting are enabled for implemented lanes. Discord and Telegram live dispatches executed successfully via Webhooks and Telegram Bot API. Meta-family smoke evidence verified Facebook Page post/comment/edit and Threads post/reply. Instagram adapter is live-capable for two-step media publishing and comments, but smoke execution is blocked until a public CONTENTOPS_META_SMOKE_IMAGE_URL or INSTAGRAM_SMOKE_MEDIA_ID is provided; Instagram and Threads edit actions are API-unsupported and return UNSUPPORTED. This governance maintenance cycle performed no browser/cdp/live/network/env/credential action and did not perform public URL verification.
+Under Fast Ship Mode, E2E live dispatches executed successfully and are fully validated across all 8 channels: Substack, LinkedIn, X (Twitter), Discord, Telegram, Facebook Page, Threads, and Instagram. Real-time posting, threads, and comments are active.
 
 ## provider/env/credential status
 Under Fast Ship Mode, `.env` and credential stores are accessible to authorize real network requests and platform-native integration. Discord webhooks (DISCORD_ANNOUNCEMENTS_WEBHOOK_URL), Telegram credentials (TELEGRAM_BOT_TOKEN, TELEGRAM_TARGET_CHAT_ID), Facebook Page credentials (FACEBOOK_PAGE_ID plus FACEBOOK_PAGE_ACCESS_TOKEN or META_ACCESS_TOKEN), Threads credentials (THREADS_USER_ID plus THREADS_USER_ACCESS_TOKEN or THREADS_ACCESS_TOKEN), and Instagram destination binding (INSTAGRAM_BUSINESS_ACCOUNT_ID plus META_ACCESS_TOKEN) are utilized directly where available.
 
 ## active blockers
-- Instagram live post/comment smoke requires a public CONTENTOPS_META_SMOKE_IMAGE_URL or INSTAGRAM_SMOKE_MEDIA_ID credential/media binding.
 - Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.
 - Capital Chronicle Internal alpha / analysis-report posts should prefer built-in chart/card media from the report system when available.
 - Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
@@ -73,7 +72,9 @@ Under Fast Ship Mode, `.env` and credential stores are accessible to authorize r
 TASK_CONTENTOPS_V6_OPERATOR_MAINTENANCE_AND_POST_RELEASE_GOVERNANCE_V0
 
 ## latest changed areas
-- `live_contentops/linkedin_browser_adapter_v6.py`
+- `live_contentops/live_production_pipeline_runner_v6.py`
+- `live_contentops/platform_native_variant_generator_live_v6.py`
+- `tests/test_live_production_pipeline_runner.py`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 

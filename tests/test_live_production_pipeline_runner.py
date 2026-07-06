@@ -46,8 +46,12 @@ def test_run_live_production_pipeline(mock_generate_variants, mock_run_article, 
 @patch("live_contentops.x_browser_adapter_v6.execute_x_post")
 @patch("live_contentops.x_browser_adapter_v6.execute_x_comment")
 @patch("live_contentops.instagram_adapter_v6.execute_instagram_post")
+@patch("live_contentops.facebook_page_adapter_v6.execute_facebook_post")
+@patch("live_contentops.telegram_live_adapter_v6.execute_telegram_post")
+@patch("live_contentops.threads_adapter_v6.execute_threads_post")
+@patch("live_contentops.discord_live_adapter_v6.execute_discord_post")
 def test_run_live_production_pipeline_with_dispatch(
-    mock_ig, mock_x_comment, mock_x_post, mock_linkedin, mock_substack, mock_generate_variants, mock_run_article, tmp_path
+    mock_discord, mock_threads, mock_tg, mock_fb, mock_ig, mock_x_comment, mock_x_post, mock_linkedin, mock_substack, mock_generate_variants, mock_run_article, tmp_path
 ):
     mock_run_article.return_value = {
         "packet_id": "art_test_packet_123",
@@ -62,7 +66,9 @@ def test_run_live_production_pipeline_with_dispatch(
         "variants": {
             "substack": "Substack body",
             "linkedin": "LinkedIn text",
-            "telegram": "Telegram summary"
+            "telegram": "Telegram summary",
+            "threads": "Threads text",
+            "discord": "Discord text"
         },
         "variant_threads": {
             "x": ["Tweet 1", "Tweet 2"]
@@ -74,6 +80,10 @@ def test_run_live_production_pipeline_with_dispatch(
     mock_x_post.return_value = {"status": "SUCCESS", "response": {"url": "https://x.com/status/3"}}
     mock_x_comment.return_value = {"status": "SUCCESS"}
     mock_ig.return_value = {"status": "SUCCESS"}
+    mock_fb.return_value = {"status": "SUCCESS"}
+    mock_tg.return_value = {"status": "SUCCESS"}
+    mock_threads.return_value = {"status": "SUCCESS"}
+    mock_discord.return_value = {"status": "SUCCESS"}
     
     test_article_path = tmp_path / "canonical_article_packet.json"
     
@@ -91,3 +101,7 @@ def test_run_live_production_pipeline_with_dispatch(
         assert result["dispatch_results"]["x_post"]["status"] == "SUCCESS"
         assert len(result["dispatch_results"]["x_replies"]) == 1
         assert result["dispatch_results"]["instagram"]["status"] == "SUCCESS"
+        assert result["dispatch_results"]["facebook"]["status"] == "SUCCESS"
+        assert result["dispatch_results"]["telegram"]["status"] == "SUCCESS"
+        assert result["dispatch_results"]["threads"]["status"] == "SUCCESS"
+        assert result["dispatch_results"]["discord"]["status"] == "SUCCESS"

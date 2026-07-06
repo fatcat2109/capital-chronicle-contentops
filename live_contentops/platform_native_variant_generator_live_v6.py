@@ -15,6 +15,9 @@ import time
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from live_contentops.ai_research_canonical_article_engine_v6 import (
     call_live_provider,
@@ -126,6 +129,7 @@ def generate_live_platform_variants(
             )
             try:
                 llm_text = call_live_provider(prompt, "9router", timeout_seconds)
+                print(f"[Debug] Raw Gemini variant response:\n{llm_text.encode('ascii', errors='replace').decode('ascii')}")
                 provider_call_made = True
                 llm_data = parse_llm_json(llm_text)
                 if llm_data:

@@ -15,6 +15,9 @@ import os
 import time
 from pathlib import Path
 from typing import Any
+from dotenv import load_dotenv
+
+load_dotenv()
 
 from live_contentops.ai_research_canonical_article_engine_v6 import (
     EngineInput,
@@ -179,6 +182,72 @@ def run_live_production_pipeline(
         except Exception as exc:
             print(f"[Warning] Instagram dispatch failed: {exc}")
             dispatch_results["instagram"] = {"status": "FAILED", "error": str(exc)}
+            
+        time.sleep(5)
+        
+        # E. Facebook Page Feed
+        try:
+            from live_contentops.facebook_page_adapter_v6 import execute_facebook_post
+            print("[Info] Dispatching to Facebook Page...")
+            fb_res = execute_facebook_post(
+                message=variants.get("linkedin", ""),
+                dry_run=False
+            )
+            dispatch_results["facebook"] = fb_res
+            print(f"[Info] Facebook dispatch outcome: {fb_res.get('status')}")
+        except Exception as exc:
+            print(f"[Warning] Facebook dispatch failed: {exc}")
+            dispatch_results["facebook"] = {"status": "FAILED", "error": str(exc)}
+            
+        time.sleep(5)
+        
+        # F. Telegram Channel
+        try:
+            from live_contentops.telegram_live_adapter_v6 import execute_telegram_post
+            print("[Info] Dispatching to Telegram Channel...")
+            tg_res = execute_telegram_post(
+                message=variants.get("telegram", ""),
+                dry_run=False
+            )
+            dispatch_results["telegram"] = tg_res
+            print(f"[Info] Telegram dispatch outcome: {tg_res.get('status')}")
+        except Exception as exc:
+            print(f"[Warning] Telegram dispatch failed: {exc}")
+            dispatch_results["telegram"] = {"status": "FAILED", "error": str(exc)}
+            
+        time.sleep(5)
+        
+        # G. Threads Post
+        try:
+            from live_contentops.threads_adapter_v6 import execute_threads_post
+            print("[Info] Dispatching to Threads...")
+            threads_res = execute_threads_post(
+                text=variants.get("threads", ""),
+                dry_run=False
+            )
+            dispatch_results["threads"] = threads_res
+            print(f"[Info] Threads dispatch outcome: {threads_res.get('status')}")
+        except Exception as exc:
+            print(f"[Warning] Threads dispatch failed: {exc}")
+            dispatch_results["threads"] = {"status": "FAILED", "error": str(exc)}
+            
+        time.sleep(5)
+        
+        # H. Discord Announcement
+        try:
+            from live_contentops.discord_live_adapter_v6 import execute_discord_post
+            print("[Info] Dispatching to Discord Channel...")
+            discord_res = execute_discord_post(
+                message=variants.get("discord", ""),
+                dry_run=False
+            )
+            dispatch_results["discord"] = discord_res
+            print(f"[Info] Discord dispatch outcome: {discord_res.get('status')}")
+        except Exception as exc:
+            print(f"[Warning] Discord dispatch failed: {exc}")
+            dispatch_results["discord"] = {"status": "FAILED", "error": str(exc)}
+            
+        time.sleep(5)
             
         print("[Info] Automated dispatches complete.")
         ret["dispatch_live"] = True

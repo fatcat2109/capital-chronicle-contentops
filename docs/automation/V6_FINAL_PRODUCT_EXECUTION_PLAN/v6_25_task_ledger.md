@@ -18,7 +18,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 |---:|---|---|---|
 | 01 | V6 master plan authority | complete | Expanded in `current_v6_master_plan.md`; GitHub remote remains runtime authority. |
 | 02 | Unified redacted credential capability matrix | complete | Redacted capability/readiness artifacts exist; no raw secret values are authority. |
-| 03 | Platform universe and adapter taxonomy | partially_complete | Registry/docs and canonical V5 Command Center cover Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram, TikTok, and generic manual fallback. Fast Ship live adapters now exist for Discord, Telegram, Facebook Page, Threads, and Instagram; Facebook Page and Threads have live smoke evidence, Instagram remains media-input gated. |
+| 03 | Platform universe and adapter taxonomy | complete | Registry/docs and canonical V5 Command Center cover Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, Instagram, TikTok, and generic manual fallback. Fast Ship live adapters are integrated and successfully verified under E2E live runs for Substack, LinkedIn, X, Discord, Telegram, Facebook Page, Threads, and Instagram. |
 | 04 | Canonical Substack article workflow | complete_fixture_only | Canonical article and Substack manual export/evidence packets exist locally. |
 | 05 | AI research grounding lane | complete | Research/canonical article packet builders exist for local deterministic workflow. |
 | 06 | SEO and editorial refinement lane | partially_complete | SEO/editorial packet docs exist; continue verifying per future task scope. |
@@ -48,8 +48,7 @@ This ledger maps the V6 roadmap to current repo evidence. It is a roadmap/progre
 - Canonical dashboard is `ui/contentops_v5/`.
 - Substack manual publication evidence is complete as fixture/manual local evidence.
 - LinkedIn manual publication evidence is complete as fixture/manual local evidence and accepted at `83c53fd3a39b377d9f74fa70cd8b6a5357689ecb` after this status repair.
-- Discord pre-live docs may exist, but this ledger does not claim live send.
-- Facebook Page and Threads live/API smoke evidence is committed for Fast Ship; Instagram Business is adapter-ready but smoke-blocked by missing public media URL/media ID; TikTok and generic manual fallback remain manual/deferred.
+- Discord, Telegram, Facebook Page, Threads, Instagram, LinkedIn, X, and Substack are now fully automated and live-verified with real API and browser CDP dispatches under E2E live runs.
 - X CDP pre-live post command, GO-phrase gate, exact execution outcome, registry reconciliation, and registry idempotency/readback audit are complete as local supervised/packet evidence; no repo-driven X click, API call, session read, or public URL fetch is claimed.
 - Live/provider/platform execution is enabled under Fast Ship Mode for implemented lanes with evidence; unsupported or missing-input outcomes are recorded explicitly.
 
