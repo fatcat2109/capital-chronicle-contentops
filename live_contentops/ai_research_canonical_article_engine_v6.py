@@ -120,6 +120,27 @@ def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15) ->
         with url_request.urlopen(req, timeout=timeout_seconds) as resp:
             res_data = json.loads(resp.read().decode("utf-8"))
             return str(res_data["content"][0]["text"])
+    elif provider == "9router":
+        api_key = env_map.get("NINE_ROUTER_API_KEY")
+        base_url = env_map.get("NINE_ROUTER_BASE_URL") or "http://localhost:20128/v1"
+        model_name = env_map.get("NINE_ROUTER_MODEL") or "vx/gemini-3.5-flash"
+        if not api_key:
+            raise ValueError("NINE_ROUTER_API_KEY_missing")
+        url_request = importlib.import_module("urllib.request")
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {api_key}"
+        }
+        body = json.dumps({
+            "model": model_name,
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": 1200,
+            "temperature": 0.2
+        }).encode("utf-8")
+        req = url_request.Request(f"{base_url.rstrip('/')}/chat/completions", data=body, headers=headers, method="POST")
+        with url_request.urlopen(req, timeout=timeout_seconds) as resp:
+            res_data = json.loads(resp.read().decode("utf-8"))
+            return str(res_data["choices"][0]["message"]["content"])
     else:
         raise ValueError(f"unsupported_provider:{provider}")
 
@@ -170,7 +191,14 @@ def run_article_engine(
             blockers.append("request_budget_insufficient")
         else:
             env_map = getattr(os, "environ")
-            key_name = "OPENAI_API_KEY" if live_provider == "openai" else "ANTHROPIC_API_KEY"
+            if live_provider == "openai":
+                key_name = "OPENAI_API_KEY"
+            elif live_provider == "anthropic":
+                key_name = "ANTHROPIC_API_KEY"
+            elif live_provider == "9router":
+                key_name = "NINE_ROUTER_API_KEY"
+            else:
+                key_name = "UNKNOWN_KEY"
             if key_name not in env_map or not env_map.get(key_name):
                 blockers.append(f"missing_api_key:{key_name}")
             else:
@@ -311,7 +339,7 @@ def sample_article_packet() -> dict[str, Any]:
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="V6 AI research + canonical article production engine.")
     parser.add_argument("--output", default="")
-    parser.add_argument("--live-provider", choices=["openai", "anthropic"], default="openai")
+    parser.add_argument("--live-provider", choices=["openai", "anthropic", "9router"], default="9router")
     parser.add_argument("--provider-mode", choices=["dry_run_fixture", "live_provider_call"], default="dry_run_fixture")
     parser.add_argument("--request-budget", type=int, default=1)
     args = parser.parse_args(argv)
