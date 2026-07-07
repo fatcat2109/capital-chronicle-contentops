@@ -95,7 +95,7 @@
   "provider_attempts": [
     {
       "attempt_index": 1,
-      "failure": "article_too_short_words:1277<2000|missing_specific_numbers",
+      "failure": "article_too_short_words:1468<2000|missing_specific_numbers",
       "model": "default",
       "provider": "9router",
       "status": "failed",
@@ -177,7 +177,7 @@
     "concise_summary": "V6 Checkpoint: Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes is ready for operator review."
   },
   "warnings": [
-    "article_quality_retry:default:article_too_short_words:1277<2000|missing_specific_numbers",
+    "article_quality_retry:default:article_too_short_words:1468<2000|missing_specific_numbers",
     "article_quality_retry:vx/gemini-3.1-pro-preview:missing_specific_numbers",
     "article_deterministic_recovery_blocked:missing_specific_numbers"
   ]

@@ -1,6 +1,6 @@
 # INSTAGRAM_CAPTION NATIVE VARIANT
 - **Status**: VARIANT_VALIDATION_FAILED
-- **Associated Image**: None
-- **Timestamp**: 2026-07-07 09:19:53
+- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\fallback_b12569bc4a1a.png
+- **Timestamp**: 2026-07-07 09:44:05
 
-How do spiking oil volatility and yield curves signal US recession risks? Our latest Capital Chronicle Educational Briefing takes a process-led approach to analyzing historical macroeconomic patterns. By focusing on data transparency and geopolitical factors, we break down how to separate market noise from structural policy shifts. Swipe up or click the link in our bio to read the full educational analysis. #Macroeconomics #FinanceEducation #OilVolatility #YieldCurve #CapitalChronicle
+As oil volatility spikes, US recession risks are rising. Our latest Capital Chronicle Educational Briefing takes a process-led look at the macroeconomic indicators shaping this landscape. By focusing on data transparency, geopolitics, and yield curves, we analyze historical patterns to separate market noise from structural policy shifts—all without offering directional investment advice. Tap the link in our bio to read the full educational breakdown.

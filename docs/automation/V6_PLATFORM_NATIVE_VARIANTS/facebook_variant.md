@@ -1,6 +1,6 @@
 # FACEBOOK NATIVE VARIANT
 - **Status**: VARIANT_VALIDATION_FAILED
-- **Associated Image**: None
-- **Timestamp**: 2026-07-07 09:19:53
+- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\fallback_b12569bc4a1a.png
+- **Timestamp**: 2026-07-07 09:44:05
 
-Are US recession risks rising alongside oil volatility? Our latest Capital Chronicle Educational Briefing takes a process-led look at the macroeconomic landscape. We bypass the noise to focus on data transparency, geopolitics, and yield curves. By examining historical cycles and accounting for data lags, we provide the context needed to understand these shifting market dynamics. Read the full educational breakdown on our platform.
+Are US recession risks rising alongside oil volatility? Our latest Capital Chronicle Educational Briefing takes a process-led approach to analyzing today's macroeconomic landscape. By focusing on data transparency, geopolitics, and yield curves, we break down historical patterns to separate market noise from structural policy shifts. Read the full briefing for a disciplined, educational look at the data driving these market conversations.

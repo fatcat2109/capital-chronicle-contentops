@@ -123,6 +123,30 @@ def _apply_canonical_link(text: str, url: str | None) -> str:
     return f"{body.rstrip()}\n\nRead the full editorial analysis: {url}"
 
 
+def extract_og_image(url: str) -> str | None:
+    if not url or "mock-post" in url:
+        return None
+    try:
+        import urllib.request
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
+        with urllib.request.urlopen(req, timeout=10) as response:
+            html = response.read().decode("utf-8", errors="ignore")
+            # Match og:image meta tag
+            match = re.search(r'<meta\s+property=["\']og:image["\']\s+content=["\']([^"\']+)["\']', html)
+            if not match:
+                # Try simple content first format
+                match = re.search(r'<meta\s+content=["\']([^"\']+)["\']\s+property=["\']og:image["\']', html)
+            if match:
+                img_url = match.group(1)
+                # Ignore default substack logo images
+                if "substack-post-office" not in img_url and "default-logo" not in img_url:
+                    print(f"[Info] Extracted public CDN image URL from Substack post: {img_url}")
+                    return img_url
+    except Exception as e:
+        print(f"[Warning] Failed to extract og:image from {url}: {e}")
+    return None
+
+
 def run_live_production_pipeline(
     topic: str,
     editorial_angle: str,
@@ -242,6 +266,11 @@ def run_live_production_pipeline(
                     # Substack is the canonical long-form home; its URL is the clickable link for every other platform.
                     if dispatch_results["substack"].get("ok"):
                         canonical_url = dispatch_results["substack"].get("url") or canonical_url
+                        if canonical_url:
+                            # Extract CDN image URL from published Substack post HTML
+                            extracted_img = extract_og_image(canonical_url)
+                            if extracted_img:
+                                public_image_url = extracted_img
                     print(f"[Info] Substack dispatch outcome: {dispatch_results['substack']['status']} (URL: {dispatch_results['substack'].get('url')})")
             except Exception as exc:
                 print(f"[Warning] Substack dispatch failed: {exc}")
@@ -341,7 +370,7 @@ def run_live_production_pipeline(
             try:
                 from live_contentops.telegram_live_adapter_v6 import execute_telegram_post, execute_telegram_photo
                 message = _apply_canonical_link(variants.get("telegram", ""), canonical_url)
-                telegram_media = selected_media.get("telegram") or public_image_url
+                telegram_media = local_image_path or selected_media.get("telegram") or public_image_url
                 missing = _require_payload(message, "telegram_message")
                 if missing:
                     dispatch_results["telegram"] = _blocked_result("telegram", missing)
