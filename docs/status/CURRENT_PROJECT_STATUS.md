@@ -9,7 +9,7 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-f9a561c6e1f73918ae73f1606d027b49b010855a
+8702f81d5c7748a110b4dd33bcbeb9c1ed9da949
 
 ## current_product_phase
 Final-launch stale-state cleanup is implemented locally: the dashboard-triggered full automation pipeline can no longer report a blocked run as success. The live runner CLI returns non-zero on `DISPATCH_BLOCKED`/`DISPATCH_PARTIAL_FAILURE`, the pipeline server reads `latest_dispatch_audit.json` and only reports `SUCCESS` when `pipeline_status=DISPATCH_COMPLETE`, and the dashboard removed all simulated/dry-run fake-success fallbacks (backend offline now shows `BACKEND_OFFLINE`). Prior article/media quality gates (2000+ words, section/citation/source-trail density, no raw public-body URLs, no placeholder Instagram media, Telegram `sendPhoto`, local CSV chart rendering) remain in force.

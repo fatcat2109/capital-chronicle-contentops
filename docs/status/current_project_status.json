@@ -3,7 +3,7 @@
   "status_doc_kind": "contentops_current_project_status",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
-  "last_verified_remote_sha": "f9a561c6e1f73918ae73f1606d027b49b010855a",
+  "last_verified_remote_sha": "8702f81d5c7748a110b4dd33bcbeb9c1ed9da949",
   "last_updated_by_task": "TASK_CONTENTOPS_V6_FINAL_LAUNCH_STALE_STATE_CLEANUP_V0",
   "current_product_phase": "Article/media quality hardening is implemented locally: canonical article quality gates now require 2000+ words, richer section/citation/source-trail evidence, no raw public-body URLs, and no publishable deterministic fallback when provider recovery fails. Platform variant packets now carry a media manifest, Telegram can dispatch via sendPhoto, Instagram no longer uses random placeholder picsum.photos fallback media, and local chart rendering exists for operator-supplied CSV data.",
   "current_product_lane": "Full automation pipeline hardening: evidence-rich article generation, source-trail formatting, local chart/media manifest readiness, Telegram photo dispatch, no-placeholder Instagram media policy, and final-readiness handoff preparation.",
