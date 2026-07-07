@@ -2,49 +2,49 @@
   {
     "allowed_usage": "advisory_only",
     "citation_required": true,
-    "claim_summary": "News report from etf.com: $2 Trillion By Year\u2019s End? A Wild First Half Look Back in ETFs",
+    "claim_summary": "News report from Motley Fool: The Last Times IPO Volume Was This High Were 1929 and 2000. Should That Scare You?",
     "freshness_label": "recent",
     "limitations": [
       "Grounded live search from query: US recession risks rise as oil volatility spikes"
     ],
-    "publisher_or_origin": "etf.com",
-    "retrieved_at": "2026-07-06T21:53:58+00:00",
-    "source_id": "src_43d6e2a9cd31",
+    "publisher_or_origin": "Motley Fool",
+    "retrieved_at": "2026-07-06T23:56:36+00:00",
+    "source_id": "src_d5bbb452c962",
     "source_type": "reputable_news_context",
     "synthetic_fixture": false,
-    "title": "$2 Trillion By Year\u2019s End? A Wild First Half Look Back in ETFs",
-    "url_or_local_reference": "https://finance.yahoo.com/m/3362db22-ae6b-3a01-be96-e9298b761694/%242-trillion-by-year%E2%80%99s-end%3F-a.html"
+    "title": "The Last Times IPO Volume Was This High Were 1929 and 2000. Should That Scare You?",
+    "url_or_local_reference": "https://finance.yahoo.com/m/f2e68170-64c8-3553-8d26-8e0f6e68e57f/the-last-times-ipo-volume-was.html"
   },
   {
     "allowed_usage": "advisory_only",
     "citation_required": true,
-    "claim_summary": "News report from Reuters: Democratic AGs oppose Trump plan to impose tariffs on forced labor concerns",
+    "claim_summary": "News report from MT Newswires: Vale Chairman Daniel Stieler Steps Down Amid Investor Pressure",
     "freshness_label": "recent",
     "limitations": [
       "Grounded live search from query: US recession risks rise as oil volatility spikes"
     ],
-    "publisher_or_origin": "Reuters",
-    "retrieved_at": "2026-07-06T21:53:58+00:00",
-    "source_id": "src_eb145e05273c",
+    "publisher_or_origin": "MT Newswires",
+    "retrieved_at": "2026-07-06T23:56:36+00:00",
+    "source_id": "src_868010957c38",
     "source_type": "reputable_news_context",
     "synthetic_fixture": false,
-    "title": "Democratic AGs oppose Trump plan to impose tariffs on forced labor concerns",
-    "url_or_local_reference": "https://finance.yahoo.com/m/a8935312-3de4-3b9d-871c-2e156142d04c/democratic-ags-oppose-trump.html"
+    "title": "Vale Chairman Daniel Stieler Steps Down Amid Investor Pressure",
+    "url_or_local_reference": "https://finance.yahoo.com/markets/stocks/articles/vale-chairman-daniel-stieler-steps-234933963.html"
   },
   {
     "allowed_usage": "advisory_only",
     "citation_required": true,
-    "claim_summary": "News report from StockStory: Seagate, Semtech, and Teradyne Stocks Trade Up, What You Need To Know",
+    "claim_summary": "News report from MT Newswires: Market Chatter: Alibaba Group to Ban Anthropic AI Tools Over Security Concerns",
     "freshness_label": "recent",
     "limitations": [
       "Grounded live search from query: US recession risks rise as oil volatility spikes"
     ],
-    "publisher_or_origin": "StockStory",
-    "retrieved_at": "2026-07-06T21:53:58+00:00",
-    "source_id": "src_e90334932762",
+    "publisher_or_origin": "MT Newswires",
+    "retrieved_at": "2026-07-06T23:56:36+00:00",
+    "source_id": "src_31150327049c",
     "source_type": "reputable_news_context",
     "synthetic_fixture": false,
-    "title": "Seagate, Semtech, and Teradyne Stocks Trade Up, What You Need To Know",
-    "url_or_local_reference": "https://finance.yahoo.com/markets/stocks/articles/seagate-semtech-teradyne-stocks-trade-214801771.html"
+    "title": "Market Chatter: Alibaba Group to Ban Anthropic AI Tools Over Security Concerns",
+    "url_or_local_reference": "https://finance.yahoo.com/technology/ai/articles/market-chatter-alibaba-group-ban-234900860.html"
   }
 ]

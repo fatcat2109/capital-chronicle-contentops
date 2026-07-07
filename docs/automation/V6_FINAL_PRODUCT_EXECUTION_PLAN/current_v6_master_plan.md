@@ -111,7 +111,8 @@ Manual fallback is a first-class lane. Browser/CDP work, if later approved, must
 Recommended future work should remain soft and evidence-driven:
 
 - Reconcile roadmap priorities against current repo state before opening any new lane.
-- Complete `TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_INDEX_AND_OPERATOR_HANDOFF_V0`: tie broad full-platform evidence and scoped Instagram retry evidence into a skeptical final-readiness index, then prepare the operator handoff for ongoing content operations.
+- North star: a dashboard-triggered full automation pipeline that either dispatches live to all supported lanes or blocks loudly with exact reasons. `TASK_CONTENTOPS_V6_FINAL_LAUNCH_STALE_STATE_CLEANUP_V0` made this truthful: runner exits non-zero on blocked/partial launches, the server reconciles the true outcome from `latest_dispatch_audit.json`, and the dashboard removed all fake-success/dry-run fallbacks.
+- Complete `TASK_CONTENTOPS_V6_DASHBOARD_TRIGGERED_LIVE_RUN_AND_PER_PLATFORM_AUDIT_V0`: start backend + UI, trigger one dashboard live run, audit each platform from the true audit status, and resolve the real article quality/media blockers before declaring a clean `DISPATCH_COMPLETE`.
 - Archive stale one-off scripts/test helpers only after confirming no current tests, docs, imports, or release evidence still reference them; refresh final release evidence indexes if needed.
 - Continue improving canonical V5 visibility for accepted packets.
 - Only pursue live/provider/platform actions through exact live scope contracts, approval gates, safety tests, and final operator go decisions.

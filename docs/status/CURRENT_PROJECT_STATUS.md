@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_ARTICLE_EVIDENCE_MEDIA_QUALITY_HARDENING_V0
+TASK_CONTENTOPS_V6_FINAL_LAUNCH_STALE_STATE_CLEANUP_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -12,10 +12,10 @@ master
 f9a561c6e1f73918ae73f1606d027b49b010855a
 
 ## current_product_phase
-Article/media quality hardening is implemented locally: canonical article quality gates now require 2000+ words, richer section/citation/source-trail evidence, no raw public-body URLs, and no publishable deterministic fallback when provider recovery fails. Platform variant packets now carry a media manifest, Telegram can dispatch via `sendPhoto`, Instagram no longer uses random placeholder `picsum.photos` fallback media, and local chart rendering exists for operator-supplied CSV data.
+Final-launch stale-state cleanup is implemented locally: the dashboard-triggered full automation pipeline can no longer report a blocked run as success. The live runner CLI returns non-zero on `DISPATCH_BLOCKED`/`DISPATCH_PARTIAL_FAILURE`, the pipeline server reads `latest_dispatch_audit.json` and only reports `SUCCESS` when `pipeline_status=DISPATCH_COMPLETE`, and the dashboard removed all simulated/dry-run fake-success fallbacks (backend offline now shows `BACKEND_OFFLINE`). Prior article/media quality gates (2000+ words, section/citation/source-trail density, no raw public-body URLs, no placeholder Instagram media, Telegram `sendPhoto`, local CSV chart rendering) remain in force.
 
 ## current_product_lane
-Full automation pipeline hardening: evidence-rich article generation, source-trail formatting, local chart/media manifest readiness, Telegram photo dispatch, no-placeholder Instagram media policy, and final-readiness handoff preparation.
+Dashboard-triggered full automation pipeline truthfulness: live-or-block semantics end to end (runner exit code, server audit reconciliation, dashboard status/blocker display) with no simulated success on the current launch path.
 
 ## accepted_baseline_summary
 `TASK_CONTENTOPS_V6_ARTICLE_EVIDENCE_MEDIA_QUALITY_HARDENING_V0` hardens the exact user-audited quality gaps before final release readiness: long-form article gates now enforce 2000+ words, minimum sections/citations/source trail, and raw-URL-free public body; recovery drafts cannot silently pass publishability. Variant generation appends source trail context, builds a media manifest, and can produce local charts from operator-supplied CSV without fabricating data. Dispatch now blocks Instagram when no real media URL exists instead of using `picsum.photos`, and Telegram uses `sendPhoto` when media is available.
@@ -51,7 +51,7 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 loop now has live provider generation, platform-native variant generation, dispatch evidence readback, deterministic no-advice context normalization, scoped idempotent retry controls, live dispatch proof for every implemented platform lane, and local quality hardening for article evidence/media readiness. Real media remains required for Instagram; the system now blocks rather than posting fake fallback media.
 
 ## dispatch/live status
-Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. Prior evidence remains: rehearsal `v6_pipeline_737400e418e5` dispatched live successfully to Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord; scoped retry `v6_pipeline_2ff80fab28d4` dispatched Instagram successfully after validator hardening. New code changes are locally validated but not yet live-dispatched after the stricter media policy.
+Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. The latest dashboard-triggered run `v6_pipeline_5cc4e03e950e` was `DISPATCH_BLOCKED` (not a success): the article failed quality gates (`article_too_short_words:127<2000`, `too_few_sections`, `missing_specific_numbers`) and no media was ready. Prior live success evidence remains for `v6_pipeline_737400e418e5` (Substack, LinkedIn, X, Facebook Page, Telegram, Threads, Discord) and `v6_pipeline_2ff80fab28d4` (Instagram). A clean full `DISPATCH_COMPLETE` via the dashboard has not yet been achieved after the stricter gates.
 
 ## provider/env/credential status
 Under Fast Ship Mode, `.env` and credential stores remain authorized for future live rehearsals. Local dotenv parse noise was cleaned during the rehearsal session without committing raw `.env` values. Rehearsal evidence and dispatch audit persisted excerpts/results only, with no raw credential/env values intentionally committed.
@@ -70,7 +70,7 @@ Under Fast Ship Mode, `.env` and credential stores remain authorized for future 
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
+TASK_CONTENTOPS_V6_FINAL_LAUNCH_STALE_STATE_CLEANUP_V0
 
 ## latest changed areas
 - `docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json`
@@ -92,7 +92,7 @@ TASK_CONTENTOPS_V6_FINAL_RELEASE_GO_NO_GO_REHEARSAL_V0
 - `tests/test_platform_native_variant_generator_live.py`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_INDEX_AND_OPERATOR_HANDOFF_V0` · Build a skeptical final-readiness evidence index tying prior live platform proof to the new stricter article/media gates, explicitly record the no-placeholder Instagram/media requirement, and prepare the operator handoff for ongoing content operations.
+Next heavy batch: `TASK_CONTENTOPS_V6_DASHBOARD_TRIGGERED_LIVE_RUN_AND_PER_PLATFORM_AUDIT_V0` · Start backend + UI, trigger one dashboard live run, audit each platform from the true `latest_dispatch_audit.json` status, and resolve the real quality/media blockers before declaring a clean `DISPATCH_COMPLETE` launch.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.

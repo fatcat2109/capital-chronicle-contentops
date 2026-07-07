@@ -300,3 +300,28 @@ def test_run_live_production_pipeline_partial_failure_is_structured(
     assert result["dispatch_results"]["linkedin"]["error_class"] == "RuntimeError"
     assert "linkedin" in result["dispatch_summary"]["failed_platforms"]
     assert "telegram" in result["dispatch_summary"]["blocked_platforms"]
+
+
+@patch("live_contentops.live_production_pipeline_runner_v6.run_live_production_pipeline")
+def test_cli_main_returns_nonzero_on_blocked_launch(mock_run):
+    from live_contentops.live_production_pipeline_runner_v6 import main
+    mock_run.return_value = {
+        "run_id": "v6_pipeline_abc",
+        "pipeline_status": "DISPATCH_BLOCKED",
+        "dispatch_live": False,
+        "dispatch_summary": {"blocked_platforms": ["pipeline"]},
+        "dispatch_blockers": ["article_too_short_words:127<2000"],
+    }
+    assert main(["--live-run", "--dispatch-live"]) == 1
+
+
+@patch("live_contentops.live_production_pipeline_runner_v6.run_live_production_pipeline")
+def test_cli_main_returns_zero_on_complete_launch(mock_run):
+    from live_contentops.live_production_pipeline_runner_v6 import main
+    mock_run.return_value = {
+        "run_id": "v6_pipeline_abc",
+        "pipeline_status": "DISPATCH_COMPLETE",
+        "dispatch_live": True,
+        "dispatch_summary": {"successful_platforms": ["substack"]},
+    }
+    assert main(["--live-run", "--dispatch-live"]) == 0

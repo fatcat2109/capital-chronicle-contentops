@@ -137,7 +137,7 @@ describe('V6 Command Center', () => {
     openView();
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument();
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
-    const locked = screen.getByRole('button', { name: /Publish \/ Dispatch \/ Scrape \/ Download \/ Verify public URL/i });
+    const locked = screen.getByRole('button', { name: /Manual per-platform verification/i });
     expect(locked).toBeDisabled();
     for (const button of screen.getAllByRole('button').filter((b) => !(b as HTMLButtonElement).disabled)) {
       expect(button.textContent ?? '').not.toMatch(/publish now|post now|send now|schedule now|dispatch live|verify credentials|verify public url|scrape|download/i);

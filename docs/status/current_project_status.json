@@ -4,7 +4,7 @@
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "branch": "master",
   "last_verified_remote_sha": "f9a561c6e1f73918ae73f1606d027b49b010855a",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_ARTICLE_EVIDENCE_MEDIA_QUALITY_HARDENING_V0",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_FINAL_LAUNCH_STALE_STATE_CLEANUP_V0",
   "current_product_phase": "Article/media quality hardening is implemented locally: canonical article quality gates now require 2000+ words, richer section/citation/source-trail evidence, no raw public-body URLs, and no publishable deterministic fallback when provider recovery fails. Platform variant packets now carry a media manifest, Telegram can dispatch via sendPhoto, Instagram no longer uses random placeholder picsum.photos fallback media, and local chart rendering exists for operator-supplied CSV data.",
   "current_product_lane": "Full automation pipeline hardening: evidence-rich article generation, source-trail formatting, local chart/media manifest readiness, Telegram photo dispatch, no-placeholder Instagram media policy, and final-readiness handoff preparation.",
   "accepted_baseline_summary": "TASK_CONTENTOPS_V6_ARTICLE_EVIDENCE_MEDIA_QUALITY_HARDENING_V0 hardens the user-audited quality gaps before final release readiness: long-form article gates now enforce 2000+ words, minimum sections/citations/source trail, and raw-URL-free public body; recovery drafts cannot silently pass publishability. Variant generation appends source trail context, builds a media manifest, and can produce local charts from operator-supplied CSV without fabricating data. Dispatch now blocks Instagram when no real media URL exists instead of using picsum.photos, and Telegram uses sendPhoto when media is available.",
@@ -284,7 +284,7 @@
     "Instagram Business two-step Content Publishing API adapter with blocked smoke media binding",
     "Meta-family API unsupported edit outcomes for Instagram and Threads"
   ],
-  "dispatch_live_status": "Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. Prior evidence remains: rehearsal v6_pipeline_737400e418e5 dispatched live successfully to Substack, LinkedIn, X post/replies, Facebook Page, Telegram, Threads post/replies, and Discord; scoped retry v6_pipeline_2ff80fab28d4 dispatched Instagram successfully after validator hardening. New code changes are locally validated but not yet live-dispatched after the stricter media policy.",
+  "dispatch_live_status": "Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. The latest dashboard-triggered run v6_pipeline_5cc4e03e950e was DISPATCH_BLOCKED (not a success): article failed quality gates (article_too_short_words:127<2000, too_few_sections, missing_specific_numbers) with no media ready. Prior live success evidence remains for v6_pipeline_737400e418e5 (Substack, LinkedIn, X, Facebook Page, Telegram, Threads, Discord) and v6_pipeline_2ff80fab28d4 (Instagram). A clean full DISPATCH_COMPLETE via the dashboard has not yet been achieved after the stricter gates. Runner now exits non-zero on blocked/partial launches and the server/dashboard report true audit status.",
   "provider_env_credential_status": "Existing dotenv flow remains available under Fast Ship Mode. This hardening task did not commit raw .env values or credential material; local chart rendering requires operator-supplied CSV via CONTENTOPS_MACRO_CHART_CSV when charts are desired.",
   "active_blockers": [
     "Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.",
@@ -301,10 +301,10 @@
     "docs/CHATGPT_PROJECT_BOOTSTRAP is the only Project Source Jim should keep if any source is kept",
     "old ChatGPT Project Sources can be deleted after this bootstrap commit is verified on GitHub"
   ],
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_ARTICLE_EVIDENCE_MEDIA_QUALITY_HARDENING_V0",
-  "latest_accepted_task_result": "LOCAL_ARTICLE_EVIDENCE_MEDIA_QUALITY_GATES_HARDENED_WITH_TELEGRAM_PHOTO_AND_NO_PLACEHOLDER_INSTAGRAM_MEDIA",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_FINAL_LAUNCH_STALE_STATE_CLEANUP_V0",
+  "latest_accepted_task_result": "DASHBOARD_LAUNCH_TRUTHFULNESS_ENFORCED_RUNNER_NONZERO_ON_BLOCK_SERVER_AUDIT_RECONCILIATION_NO_FAKE_SUCCESS_FALLBACK",
   "latest_evidence_summary": "Focused validation: python -m pytest tests/test_macro_chart_renderer_v6.py tests/test_telegram_live_adapter_v6.py tests/test_live_production_pipeline_runner.py tests/test_platform_native_variant_generator_live.py -> 17 passed. Syntax validation: python -m compileall live_contentops/ai_research_canonical_article_engine_v6.py live_contentops/macro_chart_renderer_v6.py live_contentops/platform_native_variant_generator_live_v6.py live_contentops/telegram_live_adapter_v6.py live_contentops/live_production_pipeline_runner_v6.py -> pass. Prior live dispatch evidence remains v6_pipeline_737400e418e5 for non-Instagram implemented lanes and v6_pipeline_2ff80fab28d4 for Instagram; the new stricter media policy is locally validated and awaits next live rehearsal/readiness indexing.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_INDEX_AND_OPERATOR_HANDOFF_V0: Build a skeptical final-readiness evidence index tying prior live platform proof to the new stricter article/media gates, explicitly record the no-placeholder Instagram/media requirement, and prepare the operator handoff for ongoing content operations.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_DASHBOARD_TRIGGERED_LIVE_RUN_AND_PER_PLATFORM_AUDIT_V0: Start backend + UI, trigger one dashboard live run, audit each platform from the true latest_dispatch_audit.json status, and resolve the real article quality/media blockers before declaring a clean DISPATCH_COMPLETE launch.",
   "mandatory_read_before_task": [
     "AGENTS.md",
     "docs/AI_BUILDER_BOOTSTRAP.md",

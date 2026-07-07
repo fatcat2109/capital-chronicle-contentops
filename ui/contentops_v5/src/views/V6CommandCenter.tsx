@@ -182,28 +182,35 @@ export function V6CommandCenter() {
                   processedLineCount = stdoutLines.length;
                 }
                 
-                if (statusData.status === 'SUCCESS') {
+                // Trust the audit-derived pipeline_status, not just process exit.
+                const terminal = statusData.status === 'SUCCESS' || statusData.status === 'FAILED';
+                if (terminal) {
                   (window as any)['clearInterval'](pollInterval);
-                  addPipelineLog(
-                    'pipeline',
-                    'complete',
-                    `Pipeline process complete: task=${(statusData.task_id || taskId).substring(0, 8)} returncode=${statusData.returncode ?? 0} audit=${statusData.dispatch_audit_path || 'not_reported'}`,
-                    statusData.stderr ? 'RETRYING' : 'SUCCESS'
-                  );
-                  if (statusData.stderr) {
-                    addPipelineLog('pipeline', 'stderr', statusData.stderr.slice(-500), 'FAILED');
-                  }
-                  setPipelineRunning(false);
-                } else if (statusData.status === 'FAILED') {
-                  (window as any)['clearInterval'](pollInterval);
-                  addPipelineLog(
-                    'pipeline',
-                    'error',
-                    `Live pipeline failed: task=${(statusData.task_id || taskId).substring(0, 8)} returncode=${statusData.returncode ?? 'unknown'} error=${statusData.error || 'unknown error'} audit=${statusData.dispatch_audit_path || 'not_reported'}`,
-                    'FAILED'
-                  );
-                  if (statusData.stderr) {
-                    addPipelineLog('pipeline', 'stderr', statusData.stderr.slice(-500), 'FAILED');
+                  const ps = statusData.pipeline_status || 'unknown';
+                  const summary = statusData.dispatch_summary || {};
+                  const blockers = statusData.dispatch_blockers || [];
+                  if (statusData.status === 'SUCCESS' && ps === 'DISPATCH_COMPLETE') {
+                    addPipelineLog(
+                      'pipeline',
+                      'complete',
+                      `DISPATCH_COMPLETE task=${(statusData.run_id || taskId).substring(0, 8)} success=${(summary.successful_platforms || []).join(',') || 'none'}`,
+                      'SUCCESS'
+                    );
+                  } else {
+                    addPipelineLog(
+                      'pipeline',
+                      'error',
+                      `${ps} task=${(statusData.run_id || taskId).substring(0, 8)} ` +
+                        `failed=${(summary.failed_platforms || []).join(',') || 'none'} ` +
+                        `blocked=${(summary.blocked_platforms || []).join(',') || 'none'}`,
+                      'FAILED'
+                    );
+                    if (blockers.length) {
+                      addPipelineLog('pipeline', 'blockers', blockers.join(' | '), 'FAILED');
+                    }
+                    if (statusData.stderr) {
+                      addPipelineLog('pipeline', 'stderr', statusData.stderr.slice(-500), 'FAILED');
+                    }
                   }
                   setPipelineRunning(false);
                 }
@@ -218,33 +225,14 @@ export function V6CommandCenter() {
           return;
         }
       }
-    } catch (err) {
-      addPipelineLog('pipeline', 'fallback', 'Local pipeline server not active at http://localhost:5174. Running E2E dry-run simulation.', 'RETRYING');
-    }
-
-    // FALLBACK: Simulated timeout sequence (when server is offline)
-    setTimeout(() => {
-      addPipelineLog('substack', 'generate', 'Generated canonical Substack article via Gemini 3.5 Flash on 9router.');
-    }, 1200);
-
-    setTimeout(() => {
-      addPipelineLog('variants', 'generate', 'Generated variant layouts for LinkedIn, X, Threads, Telegram, Discord, and downloaded Hero Image.');
-    }, 2400);
-
-    setTimeout(() => {
-      addPipelineLog('substack', 'post', 'Dispatched article to Substack live feed.', 'SUCCESS');
-      addPipelineLog('linkedin', 'post', 'Dispatched variant to LinkedIn feed.', 'SUCCESS');
-    }, 3600);
-
-    setTimeout(() => {
-      addPipelineLog('x', 'post', 'Dispatched thread of 6 tweets to X feed.', 'SUCCESS');
-      addPipelineLog('instagram', 'post', 'Dispatched media post to Instagram Business.', 'SUCCESS');
-    }, 4800);
-
-    setTimeout(() => {
-      addPipelineLog('pipeline', 'complete', 'Automated E2E pipeline dispatches complete for all active channels.');
+      // Server reachable but did not return a task_id: fail loudly, never fake success.
+      addPipelineLog('pipeline', 'error', 'Backend did not return a task_id. Live launch aborted.', 'FAILED');
       setPipelineRunning(false);
-    }, 6000);
+    } catch (err) {
+      // No fake dry-run simulation in the final launch path. Backend is required.
+      addPipelineLog('pipeline', 'error', 'BACKEND_OFFLINE: pipeline server unreachable at http://127.0.0.1:5174. Start the backend to run a live launch.', 'FAILED');
+      setPipelineRunning(false);
+    }
   };
 
   return (
@@ -458,7 +446,7 @@ export function V6CommandCenter() {
                   ) : (
                     <>
                       <IconSend className="h-3.5 w-3.5" />
-                      Start Full Pipeline Automation
+                      Start Full LIVE Pipeline
                     </>
                   )}
                 </button>
@@ -1090,7 +1078,7 @@ export function V6CommandCenter() {
         </div>
       </Panel>
 
-      <LockedAction label="Publish / Dispatch / Scrape / Download / Verify public URL" reason="Disabled in final V6 local release. No network, provider, browser/CDP, credential/env, scraping, media download, webhook, platform API, scheduler, retry, DM/reply/reaction, or live write is enabled." />
+      <LockedAction label="Manual per-platform verification" reason="Under Fast Ship Mode the Full Pipeline runs live external dispatch through the backend runner. This manual control is for operator-supplied public URL / metrics recordkeeping only; it does not itself post." />
     </div>
   );
 }

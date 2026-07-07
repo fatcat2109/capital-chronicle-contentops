@@ -175,7 +175,8 @@ def run_live_production_pipeline(
     article_failures = validate_article_quality(article_packet.get("canonical_article_draft", {})) if live_run else []
     variant_failures = validate_platform_variants(variants, variant_threads, live_run=live_run) if live_run else []
     variant_failures.extend(variant_packet.get("validation_failures") or [])
-    blockers = list(article_packet.get("blockers") or []) + article_failures + variant_failures
+    raw_blockers = list(article_packet.get("blockers") or []) + article_failures + variant_failures
+    blockers = list(dict.fromkeys(raw_blockers))  # de-dupe while preserving order
     if dispatch_live and blockers:
         ret.update({
             "pipeline_status": "DISPATCH_BLOCKED",
@@ -426,6 +427,28 @@ def main(argv: list[str] | None = None) -> int:
         result["rehearsal_evidence_path"] = str(evidence_path)
         result["rehearsal_evidence_packet_id"] = evidence["evidence_packet_id"]
     print(json.dumps(result, indent=2))
+    status = str(result.get("pipeline_status") or "")
+    summary = result.get("dispatch_summary") or {}
+    print(
+        "[FinalStatus] "
+        + json.dumps(
+            {
+                "run_id": result.get("run_id"),
+                "pipeline_status": status,
+                "dispatch_live": bool(result.get("dispatch_live")),
+                "attempted_platforms": summary.get("attempted_platforms", []),
+                "successful_platforms": summary.get("successful_platforms", []),
+                "failed_platforms": summary.get("failed_platforms", []),
+                "blocked_platforms": summary.get("blocked_platforms", []),
+                "dispatch_blockers": result.get("dispatch_blockers", []),
+            },
+            sort_keys=True,
+        )
+    )
+    # A live launch that was blocked or only partially dispatched must fail loudly
+    # so the server/dashboard cannot report it as a clean success.
+    if status in {"DISPATCH_BLOCKED", "DISPATCH_PARTIAL_FAILURE"}:
+        return 1
     return 0
 
 

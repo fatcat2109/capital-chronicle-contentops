@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 import sys
 import uuid
@@ -10,11 +11,48 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 TASKS = {}
 MAX_RETAINED_TASKS = 25
 PIPELINE_COMMAND = [sys.executable, "-u", "-m", "live_contentops.live_production_pipeline_runner_v6", "--live-run", "--dispatch-live"]
+DISPATCH_AUDIT_PATH = os.path.join("docs", "automation", "V6_PLATFORM_NATIVE_VARIANTS", "latest_dispatch_audit.json")
+# Any pipeline_status not in this set is treated as a failed/blocked live launch.
+LIVE_SUCCESS_STATUSES = {"DISPATCH_COMPLETE"}
 
 
 def _utc_now():
     import time
     return time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+
+
+def _read_dispatch_audit(run_id):
+    """Read the committed audit packet and return the true dispatch outcome.
+
+    The process return code alone is not trusted: a blocked launch must not be
+    reported as success. We only trust the audit if it matches this run_id.
+    """
+    try:
+        with open(DISPATCH_AUDIT_PATH, "r", encoding="utf-8") as f:
+            audit = json.load(f)
+    except (OSError, ValueError):
+        return None
+    if run_id and audit.get("run_id") and audit.get("run_id") != run_id:
+        return None  # stale audit from a different run
+    return {
+        "run_id": audit.get("run_id"),
+        "pipeline_status": audit.get("pipeline_status"),
+        "dispatch_live": bool(audit.get("dispatch_live")),
+        "dispatch_summary": audit.get("dispatch_summary"),
+        "dispatch_blockers": audit.get("dispatch_blockers", []),
+    }
+
+
+def _run_id_from_stdout(stdout):
+    """Extract run_id from the runner's [FinalStatus] line if present."""
+    for line in reversed(stdout.splitlines()):
+        marker = "[FinalStatus] "
+        if marker in line:
+            try:
+                return json.loads(line.split(marker, 1)[1]).get("run_id")
+            except ValueError:
+                return None
+    return None
 
 
 def _trim_tasks():
@@ -71,13 +109,31 @@ def run_pipeline_thread(task_id):
         
         TASKS[task_id]["returncode"] = process.returncode
         TASKS[task_id]["completed_at"] = _utc_now()
-        if process.returncode == 0:
+
+        # Trust the audit packet over the process return code so a blocked or
+        # partial live launch can never be surfaced to the dashboard as success.
+        run_id = _run_id_from_stdout(TASKS[task_id]["stdout"])
+        audit = _read_dispatch_audit(run_id)
+        if audit:
+            TASKS[task_id].update({
+                "run_id": audit.get("run_id"),
+                "pipeline_status": audit.get("pipeline_status"),
+                "dispatch_live": audit.get("dispatch_live"),
+                "dispatch_summary": audit.get("dispatch_summary"),
+                "dispatch_blockers": audit.get("dispatch_blockers", []),
+            })
+
+        pipeline_status = (audit or {}).get("pipeline_status")
+        live_ok = pipeline_status in LIVE_SUCCESS_STATUSES if audit else (process.returncode == 0)
+        if live_ok and process.returncode == 0:
             TASKS[task_id]["status"] = "SUCCESS"
             print(f"[Server] Task {task_id} completed successfully.")
         else:
             TASKS[task_id]["status"] = "FAILED"
-            TASKS[task_id]["error"] = f"Process exited with code {process.returncode}"
-            print(f"[Server] Task {task_id} failed with exit code: {process.returncode}")
+            TASKS[task_id]["error"] = (
+                f"Live launch not clean: pipeline_status={pipeline_status or 'unknown'} returncode={process.returncode}"
+            )
+            print(f"[Server] Task {task_id} did not achieve a clean live launch: {TASKS[task_id]['error']}")
             
     except Exception as e:
         TASKS[task_id]["status"] = "FAILED"
