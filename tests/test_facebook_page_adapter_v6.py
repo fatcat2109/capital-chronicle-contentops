@@ -13,12 +13,26 @@ def test_compile_payload():
     assert payload == {"message": "Hello world", "link": "https://example.com"}
 
 
+def test_compile_photo_payload():
+    payload = adapter.compile_facebook_photo_payload("Hello world", "https://example.com/img.jpg")
+    assert payload == {"caption": "Hello world", "url": "https://example.com/img.jpg"}
+
+
 def test_execute_post_dry_run_env_fallback(monkeypatch):
     monkeypatch.setenv("FACEBOOK_PAGE_ID", "12345")
     monkeypatch.setenv("FACEBOOK_PAGE_ACCESS_TOKEN", "fake_token")
     res = adapter.execute_facebook_post(message="Dry run test", link="https://example.com", dry_run=True)
     assert res["status"] == "DRY_RUN_PASS"
     assert res["response"]["id"] == "12345_mock_post_12345"
+    assert res["payload_redacted"]["access_token"] == "<redacted>"
+
+
+def test_execute_photo_dry_run_env_fallback(monkeypatch):
+    monkeypatch.setenv("FACEBOOK_PAGE_ID", "12345")
+    monkeypatch.setenv("FACEBOOK_PAGE_ACCESS_TOKEN", "fake_token")
+    res = adapter.execute_facebook_photo(message="Dry run photo", image_url="https://example.com/img.jpg", dry_run=True)
+    assert res["status"] == "DRY_RUN_PASS"
+    assert res["response"]["post_id"] == "12345_mock_post_12345"
     assert res["payload_redacted"]["access_token"] == "<redacted>"
 
 
@@ -38,6 +52,22 @@ def test_execute_post_success(monkeypatch):
     monkeypatch.setattr(urllib.request, "urlopen", MagicMock(return_value=mock_response))
 
     res = adapter.execute_facebook_post(page_id="12345", access_token="fake_token", message="Real post mock success")
+    assert res["status"] == "SUCCESS"
+    assert res["id"] == "12345_post_id_999"
+
+
+def test_execute_photo_success(monkeypatch):
+    mock_response = MagicMock()
+    mock_response.read.return_value = b'{"id": "12345_photo_id_999", "post_id": "12345_post_id_999"}'
+    mock_response.__enter__.return_value = mock_response
+    monkeypatch.setattr(urllib.request, "urlopen", MagicMock(return_value=mock_response))
+
+    res = adapter.execute_facebook_photo(
+        page_id="12345",
+        access_token="fake_token",
+        message="Real photo mock success",
+        image_url="https://example.com/img.jpg",
+    )
     assert res["status"] == "SUCCESS"
     assert res["id"] == "12345_post_id_999"
 

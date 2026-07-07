@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_DASHBOARD_TRIGGERED_LIVE_RUN_AND_PER_PLATFORM_AUDIT_V0
+TASK_CONTENTOPS_V6_MEDIA_JUDGMENT_AND_ARTICLE_VISUAL_STRUCTURE_GATE_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,16 +9,17 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-496dee0873a38a3791054dfde2d713c7db17bc44
+local HEAD: 3a074762d220f0265cd2fbc2eb4a1d8db86ca178
+remote master: 332e64626255171c59a525352f01659379e5c0f2
 
 ## current_product_phase
-Clickable links and real media dispatches are fully integrated into the live pipeline. Link placeholders [Link] are now dynamically back-filled with the true Substack URL across platforms. Images are successfully routed to X, Facebook (link preview), Threads, Discord, Instagram, and Telegram, with browser adapters supporting best-effort local uploads.
+Real media dispatch remains operational across the implemented live pipeline, and the next local hardening layer now judges whether selected visuals are editorially fit. The variant pipeline rejects stale, weakly sourced, directionally mismatched, or unverified search visuals; source-backed current WTI/FRED chart packs can replace failed image-search candidates; Substack articles now support multiple in-body visual slots instead of a single image appended near the bottom.
 
 ## current_product_lane
-Live pipeline dispatch completion: links back-filled post-Substack, media wired to all capable API and browser adapters, and direct Google news image search URLs prioritized.
+Media judgment and article visual-structure gate: transport still handles local browser uploads and public API URLs, while content audit now checks visual provenance, currentness, metric relevance, time coverage, and thesis/direction alignment before a visual can count as launch-ready evidence.
 
 ## accepted_baseline_summary
-`TASK_CONTENTOPS_V6_DASHBOARD_TRIGGERED_LIVE_RUN_AND_PER_PLATFORM_AUDIT_V0` hardens and completes the multi-platform live dispatch: canonical Substack URLs back-fill [Link] placeholders dynamically. X, Threads, Facebook, Instagram, Telegram, and Discord now receive real hero images. Browser-upload adapters (Substack, LinkedIn, X) handle local file uploads via Playwright, and Google image searches rank directly-fetchable images ahead of gstatic thumbnails.
+`TASK_CONTENTOPS_V6_MEDIA_JUDGMENT_AND_ARTICLE_VISUAL_STRUCTURE_GATE_V0` adds a deterministic media content audit, source-backed current WTI/FRED chart-pack generation for oil topics, recency filters for Google image requests, in-body Substack visual markers, and stricter article quality gates requiring SEO metadata plus multiple purposeful visual slots. Branded fallback cards may still be generated as artifacts, but they are explicitly blocked as editorial launch visuals.
 
 ## status_sha_model
 - accepted product baseline (`accepted_product_baseline_sha`): `496dee0873a38a3791054dfde2d713c7db17bc44` committed.
@@ -48,18 +49,22 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 loop now has live provider generation, platform-native variant generation, dispatch evidence readback, deterministic no-advice context normalization, scoped idempotent retry controls, live dispatch proof for every implemented platform lane, and local quality hardening for article evidence/media readiness. Real media remains required for Instagram; the system now blocks rather than posting fake fallback media.
+V6 loop now has live provider generation, platform-native variant generation, dispatch evidence readback, deterministic no-advice context normalization, scoped idempotent retry controls, public Substack URL/image extraction, local media upload verification, live dispatch proof for every implemented platform lane, and a local media-content audit gate. Real media is required, and visuals must now be sourceable, current enough for the article date, relevant to the article metric, and directionally aligned with the article thesis unless the article explicitly explains the contrast.
 
 ## dispatch/live status
-Under Fast Ship Mode, live/provider/platform execution is fully integrated. Substack canonical URLs now replace [Link] placeholders on all other platforms. Real images are passed and dispatched to X, FB, Threads, Discord, IG, and Telegram, with browser adapters handling Playwright local media upload. Focused tests pass successfully.
+Under Fast Ship Mode, broad live run `v6_pipeline_3c19fed2b5df` verified real chart media on Substack, LinkedIn, X, Facebook Page photo, Telegram photo, Threads, and Discord, with canonical public URL `https://capitalchronicle.substack.com/p/capital-chronicle-educational-briefing-1c5` and chart CDN extraction from Substack. Scoped Instagram retry `v6_pipeline_a2d260907953` succeeded without reposting prior platforms by using the square 1080x1080 transform of the same real chart source. The latest scoped audit is `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`.
+
+Latest local implementation note: screenshots from the July 7, 2026 live output exposed that media transport worked but media judgment did not. This task did not perform a new live dispatch; the next live validation must run without `CONTENTOPS_BYPASS_QUALITY_GATES=true` and confirm the stronger article and visual audit path on public outputs.
 
 ## provider/env/credential status
-Under Fast Ship Mode, `.env` and credential stores remain authorized for future live rehearsals. Local dotenv parse noise was cleaned during the rehearsal session without committing raw `.env` values. Rehearsal evidence and dispatch audit persisted excerpts/results only, with no raw credential/env values intentionally committed.
+Under Fast Ship Mode, local env credentials and operator browser profiles were used for live dispatch verification. No raw `.env` values or credential secrets were intentionally written to code or status docs. Dispatch audits and telemetry record platform outcomes, URLs, IDs, and redacted env-key presence only.
 
 ## active blockers
 - Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.
-- Instagram dispatch requires a real selected media URL; no random placeholder fallback is allowed.
-- Local chart rendering requires operator-supplied CSV with at least one numeric column; missing source data blocks chart generation instead of fabricating visuals.
+- A fresh non-bypassed live run is still required after the new media judgment and article visual-slot gates. The latest public evidence predates this task and used bypassed quality gates.
+- Article/provider quality architecture is stricter locally, but provider output still needs live validation for long-form depth, source specificity, numeric evidence, SEO metadata, and multiple natural in-body visuals.
+- Google classic/mobile image HTML is parsed when available, but Google still returns blocked/empty pages from the current environment. The current no-browser operational fallback is sourceable public chart retrieval, not fake media.
+- General local chart rendering still requires operator-supplied CSV with at least one numeric column; oil-topic source-backed WTI/FRED visual packs are now generated from FRED CSV data when reachable.
 
 ## accepted caveats
 - GitHub remote commits and fetched repo files remain runtime authority above this status doc.
@@ -68,19 +73,30 @@ Under Fast Ship Mode, `.env` and credential stores remain authorized for future 
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_DASHBOARD_TRIGGERED_LIVE_RUN_AND_PER_PLATFORM_AUDIT_V0
+TASK_CONTENTOPS_V6_MEDIA_JUDGMENT_AND_ARTICLE_VISUAL_STRUCTURE_GATE_V0
 
 ## latest changed areas
 - `live_contentops/ai_research_canonical_article_engine_v6.py`
+- `live_contentops/facebook_page_adapter_v6.py`
 - `live_contentops/google_image_search_v6.py`
+- `live_contentops/instagram_adapter_v6.py`
 - `live_contentops/linkedin_browser_adapter_v6.py`
 - `live_contentops/live_production_pipeline_runner_v6.py`
+- `live_contentops/media_content_audit_v6.py`
+- `live_contentops/platform_native_variant_generator_live_v6.py`
 - `live_contentops/substack_browser_adapter_v6.py`
 - `live_contentops/x_browser_adapter_v6.py`
+- `tests/test_ai_research_canonical_article_engine_v6.py`
+- `tests/test_facebook_page_adapter_v6.py`
+- `tests/test_google_image_search_v6.py`
+- `tests/test_instagram_adapter_v6.py`
 - `tests/test_live_production_pipeline_runner.py`
+- `tests/test_media_content_audit_v6.py`
+- `tests/test_platform_native_variant_generator_live.py`
+- `tests/test_substack_browser_adapter_v6.py`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_INDEX_AND_OPERATOR_HANDOFF_V0: Build a skeptical final-readiness evidence index tying the broad full-platform run and scoped Instagram retry together, record remaining API-unsupported caveats, and prepare the operator handoff for real ongoing content operations.
+TASK_CONTENTOPS_V6_NON_BYPASSED_LONGFORM_LIVE_RUN_AND_SOURCE_DEPTH_VALIDATION_V0: Run the full live pipeline without quality-gate bypass, verify the provider can produce a publishable long-form article with source depth and multiple audited visuals, then audit every public platform output for visual relevance, crop, attribution, link behavior, and platform-native editorial quality.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.

@@ -28,12 +28,44 @@ def _good_article_json() -> str:
     return json.dumps({
         "title": "Liquidity and shipping stress in the policy data cycle",
         "subtitle": "A source-led educational review of macro transmission channels",
+        "slug_candidate": "liquidity-shipping-stress-policy-data-cycle",
+        "dek": "A source-led look at how liquidity plumbing and freight stress shape macro transmission.",
+        "meta_description": "Capital Chronicle reviews liquidity and shipping stress through source-led macro context, visual evidence, and process-first education.",
         "intro": base * 20,
         "sections": [
             {"title": f"Section {idx}", "body": base * 18}
             for idx in range(1, 6)
         ],
         "conclusion": base * 12,
+        "source_trail": [
+            {"label": "Source 1", "publisher_or_origin": "Primary Source", "url": "https://example.com/source-1", "claim_supported": "Reported shipping index pressure rose across the reviewed window."},
+            {"label": "Source 2", "publisher_or_origin": "Primary Source", "url": "https://example.com/source-2", "claim_supported": "Policy liquidity timing changed funding conditions during the reviewed period."},
+            {"label": "Source 3", "publisher_or_origin": "Primary Source", "url": "https://example.com/source-3", "claim_supported": "Macro data revisions require caution when comparing current readings with past cycles."},
+        ],
+        "chart_callouts": ["[CHART: current liquidity and shipping stress series with source dates]"],
+        "media_callouts": ["[IMAGE: source-backed chart showing current macro transmission evidence]"],
+        "visual_slots": [
+            {
+                "asset_id": "primary",
+                "placement_after_section": "intro",
+                "visual_kind": "chart",
+                "editorial_purpose": "Anchor the macro setup in current source data.",
+                "data_requirement": "Current liquidity and shipping stress series with latest observation date.",
+                "caption_guidance": "Name the series, source, and latest observation date.",
+                "source_requirement": "Primary source or source-backed public data provider.",
+                "audit_questions": "Is the endpoint current and directionally aligned?",
+            },
+            {
+                "asset_id": "recent_price",
+                "placement_after_section": "Section 3",
+                "visual_kind": "chart",
+                "editorial_purpose": "Support the market-structure interpretation with a second visual lens.",
+                "data_requirement": "Recent-window chart tied to the article's market-structure claim.",
+                "caption_guidance": "Explain the recent window and claim supported.",
+                "source_requirement": "Same-source or clearly attributed secondary provider.",
+                "audit_questions": "Does this visual add evidence beyond the first chart?",
+            },
+        ],
     })
 
 
@@ -82,8 +114,8 @@ def test_short_provider_article_uses_deterministic_recovery(monkeypatch):
 
     packet = run_article_engine(_inputs(), provider_mode="live_provider_call", provider_request_budget=1, live_provider="9router")
 
-    assert packet["blockers"] == []
+    assert "article_provider_recovery_not_publishable" in packet["blockers"]
     assert packet["provider_recovery_used"] is True
-    assert any(w.startswith("article_deterministic_recovery_used:") for w in packet["warnings"])
+    assert any(w.startswith("article_deterministic_recovery_blocked:") for w in packet["warnings"])
     assert packet["provider_attempts"][-1]["provider"] == "deterministic_recovery"
-    assert validate_article_quality(packet["canonical_article_draft"]) == []
+    assert validate_article_quality(packet["canonical_article_draft"]) != []

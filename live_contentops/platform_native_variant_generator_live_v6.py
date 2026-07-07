@@ -12,6 +12,7 @@ import json
 import os
 import re
 import time
+import urllib.parse
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any
@@ -27,6 +28,10 @@ from live_contentops.google_image_search_v6 import (
     execute_google_image_search_and_download,
 )
 from live_contentops.macro_chart_renderer_v6 import render_macro_chart
+from live_contentops.media_content_audit_v6 import (
+    audit_media_candidate,
+    build_current_macro_visual_pack,
+)
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_PLATFORM_NATIVE_VARIANT_GENERATOR_V0"
 SCHEMA_VERSION = "6.0.0"
@@ -121,6 +126,9 @@ def _build_media_manifest(
     title: str,
     image_path: str | Path | None,
     public_image_url: str | None,
+    source_metadata: dict[str, Any] | None = None,
+    media_assets: list[dict[str, Any]] | None = None,
+    media_audit: dict[str, Any] | None = None,
     source_csv: str | None = None,
 ) -> dict[str, Any]:
     chart = render_macro_chart(title, source_csv) if source_csv else {
@@ -129,28 +137,57 @@ def _build_media_manifest(
         "chart_path": None,
     }
     chart_ready = chart.get("chart_status") == "READY"
-    news_ready = bool(public_image_url and image_path)
+    assets = [dict(asset) for asset in (media_assets or []) if isinstance(asset, dict)]
+    if not assets and (image_path or public_image_url):
+        base_asset = dict(source_metadata or {})
+        base_asset.setdefault("asset_id", "primary")
+        if image_path:
+            base_asset["local_path"] = str(image_path)
+        if public_image_url:
+            base_asset["public_url"] = public_image_url
+        assets = [base_asset]
+    news_ready = bool(image_path)
+    public_ready = bool(public_image_url and image_path)
+    instagram_image_url = _instagram_safe_image_url(public_image_url) if public_image_url else None
     selected = {
-        "substack": public_image_url if news_ready else None,
-        "linkedin": public_image_url if news_ready else None,
-        "facebook": public_image_url if news_ready else None,
-        "x": public_image_url if news_ready else None,
-        "threads": public_image_url if news_ready else None,
-        "telegram": public_image_url if news_ready else None,
-        "discord": public_image_url if news_ready else None,
-        "instagram": public_image_url if news_ready else None,
+        "substack": str(image_path) if news_ready else None,
+        "linkedin": str(image_path) if news_ready else None,
+        "facebook": public_image_url if public_ready else None,
+        "x": str(image_path) if news_ready else None,
+        "threads": public_image_url if public_ready else None,
+        "telegram": str(image_path) if news_ready else None,
+        "discord": public_image_url if public_ready else None,
+        "instagram": instagram_image_url if public_ready else None,
     }
-    readiness = {platform: bool(url) for platform, url in selected.items()}
+    readiness = {
+        "substack": news_ready,
+        "linkedin": news_ready,
+        "facebook": public_ready,
+        "x": news_ready,
+        "threads": public_ready,
+        "telegram": news_ready,
+        "discord": public_ready,
+        "instagram": public_ready,
+    }
+    audit_blockers = list((media_audit or {}).get("blockers") or [])
+    audit_warnings = list((media_audit or {}).get("warnings") or [])
     return {
         "primary_chart_path": chart.get("chart_path") if chart_ready else None,
         "primary_chart_public_url": None,
         "chart_metadata": chart,
         "news_image_path": str(image_path) if image_path else None,
         "news_image_public_url": public_image_url,
+        "instagram_safe_image_public_url": instagram_image_url,
+        "news_image_source_label": (source_metadata or {}).get("canonical_source_label") or (source_metadata or {}).get("source_label"),
+        "news_image_source_query": (source_metadata or {}).get("query"),
+        "news_image_source_url": (source_metadata or {}).get("source_url") or (source_metadata or {}).get("url"),
+        "media_assets": assets,
+        "media_content_audit": media_audit or {},
         "selected_media_by_platform": selected,
         "media_readiness_by_platform": readiness,
-        "media_warnings": list(chart.get("warnings") or []) + ([] if news_ready else ["news_image_missing"]),
-        "rights_status": "operator_review_required" if news_ready else "not_ready",
+        "media_warnings": list(chart.get("warnings") or []) + audit_warnings + ([] if news_ready else ["news_image_missing"]),
+        "media_blockers": audit_blockers,
+        "rights_status": "sourceable_review_required" if news_ready and not audit_blockers else "not_ready",
     }
 
 
@@ -207,11 +244,110 @@ def _build_clean_image_query(title: str) -> str:
             title = title[len(prefix):].strip()
     # Remove non-alphanumeric chars except space and dash
     title = re.sub(r'[^a-zA-Z0-9\s-]', '', title).strip()
-    words = title.split()
-    if len(words) > 6:
-        words = words[:6]
+    title = re.sub(r"\bUS\b", "United States", title, flags=re.IGNORECASE)
+    stopwords = {"as", "the", "a", "an", "and", "or", "to", "of", "in", "on", "for", "with", "rise", "rises", "rising"}
+    words = [word for word in title.split() if word.lower() not in stopwords]
+    if len(words) > 9:
+        words = words[:9]
     cleaned = " ".join(words)
-    return f"{cleaned} macro chart"
+    return f"{cleaned} macro financial chart news"
+
+
+def _instagram_safe_image_url(public_image_url: str | None) -> str | None:
+    """Return a square JPEG proxy URL for Instagram's strict aspect-ratio gate."""
+    if not public_image_url:
+        return None
+    if "images.weserv.nl" in public_image_url:
+        return public_image_url
+    safe_source = urllib.parse.quote(public_image_url, safe=":/%._-~")
+    return f"https://images.weserv.nl/?url={safe_source}&w=1080&h=1080&fit=contain&bg=white&output=jpg"
+
+
+def _load_image_metadata(image_path: str | Path | None) -> dict[str, Any]:
+    if not image_path:
+        return {}
+    meta_path = Path(image_path).with_suffix(".json")
+    if not meta_path.exists():
+        return {}
+    try:
+        data = json.loads(meta_path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def _asset_caption(asset: dict[str, Any], default_label: str = "Chart") -> str:
+    caption = str(asset.get("caption") or "").strip()
+    source_label = str(asset.get("canonical_source_label") or asset.get("source_label") or "").strip()
+    if not caption:
+        caption = f"{default_label} supporting the article's macro setup."
+    if source_label and source_label.lower() not in caption.lower():
+        caption = f"{caption.rstrip('.')}. Source: {source_label}."
+    return re.sub(r"\s+\.", ".", caption)
+
+
+def _visual_marker_block(asset: dict[str, Any], index: int) -> str:
+    asset_id = str(asset.get("asset_id") or f"visual_{index + 1}").strip()
+    label = "Chart" if "chart" in str(asset.get("visual_metric") or "").lower() else "Visual"
+    return f"\n\n[[VISUAL:{asset_id}]]\n\n*{label}: {_asset_caption(asset, label)}*\n\n"
+
+
+def _find_insert_positions(body: str, asset_count: int) -> list[int]:
+    headings = list(re.finditer(r"(?m)^###\s+.+$", body))
+    source_match = re.search(r"(?m)^##\s+Source trail\b", body)
+    end_or_sources = source_match.start() if source_match else len(body)
+    if not headings:
+        return [min(len(body), end_or_sources)] * asset_count
+    positions: list[int] = []
+    for idx in range(asset_count):
+        if idx == 0:
+            positions.append(headings[0].start())
+        elif idx == 1 and len(headings) >= 3:
+            positions.append(headings[2].start())
+        elif idx == 1 and len(headings) >= 2:
+            positions.append(headings[1].start())
+        else:
+            positions.append(end_or_sources)
+    return positions
+
+
+def _insert_substack_visual_markers(
+    body: str,
+    media_assets: list[dict[str, Any]],
+    visual_slots: list[dict[str, Any]] | None = None,
+) -> str:
+    assets = [dict(asset) for asset in media_assets if isinstance(asset, dict) and (asset.get("local_path") or asset.get("public_url"))]
+    if not assets:
+        return body
+    if re.search(r"\[\[VISUAL:[a-zA-Z0-9_-]+\]\]", body):
+        return body
+    if visual_slots:
+        slot_ids = [str(slot.get("asset_id") or "").strip() for slot in visual_slots if isinstance(slot, dict)]
+        ordered = []
+        for slot_id in slot_ids:
+            match = next((asset for asset in assets if str(asset.get("asset_id") or "") == slot_id), None)
+            if match:
+                ordered.append(match)
+        ordered.extend(asset for asset in assets if asset not in ordered)
+        assets = ordered
+    positions = _find_insert_positions(body, len(assets))
+    updated = body
+    for idx, (position, asset) in enumerate(sorted(zip(positions, assets), key=lambda item: item[0], reverse=True)):
+        updated = updated[:position].rstrip() + _visual_marker_block(asset, idx) + updated[position:].lstrip()
+    return updated.strip()
+
+
+def _single_asset_from_search(image_path: str | Path | None, public_image_url: str | None, source_metadata: dict[str, Any]) -> list[dict[str, Any]]:
+    if not image_path and not public_image_url:
+        return []
+    asset = dict(source_metadata or {})
+    asset.setdefault("asset_id", "primary")
+    asset.setdefault("visual_metric", asset.get("query") or "search image")
+    if image_path:
+        asset["local_path"] = str(image_path)
+    if public_image_url:
+        asset["public_url"] = public_image_url
+    return [asset]
 
 
 def create_branded_fallback_image(title: str, output_path: Path) -> bool:
@@ -287,37 +423,130 @@ def generate_live_platform_variants(
     variants, variant_threads = _fallback_variants(title, subtitle, body_text)
     image_path = None
     public_image_url = None
+    source_metadata: dict[str, Any] = {}
+    media_assets: list[dict[str, Any]] = []
+    media_audit: dict[str, Any] = {}
+    media_replacement_notes: list[str] = []
     provider_call_made = False
     provider_recovery_used = False
     provider_attempts: list[dict[str, Any]] = []
     validation_failures: list[str] = []
 
     try:
+        recency_days = int(os.environ.get("CONTENTOPS_MEDIA_SEARCH_RECENCY_DAYS", "365"))
+    except Exception:
+        recency_days = 365
+
+    try:
         # 1. Try refined specific query
         image_query = _build_clean_image_query(title)
-        image_path, public_image_url = execute_google_image_search_and_download(image_query)
+        image_path, public_image_url = execute_google_image_search_and_download(image_query, recency_days=recency_days)
         
         # 2. Fall back to generic query if specific failed
         if not image_path:
             fallback_query = "global economy financial chart news"
             print(f"[Info] Specific image query failed. Trying fallback: '{fallback_query}'")
-            image_path, public_image_url = execute_google_image_search_and_download(fallback_query, custom_filename="img_generic_fallback.jpg")
-            
-        # 3. If still no image found, generate a local branded cover card
-        if not image_path:
-            print("[Info] Web image search yielded no results. Generating local branded fallback card...")
-            fallback_filename = f"fallback_{hashlib.md5(title.encode('utf-8')).hexdigest()[:12]}.png"
-            local_fallback_path = Path("docs/automation/V6_MEDIA_SYSTEM/downloads") / fallback_filename
-            if create_branded_fallback_image(title, local_fallback_path):
-                image_path = str(local_fallback_path)
-                public_image_url = None
+            image_path, public_image_url = execute_google_image_search_and_download(
+                fallback_query,
+                custom_filename="img_generic_fallback.jpg",
+                recency_days=recency_days,
+            )
     except Exception as e:
         print(f"[Warning] Google Image search/generation failed: {e}")
+
+    source_metadata = _load_image_metadata(image_path)
+    if image_path or public_image_url:
+        media_audit = audit_media_candidate(
+            article_title=title,
+            article_text=body_text,
+            image_path=image_path,
+            public_image_url=public_image_url,
+            source_metadata=source_metadata,
+            as_of_date=os.environ.get("CONTENTOPS_AS_OF_DATE"),
+        )
+        if media_audit.get("audit_status") == "FAIL":
+            media_replacement_notes.append("search_candidate_rejected:" + "|".join(media_audit.get("blockers") or []))
+            print(f"[Warning] Search visual rejected by media content audit: {media_audit.get('blockers')}")
+
+    if not image_path or media_audit.get("audit_status") == "FAIL":
+        try:
+            source_backed_assets = build_current_macro_visual_pack(
+                title,
+                output_dir=Path("docs/automation/V6_MEDIA_SYSTEM/downloads"),
+                as_of_date=os.environ.get("CONTENTOPS_AS_OF_DATE"),
+            )
+        except Exception as exc:
+            print(f"[Warning] Source-backed chart pack generation failed: {exc}")
+            source_backed_assets = []
+        if source_backed_assets:
+            media_replacement_notes.append("source_backed_chart_pack_selected")
+            media_assets = source_backed_assets
+            source_metadata = dict(media_assets[0])
+            image_path = source_metadata.get("local_path")
+            public_image_url = source_metadata.get("public_url")
+            media_audit = audit_media_candidate(
+                article_title=title,
+                article_text=body_text,
+                image_path=image_path,
+                public_image_url=public_image_url,
+                source_metadata=source_metadata,
+                as_of_date=os.environ.get("CONTENTOPS_AS_OF_DATE"),
+            )
+
+    if not image_path:
+        print("[Info] No audited visual available. Generating local branded fallback card and blocking dispatch until reviewed...")
+        fallback_filename = f"fallback_{hashlib.md5(title.encode('utf-8')).hexdigest()[:12]}.png"
+        local_fallback_path = Path("docs/automation/V6_MEDIA_SYSTEM/downloads") / fallback_filename
+        if create_branded_fallback_image(title, local_fallback_path):
+            image_path = str(local_fallback_path)
+            public_image_url = None
+            source_metadata = {
+                "asset_id": "primary",
+                "source_label": "Capital Chronicle generated fallback card",
+                "canonical_source_label": "Capital Chronicle generated fallback card",
+                "query": title,
+                "visual_metric": "branded text cover card",
+                "local_path": image_path,
+            }
+            media_audit = audit_media_candidate(
+                article_title=title,
+                article_text=body_text,
+                image_path=image_path,
+                public_image_url=public_image_url,
+                source_metadata=source_metadata,
+                as_of_date=os.environ.get("CONTENTOPS_AS_OF_DATE"),
+            )
+
+    if not image_path and not media_audit:
+        media_audit = audit_media_candidate(
+            article_title=title,
+            article_text=body_text,
+            image_path=None,
+            public_image_url=None,
+            source_metadata={},
+            as_of_date=os.environ.get("CONTENTOPS_AS_OF_DATE"),
+        )
+
+    if not media_assets:
+        media_assets = _single_asset_from_search(image_path, public_image_url, source_metadata)
+    if media_replacement_notes:
+        media_audit.setdefault("replacement_notes", media_replacement_notes)
+    if media_audit.get("audit_status") == "FAIL":
+        validation_failures.append("media_content_audit_failed:" + "|".join(media_audit.get("blockers") or ["unknown"]))
+
+    variants["substack"] = _insert_substack_visual_markers(
+        str(variants.get("substack", "")),
+        media_assets,
+        article_draft.get("visual_slots") if isinstance(article_draft.get("visual_slots"), list) else None,
+    )
 
     media_manifest = _build_media_manifest(
         title=title,
         image_path=image_path,
         public_image_url=public_image_url,
+        source_metadata=source_metadata,
+        media_assets=media_assets,
+        media_audit=media_audit,
         source_csv=os.environ.get("CONTENTOPS_MACRO_CHART_CSV"),
     )
 
@@ -327,11 +556,15 @@ def generate_live_platform_variants(
             validation_failures.append("NINE_ROUTER_API_KEY_missing")
         else:
             prompt = (
-                f"You are a platform content editor for Capital Chronicle. Convert this canonical article into platform-native posts.\n"
+                f"You are a platform content editor for Capital Chronicle. Convert this canonical article into platform-native editorial distribution.\n"
                 f"Title: {title}\nSubtitle: {subtitle}\nArticle:\n{body_text}\n\n"
                 f"Return ONLY raw JSON: {{\"linkedin\": str, \"facebook\": str, \"discord\": str, \"telegram\": str, "
                 f"\"instagram_caption\": str, \"x_thread\": [str], \"threads_thread\": [str]}}.\n"
-                f"Rules: no stubs/placeholders, no financial advice, concrete article-specific language, X posts <= 280 chars, Threads posts <= 500 chars."
+                f"Rules: no stubs/placeholders, no financial advice, concrete article-specific language, X posts <= 280 chars, Threads posts <= 500 chars.\n"
+                f"Each platform must use a different editorial lead, one concrete evidence hook from the article, and a native pacing style. "
+                f"Do not repeat the same first sentence across platforms. LinkedIn should read like a professional analyst note; "
+                f"X and Threads should be concise thread-native; Discord and Telegram should sound like a newsroom channel update; "
+                f"Instagram/Facebook should give enough chart context for a visual-first post."
             )
             try:
                 llm_text = call_live_provider(prompt, "9router", timeout_seconds)

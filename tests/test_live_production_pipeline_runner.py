@@ -7,6 +7,8 @@ from live_contentops.live_production_pipeline_runner_v6 import (
     _dispatch_summary,
     _normalize_dispatch_result,
     _apply_canonical_link,
+    _instagram_image_candidates,
+    resolve_substack_public_url,
 )
 
 
@@ -54,6 +56,7 @@ def test_run_live_production_pipeline(mock_generate_variants, mock_run_article, 
 @patch("live_contentops.threads_adapter_v6.execute_threads_post")
 @patch("live_contentops.telegram_live_adapter_v6.execute_telegram_photo")
 @patch("live_contentops.telegram_live_adapter_v6.execute_telegram_post")
+@patch("live_contentops.facebook_page_adapter_v6.execute_facebook_photo")
 @patch("live_contentops.facebook_page_adapter_v6.execute_facebook_post")
 @patch("live_contentops.instagram_adapter_v6.execute_instagram_post")
 @patch("live_contentops.x_browser_adapter_v6.execute_x_comment")
@@ -61,7 +64,7 @@ def test_run_live_production_pipeline(mock_generate_variants, mock_run_article, 
 @patch("live_contentops.linkedin_browser_adapter_v6.execute_linkedin_post")
 @patch("live_contentops.substack_browser_adapter_v6.execute_substack_post")
 def test_run_live_production_pipeline_with_dispatch(
-    mock_substack, mock_linkedin, mock_x_post, mock_x_comment, mock_ig, mock_fb, mock_tg, mock_tg_photo, mock_threads, mock_discord, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
+    mock_substack, mock_linkedin, mock_x_post, mock_x_comment, mock_ig, mock_fb, mock_fb_photo, mock_tg, mock_tg_photo, mock_threads, mock_discord, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
     mock_run_article.return_value = {
         "packet_id": "art_test_packet_123",
@@ -93,14 +96,17 @@ def test_run_live_production_pipeline_with_dispatch(
     mock_x_comment.return_value = {"status": "SUCCESS"}
     mock_ig.return_value = {"status": "SUCCESS"}
     mock_fb.return_value = {"status": "SUCCESS"}
+    mock_fb_photo.return_value = {"status": "SUCCESS"}
     mock_tg.return_value = {"status": "SUCCESS"}
     mock_tg_photo.return_value = {"status": "SUCCESS"}
     mock_threads.return_value = {"status": "SUCCESS", "id": "threads_1"}
     mock_discord.return_value = {"status": "SUCCESS"}
     
     test_article_path = tmp_path / "canonical_article_packet.json"
+    audit_path = tmp_path / "latest_dispatch_audit.json"
     
-    with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", test_article_path):
+    with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", test_article_path), \
+         patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", audit_path):
         result = run_live_production_pipeline(
             topic="Yield rates drop",
             editorial_angle="No advice",
@@ -133,12 +139,13 @@ def test_run_live_production_pipeline_with_dispatch(
 @patch("live_contentops.linkedin_browser_adapter_v6.execute_linkedin_post", return_value={"status": "SUCCESS"})
 @patch("live_contentops.x_browser_adapter_v6.execute_x_post", return_value={"status": "SUCCESS"})
 @patch("live_contentops.instagram_adapter_v6.execute_instagram_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.facebook_page_adapter_v6.execute_facebook_photo", return_value={"status": "SUCCESS"})
 @patch("live_contentops.facebook_page_adapter_v6.execute_facebook_post", return_value={"status": "SUCCESS"})
 @patch("live_contentops.telegram_live_adapter_v6.execute_telegram_post", return_value={"status": "SUCCESS"})
 @patch("live_contentops.threads_adapter_v6.execute_threads_post", return_value={"status": "SUCCESS", "id": "threads_1"})
 @patch("live_contentops.discord_live_adapter_v6.execute_discord_post", return_value={"status": "SUCCESS"})
 def test_dispatch_uses_reachable_instagram_fallback_when_public_image_missing(
-    mock_discord, mock_threads, mock_tg, mock_fb, mock_ig, mock_x_post, mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
+    mock_discord, mock_threads, mock_tg, mock_fb, mock_fb_photo, mock_ig, mock_x_post, mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
     mock_run_article.return_value = {
         "packet_id": "art_test_packet_123",
@@ -218,6 +225,49 @@ def test_dispatch_platform_scope_retries_instagram_only_without_reposting_succes
     assert saved["dispatch_idempotency_control"] == "platform_scope_allowlist"
 
 
+@patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
+@patch("live_contentops.live_production_pipeline_runner_v6.generate_live_platform_variants")
+@patch("live_contentops.live_production_pipeline_runner_v6.time.sleep", return_value=None)
+@patch("live_contentops.instagram_adapter_v6.execute_instagram_post")
+def test_instagram_dispatch_retries_media_candidate_failure(
+    mock_ig, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
+):
+    mock_run_article.return_value = {
+        "packet_id": "art_test_packet_123",
+        "canonical_article_draft": {"title": "Test Title", "subtitle": "Test Subtitle"},
+    }
+    mock_generate_variants.return_value = {
+        "platform_variant_packet_id": "var_test_packet_456",
+        "public_image_url": "https://example.com/wide.png",
+        "variant_status": "VARIANT_READY",
+        "variants": {"instagram_caption": "Instagram caption"},
+        "variant_threads": {},
+        "media_manifest": {
+            "news_image_source_url": "https://example.com/wide.png",
+            "selected_media_by_platform": {"instagram": "https://example.com/wide.png"},
+        },
+    }
+    mock_ig.side_effect = [
+        {"status": "VALIDATION_FAILED", "validation_failures": ["image_aspect_ratio_unsupported:1168x466:2.506"]},
+        {"status": "SUCCESS", "id": "ig_media_1"},
+    ]
+
+    with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "article.json"), \
+         patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", tmp_path / "audit.json"):
+        result = run_live_production_pipeline(
+            "Topic",
+            "Angle",
+            live_run=False,
+            dispatch_live=True,
+            dispatch_platforms=["instagram"],
+        )
+
+    assert result["pipeline_status"] == "DISPATCH_COMPLETE"
+    assert result["dispatch_results"]["instagram"]["status"] == "SUCCESS"
+    assert mock_ig.call_count == 2
+    assert mock_ig.call_args_list[1].kwargs["image_url"].startswith("https://images.weserv.nl/")
+
+
 def test_dispatch_summary_normalizes_success_failure_and_blocked():
     failed = _normalize_dispatch_result("linkedin", error=RuntimeError("boom"))
     summary = _dispatch_summary({
@@ -261,12 +311,13 @@ def test_run_live_production_pipeline_blocked_dispatch_writes_audit(mock_generat
 @patch("live_contentops.linkedin_browser_adapter_v6.execute_linkedin_post", side_effect=RuntimeError("linkedin down"))
 @patch("live_contentops.x_browser_adapter_v6.execute_x_post")
 @patch("live_contentops.instagram_adapter_v6.execute_instagram_post")
+@patch("live_contentops.facebook_page_adapter_v6.execute_facebook_photo")
 @patch("live_contentops.facebook_page_adapter_v6.execute_facebook_post")
 @patch("live_contentops.telegram_live_adapter_v6.execute_telegram_post")
 @patch("live_contentops.threads_adapter_v6.execute_threads_post")
 @patch("live_contentops.discord_live_adapter_v6.execute_discord_post")
 def test_run_live_production_pipeline_partial_failure_is_structured(
-    mock_discord, mock_threads, mock_tg, mock_fb, mock_ig, mock_x_post, mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
+    mock_discord, mock_threads, mock_tg, mock_fb, mock_fb_photo, mock_ig, mock_x_post, mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
     mock_run_article.return_value = {
         "packet_id": "art_test_packet_123",
@@ -290,6 +341,7 @@ def test_run_live_production_pipeline_partial_failure_is_structured(
     mock_x_post.return_value = {"status": "SUCCESS"}
     mock_ig.return_value = {"status": "SUCCESS"}
     mock_fb.return_value = {"status": "SUCCESS"}
+    mock_fb_photo.return_value = {"status": "SUCCESS"}
     mock_tg.return_value = {"status": "SUCCESS"}
     mock_threads.return_value = {"status": "SUCCESS", "id": "threads_1"}
     mock_discord.return_value = {"status": "SUCCESS"}
@@ -344,6 +396,36 @@ def test_apply_canonical_link_strips_dead_token_when_no_url():
     assert "[link]" not in out.lower()
 
 
+def test_resolve_substack_public_url_uses_feed_for_admin_url(monkeypatch):
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def read(self):
+            return b"""<?xml version='1.0'?><rss><channel><item><title>Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes</title><link>https://capitalchronicle.substack.com/p/us-recession-risks-oil-volatility</link></item></channel></rss>"""
+
+    monkeypatch.setattr("urllib.request.urlopen", lambda *_args, **_kwargs: FakeResponse())
+    resolved = resolve_substack_public_url(
+        "https://capitalchronicle.substack.com/publish/post/205708785",
+        "Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes",
+    )
+    assert resolved == "https://capitalchronicle.substack.com/p/us-recession-risks-oil-volatility"
+
+
+def test_instagram_image_candidates_prefer_safe_proxy():
+    candidates = _instagram_image_candidates(
+        public_image_url="https://substackcdn.com/image/fetch/w_1200,h_675/https%3A%2F%2Fexample.com%2Fwide.png",
+        selected_media={"instagram": "https://images.weserv.nl/?url=https://example.com/wide.png&w=1080&h=1080&fit=contain&bg=white&output=jpg"},
+        media_manifest={"news_image_source_url": "https://example.com/wide.png"},
+    )
+    assert candidates[0].startswith("https://images.weserv.nl/")
+    assert any(candidate.startswith("https://wsrv.nl/") for candidate in candidates)
+    assert candidates[-1] == "https://example.com/wide.png"
+
+
 @patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
 @patch("live_contentops.live_production_pipeline_runner_v6.generate_live_platform_variants")
 @patch("live_contentops.live_production_pipeline_runner_v6.time.sleep", return_value=None)
@@ -352,12 +434,13 @@ def test_apply_canonical_link_strips_dead_token_when_no_url():
 @patch("live_contentops.x_browser_adapter_v6.execute_x_post", return_value={"status": "SUCCESS"})
 @patch("live_contentops.x_browser_adapter_v6.execute_x_comment", return_value={"status": "SUCCESS"})
 @patch("live_contentops.instagram_adapter_v6.execute_instagram_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.facebook_page_adapter_v6.execute_facebook_photo", return_value={"status": "SUCCESS"})
 @patch("live_contentops.facebook_page_adapter_v6.execute_facebook_post", return_value={"status": "SUCCESS"})
 @patch("live_contentops.telegram_live_adapter_v6.execute_telegram_photo", return_value={"status": "SUCCESS"})
 @patch("live_contentops.threads_adapter_v6.execute_threads_post", return_value={"status": "SUCCESS", "id": "t1"})
 @patch("live_contentops.discord_live_adapter_v6.execute_discord_post", return_value={"status": "SUCCESS"})
 def test_dispatch_passes_media_and_canonical_link(
-    mock_discord, mock_threads, mock_tg_photo, mock_fb, mock_ig, mock_x_comment, mock_x_post,
+    mock_discord, mock_threads, mock_tg_photo, mock_fb, mock_fb_photo, mock_ig, mock_x_comment, mock_x_post,
     mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
     mock_run_article.return_value = {
@@ -380,6 +463,7 @@ def test_dispatch_passes_media_and_canonical_link(
         "variant_threads": {"x": ["Tweet 1"], "threads": ["Threads 1"]},
         "media_manifest": {
             "news_image_path": "downloads/hero.jpg",
+            "media_assets": [{"asset_id": "primary", "local_path": "downloads/hero.jpg"}],
             "selected_media_by_platform": {"instagram": "https://cdn.example.com/hero.jpg", "telegram": "https://cdn.example.com/hero.jpg"},
         },
     }
@@ -390,13 +474,15 @@ def test_dispatch_passes_media_and_canonical_link(
 
     # Substack receives the local hero image for browser upload.
     assert mock_substack.call_args.kwargs["image_path"] == "downloads/hero.jpg"
+    assert mock_substack.call_args.kwargs["image_assets"] == [{"asset_id": "primary", "local_path": "downloads/hero.jpg"}]
     # LinkedIn gets the image and the canonical link appended to the body.
     assert mock_linkedin.call_args.kwargs["image_path"] == "downloads/hero.jpg"
     assert "https://sub.stack/p/live" in mock_linkedin.call_args.kwargs["text"]
     # X first post carries the local image path.
     assert mock_x_post.call_args.kwargs["image_url"] == "downloads/hero.jpg"
-    # Facebook gets the clickable canonical link.
-    assert mock_fb.call_args.kwargs["link"] == "https://sub.stack/p/live"
+    # Facebook gets a true photo post with the canonical link in the caption.
+    assert mock_fb_photo.call_args.kwargs["image_url"] == "https://cdn.example.com/hero.jpg"
+    assert "https://sub.stack/p/live" in mock_fb_photo.call_args.kwargs["message"]
     # Threads first post carries a public image URL.
     assert mock_threads.call_args_list[0].kwargs["image_url"] == "https://cdn.example.com/hero.jpg"
     # Discord builds a rich embed with the canonical URL and hero image.

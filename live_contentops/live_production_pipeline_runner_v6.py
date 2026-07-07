@@ -14,6 +14,7 @@ import json
 import os
 import re
 import time
+import urllib.parse
 import uuid
 from pathlib import Path
 from typing import Any
@@ -52,7 +53,7 @@ def _write_dispatch_audit(payload: dict[str, Any]) -> None:
 
 def _result_url(result: dict[str, Any]) -> str | None:
     response = result.get("response") if isinstance(result.get("response"), dict) else {}
-    return result.get("url") or response.get("url") or response.get("final_url")
+    return result.get("public_url") or response.get("public_url") or result.get("url") or response.get("url") or response.get("final_url")
 
 
 def _normalize_dispatch_result(platform: str, result: dict[str, Any] | None = None, error: Exception | str | None = None) -> dict[str, Any]:
@@ -123,23 +124,183 @@ def _apply_canonical_link(text: str, url: str | None) -> str:
     return f"{body.rstrip()}\n\nRead the full editorial analysis: {url}"
 
 
+def _is_substack_admin_url(url: str | None) -> bool:
+    return bool(url and "/publish/" in url)
+
+
+def _is_substack_public_url(url: str | None) -> bool:
+    return bool(url and "/p/" in url and "/publish/" not in url)
+
+
+def _clean_public_url(url: str | None) -> str | None:
+    if not url:
+        return None
+    return url.split("?", 1)[0].strip()
+
+
+def _normalize_title(text: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", str(text or "").lower()).strip()
+
+
+def _feed_text(block: str, tag: str) -> str:
+    match = re.search(rf"<{tag}[^>]*>(.*?)</{tag}>", block, re.IGNORECASE | re.DOTALL)
+    if not match:
+        return ""
+    value = match.group(1)
+    value = re.sub(r"^<!\[CDATA\[|\]\]>$", "", value.strip(), flags=re.DOTALL)
+    import html
+    return html.unescape(re.sub(r"<[^>]+>", "", value)).strip()
+
+
+def resolve_substack_public_url(candidate_url: str | None, title: str) -> str | None:
+    """Resolve an admin/publish URL to the public Substack reader URL."""
+    clean = _clean_public_url(candidate_url)
+    if _is_substack_public_url(clean):
+        return clean
+    try:
+        import urllib.request
+        feed_url = "https://capitalchronicle.substack.com/feed"
+        req = urllib.request.Request(feed_url, headers={"User-Agent": "CapitalChronicleContentOps/1.0"})
+        with urllib.request.urlopen(req, timeout=12) as response:
+            feed = response.read().decode("utf-8", errors="ignore")
+        target_title = _normalize_title(title)
+        best_link = None
+        best_score = 0
+        for item in re.findall(r"<item\b.*?</item>", feed, flags=re.IGNORECASE | re.DOTALL):
+            item_title = _normalize_title(_feed_text(item, "title"))
+            item_link = _clean_public_url(_feed_text(item, "link"))
+            if not _is_substack_public_url(item_link):
+                continue
+            if item_title == target_title:
+                return item_link
+            target_tokens = set(target_title.split())
+            item_tokens = set(item_title.split())
+            score = len(target_tokens & item_tokens)
+            if score > best_score:
+                best_score = score
+                best_link = item_link
+        if best_link and best_score >= 4:
+            return best_link
+    except Exception as exc:
+        print(f"[Warning] Failed to resolve Substack public URL from feed: {exc}")
+    if _is_substack_admin_url(clean):
+        print(f"[Warning] Refusing to use Substack admin URL as public canonical link: {clean}")
+        return None
+    return clean
+
+
+def _is_useful_public_image_url(url: str | None) -> bool:
+    if not url or not url.startswith(("http://", "https://")):
+        return False
+    lowered = url.lower()
+    bad_markers = (
+        "subscribe-card",
+        "substack-post-office",
+        "default-logo",
+        "default-light",
+        "avatar",
+        "w_20,h_20",
+        "w_32,h_32",
+        "w_36,h_36",
+        "w_72,h_72",
+        "2500x2500",
+    )
+    return not any(marker in lowered for marker in bad_markers)
+
+
+def _is_substack_cdn_image_url(url: str | None) -> bool:
+    return bool(url and "substackcdn.com/image/fetch" in url and _is_useful_public_image_url(url))
+
+
+def _dedupe_urls(urls: list[str | None]) -> list[str]:
+    seen: set[str] = set()
+    unique: list[str] = []
+    for url in urls:
+        clean = str(url or "").strip()
+        if not clean or clean in seen:
+            continue
+        seen.add(clean)
+        unique.append(clean)
+    return unique
+
+
+def _instagram_proxy_urls(source_url: str | None) -> list[str]:
+    """Build square JPEG transforms for Instagram's strict feed aspect rules."""
+    if not source_url or not source_url.startswith(("http://", "https://")):
+        return []
+    safe_source = urllib.parse.quote(source_url, safe=":/%._-~")
+    no_scheme_source = re.sub(r"^https?://", "", source_url)
+    safe_no_scheme = urllib.parse.quote(no_scheme_source, safe="/%._-~")
+    params = "w=1080&h=1080&fit=contain&bg=white&output=jpg"
+    return [
+        f"https://images.weserv.nl/?url={safe_source}&{params}",
+        f"https://wsrv.nl/?url={safe_no_scheme}&{params}",
+    ]
+
+
+def _source_url_from_substack_cdn(url: str | None) -> str | None:
+    if not _is_substack_cdn_image_url(url):
+        return None
+    encoded_source = str(url).rsplit("/", 1)[-1]
+    decoded = urllib.parse.unquote(encoded_source)
+    return decoded if decoded.startswith(("http://", "https://")) else None
+
+
+def _instagram_image_candidates(
+    *,
+    public_image_url: str | None,
+    selected_media: dict[str, Any],
+    media_manifest: dict[str, Any],
+) -> list[str]:
+    source_url = (
+        media_manifest.get("news_image_source_url")
+        or media_manifest.get("news_image_public_url")
+        or _source_url_from_substack_cdn(public_image_url)
+    )
+    return _dedupe_urls([
+        selected_media.get("instagram"),
+        media_manifest.get("instagram_safe_image_public_url"),
+        *_instagram_proxy_urls(str(source_url) if source_url else None),
+        *_instagram_proxy_urls(public_image_url),
+        public_image_url,
+        str(source_url) if source_url else None,
+    ])
+
+
+def _instagram_media_failure(result: dict[str, Any]) -> bool:
+    status = str(result.get("status") or "").upper()
+    if status == "VALIDATION_FAILED":
+        return True
+    raw = result.get("raw") if isinstance(result.get("raw"), dict) else result
+    error_blob = json.dumps(raw.get("error_response") or raw.get("response") or raw, sort_keys=True, default=str).lower()
+    media_markers = (
+        "aspect ratio",
+        "image_aspect_ratio_unsupported",
+        "only photo or video",
+        "media download",
+        "media type",
+        "image url",
+    )
+    return any(marker in error_blob for marker in media_markers)
+
+
 def extract_og_image(url: str) -> str | None:
-    if not url or "mock-post" in url:
+    if not url or "mock-post" in url or _is_substack_admin_url(url):
         return None
     try:
         import urllib.request
         req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"})
         with urllib.request.urlopen(req, timeout=10) as response:
             html = response.read().decode("utf-8", errors="ignore")
-            # Match og:image meta tag
-            match = re.search(r'<meta\s+property=["\']og:image["\']\s+content=["\']([^"\']+)["\']', html)
-            if not match:
-                # Try simple content first format
-                match = re.search(r'<meta\s+content=["\']([^"\']+)["\']\s+property=["\']og:image["\']', html)
-            if match:
+            for tag in re.findall(r"<meta\b[^>]+>", html, flags=re.IGNORECASE):
+                if not re.search(r'''(?:property|name)=["'](?:og:image|twitter:image)["']''', tag, flags=re.IGNORECASE):
+                    continue
+                match = re.search(r'''content=["']([^"']+)["']''', tag, flags=re.IGNORECASE)
+                if not match:
+                    continue
                 img_url = match.group(1)
-                # Ignore default substack logo images
-                if "substack-post-office" not in img_url and "default-logo" not in img_url:
+                # Ignore default Substack/card/avatar images.
+                if _is_useful_public_image_url(img_url):
                     print(f"[Info] Extracted public CDN image URL from Substack post: {img_url}")
                     return img_url
     except Exception as e:
@@ -194,11 +355,12 @@ def run_live_production_pipeline(
 
     variants = variant_packet.get("variants", {})
     variant_threads = variant_packet.get("variant_threads", {})
-    public_image_url = variant_packet.get("public_image_url")
+    public_image_url = os.environ.get("CONTENTOPS_PUBLIC_IMAGE_URL_OVERRIDE") or variant_packet.get("public_image_url")
     media_manifest = variant_packet.get("media_manifest") if isinstance(variant_packet.get("media_manifest"), dict) else {}
     selected_media = media_manifest.get("selected_media_by_platform") if isinstance(media_manifest.get("selected_media_by_platform"), dict) else {}
     local_image_path = media_manifest.get("news_image_path") or variant_packet.get("image_path")
-    canonical_url: str | None = None  # populated after Substack publishes
+    media_assets = media_manifest.get("media_assets") if isinstance(media_manifest.get("media_assets"), list) else None
+    canonical_url: str | None = os.environ.get("CONTENTOPS_CANONICAL_URL_OVERRIDE") or None  # populated after Substack publishes
     requested_platforms = tuple(str(item).strip().lower() for item in (dispatch_platforms or []) if str(item).strip())
     selected_platforms = requested_platforms or ("substack", "linkedin", "x", "instagram", "facebook", "telegram", "threads", "discord")
 
@@ -260,12 +422,25 @@ def run_live_production_pipeline(
                         subtitle=article_packet.get("canonical_article_draft", {}).get("subtitle", ""),
                         body_markdown=body,
                         image_path=local_image_path,
+                        image_assets=media_assets,
                         dry_run=False
                     )
                     dispatch_results["substack"] = _normalize_dispatch_result("substack", sub_res)
                     # Substack is the canonical long-form home; its URL is the clickable link for every other platform.
                     if dispatch_results["substack"].get("ok"):
-                        canonical_url = dispatch_results["substack"].get("url") or canonical_url
+                        draft_title = article_packet.get("canonical_article_draft", {}).get("title", topic)
+                        raw_canonical_url = (
+                            sub_res.get("public_url")
+                            or (sub_res.get("response") or {}).get("public_url")
+                            or dispatch_results["substack"].get("url")
+                            or canonical_url
+                        )
+                        canonical_url = resolve_substack_public_url(raw_canonical_url, draft_title)
+                        if canonical_url:
+                            dispatch_results["substack"]["url"] = canonical_url
+                        adapter_image = sub_res.get("public_image_url") or (sub_res.get("response") or {}).get("public_image_url")
+                        if _is_useful_public_image_url(adapter_image):
+                            public_image_url = adapter_image
                         if canonical_url:
                             # Extract CDN image URL from published Substack post HTML
                             extracted_img = extract_og_image(canonical_url)
@@ -334,14 +509,27 @@ def run_live_production_pipeline(
                 from live_contentops.instagram_adapter_v6 import execute_instagram_post
                 # Instagram captions can't have clickable links, but include the URL as plain text for copy/paste.
                 caption = _apply_canonical_link(variants.get("instagram_caption", variants.get("telegram", "")), canonical_url)
-                active_img = selected_media.get("instagram") or public_image_url
-                missing = _require_payload(caption, "instagram_caption") or _require_payload(active_img, "instagram_image_url")
+                image_candidates = _instagram_image_candidates(
+                    public_image_url=public_image_url,
+                    selected_media=selected_media,
+                    media_manifest=media_manifest,
+                )
+                missing = _require_payload(caption, "instagram_caption") or _require_payload(image_candidates[0] if image_candidates else None, "instagram_image_url")
                 if missing:
                     dispatch_results["instagram"] = _blocked_result("instagram", missing)
                 else:
-                    print("[Info] Dispatching to Instagram...")
-                    ig_res = execute_instagram_post(image_url=active_img, caption=caption, dry_run=False)
-                    dispatch_results["instagram"] = _normalize_dispatch_result("instagram", ig_res)
+                    print(f"[Info] Dispatching to Instagram with {len(image_candidates)} image candidate(s)...")
+                    last_result: dict[str, Any] | None = None
+                    for idx, active_img in enumerate(image_candidates, start=1):
+                        if idx > 1:
+                            print(f"[Info] Retrying Instagram with fallback image candidate {idx}/{len(image_candidates)}...")
+                        ig_res = execute_instagram_post(image_url=active_img, caption=caption, dry_run=False)
+                        normalized = _normalize_dispatch_result("instagram", ig_res)
+                        normalized["attempted_image_url"] = active_img
+                        last_result = normalized
+                        if normalized.get("ok") or not _instagram_media_failure(normalized):
+                            break
+                    dispatch_results["instagram"] = last_result or _blocked_result("instagram", "instagram_image_url_missing")
                     print(f"[Info] Instagram dispatch outcome: {dispatch_results['instagram']['status']}")
             except Exception as exc:
                 print(f"[Warning] Instagram dispatch failed: {exc}")
@@ -350,15 +538,19 @@ def run_live_production_pipeline(
 
         if "facebook" in selected_platforms:
             try:
-                from live_contentops.facebook_page_adapter_v6 import execute_facebook_post
+                from live_contentops.facebook_page_adapter_v6 import execute_facebook_photo, execute_facebook_post
                 message = _apply_canonical_link(variants.get("facebook", variants.get("linkedin", "")), canonical_url)
+                facebook_media = selected_media.get("facebook") or public_image_url
                 missing = _require_payload(message, "facebook_message")
                 if missing:
                     dispatch_results["facebook"] = _blocked_result("facebook", missing)
                 else:
                     print("[Info] Dispatching to Facebook Page...")
-                    # link renders a clickable preview card (image + title) on the FB feed.
-                    fb_res = execute_facebook_post(message=message, link=canonical_url, dry_run=False)
+                    # Prefer a true photo post over a link preview so the selected chart/image is visible.
+                    if facebook_media:
+                        fb_res = execute_facebook_photo(message=message, image_url=facebook_media, dry_run=False)
+                    else:
+                        fb_res = execute_facebook_post(message=message, link=canonical_url, dry_run=False)
                     dispatch_results["facebook"] = _normalize_dispatch_result("facebook", fb_res)
                     print(f"[Info] Facebook dispatch outcome: {dispatch_results['facebook']['status']}")
             except Exception as exc:
@@ -453,6 +645,8 @@ def run_live_production_pipeline(
         ret["dispatch_live"] = True
         ret["dispatch_results"] = dispatch_results
         ret["dispatch_summary"] = summary
+        ret["canonical_url"] = canonical_url
+        ret["public_image_url"] = public_image_url
         ret["pipeline_status"] = "DISPATCH_COMPLETE" if not summary["failed_platforms"] and not summary["blocked_platforms"] else "DISPATCH_PARTIAL_FAILURE"
         _write_dispatch_audit(ret)
 

@@ -7,6 +7,7 @@ from live_contentops.substack_browser_adapter_v6 import (
     execute_substack_comment,
     execute_substack_edit,
     execute_substack_post,
+    _split_body_visual_markers,
 )
 
 
@@ -22,6 +23,27 @@ def test_execute_substack_post_dry_run():
     assert res["action"] == "post"
     assert res["payload_redacted"]["title"] == "Test Title"
     assert "mock_post_" in res["response"]["id"]
+
+
+def test_substack_visual_markers_are_split_for_in_body_uploads():
+    segments = _split_body_visual_markers("Intro\n\n[[VISUAL:primary]]\n\nBody\n\n[[VISUAL:recent_price]]")
+    assert segments == [
+        ("text", "Intro\n\n"),
+        ("visual", "primary"),
+        ("text", "\n\nBody\n\n"),
+        ("visual", "recent_price"),
+    ]
+
+
+def test_execute_substack_post_dry_run_counts_visual_assets():
+    res = execute_substack_post(
+        title="Visual Title",
+        body_markdown="Intro\n\n[[VISUAL:primary]]\n\nBody",
+        image_assets=[{"asset_id": "primary", "local_path": "downloads/current.png"}],
+        dry_run=True,
+    )
+    assert res["payload_redacted"]["visual_marker_count"] == 1
+    assert res["payload_redacted"]["image_asset_count"] == 1
 
 
 def test_execute_substack_comment_dry_run():

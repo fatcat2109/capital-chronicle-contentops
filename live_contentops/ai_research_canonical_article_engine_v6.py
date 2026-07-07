@@ -128,6 +128,39 @@ def _source_trail_from_urls(urls: list[str]) -> list[dict[str, str]]:
     return trail
 
 
+def _normalise_visual_slots(raw_slots: Any) -> list[dict[str, str]]:
+    if not isinstance(raw_slots, list):
+        return []
+    slots: list[dict[str, str]] = []
+    for idx, slot in enumerate(raw_slots, start=1):
+        if not isinstance(slot, dict):
+            continue
+        slots.append({
+            "asset_id": str(slot.get("asset_id") or ("primary" if idx == 1 else f"visual_{idx}")),
+            "placement_after_section": str(slot.get("placement_after_section") if slot.get("placement_after_section") is not None else idx - 1),
+            "visual_kind": str(slot.get("visual_kind") or "chart"),
+            "editorial_purpose": str(slot.get("editorial_purpose") or slot.get("purpose") or ""),
+            "data_requirement": str(slot.get("data_requirement") or ""),
+            "caption_guidance": str(slot.get("caption_guidance") or slot.get("caption") or ""),
+            "source_requirement": str(slot.get("source_requirement") or ""),
+            "audit_questions": str(slot.get("audit_questions") or ""),
+        })
+    return slots
+
+
+def _visual_slot_failures(slots: list[dict[str, Any]]) -> list[str]:
+    if len(slots) < 2:
+        return ["visual_slots_too_thin"]
+    required_fields = ("asset_id", "editorial_purpose", "data_requirement", "caption_guidance", "source_requirement")
+    for idx, slot in enumerate(slots, start=1):
+        if not isinstance(slot, dict):
+            return [f"visual_slot_invalid:{idx}"]
+        missing = [field for field in required_fields if not str(slot.get(field) or "").strip()]
+        if missing:
+            return [f"visual_slot_purpose_missing:{idx}:{','.join(missing)}"]
+    return []
+
+
 def validate_article_quality(draft: dict[str, Any], min_words: int = MIN_CANONICAL_ARTICLE_WORDS) -> list[str]:
     text = article_plain_text(draft)
     low = text.lower()
@@ -147,6 +180,15 @@ def validate_article_quality(draft: dict[str, Any], min_words: int = MIN_CANONIC
         failures.append("raw_url_in_public_body")
     if len(source_trail) < 3 and len(draft.get("citations") or []) < 3:
         failures.append("source_trail_too_thin")
+    generic_claims = [
+        str(item.get("claim_supported") or "").lower()
+        for item in source_trail
+        if isinstance(item, dict)
+    ]
+    if source_trail and generic_claims and all("operator_review_required" in claim or "claim review required" in claim for claim in generic_claims):
+        failures.append("source_trail_claims_too_generic")
+    if not str(draft.get("slug_candidate") or "").strip() or not str(draft.get("dek") or "").strip() or len(str(draft.get("meta_description") or "").strip()) < 110:
+        failures.append("seo_metadata_missing")
     if len(re.findall(r"\b\d+(?:\.\d+)?\s*(?:%|percent|bps|basis points|trillion|billion|million|days|weeks|months|years)\b", low)) < 3:
         failures.append("missing_specific_numbers")
     if not any(term in low for term in ("source", "data", "reported", "according", "index", "shipping", "policy", "liquidity")):
@@ -159,6 +201,7 @@ def validate_article_quality(draft: dict[str, Any], min_words: int = MIN_CANONIC
         failures.append("chart_callout_missing")
     if "image" not in callouts.lower() and "photo" not in callouts.lower():
         failures.append("media_callout_missing")
+    failures.extend(_visual_slot_failures(_normalise_visual_slots(draft.get("visual_slots") or [])))
     return failures
 
 
@@ -356,6 +399,8 @@ def run_article_engine(
     title = f"Capital Chronicle Educational Briefing: {inputs.operator_idea}"
     subtitle = f"Process-led analysis tailored for {inputs.target_audience}"
     slug = re.sub(r'[^a-z0-9]+', '-', inputs.operator_idea.lower()).strip('-')
+    dek = f"An educational breakdown of macro calibration and metadata context regarding {inputs.operator_idea}."
+    meta_description = f"Capital Chronicle reviews {inputs.operator_idea} through source-led macro context, visual evidence, and process-first educational analysis."
 
     thesis = f"Methodological transparency and rigorous historical context are essential when reviewing {inputs.operator_idea}."
     intro = f"This briefing grounds our editorial desk's approach to {inputs.operator_idea}. By focusing on the {inputs.editorial_angle}, we analyze historical patterns without offering directional investment advice."
@@ -372,6 +417,28 @@ def run_article_engine(
     ]
 
     conclusion = f"A disciplined operator relies on verified context, explicit assumptions, and clear disclaimers to ensure community integrity under {inputs.risk_disclaimer_policy}."
+    visual_slots = [
+        {
+            "asset_id": "primary",
+            "placement_after_section": "intro",
+            "visual_kind": "chart",
+            "editorial_purpose": "Establish the current macro setup and the latest data endpoint before interpretation.",
+            "data_requirement": "Current source-backed macro series with observation date no older than the prior calendar year.",
+            "caption_guidance": "Name the metric, source, latest observation date, and why the visual matters for the setup.",
+            "source_requirement": "Primary or source-backed public data provider with canonical source attribution.",
+            "audit_questions": "Does the latest visible date match the article date and does the chart direction align with the thesis?",
+        },
+        {
+            "asset_id": "recent_price",
+            "placement_after_section": "market_implications",
+            "visual_kind": "chart",
+            "editorial_purpose": "Support the market-implication section with a second, narrower visual lens.",
+            "data_requirement": "Recent-window chart or evidence visual that clarifies the mechanism discussed in the section.",
+            "caption_guidance": "Explain the recent window and the specific claim it supports.",
+            "source_requirement": "Same-source or clearly attributed secondary public data provider.",
+            "audit_questions": "Does this visual add evidence rather than repeating the hero image?",
+        },
+    ]
 
     provider_call_made = False
     provider_request_count = 0
@@ -423,7 +490,8 @@ def run_article_engine(
                     f"- 2,000 to 2,400 words across intro, 5-8 named sections, and conclusion.\n"
                     f"- Short, readable paragraphs; no wall-of-text blocks.\n"
                     f"- Use concrete numbers only from supplied context; never invent data.\n"
-                    f"- Include at least one chart placement marker and one image/photo placement marker.\n"
+                    f"- Include two to three visual_slots that specify where charts/images should appear in the body.\n"
+                    f"- Each visual slot must state its editorial purpose, data requirement, caption guidance, source requirement, and audit questions.\n"
                     f"- Do not put raw URLs in the public article body. Put URLs only in source_trail.\n"
                     f"- Separate reported evidence from interpretation and uncertainty.\n"
                     f"- SEO title, subtitle, slug, meta description, and concise dek must be publication-grade.\n"
@@ -440,7 +508,8 @@ def run_article_engine(
                     f"  \"conclusion\": \"Short concluding section...\",\n"
                     f"  \"source_trail\": [{{\"label\": \"Source label\", \"publisher_or_origin\": \"Publisher\", \"url\": \"https://...\", \"claim_supported\": \"Specific claim\"}}],\n"
                     f"  \"chart_callouts\": [\"[CHART: describe chart and source data needed]\"],\n"
-                    f"  \"media_callouts\": [\"[IMAGE: describe relevant news/photo visual]\"]\n"
+                    f"  \"media_callouts\": [\"[IMAGE: describe relevant news/photo visual]\"],\n"
+                    f"  \"visual_slots\": [{{\"asset_id\": \"primary\", \"placement_after_section\": \"intro\", \"visual_kind\": \"chart\", \"editorial_purpose\": \"Why this visual belongs here\", \"data_requirement\": \"Current source-backed data needed\", \"caption_guidance\": \"Caption should name metric/source/date\", \"source_requirement\": \"Canonical source required\", \"audit_questions\": \"Current? relevant? directionally aligned?\"}}]\n"
                     f"}}\n"
                 )
                 models: list[str | None] = [None]
@@ -468,12 +537,16 @@ def run_article_engine(
                         candidate = {
                             "title": next_title or title,
                             "subtitle": next_subtitle or subtitle,
+                            "slug_candidate": str(llm_data.get("slug_candidate") or slug),
+                            "dek": str(llm_data.get("dek") or dek),
+                            "meta_description": str(llm_data.get("meta_description") or meta_description),
                             "intro": next_intro or intro,
                             "sections": next_sections,
                             "conclusion": next_conclusion or conclusion,
                             "source_trail": llm_data.get("source_trail") or _source_trail_from_urls(citations),
                             "chart_callouts": llm_data.get("chart_callouts") or [],
                             "media_callouts": llm_data.get("media_callouts") or [],
+                            "visual_slots": _normalise_visual_slots(llm_data.get("visual_slots")),
                         }
                         failures = validate_article_quality(candidate)
                         if failures:
@@ -484,12 +557,16 @@ def run_article_engine(
                             continue
                         title = candidate["title"]
                         subtitle = candidate["subtitle"]
+                        slug = candidate["slug_candidate"]
+                        dek = candidate["dek"]
+                        meta_description = candidate["meta_description"]
                         intro = candidate["intro"]
                         sections = candidate["sections"]
                         conclusion = candidate["conclusion"]
                         source_trail = candidate["source_trail"]
                         chart_callouts = candidate["chart_callouts"]
                         media_callouts = candidate["media_callouts"]
+                        visual_slots = candidate["visual_slots"]
                         attempt.update({"status": "accepted", "failure": None})
                         provider_attempts.append(attempt)
                         if model_name:
@@ -522,7 +599,8 @@ def run_article_engine(
         "title": title,
         "subtitle": subtitle,
         "slug_candidate": slug,
-        "dek": f"An educational breakdown of macro calibration and metadata context regarding {inputs.operator_idea}.",
+        "dek": dek,
+        "meta_description": meta_description,
         "thesis": thesis,
         "intro": intro,
         "sections": sections,
@@ -537,6 +615,7 @@ def run_article_engine(
         "source_trail": locals().get("source_trail", _source_trail_from_urls(citations)),
         "chart_callouts": locals().get("chart_callouts", ["[CHART: relevant macro series from approved local data]"]),
         "media_callouts": locals().get("media_callouts", ["[IMAGE: relevant news/photo visual with operator-reviewed rights]"]),
+        "visual_slots": locals().get("visual_slots", visual_slots),
         "body_word_count": _word_count(article_plain_text({"title": title, "subtitle": subtitle, "intro": intro, "sections": sections, "conclusion": conclusion})),
         "rendering_warnings": ["raw_url_removed_from_public_body"] if _raw_urls(article_plain_text({"title": title, "subtitle": subtitle, "intro": intro, "sections": sections, "conclusion": conclusion})) else [],
         "created_at": DETERMINISTIC_TIMESTAMP,
@@ -567,7 +646,7 @@ def run_article_engine(
         "target_keyword": target_keyword,
         "secondary_keywords": ["macro calendar", "educational briefing", "volatility review"],
         "title_alternatives": [f"Chronicle Watchlist: {inputs.operator_idea}", f"Understanding {inputs.operator_idea}"],
-        "meta_description": f"An educational briefing analyzing {inputs.operator_idea} under the editorial angle: {inputs.editorial_angle}."
+        "meta_description": meta_description,
     }
 
     editorial = {

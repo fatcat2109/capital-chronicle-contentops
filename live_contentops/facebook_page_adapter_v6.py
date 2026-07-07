@@ -61,6 +61,11 @@ def compile_facebook_post_payload(message: str, link: str | None = None) -> dict
     return payload
 
 
+def compile_facebook_photo_payload(message: str, image_url: str) -> dict[str, Any]:
+    """Compiles the payload for a Facebook Page photo post."""
+    return {"caption": message, "url": image_url}
+
+
 def execute_facebook_post(
     page_id: str | None = None,
     access_token: str | None = None,
@@ -100,6 +105,52 @@ def execute_facebook_post(
         result = {"status": "FAILED", "error": str(error)}
 
     classify_and_record_dispatch("facebook_page", "post", result, (time.perf_counter() - t0) * 1000.0, payload_size)
+    return result
+
+
+def execute_facebook_photo(
+    page_id: str | None = None,
+    access_token: str | None = None,
+    message: str = "",
+    image_url: str = "",
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Executes a POST request to graph.facebook.com to publish a Page photo."""
+    page_id = _facebook_page_id(page_id)
+    access_token = _facebook_token(access_token)
+    missing = [
+        name
+        for name, value in (("page_id", page_id), ("access_token", access_token), ("message", message), ("image_url", image_url))
+        if not value
+    ]
+    if missing:
+        return _validation_failed(missing)
+
+    url = f"https://graph.facebook.com/{GRAPH_VERSION}/{page_id}/photos"
+    payload = compile_facebook_photo_payload(message, image_url)
+
+    if dry_run:
+        return {
+            "status": "DRY_RUN_PASS",
+            "url": url,
+            "payload_redacted": {**payload, "access_token": "<redacted>"},
+            "response": {"id": f"{page_id}_mock_photo_12345", "post_id": f"{page_id}_mock_post_12345"},
+        }
+
+    payload["access_token"] = access_token
+    from .live_telemetry_v6 import classify_and_record_dispatch
+
+    t0 = time.perf_counter()
+    payload_size = len(urllib.parse.urlencode(payload).encode("utf-8"))
+    try:
+        response, payload_size = _post_form(url, payload)
+        result = {"status": "SUCCESS", "id": response.get("post_id") or response.get("id"), "response": response}
+    except urllib.error.HTTPError as error:
+        result = _parse_http_error(error)
+    except Exception as error:
+        result = {"status": "FAILED", "error": str(error)}
+
+    classify_and_record_dispatch("facebook_page", "photo", result, (time.perf_counter() - t0) * 1000.0, payload_size)
     return result
 
 

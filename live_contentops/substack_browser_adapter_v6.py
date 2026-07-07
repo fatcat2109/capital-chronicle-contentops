@@ -7,14 +7,253 @@ from __future__ import annotations
 
 import hashlib
 import os
+import re
 import shutil
 import time
+import urllib.parse
 from pathlib import Path
 from typing import Any
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_SUBSTACK_AND_X_V0"
 DEFAULT_PROFILE_SRC = Path(r"A:\Capital Chronicle\operator-browser-profiles\contentops-social-main")
 TEMP_PROFILE_DIR = Path(r"A:\Capital Chronicle\tools\cc-live-contentops\scratch\temp_profile_substack")
+VISUAL_MARKER_RE = re.compile(r"\[\[VISUAL:([a-zA-Z0-9_-]+)\]\]")
+
+
+def _is_public_substack_url(url: str | None) -> bool:
+    return bool(url and "/p/" in url and "/publish/" not in url)
+
+
+def _absolute_substack_url(url: str | None) -> str | None:
+    if not url:
+        return None
+    if url.startswith("/"):
+        return f"https://capitalchronicle.substack.com{url}"
+    return url
+
+
+def _slugify_title(title: str) -> str:
+    slug = re.sub(r"[^a-z0-9]+", "-", title.lower()).strip("-")
+    return slug[:90].strip("-")
+
+
+def _extract_page_attr(page: Any, selector: str, attr: str) -> str | None:
+    try:
+        loc = page.locator(selector).first
+        if loc.count():
+            value = loc.get_attribute(attr)
+            return value or None
+    except Exception:
+        return None
+    return None
+
+
+def _extract_public_url_from_page(page: Any, title: str) -> str | None:
+    candidates: list[str] = []
+    for selector, attr in (
+        ("link[rel='canonical']", "href"),
+        ("meta[property='og:url']", "content"),
+        ("meta[name='twitter:url']", "content"),
+    ):
+        value = _absolute_substack_url(_extract_page_attr(page, selector, attr))
+        if value:
+            candidates.append(value)
+    try:
+        links = page.locator("a[href*='/p/']").all()
+        for link in links:
+            href = _absolute_substack_url(link.get_attribute("href"))
+            if href:
+                candidates.append(href)
+    except Exception:
+        pass
+    for candidate in candidates:
+        if _is_public_substack_url(candidate):
+            return candidate.split("?", 1)[0]
+    slug = _slugify_title(title)
+    return f"https://capitalchronicle.substack.com/p/{slug}" if slug else None
+
+
+def _extract_public_image_url_from_page(page: Any) -> str | None:
+    candidates: list[str] = []
+    for selector, attr in (
+        ("meta[property='og:image']", "content"),
+        ("meta[name='twitter:image']", "content"),
+        ("link[rel='image_src']", "href"),
+    ):
+        value = _extract_page_attr(page, selector, attr)
+        if value:
+            candidates.append(value)
+    try:
+        images = page.locator("img[src]").all()
+        for image in images:
+            src = image.get_attribute("src")
+            if src:
+                candidates.append(src)
+    except Exception:
+        pass
+    for candidate in candidates:
+        lowered = candidate.lower()
+        if candidate.startswith("http") and "substack-post-office" not in lowered and "default-logo" not in lowered:
+            if any(marker in lowered for marker in ("substackcdn", "substack-post-media", "bucketeer", "amazonaws")):
+                return candidate
+    return None
+
+
+def _set_first_file_input(page: Any, image_path: str) -> str | None:
+    abs_path = str(Path(image_path).resolve())
+    try:
+        inputs = page.locator("input[type='file']").all()
+        for file_input in inputs:
+            try:
+                attrs = file_input.evaluate(
+                    "e => ({id:e.id || '', accept:e.getAttribute('accept') || '', className:e.className || '', parentText:e.parentElement ? e.parentElement.innerText || '' : ''})"
+                )
+                descriptor = " ".join(str(attrs.get(k, "")) for k in ("id", "accept", "className", "parentText")).lower()
+                if "file-sidebar" in descriptor or "thumbnail" in descriptor or "audio/" in descriptor:
+                    continue
+                file_input.set_input_files(abs_path)
+                return "uploaded"
+            except Exception:
+                continue
+    except Exception:
+        pass
+    return None
+
+
+def _upload_substack_body_image_via_toolbar(page: Any, image_path: str) -> str | None:
+    abs_path = str(Path(image_path).resolve())
+    for button_selector in (
+        "button[aria-label='Image']",
+        "button[title='Insert image']",
+        "button[aria-label*='Image']",
+    ):
+        try:
+            button = page.locator(button_selector).first
+            if not button.is_visible():
+                continue
+            before_count = page.locator("div.ProseMirror img, .ProseMirror img").count()
+            button.click()
+            time.sleep(1)
+            menu_item = page.locator("[role='menuitem']").filter(has_text=re.compile(r"^Image$")).first
+            with page.expect_file_chooser(timeout=5000) as chooser_info:
+                if menu_item.is_visible():
+                    menu_item.click()
+                else:
+                    page.keyboard.press("Enter")
+            chooser_info.value.set_files(abs_path)
+            for _ in range(12):
+                time.sleep(1)
+                after_count = page.locator("div.ProseMirror img, .ProseMirror img").count()
+                if after_count > before_count:
+                    return "uploaded"
+            return "uploaded_unverified"
+        except Exception:
+            continue
+    return None
+
+
+def _upload_substack_image(page: Any, image_path: str | None) -> str:
+    if not image_path:
+        return "not_requested"
+    if not os.path.exists(image_path):
+        return "local_file_missing"
+    status = _upload_substack_body_image_via_toolbar(page, image_path)
+    if status:
+        return status
+    status = _set_first_file_input(page, image_path)
+    if status:
+        time.sleep(5)
+        return "uploaded_unverified"
+    for selector in (
+        "button[aria-label*='Image']",
+        "button[aria-label*='image']",
+        "button[aria-label*='Photo']",
+        "button[aria-label*='photo']",
+        "button:has-text('Image')",
+        "button:has-text('Photo')",
+        "button:has-text('Upload')",
+        "[role='button']:has-text('Image')",
+    ):
+        try:
+            loc = page.locator(selector).first
+            if loc.is_visible():
+                loc.click()
+                time.sleep(2)
+                status = _set_first_file_input(page, image_path)
+                if status:
+                    time.sleep(5)
+                    return status
+        except Exception:
+            continue
+    return "skipped_no_file_input"
+
+
+def _normalise_image_assets(image_path: str | None = None, image_assets: list[dict[str, Any]] | None = None) -> dict[str, str]:
+    assets: dict[str, str] = {}
+    if image_path:
+        assets["primary"] = image_path
+    for idx, asset in enumerate(image_assets or [], start=1):
+        if not isinstance(asset, dict):
+            continue
+        local_path = str(asset.get("local_path") or asset.get("image_path") or "").strip()
+        if not local_path:
+            continue
+        asset_id = str(asset.get("asset_id") or ("primary" if idx == 1 else f"visual_{idx}")).strip()
+        assets[asset_id] = local_path
+        if idx == 1:
+            assets.setdefault("primary", local_path)
+    return assets
+
+
+def _split_body_visual_markers(body_markdown: str) -> list[tuple[str, str]]:
+    segments: list[tuple[str, str]] = []
+    last = 0
+    for match in VISUAL_MARKER_RE.finditer(body_markdown or ""):
+        if match.start() > last:
+            segments.append(("text", body_markdown[last:match.start()]))
+        segments.append(("visual", match.group(1)))
+        last = match.end()
+    if last < len(body_markdown or ""):
+        segments.append(("text", body_markdown[last:]))
+    return segments or [("text", body_markdown or "")]
+
+
+def _type_body_with_visual_markers(
+    page: Any,
+    body_markdown: str,
+    image_path: str | None = None,
+    image_assets: list[dict[str, Any]] | None = None,
+) -> list[dict[str, str]]:
+    segments = _split_body_visual_markers(body_markdown)
+    asset_lookup = _normalise_image_assets(image_path, image_assets)
+    has_markers = any(kind == "visual" for kind, _value in segments)
+    results: list[dict[str, str]] = []
+
+    if not has_markers:
+        if body_markdown:
+            page.keyboard.type(body_markdown)
+        status = _upload_substack_image(page, image_path)
+        if image_path:
+            results.append({"asset_id": "primary", "local_path": image_path, "status": status})
+        return results
+
+    for kind, value in segments:
+        if kind == "text":
+            if value:
+                page.keyboard.type(value)
+            continue
+        active_path = asset_lookup.get(value)
+        if not active_path:
+            results.append({"asset_id": value, "local_path": "", "status": "missing_asset"})
+            continue
+        status = _upload_substack_image(page, active_path)
+        results.append({"asset_id": value, "local_path": active_path, "status": status})
+        try:
+            page.keyboard.press("Enter")
+            page.keyboard.press("Enter")
+        except Exception:
+            pass
+    return results
 
 
 def copy_essential_profile(src_dir: Path = DEFAULT_PROFILE_SRC, dest_dir: Path = TEMP_PROFILE_DIR) -> None:
@@ -64,6 +303,7 @@ def execute_substack_post(
     profile_src: Path = DEFAULT_PROFILE_SRC,
     temp_dir: Path = TEMP_PROFILE_DIR,
     image_path: str | None = None,
+    image_assets: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Publishes a new long-form article to Substack."""
     payload_hash = hashlib.md5(f"{title}:{subtitle}:{body_markdown}".encode("utf-8")).hexdigest()[:12]
@@ -77,6 +317,8 @@ def execute_substack_post(
                 "title": title,
                 "subtitle": subtitle,
                 "body_len": len(body_markdown),
+                "visual_marker_count": len(VISUAL_MARKER_RE.findall(body_markdown or "")),
+                "image_asset_count": len(image_assets or ([] if not image_path else [{"local_path": image_path}])),
             },
             "response": {
                 "id": f"substack_mock_post_{payload_hash}",
@@ -113,21 +355,31 @@ def execute_substack_post(
                     subtitle_el.fill(subtitle)
 
             # Fill body
+            media_upload_results: list[dict[str, str]] = []
             if body_markdown:
                 editor_el = page.query_selector("div.ProseMirror")
                 if editor_el:
                     editor_el.focus()
-                    page.keyboard.type(body_markdown)
+                    media_upload_results = _type_body_with_visual_markers(
+                        page,
+                        body_markdown,
+                        image_path=image_path,
+                        image_assets=image_assets,
+                    )
+            elif image_path:
+                media_upload_results = [{"asset_id": "primary", "local_path": image_path, "status": _upload_substack_image(page, image_path)}]
 
-            # Best-effort hero image upload; never fail the text post if the control is absent.
-            if image_path and os.path.exists(image_path):
-                try:
-                    file_input = page.query_selector("input[type='file']")
-                    if file_input:
-                        file_input.set_input_files(image_path)
-                        time.sleep(4)
-                except Exception as img_exc:
-                    print(f"[Warning] Substack image upload skipped: {img_exc}")
+            requested_upload = bool(image_path or image_assets)
+            uploaded_count = sum(1 for item in media_upload_results if item.get("status") == "uploaded")
+            failed_uploads = [
+                item for item in media_upload_results
+                if item.get("status") not in {"uploaded", "not_requested"}
+            ]
+            media_upload_status = "uploaded" if requested_upload and uploaded_count and not failed_uploads else ("not_requested" if not requested_upload else "failed")
+            if requested_upload and media_upload_status != "uploaded":
+                print(f"[Warning] Substack image upload status: {media_upload_status}")
+                browser.close()
+                raise RuntimeError(f"substack_image_upload_failed:{media_upload_status}:{media_upload_results}")
 
             time.sleep(2)
             # Click Continue / Publish button in top header
@@ -183,15 +435,27 @@ def execute_substack_post(
                     time.sleep(6)
 
             final_url = page.url
+            public_url = _extract_public_url_from_page(page, title)
+            public_image_url = _extract_public_image_url_from_page(page)
             browser.close()
 
             result = {
                 "status": "SUCCESS",
                 "platform": "substack",
                 "action": "post",
-                "url": final_url,
-                "id": final_url.split("/")[-1] if "/" in final_url else f"post_{payload_hash}",
-                "response": {"final_url": final_url},
+                "url": public_url or final_url,
+                "id": (public_url or final_url).split("/")[-1] if "/" in (public_url or final_url) else f"post_{payload_hash}",
+                "media_upload_status": media_upload_status,
+                "media_upload_results": media_upload_results,
+                "public_url": public_url,
+                "public_image_url": public_image_url,
+                "response": {
+                    "final_url": final_url,
+                    "public_url": public_url,
+                    "public_image_url": public_image_url,
+                    "media_upload_status": media_upload_status,
+                    "media_upload_results": media_upload_results,
+                },
             }
     except Exception as e:
         result = {
