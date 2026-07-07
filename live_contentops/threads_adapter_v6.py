@@ -102,6 +102,7 @@ def execute_threads_post(
         if not container_id:
             result = {"status": "FAILED", "error": "No container ID returned in Step 1", "response": response}
         else:
+            time.sleep(3)  # Give Meta's async container registration time to complete
             publish_url = f"https://graph.threads.net/{THREADS_GRAPH_VERSION}/{threads_user_id}/threads_publish"
             publish_payload = {"creation_id": container_id, "access_token": access_token}
             publish_response, publish_size = _post_form(publish_url, publish_payload)
