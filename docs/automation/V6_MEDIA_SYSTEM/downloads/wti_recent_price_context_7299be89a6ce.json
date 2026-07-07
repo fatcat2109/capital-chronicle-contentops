@@ -1,0 +1,20 @@
+{
+  "alt_text": "Line chart showing the recent WTI crude oil price path using FRED data.",
+  "asset_id": "recent_price",
+  "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+  "caption": "Recent WTI price path through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+  "latest_observation_date": "2026-06-29",
+  "latest_observation_year": 2026,
+  "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_7299be89a6ce.png",
+  "media_subject": "WTI crude oil recent price path",
+  "public_url": null,
+  "query": "Crude Awakening: How Spiking Oil Volatility Amplifies US Recession Risks",
+  "recent_direction": "up",
+  "recent_price_direction": "up",
+  "recent_volatility_direction": "up",
+  "source_label": "FRED / U.S. Energy Information Administration",
+  "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+  "time_coverage_end_year": 2026,
+  "url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+  "visual_metric": "wti crude oil current recent price path"
+}

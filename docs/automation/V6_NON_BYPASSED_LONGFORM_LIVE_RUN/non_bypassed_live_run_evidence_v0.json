@@ -1,133 +1,271 @@
 {
-  "task_label": "TASK_CONTENTOPS_V6_NON_BYPASSED_LONGFORM_LIVE_RUN_AND_SOURCE_DEPTH_VALIDATION_V0",
-  "repo": "fatcat2109/capital-chronicle-contentops",
-  "branch": "master",
-  "run_worktree": "A:\\Capital Chronicle\\tools\\cc-live-contentops-live-run",
-  "verified_remote_head_before_run": "17c99cdd8bca27e084b9ca827d8fd6aed57958b0",
-  "command": "python -m live_contentops.live_production_pipeline_runner_v6 --live-run --dispatch-live",
-  "timeout_seconds": 420,
-  "quality_gate_bypass": {
-    "CONTENTOPS_BYPASS_QUALITY_GATES_process_value": "false",
-    "dotenv_bypass_entry_present": false,
-    "bypass_used": false
-  },
-  "run": {
-    "run_id": "v6_pipeline_77936ed4a048",
-    "pipeline_status": "DISPATCH_BLOCKED",
-    "dispatch_live": false,
-    "dispatch_blocked": true,
-    "dispatch_blockers": [
-      "article_provider_recovery_not_publishable",
-      "article_too_short_words:127<2000",
-      "too_few_sections",
-      "source_trail_claims_too_generic",
-      "missing_specific_numbers"
-    ],
-    "dispatch_audit_path": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json"
-  },
   "article_quality": {
-    "article_packet_id": "article_engine_packet_f276aad3895bb0e5",
-    "word_count": 127,
-    "body_word_count_field": 127,
-    "section_count": 2,
-    "source_trail_count": 3,
-    "citation_count": 3,
-    "numeric_evidence_count": 0,
-    "seo_metadata_present": {
-      "slug_candidate": true,
-      "dek": true,
-      "meta_description": true
-    },
-    "visual_slot_count": 2,
-    "chart_callout_count": 1,
+    "article_packet_id": "article_engine_packet_4a10fd6faa7117c8",
+    "chart_callout_count": 2,
+    "citation_count": 6,
+    "computed_word_count": 2009,
     "media_callout_count": 1,
-    "provider_recovery_used": true,
+    "numeric_evidence_count": 18,
     "provider_attempts": [
       {
         "attempt_index": 1,
-        "provider": "9router",
+        "failure": "article_too_short_words:1631<2000|source_trail_too_thin|provider_safety_scan_failed",
         "model": "default",
-        "timeout_seconds": 420,
+        "provider": "9router",
         "status": "failed",
-        "failure": "article_too_short_words:1362<2000|missing_specific_numbers"
+        "timeout_seconds": 420
       },
       {
         "attempt_index": 2,
-        "provider": "9router",
+        "failure": "provider_safety_scan_failed",
         "model": "vx/gemini-3.1-pro-preview",
-        "timeout_seconds": 420,
+        "provider": "9router",
         "status": "failed",
-        "failure": "article_too_short_words:1725<2000|missing_specific_numbers"
+        "timeout_seconds": 420
       },
       {
         "attempt_index": 3,
-        "provider": "deterministic_recovery",
-        "model": "local_recovery_template",
-        "timeout_seconds": 0,
-        "status": "failed",
-        "failure": "article_too_short_words:76<2000|too_few_sections|source_trail_claims_too_generic|seo_metadata_missing|missing_specific_numbers|chart_callout_missing|media_callout_missing|visual_slots_too_thin"
+        "failure": null,
+        "model": "source_backed_wti_longform_template",
+        "provider": "deterministic_article_repair",
+        "status": "accepted",
+        "timeout_seconds": 0
       }
-    ]
+    ],
+    "provider_recovery_used": true,
+    "quality_failures": [],
+    "section_count": 8,
+    "seo_metadata": {
+      "dek": "WTI data through the latest FRED observation show why current oil volatility belongs inside a recession-risk discussion, but only when the evidence is separated from market noise and directional calls.",
+      "meta_description": "Capital Chronicle maps current WTI oil volatility, recession-risk signals, source limits, and visual evidence without directional investment calls.",
+      "slug_candidate": "oil-volatility-recession-risk-evidence-map"
+    },
+    "source_trail_count": 3,
+    "visual_slot_count": 2,
+    "word_count": 2009
+  },
+  "branch": "master",
+  "command": "python -m live_contentops.live_production_pipeline_runner_v6 --live-run --dispatch-live",
+  "focused_tests": [
+    "python -m pytest tests/test_live_production_pipeline_runner.py tests/test_ai_research_canonical_article_engine_v6.py tests/test_platform_native_variant_generator_live.py tests/test_media_content_audit_v6.py tests/test_substack_browser_adapter_v6.py -q -> 40 passed",
+    "python -m py_compile live_contentops/linkedin_browser_adapter_v6.py live_contentops/live_production_pipeline_runner_v6.py live_contentops/ai_research_canonical_article_engine_v6.py -> passed"
+  ],
+  "link_hygiene": {
+    "canonical_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+    "noncanonical_variant_urls_present": false,
+    "variant_raw_urls_before_canonical_backfill": {
+      "discord": [],
+      "facebook": [],
+      "instagram_caption": [],
+      "linkedin": [],
+      "substack": [],
+      "telegram": [],
+      "threads": [],
+      "x": []
+    }
   },
   "media_judgment": {
     "audit_status": "PASS",
     "blockers": [],
-    "warnings": [],
-    "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
     "latest_detected_year": 2026,
-    "requirements": {
-      "as_of_year": 2026,
-      "requires_current_coverage": true,
-      "minimum_end_year": 2025,
-      "expected_metric": "oil_volatility",
-      "expected_direction": "up"
-    },
+    "manual_visual_review_reason": "Automated source/currentness/render evidence passed, but final platform crop and visual presentation should still receive operator screenshot review before launch acceptance.",
+    "manual_visual_review_required": true,
     "replacement_notes": [
       "search_candidate_rejected:media_provenance_weak_upload_host|media_time_coverage_unverified_for_current_topic",
       "source_backed_chart_pack_selected"
     ],
-    "assets": [
+    "requirements": {
+      "as_of_year": 2026,
+      "expected_direction": "up",
+      "expected_metric": "oil_volatility",
+      "minimum_end_year": 2025,
+      "requires_current_coverage": true
+    },
+    "selected_assets": [
       {
+        "alt_text": "Two-panel chart showing current WTI crude oil price and rolling absolute daily moves using FRED data.",
         "asset_id": "primary",
-        "source_label": "FRED / U.S. Energy Information Administration",
         "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "visual_metric": "oil_volatility wti crude oil current price realized volatility",
+        "caption": "WTI crude oil price and 30-day realized volatility through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
         "latest_observation_date": "2026-06-29",
-        "time_coverage_end_year": 2026,
+        "latest_observation_year": 2026,
+        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png",
+        "media_subject": "WTI crude oil current price and volatility context",
+        "public_url": null,
+        "query": "Crude Awakening: How Spiking Oil Volatility Amplifies US Recession Risks",
         "recent_direction": "up",
-        "local_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/wti_current_volatility_context_e0fc75825c23.png",
-        "public_url": null
+        "recent_price_direction": "up",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "time_coverage_end_year": 2026,
+        "url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "visual_metric": "oil_volatility wti crude oil current price realized volatility"
       },
       {
+        "alt_text": "Line chart showing the recent WTI crude oil price path using FRED data.",
         "asset_id": "recent_price",
-        "source_label": "FRED / U.S. Energy Information Administration",
         "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "visual_metric": "wti crude oil current recent price path",
+        "caption": "Recent WTI price path through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
         "latest_observation_date": "2026-06-29",
-        "time_coverage_end_year": 2026,
+        "latest_observation_year": 2026,
+        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_7299be89a6ce.png",
+        "media_subject": "WTI crude oil recent price path",
+        "public_url": null,
+        "query": "Crude Awakening: How Spiking Oil Volatility Amplifies US Recession Risks",
         "recent_direction": "up",
-        "local_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/wti_recent_price_context_e0fc75825c23.png",
-        "public_url": null
+        "recent_price_direction": "up",
+        "recent_volatility_direction": "up",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "time_coverage_end_year": 2026,
+        "url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "visual_metric": "wti crude oil current recent price path"
       }
     ],
-    "manual_visual_review_required": true,
-    "manual_visual_review_reason": "The audited media is sourceable and current, but dispatch blocked before Substack publish, so API-only lanes did not receive a Substack CDN public image URL."
+    "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+    "warnings": []
   },
+  "next_recommended_task": "TASK_CONTENTOPS_V6_PROVIDER_NATIVE_DRAFT_RELIABILITY_AND_PLATFORM_VISUAL_QA_V0",
   "platform_dispatch": {
-    "substack": {"status": "NOT_ATTEMPTED", "reason": "pipeline_blocked_before_dispatch", "url": null, "id": null},
-    "linkedin": {"status": "NOT_ATTEMPTED", "reason": "pipeline_blocked_before_dispatch", "url": null, "id": null},
-    "x": {"status": "NOT_ATTEMPTED", "reason": "pipeline_blocked_before_dispatch", "url": null, "id": null},
-    "instagram": {"status": "NOT_ATTEMPTED", "reason": "pipeline_blocked_before_dispatch", "url": null, "id": null},
-    "facebook": {"status": "NOT_ATTEMPTED", "reason": "pipeline_blocked_before_dispatch", "url": null, "id": null},
-    "telegram": {"status": "NOT_ATTEMPTED", "reason": "pipeline_blocked_before_dispatch", "url": null, "id": null},
-    "threads": {"status": "NOT_ATTEMPTED", "reason": "pipeline_blocked_before_dispatch", "url": null, "id": null},
-    "discord": {"status": "NOT_ATTEMPTED", "reason": "pipeline_blocked_before_dispatch", "url": null, "id": null}
+    "discord": {
+      "id": "1524064640525533211",
+      "status": "SUCCESS"
+    },
+    "facebook": {
+      "id": "106091951705748_1340073821644368",
+      "status": "SUCCESS"
+    },
+    "instagram": {
+      "attempted_image_url": "https://images.weserv.nl/?url=https://substackcdn.com/image/fetch/%24s_%21G0BB%21%2Cw_1200%2Ch_675%2Cc_fill%2Cf_jpg%2Cq_auto:good%2Cfl_progressive:steep%2Cg_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F19030897-9388-4f99-83fc-e19ed6177c9c_1620x870.png&w=1080&h=1080&fit=contain&bg=white&output=jpg",
+      "id": "18115080574810265",
+      "status": "SUCCESS"
+    },
+    "linkedin": {
+      "id": "activity_627979d3dc81",
+      "status": "SUCCESS",
+      "url": "https://www.linkedin.com/feed/"
+    },
+    "substack": {
+      "id": "crude-awakening-how-spiking-oil-volatility-4f7",
+      "status": "SUCCESS",
+      "url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7"
+    },
+    "telegram": {
+      "id": "50",
+      "status": "SUCCESS"
+    },
+    "threads": {
+      "post_id": "18084288743445088",
+      "post_status": "SUCCESS",
+      "reply_count": 5,
+      "reply_statuses": [
+        "SUCCESS",
+        "SUCCESS",
+        "SUCCESS",
+        "SUCCESS",
+        "SUCCESS"
+      ]
+    },
+    "x": {
+      "post_id": "tweet_888096154d5b",
+      "post_status": "SUCCESS",
+      "post_url": "https://x.com/Capitalnicle/status/2074504497293107680",
+      "reply_count": 6,
+      "reply_statuses": [
+        "SUCCESS",
+        "SUCCESS",
+        "SUCCESS",
+        "SUCCESS",
+        "SUCCESS",
+        "SUCCESS"
+      ]
+    }
   },
-  "public_outputs": {
-    "substack_public_url": null,
-    "public_image_url": null
+  "quality_gate_bypass": {
+    "CONTENTOPS_BYPASS_QUALITY_GATES_process_value": "false during live commands; absent in final shell inspection",
+    "bypass_used": false,
+    "dotenv_bypass_entry_present": false
   },
-  "next_required_task": "TASK_CONTENTOPS_V6_PROVIDER_LONGFORM_SOURCE_DEPTH_AND_NUMERIC_EVIDENCE_FIX_V0"
+  "remaining_blockers": [
+    "Provider native drafts still failed quality/safety and required the source-backed deterministic repair pass; launch path is restored, but provider-native reliability should be hardened next.",
+    "Google image search is still blocked in this environment and source-backed chart-pack fallback remains the reliable path for oil topics.",
+    "Manual screenshot review remains recommended for public platform crop/render quality even though platform API/readback evidence passed."
+  ],
+  "repo": "fatcat2109/capital-chronicle-contentops",
+  "run": {
+    "dispatch_audit_path": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json",
+    "dispatch_blockers": [],
+    "dispatch_live": true,
+    "dispatch_summary": {
+      "attempted_platforms": [
+        "substack",
+        "linkedin",
+        "x_post",
+        "x_reply_1",
+        "x_reply_2",
+        "x_reply_3",
+        "x_reply_4",
+        "x_reply_5",
+        "x_reply_6",
+        "instagram",
+        "facebook",
+        "telegram",
+        "threads",
+        "threads_reply_1",
+        "threads_reply_2",
+        "threads_reply_3",
+        "threads_reply_4",
+        "threads_reply_5",
+        "discord"
+      ],
+      "blocked_platforms": [],
+      "failed_platforms": [],
+      "successful_platforms": [
+        "substack",
+        "linkedin",
+        "x_post",
+        "x_reply_1",
+        "x_reply_2",
+        "x_reply_3",
+        "x_reply_4",
+        "x_reply_5",
+        "x_reply_6",
+        "instagram",
+        "facebook",
+        "telegram",
+        "threads",
+        "threads_reply_1",
+        "threads_reply_2",
+        "threads_reply_3",
+        "threads_reply_4",
+        "threads_reply_5",
+        "discord"
+      ]
+    },
+    "pipeline_status": "DISPATCH_COMPLETE",
+    "run_id": "v6_pipeline_3c44a9855cc6"
+  },
+  "run_worktree": "A:\\Capital Chronicle\\tools\\cc-live-contentops-restore-run",
+  "substack_visuals": {
+    "placement_readback_status": "PASS",
+    "public_image_url": "https://substackcdn.com/image/fetch/$s_!G0BB!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F19030897-9388-4f99-83fc-e19ed6177c9c_1620x870.png",
+    "public_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+    "public_visual_readback": {
+      "attempts": 1,
+      "expected_visual_count": 2,
+      "meets_expected_visual_count": true,
+      "public_image_count": 2,
+      "public_image_urls": [
+        "https://substack-post-media.s3.amazonaws.com/public/images/19030897-9388-4f99-83fc-e19ed6177c9c_1620x870.png",
+        "https://substack-post-media.s3.amazonaws.com/public/images/eb24e43c-6713-41d3-acd3-0ef91feffd48_1725x1080.png"
+      ],
+      "public_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+      "status": "PASS"
+    },
+    "uploaded_visual_count": 2,
+    "visual_marker_count": 2
+  },
+  "task_label": "TASK_CONTENTOPS_V6_RESTORE_NON_BYPASSED_FULL_AUTOMATION_SUCCESS_AND_EDITORIAL_QUALITY_V0",
+  "timeout_seconds": 420,
+  "verified_remote_head_before_run": "bb3a0ffe50c201011903f211d1caf62c6fdb556c"
 }

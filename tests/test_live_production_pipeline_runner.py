@@ -8,6 +8,8 @@ from live_contentops.live_production_pipeline_runner_v6 import (
     _normalize_dispatch_result,
     _apply_canonical_link,
     _instagram_image_candidates,
+    _fit_telegram_photo_caption,
+    audit_substack_public_visuals,
     resolve_substack_public_url,
 )
 
@@ -396,6 +398,26 @@ def test_apply_canonical_link_strips_dead_token_when_no_url():
     assert "[link]" not in out.lower()
 
 
+def test_apply_canonical_link_strips_generated_noncanonical_urls():
+    canonical = "https://capitalchronicle.substack.com/p/the-crude-catalyst"
+    out = _apply_canonical_link(
+        "Read below:\nhttps://capitalchronicle.com/crude-catalyst-recession-risks",
+        canonical,
+    )
+    assert "capitalchronicle.com/crude-catalyst" not in out
+    assert out.count(canonical) == 1
+    assert out.endswith(canonical)
+
+
+def test_fit_telegram_photo_caption_preserves_canonical_link_under_limit():
+    canonical = "https://capitalchronicle.substack.com/p/crude-awakening"
+    body = ("Long macro paragraph. " * 80) + f"\n\nRead the full editorial analysis: {canonical}"
+    out = _fit_telegram_photo_caption(body, canonical, limit=300)
+    assert len(out) <= 300
+    assert out.endswith(canonical)
+    assert "..." in out
+
+
 def test_resolve_substack_public_url_uses_feed_for_admin_url(monkeypatch):
     class FakeResponse:
         def __enter__(self):
@@ -424,6 +446,38 @@ def test_instagram_image_candidates_prefer_safe_proxy():
     assert candidates[0].startswith("https://images.weserv.nl/")
     assert any(candidate.startswith("https://wsrv.nl/") for candidate in candidates)
     assert candidates[-1] == "https://example.com/wide.png"
+
+
+def test_audit_substack_public_visuals_counts_distinct_public_images(monkeypatch):
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def read(self):
+            return b"""
+            <html><body>
+              <article>
+                <img src="https://substackcdn.com/image/fetch/w_1200/https%3A%2F%2Fexample.com%2Fprimary.png">
+                <img srcset="https://substackcdn.com/image/fetch/w_640/https%3A%2F%2Fexample.com%2Frecent.png 640w,
+                             https://substackcdn.com/image/fetch/w_1200/https%3A%2F%2Fexample.com%2Frecent.png 1200w">
+                <img src="https://substackcdn.com/image/fetch/w_32/https%3A%2F%2Fexample.com%2Favatar.png">
+              </article>
+            </body></html>
+            """
+
+    monkeypatch.setattr("urllib.request.urlopen", lambda *_args, **_kwargs: FakeResponse())
+    audit = audit_substack_public_visuals(
+        "https://capitalchronicle.substack.com/p/current-oil-risk",
+        expected_visual_count=2,
+        retries=1,
+    )
+    assert audit["status"] == "PASS"
+    assert audit["public_image_count"] == 2
+    assert audit["meets_expected_visual_count"] is True
+    assert audit["public_image_urls"] == ["https://example.com/primary.png", "https://example.com/recent.png"]
 
 
 @patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")

@@ -106,6 +106,22 @@ def _require_payload(value: Any, name: str) -> str | None:
 
 _LINK_TOKEN_RE = re.compile(r"\[\s*link\s*\]", re.IGNORECASE)
 _READ_MORE_RE = re.compile(r"\n*[^\n]*\[\s*link\s*\][^\n]*", re.IGNORECASE)
+_PUBLIC_URL_RE = re.compile(r"https?://[^\s<>()\[\]\"']+")
+
+
+def _strip_noncanonical_public_urls(text: str, canonical_url: str | None) -> str:
+    canonical_clean = _clean_public_url(canonical_url)
+
+    def replace_url(match: re.Match[str]) -> str:
+        raw = match.group(0).rstrip(".,;:")
+        trailing = match.group(0)[len(raw):]
+        if canonical_clean and _clean_public_url(raw) == canonical_clean:
+            return f"{canonical_clean}{trailing}"
+        return trailing
+
+    cleaned = _PUBLIC_URL_RE.sub(replace_url, str(text or ""))
+    cleaned = re.sub(r"[ \t]+\n", "\n", cleaned)
+    return re.sub(r"\n{3,}", "\n\n", cleaned).strip()
 
 
 def _apply_canonical_link(text: str, url: str | None) -> str:
@@ -118,10 +134,36 @@ def _apply_canonical_link(text: str, url: str | None) -> str:
     """
     body = str(text or "")
     if not url:
-        return _READ_MORE_RE.sub("", body).rstrip()
+        return _strip_noncanonical_public_urls(_READ_MORE_RE.sub("", body), None).rstrip()
     if _LINK_TOKEN_RE.search(body):
-        return _LINK_TOKEN_RE.sub(url, body)
+        return _strip_noncanonical_public_urls(_LINK_TOKEN_RE.sub(url, body), url)
+    body = _strip_noncanonical_public_urls(body, url)
+    if _clean_public_url(url) and _clean_public_url(url) in body:
+        return body.rstrip()
     return f"{body.rstrip()}\n\nRead the full editorial analysis: {url}"
+
+
+def _fit_telegram_photo_caption(text: str, canonical_url: str | None, limit: int = 1024) -> str:
+    body = str(text or "").strip()
+    if len(body) <= limit:
+        return body
+
+    link_line = f"Read the full editorial analysis: {canonical_url}" if canonical_url else ""
+    if link_line and link_line in body:
+        body = body.replace(link_line, "").strip()
+    reserve = len(link_line) + (2 if link_line else 0)
+    available = max(0, limit - reserve)
+    if available <= 1:
+        return link_line[:limit]
+
+    clipped = body[: max(0, available - 1)].rstrip()
+    last_break = max(clipped.rfind("\n\n"), clipped.rfind(". "), clipped.rfind("\n"), clipped.rfind(" "))
+    if last_break > max(80, available // 2):
+        clipped = clipped[:last_break].rstrip()
+    clipped = clipped.rstrip(".,;:") + "..."
+    if link_line:
+        return f"{clipped}\n\n{link_line}"[:limit]
+    return clipped[:limit]
 
 
 def _is_substack_admin_url(url: str | None) -> bool:
@@ -308,6 +350,90 @@ def extract_og_image(url: str) -> str | None:
     return None
 
 
+def audit_substack_public_visuals(
+    url: str | None,
+    *,
+    expected_visual_count: int = 0,
+    retries: int = 3,
+    delay_seconds: float = 2.0,
+) -> dict[str, Any]:
+    """Read the public Substack page and count useful article image URLs."""
+    result: dict[str, Any] = {
+        "status": "SKIPPED",
+        "public_url": url,
+        "expected_visual_count": expected_visual_count,
+        "public_image_count": 0,
+        "public_image_urls": [],
+        "meets_expected_visual_count": False,
+        "attempts": 0,
+    }
+    if not url or "mock-post" in url or _is_substack_admin_url(url):
+        result["status"] = "SKIPPED_INVALID_PUBLIC_URL"
+        return result
+    if expected_visual_count <= 0:
+        result["status"] = "SKIPPED_NO_EXPECTED_VISUALS"
+        return result
+
+    import html
+    import urllib.request
+
+    for attempt in range(1, retries + 1):
+        result["attempts"] = attempt
+        try:
+            req = urllib.request.Request(
+                url,
+                headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"},
+            )
+            with urllib.request.urlopen(req, timeout=12) as response:
+                page_html = response.read().decode("utf-8", errors="ignore")
+
+            candidates: list[str] = []
+            for tag in re.findall(r"<img\b[^>]+>", page_html, flags=re.IGNORECASE | re.DOTALL):
+                for attr in ("src", "data-src"):
+                    match = re.search(rf"""{attr}=["']([^"']+)["']""", tag, flags=re.IGNORECASE)
+                    if match:
+                        candidates.append(html.unescape(match.group(1)))
+                srcset = re.search(r"""srcset=["']([^"']+)["']""", tag, flags=re.IGNORECASE)
+                if srcset:
+                    for part in re.split(r",\s+", html.unescape(srcset.group(1)).strip()):
+                        candidate = part.strip().split(" ", 1)[0]
+                        if candidate:
+                            candidates.append(candidate)
+
+            canonical_urls: list[str] = []
+            seen: set[str] = set()
+            for candidate in candidates:
+                clean = candidate.strip()
+                if clean.startswith("//"):
+                    clean = f"https:{clean}"
+                if not _is_useful_public_image_url(clean):
+                    continue
+                source = _source_url_from_substack_cdn(clean) or clean
+                canonical = source.split("?", 1)[0]
+                lowered = canonical.lower()
+                if any(marker in lowered for marker in ("substack-post-office", "default-logo", "avatar")):
+                    continue
+                if canonical in seen:
+                    continue
+                seen.add(canonical)
+                canonical_urls.append(canonical)
+
+            public_image_count = len(canonical_urls)
+            result.update({
+                "status": "PASS" if public_image_count >= expected_visual_count else "COUNT_MISMATCH",
+                "public_image_count": public_image_count,
+                "public_image_urls": canonical_urls[:10],
+                "meets_expected_visual_count": public_image_count >= expected_visual_count,
+            })
+            if result["meets_expected_visual_count"] or attempt == retries:
+                return result
+        except Exception as exc:
+            result.update({"status": "READBACK_FAILED", "error": str(exc)})
+        if attempt < retries:
+            time.sleep(delay_seconds)
+    return result
+
+
 def run_live_production_pipeline(
     topic: str,
     editorial_angle: str,
@@ -417,6 +543,7 @@ def run_live_production_pipeline(
                     dispatch_results["substack"] = _blocked_result("substack", missing)
                 else:
                     print("[Info] Dispatching to Substack...")
+                    visual_marker_ids = re.findall(r"\[\[VISUAL:([a-zA-Z0-9_-]+)\]\]", body or "")
                     sub_res = execute_substack_post(
                         title=article_packet.get("canonical_article_draft", {}).get("title", topic),
                         subtitle=article_packet.get("canonical_article_draft", {}).get("subtitle", ""),
@@ -446,6 +573,39 @@ def run_live_production_pipeline(
                             extracted_img = extract_og_image(canonical_url)
                             if extracted_img:
                                 public_image_url = extracted_img
+                            media_upload_results = sub_res.get("media_upload_results") or (sub_res.get("response") or {}).get("media_upload_results") or []
+                            uploaded_visual_count = sum(
+                                1 for item in media_upload_results
+                                if isinstance(item, dict) and item.get("status") == "uploaded"
+                            )
+                            public_visual_readback = audit_substack_public_visuals(
+                                canonical_url,
+                                expected_visual_count=len(visual_marker_ids),
+                            )
+                            if (
+                                len(visual_marker_ids)
+                                and uploaded_visual_count >= len(visual_marker_ids)
+                                and public_visual_readback.get("meets_expected_visual_count")
+                            ):
+                                placement_status = "PASS"
+                            elif len(visual_marker_ids) and uploaded_visual_count >= len(visual_marker_ids):
+                                placement_status = "UPLOAD_PASS_PUBLIC_READBACK_INCONCLUSIVE"
+                            else:
+                                placement_status = "UPLOAD_MISMATCH"
+                            visual_evidence = {
+                                "visual_marker_ids": visual_marker_ids,
+                                "visual_marker_count": len(visual_marker_ids),
+                                "uploaded_visual_count": uploaded_visual_count,
+                                "media_upload_results": media_upload_results,
+                                "public_visual_readback": public_visual_readback,
+                                "placement_readback_status": placement_status,
+                            }
+                            dispatch_results["substack"]["visual_evidence"] = visual_evidence
+                            if isinstance(dispatch_results["substack"].get("raw"), dict):
+                                dispatch_results["substack"]["raw"]["visual_evidence"] = visual_evidence
+                                response = dispatch_results["substack"]["raw"].setdefault("response", {})
+                                if isinstance(response, dict):
+                                    response["visual_evidence"] = visual_evidence
                     print(f"[Info] Substack dispatch outcome: {dispatch_results['substack']['status']} (URL: {dispatch_results['substack'].get('url')})")
             except Exception as exc:
                 print(f"[Warning] Substack dispatch failed: {exc}")
@@ -569,7 +729,11 @@ def run_live_production_pipeline(
                 else:
                     print("[Info] Dispatching to Telegram Channel...")
                     if telegram_media:
-                        tg_res = execute_telegram_photo(photo_url=telegram_media, caption=message, dry_run=False)
+                        tg_res = execute_telegram_photo(
+                            photo_url=telegram_media,
+                            caption=_fit_telegram_photo_caption(message, canonical_url),
+                            dry_run=False,
+                        )
                     else:
                         tg_res = execute_telegram_post(message=message, dry_run=False)
                     dispatch_results["telegram"] = _normalize_dispatch_result("telegram", tg_res)
@@ -617,7 +781,7 @@ def run_live_production_pipeline(
         if "discord" in selected_platforms:
             try:
                 from live_contentops.discord_live_adapter_v6 import execute_discord_post
-                message = variants.get("discord", "")
+                message = _apply_canonical_link(variants.get("discord", ""), canonical_url)
                 missing = _require_payload(message, "discord_message")
                 if missing:
                     dispatch_results["discord"] = _blocked_result("discord", missing)

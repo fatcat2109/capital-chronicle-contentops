@@ -56,6 +56,82 @@ def copy_essential_profile(src_dir: Path = DEFAULT_PROFILE_SRC, dest_dir: Path =
                 pass
 
 
+def _safe_click(locator: Any, *, timeout_ms: int = 2500) -> bool:
+    try:
+        if not locator.is_visible():
+            return False
+        try:
+            if not locator.is_enabled():
+                return False
+        except Exception:
+            pass
+        try:
+            locator.click(timeout=timeout_ms)
+            return True
+        except Exception:
+            try:
+                locator.click(timeout=timeout_ms, force=True)
+                return True
+            except Exception:
+                locator.evaluate("el => el.click()")
+                return True
+    except Exception:
+        return False
+
+
+def _click_first_visible(page: Any, selectors: tuple[str, ...], *, timeout_ms: int = 2500) -> str | None:
+    for selector in selectors:
+        try:
+            loc = page.locator(selector).first
+            if _safe_click(loc, timeout_ms=timeout_ms):
+                return selector
+        except Exception:
+            continue
+    return None
+
+
+def _clear_linkedin_overlays(page: Any) -> None:
+    overlay_selectors = (
+        "dialog button[aria-label='Dismiss']",
+        "dialog button[aria-label='Close']",
+        "dialog button:has-text('Dismiss')",
+        "dialog button:has-text('Close')",
+        "dialog button:has-text('Maybe later')",
+        "dialog button:has-text('Not now')",
+        "dialog button:has-text('Skip')",
+        "dialog button:has-text('Accept')",
+        "button[aria-label='Dismiss']",
+        "button[aria-label='Close']",
+        "button:has-text('Maybe later')",
+        "button:has-text('Not now')",
+    )
+    for _ in range(3):
+        clicked_selector = _click_first_visible(page, overlay_selectors, timeout_ms=2000)
+        if clicked_selector:
+            time.sleep(1)
+            continue
+        try:
+            page.keyboard.press("Escape")
+            time.sleep(1)
+        except Exception:
+            break
+
+
+def _accept_linkedin_alerts(page: Any) -> None:
+    _clear_linkedin_overlays(page)
+    _click_first_visible(
+        page,
+        (
+            "dialog button:has-text('Accept')",
+            "button[data-testid^='global-alerts-actions']:has-text('Accept')",
+            "button:has-text('Accept')",
+        ),
+        timeout_ms=3000,
+    )
+    time.sleep(1)
+    _clear_linkedin_overlays(page)
+
+
 def execute_linkedin_post(
     text: str,
     dry_run: bool = False,
@@ -97,13 +173,19 @@ def execute_linkedin_post(
             page.goto("https://www.linkedin.com/feed/", timeout=30000)
             time.sleep(6)
 
-            accept_btn = page.locator("button:has-text('Accept')").first
-            if accept_btn.is_visible():
-                accept_btn.click()
-                time.sleep(2)
+            _accept_linkedin_alerts(page)
 
             posted = False
-            page.click("text=Start a post")
+            if not _click_first_visible(
+                page,
+                (
+                    "button:has-text('Start a post')",
+                    "text=Start a post",
+                    "button[aria-label*='Start a post']",
+                ),
+                timeout_ms=5000,
+            ):
+                page.click("text=Start a post", timeout=10000)
             time.sleep(4)
 
             editor = page.locator("div.ql-editor, [role='textbox']").first
@@ -226,10 +308,7 @@ def execute_linkedin_comment(
                 page.goto(f"https://www.linkedin.com/in/{profile_handle}/recent-activity/all/", timeout=30000)
             time.sleep(8)
 
-            accept_btn = page.locator("button:has-text('Accept')").first
-            if accept_btn.is_visible():
-                accept_btn.click()
-                time.sleep(2)
+            _accept_linkedin_alerts(page)
 
             post_card = None
             if target_url:
@@ -406,10 +485,7 @@ def execute_linkedin_edit(
                 page.goto(f"https://www.linkedin.com/in/{profile_handle}/recent-activity/all/", timeout=30000)
             time.sleep(8)
 
-            accept_btn = page.locator("button:has-text('Accept')").first
-            if accept_btn.is_visible():
-                accept_btn.click()
-                time.sleep(2)
+            _accept_linkedin_alerts(page)
 
             post_card = None
             if target_url:

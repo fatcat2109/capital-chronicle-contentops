@@ -1,4 +1,6 @@
 import json
+from datetime import date, timedelta
+
 import pytest
 
 from live_contentops.ai_research_canonical_article_engine_v6 import (
@@ -119,3 +121,50 @@ def test_short_provider_article_uses_deterministic_recovery(monkeypatch):
     assert any(w.startswith("article_deterministic_recovery_blocked:") for w in packet["warnings"])
     assert packet["provider_attempts"][-1]["provider"] == "deterministic_recovery"
     assert validate_article_quality(packet["canonical_article_draft"]) != []
+
+
+def test_oil_provider_near_miss_uses_source_backed_longform_repair(monkeypatch):
+    monkeypatch.setenv("NINE_ROUTER_API_KEY", "sk-test")
+    monkeypatch.setattr("live_contentops.grounded_search_engine_v6.execute_grounded_search", lambda *_args, **_kwargs: [])
+
+    start = date(2025, 10, 1)
+    points = []
+    for idx in range(120):
+        day = start + timedelta(days=idx)
+        value = 68.0 + idx * 0.18
+        if idx % 11 == 0:
+            value += 2.2
+        points.append((day, value))
+
+    monkeypatch.setattr("live_contentops.media_content_audit_v6._read_fred_csv", lambda *_args, **_kwargs: points)
+    monkeypatch.setattr(
+        "live_contentops.ai_research_canonical_article_engine_v6.call_live_provider",
+        lambda *_args, **_kwargs: json.dumps({
+            "title": "Short oil volatility note",
+            "sections": [{"title": "Thin section", "body": "Oil volatility is rising."}],
+        }),
+    )
+
+    inputs = EngineInput(
+        operator_idea="US recession risks rise as oil volatility spikes",
+        target_audience="general_financial_education",
+        editorial_angle="Focus on data transparency, geopolitics, and yield curves.",
+        source_context=[],
+        risk_disclaimer_policy="V6_EDUCATIONAL_DISCLAIMER",
+        output_style="educational_process_heavy",
+    )
+
+    packet = run_article_engine(inputs, provider_mode="live_provider_call", provider_request_budget=1, live_provider="9router")
+    draft = packet["canonical_article_draft"]
+
+    assert packet["blockers"] == []
+    assert packet["provider_recovery_used"] is True
+    assert packet["provider_attempts"][-1]["provider"] == "deterministic_article_repair"
+    assert packet["provider_attempts"][-1]["status"] == "accepted"
+    assert validate_article_quality(draft) == []
+    assert draft["body_word_count"] >= 2000
+    assert len(draft["sections"]) >= 5
+    assert len(draft["source_trail"]) >= 3
+    assert len(draft["visual_slots"]) >= 2
+    assert "operator_review_required" not in json.dumps(draft["source_trail"])
+    assert "DCOILWTICO" in json.dumps(draft["source_trail"])

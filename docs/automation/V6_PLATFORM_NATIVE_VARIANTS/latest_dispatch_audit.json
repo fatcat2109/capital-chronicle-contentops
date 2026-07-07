@@ -1,16 +1,9 @@
 {
-  "article_packet_id": "article_engine_packet_f276aad3895bb0e5",
+  "article_packet_id": "article_engine_packet_4a10fd6faa7117c8",
+  "canonical_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
   "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
-  "dispatch_blocked": true,
-  "dispatch_blockers": [
-    "article_provider_recovery_not_publishable",
-    "article_too_short_words:127<2000",
-    "too_few_sections",
-    "source_trail_claims_too_generic",
-    "missing_specific_numbers"
-  ],
   "dispatch_idempotency_control": "platform_scope_allowlist",
-  "dispatch_live": false,
+  "dispatch_live": true,
   "dispatch_platform_scope": [
     "substack",
     "linkedin",
@@ -21,15 +14,600 @@
     "threads",
     "discord"
   ],
-  "dispatch_summary": {
-    "attempted_platforms": [],
-    "blocked_platforms": [
-      "pipeline"
+  "dispatch_results": {
+    "discord": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "discord",
+      "raw": {
+        "action": "post",
+        "id": "1524064640525533211",
+        "platform": "discord",
+        "response": {
+          "attachments": [],
+          "author": {
+            "avatar": null,
+            "bot": true,
+            "clan": null,
+            "discriminator": "0000",
+            "flags": 0,
+            "global_name": null,
+            "id": "1520178044407644231",
+            "primary_guild": null,
+            "public_flags": 0,
+            "username": "The Macro Pigeon"
+          },
+          "channel_id": "1519311669216673802",
+          "components": [],
+          "content": "**@everyone | Newsroom Update: Deconstructing the Oil Volatility Spike**\n\nWe've just published a data-driven briefing analyzing the recent surge in WTI crude volatility and its implications for US recession models.\n\n**The Hard Numbers (as of June 29, 2026):**\n* **WTI Spot Price:** $71.87/bbl (up 7.8% from $66.66 on Feb 19, 2026)\n* **1-Year Change:** +4.6% (from $68.73 on June 12, 2025)\n* **Volatility Proxy:** 30-day absolute daily moves averaged 2.8%, representing a **50.7% increase** in realized volatility over the last 90 days.\n\n**Why this matters:** Rising energy volatility widens the range of macro outcomes, complicating inflation progress and narrowing consumer spending cushions. However, we caution against fusing this lazily with yield-curve signals.\n\nCheck out the channel #macro-briefings or click the link to read our full methodology and source trail: https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+          "edited_timestamp": null,
+          "embeds": [
+            {
+              "image": {
+                "flags": 0,
+                "height": 0,
+                "proxy_url": "https://images-ext-1.discordapp.net/external/-LPFLLwU1A2Utgom3WriGf2Hc5s2jTPsH8AE35lED68/https/substackcdn.com/image/fetch/%24s_%21G0BB%21%2Cw_1200%2Ch_675%2Cc_fill%2Cf_jpg%2Cq_auto%3Agood%2Cfl_progressive%3Asteep%2Cg_auto/https%253A%252F%252Fsubstack-post-media.s3.amazonaws.com%252Fpublic%252Fimages%252F19030897-9388-4f99-83fc-e19ed6177c9c_1620x870.png",
+                "url": "https://substackcdn.com/image/fetch/$s_!G0BB!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F19030897-9388-4f99-83fc-e19ed6177c9c_1620x870.png",
+                "width": 0
+              },
+              "title": "Crude Awakening: How Spiking Oil Volatility Amplifies US Recession Risks",
+              "type": "rich",
+              "url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7"
+            }
+          ],
+          "flags": 0,
+          "id": "1524064640525533211",
+          "mention_everyone": true,
+          "mention_roles": [],
+          "mentions": [],
+          "pinned": false,
+          "timestamp": "2026-07-07T14:48:46.053000+00:00",
+          "tts": false,
+          "type": 0,
+          "webhook_id": "1520178044407644231"
+        },
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": null
+    },
+    "facebook": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "facebook",
+      "raw": {
+        "id": "106091951705748_1340073821644368",
+        "response": {
+          "id": "1340073791644371",
+          "post_id": "106091951705748_1340073821644368"
+        },
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": null
+    },
+    "instagram": {
+      "attempted_image_url": "https://images.weserv.nl/?url=https://substackcdn.com/image/fetch/%24s_%21G0BB%21%2Cw_1200%2Ch_675%2Cc_fill%2Cf_jpg%2Cq_auto:good%2Cfl_progressive:steep%2Cg_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F19030897-9388-4f99-83fc-e19ed6177c9c_1620x870.png&w=1080&h=1080&fit=contain&bg=white&output=jpg",
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "instagram",
+      "raw": {
+        "container_id": "18054902696775432",
+        "id": "18115080574810265",
+        "response": {
+          "id": "18115080574810265"
+        },
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": null
+    },
+    "linkedin": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "linkedin",
+      "raw": {
+        "action": "post",
+        "id": "activity_627979d3dc81",
+        "platform": "linkedin",
+        "response": {
+          "final_url": "https://www.linkedin.com/feed/"
+        },
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": "https://www.linkedin.com/feed/"
+    },
+    "substack": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "substack",
+      "raw": {
+        "action": "post",
+        "id": "crude-awakening-how-spiking-oil-volatility-4f7",
+        "media_upload_results": [
+          {
+            "asset_id": "primary",
+            "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png",
+            "status": "uploaded"
+          },
+          {
+            "asset_id": "recent_price",
+            "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_7299be89a6ce.png",
+            "status": "uploaded"
+          }
+        ],
+        "media_upload_status": "uploaded",
+        "platform": "substack",
+        "public_image_url": "https://substackcdn.com/image/fetch/$s_!Q9ek!,w_20,h_20,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F605afaf7-517e-4cfd-a674-610cbda1af3a_144x144.png",
+        "public_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+        "response": {
+          "final_url": "https://capitalchronicle.substack.com/publish/post/205777896",
+          "media_upload_results": [
+            {
+              "asset_id": "primary",
+              "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png",
+              "status": "uploaded"
+            },
+            {
+              "asset_id": "recent_price",
+              "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_7299be89a6ce.png",
+              "status": "uploaded"
+            }
+          ],
+          "media_upload_status": "uploaded",
+          "public_image_url": "https://substackcdn.com/image/fetch/$s_!Q9ek!,w_20,h_20,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F605afaf7-517e-4cfd-a674-610cbda1af3a_144x144.png",
+          "public_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+          "visual_evidence": {
+            "media_upload_results": [
+              {
+                "asset_id": "primary",
+                "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png",
+                "status": "uploaded"
+              },
+              {
+                "asset_id": "recent_price",
+                "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_7299be89a6ce.png",
+                "status": "uploaded"
+              }
+            ],
+            "placement_readback_status": "PASS",
+            "public_visual_readback": {
+              "attempts": 1,
+              "expected_visual_count": 2,
+              "meets_expected_visual_count": true,
+              "public_image_count": 2,
+              "public_image_urls": [
+                "https://substack-post-media.s3.amazonaws.com/public/images/19030897-9388-4f99-83fc-e19ed6177c9c_1620x870.png",
+                "https://substack-post-media.s3.amazonaws.com/public/images/eb24e43c-6713-41d3-acd3-0ef91feffd48_1725x1080.png"
+              ],
+              "public_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+              "status": "PASS"
+            },
+            "uploaded_visual_count": 2,
+            "visual_marker_count": 2,
+            "visual_marker_ids": [
+              "primary",
+              "recent_price"
+            ]
+          }
+        },
+        "status": "SUCCESS",
+        "url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+        "visual_evidence": {
+          "media_upload_results": [
+            {
+              "asset_id": "primary",
+              "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png",
+              "status": "uploaded"
+            },
+            {
+              "asset_id": "recent_price",
+              "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_7299be89a6ce.png",
+              "status": "uploaded"
+            }
+          ],
+          "placement_readback_status": "PASS",
+          "public_visual_readback": {
+            "attempts": 1,
+            "expected_visual_count": 2,
+            "meets_expected_visual_count": true,
+            "public_image_count": 2,
+            "public_image_urls": [
+              "https://substack-post-media.s3.amazonaws.com/public/images/19030897-9388-4f99-83fc-e19ed6177c9c_1620x870.png",
+              "https://substack-post-media.s3.amazonaws.com/public/images/eb24e43c-6713-41d3-acd3-0ef91feffd48_1725x1080.png"
+            ],
+            "public_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+            "status": "PASS"
+          },
+          "uploaded_visual_count": 2,
+          "visual_marker_count": 2,
+          "visual_marker_ids": [
+            "primary",
+            "recent_price"
+          ]
+        }
+      },
+      "status": "SUCCESS",
+      "url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+      "visual_evidence": {
+        "media_upload_results": [
+          {
+            "asset_id": "primary",
+            "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png",
+            "status": "uploaded"
+          },
+          {
+            "asset_id": "recent_price",
+            "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_7299be89a6ce.png",
+            "status": "uploaded"
+          }
+        ],
+        "placement_readback_status": "PASS",
+        "public_visual_readback": {
+          "attempts": 1,
+          "expected_visual_count": 2,
+          "meets_expected_visual_count": true,
+          "public_image_count": 2,
+          "public_image_urls": [
+            "https://substack-post-media.s3.amazonaws.com/public/images/19030897-9388-4f99-83fc-e19ed6177c9c_1620x870.png",
+            "https://substack-post-media.s3.amazonaws.com/public/images/eb24e43c-6713-41d3-acd3-0ef91feffd48_1725x1080.png"
+          ],
+          "public_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+          "status": "PASS"
+        },
+        "uploaded_visual_count": 2,
+        "visual_marker_count": 2,
+        "visual_marker_ids": [
+          "primary",
+          "recent_price"
+        ]
+      }
+    },
+    "telegram": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "telegram",
+      "raw": {
+        "action": "photo",
+        "id": "50",
+        "platform": "telegram",
+        "response": {
+          "ok": true,
+          "result": {
+            "caption": "\u26a1\ufe0f **Capital Chronicle Briefing: Is Oil Volatility Amplifying Recession Risks?**\n\nRather than relying on vague market narratives, we\u2019ve analyzed 10,191 daily WTI observations from 1986 through June 29, 2026, to map the current energy channel.\n\n**Key Data Points:**\n\u2022 **Current WTI Endpoint:** $71.87/bbl (June 29, 2026)\n\u2022 **90-Day Trend:** +7.8% from $66.66 (Feb 19, 2026)\n\u2022 **Volatility Shift:** Our 30-day realized-volatility proxy shows a **50.7% spike** over the last 90 days, with absolute daily moves averaging 2.8%.\n\n**The Editorial Take:** A volatile energy channel acts as a tax on consumers and transport-heavy businesses, but it is not a standalone recession trigger. True macro discipline requires separating this supply/demand volatility from yield-curve and credit-spread indicators.\n\n\ud83d\udd17 Read the full analysis and view our interactive charts here: https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+            "caption_entities": [
+              {
+                "length": 86,
+                "offset": 863,
+                "type": "url"
+              }
+            ],
+            "chat": {
+              "id": -1003857411155,
+              "title": "Capital Chronicle",
+              "type": "channel",
+              "username": "CapitalChronicle"
+            },
+            "date": 1783435617,
+            "message_id": 50,
+            "photo": [
+              {
+                "file_id": "AgACAgUAAyEGAATl62xTAAMvak0FGUuxfXR5OTxbcp3Vn0NOX-4AAiYPaxsfEGlW6JByJfxAQrEBAAMCAANzAAM8BA",
+                "file_size": 1175,
+                "file_unique_id": "AQADJg9rGx8QaVZ4",
+                "height": 56,
+                "width": 90
+              },
+              {
+                "file_id": "AgACAgUAAyEGAATl62xTAAMvak0FGUuxfXR5OTxbcp3Vn0NOX-4AAiYPaxsfEGlW6JByJfxAQrEBAAMCAANtAAM8BA",
+                "file_size": 16699,
+                "file_unique_id": "AQADJg9rGx8QaVZy",
+                "height": 200,
+                "width": 320
+              },
+              {
+                "file_id": "AgACAgUAAyEGAATl62xTAAMvak0FGUuxfXR5OTxbcp3Vn0NOX-4AAiYPaxsfEGlW6JByJfxAQrEBAAMCAAN4AAM8BA",
+                "file_size": 63979,
+                "file_unique_id": "AQADJg9rGx8QaVZ9",
+                "height": 501,
+                "width": 800
+              },
+              {
+                "file_id": "AgACAgUAAyEGAATl62xTAAMvak0FGUuxfXR5OTxbcp3Vn0NOX-4AAiYPaxsfEGlW6JByJfxAQrEBAAMCAAN5AAM8BA",
+                "file_size": 122283,
+                "file_unique_id": "AQADJg9rGx8QaVZ-",
+                "height": 801,
+                "width": 1280
+              },
+              {
+                "file_id": "AgACAgUAAyEGAATl62xTAAMvak0FGUuxfXR5OTxbcp3Vn0NOX-4AAiYPaxsfEGlW6JByJfxAQrEBAAMCAAN3AAM8BA",
+                "file_size": 172104,
+                "file_unique_id": "AQADJg9rGx8QaVZ8",
+                "height": 1080,
+                "width": 1725
+              }
+            ],
+            "sender_chat": {
+              "id": -1003857411155,
+              "title": "Capital Chronicle",
+              "type": "channel",
+              "username": "CapitalChronicle"
+            }
+          }
+        },
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": null
+    },
+    "threads": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "threads",
+      "raw": {
+        "container_id": "18135203842529547",
+        "id": "18084288743445088",
+        "response": {
+          "id": "18084288743445088"
+        },
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": null
+    },
+    "threads_replies": [
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "threads_reply_1",
+        "raw": {
+          "container_id": "18135203956529547",
+          "id": "18138183220563004",
+          "response": {
+            "id": "18138183220563004"
+          },
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      },
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "threads_reply_2",
+        "raw": {
+          "container_id": "18135204073529547",
+          "id": "18077221151657560",
+          "response": {
+            "id": "18077221151657560"
+          },
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      },
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "threads_reply_3",
+        "raw": {
+          "container_id": "18135204112529547",
+          "id": "18094218824617381",
+          "response": {
+            "id": "18094218824617381"
+          },
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      },
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "threads_reply_4",
+        "raw": {
+          "container_id": "18135204241529547",
+          "id": "18087809510550959",
+          "response": {
+            "id": "18087809510550959"
+          },
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      },
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "threads_reply_5",
+        "raw": {
+          "container_id": "18135204298529547",
+          "id": "18105838667120074",
+          "response": {
+            "id": "18105838667120074"
+          },
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      }
     ],
-    "failed_platforms": [],
-    "successful_platforms": []
+    "x_post": {
+      "error": null,
+      "error_class": null,
+      "ok": true,
+      "platform": "x_post",
+      "raw": {
+        "action": "post",
+        "id": "tweet_888096154d5b",
+        "platform": "x",
+        "response": {
+          "url": "https://x.com/Capitalnicle/status/2074504497293107680"
+        },
+        "status": "SUCCESS"
+      },
+      "status": "SUCCESS",
+      "url": "https://x.com/Capitalnicle/status/2074504497293107680"
+    },
+    "x_replies": [
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "x_reply_1",
+        "raw": {
+          "action": "comment",
+          "platform": "x",
+          "response": {
+            "target_url": "https://x.com/Capitalnicle/status/2074504497293107680"
+          },
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      },
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "x_reply_2",
+        "raw": {
+          "action": "comment",
+          "platform": "x",
+          "response": {
+            "target_url": "https://x.com/Capitalnicle/status/2074504497293107680"
+          },
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      },
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "x_reply_3",
+        "raw": {
+          "action": "comment",
+          "platform": "x",
+          "response": {
+            "target_url": "https://x.com/Capitalnicle/status/2074504497293107680"
+          },
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      },
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "x_reply_4",
+        "raw": {
+          "action": "comment",
+          "platform": "x",
+          "response": {
+            "target_url": "https://x.com/Capitalnicle/status/2074504497293107680"
+          },
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      },
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "x_reply_5",
+        "raw": {
+          "action": "comment",
+          "platform": "x",
+          "response": {
+            "target_url": "https://x.com/Capitalnicle/status/2074504497293107680"
+          },
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      },
+      {
+        "error": null,
+        "error_class": null,
+        "ok": true,
+        "platform": "x_reply_6",
+        "raw": {
+          "action": "comment",
+          "platform": "x",
+          "response": {
+            "target_url": "https://x.com/Capitalnicle/status/2074504497293107680"
+          },
+          "status": "SUCCESS"
+        },
+        "status": "SUCCESS",
+        "url": null
+      }
+    ]
   },
-  "image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png",
+  "dispatch_summary": {
+    "attempted_platforms": [
+      "substack",
+      "linkedin",
+      "x_post",
+      "x_reply_1",
+      "x_reply_2",
+      "x_reply_3",
+      "x_reply_4",
+      "x_reply_5",
+      "x_reply_6",
+      "instagram",
+      "facebook",
+      "telegram",
+      "threads",
+      "threads_reply_1",
+      "threads_reply_2",
+      "threads_reply_3",
+      "threads_reply_4",
+      "threads_reply_5",
+      "discord"
+    ],
+    "blocked_platforms": [],
+    "failed_platforms": [],
+    "successful_platforms": [
+      "substack",
+      "linkedin",
+      "x_post",
+      "x_reply_1",
+      "x_reply_2",
+      "x_reply_3",
+      "x_reply_4",
+      "x_reply_5",
+      "x_reply_6",
+      "instagram",
+      "facebook",
+      "telegram",
+      "threads",
+      "threads_reply_1",
+      "threads_reply_2",
+      "threads_reply_3",
+      "threads_reply_4",
+      "threads_reply_5",
+      "discord"
+    ]
+  },
+  "image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png",
   "media_manifest": {
     "chart_metadata": {
       "chart_path": null,
@@ -47,10 +625,10 @@
         "caption": "WTI crude oil price and 30-day realized volatility through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
         "latest_observation_date": "2026-06-29",
         "latest_observation_year": 2026,
-        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png",
+        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png",
         "media_subject": "WTI crude oil current price and volatility context",
         "public_url": null,
-        "query": "Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes",
+        "query": "Crude Awakening: How Spiking Oil Volatility Amplifies US Recession Risks",
         "recent_direction": "up",
         "recent_price_direction": "up",
         "source_label": "FRED / U.S. Energy Information Administration",
@@ -66,10 +644,10 @@
         "caption": "Recent WTI price path through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
         "latest_observation_date": "2026-06-29",
         "latest_observation_year": 2026,
-        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_e0fc75825c23.png",
+        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_7299be89a6ce.png",
         "media_subject": "WTI crude oil recent price path",
         "public_url": null,
-        "query": "Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes",
+        "query": "Crude Awakening: How Spiking Oil Volatility Amplifies US Recession Risks",
         "recent_direction": "up",
         "recent_price_direction": "up",
         "recent_volatility_direction": "up",
@@ -113,10 +691,10 @@
     "media_warnings": [
       "chart_source_csv_missing"
     ],
-    "news_image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png",
+    "news_image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png",
     "news_image_public_url": null,
     "news_image_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-    "news_image_source_query": "Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes",
+    "news_image_source_query": "Crude Awakening: How Spiking Oil Volatility Amplifies US Recession Risks",
     "news_image_source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
     "primary_chart_path": null,
     "primary_chart_public_url": null,
@@ -125,18 +703,18 @@
       "discord": null,
       "facebook": null,
       "instagram": null,
-      "linkedin": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png",
-      "substack": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png",
-      "telegram": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png",
+      "linkedin": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png",
+      "substack": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png",
+      "telegram": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png",
       "threads": null,
-      "x": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png"
+      "x": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_7299be89a6ce.png"
     }
   },
-  "pipeline_status": "DISPATCH_BLOCKED",
-  "platform_variant_packet_id": "variant_packet_d1fe7e3d4149",
-  "public_image_url": null,
-  "run_id": "v6_pipeline_77936ed4a048",
-  "timestamp": "2026-07-07T09:09:11Z",
-  "timestamp_gmt7": "2026-07-07T16:09:11+07:00",
+  "pipeline_status": "DISPATCH_COMPLETE",
+  "platform_variant_packet_id": "variant_packet_8e13d1f51fbe",
+  "public_image_url": "https://substackcdn.com/image/fetch/$s_!G0BB!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F19030897-9388-4f99-83fc-e19ed6177c9c_1620x870.png",
+  "run_id": "v6_pipeline_3c44a9855cc6",
+  "timestamp": "2026-07-07T14:35:56Z",
+  "timestamp_gmt7": "2026-07-07T21:35:56+07:00",
   "variant_status": "VARIANT_READY"
 }
