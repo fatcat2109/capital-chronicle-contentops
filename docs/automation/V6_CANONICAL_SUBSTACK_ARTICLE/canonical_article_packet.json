@@ -3,7 +3,7 @@
   "canonical_article_draft": {
     "assumptions": "Assumes data sufficiency and operator verification under V6 standards.",
     "body_word_count": 2009,
-    "canonical_payload_hash": "4a10fd6faa7117c83b6945c519834d898006f0ac130545dd945ba5ba09c7673d",
+    "canonical_payload_hash": "02800c60583651eb698d9be40ac32df5e224f2b509cc16a31c848f92991cb906",
     "chart_callouts": [
       "[CHART: Current WTI price and 30 days realized-volatility proxy from FRED DCOILWTICO through 2026-06-29]",
       "[CHART: Recent WTI price path comparing 2026-02-19, 2025-06-12, and 2026-06-29]"
@@ -12,9 +12,9 @@
       "https://fred.stlouisfed.org/series/DCOILWTICO",
       "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILWTICO",
       "https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm",
-      "https://finance.yahoo.com/video/were-bitcoin-etfs-both-best-143000245.html",
-      "https://finance.yahoo.com/m/91333d01-e6a7-3b0e-ab9d-e10afff2ef47/emaar-hospitality-to-debut.html",
-      "https://finance.yahoo.com/personal-finance/investing/article/is-crypto-mining-still-profitable-142502084.html"
+      "https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html",
+      "https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html",
+      "https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html"
     ],
     "conclusion": "The clean reading is neither complacent nor sensational. Oil volatility is rising enough to matter for a recession-risk briefing, and the visual evidence now shows a current source-backed endpoint rather than a stale historical range. But the responsible conclusion is a workflow conclusion: keep the energy channel in view, compare it with yield-curve and credit evidence as those sources become available, and preserve a strict separation between reported data and interpretation.\n\nThat is the standard this pipeline should enforce before dispatch. A publishable Capital Chronicle article must be long enough to carry context, specific enough to show its evidence, and visual enough to let readers inspect the data behind the thesis. This repaired article meets that structure while staying inside educational analysis and avoiding directional recommendations.\n\nThe next improvement is not a looser article gate; it is deeper source coverage. Once the Capital Chronicle database is connected, this same structure should incorporate labor, credit, yield-curve, and inflation series beside the oil channel. Until then, the article should remain explicit about what the WTI evidence can and cannot support.",
     "created_at": "2026-07-01T02:56:46+07:00",
@@ -63,7 +63,7 @@
     ],
     "slug_candidate": "oil-volatility-recession-risk-evidence-map",
     "source_notes": "Sources referenced in structured source_trail only. Optional notes: Live production run on: US recession risks rise as oil volatility spikes",
-    "source_notes_for_operator": "Raw source refs for operator verification: https://fred.stlouisfed.org/series/DCOILWTICO, https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILWTICO, https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm, https://finance.yahoo.com/video/were-bitcoin-etfs-both-best-143000245.html, https://finance.yahoo.com/m/91333d01-e6a7-3b0e-ab9d-e10afff2ef47/emaar-hospitality-to-debut.html, https://finance.yahoo.com/personal-finance/investing/article/is-crypto-mining-still-profitable-142502084.html",
+    "source_notes_for_operator": "Raw source refs for operator verification: https://fred.stlouisfed.org/series/DCOILWTICO, https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILWTICO, https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm, https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html, https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html, https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html",
     "source_trail": [
       {
         "claim_supported": "Latest WTI observation was $71.87 per barrel on 2026-06-29, giving the article a current 2026 oil-price endpoint.",
@@ -86,7 +86,7 @@
     ],
     "subtitle": "A source-led Capital Chronicle briefing on WTI, recession-risk interpretation, yield curves, and evidence discipline",
     "thesis": "Current oil volatility is relevant to recession-risk analysis, but the evidence must be current, source-backed, and separated from unsupported cycle claims.",
-    "title": "Crude Awakening: How Spiking Oil Volatility Amplifies US Recession Risks",
+    "title": "Crude Awakenings: How Spiking Oil Volatility Amplifies US Recession Risks",
     "uncertainty_notes": "Prior cycles may not predict future macro distributions.",
     "visual_slots": [
       {
@@ -114,7 +114,7 @@
   "discord_summary_seed": {
     "call_to_action": "Review the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
     "canonical_url": null,
-    "content_hash": "4a10fd6faa7117c83b6945c519834d898006f0ac130545dd945ba5ba09c7673d",
+    "content_hash": "02800c60583651eb698d9be40ac32df5e224f2b509cc16a31c848f92991cb906",
     "created_at": "2026-07-01T02:56:46+07:00",
     "key_points": [
       "The Macro Setup: Current Oil Evidence Before Narrative: The first job is to anchor the discussion in a current data endpoint. FRED's DCOILWTICO series reports WTI at $71.87 per...",
@@ -126,9 +126,9 @@
       "What Would Strengthen or Weaken the Recession-Risk Interpretation: A current oil-volatility chart is necessary evidence, but it is not sufficient evidence for a recession conclusion. The ...",
       "Editorial Bottom Line: The evidence supports a measured thesis: current oil volatility belongs in the recession-risk dashboard, but it should b..."
     ],
-    "source_article_id": "operator_idea_4a10fd6faa7117c8",
+    "source_article_id": "operator_idea_02800c60583651eb",
     "summary": "WTI data through the latest FRED observation show why current oil volatility belongs inside a recession-risk discussion, but only when the evidence is separated from market noise and directional calls.",
-    "title": "Crude Awakening: How Spiking Oil Volatility Amplifies US Recession Risks"
+    "title": "Crude Awakenings: How Spiking Oil Volatility Amplifies US Recession Risks"
   },
   "editorial_review_packet": {
     "editorial_risk_notes": "Ensure no restricted directional keywords are introduced during manual edits.",
@@ -145,12 +145,12 @@
     "dry_run_provenance": "deterministic_local_engine_run",
     "redaction_verified": true
   },
-  "operator_idea_id": "operator_idea_4a10fd6faa7117c8",
-  "packet_id": "article_engine_packet_4a10fd6faa7117c8",
+  "operator_idea_id": "operator_idea_02800c60583651eb",
+  "packet_id": "article_engine_packet_02800c60583651eb",
   "provider_attempts": [
     {
       "attempt_index": 1,
-      "failure": "article_too_short_words:1631<2000|source_trail_too_thin|provider_safety_scan_failed",
+      "failure": "article_too_short_words:1570<2000|provider_safety_scan_failed",
       "model": "default",
       "provider": "9router",
       "status": "failed",
@@ -158,7 +158,7 @@
     },
     {
       "attempt_index": 2,
-      "failure": "provider_safety_scan_failed",
+      "failure": "missing_specific_numbers",
       "model": "vx/gemini-3.1-pro-preview",
       "provider": "9router",
       "status": "failed",
@@ -181,7 +181,7 @@
   "raw_provider_key_serialized": false,
   "recommended_next_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_INDEX_AND_OPERATOR_HANDOFF_V0",
   "research_grounding_packet": {
-    "cited_source_notes": "https://fred.stlouisfed.org/series/DCOILWTICO, https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILWTICO, https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm, https://finance.yahoo.com/video/were-bitcoin-etfs-both-best-143000245.html, https://finance.yahoo.com/m/91333d01-e6a7-3b0e-ab9d-e10afff2ef47/emaar-hospitality-to-debut.html, https://finance.yahoo.com/personal-finance/investing/article/is-crypto-mining-still-profitable-142502084.html",
+    "cited_source_notes": "https://fred.stlouisfed.org/series/DCOILWTICO, https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILWTICO, https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm, https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html, https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html, https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html",
     "no_claims_of_live_public_publication": true,
     "no_fabricated_market_numbers": true,
     "no_invented_citations": true,
@@ -229,11 +229,11 @@
   "task_label": "TASK_CONTENTOPS_V6_ARTICLE_EVIDENCE_MEDIA_QUALITY_HARDENING_V0",
   "telegram_operator_checkpoint_seed": {
     "checkpoint_status": "pending_operator",
-    "concise_summary": "V6 Checkpoint: Crude Awakening: How Spiking Oil Volatility Amplifies US Recession Risks is ready for operator review."
+    "concise_summary": "V6 Checkpoint: Crude Awakenings: How Spiking Oil Volatility Amplifies US Recession Risks is ready for operator review."
   },
   "warnings": [
-    "article_quality_retry:default:article_too_short_words:1631<2000|source_trail_too_thin|provider_safety_scan_failed",
-    "article_quality_retry:vx/gemini-3.1-pro-preview:provider_safety_scan_failed",
+    "article_quality_retry:default:article_too_short_words:1570<2000|provider_safety_scan_failed",
+    "article_quality_retry:vx/gemini-3.1-pro-preview:missing_specific_numbers",
     "article_provider_repair_used:source_backed_wti_longform_template"
   ]
 }

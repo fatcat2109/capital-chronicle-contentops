@@ -1,7 +1,7 @@
 # SUBSTACK NATIVE VARIANT
 - **Status**: VARIANT_READY
-- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_7299be89a6ce.png
-- **Timestamp**: 2026-07-07 21:35:56
+- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_febb4cd8863f.png
+- **Timestamp**: 2026-07-08 01:25:28
 
 Capital Chronicle is treating the latest rise in oil volatility as an evidence problem before it is a market narrative. The source-backed WTI series used for this briefing runs from 1986-01-02 through 2026-06-29, with 10191 daily observations in the local calculation set. The latest FRED observation places WTI at $71.87 per barrel on 2026-06-29, compared with $66.66 roughly 90 days earlier on 2026-02-19. That comparison produces a 7.8% move across about 90 days, while the one-year comparison from $68.73 on 2025-06-12 produces a 4.6% change.
 
@@ -27,10 +27,6 @@ The realized-volatility proxy used here gives that mechanism a current frame: th
 
 This also explains why the article should not overclaim. An oil-volatility shock can tighten conditions for some consumers and producers, but it can also reflect changing demand expectations, inventory adjustments, or geopolitical risk premia. The correct editorial standard is to describe the channel, show the data endpoint, and state what the evidence does not prove.
 
-[[VISUAL:recent_price]]
-
-*Visual: Recent WTI price path through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. Source: FRED series DCOILWTICO; underlying source U.S. Energy Information Administration.*
-
 ### The Yield-Curve Lens and the Energy Lens Are Different
 The editorial angle includes yield curves, but the yield-curve lens should not be fused lazily with the oil chart. Yield curves summarize interest-rate expectations, policy credibility, term premia, and growth concerns. Oil volatility summarizes an energy-price channel that can interact with inflation and consumption. Both belong in a recession-risk map, but they do different work.
 
@@ -51,6 +47,10 @@ A high-end financial article can discuss market implications without sliding int
 The current data support that discussion because the series shows a 7.8% 90 days move and a 50.7% change in the volatility proxy. Those numbers give the reader scale. Scale is what separates disciplined macro writing from template commentary that simply says volatility is high or recession risk is rising.
 
 The implication is not that one asset class must move in a specific direction. The implication is that an operator should watch how energy volatility interacts with inflation prints, real-income data, credit conditions, and policy guidance. That is a process conclusion, not a market instruction.
+
+[[VISUAL:recent_price]]
+
+*Visual: Recent WTI price path through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. Source: FRED series DCOILWTICO; underlying source U.S. Energy Information Administration.*
 
 ### How to Read the Source Trail
 The source trail is intentionally concrete. The first source row supports the latest WTI endpoint, the second supports the mechanical calculations used for the 90 days and 30 days comparisons, and the third identifies the underlying petroleum source. That is stronger than a generic note saying a source requires operator review.

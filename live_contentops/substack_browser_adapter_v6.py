@@ -120,6 +120,69 @@ def _set_first_file_input(page: Any, image_path: str) -> str | None:
     return None
 
 
+def _editor_image_count(page: Any) -> int:
+    try:
+        return page.locator("div.ProseMirror img, .ProseMirror img").count()
+    except Exception:
+        return 0
+
+
+def _focus_substack_editor_at_end(page: Any) -> bool:
+    try:
+        editor = page.locator("div.ProseMirror, .ProseMirror").first
+        if not editor.is_visible():
+            return False
+        editor.click(timeout=2500)
+        editor.evaluate(
+            """
+            (editor) => {
+              editor.focus();
+              const range = document.createRange();
+              range.selectNodeContents(editor);
+              range.collapse(false);
+              const selection = window.getSelection();
+              selection.removeAllRanges();
+              selection.addRange(range);
+            }
+            """
+        )
+        return True
+    except Exception:
+        try:
+            page.keyboard.press("Control+End")
+            return True
+        except Exception:
+            return False
+
+
+def _focus_after_last_editor_image(page: Any) -> bool:
+    try:
+        count = _editor_image_count(page)
+        if count <= 0:
+            return _focus_substack_editor_at_end(page)
+        image = page.locator("div.ProseMirror img, .ProseMirror img").nth(count - 1)
+        image.scroll_into_view_if_needed(timeout=3000)
+        box = image.bounding_box(timeout=3000)
+        if not box:
+            return _focus_substack_editor_at_end(page)
+        x = box["x"] + min(max(box["width"] / 2, 20), max(box["width"] - 4, 4))
+        y = box["y"] + box["height"] + 12
+        page.mouse.click(x, y)
+        time.sleep(0.5)
+        return True
+    except Exception:
+        return _focus_substack_editor_at_end(page)
+
+
+def _insert_editor_text(page: Any, text: str) -> None:
+    if not text:
+        return
+    _focus_substack_editor_at_end(page)
+    # Substack's ProseMirror editor applies Markdown shortcuts during real
+    # key events; insert_text is faster but can bypass heading conversion.
+    page.keyboard.type(text)
+
+
 def _upload_substack_body_image_via_toolbar(page: Any, image_path: str) -> str | None:
     abs_path = str(Path(image_path).resolve())
     for button_selector in (
@@ -131,7 +194,8 @@ def _upload_substack_body_image_via_toolbar(page: Any, image_path: str) -> str |
             button = page.locator(button_selector).first
             if not button.is_visible():
                 continue
-            before_count = page.locator("div.ProseMirror img, .ProseMirror img").count()
+            _focus_substack_editor_at_end(page)
+            before_count = _editor_image_count(page)
             button.click()
             time.sleep(1)
             menu_item = page.locator("[role='menuitem']").filter(has_text=re.compile(r"^Image$")).first
@@ -143,8 +207,9 @@ def _upload_substack_body_image_via_toolbar(page: Any, image_path: str) -> str |
             chooser_info.value.set_files(abs_path)
             for _ in range(12):
                 time.sleep(1)
-                after_count = page.locator("div.ProseMirror img, .ProseMirror img").count()
+                after_count = _editor_image_count(page)
                 if after_count > before_count:
+                    _focus_after_last_editor_image(page)
                     return "uploaded"
             return "uploaded_unverified"
         except Exception:
@@ -223,15 +288,15 @@ def _type_body_with_visual_markers(
     body_markdown: str,
     image_path: str | None = None,
     image_assets: list[dict[str, Any]] | None = None,
-) -> list[dict[str, str]]:
+) -> list[dict[str, Any]]:
     segments = _split_body_visual_markers(body_markdown)
     asset_lookup = _normalise_image_assets(image_path, image_assets)
     has_markers = any(kind == "visual" for kind, _value in segments)
-    results: list[dict[str, str]] = []
+    results: list[dict[str, Any]] = []
 
     if not has_markers:
         if body_markdown:
-            page.keyboard.type(body_markdown)
+            _insert_editor_text(page, body_markdown)
         status = _upload_substack_image(page, image_path)
         if image_path:
             results.append({"asset_id": "primary", "local_path": image_path, "status": status})
@@ -240,17 +305,30 @@ def _type_body_with_visual_markers(
     for kind, value in segments:
         if kind == "text":
             if value:
-                page.keyboard.type(value)
+                _insert_editor_text(page, value)
             continue
         active_path = asset_lookup.get(value)
         if not active_path:
             results.append({"asset_id": value, "local_path": "", "status": "missing_asset"})
             continue
+        _focus_substack_editor_at_end(page)
+        before_count = _editor_image_count(page)
         status = _upload_substack_image(page, active_path)
-        results.append({"asset_id": value, "local_path": active_path, "status": status})
+        after_count = _editor_image_count(page)
+        if status == "uploaded" and after_count <= before_count:
+            status = "uploaded_unverified"
+        results.append({
+            "asset_id": value,
+            "local_path": active_path,
+            "status": status,
+            "editor_image_count_before": before_count,
+            "editor_image_count_after": after_count,
+        })
         try:
+            _focus_after_last_editor_image(page)
             page.keyboard.press("Enter")
             page.keyboard.press("Enter")
+            _focus_substack_editor_at_end(page)
         except Exception:
             pass
     return results

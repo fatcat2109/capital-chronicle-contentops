@@ -8,6 +8,7 @@ from live_contentops.substack_browser_adapter_v6 import (
     execute_substack_edit,
     execute_substack_post,
     _split_body_visual_markers,
+    _type_body_with_visual_markers,
 )
 
 
@@ -44,6 +45,63 @@ def test_execute_substack_post_dry_run_counts_visual_assets():
     )
     assert res["payload_redacted"]["visual_marker_count"] == 1
     assert res["payload_redacted"]["image_asset_count"] == 1
+
+
+def test_substack_segment_composer_preserves_visual_upload_order(monkeypatch):
+    events = []
+    image_count = {"value": 0}
+
+    class FakeKeyboard:
+        def insert_text(self, text):
+            events.append(("text", text))
+
+        def type(self, text):
+            events.append(("text", text))
+
+        def press(self, key):
+            events.append(("press", key))
+
+    class FakePage:
+        keyboard = FakeKeyboard()
+
+    def fake_focus(_page):
+        events.append(("focus_end", ""))
+        return True
+
+    def fake_count(_page):
+        return image_count["value"]
+
+    def fake_upload(_page, path):
+        events.append(("upload", path))
+        image_count["value"] += 1
+        return "uploaded"
+
+    monkeypatch.setattr("live_contentops.substack_browser_adapter_v6._focus_substack_editor_at_end", fake_focus)
+    monkeypatch.setattr("live_contentops.substack_browser_adapter_v6._editor_image_count", fake_count)
+    monkeypatch.setattr("live_contentops.substack_browser_adapter_v6._upload_substack_image", fake_upload)
+
+    results = _type_body_with_visual_markers(
+        FakePage(),
+        "Intro\n\n[[VISUAL:primary]]\n\nMacro section\n\n[[VISUAL:recent_price]]\n\nClose",
+        image_assets=[
+            {"asset_id": "primary", "local_path": "primary.png"},
+            {"asset_id": "recent_price", "local_path": "recent.png"},
+        ],
+    )
+
+    compact_events = [event for event in events if event[0] in {"text", "upload"}]
+    assert compact_events == [
+        ("text", "Intro\n\n"),
+        ("upload", "primary.png"),
+        ("text", "\n\nMacro section\n\n"),
+        ("upload", "recent.png"),
+        ("text", "\n\nClose"),
+    ]
+    assert [item["asset_id"] for item in results] == ["primary", "recent_price"]
+    assert results[0]["editor_image_count_before"] == 0
+    assert results[0]["editor_image_count_after"] == 1
+    assert results[1]["editor_image_count_before"] == 1
+    assert results[1]["editor_image_count_after"] == 2
 
 
 def test_execute_substack_comment_dry_run():

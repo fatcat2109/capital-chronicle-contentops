@@ -9,6 +9,7 @@ from live_contentops.live_production_pipeline_runner_v6 import (
     _apply_canonical_link,
     _instagram_image_candidates,
     _fit_telegram_photo_caption,
+    _expected_substack_visual_placements,
     audit_substack_public_visuals,
     resolve_substack_public_url,
 )
@@ -478,6 +479,108 @@ def test_audit_substack_public_visuals_counts_distinct_public_images(monkeypatch
     assert audit["public_image_count"] == 2
     assert audit["meets_expected_visual_count"] is True
     assert audit["public_image_urls"] == ["https://example.com/primary.png", "https://example.com/recent.png"]
+
+
+def test_audit_substack_public_visuals_passes_in_body_visual_order(monkeypatch):
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def read(self):
+            return b"""
+            <html><body><article>
+              <p>Intro setup.</p>
+              <img src="https://substackcdn.com/image/fetch/w_1200/https%3A%2F%2Fexample.com%2Fprimary.png">
+              <h2>The Macro Setup: Current Oil Evidence Before Narrative</h2>
+              <p>Macro body.</p>
+              <h2>Market Implications Without Directional Noise</h2>
+              <p>Market body.</p>
+              <img src="https://substackcdn.com/image/fetch/w_1200/https%3A%2F%2Fexample.com%2Frecent.png">
+              <h2>How to Read the Source Trail</h2>
+              <p>Source explanation.</p>
+              <h2>Source trail</h2>
+            </article></body></html>
+            """
+
+    monkeypatch.setattr("urllib.request.urlopen", lambda *_args, **_kwargs: FakeResponse())
+    audit = audit_substack_public_visuals(
+        "https://capitalchronicle.substack.com/p/current-oil-risk",
+        expected_visual_count=2,
+        expected_placements=[
+            {"asset_id": "primary", "placement_after_section": "intro"},
+            {"asset_id": "recent_price", "placement_after_section": "Market Implications Without Directional Noise"},
+        ],
+        retries=1,
+    )
+
+    assert audit["status"] == "PASS"
+    assert audit["placement_order_status"] == "PASS"
+    assert audit["meets_visual_placement_expectations"] is True
+    assert [check["passed"] for check in audit["placement_checks"]] == [True, True]
+
+
+def test_audit_substack_public_visuals_fails_when_images_are_only_at_end(monkeypatch):
+    class FakeResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def read(self):
+            return b"""
+            <html><body><article>
+              <p>Intro setup.</p>
+              <h2>The Macro Setup: Current Oil Evidence Before Narrative</h2>
+              <p>Macro body.</p>
+              <h2>Market Implications Without Directional Noise</h2>
+              <p>Market body.</p>
+              <h2>Source trail</h2>
+              <p>Sources.</p>
+              <img src="https://substackcdn.com/image/fetch/w_1200/https%3A%2F%2Fexample.com%2Fprimary.png">
+              <img src="https://substackcdn.com/image/fetch/w_1200/https%3A%2F%2Fexample.com%2Frecent.png">
+            </article></body></html>
+            """
+
+    monkeypatch.setattr("urllib.request.urlopen", lambda *_args, **_kwargs: FakeResponse())
+    audit = audit_substack_public_visuals(
+        "https://capitalchronicle.substack.com/p/current-oil-risk",
+        expected_visual_count=2,
+        expected_placements=[
+            {"asset_id": "primary", "placement_after_section": "intro"},
+            {"asset_id": "recent_price", "placement_after_section": "Market Implications Without Directional Noise"},
+        ],
+        retries=1,
+    )
+
+    assert audit["meets_expected_visual_count"] is True
+    assert audit["status"] == "PLACEMENT_MISMATCH"
+    assert audit["placement_order_status"] == "PLACEMENT_MISMATCH"
+    assert audit["meets_visual_placement_expectations"] is False
+    assert audit["all_images_after_source_trail"] is True
+
+
+def test_expected_substack_visual_placements_infer_missing_slot_from_marker_heading():
+    body = (
+        "Intro\n\n[[VISUAL:primary]]\n\n"
+        "### Data Transparency and the Retail Reality\n"
+        "Section body.\n\n[[VISUAL:recent_price]]\n\n"
+        "### Geopolitical Tremors and Energy Security\n"
+    )
+
+    placements = _expected_substack_visual_placements(
+        ["primary", "recent_price"],
+        [{"asset_id": "primary", "placement_after_section": "intro"}],
+        body,
+    )
+
+    assert placements[0]["placement_after_section"] == "intro"
+    assert placements[0]["placement_source"] == "visual_slot"
+    assert placements[1]["placement_after_section"] == "Data Transparency and the Retail Reality"
+    assert placements[1]["placement_source"] == "marker_heading_inference"
 
 
 @patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")

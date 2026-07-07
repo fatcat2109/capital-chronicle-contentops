@@ -65,7 +65,7 @@ def _normalize_dispatch_result(platform: str, result: dict[str, Any] | None = No
         "platform": platform,
         "status": status,
         "ok": ok,
-        "error_class": None if ok else (result.get("error_class") or type(error).__name__ if error else "dispatch_failed"),
+        "error_class": None if ok else (result.get("error_class") or (type(error).__name__ if error else "dispatch_failed")),
         "error": err or None,
         "url": _result_url(result),
         "raw": result,
@@ -350,21 +350,250 @@ def extract_og_image(url: str) -> str | None:
     return None
 
 
+def _substack_image_candidates_from_tag(tag: str) -> list[str]:
+    import html
+
+    candidates: list[str] = []
+    for attr in ("src", "data-src"):
+        match = re.search(rf"""{attr}=["']([^"']+)["']""", tag, flags=re.IGNORECASE)
+        if match:
+            candidates.append(html.unescape(match.group(1)))
+    srcset = re.search(r"""srcset=["']([^"']+)["']""", tag, flags=re.IGNORECASE)
+    if srcset:
+        for part in re.split(r",\s+", html.unescape(srcset.group(1)).strip()):
+            candidate = part.strip().split(" ", 1)[0]
+            if candidate:
+                candidates.append(candidate)
+    return candidates
+
+
+def _canonical_public_image_url(candidate: str) -> str | None:
+    clean = str(candidate or "").strip()
+    if clean.startswith("//"):
+        clean = f"https:{clean}"
+    if not _is_useful_public_image_url(clean):
+        return None
+    source = _source_url_from_substack_cdn(clean) or clean
+    canonical = source.split("?", 1)[0]
+    lowered = canonical.lower()
+    if any(marker in lowered for marker in ("substack-post-office", "default-logo", "avatar")):
+        return None
+    return canonical
+
+
+def _html_fragment_text(fragment: str) -> str:
+    import html
+
+    cleaned = re.sub(r"<(script|style)\b.*?</\1>", " ", fragment or "", flags=re.IGNORECASE | re.DOTALL)
+    cleaned = re.sub(r"<[^>]+>", " ", cleaned)
+    return re.sub(r"\s+", " ", html.unescape(cleaned)).strip()
+
+
+def _normalise_public_heading(value: str | None) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", str(value or "").lower()).strip()
+
+
+def _extract_public_visual_order(page_html: str, canonical_urls: list[str]) -> dict[str, Any]:
+    seen_urls: set[str] = set()
+    image_events: list[dict[str, Any]] = []
+    canonical_set = set(canonical_urls)
+    for match in re.finditer(r"<img\b[^>]+>", page_html, flags=re.IGNORECASE | re.DOTALL):
+        canonical = next(
+            (url for url in (_canonical_public_image_url(candidate) for candidate in _substack_image_candidates_from_tag(match.group(0))) if url),
+            None,
+        )
+        if not canonical or canonical in seen_urls or (canonical_set and canonical not in canonical_set):
+            continue
+        seen_urls.add(canonical)
+        image_events.append({
+            "position": match.start(),
+            "url": canonical,
+            "previous_heading": None,
+            "next_heading": None,
+        })
+
+    heading_events: list[dict[str, Any]] = []
+    for match in re.finditer(r"<h[1-6]\b[^>]*>(.*?)</h[1-6]>", page_html, flags=re.IGNORECASE | re.DOTALL):
+        title = _html_fragment_text(match.group(1))
+        if title:
+            heading_events.append({
+                "position": match.start(),
+                "title": title,
+                "title_key": _normalise_public_heading(title),
+            })
+
+    for image in image_events:
+        previous = [heading for heading in heading_events if heading["position"] < image["position"]]
+        following = [heading for heading in heading_events if heading["position"] > image["position"]]
+        if previous:
+            image["previous_heading"] = previous[-1]["title"]
+        if following:
+            image["next_heading"] = following[0]["title"]
+
+    return {
+        "image_events": image_events,
+        "heading_events": heading_events,
+    }
+
+
+def _audit_public_visual_placement(
+    page_html: str,
+    canonical_urls: list[str],
+    expected_placements: list[dict[str, Any]] | None,
+) -> dict[str, Any]:
+    order = _extract_public_visual_order(page_html, canonical_urls)
+    image_events = order["image_events"]
+    heading_events = order["heading_events"]
+    if not expected_placements:
+        return {
+            "placement_order_status": "SKIPPED_NO_EXPECTED_PLACEMENTS",
+            "meets_visual_placement_expectations": True,
+            "visual_order_proof": image_events[:10],
+            "placement_checks": [],
+            "all_images_after_source_trail": False,
+        }
+
+    source_heading = next((heading for heading in heading_events if heading["title_key"].startswith("source trail")), None)
+    source_pos = source_heading["position"] if source_heading else None
+    first_major_heading_pos = heading_events[0]["position"] if heading_events else None
+    all_after_source = bool(source_pos is not None and image_events and all(image["position"] > source_pos for image in image_events))
+    checks: list[dict[str, Any]] = []
+    status = "PASS"
+    non_intro_placement_keys = {
+        _normalise_public_heading(item.get("placement_after_section"))
+        for item in expected_placements
+        if _normalise_public_heading(item.get("placement_after_section")) not in {"", "intro"}
+    }
+
+    for idx, placement in enumerate(expected_placements):
+        asset_id = str(placement.get("asset_id") or f"visual_{idx + 1}")
+        placement_key = _normalise_public_heading(placement.get("placement_after_section"))
+        image = image_events[idx] if idx < len(image_events) else None
+        check = {
+            "asset_id": asset_id,
+            "placement_after_section": placement.get("placement_after_section"),
+            "image_url": image.get("url") if image else None,
+            "previous_heading": image.get("previous_heading") if image else None,
+            "next_heading": image.get("next_heading") if image else None,
+            "passed": False,
+            "reason": None,
+        }
+        if not image:
+            check["reason"] = "missing_public_image_for_visual_slot"
+            status = "COUNT_MISMATCH"
+            checks.append(check)
+            continue
+        if source_pos is not None and image["position"] > source_pos:
+            check["reason"] = "image_after_source_trail"
+            status = "PLACEMENT_MISMATCH"
+            checks.append(check)
+            continue
+        if placement_key == "intro":
+            previous_key = _normalise_public_heading(image.get("previous_heading"))
+            next_key = _normalise_public_heading(image.get("next_heading"))
+            late_previous_heading = (
+                previous_key.startswith("source trail")
+                or previous_key.startswith("discussion")
+                or any(
+                    key and previous_key and (key == previous_key or key in previous_key or previous_key in key)
+                    for key in non_intro_placement_keys
+                )
+            )
+            macro_context = (
+                "macro setup" in previous_key
+                or "macro setup" in next_key
+                or "current oil evidence" in previous_key
+                or "current oil evidence" in next_key
+            )
+            early_context = bool(next_key and not next_key.startswith("discussion") and not next_key.startswith("source trail") and not late_previous_heading)
+            if (first_major_heading_pos is None or image["position"] < first_major_heading_pos or macro_context or early_context) and not late_previous_heading:
+                check["passed"] = True
+            else:
+                check["reason"] = "intro_visual_not_near_macro_setup_or_before_later_sections"
+                status = "PLACEMENT_MISMATCH"
+            checks.append(check)
+            continue
+
+        target_heading_index = None
+        for heading_idx, heading in enumerate(heading_events):
+            title_key = heading["title_key"]
+            if placement_key and (placement_key == title_key or placement_key in title_key or title_key in placement_key):
+                target_heading_index = heading_idx
+                break
+        if target_heading_index is None:
+            check["reason"] = "target_heading_not_found"
+            status = "PLACEMENT_INCONCLUSIVE" if status == "PASS" else status
+            checks.append(check)
+            continue
+        target_heading = heading_events[target_heading_index]
+        next_heading = heading_events[target_heading_index + 1] if target_heading_index + 1 < len(heading_events) else None
+        before_next_heading = next_heading is None or image["position"] < next_heading["position"]
+        if image["position"] > target_heading["position"] and before_next_heading:
+            check["passed"] = True
+        else:
+            check["reason"] = "image_not_within_target_section_range"
+            status = "PLACEMENT_MISMATCH"
+        checks.append(check)
+
+    if all_after_source:
+        status = "PLACEMENT_MISMATCH"
+    return {
+        "placement_order_status": status,
+        "meets_visual_placement_expectations": status == "PASS",
+        "visual_order_proof": image_events[:10],
+        "placement_checks": checks,
+        "all_images_after_source_trail": all_after_source,
+    }
+
+
+def _expected_substack_visual_placements(
+    visual_marker_ids: list[str],
+    visual_slots: list[dict[str, Any]] | None,
+    body_markdown: str | None = None,
+) -> list[dict[str, Any]]:
+    slots_by_id = {
+        str(slot.get("asset_id") or "").strip(): slot
+        for slot in (visual_slots or [])
+        if isinstance(slot, dict) and str(slot.get("asset_id") or "").strip()
+    }
+    headings = list(re.finditer(r"(?m)^###\s+(.+)$", body_markdown or ""))
+    placements: list[dict[str, Any]] = []
+    for marker_id in visual_marker_ids:
+        slot = slots_by_id.get(str(marker_id))
+        placement_after_section = slot.get("placement_after_section") if slot else None
+        if not placement_after_section and body_markdown:
+            marker_pos = body_markdown.find(f"[[VISUAL:{marker_id}]]")
+            if marker_pos >= 0:
+                previous_heading = next((heading for heading in reversed(headings) if heading.start() < marker_pos), None)
+                placement_after_section = previous_heading.group(1).strip() if previous_heading else "intro"
+        placements.append({
+            "asset_id": marker_id,
+            "placement_after_section": placement_after_section,
+            "editorial_purpose": slot.get("editorial_purpose") if slot else None,
+            "placement_source": "visual_slot" if slot and slot.get("placement_after_section") else "marker_heading_inference",
+        })
+    return placements
+
+
 def audit_substack_public_visuals(
     url: str | None,
     *,
     expected_visual_count: int = 0,
+    expected_placements: list[dict[str, Any]] | None = None,
     retries: int = 3,
     delay_seconds: float = 2.0,
 ) -> dict[str, Any]:
-    """Read the public Substack page and count useful article image URLs."""
+    """Read the public Substack page and verify useful article images plus body placement."""
     result: dict[str, Any] = {
         "status": "SKIPPED",
         "public_url": url,
         "expected_visual_count": expected_visual_count,
+        "expected_placements": expected_placements or [],
         "public_image_count": 0,
         "public_image_urls": [],
         "meets_expected_visual_count": False,
+        "meets_visual_placement_expectations": False,
+        "placement_order_status": "NOT_EVALUATED",
         "attempts": 0,
     }
     if not url or "mock-post" in url or _is_substack_admin_url(url):
@@ -374,7 +603,6 @@ def audit_substack_public_visuals(
         result["status"] = "SKIPPED_NO_EXPECTED_VISUALS"
         return result
 
-    import html
     import urllib.request
 
     for attempt in range(1, retries + 1):
@@ -389,29 +617,13 @@ def audit_substack_public_visuals(
 
             candidates: list[str] = []
             for tag in re.findall(r"<img\b[^>]+>", page_html, flags=re.IGNORECASE | re.DOTALL):
-                for attr in ("src", "data-src"):
-                    match = re.search(rf"""{attr}=["']([^"']+)["']""", tag, flags=re.IGNORECASE)
-                    if match:
-                        candidates.append(html.unescape(match.group(1)))
-                srcset = re.search(r"""srcset=["']([^"']+)["']""", tag, flags=re.IGNORECASE)
-                if srcset:
-                    for part in re.split(r",\s+", html.unescape(srcset.group(1)).strip()):
-                        candidate = part.strip().split(" ", 1)[0]
-                        if candidate:
-                            candidates.append(candidate)
+                candidates.extend(_substack_image_candidates_from_tag(tag))
 
             canonical_urls: list[str] = []
             seen: set[str] = set()
             for candidate in candidates:
-                clean = candidate.strip()
-                if clean.startswith("//"):
-                    clean = f"https:{clean}"
-                if not _is_useful_public_image_url(clean):
-                    continue
-                source = _source_url_from_substack_cdn(clean) or clean
-                canonical = source.split("?", 1)[0]
-                lowered = canonical.lower()
-                if any(marker in lowered for marker in ("substack-post-office", "default-logo", "avatar")):
+                canonical = _canonical_public_image_url(candidate)
+                if not canonical:
                     continue
                 if canonical in seen:
                     continue
@@ -419,13 +631,20 @@ def audit_substack_public_visuals(
                 canonical_urls.append(canonical)
 
             public_image_count = len(canonical_urls)
+            placement_audit = _audit_public_visual_placement(page_html, canonical_urls, expected_placements)
+            count_pass = public_image_count >= expected_visual_count
+            placement_status = placement_audit.get("placement_order_status")
+            status = "PASS" if count_pass else "COUNT_MISMATCH"
+            if count_pass and expected_placements and placement_status != "PASS":
+                status = str(placement_status or "PLACEMENT_MISMATCH")
             result.update({
-                "status": "PASS" if public_image_count >= expected_visual_count else "COUNT_MISMATCH",
+                "status": status,
                 "public_image_count": public_image_count,
                 "public_image_urls": canonical_urls[:10],
-                "meets_expected_visual_count": public_image_count >= expected_visual_count,
+                "meets_expected_visual_count": count_pass,
+                **placement_audit,
             })
-            if result["meets_expected_visual_count"] or attempt == retries:
+            if (result["meets_expected_visual_count"] and (not expected_placements or result["meets_visual_placement_expectations"])) or attempt == retries:
                 return result
         except Exception as exc:
             result.update({"status": "READBACK_FAILED", "error": str(exc)})
@@ -544,6 +763,12 @@ def run_live_production_pipeline(
                 else:
                     print("[Info] Dispatching to Substack...")
                     visual_marker_ids = re.findall(r"\[\[VISUAL:([a-zA-Z0-9_-]+)\]\]", body or "")
+                    visual_slots = article_packet.get("canonical_article_draft", {}).get("visual_slots")
+                    expected_visual_placements = _expected_substack_visual_placements(
+                        visual_marker_ids,
+                        visual_slots if isinstance(visual_slots, list) else None,
+                        body,
+                    )
                     sub_res = execute_substack_post(
                         title=article_packet.get("canonical_article_draft", {}).get("title", topic),
                         subtitle=article_packet.get("canonical_article_draft", {}).get("subtitle", ""),
@@ -581,26 +806,40 @@ def run_live_production_pipeline(
                             public_visual_readback = audit_substack_public_visuals(
                                 canonical_url,
                                 expected_visual_count=len(visual_marker_ids),
+                                expected_placements=expected_visual_placements,
                             )
                             if (
                                 len(visual_marker_ids)
                                 and uploaded_visual_count >= len(visual_marker_ids)
                                 and public_visual_readback.get("meets_expected_visual_count")
+                                and public_visual_readback.get("meets_visual_placement_expectations")
                             ):
                                 placement_status = "PASS"
-                            elif len(visual_marker_ids) and uploaded_visual_count >= len(visual_marker_ids):
-                                placement_status = "UPLOAD_PASS_PUBLIC_READBACK_INCONCLUSIVE"
+                            elif (
+                                len(visual_marker_ids)
+                                and uploaded_visual_count >= len(visual_marker_ids)
+                                and public_visual_readback.get("meets_expected_visual_count")
+                            ):
+                                placement_status = f"PUBLIC_PLACEMENT_{public_visual_readback.get('placement_order_status') or 'INCONCLUSIVE'}"
                             else:
                                 placement_status = "UPLOAD_MISMATCH"
                             visual_evidence = {
                                 "visual_marker_ids": visual_marker_ids,
                                 "visual_marker_count": len(visual_marker_ids),
+                                "expected_visual_placements": expected_visual_placements,
                                 "uploaded_visual_count": uploaded_visual_count,
                                 "media_upload_results": media_upload_results,
                                 "public_visual_readback": public_visual_readback,
                                 "placement_readback_status": placement_status,
                             }
                             dispatch_results["substack"]["visual_evidence"] = visual_evidence
+                            if len(visual_marker_ids) and placement_status != "PASS":
+                                dispatch_results["substack"].update({
+                                    "ok": False,
+                                    "status": "FAILED_VISUAL_PLACEMENT",
+                                    "error_class": "substack_visual_placement_failed",
+                                    "error": placement_status,
+                                })
                             if isinstance(dispatch_results["substack"].get("raw"), dict):
                                 dispatch_results["substack"]["raw"]["visual_evidence"] = visual_evidence
                                 response = dispatch_results["substack"]["raw"].setdefault("response", {})

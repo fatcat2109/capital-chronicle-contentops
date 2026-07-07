@@ -1,26 +1,22 @@
 # X NATIVE VARIANT
 - **Status**: VARIANT_READY
-- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_7299be89a6ce.png
-- **Timestamp**: 2026-07-07 21:35:56
+- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_febb4cd8863f.png
+- **Timestamp**: 2026-07-08 01:25:28
 
-How much does the recent spike in oil volatility actually tell us about US recession risks? At Capital Chronicle, we look at the raw data before the market narrative. Let's break down the numbers from our latest WTI briefing. 🧵
-
----
-
-First, the current endpoint: On June 29, 2026, WTI crude stood at $71.87/bbl. This is up 7.8% from $66.66 roughly 90 days earlier (Feb 19, 2026). The one-year comparison shows a more modest 4.6% increase from $68.73 in June 2025.
+1/ Is rising oil volatility signaling a US recession, or is it just market noise? At Capital Chronicle, we analyze the latest WTI crude data through June 29, 2026, to separate macro reality from headline anxiety. Let's look at the numbers. 👇
 
 ---
 
-But the real story is volatility. Our 30-day realized-volatility proxy averaged 2.8% absolute daily moves. That represents a 50.7% surge in the volatility proxy over the last 90 days, widening the range of potential macro outcomes.
+2/ On June 29, 2026, WTI crude stood at $71.87/bbl, up 7.8% from $66.66 roughly 90 days earlier. More telling is the volatility: our 30-day realized volatility proxy averaged 2.8% absolute daily moves, representing a 50.7% surge over that 90-day window.
 
 ---
 
-How does this feed into recession risk? Higher energy volatility impacts household real income, corporate transport costs, and inflation expectations. But the transmission isn't automatic—it depends on duration, pass-through, and labor market resilience.
+3/ Why does this volatility matter? It directly impacts household real income, corporate transport costs, and inflation expectations. When volatility rises, the distribution of potential macroeconomic outcomes widens significantly.
 
 ---
 
-Crucially, we must separate the energy lens from the yield-curve lens. Yield curves track interest-rate expectations and term premia; oil tracks a specific commodity channel. Fusing them lazily leads to weak macro conclusions.
+4/ However, we must avoid lazy analysis. Oil volatility and yield curves are different lenses. While yield curves capture interest-rate expectations, oil captures immediate energy-channel friction. Both belong on a dashboard, but they do different work.
 
 ---
 
-Our bottom line: Rising oil volatility belongs on the recession dashboard, but it doesn't settle the cycle call alone. Read our full, source-disciplined analysis of the EIA/FRED data: [Link]
+5/ Our conclusion? Rising oil volatility is a key variable to monitor, but it isn't a standalone recession guarantee. Read our full, source-disciplined editorial briefing for the complete breakdown: [Link]

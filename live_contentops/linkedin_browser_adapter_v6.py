@@ -132,6 +132,224 @@ def _accept_linkedin_alerts(page: Any) -> None:
     _clear_linkedin_overlays(page)
 
 
+def _linkedin_media_attachment_passed(evidence: dict[str, Any] | None) -> bool:
+    evidence = evidence or {}
+    return (
+        evidence.get("media_upload_status") == "uploaded"
+        and evidence.get("media_preview_detected") is True
+    )
+
+
+def _linkedin_media_blocked_result(text: str, image_path: str | None, evidence: dict[str, Any] | None) -> dict[str, Any]:
+    payload_hash = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
+    media_evidence = evidence or {}
+    return {
+        "status": "FAILED",
+        "platform": "linkedin",
+        "action": "post",
+        "id": f"activity_{payload_hash}",
+        "error_class": "LINKEDIN_MEDIA_ATTACHMENT_BLOCKED",
+        "error": "LinkedIn visual-required run blocked before posting because native image preview was not verified.",
+        "media_upload_requested": bool(image_path),
+        "media_upload_status": media_evidence.get("media_upload_status") or "failed",
+        "media_preview_detected": bool(media_evidence.get("media_preview_detected")),
+        "media_attachment_evidence": media_evidence,
+    }
+
+
+def _linkedin_file_input_descriptor(file_input: Any) -> str:
+    try:
+        attrs = file_input.evaluate(
+            "e => ({id:e.id || '', accept:e.getAttribute('accept') || '', className:e.className || '', "
+            "aria:e.getAttribute('aria-label') || '', parentText:e.parentElement ? e.parentElement.innerText || '' : ''})"
+        )
+    except Exception:
+        attrs = {}
+    return " ".join(str(attrs.get(k, "")) for k in ("id", "accept", "className", "aria", "parentText")).lower()
+
+
+def _set_linkedin_file_input(page: Any, image_path: str) -> str | None:
+    abs_path = str(Path(image_path).resolve())
+    try:
+        inputs = page.locator("input[type='file']").all()
+    except Exception:
+        inputs = []
+    for idx, file_input in enumerate(inputs):
+        try:
+            descriptor = _linkedin_file_input_descriptor(file_input)
+            if "video/" in descriptor or "pdf" in descriptor or "document" in descriptor:
+                continue
+            if "accept" in descriptor and "image" not in descriptor and "media" not in descriptor:
+                continue
+            file_input.set_input_files(abs_path)
+            return f"input[type=file]#{idx}"
+        except Exception:
+            continue
+    return None
+
+
+def _linkedin_preview_evidence(page: Any) -> dict[str, Any]:
+    selectors = (
+        "div[role='dialog'] button[aria-label*='Edit image']",
+        "div[role='dialog'] button[aria-label*='Alt text']",
+        "div[role='dialog'] button:has-text('Alt text')",
+        "div[role='dialog'] img[src^='blob:']",
+        "div[role='dialog'] img[src*='media']",
+        "div[role='dialog'] img[src*='licdn']",
+        ".share-creation-state__preview img[src]",
+        ".share-box img[src^='blob:']",
+    )
+    for selector in selectors:
+        try:
+            loc = page.locator(selector)
+            count = loc.count()
+            if count:
+                return {
+                    "media_preview_detected": True,
+                    "media_preview_selector": selector,
+                    "media_preview_candidate_count": count,
+                }
+        except Exception:
+            continue
+    try:
+        candidates = page.evaluate(
+            """
+            () => Array.from(document.querySelectorAll("div[role='dialog'] img[src], .share-box img[src]"))
+              .map((img) => ({
+                src: img.getAttribute("src") || "",
+                alt: img.getAttribute("alt") || "",
+                width: img.naturalWidth || img.width || 0,
+                height: img.naturalHeight || img.height || 0
+              }))
+              .filter((img) => {
+                const src = img.src.toLowerCase();
+                const alt = img.alt.toLowerCase();
+                const largeEnough = img.width >= 120 || img.height >= 120;
+                const likelyPreview = src.startsWith("blob:") || src.includes("media") || src.includes("image");
+                const likelyAvatar = src.includes("profile-displayphoto") || alt.includes("profile") || alt.includes("avatar");
+                return largeEnough && likelyPreview && !likelyAvatar;
+              })
+            """
+        )
+        if candidates:
+            return {
+                "media_preview_detected": True,
+                "media_preview_selector": "dom:image-preview-candidates",
+                "media_preview_candidate_count": len(candidates),
+                "media_preview_candidates": candidates[:3],
+            }
+    except Exception:
+        pass
+    return {
+        "media_preview_detected": False,
+        "media_preview_selector": None,
+        "media_preview_candidate_count": 0,
+    }
+
+
+def _wait_for_linkedin_media_preview(page: Any, *, timeout_seconds: float = 25.0) -> dict[str, Any]:
+    deadline = time.time() + timeout_seconds
+    last: dict[str, Any] = {"media_preview_detected": False}
+    while time.time() < deadline:
+        last = _linkedin_preview_evidence(page)
+        if last.get("media_preview_detected"):
+            return last
+        time.sleep(1)
+    return last
+
+
+def _finish_linkedin_media_dialog(page: Any) -> str | None:
+    for _ in range(4):
+        clicked = _click_first_visible(
+            page,
+            (
+                "button:has-text('Done')",
+                "button:has-text('Next')",
+                "button[aria-label*='Done']",
+                "button[aria-label*='Next']",
+            ),
+            timeout_ms=2500,
+        )
+        if clicked:
+            time.sleep(3)
+            return clicked
+        time.sleep(1)
+    return None
+
+
+def _attach_linkedin_image(page: Any, image_path: str | None) -> dict[str, Any]:
+    evidence: dict[str, Any] = {
+        "media_upload_requested": bool(image_path),
+        "media_upload_status": "not_requested",
+        "media_preview_detected": False,
+        "selector_used": None,
+    }
+    if not image_path:
+        return evidence
+    evidence["image_path"] = str(image_path)
+    if not os.path.exists(image_path):
+        evidence["media_upload_status"] = "local_file_missing"
+        return evidence
+
+    media_button_selectors = (
+        "button[aria-label*='Add media']",
+        "button[aria-label*='Photo']",
+        "button[aria-label*='Image']",
+        "button:has-text('Photo')",
+        "button:has-text('Add media')",
+        "[role='button'][aria-label*='Photo']",
+    )
+
+    for selector in media_button_selectors:
+        try:
+            button = page.locator(selector).first
+            if not button.is_visible():
+                continue
+            try:
+                with page.expect_file_chooser(timeout=5000) as chooser_info:
+                    button.click(timeout=2500)
+                chooser_info.value.set_files(str(Path(image_path).resolve()))
+                evidence["selector_used"] = f"file_chooser:{selector}"
+                evidence["media_upload_status"] = "uploading"
+                break
+            except Exception:
+                if _safe_click(button, timeout_ms=2500):
+                    evidence["selector_used"] = selector
+                    time.sleep(1)
+                    used_input = _set_linkedin_file_input(page, image_path)
+                    if used_input:
+                        evidence["selector_used"] = f"{selector} -> {used_input}"
+                        evidence["media_upload_status"] = "uploading"
+                        break
+        except Exception:
+            continue
+
+    if evidence.get("media_upload_status") != "uploading":
+        used_input = _set_linkedin_file_input(page, image_path)
+        if used_input:
+            evidence["selector_used"] = used_input
+            evidence["media_upload_status"] = "uploading"
+
+    if evidence.get("media_upload_status") != "uploading":
+        evidence["media_upload_status"] = "file_input_not_found"
+        return evidence
+
+    preview = _wait_for_linkedin_media_preview(page, timeout_seconds=20)
+    evidence.update(preview)
+    completed_selector = _finish_linkedin_media_dialog(page)
+    if completed_selector:
+        evidence["media_dialog_completed_selector"] = completed_selector
+        preview = _wait_for_linkedin_media_preview(page, timeout_seconds=12)
+        evidence.update(preview)
+    evidence["media_upload_status"] = "uploaded" if evidence.get("media_preview_detected") else "preview_not_detected"
+    try:
+        dialog_text = page.locator("div[role='dialog']").first.inner_text(timeout=1500)
+        evidence["media_preview_dom_excerpt"] = dialog_text[:600]
+    except Exception:
+        pass
+    return evidence
+
+
 def execute_linkedin_post(
     text: str,
     dry_run: bool = False,
@@ -149,7 +367,12 @@ def execute_linkedin_post(
             "action": "post",
             "payload_redacted": {
                 "text": text,
+                "media_upload_requested": bool(image_path),
+                "image_path": image_path,
             },
+            "media_upload_requested": bool(image_path),
+            "media_upload_status": "dry_run_required" if image_path else "not_requested",
+            "media_preview_detected": False,
             "response": {
                 "id": f"linkedin_mock_post_{payload_hash}",
                 "url": f"https://www.linkedin.com/feed/update/urn:li:activity:mock_{payload_hash}",
@@ -176,6 +399,12 @@ def execute_linkedin_post(
             _accept_linkedin_alerts(page)
 
             posted = False
+            media_attachment_evidence: dict[str, Any] = {
+                "media_upload_requested": bool(image_path),
+                "media_upload_status": "not_requested",
+                "media_preview_detected": False,
+            }
+            media_blocked_result: dict[str, Any] | None = None
             if not _click_first_visible(
                 page,
                 (
@@ -194,25 +423,13 @@ def execute_linkedin_post(
                 page.keyboard.type(text)
                 time.sleep(2)
 
-                # Best-effort image attach; never fail the text post if the control is absent.
-                if image_path and os.path.exists(image_path):
-                    try:
-                        file_input = page.query_selector("input[type='file']")
-                        if file_input:
-                            file_input.set_input_files(image_path)
-                            time.sleep(5)
-                            # Click any "Next"/"Done" to return to the share composer if a media dialog opened.
-                            for sel in ("button:has-text('Next')", "button:has-text('Done')"):
-                                loc = page.locator(sel).first
-                                if loc.is_visible():
-                                    loc.click()
-                                    time.sleep(3)
-                                    break
-                    except Exception as img_exc:
-                        print(f"[Warning] LinkedIn image upload skipped: {img_exc}")
+                if image_path:
+                    media_attachment_evidence = _attach_linkedin_image(page, image_path)
+                    if not _linkedin_media_attachment_passed(media_attachment_evidence):
+                        media_blocked_result = _linkedin_media_blocked_result(text, image_path, media_attachment_evidence)
 
                 post_btn = page.locator("button.share-actions__primary-action, button.share-actions__post-button").first
-                if post_btn.is_visible() and post_btn.is_enabled():
+                if not media_blocked_result and post_btn.is_visible() and post_btn.is_enabled():
                     post_btn.click()
                     posted = True
                     time.sleep(8)
@@ -220,12 +437,19 @@ def execute_linkedin_post(
             final_url = page.url
             browser.close()
 
-            if posted:
+            if media_blocked_result:
+                result = media_blocked_result
+                result["response"] = {"final_url": final_url}
+            elif posted:
                 result = {
                     "status": "SUCCESS",
                     "platform": "linkedin",
                     "action": "post",
                     "id": f"activity_{payload_hash}",
+                    "media_upload_requested": bool(image_path),
+                    "media_upload_status": media_attachment_evidence.get("media_upload_status"),
+                    "media_preview_detected": bool(media_attachment_evidence.get("media_preview_detected")),
+                    "media_attachment_evidence": media_attachment_evidence,
                     "response": {"final_url": final_url},
                 }
             else:

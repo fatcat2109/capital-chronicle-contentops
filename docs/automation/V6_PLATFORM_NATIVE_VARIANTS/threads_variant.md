@@ -1,22 +1,22 @@
 # THREADS NATIVE VARIANT
 - **Status**: VARIANT_READY
-- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_7299be89a6ce.png
-- **Timestamp**: 2026-07-07 21:35:56
+- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_febb4cd8863f.png
+- **Timestamp**: 2026-07-08 01:25:28
 
-A spike in oil volatility is raising questions about US recession risks. But at Capital Chronicle, we treat this as an evidence problem first. Our latest analysis of 10,191 daily WTI observations through June 29, 2026, maps out the real macro channels. 🧵
-
----
-
-The data anchors: WTI crude reached $71.87/bbl on June 29, 2026. That is a 7.8% move across roughly 90 days, compared to the $66.66 price point on February 19, 2026. The one-year change is a more moderate 4.6% (from $68.73 on June 12, 2025).
+1/ When energy volatility spikes alongside recession anxiety, what should serious readers actually focus on? We look at the data: as of June 29, 2026, WTI crude sat at $71.87/bbl, up 7.8% from $66.66 ninety days prior. But the real story is the volatility shift.
 
 ---
 
-The real shift is in realized volatility. Our 30-day volatility proxy averaged 2.8% absolute daily moves. This represents a 50.7% increase in the volatility proxy over the last 90 days. This widening variance is what complicates corporate planning and inflation expectations.
+2/ Our 30-day realized volatility proxy (measuring absolute daily price moves) averaged 2.8%, marking a 50.7% increase over the last 90 days. This rapid expansion of the oil channel is what macro models must handle with precision.
 
 ---
 
-Does this prove a recession is imminent? No. Energy shocks act as a tax on consumers and transport, but their impact depends on duration and policy response. We must avoid fusing oil volatility lazily with yield-curve signals—they do different analytical work.
+3/ Rising oil volatility impacts the economy through clear transmission channels: household real income, corporate transport costs, and inflation expectations. It widens the range of outcomes even while final price direction is debated.
 
 ---
 
-For a disciplined look at what the current EIA/FRED data proves—and what it doesn't—read our full educational briefing. No directional noise, just clean macro analysis: [Link]
+4/ Crucially, we must not fuse the energy lens lazily with yield-curve indicators. Yield curves summarize rate expectations and term premia; oil volatility summarizes immediate physical input friction. Both are vital, but they do different work.
+
+---
+
+5/ This is educational analysis, not a trade recommendation. The takeaway is about process, not prediction: watch how this energy volatility interacts with upcoming inflation prints and credit conditions. Read our full briefing on Capital Chronicle.

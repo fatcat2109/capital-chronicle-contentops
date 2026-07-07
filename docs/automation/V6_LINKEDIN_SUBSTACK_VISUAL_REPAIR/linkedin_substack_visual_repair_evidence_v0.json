@@ -1,0 +1,145 @@
+{
+  "task_id": "TASK_CONTENTOPS_V6_LINKEDIN_NATIVE_IMAGE_AND_SUBSTACK_IN_BODY_VISUAL_PLACEMENT_REPAIR_V0",
+  "repo": "fatcat2109/capital-chronicle-contentops",
+  "branch": "master",
+  "verified_remote_head_before_task": "eb48f275990a286f40d3f73a40e1b00f4f7503cd",
+  "bypass_proof": {
+    "CONTENTOPS_BYPASS_QUALITY_GATES_process": "absent",
+    "CONTENTOPS_BYPASS_QUALITY_GATES_env_file_entry": "absent",
+    "bypass_used": false
+  },
+  "final_scoped_live_run": {
+    "run_id": "v6_pipeline_d49f6e14a856",
+    "pipeline_status": "DISPATCH_COMPLETE",
+    "scope": [
+      "substack",
+      "linkedin"
+    ],
+    "canonical_url": "https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c",
+    "public_image_url": "https://substackcdn.com/image/fetch/$s_!TkqE!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png",
+    "latest_dispatch_audit_path": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json",
+    "prior_unaffected_all_platform_run_reconciled": "v6_pipeline_3c44a9855cc6"
+  },
+  "article_quality": {
+    "packet_body_word_count": 2009,
+    "recomputed_body_heading_word_count": 2060,
+    "section_count": 8,
+    "source_trail_count": 3,
+    "citation_count": 6,
+    "numeric_evidence_count_estimate": 57,
+    "seo_fields_present": [
+      "slug_candidate",
+      "dek",
+      "meta_description"
+    ],
+    "visual_slot_count": 2,
+    "quality_validation_failures": []
+  },
+  "media_audit": {
+    "audit_status": "PASS",
+    "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+    "latest_observation_date": "2026-06-29",
+    "time_coverage_end_year": 2026,
+    "expected_metric": "oil_volatility",
+    "expected_direction": "up",
+    "replacement_notes": [
+      "search_candidate_rejected:media_provenance_weak_upload_host|media_time_coverage_unverified_for_current_topic",
+      "source_backed_chart_pack_selected"
+    ],
+    "selected_assets": [
+      {
+        "asset_id": "primary",
+        "local_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/wti_current_volatility_context_febb4cd8863f.png",
+        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "latest_observation_date": "2026-06-29",
+        "recent_direction": "up",
+        "visual_metric": "oil_volatility wti crude oil current price realized volatility"
+      },
+      {
+        "asset_id": "recent_price",
+        "local_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/wti_recent_price_context_febb4cd8863f.png",
+        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "latest_observation_date": "2026-06-29",
+        "recent_direction": "up",
+        "visual_metric": "wti crude oil current recent price path"
+      }
+    ]
+  },
+  "substack_visual_evidence": {
+    "status": "SUCCESS",
+    "visual_marker_count": 2,
+    "uploaded_visual_count": 2,
+    "placement_readback_status": "PASS",
+    "public_image_count": 2,
+    "public_image_urls": [
+      "https://substack-post-media.s3.amazonaws.com/public/images/80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png",
+      "https://substack-post-media.s3.amazonaws.com/public/images/b3001e6f-d71c-4e90-adf4-84b97583837e_1620x870.png"
+    ],
+    "placement_checks": [
+      {
+        "asset_id": "primary",
+        "placement_after_section": "intro",
+        "previous_heading": "A source-led Capital Chronicle briefing on WTI, recession-risk interpretation, yield curves, and evidence discipline",
+        "next_heading": "The Macro Setup: Current Oil Evidence Before Narrative",
+        "passed": true
+      },
+      {
+        "asset_id": "recent_price",
+        "placement_after_section": "Market Implications Without Directional Noise",
+        "previous_heading": "Market Implications Without Directional Noise",
+        "next_heading": "How to Read the Source Trail",
+        "passed": true
+      }
+    ],
+    "all_images_after_source_trail": false
+  },
+  "linkedin_visual_evidence": {
+    "status": "SUCCESS",
+    "activity_id": "activity_9fbd4f4aa083",
+    "url": "https://www.linkedin.com/feed/",
+    "media_upload_requested": true,
+    "media_upload_status": "uploaded",
+    "media_preview_detected": true,
+    "selector_used": "file_chooser:button[aria-label*='Add media']",
+    "media_preview_selector": "div[role='dialog'] img[src*='media']",
+    "media_preview_candidate_count": 2,
+    "media_dialog_completed_selector": "button:has-text('Next')",
+    "manual_public_permalink_review_recommended": true
+  },
+  "per_platform_scope_status": {
+    "substack": "SUCCESS",
+    "linkedin": "SUCCESS"
+  },
+  "prior_unaffected_platform_evidence": {
+    "source_run_id": "v6_pipeline_3c44a9855cc6",
+    "platforms": [
+      "x",
+      "instagram",
+      "facebook_page",
+      "telegram",
+      "threads",
+      "discord"
+    ],
+    "reconciliation_note": "The final repair run was intentionally scoped to Substack and LinkedIn to avoid duplicating unaffected platform posts. Prior all-platform DISPATCH_COMPLETE evidence remains reconciled for the other implemented lanes."
+  },
+  "validation": [
+    {
+      "command": "python -m pytest tests/test_linkedin_browser_adapter_v6.py tests/test_substack_browser_adapter_v6.py tests/test_platform_native_variant_generator_live.py tests/test_live_production_pipeline_runner.py",
+      "result": "36 passed"
+    },
+    {
+      "command": "python -m compileall live_contentops/linkedin_browser_adapter_v6.py live_contentops/substack_browser_adapter_v6.py live_contentops/platform_native_variant_generator_live_v6.py live_contentops/live_production_pipeline_runner_v6.py",
+      "result": "PASS"
+    },
+    {
+      "command": "python -m live_contentops.live_production_pipeline_runner_v6 --live-run --dispatch-live --dispatch-platform substack --dispatch-platform linkedin",
+      "result": "DISPATCH_COMPLETE"
+    }
+  ],
+  "remaining_blockers": [
+    "Google image search remains blocked/empty in this environment; source-backed chart-pack fallback is retained.",
+    "Provider-native long-form drafts still need reliability hardening so deterministic repair is less frequently required.",
+    "LinkedIn returns feed URL plus native upload/preview proof; stable public permalink/readback still needs hardening or manual review.",
+    "Manual screenshot/crop QA remains recommended across public outputs before launch acceptance."
+  ]
+}

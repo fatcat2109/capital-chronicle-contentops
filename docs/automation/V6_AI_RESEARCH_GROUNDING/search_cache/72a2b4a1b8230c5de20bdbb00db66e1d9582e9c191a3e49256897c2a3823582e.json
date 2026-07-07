@@ -2,49 +2,49 @@
   {
     "allowed_usage": "advisory_only",
     "citation_required": true,
-    "claim_summary": "News report from TheStreet: Walmart, Albertsons, other retailers accused of inflating gas prices",
+    "claim_summary": "News report from USA TODAY: Mitch McConnell, still hospitalized, spoke with GOP colleagues by phone",
     "freshness_label": "recent",
     "limitations": [
       "Grounded live search from query: US recession risks rise as oil volatility spikes"
     ],
-    "publisher_or_origin": "TheStreet",
-    "retrieved_at": "2026-07-07T02:16:03+00:00",
-    "source_id": "src_5b3b10657b41",
+    "publisher_or_origin": "USA TODAY",
+    "retrieved_at": "2026-07-07T18:23:05+00:00",
+    "source_id": "src_c189ac6183bb",
     "source_type": "reputable_news_context",
     "synthetic_fixture": false,
-    "title": "Walmart, Albertsons, other retailers accused of inflating gas prices",
-    "url_or_local_reference": "https://finance.yahoo.com/m/7ce37b7d-6bba-3577-9dd0-6c4a3e82023b/walmart%2C-albertsons%2C-other.html"
+    "title": "Mitch McConnell, still hospitalized, spoke with GOP colleagues by phone",
+    "url_or_local_reference": "https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html"
   },
   {
     "allowed_usage": "advisory_only",
     "citation_required": true,
-    "claim_summary": "News report from AFP: France's Le Pen faces pivotal ruling in race for president",
+    "claim_summary": "News report from Barrons.com: The Market\u2019s Hottest Stock Is Turning Cold",
     "freshness_label": "recent",
     "limitations": [
       "Grounded live search from query: US recession risks rise as oil volatility spikes"
     ],
-    "publisher_or_origin": "AFP",
-    "retrieved_at": "2026-07-07T02:16:03+00:00",
-    "source_id": "src_0750b8c0b6d5",
+    "publisher_or_origin": "Barrons.com",
+    "retrieved_at": "2026-07-07T18:23:05+00:00",
+    "source_id": "src_5772a4bf4c41",
     "source_type": "reputable_news_context",
     "synthetic_fixture": false,
-    "title": "France's Le Pen faces pivotal ruling in race for president",
-    "url_or_local_reference": "https://finance.yahoo.com/m/52266418-f92a-3c47-b97f-06f2827131af/france%27s-le-pen-faces-pivotal.html"
+    "title": "The Market\u2019s Hottest Stock Is Turning Cold",
+    "url_or_local_reference": "https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html"
   },
   {
     "allowed_usage": "advisory_only",
     "citation_required": true,
-    "claim_summary": "News report from AFP: 'Agony' in Cuba amid third nationwide blackout in six months",
+    "claim_summary": "News report from CNW Group: Canadian Investment Regulatory Organization Trade Resumption - PLZ.UN",
     "freshness_label": "recent",
     "limitations": [
       "Grounded live search from query: US recession risks rise as oil volatility spikes"
     ],
-    "publisher_or_origin": "AFP",
-    "retrieved_at": "2026-07-07T02:16:03+00:00",
-    "source_id": "src_ce350a81a008",
+    "publisher_or_origin": "CNW Group",
+    "retrieved_at": "2026-07-07T18:23:05+00:00",
+    "source_id": "src_862ef07d839c",
     "source_type": "reputable_news_context",
     "synthetic_fixture": false,
-    "title": "'Agony' in Cuba amid third nationwide blackout in six months",
-    "url_or_local_reference": "https://finance.yahoo.com/m/94bcf77c-e27c-34df-9665-bca58fda7422/%27agony%27-in-cuba-amid-third.html"
+    "title": "Canadian Investment Regulatory Organization Trade Resumption - PLZ.UN",
+    "url_or_local_reference": "https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html"
   }
 ]

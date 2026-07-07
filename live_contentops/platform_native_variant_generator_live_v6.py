@@ -311,6 +311,69 @@ def _find_insert_positions(body: str, asset_count: int) -> list[int]:
     return positions
 
 
+def _normalise_section_key(value: str | None) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", str(value or "").lower()).strip()
+
+
+def _heading_ranges(body: str) -> list[dict[str, Any]]:
+    headings = list(re.finditer(r"(?m)^###\s+(.+)$", body))
+    source_match = re.search(r"(?m)^##\s+Source trail\b", body)
+    source_start = source_match.start() if source_match else len(body)
+    ranges: list[dict[str, Any]] = []
+    for idx, heading in enumerate(headings):
+        next_start = headings[idx + 1].start() if idx + 1 < len(headings) else source_start
+        ranges.append({
+            "title": heading.group(1).strip(),
+            "title_key": _normalise_section_key(heading.group(1)),
+            "start": heading.start(),
+            "end": min(next_start, source_start),
+        })
+    return ranges
+
+
+def _slot_insert_position(body: str, placement_after_section: str | None) -> int | None:
+    placement_key = _normalise_section_key(placement_after_section)
+    headings = _heading_ranges(body)
+    source_match = re.search(r"(?m)^##\s+Source trail\b", body)
+    source_start = source_match.start() if source_match else len(body)
+    if not placement_key:
+        return None
+    if placement_key == "intro":
+        return headings[0]["start"] if headings else source_start
+    for heading in headings:
+        title_key = heading["title_key"]
+        if placement_key == title_key or placement_key in title_key or title_key in placement_key:
+            return heading["end"]
+    return None
+
+
+def _slot_ordered_assets_and_positions(
+    body: str,
+    assets: list[dict[str, Any]],
+    visual_slots: list[dict[str, Any]] | None,
+) -> list[tuple[int, dict[str, Any]]]:
+    fallback_positions = _find_insert_positions(body, len(assets))
+    if not visual_slots:
+        return list(zip(fallback_positions, assets))
+
+    slots_by_id = {
+        str(slot.get("asset_id") or "").strip(): slot
+        for slot in visual_slots
+        if isinstance(slot, dict) and str(slot.get("asset_id") or "").strip()
+    }
+    positioned: list[tuple[int, dict[str, Any]]] = []
+    for idx, asset in enumerate(assets):
+        asset_id = str(asset.get("asset_id") or ("primary" if idx == 0 else f"visual_{idx + 1}")).strip()
+        slot = slots_by_id.get(asset_id)
+        position = None
+        if slot:
+            position = _slot_insert_position(body, str(slot.get("placement_after_section") or ""))
+        if position is None:
+            position = fallback_positions[min(idx, len(fallback_positions) - 1)]
+        positioned.append((position, asset))
+    return positioned
+
+
 def _insert_substack_visual_markers(
     body: str,
     media_assets: list[dict[str, Any]],
@@ -330,9 +393,9 @@ def _insert_substack_visual_markers(
                 ordered.append(match)
         ordered.extend(asset for asset in assets if asset not in ordered)
         assets = ordered
-    positions = _find_insert_positions(body, len(assets))
     updated = body
-    for idx, (position, asset) in enumerate(sorted(zip(positions, assets), key=lambda item: item[0], reverse=True)):
+    positioned_assets = _slot_ordered_assets_and_positions(body, assets, visual_slots)
+    for idx, (position, asset) in enumerate(sorted(positioned_assets, key=lambda item: item[0], reverse=True)):
         updated = updated[:position].rstrip() + _visual_marker_block(asset, idx) + updated[position:].lstrip()
     return updated.strip()
 

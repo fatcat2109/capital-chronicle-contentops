@@ -4,7 +4,8 @@ from unittest.mock import patch, MagicMock
 
 from live_contentops.platform_native_variant_generator_live_v6 import (
     generate_live_platform_variants,
-    compute_packet_hash
+    compute_packet_hash,
+    _insert_substack_visual_markers,
 )
 
 
@@ -12,6 +13,36 @@ def test_compute_packet_hash():
     data1 = {"a": 1, "b": 2, "platform_variant_packet_id": "123"}
     data2 = {"a": 1, "b": 2, "platform_variant_packet_id": "456"}
     assert compute_packet_hash(data1) == compute_packet_hash(data2)
+
+
+def test_substack_visual_markers_follow_visual_slot_section_placement():
+    body = (
+        "Intro sets up the evidence.\n\n"
+        "### The Macro Setup: Current Oil Evidence Before Narrative\n"
+        "Macro setup body.\n\n"
+        "### Market Implications Without Directional Noise\n"
+        "Market implication body.\n\n"
+        "### How to Read the Source Trail\n"
+        "Source explanation body.\n\n"
+        "## Source trail\n"
+        "- Source row"
+    )
+    updated = _insert_substack_visual_markers(
+        body,
+        [
+            {"asset_id": "primary", "local_path": "primary.png", "caption": "Primary chart."},
+            {"asset_id": "recent_price", "local_path": "recent.png", "caption": "Recent price chart."},
+        ],
+        [
+            {"asset_id": "primary", "placement_after_section": "intro"},
+            {"asset_id": "recent_price", "placement_after_section": "Market Implications Without Directional Noise"},
+        ],
+    )
+
+    assert updated.index("[[VISUAL:primary]]") < updated.index("### The Macro Setup")
+    assert updated.index("### Market Implications Without Directional Noise") < updated.index("[[VISUAL:recent_price]]")
+    assert updated.index("[[VISUAL:recent_price]]") < updated.index("### How to Read the Source Trail")
+    assert updated.index("[[VISUAL:recent_price]]") < updated.index("## Source trail")
 
 
 @patch("live_contentops.platform_native_variant_generator_live_v6.call_live_provider")
