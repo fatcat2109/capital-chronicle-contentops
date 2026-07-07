@@ -1,5 +1,5 @@
 {
-  "article_packet_id": "article_engine_packet_c3b412cb91679652",
+  "article_packet_id": "art_test_packet_123",
   "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
   "dispatch_idempotency_control": "platform_scope_allowlist",
   "dispatch_live": true,
@@ -20,46 +20,6 @@
       "ok": true,
       "platform": "discord",
       "raw": {
-        "action": "post",
-        "id": "1523877544091320351",
-        "platform": "discord",
-        "response": {
-          "attachments": [],
-          "author": {
-            "avatar": null,
-            "bot": true,
-            "clan": null,
-            "discriminator": "0000",
-            "flags": 0,
-            "global_name": null,
-            "id": "1520178044407644231",
-            "primary_guild": null,
-            "public_flags": 0,
-            "username": "The Macro Pigeon"
-          },
-          "channel_id": "1519311669216673802",
-          "components": [],
-          "content": "Welcome to today's Educational Briefing summary. We are analyzing the rising US recession risks amid spiking oil volatility. Our focus remains on data transparency, geopolitics, and yield curves. Remember, historical macro data often suffers from lag and revisions, so verifying primary sources is essential for accurate analysis. Check out the full briefing in the announcements channel for a deep dive into historical cycle ranges.",
-          "edited_timestamp": null,
-          "embeds": [
-            {
-              "content_scan_version": 0,
-              "title": "Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes",
-              "type": "rich",
-              "url": "https://capitalchronicle.substack.com/publish/post/205706160"
-            }
-          ],
-          "flags": 0,
-          "id": "1523877544091320351",
-          "mention_everyone": false,
-          "mention_roles": [],
-          "mentions": [],
-          "pinned": false,
-          "timestamp": "2026-07-07T02:25:18.787000+00:00",
-          "tts": false,
-          "type": 0,
-          "webhook_id": "1520178044407644231"
-        },
         "status": "SUCCESS"
       },
       "status": "SUCCESS",
@@ -71,26 +31,20 @@
       "ok": true,
       "platform": "facebook",
       "raw": {
-        "id": "106091951705748_1339605825024501",
-        "response": {
-          "id": "106091951705748_1339605825024501"
-        },
         "status": "SUCCESS"
       },
       "status": "SUCCESS",
       "url": null
     },
     "instagram": {
-      "error": "instagram_image_url_missing",
-      "error_class": "missing_payload",
-      "ok": false,
+      "error": null,
+      "error_class": null,
+      "ok": true,
       "platform": "instagram",
       "raw": {
-        "missing": [
-          "instagram_image_url_missing"
-        ]
+        "status": "SUCCESS"
       },
-      "status": "BLOCKED",
+      "status": "SUCCESS",
       "url": null
     },
     "linkedin": {
@@ -99,16 +53,13 @@
       "ok": true,
       "platform": "linkedin",
       "raw": {
-        "action": "post",
-        "id": "activity_266654137d56",
-        "platform": "linkedin",
         "response": {
-          "final_url": "https://www.linkedin.com/feed/"
+          "url": "https://linkedin.com/p/2"
         },
         "status": "SUCCESS"
       },
       "status": "SUCCESS",
-      "url": "https://www.linkedin.com/feed/"
+      "url": "https://linkedin.com/p/2"
     },
     "substack": {
       "error": null,
@@ -116,17 +67,11 @@
       "ok": true,
       "platform": "substack",
       "raw": {
-        "action": "post",
-        "id": "205706160",
-        "platform": "substack",
-        "response": {
-          "final_url": "https://capitalchronicle.substack.com/publish/post/205706160"
-        },
         "status": "SUCCESS",
-        "url": "https://capitalchronicle.substack.com/publish/post/205706160"
+        "url": "https://substack.com/p/1"
       },
       "status": "SUCCESS",
-      "url": "https://capitalchronicle.substack.com/publish/post/205706160"
+      "url": "https://substack.com/p/1"
     },
     "telegram": {
       "error": null,
@@ -134,39 +79,6 @@
       "ok": true,
       "platform": "telegram",
       "raw": {
-        "action": "post",
-        "id": "42",
-        "platform": "telegram",
-        "response": {
-          "ok": true,
-          "result": {
-            "chat": {
-              "id": -1003857411155,
-              "title": "Capital Chronicle",
-              "type": "channel",
-              "username": "CapitalChronicle"
-            },
-            "date": 1783391055,
-            "entities": [
-              {
-                "length": 60,
-                "offset": 511,
-                "type": "url"
-              }
-            ],
-            "link_preview_options": {
-              "url": "https://capitalchronicle.substack.com/publish/post/205706160"
-            },
-            "message_id": 42,
-            "sender_chat": {
-              "id": -1003857411155,
-              "title": "Capital Chronicle",
-              "type": "channel",
-              "username": "CapitalChronicle"
-            },
-            "text": "Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes.\n\nWe analyze the current macroeconomic landscape by focusing on data transparency, geopolitics, and yield curves. Historical cycles show that during volatility spikes, separating market noise from structural policy shifts is critical. \n\nNote: Historical macro data is subject to lag and revision. This analysis is for educational purposes only and does not constitute investment advice.\n\nRead the full editorial analysis: https://capitalchronicle.substack.com/publish/post/205706160"
-          }
-        },
         "status": "SUCCESS"
       },
       "status": "SUCCESS",
@@ -178,11 +90,7 @@
       "ok": true,
       "platform": "threads",
       "raw": {
-        "container_id": "18135019255529547",
-        "id": "18333235156280855",
-        "response": {
-          "id": "18333235156280855"
-        },
+        "id": "threads_1",
         "status": "SUCCESS"
       },
       "status": "SUCCESS",
@@ -195,11 +103,7 @@
         "ok": true,
         "platform": "threads_reply_1",
         "raw": {
-          "container_id": "18135019276529547",
-          "id": "17874503607527298",
-          "response": {
-            "id": "17874503607527298"
-          },
+          "id": "threads_1",
           "status": "SUCCESS"
         },
         "status": "SUCCESS",
@@ -207,65 +111,11 @@
       },
       {
         "error": null,
-        "error_class": "dispatch_failed",
-        "ok": false,
-        "platform": "threads_reply_2",
-        "raw": {
-          "container_id": "18135019363529547",
-          "error_code": 400,
-          "error_response": {
-            "error": {
-              "code": 24,
-              "error_subcode": 4279009,
-              "error_user_msg": "Kh\u00f4ng t\u00ecm th\u1ea5y file ph\u01b0\u01a1ng ti\u1ec7n c\u00f3 ID 18135019363529547.",
-              "error_user_title": "Kh\u00f4ng t\u00ecm th\u1ea5y file ph\u01b0\u01a1ng ti\u1ec7n",
-              "fbtrace_id": "AMuJWwG4Cu7IDqvANJCVURD",
-              "is_transient": false,
-              "message": "The requested resource does not exist",
-              "type": "OAuthException"
-            }
-          },
-          "status": "FAILED_STEP_2"
-        },
-        "status": "FAILED_STEP_2",
-        "url": null
-      },
-      {
-        "error": null,
-        "error_class": "dispatch_failed",
-        "ok": false,
-        "platform": "threads_reply_3",
-        "raw": {
-          "container_id": "18135019552529547",
-          "error_code": 400,
-          "error_response": {
-            "error": {
-              "code": 24,
-              "error_subcode": 4279009,
-              "error_user_msg": "Kh\u00f4ng t\u00ecm th\u1ea5y file ph\u01b0\u01a1ng ti\u1ec7n c\u00f3 ID 18135019552529547.",
-              "error_user_title": "Kh\u00f4ng t\u00ecm th\u1ea5y file ph\u01b0\u01a1ng ti\u1ec7n",
-              "fbtrace_id": "AbVEl5pXqKfCCtJRabUDR5v",
-              "is_transient": false,
-              "message": "The requested resource does not exist",
-              "type": "OAuthException"
-            }
-          },
-          "status": "FAILED_STEP_2"
-        },
-        "status": "FAILED_STEP_2",
-        "url": null
-      },
-      {
-        "error": null,
         "error_class": null,
         "ok": true,
-        "platform": "threads_reply_4",
+        "platform": "threads_reply_2",
         "raw": {
-          "container_id": "18135019597529547",
-          "id": "18079177223653624",
-          "response": {
-            "id": "18079177223653624"
-          },
+          "id": "threads_1",
           "status": "SUCCESS"
         },
         "status": "SUCCESS",
@@ -278,16 +128,13 @@
       "ok": true,
       "platform": "x_post",
       "raw": {
-        "action": "post",
-        "id": "tweet_93851c0bc1fc",
-        "platform": "x",
         "response": {
-          "url": "https://x.com/Capitalnicle/status/2074317912056488175"
+          "url": "https://x.com/status/3"
         },
         "status": "SUCCESS"
       },
       "status": "SUCCESS",
-      "url": "https://x.com/Capitalnicle/status/2074317912056488175"
+      "url": "https://x.com/status/3"
     },
     "x_replies": [
       {
@@ -296,11 +143,6 @@
         "ok": true,
         "platform": "x_reply_1",
         "raw": {
-          "action": "comment",
-          "platform": "x",
-          "response": {
-            "target_url": "https://x.com/Capitalnicle/status/2074317912056488175"
-          },
           "status": "SUCCESS"
         },
         "status": "SUCCESS",
@@ -312,43 +154,6 @@
         "ok": true,
         "platform": "x_reply_2",
         "raw": {
-          "action": "comment",
-          "platform": "x",
-          "response": {
-            "target_url": "https://x.com/Capitalnicle/status/2074317912056488175"
-          },
-          "status": "SUCCESS"
-        },
-        "status": "SUCCESS",
-        "url": null
-      },
-      {
-        "error": null,
-        "error_class": null,
-        "ok": true,
-        "platform": "x_reply_3",
-        "raw": {
-          "action": "comment",
-          "platform": "x",
-          "response": {
-            "target_url": "https://x.com/Capitalnicle/status/2074317912056488175"
-          },
-          "status": "SUCCESS"
-        },
-        "status": "SUCCESS",
-        "url": null
-      },
-      {
-        "error": null,
-        "error_class": null,
-        "ok": true,
-        "platform": "x_reply_4",
-        "raw": {
-          "action": "comment",
-          "platform": "x",
-          "response": {
-            "target_url": "https://x.com/Capitalnicle/status/2074317912056488175"
-          },
           "status": "SUCCESS"
         },
         "status": "SUCCESS",
@@ -363,85 +168,43 @@
       "x_post",
       "x_reply_1",
       "x_reply_2",
-      "x_reply_3",
-      "x_reply_4",
       "instagram",
       "facebook",
       "telegram",
       "threads",
       "threads_reply_1",
       "threads_reply_2",
-      "threads_reply_3",
-      "threads_reply_4",
       "discord"
     ],
-    "blocked_platforms": [
-      "instagram"
-    ],
-    "failed_platforms": [
-      "threads_reply_2",
-      "threads_reply_3"
-    ],
+    "blocked_platforms": [],
+    "failed_platforms": [],
     "successful_platforms": [
       "substack",
       "linkedin",
       "x_post",
       "x_reply_1",
       "x_reply_2",
-      "x_reply_3",
-      "x_reply_4",
+      "instagram",
       "facebook",
       "telegram",
       "threads",
       "threads_reply_1",
-      "threads_reply_4",
+      "threads_reply_2",
       "discord"
     ]
   },
-  "image_path": null,
+  "image_path": "downloads/test_image.jpg",
   "media_manifest": {
-    "chart_metadata": {
-      "chart_path": null,
-      "chart_status": "BLOCKED",
-      "warnings": [
-        "chart_source_csv_missing"
-      ]
-    },
-    "media_readiness_by_platform": {
-      "discord": false,
-      "facebook": false,
-      "instagram": false,
-      "linkedin": false,
-      "substack": false,
-      "telegram": false,
-      "threads": false,
-      "x": false
-    },
-    "media_warnings": [
-      "chart_source_csv_missing",
-      "news_image_missing"
-    ],
-    "news_image_path": null,
-    "news_image_public_url": null,
-    "primary_chart_path": null,
-    "primary_chart_public_url": null,
-    "rights_status": "not_ready",
     "selected_media_by_platform": {
-      "discord": null,
-      "facebook": null,
-      "instagram": null,
-      "linkedin": null,
-      "substack": null,
-      "telegram": null,
-      "threads": null,
-      "x": null
+      "instagram": "https://example.com/test_image.jpg",
+      "telegram": "https://example.com/test_image.jpg"
     }
   },
-  "pipeline_status": "DISPATCH_PARTIAL_FAILURE",
-  "platform_variant_packet_id": "variant_packet_ef4ca5cbaf87",
-  "public_image_url": null,
-  "run_id": "v6_pipeline_00b8f94ce832",
-  "timestamp": "2026-07-07T02:19:53Z",
-  "timestamp_gmt7": "2026-07-07T09:19:53+07:00",
-  "variant_status": "VARIANT_VALIDATION_FAILED"
+  "pipeline_status": "DISPATCH_COMPLETE",
+  "platform_variant_packet_id": "var_test_packet_456",
+  "public_image_url": "https://example.com/test_image.jpg",
+  "run_id": "v6_pipeline_bb5ef41c8334",
+  "timestamp": "2026-07-07T02:41:48Z",
+  "timestamp_gmt7": "2026-07-07T09:41:48+07:00",
+  "variant_status": "VARIANT_SCAFFOLD_READY"
 }

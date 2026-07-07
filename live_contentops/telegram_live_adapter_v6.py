@@ -161,10 +161,37 @@ def execute_telegram_photo(
 
     t0 = time.perf_counter()
     api_url = f"https://api.telegram.org/bot{token}/sendPhoto"
-    payload = {"chat_id": target_chat, "photo": photo_url, "caption": caption, "parse_mode": parse_mode}
-    data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(api_url, data=data, method="POST")
-    req.add_header("Content-Type", "application/json")
+    
+    is_local = os.path.exists(photo_url)
+    if is_local:
+        import uuid
+        boundary = f"----TelegramBotBoundary{uuid.uuid4().hex}"
+        parts = []
+        fields = {
+            "chat_id": str(target_chat),
+            "caption": caption,
+            "parse_mode": parse_mode
+        }
+        for k, v in fields.items():
+            parts.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"{k}\"\r\n\r\n{v}\r\n".encode("utf-8"))
+            
+        with open(photo_url, "rb") as f:
+            file_data = f.read()
+        filename = os.path.basename(photo_url) or "photo.png"
+        parts.append(f"--{boundary}\r\nContent-Disposition: form-data; name=\"photo\"; filename=\"{filename}\"\r\nContent-Type: image/png\r\n\r\n".encode("utf-8"))
+        parts.append(file_data)
+        parts.append(b"\r\n")
+        parts.append(f"--{boundary}--\r\n".encode("utf-8"))
+        
+        data = b"".join(parts)
+        req = urllib.request.Request(api_url, data=data, method="POST")
+        req.add_header("Content-Type", f"multipart/form-data; boundary={boundary}")
+        req.add_header("Content-Length", str(len(data)))
+    else:
+        payload = {"chat_id": target_chat, "photo": photo_url, "caption": caption, "parse_mode": parse_mode}
+        data = json.dumps(payload).encode("utf-8")
+        req = urllib.request.Request(api_url, data=data, method="POST")
+        req.add_header("Content-Type", "application/json")
 
     try:
         with urllib.request.urlopen(req, timeout=15) as response:

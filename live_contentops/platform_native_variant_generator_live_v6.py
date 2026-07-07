@@ -200,6 +200,63 @@ def _fallback_variants(title: str, subtitle: str, body_text: str) -> tuple[dict[
     }, {"x": x_thread, "threads": threads_thread}
 
 
+def _build_clean_image_query(title: str) -> str:
+    # Strip common prefixes
+    for prefix in ["Capital Chronicle Educational Briefing:", "Capital Chronicle Macro Volatility Briefing:", "Capital Chronicle:"]:
+        if title.lower().startswith(prefix.lower()):
+            title = title[len(prefix):].strip()
+    # Remove non-alphanumeric chars except space and dash
+    title = re.sub(r'[^a-zA-Z0-9\s-]', '', title).strip()
+    words = title.split()
+    if len(words) > 6:
+        words = words[:6]
+    cleaned = " ".join(words)
+    return f"{cleaned} macro chart"
+
+
+def create_branded_fallback_image(title: str, output_path: Path) -> bool:
+    """Generates a high-quality branded Capital Chronicle cover card using matplotlib."""
+    try:
+        import matplotlib
+        matplotlib.use('Agg')  # use non-interactive backend
+        import matplotlib.pyplot as plt
+        import textwrap
+        
+        # 1200x630 pixels is standard cover preview card (approx 1.91:1)
+        fig, ax = plt.subplots(figsize=(12, 6.3), dpi=100)
+        fig.patch.set_facecolor('#0f172a')  # slate-900 (brand dark bg)
+        ax.set_facecolor('#0f172a')
+        
+        # Draw clean emblem/symbol (gold concentric ring representation or digit 8)
+        ax.text(0.5, 0.70, "8", color='#f59e0b', fontsize=72, fontweight='bold', ha='center', va='center')
+        
+        # Brand Typography
+        ax.text(0.5, 0.52, "CAPITAL CHRONICLE", color='#f8fafc', fontsize=28, fontweight='bold', ha='center', va='center')
+        ax.text(0.5, 0.44, "EDUCATIONAL BRIEFING", color='#f59e0b', fontsize=18, fontweight='bold', ha='center', va='center')
+        
+        # Clean title text wrapping
+        clean_title = title
+        for prefix in ["Capital Chronicle Educational Briefing:", "Capital Chronicle Macro Volatility Briefing:", "Capital Chronicle:"]:
+            if clean_title.lower().startswith(prefix.lower()):
+                clean_title = clean_title[len(prefix):].strip()
+        
+        wrapped = "\n".join(textwrap.wrap(clean_title, width=55))
+        ax.text(0.5, 0.24, wrapped, color='#94a3b8', fontsize=16, style='italic', ha='center', va='center')
+        
+        ax.set_xlim(0, 1)
+        ax.set_ylim(0, 1)
+        ax.axis('off')
+        
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(output_path, facecolor=fig.get_facecolor(), edgecolor='none', bbox_inches='tight')
+        plt.close(fig)
+        print(f"[Info] Generated branded fallback cover card at: {output_path}")
+        return True
+    except Exception as e:
+        print(f"[Warning] Failed to generate branded fallback card: {e}")
+        return False
+
+
 def generate_live_platform_variants(
     article_packet_path: str | Path = DEFAULT_ARTICLE_PACKET,
     output_dir: str | Path = DEFAULT_OUTPUT_DIR,
@@ -236,10 +293,26 @@ def generate_live_platform_variants(
     validation_failures: list[str] = []
 
     try:
-        image_query = f"{title} news chart macro last 24 hours"
+        # 1. Try refined specific query
+        image_query = _build_clean_image_query(title)
         image_path, public_image_url = execute_google_image_search_and_download(image_query)
+        
+        # 2. Fall back to generic query if specific failed
+        if not image_path:
+            fallback_query = "global economy financial chart news"
+            print(f"[Info] Specific image query failed. Trying fallback: '{fallback_query}'")
+            image_path, public_image_url = execute_google_image_search_and_download(fallback_query, custom_filename="img_generic_fallback.jpg")
+            
+        # 3. If still no image found, generate a local branded cover card
+        if not image_path:
+            print("[Info] Web image search yielded no results. Generating local branded fallback card...")
+            fallback_filename = f"fallback_{hashlib.md5(title.encode('utf-8')).hexdigest()[:12]}.png"
+            local_fallback_path = Path("docs/automation/V6_MEDIA_SYSTEM/downloads") / fallback_filename
+            if create_branded_fallback_image(title, local_fallback_path):
+                image_path = str(local_fallback_path)
+                public_image_url = None
     except Exception as e:
-        print(f"[Warning] Google Image search failed: {e}")
+        print(f"[Warning] Google Image search/generation failed: {e}")
 
     media_manifest = _build_media_manifest(
         title=title,
