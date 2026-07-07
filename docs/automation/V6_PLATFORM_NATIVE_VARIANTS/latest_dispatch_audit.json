@@ -1,8 +1,16 @@
 {
-  "article_packet_id": "art_test_packet_123",
+  "article_packet_id": "article_engine_packet_f276aad3895bb0e5",
   "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
+  "dispatch_blocked": true,
+  "dispatch_blockers": [
+    "article_provider_recovery_not_publishable",
+    "article_too_short_words:127<2000",
+    "too_few_sections",
+    "source_trail_claims_too_generic",
+    "missing_specific_numbers"
+  ],
   "dispatch_idempotency_control": "platform_scope_allowlist",
-  "dispatch_live": true,
+  "dispatch_live": false,
   "dispatch_platform_scope": [
     "substack",
     "linkedin",
@@ -13,198 +21,122 @@
     "threads",
     "discord"
   ],
-  "dispatch_results": {
-    "discord": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "discord",
-      "raw": {
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": null
-    },
-    "facebook": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "facebook",
-      "raw": {
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": null
-    },
-    "instagram": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "instagram",
-      "raw": {
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": null
-    },
-    "linkedin": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "linkedin",
-      "raw": {
-        "response": {
-          "url": "https://linkedin.com/p/2"
-        },
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": "https://linkedin.com/p/2"
-    },
-    "substack": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "substack",
-      "raw": {
-        "status": "SUCCESS",
-        "url": "https://substack.com/p/1"
-      },
-      "status": "SUCCESS",
-      "url": "https://substack.com/p/1"
-    },
-    "telegram": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "telegram",
-      "raw": {
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": null
-    },
-    "threads": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "threads",
-      "raw": {
-        "id": "threads_1",
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": null
-    },
-    "threads_replies": [
-      {
-        "error": null,
-        "error_class": null,
-        "ok": true,
-        "platform": "threads_reply_1",
-        "raw": {
-          "id": "threads_1",
-          "status": "SUCCESS"
-        },
-        "status": "SUCCESS",
-        "url": null
-      },
-      {
-        "error": null,
-        "error_class": null,
-        "ok": true,
-        "platform": "threads_reply_2",
-        "raw": {
-          "id": "threads_1",
-          "status": "SUCCESS"
-        },
-        "status": "SUCCESS",
-        "url": null
-      }
-    ],
-    "x_post": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "x_post",
-      "raw": {
-        "response": {
-          "url": "https://x.com/status/3"
-        },
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": "https://x.com/status/3"
-    },
-    "x_replies": [
-      {
-        "error": null,
-        "error_class": null,
-        "ok": true,
-        "platform": "x_reply_1",
-        "raw": {
-          "status": "SUCCESS"
-        },
-        "status": "SUCCESS",
-        "url": null
-      },
-      {
-        "error": null,
-        "error_class": null,
-        "ok": true,
-        "platform": "x_reply_2",
-        "raw": {
-          "status": "SUCCESS"
-        },
-        "status": "SUCCESS",
-        "url": null
-      }
-    ]
-  },
   "dispatch_summary": {
-    "attempted_platforms": [
-      "substack",
-      "linkedin",
-      "x_post",
-      "x_reply_1",
-      "x_reply_2",
-      "instagram",
-      "facebook",
-      "telegram",
-      "threads",
-      "threads_reply_1",
-      "threads_reply_2",
-      "discord"
+    "attempted_platforms": [],
+    "blocked_platforms": [
+      "pipeline"
     ],
-    "blocked_platforms": [],
     "failed_platforms": [],
-    "successful_platforms": [
-      "substack",
-      "linkedin",
-      "x_post",
-      "x_reply_1",
-      "x_reply_2",
-      "instagram",
-      "facebook",
-      "telegram",
-      "threads",
-      "threads_reply_1",
-      "threads_reply_2",
-      "discord"
-    ]
+    "successful_platforms": []
   },
-  "image_path": "downloads/test_image.jpg",
+  "image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png",
   "media_manifest": {
+    "chart_metadata": {
+      "chart_path": null,
+      "chart_status": "BLOCKED",
+      "warnings": [
+        "chart_source_csv_missing"
+      ]
+    },
+    "instagram_safe_image_public_url": null,
+    "media_assets": [
+      {
+        "alt_text": "Two-panel chart showing current WTI crude oil price and rolling absolute daily moves using FRED data.",
+        "asset_id": "primary",
+        "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+        "caption": "WTI crude oil price and 30-day realized volatility through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "latest_observation_date": "2026-06-29",
+        "latest_observation_year": 2026,
+        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png",
+        "media_subject": "WTI crude oil current price and volatility context",
+        "public_url": null,
+        "query": "Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes",
+        "recent_direction": "up",
+        "recent_price_direction": "up",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "time_coverage_end_year": 2026,
+        "url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "visual_metric": "oil_volatility wti crude oil current price realized volatility"
+      },
+      {
+        "alt_text": "Line chart showing the recent WTI crude oil price path using FRED data.",
+        "asset_id": "recent_price",
+        "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+        "caption": "Recent WTI price path through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "latest_observation_date": "2026-06-29",
+        "latest_observation_year": 2026,
+        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_e0fc75825c23.png",
+        "media_subject": "WTI crude oil recent price path",
+        "public_url": null,
+        "query": "Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes",
+        "recent_direction": "up",
+        "recent_price_direction": "up",
+        "recent_volatility_direction": "up",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "time_coverage_end_year": 2026,
+        "url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "visual_metric": "wti crude oil current recent price path"
+      }
+    ],
+    "media_blockers": [],
+    "media_content_audit": {
+      "audit_status": "PASS",
+      "blockers": [],
+      "latest_detected_year": 2026,
+      "llm_review_recommended": false,
+      "replacement_notes": [
+        "search_candidate_rejected:media_provenance_weak_upload_host|media_time_coverage_unverified_for_current_topic",
+        "source_backed_chart_pack_selected"
+      ],
+      "requirements": {
+        "as_of_year": 2026,
+        "expected_direction": "up",
+        "expected_metric": "oil_volatility",
+        "minimum_end_year": 2025,
+        "requires_current_coverage": true
+      },
+      "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+      "warnings": []
+    },
+    "media_readiness_by_platform": {
+      "discord": false,
+      "facebook": false,
+      "instagram": false,
+      "linkedin": true,
+      "substack": true,
+      "telegram": true,
+      "threads": false,
+      "x": true
+    },
+    "media_warnings": [
+      "chart_source_csv_missing"
+    ],
+    "news_image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png",
+    "news_image_public_url": null,
+    "news_image_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+    "news_image_source_query": "Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes",
+    "news_image_source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+    "primary_chart_path": null,
+    "primary_chart_public_url": null,
+    "rights_status": "sourceable_review_required",
     "selected_media_by_platform": {
-      "instagram": "https://example.com/test_image.jpg",
-      "telegram": "https://example.com/test_image.jpg"
+      "discord": null,
+      "facebook": null,
+      "instagram": null,
+      "linkedin": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png",
+      "substack": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png",
+      "telegram": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png",
+      "threads": null,
+      "x": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_e0fc75825c23.png"
     }
   },
-  "pipeline_status": "DISPATCH_COMPLETE",
-  "platform_variant_packet_id": "var_test_packet_456",
-  "public_image_url": "https://example.com/test_image.jpg",
-  "run_id": "v6_pipeline_99148f72d70f",
-  "timestamp": "2026-07-07T02:50:19Z",
-  "timestamp_gmt7": "2026-07-07T09:50:19+07:00",
-  "variant_status": "VARIANT_SCAFFOLD_READY"
+  "pipeline_status": "DISPATCH_BLOCKED",
+  "platform_variant_packet_id": "variant_packet_d1fe7e3d4149",
+  "public_image_url": null,
+  "run_id": "v6_pipeline_77936ed4a048",
+  "timestamp": "2026-07-07T09:09:11Z",
+  "timestamp_gmt7": "2026-07-07T16:09:11+07:00",
+  "variant_status": "VARIANT_READY"
 }

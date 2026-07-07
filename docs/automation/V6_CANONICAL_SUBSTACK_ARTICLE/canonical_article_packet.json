@@ -5,7 +5,7 @@
   "canonical_article_draft": {
     "assumptions": "Assumes data sufficiency and operator verification under V6 standards.",
     "body_word_count": 127,
-    "canonical_payload_hash": "c3b412cb9167965274efe7baa3b4d91c9a27b47db85221eb7d306efccbb5878e",
+    "canonical_payload_hash": "f276aad3895bb0e58b48a91a29e623db444c7028104c5485b906efa9d7ebdaec",
     "chart_callouts": [
       "[CHART: relevant macro series from approved local data]"
     ],
@@ -21,6 +21,7 @@
     "media_callouts": [
       "[IMAGE: relevant news/photo visual with operator-reviewed rights]"
     ],
+    "meta_description": "Capital Chronicle reviews US recession risks rise as oil volatility spikes through source-led macro context, visual evidence, and process-first educational analysis.",
     "no_fake_data_check": true,
     "no_financial_advice_check": true,
     "rendering_warnings": [],
@@ -60,18 +61,40 @@
     "subtitle": "Process-led analysis tailored for general_financial_education",
     "thesis": "Methodological transparency and rigorous historical context are essential when reviewing US recession risks rise as oil volatility spikes.",
     "title": "Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes",
-    "uncertainty_notes": "Prior cycles may not predict future macro distributions."
+    "uncertainty_notes": "Prior cycles may not predict future macro distributions.",
+    "visual_slots": [
+      {
+        "asset_id": "primary",
+        "audit_questions": "Does the latest visible date match the article date and does the chart direction align with the thesis?",
+        "caption_guidance": "Name the metric, source, latest observation date, and why the visual matters for the setup.",
+        "data_requirement": "Current source-backed macro series with observation date no older than the prior calendar year.",
+        "editorial_purpose": "Establish the current macro setup and the latest data endpoint before interpretation.",
+        "placement_after_section": "intro",
+        "source_requirement": "Primary or source-backed public data provider with canonical source attribution.",
+        "visual_kind": "chart"
+      },
+      {
+        "asset_id": "recent_price",
+        "audit_questions": "Does this visual add evidence rather than repeating the hero image?",
+        "caption_guidance": "Explain the recent window and the specific claim it supports.",
+        "data_requirement": "Recent-window chart or evidence visual that clarifies the mechanism discussed in the section.",
+        "editorial_purpose": "Support the market-implication section with a second, narrower visual lens.",
+        "placement_after_section": "market_implications",
+        "source_requirement": "Same-source or clearly attributed secondary public data provider.",
+        "visual_kind": "chart"
+      }
+    ]
   },
   "discord_summary_seed": {
     "call_to_action": "Review the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
     "canonical_url": null,
-    "content_hash": "c3b412cb9167965274efe7baa3b4d91c9a27b47db85221eb7d306efccbb5878e",
+    "content_hash": "f276aad3895bb0e58b48a91a29e623db444c7028104c5485b906efa9d7ebdaec",
     "created_at": "2026-07-01T02:56:46+07:00",
     "key_points": [
       "Methodology and Source Review: We review the sources provided: . A key limitation of historical macro data is lag and revision. Operators must verify p...",
       "Historical Context and Range Analysis: Statistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market nois..."
     ],
-    "source_article_id": "operator_idea_c3b412cb91679652",
+    "source_article_id": "operator_idea_f276aad3895bb0e5",
     "summary": "An educational breakdown of macro calibration and metadata context regarding US recession risks rise as oil volatility spikes.",
     "title": "Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes"
   },
@@ -90,12 +113,12 @@
     "dry_run_provenance": "deterministic_local_engine_run",
     "redaction_verified": true
   },
-  "operator_idea_id": "operator_idea_c3b412cb91679652",
-  "packet_id": "article_engine_packet_c3b412cb91679652",
+  "operator_idea_id": "operator_idea_f276aad3895bb0e5",
+  "packet_id": "article_engine_packet_f276aad3895bb0e5",
   "provider_attempts": [
     {
       "attempt_index": 1,
-      "failure": "article_too_short_words:1468<2000|missing_specific_numbers",
+      "failure": "article_too_short_words:1362<2000|missing_specific_numbers",
       "model": "default",
       "provider": "9router",
       "status": "failed",
@@ -103,7 +126,7 @@
     },
     {
       "attempt_index": 2,
-      "failure": "missing_specific_numbers",
+      "failure": "article_too_short_words:1725<2000|missing_specific_numbers",
       "model": "vx/gemini-3.1-pro-preview",
       "provider": "9router",
       "status": "failed",
@@ -111,7 +134,7 @@
     },
     {
       "attempt_index": 3,
-      "failure": "article_too_short_words:76<2000|too_few_sections|missing_specific_numbers|chart_callout_missing|media_callout_missing",
+      "failure": "article_too_short_words:76<2000|too_few_sections|source_trail_claims_too_generic|seo_metadata_missing|missing_specific_numbers|chart_callout_missing|media_callout_missing|visual_slots_too_thin",
       "model": "local_recovery_template",
       "provider": "deterministic_recovery",
       "status": "failed",
@@ -143,7 +166,7 @@
   },
   "schema_version": "6.0.0",
   "seo_packet": {
-    "meta_description": "An educational briefing analyzing US recession risks rise as oil volatility spikes under the editorial angle: Focus on data transparency, geopolitics, and yield curves..",
+    "meta_description": "Capital Chronicle reviews US recession risks rise as oil volatility spikes through source-led macro context, visual evidence, and process-first educational analysis.",
     "secondary_keywords": [
       "macro calendar",
       "educational briefing",
@@ -177,8 +200,8 @@
     "concise_summary": "V6 Checkpoint: Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes is ready for operator review."
   },
   "warnings": [
-    "article_quality_retry:default:article_too_short_words:1468<2000|missing_specific_numbers",
-    "article_quality_retry:vx/gemini-3.1-pro-preview:missing_specific_numbers",
-    "article_deterministic_recovery_blocked:missing_specific_numbers"
+    "article_quality_retry:default:article_too_short_words:1362<2000|missing_specific_numbers",
+    "article_quality_retry:vx/gemini-3.1-pro-preview:article_too_short_words:1725<2000|missing_specific_numbers",
+    "article_deterministic_recovery_blocked:article_too_short_words:1725<2000|missing_specific_numbers"
   ]
 }

@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_MEDIA_JUDGMENT_AND_ARTICLE_VISUAL_STRUCTURE_GATE_V0
+TASK_CONTENTOPS_V6_NON_BYPASSED_LONGFORM_LIVE_RUN_AND_SOURCE_DEPTH_VALIDATION_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,22 +9,22 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-local HEAD: 3a074762d220f0265cd2fbc2eb4a1d8db86ca178
-remote master: 332e64626255171c59a525352f01659379e5c0f2
+verified remote master before run: 17c99cdd8bca27e084b9ca827d8fd6aed57958b0
+clean validation worktree HEAD: 17c99cdd8bca27e084b9ca827d8fd6aed57958b0
 
 ## current_product_phase
-Real media dispatch remains operational across the implemented live pipeline, and the next local hardening layer now judges whether selected visuals are editorially fit. The variant pipeline rejects stale, weakly sourced, directionally mismatched, or unverified search visuals; source-backed current WTI/FRED chart packs can replace failed image-search candidates; Substack articles now support multiple in-body visual slots instead of a single image appended near the bottom.
+The non-bypassed long-form live validation run was executed from clean remote HEAD `17c99cdd8bca27e084b9ca827d8fd6aed57958b0`. The run did not use `CONTENTOPS_BYPASS_QUALITY_GATES=true`. Media judgment passed and selected current source-backed FRED/EIA WTI visual assets, but dispatch was correctly blocked before any platform post because article/provider quality failed the release gate.
 
 ## current_product_lane
-Media judgment and article visual-structure gate: transport still handles local browser uploads and public API URLs, while content audit now checks visual provenance, currentness, metric relevance, time coverage, and thesis/direction alignment before a visual can count as launch-ready evidence.
+Non-bypassed live validation and source-depth gate: media audit is functioning, but the article generator/provider output remains below the long-form release bar.
 
 ## accepted_baseline_summary
-`TASK_CONTENTOPS_V6_MEDIA_JUDGMENT_AND_ARTICLE_VISUAL_STRUCTURE_GATE_V0` adds a deterministic media content audit, source-backed current WTI/FRED chart-pack generation for oil topics, recency filters for Google image requests, in-body Substack visual markers, and stricter article quality gates requiring SEO metadata plus multiple purposeful visual slots. Branded fallback cards may still be generated as artifacts, but they are explicitly blocked as editorial launch visuals.
+`TASK_CONTENTOPS_V6_NON_BYPASSED_LONGFORM_LIVE_RUN_AND_SOURCE_DEPTH_VALIDATION_V0` proves the new gate behavior under live provider conditions: the pipeline blocks rather than dispatching when the article is too short, under-sectioned, generic in its source trail, and missing numeric evidence. Media selection improved: stale Wikimedia search media was rejected and replaced by a current source-backed WTI/FRED chart pack.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `496dee0873a38a3791054dfde2d713c7db17bc44` committed.
-- previous accepted product baseline: `f9a561c6e1f73918ae73f1606d027b49b010855a`.
-- latest status/promotion task (`last_status_commit_sha`): `496dee0873a38a3791054dfde2d713c7db17bc44` committed locally on `master` branch.
+- accepted product baseline (`accepted_product_baseline_sha`): `17c99cdd8bca27e084b9ca827d8fd6aed57958b0` committed and verified on remote before the non-bypassed live run.
+- older baseline references in prior status docs are superseded by the verified remote HEAD above for this validation task.
+- latest status/evidence task (`last_status_commit_sha`): pending this task's status/evidence commit; see final task response for the pushed commit SHA.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -49,22 +49,20 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-V6 loop now has live provider generation, platform-native variant generation, dispatch evidence readback, deterministic no-advice context normalization, scoped idempotent retry controls, public Substack URL/image extraction, local media upload verification, live dispatch proof for every implemented platform lane, and a local media-content audit gate. Real media is required, and visuals must now be sourceable, current enough for the article date, relevant to the article metric, and directionally aligned with the article thesis unless the article explicitly explains the contrast.
+V6 loop now blocks honestly on article quality without bypass. Run `v6_pipeline_77936ed4a048` reached `DISPATCH_BLOCKED` before platform dispatch. Article quality blockers were `article_provider_recovery_not_publishable`, `article_too_short_words:127<2000`, `too_few_sections`, `source_trail_claims_too_generic`, and `missing_specific_numbers`. Media audit status was `PASS` with current 2026 FRED/EIA WTI assets.
 
 ## dispatch/live status
-Under Fast Ship Mode, broad live run `v6_pipeline_3c19fed2b5df` verified real chart media on Substack, LinkedIn, X, Facebook Page photo, Telegram photo, Threads, and Discord, with canonical public URL `https://capitalchronicle.substack.com/p/capital-chronicle-educational-briefing-1c5` and chart CDN extraction from Substack. Scoped Instagram retry `v6_pipeline_a2d260907953` succeeded without reposting prior platforms by using the square 1080x1080 transform of the same real chart source. The latest scoped audit is `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`.
-
-Latest local implementation note: screenshots from the July 7, 2026 live output exposed that media transport worked but media judgment did not. This task did not perform a new live dispatch; the next live validation must run without `CONTENTOPS_BYPASS_QUALITY_GATES=true` and confirm the stronger article and visual audit path on public outputs.
+Non-bypassed live run `v6_pipeline_77936ed4a048` was executed with live provider and dispatch enabled, default 420s timeout, and `CONTENTOPS_BYPASS_QUALITY_GATES=false`. Final status was `DISPATCH_BLOCKED`; no platform dispatch was attempted, so there are no new public platform URLs or IDs. The latest audit is `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`; summary evidence is `docs/automation/V6_NON_BYPASSED_LONGFORM_LIVE_RUN/non_bypassed_live_run_evidence_v0.json`.
 
 ## provider/env/credential status
 Under Fast Ship Mode, local env credentials and operator browser profiles were used for live dispatch verification. No raw `.env` values or credential secrets were intentionally written to code or status docs. Dispatch audits and telemetry record platform outcomes, URLs, IDs, and redacted env-key presence only.
 
 ## active blockers
 - Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.
-- A fresh non-bypassed live run is still required after the new media judgment and article visual-slot gates. The latest public evidence predates this task and used bypassed quality gates.
-- Article/provider quality architecture is stricter locally, but provider output still needs live validation for long-form depth, source specificity, numeric evidence, SEO metadata, and multiple natural in-body visuals.
+- Non-bypassed live run `v6_pipeline_77936ed4a048` blocked before dispatch on article quality: `article_provider_recovery_not_publishable`, `article_too_short_words:127<2000`, `too_few_sections`, `source_trail_claims_too_generic`, and `missing_specific_numbers`.
+- Provider attempts returned 1362 and 1725 word drafts, both below the 2000-word gate and missing numeric evidence; deterministic recovery remains intentionally non-publishable.
 - Google classic/mobile image HTML is parsed when available, but Google still returns blocked/empty pages from the current environment. The current no-browser operational fallback is sourceable public chart retrieval, not fake media.
-- General local chart rendering still requires operator-supplied CSV with at least one numeric column; oil-topic source-backed WTI/FRED visual packs are now generated from FRED CSV data when reachable.
+- API-only visual lanes still require a public CDN image URL from Substack publish; because dispatch was blocked before Substack, Facebook/Threads/Discord/Instagram did not receive a public image URL in this run.
 
 ## accepted caveats
 - GitHub remote commits and fetched repo files remain runtime authority above this status doc.
@@ -73,30 +71,20 @@ Under Fast Ship Mode, local env credentials and operator browser profiles were u
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_MEDIA_JUDGMENT_AND_ARTICLE_VISUAL_STRUCTURE_GATE_V0
+TASK_CONTENTOPS_V6_NON_BYPASSED_LONGFORM_LIVE_RUN_AND_SOURCE_DEPTH_VALIDATION_V0
 
 ## latest changed areas
-- `live_contentops/ai_research_canonical_article_engine_v6.py`
-- `live_contentops/facebook_page_adapter_v6.py`
-- `live_contentops/google_image_search_v6.py`
-- `live_contentops/instagram_adapter_v6.py`
-- `live_contentops/linkedin_browser_adapter_v6.py`
-- `live_contentops/live_production_pipeline_runner_v6.py`
-- `live_contentops/media_content_audit_v6.py`
-- `live_contentops/platform_native_variant_generator_live_v6.py`
-- `live_contentops/substack_browser_adapter_v6.py`
-- `live_contentops/x_browser_adapter_v6.py`
-- `tests/test_ai_research_canonical_article_engine_v6.py`
-- `tests/test_facebook_page_adapter_v6.py`
-- `tests/test_google_image_search_v6.py`
-- `tests/test_instagram_adapter_v6.py`
-- `tests/test_live_production_pipeline_runner.py`
-- `tests/test_media_content_audit_v6.py`
-- `tests/test_platform_native_variant_generator_live.py`
-- `tests/test_substack_browser_adapter_v6.py`
+- `docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json`
+- `docs/automation/V6_NON_BYPASSED_LONGFORM_LIVE_RUN/non_bypassed_live_run_evidence_v0.json`
+- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`
+- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
+- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
+- `docs/status/CURRENT_PROJECT_STATUS.md`
+- `docs/status/current_project_status.json`
 
 ## current next recommended task
-TASK_CONTENTOPS_V6_NON_BYPASSED_LONGFORM_LIVE_RUN_AND_SOURCE_DEPTH_VALIDATION_V0: Run the full live pipeline without quality-gate bypass, verify the provider can produce a publishable long-form article with source depth and multiple audited visuals, then audit every public platform output for visual relevance, crop, attribution, link behavior, and platform-native editorial quality.
+TASK_CONTENTOPS_V6_PROVIDER_LONGFORM_SOURCE_DEPTH_AND_NUMERIC_EVIDENCE_FIX_V0: Fix the live article provider/writer path so it reliably produces 2000+ word, 5+ section, source-specific, numeric-evidence-rich long-form articles that pass quality gates without deterministic recovery, then rerun the full live dispatch without bypass.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.
