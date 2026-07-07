@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import time
 import uuid
 from pathlib import Path
@@ -102,6 +103,25 @@ def _require_payload(value: Any, name: str) -> str | None:
     return None if str(value or "").strip() else f"{name}_missing"
 
 
+_LINK_TOKEN_RE = re.compile(r"\[\s*link\s*\]", re.IGNORECASE)
+_READ_MORE_RE = re.compile(r"\n*[^\n]*\[\s*link\s*\][^\n]*", re.IGNORECASE)
+
+
+def _apply_canonical_link(text: str, url: str | None) -> str:
+    """Replace [Link] placeholders with a real clickable URL.
+
+    - If a [Link] token exists and url is set, swap it in-place.
+    - If no token exists and url is set, append a clean read-more line.
+    - If url is empty, strip any line containing a dead [Link] token so no
+      placeholder ships publicly.
+    """
+    body = str(text or "")
+    if not url:
+        return _READ_MORE_RE.sub("", body).rstrip()
+    if _LINK_TOKEN_RE.search(body):
+        return _LINK_TOKEN_RE.sub(url, body)
+    return f"{body.rstrip()}\n\nRead the full editorial analysis: {url}"
+
 
 def run_live_production_pipeline(
     topic: str,
@@ -153,6 +173,8 @@ def run_live_production_pipeline(
     public_image_url = variant_packet.get("public_image_url")
     media_manifest = variant_packet.get("media_manifest") if isinstance(variant_packet.get("media_manifest"), dict) else {}
     selected_media = media_manifest.get("selected_media_by_platform") if isinstance(media_manifest.get("selected_media_by_platform"), dict) else {}
+    local_image_path = media_manifest.get("news_image_path") or variant_packet.get("image_path")
+    canonical_url: str | None = None  # populated after Substack publishes
     requested_platforms = tuple(str(item).strip().lower() for item in (dispatch_platforms or []) if str(item).strip())
     selected_platforms = requested_platforms or ("substack", "linkedin", "x", "instagram", "facebook", "telegram", "threads", "discord")
 
@@ -210,9 +232,13 @@ def run_live_production_pipeline(
                         title=article_packet.get("canonical_article_draft", {}).get("title", topic),
                         subtitle=article_packet.get("canonical_article_draft", {}).get("subtitle", ""),
                         body_markdown=body,
+                        image_path=local_image_path,
                         dry_run=False
                     )
                     dispatch_results["substack"] = _normalize_dispatch_result("substack", sub_res)
+                    # Substack is the canonical long-form home; its URL is the clickable link for every other platform.
+                    if dispatch_results["substack"].get("ok"):
+                        canonical_url = dispatch_results["substack"].get("url") or canonical_url
                     print(f"[Info] Substack dispatch outcome: {dispatch_results['substack']['status']} (URL: {dispatch_results['substack'].get('url')})")
             except Exception as exc:
                 print(f"[Warning] Substack dispatch failed: {exc}")
@@ -222,13 +248,13 @@ def run_live_production_pipeline(
         if "linkedin" in selected_platforms:
             try:
                 from live_contentops.linkedin_browser_adapter_v6 import execute_linkedin_post
-                text = variants.get("linkedin", "")
+                text = _apply_canonical_link(variants.get("linkedin", ""), canonical_url)
                 missing = _require_payload(text, "linkedin_text")
                 if missing:
                     dispatch_results["linkedin"] = _blocked_result("linkedin", missing)
                 else:
                     print("[Info] Dispatching to LinkedIn...")
-                    li_res = execute_linkedin_post(text=text, dry_run=False)
+                    li_res = execute_linkedin_post(text=text, image_path=local_image_path, dry_run=False)
                     dispatch_results["linkedin"] = _normalize_dispatch_result("linkedin", li_res)
                     print(f"[Info] LinkedIn dispatch outcome: {dispatch_results['linkedin']['status']} (URL: {dispatch_results['linkedin'].get('url')})")
             except Exception as exc:
@@ -244,8 +270,11 @@ def run_live_production_pipeline(
                     dispatch_results["x_post"] = _blocked_result("x_post", "x_thread_missing")
                     dispatch_results["x_replies"] = []
                 else:
+                    # Append the clickable canonical link as the final tweet in the thread.
+                    if canonical_url:
+                        x_thread.append(_apply_canonical_link("", canonical_url).strip())
                     print(f"[Info] Dispatching thread of {len(x_thread)} tweets to X...")
-                    x_res = execute_x_post(text=x_thread[0], dry_run=False)
+                    x_res = execute_x_post(text=x_thread[0], image_url=local_image_path, dry_run=False)
                     dispatch_results["x_post"] = _normalize_dispatch_result("x_post", x_res)
                     print(f"[Info] X initial post outcome: {dispatch_results['x_post']['status']}")
 
@@ -271,7 +300,8 @@ def run_live_production_pipeline(
         if "instagram" in selected_platforms:
             try:
                 from live_contentops.instagram_adapter_v6 import execute_instagram_post
-                caption = variants.get("instagram_caption", variants.get("telegram", ""))
+                # Instagram captions can't have clickable links, but include the URL as plain text for copy/paste.
+                caption = _apply_canonical_link(variants.get("instagram_caption", variants.get("telegram", "")), canonical_url)
                 active_img = selected_media.get("instagram") or public_image_url
                 missing = _require_payload(caption, "instagram_caption") or _require_payload(active_img, "instagram_image_url")
                 if missing:
@@ -289,13 +319,14 @@ def run_live_production_pipeline(
         if "facebook" in selected_platforms:
             try:
                 from live_contentops.facebook_page_adapter_v6 import execute_facebook_post
-                message = variants.get("facebook", variants.get("linkedin", ""))
+                message = _apply_canonical_link(variants.get("facebook", variants.get("linkedin", "")), canonical_url)
                 missing = _require_payload(message, "facebook_message")
                 if missing:
                     dispatch_results["facebook"] = _blocked_result("facebook", missing)
                 else:
                     print("[Info] Dispatching to Facebook Page...")
-                    fb_res = execute_facebook_post(message=message, dry_run=False)
+                    # link renders a clickable preview card (image + title) on the FB feed.
+                    fb_res = execute_facebook_post(message=message, link=canonical_url, dry_run=False)
                     dispatch_results["facebook"] = _normalize_dispatch_result("facebook", fb_res)
                     print(f"[Info] Facebook dispatch outcome: {dispatch_results['facebook']['status']}")
             except Exception as exc:
@@ -306,7 +337,7 @@ def run_live_production_pipeline(
         if "telegram" in selected_platforms:
             try:
                 from live_contentops.telegram_live_adapter_v6 import execute_telegram_post, execute_telegram_photo
-                message = variants.get("telegram", "")
+                message = _apply_canonical_link(variants.get("telegram", ""), canonical_url)
                 telegram_media = selected_media.get("telegram") or public_image_url
                 missing = _require_payload(message, "telegram_message")
                 if missing:
@@ -332,8 +363,12 @@ def run_live_production_pipeline(
                     dispatch_results["threads"] = _blocked_result("threads", "threads_thread_missing")
                     dispatch_results["threads_replies"] = []
                 else:
+                    # Append the clickable canonical link as the final reply in the thread.
+                    if canonical_url:
+                        threads_sequence.append(_apply_canonical_link("", canonical_url).strip())
                     print("[Info] Dispatching to Threads...")
-                    threads_res = execute_threads_post(text=threads_sequence[0], dry_run=False)
+                    threads_media = selected_media.get("threads") or public_image_url
+                    threads_res = execute_threads_post(text=threads_sequence[0], image_url=threads_media, dry_run=False)
                     dispatch_results["threads"] = _normalize_dispatch_result("threads", threads_res)
                     thread_reply_results = []
                     parent_id = threads_res.get("id") or threads_res.get("container_id")
@@ -364,7 +399,16 @@ def run_live_production_pipeline(
                     dispatch_results["discord"] = _blocked_result("discord", missing)
                 else:
                     print("[Info] Dispatching to Discord Channel...")
-                    discord_res = execute_discord_post(message=message, dry_run=False)
+                    # Rich embed makes the canonical link clickable and renders the hero image inline.
+                    discord_embeds = None
+                    if canonical_url or public_image_url:
+                        embed: dict[str, Any] = {"title": article_packet.get("canonical_article_draft", {}).get("title", topic)}
+                        if canonical_url:
+                            embed["url"] = canonical_url
+                        if public_image_url:
+                            embed["image"] = {"url": public_image_url}
+                        discord_embeds = [embed]
+                    discord_res = execute_discord_post(message=message, embeds=discord_embeds, dry_run=False)
                     dispatch_results["discord"] = _normalize_dispatch_result("discord", discord_res)
                     print(f"[Info] Discord dispatch outcome: {dispatch_results['discord']['status']}")
             except Exception as exc:

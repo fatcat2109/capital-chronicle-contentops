@@ -6,6 +6,7 @@ using a temporary clone of the operator's browser profile.
 from __future__ import annotations
 
 import hashlib
+import os
 import shutil
 import time
 from pathlib import Path
@@ -102,6 +103,16 @@ def execute_x_post(
                 composer.focus()
                 page.keyboard.type(text)
                 time.sleep(2)
+
+                # Best-effort image attach; image_url may be a local file path. Never fail the text post.
+                if image_url and os.path.exists(image_url):
+                    try:
+                        file_input = page.query_selector("[data-testid='fileInput'], input[type='file']")
+                        if file_input:
+                            file_input.set_input_files(image_url)
+                            time.sleep(5)
+                    except Exception as img_exc:
+                        print(f"[Warning] X image upload skipped: {img_exc}")
 
                 post_btn = page.locator("[data-testid='tweetButtonInline']").first
                 if not post_btn.is_visible():

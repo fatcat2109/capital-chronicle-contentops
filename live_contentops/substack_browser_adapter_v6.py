@@ -63,6 +63,7 @@ def execute_substack_post(
     dry_run: bool = False,
     profile_src: Path = DEFAULT_PROFILE_SRC,
     temp_dir: Path = TEMP_PROFILE_DIR,
+    image_path: str | None = None,
 ) -> dict[str, Any]:
     """Publishes a new long-form article to Substack."""
     payload_hash = hashlib.md5(f"{title}:{subtitle}:{body_markdown}".encode("utf-8")).hexdigest()[:12]
@@ -117,6 +118,16 @@ def execute_substack_post(
                 if editor_el:
                     editor_el.focus()
                     page.keyboard.type(body_markdown)
+
+            # Best-effort hero image upload; never fail the text post if the control is absent.
+            if image_path and os.path.exists(image_path):
+                try:
+                    file_input = page.query_selector("input[type='file']")
+                    if file_input:
+                        file_input.set_input_files(image_path)
+                        time.sleep(4)
+                except Exception as img_exc:
+                    print(f"[Warning] Substack image upload skipped: {img_exc}")
 
             time.sleep(2)
             # Click Continue / Publish button in top header

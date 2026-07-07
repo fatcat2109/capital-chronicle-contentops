@@ -61,6 +61,7 @@ def execute_linkedin_post(
     dry_run: bool = False,
     profile_src: Path = DEFAULT_PROFILE_SRC,
     temp_dir: Path = TEMP_PROFILE_DIR,
+    image_path: str | None = None,
 ) -> dict[str, Any]:
     """Publishes a new update/post to LinkedIn using the operator's profile."""
     payload_hash = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
@@ -110,6 +111,23 @@ def execute_linkedin_post(
                 editor.focus()
                 page.keyboard.type(text)
                 time.sleep(2)
+
+                # Best-effort image attach; never fail the text post if the control is absent.
+                if image_path and os.path.exists(image_path):
+                    try:
+                        file_input = page.query_selector("input[type='file']")
+                        if file_input:
+                            file_input.set_input_files(image_path)
+                            time.sleep(5)
+                            # Click any "Next"/"Done" to return to the share composer if a media dialog opened.
+                            for sel in ("button:has-text('Next')", "button:has-text('Done')"):
+                                loc = page.locator(sel).first
+                                if loc.is_visible():
+                                    loc.click()
+                                    time.sleep(3)
+                                    break
+                    except Exception as img_exc:
+                        print(f"[Warning] LinkedIn image upload skipped: {img_exc}")
 
                 post_btn = page.locator("button.share-actions__primary-action, button.share-actions__post-button").first
                 if post_btn.is_visible() and post_btn.is_enabled():

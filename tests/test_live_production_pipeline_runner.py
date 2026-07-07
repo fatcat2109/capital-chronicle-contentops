@@ -6,6 +6,7 @@ from live_contentops.live_production_pipeline_runner_v6 import (
     run_live_production_pipeline,
     _dispatch_summary,
     _normalize_dispatch_result,
+    _apply_canonical_link,
 )
 
 
@@ -111,12 +112,12 @@ def test_run_live_production_pipeline_with_dispatch(
         assert result["dispatch_results"]["substack"]["status"] == "SUCCESS"
         assert result["dispatch_results"]["linkedin"]["status"] == "SUCCESS"
         assert result["dispatch_results"]["x_post"]["status"] == "SUCCESS"
-        assert len(result["dispatch_results"]["x_replies"]) == 1
+        assert len(result["dispatch_results"]["x_replies"]) == 2  # Tweet 2 + appended canonical link
         assert result["dispatch_results"]["instagram"]["status"] == "SUCCESS"
         assert result["dispatch_results"]["facebook"]["status"] == "SUCCESS"
         assert result["dispatch_results"]["telegram"]["status"] == "SUCCESS"
         assert result["dispatch_results"]["threads"]["status"] == "SUCCESS"
-        assert len(result["dispatch_results"]["threads_replies"]) == 1
+        assert len(result["dispatch_results"]["threads_replies"]) == 2  # reply 2 + appended canonical link
         assert result["dispatch_results"]["discord"]["status"] == "SUCCESS"
         assert result["pipeline_status"] == "DISPATCH_COMPLETE"
         assert "substack" in result["dispatch_summary"]["successful_platforms"]
@@ -325,3 +326,80 @@ def test_cli_main_returns_zero_on_complete_launch(mock_run):
         "dispatch_summary": {"successful_platforms": ["substack"]},
     }
     assert main(["--live-run", "--dispatch-live"]) == 0
+
+
+def test_apply_canonical_link_replaces_token():
+    assert _apply_canonical_link("See more [Link] today", "https://x.io/p/1") == "See more https://x.io/p/1 today"
+
+
+def test_apply_canonical_link_appends_when_absent():
+    out = _apply_canonical_link("Body text", "https://x.io/p/1")
+    assert out.endswith("Read the full editorial analysis: https://x.io/p/1")
+
+
+def test_apply_canonical_link_strips_dead_token_when_no_url():
+    # No dangling placeholder may ship when there is no real URL.
+    out = _apply_canonical_link("Body text\nRead more: [Link]", None)
+    assert "[Link]" not in out
+    assert "[link]" not in out.lower()
+
+
+@patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
+@patch("live_contentops.live_production_pipeline_runner_v6.generate_live_platform_variants")
+@patch("live_contentops.live_production_pipeline_runner_v6.time.sleep", return_value=None)
+@patch("live_contentops.substack_browser_adapter_v6.execute_substack_post")
+@patch("live_contentops.linkedin_browser_adapter_v6.execute_linkedin_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.x_browser_adapter_v6.execute_x_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.x_browser_adapter_v6.execute_x_comment", return_value={"status": "SUCCESS"})
+@patch("live_contentops.instagram_adapter_v6.execute_instagram_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.facebook_page_adapter_v6.execute_facebook_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.telegram_live_adapter_v6.execute_telegram_photo", return_value={"status": "SUCCESS"})
+@patch("live_contentops.threads_adapter_v6.execute_threads_post", return_value={"status": "SUCCESS", "id": "t1"})
+@patch("live_contentops.discord_live_adapter_v6.execute_discord_post", return_value={"status": "SUCCESS"})
+def test_dispatch_passes_media_and_canonical_link(
+    mock_discord, mock_threads, mock_tg_photo, mock_fb, mock_ig, mock_x_comment, mock_x_post,
+    mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
+):
+    mock_run_article.return_value = {
+        "packet_id": "art_1",
+        "canonical_article_draft": {"title": "T", "subtitle": "S"},
+    }
+    mock_generate_variants.return_value = {
+        "platform_variant_packet_id": "var_1",
+        "image_path": "downloads/hero.jpg",
+        "public_image_url": "https://cdn.example.com/hero.jpg",
+        "variant_status": "VARIANT_READY",
+        "variants": {
+            "substack": "Substack body",
+            "linkedin": "LinkedIn text",
+            "facebook": "Facebook text",
+            "telegram": "Telegram summary",
+            "discord": "Discord text",
+            "instagram_caption": "IG caption",
+        },
+        "variant_threads": {"x": ["Tweet 1"], "threads": ["Threads 1"]},
+        "media_manifest": {
+            "news_image_path": "downloads/hero.jpg",
+            "selected_media_by_platform": {"instagram": "https://cdn.example.com/hero.jpg", "telegram": "https://cdn.example.com/hero.jpg"},
+        },
+    }
+    mock_substack.return_value = {"status": "SUCCESS", "url": "https://sub.stack/p/live"}
+    with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "a.json"), \
+         patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", tmp_path / "audit.json"):
+        run_live_production_pipeline("Topic", "Angle", live_run=False, dispatch_live=True)
+
+    # Substack receives the local hero image for browser upload.
+    assert mock_substack.call_args.kwargs["image_path"] == "downloads/hero.jpg"
+    # LinkedIn gets the image and the canonical link appended to the body.
+    assert mock_linkedin.call_args.kwargs["image_path"] == "downloads/hero.jpg"
+    assert "https://sub.stack/p/live" in mock_linkedin.call_args.kwargs["text"]
+    # X first post carries the local image path.
+    assert mock_x_post.call_args.kwargs["image_url"] == "downloads/hero.jpg"
+    # Facebook gets the clickable canonical link.
+    assert mock_fb.call_args.kwargs["link"] == "https://sub.stack/p/live"
+    # Threads first post carries a public image URL.
+    assert mock_threads.call_args_list[0].kwargs["image_url"] == "https://cdn.example.com/hero.jpg"
+    # Discord builds a rich embed with the canonical URL and hero image.
+    embeds = mock_discord.call_args.kwargs["embeds"]
+    assert embeds and embeds[0]["url"] == "https://sub.stack/p/live"
+    assert embeds[0]["image"]["url"] == "https://cdn.example.com/hero.jpg"

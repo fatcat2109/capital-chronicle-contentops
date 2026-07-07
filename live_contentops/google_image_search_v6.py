@@ -50,11 +50,17 @@ def search_google_image_urllib(query: str) -> list[str]:
             html = response.read().decode("utf-8", errors="ignore")
             # Google images classic output regex match for image urls
             img_urls = re.findall(r'src="([^"]+)"', html)
-            valid = []
+            direct: list[str] = []
+            thumbs: list[str] = []
             for u in img_urls:
-                if u.startswith("http") and ("gstatic" in u or u.endswith((".jpg", ".jpeg", ".png"))):
-                    valid.append(u)
-            return valid
+                if not u.startswith("http"):
+                    continue
+                if u.lower().split("?")[0].endswith((".jpg", ".jpeg", ".png", ".webp")):
+                    direct.append(u)  # real, publicly-fetchable image (works for Meta Graph APIs)
+                elif "gstatic" in u:
+                    thumbs.append(u)  # thumbnail; only usable for local browser upload
+            # Prefer direct image URLs so IG/Threads Graph fetch succeeds; thumbnails last.
+            return direct + thumbs
     except Exception as e:
         print(f"[Warning] Urllib Google Image search failed: {e}")
         return []

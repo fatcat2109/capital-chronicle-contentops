@@ -297,7 +297,7 @@ def call_live_provider(prompt: str, provider: str, timeout_seconds: int = 15, mo
         body = json.dumps({
             "model": model_name,
             "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": 5000,
+            "max_tokens": 16000,
             "temperature": 0.2
         }).encode("utf-8")
         req = url_request.Request(f"{base_url.rstrip('/')}/chat/completions", data=body, headers=headers, method="POST")
