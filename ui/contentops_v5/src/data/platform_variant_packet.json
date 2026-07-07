@@ -1,6 +1,6 @@
 {
-  "created_at": "2026-07-06T23:58:23+00:00",
-  "exact_payload_hash": "b1a007247a4e5fbd51f4760d5e3bd31b07258127ff5fe455fd956c0b374af9c9",
+  "created_at": "2026-07-07T02:17:46+00:00",
+  "exact_payload_hash": "36199bb6a0d7e1655cb5ded8b861164623412fe8e87fde3702349d3c5285bd8e",
   "image_path": null,
   "media_manifest": {
     "chart_metadata": {
@@ -40,21 +40,21 @@
       "x": null
     }
   },
-  "platform_variant_packet_id": "variant_packet_b1a007247a4e",
+  "platform_variant_packet_id": "variant_packet_36199bb6a0d7",
   "provider_attempts": [
     {
       "failure": null,
       "provider": "9router",
       "status": "accepted",
-      "timeout_seconds": 30
+      "timeout_seconds": 420
     }
   ],
   "provider_call_made": true,
   "provider_recovery_used": false,
   "public_image_url": null,
   "schema_version": "6.0.0",
-  "source_article_id": "article_engine_packet_07cdddd73507097e",
-  "source_intent_id": "operator_idea_07cdddd73507097e",
+  "source_article_id": "article_engine_packet_c3b412cb91679652",
+  "source_intent_id": "operator_idea_c3b412cb91679652",
   "target_platforms": [
     "substack",
     "discord",
@@ -80,26 +80,24 @@
   "variant_status": "VARIANT_VALIDATION_FAILED",
   "variant_threads": {
     "threads": [
-      "US recession risks are rising alongside spiking oil volatility. In our latest Capital Chronicle Educational Briefing, we analyze the structural indicators shaping the macroeconomic outlook without offering directional investment advice. \ud83e\uddf5",
-      "To understand these risks, we focus on three core pillars: data transparency, geopolitical developments, and yield curve movements. Separating short-term market noise from structural policy shifts is critical for accurate analysis.",
-      "A key limitation of historical macro data is lag and revision. A disciplined analysis relies on verified context, explicit assumptions, and historical ranges from prior cycles to establish reliable benchmarks.",
-      "By examining historical patterns, we aim to provide a clear framework for understanding current volatility. Read our full process-led educational briefing to explore the data behind the trends."
+      "US recession risks are rising as oil volatility spikes. In our latest Capital Chronicle Educational Briefing, we analyze historical patterns using a process-led approach focused on data transparency, geopolitics, and yield curves. (1/3)",
+      "When volatility spikes, separating market noise from structural policy shifts is critical. We review statistical ranges from prior cycles to establish clear benchmarks, keeping in mind that historical macro data is subject to lag and revision. (2/3)",
+      "A disciplined approach relies on verified context and explicit assumptions. Read our full educational briefing to explore the historical patterns shaping today's macroeconomic landscape without directional investment advice. (3/3)"
     ],
     "x": [
-      "US recession risks are rising alongside spiking oil volatility. In our latest Capital Chronicle Educational Briefing, we analyze the structural indicators shaping the macroeconomic outlook without offering directional investment advice. \ud83e\uddf5",
-      "To understand these risks, we focus on three core pillars: data transparency, geopolitical developments, and yield curve movements. Separating short-term market noise from structural policy shifts is critical for accurate analysis.",
-      "A key limitation of historical macro data is lag and revision. A disciplined analysis relies on verified context, explicit assumptions, and historical ranges from prior cycles to establish reliable benchmarks.",
-      "By examining historical patterns, we aim to provide a clear framework for understanding current volatility. Read our full process-led educational briefing to explore the data behind the trends."
+      "US recession risks are rising as oil volatility spikes. In our latest Capital Chronicle Educational Briefing, we analyze historical patterns using a process-led approach focused on data transparency, geopolitics, and yield curves. (1/3)",
+      "When volatility spikes, separating market noise from structural policy shifts is critical. We review statistical ranges from prior cycles to establish clear benchmarks, keeping in mind that historical macro data is subject to lag and revision. (2/3)",
+      "A disciplined approach relies on verified context and explicit assumptions. Read our full educational briefing to explore the historical patterns shaping today's macroeconomic landscape without directional investment advice. (3/3)"
     ]
   },
   "variants": {
-    "discord": "Our latest **Capital Chronicle Educational Briefing** is live. We are diving into rising US recession risks amid spiking oil volatility. This process-led analysis focuses on data transparency, geopolitics, and yield curves to help you understand historical patterns without the market noise. Check out our methodology and source review in the main channel. Note: This briefing is for educational purposes only and does not contain investment advice.",
-    "facebook": "Are rising oil volatility and shifting yield curves signaling a US recession? Our latest Capital Chronicle Educational Briefing breaks down the historical patterns and macroeconomic data driving current risk assessments.\n\nRather than offering directional investment advice, we focus on data transparency and geopolitical factors to help you separate market noise from structural policy shifts. Understanding historical ranges and data limitations is key to navigating complex economic cycles.\n\nExplore our process-led analysis today.",
-    "instagram_caption": "How do rising oil volatility and shifting yield curves impact US recession risks? \ud83d\udcca Our latest Capital Chronicle Educational Briefing takes a process-led approach to analyzing current macroeconomic indicators.\n\nBy focusing on data transparency, geopolitics, and historical ranges, we break down the structural patterns without the market noise. Understanding the limitations of historical macro data is essential for any disciplined analysis.\n\n\ud83d\udd17 Head to our link in bio to read the full educational briefing.\n\n#Macroeconomics #RecessionRisk #OilVolatility #YieldCurve #FinanceEducation #CapitalChronicle",
-    "linkedin": "As oil volatility spikes, US recession risks are drawing closer scrutiny. In our latest Capital Chronicle Educational Briefing, we bypass the market noise to analyze the structural indicators shaping the macroeconomic outlook.\n\nBy focusing on data transparency, geopolitical developments, and yield curve movements, we examine how historical patterns inform current risks. A disciplined approach to macro analysis requires separating short-term volatility from long-term policy shifts.\n\nRead our full methodology and historical range analysis to understand the data behind the trends. \n\n#Macroeconomics #RecessionRisk #OilVolatility #YieldCurve #FinancialEducation",
+    "discord": "Our latest Capital Chronicle Educational Briefing is live: **US recession risks rise as oil volatility spikes**. We are taking a process-led look at the macro landscape, focusing on data transparency, geopolitics, and yield curves. We analyze historical patterns and statistical ranges from prior cycles to separate market noise from structural policy shifts\u2014all without directional investment advice. Check out the channel pins for the full breakdown.",
+    "facebook": "Are US recession risks rising alongside oil volatility? Our latest Capital Chronicle Educational Briefing takes a process-led approach to analyzing today's macroeconomic landscape. By focusing on data transparency, geopolitics, and yield curves, we examine historical patterns and statistical ranges from prior cycles to help you separate market noise from structural policy shifts. Read the briefing for a disciplined, educational look at the macro data.",
+    "instagram_caption": "How do rising oil volatility and yield curves signal US recession risks? Our latest Capital Chronicle Educational Briefing takes a process-led, educational approach to the macro landscape. We focus on data transparency, geopolitics, and historical statistical ranges to separate market noise from structural policy shifts. No investment advice, just disciplined analysis of historical patterns. Read more via the link in our bio! #Macroeconomics #FinanceEducation #OilVolatility #RecessionRisk #YieldCurve #CapitalChronicle",
+    "linkedin": "As oil volatility spikes, US recession risks are drawing closer scrutiny. In our latest Capital Chronicle Educational Briefing, we break down the historical patterns of macro cycles by focusing on data transparency, geopolitics, and yield curves. By analyzing statistical ranges from prior cycles, we aim to separate temporary market noise from structural policy shifts. Read our full process-led analysis to understand the historical benchmarks shaping today's economic landscape.",
     "substack": "This briefing grounds our editorial desk's approach to US recession risks rise as oil volatility spikes. By focusing on the Focus on data transparency, geopolitics, and yield curves., we analyze historical patterns without offering directional investment advice.\n\n### Methodology and Source Review\nWe review the sources provided: . A key limitation of historical macro data is lag and revision. Operators must verify primary sources before documenting findings.\n\n### Historical Context and Range Analysis\nStatistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market noise from structural policy shifts.\n\nA disciplined operator relies on verified context, explicit assumptions, and clear disclaimers to ensure community integrity under V6_EDUCATIONAL_DISCLAIMER.\n\n## Source trail\n- Source 1 \u2014 grounded_search: operator_review_required\n- Source 2 \u2014 grounded_search: operator_review_required\n- Source 3 \u2014 grounded_search: operator_review_required",
-    "telegram": "US recession risks are rising as oil volatility spikes. In our latest Capital Chronicle Educational Briefing, we analyze the structural indicators shaping the macroeconomic outlook. By focusing on data transparency, geopolitics, and yield curves, we examine historical patterns to separate market noise from structural policy shifts. Read our process-led analysis to understand the historical ranges and data limitations driving current risk assessments. (Educational purposes only, no financial advice.)",
-    "threads": "US recession risks are rising alongside spiking oil volatility. In our latest Capital Chronicle Educational Briefing, we analyze the structural indicators shaping the macroeconomic outlook without offering directional investment advice. \ud83e\uddf5\n\n---\n\nTo understand these risks, we focus on three core pillars: data transparency, geopolitical developments, and yield curve movements. Separating short-term market noise from structural policy shifts is critical for accurate analysis.\n\n---\n\nA key limitation of historical macro data is lag and revision. A disciplined analysis relies on verified context, explicit assumptions, and historical ranges from prior cycles to establish reliable benchmarks.\n\n---\n\nBy examining historical patterns, we aim to provide a clear framework for understanding current volatility. Read our full process-led educational briefing to explore the data behind the trends.",
-    "x": "US recession risks are rising alongside spiking oil volatility. In our latest Capital Chronicle Educational Briefing, we analyze the structural indicators shaping the macroeconomic outlook without offering directional investment advice. \ud83e\uddf5\n\n---\n\nTo understand these risks, we focus on three core pillars: data transparency, geopolitical developments, and yield curve movements. Separating short-term market noise from structural policy shifts is critical for accurate analysis.\n\n---\n\nA key limitation of historical macro data is lag and revision. A disciplined analysis relies on verified context, explicit assumptions, and historical ranges from prior cycles to establish reliable benchmarks.\n\n---\n\nBy examining historical patterns, we aim to provide a clear framework for understanding current volatility. Read our full process-led educational briefing to explore the data behind the trends."
+    "telegram": "US recession risks are rising as oil volatility spikes. In our latest Capital Chronicle Educational Briefing, we analyze historical patterns using a process-led approach focused on data transparency, geopolitics, and yield curves. By examining statistical ranges from prior cycles, we separate market noise from structural policy shifts to help you understand the macro landscape. Read the full educational briefing here.",
+    "threads": "US recession risks are rising as oil volatility spikes. In our latest Capital Chronicle Educational Briefing, we analyze historical patterns using a process-led approach focused on data transparency, geopolitics, and yield curves. (1/3)\n\n---\n\nWhen volatility spikes, separating market noise from structural policy shifts is critical. We review statistical ranges from prior cycles to establish clear benchmarks, keeping in mind that historical macro data is subject to lag and revision. (2/3)\n\n---\n\nA disciplined approach relies on verified context and explicit assumptions. Read our full educational briefing to explore the historical patterns shaping today's macroeconomic landscape without directional investment advice. (3/3)",
+    "x": "US recession risks are rising as oil volatility spikes. In our latest Capital Chronicle Educational Briefing, we analyze historical patterns using a process-led approach focused on data transparency, geopolitics, and yield curves. (1/3)\n\n---\n\nWhen volatility spikes, separating market noise from structural policy shifts is critical. We review statistical ranges from prior cycles to establish clear benchmarks, keeping in mind that historical macro data is subject to lag and revision. (2/3)\n\n---\n\nA disciplined approach relies on verified context and explicit assumptions. Read our full educational briefing to explore the historical patterns shaping today's macroeconomic landscape without directional investment advice. (3/3)"
   }
 }

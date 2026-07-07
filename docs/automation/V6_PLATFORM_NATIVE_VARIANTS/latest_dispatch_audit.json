@@ -1,8 +1,16 @@
 {
-  "article_packet_id": "art_test_packet_123",
+  "article_packet_id": "article_engine_packet_c3b412cb91679652",
   "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
+  "dispatch_blocked": true,
+  "dispatch_blockers": [
+    "article_provider_recovery_not_publishable",
+    "article_too_short_words:127<2000",
+    "too_few_sections",
+    "missing_specific_numbers",
+    "substack_too_short:998<1200"
+  ],
   "dispatch_idempotency_control": "platform_scope_allowlist",
-  "dispatch_live": true,
+  "dispatch_live": false,
   "dispatch_platform_scope": [
     "substack",
     "linkedin",
@@ -13,171 +21,58 @@
     "threads",
     "discord"
   ],
-  "dispatch_results": {
-    "discord": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "discord",
-      "raw": {
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": null
-    },
-    "facebook": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "facebook",
-      "raw": {
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": null
-    },
-    "instagram": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "instagram",
-      "raw": {
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": null
-    },
-    "linkedin": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "linkedin",
-      "raw": {
-        "response": {
-          "url": "https://linkedin.com/p/2"
-        },
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": "https://linkedin.com/p/2"
-    },
-    "substack": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "substack",
-      "raw": {
-        "status": "SUCCESS",
-        "url": "https://substack.com/p/1"
-      },
-      "status": "SUCCESS",
-      "url": "https://substack.com/p/1"
-    },
-    "telegram": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "telegram",
-      "raw": {
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": null
-    },
-    "threads": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "threads",
-      "raw": {
-        "id": "threads_1",
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": null
-    },
-    "threads_replies": [
-      {
-        "error": null,
-        "error_class": null,
-        "ok": true,
-        "platform": "threads_reply_1",
-        "raw": {
-          "id": "threads_1",
-          "status": "SUCCESS"
-        },
-        "status": "SUCCESS",
-        "url": null
-      }
-    ],
-    "x_post": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "x_post",
-      "raw": {
-        "response": {
-          "url": "https://x.com/status/3"
-        },
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": "https://x.com/status/3"
-    },
-    "x_replies": [
-      {
-        "error": null,
-        "error_class": null,
-        "ok": true,
-        "platform": "x_reply_1",
-        "raw": {
-          "status": "SUCCESS"
-        },
-        "status": "SUCCESS",
-        "url": null
-      }
-    ]
-  },
   "dispatch_summary": {
-    "attempted_platforms": [
-      "substack",
-      "linkedin",
-      "x_post",
-      "x_reply_1",
-      "instagram",
-      "facebook",
-      "telegram",
-      "threads",
-      "threads_reply_1",
-      "discord"
+    "attempted_platforms": [],
+    "blocked_platforms": [
+      "pipeline"
     ],
-    "blocked_platforms": [],
     "failed_platforms": [],
-    "successful_platforms": [
-      "substack",
-      "linkedin",
-      "x_post",
-      "x_reply_1",
-      "instagram",
-      "facebook",
-      "telegram",
-      "threads",
-      "threads_reply_1",
-      "discord"
-    ]
+    "successful_platforms": []
   },
-  "image_path": "downloads/test_image.jpg",
+  "image_path": null,
   "media_manifest": {
+    "chart_metadata": {
+      "chart_path": null,
+      "chart_status": "BLOCKED",
+      "warnings": [
+        "chart_source_csv_missing"
+      ]
+    },
+    "media_readiness_by_platform": {
+      "discord": false,
+      "facebook": false,
+      "instagram": false,
+      "linkedin": false,
+      "substack": false,
+      "telegram": false,
+      "threads": false,
+      "x": false
+    },
+    "media_warnings": [
+      "chart_source_csv_missing",
+      "news_image_missing"
+    ],
+    "news_image_path": null,
+    "news_image_public_url": null,
+    "primary_chart_path": null,
+    "primary_chart_public_url": null,
+    "rights_status": "not_ready",
     "selected_media_by_platform": {
-      "instagram": "https://example.com/test_image.jpg",
-      "telegram": "https://example.com/test_image.jpg"
+      "discord": null,
+      "facebook": null,
+      "instagram": null,
+      "linkedin": null,
+      "substack": null,
+      "telegram": null,
+      "threads": null,
+      "x": null
     }
   },
-  "pipeline_status": "DISPATCH_COMPLETE",
-  "platform_variant_packet_id": "var_test_packet_456",
-  "public_image_url": "https://example.com/test_image.jpg",
-  "run_id": "v6_pipeline_4aee5cafca81",
-  "timestamp": "2026-07-07T00:22:05Z",
-  "timestamp_gmt7": "2026-07-07T07:22:05+07:00",
-  "variant_status": "VARIANT_SCAFFOLD_READY"
+  "pipeline_status": "DISPATCH_BLOCKED",
+  "platform_variant_packet_id": "variant_packet_36199bb6a0d7",
+  "public_image_url": null,
+  "run_id": "v6_pipeline_15317988ba06",
+  "timestamp": "2026-07-07T02:17:46Z",
+  "timestamp_gmt7": "2026-07-07T09:17:46+07:00",
+  "variant_status": "VARIANT_VALIDATION_FAILED"
 }

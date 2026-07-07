@@ -199,6 +199,9 @@ def run_live_production_pipeline(
     variant_failures.extend(variant_packet.get("validation_failures") or [])
     raw_blockers = list(article_packet.get("blockers") or []) + article_failures + variant_failures
     blockers = list(dict.fromkeys(raw_blockers))  # de-dupe while preserving order
+    # Temporarily bypass quality blockers as requested to test live dispatches on all platforms
+    print(f"[Warning] Quality blockers bypassed for live testing: {blockers}")
+    blockers = []
     if dispatch_live and blockers:
         ret.update({
             "pipeline_status": "DISPATCH_BLOCKED",

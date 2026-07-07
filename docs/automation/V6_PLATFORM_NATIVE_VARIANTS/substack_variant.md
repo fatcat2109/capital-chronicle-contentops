@@ -1,7 +1,7 @@
 # SUBSTACK NATIVE VARIANT
 - **Status**: VARIANT_VALIDATION_FAILED
 - **Associated Image**: None
-- **Timestamp**: 2026-07-07 06:58:23
+- **Timestamp**: 2026-07-07 09:17:46
 
 This briefing grounds our editorial desk's approach to US recession risks rise as oil volatility spikes. By focusing on the Focus on data transparency, geopolitics, and yield curves., we analyze historical patterns without offering directional investment advice.
 

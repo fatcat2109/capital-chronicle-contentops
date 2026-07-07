@@ -5,14 +5,14 @@
   "canonical_article_draft": {
     "assumptions": "Assumes data sufficiency and operator verification under V6 standards.",
     "body_word_count": 127,
-    "canonical_payload_hash": "07cdddd73507097e899fa549d52ed8e60c6863f85c83bc31fc3aae917f862507",
+    "canonical_payload_hash": "c3b412cb9167965274efe7baa3b4d91c9a27b47db85221eb7d306efccbb5878e",
     "chart_callouts": [
       "[CHART: relevant macro series from approved local data]"
     ],
     "citations": [
-      "https://finance.yahoo.com/m/f2e68170-64c8-3553-8d26-8e0f6e68e57f/the-last-times-ipo-volume-was.html",
-      "https://finance.yahoo.com/markets/stocks/articles/vale-chairman-daniel-stieler-steps-234933963.html",
-      "https://finance.yahoo.com/technology/ai/articles/market-chatter-alibaba-group-ban-234900860.html"
+      "https://finance.yahoo.com/m/7ce37b7d-6bba-3577-9dd0-6c4a3e82023b/walmart%2C-albertsons%2C-other.html",
+      "https://finance.yahoo.com/m/52266418-f92a-3c47-b97f-06f2827131af/france%27s-le-pen-faces-pivotal.html",
+      "https://finance.yahoo.com/m/94bcf77c-e27c-34df-9665-bca58fda7422/%27agony%27-in-cuba-amid-third.html"
     ],
     "conclusion": "A disciplined operator relies on verified context, explicit assumptions, and clear disclaimers to ensure community integrity under V6_EDUCATIONAL_DISCLAIMER.",
     "created_at": "2026-07-01T02:56:46+07:00",
@@ -36,25 +36,25 @@
     ],
     "slug_candidate": "us-recession-risks-rise-as-oil-volatility-spikes",
     "source_notes": "Sources referenced in structured source_trail only. Optional notes: Live production run on: US recession risks rise as oil volatility spikes",
-    "source_notes_for_operator": "Raw source refs for operator verification: https://finance.yahoo.com/m/f2e68170-64c8-3553-8d26-8e0f6e68e57f/the-last-times-ipo-volume-was.html, https://finance.yahoo.com/markets/stocks/articles/vale-chairman-daniel-stieler-steps-234933963.html, https://finance.yahoo.com/technology/ai/articles/market-chatter-alibaba-group-ban-234900860.html",
+    "source_notes_for_operator": "Raw source refs for operator verification: https://finance.yahoo.com/m/7ce37b7d-6bba-3577-9dd0-6c4a3e82023b/walmart%2C-albertsons%2C-other.html, https://finance.yahoo.com/m/52266418-f92a-3c47-b97f-06f2827131af/france%27s-le-pen-faces-pivotal.html, https://finance.yahoo.com/m/94bcf77c-e27c-34df-9665-bca58fda7422/%27agony%27-in-cuba-amid-third.html",
     "source_trail": [
       {
         "claim_supported": "operator_review_required",
         "label": "Source 1",
         "publisher_or_origin": "grounded_search",
-        "url": "https://finance.yahoo.com/m/f2e68170-64c8-3553-8d26-8e0f6e68e57f/the-last-times-ipo-volume-was.html"
+        "url": "https://finance.yahoo.com/m/7ce37b7d-6bba-3577-9dd0-6c4a3e82023b/walmart%2C-albertsons%2C-other.html"
       },
       {
         "claim_supported": "operator_review_required",
         "label": "Source 2",
         "publisher_or_origin": "grounded_search",
-        "url": "https://finance.yahoo.com/markets/stocks/articles/vale-chairman-daniel-stieler-steps-234933963.html"
+        "url": "https://finance.yahoo.com/m/52266418-f92a-3c47-b97f-06f2827131af/france%27s-le-pen-faces-pivotal.html"
       },
       {
         "claim_supported": "operator_review_required",
         "label": "Source 3",
         "publisher_or_origin": "grounded_search",
-        "url": "https://finance.yahoo.com/technology/ai/articles/market-chatter-alibaba-group-ban-234900860.html"
+        "url": "https://finance.yahoo.com/m/94bcf77c-e27c-34df-9665-bca58fda7422/%27agony%27-in-cuba-amid-third.html"
       }
     ],
     "subtitle": "Process-led analysis tailored for general_financial_education",
@@ -65,13 +65,13 @@
   "discord_summary_seed": {
     "call_to_action": "Review the Chronicle note, add questions for the operator, and keep discussion evidence-led.",
     "canonical_url": null,
-    "content_hash": "07cdddd73507097e899fa549d52ed8e60c6863f85c83bc31fc3aae917f862507",
+    "content_hash": "c3b412cb9167965274efe7baa3b4d91c9a27b47db85221eb7d306efccbb5878e",
     "created_at": "2026-07-01T02:56:46+07:00",
     "key_points": [
       "Methodology and Source Review: We review the sources provided: . A key limitation of historical macro data is lag and revision. Operators must verify p...",
       "Historical Context and Range Analysis: Statistical ranges from prior cycles provide a benchmark. When volatility spikes, it is critical to separate market nois..."
     ],
-    "source_article_id": "operator_idea_07cdddd73507097e",
+    "source_article_id": "operator_idea_c3b412cb91679652",
     "summary": "An educational breakdown of macro calibration and metadata context regarding US recession risks rise as oil volatility spikes.",
     "title": "Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes"
   },
@@ -90,24 +90,24 @@
     "dry_run_provenance": "deterministic_local_engine_run",
     "redaction_verified": true
   },
-  "operator_idea_id": "operator_idea_07cdddd73507097e",
-  "packet_id": "article_engine_packet_07cdddd73507097e",
+  "operator_idea_id": "operator_idea_c3b412cb91679652",
+  "packet_id": "article_engine_packet_c3b412cb91679652",
   "provider_attempts": [
     {
       "attempt_index": 1,
-      "failure": "article_too_short_words:1338<2000|missing_specific_numbers",
+      "failure": "article_too_short_words:1514<2000|missing_specific_numbers",
       "model": "default",
       "provider": "9router",
       "status": "failed",
-      "timeout_seconds": 30
+      "timeout_seconds": 420
     },
     {
       "attempt_index": 2,
-      "failure": "provider_json_parse_failed",
+      "failure": "placeholder_language_detected|missing_specific_numbers",
       "model": "vx/gemini-3.1-pro-preview",
       "provider": "9router",
       "status": "failed",
-      "timeout_seconds": 30
+      "timeout_seconds": 420
     },
     {
       "attempt_index": 3,
@@ -126,7 +126,7 @@
   "raw_provider_key_serialized": false,
   "recommended_next_task": "TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_INDEX_AND_OPERATOR_HANDOFF_V0",
   "research_grounding_packet": {
-    "cited_source_notes": "https://finance.yahoo.com/m/f2e68170-64c8-3553-8d26-8e0f6e68e57f/the-last-times-ipo-volume-was.html, https://finance.yahoo.com/markets/stocks/articles/vale-chairman-daniel-stieler-steps-234933963.html, https://finance.yahoo.com/technology/ai/articles/market-chatter-alibaba-group-ban-234900860.html",
+    "cited_source_notes": "https://finance.yahoo.com/m/7ce37b7d-6bba-3577-9dd0-6c4a3e82023b/walmart%2C-albertsons%2C-other.html, https://finance.yahoo.com/m/52266418-f92a-3c47-b97f-06f2827131af/france%27s-le-pen-faces-pivotal.html, https://finance.yahoo.com/m/94bcf77c-e27c-34df-9665-bca58fda7422/%27agony%27-in-cuba-amid-third.html",
     "no_claims_of_live_public_publication": true,
     "no_fabricated_market_numbers": true,
     "no_invented_citations": true,
@@ -177,7 +177,8 @@
     "concise_summary": "V6 Checkpoint: Capital Chronicle Educational Briefing: US recession risks rise as oil volatility spikes is ready for operator review."
   },
   "warnings": [
-    "article_quality_retry:default:article_too_short_words:1338<2000|missing_specific_numbers",
-    "article_deterministic_recovery_blocked:provider_json_parse_failed"
+    "article_quality_retry:default:article_too_short_words:1514<2000|missing_specific_numbers",
+    "article_quality_retry:vx/gemini-3.1-pro-preview:placeholder_language_detected|missing_specific_numbers",
+    "article_deterministic_recovery_blocked:placeholder_language_detected|missing_specific_numbers"
   ]
 }

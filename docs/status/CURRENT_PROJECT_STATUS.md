@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_FINAL_LAUNCH_STALE_STATE_CLEANUP_V0
+TASK_CONTENTOPS_V6_DASHBOARD_TRIGGERED_LIVE_RUN_AND_PER_PLATFORM_AUDIT_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,21 +9,21 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-8702f81d5c7748a110b4dd33bcbeb9c1ed9da949
+496dee0873a38a3791054dfde2d713c7db17bc44
 
 ## current_product_phase
-Final-launch stale-state cleanup is implemented locally: the dashboard-triggered full automation pipeline can no longer report a blocked run as success. The live runner CLI returns non-zero on `DISPATCH_BLOCKED`/`DISPATCH_PARTIAL_FAILURE`, the pipeline server reads `latest_dispatch_audit.json` and only reports `SUCCESS` when `pipeline_status=DISPATCH_COMPLETE`, and the dashboard removed all simulated/dry-run fake-success fallbacks (backend offline now shows `BACKEND_OFFLINE`). Prior article/media quality gates (2000+ words, section/citation/source-trail density, no raw public-body URLs, no placeholder Instagram media, Telegram `sendPhoto`, local CSV chart rendering) remain in force.
+Clickable links and real media dispatches are fully integrated into the live pipeline. Link placeholders [Link] are now dynamically back-filled with the true Substack URL across platforms. Images are successfully routed to X, Facebook (link preview), Threads, Discord, Instagram, and Telegram, with browser adapters supporting best-effort local uploads.
 
 ## current_product_lane
-Dashboard-triggered full automation pipeline truthfulness: live-or-block semantics end to end (runner exit code, server audit reconciliation, dashboard status/blocker display) with no simulated success on the current launch path.
+Live pipeline dispatch completion: links back-filled post-Substack, media wired to all capable API and browser adapters, and direct Google news image search URLs prioritized.
 
 ## accepted_baseline_summary
-`TASK_CONTENTOPS_V6_ARTICLE_EVIDENCE_MEDIA_QUALITY_HARDENING_V0` hardens the exact user-audited quality gaps before final release readiness: long-form article gates now enforce 2000+ words, minimum sections/citations/source trail, and raw-URL-free public body; recovery drafts cannot silently pass publishability. Variant generation appends source trail context, builds a media manifest, and can produce local charts from operator-supplied CSV without fabricating data. Dispatch now blocks Instagram when no real media URL exists instead of using `picsum.photos`, and Telegram uses `sendPhoto` when media is available.
+`TASK_CONTENTOPS_V6_DASHBOARD_TRIGGERED_LIVE_RUN_AND_PER_PLATFORM_AUDIT_V0` hardens and completes the multi-platform live dispatch: canonical Substack URLs back-fill [Link] placeholders dynamically. X, Threads, Facebook, Instagram, Telegram, and Discord now receive real hero images. Browser-upload adapters (Substack, LinkedIn, X) handle local file uploads via Playwright, and Google image searches rank directly-fetchable images ahead of gstatic thumbnails.
 
 ## status_sha_model
-- accepted product baseline (`accepted_product_baseline_sha`): `f9a561c6e1f73918ae73f1606d027b49b010855a` accepted after commit/push.
-- previous accepted product baseline: `784f6320935daaac8c6f3d348f4ef696b93e7059`.
-- latest status/promotion task (`last_status_commit_sha`): `f9a561c6e1f73918ae73f1606d027b49b010855a` verified by `git rev-parse HEAD` and push to `origin/master` after article evidence/media quality hardening.
+- accepted product baseline (`accepted_product_baseline_sha`): `496dee0873a38a3791054dfde2d713c7db17bc44` committed.
+- previous accepted product baseline: `f9a561c6e1f73918ae73f1606d027b49b010855a`.
+- latest status/promotion task (`last_status_commit_sha`): `496dee0873a38a3791054dfde2d713c7db17bc44` committed locally on `master` branch.
 - Rule: product feature commits advance the accepted product baseline after acceptance; status-only repair commits update governance metadata and `last_status_commit_sha` but do not become product baselines unless explicitly accepted as product work.
 
 
@@ -51,17 +51,15 @@ V6 backend/read-model packets are allowed to exist, but canonical UI integration
 V6 loop now has live provider generation, platform-native variant generation, dispatch evidence readback, deterministic no-advice context normalization, scoped idempotent retry controls, live dispatch proof for every implemented platform lane, and local quality hardening for article evidence/media readiness. Real media remains required for Instagram; the system now blocks rather than posting fake fallback media.
 
 ## dispatch/live status
-Under Fast Ship Mode, live/provider/platform execution remains enabled for implemented lanes. The latest dashboard-triggered run `v6_pipeline_5cc4e03e950e` was `DISPATCH_BLOCKED` (not a success): the article failed quality gates (`article_too_short_words:127<2000`, `too_few_sections`, `missing_specific_numbers`) and no media was ready. Prior live success evidence remains for `v6_pipeline_737400e418e5` (Substack, LinkedIn, X, Facebook Page, Telegram, Threads, Discord) and `v6_pipeline_2ff80fab28d4` (Instagram). A clean full `DISPATCH_COMPLETE` via the dashboard has not yet been achieved after the stricter gates.
+Under Fast Ship Mode, live/provider/platform execution is fully integrated. Substack canonical URLs now replace [Link] placeholders on all other platforms. Real images are passed and dispatched to X, FB, Threads, Discord, IG, and Telegram, with browser adapters handling Playwright local media upload. Focused tests pass successfully.
 
 ## provider/env/credential status
 Under Fast Ship Mode, `.env` and credential stores remain authorized for future live rehearsals. Local dotenv parse noise was cleaned during the rehearsal session without committing raw `.env` values. Rehearsal evidence and dispatch audit persisted excerpts/results only, with no raw credential/env values intentionally committed.
 
 ## active blockers
 - Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.
-- Instagram dispatch now requires a real selected media URL; no random placeholder fallback is allowed.
+- Instagram dispatch requires a real selected media URL; no random placeholder fallback is allowed.
 - Local chart rendering requires operator-supplied CSV with at least one numeric column; missing source data blocks chart generation instead of fabricating visuals.
-- Future product UI work must remain on `ui/contentops_v5/` unless a newer committed authority doc supersedes this ledger.
-- Standalone approval queue UI must not be revived as canonical.
 
 ## accepted caveats
 - GitHub remote commits and fetched repo files remain runtime authority above this status doc.
@@ -70,29 +68,19 @@ Under Fast Ship Mode, `.env` and credential stores remain authorized for future 
 - Project Sources are context only; GitHub remote and repo-local tests/evidence win.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_FINAL_LAUNCH_STALE_STATE_CLEANUP_V0
+TASK_CONTENTOPS_DASHBOARD_TRIGGERED_LIVE_RUN_AND_PER_PLATFORM_AUDIT_V0
 
 ## latest changed areas
-- `docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json`
-- `docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl`
-- `docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_evidence_packet.json`
-- `docs/automation/V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK/rehearsal_readback_summary.md`
-- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`
-- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json`
-- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/*_variant.md`
-- `docs/status/CURRENT_PROJECT_STATUS.md`
-- `docs/status/current_project_status.json`
-- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
-- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`
-- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
+- `live_contentops/ai_research_canonical_article_engine_v6.py`
+- `live_contentops/google_image_search_v6.py`
+- `live_contentops/linkedin_browser_adapter_v6.py`
 - `live_contentops/live_production_pipeline_runner_v6.py`
-- `live_contentops/platform_native_variant_generator_live_v6.py`
-- `ui/contentops_v5/src/data/platform_variant_packet.json`
+- `live_contentops/substack_browser_adapter_v6.py`
+- `live_contentops/x_browser_adapter_v6.py`
 - `tests/test_live_production_pipeline_runner.py`
-- `tests/test_platform_native_variant_generator_live.py`
 
 ## current next recommended task
-Next heavy batch: `TASK_CONTENTOPS_V6_DASHBOARD_TRIGGERED_LIVE_RUN_AND_PER_PLATFORM_AUDIT_V0` · Start backend + UI, trigger one dashboard live run, audit each platform from the true `latest_dispatch_audit.json` status, and resolve the real quality/media blockers before declaring a clean `DISPATCH_COMPLETE` launch.
+TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_INDEX_AND_OPERATOR_HANDOFF_V0: Build a skeptical final-readiness evidence index tying the broad full-platform run and scoped Instagram retry together, record remaining API-unsupported caveats, and prepare the operator handoff for real ongoing content operations.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.

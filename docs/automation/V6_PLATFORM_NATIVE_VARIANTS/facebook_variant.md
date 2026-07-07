@@ -1,10 +1,6 @@
 # FACEBOOK NATIVE VARIANT
 - **Status**: VARIANT_VALIDATION_FAILED
 - **Associated Image**: None
-- **Timestamp**: 2026-07-07 06:58:23
+- **Timestamp**: 2026-07-07 09:17:46
 
-Are rising oil volatility and shifting yield curves signaling a US recession? Our latest Capital Chronicle Educational Briefing breaks down the historical patterns and macroeconomic data driving current risk assessments.
-
-Rather than offering directional investment advice, we focus on data transparency and geopolitical factors to help you separate market noise from structural policy shifts. Understanding historical ranges and data limitations is key to navigating complex economic cycles.
-
-Explore our process-led analysis today.
+Are US recession risks rising alongside oil volatility? Our latest Capital Chronicle Educational Briefing takes a process-led approach to analyzing today's macroeconomic landscape. By focusing on data transparency, geopolitics, and yield curves, we examine historical patterns and statistical ranges from prior cycles to help you separate market noise from structural policy shifts. Read the briefing for a disciplined, educational look at the macro data.

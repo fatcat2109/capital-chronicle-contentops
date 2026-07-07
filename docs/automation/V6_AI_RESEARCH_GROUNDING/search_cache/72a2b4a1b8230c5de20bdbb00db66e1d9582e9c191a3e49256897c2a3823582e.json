@@ -2,49 +2,49 @@
   {
     "allowed_usage": "advisory_only",
     "citation_required": true,
-    "claim_summary": "News report from Motley Fool: The Last Times IPO Volume Was This High Were 1929 and 2000. Should That Scare You?",
+    "claim_summary": "News report from TheStreet: Walmart, Albertsons, other retailers accused of inflating gas prices",
     "freshness_label": "recent",
     "limitations": [
       "Grounded live search from query: US recession risks rise as oil volatility spikes"
     ],
-    "publisher_or_origin": "Motley Fool",
-    "retrieved_at": "2026-07-06T23:56:36+00:00",
-    "source_id": "src_d5bbb452c962",
+    "publisher_or_origin": "TheStreet",
+    "retrieved_at": "2026-07-07T02:16:03+00:00",
+    "source_id": "src_5b3b10657b41",
     "source_type": "reputable_news_context",
     "synthetic_fixture": false,
-    "title": "The Last Times IPO Volume Was This High Were 1929 and 2000. Should That Scare You?",
-    "url_or_local_reference": "https://finance.yahoo.com/m/f2e68170-64c8-3553-8d26-8e0f6e68e57f/the-last-times-ipo-volume-was.html"
+    "title": "Walmart, Albertsons, other retailers accused of inflating gas prices",
+    "url_or_local_reference": "https://finance.yahoo.com/m/7ce37b7d-6bba-3577-9dd0-6c4a3e82023b/walmart%2C-albertsons%2C-other.html"
   },
   {
     "allowed_usage": "advisory_only",
     "citation_required": true,
-    "claim_summary": "News report from MT Newswires: Vale Chairman Daniel Stieler Steps Down Amid Investor Pressure",
+    "claim_summary": "News report from AFP: France's Le Pen faces pivotal ruling in race for president",
     "freshness_label": "recent",
     "limitations": [
       "Grounded live search from query: US recession risks rise as oil volatility spikes"
     ],
-    "publisher_or_origin": "MT Newswires",
-    "retrieved_at": "2026-07-06T23:56:36+00:00",
-    "source_id": "src_868010957c38",
+    "publisher_or_origin": "AFP",
+    "retrieved_at": "2026-07-07T02:16:03+00:00",
+    "source_id": "src_0750b8c0b6d5",
     "source_type": "reputable_news_context",
     "synthetic_fixture": false,
-    "title": "Vale Chairman Daniel Stieler Steps Down Amid Investor Pressure",
-    "url_or_local_reference": "https://finance.yahoo.com/markets/stocks/articles/vale-chairman-daniel-stieler-steps-234933963.html"
+    "title": "France's Le Pen faces pivotal ruling in race for president",
+    "url_or_local_reference": "https://finance.yahoo.com/m/52266418-f92a-3c47-b97f-06f2827131af/france%27s-le-pen-faces-pivotal.html"
   },
   {
     "allowed_usage": "advisory_only",
     "citation_required": true,
-    "claim_summary": "News report from MT Newswires: Market Chatter: Alibaba Group to Ban Anthropic AI Tools Over Security Concerns",
+    "claim_summary": "News report from AFP: 'Agony' in Cuba amid third nationwide blackout in six months",
     "freshness_label": "recent",
     "limitations": [
       "Grounded live search from query: US recession risks rise as oil volatility spikes"
     ],
-    "publisher_or_origin": "MT Newswires",
-    "retrieved_at": "2026-07-06T23:56:36+00:00",
-    "source_id": "src_31150327049c",
+    "publisher_or_origin": "AFP",
+    "retrieved_at": "2026-07-07T02:16:03+00:00",
+    "source_id": "src_ce350a81a008",
     "source_type": "reputable_news_context",
     "synthetic_fixture": false,
-    "title": "Market Chatter: Alibaba Group to Ban Anthropic AI Tools Over Security Concerns",
-    "url_or_local_reference": "https://finance.yahoo.com/technology/ai/articles/market-chatter-alibaba-group-ban-234900860.html"
+    "title": "'Agony' in Cuba amid third nationwide blackout in six months",
+    "url_or_local_reference": "https://finance.yahoo.com/m/94bcf77c-e27c-34df-9665-bca58fda7422/%27agony%27-in-cuba-amid-third.html"
   }
 ]
