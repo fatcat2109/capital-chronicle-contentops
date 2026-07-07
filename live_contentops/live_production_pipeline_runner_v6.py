@@ -109,7 +109,7 @@ def run_live_production_pipeline(
     target_audience: str = "general_financial_education",
     live_run: bool = False,
     dispatch_live: bool = False,
-    timeout_seconds: int = 30,
+    timeout_seconds: int = 420,
     dispatch_platforms: list[str] | tuple[str, ...] | None = None,
 ) -> dict[str, Any]:
     run_id = f"v6_pipeline_{uuid.uuid4().hex[:12]}"
@@ -390,7 +390,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--live-run", action="store_true", help="Enable 9router LLM and live searches")
     parser.add_argument("--dispatch-live", action="store_true", help="Enable live posting/publishing to all platforms")
     parser.add_argument("--target-audience", default="general_financial_education", help="Target audience")
-    parser.add_argument("--timeout-seconds", type=int, default=30, help="Provider timeout seconds")
+    parser.add_argument("--timeout-seconds", type=int, default=420, help="Provider timeout seconds (default 7 minutes for full-length live generation)")
     parser.add_argument(
         "--dispatch-platform",
         action="append",
