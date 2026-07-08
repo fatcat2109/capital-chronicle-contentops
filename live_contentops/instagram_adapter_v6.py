@@ -11,6 +11,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from io import BytesIO
 from typing import Any
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_FACEBOOK_INSTAGRAM_AND_THREADS_V0"
@@ -58,6 +59,23 @@ def compile_instagram_media_payload(image_url: str, caption: str) -> dict[str, A
     return {"image_url": image_url, "caption": caption}
 
 
+def _read_remote_image_dimensions(image_url: str, timeout_seconds: int) -> tuple[int, int] | None:
+    try:
+        from PIL import Image
+    except Exception:
+        return None
+
+    req = urllib.request.Request(image_url, method="GET", headers={"User-Agent": "ContentOps/6.0"})
+    with urllib.request.urlopen(req, timeout=timeout_seconds) as response:
+        content_type = response.headers.get("Content-Type", "").lower()
+        if not content_type.startswith("image/"):
+            raise ValueError(f"image_url_not_image:{content_type or 'missing_content_type'}")
+        data = response.read(8 * 1024 * 1024)
+    image = Image.open(BytesIO(data))
+    image.load()
+    return int(image.width), int(image.height)
+
+
 def validate_instagram_image_url(image_url: str, timeout_seconds: int = 10) -> list[str]:
     if not image_url.startswith(("https://", "http://")):
         return ["image_url_not_http"]
@@ -74,7 +92,9 @@ def validate_instagram_image_url(image_url: str, timeout_seconds: int = 10) -> l
         return []
 
     try:
-        return _validate("HEAD")
+        failures = _validate("HEAD")
+        if failures:
+            return failures
     except urllib.error.HTTPError as exc:
         if exc.code != 405:
             return [f"image_url_unreachable:{exc}"]
@@ -82,9 +102,21 @@ def validate_instagram_image_url(image_url: str, timeout_seconds: int = 10) -> l
         return [f"image_url_unreachable:{exc}"]
 
     try:
-        return _validate("GET")
+        dimensions = _read_remote_image_dimensions(image_url, timeout_seconds)
     except Exception as exc:
+        reason = str(exc)
+        if reason.startswith("image_url_not_image:"):
+            return [reason]
         return [f"image_url_unreachable:{exc}"]
+    if not dimensions:
+        return []
+    width, height = dimensions
+    if width <= 0 or height <= 0:
+        return ["image_dimensions_unreadable"]
+    aspect = width / height
+    if aspect < 0.8 or aspect > 1.91:
+        return [f"image_aspect_ratio_unsupported:{width}x{height}:{aspect:.3f}"]
+    return []
 
 
 def execute_instagram_post(

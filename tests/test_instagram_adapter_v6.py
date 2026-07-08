@@ -1,11 +1,16 @@
 """Unit tests for Instagram Business official API adapter."""
 from __future__ import annotations
 
+import base64
 from unittest.mock import MagicMock
 import urllib.error
 import urllib.request
 
 from live_contentops import instagram_adapter_v6 as adapter
+
+ONE_PIXEL_PNG = base64.b64decode(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII="
+)
 
 
 def test_compile_payload():
@@ -109,6 +114,7 @@ def test_validate_instagram_image_url_rejects_non_image(monkeypatch):
 def test_validate_instagram_image_url_falls_back_to_get_when_head_is_405(monkeypatch):
     mock_resp = MagicMock()
     mock_resp.headers = {"Content-Type": "image/jpeg"}
+    mock_resp.read.return_value = ONE_PIXEL_PNG
     mock_resp.__enter__.return_value = mock_resp
     calls = []
 
@@ -122,5 +128,16 @@ def test_validate_instagram_image_url_falls_back_to_get_when_head_is_405(monkeyp
 
     assert adapter.validate_instagram_image_url("https://example.com/image.jpg", timeout_seconds=3) == []
     assert [method for method, _, _ in calls] == ["HEAD", "GET"]
-    assert calls[1][1]["Range"] == "bytes=0-0"
     assert calls[1][2] == 3
+
+
+def test_validate_instagram_image_url_rejects_wide_aspect(monkeypatch):
+    mock_resp = MagicMock()
+    mock_resp.headers = {"Content-Type": "image/png"}
+    mock_resp.__enter__.return_value = mock_resp
+    monkeypatch.setattr(urllib.request, "urlopen", MagicMock(return_value=mock_resp))
+    monkeypatch.setattr(adapter, "_read_remote_image_dimensions", lambda *_args, **_kwargs: (1168, 466))
+
+    assert adapter.validate_instagram_image_url("https://example.com/wide.png") == [
+        "image_aspect_ratio_unsupported:1168x466:2.506"
+    ]

@@ -661,6 +661,7 @@ def run_live_production_pipeline(
     dispatch_live: bool = False,
     timeout_seconds: int = 420,
     dispatch_platforms: list[str] | tuple[str, ...] | None = None,
+    use_latest_headlines: bool = False,
 ) -> dict[str, Any]:
     run_id = f"v6_pipeline_{uuid.uuid4().hex[:12]}"
     print(f"[Info] Starting V6 production run {run_id} for topic: '{topic}' (live={live_run}, dispatch={dispatch_live})")
@@ -674,6 +675,14 @@ def run_live_production_pipeline(
         output_style="educational_process_heavy",
         source_notes=f"Live production run on: {topic}"
     )
+
+    if use_latest_headlines:
+        try:
+            from live_contentops.headline_context_adapter_v6 import inject_headlines_to_input
+            inputs = inject_headlines_to_input(inputs)
+            print("[Info] Successfully injected latest percolated headlines context into EngineInput.")
+        except Exception as exc:
+            print(f"[Warning] Failed to inject latest headlines context: {exc}")
 
     provider_mode = "live_provider_call" if live_run else "dry_run_fixture"
 
@@ -1072,6 +1081,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--write-rehearsal-evidence", action="store_true", help="Write sanitized rehearsal evidence/readback packet")
     parser.add_argument("--rehearsal-evidence-output", default=str(DEFAULT_EVIDENCE_PACKET_PATH), help="Evidence packet output path")
+    parser.add_argument("--use-latest-headlines", action="store_true", help="Inject latest percolated headlines from Vol-Impact Percolator as context")
     args = parser.parse_args(argv)
 
     command = ["python", "-m", "live_contentops.live_production_pipeline_runner_v6"]
@@ -1080,6 +1090,8 @@ def main(argv: list[str] | None = None) -> int:
         command.append("--live-run")
     if args.dispatch_live:
         command.append("--dispatch-live")
+    if args.use_latest_headlines:
+        command.append("--use-latest-headlines")
     for platform in args.dispatch_platform:
         command.extend(["--dispatch-platform", platform])
     if args.write_rehearsal_evidence:
@@ -1093,6 +1105,7 @@ def main(argv: list[str] | None = None) -> int:
         dispatch_live=args.dispatch_live,
         timeout_seconds=args.timeout_seconds,
         dispatch_platforms=args.dispatch_platform,
+        use_latest_headlines=args.use_latest_headlines,
     )
     if args.write_rehearsal_evidence:
         evidence = build_rehearsal_evidence_packet(result, command=command)

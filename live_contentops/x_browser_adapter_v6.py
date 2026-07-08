@@ -17,6 +17,50 @@ DEFAULT_PROFILE_SRC = Path(r"A:\Capital Chronicle\operator-browser-profiles\cont
 TEMP_PROFILE_DIR = Path(r"A:\Capital Chronicle\tools\cc-live-contentops\scratch\temp_profile_x")
 
 
+def _set_first_file_input(page: Any, image_path: str) -> str | None:
+    abs_path = str(Path(image_path).resolve())
+    try:
+        inputs = page.locator("[data-testid='fileInput'], input[type='file']").all()
+        for file_input in inputs:
+            try:
+                file_input.set_input_files(abs_path)
+                return "uploaded"
+            except Exception:
+                continue
+    except Exception:
+        pass
+    return None
+
+
+def _upload_x_image(page: Any, image_path: str | None) -> str:
+    if not image_path:
+        return "not_requested"
+    if not os.path.exists(image_path):
+        return "local_file_missing"
+    status = _set_first_file_input(page, image_path)
+    if status:
+        time.sleep(5)
+        return status
+    for selector in (
+        "[aria-label*='Add photos']",
+        "[aria-label*='Add photo']",
+        "[data-testid='toolBar'] [role='button']",
+        "div[aria-label='Image']",
+    ):
+        try:
+            loc = page.locator(selector).first
+            if loc.is_visible():
+                loc.click()
+                time.sleep(2)
+                status = _set_first_file_input(page, image_path)
+                if status:
+                    time.sleep(5)
+                    return status
+        except Exception:
+            continue
+    return "skipped_no_file_input"
+
+
 def copy_essential_profile(src_dir: Path = DEFAULT_PROFILE_SRC, dest_dir: Path = TEMP_PROFILE_DIR) -> None:
     """Copies essential cookie/storage files from operator profile to prevent browser locks."""
     if dest_dir.exists():
@@ -104,15 +148,10 @@ def execute_x_post(
                 page.keyboard.type(text)
                 time.sleep(2)
 
-                # Best-effort image attach; image_url may be a local file path. Never fail the text post.
-                if image_url and os.path.exists(image_url):
-                    try:
-                        file_input = page.query_selector("[data-testid='fileInput'], input[type='file']")
-                        if file_input:
-                            file_input.set_input_files(image_url)
-                            time.sleep(5)
-                    except Exception as img_exc:
-                        print(f"[Warning] X image upload skipped: {img_exc}")
+                media_upload_status = _upload_x_image(page, image_url)
+                if image_url and os.path.exists(image_url) and media_upload_status != "uploaded":
+                    browser.close()
+                    raise RuntimeError(f"x_image_upload_failed:{media_upload_status}")
 
                 post_btn = page.locator("[data-testid='tweetButtonInline']").first
                 if not post_btn.is_visible():
@@ -150,7 +189,8 @@ def execute_x_post(
                 "platform": "x",
                 "action": "post",
                 "id": f"tweet_{payload_hash}",
-                "response": {"url": final_url},
+                "media_upload_status": media_upload_status,
+                "response": {"url": final_url, "media_upload_status": media_upload_status},
             }
     except Exception as e:
         result = {
