@@ -167,6 +167,23 @@ def _fit_telegram_photo_caption(text: str, canonical_url: str | None, limit: int
     return clipped[:limit]
 
 
+def _telegram_photo_delivery_evidence(result: dict[str, Any], expected_media: str | None) -> dict[str, Any]:
+    """Return proof that Telegram accepted a visual send as a photo message."""
+    raw = result.get("raw") if isinstance(result.get("raw"), dict) else result
+    response = raw.get("response") if isinstance(raw.get("response"), dict) else {}
+    telegram_result = response.get("result") if isinstance(response.get("result"), dict) else {}
+    photos = telegram_result.get("photo") if isinstance(telegram_result.get("photo"), list) else []
+    return {
+        "expected_media": expected_media,
+        "visual_send_requested": bool(expected_media),
+        "telegram_action": raw.get("action"),
+        "message_id": telegram_result.get("message_id") or raw.get("id"),
+        "photo_size_count": len(photos),
+        "photo_file_ids_present": bool(photos and all(isinstance(item, dict) and item.get("file_id") for item in photos)),
+        "visual_delivery_status": "PASS" if expected_media and raw.get("action") == "photo" and photos else "MISSING_PHOTO_PROOF",
+    }
+
+
 def _is_substack_admin_url(url: str | None) -> bool:
     return bool(url and "/publish/" in url)
 
@@ -838,21 +855,28 @@ def run_live_production_pipeline(
                                 1 for item in media_upload_results
                                 if isinstance(item, dict) and item.get("status") == "uploaded"
                             )
+                            upload_attempt_count = sum(
+                                1 for item in media_upload_results
+                                if isinstance(item, dict) and item.get("status") in {"uploaded", "uploaded_unverified"}
+                            )
                             public_visual_readback = audit_substack_public_visuals(
                                 canonical_url,
                                 expected_visual_count=len(visual_marker_ids),
                                 expected_placements=expected_visual_placements,
                             )
+                            public_readback_confirmed = (
+                                public_visual_readback.get("meets_expected_visual_count")
+                                and public_visual_readback.get("meets_visual_placement_expectations")
+                            )
                             if (
                                 len(visual_marker_ids)
-                                and uploaded_visual_count >= len(visual_marker_ids)
-                                and public_visual_readback.get("meets_expected_visual_count")
-                                and public_visual_readback.get("meets_visual_placement_expectations")
+                                and (uploaded_visual_count >= len(visual_marker_ids) or upload_attempt_count >= len(visual_marker_ids))
+                                and public_readback_confirmed
                             ):
                                 placement_status = "PASS"
                             elif (
                                 len(visual_marker_ids)
-                                and uploaded_visual_count >= len(visual_marker_ids)
+                                and (uploaded_visual_count >= len(visual_marker_ids) or upload_attempt_count >= len(visual_marker_ids))
                                 and public_visual_readback.get("meets_expected_visual_count")
                             ):
                                 placement_status = f"PUBLIC_PLACEMENT_{public_visual_readback.get('placement_order_status') or 'INCONCLUSIVE'}"
@@ -863,6 +887,7 @@ def run_live_production_pipeline(
                                 "visual_marker_count": len(visual_marker_ids),
                                 "expected_visual_placements": expected_visual_placements,
                                 "uploaded_visual_count": uploaded_visual_count,
+                                "upload_attempt_count": upload_attempt_count,
                                 "media_upload_results": media_upload_results,
                                 "public_visual_readback": public_visual_readback,
                                 "placement_readback_status": placement_status,
@@ -1011,6 +1036,21 @@ def run_live_production_pipeline(
                     else:
                         tg_res = execute_telegram_post(message=message, dry_run=False)
                     dispatch_results["telegram"] = _normalize_dispatch_result("telegram", tg_res)
+                    if telegram_media:
+                        telegram_visual_evidence = _telegram_photo_delivery_evidence(
+                            dispatch_results["telegram"],
+                            telegram_media,
+                        )
+                        dispatch_results["telegram"]["visual_evidence"] = telegram_visual_evidence
+                        if isinstance(dispatch_results["telegram"].get("raw"), dict):
+                            dispatch_results["telegram"]["raw"]["visual_evidence"] = telegram_visual_evidence
+                        if dispatch_results["telegram"].get("ok") and telegram_visual_evidence["visual_delivery_status"] != "PASS":
+                            dispatch_results["telegram"].update({
+                                "ok": False,
+                                "status": "FAILED_VISUAL_DELIVERY",
+                                "error_class": "telegram_visual_delivery_unproven",
+                                "error": telegram_visual_evidence["visual_delivery_status"],
+                            })
                     print(f"[Info] Telegram dispatch outcome: {dispatch_results['telegram']['status']}")
             except Exception as exc:
                 print(f"[Warning] Telegram dispatch failed: {exc}")

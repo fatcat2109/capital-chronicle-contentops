@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps - Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_EDITORIAL_NEWSROOM_MEDIA_DIVERSIFICATION_SCHEDULER_AND_8_PLATFORM_FINAL_CANDIDATE_V0
+TASK_CONTENTOPS_V6_PUBLIC_TELEGRAM_SUBSTACK_VISUAL_REGRESSION_REPAIR_AND_8_PLATFORM_QA_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -14,13 +14,13 @@ accepted visual repair commit: `6a810aadadef4b3c9078173b32bed4b243f8552a`
 latest pre-task remote commit: `bea4aaedfdeccd936c807af53080d22d2932e6b9`
 
 ## current_product_phase
-Newsroom-grade local final-candidate lane is implemented. The latest local candidate article is `EDITORIAL_APPROVED`, carries diversified source-backed media, and the daily scheduler writes a 6-slot newsroom plan from headline sidecars or a source-review fallback watchlist. Latest accepted public dispatch evidence remains the scoped Substack + LinkedIn repair run `v6_pipeline_d49f6e14a856`, with prior full 8-platform evidence reconciled for unaffected lanes.
+Newsroom-grade local final-candidate lane is implemented, and public Telegram/Substack visual QA gates are locally hardened. Telegram visual dispatch now requires Bot API `sendPhoto` photo proof before the lane can count as visually delivered, and Substack visual placement can be accepted from public readback when editor upload status is only `uploaded_unverified`. Latest accepted public dispatch evidence remains the scoped Substack + LinkedIn repair run `v6_pipeline_d49f6e14a856`, with prior full 8-platform evidence reconciled for unaffected lanes.
 
 ## current_product_lane
 Editorial newsroom lane: canonical articles must pass mechanical quality, independent editorial quality, media diversification/provenance, and visual-slot gates before public dispatch can be treated as product-candidate evidence.
 
 ## accepted_baseline_summary
-`TASK_CONTENTOPS_V6_EDITORIAL_NEWSROOM_MEDIA_DIVERSIFICATION_SCHEDULER_AND_8_PLATFORM_FINAL_CANDIDATE_V0` remediates the prior editorial blockers locally: canonical citations/source notes are rebuilt from relevant official source families, the SEO target keyword is topic-aligned, reader-facing public text avoids internal workflow language, source diversity expands beyond FRED/EIA, and the WTI article now uses 3 in-body visual slots. The local final candidate is not a new public dispatch; it is the pre-live newsroom QA candidate.
+`TASK_CONTENTOPS_V6_PUBLIC_TELEGRAM_SUBSTACK_VISUAL_REGRESSION_REPAIR_AND_8_PLATFORM_QA_V0` hardens the local visual QA gates for the next public 8-platform run without posting. Telegram photo sends now need explicit Bot API photo evidence, and Substack can rely on public visual readback to confirm placement when editor upload status is not fully count-verified. The latest local final candidate remains the newsroom/media/scheduler candidate; no new public dispatch was performed.
 
 ## status_sha_model
 - `last_verified_remote_sha`: `bea4aaedfdeccd936c807af53080d22d2932e6b9` before this newsroom/media/scheduler task.
@@ -48,10 +48,10 @@ Canonical package: `ui/contentops_v5/package.json`.
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-Restored with visual-publication repair and post-repair editorial QA separation. Full all-platform run `v6_pipeline_3c44a9855cc6` remains reconciled for unaffected lanes. Scoped repair run `v6_pipeline_d49f6e14a856` reached `DISPATCH_COMPLETE` for Substack and LinkedIn without `CONTENTOPS_BYPASS_QUALITY_GATES=true`; Substack visual placement/order readback passed and LinkedIn native image attach proof is recorded. Current local final candidate adds editorial approval, 3-asset media diversification, and scheduler output, but was not live-dispatched.
+Restored with visual-publication repair and post-repair editorial QA separation. Full all-platform run `v6_pipeline_3c44a9855cc6` remains reconciled for unaffected lanes. Scoped repair run `v6_pipeline_d49f6e14a856` reached `DISPATCH_COMPLETE` for Substack and LinkedIn without `CONTENTOPS_BYPASS_QUALITY_GATES=true`; Substack visual placement/order readback passed and LinkedIn native image attach proof is recorded. Current local final candidate adds editorial approval, 3-asset media diversification, scheduler output, and hardened Telegram/Substack visual proof gates, but was not live-dispatched.
 
 ## dispatch/live status
-No new live dispatch was run in this task. Current local audit status: `FINAL_CANDIDATE_LOCAL_QA_READY`, `dispatch_live=false`, run id `local_static_final_candidate_2026_07_08`. Reason: the clean checkout contains no headline sidecars, and reposting the Crude Awakenings topic publicly would create duplicate posts. Prior public evidence remains: scoped visual repair run `v6_pipeline_d49f6e14a856` for Substack + LinkedIn and prior all-platform run `v6_pipeline_3c44a9855cc6` for unaffected lanes.
+No new live dispatch was run in this task. Current local audit status remains `FINAL_CANDIDATE_LOCAL_QA_READY`, `dispatch_live=false`, run id `local_static_final_candidate_2026_07_08`. The task repaired deterministic visual QA gates only: Telegram visual delivery proof and Substack public-readback confirmation. Prior public evidence remains: scoped visual repair run `v6_pipeline_d49f6e14a856` for Substack + LinkedIn and prior all-platform run `v6_pipeline_3c44a9855cc6` for unaffected lanes.
 
 ## article_quality_status
 Local final candidate article gates pass: `body_word_count=2174`, `sections=9`, `source_trail=8`, `citations=8`, SEO metadata present, `target_keyword=oil volatility recession risk`, and `visual_slots=3`. Editorial acceptance is `EDITORIAL_APPROVED`; `tier1_editorial_approved=true`. No unrelated Yahoo/search URLs are present in canonical citations/source notes.
@@ -70,11 +70,12 @@ Under Fast Ship Mode, local env credentials and operator browser profiles were u
 - Google/Commons image discovery is review-only unless source-page, rights, recency, and relevance metadata are complete; source-backed diversified media is the reliable auto-public path for oil topics.
 - No headline sidecar data files were present in the clean checkout, so the daily schedule was generated as a source-review fallback watchlist.
 - No new public 8-platform live candidate was run in this task; public screenshot/crop/readback QA remains required before product acceptance of the new 3-visual candidate.
+- Telegram public visual acceptance now requires Bot API photo proof in dispatch evidence; a future live run must verify this with the real channel response.
 - Provider-native article drafts still need reliability hardening so source-backed repair is less frequently required.
 - YouTube Community is future text/image platform work only after current 8-platform QA is hardened. TikTok, YouTube video, Shorts, and video creator work are explicitly out of current scope.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_EDITORIAL_NEWSROOM_MEDIA_DIVERSIFICATION_SCHEDULER_AND_8_PLATFORM_FINAL_CANDIDATE_V0
+TASK_CONTENTOPS_V6_PUBLIC_TELEGRAM_SUBSTACK_VISUAL_REGRESSION_REPAIR_AND_8_PLATFORM_QA_V0
 
 ## latest changed areas
 - `live_contentops/live_production_pipeline_runner_v6.py`
@@ -101,6 +102,7 @@ TASK_CONTENTOPS_V6_EDITORIAL_NEWSROOM_MEDIA_DIVERSIFICATION_SCHEDULER_AND_8_PLAT
 - `docs/automation/V6_MEDIA_SYSTEM/downloads/wti_current_volatility_context_99c8292edb1a.*`
 - `docs/automation/V6_MEDIA_SYSTEM/downloads/wti_recent_price_context_99c8292edb1a.*`
 - `docs/automation/V6_MEDIA_SYSTEM/downloads/hormuz_oil_chokepoint_context_99c8292edb1a.*`
+- `docs/automation/V6_PUBLIC_TELEGRAM_SUBSTACK_VISUAL_REGRESSION_REPAIR/public_telegram_substack_visual_regression_repair_evidence_v0.json`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`

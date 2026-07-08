@@ -1,0 +1,32 @@
+{
+  "task_label": "TASK_CONTENTOPS_V6_PUBLIC_TELEGRAM_SUBSTACK_VISUAL_REGRESSION_REPAIR_AND_8_PLATFORM_QA_V0",
+  "result": "PASS_LOCAL_VISUAL_QA_GATE_REPAIR",
+  "baseline_parent_sha": "a25bca3f172723b0e49a9f0351b58878a59274d8",
+  "live_dispatch_performed": false,
+  "provider_api_call_performed": false,
+  "browser_or_cdp_action_performed": false,
+  "env_or_credential_read_performed": false,
+  "network_call_performed": false,
+  "repair_summary": [
+    "Telegram photo dispatch now records visual_evidence from the Bot API sendPhoto response.",
+    "Telegram lane is marked FAILED_VISUAL_DELIVERY when a visual send was requested but the response lacks photo proof.",
+    "Substack visual placement can pass when editor upload status is uploaded_unverified only if public visual readback confirms count and placement.",
+    "Substack visual evidence now records both uploaded_visual_count and upload_attempt_count."
+  ],
+  "validation": [
+    {
+      "command": "python -m pytest tests/test_live_production_pipeline_runner.py tests/test_telegram_live_adapter_v6.py -q",
+      "result": "PASS",
+      "details": "28 passed"
+    }
+  ],
+  "changed_files": [
+    "live_contentops/live_production_pipeline_runner_v6.py",
+    "tests/test_live_production_pipeline_runner.py",
+    "docs/automation/V6_PUBLIC_TELEGRAM_SUBSTACK_VISUAL_REGRESSION_REPAIR/public_telegram_substack_visual_regression_repair_evidence_v0.json",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md"
+  ],
+  "next_task": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0"
+}

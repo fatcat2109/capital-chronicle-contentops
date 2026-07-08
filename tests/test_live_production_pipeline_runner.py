@@ -9,6 +9,7 @@ from live_contentops.live_production_pipeline_runner_v6 import (
     _apply_canonical_link,
     _instagram_image_candidates,
     _fit_telegram_photo_caption,
+    _telegram_photo_delivery_evidence,
     _expected_substack_visual_placements,
     audit_substack_public_visuals,
     resolve_substack_public_url,
@@ -149,7 +150,11 @@ def test_run_live_production_pipeline_with_dispatch(
     mock_fb.return_value = {"status": "SUCCESS"}
     mock_fb_photo.return_value = {"status": "SUCCESS"}
     mock_tg.return_value = {"status": "SUCCESS"}
-    mock_tg_photo.return_value = {"status": "SUCCESS"}
+    mock_tg_photo.return_value = {
+        "status": "SUCCESS",
+        "action": "photo",
+        "response": {"result": {"message_id": 88, "photo": [{"file_id": "photo_1"}]}},
+    }
     mock_threads.return_value = {"status": "SUCCESS", "id": "threads_1"}
     mock_discord.return_value = {"status": "SUCCESS"}
     
@@ -630,7 +635,14 @@ def test_expected_substack_visual_placements_infer_missing_slot_from_marker_head
 @patch("live_contentops.instagram_adapter_v6.execute_instagram_post", return_value={"status": "SUCCESS"})
 @patch("live_contentops.facebook_page_adapter_v6.execute_facebook_photo", return_value={"status": "SUCCESS"})
 @patch("live_contentops.facebook_page_adapter_v6.execute_facebook_post", return_value={"status": "SUCCESS"})
-@patch("live_contentops.telegram_live_adapter_v6.execute_telegram_photo", return_value={"status": "SUCCESS"})
+@patch(
+    "live_contentops.telegram_live_adapter_v6.execute_telegram_photo",
+    return_value={
+        "status": "SUCCESS",
+        "action": "photo",
+        "response": {"result": {"message_id": 88, "photo": [{"file_id": "photo_1"}]}},
+    },
+)
 @patch("live_contentops.threads_adapter_v6.execute_threads_post", return_value={"status": "SUCCESS", "id": "t1"})
 @patch("live_contentops.discord_live_adapter_v6.execute_discord_post", return_value={"status": "SUCCESS"})
 def test_dispatch_passes_media_and_canonical_link(
@@ -680,3 +692,27 @@ def test_dispatch_passes_media_and_canonical_link(
     embeds = mock_discord.call_args.kwargs["embeds"]
     assert embeds and embeds[0]["url"] == "https://sub.stack/p/live"
     assert embeds[0]["image"]["url"] == "https://cdn.example.com/hero.jpg"
+
+
+def test_telegram_photo_delivery_evidence_requires_bot_api_photo_result():
+    ok = _telegram_photo_delivery_evidence(
+        {
+            "platform": "telegram",
+            "status": "SUCCESS",
+            "ok": True,
+            "raw": {
+                "action": "photo",
+                "id": "88",
+                "response": {"result": {"message_id": 88, "photo": [{"file_id": "photo_1"}]}},
+            },
+        },
+        "downloads/hero.jpg",
+    )
+    missing = _telegram_photo_delivery_evidence(
+        {"platform": "telegram", "status": "SUCCESS", "ok": True, "raw": {"action": "photo", "response": {"result": {"message_id": 88}}}},
+        "downloads/hero.jpg",
+    )
+
+    assert ok["visual_delivery_status"] == "PASS"
+    assert ok["photo_size_count"] == 1
+    assert missing["visual_delivery_status"] == "MISSING_PHOTO_PROOF"
