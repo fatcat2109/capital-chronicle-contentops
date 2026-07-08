@@ -1,0 +1,146 @@
+{
+  "article_type_counts": {
+    "deep_research": 1,
+    "rapid_analysis": 5
+  },
+  "forbidden_uses": [
+    "market_price_truth",
+    "macro_print_truth",
+    "source_clearance",
+    "trade_signal",
+    "broker_execution_input"
+  ],
+  "headline_sidecar_count": 0,
+  "headline_sidecars_are_catalyst_only": true,
+  "output_path": "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
+  "schedule_date": "2026-07-08",
+  "scheduler_notes": [
+    "Prioritize current official releases, fresh macro/geopolitical news, source availability, media availability, and novelty.",
+    "Deep research/explainer work is secondary unless current-news density is low or key releases are already covered."
+  ],
+  "schema_version": "daily_editorial_scheduler_v6.0",
+  "sidecar_glob": "headline_ingestion/data/intake/headline_sidecars/*.jsonl",
+  "slots": [
+    {
+      "angle": "Check the calendar for CPI, jobs, EIA inventory, FOMC, Treasury auction, and central-bank remarks before deep research.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 57,
+      "media_needs": [
+        "Source-backed data chart",
+        "contextual rights-safe visual if topic warrants"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "NEEDS_SOURCE_REVIEW",
+      "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+      "slot_index": 1,
+      "source_clearance_authority": false,
+      "source_needs": [
+        "No headline sidecars found; perform primary source review before drafting"
+      ],
+      "suggested_article_type": "rapid_analysis",
+      "topic": "Official release watch",
+      "urgency_score": 51
+    },
+    {
+      "angle": "Look for current oil, shipping, sanctions, OPEC, and chokepoint developments with rights-safe maps/photos.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 56,
+      "media_needs": [
+        "Source-backed data chart",
+        "contextual rights-safe visual if topic warrants"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "NEEDS_SOURCE_REVIEW",
+      "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+      "slot_index": 2,
+      "source_clearance_authority": false,
+      "source_needs": [
+        "No headline sidecars found; perform primary source review before drafting"
+      ],
+      "suggested_article_type": "rapid_analysis",
+      "topic": "Energy and geopolitics watch",
+      "urgency_score": 50
+    },
+    {
+      "angle": "Update yield-curve, Treasury, Fed, credit, and recession-risk context from official data sources.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 55,
+      "media_needs": [
+        "Source-backed data chart",
+        "contextual rights-safe visual if topic warrants"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "NEEDS_SOURCE_REVIEW",
+      "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+      "slot_index": 3,
+      "source_clearance_authority": false,
+      "source_needs": [
+        "No headline sidecars found; perform primary source review before drafting"
+      ],
+      "suggested_article_type": "rapid_analysis",
+      "topic": "Rates and recession dashboard",
+      "urgency_score": 49
+    },
+    {
+      "angle": "Track energy, shelter, goods, wages, and policy communication for source-backed inflation framing.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 54,
+      "media_needs": [
+        "Source-backed data chart",
+        "contextual rights-safe visual if topic warrants"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "NEEDS_SOURCE_REVIEW",
+      "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+      "slot_index": 4,
+      "source_clearance_authority": false,
+      "source_needs": [
+        "No headline sidecars found; perform primary source review before drafting"
+      ],
+      "suggested_article_type": "rapid_analysis",
+      "topic": "Inflation pass-through monitor",
+      "urgency_score": 48
+    },
+    {
+      "angle": "Use current source-backed charts before publishing any volatility narrative.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 53,
+      "media_needs": [
+        "Source-backed data chart",
+        "contextual rights-safe visual if topic warrants"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "NEEDS_SOURCE_REVIEW",
+      "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+      "slot_index": 5,
+      "source_clearance_authority": false,
+      "source_needs": [
+        "No headline sidecars found; perform primary source review before drafting"
+      ],
+      "suggested_article_type": "rapid_analysis",
+      "topic": "Market volatility rapid analysis",
+      "urgency_score": 47
+    },
+    {
+      "angle": "Use only if major current news density is low or the day already covers important official releases.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 52,
+      "media_needs": [
+        "Source-backed data chart",
+        "contextual rights-safe visual if topic warrants"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "NEEDS_SOURCE_REVIEW",
+      "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+      "slot_index": 6,
+      "source_clearance_authority": false,
+      "source_needs": [
+        "No headline sidecars found; perform primary source review before drafting"
+      ],
+      "suggested_article_type": "deep_research",
+      "topic": "Deep research reserve",
+      "urgency_score": 46
+    }
+  ],
+  "target_article_slots": 6
+}

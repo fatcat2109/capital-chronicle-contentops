@@ -1,22 +1,18 @@
 # X NATIVE VARIANT
 - **Status**: VARIANT_READY
-- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_febb4cd8863f.png
-- **Timestamp**: 2026-07-08 01:25:28
+- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_99c8292edb1a.png
+- **Timestamp**: 2026-07-08 12:46:55
 
-1/ Is rising oil volatility signaling a US recession, or is it just market noise? At Capital Chronicle, we analyze the latest WTI crude data through June 29, 2026, to separate macro reality from headline anxiety. Let's look at the numbers. 👇
-
----
-
-2/ On June 29, 2026, WTI crude stood at $71.87/bbl, up 7.8% from $66.66 roughly 90 days earlier. More telling is the volatility: our 30-day realized volatility proxy averaged 2.8% absolute daily moves, representing a 50.7% surge over that 90-day window.
+1/ Capital Chronicle is treating the latest rise in oil volatility as an evidence problem before it is a market narrative. The source-backed WTI series used for this briefing runs from 1986-01-02 through 2026-06-29, with 10191 daily
 
 ---
 
-3/ Why does this volatility matter? It directly impacts household real income, corporate transport costs, and inflation expectations. When volatility rises, the distribution of potential macroeconomic outcomes widens significantly.
+2/ observations in the local calculation set. The latest FRED observation places WTI at $71.87 per barrel on 2026-06-29, compared with $66.66 roughly 90 days earlier on 2026-02-19. That comparison produces a 7.8% move across about 90
 
 ---
 
-4/ However, we must avoid lazy analysis. Oil volatility and yield curves are different lenses. While yield curves capture interest-rate expectations, oil captures immediate energy-channel friction. Both belong on a dashboard, but they do different work.
+3/ days, while the one-year comparison from $68.73 on 2025-06-12 produces a 4.6% change. The visual evidence is therefore not a stale historical screenshot: it ends in 2026 and is aligned with the article thesis. The visual review l
 
 ---
 
-5/ Our conclusion? Rising oil volatility is a key variable to monitor, but it isn't a standalone recession guarantee. Read our full, source-disciplined editorial briefing for the complete breakdown: [Link]
+4/ abels the recent price direction as up and the realized-volatility direction as up. The latest 30 days volatility proxy averaged 2.8% absolute daily moves, with a 50.7% change in that proxy over about 90 days.

@@ -1,467 +1,28 @@
 {
-  "article_packet_id": "article_engine_packet_02800c60583651eb",
-  "canonical_url": "https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c",
-  "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
-  "dispatch_idempotency_control": "platform_scope_allowlist",
-  "dispatch_live": true,
+  "article_packet_id": "article_engine_packet_801370202a74f285",
+  "daily_schedule_path": "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
+  "dispatch_blockers": [],
+  "dispatch_live": false,
   "dispatch_platform_scope": [
     "substack",
-    "linkedin"
+    "linkedin",
+    "x",
+    "instagram",
+    "facebook",
+    "telegram",
+    "threads",
+    "discord"
   ],
-  "dispatch_results": {
-    "linkedin": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "linkedin",
-      "raw": {
-        "action": "post",
-        "id": "activity_9fbd4f4aa083",
-        "media_attachment_evidence": {
-          "image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
-          "media_dialog_completed_selector": "button:has-text('Next')",
-          "media_preview_candidate_count": 2,
-          "media_preview_detected": true,
-          "media_preview_dom_excerpt": "This is a modal window.",
-          "media_preview_selector": "div[role='dialog'] img[src*='media']",
-          "media_upload_requested": true,
-          "media_upload_status": "uploaded",
-          "selector_used": "file_chooser:button[aria-label*='Add media']"
-        },
-        "media_preview_detected": true,
-        "media_upload_requested": true,
-        "media_upload_status": "uploaded",
-        "platform": "linkedin",
-        "response": {
-          "final_url": "https://www.linkedin.com/feed/"
-        },
-        "status": "SUCCESS"
-      },
-      "status": "SUCCESS",
-      "url": "https://www.linkedin.com/feed/"
-    },
-    "substack": {
-      "error": null,
-      "error_class": null,
-      "ok": true,
-      "platform": "substack",
-      "raw": {
-        "action": "post",
-        "id": "crude-awakenings-how-spiking-oil-13c",
-        "media_upload_results": [
-          {
-            "asset_id": "primary",
-            "editor_image_count_after": 2,
-            "editor_image_count_before": 0,
-            "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
-            "status": "uploaded"
-          },
-          {
-            "asset_id": "recent_price",
-            "editor_image_count_after": 2,
-            "editor_image_count_before": 1,
-            "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_febb4cd8863f.png",
-            "status": "uploaded"
-          }
-        ],
-        "media_upload_status": "uploaded",
-        "platform": "substack",
-        "public_image_url": "https://substackcdn.com/image/fetch/$s_!Q9ek!,w_20,h_20,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F605afaf7-517e-4cfd-a674-610cbda1af3a_144x144.png",
-        "public_url": "https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c",
-        "response": {
-          "final_url": "https://capitalchronicle.substack.com/publish/post/205898610",
-          "media_upload_results": [
-            {
-              "asset_id": "primary",
-              "editor_image_count_after": 2,
-              "editor_image_count_before": 0,
-              "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
-              "status": "uploaded"
-            },
-            {
-              "asset_id": "recent_price",
-              "editor_image_count_after": 2,
-              "editor_image_count_before": 1,
-              "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_febb4cd8863f.png",
-              "status": "uploaded"
-            }
-          ],
-          "media_upload_status": "uploaded",
-          "public_image_url": "https://substackcdn.com/image/fetch/$s_!Q9ek!,w_20,h_20,c_fill,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F605afaf7-517e-4cfd-a674-610cbda1af3a_144x144.png",
-          "public_url": "https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c",
-          "visual_evidence": {
-            "expected_visual_placements": [
-              {
-                "asset_id": "primary",
-                "editorial_purpose": "Anchor the macro setup in the latest WTI price endpoint and realized-volatility proxy.",
-                "placement_after_section": "intro",
-                "placement_source": "visual_slot"
-              },
-              {
-                "asset_id": "recent_price",
-                "editorial_purpose": "Show the recent WTI price path supporting the market-implication discussion.",
-                "placement_after_section": "Market Implications Without Directional Noise",
-                "placement_source": "visual_slot"
-              }
-            ],
-            "media_upload_results": [
-              {
-                "asset_id": "primary",
-                "editor_image_count_after": 2,
-                "editor_image_count_before": 0,
-                "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
-                "status": "uploaded"
-              },
-              {
-                "asset_id": "recent_price",
-                "editor_image_count_after": 2,
-                "editor_image_count_before": 1,
-                "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_febb4cd8863f.png",
-                "status": "uploaded"
-              }
-            ],
-            "placement_readback_status": "PASS",
-            "public_visual_readback": {
-              "all_images_after_source_trail": false,
-              "attempts": 1,
-              "expected_placements": [
-                {
-                  "asset_id": "primary",
-                  "editorial_purpose": "Anchor the macro setup in the latest WTI price endpoint and realized-volatility proxy.",
-                  "placement_after_section": "intro",
-                  "placement_source": "visual_slot"
-                },
-                {
-                  "asset_id": "recent_price",
-                  "editorial_purpose": "Show the recent WTI price path supporting the market-implication discussion.",
-                  "placement_after_section": "Market Implications Without Directional Noise",
-                  "placement_source": "visual_slot"
-                }
-              ],
-              "expected_visual_count": 2,
-              "meets_expected_visual_count": true,
-              "meets_visual_placement_expectations": true,
-              "placement_checks": [
-                {
-                  "asset_id": "primary",
-                  "image_url": "https://substack-post-media.s3.amazonaws.com/public/images/80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png",
-                  "next_heading": "The Macro Setup: Current Oil Evidence Before Narrative",
-                  "passed": true,
-                  "placement_after_section": "intro",
-                  "previous_heading": "A source-led Capital Chronicle briefing on WTI, recession-risk interpretation, yield curves, and evidence discipline",
-                  "reason": null
-                },
-                {
-                  "asset_id": "recent_price",
-                  "image_url": "https://substack-post-media.s3.amazonaws.com/public/images/b3001e6f-d71c-4e90-adf4-84b97583837e_1620x870.png",
-                  "next_heading": "How to Read the Source Trail",
-                  "passed": true,
-                  "placement_after_section": "Market Implications Without Directional Noise",
-                  "previous_heading": "Market Implications Without Directional Noise",
-                  "reason": null
-                }
-              ],
-              "placement_order_status": "PASS",
-              "public_image_count": 2,
-              "public_image_urls": [
-                "https://substack-post-media.s3.amazonaws.com/public/images/80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png",
-                "https://substack-post-media.s3.amazonaws.com/public/images/b3001e6f-d71c-4e90-adf4-84b97583837e_1620x870.png"
-              ],
-              "public_url": "https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c",
-              "status": "PASS",
-              "visual_order_proof": [
-                {
-                  "next_heading": "The Macro Setup: Current Oil Evidence Before Narrative",
-                  "position": 30128,
-                  "previous_heading": "A source-led Capital Chronicle briefing on WTI, recession-risk interpretation, yield curves, and evidence discipline",
-                  "url": "https://substack-post-media.s3.amazonaws.com/public/images/80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png"
-                },
-                {
-                  "next_heading": "How to Read the Source Trail",
-                  "position": 46800,
-                  "previous_heading": "Market Implications Without Directional Noise",
-                  "url": "https://substack-post-media.s3.amazonaws.com/public/images/b3001e6f-d71c-4e90-adf4-84b97583837e_1620x870.png"
-                }
-              ]
-            },
-            "uploaded_visual_count": 2,
-            "visual_marker_count": 2,
-            "visual_marker_ids": [
-              "primary",
-              "recent_price"
-            ]
-          }
-        },
-        "status": "SUCCESS",
-        "url": "https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c",
-        "visual_evidence": {
-          "expected_visual_placements": [
-            {
-              "asset_id": "primary",
-              "editorial_purpose": "Anchor the macro setup in the latest WTI price endpoint and realized-volatility proxy.",
-              "placement_after_section": "intro",
-              "placement_source": "visual_slot"
-            },
-            {
-              "asset_id": "recent_price",
-              "editorial_purpose": "Show the recent WTI price path supporting the market-implication discussion.",
-              "placement_after_section": "Market Implications Without Directional Noise",
-              "placement_source": "visual_slot"
-            }
-          ],
-          "media_upload_results": [
-            {
-              "asset_id": "primary",
-              "editor_image_count_after": 2,
-              "editor_image_count_before": 0,
-              "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
-              "status": "uploaded"
-            },
-            {
-              "asset_id": "recent_price",
-              "editor_image_count_after": 2,
-              "editor_image_count_before": 1,
-              "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_febb4cd8863f.png",
-              "status": "uploaded"
-            }
-          ],
-          "placement_readback_status": "PASS",
-          "public_visual_readback": {
-            "all_images_after_source_trail": false,
-            "attempts": 1,
-            "expected_placements": [
-              {
-                "asset_id": "primary",
-                "editorial_purpose": "Anchor the macro setup in the latest WTI price endpoint and realized-volatility proxy.",
-                "placement_after_section": "intro",
-                "placement_source": "visual_slot"
-              },
-              {
-                "asset_id": "recent_price",
-                "editorial_purpose": "Show the recent WTI price path supporting the market-implication discussion.",
-                "placement_after_section": "Market Implications Without Directional Noise",
-                "placement_source": "visual_slot"
-              }
-            ],
-            "expected_visual_count": 2,
-            "meets_expected_visual_count": true,
-            "meets_visual_placement_expectations": true,
-            "placement_checks": [
-              {
-                "asset_id": "primary",
-                "image_url": "https://substack-post-media.s3.amazonaws.com/public/images/80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png",
-                "next_heading": "The Macro Setup: Current Oil Evidence Before Narrative",
-                "passed": true,
-                "placement_after_section": "intro",
-                "previous_heading": "A source-led Capital Chronicle briefing on WTI, recession-risk interpretation, yield curves, and evidence discipline",
-                "reason": null
-              },
-              {
-                "asset_id": "recent_price",
-                "image_url": "https://substack-post-media.s3.amazonaws.com/public/images/b3001e6f-d71c-4e90-adf4-84b97583837e_1620x870.png",
-                "next_heading": "How to Read the Source Trail",
-                "passed": true,
-                "placement_after_section": "Market Implications Without Directional Noise",
-                "previous_heading": "Market Implications Without Directional Noise",
-                "reason": null
-              }
-            ],
-            "placement_order_status": "PASS",
-            "public_image_count": 2,
-            "public_image_urls": [
-              "https://substack-post-media.s3.amazonaws.com/public/images/80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png",
-              "https://substack-post-media.s3.amazonaws.com/public/images/b3001e6f-d71c-4e90-adf4-84b97583837e_1620x870.png"
-            ],
-            "public_url": "https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c",
-            "status": "PASS",
-            "visual_order_proof": [
-              {
-                "next_heading": "The Macro Setup: Current Oil Evidence Before Narrative",
-                "position": 30128,
-                "previous_heading": "A source-led Capital Chronicle briefing on WTI, recession-risk interpretation, yield curves, and evidence discipline",
-                "url": "https://substack-post-media.s3.amazonaws.com/public/images/80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png"
-              },
-              {
-                "next_heading": "How to Read the Source Trail",
-                "position": 46800,
-                "previous_heading": "Market Implications Without Directional Noise",
-                "url": "https://substack-post-media.s3.amazonaws.com/public/images/b3001e6f-d71c-4e90-adf4-84b97583837e_1620x870.png"
-              }
-            ]
-          },
-          "uploaded_visual_count": 2,
-          "visual_marker_count": 2,
-          "visual_marker_ids": [
-            "primary",
-            "recent_price"
-          ]
-        }
-      },
-      "status": "SUCCESS",
-      "url": "https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c",
-      "visual_evidence": {
-        "expected_visual_placements": [
-          {
-            "asset_id": "primary",
-            "editorial_purpose": "Anchor the macro setup in the latest WTI price endpoint and realized-volatility proxy.",
-            "placement_after_section": "intro",
-            "placement_source": "visual_slot"
-          },
-          {
-            "asset_id": "recent_price",
-            "editorial_purpose": "Show the recent WTI price path supporting the market-implication discussion.",
-            "placement_after_section": "Market Implications Without Directional Noise",
-            "placement_source": "visual_slot"
-          }
-        ],
-        "media_upload_results": [
-          {
-            "asset_id": "primary",
-            "editor_image_count_after": 2,
-            "editor_image_count_before": 0,
-            "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
-            "status": "uploaded"
-          },
-          {
-            "asset_id": "recent_price",
-            "editor_image_count_after": 2,
-            "editor_image_count_before": 1,
-            "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_febb4cd8863f.png",
-            "status": "uploaded"
-          }
-        ],
-        "placement_readback_status": "PASS",
-        "public_visual_readback": {
-          "all_images_after_source_trail": false,
-          "attempts": 1,
-          "expected_placements": [
-            {
-              "asset_id": "primary",
-              "editorial_purpose": "Anchor the macro setup in the latest WTI price endpoint and realized-volatility proxy.",
-              "placement_after_section": "intro",
-              "placement_source": "visual_slot"
-            },
-            {
-              "asset_id": "recent_price",
-              "editorial_purpose": "Show the recent WTI price path supporting the market-implication discussion.",
-              "placement_after_section": "Market Implications Without Directional Noise",
-              "placement_source": "visual_slot"
-            }
-          ],
-          "expected_visual_count": 2,
-          "meets_expected_visual_count": true,
-          "meets_visual_placement_expectations": true,
-          "placement_checks": [
-            {
-              "asset_id": "primary",
-              "image_url": "https://substack-post-media.s3.amazonaws.com/public/images/80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png",
-              "next_heading": "The Macro Setup: Current Oil Evidence Before Narrative",
-              "passed": true,
-              "placement_after_section": "intro",
-              "previous_heading": "A source-led Capital Chronicle briefing on WTI, recession-risk interpretation, yield curves, and evidence discipline",
-              "reason": null
-            },
-            {
-              "asset_id": "recent_price",
-              "image_url": "https://substack-post-media.s3.amazonaws.com/public/images/b3001e6f-d71c-4e90-adf4-84b97583837e_1620x870.png",
-              "next_heading": "How to Read the Source Trail",
-              "passed": true,
-              "placement_after_section": "Market Implications Without Directional Noise",
-              "previous_heading": "Market Implications Without Directional Noise",
-              "reason": null
-            }
-          ],
-          "placement_order_status": "PASS",
-          "public_image_count": 2,
-          "public_image_urls": [
-            "https://substack-post-media.s3.amazonaws.com/public/images/80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png",
-            "https://substack-post-media.s3.amazonaws.com/public/images/b3001e6f-d71c-4e90-adf4-84b97583837e_1620x870.png"
-          ],
-          "public_url": "https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c",
-          "status": "PASS",
-          "visual_order_proof": [
-            {
-              "next_heading": "The Macro Setup: Current Oil Evidence Before Narrative",
-              "position": 30128,
-              "previous_heading": "A source-led Capital Chronicle briefing on WTI, recession-risk interpretation, yield curves, and evidence discipline",
-              "url": "https://substack-post-media.s3.amazonaws.com/public/images/80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png"
-            },
-            {
-              "next_heading": "How to Read the Source Trail",
-              "position": 46800,
-              "previous_heading": "Market Implications Without Directional Noise",
-              "url": "https://substack-post-media.s3.amazonaws.com/public/images/b3001e6f-d71c-4e90-adf4-84b97583837e_1620x870.png"
-            }
-          ]
-        },
-        "uploaded_visual_count": 2,
-        "visual_marker_count": 2,
-        "visual_marker_ids": [
-          "primary",
-          "recent_price"
-        ]
-      }
-    }
-  },
-  "dispatch_summary": {
-    "attempted_platforms": [
-      "substack",
-      "linkedin"
-    ],
-    "blocked_platforms": [],
-    "failed_platforms": [],
-    "successful_platforms": [
-      "substack",
-      "linkedin"
-    ]
-  },
-  "editorial_acceptance_note": "Dispatch status is transport evidence only; tier-1 editorial acceptance is classified separately.",
-  "editorial_acceptance_status": "EDITORIAL_BLOCKED",
+  "editorial_acceptance_status": "EDITORIAL_APPROVED",
   "editorial_quality_audit": {
-    "blockers": [
-      "irrelevant_citation_urls:https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html,https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html,https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html",
-      "irrelevant_source_note_urls:https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html,https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html,https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html"
-    ],
-    "classification": "EDITORIAL_BLOCKED",
+    "blockers": [],
+    "classification": "EDITORIAL_APPROVED",
     "dispatch_status_independent": true,
     "public_body_tone_audit": {
-      "pipeline_internal_language_count": 13,
-      "pipeline_internal_language_hits": [
-        {
-          "count": 3,
-          "term": "capital_chronicle_database"
-        },
-        {
-          "count": 1,
-          "term": "dispatch"
-        },
-        {
-          "count": 2,
-          "term": "media_audit"
-        },
-        {
-          "count": 2,
-          "term": "operator"
-        },
-        {
-          "count": 3,
-          "term": "pipeline"
-        },
-        {
-          "count": 1,
-          "term": "provider"
-        },
-        {
-          "count": 1,
-          "term": "visual_slot"
-        }
-      ]
+      "pipeline_internal_language_count": 0,
+      "pipeline_internal_language_hits": []
     },
-    "review_items": [
-      "seo_target_keyword_not_topic_aligned",
-      "source_diversity_too_narrow:2<3",
-      "public_body_pipeline_internal_language:13"
-    ],
+    "review_items": [],
     "schema_version": "editorial_quality_audit_v6.1",
     "seo_audit": {
       "expected_concepts": [
@@ -471,7 +32,7 @@
         "volatility",
         "yield"
       ],
-      "keyword_aligned": false,
+      "keyword_aligned": true,
       "keyword_concepts": [
         "oil",
         "recession",
@@ -479,52 +40,15 @@
       ],
       "meta_description_length": 147,
       "missing_fields": [],
-      "target_keyword": "spikes",
-      "target_keyword_weak": true
+      "target_keyword": "oil volatility recession risk",
+      "target_keyword_weak": false
     },
     "source_relevance_audit": {
       "audited_urls": [
         {
-          "domain": "finance.yahoo.com",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [],
-          "relevance_status": "UNRELATED_TO_THESIS",
-          "source_family": "yahoo_finance",
-          "url": "https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html"
-        },
-        {
-          "domain": "finance.yahoo.com",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [],
-          "relevance_status": "UNRELATED_TO_THESIS",
-          "source_family": "yahoo_finance",
-          "url": "https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html"
-        },
-        {
-          "domain": "finance.yahoo.com",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [],
-          "relevance_status": "UNRELATED_TO_THESIS",
-          "source_family": "yahoo_finance",
-          "url": "https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html"
-        },
-        {
           "domain": "fred.stlouisfed.org",
           "fields": [
             "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
             "canonical_article_draft.source_trail",
             "research_grounding_packet.cited_source_notes"
           ],
@@ -542,7 +66,6 @@
           "domain": "fred.stlouisfed.org",
           "fields": [
             "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
             "canonical_article_draft.source_trail",
             "research_grounding_packet.cited_source_notes"
           ],
@@ -557,10 +80,37 @@
           "url": "https://fred.stlouisfed.org/series/DCOILWTICO"
         },
         {
+          "domain": "home.treasury.gov",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "treasury",
+          "url": "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        },
+        {
+          "domain": "bls.gov",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "recession"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "bls",
+          "url": "https://www.bls.gov/cpi/"
+        },
+        {
           "domain": "eia.gov",
           "fields": [
             "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
             "canonical_article_draft.source_trail",
             "research_grounding_packet.cited_source_notes"
           ],
@@ -571,6 +121,51 @@
           "relevance_status": "SUPPORTS_TOPIC",
           "source_family": "eia",
           "url": "https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm"
+        },
+        {
+          "domain": "eia.gov",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "oil",
+            "volatility"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "eia",
+          "url": "https://www.eia.gov/todayinenergy/detail.php?id=65504"
+        },
+        {
+          "domain": "federalreserve.gov",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "recession",
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "federal_reserve",
+          "url": "https://www.federalreserve.gov/monetarypolicy.htm"
+        },
+        {
+          "domain": "federalreserve.gov",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "recession",
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "federal_reserve",
+          "url": "https://www.federalreserve.gov/releases/h15/"
         }
       ],
       "expected_concepts": [
@@ -580,53 +175,19 @@
         "volatility",
         "yield"
       ],
-      "irrelevant_urls": [
-        {
-          "domain": "finance.yahoo.com",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [],
-          "relevance_status": "UNRELATED_TO_THESIS",
-          "source_family": "yahoo_finance",
-          "url": "https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html"
-        },
-        {
-          "domain": "finance.yahoo.com",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [],
-          "relevance_status": "UNRELATED_TO_THESIS",
-          "source_family": "yahoo_finance",
-          "url": "https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html"
-        },
-        {
-          "domain": "finance.yahoo.com",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [],
-          "relevance_status": "UNRELATED_TO_THESIS",
-          "source_family": "yahoo_finance",
-          "url": "https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html"
-        }
-      ],
+      "irrelevant_urls": [],
       "relevant_source_families": [
+        "bls",
         "eia",
-        "fred"
+        "federal_reserve",
+        "fred",
+        "treasury"
       ],
-      "relevant_source_family_count": 2,
+      "relevant_source_family_count": 5,
       "source_trail_claims_too_generic": false,
-      "source_trail_count": 3
+      "source_trail_count": 8
     },
-    "tier1_editorial_approved": false,
+    "tier1_editorial_approved": true,
     "tier1_structure_audit": {
       "checks": {
         "clear_news_hook": true,
@@ -636,10 +197,92 @@
         "why_now": true
       },
       "missing": [],
-      "section_count": 8
+      "section_count": 9
     }
   },
-  "image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
+  "live_dispatch_not_run_reason": "No headline sidecars were present in the clean checkout and rerunning Crude Awakenings publicly would create duplicate public posts; local editorial/media/scheduler gates were generated instead.",
+  "live_dispatch_run_performed": false,
+  "manual_review_required": [
+    "Public platform visual rendering/crop QA remains required before final product acceptance because this task did not run a new public dispatch."
+  ],
+  "media_diversification_audit": {
+    "asset_count": 3,
+    "audit_status": "PASS",
+    "audited_assets": [
+      {
+        "asset_id": "primary",
+        "candidate_content_audit": {
+          "audit_status": "PASS",
+          "blockers": [],
+          "latest_detected_year": 2026,
+          "llm_review_recommended": false,
+          "requirements": {
+            "as_of_year": 2026,
+            "expected_direction": "up",
+            "expected_metric": "oil_volatility",
+            "minimum_end_year": 2025,
+            "requires_current_coverage": true
+          },
+          "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+          "warnings": []
+        },
+        "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "latest_observation_date": "2026-06-29",
+        "latest_observation_year": 2026,
+        "media_class": "data_chart",
+        "operator_review_required": false,
+        "provenance_status": "source_backed_generated_from_public_data",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "source_domain": "fred.stlouisfed.org",
+        "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "why_selected": "Primary source-backed chart with current WTI endpoint and realized-volatility context for the article thesis."
+      },
+      {
+        "asset_id": "recent_price",
+        "candidate_content_audit": null,
+        "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "latest_observation_date": "2026-06-29",
+        "latest_observation_year": 2026,
+        "media_class": "data_chart",
+        "operator_review_required": false,
+        "provenance_status": "source_backed_generated_from_public_data",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "source_domain": "fred.stlouisfed.org",
+        "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "why_selected": "Supporting chart gives a narrower recent-price view so platforms are not repeating the same volatility chart only."
+      },
+      {
+        "asset_id": "hormuz_context",
+        "candidate_content_audit": null,
+        "image_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+        "latest_observation_date": "2026-06-29",
+        "latest_observation_year": 2026,
+        "media_class": "map_or_geography",
+        "operator_review_required": false,
+        "provenance_status": "capital_chronicle_generated_schematic_from_official_eia_context",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "source_domain": "eia.gov",
+        "source_label": "EIA Strait of Hormuz oil chokepoint context",
+        "source_page_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+        "why_selected": "Adds a contextual geopolitics/map visual so the article is not chart-only and the oil-volatility thesis has a supply-risk frame."
+      }
+    ],
+    "auto_publication_safe": true,
+    "blockers": [],
+    "expected_min_assets": 3,
+    "media_classes": [
+      "data_chart",
+      "data_chart",
+      "map_or_geography"
+    ],
+    "minimum_allowed_assets": 3,
+    "replacement_notes": [],
+    "retrieval_audit_timestamp": "2026-07-08T05:46:55Z",
+    "review_items": [],
+    "schema_version": "media_diversification_audit_v6.0"
+  },
   "media_manifest": {
     "chart_metadata": {
       "chart_path": null,
@@ -655,39 +298,93 @@
         "asset_id": "primary",
         "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
         "caption": "WTI crude oil price and 30-day realized volatility through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "image_url": null,
         "latest_observation_date": "2026-06-29",
         "latest_observation_year": 2026,
-        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
+        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
+        "media_class": "data_chart",
+        "media_role": "primary_chart",
         "media_subject": "WTI crude oil current price and volatility context",
+        "operator_review_required": false,
+        "provenance_status": "source_backed_generated_from_public_data",
         "public_url": null,
-        "query": "Crude Awakenings: How Spiking Oil Volatility Amplifies US Recession Risks",
+        "query": "Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard",
+        "recency_days": 365,
         "recent_direction": "up",
         "recent_price_direction": "up",
+        "retrieval_timestamp": "2026-07-08T05:46:55Z",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "source_domain": "fred.stlouisfed.org",
         "source_label": "FRED / U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
         "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
         "time_coverage_end_year": 2026,
+        "time_filter": "current_source_series_latest_available_observation",
         "url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "visual_metric": "oil_volatility wti crude oil current price realized volatility"
+        "visual_metric": "oil_volatility wti crude oil current price realized volatility",
+        "why_selected": "Primary source-backed chart with current WTI endpoint and realized-volatility context for the article thesis."
       },
       {
         "alt_text": "Line chart showing the recent WTI crude oil price path using FRED data.",
         "asset_id": "recent_price",
         "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
         "caption": "Recent WTI price path through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "image_url": null,
         "latest_observation_date": "2026-06-29",
         "latest_observation_year": 2026,
-        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_febb4cd8863f.png",
+        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_99c8292edb1a.png",
+        "media_class": "data_chart",
+        "media_role": "supporting_chart",
         "media_subject": "WTI crude oil recent price path",
+        "operator_review_required": false,
+        "provenance_status": "source_backed_generated_from_public_data",
         "public_url": null,
-        "query": "Crude Awakenings: How Spiking Oil Volatility Amplifies US Recession Risks",
+        "query": "Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard",
+        "recency_days": 365,
         "recent_direction": "up",
         "recent_price_direction": "up",
         "recent_volatility_direction": "up",
+        "retrieval_timestamp": "2026-07-08T05:46:55Z",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "source_domain": "fred.stlouisfed.org",
         "source_label": "FRED / U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
         "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
         "time_coverage_end_year": 2026,
+        "time_filter": "current_source_series_latest_available_observation",
         "url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "visual_metric": "wti crude oil current recent price path"
+        "visual_metric": "wti crude oil current recent price path",
+        "why_selected": "Supporting chart gives a narrower recent-price view so platforms are not repeating the same volatility chart only."
+      },
+      {
+        "alt_text": "Schematic contextual visual showing the Strait of Hormuz between the Persian Gulf and Gulf of Oman as an oil-flow chokepoint.",
+        "asset_id": "hormuz_context",
+        "canonical_source_label": "EIA Strait of Hormuz oil chokepoint context",
+        "caption": "Strait of Hormuz energy chokepoint context. Source reference: U.S. Energy Information Administration; Capital Chronicle generated schematic.",
+        "image_url": null,
+        "latest_observation_date": "2026-06-29",
+        "latest_observation_year": 2026,
+        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\hormuz_oil_chokepoint_context_99c8292edb1a.png",
+        "media_class": "map_or_geography",
+        "media_role": "contextual_geopolitical_visual",
+        "media_subject": "Strait of Hormuz energy chokepoint context",
+        "operator_review_required": false,
+        "provenance_status": "capital_chronicle_generated_schematic_from_official_eia_context",
+        "public_url": null,
+        "query": "Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard",
+        "recency_days": 365,
+        "recent_direction": "contextual",
+        "retrieval_timestamp": "2026-07-08T05:46:55Z",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "source_domain": "eia.gov",
+        "source_label": "U.S. Energy Information Administration",
+        "source_page_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+        "source_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+        "time_coverage_end_year": 2026,
+        "time_filter": "official_context_source_latest_available",
+        "url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+        "visual_metric": "oil geopolitics strait hormuz chokepoint energy supply risk",
+        "why_selected": "Adds a contextual geopolitics/map visual so the article is not chart-only and the oil-volatility thesis has a supply-risk frame."
       }
     ],
     "media_blockers": [],
@@ -697,7 +394,7 @@
       "latest_detected_year": 2026,
       "llm_review_recommended": false,
       "replacement_notes": [
-        "search_candidate_rejected:media_provenance_weak_upload_host|media_time_coverage_unverified_for_current_topic",
+        "search_candidate_rejected:media_time_coverage_unverified_for_current_topic",
         "source_backed_chart_pack_selected"
       ],
       "requirements": {
@@ -709,6 +406,84 @@
       },
       "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
       "warnings": []
+    },
+    "media_diversification_audit": {
+      "asset_count": 3,
+      "audit_status": "PASS",
+      "audited_assets": [
+        {
+          "asset_id": "primary",
+          "candidate_content_audit": {
+            "audit_status": "PASS",
+            "blockers": [],
+            "latest_detected_year": 2026,
+            "llm_review_recommended": false,
+            "requirements": {
+              "as_of_year": 2026,
+              "expected_direction": "up",
+              "expected_metric": "oil_volatility",
+              "minimum_end_year": 2025,
+              "requires_current_coverage": true
+            },
+            "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+            "warnings": []
+          },
+          "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+          "latest_observation_date": "2026-06-29",
+          "latest_observation_year": 2026,
+          "media_class": "data_chart",
+          "operator_review_required": false,
+          "provenance_status": "source_backed_generated_from_public_data",
+          "rights_status": "source_backed_generated_visual_cc_owned",
+          "source_domain": "fred.stlouisfed.org",
+          "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+          "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+          "why_selected": "Primary source-backed chart with current WTI endpoint and realized-volatility context for the article thesis."
+        },
+        {
+          "asset_id": "recent_price",
+          "candidate_content_audit": null,
+          "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+          "latest_observation_date": "2026-06-29",
+          "latest_observation_year": 2026,
+          "media_class": "data_chart",
+          "operator_review_required": false,
+          "provenance_status": "source_backed_generated_from_public_data",
+          "rights_status": "source_backed_generated_visual_cc_owned",
+          "source_domain": "fred.stlouisfed.org",
+          "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+          "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+          "why_selected": "Supporting chart gives a narrower recent-price view so platforms are not repeating the same volatility chart only."
+        },
+        {
+          "asset_id": "hormuz_context",
+          "candidate_content_audit": null,
+          "image_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+          "latest_observation_date": "2026-06-29",
+          "latest_observation_year": 2026,
+          "media_class": "map_or_geography",
+          "operator_review_required": false,
+          "provenance_status": "capital_chronicle_generated_schematic_from_official_eia_context",
+          "rights_status": "source_backed_generated_visual_cc_owned",
+          "source_domain": "eia.gov",
+          "source_label": "EIA Strait of Hormuz oil chokepoint context",
+          "source_page_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+          "why_selected": "Adds a contextual geopolitics/map visual so the article is not chart-only and the oil-volatility thesis has a supply-risk frame."
+        }
+      ],
+      "auto_publication_safe": true,
+      "blockers": [],
+      "expected_min_assets": 3,
+      "media_classes": [
+        "data_chart",
+        "data_chart",
+        "map_or_geography"
+      ],
+      "minimum_allowed_assets": 3,
+      "replacement_notes": [],
+      "retrieval_audit_timestamp": "2026-07-08T05:46:55Z",
+      "review_items": [],
+      "schema_version": "media_diversification_audit_v6.0"
     },
     "media_readiness_by_platform": {
       "discord": false,
@@ -723,10 +498,10 @@
     "media_warnings": [
       "chart_source_csv_missing"
     ],
-    "news_image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
+    "news_image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
     "news_image_public_url": null,
     "news_image_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-    "news_image_source_query": "Crude Awakenings: How Spiking Oil Volatility Amplifies US Recession Risks",
+    "news_image_source_query": "Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard",
     "news_image_source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
     "primary_chart_path": null,
     "primary_chart_public_url": null,
@@ -735,19 +510,25 @@
       "discord": null,
       "facebook": null,
       "instagram": null,
-      "linkedin": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
-      "substack": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
-      "telegram": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
+      "linkedin": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
+      "substack": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
+      "telegram": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
       "threads": null,
-      "x": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png"
+      "x": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png"
     }
   },
-  "pipeline_status": "DISPATCH_COMPLETE",
-  "platform_variant_packet_id": "variant_packet_a878450ba5f7",
-  "public_image_url": "https://substackcdn.com/image/fetch/$s_!TkqE!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png",
-  "run_id": "v6_pipeline_d49f6e14a856",
-  "tier1_editorial_approved": false,
-  "timestamp": "2026-07-07T18:25:28Z",
-  "timestamp_gmt7": "2026-07-08T01:25:28+07:00",
-  "variant_status": "VARIANT_READY"
+  "per_platform_qa_status": {
+    "discord": "NOT_LIVE_RUN_THIS_TASK",
+    "facebook": "NOT_LIVE_RUN_THIS_TASK",
+    "instagram": "NOT_LIVE_RUN_THIS_TASK",
+    "linkedin": "NOT_LIVE_RUN_THIS_TASK: native image proof path preserved; new candidate requires live readback before product acceptance.",
+    "substack": "NOT_LIVE_RUN_THIS_TASK: prior visual placement proof preserved; new candidate has 3 markers for in-body upload.",
+    "telegram": "NOT_LIVE_RUN_THIS_TASK",
+    "threads": "NOT_LIVE_RUN_THIS_TASK",
+    "x": "NOT_LIVE_RUN_THIS_TASK"
+  },
+  "pipeline_status": "FINAL_CANDIDATE_LOCAL_QA_READY",
+  "platform_variant_packet_id": "variant_packet_817665e5bba5",
+  "run_id": "local_static_final_candidate_2026_07_08",
+  "tier1_editorial_approved": true
 }

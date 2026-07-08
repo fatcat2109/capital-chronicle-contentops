@@ -1,0 +1,78 @@
+{
+  "asset_count": 3,
+  "audit_status": "PASS",
+  "audited_assets": [
+    {
+      "asset_id": "primary",
+      "candidate_content_audit": {
+        "audit_status": "PASS",
+        "blockers": [],
+        "latest_detected_year": 2026,
+        "llm_review_recommended": false,
+        "requirements": {
+          "as_of_year": 2026,
+          "expected_direction": "up",
+          "expected_metric": "oil_volatility",
+          "minimum_end_year": 2025,
+          "requires_current_coverage": true
+        },
+        "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+        "warnings": []
+      },
+      "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "latest_observation_date": "2026-06-29",
+      "latest_observation_year": 2026,
+      "media_class": "data_chart",
+      "operator_review_required": false,
+      "provenance_status": "source_backed_generated_from_public_data",
+      "rights_status": "source_backed_generated_visual_cc_owned",
+      "source_domain": "fred.stlouisfed.org",
+      "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+      "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "why_selected": "Primary source-backed chart with current WTI endpoint and realized-volatility context for the article thesis."
+    },
+    {
+      "asset_id": "recent_price",
+      "candidate_content_audit": null,
+      "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "latest_observation_date": "2026-06-29",
+      "latest_observation_year": 2026,
+      "media_class": "data_chart",
+      "operator_review_required": false,
+      "provenance_status": "source_backed_generated_from_public_data",
+      "rights_status": "source_backed_generated_visual_cc_owned",
+      "source_domain": "fred.stlouisfed.org",
+      "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+      "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "why_selected": "Supporting chart gives a narrower recent-price view so platforms are not repeating the same volatility chart only."
+    },
+    {
+      "asset_id": "hormuz_context",
+      "candidate_content_audit": null,
+      "image_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+      "latest_observation_date": "2026-06-29",
+      "latest_observation_year": 2026,
+      "media_class": "map_or_geography",
+      "operator_review_required": false,
+      "provenance_status": "capital_chronicle_generated_schematic_from_official_eia_context",
+      "rights_status": "source_backed_generated_visual_cc_owned",
+      "source_domain": "eia.gov",
+      "source_label": "EIA Strait of Hormuz oil chokepoint context",
+      "source_page_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+      "why_selected": "Adds a contextual geopolitics/map visual so the article is not chart-only and the oil-volatility thesis has a supply-risk frame."
+    }
+  ],
+  "auto_publication_safe": true,
+  "blockers": [],
+  "expected_min_assets": 3,
+  "media_classes": [
+    "data_chart",
+    "data_chart",
+    "map_or_geography"
+  ],
+  "minimum_allowed_assets": 3,
+  "replacement_notes": [],
+  "retrieval_audit_timestamp": "2026-07-08T05:46:55Z",
+  "review_items": [],
+  "schema_version": "media_diversification_audit_v6.0"
+}

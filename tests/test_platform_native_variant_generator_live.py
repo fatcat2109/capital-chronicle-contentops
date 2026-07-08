@@ -149,16 +149,25 @@ def test_stale_search_visual_is_replaced_with_source_backed_pack(mock_search_dow
     }), encoding="utf-8")
     current_primary = tmp_path / "wti_current.png"
     current_secondary = tmp_path / "wti_recent.png"
+    current_context = tmp_path / "hormuz_context.png"
     current_primary.write_bytes(b"\x89PNG\r\n\x1a\n" + b"1" * 4096)
     current_secondary.write_bytes(b"\x89PNG\r\n\x1a\n" + b"2" * 4096)
+    current_context.write_bytes(b"\x89PNG\r\n\x1a\n" + b"3" * 4096)
     mock_search_download.return_value = (str(stale_path), "https://upload.wikimedia.org/stale-wti.png")
     mock_source_pack.return_value = [
         {
             "asset_id": "primary",
+            "media_class": "data_chart",
             "local_path": str(current_primary),
             "public_url": None,
             "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
             "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+            "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+            "source_domain": "fred.stlouisfed.org",
+            "rights_status": "source_backed_generated_visual_cc_owned",
+            "provenance_status": "source_backed_generated_from_public_data",
+            "operator_review_required": False,
+            "why_selected": "Primary source-backed current WTI volatility chart.",
             "visual_metric": "oil_volatility wti crude oil current price realized volatility",
             "latest_observation_year": 2026,
             "recent_direction": "up",
@@ -166,14 +175,40 @@ def test_stale_search_visual_is_replaced_with_source_backed_pack(mock_search_dow
         },
         {
             "asset_id": "recent_price",
+            "media_class": "data_chart",
             "local_path": str(current_secondary),
             "public_url": None,
             "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
             "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+            "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+            "source_domain": "fred.stlouisfed.org",
+            "rights_status": "source_backed_generated_visual_cc_owned",
+            "provenance_status": "source_backed_generated_from_public_data",
+            "operator_review_required": False,
+            "why_selected": "Supporting current WTI recent price chart.",
             "visual_metric": "wti crude oil current recent price path",
             "latest_observation_year": 2026,
             "recent_direction": "up",
             "caption": "Recent WTI price path through 2026-07-07.",
+        },
+        {
+            "asset_id": "hormuz_context",
+            "media_class": "map_or_geography",
+            "local_path": str(current_context),
+            "public_url": None,
+            "canonical_source_label": "EIA Strait of Hormuz oil chokepoint context",
+            "source_label": "U.S. Energy Information Administration",
+            "source_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+            "source_page_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+            "source_domain": "eia.gov",
+            "rights_status": "source_backed_generated_visual_cc_owned",
+            "provenance_status": "capital_chronicle_generated_schematic_from_official_eia_context",
+            "operator_review_required": False,
+            "why_selected": "Contextual geopolitics visual for the oil-volatility supply-risk channel.",
+            "visual_metric": "oil geopolitics strait hormuz chokepoint energy supply risk",
+            "latest_observation_year": 2026,
+            "recent_direction": "contextual",
+            "caption": "Strait of Hormuz oil chokepoint context.",
         },
     ]
     body = " ".join(["source data oil volatility reported 3.5% across 12 months and 75 bps context."] * 220)
@@ -194,6 +229,7 @@ def test_stale_search_visual_is_replaced_with_source_backed_pack(mock_search_dow
             "visual_slots": [
                 {"asset_id": "primary"},
                 {"asset_id": "recent_price"},
+                {"asset_id": "hormuz_context", "placement_after_section": "Macro setup"},
             ],
         },
     }), encoding="utf-8")
@@ -204,7 +240,9 @@ def test_stale_search_visual_is_replaced_with_source_backed_pack(mock_search_dow
     audit = packet["media_manifest"]["media_content_audit"]
     assert audit["audit_status"] == "PASS"
     assert "source_backed_chart_pack_selected" in audit["replacement_notes"]
+    assert packet["media_manifest"]["media_diversification_audit"]["audit_status"] == "PASS"
     assert "[[VISUAL:primary]]" in packet["variants"]["substack"]
     assert "[[VISUAL:recent_price]]" in packet["variants"]["substack"]
+    assert "[[VISUAL:hormuz_context]]" in packet["variants"]["substack"]
     assert "upload.wikimedia.org" not in packet["variants"]["substack"]
     assert packet["media_manifest"]["news_image_source_label"].startswith("FRED series DCOILWTICO")

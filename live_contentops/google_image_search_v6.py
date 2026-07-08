@@ -13,6 +13,7 @@ import os
 import re
 import urllib.parse
 import urllib.request
+import time
 from pathlib import Path
 
 DOWNLOAD_DIR = Path("docs/automation/V6_MEDIA_SYSTEM/downloads")
@@ -349,15 +350,30 @@ def execute_google_image_search_and_download(query: str, custom_filename: str | 
         candidate_meta_path = candidate_path.with_suffix(".json")
         if download_image(url, candidate_path):
             print(f"[Info] Successfully downloaded Google Image to: {candidate_path}")
+            parsed = urllib.parse.urlparse(url)
+            source_domain = parsed.netloc.lower().removeprefix("www.")
+            image_search_metadata = {
+                "url": url,
+                "image_url": url,
+                "source_page_url": url,
+                "source_url": url,
+                "source_domain": source_domain,
+                "query": query,
+                "source_label": source_domain,
+                "canonical_source_label": source_domain,
+                "recency_days": recency_days,
+                "time_filter": _google_recency_tbs(recency_days) or "none",
+                "retrieval_timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+                "retrieval_method": "google_image_or_public_fallback",
+                "rights_status": "operator_review_required_search_image",
+                "provenance_status": "search_discovered_requires_source_page_rights_review",
+                "operator_review_required": True,
+                "why_selected": "Search-discovered candidate downloaded for editorial review; not auto-approved without source-page rights and relevance review.",
+                "media_class": "operator_review_required",
+            }
             try:
                 with open(candidate_meta_path, "w", encoding="utf-8") as f:
-                    json.dump({
-                        "url": url,
-                        "query": query,
-                        "source_label": urllib.parse.urlparse(url).netloc,
-                        "recency_days": recency_days,
-                        "retrieval_method": "google_image_or_public_fallback",
-                    }, f, indent=2, sort_keys=True)
+                    json.dump(image_search_metadata, f, indent=2, sort_keys=True)
             except Exception:
                 pass
             return str(candidate_path), url

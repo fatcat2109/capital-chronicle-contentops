@@ -1,16 +1,8 @@
 # TELEGRAM NATIVE VARIANT
 - **Status**: VARIANT_READY
-- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_febb4cd8863f.png
-- **Timestamp**: 2026-07-08 01:25:28
+- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_99c8292edb1a.png
+- **Timestamp**: 2026-07-08 12:46:55
 
-🚨 **Capital Chronicle Briefing: Decoding Oil Volatility & Recession Risks**
+Capital Chronicle: Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard
 
-How much weight should macro observers place on the recent energy market turbulence? Our editorial desk has analyzed 10,191 daily observations of the WTI crude series through June 29, 2026, to separate signal from noise.
-
-**Key Data Points:**
-• WTI spot price reached $71.87/bbl on June 29, 2026, up 7.8% from $66.66 roughly 90 days prior.
-• The 30-day realized volatility proxy (absolute daily moves) averaged 2.8%, representing a 50.7% surge over the 90-day period.
-
-**The Takeaway:** While higher volatility squeezes corporate margins and complicates inflation expectations, it does not automatically trigger a recession. We break down the transmission channels and explain why the energy lens must be analyzed separately from yield curves.
-
-Read the full, source-backed analysis on our platform.
+Capital Chronicle is treating the latest rise in oil volatility as an evidence problem before it is a market narrative. The source-backed WTI series used for this briefing runs from 1986-01-02 through 2026-06-29, with 10191 daily observations in the local calculation set. The latest FRED observation places WTI at $71.87 per barrel on 2026-06-29, compared with $66.66 roughly 90 days earlier on 2026-02-19. That comparison produces a 7.8% move across about 90 days, while the one-year comparison from $68.73 on 2025-06-12 produces a 4.6% change. The visual evidence is therefore not a stale historical screenshot: it ends in 2026 and is aligned with the article thesis. The visual review labels the recent price direction as up and the realized-volatility direction as up. The latest 30 days volatility proxy averaged 2.8% absolute daily moves, with

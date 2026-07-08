@@ -22,6 +22,12 @@ RECOMMENDED_NEXT_TASK = "TASK_CONTENTOPS_V6_FINAL_RELEASE_READINESS_EVIDENCE_IND
 MIN_CANONICAL_ARTICLE_WORDS = 2000
 RAW_URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
 WORD_RE = re.compile(r"\b[\w'-]+\b")
+EIA_WTI_SOURCE_URL = "https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm"
+EIA_HORMUZ_CONTEXT_URL = "https://www.eia.gov/todayinenergy/detail.php?id=65504"
+FED_MONETARY_POLICY_URL = "https://www.federalreserve.gov/monetarypolicy.htm"
+FED_H15_URL = "https://www.federalreserve.gov/releases/h15/"
+TREASURY_RATE_STATISTICS_URL = "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+BLS_CPI_URL = "https://www.bls.gov/cpi/"
 
 FINANCIAL_ADVICE_TERMS = (
     "buy", "sell", "hold", "price target", "target price", "entry", "entries", "exit", "exits",
@@ -199,7 +205,7 @@ def _build_wti_evidence(inputs: EngineInput) -> dict[str, Any] | None:
         "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
         "source_url": WTI_FRED_SERIES_URL,
         "csv_url": WTI_FRED_CSV_URL,
-        "underlying_source_url": "https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm",
+        "underlying_source_url": EIA_WTI_SOURCE_URL,
         "latest_date": latest_date.isoformat(),
         "latest_year": latest_date.year,
         "latest_value": latest_value,
@@ -235,7 +241,7 @@ def _source_evidence_context(evidence: dict[str, Any] | None) -> str:
             f"- Volatility proxy: latest 30 days averaged {_fmt_num(evidence['latest_30d_abs_move_pct'])}% absolute daily moves; "
             f"90-day change in that proxy was {_fmt_num(evidence['vol_change_90d_pct'])}%.\n"
             f"- Coverage: {evidence['observation_count']} daily observations from {evidence['coverage_start']} through {evidence['coverage_end']}.\n"
-            f"- Direction labels for media audit: price={evidence['recent_price_direction']}; volatility={evidence['recent_volatility_direction']}."
+            f"- Direction labels for visual review: price={evidence['recent_price_direction']}; volatility={evidence['recent_volatility_direction']}."
         )
     return json.dumps(evidence, sort_keys=True)
 
@@ -258,7 +264,7 @@ def _source_trail_from_evidence(evidence: dict[str, Any] | None, fallback_urls: 
                 "publisher_or_origin": "FRED CSV derived calculation",
                 "url": str(evidence["csv_url"]),
                 "claim_supported": (
-                    f"ContentOps derived the 90 days price comparison and 30 days realized-volatility proxy "
+                    f"The article derives the 90-day price comparison and 30-day realized-volatility proxy "
                     f"from {evidence['observation_count']} daily observations through {evidence['coverage_end']}."
                 ),
             },
@@ -268,8 +274,88 @@ def _source_trail_from_evidence(evidence: dict[str, Any] | None, fallback_urls: 
                 "url": str(evidence["underlying_source_url"]),
                 "claim_supported": "The FRED series identifies EIA as the underlying source for WTI crude oil spot-price observations.",
             },
+            {
+                "label": "EIA Strait of Hormuz oil chokepoint context",
+                "publisher_or_origin": "U.S. Energy Information Administration",
+                "url": EIA_HORMUZ_CONTEXT_URL,
+                "claim_supported": "Supports the geopolitical supply-risk context for explaining why oil volatility can matter beyond a price chart.",
+            },
+            {
+                "label": "Federal Reserve monetary policy context",
+                "publisher_or_origin": "Federal Reserve Board",
+                "url": FED_MONETARY_POLICY_URL,
+                "claim_supported": "Supports the policy-transmission discussion linking energy prices, inflation expectations, employment, and rates.",
+            },
+            {
+                "label": "Federal Reserve H.15 selected interest rates",
+                "publisher_or_origin": "Federal Reserve Board",
+                "url": FED_H15_URL,
+                "claim_supported": "Supports the article's caution that yield-curve and rates evidence should come from rates-specific sources, not from the oil chart.",
+            },
+            {
+                "label": "U.S. Treasury interest-rate statistics",
+                "publisher_or_origin": "U.S. Department of the Treasury",
+                "url": TREASURY_RATE_STATISTICS_URL,
+                "claim_supported": "Supports the rates and yield-context lane used to frame recession-risk monitoring.",
+            },
+            {
+                "label": "BLS Consumer Price Index program",
+                "publisher_or_origin": "U.S. Bureau of Labor Statistics",
+                "url": BLS_CPI_URL,
+                "claim_supported": "Supports the inflation-pass-through watch item when energy volatility is discussed as a macro channel.",
+            },
         ]
     return _source_trail_from_urls(urls)
+
+
+def _source_urls_from_trail(source_trail: list[dict[str, Any]] | None) -> list[str]:
+    return _dedupe_strings([
+        str(item.get("url") or "")
+        for item in (source_trail or [])
+        if isinstance(item, dict) and str(item.get("url") or "").startswith(("http://", "https://"))
+    ])
+
+
+def _reader_safe_public_text(text: str) -> str:
+    replacements = {
+        "ContentOps": "the editorial workflow",
+        "Capital Chronicle database": "Capital Chronicle data layer",
+        "contentops": "editorial workflow",
+        "media audit": "visual review",
+        "Media audit": "Visual review",
+        "visual slot": "visual placement",
+        "visual slots": "visual placements",
+        "provider draft": "draft",
+        "Provider draft": "Draft",
+        "provider": "drafting system",
+        "Provider": "Drafting system",
+        "pipeline": "publishing workflow",
+        "Pipeline": "Publishing workflow",
+        "operator": "reader",
+        "Operator": "Reader",
+        "operators": "readers",
+        "Operators": "Readers",
+        "deterministic": "rules-based",
+        "Deterministic": "Rules-based",
+        "dispatch": "publication",
+        "Dispatch": "Publication",
+    }
+    out = str(text or "")
+    for old, new in replacements.items():
+        out = out.replace(old, new)
+    return out
+
+
+def _derive_target_keyword(inputs: EngineInput, draft_title: str = "") -> str:
+    text = f"{inputs.operator_idea} {inputs.editorial_angle} {draft_title}".lower()
+    if any(term in text for term in ("oil", "wti", "crude", "energy")) and "recession" in text:
+        return "oil volatility recession risk"
+    if "yield" in text and "recession" in text:
+        return "yield curve recession risk"
+    if "inflation" in text and "oil" in text:
+        return "oil inflation macro risk"
+    words = [word for word in re.findall(r"[a-z0-9]+", f"{inputs.operator_idea} {draft_title}".lower()) if len(word) > 3]
+    return " ".join(words[:4]) or "macro risk analysis"
 
 
 def _paragraph(*sentences: str) -> str:
@@ -394,12 +480,32 @@ def _source_backed_longform_article(
                 _paragraph(
                     f"The source-backed number in this article is not a yield-spread estimate; it is the WTI path from ${one_year_price} on {one_year_date} to ${latest_price} on {latest_date}, a {one_year_change}% one-year change.",
                     "That choice keeps unsupported rates data out of the article while still allowing a serious discussion of how energy and rates may interact.",
-                    "When the Capital Chronicle database is connected later, this section can absorb richer yield-curve and credit-spread evidence without rewriting the media audit logic.",
+                    "When the Capital Chronicle data layer is connected later, this section can absorb richer yield-curve and credit-spread evidence without rewriting the visual-review logic.",
                 ),
                 _paragraph(
                     "For now, the structure is deliberately honest.",
                     "The article explains the yield-curve relevance qualitatively, cites WTI quantitatively, and avoids pretending that a missing database has already supplied additional macro series.",
-                    "That is the right behavior for a launch pipeline that must be credible before it becomes richer.",
+                    "That is the right behavior for a launch editorial workflow that must be credible before it becomes richer.",
+                ),
+            ]),
+        },
+        {
+            "title": "Geopolitical Supply Risk: Why a Map Belongs Beside the Charts",
+            "body": "\n\n".join([
+                _paragraph(
+                    "Oil volatility is not only a line-chart problem.",
+                    "A recession-risk article that mentions geopolitics needs at least one contextual visual showing the supply-risk channel rather than repeating price charts alone.",
+                    "For this topic, a Strait of Hormuz context visual is useful because it explains how a geopolitical shock can enter energy prices, shipping expectations, and inflation-sensitive narratives.",
+                ),
+                _paragraph(
+                    "The EIA source trail supports that context while the generated schematic keeps rights risk low.",
+                    "It does not claim a new flow estimate or a live shipping disruption.",
+                    "It shows the geography that makes the oil-volatility channel plausible, then leaves the numerical oil-price claims to the FRED/EIA WTI charts.",
+                ),
+                _paragraph(
+                    "That separation matters for editorial quality.",
+                    "The map helps the reader understand why supply-risk headlines can change the interpretation of oil data, while the charts show what the price and volatility series actually did.",
+                    "Neither visual is asked to do work it cannot support.",
                 ),
             ]),
         },
@@ -449,7 +555,7 @@ def _source_backed_longform_article(
                 _paragraph(
                     "The source trail is intentionally concrete.",
                     "The first source row supports the latest WTI endpoint, the second supports the mechanical calculations used for the 90 days and 30 days comparisons, and the third identifies the underlying petroleum source.",
-                    "That is stronger than a generic note saying a source requires operator review.",
+                    "That is stronger than a generic note saying a source requires manual review.",
                 ),
                 _paragraph(
                     "The grounded web search layer remains useful for article discovery, but it is not allowed to override source fit.",
@@ -458,7 +564,7 @@ def _source_backed_longform_article(
                 ),
                 _paragraph(
                     "This creates a clean upgrade path.",
-                    "When the Capital Chronicle database supplies richer recession, yield-curve, shipping, or credit data, each new source should enter the same structure: specific claim, source label, URL, latest observation, and visual slot if it supports a chart.",
+                    "When the Capital Chronicle data layer supplies richer recession, yield-curve, shipping, or credit data, each new source should enter the same structure: specific claim, source label, URL, latest observation, and visual placement if it supports a chart.",
                     "The writer should not need to loosen quality gates to become more data-rich.",
                 ),
             ]),
@@ -478,9 +584,9 @@ def _source_backed_longform_article(
                 ),
                 _paragraph(
                     "This section also gives editors a practical test for future runs.",
-                    "If a later provider draft claims a stronger recession conclusion, it should bring matching source evidence from labor, credit, yields, or inflation data.",
+                    "If a later draft claims a stronger recession conclusion, it should bring matching source evidence from labor, credit, yields, or inflation data.",
                     "If that evidence is missing, the writer should keep the conclusion bounded and let the source trail show exactly which claims are supported.",
-                    "The pipeline should reward that discipline because it is what separates a serious editorial article from a social post stretched into long form.",
+                    "The publishing workflow should reward that discipline because it is what separates a serious editorial article from a social post stretched into long form.",
                 ),
             ]),
         },
@@ -513,17 +619,23 @@ def _source_backed_longform_article(
             "But the responsible conclusion is a workflow conclusion: keep the energy channel in view, compare it with yield-curve and credit evidence as those sources become available, and preserve a strict separation between reported data and interpretation.",
         ),
         _paragraph(
-            "That is the standard this pipeline should enforce before dispatch.",
+            "That is the standard this publishing workflow should enforce before publication.",
             "A publishable Capital Chronicle article must be long enough to carry context, specific enough to show its evidence, and visual enough to let readers inspect the data behind the thesis.",
             "This repaired article meets that structure while staying inside educational analysis and avoiding directional recommendations.",
         ),
         _paragraph(
             "The next improvement is not a looser article gate; it is deeper source coverage.",
-            "Once the Capital Chronicle database is connected, this same structure should incorporate labor, credit, yield-curve, and inflation series beside the oil channel.",
+            "Once the Capital Chronicle data layer is connected, this same structure should incorporate labor, credit, yield-curve, and inflation series beside the oil channel.",
             "Until then, the article should remain explicit about what the WTI evidence can and cannot support.",
         ),
     ])
 
+    intro = _reader_safe_public_text(intro)
+    sections = [
+        {**section, "body": _reader_safe_public_text(str(section.get("body") or ""))}
+        for section in sections
+    ]
+    conclusion = _reader_safe_public_text(conclusion)
     source_trail = _source_trail_from_evidence(evidence, citations)
     source_urls = _dedupe_strings([str(item.get("url") or "") for item in source_trail])
     return {
@@ -543,7 +655,8 @@ def _source_backed_longform_article(
             f"[CHART: Recent WTI price path comparing {prior_date}, {one_year_date}, and {latest_date}]",
         ],
         "media_callouts": [
-            f"[IMAGE: Source-backed FRED/EIA WTI chart ending {latest_date}, aligned with the rising oil-volatility thesis]"
+            f"[IMAGE: Source-backed FRED/EIA WTI chart ending {latest_date}, aligned with the rising oil-volatility thesis]",
+            "[IMAGE: EIA-sourced Strait of Hormuz context visual to explain the geopolitical supply-risk channel]",
         ],
         "visual_slots": [
             {
@@ -565,6 +678,16 @@ def _source_backed_longform_article(
                 "caption_guidance": f"Explain the move from ${prior_price} on {prior_date} to ${latest_price} on {latest_date} and the {price_change}% 90 days comparison.",
                 "source_requirement": "Same FRED/EIA source as the primary chart, with latest observation visible.",
                 "audit_questions": "Does this second visual add recent-path evidence instead of repeating the primary volatility chart?",
+            },
+            {
+                "asset_id": "hormuz_context",
+                "placement_after_section": "Geopolitical Supply Risk: Why a Map Belongs Beside the Charts",
+                "visual_kind": "map_or_geography",
+                "editorial_purpose": "Add a contextual geopolitical visual so the oil-volatility article is not chart-only.",
+                "data_requirement": "Official EIA Strait of Hormuz oil chokepoint context, clearly labeled as a schematic/context visual.",
+                "caption_guidance": "Name the Strait of Hormuz, EIA source reference, and explain that the visual frames supply-risk transmission rather than price direction.",
+                "source_requirement": "U.S. Energy Information Administration Today in Energy or equivalent official energy-source reference.",
+                "audit_questions": "Does the contextual visual support the geopolitics angle without implying unsupported live disruption data?",
             },
         ],
     }
@@ -940,7 +1063,7 @@ def run_article_engine(
                     f"- 2,000 to 2,400 words across intro, 5-8 named sections, and conclusion.\n"
                     f"- Short, readable paragraphs; no wall-of-text blocks.\n"
                     f"- Use at least three concrete numeric references from the structured source evidence or supplied context; never invent data.\n"
-                    f"- Include two to three visual_slots that specify where charts/images should appear in the body.\n"
+                    f"- Default to three visual_slots for long-form Substack: one primary chart, one contextual photo/map/official visual, and one supporting chart/map; use two only with an explicit reason.\n"
                     f"- Each visual slot must state its editorial purpose, data requirement, caption guidance, source requirement, and audit questions.\n"
                     f"- Do not put raw URLs in the public article body. Put URLs only in source_trail.\n"
                     f"- Separate reported evidence from interpretation and uncertainty.\n"
@@ -1089,6 +1212,13 @@ def run_article_engine(
                         warnings.append("article_deterministic_recovery_blocked:" + "|".join(best_failure or recovery_failures or repaired_failures or ["provider_quality_recovery"]))
 
 
+    source_evidence_for_cleanup = locals().get("source_evidence")
+    final_source_trail = locals().get("source_trail", _source_trail_from_urls(citations))
+    if source_evidence_for_cleanup:
+        final_source_trail = _source_trail_from_evidence(source_evidence_for_cleanup, [])
+    citations = _source_urls_from_trail(final_source_trail) or citations
+    source_note_refs = ", ".join(citations if citations else inputs.source_context)
+
     draft = {
         "title": title,
         "subtitle": subtitle,
@@ -1100,13 +1230,13 @@ def run_article_engine(
         "sections": sections,
         "conclusion": conclusion,
         "source_notes": f"Sources referenced in structured source_trail only. Optional notes: {inputs.source_notes}",
-        "source_notes_for_operator": f"Raw source refs for operator verification: {', '.join(citations if citations else inputs.source_context)}",
-        "assumptions": "Assumes data sufficiency and operator verification under V6 standards.",
+        "source_notes_for_operator": f"Structured source refs for editorial verification: {source_note_refs}",
+        "assumptions": "Assumes data sufficiency and editorial verification under V6 standards.",
         "uncertainty_notes": "Prior cycles may not predict future macro distributions.",
         "no_financial_advice_check": True,
         "no_fake_data_check": True,
         "citations": citations if citations else ["UNVERIFIED_SAMPLE_SOURCE_REF"],
-        "source_trail": locals().get("source_trail", _source_trail_from_urls(citations)),
+        "source_trail": final_source_trail,
         "chart_callouts": locals().get("chart_callouts", ["[CHART: relevant macro series from approved local data]"]),
         "media_callouts": locals().get("media_callouts", ["[IMAGE: relevant news/photo visual with operator-reviewed rights]"]),
         "visual_slots": locals().get("visual_slots", visual_slots),
@@ -1135,10 +1265,10 @@ def run_article_engine(
     }
 
     # Editorial/SEO packet
-    target_keyword = inputs.operator_idea.split()[-1].lower() if inputs.operator_idea.split() else "macro"
+    target_keyword = _derive_target_keyword(inputs, title)
     seo = {
         "target_keyword": target_keyword,
-        "secondary_keywords": ["macro calendar", "educational briefing", "volatility review"],
+        "secondary_keywords": ["WTI crude oil", "recession risk", "energy geopolitics", "yield curve context"],
         "title_alternatives": [f"Chronicle Watchlist: {inputs.operator_idea}", f"Understanding {inputs.operator_idea}"],
         "meta_description": meta_description,
     }

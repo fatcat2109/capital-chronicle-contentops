@@ -742,6 +742,7 @@ def run_live_production_pipeline(
         "dispatch_platform_scope": list(selected_platforms),
         "dispatch_idempotency_control": "platform_scope_allowlist",
         "media_manifest": media_manifest,
+        "media_diversification_audit": media_manifest.get("media_diversification_audit") if isinstance(media_manifest, dict) else None,
         "editorial_acceptance_status": editorial_quality_audit["classification"],
         "tier1_editorial_approved": editorial_quality_audit["tier1_editorial_approved"],
         "editorial_quality_audit": editorial_quality_audit,
@@ -750,7 +751,19 @@ def run_live_production_pipeline(
     article_failures = validate_article_quality(article_packet.get("canonical_article_draft", {})) if live_run else []
     variant_failures = validate_platform_variants(variants, variant_threads, live_run=live_run) if live_run else []
     variant_failures.extend(variant_packet.get("validation_failures") or [])
-    raw_blockers = list(article_packet.get("blockers") or []) + article_failures + variant_failures
+    qa_gate_failures: list[str] = []
+    if dispatch_live and editorial_quality_audit["classification"] != "EDITORIAL_APPROVED":
+        qa_gate_failures.append(f"editorial_quality_gate:{editorial_quality_audit['classification']}")
+    media_diversification_audit = media_manifest.get("media_diversification_audit") if isinstance(media_manifest, dict) else None
+    if dispatch_live and isinstance(media_diversification_audit, dict):
+        if media_diversification_audit.get("audit_status") == "FAIL":
+            qa_gate_failures.append(
+                "media_diversification_gate_failed:"
+                + "|".join(media_diversification_audit.get("blockers") or ["unknown"])
+            )
+        if not media_diversification_audit.get("auto_publication_safe", False):
+            qa_gate_failures.append("media_rights_operator_review_required")
+    raw_blockers = list(article_packet.get("blockers") or []) + article_failures + variant_failures + qa_gate_failures
     blockers = list(dict.fromkeys(raw_blockers))  # de-dupe while preserving order
     if os.environ.get("CONTENTOPS_BYPASS_QUALITY_GATES") == "true":
         print(f"[Warning] Quality blockers bypassed for live testing: {blockers}")

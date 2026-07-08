@@ -9,6 +9,7 @@ from live_contentops.ai_research_canonical_article_engine_v6 import (
     run_article_engine,
     validate_article_quality,
 )
+from live_contentops.editorial_quality_audit_v6 import audit_editorial_quality_packet
 
 
 def _inputs() -> EngineInput:
@@ -164,7 +165,9 @@ def test_oil_provider_near_miss_uses_source_backed_longform_repair(monkeypatch):
     assert validate_article_quality(draft) == []
     assert draft["body_word_count"] >= 2000
     assert len(draft["sections"]) >= 5
-    assert len(draft["source_trail"]) >= 3
-    assert len(draft["visual_slots"]) >= 2
+    assert len(draft["source_trail"]) >= 5
+    assert len(draft["visual_slots"]) >= 3
     assert "operator_review_required" not in json.dumps(draft["source_trail"])
     assert "DCOILWTICO" in json.dumps(draft["source_trail"])
+    assert packet["seo_packet"]["target_keyword"] == "oil volatility recession risk"
+    assert audit_editorial_quality_packet(packet, topic=inputs.operator_idea)["classification"] == "EDITORIAL_APPROVED"

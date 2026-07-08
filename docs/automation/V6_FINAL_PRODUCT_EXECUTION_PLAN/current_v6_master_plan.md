@@ -50,10 +50,15 @@ LLMs may assist with research synthesis, editorial drafting, SEO refinement, pla
 
 ContentOps must choose post media based on source class, not convenience:
 
-1. **News/current-event topics**: Use the active Google Image Search and Downloader pipeline (`google_image_search_v6.py`). It searches Google Images based on the post title and caches the image locally for distribution.
+1. **News/current-event topics**: Use search-like image sources as discovery only unless provenance is complete. Google/Commons candidates must persist query, recency/time filter, source page URL, image URL, source domain, retrieval timestamp, rights/provenance status, why selected, and operator-review requirement before they can be considered for public use.
 2. **Capital Chronicle Internal alpha / analysis-report topics**: Prefer built-in chart/card media generated from Capital Chronicle raw data. A dedicated chart rendering pipeline will be built specifically for this AFTER the Capital Chronicle project itself is completed. Until then, these will fall back to using news Google Image search or candidate metadata.
-3. **Fallback external media** is allowed only as reviewed candidate metadata with operator approval, rights notes, alt text, source attribution, and stable media hash participation in the media manifest.
-4. **Visual social lanes** such as Instagram, Threads, Facebook Page, TikTok, LinkedIn, and X must receive platform-specific media fit notes before approval. Media fit is local review evidence only, not platform upload readiness.
+3. **Source-backed generated media** is the preferred auto-public path when search candidates are stale, weakly sourced, or rights-unclear. Long-form Substack defaults to 3 visuals: at least one data chart, at least one contextual image/map/official visual, and one supporting chart/map, with explicit two-asset exceptions only when appropriate.
+4. **Fallback external media** is allowed only as reviewed candidate metadata with operator approval, rights notes, alt text, source attribution, and stable media hash participation in the media manifest.
+5. **Visual social lanes** such as Instagram, Threads, Facebook Page, LinkedIn, and X must receive platform-specific media fit notes before approval. Media fit is local review evidence only, not platform upload readiness.
+
+## Editorial Scheduling Policy
+
+Headline ingestion sidecars are catalyst context only. They may rank urgency, source needs, media needs, and cross-platform fit, but they are not market price truth, macro-print truth, source clearance, or trading input. The daily scheduler targets 5-6 slots/day, prioritizing fresh official releases and high-impact current macro/geopolitical stories before evergreen explainers or deep research.
 
 ## Deterministic Validators and Approval Boundaries
 

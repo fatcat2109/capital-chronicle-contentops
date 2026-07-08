@@ -1,12 +1,12 @@
 # LINKEDIN NATIVE VARIANT
 - **Status**: VARIANT_READY
-- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_febb4cd8863f.png
-- **Timestamp**: 2026-07-08 01:25:28
+- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_99c8292edb1a.png
+- **Timestamp**: 2026-07-08 12:46:55
 
-Is the recent spike in oil volatility a true recession signal, or is it noise? At Capital Chronicle, we treat rising energy volatility as an evidence problem before a market narrative.
+Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard
 
-Our latest macro briefing analyzes the West Texas Intermediate (WTI) crude series through June 29, 2026 (spanning 10,191 daily observations). The data shows WTI at $71.87 per barrel, marking a 7.8% increase from $66.66 roughly 90 days prior. More importantly, realized volatility has surged—with the 30-day absolute daily move proxy averaging 2.8%, representing a 50.7% jump over the same 90-day window.
+A source-led Capital Chronicle briefing on WTI, recession-risk interpretation, yield curves, and evidence discipline
 
-While energy volatility widens the distribution of macro outcomes by squeezing household real income and complicating inflation paths, it is not a standalone recession guarantee. Read our full, source-disciplined breakdown of how the energy lens differs from yield-curve indicators, and what these shifting channels mean for corporate operating assumptions.
+Capital Chronicle is treating the latest rise in oil volatility as an evidence problem before it is a market narrative. The source-backed WTI series used for this briefing runs from 1986-01-02 through 2026-06-29, with 10191 daily observations in the local calculation set. The latest FRED observation places WTI at $71.87 per barrel on 2026-06-29, compared with $66.66 roughly 90 days earlier on 2026-02-19. That comparison produces a 7.8% move across about 90 days, while the one-year comparison from $68.73 on 2025-06-12 produces a 4.6% change. The visual evidence is therefore not a stale historical screenshot: it ends in 2026 and is aligned with the article thesis. The visual review labels the recent price direction as up and the realized-volatility direction as up. The latest 30 days volatility proxy averaged 2.8% absolute daily moves, with a 50.7% change in that proxy over about 90 days.
 
-Capital Chronicle frames this as educational context, not investment advice.
+Capital Chronicle frames this as educational macro context, not investment advice.

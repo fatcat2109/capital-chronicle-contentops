@@ -1,0 +1,257 @@
+{
+  "article": {
+    "citation_count": 8,
+    "numeric_evidence_count_minimum": 3,
+    "section_count": 9,
+    "seo_packet": {
+      "meta_description": "Capital Chronicle maps current WTI oil volatility, recession-risk signals, source limits, and visual evidence without directional investment calls.",
+      "secondary_keywords": [
+        "WTI crude oil",
+        "recession risk",
+        "energy geopolitics",
+        "yield curve context"
+      ],
+      "target_keyword": "oil volatility recession risk",
+      "title_alternatives": [
+        "Crude Awakenings: Oil Volatility and Recession Risk",
+        "Oil Volatility, Hormuz Risk, and the Recession Dashboard"
+      ]
+    },
+    "source_trail_count": 8,
+    "title": "Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard",
+    "visual_slot_count": 3,
+    "word_count": 2174
+  },
+  "editorial_acceptance_status": "EDITORIAL_APPROVED",
+  "editorial_blockers": [],
+  "editorial_review_items": [],
+  "final_commit_sha": "reported_in_final_response_after_push",
+  "live_dispatch_not_run_reason": "No headline sidecars were present in the clean checkout and rerunning Crude Awakenings publicly would create duplicate public posts; local editorial/media/scheduler gates were generated instead.",
+  "live_dispatch_run_performed": false,
+  "media": {
+    "asset_count": 3,
+    "audit_status": "PASS",
+    "audited_assets": [
+      {
+        "asset_id": "primary",
+        "candidate_content_audit": {
+          "audit_status": "PASS",
+          "blockers": [],
+          "latest_detected_year": 2026,
+          "llm_review_recommended": false,
+          "requirements": {
+            "as_of_year": 2026,
+            "expected_direction": "up",
+            "expected_metric": "oil_volatility",
+            "minimum_end_year": 2025,
+            "requires_current_coverage": true
+          },
+          "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+          "warnings": []
+        },
+        "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "latest_observation_date": "2026-06-29",
+        "latest_observation_year": 2026,
+        "media_class": "data_chart",
+        "operator_review_required": false,
+        "provenance_status": "source_backed_generated_from_public_data",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "source_domain": "fred.stlouisfed.org",
+        "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "why_selected": "Primary source-backed chart with current WTI endpoint and realized-volatility context for the article thesis."
+      },
+      {
+        "asset_id": "recent_price",
+        "candidate_content_audit": null,
+        "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "latest_observation_date": "2026-06-29",
+        "latest_observation_year": 2026,
+        "media_class": "data_chart",
+        "operator_review_required": false,
+        "provenance_status": "source_backed_generated_from_public_data",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "source_domain": "fred.stlouisfed.org",
+        "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "why_selected": "Supporting chart gives a narrower recent-price view so platforms are not repeating the same volatility chart only."
+      },
+      {
+        "asset_id": "hormuz_context",
+        "candidate_content_audit": null,
+        "image_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+        "latest_observation_date": "2026-06-29",
+        "latest_observation_year": 2026,
+        "media_class": "map_or_geography",
+        "operator_review_required": false,
+        "provenance_status": "capital_chronicle_generated_schematic_from_official_eia_context",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "source_domain": "eia.gov",
+        "source_label": "EIA Strait of Hormuz oil chokepoint context",
+        "source_page_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+        "why_selected": "Adds a contextual geopolitics/map visual so the article is not chart-only and the oil-volatility thesis has a supply-risk frame."
+      }
+    ],
+    "auto_publication_safe": true,
+    "blockers": [],
+    "media_classes": [
+      "data_chart",
+      "data_chart",
+      "map_or_geography"
+    ],
+    "review_items": []
+  },
+  "per_platform_qa_status": {
+    "discord": "NOT_LIVE_RUN_THIS_TASK",
+    "facebook": "NOT_LIVE_RUN_THIS_TASK",
+    "instagram": "NOT_LIVE_RUN_THIS_TASK",
+    "linkedin": "NOT_LIVE_RUN_THIS_TASK: native image proof path preserved; new candidate requires live readback before product acceptance.",
+    "substack": "NOT_LIVE_RUN_THIS_TASK: prior visual placement proof preserved; new candidate has 3 markers for in-body upload.",
+    "telegram": "NOT_LIVE_RUN_THIS_TASK",
+    "threads": "NOT_LIVE_RUN_THIS_TASK",
+    "x": "NOT_LIVE_RUN_THIS_TASK"
+  },
+  "pipeline_status": "FINAL_CANDIDATE_LOCAL_QA_READY",
+  "platform_variant_status": "VARIANT_READY",
+  "remaining_blockers": [
+    "Public platform visual rendering/crop QA remains required before final product acceptance because this task did not run a new public dispatch."
+  ],
+  "run_id": "local_static_final_candidate_2026_07_08",
+  "scheduler": {
+    "headline_sidecar_count": 0,
+    "output_path": "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
+    "slots": [
+      {
+        "angle": "Check the calendar for CPI, jobs, EIA inventory, FOMC, Treasury auction, and central-bank remarks before deep research.",
+        "headline_sidecar_context_only": true,
+        "impact_score": 57,
+        "media_needs": [
+          "Source-backed data chart",
+          "contextual rights-safe visual if topic warrants"
+        ],
+        "numeric_truth_authority": false,
+        "readiness": "NEEDS_SOURCE_REVIEW",
+        "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+        "slot_index": 1,
+        "source_clearance_authority": false,
+        "source_needs": [
+          "No headline sidecars found; perform primary source review before drafting"
+        ],
+        "suggested_article_type": "rapid_analysis",
+        "topic": "Official release watch",
+        "urgency_score": 51
+      },
+      {
+        "angle": "Look for current oil, shipping, sanctions, OPEC, and chokepoint developments with rights-safe maps/photos.",
+        "headline_sidecar_context_only": true,
+        "impact_score": 56,
+        "media_needs": [
+          "Source-backed data chart",
+          "contextual rights-safe visual if topic warrants"
+        ],
+        "numeric_truth_authority": false,
+        "readiness": "NEEDS_SOURCE_REVIEW",
+        "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+        "slot_index": 2,
+        "source_clearance_authority": false,
+        "source_needs": [
+          "No headline sidecars found; perform primary source review before drafting"
+        ],
+        "suggested_article_type": "rapid_analysis",
+        "topic": "Energy and geopolitics watch",
+        "urgency_score": 50
+      },
+      {
+        "angle": "Update yield-curve, Treasury, Fed, credit, and recession-risk context from official data sources.",
+        "headline_sidecar_context_only": true,
+        "impact_score": 55,
+        "media_needs": [
+          "Source-backed data chart",
+          "contextual rights-safe visual if topic warrants"
+        ],
+        "numeric_truth_authority": false,
+        "readiness": "NEEDS_SOURCE_REVIEW",
+        "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+        "slot_index": 3,
+        "source_clearance_authority": false,
+        "source_needs": [
+          "No headline sidecars found; perform primary source review before drafting"
+        ],
+        "suggested_article_type": "rapid_analysis",
+        "topic": "Rates and recession dashboard",
+        "urgency_score": 49
+      },
+      {
+        "angle": "Track energy, shelter, goods, wages, and policy communication for source-backed inflation framing.",
+        "headline_sidecar_context_only": true,
+        "impact_score": 54,
+        "media_needs": [
+          "Source-backed data chart",
+          "contextual rights-safe visual if topic warrants"
+        ],
+        "numeric_truth_authority": false,
+        "readiness": "NEEDS_SOURCE_REVIEW",
+        "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+        "slot_index": 4,
+        "source_clearance_authority": false,
+        "source_needs": [
+          "No headline sidecars found; perform primary source review before drafting"
+        ],
+        "suggested_article_type": "rapid_analysis",
+        "topic": "Inflation pass-through monitor",
+        "urgency_score": 48
+      },
+      {
+        "angle": "Use current source-backed charts before publishing any volatility narrative.",
+        "headline_sidecar_context_only": true,
+        "impact_score": 53,
+        "media_needs": [
+          "Source-backed data chart",
+          "contextual rights-safe visual if topic warrants"
+        ],
+        "numeric_truth_authority": false,
+        "readiness": "NEEDS_SOURCE_REVIEW",
+        "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+        "slot_index": 5,
+        "source_clearance_authority": false,
+        "source_needs": [
+          "No headline sidecars found; perform primary source review before drafting"
+        ],
+        "suggested_article_type": "rapid_analysis",
+        "topic": "Market volatility rapid analysis",
+        "urgency_score": 47
+      },
+      {
+        "angle": "Use only if major current news density is low or the day already covers important official releases.",
+        "headline_sidecar_context_only": true,
+        "impact_score": 52,
+        "media_needs": [
+          "Source-backed data chart",
+          "contextual rights-safe visual if topic warrants"
+        ],
+        "numeric_truth_authority": false,
+        "readiness": "NEEDS_SOURCE_REVIEW",
+        "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+        "slot_index": 6,
+        "source_clearance_authority": false,
+        "source_needs": [
+          "No headline sidecars found; perform primary source review before drafting"
+        ],
+        "suggested_article_type": "deep_research",
+        "topic": "Deep research reserve",
+        "urgency_score": 46
+      }
+    ]
+  },
+  "schema_version": "newsroom_media_scheduler_final_candidate_evidence_v0",
+  "starting_remote_head": "bea4aaedfdeccd936c807af53080d22d2932e6b9",
+  "substack_visual_marker_count": 3,
+  "task_label": "TASK_CONTENTOPS_V6_EDITORIAL_NEWSROOM_MEDIA_DIVERSIFICATION_SCHEDULER_AND_8_PLATFORM_FINAL_CANDIDATE_V0",
+  "tests": [
+    "python -m py_compile live_contentops\\media_content_audit_v6.py live_contentops\\media_diversification_audit_v6.py live_contentops\\google_image_search_v6.py live_contentops\\ai_research_canonical_article_engine_v6.py live_contentops\\platform_native_variant_generator_live_v6.py live_contentops\\live_production_pipeline_runner_v6.py live_contentops\\daily_editorial_scheduler_v6.py",
+    "python -m pytest tests/test_ai_research_canonical_article_engine_v6.py tests/test_editorial_quality_audit_v6.py tests/test_media_content_audit_v6.py tests/test_media_diversification_audit_v6.py tests/test_daily_editorial_scheduler_v6.py tests/test_google_image_search_v6.py tests/test_platform_native_variant_generator_live.py tests/test_live_production_pipeline_runner.py -q -> 50 passed",
+    "python -m json.tool on status/evidence packets -> ok",
+    "git diff --check -> ok"
+  ],
+  "tier1_editorial_approved": true
+}

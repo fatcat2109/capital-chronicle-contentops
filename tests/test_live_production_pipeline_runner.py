@@ -15,6 +15,53 @@ from live_contentops.live_production_pipeline_runner_v6 import (
 )
 
 
+def _approved_article_packet() -> dict:
+    intro = (
+        "The current WTI evidence gives the recession-risk debate a fresh starting point. "
+        "WTI crude was reported at $71.87 per barrel on 2026-06-29, and the 90-day move "
+        "helps frame the energy channel without turning one chart into a cycle call."
+    )
+    sections = [
+        {"title": "Why Now: Current Oil Evidence", "body": "FRED DCOILWTICO and EIA source rows support the current oil endpoint."},
+        {"title": "Transmission Channels", "body": "Oil volatility can affect transport costs, real income, and inflation expectations."},
+        {"title": "Rates and Recession Context", "body": "Federal Reserve and Treasury sources support the rates context rather than the oil chart."},
+        {"title": "Limits and Counterargument", "body": "The counterargument is that oil volatility alone does not prove a recession."},
+        {"title": "What to Watch Next", "body": "Watch inflation releases, policy communication, energy inventory data, and Treasury yield updates."},
+    ]
+    draft = {
+        "title": "Oil Volatility Is Rising; Recession Risk Needs a Cleaner Evidence Map",
+        "subtitle": "A source-led macro briefing on WTI, policy limits, and recession-risk evidence.",
+        "slug_candidate": "oil-volatility-recession-risk-evidence-map",
+        "dek": "Current WTI data help explain why oil volatility belongs in recession-risk analysis without turning one chart into a cycle call.",
+        "meta_description": "Capital Chronicle maps current WTI oil volatility, recession-risk channels, source limits, and what to watch next.",
+        "thesis": "Current oil volatility belongs in a recession-risk dashboard, but the thesis needs source-backed limits.",
+        "intro": intro,
+        "sections": sections,
+        "conclusion": "The evidence supports monitoring oil volatility while keeping the recession conclusion bounded.",
+        "citations": [
+            "https://fred.stlouisfed.org/series/DCOILWTICO",
+            "https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm",
+            "https://www.federalreserve.gov/monetarypolicy.htm",
+            "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics",
+        ],
+        "source_notes_for_operator": "FRED, EIA, Federal Reserve, and Treasury sources support the article claims.",
+        "source_trail": [
+            {"label": "FRED DCOILWTICO", "publisher_or_origin": "FRED / EIA", "url": "https://fred.stlouisfed.org/series/DCOILWTICO", "claim_supported": "WTI latest observation and 90-day price comparison."},
+            {"label": "EIA petroleum prices", "publisher_or_origin": "U.S. Energy Information Administration", "url": "https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm", "claim_supported": "Underlying petroleum source for WTI spot price observations."},
+            {"label": "Federal Reserve policy context", "publisher_or_origin": "Federal Reserve", "url": "https://www.federalreserve.gov/monetarypolicy.htm", "claim_supported": "Policy transmission context."},
+            {"label": "Treasury rates context", "publisher_or_origin": "U.S. Treasury", "url": "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics", "claim_supported": "Yield and rates context."},
+        ],
+        "visual_slots": [{"asset_id": "primary"}, {"asset_id": "recent_price"}, {"asset_id": "hormuz_context"}],
+    }
+    return {
+        "packet_id": "art_test_packet_123",
+        "source_context_packet": {"operator_idea": "US recession risks rise as oil volatility spikes"},
+        "canonical_article_draft": draft,
+        "seo_packet": {"target_keyword": "oil volatility recession risk", "meta_description": draft["meta_description"]},
+        "blockers": [],
+    }
+
+
 @patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
 @patch("live_contentops.live_production_pipeline_runner_v6.generate_live_platform_variants")
 def test_run_live_production_pipeline(mock_generate_variants, mock_run_article, tmp_path):
@@ -73,10 +120,7 @@ def test_run_live_production_pipeline(mock_generate_variants, mock_run_article, 
 def test_run_live_production_pipeline_with_dispatch(
     mock_substack, mock_linkedin, mock_x_post, mock_x_comment, mock_ig, mock_fb, mock_fb_photo, mock_tg, mock_tg_photo, mock_threads, mock_discord, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
-    mock_run_article.return_value = {
-        "packet_id": "art_test_packet_123",
-        "canonical_article_draft": {"title": "Test Title", "subtitle": "Test Subtitle"}
-    }
+    mock_run_article.return_value = _approved_article_packet()
     
     mock_generate_variants.return_value = {
         "platform_variant_packet_id": "var_test_packet_456",
@@ -154,10 +198,7 @@ def test_run_live_production_pipeline_with_dispatch(
 def test_dispatch_uses_reachable_instagram_fallback_when_public_image_missing(
     mock_discord, mock_threads, mock_tg, mock_fb, mock_fb_photo, mock_ig, mock_x_post, mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
-    mock_run_article.return_value = {
-        "packet_id": "art_test_packet_123",
-        "canonical_article_draft": {"title": "Test Title", "subtitle": "Test Subtitle"},
-    }
+    mock_run_article.return_value = _approved_article_packet()
     mock_generate_variants.return_value = {
         "platform_variant_packet_id": "var_test_packet_456",
         "public_image_url": None,
@@ -171,7 +212,8 @@ def test_dispatch_uses_reachable_instagram_fallback_when_public_image_missing(
         },
         "variant_threads": {"x": ["Tweet 1"], "threads": ["Threads post 1"]},
     }
-    with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "article.json"), \
+    with patch("live_contentops.live_production_pipeline_runner_v6.extract_og_image", return_value=None), \
+         patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "article.json"), \
          patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", tmp_path / "audit.json"):
         result = run_live_production_pipeline("Topic", "Angle", live_run=False, dispatch_live=True)
     assert result["dispatch_results"]["instagram"]["status"] == "BLOCKED"
@@ -192,10 +234,7 @@ def test_dispatch_uses_reachable_instagram_fallback_when_public_image_missing(
 def test_dispatch_platform_scope_retries_instagram_only_without_reposting_successes(
     mock_discord, mock_threads, mock_tg, mock_fb, mock_ig, mock_x_post, mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
-    mock_run_article.return_value = {
-        "packet_id": "art_test_packet_123",
-        "canonical_article_draft": {"title": "Test Title", "subtitle": "Test Subtitle"},
-    }
+    mock_run_article.return_value = _approved_article_packet()
     mock_generate_variants.return_value = {
         "platform_variant_packet_id": "var_test_packet_456",
         "public_image_url": None,
@@ -239,10 +278,7 @@ def test_dispatch_platform_scope_retries_instagram_only_without_reposting_succes
 def test_instagram_dispatch_retries_media_candidate_failure(
     mock_ig, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
-    mock_run_article.return_value = {
-        "packet_id": "art_test_packet_123",
-        "canonical_article_draft": {"title": "Test Title", "subtitle": "Test Subtitle"},
-    }
+    mock_run_article.return_value = _approved_article_packet()
     mock_generate_variants.return_value = {
         "platform_variant_packet_id": "var_test_packet_456",
         "public_image_url": "https://example.com/wide.png",
@@ -326,10 +362,7 @@ def test_run_live_production_pipeline_blocked_dispatch_writes_audit(mock_generat
 def test_run_live_production_pipeline_partial_failure_is_structured(
     mock_discord, mock_threads, mock_tg, mock_fb, mock_fb_photo, mock_ig, mock_x_post, mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
-    mock_run_article.return_value = {
-        "packet_id": "art_test_packet_123",
-        "canonical_article_draft": {"title": "Test Title", "subtitle": "Test Subtitle"},
-    }
+    mock_run_article.return_value = _approved_article_packet()
     mock_generate_variants.return_value = {
         "platform_variant_packet_id": "var_test_packet_456",
         "public_image_url": "https://example.com/test_image.jpg",
@@ -359,7 +392,7 @@ def test_run_live_production_pipeline_partial_failure_is_structured(
     assert result["pipeline_status"] == "DISPATCH_PARTIAL_FAILURE"
     assert result["dispatch_results"]["linkedin"]["error_class"] == "RuntimeError"
     assert "linkedin" in result["dispatch_summary"]["failed_platforms"]
-    assert "telegram" in result["dispatch_summary"]["blocked_platforms"]
+    assert "threads" in result["dispatch_summary"]["blocked_platforms"]
 
 
 @patch("live_contentops.live_production_pipeline_runner_v6.run_live_production_pipeline")
@@ -604,10 +637,7 @@ def test_dispatch_passes_media_and_canonical_link(
     mock_discord, mock_threads, mock_tg_photo, mock_fb, mock_fb_photo, mock_ig, mock_x_comment, mock_x_post,
     mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
-    mock_run_article.return_value = {
-        "packet_id": "art_1",
-        "canonical_article_draft": {"title": "T", "subtitle": "S"},
-    }
+    mock_run_article.return_value = _approved_article_packet()
     mock_generate_variants.return_value = {
         "platform_variant_packet_id": "var_1",
         "image_path": "downloads/hero.jpg",

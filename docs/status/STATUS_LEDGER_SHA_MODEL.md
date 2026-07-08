@@ -8,11 +8,12 @@
 
 ## Current values
 
-- current remote HEAD verified before this editorial QA task: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`
+- current remote HEAD verified before this newsroom/media/scheduler task: `bea4aaedfdeccd936c807af53080d22d2932e6b9`
 - accepted visual repair commit: `6a810aadadef4b3c9078173b32bed4b243f8552a`
 - latest headline ingestion commit: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`
-- editorial QA task product/evidence commit SHA: reported in final evidence after commit/push
-- docs/status refresh SHA for this task is the same final product/evidence commit because the status refresh and QA gate ship together.
+- editorial QA task product/evidence commit SHA: `bea4aaedfdeccd936c807af53080d22d2932e6b9`
+- newsroom/media/scheduler task product/evidence commit SHA: reported in final evidence after commit/push
+- docs/status refresh SHA for this task is the same final product/evidence commit because the status refresh, media diversification, scheduler, and local candidate evidence ship together.
 
 ## Update rules
 
@@ -37,3 +38,7 @@ Browser QA and product UI work target `ui/contentops_v5/`. V4 remains fallback/r
 ## Latest editorial QA note
 
 `TASK_CONTENTOPS_V6_POST_VISUAL_REPAIR_BASELINE_AND_EDITORIAL_QA_GATE_V0` adds a separate editorial acceptance field so dispatch completion cannot be confused with tier-1 editorial approval. The latest Crude Awakenings packet audits as `EDITORIAL_BLOCKED` while the scoped Substack + LinkedIn dispatch run remains transport-complete evidence.
+
+## Latest newsroom/media/scheduler note
+
+`TASK_CONTENTOPS_V6_EDITORIAL_NEWSROOM_MEDIA_DIVERSIFICATION_SCHEDULER_AND_8_PLATFORM_FINAL_CANDIDATE_V0` remediates the local editorial blockers and adds media diversification plus daily scheduling. Local final candidate `local_static_final_candidate_2026_07_08` is `EDITORIAL_APPROVED` with media diversification `PASS`, but no public live dispatch was run because no headline sidecars were present and reposting the same Crude topic would create duplicates. The final pushed commit SHA is reported in final evidence.

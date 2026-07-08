@@ -32,6 +32,7 @@ from live_contentops.media_content_audit_v6 import (
     audit_media_candidate,
     build_current_macro_visual_pack,
 )
+from live_contentops.media_diversification_audit_v6 import audit_media_manifest
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_PLATFORM_NATIVE_VARIANT_GENERATOR_V0"
 SCHEMA_VERSION = "6.0.0"
@@ -612,6 +613,21 @@ def generate_live_platform_variants(
         media_audit=media_audit,
         source_csv=os.environ.get("CONTENTOPS_MACRO_CHART_CSV"),
     )
+    media_diversification_audit = audit_media_manifest(
+        media_manifest,
+        article_title=title,
+        article_text=body_text,
+        expected_min_assets=3,
+        as_of_date=os.environ.get("CONTENTOPS_AS_OF_DATE"),
+    )
+    media_manifest["media_diversification_audit"] = media_diversification_audit
+    if media_diversification_audit.get("audit_status") == "FAIL":
+        validation_failures.append(
+            "media_diversification_audit_failed:"
+            + "|".join(media_diversification_audit.get("blockers") or ["unknown"])
+        )
+    if live_run and not media_diversification_audit.get("auto_publication_safe", False):
+        validation_failures.append("media_rights_operator_review_required")
 
     if live_run:
         api_key = os.environ.get("NINE_ROUTER_API_KEY")

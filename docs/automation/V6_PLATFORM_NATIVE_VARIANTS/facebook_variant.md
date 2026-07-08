@@ -1,10 +1,12 @@
 # FACEBOOK NATIVE VARIANT
 - **Status**: VARIANT_READY
-- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_febb4cd8863f.png
-- **Timestamp**: 2026-07-08 01:25:28
+- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_99c8292edb1a.png
+- **Timestamp**: 2026-07-08 12:46:55
 
-Crude oil is moving again, but what does it actually mean for the broader economy? WTI crude closed at $71.87 per barrel on June 29, 2026, up 7.8% from its price of $66.66 ninety days earlier. Alongside this price increase, our 30-day realized volatility proxy has jumped by 50.7%.
+Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard
 
-In our latest Capital Chronicle briefing, we bypass the sensational headlines to trace the exact transmission channels of energy shocks—from transport costs to inflation expectations. We break down why rising oil volatility complicates central bank policy and how to separate genuine macro risks from short-term market noise. Read the full analysis on our platform.
+A source-led Capital Chronicle briefing on WTI, recession-risk interpretation, yield curves, and evidence discipline
 
-Capital Chronicle frames this as educational context, not investment advice.
+Capital Chronicle is treating the latest rise in oil volatility as an evidence problem before it is a market narrative. The source-backed WTI series used for this briefing runs from 1986-01-02 through 2026-06-29, with 10191 daily observations in the local calculation set. The latest FRED observation places WTI at $71.87 per barrel on 2026-06-29, compared with $66.66 roughly 90 days earlier on 2026-02-19. That comparison produces a 7.8% move across about 90 days, while the one-year comparison from $68.73 on 2025-06-12 produces a 4.6% change. The visual evidence is therefore not a stale historical screenshot: it ends in 2026 and is aligned with the article thesis. The visual review labels the recent price direction as up and the realized-volatility direction as up. The latest 30 days volatility proxy averaged 2.8% absolute daily moves, with a 50.7% change in that proxy over about 90 days.
+
+Educational macro analysis from Capital Chronicle.

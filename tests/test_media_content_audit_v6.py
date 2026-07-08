@@ -70,10 +70,15 @@ def test_render_current_wti_visual_pack_writes_assets_and_metadata(tmp_path):
         fetch_url=csv_path.resolve().as_uri(),
     )
 
-    assert len(assets) == 2
+    assert len(assets) == 3
+    assert {asset["media_class"] for asset in assets} >= {"data_chart", "map_or_geography"}
     for asset in assets:
         path = Path(asset["local_path"])
         assert path.exists()
         metadata = json.loads(path.with_suffix(".json").read_text(encoding="utf-8"))
         assert metadata["latest_observation_year"] == 2025
-        assert "FRED series DCOILWTICO" in metadata["canonical_source_label"]
+        assert metadata["rights_status"]
+        assert metadata["provenance_status"]
+        assert metadata["why_selected"]
+    assert "FRED series DCOILWTICO" in assets[0]["canonical_source_label"]
+    assert assets[2]["asset_id"] == "hormuz_context"
