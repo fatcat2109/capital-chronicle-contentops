@@ -1,0 +1,32 @@
+{
+  "task_label": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0",
+  "result": "BLOCKED_MISSING_FRESH_HEADLINE_SIDECARS_AND_CDP",
+  "starting_head": "b489e8d6d767d229c1d904e537765b1c2f6741f5",
+  "origin_master_at_start": "b489e8d6d767d229c1d904e537765b1c2f6741f5",
+  "headline_sidecar_glob": "headline_ingestion/data/intake/headline_sidecars/*.jsonl",
+  "headline_sidecar_count": 0,
+  "headline_ingestion_cdp_url": "http://localhost:9222/json/version",
+  "headline_ingestion_cdp_status": "connection_refused",
+  "blocked_reason": "No current headline sidecars exist in this clean checkout, and the required X list CDP ingestion browser is not available on localhost:9222.",
+  "operator_input_required": [
+    "Start the headline ingestion Chrome profile with remote debugging on port 9222 and logged in to X, then rerun `python headline_ingestion/Data_Ingestion.py` long enough to write `headline_ingestion/data/intake/headline_sidecars/*.jsonl`.",
+    "Alternatively provide a current, non-duplicate headline sidecar JSONL file under `headline_ingestion/data/intake/headline_sidecars/`."
+  ],
+  "duplicate_guard": {
+    "old_crude_candidate_reused": false,
+    "reason": "The prior Crude Awakenings candidate is explicitly disallowed as final public proof because it would duplicate an already published topic."
+  },
+  "live_dispatch_performed": false,
+  "provider_api_call_performed": false,
+  "browser_or_cdp_action_performed": false,
+  "env_or_credential_read_performed": false,
+  "network_call_performed": true,
+  "network_call_scope": "Local-only CDP availability probe to http://localhost:9222/json/version; no browser storage, cookies, DOM, session, or platform content was read.",
+  "public_platform_attempts": [],
+  "remaining_blockers": [
+    "Missing fresh headline sidecars.",
+    "CDP ingestion endpoint localhost:9222 unavailable.",
+    "No fresh non-duplicate topic can be selected, so no public 8-platform candidate can be safely dispatched."
+  ],
+  "next_task": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0 after operator starts/provides headline ingestion sidecars"
+}

@@ -1,6 +1,6 @@
 # V6 Next Task Pointer
 
-Current task just completed: `TASK_CONTENTOPS_V6_PUBLIC_TELEGRAM_SUBSTACK_VISUAL_REGRESSION_REPAIR_AND_8_PLATFORM_QA_V0`.
+Current task just completed: `TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0`.
 
 Baseline reconciliation:
 
@@ -12,6 +12,9 @@ Baseline reconciliation:
 
 What changed:
 
+- Fresh-news public proof preflight blocked safely before generation/dispatch: no headline sidecars exist under `headline_ingestion/data/intake/headline_sidecars/`, and the CDP ingestion endpoint `localhost:9222` refused connection.
+- No old Crude Awakenings duplicate was reused as final public proof.
+- Blocked evidence written to `docs/automation/V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_QA/fresh_news_8_platform_public_candidate_blocked_evidence_v0.json`.
 - Hardened Telegram visual dispatch QA: when the pipeline sends a Telegram photo, the dispatch result now records Bot API photo evidence and fails the lane as `FAILED_VISUAL_DELIVERY` if the response lacks photo proof.
 - Hardened Substack visual placement QA: public readback can confirm successful visual placement when the editor reports `uploaded_unverified`, and dispatch evidence records both uploaded count and upload-attempt count.
 - Added manifest-level media diversification and rights/provenance audit: `live_contentops/media_diversification_audit_v6.py`.
@@ -25,7 +28,7 @@ Latest local final candidate:
 
 - Live dispatch performed: `false`.
 - Local run id: `local_static_final_candidate_2026_07_08`.
-- Reason no public run was performed: no headline sidecar data files exist in the clean checkout, and reposting the Crude Awakenings topic would create duplicate public posts.
+- Reason no public run was performed: no headline sidecar data files exist in the clean checkout, `localhost:9222` CDP ingestion is unavailable, and reposting the Crude Awakenings topic would create duplicate public posts.
 - Article title: `Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard`.
 - Article metrics: 2,174 words, 9 sections, 8 source-trail rows, 8 citations, 3 visual slots.
 - Editorial acceptance: `EDITORIAL_APPROVED`; `tier1_editorial_approved=true`.
@@ -52,7 +55,7 @@ Recommended next task:
 TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0
 ```
 
-Purpose: ingest current headline sidecars, choose a fresh schedule slot, run one non-bypassed 8-platform live candidate only after editorial/media gates pass, and capture public readback/crop/visual placement proof. The run must preserve the repaired Telegram photo-proof and Substack public-readback visual gates.
+Purpose: rerun after the operator starts the X-list CDP ingestion browser on port `9222` or provides current headline sidecars under `headline_ingestion/data/intake/headline_sidecars/`; then choose a fresh schedule slot, run one non-bypassed 8-platform live candidate only after editorial/media gates pass, and capture public readback/crop/visual placement proof. The run must preserve the repaired Telegram photo-proof and Substack public-readback visual gates.
 
 Out of scope for the next task:
 

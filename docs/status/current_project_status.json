@@ -1,5 +1,5 @@
 {
-  "accepted_baseline_summary": "Local newsroom-grade candidate is editorial approved, source-clean, SEO-aligned, and media-diversified with 3 source-backed visuals. Telegram/Substack public visual QA gates are locally hardened: Telegram visual sends require Bot API photo proof, and Substack can pass from public readback when editor upload status is uploaded_unverified. No public live dispatch was run in the visual regression repair task.",
+  "accepted_baseline_summary": "Fresh-news 8-platform public proof task blocked before generation/dispatch: no current headline sidecars exist in the clean checkout, and the required X-list CDP ingestion endpoint on localhost:9222 refused connection. No old Crude duplicate was reused and no public dispatch was attempted.",
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, current repo evidence wins; record the mismatch and reconcile status during the task when practical instead of hard-stopping solely on stale status docs",
@@ -10,8 +10,9 @@
   "accepted_visual_repair_sha": "6a810aadadef4b3c9078173b32bed4b243f8552a",
   "active_blockers": [
     "No headline sidecar data files were present in the clean checkout; scheduler output is a source-review fallback watchlist.",
-    "No new public 8-platform live candidate was run in this task to avoid duplicate Crude Awakenings public posts.",
-    "Public screenshot/crop/readback QA remains required before accepting the new 3-visual candidate as public product proof.",
+    "BLOCKED: X-list CDP ingestion endpoint localhost:9222 is unavailable, so fresh headline sidecars cannot be generated in this worktree.",
+    "No new public 8-platform live candidate was run in this task because no fresh non-duplicate topic could be selected.",
+    "Public screenshot/crop/readback QA remains required before accepting a fresh candidate as public product proof.",
     "Telegram public visual acceptance now requires real Bot API photo proof in dispatch evidence.",
     "Google/Commons image discovery is review-only unless source-page, rights, recency, and relevance metadata are complete.",
     "Provider-native article draft reliability still needs hardening so source-backed repair is less frequently required.",
@@ -289,10 +290,10 @@
   "current_next_recommended_task": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0",
   "current_next_recommended_task_summary": "Ingest current headline sidecars, choose a fresh schedule slot, run one non-bypassed 8-platform public candidate only after editorial/media gates pass, and capture public readback/crop/visual placement proof. Do not build TikTok, YouTube video, Shorts, or a video creator; keep YouTube Community as future text/image work after current 8-platform QA is hardened.",
   "current_product_lane": "Editorial approval, media diversification/provenance, daily scheduling, and dispatch QA gates before public 8-platform candidate acceptance.",
-  "current_product_phase": "Newsroom/media/scheduler local final-candidate lane complete, with local Telegram/Substack visual QA gate repair complete. Public transport evidence remains reconciled from prior runs; current candidate is local QA ready and awaits a fresh non-duplicate 8-platform public readback run.",
-  "current_v6_loop_status": "Local candidate local_static_final_candidate_2026_07_08 is EDITORIAL_APPROVED with media diversification PASS and VARIANT_READY. Telegram/Substack visual proof gates are hardened locally. Prior public runs remain reconciled for transport; no new public dispatch occurred in this task.",
+  "current_product_phase": "Newsroom/media/scheduler local final-candidate lane complete, with local Telegram/Substack visual QA gate repair complete. Fresh-news public proof is blocked pending current headline sidecars or an available X-list CDP ingestion browser on localhost:9222.",
+  "current_v6_loop_status": "Local candidate local_static_final_candidate_2026_07_08 is EDITORIAL_APPROVED with media diversification PASS and VARIANT_READY. Telegram/Substack visual proof gates are hardened locally. Fresh public run blocked before generation/dispatch because headline sidecars and CDP ingestion availability are missing.",
   "daily_schedule_path": "docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/daily_schedule_2026_07_08.json",
-  "dispatch_live_status": "No new live dispatch in this task. latest_dispatch_audit.json records FINAL_CANDIDATE_LOCAL_QA_READY with dispatch_live=false. The visual regression repair was local deterministic gate hardening only: Telegram photo proof and Substack public-readback confirmation.",
+  "dispatch_live_status": "No new live dispatch in this task. Fresh-news public dispatch was blocked before article generation because no headline sidecars were available and localhost:9222 CDP ingestion was unavailable.",
   "editorial_acceptance_status": "EDITORIAL_APPROVED",
   "editorial_quality_audit_path": "docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json",
   "editorial_quality_status": "Current editorial audit classifies the local final candidate as EDITORIAL_APPROVED with tier1_editorial_approved=true. The audit remains independent from dispatch status.",
@@ -308,10 +309,10 @@
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
   "last_status_commit_sha": "reported_in_final_evidence_after_push",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_PUBLIC_TELEGRAM_SUBSTACK_VISUAL_REGRESSION_REPAIR_AND_8_PLATFORM_QA_V0",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0",
   "last_verified_remote_sha": "bea4aaedfdeccd936c807af53080d22d2932e6b9",
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_PUBLIC_TELEGRAM_SUBSTACK_VISUAL_REGRESSION_REPAIR_AND_8_PLATFORM_QA_V0",
-  "latest_accepted_task_result": "PASS_LOCAL_VISUAL_QA_GATE_REPAIR_NO_LIVE_DISPATCH",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0",
+  "latest_accepted_task_result": "BLOCKED_MISSING_FRESH_HEADLINE_SIDECARS_AND_CDP_NO_LIVE_DISPATCH",
   "latest_changed_areas": [
     "live_contentops/media_diversification_audit_v6.py",
     "live_contentops/daily_editorial_scheduler_v6.py",
@@ -327,6 +328,7 @@
     "tests/test_platform_native_variant_generator_live.py",
     "tests/test_live_production_pipeline_runner.py",
     "docs/automation/V6_PUBLIC_TELEGRAM_SUBSTACK_VISUAL_REGRESSION_REPAIR/public_telegram_substack_visual_regression_repair_evidence_v0.json",
+    "docs/automation/V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_QA/fresh_news_8_platform_public_candidate_blocked_evidence_v0.json",
     "docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json",
     "docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json",
     "docs/automation/V6_MEDIA_DIVERSIFICATION/media_diversification_audit_v0.json",
@@ -343,7 +345,7 @@
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
     "docs/automation/V6_EDITORIAL_NEWSROOM_FINAL_CANDIDATE/newsroom_media_scheduler_final_candidate_evidence_v0.json"
   ],
-  "latest_evidence_summary": "Local visual QA gate repair: Telegram photo sends now require Bot API photo proof before the lane can count as visually delivered; Substack placement can pass from public readback when editor upload status is uploaded_unverified. Focused validation passed with 28 tests. No live dispatch was run.",
+  "latest_evidence_summary": "Fresh-news public proof preflight blocked: headline sidecar count is 0, localhost:9222 CDP probe returned connection refused, no fresh non-duplicate topic was selected, and no live dispatch was attempted. Evidence packet: docs/automation/V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_QA/fresh_news_8_platform_public_candidate_blocked_evidence_v0.json.",
   "latest_headline_ingestion_sha": "bcf5574d16a433b7b1b3bcb6deea2d7ead402502",
   "legacy_reference_surfaces": [
     "ui/institutional_operator_cockpit_v4/",
@@ -385,7 +387,7 @@
   "media_and_visual_status": "Media diversification audit PASS with 3 assets: FRED/EIA WTI volatility chart, FRED/EIA recent WTI price chart, and EIA-referenced Hormuz context schematic. Latest observation coverage through 2026-06-29. Search-like Google/Commons image candidates are review-only unless recency/source/rights metadata are complete.",
   "media_diversification_audit_path": "docs/automation/V6_MEDIA_DIVERSIFICATION/media_diversification_audit_v0.json",
   "newsroom_final_candidate_evidence_path": "docs/automation/V6_EDITORIAL_NEWSROOM_FINAL_CANDIDATE/newsroom_media_scheduler_final_candidate_evidence_v0.json",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0: ingest current headline sidecars, select a fresh non-duplicate schedule slot, run a non-bypassed 8-platform candidate only after editorial/media gates pass, then capture public readback/crop/visual placement proof.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0: after the operator starts X-list CDP ingestion on localhost:9222 or provides current headline sidecars, select a fresh non-duplicate schedule slot, run a non-bypassed 8-platform candidate only after editorial/media/visual gates pass, then capture public readback/crop/visual placement proof.",
   "operator_platform_readiness": {
     "discord": "one-shot proven",
     "latest_task": "TASK_0021",
