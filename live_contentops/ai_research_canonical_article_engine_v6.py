@@ -525,7 +525,7 @@ def _source_backed_longform_article(
     ])
 
     source_trail = _source_trail_from_evidence(evidence, citations)
-    source_urls = _dedupe_strings([str(item.get("url") or "") for item in source_trail] + citations)
+    source_urls = _dedupe_strings([str(item.get("url") or "") for item in source_trail])
     return {
         "title": title,
         "subtitle": subtitle,
@@ -1200,6 +1200,21 @@ def run_article_engine(
         "warnings": warnings,
         "recommended_next_task": RECOMMENDED_NEXT_TASK,
     }
+
+    try:
+        from live_contentops.editorial_quality_audit_v6 import audit_editorial_quality_packet
+        editorial_quality_audit = audit_editorial_quality_packet(packet, topic=inputs.operator_idea)
+        packet["editorial_quality_audit"] = editorial_quality_audit
+        packet["editorial_review_packet"]["editorial_acceptance_status"] = editorial_quality_audit["classification"]
+        packet["editorial_review_packet"]["tier1_editorial_approved"] = editorial_quality_audit["tier1_editorial_approved"]
+        if editorial_quality_audit["classification"] != "EDITORIAL_APPROVED":
+            warning_label = f"editorial_quality_audit:{editorial_quality_audit['classification']}"
+            if warning_label not in warnings:
+                warnings.append(warning_label)
+            packet["warnings"] = warnings
+    except Exception as exc:
+        warnings.append(f"editorial_quality_audit_failed:{type(exc).__name__}")
+        packet["warnings"] = warnings
 
     # Scan output to verify no forbidden words were generated/leaked
     _scan_obj(packet)

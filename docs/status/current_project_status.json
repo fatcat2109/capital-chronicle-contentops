@@ -1,19 +1,22 @@
 {
-  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_LINKEDIN_NATIVE_IMAGE_AND_SUBSTACK_IN_BODY_VISUAL_PLACEMENT_REPAIR_V0 repaired the manual-QA regressions after v6_pipeline_3c44a9855cc6. Final scoped repair run v6_pipeline_d49f6e14a856 reached DISPATCH_COMPLETE for Substack + LinkedIn from verified remote HEAD eb48f275990a286f40d3f73a40e1b00f4f7503cd; Substack public readback passed with 2 in-body visuals, and LinkedIn required native upload/preview proof before posting.",
+  "accepted_baseline_summary": "Visual repair commit 6a810aadadef4b3c9078173b32bed4b243f8552a and headline ingestion commit bcf5574d16a433b7b1b3bcb6deea2d7ead402502 are reconciled. New editorial quality audit blocks tier-1 acceptance when canonical citations/source notes contain irrelevant search results or when SEO/source diversity/tone need review.",
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, current repo evidence wins; record the mismatch and reconcile status during the task when practical instead of hard-stopping solely on stale status docs",
     "Do not use chat memory or Project Sources as runtime authority when repo files disagree",
     "automation-first final product follow guide is current strategy companion; manual-first docs are historical only"
   ],
-  "accepted_product_baseline_sha": "pending_this_task_product_evidence_commit",
+  "accepted_product_baseline_sha": "bcf5574d16a433b7b1b3bcb6deea2d7ead402502",
+  "accepted_visual_repair_sha": "6a810aadadef4b3c9078173b32bed4b243f8552a",
   "active_blockers": [
     "Instagram and Threads post edit APIs are unsupported and intentionally return UNSUPPORTED.",
     "Google image search remains blocked/empty in this environment; source-backed chart-pack fallback is the reliable path for oil topics.",
     "Provider-native article drafts still need reliability hardening so deterministic repair is less frequently required.",
-    "Manual screenshot/crop review remains recommended for public platform visuals. LinkedIn returns a feed URL plus native upload/preview proof, not a stable public permalink/readback URL."
+    "Manual screenshot/crop review remains recommended for public platform visuals. LinkedIn returns a feed URL plus native upload/preview proof, not a stable public permalink/readback URL.",
+    "Latest Crude Awakenings article is dispatch proof but not tier-1 editorial proof; canonical citations/source notes contain unrelated Yahoo Finance URLs.",
+    "YouTube Community is future text/image platform work only after current 8-platform QA is hardened; TikTok, YouTube video, Shorts, and video creator work are out of scope."
   ],
-  "article_quality_status": "Final scoped repair article passed validation with packet body_word_count 2009, recomputed body/heading estimate 2060, 8 sections, 3 source-trail entries, 6 citations, SEO fields slug_candidate/dek/meta_description, chart/media callouts, and 2 visual slots.",
+  "article_quality_status": "Mechanical gates pass for latest Crude Awakenings article, but editorial_quality_audit classifies it as EDITORIAL_BLOCKED and tier1_editorial_approved=false because unrelated Yahoo Finance URLs contaminate citations/source notes.",
   "backend_status_modules": [
     "live_contentops/unified_capability_env_readiness_v6.py",
     "live_contentops/discord_dry_run_outbox_operator_approval_spine_v6.py",
@@ -280,12 +283,15 @@
     "Instagram Business two-step Content Publishing API adapter with blocked smoke media binding",
     "Meta-family API unsupported edit outcomes for Instagram and Threads"
   ],
-  "current_next_recommended_task": "TASK_CONTENTOPS_V6_PROVIDER_NATIVE_DRAFT_RELIABILITY_AND_PUBLIC_VISUAL_QA_V0",
-  "current_next_recommended_task_summary": "Harden provider-native article generation so deterministic repair is less frequently required, then perform public screenshot/crop QA and LinkedIn permalink/readback hardening across final platform outputs.",
-  "current_product_lane": "Visual-publication correctness for V6 automation: LinkedIn native image attach proof is required before success, and Substack public visual placement/order readback is required before success.",
-  "current_product_phase": "LinkedIn native-image and Substack in-body visual placement repair verified. Scoped live run v6_pipeline_d49f6e14a856 reached DISPATCH_COMPLETE for Substack + LinkedIn without quality-gate bypass; prior full all-platform run v6_pipeline_3c44a9855cc6 remains reconciled for unaffected platforms.",
+  "current_next_recommended_task": "TASK_CONTENTOPS_V6_MEDIA_DIVERSIFICATION_RIGHTS_PROVENANCE_AND_PUBLIC_VISUAL_QA_V0",
+  "current_next_recommended_task_summary": "Diversify source-backed visuals, add rights/provenance review, harden public screenshot/crop QA, and preserve editorial QA before any new platform expansion. Do not build TikTok, YouTube video, Shorts, or a video creator; keep YouTube Community as a later text/image platform after current 8-platform QA is hardened.",
+  "current_product_lane": "Editorial/SEO/source-quality gate: classify canonical articles as EDITORIAL_APPROVED, EDITORIAL_NEEDS_REVIEW, or EDITORIAL_BLOCKED without lowering existing mechanical article or dispatch gates.",
+  "current_product_phase": "Post-visual-repair baseline reconciled after visual repair and Step 1 headline ingestion. Dispatch evidence remains valid for transport, while editorial acceptance is now audited separately from pipeline_status.",
   "current_v6_loop_status": "Restored with visual-publication repair. Scoped run v6_pipeline_d49f6e14a856 reached DISPATCH_COMPLETE for Substack and LinkedIn without CONTENTOPS_BYPASS_QUALITY_GATES=true. Prior full all-platform run v6_pipeline_3c44a9855cc6 remains reconciled for unaffected lanes.",
   "dispatch_live_status": "Final scoped visual repair run v6_pipeline_d49f6e14a856 reached DISPATCH_COMPLETE for substack, linkedin. Canonical URL: https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c. Public image URL: https://substackcdn.com/image/fetch/$s_!TkqE!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png. Failed platforms: none in scope. Blocked platforms: none in scope.",
+  "editorial_acceptance_status": "EDITORIAL_BLOCKED",
+  "editorial_quality_audit_path": "docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json",
+  "editorial_quality_status": "New live_contentops/editorial_quality_audit_v6.py gate checks source relevance, citation/source-note support, unrelated search contamination, SEO keyword alignment, tier-1 structure, macro/geopolitical source diversity, and public-body tone.",
   "guardrail_rules": [
     "read status before work",
     "update status after task",
@@ -297,11 +303,11 @@
     "verify telegram bot token corresponds to the publisher bot and not the orchestrator bot",
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
-  "last_status_commit_sha": "pending_this_task_status_evidence_commit",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_LINKEDIN_NATIVE_IMAGE_AND_SUBSTACK_IN_BODY_VISUAL_PLACEMENT_REPAIR_V0",
-  "last_verified_remote_sha": "eb48f275990a286f40d3f73a40e1b00f4f7503cd",
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_LINKEDIN_NATIVE_IMAGE_AND_SUBSTACK_IN_BODY_VISUAL_PLACEMENT_REPAIR_V0",
-  "latest_accepted_task_result": "DISPATCH_COMPLETE_SCOPED_SUBSTACK_LINKEDIN",
+  "last_status_commit_sha": "bcf5574d16a433b7b1b3bcb6deea2d7ead402502",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_POST_VISUAL_REPAIR_BASELINE_AND_EDITORIAL_QA_GATE_V0",
+  "last_verified_remote_sha": "bcf5574d16a433b7b1b3bcb6deea2d7ead402502",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_POST_VISUAL_REPAIR_BASELINE_AND_EDITORIAL_QA_GATE_V0",
+  "latest_accepted_task_result": "PASS_EDITORIAL_QA_GATE_ADDED_CRUDE_AWAKENINGS_EDITORIAL_BLOCKED",
   "latest_changed_areas": [
     "live_contentops/linkedin_browser_adapter_v6.py",
     "live_contentops/substack_browser_adapter_v6.py",
@@ -320,9 +326,14 @@
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md"
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "live_contentops/editorial_quality_audit_v6.py",
+    "live_contentops/ai_research_canonical_article_engine_v6.py",
+    "tests/test_editorial_quality_audit_v6.py",
+    "docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json"
   ],
   "latest_evidence_summary": "Run v6_pipeline_d49f6e14a856 passed scoped Substack + LinkedIn repair validation: Substack public visual readback PASS with 2 public images; LinkedIn native image upload PASS with preview selector div[role=dialog] img[src*=media]; article validator returned no failures.",
+  "latest_headline_ingestion_sha": "bcf5574d16a433b7b1b3bcb6deea2d7ead402502",
   "legacy_reference_surfaces": [
     "ui/institutional_operator_cockpit_v4/",
     "ui/institutional_operator_cockpit_v3/",
@@ -361,7 +372,7 @@
     "current next recommended task"
   ],
   "media_and_visual_status": "Media audit PASS with source-backed FRED/EIA WTI charts through 2026-06-29 and recent direction up. Substack uploaded 2 visual assets and public readback passed placement/order checks. LinkedIn media_upload_status=uploaded and media_preview_detected=true before post submit.",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_PROVIDER_NATIVE_DRAFT_RELIABILITY_AND_PUBLIC_VISUAL_QA_V0: Harden provider-native article generation, then perform public visual/crop QA and LinkedIn permalink/readback hardening.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_MEDIA_DIVERSIFICATION_RIGHTS_PROVENANCE_AND_PUBLIC_VISUAL_QA_V0: diversify source-backed visuals beyond single-series WTI charts, add rights/provenance review fields, harden public screenshot/crop QA, and preserve the editorial QA gate before any new platform expansion.",
   "operator_platform_readiness": {
     "discord": "one-shot proven",
     "latest_task": "TASK_0021",
@@ -375,7 +386,7 @@
   "provider_env_credential_status": "Under Fast Ship Mode, local env credentials and operator browser profiles were used for live dispatch verification. No raw .env values or credential secrets were intentionally written to code or status docs. Dispatch audits and telemetry record platform outcomes, URLs, IDs, and redacted env-key presence only.",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "schema_version": "1.0.0",
-  "sha_model": "last_verified_remote_sha records remote master eb48f275990a286f40d3f73a40e1b00f4f7503cd before this visual repair task. The final pushed task commit SHA is reported in the final response.",
+  "sha_model": "last_verified_remote_sha records remote master bcf5574d16a433b7b1b3bcb6deea2d7ead402502 before this editorial QA task; visual repair is accepted at 6a810aadadef4b3c9078173b32bed4b243f8552a; final pushed editorial QA commit is reported in final evidence.",
   "stale_wrong_surfaces": [
     "ui/operator_approval_queue_evidence_vault/"
   ],
@@ -507,6 +518,7 @@
     "storage_recorded": false,
     "title_text_recorded": false
   },
+  "tier1_editorial_approved": false,
   "v6_unified_operator_reporting_console": {
     "components": [
       "Dashboard controls (toggle scheduler, run ticks, simulated dispatches, clear logs)",

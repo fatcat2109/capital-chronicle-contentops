@@ -1,75 +1,56 @@
 # V6 Next Task Pointer
 
-Current task just completed: `TASK_CONTENTOPS_V6_LINKEDIN_NATIVE_IMAGE_AND_SUBSTACK_IN_BODY_VISUAL_PLACEMENT_REPAIR_V0`.
+Current task just completed: `TASK_CONTENTOPS_V6_POST_VISUAL_REPAIR_BASELINE_AND_EDITORIAL_QA_GATE_V0`.
 
-Result: scoped non-bypassed live repair run `v6_pipeline_d49f6e14a856` reached true `DISPATCH_COMPLETE` for `substack` and `linkedin` from verified remote HEAD `eb48f275990a286f40d3f73a40e1b00f4f7503cd`, with live provider enabled, live dispatch enabled, default 420s timeout, and no `CONTENTOPS_BYPASS_QUALITY_GATES` process or `.env` entry.
+Baseline reconciliation:
 
-Public outputs:
+- Verified pre-task remote `master`: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502` (`Isolate Step 1 headlines ingestion tool via CDP`).
+- Accepted visual repair commit: `6a810aadadef4b3c9078173b32bed4b243f8552a`.
+- Latest scoped visual repair run: `v6_pipeline_d49f6e14a856`, Substack + LinkedIn `DISPATCH_COMPLETE`.
+- Prior full 8-platform run remains reconciled for unaffected lanes.
+- Step 1 headline ingestion is isolated under `headline_ingestion/`; source list target is `https://x.com/i/lists/1843870469143048642`.
 
-- Substack public URL: `https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c`
-- Public/CDN image URL: `https://substackcdn.com/image/fetch/$s_!TkqE!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png`
-- Substack visual markers: `2`
-- Uploaded Substack visuals: `2`
-- Public visual readback: `PASS` with `2` public images and order/placement proof
-- LinkedIn activity id: `activity_9fbd4f4aa083`
-- LinkedIn URL returned by adapter: `https://www.linkedin.com/feed/`
-- LinkedIn media proof: `media_upload_status=uploaded`, `media_preview_detected=true`, selector `file_chooser:button[aria-label*='Add media']`, preview selector `div[role='dialog'] img[src*='media']`
+What changed:
 
-Article quality evidence:
+- Added deterministic editorial quality audit module: `live_contentops/editorial_quality_audit_v6.py`.
+- Article packets and dispatch audits now carry `editorial_acceptance_status` and `tier1_editorial_approved`.
+- `pipeline_status=DISPATCH_COMPLETE` remains transport evidence only and must not imply `TIER1_EDITORIAL_APPROVED`.
+- WTI deterministic article repair no longer promotes unrelated search-result URLs into canonical citations when structured FRED/EIA evidence is the real source base.
 
-- Packet body word count: `2,009`
-- Recomputed body/heading word estimate: `2,060`
-- Sections: `8`
-- Source-trail entries: `3`
-- Citations: `6`
-- Numeric evidence references: estimated `57`
-- SEO metadata: slug candidate, dek, and meta description present
-- Visual slots: `2` purposeful in-body slots
-- Article validator: no failures
+Latest Crude Awakenings audit:
 
-Media judgment evidence:
-
-- Media audit status: `PASS`
-- Source label: `FRED series DCOILWTICO; underlying source U.S. Energy Information Administration`
-- Latest observation/time coverage: `2026-06-29` / end year `2026`
-- Replacement notes: `search_candidate_rejected:media_provenance_weak_upload_host|media_time_coverage_unverified_for_current_topic`, `source_backed_chart_pack_selected`
-
-Substack placement proof:
-
-- Primary image previous heading: `A source-led Capital Chronicle briefing on WTI, recession-risk interpretation, yield curves, and evidence discipline`
-- Primary image next heading: `The Macro Setup: Current Oil Evidence Before Narrative`
-- Second image previous heading: `Market Implications Without Directional Noise`
-- Second image next heading: `How to Read the Source Trail`
-- `all_images_after_source_trail=false`
-
-Per-platform repair status:
-
-- Substack: `SUCCESS`
-- LinkedIn: `SUCCESS`
-
-Prior unaffected platform reconciliation:
-
-- Prior full all-platform run `v6_pipeline_3c44a9855cc6` remains the reconciled evidence for X, Instagram, Facebook Page, Telegram, Threads, and Discord.
-- The repair run was intentionally scoped to Substack + LinkedIn to avoid duplicating unaffected platform posts.
-
-Remaining non-launch blockers / next hardening:
-
-- Google image search remains blocked/empty in this environment; source-backed chart-pack fallback remains the reliable current path for oil topics.
-- Provider-native drafts still need reliability hardening so deterministic repair is less frequently required.
-- LinkedIn returns a feed URL plus native upload/preview proof; stable public permalink/readback still needs hardening or manual review.
-- Manual screenshot/crop review remains recommended across public platform outputs before launch acceptance.
+- Dispatch status: `DISPATCH_COMPLETE` for scoped Substack + LinkedIn repair evidence.
+- Editorial acceptance status: `EDITORIAL_BLOCKED`.
+- `tier1_editorial_approved=false`.
+- Blockers:
+  - unrelated Yahoo Finance URLs in canonical `citations`
+  - unrelated Yahoo Finance URLs in `source_notes_for_operator` / grounding source notes
+- Review items:
+  - `seo_target_keyword_not_topic_aligned`
+  - `source_diversity_too_narrow:2<3`
+  - `public_body_pipeline_internal_language:13`
+- Evidence packet: `docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json`.
 
 Recommended next task:
 
 ```text
-TASK_CONTENTOPS_V6_PROVIDER_NATIVE_DRAFT_RELIABILITY_AND_PUBLIC_VISUAL_QA_V0
+TASK_CONTENTOPS_V6_MEDIA_DIVERSIFICATION_RIGHTS_PROVENANCE_AND_PUBLIC_VISUAL_QA_V0
 ```
 
-Purpose: harden provider-native article generation so deterministic source-backed repair is not the common path, then perform public screenshot/crop QA and LinkedIn permalink/readback hardening across final platform outputs.
+Purpose: diversify source-backed visuals beyond single-series WTI charts, add media rights/provenance review fields, harden public screenshot/crop QA, and preserve the editorial QA gate before any new platform expansion.
+
+Out of scope for the next task:
+
+- Do not build TikTok.
+- Do not build YouTube video, Shorts, or a video creator.
+- Do not build YouTube Community yet. Record it only as a future text/image distribution platform after the current 8-platform QA lane is hardened.
 
 Evidence to read before the next task:
 
+- `docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json`
 - `docs/automation/V6_LINKEDIN_SUBSTACK_VISUAL_REPAIR/linkedin_substack_visual_repair_evidence_v0.json`
 - `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`
 - `docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json`
 - `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json`
+- `headline_ingestion/README.md`
+- `headline_ingestion/Data_Ingestion.py`

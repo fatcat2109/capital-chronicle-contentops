@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps - Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_LINKEDIN_NATIVE_IMAGE_AND_SUBSTACK_IN_BODY_VISUAL_PLACEMENT_REPAIR_V0
+TASK_CONTENTOPS_V6_POST_VISUAL_REPAIR_BASELINE_AND_EDITORIAL_QA_GATE_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,24 +9,25 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-verified remote master before visual repair task: `eb48f275990a286f40d3f73a40e1b00f4f7503cd`
-clean validation worktree HEAD before visual repair task: `eb48f275990a286f40d3f73a40e1b00f4f7503cd`
-final visual repair commit SHA: pending final push/readback; see final task response.
+verified remote master before this editorial QA task: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`
+accepted visual repair commit: `6a810aadadef4b3c9078173b32bed4b243f8552a`
+latest pre-task remote commit: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502` (`Isolate Step 1 headlines ingestion tool via CDP`)
 
 ## current_product_phase
-LinkedIn native-image and Substack in-body visual placement repair is verified. Prior full-platform run `v6_pipeline_3c44a9855cc6` remains the latest all-platform `DISPATCH_COMPLETE` baseline, and scoped repair run `v6_pipeline_d49f6e14a856` reached `DISPATCH_COMPLETE` for Substack + LinkedIn with no quality-gate bypass.
+Post-visual-repair baseline is reconciled. The latest accepted dispatch evidence remains the scoped Substack + LinkedIn repair run `v6_pipeline_d49f6e14a856`, with prior full 8-platform evidence reconciled for unaffected lanes. Step 1 headline ingestion is isolated under `headline_ingestion/`. A new editorial quality audit now separates mechanical dispatch success from tier-1 editorial acceptance.
 
 ## current_product_lane
-Non-bypassed V6 visual-publication correctness: LinkedIn now blocks visual-required runs unless native media upload and preview proof are detected before posting; Substack now composes visual markers segment-by-segment, verifies public visual placement/order, and fails the lane when images are only counted but not placed in body.
+Editorial/SEO/source-quality gate: `DISPATCH_COMPLETE` remains transport evidence, while `editorial_acceptance_status` now classifies canonical articles separately as `EDITORIAL_APPROVED`, `EDITORIAL_NEEDS_REVIEW`, or `EDITORIAL_BLOCKED`.
 
 ## accepted_baseline_summary
-`TASK_CONTENTOPS_V6_LINKEDIN_NATIVE_IMAGE_AND_SUBSTACK_IN_BODY_VISUAL_PLACEMENT_REPAIR_V0` repaired the manual-QA regressions found after `v6_pipeline_3c44a9855cc6`. Final scoped repair run `v6_pipeline_d49f6e14a856` reached `DISPATCH_COMPLETE` for Substack + LinkedIn from verified remote HEAD `eb48f275990a286f40d3f73a40e1b00f4f7503cd`, with live provider and dispatch enabled and no `CONTENTOPS_BYPASS_QUALITY_GATES` entry in process or `.env`. Substack public URL `https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c` contains 2 public images with placement readback `PASS`: primary visual before/near "The Macro Setup" and the second visual in "Market Implications Without Directional Noise". LinkedIn returned `SUCCESS` only after native image upload status `uploaded` and composer preview proof `media_preview_detected=true`.
+`TASK_CONTENTOPS_V6_POST_VISUAL_REPAIR_BASELINE_AND_EDITORIAL_QA_GATE_V0` reconciles the visual repair baseline (`6a810...`) and the later Step 1 headline ingestion commit (`bcf557...`), then adds deterministic editorial QA. The latest Crude Awakenings packet remains valid as pipeline/dispatch proof, but it is not tier-1 editorial approved: the audit classifies it as `EDITORIAL_BLOCKED` because unrelated Yahoo Finance URLs contaminate canonical citations/source notes, SEO target keyword alignment is weak, relevant source diversity is only FRED/EIA, and public body copy contains excessive pipeline-internal language.
 
 ## status_sha_model
-- `last_verified_remote_sha`: `eb48f275990a286f40d3f73a40e1b00f4f7503cd` before this visual repair task.
-- `accepted_product_baseline_sha`: pending this task's product/evidence commit; final pushed SHA is reported in the final response.
-- `last_status_commit_sha`: pending this task's status/evidence commit; final pushed SHA is reported in the final response.
-- Older stale SHA references in prior status docs are superseded by the verified remote HEAD above for this task.
+- `last_verified_remote_sha`: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502` before this editorial QA task.
+- `accepted_visual_repair_sha`: `6a810aadadef4b3c9078173b32bed4b243f8552a`.
+- `latest_headline_ingestion_sha`: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`.
+- `accepted_product_baseline_sha`: advances with the final pushed editorial QA commit reported in final task evidence.
+- Older stale `3a074`, `332e646`, `496dee`, and pending visual-repair SHA references are superseded by the verified remote/evidence above.
 
 ## canonical_dashboard_surface
 `ui/contentops_v5/` is the canonical current dashboard/app surface unless a newer committed authority document supersedes it.
@@ -47,13 +48,16 @@ Canonical package: `ui/contentops_v5/package.json`.
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-Restored with visual-publication repair. Full all-platform run `v6_pipeline_3c44a9855cc6` remains reconciled for unaffected lanes. Scoped repair run `v6_pipeline_d49f6e14a856` reached `DISPATCH_COMPLETE` for Substack and LinkedIn without `CONTENTOPS_BYPASS_QUALITY_GATES=true`; Substack visual placement/order readback passed and LinkedIn native image attach proof is recorded.
+Restored with visual-publication repair and post-repair editorial QA separation. Full all-platform run `v6_pipeline_3c44a9855cc6` remains reconciled for unaffected lanes. Scoped repair run `v6_pipeline_d49f6e14a856` reached `DISPATCH_COMPLETE` for Substack and LinkedIn without `CONTENTOPS_BYPASS_QUALITY_GATES=true`; Substack visual placement/order readback passed and LinkedIn native image attach proof is recorded. Editorial acceptance is now a distinct audit field and is not implied by dispatch success.
 
 ## dispatch/live status
 Final scoped visual repair run `v6_pipeline_d49f6e14a856` used live provider and live dispatch with the default 420s timeout. Final status: `DISPATCH_COMPLETE` for scope `substack, linkedin`. Canonical Substack URL: `https://capitalchronicle.substack.com/p/crude-awakenings-how-spiking-oil-13c`. Public/CDN image URL: `https://substackcdn.com/image/fetch/$s_!TkqE!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png`. Failed platforms: none. Blocked platforms: none. Latest audit: `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`. Prior all-platform evidence from `v6_pipeline_3c44a9855cc6` remains the reconciled evidence for X, Instagram, Facebook Page, Telegram, Threads, and Discord.
 
 ## article_quality_status
-Final scoped repair article quality passed validation with packet `body_word_count` 2,009, recomputed body/heading word estimate 2,060, 8 sections, 3 source-trail entries, 6 citations, numeric evidence throughout, SEO fields (`slug_candidate`, `dek`, `meta_description`), chart/media callouts, and 2 purposeful visual slots.
+Mechanical article gates pass for the latest Crude Awakenings packet (`body_word_count` 2,009, 8 sections, 3 source-trail entries, SEO fields present, 2 visual slots), but editorial acceptance is `EDITORIAL_BLOCKED`. Exact audit blockers: irrelevant Yahoo Finance citation/source-note URLs do not support the WTI/oil-volatility thesis. Review items: `seo_target_keyword_not_topic_aligned`, `source_diversity_too_narrow:2<3`, and `public_body_pipeline_internal_language:13`.
+
+## editorial_quality_status
+New module: `live_contentops/editorial_quality_audit_v6.py`. The audit checks topic/source semantic relevance, citation/source-note support, unrelated search/headline contamination, SEO keyword alignment, tier-1 structure, source diversity for macro/geopolitical topics, and public-body tone. Current audited Crude Awakenings classification: `EDITORIAL_BLOCKED`; `tier1_editorial_approved=false`. Evidence: `docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json`.
 
 ## media_and_visual_status
 Media audit status: `PASS`. Selected assets are source-backed FRED/EIA WTI charts through `2026-06-29` with recent direction `up`. Substack uploaded 2 visual assets at in-body markers and public readback found 2 public images with placement status `PASS`. LinkedIn native media attachment required image upload proof before posting and recorded `media_upload_status=uploaded`, `media_preview_detected=true`, selector `file_chooser:button[aria-label*='Add media']`.
@@ -66,14 +70,18 @@ Under Fast Ship Mode, local env credentials and operator browser profiles were u
 - Google image search remains blocked/empty in this environment; source-backed chart-pack fallback is the reliable path for oil topics.
 - Provider-native article drafts still failed quality/safety in the final run and required the source-backed deterministic repair pass before publish.
 - Manual screenshot/crop review remains recommended for public platform visuals. LinkedIn returns a feed URL plus native preview proof, not a stable public permalink/readback URL.
+- Latest Crude Awakenings article is dispatch proof but not tier-1 editorial proof; canonical citations/source notes contain unrelated Yahoo Finance URLs.
+- YouTube Community is future text/image platform work only after current 8-platform QA is hardened. TikTok, YouTube video, Shorts, and video creator work are explicitly out of current scope.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_LINKEDIN_NATIVE_IMAGE_AND_SUBSTACK_IN_BODY_VISUAL_PLACEMENT_REPAIR_V0
+TASK_CONTENTOPS_V6_POST_VISUAL_REPAIR_BASELINE_AND_EDITORIAL_QA_GATE_V0
 
 ## latest changed areas
 - `live_contentops/linkedin_browser_adapter_v6.py`
 - `live_contentops/substack_browser_adapter_v6.py`
 - `live_contentops/live_production_pipeline_runner_v6.py`
+- `live_contentops/editorial_quality_audit_v6.py`
+- `tests/test_editorial_quality_audit_v6.py`
 - `live_contentops/platform_native_variant_generator_live_v6.py`
 - `tests/test_linkedin_browser_adapter_v6.py`
 - `tests/test_substack_browser_adapter_v6.py`
@@ -89,9 +97,10 @@ TASK_CONTENTOPS_V6_LINKEDIN_NATIVE_IMAGE_AND_SUBSTACK_IN_BODY_VISUAL_PLACEMENT_R
 - `docs/status/current_project_status.json`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
+- `docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json`
 
 ## current next recommended task
-`TASK_CONTENTOPS_V6_PROVIDER_NATIVE_DRAFT_RELIABILITY_AND_PUBLIC_VISUAL_QA_V0`: Harden provider-native article generation so the source-backed repair pass is less frequently required, then perform public screenshot/crop QA and LinkedIn permalink/readback hardening across the final platform outputs.
+`TASK_CONTENTOPS_V6_MEDIA_DIVERSIFICATION_RIGHTS_PROVENANCE_AND_PUBLIC_VISUAL_QA_V0`: diversify source-backed visuals beyond single-series WTI charts, add rights/provenance review fields, harden public screenshot/crop QA, and preserve the editorial QA gate before any new platform expansion. Do not build TikTok, YouTube video, Shorts, or a video creator; keep YouTube Community as a later text/image platform after current 8-platform QA is hardened.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.

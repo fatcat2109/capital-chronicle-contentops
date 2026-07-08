@@ -45,10 +45,14 @@ def test_run_live_production_pipeline(mock_generate_variants, mock_run_article, 
         assert result["platform_variant_packet_id"] == "var_test_packet_456"
         assert result["image_path"] == "downloads/test_image.jpg"
         assert result["variant_status"] == "VARIANT_SCAFFOLD_READY"
+        assert result["editorial_acceptance_status"] == "EDITORIAL_BLOCKED"
+        assert result["tier1_editorial_approved"] is False
         
         assert test_article_path.exists()
         saved_data = json.loads(test_article_path.read_text(encoding="utf-8"))
         assert saved_data["packet_id"] == "art_test_packet_123"
+        assert saved_data["editorial_quality_audit"]["classification"] == "EDITORIAL_BLOCKED"
+        assert saved_data["editorial_review_packet"]["tier1_editorial_approved"] is False
         assert mock_run_article.call_args.kwargs["timeout_seconds"] == 42
 
 

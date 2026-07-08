@@ -1,0 +1,38 @@
+{
+  "audit_blockers": [
+    "irrelevant_citation_urls:https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html,https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html,https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html",
+    "irrelevant_source_note_urls:https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html,https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html,https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html"
+  ],
+  "audit_review_items": [
+    "seo_target_keyword_not_topic_aligned",
+    "source_diversity_too_narrow:2<3",
+    "public_body_pipeline_internal_language:13"
+  ],
+  "audit_summary": {
+    "irrelevant_url_count": 3,
+    "pipeline_internal_language_count": 13,
+    "relevant_source_families": [
+      "eia",
+      "fred"
+    ],
+    "seo_keyword_aligned": false,
+    "source_family_count": 2,
+    "tier1_structure_missing": []
+  },
+  "audited_article_packet": "docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json",
+  "audited_article_title": "Crude Awakenings: How Spiking Oil Volatility Amplifies US Recession Risks",
+  "audited_dispatch_packet": "docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json",
+  "audited_run_id": "v6_pipeline_d49f6e14a856",
+  "branch": "master",
+  "dispatch_pipeline_status": "DISPATCH_COMPLETE",
+  "editorial_acceptance_status": "EDITORIAL_BLOCKED",
+  "future_platform_note": "YouTube Community is future text/image distribution after current 8-platform QA hardening; no TikTok, YouTube video, Shorts, or video creator work is in scope.",
+  "headline_ingestion_commit": "bcf5574d16a433b7b1b3bcb6deea2d7ead402502",
+  "live_dispatch_run_performed_this_task": false,
+  "next_recommended_task": "TASK_CONTENTOPS_V6_MEDIA_DIVERSIFICATION_RIGHTS_PROVENANCE_AND_PUBLIC_VISUAL_QA_V0",
+  "repo": "fatcat2109/capital-chronicle-contentops",
+  "task_id": "TASK_CONTENTOPS_V6_POST_VISUAL_REPAIR_BASELINE_AND_EDITORIAL_QA_GATE_V0",
+  "tier1_editorial_approved": false,
+  "verified_remote_head_before_task": "bcf5574d16a433b7b1b3bcb6deea2d7ead402502",
+  "visual_repair_commit": "6a810aadadef4b3c9078173b32bed4b243f8552a"
+}

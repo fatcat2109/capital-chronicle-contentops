@@ -27,6 +27,7 @@ from live_contentops.ai_research_canonical_article_engine_v6 import (
     run_article_engine,
     validate_article_quality,
 )
+from live_contentops.editorial_quality_audit_v6 import audit_editorial_quality_packet
 from live_contentops.platform_native_variant_generator_live_v6 import (
     generate_live_platform_variants,
     validate_platform_variants,
@@ -693,6 +694,15 @@ def run_live_production_pipeline(
         provider_request_budget=2,
         timeout_seconds=timeout_seconds
     )
+    editorial_quality_audit = audit_editorial_quality_packet(article_packet, topic=topic)
+    article_packet["editorial_quality_audit"] = editorial_quality_audit
+    article_packet.setdefault("editorial_review_packet", {})["editorial_acceptance_status"] = editorial_quality_audit["classification"]
+    article_packet.setdefault("editorial_review_packet", {})["tier1_editorial_approved"] = editorial_quality_audit["tier1_editorial_approved"]
+    if editorial_quality_audit["classification"] != "EDITORIAL_APPROVED":
+        warning_label = f"editorial_quality_audit:{editorial_quality_audit['classification']}"
+        warnings = article_packet.setdefault("warnings", [])
+        if warning_label not in warnings:
+            warnings.append(warning_label)
 
     ARTICLE_OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with open(ARTICLE_OUTPUT_PATH, "w", encoding="utf-8") as f:
@@ -732,6 +742,9 @@ def run_live_production_pipeline(
         "dispatch_platform_scope": list(selected_platforms),
         "dispatch_idempotency_control": "platform_scope_allowlist",
         "media_manifest": media_manifest,
+        "editorial_acceptance_status": editorial_quality_audit["classification"],
+        "tier1_editorial_approved": editorial_quality_audit["tier1_editorial_approved"],
+        "editorial_quality_audit": editorial_quality_audit,
     }
 
     article_failures = validate_article_quality(article_packet.get("canonical_article_draft", {})) if live_run else []

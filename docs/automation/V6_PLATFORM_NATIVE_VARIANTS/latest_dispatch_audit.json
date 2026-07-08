@@ -415,6 +415,230 @@
       "linkedin"
     ]
   },
+  "editorial_acceptance_note": "Dispatch status is transport evidence only; tier-1 editorial acceptance is classified separately.",
+  "editorial_acceptance_status": "EDITORIAL_BLOCKED",
+  "editorial_quality_audit": {
+    "blockers": [
+      "irrelevant_citation_urls:https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html,https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html,https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html",
+      "irrelevant_source_note_urls:https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html,https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html,https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html"
+    ],
+    "classification": "EDITORIAL_BLOCKED",
+    "dispatch_status_independent": true,
+    "public_body_tone_audit": {
+      "pipeline_internal_language_count": 13,
+      "pipeline_internal_language_hits": [
+        {
+          "count": 3,
+          "term": "capital_chronicle_database"
+        },
+        {
+          "count": 1,
+          "term": "dispatch"
+        },
+        {
+          "count": 2,
+          "term": "media_audit"
+        },
+        {
+          "count": 2,
+          "term": "operator"
+        },
+        {
+          "count": 3,
+          "term": "pipeline"
+        },
+        {
+          "count": 1,
+          "term": "provider"
+        },
+        {
+          "count": 1,
+          "term": "visual_slot"
+        }
+      ]
+    },
+    "review_items": [
+      "seo_target_keyword_not_topic_aligned",
+      "source_diversity_too_narrow:2<3",
+      "public_body_pipeline_internal_language:13"
+    ],
+    "schema_version": "editorial_quality_audit_v6.1",
+    "seo_audit": {
+      "expected_concepts": [
+        "geopolitics",
+        "oil",
+        "recession",
+        "volatility",
+        "yield"
+      ],
+      "keyword_aligned": false,
+      "keyword_concepts": [
+        "oil",
+        "recession",
+        "volatility"
+      ],
+      "meta_description_length": 147,
+      "missing_fields": [],
+      "target_keyword": "spikes",
+      "target_keyword_weak": true
+    },
+    "source_relevance_audit": {
+      "audited_urls": [
+        {
+          "domain": "finance.yahoo.com",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [],
+          "relevance_status": "UNRELATED_TO_THESIS",
+          "source_family": "yahoo_finance",
+          "url": "https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html"
+        },
+        {
+          "domain": "finance.yahoo.com",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [],
+          "relevance_status": "UNRELATED_TO_THESIS",
+          "source_family": "yahoo_finance",
+          "url": "https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html"
+        },
+        {
+          "domain": "finance.yahoo.com",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [],
+          "relevance_status": "UNRELATED_TO_THESIS",
+          "source_family": "yahoo_finance",
+          "url": "https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html"
+        },
+        {
+          "domain": "fred.stlouisfed.org",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "oil",
+            "recession",
+            "volatility",
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "fred",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILWTICO"
+        },
+        {
+          "domain": "fred.stlouisfed.org",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "oil",
+            "recession",
+            "volatility",
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "fred",
+          "url": "https://fred.stlouisfed.org/series/DCOILWTICO"
+        },
+        {
+          "domain": "eia.gov",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "oil",
+            "volatility"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "eia",
+          "url": "https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm"
+        }
+      ],
+      "expected_concepts": [
+        "geopolitics",
+        "oil",
+        "recession",
+        "volatility",
+        "yield"
+      ],
+      "irrelevant_urls": [
+        {
+          "domain": "finance.yahoo.com",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [],
+          "relevance_status": "UNRELATED_TO_THESIS",
+          "source_family": "yahoo_finance",
+          "url": "https://finance.yahoo.com/m/15bfdac6-3ce9-38d8-9ba1-f2ab9e744313/the-market%E2%80%99s-hottest-stock-is.html"
+        },
+        {
+          "domain": "finance.yahoo.com",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [],
+          "relevance_status": "UNRELATED_TO_THESIS",
+          "source_family": "yahoo_finance",
+          "url": "https://finance.yahoo.com/m/c68d12c5-efbe-3987-854b-a8e2c68b8ea1/mitch-mcconnell%2C-still.html"
+        },
+        {
+          "domain": "finance.yahoo.com",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [],
+          "relevance_status": "UNRELATED_TO_THESIS",
+          "source_family": "yahoo_finance",
+          "url": "https://finance.yahoo.com/news/canadian-investment-regulatory-organization-trade-181800213.html"
+        }
+      ],
+      "relevant_source_families": [
+        "eia",
+        "fred"
+      ],
+      "relevant_source_family_count": 2,
+      "source_trail_claims_too_generic": false,
+      "source_trail_count": 3
+    },
+    "tier1_editorial_approved": false,
+    "tier1_structure_audit": {
+      "checks": {
+        "clear_news_hook": true,
+        "counterargument_or_limits": true,
+        "evidence": true,
+        "what_to_watch_next": true,
+        "why_now": true
+      },
+      "missing": [],
+      "section_count": 8
+    }
+  },
   "image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_febb4cd8863f.png",
   "media_manifest": {
     "chart_metadata": {
@@ -522,6 +746,7 @@
   "platform_variant_packet_id": "variant_packet_a878450ba5f7",
   "public_image_url": "https://substackcdn.com/image/fetch/$s_!TkqE!,w_1200,h_675,c_fill,f_jpg,q_auto:good,fl_progressive:steep,g_auto/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F80bf06f3-6595-4146-aaa5-bc467d7c2a08_1725x1080.png",
   "run_id": "v6_pipeline_d49f6e14a856",
+  "tier1_editorial_approved": false,
   "timestamp": "2026-07-07T18:25:28Z",
   "timestamp_gmt7": "2026-07-08T01:25:28+07:00",
   "variant_status": "VARIANT_READY"

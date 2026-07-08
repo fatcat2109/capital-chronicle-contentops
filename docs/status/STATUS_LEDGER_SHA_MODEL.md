@@ -8,10 +8,11 @@
 
 ## Current values
 
-- current remote HEAD verified before this restore task: `bb3a0ffe50c201011903f211d1caf62c6fdb556c`
-- accepted product baseline before this restore task: `bb3a0ffe50c201011903f211d1caf62c6fdb556c`
-- restore task product/evidence commit SHA: reported in final evidence after commit/push
-- docs/status refresh commit SHA: reported in final evidence after commit/push
+- current remote HEAD verified before this editorial QA task: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`
+- accepted visual repair commit: `6a810aadadef4b3c9078173b32bed4b243f8552a`
+- latest headline ingestion commit: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`
+- editorial QA task product/evidence commit SHA: reported in final evidence after commit/push
+- docs/status refresh SHA for this task is the same final product/evidence commit because the status refresh and QA gate ship together.
 
 ## Update rules
 
@@ -32,3 +33,7 @@ Browser QA and product UI work target `ui/contentops_v5/`. V4 remains fallback/r
 ## Latest restore note
 
 `TASK_CONTENTOPS_V6_RESTORE_NON_BYPASSED_FULL_AUTOMATION_SUCCESS_AND_EDITORIAL_QUALITY_V0` restored the non-bypassed full live automation run. Final run `v6_pipeline_3c44a9855cc6` reached `DISPATCH_COMPLETE` with article quality, source-backed media, Substack visual readback, and all implemented platform lanes successful. The final pushed commit SHA is reported in the final response.
+
+## Latest editorial QA note
+
+`TASK_CONTENTOPS_V6_POST_VISUAL_REPAIR_BASELINE_AND_EDITORIAL_QA_GATE_V0` adds a separate editorial acceptance field so dispatch completion cannot be confused with tier-1 editorial approval. The latest Crude Awakenings packet audits as `EDITORIAL_BLOCKED` while the scoped Substack + LinkedIn dispatch run remains transport-complete evidence.
