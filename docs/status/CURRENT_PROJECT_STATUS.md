@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps - Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0
+TASK_CONTENTOPS_V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_OPERATOR_GO_READBACK_AND_CROP_QA_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,12 +9,12 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-verified remote master before this dry-run rehearsal task: `55d7803fde03fdc4cf70cc1c54c4b017846bf42d`
+verified remote master before this blocked pre-public task: `e736997786ed0f2c80b5fe1770996f60e9b7e0e6`
 accepted visual repair commit: `6a810aadadef4b3c9078173b32bed4b243f8552a`
-latest pre-task remote commit: `55d7803fde03fdc4cf70cc1c54c4b017846bf42d`
+latest pre-task remote commit: `e736997786ed0f2c80b5fe1770996f60e9b7e0e6`
 
 ## current_product_phase
-Real full automation dry-run rehearsal is now accepted with no public writes. Run `v6_dry_run_rehearsal_20260709` reached `LIVE_READY_REQUIRES_OPERATOR_GO` for the current 8-platform scope after scheduler slot selection, canonical article generation, editorial/mechanical gates, source-backed local media fixtures, media diversification, approval marker envelope creation, Telegram duplicate/body/photo-payload guard, and dispatch rehearsal. Public dispatch remains frozen until a subsequent explicitly approved live public candidate task.
+The controlled 8-platform public candidate task is `BLOCKED_PRE_PUBLIC_GATE`; no public dispatch was run. Pre-public evidence `docs/automation/V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_QA/pre_public_gate_evidence_v0.json` blocks the current generated state because the fresh Fed-funds article attempt still carries the prior Crude/WTI/Hormuz media family, and the fresh-slot dry-run rehearsal `v6_fresh_fed_funds_prepublic_rehearsal_20260709` is `REHEARSAL_BLOCKED`.
 
 ## current_product_lane
 Editorial newsroom lane: canonical articles must pass mechanical quality, independent editorial quality, media diversification/provenance, and visual-slot gates before public dispatch can be treated as product-candidate evidence.
@@ -23,10 +23,10 @@ Editorial newsroom lane: canonical articles must pass mechanical quality, indepe
 `TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0` made the dry-run path network-isolated for image/media discovery, moved dotenv loading out of import-time dry-run paths, added deterministic source-backed local fixture media, added an approval-marker envelope dispatch rehearsal mode, and ran the real CLI/full automation rehearsal end-to-end with no public writes. Acceptance classification: `PASS_REAL_FULL_AUTOMATION_DRY_RUN_REHEARSAL_NO_PUBLIC_WRITE`.
 
 ## status_sha_model
-- `last_verified_remote_sha`: `55d7803fde03fdc4cf70cc1c54c4b017846bf42d` before this dry-run rehearsal task.
+- `last_verified_remote_sha`: `e736997786ed0f2c80b5fe1770996f60e9b7e0e6` before this blocked pre-public candidate task.
 - `accepted_visual_repair_sha`: `6a810aadadef4b3c9078173b32bed4b243f8552a`.
 - `latest_headline_ingestion_sha`: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`.
-- `accepted_product_baseline_sha`: advances with the final pushed rehearsal-proof commit reported in final task evidence.
+- `accepted_product_baseline_sha`: advances with the final pushed blocked-pre-public evidence commit reported in final task evidence.
 - Older stale `3a074`, `332e646`, `496dee`, and pending visual-repair SHA references are superseded by the verified remote/evidence above.
 
 ## canonical_dashboard_surface
@@ -48,25 +48,28 @@ Canonical package: `ui/contentops_v5/package.json`.
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-Dry-run full automation is ready for operator GO. The rehearsal used schedule slot 1 from `docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/daily_schedule_2026_07_08.json`, sidecar file `headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl` with 1,024 rows, run id `v6_dry_run_rehearsal_20260709`, canonical packet `article_engine_packet_d48e683ab914eb8f`, variant packet `variant_packet_d0ad6886f719`, and audit/evidence under `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json` plus `docs/automation/V6_DRY_RUN_FULL_AUTOMATION_REHEARSAL/dry_run_full_automation_rehearsal_evidence_v0.json`.
+Pre-public automation is blocked before operator GO. The accepted oil/yields rehearsal remains readable, but it is not public-safe after the Telegram Crude/WTI duplicate incident. Schedule triage selected slot 6, `Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th`, as the safest non-oil candidate. Its dry-run rehearsal `v6_fresh_fed_funds_prepublic_rehearsal_20260709` stopped at `REHEARSAL_BLOCKED` with no platform attempts.
 
 ## dispatch/live status
-No live dispatch was run in this dry-run task. The rehearsal dispatch summary attempted all current 8 platforms and marked all as `DRY_RUN_REHEARSAL_READY` with `public_write=false`, `live_platform_api_called=false`, and `credential_lookup_performed=false`. Telegram dry-run proof includes non-empty caption, photo requested by local fixture media, payload hash `de2b71eb33b51986`, duplicate ledger guard `PASS`, and no Bot API call.
+No live dispatch was run in this task. The fresh Fed-funds dry-run rehearsal attempted zero platforms and blocked at the pipeline gate with `public_write=false`, `live_platform_api_called=false`, and `credential_lookup_performed=false`. No Telegram Bot API call, Substack publish, social post, retry loop, scheduler run, or public readback occurred.
 
 ## article_quality_status
-Local final candidate article gates pass: `body_word_count=2174`, `sections=9`, `source_trail=8`, `citations=8`, SEO metadata present, `target_keyword=oil volatility recession risk`, and `visual_slots=3`. Editorial acceptance is `EDITORIAL_APPROVED`; `tier1_editorial_approved=true`. No unrelated Yahoo/search URLs are present in canonical citations/source notes.
+Current generated fresh-slot article gates fail: `body_word_count=140`, `sections=2`, source trail too thin, missing specific numbers, and editorial quality gate `EDITORIAL_BLOCKED`. The prior oil/yields article remains a readable dry-run artifact but must not be public-posted because it collapses into the prior Crude/WTI content family.
 
 ## editorial_quality_status
-Editorial quality audit remains independent from dispatch. Current audited Crude Awakenings local final candidate classification: `EDITORIAL_APPROVED`; `tier1_editorial_approved=true`. Evidence: `docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json`.
+Editorial quality audit remains independent from dispatch. The fresh Fed-funds dry-run candidate is `EDITORIAL_BLOCKED` with blockers `source_trail_too_thin:0<3`, weak tier-1 structure, and narrow source diversity. Evidence: `docs/automation/V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_QA/fresh_slot6_dry_run_rehearsal_evidence_v0.json`.
 
 ## media_and_visual_status
-Media audit status: `PASS`. Selected local candidate assets: primary FRED/EIA WTI volatility chart, secondary FRED/EIA recent WTI price chart, and EIA-referenced Hormuz/geopolitics context schematic. Latest observation/time coverage for source-backed charts: `2026-06-29`. Search-like Google/Commons discovery remains review-only; the discovered candidate was rejected for unverified time coverage and replaced by the source-backed diversified pack. Substack variant contains 3 in-body visual markers.
+Media status is blocked for public use. The fresh Fed-funds dry-run inherited the WTI volatility chart, WTI recent-price chart, and Hormuz context schematic; pre-public gate classifies this as `duplicate_media_family:crude_wti_oil_volatility`. A future fresh candidate needs source-backed non-oil visuals whose topic family matches the article before any public write.
 
 ## provider/env/credential status
-The accepted rehearsal did not read raw env values, did not require credential lookup, did not call live provider APIs, and did not import platform adapters for dispatch. `load_dotenv()` is no longer called at import time by the dry-run runner/variant path; it is gated to live generation/dispatch paths.
+This blocked pre-public task did not read raw env values, did not require credential lookup, did not call live provider APIs, and did not import platform adapters for dispatch. The preflight process scan found zero matching Python live-runner/outbox/scheduler processes.
 
 ## active blockers
 - INCIDENT FREEZE: no further public dispatch until Telegram duplicate posts are manually audited and the next public candidate has explicit operator GO.
+- PUBLIC CANDIDATE BLOCKED: `docs/automation/V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_QA/pre_public_gate_evidence_v0.json` records `BLOCKED_PRE_PUBLIC_GATE`; no public write occurred.
+- Fresh Fed-funds dry-run `v6_fresh_fed_funds_prepublic_rehearsal_20260709` is `REHEARSAL_BLOCKED` due article quality/editorial blockers.
+- Current generated media is not public-safe for Fed-funds content because it reuses WTI/Hormuz oil visuals and trips `duplicate_media_family:crude_wti_oil_volatility`.
 - Telegram duplicate incident evidence confirms screenshot-visible duplicates and committed telemetry line 520 (`message_id=58`); do not rely on stale `latest_dispatch_audit.json` alone for public/no-public conclusions.
 - Future Telegram success requires approval marker + payload hash + duplicate ledger pass + meaningful non-preview body + Bot API photo proof when a photo is requested.
 - Instagram and Threads post edit APIs are unsupported and intentionally return `UNSUPPORTED`.
@@ -78,24 +81,16 @@ The accepted rehearsal did not read raw env values, did not require credential l
 - YouTube Community is future text/image platform work only after current 8-platform QA is hardened. TikTok, YouTube video, Shorts, and video creator work are explicitly out of current scope.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0
+TASK_CONTENTOPS_V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_OPERATOR_GO_READBACK_AND_CROP_QA_V0
 
 ## latest changed areas
-- `live_contentops/google_image_search_v6.py`
-- `live_contentops/platform_native_variant_generator_live_v6.py`
-- `live_contentops/ai_research_canonical_article_engine_v6.py`
-- `live_contentops/live_production_pipeline_runner_v6.py`
-- `live_contentops/pipeline_rehearsal_evidence_v6.py`
-- `tests/test_google_image_search_v6.py`
-- `tests/test_platform_native_variant_generator_live.py`
-- `tests/test_ai_research_canonical_article_engine_v6.py`
-- `tests/test_live_production_pipeline_runner.py`
-- `tests/test_pipeline_rehearsal_evidence_v6.py`
+- `live_contentops/public_candidate_preflight_v6.py`
+- `tests/test_public_candidate_preflight_v6.py`
 - `docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json`
 - `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json`
 - `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`
 - `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/*.md`
-- `docs/automation/V6_DRY_RUN_FULL_AUTOMATION_REHEARSAL/`
+- `docs/automation/V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_QA/`
 - `ui/contentops_v5/src/data/platform_variant_packet.json`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
@@ -103,13 +98,13 @@ TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEA
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
 
 ## current next recommended task
-`TASK_CONTENTOPS_V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_OPERATOR_GO_READBACK_AND_CROP_QA_V0`: with explicit operator GO, run exactly one non-bypassed public candidate from the approved rehearsal state, then capture public URLs/IDs, Telegram Bot API photo proof, Substack public visual order/placement proof, and per-platform crop/readability/readback evidence.
+`TASK_CONTENTOPS_V6_FRESH_NON_OIL_SOURCE_BACKED_ARTICLE_AND_MEDIA_REHEARSAL_REPAIR_V0`: create a fresh non-duplicate non-oil candidate with source-backed article evidence and matching non-oil media, pass mechanical/editorial/media/duplicate dry-run gates, then resume the controlled 8-platform public candidate only after pre-public gate PASS.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.
 
 ## next-task safety notes
-Read this status ledger and the JSON status file before planning. Under Fast Ship Mode, builders are fully authorized to read `.env`, use credentials, perform network and live actions, and dispatch/publish to social channels when the task explicitly requires it.
+Read this status ledger and the JSON status file before planning. Do not rerun the public candidate from the current generated state. Under Fast Ship Mode, live actions remain authorized only when the task explicitly requires them and the pre-public gate has passed; the immediate next task should repair fresh non-oil source-backed generation/media, not dispatch.
 
 ## mandatory read-before-work files
 - `AGENTS.md`

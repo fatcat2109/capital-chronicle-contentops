@@ -1,70 +1,15 @@
 {
-  "approval_marker_envelope": {
-    "approval_marker": {
-      "approval_status": "APPROVED_FOR_PUBLIC_DISPATCH",
-      "approved_payload_hashes": {
-        "discord": "e52dd3efa204aead",
-        "facebook": "4ae083ce17a4afc9",
-        "instagram": "822c2ae10f901f42",
-        "linkedin": "f353a89decd9bdc5",
-        "substack": "805f1ad726413dcf",
-        "telegram": "de2b71eb33b51986",
-        "threads": "fbe4935e1502a5d3",
-        "x": "17f9cec8e6690e89"
-      },
-      "approved_public_dispatch": true,
-      "canonical_packet_hash": "0cc5c3bb4c0130a93b04e672080e0d3b0489e07f2e6979e25ab535a7d79c1e04",
-      "dry_run": true,
-      "payload_hash": "de2b71eb33b51986",
-      "platform_variant_packet_hash": "05b1a63252e641d68960684fb5b67897c6ba951dbedb3d5d3d2f770cd8cef57c",
-      "public_write": false,
-      "run_id": "v6_dry_run_rehearsal_20260709",
-      "topic_hash": "6ec6c3d3cbc58f82"
-    },
-    "canonical_packet_hash": "0cc5c3bb4c0130a93b04e672080e0d3b0489e07f2e6979e25ab535a7d79c1e04",
-    "dry_run": true,
-    "duplicate_ledger_result": {
-      "action": "photo",
-      "approval_marker_present": true,
-      "blockers": [],
-      "dispatch_allowed": true,
-      "identity_hashes": {
-        "media_url_hash": "bdcd5e5412111733",
-        "topic_hash": "6ec6c3d3cbc58f82"
-      },
-      "payload_hash": "de2b71eb33b51986",
-      "payload_hash_required": true,
-      "platform": "telegram",
-      "run_id": "v6_dry_run_rehearsal_20260709",
-      "status": "PASS",
-      "topic_hash": "6ec6c3d3cbc58f82"
-    },
-    "per_platform_payload_hash": {
-      "discord": "e52dd3efa204aead",
-      "facebook": "4ae083ce17a4afc9",
-      "instagram": "822c2ae10f901f42",
-      "linkedin": "f353a89decd9bdc5",
-      "substack": "805f1ad726413dcf",
-      "telegram": "de2b71eb33b51986",
-      "threads": "fbe4935e1502a5d3",
-      "x": "17f9cec8e6690e89"
-    },
-    "platform_variant_packet_hash": "05b1a63252e641d68960684fb5b67897c6ba951dbedb3d5d3d2f770cd8cef57c",
-    "public_write": false,
-    "quality_gate_result": {
-      "blockers": [],
-      "status": "PASS"
-    },
-    "run_id": "v6_dry_run_rehearsal_20260709",
-    "telegram_payload_hash": "de2b71eb33b51986",
-    "topic_hash": "6ec6c3d3cbc58f82"
-  },
-  "article_packet_id": "article_engine_packet_d48e683ab914eb8f",
-  "canonical_url": null,
+  "article_packet_id": "article_engine_packet_07456d0384d2f477",
   "credential_lookup_performed": false,
   "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
-  "dispatch_blocked": false,
-  "dispatch_blockers": [],
+  "dispatch_blocked": true,
+  "dispatch_blockers": [
+    "article_too_short_words:140<2000",
+    "too_few_sections",
+    "source_trail_too_thin",
+    "missing_specific_numbers",
+    "editorial_quality_gate:EDITORIAL_BLOCKED"
+  ],
   "dispatch_idempotency_control": "platform_scope_allowlist",
   "dispatch_live": false,
   "dispatch_platform_scope": [
@@ -78,435 +23,84 @@
     "discord"
   ],
   "dispatch_rehearsal": true,
-  "dispatch_results": {
-    "discord": {
-      "action": "post",
-      "body_length": 1028,
-      "canonical_url": null,
-      "credential_lookup_performed": false,
-      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
-      "dry_run": true,
-      "error": null,
-      "error_class": null,
-      "live_platform_api_called": false,
-      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
-      "ok": true,
-      "payload_hash": "e52dd3efa204aead",
-      "platform": "discord",
-      "public_write": false,
-      "status": "DRY_RUN_REHEARSAL_READY",
-      "url": null
-    },
-    "facebook": {
-      "action": "photo",
-      "body_length": 1135,
-      "canonical_url": null,
-      "credential_lookup_performed": false,
-      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
-      "dry_run": true,
-      "error": null,
-      "error_class": null,
-      "live_platform_api_called": false,
-      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
-      "ok": true,
-      "payload_hash": "4ae083ce17a4afc9",
-      "platform": "facebook",
-      "public_write": false,
-      "status": "DRY_RUN_REHEARSAL_READY",
-      "url": null
-    },
-    "instagram": {
-      "action": "photo",
-      "body_length": 1082,
-      "canonical_url": null,
-      "credential_lookup_performed": false,
-      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
-      "dry_run": true,
-      "error": null,
-      "error_class": null,
-      "live_platform_api_called": false,
-      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
-      "ok": true,
-      "payload_hash": "822c2ae10f901f42",
-      "platform": "instagram",
-      "public_write": false,
-      "status": "DRY_RUN_REHEARSAL_READY",
-      "url": null
-    },
-    "linkedin": {
-      "action": "post",
-      "body_length": 1167,
-      "canonical_url": null,
-      "credential_lookup_performed": false,
-      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
-      "dry_run": true,
-      "error": null,
-      "error_class": null,
-      "live_platform_api_called": false,
-      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
-      "ok": true,
-      "payload_hash": "f353a89decd9bdc5",
-      "platform": "linkedin",
-      "public_write": false,
-      "status": "DRY_RUN_REHEARSAL_READY",
-      "url": null
-    },
-    "substack": {
-      "action": "article",
-      "body_length": 16129,
-      "canonical_url": null,
-      "credential_lookup_performed": false,
-      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
-      "dry_run": true,
-      "error": null,
-      "error_class": null,
-      "live_platform_api_called": false,
-      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
-      "ok": true,
-      "payload_hash": "805f1ad726413dcf",
-      "platform": "substack",
-      "public_write": false,
-      "status": "DRY_RUN_REHEARSAL_READY",
-      "url": null
-    },
-    "telegram": {
-      "action": "photo",
-      "body_length": 940,
-      "canonical_url": null,
-      "credential_lookup_performed": false,
-      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
-      "dry_run": true,
-      "error": null,
-      "error_class": null,
-      "live_platform_api_called": false,
-      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
-      "ok": true,
-      "payload_hash": "de2b71eb33b51986",
-      "platform": "telegram",
-      "public_write": false,
-      "status": "DRY_RUN_REHEARSAL_READY",
-      "telegram_caption_proof": {
-        "caption_length": 940,
-        "caption_non_empty": true,
-        "photo_proof_mode": "dry_run_payload_hash_only_no_bot_api_call",
-        "photo_requested": true,
-        "public_dispatch_freeze_guard": {
-          "action": "photo",
-          "approval_marker_present": true,
-          "blockers": [],
-          "dispatch_allowed": true,
-          "identity_hashes": {
-            "media_url_hash": "bdcd5e5412111733",
-            "topic_hash": "6ec6c3d3cbc58f82"
-          },
-          "payload_hash": "de2b71eb33b51986",
-          "payload_hash_required": true,
-          "platform": "telegram",
-          "run_id": "v6_dry_run_rehearsal_20260709",
-          "status": "PASS",
-          "topic_hash": "6ec6c3d3cbc58f82"
-        }
-      },
-      "url": null
-    },
-    "threads": {
-      "action": "thread",
-      "body_length": 896,
-      "canonical_url": null,
-      "credential_lookup_performed": false,
-      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
-      "dry_run": true,
-      "error": null,
-      "error_class": null,
-      "live_platform_api_called": false,
-      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
-      "ok": true,
-      "payload_hash": "fbe4935e1502a5d3",
-      "platform": "threads",
-      "public_write": false,
-      "status": "DRY_RUN_REHEARSAL_READY",
-      "url": null
-    },
-    "x": {
-      "action": "thread",
-      "body_length": 909,
-      "canonical_url": null,
-      "credential_lookup_performed": false,
-      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
-      "dry_run": true,
-      "error": null,
-      "error_class": null,
-      "live_platform_api_called": false,
-      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
-      "ok": true,
-      "payload_hash": "17f9cec8e6690e89",
-      "platform": "x",
-      "public_write": false,
-      "status": "DRY_RUN_REHEARSAL_READY",
-      "url": null
-    }
-  },
   "dispatch_summary": {
-    "attempted_platforms": [
-      "substack",
-      "linkedin",
-      "x",
-      "instagram",
-      "facebook",
-      "telegram",
-      "threads",
-      "discord"
+    "attempted_platforms": [],
+    "blocked_platforms": [
+      "pipeline"
     ],
-    "blocked_platforms": [],
     "failed_platforms": [],
-    "successful_platforms": [
-      "substack",
-      "linkedin",
-      "x",
-      "instagram",
-      "facebook",
-      "telegram",
-      "threads",
-      "discord"
-    ]
+    "successful_platforms": []
   },
   "dry_run": true,
-  "editorial_acceptance_status": "EDITORIAL_APPROVED",
+  "editorial_acceptance_status": "EDITORIAL_BLOCKED",
   "editorial_quality_audit": {
-    "blockers": [],
-    "classification": "EDITORIAL_APPROVED",
+    "blockers": [
+      "source_trail_too_thin:0<3"
+    ],
+    "classification": "EDITORIAL_BLOCKED",
     "dispatch_status_independent": true,
     "public_body_tone_audit": {
-      "pipeline_internal_language_count": 0,
-      "pipeline_internal_language_hits": []
+      "pipeline_internal_language_count": 2,
+      "pipeline_internal_language_hits": [
+        {
+          "count": 2,
+          "term": "operator"
+        }
+      ]
     },
-    "review_items": [],
+    "review_items": [
+      "tier1_structure_missing:clear_news_hook,why_now,what_to_watch_next",
+      "source_diversity_too_narrow:0<3"
+    ],
     "schema_version": "editorial_quality_audit_v6.1",
     "seo_audit": {
       "expected_concepts": [
-        "oil",
-        "recession",
-        "volatility",
+        "inflation",
         "yield"
       ],
       "keyword_aligned": true,
       "keyword_concepts": [
-        "oil",
-        "recession",
-        "volatility"
+        "yield"
       ],
-      "meta_description_length": 147,
+      "meta_description_length": 175,
       "missing_fields": [],
-      "target_keyword": "oil volatility recession risk",
+      "target_keyword": "effective funds rate july",
       "target_keyword_weak": false
     },
     "source_relevance_audit": {
-      "audited_urls": [
-        {
-          "domain": "fred.stlouisfed.org",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "canonical_article_draft.source_trail",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [
-            "oil",
-            "recession",
-            "volatility",
-            "yield"
-          ],
-          "relevance_status": "SUPPORTS_TOPIC",
-          "source_family": "fred",
-          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILWTICO"
-        },
-        {
-          "domain": "fred.stlouisfed.org",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "canonical_article_draft.source_trail",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [
-            "oil",
-            "recession",
-            "volatility",
-            "yield"
-          ],
-          "relevance_status": "SUPPORTS_TOPIC",
-          "source_family": "fred",
-          "url": "https://fred.stlouisfed.org/series/DCOILWTICO"
-        },
-        {
-          "domain": "home.treasury.gov",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "canonical_article_draft.source_trail",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [
-            "yield"
-          ],
-          "relevance_status": "SUPPORTS_TOPIC",
-          "source_family": "treasury",
-          "url": "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
-        },
-        {
-          "domain": "bls.gov",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "canonical_article_draft.source_trail",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [
-            "recession"
-          ],
-          "relevance_status": "SUPPORTS_TOPIC",
-          "source_family": "bls",
-          "url": "https://www.bls.gov/cpi/"
-        },
-        {
-          "domain": "eia.gov",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "canonical_article_draft.source_trail",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [
-            "oil",
-            "volatility"
-          ],
-          "relevance_status": "SUPPORTS_TOPIC",
-          "source_family": "eia",
-          "url": "https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm"
-        },
-        {
-          "domain": "eia.gov",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "canonical_article_draft.source_trail",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [
-            "oil",
-            "volatility"
-          ],
-          "relevance_status": "SUPPORTS_TOPIC",
-          "source_family": "eia",
-          "url": "https://www.eia.gov/todayinenergy/detail.php?id=65504"
-        },
-        {
-          "domain": "federalreserve.gov",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "canonical_article_draft.source_trail",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [
-            "recession",
-            "yield"
-          ],
-          "relevance_status": "SUPPORTS_TOPIC",
-          "source_family": "federal_reserve",
-          "url": "https://www.federalreserve.gov/monetarypolicy.htm"
-        },
-        {
-          "domain": "federalreserve.gov",
-          "fields": [
-            "canonical_article_draft.citations",
-            "canonical_article_draft.source_notes_for_operator",
-            "canonical_article_draft.source_trail",
-            "research_grounding_packet.cited_source_notes"
-          ],
-          "matched_terms": [
-            "recession",
-            "yield"
-          ],
-          "relevance_status": "SUPPORTS_TOPIC",
-          "source_family": "federal_reserve",
-          "url": "https://www.federalreserve.gov/releases/h15/"
-        }
-      ],
+      "audited_urls": [],
       "expected_concepts": [
-        "oil",
-        "recession",
-        "volatility",
+        "inflation",
         "yield"
       ],
       "irrelevant_urls": [],
-      "relevant_source_families": [
-        "bls",
-        "eia",
-        "federal_reserve",
-        "fred",
-        "treasury"
-      ],
-      "relevant_source_family_count": 5,
+      "relevant_source_families": [],
+      "relevant_source_family_count": 0,
       "source_trail_claims_too_generic": false,
-      "source_trail_count": 8
+      "source_trail_count": 0
     },
-    "tier1_editorial_approved": true,
+    "tier1_editorial_approved": false,
     "tier1_structure_audit": {
       "checks": {
-        "clear_news_hook": true,
+        "clear_news_hook": false,
         "counterargument_or_limits": true,
         "evidence": true,
-        "what_to_watch_next": true,
-        "why_now": true
+        "what_to_watch_next": false,
+        "why_now": false
       },
-      "missing": [],
-      "section_count": 9
+      "missing": [
+        "clear_news_hook",
+        "why_now",
+        "what_to_watch_next"
+      ],
+      "section_count": 2
     }
   },
   "headline_rehearsal_context": {
-    "daily_schedule_path": "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
-    "duplicate_check_basis": "topic_hash_and_public_duplicate_ledger; canonical_url_absent_in_dry_run",
-    "headline_sidecar_count": 1024,
-    "headline_sidecars_are_catalyst_only": true,
     "latest_sidecar_captured_at": "2026-07-08T13:21:21Z",
     "latest_sidecar_count": 1024,
     "latest_sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
-    "schedule_date": "2026-07-08",
-    "selected_angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
-    "selected_slot": {
-      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
-      "headline_sidecar_context_only": true,
-      "impact_score": 77,
-      "media_needs": [
-        "source-backed data chart where numeric claims are used",
-        "contextual map/photo/official visual with rights/provenance review",
-        "official-release chart or table screenshot replacement generated from source data"
-      ],
-      "numeric_truth_authority": false,
-      "readiness": "READY_FOR_PIPELINE",
-      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
-      "slot_index": 1,
-      "source_clearance_authority": false,
-      "source_headline_author": "MikeZaccardi",
-      "source_headline_timestamp": "2026-07-08 19:06:00 GMT+7",
-      "source_needs": [
-        "Federal Reserve policy/communication source",
-        "Primary energy/geopolitical source check before drafting"
-      ],
-      "suggested_article_type": "official_release",
-      "tags": [
-        "central_bank",
-        "energy",
-        "official_central_bank_statement_or_calendar",
-        "official_energy_inventory_or_opec_release"
-      ],
-      "topic": "When oil and yields stop moving together, it signals the Fed's problem has shifted from headline to core... cheaper oil alone won't open the door to cuts -Torst",
-      "urgency_score": 62
-    },
-    "selected_slot_index": 1,
-    "selected_topic": "When oil and yields stop moving together, it signals the Fed's problem has shifted from headline to core... cheaper oil alone won't open the door to cuts -Torst",
-    "selection_reason": "ready_energy_slot_from_current_daily_schedule",
+    "selection_reason": "operator_supplied_topic_or_default_rehearsal_topic",
     "sidecar_dir": "headline_ingestion\\data\\intake\\headline_sidecars",
     "sidecar_file_count": 1,
     "sidecars_available": true
@@ -523,16 +117,18 @@
           "audit_status": "PASS",
           "blockers": [],
           "latest_detected_year": 2026,
-          "llm_review_recommended": false,
+          "llm_review_recommended": true,
           "requirements": {
             "as_of_year": 2026,
             "expected_direction": "up",
-            "expected_metric": "oil_volatility",
+            "expected_metric": "volatility",
             "minimum_end_year": 2025,
             "requires_current_coverage": true
           },
           "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-          "warnings": []
+          "warnings": [
+            "media_relevance_weak_token_match"
+          ]
         },
         "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
         "latest_observation_date": "2026-06-29",
@@ -587,7 +183,7 @@
     ],
     "minimum_allowed_assets": 3,
     "replacement_notes": [],
-    "retrieval_audit_timestamp": "2026-07-08T19:25:57Z",
+    "retrieval_audit_timestamp": "2026-07-08T19:46:14Z",
     "review_items": [],
     "schema_version": "media_diversification_audit_v6.0"
   },
@@ -711,7 +307,7 @@
       "audit_status": "PASS",
       "blockers": [],
       "latest_detected_year": 2026,
-      "llm_review_recommended": false,
+      "llm_review_recommended": true,
       "replacement_notes": [
         "dry_run_image_search_skipped_network_isolated",
         "committed_source_backed_visual_pack_selected",
@@ -720,12 +316,14 @@
       "requirements": {
         "as_of_year": 2026,
         "expected_direction": "up",
-        "expected_metric": "oil_volatility",
+        "expected_metric": "volatility",
         "minimum_end_year": 2025,
         "requires_current_coverage": true
       },
       "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-      "warnings": []
+      "warnings": [
+        "media_relevance_weak_token_match"
+      ]
     },
     "media_diversification_audit": {
       "asset_count": 3,
@@ -737,16 +335,18 @@
             "audit_status": "PASS",
             "blockers": [],
             "latest_detected_year": 2026,
-            "llm_review_recommended": false,
+            "llm_review_recommended": true,
             "requirements": {
               "as_of_year": 2026,
               "expected_direction": "up",
-              "expected_metric": "oil_volatility",
+              "expected_metric": "volatility",
               "minimum_end_year": 2025,
               "requires_current_coverage": true
             },
             "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-            "warnings": []
+            "warnings": [
+              "media_relevance_weak_token_match"
+            ]
           },
           "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
           "latest_observation_date": "2026-06-29",
@@ -801,7 +401,7 @@
       ],
       "minimum_allowed_assets": 3,
       "replacement_notes": [],
-      "retrieval_audit_timestamp": "2026-07-08T19:25:57Z",
+      "retrieval_audit_timestamp": "2026-07-08T19:46:14Z",
       "review_items": [],
       "schema_version": "media_diversification_audit_v6.0"
     },
@@ -816,7 +416,8 @@
       "x": true
     },
     "media_warnings": [
-      "chart_source_csv_missing"
+      "chart_source_csv_missing",
+      "media_relevance_weak_token_match"
     ],
     "news_image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
     "news_image_public_url": null,
@@ -838,80 +439,26 @@
     },
     "source_backed_generation_network_attempted": false
   },
-  "pipeline_status": "LIVE_READY_REQUIRES_OPERATOR_GO",
-  "platform_variant_packet_id": "variant_packet_d0ad6886f719",
-  "public_dispatch_approval_marker_envelope": {
-    "approval_marker": {
-      "approval_status": "APPROVED_FOR_PUBLIC_DISPATCH",
-      "approved_payload_hashes": {
-        "discord": "e52dd3efa204aead",
-        "facebook": "4ae083ce17a4afc9",
-        "instagram": "822c2ae10f901f42",
-        "linkedin": "f353a89decd9bdc5",
-        "substack": "805f1ad726413dcf",
-        "telegram": "de2b71eb33b51986",
-        "threads": "fbe4935e1502a5d3",
-        "x": "17f9cec8e6690e89"
-      },
-      "approved_public_dispatch": true,
-      "canonical_packet_hash": "0cc5c3bb4c0130a93b04e672080e0d3b0489e07f2e6979e25ab535a7d79c1e04",
-      "dry_run": true,
-      "payload_hash": "de2b71eb33b51986",
-      "platform_variant_packet_hash": "05b1a63252e641d68960684fb5b67897c6ba951dbedb3d5d3d2f770cd8cef57c",
-      "public_write": false,
-      "run_id": "v6_dry_run_rehearsal_20260709",
-      "topic_hash": "6ec6c3d3cbc58f82"
-    },
-    "canonical_packet_hash": "0cc5c3bb4c0130a93b04e672080e0d3b0489e07f2e6979e25ab535a7d79c1e04",
-    "dry_run": true,
-    "duplicate_ledger_result": {
-      "action": "photo",
-      "approval_marker_present": true,
-      "blockers": [],
-      "dispatch_allowed": true,
-      "identity_hashes": {
-        "media_url_hash": "bdcd5e5412111733",
-        "topic_hash": "6ec6c3d3cbc58f82"
-      },
-      "payload_hash": "de2b71eb33b51986",
-      "payload_hash_required": true,
-      "platform": "telegram",
-      "run_id": "v6_dry_run_rehearsal_20260709",
-      "status": "PASS",
-      "topic_hash": "6ec6c3d3cbc58f82"
-    },
-    "per_platform_payload_hash": {
-      "discord": "e52dd3efa204aead",
-      "facebook": "4ae083ce17a4afc9",
-      "instagram": "822c2ae10f901f42",
-      "linkedin": "f353a89decd9bdc5",
-      "substack": "805f1ad726413dcf",
-      "telegram": "de2b71eb33b51986",
-      "threads": "fbe4935e1502a5d3",
-      "x": "17f9cec8e6690e89"
-    },
-    "platform_variant_packet_hash": "05b1a63252e641d68960684fb5b67897c6ba951dbedb3d5d3d2f770cd8cef57c",
-    "public_write": false,
-    "quality_gate_result": {
-      "blockers": [],
-      "status": "PASS"
-    },
-    "run_id": "v6_dry_run_rehearsal_20260709",
-    "telegram_payload_hash": "de2b71eb33b51986",
-    "topic_hash": "6ec6c3d3cbc58f82"
-  },
+  "pipeline_status": "REHEARSAL_BLOCKED",
+  "platform_variant_packet_id": "variant_packet_44f9399b36f3",
   "public_dispatch_approval_marker_present": false,
   "public_dispatch_ledger_path": "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
-  "public_dispatch_topic_hash": "6ec6c3d3cbc58f82",
+  "public_dispatch_topic_hash": "8a4bc478b749f915",
   "public_image_url": null,
   "public_write": false,
   "quality_gate_result": {
-    "blockers": [],
-    "status": "PASS"
+    "blockers": [
+      "article_too_short_words:140<2000",
+      "too_few_sections",
+      "source_trail_too_thin",
+      "missing_specific_numbers",
+      "editorial_quality_gate:EDITORIAL_BLOCKED"
+    ],
+    "status": "BLOCKED"
   },
-  "run_id": "v6_dry_run_rehearsal_20260709",
-  "tier1_editorial_approved": true,
-  "timestamp": "2026-07-08T19:25:57Z",
-  "timestamp_gmt7": "2026-07-09T02:25:57+07:00",
+  "run_id": "v6_fresh_fed_funds_prepublic_rehearsal_20260709",
+  "tier1_editorial_approved": false,
+  "timestamp": "2026-07-08T19:46:14Z",
+  "timestamp_gmt7": "2026-07-09T02:46:14+07:00",
   "variant_status": "VARIANT_READY"
 }

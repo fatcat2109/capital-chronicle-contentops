@@ -1,0 +1,298 @@
+{
+  "acceptance_label": "BLOCKED_PRE_PUBLIC_GATE",
+  "blockers": [
+    "duplicate_media_family:crude_wti_oil_volatility",
+    "current_rehearsal_candidate_not_public_safe",
+    "fresh_non_duplicate_slot_dry_run_not_live_ready:REHEARSAL_BLOCKED"
+  ],
+  "created_at": "2026-07-08T19:46:31Z",
+  "current_candidate_duplicate_gate": {
+    "blockers": [
+      "duplicate_media_family:crude_wti_oil_volatility"
+    ],
+    "canonical_packet_hash": "78089cd8a38ea025f96498b8f41ce0ae6113ea52a95cd9f878f073f56bd9d5d4",
+    "canonical_url": null,
+    "editorial_angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+    "exact_hash_checks": {
+      "media_hash_seen_before": false,
+      "payload_hash_seen_before": [],
+      "topic_hash_seen_before": false
+    },
+    "families": {
+      "article": [
+        "fed_funds_policy_rates"
+      ],
+      "ledger": [
+        "crude_wti_oil_volatility"
+      ],
+      "media": [
+        "crude_wti_oil_volatility"
+      ]
+    },
+    "ledger_family_matches": {
+      "crude_wti_oil_volatility": [
+        {
+          "canonical_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-05f",
+          "media_hint": "WTI crude oil chart",
+          "platform": "telegram",
+          "reason": "Unauthorized duplicate Telegram public posts; block same canonical URL before adapter send.",
+          "record_type": "incident_duplicate_freeze",
+          "topic_hint": "Crude awakening how spiking oil volatility"
+        },
+        {
+          "record_type": "incident_evidence",
+          "source": "docs\\automation\\V6_TELEGRAM_INCIDENT_FREEZE_ROOT_CAUSE\\telegram_incident_freeze_rootcause_evidence_v0.json"
+        }
+      ]
+    },
+    "media_hash": "e0223d6bab28c648",
+    "media_identity": {
+      "assets": [
+        {
+          "asset_id": "primary",
+          "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
+          "media_subject": "WTI crude oil current price and volatility context",
+          "public_url": null,
+          "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+          "visual_metric": "oil_volatility wti crude oil current price realized volatility"
+        },
+        {
+          "asset_id": "recent_price",
+          "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_99c8292edb1a.png",
+          "media_subject": "WTI crude oil recent price path",
+          "public_url": null,
+          "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+          "visual_metric": "wti crude oil current recent price path"
+        },
+        {
+          "asset_id": "hormuz_context",
+          "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\hormuz_oil_chokepoint_context_99c8292edb1a.png",
+          "media_subject": "Strait of Hormuz energy chokepoint context",
+          "public_url": null,
+          "source_label": "EIA Strait of Hormuz oil chokepoint context",
+          "visual_metric": "oil geopolitics strait hormuz chokepoint energy supply risk"
+        }
+      ],
+      "image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
+      "public_image_url": null,
+      "selected_media_by_platform": {
+        "discord": null,
+        "facebook": null,
+        "instagram": null,
+        "linkedin": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
+        "substack": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
+        "telegram": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
+        "threads": null,
+        "x": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png"
+      }
+    },
+    "per_platform_payload_hash": {
+      "discord": "27b2f3499c5bceb6",
+      "facebook": "0cea8de30ff2bbd0",
+      "instagram": "91acf52c5c69af79",
+      "linkedin": "018025206559a9ef",
+      "substack": "d7a29a434001de99",
+      "telegram": "6fb98ad0ec797656",
+      "threads": "de43b5fd01501c94",
+      "x": "eec1d44a6880c534"
+    },
+    "platform_variant_packet_hash": "a17dfb43d81a4725e8546adfb18c0dd4f66b67133ec43be872494d97259b184c",
+    "run_id": "pre_public_current_candidate",
+    "slug": "effective-fed-funds-rate-3-63-july-7th-vs-3-63-july-6th",
+    "status": "BLOCKED",
+    "telegram_payload_hash": "6fb98ad0ec797656",
+    "title": "Capital Chronicle Educational Briefing: Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+    "topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+    "topic_hash": "8a4bc478b749f915"
+  },
+  "dry_run_rehearsal_evidence": {
+    "canonical_packet_hash": "0cc5c3bb4c0130a93b04e672080e0d3b0489e07f2e6979e25ab535a7d79c1e04",
+    "dispatch_live": false,
+    "dispatch_rehearsal": true,
+    "evidence_hash": "1884fe9e4c680d1c76834c01190875b4f788cf4396e5e4e434d1a23a200a58ef",
+    "evidence_packet_id": "v6_pipeline_rehearsal_1884fe9e4c680d1c",
+    "path": "docs\\automation\\V6_DRY_RUN_FULL_AUTOMATION_REHEARSAL\\dry_run_full_automation_rehearsal_evidence_v0.json",
+    "per_platform_payload_hash": {
+      "discord": "e52dd3efa204aead",
+      "facebook": "4ae083ce17a4afc9",
+      "instagram": "822c2ae10f901f42",
+      "linkedin": "f353a89decd9bdc5",
+      "substack": "805f1ad726413dcf",
+      "telegram": "de2b71eb33b51986",
+      "threads": "fbe4935e1502a5d3",
+      "x": "17f9cec8e6690e89"
+    },
+    "pipeline_status": "LIVE_READY_REQUIRES_OPERATOR_GO",
+    "platform_variant_packet_hash": "05b1a63252e641d68960684fb5b67897c6ba951dbedb3d5d3d2f770cd8cef57c",
+    "present": true,
+    "public_write": false,
+    "quality_gate_result": {
+      "blockers": [],
+      "status": "PASS"
+    },
+    "run_id": "v6_dry_run_rehearsal_20260709",
+    "task_label": "TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0",
+    "telegram_payload_hash": "de2b71eb33b51986",
+    "topic_hash": "6ec6c3d3cbc58f82"
+  },
+  "evidence_hash": "047112199ed10c46f810a5bfab9d40c67f84482c8fd85946b875d955837a25f6",
+  "evidence_packet_id": "v6_controlled_public_preflight_047112199ed10c46",
+  "fresh_slot_dry_run_rehearsal_evidence": {
+    "canonical_packet_hash": null,
+    "dispatch_live": false,
+    "dispatch_rehearsal": true,
+    "evidence_hash": "d686ff4d5629085f0cfe785973cd969b9ac8b5865a8c3c32e17503bb2e059b15",
+    "evidence_packet_id": "v6_pipeline_rehearsal_d686ff4d5629085f",
+    "path": "docs\\automation\\V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_QA\\fresh_slot6_dry_run_rehearsal_evidence_v0.json",
+    "per_platform_payload_hash": null,
+    "pipeline_status": "REHEARSAL_BLOCKED",
+    "platform_variant_packet_hash": null,
+    "present": true,
+    "public_write": false,
+    "quality_gate_result": {
+      "blockers": [
+        "article_too_short_words:140<2000",
+        "too_few_sections",
+        "source_trail_too_thin",
+        "missing_specific_numbers",
+        "editorial_quality_gate:EDITORIAL_BLOCKED"
+      ],
+      "status": "BLOCKED"
+    },
+    "run_id": "v6_fresh_fed_funds_prepublic_rehearsal_20260709",
+    "task_label": "TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0",
+    "telegram_payload_hash": null,
+    "topic_hash": null
+  },
+  "packet_kind": "v6_controlled_public_candidate_pre_public_gate_evidence",
+  "pre_public_gate_status": "BLOCKED_PRE_PUBLIC_GATE",
+  "process_artifact_check": {
+    "matching_python_runner_count": 0,
+    "process_ids": []
+  },
+  "repo_state": {
+    "branch": "task/telegram-substack-regression-repair",
+    "head": "e736997786ed0f2c80b5fe1770996f60e9b7e0e6",
+    "origin_master": "e736997786ed0f2c80b5fe1770996f60e9b7e0e6",
+    "status_short": "M docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/discord_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/facebook_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/instagram_caption_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/linkedin_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/substack_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/telegram_operator_preview.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/threads_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/x_variant.md\n M ui/contentops_v5/src/data/platform_variant_packet.json\n?? docs/automation/V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_QA/\n?? live_contentops/public_candidate_preflight_v6.py\n?? tests/test_public_candidate_preflight_v6.py"
+  },
+  "safety": {
+    "browser_session_values_persisted": false,
+    "credential_lookup_performed": false,
+    "live_platform_api_called": false,
+    "public_dispatch_performed": false,
+    "public_write": false,
+    "raw_credential_values_persisted": false,
+    "raw_env_values_persisted": false
+  },
+  "schedule_fresh_slot_triage": {
+    "evaluated_slots": [
+      {
+        "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+        "blockers": [
+          "duplicate_family_risk:crude_wti_oil_volatility"
+        ],
+        "families": [
+          "crude_wti_oil_volatility"
+        ],
+        "readiness": "READY_FOR_PIPELINE",
+        "review_items": [],
+        "slot_index": 1,
+        "status": "BLOCKED",
+        "topic": "When oil and yields stop moving together, it signals the Fed's problem has shifted from headline to core... cheaper oil alone won't open the door to cuts -Torst"
+      },
+      {
+        "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+        "blockers": [
+          "politically_sensitive_unverified_claim_requires_manual_source_verification"
+        ],
+        "families": [
+          "multi_event_policy_calendar",
+          "politically_sensitive_claim"
+        ],
+        "readiness": "READY_FOR_PIPELINE",
+        "review_items": [
+          "multi_event_calendar_item_requires_single_topic_extraction_before_public_candidate"
+        ],
+        "slot_index": 2,
+        "status": "BLOCKED",
+        "topic": "Today's Key Events (All EST) \u2014 07/08/2026 04:00: Trump to speak at Ankara NATO Summit 07:00: US MBA Mortgage Applications 10:00: US Wholesale Inventories MoM Re"
+      },
+      {
+        "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+        "blockers": [
+          "politically_sensitive_unverified_claim_requires_manual_source_verification"
+        ],
+        "families": [
+          "politically_sensitive_claim"
+        ],
+        "readiness": "READY_FOR_PIPELINE",
+        "review_items": [],
+        "slot_index": 3,
+        "status": "BLOCKED",
+        "topic": "Fed Reserve working paper suggests Biden illegal immigrant wave caused 30% of home price increases: https://t.co/GVnfx0HhPi"
+      },
+      {
+        "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+        "blockers": [
+          "duplicate_family_risk:crude_wti_oil_volatility"
+        ],
+        "families": [
+          "crude_wti_oil_volatility"
+        ],
+        "readiness": "READY_FOR_PIPELINE",
+        "review_items": [],
+        "slot_index": 4,
+        "status": "BLOCKED",
+        "topic": "Global oil output to return to pre-Iran war level by year\u2019s end, U.S. EIA says"
+      },
+      {
+        "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+        "blockers": [
+          "duplicate_family_risk:crude_wti_oil_volatility"
+        ],
+        "families": [
+          "crude_wti_oil_volatility"
+        ],
+        "readiness": "READY_FOR_PIPELINE",
+        "review_items": [],
+        "slot_index": 5,
+        "status": "BLOCKED",
+        "topic": "IRAN'S FOREIGN MINISTRY CONDEMNS U.S. TREASURY MOVE TO REVOKE TEMPORARY SUSPENSION OF SANCTIONS ON IRANIAN OIL SALES -STATEMENT"
+      },
+      {
+        "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+        "blockers": [],
+        "families": [
+          "fed_funds_policy_rates"
+        ],
+        "readiness": "READY_FOR_PIPELINE",
+        "review_items": [
+          "fresh_non_oil_central_bank_rate_update_requires_dry_run_gates"
+        ],
+        "slot_index": 6,
+        "status": "CANDIDATE_REQUIRES_DRY_RUN",
+        "topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th"
+      }
+    ],
+    "schedule_date": "2026-07-08",
+    "selected_fresh_slot": {
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+      "blockers": [],
+      "families": [
+        "fed_funds_policy_rates"
+      ],
+      "readiness": "READY_FOR_PIPELINE",
+      "review_items": [
+        "fresh_non_oil_central_bank_rate_update_requires_dry_run_gates"
+      ],
+      "slot_index": 6,
+      "status": "CANDIDATE_REQUIRES_DRY_RUN",
+      "topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th"
+    },
+    "selection_status": "SELECTED_REQUIRES_DRY_RUN_GATES",
+    "slot_count": 6
+  },
+  "schema_version": "0.1.0",
+  "task_label": "TASK_CONTENTOPS_V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_OPERATOR_GO_READBACK_AND_CROP_QA_V0"
+}

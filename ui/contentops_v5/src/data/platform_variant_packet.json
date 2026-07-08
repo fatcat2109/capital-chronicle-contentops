@@ -1,10 +1,10 @@
 {
-  "created_at": "2026-07-08T19:27:39+00:00",
+  "created_at": "2026-07-08T19:50:19+00:00",
   "credential_lookup_performed": false,
   "dry_run_fixture_media_used": false,
   "dry_run_image_search_isolated": false,
-  "exact_payload_hash": "f9f438fcbbeb636a2ab9ef5de177e35a3f75f63d38aab1a3b9c2a8845a5bbfd4",
-  "image_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7581\\test_stale_search_visual_is_re0\\wti_current.png",
+  "exact_payload_hash": "01621582e0580407796a9f3cf27713aaf25178a41bdbc8a0a7afe5d4d1da9728",
+  "image_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7583\\test_stale_search_visual_is_re0\\wti_current.png",
   "image_search_network_attempted": true,
   "live_platform_api_called": false,
   "media_manifest": {
@@ -27,7 +27,7 @@
         "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
         "caption": "WTI price and realized volatility through 2026-07-07.",
         "latest_observation_year": 2026,
-        "local_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7581\\test_stale_search_visual_is_re0\\wti_current.png",
+        "local_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7583\\test_stale_search_visual_is_re0\\wti_current.png",
         "media_class": "data_chart",
         "operator_review_required": false,
         "provenance_status": "source_backed_generated_from_public_data",
@@ -45,7 +45,7 @@
         "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
         "caption": "Recent WTI price path through 2026-07-07.",
         "latest_observation_year": 2026,
-        "local_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7581\\test_stale_search_visual_is_re0\\wti_recent.png",
+        "local_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7583\\test_stale_search_visual_is_re0\\wti_recent.png",
         "media_class": "data_chart",
         "operator_review_required": false,
         "provenance_status": "source_backed_generated_from_public_data",
@@ -63,7 +63,7 @@
         "canonical_source_label": "EIA Strait of Hormuz oil chokepoint context",
         "caption": "Strait of Hormuz oil chokepoint context.",
         "latest_observation_year": 2026,
-        "local_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7581\\test_stale_search_visual_is_re0\\hormuz_context.png",
+        "local_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7583\\test_stale_search_visual_is_re0\\hormuz_context.png",
         "media_class": "map_or_geography",
         "operator_review_required": false,
         "provenance_status": "capital_chronicle_generated_schematic_from_official_eia_context",
@@ -172,7 +172,7 @@
       ],
       "minimum_allowed_assets": 3,
       "replacement_notes": [],
-      "retrieval_audit_timestamp": "2026-07-08T19:27:39Z",
+      "retrieval_audit_timestamp": "2026-07-08T19:50:19Z",
       "review_items": [
         "media_semantic_relevance_weak:recent_price"
       ],
@@ -191,7 +191,7 @@
     "media_warnings": [
       "chart_source_csv_missing"
     ],
-    "news_image_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7581\\test_stale_search_visual_is_re0\\wti_current.png",
+    "news_image_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7583\\test_stale_search_visual_is_re0\\wti_current.png",
     "news_image_public_url": null,
     "news_image_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
     "news_image_source_query": null,
@@ -203,15 +203,15 @@
       "discord": null,
       "facebook": null,
       "instagram": null,
-      "linkedin": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7581\\test_stale_search_visual_is_re0\\wti_current.png",
-      "substack": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7581\\test_stale_search_visual_is_re0\\wti_current.png",
-      "telegram": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7581\\test_stale_search_visual_is_re0\\wti_current.png",
+      "linkedin": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7583\\test_stale_search_visual_is_re0\\wti_current.png",
+      "substack": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7583\\test_stale_search_visual_is_re0\\wti_current.png",
+      "telegram": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7583\\test_stale_search_visual_is_re0\\wti_current.png",
       "threads": null,
-      "x": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7581\\test_stale_search_visual_is_re0\\wti_current.png"
+      "x": "C:\\Users\\bullw\\AppData\\Local\\Temp\\pytest-of-bullw\\pytest-7583\\test_stale_search_visual_is_re0\\wti_current.png"
     },
     "source_backed_generation_network_attempted": true
   },
-  "platform_variant_packet_id": "variant_packet_f9f438fcbbeb",
+  "platform_variant_packet_id": "variant_packet_01621582e058",
   "provider_attempts": [],
   "provider_call_made": false,
   "provider_recovery_used": false,
