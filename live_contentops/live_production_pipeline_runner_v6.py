@@ -37,10 +37,19 @@ from live_contentops.pipeline_rehearsal_evidence_v6 import (
     build_rehearsal_evidence_packet,
     write_rehearsal_evidence,
 )
+from live_contentops.public_dispatch_freeze_guard_v6 import (
+    DEFAULT_PUBLIC_DISPATCH_LEDGER,
+    append_public_dispatch_ledger,
+    build_public_dispatch_payload_hash,
+    build_public_dispatch_topic_hash,
+    evaluate_public_dispatch_freeze,
+    load_public_dispatch_hashes,
+)
 
 ARTICLE_OUTPUT_PATH = Path("docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json")
 VARIANT_OUTPUT_DIR = Path("docs/automation/V6_PLATFORM_NATIVE_VARIANTS")
 DISPATCH_AUDIT_PATH = VARIANT_OUTPUT_DIR / "latest_dispatch_audit.json"
+PUBLIC_DISPATCH_LEDGER_PATH = DEFAULT_PUBLIC_DISPATCH_LEDGER
 
 
 def _utc_now() -> str:
@@ -50,6 +59,15 @@ def _utc_now() -> str:
 def _write_dispatch_audit(payload: dict[str, Any]) -> None:
     DISPATCH_AUDIT_PATH.parent.mkdir(parents=True, exist_ok=True)
     DISPATCH_AUDIT_PATH.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _load_operator_approval_marker(path: str | None) -> dict[str, Any] | None:
+    if not path:
+        return None
+    data = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError("operator approval marker must be a JSON object")
+    return data
 
 
 def _result_url(result: dict[str, Any]) -> str | None:
@@ -85,6 +103,19 @@ def _blocked_result(platform: str, reason: str) -> dict[str, Any]:
     }
 
 
+def _guard_blocked_result(platform: str, guard: dict[str, Any]) -> dict[str, Any]:
+    reason = "|".join(str(item) for item in guard.get("blockers", []))
+    return {
+        "platform": platform,
+        "status": "PUBLIC_DISPATCH_FROZEN",
+        "ok": False,
+        "error_class": "public_dispatch_freeze_guard",
+        "error": reason or "public_dispatch_freeze_guard",
+        "url": None,
+        "raw": {"public_dispatch_freeze_guard": guard},
+    }
+
+
 def _dispatch_summary(results: dict[str, Any]) -> dict[str, Any]:
     flat: list[dict[str, Any]] = []
     for key, value in results.items():
@@ -96,8 +127,16 @@ def _dispatch_summary(results: dict[str, Any]) -> dict[str, Any]:
     return {
         "attempted_platforms": attempted,
         "successful_platforms": [item["platform"] for item in flat if item.get("ok")],
-        "failed_platforms": [item["platform"] for item in flat if not item.get("ok") and item.get("status") != "BLOCKED"],
-        "blocked_platforms": [item["platform"] for item in flat if item.get("status") == "BLOCKED"],
+        "failed_platforms": [
+            item["platform"]
+            for item in flat
+            if not item.get("ok") and item.get("status") not in {"BLOCKED", "PUBLIC_DISPATCH_FROZEN"}
+        ],
+        "blocked_platforms": [
+            item["platform"]
+            for item in flat
+            if item.get("status") in {"BLOCKED", "PUBLIC_DISPATCH_FROZEN"}
+        ],
     }
 
 
@@ -680,8 +719,12 @@ def run_live_production_pipeline(
     timeout_seconds: int = 420,
     dispatch_platforms: list[str] | tuple[str, ...] | None = None,
     use_latest_headlines: bool = False,
+    operator_approval_marker: dict[str, Any] | None = None,
+    run_id_override: str | None = None,
+    public_dispatch_ledger_path: str | Path | None = PUBLIC_DISPATCH_LEDGER_PATH,
 ) -> dict[str, Any]:
-    run_id = f"v6_pipeline_{uuid.uuid4().hex[:12]}"
+    run_id = run_id_override or f"v6_pipeline_{uuid.uuid4().hex[:12]}"
+    public_dispatch_topic_hash = build_public_dispatch_topic_hash(topic, editorial_angle)
     print(f"[Info] Starting V6 production run {run_id} for topic: '{topic}' (live={live_run}, dispatch={dispatch_live})")
 
     inputs = EngineInput(
@@ -758,6 +801,9 @@ def run_live_production_pipeline(
         "dispatch_audit_path": str(DISPATCH_AUDIT_PATH),
         "dispatch_platform_scope": list(selected_platforms),
         "dispatch_idempotency_control": "platform_scope_allowlist",
+        "public_dispatch_topic_hash": public_dispatch_topic_hash,
+        "public_dispatch_approval_marker_present": operator_approval_marker is not None,
+        "public_dispatch_ledger_path": str(public_dispatch_ledger_path) if public_dispatch_ledger_path else None,
         "media_manifest": media_manifest,
         "media_diversification_audit": media_manifest.get("media_diversification_audit") if isinstance(media_manifest, dict) else None,
         "editorial_acceptance_status": editorial_quality_audit["classification"],
@@ -780,11 +826,35 @@ def run_live_production_pipeline(
             )
         if not media_diversification_audit.get("auto_publication_safe", False):
             qa_gate_failures.append("media_rights_operator_review_required")
+    article_status = str(article_packet.get("status") or article_packet.get("packet_status") or "").upper()
+    if dispatch_live and article_status in {"BLOCKED", "FAILED", "VALIDATION_FAILED"}:
+        qa_gate_failures.append(f"canonical_article_packet_status:{article_status}")
+    variant_status = str(variant_packet.get("variant_status") or "").upper()
+    if dispatch_live and variant_status in {"BLOCKED", "FAILED", "VALIDATION_FAILED", "VARIANT_VALIDATION_FAILED"}:
+        qa_gate_failures.append(f"variant_packet_status:{variant_status}")
+    public_dispatch_gate: dict[str, Any] | None = None
+    if dispatch_live:
+        public_dispatch_gate = evaluate_public_dispatch_freeze(
+            platform="pipeline",
+            action="dispatch_live",
+            run_id=run_id,
+            topic_hash=public_dispatch_topic_hash,
+            operator_approval_marker=operator_approval_marker,
+            body_text=topic,
+            payload_hash_required=False,
+            duplicate_check=False,
+        )
+        ret["public_dispatch_freeze_guard"] = public_dispatch_gate
+        if not public_dispatch_gate["dispatch_allowed"]:
+            qa_gate_failures.extend(
+                f"public_dispatch_freeze_guard:{blocker}"
+                for blocker in public_dispatch_gate.get("blockers", [])
+            )
     raw_blockers = list(article_packet.get("blockers") or []) + article_failures + variant_failures + qa_gate_failures
     blockers = list(dict.fromkeys(raw_blockers))  # de-dupe while preserving order
     if os.environ.get("CONTENTOPS_BYPASS_QUALITY_GATES") == "true":
-        print(f"[Warning] Quality blockers bypassed for live testing: {blockers}")
-        blockers = []
+        print(f"[Warning] CONTENTOPS_BYPASS_QUALITY_GATES ignored for public dispatch safety: {blockers}")
+        ret.setdefault("warnings", []).append("quality_gate_bypass_ignored_for_public_dispatch")
     if dispatch_live and blockers:
         ret.update({
             "pipeline_status": "DISPATCH_BLOCKED",
@@ -804,6 +874,7 @@ def run_live_production_pipeline(
     if dispatch_live:
         print(f"[Info] Starting automated live dispatches for: {', '.join(selected_platforms)}")
         dispatch_results: dict[str, Any] = {}
+        public_dispatch_hashes = load_public_dispatch_hashes(public_dispatch_ledger_path)
 
         if "substack" in selected_platforms:
             try:
@@ -1022,19 +1093,61 @@ def run_live_production_pipeline(
                 from live_contentops.telegram_live_adapter_v6 import execute_telegram_post, execute_telegram_photo
                 message = _apply_canonical_link(variants.get("telegram", ""), canonical_url)
                 telegram_media = local_image_path or selected_media.get("telegram") or public_image_url
+                telegram_action = "photo" if telegram_media else "post"
+                telegram_body = _fit_telegram_photo_caption(message, canonical_url) if telegram_media else message
+                telegram_payload_hash = build_public_dispatch_payload_hash(
+                    platform="telegram",
+                    action=telegram_action,
+                    body_text=telegram_body,
+                    canonical_url=canonical_url,
+                    media_url=telegram_media,
+                    topic_hash=public_dispatch_topic_hash,
+                )
+                telegram_guard = evaluate_public_dispatch_freeze(
+                    platform="telegram",
+                    action=telegram_action,
+                    run_id=run_id,
+                    topic_hash=public_dispatch_topic_hash,
+                    operator_approval_marker=operator_approval_marker,
+                    body_text=telegram_body,
+                    canonical_url=canonical_url,
+                    media_url=telegram_media,
+                    payload_hash=telegram_payload_hash,
+                    payload_hash_required=True,
+                    prior_dispatch_hashes=public_dispatch_hashes,
+                    canonical_packet_status=article_status if article_status else None,
+                )
                 missing = _require_payload(message, "telegram_message")
                 if missing:
                     dispatch_results["telegram"] = _blocked_result("telegram", missing)
+                elif not telegram_guard["dispatch_allowed"]:
+                    dispatch_results["telegram"] = _guard_blocked_result("telegram", telegram_guard)
                 else:
                     print("[Info] Dispatching to Telegram Channel...")
+                    approval_context = {
+                        "operator_approval_marker": operator_approval_marker,
+                        "run_id": run_id,
+                        "topic_hash": public_dispatch_topic_hash,
+                        "payload_hash": telegram_payload_hash,
+                        "canonical_url": canonical_url,
+                        "media_url": telegram_media,
+                        "prior_dispatch_hashes": public_dispatch_hashes,
+                        "canonical_packet_status": article_status if article_status else None,
+                        "public_dispatch_ledger_path": str(public_dispatch_ledger_path) if public_dispatch_ledger_path else None,
+                    }
                     if telegram_media:
                         tg_res = execute_telegram_photo(
                             photo_url=telegram_media,
-                            caption=_fit_telegram_photo_caption(message, canonical_url),
+                            caption=telegram_body,
                             dry_run=False,
+                            approval_context=approval_context,
                         )
                     else:
-                        tg_res = execute_telegram_post(message=message, dry_run=False)
+                        tg_res = execute_telegram_post(
+                            message=message,
+                            dry_run=False,
+                            approval_context=approval_context,
+                        )
                     dispatch_results["telegram"] = _normalize_dispatch_result("telegram", tg_res)
                     if telegram_media:
                         telegram_visual_evidence = _telegram_photo_delivery_evidence(
@@ -1051,6 +1164,17 @@ def run_live_production_pipeline(
                                 "error_class": "telegram_visual_delivery_unproven",
                                 "error": telegram_visual_evidence["visual_delivery_status"],
                             })
+                    if dispatch_results["telegram"].get("ok"):
+                        append_public_dispatch_ledger(
+                            ledger_path=public_dispatch_ledger_path,
+                            platform="telegram",
+                            action=telegram_action,
+                            run_id=run_id,
+                            topic_hash=public_dispatch_topic_hash,
+                            payload_hash=telegram_payload_hash,
+                            canonical_url=canonical_url,
+                            media_url=telegram_media,
+                        )
                     print(f"[Info] Telegram dispatch outcome: {dispatch_results['telegram']['status']}")
             except Exception as exc:
                 print(f"[Warning] Telegram dispatch failed: {exc}")
@@ -1139,6 +1263,9 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--dispatch-live", action="store_true", help="Enable live posting/publishing to all platforms")
     parser.add_argument("--target-audience", default="general_financial_education", help="Target audience")
     parser.add_argument("--timeout-seconds", type=int, default=420, help="Provider timeout seconds (default 7 minutes for full-length live generation)")
+    parser.add_argument("--run-id", default=None, help="Explicit run id for operator-approved public dispatch")
+    parser.add_argument("--operator-approval-marker", default=None, help="Path to explicit public dispatch approval marker JSON")
+    parser.add_argument("--public-dispatch-ledger", default=str(PUBLIC_DISPATCH_LEDGER_PATH), help="Duplicate ledger path for public dispatch guard")
     parser.add_argument(
         "--dispatch-platform",
         action="append",
@@ -1152,6 +1279,12 @@ def main(argv: list[str] | None = None) -> int:
 
     command = ["python", "-m", "live_contentops.live_production_pipeline_runner_v6"]
     command.extend(["--topic", args.topic, "--angle", args.angle, "--target-audience", args.target_audience, "--timeout-seconds", str(args.timeout_seconds)])
+    if args.run_id:
+        command.extend(["--run-id", args.run_id])
+    if args.operator_approval_marker:
+        command.extend(["--operator-approval-marker", args.operator_approval_marker])
+    if args.public_dispatch_ledger:
+        command.extend(["--public-dispatch-ledger", args.public_dispatch_ledger])
     if args.live_run:
         command.append("--live-run")
     if args.dispatch_live:
@@ -1163,6 +1296,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.write_rehearsal_evidence:
         command.extend(["--write-rehearsal-evidence", "--rehearsal-evidence-output", args.rehearsal_evidence_output])
 
+    operator_approval_marker = _load_operator_approval_marker(args.operator_approval_marker)
     result = run_live_production_pipeline(
         topic=args.topic,
         editorial_angle=args.angle,
@@ -1172,6 +1306,9 @@ def main(argv: list[str] | None = None) -> int:
         timeout_seconds=args.timeout_seconds,
         dispatch_platforms=args.dispatch_platform,
         use_latest_headlines=args.use_latest_headlines,
+        operator_approval_marker=operator_approval_marker,
+        run_id_override=args.run_id,
+        public_dispatch_ledger_path=args.public_dispatch_ledger,
     )
     if args.write_rehearsal_evidence:
         evidence = build_rehearsal_evidence_packet(result, command=command)

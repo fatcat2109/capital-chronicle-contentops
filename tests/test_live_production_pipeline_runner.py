@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 from unittest.mock import patch, MagicMock
+import pytest
 
 from live_contentops.live_production_pipeline_runner_v6 import (
     run_live_production_pipeline,
@@ -14,6 +15,17 @@ from live_contentops.live_production_pipeline_runner_v6 import (
     audit_substack_public_visuals,
     resolve_substack_public_url,
 )
+from live_contentops.public_dispatch_freeze_guard_v6 import (
+    build_public_dispatch_payload_hash,
+    build_public_dispatch_topic_hash,
+    make_public_dispatch_approval_marker,
+)
+
+
+@pytest.fixture(autouse=True)
+def _clear_contentops_public_dispatch_env(monkeypatch):
+    monkeypatch.delenv("CONTENTOPS_CANONICAL_URL_OVERRIDE", raising=False)
+    monkeypatch.delenv("CONTENTOPS_PUBLIC_IMAGE_URL_OVERRIDE", raising=False)
 
 
 def _approved_article_packet() -> dict:
@@ -61,6 +73,35 @@ def _approved_article_packet() -> dict:
         "seo_packet": {"target_keyword": "oil volatility recession risk", "meta_description": draft["meta_description"]},
         "blockers": [],
     }
+
+
+def _approval_marker_for_run(
+    *,
+    topic: str,
+    angle: str,
+    run_id: str,
+    telegram_action: str | None = None,
+    telegram_body: str | None = None,
+    canonical_url: str | None = None,
+    telegram_media: str | None = None,
+) -> dict:
+    topic_hash = build_public_dispatch_topic_hash(topic, angle)
+    payload_hash = None
+    if telegram_action and telegram_body is not None:
+        payload_hash = build_public_dispatch_payload_hash(
+            platform="telegram",
+            action=telegram_action,
+            body_text=telegram_body,
+            canonical_url=canonical_url,
+            media_url=telegram_media,
+            topic_hash=topic_hash,
+        )
+    return make_public_dispatch_approval_marker(
+        run_id=run_id,
+        topic_hash=topic_hash,
+        payload_hash=payload_hash,
+        platform="telegram" if payload_hash else None,
+    )
 
 
 @patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
@@ -121,6 +162,28 @@ def test_run_live_production_pipeline(mock_generate_variants, mock_run_article, 
 def test_run_live_production_pipeline_with_dispatch(
     mock_substack, mock_linkedin, mock_x_post, mock_x_comment, mock_ig, mock_fb, mock_fb_photo, mock_tg, mock_tg_photo, mock_threads, mock_discord, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
+    topic = "Yield rates drop"
+    angle = "No advice"
+    run_id = "v6_pipeline_test_dispatch"
+    canonical_url = "https://substack.com/p/1"
+    telegram_text = (
+        "Telegram summary explains the market setup, the data limits, and the source trail "
+        "before sending readers to the full article."
+    )
+    telegram_media = "downloads/test_image.jpg"
+    telegram_body = _fit_telegram_photo_caption(
+        _apply_canonical_link(telegram_text, canonical_url),
+        canonical_url,
+    )
+    approval_marker = _approval_marker_for_run(
+        topic=topic,
+        angle=angle,
+        run_id=run_id,
+        telegram_action="photo",
+        telegram_body=telegram_body,
+        canonical_url=canonical_url,
+        telegram_media=telegram_media,
+    )
     mock_run_article.return_value = _approved_article_packet()
     
     mock_generate_variants.return_value = {
@@ -131,18 +194,18 @@ def test_run_live_production_pipeline_with_dispatch(
         "variants": {
             "substack": "Substack body",
             "linkedin": "LinkedIn text",
-            "telegram": "Telegram summary",
+            "telegram": telegram_text,
             "threads": "Threads text",
             "discord": "Discord text"
         },
         "variant_threads": {
-            "x": ["Tweet 1", "Tweet 2"],
+            "x": ["Tweet 1"],
             "threads": ["Threads post 1", "Threads reply 2"]
         },
         "media_manifest": {"selected_media_by_platform": {"instagram": "https://example.com/test_image.jpg", "telegram": "https://example.com/test_image.jpg"}},
     }
     
-    mock_substack.return_value = {"status": "SUCCESS", "url": "https://substack.com/p/1"}
+    mock_substack.return_value = {"status": "SUCCESS", "url": canonical_url}
     mock_linkedin.return_value = {"status": "SUCCESS", "response": {"url": "https://linkedin.com/p/2"}}
     mock_x_post.return_value = {"status": "SUCCESS", "response": {"url": "https://x.com/status/3"}}
     mock_x_comment.return_value = {"status": "SUCCESS"}
@@ -164,25 +227,29 @@ def test_run_live_production_pipeline_with_dispatch(
     with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", test_article_path), \
          patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", audit_path):
         result = run_live_production_pipeline(
-            topic="Yield rates drop",
-            editorial_angle="No advice",
+            topic=topic,
+            editorial_angle=angle,
             live_run=False,
-            dispatch_live=True
+            dispatch_live=True,
+            dispatch_platforms=["substack", "linkedin", "instagram", "facebook", "telegram", "threads", "discord"],
+            operator_approval_marker=approval_marker,
+            run_id_override=run_id,
+            public_dispatch_ledger_path=tmp_path / "ledger.jsonl",
         )
         
         assert result["dispatch_live"] is True
         assert result["dispatch_results"]["substack"]["status"] == "SUCCESS"
         assert result["dispatch_results"]["linkedin"]["status"] == "SUCCESS"
-        assert result["dispatch_results"]["x_post"]["status"] == "SUCCESS"
-        assert len(result["dispatch_results"]["x_replies"]) == 2  # Tweet 2 + appended canonical link
         assert result["dispatch_results"]["instagram"]["status"] == "SUCCESS"
         assert result["dispatch_results"]["facebook"]["status"] == "SUCCESS"
         assert result["dispatch_results"]["telegram"]["status"] == "SUCCESS"
         assert result["dispatch_results"]["threads"]["status"] == "SUCCESS"
-        assert len(result["dispatch_results"]["threads_replies"]) == 2  # reply 2 + appended canonical link
+        assert len(result["dispatch_results"]["threads_replies"]) == 2
         assert result["dispatch_results"]["discord"]["status"] == "SUCCESS"
         assert result["pipeline_status"] == "DISPATCH_COMPLETE"
         assert "substack" in result["dispatch_summary"]["successful_platforms"]
+        mock_x_post.assert_not_called()
+        mock_x_comment.assert_not_called()
         mock_tg_photo.assert_called_once()
         mock_tg.assert_not_called()
         assert mock_sleep.call_count >= 1
@@ -190,8 +257,43 @@ def test_run_live_production_pipeline_with_dispatch(
 
 @patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
 @patch("live_contentops.live_production_pipeline_runner_v6.generate_live_platform_variants")
+@patch("live_contentops.substack_browser_adapter_v6.execute_substack_post")
+@patch("live_contentops.telegram_live_adapter_v6.execute_telegram_photo")
+def test_dispatch_live_without_operator_marker_blocks_before_platform_adapters(
+    mock_tg_photo, mock_substack, mock_generate_variants, mock_run_article, tmp_path
+):
+    mock_run_article.return_value = _approved_article_packet()
+    mock_generate_variants.return_value = {
+        "platform_variant_packet_id": "var_test_packet_456",
+        "image_path": "downloads/test_image.jpg",
+        "public_image_url": "https://example.com/test_image.jpg",
+        "variant_status": "VARIANT_READY",
+        "variants": {
+            "substack": "Substack body",
+            "telegram": "Meaningful Telegram text that would otherwise be eligible.",
+        },
+        "variant_threads": {},
+    }
+
+    with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "article.json"), \
+         patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", tmp_path / "audit.json"):
+        result = run_live_production_pipeline(
+            topic="Yield rates drop",
+            editorial_angle="No advice",
+            live_run=False,
+            dispatch_live=True,
+        )
+
+    assert result["pipeline_status"] == "DISPATCH_BLOCKED"
+    assert "public_dispatch_freeze_guard:operator_approval_marker_missing" in result["dispatch_blockers"]
+    mock_substack.assert_not_called()
+    mock_tg_photo.assert_not_called()
+
+
+@patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
+@patch("live_contentops.live_production_pipeline_runner_v6.generate_live_platform_variants")
 @patch("live_contentops.live_production_pipeline_runner_v6.time.sleep", return_value=None)
-@patch("live_contentops.substack_browser_adapter_v6.execute_substack_post", return_value={"status": "SUCCESS"})
+@patch("live_contentops.substack_browser_adapter_v6.execute_substack_post", return_value={"status": "SUCCESS", "url": "https://substack.test/p/unit"})
 @patch("live_contentops.linkedin_browser_adapter_v6.execute_linkedin_post", return_value={"status": "SUCCESS"})
 @patch("live_contentops.x_browser_adapter_v6.execute_x_post", return_value={"status": "SUCCESS"})
 @patch("live_contentops.instagram_adapter_v6.execute_instagram_post", return_value={"status": "SUCCESS"})
@@ -203,6 +305,14 @@ def test_run_live_production_pipeline_with_dispatch(
 def test_dispatch_uses_reachable_instagram_fallback_when_public_image_missing(
     mock_discord, mock_threads, mock_tg, mock_fb, mock_fb_photo, mock_ig, mock_x_post, mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
+    run_id = "v6_pipeline_test_instagram_fallback"
+    approval_marker = _approval_marker_for_run(
+        topic="Topic",
+        angle="Angle",
+        run_id=run_id,
+        telegram_action="post",
+        telegram_body="Telegram summary",
+    )
     mock_run_article.return_value = _approved_article_packet()
     mock_generate_variants.return_value = {
         "platform_variant_packet_id": "var_test_packet_456",
@@ -215,12 +325,20 @@ def test_dispatch_uses_reachable_instagram_fallback_when_public_image_missing(
             "discord": "Discord text",
             "instagram_caption": "Instagram caption",
         },
-        "variant_threads": {"x": ["Tweet 1"], "threads": ["Threads post 1"]},
+        "variant_threads": {"x": [], "threads": ["Threads post 1"]},
     }
     with patch("live_contentops.live_production_pipeline_runner_v6.extract_og_image", return_value=None), \
          patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "article.json"), \
          patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", tmp_path / "audit.json"):
-        result = run_live_production_pipeline("Topic", "Angle", live_run=False, dispatch_live=True)
+        result = run_live_production_pipeline(
+            "Topic",
+            "Angle",
+            live_run=False,
+            dispatch_live=True,
+            operator_approval_marker=approval_marker,
+            run_id_override=run_id,
+            public_dispatch_ledger_path=tmp_path / "ledger.jsonl",
+        )
     assert result["dispatch_results"]["instagram"]["status"] == "BLOCKED"
     mock_ig.assert_not_called()
 
@@ -239,6 +357,8 @@ def test_dispatch_uses_reachable_instagram_fallback_when_public_image_missing(
 def test_dispatch_platform_scope_retries_instagram_only_without_reposting_successes(
     mock_discord, mock_threads, mock_tg, mock_fb, mock_ig, mock_x_post, mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
+    run_id = "v6_pipeline_test_instagram_scope"
+    approval_marker = _approval_marker_for_run(topic="Topic", angle="Angle", run_id=run_id)
     mock_run_article.return_value = _approved_article_packet()
     mock_generate_variants.return_value = {
         "platform_variant_packet_id": "var_test_packet_456",
@@ -262,6 +382,9 @@ def test_dispatch_platform_scope_retries_instagram_only_without_reposting_succes
             live_run=False,
             dispatch_live=True,
             dispatch_platforms=["instagram"],
+            operator_approval_marker=approval_marker,
+            run_id_override=run_id,
+            public_dispatch_ledger_path=tmp_path / "ledger.jsonl",
         )
     assert result["pipeline_status"] == "DISPATCH_PARTIAL_FAILURE"
     assert result["dispatch_platform_scope"] == ["instagram"]
@@ -283,6 +406,8 @@ def test_dispatch_platform_scope_retries_instagram_only_without_reposting_succes
 def test_instagram_dispatch_retries_media_candidate_failure(
     mock_ig, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
+    run_id = "v6_pipeline_test_instagram_retry"
+    approval_marker = _approval_marker_for_run(topic="Topic", angle="Angle", run_id=run_id)
     mock_run_article.return_value = _approved_article_packet()
     mock_generate_variants.return_value = {
         "platform_variant_packet_id": "var_test_packet_456",
@@ -308,6 +433,9 @@ def test_instagram_dispatch_retries_media_candidate_failure(
             live_run=False,
             dispatch_live=True,
             dispatch_platforms=["instagram"],
+            operator_approval_marker=approval_marker,
+            run_id_override=run_id,
+            public_dispatch_ledger_path=tmp_path / "ledger.jsonl",
         )
 
     assert result["pipeline_status"] == "DISPATCH_COMPLETE"
@@ -323,10 +451,11 @@ def test_dispatch_summary_normalizes_success_failure_and_blocked():
         "linkedin": failed,
         "x_replies": [_normalize_dispatch_result("x_reply_1", {"status": "SUCCESS"})],
         "instagram": {"platform": "instagram", "status": "BLOCKED", "ok": False},
+        "telegram": {"platform": "telegram", "status": "PUBLIC_DISPATCH_FROZEN", "ok": False},
     })
     assert summary["successful_platforms"] == ["substack", "x_reply_1"]
     assert summary["failed_platforms"] == ["linkedin"]
-    assert summary["blocked_platforms"] == ["instagram"]
+    assert summary["blocked_platforms"] == ["instagram", "telegram"]
 
 
 @patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
@@ -367,6 +496,8 @@ def test_run_live_production_pipeline_blocked_dispatch_writes_audit(mock_generat
 def test_run_live_production_pipeline_partial_failure_is_structured(
     mock_discord, mock_threads, mock_tg, mock_fb, mock_fb_photo, mock_ig, mock_x_post, mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
+    run_id = "v6_pipeline_test_partial_failure"
+    approval_marker = _approval_marker_for_run(topic="Topic", angle="Angle", run_id=run_id)
     mock_run_article.return_value = _approved_article_packet()
     mock_generate_variants.return_value = {
         "platform_variant_packet_id": "var_test_packet_456",
@@ -380,9 +511,9 @@ def test_run_live_production_pipeline_partial_failure_is_structured(
             "discord": "",
             "instagram_caption": "Instagram caption",
         },
-        "variant_threads": {"x": ["Tweet 1"], "threads": []},
+        "variant_threads": {"x": [], "threads": []},
     }
-    mock_substack.return_value = {"status": "SUCCESS"}
+    mock_substack.return_value = {"status": "SUCCESS", "url": "https://substack.test/p/unit"}
     mock_x_post.return_value = {"status": "SUCCESS"}
     mock_ig.return_value = {"status": "SUCCESS"}
     mock_fb.return_value = {"status": "SUCCESS"}
@@ -393,7 +524,15 @@ def test_run_live_production_pipeline_partial_failure_is_structured(
     audit_path = tmp_path / "latest_dispatch_audit.json"
     with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "article.json"), \
          patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", audit_path):
-        result = run_live_production_pipeline("Topic", "Angle", live_run=False, dispatch_live=True)
+        result = run_live_production_pipeline(
+            "Topic",
+            "Angle",
+            live_run=False,
+            dispatch_live=True,
+            operator_approval_marker=approval_marker,
+            run_id_override=run_id,
+            public_dispatch_ledger_path=tmp_path / "ledger.jsonl",
+        )
     assert result["pipeline_status"] == "DISPATCH_PARTIAL_FAILURE"
     assert result["dispatch_results"]["linkedin"]["error_class"] == "RuntimeError"
     assert "linkedin" in result["dispatch_summary"]["failed_platforms"]
@@ -649,6 +788,28 @@ def test_dispatch_passes_media_and_canonical_link(
     mock_discord, mock_threads, mock_tg_photo, mock_fb, mock_fb_photo, mock_ig, mock_x_comment, mock_x_post,
     mock_linkedin, mock_substack, mock_sleep, mock_generate_variants, mock_run_article, tmp_path
 ):
+    topic = "Topic"
+    angle = "Angle"
+    run_id = "v6_pipeline_test_media_link"
+    canonical_url = "https://sub.stack/p/live"
+    telegram_text = (
+        "Telegram summary connects the source evidence, chart context, and operator-reviewed "
+        "takeaways before linking to the full briefing."
+    )
+    telegram_media = "downloads/hero.jpg"
+    telegram_body = _fit_telegram_photo_caption(
+        _apply_canonical_link(telegram_text, canonical_url),
+        canonical_url,
+    )
+    approval_marker = _approval_marker_for_run(
+        topic=topic,
+        angle=angle,
+        run_id=run_id,
+        telegram_action="photo",
+        telegram_body=telegram_body,
+        canonical_url=canonical_url,
+        telegram_media=telegram_media,
+    )
     mock_run_article.return_value = _approved_article_packet()
     mock_generate_variants.return_value = {
         "platform_variant_packet_id": "var_1",
@@ -659,21 +820,29 @@ def test_dispatch_passes_media_and_canonical_link(
             "substack": "Substack body",
             "linkedin": "LinkedIn text",
             "facebook": "Facebook text",
-            "telegram": "Telegram summary",
+            "telegram": telegram_text,
             "discord": "Discord text",
             "instagram_caption": "IG caption",
         },
-        "variant_threads": {"x": ["Tweet 1"], "threads": ["Threads 1"]},
+        "variant_threads": {"x": [], "threads": ["Threads 1"]},
         "media_manifest": {
             "news_image_path": "downloads/hero.jpg",
             "media_assets": [{"asset_id": "primary", "local_path": "downloads/hero.jpg"}],
             "selected_media_by_platform": {"instagram": "https://cdn.example.com/hero.jpg", "telegram": "https://cdn.example.com/hero.jpg"},
         },
     }
-    mock_substack.return_value = {"status": "SUCCESS", "url": "https://sub.stack/p/live"}
+    mock_substack.return_value = {"status": "SUCCESS", "url": canonical_url}
     with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "a.json"), \
          patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", tmp_path / "audit.json"):
-        run_live_production_pipeline("Topic", "Angle", live_run=False, dispatch_live=True)
+        run_live_production_pipeline(
+            topic,
+            angle,
+            live_run=False,
+            dispatch_live=True,
+            operator_approval_marker=approval_marker,
+            run_id_override=run_id,
+            public_dispatch_ledger_path=tmp_path / "ledger.jsonl",
+        )
 
     # Substack receives the local hero image for browser upload.
     assert mock_substack.call_args.kwargs["image_path"] == "downloads/hero.jpg"
@@ -681,8 +850,6 @@ def test_dispatch_passes_media_and_canonical_link(
     # LinkedIn gets the image and the canonical link appended to the body.
     assert mock_linkedin.call_args.kwargs["image_path"] == "downloads/hero.jpg"
     assert "https://sub.stack/p/live" in mock_linkedin.call_args.kwargs["text"]
-    # X first post carries the local image path.
-    assert mock_x_post.call_args.kwargs["image_url"] == "downloads/hero.jpg"
     # Facebook gets a true photo post with the canonical link in the caption.
     assert mock_fb_photo.call_args.kwargs["image_url"] == "https://cdn.example.com/hero.jpg"
     assert "https://sub.stack/p/live" in mock_fb_photo.call_args.kwargs["message"]
@@ -692,6 +859,116 @@ def test_dispatch_passes_media_and_canonical_link(
     embeds = mock_discord.call_args.kwargs["embeds"]
     assert embeds and embeds[0]["url"] == "https://sub.stack/p/live"
     assert embeds[0]["image"]["url"] == "https://cdn.example.com/hero.jpg"
+
+
+@patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
+@patch("live_contentops.live_production_pipeline_runner_v6.generate_live_platform_variants")
+@patch("live_contentops.live_production_pipeline_runner_v6.time.sleep", return_value=None)
+@patch("live_contentops.telegram_live_adapter_v6.execute_telegram_photo")
+def test_telegram_preview_only_caption_blocks_before_adapter(
+    mock_tg_photo, mock_sleep, mock_generate_variants, mock_run_article, tmp_path, monkeypatch
+):
+    topic = "Preview-only caption incident"
+    angle = "No advice"
+    run_id = "v6_pipeline_test_preview_only"
+    canonical_url = "https://capitalchronicle.substack.com/p/preview-only-test"
+    telegram_text = f"Read the full editorial analysis: {canonical_url}"
+    telegram_media = "downloads/hero.jpg"
+    telegram_body = _fit_telegram_photo_caption(
+        _apply_canonical_link(telegram_text, canonical_url),
+        canonical_url,
+    )
+    approval_marker = _approval_marker_for_run(
+        topic=topic,
+        angle=angle,
+        run_id=run_id,
+        telegram_action="photo",
+        telegram_body=telegram_body,
+        canonical_url=canonical_url,
+        telegram_media=telegram_media,
+    )
+    monkeypatch.setenv("CONTENTOPS_CANONICAL_URL_OVERRIDE", canonical_url)
+    mock_run_article.return_value = _approved_article_packet()
+    mock_generate_variants.return_value = {
+        "platform_variant_packet_id": "var_preview",
+        "image_path": telegram_media,
+        "variant_status": "VARIANT_READY",
+        "variants": {"telegram": telegram_text},
+        "variant_threads": {},
+    }
+
+    with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "article.json"), \
+         patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", tmp_path / "audit.json"):
+        result = run_live_production_pipeline(
+            topic,
+            angle,
+            live_run=False,
+            dispatch_live=True,
+            dispatch_platforms=["telegram"],
+            operator_approval_marker=approval_marker,
+            run_id_override=run_id,
+            public_dispatch_ledger_path=tmp_path / "ledger.jsonl",
+        )
+
+    assert result["dispatch_results"]["telegram"]["status"] == "PUBLIC_DISPATCH_FROZEN"
+    assert "telegram_preview_only_body" in result["dispatch_results"]["telegram"]["error"]
+    mock_tg_photo.assert_not_called()
+
+
+@patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
+@patch("live_contentops.live_production_pipeline_runner_v6.generate_live_platform_variants")
+@patch("live_contentops.live_production_pipeline_runner_v6.time.sleep", return_value=None)
+@patch("live_contentops.telegram_live_adapter_v6.execute_telegram_photo")
+def test_telegram_duplicate_canonical_url_blocks_before_adapter(
+    mock_tg_photo, mock_sleep, mock_generate_variants, mock_run_article, tmp_path, monkeypatch
+):
+    topic = "Crude awakening how spiking oil volatility"
+    angle = "No advice"
+    run_id = "v6_pipeline_test_duplicate_crude"
+    canonical_url = "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-05f"
+    telegram_text = (
+        "Telegram summary explains the oil-volatility evidence, why the chart matters, "
+        "and what readers should verify before drawing conclusions."
+    )
+    telegram_media = "downloads/wti.png"
+    telegram_body = _fit_telegram_photo_caption(
+        _apply_canonical_link(telegram_text, canonical_url),
+        canonical_url,
+    )
+    approval_marker = _approval_marker_for_run(
+        topic=topic,
+        angle=angle,
+        run_id=run_id,
+        telegram_action="photo",
+        telegram_body=telegram_body,
+        canonical_url=canonical_url,
+        telegram_media=telegram_media,
+    )
+    monkeypatch.setenv("CONTENTOPS_CANONICAL_URL_OVERRIDE", canonical_url)
+    mock_run_article.return_value = _approved_article_packet()
+    mock_generate_variants.return_value = {
+        "platform_variant_packet_id": "var_duplicate",
+        "image_path": telegram_media,
+        "variant_status": "VARIANT_READY",
+        "variants": {"telegram": telegram_text},
+        "variant_threads": {},
+    }
+
+    with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "article.json"), \
+         patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", tmp_path / "audit.json"):
+        result = run_live_production_pipeline(
+            topic,
+            angle,
+            live_run=False,
+            dispatch_live=True,
+            dispatch_platforms=["telegram"],
+            operator_approval_marker=approval_marker,
+            run_id_override=run_id,
+        )
+
+    assert result["dispatch_results"]["telegram"]["status"] == "PUBLIC_DISPATCH_FROZEN"
+    assert "duplicate_canonical_url_hash" in result["dispatch_results"]["telegram"]["error"]
+    mock_tg_photo.assert_not_called()
 
 
 def test_telegram_photo_delivery_evidence_requires_bot_api_photo_result():

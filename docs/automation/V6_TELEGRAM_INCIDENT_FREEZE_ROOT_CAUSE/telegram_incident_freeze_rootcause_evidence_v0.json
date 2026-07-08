@@ -1,0 +1,121 @@
+{
+  "task": "TASK_CONTENTOPS_V6_TELEGRAM_UNAUTHORIZED_DUPLICATE_POST_INCIDENT_FREEZE_AND_ROOT_CAUSE_REPAIR_V0",
+  "schema_version": "v0",
+  "created_at": "2026-07-08T14:30:00Z",
+  "repo": "fatcat2109/capital-chronicle-contentops",
+  "starting_head": "416ccb524eb501545bbcca70e6a10af189b821d1",
+  "live_dispatch_performed_in_this_task": false,
+  "public_write_performed_in_this_task": false,
+  "telegram_delete_performed": false,
+  "operator_screenshot_evidence": {
+    "source": "operator_attached_telegram_screenshot",
+    "channel": "Capital Chronicle",
+    "visible_duplicate_or_near_duplicate_posts": 3,
+    "visible_local_times_gmt7": [
+      "2026-07-08 19:37",
+      "2026-07-08 19:49",
+      "2026-07-08 20:37"
+    ],
+    "visible_caption": "Read the full editorial analysis:",
+    "visible_canonical_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-05f",
+    "visible_media_family": "WTI crude oil chart"
+  },
+  "committed_telemetry_findings": {
+    "registry_path": "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "public_incident_line": {
+      "line": 520,
+      "timestamp_utc": "2026-07-08T13:37:40.870786+00:00",
+      "timestamp_gmt7": "2026-07-08T20:37:40+07:00",
+      "platform": "telegram",
+      "action": "photo",
+      "success": true,
+      "response_summary": "Created post/comment ID: 58",
+      "classification": "real_public_telegram_photo_success_by_committed_telemetry"
+    },
+    "preceding_x_failures": [
+      {
+        "line": 518,
+        "timestamp_utc": "2026-07-08T13:37:12.385018+00:00",
+        "platform": "x",
+        "action": "comment",
+        "success": false
+      },
+      {
+        "line": 519,
+        "timestamp_utc": "2026-07-08T13:37:39.848316+00:00",
+        "platform": "x",
+        "action": "comment",
+        "success": false
+      }
+    ],
+    "test_mock_ambiguity_line": {
+      "line": 521,
+      "timestamp_utc": "2026-07-08T13:37:57.606434+00:00",
+      "platform": "telegram",
+      "action": "photo",
+      "success": true,
+      "response_summary": "Created post/comment ID: 999",
+      "classification": "unit_test_mock_telemetry_from_tests_test_telegram_live_adapter_v6_not_public_send"
+    },
+    "substack_slug_prior_publication_line": {
+      "line": 511,
+      "timestamp_utc": "2026-07-07T16:16:32.219493+00:00",
+      "platform": "substack",
+      "action": "post",
+      "success": true,
+      "response_summary": "Created post/comment ID: crude-awakening-how-spiking-oil-volatility-05f"
+    }
+  },
+  "root_cause_summary": [
+    "The prior worker report relied on stale or incomplete dispatch-audit artifacts and missed the higher-authority committed live telemetry row showing Telegram photo success ID 58 at 2026-07-08T20:37:40+07:00.",
+    "The live runner allowed dispatch_live to proceed without an explicit run-bound operator approval marker, a topic hash, or a Telegram payload hash approval.",
+    "The Telegram adapter could be called directly by the runner or scheduler with dry_run=false and no adapter-level approval-marker or duplicate guard.",
+    "Telegram caption construction allowed weak output to collapse into a generic read-more line plus canonical URL when the variant body was empty or too thin.",
+    "The Telegram adapter unit test wrote fake success telemetry ID 999, making telemetry ambiguous unless test and real runtime rows were distinguished."
+  ],
+  "repairs_implemented": [
+    {
+      "path": "live_contentops/public_dispatch_freeze_guard_v6.py",
+      "summary": "New credential-free public dispatch freeze guard with run_id, topic_hash, approval marker, payload hash, duplicate URL/media/topic checks, and Telegram preview-only body detection."
+    },
+    {
+      "path": "live_contentops/telegram_live_adapter_v6.py",
+      "summary": "Telegram post/photo/comment/edit now freeze before credential lookup or network when dry_run=false and approval context is missing or mismatched."
+    },
+    {
+      "path": "live_contentops/live_production_pipeline_runner_v6.py",
+      "summary": "Live dispatch now requires an explicit operator approval marker and optional fixed run id before any platform loop; Telegram gets a second per-payload guard before adapter send."
+    },
+    {
+      "path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+      "summary": "Incident duplicate ledger blocks the Crude/WTI Substack canonical URL before future Telegram adapter sends."
+    },
+    {
+      "path": "tests/test_telegram_live_adapter_v6.py",
+      "summary": "Tests now prove non-dry-run Telegram freezes without approval and mocked uploads isolate telemetry."
+    },
+    {
+      "path": "tests/test_live_production_pipeline_runner.py",
+      "summary": "Tests now cover missing approval marker, Telegram preview-only captions, duplicate canonical URL guard, and no adapter call before freeze."
+    }
+  ],
+  "validation": {
+    "passed": [
+      "python -m pytest tests/test_telegram_live_adapter_v6.py tests/test_live_production_pipeline_runner.py -q -> 32 passed",
+      "python -m pytest tests/test_telegram_live_adapter_v6.py tests/test_live_production_pipeline_runner.py tests/test_daily_editorial_scheduler_v6.py tests/test_editorial_quality_audit_v6.py tests/test_media_diversification_audit_v6.py tests/test_platform_native_variant_generator_live.py tests/test_pipeline_rehearsal_evidence_v6.py -q -> 51 passed",
+      "python -m py_compile live_contentops/public_dispatch_freeze_guard_v6.py live_contentops/telegram_live_adapter_v6.py live_contentops/live_production_pipeline_runner_v6.py -> pass"
+    ],
+    "known_validation_failure_not_fixed_in_this_task": [
+      "python -m pytest tests/test_security_scans.py -q fails because editorial_quality_audit_v6.py is not in the existing forbidden-import allowlist. The new guard module was changed to avoid forbidden urllib imports; the remaining failure is outside the Telegram incident freeze patch."
+    ],
+    "generated_drift_handling": [
+      "Generated test drift was stashed as incident-freeze-test-generated-drift and excluded from commit scope."
+    ]
+  },
+  "remaining_manual_audit_requirements": [
+    "Operator/Jim must manually audit the visible Telegram duplicate posts and decide whether to delete them; this task did not delete or edit public Telegram content.",
+    "Before any future public 8-platform candidate, create an explicit approval marker bound to the exact run_id, topic_hash, and Telegram payload_hash after editorial, media, duplicate, Telegram visual, and Substack public-readback gates pass.",
+    "Do not run fresh public dispatch until the security scan allowlist drift is addressed or explicitly waived with repo authority."
+  ],
+  "recommended_next_task": "TASK_CONTENTOPS_V6_TELEGRAM_PUBLIC_INCIDENT_MANUAL_AUDIT_AND_APPROVAL_MARKER_DRY_RUN_V0"
+}

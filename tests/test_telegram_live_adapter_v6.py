@@ -7,6 +7,36 @@ from live_contentops.telegram_live_adapter_v6 import (
     execute_telegram_photo,
     execute_telegram_post,
 )
+from live_contentops.public_dispatch_freeze_guard_v6 import (
+    build_public_dispatch_payload_hash,
+    build_public_dispatch_topic_hash,
+    make_public_dispatch_approval_marker,
+)
+
+
+def _telegram_approval_context(*, run_id: str, topic: str, action: str, body_text: str, media_url: str | None = None) -> dict:
+    topic_hash = build_public_dispatch_topic_hash(topic, "test angle")
+    payload_hash = build_public_dispatch_payload_hash(
+        platform="telegram",
+        action=action,
+        body_text=body_text,
+        media_url=media_url,
+        topic_hash=topic_hash,
+    )
+    return {
+        "operator_approval_marker": make_public_dispatch_approval_marker(
+            run_id=run_id,
+            topic_hash=topic_hash,
+            payload_hash=payload_hash,
+            platform="telegram",
+        ),
+        "run_id": run_id,
+        "topic_hash": topic_hash,
+        "payload_hash": payload_hash,
+        "media_url": media_url,
+        "prior_dispatch_hashes": {},
+        "public_dispatch_ledger_path": None,
+    }
 
 
 def test_execute_telegram_post_dry_run():
@@ -58,6 +88,26 @@ def test_execute_telegram_photo_dry_run():
     assert res["payload_redacted"]["caption"] == "Chart caption"
 
 
+def test_execute_telegram_post_freezes_without_operator_approval(monkeypatch):
+    sent_reqs = []
+
+    def mock_urlopen(req, timeout=None):
+        sent_reqs.append(req)
+        raise AssertionError("Telegram network call must not be reached")
+
+    import urllib.request
+    monkeypatch.setattr(urllib.request, "urlopen", mock_urlopen)
+
+    res = execute_telegram_post(
+        message="A meaningful market note that should still require explicit operator approval.",
+        dry_run=False,
+    )
+
+    assert res["status"] == "PUBLIC_DISPATCH_FROZEN"
+    assert "operator_approval_marker_missing" in res["error"]
+    assert sent_reqs == []
+
+
 def test_execute_telegram_photo_local_file_upload(tmp_path, monkeypatch):
     # Create a temp local file
     img_file = tmp_path / "test_photo.png"
@@ -83,15 +133,32 @@ def test_execute_telegram_photo_local_file_upload(tmp_path, monkeypatch):
         
     import urllib.request
     monkeypatch.setattr(urllib.request, "urlopen", mock_urlopen)
+    import live_contentops.live_telemetry_v6 as telemetry
+    recorded_telemetry = []
+    monkeypatch.setattr(
+        telemetry,
+        "classify_and_record_dispatch",
+        lambda **kwargs: recorded_telemetry.append(kwargs),
+    )
     
+    caption = "Local photo caption with enough market context to avoid preview-only Telegram output."
+    approval_context = _telegram_approval_context(
+        run_id="v6_pipeline_test_adapter",
+        topic="Adapter approval test topic",
+        action="photo",
+        body_text=caption,
+        media_url=str(img_file),
+    )
     res = execute_telegram_photo(
         photo_url=str(img_file),
-        caption="Local photo caption",
-        dry_run=False
+        caption=caption,
+        dry_run=False,
+        approval_context=approval_context,
     )
     
     assert res["status"] == "SUCCESS"
     assert res["id"] == "999"
+    assert len(recorded_telemetry) == 1
     assert len(sent_reqs) == 1
     req = sent_reqs[0]
     assert "multipart/form-data" in req.get_header("Content-type")

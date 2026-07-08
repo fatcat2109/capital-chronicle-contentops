@@ -1,5 +1,5 @@
 {
-  "accepted_baseline_summary": "Fresh-news 8-platform public proof task continued after operator CDP setup. CDP and X-list access were reachable, fresh headline sidecars were generated, and the scheduler was patched for the current Step 1 sidecar schema. No public dispatch was attempted because the EIA oil candidate hit duplicate Crude/WTI-family risk and the fresh IMF candidate failed editorial/media gates.",
+  "accepted_baseline_summary": "Telegram duplicate-post incident freeze completed. Operator screenshot evidence and committed telemetry line 520 confirm a real Telegram photo success at 2026-07-08T20:37:40+07:00 with message_id=58, despite the prior worker report claiming no public IDs. No public write, edit, delete, repost, retry, schedule, DM, comment, like, or reaction was performed in this incident task.",
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, current repo evidence wins; record the mismatch and reconcile status during the task when practical instead of hard-stopping solely on stale status docs",
@@ -9,6 +9,9 @@
   "accepted_product_baseline_sha": "reported_in_final_evidence_after_push",
   "accepted_visual_repair_sha": "6a810aadadef4b3c9078173b32bed4b243f8552a",
   "active_blockers": [
+    "INCIDENT FREEZE: no further public dispatch until Telegram duplicate posts are manually audited and the explicit approval-marker dry run is verified.",
+    "Telegram non-dry-run post/photo/comment/edit now requires a matching run_id, topic_hash, approved Telegram payload_hash, duplicate ledger pass, and meaningful non-preview body before credential lookup or network.",
+    "The Crude/WTI Substack canonical URL from the duplicate incident is recorded in docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl.",
     "Fresh headline sidecars are now available at headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl with 1024 rows.",
     "No new public 8-platform live candidate was run in this task because no fresh non-duplicate topic passed editorial and media gates.",
     "The EIA oil-output candidate was blocked before dispatch by duplicate risk: generation collapsed into the prior public Crude/WTI oil-volatility content family.",
@@ -288,13 +291,13 @@
     "Instagram Business two-step Content Publishing API adapter with blocked smoke media binding",
     "Meta-family API unsupported edit outcomes for Instagram and Threads"
   ],
-  "current_next_recommended_task": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0",
-  "current_next_recommended_task_summary": "Ingest current headline sidecars, choose a fresh schedule slot, run one non-bypassed 8-platform public candidate only after editorial/media gates pass, and capture public readback/crop/visual placement proof. Do not build TikTok, YouTube video, Shorts, or a video creator; keep YouTube Community as future text/image work after current 8-platform QA is hardened.",
+  "current_next_recommended_task": "TASK_CONTENTOPS_V6_TELEGRAM_PUBLIC_INCIDENT_MANUAL_AUDIT_AND_APPROVAL_MARKER_DRY_RUN_V0",
+  "current_next_recommended_task_summary": "Manually audit the public Telegram duplicate posts, decide whether deletion is desired, and run a no-public-write approval-marker dry run proving the new run_id/topic_hash/payload_hash/duplicate/body gates before any future 8-platform public candidate.",
   "current_product_lane": "Editorial approval, media diversification/provenance, daily scheduling, and dispatch QA gates before public 8-platform candidate acceptance.",
-  "current_product_phase": "Newsroom/media/scheduler local final-candidate lane complete, with local Telegram/Substack visual QA gate repair complete. Fresh-news public proof is blocked pending current headline sidecars or an available X-list CDP ingestion browser on localhost:9222.",
+  "current_product_phase": "Public dispatch frozen after Telegram duplicate-post incident. Runner and Telegram adapter now require explicit run-bound approval and duplicate/body gates before any non-dry-run Telegram send can reach credentials or network.",
   "current_v6_loop_status": "Local candidate local_static_final_candidate_2026_07_08 is EDITORIAL_APPROVED with media diversification PASS and VARIANT_READY. Telegram/Substack visual proof gates are hardened locally. Fresh public run blocked before generation/dispatch because headline sidecars and CDP ingestion availability are missing.",
   "daily_schedule_path": "docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/daily_schedule_2026_07_08.json",
-  "dispatch_live_status": "No new live dispatch in this task. Fresh-news public dispatch was blocked before article generation because no headline sidecars were available and localhost:9222 CDP ingestion was unavailable.",
+  "dispatch_live_status": "No new live dispatch was run in the incident task. Public dispatch is frozen by default; Telegram dry_run=false calls now return PUBLIC_DISPATCH_FROZEN unless approval context matches run_id, topic_hash, and approved payload_hash and duplicate/body gates pass.",
   "editorial_acceptance_status": "EDITORIAL_APPROVED",
   "editorial_quality_audit_path": "docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json",
   "editorial_quality_status": "Current editorial audit classifies the local final candidate as EDITORIAL_APPROVED with tier1_editorial_approved=true. The audit remains independent from dispatch status.",
@@ -310,11 +313,15 @@
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
   "last_status_commit_sha": "reported_in_final_evidence_after_push",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_TELEGRAM_UNAUTHORIZED_DUPLICATE_POST_INCIDENT_FREEZE_AND_ROOT_CAUSE_REPAIR_V0",
   "last_verified_remote_sha": "bea4aaedfdeccd936c807af53080d22d2932e6b9",
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0",
-  "latest_accepted_task_result": "BLOCKED_MISSING_FRESH_HEADLINE_SIDECARS_AND_CDP_NO_LIVE_DISPATCH",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_TELEGRAM_UNAUTHORIZED_DUPLICATE_POST_INCIDENT_FREEZE_AND_ROOT_CAUSE_REPAIR_V0",
+  "latest_accepted_task_result": "PUBLIC_DISPATCH_FROZEN_TELEGRAM_DUPLICATE_INCIDENT_ROOT_CAUSE_REPAIRED_NO_PUBLIC_WRITE",
   "latest_changed_areas": [
+    "live_contentops/public_dispatch_freeze_guard_v6.py",
+    "live_contentops/telegram_live_adapter_v6.py",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+    "docs/automation/V6_TELEGRAM_INCIDENT_FREEZE_ROOT_CAUSE/telegram_incident_freeze_rootcause_evidence_v0.json",
     "live_contentops/media_diversification_audit_v6.py",
     "live_contentops/daily_editorial_scheduler_v6.py",
     "live_contentops/ai_research_canonical_article_engine_v6.py",
@@ -388,7 +395,7 @@
   "media_and_visual_status": "Media diversification audit PASS with 3 assets: FRED/EIA WTI volatility chart, FRED/EIA recent WTI price chart, and EIA-referenced Hormuz context schematic. Latest observation coverage through 2026-06-29. Search-like Google/Commons image candidates are review-only unless recency/source/rights metadata are complete.",
   "media_diversification_audit_path": "docs/automation/V6_MEDIA_DIVERSIFICATION/media_diversification_audit_v0.json",
   "newsroom_final_candidate_evidence_path": "docs/automation/V6_EDITORIAL_NEWSROOM_FINAL_CANDIDATE/newsroom_media_scheduler_final_candidate_evidence_v0.json",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0: after the operator starts X-list CDP ingestion on localhost:9222 or provides current headline sidecars, select a fresh non-duplicate schedule slot, run a non-bypassed 8-platform candidate only after editorial/media/visual gates pass, then capture public readback/crop/visual placement proof.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_TELEGRAM_PUBLIC_INCIDENT_MANUAL_AUDIT_AND_APPROVAL_MARKER_DRY_RUN_V0: manually audit the public Telegram duplicate posts, decide whether deletion is desired, and run a no-public-write approval-marker dry run proving the new run_id/topic_hash/payload_hash/duplicate/body gates before any future 8-platform public candidate.",
   "operator_platform_readiness": {
     "discord": "one-shot proven",
     "latest_task": "TASK_0021",

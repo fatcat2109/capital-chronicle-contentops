@@ -30,19 +30,88 @@ def _get_default_chat_id() -> str:
     )
 
 
+def _approval_marker_from_context(context: Mapping[str, Any] | None) -> Mapping[str, Any] | None:
+    if not isinstance(context, Mapping):
+        return None
+    marker = context.get("operator_approval_marker")
+    if isinstance(marker, Mapping):
+        return marker
+    if context.get("approval_status") or context.get("operator_approval_status"):
+        return context
+    return None
+
+
+def _guard_non_dry_run_telegram_action(
+    *,
+    action: str,
+    body_text: str,
+    media_url: str | None = None,
+    approval_context: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    from .public_dispatch_freeze_guard_v6 import (
+        evaluate_public_dispatch_freeze,
+        build_public_dispatch_payload_hash,
+        load_public_dispatch_hashes,
+    )
+
+    context = dict(approval_context or {})
+    marker = _approval_marker_from_context(context)
+    run_id = context.get("run_id") or (marker.get("run_id") if isinstance(marker, Mapping) else None)
+    topic_hash = context.get("topic_hash") or (marker.get("topic_hash") if isinstance(marker, Mapping) else None)
+    canonical_url = context.get("canonical_url")
+    payload_hash = context.get("payload_hash") or build_public_dispatch_payload_hash(
+        platform="telegram",
+        action=action,
+        body_text=body_text,
+        canonical_url=canonical_url,
+        media_url=media_url,
+        topic_hash=topic_hash,
+    )
+    prior_hashes = context.get("prior_dispatch_hashes")
+    if prior_hashes is None:
+        if "public_dispatch_ledger_path" in context:
+            prior_hashes = load_public_dispatch_hashes(context.get("public_dispatch_ledger_path"))
+        else:
+            prior_hashes = load_public_dispatch_hashes()
+    return evaluate_public_dispatch_freeze(
+        platform="telegram",
+        action=action,
+        run_id=run_id,
+        topic_hash=topic_hash,
+        operator_approval_marker=marker,
+        body_text=body_text,
+        canonical_url=canonical_url,
+        media_url=media_url,
+        payload_hash=str(payload_hash),
+        payload_hash_required=True,
+        prior_dispatch_hashes=prior_hashes,
+        canonical_packet_status=context.get("canonical_packet_status"),
+    )
+
+
+def _public_dispatch_frozen_result(action: str, guard: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "status": "PUBLIC_DISPATCH_FROZEN",
+        "platform": "telegram",
+        "action": action,
+        "error_class": "public_dispatch_freeze_guard",
+        "error": "|".join(str(item) for item in guard.get("blockers", [])),
+        "public_dispatch_freeze_guard": dict(guard),
+    }
+
+
 def execute_telegram_post(
     message: str,
     chat_id: str | None = None,
     bot_token: str | None = None,
     parse_mode: str = "HTML",
     dry_run: bool = False,
+    approval_context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Publishes a message to a Telegram channel or chat via Bot API."""
-    token = bot_token or _get_default_bot_token()
-    target_chat = chat_id or _get_default_chat_id()
-    payload_hash = hashlib.md5(f"{target_chat}:{message}".encode("utf-8")).hexdigest()[:12]
-
     if dry_run:
+        target_chat = chat_id or _get_default_chat_id()
+        payload_hash = hashlib.md5(f"{target_chat}:{message}".encode("utf-8")).hexdigest()[:12]
         return {
             "status": "DRY_RUN_PASS",
             "platform": "telegram",
@@ -57,6 +126,17 @@ def execute_telegram_post(
             },
         }
 
+    guard = _guard_non_dry_run_telegram_action(
+        action="post",
+        body_text=message,
+        approval_context=approval_context,
+    )
+    if not guard["dispatch_allowed"]:
+        return _public_dispatch_frozen_result("post", guard)
+
+    token = bot_token or _get_default_bot_token()
+    target_chat = chat_id or _get_default_chat_id()
+    payload_hash = hashlib.md5(f"{target_chat}:{message}".encode("utf-8")).hexdigest()[:12]
     if not token or not target_chat:
         return {
             "status": "FAILED",
@@ -129,13 +209,12 @@ def execute_telegram_photo(
     bot_token: str | None = None,
     parse_mode: str = "HTML",
     dry_run: bool = False,
+    approval_context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Publishes a photo with caption via Telegram Bot API sendPhoto."""
-    token = bot_token or _get_default_bot_token()
-    target_chat = chat_id or _get_default_chat_id()
-    payload_hash = hashlib.md5(f"{target_chat}:{photo_url}:{caption}".encode("utf-8")).hexdigest()[:12]
-
     if dry_run:
+        target_chat = chat_id or _get_default_chat_id()
+        payload_hash = hashlib.md5(f"{target_chat}:{photo_url}:{caption}".encode("utf-8")).hexdigest()[:12]
         return {
             "status": "DRY_RUN_PASS",
             "platform": "telegram",
@@ -149,6 +228,18 @@ def execute_telegram_photo(
             "response": {"id": f"telegram_mock_photo_{payload_hash}"},
         }
 
+    guard = _guard_non_dry_run_telegram_action(
+        action="photo",
+        body_text=caption,
+        media_url=photo_url,
+        approval_context=approval_context,
+    )
+    if not guard["dispatch_allowed"]:
+        return _public_dispatch_frozen_result("photo", guard)
+
+    token = bot_token or _get_default_bot_token()
+    target_chat = chat_id or _get_default_chat_id()
+    payload_hash = hashlib.md5(f"{target_chat}:{photo_url}:{caption}".encode("utf-8")).hexdigest()[:12]
     if not token or not target_chat:
         return {
             "status": "FAILED",
@@ -227,13 +318,12 @@ def execute_telegram_comment(
     bot_token: str | None = None,
     parse_mode: str = "HTML",
     dry_run: bool = False,
+    approval_context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Posts a reply to a specific message in a Telegram chat/channel."""
-    token = bot_token or _get_default_bot_token()
-    target_chat = chat_id or _get_default_chat_id()
-    payload_hash = hashlib.md5(f"{reply_to_message_id}:{message}".encode("utf-8")).hexdigest()[:12]
-
     if dry_run:
+        target_chat = chat_id or _get_default_chat_id()
+        payload_hash = hashlib.md5(f"{reply_to_message_id}:{message}".encode("utf-8")).hexdigest()[:12]
         return {
             "status": "DRY_RUN_PASS",
             "platform": "telegram",
@@ -248,6 +338,17 @@ def execute_telegram_comment(
             },
         }
 
+    guard = _guard_non_dry_run_telegram_action(
+        action="comment",
+        body_text=message,
+        approval_context=approval_context,
+    )
+    if not guard["dispatch_allowed"]:
+        return _public_dispatch_frozen_result("comment", guard)
+
+    token = bot_token or _get_default_bot_token()
+    target_chat = chat_id or _get_default_chat_id()
+    payload_hash = hashlib.md5(f"{reply_to_message_id}:{message}".encode("utf-8")).hexdigest()[:12]
     if not token or not target_chat:
         return {
             "status": "FAILED",
@@ -321,13 +422,12 @@ def execute_telegram_edit(
     bot_token: str | None = None,
     parse_mode: str = "HTML",
     dry_run: bool = False,
+    approval_context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Edits a previously sent Telegram message via Bot API editMessageText."""
-    token = bot_token or _get_default_bot_token()
-    target_chat = chat_id or _get_default_chat_id()
-    payload_hash = hashlib.md5(f"{message_id}:{new_message}".encode("utf-8")).hexdigest()[:12]
-
     if dry_run:
+        target_chat = chat_id or _get_default_chat_id()
+        payload_hash = hashlib.md5(f"{message_id}:{new_message}".encode("utf-8")).hexdigest()[:12]
         return {
             "status": "DRY_RUN_PASS",
             "platform": "telegram",
@@ -342,6 +442,17 @@ def execute_telegram_edit(
             },
         }
 
+    guard = _guard_non_dry_run_telegram_action(
+        action="edit",
+        body_text=new_message,
+        approval_context=approval_context,
+    )
+    if not guard["dispatch_allowed"]:
+        return _public_dispatch_frozen_result("edit", guard)
+
+    token = bot_token or _get_default_bot_token()
+    target_chat = chat_id or _get_default_chat_id()
+    payload_hash = hashlib.md5(f"{message_id}:{new_message}".encode("utf-8")).hexdigest()[:12]
     if not token or not target_chat or not message_id:
         return {
             "status": "FAILED",
