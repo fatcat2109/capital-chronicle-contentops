@@ -57,30 +57,36 @@ def test_rehearsal_evidence_packet_binds_result_to_dispatch_audit(tmp_path):
 
 
 def test_write_rehearsal_evidence_writes_json_and_summary(tmp_path):
+    blocked_audit = {
+        "run_id": "run_456",
+        "pipeline_status": "DISPATCH_BLOCKED",
+        "dispatch_live": False,
+        "dispatch_blocked": True,
+        "dispatch_blockers": ["public_dispatch_freeze_guard:operator_approval_marker_missing"],
+        "dispatch_summary": {
+            "attempted_platforms": [],
+            "successful_platforms": [],
+            "failed_platforms": [],
+            "blocked_platforms": ["pipeline"],
+        },
+        "dispatch_results": {
+            "telegram": {
+                "status": "PUBLIC_DISPATCH_FROZEN",
+                "raw": {"bot_token": "never persist raw audit results in evidence"},
+            }
+        },
+    }
     packet = build_rehearsal_evidence_packet(
         {
             "run_id": "run_456",
             "pipeline_status": "DISPATCH_BLOCKED",
+            "dispatch_live": False,
             "dispatch_blocked": True,
-            "dispatch_summary": {
-                "attempted_platforms": [],
-                "successful_platforms": [],
-                "failed_platforms": [],
-                "blocked_platforms": ["pipeline"],
-            },
+            "dispatch_blockers": blocked_audit["dispatch_blockers"],
+            "dispatch_summary": blocked_audit["dispatch_summary"],
         },
         repo_state={"branch": "master", "head_sha": "abc"},
-        audit_packet={
-            "run_id": "run_456",
-            "pipeline_status": "DISPATCH_BLOCKED",
-            "dispatch_blocked": True,
-            "dispatch_summary": {
-                "attempted_platforms": [],
-                "successful_platforms": [],
-                "failed_platforms": [],
-                "blocked_platforms": ["pipeline"],
-            },
-        },
+        audit_packet=blocked_audit,
     )
 
     path = write_rehearsal_evidence(packet, tmp_path / "rehearsal_evidence_packet.json")
@@ -88,9 +94,17 @@ def test_write_rehearsal_evidence_writes_json_and_summary(tmp_path):
     saved = json.loads(path.read_text(encoding="utf-8"))
     assert saved["evidence_packet_id"].startswith("v6_pipeline_rehearsal_")
     assert saved["sensitive_marker_detected"] is False
+    assert saved["dispatch_audit_excerpt"]["dispatch_blocked"] is True
+    assert saved["dispatch_audit_excerpt"]["dispatch_blockers"] == blocked_audit["dispatch_blockers"]
+    assert saved["readback_checks"]["readback_ready"] is True
     summary = (tmp_path / "rehearsal_readback_summary.md").read_text(encoding="utf-8")
     assert "V6 Pipeline Rehearsal Readback Summary" in summary
     assert "DISPATCH_BLOCKED" in summary
+    assert "pipeline" in summary
+    serialized = json.dumps(saved).lower()
+    assert "bot_token" not in serialized
+    assert "never persist raw audit" not in serialized
+    assert "bot_token" not in summary.lower()
 
 
 def test_readback_checks_detect_mismatched_audit():

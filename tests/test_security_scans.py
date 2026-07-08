@@ -7,7 +7,10 @@ def test_no_forbidden_imports_or_env_vars():
 
     # Policy B & C: Forbidden network, provider, and platform imports
     forbidden_imports = re.compile(
-        r"import\s+(requests|httpx|urllib|socket|openai|anthropic|tweepy|selenium|playwright|dotenv)"
+        r"import\s+(requests|httpx|socket|openai|anthropic|tweepy|selenium|playwright|dotenv)"
+    )
+    urllib_network_imports = re.compile(
+        r"(?:from\s+urllib\.(request|error)\s+import|import\s+urllib\.(request|error))"
     )
 
     # Policy A: Env-like access
@@ -37,6 +40,10 @@ def test_no_forbidden_imports_or_env_vars():
         "live_production_pipeline_runner_v6.py",
         "grounded_search_engine_v6.py",
     }
+    urllib_network_allowlist = live_gate_allowlist | {
+        "live_readonly_probe_registry.py",
+        "media_content_audit_v6.py",
+    }
 
     # Modules allowed to perform env lookups for configuration (excluding generic modules)
     env_access_allowlist = {
@@ -57,6 +64,11 @@ def test_no_forbidden_imports_or_env_vars():
             assert p.name in live_gate_allowlist, (
                 f"Forbidden network/provider/platform import found in {p.name}. "
                 "Only explicitly authorized live-gate modules may import these libraries."
+            )
+        if urllib_network_imports.search(text):
+            assert p.name in urllib_network_allowlist, (
+                f"Forbidden urllib network import found in {p.name}. "
+                "Only explicitly authorized live-gate or read-only fetch modules may import urllib.request/urllib.error."
             )
 
         # 2. Env access check

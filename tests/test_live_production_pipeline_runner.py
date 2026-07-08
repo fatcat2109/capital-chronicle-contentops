@@ -275,8 +275,9 @@ def test_dispatch_live_without_operator_marker_blocks_before_platform_adapters(
         "variant_threads": {},
     }
 
+    audit_path = tmp_path / "audit.json"
     with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "article.json"), \
-         patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", tmp_path / "audit.json"):
+         patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", audit_path):
         result = run_live_production_pipeline(
             topic="Yield rates drop",
             editorial_angle="No advice",
@@ -284,8 +285,25 @@ def test_dispatch_live_without_operator_marker_blocks_before_platform_adapters(
             dispatch_live=True,
         )
 
+    audit = json.loads(audit_path.read_text(encoding="utf-8"))
+
     assert result["pipeline_status"] == "DISPATCH_BLOCKED"
+    assert result["dispatch_live"] is False
+    assert result["dispatch_blocked"] is True
+    assert result["dispatch_audit_path"] == str(audit_path)
+    assert result["dispatch_summary"] == {
+        "attempted_platforms": [],
+        "successful_platforms": [],
+        "failed_platforms": [],
+        "blocked_platforms": ["pipeline"],
+    }
     assert "public_dispatch_freeze_guard:operator_approval_marker_missing" in result["dispatch_blockers"]
+    assert audit["run_id"] == result["run_id"]
+    assert audit["pipeline_status"] == result["pipeline_status"]
+    assert audit["dispatch_blocked"] is True
+    assert audit["dispatch_live"] is False
+    assert audit["dispatch_blockers"] == result["dispatch_blockers"]
+    assert audit["dispatch_summary"] == result["dispatch_summary"]
     mock_substack.assert_not_called()
     mock_tg_photo.assert_not_called()
 

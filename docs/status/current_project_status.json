@@ -1,5 +1,5 @@
 {
-  "accepted_baseline_summary": "Telegram duplicate-post incident freeze completed. Operator screenshot evidence and committed telemetry line 520 confirm a real Telegram photo success at 2026-07-08T20:37:40+07:00 with message_id=58, despite the prior worker report claiming no public IDs. No public write, edit, delete, repost, retry, schedule, DM, comment, like, or reaction was performed in this incident task.",
+  "accepted_baseline_summary": "Urllib security-scan policies repaired. Blocked rehearsal coverage and rehearsal evidence validation strengthened to verify audit binding and secret-scrubbing. No real CLI/full automation rehearsal was run. The dry-run path was not executed end-to-end because the current variant generator can still reach the image-search lane even under dry-run. This task proves security-scan repair and approval/freeze/rehearsal guard test readiness, not full automation dry-run readiness. Acceptance classification: PASS_SECURITY_SCAN_AND_REHEARSAL_GUARD_TESTS_ONLY.",
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, current repo evidence wins; record the mismatch and reconcile status during the task when practical instead of hard-stopping solely on stale status docs",
@@ -291,8 +291,8 @@
     "Instagram Business two-step Content Publishing API adapter with blocked smoke media binding",
     "Meta-family API unsupported edit outcomes for Instagram and Threads"
   ],
-  "current_next_recommended_task": "TASK_CONTENTOPS_V6_TELEGRAM_PUBLIC_INCIDENT_MANUAL_AUDIT_AND_APPROVAL_MARKER_DRY_RUN_V0",
-  "current_next_recommended_task_summary": "Manually audit the public Telegram duplicate posts, decide whether deletion is desired, and run a no-public-write approval-marker dry run proving the new run_id/topic_hash/payload_hash/duplicate/body gates before any future 8-platform public candidate.",
+  "current_next_recommended_task": "TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0",
+  "current_next_recommended_task_summary": "Isolate image-search functionality during dry-run executions so a true, network-safe CLI/full automation rehearsal can be safely completed end-to-end.",
   "current_product_lane": "Editorial approval, media diversification/provenance, daily scheduling, and dispatch QA gates before public 8-platform candidate acceptance.",
   "current_product_phase": "Public dispatch frozen after Telegram duplicate-post incident. Runner and Telegram adapter now require explicit run-bound approval and duplicate/body gates before any non-dry-run Telegram send can reach credentials or network.",
   "current_v6_loop_status": "Local candidate local_static_final_candidate_2026_07_08 is EDITORIAL_APPROVED with media diversification PASS and VARIANT_READY. Telegram/Substack visual proof gates are hardened locally. Fresh public run blocked before generation/dispatch because headline sidecars and CDP ingestion availability are missing.",
@@ -313,10 +313,10 @@
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
   "last_status_commit_sha": "reported_in_final_evidence_after_push",
-  "last_updated_by_task": "TASK_CONTENTOPS_V6_TELEGRAM_UNAUTHORIZED_DUPLICATE_POST_INCIDENT_FREEZE_AND_ROOT_CAUSE_REPAIR_V0",
-  "last_verified_remote_sha": "bea4aaedfdeccd936c807af53080d22d2932e6b9",
-  "latest_accepted_task": "TASK_CONTENTOPS_V6_TELEGRAM_UNAUTHORIZED_DUPLICATE_POST_INCIDENT_FREEZE_AND_ROOT_CAUSE_REPAIR_V0",
-  "latest_accepted_task_result": "PUBLIC_DISPATCH_FROZEN_TELEGRAM_DUPLICATE_INCIDENT_ROOT_CAUSE_REPAIRED_NO_PUBLIC_WRITE",
+  "last_updated_by_task": "TASK_CONTENTOPS_V6_APPROVAL_MARKER_SECURITY_SCAN_AND_FULL_AUTOMATION_DRY_RUN_REHEARSAL_V0",
+  "last_verified_remote_sha": "b2abc628a853d5b00637b2bcd1356bdeede6a15b",
+  "latest_accepted_task": "TASK_CONTENTOPS_V6_APPROVAL_MARKER_SECURITY_SCAN_AND_FULL_AUTOMATION_DRY_RUN_REHEARSAL_V0",
+  "latest_accepted_task_result": "PASS_SECURITY_SCAN_AND_REHEARSAL_GUARD_TESTS_ONLY",
   "latest_changed_areas": [
     "live_contentops/public_dispatch_freeze_guard_v6.py",
     "live_contentops/telegram_live_adapter_v6.py",
@@ -395,7 +395,7 @@
   "media_and_visual_status": "Media diversification audit PASS with 3 assets: FRED/EIA WTI volatility chart, FRED/EIA recent WTI price chart, and EIA-referenced Hormuz context schematic. Latest observation coverage through 2026-06-29. Search-like Google/Commons image candidates are review-only unless recency/source/rights metadata are complete.",
   "media_diversification_audit_path": "docs/automation/V6_MEDIA_DIVERSIFICATION/media_diversification_audit_v0.json",
   "newsroom_final_candidate_evidence_path": "docs/automation/V6_EDITORIAL_NEWSROOM_FINAL_CANDIDATE/newsroom_media_scheduler_final_candidate_evidence_v0.json",
-  "next_recommended_task": "TASK_CONTENTOPS_V6_TELEGRAM_PUBLIC_INCIDENT_MANUAL_AUDIT_AND_APPROVAL_MARKER_DRY_RUN_V0: manually audit the public Telegram duplicate posts, decide whether deletion is desired, and run a no-public-write approval-marker dry run proving the new run_id/topic_hash/payload_hash/duplicate/body gates before any future 8-platform public candidate.",
+  "next_recommended_task": "TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0: Isolate image-search functionality during dry-run executions so a true, network-safe CLI/full automation rehearsal can be safely completed end-to-end.",
   "operator_platform_readiness": {
     "discord": "one-shot proven",
     "latest_task": "TASK_0021",

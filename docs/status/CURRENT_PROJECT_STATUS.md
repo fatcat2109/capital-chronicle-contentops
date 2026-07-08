@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps - Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_TELEGRAM_UNAUTHORIZED_DUPLICATE_POST_INCIDENT_FREEZE_AND_ROOT_CAUSE_REPAIR_V0
+TASK_CONTENTOPS_V6_APPROVAL_MARKER_SECURITY_SCAN_AND_FULL_AUTOMATION_DRY_RUN_REHEARSAL_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,9 +9,9 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-verified remote master before this CDP continuation task: `f0b4fa1cc4ff7d72e26443ef33adfe27d5d82b42`
+verified remote master before this rehearsal-proof task: `b2abc628a853d5b00637b2bcd1356bdeede6a15b`
 accepted visual repair commit: `6a810aadadef4b3c9078173b32bed4b243f8552a`
-latest pre-task remote commit: `f0b4fa1cc4ff7d72e26443ef33adfe27d5d82b42`
+latest pre-task remote commit: `b2abc628a853d5b00637b2bcd1356bdeede6a15b`
 
 ## current_product_phase
 Public dispatch is frozen after an operator-reported Telegram duplicate-post incident. Repo telemetry confirms a real Telegram photo success at `2026-07-08T20:37:40+07:00` (`message_id=58`) despite the prior worker report claiming no public IDs. The runner and Telegram adapter now require an explicit run-bound operator approval marker, topic hash, Telegram payload hash, duplicate ledger check, and non-preview Telegram body before any non-dry-run Telegram send can reach credentials or network.
@@ -20,13 +20,13 @@ Public dispatch is frozen after an operator-reported Telegram duplicate-post inc
 Editorial newsroom lane: canonical articles must pass mechanical quality, independent editorial quality, media diversification/provenance, and visual-slot gates before public dispatch can be treated as product-candidate evidence.
 
 ## accepted_baseline_summary
-`TASK_CONTENTOPS_V6_TELEGRAM_UNAUTHORIZED_DUPLICATE_POST_INCIDENT_FREEZE_AND_ROOT_CAUSE_REPAIR_V0` froze public Telegram dispatch paths and documented the incident root cause. No live dispatch, edit, delete, repost, retry, schedule, DM, comment, like, or reaction was performed in this task. Evidence: `docs/automation/V6_TELEGRAM_INCIDENT_FREEZE_ROOT_CAUSE/telegram_incident_freeze_rootcause_evidence_v0.json`.
+`TASK_CONTENTOPS_V6_APPROVAL_MARKER_SECURITY_SCAN_AND_FULL_AUTOMATION_DRY_RUN_REHEARSAL_V0` repaired `urllib` security-scan policies, added robust blocked rehearsal coverage to the live runner, and tightened rehearsal evidence validation to confirm that blocked dispatches correctly bind to the blocked audit and remain secret-scrubbed. No real CLI/full automation rehearsal was run. The dry-run path was not executed end-to-end because the current variant generator can still reach the image-search lane even under dry-run. This task proves security-scan repair and approval/freeze/rehearsal guard test readiness, not full automation dry-run readiness. Acceptance classification: PASS_SECURITY_SCAN_AND_REHEARSAL_GUARD_TESTS_ONLY.
 
 ## status_sha_model
-- `last_verified_remote_sha`: `f0b4fa1cc4ff7d72e26443ef33adfe27d5d82b42` before this CDP continuation task.
+- `last_verified_remote_sha`: `b2abc628a853d5b00637b2bcd1356bdeede6a15b` before this rehearsal-proof task.
 - `accepted_visual_repair_sha`: `6a810aadadef4b3c9078173b32bed4b243f8552a`.
 - `latest_headline_ingestion_sha`: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`.
-- `accepted_product_baseline_sha`: advances with the final pushed newsroom/media/scheduler commit reported in final task evidence.
+- `accepted_product_baseline_sha`: advances with the final pushed rehearsal-proof commit reported in final task evidence.
 - Older stale `3a074`, `332e646`, `496dee`, and pending visual-repair SHA references are superseded by the verified remote/evidence above.
 
 ## canonical_dashboard_surface
