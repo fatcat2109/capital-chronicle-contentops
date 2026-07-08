@@ -1,0 +1,113 @@
+{
+  "schema_version": "fresh_news_8_platform_public_candidate_blocked_after_cdp_evidence_v0",
+  "task_label": "TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0",
+  "repo": "fatcat2109/capital-chronicle-contentops",
+  "worktree": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa",
+  "starting_head": "f0b4fa1cc4ff7d72e26443ef33adfe27d5d82b42",
+  "operator_cdp_setup": {
+    "probe_url": "http://localhost:9222/json/version",
+    "status": "reachable",
+    "browser": "Chrome/149.0.7827.201",
+    "websocket_debugger_url_present": true,
+    "x_list_access": {
+      "url": "https://x.com/i/lists/1843870469143048642",
+      "status": "reachable_in_cdp_tab"
+    }
+  },
+  "headline_ingestion": {
+    "flow": "headline_ingestion/Data_Ingestion.py",
+    "result": "sidecar_written_before bounded timeout of continuous ingestion loop",
+    "sidecar_path": "headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl",
+    "sidecar_row_count": 1024,
+    "captured_at_utc_min": "2026-07-08T13:21:21Z",
+    "captured_at_utc_max": "2026-07-08T13:22:01Z",
+    "headline_timestamp_min": "2026-07-08 00:00:08 GMT+7",
+    "headline_timestamp_max": "2026-07-08 20:21:16 GMT+7",
+    "freshness_status": "fresh_current_day_sidecars_available"
+  },
+  "scheduler": {
+    "compatibility_fix": "daily_editorial_scheduler_v6 now accepts current Step 1 sidecar fields: headline_text, headline_timestamp, author_handle, candidate_catalyst_tags, follow_up_data_need_candidates",
+    "fresh_only_command": "python -m live_contentops.daily_editorial_scheduler_v6 --date 2026-07-08 --slot-count 6 --sidecar-glob headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl",
+    "fresh_only_sidecar_count": 1024,
+    "selected_initial_scheduler_slot": {
+      "slot_index": 4,
+      "topic": "Global oil output to return to pre-Iran war level by year's end, U.S. EIA says",
+      "reason": "fresh EIA-backed scheduler slot with current-day timestamp and lower source-path ambiguity than opinion-framed oil/Fed slot"
+    },
+    "duplicate_guard_result": {
+      "status": "blocked_before_dispatch",
+      "reason": "generation collapsed into the same WTI/oil-volatility content family and slug already used by prior public Crude run",
+      "matching_prior_public_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-4f7",
+      "matching_prior_evidence": "docs/automation/V6_NON_BYPASSED_LONGFORM_LIVE_RUN/non_bypassed_live_run_evidence_v0.json"
+    },
+    "selected_non_duplicate_retry_topic": {
+      "topic": "IMF cuts 2026 global growth forecast to 3.0% from 3.1% and raises 2027 forecast to 3.4%",
+      "source_headline_timestamp": "2026-07-08 20:00:25 GMT+7",
+      "reason": "fresh current-day official macro release from current sidecars; avoids Crude/WTI duplicate family"
+    }
+  },
+  "generation_runs": [
+    {
+      "run_id": "v6_pipeline_075f0195b05a",
+      "topic": "Global oil output to return to pre-Iran war level by year-end, U.S. EIA says",
+      "dispatch_live": false,
+      "pipeline_status": "GENERATED",
+      "editorial_gate": "EDITORIAL_APPROVED",
+      "media_diversification_gate": "PASS",
+      "public_dispatch_decision": "NOT_DISPATCHED_DUPLICATE_RISK",
+      "duplicate_reason": "same WTI/oil-volatility slug/content family as prior public Crude run"
+    },
+    {
+      "run_id": "v6_pipeline_e0c0e5545819",
+      "topic": "IMF cuts 2026 global growth forecast to 3.0% from 3.1% and raises 2027 forecast to 3.4%",
+      "dispatch_live": false,
+      "pipeline_status": "GENERATED",
+      "editorial_gate": "EDITORIAL_BLOCKED",
+      "editorial_blockers": [
+        "irrelevant_citation_urls",
+        "irrelevant_source_note_urls",
+        "source_trail_claims_too_generic"
+      ],
+      "editorial_review_items": [
+        "tier1_structure_missing:why_now,counterargument_or_limits,what_to_watch_next",
+        "source_diversity_too_narrow:0<3"
+      ],
+      "media_content_gate": "FAIL",
+      "media_content_blockers": [
+        "media_time_coverage_unverified_for_current_topic"
+      ],
+      "media_diversification_gate": "FAIL",
+      "media_diversification_blockers": [
+        "media_asset_count_too_low:1<3",
+        "media_mix_missing_data_chart",
+        "media_mix_missing_contextual_image_or_map"
+      ],
+      "public_dispatch_decision": "NOT_DISPATCHED_GATE_BLOCKED"
+    }
+  ],
+  "public_candidate": {
+    "run_performed": false,
+    "reason": "No non-duplicate fresh candidate passed editorial quality and media diversification/provenance gates.",
+    "platforms_attempted": [],
+    "public_urls_or_ids": {},
+    "telegram_caption_url_photo_proof": "not available because dispatch was correctly blocked before Telegram",
+    "substack_visual_count_order_placement_proof": "not available because dispatch was correctly blocked before Substack publication",
+    "crop_readability_status": "manual public crop/readability proof not applicable without a public dispatch"
+  },
+  "checks": [
+    "python -m pytest tests\\test_daily_editorial_scheduler_v6.py -q -> 3 passed",
+    "python -m pytest tests\\test_daily_editorial_scheduler_v6.py tests\\test_live_production_pipeline_runner.py tests\\test_media_diversification_audit_v6.py tests\\test_media_content_audit_v6.py -q -> 32 passed",
+    "python -m pytest tests\\test_substack_browser_adapter_v6.py tests\\test_telegram_live_adapter_v6.py tests\\test_editorial_quality_audit_v6.py -q -> 16 passed",
+    "python -m py_compile live_contentops\\daily_editorial_scheduler_v6.py live_contentops\\live_production_pipeline_runner_v6.py live_contentops\\ai_research_canonical_article_engine_v6.py live_contentops\\platform_native_variant_generator_live_v6.py -> passed"
+  ],
+  "remaining_blockers": [
+    "The current article engine has a source-backed deterministic repair path for WTI/oil content, which risks duplicate Crude-family output for energy headlines.",
+    "The IMF fresh-news candidate needs an official IMF source pack and source-backed media/chart pack before it can pass editorial and media gates.",
+    "Google image search remains blocked by 403; automatic fallback media for non-oil macro topics is not publication-safe.",
+    "The missing live_contentops.headline_context_adapter_v6 module prevents --use-latest-headlines context injection even though fresh sidecars are available."
+  ],
+  "quality_bypass": {
+    "bypass_used": false,
+    "CONTENTOPS_BYPASS_QUALITY_GATES": "false during live generation commands"
+  }
+}

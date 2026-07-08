@@ -55,3 +55,36 @@ def test_scheduler_writes_fallback_watchlist_when_no_sidecars(tmp_path):
     assert len(schedule["slots"]) == 6
     assert all(slot["readiness"] == "NEEDS_SOURCE_REVIEW" for slot in schedule["slots"])
     assert all(slot["headline_sidecar_context_only"] is True for slot in schedule["slots"])
+
+
+def test_scheduler_ingests_current_step1_headline_sidecar_schema(tmp_path):
+    sidecar_dir = tmp_path / "headline_sidecars"
+    sidecar_dir.mkdir()
+    path = sidecar_dir / "step1_headline_sidecar_2026_07_08.jsonl"
+    row = {
+        "headline_id": "step1-current-schema-1",
+        "headline_text": "US power use to beat record highs in 2026 and 2027: EIA",
+        "headline_timestamp": "2026-07-08 20:21:16 GMT+7",
+        "author_handle": "@Newsdesk",
+        "candidate_catalyst_tags": ["energy"],
+        "follow_up_data_need_candidates": ["eia"],
+        "headline_quality_flags": {"material_macro_or_market_relevance": True},
+        "numeric_truth_authority": False,
+        "forecast_readiness_authority": False,
+    }
+    path.write_text(json.dumps(row) + "\n", encoding="utf-8")
+
+    schedule = build_daily_editorial_schedule(
+        schedule_date="2026-07-08",
+        sidecar_glob=str(sidecar_dir / "*.jsonl"),
+        output_dir=tmp_path / "schedule",
+        slot_count=1,
+    )
+
+    slot = schedule["slots"][0]
+    assert schedule["headline_sidecar_count"] == 1
+    assert slot["topic"].startswith("US power use")
+    assert slot["readiness"] == "READY_FOR_PIPELINE"
+    assert slot["source_headline_author"] == "@Newsdesk"
+    assert slot["source_headline_timestamp"] == "2026-07-08 20:21:16 GMT+7"
+    assert "energy" in slot["tags"]

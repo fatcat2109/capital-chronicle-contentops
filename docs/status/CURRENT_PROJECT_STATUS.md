@@ -9,21 +9,21 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-verified remote master before this newsroom/media/scheduler task: `bea4aaedfdeccd936c807af53080d22d2932e6b9`
+verified remote master before this CDP continuation task: `f0b4fa1cc4ff7d72e26443ef33adfe27d5d82b42`
 accepted visual repair commit: `6a810aadadef4b3c9078173b32bed4b243f8552a`
-latest pre-task remote commit: `bea4aaedfdeccd936c807af53080d22d2932e6b9`
+latest pre-task remote commit: `f0b4fa1cc4ff7d72e26443ef33adfe27d5d82b42`
 
 ## current_product_phase
-Newsroom-grade local final-candidate lane is implemented, and public Telegram/Substack visual QA gates are locally hardened. The fresh-news 8-platform public proof task is currently blocked before generation/dispatch because the clean checkout has no headline sidecars and the required X-list CDP ingestion browser is not available on `localhost:9222`. Latest accepted public dispatch evidence remains the scoped Substack + LinkedIn repair run `v6_pipeline_d49f6e14a856`, with prior full 8-platform evidence reconciled for unaffected lanes.
+Newsroom-grade local final-candidate lane is implemented, and public Telegram/Substack visual QA gates are locally hardened. The fresh-news 8-platform public proof task continued after operator CDP setup: `localhost:9222` was reachable, X-list access was present, and fresh headline sidecars were generated. Public dispatch remains blocked because the EIA oil candidate duplicated the prior public Crude/WTI content family and the fresh IMF candidate failed editorial/media gates. Latest accepted public dispatch evidence remains the scoped Substack + LinkedIn repair run `v6_pipeline_d49f6e14a856`, with prior full 8-platform evidence reconciled for unaffected lanes.
 
 ## current_product_lane
 Editorial newsroom lane: canonical articles must pass mechanical quality, independent editorial quality, media diversification/provenance, and visual-slot gates before public dispatch can be treated as product-candidate evidence.
 
 ## accepted_baseline_summary
-`TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0` attempted the required preflight for a fresh-news public proof run and blocked safely: no current headline sidecars were present, and `http://localhost:9222/json/version` refused connection, so the isolated X-list ingestion flow could not run. No old Crude duplicate was reused, and no public dispatch was attempted.
+`TASK_CONTENTOPS_V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_READBACK_AND_CROP_QA_V0` continued after operator CDP setup and generated current headline sidecars at `headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl` with 1,024 rows. No public dispatch was attempted: the EIA oil-output generation was blocked by duplicate Crude/WTI-family risk, and the fresh IMF global-growth candidate was blocked by unrelated citation/source contamination plus insufficient publication-safe media.
 
 ## status_sha_model
-- `last_verified_remote_sha`: `bea4aaedfdeccd936c807af53080d22d2932e6b9` before this newsroom/media/scheduler task.
+- `last_verified_remote_sha`: `f0b4fa1cc4ff7d72e26443ef33adfe27d5d82b42` before this CDP continuation task.
 - `accepted_visual_repair_sha`: `6a810aadadef4b3c9078173b32bed4b243f8552a`.
 - `latest_headline_ingestion_sha`: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`.
 - `accepted_product_baseline_sha`: advances with the final pushed newsroom/media/scheduler commit reported in final task evidence.

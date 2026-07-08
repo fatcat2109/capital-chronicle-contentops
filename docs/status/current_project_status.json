@@ -1,5 +1,5 @@
 {
-  "accepted_baseline_summary": "Fresh-news 8-platform public proof task blocked before generation/dispatch: no current headline sidecars exist in the clean checkout, and the required X-list CDP ingestion endpoint on localhost:9222 refused connection. No old Crude duplicate was reused and no public dispatch was attempted.",
+  "accepted_baseline_summary": "Fresh-news 8-platform public proof task continued after operator CDP setup. CDP and X-list access were reachable, fresh headline sidecars were generated, and the scheduler was patched for the current Step 1 sidecar schema. No public dispatch was attempted because the EIA oil candidate hit duplicate Crude/WTI-family risk and the fresh IMF candidate failed editorial/media gates.",
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, current repo evidence wins; record the mismatch and reconcile status during the task when practical instead of hard-stopping solely on stale status docs",
@@ -9,9 +9,10 @@
   "accepted_product_baseline_sha": "reported_in_final_evidence_after_push",
   "accepted_visual_repair_sha": "6a810aadadef4b3c9078173b32bed4b243f8552a",
   "active_blockers": [
-    "No headline sidecar data files were present in the clean checkout; scheduler output is a source-review fallback watchlist.",
-    "BLOCKED: X-list CDP ingestion endpoint localhost:9222 is unavailable, so fresh headline sidecars cannot be generated in this worktree.",
-    "No new public 8-platform live candidate was run in this task because no fresh non-duplicate topic could be selected.",
+    "Fresh headline sidecars are now available at headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl with 1024 rows.",
+    "No new public 8-platform live candidate was run in this task because no fresh non-duplicate topic passed editorial and media gates.",
+    "The EIA oil-output candidate was blocked before dispatch by duplicate risk: generation collapsed into the prior public Crude/WTI oil-volatility content family.",
+    "The fresh IMF global-growth candidate was blocked before dispatch by unrelated citation/source contamination, generic source trail, and insufficient publication-safe media.",
     "Public screenshot/crop/readback QA remains required before accepting a fresh candidate as public product proof.",
     "Telegram public visual acceptance now requires real Bot API photo proof in dispatch evidence.",
     "Google/Commons image discovery is review-only unless source-page, rights, recency, and relevance metadata are complete.",

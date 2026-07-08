@@ -1,7 +1,7 @@
 {
   "article_type_counts": {
-    "deep_research": 1,
-    "rapid_analysis": 5
+    "official_release": 4,
+    "rapid_analysis": 2
   },
   "forbidden_uses": [
     "market_price_truth",
@@ -10,7 +10,7 @@
     "trade_signal",
     "broker_execution_input"
   ],
-  "headline_sidecar_count": 0,
+  "headline_sidecar_count": 1024,
   "headline_sidecars_are_catalyst_only": true,
   "output_path": "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
   "schedule_date": "2026-07-08",
@@ -19,127 +19,182 @@
     "Deep research/explainer work is secondary unless current-news density is low or key releases are already covered."
   ],
   "schema_version": "daily_editorial_scheduler_v6.0",
-  "sidecar_glob": "headline_ingestion/data/intake/headline_sidecars/*.jsonl",
+  "sidecar_glob": "headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl",
   "slots": [
     {
-      "angle": "Check the calendar for CPI, jobs, EIA inventory, FOMC, Treasury auction, and central-bank remarks before deep research.",
+      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
       "headline_sidecar_context_only": true,
-      "impact_score": 57,
+      "impact_score": 77,
       "media_needs": [
-        "Source-backed data chart",
-        "contextual rights-safe visual if topic warrants"
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review",
+        "official-release chart or table screenshot replacement generated from source data"
       ],
       "numeric_truth_authority": false,
-      "readiness": "NEEDS_SOURCE_REVIEW",
-      "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
       "slot_index": 1,
       "source_clearance_authority": false,
+      "source_headline_author": "MikeZaccardi",
+      "source_headline_timestamp": "2026-07-08 19:06:00 GMT+7",
       "source_needs": [
-        "No headline sidecars found; perform primary source review before drafting"
+        "Federal Reserve policy/communication source",
+        "Primary energy/geopolitical source check before drafting"
       ],
-      "suggested_article_type": "rapid_analysis",
-      "topic": "Official release watch",
-      "urgency_score": 51
+      "suggested_article_type": "official_release",
+      "tags": [
+        "central_bank",
+        "energy",
+        "official_central_bank_statement_or_calendar",
+        "official_energy_inventory_or_opec_release"
+      ],
+      "topic": "When oil and yields stop moving together, it signals the Fed's problem has shifted from headline to core... cheaper oil alone won't open the door to cuts -Torst",
+      "urgency_score": 62
     },
     {
-      "angle": "Look for current oil, shipping, sanctions, OPEC, and chokepoint developments with rights-safe maps/photos.",
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
       "headline_sidecar_context_only": true,
-      "impact_score": 56,
+      "impact_score": 77,
       "media_needs": [
-        "Source-backed data chart",
-        "contextual rights-safe visual if topic warrants"
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review",
+        "official-release chart or table screenshot replacement generated from source data"
       ],
       "numeric_truth_authority": false,
-      "readiness": "NEEDS_SOURCE_REVIEW",
-      "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
       "slot_index": 2,
       "source_clearance_authority": false,
+      "source_headline_author": "wallstengine",
+      "source_headline_timestamp": "2026-07-08 15:09:56 GMT+7",
       "source_needs": [
-        "No headline sidecars found; perform primary source review before drafting"
+        "Federal Reserve policy/communication source",
+        "Primary energy/geopolitical source check before drafting"
       ],
-      "suggested_article_type": "rapid_analysis",
-      "topic": "Energy and geopolitics watch",
-      "urgency_score": 50
+      "suggested_article_type": "official_release",
+      "tags": [
+        "central_bank",
+        "fiscal",
+        "geopolitics",
+        "official_central_bank_statement_or_calendar",
+        "official_treasury_or_budget_release"
+      ],
+      "topic": "Today's Key Events (All EST) \u2014 07/08/2026 04:00: Trump to speak at Ankara NATO Summit 07:00: US MBA Mortgage Applications 10:00: US Wholesale Inventories MoM Re",
+      "urgency_score": 62
     },
     {
-      "angle": "Update yield-curve, Treasury, Fed, credit, and recession-risk context from official data sources.",
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
       "headline_sidecar_context_only": true,
-      "impact_score": 55,
+      "impact_score": 77,
       "media_needs": [
-        "Source-backed data chart",
-        "contextual rights-safe visual if topic warrants"
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review",
+        "official-release chart or table screenshot replacement generated from source data"
       ],
       "numeric_truth_authority": false,
-      "readiness": "NEEDS_SOURCE_REVIEW",
-      "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
       "slot_index": 3,
       "source_clearance_authority": false,
+      "source_headline_author": "TrumpTruthOnX",
+      "source_headline_timestamp": "2026-07-08 10:12:56 GMT+7",
       "source_needs": [
-        "No headline sidecars found; perform primary source review before drafting"
+        "Federal Reserve policy/communication source",
+        "Primary energy/geopolitical source check before drafting"
       ],
       "suggested_article_type": "rapid_analysis",
-      "topic": "Rates and recession dashboard",
-      "urgency_score": 49
+      "tags": [
+        "central_bank",
+        "geopolitics",
+        "official_central_bank_statement_or_calendar",
+        "official_numeric_source_required_before_truth_use"
+      ],
+      "topic": "Fed Reserve working paper suggests Biden illegal immigrant wave caused 30% of home price increases: https://t.co/GVnfx0HhPi",
+      "urgency_score": 62
     },
     {
-      "angle": "Track energy, shelter, goods, wages, and policy communication for source-backed inflation framing.",
+      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
       "headline_sidecar_context_only": true,
-      "impact_score": 54,
+      "impact_score": 75,
       "media_needs": [
-        "Source-backed data chart",
-        "contextual rights-safe visual if topic warrants"
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review"
       ],
       "numeric_truth_authority": false,
-      "readiness": "NEEDS_SOURCE_REVIEW",
-      "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
       "slot_index": 4,
       "source_clearance_authority": false,
+      "source_headline_author": "FirstSquawk",
+      "source_headline_timestamp": "2026-07-08 10:02:01 GMT+7",
       "source_needs": [
-        "No headline sidecars found; perform primary source review before drafting"
+        "EIA energy release/source table",
+        "Primary energy/geopolitical source check before drafting"
       ],
-      "suggested_article_type": "rapid_analysis",
-      "topic": "Inflation pass-through monitor",
-      "urgency_score": 48
+      "suggested_article_type": "official_release",
+      "tags": [
+        "energy",
+        "geopolitics",
+        "official_energy_inventory_or_opec_release"
+      ],
+      "topic": "Global oil output to return to pre-Iran war level by year\u2019s end, U.S. EIA says",
+      "urgency_score": 60
     },
     {
-      "angle": "Use current source-backed charts before publishing any volatility narrative.",
+      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
       "headline_sidecar_context_only": true,
-      "impact_score": 53,
+      "impact_score": 75,
       "media_needs": [
-        "Source-backed data chart",
-        "contextual rights-safe visual if topic warrants"
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review"
       ],
       "numeric_truth_authority": false,
-      "readiness": "NEEDS_SOURCE_REVIEW",
-      "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
       "slot_index": 5,
       "source_clearance_authority": false,
+      "source_headline_author": "DeItaone",
+      "source_headline_timestamp": "2026-07-08 04:30:21 GMT+7",
       "source_needs": [
-        "No headline sidecars found; perform primary source review before drafting"
+        "Primary energy/geopolitical source check before drafting",
+        "U.S. Treasury rates/source table"
       ],
-      "suggested_article_type": "rapid_analysis",
-      "topic": "Market volatility rapid analysis",
-      "urgency_score": 47
+      "suggested_article_type": "official_release",
+      "tags": [
+        "energy",
+        "fiscal",
+        "geopolitics",
+        "official_energy_inventory_or_opec_release",
+        "official_treasury_or_budget_release"
+      ],
+      "topic": "IRAN'S FOREIGN MINISTRY CONDEMNS U.S. TREASURY MOVE TO REVOKE TEMPORARY SUSPENSION OF SANCTIONS ON IRANIAN OIL SALES -STATEMENT",
+      "urgency_score": 60
     },
     {
-      "angle": "Use only if major current news density is low or the day already covers important official releases.",
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
       "headline_sidecar_context_only": true,
-      "impact_score": 52,
+      "impact_score": 63,
       "media_needs": [
-        "Source-backed data chart",
-        "contextual rights-safe visual if topic warrants"
+        "source-backed data chart where numeric claims are used",
+        "official-release chart or table screenshot replacement generated from source data"
       ],
       "numeric_truth_authority": false,
-      "readiness": "NEEDS_SOURCE_REVIEW",
-      "schedule_note": "Fallback watchlist for 2026-07-08; not a claim that news occurred.",
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
       "slot_index": 6,
       "source_clearance_authority": false,
+      "source_headline_author": "financialjuice",
+      "source_headline_timestamp": "2026-07-08 20:00:28 GMT+7",
       "source_needs": [
-        "No headline sidecars found; perform primary source review before drafting"
+        "Federal Reserve policy/communication source"
       ],
-      "suggested_article_type": "deep_research",
-      "topic": "Deep research reserve",
-      "urgency_score": 46
+      "suggested_article_type": "rapid_analysis",
+      "tags": [
+        "central_bank",
+        "official_central_bank_statement_or_calendar"
+      ],
+      "topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+      "urgency_score": 50
     }
   ],
   "target_article_slots": 6

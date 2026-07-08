@@ -89,7 +89,14 @@ def _first_text(row: dict[str, Any], keys: tuple[str, ...]) -> str:
 
 def _tags(row: dict[str, Any]) -> list[str]:
     values: list[str] = []
-    for key in ("tags", "topic_tags", "auto_tags", "category_tags"):
+    for key in (
+        "tags",
+        "topic_tags",
+        "auto_tags",
+        "category_tags",
+        "candidate_catalyst_tags",
+        "follow_up_data_need_candidates",
+    ):
         raw = row.get(key)
         if isinstance(raw, list):
             values.extend(str(item).strip().lower() for item in raw if str(item).strip())
@@ -105,12 +112,12 @@ def load_headline_sidecars(sidecar_glob: str = DEFAULT_SIDECAR_GLOB) -> list[Hea
     for path_str in sorted(glob.glob(sidecar_glob)):
         path = Path(path_str)
         for row in _load_jsonl(path):
-            text = _first_text(row, ("text", "headline", "tweet_text", "content", "body"))
+            text = _first_text(row, ("text", "headline_text", "headline", "tweet_text", "content", "body"))
             if not text:
                 continue
-            topic = _first_text(row, ("topic", "headline", "title")) or text[:110]
-            author = _first_text(row, ("author", "author_name", "username", "source")) or "headline_sidecar"
-            timestamp = _first_text(row, ("timestamp_gmt7", "timestamp", "created_at", "published_at"))
+            topic = _first_text(row, ("topic", "headline_text", "headline", "title")) or text[:110]
+            author = _first_text(row, ("author", "author_handle", "author_name", "username", "source")) or "headline_sidecar"
+            timestamp = _first_text(row, ("timestamp_gmt7", "headline_timestamp", "timestamp", "created_at", "published_at"))
             items.append(HeadlineItem(
                 topic=re.sub(r"\s+", " ", topic).strip(),
                 text=re.sub(r"\s+", " ", text).strip(),

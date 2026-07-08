@@ -1,0 +1,19 @@
+{
+  "canonical_source_label": "upload.wikimedia.org",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/PIIGS_Mk_4_map.png",
+  "media_class": "operator_review_required",
+  "operator_review_required": true,
+  "provenance_status": "search_discovered_requires_source_page_rights_review",
+  "query": "global economy financial chart news",
+  "recency_days": 365,
+  "retrieval_method": "google_image_or_public_fallback",
+  "retrieval_timestamp": "2026-07-08T13:35:43Z",
+  "rights_status": "operator_review_required_search_image",
+  "source_domain": "upload.wikimedia.org",
+  "source_label": "upload.wikimedia.org",
+  "source_page_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/PIIGS_Mk_4_map.png",
+  "source_url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/PIIGS_Mk_4_map.png",
+  "time_filter": "qdr:y",
+  "url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/PIIGS_Mk_4_map.png",
+  "why_selected": "Search-discovered candidate downloaded for editorial review; not auto-approved without source-page rights and relevance review."
+}

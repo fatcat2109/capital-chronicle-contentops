@@ -1,0 +1,50 @@
+[
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from MT Newswires: Natural Gas Rises as Heat Continues for Most States, Boosting Cooling Demand",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: IMF cuts 2026 global growth forecast to 3.0% from 3.1% and raises 2027 forecast to 3.4%"
+    ],
+    "publisher_or_origin": "MT Newswires",
+    "retrieved_at": "2026-07-08T13:33:22+00:00",
+    "source_id": "src_714148c2c8fb",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "Natural Gas Rises as Heat Continues for Most States, Boosting Cooling Demand",
+    "url_or_local_reference": "https://finance.yahoo.com/energy/articles/natural-gas-rises-heat-continues-132554660.html"
+  },
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from GuruFocus.com: Apple Stock Fans Just Got Big News From China",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: IMF cuts 2026 global growth forecast to 3.0% from 3.1% and raises 2027 forecast to 3.4%"
+    ],
+    "publisher_or_origin": "GuruFocus.com",
+    "retrieved_at": "2026-07-08T13:33:22+00:00",
+    "source_id": "src_5eb11e433ac5",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "Apple Stock Fans Just Got Big News From China",
+    "url_or_local_reference": "https://finance.yahoo.com/markets/stocks/articles/apple-stock-fans-just-got-132539968.html"
+  },
+  {
+    "allowed_usage": "advisory_only",
+    "citation_required": true,
+    "claim_summary": "News report from Quartz: Nvidia stock valuation falls to pre-AI boom levels in 2026",
+    "freshness_label": "recent",
+    "limitations": [
+      "Grounded live search from query: IMF cuts 2026 global growth forecast to 3.0% from 3.1% and raises 2027 forecast to 3.4%"
+    ],
+    "publisher_or_origin": "Quartz",
+    "retrieved_at": "2026-07-08T13:33:22+00:00",
+    "source_id": "src_50075826a8cc",
+    "source_type": "reputable_news_context",
+    "synthetic_fixture": false,
+    "title": "Nvidia stock valuation falls to pre-AI boom levels in 2026",
+    "url_or_local_reference": "https://finance.yahoo.com/m/08d03bad-8e44-3007-8701-c76697c87ca3/nvidia-stock-valuation-falls.html"
+  }
+]
