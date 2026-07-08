@@ -10,6 +10,7 @@ Runs the end-to-end live generation process under Fast Ship Mode:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -19,8 +20,6 @@ import uuid
 from pathlib import Path
 from typing import Any
 from dotenv import load_dotenv
-
-load_dotenv()
 
 from live_contentops.ai_research_canonical_article_engine_v6 import (
     EngineInput,
@@ -38,6 +37,7 @@ from live_contentops.pipeline_rehearsal_evidence_v6 import (
     write_rehearsal_evidence,
 )
 from live_contentops.public_dispatch_freeze_guard_v6 import (
+    APPROVAL_STATUS_APPROVED,
     DEFAULT_PUBLIC_DISPATCH_LEDGER,
     append_public_dispatch_ledger,
     build_public_dispatch_payload_hash,
@@ -50,6 +50,17 @@ ARTICLE_OUTPUT_PATH = Path("docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canoni
 VARIANT_OUTPUT_DIR = Path("docs/automation/V6_PLATFORM_NATIVE_VARIANTS")
 DISPATCH_AUDIT_PATH = VARIANT_OUTPUT_DIR / "latest_dispatch_audit.json"
 PUBLIC_DISPATCH_LEDGER_PATH = DEFAULT_PUBLIC_DISPATCH_LEDGER
+DEFAULT_REHEARSAL_TOPIC = "US recession risks rise as oil volatility spikes"
+DEFAULT_REHEARSAL_ANGLE = "Focus on data transparency, geopolitics, and yield curves."
+DAILY_SCHEDULE_PATH = Path("docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/daily_schedule_2026_07_08.json")
+HEADLINE_SIDECAR_DIR = Path("headline_ingestion/data/intake/headline_sidecars")
+REHEARSAL_READY_STATUS = "LIVE_READY_REQUIRES_OPERATOR_GO"
+CURRENT_8_PLATFORMS = ("substack", "linkedin", "x", "instagram", "facebook", "telegram", "threads", "discord")
+
+
+def _load_live_env_if_needed(enabled: bool) -> None:
+    if enabled:
+        load_dotenv()
 
 
 def _utc_now() -> str:
@@ -59,6 +70,96 @@ def _utc_now() -> str:
 def _write_dispatch_audit(payload: dict[str, Any]) -> None:
     DISPATCH_AUDIT_PATH.parent.mkdir(parents=True, exist_ok=True)
     DISPATCH_AUDIT_PATH.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+
+
+def _stable_hash(data: Any) -> str:
+    return hashlib.sha256(json.dumps(data, sort_keys=True, separators=(",", ":"), default=str).encode("utf-8")).hexdigest()
+
+
+def _packet_hash(packet: dict[str, Any]) -> str:
+    return _stable_hash(packet)
+
+
+def _load_json_dict(path: str | Path) -> dict[str, Any]:
+    try:
+        data = json.loads(Path(path).read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
+def _headline_sidecar_inventory(sidecar_dir: str | Path = HEADLINE_SIDECAR_DIR) -> dict[str, Any]:
+    root = Path(sidecar_dir)
+    paths = sorted(root.glob("*.jsonl"), key=lambda path: path.stat().st_mtime if path.exists() else 0, reverse=True)
+    latest_path = paths[0] if paths else None
+    latest_count = 0
+    latest_captured_at = None
+    if latest_path:
+        try:
+            lines = [line for line in latest_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+            latest_count = len(lines)
+            for line in lines[:25]:
+                try:
+                    row = json.loads(line)
+                except Exception:
+                    continue
+                latest_captured_at = row.get("captured_at_utc") or row.get("headline_timestamp") or row.get("created_at_raw")
+                if latest_captured_at:
+                    break
+        except Exception:
+            latest_count = 0
+    return {
+        "sidecar_dir": str(root),
+        "sidecar_file_count": len(paths),
+        "latest_sidecar_path": str(latest_path) if latest_path else None,
+        "latest_sidecar_count": latest_count,
+        "latest_sidecar_captured_at": latest_captured_at,
+        "sidecars_available": bool(paths and latest_count),
+    }
+
+
+def select_rehearsal_scheduler_slot(schedule_path: str | Path = DAILY_SCHEDULE_PATH) -> dict[str, Any]:
+    schedule = _load_json_dict(schedule_path)
+    slots = [slot for slot in schedule.get("slots", []) if isinstance(slot, dict)]
+    selected = None
+    for slot in slots:
+        topic_blob = " ".join([str(slot.get("topic") or ""), " ".join(str(tag) for tag in slot.get("tags") or [])]).lower()
+        if slot.get("readiness") != "READY_FOR_PIPELINE":
+            continue
+        if "energy" in topic_blob or "oil" in topic_blob or "wti" in topic_blob or "crude" in topic_blob:
+            selected = slot
+            break
+    if selected is None and slots:
+        selected = slots[0]
+    inventory = _headline_sidecar_inventory()
+    if selected:
+        reason = "ready_energy_slot_from_current_daily_schedule" if selected.get("readiness") == "READY_FOR_PIPELINE" else "first_available_schedule_slot"
+        return {
+            "daily_schedule_path": str(schedule_path),
+            "schedule_date": schedule.get("schedule_date"),
+            "headline_sidecar_count": schedule.get("headline_sidecar_count"),
+            "headline_sidecars_are_catalyst_only": schedule.get("headline_sidecars_are_catalyst_only"),
+            "selected_slot": selected,
+            "selected_slot_index": selected.get("slot_index"),
+            "selected_topic": selected.get("topic"),
+            "selected_angle": selected.get("angle"),
+            "selection_reason": reason,
+            "duplicate_check_basis": "topic_hash_and_public_duplicate_ledger; canonical_url_absent_in_dry_run",
+            **inventory,
+        }
+    return {
+        "daily_schedule_path": str(schedule_path),
+        "schedule_date": schedule.get("schedule_date"),
+        "headline_sidecar_count": inventory.get("latest_sidecar_count", 0),
+        "headline_sidecars_are_catalyst_only": True,
+        "selected_slot": None,
+        "selected_slot_index": None,
+        "selected_topic": DEFAULT_REHEARSAL_TOPIC,
+        "selected_angle": DEFAULT_REHEARSAL_ANGLE,
+        "selection_reason": "deterministic_fixture_fallback_no_schedule_slot",
+        "duplicate_check_basis": "fixture_topic_hash_and_public_duplicate_ledger; canonical_url_absent_in_dry_run",
+        **inventory,
+    }
 
 
 def _load_operator_approval_marker(path: str | None) -> dict[str, Any] | None:
@@ -137,6 +238,219 @@ def _dispatch_summary(results: dict[str, Any]) -> dict[str, Any]:
             for item in flat
             if item.get("status") in {"BLOCKED", "PUBLIC_DISPATCH_FROZEN"}
         ],
+    }
+
+
+def _quality_gate_status(blockers: list[str]) -> dict[str, Any]:
+    return {
+        "status": "PASS" if not blockers else "BLOCKED",
+        "blockers": blockers,
+    }
+
+
+def _rehearsal_payload_specs(
+    *,
+    variants: dict[str, Any],
+    variant_threads: dict[str, Any],
+    selected_platforms: tuple[str, ...],
+    canonical_url: str | None,
+    local_image_path: str | None,
+    public_image_url: str | None,
+    selected_media: dict[str, Any],
+    article_title: str,
+    public_dispatch_topic_hash: str,
+) -> dict[str, dict[str, Any]]:
+    specs: dict[str, dict[str, Any]] = {}
+    for platform in selected_platforms:
+        action = "post"
+        body = ""
+        media = None
+        if platform == "substack":
+            action = "article"
+            body = str(variants.get("substack") or "")
+            media = local_image_path
+        elif platform == "linkedin":
+            body = _apply_canonical_link(str(variants.get("linkedin") or ""), canonical_url)
+            media = local_image_path
+        elif platform == "x":
+            action = "thread"
+            thread = [str(item).strip() for item in variant_threads.get("x", []) if str(item).strip()]
+            body = "\n\n".join(thread)
+            media = local_image_path
+        elif platform == "instagram":
+            action = "photo"
+            body = _apply_canonical_link(str(variants.get("instagram_caption") or variants.get("telegram") or ""), canonical_url)
+            media = selected_media.get("instagram") or local_image_path or public_image_url
+        elif platform == "facebook":
+            action = "photo" if selected_media.get("facebook") or public_image_url or local_image_path else "post"
+            body = _apply_canonical_link(str(variants.get("facebook") or variants.get("linkedin") or ""), canonical_url)
+            media = selected_media.get("facebook") or public_image_url or local_image_path
+        elif platform == "telegram":
+            message = _apply_canonical_link(str(variants.get("telegram") or ""), canonical_url)
+            media = local_image_path or selected_media.get("telegram") or public_image_url
+            action = "photo" if media else "post"
+            body = _fit_telegram_photo_caption(message, canonical_url) if media else message
+        elif platform == "threads":
+            action = "thread"
+            thread = [str(item).strip() for item in variant_threads.get("threads", []) if str(item).strip()]
+            body = "\n\n".join(thread)
+            media = selected_media.get("threads") or public_image_url or local_image_path
+        elif platform == "discord":
+            body = _apply_canonical_link(str(variants.get("discord") or ""), canonical_url)
+            media = public_image_url or local_image_path
+        payload_hash = build_public_dispatch_payload_hash(
+            platform=platform,
+            action=action,
+            body_text=body,
+            canonical_url=canonical_url,
+            media_url=media,
+            topic_hash=public_dispatch_topic_hash,
+        )
+        specs[platform] = {
+            "platform": platform,
+            "action": action,
+            "body_text": body,
+            "body_length": len(body.strip()),
+            "canonical_url": canonical_url,
+            "media_url": media,
+            "article_title": article_title,
+            "payload_hash": payload_hash,
+        }
+    return specs
+
+
+def _make_rehearsal_approval_marker(
+    *,
+    run_id: str,
+    topic_hash: str,
+    payload_hashes: dict[str, str],
+    canonical_packet_hash: str,
+    platform_variant_packet_hash: str,
+) -> dict[str, Any]:
+    marker = {
+        "approval_status": APPROVAL_STATUS_APPROVED,
+        "approved_public_dispatch": True,
+        "run_id": run_id,
+        "topic_hash": topic_hash,
+        "approved_payload_hashes": payload_hashes,
+        "canonical_packet_hash": canonical_packet_hash,
+        "platform_variant_packet_hash": platform_variant_packet_hash,
+        "dry_run": True,
+        "public_write": False,
+    }
+    if payload_hashes.get("telegram"):
+        marker["payload_hash"] = payload_hashes["telegram"]
+    return marker
+
+
+def _build_rehearsal_dispatch(
+    *,
+    run_id: str,
+    public_dispatch_topic_hash: str,
+    article_packet: dict[str, Any],
+    variant_packet: dict[str, Any],
+    selected_platforms: tuple[str, ...],
+    canonical_url: str | None,
+    local_image_path: str | None,
+    public_image_url: str | None,
+    selected_media: dict[str, Any],
+    public_dispatch_ledger_path: str | Path | None,
+    quality_gate_result: dict[str, Any],
+) -> dict[str, Any]:
+    variants = variant_packet.get("variants", {}) if isinstance(variant_packet.get("variants"), dict) else {}
+    variant_threads = variant_packet.get("variant_threads", {}) if isinstance(variant_packet.get("variant_threads"), dict) else {}
+    article_title = str(article_packet.get("canonical_article_draft", {}).get("title") or "")
+    specs = _rehearsal_payload_specs(
+        variants=variants,
+        variant_threads=variant_threads,
+        selected_platforms=selected_platforms,
+        canonical_url=canonical_url,
+        local_image_path=local_image_path,
+        public_image_url=public_image_url,
+        selected_media=selected_media,
+        article_title=article_title,
+        public_dispatch_topic_hash=public_dispatch_topic_hash,
+    )
+    payload_hashes = {platform: spec["payload_hash"] for platform, spec in specs.items()}
+    canonical_packet_hash = _packet_hash(article_packet)
+    platform_variant_packet_hash = _packet_hash(variant_packet)
+    approval_marker = _make_rehearsal_approval_marker(
+        run_id=run_id,
+        topic_hash=public_dispatch_topic_hash,
+        payload_hashes=payload_hashes,
+        canonical_packet_hash=canonical_packet_hash,
+        platform_variant_packet_hash=platform_variant_packet_hash,
+    )
+    prior_hashes = load_public_dispatch_hashes(public_dispatch_ledger_path)
+    telegram_spec = specs.get("telegram") or {}
+    article_status = str(article_packet.get("status") or article_packet.get("packet_status") or "").upper()
+    telegram_guard = evaluate_public_dispatch_freeze(
+        platform="telegram",
+        action=str(telegram_spec.get("action") or "post"),
+        run_id=run_id,
+        topic_hash=public_dispatch_topic_hash,
+        operator_approval_marker=approval_marker,
+        body_text=str(telegram_spec.get("body_text") or ""),
+        canonical_url=canonical_url,
+        media_url=telegram_spec.get("media_url"),
+        payload_hash=telegram_spec.get("payload_hash"),
+        payload_hash_required=True,
+        prior_dispatch_hashes=prior_hashes,
+        canonical_packet_status=article_status if article_status else None,
+    )
+    dispatch_results: dict[str, Any] = {}
+    for platform, spec in specs.items():
+        missing = _require_payload(spec.get("body_text"), f"{platform}_payload")
+        ok = not missing and quality_gate_result.get("status") == "PASS"
+        status = "DRY_RUN_REHEARSAL_READY" if ok else "BLOCKED"
+        error = missing
+        if platform == "telegram" and not telegram_guard.get("dispatch_allowed"):
+            ok = False
+            status = "PUBLIC_DISPATCH_FROZEN"
+            error = "|".join(telegram_guard.get("blockers", [])) or "public_dispatch_freeze_guard"
+        dispatch_results[platform] = {
+            "platform": platform,
+            "status": status,
+            "ok": ok,
+            "dry_run": True,
+            "public_write": False,
+            "live_platform_api_called": False,
+            "credential_lookup_performed": False,
+            "payload_hash": spec.get("payload_hash"),
+            "action": spec.get("action"),
+            "body_length": spec.get("body_length"),
+            "canonical_url": canonical_url,
+            "media_url": spec.get("media_url"),
+            "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
+            "url": None,
+            "error_class": None if ok else ("public_dispatch_freeze_guard" if platform == "telegram" and status == "PUBLIC_DISPATCH_FROZEN" else "dry_run_rehearsal_blocked"),
+            "error": error,
+        }
+        if platform == "telegram":
+            dispatch_results[platform]["telegram_caption_proof"] = {
+                "caption_length": spec.get("body_length"),
+                "caption_non_empty": bool(str(spec.get("body_text") or "").strip()),
+                "photo_requested": bool(spec.get("media_url")),
+                "photo_proof_mode": "dry_run_payload_hash_only_no_bot_api_call",
+                "public_dispatch_freeze_guard": telegram_guard,
+            }
+    envelope = {
+        "run_id": run_id,
+        "topic_hash": public_dispatch_topic_hash,
+        "canonical_packet_hash": canonical_packet_hash,
+        "platform_variant_packet_hash": platform_variant_packet_hash,
+        "per_platform_payload_hash": payload_hashes,
+        "telegram_payload_hash": payload_hashes.get("telegram"),
+        "duplicate_ledger_result": telegram_guard,
+        "quality_gate_result": quality_gate_result,
+        "dry_run": True,
+        "public_write": False,
+        "approval_marker": approval_marker,
+    }
+    return {
+        "dispatch_results": dispatch_results,
+        "dispatch_summary": _dispatch_summary(dispatch_results),
+        "approval_marker_envelope": envelope,
     }
 
 
@@ -716,16 +1030,24 @@ def run_live_production_pipeline(
     target_audience: str = "general_financial_education",
     live_run: bool = False,
     dispatch_live: bool = False,
+    dispatch_rehearsal: bool = False,
     timeout_seconds: int = 420,
     dispatch_platforms: list[str] | tuple[str, ...] | None = None,
     use_latest_headlines: bool = False,
+    headline_rehearsal_context: dict[str, Any] | None = None,
     operator_approval_marker: dict[str, Any] | None = None,
     run_id_override: str | None = None,
     public_dispatch_ledger_path: str | Path | None = PUBLIC_DISPATCH_LEDGER_PATH,
 ) -> dict[str, Any]:
+    if dispatch_live and dispatch_rehearsal:
+        raise ValueError("dispatch_live_and_dispatch_rehearsal_are_mutually_exclusive")
+    _load_live_env_if_needed(live_run or dispatch_live)
     run_id = run_id_override or f"v6_pipeline_{uuid.uuid4().hex[:12]}"
     public_dispatch_topic_hash = build_public_dispatch_topic_hash(topic, editorial_angle)
-    print(f"[Info] Starting V6 production run {run_id} for topic: '{topic}' (live={live_run}, dispatch={dispatch_live})")
+    print(
+        f"[Info] Starting V6 production run {run_id} for topic: '{topic}' "
+        f"(live={live_run}, dispatch={dispatch_live}, rehearsal={dispatch_rehearsal})"
+    )
 
     inputs = EngineInput(
         operator_idea=topic,
@@ -773,20 +1095,24 @@ def run_live_production_pipeline(
         article_packet_path=ARTICLE_OUTPUT_PATH,
         output_dir=VARIANT_OUTPUT_DIR,
         live_run=live_run,
-        timeout_seconds=timeout_seconds
+        timeout_seconds=timeout_seconds,
+        dry_run_image_search_isolated=not live_run,
     )
     print(f"[Info] Saved platform variant packet to: {VARIANT_OUTPUT_DIR / 'platform_variant_packet.json'}")
 
     variants = variant_packet.get("variants", {})
     variant_threads = variant_packet.get("variant_threads", {})
-    public_image_url = os.environ.get("CONTENTOPS_PUBLIC_IMAGE_URL_OVERRIDE") or variant_packet.get("public_image_url")
+    env_override_allowed = bool(live_run or dispatch_live)
+    public_image_url_override = os.environ.get("CONTENTOPS_PUBLIC_IMAGE_URL_OVERRIDE") if env_override_allowed else None
+    canonical_url_override = os.environ.get("CONTENTOPS_CANONICAL_URL_OVERRIDE") if env_override_allowed else None
+    public_image_url = public_image_url_override or variant_packet.get("public_image_url")
     media_manifest = variant_packet.get("media_manifest") if isinstance(variant_packet.get("media_manifest"), dict) else {}
     selected_media = media_manifest.get("selected_media_by_platform") if isinstance(media_manifest.get("selected_media_by_platform"), dict) else {}
     local_image_path = media_manifest.get("news_image_path") or variant_packet.get("image_path")
     media_assets = media_manifest.get("media_assets") if isinstance(media_manifest.get("media_assets"), list) else None
-    canonical_url: str | None = os.environ.get("CONTENTOPS_CANONICAL_URL_OVERRIDE") or None  # populated after Substack publishes
+    canonical_url: str | None = canonical_url_override or None  # populated after Substack publishes
     requested_platforms = tuple(str(item).strip().lower() for item in (dispatch_platforms or []) if str(item).strip())
-    selected_platforms = requested_platforms or ("substack", "linkedin", "x", "instagram", "facebook", "telegram", "threads", "discord")
+    selected_platforms = requested_platforms or CURRENT_8_PLATFORMS
 
     ret = {
         "run_id": run_id,
@@ -804,6 +1130,12 @@ def run_live_production_pipeline(
         "public_dispatch_topic_hash": public_dispatch_topic_hash,
         "public_dispatch_approval_marker_present": operator_approval_marker is not None,
         "public_dispatch_ledger_path": str(public_dispatch_ledger_path) if public_dispatch_ledger_path else None,
+        "dry_run": not live_run,
+        "dispatch_rehearsal": dispatch_rehearsal,
+        "public_write": False if dispatch_rehearsal else None,
+        "live_platform_api_called": False if dispatch_rehearsal else None,
+        "credential_lookup_performed": False if dispatch_rehearsal else None,
+        "headline_rehearsal_context": headline_rehearsal_context or {},
         "media_manifest": media_manifest,
         "media_diversification_audit": media_manifest.get("media_diversification_audit") if isinstance(media_manifest, dict) else None,
         "editorial_acceptance_status": editorial_quality_audit["classification"],
@@ -811,14 +1143,15 @@ def run_live_production_pipeline(
         "editorial_quality_audit": editorial_quality_audit,
     }
 
-    article_failures = validate_article_quality(article_packet.get("canonical_article_draft", {})) if live_run else []
-    variant_failures = validate_platform_variants(variants, variant_threads, live_run=live_run) if live_run else []
+    strict_quality_gates = bool(live_run or dispatch_rehearsal)
+    article_failures = validate_article_quality(article_packet.get("canonical_article_draft", {})) if strict_quality_gates else []
+    variant_failures = validate_platform_variants(variants, variant_threads, live_run=strict_quality_gates) if strict_quality_gates else []
     variant_failures.extend(variant_packet.get("validation_failures") or [])
     qa_gate_failures: list[str] = []
-    if dispatch_live and editorial_quality_audit["classification"] != "EDITORIAL_APPROVED":
+    if (dispatch_live or dispatch_rehearsal) and editorial_quality_audit["classification"] != "EDITORIAL_APPROVED":
         qa_gate_failures.append(f"editorial_quality_gate:{editorial_quality_audit['classification']}")
     media_diversification_audit = media_manifest.get("media_diversification_audit") if isinstance(media_manifest, dict) else None
-    if dispatch_live and isinstance(media_diversification_audit, dict):
+    if (dispatch_live or dispatch_rehearsal) and isinstance(media_diversification_audit, dict):
         if media_diversification_audit.get("audit_status") == "FAIL":
             qa_gate_failures.append(
                 "media_diversification_gate_failed:"
@@ -827,10 +1160,10 @@ def run_live_production_pipeline(
         if not media_diversification_audit.get("auto_publication_safe", False):
             qa_gate_failures.append("media_rights_operator_review_required")
     article_status = str(article_packet.get("status") or article_packet.get("packet_status") or "").upper()
-    if dispatch_live and article_status in {"BLOCKED", "FAILED", "VALIDATION_FAILED"}:
+    if (dispatch_live or dispatch_rehearsal) and article_status in {"BLOCKED", "FAILED", "VALIDATION_FAILED"}:
         qa_gate_failures.append(f"canonical_article_packet_status:{article_status}")
     variant_status = str(variant_packet.get("variant_status") or "").upper()
-    if dispatch_live and variant_status in {"BLOCKED", "FAILED", "VALIDATION_FAILED", "VARIANT_VALIDATION_FAILED"}:
+    if (dispatch_live or dispatch_rehearsal) and variant_status in {"BLOCKED", "FAILED", "VALIDATION_FAILED", "VARIANT_VALIDATION_FAILED"}:
         qa_gate_failures.append(f"variant_packet_status:{variant_status}")
     public_dispatch_gate: dict[str, Any] | None = None
     if dispatch_live:
@@ -852,13 +1185,19 @@ def run_live_production_pipeline(
             )
     raw_blockers = list(article_packet.get("blockers") or []) + article_failures + variant_failures + qa_gate_failures
     blockers = list(dict.fromkeys(raw_blockers))  # de-dupe while preserving order
-    if os.environ.get("CONTENTOPS_BYPASS_QUALITY_GATES") == "true":
+    quality_gate_result = _quality_gate_status(blockers)
+    ret["quality_gate_result"] = quality_gate_result
+    if env_override_allowed and os.environ.get("CONTENTOPS_BYPASS_QUALITY_GATES") == "true":
         print(f"[Warning] CONTENTOPS_BYPASS_QUALITY_GATES ignored for public dispatch safety: {blockers}")
         ret.setdefault("warnings", []).append("quality_gate_bypass_ignored_for_public_dispatch")
-    if dispatch_live and blockers:
+    if (dispatch_live or dispatch_rehearsal) and blockers:
         ret.update({
-            "pipeline_status": "DISPATCH_BLOCKED",
+            "pipeline_status": "DISPATCH_BLOCKED" if dispatch_live else "REHEARSAL_BLOCKED",
             "dispatch_live": False,
+            "dispatch_rehearsal": bool(dispatch_rehearsal),
+            "public_write": False,
+            "live_platform_api_called": False,
+            "credential_lookup_performed": False,
             "dispatch_blocked": True,
             "dispatch_blockers": blockers,
             "dispatch_summary": {
@@ -1252,15 +1591,55 @@ def run_live_production_pipeline(
         ret["pipeline_status"] = "DISPATCH_COMPLETE" if not summary["failed_platforms"] and not summary["blocked_platforms"] else "DISPATCH_PARTIAL_FAILURE"
         _write_dispatch_audit(ret)
 
+    if dispatch_rehearsal:
+        rehearsal = _build_rehearsal_dispatch(
+            run_id=run_id,
+            public_dispatch_topic_hash=public_dispatch_topic_hash,
+            article_packet=article_packet,
+            variant_packet=variant_packet,
+            selected_platforms=selected_platforms,
+            canonical_url=canonical_url,
+            local_image_path=local_image_path,
+            public_image_url=public_image_url,
+            selected_media=selected_media,
+            public_dispatch_ledger_path=public_dispatch_ledger_path,
+            quality_gate_result=quality_gate_result,
+        )
+        ret["dispatch_live"] = False
+        ret["dispatch_rehearsal"] = True
+        ret["dry_run"] = True
+        ret["public_write"] = False
+        ret["live_platform_api_called"] = False
+        ret["credential_lookup_performed"] = False
+        ret["dispatch_results"] = rehearsal["dispatch_results"]
+        ret["dispatch_summary"] = rehearsal["dispatch_summary"]
+        ret["approval_marker_envelope"] = rehearsal["approval_marker_envelope"]
+        ret["public_dispatch_approval_marker_envelope"] = rehearsal["approval_marker_envelope"]
+        ret["canonical_url"] = canonical_url
+        ret["public_image_url"] = public_image_url
+        summary = rehearsal["dispatch_summary"]
+        if summary["failed_platforms"] or summary["blocked_platforms"]:
+            ret["pipeline_status"] = "REHEARSAL_BLOCKED"
+            ret["dispatch_blocked"] = True
+            ret["dispatch_blockers"] = summary["failed_platforms"] + summary["blocked_platforms"]
+        else:
+            ret["pipeline_status"] = REHEARSAL_READY_STATUS
+            ret["dispatch_blocked"] = False
+            ret["dispatch_blockers"] = []
+        _write_dispatch_audit(ret)
+
     return ret
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="V6 Live Production Pipeline Runner")
-    parser.add_argument("--topic", default="US recession risks rise as oil volatility spikes", help="Topic idea")
-    parser.add_argument("--angle", default="Focus on data transparency, geopolitics, and yield curves.", help="Editorial angle")
+    parser.add_argument("--topic", default=None, help="Topic idea")
+    parser.add_argument("--angle", default=None, help="Editorial angle")
     parser.add_argument("--live-run", action="store_true", help="Enable 9router LLM and live searches")
     parser.add_argument("--dispatch-live", action="store_true", help="Enable live posting/publishing to all platforms")
+    parser.add_argument("--dispatch-rehearsal", action="store_true", help="Run full dry-run dispatch rehearsal with no public writes")
+    parser.add_argument("--select-scheduler-slot", action="store_true", help="Select the current daily schedule slot for rehearsal topic/angle")
+    parser.add_argument("--daily-schedule", default=str(DAILY_SCHEDULE_PATH), help="Daily schedule JSON path for scheduler-slot selection")
     parser.add_argument("--target-audience", default="general_financial_education", help="Target audience")
     parser.add_argument("--timeout-seconds", type=int, default=420, help="Provider timeout seconds (default 7 minutes for full-length live generation)")
     parser.add_argument("--run-id", default=None, help="Explicit run id for operator-approved public dispatch")
@@ -1277,8 +1656,23 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--use-latest-headlines", action="store_true", help="Inject latest percolated headlines from Vol-Impact Percolator as context")
     args = parser.parse_args(argv)
 
+    headline_rehearsal_context: dict[str, Any] = {}
+    topic = args.topic
+    angle = args.angle
+    if args.select_scheduler_slot:
+        headline_rehearsal_context = select_rehearsal_scheduler_slot(args.daily_schedule)
+        topic = topic or str(headline_rehearsal_context.get("selected_topic") or "")
+        angle = angle or str(headline_rehearsal_context.get("selected_angle") or "")
+    elif args.dispatch_rehearsal:
+        headline_rehearsal_context = {
+            "selection_reason": "operator_supplied_topic_or_default_rehearsal_topic",
+            **_headline_sidecar_inventory(),
+        }
+    topic = topic or DEFAULT_REHEARSAL_TOPIC
+    angle = angle or DEFAULT_REHEARSAL_ANGLE
+
     command = ["python", "-m", "live_contentops.live_production_pipeline_runner_v6"]
-    command.extend(["--topic", args.topic, "--angle", args.angle, "--target-audience", args.target_audience, "--timeout-seconds", str(args.timeout_seconds)])
+    command.extend(["--topic", topic, "--angle", angle, "--target-audience", args.target_audience, "--timeout-seconds", str(args.timeout_seconds)])
     if args.run_id:
         command.extend(["--run-id", args.run_id])
     if args.operator_approval_marker:
@@ -1289,6 +1683,10 @@ def main(argv: list[str] | None = None) -> int:
         command.append("--live-run")
     if args.dispatch_live:
         command.append("--dispatch-live")
+    if args.dispatch_rehearsal:
+        command.append("--dispatch-rehearsal")
+    if args.select_scheduler_slot:
+        command.extend(["--select-scheduler-slot", "--daily-schedule", args.daily_schedule])
     if args.use_latest_headlines:
         command.append("--use-latest-headlines")
     for platform in args.dispatch_platform:
@@ -1298,14 +1696,16 @@ def main(argv: list[str] | None = None) -> int:
 
     operator_approval_marker = _load_operator_approval_marker(args.operator_approval_marker)
     result = run_live_production_pipeline(
-        topic=args.topic,
-        editorial_angle=args.angle,
+        topic=topic,
+        editorial_angle=angle,
         target_audience=args.target_audience,
         live_run=args.live_run,
         dispatch_live=args.dispatch_live,
+        dispatch_rehearsal=args.dispatch_rehearsal,
         timeout_seconds=args.timeout_seconds,
         dispatch_platforms=args.dispatch_platform,
         use_latest_headlines=args.use_latest_headlines,
+        headline_rehearsal_context=headline_rehearsal_context,
         operator_approval_marker=operator_approval_marker,
         run_id_override=args.run_id,
         public_dispatch_ledger_path=args.public_dispatch_ledger,
@@ -1325,6 +1725,8 @@ def main(argv: list[str] | None = None) -> int:
                 "run_id": result.get("run_id"),
                 "pipeline_status": status,
                 "dispatch_live": bool(result.get("dispatch_live")),
+                "dispatch_rehearsal": bool(result.get("dispatch_rehearsal")),
+                "public_write": result.get("public_write"),
                 "attempted_platforms": summary.get("attempted_platforms", []),
                 "successful_platforms": summary.get("successful_platforms", []),
                 "failed_platforms": summary.get("failed_platforms", []),
@@ -1336,7 +1738,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     # A live launch that was blocked or only partially dispatched must fail loudly
     # so the server/dashboard cannot report it as a clean success.
-    if status in {"DISPATCH_BLOCKED", "DISPATCH_PARTIAL_FAILURE"}:
+    if status in {"DISPATCH_BLOCKED", "DISPATCH_PARTIAL_FAILURE", "REHEARSAL_BLOCKED"}:
         return 1
     return 0
 

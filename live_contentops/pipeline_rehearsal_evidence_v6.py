@@ -62,9 +62,17 @@ def _safe_result_excerpt(result: dict[str, Any]) -> dict[str, Any]:
         "variant_status": result.get("variant_status"),
         "dispatch_audit_path": result.get("dispatch_audit_path"),
         "dispatch_live": result.get("dispatch_live", False),
+        "dispatch_rehearsal": result.get("dispatch_rehearsal", False),
+        "dry_run": result.get("dry_run"),
+        "public_write": result.get("public_write"),
+        "live_platform_api_called": result.get("live_platform_api_called"),
+        "credential_lookup_performed": result.get("credential_lookup_performed"),
         "dispatch_blocked": result.get("dispatch_blocked", False),
         "dispatch_blockers": result.get("dispatch_blockers", []),
         "dispatch_summary": result.get("dispatch_summary", {}),
+        "quality_gate_result": result.get("quality_gate_result", {}),
+        "approval_marker_envelope": result.get("approval_marker_envelope", {}),
+        "headline_rehearsal_context": result.get("headline_rehearsal_context", {}),
         "timestamp": result.get("timestamp"),
         "timestamp_gmt7": result.get("timestamp_gmt7"),
     }
@@ -77,6 +85,9 @@ def _audit_excerpt(audit: dict[str, Any] | None) -> dict[str, Any]:
         "run_id": audit.get("run_id"),
         "pipeline_status": audit.get("pipeline_status"),
         "dispatch_live": audit.get("dispatch_live", False),
+        "dispatch_rehearsal": audit.get("dispatch_rehearsal", False),
+        "dry_run": audit.get("dry_run"),
+        "public_write": audit.get("public_write"),
         "dispatch_blocked": audit.get("dispatch_blocked", False),
         "dispatch_summary": audit.get("dispatch_summary", {}),
         "dispatch_blockers": audit.get("dispatch_blockers", []),
@@ -93,7 +104,7 @@ def readback_checks(result: dict[str, Any], audit: dict[str, Any] | None) -> dic
         "pipeline_status_matches": bool(audit) and audit.get("pipeline_status") == result.get("pipeline_status"),
         "dispatch_summary_matches": bool(audit) and audit_summary == result_summary,
     }
-    checks["readback_ready"] = all(checks.values()) if result.get("dispatch_live") or result.get("dispatch_blocked") else True
+    checks["readback_ready"] = all(checks.values()) if result.get("dispatch_live") or result.get("dispatch_blocked") or result.get("dispatch_rehearsal") else True
     return checks
 
 
@@ -110,7 +121,7 @@ def build_rehearsal_evidence_packet(
     repo_state: dict[str, Any] | None = None,
     audit_packet: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    should_bind_audit = bool(result.get("dispatch_live") or result.get("dispatch_blocked"))
+    should_bind_audit = bool(result.get("dispatch_live") or result.get("dispatch_blocked") or result.get("dispatch_rehearsal"))
     if audit_packet is None and should_bind_audit:
         audit_packet = load_json_if_exists(result.get("dispatch_audit_path"))
     elif not should_bind_audit:

@@ -13,12 +13,9 @@ import os
 import re
 import time
 import urllib.parse
-from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 from dotenv import load_dotenv
-
-load_dotenv()
 
 from live_contentops.ai_research_canonical_article_engine_v6 import (
     call_live_provider,
@@ -40,6 +37,12 @@ SCHEMA_VERSION = "6.0.0"
 DEFAULT_ARTICLE_PACKET = Path("docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json")
 DEFAULT_OUTPUT_DIR = Path("docs/automation/V6_PLATFORM_NATIVE_VARIANTS")
 DEFAULT_PACKET_OUTPUT = DEFAULT_OUTPUT_DIR / "platform_variant_packet.json"
+DEFAULT_DRY_RUN_MEDIA_FIXTURE_DIR = Path("docs/automation/V6_MEDIA_SYSTEM/downloads")
+
+
+def _load_live_env_if_needed(enabled: bool) -> None:
+    if enabled:
+        load_dotenv()
 
 
 def compute_packet_hash(data: dict[str, Any]) -> str:
@@ -277,6 +280,48 @@ def _load_image_metadata(image_path: str | Path | None) -> dict[str, Any]:
     return data if isinstance(data, dict) else {}
 
 
+def _load_committed_macro_visual_pack(
+    *,
+    article_title: str,
+    fixture_dir: str | Path = DEFAULT_DRY_RUN_MEDIA_FIXTURE_DIR,
+) -> list[dict[str, Any]]:
+    """Load committed source-backed visuals without fetching or rendering."""
+    del article_title
+    root = Path(fixture_dir)
+    patterns = (
+        ("primary", "wti_current_volatility_context_*.png"),
+        ("recent_price", "wti_recent_price_context_*.png"),
+        ("hormuz_context", "hormuz_oil_chokepoint_context_*.png"),
+    )
+    assets: list[dict[str, Any]] = []
+    for asset_id, pattern in patterns:
+        candidates = sorted(root.glob(pattern), key=lambda path: path.name, reverse=True)
+        for path in candidates:
+            meta_path = path.with_suffix(".json")
+            if not meta_path.exists():
+                continue
+            try:
+                metadata = json.loads(meta_path.read_text(encoding="utf-8"))
+            except Exception:
+                continue
+            if str(metadata.get("asset_id") or asset_id) != asset_id:
+                continue
+            if not str(metadata.get("rights_status") or "").strip():
+                continue
+            if not str(metadata.get("why_selected") or "").strip():
+                continue
+            metadata = dict(metadata)
+            metadata["asset_id"] = asset_id
+            metadata["local_path"] = str(path)
+            metadata["dry_run_fixture_asset"] = True
+            metadata["retrieval_method"] = "committed_local_source_backed_fixture"
+            metadata.setdefault("public_url", None)
+            metadata.setdefault("image_url", None)
+            assets.append(metadata)
+            break
+    return assets
+
+
 def _asset_caption(asset: dict[str, Any], default_label: str = "Chart") -> str:
     caption = str(asset.get("caption") or "").strip()
     source_label = str(asset.get("canonical_source_label") or asset.get("source_label") or "").strip()
@@ -461,10 +506,17 @@ def generate_live_platform_variants(
     article_packet_path: str | Path = DEFAULT_ARTICLE_PACKET,
     output_dir: str | Path = DEFAULT_OUTPUT_DIR,
     live_run: bool = False,
-    timeout_seconds: int = 20
+    timeout_seconds: int = 20,
+    dry_run_image_search_isolated: bool | None = None,
 ) -> dict[str, Any]:
+    _load_live_env_if_needed(live_run)
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+    if dry_run_image_search_isolated is None:
+        dry_run_image_search_isolated = not live_run
+    env_lookup_allowed = bool(live_run or not dry_run_image_search_isolated)
+    as_of_date = os.environ.get("CONTENTOPS_AS_OF_DATE") if env_lookup_allowed else None
+    source_csv = os.environ.get("CONTENTOPS_MACRO_CHART_CSV") if env_lookup_allowed else None
     try:
         with open(article_packet_path, "r", encoding="utf-8") as f:
             article_data = json.load(f)
@@ -495,28 +547,37 @@ def generate_live_platform_variants(
     provider_recovery_used = False
     provider_attempts: list[dict[str, Any]] = []
     validation_failures: list[str] = []
+    image_search_network_attempted = False
+    source_backed_generation_network_attempted = False
+    dry_run_fixture_media_used = False
 
-    try:
-        recency_days = int(os.environ.get("CONTENTOPS_MEDIA_SEARCH_RECENCY_DAYS", "365"))
-    except Exception:
-        recency_days = 365
+    recency_days = 365
+    if not dry_run_image_search_isolated:
+        try:
+            recency_days = int(os.environ.get("CONTENTOPS_MEDIA_SEARCH_RECENCY_DAYS", "365"))
+        except Exception:
+            recency_days = 365
 
-    try:
-        # 1. Try refined specific query
-        image_query = _build_clean_image_query(title)
-        image_path, public_image_url = execute_google_image_search_and_download(image_query, recency_days=recency_days)
-        
-        # 2. Fall back to generic query if specific failed
-        if not image_path:
-            fallback_query = "global economy financial chart news"
-            print(f"[Info] Specific image query failed. Trying fallback: '{fallback_query}'")
-            image_path, public_image_url = execute_google_image_search_and_download(
-                fallback_query,
-                custom_filename="img_generic_fallback.jpg",
-                recency_days=recency_days,
-            )
-    except Exception as e:
-        print(f"[Warning] Google Image search/generation failed: {e}")
+    if dry_run_image_search_isolated:
+        media_replacement_notes.append("dry_run_image_search_skipped_network_isolated")
+    else:
+        try:
+            # 1. Try refined specific query
+            image_search_network_attempted = True
+            image_query = _build_clean_image_query(title)
+            image_path, public_image_url = execute_google_image_search_and_download(image_query, recency_days=recency_days)
+
+            # 2. Fall back to generic query if specific failed
+            if not image_path:
+                fallback_query = "global economy financial chart news"
+                print(f"[Info] Specific image query failed. Trying fallback: '{fallback_query}'")
+                image_path, public_image_url = execute_google_image_search_and_download(
+                    fallback_query,
+                    custom_filename="img_generic_fallback.jpg",
+                    recency_days=recency_days,
+                )
+        except Exception as e:
+            print(f"[Warning] Google Image search/generation failed: {e}")
 
     source_metadata = _load_image_metadata(image_path)
     if image_path or public_image_url:
@@ -526,7 +587,7 @@ def generate_live_platform_variants(
             image_path=image_path,
             public_image_url=public_image_url,
             source_metadata=source_metadata,
-            as_of_date=os.environ.get("CONTENTOPS_AS_OF_DATE"),
+            as_of_date=as_of_date,
         )
         if media_audit.get("audit_status") == "FAIL":
             media_replacement_notes.append("search_candidate_rejected:" + "|".join(media_audit.get("blockers") or []))
@@ -534,11 +595,18 @@ def generate_live_platform_variants(
 
     if not image_path or media_audit.get("audit_status") == "FAIL":
         try:
-            source_backed_assets = build_current_macro_visual_pack(
-                title,
-                output_dir=Path("docs/automation/V6_MEDIA_SYSTEM/downloads"),
-                as_of_date=os.environ.get("CONTENTOPS_AS_OF_DATE"),
-            )
+            if dry_run_image_search_isolated:
+                source_backed_assets = _load_committed_macro_visual_pack(article_title=title)
+                dry_run_fixture_media_used = bool(source_backed_assets)
+                if source_backed_assets:
+                    media_replacement_notes.append("committed_source_backed_visual_pack_selected")
+            else:
+                source_backed_generation_network_attempted = True
+                source_backed_assets = build_current_macro_visual_pack(
+                    title,
+                    output_dir=Path("docs/automation/V6_MEDIA_SYSTEM/downloads"),
+                    as_of_date=as_of_date,
+                )
         except Exception as exc:
             print(f"[Warning] Source-backed chart pack generation failed: {exc}")
             source_backed_assets = []
@@ -554,7 +622,7 @@ def generate_live_platform_variants(
                 image_path=image_path,
                 public_image_url=public_image_url,
                 source_metadata=source_metadata,
-                as_of_date=os.environ.get("CONTENTOPS_AS_OF_DATE"),
+                as_of_date=as_of_date,
             )
 
     if not image_path:
@@ -578,7 +646,7 @@ def generate_live_platform_variants(
                 image_path=image_path,
                 public_image_url=public_image_url,
                 source_metadata=source_metadata,
-                as_of_date=os.environ.get("CONTENTOPS_AS_OF_DATE"),
+                as_of_date=as_of_date,
             )
 
     if not image_path and not media_audit:
@@ -588,7 +656,7 @@ def generate_live_platform_variants(
             image_path=None,
             public_image_url=None,
             source_metadata={},
-            as_of_date=os.environ.get("CONTENTOPS_AS_OF_DATE"),
+            as_of_date=as_of_date,
         )
 
     if not media_assets:
@@ -611,14 +679,20 @@ def generate_live_platform_variants(
         source_metadata=source_metadata,
         media_assets=media_assets,
         media_audit=media_audit,
-        source_csv=os.environ.get("CONTENTOPS_MACRO_CHART_CSV"),
+        source_csv=source_csv,
     )
+    media_manifest["dry_run_image_search_isolated"] = bool(dry_run_image_search_isolated)
+    media_manifest["image_search_network_attempted"] = image_search_network_attempted
+    media_manifest["source_backed_generation_network_attempted"] = source_backed_generation_network_attempted
+    media_manifest["dry_run_fixture_media_used"] = dry_run_fixture_media_used
+    media_manifest["live_platform_api_called"] = False
+    media_manifest["credential_lookup_performed"] = False
     media_diversification_audit = audit_media_manifest(
         media_manifest,
         article_title=title,
         article_text=body_text,
         expected_min_assets=3,
-        as_of_date=os.environ.get("CONTENTOPS_AS_OF_DATE"),
+        as_of_date=as_of_date,
     )
     media_manifest["media_diversification_audit"] = media_diversification_audit
     if media_diversification_audit.get("audit_status") == "FAIL":
@@ -630,6 +704,7 @@ def generate_live_platform_variants(
         validation_failures.append("media_rights_operator_review_required")
 
     if live_run:
+        _load_live_env_if_needed(True)
         api_key = os.environ.get("NINE_ROUTER_API_KEY")
         if not api_key:
             validation_failures.append("NINE_ROUTER_API_KEY_missing")
@@ -704,6 +779,12 @@ def generate_live_platform_variants(
         "provider_call_made": provider_call_made,
         "provider_recovery_used": provider_recovery_used,
         "provider_attempts": provider_attempts,
+        "dry_run_image_search_isolated": bool(dry_run_image_search_isolated),
+        "image_search_network_attempted": image_search_network_attempted,
+        "source_backed_generation_network_attempted": source_backed_generation_network_attempted,
+        "dry_run_fixture_media_used": dry_run_fixture_media_used,
+        "live_platform_api_called": False,
+        "credential_lookup_performed": False,
         "validation_failures": validation_failures,
         "validation_summary": validation_summary,
         "created_at": time.strftime("%Y-%m-%dT%H:%M:%S+00:00", time.gmtime())

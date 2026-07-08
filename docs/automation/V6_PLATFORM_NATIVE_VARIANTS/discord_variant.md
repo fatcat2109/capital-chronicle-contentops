@@ -1,15 +1,10 @@
 # DISCORD NATIVE VARIANT
-- **Status**: VARIANT_VALIDATION_FAILED
-- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\img_generic_fallback.png
-- **Timestamp**: 2026-07-08 20:35:53
+- **Status**: VARIANT_READY
+- **Associated Image**: docs\automation\V6_MEDIA_SYSTEM\downloads\wti_current_volatility_context_99c8292edb1a.png
+- **Timestamp**: 2026-07-09 02:25:57
 
-**Capital Chronicle Newsroom Update** 📢
+**Oil Volatility Is Rising; Recession Risk Needs a Cleaner Evidence Map**
 
-We have just released an educational briefing analyzing the IMF’s latest World Economic Outlook update. 
+Capital Chronicle is treating the latest rise in oil volatility as an evidence problem before it is a market narrative. The source-backed WTI series used for this briefing runs from 1986-01-02 through 2026-06-29, with 10432 daily observations in the local calculation set. The latest FRED observation places WTI at $71.87 per barrel on 2026-06-29, compared with $66.42 roughly 90 days earlier on 2026-03-31. That comparison produces a 8.2% move across about 90 days, while the one-year comparison from $78.10 on 2025-06-30 produces a -8.0% change. The visual evidence is therefore not a stale historical screenshot: it ends in 2026 and is aligned with the article thesis. The visual review labels the recent price direction as up and the realized-volatility direction as up. The latest 30 days volatility proxy averaged 2.6% absolute daily moves, with a 52.9% change in that proxy over about 90
 
-**Key Data Points:**
-* **2026 Global Growth:** Downgraded to **3.0%** (from 3.1%)
-* **2027 Global Growth:** Upgraded to **3.4%**
-* **Risk Profile:** Persistent inflation-risk language and a noted tilt toward downside risks.
-
-This channel update focuses on neutral, process-led macro framing to help you understand how official-source revisions impact historical trend analysis. No market calls, no directional advice—just disciplined, verified context to help you navigate macro data lag and revisions. Check out the pinned resources for the full methodology review!
+Discuss the data, assumptions, and transmission channels.

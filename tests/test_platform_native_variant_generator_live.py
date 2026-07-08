@@ -136,6 +136,59 @@ def test_variant_provider_failure_records_recovery_metadata(mock_search_download
 
 @patch("live_contentops.platform_native_variant_generator_live_v6.build_current_macro_visual_pack")
 @patch("live_contentops.platform_native_variant_generator_live_v6.execute_google_image_search_and_download")
+def test_dry_run_variant_generation_uses_committed_media_fixtures_without_network(
+    mock_search_download, mock_source_pack, tmp_path
+):
+    mock_search_download.side_effect = AssertionError("dry-run must not call image search")
+    mock_source_pack.side_effect = AssertionError("dry-run must not fetch or render source pack")
+    body = " ".join(["oil volatility source-backed macro recession risk evidence context."] * 260)
+    article_packet_file = tmp_path / "canonical_article_packet.json"
+    article_packet_file.write_text(json.dumps({
+        "packet_id": "art_oil_dry_run",
+        "operator_idea_id": "idea_oil_dry_run",
+        "canonical_article_draft": {
+            "title": "Oil Volatility Is Rising; Recession Risk Needs a Cleaner Evidence Map",
+            "subtitle": "Current oil volatility context",
+            "intro": body,
+            "sections": [
+                {"title": "The Macro Setup", "body": body},
+                {"title": "Market Implications Without Directional Noise", "body": body},
+                {"title": "Geopolitical Supply Risk", "body": body},
+            ],
+            "conclusion": body,
+            "visual_slots": [
+                {"asset_id": "primary", "placement_after_section": "intro"},
+                {"asset_id": "recent_price", "placement_after_section": "Market Implications Without Directional Noise"},
+                {"asset_id": "hormuz_context", "placement_after_section": "Geopolitical Supply Risk"},
+            ],
+        },
+    }), encoding="utf-8")
+
+    with patch(
+        "live_contentops.platform_native_variant_generator_live_v6.os.environ.get",
+        side_effect=AssertionError("dry-run must not read env values"),
+    ) as mock_env_get:
+        packet = generate_live_platform_variants(article_packet_path=article_packet_file, output_dir=tmp_path, live_run=False)
+
+    mock_search_download.assert_not_called()
+    mock_source_pack.assert_not_called()
+    mock_env_get.assert_not_called()
+    assert packet["dry_run_image_search_isolated"] is True
+    assert packet["image_search_network_attempted"] is False
+    assert packet["source_backed_generation_network_attempted"] is False
+    assert packet["dry_run_fixture_media_used"] is True
+    assert packet["media_manifest"]["dry_run_image_search_isolated"] is True
+    assert packet["media_manifest"]["image_search_network_attempted"] is False
+    assert packet["media_manifest"]["source_backed_generation_network_attempted"] is False
+    assert packet["media_manifest"]["media_diversification_audit"]["audit_status"] == "PASS"
+    assert len(packet["media_manifest"]["media_assets"]) >= 3
+    notes = packet["media_manifest"]["media_content_audit"]["replacement_notes"]
+    assert "dry_run_image_search_skipped_network_isolated" in notes
+    assert "committed_source_backed_visual_pack_selected" in notes
+
+
+@patch("live_contentops.platform_native_variant_generator_live_v6.build_current_macro_visual_pack")
+@patch("live_contentops.platform_native_variant_generator_live_v6.execute_google_image_search_and_download")
 def test_stale_search_visual_is_replaced_with_source_backed_pack(mock_search_download, mock_source_pack, tmp_path):
     stale_path = tmp_path / "stale_wti.png"
     stale_path.write_bytes(b"\x89PNG\r\n\x1a\n" + b"0" * 4096)
@@ -234,7 +287,12 @@ def test_stale_search_visual_is_replaced_with_source_backed_pack(mock_search_dow
         },
     }), encoding="utf-8")
 
-    packet = generate_live_platform_variants(article_packet_path=article_packet_file, output_dir=tmp_path, live_run=False)
+    packet = generate_live_platform_variants(
+        article_packet_path=article_packet_file,
+        output_dir=tmp_path,
+        live_run=False,
+        dry_run_image_search_isolated=False,
+    )
 
     assert packet["image_path"] == str(current_primary)
     audit = packet["media_manifest"]["media_content_audit"]

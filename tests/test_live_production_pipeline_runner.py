@@ -4,6 +4,8 @@ from unittest.mock import patch, MagicMock
 import pytest
 
 from live_contentops.live_production_pipeline_runner_v6 import (
+    CURRENT_8_PLATFORMS,
+    REHEARSAL_READY_STATUS,
     run_live_production_pipeline,
     _dispatch_summary,
     _normalize_dispatch_result,
@@ -18,6 +20,7 @@ from live_contentops.live_production_pipeline_runner_v6 import (
 from live_contentops.public_dispatch_freeze_guard_v6 import (
     build_public_dispatch_payload_hash,
     build_public_dispatch_topic_hash,
+    evaluate_public_dispatch_freeze,
     make_public_dispatch_approval_marker,
 )
 
@@ -34,12 +37,18 @@ def _approved_article_packet() -> dict:
         "WTI crude was reported at $71.87 per barrel on 2026-06-29, and the 90-day move "
         "helps frame the energy channel without turning one chart into a cycle call."
     )
+    long_body = " ".join([
+        "FRED DCOILWTICO and EIA source rows support the current oil endpoint of $71.87 on 2026-06-29, while Federal Reserve and Treasury sources keep the rates discussion separate from the oil chart.",
+        "The analysis explains why energy volatility can matter for inflation expectations, transport costs, household real income, and policy communication without turning the evidence into a directional market call.",
+        "The key editorial discipline is to identify what each source can support, including the $66.42 prior 90 days comparison and the 2.6% realized-volatility proxy over 30 days, then state the limits of the claim.",
+        "A 2026 WTI endpoint is useful for the oil channel, but it does not prove a recession by itself, so the article keeps the recession-risk conclusion bounded and conditional while tracking the 8.2% comparison window across 12 months.",
+    ] * 18)
     sections = [
-        {"title": "Why Now: Current Oil Evidence", "body": "FRED DCOILWTICO and EIA source rows support the current oil endpoint."},
-        {"title": "Transmission Channels", "body": "Oil volatility can affect transport costs, real income, and inflation expectations."},
-        {"title": "Rates and Recession Context", "body": "Federal Reserve and Treasury sources support the rates context rather than the oil chart."},
-        {"title": "Limits and Counterargument", "body": "The counterargument is that oil volatility alone does not prove a recession."},
-        {"title": "What to Watch Next", "body": "Watch inflation releases, policy communication, energy inventory data, and Treasury yield updates."},
+        {"title": "Why Now: Current Oil Evidence", "body": long_body},
+        {"title": "Transmission Channels", "body": long_body},
+        {"title": "Rates and Recession Context", "body": long_body},
+        {"title": "Limits and Counterargument", "body": long_body},
+        {"title": "What to Watch Next", "body": long_body},
     ]
     draft = {
         "title": "Oil Volatility Is Rising; Recession Risk Needs a Cleaner Evidence Map",
@@ -57,6 +66,13 @@ def _approved_article_packet() -> dict:
             "https://www.federalreserve.gov/monetarypolicy.htm",
             "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics",
         ],
+        "chart_callouts": [
+            "[CHART: Current WTI price and realized-volatility proxy from FRED DCOILWTICO through 2026-06-29]",
+            "[CHART: Recent WTI price path comparing $66.42 with $71.87]",
+        ],
+        "media_callouts": [
+            "[IMAGE: EIA-sourced Strait of Hormuz context visual for geopolitical oil-supply risk]",
+        ],
         "source_notes_for_operator": "FRED, EIA, Federal Reserve, and Treasury sources support the article claims.",
         "source_trail": [
             {"label": "FRED DCOILWTICO", "publisher_or_origin": "FRED / EIA", "url": "https://fred.stlouisfed.org/series/DCOILWTICO", "claim_supported": "WTI latest observation and 90-day price comparison."},
@@ -64,7 +80,38 @@ def _approved_article_packet() -> dict:
             {"label": "Federal Reserve policy context", "publisher_or_origin": "Federal Reserve", "url": "https://www.federalreserve.gov/monetarypolicy.htm", "claim_supported": "Policy transmission context."},
             {"label": "Treasury rates context", "publisher_or_origin": "U.S. Treasury", "url": "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics", "claim_supported": "Yield and rates context."},
         ],
-        "visual_slots": [{"asset_id": "primary"}, {"asset_id": "recent_price"}, {"asset_id": "hormuz_context"}],
+        "visual_slots": [
+            {
+                "asset_id": "primary",
+                "placement_after_section": "intro",
+                "visual_kind": "chart",
+                "editorial_purpose": "Anchor the macro setup in the latest WTI endpoint and realized-volatility proxy.",
+                "data_requirement": "FRED DCOILWTICO through 2026-06-29 with 30-day realized volatility.",
+                "caption_guidance": "Name WTI, FRED/EIA, $71.87 latest price, and 2026-06-29 endpoint.",
+                "source_requirement": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration.",
+                "audit_questions": "Does the chart end in the current article year and align with the thesis?",
+            },
+            {
+                "asset_id": "recent_price",
+                "placement_after_section": "What to Watch Next",
+                "visual_kind": "chart",
+                "editorial_purpose": "Show the recent WTI price path supporting the watch-list section.",
+                "data_requirement": "Recent WTI price path from FRED DCOILWTICO through 2026-06-29.",
+                "caption_guidance": "Explain the move from $66.42 to $71.87 and the 8.2% comparison.",
+                "source_requirement": "Same FRED/EIA source as the primary chart.",
+                "audit_questions": "Does this visual add recent-path evidence beyond the primary chart?",
+            },
+            {
+                "asset_id": "hormuz_context",
+                "placement_after_section": "Transmission Channels",
+                "visual_kind": "map_or_geography",
+                "editorial_purpose": "Add geopolitical supply-risk context so the article is not chart-only.",
+                "data_requirement": "Official EIA Strait of Hormuz context clearly labeled as a schematic.",
+                "caption_guidance": "Name the Strait of Hormuz and EIA source reference.",
+                "source_requirement": "U.S. Energy Information Administration Today in Energy.",
+                "audit_questions": "Does the context visual avoid unsupported live disruption claims?",
+            },
+        ],
     }
     return {
         "packet_id": "art_test_packet_123",
@@ -102,6 +149,94 @@ def _approval_marker_for_run(
         payload_hash=payload_hash,
         platform="telegram" if payload_hash else None,
     )
+
+
+def _ready_variant_packet() -> dict:
+    paragraph = " ".join([
+        "Capital Chronicle reviews oil volatility, recession risk, policy transmission, and source limits with educational macro context.",
+        "The platform copy keeps the WTI evidence concrete, avoids directional advice, and points readers back to the source-led article.",
+    ] * 20)
+    short = (
+        "Capital Chronicle: oil volatility belongs in the recession-risk dashboard, but the evidence stays bounded, source-led, "
+        "and educational for readers reviewing macro policy context."
+    )
+    return {
+        "platform_variant_packet_id": "var_rehearsal_ready_456",
+        "image_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/wti_current_volatility_context_99c8292edb1a.png",
+        "public_image_url": None,
+        "variant_status": "VARIANT_READY",
+        "variants": {
+            "substack": paragraph * 2,
+            "linkedin": paragraph + "\n\nCapital Chronicle frames this as educational context, not investment advice.",
+            "facebook": paragraph + "\n\nEducational macro analysis from Capital Chronicle.",
+            "telegram": short + " The note separates WTI price evidence from recession interpretation before asking what to watch next.",
+            "discord": short + " Discuss the data, assumptions, and transmission channels.",
+            "instagram_caption": paragraph + "\n\n#CapitalChronicle #Macro #Geopolitics",
+            "x": "1/ Capital Chronicle maps oil volatility and recession risk with source-led macro context.\n\n---\n\n2/ WTI evidence is a channel, not a trade signal.",
+            "threads": "Capital Chronicle maps oil volatility and recession risk with source-led macro context.\n\n---\n\nWTI evidence is a channel, not a trade signal.",
+        },
+        "variant_threads": {
+            "x": [
+                "1/ Capital Chronicle maps oil volatility and recession risk with source-led macro context.",
+                "2/ WTI evidence is a channel, not a trade signal.",
+            ],
+            "threads": [
+                "Capital Chronicle maps oil volatility and recession risk with source-led macro context.",
+                "WTI evidence is a channel, not a trade signal.",
+            ],
+        },
+        "validation_failures": [],
+        "media_manifest": {
+            "news_image_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/wti_current_volatility_context_99c8292edb1a.png",
+            "media_assets": [
+                {"asset_id": "primary", "media_class": "data_chart", "local_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/wti_current_volatility_context_99c8292edb1a.png"},
+                {"asset_id": "recent_price", "media_class": "data_chart", "local_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/wti_recent_price_context_99c8292edb1a.png"},
+                {"asset_id": "hormuz_context", "media_class": "map_or_geography", "local_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/hormuz_oil_chokepoint_context_99c8292edb1a.png"},
+            ],
+            "selected_media_by_platform": {"telegram": "docs/automation/V6_MEDIA_SYSTEM/downloads/wti_current_volatility_context_99c8292edb1a.png"},
+            "media_diversification_audit": {
+                "audit_status": "PASS",
+                "auto_publication_safe": True,
+                "asset_count": 3,
+                "media_classes": ["data_chart", "data_chart", "map_or_geography"],
+                "blockers": [],
+                "review_items": [],
+            },
+        },
+    }
+
+
+def test_public_dispatch_approval_marker_mismatches_block():
+    topic_hash = build_public_dispatch_topic_hash("Topic", "Angle")
+    payload_hash = build_public_dispatch_payload_hash(
+        platform="telegram",
+        action="photo",
+        body_text="Meaningful Telegram body with enough editorial context for the guard to accept.",
+        media_url="hero.png",
+        topic_hash=topic_hash,
+    )
+    marker = make_public_dispatch_approval_marker(
+        run_id="stale_run",
+        topic_hash="wrong_topic_hash",
+        payload_hash="wrong_payload_hash",
+        platform="telegram",
+    )
+
+    guard = evaluate_public_dispatch_freeze(
+        platform="telegram",
+        action="photo",
+        run_id="fresh_run",
+        topic_hash=topic_hash,
+        operator_approval_marker=marker,
+        body_text="Meaningful Telegram body with enough editorial context for the guard to accept.",
+        media_url="hero.png",
+        payload_hash=payload_hash,
+    )
+
+    assert guard["dispatch_allowed"] is False
+    assert "operator_approval_run_id_mismatch" in guard["blockers"]
+    assert "operator_approval_topic_hash_mismatch" in guard["blockers"]
+    assert "operator_approval_payload_hash_mismatch" in guard["blockers"]
 
 
 @patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
@@ -306,6 +441,99 @@ def test_dispatch_live_without_operator_marker_blocks_before_platform_adapters(
     assert audit["dispatch_summary"] == result["dispatch_summary"]
     mock_substack.assert_not_called()
     mock_tg_photo.assert_not_called()
+
+
+@patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
+@patch("live_contentops.live_production_pipeline_runner_v6.generate_live_platform_variants")
+def test_dispatch_rehearsal_builds_approval_envelope_without_public_writes(
+    mock_generate_variants, mock_run_article, tmp_path
+):
+    run_id = "v6_pipeline_test_dispatch_rehearsal"
+    mock_run_article.return_value = _approved_article_packet()
+    mock_generate_variants.return_value = _ready_variant_packet()
+    audit_path = tmp_path / "latest_dispatch_audit.json"
+
+    with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "article.json"), \
+         patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", audit_path), \
+         patch(
+             "live_contentops.live_production_pipeline_runner_v6.os.environ.get",
+             side_effect=AssertionError("dispatch rehearsal must not read env values"),
+         ) as mock_env_get:
+        result = run_live_production_pipeline(
+            topic="When oil and yields stop moving together",
+            editorial_angle="Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+            live_run=False,
+            dispatch_rehearsal=True,
+            run_id_override=run_id,
+            public_dispatch_ledger_path=tmp_path / "ledger.jsonl",
+        )
+        mock_env_get.assert_not_called()
+
+    assert result["pipeline_status"] == REHEARSAL_READY_STATUS
+    assert result["dispatch_live"] is False
+    assert result["dispatch_rehearsal"] is True
+    assert result["dry_run"] is True
+    assert result["public_write"] is False
+    assert result["live_platform_api_called"] is False
+    assert result["credential_lookup_performed"] is False
+    assert set(result["dispatch_summary"]["successful_platforms"]) == set(CURRENT_8_PLATFORMS)
+    assert result["dispatch_summary"]["failed_platforms"] == []
+    assert result["dispatch_summary"]["blocked_platforms"] == []
+    envelope = result["approval_marker_envelope"]
+    assert envelope["run_id"] == run_id
+    assert envelope["dry_run"] is True
+    assert envelope["public_write"] is False
+    assert len(envelope["canonical_packet_hash"]) == 64
+    assert len(envelope["platform_variant_packet_hash"]) == 64
+    assert set(envelope["per_platform_payload_hash"]) == set(CURRENT_8_PLATFORMS)
+    assert envelope["telegram_payload_hash"] == envelope["per_platform_payload_hash"]["telegram"]
+    assert envelope["duplicate_ledger_result"]["dispatch_allowed"] is True
+    assert envelope["quality_gate_result"]["status"] == "PASS"
+    for platform in CURRENT_8_PLATFORMS:
+        platform_result = result["dispatch_results"][platform]
+        assert platform_result["public_write"] is False
+        assert platform_result["live_platform_api_called"] is False
+        assert platform_result["credential_lookup_performed"] is False
+        assert platform_result["payload_hash"] == envelope["per_platform_payload_hash"][platform]
+    assert result["dispatch_results"]["telegram"]["telegram_caption_proof"]["caption_non_empty"] is True
+    assert result["dispatch_results"]["telegram"]["telegram_caption_proof"]["photo_requested"] is True
+    audit = json.loads(audit_path.read_text(encoding="utf-8"))
+    assert audit["pipeline_status"] == REHEARSAL_READY_STATUS
+    assert audit["public_write"] is False
+
+
+@patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")
+@patch("live_contentops.live_production_pipeline_runner_v6.generate_live_platform_variants")
+def test_dispatch_rehearsal_blocks_canonical_packet_before_payload_enqueue(
+    mock_generate_variants, mock_run_article, tmp_path
+):
+    blocked_article = _approved_article_packet()
+    blocked_article["status"] = "BLOCKED"
+    blocked_article["blockers"] = ["canonical_blocked_for_test"]
+    mock_run_article.return_value = blocked_article
+    mock_generate_variants.return_value = _ready_variant_packet()
+    audit_path = tmp_path / "latest_dispatch_audit.json"
+
+    with patch("live_contentops.live_production_pipeline_runner_v6.ARTICLE_OUTPUT_PATH", tmp_path / "article.json"), \
+         patch("live_contentops.live_production_pipeline_runner_v6.DISPATCH_AUDIT_PATH", audit_path):
+        result = run_live_production_pipeline(
+            topic="When oil and yields stop moving together",
+            editorial_angle="Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+            live_run=False,
+            dispatch_rehearsal=True,
+            run_id_override="v6_pipeline_test_blocked_rehearsal",
+            public_dispatch_ledger_path=tmp_path / "ledger.jsonl",
+        )
+
+    assert result["pipeline_status"] == "REHEARSAL_BLOCKED"
+    assert result["dispatch_summary"]["attempted_platforms"] == []
+    assert result["dispatch_summary"]["blocked_platforms"] == ["pipeline"]
+    assert "canonical_blocked_for_test" in result["dispatch_blockers"]
+    assert "canonical_article_packet_status:BLOCKED" in result["dispatch_blockers"]
+    assert "dispatch_results" not in result
+    audit = json.loads(audit_path.read_text(encoding="utf-8"))
+    assert audit["pipeline_status"] == "REHEARSAL_BLOCKED"
+    assert audit["public_write"] is False
 
 
 @patch("live_contentops.live_production_pipeline_runner_v6.run_article_engine")

@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps - Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_APPROVAL_MARKER_SECURITY_SCAN_AND_FULL_AUTOMATION_DRY_RUN_REHEARSAL_V0
+TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,21 +9,21 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-verified remote master before this rehearsal-proof task: `b2abc628a853d5b00637b2bcd1356bdeede6a15b`
+verified remote master before this dry-run rehearsal task: `55d7803fde03fdc4cf70cc1c54c4b017846bf42d`
 accepted visual repair commit: `6a810aadadef4b3c9078173b32bed4b243f8552a`
-latest pre-task remote commit: `b2abc628a853d5b00637b2bcd1356bdeede6a15b`
+latest pre-task remote commit: `55d7803fde03fdc4cf70cc1c54c4b017846bf42d`
 
 ## current_product_phase
-Public dispatch is frozen after an operator-reported Telegram duplicate-post incident. Repo telemetry confirms a real Telegram photo success at `2026-07-08T20:37:40+07:00` (`message_id=58`) despite the prior worker report claiming no public IDs. The runner and Telegram adapter now require an explicit run-bound operator approval marker, topic hash, Telegram payload hash, duplicate ledger check, and non-preview Telegram body before any non-dry-run Telegram send can reach credentials or network.
+Real full automation dry-run rehearsal is now accepted with no public writes. Run `v6_dry_run_rehearsal_20260709` reached `LIVE_READY_REQUIRES_OPERATOR_GO` for the current 8-platform scope after scheduler slot selection, canonical article generation, editorial/mechanical gates, source-backed local media fixtures, media diversification, approval marker envelope creation, Telegram duplicate/body/photo-payload guard, and dispatch rehearsal. Public dispatch remains frozen until a subsequent explicitly approved live public candidate task.
 
 ## current_product_lane
 Editorial newsroom lane: canonical articles must pass mechanical quality, independent editorial quality, media diversification/provenance, and visual-slot gates before public dispatch can be treated as product-candidate evidence.
 
 ## accepted_baseline_summary
-`TASK_CONTENTOPS_V6_APPROVAL_MARKER_SECURITY_SCAN_AND_FULL_AUTOMATION_DRY_RUN_REHEARSAL_V0` repaired `urllib` security-scan policies, added robust blocked rehearsal coverage to the live runner, and tightened rehearsal evidence validation to confirm that blocked dispatches correctly bind to the blocked audit and remain secret-scrubbed. No real CLI/full automation rehearsal was run. The dry-run path was not executed end-to-end because the current variant generator can still reach the image-search lane even under dry-run. This task proves security-scan repair and approval/freeze/rehearsal guard test readiness, not full automation dry-run readiness. Acceptance classification: PASS_SECURITY_SCAN_AND_REHEARSAL_GUARD_TESTS_ONLY.
+`TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0` made the dry-run path network-isolated for image/media discovery, moved dotenv loading out of import-time dry-run paths, added deterministic source-backed local fixture media, added an approval-marker envelope dispatch rehearsal mode, and ran the real CLI/full automation rehearsal end-to-end with no public writes. Acceptance classification: `PASS_REAL_FULL_AUTOMATION_DRY_RUN_REHEARSAL_NO_PUBLIC_WRITE`.
 
 ## status_sha_model
-- `last_verified_remote_sha`: `b2abc628a853d5b00637b2bcd1356bdeede6a15b` before this rehearsal-proof task.
+- `last_verified_remote_sha`: `55d7803fde03fdc4cf70cc1c54c4b017846bf42d` before this dry-run rehearsal task.
 - `accepted_visual_repair_sha`: `6a810aadadef4b3c9078173b32bed4b243f8552a`.
 - `latest_headline_ingestion_sha`: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`.
 - `accepted_product_baseline_sha`: advances with the final pushed rehearsal-proof commit reported in final task evidence.
@@ -48,10 +48,10 @@ Canonical package: `ui/contentops_v5/package.json`.
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-Restored with visual-publication repair and post-repair editorial QA separation. Full all-platform run `v6_pipeline_3c44a9855cc6` remains reconciled for unaffected lanes. Scoped repair run `v6_pipeline_d49f6e14a856` reached `DISPATCH_COMPLETE` for Substack and LinkedIn without `CONTENTOPS_BYPASS_QUALITY_GATES=true`; Substack visual placement/order readback passed and LinkedIn native image attach proof is recorded. Current local final candidate adds editorial approval, 3-asset media diversification, scheduler output, and hardened Telegram/Substack visual proof gates, but the fresh public proof run is blocked pending fresh sidecars/CDP ingestion availability.
+Dry-run full automation is ready for operator GO. The rehearsal used schedule slot 1 from `docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/daily_schedule_2026_07_08.json`, sidecar file `headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl` with 1,024 rows, run id `v6_dry_run_rehearsal_20260709`, canonical packet `article_engine_packet_d48e683ab914eb8f`, variant packet `variant_packet_d0ad6886f719`, and audit/evidence under `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json` plus `docs/automation/V6_DRY_RUN_FULL_AUTOMATION_REHEARSAL/dry_run_full_automation_rehearsal_evidence_v0.json`.
 
 ## dispatch/live status
-No new live dispatch was run in this incident task. Public dispatch is frozen by default. Telegram non-dry-run post/photo/comment/edit calls now return `PUBLIC_DISPATCH_FROZEN` before credential lookup/network unless approval context matches the current `run_id`, `topic_hash`, and approved `payload_hash`. The Crude/WTI Substack canonical URL from the public duplicate incident is recorded in `docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl`.
+No live dispatch was run in this dry-run task. The rehearsal dispatch summary attempted all current 8 platforms and marked all as `DRY_RUN_REHEARSAL_READY` with `public_write=false`, `live_platform_api_called=false`, and `credential_lookup_performed=false`. Telegram dry-run proof includes non-empty caption, photo requested by local fixture media, payload hash `de2b71eb33b51986`, duplicate ledger guard `PASS`, and no Bot API call.
 
 ## article_quality_status
 Local final candidate article gates pass: `body_word_count=2174`, `sections=9`, `source_trail=8`, `citations=8`, SEO metadata present, `target_keyword=oil volatility recession risk`, and `visual_slots=3`. Editorial acceptance is `EDITORIAL_APPROVED`; `tier1_editorial_approved=true`. No unrelated Yahoo/search URLs are present in canonical citations/source notes.
@@ -63,64 +63,47 @@ Editorial quality audit remains independent from dispatch. Current audited Crude
 Media audit status: `PASS`. Selected local candidate assets: primary FRED/EIA WTI volatility chart, secondary FRED/EIA recent WTI price chart, and EIA-referenced Hormuz/geopolitics context schematic. Latest observation/time coverage for source-backed charts: `2026-06-29`. Search-like Google/Commons discovery remains review-only; the discovered candidate was rejected for unverified time coverage and replaced by the source-backed diversified pack. Substack variant contains 3 in-body visual markers.
 
 ## provider/env/credential status
-Under Fast Ship Mode, local env credentials and operator browser profiles were used for live dispatch verification. No raw `.env` values or credential secrets were intentionally written to code or status docs. `.env` has no `CONTENTOPS_BYPASS_QUALITY_GATES=` entry, and live commands set `CONTENTOPS_BYPASS_QUALITY_GATES=false`.
+The accepted rehearsal did not read raw env values, did not require credential lookup, did not call live provider APIs, and did not import platform adapters for dispatch. `load_dotenv()` is no longer called at import time by the dry-run runner/variant path; it is gated to live generation/dispatch paths.
 
 ## active blockers
-- INCIDENT FREEZE: no further public dispatch until Telegram duplicate posts are manually audited and the explicit approval-marker dry run is verified.
+- INCIDENT FREEZE: no further public dispatch until Telegram duplicate posts are manually audited and the next public candidate has explicit operator GO.
 - Telegram duplicate incident evidence confirms screenshot-visible duplicates and committed telemetry line 520 (`message_id=58`); do not rely on stale `latest_dispatch_audit.json` alone for public/no-public conclusions.
 - Future Telegram success requires approval marker + payload hash + duplicate ledger pass + meaningful non-preview body + Bot API photo proof when a photo is requested.
 - Instagram and Threads post edit APIs are unsupported and intentionally return `UNSUPPORTED`.
 - Google/Commons image discovery is review-only unless source-page, rights, recency, and relevance metadata are complete; source-backed diversified media is the reliable auto-public path for oil topics.
-- No headline sidecar data files were present in the clean checkout, so the daily schedule was generated as a source-review fallback watchlist.
-- BLOCKED: no fresh headline sidecars exist under `headline_ingestion/data/intake/headline_sidecars/`, and `localhost:9222` CDP ingestion is unavailable.
-- No new public 8-platform live candidate was run in this task; public screenshot/crop/readback QA remains required before product acceptance of a fresh candidate.
+- Fresh headline sidecars are available for this rehearsal at `headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl` with 1,024 rows captured at `2026-07-08T13:21:21Z`; they remain catalyst/context only, not numeric truth or source clearance.
+- No new public 8-platform live candidate was run in this task; public screenshot/crop/readback QA remains required before product acceptance.
 - Telegram public visual acceptance now requires Bot API photo proof in dispatch evidence; a future live run must verify this with the real channel response.
 - Provider-native article drafts still need reliability hardening so source-backed repair is less frequently required.
 - YouTube Community is future text/image platform work only after current 8-platform QA is hardened. TikTok, YouTube video, Shorts, and video creator work are explicitly out of current scope.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_TELEGRAM_UNAUTHORIZED_DUPLICATE_POST_INCIDENT_FREEZE_AND_ROOT_CAUSE_REPAIR_V0
+TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0
 
 ## latest changed areas
-- `live_contentops/public_dispatch_freeze_guard_v6.py`
-- `live_contentops/live_production_pipeline_runner_v6.py`
-- `live_contentops/telegram_live_adapter_v6.py`
-- `tests/test_telegram_live_adapter_v6.py`
-- `docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl`
-- `docs/automation/V6_TELEGRAM_INCIDENT_FREEZE_ROOT_CAUSE/telegram_incident_freeze_rootcause_evidence_v0.json`
-- `live_contentops/media_diversification_audit_v6.py`
-- `live_contentops/daily_editorial_scheduler_v6.py`
-- `live_contentops/editorial_quality_audit_v6.py`
-- `live_contentops/media_content_audit_v6.py`
 - `live_contentops/google_image_search_v6.py`
-- `live_contentops/ai_research_canonical_article_engine_v6.py`
 - `live_contentops/platform_native_variant_generator_live_v6.py`
-- `tests/test_media_diversification_audit_v6.py`
-- `tests/test_daily_editorial_scheduler_v6.py`
-- `tests/test_editorial_quality_audit_v6.py`
-- `tests/test_live_production_pipeline_runner.py`
+- `live_contentops/ai_research_canonical_article_engine_v6.py`
+- `live_contentops/live_production_pipeline_runner_v6.py`
+- `live_contentops/pipeline_rehearsal_evidence_v6.py`
+- `tests/test_google_image_search_v6.py`
 - `tests/test_platform_native_variant_generator_live.py`
-- `tests/test_media_content_audit_v6.py`
 - `tests/test_ai_research_canonical_article_engine_v6.py`
+- `tests/test_live_production_pipeline_runner.py`
+- `tests/test_pipeline_rehearsal_evidence_v6.py`
 - `docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json`
-- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`
 - `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json`
-- `docs/automation/V6_MEDIA_DIVERSIFICATION/media_diversification_audit_v0.json`
-- `docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/daily_schedule_2026_07_08.json`
-- `docs/automation/V6_EDITORIAL_NEWSROOM_FINAL_CANDIDATE/newsroom_media_scheduler_final_candidate_evidence_v0.json`
-- `docs/automation/V6_MEDIA_SYSTEM/downloads/wti_current_volatility_context_99c8292edb1a.*`
-- `docs/automation/V6_MEDIA_SYSTEM/downloads/wti_recent_price_context_99c8292edb1a.*`
-- `docs/automation/V6_MEDIA_SYSTEM/downloads/hormuz_oil_chokepoint_context_99c8292edb1a.*`
-- `docs/automation/V6_PUBLIC_TELEGRAM_SUBSTACK_VISUAL_REGRESSION_REPAIR/public_telegram_substack_visual_regression_repair_evidence_v0.json`
-- `docs/automation/V6_FRESH_NEWS_8_PLATFORM_PUBLIC_CANDIDATE_QA/fresh_news_8_platform_public_candidate_blocked_evidence_v0.json`
+- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`
+- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/*.md`
+- `docs/automation/V6_DRY_RUN_FULL_AUTOMATION_REHEARSAL/`
+- `ui/contentops_v5/src/data/platform_variant_packet.json`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
-- `docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json`
 
 ## current next recommended task
-`TASK_CONTENTOPS_V6_TELEGRAM_PUBLIC_INCIDENT_MANUAL_AUDIT_AND_APPROVAL_MARKER_DRY_RUN_V0`: manually audit the public Telegram duplicate posts, decide whether deletion is desired, and run a no-public-write approval-marker dry run proving the new run_id/topic_hash/payload_hash/duplicate/body gates before any future 8-platform public candidate.
+`TASK_CONTENTOPS_V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_OPERATOR_GO_READBACK_AND_CROP_QA_V0`: with explicit operator GO, run exactly one non-bypassed public candidate from the approved rehearsal state, then capture public URLs/IDs, Telegram Bot API photo proof, Substack public visual order/placement proof, and per-platform crop/readability/readback evidence.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.

@@ -1,0 +1,242 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "live_contentops.live_production_pipeline_runner_v6",
+    "--topic",
+    "When oil and yields stop moving together, it signals the Fed's problem has shifted from headline to core... cheaper oil alone won't open the door to cuts -Torst",
+    "--angle",
+    "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+    "--target-audience",
+    "general_financial_education",
+    "--timeout-seconds",
+    "60",
+    "--run-id",
+    "v6_dry_run_rehearsal_20260709",
+    "--public-dispatch-ledger",
+    "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+    "--dispatch-rehearsal",
+    "--select-scheduler-slot",
+    "--daily-schedule",
+    "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
+    "--write-rehearsal-evidence",
+    "--rehearsal-evidence-output",
+    "docs/automation/V6_DRY_RUN_FULL_AUTOMATION_REHEARSAL/dry_run_full_automation_rehearsal_evidence_v0.json"
+  ],
+  "created_at": "2026-07-08T19:25:57Z",
+  "dispatch_audit_excerpt": {
+    "dispatch_blocked": false,
+    "dispatch_blockers": [],
+    "dispatch_live": false,
+    "dispatch_rehearsal": true,
+    "dispatch_summary": {
+      "attempted_platforms": [
+        "substack",
+        "linkedin",
+        "x",
+        "instagram",
+        "facebook",
+        "telegram",
+        "threads",
+        "discord"
+      ],
+      "blocked_platforms": [],
+      "failed_platforms": [],
+      "successful_platforms": [
+        "substack",
+        "linkedin",
+        "x",
+        "instagram",
+        "facebook",
+        "telegram",
+        "threads",
+        "discord"
+      ]
+    },
+    "dry_run": true,
+    "pipeline_status": "LIVE_READY_REQUIRES_OPERATOR_GO",
+    "public_write": false,
+    "run_id": "v6_dry_run_rehearsal_20260709",
+    "timestamp": "2026-07-08T19:25:57Z"
+  },
+  "evidence_hash": "1884fe9e4c680d1c76834c01190875b4f788cf4396e5e4e434d1a23a200a58ef",
+  "evidence_packet_id": "v6_pipeline_rehearsal_1884fe9e4c680d1c",
+  "mode": "controlled_rehearsal",
+  "packet_kind": "v6_pipeline_rehearsal_evidence_packet",
+  "pipeline_result": {
+    "approval_marker_envelope": {
+      "approval_marker": {
+        "approval_status": "APPROVED_FOR_PUBLIC_DISPATCH",
+        "approved_payload_hashes": {
+          "discord": "e52dd3efa204aead",
+          "facebook": "4ae083ce17a4afc9",
+          "instagram": "822c2ae10f901f42",
+          "linkedin": "f353a89decd9bdc5",
+          "substack": "805f1ad726413dcf",
+          "telegram": "de2b71eb33b51986",
+          "threads": "fbe4935e1502a5d3",
+          "x": "17f9cec8e6690e89"
+        },
+        "approved_public_dispatch": true,
+        "canonical_packet_hash": "0cc5c3bb4c0130a93b04e672080e0d3b0489e07f2e6979e25ab535a7d79c1e04",
+        "dry_run": true,
+        "payload_hash": "de2b71eb33b51986",
+        "platform_variant_packet_hash": "05b1a63252e641d68960684fb5b67897c6ba951dbedb3d5d3d2f770cd8cef57c",
+        "public_write": false,
+        "run_id": "v6_dry_run_rehearsal_20260709",
+        "topic_hash": "6ec6c3d3cbc58f82"
+      },
+      "canonical_packet_hash": "0cc5c3bb4c0130a93b04e672080e0d3b0489e07f2e6979e25ab535a7d79c1e04",
+      "dry_run": true,
+      "duplicate_ledger_result": {
+        "action": "photo",
+        "approval_marker_present": true,
+        "blockers": [],
+        "dispatch_allowed": true,
+        "identity_hashes": {
+          "media_url_hash": "bdcd5e5412111733",
+          "topic_hash": "6ec6c3d3cbc58f82"
+        },
+        "payload_hash": "de2b71eb33b51986",
+        "payload_hash_required": true,
+        "platform": "telegram",
+        "run_id": "v6_dry_run_rehearsal_20260709",
+        "status": "PASS",
+        "topic_hash": "6ec6c3d3cbc58f82"
+      },
+      "per_platform_payload_hash": {
+        "discord": "e52dd3efa204aead",
+        "facebook": "4ae083ce17a4afc9",
+        "instagram": "822c2ae10f901f42",
+        "linkedin": "f353a89decd9bdc5",
+        "substack": "805f1ad726413dcf",
+        "telegram": "de2b71eb33b51986",
+        "threads": "fbe4935e1502a5d3",
+        "x": "17f9cec8e6690e89"
+      },
+      "platform_variant_packet_hash": "05b1a63252e641d68960684fb5b67897c6ba951dbedb3d5d3d2f770cd8cef57c",
+      "public_write": false,
+      "quality_gate_result": {
+        "blockers": [],
+        "status": "PASS"
+      },
+      "run_id": "v6_dry_run_rehearsal_20260709",
+      "telegram_payload_hash": "de2b71eb33b51986",
+      "topic_hash": "6ec6c3d3cbc58f82"
+    },
+    "article_packet_id": "article_engine_packet_d48e683ab914eb8f",
+    "credential_lookup_performed": false,
+    "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
+    "dispatch_blocked": false,
+    "dispatch_blockers": [],
+    "dispatch_live": false,
+    "dispatch_rehearsal": true,
+    "dispatch_summary": {
+      "attempted_platforms": [
+        "substack",
+        "linkedin",
+        "x",
+        "instagram",
+        "facebook",
+        "telegram",
+        "threads",
+        "discord"
+      ],
+      "blocked_platforms": [],
+      "failed_platforms": [],
+      "successful_platforms": [
+        "substack",
+        "linkedin",
+        "x",
+        "instagram",
+        "facebook",
+        "telegram",
+        "threads",
+        "discord"
+      ]
+    },
+    "dry_run": true,
+    "headline_rehearsal_context": {
+      "daily_schedule_path": "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
+      "duplicate_check_basis": "topic_hash_and_public_duplicate_ledger; canonical_url_absent_in_dry_run",
+      "headline_sidecar_count": 1024,
+      "headline_sidecars_are_catalyst_only": true,
+      "latest_sidecar_captured_at": "2026-07-08T13:21:21Z",
+      "latest_sidecar_count": 1024,
+      "latest_sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "schedule_date": "2026-07-08",
+      "selected_angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+      "selected_slot": {
+        "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+        "headline_sidecar_context_only": true,
+        "impact_score": 77,
+        "media_needs": [
+          "source-backed data chart where numeric claims are used",
+          "contextual map/photo/official visual with rights/provenance review",
+          "official-release chart or table screenshot replacement generated from source data"
+        ],
+        "numeric_truth_authority": false,
+        "readiness": "READY_FOR_PIPELINE",
+        "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+        "slot_index": 1,
+        "source_clearance_authority": false,
+        "source_headline_author": "MikeZaccardi",
+        "source_headline_timestamp": "2026-07-08 19:06:00 GMT+7",
+        "source_needs": [
+          "Federal Reserve policy/communication source",
+          "Primary energy/geopolitical source check before drafting"
+        ],
+        "suggested_article_type": "official_release",
+        "tags": [
+          "central_bank",
+          "energy",
+          "official_central_bank_statement_or_calendar",
+          "official_energy_inventory_or_opec_release"
+        ],
+        "topic": "When oil and yields stop moving together, it signals the Fed's problem has shifted from headline to core... cheaper oil alone won't open the door to cuts -Torst",
+        "urgency_score": 62
+      },
+      "selected_slot_index": 1,
+      "selected_topic": "When oil and yields stop moving together, it signals the Fed's problem has shifted from headline to core... cheaper oil alone won't open the door to cuts -Torst",
+      "selection_reason": "ready_energy_slot_from_current_daily_schedule",
+      "sidecar_dir": "headline_ingestion\\data\\intake\\headline_sidecars",
+      "sidecar_file_count": 1,
+      "sidecars_available": true
+    },
+    "live_platform_api_called": false,
+    "pipeline_status": "LIVE_READY_REQUIRES_OPERATOR_GO",
+    "platform_variant_packet_id": "variant_packet_d0ad6886f719",
+    "public_write": false,
+    "quality_gate_result": {
+      "blockers": [],
+      "status": "PASS"
+    },
+    "run_id": "v6_dry_run_rehearsal_20260709",
+    "timestamp": "2026-07-08T19:25:57Z",
+    "timestamp_gmt7": "2026-07-09T02:25:57+07:00",
+    "variant_status": "VARIANT_READY"
+  },
+  "readback_checks": {
+    "audit_file_present": true,
+    "dispatch_summary_matches": true,
+    "pipeline_status_matches": true,
+    "readback_ready": true,
+    "run_id_matches": true
+  },
+  "repo_state": {
+    "branch": "task/telegram-substack-regression-repair",
+    "dirty_state_short": "M docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json\n M docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md\n M docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/discord_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/facebook_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/instagram_caption_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/linkedin_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/substack_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/telegram_operator_preview.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/threads_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/x_variant.md\n M docs/status/CURRENT_PROJECT_STATUS.md\n M docs/status/current_project_status.json\n M live_contentops/ai_research_canonical_article_engine_v6.py\n M live_contentops/google_image_search_v6.py\n M live_contentops/live_production_pipeline_runner_v6.py\n M live_contentops/pipeline_rehearsal_evidence_v6.py\n M live_contentops/platform_native_variant_generator_live_v6.py\n M tests/test_ai_research_canonical_article_engine_v6.py\n M tests/test_google_image_search_v6.py\n M tests/test_live_production_pipeline_runner.py\n M tests/test_pipeline_rehearsal_evidence_v6.py\n M tests/test_platform_native_variant_generator_live.py\n M ui/contentops_v5/src/data/platform_variant_packet.json\n?? docs/automation/V6_DRY_RUN_FULL_AUTOMATION_REHEARSAL/\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fallback_7c55821863cc.png",
+    "head_sha": "55d7803fde03fdc4cf70cc1c54c4b017846bf42d",
+    "remote_master_sha": "55d7803fde03fdc4cf70cc1c54c4b017846bf42d",
+    "repo_full_name": "fatcat2109/capital-chronicle-contentops"
+  },
+  "safety": {
+    "audit_excerpt_only": true,
+    "browser_session_sensitive_value_persisted": false,
+    "raw_env_values_persisted": false,
+    "raw_sensitive_values_persisted": false
+  },
+  "schema_version": "1.0.0",
+  "sensitive_marker_detected": false,
+  "task_label": "TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0"
+}

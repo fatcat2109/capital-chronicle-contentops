@@ -171,3 +171,29 @@ def test_oil_provider_near_miss_uses_source_backed_longform_repair(monkeypatch):
     assert "DCOILWTICO" in json.dumps(draft["source_trail"])
     assert packet["seo_packet"]["target_keyword"] == "oil volatility recession risk"
     assert audit_editorial_quality_packet(packet, topic=inputs.operator_idea)["classification"] == "EDITORIAL_APPROVED"
+
+
+def test_oil_dry_run_fixture_uses_source_backed_longform_without_fred_network(monkeypatch):
+    def fail_fred_read(*_args, **_kwargs):
+        raise AssertionError("dry-run fixture must not fetch FRED")
+
+    monkeypatch.setattr("live_contentops.media_content_audit_v6._read_fred_csv", fail_fred_read)
+    inputs = EngineInput(
+        operator_idea="US recession risks rise as oil volatility spikes",
+        target_audience="general_financial_education",
+        editorial_angle="Focus on data transparency, geopolitics, and yield curves.",
+        source_context=[],
+        risk_disclaimer_policy="V6_EDUCATIONAL_DISCLAIMER",
+        output_style="educational_process_heavy",
+    )
+
+    packet = run_article_engine(inputs, provider_mode="dry_run_fixture")
+    draft = packet["canonical_article_draft"]
+
+    assert packet["provider_call_made"] is False
+    assert packet["provider_recovery_used"] is True
+    assert packet["provider_attempts"][-1]["model"] == "dry_run_source_backed_wti_fixture_longform_template"
+    assert "dry_run_source_backed_wti_fixture_used" in packet["warnings"]
+    assert validate_article_quality(draft) == []
+    assert draft["body_word_count"] >= 2000
+    assert audit_editorial_quality_packet(packet, topic=inputs.operator_idea)["classification"] == "EDITORIAL_APPROVED"

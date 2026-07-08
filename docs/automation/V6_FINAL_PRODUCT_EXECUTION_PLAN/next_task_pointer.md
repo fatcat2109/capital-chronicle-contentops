@@ -1,33 +1,56 @@
 # V6 Next Task Pointer
 
-Current task just completed: `TASK_CONTENTOPS_V6_APPROVAL_MARKER_SECURITY_SCAN_AND_FULL_AUTOMATION_DRY_RUN_REHEARSAL_V0`.
+Current task just completed: `TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0`.
 
-Incident summary:
-- Operator screenshot shows three duplicate or near-duplicate Telegram posts in the Capital Chronicle channel at visible GMT+7 times `19:37`, `19:49`, and `20:37` on `2026-07-08`.
-- Visible Telegram caption/body was weak: `Read the full editorial analysis:` plus `https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-05f`.
-- Committed telemetry confirms a real Telegram photo success at `2026-07-08T13:37:40.870786+00:00` / `2026-07-08T20:37:40+07:00`, response summary `Created post/comment ID: 58`.
-- Telemetry line with `message_id=999` is classified as mocked unit-test telemetry, not a public send.
-- No public write, edit, delete, repost, retry, schedule, DM, comment, like, or reaction was performed in this incident task.
+Result:
+- Acceptance label: `PASS_REAL_FULL_AUTOMATION_DRY_RUN_REHEARSAL_NO_PUBLIC_WRITE`.
+- Real CLI/full automation dry-run rehearsal ran end-to-end.
+- Rehearsal status: `LIVE_READY_REQUIRES_OPERATOR_GO`.
+- Run ID: `v6_dry_run_rehearsal_20260709`.
+- Public writes: `false` for every attempted platform.
+- Live platform API calls: `false`.
+- Credential lookup: `false`.
+- Dry-run image/media discovery is network-isolated and uses committed local source-backed assets.
 
-What changed:
-- Repaired `urllib` security-scan policy drift in `tests/test_security_scans.py` to allow non-network `urllib.parse` while blocking network surface.
-- Added blocked rehearsal coverage in `tests/test_live_production_pipeline_runner.py` to assert that the written `audit.json` file contains the correct blockers when the approval marker is missing.
-- Tightened blocked-audit rehearsal evidence coverage in `tests/test_pipeline_rehearsal_evidence_v6.py` to confirm that evidence packets correctly bind to the blocked audit and remain secret-scrubbed.
+Evidence:
+- Rehearsal packet: `docs/automation/V6_DRY_RUN_FULL_AUTOMATION_REHEARSAL/dry_run_full_automation_rehearsal_evidence_v0.json`.
+- Rehearsal readback summary: `docs/automation/V6_DRY_RUN_FULL_AUTOMATION_REHEARSAL/rehearsal_readback_summary.md`.
+- Dispatch audit: `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`.
+- Canonical packet: `docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json`.
+- Variant packet: `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json`.
 
-Validation:
-- `python -m pytest tests/test_security_scans.py tests/test_live_production_pipeline_runner.py tests/test_pipeline_rehearsal_evidence_v6.py -q` -> 31 passed.
+Rehearsal summary:
+- Schedule slot: slot 1 from `docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/daily_schedule_2026_07_08.json`.
+- Sidecar file: `headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl`.
+- Sidecar count: 1,024 rows; latest captured at `2026-07-08T13:21:21Z`.
+- Topic hash: `6ec6c3d3cbc58f82`.
+- Canonical packet hash: `0cc5c3bb4c0130a93b04e672080e0d3b0489e07f2e6979e25ab535a7d79c1e04`.
+- Platform variant packet hash: `05b1a63252e641d68960684fb5b67897c6ba951dbedb3d5d3d2f770cd8cef57c`.
+- Telegram payload hash: `de2b71eb33b51986`.
+- Duplicate ledger result: `PASS`.
+- Quality gate result: `PASS`.
+- Successful dry-run platforms: Substack, LinkedIn, X, Instagram, Facebook Page, Telegram, Threads, Discord.
 
 Recommended next task:
 ```text
-TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0
+TASK_CONTENTOPS_V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_OPERATOR_GO_READBACK_AND_CROP_QA_V0
 ```
 
-Purpose: Isolate image-search functionality during dry-run executions so a true, network-safe CLI/full automation rehearsal can be safely completed end-to-end.
+Purpose: With explicit operator GO, run exactly one non-bypassed 8-platform public candidate from the approved rehearsal state and capture public proof.
+
+Required proof for the next task:
+- Substack public URL, visual count, visual order, and placement/readback proof.
+- Telegram message ID, meaningful caption/body, canonical URL, duplicate guard proof, and Bot API photo proof when a photo is requested.
+- LinkedIn native image proof and stable URL/permalink if recoverable.
+- X and Threads thread/public proof.
+- Instagram and Facebook Page image/crop/readability proof.
+- Discord and Telegram link/image proof.
+- Per-platform manual audit requirement where automatic readback is unavailable.
 
 Out of scope for the next task:
-- Do not run live dispatch.
-- Do not publish, edit, delete, repost, retry, schedule, DM, comment, like, react, or call live platform APIs.
-- Do not build TikTok.
-- Do not build YouTube video, Shorts, or a video creator.
-- Do not build ElevenLabs/video voice lanes.
-- Keep YouTube Community as future text/image work after the current 8-platform QA lane is hardened.
+- TikTok.
+- YouTube video.
+- YouTube Shorts.
+- Video creator/editor.
+- ElevenLabs/video voice.
+- YouTube Community.

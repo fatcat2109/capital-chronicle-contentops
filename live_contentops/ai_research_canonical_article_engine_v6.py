@@ -24,6 +24,7 @@ RAW_URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
 WORD_RE = re.compile(r"\b[\w'-]+\b")
 EIA_WTI_SOURCE_URL = "https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm"
 EIA_HORMUZ_CONTEXT_URL = "https://www.eia.gov/todayinenergy/detail.php?id=65504"
+WTI_FRED_SERIES_URL = "https://fred.stlouisfed.org/series/DCOILWTICO"
 FED_MONETARY_POLICY_URL = "https://www.federalreserve.gov/monetarypolicy.htm"
 FED_H15_URL = "https://www.federalreserve.gov/releases/h15/"
 TREASURY_RATE_STATISTICS_URL = "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
@@ -223,6 +224,38 @@ def _build_wti_evidence(inputs: EngineInput) -> dict[str, Any] | None:
         "observation_count": len(points),
         "coverage_start": points[0][0].isoformat(),
         "coverage_end": latest_date.isoformat(),
+    }
+
+
+def _build_wti_dry_run_fixture_evidence(inputs: EngineInput) -> dict[str, Any] | None:
+    if not _topic_needs_wti_evidence(inputs):
+        return None
+    return {
+        "kind": "wti_oil",
+        "series_id": "DCOILWTICO",
+        "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+        "source_url": WTI_FRED_SERIES_URL,
+        "csv_url": f"https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILWTICO",
+        "underlying_source_url": EIA_WTI_SOURCE_URL,
+        "latest_date": "2026-06-29",
+        "latest_year": 2026,
+        "latest_value": 71.87,
+        "prior_90d_date": "2026-03-31",
+        "prior_90d_value": 66.42,
+        "one_year_date": "2025-06-30",
+        "one_year_value": 78.10,
+        "price_change_90d_pct": 8.2,
+        "price_change_1y_pct": -8.0,
+        "latest_30d_abs_move_pct": 2.6,
+        "prior_30d_abs_move_pct": 1.7,
+        "vol_change_90d_pct": 52.9,
+        "recent_price_direction": "up",
+        "recent_volatility_direction": "up",
+        "observation_count": 10432,
+        "coverage_start": "1986-01-02",
+        "coverage_end": "2026-06-29",
+        "dry_run_fixture": True,
+        "fixture_source": "committed_source_backed_wti_visual_metadata",
     }
 
 
@@ -1012,6 +1045,42 @@ def run_article_engine(
     blockers = []
     warnings = []
     citations = []
+
+    if provider_mode == "dry_run_fixture":
+        source_evidence = _build_wti_dry_run_fixture_evidence(inputs)
+        repaired = _source_backed_longform_article(
+            inputs,
+            evidence=source_evidence,
+            search_context="offline dry-run headline/scheduler rehearsal fixture",
+            citations=[],
+            base_candidate=None,
+        )
+        repaired_failures = validate_article_quality(repaired) if repaired else ["source_backed_fixture_unavailable"]
+        if repaired and not repaired_failures:
+            title = repaired["title"]
+            subtitle = repaired["subtitle"]
+            slug = repaired["slug_candidate"]
+            dek = repaired["dek"]
+            meta_description = repaired["meta_description"]
+            thesis = repaired["thesis"]
+            intro = repaired["intro"]
+            sections = repaired["sections"]
+            conclusion = repaired["conclusion"]
+            source_trail = repaired["source_trail"]
+            citations = repaired.get("citations") or citations
+            chart_callouts = repaired["chart_callouts"]
+            media_callouts = repaired["media_callouts"]
+            visual_slots = repaired["visual_slots"]
+            provider_attempts.append({
+                "attempt_index": 1,
+                "provider": "deterministic_article_repair",
+                "model": "dry_run_source_backed_wti_fixture_longform_template",
+                "timeout_seconds": 0,
+                "status": "accepted",
+                "failure": None,
+            })
+            provider_recovery_used = True
+            warnings.append("dry_run_source_backed_wti_fixture_used")
 
     if provider_mode == "live_provider_call":
         if provider_request_budget < 1:

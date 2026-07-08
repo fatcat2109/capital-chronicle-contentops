@@ -1,5 +1,8 @@
 from live_contentops.google_image_search_v6 import (
+    DRY_RUN_IMAGE_SEARCH_BLOCKED,
+    DryRunImageSearchBlocked,
     clean_search_query,
+    execute_google_image_search_and_download,
     extract_image_candidates_from_html,
     _google_recency_tbs,
 )
@@ -30,3 +33,12 @@ def test_google_recency_filter_maps_to_classic_query_ranges():
     assert _google_recency_tbs(31) == "qdr:m"
     assert _google_recency_tbs(365) == "qdr:y"
     assert _google_recency_tbs(None) == ""
+
+
+def test_execute_image_search_blocks_dry_run_before_network():
+    try:
+        execute_google_image_search_and_download("oil volatility chart", dry_run=True)
+    except DryRunImageSearchBlocked as exc:
+        assert DRY_RUN_IMAGE_SEARCH_BLOCKED in str(exc)
+    else:
+        raise AssertionError("dry-run image search should fail closed before network access")

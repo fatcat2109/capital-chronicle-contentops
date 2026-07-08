@@ -32,6 +32,7 @@ GOOGLE_SEARCH_USER_AGENTS = (
     DOWNLOAD_USER_AGENT,
 )
 IMAGE_EXTENSIONS = (".jpg", ".jpeg", ".png", ".webp")
+DRY_RUN_IMAGE_SEARCH_BLOCKED = "DRY_RUN_IMAGE_SEARCH_NETWORK_BLOCKED"
 BAD_URL_MARKERS = (
     "googlelogo",
     "/logos/",
@@ -42,6 +43,15 @@ BAD_URL_MARKERS = (
     "icon-editorial",
     "google-meet",
 )
+
+
+class DryRunImageSearchBlocked(RuntimeError):
+    """Raised when a dry-run path attempts remote image search or download."""
+
+
+def assert_image_search_network_allowed(*, dry_run: bool = False) -> None:
+    if dry_run:
+        raise DryRunImageSearchBlocked(DRY_RUN_IMAGE_SEARCH_BLOCKED)
 
 
 def _image_magic(data: bytes) -> bool:
@@ -302,8 +312,15 @@ def search_google_image_playwright(query: str, recency_days: int | None = 365) -
         return []
 
 
-def execute_google_image_search_and_download(query: str, custom_filename: str | None = None, recency_days: int | None = 365) -> tuple[str | None, str | None]:
+def execute_google_image_search_and_download(
+    query: str,
+    custom_filename: str | None = None,
+    recency_days: int | None = 365,
+    *,
+    dry_run: bool = False,
+) -> tuple[str | None, str | None]:
     """Search Google Images, retrieve the first valid match, and download it."""
+    assert_image_search_network_allowed(dry_run=dry_run)
     DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
     
     query_hash = hashlib.sha256(query.lower().strip().encode("utf-8")).hexdigest()[:12]

@@ -150,3 +150,48 @@ def test_generation_only_rehearsal_ignores_stale_dispatch_audit(tmp_path):
         "dispatch_summary_matches": False,
         "readback_ready": True,
     }
+
+
+def test_dispatch_rehearsal_evidence_binds_audit_and_approval_envelope(tmp_path):
+    audit = {
+        "run_id": "run_rehearsal",
+        "pipeline_status": "LIVE_READY_REQUIRES_OPERATOR_GO",
+        "dispatch_live": False,
+        "dispatch_rehearsal": True,
+        "dry_run": True,
+        "public_write": False,
+        "dispatch_summary": {
+            "attempted_platforms": ["telegram"],
+            "successful_platforms": ["telegram"],
+            "failed_platforms": [],
+            "blocked_platforms": [],
+        },
+    }
+    result = {
+        **audit,
+        "dispatch_audit_path": str(tmp_path / "audit.json"),
+        "approval_marker_envelope": {
+            "run_id": "run_rehearsal",
+            "topic_hash": "topic_hash",
+            "canonical_packet_hash": "a" * 64,
+            "platform_variant_packet_hash": "b" * 64,
+            "per_platform_payload_hash": {"telegram": "c" * 16},
+            "telegram_payload_hash": "c" * 16,
+            "dry_run": True,
+            "public_write": False,
+        },
+    }
+
+    packet = build_rehearsal_evidence_packet(
+        result,
+        command=["python", "-m", "live_contentops.live_production_pipeline_runner_v6", "--dispatch-rehearsal"],
+        repo_state={"branch": "task", "head_sha": "abc"},
+        audit_packet=audit,
+    )
+
+    assert packet["readback_checks"]["readback_ready"] is True
+    assert packet["dispatch_audit_excerpt"]["dispatch_rehearsal"] is True
+    assert packet["dispatch_audit_excerpt"]["public_write"] is False
+    assert packet["pipeline_result"]["approval_marker_envelope"]["canonical_packet_hash"] == "a" * 64
+    assert packet["pipeline_result"]["public_write"] is False
+    assert packet["sensitive_marker_detected"] is False
