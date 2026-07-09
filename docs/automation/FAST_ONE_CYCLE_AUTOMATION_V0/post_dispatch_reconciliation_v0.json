@@ -1,0 +1,59 @@
+{
+  "classification": "PASS_FAST_ONE_CYCLE_DISCORD_POST_RECONCILED_WITH_CAVEATS",
+  "task_label": "TASK_CONTENTOPS_RECONCILE_FAST_ONE_CYCLE_DISCORD_POST_V0",
+  "failure_class_if_reposted_or_probed": "FAIL_RECONCILIATION_REPOSTED_OR_PROBED",
+  "reconciliation_scope": "local_file_reconciliation_only",
+  "original_dispatch_commit_sha": "9f0d55875ae11d07e594d36bff25a28e5086b45f",
+  "reconciled_dispatch": {
+    "platform": "discord",
+    "dispatch_id": "1524780271814311966",
+    "dispatch_status": "SUCCESS",
+    "dispatch_timestamp": "2026-07-09T14:12:25.848000+00:00",
+    "redispatch_attempted": false,
+    "webhook_recontacted": false,
+    "provider_probe_attempted": false
+  },
+  "evidence_files": {
+    "run_evidence": "docs/automation/FAST_ONE_CYCLE_AUTOMATION_V0/run_evidence.json",
+    "dispatch_results": "docs/automation/FAST_ONE_CYCLE_AUTOMATION_V0/dispatch_results.json",
+    "platform_payloads": "docs/automation/FAST_ONE_CYCLE_AUTOMATION_V0/platform_payloads.json",
+    "article": "docs/automation/FAST_ONE_CYCLE_AUTOMATION_V0/article.md",
+    "readme": "docs/automation/FAST_ONE_CYCLE_AUTOMATION_V0/README.md"
+  },
+  "consistency_checks": {
+    "run_evidence_dispatch_id_matches_dispatch_results": true,
+    "run_evidence_platform_matches_dispatch_results": true,
+    "discord_payload_text_matches_dispatch_response": true,
+    "article_preserves_candidate_caveat_banner": true
+  },
+  "scope_findings": {
+    "fixture_based_candidate_dispatch": true,
+    "only_discord_live_dispatch_proven": true,
+    "platform_payload_bundle_generated": true,
+    "full_cdp_to_public_post_pipeline_proven": false,
+    "live_cdp_headline_intake_proven": false,
+    "trusted_local_database_support_selection_proven": false,
+    "media_generation_proven": false,
+    "multi_platform_public_dispatch_proven": false,
+    "payloads_marked_public_dispatch_ready": false,
+    "separate_live_task_required_by_payload_bundle": true
+  },
+  "proven_live_platforms": [
+    "discord"
+  ],
+  "not_proven_live_platforms": [
+    "substack",
+    "linkedin",
+    "x",
+    "instagram",
+    "facebook_page",
+    "telegram",
+    "threads"
+  ],
+  "overclaim_corrections": [
+    "The fast one-cycle run proved one supervised Discord post from fixture-based candidate commentary.",
+    "It did not prove end-to-end CDP/headline intake, trusted local database support selection, media generation, or general multi-platform public dispatch readiness."
+  ],
+  "reconciled_status": "NO_REDISPATCH_RECONCILIATION_COMPLETE"
+}
+
