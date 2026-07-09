@@ -6,20 +6,49 @@ This file is the repo-native north-star plan for V6 strategy. It is strategic co
 
 ## V6 North-Star Loop
 
-```text
-Jim idea / source / research context / future artifact
-→ AI research and grounding
-→ canonical Substack long-form article
-→ SEO and editorial refinement
-→ platform-native variants
-→ deterministic preview hash and operator approval
-→ approved outbox and redacted audit record
-→ manual or explicitly gated platform distribution
-→ operator-supplied public URL / audit / metrics evidence
-→ community feedback and questions
-→ LLM summary and backlog update
-→ next canonical article
-```
+The definitive 12-step content automation pipeline sequence:
+1. **Open ContentOps daily**: Initialize the operator workspace session.
+2. **Pull X/CDP headlines**: Retrieve headlines from the last checkpoint or last 24 hours.
+3. **Save raw headlines**: Save the raw headline list to a dated local evidence file.
+4. **Cluster, dedupe, and rank**: Group and evaluate the intake list.
+5. **Select article idea**: Choose the target commentary topic using:
+   - Freshness
+   - Macro relevance
+   - Heat / breaking-news level
+   - Topic balance
+   - Prior-topic duplication avoidance
+   - Database support availability
+6. **Build source/data support packet**: Query the Capital Chronicle database to establish trusted local data grounds.
+7. **Generate article brief**: Synthesize insights and structured parameters.
+8. **Draft SEO article**: Build the canonical long-form content.
+9. **Generate media/chart/card**: Produce visual assets (internal data charts or search-backed candidates).
+10. **Build platform variants**: Prep tailor-made payloads for each target channel (Substack, LinkedIn, X, Discord, etc.).
+11. **Run duplicate/preflight/readiness**: Validate safety invariants, duplicate checks, and exact preview hashes.
+12. **Publish and expand**: Execute supervised dispatch, ideally releasing on one platform first (e.g., Discord/Substack) before expanding to other social lanes.
+
+## Daily ContentOps Operating Loop
+
+- Daily ContentOps begins by collecting X/CDP headlines from the last successful checkpoint, or from the last 24 hours when no checkpoint exists.
+- The headline pull must be written to a local evidence file before any article decision.
+- Headlines are clustered, deduped, ranked, and converted into article ideas.
+- Idea selection must balance topic freshness, macro/market relevance, SEO potential, platform suitability, prior-topic repetition, and agreed content-topic balance.
+- Do not repeat stale/non-hot topics.
+- Repeating a topic is allowed only when the last 24h contains a genuine hot update, breaking news, or meaningful new catalyst.
+- After idea selection, the system must query/read the Capital Chronicle database/exporter authority for supporting data.
+- Article generation, SEO draft, media generation, platform variants, and multi-platform posting automation are downstream stages.
+- Public dispatch remains separately gated and must not be treated as proven by the fast fixture-based Discord post.
+- ContentOps must not become a second macro database; the Capital Chronicle local database remains numeric/source/context authority.
+
+Implementation sequence:
+1. X/CDP headline capture packet
+2. headline cluster/ranking packet
+3. article idea brief
+4. trusted database support packet
+5. SEO article draft
+6. media/visual packet
+7. platform variants
+8. duplicate/preflight/readiness
+9. supervised public dispatch/readback
 
 ## Product Thesis
 

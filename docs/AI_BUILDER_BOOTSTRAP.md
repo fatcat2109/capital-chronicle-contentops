@@ -57,22 +57,16 @@ If status docs conflict with current repo evidence, current repo evidence wins. 
 
 Capital Chronicle ContentOps V6 is an AI-native editorial, publishing, and community operating system for governed market commentary workflows.
 
-North-star loop:
+Daily ContentOps operating loop:
 
-```text
-Jim idea / source / research context / future artifact
-→ AI research and grounding
-→ canonical Substack long-form article
-→ SEO and editorial refinement
-→ platform-native variants
-→ deterministic preview hash and operator approval
-→ approved outbox and redacted audit record
-→ manual or explicitly gated platform distribution
-→ operator-supplied public URL / audit / metrics evidence
-→ community feedback and questions
-→ LLM summary and backlog update
-→ next canonical article
-```
+1. Collect X/CDP headlines from the last successful checkpoint, or from the last 24 hours when no checkpoint exists.
+2. Write the raw headline pull to a local evidence file before any article decision.
+3. Cluster, dedupe, rank, and convert headlines into article ideas.
+4. Select ideas using freshness, macro/market relevance, SEO potential, platform suitability, prior-topic repetition, and agreed topic balance; do not repeat stale/non-hot topics unless the last 24h contains a genuine hot update, breaking news, or meaningful new catalyst.
+5. Query/read the Capital Chronicle database/exporter authority for supporting data after idea selection.
+6. Treat article drafting, SEO, media generation, platform variants, and multi-platform posting automation as downstream stages.
+7. Public dispatch remains separately gated, and the fast fixture-based Discord post does not prove the full pipeline.
+8. ContentOps must not become a second macro database; the Capital Chronicle local database remains numeric/source/context authority.
 
 The product is not a signal service, broker, trading bot, portfolio manager, investment adviser, or financial advice engine.
 
