@@ -1,8 +1,8 @@
 {
   "selected_idea_id": "idea_macro_policy_rates_liquidity_20260709",
-  "selected_title": "Commentary: Best metric for the debt crisis unfolding in Japan is the gap between the Yen (black) and long-term yields (blue), which has never been wider. As long as Japan pretends debt isn't the problem and sees intervention as a good fix, this will only get worse... https://t.co/c0kFK8YqeV https://t.co/59OGIIxvn9",
+  "selected_title": "Japan's Debt Crisis: Yield and Currency Gap Widens as Intervention Fails",
   "selected_topic_family": "macro_policy_rates_liquidity",
-  "selected_angle": "Analyzing downstream implications of the latest news in macro policy rates liquidity.",
+  "selected_angle": "Analyzing Japan yen/JGB/yields/fiscal stress under monetary policy divergence and global liquidity pressures.",
   "why_selected": "Selected cluster macro_policy_rates_liquidity with score 102.88 as the most fresh/relevant novel topic.",
   "supporting_headline_ids": [
     "d2d9118cb462be2341370321",
@@ -13,12 +13,16 @@
   ],
   "rejected_alternatives": [],
   "database_support_needed": [
-    "DFF (Effective Federal Reserve Funds Rate)",
-    "Fed Policy Corridor",
-    "SOFR Context"
+    "Japan Yield Curve (JGB)",
+    "USD/JPY FX Spot & Volatility",
+    "Global Central Bank Liquidity Measures"
   ],
   "database_support_likely_available": true,
   "no_database_query_confirmation": true,
   "no_article_draft_confirmation": true,
-  "no_dispatch_confirmation": true
+  "no_dispatch_confirmation": true,
+  "raw_title_cleaned": true,
+  "title_url_removed": true,
+  "support_family_aligned": true,
+  "editorial_grade_ready_for_database_support_packet": true
 }

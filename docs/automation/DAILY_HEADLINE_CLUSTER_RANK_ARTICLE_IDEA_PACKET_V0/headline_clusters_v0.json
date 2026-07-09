@@ -12,31 +12,31 @@
       "587150c8d638c73e2e636dab"
     ],
     "source_accounts": [
-      "TrumpDailyPosts",
-      "TrumpTruthOnX",
       "Reuters",
-      "PeterSchiff",
-      "DeItaone",
-      "robin_j_brooks",
-      "FirstSquawk",
-      "zerohedge",
+      "TrumpTruthOnX",
       "wallstengine",
       "financialjuice",
-      "ChinaBeigeBook",
-      "sahilkapur",
-      "Newsquawk",
+      "MikeZaccardi",
       "StockMKTNewz",
+      "Newsquawk",
+      "ChinaBeigeBook",
+      "zerohedge",
       "hishamezzalarab",
-      "MikeZaccardi"
+      "sahilkapur",
+      "robin_j_brooks",
+      "TrumpDailyPosts",
+      "PeterSchiff",
+      "DeItaone",
+      "FirstSquawk"
     ],
     "tags": [
-      "energy",
-      "inflation",
-      "labor",
       "risk_off",
+      "central_bank",
+      "inflation",
       "fiscal",
       "geopolitics",
-      "central_bank",
+      "labor",
+      "energy",
       "growth"
     ],
     "score_breakdown": {
@@ -66,28 +66,28 @@
       "28a904dca2787b82b17ec7eb"
     ],
     "source_accounts": [
-      "ChinaBeigeBook",
-      "IPONewsroom_",
-      "StockMKTNewz",
-      "MikeZaccardi",
       "TrumpTruthOnX",
-      "robin_j_brooks",
-      "zerohedge",
-      "jsblokland",
-      "ishiharajun",
-      "TrumpDailyPosts",
-      "dlacalle_IA",
-      "themarketear",
-      "jam_croissant",
-      "wallstengine",
-      "FirstSquawk",
       "financialjuice",
-      "mazemoore",
+      "MikeZaccardi",
+      "StockMKTNewz",
+      "jam_croissant",
       "zerohedgeDebate",
-      "LoganRoykah",
-      "gerukari2",
+      "jsblokland",
+      "wallstengine",
+      "ChinaBeigeBook",
+      "zerohedge",
+      "ishiharajun",
+      "themarketear",
       "DeItaone",
-      "sahilkapur"
+      "sahilkapur",
+      "TrumpDailyPosts",
+      "LoganRoykah",
+      "dlacalle_IA",
+      "gerukari2",
+      "IPONewsroom_",
+      "robin_j_brooks",
+      "mazemoore",
+      "FirstSquawk"
     ],
     "tags": [
       "growth"
@@ -119,25 +119,25 @@
       "4e66e0fccf8491b46d740eb5"
     ],
     "source_accounts": [
-      "TrumpDailyPosts",
       "TrumpTruthOnX",
-      "DeItaone",
-      "robin_j_brooks",
-      "FirstSquawk",
-      "zerohedge",
       "wallstengine",
       "financialjuice",
-      "nextnews",
-      "jam_croissant",
-      "KobeissiLetter",
       "RobbieGramer",
+      "StockMKTNewz",
       "Newsquawk",
-      "StockMKTNewz"
+      "jam_croissant",
+      "zerohedge",
+      "robin_j_brooks",
+      "TrumpDailyPosts",
+      "KobeissiLetter",
+      "nextnews",
+      "DeItaone",
+      "FirstSquawk"
     ],
     "tags": [
-      "fiscal",
       "growth",
-      "geopolitics"
+      "geopolitics",
+      "fiscal"
     ],
     "score_breakdown": {
       "recency_score": 10.0,
@@ -166,22 +166,22 @@
       "de3060d5c3b1a544aff6aa72"
     ],
     "source_accounts": [
-      "DeItaone",
-      "robin_j_brooks",
-      "FirstSquawk",
       "biancoresearch",
-      "zerohedge",
-      "financialjuice",
       "wallstengine",
+      "financialjuice",
+      "MikeZaccardi",
       "ChinaBeigeBook",
-      "Amena__Bakr",
+      "zerohedge",
+      "robin_j_brooks",
       "jsblokland",
-      "MikeZaccardi"
+      "Amena__Bakr",
+      "DeItaone",
+      "FirstSquawk"
     ],
     "tags": [
-      "fiscal",
       "energy",
-      "geopolitics"
+      "geopolitics",
+      "fiscal"
     ],
     "score_breakdown": {
       "recency_score": 10.0,
@@ -210,20 +210,20 @@
       "5eda652623ebb115a55de012"
     ],
     "source_accounts": [
-      "TrumpDailyPosts",
-      "robin_j_brooks",
-      "FirstSquawk",
-      "zerohedge",
       "wallstengine",
       "financialjuice",
+      "MikeZaccardi",
       "jam_croissant",
       "ChinaBeigeBook",
-      "MikeZaccardi"
+      "zerohedge",
+      "robin_j_brooks",
+      "TrumpDailyPosts",
+      "FirstSquawk"
     ],
     "tags": [
-      "fiscal",
       "growth",
-      "geopolitics"
+      "geopolitics",
+      "fiscal"
     ],
     "score_breakdown": {
       "recency_score": 10.0,
@@ -252,20 +252,20 @@
       "7818be0e7cd71981dec2d316"
     ],
     "source_accounts": [
-      "TrumpDailyPosts",
-      "ArkkDaily",
-      "FirstSquawk",
-      "zerohedge",
       "wallstengine",
       "financialjuice",
+      "MikeZaccardi",
       "StockMKTNewz",
-      "MikeZaccardi"
+      "zerohedge",
+      "TrumpDailyPosts",
+      "ArkkDaily",
+      "FirstSquawk"
     ],
     "tags": [
-      "fiscal",
-      "growth",
       "volatility",
-      "risk_off"
+      "growth",
+      "risk_off",
+      "fiscal"
     ],
     "score_breakdown": {
       "recency_score": 10.0,
@@ -294,14 +294,14 @@
       "2300f861450d64cbd36e5e84"
     ],
     "source_accounts": [
-      "FirstSquawk",
       "financialjuice",
       "MikeZaccardi",
-      "zerohedge"
+      "zerohedge",
+      "FirstSquawk"
     ],
     "tags": [
-      "risk_off",
-      "volatility"
+      "volatility",
+      "risk_off"
     ],
     "score_breakdown": {
       "recency_score": 10.0,
@@ -327,8 +327,8 @@
       "c4167088c236badb31b472f6"
     ],
     "source_accounts": [
-      "TrumpDailyPosts",
-      "nextnews"
+      "nextnews",
+      "TrumpDailyPosts"
     ],
     "tags": [],
     "score_breakdown": {
