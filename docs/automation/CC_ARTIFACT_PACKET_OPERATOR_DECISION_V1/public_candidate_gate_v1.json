@@ -1,17 +1,24 @@
 {
-  "blockers": [
-    "dqr_status_not_clear:BLOCKED",
-    "candidate_only_true",
-    "publish_eligibility_internal_draft_only",
-    "source_quality_degraded_or_blocked",
-    "packet_caveats_internal_or_non_authoritative",
-    "limitations_include_dqr_blocked",
-    "public_freeze_duplicate_status_not_checked",
-    "live_provider_or_platform_path_forbidden_in_this_task"
-  ],
+  "blockers": [],
+  "candidate_commentary_only": true,
   "dispatch_allowed_now": false,
-  "gate_status": "PUBLIC_CANDIDATE_BLOCKED_BY_PACKET",
-  "public_ready": false,
+  "gate_status": "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS",
+  "public_ready": true,
+  "requires_separate_live_task": true,
   "requires_separate_operator_go": true,
-  "scope_breaches": []
+  "scope_breaches": [],
+  "warnings": [
+    "operator_public_override_received_for_candidate_commentary_preview_only",
+    "converted_block_to_warning:dqr_status_not_clear:BLOCKED",
+    "converted_block_to_warning:candidate_only_true",
+    "converted_block_to_warning:publish_eligibility_internal_draft_only",
+    "converted_block_to_warning:source_quality_degraded_or_blocked",
+    "converted_block_to_warning:packet_caveats_internal_or_non_authoritative",
+    "converted_block_to_warning:limitations_include_dqr_blocked",
+    "converted_block_to_warning:public_freeze_duplicate_status_not_checked",
+    "converted_block_to_warning:live_provider_or_platform_path_forbidden_in_this_task",
+    "candidate_commentary_only_not_exact_analysis",
+    "live_dispatch_requires_separate_exact_task",
+    "post_dispatch_readback_required_if_future_live_task_runs"
+  ]
 }

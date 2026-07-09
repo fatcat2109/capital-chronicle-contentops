@@ -1,5 +1,5 @@
 {
-  "accepted_baseline_summary": "TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0 made the dry-run path network-isolated for image/media discovery, moved dotenv loading out of import-time dry-run paths, added deterministic source-backed local fixture media, added an approval-marker envelope dispatch rehearsal mode, and ran the real CLI/full automation rehearsal end-to-end with no public writes. Acceptance classification: PASS_REAL_FULL_AUTOMATION_DRY_RUN_REHEARSAL_NO_PUBLIC_WRITE.",
+  "accepted_baseline_summary": "TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0 relaxes ContentOps public-candidate gating into supervised public-permissive candidate commentary under explicit operator public override. The current sample packet is locally preview-ready with caveats, while live dispatch remains locked for a separate exact task.",
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, current repo evidence wins; record the mismatch and reconcile status during the task when practical instead of hard-stopping solely on stale status docs",
@@ -9,10 +9,10 @@
   "accepted_product_baseline_sha": "reported_in_final_evidence_after_push",
   "accepted_visual_repair_sha": "6a810aadadef4b3c9078173b32bed4b243f8552a",
   "active_blockers": [
-    "Current CC artifact packet is DQR BLOCKED, candidate_only=true, and publish_eligibility=internal_draft_only; public candidacy is blocked by packet eligibility.",
-    "Jim GO applied only to the local operator-decision task and did not override DQR/candidate/internal-only caveats.",
-    "Public-freeze/duplicate preflight was not promoted because packet eligibility already blocks public candidacy; any future public candidate must run current duplicate/public-freeze gates.",
-    "Public dispatch remains blocked unless a future public-eligible CC artifact packet exists and a separate exact operator-GO live task authorizes it.",
+    "Public dispatch remains blocked in this task; candidate-commentary preview readiness is not platform/API execution authorization.",
+    "A separate exact live-dispatch task is required before any platform API call, browser/CDP execution, scheduler/retry/outbox action, or public write.",
+    "Candidate/proxy, DQR BLOCKED, internal-only, source-quality, limitation, and forbidden-use caveats must remain visible in all public payloads.",
+    "Duplicate/spam guard failure, hidden caveats/disclaimers, exact-authority promotion, financial advice/trading signal, secret/session reads, and main repo/database mutation remain hard blocks.",
     "The Capital Chronicle local database/exporter remains numeric/source/context authority; ContentOps must not fetch/parse macro sources or mutate the main repo/database.",
     "The Fed/FRED/NY Fed/Treasury rates path remains temporary fallback fixture logic only."
   ],
@@ -136,9 +136,33 @@
     "task_label": "TASK_CONTENTOPS_CC_ARTIFACT_PACKET_INTAKE_TO_REHEARSAL_BRIDGE_HEAVY_BATCH_V0"
   },
   "cc_artifact_packet_operator_decision_v1": {
+    "task_label": "TASK_CONTENTOPS_CC_ARTIFACT_PACKET_OPERATOR_DECISION_AND_CONTROLLED_PUBLIC_CANDIDATE_REHEARSAL_V1",
+    "policy_task_label": "TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0",
+    "classification": "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS",
+    "gate_status": "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS",
     "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
     "approval_hash_continuity_status": "PASS",
-    "blockers": [
+    "operator_public_override_received": true,
+    "operator_public_override_scope": "candidate_commentary_preview_only_not_live_dispatch",
+    "public_mode": "candidate_commentary",
+    "public_ready": true,
+    "dispatch_allowed_now": false,
+    "blockers": [],
+    "warnings": [
+      "operator_public_override_received_for_candidate_commentary_preview_only",
+      "converted_block_to_warning:dqr_status_not_clear:BLOCKED",
+      "converted_block_to_warning:candidate_only_true",
+      "converted_block_to_warning:publish_eligibility_internal_draft_only",
+      "converted_block_to_warning:source_quality_degraded_or_blocked",
+      "converted_block_to_warning:packet_caveats_internal_or_non_authoritative",
+      "converted_block_to_warning:limitations_include_dqr_blocked",
+      "converted_block_to_warning:public_freeze_duplicate_status_not_checked",
+      "converted_block_to_warning:live_provider_or_platform_path_forbidden_in_this_task",
+      "candidate_commentary_only_not_exact_analysis",
+      "live_dispatch_requires_separate_exact_task",
+      "post_dispatch_readback_required_if_future_live_task_runs"
+    ],
+    "converted_blockers_to_warnings": [
       "dqr_status_not_clear:BLOCKED",
       "candidate_only_true",
       "publish_eligibility_internal_draft_only",
@@ -148,19 +172,16 @@
       "public_freeze_duplicate_status_not_checked",
       "live_provider_or_platform_path_forbidden_in_this_task"
     ],
-    "browser_cdp_performed": false,
-    "classification": "PASS_OPERATOR_DECISION_GATE_BLOCKED_BY_PACKET_ELIGIBILITY",
-    "contentops_source_brain_added": false,
-    "env_credential_session_read_performed": false,
-    "gate_status": "PUBLIC_CANDIDATE_BLOCKED_BY_PACKET",
-    "main_repo_write_performed": false,
-    "network_or_source_fetch_performed": false,
-    "operator_go_received": true,
-    "operator_go_scope": "decision_gate_only_not_dqr_override",
-    "platform_api_call_performed": false,
+    "duplicate_guard_status": "PASS_DETERMINISTIC_NO_DUPLICATE",
+    "payload_hash": "2d7aea22d1a81d1f5721b971299bfc522f43ab12ed6eaba4316fb9a0c3801830",
+    "mandatory_disclaimer": "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply.",
     "public_dispatch_performed": false,
-    "public_ready": false,
-    "task_label": "TASK_CONTENTOPS_CC_ARTIFACT_PACKET_OPERATOR_DECISION_AND_CONTROLLED_PUBLIC_CANDIDATE_REHEARSAL_V1"
+    "platform_api_call_performed": false,
+    "browser_cdp_performed": false,
+    "network_or_source_fetch_performed": false,
+    "env_credential_session_read_performed": false,
+    "main_repo_write_performed": false,
+    "contentops_source_brain_added": false
   },
   "current_loop_components": [
     "AI research packet",
@@ -332,13 +353,13 @@
     "Instagram Business two-step Content Publishing API adapter with blocked smoke media binding",
     "Meta-family API unsupported edit outcomes for Instagram and Threads"
   ],
-  "current_next_recommended_task": "TASK_CC_MAIN_REPO_PUBLIC_ELIGIBLE_ARTIFACT_PACKET_DQR_CLEARANCE_OR_CONTENTOPS_FUTURE_PACKET_REHEARSAL: return to the main Capital Chronicle database/exporter repo to produce a public-eligible artifact packet once DQR/source gates support it, or run a separate controlled public candidate only if a future artifact packet is public-eligible and Jim gives exact live GO.",
-  "current_next_recommended_task_summary": "Current CC packet is blocked from public candidacy; next work should produce a public-eligible artifact packet in the main repo or wait for a future exact live GO on an eligible packet.",
-  "current_product_lane": "Editorial approval, media diversification/provenance, daily scheduling, and dispatch QA gates before public 8-platform candidate acceptance.",
-  "current_product_phase": "CC artifact packet operator decision V1 is PASS_OPERATOR_DECISION_GATE_BLOCKED_BY_PACKET_ELIGIBILITY. Jim GO was received for decision gate only and did not override DQR/candidate/internal-only constraints; current packet remains public_ready=false.",
-  "current_v6_loop_status": "ContentOps has deterministic CC artifact packet intake plus operator-decision/public-candidate gate chain. Current DQR-blocked/internal-only sample is blocked from public candidacy; future public work requires a public-eligible packet and separate exact live GO.",
+  "current_next_recommended_task": "controlled live dispatch under operator public override",
+  "current_next_recommended_task_summary": "Run a separate exact live-dispatch task only if Jim authorizes public dispatch from the PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS preview payload hash and the task rechecks duplicate/platform/readback gates.",
+  "current_product_lane": "CC artifact packet supervised public-permissive candidate-commentary preview, with live dispatch reserved for a separate exact task.",
+  "current_product_phase": "ContentOps supports OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY. Default mode remains block-first; explicit operator public override converts DQR/candidate/internal-only/source-quality blockers into visible warnings when caveats, disclaimer, approval-hash continuity, duplicate guard, no-advice, and no-authority-promotion checks pass. Current sample classification is PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS.",
+  "current_v6_loop_status": "ContentOps has deterministic CC artifact packet intake, operator-decision, and supervised public-permissive preview gates. The current DQR-blocked/internal-only sample can produce local public candidate-commentary preview artifacts under explicit operator public override, while live dispatch remains a separate exact task.",
   "daily_schedule_path": "docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/daily_schedule_2026_07_08.json",
-  "dispatch_live_status": "No public dispatch, platform API call, browser/CDP, scheduler, retry, outbox execution, network/source fetch, or live runner invocation occurred. Decision output is local-only with public_ready=false and dispatch_allowed_now=false.",
+  "dispatch_live_status": "No public dispatch, platform API call, browser/CDP, scheduler, retry, outbox execution, network/source fetch, public URL fetch, or live runner invocation occurred. Override output is local preview evidence with public_ready=true for candidate commentary only and dispatch_allowed_now=false.",
   "editorial_acceptance_status": "EDITORIAL_APPROVED",
   "editorial_quality_audit_path": "docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json",
   "editorial_quality_status": "Repaired fresh Fed-funds dry-run candidate is EDITORIAL_APPROVED with no blockers or review items. Evidence: docs/automation/V6_FRESH_NON_OIL_REHEARSAL_REPAIR/fresh_non_oil_rehearsal_evidence_v0.json.",
@@ -354,23 +375,26 @@
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
   "last_status_commit_sha": "reported_in_final_evidence_after_push",
-  "last_updated_by_task": "TASK_CONTENTOPS_CC_ARTIFACT_PACKET_OPERATOR_DECISION_AND_CONTROLLED_PUBLIC_CANDIDATE_REHEARSAL_V1",
-  "last_verified_remote_sha": "4860f586d0a89f774844b2d9c17427981d5e37a7",
-  "latest_accepted_task": "TASK_CONTENTOPS_CC_ARTIFACT_PACKET_OPERATOR_DECISION_AND_CONTROLLED_PUBLIC_CANDIDATE_REHEARSAL_V1",
-  "latest_accepted_task_result": "PASS_OPERATOR_DECISION_GATE_BLOCKED_BY_PACKET_ELIGIBILITY",
+  "last_updated_by_task": "TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0",
+  "last_verified_remote_sha": "f1683088d1edcd6af43cf1caec80e620279d4e0c",
+  "latest_accepted_task": "TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0",
+  "latest_accepted_task_result": "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS",
   "latest_changed_areas": [
     "live_contentops/cc_artifact_packet_operator_decision_v1.py",
     "live_contentops/cc_artifact_packet_public_candidate_gate_v1.py",
+    "live_contentops/public_permissive_supervised_mode_v0.py",
     "scripts/decide_cc_artifact_public_candidate_v1.py",
     "tests/test_cc_artifact_packet_operator_decision_v1.py",
+    "tests/test_public_permissive_supervised_mode_v0.py",
     "tests/fixtures/cc_artifact_packet_v0/invalid_public_override_packet_v0.json",
     "docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1/",
+    "docs/automation/PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0/",
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
     "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md"
   ],
-  "latest_evidence_summary": "Operator decision V1 consumed the existing CC artifact packet intake artifacts, verified approval hash continuity PASS, recorded Jim GO scope as decision_gate_only_not_dqr_override, and blocked public candidacy because DQR is BLOCKED, candidate_only is true, publish_eligibility is internal_draft_only, source quality is degraded, and caveats remain internal/non-authoritative.",
+  "latest_evidence_summary": "Public permissive supervised mode V0 records OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY, approval hash continuity PASS, deterministic duplicate guard PASS_DETERMINISTIC_NO_DUPLICATE, mandatory disclaimer present, candidate/proxy labels visible, DQR BLOCKED visible, no exact-authority promotion, no trading advice, and no public dispatch/platform API/browser/CDP/network/env/main-repo action.",
   "latest_headline_ingestion_sha": "bcf5574d16a433b7b1b3bcb6deea2d7ead402502",
   "legacy_reference_surfaces": [
     "ui/institutional_operator_cockpit_v4/",
@@ -412,7 +436,7 @@
   "media_and_visual_status": "Media status passes for dry-run/pre-public readiness. The repaired fresh Fed-funds candidate uses three non-oil rates visuals: primary DFF/policy-corridor chart, policy_corridor policy diagram, and sofr_context rates/SOFR context chart. Media diversification is PASS, auto-publication-safe for dry-run evidence, and pre-public family classification is fed_funds_policy_rates, not crude_wti_oil_volatility.",
   "media_diversification_audit_path": "docs/automation/V6_MEDIA_DIVERSIFICATION/media_diversification_audit_v0.json",
   "newsroom_final_candidate_evidence_path": "docs/automation/V6_EDITORIAL_NEWSROOM_FINAL_CANDIDATE/newsroom_media_scheduler_final_candidate_evidence_v0.json",
-  "next_recommended_task": "TASK_CC_MAIN_REPO_PUBLIC_ELIGIBLE_ARTIFACT_PACKET_DQR_CLEARANCE_OR_CONTENTOPS_FUTURE_PACKET_REHEARSAL: return to the main Capital Chronicle database/exporter repo to produce a public-eligible artifact packet once DQR/source gates support it, or run a separate controlled public candidate only if a future artifact packet is public-eligible and Jim gives exact live GO.",
+  "next_recommended_task": "controlled live dispatch under operator public override",
   "operator_platform_readiness": {
     "discord": "one-shot proven",
     "latest_task": "TASK_0021",
@@ -426,7 +450,7 @@
   "provider_env_credential_status": "No env, credential, token, cookie, localStorage, sessionStorage, browser session, webhook, provider-key, network/source fetch, macro source parse, platform API, public URL fetch, scheduler/retry/outbox execution, or main-repo write occurred.",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "schema_version": "1.0.0",
-  "sha_model": "last_verified_remote_sha records remote master 62d6bfc8655b0ad0169ffe68249d96fcde9f5848 before the fresh non-oil rehearsal repair task; final pushed evidence commit is reported in final evidence.",
+  "sha_model": "last_verified_remote_sha records remote master f1683088d1edcd6af43cf1caec80e620279d4e0c before the public-permissive supervised mode task; final pushed evidence commit is reported in final evidence.",
   "stale_wrong_surfaces": [
     "ui/operator_approval_queue_evidence_vault/"
   ],
@@ -638,5 +662,55 @@
     "secret_or_session_read_performed": false,
     "task_label": "TASK_CONTENTOPS_V6_X_CDP_SUPERVISED_POST_COMMAND_PRELIVE_DRY_RUN_V0",
     "verification": "python -m pytest tests/test_x_cdp_supervised_post_command_prelive_dry_run_v6.py tests/test_x_cdp_profile_guard_v6.py tests/test_x_cdp_publication_identity_capture_v6.py tests/test_platform_publication_identity_registry_v6.py tests/test_operator_browser_lab_policy.py -> 49 passed"
+  },
+  "public_permissive_supervised_mode_v0": {
+    "task_label": "TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0",
+    "classification": "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS",
+    "policy_mode": "OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY",
+    "public_mode": "candidate_commentary",
+    "public_ready": true,
+    "dispatch_allowed_now": false,
+    "operator_public_override_received": true,
+    "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+    "payload_hash": "2d7aea22d1a81d1f5721b971299bfc522f43ab12ed6eaba4316fb9a0c3801830",
+    "duplicate_guard_status": "PASS_DETERMINISTIC_NO_DUPLICATE",
+    "material_validation_status": "PASS",
+    "old_blocks_converted_to_warnings": [
+      "dqr_status_not_clear:BLOCKED",
+      "candidate_only_true",
+      "publish_eligibility_internal_draft_only",
+      "source_quality_degraded_or_blocked",
+      "packet_caveats_internal_or_non_authoritative",
+      "limitations_include_dqr_blocked",
+      "public_freeze_duplicate_status_not_checked",
+      "live_provider_or_platform_path_forbidden_in_this_task"
+    ],
+    "hard_blocks_remaining": [
+      "secret_or_session_value_read",
+      "main_repo_database_mutation",
+      "numeric_truth_promotion_to_authoritative",
+      "financial_advice_or_trading_signal",
+      "missing_operator_public_override",
+      "duplicate_or_spam_guard_failure",
+      "hidden_caveats_or_disclaimers",
+      "scheduler_retry_storm",
+      "platform_api_call_without_separate_live_task"
+    ],
+    "output_files": {
+      "candidate_platform_payloads": "docs\\automation\\PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0\\candidate_platform_payloads_v0.json",
+      "candidate_public_preview": "docs\\automation\\PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0\\candidate_public_preview_v0.md",
+      "caveat_disclaimer_block": "docs\\automation\\PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0\\caveat_disclaimer_block_v0.md",
+      "public_override_decision": "docs\\automation\\PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0\\public_override_decision_v0.json",
+      "public_permissive_evidence": "docs\\automation\\PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0\\public_permissive_evidence_v0.json"
+    },
+    "safety": {
+      "browser_cdp_performed": false,
+      "env_credential_session_read_performed": false,
+      "main_repo_write_performed": false,
+      "network_or_source_fetch_performed": false,
+      "platform_api_call_performed": false,
+      "public_dispatch_performed": false,
+      "scheduler_retry_outbox_execution_performed": false
+    }
   }
 }

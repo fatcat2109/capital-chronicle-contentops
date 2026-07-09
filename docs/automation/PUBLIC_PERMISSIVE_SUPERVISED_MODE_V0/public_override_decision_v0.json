@@ -1,0 +1,83 @@
+{
+  "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+  "browser_cdp_performed": false,
+  "classification": "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS",
+  "converted_blockers_to_warnings": [
+    "dqr_status_not_clear:BLOCKED",
+    "candidate_only_true",
+    "publish_eligibility_internal_draft_only",
+    "source_quality_degraded_or_blocked",
+    "packet_caveats_internal_or_non_authoritative",
+    "limitations_include_dqr_blocked",
+    "public_freeze_duplicate_status_not_checked",
+    "live_provider_or_platform_path_forbidden_in_this_task"
+  ],
+  "dispatch_allowed_now": false,
+  "duplicate_guard": {
+    "blockers": [],
+    "ledger_rows_checked": 1,
+    "matches": [],
+    "payload_hash": "2d7aea22d1a81d1f5721b971299bfc522f43ab12ed6eaba4316fb9a0c3801830",
+    "status": "PASS_DETERMINISTIC_NO_DUPLICATE",
+    "topic_hash": "7371603081e450a232447f73ef3261a6a7a269e4dc325614a5057ec2f5f83bd4"
+  },
+  "env_credential_session_read_performed": false,
+  "hard_blockers": [],
+  "main_repo_write_performed": false,
+  "mandatory_disclaimer": "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply.",
+  "material_validation": {
+    "candidate_proxy_labels_visible": true,
+    "dqr_blocked_visible": true,
+    "exact_authority_promotion_detected": false,
+    "hard_blockers": [],
+    "mandatory_disclaimer_present": true,
+    "status": "PASS",
+    "trading_advice_detected": false
+  },
+  "network_or_source_fetch_performed": false,
+  "operator_public_override_received": true,
+  "operator_public_override_scope": "candidate_commentary_preview_only_not_live_dispatch",
+  "packet_id": "98d0ba82-8912-4d80-902e-bfba3a97a835",
+  "packet_kind": "public_permissive_supervised_decision_v0",
+  "payload_hash": "2d7aea22d1a81d1f5721b971299bfc522f43ab12ed6eaba4316fb9a0c3801830",
+  "platform_api_call_performed": false,
+  "policy_mode": "OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY",
+  "preserved_caveats": {
+    "candidate_only": true,
+    "dqr_status": "BLOCKED",
+    "forbidden_use_notes": [
+      "INTERNAL DRAFT USE ONLY. Do not use for live trading or execution.",
+      "DQR status is BLOCKED. All values are non-authoritative candidate staging states."
+    ],
+    "limitations": [
+      "DQR status is BLOCKED.",
+      "Paid exchange feeds deferred as deferred_paid_proxy."
+    ],
+    "numeric_anchor_authority_statuses": [
+      "candidate",
+      "candidate"
+    ],
+    "publish_eligibility": "internal_draft_only",
+    "source_quality_status": "degraded (success_files=92, active_failures=6)"
+  },
+  "public_dispatch_performed": false,
+  "public_mode": "candidate_commentary",
+  "public_ready": true,
+  "readback_evidence_required_after_future_live_dispatch": true,
+  "scheduler_retry_outbox_execution_performed": false,
+  "schema_version": "0.1.0",
+  "task_label": "TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0",
+  "warnings": [
+    "converted_block_to_warning:dqr_status_not_clear:BLOCKED",
+    "converted_block_to_warning:candidate_only_true",
+    "converted_block_to_warning:publish_eligibility_internal_draft_only",
+    "converted_block_to_warning:source_quality_degraded_or_blocked",
+    "converted_block_to_warning:packet_caveats_internal_or_non_authoritative",
+    "converted_block_to_warning:limitations_include_dqr_blocked",
+    "converted_block_to_warning:public_freeze_duplicate_status_not_checked",
+    "converted_block_to_warning:live_provider_or_platform_path_forbidden_in_this_task",
+    "candidate_commentary_only_not_exact_analysis",
+    "live_dispatch_requires_separate_exact_task",
+    "post_dispatch_readback_required_if_future_live_task_runs"
+  ]
+}

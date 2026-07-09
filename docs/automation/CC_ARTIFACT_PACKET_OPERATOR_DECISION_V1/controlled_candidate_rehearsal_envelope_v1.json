@@ -1,25 +1,16 @@
 {
   "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
-  "blocked_reason": "Current CC artifact packet is DQR BLOCKED, candidate-only, and internal/manual review only.",
-  "blockers": [
-    "dqr_status_not_clear:BLOCKED",
-    "candidate_only_true",
-    "publish_eligibility_internal_draft_only",
-    "source_quality_degraded_or_blocked",
-    "packet_caveats_internal_or_non_authoritative",
-    "limitations_include_dqr_blocked",
-    "public_freeze_duplicate_status_not_checked",
-    "live_provider_or_platform_path_forbidden_in_this_task"
-  ],
-  "classification": "PASS_OPERATOR_DECISION_GATE_BLOCKED_BY_PACKET_ELIGIBILITY",
+  "blocked_reason": "Allowed as public candidate commentary with visible caveats; live dispatch still requires a separate exact task.",
+  "blockers": [],
+  "classification": "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS",
   "dispatch_allowed_now": false,
-  "gate_status": "PUBLIC_CANDIDATE_BLOCKED_BY_PACKET",
+  "gate_status": "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS",
   "operator_go_received": true,
-  "operator_go_scope": "decision_gate_only_not_dqr_override",
+  "operator_go_scope": "operator_public_override_candidate_commentary_preview_only_not_live_dispatch",
   "packet_id": "98d0ba82-8912-4d80-902e-bfba3a97a835",
   "packet_kind": "cc_artifact_packet_controlled_candidate_rehearsal_envelope_v1",
-  "platform_ready_payload_created": false,
-  "platform_variants_rendered": false,
+  "platform_ready_payload_created": true,
+  "platform_variants_rendered": true,
   "preserved_caveats": {
     "forbidden_use_notes": [
       "INTERNAL DRAFT USE ONLY. Do not use for live trading or execution.",
@@ -31,8 +22,8 @@
     ],
     "source_quality_status": "degraded (success_files=92, active_failures=6)"
   },
-  "preview_mode": "non_public_operator_review_only",
-  "public_ready": false,
+  "preview_mode": "public_candidate_commentary_preview_only",
+  "public_ready": true,
   "safety_flags": {
     "browser_cdp_performed": false,
     "env_credential_session_read_performed": false,

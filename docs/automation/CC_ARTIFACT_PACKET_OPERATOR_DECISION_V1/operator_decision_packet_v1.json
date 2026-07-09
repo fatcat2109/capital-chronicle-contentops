@@ -1,23 +1,14 @@
 {
   "allowed_next_actions": [
-    "review_internal_draft",
-    "request_main_repo_public_eligible_packet",
-    "rerun_decision_gate_with_future_approved_packet"
+    "review_candidate_public_preview",
+    "confirm_payload_hash_and_caveats",
+    "run_separate_controlled_live_dispatch_under_operator_public_override"
   ],
   "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
   "approval_hash_continuity_status": "PASS",
-  "blockers": [
-    "dqr_status_not_clear:BLOCKED",
-    "candidate_only_true",
-    "publish_eligibility_internal_draft_only",
-    "source_quality_degraded_or_blocked",
-    "packet_caveats_internal_or_non_authoritative",
-    "limitations_include_dqr_blocked",
-    "public_freeze_duplicate_status_not_checked",
-    "live_provider_or_platform_path_forbidden_in_this_task"
-  ],
+  "blockers": [],
   "candidate_only": true,
-  "candidate_rehearsal_local_only": false,
+  "candidate_rehearsal_local_only": true,
   "claim_ledger": [
     {
       "allowed_wording": [
@@ -48,7 +39,7 @@
       "support_status": "supported"
     }
   ],
-  "classification": "PASS_OPERATOR_DECISION_GATE_BLOCKED_BY_PACKET_ELIGIBILITY",
+  "classification": "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS",
   "component_hashes": {
     "claim_ledger": "251c010617a2546f671f38eb4c01df637e7c9bafb74578b632d3133f905a739c",
     "coverage_gaps": "04dadb1d553c0d58901caeb15b6949f5a9ef967c8b9a16a8254e887ce34de728",
@@ -59,18 +50,39 @@
     "source_trail": "bd581651c8a8ee04a105cc1a693770e479496f420297f74bad613a1e7f5e7f4c"
   },
   "contentops_source_brain_added": false,
+  "converted_blockers_to_warnings": [
+    "dqr_status_not_clear:BLOCKED",
+    "candidate_only_true",
+    "publish_eligibility_internal_draft_only",
+    "source_quality_degraded_or_blocked",
+    "packet_caveats_internal_or_non_authoritative",
+    "limitations_include_dqr_blocked",
+    "public_freeze_duplicate_status_not_checked",
+    "live_provider_or_platform_path_forbidden_in_this_task"
+  ],
+  "dispatch_allowed_now": false,
   "dqr_status": "BLOCKED",
   "duplicate_family": "US Macro & Alternative Ingestion Audit",
-  "exact_block_reason": "Current CC artifact packet is DQR BLOCKED, candidate-only, and internal/manual review only.",
+  "duplicate_guard": {
+    "blockers": [],
+    "ledger_rows_checked": 1,
+    "matches": [],
+    "payload_hash": "2d7aea22d1a81d1f5721b971299bfc522f43ab12ed6eaba4316fb9a0c3801830",
+    "status": "PASS_DETERMINISTIC_NO_DUPLICATE",
+    "topic_hash": "7371603081e450a232447f73ef3261a6a7a269e4dc325614a5057ec2f5f83bd4"
+  },
+  "exact_block_reason": "Allowed as public candidate commentary with visible caveats; live dispatch still requires a separate exact task.",
   "forbidden_next_actions": [
-    "public_dispatch",
-    "platform_api_call",
-    "browser_or_cdp_readback",
-    "scheduler_or_retry_enqueue",
+    "public_dispatch_without_separate_live_task",
+    "platform_api_call_without_separate_live_task",
+    "browser_or_cdp_readback_in_this_task",
+    "scheduler_or_retry_enqueue_in_this_task",
     "credential_or_session_read",
     "macro_source_fetch_or_parse",
     "main_repo_database_mutation",
-    "hide_dqr_or_candidate_caveats"
+    "hide_dqr_or_candidate_caveats",
+    "promote_candidate_or_proxy_values_to_authoritative",
+    "financial_advice_or_trading_signal"
   ],
   "forbidden_use_notes": [
     "INTERNAL DRAFT USE ONLY. Do not use for live trading or execution.",
@@ -81,6 +93,16 @@
     "DQR status is BLOCKED.",
     "Paid exchange feeds deferred as deferred_paid_proxy."
   ],
+  "mandatory_disclaimer": "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply.",
+  "material_validation": {
+    "candidate_proxy_labels_visible": true,
+    "dqr_blocked_visible": true,
+    "exact_authority_promotion_detected": false,
+    "hard_blockers": [],
+    "mandatory_disclaimer_present": true,
+    "status": "PASS",
+    "trading_advice_detected": false
+  },
   "numeric_anchors": [
     {
       "authority_status": "candidate",
@@ -102,16 +124,22 @@
     }
   ],
   "operator_go_received": true,
-  "operator_go_scope": "decision_gate_only_not_dqr_override",
+  "operator_go_scope": "operator_public_override_candidate_commentary_preview_only_not_live_dispatch",
+  "operator_public_override_received": true,
+  "operator_public_override_scope": "candidate_commentary_preview_only_not_live_dispatch",
   "packet_id": "98d0ba82-8912-4d80-902e-bfba3a97a835",
   "packet_kind": "cc_artifact_packet_operator_decision_v1",
-  "public_freeze_duplicate_status": "not_checked_packet_ineligible_short_circuit",
-  "public_ready": false,
+  "payload_hash": "2d7aea22d1a81d1f5721b971299bfc522f43ab12ed6eaba4316fb9a0c3801830",
+  "policy_mode": "OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY",
+  "public_freeze_duplicate_status": "PASS_DETERMINISTIC_NO_DUPLICATE",
+  "public_mode": "candidate_commentary",
+  "public_ready": true,
   "publish_eligibility": "internal_draft_only",
+  "readback_evidence_required_after_future_live_dispatch": true,
   "required_operator_actions": [
-    "Keep packet internal/manual-review only while DQR remains BLOCKED.",
-    "Return to Capital Chronicle main repo/database exporter for a public-eligible packet after DQR/source gates support it.",
-    "Use a separate explicit live/public task only after packet eligibility and public preflight gates pass."
+    "Keep all candidate/proxy and DQR caveats visible in every public payload.",
+    "Confirm duplicate guard and payload hash before any future live task.",
+    "Use a separate exact live-dispatch task for any platform API or browser/CDP execution."
   ],
   "safety_flags": {
     "browser_cdp_performed": false,
@@ -131,6 +159,17 @@
   ],
   "task_label": "TASK_CONTENTOPS_CC_ARTIFACT_PACKET_OPERATOR_DECISION_AND_CONTROLLED_PUBLIC_CANDIDATE_REHEARSAL_V1",
   "warnings": [
-    "operator_go_received_for_decision_gate_only_not_dqr_override"
+    "operator_public_override_received_for_candidate_commentary_preview_only",
+    "converted_block_to_warning:dqr_status_not_clear:BLOCKED",
+    "converted_block_to_warning:candidate_only_true",
+    "converted_block_to_warning:publish_eligibility_internal_draft_only",
+    "converted_block_to_warning:source_quality_degraded_or_blocked",
+    "converted_block_to_warning:packet_caveats_internal_or_non_authoritative",
+    "converted_block_to_warning:limitations_include_dqr_blocked",
+    "converted_block_to_warning:public_freeze_duplicate_status_not_checked",
+    "converted_block_to_warning:live_provider_or_platform_path_forbidden_in_this_task",
+    "candidate_commentary_only_not_exact_analysis",
+    "live_dispatch_requires_separate_exact_task",
+    "post_dispatch_readback_required_if_future_live_task_runs"
   ]
 }

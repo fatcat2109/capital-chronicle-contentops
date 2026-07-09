@@ -9,6 +9,7 @@ from __future__ import annotations
 from typing import Any
 
 PUBLIC_CANDIDATE_BLOCKED_BY_PACKET = "PUBLIC_CANDIDATE_BLOCKED_BY_PACKET"
+PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS = "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS"
 PUBLIC_CANDIDATE_REHEARSAL_ELIGIBLE_LOCAL_ONLY = "PUBLIC_CANDIDATE_REHEARSAL_ELIGIBLE_LOCAL_ONLY"
 PUBLIC_CANDIDATE_READY_REQUIRES_SEPARATE_OPERATOR_GO = "PUBLIC_CANDIDATE_READY_REQUIRES_SEPARATE_OPERATOR_GO"
 FAIL_SCOPE_BREACH = "FAIL_SCOPE_BREACH"
@@ -39,6 +40,19 @@ def evaluate_public_candidate_gate(decision_packet: dict[str, Any]) -> dict[str,
             "scope_breaches": [],
             "blockers": blockers or ["public_ready_false"],
             "requires_separate_operator_go": True,
+        }
+
+    if decision_packet.get("classification") == PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS:
+        return {
+            "gate_status": PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS,
+            "public_ready": True,
+            "dispatch_allowed_now": False,
+            "scope_breaches": [],
+            "blockers": [],
+            "warnings": decision_packet.get("warnings") or [],
+            "requires_separate_operator_go": True,
+            "requires_separate_live_task": True,
+            "candidate_commentary_only": True,
         }
 
     if decision_packet.get("candidate_rehearsal_local_only") is True:

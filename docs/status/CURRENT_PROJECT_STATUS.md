@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps - Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_CC_ARTIFACT_PACKET_OPERATOR_DECISION_AND_CONTROLLED_PUBLIC_CANDIDATE_REHEARSAL_V1
+TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,23 +9,24 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-verified remote master before this operator-decision task: `4860f586d0a89f774844b2d9c17427981d5e37a7`
+verified remote master before this public-permissive supervised mode task: `f1683088d1edcd6af43cf1caec80e620279d4e0c`
 
 ## current_product_phase
-CC artifact packet operator decision V1 is `PASS_OPERATOR_DECISION_GATE_BLOCKED_BY_PACKET_ELIGIBILITY`. Jim gave GO for the local operator-decision task, but that GO did not override packet-level DQR, candidate-only, publish-eligibility, approval-hash, duplicate/public-freeze, or platform safety gates. The current CC artifact packet remains `dqr_status=BLOCKED`, `candidate_only=true`, `publish_eligibility=internal_draft_only`, and `source_quality_status=degraded`; the deterministic gate therefore blocks public candidacy while preserving all caveats.
+ContentOps now supports supervised public-permissive candidate commentary via `OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY`. Default mode remains block-first, but under explicit `--operator-public-override --public-mode candidate_commentary`, DQR BLOCKED / `candidate_only=true` / `internal_draft_only` / degraded source-quality states convert from automatic blockers into visible warnings when caveats, disclaimer, approval-hash continuity, duplicate guard, no-advice, and no-authority-promotion checks pass. Current sample classification: `PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS`.
 
 ## current_product_lane
-Editorial newsroom lane: canonical articles must pass mechanical quality, independent editorial quality, media diversification/provenance, and visual-slot gates before public dispatch can be treated as product-candidate evidence.
+CC artifact packet lane: ContentOps may prepare public candidate-commentary preview payloads from candidate/proxy packets only under explicit operator public override, with visible caveats and local duplicate/hash evidence. Live dispatch remains a separate exact task.
 
 ## accepted_baseline_summary
-`TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0` made the dry-run path network-isolated for image/media discovery, moved dotenv loading out of import-time dry-run paths, added deterministic source-backed local fixture media, added an approval-marker envelope dispatch rehearsal mode, and ran the real CLI/full automation rehearsal end-to-end with no public writes. Acceptance classification: `PASS_REAL_FULL_AUTOMATION_DRY_RUN_REHEARSAL_NO_PUBLIC_WRITE`.
+`TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0` relaxes ContentOps public-candidate gating from block-first only to supervised public-permissive candidate commentary when Jim supplies explicit operator public override. The current sample packet is locally preview-ready with caveats, not live-dispatch-ready.
 
 ## status_sha_model
-- `last_verified_remote_sha`: `4860f586d0a89f774844b2d9c17427981d5e37a7` before this operator-decision task.
+- `last_verified_remote_sha`: `f1683088d1edcd6af43cf1caec80e620279d4e0c` before this public-permissive supervised mode task.
 - `main_repo_handoff_commit`: `74ccf071ac8558d54e6a3c9d7d2a05ecbf42a2f2` from `fatcat2109/Headline-Raw-data-json`.
 - `sample_packet.main_repo_head`: `69301f0fceee24ba1fa7e6c181ad190b3a4e306a` preserved from packet metadata.
 - `approval_hash`: `b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef` with continuity status `PASS`.
-- `accepted_product_baseline_sha`: advances with the final pushed operator-decision commit reported in final task evidence.
+- `public_permissive_payload_hash`: `2d7aea22d1a81d1f5721b971299bfc522f43ab12ed6eaba4316fb9a0c3801830`.
+- `accepted_product_baseline_sha`: advances with the final pushed public-permissive supervised mode commit reported in final task evidence.
 
 ## canonical_dashboard_surface
 `ui/contentops_v5/` is the canonical current dashboard/app surface unless a newer committed authority document supersedes it.
@@ -46,10 +47,10 @@ Canonical package: `ui/contentops_v5/package.json`.
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-ContentOps now has a deterministic CC artifact packet intake and operator-decision gate chain. The V1 gate evaluates whether an approved CC artifact packet can move toward public-candidate rehearsal, and it correctly blocks the current DQR-blocked/internal-only sample. The Capital Chronicle local database/exporter remains numeric/source/context authority; ContentOps remains content production, platform adaptation, approval, dispatch gating, and readback; Analysis Alpha remains future work.
+ContentOps now has deterministic CC artifact packet intake, operator-decision, and supervised public-permissive preview gates. The current DQR-blocked/internal-only sample remains non-authoritative but can produce local public candidate-commentary preview artifacts under explicit operator public override. The Capital Chronicle local database/exporter remains numeric/source/context authority; ContentOps remains content production, platform adaptation, approval, dispatch gating, and readback; Analysis Alpha remains future work.
 
 ## dispatch/live status
-No public dispatch was run in this task. The V1 decision wrote only local artifacts under `docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1/`; `public_ready=false`, `dispatch_allowed_now=false`, `platform_api_call_performed=false`, `browser_cdp_performed=false`, `network_or_source_fetch_performed=false`, `env_credential_session_read_performed=false`, and `main_repo_write_performed=false`.
+No public dispatch was run in this task. The override decision wrote local artifacts under `docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1/` and `docs/automation/PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0/`; `public_ready=true` for candidate-commentary preview only, `dispatch_allowed_now=false`, `platform_api_call_performed=false`, `browser_cdp_performed=false`, `network_or_source_fetch_performed=false`, `env_credential_session_read_performed=false`, `main_repo_write_performed=false`, and `scheduler_retry_outbox_execution_performed=false`.
 
 ## article_quality_status
 Current repaired fresh-slot article gates pass for dry-run/pre-public readiness: `body_word_count=2087`, `sections=9`, `source_trail_count=8`, no `UNVERIFIED_SAMPLE_SOURCE_REF`, and specific Fed-funds/rates numeric anchors from official/source-backed references. The prior oil/yields article remains a readable dry-run artifact but must not be public-posted because it collapses into the prior Crude/WTI content family.
@@ -64,39 +65,42 @@ Media status passes for dry-run/pre-public readiness. The repaired fresh Fed-fun
 The Fed/FRED/NY Fed/Treasury rates path remains `TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE` only. The durable future authority path is now represented by ContentOps `CC_CONTENT_ARTIFACT_PACKET` V0 intake, where the Capital Chronicle local database/exporter remains `FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY`. ContentOps must not become a second macro database, source parser, source fetcher, numeric truth authority, or Analysis Alpha layer. No additional source families should be added directly to ContentOps unless explicitly approved.
 
 ## provider/env/credential status
-This operator-decision task did not read raw env values, credentials, tokens, cookies, localStorage, sessionStorage, browser sessions, webhooks, or provider keys. It did not call provider/platform APIs, perform browser/CDP work, fetch public URLs, fetch/parse macro sources, run scheduler/retry/outbox execution, or mutate the main repo/database.
+This public-permissive supervised mode task did not read raw env values, credentials, tokens, cookies, localStorage, sessionStorage, browser sessions, webhooks, or provider keys. It did not call provider/platform APIs, perform browser/CDP work, fetch public URLs, fetch/parse macro sources, run scheduler/retry/outbox execution, or mutate the main repo/database.
 
 ## active blockers
-- Current CC artifact packet is `dqr_status=BLOCKED`, `candidate_only=true`, and `publish_eligibility=internal_draft_only`; public candidacy is blocked by packet eligibility.
-- Jim GO applied only to the local operator-decision task and did not override DQR/candidate/internal-only caveats.
-- Public-freeze/duplicate preflight was not promoted because packet eligibility already blocks public candidacy; any future public candidate must run current duplicate/public-freeze gates.
-- Public dispatch remains blocked unless a future public-eligible CC artifact packet exists and a separate exact operator-GO live task authorizes it.
+- Public dispatch remains blocked in this task; candidate-commentary preview readiness is not platform/API execution authorization.
+- A separate exact live-dispatch task is required before any platform API call, browser/CDP execution, scheduler/retry/outbox action, or public write.
+- Candidate/proxy, DQR BLOCKED, internal-only, source-quality, limitation, and forbidden-use caveats must remain visible in all public payloads.
+- Duplicate/spam guard failure, hidden caveats/disclaimers, exact-authority promotion, financial advice/trading signal, secret/session reads, and main repo/database mutation remain hard blocks.
 - The Capital Chronicle local database/exporter remains the numeric/source/context authority; ContentOps must not fetch/parse macro sources or mutate the main repo/database.
 - The Fed/FRED/NY Fed/Treasury rates path remains temporary fallback fixture logic only.
 
 ## latest accepted task
-TASK_CONTENTOPS_CC_ARTIFACT_PACKET_OPERATOR_DECISION_AND_CONTROLLED_PUBLIC_CANDIDATE_REHEARSAL_V1
+TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0
 
 ## latest changed areas
 - `live_contentops/cc_artifact_packet_operator_decision_v1.py`
 - `live_contentops/cc_artifact_packet_public_candidate_gate_v1.py`
+- `live_contentops/public_permissive_supervised_mode_v0.py`
 - `scripts/decide_cc_artifact_public_candidate_v1.py`
 - `tests/test_cc_artifact_packet_operator_decision_v1.py`
+- `tests/test_public_permissive_supervised_mode_v0.py`
 - `tests/fixtures/cc_artifact_packet_v0/invalid_public_override_packet_v0.json`
 - `docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1/`
+- `docs/automation/PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0/`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
 
 ## current next recommended task
-`TASK_CC_MAIN_REPO_PUBLIC_ELIGIBLE_ARTIFACT_PACKET_DQR_CLEARANCE_OR_CONTENTOPS_FUTURE_PACKET_REHEARSAL`: return to the main Capital Chronicle database/exporter repo to produce a public-eligible artifact packet once DQR/source gates support it, or run a separate controlled public candidate only if a future artifact packet is public-eligible and Jim gives exact live GO.
+`controlled live dispatch under operator public override`: run a separate exact live task only if Jim explicitly authorizes public dispatch from the `PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS` preview payload hash and the task rechecks duplicate/platform/readback gates.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.
 
 ## next-task safety notes
-Read this status ledger and the JSON status file before planning. Do not rerun the public candidate from the current generated state. Under Fast Ship Mode, live actions remain authorized only when the task explicitly requires them and the pre-public gate has passed; the immediate next task should repair fresh non-oil source-backed generation/media, not dispatch.
+Read this status ledger and the JSON status file before planning. The current generated state is preview-ready with caveats, not live-dispatch-ready. Live actions remain authorized only when a future task explicitly requires them, binds the payload hash, reruns duplicate/platform gates, and records readback evidence after dispatch.
 
 ## mandatory read-before-work files
 - `AGENTS.md`

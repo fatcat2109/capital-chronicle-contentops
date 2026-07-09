@@ -16,6 +16,12 @@ from .cc_artifact_packet_approval_v0 import (
     compute_component_hashes,
 )
 from .cc_artifact_packet_public_candidate_gate_v1 import evaluate_public_candidate_gate
+from .public_permissive_supervised_mode_v0 import (
+    PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS,
+    PUBLIC_MODE_CANDIDATE_COMMENTARY,
+    build_public_override_decision,
+    write_public_permissive_artifacts,
+)
 
 TASK_LABEL = "TASK_CONTENTOPS_CC_ARTIFACT_PACKET_OPERATOR_DECISION_AND_CONTROLLED_PUBLIC_CANDIDATE_REHEARSAL_V1"
 CLASSIFICATION = "PASS_OPERATOR_DECISION_GATE_BLOCKED_BY_PACKET_ELIGIBILITY"
@@ -23,6 +29,7 @@ SCHEMA_VERSION = "1.0.0"
 
 DEFAULT_INTAKE_DIR = Path("docs/automation/CC_ARTIFACT_PACKET_INTAKE_ADAPTER_V0")
 DEFAULT_OUTPUT_DIR = Path("docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1")
+DEFAULT_PUBLIC_PREVIEW_OUTPUT_DIR = Path("docs/automation/PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0")
 
 INTERNAL_ONLY_TERMS = (
     "internal draft",
@@ -201,6 +208,9 @@ def build_operator_decision_packet(
     *,
     approval_hash_file: str | None = None,
     operator_go: bool = False,
+    operator_public_override: bool = False,
+    public_mode: str = PUBLIC_MODE_CANDIDATE_COMMENTARY,
+    duplicate_ledger_rows: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     eligibility = evaluate_packet_public_candidate_eligibility(
         packet,
@@ -208,8 +218,17 @@ def build_operator_decision_packet(
         intake_summary,
         rehearsal_intent,
         approval_hash_file=approval_hash_file,
-        operator_go=operator_go,
+        operator_go=operator_go or operator_public_override,
     )
+    public_override_decision = None
+    if operator_public_override:
+        public_override_decision = build_public_override_decision(
+            packet=packet,
+            base_eligibility=eligibility,
+            operator_public_override=operator_public_override,
+            public_mode=public_mode,
+            duplicate_ledger_rows=duplicate_ledger_rows,
+        )
     decision_packet = {
         "schema_version": SCHEMA_VERSION,
         "packet_kind": "cc_artifact_packet_operator_decision_v1",
@@ -232,18 +251,88 @@ def build_operator_decision_packet(
             "scheduler_retry_outbox_execution_performed": False,
         },
     }
+    if public_override_decision:
+        allowed = public_override_decision["classification"] == PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS
+        override_warnings = [
+            warning
+            for warning in eligibility["warnings"]
+            if warning != "operator_go_received_for_decision_gate_only_not_dqr_override"
+        ]
+        override_warnings.append("operator_public_override_received_for_candidate_commentary_preview_only")
+        decision_packet.update(
+            {
+                "classification": public_override_decision["classification"],
+                "policy_mode": public_override_decision["policy_mode"],
+                "public_mode": public_override_decision["public_mode"],
+                "operator_public_override_received": True,
+                "operator_public_override_scope": public_override_decision["operator_public_override_scope"],
+                "operator_go_received": operator_go or operator_public_override,
+                "operator_go_scope": "operator_public_override_candidate_commentary_preview_only_not_live_dispatch",
+                "public_ready": allowed,
+                "candidate_rehearsal_local_only": allowed,
+                "dispatch_allowed_now": False,
+                "blockers": public_override_decision["hard_blockers"],
+                "converted_blockers_to_warnings": public_override_decision["converted_blockers_to_warnings"],
+                "warnings": list(dict.fromkeys(override_warnings + public_override_decision["warnings"])),
+                "mandatory_disclaimer": public_override_decision["mandatory_disclaimer"],
+                "payload_hash": public_override_decision["payload_hash"],
+                "duplicate_guard": public_override_decision["duplicate_guard"],
+                "public_freeze_duplicate_status": public_override_decision["duplicate_guard"]["status"],
+                "material_validation": public_override_decision["material_validation"],
+                "readback_evidence_required_after_future_live_dispatch": True,
+                "allowed_next_actions": [
+                    "review_candidate_public_preview",
+                    "confirm_payload_hash_and_caveats",
+                    "run_separate_controlled_live_dispatch_under_operator_public_override",
+                ],
+                "required_operator_actions": [
+                    "Keep all candidate/proxy and DQR caveats visible in every public payload.",
+                    "Confirm duplicate guard and payload hash before any future live task.",
+                    "Use a separate exact live-dispatch task for any platform API or browser/CDP execution.",
+                ],
+                "forbidden_next_actions": [
+                    "public_dispatch_without_separate_live_task",
+                    "platform_api_call_without_separate_live_task",
+                    "browser_or_cdp_readback_in_this_task",
+                    "scheduler_or_retry_enqueue_in_this_task",
+                    "credential_or_session_read",
+                    "macro_source_fetch_or_parse",
+                    "main_repo_database_mutation",
+                    "hide_dqr_or_candidate_caveats",
+                    "promote_candidate_or_proxy_values_to_authoritative",
+                    "financial_advice_or_trading_signal",
+                ],
+                "exact_block_reason": (
+                    "Allowed as public candidate commentary with visible caveats; live dispatch still requires a separate exact task."
+                    if allowed
+                    else "Operator public override candidate-commentary path remains blocked by hard safeguards."
+                ),
+            }
+        )
     return decision_packet
 
 
 def build_operator_review_preview(decision_packet: dict[str, Any]) -> str:
     blockers = "\n".join(f"- `{item}`" for item in decision_packet.get("blockers") or [])
+    warnings = "\n".join(f"- `{item}`" for item in decision_packet.get("warnings") or [])
     notes = "\n".join(f"- {item}" for item in decision_packet.get("forbidden_use_notes") or [])
     limitations = "\n".join(f"- {item}" for item in decision_packet.get("limitations") or [])
+    actions = "\n".join(f"- {item}" for item in decision_packet.get("required_operator_actions") or [])
+    if decision_packet.get("operator_public_override_received") is True:
+        scope_note = (
+            "Operator public override was received for candidate commentary preview only. "
+            "DQR/candidate/internal-only states are visible warnings, not hidden caveats; live dispatch still requires a separate exact task."
+        )
+    else:
+        scope_note = (
+            "Jim GO was received for the local operator-decision task only. It did not override DQR, "
+            "candidate-only, publish-eligibility, approval-hash, duplicate/public-freeze, or platform safety gates."
+        )
     return f"""# CC Artifact Packet Operator Decision V1
 
 Classification: `{decision_packet['classification']}`
 
-Jim GO was received for the local operator-decision task only. It did not override DQR, candidate-only, publish-eligibility, approval-hash, duplicate/public-freeze, or platform safety gates.
+{scope_note}
 
 ## Packet
 
@@ -254,10 +343,16 @@ Jim GO was received for the local operator-decision task only. It did not overri
 - Publish eligibility: `{decision_packet['publish_eligibility']}`
 - Source quality: `{decision_packet['source_quality_status']}`
 - Public ready: `{str(decision_packet['public_ready']).lower()}`
+- Dispatch allowed now: `{str(decision_packet.get('dispatch_allowed_now', False)).lower()}`
+- Public mode: `{decision_packet.get('public_mode', 'block_first')}`
 
 ## Blockers
 
-{blockers}
+{blockers or '- None'}
+
+## Warnings
+
+{warnings or '- None'}
 
 ## Forbidden Use Notes
 
@@ -269,11 +364,12 @@ Jim GO was received for the local operator-decision task only. It did not overri
 
 ## Required Operator Action
 
-Keep this packet internal/manual-review only. Return to the Capital Chronicle main repo/database exporter for a future public-eligible artifact packet once DQR/source gates support it. Public/live candidate work requires a separate exact operator-GO task.
+{actions}
 """
 
 
 def build_controlled_candidate_rehearsal_envelope(decision_packet: dict[str, Any], gate_packet: dict[str, Any]) -> dict[str, Any]:
+    preview_allowed = decision_packet.get("classification") == PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS
     return {
         "schema_version": SCHEMA_VERSION,
         "packet_kind": "cc_artifact_packet_controlled_candidate_rehearsal_envelope_v1",
@@ -284,13 +380,13 @@ def build_controlled_candidate_rehearsal_envelope(decision_packet: dict[str, Any
         "gate_status": gate_packet["gate_status"],
         "operator_go_received": decision_packet["operator_go_received"],
         "operator_go_scope": decision_packet["operator_go_scope"],
-        "public_ready": False,
+        "public_ready": bool(gate_packet.get("public_ready")),
         "dispatch_allowed_now": False,
-        "platform_variants_rendered": False,
-        "platform_ready_payload_created": False,
+        "platform_variants_rendered": preview_allowed,
+        "platform_ready_payload_created": preview_allowed,
         "blocked_reason": decision_packet["exact_block_reason"],
         "blockers": decision_packet["blockers"],
-        "preview_mode": "non_public_operator_review_only",
+        "preview_mode": "public_candidate_commentary_preview_only" if preview_allowed else "non_public_operator_review_only",
         "preserved_caveats": {
             "forbidden_use_notes": decision_packet["forbidden_use_notes"],
             "limitations": decision_packet["limitations"],
@@ -306,6 +402,9 @@ def write_operator_decision_outputs(
     artifacts: dict[str, Any],
     output_dir: str | Path = DEFAULT_OUTPUT_DIR,
     operator_go: bool = False,
+    operator_public_override: bool = False,
+    public_mode: str = PUBLIC_MODE_CANDIDATE_COMMENTARY,
+    public_preview_output_dir: str | Path | None = None,
     packet_path: str | Path | None = None,
     intake_dir: str | Path | None = None,
 ) -> dict[str, Any]:
@@ -318,10 +417,31 @@ def write_operator_decision_outputs(
         artifacts.get("rehearsal_intent"),
         approval_hash_file=artifacts.get("approval_hash_file"),
         operator_go=operator_go,
+        operator_public_override=operator_public_override,
+        public_mode=public_mode,
     )
     gate = evaluate_public_candidate_gate(decision)
     envelope = build_controlled_candidate_rehearsal_envelope(decision, gate)
     preview = build_operator_review_preview(decision)
+    public_override_paths: dict[str, Path] = {}
+    if operator_public_override:
+        public_override_decision = build_public_override_decision(
+            packet=packet,
+            base_eligibility=evaluate_packet_public_candidate_eligibility(
+                packet,
+                artifacts.get("internal_draft"),
+                artifacts.get("intake_summary"),
+                artifacts.get("rehearsal_intent"),
+                approval_hash_file=artifacts.get("approval_hash_file"),
+                operator_go=operator_go or operator_public_override,
+            ),
+            operator_public_override=operator_public_override,
+            public_mode=public_mode,
+        )
+        public_override_paths = write_public_permissive_artifacts(
+            public_override_decision,
+            output_dir=public_preview_output_dir or DEFAULT_PUBLIC_PREVIEW_OUTPUT_DIR,
+        )
 
     _write_json(output / "operator_decision_packet_v1.json", decision)
     _write_json(output / "public_candidate_gate_v1.json", gate)
@@ -331,24 +451,32 @@ def write_operator_decision_outputs(
     evidence = {
         "schema_version": SCHEMA_VERSION,
         "task_label": TASK_LABEL,
+        "policy_task_label": "TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0",
         "classification": decision["classification"],
         "local_repo_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa",
         "github_repo": "fatcat2109/capital-chronicle-contentops",
         "branch": "master target via HEAD:master push; local linked worktree branch may differ",
-        "starting_head": "4860f586d0a89f774844b2d9c17427981d5e37a7",
+        "starting_head": "f1683088d1edcd6af43cf1caec80e620279d4e0c",
         "final_head": "reported_in_final_response_after_commit_and_push",
         "commit_sha": "reported_in_final_response_after_commit_and_push",
-        "commit_message": "feat: add cc artifact packet operator decision gate v1",
-        "operator_go_received": operator_go,
+        "commit_message": "feat: add public permissive supervised candidate mode",
+        "operator_go_received": decision["operator_go_received"],
         "operator_go_scope": decision["operator_go_scope"],
+        "operator_public_override_received": operator_public_override,
+        "public_mode": decision.get("public_mode", "block_first"),
         "input_packet_path": str(packet_path) if packet_path else None,
         "intake_evidence_path": str(Path(intake_dir or DEFAULT_INTAKE_DIR) / "intake_adapter_evidence_v0.json"),
         "approval_hash_continuity_status": decision["approval_hash_continuity_status"],
         "public_ready": decision["public_ready"],
         "blockers": decision["blockers"],
+        "warnings": decision["warnings"],
         "gate_status": gate["gate_status"],
         "cli_command": "reported_by_cli",
-        "cli_result": "PASS_DECISION_EVALUATED_PUBLIC_CANDIDATE_BLOCKED_BY_PACKET",
+        "cli_result": (
+            "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS"
+            if decision["classification"] == PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS
+            else "PASS_DECISION_EVALUATED_PUBLIC_CANDIDATE_BLOCKED_BY_PACKET"
+        ),
         "output_files": [
             str(output / "operator_decision_packet_v1.json"),
             str(output / "public_candidate_gate_v1.json"),
@@ -375,10 +503,14 @@ def write_operator_decision_outputs(
         ],
         "exact_next_recommended_task": "TASK_CC_MAIN_REPO_PUBLIC_ELIGIBLE_ARTIFACT_PACKET_DQR_CLEARANCE_OR_CONTENTOPS_FUTURE_PACKET_REHEARSAL",
     }
+    if public_override_paths:
+        evidence["public_permissive_preview_paths"] = {key: str(value) for key, value in public_override_paths.items()}
+        evidence["exact_next_recommended_task"] = "controlled live dispatch under operator public override"
     _write_json(output / "decision_evidence_v1.json", evidence)
     return {
         "decision_packet": decision,
         "gate_packet": gate,
         "rehearsal_envelope": envelope,
         "evidence": evidence,
+        "public_permissive_paths": public_override_paths,
     }

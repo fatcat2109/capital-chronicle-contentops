@@ -14,6 +14,7 @@ from live_contentops.cc_artifact_packet_operator_decision_v1 import (
     write_operator_decision_outputs,
 )
 from live_contentops.cc_artifact_packet_public_candidate_gate_v1 import (
+    PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS,
     PUBLIC_CANDIDATE_BLOCKED_BY_PACKET,
     evaluate_public_candidate_gate,
 )
@@ -140,10 +141,48 @@ def test_operator_go_does_not_override_dqr_candidate_or_publish_eligibility() ->
     assert decision["public_ready"] is False
 
 
+def test_operator_public_override_allows_candidate_commentary_with_caveats() -> None:
+    artifacts = _artifacts()
+    decision = build_operator_decision_packet(
+        _packet(),
+        artifacts["internal_draft"],
+        artifacts["intake_summary"],
+        artifacts["rehearsal_intent"],
+        approval_hash_file=artifacts["approval_hash_file"],
+        operator_public_override=True,
+        public_mode="candidate_commentary",
+    )
+    assert decision["classification"] == PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS
+    assert decision["public_ready"] is True
+    assert decision["dispatch_allowed_now"] is False
+    assert decision["operator_public_override_received"] is True
+    assert "dqr_status_not_clear:BLOCKED" in decision["converted_blockers_to_warnings"]
+    assert not decision["blockers"]
+    assert "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply." in decision["mandatory_disclaimer"]
+
+
 def test_gate_emits_blocked_by_packet_for_current_sample() -> None:
     gate = evaluate_public_candidate_gate(_decision())
     assert gate["gate_status"] == PUBLIC_CANDIDATE_BLOCKED_BY_PACKET
     assert gate["dispatch_allowed_now"] is False
+
+
+def test_gate_emits_allowed_with_caveats_for_operator_public_override() -> None:
+    artifacts = _artifacts()
+    decision = build_operator_decision_packet(
+        _packet(),
+        artifacts["internal_draft"],
+        artifacts["intake_summary"],
+        artifacts["rehearsal_intent"],
+        approval_hash_file=artifacts["approval_hash_file"],
+        operator_public_override=True,
+        public_mode="candidate_commentary",
+    )
+    gate = evaluate_public_candidate_gate(decision)
+    assert gate["gate_status"] == PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS
+    assert gate["public_ready"] is True
+    assert gate["dispatch_allowed_now"] is False
+    assert gate["requires_separate_live_task"] is True
 
 
 def test_operator_review_preview_and_outputs_are_generated(tmp_path: Path) -> None:
@@ -164,6 +203,25 @@ def test_operator_review_preview_and_outputs_are_generated(tmp_path: Path) -> No
     preview = (tmp_path / "operator_review_preview_v1.md").read_text(encoding="utf-8")
     assert "Jim GO was received" in preview
     assert "DQR status: `BLOCKED`" in preview
+
+
+def test_operator_public_override_writes_public_preview_artifacts(tmp_path: Path) -> None:
+    result = write_operator_decision_outputs(
+        packet=_packet(),
+        artifacts=_artifacts(),
+        output_dir=tmp_path / "decision",
+        operator_public_override=True,
+        public_mode="candidate_commentary",
+        public_preview_output_dir=tmp_path / "public_preview",
+        packet_path=SAMPLE_PATH,
+        intake_dir=INTAKE_DIR,
+    )
+    assert result["gate_packet"]["gate_status"] == PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS
+    assert (tmp_path / "public_preview" / "public_override_decision_v0.json").exists()
+    assert (tmp_path / "public_preview" / "candidate_public_preview_v0.md").exists()
+    assert (tmp_path / "public_preview" / "candidate_platform_payloads_v0.json").exists()
+    assert (tmp_path / "public_preview" / "caveat_disclaimer_block_v0.md").exists()
+    assert (tmp_path / "public_preview" / "public_permissive_evidence_v0.json").exists()
 
 
 def test_cli_writes_outputs_and_exits_zero_for_blocked_packet(tmp_path: Path) -> None:
@@ -190,10 +248,40 @@ def test_cli_writes_outputs_and_exits_zero_for_blocked_packet(tmp_path: Path) ->
     assert (tmp_path / "decision_evidence_v1.json").exists()
 
 
+def test_cli_public_override_writes_preview_artifacts_and_exits_zero(tmp_path: Path) -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/decide_cc_artifact_public_candidate_v1.py",
+            "--intake-dir",
+            str(INTAKE_DIR),
+            "--packet",
+            str(SAMPLE_PATH),
+            "--output-dir",
+            str(tmp_path / "decision"),
+            "--operator-public-override",
+            "--public-mode",
+            "candidate_commentary",
+            "--public-preview-output-dir",
+            str(tmp_path / "public_preview"),
+        ],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr
+    assert "gate_status=PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS" in result.stdout
+    assert "public_ready=true" in result.stdout
+    assert "public_dispatch_performed=false" in result.stdout
+    assert (tmp_path / "public_preview" / "public_permissive_evidence_v0.json").exists()
+
+
 def test_no_platform_network_env_main_repo_or_source_brain_paths_added() -> None:
     source_paths = [
         ROOT / "live_contentops" / "cc_artifact_packet_operator_decision_v1.py",
         ROOT / "live_contentops" / "cc_artifact_packet_public_candidate_gate_v1.py",
+        ROOT / "live_contentops" / "public_permissive_supervised_mode_v0.py",
         ROOT / "scripts" / "decide_cc_artifact_public_candidate_v1.py",
     ]
     forbidden_snippets = [

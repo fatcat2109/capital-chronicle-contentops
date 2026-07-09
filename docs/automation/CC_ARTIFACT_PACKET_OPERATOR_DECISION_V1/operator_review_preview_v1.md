@@ -1,8 +1,8 @@
 # CC Artifact Packet Operator Decision V1
 
-Classification: `PASS_OPERATOR_DECISION_GATE_BLOCKED_BY_PACKET_ELIGIBILITY`
+Classification: `PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS`
 
-Jim GO was received for the local operator-decision task only. It did not override DQR, candidate-only, publish-eligibility, approval-hash, duplicate/public-freeze, or platform safety gates.
+Operator public override was received for candidate commentary preview only. DQR/candidate/internal-only states are visible warnings, not hidden caveats; live dispatch still requires a separate exact task.
 
 ## Packet
 
@@ -12,18 +12,28 @@ Jim GO was received for the local operator-decision task only. It did not overri
 - Candidate only: `True`
 - Publish eligibility: `internal_draft_only`
 - Source quality: `degraded (success_files=92, active_failures=6)`
-- Public ready: `false`
+- Public ready: `true`
+- Dispatch allowed now: `false`
+- Public mode: `candidate_commentary`
 
 ## Blockers
 
-- `dqr_status_not_clear:BLOCKED`
-- `candidate_only_true`
-- `publish_eligibility_internal_draft_only`
-- `source_quality_degraded_or_blocked`
-- `packet_caveats_internal_or_non_authoritative`
-- `limitations_include_dqr_blocked`
-- `public_freeze_duplicate_status_not_checked`
-- `live_provider_or_platform_path_forbidden_in_this_task`
+- None
+
+## Warnings
+
+- `operator_public_override_received_for_candidate_commentary_preview_only`
+- `converted_block_to_warning:dqr_status_not_clear:BLOCKED`
+- `converted_block_to_warning:candidate_only_true`
+- `converted_block_to_warning:publish_eligibility_internal_draft_only`
+- `converted_block_to_warning:source_quality_degraded_or_blocked`
+- `converted_block_to_warning:packet_caveats_internal_or_non_authoritative`
+- `converted_block_to_warning:limitations_include_dqr_blocked`
+- `converted_block_to_warning:public_freeze_duplicate_status_not_checked`
+- `converted_block_to_warning:live_provider_or_platform_path_forbidden_in_this_task`
+- `candidate_commentary_only_not_exact_analysis`
+- `live_dispatch_requires_separate_exact_task`
+- `post_dispatch_readback_required_if_future_live_task_runs`
 
 ## Forbidden Use Notes
 
@@ -37,4 +47,6 @@ Jim GO was received for the local operator-decision task only. It did not overri
 
 ## Required Operator Action
 
-Keep this packet internal/manual-review only. Return to the Capital Chronicle main repo/database exporter for a future public-eligible artifact packet once DQR/source gates support it. Public/live candidate work requires a separate exact operator-GO task.
+- Keep all candidate/proxy and DQR caveats visible in every public payload.
+- Confirm duplicate guard and payload hash before any future live task.
+- Use a separate exact live-dispatch task for any platform API or browser/CDP execution.
