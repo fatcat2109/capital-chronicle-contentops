@@ -1,0 +1,35 @@
+{
+  "task_label": "TASK_CONTENTOPS_SUPPORT_AWARE_ARTICLE_IDEA_RESELECTION_V0",
+  "original_selected_idea": {
+    "selected_idea_id": "idea_macro_policy_rates_liquidity_20260709",
+    "selected_title": "Japan's Debt Crisis: Yield and Currency Gap Widens as Intervention Fails",
+    "selected_topic_family": "macro_policy_rates_liquidity"
+  },
+  "original_idea_blocked": true,
+  "original_block_reason": "insufficient trusted database support",
+  "do_not_draft_original_idea": true,
+  "reselected_idea_id": "idea_energy_commodities_20260709",
+  "reselected_title": "US Oil Export Surge: Production and SPR Dynamics Reshape Global Markets",
+  "reselected_topic_family": "energy_commodities",
+  "reselected_angle": "Analyzing the rapid growth of US crude oil exports, current domestic production heights, and strategic petroleum reserve dynamics.",
+  "supporting_headline_ids": [
+    "78d38021a9eae8bd51a35044",
+    "758e08735141150ee4a2a174",
+    "fd4ef3711d8581596dead0cc",
+    "4bd3540084c028939210f95f",
+    "de3060d5c3b1a544aff6aa72"
+  ],
+  "why_reselected": "Selected cluster energy_commodities because it has strong topic relevance, high source diversity, and leverages existing, DQR-cleared database series (EIA Crude exports, SPR inventory, WTI Spot) in the Capital Chronicle repository, avoiding the missing or partial macro/liquidity data series.",
+  "expected_support_families": [
+    "US Crude Oil Exports (EIA)",
+    "WTI Crude Spot Price",
+    "SPR Inventory Levels"
+  ],
+  "support_confidence": "high",
+  "ready_for_article_brief": true,
+  "no_database_repair_confirmation": true,
+  "no_article_draft_confirmation": true,
+  "no_media_confirmation": true,
+  "no_platform_write_confirmation": true,
+  "no_dispatch_confirmation": true
+}
