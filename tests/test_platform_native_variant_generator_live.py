@@ -187,6 +187,64 @@ def test_dry_run_variant_generation_uses_committed_media_fixtures_without_networ
     assert "committed_source_backed_visual_pack_selected" in notes
 
 
+@patch("live_contentops.platform_native_variant_generator_live_v6.execute_google_image_search_and_download")
+def test_dry_run_fed_funds_variant_generates_rates_pack_without_oil_media(mock_search_download, tmp_path):
+    mock_search_download.side_effect = AssertionError("dry-run must not call image search")
+    body = " ".join(["fed funds policy corridor IORB SOFR treasury rates source-backed evidence context."] * 260)
+    article_packet_file = tmp_path / "canonical_article_packet.json"
+    article_packet_file.write_text(json.dumps({
+        "packet_id": "art_fed_funds_dry_run",
+        "operator_idea_id": "idea_fed_funds_dry_run",
+        "canonical_article_draft": {
+            "title": "Fed Funds at 3.63 Percent: Reading the Policy Corridor Without Overreach",
+            "subtitle": "Current effective federal funds rate and policy corridor context",
+            "intro": body,
+            "sections": [
+                {"title": "Why This Rate Matters Now", "body": body},
+                {"title": "The Policy Corridor: Range, Midpoint, and Administered Rates", "body": body},
+                {"title": "SOFR Is Related Context, Not the Same Signal", "body": body},
+            ],
+            "conclusion": body,
+            "visual_slots": [
+                {"asset_id": "primary", "placement_after_section": "intro"},
+                {"asset_id": "policy_corridor", "placement_after_section": "The Policy Corridor: Range, Midpoint, and Administered Rates"},
+                {"asset_id": "sofr_context", "placement_after_section": "SOFR Is Related Context, Not the Same Signal"},
+            ],
+        },
+    }), encoding="utf-8")
+
+    with patch(
+        "live_contentops.platform_native_variant_generator_live_v6.os.environ.get",
+        side_effect=AssertionError("dry-run must not read env values"),
+    ):
+        packet = generate_live_platform_variants(article_packet_path=article_packet_file, output_dir=tmp_path, live_run=False)
+
+    mock_search_download.assert_not_called()
+    assert packet["dry_run_image_search_isolated"] is True
+    assert packet["image_search_network_attempted"] is False
+    assert packet["source_backed_generation_network_attempted"] is False
+    assert packet["dry_run_fixture_media_used"] is True
+    assert packet["media_manifest"]["media_diversification_audit"]["audit_status"] == "PASS"
+    asset_blob = json.dumps(packet["media_manifest"]["media_assets"]).lower()
+    assert "fed_funds_policy_corridor_context" in asset_blob
+    assert "fed_funds_policy_floor_context" in asset_blob
+    assert "fed_funds_sofr_context" in asset_blob
+    assert "temporary_contentops_fallback_fixture" in asset_blob
+    assert "future_capital_chronicle_database_authority" in asset_blob
+    assert "wti" not in asset_blob
+    assert "hormuz" not in asset_blob
+    assert "crude" not in asset_blob
+    assert "[[VISUAL:primary]]" in packet["variants"]["substack"]
+    assert "[[VISUAL:policy_corridor]]" in packet["variants"]["substack"]
+    assert "[[VISUAL:sofr_context]]" in packet["variants"]["substack"]
+    notes = packet["media_manifest"]["media_content_audit"]["replacement_notes"]
+    assert "dry_run_image_search_skipped_network_isolated" in notes
+    assert (
+        "local_source_backed_rates_visual_pack_generated" in notes
+        or "committed_source_backed_visual_pack_selected" in notes
+    )
+
+
 @patch("live_contentops.platform_native_variant_generator_live_v6.build_current_macro_visual_pack")
 @patch("live_contentops.platform_native_variant_generator_live_v6.execute_google_image_search_and_download")
 def test_stale_search_visual_is_replaced_with_source_backed_pack(mock_search_download, mock_source_pack, tmp_path):

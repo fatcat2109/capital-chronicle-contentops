@@ -25,8 +25,14 @@ WORD_RE = re.compile(r"\b[\w'-]+\b")
 EIA_WTI_SOURCE_URL = "https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm"
 EIA_HORMUZ_CONTEXT_URL = "https://www.eia.gov/todayinenergy/detail.php?id=65504"
 WTI_FRED_SERIES_URL = "https://fred.stlouisfed.org/series/DCOILWTICO"
+DFF_FRED_SERIES_URL = "https://fred.stlouisfed.org/series/DFF"
+DFF_FRED_CSV_URL = "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFF"
 FED_MONETARY_POLICY_URL = "https://www.federalreserve.gov/monetarypolicy.htm"
 FED_H15_URL = "https://www.federalreserve.gov/releases/h15/"
+FED_OPENMARKET_URL = "https://www.federalreserve.gov/monetarypolicy/openmarket.htm"
+FED_IORB_URL = "https://www.federalreserve.gov/monetarypolicy/reserve-balances.htm"
+FED_IMPLEMENTATION_NOTE_URL = "https://www.federalreserve.gov/newsevents/pressreleases/monetary20251210a1.htm"
+NYFED_SOFR_URL = "https://www.newyorkfed.org/markets/reference-rates/sofr"
 TREASURY_RATE_STATISTICS_URL = "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
 BLS_CPI_URL = "https://www.bls.gov/cpi/"
 
@@ -159,6 +165,23 @@ def _topic_needs_wti_evidence(inputs: EngineInput) -> bool:
     return any(term in text for term in ("oil", "wti", "crude", "energy"))
 
 
+def _topic_needs_fed_funds_evidence(inputs: EngineInput) -> bool:
+    text = f"{inputs.operator_idea} {inputs.editorial_angle} {' '.join(inputs.source_context)}".lower()
+    terms = (
+        "effective fed funds",
+        "fed funds rate",
+        "federal funds",
+        "policy corridor",
+        "iorb",
+        "sofr",
+        "overnight rate",
+        "overnight rates",
+        "fomc target",
+        "rates candidate",
+    )
+    return any(term in text for term in terms)
+
+
 def _pct_change(latest: float, prior: float) -> float | None:
     if prior == 0:
         return None
@@ -259,6 +282,55 @@ def _build_wti_dry_run_fixture_evidence(inputs: EngineInput) -> dict[str, Any] |
     }
 
 
+def _build_fed_funds_dry_run_fixture_evidence(inputs: EngineInput) -> dict[str, Any] | None:
+    if not _topic_needs_fed_funds_evidence(inputs):
+        return None
+    return {
+        "kind": "fed_funds_policy_rates",
+        "content_authority_scope": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
+        "future_numeric_source_authority": "FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY",
+        "contentops_source_truth_boundary": (
+            "This deterministic rates pack exists only to keep dry-run/public-candidate readiness from inheriting stale oil media. "
+            "It is not a new ContentOps-owned macro source-ingestion lane."
+        ),
+        "future_cc_artifact_requirement": "ContentOps must later consume a CC_CONTENT_ARTIFACT_PACKET with approved numeric anchors, sources, charts, media, limitations, freshness, source quality, and publish eligibility.",
+        "no_new_source_family_rule": "Do not add more source families directly to ContentOps without explicit approval.",
+        "series_id": "DFF",
+        "source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+        "source_url": DFF_FRED_SERIES_URL,
+        "csv_url": DFF_FRED_CSV_URL,
+        "h15_url": FED_H15_URL,
+        "fed_openmarket_url": FED_OPENMARKET_URL,
+        "iorb_url": FED_IORB_URL,
+        "implementation_note_url": FED_IMPLEMENTATION_NOTE_URL,
+        "nyfed_sofr_url": NYFED_SOFR_URL,
+        "latest_date": "2026-07-07",
+        "latest_year": 2026,
+        "latest_value": 3.63,
+        "prior_date": "2026-07-06",
+        "prior_value": 3.63,
+        "daily_change_bps": 0.0,
+        "target_lower": 3.50,
+        "target_upper": 3.75,
+        "target_midpoint": 3.625,
+        "effr_vs_midpoint_bps": 0.5,
+        "iorb_rate": 3.65,
+        "effr_vs_iorb_bps": -2.0,
+        "on_rrp_rate": 3.50,
+        "standing_repo_rate": 3.75,
+        "primary_credit_rate": 3.75,
+        "on_rrp_counterparty_limit_billion": 160,
+        "h15_release_date": "2026-07-08",
+        "two_year_treasury": 3.77,
+        "ten_year_treasury": 4.34,
+        "thirty_year_treasury": 4.92,
+        "sofr_context": "The New York Fed defines SOFR as a broad overnight Treasury repo financing rate and publishes it each business day around 8:00 a.m. ET.",
+        "observation_count_note": "Daily 7-day DFF observations from the official FRED/H.15 source series.",
+        "dry_run_fixture": True,
+        "fixture_source": "official_fed_funds_rates_source_pack_2026_07_08",
+    }
+
+
 def _source_evidence_context(evidence: dict[str, Any] | None) -> str:
     if not evidence:
         return "No structured source evidence is available beyond grounded search snippets."
@@ -275,6 +347,19 @@ def _source_evidence_context(evidence: dict[str, Any] | None) -> str:
             f"90-day change in that proxy was {_fmt_num(evidence['vol_change_90d_pct'])}%.\n"
             f"- Coverage: {evidence['observation_count']} daily observations from {evidence['coverage_start']} through {evidence['coverage_end']}.\n"
             f"- Direction labels for visual review: price={evidence['recent_price_direction']}; volatility={evidence['recent_volatility_direction']}."
+        )
+    if evidence.get("kind") == "fed_funds_policy_rates":
+        return (
+            "Structured source evidence for article and visuals:\n"
+            f"- Source: {evidence['source_label']}.\n"
+            f"- Latest observation: effective federal funds rate was {_fmt_num(evidence['latest_value'], 2)}% on {evidence['latest_date']}, "
+            f"matching {_fmt_num(evidence['prior_value'], 2)}% on {evidence['prior_date']}; daily change {evidence['daily_change_bps']} bps.\n"
+            f"- Policy corridor: target range {_fmt_num(evidence['target_lower'], 2)}% to {_fmt_num(evidence['target_upper'], 2)}%, "
+            f"midpoint {_fmt_num(evidence['target_midpoint'], 3)}%, IORB {_fmt_num(evidence['iorb_rate'], 2)}%, ON RRP {_fmt_num(evidence['on_rrp_rate'], 2)}%, "
+            f"standing repo {_fmt_num(evidence['standing_repo_rate'], 2)}%, and primary credit {_fmt_num(evidence['primary_credit_rate'], 2)}%.\n"
+            f"- H.15 context from {evidence['h15_release_date']}: 2-year Treasury {_fmt_num(evidence['two_year_treasury'], 2)}%, "
+            f"10-year Treasury {_fmt_num(evidence['ten_year_treasury'], 2)}%, and 30-year Treasury {_fmt_num(evidence['thirty_year_treasury'], 2)}%.\n"
+            f"- SOFR context: {evidence['sofr_context']}"
         )
     return json.dumps(evidence, sort_keys=True)
 
@@ -338,6 +423,77 @@ def _source_trail_from_evidence(evidence: dict[str, Any] | None, fallback_urls: 
                 "claim_supported": "Supports the inflation-pass-through watch item when energy volatility is discussed as a macro channel.",
             },
         ]
+    if evidence and evidence.get("kind") == "fed_funds_policy_rates":
+        return [
+            {
+                "label": "FRED DFF daily effective federal funds rate",
+                "publisher_or_origin": "FRED / Board of Governors of the Federal Reserve System",
+                "url": str(evidence["source_url"]),
+                "claim_supported": (
+                    f"Shows the effective federal funds rate at {_fmt_num(evidence['latest_value'], 2)}% on "
+                    f"{evidence['latest_date']} and {_fmt_num(evidence['prior_value'], 2)}% on {evidence['prior_date']}."
+                ),
+            },
+            {
+                "label": "FRED DFF downloadable observation file",
+                "publisher_or_origin": "FRED CSV derived calculation",
+                "url": str(evidence["csv_url"]),
+                "claim_supported": (
+                    f"Supports the 0.0 bps day-over-day comparison and source-backed chart construction for "
+                    f"the DFF daily rate endpoint through {evidence['latest_date']}."
+                ),
+            },
+            {
+                "label": "Federal Reserve H.15 selected interest rates",
+                "publisher_or_origin": "Federal Reserve Board",
+                "url": str(evidence["h15_url"]),
+                "claim_supported": (
+                    f"Supports the H.15 rates context for {evidence['h15_release_date']}, including Treasury-rate "
+                    f"context used to separate overnight policy rates from longer-market yields."
+                ),
+            },
+            {
+                "label": "Federal Reserve open market operations policy tools",
+                "publisher_or_origin": "Federal Reserve Board",
+                "url": str(evidence["fed_openmarket_url"]),
+                "claim_supported": (
+                    f"Supports the target-range discussion: {_fmt_num(evidence['target_lower'], 2)}% to "
+                    f"{_fmt_num(evidence['target_upper'], 2)}%, with standing repo and ON RRP tools framing the corridor."
+                ),
+            },
+            {
+                "label": "Federal Reserve interest on reserve balances",
+                "publisher_or_origin": "Federal Reserve Board",
+                "url": str(evidence["iorb_url"]),
+                "claim_supported": (
+                    f"Supports the IORB explanation and the {_fmt_num(evidence['iorb_rate'], 2)}% operational setting used "
+                    "to steer the effective federal funds rate within the target range."
+                ),
+            },
+            {
+                "label": "Federal Reserve implementation note",
+                "publisher_or_origin": "Federal Reserve Board",
+                "url": str(evidence["implementation_note_url"]),
+                "claim_supported": (
+                    f"Supports the operational corridor settings: IORB {_fmt_num(evidence['iorb_rate'], 2)}%, "
+                    f"ON RRP {_fmt_num(evidence['on_rrp_rate'], 2)}%, standing repo {_fmt_num(evidence['standing_repo_rate'], 2)}%, "
+                    f"primary credit {_fmt_num(evidence['primary_credit_rate'], 2)}%, and ON RRP counterparty limit "
+                    f"${evidence['on_rrp_counterparty_limit_billion']} billion per day."
+                ),
+            },
+            {
+                "label": "New York Fed SOFR reference-rate methodology",
+                "publisher_or_origin": "Federal Reserve Bank of New York",
+                "url": str(evidence["nyfed_sofr_url"]),
+                "claim_supported": "Supports the SOFR context explaining why secured overnight financing rates are adjacent to, but distinct from, the fed-funds market.",
+            },
+            {
+                "label": "U.S. Treasury interest-rate statistics",
+                "publisher_or_origin": "U.S. Department of the Treasury",
+                "url": TREASURY_RATE_STATISTICS_URL,
+                "claim_supported": "Supports the article's distinction between overnight policy rates and broader Treasury-rate context for public-market interpretation.",
+            },
+        ]
     return _source_trail_from_urls(urls)
 
 
@@ -347,6 +503,30 @@ def _source_urls_from_trail(source_trail: list[dict[str, Any]] | None) -> list[s
         for item in (source_trail or [])
         if isinstance(item, dict) and str(item.get("url") or "").startswith(("http://", "https://"))
     ])
+
+
+def _content_authority_scope(evidence: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not evidence or evidence.get("kind") != "fed_funds_policy_rates":
+        return None
+    return {
+        "scope_label": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
+        "future_authority_label": "FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY",
+        "contentops_role": "temporary deterministic fallback fixture for dry-run/public-candidate readiness only",
+        "future_required_input": "CC_CONTENT_ARTIFACT_PACKET",
+        "future_required_fields": [
+            "topic",
+            "source_trail",
+            "numeric_anchors",
+            "chart_specs",
+            "media_assets",
+            "limitations",
+            "freshness",
+            "source_quality",
+            "publish_eligibility",
+        ],
+        "boundary": "ContentOps does not become the source truth owner for Fed/FRED/NY Fed/Treasury rates data.",
+        "no_new_source_family_rule": "No additional source families should be added directly to ContentOps unless explicitly approved.",
+    }
 
 
 def _reader_safe_public_text(text: str) -> str:
@@ -381,6 +561,8 @@ def _reader_safe_public_text(text: str) -> str:
 
 def _derive_target_keyword(inputs: EngineInput, draft_title: str = "") -> str:
     text = f"{inputs.operator_idea} {inputs.editorial_angle} {draft_title}".lower()
+    if _topic_needs_fed_funds_evidence(inputs):
+        return "effective fed funds rate policy corridor"
     if any(term in text for term in ("oil", "wti", "crude", "energy")) and "recession" in text:
         return "oil volatility recession risk"
     if "yield" in text and "recession" in text:
@@ -726,6 +908,336 @@ def _source_backed_longform_article(
     }
 
 
+def _source_backed_fed_funds_longform_article(
+    inputs: EngineInput,
+    *,
+    evidence: dict[str, Any] | None,
+    search_context: str,
+    citations: list[str],
+    base_candidate: dict[str, Any] | None = None,
+) -> dict[str, Any] | None:
+    del search_context
+    if not evidence or evidence.get("kind") != "fed_funds_policy_rates":
+        return None
+
+    title = str((base_candidate or {}).get("title") or "Fed Funds at 3.63 Percent: Reading the Policy Corridor Without Overreach")
+    if len(title.split()) < 5 or title.lower() in {"short", "feature title"}:
+        title = "Fed Funds at 3.63 Percent: Reading the Policy Corridor Without Overreach"
+    subtitle = "A source-led Capital Chronicle briefing on the effective fed funds rate, policy corridor, SOFR context, and evidence limits"
+    slug = "fed-funds-rate-policy-corridor-363-percent"
+    dek = (
+        "The effective fed funds rate was 3.63% on July 7, 2026, unchanged from July 6; the useful story is how that "
+        "overnight rate sits inside the Federal Reserve's operating corridor, not a market prediction."
+    )
+    meta_description = (
+        "Capital Chronicle explains the 3.63% effective fed funds rate, Fed policy corridor, IORB, SOFR context, "
+        "Treasury rates, and source limits."
+    )
+
+    latest_rate = _fmt_num(evidence["latest_value"], 2)
+    prior_rate = _fmt_num(evidence["prior_value"], 2)
+    latest_date = str(evidence["latest_date"])
+    prior_date = str(evidence["prior_date"])
+    daily_change = _fmt_num(evidence["daily_change_bps"], 1)
+    target_lower = _fmt_num(evidence["target_lower"], 2)
+    target_upper = _fmt_num(evidence["target_upper"], 2)
+    target_midpoint = _fmt_num(evidence["target_midpoint"], 3)
+    iorb_rate = _fmt_num(evidence["iorb_rate"], 2)
+    on_rrp_rate = _fmt_num(evidence["on_rrp_rate"], 2)
+    standing_repo_rate = _fmt_num(evidence["standing_repo_rate"], 2)
+    primary_credit_rate = _fmt_num(evidence["primary_credit_rate"], 2)
+    effr_vs_mid = _fmt_num(evidence["effr_vs_midpoint_bps"], 1)
+    effr_vs_iorb = _fmt_num(evidence["effr_vs_iorb_bps"], 1)
+    on_rrp_limit = str(evidence["on_rrp_counterparty_limit_billion"])
+    two_year = _fmt_num(evidence["two_year_treasury"], 2)
+    ten_year = _fmt_num(evidence["ten_year_treasury"], 2)
+    thirty_year = _fmt_num(evidence["thirty_year_treasury"], 2)
+    h15_date = str(evidence["h15_release_date"])
+
+    intro = "\n\n".join([
+        _paragraph(
+            "Capital Chronicle is treating the fresh fed-funds headline as a rates-plumbing story before it is a market story.",
+            f"The official FRED DFF series shows the effective federal funds rate at {latest_rate}% on {latest_date}.",
+            f"The prior daily observation was {prior_rate}% on {prior_date}, so the day-over-day move in this selected headline is {daily_change} bps.",
+            "That flat daily comparison may look quiet, but quiet overnight rates can still carry useful information when they are placed inside the policy framework that guides them.",
+        ),
+        _paragraph(
+            f"The current corridor frame is specific: the target range is {target_lower}% to {target_upper}%, with a midpoint of {target_midpoint}%.",
+            f"The article also uses the Federal Reserve's operational settings: IORB at {iorb_rate}%, the ON RRP offering rate at {on_rrp_rate}%, standing repo operations at {standing_repo_rate}%, and the primary credit rate at {primary_credit_rate}%.",
+            f"Those figures explain why a {latest_rate}% effective rate is not just a single number on a chart; it is a market-clearing outcome inside an administered-rate system.",
+        ),
+        _paragraph(
+            "The purpose is educational analysis.",
+            "This article does not infer a market instruction, a recession verdict, or a forecast from one overnight-rate observation.",
+            "It explains what the effective fed funds rate measures, how the policy corridor shapes it, why SOFR is adjacent context rather than the same market, and what public readers should check next when rates evidence changes.",
+        ),
+    ])
+
+    sections = [
+        {
+            "title": "Why This Rate Matters Now",
+            "body": "\n\n".join([
+                _paragraph(
+                    "The news hook is narrow but current.",
+                    f"On {latest_date}, the effective federal funds rate was {latest_rate}%, exactly matching the {prior_rate}% reading from {prior_date}.",
+                    "A flat daily rate can be analytically useful because it shows whether overnight unsecured bank funding is trading consistently with the Federal Reserve's target range.",
+                    "The right editorial move is to avoid dramatizing the daily change while still explaining why the level matters.",
+                ),
+                _paragraph(
+                    f"The {latest_rate}% reading sits only {effr_vs_mid} bps above the {target_midpoint}% midpoint of the {target_lower}% to {target_upper}% target range.",
+                    f"It is also {effr_vs_iorb} bps below the {iorb_rate}% IORB setting.",
+                    "Those small differences are the point of the corridor system: administered rates and money-market operations steer overnight trading toward a desired range rather than letting one market print define policy on its own.",
+                ),
+                _paragraph(
+                    "That framing gives readers a better question than whether the number is exciting.",
+                    "The better question is whether the overnight rate remains orderly relative to the corridor, whether secured funding markets tell a different story, and whether longer Treasury yields are moving for reasons that an overnight policy rate cannot explain.",
+                    "The article answers those questions with source-backed context and clear limits.",
+                ),
+            ]),
+        },
+        {
+            "title": "What the Effective Fed Funds Rate Actually Measures",
+            "body": "\n\n".join([
+                _paragraph(
+                    "The effective federal funds rate is the volume-weighted overnight rate at which depository institutions trade balances held at Federal Reserve Banks.",
+                    "It is not a mortgage rate, not a Treasury yield, and not the full cost of credit for households or companies.",
+                    "It is a short-term unsecured bank-funding rate that sits close to the center of U.S. monetary-policy implementation.",
+                ),
+                _paragraph(
+                    "That distinction matters because the headline can otherwise be overread.",
+                    f"A {latest_rate}% effective rate on {latest_date} does not say that all market rates are {latest_rate}%, and it does not say that every borrower faces the same condition.",
+                    "It says that the overnight federal funds market cleared at that weighted average, and that the reading should be compared with the target range and operational tools that shape it.",
+                ),
+                _paragraph(
+                    "The source trail keeps the claim boundary clean.",
+                    "The FRED DFF page supplies the headline rate and identifies the Federal Reserve's H.15 release as the underlying official release.",
+                    "The article uses that source for the fed-funds number, then uses Fed policy-tool pages and the New York Fed's SOFR methodology page to explain adjacent money-market structure.",
+                ),
+            ]),
+        },
+        {
+            "title": "The Policy Corridor: Range, Midpoint, and Administered Rates",
+            "body": "\n\n".join([
+                _paragraph(
+                    f"The corridor for this briefing is {target_lower}% to {target_upper}%.",
+                    f"The midpoint is {target_midpoint}%, which means the {latest_rate}% effective rate was nearly centered in the target range.",
+                    "That proximity is editorially important because it suggests the article should emphasize implementation mechanics rather than imply a disorderly policy signal.",
+                ),
+                _paragraph(
+                    f"The IORB setting at {iorb_rate}% is one of the core steering tools in this system.",
+                    "Because eligible institutions can earn interest on reserve balances, the IORB rate helps shape the minimum rate at which they are willing to lend funds overnight.",
+                    f"In this source pack, the effective rate at {latest_rate}% is {effr_vs_iorb} bps below IORB, a small spread that belongs in a policy-corridor explanation rather than a sensational lead.",
+                ),
+                _paragraph(
+                    f"The ON RRP offering rate at {on_rrp_rate}% and standing repo operations at {standing_repo_rate}% add floor-and-ceiling context for short-term funding.",
+                    f"The implementation note also records a ${on_rrp_limit} billion per-day counterparty limit for ON RRP operations and a {primary_credit_rate}% primary credit rate.",
+                    "Those are operational details, but they are not trivia: they explain why the effective fed funds rate should be read with the Fed's toolkit in view.",
+                ),
+            ]),
+        },
+        {
+            "title": "SOFR Is Related Context, Not the Same Signal",
+            "body": "\n\n".join([
+                _paragraph(
+                    "SOFR belongs in this article because it is another overnight U.S. dollar funding benchmark, but it is not the same market as federal funds.",
+                    "The New York Fed describes SOFR as a broad measure of the cost of borrowing cash overnight collateralized by Treasury securities.",
+                    "Federal funds trades are unsecured bank-balance trades; SOFR is secured repo financing against Treasury collateral.",
+                ),
+                _paragraph(
+                    "That difference changes interpretation.",
+                    "A secured repo rate can reflect Treasury collateral dynamics, dealer balance-sheet constraints, quarter-end effects, and repo-market technicals.",
+                    "The effective fed funds rate is more directly tied to the Federal Reserve's target-range implementation framework.",
+                    "When the two markets move differently, the article should explain the market structure before treating the divergence as a macro signal.",
+                ),
+                _paragraph(
+                    "For this rehearsal, SOFR is included as contextual methodology rather than as an invented numeric claim.",
+                    "The source pack uses official New York Fed methodology to explain what SOFR measures and when it is published.",
+                    "If a public candidate later needs a same-day SOFR number, the workflow should fetch or verify the official New York Fed rate table and record that observation separately.",
+                ),
+            ]),
+        },
+        {
+            "title": "Longer Rates Can Move for Different Reasons",
+            "body": "\n\n".join([
+                _paragraph(
+                    "Overnight policy rates and longer Treasury yields often belong in the same conversation, but they do not answer the same question.",
+                    f"The H.15 context used here records a 2-year Treasury yield of {two_year}%, a 10-year yield of {ten_year}%, and a 30-year yield of {thirty_year}% on the release date used for the source pack.",
+                    "Those rates sit outside the federal funds market and embed expectations about policy, inflation, real growth, term premium, and supply-demand conditions.",
+                ),
+                _paragraph(
+                    f"That is why the article should not treat {latest_rate}% as a complete description of the rates backdrop.",
+                    "An overnight rate can be stable while the 10-year yield moves because investors are revising inflation expectations, fiscal term premium, duration demand, or expected future policy.",
+                    "A serious article names the link but does not collapse the entire curve into one overnight observation.",
+                ),
+                _paragraph(
+                    "The visual package should show this separation.",
+                    "The primary chart should anchor the effective fed funds rate inside the corridor, while a policy-corridor schematic should explain the toolset.",
+                    "A supporting chart can then place short and long rates into a compact rates-context panel without implying that all of them are controlled by the same mechanism.",
+                ),
+            ]),
+        },
+        {
+            "title": "What the Flat Daily Reading Does and Does Not Prove",
+            "body": "\n\n".join([
+                _paragraph(
+                    f"The strongest statement supported by the headline is simple: {latest_rate}% on {latest_date}, {prior_rate}% on {prior_date}, and {daily_change} bps of day-over-day change.",
+                    "That is a valid current-rate update.",
+                    "It is not, by itself, evidence that inflation is solved, growth is accelerating, bank liquidity is stress-free, or the next policy decision is predetermined.",
+                ),
+                _paragraph(
+                    "The flat reading does support an implementation observation.",
+                    f"With the target range at {target_lower}% to {target_upper}%, the effective rate remains within the policy corridor and close to the midpoint.",
+                    "That tells readers that the overnight federal funds market was aligned with the current operating framework in the selected observation, which is useful but bounded.",
+                ),
+                _paragraph(
+                    "The limits are just as important as the facts.",
+                    "One daily rate does not replace inflation data, labor-market evidence, credit conditions, bank balance-sheet information, or the FOMC's policy statement.",
+                    "A reader should use the fed-funds rate as one node in a rates map, not as a standalone macro verdict.",
+                ),
+            ]),
+        },
+        {
+            "title": "What to Watch Next",
+            "body": "\n\n".join([
+                _paragraph(
+                    "The next useful check is persistence.",
+                    f"If the effective rate stays near {latest_rate}% and inside the {target_lower}% to {target_upper}% range, the basic corridor story remains orderly.",
+                    "If the spread to IORB or the midpoint widens, the article should ask whether the move reflects temporary market plumbing, calendar effects, balance-sheet constraints, or a more durable shift in money-market pricing.",
+                ),
+                _paragraph(
+                    "The second check is cross-market confirmation.",
+                    "SOFR, Treasury bills, repo operations, and Treasury yields can add context, but each source has to be labeled according to what it measures.",
+                    "The New York Fed's secured overnight methodology is not interchangeable with federal funds, and H.15 Treasury yields are not overnight policy rates.",
+                ),
+                _paragraph(
+                    "The third check is policy communication.",
+                    "The Fed's implementation notes, meeting statements, and H.15 updates provide the official frame for the operating range and administered rates.",
+                    "A public article should update the source pack before publication if any of those official pages change after this dry-run rehearsal.",
+                ),
+            ]),
+        },
+        {
+            "title": "Inflation Expectations and Market Pricing: The Boundary Line",
+            "body": "\n\n".join([
+                _paragraph(
+                    "The editorial angle includes inflation expectations and market pricing, so the article should state the boundary line clearly.",
+                    f"A {latest_rate}% effective fed funds rate is a current overnight policy-rate observation, not a direct measure of expected inflation.",
+                    "Inflation expectations should be sourced from inflation-indexed securities, surveys, market-implied breakevens, or central-bank projections when those data are introduced.",
+                    "They should not be inferred mechanically from one DFF print.",
+                ),
+                _paragraph(
+                    "Market pricing has the same discipline requirement.",
+                    f"The 2-year, 10-year, and 30-year Treasury rates in this source pack give a broader rates backdrop on {h15_date}, but they do not convert the DFF headline into a forecast.",
+                    "A later public version can add richer curve evidence, futures pricing, or survey data only if each metric is sourced and each claim is tied to what that source actually measures.",
+                ),
+                _paragraph(
+                    "This is why the repaired article treats the fed-funds rate as a starting point.",
+                    "It can anchor a timely explanation of policy implementation, corridor mechanics, and money-market context.",
+                    "It cannot by itself settle the path for inflation, growth, or the next policy decision.",
+                    "That limit is not a weakness; it is what makes the evidence usable.",
+                ),
+            ]),
+        },
+        {
+            "title": "Editorial Bottom Line",
+            "body": "\n\n".join([
+                _paragraph(
+                    "The clean reading is disciplined and non-sensational.",
+                    f"The effective fed funds rate was {latest_rate}% on {latest_date}, unchanged from {prior_rate}% on {prior_date}.",
+                    f"It sat inside a {target_lower}% to {target_upper}% target range and close to a {target_midpoint}% midpoint, with IORB at {iorb_rate}% and ON RRP at {on_rrp_rate}%.",
+                    "That is enough to explain current rates plumbing; it is not enough to make a broad market call.",
+                ),
+                _paragraph(
+                    "For Capital Chronicle, the editorial standard is to keep each rate in its lane.",
+                    "DFF describes the effective federal funds market, IORB and ON RRP describe operational tools, SOFR describes secured overnight Treasury repo financing, and Treasury yields describe broader curve pricing.",
+                    "The article becomes more useful when it explains those distinctions rather than turning one headline into a sweeping claim.",
+                ),
+                _paragraph(
+                    "That is why the repaired fed-funds candidate needs a rates-specific media pack.",
+                    "The visuals should show the DFF endpoint, the policy corridor, and the adjacent rates context.",
+                    "Commodity-supply visuals from a prior article do not belong in this rates article, even if those assets are already available in the media folder.",
+                ),
+            ]),
+        },
+    ]
+
+    conclusion = "\n\n".join([
+        _paragraph(
+            "The source-backed conclusion is precise: the current headline is a stable fed-funds reading inside a known policy corridor.",
+            f"The official DFF value is {latest_rate}% on {latest_date}, the prior observation is {prior_rate}% on {prior_date}, and the daily change is {daily_change} bps.",
+            f"The corridor evidence adds the {target_lower}% to {target_upper}% target range, {iorb_rate}% IORB, {on_rrp_rate}% ON RRP, {standing_repo_rate}% standing repo, and {primary_credit_rate}% primary credit settings.",
+        ),
+        _paragraph(
+            "The responsible interpretation is bounded.",
+            "The rate helps readers understand policy implementation and overnight funding conditions, but it does not replace broader evidence from inflation, labor, credit, SOFR, repo, or Treasury markets.",
+            "That distinction is exactly what should make the article publishable after dry-run gates: clear source trail, specific numbers, relevant visuals, and no inherited oil media.",
+        ),
+    ])
+
+    intro = _reader_safe_public_text(intro)
+    sections = [
+        {**section, "body": _reader_safe_public_text(str(section.get("body") or ""))}
+        for section in sections
+    ]
+    conclusion = _reader_safe_public_text(conclusion)
+    source_trail = _source_trail_from_evidence(evidence, citations)
+    source_urls = _dedupe_strings([str(item.get("url") or "") for item in source_trail])
+    return {
+        "title": title,
+        "subtitle": subtitle,
+        "slug_candidate": slug,
+        "dek": dek,
+        "meta_description": meta_description,
+        "thesis": "The 3.63% effective fed funds rate is best read as a current policy-corridor signal with clear source limits, not as a standalone market forecast.",
+        "intro": intro,
+        "sections": sections,
+        "conclusion": conclusion,
+        "source_trail": source_trail,
+        "citations": source_urls,
+        "chart_callouts": [
+            f"[CHART: Effective federal funds rate and target corridor through {latest_date}, sourced from FRED DFF and Federal Reserve policy tools]",
+            f"[CHART: Rates context panel showing DFF {latest_rate}%, 2-year Treasury {two_year}%, 10-year Treasury {ten_year}%, and 30-year Treasury {thirty_year}%]",
+        ],
+        "media_callouts": [
+            f"[IMAGE: Source-backed DFF policy-corridor chart ending {latest_date}, aligned with a fed-funds article]",
+            "[IMAGE: Federal Reserve policy-corridor schematic showing IORB, ON RRP, standing repo, and target-range context]",
+            "[IMAGE: NY Fed SOFR context visual explaining secured overnight financing as adjacent rates context]",
+        ],
+        "visual_slots": [
+            {
+                "asset_id": "primary",
+                "placement_after_section": "intro",
+                "visual_kind": "chart",
+                "editorial_purpose": "Anchor the rates setup in the effective fed funds rate and the policy corridor.",
+                "data_requirement": f"FRED DFF through {latest_date}, target range {target_lower}% to {target_upper}%, IORB {iorb_rate}%.",
+                "caption_guidance": f"Name DFF, FRED/Federal Reserve, {latest_rate}% latest rate, {daily_change} bps daily change, and {latest_date} endpoint.",
+                "source_requirement": "FRED DFF plus Federal Reserve H.15 and policy-tool pages.",
+                "audit_questions": "Does the chart end in 2026 and show a fed-funds/rates topic with no oil-family material?",
+            },
+            {
+                "asset_id": "policy_corridor",
+                "placement_after_section": "The Policy Corridor: Range, Midpoint, and Administered Rates",
+                "visual_kind": "policy_diagram",
+                "editorial_purpose": "Explain how administered rates frame the effective federal funds rate.",
+                "data_requirement": f"Target range {target_lower}% to {target_upper}%, IORB {iorb_rate}%, ON RRP {on_rrp_rate}%, standing repo {standing_repo_rate}%.",
+                "caption_guidance": "Explain the corridor, the position of DFF inside it, and the operational tools in plain language.",
+                "source_requirement": "Federal Reserve open market operations, reserve-balance, and implementation-note sources.",
+                "audit_questions": "Does this contextual visual clarify rates policy without using energy or commodity imagery?",
+            },
+            {
+                "asset_id": "sofr_context",
+                "placement_after_section": "SOFR Is Related Context, Not the Same Signal",
+                "visual_kind": "context_chart",
+                "editorial_purpose": "Separate secured overnight financing context from federal funds market interpretation.",
+                "data_requirement": "NY Fed SOFR methodology context and H.15 rates panel for related rate comparison.",
+                "caption_guidance": "Name SOFR as secured Treasury repo financing context and distinguish it from DFF.",
+                "source_requirement": "Federal Reserve Bank of New York SOFR methodology plus H.15 rates context.",
+                "audit_questions": "Does the visual add non-oil rates context and avoid implying an unverified SOFR level?",
+            },
+        ],
+    }
+
+
 def _normalise_visual_slots(raw_slots: Any) -> list[dict[str, str]]:
     if not isinstance(raw_slots, list):
         return []
@@ -1047,14 +1559,27 @@ def run_article_engine(
     citations = []
 
     if provider_mode == "dry_run_fixture":
-        source_evidence = _build_wti_dry_run_fixture_evidence(inputs)
-        repaired = _source_backed_longform_article(
-            inputs,
-            evidence=source_evidence,
-            search_context="offline dry-run headline/scheduler rehearsal fixture",
-            citations=[],
-            base_candidate=None,
-        )
+        source_evidence = _build_fed_funds_dry_run_fixture_evidence(inputs) or _build_wti_dry_run_fixture_evidence(inputs)
+        if source_evidence and source_evidence.get("kind") == "fed_funds_policy_rates":
+            repaired = _source_backed_fed_funds_longform_article(
+                inputs,
+                evidence=source_evidence,
+                search_context="offline dry-run headline/scheduler rehearsal fixture",
+                citations=[],
+                base_candidate=None,
+            )
+            repair_model = "dry_run_source_backed_fed_funds_fixture_longform_template"
+            repair_warning = "dry_run_source_backed_fed_funds_fixture_used"
+        else:
+            repaired = _source_backed_longform_article(
+                inputs,
+                evidence=source_evidence,
+                search_context="offline dry-run headline/scheduler rehearsal fixture",
+                citations=[],
+                base_candidate=None,
+            )
+            repair_model = "dry_run_source_backed_wti_fixture_longform_template"
+            repair_warning = "dry_run_source_backed_wti_fixture_used"
         repaired_failures = validate_article_quality(repaired) if repaired else ["source_backed_fixture_unavailable"]
         if repaired and not repaired_failures:
             title = repaired["title"]
@@ -1074,13 +1599,13 @@ def run_article_engine(
             provider_attempts.append({
                 "attempt_index": 1,
                 "provider": "deterministic_article_repair",
-                "model": "dry_run_source_backed_wti_fixture_longform_template",
+                "model": repair_model,
                 "timeout_seconds": 0,
                 "status": "accepted",
                 "failure": None,
             })
             provider_recovery_used = True
-            warnings.append("dry_run_source_backed_wti_fixture_used")
+            warnings.append(repair_warning)
 
     if provider_mode == "live_provider_call":
         if provider_request_budget < 1:
@@ -1112,7 +1637,7 @@ def run_article_engine(
                     citations = [s['url_or_local_reference'] for s in search_results if s['url_or_local_reference']]
                 else:
                     search_context_str = "No search results returned."
-                source_evidence = _build_wti_evidence(inputs)
+                source_evidence = _build_fed_funds_dry_run_fixture_evidence(inputs) or _build_wti_evidence(inputs)
                 if source_evidence:
                     citations = _dedupe_strings([
                         source_evidence.get("source_url", ""),
@@ -1232,13 +1757,24 @@ def run_article_engine(
                         provider_attempts.append(attempt)
                         warnings.append(best_failure[0])
                 else:
-                    repaired = _source_backed_longform_article(
-                        inputs,
-                        evidence=source_evidence,
-                        search_context=search_context_str,
-                        citations=citations,
-                        base_candidate=best_candidate,
-                    )
+                    if source_evidence and source_evidence.get("kind") == "fed_funds_policy_rates":
+                        repaired = _source_backed_fed_funds_longform_article(
+                            inputs,
+                            evidence=source_evidence,
+                            search_context=search_context_str,
+                            citations=citations,
+                            base_candidate=best_candidate,
+                        )
+                        repair_model = "source_backed_fed_funds_longform_template"
+                    else:
+                        repaired = _source_backed_longform_article(
+                            inputs,
+                            evidence=source_evidence,
+                            search_context=search_context_str,
+                            citations=citations,
+                            base_candidate=best_candidate,
+                        )
+                        repair_model = "source_backed_wti_longform_template"
                     repaired_failures = validate_article_quality(repaired) if repaired else ["source_backed_repair_unavailable"]
                     if repaired and not repaired_failures:
                         title = repaired["title"]
@@ -1258,13 +1794,13 @@ def run_article_engine(
                         provider_attempts.append({
                             "attempt_index": len(provider_attempts) + 1,
                             "provider": "deterministic_article_repair",
-                            "model": "source_backed_wti_longform_template",
+                            "model": repair_model,
                             "timeout_seconds": 0,
                             "status": "accepted",
                             "failure": None,
                         })
                         provider_recovery_used = True
-                        warnings.append("article_provider_repair_used:source_backed_wti_longform_template")
+                        warnings.append(f"article_provider_repair_used:{repair_model}")
                     else:
                         recovery = make_deterministic_recovery_article(inputs, search_context_str)
                         recovery_failures = validate_article_quality(recovery)
@@ -1282,6 +1818,7 @@ def run_article_engine(
 
 
     source_evidence_for_cleanup = locals().get("source_evidence")
+    authority_scope = _content_authority_scope(source_evidence_for_cleanup)
     final_source_trail = locals().get("source_trail", _source_trail_from_urls(citations))
     if source_evidence_for_cleanup:
         final_source_trail = _source_trail_from_evidence(source_evidence_for_cleanup, [])
@@ -1306,6 +1843,7 @@ def run_article_engine(
         "no_fake_data_check": True,
         "citations": citations if citations else ["UNVERIFIED_SAMPLE_SOURCE_REF"],
         "source_trail": final_source_trail,
+        "content_authority_scope": authority_scope,
         "chart_callouts": locals().get("chart_callouts", ["[CHART: relevant macro series from approved local data]"]),
         "media_callouts": locals().get("media_callouts", ["[IMAGE: relevant news/photo visual with operator-reviewed rights]"]),
         "visual_slots": locals().get("visual_slots", visual_slots),
@@ -1325,6 +1863,7 @@ def run_article_engine(
     grounding = {
         "cited_source_notes": ", ".join(citations) if citations else (", ".join(inputs.source_context) if provider_mode == "dry_run_fixture" else "cited from dynamic model query"),
         "source_quality": {"quality_score": "verified_operator_supplied" if citations else "unverified_operator_supplied", "relevance": "high"},
+        "content_authority_scope": authority_scope,
         "unsupported_claims": unsupported_claims,
         "required_human_review_items": ["Verify H.15 raw series", "Confirm risk disclaimer presence"],
         "no_fabricated_market_numbers": True,
@@ -1369,7 +1908,8 @@ def run_article_engine(
 
     evidence = {
         "dry_run_provenance": "deterministic_local_engine_run",
-        "redaction_verified": True
+        "redaction_verified": True,
+        "content_authority_scope": authority_scope,
     }
 
     packet_id = "article_engine_packet_" + draft["canonical_payload_hash"][:16]

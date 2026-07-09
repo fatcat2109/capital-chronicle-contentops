@@ -5,6 +5,7 @@ import pytest
 
 from live_contentops.ai_research_canonical_article_engine_v6 import (
     EngineInput,
+    article_plain_text,
     check_financial_advice,
     run_article_engine,
     validate_article_quality,
@@ -196,4 +197,46 @@ def test_oil_dry_run_fixture_uses_source_backed_longform_without_fred_network(mo
     assert "dry_run_source_backed_wti_fixture_used" in packet["warnings"]
     assert validate_article_quality(draft) == []
     assert draft["body_word_count"] >= 2000
+    assert audit_editorial_quality_packet(packet, topic=inputs.operator_idea)["classification"] == "EDITORIAL_APPROVED"
+
+
+def test_fed_funds_dry_run_fixture_uses_source_backed_longform_without_unverified_refs(monkeypatch):
+    def fail_fred_read(*_args, **_kwargs):
+        raise AssertionError("fed-funds dry-run fixture must not fetch oil/FRED network data")
+
+    monkeypatch.setattr("live_contentops.media_content_audit_v6._read_fred_csv", fail_fred_read)
+    inputs = EngineInput(
+        operator_idea="Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+        target_audience="general_financial_education",
+        editorial_angle="Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+        source_context=[],
+        risk_disclaimer_policy="V6_EDUCATIONAL_DISCLAIMER",
+        output_style="educational_process_heavy",
+    )
+
+    packet = run_article_engine(inputs, provider_mode="dry_run_fixture")
+    draft = packet["canonical_article_draft"]
+    body = article_plain_text(draft).lower()
+    source_blob = json.dumps(draft["source_trail"]).lower()
+
+    assert packet["provider_call_made"] is False
+    assert packet["provider_recovery_used"] is True
+    assert packet["provider_attempts"][-1]["model"] == "dry_run_source_backed_fed_funds_fixture_longform_template"
+    assert "dry_run_source_backed_fed_funds_fixture_used" in packet["warnings"]
+    assert validate_article_quality(draft) == []
+    assert draft["body_word_count"] >= 2000
+    assert len(draft["sections"]) >= 5
+    assert len(draft["visual_slots"]) == 3
+    assert "unverified_sample_source_ref" not in json.dumps(draft).lower()
+    assert draft["content_authority_scope"]["scope_label"] == "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE"
+    assert draft["content_authority_scope"]["future_authority_label"] == "FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY"
+    assert draft["content_authority_scope"]["future_required_input"] == "CC_CONTENT_ARTIFACT_PACKET"
+    assert packet["research_grounding_packet"]["content_authority_scope"]["boundary"].startswith("ContentOps does not become")
+    assert "fred.stlouisfed.org/series/dff" in source_blob
+    assert "federalreserve.gov/releases/h15" in source_blob
+    assert "newyorkfed.org/markets/reference-rates/sofr" in source_blob
+    assert "3.63%" in body
+    assert "3.50%" in body and "3.75%" in body and "3.65%" in body
+    assert "wti" not in body and "hormuz" not in body and "crude" not in body
+    assert packet["seo_packet"]["target_keyword"] == "effective fed funds rate policy corridor"
     assert audit_editorial_quality_packet(packet, topic=inputs.operator_idea)["classification"] == "EDITORIAL_APPROVED"

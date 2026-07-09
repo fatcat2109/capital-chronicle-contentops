@@ -77,6 +77,59 @@ def test_media_manifest_rejects_chart_only_package(tmp_path):
     assert "media_mix_repeated_chart_only" in audit["blockers"]
 
 
+def test_media_manifest_passes_with_fed_funds_policy_diagram(tmp_path):
+    assets = [
+        _asset(
+            "primary",
+            "data_chart",
+            str(tmp_path / "fed_funds_primary.png"),
+            source_url="https://fred.stlouisfed.org/series/DFF",
+            source_page_url="https://fred.stlouisfed.org/series/DFF",
+            source_label="FRED / Federal Reserve Board",
+            canonical_source_label="FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+            visual_metric="fed funds policy rates effective federal funds rate policy corridor iorb interest rate context",
+            why_selected="Primary source-backed chart for the effective fed funds rate and policy corridor.",
+            recent_direction="flat",
+            latest_observation_date="2026-07-07",
+        ),
+        _asset(
+            "policy_corridor",
+            "policy_diagram",
+            str(tmp_path / "policy_corridor.png"),
+            source_url="https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+            source_page_url="https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+            source_label="Federal Reserve Board",
+            canonical_source_label="Federal Reserve policy corridor, IORB, ON RRP, standing repo, and primary credit context",
+            visual_metric="fed funds policy corridor iorb on rrp standing repo administered rates",
+            why_selected="Adds contextual policy-corridor evidence for the fed-funds article.",
+            recent_direction="contextual",
+        ),
+        _asset(
+            "sofr_context",
+            "data_chart",
+            str(tmp_path / "sofr_context.png"),
+            source_url="https://www.newyorkfed.org/markets/reference-rates/sofr",
+            source_page_url="https://www.newyorkfed.org/markets/reference-rates/sofr",
+            source_label="Federal Reserve Bank of New York",
+            canonical_source_label="NY Fed SOFR methodology context and Federal Reserve H.15 selected interest rates",
+            visual_metric="fed funds sofr treasury rates overnight policy interest rate context",
+            why_selected="Adds SOFR and Treasury-rates context without commodity-family visuals.",
+            recent_direction="contextual",
+        ),
+    ]
+
+    audit = audit_media_manifest(
+        {"media_assets": assets},
+        article_title="Fed Funds at 3.63 Percent: Reading the Policy Corridor Without Overreach",
+        article_text="The article explains DFF, policy corridor, IORB, SOFR, and Treasury rates.",
+        as_of_date="2026-07-09",
+    )
+
+    assert audit["audit_status"] == "PASS"
+    assert audit["auto_publication_safe"] is True
+    assert "policy_diagram" in audit["media_classes"]
+
+
 def test_search_like_asset_requires_recency_and_rights_metadata(tmp_path):
     assets = [
         _asset("primary", "data_chart", str(tmp_path / "primary.png")),

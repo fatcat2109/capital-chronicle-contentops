@@ -67,7 +67,19 @@ OIL_TERMS = (
     "energy-price",
     "iranian oil",
 )
-FED_FUNDS_TERMS = ("effective fed funds", "fed funds rate", "federal funds")
+FED_FUNDS_TERMS = (
+    "effective fed funds",
+    "fed funds rate",
+    "federal funds",
+    "fed funds policy",
+    "policy corridor",
+    "iorb",
+    "sofr",
+    "overnight rate",
+    "overnight rates",
+    "fomc target",
+    "treasury rates",
+)
 POLITICAL_TERMS = ("biden", "trump", "illegal immigrant", "immigration")
 
 

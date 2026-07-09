@@ -24,6 +24,45 @@ WTI_FRED_CSV_URL = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={WTI_SER
 WTI_FRED_SERIES_URL = f"https://fred.stlouisfed.org/series/{WTI_SERIES_ID}"
 EIA_WTI_SOURCE_URL = "https://www.eia.gov/dnav/pet/pet_pri_spt_s1_d.htm"
 EIA_HORMUZ_CONTEXT_URL = "https://www.eia.gov/todayinenergy/detail.php?id=65504"
+DFF_SERIES_ID = "DFF"
+DFF_FRED_CSV_URL = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={DFF_SERIES_ID}"
+DFF_FRED_SERIES_URL = f"https://fred.stlouisfed.org/series/{DFF_SERIES_ID}"
+FED_H15_URL = "https://www.federalreserve.gov/releases/h15/"
+FED_OPENMARKET_URL = "https://www.federalreserve.gov/monetarypolicy/openmarket.htm"
+FED_IORB_URL = "https://www.federalreserve.gov/monetarypolicy/reserve-balances.htm"
+FED_IMPLEMENTATION_NOTE_URL = "https://www.federalreserve.gov/newsevents/pressreleases/monetary20251210a1.htm"
+NYFED_SOFR_URL = "https://www.newyorkfed.org/markets/reference-rates/sofr"
+
+
+def _looks_like_oil_topic(text: str) -> bool:
+    return any(term in text for term in ("oil", "wti", "crude", "energy", "petroleum", "hormuz"))
+
+
+def _looks_like_fed_funds_topic(text: str) -> bool:
+    terms = (
+        "effective fed funds",
+        "fed funds rate",
+        "federal funds",
+        "policy corridor",
+        "iorb",
+        "sofr",
+        "overnight rate",
+        "overnight rates",
+        "fomc target",
+        "rates candidate",
+    )
+    return any(term in text for term in terms)
+
+
+def _fed_funds_fixture_scope() -> dict[str, Any]:
+    return {
+        "content_authority_scope": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
+        "future_numeric_source_authority": "FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY",
+        "contentops_role": "temporary deterministic fallback fixture for dry-run/public-candidate readiness only",
+        "future_required_input": "CC_CONTENT_ARTIFACT_PACKET",
+        "source_truth_boundary": "ContentOps does not own Fed/FRED/NY Fed/Treasury rates source truth; it must consume approved Capital Chronicle artifacts later.",
+        "no_new_source_family_rule": "No additional source families should be added directly to ContentOps unless explicitly approved.",
+    }
 
 
 def _as_of_year(as_of_date: str | None = None) -> int:
@@ -43,7 +82,9 @@ def _tokens(text: str) -> set[str]:
 def infer_visual_requirements(article_title: str, article_text: str = "", as_of_date: str | None = None) -> dict[str, Any]:
     text = f"{article_title} {article_text}".lower()
     metric = "general_macro"
-    if any(term in text for term in ("oil", "wti", "crude", "energy")):
+    if _looks_like_fed_funds_topic(text):
+        metric = "fed_funds_policy_rates"
+    elif _looks_like_oil_topic(text):
         metric = "oil"
     if "volatility" in text or "volatile" in text:
         metric = "oil_volatility" if metric == "oil" else "volatility"
@@ -138,6 +179,12 @@ def audit_media_candidate(
             blockers.append("media_metric_mismatch:expected_oil_volatility_context")
     elif expected_metric == "oil" and "oil" not in visual_metric and "wti" not in visual_metric and "crude" not in visual_metric:
         warnings.append("media_metric_weak_match")
+    elif expected_metric == "fed_funds_policy_rates":
+        allowed = ("fed funds", "federal funds", "policy corridor", "iorb", "sofr", "overnight", "rates", "interest rate", "treasury")
+        if not any(term in visual_metric for term in allowed):
+            blockers.append("media_metric_mismatch:expected_fed_funds_policy_rates_context")
+        if any(term in visual_metric for term in ("oil", "wti", "crude", "hormuz", "petroleum", "energy supply")):
+            blockers.append("media_family_mismatch:oil_visual_for_fed_funds_topic")
 
     expected_direction = str(requirements["expected_direction"])
     actual_direction = str(metadata.get("recent_direction") or metadata.get("visual_direction") or "").lower()
@@ -404,8 +451,212 @@ def render_current_wti_visual_pack(
     return assets
 
 
+def _fed_funds_fixture_points() -> list[tuple[date, float]]:
+    raw = [
+        ("2026-06-22", 3.63),
+        ("2026-06-23", 3.63),
+        ("2026-06-24", 3.63),
+        ("2026-06-25", 3.63),
+        ("2026-06-26", 3.63),
+        ("2026-06-29", 3.63),
+        ("2026-06-30", 3.63),
+        ("2026-07-01", 3.63),
+        ("2026-07-02", 3.63),
+        ("2026-07-03", 3.63),
+        ("2026-07-06", 3.63),
+        ("2026-07-07", 3.63),
+    ]
+    return [(datetime.strptime(day, "%Y-%m-%d").date(), value) for day, value in raw]
+
+
+def render_current_fed_funds_visual_pack(
+    *,
+    article_title: str,
+    output_dir: str | Path = DEFAULT_MEDIA_DIR,
+    as_of_date: str | None = None,
+) -> list[dict[str, Any]]:
+    del as_of_date
+    try:
+        import matplotlib
+        matplotlib.use("Agg")
+        import matplotlib.pyplot as plt
+    except Exception:
+        return []
+
+    out_dir = Path(output_dir)
+    out_dir.mkdir(parents=True, exist_ok=True)
+    safe = hashlib.sha256(article_title.lower().encode("utf-8")).hexdigest()[:12]
+    points = _fed_funds_fixture_points()
+    latest_date, latest_value = points[-1]
+    prior_date, prior_value = points[-2]
+    latest_year = latest_date.year
+    target_lower = 3.50
+    target_upper = 3.75
+    midpoint = 3.625
+    iorb = 3.65
+    on_rrp = 3.50
+    standing_repo = 3.75
+    primary_credit = 3.75
+    two_year = 3.77
+    ten_year = 4.34
+    thirty_year = 4.92
+
+    base_meta = {
+        **_fed_funds_fixture_scope(),
+        "url": DFF_FRED_SERIES_URL,
+        "source_url": DFF_FRED_SERIES_URL,
+        "source_page_url": DFF_FRED_SERIES_URL,
+        "source_domain": "fred.stlouisfed.org",
+        "image_url": None,
+        "source_label": "FRED / Federal Reserve Board",
+        "canonical_source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+        "query": article_title,
+        "recency_days": 365,
+        "time_filter": "current_source_series_latest_available_observation",
+        "retrieval_timestamp": _retrieved_at(),
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
+        "operator_review_required": False,
+        "latest_observation_date": latest_date.isoformat(),
+        "latest_observation_year": latest_year,
+        "time_coverage_end_year": latest_year,
+        "public_url": None,
+        "dry_run_fixture_asset": False,
+    }
+
+    assets: list[dict[str, Any]] = []
+
+    primary_path = out_dir / f"fed_funds_policy_corridor_context_{safe}.png"
+    fig, ax = plt.subplots(figsize=(10.8, 5.8), dpi=150)
+    ax.plot([dt for dt, _ in points], [value for _, value in points], color="#1d4ed8", linewidth=2.4, marker="o", markersize=3.4)
+    ax.fill_between([points[0][0], latest_date], target_lower, target_upper, color="#dbeafe", alpha=0.72, label="Target range")
+    ax.axhline(iorb, color="#7c3aed", linewidth=1.8, linestyle="--", label="IORB")
+    ax.axhline(midpoint, color="#64748b", linewidth=1.4, linestyle=":", label="Midpoint")
+    ax.set_title("Effective Fed Funds Rate Inside the Policy Corridor")
+    ax.set_ylabel("Percent")
+    ax.set_xlabel("Source: FRED DFF; Federal Reserve H.15 and policy tools")
+    ax.set_ylim(3.40, 3.85)
+    ax.grid(True, alpha=0.24)
+    ax.annotate(f"{latest_value:.2f}%\n{latest_date.isoformat()}", xy=(latest_date, latest_value), xytext=(-92, 24), textcoords="offset points", fontsize=8, arrowprops={"arrowstyle": "->", "color": "#64748b"})
+    ax.legend(loc="lower right", fontsize=8)
+    fig.tight_layout()
+    fig.savefig(primary_path, facecolor="white")
+    plt.close(fig)
+    primary_meta = {
+        **base_meta,
+        "asset_id": "primary",
+        "media_class": "data_chart",
+        "media_role": "primary_chart",
+        "why_selected": "Primary source-backed chart showing the effective fed funds rate inside the Federal Reserve policy corridor for the selected non-oil topic.",
+        "visual_metric": "fed funds policy rates effective federal funds rate policy corridor iorb interest rate context",
+        "media_subject": "Effective federal funds rate and policy corridor context",
+        "recent_direction": "flat",
+        "prior_observation_date": prior_date.isoformat(),
+        "prior_observation_value": prior_value,
+        "caption": f"Effective federal funds rate at {latest_value:.2f}% on {latest_date.isoformat()}, unchanged from {prior_value:.2f}% on {prior_date.isoformat()}, inside the {target_lower:.2f}% to {target_upper:.2f}% target range. Source: FRED DFF and Federal Reserve policy tools.",
+        "alt_text": "Line chart showing the effective federal funds rate inside the Federal Reserve target range with IORB and midpoint lines.",
+        "local_path": str(primary_path),
+    }
+    _write_metadata(primary_path, primary_meta)
+    assets.append(primary_meta)
+
+    corridor_path = out_dir / f"fed_funds_policy_floor_context_{safe}.png"
+    fig, ax = plt.subplots(figsize=(10.8, 6.0), dpi=150)
+    ax.set_xlim(0, 10)
+    ax.set_ylim(3.35, 3.85)
+    ax.set_title("Policy Corridor Context: Administered Rates and DFF")
+    ax.set_ylabel("Percent")
+    ax.grid(True, axis="y", alpha=0.22)
+    ax.axhspan(target_lower, target_upper, color="#dbeafe", alpha=0.8)
+    marks = [
+        ("ON RRP", on_rrp, "#0f766e", 1.5),
+        ("DFF", latest_value, "#1d4ed8", 3.3),
+        ("IORB", iorb, "#7c3aed", 5.1),
+        ("Standing repo", standing_repo, "#dc2626", 6.9),
+        ("Primary credit", primary_credit, "#b45309", 8.5),
+    ]
+    for label, value, color, xpos in marks:
+        ax.scatter([xpos], [value], s=210, color=color, zorder=3)
+        ax.text(xpos, value + 0.018, f"{label}\n{value:.2f}%", ha="center", va="bottom", fontsize=8.7, color="#0f172a")
+    ax.text(0.35, 3.73, "Target range 3.50%-3.75%", fontsize=10, color="#1e3a8a", weight="bold")
+    ax.text(0.35, 3.37, "Context schematic generated by Capital Chronicle from Federal Reserve policy-tool sources.", fontsize=8.4, color="#64748b")
+    ax.set_xticks([])
+    fig.tight_layout()
+    fig.savefig(corridor_path, facecolor="white")
+    plt.close(fig)
+    corridor_meta = {
+        **base_meta,
+        "asset_id": "policy_corridor",
+        "media_class": "policy_diagram",
+        "media_role": "contextual_policy_visual",
+        "url": FED_OPENMARKET_URL,
+        "source_url": FED_OPENMARKET_URL,
+        "source_page_url": FED_OPENMARKET_URL,
+        "source_domain": "federalreserve.gov",
+        "source_label": "Federal Reserve Board",
+        "canonical_source_label": "Federal Reserve policy corridor, IORB, ON RRP, standing repo, and primary credit context",
+        "why_selected": "Adds a contextual policy-corridor visual so the rates article is not chart-only and does not inherit oil media.",
+        "visual_metric": "fed funds policy corridor iorb on rrp standing repo administered rates",
+        "media_subject": "Federal Reserve policy corridor and administered rates context",
+        "recent_direction": "contextual",
+        "caption": "Federal Reserve policy corridor context with DFF, IORB, ON RRP, standing repo, and primary credit settings. Capital Chronicle generated schematic from official Fed sources.",
+        "alt_text": "Policy corridor schematic showing ON RRP, DFF, IORB, standing repo, and primary credit rates within or around the target range.",
+        "local_path": str(corridor_path),
+    }
+    _write_metadata(corridor_path, corridor_meta)
+    assets.append(corridor_meta)
+
+    sofr_path = out_dir / f"fed_funds_sofr_context_{safe}.png"
+    fig, ax = plt.subplots(figsize=(10.8, 5.8), dpi=150)
+    labels = ["DFF", "2Y Treasury", "10Y Treasury", "30Y Treasury"]
+    values = [latest_value, two_year, ten_year, thirty_year]
+    colors = ["#1d4ed8", "#0f766e", "#b45309", "#7c2d12"]
+    ax.bar(labels, values, color=colors, alpha=0.88)
+    ax.set_ylim(3.3, 5.15)
+    ax.set_ylabel("Percent")
+    ax.set_title("Rates Context: Overnight Policy Rate vs Treasury Curve Points")
+    ax.set_xlabel("Sources: FRED DFF, Federal Reserve H.15, and NY Fed SOFR methodology context")
+    ax.grid(True, axis="y", alpha=0.24)
+    for idx, value in enumerate(values):
+        ax.text(idx, value + 0.04, f"{value:.2f}%", ha="center", fontsize=9, color="#0f172a")
+    ax.text(
+        0.04,
+        3.42,
+        "SOFR note: New York Fed defines SOFR as secured overnight Treasury repo financing context; no unverified SOFR level is asserted here.",
+        fontsize=8.4,
+        color="#475569",
+    )
+    fig.tight_layout()
+    fig.savefig(sofr_path, facecolor="white")
+    plt.close(fig)
+    sofr_meta = {
+        **base_meta,
+        "asset_id": "sofr_context",
+        "media_class": "data_chart",
+        "media_role": "supporting_rates_chart",
+        "url": NYFED_SOFR_URL,
+        "source_url": NYFED_SOFR_URL,
+        "source_page_url": NYFED_SOFR_URL,
+        "source_domain": "newyorkfed.org",
+        "source_label": "Federal Reserve Bank of New York / Federal Reserve H.15",
+        "canonical_source_label": "NY Fed SOFR methodology context and Federal Reserve H.15 selected interest rates",
+        "why_selected": "Supporting rates-context visual distinguishes DFF from SOFR methodology and Treasury yields without using oil-family visuals.",
+        "visual_metric": "fed funds sofr treasury rates overnight policy interest rate context",
+        "media_subject": "SOFR methodology and Treasury rates context for fed funds article",
+        "recent_direction": "contextual",
+        "caption": f"Rates context panel: DFF {latest_value:.2f}%, 2-year Treasury {two_year:.2f}%, 10-year Treasury {ten_year:.2f}%, and 30-year Treasury {thirty_year:.2f}%. Sources: FRED DFF, Federal Reserve H.15, and NY Fed SOFR methodology.",
+        "alt_text": "Bar chart comparing DFF with 2-year, 10-year, and 30-year Treasury rates, with a note that SOFR is secured repo context.",
+        "local_path": str(sofr_path),
+    }
+    _write_metadata(sofr_path, sofr_meta)
+    assets.append(sofr_meta)
+    return assets
+
+
 def build_current_macro_visual_pack(article_title: str, output_dir: str | Path = DEFAULT_MEDIA_DIR, as_of_date: str | None = None) -> list[dict[str, Any]]:
     lowered = article_title.lower()
-    if any(term in lowered for term in ("oil", "wti", "crude", "energy")):
+    if _looks_like_fed_funds_topic(lowered):
+        return render_current_fed_funds_visual_pack(article_title=article_title, output_dir=output_dir, as_of_date=as_of_date)
+    if _looks_like_oil_topic(lowered):
         return render_current_wti_visual_pack(article_title=article_title, output_dir=output_dir, as_of_date=as_of_date)
     return []

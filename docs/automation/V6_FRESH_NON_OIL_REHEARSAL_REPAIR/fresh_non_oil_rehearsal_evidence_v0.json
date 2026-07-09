@@ -1,0 +1,201 @@
+{
+  "command": [
+    "python",
+    "-m",
+    "live_contentops.live_production_pipeline_runner_v6",
+    "--topic",
+    "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+    "--angle",
+    "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+    "--target-audience",
+    "general_financial_education",
+    "--timeout-seconds",
+    "60",
+    "--run-id",
+    "v6_fresh_fed_funds_repair_rehearsal_20260709",
+    "--public-dispatch-ledger",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
+    "--dispatch-rehearsal",
+    "--write-rehearsal-evidence",
+    "--rehearsal-evidence-output",
+    "docs/automation/V6_FRESH_NON_OIL_REHEARSAL_REPAIR/fresh_non_oil_rehearsal_evidence_v0.json"
+  ],
+  "created_at": "2026-07-09T05:24:54Z",
+  "dispatch_audit_excerpt": {
+    "dispatch_blocked": false,
+    "dispatch_blockers": [],
+    "dispatch_live": false,
+    "dispatch_rehearsal": true,
+    "dispatch_summary": {
+      "attempted_platforms": [
+        "substack",
+        "linkedin",
+        "x",
+        "instagram",
+        "facebook",
+        "telegram",
+        "threads",
+        "discord"
+      ],
+      "blocked_platforms": [],
+      "failed_platforms": [],
+      "successful_platforms": [
+        "substack",
+        "linkedin",
+        "x",
+        "instagram",
+        "facebook",
+        "telegram",
+        "threads",
+        "discord"
+      ]
+    },
+    "dry_run": true,
+    "pipeline_status": "LIVE_READY_REQUIRES_OPERATOR_GO",
+    "public_write": false,
+    "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+    "timestamp": "2026-07-09T05:24:54Z"
+  },
+  "evidence_hash": "dc26280883eeeb922002bf4f48be66250d907f75a7123f25d5ef7cedda524a2b",
+  "evidence_packet_id": "v6_pipeline_rehearsal_dc26280883eeeb92",
+  "mode": "controlled_rehearsal",
+  "packet_kind": "v6_pipeline_rehearsal_evidence_packet",
+  "pipeline_result": {
+    "approval_marker_envelope": {
+      "approval_marker": {
+        "approval_status": "APPROVED_FOR_PUBLIC_DISPATCH",
+        "approved_payload_hashes": {
+          "discord": "6bef854c268f5776",
+          "facebook": "753d7417e8bea779",
+          "instagram": "b67c57c1d59f0a2c",
+          "linkedin": "46c3f604da7839e4",
+          "substack": "3353b59e444d8c25",
+          "telegram": "bd888afd65e105e7",
+          "threads": "ac86076e5b1655fc",
+          "x": "339d3519ae118ef3"
+        },
+        "approved_public_dispatch": true,
+        "canonical_packet_hash": "67e099057fb57e58ae8c8b6db361a865623f8620748f63c35fd70232241e73da",
+        "dry_run": true,
+        "payload_hash": "bd888afd65e105e7",
+        "platform_variant_packet_hash": "c21472c8e45b9c97f206ba0f15aadca9527c84463ca4556a9146067f21477e19",
+        "public_write": false,
+        "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+        "topic_hash": "8a4bc478b749f915"
+      },
+      "canonical_packet_hash": "67e099057fb57e58ae8c8b6db361a865623f8620748f63c35fd70232241e73da",
+      "dry_run": true,
+      "duplicate_ledger_result": {
+        "action": "photo",
+        "approval_marker_present": true,
+        "blockers": [],
+        "dispatch_allowed": true,
+        "identity_hashes": {
+          "media_url_hash": "5f555d2612eab24c",
+          "topic_hash": "8a4bc478b749f915"
+        },
+        "payload_hash": "bd888afd65e105e7",
+        "payload_hash_required": true,
+        "platform": "telegram",
+        "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+        "status": "PASS",
+        "topic_hash": "8a4bc478b749f915"
+      },
+      "per_platform_payload_hash": {
+        "discord": "6bef854c268f5776",
+        "facebook": "753d7417e8bea779",
+        "instagram": "b67c57c1d59f0a2c",
+        "linkedin": "46c3f604da7839e4",
+        "substack": "3353b59e444d8c25",
+        "telegram": "bd888afd65e105e7",
+        "threads": "ac86076e5b1655fc",
+        "x": "339d3519ae118ef3"
+      },
+      "platform_variant_packet_hash": "c21472c8e45b9c97f206ba0f15aadca9527c84463ca4556a9146067f21477e19",
+      "public_write": false,
+      "quality_gate_result": {
+        "blockers": [],
+        "status": "PASS"
+      },
+      "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+      "telegram_payload_hash": "bd888afd65e105e7",
+      "topic_hash": "8a4bc478b749f915"
+    },
+    "article_packet_id": "article_engine_packet_ba1cbcf23f449872",
+    "credential_lookup_performed": false,
+    "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
+    "dispatch_blocked": false,
+    "dispatch_blockers": [],
+    "dispatch_live": false,
+    "dispatch_rehearsal": true,
+    "dispatch_summary": {
+      "attempted_platforms": [
+        "substack",
+        "linkedin",
+        "x",
+        "instagram",
+        "facebook",
+        "telegram",
+        "threads",
+        "discord"
+      ],
+      "blocked_platforms": [],
+      "failed_platforms": [],
+      "successful_platforms": [
+        "substack",
+        "linkedin",
+        "x",
+        "instagram",
+        "facebook",
+        "telegram",
+        "threads",
+        "discord"
+      ]
+    },
+    "dry_run": true,
+    "headline_rehearsal_context": {
+      "latest_sidecar_captured_at": "2026-07-08T13:21:21Z",
+      "latest_sidecar_count": 1024,
+      "latest_sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "selection_reason": "operator_supplied_topic_or_default_rehearsal_topic",
+      "sidecar_dir": "headline_ingestion\\data\\intake\\headline_sidecars",
+      "sidecar_file_count": 1,
+      "sidecars_available": true
+    },
+    "live_platform_api_called": false,
+    "pipeline_status": "LIVE_READY_REQUIRES_OPERATOR_GO",
+    "platform_variant_packet_id": "variant_packet_9cc4a5f536db",
+    "public_write": false,
+    "quality_gate_result": {
+      "blockers": [],
+      "status": "PASS"
+    },
+    "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+    "timestamp": "2026-07-09T05:24:54Z",
+    "timestamp_gmt7": "2026-07-09T12:24:54+07:00",
+    "variant_status": "VARIANT_READY"
+  },
+  "readback_checks": {
+    "audit_file_present": true,
+    "dispatch_summary_matches": true,
+    "pipeline_status_matches": true,
+    "readback_ready": true,
+    "run_id_matches": true
+  },
+  "repo_state": {
+    "branch": "task/telegram-substack-regression-repair",
+    "dirty_state_short": "M docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json\n M docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md\n M docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/discord_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/facebook_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/instagram_caption_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/linkedin_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/substack_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/telegram_operator_preview.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/threads_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/x_variant.md\n M docs/status/CURRENT_PROJECT_STATUS.md\n M docs/status/current_project_status.json\n M live_contentops/ai_research_canonical_article_engine_v6.py\n M live_contentops/media_content_audit_v6.py\n M live_contentops/media_diversification_audit_v6.py\n M live_contentops/platform_native_variant_generator_live_v6.py\n M live_contentops/public_candidate_preflight_v6.py\n M tests/test_ai_research_canonical_article_engine_v6.py\n M tests/test_media_content_audit_v6.py\n M tests/test_media_diversification_audit_v6.py\n M tests/test_platform_native_variant_generator_live.py\n M tests/test_public_candidate_preflight_v6.py\n M ui/contentops_v5/src/data/platform_variant_packet.json\n?? docs/automation/V6_CC_ARTIFACT_PACKET_CONTRACT/\n?? docs/automation/V6_FRESH_NON_OIL_REHEARSAL_REPAIR/\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_corridor_context_ab8e1ca1525f.json\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_corridor_context_ab8e1ca1525f.png\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_floor_context_ab8e1ca1525f.json\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_floor_context_ab8e1ca1525f.png\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_sofr_context_ab8e1ca1525f.json\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_sofr_context_ab8e1ca1525f.png",
+    "head_sha": "62d6bfc8655b0ad0169ffe68249d96fcde9f5848",
+    "remote_master_sha": "62d6bfc8655b0ad0169ffe68249d96fcde9f5848",
+    "repo_full_name": "fatcat2109/capital-chronicle-contentops"
+  },
+  "safety": {
+    "audit_excerpt_only": true,
+    "browser_session_sensitive_value_persisted": false,
+    "raw_env_values_persisted": false,
+    "raw_sensitive_values_persisted": false
+  },
+  "schema_version": "1.0.0",
+  "sensitive_marker_detected": false,
+  "task_label": "TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0"
+}

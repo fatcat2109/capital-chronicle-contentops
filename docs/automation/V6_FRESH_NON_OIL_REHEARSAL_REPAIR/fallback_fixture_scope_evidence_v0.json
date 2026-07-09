@@ -1,0 +1,61 @@
+{
+  "task_label": "TASK_CONTENTOPS_V6_FRESH_NON_OIL_SOURCE_BACKED_ARTICLE_AND_MEDIA_REHEARSAL_REPAIR_V0",
+  "schema_version": "0.1.0",
+  "packet_kind": "temporary_contentops_fallback_fixture_scope_evidence",
+  "scope_labels": {
+    "current_fixture_label": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
+    "future_authority_label": "FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY",
+    "future_contract_stub": "docs/automation/V6_CC_ARTIFACT_PACKET_CONTRACT/cc_content_artifact_packet_contract_v0.json"
+  },
+  "temporary_fixture_reason": [
+    "The prior fresh non-oil fed-funds dry-run candidate failed because it produced a 140-word weak article, thin source trail, missing specific numbers, and inherited WTI/Hormuz media.",
+    "The repaired deterministic fed-funds path exists only to prevent stale oil media/source artifacts from leaking into this non-oil dry-run/public-candidate readiness task.",
+    "The fixture uses official/source-backed Fed, FRED, NY Fed, Treasury, and H.15 references as a bounded fallback for dry-run gates."
+  ],
+  "authority_boundary": {
+    "contentops_is_not": [
+      "a second macro database",
+      "a source-ingestion owner for Fed/FRED/NY Fed/Treasury rates data",
+      "the durable numeric/source authority for Capital Chronicle articles"
+    ],
+    "contentops_is": [
+      "a temporary deterministic fallback renderer for this repair",
+      "an editorial/platform QA and dispatch-gating workflow",
+      "a future consumer of Capital Chronicle authority artifacts"
+    ],
+    "must_later_consume": "CC_CONTENT_ARTIFACT_PACKET",
+    "no_new_source_family_rule": "No additional source families should be added directly to ContentOps unless explicitly approved."
+  },
+  "future_cc_artifact_packet_required_fields": [
+    "topic",
+    "source_trail",
+    "numeric_anchors",
+    "chart_specs",
+    "media_assets",
+    "limitations",
+    "freshness",
+    "source_quality",
+    "publish_eligibility"
+  ],
+  "current_repair_boundaries": {
+    "allowed": [
+      "repair the fed-funds dry-run article",
+      "repair rates-specific non-oil media",
+      "block WTI/Hormuz/oil media inheritance",
+      "run dry-run rehearsal and pre-public gates"
+    ],
+    "forbidden": [
+      "public write",
+      "live platform API",
+      "new broad source-ingestion framework",
+      "new durable source-family expansion inside ContentOps"
+    ]
+  },
+  "safety": {
+    "public_write": false,
+    "live_platform_api_called": false,
+    "credential_lookup_performed": false,
+    "raw_env_values_persisted": false,
+    "raw_credential_values_persisted": false
+  }
+}

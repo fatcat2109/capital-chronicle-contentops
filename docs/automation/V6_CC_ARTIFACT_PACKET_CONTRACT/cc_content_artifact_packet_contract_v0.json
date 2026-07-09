@@ -1,0 +1,96 @@
+{
+  "schema_name": "CC_CONTENT_ARTIFACT_PACKET",
+  "schema_version": "0.1.0",
+  "status": "contract_stub_only_no_ingestion_framework",
+  "authority_boundary": {
+    "temporary_current_contentops_scope": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
+    "future_numeric_source_authority": "FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY",
+    "contentops_role": "consume approved Capital Chronicle article/source/media artifacts and perform editorial, platform, QA, approval, and dispatch gating",
+    "contentops_must_not": [
+      "become a second macro database",
+      "own Fed/FRED/NY Fed/Treasury numeric source truth",
+      "add additional source families directly without explicit approval",
+      "treat deterministic fallback fixtures as durable source authority"
+    ]
+  },
+  "required_fields": {
+    "artifact_id": "stable Capital Chronicle artifact identifier",
+    "created_at": "ISO-8601 timestamp",
+    "topic": {
+      "headline": "fresh topic/headline",
+      "angle": "editorial angle",
+      "duplicate_family": "semantic duplicate-family label supplied by authority pipeline"
+    },
+    "source_trail": [
+      {
+        "label": "source label",
+        "publisher_or_origin": "source origin",
+        "url": "canonical source URL or internal artifact reference",
+        "claim_supported": "specific claim the source supports",
+        "source_family": "approved source family",
+        "authority_status": "approved|review_required|rejected"
+      }
+    ],
+    "numeric_anchors": [
+      {
+        "metric": "metric name",
+        "value": "numeric value",
+        "unit": "unit",
+        "observation_date": "date or period",
+        "source_ref": "source_trail reference",
+        "calculation_method": "raw_source|derived_with_method"
+      }
+    ],
+    "chart_specs": [
+      {
+        "asset_id": "chart asset id",
+        "visual_metric": "metric/topic represented",
+        "data_refs": [
+          "numeric_anchors or source_trail references"
+        ],
+        "caption_guidance": "source-aware caption instructions",
+        "freshness_requirement": "current|historical|contextual"
+      }
+    ],
+    "media_assets": [
+      {
+        "asset_id": "media asset id",
+        "media_class": "data_chart|policy_diagram|map_or_geography|official_photo|news_context_image|other_approved",
+        "source_url": "source page URL or internal artifact reference",
+        "rights_status": "approved rights/provenance status",
+        "local_path_or_asset_ref": "artifact pointer supplied by CC authority pipeline"
+      }
+    ],
+    "limitations": [
+      "explicit source, inference, freshness, and publication limitations"
+    ],
+    "freshness": {
+      "as_of_date": "source freshness date",
+      "latest_observation_date": "latest observation included",
+      "staleness_policy": "rules for public eligibility"
+    },
+    "source_quality": {
+      "quality_status": "approved|review_required|blocked",
+      "approved_source_families": [
+        "source family labels"
+      ],
+      "review_items": [
+        "manual checks still required"
+      ]
+    },
+    "publish_eligibility": {
+      "eligible": false,
+      "required_gates": [
+        "editorial_quality",
+        "media_diversification",
+        "duplicate_family",
+        "platform_payload",
+        "public_readback_if_live"
+      ],
+      "blockers": [
+        "empty until authority pipeline and ContentOps gates pass"
+      ]
+    }
+  },
+  "contentops_consumption_rule": "ContentOps may use this packet to draft, render, audit, and dispatch-gate content. ContentOps must not broaden its own deterministic fallback fixtures into a general source-ingestion framework without explicit approval."
+}

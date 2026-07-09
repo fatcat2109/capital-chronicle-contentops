@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps - Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_OPERATOR_GO_READBACK_AND_CROP_QA_V0
+TASK_CONTENTOPS_V6_FRESH_NON_OIL_SOURCE_BACKED_ARTICLE_AND_MEDIA_REHEARSAL_REPAIR_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,12 +9,12 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-verified remote master before this blocked pre-public task: `e736997786ed0f2c80b5fe1770996f60e9b7e0e6`
+verified remote master before this repair task: `62d6bfc8655b0ad0169ffe68249d96fcde9f5848`
 accepted visual repair commit: `6a810aadadef4b3c9078173b32bed4b243f8552a`
-latest pre-task remote commit: `e736997786ed0f2c80b5fe1770996f60e9b7e0e6`
+latest pre-task remote commit: `62d6bfc8655b0ad0169ffe68249d96fcde9f5848`
 
 ## current_product_phase
-The controlled 8-platform public candidate task is `BLOCKED_PRE_PUBLIC_GATE`; no public dispatch was run. Pre-public evidence `docs/automation/V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_QA/pre_public_gate_evidence_v0.json` blocks the current generated state because the fresh Fed-funds article attempt still carries the prior Crude/WTI/Hormuz media family, and the fresh-slot dry-run rehearsal `v6_fresh_fed_funds_prepublic_rehearsal_20260709` is `REHEARSAL_BLOCKED`.
+Fresh non-oil Fed-funds/rates rehearsal repair is `PASS_FRESH_NON_OIL_SOURCE_BACKED_REHEARSAL_READY_FOR_CONTROLLED_PUBLIC_CANDIDATE`. The repaired dry-run run `v6_fresh_fed_funds_repair_rehearsal_20260709` reached `LIVE_READY_REQUIRES_OPERATOR_GO`, and pre-public evidence `docs/automation/V6_FRESH_NON_OIL_REHEARSAL_REPAIR/pre_public_gate_evidence_v0.json` records `PASS_PRE_PUBLIC_GATE` with no duplicate article/media family blockers. No public dispatch was run.
 
 ## current_product_lane
 Editorial newsroom lane: canonical articles must pass mechanical quality, independent editorial quality, media diversification/provenance, and visual-slot gates before public dispatch can be treated as product-candidate evidence.
@@ -23,7 +23,7 @@ Editorial newsroom lane: canonical articles must pass mechanical quality, indepe
 `TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0` made the dry-run path network-isolated for image/media discovery, moved dotenv loading out of import-time dry-run paths, added deterministic source-backed local fixture media, added an approval-marker envelope dispatch rehearsal mode, and ran the real CLI/full automation rehearsal end-to-end with no public writes. Acceptance classification: `PASS_REAL_FULL_AUTOMATION_DRY_RUN_REHEARSAL_NO_PUBLIC_WRITE`.
 
 ## status_sha_model
-- `last_verified_remote_sha`: `e736997786ed0f2c80b5fe1770996f60e9b7e0e6` before this blocked pre-public candidate task.
+- `last_verified_remote_sha`: `62d6bfc8655b0ad0169ffe68249d96fcde9f5848` before this repair task.
 - `accepted_visual_repair_sha`: `6a810aadadef4b3c9078173b32bed4b243f8552a`.
 - `latest_headline_ingestion_sha`: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`.
 - `accepted_product_baseline_sha`: advances with the final pushed blocked-pre-public evidence commit reported in final task evidence.
@@ -48,28 +48,30 @@ Canonical package: `ui/contentops_v5/package.json`.
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-Pre-public automation is blocked before operator GO. The accepted oil/yields rehearsal remains readable, but it is not public-safe after the Telegram Crude/WTI duplicate incident. Schedule triage selected slot 6, `Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th`, as the safest non-oil candidate. Its dry-run rehearsal `v6_fresh_fed_funds_prepublic_rehearsal_20260709` stopped at `REHEARSAL_BLOCKED` with no platform attempts.
+Pre-public automation is ready for a controlled public-candidate task after operator GO. The accepted oil/yields rehearsal remains readable but not public-safe after the Telegram Crude/WTI duplicate incident. The repaired non-oil slot/topic is `Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th`; its dry-run rehearsal `v6_fresh_fed_funds_repair_rehearsal_20260709` passed article, editorial, media, duplicate, and eight-platform dry-run payload gates.
 
 ## dispatch/live status
-No live dispatch was run in this task. The fresh Fed-funds dry-run rehearsal attempted zero platforms and blocked at the pipeline gate with `public_write=false`, `live_platform_api_called=false`, and `credential_lookup_performed=false`. No Telegram Bot API call, Substack publish, social post, retry loop, scheduler run, or public readback occurred.
+No live dispatch was run in this task. The repaired fresh Fed-funds dry-run rehearsal prepared dry-run payloads for Substack, LinkedIn, X, Instagram, Facebook Page, Telegram, Threads, and Discord, with all eight marked `DRY_RUN_REHEARSAL_READY`. Safety flags remained `public_write=false`, `live_platform_api_called=false`, and `credential_lookup_performed=false`. No Telegram Bot API call, Substack publish, social post, retry loop, scheduler run, or public readback occurred.
 
 ## article_quality_status
-Current generated fresh-slot article gates fail: `body_word_count=140`, `sections=2`, source trail too thin, missing specific numbers, and editorial quality gate `EDITORIAL_BLOCKED`. The prior oil/yields article remains a readable dry-run artifact but must not be public-posted because it collapses into the prior Crude/WTI content family.
+Current repaired fresh-slot article gates pass for dry-run/pre-public readiness: `body_word_count=2087`, `sections=9`, `source_trail_count=8`, no `UNVERIFIED_SAMPLE_SOURCE_REF`, and specific Fed-funds/rates numeric anchors from official/source-backed references. The prior oil/yields article remains a readable dry-run artifact but must not be public-posted because it collapses into the prior Crude/WTI content family.
 
 ## editorial_quality_status
-Editorial quality audit remains independent from dispatch. The fresh Fed-funds dry-run candidate is `EDITORIAL_BLOCKED` with blockers `source_trail_too_thin:0<3`, weak tier-1 structure, and narrow source diversity. Evidence: `docs/automation/V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_QA/fresh_slot6_dry_run_rehearsal_evidence_v0.json`.
+Editorial quality audit remains independent from dispatch. The repaired fresh Fed-funds dry-run candidate is `EDITORIAL_APPROVED` with no blockers or review items. Evidence: `docs/automation/V6_FRESH_NON_OIL_REHEARSAL_REPAIR/fresh_non_oil_rehearsal_evidence_v0.json`.
 
 ## media_and_visual_status
-Media status is blocked for public use. The fresh Fed-funds dry-run inherited the WTI volatility chart, WTI recent-price chart, and Hormuz context schematic; pre-public gate classifies this as `duplicate_media_family:crude_wti_oil_volatility`. A future fresh candidate needs source-backed non-oil visuals whose topic family matches the article before any public write.
+Media status passes for dry-run/pre-public readiness. The repaired fresh Fed-funds candidate uses three non-oil rates visuals: `primary` DFF/policy-corridor chart, `policy_corridor` policy diagram, and `sofr_context` rates/SOFR context chart. Media diversification is `PASS`, auto-publication-safe for dry-run evidence, and pre-public family classification is `fed_funds_policy_rates`, not `crude_wti_oil_volatility`.
+
+## temporary_fixture_authority_boundary
+The Fed/FRED/NY Fed/Treasury rates path is explicitly labeled `TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE`. It is not a second macro database or durable source-ingestion system. Future numeric/source authority remains `FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY`, and ContentOps must later consume a `CC_CONTENT_ARTIFACT_PACKET` instead of owning source truth. Contract stub: `docs/automation/V6_CC_ARTIFACT_PACKET_CONTRACT/cc_content_artifact_packet_contract_v0.json`. No additional source families should be added directly to ContentOps unless explicitly approved.
 
 ## provider/env/credential status
 This blocked pre-public task did not read raw env values, did not require credential lookup, did not call live provider APIs, and did not import platform adapters for dispatch. The preflight process scan found zero matching Python live-runner/outbox/scheduler processes.
 
 ## active blockers
 - INCIDENT FREEZE: no further public dispatch until Telegram duplicate posts are manually audited and the next public candidate has explicit operator GO.
-- PUBLIC CANDIDATE BLOCKED: `docs/automation/V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_QA/pre_public_gate_evidence_v0.json` records `BLOCKED_PRE_PUBLIC_GATE`; no public write occurred.
-- Fresh Fed-funds dry-run `v6_fresh_fed_funds_prepublic_rehearsal_20260709` is `REHEARSAL_BLOCKED` due article quality/editorial blockers.
-- Current generated media is not public-safe for Fed-funds content because it reuses WTI/Hormuz oil visuals and trips `duplicate_media_family:crude_wti_oil_volatility`.
+- Controlled public candidate still requires explicit operator GO and a separate public-readback/crop QA task; this repair did not perform a public write.
+- The Fed/FRED/NY Fed/Treasury rates path is temporary fallback fixture logic only; future source authority must come from a Capital Chronicle artifact packet.
 - Telegram duplicate incident evidence confirms screenshot-visible duplicates and committed telemetry line 520 (`message_id=58`); do not rely on stale `latest_dispatch_audit.json` alone for public/no-public conclusions.
 - Future Telegram success requires approval marker + payload hash + duplicate ledger pass + meaningful non-preview body + Bot API photo proof when a photo is requested.
 - Instagram and Threads post edit APIs are unsupported and intentionally return `UNSUPPORTED`.

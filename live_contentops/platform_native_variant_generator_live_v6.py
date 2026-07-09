@@ -26,6 +26,9 @@ from live_contentops.google_image_search_v6 import (
 )
 from live_contentops.macro_chart_renderer_v6 import render_macro_chart
 from live_contentops.media_content_audit_v6 import (
+    _fed_funds_fixture_scope,
+    _looks_like_fed_funds_topic,
+    _looks_like_oil_topic,
     audit_media_candidate,
     build_current_macro_visual_pack,
 )
@@ -286,13 +289,24 @@ def _load_committed_macro_visual_pack(
     fixture_dir: str | Path = DEFAULT_DRY_RUN_MEDIA_FIXTURE_DIR,
 ) -> list[dict[str, Any]]:
     """Load committed source-backed visuals without fetching or rendering."""
-    del article_title
     root = Path(fixture_dir)
-    patterns = (
-        ("primary", "wti_current_volatility_context_*.png"),
-        ("recent_price", "wti_recent_price_context_*.png"),
-        ("hormuz_context", "hormuz_oil_chokepoint_context_*.png"),
-    )
+    lowered = article_title.lower()
+    if _looks_like_fed_funds_topic(lowered):
+        fixture_scope_defaults = _fed_funds_fixture_scope()
+        patterns = (
+            ("primary", "fed_funds_policy_corridor_context_*.png"),
+            ("policy_corridor", "fed_funds_policy_floor_context_*.png"),
+            ("sofr_context", "fed_funds_sofr_context_*.png"),
+        )
+    elif _looks_like_oil_topic(lowered):
+        fixture_scope_defaults = {}
+        patterns = (
+            ("primary", "wti_current_volatility_context_*.png"),
+            ("recent_price", "wti_recent_price_context_*.png"),
+            ("hormuz_context", "hormuz_oil_chokepoint_context_*.png"),
+        )
+    else:
+        return []
     assets: list[dict[str, Any]] = []
     for asset_id, pattern in patterns:
         candidates = sorted(root.glob(pattern), key=lambda path: path.name, reverse=True)
@@ -311,6 +325,7 @@ def _load_committed_macro_visual_pack(
             if not str(metadata.get("why_selected") or "").strip():
                 continue
             metadata = dict(metadata)
+            metadata.update({key: value for key, value in fixture_scope_defaults.items() if key not in metadata})
             metadata["asset_id"] = asset_id
             metadata["local_path"] = str(path)
             metadata["dry_run_fixture_asset"] = True
@@ -600,6 +615,15 @@ def generate_live_platform_variants(
                 dry_run_fixture_media_used = bool(source_backed_assets)
                 if source_backed_assets:
                     media_replacement_notes.append("committed_source_backed_visual_pack_selected")
+                elif _looks_like_fed_funds_topic(title.lower()):
+                    source_backed_assets = build_current_macro_visual_pack(
+                        title,
+                        output_dir=Path("docs/automation/V6_MEDIA_SYSTEM/downloads"),
+                        as_of_date=as_of_date,
+                    )
+                    dry_run_fixture_media_used = bool(source_backed_assets)
+                    if source_backed_assets:
+                        media_replacement_notes.append("local_source_backed_rates_visual_pack_generated")
             else:
                 source_backed_generation_network_attempted = True
                 source_backed_assets = build_current_macro_visual_pack(

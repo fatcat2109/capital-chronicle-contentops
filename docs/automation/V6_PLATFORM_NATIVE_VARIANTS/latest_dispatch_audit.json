@@ -1,15 +1,70 @@
 {
-  "article_packet_id": "article_engine_packet_07456d0384d2f477",
+  "approval_marker_envelope": {
+    "approval_marker": {
+      "approval_status": "APPROVED_FOR_PUBLIC_DISPATCH",
+      "approved_payload_hashes": {
+        "discord": "6bef854c268f5776",
+        "facebook": "753d7417e8bea779",
+        "instagram": "b67c57c1d59f0a2c",
+        "linkedin": "46c3f604da7839e4",
+        "substack": "3353b59e444d8c25",
+        "telegram": "bd888afd65e105e7",
+        "threads": "ac86076e5b1655fc",
+        "x": "339d3519ae118ef3"
+      },
+      "approved_public_dispatch": true,
+      "canonical_packet_hash": "67e099057fb57e58ae8c8b6db361a865623f8620748f63c35fd70232241e73da",
+      "dry_run": true,
+      "payload_hash": "bd888afd65e105e7",
+      "platform_variant_packet_hash": "c21472c8e45b9c97f206ba0f15aadca9527c84463ca4556a9146067f21477e19",
+      "public_write": false,
+      "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+      "topic_hash": "8a4bc478b749f915"
+    },
+    "canonical_packet_hash": "67e099057fb57e58ae8c8b6db361a865623f8620748f63c35fd70232241e73da",
+    "dry_run": true,
+    "duplicate_ledger_result": {
+      "action": "photo",
+      "approval_marker_present": true,
+      "blockers": [],
+      "dispatch_allowed": true,
+      "identity_hashes": {
+        "media_url_hash": "5f555d2612eab24c",
+        "topic_hash": "8a4bc478b749f915"
+      },
+      "payload_hash": "bd888afd65e105e7",
+      "payload_hash_required": true,
+      "platform": "telegram",
+      "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+      "status": "PASS",
+      "topic_hash": "8a4bc478b749f915"
+    },
+    "per_platform_payload_hash": {
+      "discord": "6bef854c268f5776",
+      "facebook": "753d7417e8bea779",
+      "instagram": "b67c57c1d59f0a2c",
+      "linkedin": "46c3f604da7839e4",
+      "substack": "3353b59e444d8c25",
+      "telegram": "bd888afd65e105e7",
+      "threads": "ac86076e5b1655fc",
+      "x": "339d3519ae118ef3"
+    },
+    "platform_variant_packet_hash": "c21472c8e45b9c97f206ba0f15aadca9527c84463ca4556a9146067f21477e19",
+    "public_write": false,
+    "quality_gate_result": {
+      "blockers": [],
+      "status": "PASS"
+    },
+    "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+    "telegram_payload_hash": "bd888afd65e105e7",
+    "topic_hash": "8a4bc478b749f915"
+  },
+  "article_packet_id": "article_engine_packet_ba1cbcf23f449872",
+  "canonical_url": null,
   "credential_lookup_performed": false,
   "dispatch_audit_path": "docs\\automation\\V6_PLATFORM_NATIVE_VARIANTS\\latest_dispatch_audit.json",
-  "dispatch_blocked": true,
-  "dispatch_blockers": [
-    "article_too_short_words:140<2000",
-    "too_few_sections",
-    "source_trail_too_thin",
-    "missing_specific_numbers",
-    "editorial_quality_gate:EDITORIAL_BLOCKED"
-  ],
+  "dispatch_blocked": false,
+  "dispatch_blockers": [],
   "dispatch_idempotency_control": "platform_scope_allowlist",
   "dispatch_live": false,
   "dispatch_platform_scope": [
@@ -23,35 +78,209 @@
     "discord"
   ],
   "dispatch_rehearsal": true,
+  "dispatch_results": {
+    "discord": {
+      "action": "post",
+      "body_length": 1034,
+      "canonical_url": null,
+      "credential_lookup_performed": false,
+      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
+      "dry_run": true,
+      "error": null,
+      "error_class": null,
+      "live_platform_api_called": false,
+      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+      "ok": true,
+      "payload_hash": "6bef854c268f5776",
+      "platform": "discord",
+      "public_write": false,
+      "status": "DRY_RUN_REHEARSAL_READY",
+      "url": null
+    },
+    "facebook": {
+      "action": "photo",
+      "body_length": 1148,
+      "canonical_url": null,
+      "credential_lookup_performed": false,
+      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
+      "dry_run": true,
+      "error": null,
+      "error_class": null,
+      "live_platform_api_called": false,
+      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+      "ok": true,
+      "payload_hash": "753d7417e8bea779",
+      "platform": "facebook",
+      "public_write": false,
+      "status": "DRY_RUN_REHEARSAL_READY",
+      "url": null
+    },
+    "instagram": {
+      "action": "photo",
+      "body_length": 1088,
+      "canonical_url": null,
+      "credential_lookup_performed": false,
+      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
+      "dry_run": true,
+      "error": null,
+      "error_class": null,
+      "live_platform_api_called": false,
+      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+      "ok": true,
+      "payload_hash": "b67c57c1d59f0a2c",
+      "platform": "instagram",
+      "public_write": false,
+      "status": "DRY_RUN_REHEARSAL_READY",
+      "url": null
+    },
+    "linkedin": {
+      "action": "post",
+      "body_length": 1180,
+      "canonical_url": null,
+      "credential_lookup_performed": false,
+      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
+      "dry_run": true,
+      "error": null,
+      "error_class": null,
+      "live_platform_api_called": false,
+      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+      "ok": true,
+      "payload_hash": "46c3f604da7839e4",
+      "platform": "linkedin",
+      "public_write": false,
+      "status": "DRY_RUN_REHEARSAL_READY",
+      "url": null
+    },
+    "substack": {
+      "action": "article",
+      "body_length": 15375,
+      "canonical_url": null,
+      "credential_lookup_performed": false,
+      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
+      "dry_run": true,
+      "error": null,
+      "error_class": null,
+      "live_platform_api_called": false,
+      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+      "ok": true,
+      "payload_hash": "3353b59e444d8c25",
+      "platform": "substack",
+      "public_write": false,
+      "status": "DRY_RUN_REHEARSAL_READY",
+      "url": null
+    },
+    "telegram": {
+      "action": "photo",
+      "body_length": 943,
+      "canonical_url": null,
+      "credential_lookup_performed": false,
+      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
+      "dry_run": true,
+      "error": null,
+      "error_class": null,
+      "live_platform_api_called": false,
+      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+      "ok": true,
+      "payload_hash": "bd888afd65e105e7",
+      "platform": "telegram",
+      "public_write": false,
+      "status": "DRY_RUN_REHEARSAL_READY",
+      "telegram_caption_proof": {
+        "caption_length": 943,
+        "caption_non_empty": true,
+        "photo_proof_mode": "dry_run_payload_hash_only_no_bot_api_call",
+        "photo_requested": true,
+        "public_dispatch_freeze_guard": {
+          "action": "photo",
+          "approval_marker_present": true,
+          "blockers": [],
+          "dispatch_allowed": true,
+          "identity_hashes": {
+            "media_url_hash": "5f555d2612eab24c",
+            "topic_hash": "8a4bc478b749f915"
+          },
+          "payload_hash": "bd888afd65e105e7",
+          "payload_hash_required": true,
+          "platform": "telegram",
+          "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+          "status": "PASS",
+          "topic_hash": "8a4bc478b749f915"
+        }
+      },
+      "url": null
+    },
+    "threads": {
+      "action": "thread",
+      "body_length": 899,
+      "canonical_url": null,
+      "credential_lookup_performed": false,
+      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
+      "dry_run": true,
+      "error": null,
+      "error_class": null,
+      "live_platform_api_called": false,
+      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+      "ok": true,
+      "payload_hash": "ac86076e5b1655fc",
+      "platform": "threads",
+      "public_write": false,
+      "status": "DRY_RUN_REHEARSAL_READY",
+      "url": null
+    },
+    "x": {
+      "action": "thread",
+      "body_length": 915,
+      "canonical_url": null,
+      "credential_lookup_performed": false,
+      "crop_readability_status": "LOCAL_FIXTURE_PRESENT_PUBLIC_CROP_NOT_APPLICABLE_DRY_RUN",
+      "dry_run": true,
+      "error": null,
+      "error_class": null,
+      "live_platform_api_called": false,
+      "media_url": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+      "ok": true,
+      "payload_hash": "339d3519ae118ef3",
+      "platform": "x",
+      "public_write": false,
+      "status": "DRY_RUN_REHEARSAL_READY",
+      "url": null
+    }
+  },
   "dispatch_summary": {
-    "attempted_platforms": [],
-    "blocked_platforms": [
-      "pipeline"
+    "attempted_platforms": [
+      "substack",
+      "linkedin",
+      "x",
+      "instagram",
+      "facebook",
+      "telegram",
+      "threads",
+      "discord"
     ],
+    "blocked_platforms": [],
     "failed_platforms": [],
-    "successful_platforms": []
+    "successful_platforms": [
+      "substack",
+      "linkedin",
+      "x",
+      "instagram",
+      "facebook",
+      "telegram",
+      "threads",
+      "discord"
+    ]
   },
   "dry_run": true,
-  "editorial_acceptance_status": "EDITORIAL_BLOCKED",
+  "editorial_acceptance_status": "EDITORIAL_APPROVED",
   "editorial_quality_audit": {
-    "blockers": [
-      "source_trail_too_thin:0<3"
-    ],
-    "classification": "EDITORIAL_BLOCKED",
+    "blockers": [],
+    "classification": "EDITORIAL_APPROVED",
     "dispatch_status_independent": true,
     "public_body_tone_audit": {
-      "pipeline_internal_language_count": 2,
-      "pipeline_internal_language_hits": [
-        {
-          "count": 2,
-          "term": "operator"
-        }
-      ]
+      "pipeline_internal_language_count": 0,
+      "pipeline_internal_language_hits": []
     },
-    "review_items": [
-      "tier1_structure_missing:clear_news_hook,why_now,what_to_watch_next",
-      "source_diversity_too_narrow:0<3"
-    ],
+    "review_items": [],
     "schema_version": "editorial_quality_audit_v6.1",
     "seo_audit": {
       "expected_concepts": [
@@ -62,38 +291,168 @@
       "keyword_concepts": [
         "yield"
       ],
-      "meta_description_length": 175,
+      "meta_description_length": 138,
       "missing_fields": [],
-      "target_keyword": "effective funds rate july",
+      "target_keyword": "effective fed funds rate policy corridor",
       "target_keyword_weak": false
     },
     "source_relevance_audit": {
-      "audited_urls": [],
+      "audited_urls": [
+        {
+          "domain": "fred.stlouisfed.org",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "inflation",
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "fred",
+          "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DFF"
+        },
+        {
+          "domain": "fred.stlouisfed.org",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "inflation",
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "fred",
+          "url": "https://fred.stlouisfed.org/series/DFF"
+        },
+        {
+          "domain": "home.treasury.gov",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "treasury",
+          "url": "https://home.treasury.gov/policy-issues/financing-the-government/interest-rate-statistics"
+        },
+        {
+          "domain": "federalreserve.gov",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "inflation",
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "federal_reserve",
+          "url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm"
+        },
+        {
+          "domain": "federalreserve.gov",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "inflation",
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "federal_reserve",
+          "url": "https://www.federalreserve.gov/monetarypolicy/reserve-balances.htm"
+        },
+        {
+          "domain": "federalreserve.gov",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "inflation",
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "federal_reserve",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20251210a1.htm"
+        },
+        {
+          "domain": "federalreserve.gov",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "inflation",
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "federal_reserve",
+          "url": "https://www.federalreserve.gov/releases/h15/"
+        },
+        {
+          "domain": "newyorkfed.org",
+          "fields": [
+            "canonical_article_draft.citations",
+            "canonical_article_draft.source_notes_for_operator",
+            "canonical_article_draft.source_trail",
+            "research_grounding_packet.cited_source_notes"
+          ],
+          "matched_terms": [
+            "rates",
+            "sofr",
+            "yield"
+          ],
+          "relevance_status": "SUPPORTS_TOPIC",
+          "source_family": "newyorkfed",
+          "url": "https://www.newyorkfed.org/markets/reference-rates/sofr"
+        }
+      ],
       "expected_concepts": [
         "inflation",
         "yield"
       ],
       "irrelevant_urls": [],
-      "relevant_source_families": [],
-      "relevant_source_family_count": 0,
+      "relevant_source_families": [
+        "federal_reserve",
+        "fred",
+        "newyorkfed",
+        "treasury"
+      ],
+      "relevant_source_family_count": 4,
       "source_trail_claims_too_generic": false,
-      "source_trail_count": 0
+      "source_trail_count": 8
     },
-    "tier1_editorial_approved": false,
+    "tier1_editorial_approved": true,
     "tier1_structure_audit": {
       "checks": {
-        "clear_news_hook": false,
+        "clear_news_hook": true,
         "counterargument_or_limits": true,
         "evidence": true,
-        "what_to_watch_next": false,
-        "why_now": false
+        "what_to_watch_next": true,
+        "why_now": true
       },
-      "missing": [
-        "clear_news_hook",
-        "why_now",
-        "what_to_watch_next"
-      ],
-      "section_count": 2
+      "missing": [],
+      "section_count": 9
     }
   },
   "headline_rehearsal_context": {
@@ -105,7 +464,7 @@
     "sidecar_file_count": 1,
     "sidecars_available": true
   },
-  "image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
+  "image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
   "live_platform_api_called": false,
   "media_diversification_audit": {
     "asset_count": 3,
@@ -117,60 +476,58 @@
           "audit_status": "PASS",
           "blockers": [],
           "latest_detected_year": 2026,
-          "llm_review_recommended": true,
+          "llm_review_recommended": false,
           "requirements": {
             "as_of_year": 2026,
-            "expected_direction": "up",
-            "expected_metric": "volatility",
+            "expected_direction": "none",
+            "expected_metric": "fed_funds_policy_rates",
             "minimum_end_year": 2025,
             "requires_current_coverage": true
           },
-          "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-          "warnings": [
-            "media_relevance_weak_token_match"
-          ]
+          "source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+          "warnings": []
         },
-        "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "latest_observation_date": "2026-06-29",
+        "image_url": "https://fred.stlouisfed.org/series/DFF",
+        "latest_observation_date": "2026-07-07",
         "latest_observation_year": 2026,
         "media_class": "data_chart",
         "operator_review_required": false,
-        "provenance_status": "source_backed_generated_from_public_data",
+        "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
         "rights_status": "source_backed_generated_visual_cc_owned",
         "source_domain": "fred.stlouisfed.org",
-        "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "why_selected": "Primary source-backed chart with current WTI endpoint and realized-volatility context for the article thesis."
+        "source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+        "source_page_url": "https://fred.stlouisfed.org/series/DFF",
+        "why_selected": "Primary source-backed chart showing the effective fed funds rate inside the Federal Reserve policy corridor for the selected non-oil topic."
       },
       {
-        "asset_id": "recent_price",
+        "asset_id": "policy_corridor",
         "candidate_content_audit": null,
-        "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "latest_observation_date": "2026-06-29",
+        "image_url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+        "latest_observation_date": "2026-07-07",
+        "latest_observation_year": 2026,
+        "media_class": "policy_diagram",
+        "operator_review_required": false,
+        "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "source_domain": "federalreserve.gov",
+        "source_label": "Federal Reserve policy corridor, IORB, ON RRP, standing repo, and primary credit context",
+        "source_page_url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+        "why_selected": "Adds a contextual policy-corridor visual so the rates article is not chart-only and does not inherit oil media."
+      },
+      {
+        "asset_id": "sofr_context",
+        "candidate_content_audit": null,
+        "image_url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+        "latest_observation_date": "2026-07-07",
         "latest_observation_year": 2026,
         "media_class": "data_chart",
         "operator_review_required": false,
-        "provenance_status": "source_backed_generated_from_public_data",
+        "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
         "rights_status": "source_backed_generated_visual_cc_owned",
-        "source_domain": "fred.stlouisfed.org",
-        "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "why_selected": "Supporting chart gives a narrower recent-price view so platforms are not repeating the same volatility chart only."
-      },
-      {
-        "asset_id": "hormuz_context",
-        "candidate_content_audit": null,
-        "image_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
-        "latest_observation_date": "2026-06-29",
-        "latest_observation_year": 2026,
-        "media_class": "map_or_geography",
-        "operator_review_required": false,
-        "provenance_status": "capital_chronicle_generated_schematic_from_official_eia_context",
-        "rights_status": "source_backed_generated_visual_cc_owned",
-        "source_domain": "eia.gov",
-        "source_label": "EIA Strait of Hormuz oil chokepoint context",
-        "source_page_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
-        "why_selected": "Adds a contextual geopolitics/map visual so the article is not chart-only and the oil-volatility thesis has a supply-risk frame."
+        "source_domain": "newyorkfed.org",
+        "source_label": "NY Fed SOFR methodology context and Federal Reserve H.15 selected interest rates",
+        "source_page_url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+        "why_selected": "Supporting rates-context visual distinguishes DFF from SOFR methodology and Treasury yields without using oil-family visuals."
       }
     ],
     "auto_publication_safe": true,
@@ -178,12 +535,12 @@
     "expected_min_assets": 3,
     "media_classes": [
       "data_chart",
-      "data_chart",
-      "map_or_geography"
+      "policy_diagram",
+      "data_chart"
     ],
     "minimum_allowed_assets": 3,
     "replacement_notes": [],
-    "retrieval_audit_timestamp": "2026-07-08T19:46:14Z",
+    "retrieval_audit_timestamp": "2026-07-09T05:24:54Z",
     "review_items": [],
     "schema_version": "media_diversification_audit_v6.0"
   },
@@ -203,103 +560,120 @@
     "live_platform_api_called": false,
     "media_assets": [
       {
-        "alt_text": "Two-panel chart showing current WTI crude oil price and rolling absolute daily moves using FRED data.",
+        "alt_text": "Line chart showing the effective federal funds rate inside the Federal Reserve target range with IORB and midpoint lines.",
         "asset_id": "primary",
-        "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-        "caption": "WTI crude oil price and 30-day realized volatility through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "canonical_source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+        "caption": "Effective federal funds rate at 3.63% on 2026-07-07, unchanged from 3.63% on 2026-07-06, inside the 3.50% to 3.75% target range. Source: FRED DFF and Federal Reserve policy tools.",
+        "content_authority_scope": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
+        "contentops_role": "temporary deterministic fallback fixture for dry-run/public-candidate readiness only",
         "dry_run_fixture_asset": true,
+        "future_numeric_source_authority": "FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY",
+        "future_required_input": "CC_CONTENT_ARTIFACT_PACKET",
         "image_url": null,
-        "latest_observation_date": "2026-06-29",
+        "latest_observation_date": "2026-07-07",
         "latest_observation_year": 2026,
-        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
+        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
         "media_class": "data_chart",
         "media_role": "primary_chart",
-        "media_subject": "WTI crude oil current price and volatility context",
+        "media_subject": "Effective federal funds rate and policy corridor context",
+        "no_new_source_family_rule": "No additional source families should be added directly to ContentOps unless explicitly approved.",
         "operator_review_required": false,
-        "provenance_status": "source_backed_generated_from_public_data",
+        "prior_observation_date": "2026-07-06",
+        "prior_observation_value": 3.63,
+        "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
         "public_url": null,
-        "query": "Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard",
+        "query": "Fed Funds at 3.63 Percent: Reading the Policy Corridor Without Overreach",
         "recency_days": 365,
-        "recent_direction": "up",
-        "recent_price_direction": "up",
+        "recent_direction": "flat",
         "retrieval_method": "committed_local_source_backed_fixture",
-        "retrieval_timestamp": "2026-07-08T05:46:55Z",
+        "retrieval_timestamp": "2026-07-09T05:19:41Z",
         "rights_status": "source_backed_generated_visual_cc_owned",
         "source_domain": "fred.stlouisfed.org",
-        "source_label": "FRED / U.S. Energy Information Administration",
-        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "source_label": "FRED / Federal Reserve Board",
+        "source_page_url": "https://fred.stlouisfed.org/series/DFF",
+        "source_truth_boundary": "ContentOps does not own Fed/FRED/NY Fed/Treasury rates source truth; it must consume approved Capital Chronicle artifacts later.",
+        "source_url": "https://fred.stlouisfed.org/series/DFF",
         "time_coverage_end_year": 2026,
         "time_filter": "current_source_series_latest_available_observation",
-        "url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "visual_metric": "oil_volatility wti crude oil current price realized volatility",
-        "why_selected": "Primary source-backed chart with current WTI endpoint and realized-volatility context for the article thesis."
+        "url": "https://fred.stlouisfed.org/series/DFF",
+        "visual_metric": "fed funds policy rates effective federal funds rate policy corridor iorb interest rate context",
+        "why_selected": "Primary source-backed chart showing the effective fed funds rate inside the Federal Reserve policy corridor for the selected non-oil topic."
       },
       {
-        "alt_text": "Line chart showing the recent WTI crude oil price path using FRED data.",
-        "asset_id": "recent_price",
-        "canonical_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-        "caption": "Recent WTI price path through 2026-06-29. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "alt_text": "Policy corridor schematic showing ON RRP, DFF, IORB, standing repo, and primary credit rates within or around the target range.",
+        "asset_id": "policy_corridor",
+        "canonical_source_label": "Federal Reserve policy corridor, IORB, ON RRP, standing repo, and primary credit context",
+        "caption": "Federal Reserve policy corridor context with DFF, IORB, ON RRP, standing repo, and primary credit settings. Capital Chronicle generated schematic from official Fed sources.",
+        "content_authority_scope": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
+        "contentops_role": "temporary deterministic fallback fixture for dry-run/public-candidate readiness only",
         "dry_run_fixture_asset": true,
+        "future_numeric_source_authority": "FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY",
+        "future_required_input": "CC_CONTENT_ARTIFACT_PACKET",
         "image_url": null,
-        "latest_observation_date": "2026-06-29",
+        "latest_observation_date": "2026-07-07",
         "latest_observation_year": 2026,
-        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_recent_price_context_99c8292edb1a.png",
-        "media_class": "data_chart",
-        "media_role": "supporting_chart",
-        "media_subject": "WTI crude oil recent price path",
+        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_floor_context_ab8e1ca1525f.png",
+        "media_class": "policy_diagram",
+        "media_role": "contextual_policy_visual",
+        "media_subject": "Federal Reserve policy corridor and administered rates context",
+        "no_new_source_family_rule": "No additional source families should be added directly to ContentOps unless explicitly approved.",
         "operator_review_required": false,
-        "provenance_status": "source_backed_generated_from_public_data",
+        "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
         "public_url": null,
-        "query": "Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard",
-        "recency_days": 365,
-        "recent_direction": "up",
-        "recent_price_direction": "up",
-        "recent_volatility_direction": "up",
-        "retrieval_method": "committed_local_source_backed_fixture",
-        "retrieval_timestamp": "2026-07-08T05:46:55Z",
-        "rights_status": "source_backed_generated_visual_cc_owned",
-        "source_domain": "fred.stlouisfed.org",
-        "source_label": "FRED / U.S. Energy Information Administration",
-        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "time_coverage_end_year": 2026,
-        "time_filter": "current_source_series_latest_available_observation",
-        "url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-        "visual_metric": "wti crude oil current recent price path",
-        "why_selected": "Supporting chart gives a narrower recent-price view so platforms are not repeating the same volatility chart only."
-      },
-      {
-        "alt_text": "Schematic contextual visual showing the Strait of Hormuz between the Persian Gulf and Gulf of Oman as an oil-flow chokepoint.",
-        "asset_id": "hormuz_context",
-        "canonical_source_label": "EIA Strait of Hormuz oil chokepoint context",
-        "caption": "Strait of Hormuz energy chokepoint context. Source reference: U.S. Energy Information Administration; Capital Chronicle generated schematic.",
-        "dry_run_fixture_asset": true,
-        "image_url": null,
-        "latest_observation_date": "2026-06-29",
-        "latest_observation_year": 2026,
-        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\hormuz_oil_chokepoint_context_99c8292edb1a.png",
-        "media_class": "map_or_geography",
-        "media_role": "contextual_geopolitical_visual",
-        "media_subject": "Strait of Hormuz energy chokepoint context",
-        "operator_review_required": false,
-        "provenance_status": "capital_chronicle_generated_schematic_from_official_eia_context",
-        "public_url": null,
-        "query": "Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard",
+        "query": "Fed Funds at 3.63 Percent: Reading the Policy Corridor Without Overreach",
         "recency_days": 365,
         "recent_direction": "contextual",
         "retrieval_method": "committed_local_source_backed_fixture",
-        "retrieval_timestamp": "2026-07-08T05:46:55Z",
+        "retrieval_timestamp": "2026-07-09T05:19:41Z",
         "rights_status": "source_backed_generated_visual_cc_owned",
-        "source_domain": "eia.gov",
-        "source_label": "U.S. Energy Information Administration",
-        "source_page_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
-        "source_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
+        "source_domain": "federalreserve.gov",
+        "source_label": "Federal Reserve Board",
+        "source_page_url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+        "source_truth_boundary": "ContentOps does not own Fed/FRED/NY Fed/Treasury rates source truth; it must consume approved Capital Chronicle artifacts later.",
+        "source_url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
         "time_coverage_end_year": 2026,
-        "time_filter": "official_context_source_latest_available",
-        "url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
-        "visual_metric": "oil geopolitics strait hormuz chokepoint energy supply risk",
-        "why_selected": "Adds a contextual geopolitics/map visual so the article is not chart-only and the oil-volatility thesis has a supply-risk frame."
+        "time_filter": "current_source_series_latest_available_observation",
+        "url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+        "visual_metric": "fed funds policy corridor iorb on rrp standing repo administered rates",
+        "why_selected": "Adds a contextual policy-corridor visual so the rates article is not chart-only and does not inherit oil media."
+      },
+      {
+        "alt_text": "Bar chart comparing DFF with 2-year, 10-year, and 30-year Treasury rates, with a note that SOFR is secured repo context.",
+        "asset_id": "sofr_context",
+        "canonical_source_label": "NY Fed SOFR methodology context and Federal Reserve H.15 selected interest rates",
+        "caption": "Rates context panel: DFF 3.63%, 2-year Treasury 3.77%, 10-year Treasury 4.34%, and 30-year Treasury 4.92%. Sources: FRED DFF, Federal Reserve H.15, and NY Fed SOFR methodology.",
+        "content_authority_scope": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
+        "contentops_role": "temporary deterministic fallback fixture for dry-run/public-candidate readiness only",
+        "dry_run_fixture_asset": true,
+        "future_numeric_source_authority": "FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY",
+        "future_required_input": "CC_CONTENT_ARTIFACT_PACKET",
+        "image_url": null,
+        "latest_observation_date": "2026-07-07",
+        "latest_observation_year": 2026,
+        "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_sofr_context_ab8e1ca1525f.png",
+        "media_class": "data_chart",
+        "media_role": "supporting_rates_chart",
+        "media_subject": "SOFR methodology and Treasury rates context for fed funds article",
+        "no_new_source_family_rule": "No additional source families should be added directly to ContentOps unless explicitly approved.",
+        "operator_review_required": false,
+        "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
+        "public_url": null,
+        "query": "Fed Funds at 3.63 Percent: Reading the Policy Corridor Without Overreach",
+        "recency_days": 365,
+        "recent_direction": "contextual",
+        "retrieval_method": "committed_local_source_backed_fixture",
+        "retrieval_timestamp": "2026-07-09T05:19:41Z",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "source_domain": "newyorkfed.org",
+        "source_label": "Federal Reserve Bank of New York / Federal Reserve H.15",
+        "source_page_url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+        "source_truth_boundary": "ContentOps does not own Fed/FRED/NY Fed/Treasury rates source truth; it must consume approved Capital Chronicle artifacts later.",
+        "source_url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+        "time_coverage_end_year": 2026,
+        "time_filter": "current_source_series_latest_available_observation",
+        "url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+        "visual_metric": "fed funds sofr treasury rates overnight policy interest rate context",
+        "why_selected": "Supporting rates-context visual distinguishes DFF from SOFR methodology and Treasury yields without using oil-family visuals."
       }
     ],
     "media_blockers": [],
@@ -307,7 +681,7 @@
       "audit_status": "PASS",
       "blockers": [],
       "latest_detected_year": 2026,
-      "llm_review_recommended": true,
+      "llm_review_recommended": false,
       "replacement_notes": [
         "dry_run_image_search_skipped_network_isolated",
         "committed_source_backed_visual_pack_selected",
@@ -315,15 +689,13 @@
       ],
       "requirements": {
         "as_of_year": 2026,
-        "expected_direction": "up",
-        "expected_metric": "volatility",
+        "expected_direction": "none",
+        "expected_metric": "fed_funds_policy_rates",
         "minimum_end_year": 2025,
         "requires_current_coverage": true
       },
-      "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-      "warnings": [
-        "media_relevance_weak_token_match"
-      ]
+      "source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+      "warnings": []
     },
     "media_diversification_audit": {
       "asset_count": 3,
@@ -335,60 +707,58 @@
             "audit_status": "PASS",
             "blockers": [],
             "latest_detected_year": 2026,
-            "llm_review_recommended": true,
+            "llm_review_recommended": false,
             "requirements": {
               "as_of_year": 2026,
-              "expected_direction": "up",
-              "expected_metric": "volatility",
+              "expected_direction": "none",
+              "expected_metric": "fed_funds_policy_rates",
               "minimum_end_year": 2025,
               "requires_current_coverage": true
             },
-            "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-            "warnings": [
-              "media_relevance_weak_token_match"
-            ]
+            "source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+            "warnings": []
           },
-          "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-          "latest_observation_date": "2026-06-29",
+          "image_url": "https://fred.stlouisfed.org/series/DFF",
+          "latest_observation_date": "2026-07-07",
           "latest_observation_year": 2026,
           "media_class": "data_chart",
           "operator_review_required": false,
-          "provenance_status": "source_backed_generated_from_public_data",
+          "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
           "rights_status": "source_backed_generated_visual_cc_owned",
           "source_domain": "fred.stlouisfed.org",
-          "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-          "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-          "why_selected": "Primary source-backed chart with current WTI endpoint and realized-volatility context for the article thesis."
+          "source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+          "source_page_url": "https://fred.stlouisfed.org/series/DFF",
+          "why_selected": "Primary source-backed chart showing the effective fed funds rate inside the Federal Reserve policy corridor for the selected non-oil topic."
         },
         {
-          "asset_id": "recent_price",
+          "asset_id": "policy_corridor",
           "candidate_content_audit": null,
-          "image_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-          "latest_observation_date": "2026-06-29",
+          "image_url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+          "latest_observation_date": "2026-07-07",
+          "latest_observation_year": 2026,
+          "media_class": "policy_diagram",
+          "operator_review_required": false,
+          "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
+          "rights_status": "source_backed_generated_visual_cc_owned",
+          "source_domain": "federalreserve.gov",
+          "source_label": "Federal Reserve policy corridor, IORB, ON RRP, standing repo, and primary credit context",
+          "source_page_url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+          "why_selected": "Adds a contextual policy-corridor visual so the rates article is not chart-only and does not inherit oil media."
+        },
+        {
+          "asset_id": "sofr_context",
+          "candidate_content_audit": null,
+          "image_url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+          "latest_observation_date": "2026-07-07",
           "latest_observation_year": 2026,
           "media_class": "data_chart",
           "operator_review_required": false,
-          "provenance_status": "source_backed_generated_from_public_data",
+          "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
           "rights_status": "source_backed_generated_visual_cc_owned",
-          "source_domain": "fred.stlouisfed.org",
-          "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-          "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
-          "why_selected": "Supporting chart gives a narrower recent-price view so platforms are not repeating the same volatility chart only."
-        },
-        {
-          "asset_id": "hormuz_context",
-          "candidate_content_audit": null,
-          "image_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
-          "latest_observation_date": "2026-06-29",
-          "latest_observation_year": 2026,
-          "media_class": "map_or_geography",
-          "operator_review_required": false,
-          "provenance_status": "capital_chronicle_generated_schematic_from_official_eia_context",
-          "rights_status": "source_backed_generated_visual_cc_owned",
-          "source_domain": "eia.gov",
-          "source_label": "EIA Strait of Hormuz oil chokepoint context",
-          "source_page_url": "https://www.eia.gov/todayinenergy/detail.php?id=65504",
-          "why_selected": "Adds a contextual geopolitics/map visual so the article is not chart-only and the oil-volatility thesis has a supply-risk frame."
+          "source_domain": "newyorkfed.org",
+          "source_label": "NY Fed SOFR methodology context and Federal Reserve H.15 selected interest rates",
+          "source_page_url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+          "why_selected": "Supporting rates-context visual distinguishes DFF from SOFR methodology and Treasury yields without using oil-family visuals."
         }
       ],
       "auto_publication_safe": true,
@@ -396,12 +766,12 @@
       "expected_min_assets": 3,
       "media_classes": [
         "data_chart",
-        "data_chart",
-        "map_or_geography"
+        "policy_diagram",
+        "data_chart"
       ],
       "minimum_allowed_assets": 3,
       "replacement_notes": [],
-      "retrieval_audit_timestamp": "2026-07-08T19:46:14Z",
+      "retrieval_audit_timestamp": "2026-07-09T05:24:54Z",
       "review_items": [],
       "schema_version": "media_diversification_audit_v6.0"
     },
@@ -416,14 +786,13 @@
       "x": true
     },
     "media_warnings": [
-      "chart_source_csv_missing",
-      "media_relevance_weak_token_match"
+      "chart_source_csv_missing"
     ],
-    "news_image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
+    "news_image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
     "news_image_public_url": null,
-    "news_image_source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
-    "news_image_source_query": "Crude Awakenings: Oil Volatility, Hormuz Risk, and the Recession Dashboard",
-    "news_image_source_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+    "news_image_source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+    "news_image_source_query": "Fed Funds at 3.63 Percent: Reading the Policy Corridor Without Overreach",
+    "news_image_source_url": "https://fred.stlouisfed.org/series/DFF",
     "primary_chart_path": null,
     "primary_chart_public_url": null,
     "rights_status": "sourceable_review_required",
@@ -431,34 +800,88 @@
       "discord": null,
       "facebook": null,
       "instagram": null,
-      "linkedin": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
-      "substack": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
-      "telegram": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png",
+      "linkedin": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+      "substack": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+      "telegram": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
       "threads": null,
-      "x": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\wti_current_volatility_context_99c8292edb1a.png"
+      "x": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png"
     },
     "source_backed_generation_network_attempted": false
   },
-  "pipeline_status": "REHEARSAL_BLOCKED",
-  "platform_variant_packet_id": "variant_packet_44f9399b36f3",
+  "pipeline_status": "LIVE_READY_REQUIRES_OPERATOR_GO",
+  "platform_variant_packet_id": "variant_packet_9cc4a5f536db",
+  "public_dispatch_approval_marker_envelope": {
+    "approval_marker": {
+      "approval_status": "APPROVED_FOR_PUBLIC_DISPATCH",
+      "approved_payload_hashes": {
+        "discord": "6bef854c268f5776",
+        "facebook": "753d7417e8bea779",
+        "instagram": "b67c57c1d59f0a2c",
+        "linkedin": "46c3f604da7839e4",
+        "substack": "3353b59e444d8c25",
+        "telegram": "bd888afd65e105e7",
+        "threads": "ac86076e5b1655fc",
+        "x": "339d3519ae118ef3"
+      },
+      "approved_public_dispatch": true,
+      "canonical_packet_hash": "67e099057fb57e58ae8c8b6db361a865623f8620748f63c35fd70232241e73da",
+      "dry_run": true,
+      "payload_hash": "bd888afd65e105e7",
+      "platform_variant_packet_hash": "c21472c8e45b9c97f206ba0f15aadca9527c84463ca4556a9146067f21477e19",
+      "public_write": false,
+      "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+      "topic_hash": "8a4bc478b749f915"
+    },
+    "canonical_packet_hash": "67e099057fb57e58ae8c8b6db361a865623f8620748f63c35fd70232241e73da",
+    "dry_run": true,
+    "duplicate_ledger_result": {
+      "action": "photo",
+      "approval_marker_present": true,
+      "blockers": [],
+      "dispatch_allowed": true,
+      "identity_hashes": {
+        "media_url_hash": "5f555d2612eab24c",
+        "topic_hash": "8a4bc478b749f915"
+      },
+      "payload_hash": "bd888afd65e105e7",
+      "payload_hash_required": true,
+      "platform": "telegram",
+      "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+      "status": "PASS",
+      "topic_hash": "8a4bc478b749f915"
+    },
+    "per_platform_payload_hash": {
+      "discord": "6bef854c268f5776",
+      "facebook": "753d7417e8bea779",
+      "instagram": "b67c57c1d59f0a2c",
+      "linkedin": "46c3f604da7839e4",
+      "substack": "3353b59e444d8c25",
+      "telegram": "bd888afd65e105e7",
+      "threads": "ac86076e5b1655fc",
+      "x": "339d3519ae118ef3"
+    },
+    "platform_variant_packet_hash": "c21472c8e45b9c97f206ba0f15aadca9527c84463ca4556a9146067f21477e19",
+    "public_write": false,
+    "quality_gate_result": {
+      "blockers": [],
+      "status": "PASS"
+    },
+    "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+    "telegram_payload_hash": "bd888afd65e105e7",
+    "topic_hash": "8a4bc478b749f915"
+  },
   "public_dispatch_approval_marker_present": false,
-  "public_dispatch_ledger_path": "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+  "public_dispatch_ledger_path": "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
   "public_dispatch_topic_hash": "8a4bc478b749f915",
   "public_image_url": null,
   "public_write": false,
   "quality_gate_result": {
-    "blockers": [
-      "article_too_short_words:140<2000",
-      "too_few_sections",
-      "source_trail_too_thin",
-      "missing_specific_numbers",
-      "editorial_quality_gate:EDITORIAL_BLOCKED"
-    ],
-    "status": "BLOCKED"
+    "blockers": [],
+    "status": "PASS"
   },
-  "run_id": "v6_fresh_fed_funds_prepublic_rehearsal_20260709",
-  "tier1_editorial_approved": false,
-  "timestamp": "2026-07-08T19:46:14Z",
-  "timestamp_gmt7": "2026-07-09T02:46:14+07:00",
+  "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+  "tier1_editorial_approved": true,
+  "timestamp": "2026-07-09T05:24:54Z",
+  "timestamp_gmt7": "2026-07-09T12:24:54+07:00",
   "variant_status": "VARIANT_READY"
 }

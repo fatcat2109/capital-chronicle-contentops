@@ -1,0 +1,283 @@
+{
+  "acceptance_label": "PRE_PUBLIC_GATE_PASS_REQUIRES_OPERATOR_MARKER_AND_ONE_LIVE_RUN",
+  "blockers": [],
+  "created_at": "2026-07-09T05:25:05Z",
+  "current_candidate_duplicate_gate": {
+    "blockers": [],
+    "canonical_packet_hash": "67e099057fb57e58ae8c8b6db361a865623f8620748f63c35fd70232241e73da",
+    "canonical_url": null,
+    "editorial_angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+    "exact_hash_checks": {
+      "media_hash_seen_before": false,
+      "payload_hash_seen_before": [],
+      "topic_hash_seen_before": false
+    },
+    "families": {
+      "article": [
+        "fed_funds_policy_rates"
+      ],
+      "ledger": [
+        "crude_wti_oil_volatility"
+      ],
+      "media": [
+        "fed_funds_policy_rates"
+      ]
+    },
+    "ledger_family_matches": {},
+    "media_hash": "d3730bc9fd6f4227",
+    "media_identity": {
+      "assets": [
+        {
+          "asset_id": "primary",
+          "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+          "media_subject": "Effective federal funds rate and policy corridor context",
+          "public_url": null,
+          "source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+          "visual_metric": "fed funds policy rates effective federal funds rate policy corridor iorb interest rate context"
+        },
+        {
+          "asset_id": "policy_corridor",
+          "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_floor_context_ab8e1ca1525f.png",
+          "media_subject": "Federal Reserve policy corridor and administered rates context",
+          "public_url": null,
+          "source_label": "Federal Reserve policy corridor, IORB, ON RRP, standing repo, and primary credit context",
+          "visual_metric": "fed funds policy corridor iorb on rrp standing repo administered rates"
+        },
+        {
+          "asset_id": "sofr_context",
+          "local_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_sofr_context_ab8e1ca1525f.png",
+          "media_subject": "SOFR methodology and Treasury rates context for fed funds article",
+          "public_url": null,
+          "source_label": "NY Fed SOFR methodology context and Federal Reserve H.15 selected interest rates",
+          "visual_metric": "fed funds sofr treasury rates overnight policy interest rate context"
+        }
+      ],
+      "image_path": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+      "public_image_url": null,
+      "selected_media_by_platform": {
+        "discord": null,
+        "facebook": null,
+        "instagram": null,
+        "linkedin": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+        "substack": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+        "telegram": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png",
+        "threads": null,
+        "x": "docs\\automation\\V6_MEDIA_SYSTEM\\downloads\\fed_funds_policy_corridor_context_ab8e1ca1525f.png"
+      }
+    },
+    "per_platform_payload_hash": {
+      "discord": "6bef854c268f5776",
+      "facebook": "753d7417e8bea779",
+      "instagram": "b67c57c1d59f0a2c",
+      "linkedin": "46c3f604da7839e4",
+      "substack": "3353b59e444d8c25",
+      "telegram": "bd888afd65e105e7",
+      "threads": "ac86076e5b1655fc",
+      "x": "339d3519ae118ef3"
+    },
+    "platform_variant_packet_hash": "c21472c8e45b9c97f206ba0f15aadca9527c84463ca4556a9146067f21477e19",
+    "run_id": "pre_public_current_candidate",
+    "slug": "fed-funds-rate-policy-corridor-363-percent",
+    "status": "PASS",
+    "telegram_payload_hash": "bd888afd65e105e7",
+    "title": "Fed Funds at 3.63 Percent: Reading the Policy Corridor Without Overreach",
+    "topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+    "topic_hash": "8a4bc478b749f915"
+  },
+  "dry_run_rehearsal_evidence": {
+    "canonical_packet_hash": "0cc5c3bb4c0130a93b04e672080e0d3b0489e07f2e6979e25ab535a7d79c1e04",
+    "dispatch_live": false,
+    "dispatch_rehearsal": true,
+    "evidence_hash": "1884fe9e4c680d1c76834c01190875b4f788cf4396e5e4e434d1a23a200a58ef",
+    "evidence_packet_id": "v6_pipeline_rehearsal_1884fe9e4c680d1c",
+    "path": "docs\\automation\\V6_DRY_RUN_FULL_AUTOMATION_REHEARSAL\\dry_run_full_automation_rehearsal_evidence_v0.json",
+    "per_platform_payload_hash": {
+      "discord": "e52dd3efa204aead",
+      "facebook": "4ae083ce17a4afc9",
+      "instagram": "822c2ae10f901f42",
+      "linkedin": "f353a89decd9bdc5",
+      "substack": "805f1ad726413dcf",
+      "telegram": "de2b71eb33b51986",
+      "threads": "fbe4935e1502a5d3",
+      "x": "17f9cec8e6690e89"
+    },
+    "pipeline_status": "LIVE_READY_REQUIRES_OPERATOR_GO",
+    "platform_variant_packet_hash": "05b1a63252e641d68960684fb5b67897c6ba951dbedb3d5d3d2f770cd8cef57c",
+    "present": true,
+    "public_write": false,
+    "quality_gate_result": {
+      "blockers": [],
+      "status": "PASS"
+    },
+    "run_id": "v6_dry_run_rehearsal_20260709",
+    "task_label": "TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0",
+    "telegram_payload_hash": "de2b71eb33b51986",
+    "topic_hash": "6ec6c3d3cbc58f82"
+  },
+  "evidence_hash": "65fb049d4e526c016350067eff4902bc2f0c84a42a82cffadac82b7779622e81",
+  "evidence_packet_id": "v6_controlled_public_preflight_65fb049d4e526c01",
+  "fresh_slot_dry_run_rehearsal_evidence": {
+    "canonical_packet_hash": "67e099057fb57e58ae8c8b6db361a865623f8620748f63c35fd70232241e73da",
+    "dispatch_live": false,
+    "dispatch_rehearsal": true,
+    "evidence_hash": "dc26280883eeeb922002bf4f48be66250d907f75a7123f25d5ef7cedda524a2b",
+    "evidence_packet_id": "v6_pipeline_rehearsal_dc26280883eeeb92",
+    "path": "docs/automation/V6_FRESH_NON_OIL_REHEARSAL_REPAIR/fresh_non_oil_rehearsal_evidence_v0.json",
+    "per_platform_payload_hash": {
+      "discord": "6bef854c268f5776",
+      "facebook": "753d7417e8bea779",
+      "instagram": "b67c57c1d59f0a2c",
+      "linkedin": "46c3f604da7839e4",
+      "substack": "3353b59e444d8c25",
+      "telegram": "bd888afd65e105e7",
+      "threads": "ac86076e5b1655fc",
+      "x": "339d3519ae118ef3"
+    },
+    "pipeline_status": "LIVE_READY_REQUIRES_OPERATOR_GO",
+    "platform_variant_packet_hash": "c21472c8e45b9c97f206ba0f15aadca9527c84463ca4556a9146067f21477e19",
+    "present": true,
+    "public_write": false,
+    "quality_gate_result": {
+      "blockers": [],
+      "status": "PASS"
+    },
+    "run_id": "v6_fresh_fed_funds_repair_rehearsal_20260709",
+    "task_label": "TASK_CONTENTOPS_V6_PIPELINE_LIVE_REHEARSAL_AND_EVIDENCE_READBACK_V0",
+    "telegram_payload_hash": "bd888afd65e105e7",
+    "topic_hash": "8a4bc478b749f915"
+  },
+  "packet_kind": "v6_controlled_public_candidate_pre_public_gate_evidence",
+  "pre_public_gate_status": "PASS_PRE_PUBLIC_GATE",
+  "process_artifact_check": {
+    "matching_python_runner_count": 0,
+    "process_ids": []
+  },
+  "repo_state": {
+    "branch": "task/telegram-substack-regression-repair",
+    "head": "62d6bfc8655b0ad0169ffe68249d96fcde9f5848",
+    "origin_master": "62d6bfc8655b0ad0169ffe68249d96fcde9f5848",
+    "status_short": "M docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json\n M docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md\n M docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/discord_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/facebook_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/instagram_caption_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/linkedin_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/substack_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/telegram_operator_preview.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/threads_variant.md\n M docs/automation/V6_PLATFORM_NATIVE_VARIANTS/x_variant.md\n M docs/status/CURRENT_PROJECT_STATUS.md\n M docs/status/current_project_status.json\n M live_contentops/ai_research_canonical_article_engine_v6.py\n M live_contentops/media_content_audit_v6.py\n M live_contentops/media_diversification_audit_v6.py\n M live_contentops/platform_native_variant_generator_live_v6.py\n M live_contentops/public_candidate_preflight_v6.py\n M tests/test_ai_research_canonical_article_engine_v6.py\n M tests/test_media_content_audit_v6.py\n M tests/test_media_diversification_audit_v6.py\n M tests/test_platform_native_variant_generator_live.py\n M tests/test_public_candidate_preflight_v6.py\n M ui/contentops_v5/src/data/platform_variant_packet.json\n?? docs/automation/V6_CC_ARTIFACT_PACKET_CONTRACT/\n?? docs/automation/V6_FRESH_NON_OIL_REHEARSAL_REPAIR/\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_corridor_context_ab8e1ca1525f.json\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_corridor_context_ab8e1ca1525f.png\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_floor_context_ab8e1ca1525f.json\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_floor_context_ab8e1ca1525f.png\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_sofr_context_ab8e1ca1525f.json\n?? docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_sofr_context_ab8e1ca1525f.png"
+  },
+  "safety": {
+    "browser_session_values_persisted": false,
+    "credential_lookup_performed": false,
+    "live_platform_api_called": false,
+    "public_dispatch_performed": false,
+    "public_write": false,
+    "raw_credential_values_persisted": false,
+    "raw_env_values_persisted": false
+  },
+  "schedule_fresh_slot_triage": {
+    "evaluated_slots": [
+      {
+        "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+        "blockers": [
+          "duplicate_family_risk:crude_wti_oil_volatility"
+        ],
+        "families": [
+          "crude_wti_oil_volatility"
+        ],
+        "readiness": "READY_FOR_PIPELINE",
+        "review_items": [],
+        "slot_index": 1,
+        "status": "BLOCKED",
+        "topic": "When oil and yields stop moving together, it signals the Fed's problem has shifted from headline to core... cheaper oil alone won't open the door to cuts -Torst"
+      },
+      {
+        "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+        "blockers": [
+          "politically_sensitive_unverified_claim_requires_manual_source_verification"
+        ],
+        "families": [
+          "multi_event_policy_calendar",
+          "politically_sensitive_claim"
+        ],
+        "readiness": "READY_FOR_PIPELINE",
+        "review_items": [
+          "multi_event_calendar_item_requires_single_topic_extraction_before_public_candidate"
+        ],
+        "slot_index": 2,
+        "status": "BLOCKED",
+        "topic": "Today's Key Events (All EST) \u2014 07/08/2026 04:00: Trump to speak at Ankara NATO Summit 07:00: US MBA Mortgage Applications 10:00: US Wholesale Inventories MoM Re"
+      },
+      {
+        "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+        "blockers": [
+          "politically_sensitive_unverified_claim_requires_manual_source_verification"
+        ],
+        "families": [
+          "politically_sensitive_claim"
+        ],
+        "readiness": "READY_FOR_PIPELINE",
+        "review_items": [],
+        "slot_index": 3,
+        "status": "BLOCKED",
+        "topic": "Fed Reserve working paper suggests Biden illegal immigrant wave caused 30% of home price increases: https://t.co/GVnfx0HhPi"
+      },
+      {
+        "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+        "blockers": [
+          "duplicate_family_risk:crude_wti_oil_volatility"
+        ],
+        "families": [
+          "crude_wti_oil_volatility"
+        ],
+        "readiness": "READY_FOR_PIPELINE",
+        "review_items": [],
+        "slot_index": 4,
+        "status": "BLOCKED",
+        "topic": "Global oil output to return to pre-Iran war level by year\u2019s end, U.S. EIA says"
+      },
+      {
+        "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+        "blockers": [
+          "duplicate_family_risk:crude_wti_oil_volatility"
+        ],
+        "families": [
+          "crude_wti_oil_volatility",
+          "fed_funds_policy_rates"
+        ],
+        "readiness": "READY_FOR_PIPELINE",
+        "review_items": [
+          "fresh_non_oil_central_bank_rate_update_requires_dry_run_gates"
+        ],
+        "slot_index": 5,
+        "status": "BLOCKED",
+        "topic": "IRAN'S FOREIGN MINISTRY CONDEMNS U.S. TREASURY MOVE TO REVOKE TEMPORARY SUSPENSION OF SANCTIONS ON IRANIAN OIL SALES -STATEMENT"
+      },
+      {
+        "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+        "blockers": [],
+        "families": [
+          "fed_funds_policy_rates"
+        ],
+        "readiness": "READY_FOR_PIPELINE",
+        "review_items": [
+          "fresh_non_oil_central_bank_rate_update_requires_dry_run_gates"
+        ],
+        "slot_index": 6,
+        "status": "CANDIDATE_REQUIRES_DRY_RUN",
+        "topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th"
+      }
+    ],
+    "schedule_date": "2026-07-08",
+    "selected_fresh_slot": {
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+      "blockers": [],
+      "families": [
+        "fed_funds_policy_rates"
+      ],
+      "readiness": "READY_FOR_PIPELINE",
+      "review_items": [
+        "fresh_non_oil_central_bank_rate_update_requires_dry_run_gates"
+      ],
+      "slot_index": 6,
+      "status": "CANDIDATE_REQUIRES_DRY_RUN",
+      "topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th"
+    },
+    "selection_status": "SELECTED_REQUIRES_DRY_RUN_GATES",
+    "slot_count": 6
+  },
+  "schema_version": "0.1.0",
+  "task_label": "TASK_CONTENTOPS_V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_OPERATOR_GO_READBACK_AND_CROP_QA_V0"
+}

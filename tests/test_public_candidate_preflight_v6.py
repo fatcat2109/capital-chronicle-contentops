@@ -93,6 +93,97 @@ def _variant() -> dict:
     }
 
 
+def _fed_funds_article() -> dict:
+    body = " ".join(
+        [
+            "The effective fed funds rate, policy corridor, IORB, SOFR, and Treasury rates are the source-backed focus.",
+            "The article explains Federal Reserve implementation mechanics without giving investment suggestions.",
+        ]
+        * 90
+    )
+    return {
+        "packet_id": "article_fed_funds",
+        "source_context_packet": {
+            "operator_idea": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+            "editorial_angle": "Frame the policy signal against rates and market-pricing limits.",
+        },
+        "canonical_article_draft": {
+            "title": "Fed Funds at 3.63 Percent: Reading the Policy Corridor Without Overreach",
+            "subtitle": "A source-led rates briefing",
+            "slug_candidate": "fed-funds-rate-policy-corridor-363-percent",
+            "dek": "Source-backed context for DFF, the policy corridor, IORB, SOFR, and Treasury rates.",
+            "meta_description": "Capital Chronicle explains the 3.63% effective fed funds rate, Fed policy corridor, IORB, SOFR context, and Treasury rates.",
+            "intro": body,
+            "sections": [{"title": f"Section {idx}", "body": body} for idx in range(1, 6)],
+            "conclusion": body,
+            "source_trail": [
+                {"label": "FRED DFF", "claim_supported": "DFF was 3.63% on 2026-07-07."},
+                {"label": "Federal Reserve H.15", "claim_supported": "H.15 supports rates context."},
+                {"label": "NY Fed SOFR", "claim_supported": "SOFR methodology context."},
+            ],
+            "citations": ["https://fred.stlouisfed.org/series/DFF"],
+            "chart_callouts": ["[CHART: DFF and policy corridor]"],
+            "media_callouts": ["[IMAGE: Fed policy corridor schematic]"],
+            "visual_slots": [
+                {
+                    "asset_id": "primary",
+                    "editorial_purpose": "DFF setup",
+                    "data_requirement": "FRED DFF data",
+                    "caption_guidance": "Name DFF and FRED",
+                    "source_requirement": "FRED/Federal Reserve",
+                },
+                {
+                    "asset_id": "policy_corridor",
+                    "editorial_purpose": "Policy corridor context",
+                    "data_requirement": "Federal Reserve policy tools",
+                    "caption_guidance": "Name IORB and ON RRP",
+                    "source_requirement": "Federal Reserve",
+                },
+            ],
+        },
+    }
+
+
+def _fed_funds_variant() -> dict:
+    paragraph = " ".join(["Capital Chronicle reviews fed funds, policy corridor, IORB, SOFR, and Treasury rates."] * 40)
+    return {
+        "platform_variant_packet_id": "variant_fed_funds",
+        "image_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_corridor_context_abc.png",
+        "public_image_url": None,
+        "variants": {
+            "substack": paragraph,
+            "linkedin": paragraph,
+            "facebook": paragraph,
+            "discord": paragraph,
+            "telegram": paragraph,
+            "instagram_caption": paragraph,
+        },
+        "variant_threads": {"x": [paragraph[:200]], "threads": [paragraph[:400]]},
+        "media_manifest": {
+            "news_image_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_corridor_context_abc.png",
+            "selected_media_by_platform": {
+                "telegram": "docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_corridor_context_abc.png"
+            },
+            "media_assets": [
+                {
+                    "asset_id": "primary",
+                    "local_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_corridor_context_abc.png",
+                    "canonical_source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+                    "visual_metric": "fed funds policy rates effective federal funds rate policy corridor iorb interest rate context",
+                    "media_subject": "Effective federal funds rate and policy corridor context",
+                },
+                {
+                    "asset_id": "policy_corridor",
+                    "local_path": "docs/automation/V6_MEDIA_SYSTEM/downloads/fed_funds_policy_floor_context_abc.png",
+                    "canonical_source_label": "Federal Reserve policy corridor, IORB, ON RRP, standing repo, and primary credit context",
+                    "visual_metric": "fed funds policy corridor iorb on rrp standing repo administered rates",
+                    "media_subject": "Federal Reserve policy corridor and administered rates context",
+                },
+            ],
+        },
+    }
+
+
 def test_detect_content_families_recognizes_incident_family():
     assert OIL_FAMILY in detect_content_families("Crude awakening WTI oil volatility")
     assert FED_FUNDS_FAMILY in detect_content_families("Effective fed funds rate: 3.63%")
@@ -121,6 +212,32 @@ def test_current_candidate_gate_blocks_oil_family_even_with_new_slug():
     assert f"duplicate_media_family:{OIL_FAMILY}" in gate["blockers"]
     assert gate["telegram_payload_hash"]
     assert set(gate["per_platform_payload_hash"]) >= {"substack", "telegram", "discord"}
+
+
+def test_current_candidate_gate_allows_fed_funds_family_against_oil_ledger():
+    ledger = [
+        {
+            "record_type": "incident_duplicate_freeze",
+            "platform": "telegram",
+            "canonical_url": "https://capitalchronicle.substack.com/p/crude-awakening-how-spiking-oil-volatility-05f",
+            "topic_hint": "Crude awakening how spiking oil volatility",
+            "media_hint": "WTI crude oil chart",
+        }
+    ]
+
+    gate = build_current_candidate_gate(
+        article_packet=_fed_funds_article(),
+        variant_packet=_fed_funds_variant(),
+        ledger_rows=ledger,
+        incident_evidence={},
+    )
+
+    assert gate["status"] == "PASS"
+    assert gate["blockers"] == []
+    assert FED_FUNDS_FAMILY in gate["families"]["article"]
+    assert FED_FUNDS_FAMILY in gate["families"]["media"]
+    assert OIL_FAMILY not in gate["families"]["article"]
+    assert OIL_FAMILY not in gate["families"]["media"]
 
 
 def test_schedule_triage_selects_fed_funds_and_skips_oil():

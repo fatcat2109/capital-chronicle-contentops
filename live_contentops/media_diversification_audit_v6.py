@@ -24,6 +24,7 @@ MEDIA_CLASSES = {
     "official_photo",
     "news_context_image",
     "map_or_geography",
+    "policy_diagram",
     "public_domain_or_commons",
     "operator_review_required",
 }
@@ -32,6 +33,7 @@ CONTEXTUAL_CLASSES = {
     "official_photo",
     "news_context_image",
     "map_or_geography",
+    "policy_diagram",
     "public_domain_or_commons",
 }
 
@@ -69,6 +71,8 @@ def _asset_class(asset: dict[str, Any]) -> str:
     ).lower()
     if any(term in text for term in ("map", "hormuz", "chokepoint", "geography")):
         return "map_or_geography"
+    if any(term in text for term in ("policy corridor", "iorb", "overnight reverse", "fomc target", "administered rate")):
+        return "policy_diagram"
     if any(term in text for term in ("chart", "series", "fred", "eia", "wti", "volatility", "price path")):
         return "data_chart"
     if "commons" in text or "public domain" in text:
