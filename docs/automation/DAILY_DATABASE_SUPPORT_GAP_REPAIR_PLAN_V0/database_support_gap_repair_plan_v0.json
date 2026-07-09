@@ -1,0 +1,47 @@
+{
+  "task_label": "TASK_CONTENTOPS_DAILY_DATABASE_SUPPORT_GAP_REPAIR_PLAN_V0",
+  "selected_idea_id": "idea_macro_policy_rates_liquidity_20260709",
+  "selected_title": "Japan's Debt Crisis: Yield and Currency Gap Widens as Intervention Fails",
+  "selected_topic_family": "macro_policy_rates_liquidity",
+  "support_families_requested": [
+    "Japan Yield Curve (JGB)",
+    "USD/JPY FX Spot & Volatility",
+    "Global Central Bank Liquidity Measures"
+  ],
+  "support_families_missing": [
+    "Global Central Bank Liquidity Measures"
+  ],
+  "support_families_partial": [
+    "Japan Yield Curve (JGB)",
+    "USD/JPY FX Spot & Volatility"
+  ],
+  "gap_repairs": {
+    "Global Central Bank Liquidity Measures": {
+      "support_family": "Global Central Bank Liquidity Measures",
+      "gap_status": "missing",
+      "recommended_task": "TASK_TREASURY_FED_NYFED_RATES_LIQUIDITY_CONTRACT_FIXTURE_EXTREME_V1",
+      "action_required": "Implement local rates and liquidity database ingestion sidecars to fetch NY Fed, SOFR, and H.4.1 balance sheet metrics.",
+      "authority_target": "Capital Chronicle local database",
+      "estimated_complexity": "Medium"
+    },
+    "Japan Yield Curve (JGB)": {
+      "support_family": "Japan Yield Curve (JGB)",
+      "gap_status": "partial",
+      "recommended_task": "TASK_APAC_CHINA_JAPAN_OFFICIAL_MACRO_VALUE_CAPTURE_V1",
+      "action_required": "Promote BOJ official macro contracts and execute localized value capture scripts to verify real JGB yield curve values.",
+      "authority_target": "Capital Chronicle local database",
+      "estimated_complexity": "Medium"
+    },
+    "USD/JPY FX Spot & Volatility": {
+      "support_family": "USD/JPY FX Spot & Volatility",
+      "gap_status": "partial",
+      "recommended_task": "TASK_USDJPY_MT5_OANDA_CONTRACT_PROMOTION_V1",
+      "action_required": "Perform source review and promote MT5/OANDA practice FX contracts from candidate-only metadata to cleared numeric truth status.",
+      "authority_target": "Capital Chronicle local database",
+      "estimated_complexity": "Low"
+    }
+  },
+  "ready_for_article_draft": false,
+  "ready_for_data_ingestion_runs": true,
+  "caveats": "Local database lacks verified numeric truth values for Yen/JGB macro commentary. This document outlines the ingestion roadmap and does not approve drafting code."
+}

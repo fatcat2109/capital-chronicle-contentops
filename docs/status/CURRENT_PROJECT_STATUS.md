@@ -1,15 +1,15 @@
 # Capital Chronicle ContentOps - Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0
+TASK_CONTENTOPS_DAILY_DATABASE_SUPPORT_GAP_REPAIR_PLAN_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
 
 ## last_verified_branch
-master
+task/telegram-substack-regression-repair
 
-verified remote master before this public-permissive supervised mode task: `f1683088d1edcd6af43cf1caec80e620279d4e0c`
+verified remote branch state: `911a970ea5b8f619d931b7ae35fcf27425ee478f`
 
 ## current_product_phase
 ContentOps now supports supervised public-permissive candidate commentary via `OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY`. Default mode remains block-first, but under explicit `--operator-public-override --public-mode candidate_commentary`, DQR BLOCKED / `candidate_only=true` / `internal_draft_only` / degraded source-quality states convert from automatic blockers into visible warnings when caveats, disclaimer, approval-hash continuity, duplicate guard, no-advice, and no-authority-promotion checks pass. Current sample classification: `PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS`.
@@ -75,26 +75,18 @@ This public-permissive supervised mode task did not read raw env values, credent
 - The Capital Chronicle local database/exporter remains the numeric/source/context authority; ContentOps must not fetch/parse macro sources or mutate the main repo/database.
 - The Fed/FRED/NY Fed/Treasury rates path remains temporary fallback fixture logic only.
 
-## latest accepted task
-TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0
+### latest accepted task
+TASK_CONTENTOPS_DAILY_DATABASE_SUPPORT_GAP_REPAIR_PLAN_V0
 
 ## latest changed areas
-- `live_contentops/cc_artifact_packet_operator_decision_v1.py`
-- `live_contentops/cc_artifact_packet_public_candidate_gate_v1.py`
-- `live_contentops/public_permissive_supervised_mode_v0.py`
-- `scripts/decide_cc_artifact_public_candidate_v1.py`
-- `tests/test_cc_artifact_packet_operator_decision_v1.py`
-- `tests/test_public_permissive_supervised_mode_v0.py`
-- `tests/fixtures/cc_artifact_packet_v0/invalid_public_override_packet_v0.json`
-- `docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1/`
-- `docs/automation/PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0/`
-- `docs/status/CURRENT_PROJECT_STATUS.md`
-- `docs/status/current_project_status.json`
-- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
-- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
+- `live_contentops/daily_database_support_gap_repair_plan_v0.py`
+- `scripts/build_daily_database_support_gap_repair_plan_v0.py`
+- `tests/test_daily_database_support_gap_repair_plan_v0.py`
+- `docs/automation/DAILY_DATABASE_SUPPORT_GAP_REPAIR_PLAN_V0/`
 
 ## current next recommended task
-`controlled live dispatch under operator public override`: run a separate exact live task only if Jim explicitly authorizes public dispatch from the `PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS` preview payload hash and the task rechecks duplicate/platform/readback gates.
+`TASK_CONTENTOPS_DAILY_DATABASE_SUPPORT_GAP_INGESTION_EXECUTION_V0`: Execute the localized ingestion/promotion tasks defined in the gap repair plan to populate the main database repository with necessary JGB/FX/Liquidity series.
+
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.
