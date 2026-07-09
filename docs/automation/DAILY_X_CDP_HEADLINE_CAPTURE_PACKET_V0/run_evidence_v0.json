@@ -1,0 +1,15 @@
+{
+  "classification": "PASS_WITH_FIXTURE_DAILY_X_CDP_HEADLINE_CAPTURE_PACKET_V0",
+  "task_label": "TASK_CONTENTOPS_DAILY_X_CDP_HEADLINE_CAPTURE_PACKET_V0",
+  "baseline_head": "e38432e520a01d549598180de8915bd75a95f9c7",
+  "no_dispatch_confirmation": true,
+  "no_platform_write_confirmation": true,
+  "no_raw_secret_read_confirmation": true,
+  "headline_count": 680,
+  "output_paths": {
+    "headlines_raw": "docs\\automation\\DAILY_X_CDP_HEADLINE_CAPTURE_PACKET_V0\\headlines_raw_v0.json",
+    "checkpoint_state": "docs\\automation\\DAILY_X_CDP_HEADLINE_CAPTURE_PACKET_V0\\checkpoint_state_v0.json",
+    "run_evidence": "docs\\automation\\DAILY_X_CDP_HEADLINE_CAPTURE_PACKET_V0\\run_evidence_v0.json"
+  },
+  "blockers": []
+}
