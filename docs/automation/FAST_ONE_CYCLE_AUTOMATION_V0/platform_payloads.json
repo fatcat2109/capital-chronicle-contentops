@@ -1,0 +1,115 @@
+{
+  "packet_kind": "candidate_platform_payloads_v0",
+  "payload_hash": "2d7aea22d1a81d1f5721b971299bfc522f43ab12ed6eaba4316fb9a0c3801830",
+  "payloads": {
+    "discord": {
+      "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+      "canonical_url": null,
+      "payload_class": "candidate_commentary",
+      "payload_hash": "2618dd3359dd23b9fa099daa1c1799f0597eda5e5804889ecb1277002ca7b5df",
+      "platform": "discord",
+      "policy_mode": "OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY",
+      "public_dispatch_ready": false,
+      "requires_post_dispatch_readback": true,
+      "requires_separate_live_task": true,
+      "text": "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply.\n\nCandidate commentary: US Macro & Alternative Ingestion Audit. Current candidate database captures stabilized under Wave A repairs. Catalyst: Staged database contains 1386270 candidate records.\n\nDQR status remains BLOCKED; values stay candidate/proxy and non-authoritative."
+    },
+    "facebook_page": {
+      "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+      "canonical_url": null,
+      "payload_class": "candidate_commentary",
+      "payload_hash": "e164c2c8a2bb1deb59218f75eff9b7a0aacb6063bd9373502fd49ecf80f96618",
+      "platform": "facebook_page",
+      "policy_mode": "OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY",
+      "public_dispatch_ready": false,
+      "requires_post_dispatch_readback": true,
+      "requires_separate_live_task": true,
+      "text": "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply.\n\nCandidate commentary: US Macro & Alternative Ingestion Audit. Current candidate database captures stabilized under Wave A repairs. Catalyst: Staged database contains 1386270 candidate records.\n\nDQR status remains BLOCKED; values stay candidate/proxy and non-authoritative."
+    },
+    "instagram": {
+      "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+      "canonical_url": null,
+      "payload_class": "candidate_commentary",
+      "payload_hash": "9c1b6431b125294ecd3c69bd0a91f21cafd1155d8cfc9ecbf7d4bf7af0a5dedf",
+      "platform": "instagram",
+      "policy_mode": "OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY",
+      "public_dispatch_ready": false,
+      "requires_post_dispatch_readback": true,
+      "requires_separate_live_task": true,
+      "text": "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply.\n\nCandidate commentary: US Macro & Alternative Ingestion Audit. Current candidate database captures stabilized under Wave A repairs. Catalyst: Staged database contains 1386270 candidate records.\n\nDQR status remains BLOCKED; values stay candidate/proxy and non-authoritative."
+    },
+    "linkedin": {
+      "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+      "canonical_url": null,
+      "payload_class": "candidate_commentary",
+      "payload_hash": "4d102de1805cce7db6c3f4d4ce590b1759f7d477ce27abef08942f897ca33a34",
+      "platform": "linkedin",
+      "policy_mode": "OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY",
+      "public_dispatch_ready": false,
+      "requires_post_dispatch_readback": true,
+      "requires_separate_live_task": true,
+      "text": "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply.\n\nCandidate commentary: US Macro & Alternative Ingestion Audit. Current candidate database captures stabilized under Wave A repairs. Catalyst: Staged database contains 1386270 candidate records.\n\nDQR status remains BLOCKED; values stay candidate/proxy and non-authoritative."
+    },
+    "substack": {
+      "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+      "canonical_url": null,
+      "payload_class": "candidate_commentary",
+      "payload_hash": "f3420cd22fb5e345431a8e2dcce59b8743f4c776318f812d516a28cd1ed7fa02",
+      "platform": "substack",
+      "policy_mode": "OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY",
+      "public_dispatch_ready": false,
+      "requires_post_dispatch_readback": true,
+      "requires_separate_live_task": true,
+      "text": "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply.\n\nCandidate commentary: US Macro & Alternative Ingestion Audit. Current candidate database captures stabilized under Wave A repairs. Catalyst: Staged database contains 1386270 candidate records.\n\nDQR status remains BLOCKED; values stay candidate/proxy and non-authoritative."
+    },
+    "telegram": {
+      "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+      "canonical_url": null,
+      "payload_class": "candidate_commentary",
+      "payload_hash": "4cd1364d3995a52d3d1c0a38aa3bfe44d04a320d9ecdfb20c60f2d40bd4f650e",
+      "platform": "telegram",
+      "policy_mode": "OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY",
+      "public_dispatch_ready": false,
+      "requires_post_dispatch_readback": true,
+      "requires_separate_live_task": true,
+      "text": "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply.\n\nCandidate commentary: US Macro & Alternative Ingestion Audit. Current candidate database captures stabilized under Wave A repairs. Catalyst: Staged database contains 1386270 candidate records.\n\nDQR status remains BLOCKED; values stay candidate/proxy and non-authoritative."
+    },
+    "threads": {
+      "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+      "canonical_url": null,
+      "payload_class": "candidate_commentary",
+      "payload_hash": "7eceb1ef86a64877d5c8e7d1657181ca3667d09572cd52a0617c979ae2eb7174",
+      "platform": "threads",
+      "policy_mode": "OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY",
+      "public_dispatch_ready": false,
+      "requires_post_dispatch_readback": true,
+      "requires_separate_live_task": true,
+      "text": "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply.\n\nCandidate commentary: US Macro & Alternative Ingestion Audit. Current candidate database captures stabilized under Wave A repairs. Catalyst: Staged database contains 1386270 candidate records.\n\nDQR status remains BLOCKED; values stay candidate/proxy and non-authoritative."
+    },
+    "x": {
+      "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+      "canonical_url": null,
+      "payload_class": "candidate_commentary",
+      "payload_hash": "f2763e83202da0227d0233b81d2bc394f285e1a1ffff618e62aa0fcee75bf1ed",
+      "platform": "x",
+      "policy_mode": "OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY",
+      "public_dispatch_ready": false,
+      "requires_post_dispatch_readback": true,
+      "requires_separate_live_task": true,
+      "text": "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply.\n\nCandidate commentary: US Macro & Alternative Ingestion Audit. Current candidate database captures stabilized under Wave A repairs. Catalyst: Staged database contains 1386270 candidate records.\n\nDQR status remains BLOCKED; values stay candidate/proxy and non-authoritative."
+    }
+  },
+  "platforms": [
+    "substack",
+    "linkedin",
+    "x",
+    "instagram",
+    "facebook_page",
+    "telegram",
+    "threads",
+    "discord"
+  ],
+  "policy_mode": "OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY",
+  "public_mode": "candidate_commentary",
+  "schema_version": "0.1.0"
+}

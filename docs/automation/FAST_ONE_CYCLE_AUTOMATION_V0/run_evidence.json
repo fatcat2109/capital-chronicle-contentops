@@ -1,0 +1,16 @@
+{
+  "article_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\FAST_ONE_CYCLE_AUTOMATION_V0\\article.md",
+  "decision_status": "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS",
+  "dispatch_id": "1524780271814311966",
+  "dispatch_platform": "discord",
+  "dispatch_results_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\FAST_ONE_CYCLE_AUTOMATION_V0\\dispatch_results.json",
+  "dispatch_status": "SUCCESS",
+  "intake_status": "PASS_WITH_CAVEAT_CONTENTOPS_CC_PACKET_INTAKE_V0",
+  "packet_id": "98d0ba82-8912-4d80-902e-bfba3a97a835",
+  "platform_payloads_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\FAST_ONE_CYCLE_AUTOMATION_V0\\platform_payloads.json",
+  "public_ready": true,
+  "task_label": "TASK_CONTENTOPS_FAST_ONE_CYCLE_AUTOMATION_V0",
+  "timestamp": "2026-07-09T14:12:24Z",
+  "topic": "US Macro & Alternative Ingestion Audit",
+  "webhook_configured": true
+}

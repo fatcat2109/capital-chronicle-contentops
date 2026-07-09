@@ -1,0 +1,36 @@
+{
+  "action": "post",
+  "id": "1524780271814311966",
+  "platform": "discord",
+  "response": {
+    "attachments": [],
+    "author": {
+      "avatar": null,
+      "bot": true,
+      "clan": null,
+      "discriminator": "0000",
+      "flags": 0,
+      "global_name": null,
+      "id": "1520178044407644231",
+      "primary_guild": null,
+      "public_flags": 0,
+      "username": "The Macro Pigeon"
+    },
+    "channel_id": "1519311669216673802",
+    "components": [],
+    "content": "Internal candidate analysis / non-authoritative / not financial advice / source caveats apply.\n\nCandidate commentary: US Macro & Alternative Ingestion Audit. Current candidate database captures stabilized under Wave A repairs. Catalyst: Staged database contains 1386270 candidate records.\n\nDQR status remains BLOCKED; values stay candidate/proxy and non-authoritative.",
+    "edited_timestamp": null,
+    "embeds": [],
+    "flags": 0,
+    "id": "1524780271814311966",
+    "mention_everyone": false,
+    "mention_roles": [],
+    "mentions": [],
+    "pinned": false,
+    "timestamp": "2026-07-09T14:12:25.848000+00:00",
+    "tts": false,
+    "type": 0,
+    "webhook_id": "1520178044407644231"
+  },
+  "status": "SUCCESS"
+}
