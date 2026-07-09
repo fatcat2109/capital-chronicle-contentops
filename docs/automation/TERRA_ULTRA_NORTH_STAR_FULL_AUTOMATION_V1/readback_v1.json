@@ -1,0 +1,15 @@
+{
+  "article_visual_placement_status": "PASS_VISUALS_SPREAD_THROUGH_ARTICLE",
+  "classification": "PASS_PARTIAL_NORTH_STAR_FULL_CONTENTOPS_AUTOMATION_V1",
+  "created_at": "2026-07-09T22:29:02Z",
+  "media_asset_count": 3,
+  "substack_status": "BLOCKED_REQUIRES_SUPERVISED_BROWSER_PROFILE_AND_PUBLIC_URL_READBACK",
+  "task_label": "TASK_CONTENTOPS_TERRA_ULTRA_COMPLETE_NORTH_STAR_FULL_AUTOMATION_V1",
+  "telegram_caption_required_caveat_visible": true,
+  "telegram_image_attached": true,
+  "telegram_link_or_article_fallback_included": true,
+  "telegram_message_id": "61",
+  "telegram_response_has_photo": true,
+  "telegram_status": "SUCCESS",
+  "x_status": "BLOCKED_REQUIRES_EXACT_CDP_LIVE_CLICK_WITH_PROFILE_GUARD"
+}

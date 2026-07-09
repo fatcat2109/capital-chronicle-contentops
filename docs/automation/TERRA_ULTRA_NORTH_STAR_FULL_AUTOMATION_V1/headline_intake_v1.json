@@ -1,0 +1,342 @@
+{
+  "central_bank_sidecar_examples": [
+    {
+      "author_handle": "FirstSquawk",
+      "candidate_catalyst_tags": [
+        "central_bank"
+      ],
+      "follow_up_data_need_candidates": [
+        "official_central_bank_statement_or_calendar"
+      ],
+      "headline_text": "IMF OFFICIAL SAYS CENTRAL BANK MESSAGES ARE CRUCIAL IN TIMES OF GREAT UNCERTAINTY.",
+      "headline_timestamp": "2026-07-08 20:21:03 GMT+7",
+      "numeric_truth_authority": false
+    },
+    {
+      "author_handle": "StockMKTNewz",
+      "candidate_catalyst_tags": [],
+      "follow_up_data_need_candidates": [
+        "official_numeric_source_required_before_truth_use"
+      ],
+      "headline_text": "NVIDIA'S VALUATION IS NOW THE LOWEST IT HAS BEEN DURING THE AI BOOM Nvidia $NVDA is now trading under a 20 price to earnings ratio at its lowest levels since early 2019 - Bloomberg https://t.co/nexPEqNSzg",
+      "headline_timestamp": "2026-07-08 20:10:53 GMT+7",
+      "numeric_truth_authority": false
+    },
+    {
+      "author_handle": "zerohedge",
+      "candidate_catalyst_tags": [
+        "volatility"
+      ],
+      "follow_up_data_need_candidates": [
+        "official_volatility_or_options_source_check"
+      ],
+      "headline_text": "'Long Gamma Looks Attractive': Goldman 1-Delta Desk Drops Multiple 'C' Words https://t.co/0CF8tnsMit",
+      "headline_timestamp": "2026-07-08 20:05:06 GMT+7",
+      "numeric_truth_authority": false
+    },
+    {
+      "author_handle": "financialjuice",
+      "candidate_catalyst_tags": [
+        "central_bank"
+      ],
+      "follow_up_data_need_candidates": [
+        "official_central_bank_statement_or_calendar"
+      ],
+      "headline_text": "ECB: Gold and gold receivables fell \u20ac159.7 bln in the week",
+      "headline_timestamp": "2026-07-08 20:02:42 GMT+7",
+      "numeric_truth_authority": false
+    },
+    {
+      "author_handle": "financialjuice",
+      "candidate_catalyst_tags": [
+        "central_bank"
+      ],
+      "follow_up_data_need_candidates": [
+        "official_central_bank_statement_or_calendar"
+      ],
+      "headline_text": "ECB Forex reserves rose \u20ac2.7 bln to \u20ac347.1 bln.",
+      "headline_timestamp": "2026-07-08 20:02:34 GMT+7",
+      "numeric_truth_authority": false
+    },
+    {
+      "author_handle": "FirstSquawk",
+      "candidate_catalyst_tags": [
+        "growth"
+      ],
+      "follow_up_data_need_candidates": [
+        "official_growth_or_pmi_release",
+        "official_numeric_source_required_before_truth_use"
+      ],
+      "headline_text": "IMF LOWERS GLOBAL GROWTH FORECAST FOR 2026 TO 3.0% VS 3.1% IN APRIL, RAISES 2027 FORECAST TO 3.4% VS 3.2% || IMF LOWERS EURO AREA GROWTH FORECAST FOR 2026 TO 0.9% VS 1.1% IN APRIL; 2027 FORECAST UNCHANGED AT 1.2% || IMF LOWERS JAPAN GROWTH FORECAST FOR 2026 TO 0.6% VS 0.7% IN",
+      "headline_timestamp": "2026-07-08 20:02:28 GMT+7",
+      "numeric_truth_authority": false
+    },
+    {
+      "author_handle": "financialjuice",
+      "candidate_catalyst_tags": [
+        "central_bank"
+      ],
+      "follow_up_data_need_candidates": [
+        "official_central_bank_statement_or_calendar"
+      ],
+      "headline_text": "ECB bond holdings under PEPP \u20ac1.32 tln as of last week",
+      "headline_timestamp": "2026-07-08 20:02:20 GMT+7",
+      "numeric_truth_authority": false
+    },
+    {
+      "author_handle": "financialjuice",
+      "candidate_catalyst_tags": [
+        "central_bank"
+      ],
+      "follow_up_data_need_candidates": [
+        "official_central_bank_statement_or_calendar"
+      ],
+      "headline_text": "ECB settled \u20ac219.3 bln corporate bond purchases.",
+      "headline_timestamp": "2026-07-08 20:02:17 GMT+7",
+      "numeric_truth_authority": false
+    },
+    {
+      "author_handle": "FirstSquawk",
+      "candidate_catalyst_tags": [
+        "geopolitics",
+        "growth"
+      ],
+      "follow_up_data_need_candidates": [
+        "official_growth_or_pmi_release",
+        "official_numeric_source_required_before_truth_use"
+      ],
+      "headline_text": "IMF: 2026 GROWTH FORECAST FOR EMERGING MARKET AND DEVELOPING ECONOMIES CUT TO 3.8% VS 3.9%, 2027 FORECAST RAISED BY 0.3 PERCENTAGE POINT TO 4.5% || IMF: CHINA 2026 GROWTH FORECAST AT 4.6% VS 4.4% IN APRIL; 2027 GROWTH SEEN AT 4.1% VS 4.0% || IMF: INDIA 2026 GROWTH FORECAST AT",
+      "headline_timestamp": "2026-07-08 20:02:15 GMT+7",
+      "numeric_truth_authority": false
+    },
+    {
+      "author_handle": "financialjuice",
+      "candidate_catalyst_tags": [
+        "central_bank"
+      ],
+      "follow_up_data_need_candidates": [
+        "official_central_bank_statement_or_calendar"
+      ],
+      "headline_text": "ECB settled \u20ac1,706.1 bln public-sector bond purchases",
+      "headline_timestamp": "2026-07-08 20:02:09 GMT+7",
+      "numeric_truth_authority": false
+    },
+    {
+      "author_handle": "financialjuice",
+      "candidate_catalyst_tags": [
+        "growth"
+      ],
+      "follow_up_data_need_candidates": [
+        "official_growth_or_pmi_release",
+        "official_numeric_source_required_before_truth_use"
+      ],
+      "headline_text": "IMF cuts 2026 global growth forecast to 3% from 3.1% in April",
+      "headline_timestamp": "2026-07-08 20:02:02 GMT+7",
+      "numeric_truth_authority": false
+    },
+    {
+      "author_handle": "financialjuice",
+      "candidate_catalyst_tags": [
+        "inflation"
+      ],
+      "follow_up_data_need_candidates": [
+        "official_inflation_release"
+      ],
+      "headline_text": "IMF: Little evidence of de-anchoring of inflation expectations thus far",
+      "headline_timestamp": "2026-07-08 20:01:51 GMT+7",
+      "numeric_truth_authority": false
+    }
+  ],
+  "created_at": "2026-07-09T22:28:58Z",
+  "forbidden_uses": [
+    "market_price_truth",
+    "macro_print_truth",
+    "source_clearance",
+    "trade_signal",
+    "broker_execution_input"
+  ],
+  "freshness_basis": "repo_headline_schedule_and_sidecar_inputs_captured_2026_07_08",
+  "headline_sidecar_count": 1024,
+  "headline_sidecars_are_catalyst_only": true,
+  "schedule_date": "2026-07-08",
+  "schedule_path": "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
+  "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+  "slots": [
+    {
+      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 77,
+      "media_needs": [
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review",
+        "official-release chart or table screenshot replacement generated from source data"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "slot_index": 1,
+      "source_clearance_authority": false,
+      "source_headline_author": "MikeZaccardi",
+      "source_headline_timestamp": "2026-07-08 19:06:00 GMT+7",
+      "source_needs": [
+        "Federal Reserve policy/communication source",
+        "Primary energy/geopolitical source check before drafting"
+      ],
+      "suggested_article_type": "official_release",
+      "tags": [
+        "central_bank",
+        "energy",
+        "official_central_bank_statement_or_calendar",
+        "official_energy_inventory_or_opec_release"
+      ],
+      "topic": "When oil and yields stop moving together, it signals the Fed's problem has shifted from headline to core... cheaper oil alone won't open the door to cuts -Torst",
+      "urgency_score": 62
+    },
+    {
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 77,
+      "media_needs": [
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review",
+        "official-release chart or table screenshot replacement generated from source data"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "slot_index": 2,
+      "source_clearance_authority": false,
+      "source_headline_author": "wallstengine",
+      "source_headline_timestamp": "2026-07-08 15:09:56 GMT+7",
+      "source_needs": [
+        "Federal Reserve policy/communication source",
+        "Primary energy/geopolitical source check before drafting"
+      ],
+      "suggested_article_type": "official_release",
+      "tags": [
+        "central_bank",
+        "fiscal",
+        "geopolitics",
+        "official_central_bank_statement_or_calendar",
+        "official_treasury_or_budget_release"
+      ],
+      "topic": "Today's Key Events (All EST) \u2014 07/08/2026 04:00: Trump to speak at Ankara NATO Summit 07:00: US MBA Mortgage Applications 10:00: US Wholesale Inventories MoM Re",
+      "urgency_score": 62
+    },
+    {
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 77,
+      "media_needs": [
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review",
+        "official-release chart or table screenshot replacement generated from source data"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "slot_index": 3,
+      "source_clearance_authority": false,
+      "source_headline_author": "TrumpTruthOnX",
+      "source_headline_timestamp": "2026-07-08 10:12:56 GMT+7",
+      "source_needs": [
+        "Federal Reserve policy/communication source",
+        "Primary energy/geopolitical source check before drafting"
+      ],
+      "suggested_article_type": "rapid_analysis",
+      "tags": [
+        "central_bank",
+        "geopolitics",
+        "official_central_bank_statement_or_calendar",
+        "official_numeric_source_required_before_truth_use"
+      ],
+      "topic": "Fed Reserve working paper suggests Biden illegal immigrant wave caused 30% of home price increases: https://t.co/GVnfx0HhPi",
+      "urgency_score": 62
+    },
+    {
+      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 75,
+      "media_needs": [
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "slot_index": 4,
+      "source_clearance_authority": false,
+      "source_headline_author": "FirstSquawk",
+      "source_headline_timestamp": "2026-07-08 10:02:01 GMT+7",
+      "source_needs": [
+        "EIA energy release/source table",
+        "Primary energy/geopolitical source check before drafting"
+      ],
+      "suggested_article_type": "official_release",
+      "tags": [
+        "energy",
+        "geopolitics",
+        "official_energy_inventory_or_opec_release"
+      ],
+      "topic": "Global oil output to return to pre-Iran war level by year\u2019s end, U.S. EIA says",
+      "urgency_score": 60
+    },
+    {
+      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 75,
+      "media_needs": [
+        "source-backed data chart where numeric claims are used",
+        "contextual map/photo/official visual with rights/provenance review"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "slot_index": 5,
+      "source_clearance_authority": false,
+      "source_headline_author": "DeItaone",
+      "source_headline_timestamp": "2026-07-08 04:30:21 GMT+7",
+      "source_needs": [
+        "Primary energy/geopolitical source check before drafting",
+        "U.S. Treasury rates/source table"
+      ],
+      "suggested_article_type": "official_release",
+      "tags": [
+        "energy",
+        "fiscal",
+        "geopolitics",
+        "official_energy_inventory_or_opec_release",
+        "official_treasury_or_budget_release"
+      ],
+      "topic": "IRAN'S FOREIGN MINISTRY CONDEMNS U.S. TREASURY MOVE TO REVOKE TEMPORARY SUSPENSION OF SANCTIONS ON IRANIAN OIL SALES -STATEMENT",
+      "urgency_score": 60
+    },
+    {
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+      "headline_sidecar_context_only": true,
+      "impact_score": 63,
+      "media_needs": [
+        "source-backed data chart where numeric claims are used",
+        "official-release chart or table screenshot replacement generated from source data"
+      ],
+      "numeric_truth_authority": false,
+      "readiness": "READY_FOR_PIPELINE",
+      "sidecar_path": "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "slot_index": 6,
+      "source_clearance_authority": false,
+      "source_headline_author": "financialjuice",
+      "source_headline_timestamp": "2026-07-08 20:00:28 GMT+7",
+      "source_needs": [
+        "Federal Reserve policy/communication source"
+      ],
+      "suggested_article_type": "rapid_analysis",
+      "tags": [
+        "central_bank",
+        "official_central_bank_statement_or_calendar"
+      ],
+      "topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+      "urgency_score": 50
+    }
+  ],
+  "task_label": "TASK_CONTENTOPS_TERRA_ULTRA_COMPLETE_NORTH_STAR_FULL_AUTOMATION_V1"
+}

@@ -1,0 +1,221 @@
+{
+  "article": {
+    "article_export_created": true,
+    "article_export_path": "exports\\daily_contentops\\fed_funds_policy_signal_article_v1.md",
+    "article_fallback_reference": "exports\\daily_contentops\\fed_funds_policy_signal_article_v1.md",
+    "article_html_export_path": "exports\\daily_contentops\\fed_funds_policy_signal_article_v1.html",
+    "article_publication_status": "LOCAL_EXPORT_CREATED_SUBSTACK_BLOCKED",
+    "caveat_present": true,
+    "created_at": "2026-07-09T22:35:58Z",
+    "exact_numeric_claims_made": true,
+    "financial_advice_detected": false,
+    "forbidden_secret_material_detected": false,
+    "html_sha256": "6d3780ca52161b299ea5e6c7b4f245c4fe4509ed2492f9c63361e3ae0b8dd85a",
+    "markdown_sha256": "cf7b45644c942e2a6fc1c05524bb5ef176ba7019f6b019da72eafdb349b24d83",
+    "public_article_url": null,
+    "seo_title": "Fed funds rate signal: policy corridor, inflation expectations, and markets",
+    "task_label": "TASK_CONTENTOPS_TERRA_ULTRA_COMPLETE_NORTH_STAR_FULL_AUTOMATION_V1",
+    "title": "The Fed Funds Signal Hiding in Plain Sight",
+    "visual_asset_count": 3,
+    "visual_placement_status": "PASS_VISUALS_SPREAD_THROUGH_ARTICLE",
+    "visual_positions": [
+      1104,
+      4023,
+      6127
+    ],
+    "visuals_spread_through_article": true,
+    "word_count": 1376
+  },
+  "classification": "PASS_PARTIAL_NORTH_STAR_FULL_CONTENTOPS_AUTOMATION_V1",
+  "created_at": "2026-07-09T22:29:02Z",
+  "duplicate_hotspot_decision": {
+    "ledger_path": "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+    "oil_family_status": "DUPLICATE_FROZEN_SUPERSEDED_BY_FRESH_NON_OIL_TOPIC",
+    "selected_topic_dispatch_allowed": true,
+    "selected_topic_duplicate_blockers": [],
+    "selected_topic_duplicate_guard_status": "PASS"
+  },
+  "evidence_paths": {
+    "article_manifest": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\article_manifest_v1.json",
+    "dispatch_results": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\dispatch_results_v1.json",
+    "headline_intake": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\headline_intake_v1.json",
+    "idea_selection": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\idea_selection_v1.json",
+    "media_manifest": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\media_manifest_v1.json",
+    "platform_variants": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\platform_variants_v1.json",
+    "readback": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\readback_v1.json",
+    "run_evidence": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\run_evidence_v1.json",
+    "support_packet": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\support_packet_v1.json"
+  },
+  "media": {
+    "ai_generated_image": false,
+    "assets": [
+      {
+        "alt_text": "Line chart showing the effective federal funds rate inside the Federal Reserve target range with IORB and midpoint lines.",
+        "asset_id": "primary",
+        "canonical_source_label": "FRED series DFF; source Board of Governors of the Federal Reserve System H.15",
+        "caption": "Effective federal funds rate at 3.63% on 2026-07-07, unchanged from 3.63% on 2026-07-06, inside the 3.50% to 3.75% target range. Source: FRED DFF and Federal Reserve policy tools.",
+        "content_authority_scope": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
+        "dimensions": {
+          "height": 870,
+          "width": 1620
+        },
+        "exists": true,
+        "index": 1,
+        "media_class": "data_chart",
+        "media_role": "primary_chart",
+        "path": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\media_assets\\fed_funds_policy_corridor_context_3c554aec4ac7.png",
+        "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "sha256": "e3581de4ed56cb491eb84458edde32657701ee349c8d532277c0139ae8be1c83",
+        "source_label": "FRED / Federal Reserve Board",
+        "source_page_url": "https://fred.stlouisfed.org/series/DFF",
+        "why_selected": "Primary source-backed chart showing the effective fed funds rate inside the Federal Reserve policy corridor for the selected non-oil topic."
+      },
+      {
+        "alt_text": "Policy corridor schematic showing ON RRP, DFF, IORB, standing repo, and primary credit rates within or around the target range.",
+        "asset_id": "policy_corridor",
+        "canonical_source_label": "Federal Reserve policy corridor, IORB, ON RRP, standing repo, and primary credit context",
+        "caption": "Federal Reserve policy corridor context with DFF, IORB, ON RRP, standing repo, and primary credit settings. Capital Chronicle generated schematic from official Fed sources.",
+        "content_authority_scope": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
+        "dimensions": {
+          "height": 900,
+          "width": 1620
+        },
+        "exists": true,
+        "index": 2,
+        "media_class": "policy_diagram",
+        "media_role": "contextual_policy_visual",
+        "path": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\media_assets\\fed_funds_policy_floor_context_3c554aec4ac7.png",
+        "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "sha256": "00b1ecadfa4197af59f44bba2d68a9a550cd3f0ba111c316c803491edf8887fd",
+        "source_label": "Federal Reserve Board",
+        "source_page_url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+        "why_selected": "Adds a contextual policy-corridor visual so the rates article is not chart-only and does not inherit oil media."
+      },
+      {
+        "alt_text": "Bar chart comparing DFF with 2-year, 10-year, and 30-year Treasury rates, with a note that SOFR is secured repo context.",
+        "asset_id": "sofr_context",
+        "canonical_source_label": "NY Fed SOFR methodology context and Federal Reserve H.15 selected interest rates",
+        "caption": "Rates context panel: DFF 3.63%, 2-year Treasury 3.77%, 10-year Treasury 4.34%, and 30-year Treasury 4.92%. Sources: FRED DFF, Federal Reserve H.15, and NY Fed SOFR methodology.",
+        "content_authority_scope": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
+        "dimensions": {
+          "height": 870,
+          "width": 1620
+        },
+        "exists": true,
+        "index": 3,
+        "media_class": "data_chart",
+        "media_role": "supporting_rates_chart",
+        "path": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\media_assets\\fed_funds_sofr_context_3c554aec4ac7.png",
+        "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
+        "rights_status": "source_backed_generated_visual_cc_owned",
+        "sha256": "234751c506e510daeaf52162ff63654b985902e30a59fbc7d3836142971f790d",
+        "source_label": "Federal Reserve Bank of New York / Federal Reserve H.15",
+        "source_page_url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+        "why_selected": "Supporting rates-context visual distinguishes DFF from SOFR methodology and Treasury yields without using oil-family visuals."
+      }
+    ],
+    "blockers": [],
+    "chart_assets_built": true,
+    "contentops_built_media": true,
+    "created_at": "2026-07-09T22:29:00Z",
+    "fred_chart_or_contentops_chart_used": true,
+    "google_image_used": false,
+    "media_asset_count": 3,
+    "media_gate_status": "PASS",
+    "media_source_kind": "contentops_built_fed_funds_chart_pack",
+    "required_media_asset_count": 3,
+    "static_generated_card": false,
+    "task_label": "TASK_CONTENTOPS_TERRA_ULTRA_COMPLETE_NORTH_STAR_FULL_AUTOMATION_V1"
+  },
+  "readback": {
+    "article_visual_placement_status": "PASS_VISUALS_SPREAD_THROUGH_ARTICLE",
+    "classification": "PASS_PARTIAL_NORTH_STAR_FULL_CONTENTOPS_AUTOMATION_V1",
+    "created_at": "2026-07-09T22:29:02Z",
+    "media_asset_count": 3,
+    "substack_status": "BLOCKED_REQUIRES_SUPERVISED_BROWSER_PROFILE_AND_PUBLIC_URL_READBACK",
+    "task_label": "TASK_CONTENTOPS_TERRA_ULTRA_COMPLETE_NORTH_STAR_FULL_AUTOMATION_V1",
+    "telegram_caption_required_caveat_visible": true,
+    "telegram_image_attached": true,
+    "telegram_link_or_article_fallback_included": true,
+    "telegram_message_id": "61",
+    "telegram_response_has_photo": true,
+    "telegram_status": "SUCCESS",
+    "x_status": "BLOCKED_REQUIRES_EXACT_CDP_LIVE_CLICK_WITH_PROFILE_GUARD"
+  },
+  "run_id": "terra_ultra_north_star_live_20260710",
+  "safety": {
+    "ai_generated_image_used": false,
+    "all_secret_values_redacted": true,
+    "browser_session_sensitive_value_persisted": false,
+    "contentops_built_media": true,
+    "financial_advice_detected": false,
+    "forbidden_secret_material_detected": false,
+    "google_image_manual_assist_used": false,
+    "raw_env_values_persisted": false,
+    "raw_sensitive_values_persisted": false
+  },
+  "selected_angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+  "selected_title": "The Fed Funds Signal Hiding in Plain Sight",
+  "selected_topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+  "substack": {
+    "blocker": "The available safe Substack path is Playwright/browser-profile assisted and requires public URL/image readback after publish.",
+    "draft_id": null,
+    "public_url": null,
+    "status": "BLOCKED_REQUIRES_SUPERVISED_BROWSER_PROFILE_AND_PUBLIC_URL_READBACK"
+  },
+  "task_label": "TASK_CONTENTOPS_TERRA_ULTRA_COMPLETE_NORTH_STAR_FULL_AUTOMATION_V1",
+  "telegram": {
+    "article_link_or_fallback_included": true,
+    "caption_sha256": "d8afb8f168fdc30d8fba47fb14475278f178d609f09647a9c038a5e630c628af",
+    "duplicate_guard": {
+      "action": "photo",
+      "approval_marker_present": true,
+      "blockers": [],
+      "dispatch_allowed": true,
+      "identity_hashes": {
+        "media_url_hash": "738130948364d466",
+        "topic_hash": "cb46c01093cc6a32"
+      },
+      "payload_hash": "72742649b443cdb6",
+      "payload_hash_required": true,
+      "platform": "telegram",
+      "run_id": "terra_ultra_north_star_live_20260710",
+      "status": "PASS",
+      "topic_hash": "cb46c01093cc6a32"
+    },
+    "image_attached": true,
+    "message_id": "61",
+    "payload_hash": "72742649b443cdb6",
+    "photo_path": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\media_assets\\fed_funds_policy_corridor_context_3c554aec4ac7.png",
+    "result_redacted": {
+      "action": "photo",
+      "caption_sha256": "d8afb8f168fdc30d8fba47fb14475278f178d609f09647a9c038a5e630c628af",
+      "chat_username": "CapitalChronicle",
+      "error": null,
+      "error_class": null,
+      "error_code": null,
+      "id": "61",
+      "platform": "telegram",
+      "response_has_photo": true,
+      "response_message_id": 61,
+      "response_ok": true,
+      "response_photo_variant_count": 5,
+      "status": "SUCCESS"
+    },
+    "status": "SUCCESS",
+    "topic_hash": "cb46c01093cc6a32"
+  },
+  "why_selected": [
+    "fresh_non_oil_headline_schedule_slot",
+    "central_bank_policy_signal",
+    "existing_contentops_fed_funds_media_support",
+    "oil_family_duplicate_frozen_not_breaking_enough"
+  ],
+  "x": {
+    "blocker": "The available X path is supervised CDP/profile guarded and requires explicit live-click scope plus permalink readback.",
+    "public_url": null,
+    "status": "BLOCKED_REQUIRES_EXACT_CDP_LIVE_CLICK_WITH_PROFILE_GUARD"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "article_export_created": true,
+  "article_export_path": "exports\\daily_contentops\\fed_funds_policy_signal_article_v1.md",
+  "article_fallback_reference": "exports\\daily_contentops\\fed_funds_policy_signal_article_v1.md",
+  "article_html_export_path": "exports\\daily_contentops\\fed_funds_policy_signal_article_v1.html",
+  "article_publication_status": "LOCAL_EXPORT_CREATED_SUBSTACK_BLOCKED",
+  "caveat_present": true,
+  "created_at": "2026-07-09T22:35:58Z",
+  "exact_numeric_claims_made": true,
+  "financial_advice_detected": false,
+  "forbidden_secret_material_detected": false,
+  "html_sha256": "6d3780ca52161b299ea5e6c7b4f245c4fe4509ed2492f9c63361e3ae0b8dd85a",
+  "markdown_sha256": "cf7b45644c942e2a6fc1c05524bb5ef176ba7019f6b019da72eafdb349b24d83",
+  "public_article_url": null,
+  "seo_title": "Fed funds rate signal: policy corridor, inflation expectations, and markets",
+  "task_label": "TASK_CONTENTOPS_TERRA_ULTRA_COMPLETE_NORTH_STAR_FULL_AUTOMATION_V1",
+  "title": "The Fed Funds Signal Hiding in Plain Sight",
+  "visual_asset_count": 3,
+  "visual_placement_status": "PASS_VISUALS_SPREAD_THROUGH_ARTICLE",
+  "visual_positions": [
+    1104,
+    4023,
+    6127
+  ],
+  "visuals_spread_through_article": true,
+  "word_count": 1376
+}

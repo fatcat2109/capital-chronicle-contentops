@@ -124,6 +124,7 @@ Manual fallback is a first-class lane. Browser/CDP work, if later approved, must
 - The canonical V5 Command Center now displays both media lanes, hash-bound approve/hold/reject operator decision packets, local outbox readiness reconciliation rows, Discord/Telegram redacted local-only operator bridge rows, manual/deferred distribution rows for Facebook Page/Threads/Instagram/TikTok/Generic Manual, and manual audit rows as adapter-built local review evidence.
 - Under Fast Ship Mode, live/provider/platform execution is enabled for explicitly implemented lanes. Discord/Telegram, Facebook Page, Threads, Substack, LinkedIn, and X have current live dispatch success evidence from rehearsal `v6_pipeline_737400e418e5`; Instagram has scoped retry success evidence from `v6_pipeline_2ff80fab28d4` using the idempotent platform allowlist.
 - Final release go/no-go rehearsal plus Instagram retry evidence now cover every implemented platform lane: broad run `v6_pipeline_737400e418e5` succeeded outside Instagram, and scoped retry `v6_pipeline_2ff80fab28d4` completed Instagram with `DISPATCH_COMPLETE` for the retry scope.
+- Terra Ultra north-star automation V1 now has live Telegram photo evidence: the runner selected a fresh Fed funds/rates schedule topic, built three ContentOps-owned rates visuals, exported a three-visual article, and sent Telegram message `61`. Substack and X remain separate supervised browser/CDP readback tasks for this article.
 
 ## Currently Completed Local / Manual Lanes
 

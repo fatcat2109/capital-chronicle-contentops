@@ -1,0 +1,179 @@
+{
+  "created_at": "2026-07-09T22:28:58Z",
+  "duplicate_hotspot_decision": {
+    "ledger_path": "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+    "oil_family_status": "DUPLICATE_FROZEN_SUPERSEDED_BY_FRESH_NON_OIL_TOPIC",
+    "selected_topic_dispatch_allowed": true,
+    "selected_topic_duplicate_blockers": [],
+    "selected_topic_duplicate_guard_status": "PASS"
+  },
+  "llm_selection_contract": {
+    "actor": "Codex GPT-5 ContentOps runner",
+    "allowed_inputs": [
+      "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
+      "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl",
+      "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl"
+    ],
+    "method": "LLM-assisted ranking over repo headline schedule with deterministic duplicate and media-support checks",
+    "numeric_truth_boundary": "headline_sidecars_are_catalyst_only"
+  },
+  "publication_topic_hash": "cb46c01093cc6a32",
+  "ranked_candidates": [
+    {
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+      "duplicate_topic_hash_seen": false,
+      "raw_score": 240,
+      "readiness": "READY_FOR_PIPELINE",
+      "reasons": [
+        "central_bank_tag",
+        "official_central_bank_followup",
+        "direct_fed_funds_rate_input",
+        "ready_for_pipeline",
+        "headline_sidecar_not_numeric_truth"
+      ],
+      "score": 240,
+      "slot_index": 6,
+      "source_headline_author": "financialjuice",
+      "source_headline_timestamp": "2026-07-08 20:00:28 GMT+7",
+      "tags": [
+        "central_bank",
+        "official_central_bank_statement_or_calendar"
+      ],
+      "topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+      "topic_hash": "8a4bc478b749f915"
+    },
+    {
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+      "duplicate_topic_hash_seen": false,
+      "raw_score": 211,
+      "readiness": "READY_FOR_PIPELINE",
+      "reasons": [
+        "central_bank_tag",
+        "official_central_bank_followup",
+        "ready_for_pipeline",
+        "headline_sidecar_not_numeric_truth"
+      ],
+      "score": 211,
+      "slot_index": 3,
+      "source_headline_author": "TrumpTruthOnX",
+      "source_headline_timestamp": "2026-07-08 10:12:56 GMT+7",
+      "tags": [
+        "central_bank",
+        "geopolitics",
+        "official_central_bank_statement_or_calendar",
+        "official_numeric_source_required_before_truth_use"
+      ],
+      "topic": "Fed Reserve working paper suggests Biden illegal immigrant wave caused 30% of home price increases: https://t.co/GVnfx0HhPi",
+      "topic_hash": "25d5e4e793ca96b8"
+    },
+    {
+      "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+      "duplicate_topic_hash_seen": false,
+      "raw_score": 211,
+      "readiness": "READY_FOR_PIPELINE",
+      "reasons": [
+        "central_bank_tag",
+        "official_central_bank_followup",
+        "ready_for_pipeline",
+        "headline_sidecar_not_numeric_truth"
+      ],
+      "score": 211,
+      "slot_index": 2,
+      "source_headline_author": "wallstengine",
+      "source_headline_timestamp": "2026-07-08 15:09:56 GMT+7",
+      "tags": [
+        "central_bank",
+        "fiscal",
+        "geopolitics",
+        "official_central_bank_statement_or_calendar",
+        "official_treasury_or_budget_release"
+      ],
+      "topic": "Today's Key Events (All EST) \u2014 07/08/2026 04:00: Trump to speak at Ankara NATO Summit 07:00: US MBA Mortgage Applications 10:00: US Wholesale Inventories MoM Re",
+      "topic_hash": "0af7e82081f8fed7"
+    },
+    {
+      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+      "duplicate_topic_hash_seen": false,
+      "raw_score": 91,
+      "readiness": "READY_FOR_PIPELINE",
+      "reasons": [
+        "central_bank_tag",
+        "official_central_bank_followup",
+        "oil_family_duplicate_frozen_not_breaking_enough",
+        "ready_for_pipeline",
+        "headline_sidecar_not_numeric_truth"
+      ],
+      "score": 91,
+      "slot_index": 1,
+      "source_headline_author": "MikeZaccardi",
+      "source_headline_timestamp": "2026-07-08 19:06:00 GMT+7",
+      "tags": [
+        "central_bank",
+        "energy",
+        "official_central_bank_statement_or_calendar",
+        "official_energy_inventory_or_opec_release"
+      ],
+      "topic": "When oil and yields stop moving together, it signals the Fed's problem has shifted from headline to core... cheaper oil alone won't open the door to cuts -Torst",
+      "topic_hash": "6ec6c3d3cbc58f82"
+    },
+    {
+      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+      "duplicate_topic_hash_seen": false,
+      "raw_score": 27,
+      "readiness": "READY_FOR_PIPELINE",
+      "reasons": [
+        "oil_family_duplicate_frozen_not_breaking_enough",
+        "ready_for_pipeline",
+        "headline_sidecar_not_numeric_truth"
+      ],
+      "score": 27,
+      "slot_index": 5,
+      "source_headline_author": "DeItaone",
+      "source_headline_timestamp": "2026-07-08 04:30:21 GMT+7",
+      "tags": [
+        "energy",
+        "fiscal",
+        "geopolitics",
+        "official_energy_inventory_or_opec_release",
+        "official_treasury_or_budget_release"
+      ],
+      "topic": "IRAN'S FOREIGN MINISTRY CONDEMNS U.S. TREASURY MOVE TO REVOKE TEMPORARY SUSPENSION OF SANCTIONS ON IRANIAN OIL SALES -STATEMENT",
+      "topic_hash": "83ce6bdb679f53d8"
+    },
+    {
+      "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+      "duplicate_topic_hash_seen": false,
+      "raw_score": 27,
+      "readiness": "READY_FOR_PIPELINE",
+      "reasons": [
+        "oil_family_duplicate_frozen_not_breaking_enough",
+        "ready_for_pipeline",
+        "headline_sidecar_not_numeric_truth"
+      ],
+      "score": 27,
+      "slot_index": 4,
+      "source_headline_author": "FirstSquawk",
+      "source_headline_timestamp": "2026-07-08 10:02:01 GMT+7",
+      "tags": [
+        "energy",
+        "geopolitics",
+        "official_energy_inventory_or_opec_release"
+      ],
+      "topic": "Global oil output to return to pre-Iran war level by year\u2019s end, U.S. EIA says",
+      "topic_hash": "f3c382ec5f38e447"
+    }
+  ],
+  "selected_angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+  "selected_slot_index": 6,
+  "selected_title": "The Fed Funds Signal Hiding in Plain Sight",
+  "selected_topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+  "selected_topic_hash": "8a4bc478b749f915",
+  "task_label": "TASK_CONTENTOPS_TERRA_ULTRA_COMPLETE_NORTH_STAR_FULL_AUTOMATION_V1",
+  "why_oil_not_selected": "Prior oil repair already has a duplicate-frozen chart-backed article and no new breaking evidence in the current task authority justified bypassing the guard.",
+  "why_selected": [
+    "fresh_non_oil_headline_schedule_slot",
+    "central_bank_policy_signal",
+    "existing_contentops_fed_funds_media_support",
+    "oil_family_duplicate_frozen_not_breaking_enough"
+  ]
+}

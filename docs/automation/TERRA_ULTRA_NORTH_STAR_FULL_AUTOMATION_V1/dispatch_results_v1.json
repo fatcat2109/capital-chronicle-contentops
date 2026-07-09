@@ -1,0 +1,62 @@
+{
+  "classification": "PASS_PARTIAL_NORTH_STAR_FULL_CONTENTOPS_AUTOMATION_V1",
+  "created_at": "2026-07-09T22:29:02Z",
+  "dotenv_loaded": true,
+  "max_send_attempts_per_platform": 1,
+  "operator_approved_full_live_run": true,
+  "preflight_blockers": [],
+  "run_id": "terra_ultra_north_star_live_20260710",
+  "substack": {
+    "blocker": "The available safe Substack path is Playwright/browser-profile assisted and requires public URL/image readback after publish.",
+    "draft_id": null,
+    "public_url": null,
+    "status": "BLOCKED_REQUIRES_SUPERVISED_BROWSER_PROFILE_AND_PUBLIC_URL_READBACK"
+  },
+  "task_label": "TASK_CONTENTOPS_TERRA_ULTRA_COMPLETE_NORTH_STAR_FULL_AUTOMATION_V1",
+  "telegram": {
+    "article_link_or_fallback_included": true,
+    "caption_sha256": "d8afb8f168fdc30d8fba47fb14475278f178d609f09647a9c038a5e630c628af",
+    "duplicate_guard": {
+      "action": "photo",
+      "approval_marker_present": true,
+      "blockers": [],
+      "dispatch_allowed": true,
+      "identity_hashes": {
+        "media_url_hash": "738130948364d466",
+        "topic_hash": "cb46c01093cc6a32"
+      },
+      "payload_hash": "72742649b443cdb6",
+      "payload_hash_required": true,
+      "platform": "telegram",
+      "run_id": "terra_ultra_north_star_live_20260710",
+      "status": "PASS",
+      "topic_hash": "cb46c01093cc6a32"
+    },
+    "image_attached": true,
+    "message_id": "61",
+    "payload_hash": "72742649b443cdb6",
+    "photo_path": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\media_assets\\fed_funds_policy_corridor_context_3c554aec4ac7.png",
+    "result_redacted": {
+      "action": "photo",
+      "caption_sha256": "d8afb8f168fdc30d8fba47fb14475278f178d609f09647a9c038a5e630c628af",
+      "chat_username": "CapitalChronicle",
+      "error": null,
+      "error_class": null,
+      "error_code": null,
+      "id": "61",
+      "platform": "telegram",
+      "response_has_photo": true,
+      "response_message_id": 61,
+      "response_ok": true,
+      "response_photo_variant_count": 5,
+      "status": "SUCCESS"
+    },
+    "status": "SUCCESS",
+    "topic_hash": "cb46c01093cc6a32"
+  },
+  "x": {
+    "blocker": "The available X path is supervised CDP/profile guarded and requires explicit live-click scope plus permalink readback.",
+    "public_url": null,
+    "status": "BLOCKED_REQUIRES_EXACT_CDP_LIVE_CLICK_WITH_PROFILE_GUARD"
+  }
+}
