@@ -1,0 +1,60 @@
+{
+  "task_label": "TASK_CONTENTOPS_DAILY_DATABASE_SUPPORT_PACKET_V0",
+  "selected_idea_id": "idea_macro_policy_rates_liquidity_20260709",
+  "selected_title": "Japan's Debt Crisis: Yield and Currency Gap Widens as Intervention Fails",
+  "selected_topic_family": "macro_policy_rates_liquidity",
+  "support_families_requested": [
+    "Japan Yield Curve (JGB)",
+    "USD/JPY FX Spot & Volatility",
+    "Global Central Bank Liquidity Measures"
+  ],
+  "support_families_resolved": [],
+  "support_families_partial": [
+    "Japan Yield Curve (JGB)",
+    "USD/JPY FX Spot & Volatility"
+  ],
+  "support_families_missing": [
+    "Global Central Bank Liquidity Measures"
+  ],
+  "support_items": {
+    "Japan Yield Curve (JGB)": {
+      "support_family": "Japan Yield Curve (JGB)",
+      "availability": "partial",
+      "authority_level": "candidate",
+      "source_artifact_path": "A:\\Capital Chronicle\\Headline Raw data local json\\capital-chronicle-ingestion\\docs\\research\\database_foundation\\apac_china_japan_official_macro_contracts\\APAC_CHINA_JAPAN_API_SOURCE_CONTRACTS_V1.json",
+      "source_artifact_type": "source_contract",
+      "source_health_or_dqr_ref": "dqr_status: BLOCKED",
+      "latest_observed_timestamp_if_available": null,
+      "numeric_values_included": false,
+      "caveats": "BOJ macro contracts exist as candidate-only metadata structures but are BLOCKED from state promotion."
+    },
+    "USD/JPY FX Spot & Volatility": {
+      "support_family": "USD/JPY FX Spot & Volatility",
+      "availability": "partial",
+      "authority_level": "candidate",
+      "source_artifact_path": "A:\\Capital Chronicle\\Headline Raw data local json\\capital-chronicle-ingestion\\data\\audit\\data_sufficiency\\task_usdjpy_oanda_practice_readonly_source_review_and_contract_v1\\usdjpy_oanda_practice_source_contract.json",
+      "source_artifact_type": "source_contract",
+      "source_health_or_dqr_ref": "do_not_use_as_numeric_truth: true",
+      "latest_observed_timestamp_if_available": null,
+      "numeric_values_included": false,
+      "caveats": "USD/JPY covers MT5 symbol plan and OANDA practice contracts but remains candidate-only (do not use as numeric truth)."
+    },
+    "Global Central Bank Liquidity Measures": {
+      "support_family": "Global Central Bank Liquidity Measures",
+      "availability": "missing",
+      "authority_level": "missing",
+      "source_artifact_path": null,
+      "source_artifact_type": null,
+      "source_health_or_dqr_ref": "rates_liquidity: design_planning_phase",
+      "latest_observed_timestamp_if_available": null,
+      "numeric_values_included": false,
+      "caveats": "Rates and liquidity datasets are in design planning phase; no active ingestion pipeline exists."
+    }
+  },
+  "database_repo_path_checked": "A:\\Capital Chronicle\\Headline Raw data local json\\capital-chronicle-ingestion",
+  "main_repo_mutated": false,
+  "external_fetch_performed": false,
+  "exact_numeric_claims_made": false,
+  "ready_for_article_draft": false,
+  "caveats": "Information is strictly qualitative. No actual numeric databases were queried or mutated."
+}

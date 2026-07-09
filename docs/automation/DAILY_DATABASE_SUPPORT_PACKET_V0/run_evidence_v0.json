@@ -1,0 +1,24 @@
+{
+  "classification": "PASS_WITH_GAPS_DAILY_DATABASE_SUPPORT_PACKET_V0",
+  "task_label": "TASK_CONTENTOPS_DAILY_DATABASE_SUPPORT_PACKET_V0",
+  "baseline_head": "b2ff7b384e3c9386347abb9cacbefff33dc66007",
+  "selected_idea_id": "idea_macro_policy_rates_liquidity_20260709",
+  "support_family_count": 3,
+  "available_count": 0,
+  "partial_count": 2,
+  "missing_count": 1,
+  "main_repo_mutated": false,
+  "external_fetch_performed": false,
+  "no_article_draft_confirmation": true,
+  "no_media_confirmation": true,
+  "no_platform_write_confirmation": true,
+  "no_dispatch_confirmation": true,
+  "no_raw_secret_read_confirmation": true,
+  "output_paths": {
+    "database_support_packet": "docs\\automation\\DAILY_DATABASE_SUPPORT_PACKET_V0\\database_support_packet_v0.json",
+    "database_support_summary": "docs\\automation\\DAILY_DATABASE_SUPPORT_PACKET_V0\\database_support_summary_v0.md",
+    "source_gap_report": "docs\\automation\\DAILY_DATABASE_SUPPORT_PACKET_V0\\source_gap_report_v0.json",
+    "run_evidence": "docs\\automation\\DAILY_DATABASE_SUPPORT_PACKET_V0\\run_evidence_v0.json"
+  },
+  "blockers": []
+}

@@ -1,0 +1,16 @@
+{
+  "task_label": "TASK_CONTENTOPS_DAILY_DATABASE_SUPPORT_PACKET_V0",
+  "selected_idea_id": "idea_macro_policy_rates_liquidity_20260709",
+  "missing_families": [
+    "Global Central Bank Liquidity Measures"
+  ],
+  "partial_families": [
+    "Japan Yield Curve (JGB)",
+    "USD/JPY FX Spot & Volatility"
+  ],
+  "recommended_next_data_ingestion_tasks": [
+    "TASK_TREASURY_FED_NYFED_RATES_LIQUIDITY_CONTRACT_FIXTURE_EXTREME_V1",
+    "TASK_APAC_CHINA_JAPAN_OFFICIAL_MACRO_VALUE_CAPTURE_V1"
+  ],
+  "caveats": "Local database lacks proven numeric truth values for Yen/JGB macro commentary. Downstream article draft must explicitly label JGB/liquidity claims as qualitative background rather than verified numeric truth."
+}
