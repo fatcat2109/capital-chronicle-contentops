@@ -1,18 +1,90 @@
 {
   "task_label": "TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0",
+  "media_selected": true,
   "media_generated": true,
-  "asset_id": "oil_export_surge_hero_card_v0",
-  "path": "generated_media\\daily_contentops\\oil_export_surge_hero_card_v0.png",
-  "sha256": "b282367027f7e8a14da87c0c72a77528246f0666e383f7a2a9acecaf71d9ab44",
+  "chart_assets_built": true,
+  "contentops_built_media": true,
+  "ai_generated_image": false,
+  "static_generated_card": false,
+  "new_image_generated": false,
+  "media_asset_count": 3,
+  "minimum_required_media_asset_count": 3,
+  "assets_spread_required": true,
+  "path": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\media_assets\\wti_current_volatility_context_b073fc25631c.png",
+  "sha256": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
   "dimensions": {
-    "width": 1200,
-    "height": 675
+    "width": 1725,
+    "height": 1080
   },
   "format": "png",
-  "generation_method": "Pillow ImageDraw branded static hero card",
-  "title_visible": "US Oil Export Surge",
-  "subtitle_visible": "SPR and shale flows reshape global markets",
-  "label_visible": "Candidate editorial",
-  "numeric_chart_rendered": false,
+  "media_source_kind": "contentops_built_fred_eia_chart_pack",
+  "generation_method": "live_contentops.media_content_audit_v6.build_current_macro_visual_pack",
+  "google_image_fallback_attempted": false,
+  "google_image_fallback_required": false,
+  "assets": [
+    {
+      "asset_id": "primary",
+      "path": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\media_assets\\wti_current_volatility_context_b073fc25631c.png",
+      "sha256": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+      "dimensions": {
+        "width": 1725,
+        "height": 1080
+      },
+      "format": "png",
+      "media_class": "data_chart",
+      "media_role": "primary_chart",
+      "media_source_kind": "fred_eia_chart",
+      "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+      "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "rights_status": "source_backed_generated_visual_cc_owned",
+      "provenance_status": "source_backed_generated_from_public_data",
+      "operator_review_required": false,
+      "caption": "WTI crude oil price and 30-day realized volatility through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+      "alt_text": "Two-panel chart showing current WTI crude oil price and rolling absolute daily moves using FRED data.",
+      "placement_index": 1
+    },
+    {
+      "asset_id": "recent_price",
+      "path": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\media_assets\\wti_recent_price_context_b073fc25631c.png",
+      "sha256": "b940fb6b8464b8c0e4028a0c5874436d456facb9afd1851b64b2e76dcb33d076",
+      "dimensions": {
+        "width": 1620,
+        "height": 870
+      },
+      "format": "png",
+      "media_class": "data_chart",
+      "media_role": "supporting_chart",
+      "media_source_kind": "fred_eia_chart",
+      "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+      "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "rights_status": "source_backed_generated_visual_cc_owned",
+      "provenance_status": "source_backed_generated_from_public_data",
+      "operator_review_required": false,
+      "caption": "Recent WTI price path through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+      "alt_text": "Line chart showing the recent WTI crude oil price path using FRED data.",
+      "placement_index": 2
+    },
+    {
+      "asset_id": "multi_year_range",
+      "path": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\media_assets\\wti_multi_year_range_context_b073fc25631c.png",
+      "sha256": "400eac0a7cdd1cb7fdb65db0770afc60400aa3b1f34c7b8674755ab93bf541bf",
+      "dimensions": {
+        "width": 1620,
+        "height": 870
+      },
+      "format": "png",
+      "media_class": "data_chart",
+      "media_role": "supporting_chart",
+      "media_source_kind": "fred_eia_chart",
+      "source_label": "FRED series DCOILWTICO; underlying source U.S. Energy Information Administration",
+      "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "rights_status": "source_backed_generated_visual_cc_owned",
+      "provenance_status": "source_backed_generated_from_public_data",
+      "operator_review_required": false,
+      "caption": "WTI annual price range and average context through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+      "alt_text": "Chart showing recent annual WTI crude oil low-high ranges and annual averages using FRED data.",
+      "placement_index": 3
+    }
+  ],
   "caveat_text": "Candidate editorial draft. Numeric references require final source verification before publication."
 }

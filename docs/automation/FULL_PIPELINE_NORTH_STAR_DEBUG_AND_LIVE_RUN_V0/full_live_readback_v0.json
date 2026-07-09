@@ -1,11 +1,11 @@
 {
   "task_label": "TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0",
   "telegram": {
-    "readback_available": true,
-    "readback_status": "MESSAGE_ID_RETURNED_BY_TELEGRAM_API_WITH_PHOTO",
-    "message_id": "60",
-    "caption_excerpt": "US Oil Export Surge SPR and shale flows reshape global markets. Corrected candidate dispatch with the generated hero card attached and the longform article export referenced below. Candidate editorial draft. Numeric references require final source verification before publicati...",
-    "image_attached": true,
+    "readback_available": false,
+    "readback_status": "FAILED_DUPLICATE_GUARD_BLOCKED",
+    "message_id": null,
+    "caption_excerpt": null,
+    "image_attached": false,
     "caveat_visible": true,
     "article_link_or_fallback_visible": true
   },
@@ -19,5 +19,5 @@
     "readback_status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
     "unblock_plan": "Run a separate exact X CDP live-click task with approved ContentOps profile guard, operator GO phrase, post-click URL capture, and registry reconciliation."
   },
-  "readback_overall_status": "PASS_TELEGRAM_PHOTO_MESSAGE_ID_RETURNED"
+  "readback_overall_status": "NO_SUCCESSFUL_REPAIR_READBACK"
 }

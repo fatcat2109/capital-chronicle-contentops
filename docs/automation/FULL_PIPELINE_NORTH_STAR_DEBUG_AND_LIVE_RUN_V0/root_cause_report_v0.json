@@ -7,7 +7,7 @@
   "previous_telegram_missing_article_link_or_fallback": true,
   "prior_run_classification": "PASS_PARTIAL_OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0",
   "prior_readback_status": "PASS_TELEGRAM_MESSAGE_ID_RETURNED",
-  "why_image_was_not_generated": "The committed media spec was planning-only and set generation_allowed_now=false; the previous live runner treated that as acceptable instead of creating the requested hero card.",
+  "why_image_was_not_generated": "The committed media spec was planning-only and set generation_allowed_now=false; the previous live runner treated that as acceptable instead of building or finding the required source-backed media assets.",
   "media_generation_allowed_in_prior_plan": false,
   "why_telegram_lacked_media_or_link": "The previous runner called the text send path execute_telegram_post and built no article export, public URL, or local fallback reference for the Telegram payload.",
   "why_substack_was_skipped": "The available automated Substack path is browser-profile based, so this repair uses local Markdown/HTML export and marks Substack as requiring operator browser assist.",
@@ -16,9 +16,10 @@
     "live_contentops/full_pipeline_north_star_debug_and_live_run_v0.py",
     "scripts/run_full_pipeline_north_star_debug_and_live_run_v0.py",
     "tests/test_full_pipeline_north_star_debug_and_live_run_v0.py",
-    "generated_media/daily_contentops/oil_export_surge_hero_card_v0.png",
+    "live_contentops/media_content_audit_v6.py",
+    "docs/automation/FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0/media_assets/*.png",
     "exports/daily_contentops/oil_export_surge_article_v0.md",
     "exports/daily_contentops/oil_export_surge_article_v0.html"
   ],
-  "selected_repair_strategy": "Do not send another text-only post. Generate local media and article export, then send one operator-approved Telegram photo replacement with a repair-specific duplicate guard."
+  "selected_repair_strategy": "Do not send another text-only post. Build a ContentOps-owned source-backed FRED/EIA chart pack from data, require at least three visuals distributed through the article export, then send one operator-approved Telegram photo replacement only if the duplicate guard permits it."
 }

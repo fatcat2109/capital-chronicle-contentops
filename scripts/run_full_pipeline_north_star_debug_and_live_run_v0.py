@@ -31,6 +31,14 @@ def main() -> int:
     summary = {
         "classification": result["classification"],
         "media_generated": dispatch["media_generated"],
+        "contentops_built_media": dispatch["contentops_built_media"],
+        "chart_assets_built": dispatch["chart_assets_built"],
+        "media_asset_count": dispatch["media_asset_count"],
+        "media_source_kind": dispatch["media_source_kind"],
+        "ai_generated_image": dispatch["ai_generated_image"],
+        "static_generated_card": dispatch["static_generated_card"],
+        "article_visual_asset_count": dispatch["article_visual_asset_count"],
+        "article_visuals_spread_through_article": dispatch["article_visuals_spread_through_article"],
         "article_export_created": dispatch["article_export_created"],
         "telegram_repair_status": dispatch["telegram_repair_status"],
         "telegram_new_message_id": dispatch["telegram_new_message_id"],
@@ -39,6 +47,7 @@ def main() -> int:
         "substack_status": dispatch["substack_status"],
         "x_status": dispatch["x_status"],
         "duplicate_guard_result": dispatch["duplicate_guard_result"],
+        "dispatch_blocked_by_duplicate_policy": dispatch["dispatch_blocked_by_duplicate_policy"],
         "all_secret_values_redacted": dispatch["all_secret_values_redacted"],
     }
     print(json.dumps(summary, indent=2, sort_keys=True))

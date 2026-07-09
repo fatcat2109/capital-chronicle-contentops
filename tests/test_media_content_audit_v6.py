@@ -73,7 +73,8 @@ def test_render_current_wti_visual_pack_writes_assets_and_metadata(tmp_path):
     )
 
     assert len(assets) == 3
-    assert {asset["media_class"] for asset in assets} >= {"data_chart", "map_or_geography"}
+    assert [asset["asset_id"] for asset in assets] == ["primary", "recent_price", "multi_year_range"]
+    assert {asset["media_class"] for asset in assets} == {"data_chart"}
     for asset in assets:
         path = Path(asset["local_path"])
         assert path.exists()
@@ -82,8 +83,9 @@ def test_render_current_wti_visual_pack_writes_assets_and_metadata(tmp_path):
         assert metadata["rights_status"]
         assert metadata["provenance_status"]
         assert metadata["why_selected"]
+        assert "FRED series DCOILWTICO" in metadata["canonical_source_label"]
     assert "FRED series DCOILWTICO" in assets[0]["canonical_source_label"]
-    assert assets[2]["asset_id"] == "hormuz_context"
+    assert assets[2]["asset_id"] == "multi_year_range"
 
 
 def test_fed_funds_visual_pack_writes_non_oil_assets_and_metadata(tmp_path):

@@ -2,31 +2,43 @@
   "task_label": "TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0",
   "previous_defective_telegram_message_id": "59",
   "media_generated": true,
-  "media_path": "generated_media\\daily_contentops\\oil_export_surge_hero_card_v0.png",
+  "media_selected": true,
+  "contentops_built_media": true,
+  "chart_assets_built": true,
+  "media_asset_count": 3,
+  "media_source_kind": "contentops_built_fred_eia_chart_pack",
+  "ai_generated_image": false,
+  "static_generated_card": false,
+  "new_image_generated": false,
+  "media_path": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\media_assets\\wti_current_volatility_context_b073fc25631c.png",
   "article_export_created": true,
   "article_export_path": "exports\\daily_contentops\\oil_export_surge_article_v0.md",
+  "article_visual_asset_count": 3,
+  "article_visual_placement_status": "PASS_VISUALS_SPREAD_THROUGH_ARTICLE",
+  "article_visuals_spread_through_article": true,
   "substack_status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
   "substack_url_or_draft_id": null,
-  "telegram_repair_status": "REPAIRED_WITH_PHOTO",
-  "telegram_new_message_id": "60",
-  "telegram_image_attached": true,
+  "telegram_repair_status": "FAILED_DUPLICATE_GUARD_BLOCKED",
+  "telegram_new_message_id": null,
+  "telegram_image_attached": false,
   "telegram_link_or_article_fallback_included": true,
   "x_status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
-  "attempted_platforms": [
-    "telegram"
-  ],
-  "successful_platforms": [
-    "telegram"
-  ],
+  "attempted_platforms": [],
+  "successful_platforms": [],
   "skipped_platforms": [
     "substack",
     "x"
   ],
-  "failed_platforms": [],
-  "duplicate_guard_result": "PASS",
-  "duplicate_guard_blockers": [],
-  "telegram_content_hash": "7aac1ad76b56fdf2",
-  "telegram_payload_hash": "66c526e16a74cf34",
+  "failed_platforms": [
+    "telegram"
+  ],
+  "duplicate_guard_result": "PUBLIC_DISPATCH_FROZEN",
+  "duplicate_guard_blockers": [
+    "duplicate_topic_hash"
+  ],
+  "dispatch_blocked_by_duplicate_policy": true,
+  "telegram_content_hash": "fb712be8abd01fd4",
+  "telegram_payload_hash": "7b493f79398fd9a5",
   "caveat_present_all_outputs": true,
   "all_secret_values_redacted": true,
   "per_platform_results": [
@@ -39,13 +51,13 @@
     },
     {
       "platform": "telegram",
-      "status": "REPAIRED_WITH_PHOTO",
-      "message_id": "60",
-      "image_attached": true,
+      "status": "FAILED_DUPLICATE_GUARD_BLOCKED",
+      "message_id": null,
+      "image_attached": false,
       "article_reference": "exports\\daily_contentops\\oil_export_surge_article_v0.md",
-      "content_hash": "7aac1ad76b56fdf2",
-      "payload_hash": "66c526e16a74cf34",
-      "duplicate_guard_result": "PASS",
+      "content_hash": "fb712be8abd01fd4",
+      "payload_hash": "7b493f79398fd9a5",
+      "duplicate_guard_result": "PUBLIC_DISPATCH_FROZEN",
       "error_summary_redacted": null
     },
     {

@@ -9,19 +9,19 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-verified remote master before this north-star live repair task: `c5448c26ede0afdf2b50d7ce2abc800dbe1dca45`
+verified remote master before this media-policy correction task: `1c7461b2a673939505e64b61f7c2ce9e165e6189`
 
 ## current_product_phase
-ContentOps now has a committed north-star repair path for the rejected Daily ContentOps live run. `TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0` generated a local hero PNG and article export, then performed one operator-approved Telegram photo repair for prior defective text-only message `59`. Current classification: `PASS_PARTIAL_FULL_PIPELINE_NORTH_STAR_LIVE_RUN_V0`.
+ContentOps now enforces the clarified north-star media automation gate. `TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0` builds a source-backed FRED/EIA chart pack through ContentOps, exports the article with three visuals spread through the body, and blocks live Telegram resend when the duplicate-topic guard detects the prior repair topic. Current latest run classification: `BLOCKED_FULL_PIPELINE_NORTH_STAR_LIVE_RUN_V0` because dispatch was frozen by `duplicate_topic_hash`.
 
 ## current_product_lane
-Daily ContentOps north-star live repair lane: media generation, article export, Telegram photo dispatch/readback, duplicate guard, and safety evidence are committed. Substack and X remain explicit operator-assist blockers because the available safe paths require supervised browser/CDP workflows.
+Daily ContentOps north-star live repair lane: ContentOps-built chart media, article export, visual placement gate, Telegram duplicate guard, and safety evidence are committed. The prior generated-card Telegram repair remains historical evidence but is superseded for product completeness under the clarified media rule. Substack and X remain explicit operator-assist blockers because the available safe paths require supervised browser/CDP workflows.
 
 ## accepted_baseline_summary
-`TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0` fixes the rejected text-only Telegram live run by creating `generated_media/daily_contentops/oil_export_surge_hero_card_v0.png`, exporting the article to `exports/daily_contentops/`, and posting corrected Telegram photo message `60` with the required caveat and article fallback. Substack/X were not faked; both are marked `SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST`.
+The generated hero-card repair from message `60` is superseded by Jim's clarified media rule: ContentOps must build chart media from source data or find/audit an image candidate itself, and the article must contain at least three visuals spread through the body. The current runner builds three source-backed FRED/EIA assets under `docs/automation/FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0/media_assets/`, exports the article to `exports/daily_contentops/`, verifies `PASS_VISUALS_SPREAD_THROUGH_ARTICLE`, and blocks another Telegram post via duplicate-topic freeze.
 
 ## status_sha_model
-- `last_verified_remote_sha`: `c5448c26ede0afdf2b50d7ce2abc800dbe1dca45` before this north-star live repair task.
+- `last_verified_remote_sha`: `1c7461b2a673939505e64b61f7c2ce9e165e6189` before this media-policy correction task.
 - `main_repo_handoff_commit`: `74ccf071ac8558d54e6a3c9d7d2a05ecbf42a2f2` from `fatcat2109/Headline-Raw-data-json`.
 - `sample_packet.main_repo_head`: `69301f0fceee24ba1fa7e6c181ad190b3a4e306a` preserved from packet metadata.
 - `approval_hash`: `b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef` with continuity status `PASS`.
@@ -47,10 +47,10 @@ Canonical package: `ui/contentops_v5/package.json`.
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-ContentOps now has deterministic CC artifact packet intake, operator-decision, supervised public-permissive preview gates, and a committed Daily ContentOps live-repair runner that can complete media/article export and Telegram photo dispatch under exact operator approval. The Capital Chronicle local database/exporter remains numeric/source/context authority; ContentOps remains content production, platform adaptation, approval, dispatch gating, and readback; Analysis Alpha remains future work.
+ContentOps now has deterministic CC artifact packet intake, operator-decision, supervised public-permissive preview gates, and a committed Daily ContentOps live-repair runner that can build source-backed visual media, export an article with distributed visuals, and enforce duplicate dispatch gating under exact operator approval. The Capital Chronicle local database/exporter remains numeric/source/context authority; ContentOps visual-source fetching is limited to chart-media construction and does not promote article prose into final numeric truth.
 
 ## dispatch/live status
-One operator-approved Telegram live photo repair was performed. Prior defective text-only Telegram message `59` was repaired by corrected photo message `60` using `sendPhoto`, generated local media, article fallback, required caveat, duplicate guard `PASS`, and readback evidence. Substack and X were skipped with explicit status `SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST`; no browser/CDP action, Substack publish, X post, scheduler/retry, macro source fetch, or main database mutation occurred.
+One prior operator-approved Telegram live photo repair was performed as message `60`, but its generated/static hero-card media is now superseded under the clarified media policy. The latest full automation run built three ContentOps FRED/EIA visuals and a three-visual article export, then correctly blocked Telegram resend with `FAILED_DUPLICATE_GUARD_BLOCKED` / `duplicate_topic_hash`. Substack and X were skipped with explicit status `SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST`; no browser/CDP action, Substack publish, X post, scheduler/retry, credential read, or main database mutation occurred in the latest run.
 
 ## article_quality_status
 Current repaired fresh-slot article gates pass for dry-run/pre-public readiness: `body_word_count=2087`, `sections=9`, `source_trail_count=8`, no `UNVERIFIED_SAMPLE_SOURCE_REF`, and specific Fed-funds/rates numeric anchors from official/source-backed references. The prior oil/yields article remains a readable dry-run artifact but must not be public-posted because it collapses into the prior Crude/WTI content family.
@@ -59,20 +59,20 @@ Current repaired fresh-slot article gates pass for dry-run/pre-public readiness:
 Editorial quality audit remains independent from dispatch. The repaired fresh Fed-funds dry-run candidate is `EDITORIAL_APPROVED` with no blockers or review items. Evidence: `docs/automation/V6_FRESH_NON_OIL_REHEARSAL_REPAIR/fresh_non_oil_rehearsal_evidence_v0.json`.
 
 ## media_and_visual_status
-Media status passes for dry-run/pre-public readiness. The repaired fresh Fed-funds candidate uses three non-oil rates visuals: `primary` DFF/policy-corridor chart, `policy_corridor` policy diagram, and `sofr_context` rates/SOFR context chart. Media diversification is `PASS`, auto-publication-safe for dry-run evidence, and pre-public family classification is `fed_funds_policy_rates`, not `crude_wti_oil_volatility`.
+North-star oil export media status now passes the clarified automation gate: ContentOps built three source-backed FRED WTI charts (`primary` WTI volatility chart, `recent_price` WTI price chart, and `multi_year_range` WTI range/average chart) and the article manifest records `PASS_VISUALS_SPREAD_THROUGH_ARTICLE`. AI-generated images, static hero cards, and non-chart schematics are blocked for this path.
 
 ## temporary_fixture_authority_boundary
 The Fed/FRED/NY Fed/Treasury rates path remains `TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE` only. The durable future authority path is now represented by ContentOps `CC_CONTENT_ARTIFACT_PACKET` V0 intake, where the Capital Chronicle local database/exporter remains `FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY`. ContentOps must not become a second macro database, source parser, source fetcher, numeric truth authority, or Analysis Alpha layer. No additional source families should be added directly to ContentOps unless explicitly approved.
 
 ## provider/env/credential status
-This north-star live repair used the existing Telegram Bot API adapter for one photo dispatch. Evidence records key-name-only telemetry and `all_secret_values_redacted=true`; no raw env values, credentials, tokens, cookies, localStorage, sessionStorage, browser sessions, webhooks, or provider keys were printed or committed. No browser/CDP work, Substack publish, X post, public URL fetch, macro source fetch/parse, scheduler/retry/outbox execution, or main repo/database mutation occurred.
+The latest media-policy correction run did not call the Telegram adapter because the duplicate guard blocked dispatch before credential use. Evidence records `all_secret_values_redacted=true`; no raw env values, credentials, tokens, cookies, localStorage, sessionStorage, browser sessions, webhooks, or provider keys were printed or committed. FRED/EIA source access was limited to chart-media construction; no browser/CDP work, Substack publish, X post, scheduler/retry/outbox execution, or main repo/database mutation occurred.
 
 ## active blockers
 - Substack public URL/draft creation remains blocked until a separate supervised operator browser-assist task runs against the approved ContentOps profile and captures URL/readback without dumping session state.
 - X public posting remains blocked until a separate exact X CDP live-click task runs with profile guard, operator GO phrase, URL capture, and registry reconciliation.
 - Candidate/proxy, DQR BLOCKED, internal-only, source-quality, limitation, and forbidden-use caveats must remain visible in all public payloads.
 - Duplicate/spam guard failure, hidden caveats/disclaimers, exact-authority promotion, financial advice/trading signal, secret/session reads, and main repo/database mutation remain hard blocks.
-- The Capital Chronicle local database/exporter remains the numeric/source/context authority; ContentOps must not fetch/parse macro sources or mutate the main repo/database.
+- The Capital Chronicle local database/exporter remains the numeric/source/context authority; ContentOps visual-source fetching is allowed only for source-backed media construction and must not become a second macro database or mutate the main repo/database.
 - The Fed/FRED/NY Fed/Treasury rates path remains temporary fallback fixture logic only.
 
 ## latest accepted task
@@ -83,23 +83,22 @@ TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0
 - `scripts/run_full_pipeline_north_star_debug_and_live_run_v0.py`
 - `tests/test_full_pipeline_north_star_debug_and_live_run_v0.py`
 - `docs/automation/FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0/`
-- `generated_media/daily_contentops/oil_export_surge_hero_card_v0.png`
+- `docs/automation/FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0/media_assets/`
+- `generated_media/daily_contentops/oil_export_surge_hero_card_v0.png` (removed/superseded)
 - `exports/daily_contentops/oil_export_surge_article_v0.md`
 - `exports/daily_contentops/oil_export_surge_article_v0.html`
-- `docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl`
-- `docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 
 ## current next recommended task
-`TASK_CONTENTOPS_SUPERVISED_SUBSTACK_BROWSER_ASSIST_AND_X_CDP_ASSIST_FOR_NORTH_STAR_ARTICLE_V0`: complete the remaining north-star platform lanes by creating/publishing the exported article through supervised Substack operator browser assist and posting/capturing X through the exact CDP live-click workflow.
+`TASK_CONTENTOPS_OPERATOR_DECISION_SUPERSEDE_DUPLICATE_FROZEN_TELEGRAM_REPAIR_V0`: decide whether to keep the duplicate freeze, manually remove/supersede the prior generated-card Telegram repair, or explicitly authorize a distinct supersession dispatch for the chart-backed article before any additional Telegram public post. Substack/X operator-assist work remains next after that decision.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.
 
 ## next-task safety notes
-Read this status ledger and the JSON status file before planning. Telegram photo repair evidence is live and committed; Substack/X are still blocked without a separate exact operator-assist live task. Future live actions must bind the exported article/media hashes, rerun duplicate/platform gates, preserve the candidate caveat, and record readback evidence after dispatch.
+Read this status ledger and the JSON status file before planning. The chart-backed media/article artifact is built and committed; Telegram resend is duplicate-frozen; Substack/X are still blocked without a separate exact operator-assist live task. Future live actions must bind the exported article/media hashes, rerun duplicate/platform gates, preserve the candidate caveat, and record readback evidence after dispatch.
 
 ## mandatory read-before-work files
 - `AGENTS.md`

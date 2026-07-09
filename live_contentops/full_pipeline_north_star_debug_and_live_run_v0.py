@@ -13,7 +13,6 @@ import json
 import re
 import struct
 import subprocess
-import textwrap
 from pathlib import Path
 from typing import Any, Callable, Mapping
 
@@ -36,7 +35,7 @@ CLASSIFICATION_BLOCKED = "BLOCKED_FULL_PIPELINE_NORTH_STAR_LIVE_RUN_V0"
 CLASSIFICATION_FAILED = "FAILED_FULL_PIPELINE_NORTH_STAR_LIVE_RUN_V0"
 
 OUTPUT_DIR = Path("docs/automation/FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0")
-MEDIA_PATH = Path("generated_media/daily_contentops/oil_export_surge_hero_card_v0.png")
+MEDIA_ASSET_OUTPUT_DIR = OUTPUT_DIR / "media_assets"
 ARTICLE_MD_PATH = Path("exports/daily_contentops/oil_export_surge_article_v0.md")
 ARTICLE_HTML_PATH = Path("exports/daily_contentops/oil_export_surge_article_v0.html")
 DEFAULT_DUPLICATE_LEDGER = Path("docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl")
@@ -178,6 +177,15 @@ def _html_document_from_markdown(markdown_text: str, title: str) -> str:
                 body_parts.append("</ul>")
                 in_list = False
             body_parts.append(f"<h3>{html.escape(line[4:].strip())}</h3>")
+        elif image_match := re.match(r"^!\[(?P<alt>[^\]]*)\]\((?P<src>[^)]+)\)$", line):
+            if in_list:
+                body_parts.append("</ul>")
+                in_list = False
+            src = image_match.group("src").strip()
+            alt = image_match.group("alt").strip()
+            body_parts.append(
+                f'<p class="article-visual"><img src="{html.escape(src, quote=True)}" alt="{html.escape(alt, quote=True)}"></p>'
+            )
         elif line.startswith("- "):
             if not in_list:
                 body_parts.append("<ul>")
@@ -193,6 +201,11 @@ def _html_document_from_markdown(markdown_text: str, title: str) -> str:
                 body_parts.append("</ul>")
                 in_list = False
             body_parts.append("<hr>")
+        elif line.startswith("*") and line.endswith("*") and len(line) > 2:
+            if in_list:
+                body_parts.append("</ul>")
+                in_list = False
+            body_parts.append(f"<p class=\"caption\"><em>{html.escape(line[1:-1].strip())}</em></p>")
         else:
             if in_list:
                 body_parts.append("</ul>")
@@ -214,6 +227,9 @@ def _html_document_from_markdown(markdown_text: str, title: str) -> str:
     h2 {{ font-size: 23px; margin-top: 34px; }}
     h3 {{ font-size: 18px; margin-top: 24px; }}
     blockquote {{ border-left: 4px solid #b8892e; padding: 10px 16px; background: #fff8e8; margin: 22px 0; }}
+    .article-visual {{ margin: 28px 0 8px; }}
+    .article-visual img {{ width: 100%; height: auto; border: 1px solid #d9e0ea; }}
+    .caption {{ color: #526070; font-size: 14px; margin-top: 0; }}
     p, li {{ font-size: 16px; }}
     hr {{ border: 0; border-top: 1px solid #dde3ed; margin: 28px 0; }}
   </style>
@@ -261,7 +277,7 @@ def build_root_cause_report(repo_root: str | Path = ".") -> tuple[dict[str, Any]
         "prior_readback_status": prior_readback.get("readback_overall_status"),
         "why_image_was_not_generated": (
             "The committed media spec was planning-only and set generation_allowed_now=false; "
-            "the previous live runner treated that as acceptable instead of creating the requested hero card."
+            "the previous live runner treated that as acceptable instead of building or finding the required source-backed media assets."
         ),
         "media_generation_allowed_in_prior_plan": media_plan.get("generation_allowed_now"),
         "why_telegram_lacked_media_or_link": (
@@ -280,13 +296,15 @@ def build_root_cause_report(repo_root: str | Path = ".") -> tuple[dict[str, Any]
             "live_contentops/full_pipeline_north_star_debug_and_live_run_v0.py",
             "scripts/run_full_pipeline_north_star_debug_and_live_run_v0.py",
             "tests/test_full_pipeline_north_star_debug_and_live_run_v0.py",
-            "generated_media/daily_contentops/oil_export_surge_hero_card_v0.png",
+            "live_contentops/media_content_audit_v6.py",
+            "docs/automation/FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0/media_assets/*.png",
             "exports/daily_contentops/oil_export_surge_article_v0.md",
             "exports/daily_contentops/oil_export_surge_article_v0.html",
         ],
         "selected_repair_strategy": (
-            "Do not send another text-only post. Generate local media and article export, then send one "
-            "operator-approved Telegram photo replacement with a repair-specific duplicate guard."
+            "Do not send another text-only post. Build a ContentOps-owned source-backed FRED/EIA chart "
+            "pack from data, require at least three visuals distributed through the article export, then "
+            "send one operator-approved Telegram photo replacement only if the duplicate guard permits it."
         ),
     }
     markdown = "\n".join(
@@ -313,112 +331,111 @@ def build_root_cause_report(repo_root: str | Path = ".") -> tuple[dict[str, Any]
     return report, markdown
 
 
-def _font(size: int, bold: bool = False) -> Any:
-    try:
-        from PIL import ImageFont
+def build_oil_export_media_assets(
+    *,
+    output_dir: str | Path = MEDIA_ASSET_OUTPUT_DIR,
+) -> dict[str, Any]:
+    from live_contentops.media_content_audit_v6 import build_current_macro_visual_pack
 
-        candidates = [
-            r"C:\Windows\Fonts\arialbd.ttf" if bold else r"C:\Windows\Fonts\arial.ttf",
-            r"C:\Windows\Fonts\segoeuib.ttf" if bold else r"C:\Windows\Fonts\segoeui.ttf",
-        ]
-        for candidate in candidates:
-            if Path(candidate).exists():
-                return ImageFont.truetype(candidate, size=size)
-        return ImageFont.load_default()
-    except Exception:
-        return None
+    out_dir = Path(output_dir)
+    assets = build_current_macro_visual_pack(
+        "US Oil Export Surge: Production and SPR Dynamics Reshape Global Markets",
+        output_dir=out_dir,
+    )
+    if len(assets) < 3:
+        raise ValueError("contentops_media_pipeline_produced_fewer_than_three_assets")
 
+    selected_assets = [asset for asset in assets if "fred" in json.dumps(asset, default=str).lower()]
+    if len(selected_assets) < 3:
+        raise ValueError("contentops_media_pipeline_produced_fewer_than_three_fred_chart_assets")
 
-def generate_oil_export_hero_card(path: str | Path = MEDIA_PATH) -> dict[str, Any]:
-    out_path = Path(path)
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    title = "US Oil Export Surge"
-    subtitle = "SPR and shale flows reshape global markets"
-    label = "Candidate editorial"
-    width, height = 1200, 675
-    method = "Pillow ImageDraw branded static hero card"
-
-    try:
-        from PIL import Image, ImageDraw
-
-        image = Image.new("RGB", (width, height), "#132033")
-        draw = ImageDraw.Draw(image)
-
-        for x in range(0, width, 24):
-            tone = 28 + int(26 * (x / width))
-            draw.line([(x, 0), (x - 240, height)], fill=(tone, 48, 70), width=2)
-
-        draw.rectangle([(0, height - 168), (width, height)], fill="#e7edf3")
-        draw.rectangle([(0, 0), (width, 18)], fill="#b8892e")
-        draw.rectangle([(76, 72), (306, 112)], fill="#b8892e")
-        draw.text((94, 81), label, fill="#101926", font=_font(20, bold=True))
-
-        title_font = _font(74, bold=True)
-        subtitle_font = _font(34, bold=False)
-        small_font = _font(22, bold=True)
-        body_font = _font(24, bold=False)
-
-        draw.text((76, 182), title, fill="#f7fafc", font=title_font)
-        draw.text((80, 284), subtitle, fill="#d5e2ef", font=subtitle_font)
-
-        # Qualitative flow motif only: no numeric chart or scaled data.
-        pipeline_y = 448
-        draw.line([(84, pipeline_y), (940, pipeline_y)], fill="#d4a13f", width=18)
-        for x in (178, 350, 522, 694, 866):
-            draw.ellipse([(x - 18, pipeline_y - 18), (x + 18, pipeline_y + 18)], fill="#f3c86a", outline="#0e1726", width=3)
-        draw.polygon([(968, pipeline_y), (910, pipeline_y - 42), (910, pipeline_y + 42)], fill="#d4a13f")
-        draw.text((78, 544), "Capital Chronicle", fill="#132033", font=small_font)
-        draw.text(
-            (78, 584),
-            "Generated review visual. No numeric chart rendered.",
-            fill="#3d4b5f",
-            font=body_font,
+    manifest_assets: list[dict[str, Any]] = []
+    for index, asset in enumerate(selected_assets[:3]):
+        local_path = Path(str(asset.get("local_path") or ""))
+        if not local_path.exists():
+            raise ValueError(f"contentops_media_asset_missing:{asset.get('asset_id')}")
+        width, height = _png_dimensions(local_path)
+        manifest_assets.append(
+            {
+                "asset_id": asset.get("asset_id") or f"asset_{index + 1}",
+                "path": str(local_path),
+                "sha256": _sha256_file(local_path),
+                "dimensions": {"width": width, "height": height},
+                "format": "png",
+                "media_class": asset.get("media_class"),
+                "media_role": asset.get("media_role"),
+                "media_source_kind": "fred_eia_chart" if "fred" in json.dumps(asset, default=str).lower() else "official_context_chart",
+                "source_label": asset.get("canonical_source_label") or asset.get("source_label"),
+                "source_page_url": asset.get("source_page_url") or asset.get("source_url") or asset.get("url"),
+                "rights_status": asset.get("rights_status"),
+                "provenance_status": asset.get("provenance_status"),
+                "operator_review_required": bool(asset.get("operator_review_required")),
+                "caption": asset.get("caption"),
+                "alt_text": asset.get("alt_text"),
+                "placement_index": index + 1,
+            }
         )
-        draw.text((782, 584), REQUIRED_CAVEAT, fill="#3d4b5f", font=_font(18, bold=False))
-        image.save(out_path, format="PNG")
-    except Exception:
-        method = "matplotlib static fallback hero card"
-        import matplotlib
 
-        matplotlib.use("Agg")
-        import matplotlib.pyplot as plt
-
-        fig, ax = plt.subplots(figsize=(12, 6.75), dpi=100)
-        fig.patch.set_facecolor("#132033")
-        ax.set_facecolor("#132033")
-        ax.text(0.06, 0.84, label, color="#101926", fontsize=15, weight="bold", bbox={"facecolor": "#b8892e", "edgecolor": "none", "pad": 8})
-        ax.text(0.06, 0.64, title, color="#f7fafc", fontsize=42, weight="bold")
-        ax.text(0.06, 0.52, subtitle, color="#d5e2ef", fontsize=22)
-        ax.plot([0.08, 0.78], [0.30, 0.30], color="#d4a13f", linewidth=13)
-        ax.scatter([0.16, 0.30, 0.44, 0.58, 0.72], [0.30] * 5, s=280, color="#f3c86a", edgecolors="#0e1726", linewidths=2)
-        ax.text(0.06, 0.12, "Capital Chronicle", color="#f7fafc", fontsize=16, weight="bold")
-        ax.text(0.06, 0.07, "Generated review visual. No numeric chart rendered.", color="#d5e2ef", fontsize=12)
-        ax.set_axis_off()
-        fig.savefig(out_path, facecolor=fig.get_facecolor(), edgecolor="none")
-        plt.close(fig)
-
-    actual_width, actual_height = _png_dimensions(out_path)
-    manifest = {
+    primary = manifest_assets[0]
+    return {
         "task_label": TASK_LABEL,
+        "media_selected": True,
         "media_generated": True,
-        "asset_id": "oil_export_surge_hero_card_v0",
-        "path": str(out_path),
-        "sha256": _sha256_file(out_path),
-        "dimensions": {"width": actual_width, "height": actual_height},
+        "chart_assets_built": True,
+        "contentops_built_media": True,
+        "ai_generated_image": False,
+        "static_generated_card": False,
+        "new_image_generated": False,
+        "media_asset_count": len(manifest_assets),
+        "minimum_required_media_asset_count": 3,
+        "assets_spread_required": True,
+        "path": primary["path"],
+        "sha256": primary["sha256"],
+        "dimensions": primary["dimensions"],
         "format": "png",
-        "generation_method": method,
-        "title_visible": title,
-        "subtitle_visible": subtitle,
-        "label_visible": label,
-        "numeric_chart_rendered": False,
+        "media_source_kind": "contentops_built_fred_eia_chart_pack",
+        "generation_method": "live_contentops.media_content_audit_v6.build_current_macro_visual_pack",
+        "google_image_fallback_attempted": False,
+        "google_image_fallback_required": False,
+        "assets": manifest_assets,
         "caveat_text": REQUIRED_CAVEAT,
     }
-    return manifest
+
+
+def _visual_markdown(asset: Mapping[str, Any]) -> str:
+    path = str(asset.get("path") or "").replace("\\", "/")
+    alt = str(asset.get("alt_text") or asset.get("asset_id") or "Source-backed chart").strip()
+    caption = str(asset.get("caption") or asset.get("source_label") or "Source-backed visual.").strip()
+    return "\n".join(
+        [
+            f"![{alt}]({path})",
+            "",
+            f"*{caption}*",
+        ]
+    )
+
+
+def _article_visual_position_report(markdown: str, assets: list[Mapping[str, Any]]) -> dict[str, Any]:
+    positions = [markdown.find(str(asset.get("path") or "").replace("\\", "/")) for asset in assets]
+    valid_positions = [pos for pos in positions if pos >= 0]
+    if len(valid_positions) < 3:
+        status = "FAIL_MISSING_VISUALS"
+    elif max(valid_positions) - min(valid_positions) < max(len(markdown) // 3, 1):
+        status = "FAIL_VISUALS_CLUSTERED"
+    else:
+        status = "PASS_VISUALS_SPREAD_THROUGH_ARTICLE"
+    return {
+        "visual_asset_count": len(valid_positions),
+        "visual_positions": valid_positions,
+        "article_length_chars": len(markdown),
+        "visual_placement_status": status,
+    }
 
 
 def export_article_from_candidate_draft(
     *,
     repo_root: str | Path = ".",
+    media_manifest: Mapping[str, Any] | None = None,
     article_md_path: str | Path = ARTICLE_MD_PATH,
     article_html_path: str | Path = ARTICLE_HTML_PATH,
 ) -> dict[str, Any]:
@@ -431,6 +448,9 @@ def export_article_from_candidate_draft(
     meta_description = metadata.get("seo_meta_description") or (
         "Candidate editorial on how US crude exports, shale capacity, and SPR dynamics can reshape global energy flows."
     )
+    media_assets = list((media_manifest or {}).get("assets") or [])
+    if len(media_assets) < 3:
+        raise ValueError("article_export_requires_three_media_assets")
 
     markdown = "\n".join(
         [
@@ -447,17 +467,23 @@ def export_article_from_candidate_draft(
             "## Executive Brief",
             "The current candidate article frames US crude exports as a structural force in global energy trade. The useful point is not a precise volume claim. It is the way shale production, Gulf Coast logistics, SPR policy, and refinery demand can shift where marginal barrels move when global supply chains tighten or rebalance.",
             "",
+            _visual_markdown(media_assets[0]),
+            "",
             "## Why This Matters",
             "US barrels now sit at the intersection of domestic supply policy and global physical-market routing. When export capacity, shale output, and reserve management move in the same conversation, the story becomes more than an oil-market note. It becomes a geopolitical and logistics story about where flexibility is created and who absorbs the next supply shock.",
             "",
             "## Production and Export Capacity",
             "The base draft points to shale production and Gulf Coast infrastructure as the operating spine behind the export story. This export keeps that as qualitative context only. It does not promote candidate headline figures into verified database truth.",
             "",
+            _visual_markdown(media_assets[1]),
+            "",
             "## Strategic Petroleum Reserve Context",
             "SPR drawdowns and replenishment plans can affect market tone, inventory psychology, and regional supply expectations. They should be treated as policy and liquidity context until final source verification is complete.",
             "",
             "## Trade Flow Realignment",
-            "As US crude reaches more Atlantic Basin and Asian refinery demand centers, traditional flows can adjust. The main editorial angle is that flexible US supply can change bargaining power, benchmark relationships, and shipping routes without requiring an exact chart in this candidate version.",
+            "As US crude reaches more Atlantic Basin and Asian refinery demand centers, traditional flows can adjust. The main editorial angle is that flexible US supply can change bargaining power, benchmark relationships, and shipping routes without promoting candidate numeric claims before final source verification.",
+            "",
+            _visual_markdown(media_assets[2]),
             "",
             "## Editorial Use",
             "This export is suitable as a reviewed candidate article artifact and Telegram fallback reference. It is not a numeric source of truth, a trading signal, or financial advice.",
@@ -467,7 +493,7 @@ def export_article_from_candidate_draft(
             "### Source Base",
             f"- Derived from `{ARTICLE_DRAFT_PATH.as_posix()}`.",
             f"- Source draft sha256: `{_sha256_text(draft_text)}`.",
-            "- Numeric charting remains blocked until verified source data is promoted by the appropriate authority.",
+            "- Visual chart metadata and source URLs are retained in the media manifest; article prose remains candidate commentary until final source verification.",
             "",
             "### Disclaimers and Caveats",
             f"- {REQUIRED_CAVEAT}",
@@ -479,6 +505,7 @@ def export_article_from_candidate_draft(
     html_path = Path(article_html_path)
     _write_text(md_path, markdown)
     _write_text(html_path, _html_document_from_markdown(markdown, title))
+    visual_report = _article_visual_position_report(markdown, media_assets[:3])
     return {
         "task_label": TASK_LABEL,
         "article_export_created": True,
@@ -492,6 +519,10 @@ def export_article_from_candidate_draft(
         "source_article_draft_sha256": _sha256_text(draft_text),
         "markdown_sha256": _sha256_file(md_path),
         "html_sha256": _sha256_file(html_path),
+        "visual_asset_count": visual_report["visual_asset_count"],
+        "visual_positions": visual_report["visual_positions"],
+        "visual_placement_status": visual_report["visual_placement_status"],
+        "visuals_spread_through_article": visual_report["visual_placement_status"] == "PASS_VISUALS_SPREAD_THROUGH_ARTICLE",
         "caveat_present": REQUIRED_CAVEAT in markdown,
         "exact_numeric_claims_made": _has_numeric_truth_claim(markdown),
         "financial_advice_detected": _has_financial_advice(markdown),
@@ -526,7 +557,7 @@ def build_telegram_repair_caption(
         [
             "US Oil Export Surge",
             "",
-            "SPR and shale flows reshape global markets. Corrected candidate dispatch with the generated hero card attached and the longform article export referenced below.",
+            "SPR and shale flows reshape global markets. Corrected candidate dispatch with source-backed chart media attached and the longform article export referenced below.",
             "",
             REQUIRED_CAVEAT,
             "",
@@ -593,7 +624,7 @@ def _write_readme(output_dir: Path, classification: str) -> None:
                 f"Classification: `{classification}`",
                 "",
                 "This packet records the operator-approved repair of the rejected text-only Telegram run.",
-                "It generates the missing local hero PNG and article export, then sends one guarded Telegram photo repair when safe.",
+                "It builds source-backed ContentOps chart media, requires three visuals distributed through the article, then sends one guarded Telegram photo repair when safe.",
                 "Substack and X are not silently degraded; each is recorded with a bounded blocker and unblock plan.",
                 "",
             ]
@@ -605,7 +636,6 @@ def run_full_pipeline_north_star_debug_and_live_run(
     *,
     repo_root: str | Path = ".",
     output_dir: str | Path = OUTPUT_DIR,
-    media_path: str | Path = MEDIA_PATH,
     article_md_path: str | Path = ARTICLE_MD_PATH,
     article_html_path: str | Path = ARTICLE_HTML_PATH,
     duplicate_ledger_path: str | Path | None = DEFAULT_DUPLICATE_LEDGER,
@@ -622,9 +652,10 @@ def run_full_pipeline_north_star_debug_and_live_run(
     head = current_head or _repo_head()
 
     root_cause_report, root_cause_md = build_root_cause_report(root)
-    media_manifest = generate_oil_export_hero_card(Path(media_path))
+    media_manifest = build_oil_export_media_assets(output_dir=out_dir / "media_assets")
     article_manifest = export_article_from_candidate_draft(
         repo_root=root,
+        media_manifest=media_manifest,
         article_md_path=Path(article_md_path),
         article_html_path=Path(article_html_path),
     )
@@ -662,10 +693,22 @@ def run_full_pipeline_north_star_debug_and_live_run(
         preflight_blockers.append("max_send_attempts_per_platform_must_equal_1")
     if not repair_previous_telegram_message_id:
         preflight_blockers.append("repair_previous_telegram_message_id_missing")
-    if media_manifest.get("media_generated") is not True:
-        preflight_blockers.append("media_generation_failed")
+    if media_manifest.get("media_selected") is not True:
+        preflight_blockers.append("approved_source_media_selection_failed")
+    if media_manifest.get("contentops_built_media") is not True:
+        preflight_blockers.append("contentops_media_pipeline_did_not_build_media")
+    if int(media_manifest.get("media_asset_count") or 0) < 3:
+        preflight_blockers.append("contentops_media_pipeline_requires_at_least_three_assets")
+    if media_manifest.get("ai_generated_image") is True or media_manifest.get("static_generated_card") is True:
+        preflight_blockers.append("ai_or_static_generated_image_disallowed_by_operator_policy")
+    if media_manifest.get("media_source_kind") not in {"contentops_built_fred_eia_chart_pack", "google_image_candidate_pack"}:
+        preflight_blockers.append("media_source_must_be_contentops_built_fred_chart_pack_or_google_image_pack")
     if article_manifest.get("article_export_created") is not True:
         preflight_blockers.append("article_export_failed")
+    if int(article_manifest.get("visual_asset_count") or 0) < 3:
+        preflight_blockers.append("article_requires_at_least_three_visuals")
+    if article_manifest.get("visuals_spread_through_article") is not True:
+        preflight_blockers.append("article_visuals_must_be_spread_through_article")
     if REQUIRED_CAVEAT not in caption:
         preflight_blockers.append("required_caveat_missing_from_telegram_caption")
     if not article_manifest.get("public_article_url") and not article_manifest.get("article_fallback_reference"):
@@ -756,6 +799,10 @@ def run_full_pipeline_north_star_debug_and_live_run(
         and article_manifest.get("caveat_present") is True
         and media_manifest.get("caveat_text") == REQUIRED_CAVEAT
     )
+    duplicate_policy_followed = (
+        not preflight_blockers
+        and duplicate_guard_record.get("status") in {"PASS", "PUBLIC_DISPATCH_FROZEN"}
+    )
 
     if telegram_status == "REPAIRED_WITH_PHOTO" and duplicate_guard_passed and telegram_has_article_ref and telegram_image_attached:
         classification = CLASSIFICATION_PARTIAL if skipped_platforms else CLASSIFICATION_PASS
@@ -776,8 +823,19 @@ def run_full_pipeline_north_star_debug_and_live_run(
         "previous_message_edit_or_delete_strategy": "editMessageText cannot attach media and no safe delete adapter exists; selected one corrected photo replacement.",
         "max_send_attempts_per_platform": max_send_attempts_per_platform,
         "media_path": str(media_manifest["path"]),
+        "media_selected": media_manifest["media_selected"],
+        "contentops_built_media": media_manifest["contentops_built_media"],
+        "chart_assets_built": media_manifest["chart_assets_built"],
+        "media_asset_count": media_manifest["media_asset_count"],
+        "media_source_kind": media_manifest["media_source_kind"],
+        "ai_generated_image": media_manifest["ai_generated_image"],
+        "static_generated_card": media_manifest["static_generated_card"],
+        "new_image_generated": media_manifest["new_image_generated"],
         "article_export_path": str(article_manifest["article_export_path"]),
         "article_html_export_path": str(article_manifest["article_html_export_path"]),
+        "article_visual_asset_count": article_manifest["visual_asset_count"],
+        "article_visual_placement_status": article_manifest["visual_placement_status"],
+        "article_visuals_spread_through_article": article_manifest["visuals_spread_through_article"],
         "substack_plan": substack,
         "x_plan": x,
         "duplicate_guard_policy": {
@@ -794,9 +852,20 @@ def run_full_pipeline_north_star_debug_and_live_run(
         "task_label": TASK_LABEL,
         "previous_defective_telegram_message_id": str(repair_previous_telegram_message_id),
         "media_generated": media_manifest["media_generated"],
+        "media_selected": media_manifest["media_selected"],
+        "contentops_built_media": media_manifest["contentops_built_media"],
+        "chart_assets_built": media_manifest["chart_assets_built"],
+        "media_asset_count": media_manifest["media_asset_count"],
+        "media_source_kind": media_manifest["media_source_kind"],
+        "ai_generated_image": media_manifest["ai_generated_image"],
+        "static_generated_card": media_manifest["static_generated_card"],
+        "new_image_generated": media_manifest["new_image_generated"],
         "media_path": media_manifest["path"],
         "article_export_created": article_manifest["article_export_created"],
         "article_export_path": article_manifest["article_export_path"],
+        "article_visual_asset_count": article_manifest["visual_asset_count"],
+        "article_visual_placement_status": article_manifest["visual_placement_status"],
+        "article_visuals_spread_through_article": article_manifest["visuals_spread_through_article"],
         "substack_status": substack["status"],
         "substack_url_or_draft_id": substack["url_or_draft_id"],
         "telegram_repair_status": telegram_status,
@@ -810,6 +879,7 @@ def run_full_pipeline_north_star_debug_and_live_run(
         "failed_platforms": failed_platforms,
         "duplicate_guard_result": duplicate_guard_record.get("status"),
         "duplicate_guard_blockers": duplicate_guard_record.get("blockers", []),
+        "dispatch_blocked_by_duplicate_policy": telegram_status == "FAILED_DUPLICATE_GUARD_BLOCKED",
         "telegram_content_hash": content_hash,
         "telegram_payload_hash": telegram_payload_hash,
         "caveat_present_all_outputs": caveat_present_all_outputs,
@@ -864,10 +934,20 @@ def run_full_pipeline_north_star_debug_and_live_run(
         "trading_signal_detected": False,
         "price_target_detected": False,
         "media_generated": media_manifest["media_generated"],
+        "media_selected": media_manifest["media_selected"],
+        "contentops_built_media": media_manifest["contentops_built_media"],
+        "chart_assets_built": media_manifest["chart_assets_built"],
+        "media_asset_count": media_manifest["media_asset_count"],
+        "media_source_kind": media_manifest["media_source_kind"],
+        "ai_generated_image": media_manifest["ai_generated_image"],
+        "static_generated_card": media_manifest["static_generated_card"],
+        "new_image_generated": media_manifest["new_image_generated"],
         "telegram_image_attached": telegram_image_attached,
+        "article_visuals_spread_through_article": article_manifest["visuals_spread_through_article"],
         "telegram_has_link_or_article_fallback": telegram_has_article_ref,
         "text_only_live_output_repaired": telegram_status == "REPAIRED_WITH_PHOTO",
-        "duplicate_policy_followed": duplicate_guard_passed and not preflight_blockers,
+        "duplicate_policy_followed": duplicate_policy_followed,
+        "dispatch_blocked_by_duplicate_policy": telegram_status == "FAILED_DUPLICATE_GUARD_BLOCKED",
         "retry_storm_detected": False,
         "blockers": preflight_blockers + ([] if duplicate_guard_passed else list(duplicate_guard_record.get("blockers", []))) + [substack["status"], x["status"]],
     }
@@ -881,13 +961,25 @@ def run_full_pipeline_north_star_debug_and_live_run(
         "previous_live_run_was_incomplete": True,
         "full_live_run_performed": live_action_performed,
         "media_generated": media_manifest["media_generated"],
+        "media_selected": media_manifest["media_selected"],
+        "contentops_built_media": media_manifest["contentops_built_media"],
+        "chart_assets_built": media_manifest["chart_assets_built"],
+        "media_asset_count": media_manifest["media_asset_count"],
+        "media_source_kind": media_manifest["media_source_kind"],
+        "ai_generated_image": media_manifest["ai_generated_image"],
+        "static_generated_card": media_manifest["static_generated_card"],
+        "new_image_generated": media_manifest["new_image_generated"],
         "article_export_or_publication_created": article_manifest["article_export_created"],
+        "article_visual_asset_count": article_manifest["visual_asset_count"],
+        "article_visual_placement_status": article_manifest["visual_placement_status"],
+        "article_visuals_spread_through_article": article_manifest["visuals_spread_through_article"],
         "telegram_repaired": telegram_status == "REPAIRED_WITH_PHOTO",
         "substack_status": substack["status"],
         "x_status": x["status"],
         "no_raw_secret_logged_confirmation": True,
         "no_database_repair_confirmation": True,
-        "no_new_macro_source_fetch_confirmation": True,
+        "visual_source_fetch_performed_for_chart_pack": True,
+        "visual_source_fetch_scope": "FRED/EIA chart-media construction only; article prose remains candidate commentary pending final source verification.",
         "output_paths": {
             "readme": str(out_dir / "README.md"),
             "root_cause_report_md": str(out_dir / "root_cause_report_v0.md"),

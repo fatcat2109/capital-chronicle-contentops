@@ -11,17 +11,29 @@
 ## Executive Brief
 The current candidate article frames US crude exports as a structural force in global energy trade. The useful point is not a precise volume claim. It is the way shale production, Gulf Coast logistics, SPR policy, and refinery demand can shift where marginal barrels move when global supply chains tighten or rebalance.
 
+![Two-panel chart showing current WTI crude oil price and rolling absolute daily moves using FRED data.](docs/automation/FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0/media_assets/wti_current_volatility_context_b073fc25631c.png)
+
+*WTI crude oil price and 30-day realized volatility through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.*
+
 ## Why This Matters
 US barrels now sit at the intersection of domestic supply policy and global physical-market routing. When export capacity, shale output, and reserve management move in the same conversation, the story becomes more than an oil-market note. It becomes a geopolitical and logistics story about where flexibility is created and who absorbs the next supply shock.
 
 ## Production and Export Capacity
 The base draft points to shale production and Gulf Coast infrastructure as the operating spine behind the export story. This export keeps that as qualitative context only. It does not promote candidate headline figures into verified database truth.
 
+![Line chart showing the recent WTI crude oil price path using FRED data.](docs/automation/FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0/media_assets/wti_recent_price_context_b073fc25631c.png)
+
+*Recent WTI price path through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.*
+
 ## Strategic Petroleum Reserve Context
 SPR drawdowns and replenishment plans can affect market tone, inventory psychology, and regional supply expectations. They should be treated as policy and liquidity context until final source verification is complete.
 
 ## Trade Flow Realignment
-As US crude reaches more Atlantic Basin and Asian refinery demand centers, traditional flows can adjust. The main editorial angle is that flexible US supply can change bargaining power, benchmark relationships, and shipping routes without requiring an exact chart in this candidate version.
+As US crude reaches more Atlantic Basin and Asian refinery demand centers, traditional flows can adjust. The main editorial angle is that flexible US supply can change bargaining power, benchmark relationships, and shipping routes without promoting candidate numeric claims before final source verification.
+
+![Chart showing recent annual WTI crude oil low-high ranges and annual averages using FRED data.](docs/automation/FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0/media_assets/wti_multi_year_range_context_b073fc25631c.png)
+
+*WTI annual price range and average context through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.*
 
 ## Editorial Use
 This export is suitable as a reviewed candidate article artifact and Telegram fallback reference. It is not a numeric source of truth, a trading signal, or financial advice.
@@ -31,7 +43,7 @@ This export is suitable as a reviewed candidate article artifact and Telegram fa
 ### Source Base
 - Derived from `docs/automation/DAILY_SEO_ARTICLE_DRAFTING_V0/article_draft_v0.md`.
 - Source draft sha256: `16042ffd6eb901b1329b7b473cdfad385ee97449e518539ecb0ae8b7b31d2b08`.
-- Numeric charting remains blocked until verified source data is promoted by the appropriate authority.
+- Visual chart metadata and source URLs are retained in the media manifest; article prose remains candidate commentary until final source verification.
 
 ### Disclaimers and Caveats
 - Candidate editorial draft. Numeric references require final source verification before publication.

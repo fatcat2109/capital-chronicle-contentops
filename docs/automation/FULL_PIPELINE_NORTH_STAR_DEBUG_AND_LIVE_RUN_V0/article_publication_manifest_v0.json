@@ -9,8 +9,16 @@
   "article_fallback_reference": "exports\\daily_contentops\\oil_export_surge_article_v0.md",
   "source_article_draft": "docs\\automation\\DAILY_SEO_ARTICLE_DRAFTING_V0\\article_draft_v0.md",
   "source_article_draft_sha256": "16042ffd6eb901b1329b7b473cdfad385ee97449e518539ecb0ae8b7b31d2b08",
-  "markdown_sha256": "76c80e977418129c142aca948501cd8770cdf9fbf7ec6328777d551ad8fee57c",
-  "html_sha256": "325958fc004c50727797c45b4d406db67ccb55a27a95c31037c9b94a72c8d928",
+  "markdown_sha256": "4458cc51f2eaaeaf606263928308cc7db75a07b6ae791f9b4047e29295bd1807",
+  "html_sha256": "5068cbd231fe3d6fdb99becaa0fd27ec197ad2da3a4ac3a615591d2d93de7bc5",
+  "visual_asset_count": 3,
+  "visual_positions": [
+    879,
+    1909,
+    2856
+  ],
+  "visual_placement_status": "PASS_VISUALS_SPREAD_THROUGH_ARTICLE",
+  "visuals_spread_through_article": true,
   "caveat_present": true,
   "exact_numeric_claims_made": false,
   "financial_advice_detected": false

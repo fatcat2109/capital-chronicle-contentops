@@ -374,80 +374,41 @@ def render_current_wti_visual_pack(
     _write_metadata(secondary_path, secondary_meta)
     assets.append(secondary_meta)
 
-    context_path = out_dir / f"hormuz_oil_chokepoint_context_{safe}.png"
-    fig, ax = plt.subplots(figsize=(10.8, 6.0), dpi=150)
-    ax.set_axis_off()
-    fig.patch.set_facecolor("white")
-    ax.set_xlim(0, 10)
-    ax.set_ylim(0, 6)
-    ax.text(0.35, 5.55, "Energy Geopolitics Context: Strait of Hormuz", fontsize=16, weight="bold", color="#0f172a")
-    ax.text(
-        0.35,
-        5.15,
-        "Schematic context visual for oil-volatility articles; not a navigational map.",
-        fontsize=9,
-        color="#475569",
-    )
-    ax.add_patch(plt.Rectangle((0.5, 2.2), 3.2, 1.6, color="#bfdbfe", alpha=0.85))
-    ax.add_patch(plt.Rectangle((6.2, 1.9), 3.2, 1.9, color="#bfdbfe", alpha=0.85))
-    ax.add_patch(plt.Rectangle((3.9, 2.55), 1.9, 0.65, color="#fde68a", alpha=0.95))
-    ax.text(1.1, 2.95, "Persian Gulf", fontsize=13, weight="bold", color="#1e3a8a")
-    ax.text(4.07, 2.77, "Strait of Hormuz", fontsize=11, weight="bold", color="#92400e")
-    ax.text(6.62, 2.95, "Gulf of Oman\nArabian Sea route", fontsize=12, weight="bold", color="#1e3a8a")
-    ax.annotate("", xy=(6.05, 2.9), xytext=(3.55, 2.9), arrowprops={"arrowstyle": "->", "linewidth": 2.5, "color": "#dc2626"})
-    ax.text(3.7, 3.55, "Oil-flow chokepoint risk channel", fontsize=10, color="#991b1b")
-    ax.text(0.55, 1.15, "Why it belongs here", fontsize=11, weight="bold", color="#0f172a")
-    ax.text(
-        0.55,
-        0.55,
-        "A geopolitical chokepoint visual adds context to the WTI chart pack: it explains\n"
-        "why oil volatility can matter for inflation, shipping, and recession-risk analysis.",
-        fontsize=9.4,
-        color="#334155",
-    )
-    ax.text(
-        5.7,
-        0.55,
-        "Source reference: U.S. Energy Information Administration, Today in Energy.\n"
-        "Capital Chronicle generated schematic; public-source reference retained in metadata.",
-        fontsize=8.2,
-        color="#64748b",
-    )
+    range_path = out_dir / f"wti_multi_year_range_context_{safe}.png"
+    by_year: dict[int, list[float]] = {}
+    for dt, value in recent_points:
+        by_year.setdefault(dt.year, []).append(value)
+    years = sorted(by_year)
+    averages = [sum(by_year[year]) / len(by_year[year]) for year in years]
+    lows = [min(by_year[year]) for year in years]
+    highs = [max(by_year[year]) for year in years]
+    fig, ax = plt.subplots(figsize=(10.8, 5.8), dpi=150)
+    ax.fill_between(years, lows, highs, color="#bfdbfe", alpha=0.55, label="Annual low-high range")
+    ax.plot(years, averages, color="#1d4ed8", marker="o", linewidth=2.2, label="Annual average")
+    ax.set_title("WTI Crude Oil: Multi-Year Price Range Context")
+    ax.set_ylabel("Dollars per barrel")
+    ax.set_xlabel("Source: FRED series DCOILWTICO; U.S. Energy Information Administration")
+    ax.grid(True, alpha=0.24)
+    ax.legend(loc="best", fontsize=8)
     fig.tight_layout()
-    fig.savefig(context_path, facecolor="white")
+    fig.savefig(range_path, facecolor="white")
     plt.close(fig)
-    context_meta = {
-        "asset_id": "hormuz_context",
-        "media_class": "map_or_geography",
-        "media_role": "contextual_geopolitical_visual",
-        "url": EIA_HORMUZ_CONTEXT_URL,
-        "source_url": EIA_HORMUZ_CONTEXT_URL,
-        "source_page_url": EIA_HORMUZ_CONTEXT_URL,
-        "source_domain": "eia.gov",
-        "image_url": None,
-        "source_label": "U.S. Energy Information Administration",
-        "canonical_source_label": "EIA Strait of Hormuz oil chokepoint context",
-        "query": article_title,
-        "recency_days": 365,
-        "time_filter": "official_context_source_latest_available",
-        "retrieval_timestamp": _retrieved_at(),
-        "rights_status": "source_backed_generated_visual_cc_owned",
-        "provenance_status": "capital_chronicle_generated_schematic_from_official_eia_context",
-        "operator_review_required": False,
-        "why_selected": "Adds a contextual geopolitics/map visual so the article is not chart-only and the oil-volatility thesis has a supply-risk frame.",
-        "visual_metric": "oil geopolitics strait hormuz chokepoint energy supply risk",
-        "media_subject": "Strait of Hormuz energy chokepoint context",
-        "latest_observation_date": latest_date.isoformat(),
-        "latest_observation_year": latest_year,
-        "time_coverage_end_year": latest_year,
-        "recent_direction": "contextual",
-        "caption": "Strait of Hormuz energy chokepoint context. Source reference: U.S. Energy Information Administration; Capital Chronicle generated schematic.",
-        "alt_text": "Schematic contextual visual showing the Strait of Hormuz between the Persian Gulf and Gulf of Oman as an oil-flow chokepoint.",
-        "local_path": str(context_path),
-        "public_url": None,
+    range_meta = {
+        **primary_meta,
+        "asset_id": "multi_year_range",
+        "media_role": "supporting_chart",
+        "visual_metric": "wti crude oil multi year price range context",
+        "media_subject": "WTI crude oil multi-year annual range and average",
+        "recent_direction": price_dir,
+        "recent_volatility_direction": vol_dir,
+        "caption": f"WTI annual price range and average context through {latest_date.isoformat()}. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "alt_text": "Chart showing recent annual WTI crude oil low-high ranges and annual averages using FRED data.",
+        "why_selected": "Third FRED-backed chart gives multi-year context without using a custom static card or non-chart schematic.",
+        "local_path": str(range_path),
     }
-    _write_metadata(context_path, context_meta)
-    assets.append(context_meta)
+    _write_metadata(range_path, range_meta)
+    assets.append(range_meta)
+
     return assets
 
 
