@@ -1,0 +1,23 @@
+{
+  "classification": "PASS_DAILY_HEADLINE_CLUSTER_RANK_ARTICLE_IDEA_PACKET_V0",
+  "task_label": "TASK_CONTENTOPS_DAILY_HEADLINE_CLUSTER_RANK_ARTICLE_IDEA_PACKET_V0",
+  "baseline_head": "2dd887ea91da9bea3686f4f1cc8ced382f9c4c21",
+  "input_headline_count": 680,
+  "cluster_count": 8,
+  "selected_idea_id": "idea_macro_policy_rates_liquidity_20260709",
+  "selected_topic_family": "macro_policy_rates_liquidity",
+  "no_database_query_confirmation": true,
+  "no_article_draft_confirmation": true,
+  "no_media_confirmation": true,
+  "no_platform_write_confirmation": true,
+  "no_dispatch_confirmation": true,
+  "no_raw_secret_read_confirmation": true,
+  "output_paths": {
+    "headline_clusters": "docs\\automation\\DAILY_HEADLINE_CLUSTER_RANK_ARTICLE_IDEA_PACKET_V0\\headline_clusters_v0.json",
+    "article_idea_selection": "docs\\automation\\DAILY_HEADLINE_CLUSTER_RANK_ARTICLE_IDEA_PACKET_V0\\article_idea_selection_v0.json",
+    "topic_balance_state": "docs\\automation\\DAILY_HEADLINE_CLUSTER_RANK_ARTICLE_IDEA_PACKET_V0\\topic_balance_state_v0.json",
+    "next_article_idea_brief": "docs\\automation\\DAILY_HEADLINE_CLUSTER_RANK_ARTICLE_IDEA_PACKET_V0\\next_article_idea_brief_v0.md",
+    "run_evidence": "docs\\automation\\DAILY_HEADLINE_CLUSTER_RANK_ARTICLE_IDEA_PACKET_V0\\run_evidence_v0.json"
+  },
+  "blockers": []
+}

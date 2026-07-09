@@ -1,0 +1,348 @@
+[
+  {
+    "cluster_id": "cluster_macro_policy_rates_liquidity",
+    "topic_family": "macro_policy_rates_liquidity",
+    "cluster_title": "Best metric for the debt crisis unfolding in Japan is the gap between the Yen (black) and long-term yields (blue), which has never been wider. As long as Japan pretends debt isn't the problem and sees intervention as a good fix, this will only get worse... https://t.co/c0kFK8YqeV https://t.co/59OGIIxvn9",
+    "headline_count": 176,
+    "top_headline_ids": [
+      "d2d9118cb462be2341370321",
+      "44fd6d2c0b5b3b3f6422960b",
+      "4e4217a11fcdd4b25d2c90cc",
+      "5e4ef1692aba7a1f363b7ff7",
+      "587150c8d638c73e2e636dab"
+    ],
+    "source_accounts": [
+      "TrumpDailyPosts",
+      "TrumpTruthOnX",
+      "Reuters",
+      "PeterSchiff",
+      "DeItaone",
+      "robin_j_brooks",
+      "FirstSquawk",
+      "zerohedge",
+      "wallstengine",
+      "financialjuice",
+      "ChinaBeigeBook",
+      "sahilkapur",
+      "Newsquawk",
+      "StockMKTNewz",
+      "hishamezzalarab",
+      "MikeZaccardi"
+    ],
+    "tags": [
+      "energy",
+      "inflation",
+      "labor",
+      "risk_off",
+      "fiscal",
+      "geopolitics",
+      "central_bank",
+      "growth"
+    ],
+    "score_breakdown": {
+      "recency_score": 10.0,
+      "size_score": 25.88,
+      "source_diversity_score": 32.0,
+      "tag_weight_score": 20.0,
+      "hotness_score": 15.0,
+      "total_score": 102.88
+    },
+    "freshness_window": {
+      "window_start": "2026-07-08T13:21:21Z",
+      "window_end": "2026-07-08T13:21:48Z"
+    },
+    "duplicate_or_repeat_risk": "low"
+  },
+  {
+    "cluster_id": "cluster_other_market_structure",
+    "topic_family": "other_market_structure",
+    "cluster_title": "Waarom begrijpt iedereen dat businessclass vliegen duur is, tickets op de eerste rij bij Taylor Swift duizenden euro's kosten en de mooiste Ferrari ooit gebouwd onbetaalbaar is, maar niet waarom goud door zijn schaarste steeds meer waard wordt? Schaarste is, net als waardering, https://t.co/EiwlIEALph",
+    "headline_count": 181,
+    "top_headline_ids": [
+      "17e9bfd82f3c6fd0c3a79594",
+      "0fd2f381ec5ce2fa251552e5",
+      "193879616cc359c94c6833e7",
+      "3eacf5a4c51266680a5d8609",
+      "28a904dca2787b82b17ec7eb"
+    ],
+    "source_accounts": [
+      "ChinaBeigeBook",
+      "IPONewsroom_",
+      "StockMKTNewz",
+      "MikeZaccardi",
+      "TrumpTruthOnX",
+      "robin_j_brooks",
+      "zerohedge",
+      "jsblokland",
+      "ishiharajun",
+      "TrumpDailyPosts",
+      "dlacalle_IA",
+      "themarketear",
+      "jam_croissant",
+      "wallstengine",
+      "FirstSquawk",
+      "financialjuice",
+      "mazemoore",
+      "zerohedgeDebate",
+      "LoganRoykah",
+      "gerukari2",
+      "DeItaone",
+      "sahilkapur"
+    ],
+    "tags": [
+      "growth"
+    ],
+    "score_breakdown": {
+      "recency_score": 10.0,
+      "size_score": 26.02,
+      "source_diversity_score": 44.0,
+      "tag_weight_score": 5.0,
+      "hotness_score": 15.0,
+      "total_score": 100.02
+    },
+    "freshness_window": {
+      "window_start": "2026-07-08T13:21:21Z",
+      "window_end": "2026-07-08T13:21:48Z"
+    },
+    "duplicate_or_repeat_risk": "low"
+  },
+  {
+    "cluster_id": "cluster_geopolitics_sanctions",
+    "topic_family": "geopolitics_sanctions",
+    "cluster_title": "Raymond James Upgrades $DLTR to Outperform from Market Perform, PT $140 Analyst comments: \"We are upgrading Dollar Tree to Outperform and establishing a $140 price target, reflecting what we view as an increasingly favorable risk/reward setup. In our view, FY26 EPS guidance of https://t.co/7s1CzoQlHb",
+    "headline_count": 189,
+    "top_headline_ids": [
+      "bfdcead6a4cc5460588753f8",
+      "c09d3e59b49c9a837c92e34a",
+      "4f6f0ef9991b93d00652b26e",
+      "ef9c2359c9f6bbc0ae7e9e59",
+      "4e66e0fccf8491b46d740eb5"
+    ],
+    "source_accounts": [
+      "TrumpDailyPosts",
+      "TrumpTruthOnX",
+      "DeItaone",
+      "robin_j_brooks",
+      "FirstSquawk",
+      "zerohedge",
+      "wallstengine",
+      "financialjuice",
+      "nextnews",
+      "jam_croissant",
+      "KobeissiLetter",
+      "RobbieGramer",
+      "Newsquawk",
+      "StockMKTNewz"
+    ],
+    "tags": [
+      "fiscal",
+      "growth",
+      "geopolitics"
+    ],
+    "score_breakdown": {
+      "recency_score": 10.0,
+      "size_score": 26.24,
+      "source_diversity_score": 28.0,
+      "tag_weight_score": 20.0,
+      "hotness_score": 15.0,
+      "total_score": 99.24
+    },
+    "freshness_window": {
+      "window_start": "2026-07-08T13:21:21Z",
+      "window_end": "2026-07-08T13:21:48Z"
+    },
+    "duplicate_or_repeat_risk": "low"
+  },
+  {
+    "cluster_id": "cluster_energy_commodities",
+    "topic_family": "energy_commodities",
+    "cluster_title": "The US went from exporting less than 1 mb/d before the war with Iran to 5 mb/d now. As an oil exporter, the US is now more than twice as big as Iran and almost as big as Russia. Most importantly, this is NOT about recycling emergency SPR releases abroad... https://t.co/W92zoMK5Rb https://t.co/ZLwa7IKIOq",
+    "headline_count": 51,
+    "top_headline_ids": [
+      "78d38021a9eae8bd51a35044",
+      "758e08735141150ee4a2a174",
+      "fd4ef3711d8581596dead0cc",
+      "4bd3540084c028939210f95f",
+      "de3060d5c3b1a544aff6aa72"
+    ],
+    "source_accounts": [
+      "DeItaone",
+      "robin_j_brooks",
+      "FirstSquawk",
+      "biancoresearch",
+      "zerohedge",
+      "financialjuice",
+      "wallstengine",
+      "ChinaBeigeBook",
+      "Amena__Bakr",
+      "jsblokland",
+      "MikeZaccardi"
+    ],
+    "tags": [
+      "fiscal",
+      "energy",
+      "geopolitics"
+    ],
+    "score_breakdown": {
+      "recency_score": 10.0,
+      "size_score": 19.76,
+      "source_diversity_score": 22.0,
+      "tag_weight_score": 20.0,
+      "hotness_score": 15.0,
+      "total_score": 86.76
+    },
+    "freshness_window": {
+      "window_start": "2026-07-08T13:21:21Z",
+      "window_end": "2026-07-08T13:21:48Z"
+    },
+    "duplicate_or_repeat_risk": "medium"
+  },
+  {
+    "cluster_id": "cluster_china_asia_global_trade",
+    "topic_family": "china_asia_global_trade",
+    "cluster_title": "The US blockade of Iran was highly effective, choking off exports to Iran from around the world. It's now clear that it was lifted prematurely. There's ways to reimpose it, make it bite more fiercely than the first time around and make up for lost time... https://t.co/Nyt3o2eAGN https://t.co/u24OmlLWSU",
+    "headline_count": 42,
+    "top_headline_ids": [
+      "19772ff376d4977cad35e263",
+      "52bc9e27aac81d8e4a19dd41",
+      "99f82e1463d9e0ee165a0612",
+      "b25988e706f2a39cd379b2d4",
+      "5eda652623ebb115a55de012"
+    ],
+    "source_accounts": [
+      "TrumpDailyPosts",
+      "robin_j_brooks",
+      "FirstSquawk",
+      "zerohedge",
+      "wallstengine",
+      "financialjuice",
+      "jam_croissant",
+      "ChinaBeigeBook",
+      "MikeZaccardi"
+    ],
+    "tags": [
+      "fiscal",
+      "growth",
+      "geopolitics"
+    ],
+    "score_breakdown": {
+      "recency_score": 10.0,
+      "size_score": 18.81,
+      "source_diversity_score": 18.0,
+      "tag_weight_score": 20.0,
+      "hotness_score": 9.0,
+      "total_score": 75.81
+    },
+    "freshness_window": {
+      "window_start": "2026-07-08T13:21:21Z",
+      "window_end": "2026-07-08T13:21:48Z"
+    },
+    "duplicate_or_repeat_risk": "low"
+  },
+  {
+    "cluster_id": "cluster_earnings_equities_credit",
+    "topic_family": "earnings_equities_credit",
+    "cluster_title": "Morgan Stanley Downgrades $LMND to Equalweight from Overweight, PT at $75 Analyst comments: \"Over the past month, Lemonade rose ~50%. While we continue to believe in Lemonade's strong momentum, especially its tech-enabled growth and underwriting, we will step to the sidelines as https://t.co/NC8IXAGYYd",
+    "headline_count": 32,
+    "top_headline_ids": [
+      "32d2017fed53e7108811fe3a",
+      "a463a3085127f7879168ea59",
+      "160f892088025e502be5f276",
+      "9842618cc0667c1272f3744c",
+      "7818be0e7cd71981dec2d316"
+    ],
+    "source_accounts": [
+      "TrumpDailyPosts",
+      "ArkkDaily",
+      "FirstSquawk",
+      "zerohedge",
+      "wallstengine",
+      "financialjuice",
+      "StockMKTNewz",
+      "MikeZaccardi"
+    ],
+    "tags": [
+      "fiscal",
+      "growth",
+      "volatility",
+      "risk_off"
+    ],
+    "score_breakdown": {
+      "recency_score": 10.0,
+      "size_score": 17.48,
+      "source_diversity_score": 16.0,
+      "tag_weight_score": 20.0,
+      "hotness_score": 0.0,
+      "total_score": 63.48
+    },
+    "freshness_window": {
+      "window_start": "2026-07-08T13:21:21Z",
+      "window_end": "2026-07-08T13:21:48Z"
+    },
+    "duplicate_or_repeat_risk": "low"
+  },
+  {
+    "cluster_id": "cluster_volatility_risk_sentiment",
+    "topic_family": "volatility_risk_sentiment",
+    "cluster_title": "Rutte Touts 'Literally Billions' Invested To Drastically Ramp Up NATO's Drone Capabilities https://t.co/Y5wqIZvvpu",
+    "headline_count": 7,
+    "top_headline_ids": [
+      "19e61ad866a119b5ab1dc5c8",
+      "02f4a4b9ee4150c79dd7d2b8",
+      "6e002be561fbea18eece78bb",
+      "79205e2432c5e94174f1a224",
+      "2300f861450d64cbd36e5e84"
+    ],
+    "source_accounts": [
+      "FirstSquawk",
+      "financialjuice",
+      "MikeZaccardi",
+      "zerohedge"
+    ],
+    "tags": [
+      "risk_off",
+      "volatility"
+    ],
+    "score_breakdown": {
+      "recency_score": 10.0,
+      "size_score": 10.4,
+      "source_diversity_score": 8.0,
+      "tag_weight_score": 20.0,
+      "hotness_score": 6.0,
+      "total_score": 54.4
+    },
+    "freshness_window": {
+      "window_start": "2026-07-08T13:21:21Z",
+      "window_end": "2026-07-08T13:21:48Z"
+    },
+    "duplicate_or_repeat_risk": "low"
+  },
+  {
+    "cluster_id": "cluster_crypto_digital_assets",
+    "topic_family": "crypto_digital_assets",
+    "cluster_title": "🚨 Hidden FBI room. Seth Rich files inside. After years of “no records,” the paper trail suddenly appears in a sealed Hoover SCIF tied to burn bags. Who hid them—and why? Comey’s FBI has serious questions to answer. Watch this now. https://t.co/3Kt4CjzlHK",
+    "headline_count": 2,
+    "top_headline_ids": [
+      "72200f596b4e5c1d91c64f9c",
+      "c4167088c236badb31b472f6"
+    ],
+    "source_accounts": [
+      "TrumpDailyPosts",
+      "nextnews"
+    ],
+    "tags": [],
+    "score_breakdown": {
+      "recency_score": 10.0,
+      "size_score": 5.49,
+      "source_diversity_score": 4.0,
+      "tag_weight_score": 0.0,
+      "hotness_score": 0.0,
+      "total_score": 19.49
+    },
+    "freshness_window": {
+      "window_start": "2026-07-08T13:21:21Z",
+      "window_end": "2026-07-08T13:21:43Z"
+    },
+    "duplicate_or_repeat_risk": "low"
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "topic_families_seen": [
+    "macro_policy_rates_liquidity",
+    "other_market_structure",
+    "geopolitics_sanctions",
+    "energy_commodities",
+    "china_asia_global_trade",
+    "earnings_equities_credit",
+    "volatility_risk_sentiment",
+    "crypto_digital_assets"
+  ],
+  "selected_topic_family": "macro_policy_rates_liquidity",
+  "repeated_topic_allowed": false,
+  "repeated_topic_reason": null,
+  "stale_topic_rejected": false,
+  "fallback_topic_balance_used": false
+}
