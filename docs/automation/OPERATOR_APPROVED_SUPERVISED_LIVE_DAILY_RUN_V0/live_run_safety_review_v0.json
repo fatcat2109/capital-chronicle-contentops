@@ -1,0 +1,14 @@
+{
+  "operator_approved_live_run": true,
+  "raw_secret_printed": false,
+  "browser_session_secret_read": false,
+  "platform_api_used_only_where_configured": true,
+  "exact_numeric_claims_made": false,
+  "financial_advice_detected": false,
+  "trading_signal_detected": false,
+  "price_target_detected": false,
+  "duplicate_guard_passed": true,
+  "caveat_present_all_live_outputs": true,
+  "retry_storm_detected": false,
+  "blockers": []
+}

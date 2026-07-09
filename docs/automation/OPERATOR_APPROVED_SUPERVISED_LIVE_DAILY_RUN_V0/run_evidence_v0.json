@@ -1,0 +1,31 @@
+{
+  "classification": "PASS_PARTIAL_OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0",
+  "task_label": "TASK_CONTENTOPS_OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0",
+  "baseline_head": "491d5a9ed3f259108b01110a519cfd5d7221faa5",
+  "final_head_before_commit": "491d5a9ed3f259108b01110a519cfd5d7221faa5",
+  "operator_approved_live_run": true,
+  "live_action_performed": true,
+  "platforms_successful": [
+    "telegram"
+  ],
+  "platforms_skipped": [
+    "substack",
+    "x"
+  ],
+  "platforms_failed": [],
+  "no_raw_secret_read_confirmation": true,
+  "no_raw_secret_logged_confirmation": true,
+  "no_database_repair_confirmation": true,
+  "no_new_source_fetch_confirmation": true,
+  "no_media_generation_confirmation": true,
+  "output_paths": {
+    "readme": "docs\\automation\\OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0\\README.md",
+    "live_run_plan": "docs\\automation\\OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0\\live_run_plan_v0.json",
+    "live_dispatch_results": "docs\\automation\\OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0\\live_dispatch_results_v0.json",
+    "live_readback": "docs\\automation\\OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0\\live_readback_v0.json",
+    "live_run_safety_review": "docs\\automation\\OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0\\live_run_safety_review_v0.json",
+    "run_evidence": "docs\\automation\\OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0\\run_evidence_v0.json"
+  },
+  "blockers": [],
+  "exact_next_recommended_task": "TASK_CONTENTOPS_REVIEW_LIVE_DAILY_RUN_EVIDENCE_AND_UNBLOCK_NEXT_PLATFORM_SAFE_ADAPTERS_V0"
+}

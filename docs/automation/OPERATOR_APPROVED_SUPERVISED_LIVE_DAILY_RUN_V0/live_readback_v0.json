@@ -1,0 +1,32 @@
+{
+  "per_platform_readback": [
+    {
+      "platform": "substack",
+      "readback_available": false,
+      "readback_status": "SKIPPED_NO_SAFE_ADAPTER",
+      "visible_text_excerpt_redacted_if_needed": null,
+      "url_or_id": null,
+      "caveat_visible": null,
+      "meaningful_text_visible": null
+    },
+    {
+      "platform": "x",
+      "readback_available": false,
+      "readback_status": "SKIPPED_NO_SAFE_ADAPTER",
+      "visible_text_excerpt_redacted_if_needed": null,
+      "url_or_id": null,
+      "caveat_visible": null,
+      "meaningful_text_visible": null
+    },
+    {
+      "platform": "telegram",
+      "readback_available": true,
+      "readback_status": "MESSAGE_ID_RETURNED_BY_TELEGRAM_API",
+      "visible_text_excerpt_redacted_if_needed": "⚡️ US Crude Exports and the New Global Flow US crude oil exports have structurally transformed global energy flows. Driven by shale production heights and gulf coast capacity, headline reports show export runs hitting approximately 5 million barrels per day...",
+      "url_or_id": "59",
+      "caveat_visible": true,
+      "meaningful_text_visible": true
+    }
+  ],
+  "readback_overall_status": "PASS_TELEGRAM_MESSAGE_ID_RETURNED"
+}

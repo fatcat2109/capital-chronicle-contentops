@@ -1,0 +1,37 @@
+{
+  "task_label": "TASK_CONTENTOPS_OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0",
+  "baseline_head": "491d5a9ed3f259108b01110a519cfd5d7221faa5",
+  "operator_approved_live_run": true,
+  "source_readiness_gate": "docs\\automation\\DAILY_PIPELINE_FRESH_CODEX_AUDIT_V0\\live_readiness_gate_v0.json",
+  "source_platform_candidate_copy": "docs\\automation\\DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0\\platform_variant_candidate_copy_v0.json",
+  "platforms_requested": [
+    "substack",
+    "telegram",
+    "x"
+  ],
+  "platforms_with_safe_adapter_detected": [
+    "telegram"
+  ],
+  "platforms_skipped": [
+    {
+      "platform": "substack",
+      "status": "SKIPPED_NO_SAFE_ADAPTER",
+      "reason": "Existing Substack live path is browser-profile based; this exact task does not use browser/session state."
+    },
+    {
+      "platform": "x",
+      "status": "SKIPPED_NO_SAFE_ADAPTER",
+      "reason": "Existing X live paths are browser-profile/CDP or operator-outcome recording paths, not a non-browser safe send adapter for this task."
+    }
+  ],
+  "duplicate_guard_policy": {
+    "ledger_path": "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+    "payload_hash_required": true,
+    "max_send_attempts_per_platform": 1
+  },
+  "caveat_required": "Candidate editorial draft. Numeric references require final source verification before publication.",
+  "max_send_attempts_per_platform": 1,
+  "dispatch_allowed_by_this_task": true,
+  "preflight_blockers": [],
+  "audit_readiness_classification": "PASS_READY_FOR_SEPARATE_OPERATOR_APPROVED_LIVE_RUN"
+}

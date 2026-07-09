@@ -1,0 +1,46 @@
+{
+  "task_label": "TASK_CONTENTOPS_OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0",
+  "live_run_started_at": "2026-07-09T17:46:33+00:00",
+  "live_run_finished_at": "2026-07-09T17:46:35+00:00",
+  "attempted_platforms": [
+    "telegram"
+  ],
+  "successful_platforms": [
+    "telegram"
+  ],
+  "skipped_platforms": [
+    "substack",
+    "x"
+  ],
+  "failed_platforms": [],
+  "per_platform_results": [
+    {
+      "platform": "substack",
+      "status": "SKIPPED_NO_SAFE_ADAPTER",
+      "public_url_or_message_id_or_draft_id": null,
+      "content_hash": null,
+      "caveat_present": null,
+      "duplicate_guard_result": "NOT_APPLICABLE_SKIPPED",
+      "error_summary_redacted": "Existing Substack live path is browser-profile based; this exact task does not use browser/session state."
+    },
+    {
+      "platform": "x",
+      "status": "SKIPPED_NO_SAFE_ADAPTER",
+      "public_url_or_message_id_or_draft_id": null,
+      "content_hash": null,
+      "caveat_present": null,
+      "duplicate_guard_result": "NOT_APPLICABLE_SKIPPED",
+      "error_summary_redacted": "Existing X live paths are browser-profile/CDP or operator-outcome recording paths, not a non-browser safe send adapter for this task."
+    },
+    {
+      "platform": "telegram",
+      "status": "POSTED",
+      "public_url_or_message_id_or_draft_id": "59",
+      "content_hash": "1dbcf8a3b468c6c01edf4cf5ec2c0cd87873cf0f087899a2cdc680eadce35dcf",
+      "caveat_present": true,
+      "duplicate_guard_result": "PASS",
+      "error_summary_redacted": null
+    }
+  ],
+  "all_secret_values_redacted": true
+}
