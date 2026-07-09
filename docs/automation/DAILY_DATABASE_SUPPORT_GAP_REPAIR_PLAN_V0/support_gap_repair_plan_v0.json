@@ -1,0 +1,44 @@
+{
+  "task_label": "TASK_CONTENTOPS_DAILY_DATABASE_SUPPORT_GAP_REPAIR_PLAN_V0",
+  "selected_idea_id": "idea_macro_policy_rates_liquidity_20260709",
+  "selected_title": "Japan's Debt Crisis: Yield and Currency Gap Widens as Intervention Fails",
+  "selected_topic_family": "macro_policy_rates_liquidity",
+  "support_families_requested": [
+    "Japan Yield Curve (JGB)",
+    "USD/JPY FX Spot & Volatility",
+    "Global Central Bank Liquidity Measures"
+  ],
+  "support_families_missing": [
+    "Global Central Bank Liquidity Measures"
+  ],
+  "support_families_partial": [
+    "Japan Yield Curve (JGB)",
+    "USD/JPY FX Spot & Volatility"
+  ],
+  "gap_repairs": {
+    "Global Central Bank Liquidity Measures": {
+      "support_family": "Global Central Bank Liquidity Measures",
+      "gap_status": "missing",
+      "caveat": "Global Central Bank Liquidity Measures: missing, needs exact family definition/source selection before use.",
+      "recommended_task": "TASK_TREASURY_FED_NYFED_RATES_LIQUIDITY_CONTRACT_FIXTURE_EXTREME_V1"
+    },
+    "Japan Yield Curve (JGB)": {
+      "support_family": "Japan Yield Curve (JGB)",
+      "gap_status": "partial",
+      "caveat": "Japan Yield Curve (JGB): partial/candidate, needs official source contract hardening or parser/export task.",
+      "recommended_task": "TASK_APAC_CHINA_JAPAN_OFFICIAL_MACRO_VALUE_CAPTURE_V1"
+    },
+    "USD/JPY FX Spot & Volatility": {
+      "support_family": "USD/JPY FX Spot & Volatility",
+      "gap_status": "partial",
+      "caveat": "USD/JPY FX Spot & Volatility: partial/candidate, needs read-only broker/proxy policy/export task or accepted non-exact proxy wording.",
+      "recommended_task": "TASK_USDJPY_MT5_OANDA_CONTRACT_PROMOTION_V1"
+    }
+  },
+  "article_draft_blocked": true,
+  "article_draft_allowed_as_candidate_only": false,
+  "main_repo_mutated": false,
+  "external_fetch_performed": false,
+  "exact_numeric_claims_made": false,
+  "caveats": "Local database lacks verified numeric truth values for Yen/JGB macro commentary. Downstream article draft guidance remains blocked until database gaps are resolved."
+}

@@ -1,0 +1,71 @@
+{
+  "tasks": [
+    {
+      "task_label": "TASK_CAPITAL_CHRONICLE_JAPAN_FX_LIQUIDITY_SOURCE_SUPPORT_VERIFICATION_V0",
+      "target_repo": "fatcat2109/capital-chronicle-contentops",
+      "target_branch": "master",
+      "scope": "Verify official source contracts and JGB/FX proxy data mappings in a read-only/planning/exact-source-verification mode.",
+      "allowed_reads": [
+        "A:/Capital Chronicle/Headline Raw data local json/capital-chronicle-ingestion/docs/research/database_foundation/apac_china_japan_official_macro_contracts/APAC_CHINA_JAPAN_API_SOURCE_CONTRACTS_V1.json",
+        "A:/Capital Chronicle/Headline Raw data local json/capital-chronicle-ingestion/data/audit/data_sufficiency/task_usdjpy_oanda_practice_readonly_source_review_and_contract_v1/usdjpy_oanda_practice_source_contract.json"
+      ],
+      "forbidden_actions": [
+        "live_ingestion",
+        "platform_api_call",
+        "browser_cdp",
+        "write_to_main_db",
+        "article_drafting"
+      ],
+      "expected_outputs": [
+        "docs/research/database_foundation/source_verification_report_v0.json"
+      ],
+      "validation": [
+        "python -m pytest tests/test_source_verification.py"
+      ],
+      "acceptance_condition": "Verification report successfully maps the available candidate sources without mutating live data or initiating article drafting."
+    },
+    {
+      "task_label": "TASK_TREASURY_FED_NYFED_RATES_LIQUIDITY_CONTRACT_FIXTURE_EXTREME_V1",
+      "target_repo": "fatcat2109/capital-chronicle-contentops",
+      "target_branch": "master",
+      "scope": "Define exact schemas and rates/liquidity rules to prepare SOFR / Balance Sheet series.",
+      "allowed_reads": [
+        "docs/research/rates_liquidity/"
+      ],
+      "forbidden_actions": [
+        "platform_api_call",
+        "browser_cdp",
+        "article_drafting"
+      ],
+      "expected_outputs": [
+        "data/audit/data_sufficiency/rates_liquidity_schema_v1.json"
+      ],
+      "validation": [
+        "python -m pytest tests/test_rates_liquidity_ingestion.py"
+      ],
+      "acceptance_condition": "Rates and liquidity schema contract is generated and verified."
+    },
+    {
+      "task_label": "TASK_APAC_CHINA_JAPAN_OFFICIAL_MACRO_VALUE_CAPTURE_V1",
+      "target_repo": "fatcat2109/capital-chronicle-contentops",
+      "target_branch": "master",
+      "scope": "Hardens BOJ official macro source contracts and creates localized yield capture scripts.",
+      "allowed_reads": [
+        "docs/research/apac_china_japan_macro/"
+      ],
+      "forbidden_actions": [
+        "platform_api_call",
+        "browser_cdp",
+        "article_drafting"
+      ],
+      "expected_outputs": [
+        "data/audit/data_sufficiency/jgb_yield_curve_captured.json"
+      ],
+      "validation": [
+        "python -m pytest tests/test_jgb_macro_capture.py"
+      ],
+      "acceptance_condition": "JGB official macro yield data is successfully captured and verified."
+    }
+  ],
+  "recommended_first_task": "TASK_CAPITAL_CHRONICLE_JAPAN_FX_LIQUIDITY_SOURCE_SUPPORT_VERIFICATION_V0"
+}

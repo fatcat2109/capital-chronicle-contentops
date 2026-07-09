@@ -1,0 +1,21 @@
+{
+  "classification": "PASS_DAILY_DATABASE_SUPPORT_GAP_REPAIR_PLAN_V0",
+  "task_label": "TASK_CONTENTOPS_DAILY_DATABASE_SUPPORT_GAP_REPAIR_PLAN_V0",
+  "baseline_head": "911a970ea5b8f619d931b7ae35fcf27425ee478f",
+  "source_step3_packet": "docs\\automation\\DAILY_DATABASE_SUPPORT_PACKET_V0\\database_support_packet_v0.json",
+  "article_draft_blocked": true,
+  "main_repo_mutated": false,
+  "external_fetch_performed": false,
+  "no_article_draft_confirmation": true,
+  "no_media_confirmation": true,
+  "no_platform_write_confirmation": true,
+  "no_dispatch_confirmation": true,
+  "no_raw_secret_read_confirmation": true,
+  "output_paths": {
+    "support_gap_repair_plan_json": "docs\\automation\\DAILY_DATABASE_SUPPORT_GAP_REPAIR_PLAN_V0\\support_gap_repair_plan_v0.json",
+    "support_gap_repair_plan_md": "docs\\automation\\DAILY_DATABASE_SUPPORT_GAP_REPAIR_PLAN_V0\\support_gap_repair_plan_v0.md",
+    "next_database_tasks": "docs\\automation\\DAILY_DATABASE_SUPPORT_GAP_REPAIR_PLAN_V0\\next_database_tasks_v0.json",
+    "run_evidence": "docs\\automation\\DAILY_DATABASE_SUPPORT_GAP_REPAIR_PLAN_V0\\run_evidence_v0.json"
+  },
+  "blockers": []
+}
