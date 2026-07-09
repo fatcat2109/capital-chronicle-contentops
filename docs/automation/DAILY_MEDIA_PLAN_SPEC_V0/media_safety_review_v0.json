@@ -1,0 +1,11 @@
+{
+  "candidate_only": true,
+  "actual_media_generated": false,
+  "chart_rendered": false,
+  "exact_numeric_claims_made": false,
+  "unverified_numeric_references_flagged": true,
+  "platform_payload_created": false,
+  "dispatch_ready": false,
+  "required_caveat_present": true,
+  "blockers": []
+}

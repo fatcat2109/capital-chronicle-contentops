@@ -1,0 +1,53 @@
+{
+  "task_label": "TASK_CONTENTOPS_DAILY_MEDIA_PLAN_SPEC_V0",
+  "source_article_draft": "docs\\automation\\DAILY_SEO_ARTICLE_DRAFTING_V0\\article_draft_v0.md",
+  "editorial_title": "US Oil Export Surge: Production and SPR Dynamics Reshape Global Markets",
+  "draft_status": "candidate_only",
+  "media_generation_status": "planning_only",
+  "assets": [
+    {
+      "asset_id": "media_hero_card_v0",
+      "asset_type": "hero_card",
+      "purpose": "Visual banner card for Substack and social preview platforms.",
+      "title": "US Oil Export Surge",
+      "subtitle": "SPR and shale dynamics reshape global trade flows",
+      "required_data_inputs": [],
+      "source_status": "candidate",
+      "numeric_claim_policy": "qualitative only",
+      "caveat_text_required": "For review only - candidate graphics context.",
+      "visual_layout_notes": "Dark mode background, stylized crude pipeline icon, and overlay title with clear candidate tag.",
+      "should_generate_now": false
+    },
+    {
+      "asset_id": "media_chart_wti_exports_v0",
+      "asset_type": "chart",
+      "purpose": "Double-axis comparison plot of WTI crude spot prices vs. EIA exports.",
+      "title": "WTI Spot vs US Crude Oil Exports",
+      "subtitle": "Requires verified EIA crude exports / SPR / WTI data before rendering.",
+      "required_data_inputs": [
+        "US Crude Oil Exports (EIA)",
+        "WTI Crude Spot Price"
+      ],
+      "source_status": "candidate",
+      "numeric_claim_policy": "exact numeric plotting blocked until database values are promoted",
+      "caveat_text_required": "Data requires verified main database series before rendering.",
+      "visual_layout_notes": "Line plot charting weekly WTI prices against weekly export volumes.",
+      "should_generate_now": false
+    }
+  ],
+  "required_data_inputs": [
+    "US Crude Oil Exports (EIA)",
+    "WTI Crude Spot Price",
+    "SPR Inventory Levels"
+  ],
+  "missing_or_candidate_inputs": [
+    "US Crude Oil Exports (EIA)",
+    "WTI Crude Spot Price",
+    "SPR Inventory Levels"
+  ],
+  "generation_allowed_now": false,
+  "chart_render_allowed_now": false,
+  "platform_payload_created": false,
+  "dispatch_ready": false,
+  "caveats": "This is a media planning spec only. No actual images or charts are generated. Rendering remains blocked."
+}
