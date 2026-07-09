@@ -1,5 +1,5 @@
 {
-  "accepted_baseline_summary": "TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0 relaxes ContentOps public-candidate gating into supervised public-permissive candidate commentary under explicit operator public override. The current sample packet is locally preview-ready with caveats, while live dispatch remains locked for a separate exact task.",
+  "accepted_baseline_summary": "North-star Daily ContentOps live repair generated a local hero PNG and article export, then repaired prior defective text-only Telegram message 59 with photo message 60, article fallback, required caveat, and duplicate guard PASS. Substack and X remain explicit operator-assist blockers.",
   "accepted_caveats": [
     "GitHub remote commits and fetched repo files remain runtime authority above this status doc",
     "If this status doc conflicts with GitHub remote or newer committed authority docs, current repo evidence wins; record the mismatch and reconcile status during the task when practical instead of hard-stopping solely on stale status docs",
@@ -9,12 +9,11 @@
   "accepted_product_baseline_sha": "reported_in_final_evidence_after_push",
   "accepted_visual_repair_sha": "6a810aadadef4b3c9078173b32bed4b243f8552a",
   "active_blockers": [
-    "Public dispatch remains blocked in this task; candidate-commentary preview readiness is not platform/API execution authorization.",
-    "A separate exact live-dispatch task is required before any platform API call, browser/CDP execution, scheduler/retry/outbox action, or public write.",
+    "Substack public URL/draft creation requires a separate supervised operator browser-assist task against the approved ContentOps profile.",
+    "X public posting requires a separate exact X CDP live-click task with profile guard, operator GO phrase, URL capture, and registry reconciliation.",
     "Candidate/proxy, DQR BLOCKED, internal-only, source-quality, limitation, and forbidden-use caveats must remain visible in all public payloads.",
     "Duplicate/spam guard failure, hidden caveats/disclaimers, exact-authority promotion, financial advice/trading signal, secret/session reads, and main repo/database mutation remain hard blocks.",
-    "The Capital Chronicle local database/exporter remains numeric/source/context authority; ContentOps must not fetch/parse macro sources or mutate the main repo/database.",
-    "The Fed/FRED/NY Fed/Treasury rates path remains temporary fallback fixture logic only."
+    "The Capital Chronicle local database/exporter remains the numeric/source/context authority; ContentOps must not fetch/parse macro sources or mutate the main repo/database."
   ],
   "article_quality_status": "Current repaired fresh-slot article gates pass for dry-run/pre-public readiness: body_word_count=2087, sections=9, source_trail_count=8, no UNVERIFIED_SAMPLE_SOURCE_REF, and specific Fed-funds/rates numeric anchors from official/source-backed references. The prior oil/yields article remains a readable dry-run artifact but must not be public-posted because it collapses into the prior Crude/WTI content family.",
   "backend_status_modules": [
@@ -353,13 +352,13 @@
     "Instagram Business two-step Content Publishing API adapter with blocked smoke media binding",
     "Meta-family API unsupported edit outcomes for Instagram and Threads"
   ],
-  "current_next_recommended_task": "controlled live dispatch under operator public override",
-  "current_next_recommended_task_summary": "Run a separate exact live-dispatch task only if Jim authorizes public dispatch from the PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS preview payload hash and the task rechecks duplicate/platform/readback gates.",
-  "current_product_lane": "CC artifact packet supervised public-permissive candidate-commentary preview, with live dispatch reserved for a separate exact task.",
-  "current_product_phase": "ContentOps supports OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY. Default mode remains block-first; explicit operator public override converts DQR/candidate/internal-only/source-quality blockers into visible warnings when caveats, disclaimer, approval-hash continuity, duplicate guard, no-advice, and no-authority-promotion checks pass. Current sample classification is PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS.",
-  "current_v6_loop_status": "ContentOps has deterministic CC artifact packet intake, operator-decision, and supervised public-permissive preview gates. The current DQR-blocked/internal-only sample can produce local public candidate-commentary preview artifacts under explicit operator public override, while live dispatch remains a separate exact task.",
+  "current_next_recommended_task": "TASK_CONTENTOPS_SUPERVISED_SUBSTACK_BROWSER_ASSIST_AND_X_CDP_ASSIST_FOR_NORTH_STAR_ARTICLE_V0",
+  "current_next_recommended_task_summary": "Complete remaining north-star platform lanes by creating/publishing the exported article through supervised Substack browser assist and posting/capturing X through exact CDP live-click workflow.",
+  "current_product_lane": "Daily ContentOps north-star live repair lane: media generation, article export, Telegram photo dispatch/readback, duplicate guard, and safety evidence are committed; Substack/X require separate supervised operator-assist tasks.",
+  "current_product_phase": "ContentOps has committed north-star live repair evidence for the rejected Daily ContentOps run. The current repair path generates media, exports the longform article, and performs a bounded operator-approved Telegram photo repair. Current classification: PASS_PARTIAL_FULL_PIPELINE_NORTH_STAR_LIVE_RUN_V0.",
+  "current_v6_loop_status": "ContentOps now has deterministic packet intake, public-candidate preview gates, and a committed Daily ContentOps live-repair runner for media/article export plus Telegram photo dispatch under exact operator approval. The Capital Chronicle local database/exporter remains numeric/source/context authority.",
   "daily_schedule_path": "docs/automation/V6_DAILY_EDITORIAL_SCHEDULE/daily_schedule_2026_07_08.json",
-  "dispatch_live_status": "No public dispatch, platform API call, browser/CDP, scheduler, retry, outbox execution, network/source fetch, public URL fetch, or live runner invocation occurred. Override output is local preview evidence with public_ready=true for candidate commentary only and dispatch_allowed_now=false.",
+  "dispatch_live_status": "Operator-approved Telegram live photo repair performed: previous defective message 59 was repaired by message 60 using generated media, article fallback, required caveat, and duplicate guard PASS. Substack and X were skipped as SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST. No browser/CDP action, Substack publish, X post, scheduler/retry, macro source fetch, or main database mutation occurred.",
   "editorial_acceptance_status": "EDITORIAL_APPROVED",
   "editorial_quality_audit_path": "docs/automation/V6_EDITORIAL_QUALITY_AUDIT/editorial_quality_audit_v0.json",
   "editorial_quality_status": "Repaired fresh Fed-funds dry-run candidate is EDITORIAL_APPROVED with no blockers or review items. Evidence: docs/automation/V6_FRESH_NON_OIL_REHEARSAL_REPAIR/fresh_non_oil_rehearsal_evidence_v0.json.",
@@ -375,26 +374,25 @@
     "verify telegram channel id format is numeric channel starting with -100 or a valid @username, not a web URL"
   ],
   "last_status_commit_sha": "reported_in_final_evidence_after_push",
-  "last_updated_by_task": "TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0",
-  "last_verified_remote_sha": "f1683088d1edcd6af43cf1caec80e620279d4e0c",
-  "latest_accepted_task": "TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0",
-  "latest_accepted_task_result": "PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS",
+  "last_updated_by_task": "TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0",
+  "last_verified_remote_sha": "c5448c26ede0afdf2b50d7ce2abc800dbe1dca45",
+  "latest_accepted_task": "TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0",
+  "latest_accepted_task_result": "PASS_PARTIAL_FULL_PIPELINE_NORTH_STAR_LIVE_RUN_V0",
   "latest_changed_areas": [
-    "live_contentops/cc_artifact_packet_operator_decision_v1.py",
-    "live_contentops/cc_artifact_packet_public_candidate_gate_v1.py",
-    "live_contentops/public_permissive_supervised_mode_v0.py",
-    "scripts/decide_cc_artifact_public_candidate_v1.py",
-    "tests/test_cc_artifact_packet_operator_decision_v1.py",
-    "tests/test_public_permissive_supervised_mode_v0.py",
-    "tests/fixtures/cc_artifact_packet_v0/invalid_public_override_packet_v0.json",
-    "docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1/",
-    "docs/automation/PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0/",
+    "live_contentops/full_pipeline_north_star_debug_and_live_run_v0.py",
+    "scripts/run_full_pipeline_north_star_debug_and_live_run_v0.py",
+    "tests/test_full_pipeline_north_star_debug_and_live_run_v0.py",
+    "docs/automation/FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0/",
+    "generated_media/daily_contentops/oil_export_surge_hero_card_v0.png",
+    "exports/daily_contentops/oil_export_surge_article_v0.md",
+    "exports/daily_contentops/oil_export_surge_article_v0.html",
+    "docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl",
+    "docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl",
     "docs/status/CURRENT_PROJECT_STATUS.md",
     "docs/status/current_project_status.json",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
-    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md"
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md"
   ],
-  "latest_evidence_summary": "Public permissive supervised mode V0 records OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY, approval hash continuity PASS, deterministic duplicate guard PASS_DETERMINISTIC_NO_DUPLICATE, mandatory disclaimer present, candidate/proxy labels visible, DQR BLOCKED visible, no exact-authority promotion, no trading advice, and no public dispatch/platform API/browser/CDP/network/env/main-repo action.",
+  "latest_evidence_summary": "Root-cause audit found previous runner used text-only Telegram post path without generated media or article reference. New evidence packet records media PNG, local Markdown/HTML article export, Telegram photo message 60, duplicate guard PASS, required caveat visible, and Substack/X operator-assist blockers.",
   "latest_headline_ingestion_sha": "bcf5574d16a433b7b1b3bcb6deea2d7ead402502",
   "legacy_reference_surfaces": [
     "ui/institutional_operator_cockpit_v4/",
@@ -436,7 +434,7 @@
   "media_and_visual_status": "Media status passes for dry-run/pre-public readiness. The repaired fresh Fed-funds candidate uses three non-oil rates visuals: primary DFF/policy-corridor chart, policy_corridor policy diagram, and sofr_context rates/SOFR context chart. Media diversification is PASS, auto-publication-safe for dry-run evidence, and pre-public family classification is fed_funds_policy_rates, not crude_wti_oil_volatility.",
   "media_diversification_audit_path": "docs/automation/V6_MEDIA_DIVERSIFICATION/media_diversification_audit_v0.json",
   "newsroom_final_candidate_evidence_path": "docs/automation/V6_EDITORIAL_NEWSROOM_FINAL_CANDIDATE/newsroom_media_scheduler_final_candidate_evidence_v0.json",
-  "next_recommended_task": "controlled live dispatch under operator public override",
+  "next_recommended_task": "TASK_CONTENTOPS_SUPERVISED_SUBSTACK_BROWSER_ASSIST_AND_X_CDP_ASSIST_FOR_NORTH_STAR_ARTICLE_V0",
   "operator_platform_readiness": {
     "discord": "one-shot proven",
     "latest_task": "TASK_0021",
@@ -445,9 +443,11 @@
     "platform_operation_matrix_path": "docs/automation/V6_OPERATOR_CHANNEL_READINESS/platform_operation_matrix.json",
     "substack_draft": "draft proven",
     "substack_publish": "hard-locked/not proven",
-    "telegram": "one-shot proven"
+    "telegram": "photo repair proven with message_id_60",
+    "substack": "requires supervised browser assist for this north-star article",
+    "x": "requires exact CDP live-click assist for this north-star article"
   },
-  "provider_env_credential_status": "No env, credential, token, cookie, localStorage, sessionStorage, browser session, webhook, provider-key, network/source fetch, macro source parse, platform API, public URL fetch, scheduler/retry/outbox execution, or main-repo write occurred.",
+  "provider_env_credential_status": "Existing Telegram Bot API adapter was used for one photo dispatch. Evidence records key-name-only telemetry and all_secret_values_redacted=true; no raw env values, credentials, tokens, cookies, localStorage, sessionStorage, browser sessions, webhooks, or provider keys were printed or committed.",
   "repo_full_name": "fatcat2109/capital-chronicle-contentops",
   "schema_version": "1.0.0",
   "sha_model": "last_verified_remote_sha records remote master f1683088d1edcd6af43cf1caec80e620279d4e0c before the public-permissive supervised mode task; final pushed evidence commit is reported in final evidence.",
@@ -712,5 +712,24 @@
       "public_dispatch_performed": false,
       "scheduler_retry_outbox_execution_performed": false
     }
+  },
+  "north_star_full_pipeline_live_repair_v0": {
+    "task_label": "TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0",
+    "classification": "PASS_PARTIAL_FULL_PIPELINE_NORTH_STAR_LIVE_RUN_V0",
+    "previous_defective_telegram_message_id": "59",
+    "telegram_new_message_id": "60",
+    "telegram_repair_status": "REPAIRED_WITH_PHOTO",
+    "telegram_image_attached": true,
+    "telegram_link_or_article_fallback_included": true,
+    "media_path": "generated_media/daily_contentops/oil_export_surge_hero_card_v0.png",
+    "article_export_path": "exports/daily_contentops/oil_export_surge_article_v0.md",
+    "article_html_export_path": "exports/daily_contentops/oil_export_surge_article_v0.html",
+    "substack_status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
+    "x_status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
+    "duplicate_guard_result": "PASS",
+    "caveat_present_all_outputs": true,
+    "all_secret_values_redacted": true,
+    "evidence_path": "docs/automation/FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0/run_evidence_v0.json",
+    "next_recommended_task": "TASK_CONTENTOPS_SUPERVISED_SUBSTACK_BROWSER_ASSIST_AND_X_CDP_ASSIST_FOR_NORTH_STAR_ARTICLE_V0"
   }
 }

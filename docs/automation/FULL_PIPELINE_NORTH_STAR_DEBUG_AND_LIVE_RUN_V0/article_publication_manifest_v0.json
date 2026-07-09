@@ -1,0 +1,17 @@
+{
+  "task_label": "TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0",
+  "article_export_created": true,
+  "article_export_path": "exports\\daily_contentops\\oil_export_surge_article_v0.md",
+  "article_html_export_path": "exports\\daily_contentops\\oil_export_surge_article_v0.html",
+  "article_publication_status": "LOCAL_EXPORT_CREATED_SUBSTACK_BLOCKED",
+  "public_article_url": null,
+  "substack_url_or_draft_id": null,
+  "article_fallback_reference": "exports\\daily_contentops\\oil_export_surge_article_v0.md",
+  "source_article_draft": "docs\\automation\\DAILY_SEO_ARTICLE_DRAFTING_V0\\article_draft_v0.md",
+  "source_article_draft_sha256": "16042ffd6eb901b1329b7b473cdfad385ee97449e518539ecb0ae8b7b31d2b08",
+  "markdown_sha256": "76c80e977418129c142aca948501cd8770cdf9fbf7ec6328777d551ad8fee57c",
+  "html_sha256": "325958fc004c50727797c45b4d406db67ccb55a27a95c31037c9b94a72c8d928",
+  "caveat_present": true,
+  "exact_numeric_claims_made": false,
+  "financial_advice_detected": false
+}

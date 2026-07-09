@@ -1,0 +1,37 @@
+{
+  "classification": "PASS_PARTIAL_FULL_PIPELINE_NORTH_STAR_LIVE_RUN_V0",
+  "task_label": "TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0",
+  "baseline_head": "c5448c26ede0afdf2b50d7ce2abc800dbe1dca45",
+  "final_head_before_commit": "c5448c26ede0afdf2b50d7ce2abc800dbe1dca45",
+  "root_cause_audit_performed": true,
+  "previous_live_run_was_incomplete": true,
+  "full_live_run_performed": true,
+  "media_generated": true,
+  "article_export_or_publication_created": true,
+  "telegram_repaired": true,
+  "substack_status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
+  "x_status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
+  "no_raw_secret_logged_confirmation": true,
+  "no_database_repair_confirmation": true,
+  "no_new_macro_source_fetch_confirmation": true,
+  "output_paths": {
+    "readme": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\README.md",
+    "root_cause_report_md": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\root_cause_report_v0.md",
+    "root_cause_report_json": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\root_cause_report_v0.json",
+    "full_live_run_plan": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\full_live_run_plan_v0.json",
+    "generated_media_manifest": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\generated_media_manifest_v0.json",
+    "article_publication_manifest": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\article_publication_manifest_v0.json",
+    "full_live_dispatch_results": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\full_live_dispatch_results_v0.json",
+    "full_live_readback": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\full_live_readback_v0.json",
+    "full_live_safety_review": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\full_live_safety_review_v0.json",
+    "run_evidence": "docs\\automation\\FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0\\run_evidence_v0.json",
+    "media": "generated_media\\daily_contentops\\oil_export_surge_hero_card_v0.png",
+    "article_markdown": "exports\\daily_contentops\\oil_export_surge_article_v0.md",
+    "article_html": "exports\\daily_contentops\\oil_export_surge_article_v0.html"
+  },
+  "blockers": [
+    "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
+    "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST"
+  ],
+  "exact_next_recommended_task": "TASK_CONTENTOPS_SUPERVISED_SUBSTACK_BROWSER_ASSIST_AND_X_CDP_ASSIST_FOR_NORTH_STAR_ARTICLE_V0"
+}

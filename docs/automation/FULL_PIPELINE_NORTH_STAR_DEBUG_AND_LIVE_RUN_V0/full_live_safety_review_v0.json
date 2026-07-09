@@ -1,0 +1,19 @@
+{
+  "operator_approved_full_live_run": true,
+  "raw_secret_printed": false,
+  "browser_session_secret_dumped": false,
+  "exact_numeric_claims_made": false,
+  "financial_advice_detected": false,
+  "trading_signal_detected": false,
+  "price_target_detected": false,
+  "media_generated": true,
+  "telegram_image_attached": true,
+  "telegram_has_link_or_article_fallback": true,
+  "text_only_live_output_repaired": true,
+  "duplicate_policy_followed": true,
+  "retry_storm_detected": false,
+  "blockers": [
+    "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
+    "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST"
+  ]
+}

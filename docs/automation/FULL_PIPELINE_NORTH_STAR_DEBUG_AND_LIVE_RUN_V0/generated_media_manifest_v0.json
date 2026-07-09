@@ -1,0 +1,18 @@
+{
+  "task_label": "TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0",
+  "media_generated": true,
+  "asset_id": "oil_export_surge_hero_card_v0",
+  "path": "generated_media\\daily_contentops\\oil_export_surge_hero_card_v0.png",
+  "sha256": "b282367027f7e8a14da87c0c72a77528246f0666e383f7a2a9acecaf71d9ab44",
+  "dimensions": {
+    "width": 1200,
+    "height": 675
+  },
+  "format": "png",
+  "generation_method": "Pillow ImageDraw branded static hero card",
+  "title_visible": "US Oil Export Surge",
+  "subtitle_visible": "SPR and shale flows reshape global markets",
+  "label_visible": "Candidate editorial",
+  "numeric_chart_rendered": false,
+  "caveat_text": "Candidate editorial draft. Numeric references require final source verification before publication."
+}

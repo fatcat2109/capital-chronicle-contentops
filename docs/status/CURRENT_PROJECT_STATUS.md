@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps - Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0
+TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,24 +9,24 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-verified remote master before this public-permissive supervised mode task: `f1683088d1edcd6af43cf1caec80e620279d4e0c`
+verified remote master before this north-star live repair task: `c5448c26ede0afdf2b50d7ce2abc800dbe1dca45`
 
 ## current_product_phase
-ContentOps now supports supervised public-permissive candidate commentary via `OPERATOR_PUBLIC_OVERRIDE_CANDIDATE_COMMENTARY`. Default mode remains block-first, but under explicit `--operator-public-override --public-mode candidate_commentary`, DQR BLOCKED / `candidate_only=true` / `internal_draft_only` / degraded source-quality states convert from automatic blockers into visible warnings when caveats, disclaimer, approval-hash continuity, duplicate guard, no-advice, and no-authority-promotion checks pass. Current sample classification: `PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS`.
+ContentOps now has a committed north-star repair path for the rejected Daily ContentOps live run. `TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0` generated a local hero PNG and article export, then performed one operator-approved Telegram photo repair for prior defective text-only message `59`. Current classification: `PASS_PARTIAL_FULL_PIPELINE_NORTH_STAR_LIVE_RUN_V0`.
 
 ## current_product_lane
-CC artifact packet lane: ContentOps may prepare public candidate-commentary preview payloads from candidate/proxy packets only under explicit operator public override, with visible caveats and local duplicate/hash evidence. Live dispatch remains a separate exact task.
+Daily ContentOps north-star live repair lane: media generation, article export, Telegram photo dispatch/readback, duplicate guard, and safety evidence are committed. Substack and X remain explicit operator-assist blockers because the available safe paths require supervised browser/CDP workflows.
 
 ## accepted_baseline_summary
-`TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0` relaxes ContentOps public-candidate gating from block-first only to supervised public-permissive candidate commentary when Jim supplies explicit operator public override. The current sample packet is locally preview-ready with caveats, not live-dispatch-ready.
+`TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0` fixes the rejected text-only Telegram live run by creating `generated_media/daily_contentops/oil_export_surge_hero_card_v0.png`, exporting the article to `exports/daily_contentops/`, and posting corrected Telegram photo message `60` with the required caveat and article fallback. Substack/X were not faked; both are marked `SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST`.
 
 ## status_sha_model
-- `last_verified_remote_sha`: `f1683088d1edcd6af43cf1caec80e620279d4e0c` before this public-permissive supervised mode task.
+- `last_verified_remote_sha`: `c5448c26ede0afdf2b50d7ce2abc800dbe1dca45` before this north-star live repair task.
 - `main_repo_handoff_commit`: `74ccf071ac8558d54e6a3c9d7d2a05ecbf42a2f2` from `fatcat2109/Headline-Raw-data-json`.
 - `sample_packet.main_repo_head`: `69301f0fceee24ba1fa7e6c181ad190b3a4e306a` preserved from packet metadata.
 - `approval_hash`: `b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef` with continuity status `PASS`.
 - `public_permissive_payload_hash`: `2d7aea22d1a81d1f5721b971299bfc522f43ab12ed6eaba4316fb9a0c3801830`.
-- `accepted_product_baseline_sha`: advances with the final pushed public-permissive supervised mode commit reported in final task evidence.
+- `accepted_product_baseline_sha`: advances with the final pushed north-star live repair commit reported in final task evidence.
 
 ## canonical_dashboard_surface
 `ui/contentops_v5/` is the canonical current dashboard/app surface unless a newer committed authority document supersedes it.
@@ -47,10 +47,10 @@ Canonical package: `ui/contentops_v5/package.json`.
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-ContentOps now has deterministic CC artifact packet intake, operator-decision, and supervised public-permissive preview gates. The current DQR-blocked/internal-only sample remains non-authoritative but can produce local public candidate-commentary preview artifacts under explicit operator public override. The Capital Chronicle local database/exporter remains numeric/source/context authority; ContentOps remains content production, platform adaptation, approval, dispatch gating, and readback; Analysis Alpha remains future work.
+ContentOps now has deterministic CC artifact packet intake, operator-decision, supervised public-permissive preview gates, and a committed Daily ContentOps live-repair runner that can complete media/article export and Telegram photo dispatch under exact operator approval. The Capital Chronicle local database/exporter remains numeric/source/context authority; ContentOps remains content production, platform adaptation, approval, dispatch gating, and readback; Analysis Alpha remains future work.
 
 ## dispatch/live status
-No public dispatch was run in this task. The override decision wrote local artifacts under `docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1/` and `docs/automation/PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0/`; `public_ready=true` for candidate-commentary preview only, `dispatch_allowed_now=false`, `platform_api_call_performed=false`, `browser_cdp_performed=false`, `network_or_source_fetch_performed=false`, `env_credential_session_read_performed=false`, `main_repo_write_performed=false`, and `scheduler_retry_outbox_execution_performed=false`.
+One operator-approved Telegram live photo repair was performed. Prior defective text-only Telegram message `59` was repaired by corrected photo message `60` using `sendPhoto`, generated local media, article fallback, required caveat, duplicate guard `PASS`, and readback evidence. Substack and X were skipped with explicit status `SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST`; no browser/CDP action, Substack publish, X post, scheduler/retry, macro source fetch, or main database mutation occurred.
 
 ## article_quality_status
 Current repaired fresh-slot article gates pass for dry-run/pre-public readiness: `body_word_count=2087`, `sections=9`, `source_trail_count=8`, no `UNVERIFIED_SAMPLE_SOURCE_REF`, and specific Fed-funds/rates numeric anchors from official/source-backed references. The prior oil/yields article remains a readable dry-run artifact but must not be public-posted because it collapses into the prior Crude/WTI content family.
@@ -65,42 +65,41 @@ Media status passes for dry-run/pre-public readiness. The repaired fresh Fed-fun
 The Fed/FRED/NY Fed/Treasury rates path remains `TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE` only. The durable future authority path is now represented by ContentOps `CC_CONTENT_ARTIFACT_PACKET` V0 intake, where the Capital Chronicle local database/exporter remains `FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY`. ContentOps must not become a second macro database, source parser, source fetcher, numeric truth authority, or Analysis Alpha layer. No additional source families should be added directly to ContentOps unless explicitly approved.
 
 ## provider/env/credential status
-This public-permissive supervised mode task did not read raw env values, credentials, tokens, cookies, localStorage, sessionStorage, browser sessions, webhooks, or provider keys. It did not call provider/platform APIs, perform browser/CDP work, fetch public URLs, fetch/parse macro sources, run scheduler/retry/outbox execution, or mutate the main repo/database.
+This north-star live repair used the existing Telegram Bot API adapter for one photo dispatch. Evidence records key-name-only telemetry and `all_secret_values_redacted=true`; no raw env values, credentials, tokens, cookies, localStorage, sessionStorage, browser sessions, webhooks, or provider keys were printed or committed. No browser/CDP work, Substack publish, X post, public URL fetch, macro source fetch/parse, scheduler/retry/outbox execution, or main repo/database mutation occurred.
 
 ## active blockers
-- Public dispatch remains blocked in this task; candidate-commentary preview readiness is not platform/API execution authorization.
-- A separate exact live-dispatch task is required before any platform API call, browser/CDP execution, scheduler/retry/outbox action, or public write.
+- Substack public URL/draft creation remains blocked until a separate supervised operator browser-assist task runs against the approved ContentOps profile and captures URL/readback without dumping session state.
+- X public posting remains blocked until a separate exact X CDP live-click task runs with profile guard, operator GO phrase, URL capture, and registry reconciliation.
 - Candidate/proxy, DQR BLOCKED, internal-only, source-quality, limitation, and forbidden-use caveats must remain visible in all public payloads.
 - Duplicate/spam guard failure, hidden caveats/disclaimers, exact-authority promotion, financial advice/trading signal, secret/session reads, and main repo/database mutation remain hard blocks.
 - The Capital Chronicle local database/exporter remains the numeric/source/context authority; ContentOps must not fetch/parse macro sources or mutate the main repo/database.
 - The Fed/FRED/NY Fed/Treasury rates path remains temporary fallback fixture logic only.
 
 ## latest accepted task
-TASK_CONTENTOPS_PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0
+TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0
 
 ## latest changed areas
-- `live_contentops/cc_artifact_packet_operator_decision_v1.py`
-- `live_contentops/cc_artifact_packet_public_candidate_gate_v1.py`
-- `live_contentops/public_permissive_supervised_mode_v0.py`
-- `scripts/decide_cc_artifact_public_candidate_v1.py`
-- `tests/test_cc_artifact_packet_operator_decision_v1.py`
-- `tests/test_public_permissive_supervised_mode_v0.py`
-- `tests/fixtures/cc_artifact_packet_v0/invalid_public_override_packet_v0.json`
-- `docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1/`
-- `docs/automation/PUBLIC_PERMISSIVE_SUPERVISED_MODE_V0/`
+- `live_contentops/full_pipeline_north_star_debug_and_live_run_v0.py`
+- `scripts/run_full_pipeline_north_star_debug_and_live_run_v0.py`
+- `tests/test_full_pipeline_north_star_debug_and_live_run_v0.py`
+- `docs/automation/FULL_PIPELINE_NORTH_STAR_DEBUG_AND_LIVE_RUN_V0/`
+- `generated_media/daily_contentops/oil_export_surge_hero_card_v0.png`
+- `exports/daily_contentops/oil_export_surge_article_v0.md`
+- `exports/daily_contentops/oil_export_surge_article_v0.html`
+- `docs/automation/V6_LIVE_TELEMETRY/live_telemetry_registry_v6.jsonl`
+- `docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
-- `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
 
 ## current next recommended task
-`controlled live dispatch under operator public override`: run a separate exact live task only if Jim explicitly authorizes public dispatch from the `PUBLIC_CANDIDATE_ALLOWED_WITH_CAVEATS` preview payload hash and the task rechecks duplicate/platform/readback gates.
+`TASK_CONTENTOPS_SUPERVISED_SUBSTACK_BROWSER_ASSIST_AND_X_CDP_ASSIST_FOR_NORTH_STAR_ARTICLE_V0`: complete the remaining north-star platform lanes by creating/publishing the exported article through supervised Substack operator browser assist and posting/capturing X through the exact CDP live-click workflow.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.
 
 ## next-task safety notes
-Read this status ledger and the JSON status file before planning. The current generated state is preview-ready with caveats, not live-dispatch-ready. Live actions remain authorized only when a future task explicitly requires them, binds the payload hash, reruns duplicate/platform gates, and records readback evidence after dispatch.
+Read this status ledger and the JSON status file before planning. Telegram photo repair evidence is live and committed; Substack/X are still blocked without a separate exact operator-assist live task. Future live actions must bind the exported article/media hashes, rerun duplicate/platform gates, preserve the candidate caveat, and record readback evidence after dispatch.
 
 ## mandatory read-before-work files
 - `AGENTS.md`

@@ -1,0 +1,59 @@
+{
+  "task_label": "TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0",
+  "previous_defective_telegram_message_id": "59",
+  "media_generated": true,
+  "media_path": "generated_media\\daily_contentops\\oil_export_surge_hero_card_v0.png",
+  "article_export_created": true,
+  "article_export_path": "exports\\daily_contentops\\oil_export_surge_article_v0.md",
+  "substack_status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
+  "substack_url_or_draft_id": null,
+  "telegram_repair_status": "REPAIRED_WITH_PHOTO",
+  "telegram_new_message_id": "60",
+  "telegram_image_attached": true,
+  "telegram_link_or_article_fallback_included": true,
+  "x_status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
+  "attempted_platforms": [
+    "telegram"
+  ],
+  "successful_platforms": [
+    "telegram"
+  ],
+  "skipped_platforms": [
+    "substack",
+    "x"
+  ],
+  "failed_platforms": [],
+  "duplicate_guard_result": "PASS",
+  "duplicate_guard_blockers": [],
+  "telegram_content_hash": "7aac1ad76b56fdf2",
+  "telegram_payload_hash": "66c526e16a74cf34",
+  "caveat_present_all_outputs": true,
+  "all_secret_values_redacted": true,
+  "per_platform_results": [
+    {
+      "platform": "substack",
+      "status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
+      "url_or_draft_id": null,
+      "root_cause": "Only the browser-profile Substack automation path is available for live publish; this repair avoids browser/session state and exports local Markdown/HTML instead.",
+      "unblock_plan": "Run a separate supervised Substack browser/operator-assist task that opens the approved ContentOps profile, creates or publishes the exported article, captures the draft/public URL, and records readback without dumping session data."
+    },
+    {
+      "platform": "telegram",
+      "status": "REPAIRED_WITH_PHOTO",
+      "message_id": "60",
+      "image_attached": true,
+      "article_reference": "exports\\daily_contentops\\oil_export_surge_article_v0.md",
+      "content_hash": "7aac1ad76b56fdf2",
+      "payload_hash": "66c526e16a74cf34",
+      "duplicate_guard_result": "PASS",
+      "error_summary_redacted": null
+    },
+    {
+      "platform": "x",
+      "status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
+      "url_or_draft_id": null,
+      "root_cause": "Repo X paths are supervised browser/CDP or operator-outcome recorders, not a safe non-browser send adapter for this task.",
+      "unblock_plan": "Run a separate exact X CDP live-click task with approved ContentOps profile guard, operator GO phrase, post-click URL capture, and registry reconciliation."
+    }
+  ]
+}

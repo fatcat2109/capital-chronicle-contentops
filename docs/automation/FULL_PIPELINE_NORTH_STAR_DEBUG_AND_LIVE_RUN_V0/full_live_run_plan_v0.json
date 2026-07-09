@@ -1,0 +1,40 @@
+{
+  "task_label": "TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0",
+  "baseline_head": "c5448c26ede0afdf2b50d7ce2abc800dbe1dca45",
+  "operator_approved_full_live_run": true,
+  "repair_previous_telegram_message_id": "59",
+  "started_at": "2026-07-09T18:33:18+00:00",
+  "platforms_requested": [
+    "substack",
+    "telegram",
+    "x"
+  ],
+  "telegram_repair_strategy": "send_one_corrected_photo_replacement_followup_no_text_only_post",
+  "previous_message_edit_or_delete_strategy": "editMessageText cannot attach media and no safe delete adapter exists; selected one corrected photo replacement.",
+  "max_send_attempts_per_platform": 1,
+  "media_path": "generated_media\\daily_contentops\\oil_export_surge_hero_card_v0.png",
+  "article_export_path": "exports\\daily_contentops\\oil_export_surge_article_v0.md",
+  "article_html_export_path": "exports\\daily_contentops\\oil_export_surge_article_v0.html",
+  "substack_plan": {
+    "platform": "substack",
+    "status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
+    "url_or_draft_id": null,
+    "root_cause": "Only the browser-profile Substack automation path is available for live publish; this repair avoids browser/session state and exports local Markdown/HTML instead.",
+    "unblock_plan": "Run a separate supervised Substack browser/operator-assist task that opens the approved ContentOps profile, creates or publishes the exported article, captures the draft/public URL, and records readback without dumping session data."
+  },
+  "x_plan": {
+    "platform": "x",
+    "status": "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
+    "url_or_draft_id": null,
+    "root_cause": "Repo X paths are supervised browser/CDP or operator-outcome recorders, not a safe non-browser send adapter for this task.",
+    "unblock_plan": "Run a separate exact X CDP live-click task with approved ContentOps profile guard, operator GO phrase, post-click URL capture, and registry reconciliation."
+  },
+  "duplicate_guard_policy": {
+    "ledger_path": "docs\\automation\\V6_PUBLIC_DISPATCH_FREEZE\\public_dispatch_duplicate_ledger_v6.jsonl",
+    "repair_topic_hash": "8714c66e42a5c468",
+    "payload_hash": "66c526e16a74cf34",
+    "prior_text_only_message_id_treated_as_defective": "59",
+    "max_send_attempts_per_platform": 1
+  },
+  "preflight_blockers": []
+}
