@@ -1,0 +1,25 @@
+{
+  "classification": "PASS_CANDIDATE_ONLY_CONTENTOPS_DAILY_ARTICLE_BRIEF_GENERATION_V0",
+  "task_label": "TASK_CONTENTOPS_DAILY_ARTICLE_BRIEF_GENERATION_V0",
+  "baseline_head": "fa697624c42e64f342009e71b4fec795f74737cd",
+  "source_reselection_packet": "docs\\automation\\SUPPORT_AWARE_ARTICLE_IDEA_RESELECTION_V0\\reselection_packet_v0.json",
+  "selected_idea_id": "idea_energy_commodities_20260709",
+  "topic_family": "energy_commodities",
+  "original_idea_blocked": true,
+  "draft_readiness": "candidate_only",
+  "no_main_repo_mutation_confirmation": true,
+  "no_external_fetch_confirmation": true,
+  "no_database_repair_confirmation": true,
+  "no_full_article_confirmation": true,
+  "no_media_confirmation": true,
+  "no_platform_variant_confirmation": true,
+  "no_platform_write_confirmation": true,
+  "no_dispatch_confirmation": true,
+  "no_raw_secret_read_confirmation": true,
+  "output_paths": {
+    "article_brief_json": "docs\\automation\\DAILY_ARTICLE_BRIEF_GENERATION_V0\\article_brief_v0.json",
+    "article_brief_md": "docs\\automation\\DAILY_ARTICLE_BRIEF_GENERATION_V0\\article_brief_v0.md",
+    "run_evidence": "docs\\automation\\DAILY_ARTICLE_BRIEF_GENERATION_V0\\run_evidence_v0.json"
+  },
+  "blockers": []
+}

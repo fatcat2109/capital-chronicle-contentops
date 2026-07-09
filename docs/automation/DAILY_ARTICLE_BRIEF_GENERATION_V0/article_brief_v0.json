@@ -1,0 +1,48 @@
+{
+  "task_label": "TASK_CONTENTOPS_DAILY_ARTICLE_BRIEF_GENERATION_V0",
+  "source_reselection_packet": "docs\\automation\\SUPPORT_AWARE_ARTICLE_IDEA_RESELECTION_V0\\reselection_packet_v0.json",
+  "original_idea_blocked": true,
+  "selected_idea_id": "idea_energy_commodities_20260709",
+  "editorial_title": "US Oil Export Surge: Production and SPR Dynamics Reshape Global Markets",
+  "working_slug": "us-oil-export-surge-spr-dynamics",
+  "topic_family": "energy_commodities",
+  "one_sentence_thesis": "The surge in US crude oil exports and domestic production, paired with Strategic Petroleum Reserve (SPR) dynamics, is fundamentally reshaping the global energy market and trade flows.",
+  "target_reader": "Global macro investors, energy traders, and policy analysts.",
+  "why_now": "US crude exports have risen significantly, making the US a major global exporter alongside Russia and Saudi Arabia, necessitating a structural overview of energy flows.",
+  "source_support_needed": [
+    "US Crude Oil Exports (EIA)",
+    "WTI Crude Spot Price",
+    "SPR Inventory Levels"
+  ],
+  "known_caveats": [
+    "Since no live numeric database was queried in this phase, all data points must be treated as qualitative candidate inputs.",
+    "Exact figures must not be presented as verified internal fact without prior source verification."
+  ],
+  "outline_sections": [
+    "Introduction: The New Era of US Energy Dominance",
+    "Section 1: Production Heights and Export Capacity Surge",
+    "Section 2: The Role of the Strategic Petroleum Reserve (SPR)",
+    "Section 3: Geopolitical Repercussions and Trade Flow Realignment",
+    "Conclusion: Market Outlook and Structural Implications"
+  ],
+  "key_questions_to_answer": [
+    "How did the US transition to exporting 5 million barrels per day?",
+    "What is the impact of SPR releases on the export volumes?",
+    "How do US oil exports affect OPEC+ pricing power?"
+  ],
+  "prohibited_claims": [
+    "Do not make definitive statements about future oil price targets (e.g. Brent to $100/bbl).",
+    "Do not provide trading signals or direct investment advice (buy/sell/hold/sizing).",
+    "Do not present speculative geopolitical outcomes as verified facts."
+  ],
+  "required_disclaimers_or_caveats": [
+    "This is an article brief, not a full article draft.",
+    "This analysis is purely educational and for commentary purposes only; it does not constitute financial or investment advice.",
+    "Information relies on candidate proxy series and qualitative background data; no numeric truth is guaranteed."
+  ],
+  "draft_readiness": "candidate_only",
+  "no_full_article_confirmation": true,
+  "no_media_confirmation": true,
+  "no_platform_variant_confirmation": true,
+  "no_dispatch_confirmation": true
+}
