@@ -1,0 +1,20 @@
+{
+  "task_label": "TASK_CONTENTOPS_DAILY_SEO_ARTICLE_DRAFTING_V0",
+  "source_article_brief": "docs\\automation\\DAILY_ARTICLE_BRIEF_GENERATION_V0\\article_brief_v0.json",
+  "selected_idea_id": "idea_energy_commodities_20260709",
+  "editorial_title": "US Oil Export Surge: Production and SPR Dynamics Reshape Global Markets",
+  "seo_meta_title": "US Oil Export Surge: SPR and Production Realignment",
+  "seo_meta_description": "Analyze how surging US crude exports, domestic production capacity, and strategic reserves (SPR) are realigning global energy markets.",
+  "topic_family": "energy_commodities",
+  "draft_status": "candidate_only",
+  "word_count_estimate": 388,
+  "source_support_families": [
+    "US Crude Oil Exports (EIA)",
+    "WTI Crude Spot Price",
+    "SPR Inventory Levels"
+  ],
+  "exact_numeric_claims_made": false,
+  "financial_advice_detected": false,
+  "platform_payload_created": false,
+  "dispatch_ready": false
+}

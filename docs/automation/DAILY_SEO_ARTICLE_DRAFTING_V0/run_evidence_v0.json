@@ -1,0 +1,24 @@
+{
+  "classification": "PASS_CANDIDATE_ONLY_CONTENTOPS_DAILY_SEO_ARTICLE_DRAFTING_V0",
+  "task_label": "TASK_CONTENTOPS_DAILY_SEO_ARTICLE_DRAFTING_V0",
+  "baseline_head": "558708e312678d6aa6904eeaa2901d934e9f59bf",
+  "source_article_brief": "docs\\automation\\DAILY_ARTICLE_BRIEF_GENERATION_V0\\article_brief_v0.json",
+  "selected_idea_id": "idea_energy_commodities_20260709",
+  "topic_family": "energy_commodities",
+  "draft_status": "candidate_only",
+  "no_main_repo_mutation_confirmation": true,
+  "no_external_fetch_confirmation": true,
+  "no_database_repair_confirmation": true,
+  "no_media_confirmation": true,
+  "no_platform_variant_confirmation": true,
+  "no_platform_write_confirmation": true,
+  "no_dispatch_confirmation": true,
+  "no_raw_secret_read_confirmation": true,
+  "output_paths": {
+    "article_draft_md": "docs\\automation\\DAILY_SEO_ARTICLE_DRAFTING_V0\\article_draft_v0.md",
+    "article_draft_metadata_json": "docs\\automation\\DAILY_SEO_ARTICLE_DRAFTING_V0\\article_draft_metadata_v0.json",
+    "draft_safety_review_json": "docs\\automation\\DAILY_SEO_ARTICLE_DRAFTING_V0\\draft_safety_review_v0.json",
+    "run_evidence": "docs\\automation\\DAILY_SEO_ARTICLE_DRAFTING_V0\\run_evidence_v0.json"
+  },
+  "blockers": []
+}
