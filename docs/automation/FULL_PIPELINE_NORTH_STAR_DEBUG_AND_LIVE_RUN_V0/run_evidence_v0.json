@@ -2,7 +2,7 @@
   "classification": "BLOCKED_FULL_PIPELINE_NORTH_STAR_LIVE_RUN_V0",
   "task_label": "TASK_CONTENTOPS_CODEX_DEBUG_COMPLETE_NORTH_STAR_AND_FULL_AUTOMATION_LIVE_RUN_V0",
   "baseline_head": "c5448c26ede0afdf2b50d7ce2abc800dbe1dca45",
-  "final_head_before_commit": "1c7461b2a673939505e64b61f7c2ce9e165e6189",
+  "final_head_before_commit": "0e9361600aa48a516556960be1af0253a7baf8b9",
   "root_cause_audit_performed": true,
   "previous_live_run_was_incomplete": true,
   "full_live_run_performed": false,
@@ -46,5 +46,5 @@
     "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST",
     "SKIPPED_REQUIRES_OPERATOR_BROWSER_ASSIST"
   ],
-  "exact_next_recommended_task": "TASK_CONTENTOPS_SUPERVISED_SUBSTACK_BROWSER_ASSIST_AND_X_CDP_ASSIST_FOR_NORTH_STAR_ARTICLE_V0"
+  "exact_next_recommended_task": "TASK_CONTENTOPS_OPERATOR_DECISION_SUPERSEDE_DUPLICATE_FROZEN_TELEGRAM_REPAIR_V0"
 }

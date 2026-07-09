@@ -3,7 +3,7 @@
   "baseline_head": "c5448c26ede0afdf2b50d7ce2abc800dbe1dca45",
   "operator_approved_full_live_run": true,
   "repair_previous_telegram_message_id": "59",
-  "started_at": "2026-07-09T19:00:26+00:00",
+  "started_at": "2026-07-09T19:04:05+00:00",
   "platforms_requested": [
     "substack",
     "telegram",

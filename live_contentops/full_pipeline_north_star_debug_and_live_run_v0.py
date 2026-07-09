@@ -996,7 +996,7 @@ def run_full_pipeline_north_star_debug_and_live_run(
             "article_html": article_manifest["article_html_export_path"],
         },
         "blockers": [substack["status"], x["status"]] if telegram_status == "REPAIRED_WITH_PHOTO" else full_live_safety_review["blockers"],
-        "exact_next_recommended_task": "TASK_CONTENTOPS_SUPERVISED_SUBSTACK_BROWSER_ASSIST_AND_X_CDP_ASSIST_FOR_NORTH_STAR_ARTICLE_V0",
+        "exact_next_recommended_task": "TASK_CONTENTOPS_OPERATOR_DECISION_SUPERSEDE_DUPLICATE_FROZEN_TELEGRAM_REPAIR_V0",
     }
 
     _write_readme(out_dir, classification)
