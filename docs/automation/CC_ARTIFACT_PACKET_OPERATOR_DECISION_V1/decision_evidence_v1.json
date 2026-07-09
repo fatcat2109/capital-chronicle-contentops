@@ -1,0 +1,97 @@
+{
+  "approval_hash_continuity_status": "PASS",
+  "blockers": [
+    "dqr_status_not_clear:BLOCKED",
+    "candidate_only_true",
+    "publish_eligibility_internal_draft_only",
+    "source_quality_degraded_or_blocked",
+    "packet_caveats_internal_or_non_authoritative",
+    "limitations_include_dqr_blocked",
+    "public_freeze_duplicate_status_not_checked",
+    "live_provider_or_platform_path_forbidden_in_this_task"
+  ],
+  "branch": "master target via HEAD:master push; local linked worktree branch may differ",
+  "caveats": [
+    "Current packet remains DQR BLOCKED.",
+    "Current packet remains candidate_only=true.",
+    "Current packet publish_eligibility is internal_draft_only.",
+    "Public candidate work requires a future public-eligible packet and separate exact live GO."
+  ],
+  "classification": "PASS_OPERATOR_DECISION_GATE_BLOCKED_BY_PACKET_ELIGIBILITY",
+  "cli_command": "python scripts/decide_cc_artifact_public_candidate_v1.py --intake-dir docs/automation/CC_ARTIFACT_PACKET_INTAKE_ADAPTER_V0 --packet tests/fixtures/cc_artifact_packet_v0/sample_internal_draft_packet_v0.json --output-dir docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1 --operator-go",
+  "cli_result": "PASS_DECISION_EVALUATED_PUBLIC_CANDIDATE_BLOCKED_BY_PACKET",
+  "commit_message": "feat: add cc artifact packet operator decision gate v1",
+  "commit_sha": "reported_in_final_response_after_commit_and_push",
+  "contentops_source_brain_boundary_confirmation": "No macro source fetcher/parser, numeric truth verifier, database mirror, source-family fixture, or Analysis Alpha layer was added.",
+  "exact_next_recommended_task": "TASK_CC_MAIN_REPO_PUBLIC_ELIGIBLE_ARTIFACT_PACKET_DQR_CLEARANCE_OR_CONTENTOPS_FUTURE_PACKET_REHEARSAL",
+  "final_head": "reported_in_final_response_after_commit_and_push",
+  "gate_status": "PUBLIC_CANDIDATE_BLOCKED_BY_PACKET",
+  "github_repo": "fatcat2109/capital-chronicle-contentops",
+  "input_packet_path": "tests/fixtures/cc_artifact_packet_v0/sample_internal_draft_packet_v0.json",
+  "intake_evidence_path": "docs\\automation\\CC_ARTIFACT_PACKET_INTAKE_ADAPTER_V0\\intake_adapter_evidence_v0.json",
+  "local_repo_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa",
+  "no_browser_cdp_confirmation": true,
+  "no_env_credential_session_read_confirmation": true,
+  "no_main_repo_write_confirmation": true,
+  "no_network_source_fetch_confirmation": true,
+  "no_platform_api_confirmation": true,
+  "no_public_dispatch_confirmation": true,
+  "operator_go_received": true,
+  "operator_go_scope": "decision_gate_only_not_dqr_override",
+  "output_files": [
+    "docs\\automation\\CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1\\operator_decision_packet_v1.json",
+    "docs\\automation\\CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1\\public_candidate_gate_v1.json",
+    "docs\\automation\\CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1\\operator_review_preview_v1.md",
+    "docs\\automation\\CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1\\controlled_candidate_rehearsal_envelope_v1.json",
+    "docs\\automation\\CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1\\decision_evidence_v1.json",
+    "docs\\automation\\CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1\\README.md"
+  ],
+  "public_ready": false,
+  "schema_version": "1.0.0",
+  "starting_head": "4860f586d0a89f774844b2d9c17427981d5e37a7",
+  "task_label": "TASK_CONTENTOPS_CC_ARTIFACT_PACKET_OPERATOR_DECISION_AND_CONTROLLED_PUBLIC_CANDIDATE_REHEARSAL_V1",
+  "validation": {
+    "diff_check": {
+      "command": "git diff --check",
+      "status": "PASS",
+      "note": "Command exited 0; Git emitted an LF-to-CRLF working-copy warning for next_task_pointer.md only."
+    },
+    "json_validation": {
+      "files": [
+        "docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1/operator_decision_packet_v1.json",
+        "docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1/public_candidate_gate_v1.json",
+        "docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1/controlled_candidate_rehearsal_envelope_v1.json",
+        "docs/automation/CC_ARTIFACT_PACKET_OPERATOR_DECISION_V1/decision_evidence_v1.json",
+        "docs/status/current_project_status.json",
+        "tests/fixtures/cc_artifact_packet_v0/invalid_public_override_packet_v0.json"
+      ],
+      "status": "PASS"
+    },
+    "py_compile": {
+      "command": "python -m py_compile live_contentops/cc_artifact_packet_operator_decision_v1.py live_contentops/cc_artifact_packet_public_candidate_gate_v1.py scripts/decide_cc_artifact_public_candidate_v1.py",
+      "status": "PASS"
+    },
+    "pytest": [
+      {
+        "command": "python -m pytest tests/test_cc_artifact_packet_operator_decision_v1.py -q",
+        "result": "14 passed",
+        "status": "PASS"
+      },
+      {
+        "command": "python -m pytest tests/test_cc_artifact_packet_intake_v0.py -q",
+        "result": "27 passed",
+        "status": "PASS"
+      },
+      {
+        "command": "python -m pytest tests/test_public_candidate_preflight_v6.py -q",
+        "result": "5 passed",
+        "status": "PASS"
+      },
+      {
+        "command": "python -m pytest tests/test_security_scans.py -q",
+        "result": "1 passed",
+        "status": "PASS"
+      }
+    ]
+  }
+}

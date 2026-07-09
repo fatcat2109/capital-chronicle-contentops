@@ -1,0 +1,17 @@
+{
+  "blockers": [
+    "dqr_status_not_clear:BLOCKED",
+    "candidate_only_true",
+    "publish_eligibility_internal_draft_only",
+    "source_quality_degraded_or_blocked",
+    "packet_caveats_internal_or_non_authoritative",
+    "limitations_include_dqr_blocked",
+    "public_freeze_duplicate_status_not_checked",
+    "live_provider_or_platform_path_forbidden_in_this_task"
+  ],
+  "dispatch_allowed_now": false,
+  "gate_status": "PUBLIC_CANDIDATE_BLOCKED_BY_PACKET",
+  "public_ready": false,
+  "requires_separate_operator_go": true,
+  "scope_breaches": []
+}
