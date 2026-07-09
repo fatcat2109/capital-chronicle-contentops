@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CCContentArtifactPacketV0",
+  "type": "object",
+  "properties": {
+    "packet_id": { "type": "string" },
+    "schema_version": { "const": "v0" },
+    "generated_at_utc": { "type": "string" },
+    "main_repo_head": { "type": "string" },
+    "audit_snapshot_ref": { "type": "string" },
+    "manifest_id": { "type": ["string", "null"] },
+    "dqr_status": { "const": "BLOCKED" },
+    "source_quality_status": { "type": "string" },
+    "candidate_only": { "const": true },
+    "topic": { "type": "string" },
+    "article_angle": { "type": "string" },
+    "headline_or_catalyst": { "type": "string" },
+    "source_trail": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "claim_ledger": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "claim_text": { "type": "string" },
+          "support_status": { "enum": ["supported", "partial", "unsupported", "blocked"] },
+          "source_refs": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "allowed_wording": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "forbidden_wording": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["claim_text", "support_status", "source_refs", "allowed_wording", "forbidden_wording"],
+        "additionalProperties": false
+      }
+    },
+    "numeric_anchors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": { "type": ["number", "null"] },
+          "unit": { "type": ["string", "null"] },
+          "timestamp": { "type": ["string", "null"] },
+          "period": { "type": ["string", "null"] },
+          "source_ref": { "type": "string" },
+          "authority_status": { "enum": ["exact", "proxy", "candidate", "missing", "blocked", "unavailable"] },
+          "caveat": { "type": "string" }
+        },
+        "required": ["value", "unit", "timestamp", "period", "source_ref", "authority_status", "caveat"],
+        "additionalProperties": false
+      }
+    },
+    "chart_specs": { "type": ["object", "null"] },
+    "coverage_gaps": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "forbidden_use_notes": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "publish_eligibility": { "enum": ["internal_draft_only", "manual_review_only", "public_auto"] },
+    "platform_suitability": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "contentops_instructions": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": [
+    "packet_id", "schema_version", "generated_at_utc", "main_repo_head", "audit_snapshot_ref",
+    "manifest_id", "dqr_status", "source_quality_status", "candidate_only", "topic",
+    "article_angle", "headline_or_catalyst", "source_trail", "claim_ledger", "numeric_anchors",
+    "chart_specs", "coverage_gaps", "limitations", "forbidden_use_notes", "publish_eligibility",
+    "platform_suitability", "contentops_instructions"
+  ],
+  "additionalProperties": false,
+  "if": {
+    "properties": {
+      "dqr_status": { "const": "BLOCKED" }
+    }
+  },
+  "then": {
+    "properties": {
+      "publish_eligibility": { "enum": ["internal_draft_only", "manual_review_only"] }
+    }
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+  "approval_required_before_any_downstream_use": true,
+  "article_angle": "Current candidate database captures stabilized under Wave A repairs.",
+  "audit_snapshot_ref": "2026-07-09T06:57:06+00:00",
+  "candidate_only_warning": "candidate_only=true; values remain candidate/non-authoritative unless a future approved packet says otherwise.",
+  "chart_specs": null,
+  "claim_ledger": [
+    {
+      "allowed_wording": [
+        "parameters stabilized",
+        "candidate run"
+      ],
+      "claim_text": "Census EITS retail sales parameters have been stabilized to 2025/seasonally adjusted (candidate draft state).",
+      "forbidden_wording": [
+        "DQR cleared",
+        "production active"
+      ],
+      "source_refs": [
+        "census_eits_data_lane_integration_v1.py"
+      ],
+      "support_status": "supported"
+    },
+    {
+      "allowed_wording": [
+        "User-Agent verified"
+      ],
+      "claim_text": "CFTC COT live capture User-Agent headers verified (candidate draft state).",
+      "forbidden_wording": [
+        "production active"
+      ],
+      "source_refs": [
+        "cftc_cot_positioning_controlled_live_capture_v1.py"
+      ],
+      "support_status": "supported"
+    }
+  ],
+  "component_hashes": {
+    "claim_ledger": "251c010617a2546f671f38eb4c01df637e7c9bafb74578b632d3133f905a739c",
+    "coverage_gaps": "04dadb1d553c0d58901caeb15b6949f5a9ef967c8b9a16a8254e887ce34de728",
+    "forbidden_use_notes": "8ed5a1f4c930e47a16279d838d8a9dfe1aa81d44e6a725401db533dc5ace8f53",
+    "limitations": "f1f2863c866fc05b46f4956f1ff244862db6d89b62cca19e19f9a5f7714bdb9b",
+    "numeric_anchors": "cea80d438a1997d5c82a1903759e6378b7e210e962950495e6e8382673cebc9d",
+    "platform_suitability": "480700ad50267e5bd487e6d2c6e2f967731970cffed82f69ed00f5ae720e36d6",
+    "source_trail": "bd581651c8a8ee04a105cc1a693770e479496f420297f74bad613a1e7f5e7f4c"
+  },
+  "contentops_instructions": [
+    "Retain all source caveats and uncertainty markings.",
+    "Do not publish or distribute externally."
+  ],
+  "coverage_gaps": [
+    "VIX (spot)",
+    "DXY (spot)",
+    "SPX_spot",
+    "WTI_front",
+    "Gold_spot",
+    "USDJPY"
+  ],
+  "dqr_warning": "DQR status is BLOCKED; ContentOps cannot promote this intake to public publication.",
+  "draft_kind": "cc_content_artifact_packet_internal_draft_v0",
+  "duplicate_family": "US Macro & Alternative Ingestion Audit",
+  "explicit_publication_statement": "INTERNAL/MANUAL REVIEW ONLY, NOT PUBLIC-PUBLISHABLE BY INTAKE ALONE",
+  "forbidden_use_notes": [
+    "INTERNAL DRAFT USE ONLY. Do not use for live trading or execution.",
+    "DQR status is BLOCKED. All values are non-authoritative candidate staging states."
+  ],
+  "generated_at_utc": "2026-07-09T07:10:10Z",
+  "handling_instructions": [
+    "Preserve DQR, source-quality, candidate-only, limitation, and forbidden-use caveats verbatim.",
+    "Do not fetch, parse, verify, or enrich macro source truth inside ContentOps.",
+    "Do not publish externally or create a dispatchable outbox entry from intake alone.",
+    "Use Capital Chronicle database/exported packets as numeric/source authority."
+  ],
+  "handoff_commit": "74ccf071ac8558d54e6a3c9d7d2a05ecbf42a2f2",
+  "headline_or_catalyst": "Staged database contains 1386270 candidate records.",
+  "limitations": [
+    "DQR status is BLOCKED.",
+    "Paid exchange feeds deferred as deferred_paid_proxy."
+  ],
+  "manifest_id": "TASK_PHASE3_SOURCE_GAP_REPRIORITIZATION_AND_MANIFEST_BACKFILL_V1",
+  "media_asset_candidates": [],
+  "numeric_anchors": [
+    {
+      "authority_status": "candidate",
+      "caveat": "Non-authoritative candidate records under blocked DQR.",
+      "period": "2026-07-09",
+      "source_ref": "candidate_historical_foundation.economic_prints",
+      "timestamp": "2026-07-09T07:10:10Z",
+      "unit": "economic_prints",
+      "value": 208424.0
+    },
+    {
+      "authority_status": "candidate",
+      "caveat": "Non-authoritative candidate records under blocked DQR.",
+      "period": "2026-07-09",
+      "source_ref": "candidate_historical_foundation.market_snapshots",
+      "timestamp": "2026-07-09T07:10:10Z",
+      "unit": "market_snapshots",
+      "value": 2512.0
+    }
+  ],
+  "packet_id": "98d0ba82-8912-4d80-902e-bfba3a97a835",
+  "platform_suitability": [
+    "slack",
+    "email_internal"
+  ],
+  "public_publishable_by_intake_alone": false,
+  "publish_eligibility_warning": "publish_eligibility=internal_draft_only; public_auto is forbidden for this intake.",
+  "safety_flags": {
+    "credential_or_session_read_authorized": false,
+    "main_repo_write_authorized": false,
+    "network_call_authorized": false,
+    "platform_api_call_authorized": false,
+    "public_dispatch_authorized": false,
+    "source_truth_verification_authorized_in_contentops": false
+  },
+  "sample_packet.main_repo_head": "69301f0fceee24ba1fa7e6c181ad190b3a4e306a",
+  "schema_version": "v0",
+  "source_quality_warning": "Source quality status: degraded (success_files=92, active_failures=6)",
+  "source_trail": [
+    "data/audit/all_source_incremental_audit_v1.json",
+    "data/audit/ingestion_failure_log.json"
+  ],
+  "topic": "US Macro & Alternative Ingestion Audit"
+}

@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps - Current Project Status
 
 ## last_updated_by_task
-TASK_CONTENTOPS_V6_FRESH_NON_OIL_SOURCE_BACKED_ARTICLE_AND_MEDIA_REHEARSAL_REPAIR_V0
+TASK_CONTENTOPS_CC_ARTIFACT_PACKET_INTAKE_TO_REHEARSAL_BRIDGE_HEAVY_BATCH_V0
 
 ## last_verified_repo
 fatcat2109/capital-chronicle-contentops
@@ -9,12 +9,10 @@ fatcat2109/capital-chronicle-contentops
 ## last_verified_branch
 master
 
-verified remote master before this repair task: `62d6bfc8655b0ad0169ffe68249d96fcde9f5848`
-accepted visual repair commit: `6a810aadadef4b3c9078173b32bed4b243f8552a`
-latest pre-task remote commit: `62d6bfc8655b0ad0169ffe68249d96fcde9f5848`
+verified remote master before this intake task: `2f21038903494d966e246bc147febf93ded3134a`
 
 ## current_product_phase
-Fresh non-oil Fed-funds/rates rehearsal repair is `PASS_FRESH_NON_OIL_SOURCE_BACKED_REHEARSAL_READY_FOR_CONTROLLED_PUBLIC_CANDIDATE`. The repaired dry-run run `v6_fresh_fed_funds_repair_rehearsal_20260709` reached `LIVE_READY_REQUIRES_OPERATOR_GO`, and pre-public evidence `docs/automation/V6_FRESH_NON_OIL_REHEARSAL_REPAIR/pre_public_gate_evidence_v0.json` records `PASS_PRE_PUBLIC_GATE` with no duplicate article/media family blockers. No public dispatch was run.
+CC artifact packet intake V0 is `PASS_WITH_CAVEAT_CONTENTOPS_CC_PACKET_INTAKE_V0`. ContentOps can now consume a pinned Capital Chronicle `CC_CONTENT_ARTIFACT_PACKET` export, validate schema and ContentOps guard rules, render an internal/manual-review draft, compute component/approval hashes, and emit a local-only rehearsal intent. Approval queue integration is caveated because existing queue/outbox modules are lane-specific or side-effectful; this task writes deterministic dry-run artifacts only. No public dispatch, platform API call, browser/CDP, network/source fetch, credential/session read, scheduler, retry, or main-repo mutation was performed.
 
 ## current_product_lane
 Editorial newsroom lane: canonical articles must pass mechanical quality, independent editorial quality, media diversification/provenance, and visual-slot gates before public dispatch can be treated as product-candidate evidence.
@@ -23,11 +21,12 @@ Editorial newsroom lane: canonical articles must pass mechanical quality, indepe
 `TASK_CONTENTOPS_V6_DRY_RUN_IMAGE_SEARCH_ISOLATION_AND_REAL_FULL_AUTOMATION_REHEARSAL_V0` made the dry-run path network-isolated for image/media discovery, moved dotenv loading out of import-time dry-run paths, added deterministic source-backed local fixture media, added an approval-marker envelope dispatch rehearsal mode, and ran the real CLI/full automation rehearsal end-to-end with no public writes. Acceptance classification: `PASS_REAL_FULL_AUTOMATION_DRY_RUN_REHEARSAL_NO_PUBLIC_WRITE`.
 
 ## status_sha_model
-- `last_verified_remote_sha`: `62d6bfc8655b0ad0169ffe68249d96fcde9f5848` before this repair task.
-- `accepted_visual_repair_sha`: `6a810aadadef4b3c9078173b32bed4b243f8552a`.
-- `latest_headline_ingestion_sha`: `bcf5574d16a433b7b1b3bcb6deea2d7ead402502`.
-- `accepted_product_baseline_sha`: advances with the final pushed blocked-pre-public evidence commit reported in final task evidence.
-- Older stale `3a074`, `332e646`, `496dee`, and pending visual-repair SHA references are superseded by the verified remote/evidence above.
+- `last_verified_remote_sha`: `2f21038903494d966e246bc147febf93ded3134a` before this CC artifact packet intake task.
+- `main_repo_handoff_commit`: `74ccf071ac8558d54e6a3c9d7d2a05ecbf42a2f2` from `fatcat2109/Headline-Raw-data-json`.
+- `sample_packet.main_repo_head`: `69301f0fceee24ba1fa7e6c181ad190b3a4e306a` preserved from the packet metadata and not rewritten.
+- `schema_sha256`: `428e56667f313553501bda9d8be07d565c9f74eea00ab7a03082d442d0d16478`.
+- `sample_packet_sha256`: `5bea02bd6bfe68c75634c4f824af156cf5f2f19251e92c5298d76388d0e8f16f`.
+- `accepted_product_baseline_sha`: advances with the final pushed intake adapter commit reported in final task evidence.
 
 ## canonical_dashboard_surface
 `ui/contentops_v5/` is the canonical current dashboard/app surface unless a newer committed authority document supersedes it.
@@ -48,10 +47,10 @@ Canonical package: `ui/contentops_v5/package.json`.
 - Standalone generated dashboards must not become canonical through convenience.
 
 ## current_v6_loop_status
-Pre-public automation is ready for a controlled public-candidate task after operator GO. The accepted oil/yields rehearsal remains readable but not public-safe after the Telegram Crude/WTI duplicate incident. The repaired non-oil slot/topic is `Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th`; its dry-run rehearsal `v6_fresh_fed_funds_repair_rehearsal_20260709` passed article, editorial, media, duplicate, and eight-platform dry-run payload gates.
+ContentOps now has a local read-only CC artifact packet intake bridge for the downstream content-production layer. The Capital Chronicle local database remains in `A:\Capital Chronicle\Headline Raw data local json\capital-chronicle-ingestion` and remains numeric/source/context authority. CDP ingestion remains catalyst/headline discovery. ContentOps remains content production, platform adaptation, approval, dispatch gating, and readback. Capital Chronicle Analysis Alpha remains future work and is not part of this intake task.
 
 ## dispatch/live status
-No live dispatch was run in this task. The repaired fresh Fed-funds dry-run rehearsal prepared dry-run payloads for Substack, LinkedIn, X, Instagram, Facebook Page, Telegram, Threads, and Discord, with all eight marked `DRY_RUN_REHEARSAL_READY`. Safety flags remained `public_write=false`, `live_platform_api_called=false`, and `credential_lookup_performed=false`. No Telegram Bot API call, Substack publish, social post, retry loop, scheduler run, or public readback occurred.
+No live dispatch was run in this task. The packet-to-rehearsal bridge produced only `docs/automation/CC_ARTIFACT_PACKET_INTAKE_ADAPTER_V0/rehearsal_intent_v0.json` with `public_ready=false`, `dispatch_allowed_now=false`, `live_platform_api_called=false`, `public_write_performed=false`, `credential_lookup_performed=false`, `network_call_performed=false`, and `runner_invocation_performed=false`.
 
 ## article_quality_status
 Current repaired fresh-slot article gates pass for dry-run/pre-public readiness: `body_word_count=2087`, `sections=9`, `source_trail_count=8`, no `UNVERIFIED_SAMPLE_SOURCE_REF`, and specific Fed-funds/rates numeric anchors from official/source-backed references. The prior oil/yields article remains a readable dry-run artifact but must not be public-posted because it collapses into the prior Crude/WTI content family.
@@ -63,44 +62,40 @@ Editorial quality audit remains independent from dispatch. The repaired fresh Fe
 Media status passes for dry-run/pre-public readiness. The repaired fresh Fed-funds candidate uses three non-oil rates visuals: `primary` DFF/policy-corridor chart, `policy_corridor` policy diagram, and `sofr_context` rates/SOFR context chart. Media diversification is `PASS`, auto-publication-safe for dry-run evidence, and pre-public family classification is `fed_funds_policy_rates`, not `crude_wti_oil_volatility`.
 
 ## temporary_fixture_authority_boundary
-The Fed/FRED/NY Fed/Treasury rates path is explicitly labeled `TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE`. It is not a second macro database or durable source-ingestion system. Future numeric/source authority remains `FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY`, and ContentOps must later consume a `CC_CONTENT_ARTIFACT_PACKET` instead of owning source truth. Contract stub: `docs/automation/V6_CC_ARTIFACT_PACKET_CONTRACT/cc_content_artifact_packet_contract_v0.json`. No additional source families should be added directly to ContentOps unless explicitly approved.
+The Fed/FRED/NY Fed/Treasury rates path remains `TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE` only. The durable future authority path is now represented by ContentOps `CC_CONTENT_ARTIFACT_PACKET` V0 intake, where the Capital Chronicle local database/exporter remains `FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY`. ContentOps must not become a second macro database, source parser, source fetcher, numeric truth authority, or Analysis Alpha layer. No additional source families should be added directly to ContentOps unless explicitly approved.
 
 ## provider/env/credential status
-This blocked pre-public task did not read raw env values, did not require credential lookup, did not call live provider APIs, and did not import platform adapters for dispatch. The preflight process scan found zero matching Python live-runner/outbox/scheduler processes.
+This intake task did not read raw env values, credentials, tokens, cookies, localStorage, sessionStorage, browser sessions, webhooks, or provider keys. It did not call provider/platform APIs, perform browser/CDP work, fetch public URLs, fetch/parse macro sources, run a scheduler/retry, or mutate the main repo/database. The only main-repo access was read-only `git show` against pinned commit `74ccf071ac8558d54e6a3c9d7d2a05ecbf42a2f2`.
 
 ## active blockers
-- INCIDENT FREEZE: no further public dispatch until Telegram duplicate posts are manually audited and the next public candidate has explicit operator GO.
-- Controlled public candidate still requires explicit operator GO and a separate public-readback/crop QA task; this repair did not perform a public write.
-- The Fed/FRED/NY Fed/Treasury rates path is temporary fallback fixture logic only; future source authority must come from a Capital Chronicle artifact packet.
-- Telegram duplicate incident evidence confirms screenshot-visible duplicates and committed telemetry line 520 (`message_id=58`); do not rely on stale `latest_dispatch_audit.json` alone for public/no-public conclusions.
-- Future Telegram success requires approval marker + payload hash + duplicate ledger pass + meaningful non-preview body + Bot API photo proof when a photo is requested.
-- Instagram and Threads post edit APIs are unsupported and intentionally return `UNSUPPORTED`.
-- Google/Commons image discovery is review-only unless source-page, rights, recency, and relevance metadata are complete; source-backed diversified media is the reliable auto-public path for oil topics.
-- Fresh headline sidecars are available for this rehearsal at `headline_ingestion/data/intake/headline_sidecars/step1_headline_sidecar_2026_07_08.jsonl` with 1,024 rows captured at `2026-07-08T13:21:21Z`; they remain catalyst/context only, not numeric truth or source clearance.
-- No new public 8-platform live candidate was run in this task; public screenshot/crop/readback QA remains required before product acceptance.
-- Telegram public visual acceptance now requires Bot API photo proof in dispatch evidence; a future live run must verify this with the real channel response.
-- Provider-native article drafts still need reliability hardening so source-backed repair is less frequently required.
-- YouTube Community is future text/image platform work only after current 8-platform QA is hardened. TikTok, YouTube video, Shorts, and video creator work are explicitly out of current scope.
+- CC packet V0 approval queue integration is caveated: deterministic dry-run output exists, but existing queue/outbox modules were not wired because they are lane-specific or side-effectful for this packet shape.
+- DQR `BLOCKED` and `candidate_only=true` packets are internal/manual-review only and are not public-publishable by intake alone.
+- Public dispatch remains blocked unless a separate explicit operator-GO task authorizes it after packet/gate approval.
+- The Capital Chronicle local database/exporter remains the numeric/source/context authority; ContentOps must not fetch/parse macro sources or mutate the main repo/database.
+- The Fed/FRED/NY Fed/Treasury rates path remains temporary fallback fixture logic only.
+- Telegram duplicate incident/readback requirements from prior public-candidate work still apply to any future live task.
 
 ## latest accepted task
-TASK_CONTENTOPS_V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_OPERATOR_GO_READBACK_AND_CROP_QA_V0
+TASK_CONTENTOPS_CC_ARTIFACT_PACKET_INTAKE_TO_REHEARSAL_BRIDGE_HEAVY_BATCH_V0
 
 ## latest changed areas
-- `live_contentops/public_candidate_preflight_v6.py`
-- `tests/test_public_candidate_preflight_v6.py`
-- `docs/automation/V6_CANONICAL_SUBSTACK_ARTICLE/canonical_article_packet.json`
-- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/platform_variant_packet.json`
-- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/latest_dispatch_audit.json`
-- `docs/automation/V6_PLATFORM_NATIVE_VARIANTS/*.md`
-- `docs/automation/V6_CONTROLLED_8_PLATFORM_PUBLIC_CANDIDATE_QA/`
-- `ui/contentops_v5/src/data/platform_variant_packet.json`
+- `schemas/cc_content_artifact_packet_v0.schema.json`
+- `live_contentops/cc_artifact_packet_intake_v0.py`
+- `live_contentops/cc_artifact_packet_render_v0.py`
+- `live_contentops/cc_artifact_packet_approval_v0.py`
+- `live_contentops/cc_artifact_packet_rehearsal_bridge_v0.py`
+- `scripts/intake_cc_artifact_packet_v0.py`
+- `tests/test_cc_artifact_packet_intake_v0.py`
+- `tests/fixtures/cc_artifact_packet_v0/`
+- `docs/automation/CC_ARTIFACT_PACKET_INTAKE_ADAPTER_V0/`
+- `docs/automation/V6_CC_ARTIFACT_PACKET_CONTRACT/`
 - `docs/status/CURRENT_PROJECT_STATUS.md`
 - `docs/status/current_project_status.json`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md`
 
 ## current next recommended task
-`TASK_CONTENTOPS_V6_FRESH_NON_OIL_SOURCE_BACKED_ARTICLE_AND_MEDIA_REHEARSAL_REPAIR_V0`: create a fresh non-duplicate non-oil candidate with source-backed article evidence and matching non-oil media, pass mechanical/editorial/media/duplicate dry-run gates, then resume the controlled 8-platform public candidate only after pre-public gate PASS.
+`TASK_CONTENTOPS_CC_ARTIFACT_PACKET_OPERATOR_DECISION_AND_CONTROLLED_PUBLIC_CANDIDATE_REHEARSAL_V1`: operator decision on whether the DQR-blocked/candidate sample remains internal-only or whether a future approved packet/schema can proceed to a controlled no-public-write rehearsal. Public/live candidate work still requires a separate explicit operator-GO task and appropriate gates.
 
 ## latest UI hardening status
 TASK_0069 status acknowledges accepted V5 Final Readiness UI hardening: verdict strip, evidence trail, remaining blockers panel, and operator handoff checklist. Under Fast Ship Mode, all live action restrictions are bypassed.

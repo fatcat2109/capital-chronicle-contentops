@@ -1,0 +1,113 @@
+{
+  "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+  "approval_hash_path": "docs/automation/CC_ARTIFACT_PACKET_INTAKE_ADAPTER_V0/approval_hash_v0.txt",
+  "approval_queue_integration_status": "caveated_dry_run_output_only_existing_queue_not_stable_for_v0_packet",
+  "architecture_boundary": {
+    "analysis_alpha": "future value/intelligence layer, not part of this task",
+    "capital_chronicle_local_database": "numeric/source/context authority; remains in A:\\Capital Chronicle\\Headline Raw data local json\\capital-chronicle-ingestion",
+    "cdp_ingestion": "fresh catalyst/headline/event discovery",
+    "contentops": "content production, platform adaptation, approval, dispatch gating, and readback"
+  },
+  "branch": "master target via HEAD:master push; local worktree branch remains task/telegram-substack-regression-repair because master is linked elsewhere",
+  "caveat_reason": "Adapter, approval hash, CLI dry-run, and local rehearsal intent work. Existing approval/draft/outbox queue modules are lane-specific or side-effectful for this V0 packet shape, so integration is deterministic dry-run output only.",
+  "caveats": [
+    "DQR BLOCKED and candidate_only=true packets are internal/manual-review only.",
+    "Direct approval queue integration is deferred because existing queues are not a stable V0 packet target.",
+    "Public/live candidate still requires a separate explicit operator-GO task and a future approved packet/gate state."
+  ],
+  "classification": "PASS_WITH_CAVEAT_CONTENTOPS_CC_PACKET_INTAKE_V0",
+  "cli_command": "python scripts/intake_cc_artifact_packet_v0.py --packet tests/fixtures/cc_artifact_packet_v0/sample_internal_draft_packet_v0.json --schema schemas/cc_content_artifact_packet_v0.schema.json --dry-run --output-dir docs/automation/CC_ARTIFACT_PACKET_INTAKE_ADAPTER_V0",
+  "cli_result": "PASS exit_code=0; wrote internal_draft_v0.json, intake_dry_run_summary_v0.json, approval_hash_v0.txt, rehearsal_intent_v0.json",
+  "commit_message": "feat: add cc artifact packet intake adapter v0",
+  "commit_sha": "reported_in_final_response_after_commit_and_push",
+  "component_hashes": {
+    "claim_ledger": "251c010617a2546f671f38eb4c01df637e7c9bafb74578b632d3133f905a739c",
+    "coverage_gaps": "04dadb1d553c0d58901caeb15b6949f5a9ef967c8b9a16a8254e887ce34de728",
+    "forbidden_use_notes": "8ed5a1f4c930e47a16279d838d8a9dfe1aa81d44e6a725401db533dc5ace8f53",
+    "limitations": "f1f2863c866fc05b46f4956f1ff244862db6d89b62cca19e19f9a5f7714bdb9b",
+    "numeric_anchors": "cea80d438a1997d5c82a1903759e6378b7e210e962950495e6e8382673cebc9d",
+    "platform_suitability": "480700ad50267e5bd487e6d2c6e2f967731970cffed82f69ed00f5ae720e36d6",
+    "source_trail": "bd581651c8a8ee04a105cc1a693770e479496f420297f74bad613a1e7f5e7f4c"
+  },
+  "contentops_source_brain_boundary_confirmation": "No macro source fetcher/parser, numeric truth verifier, database mirror, source-family fixture, or Analysis Alpha layer was added to ContentOps.",
+  "dry_run_bridge_status": "LOCAL_REHEARSAL_INTENT_READY_INTERNAL_REVIEW_ONLY",
+  "dry_run_summary_path": "docs/automation/CC_ARTIFACT_PACKET_INTAKE_ADAPTER_V0/intake_dry_run_summary_v0.json",
+  "exact_next_recommended_task": "TASK_CONTENTOPS_CC_ARTIFACT_PACKET_OPERATOR_DECISION_AND_CONTROLLED_PUBLIC_CANDIDATE_REHEARSAL_V1",
+  "files_changed": [
+    "schemas/cc_content_artifact_packet_v0.schema.json",
+    "live_contentops/cc_artifact_packet_intake_v0.py",
+    "live_contentops/cc_artifact_packet_render_v0.py",
+    "live_contentops/cc_artifact_packet_approval_v0.py",
+    "live_contentops/cc_artifact_packet_rehearsal_bridge_v0.py",
+    "scripts/intake_cc_artifact_packet_v0.py",
+    "tests/test_cc_artifact_packet_intake_v0.py",
+    "tests/fixtures/cc_artifact_packet_v0/",
+    "docs/automation/CC_ARTIFACT_PACKET_INTAKE_ADAPTER_V0/",
+    "docs/automation/V6_CC_ARTIFACT_PACKET_CONTRACT/README.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json"
+  ],
+  "final_head": "reported_in_final_response_after_commit_and_push",
+  "github_repo": "fatcat2109/capital-chronicle-contentops",
+  "local_repo_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa",
+  "main_repo_github_repo": "fatcat2109/Headline-Raw-data-json",
+  "main_repo_local_path": "A:\\Capital Chronicle\\Headline Raw data local json\\capital-chronicle-ingestion",
+  "main_repo_pinned_handoff_commit": "74ccf071ac8558d54e6a3c9d7d2a05ecbf42a2f2",
+  "no_main_repo_write_confirmation": {
+    "authority_file_status_check": "git status --short for pinned schema/sample/runbooks returned no output",
+    "performed": false
+  },
+  "no_network_confirmation": true,
+  "no_public_dispatch_platform_api_confirmation": true,
+  "no_secret_env_session_read_confirmation": true,
+  "public_ready": false,
+  "rehearsal_intent_path": "docs/automation/CC_ARTIFACT_PACKET_INTAKE_ADAPTER_V0/rehearsal_intent_v0.json",
+  "sample_packet_contentops_path": "tests/fixtures/cc_artifact_packet_v0/sample_internal_draft_packet_v0.json",
+  "sample_packet_copy_byte_exact": true,
+  "sample_packet_main_repo_head": "69301f0fceee24ba1fa7e6c181ad190b3a4e306a",
+  "sample_packet_sha256": "5bea02bd6bfe68c75634c4f824af156cf5f2f19251e92c5298d76388d0e8f16f",
+  "sample_packet_source_path": "data/exports/content_artifact_packets/sample_internal_draft_packet_v0.json",
+  "sample_rendered_draft_path": "docs/automation/CC_ARTIFACT_PACKET_INTAKE_ADAPTER_V0/internal_draft_v0.json",
+  "schema_contentops_path": "schemas/cc_content_artifact_packet_v0.schema.json",
+  "schema_copy_byte_exact": true,
+  "schema_sha256": "428e56667f313553501bda9d8be07d565c9f74eea00ab7a03082d442d0d16478",
+  "schema_source_path": "schemas/content_artifact_packet_v0.schema.json",
+  "starting_head": "2f21038903494d966e246bc147febf93ded3134a",
+  "task_label": "TASK_CONTENTOPS_CC_ARTIFACT_PACKET_INTAKE_TO_REHEARSAL_BRIDGE_HEAVY_BATCH_V0",
+  "tests_run": [
+    {
+      "command": "python -m pytest tests/test_cc_artifact_packet_intake_v0.py -q",
+      "result": "PASS 27 passed"
+    },
+    {
+      "command": "python -m pytest tests/test_security_scans.py -q",
+      "result": "PASS 1 passed"
+    },
+    {
+      "command": "python -m pytest tests/test_public_candidate_preflight_v6.py -q",
+      "result": "PASS 5 passed"
+    },
+    {
+      "command": "python -m pytest tests/test_pipeline_rehearsal_evidence_v6.py -q",
+      "result": "PASS 5 passed"
+    },
+    {
+      "command": "python -m pytest tests/test_live_production_pipeline_runner.py -q",
+      "result": "PASS 29 passed"
+    },
+    {
+      "command": "python -m py_compile live_contentops/cc_artifact_packet_intake_v0.py live_contentops/cc_artifact_packet_render_v0.py live_contentops/cc_artifact_packet_approval_v0.py live_contentops/cc_artifact_packet_rehearsal_bridge_v0.py scripts/intake_cc_artifact_packet_v0.py",
+      "result": "PASS"
+    },
+    {
+      "command": "JSON validation for schema, sample, status, internal draft, summary, rehearsal intent",
+      "result": "PASS 6 files"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS; CRLF warning only for next_task_pointer.md"
+    }
+  ]
+}

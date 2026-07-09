@@ -1,0 +1,94 @@
+{
+  "packet_id": "98d0ba82-8912-4d80-902e-bfba3a97a835",
+  "schema_version": "v0",
+  "generated_at_utc": "2026-07-09T07:10:10Z",
+  "main_repo_head": "69301f0fceee24ba1fa7e6c181ad190b3a4e306a",
+  "audit_snapshot_ref": "2026-07-09T06:57:06+00:00",
+  "manifest_id": "TASK_PHASE3_SOURCE_GAP_REPRIORITIZATION_AND_MANIFEST_BACKFILL_V1",
+  "dqr_status": "BLOCKED",
+  "candidate_only": false,
+  "forbidden_use_notes": [
+    "INTERNAL DRAFT USE ONLY. Do not use for live trading or execution.",
+    "DQR status is BLOCKED. All values are non-authoritative candidate staging states."
+  ],
+  "platform_suitability": [
+    "slack",
+    "email_internal"
+  ],
+  "contentops_instructions": [
+    "Retain all source caveats and uncertainty markings.",
+    "Do not publish or distribute externally."
+  ],
+  "source_quality_status": "degraded (success_files=92, active_failures=6)",
+  "topic": "US Macro & Alternative Ingestion Audit",
+  "article_angle": "Current candidate database captures stabilized under Wave A repairs.",
+  "headline_or_catalyst": "Staged database contains 1386270 candidate records.",
+  "source_trail": [
+    "data/audit/all_source_incremental_audit_v1.json",
+    "data/audit/ingestion_failure_log.json"
+  ],
+  "claim_ledger": [
+    {
+      "claim_text": "Census EITS retail sales parameters have been stabilized to 2025/seasonally adjusted (candidate draft state).",
+      "support_status": "supported",
+      "source_refs": [
+        "census_eits_data_lane_integration_v1.py"
+      ],
+      "allowed_wording": [
+        "parameters stabilized",
+        "candidate run"
+      ],
+      "forbidden_wording": [
+        "DQR cleared",
+        "production active"
+      ]
+    },
+    {
+      "claim_text": "CFTC COT live capture User-Agent headers verified (candidate draft state).",
+      "support_status": "supported",
+      "source_refs": [
+        "cftc_cot_positioning_controlled_live_capture_v1.py"
+      ],
+      "allowed_wording": [
+        "User-Agent verified"
+      ],
+      "forbidden_wording": [
+        "production active"
+      ]
+    }
+  ],
+  "numeric_anchors": [
+    {
+      "value": 208424.0,
+      "unit": "economic_prints",
+      "timestamp": "2026-07-09T07:10:10Z",
+      "period": "2026-07-09",
+      "source_ref": "candidate_historical_foundation.economic_prints",
+      "authority_status": "candidate",
+      "caveat": "Non-authoritative candidate records under blocked DQR."
+    },
+    {
+      "value": 2512.0,
+      "unit": "market_snapshots",
+      "timestamp": "2026-07-09T07:10:10Z",
+      "period": "2026-07-09",
+      "source_ref": "candidate_historical_foundation.market_snapshots",
+      "authority_status": "candidate",
+      "caveat": "Non-authoritative candidate records under blocked DQR."
+    }
+  ],
+  "chart_specs": null,
+  "coverage_gaps": [
+    "VIX (spot)",
+    "DXY (spot)",
+    "SPX_spot",
+    "WTI_front",
+    "Gold_spot",
+    "USDJPY"
+  ],
+  "limitations": [
+    "DQR status is BLOCKED.",
+    "Paid exchange feeds deferred as deferred_paid_proxy."
+  ],
+  "publish_eligibility": "internal_draft_only"
+}

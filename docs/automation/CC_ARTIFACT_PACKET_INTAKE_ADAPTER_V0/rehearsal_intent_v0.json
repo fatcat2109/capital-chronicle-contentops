@@ -1,0 +1,33 @@
+{
+  "accepted_for_internal_draft": true,
+  "accepted_for_rehearsal_payload_render": true,
+  "approval_hash": "b0b173381ea6547c7ff5f836c13d9ac37e38ea9165bffd57ff7eac929c9488ef",
+  "article_angle": "Current candidate database captures stabilized under Wave A repairs.",
+  "blocked_actions": [
+    "public_dispatch",
+    "platform_api_call",
+    "scheduler_enqueue",
+    "retry_enqueue",
+    "browser_or_cdp_readback",
+    "source_fetch",
+    "macro_source_parse",
+    "main_repo_mutation"
+  ],
+  "bridge_kind": "cc_artifact_packet_to_contentops_rehearsal_intent_v0",
+  "bridge_status": "LOCAL_REHEARSAL_INTENT_READY_INTERNAL_REVIEW_ONLY",
+  "credential_lookup_performed": false,
+  "dispatch_allowed_now": false,
+  "dqr_blocked_public_gate": true,
+  "headline_or_catalyst": "Staged database contains 1386270 candidate records.",
+  "live_platform_api_called": false,
+  "manual_review_required": true,
+  "network_call_performed": false,
+  "next_gate": "Separate operator decision and future approved packet/public-candidate task required.",
+  "packet_id": "98d0ba82-8912-4d80-902e-bfba3a97a835",
+  "public_ready": false,
+  "public_write_performed": false,
+  "runner_invocation_allowed": false,
+  "runner_invocation_performed": false,
+  "statement": "Packet accepted for internal draft/rehearsal intent only. DQR BLOCKED means public-ready remains false unless a future approved schema and gates change.",
+  "topic": "US Macro & Alternative Ingestion Audit"
+}
