@@ -38,7 +38,7 @@ def generate_platform_variant_copy(
     editorial_title = meta.get("editorial_title")
     draft_status = meta.get("draft_status")
     media_gen_status = media_plan.get("media_generation_status")
-    source_draft_path = meta.get("source_article_brief")  # fallback or draft reference
+    source_draft_path = meta.get("source_article_draft") or (meta_path.parent / "article_draft_v0.md")
 
     # 2. Generate Platform Copy specs
     caveat_line = "Candidate editorial preview copy. Numeric values are qualitative background and require database verification (Caveat: unverified)."

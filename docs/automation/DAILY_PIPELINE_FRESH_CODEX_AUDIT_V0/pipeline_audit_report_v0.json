@@ -1,0 +1,192 @@
+{
+  "task_label": "TASK_CONTENTOPS_DAILY_PIPELINE_FRESH_CODEX_DEEP_AUDIT_AND_READINESS_GATE_V0",
+  "audited_head": "0effca08df03e27470c217d0489a4e8876436dd9",
+  "stages": [
+    {
+      "stage_id": "daily_x_cdp_headline_capture",
+      "stage_number": 1,
+      "directory": "docs/automation/DAILY_X_CDP_HEADLINE_CAPTURE_PACKET_V0",
+      "json_output_artifact_present": true,
+      "human_readable_output_present": true,
+      "run_evidence_present": true,
+      "lineage_status": "origin_stage_fixture_local",
+      "candidate_or_fixture_boundary": "fixture_local",
+      "safety_status": "PASS_NO_LIVE_ACTION"
+    },
+    {
+      "stage_id": "daily_headline_cluster_rank_article_idea",
+      "stage_number": 2,
+      "directory": "docs/automation/DAILY_HEADLINE_CLUSTER_RANK_ARTICLE_IDEA_PACKET_V0",
+      "json_output_artifact_present": true,
+      "human_readable_output_present": true,
+      "run_evidence_present": true,
+      "lineage_status": "PASS_HEADLINE_IDS_EXIST_IN_STEP_1_RAW_PACKET",
+      "selected_idea_id": "idea_macro_policy_rates_liquidity_20260709",
+      "selected_topic_family": "macro_policy_rates_liquidity",
+      "safety_status": "PASS_NO_LIVE_ACTION"
+    },
+    {
+      "stage_id": "daily_database_support_packet",
+      "stage_number": 3,
+      "directory": "docs/automation/DAILY_DATABASE_SUPPORT_PACKET_V0",
+      "json_output_artifact_present": true,
+      "human_readable_output_present": true,
+      "run_evidence_present": true,
+      "lineage_status": "PASS_SELECTED_JAPAN_IDEA_REVIEWED_FOR_SUPPORT",
+      "selected_idea_id": "idea_macro_policy_rates_liquidity_20260709",
+      "ready_for_article_draft": false,
+      "exact_numeric_claims_made": false,
+      "safety_status": "PASS_NO_LIVE_ACTION"
+    },
+    {
+      "stage_id": "daily_database_support_gap_repair_plan",
+      "stage_number": 4,
+      "directory": "docs/automation/DAILY_DATABASE_SUPPORT_GAP_REPAIR_PLAN_V0",
+      "json_output_artifact_present": true,
+      "human_readable_output_present": true,
+      "run_evidence_present": true,
+      "lineage_status": "PASS_JAPAN_IDEA_BLOCKED_BEFORE_DRAFTING",
+      "article_draft_blocked": true,
+      "article_draft_allowed_as_candidate_only": false,
+      "safety_status": "PASS_NO_LIVE_ACTION"
+    },
+    {
+      "stage_id": "support_aware_article_idea_reselection",
+      "stage_number": 5,
+      "directory": "docs/automation/SUPPORT_AWARE_ARTICLE_IDEA_RESELECTION_V0",
+      "json_output_artifact_present": true,
+      "human_readable_output_present": true,
+      "run_evidence_present": true,
+      "lineage_status": "PASS_JAPAN_BLOCK_PRESERVED_AND_OIL_TOPIC_RESELECTED",
+      "original_idea_blocked": true,
+      "reselected_idea_id": "idea_energy_commodities_20260709",
+      "reselected_topic_family": "energy_commodities",
+      "safety_status": "PASS_NO_LIVE_ACTION"
+    },
+    {
+      "stage_id": "daily_article_brief_generation",
+      "stage_number": 6,
+      "directory": "docs/automation/DAILY_ARTICLE_BRIEF_GENERATION_V0",
+      "json_output_artifact_present": true,
+      "human_readable_output_present": true,
+      "run_evidence_present": true,
+      "lineage_status": "PASS_USES_RESELECTION_PACKET",
+      "selected_idea_id": "idea_energy_commodities_20260709",
+      "draft_readiness": "candidate_only",
+      "safety_status": "PASS_NO_LIVE_ACTION"
+    },
+    {
+      "stage_id": "daily_seo_article_drafting",
+      "stage_number": 7,
+      "directory": "docs/automation/DAILY_SEO_ARTICLE_DRAFTING_V0",
+      "json_output_artifact_present": true,
+      "human_readable_output_present": true,
+      "run_evidence_present": true,
+      "lineage_status": "PASS_USES_ARTICLE_BRIEF",
+      "selected_idea_id": "idea_energy_commodities_20260709",
+      "draft_status": "candidate_only",
+      "platform_payload_created": false,
+      "dispatch_ready": false,
+      "exact_numeric_claims_made": false,
+      "safety_status": "PASS_NO_LIVE_ACTION"
+    },
+    {
+      "stage_id": "daily_media_plan_spec",
+      "stage_number": 8,
+      "directory": "docs/automation/DAILY_MEDIA_PLAN_SPEC_V0",
+      "json_output_artifact_present": true,
+      "human_readable_output_present": true,
+      "run_evidence_present": true,
+      "lineage_status": "PASS_USES_SEO_ARTICLE_DRAFT_MARKDOWN",
+      "source_article_draft": "docs/automation/DAILY_SEO_ARTICLE_DRAFTING_V0/article_draft_v0.md",
+      "draft_status": "candidate_only",
+      "media_generation_status": "planning_only",
+      "generation_allowed_now": false,
+      "chart_render_allowed_now": false,
+      "safety_status": "PASS_NO_MEDIA_GENERATION"
+    },
+    {
+      "stage_id": "daily_platform_variant_candidate_copy",
+      "stage_number": 9,
+      "directory": "docs/automation/DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0",
+      "json_output_artifact_present": true,
+      "human_readable_output_present": true,
+      "run_evidence_present": true,
+      "lineage_status": "PASS_REPAIRED_USES_SEO_ARTICLE_DRAFT_AND_MEDIA_PLAN",
+      "source_article_draft": "docs/automation/DAILY_SEO_ARTICLE_DRAFTING_V0/article_draft_v0.md",
+      "source_media_plan": "docs/automation/DAILY_MEDIA_PLAN_SPEC_V0/media_plan_spec_v0.json",
+      "platform_copy_status": "candidate_only",
+      "platform_payload_created": false,
+      "dispatch_allowed_now": false,
+      "telegram_meaningful_text_body": true,
+      "safety_status": "PASS_NO_PLATFORM_PAYLOAD_OR_DISPATCH"
+    }
+  ],
+  "findings": [
+    {
+      "finding_id": "PLATFORM_SOURCE_ARTICLE_DRAFT_STALE_PATH_V0",
+      "severity": "medium",
+      "status": "REPAIRED",
+      "description": "Platform-copy lineage used the upstream article brief JSON as source_article_draft instead of the SEO draft artifact.",
+      "wrong_path": "docs/automation/DAILY_ARTICLE_BRIEF_GENERATION_V0/article_brief_v0.json",
+      "correct_path": "docs/automation/DAILY_SEO_ARTICLE_DRAFTING_V0/article_draft_v0.md"
+    }
+  ],
+  "repairs_performed": [
+    {
+      "repair_id": "SOURCE_ARTICLE_DRAFT_LINEAGE_PATH_REPAIR_V0",
+      "changed_files": [
+        "live_contentops/daily_platform_variant_candidate_copy_v0.py",
+        "tests/test_daily_platform_variant_candidate_copy_v0.py",
+        "docs/automation/DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0/platform_variant_candidate_copy_v0.json",
+        "docs/automation/DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0/run_evidence_v0.json"
+      ],
+      "script_change_required": false,
+      "details": "The builder now emits the SEO draft markdown path, and committed platform-copy JSON evidence has been repaired."
+    }
+  ],
+  "tests_run": [
+    {
+      "command": "python -m pytest tests/test_daily_platform_variant_candidate_copy_v0.py -q",
+      "status": "PASS"
+    },
+    {
+      "command": "python -m pytest tests/test_daily_x_cdp_headline_capture_packet_v0.py tests/test_daily_headline_cluster_rank_article_idea_packet_v0.py tests/test_daily_database_support_packet_v0.py tests/test_daily_database_support_gap_repair_plan_v0.py tests/test_support_aware_article_idea_reselection_v0.py tests/test_daily_article_brief_generation_v0.py tests/test_daily_seo_article_drafting_v0.py tests/test_daily_media_plan_spec_v0.py tests/test_daily_platform_variant_candidate_copy_v0.py tests/test_daily_pipeline_fresh_codex_audit_v0.py -q",
+      "status": "PASS_BEFORE_COMMIT"
+    },
+    {
+      "command": "python -m py_compile live_contentops/*.py scripts/*.py",
+      "status": "SHELL_WILDCARD_EXPANSION_FAILED_IN_POWERSHELL",
+      "details": "PowerShell passed wildcard arguments literally, producing an invalid argument before code compilation."
+    },
+    {
+      "command": "internal Python py_compile expansion over live_contentops/*.py and scripts/*.py",
+      "status": "PASS",
+      "details": "Compiled 551 Python files."
+    },
+    {
+      "command": "git diff --check",
+      "status": "PASS_BEFORE_COMMIT"
+    },
+    {
+      "command": "git status --short",
+      "status": "PASS_BEFORE_COMMIT_WITH_EXPECTED_TASK_CHANGES"
+    }
+  ],
+  "forbidden_actions_confirmed_absent": {
+    "live_run": true,
+    "platform_api_call": true,
+    "browser_cdp_action": true,
+    "raw_secret_read": true,
+    "env_credential_session_read": true,
+    "dispatch_post_publish_comment": true,
+    "scheduler_retry_outbox_execution": true,
+    "external_web_api_source_fetch": true,
+    "media_image_chart_generation": true,
+    "main_database_repo_mutation": true,
+    "forbidden_status_master_ledger_bootstrap_edit": true
+  },
+  "readiness_classification": "PASS_READY_FOR_SEPARATE_OPERATOR_APPROVED_LIVE_RUN",
+  "exact_next_recommended_task": "TASK_CONTENTOPS_OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0",
+  "blockers": []
+}

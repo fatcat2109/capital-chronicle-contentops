@@ -1,0 +1,29 @@
+{
+  "task_label": "TASK_CONTENTOPS_DAILY_PIPELINE_FRESH_CODEX_DEEP_AUDIT_AND_READINESS_GATE_V0",
+  "baseline_head": "0effca08df03e27470c217d0489a4e8876436dd9",
+  "final_head": "reported_in_final_response_after_commit",
+  "pipeline_lineage_pass": true,
+  "candidate_only_state_pass": true,
+  "no_secret_read_pass": true,
+  "no_live_action_pass": true,
+  "no_platform_payload_pass": true,
+  "no_dispatch_pass": true,
+  "no_exact_numeric_truth_pass": true,
+  "telegram_meaningful_text_pass": true,
+  "media_generation_blocked_pass": true,
+  "source_lineage_repair_performed": true,
+  "source_lineage_repair_details": {
+    "confirmed_wrong_path": "docs/automation/DAILY_ARTICLE_BRIEF_GENERATION_V0/article_brief_v0.json",
+    "corrected_path": "docs/automation/DAILY_SEO_ARTICLE_DRAFTING_V0/article_draft_v0.md",
+    "changed_files": [
+      "live_contentops/daily_platform_variant_candidate_copy_v0.py",
+      "tests/test_daily_platform_variant_candidate_copy_v0.py",
+      "docs/automation/DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0/platform_variant_candidate_copy_v0.json",
+      "docs/automation/DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0/run_evidence_v0.json"
+    ],
+    "script_change_required": false
+  },
+  "ready_for_separate_operator_approved_live_run": true,
+  "live_run_must_be_separate_task": true,
+  "blockers": []
+}

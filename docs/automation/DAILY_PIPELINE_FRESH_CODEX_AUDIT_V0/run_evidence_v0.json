@@ -1,0 +1,42 @@
+{
+  "task_label": "TASK_CONTENTOPS_DAILY_PIPELINE_FRESH_CODEX_DEEP_AUDIT_AND_READINESS_GATE_V0",
+  "classification": "PASS_READY_FOR_SEPARATE_OPERATOR_APPROVED_LIVE_RUN",
+  "baseline_head": "0effca08df03e27470c217d0489a4e8876436dd9",
+  "starting_branch": "master",
+  "starting_worktree_clean": true,
+  "remote_origin_master_verified": "0effca08df03e27470c217d0489a4e8876436dd9",
+  "remote_authority_check_command": "git ls-remote origin refs/heads/master",
+  "lineage_audit_performed": true,
+  "source_lineage_repair_performed": true,
+  "source_lineage_repair_scope": "daily_platform_variant_candidate_copy_source_article_draft_only",
+  "live_run_performed": false,
+  "platform_api_call_performed": false,
+  "browser_cdp_performed": false,
+  "raw_secret_read_performed": false,
+  "env_credential_session_read_performed": false,
+  "external_web_or_api_source_fetch_performed": false,
+  "media_image_or_chart_generated": false,
+  "platform_payload_or_outbox_entry_created": false,
+  "dispatch_post_publish_comment_performed": false,
+  "scheduler_retry_outbox_execution_performed": false,
+  "main_database_repo_mutated": false,
+  "status_master_ledger_bootstrap_docs_edited": false,
+  "status_docs_not_updated_reason": "Explicitly forbidden by this audit task.",
+  "output_paths": {
+    "readme": "docs/automation/DAILY_PIPELINE_FRESH_CODEX_AUDIT_V0/README.md",
+    "pipeline_audit_report_md": "docs/automation/DAILY_PIPELINE_FRESH_CODEX_AUDIT_V0/pipeline_audit_report_v0.md",
+    "pipeline_audit_report_json": "docs/automation/DAILY_PIPELINE_FRESH_CODEX_AUDIT_V0/pipeline_audit_report_v0.json",
+    "live_readiness_gate_json": "docs/automation/DAILY_PIPELINE_FRESH_CODEX_AUDIT_V0/live_readiness_gate_v0.json",
+    "run_evidence": "docs/automation/DAILY_PIPELINE_FRESH_CODEX_AUDIT_V0/run_evidence_v0.json"
+  },
+  "validation_commands": [
+    "python -m pytest tests/test_daily_platform_variant_candidate_copy_v0.py -q",
+    "python -m pytest tests/test_daily_x_cdp_headline_capture_packet_v0.py tests/test_daily_headline_cluster_rank_article_idea_packet_v0.py tests/test_daily_database_support_packet_v0.py tests/test_daily_database_support_gap_repair_plan_v0.py tests/test_support_aware_article_idea_reselection_v0.py tests/test_daily_article_brief_generation_v0.py tests/test_daily_seo_article_drafting_v0.py tests/test_daily_media_plan_spec_v0.py tests/test_daily_platform_variant_candidate_copy_v0.py tests/test_daily_pipeline_fresh_codex_audit_v0.py -q",
+    "python -m py_compile live_contentops/*.py scripts/*.py -> PowerShell wildcard literal failure before compile",
+    "internal Python py_compile expansion over live_contentops/*.py and scripts/*.py -> PASS, 551 files compiled",
+    "git diff --check",
+    "git status --short"
+  ],
+  "exact_next_recommended_task": "TASK_CONTENTOPS_OPERATOR_APPROVED_SUPERVISED_LIVE_DAILY_RUN_V0",
+  "blockers": []
+}

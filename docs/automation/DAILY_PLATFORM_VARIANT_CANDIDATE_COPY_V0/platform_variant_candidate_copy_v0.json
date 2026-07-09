@@ -1,6 +1,6 @@
 {
   "task_label": "TASK_CONTENTOPS_DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0",
-  "source_article_draft": "docs\\automation\\DAILY_ARTICLE_BRIEF_GENERATION_V0\\article_brief_v0.json",
+  "source_article_draft": "docs\\automation\\DAILY_SEO_ARTICLE_DRAFTING_V0\\article_draft_v0.md",
   "source_media_plan": "docs\\automation\\DAILY_MEDIA_PLAN_SPEC_V0\\media_plan_spec_v0.json",
   "draft_status": "candidate_only",
   "platform_copy_status": "candidate_only",

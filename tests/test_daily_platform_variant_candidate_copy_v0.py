@@ -24,6 +24,8 @@ def temp_workspace(tmp_path):
     meta_file = tmp_path / "article_draft_metadata_v0.json"
     with open(meta_file, "w", encoding="utf-8") as f:
         json.dump(draft_metadata, f, indent=2)
+    draft_file = tmp_path / "article_draft_v0.md"
+    draft_file.write_text("# Candidate SEO Draft\n\nDraft body placeholder.\n", encoding="utf-8")
 
     # Setup mock media plan file
     media_plan = {
@@ -61,6 +63,9 @@ def test_generate_platform_variant_copy(temp_workspace):
     # Verify platform copy loading and status preservation
     assert copy_json["draft_status"] == "candidate_only"
     assert copy_json["platform_copy_status"] == "candidate_only"
+    assert copy_json["source_article_draft"] == str(meta_file.parent / "article_draft_v0.md")
+    assert evidence["source_article_draft"] == str(meta_file.parent / "article_draft_v0.md")
+    assert "article_brief_v0.json" not in copy_json["source_article_draft"]
 
     # Verify Substack, Telegram, and Twitter variants created
     platforms = [v["platform"] for v in copy_json["variants"]]
