@@ -1,0 +1,44 @@
+{
+  "task_label": "TASK_CONTENTOPS_DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0",
+  "source_article_draft": "docs\\automation\\DAILY_ARTICLE_BRIEF_GENERATION_V0\\article_brief_v0.json",
+  "source_media_plan": "docs\\automation\\DAILY_MEDIA_PLAN_SPEC_V0\\media_plan_spec_v0.json",
+  "draft_status": "candidate_only",
+  "platform_copy_status": "candidate_only",
+  "variants": [
+    {
+      "platform": "substack",
+      "copy_status": "candidate_only",
+      "headline": "US Crude Export Surge: Structural Shifts in Global Energy Markets",
+      "body_copy": "In this edition, we analyze how surging US crude exports, domestic shale production capacity, and Strategic Petroleum Reserve (SPR) dynamics are realigning global trade routes and pricing coordinates. As the US consolidates its role as a major swing producer, the implications for physical markets and OPEC+ coordinates are structural.",
+      "caveat_line": "Candidate editorial preview copy. Numeric values are qualitative background and require database verification.",
+      "media_reference_policy": "planned_only_no_asset_generated",
+      "numeric_claim_policy": "qualitative discussion only",
+      "dispatch_allowed_now": false
+    },
+    {
+      "platform": "telegram",
+      "copy_status": "candidate_only",
+      "headline": "⚡️ US Crude Exports and the New Global Flow",
+      "body_copy": "US crude oil exports have structurally transformed global energy flows. Driven by shale production heights and gulf coast capacity, headline reports show export runs hitting approximately 5 million barrels per day. Strategic Petroleum Reserve (SPR) replenishment policies introduce localized pricing dynamics, realigning physical arbitrage windows against Brent-linked flows. This shift reduces traditional OPEC+ market coordination leverage.\n\nNotice: Candidate editorial draft. Numeric references require database verification.",
+      "caveat_line": "Candidate editorial preview copy. Numeric values are qualitative background and require database verification.",
+      "media_reference_policy": "planned_only_no_asset_generated",
+      "numeric_claim_policy": "qualitative discussion only",
+      "dispatch_allowed_now": false
+    },
+    {
+      "platform": "twitter",
+      "copy_status": "candidate_only",
+      "headline": "US Oil Export Surge Thread",
+      "body_copy": "1/ Surging US crude oil exports and domestic shale production capacity are fundamentally reshaping global energy flows. A quick thread on the structural realignment. 🧵\n\n2/ Driven by shale output and gulf coast infrastructure, exports have reached reported peaks around 5 million barrels per day (qualitative candidate value). This positions the US as a key swing producer.\n\n3/ Strategic Petroleum Reserve (SPR) drawdowns and replenishment mandates introduce localized supply/demand forces, impacting nearby physical pricing coordinates.\n\n4/ As physical US flows increasingly target global refiners, traditional pricing benchmarks are facing new flow coordinates. Realignment remains structural, not temporary.",
+      "caveat_line": "Candidate editorial preview copy. Numeric values are qualitative background and require database verification.",
+      "media_reference_policy": "planned_only_no_asset_generated",
+      "numeric_claim_policy": "qualitative discussion only",
+      "dispatch_allowed_now": false
+    }
+  ],
+  "media_generation_status": "planning_only",
+  "platform_payload_created": false,
+  "dispatch_allowed_now": false,
+  "approval_required_before_publish": true,
+  "caveats": "This is a platform copy variant spec only. No real outbox payloads or API dispatches are created."
+}

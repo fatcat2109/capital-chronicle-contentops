@@ -1,0 +1,24 @@
+{
+  "classification": "PASS_CONTENTOPS_DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0",
+  "task_label": "TASK_CONTENTOPS_DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0",
+  "baseline_head": "f6d2ff37dd3e3e45ccb81ebfdacf01ba307de7fb",
+  "source_article_draft": "docs\\automation\\DAILY_ARTICLE_BRIEF_GENERATION_V0\\article_brief_v0.json",
+  "source_media_plan": "docs\\automation\\DAILY_MEDIA_PLAN_SPEC_V0\\media_plan_spec_v0.json",
+  "draft_status": "candidate_only",
+  "platform_copy_status": "candidate_only",
+  "no_main_repo_mutation_confirmation": true,
+  "no_external_fetch_confirmation": true,
+  "no_database_repair_confirmation": true,
+  "no_actual_media_generated_confirmation": true,
+  "no_platform_api_confirmation": true,
+  "no_platform_write_confirmation": true,
+  "no_dispatch_confirmation": true,
+  "no_raw_secret_read_confirmation": true,
+  "output_paths": {
+    "platform_variant_candidate_copy_json": "docs\\automation\\DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0\\platform_variant_candidate_copy_v0.json",
+    "platform_variant_candidate_copy_md": "docs\\automation\\DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0\\platform_variant_candidate_copy_v0.md",
+    "platform_copy_safety_review_json": "docs\\automation\\DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0\\platform_copy_safety_review_v0.json",
+    "run_evidence": "docs\\automation\\DAILY_PLATFORM_VARIANT_CANDIDATE_COPY_V0\\run_evidence_v0.json"
+  },
+  "blockers": []
+}
