@@ -1,0 +1,165 @@
+{
+  "approved_article_media_asset_ids": [
+    "primary",
+    "policy_corridor",
+    "sofr_context"
+  ],
+  "canonical_substack_url": "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at",
+  "classification": "PASS_SEMANTIC_VARIANT_RELIABILITY",
+  "live_outputs_modified": false,
+  "operator_audit_fixture": {
+    "threads": "LIVE_ROOT_MISSING_APPROVED_CHART_AND_CHAIN_HAS_SENTENCE_FRAGMENTS",
+    "x": "LIVE_CHAIN_HAS_ARBITRARY_SENTENCE_SPLITS_AND_SIX_REPLIES"
+  },
+  "planned_layouts": {
+    "threads": {
+      "format": "root_chart_post_with_ordered_media_replies",
+      "full_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues\n\nFRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus.\n\nhttps://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at\n\nWhy it matters: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions.\n\nFor informational purposes only; not financial advice.\n\nPolicy context: The target range and administered rates frame the overnight operating environment. Cross-asset context: The overnight benchmark matters for cash and short-rate pricing.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "semantic_three_post_thread",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "article_sections": [
+            "lede_and_current_policy_signal"
+          ],
+          "media_asset_ids": [
+            "primary"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues\n\nFRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus.\n\nhttps://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at"
+        },
+        {
+          "article_sections": [
+            "policy_transmission_mechanism"
+          ],
+          "media_asset_ids": [
+            "policy_corridor"
+          ],
+          "order": 1,
+          "role": "reply",
+          "text": "Why it matters: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions.\n\nFor informational purposes only; not financial advice."
+        },
+        {
+          "article_sections": [
+            "curve_and_cross_asset_context",
+            "confirmation_and_limits"
+          ],
+          "media_asset_ids": [
+            "sofr_context"
+          ],
+          "order": 2,
+          "role": "reply",
+          "text": "Policy context: The target range and administered rates frame the overnight operating environment. Cross-asset context: The overnight benchmark matters for cash and short-rate pricing."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 3,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.616,
+          0.406,
+          0.368
+        ],
+        "post_character_counts": [
+          308,
+          203,
+          184
+        ],
+        "reply_count": 2,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.597,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Why it matters: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions.\n\nFor informational purposes only; not financial advice.",
+        "Policy context: The target range and administered rates frame the overnight operating environment. Cross-asset context: The overnight benchmark matters for cash and short-rate pricing."
+      ],
+      "reserved_costs": {
+        "canonical_url_characters": 73,
+        "media_characters": 0
+      },
+      "root_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues\n\nFRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus.\n\nhttps://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at",
+      "text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues\n\nFRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus.\n\nhttps://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at"
+    },
+    "x": {
+      "format": "root_chart_post_with_ordered_replies",
+      "full_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues\n\nFRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range.\n\nhttps://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at\n\nWhy it matters: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions.\n\nFor informational purposes only; not financial advice.\n\nPolicy context: The target range and administered rates frame the overnight operating environment. Cross-asset context: The overnight benchmark matters for cash and short-rate pricing.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "semantic_three_post_thread",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "article_sections": [
+            "lede_and_current_policy_signal"
+          ],
+          "media_asset_ids": [
+            "primary"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues\n\nFRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range.\n\nhttps://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at"
+        },
+        {
+          "article_sections": [
+            "policy_transmission_mechanism"
+          ],
+          "media_asset_ids": [
+            "policy_corridor"
+          ],
+          "order": 1,
+          "role": "reply",
+          "text": "Why it matters: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions.\n\nFor informational purposes only; not financial advice."
+        },
+        {
+          "article_sections": [
+            "curve_and_cross_asset_context",
+            "confirmation_and_limits"
+          ],
+          "media_asset_ids": [
+            "sofr_context"
+          ],
+          "order": 2,
+          "role": "reply",
+          "text": "Policy context: The target range and administered rates frame the overnight operating environment. Cross-asset context: The overnight benchmark matters for cash and short-rate pricing."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 3,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.918,
+          0.725,
+          0.657
+        ],
+        "post_character_counts": [
+          257,
+          203,
+          184
+        ],
+        "reply_count": 2,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.716,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Why it matters: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions.\n\nFor informational purposes only; not financial advice.",
+        "Policy context: The target range and administered rates frame the overnight operating environment. Cross-asset context: The overnight benchmark matters for cash and short-rate pricing."
+      ],
+      "reserved_costs": {
+        "canonical_url_characters": 73,
+        "media_characters": 0
+      },
+      "root_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues\n\nFRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range.\n\nhttps://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at",
+      "text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues\n\nFRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range.\n\nhttps://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at"
+    }
+  },
+  "public_write_performed": false,
+  "run_id": "eight_platform_live_20260710_recovery1",
+  "schema_version": "contentops.platform_variant_reliability.v1"
+}

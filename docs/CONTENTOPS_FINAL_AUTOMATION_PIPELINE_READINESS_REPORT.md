@@ -1,73 +1,46 @@
 # ContentOps Final Automation Pipeline Readiness Report
 
-Status: supervised live text/image pipeline proven
+Status: V3 reliability hardening PASS with preserved legacy X/Threads live-quality defects
 
-Authority date: 2026-07-10
+Canonical browser profile: `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`
 
-Evidence run: `eight_platform_live_20260710_recovery1`
+## Proven
 
-## Verdict
+- Substack-first publication, three source-backed visuals, canonical URL/readback, and re-entry guard.
+- Deterministic media ID/hash binding and avatar/logo exclusion.
+- Dual deterministic and bounded LLM tier-1 editorial gate, fail-closed schema validation, and clean rendered-body separation. LLM PASS cannot override deterministic blockers.
+- Sentence-aware balanced X/Threads plans with root plus two replies and all three visuals.
+- Exact LinkedIn activity reconciliation and in-place edit without a third post.
+- Platform-accurate Instagram feed URL semantics.
+- Redacted TikTok/YouTube video capability audit with no upload.
 
-ContentOps has proven the Substack-first north-star text/image loop through real public publication, native derivatives, exact chart binding, idempotent repair, and public readback. The run is `PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1`; TikTok remains the explicit external blocker `BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED`.
+Fed fixture results:
 
-This is not a claim that unattended scheduling, TikTok, or every future content topic is complete. It is evidence that the canonical supervised product architecture works end to end for the accepted run.
+| Gate | Before | Local revised candidate |
+| --- | ---: | ---: |
+| Tier-1 editorial | 60 | 93 |
+| SEO | 86 | 100 |
 
-## Proven Product Flow
+The revised candidate is local evidence only. Its bounded LLM review passed all 14 semantic checks and the combined gate passed. The public Substack article was not edited.
 
-```text
-headline/CDP intake
--> LLM semantic selection and duplicate policy
--> grounded source packet
--> tier-1 article and SEO
--> three source-backed charts
--> public Substack article/readback
--> native derivatives with exact chart hash
--> ordered reply chains where needed
--> platform adapters and idempotency ledger
--> public text/media/link/account readback
--> targeted repair and supersession evidence
-```
+## Preserved Live Findings
 
-Substack is the canonical host. Local exports are evidence only. Telegram and all social/community outputs are derivatives with the canonical URL.
+X transport exists but its six replies contain arbitrary sentence splits and uneven fragments. Threads transport exists but its root lacks the approved chart and replies contain fragments. Neither was modified or reposted in V3. Their corrected local plans are in `planned_semantic_variants_v1.json`.
 
-## Live Acceptance Matrix
+Both known LinkedIn activities now have verified text, chart, and canonical link after activity `7481311616265895936` was edited in place. Activity `7481289145206644736` remains accepted.
 
-| Destination | Result | Acceptance evidence |
-| --- | --- | --- |
-| Substack | PASS | Public article with three distributed charts. |
-| Telegram | PASS | Existing message 61 edited and read back. |
-| Discord | PASS | Accepted newsroom text/link; logo preview is a minor enhancement. |
-| X | PASS | Existing root, correct chart/link, six ordered replies. |
-| Threads | PASS | Existing root plus chart reply and ordered continuation. |
-| LinkedIn | PASS | Edited original has analytical text, chart, link, permalink. |
-| Facebook | PASS | One corrected chart replacement; old logo post superseded. |
-| Instagram | PASS | One corrected chart replacement; old logo post superseded. |
-| YouTube | PASS | Capital Chronicle Community text/image/link post. |
-| TikTok | BLOCKED_EXTERNAL | Canonical Edge profile is not authenticated. |
+Instagram’s exact canonical URL is visible as caption text. Feed-caption clickability is optional platform capability, not a failure.
 
-## Readiness Gates
+## Video Capability Boundary
 
-A destination cannot pass from a composer click, upload count, or provider response. It needs the right account and surface, stable public ID/URL, approved text, exact media/readback, canonical link, and complete ordered replies.
+YouTube Community remains the only default article-distribution route. TikTok native, YouTube long-form, and YouTube Shorts are explicit non-default modes.
 
-The approved media comes from the generated manifest, not public-page DOM scraping. The current lead asset is `primary`, SHA-256 `b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af`.
-
-Hard truncation is prohibited. YouTube Community is the only default YouTube article surface; video and Shorts are separate explicit mode.
-
-## Operational Boundary
-
-Canonical browser profile:
-
-```text
-A:\Capital Chronicle\operator-browser-profiles\contentops-social-main
-```
-
-The ContentOps runner owns final writes. Browser inspection is diagnostic/readback support. Cookies, tokens, localStorage, sessionStorage, and raw credential values are not persisted.
+TikTok app-key names are present, but OAuth callback/authorization, tokens, `open_id`, runtime refresh, native adapter, account binding, and app audit are incomplete. YouTube long-form and Shorts remain capability-only and blocked from public execution. V3 performed no public or private video upload.
 
 ## Remaining Work
 
-1. Surface the strict final matrix, reply chains, hashes, supersession, and blockers in `ui/contentops_v5/`.
-2. Authenticate TikTok in the canonical Edge profile and implement/review its native derivative.
-3. Run a fresh scheduled-idea rehearsal after those controls are visible.
-4. Improve Discord rich-preview image selection without changing the accepted current post.
+1. Render V3 scores, live-quality failures, corrected plans, activity relationships, link semantics, and video capability blockers in `ui/contentops_v5/`.
+2. Complete non-secret TikTok OAuth/callback design and YouTube explicit-mode review.
+3. Use the corrected compiler on a future fresh article only after separate authorization.
 
-Current master authority: `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md`.
+Canonical diagnosis map: `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/platform_delivery_contract_v1.json#failure_resolution_map`.

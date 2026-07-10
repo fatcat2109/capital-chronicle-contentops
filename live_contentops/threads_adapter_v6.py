@@ -228,6 +228,14 @@ def readback_threads_chain(
         row = next((item for item in rows if str(item.get("id") or "") == reply_id), None)
         text = " ".join(str((row or {}).get("text") or "").split())
         expected_text = " ".join(str(expectation.get("text") or "").split())
+        expected_media_path = str(expectation.get("expected_media_local_path") or "")
+        media_url = str((row or {}).get("media_url") or "")
+        similarity = None
+        if expected_media_path and media_url:
+            try:
+                similarity = visual_similarity_to_local_file(read_public_image_bytes(media_url), expected_media_path)
+            except Exception:
+                similarity = None
         ordered.append(
             {
                 "order": index,
@@ -236,6 +244,10 @@ def readback_threads_chain(
                 "parent_root_id": root_id,
                 "parent_child_verified": reply_id in edge_ids,
                 "text_verified": bool(expected_text and expected_text.casefold() in text.casefold()),
+                "expected_media_local_path": expected_media_path or None,
+                "media_required": bool(expected_media_path),
+                "media_verified": bool(not expected_media_path or (similarity is not None and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM)),
+                "expected_chart_visual_similarity": similarity,
             }
         )
     expected_ids = [str(item.get("id") or "") for item in reply_expectations]
@@ -248,7 +260,7 @@ def readback_threads_chain(
     success = bool(
         ordered
         and provider_order_verified
-        and all(row["parent_child_verified"] and row["text_verified"] for row in ordered)
+        and all(row["parent_child_verified"] and row["text_verified"] and row["media_verified"] for row in ordered)
     )
     return {
         "status": "SUCCESS" if success else "FAILED_THREADS_REPLY_CHAIN_READBACK",
@@ -258,6 +270,7 @@ def readback_threads_chain(
         "reply_ids_in_chronological_order": chronological_ids,
         "provider_order_verified": provider_order_verified,
         "ordered_replies": ordered,
+        "complete_article_visual_count": 1 + sum(1 for row in ordered if row["media_required"] and row["media_verified"]),
     }
 
 

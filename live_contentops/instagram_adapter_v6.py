@@ -231,9 +231,11 @@ def readback_instagram_media(
             similarity = None
     permalink = str(value.get("permalink") or "") or None
     username = str(value.get("username") or "")
+    canonical_url_exact = canonical_url in caption
+    cta_mode = "link_in_bio" if "link in bio" in caption.casefold() else "canonical_url_text"
     verified = bool(
         title_line.casefold() in caption.casefold()
-        and canonical_url in caption
+        and canonical_url_exact
         and similarity is not None
         and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM
         and permalink
@@ -248,7 +250,15 @@ def readback_instagram_media(
         "account_identity_verified": username.casefold() == "official.capitalchronicle",
         "visible_body_text": caption,
         "body_text_visible": title_line.casefold() in caption.casefold(),
-        "substack_url_visible": canonical_url in caption,
+        "substack_url_visible": canonical_url_exact,
+        "canonical_url_text_visible": canonical_url_exact,
+        "canonical_url_exact": canonical_url_exact,
+        "caption_link_clickable": False,
+        "caption_link_clickable_required": False,
+        "profile_bio_link_verified": None,
+        "story_link_sticker_available": None,
+        "cta_mode": cta_mode,
+        "link_semantics_classification": "PASS_FEED_CAPTION_URL_TEXT" if canonical_url_exact else "FAIL_CANONICAL_URL_TEXT_MISSING",
         "meaningful_media_visible": bool(similarity is not None and similarity >= PUBLIC_CHART_VISUAL_SIMILARITY_MINIMUM),
         "expected_chart_visual_similarity": similarity,
         "media_type": value.get("media_type"),

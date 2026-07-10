@@ -2,156 +2,137 @@
 
 Authority date: 2026-07-10
 
-Current evidence run: `eight_platform_live_20260710_recovery1`
+Current task: `TASK_CONTENTOPS_HEAVY_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3`
 
 Canonical runner: `live_contentops.eight_platform_substack_first_pipeline_v1`
 
-## 1. Product Identity And North Star
+## Product North Star
 
-Capital Chronicle ContentOps V6 is an AI-native automated editorial production and supervised distribution operating system. Its job is to turn current market information into one grounded, publication-quality article and a fully auditable family of native platform derivatives.
-
-The canonical loop is:
+Capital Chronicle ContentOps V6 is an AI-native editorial production and supervised distribution system:
 
 ```text
-current headline/CDP intake
--> LLM semantic clustering, deduplication, impact ranking, and idea selection
--> Capital Chronicle database/source support packet
--> tier-1 financial article
--> minimum three analytically relevant source-backed visuals
--> canonical Substack publication and public readback
--> platform-native derivative generation
--> deterministic media-manifest binding
--> platform-limit-aware root/reply threading
--> live dispatch through ContentOps adapters
--> public text/media/link readback
--> idempotent failed-destination repair
--> evidence, telemetry, and operator review
+headline/CDP intake
+-> LLM semantic clustering, duplicate/hotspot policy, impact ranking
+-> source and numeric support packet
+-> tier-1 reader-facing article and SEO gate
+-> three analytical source-backed visuals
+-> canonical Substack publication/readback
+-> platform-native variants with exact media binding
+-> sentence-aware root/reply compilation
+-> adapter dispatch and idempotency
+-> public text/media/link/account/surface readback
+-> targeted reconciliation, evidence, telemetry, operator review
 ```
 
-Substack is canonical. Telegram, X, Discord, LinkedIn, Meta, YouTube, TikTok, and future destinations are distribution surfaces and must point back to the canonical Substack URL. Manual action is recovery context, never the product north star.
+Substack is canonical. Every text/image derivative points back to it. Manual action is recovery context, not the product. The Capital Chronicle database and cited primary sources remain numeric authority.
 
-## 2. Idea Selection
+## Tier-1 Editorial Gate
 
-The LLM reads current CDP/headline inputs, clusters semantically similar events, removes duplicates, ranks likely macro and cross-asset impact, and explains why the selected idea is timely. Keyword scores may assist retrieval but cannot make the editorial decision.
+The article mode must be declared as `straight_news`, `analysis`, or `explainer`. Length follows the topic and evidence rather than a fixed word target.
 
-Selection requires a grounded support gate: sufficient source material, numeric authority, and at least three useful visual roles. If the leading idea cannot support those requirements, ContentOps selects the next supportable high-impact idea.
+Acceptance is dual-gated. `live_contentops.tier1_editorial_quality_v1` first runs deterministic editorial, SEO, safety, rendered-body, and source/media checks. A bounded LLM standards review then evaluates the news peg, why-now logic, market consequence, mode consistency, mechanism, context, confirmation/falsification tests, unsupported certainty, quotes, advice, and information density. Both must pass. LLM output has no publication authority and can never override a deterministic blocker; malformed or unavailable review fails closed.
 
-The same topic cannot run within 24 hours unless a genuine hotspot materially changes the global-asset setup. Hotspots include FOMC, CPI/payrolls, supply interruption, geopolitical escalation, oil shock, sovereign or banking stress, liquidity shock, FX intervention, and major US technology, AI, or semiconductor events visibly moving markets. The exception and its evidence must be recorded.
+Required:
 
-## 3. Source And Numeric Authority
+1. A lede saying what changed, why now, and why markets care.
+2. A concise nut graf.
+3. Source-backed mechanism and relevant policy, liquidity, issuance, geopolitical, or cross-asset context.
+4. Named confirmation and falsification conditions.
+5. High information density and reader-facing prose.
+6. No invented quotes, reactions, certainty, financial advice, or unsupported numbers.
 
-The Capital Chronicle database and source packet are the authority for numeric claims and context. Preferred primary sources include FRED, the Federal Reserve, Treasury, EIA, and other official datasets. Headlines establish timeliness; they do not independently authorize unsupported numbers.
+Public prose fails when it narrates editorial or pipeline work. Terms such as “the editorial task,” “the reporting discipline,” “the schedule and sidecars,” “the chart manifest,” “editors should look,” or “the newsroom standard” are defects, not signs of rigor. Repeated caveats, filler, restated mechanisms, and generic watch lists are penalized.
 
-Every numeric claim must trace to a source record or be clearly qualified. ContentOps does not invent values, interpolate unsupported observations, or turn a single data point into financial advice.
+The current public Fed funds article is operationally good and remains frozen, but the V3 fixture audit scores it `60/100` for tier-1 editorial quality because of process narration. The local-only revised candidate scores `93/100`, removes that vocabulary, reduces length from 1,476 to 663 words, retains all numeric claims and three visuals, and is not published. Its bounded LLM standards review passed all 14 semantic checks; the combined deterministic-plus-LLM gate is `PASS`.
 
-## 4. Editorial Acceptance
+## SEO Gate
 
-The canonical article must have a sharp headline and lede, explicit market mechanism, policy or geopolitical context, cross-asset implications, useful synthesis, clean SEO title/meta/slug/section structure, and a non-advice caveat. Generic filler, unsupported certainty, and synthetic trading recommendations fail the gate.
+SEO requires a reader headline, separate SEO title, clean slug, 110-165 character meta description, canonical metadata, primary topic in the opening, semantic keyword coverage without stuffing, heading hierarchy, source/reference links, chart captions and alt text, lead social/OG media, nonduplicated title/dek, and clean rendered body with placement markers removed.
 
-The article must contain at least three topic-specific analytical visuals spread through the body. Their required roles are:
+Current fixture score: `86/100`. Local revised candidate: `100/100`.
 
-1. Current signal or market state.
-2. Policy mechanism or comparison.
-3. Cross-asset, curve, or broader context.
+## Media Authority
 
-Each visual requires a stable asset ID, local source path, SHA-256, MIME type, dimensions, source/provenance, chart title, caption, alt text, and article-section association.
+The generated manifest is the only derivative-media authority. Every asset carries ID, role, absolute path, SHA-256, MIME, dimensions, provenance, title, caption, alt text, and article-section association. Adapters must reject avatars, logos, favicons, author images, low-resolution thumbnails, unapproved hashes, and square branding when a chart is required.
 
-## 5. Deterministic Media Authority
+The current assets are `primary`, `policy_corridor`, and `sofr_context`. A derivative readback must verify the expected asset, not merely the existence of an image.
 
-The generated media manifest is the only derivative-media authority. Platform adapters receive the exact approved media object; they do not scrape the public Substack DOM to pick an image.
+## Platform Variant Reliability
 
-For a chart role, ContentOps rejects publication avatars, logos, favicons, author images, social thumbnails, unapproved hashes, square branding assets, and images below the configured meaningful dimension threshold. Public readback must compare the visible output with the expected chart and record the media asset ID, hash, and visual verification result.
+Hard character slicing is forbidden. The compiler operates on sentences and paragraphs, preserves order, deduplicates repeated units, and splits a sentence only when that single sentence exceeds the platform limit. Oversized sentences split at semantic clauses before any word-safe fallback.
 
-The current primary asset is `primary`, SHA-256 `b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af`.
+X and Threads default to three posts:
 
-## 6. Platform Delivery Contract
+1. Root: headline, sharp lede, canonical URL, `primary` chart.
+2. Reply 1: mechanism, `policy_corridor` chart.
+3. Reply 2: policy/cross-asset context and caveat, `sofr_context` chart.
 
-The machine-readable registry is `platform_delivery_contract_v1.json` beside this plan.
+Quality requires two replies, balanced character utilization, no orphan fragments, sentence-boundary PASS, zero duplicated sentences, all three visuals exactly once, stable IDs, ordered parent-child relationships, and text/media readback. Reply IDs alone are insufficient.
 
-| Destination | Native product contract |
-| --- | --- |
-| Substack | Full canonical article, SEO metadata, three in-body visuals, public URL/readback. |
-| Telegram | Meaningful text, approved media, canonical URL, message ID/readback. |
-| X | Root with opening, chart, canonical URL; overflow in ordered replies. |
-| Discord | Newsroom derivative and canonical URL; rich preview is verified but may use publication preview art. |
-| LinkedIn | Analytical text, approved chart, canonical URL, permalink/readback. |
-| Facebook Page | Native text, approved chart, canonical URL, post ID/readback. |
-| Instagram Business | Approved chart/carousel, complete caption, canonical URL, media ID/readback. |
-| Threads | Root with canonical URL and chart where possible; overflow in ordered replies. |
-| YouTube | Community text + approved image + canonical URL. |
-| TikTok | Configured native derivative or an explicit authenticated-session blocker. |
+LinkedIn and Facebook use complete root text when limits allow; overflow becomes complete author comments. Silent truncation is forbidden.
 
-Platform family counts and expanded destination counts are reported separately. The current run covers ten destinations across the Substack canonical family and eight distribution families.
+## Current Operator Audit
 
-## 7. Overflow And Threading
+The public Substack, Telegram, Discord, corrected Facebook, Instagram media, and YouTube Community outputs are accepted and frozen.
 
-Hard truncation and synthetic ellipses are forbidden. The variant compiler calculates the real platform limit, puts a strong opening, standalone thesis, canonical URL, and chart where supported in the root, then packs remaining complete sentences into ordered replies or comments. Evidence records every root/reply ID, URL, order, and parent relationship.
+The live X chain is preserved but fails the new quality gate because six uneven replies split sentences at arbitrary boundaries. The live Threads chain is preserved but fails because the root lacks the approved chart and replies contain fragments. No X or Threads repost is authorized in V3. `planned_semantic_variants_v1.json` is the corrected future contract.
 
-## 8. YouTube Surface Rule
+Instagram feed-caption URLs are not assumed clickable. Feed acceptance requires exact canonical URL text, correct chart, account/caption readback, and a clear CTA. `caption_link_clickable=false` is informational, not failure. Bio and Story changes require separate scope.
 
-The default article-distribution route is YouTube Community only. It requires non-empty editorial text, one approved image, a canonical Substack URL, the Capital Chronicle channel identity, a stable public post URL/ID, and readback.
+LinkedIn activities `7481289145206644736` and `7481311616265895936` are both reconciled. The earlier activity was already accepted; V3 edited the newest image-only activity in place and verified text, chart, and canonical link. No third post or comment was created.
 
-Video, Shorts, slideshows, chart animations, and source-chart videos belong to a separate explicit non-default product mode. The default runner must not import or invoke them. The prior Short at `https://www.youtube.com/watch?v=FvasNsZ1F2U` is preserved as `WRONG_SURFACE_EXECUTION_NOT_ACCEPTED` and is not success evidence.
+## Idempotency And Unknown Writes
 
-## 9. Browser And Execution Authority
+Canonical re-entry is blocked. Derivative resume skips all destinations already in accepted state. A delayed permalink or UNKNOWN write outcome freezes retries until exact read-only reconciliation resolves whether a write exists.
 
-The canonical profile is:
+LinkedIn creation populates text before media, verifies text and canonical URL after media attachment, then allows Post. An absent immediate permalink never authorizes a replacement. Malformed output recovery is exact readback, edit, bounded author comment when appropriate, then a replacement only with deterministic proof and explicit scope.
+
+## YouTube And Video Capability Split
+
+The default article route is YouTube Community text + image + Substack URL. TikTok native posting, YouTube long-form video, and YouTube Shorts are separate explicit non-default capabilities.
+
+V3 is capability-audit-only for those lanes. No public or private upload is permitted. The redacted matrix records credential-name presence, OAuth state, scopes, identity readiness, transport, test mode, approval status, blocker, and next operator action.
+
+- TikTok: three persistent app credential names are present, but OAuth callback, user authorization, refresh token, `open_id`, runtime refresh, native Content Posting adapter, and app audit are absent. Status: `BLOCKED_TIKTOK_OAUTH_ADAPTER_AND_APP_AUDIT_INCOMPLETE`.
+- YouTube long-form: credentials/channel binding are present, but no reviewed explicit long-form runtime adapter or public-write audit exists. Status: `BLOCKED_YOUTUBE_LONG_FORM_EXPLICIT_MODE_AND_AUDIT_REQUIRED`.
+- YouTube Shorts: explicit Edge adapter exists but is isolated from the article runner and has no V3 execution approval. Status: `BLOCKED_YOUTUBE_SHORTS_PUBLIC_EXECUTION_NOT_AUTHORIZED`.
+
+Current official rules are linked in `video_platform_capability_matrix_v1.json`. Square or vertical videos up to 180 seconds classify as Shorts; wider or longer content classifies as long-form. Local upload request construction is private-only and performs no network call.
+
+## Browser And Secret Boundary
+
+Canonical profile:
 
 ```text
 A:\Capital Chronicle\operator-browser-profiles\contentops-social-main
 ```
 
-It is a persistent Microsoft Edge profile. CDP port `9223` is the current verified attachment; port `9222` must be rejected when owned by Chrome, Antigravity, or an unknown profile. ContentOps may inspect non-secret session readiness but never persist cookies, tokens, localStorage, sessionStorage, or raw secret values.
+Only Microsoft Edge with verified profile ownership may publish. Safe checks are environment-variable names, presence booleans, browser family, CDP ownership, destination identity, and visible non-secret selectors. Fast Ship never authorizes printing raw environment values, tokens, webhook URLs, cookies, localStorage, sessionStorage, authorization headers, or browser-session secrets.
 
-All final writes originate from:
+## Success And Failure
+
+No success comes from a Post click, HTTP response, media upload, or ID alone. Quality PASS requires correct account and surface, complete native text, platform-accurate link semantics, expected media IDs, complete visual distribution, stable identity, ordered chain, resolved idempotency state, and visual/text readback.
+
+V3 task classification: `PASS_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3`.
+
+This does not retroactively make the preserved X/Threads live chains quality PASS. Their defects are regression fixtures until a future new article uses the corrected compiler.
+
+## Diagnosis Path
+
+Read:
 
 ```text
-live_contentops.eight_platform_substack_first_pipeline_v1
--> platform-native adapter
--> idempotency ledger
--> public URL/ID capture
--> strict public readback
--> run evidence
+AGENTS.md
+-> docs/status/current_project_status.json
+-> this master plan
+-> platform_delivery_contract_v1.json failure_resolution_map
+-> operator_browser_lab_runbook.md
+-> current run evidence
+-> named adapter and focused test
 ```
 
-Browser inspection may diagnose or read back state. Ad hoc builder clicks are not production completion.
+Current evidence root: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1/`.
 
-## 10. Idempotency, Resume, And Reconciliation
+## Next Route
 
-Canonical publication is guarded against re-entry. Derivative-only resume freezes Substack and already successful destinations. A destination is retried only after exact post reconciliation and only through its adapter.
-
-Malformed published output is never silently counted as success. Repair order is edit, author reply/comment, then exactly one corrected replacement when the platform cannot repair in place. Old posts are preserved and related through `SUPERSEDED_*` evidence. Unknown write outcomes block automatic retries until read-only reconciliation resolves them.
-
-## 11. Readback And Classification
-
-There is no success from a click, upload response, API `200`, image count, or composer state. Success requires the correct account and platform surface, stable public URL/ID, visible approved text, expected media, visible canonical link, and matching public readback. Replies must be complete and ordered.
-
-A destination fails when media is wrong, text is missing or hard-truncated, the canonical URL is absent, a reply chain is incomplete, public identity/URL/readback is missing, the wrong account/surface is used, or YouTube video substitutes for Community.
-
-- `PASS`: canonical Substack and all required available destinations meet strict readback; a separately named external authentication blocker may remain visible in the expanded matrix.
-- `PARTIAL`: canonical output exists but one or more required destination corrections hit a concrete external blocker.
-- `BLOCKED`: canonical Substack publication/readback cannot be achieved.
-- `FAIL`: a write occurred but public output violates payload, media, identity, or surface contract.
-
-## 12. Current Live Evidence
-
-The run `eight_platform_live_20260710_recovery1` is `PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1` for the text/image distribution product, with TikTok explicitly blocked by canonical-profile authentication.
-
-- Substack: `https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at`
-- Telegram: `https://t.me/CapitalChronicle/61`
-- X: `https://x.com/Capitalnicle/status/2075510632770875841`, six verified replies
-- LinkedIn: `https://www.linkedin.com/feed/update/urn:li:activity:7481289145206644736/`
-- Facebook: `https://www.facebook.com/1342369584748125/posts/1342374731414277`
-- Instagram: `https://www.instagram.com/p/DanF4lxDmDs/`
-- Threads: `https://www.threads.com/@official.capitalchronicle/post/Dam28KxnwGV`, three verified replies
-- YouTube Community: `https://www.youtube.com/post/UgkxLF5TJ6zbW1-3_at3PdfBr8wlbkFbko60`
-- Discord: message `1525069505905037414`
-- TikTok: `BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED`
-
-Facebook and Instagram wrong-logo posts are preserved as `SUPERSEDED_WRONG_MEDIA`. LinkedIn replacement `7481311616265895936` is preserved as `SUPERSEDED_IMAGE_ONLY`. The accepted LinkedIn original was edited successfully.
-
-Evidence authority: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1/`.
-
-## 13. Product Direction
-
-The canonical UI remains `ui/contentops_v5/`. The next route is to expose the strict platform matrix, reply chains, media-hash continuity, supersession relationships, and blockers in the V5 command center, then complete a TikTok authenticated-profile handoff and a fresh scheduled-run rehearsal. No new canonical article is part of the immediate handoff task.
+Next, wire tier-1 scores, planned three-post layouts, quality failures, exact LinkedIn activity relationships, Instagram link semantics, and video capability rows into `ui/contentops_v5/`. Do not start a new canonical run during that dashboard/read-model task.

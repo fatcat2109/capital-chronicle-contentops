@@ -938,7 +938,9 @@ def _x_article_for_status(page: Any, status_id: str) -> Any | None:
     return None
 
 
-def publish_x_reply_via_edge(*, cdp_port: int, parent_url: str, text: str) -> dict[str, Any]:
+def publish_x_reply_via_edge(
+    *, cdp_port: int, parent_url: str, text: str, image_path: str | Path | None = None
+) -> dict[str, Any]:
     if len(text) > 280 or "..." in text:
         return {"status": "BLOCKED_X_REPLY_PAYLOAD_INVALID", "platform": "x"}
     parent_id = str(parent_url).rstrip("/").rsplit("/", 1)[-1]
@@ -958,6 +960,13 @@ def publish_x_reply_via_edge(*, cdp_port: int, parent_url: str, text: str) -> di
             return {"status": "BLOCKED_X_REPLY_COMPOSER_NOT_READY", "platform": "x", "parent_id": parent_id}
         composer.click(timeout=6000)
         page.keyboard.insert_text(text)
+        media_status = "not_requested"
+        if image_path:
+            selector = _set_first_file_input(page, image_path)
+            media_status = "uploaded" if selector else "file_input_not_found"
+            if not selector:
+                return {"status": "FAILED_X_REPLY_MEDIA_UPLOAD", "platform": "x", "parent_id": parent_id}
+            time.sleep(4)
         reply_selector = _click_first_visible(page, ("[data-testid='tweetButtonInline']", "[data-testid='tweetButton']"))
         if not reply_selector:
             return {"status": "BLOCKED_X_REPLY_CONTROL_NOT_FOUND", "platform": "x", "parent_id": parent_id, "composer_selector": composer_selector}
@@ -979,7 +988,7 @@ def publish_x_reply_via_edge(*, cdp_port: int, parent_url: str, text: str) -> di
             except Exception:
                 continue
         if not reply_url:
-            return {"status": "FAILED_X_REPLY_PERMALINK_READBACK", "platform": "x", "parent_id": parent_id, "payload_sha256": _sha256(text)}
+            return {"status": "FAILED_X_REPLY_PERMALINK_READBACK", "platform": "x", "parent_id": parent_id, "payload_sha256": _sha256(text), "media_status": media_status}
         return {
             "status": "SUCCESS",
             "platform": "x",
@@ -989,6 +998,8 @@ def publish_x_reply_via_edge(*, cdp_port: int, parent_url: str, text: str) -> di
             "post_id": reply_url.rstrip("/").rsplit("/", 1)[-1],
             "public_url": reply_url,
             "payload_sha256": _sha256(text),
+            "media_status": media_status,
+            "media_attached": bool(image_path),
         }
 
 
@@ -1019,9 +1030,14 @@ def readback_x_thread_via_edge(
                 article = _x_article_for_status(page, reply_id)
                 visible = _normalised_visible_text(article.inner_text(timeout=2000)) if article else ""
                 parent_visible = bool(_x_article_for_status(page, str(reply.get("parent_id") or "")))
+                reply_image, _reply_media = _meaningful_image_in_scope(article) if article else (None, None)
+                expected_reply_media = str(reply.get("expected_media_local_path") or "")
+                reply_similarity = _visual_similarity_to_local_image(reply_image, expected_reply_media) if reply_image and expected_reply_media else None
             except Exception:
                 visible = ""
                 parent_visible = False
+                expected_reply_media = str(reply.get("expected_media_local_path") or "")
+                reply_similarity = None
             expected = _normalised_visible_text(str(reply.get("text") or ""))
             ordered.append(
                 {
@@ -1031,6 +1047,10 @@ def readback_x_thread_via_edge(
                     "parent_id": reply.get("parent_id"),
                     "text_verified": bool(expected and expected.casefold() in visible.casefold()),
                     "parent_child_verified": parent_visible,
+                    "expected_media_local_path": expected_reply_media or None,
+                    "media_required": bool(expected_reply_media),
+                    "media_verified": bool(not expected_reply_media or (reply_similarity is not None and reply_similarity >= _LINKEDIN_CHART_SIMILARITY_MINIMUM)),
+                    "expected_chart_visual_similarity": reply_similarity,
                 }
             )
         screenshot = None
@@ -1048,7 +1068,7 @@ def readback_x_thread_via_edge(
             and chart_similarity is not None
             and chart_similarity >= _LINKEDIN_CHART_SIMILARITY_MINIMUM
             and ordered
-            and all(row["text_verified"] and row["parent_child_verified"] for row in ordered)
+            and all(row["text_verified"] and row["parent_child_verified"] and row["media_verified"] for row in ordered)
         )
         return {
             "status": "SUCCESS" if verified else "FAILED_X_THREAD_STRICT_READBACK",
@@ -1060,7 +1080,8 @@ def readback_x_thread_via_edge(
             "meaningful_media_visible": bool(chart_similarity is not None and chart_similarity >= _LINKEDIN_CHART_SIMILARITY_MINIMUM),
             "expected_chart_visual_similarity": chart_similarity,
             "ordered_replies": ordered,
-            "reply_chain_complete": bool(ordered and all(row["text_verified"] and row["parent_child_verified"] for row in ordered)),
+            "reply_chain_complete": bool(ordered and all(row["text_verified"] and row["parent_child_verified"] and row["media_verified"] for row in ordered)),
+            "complete_article_visual_count": 1 + sum(1 for row in ordered if row["media_required"] and row["media_verified"]),
             "public_screenshot_path": screenshot,
         }
 
@@ -1487,6 +1508,64 @@ def reconcile_existing_linkedin_post_via_edge(
             "body_text_visible": bool(commentary),
             "substack_url_visible": canonical_url in commentary,
             "meaningful_media_visible": True,
+            "browser_write_performed": False,
+            "public_screenshot_path": screenshot,
+        }
+
+
+def readback_linkedin_activity_via_edge(
+    *,
+    cdp_port: int,
+    public_url: str,
+    post_id: str,
+    expected_text: str,
+    canonical_url: str,
+    chart_path: str | Path,
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Read one exact LinkedIn activity; never search, retry, or write."""
+    if not post_id or f"urn:li:activity:{post_id}" not in public_url:
+        return {"status": "BLOCKED_LINKEDIN_ACTIVITY_TARGET_MISMATCH", "platform": "linkedin", "browser_write_performed": False}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        card = _linkedin_card_by_post_id(page, post_id)
+        screenshot = None
+        if public_screenshot_path:
+            target = Path(public_screenshot_path)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            page.screenshot(path=str(target), full_page=False)
+            screenshot = str(target)
+        if card is None or not _linkedin_card_author_matches(card, "jimcc"):
+            return {
+                "status": "BLOCKED_LINKEDIN_EXACT_ACTIVITY_NOT_FOUND",
+                "platform": "linkedin",
+                "post_id": post_id,
+                "public_url": public_url,
+                "browser_write_performed": False,
+                "public_screenshot_path": screenshot,
+            }
+        image, media_readback = _meaningful_image_in_scope(card)
+        similarity = _visual_similarity_to_local_image(image, chart_path) if image else None
+        strict = _linkedin_card_readback(card, expected_text=expected_text, canonical_url=canonical_url)
+        commentary = _linkedin_commentary_text(card)
+        chart_verified = bool(similarity is not None and similarity >= _LINKEDIN_CHART_SIMILARITY_MINIMUM)
+        status = "SUCCESS" if strict.get("status") == "SUCCESS" and chart_verified else (
+            "MALFORMED_EXISTING_POST_REQUIRES_EDIT" if chart_verified and not commentary else "FAILED_LINKEDIN_EXACT_ACTIVITY_READBACK"
+        )
+        return {
+            **strict,
+            "status": status,
+            "platform": "linkedin",
+            "post_id": post_id,
+            "public_url": public_url,
+            "visible_body_text": commentary,
+            "body_text_visible": bool(commentary),
+            "substack_url_visible": bool(strict.get("substack_url_visible")),
+            "meaningful_media_visible": chart_verified,
+            "chart_similarity_score": similarity,
+            "media_readback": media_readback,
+            "destination_identity": "linkedin:jimcc",
             "browser_write_performed": False,
             "public_screenshot_path": screenshot,
         }

@@ -1,0 +1,243 @@
+{
+  "canonical_article_modified": false,
+  "classification": "PASS_LOCAL_REVISED_CANDIDATE",
+  "combined_editorial_gate": {
+    "blockers": [],
+    "classification": "PASS",
+    "deterministic_pass": true,
+    "llm_cannot_override_deterministic_blockers": true,
+    "llm_semantic_pass": true,
+    "publication_authority": false
+  },
+  "llm_semantic_review": {
+    "checks": {
+      "clear_news_peg": true,
+      "concise_nut_graf": true,
+      "high_information_density": true,
+      "material_market_consequence": true,
+      "mode_consistent": true,
+      "no_fabricated_quotes": true,
+      "no_financial_advice": true,
+      "no_unsupported_certainty": true,
+      "reader_facing_prose": true,
+      "relevant_context": true,
+      "source_backed_mechanism": true,
+      "specific_confirmation_condition": true,
+      "specific_falsification_condition": true,
+      "why_now": true
+    },
+    "decision": "PASS",
+    "failed_checks": [],
+    "issues": [],
+    "missing_or_invalid_checks": [],
+    "mode": "analysis",
+    "prompt_sha256": "b8c558242e194b672ea814ca3c58916623a0b03372b842d48988dde6f6c26800",
+    "provider": "9router",
+    "publication_authority": false,
+    "review_sha256": "45b68f001c64511102861e36c70bd25bd7ace91cf2c5afb658f0276ad9610335",
+    "status": "SUCCESS",
+    "summary": "The article is a high-quality, data-backed analysis of the effective federal funds rate and its relationship with the broader Treasury yield curve. It meets all Capital Chronicle standards, including clear news pegs, specific confirmation/falsification conditions (monitoring the DFF-IORB relationship, SOFR, and reserve distribution), and contains no reader-facing process language or financial advice."
+  },
+  "original_audit": {
+    "caveat_count": 1,
+    "classification": "NEEDS_REVISION",
+    "duplicated_sentence_count": 0,
+    "editorial_blockers": [
+      "lede_what_changed",
+      "concise_nut_graf",
+      "confirmation_condition",
+      "named_next_catalysts",
+      "no_process_language",
+      "high_information_density"
+    ],
+    "editorial_checks": {
+      "concise_nut_graf": false,
+      "confirmation_condition": false,
+      "context_present": true,
+      "falsification_condition": true,
+      "high_information_density": false,
+      "lede_market_consequence": true,
+      "lede_what_changed": false,
+      "lede_why_now": true,
+      "mechanism_present": true,
+      "mode_declared": true,
+      "named_next_catalysts": false,
+      "no_fabricated_quotes": true,
+      "no_financial_advice": true,
+      "no_process_language": false,
+      "single_caveat": true
+    },
+    "editorial_score": 60,
+    "filler_hits": [
+      "\\bthe point is not to predict the next tick\\b",
+      "\\bthe productive question is\\b",
+      "\\bthe editorial task is\\b",
+      "\\bthe reporting discipline is\\b"
+    ],
+    "process_language_hits": [
+      "\\bthe editorial task\\b",
+      "\\bthe reporting discipline\\b",
+      "\\bin a serious financial-news report\\b",
+      "\\bthe editorial value\\b",
+      "\\bthe schedule and sidecars\\b",
+      "\\bthe chart manifest\\b",
+      "\\beditors should look\\b",
+      "\\bthe newsroom standard\\b"
+    ],
+    "rendered_body_sha256": "63c59066e567234e44a72f27b26413873c327e425c8c7006a44aa7b7a6b8fe68",
+    "schema_version": "contentops.tier1_editorial_quality.v1",
+    "seo_blockers": [
+      "source_reference_links",
+      "clean_rendered_body"
+    ],
+    "seo_checks": {
+      "canonical_url_metadata": true,
+      "chart_metadata": true,
+      "clean_rendered_body": false,
+      "heading_hierarchy": true,
+      "meta_description": true,
+      "primary_topic_in_opening": true,
+      "reader_headline": true,
+      "semantic_keyword_coverage": true,
+      "seo_title": true,
+      "slug": true,
+      "social_og_lead_media": true,
+      "source_reference_links": false,
+      "title_dek_not_duplicated": true,
+      "visual_markers_complete": true
+    },
+    "seo_score": 86,
+    "source_urls": [],
+    "visual_asset_ids": [
+      "primary",
+      "policy_corridor",
+      "sofr_context"
+    ],
+    "word_count": 1476
+  },
+  "process_language_removed": [
+    "The editorial task",
+    "The reporting discipline",
+    "In a serious financial-news report",
+    "The editorial value",
+    "The schedule and sidecars",
+    "The chart manifest",
+    "editors should look",
+    "the newsroom standard"
+  ],
+  "public_write_performed": false,
+  "retained_factual_claims": [
+    "DFF 3.62% on 2026-07-08",
+    "target range 3.50%-3.75%",
+    "IORB 3.65%",
+    "SOFR and Treasury curve observations"
+  ],
+  "revised_audit": {
+    "caveat_count": 1,
+    "classification": "PASS",
+    "duplicated_sentence_count": 0,
+    "editorial_blockers": [
+      "lede_what_changed"
+    ],
+    "editorial_checks": {
+      "concise_nut_graf": true,
+      "confirmation_condition": true,
+      "context_present": true,
+      "falsification_condition": true,
+      "high_information_density": true,
+      "lede_market_consequence": true,
+      "lede_what_changed": false,
+      "lede_why_now": true,
+      "mechanism_present": true,
+      "mode_declared": true,
+      "named_next_catalysts": true,
+      "no_fabricated_quotes": true,
+      "no_financial_advice": true,
+      "no_process_language": true,
+      "single_caveat": true
+    },
+    "editorial_score": 93,
+    "filler_hits": [],
+    "process_language_hits": [],
+    "rendered_body_sha256": "61d1f09c6a5e8364960a7eb1fee26809d5fabd59ae8884d186e17ea30eafc51e",
+    "schema_version": "contentops.tier1_editorial_quality.v1",
+    "seo_blockers": [],
+    "seo_checks": {
+      "canonical_url_metadata": true,
+      "chart_metadata": true,
+      "clean_rendered_body": true,
+      "heading_hierarchy": true,
+      "meta_description": true,
+      "primary_topic_in_opening": true,
+      "reader_headline": true,
+      "semantic_keyword_coverage": true,
+      "seo_title": true,
+      "slug": true,
+      "social_og_lead_media": true,
+      "source_reference_links": true,
+      "title_dek_not_duplicated": true,
+      "visual_markers_complete": true
+    },
+    "seo_score": 100,
+    "source_urls": [
+      "https://fred.stlouisfed.org/series/DFEDTARL",
+      "https://fred.stlouisfed.org/series/DFEDTARU",
+      "https://fred.stlouisfed.org/series/DFF",
+      "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+      "https://www.newyorkfed.org/markets/reference-rates/sofr"
+    ],
+    "visual_asset_ids": [
+      "primary",
+      "policy_corridor",
+      "sofr_context"
+    ],
+    "word_count": 663
+  },
+  "revised_candidate": {
+    "article_export_path": "exports\\daily_contentops\\substack_first\\eight_platform_live_20260710_recovery1_canonical_article.md",
+    "article_html_export_path": "exports\\daily_contentops\\substack_first\\eight_platform_live_20260710_recovery1_canonical_article.html",
+    "article_markdown_sha256": "2e500164b1183066dcd0d8cdfa0a38144cd30d87877eb80a5331c564dd1ea1ba",
+    "canonical_url": "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at",
+    "caveat_present": true,
+    "created_at": "2026-07-10T09:15:00Z",
+    "editorial_mode": "analysis",
+    "financial_advice_detected": false,
+    "forbidden_secret_material_detected": false,
+    "meta_description": "The effective fed funds rate held at 3.62% inside the Fed's target corridor, while Treasury yields reflected inflation, supply and term-premium risks.",
+    "primary_topic": "effective federal funds rate",
+    "public_write_authorized": false,
+    "rendered_body": "The Overnight Rate Is Stable. The Curve Is Not\n\nThe effective federal funds rate was 3.62% on July 8, unchanged in practical terms from 3.63% a day earlier and comfortably inside the Federal Reserve's 3.50% to 3.75% target range. For markets, the new reading confirms that overnight policy implementation remains orderly even as longer Treasury yields continue to price a more complicated mix of inflation, fiscal supply and growth risk.\n\nWhat matters is the separation between the policy anchor and the broader cost of capital. A well-contained overnight rate says the Fed's operating framework is transmitting its current setting. It does not say that financial conditions are unchanged across the yield curve, credit markets or foreign exchange.\n\nThe effective federal funds rate remained inside the Federal Reserve's target range through July 8. Source: [FRED DFF](https://fred.stlouisfed.org/series/DFF), [DFEDTARL](https://fred.stlouisfed.org/series/DFEDTARL), [DFEDTARU](https://fred.stlouisfed.org/series/DFEDTARU) and IORB.\n\nPolicy Transmission Is Working At The Short End\n\nThe effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions. Its position within the target corridor is therefore a direct test of whether reserves and administered rates are keeping unsecured funding close to the Fed's intended policy setting.\n\nThe July 8 reading passes that test. At 3.62%, the effective rate stood 12 basis points above the lower bound and three basis points below the 3.65% interest rate on reserve balances. That relationship is consistent with an orderly implementation regime rather than a scramble for overnight liquidity.\n\nThe comparison matters because pressure in the overnight market would appear first through a persistent drift toward a corridor boundary, a widening gap against administered rates or a divergence from secured funding benchmarks. None of those signals can be inferred from the policy rate alone, but the current configuration gives investors a clean baseline for judging them.\n\nThe July 8 policy corridor: lower bound 3.50%, effective fed funds 3.62%, IORB 3.65% and upper bound 3.75%. Source: [Federal Reserve open-market operations](https://www.federalreserve.gov/monetarypolicy/openmarket.htm) and FRED.\n\nLonger Yields Carry A Different Message\n\nStability in overnight funding has not prevented the Treasury curve from remaining elevated. On July 8, the two-year yield was 4.21%, the 10-year 4.56% and the 30-year 5.06%, while the Secured Overnight Financing Rate was 3.58%. The gap between those instruments and the effective fed funds rate reflects expectations extending well beyond the current operating setting.\n\nThose longer yields absorb anticipated inflation, future policy, Treasury issuance and term premium. They can rise even when the overnight rate is steady, tightening mortgage, corporate and government borrowing conditions without any malfunction in the Fed's day-to-day implementation framework.\n\nThat distinction also clarifies the cross-asset signal. Credit spreads respond to refinancing and default risk; equities respond to discount rates and earnings expectations; foreign exchange responds to relative policy paths. A stable overnight benchmark is the anchor for those comparisons, not a verdict on their direction.\n\nDFF and SOFR compared with two-, 10- and 30-year Treasury yields on July 8. Source: [New York Fed SOFR](https://www.newyorkfed.org/markets/reference-rates/sofr) and FRED Treasury series.\n\nWhat Would Confirm Or Challenge The Signal\n\nConfirmation would be a continued DFF-IORB relationship near current levels, SOFR moving in step with unsecured funding and no abrupt increase in Federal Reserve facility usage. That would leave inflation data, Treasury auctions and the next FOMC communication as the more likely drivers of any curve repricing.\n\nThe signal would be challenged by a persistent move toward either target boundary, a material secured-unsecured funding gap or evidence that reserve balances are becoming unevenly distributed. A weak Treasury auction, a CPI surprise or a payrolls shock could still move longer yields, but that would be a macro or supply story rather than proof that overnight implementation had failed.\n\nThis article is for informational purposes only and is not financial advice.",
+    "schema_version": "contentops.substack_first_north_star_pipeline.v1",
+    "seo_title": "Fed Funds Rate at 3.62% as Treasury Yields Stay Elevated",
+    "slug": "fed-funds-rate-3-62-treasury-yield-curve",
+    "social_og_media_asset_id": "primary",
+    "substack_body_markdown": "## The Overnight Rate Is Stable. The Curve Is Not\n\nThe effective federal funds rate was 3.62% on July 8, unchanged in practical terms from 3.63% a day earlier and comfortably inside the Federal Reserve's 3.50% to 3.75% target range. For markets, the new reading confirms that overnight policy implementation remains orderly even as longer Treasury yields continue to price a more complicated mix of inflation, fiscal supply and growth risk.\n\nWhat matters is the separation between the policy anchor and the broader cost of capital. A well-contained overnight rate says the Fed's operating framework is transmitting its current setting. It does not say that financial conditions are unchanged across the yield curve, credit markets or foreign exchange.\n\n[[VISUAL:primary]]\n\n*The effective federal funds rate remained inside the Federal Reserve's target range through July 8. Source: [FRED DFF](https://fred.stlouisfed.org/series/DFF), [DFEDTARL](https://fred.stlouisfed.org/series/DFEDTARL), [DFEDTARU](https://fred.stlouisfed.org/series/DFEDTARU) and IORB.*\n\n## Policy Transmission Is Working At The Short End\n\nThe effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions. Its position within the target corridor is therefore a direct test of whether reserves and administered rates are keeping unsecured funding close to the Fed's intended policy setting.\n\nThe July 8 reading passes that test. At 3.62%, the effective rate stood 12 basis points above the lower bound and three basis points below the 3.65% interest rate on reserve balances. That relationship is consistent with an orderly implementation regime rather than a scramble for overnight liquidity.\n\nThe comparison matters because pressure in the overnight market would appear first through a persistent drift toward a corridor boundary, a widening gap against administered rates or a divergence from secured funding benchmarks. None of those signals can be inferred from the policy rate alone, but the current configuration gives investors a clean baseline for judging them.\n\n[[VISUAL:policy_corridor]]\n\n*The July 8 policy corridor: lower bound 3.50%, effective fed funds 3.62%, IORB 3.65% and upper bound 3.75%. Source: [Federal Reserve open-market operations](https://www.federalreserve.gov/monetarypolicy/openmarket.htm) and FRED.*\n\n## Longer Yields Carry A Different Message\n\nStability in overnight funding has not prevented the Treasury curve from remaining elevated. On July 8, the two-year yield was 4.21%, the 10-year 4.56% and the 30-year 5.06%, while the Secured Overnight Financing Rate was 3.58%. The gap between those instruments and the effective fed funds rate reflects expectations extending well beyond the current operating setting.\n\nThose longer yields absorb anticipated inflation, future policy, Treasury issuance and term premium. They can rise even when the overnight rate is steady, tightening mortgage, corporate and government borrowing conditions without any malfunction in the Fed's day-to-day implementation framework.\n\nThat distinction also clarifies the cross-asset signal. Credit spreads respond to refinancing and default risk; equities respond to discount rates and earnings expectations; foreign exchange responds to relative policy paths. A stable overnight benchmark is the anchor for those comparisons, not a verdict on their direction.\n\n[[VISUAL:sofr_context]]\n\n*DFF and SOFR compared with two-, 10- and 30-year Treasury yields on July 8. Source: [New York Fed SOFR](https://www.newyorkfed.org/markets/reference-rates/sofr) and FRED Treasury series.*\n\n## What Would Confirm Or Challenge The Signal\n\nConfirmation would be a continued DFF-IORB relationship near current levels, SOFR moving in step with unsecured funding and no abrupt increase in Federal Reserve facility usage. That would leave inflation data, Treasury auctions and the next FOMC communication as the more likely drivers of any curve repricing.\n\nThe signal would be challenged by a persistent move toward either target boundary, a material secured-unsecured funding gap or evidence that reserve balances are becoming unevenly distributed. A weak Treasury auction, a CPI surprise or a payrolls shock could still move longer yields, but that would be a macro or supply story rather than proof that overnight implementation had failed.\n\nThis article is for informational purposes only and is not financial advice.\n",
+    "substack_body_markdown_sha256": "2bb6a204b071009329ce08db90aa12a400a411a4238b271d04714f233b75b00a",
+    "subtitle": "The overnight policy rate remains orderly inside the Fed's corridor, but the Treasury curve is carrying a separate inflation, supply and term-premium message.",
+    "title": "Fed Funds Stay Anchored at 3.62% While Treasury Yields Signal Wider Pressure",
+    "visual_asset_count": 3,
+    "visual_placement_status": "PASS_VISUALS_SPREAD_THROUGH_ARTICLE",
+    "visual_positions": [
+      1844,
+      5547,
+      7681
+    ],
+    "visuals_spread_through_article": true,
+    "word_count": 663
+  },
+  "schema_version": "contentops.tier1_editorial_quality.v1",
+  "source_continuity": {
+    "all_three_visuals_retained": true,
+    "media_asset_ids": [
+      "primary",
+      "policy_corridor",
+      "sofr_context"
+    ],
+    "media_sha256": {
+      "policy_corridor": "4e41a27ad3a4b6e713e3b95d8fbd441b387d3ff60a3c7adf833dd3b9c8b31a36",
+      "primary": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
+      "sofr_context": "8f25c7048e0a604d16ada66885712c62f24c6a3c021380cfd195a118814c2239"
+    }
+  },
+  "word_count_reduction": 813
+}

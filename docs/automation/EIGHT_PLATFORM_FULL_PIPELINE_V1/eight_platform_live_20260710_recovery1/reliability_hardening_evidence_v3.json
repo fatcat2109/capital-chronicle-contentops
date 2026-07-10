@@ -1,0 +1,120 @@
+{
+  "classification": "PASS_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3",
+  "editorial_gate": {
+    "classification": "PASS",
+    "deterministic_pass": true,
+    "llm_cannot_override_deterministic_blockers": true,
+    "llm_review_decision": "PASS",
+    "llm_review_sha256": "45b68f001c64511102861e36c70bd25bd7ace91cf2c5afb658f0276ad9610335",
+    "llm_review_status": "SUCCESS",
+    "llm_semantic_pass": true,
+    "original_rendered_body_sha256": "63c59066e567234e44a72f27b26413873c327e425c8c7006a44aa7b7a6b8fe68",
+    "process_language_removed": [
+      "The editorial task",
+      "The reporting discipline",
+      "In a serious financial-news report",
+      "The editorial value",
+      "The schedule and sidecars",
+      "The chart manifest",
+      "editors should look",
+      "the newsroom standard"
+    ],
+    "revised_rendered_body_sha256": "61d1f09c6a5e8364960a7eb1fee26809d5fabd59ae8884d186e17ea30eafc51e",
+    "source_continuity": {
+      "all_three_visuals_retained": true,
+      "media_asset_ids": [
+        "primary",
+        "policy_corridor",
+        "sofr_context"
+      ],
+      "media_sha256": {
+        "policy_corridor": "4e41a27ad3a4b6e713e3b95d8fbd441b387d3ff60a3c7adf833dd3b9c8b31a36",
+        "primary": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
+        "sofr_context": "8f25c7048e0a604d16ada66885712c62f24c6a3c021380cfd195a118814c2239"
+      }
+    }
+  },
+  "editorial_scores": {
+    "after": 93,
+    "before": 60
+  },
+  "instagram_link_semantics": {
+    "canonical_url_text_visible": true,
+    "caption_link_clickable": false,
+    "caption_link_clickable_required": false,
+    "cta_mode": "canonical_url_text"
+  },
+  "linkedin_relationship": "EARLIER_ACCEPTED_AND_LATEST_CORRECTED_IN_PLACE",
+  "remaining_blockers": [
+    "FAIL_LIVE_CHAIN_ARBITRARY_SENTENCE_SPLITS_PRESERVED",
+    "FAIL_LIVE_ROOT_MISSING_APPROVED_CHART_AND_FRAGMENTED_REPLIES_PRESERVED",
+    "BLOCKED_TIKTOK_OAUTH_ADAPTER_AND_APP_AUDIT_INCOMPLETE",
+    "BLOCKED_YOUTUBE_LONG_FORM_EXPLICIT_MODE_AND_AUDIT_REQUIRED",
+    "BLOCKED_YOUTUBE_SHORTS_PUBLIC_EXECUTION_NOT_AUTHORIZED"
+  ],
+  "run_id": "eight_platform_live_20260710_recovery1",
+  "safety": {
+    "broad_social_distribution_run_created": false,
+    "linkedin_latest_activity_edited_in_place": true,
+    "new_substack_article_published": false,
+    "third_linkedin_post_created": false,
+    "tiktok_content_published": false,
+    "video_private_upload_performed": false,
+    "x_threads_facebook_instagram_telegram_discord_youtube_community_modified": false,
+    "youtube_short_published": false,
+    "youtube_video_published": false
+  },
+  "schema_version": "contentops.reliability_hardening_evidence.v3",
+  "seo_scores": {
+    "after": 100,
+    "before": 86
+  },
+  "starting_head": "408a8b7b49e12120a0ad4b84b9b1d63366819228",
+  "variant_metrics": {
+    "threads": {
+      "complete_article_visual_count": 3,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.616,
+        0.406,
+        0.368
+      ],
+      "post_character_counts": [
+        308,
+        203,
+        184
+      ],
+      "reply_count": 2,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 0.597,
+      "visual_distribution_pass": true
+    },
+    "x": {
+      "complete_article_visual_count": 3,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.918,
+        0.725,
+        0.657
+      ],
+      "post_character_counts": [
+        257,
+        203,
+        184
+      ],
+      "reply_count": 2,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 0.716,
+      "visual_distribution_pass": true
+    }
+  },
+  "video_capabilities": {
+    "tiktok_native": "BLOCKED_TIKTOK_OAUTH_ADAPTER_AND_APP_AUDIT_INCOMPLETE",
+    "youtube_long_form": "BLOCKED_YOUTUBE_LONG_FORM_EXPLICIT_MODE_AND_AUDIT_REQUIRED",
+    "youtube_shorts": "BLOCKED_YOUTUBE_SHORTS_PUBLIC_EXECUTION_NOT_AUTHORIZED"
+  }
+}

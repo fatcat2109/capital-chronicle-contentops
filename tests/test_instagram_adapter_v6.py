@@ -98,6 +98,37 @@ def test_execute_edit_unsupported():
     assert res["platform_id"] == "instagram"
 
 
+def test_feed_caption_link_semantics_do_not_require_clickable_url(monkeypatch):
+    canonical_url = "https://capitalchronicle.substack.com/p/example"
+    monkeypatch.setattr(
+        adapter,
+        "_get_json",
+        lambda *_args, **_kwargs: {
+            "id": "media-1",
+            "caption": f"Fed policy analysis\n\nFull analysis: {canonical_url}",
+            "media_type": "IMAGE",
+            "media_url": "https://example.com/chart.png",
+            "permalink": "https://www.instagram.com/p/example/",
+            "username": "official.capitalchronicle",
+        },
+    )
+    monkeypatch.setattr(adapter, "read_public_image_bytes", lambda *_args: b"image")
+    monkeypatch.setattr(adapter, "visual_similarity_to_local_file", lambda *_args: 0.99)
+    result = adapter.readback_instagram_media(
+        media_id="media-1",
+        expected_caption=f"Fed policy analysis\n\nFull analysis: {canonical_url}",
+        canonical_url=canonical_url,
+        expected_media_local_path="chart.png",
+        access_token="redacted-fixture",
+    )
+    assert result["status"] == "SUCCESS"
+    assert result["canonical_url_text_visible"] is True
+    assert result["canonical_url_exact"] is True
+    assert result["caption_link_clickable"] is False
+    assert result["caption_link_clickable_required"] is False
+    assert result["cta_mode"] == "canonical_url_text"
+
+
 def test_validate_instagram_image_url_rejects_non_http():
     assert adapter.validate_instagram_image_url("file:///tmp/image.jpg") == ["image_url_not_http"]
 

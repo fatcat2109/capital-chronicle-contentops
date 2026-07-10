@@ -18,9 +18,9 @@ def test_canonical_authorities_share_current_run_and_next_task() -> None:
     master = _read(PLAN / "current_v6_master_plan.md")
     ledger = _read(PLAN / "v6_25_task_ledger.md")
     pointer = _read(PLAN / "next_task_pointer.md")
-    assert status["current_run_id"] in master
-    assert status["current_run_id"] in ledger
-    assert status["current_run_id"] in pointer
+    assert status["latest_accepted_task"] in master
+    assert status["latest_accepted_task"] in ledger
+    assert status["latest_accepted_task"] in pointer
     assert status["next_recommended_task"] in ledger
     assert status["next_recommended_task"] in pointer
 
@@ -64,4 +64,15 @@ def test_platform_registry_matches_status_and_requires_strict_readback() -> None
     assert contract["canonical_runner"] == status["canonical_backend_runner"]
     assert contract["canonical_edge_profile"] == status["canonical_browser_profile"]
     assert set(status["platform_matrix"]).issubset(set(contract["destinations"]))
-    assert "public_readback_mismatch" in contract["failure_conditions"]
+    assert "hard_or_mid_sentence_truncation" in contract["failure_conditions"]
+    assert contract["overflow_policy"] == "sentence_and_paragraph_aware_balanced_root_reply_chain"
+    assert contract["editorial_gate"] == "live_contentops.tier1_editorial_quality_v1"
+    assert contract["editorial_gate_policy"] == "deterministic_and_bounded_llm_must_both_pass_llm_cannot_override_deterministic_blockers"
+
+
+def test_agents_fast_ship_never_authorizes_raw_secret_output() -> None:
+    agents = _read(ROOT / "AGENTS.md").lower()
+    assert "fast ship" in agents
+    assert "never authorizes printing" in agents
+    for term in ("raw environment values", "tokens", "cookies", "localstorage", "sessionstorage"):
+        assert term in agents

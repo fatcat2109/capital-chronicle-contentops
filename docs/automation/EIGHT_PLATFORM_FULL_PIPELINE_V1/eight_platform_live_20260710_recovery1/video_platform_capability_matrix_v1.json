@@ -1,0 +1,111 @@
+{
+  "classification": "VIDEO_CAPABILITY_AUDIT_COMPLETE_NO_POSTING",
+  "default_article_youtube_surface": "youtube_community",
+  "network_call_performed": false,
+  "official_rule_sources": {
+    "tiktok_content_posting": "https://developers.tiktok.com/doc/content-posting-api-get-started/",
+    "youtube_shorts": "https://support.google.com/youtube/answer/15424877",
+    "youtube_videos_insert": "https://developers.google.com/youtube/v3/docs/videos/insert"
+  },
+  "public_or_private_upload_performed": false,
+  "raw_credential_values_read_or_emitted": false,
+  "rows": {
+    "tiktok_native": {
+      "account_identity_readiness": false,
+      "adapter_implemented": false,
+      "app_credentials_present": true,
+      "blocker_details": [
+        "redirect_callback_not_implemented",
+        "account_oauth_authorization_missing",
+        "refresh_token_missing",
+        "open_id_missing",
+        "runtime_access_token_refresh_missing",
+        "native_content_posting_adapter_missing",
+        "app_audit_approval_missing"
+      ],
+      "credential_names_expected": [
+        "CONTENTOPS_TIKTOK_CLIENT_KEY",
+        "CONTENTOPS_TIKTOK_CLIENT_SECRET",
+        "CONTENTOPS_TIKTOK_APP_ID",
+        "CONTENTOPS_TIKTOK_REFRESH_TOKEN",
+        "CONTENTOPS_TIKTOK_OPEN_ID",
+        "CONTENTOPS_TIKTOK_ACCESS_TOKEN"
+      ],
+      "credential_presence": {
+        "CONTENTOPS_TIKTOK_ACCESS_TOKEN": false,
+        "CONTENTOPS_TIKTOK_APP_ID": true,
+        "CONTENTOPS_TIKTOK_CLIENT_KEY": true,
+        "CONTENTOPS_TIKTOK_CLIENT_SECRET": true,
+        "CONTENTOPS_TIKTOK_OPEN_ID": false,
+        "CONTENTOPS_TIKTOK_REFRESH_TOKEN": false
+      },
+      "current_blocker": "BLOCKED_TIKTOK_OAUTH_ADAPTER_AND_APP_AUDIT_INCOMPLETE",
+      "next_operator_action": "Complete redirect/callback registration and TikTok user authorization only after the native adapter and audit plan are reviewed.",
+      "oauth_authorization_status": "NOT_AUTHORIZED",
+      "product_surface": "TikTok native video/photo Content Posting API",
+      "public_posting_approval_status": "NOT_APPROVED",
+      "required_scopes": [
+        "user.info.basic",
+        "video.upload",
+        "video.publish"
+      ],
+      "test_mode_available": false,
+      "upload_transport": "NOT_IMPLEMENTED_CONTENT_POSTING_API"
+    },
+    "youtube_long_form": {
+      "account_identity_readiness": true,
+      "adapter_implemented": false,
+      "credential_names_expected": [
+        "YOUTUBE_CLIENT_ID",
+        "YOUTUBE_CLIENT_SECRET",
+        "YOUTUBE_REFRESH_TOKEN",
+        "YOUTUBE_CHANNEL_ID"
+      ],
+      "credential_presence": {
+        "YOUTUBE_CHANNEL_ID": true,
+        "YOUTUBE_CLIENT_ID": true,
+        "YOUTUBE_CLIENT_SECRET": true,
+        "YOUTUBE_REFRESH_TOKEN": true
+      },
+      "current_blocker": "BLOCKED_YOUTUBE_LONG_FORM_EXPLICIT_MODE_AND_AUDIT_REQUIRED",
+      "next_operator_action": "Review a private-only videos.insert adapter, verify channel binding, quota, and API project audit before any execution approval.",
+      "oauth_authorization_status": "REFRESH_TOKEN_PRESENT",
+      "product_surface": "YouTube long-form video upload",
+      "public_posting_approval_status": "CAPABILITY_AUDIT_ONLY",
+      "required_scopes": [
+        "https://www.googleapis.com/auth/youtube.upload"
+      ],
+      "test_mode_available": true,
+      "upload_transport": "videos.insert_resumable_request_not_runtime_wired"
+    },
+    "youtube_shorts": {
+      "account_identity_readiness": true,
+      "adapter_implemented": true,
+      "credential_names_expected": [
+        "YOUTUBE_CLIENT_ID",
+        "YOUTUBE_CLIENT_SECRET",
+        "YOUTUBE_REFRESH_TOKEN",
+        "YOUTUBE_CHANNEL_ID"
+      ],
+      "credential_presence": {
+        "YOUTUBE_CHANNEL_ID": true,
+        "YOUTUBE_CLIENT_ID": true,
+        "YOUTUBE_CLIENT_SECRET": true,
+        "YOUTUBE_REFRESH_TOKEN": true
+      },
+      "current_blocker": "BLOCKED_YOUTUBE_SHORTS_PUBLIC_EXECUTION_NOT_AUTHORIZED",
+      "next_operator_action": "Keep the adapter outside the article runner and require separate content, rights, metadata, and public-write approval.",
+      "oauth_authorization_status": "REFRESH_TOKEN_PRESENT",
+      "product_surface": "YouTube Shorts upload",
+      "public_posting_approval_status": "CAPABILITY_AUDIT_ONLY",
+      "required_scopes": [
+        "https://www.googleapis.com/auth/youtube.upload"
+      ],
+      "surface_rule": "square_or_vertical_and_duration_at_most_180_seconds",
+      "test_mode_available": true,
+      "upload_transport": "explicit_non_default_edge_studio_adapter"
+    }
+  },
+  "schema_version": "contentops.video_platform_capability_matrix.v1",
+  "video_modes_explicit_non_default": true
+}

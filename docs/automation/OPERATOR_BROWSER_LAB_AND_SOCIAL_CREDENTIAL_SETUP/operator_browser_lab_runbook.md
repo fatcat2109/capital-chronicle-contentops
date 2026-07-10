@@ -23,6 +23,8 @@ The doctor must report `READY_TO_ATTACH`, Microsoft Edge, and the exact profile 
 
 Safe readiness checks may inspect browser family, CDP reachability, process/profile ownership, destination identity, and visible authenticated UI selectors. They must not read or persist cookies, localStorage, sessionStorage, authorization headers, tokens, webhook values, or raw secret values.
 
+Fast Ship does not relax this boundary. Environment-variable name checks and presence booleans are allowed; raw values are never printed, logged, copied into evidence, or committed.
+
 ## Canonical Runner
 
 ```powershell
@@ -58,6 +60,8 @@ Uploads are sequential. Each insert must show one new in-body image, meaningful 
 - Substack is canonical and requires three distributed source-backed visuals.
 - Derivatives use exact media-manifest asset/hash binding.
 - X and Threads overflow into ordered replies; hard truncation is forbidden.
+- New X and Threads runs require a root plus two sentence-complete replies and `primary`, `policy_corridor`, and `sofr_context` exactly once across the chain.
+- Instagram feed URLs are accepted as exact visible caption text with a clear CTA; clickability is optional.
 - YouTube uses Community text + image + Substack link. Video/Short is non-default.
 - TikTok must report the exact authentication blocker when unavailable.
 - A write is successful only after stable public URL/ID and text/media/link/account readback.
@@ -75,3 +79,9 @@ Before retrying malformed or uncertain output:
 ## TikTok Handoff
 
 Open TikTok through the canonical profile and let the operator authenticate manually. Do not inspect or export session storage. After identity is visibly confirmed, rerun safe session readiness and only then enable the reviewed native derivative adapter. Do not substitute YouTube, Instagram, video, or another account.
+
+App Client Key, Client Secret, and App ID presence does not establish TikTok readiness. Callback registration, user OAuth, refresh token, `open_id`, runtime token refresh, native Content Posting adapter, account identity, required scopes, and app audit must all pass first.
+
+## Video Capability Audit
+
+`video_platform_capability_matrix_v1.py` is read-only. It may build a local private YouTube request and classify Short versus long-form metadata, but it must not call an upload endpoint. TikTok native, YouTube long-form, and YouTube Shorts each require a separate explicit mode and public-write approval. The normal article runner can call only YouTube Community.

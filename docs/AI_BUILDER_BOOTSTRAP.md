@@ -25,6 +25,7 @@ Do not read secret values during authority checks. Preserve coherent local work;
 7. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/platform_delivery_contract_v1.json`
 8. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md`
 9. `docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP/operator_browser_lab_runbook.md`
+10. `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1/reliability_hardening_evidence_v3.json`
 
 ## Current North Star
 
@@ -34,12 +35,12 @@ Capital Chronicle ContentOps V6 is an AI-native automated editorial production a
 current headlines/CDP
 -> LLM semantic selection and duplicate/hotspot policy
 -> grounded source packet
--> tier-1 SEO article
+-> tier-1 reader-facing editorial and SEO gates
 -> at least three source-backed analytical visuals
 -> canonical Substack publication/readback
 -> native derivatives linked to Substack
 -> exact media-manifest binding
--> ordered reply chains for overflow
+-> sentence-aware balanced reply chains with three-image distribution
 -> adapter writes, idempotency, and strict public readback
 -> evidence and operator review
 ```
@@ -68,16 +69,21 @@ V4 and archived dashboards are fallback/reference only.
 - Article media requires three analytical roles, provenance, captions, alt text, and body distribution.
 - Derivative media comes only from exact approved manifest IDs/hashes; avatars and logos fail.
 - Hard truncation fails. Use ordered replies/comments.
+- Editorial-process narration, weak news pegs, generic watch lists, repeated filler, and invented quotes fail the deterministic tier-1 gate. A bounded LLM standards review is also required; it fails closed and cannot override deterministic blockers.
+- X and Threads use a root plus two semantic replies and distribute all three approved article visuals exactly once.
+- Instagram feed acceptance requires exact canonical URL text and CTA; caption clickability is not universal.
 - YouTube defaults to Community text + image + canonical link. Video/Short is separate non-default mode.
-- TikTok remains blocked until the canonical profile is authenticated.
+- TikTok remains blocked until callback, OAuth, token refresh, native adapter, identity, and app audit are complete; app keys alone are insufficient.
 - A click or API response is not success. Require stable public identity plus text/media/link/account readback.
 - Derivative-only resume freezes Substack and every successful destination.
 
 ## Current Evidence
 
-Run `eight_platform_live_20260710_recovery1` is `PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1`, with TikTok explicitly blocked by canonical-profile authentication.
+Run `eight_platform_live_20260710_recovery1` is the preserved transport fixture. V3 reclassifies its X and Threads chains as live quality failures while the local sentence-aware plans pass. The newest LinkedIn image-only activity was edited in place; no third post was created.
 
 Evidence: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1/`.
+
+For a platform failure, open `platform_delivery_contract_v1.json` and follow `failure_resolution_map.<platform>` to the compiler, adapter, readback, ledger, focused tests, and evidence.
 
 ## Task Protocol
 

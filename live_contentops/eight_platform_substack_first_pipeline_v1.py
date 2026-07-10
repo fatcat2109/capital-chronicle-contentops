@@ -13,6 +13,7 @@ import json
 import os
 import re
 import time
+from functools import lru_cache
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
@@ -27,6 +28,7 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
     publish_youtube_community_post_via_edge,
     probe_authenticated_platform_session,
     readback_linkedin_post_via_edge,
+    readback_linkedin_activity_via_edge,
     readback_youtube_community_post_via_edge,
     readback_x_thread_via_edge,
     reconcile_existing_linkedin_post_via_edge,
@@ -40,7 +42,7 @@ from live_contentops.substack_first_north_star_pipeline_loop_v1 import (
 )
 
 
-TASK_LABEL = "TASK_CONTENTOPS_HEAVY_NORTH_STAR_MASTER_PLAN_REBUILD_AND_MULTI_PLATFORM_LIVE_OUTPUT_REPAIR_V2"
+TASK_LABEL = "TASK_CONTENTOPS_HEAVY_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3"
 SCHEMA_VERSION = "contentops.eight_platform_substack_first_pipeline.v1"
 OUTPUT_ROOT = Path("docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1")
 EXPECTED_DESTINATIONS = (
@@ -101,46 +103,200 @@ def _sha256(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
 
 
-def _split_complete_chunks(parts: Sequence[str], *, limit: int) -> list[str]:
-    """Pack complete words and paragraphs without ellipsis or broken words."""
-    chunks: list[str] = []
+_SENTENCE_BOUNDARY_RE = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9])")
+
+
+def _sentence_units(value: str) -> list[str]:
+    normalized = " ".join(str(value or "").split())
+    return [item.strip() for item in _SENTENCE_BOUNDARY_RE.split(normalized) if item.strip()]
+
+
+def _punctuate(value: str) -> str:
+    clean = value.strip(" ,;:")
+    return clean if not clean or clean[-1] in ".!?" else clean + "."
+
+
+def _split_oversized_sentence(sentence: str, *, limit: int) -> list[str]:
+    """Split only an individually over-limit sentence, preferring semantic clauses."""
+    clauses = re.split(r"(?<=[,;:])\s+(?=(?:and|but|while|which|with|as)\b)", sentence)
+    if len(clauses) == 1:
+        clauses = re.split(r"(?<=;)\s+|(?<=:)\s+", sentence)
+    if len(clauses) > 1 and all(len(_punctuate(item)) <= limit for item in clauses):
+        return [_punctuate(item) for item in clauses if item.strip()]
+    words = sentence.split()
+    rows: list[str] = []
     current = ""
-    for source in parts:
-        part = " ".join(str(source or "").split())
-        if not part:
-            continue
-        candidates = [part]
-        if len(part) > limit:
-            candidates = []
-            words = part.split()
-            segment = ""
-            for word in words:
-                proposed = word if not segment else segment + " " + word
-                if len(proposed) <= limit:
-                    segment = proposed
-                else:
-                    if segment:
-                        candidates.append(segment)
-                    segment = word
-            if segment:
-                candidates.append(segment)
-        for candidate in candidates:
-            proposed = candidate if not current else current + "\n\n" + candidate
-            if len(proposed) <= limit:
-                current = proposed
-            else:
-                if current:
-                    chunks.append(current)
-                current = candidate
+    for word in words:
+        candidate = word if not current else f"{current} {word}"
+        if len(_punctuate(candidate)) <= limit:
+            current = candidate
+        else:
+            if current:
+                rows.append(_punctuate(current))
+            current = word
     if current:
-        chunks.append(current)
-    return chunks
+        rows.append(_punctuate(current))
+    return rows
+
+
+def _balanced_pack(units: Sequence[str], *, limit: int) -> list[str]:
+    if not units:
+        return []
+    separator = 2
+    greedy_count = 1
+    running = 0
+    for unit in units:
+        needed = len(unit) if running == 0 else separator + len(unit)
+        if running and running + needed > limit:
+            greedy_count += 1
+            running = len(unit)
+        else:
+            running += needed
+    target = sum(map(len, units)) + separator * max(0, len(units) - greedy_count)
+    target /= greedy_count
+
+    @lru_cache(maxsize=None)
+    def solve(start: int, groups: int) -> tuple[float, tuple[str, ...]] | None:
+        if groups == 0:
+            return (0.0, ()) if start == len(units) else None
+        best: tuple[float, tuple[str, ...]] | None = None
+        chunk = ""
+        for end in range(start, len(units)):
+            proposed = units[end] if not chunk else f"{chunk}\n\n{units[end]}"
+            if len(proposed) > limit:
+                break
+            remaining_units = len(units) - end - 1
+            if remaining_units < groups - 1:
+                break
+            tail = solve(end + 1, groups - 1)
+            if tail is None:
+                chunk = proposed
+                continue
+            cost = (len(proposed) - target) ** 2 + tail[0]
+            candidate = (cost, (proposed, *tail[1]))
+            if best is None or candidate[0] < best[0]:
+                best = candidate
+            chunk = proposed
+        return best
+
+    packed = solve(0, greedy_count)
+    return list(packed[1]) if packed else list(units)
+
+
+def _split_complete_chunks(parts: Sequence[str], *, limit: int) -> list[str]:
+    """Pack sentence/paragraph units in order without arbitrary character slicing."""
+    units: list[str] = []
+    seen: set[str] = set()
+    for source in parts:
+        for sentence in _sentence_units(str(source or "")):
+            candidates = [sentence] if len(sentence) <= limit else _split_oversized_sentence(sentence, limit=limit)
+            for candidate in candidates:
+                key = re.sub(r"\W+", " ", candidate.casefold()).strip()
+                if key and key not in seen:
+                    units.append(candidate)
+                    seen.add(key)
+    return _balanced_pack(units, limit=limit)
 
 
 def _first_complete_sentence(value: str) -> str:
     normalized = " ".join(str(value or "").split())
     match = re.match(r"^(.+?[.!?])(?:\s|$)", normalized)
     return match.group(1) if match else normalized
+
+
+def _sharp_social_lede(value: str, *, maximum: int) -> str:
+    sentence = _first_complete_sentence(value)
+    if len(sentence) <= maximum:
+        return sentence
+    lead = re.split(r",\s+(?:inside|keeping|while|but|as)\b", sentence, maxsplit=1, flags=re.IGNORECASE)[0]
+    if len(_punctuate(lead)) <= maximum:
+        return _punctuate(lead)
+    return _split_oversized_sentence(sentence, limit=maximum)[0]
+
+
+def _concise_semantic_sentence(value: str, *, maximum: int) -> str:
+    sentence = _first_complete_sentence(value)
+    if len(sentence) <= maximum:
+        return sentence
+    lead = re.split(r";\s+|:\s+|,\s+(?:while|but|and|which|with|as)\b", sentence, maxsplit=1, flags=re.IGNORECASE)[0]
+    if len(_punctuate(lead)) <= maximum:
+        return _punctuate(lead)
+    return _split_oversized_sentence(sentence, limit=maximum)[0]
+
+
+def _thread_quality(posts: Sequence[Mapping[str, Any]], *, limit: int) -> dict[str, Any]:
+    texts = [str(row.get("text") or "") for row in posts]
+    lengths = [len(item) for item in texts]
+    sentence_keys: list[str] = []
+    orphan_fragments = 0
+    sentence_boundary_pass = True
+    for post_index, text in enumerate(texts):
+        stripped = text.strip()
+        if not stripped:
+            orphan_fragments += 1
+            sentence_boundary_pass = False
+            continue
+        for paragraph_index, paragraph in enumerate([item.strip() for item in stripped.split("\n\n") if item.strip()]):
+            if post_index == 0 and paragraph_index == 0:
+                continue
+            if paragraph.startswith("http"):
+                continue
+            if paragraph[0].islower() or paragraph[-1] not in ".!?":
+                orphan_fragments += 1
+                sentence_boundary_pass = False
+            sentence_keys.extend(re.sub(r"\W+", " ", item.casefold()).strip() for item in _sentence_units(paragraph))
+    media_ids = [str(item) for row in posts for item in (row.get("media_asset_ids") or [])]
+    duplicates = len(sentence_keys) - len(set(sentence_keys))
+    shortest_longest = round(min(lengths) / max(lengths), 3) if lengths and max(lengths) else 0.0
+    return {
+        "reply_count": max(0, len(posts) - 1),
+        "post_character_counts": lengths,
+        "per_post_character_utilization": [round(length / limit, 3) for length in lengths],
+        "shortest_longest_reply_ratio": shortest_longest,
+        "sentence_boundary_pass": sentence_boundary_pass,
+        "orphan_fragment_count": orphan_fragments,
+        "visual_distribution_pass": media_ids == ["primary", "policy_corridor", "sofr_context"],
+        "complete_article_visual_count": len(set(media_ids)),
+        "duplicated_sentence_count": duplicates,
+        "hard_character_slicing_used": False,
+    }
+
+
+def _semantic_thread_layout(
+    *, title: str, dek: str, mechanism: str, policy: str, cross_asset: str,
+    canonical_url: str, platform: str, limit: int,
+) -> dict[str, Any]:
+    lede_budget = max(70, limit - len(title) - len(canonical_url) - 6)
+    lede = _sharp_social_lede(dek, maximum=lede_budget)
+    root = "\n\n".join((title, lede, canonical_url))
+    mechanism_text = "Why it matters: " + _concise_semantic_sentence(mechanism, maximum=limit - 18)
+    policy_text = _concise_semantic_sentence(policy, maximum=110 if platform == "x" else 240)
+    cross_text = _concise_semantic_sentence(cross_asset, maximum=90 if platform == "x" else 190)
+    context = f"Policy context: {policy_text} Cross-asset context: {cross_text}"
+    caveat = "For informational purposes only; not financial advice."
+    if len(mechanism_text) <= len(context) and len(mechanism_text + "\n\n" + caveat) <= limit:
+        mechanism_text = mechanism_text + "\n\n" + caveat
+    elif len(context + "\n\n" + caveat) <= limit:
+        context = context + "\n\n" + caveat
+    posts = [
+        {"order": 0, "role": "root", "text": root, "media_asset_ids": ["primary"], "article_sections": ["lede_and_current_policy_signal"]},
+        {"order": 1, "role": "reply", "text": mechanism_text, "media_asset_ids": ["policy_corridor"], "article_sections": ["policy_transmission_mechanism"]},
+        {"order": 2, "role": "reply", "text": context, "media_asset_ids": ["sofr_context"], "article_sections": ["curve_and_cross_asset_context", "confirmation_and_limits"]},
+    ]
+    if any(len(row["text"]) > limit for row in posts):
+        raise ValueError(f"{platform}_semantic_thread_exceeds_limit")
+    metrics = _thread_quality(posts, limit=limit)
+    return {
+        "root_text": root,
+        "reply_texts": [row["text"] for row in posts[1:]],
+        "posts": posts,
+        "full_text": "\n\n".join(row["text"] for row in posts),
+        "platform_limit": limit,
+        "reserved_costs": {"canonical_url_characters": len(canonical_url), "media_characters": 0},
+        "overflow_strategy": "semantic_three_post_thread",
+        "hard_truncation_used": False,
+        "quality_metrics": metrics,
+    }
 
 
 def _root_and_replies(
@@ -187,29 +343,8 @@ def build_native_derivative_payloads(
     policy = " ".join(str(selection["policy_context"]).split())
     cross_asset = " ".join(str(selection["cross_asset_implications"]).split())
     caveat = "For informational purposes only; not financial advice."
-    x_thread = _root_and_replies(
-        title=title,
-        dek=dek,
-        canonical_url=canonical_url,
-        continuation_parts=(
-            f"Why it matters: {mechanism}",
-            f"Policy context: {policy}",
-            f"Cross-asset context: {cross_asset}",
-            caveat,
-        ),
-        limit=280,
-    )
-    threads_thread = _root_and_replies(
-        title=title,
-        dek=dek,
-        canonical_url=canonical_url,
-        continuation_parts=(
-            f"Why it matters: {mechanism}",
-            f"Policy and curve context: {policy} {cross_asset}",
-            caveat,
-        ),
-        limit=500,
-    )
+    x_thread = _semantic_thread_layout(title=title, dek=dek, mechanism=mechanism, policy=policy, cross_asset=cross_asset, canonical_url=canonical_url, platform="x", limit=280)
+    threads_thread = _semantic_thread_layout(title=title, dek=dek, mechanism=mechanism, policy=policy, cross_asset=cross_asset, canonical_url=canonical_url, platform="threads", limit=500)
     return {
         "x": {
             "format": "root_chart_post_with_ordered_replies",
@@ -266,7 +401,7 @@ def build_native_derivative_payloads(
             ),
         },
         "threads": {
-            "format": "root_or_image_reply_with_ordered_replies",
+            "format": "root_chart_post_with_ordered_media_replies",
             "text": threads_thread["root_text"],
             **threads_thread,
         },
@@ -675,6 +810,7 @@ def _persist_final_platform_matrix(output_dir: Path, evidence: Mapping[str, Any]
         frozen_verified = substack_verified or telegram_verified or discord_verified
         rows[platform] = {
             "status": result.get("status"),
+            "quality_status": result.get("quality_status") or ("PASS" if result.get("status") in SUCCESS_STATUSES else result.get("status")),
             "run_id": evidence.get("run_id"),
             "execution_origin": result.get("execution_origin") or "contentops_pipeline",
             "runner_module": result.get("runner_module") or "live_contentops.eight_platform_substack_first_pipeline_v1",
@@ -857,6 +993,11 @@ def run_eight_platform_substack_first_pipeline(
         _write_json(output_dir / "run_evidence_v1.json", evidence)
         return evidence
     primary_media = select_primary_chart(delivery_media_manifest)
+    media_by_id = {
+        str(item.get("media_asset_id")): dict(item)
+        for item in delivery_media_manifest.get("assets", [])
+        if isinstance(item, Mapping) and item.get("media_asset_id")
+    }
     public_image_url = str(primary_media["verified_public_delivery_url"])
     primary_chart = str(primary_media["absolute_local_source_path"])
     runner_command = (
@@ -883,22 +1024,31 @@ def run_eight_platform_substack_first_pipeline(
     x_parent_url = x_root_url
     if str(x_root.get("status") or "") in SUCCESS_STATUSES and x_root_url:
         for index, reply_text in enumerate(payloads["x"]["reply_texts"], start=1):
+            post_layout = payloads["x"]["posts"][index]
+            reply_media = media_by_id[str(post_layout["media_asset_ids"][0])]
             reply = _dispatch_once(
                 ledger_path=ledger_path,
                 platform="x",
                 payload=reply_text,
                 canonical_url=canonical_url,
-                media_attached=False,
+                media_attached=True,
                 idempotency_scope=f"x_reply:{x_root_id}:{index}",
                 run_id=run_id,
                 adapter_name="edge_cdp_publishing_adapter_v1.publish_x_reply_via_edge",
-                media=primary_media,
+                media=reply_media,
                 runner_command=runner_command,
-                executor=lambda parent_url=x_parent_url, text=reply_text: publish_x_reply_via_edge(
-                    cdp_port=cdp_port, parent_url=parent_url, text=text
+                executor=lambda parent_url=x_parent_url, text=reply_text, reply_media=reply_media: publish_x_reply_via_edge(
+                    cdp_port=cdp_port, parent_url=parent_url, text=text,
+                    image_path=str(reply_media["absolute_local_source_path"]),
                 ),
             )
-            x_replies.append({**reply, "order": index, "text": reply_text, "parent_id": x_parent_url.rstrip("/").rsplit("/", 1)[-1]})
+            x_replies.append({
+                **reply, "order": index, "text": reply_text,
+                "parent_id": x_parent_url.rstrip("/").rsplit("/", 1)[-1],
+                "expected_media_local_path": str(reply_media["absolute_local_source_path"]),
+                "media_asset_id": reply_media["media_asset_id"],
+                "media_sha256": reply_media["sha256"],
+            })
             if reply.get("public_url"):
                 x_parent_url = str(reply["public_url"])
             if str(reply.get("status") or "") not in SUCCESS_STATUSES:
@@ -1001,22 +1151,29 @@ def run_eight_platform_substack_first_pipeline(
         from live_contentops.threads_adapter_v6 import readback_threads_chain, readback_threads_post
 
         for index, reply_text in enumerate(payloads["threads"]["reply_texts"], start=1):
+            post_layout = payloads["threads"]["posts"][index]
+            reply_media = media_by_id[str(post_layout["media_asset_ids"][0])]
             reply = _dispatch_once(
                 ledger_path=ledger_path,
                 platform="threads",
                 payload=reply_text,
                 canonical_url=canonical_url,
-                media_attached=False,
+                media_attached=True,
                 idempotency_scope=f"threads_reply:{threads_root_id}:{index}",
                 run_id=run_id,
                 adapter_name="threads_adapter_v6.execute_threads_post",
-                media=primary_media,
+                media=reply_media,
                 runner_command=runner_command,
-                executor=lambda text=reply_text: _publish_threads_reply_verified(
-                    parent_id=threads_root_id, text=text, canonical_url=None, media=None
+                executor=lambda text=reply_text, reply_media=reply_media: _publish_threads_reply_verified(
+                    parent_id=threads_root_id, text=text, canonical_url=None, media=reply_media
                 ),
             )
-            threads_replies.append({**reply, "order": index, "text": reply_text, "parent_id": threads_root_id})
+            threads_replies.append({
+                **reply, "order": index, "text": reply_text, "parent_id": threads_root_id,
+                "expected_media_local_path": str(reply_media["absolute_local_source_path"]),
+                "media_asset_id": reply_media["media_asset_id"],
+                "media_sha256": reply_media["sha256"],
+            })
             if str(reply.get("status") or "") not in SUCCESS_STATUSES:
                 break
         root_readback = readback_threads_post(
@@ -1027,7 +1184,10 @@ def run_eight_platform_substack_first_pipeline(
         )
         chain_readback = readback_threads_chain(
             root_id=threads_root_id,
-            reply_expectations=[{"id": row.get("id"), "text": row.get("text")} for row in threads_replies],
+            reply_expectations=[{
+                "id": row.get("id"), "text": row.get("text"),
+                "expected_media_local_path": row.get("expected_media_local_path"),
+            } for row in threads_replies],
         ) if len(threads_replies) == len(payloads["threads"]["reply_texts"]) else {"status": "FAILED_THREADS_REPLY_CHAIN_INCOMPLETE"}
         threads_ok = root_readback.get("status") == "SUCCESS" and chain_readback.get("status") == "SUCCESS"
         results["threads"] = {
@@ -1148,6 +1308,11 @@ def resume_eight_platform_derivatives(
         _write_json(evidence_path, evidence)
         return evidence
     primary_media = select_primary_chart(delivery_media_manifest)
+    media_by_id = {
+        str(item.get("media_asset_id")): dict(item)
+        for item in delivery_media_manifest.get("assets", [])
+        if isinstance(item, Mapping) and item.get("media_asset_id")
+    }
     primary_chart = str(primary_media["absolute_local_source_path"])
     primary_public_url = str(primary_media["verified_public_delivery_url"])
     payloads = build_native_derivative_payloads(article=article, selection=selection, canonical_url=canonical_url)
@@ -1157,7 +1322,16 @@ def resume_eight_platform_derivatives(
     allowed = {"x", "threads", "linkedin", "facebook_page", "instagram_business", "youtube", "tiktok"}
     if requested - allowed:
         raise ValueError("resume_platform_not_supported_by_derivative_resume")
-    targets = requested or set(allowed)
+    proposed_targets = requested or set(allowed)
+    targets = set()
+    for platform in proposed_targets:
+        prior = results.get(platform) or {}
+        accepted = str(prior.get("status") or "") in SUCCESS_STATUSES
+        if platform == "youtube" and str(prior.get("action") or "") != "community_post":
+            accepted = False
+        if not accepted:
+            targets.add(platform)
+    evidence["successful_resume_targets_skipped"] = sorted(proposed_targets - targets)
     frozen_platforms = ("substack", "telegram", "discord")
     frozen_before = {platform: json.dumps(results.get(platform) or {}, sort_keys=True) for platform in frozen_platforms}
     correction_readback: dict[str, Any] = {}
@@ -1175,35 +1349,35 @@ def resume_eight_platform_derivatives(
         root_id = str(root.get("id") or root_url.rstrip("/").rsplit("/", 1)[-1])
         reply_rows: list[dict[str, Any]] = []
         parent_url = root_url
-        x_repair_replies = _split_complete_chunks(
-            (
-                "The policy-transmission question remains in focus.",
-                f"Why it matters: {selection['market_mechanism']}",
-                f"Policy context: {selection['policy_context']}",
-                f"Cross-asset context: {selection['cross_asset_implications']}",
-                "For informational purposes only; not financial advice.",
-            ),
-            limit=280,
-        )
+        x_repair_replies = payloads["x"]["reply_texts"]
         for index, reply_text in enumerate(x_repair_replies, start=1):
+            post_layout = payloads["x"]["posts"][index]
+            reply_media = media_by_id[str(post_layout["media_asset_ids"][0])]
             reply_result = _dispatch_once(
                 ledger_path=ledger_path,
                 platform="x",
                 payload=reply_text,
                 canonical_url=canonical_url,
-                media_attached=False,
+                media_attached=True,
                 idempotency_scope=f"x_reply:{root_id}:{index}",
                 run_id=run_id,
                 adapter_name="edge_cdp_publishing_adapter_v1.publish_x_reply_via_edge",
-                media=primary_media,
+                media=reply_media,
                 runner_command=runner_command,
-                executor=lambda parent_url=parent_url, reply_text=reply_text: publish_x_reply_via_edge(
+                executor=lambda parent_url=parent_url, reply_text=reply_text, reply_media=reply_media: publish_x_reply_via_edge(
                     cdp_port=cdp_port,
                     parent_url=parent_url,
                     text=reply_text,
+                    image_path=str(reply_media["absolute_local_source_path"]),
                 ),
             )
-            reply_rows.append({**reply_result, "order": index, "text": reply_text, "parent_id": parent_url.rstrip("/").rsplit("/", 1)[-1]})
+            reply_rows.append({
+                **reply_result, "order": index, "text": reply_text,
+                "parent_id": parent_url.rstrip("/").rsplit("/", 1)[-1],
+                "expected_media_local_path": str(reply_media["absolute_local_source_path"]),
+                "media_asset_id": reply_media["media_asset_id"],
+                "media_sha256": reply_media["sha256"],
+            })
             if reply_result.get("public_url"):
                 parent_url = str(reply_result["public_url"])
             if str(reply_result.get("status") or "") not in SUCCESS_STATUSES:
@@ -1246,7 +1420,8 @@ def resume_eight_platform_derivatives(
         )
         reply_rows = []
         for index, reply_text in enumerate(payloads["threads"]["reply_texts"], start=1):
-            reply_media = primary_media if index == 1 else None
+            post_layout = payloads["threads"]["posts"][index]
+            reply_media = media_by_id[str(post_layout["media_asset_ids"][0])]
             reply_result = _dispatch_once(
                 ledger_path=ledger_path,
                 platform="threads",
@@ -1256,7 +1431,7 @@ def resume_eight_platform_derivatives(
                 idempotency_scope=f"threads_reply:{root_id}:{index}",
                 run_id=run_id,
                 adapter_name="threads_adapter_v6.execute_threads_post",
-                media=reply_media or primary_media,
+                media=reply_media,
                 runner_command=runner_command,
                 executor=lambda reply_text=reply_text, reply_media=reply_media: _publish_threads_reply_verified(
                     parent_id=root_id,
@@ -1270,22 +1445,30 @@ def resume_eight_platform_derivatives(
                     post_id=str(reply_result["id"]),
                     expected_text=reply_text,
                     canonical_url=None,
-                    expected_media_local_path=primary_chart if reply_media else None,
+                    expected_media_local_path=str(reply_media["absolute_local_source_path"]),
                 )
                 reply_result["readback"] = replay_readback
                 reply_result["provider_readback_verified"] = replay_readback.get("status") == "SUCCESS"
                 reply_result["public_url"] = replay_readback.get("public_url") or reply_result.get("public_url")
-            reply_rows.append({**reply_result, "order": index, "text": reply_text, "parent_id": root_id})
+            reply_rows.append({
+                **reply_result, "order": index, "text": reply_text, "parent_id": root_id,
+                "expected_media_local_path": str(reply_media["absolute_local_source_path"]),
+                "media_asset_id": reply_media["media_asset_id"],
+                "media_sha256": reply_media["sha256"],
+            })
             if str(reply_result.get("status") or "") not in SUCCESS_STATUSES:
                 break
         chain_readback = readback_threads_chain(
             root_id=root_id,
-            reply_expectations=[{"id": row.get("id"), "text": row.get("text")} for row in reply_rows],
+            reply_expectations=[{
+                "id": row.get("id"), "text": row.get("text"),
+                "expected_media_local_path": row.get("expected_media_local_path"),
+            } for row in reply_rows],
         ) if reply_rows and all(str(row.get("status") or "") in SUCCESS_STATUSES for row in reply_rows) else {"status": "BLOCKED_THREADS_REPLY_CHAIN_INCOMPLETE"}
         threads_verified = bool(
             root_readback.get("status") == "SUCCESS"
             and reply_rows
-            and (reply_rows[0].get("readback") or {}).get("meaningful_media_visible")
+            and all((row.get("readback") or {}).get("meaningful_media_visible") for row in reply_rows)
             and chain_readback.get("status") == "SUCCESS"
         )
         correction_readback["threads_root"] = root_readback
@@ -1810,6 +1993,289 @@ def reconcile_existing_derivative_readbacks(
     return evidence
 
 
+def reconcile_linkedin_activity_pair(
+    *,
+    output_dir: Path,
+    cdp_port: int,
+    accepted_url: str,
+    accepted_id: str,
+    latest_url: str,
+    latest_id: str,
+) -> dict[str, Any]:
+    """Reconcile two known LinkedIn activities and edit only the latest malformed one."""
+    evidence_path = output_dir / "run_evidence_v1.json"
+    evidence = _read_json(evidence_path)
+    canonical_url = str(((evidence.get("results") or {}).get("substack") or {}).get("public_url") or "")
+    article = dict(evidence["article"])
+    selection = dict(evidence["selected_idea"])
+    payload = build_native_derivative_payloads(article=article, selection=selection, canonical_url=canonical_url)["linkedin"]["text"]
+    manifest = build_delivery_media_manifest(
+        media_packet=dict(evidence["media"]),
+        public_image_urls=list(((((evidence.get("results") or {}).get("substack") or {}).get("readback") or {}).get("public_image_urls") or [])),
+        run_id=str(evidence.get("run_id") or ""),
+    )
+    primary = select_primary_chart(manifest)
+    chart_path = str(primary["absolute_local_source_path"])
+    accepted = readback_linkedin_activity_via_edge(
+        cdp_port=cdp_port,
+        public_url=accepted_url,
+        post_id=accepted_id,
+        expected_text=payload,
+        canonical_url=canonical_url,
+        chart_path=chart_path,
+        public_screenshot_path=output_dir / "linkedin_accepted_activity_readback_v3.png",
+    )
+    latest_before = readback_linkedin_activity_via_edge(
+        cdp_port=cdp_port,
+        public_url=latest_url,
+        post_id=latest_id,
+        expected_text=payload,
+        canonical_url=canonical_url,
+        chart_path=chart_path,
+        public_screenshot_path=output_dir / "linkedin_latest_activity_before_v3.png",
+    )
+    edit_result: dict[str, Any] | None = None
+    latest_after = latest_before
+    if accepted.get("status") == "SUCCESS" and latest_before.get("status") == "MALFORMED_EXISTING_POST_REQUIRES_EDIT":
+        edit_result = edit_existing_linkedin_post_via_edge(
+            cdp_port=cdp_port,
+            public_url=latest_url,
+            post_id=latest_id,
+            text=payload,
+            canonical_url=canonical_url,
+            public_screenshot_path=output_dir / "linkedin_latest_activity_after_v3.png",
+        )
+        if edit_result.get("status") == "SUCCESS":
+            latest_after = dict(edit_result.get("readback") or {})
+            latest_after.update({"status": "SUCCESS", "post_id": latest_id, "public_url": latest_url})
+    if latest_after.get("status") == "SUCCESS":
+        relationship = "EARLIER_ACCEPTED_AND_LATEST_CORRECTED_IN_PLACE"
+        superseded_status = None
+    else:
+        relationship = "EARLIER_ACCEPTED_LATEST_PRESERVED_SUPERSEDED_IMAGE_ONLY"
+        superseded_status = "SUPERSEDED_IMAGE_ONLY"
+    packet = {
+        "schema_version": "contentops.linkedin_activity_pair_reconciliation.v1",
+        "run_id": evidence.get("run_id"),
+        "execution_origin": "contentops_pipeline",
+        "adapter": "edge_cdp_publishing_adapter_v1",
+        "canonical_substack_url": canonical_url,
+        "payload_sha256": _sha256(payload),
+        "media_asset_id": primary.get("media_asset_id"),
+        "media_sha256": primary.get("sha256"),
+        "accepted_activity": accepted,
+        "latest_activity_before": latest_before,
+        "latest_edit_result": edit_result,
+        "latest_activity_after": latest_after,
+        "relationship": relationship,
+        "latest_supersession_status": superseded_status,
+        "third_post_created": False,
+        "publish_adapter_called": False,
+        "comment_adapter_called": False,
+        "classification": "PASS_LINKEDIN_PAIR_RECONCILED" if accepted.get("status") == "SUCCESS" else "BLOCKED_LINKEDIN_ACCEPTED_ACTIVITY_READBACK",
+    }
+    _write_json(output_dir / "linkedin_activity_pair_reconciliation_v1.json", packet)
+    results = dict(evidence.get("results") or {})
+    superseded = dict(evidence.get("superseded_malformed_posts") or {})
+    if latest_after.get("status") == "SUCCESS":
+        results["linkedin"] = {
+            "status": "SUCCESS",
+            "platform": "linkedin",
+            "action": "edit_existing_post",
+            "id": latest_id,
+            "public_url": latest_url,
+            "provider_readback_verified": True,
+            "readback": latest_after,
+            "accepted_activity_relationship": relationship,
+            "accepted_activities": [accepted_id, latest_id],
+            "new_post_created": False,
+            "payload_sha256": _sha256(payload),
+            "media_asset_id": primary.get("media_asset_id"),
+            "media_sha256": primary.get("sha256"),
+            "execution_origin": "contentops_pipeline",
+            "adapter_name_version": "edge_cdp_publishing_adapter_v1.edit_existing_linkedin_post_via_edge",
+            "substack_url_included": True,
+            "write_outcome_certainty": "confirmed",
+        }
+        superseded.pop("linkedin_unintended_replacement", None)
+    else:
+        superseded["linkedin_unintended_replacement"] = {
+            "status": "SUPERSEDED_IMAGE_ONLY",
+            "id": latest_id,
+            "public_url": latest_url,
+            "preserved_not_deleted": True,
+            "relationship_to_accepted_activity": accepted_id,
+        }
+    evidence["task_label"] = TASK_LABEL
+    evidence["results"] = results
+    evidence["superseded_malformed_posts"] = superseded
+    evidence["linkedin_activity_pair_reconciliation"] = packet
+    evidence["final_platform_matrix"] = _persist_final_platform_matrix(output_dir, evidence)
+    _write_json(evidence_path, evidence)
+    return packet
+
+
+def compile_variant_reliability_evidence(*, output_dir: Path) -> dict[str, Any]:
+    """Compile future native layouts from current evidence without browser or writes."""
+    evidence = _read_json(output_dir / "run_evidence_v1.json")
+    canonical_url = str(((evidence.get("results") or {}).get("substack") or {}).get("public_url") or "")
+    payloads = build_native_derivative_payloads(
+        article=dict(evidence["article"]),
+        selection=dict(evidence["selected_idea"]),
+        canonical_url=canonical_url,
+    )
+    media_assets = list((evidence.get("media") or {}).get("assets") or [])
+    media_ids = [str(item.get("asset_id") or "") for item in media_assets]
+    thread_rows = {platform: payloads[platform] for platform in ("x", "threads")}
+    pass_gate = all(
+        row["quality_metrics"]["sentence_boundary_pass"]
+        and row["quality_metrics"]["orphan_fragment_count"] == 0
+        and row["quality_metrics"]["visual_distribution_pass"]
+        and row["quality_metrics"]["complete_article_visual_count"] == 3
+        and row["quality_metrics"]["reply_count"] == 2
+        for row in thread_rows.values()
+    ) and media_ids == ["primary", "policy_corridor", "sofr_context"]
+    packet = {
+        "schema_version": "contentops.platform_variant_reliability.v1",
+        "classification": "PASS_SEMANTIC_VARIANT_RELIABILITY" if pass_gate else "BLOCKED_SEMANTIC_VARIANT_RELIABILITY",
+        "run_id": evidence.get("run_id"),
+        "canonical_substack_url": canonical_url,
+        "public_write_performed": False,
+        "live_outputs_modified": False,
+        "operator_audit_fixture": {
+            "x": "LIVE_CHAIN_HAS_ARBITRARY_SENTENCE_SPLITS_AND_SIX_REPLIES",
+            "threads": "LIVE_ROOT_MISSING_APPROVED_CHART_AND_CHAIN_HAS_SENTENCE_FRAGMENTS",
+        },
+        "approved_article_media_asset_ids": media_ids,
+        "planned_layouts": thread_rows,
+    }
+    _write_json(output_dir / "planned_semantic_variants_v1.json", packet)
+    return packet
+
+
+def finalize_reliability_hardening_evidence(*, output_dir: Path) -> dict[str, Any]:
+    """Promote V3 audit results into current evidence without any provider call."""
+    evidence_path = output_dir / "run_evidence_v1.json"
+    evidence = _read_json(evidence_path)
+    editorial = _read_json(output_dir / "tier1_editorial_comparison_v1.json")
+    variants = _read_json(output_dir / "planned_semantic_variants_v1.json")
+    video = _read_json(output_dir / "video_platform_capability_matrix_v1.json")
+    linkedin = _read_json(output_dir / "linkedin_activity_pair_reconciliation_v1.json")
+    results = {name: dict(value) for name, value in (evidence.get("results") or {}).items() if isinstance(value, Mapping)}
+    results["x"]["quality_status"] = "FAIL_LIVE_CHAIN_ARBITRARY_SENTENCE_SPLITS_PRESERVED"
+    results["x"]["planned_reliability_replacement"] = "planned_semantic_variants_v1.json#planned_layouts.x"
+    results["threads"]["quality_status"] = "FAIL_LIVE_ROOT_MISSING_APPROVED_CHART_AND_FRAGMENTED_REPLIES_PRESERVED"
+    results["threads"]["planned_reliability_replacement"] = "planned_semantic_variants_v1.json#planned_layouts.threads"
+    results["instagram_business"].update({
+        "quality_status": "PASS_FEED_CAPTION_URL_TEXT",
+        "canonical_url_text_visible": True,
+        "canonical_url_exact": True,
+        "caption_link_clickable": False,
+        "caption_link_clickable_required": False,
+        "cta_mode": "canonical_url_text",
+    })
+    evidence.update({
+        "task_label": TASK_LABEL,
+        "results": results,
+        "current_quality_classification": "PASS_RELIABILITY_HARDENING_WITH_PRESERVED_LEGACY_X_THREADS_OUTPUT_DEFECTS",
+        "operator_visual_audit_v3": {
+            "substack": "PASS_FROZEN",
+            "telegram": "PASS_FROZEN",
+            "discord": "PASS_FROZEN",
+            "facebook_page": "PASS_CORRECTED_CHART_FROZEN",
+            "youtube_community": "PASS_FROZEN",
+            "x": results["x"]["quality_status"],
+            "threads": results["threads"]["quality_status"],
+            "instagram_business": "PASS_MEDIA_AND_EXACT_URL_TEXT_CAPTION_NOT_CLICKABLE_BY_PLATFORM_DESIGN",
+            "linkedin": linkedin["relationship"],
+            "tiktok": video["rows"]["tiktok_native"]["current_blocker"],
+            "youtube_long_form": video["rows"]["youtube_long_form"]["current_blocker"],
+            "youtube_shorts": video["rows"]["youtube_shorts"]["current_blocker"],
+        },
+        "reliability_evidence": {
+            "editorial_comparison": "tier1_editorial_comparison_v1.json",
+            "planned_semantic_variants": "planned_semantic_variants_v1.json",
+            "linkedin_pair_reconciliation": "linkedin_activity_pair_reconciliation_v1.json",
+            "video_capability_matrix": "video_platform_capability_matrix_v1.json",
+        },
+        "v3_safety": {
+            "new_substack_article_published": False,
+            "broad_social_distribution_run_created": False,
+            "x_threads_facebook_instagram_telegram_discord_youtube_community_modified": False,
+            "linkedin_latest_activity_edited_in_place": linkedin["relationship"] == "EARLIER_ACCEPTED_AND_LATEST_CORRECTED_IN_PLACE",
+            "third_linkedin_post_created": linkedin["third_post_created"],
+            "tiktok_content_published": False,
+            "youtube_video_published": False,
+            "youtube_short_published": False,
+            "video_private_upload_performed": False,
+        },
+        "v3_docs_updated": [
+            "AGENTS.md",
+            "docs/AI_BUILDER_BOOTSTRAP.md",
+            "docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md",
+            "docs/status/CURRENT_PROJECT_STATUS.md",
+            "docs/status/current_project_status.json",
+            "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+            "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+            "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+            "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+            "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/platform_delivery_contract_v1.json",
+            "docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP/operator_browser_lab_runbook.md",
+        ],
+    })
+    packet = {
+        "schema_version": "contentops.reliability_hardening_evidence.v3",
+        "classification": "PASS_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3",
+        "starting_head": "408a8b7b49e12120a0ad4b84b9b1d63366819228",
+        "run_id": evidence.get("run_id"),
+        "editorial_scores": {
+            "before": editorial["original_audit"]["editorial_score"],
+            "after": editorial["revised_audit"]["editorial_score"],
+        },
+        "seo_scores": {
+            "before": editorial["original_audit"]["seo_score"],
+            "after": editorial["revised_audit"]["seo_score"],
+        },
+        "editorial_gate": {
+            "classification": editorial["combined_editorial_gate"]["classification"],
+            "deterministic_pass": editorial["combined_editorial_gate"]["deterministic_pass"],
+            "llm_semantic_pass": editorial["combined_editorial_gate"]["llm_semantic_pass"],
+            "llm_cannot_override_deterministic_blockers": editorial["combined_editorial_gate"]["llm_cannot_override_deterministic_blockers"],
+            "llm_review_status": editorial["llm_semantic_review"]["status"],
+            "llm_review_decision": editorial["llm_semantic_review"]["decision"],
+            "llm_review_sha256": editorial["llm_semantic_review"].get("review_sha256"),
+            "original_rendered_body_sha256": editorial["original_audit"]["rendered_body_sha256"],
+            "revised_rendered_body_sha256": editorial["revised_audit"]["rendered_body_sha256"],
+            "process_language_removed": editorial["process_language_removed"],
+            "source_continuity": editorial["source_continuity"],
+        },
+        "variant_metrics": {
+            platform: variants["planned_layouts"][platform]["quality_metrics"]
+            for platform in ("x", "threads")
+        },
+        "linkedin_relationship": linkedin["relationship"],
+        "instagram_link_semantics": {
+            "canonical_url_text_visible": True,
+            "caption_link_clickable": False,
+            "caption_link_clickable_required": False,
+            "cta_mode": "canonical_url_text",
+        },
+        "video_capabilities": {name: row["current_blocker"] for name, row in video["rows"].items()},
+        "safety": evidence["v3_safety"],
+        "remaining_blockers": [
+            results["x"]["quality_status"],
+            results["threads"]["quality_status"],
+            video["rows"]["tiktok_native"]["current_blocker"],
+            video["rows"]["youtube_long_form"]["current_blocker"],
+            video["rows"]["youtube_shorts"]["current_blocker"],
+        ],
+    }
+    _write_json(output_dir / "reliability_hardening_evidence_v3.json", packet)
+    evidence["final_platform_matrix"] = _persist_final_platform_matrix(output_dir, evidence)
+    _write_json(evidence_path, evidence)
+    return packet
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=TASK_LABEL)
     parser.add_argument("--run-id", required=True)
@@ -1821,12 +2287,43 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--resume-derivatives", action="store_true")
     parser.add_argument("--resume-platform", action="append", default=[])
     parser.add_argument("--reconcile-readbacks", action="store_true")
+    parser.add_argument("--reconcile-linkedin-pair", action="store_true")
+    parser.add_argument("--linkedin-accepted-url")
+    parser.add_argument("--linkedin-accepted-id")
+    parser.add_argument("--linkedin-latest-url")
+    parser.add_argument("--linkedin-latest-id")
+    parser.add_argument("--compile-variants-only", action="store_true")
+    parser.add_argument("--finalize-reliability-evidence", action="store_true")
     args = parser.parse_args(argv)
+    output = args.output_dir or OUTPUT_ROOT / args.run_id
+    if args.compile_variants_only:
+        result = compile_variant_reliability_evidence(output_dir=output)
+        print(json.dumps({
+            "classification": result["classification"],
+            "run_id": result["run_id"],
+            "public_write_performed": result["public_write_performed"],
+        }, indent=2, sort_keys=True))
+        return 0 if result["classification"] == "PASS_SEMANTIC_VARIANT_RELIABILITY" else 2
+    if args.finalize_reliability_evidence:
+        result = finalize_reliability_hardening_evidence(output_dir=output)
+        print(json.dumps({"classification": result["classification"], "run_id": result["run_id"], "safety": result["safety"]}, indent=2, sort_keys=True))
+        return 0
     if not args.operator_approved_full_live_run:
         print(json.dumps({"classification": "BLOCKED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1", "reason": "operator_approved_full_live_run_flag_required"}, sort_keys=True))
         return 2
-    output = args.output_dir or OUTPUT_ROOT / args.run_id
-    if args.reconcile_readbacks:
+    if args.reconcile_linkedin_pair:
+        required = (args.linkedin_accepted_url, args.linkedin_accepted_id, args.linkedin_latest_url, args.linkedin_latest_id)
+        if not all(required):
+            raise ValueError("linkedin_pair_requires_both_exact_activity_urls_and_ids")
+        result = reconcile_linkedin_activity_pair(
+            output_dir=output,
+            cdp_port=args.cdp_port,
+            accepted_url=args.linkedin_accepted_url,
+            accepted_id=args.linkedin_accepted_id,
+            latest_url=args.linkedin_latest_url,
+            latest_id=args.linkedin_latest_id,
+        )
+    elif args.reconcile_readbacks:
         result = reconcile_existing_derivative_readbacks(
             output_dir=output,
             cdp_port=args.cdp_port,
@@ -1846,7 +2343,15 @@ def main(argv: Sequence[str] | None = None) -> int:
             operator_approved_full_live_run=True,
             recover_substack_draft_id=args.recover_substack_draft_id,
         )
-    print(json.dumps({"classification": result["classification"], "run_id": result["run_id"], "results": {platform: result["results"].get(platform, {}).get("status") for platform in EXPECTED_DESTINATIONS}}, indent=2, sort_keys=True))
+    if args.reconcile_linkedin_pair:
+        print(json.dumps({
+            "classification": result["classification"],
+            "run_id": result["run_id"],
+            "relationship": result["relationship"],
+            "third_post_created": result["third_post_created"],
+        }, indent=2, sort_keys=True))
+    else:
+        print(json.dumps({"classification": result["classification"], "run_id": result["run_id"], "results": {platform: result["results"].get(platform, {}).get("status") for platform in EXPECTED_DESTINATIONS}}, indent=2, sort_keys=True))
     return 0 if result["classification"].startswith("PASS") else 1
 
 

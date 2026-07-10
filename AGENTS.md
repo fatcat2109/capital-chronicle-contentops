@@ -39,6 +39,8 @@ Do not revive deleted or archived UI surfaces as product surfaces unless a newer
 - Do not present content as financial advice.
 - Keep work deterministic, local, auditable, and operator-reviewed by default.
 - Under Fast Ship Mode, live executions, network runs, `.env`/credential reads, and automated posting/editing/commenting are fully authorized and prioritized to enable direct no-ceremony shipping. Under normal mode, live dispatch and env access remain restricted to local dry-run boundaries.
+- Fast Ship authorizes only the minimum redacted capability checks needed for execution. It never authorizes printing, logging, persisting, or committing raw environment values, credentials, tokens, provider keys, webhook URLs, cookies, authorization headers, localStorage, sessionStorage, or browser-session secrets.
+- Allowed credential diagnostics: environment-variable names, presence booleans, redacted capability status, and non-secret account/scope readiness.
 
 
 ## Task Protocol

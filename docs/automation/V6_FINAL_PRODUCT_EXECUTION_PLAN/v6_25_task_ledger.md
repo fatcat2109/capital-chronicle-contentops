@@ -1,51 +1,41 @@
 # ContentOps V6 25-Task Product Ledger
 
-This is the current execution ledger. Historical manual/fixture lanes are superseded and do not define product readiness.
-
-| # | Product task | Status | Evidence or acceptance |
+| # | Product capability | Status | Current evidence |
 | --- | --- | --- | --- |
-| 1 | Canonical V5 command surface | DONE | `ui/contentops_v5/` remains the only product UI. |
-| 2 | Current CDP/headline intake | DONE | Repo ingestion and run packet inputs. |
-| 3 | LLM semantic clustering and impact ranking | DONE | Current selector ranks ideas and records rationale. |
-| 4 | 24-hour duplicate/hotspot policy | DONE | Repeat guard plus explicit breaking-event exception. |
-| 5 | Database/source support gate | DONE | Unsupported candidates are rejected before drafting. |
-| 6 | Tier-1 article compiler | DONE | SEO, mechanism, policy, cross-asset, synthesis, caveat. |
-| 7 | Three-role analytical media builder | DONE | Signal, policy mechanism, and curve context charts. |
-| 8 | In-body visual placement | DONE | Three charts verified through the canonical article body. |
-| 9 | Substack canonical browser adapter | DONE | Edge/CDP publication, chooser upload, URL/readback. |
-| 10 | Canonical publication re-entry guard | DONE | Existing run evidence blocks duplicate publication. |
-| 11 | Deterministic derivative media manifest | DONE | Exact asset ID/hash/path/dimension/provenance binding. |
-| 12 | Avatar/logo/thumbnail rejection | DONE | Dimension, shape, role, hash, and visual-readback gates. |
-| 13 | Native derivative compiler | DONE | Per-platform editorial payload contracts. |
-| 14 | Platform-limit-aware reply compiler | DONE | No hard truncation; complete ordered chunks. |
-| 15 | Telegram and Discord delivery | DONE | Frozen accepted outputs with canonical links. |
-| 16 | X root/reply dispatch and readback | DONE | Existing root plus six ordered verified replies. |
-| 17 | Threads root/reply dispatch and readback | DONE | Chart reply plus two continuation replies. |
-| 18 | LinkedIn reconciliation hierarchy | DONE | Existing original edited; image-only replacement superseded. |
-| 19 | Facebook/Instagram wrong-media repair | DONE | Correct chart replacements; malformed originals preserved. |
-| 20 | YouTube Community adapter | DONE | Community text/image/link post; default Short path prohibited. |
-| 21 | Strict public text/media/link/account readback | DONE | Stable IDs/URLs and visual verification required. |
-| 22 | Idempotent targeted resume and supersession | DONE | Frozen destinations remain untouched; unknown writes block retry. |
-| 23 | TikTok canonical-profile authentication | BLOCKED_EXTERNAL | `BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED`. |
-| 24 | V5 delivery/readback dashboard | NEXT | Surface matrix, replies, hashes, supersession, and blockers. |
-| 25 | Fresh scheduled-run rehearsal and telemetry | PENDING | One new supported idea after task 24 and TikTok handoff. |
+| 1 | Canonical V5 command surface | DONE | `ui/contentops_v5/` |
+| 2 | Headline/CDP intake | DONE | Current run intake packet. |
+| 3 | LLM semantic clustering and ranking | DONE | Ranked rationale and support gate. |
+| 4 | Duplicate/hotspot policy | DONE | 24-hour repeat guard with explicit exception. |
+| 5 | Source/numeric support gate | DONE | Unsupported ideas fail closed. |
+| 6 | Tier-1 reader-facing editorial gate | DONE_V3 | Deterministic plus bounded LLM standards review; both must pass and LLM cannot override blockers. |
+| 7 | SEO/rendered-body gate | DONE_V3 | Metadata, sources, headings, media, canonical, clean render. |
+| 8 | Local revised comparison candidate | DONE_V3 | Editorial `60 -> 93`; SEO `86 -> 100`; 14/14 LLM semantic checks; never published. |
+| 9 | Three-role article media | DONE | Signal, policy mechanism, curve context. |
+| 10 | Substack canonical publication/re-entry guard | DONE | Public article frozen; no V3 canonical write. |
+| 11 | Deterministic media manifest | DONE | Exact ID/hash/path/provenance binding. |
+| 12 | Avatar/logo exclusion | DONE | Shape, dimensions, role, hash, visual readback. |
+| 13 | Native derivative compiler | DONE | Platform-specific root copy and CTA. |
+| 14 | Sentence-aware balanced thread compiler | DONE_V3 | Two replies, no fragments, three visuals exactly once. |
+| 15 | Telegram and Discord | DONE_FROZEN | Accepted outputs unchanged. |
+| 16 | X semantic thread contract | CODE_PASS_LIVE_FIXTURE_FAIL | Local three-post plan passes; six-reply live chain preserved. |
+| 17 | Threads semantic thread contract | CODE_PASS_LIVE_FIXTURE_FAIL | Local root-chart plan passes; legacy live chain preserved. |
+| 18 | LinkedIn exact-activity idempotency | DONE_V3 | Latest image-only activity edited in place; no third post. |
+| 19 | Facebook/Instagram media authority | DONE | Corrected chart outputs frozen. |
+| 20 | Instagram feed-link semantics | DONE_V3 | Exact URL text required; caption clickability optional. |
+| 21 | YouTube Community default | DONE | Community remains the only article-distribution surface. |
+| 22 | TikTok native capability | BLOCKED_EXTERNAL | OAuth, callback, adapter, and audit incomplete despite app keys. |
+| 23 | YouTube long-form/Shorts capability split | DONE_AUDIT_BLOCKED_EXECUTION | Local request/classification tests only; no upload. |
+| 24 | V5 reliability/readback dashboard | NEXT | Surface scores, plans, defects, relationships, capabilities. |
+| 25 | Fresh new-idea production rehearsal | PENDING | Use corrected compiler only after task 24. |
 
-## Current Acceptance Snapshot
+Current task: `TASK_CONTENTOPS_HEAVY_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3`
 
-Run: `eight_platform_live_20260710_recovery1`
+Classification: `PASS_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3`
 
-Classification: `PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1`
+The historical run remains frozen. V3 authorized and completed only the exact edit of LinkedIn activity `7481311616265895936`; no other live destination changed.
 
-Primary media SHA-256: `b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af`
+## Next Task
 
-Substack, Telegram, Discord, X, Threads, LinkedIn, Facebook, Instagram, and YouTube Community have accepted strict readback. TikTok remains an explicit authentication blocker and is not fabricated as complete.
+`TASK_CONTENTOPS_V6_RELIABILITY_EVIDENCE_DASHBOARD_AND_VIDEO_AUTH_HANDOFF_V1`
 
-## Completion Rule
-
-Tasks are complete only when implementation, tests, durable evidence, and the relevant public readback agree. A post button click, upload success, API response, or local export is not completion. Old malformed posts remain linked to their accepted correction and cannot be counted as success.
-
-## Next Product Task
-
-`TASK_CONTENTOPS_V6_PLATFORM_DELIVERY_READBACK_DASHBOARD_AND_TIKTOK_AUTH_HANDOFF_V1`
-
-The next task must not publish a new canonical article. It consumes the existing final matrix in the V5 command center, verifies status/readback rendering, and guides the operator through TikTok login in the canonical Edge profile without reading or persisting session secrets.
+Render the V3 evidence in V5 and provide non-secret TikTok/YouTube authorization handoffs. Do not publish a new article or any video.

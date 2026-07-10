@@ -6,57 +6,86 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 STATUS = ROOT / "docs/status/current_project_status.json"
-MASTER = ROOT / "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md"
-CONTRACT = ROOT / "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/platform_delivery_contract_v1.json"
-EVIDENCE = ROOT / "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1/run_evidence_v1.json"
-MATRIX = ROOT / "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1/final_platform_matrix_v1.json"
+PLAN = ROOT / "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN"
+RUN = ROOT / "docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1"
 
 
 def _json(path: Path) -> dict:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def test_status_promotes_live_substack_first_authority() -> None:
+def test_status_promotes_v3_reliability_authority() -> None:
     status = _json(STATUS)
-    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_HEAVY_NORTH_STAR_MASTER_PLAN_REBUILD_AND_MULTI_PLATFORM_LIVE_OUTPUT_REPAIR_V2"
-    assert status["current_run_classification"] == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
-    assert status["canonical_substack_url"].startswith("https://capitalchronicle.substack.com/p/")
-    assert status["canonical_backend_runner"] == "live_contentops.eight_platform_substack_first_pipeline_v1"
+    assert status["latest_accepted_task"] == "TASK_CONTENTOPS_HEAVY_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3"
+    assert status["current_task_classification"] == "PASS_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3"
+    assert (status["editorial_score_before"], status["editorial_score_after"]) == (60, 93)
+    assert (status["seo_score_before"], status["seo_score_after"]) == (86, 100)
+    assert status["combined_editorial_gate"] == "PASS"
+    assert status["llm_editorial_review_status"] == "SUCCESS"
+    assert status["llm_editorial_review_decision"] == "PASS"
+    assert status["llm_editorial_review_check_count"] == 14
+    assert status["llm_cannot_override_deterministic_blockers"] is True
 
 
-def test_live_evidence_and_status_agree() -> None:
+def test_current_evidence_separates_transport_from_quality() -> None:
+    evidence = _json(RUN / "run_evidence_v1.json")
+    assert evidence["classification"] == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
+    assert evidence["current_quality_classification"] == "PASS_RELIABILITY_HARDENING_WITH_PRESERVED_LEGACY_X_THREADS_OUTPUT_DEFECTS"
+    assert evidence["results"]["x"]["quality_status"].startswith("FAIL_LIVE_CHAIN")
+    assert evidence["results"]["threads"]["quality_status"].startswith("FAIL_LIVE_ROOT")
+    assert evidence["v3_safety"]["new_substack_article_published"] is False
+    hardening = _json(RUN / "reliability_hardening_evidence_v3.json")
+    assert hardening["editorial_gate"]["classification"] == "PASS"
+    assert hardening["editorial_gate"]["deterministic_pass"] is True
+    assert hardening["editorial_gate"]["llm_semantic_pass"] is True
+    assert hardening["editorial_gate"]["llm_cannot_override_deterministic_blockers"] is True
+    assert len(hardening["editorial_gate"]["source_continuity"]["media_sha256"]) == 3
+
+
+def test_linkedin_pair_and_instagram_semantics_are_unambiguous() -> None:
+    pair = _json(RUN / "linkedin_activity_pair_reconciliation_v1.json")
     status = _json(STATUS)
-    evidence = _json(EVIDENCE)
-    assert evidence["run_id"] == status["current_run_id"]
-    assert evidence["classification"] == status["current_run_classification"]
-    assert evidence["results"]["substack"]["public_url"] == status["canonical_substack_url"]
-    assert evidence["results"]["youtube"]["public_url"] == status["platform_matrix"]["youtube"]["url"]
-    assert evidence["results"]["tiktok"]["status"] == "BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED"
+    assert pair["relationship"] == "EARLIER_ACCEPTED_AND_LATEST_CORRECTED_IN_PLACE"
+    assert pair["third_post_created"] is False
+    assert pair["accepted_activity"]["post_id"] == "7481289145206644736"
+    assert pair["latest_activity_after"]["post_id"] == "7481311616265895936"
+    instagram = status["platform_matrix"]["instagram_business"]
+    assert instagram["quality_status"] == "PASS_FEED_CAPTION_URL_TEXT"
+    assert instagram["caption_link_clickable"] is False
 
 
-def test_delivery_contract_is_community_only_for_default_youtube() -> None:
-    contract = _json(CONTRACT)
-    youtube = contract["destinations"]["youtube"]
-    assert youtube["default_surface"] == "community_post"
-    assert {"video", "short"}.issubset(set(youtube["forbidden_default_surfaces"]))
-    assert contract["overflow_policy"] == "ordered_root_reply_chain_no_hard_truncation"
+def test_semantic_variants_use_three_posts_and_three_visuals() -> None:
+    packet = _json(RUN / "planned_semantic_variants_v1.json")
+    for platform in ("x", "threads"):
+        layout = packet["planned_layouts"][platform]
+        metrics = layout["quality_metrics"]
+        assert len(layout["posts"]) == 3
+        assert metrics["reply_count"] == 2
+        assert metrics["sentence_boundary_pass"] is True
+        assert metrics["orphan_fragment_count"] == 0
+        assert metrics["visual_distribution_pass"] is True
+        assert metrics["complete_article_visual_count"] == 3
 
 
-def test_final_matrix_normalizes_frozen_and_corrected_readbacks() -> None:
-    matrix = _json(MATRIX)
-    for platform in ("substack", "telegram", "discord", "x", "threads", "linkedin", "facebook_page", "instagram_business", "youtube"):
-        row = matrix["destinations"][platform]
-        assert row["status"] == "SUCCESS"
-        assert row["provider_readback_verified"] is True
-        assert row["public_text_verified"] is True
-        assert row["canonical_link_verified"] is True
-    assert matrix["destinations"]["tiktok"]["status"] == "BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED"
-    assert matrix["primary_media_sha256"] == "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af"
+def test_video_matrix_is_capability_only() -> None:
+    packet = _json(RUN / "video_platform_capability_matrix_v1.json")
+    assert packet["default_article_youtube_surface"] == "youtube_community"
+    assert packet["public_or_private_upload_performed"] is False
+    assert packet["rows"]["tiktok_native"]["app_credentials_present"] is True
+    assert packet["rows"]["tiktok_native"]["oauth_authorization_status"] == "NOT_AUTHORIZED"
 
 
-def test_master_rejects_click_only_success_and_dom_media_selection() -> None:
-    text = MASTER.read_text(encoding="utf-8").lower()
-    assert "no success from a click" in text
-    assert "do not scrape the public substack dom" in text
-    assert "hard truncation" in text
-    assert "youtube community" in text
+def test_platform_contract_contains_failure_resolution_map() -> None:
+    contract = _json(PLAN / "platform_delivery_contract_v1.json")
+    failure_map = contract["failure_resolution_map"]
+    for platform in ("substack", "telegram", "x", "discord", "linkedin", "facebook_page", "instagram_business", "threads", "youtube_community", "video_capabilities"):
+        row = failure_map[platform]
+        assert row["adapter"]
+        assert row["payload_compiler"]
+        assert row["public_readback"]
+        assert row["idempotency_ledger"]
+        assert row["focused_tests"]
+        assert row["common_failures"]
+        assert row["allowed_recovery"]
+        assert row["forbidden_fallback"]
+        assert row["evidence"]

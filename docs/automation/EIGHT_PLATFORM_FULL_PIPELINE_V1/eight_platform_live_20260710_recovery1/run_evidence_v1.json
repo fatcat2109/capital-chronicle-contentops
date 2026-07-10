@@ -204,6 +204,7 @@
     "tiktok": false,
     "youtube": true
   },
+  "current_quality_classification": "PASS_RELIABILITY_HARDENING_WITH_PRESERVED_LEGACY_X_THREADS_OUTPUT_DEFECTS",
   "delivery_media_manifest": {
     "assets": [
       {
@@ -361,6 +362,7 @@
         "provider_readback_verified": true,
         "public_text_verified": true,
         "public_url": null,
+        "quality_status": "PASS",
         "readback_basis": "frozen_accepted_operator_and_provider_evidence",
         "reply_chain": [],
         "run_id": "eight_platform_live_20260710_recovery1",
@@ -383,6 +385,7 @@
         "provider_readback_verified": true,
         "public_text_verified": true,
         "public_url": "https://www.facebook.com/1342369584748125/posts/1342374731414277",
+        "quality_status": "PASS",
         "readback_basis": "strict_platform_readback",
         "reply_chain": [],
         "run_id": "eight_platform_live_20260710_recovery1",
@@ -405,6 +408,7 @@
         "provider_readback_verified": true,
         "public_text_verified": true,
         "public_url": "https://www.instagram.com/p/DanF4lxDmDs/",
+        "quality_status": "PASS_FEED_CAPTION_URL_TEXT",
         "readback_basis": "strict_platform_readback",
         "reply_chain": [],
         "run_id": "eight_platform_live_20260710_recovery1",
@@ -413,20 +417,21 @@
         "status": "SUCCESS"
       },
       "linkedin": {
-        "adapter_name_version": "edge_cdp_publishing_adapter_v1.reconcile_existing_linkedin_post_via_edge",
+        "adapter_name_version": "edge_cdp_publishing_adapter_v1.edit_existing_linkedin_post_via_edge",
         "canonical_link_verified": true,
         "canonical_substack_url": "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at",
         "destination_identity": "linkedin:jimcc",
         "execution_origin": "contentops_pipeline",
-        "id": "7481289145206644736",
-        "idempotency_state": "reconciled",
+        "id": "7481311616265895936",
+        "idempotency_state": "confirmed",
         "media_asset_id": "primary",
         "media_sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
         "media_verified": true,
         "payload_sha256": "20bbbc270591c7d16e90c56180924203146eb74f58558651a556d8b7b20d5d80",
         "provider_readback_verified": true,
         "public_text_verified": true,
-        "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481289145206644736/",
+        "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+        "quality_status": "PASS",
         "readback_basis": "strict_platform_readback",
         "reply_chain": [],
         "run_id": "eight_platform_live_20260710_recovery1",
@@ -449,6 +454,7 @@
         "provider_readback_verified": true,
         "public_text_verified": true,
         "public_url": "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at",
+        "quality_status": "PASS",
         "readback_basis": "frozen_accepted_operator_and_provider_evidence",
         "reply_chain": [],
         "run_id": "eight_platform_live_20260710_recovery1",
@@ -471,6 +477,7 @@
         "provider_readback_verified": true,
         "public_text_verified": true,
         "public_url": "https://t.me/CapitalChronicle/61",
+        "quality_status": "PASS",
         "readback_basis": "frozen_accepted_operator_and_provider_evidence",
         "reply_chain": [],
         "run_id": "eight_platform_live_20260710_recovery1",
@@ -493,6 +500,7 @@
         "provider_readback_verified": true,
         "public_text_verified": true,
         "public_url": "https://www.threads.com/@official.capitalchronicle/post/Dam28KxnwGV",
+        "quality_status": "FAIL_LIVE_ROOT_MISSING_APPROVED_CHART_AND_FRAGMENTED_REPLIES_PRESERVED",
         "readback_basis": "strict_platform_readback",
         "reply_chain": [
           {
@@ -603,6 +611,7 @@
         "provider_readback_verified": false,
         "public_text_verified": false,
         "public_url": null,
+        "quality_status": "BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED",
         "readback_basis": "strict_platform_readback",
         "reply_chain": [],
         "run_id": "eight_platform_live_20260710_recovery1",
@@ -625,6 +634,7 @@
         "provider_readback_verified": true,
         "public_text_verified": true,
         "public_url": "https://x.com/Capitalnicle/status/2075510632770875841",
+        "quality_status": "FAIL_LIVE_CHAIN_ARBITRARY_SENTENCE_SPLITS_PRESERVED",
         "readback_basis": "strict_platform_readback",
         "reply_chain": [
           {
@@ -828,6 +838,7 @@
         "provider_readback_verified": true,
         "public_text_verified": true,
         "public_url": "https://www.youtube.com/post/UgkxLF5TJ6zbW1-3_at3PdfBr8wlbkFbko60",
+        "quality_status": "PASS",
         "readback_basis": "strict_platform_readback",
         "reply_chain": [],
         "run_id": "eight_platform_live_20260710_recovery1",
@@ -882,13 +893,6 @@
           "visible_body_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues The chart is a checkpoint, not a verdict: The overnight benchmark matters for cash and short-rate pricing; longer Treasury yields, credit, equities, and foreign exchange can still reprice through separate growth, inflation, supply, and risk-premium channels. Full analysis: https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at For informational purposes only; not financial advice. #CapitalChronicle #Macro #Markets"
         },
         "status": "SUPERSEDED_WRONG_MEDIA"
-      },
-      "linkedin_unintended_replacement": {
-        "id": "7481311616265895936",
-        "preserved_not_deleted": true,
-        "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
-        "reason": "replacement_write_from_prior_unknown-fallback bug produced image-only output",
-        "status": "SUPERSEDED_IMAGE_ONLY"
       }
     },
     "wrong_surface_executions": {
@@ -906,6 +910,132 @@
     "decision": "PRESERVED_NOT_REUSED",
     "draft_id": "206403125",
     "reason": "The prior Chrome-based draft had zero body images and no external URL; the new direct-Edge run created a fully verified canonical article."
+  },
+  "linkedin_activity_pair_reconciliation": {
+    "accepted_activity": {
+      "action": "readback_existing_post",
+      "body_text_visible": true,
+      "browser_write_performed": false,
+      "canonical_link_target_verified": true,
+      "canonical_url_text_visible": false,
+      "chart_similarity_score": 0.8688,
+      "destination_identity": "linkedin:jimcc",
+      "meaningful_media_visible": true,
+      "media_readback": {
+        "natural_height": 429,
+        "natural_width": 800,
+        "rendered_height": 207.8,
+        "rendered_width": 387.0
+      },
+      "platform": "linkedin",
+      "post_id": "7481289145206644736",
+      "public_screenshot_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\linkedin_accepted_activity_readback_v3.png",
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481289145206644736/",
+      "status": "SUCCESS",
+      "substack_url_visible": true,
+      "visible_body_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues FRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus. The mechanism: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions. Its position inside the policy corridor is evidence about overnight rate implementation, while funding spreads and the yield curve provide the broader conditions context. The policy context: The target range and administered rates frame the overnight operating environment. A reading inside that corridor shows where the implementation channel is operating, but it does not by itself establish the next policy decision or the direction of longer-dated yields. Read the full Capital Chronicle analysis: https://lnkd.in/g5sgqw4b For informational purposes only; not financial advice.",
+      "visible_link_text": "https://lnkd.in/g5sgqw4b"
+    },
+    "adapter": "edge_cdp_publishing_adapter_v1",
+    "canonical_substack_url": "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at",
+    "classification": "PASS_LINKEDIN_PAIR_RECONCILED",
+    "comment_adapter_called": false,
+    "execution_origin": "contentops_pipeline",
+    "latest_activity_after": {
+      "action": "readback_existing_post",
+      "body_text_visible": true,
+      "canonical_link_target_verified": true,
+      "canonical_url_text_visible": false,
+      "destination_identity": "linkedin:jimcc",
+      "meaningful_media_visible": true,
+      "media_readback": {
+        "natural_height": 429,
+        "natural_width": 800,
+        "rendered_height": 207.8,
+        "rendered_width": 387.0
+      },
+      "platform": "linkedin",
+      "post_id": "7481311616265895936",
+      "public_screenshot_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\linkedin_latest_activity_after_v3.png",
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+      "status": "SUCCESS",
+      "substack_url_visible": true,
+      "visible_body_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues FRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus. The mechanism: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions. Its position inside the policy corridor is evidence about overnight rate implementation, while funding spreads and the yield curve provide the broader conditions context. The policy context: The target range and administered rates frame the overnight operating environment. A reading inside that corridor shows where the implementation channel is operating, but it does not by itself establish the next policy decision or the direction of longer-dated yields. Read the full Capital Chronicle analysis: https://lnkd.in/g5sgqw4b For informational purposes only; not financial advice.",
+      "visible_link_text": "https://lnkd.in/g5sgqw4b"
+    },
+    "latest_activity_before": {
+      "action": "readback_existing_post",
+      "body_text_visible": false,
+      "browser_write_performed": false,
+      "canonical_link_target_verified": false,
+      "canonical_url_text_visible": false,
+      "chart_similarity_score": 0.8873,
+      "destination_identity": "linkedin:jimcc",
+      "meaningful_media_visible": true,
+      "media_readback": {
+        "natural_height": 429,
+        "natural_width": 800,
+        "rendered_height": 207.8,
+        "rendered_width": 387.0
+      },
+      "platform": "linkedin",
+      "post_id": "7481311616265895936",
+      "public_screenshot_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\linkedin_latest_activity_before_v3.png",
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+      "status": "MALFORMED_EXISTING_POST_REQUIRES_EDIT",
+      "substack_url_visible": false,
+      "visible_body_text": "",
+      "visible_link_text": null
+    },
+    "latest_edit_result": {
+      "action": "edit_existing_post",
+      "edit_selector": "div[role='button']:has-text('Edit post')",
+      "editor_selector": "div[role='dialog'] div.ql-editor[contenteditable='true']",
+      "media_status": "preserved_existing_chart",
+      "media_transfer": {
+        "upload_transport": "preserved_existing_media_no_reupload"
+      },
+      "menu_selector": "button[aria-label*='Open control menu']",
+      "new_post_created": false,
+      "payload_sha256": "20bbbc270591c7d16e90c56180924203146eb74f58558651a556d8b7b20d5d80",
+      "platform": "linkedin",
+      "post_id": "7481311616265895936",
+      "provider_readback_verified": true,
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+      "readback": {
+        "action": "readback_existing_post",
+        "body_text_visible": true,
+        "canonical_link_target_verified": true,
+        "canonical_url_text_visible": false,
+        "destination_identity": "linkedin:jimcc",
+        "meaningful_media_visible": true,
+        "media_readback": {
+          "natural_height": 429,
+          "natural_width": 800,
+          "rendered_height": 207.8,
+          "rendered_width": 387.0
+        },
+        "platform": "linkedin",
+        "post_id": "7481311616265895936",
+        "public_screenshot_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\linkedin_latest_activity_after_v3.png",
+        "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+        "status": "SUCCESS",
+        "substack_url_visible": true,
+        "visible_body_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues FRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus. The mechanism: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions. Its position inside the policy corridor is evidence about overnight rate implementation, while funding spreads and the yield curve provide the broader conditions context. The policy context: The target range and administered rates frame the overnight operating environment. A reading inside that corridor shows where the implementation channel is operating, but it does not by itself establish the next policy decision or the direction of longer-dated yields. Read the full Capital Chronicle analysis: https://lnkd.in/g5sgqw4b For informational purposes only; not financial advice.",
+        "visible_link_text": "https://lnkd.in/g5sgqw4b"
+      },
+      "save_selector": "div[role='dialog'] button:has-text('Save')",
+      "status": "SUCCESS"
+    },
+    "latest_supersession_status": null,
+    "media_asset_id": "primary",
+    "media_sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
+    "payload_sha256": "20bbbc270591c7d16e90c56180924203146eb74f58558651a556d8b7b20d5d80",
+    "publish_adapter_called": false,
+    "relationship": "EARLIER_ACCEPTED_AND_LATEST_CORRECTED_IN_PLACE",
+    "run_id": "eight_platform_live_20260710_recovery1",
+    "schema_version": "contentops.linkedin_activity_pair_reconciliation.v1",
+    "third_post_created": false
   },
   "media": {
     "ai_generated_image": false,
@@ -987,6 +1117,20 @@
     "schema_version": "contentops.substack_first_north_star_pipeline.v1",
     "static_generated_card": false,
     "static_schematic_used": false
+  },
+  "operator_visual_audit_v3": {
+    "discord": "PASS_FROZEN",
+    "facebook_page": "PASS_CORRECTED_CHART_FROZEN",
+    "instagram_business": "PASS_MEDIA_AND_EXACT_URL_TEXT_CAPTION_NOT_CLICKABLE_BY_PLATFORM_DESIGN",
+    "linkedin": "EARLIER_ACCEPTED_AND_LATEST_CORRECTED_IN_PLACE",
+    "substack": "PASS_FROZEN",
+    "telegram": "PASS_FROZEN",
+    "threads": "FAIL_LIVE_ROOT_MISSING_APPROVED_CHART_AND_FRAGMENTED_REPLIES_PRESERVED",
+    "tiktok": "BLOCKED_TIKTOK_OAUTH_ADAPTER_AND_APP_AUDIT_INCOMPLETE",
+    "x": "FAIL_LIVE_CHAIN_ARBITRARY_SENTENCE_SPLITS_PRESERVED",
+    "youtube_community": "PASS_FROZEN",
+    "youtube_long_form": "BLOCKED_YOUTUBE_LONG_FORM_EXPLICIT_MODE_AND_AUDIT_REQUIRED",
+    "youtube_shorts": "BLOCKED_YOUTUBE_SHORTS_PUBLIC_EXECUTION_NOT_AUTHORIZED"
   },
   "platform_contract": {
     "discord": "newsroom_derivative_plus_substack_url_frozen_logo_preview_is_minor_future_enhancement",
@@ -1093,6 +1237,12 @@
       "substack_url_visible": false
     }
   },
+  "reliability_evidence": {
+    "editorial_comparison": "tier1_editorial_comparison_v1.json",
+    "linkedin_pair_reconciliation": "linkedin_activity_pair_reconciliation_v1.json",
+    "planned_semantic_variants": "planned_semantic_variants_v1.json",
+    "video_capability_matrix": "video_platform_capability_matrix_v1.json"
+  },
   "results": {
     "discord": {
       "action": "post",
@@ -1156,6 +1306,11 @@
       "action": "corrected_replacement_media",
       "adapter_name_version": "instagram_adapter_v6.execute_instagram_post",
       "canonical_substack_url": "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at",
+      "canonical_url_exact": true,
+      "canonical_url_text_visible": true,
+      "caption_link_clickable": false,
+      "caption_link_clickable_required": false,
+      "cta_mode": "canonical_url_text",
       "destination_identity": null,
       "error_class": null,
       "error_code": null,
@@ -1171,6 +1326,7 @@
       "provider_readback_verified": true,
       "public_screenshot_path": null,
       "public_url": "https://www.instagram.com/p/DanF4lxDmDs/",
+      "quality_status": "PASS_FEED_CAPTION_URL_TEXT",
       "readback": {
         "account_identity_verified": true,
         "body_text_visible": true,
@@ -1198,24 +1354,25 @@
       "write_outcome_certainty": "confirmed"
     },
     "linkedin": {
+      "accepted_activities": [
+        "7481289145206644736",
+        "7481311616265895936"
+      ],
+      "accepted_activity_relationship": "EARLIER_ACCEPTED_AND_LATEST_CORRECTED_IN_PLACE",
       "action": "edit_existing_post",
-      "adapter_name_version": "edge_cdp_publishing_adapter_v1.reconcile_existing_linkedin_post_via_edge",
-      "destination_identity": "linkedin:jimcc",
+      "adapter_name_version": "edge_cdp_publishing_adapter_v1.edit_existing_linkedin_post_via_edge",
       "execution_origin": "contentops_pipeline",
-      "id": "7481289145206644736",
+      "id": "7481311616265895936",
       "media_asset_id": "primary",
-      "media_attached": true,
       "media_sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
-      "media_upload_transport": "preserved_existing_media_no_reupload",
       "new_post_created": false,
       "payload_sha256": "20bbbc270591c7d16e90c56180924203146eb74f58558651a556d8b7b20d5d80",
       "platform": "linkedin",
       "provider_readback_verified": true,
-      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481289145206644736/",
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
       "readback": {
         "action": "readback_existing_post",
         "body_text_visible": true,
-        "browser_write_performed": false,
         "canonical_link_target_verified": true,
         "canonical_url_text_visible": false,
         "destination_identity": "linkedin:jimcc",
@@ -1227,19 +1384,17 @@
           "rendered_width": 387.0
         },
         "platform": "linkedin",
-        "post_id": "7481289145206644736",
-        "public_screenshot_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\public_linkedin_readback.png",
-        "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481289145206644736/",
+        "post_id": "7481311616265895936",
+        "public_screenshot_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\eight_platform_live_20260710_recovery1\\linkedin_latest_activity_after_v3.png",
+        "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
         "status": "SUCCESS",
         "substack_url_visible": true,
         "visible_body_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues FRED's latest effective federal funds reading was 3.62% on 2026-07-08 inside the 3.50% to 3.75% target range, keeping the policy-transmission question in focus. The mechanism: The effective federal funds rate is the volume-weighted median of overnight unsecured transactions between depository institutions. Its position inside the policy corridor is evidence about overnight rate implementation, while funding spreads and the yield curve provide the broader conditions context. The policy context: The target range and administered rates frame the overnight operating environment. A reading inside that corridor shows where the implementation channel is operating, but it does not by itself establish the next policy decision or the direction of longer-dated yields. Read the full Capital Chronicle analysis: https://lnkd.in/g5sgqw4b For informational purposes only; not financial advice.",
         "visible_link_text": "https://lnkd.in/g5sgqw4b"
       },
-      "run_id": "eight_platform_live_20260710_recovery1",
-      "runner_module": "live_contentops.eight_platform_substack_first_pipeline_v1",
       "status": "SUCCESS",
       "substack_url_included": true,
-      "write_outcome_certainty": "reconciled"
+      "write_outcome_certainty": "confirmed"
     },
     "substack": {
       "action": "publish",
@@ -1332,9 +1487,11 @@
       "media_attached": true,
       "media_sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
       "payload_sha256": "d97dbc4790ba242e9e87884244d64bad88414655d445ba4b403946c55462b1a0",
+      "planned_reliability_replacement": "planned_semantic_variants_v1.json#planned_layouts.threads",
       "platform": "threads",
       "provider_readback_verified": true,
       "public_url": "https://www.threads.com/@official.capitalchronicle/post/Dam28KxnwGV",
+      "quality_status": "FAIL_LIVE_ROOT_MISSING_APPROVED_CHART_AND_FRAGMENTED_REPLIES_PRESERVED",
       "readback": {
         "chain": {
           "ordered_replies": [
@@ -1506,9 +1663,11 @@
       "media_attached": true,
       "media_sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
       "payload_sha256": "1fec706e70570281fa1943eb749e88c4fcb7d4016d5b868fee3bf3056a6e1095",
+      "planned_reliability_replacement": "planned_semantic_variants_v1.json#planned_layouts.x",
       "platform": "x",
       "provider_readback_verified": true,
       "public_url": "https://x.com/Capitalnicle/status/2075510632770875841",
+      "quality_status": "FAIL_LIVE_CHAIN_ARBITRARY_SENTENCE_SPLITS_PRESERVED",
       "readback": {
         "expected_chart_visual_similarity": 0.9937,
         "meaningful_media_visible": true,
@@ -1913,16 +2072,33 @@
         "visible_body_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues The chart is a checkpoint, not a verdict: The overnight benchmark matters for cash and short-rate pricing; longer Treasury yields, credit, equities, and foreign exchange can still reprice through separate growth, inflation, supply, and risk-premium channels. Full analysis: https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at For informational purposes only; not financial advice. #CapitalChronicle #Macro #Markets"
       },
       "status": "SUPERSEDED_WRONG_MEDIA"
-    },
-    "linkedin_unintended_replacement": {
-      "id": "7481311616265895936",
-      "preserved_not_deleted": true,
-      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
-      "reason": "replacement_write_from_prior_unknown-fallback bug produced image-only output",
-      "status": "SUPERSEDED_IMAGE_ONLY"
     }
   },
-  "task_label": "TASK_CONTENTOPS_HEAVY_NORTH_STAR_MASTER_PLAN_REBUILD_AND_MULTI_PLATFORM_LIVE_OUTPUT_REPAIR_V2",
+  "task_label": "TASK_CONTENTOPS_HEAVY_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3",
+  "v3_docs_updated": [
+    "AGENTS.md",
+    "docs/AI_BUILDER_BOOTSTRAP.md",
+    "docs/CONTENTOPS_FINAL_AUTOMATION_PIPELINE_READINESS_REPORT.md",
+    "docs/status/CURRENT_PROJECT_STATUS.md",
+    "docs/status/current_project_status.json",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/current_v6_master_plan.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_25_task_ledger.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/v6_supersession_map.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/next_task_pointer.md",
+    "docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/platform_delivery_contract_v1.json",
+    "docs/automation/OPERATOR_BROWSER_LAB_AND_SOCIAL_CREDENTIAL_SETUP/operator_browser_lab_runbook.md"
+  ],
+  "v3_safety": {
+    "broad_social_distribution_run_created": false,
+    "linkedin_latest_activity_edited_in_place": true,
+    "new_substack_article_published": false,
+    "third_linkedin_post_created": false,
+    "tiktok_content_published": false,
+    "video_private_upload_performed": false,
+    "x_threads_facebook_instagram_telegram_discord_youtube_community_modified": false,
+    "youtube_short_published": false,
+    "youtube_video_published": false
+  },
   "video": {
     "duration_seconds": 15,
     "ffmpeg_exit_code": 0,

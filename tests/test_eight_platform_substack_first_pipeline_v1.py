@@ -52,6 +52,42 @@ def test_x_and_threads_overflow_is_compiled_to_complete_ordered_replies():
         assert len(payload["reply_texts"]) == len(set(payload["reply_texts"]))
 
 
+def test_x_and_threads_use_three_coherent_posts_with_all_article_visuals():
+    canonical_url = "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at"
+    payloads = build_native_derivative_payloads(article=_article(), selection=_selection(), canonical_url=canonical_url)
+
+    for platform in ("x", "threads"):
+        payload = payloads[platform]
+        metrics = payload["quality_metrics"]
+        assert len(payload["posts"]) == 3
+        assert metrics["reply_count"] == 2
+        assert metrics["sentence_boundary_pass"] is True
+        assert metrics["orphan_fragment_count"] == 0
+        assert metrics["shortest_longest_reply_ratio"] >= 0.45
+        assert metrics["visual_distribution_pass"] is True
+        assert metrics["complete_article_visual_count"] == 3
+        assert metrics["duplicated_sentence_count"] == 0
+        assert [row["media_asset_ids"] for row in payload["posts"]] == [
+            ["primary"], ["policy_corridor"], ["sofr_context"]
+        ]
+        assert payload["posts"][0]["media_asset_ids"] == ["primary"]
+
+
+def test_sentence_packer_does_not_split_normal_sentences_and_balances_chunks():
+    sentences = (
+        "First complete sentence explains the market signal clearly.",
+        "Second complete sentence describes the policy mechanism without filler.",
+        "Third complete sentence names the cross-asset consequence for readers.",
+        "Fourth complete sentence states the confirmation condition precisely.",
+    )
+    chunks = pipeline._split_complete_chunks(sentences, limit=145)
+    flattened = " ".join(chunks)
+    assert all(sentence in flattened for sentence in sentences)
+    assert all(chunk[-1] in ".!?" for chunk in chunks)
+    assert all(len(chunk) <= 145 for chunk in chunks)
+    assert min(map(len, chunks)) / max(map(len, chunks)) >= 0.45
+
+
 def test_classification_requires_every_expanded_destination_for_pass():
     results = {platform: {"status": "SUCCESS"} for platform in EXPECTED_DESTINATIONS}
     assert _classification(results) == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
@@ -202,6 +238,79 @@ def test_existing_run_evidence_prevents_duplicate_substack_publication(tmp_path:
 
     assert result["results"]["substack"]["public_url"] == "https://capitalchronicle.substack.com/p/example"
     assert result["reentry_guard"] == "existing_run_evidence_detected_no_automatic_canonical_republish"
+
+
+def test_linkedin_pair_reconciliation_edits_exact_latest_without_third_post(tmp_path: Path, monkeypatch):
+    canonical_url = "https://capitalchronicle.substack.com/p/example"
+    chart_path = tmp_path / "chart.png"
+    chart_path.write_bytes(b"chart")
+    evidence = {
+        "run_id": "pair-run",
+        "article": _article(),
+        "selected_idea": _selection(),
+        "media": {"assets": [{"path": str(chart_path)}]},
+        "results": {"substack": {"status": "SUCCESS", "public_url": canonical_url, "readback": {"public_image_urls": ["https://example.com/chart.png"]}}},
+        "superseded_malformed_posts": {"linkedin_unintended_replacement": {"id": "222", "status": "SUPERSEDED_IMAGE_ONLY"}},
+    }
+    (tmp_path / "run_evidence_v1.json").write_text(json.dumps(evidence), encoding="utf-8")
+    media = {"media_asset_id": "primary", "absolute_local_source_path": str(chart_path), "sha256": "a" * 64}
+    monkeypatch.setattr(pipeline, "build_delivery_media_manifest", lambda **kwargs: {"status": "PASS", "assets": [media]})
+    monkeypatch.setattr(pipeline, "select_primary_chart", lambda manifest: dict(media))
+    reads = iter([
+        {"status": "SUCCESS", "post_id": "111", "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:111/"},
+        {"status": "MALFORMED_EXISTING_POST_REQUIRES_EDIT", "post_id": "222", "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:222/"},
+    ])
+    monkeypatch.setattr(pipeline, "readback_linkedin_activity_via_edge", lambda **kwargs: next(reads))
+    monkeypatch.setattr(
+        pipeline,
+        "edit_existing_linkedin_post_via_edge",
+        lambda **kwargs: {
+            "status": "SUCCESS",
+            "readback": {"status": "SUCCESS", "body_text_visible": True, "meaningful_media_visible": True, "substack_url_visible": True},
+        },
+    )
+    monkeypatch.setattr(pipeline, "publish_linkedin_post_via_edge", lambda **kwargs: (_ for _ in ()).throw(AssertionError("third root forbidden")))
+    packet = pipeline.reconcile_linkedin_activity_pair(
+        output_dir=tmp_path,
+        cdp_port=9223,
+        accepted_url="https://www.linkedin.com/feed/update/urn:li:activity:111/",
+        accepted_id="111",
+        latest_url="https://www.linkedin.com/feed/update/urn:li:activity:222/",
+        latest_id="222",
+    )
+    assert packet["classification"] == "PASS_LINKEDIN_PAIR_RECONCILED"
+    assert packet["third_post_created"] is False
+    assert packet["publish_adapter_called"] is False
+    assert packet["relationship"] == "EARLIER_ACCEPTED_AND_LATEST_CORRECTED_IN_PLACE"
+    updated = json.loads((tmp_path / "run_evidence_v1.json").read_text(encoding="utf-8"))
+    assert updated["results"]["linkedin"]["id"] == "222"
+    assert "linkedin_unintended_replacement" not in updated["superseded_malformed_posts"]
+
+
+def test_compile_variant_reliability_evidence_is_no_write_and_three_media(tmp_path: Path, monkeypatch):
+    canonical_url = "https://capitalchronicle.substack.com/p/example"
+    evidence = {
+        "run_id": "variant-audit",
+        "article": _article(),
+        "selected_idea": _selection(),
+        "media": {"assets": [
+            {"asset_id": "primary"},
+            {"asset_id": "policy_corridor"},
+            {"asset_id": "sofr_context"},
+        ]},
+        "results": {"substack": {"status": "SUCCESS", "public_url": canonical_url}},
+    }
+    (tmp_path / "run_evidence_v1.json").write_text(json.dumps(evidence), encoding="utf-8")
+    monkeypatch.setattr(pipeline, "publish_x_post_via_edge", lambda **kwargs: (_ for _ in ()).throw(AssertionError("no X write")))
+    monkeypatch.setattr(pipeline, "publish_substack_article_via_edge", lambda **kwargs: (_ for _ in ()).throw(AssertionError("no canonical write")))
+    packet = pipeline.compile_variant_reliability_evidence(output_dir=tmp_path)
+    assert packet["classification"] == "PASS_SEMANTIC_VARIANT_RELIABILITY"
+    assert packet["public_write_performed"] is False
+    assert packet["live_outputs_modified"] is False
+    for platform in ("x", "threads"):
+        metrics = packet["planned_layouts"][platform]["quality_metrics"]
+        assert metrics["reply_count"] == 2
+        assert metrics["complete_article_visual_count"] == 3
 
 
 def test_derivative_only_resume_preserves_successful_destinations(tmp_path: Path, monkeypatch):

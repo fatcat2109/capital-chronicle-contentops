@@ -15,5 +15,9 @@ The current authority is `current_v6_master_plan.md`, the machine status JSON, t
 | YouTube Short/video represents article distribution | Superseded. YouTube Community text/image/link is the default; video is explicit non-default mode. |
 | API success or clicking Post proves delivery | Superseded. Stable public ID/URL plus text/media/link/account readback is required. |
 | A malformed post can be silently retried | Superseded. Reconcile, edit/comment, then one linked replacement; preserve prior output. |
+| Word-safe character packing is sufficient thread quality | Superseded. V3 requires sentence/paragraph units, balanced replies, section mapping, and three-image distribution. |
+| The historical X/Threads transport PASS proves variant quality | Superseded. Operator audit preserves both as live regression fixtures; the V3 local compiler is the future contract. |
+| Instagram feed captions must expose clickable URLs | Superseded. Exact URL text and CTA are required; clickability is optional capability. |
+| TikTok app keys imply posting readiness | Superseded. OAuth callback, user authorization, tokens, adapter, identity, and app audit remain required. |
 
 Archived strategy documents remain historical references only. They must link forward to this plan and cannot override current evidence.

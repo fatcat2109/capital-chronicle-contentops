@@ -31,4 +31,4 @@ def test_historical_release_manifest_remains_historical() -> None:
 
 def test_status_does_not_claim_tiktok_completion() -> None:
     status = json.loads((ROOT / "docs/status/current_project_status.json").read_text(encoding="utf-8"))
-    assert status["platform_matrix"]["tiktok"]["status"] == "BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED"
+    assert status["platform_matrix"]["tiktok_native"]["quality_status"] == "BLOCKED_TIKTOK_OAUTH_ADAPTER_AND_APP_AUDIT_INCOMPLETE"

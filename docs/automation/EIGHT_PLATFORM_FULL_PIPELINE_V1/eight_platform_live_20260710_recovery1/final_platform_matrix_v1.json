@@ -17,6 +17,7 @@
       "provider_readback_verified": true,
       "public_text_verified": true,
       "public_url": null,
+      "quality_status": "PASS",
       "readback_basis": "frozen_accepted_operator_and_provider_evidence",
       "reply_chain": [],
       "run_id": "eight_platform_live_20260710_recovery1",
@@ -39,6 +40,7 @@
       "provider_readback_verified": true,
       "public_text_verified": true,
       "public_url": "https://www.facebook.com/1342369584748125/posts/1342374731414277",
+      "quality_status": "PASS",
       "readback_basis": "strict_platform_readback",
       "reply_chain": [],
       "run_id": "eight_platform_live_20260710_recovery1",
@@ -61,6 +63,7 @@
       "provider_readback_verified": true,
       "public_text_verified": true,
       "public_url": "https://www.instagram.com/p/DanF4lxDmDs/",
+      "quality_status": "PASS_FEED_CAPTION_URL_TEXT",
       "readback_basis": "strict_platform_readback",
       "reply_chain": [],
       "run_id": "eight_platform_live_20260710_recovery1",
@@ -69,20 +72,21 @@
       "status": "SUCCESS"
     },
     "linkedin": {
-      "adapter_name_version": "edge_cdp_publishing_adapter_v1.reconcile_existing_linkedin_post_via_edge",
+      "adapter_name_version": "edge_cdp_publishing_adapter_v1.edit_existing_linkedin_post_via_edge",
       "canonical_link_verified": true,
       "canonical_substack_url": "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at",
       "destination_identity": "linkedin:jimcc",
       "execution_origin": "contentops_pipeline",
-      "id": "7481289145206644736",
-      "idempotency_state": "reconciled",
+      "id": "7481311616265895936",
+      "idempotency_state": "confirmed",
       "media_asset_id": "primary",
       "media_sha256": "b83584745931f60d976bde11b383ef3ca75c5cfed254c2c59af7a7513572a7af",
       "media_verified": true,
       "payload_sha256": "20bbbc270591c7d16e90c56180924203146eb74f58558651a556d8b7b20d5d80",
       "provider_readback_verified": true,
       "public_text_verified": true,
-      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481289145206644736/",
+      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
+      "quality_status": "PASS",
       "readback_basis": "strict_platform_readback",
       "reply_chain": [],
       "run_id": "eight_platform_live_20260710_recovery1",
@@ -105,6 +109,7 @@
       "provider_readback_verified": true,
       "public_text_verified": true,
       "public_url": "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at",
+      "quality_status": "PASS",
       "readback_basis": "frozen_accepted_operator_and_provider_evidence",
       "reply_chain": [],
       "run_id": "eight_platform_live_20260710_recovery1",
@@ -127,6 +132,7 @@
       "provider_readback_verified": true,
       "public_text_verified": true,
       "public_url": "https://t.me/CapitalChronicle/61",
+      "quality_status": "PASS",
       "readback_basis": "frozen_accepted_operator_and_provider_evidence",
       "reply_chain": [],
       "run_id": "eight_platform_live_20260710_recovery1",
@@ -149,6 +155,7 @@
       "provider_readback_verified": true,
       "public_text_verified": true,
       "public_url": "https://www.threads.com/@official.capitalchronicle/post/Dam28KxnwGV",
+      "quality_status": "FAIL_LIVE_ROOT_MISSING_APPROVED_CHART_AND_FRAGMENTED_REPLIES_PRESERVED",
       "readback_basis": "strict_platform_readback",
       "reply_chain": [
         {
@@ -259,6 +266,7 @@
       "provider_readback_verified": false,
       "public_text_verified": false,
       "public_url": null,
+      "quality_status": "BLOCKED_TIKTOK_CANONICAL_PROFILE_NOT_AUTHENTICATED",
       "readback_basis": "strict_platform_readback",
       "reply_chain": [],
       "run_id": "eight_platform_live_20260710_recovery1",
@@ -281,6 +289,7 @@
       "provider_readback_verified": true,
       "public_text_verified": true,
       "public_url": "https://x.com/Capitalnicle/status/2075510632770875841",
+      "quality_status": "FAIL_LIVE_CHAIN_ARBITRARY_SENTENCE_SPLITS_PRESERVED",
       "readback_basis": "strict_platform_readback",
       "reply_chain": [
         {
@@ -484,6 +493,7 @@
       "provider_readback_verified": true,
       "public_text_verified": true,
       "public_url": "https://www.youtube.com/post/UgkxLF5TJ6zbW1-3_at3PdfBr8wlbkFbko60",
+      "quality_status": "PASS",
       "readback_basis": "strict_platform_readback",
       "reply_chain": [],
       "run_id": "eight_platform_live_20260710_recovery1",
@@ -538,13 +548,6 @@
         "visible_body_text": "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues The chart is a checkpoint, not a verdict: The overnight benchmark matters for cash and short-rate pricing; longer Treasury yields, credit, equities, and foreign exchange can still reprice through separate growth, inflation, supply, and risk-premium channels. Full analysis: https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at For informational purposes only; not financial advice. #CapitalChronicle #Macro #Markets"
       },
       "status": "SUPERSEDED_WRONG_MEDIA"
-    },
-    "linkedin_unintended_replacement": {
-      "id": "7481311616265895936",
-      "preserved_not_deleted": true,
-      "public_url": "https://www.linkedin.com/feed/update/urn:li:activity:7481311616265895936/",
-      "reason": "replacement_write_from_prior_unknown-fallback bug produced image-only output",
-      "status": "SUPERSEDED_IMAGE_ONLY"
     }
   },
   "wrong_surface_executions": {
