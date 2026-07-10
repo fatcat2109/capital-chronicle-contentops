@@ -1,0 +1,79 @@
+{
+  "created_at": "2026-07-09T23:09:49Z",
+  "duplicate_hotspot_decision": {
+    "existing_telegram_message_id": "61",
+    "existing_telegram_url": "https://t.me/CapitalChronicle/61",
+    "reason": "A matching recent Telegram distribution exists without a canonical Substack URL; update its caption after canonical Substack readback rather than send a duplicate post.",
+    "repair_mode": "CANONICALIZATION_REPAIR_EXISTING_DISTRIBUTION",
+    "source_created_at": "2026-07-09T22:29:02Z",
+    "source_evidence_path": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\run_evidence_v1.json",
+    "source_run_id": "terra_ultra_north_star_live_20260710"
+  },
+  "llm_selection_rationale": "The decoupling of crude oil prices and Treasury yields represents a fundamental shift in the macroeconomic regime, signaling that the Federal Reserve's primary policy constraint has transitioned from volatile headline energy shocks to sticky core services and structural inflation. This theme (Slot 1) provides the most robust framework for a macro-market story because it directly links real-economy commodity dynamics to fixed-income pricing and monetary policy transmission. It is highly supportable with empirical data charts tracking Brent/WTI crude against 2-year and 10-year Treasury yields alongside core PCE. Conversely, geopolitical headlines (Slots 4 and 5) serve as volatile catalysts rather than structural trends, while the effective fed funds rate (Slot 6) remains static and lacks narrative momentum. The working paper on immigration (Slot 3) is a single-source academic estimate prone to political noise, and the daily calendar (Slot 2) is a routine operational schedule. Therefore, Slot 1 is ranked first as the anchor macro story, supported by the energy supply normalization data from Slot 4 and the policy pricing limits of Slot 6.",
+  "schema_version": "contentops.substack_first_north_star_pipeline.v1",
+  "selected": {
+    "angle": "Frame the policy signal against rates, inflation expectations, and market-pricing limits.",
+    "article_family": "fed_funds",
+    "breaking_or_hotspot": false,
+    "canonicalization_repair": {
+      "existing_telegram_message_id": "61",
+      "existing_telegram_url": "https://t.me/CapitalChronicle/61",
+      "reason": "A matching recent Telegram distribution exists without a canonical Substack URL; update its caption after canonical Substack readback rather than send a duplicate post.",
+      "repair_mode": "CANONICALIZATION_REPAIR_EXISTING_DISTRIBUTION",
+      "source_created_at": "2026-07-09T22:29:02Z",
+      "source_evidence_path": "docs\\automation\\TERRA_ULTRA_NORTH_STAR_FULL_AUTOMATION_V1\\run_evidence_v1.json",
+      "source_run_id": "terra_ultra_north_star_live_20260710"
+    },
+    "cross_asset_implications": "A stable EFFR anchors the short end of the yield curve, keeping money market fund yields attractive and maintaining steady funding costs for institutional borrowers.",
+    "dek": "The daily effective federal funds rate remains unchanged, reflecting stable money market conditions and firm central bank control.",
+    "market_mechanism": "The consistency in the EFFR reflects balanced supply and demand dynamics in the federal funds market, with ample bank reserves preventing any upward pressure on overnight lending rates.",
+    "policy_context": "The steady rate confirms that the Fed's current policy stance is fully transmitted to money markets, keeping financial conditions tight as policymakers wait for clearer signals on core inflation.",
+    "rank": 4,
+    "seo_title": "Effective Federal Funds Rate Remains Unchanged at 3.63 Percent",
+    "slot_index": 6,
+    "slug": "effective-fed-funds-rate-holds-steady",
+    "tags": [
+      "central_bank",
+      "official_central_bank_statement_or_calendar"
+    ],
+    "thesis": "The effective federal funds rate (EFFR) printed at 3.63% for July 7th, matching the previous day's level. This stability demonstrates that the Federal Reserve's liquidity management tools, including the overnight reverse repo facility, continue to successfully anchor short-term interest rates within the target range.",
+    "title": "Effective Fed Funds Rate Holds Steady at 3.63% Amid Policy Calibration",
+    "topic": "Effective fed funds rate: 3.63% July 7th vs 3.63% July 6th",
+    "topic_hash": "8a4bc478b749f915",
+    "why_ranked": "This candidate is highly factual and backed by official central bank data, but it ranks lower because a flat daily rate print lacks the dynamic narrative and market impact of broader macro trends."
+  },
+  "selection_method": "live_llm_ranking_then_grounded_media_support_gate",
+  "support_attempts": [
+    {
+      "grounded_support_blockers": [
+        "llm_media_family_mismatch:fed_funds!=oil",
+        "primary_federal_reserve_source_required_by_schedule_not_present_in_media_pack"
+      ],
+      "media_asset_count": 3,
+      "slot_index": 1,
+      "status": "REJECTED_GROUNDED_SUPPORT"
+    },
+    {
+      "grounded_support_blockers": [
+        "primary_eia_source_required_by_schedule_not_present_in_media_pack"
+      ],
+      "media_asset_count": 3,
+      "slot_index": 4,
+      "status": "REJECTED_GROUNDED_SUPPORT"
+    },
+    {
+      "grounded_support_blockers": [
+        "primary_treasury_or_h15_source_required_by_schedule_not_present_in_media_pack"
+      ],
+      "media_asset_count": 3,
+      "slot_index": 5,
+      "status": "REJECTED_GROUNDED_SUPPORT"
+    },
+    {
+      "grounded_support_blockers": [],
+      "media_asset_count": 3,
+      "slot_index": 6,
+      "status": "PASS"
+    }
+  ]
+}

@@ -97,7 +97,7 @@ def test_fed_funds_visual_pack_writes_non_oil_assets_and_metadata(tmp_path):
 
     assert len(assets) == 3
     assert [asset["asset_id"] for asset in assets] == ["primary", "policy_corridor", "sofr_context"]
-    assert {asset["media_class"] for asset in assets} >= {"data_chart", "policy_diagram"}
+    assert {asset["media_class"] for asset in assets} == {"data_chart"}
     for asset in assets:
         path = Path(asset["local_path"])
         assert path.exists()

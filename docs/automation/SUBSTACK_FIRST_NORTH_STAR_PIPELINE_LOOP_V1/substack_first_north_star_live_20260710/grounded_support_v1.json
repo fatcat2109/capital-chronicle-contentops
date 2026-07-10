@@ -1,0 +1,19 @@
+{
+  "created_at": "2026-07-09T23:09:49Z",
+  "headline_sidecars_are_catalyst_only": true,
+  "repo_evidence": [
+    "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
+    "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl"
+  ],
+  "schema_version": "contentops.substack_first_north_star_pipeline.v1",
+  "selected_slot_index": 6,
+  "source_boundary": [
+    "Schedule and headline sidecars establish freshness and catalyst context only.",
+    "The source-backed chart manifest carries visual provenance and numeric-source labels.",
+    "Article prose does not promote schedule headlines into unsupported numeric truth."
+  ],
+  "source_needs": [
+    "Federal Reserve policy/communication source"
+  ],
+  "support_status": "GROUNDED_REPO_INPUTS_AND_SOURCE_BACKED_MEDIA"
+}

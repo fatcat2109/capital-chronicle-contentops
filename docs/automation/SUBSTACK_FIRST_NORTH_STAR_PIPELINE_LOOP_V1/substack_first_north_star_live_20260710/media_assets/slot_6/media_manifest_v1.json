@@ -1,0 +1,63 @@
+{
+  "ai_generated_image": false,
+  "allowed_media_kinds": [
+    "source_backed_data_chart",
+    "google_image_with_provenance"
+  ],
+  "assets": [
+    {
+      "alt_text": "Line chart showing the effective federal funds rate inside the Federal Reserve target range with IORB and midpoint lines.",
+      "asset_id": "primary",
+      "caption": "Effective federal funds rate at 3.63% on 2026-07-07, unchanged from 3.63% on 2026-07-06, inside the 3.50% to 3.75% target range. Source: FRED DFF and Federal Reserve policy tools.",
+      "exists": true,
+      "index": 1,
+      "media_class": "data_chart",
+      "media_role": "primary_chart",
+      "path": "docs\\automation\\SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1\\substack_first_north_star_live_20260710\\media_assets\\slot_6\\fed_funds_policy_corridor_context_4e1243215297.png",
+      "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
+      "sha256": "e3581de4ed56cb491eb84458edde32657701ee349c8d532277c0139ae8be1c83",
+      "source_label": "FRED / Federal Reserve Board",
+      "source_page_url": "https://fred.stlouisfed.org/series/DFF",
+      "why_selected": "Primary source-backed chart showing the effective fed funds rate inside the Federal Reserve policy corridor for the selected non-oil topic."
+    },
+    {
+      "alt_text": "Horizontal bar chart comparing ON RRP, effective fed funds, IORB, standing repo, and primary credit rates against the Federal Reserve target range.",
+      "asset_id": "policy_corridor",
+      "caption": "Federal Reserve administered-rate comparison: ON RRP, DFF, IORB, standing repo, and primary credit against the target range. Sources: Federal Reserve policy tools and FRED DFF.",
+      "exists": true,
+      "index": 2,
+      "media_class": "data_chart",
+      "media_role": "supporting_policy_rates_chart",
+      "path": "docs\\automation\\SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1\\substack_first_north_star_live_20260710\\media_assets\\slot_6\\fed_funds_administered_rates_context_4e1243215297.png",
+      "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
+      "sha256": "92f2b6908a95ab673f23b1baae4d5e6310f5eb9e96a76a3e9288e6711bb05bc5",
+      "source_label": "Federal Reserve Board",
+      "source_page_url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+      "why_selected": "Source-backed administered-rates chart gives the policy mechanism without using a decorative or static schematic."
+    },
+    {
+      "alt_text": "Bar chart comparing DFF with 2-year, 10-year, and 30-year Treasury rates, with a note that SOFR is secured repo context.",
+      "asset_id": "sofr_context",
+      "caption": "Rates context panel: DFF 3.63%, 2-year Treasury 3.77%, 10-year Treasury 4.34%, and 30-year Treasury 4.92%. Sources: FRED DFF, Federal Reserve H.15, and NY Fed SOFR methodology.",
+      "exists": true,
+      "index": 3,
+      "media_class": "data_chart",
+      "media_role": "supporting_rates_chart",
+      "path": "docs\\automation\\SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1\\substack_first_north_star_live_20260710\\media_assets\\slot_6\\fed_funds_sofr_context_4e1243215297.png",
+      "provenance_status": "source_backed_generated_from_public_federal_reserve_data",
+      "sha256": "234751c506e510daeaf52162ff63654b985902e30a59fbc7d3836142971f790d",
+      "source_label": "Federal Reserve Bank of New York / Federal Reserve H.15",
+      "source_page_url": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+      "why_selected": "Supporting rates-context visual distinguishes DFF from SOFR methodology and Treasury yields without using oil-family visuals."
+    }
+  ],
+  "blockers": [],
+  "contentops_built_media": true,
+  "created_at": "2026-07-09T23:09:49Z",
+  "media_asset_count": 3,
+  "media_gate_status": "PASS",
+  "required_media_asset_count": 3,
+  "schema_version": "contentops.substack_first_north_star_pipeline.v1",
+  "static_generated_card": false,
+  "static_schematic_used": false
+}

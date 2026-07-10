@@ -73,6 +73,14 @@ def _guard_non_dry_run_telegram_action(
             prior_hashes = load_public_dispatch_hashes(context.get("public_dispatch_ledger_path"))
         else:
             prior_hashes = load_public_dispatch_hashes()
+    canonicalization_repair = bool(context.get("canonicalization_repair"))
+    repair_message_id = context.get("canonicalization_repair_message_id")
+    duplicate_check = not (
+        action == "edit_caption"
+        and canonicalization_repair
+        and repair_message_id
+        and canonical_url
+    )
     return evaluate_public_dispatch_freeze(
         platform="telegram",
         action=action,
@@ -86,6 +94,7 @@ def _guard_non_dry_run_telegram_action(
         payload_hash_required=True,
         prior_dispatch_hashes=prior_hashes,
         canonical_packet_status=context.get("canonical_packet_status"),
+        duplicate_check=duplicate_check,
     )
 
 
@@ -304,6 +313,113 @@ def execute_telegram_photo(
     classify_and_record_dispatch(
         platform_id="telegram",
         action="photo",
+        adapter_result=result,
+        latency_ms=latency_ms,
+        payload_size_bytes=len(data),
+    )
+    return result
+
+
+def execute_telegram_caption_edit(
+    message_id: int | str,
+    caption: str,
+    chat_id: str | None = None,
+    bot_token: str | None = None,
+    parse_mode: str = "HTML",
+    dry_run: bool = False,
+    approval_context: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Update a prior photo post during a canonicalization repair.
+
+    This is deliberately distinct from a new `sendPhoto` action. It lets a
+    corrected Substack-first workflow amend an already-live distribution post
+    with its canonical URL instead of creating a duplicate message.
+    """
+    if dry_run:
+        target_chat = chat_id or _get_default_chat_id()
+        payload_hash = hashlib.md5(f"{message_id}:{caption}".encode("utf-8")).hexdigest()[:12]
+        return {
+            "status": "DRY_RUN_PASS",
+            "platform": "telegram",
+            "action": "edit_caption",
+            "payload_redacted": {
+                "chat_id": target_chat,
+                "message_id": str(message_id),
+                "caption": caption,
+                "parse_mode": parse_mode,
+            },
+            "response": {"id": f"telegram_mock_caption_edit_{payload_hash}"},
+        }
+
+    guard = _guard_non_dry_run_telegram_action(
+        action="edit_caption",
+        body_text=caption,
+        approval_context=approval_context,
+    )
+    if not guard["dispatch_allowed"]:
+        return _public_dispatch_frozen_result("edit_caption", guard)
+
+    token = bot_token or _get_default_bot_token()
+    target_chat = chat_id or _get_default_chat_id()
+    if not token or not target_chat or not message_id:
+        return {
+            "status": "FAILED",
+            "platform": "telegram",
+            "action": "edit_caption",
+            "error": "Missing TELEGRAM_BOT_TOKEN, chat_id, or message_id.",
+        }
+
+    from .live_telemetry_v6 import classify_and_record_dispatch
+
+    t0 = time.perf_counter()
+    api_url = f"https://api.telegram.org/bot{token}/editMessageCaption"
+    payload = {
+        "chat_id": target_chat,
+        "message_id": int(message_id) if str(message_id).isdigit() else message_id,
+        "caption": caption,
+        "parse_mode": parse_mode,
+    }
+    data = json.dumps(payload).encode("utf-8")
+    req = urllib.request.Request(api_url, data=data, method="POST")
+    req.add_header("Content-Type", "application/json")
+
+    try:
+        with urllib.request.urlopen(req, timeout=15) as response:
+            res_body = response.read().decode("utf-8")
+            res_json = json.loads(res_body) if res_body else {}
+            result = {
+                "status": "SUCCESS",
+                "platform": "telegram",
+                "action": "edit_caption",
+                "id": str(message_id),
+                "media_attached": True,
+                "response": res_json,
+            }
+    except urllib.error.HTTPError as e:
+        err_body = e.read().decode("utf-8")
+        try:
+            err_json = json.loads(err_body)
+        except Exception:
+            err_json = {"raw_error": err_body}
+        result = {
+            "status": "FAILED",
+            "platform": "telegram",
+            "action": "edit_caption",
+            "error_code": e.code,
+            "error_response": err_json,
+        }
+    except Exception as e:
+        result = {
+            "status": "FAILED",
+            "platform": "telegram",
+            "action": "edit_caption",
+            "error": str(e),
+        }
+
+    latency_ms = (time.perf_counter() - t0) * 1000.0
+    classify_and_record_dispatch(
+        platform_id="telegram",
+        action="edit_caption",
         adapter_result=result,
         latency_ms=latency_ms,
         payload_size_bytes=len(data),

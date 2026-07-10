@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from live_contentops.substack_browser_adapter_v6 import (
+    build_supervised_substack_browser_blocked_readback,
     copy_essential_profile,
     execute_substack_comment,
     execute_substack_edit,
@@ -141,3 +142,28 @@ def test_copy_essential_profile(tmp_path: Path):
 
     assert (dest / "Local State").exists()
     assert (dest / "Default" / "Preferences").exists()
+
+
+def test_blocked_readback_preserves_draft_id_without_private_editor_url(tmp_path: Path):
+    output_path = tmp_path / "blocked_readback.json"
+    result = build_supervised_substack_browser_blocked_readback(
+        request={
+            "run_id": "substack-first-test",
+            "title": "Draft title",
+            "body_markdown_sha256": "body-hash",
+            "visual_marker_order": ["primary", "policy_corridor", "sofr_context"],
+        },
+        draft_id="206403125",
+        saved_state="Saved",
+        editor_body_text_length=1801,
+        editor_body_image_count=0,
+        attempted_asset_id="primary",
+        blocker="BLOCKED_REQUIRES_CHROME_EXTENSION_FILE_URL_ACCESS",
+        next_unblock="Enable file URL access for the Codex Chrome extension.",
+        output_path=output_path,
+    )
+
+    assert result["status"] == "BLOCKED_SUPERVISED_SUBSTACK_BROWSER_ASSIST"
+    assert result["draft_id"] == "206403125"
+    assert result["external_preview_or_public_url"] is None
+    assert "editor_url" not in output_path.read_text(encoding="utf-8")

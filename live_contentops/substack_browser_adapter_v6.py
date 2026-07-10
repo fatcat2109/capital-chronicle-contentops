@@ -6,22 +6,41 @@ using a temporary clone of the operator's browser profile.
 from __future__ import annotations
 
 import hashlib
+import json
 import os
 import re
 import shutil
 import time
 import urllib.parse
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping, Sequence
 
 TASK_LABEL = "TASK_CONTENTOPS_V6_FAST_SHIP_LIVE_DISPATCH_SUBSTACK_AND_X_V0"
 DEFAULT_PROFILE_SRC = Path(r"A:\Capital Chronicle\operator-browser-profiles\contentops-social-main")
 TEMP_PROFILE_DIR = Path(r"A:\Capital Chronicle\tools\cc-live-contentops\scratch\temp_profile_substack")
 VISUAL_MARKER_RE = re.compile(r"\[\[VISUAL:([a-zA-Z0-9_-]+)\]\]")
+SUPERVISED_BROWSER_REQUEST_SCHEMA = "contentops.substack_supervised_browser_request.v1"
+SUPERVISED_BROWSER_READBACK_SCHEMA = "contentops.substack_supervised_browser_readback.v1"
+_SENSITIVE_READBACK_KEY_RE = re.compile(
+    r"(cookie|token|secret|password|authorization|session|localstorage|sessionstorage|webhook)",
+    re.IGNORECASE,
+)
 
 
 def _is_public_substack_url(url: str | None) -> bool:
     return bool(url and "/p/" in url and "/publish/" not in url)
+
+
+def _is_externally_usable_substack_url(url: str | None) -> bool:
+    """Reject private editor routes; preview URLs may carry a draft query string."""
+    if not url:
+        return False
+    parsed = urllib.parse.urlparse(url)
+    return bool(
+        parsed.scheme == "https"
+        and "substack.com" in parsed.netloc
+        and "/publish/" not in parsed.path
+    )
 
 
 def _absolute_substack_url(url: str | None) -> str | None:
@@ -268,6 +287,250 @@ def _normalise_image_assets(image_path: str | None = None, image_assets: list[di
         if idx == 1:
             assets.setdefault("primary", local_path)
     return assets
+
+
+def _sha256_text(value: str) -> str:
+    return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def _sha256_file(path: Path) -> str | None:
+    if not path.exists():
+        return None
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def _safe_readback_mapping(value: Any) -> bool:
+    """Reject session-bearing browser material before it can enter evidence."""
+    if isinstance(value, Mapping):
+        for key, item in value.items():
+            safe_negative_attestation = str(key) in {"browser_session_material_recorded"} and item is False
+            if _SENSITIVE_READBACK_KEY_RE.search(str(key)) and not safe_negative_attestation:
+                return False
+            if not _safe_readback_mapping(item):
+                return False
+    elif isinstance(value, (list, tuple)):
+        return all(_safe_readback_mapping(item) for item in value)
+    return True
+
+
+def prepare_supervised_substack_browser_request(
+    *,
+    run_id: str,
+    publication_mode: str,
+    title: str,
+    subtitle: str,
+    body_markdown: str,
+    article_markdown_path: str | Path,
+    image_assets: Sequence[Mapping[str, Any]],
+    output_path: str | Path,
+) -> dict[str, Any]:
+    """Create the exact, safe local packet used by a supervised Substack editor.
+
+    This is intentionally separate from the legacy cloned-profile executor. It
+    binds one editor action to one article body and three ContentOps-owned media
+    paths, without reading or persisting any browser-session material.
+    """
+    mode = str(publication_mode or "").lower()
+    if mode not in {"draft", "publish"}:
+        raise ValueError("publication_mode_must_be_draft_or_publish")
+    article_path = Path(article_markdown_path)
+    if not article_path.exists():
+        raise ValueError(f"article_markdown_missing:{article_path}")
+    marker_ids = VISUAL_MARKER_RE.findall(body_markdown or "")
+    if len(marker_ids) < 3 or len(set(marker_ids)) < 3:
+        raise ValueError("substack_body_requires_three_distinct_visual_markers")
+
+    asset_rows: list[dict[str, Any]] = []
+    asset_ids: list[str] = []
+    for source in image_assets:
+        asset_id = str(source.get("asset_id") or "").strip()
+        local_path = Path(str(source.get("path") or source.get("local_path") or ""))
+        if not asset_id or not local_path.exists():
+            raise ValueError(f"substack_image_asset_invalid:{asset_id or 'missing'}")
+        for required in ("caption", "alt_text", "source_label", "source_page_url", "provenance_status"):
+            if not str(source.get(required) or "").strip():
+                raise ValueError(f"substack_image_asset_missing_{required}:{asset_id}")
+        asset_rows.append(
+            {
+                "asset_id": asset_id,
+                "local_path": str(local_path),
+                "sha256": _sha256_file(local_path),
+                "caption": str(source["caption"]),
+                "alt_text": str(source["alt_text"]),
+                "source_label": str(source["source_label"]),
+                "source_page_url": str(source["source_page_url"]),
+                "provenance_status": str(source["provenance_status"]),
+                "media_class": str(source.get("media_class") or ""),
+            }
+        )
+        asset_ids.append(asset_id)
+    if marker_ids != asset_ids:
+        raise ValueError("substack_visual_marker_order_must_match_asset_order")
+
+    request = {
+        "schema_version": SUPERVISED_BROWSER_REQUEST_SCHEMA,
+        "status": "READY_FOR_SUPERVISED_BROWSER_ASSIST",
+        "run_id": run_id,
+        "publication_mode": mode,
+        "publication_url": "https://capitalchronicle.substack.com/publish/post",
+        "title": title,
+        "subtitle": subtitle,
+        "article_markdown_path": str(article_path),
+        "article_markdown_sha256": _sha256_file(article_path),
+        "body_markdown": body_markdown,
+        "body_markdown_sha256": _sha256_text(body_markdown),
+        "visual_marker_order": marker_ids,
+        "image_assets": asset_rows,
+        "required_readback": {
+            "publication_state": mode,
+            "matching_title": title,
+            "matching_body_markdown_sha256": _sha256_text(body_markdown),
+            "minimum_editor_body_image_count": 3,
+            "in_body_visual_asset_ids": marker_ids,
+            "url_kind": "public_url" if mode == "publish" else "externally_usable_preview_or_draft_url",
+        },
+        "safety": {
+            "browser_profile_values_recorded": False,
+            "cookies_recorded": False,
+            "session_storage_recorded": False,
+            "raw_credentials_recorded": False,
+        },
+    }
+    path = Path(output_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(request, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return request
+
+
+def build_supervised_substack_browser_readback(
+    *,
+    request: Mapping[str, Any],
+    publication_state: str,
+    article_url: str,
+    editor_body_image_count: int,
+    in_body_visual_asset_ids: Sequence[str],
+    output_path: str | Path,
+) -> dict[str, Any]:
+    """Persist only the post-action facts required to complete the run."""
+    state = str(publication_state or "").lower()
+    if state not in {"draft", "published"}:
+        raise ValueError("publication_state_must_be_draft_or_published")
+    url = str(article_url or "").strip()
+    if not _is_externally_usable_substack_url(url):
+        raise ValueError("substack_readback_requires_externally_usable_preview_or_public_url")
+    expected_state = str(request.get("publication_mode") or "").lower()
+    if expected_state and state != ("published" if expected_state == "publish" else "draft"):
+        raise ValueError("substack_readback_publication_state_mismatch")
+    readback = {
+        "schema_version": SUPERVISED_BROWSER_READBACK_SCHEMA,
+        "status": "SUCCESS",
+        "run_id": str(request.get("run_id") or ""),
+        "publication_state": state,
+        "public_url": url if state == "published" else None,
+        "draft_url": url if state == "draft" else None,
+        "title": str(request.get("title") or ""),
+        "body_markdown_sha256": str(request.get("body_markdown_sha256") or ""),
+        "editor_body_image_count": int(editor_body_image_count),
+        "in_body_visual_asset_ids": [str(item) for item in in_body_visual_asset_ids],
+        "browser_session_material_recorded": False,
+    }
+    path = Path(output_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(readback, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return readback
+
+
+def build_supervised_substack_browser_blocked_readback(
+    *,
+    request: Mapping[str, Any],
+    draft_id: str,
+    saved_state: str,
+    editor_body_text_length: int,
+    editor_body_image_count: int,
+    attempted_asset_id: str,
+    blocker: str,
+    next_unblock: str,
+    output_path: str | Path,
+) -> dict[str, Any]:
+    """Persist a safe, resumable blocked state without leaking the editor URL."""
+    if not str(draft_id or "").strip():
+        raise ValueError("substack_blocked_readback_requires_draft_id")
+    if not str(blocker or "").strip() or not str(next_unblock or "").strip():
+        raise ValueError("substack_blocked_readback_requires_blocker_and_next_unblock")
+    readback = {
+        "schema_version": SUPERVISED_BROWSER_READBACK_SCHEMA,
+        "status": "BLOCKED_SUPERVISED_SUBSTACK_BROWSER_ASSIST",
+        "run_id": str(request.get("run_id") or ""),
+        "draft_id": str(draft_id),
+        "external_preview_or_public_url": None,
+        "title": str(request.get("title") or ""),
+        "body_markdown_sha256": str(request.get("body_markdown_sha256") or ""),
+        "saved_state": str(saved_state or ""),
+        "editor_body_text_length": int(editor_body_text_length),
+        "editor_body_image_count": int(editor_body_image_count),
+        "expected_visual_asset_ids": [str(item) for item in request.get("visual_marker_order") or []],
+        "attempted_asset_id": str(attempted_asset_id or ""),
+        "blocker": str(blocker),
+        "next_unblock": str(next_unblock),
+        "telegram_action": "NOT_ATTEMPTED_NO_EXTERNALLY_USABLE_SUBSTACK_URL",
+        "browser_session_material_recorded": False,
+    }
+    path = Path(output_path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(readback, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    return readback
+
+
+def validate_supervised_substack_browser_readback(
+    request: Mapping[str, Any], readback: Mapping[str, Any]
+) -> dict[str, Any]:
+    """Fail closed unless the browser readback proves canonical in-body media."""
+    blockers: list[str] = []
+    if not _safe_readback_mapping(readback):
+        blockers.append("substack_readback_contains_sensitive_browser_material")
+    if readback.get("schema_version") != SUPERVISED_BROWSER_READBACK_SCHEMA:
+        blockers.append("substack_readback_schema_mismatch")
+    if readback.get("status") != "SUCCESS":
+        blockers.append("substack_readback_not_success")
+    if str(readback.get("run_id") or "") != str(request.get("run_id") or ""):
+        blockers.append("substack_readback_run_id_mismatch")
+    if str(readback.get("title") or "") != str(request.get("title") or ""):
+        blockers.append("substack_readback_title_mismatch")
+    if str(readback.get("body_markdown_sha256") or "") != str(request.get("body_markdown_sha256") or ""):
+        blockers.append("substack_readback_body_hash_mismatch")
+    expected_ids = list(request.get("visual_marker_order") or [])
+    actual_ids = [str(item) for item in readback.get("in_body_visual_asset_ids") or []]
+    if actual_ids != expected_ids:
+        blockers.append("substack_readback_visual_order_mismatch")
+    if int(readback.get("editor_body_image_count") or 0) < 3:
+        blockers.append("substack_readback_body_image_count_below_3")
+
+    state = str(readback.get("publication_state") or "").lower()
+    expected_mode = str(request.get("publication_mode") or "").lower()
+    expected_state = "published" if expected_mode == "publish" else "draft"
+    if state != expected_state:
+        blockers.append("substack_readback_publication_state_mismatch")
+    public_url = str(readback.get("public_url") or "").strip()
+    draft_url = str(readback.get("draft_url") or "").strip()
+    canonical_url = public_url or draft_url
+    parsed = urllib.parse.urlparse(canonical_url)
+    if not canonical_url or parsed.scheme != "https" or "substack.com" not in parsed.netloc:
+        blockers.append("substack_readback_canonical_url_missing_or_invalid")
+    elif not _is_externally_usable_substack_url(canonical_url):
+        blockers.append("substack_readback_canonical_url_is_private_editor_url")
+
+    return {
+        "status": "SUCCESS" if not blockers else "BLOCKED_SUBSTACK_READBACK_INVALID",
+        "blockers": blockers,
+        "publication_state": state or None,
+        "canonical_url": canonical_url or None,
+        "public_url": public_url or None,
+        "draft_url": draft_url or None,
+        "editor_body_image_count": int(readback.get("editor_body_image_count") or 0),
+        "in_body_visual_asset_ids": actual_ids,
+        "title": str(readback.get("title") or ""),
+        "body_markdown_sha256": str(readback.get("body_markdown_sha256") or ""),
+    }
 
 
 def _split_body_visual_markers(body_markdown: str) -> list[tuple[str, str]]:

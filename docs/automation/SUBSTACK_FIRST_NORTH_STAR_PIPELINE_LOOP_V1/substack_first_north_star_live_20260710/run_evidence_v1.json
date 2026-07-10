@@ -1,0 +1,61 @@
+{
+  "article": {
+    "media_asset_count": 3,
+    "media_paths": [
+      "docs\\automation\\SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1\\substack_first_north_star_live_20260710\\media_assets\\slot_6\\fed_funds_policy_corridor_context_4e1243215297.png",
+      "docs\\automation\\SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1\\substack_first_north_star_live_20260710\\media_assets\\slot_6\\fed_funds_administered_rates_context_4e1243215297.png",
+      "docs\\automation\\SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_V1\\substack_first_north_star_live_20260710\\media_assets\\slot_6\\fed_funds_sofr_context_4e1243215297.png"
+    ],
+    "meta_description": "The daily effective federal funds rate remains unchanged, reflecting stable money market conditions and firm central bank control.",
+    "seo_title": "Effective Federal Funds Rate Remains Unchanged at 3.63 Percent",
+    "slug": "effective-fed-funds-rate-holds-steady",
+    "title": "Effective Fed Funds Rate Holds Steady at 3.63% Amid Policy Calibration",
+    "word_count": 1485
+  },
+  "classification": "BLOCKED",
+  "created_at": "2026-07-10T06:11:56.744566+00:00",
+  "resume_sequence": [
+    "Enable \"Allow access to file URLs\" for the Codex Chrome extension.",
+    "Return to saved draft ID 206403125, upload primary, policy_corridor, and sofr_context charts in order.",
+    "Verify all three images and obtain an externally usable Substack preview or public URL.",
+    "Record successful Substack readback, then edit Telegram message 61 with that URL and verify the Telegram readback."
+  ],
+  "run_id": "substack_first_north_star_live_20260710",
+  "schema_version": "contentops.substack_first_live_execution_evidence.v1",
+  "selected_idea": {
+    "duplicate_policy": "CANONICALIZATION_REPAIR_EXISTING_DISTRIBUTION_MESSAGE_61_NO_NEW_TELEGRAM_POST",
+    "rationale": "This candidate is highly factual and backed by official central bank data, but it ranks lower because a flat daily rate print lacks the dynamic narrative and market impact of broader macro trends.",
+    "title": "Effective Fed Funds Rate Holds Steady at 3.63% Amid Policy Calibration"
+  },
+  "substack": {
+    "attempted_asset_id": "primary",
+    "blocker": "BLOCKED_REQUIRES_CHROME_EXTENSION_FILE_URL_ACCESS",
+    "body_markdown_sha256": "e40528e2c03d95e66deca02e4cd75a66a027659e92e4fa6081c698ff75ed7d1d",
+    "browser_session_material_recorded": false,
+    "draft_id": "206403125",
+    "editor_body_image_count": 0,
+    "editor_body_text_length": 1801,
+    "expected_visual_asset_ids": [
+      "primary",
+      "policy_corridor",
+      "sofr_context"
+    ],
+    "external_preview_or_public_url": null,
+    "next_unblock": "Enable \"Allow access to file URLs\" for the Codex Chrome extension, then resume the saved Substack draft and upload all three ContentOps charts.",
+    "run_id": "substack_first_north_star_live_20260710",
+    "saved_state": "Saved",
+    "schema_version": "contentops.substack_supervised_browser_readback.v1",
+    "status": "BLOCKED_SUPERVISED_SUBSTACK_BROWSER_ASSIST",
+    "telegram_action": "NOT_ATTEMPTED_NO_EXTERNALLY_USABLE_SUBSTACK_URL",
+    "title": "Effective Fed Funds Rate Holds Steady at 3.63% Amid Policy Calibration"
+  },
+  "telegram": {
+    "action": "NOT_ATTEMPTED",
+    "message_id": 61,
+    "reason": "No externally usable Substack preview or public URL exists because chart upload was blocked before the article could be completed."
+  },
+  "x": {
+    "action": "NOT_ATTEMPTED",
+    "reason": "Substack canonical draft is incomplete and has no externally usable URL."
+  }
+}
