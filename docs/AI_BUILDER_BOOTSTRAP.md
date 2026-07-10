@@ -1,5 +1,7 @@
 # AI Builder Bootstrap
 
+Current handoff: `contentops_v1_0_rc_20260711_1` is frozen at `AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC`. Read its operator audit packet and perform no public writes or v1.0 tagging before explicit operator acceptance.
+
 Start at root `AGENTS.md`, then use this file. Repo evidence beats chat memory and archived plans.
 
 ## Verify Authority

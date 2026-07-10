@@ -3,6 +3,7 @@ from __future__ import annotations
 from live_contentops.tier1_editorial_quality_v1 import (
     audit_tier1_article,
     build_comparison_packet,
+    build_grounded_oil_release_candidate,
     combine_editorial_gates,
     rendered_body,
     review_tier1_article_with_llm,
@@ -107,3 +108,44 @@ def test_llm_review_fails_closed_on_incomplete_schema() -> None:
     )
     assert review["status"] == "INVALID_LLM_REVIEW"
     assert review["decision"] == "NEEDS_REVISION"
+
+
+def test_grounded_oil_release_candidate_passes_topic_aware_gate() -> None:
+    media = [
+        {"asset_id": "primary", "caption": "WTI and volatility.", "alt_text": "WTI chart", "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO", "latest_observation_value": 68.25, "latest_observation_date": "2026-07-07"},
+        {"asset_id": "recent_price", "caption": "Recent WTI path.", "alt_text": "Recent WTI chart", "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO"},
+        {"asset_id": "multi_year_range", "caption": "Multi-year WTI range.", "alt_text": "Multi-year WTI chart", "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO"},
+    ]
+    source_packet = {
+        "status": "PASS_OFFICIAL_EIA_RELEASE_GROUNDED",
+        "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+        "supporting_source_urls": [
+            "https://www.eia.gov/outlooks/steo/",
+            "https://fred.stlouisfed.org/series/DCOILWTICO",
+            "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm",
+        ],
+        "source_text_sha256": "d" * 64,
+        "facts": {
+            "release_date": "2026-07-07",
+            "brent_june_average_usd_per_barrel": 85,
+            "brent_q3_2026_forecast_usd_per_barrel": 74,
+            "brent_2027_forecast_usd_per_barrel": 65,
+            "gasoline_q3_2026_forecast_usd_per_gallon": 3.80,
+            "gasoline_q4_2026_forecast_usd_per_gallon": 3.40,
+            "next_weekly_petroleum_status_report_date": "2026-07-15",
+            "next_steo_release_date": "2026-08-11",
+        },
+    }
+    article = build_grounded_oil_release_candidate(
+        {"why_ranked": "Fresh official EIA forecast with cross-asset implications."},
+        source_packet=source_packet,
+        media_assets=media,
+    )
+    audit = audit_tier1_article(article, media_assets=media)
+    assert audit["classification"] == "PASS"
+    assert audit["editorial_score"] >= 85
+    assert audit["seo_score"] >= 85
+    assert audit["visual_asset_ids"] == ["primary", "recent_price", "multi_year_range"]
+    assert not audit["process_language_hits"]
+    assert "July 15 Weekly Petroleum Status Report" in article["substack_body_markdown"]
+    assert "August 11 Short-Term Energy Outlook" in article["substack_body_markdown"]

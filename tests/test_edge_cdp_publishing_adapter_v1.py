@@ -7,9 +7,50 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
     _file_input_snapshot,
     _meaningful_image_dimensions,
     _newest_activated_media_input,
+    _public_substack_content_checks,
     _split_substack_body,
     validate_youtube_community_payload,
 )
+
+
+def test_public_substack_content_checks_require_reader_text_sources_and_captions() -> None:
+    source_url = "https://www.eia.gov/pressroom/releases/press590.php"
+    body = f"""## Supply Reset
+
+EIA raised its global oil forecast as Hormuz traffic resumed, changing the inventory and inflation test for markets.
+
+[[VISUAL:primary]]
+
+WTI current market signal. [Source]({source_url})
+"""
+    visible = (
+        "EIA Sees Oil Supply Nearing Pre-War Levels\n"
+        "The supply path is changing.\n"
+        "Supply Reset\nEIA raised its global oil forecast as Hormuz traffic resumed, changing the inventory and inflation test for markets.\n"
+        "WTI current market signal. Source"
+    )
+    checks = _public_substack_content_checks(
+        visible_text=visible,
+        hrefs=[source_url],
+        meta_description="EIA oil supply analysis with market and inflation context.",
+        expected_title="EIA Sees Oil Supply Nearing Pre-War Levels",
+        expected_subtitle="The supply path is changing.",
+        expected_body_markdown=body,
+        expected_image_assets=[{"caption": "WTI current market signal."}],
+    )
+    assert checks["content_readback_verified"] is True
+
+    failed = _public_substack_content_checks(
+        visible_text=visible + " The newsroom standard determines publication.",
+        hrefs=[source_url],
+        meta_description="EIA oil supply analysis with market and inflation context.",
+        expected_title="EIA Sees Oil Supply Nearing Pre-War Levels",
+        expected_subtitle="The supply path is changing.",
+        expected_body_markdown=body,
+        expected_image_assets=[{"caption": "WTI current market signal."}],
+    )
+    assert failed["content_readback_verified"] is False
+    assert failed["editorial_process_language_absent"] is False
 
 
 class _FakeInput:

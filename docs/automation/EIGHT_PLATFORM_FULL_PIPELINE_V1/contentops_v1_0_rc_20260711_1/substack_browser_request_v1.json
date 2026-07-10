@@ -1,0 +1,71 @@
+{
+  "article_markdown_path": "exports\\daily_contentops\\substack_first\\contentops_v1_0_rc_20260711_1_canonical_article.md",
+  "article_markdown_sha256": "4a61bb93b43a7fb1d2fd016cbec048ddf9460f1de8731e9ba81241c7a1a3cf9e",
+  "body_markdown": "## Oil Supply Is Returning Faster Than Feared\n\nThe U.S. Energy Information Administration raised its global oil production forecast on July 7, 2026 after tanker traffic through the Strait of Hormuz increased following the June 18 U.S.-Iran memorandum. The agency now expects global crude output and trade flows to return near pre-conflict levels by year-end, with most shut-in production restored by the first quarter of 2027. For oil markets, the new forecast shifts the immediate question from physical disruption to whether supply recovery will outrun demand and rebuild inventories.\n\nWhat matters is the speed of that transition. The EIA said Brent averaged $85 a barrel in June and forecast a $74 third-quarter average, before easing toward $65 in 2027. Those figures are forecasts rather than certainties, but they provide a measurable baseline for crude prices, inflation expectations and energy-sensitive assets. The complete official release is available from the [EIA](https://www.eia.gov/pressroom/releases/press590.php).\n\n[[VISUAL:primary]]\n\n*WTI crude oil price and 30-day realized volatility through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)*\n\n## Reopened Flows Change The Price Mechanism\n\nThe Strait of Hormuz is a transit constraint as much as a production story. Reopening the route allows previously displaced barrels to reach refiners, reduces freight and insurance pressure, and makes the restoration of shut-in fields commercially useful. Supply can therefore recover before every damaged or idled facility is fully normalized.\n\nThe latest manifest-bound WTI observation was $69.60 a barrel on 2026-07-06. That market price does not prove the EIA forecast, but it shows the level from which traders are testing the agency's supply assumptions. Confirmation would require rising tanker traffic, restored output and slower inventory withdrawals to persist together; a price decline without those physical signals would be less durable.\n\n[[VISUAL:recent_price]]\n\n*Recent WTI price path through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)*\n\n## Cheaper Crude Helps Inflation, But Does Not Set Fed Policy\n\nThe EIA expects lower crude costs to pull U.S. gasoline prices down, forecasting about $3.80 a gallon in the third quarter and $3.40 in the fourth. That would ease a visible part of household inflation and reduce some transport and input costs for businesses.\n\nThe policy effect is narrower than the headline. The Federal Reserve's June statement said inflation remained elevated partly because of energy-related supply shocks, but officials still assess broader price persistence, labor conditions and expectations. Cheaper fuel can improve headline inflation without guaranteeing an equivalent move in core services or the policy rate. The relevant policy context is in the [June FOMC statement](https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm), while the forecast tables remain in the [July Short-Term Energy Outlook](https://www.eia.gov/outlooks/steo/).\n\n## The Cross-Asset Test Runs Through Inventories And The Curve\n\nFor bonds, a sustained energy retreat would reduce one source of near-term inflation compensation, although fiscal supply and underlying services inflation can keep longer yields elevated. For currencies, the effect depends on relative import exposure: large oil importers gain purchasing-power relief, while exporters face softer revenue. Energy equities split between producers exposed to lower realizations and refiners or transport-intensive companies that may benefit from cheaper feedstock and fuel.\n\nThe multi-year range matters because a forecast decline can still leave oil above prior-cycle averages. Investors should distinguish a normalization of the war premium from a collapse in underlying demand. That distinction determines whether lower prices signal successful supply repair or a broader growth slowdown.\n\n[[VISUAL:multi_year_range]]\n\n*WTI annual price range and average context through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)*\n\n## What Would Confirm Or Challenge The Rebalance\n\nConfirmation would come from continued Hormuz traffic normalization, restoration of shut-in production, inventory builds and Brent trading broadly in line with the EIA's declining forecast path. The next named catalysts are the [July 15 Weekly Petroleum Status Report](https://www.eia.gov/petroleum/supply/weekly/) and the [August 11 Short-Term Energy Outlook](https://www.eia.gov/outlooks/steo/), which can test both current balances and the agency's assumptions.\n\nThe thesis would be challenged by renewed disruption in the strait, slower field restarts, persistent inventory draws or prices holding materially above the forecast despite recovering volumes. Those outcomes would imply that logistics, demand or geopolitical risk remained tighter than the headline supply recovery suggests.\n\nThe WTI observations in this article come from [FRED series DCOILWTICO](https://fred.stlouisfed.org/series/DCOILWTICO), whose underlying source is the EIA. This article is for informational purposes only and is not financial advice.\n",
+  "body_markdown_sha256": "b98329d37c3c25f154ff8b4d5968a8d8f3c8f2bea67571ea2dfd9ea70c7e4146",
+  "image_assets": [
+    {
+      "alt_text": "Two-panel chart showing current WTI crude oil price and rolling absolute daily moves using FRED data.",
+      "asset_id": "primary",
+      "caption": "WTI crude oil price and 30-day realized volatility through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+      "local_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_assets\\slot_4\\wti_current_volatility_context_9302511000fa.png",
+      "media_class": "data_chart",
+      "provenance_status": "source_backed_generated_from_public_data",
+      "sha256": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+      "source_label": "FRED / U.S. Energy Information Administration",
+      "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO"
+    },
+    {
+      "alt_text": "Line chart showing the recent WTI crude oil price path using FRED data.",
+      "asset_id": "recent_price",
+      "caption": "Recent WTI price path through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+      "local_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_assets\\slot_4\\wti_recent_price_context_9302511000fa.png",
+      "media_class": "data_chart",
+      "provenance_status": "source_backed_generated_from_public_data",
+      "sha256": "b940fb6b8464b8c0e4028a0c5874436d456facb9afd1851b64b2e76dcb33d076",
+      "source_label": "FRED / U.S. Energy Information Administration",
+      "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO"
+    },
+    {
+      "alt_text": "Chart showing recent annual WTI crude oil low-high ranges and annual averages using FRED data.",
+      "asset_id": "multi_year_range",
+      "caption": "WTI annual price range and average context through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+      "local_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_assets\\slot_4\\wti_multi_year_range_context_9302511000fa.png",
+      "media_class": "data_chart",
+      "provenance_status": "source_backed_generated_from_public_data",
+      "sha256": "400eac0a7cdd1cb7fdb65db0770afc60400aa3b1f34c7b8674755ab93bf541bf",
+      "source_label": "FRED / U.S. Energy Information Administration",
+      "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO"
+    }
+  ],
+  "publication_mode": "publish",
+  "publication_url": "https://capitalchronicle.substack.com/publish/post",
+  "required_readback": {
+    "in_body_visual_asset_ids": [
+      "primary",
+      "recent_price",
+      "multi_year_range"
+    ],
+    "matching_body_markdown_sha256": "b98329d37c3c25f154ff8b4d5968a8d8f3c8f2bea67571ea2dfd9ea70c7e4146",
+    "matching_title": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume",
+    "minimum_editor_body_image_count": 3,
+    "publication_state": "publish",
+    "url_kind": "public_url"
+  },
+  "run_id": "contentops_v1_0_rc_20260711_1",
+  "safety": {
+    "browser_profile_values_recorded": false,
+    "cookies_recorded": false,
+    "raw_credentials_recorded": false,
+    "session_storage_recorded": false
+  },
+  "schema_version": "contentops.substack_supervised_browser_request.v1",
+  "status": "READY_FOR_SUPERVISED_BROWSER_ASSIST",
+  "subtitle": "The agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.",
+  "title": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume",
+  "visual_marker_order": [
+    "primary",
+    "recent_price",
+    "multi_year_range"
+  ]
+}

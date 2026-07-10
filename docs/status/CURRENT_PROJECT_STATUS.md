@@ -1,5 +1,9 @@
 # Current Project Status
 
+## Text/Image V1.0 Release Candidate
+
+Run `contentops_v1_0_rc_20260711_1` is `AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC`. The EIA oil-supply article is public on Substack with three manifest-bound charts, and Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community passed strict text/media/link readback. TikTok, YouTube video, and Shorts were not invoked. All nine surfaces are frozen pending the operator audit packet at `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/operator_manual_audit_packet_v1.json`; no v1.0 tag exists.
+
 ## Authority
 
 GitHub remote commits and fetched repo files remain runtime authority above this status doc. `ui/contentops_v5/` is the canonical UI; `ui/institutional_operator_cockpit_v4/` is fallback/reference only.

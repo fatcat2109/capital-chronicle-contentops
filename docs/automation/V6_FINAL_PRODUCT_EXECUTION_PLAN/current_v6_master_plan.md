@@ -1,5 +1,7 @@
 # ContentOps V6 Current Master Plan
 
+> Current release authority (2026-07-11): run `contentops_v1_0_rc_20260711_1` passed the nine-surface machine gate and is frozen at `AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC`. The next action is read-only operator audit; do not dispatch, edit, tag v1.0, or enter TikTok/video/Short modes.
+
 Authority date: 2026-07-10
 
 Current task: `TASK_CONTENTOPS_HEAVY_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3`

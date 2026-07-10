@@ -33,6 +33,11 @@ _TECHNICAL_PUBLIC_TEXT_RE = re.compile(
     r"(?:eight[_ -]?platform[_ -]?live|run[_ -]?id|recovery\d+|docs[\\/]automation|[A-Za-z]:\\)",
     re.IGNORECASE,
 )
+_EDITORIAL_PROCESS_TEXT_RE = re.compile(
+    r"(?:the editorial task|the reporting discipline|the newsroom standard|"
+    r"the schedule and sidecars|the chart manifest|editors should look|pipeline narration|prompt narration)",
+    re.IGNORECASE,
+)
 
 
 def _is_public_substack_url(value: str | None) -> bool:
@@ -360,6 +365,27 @@ def _editor_image_readback(image: Any) -> dict[str, Any]:
     }
 
 
+def _meaningful_editor_image_rows(page: Any) -> list[tuple[int, dict[str, Any]]]:
+    rows: list[tuple[int, dict[str, Any]]] = []
+    images = page.locator(".ProseMirror img")
+    for index in range(images.count()):
+        state = _editor_image_readback(images.nth(index))
+        meaningful = _meaningful_image_dimensions(
+            rendered_width=float(state.get("rendered_width") or 0),
+            rendered_height=float(state.get("rendered_height") or 0),
+            natural_width=float(state.get("natural_width") or 0),
+            natural_height=float(state.get("natural_height") or 0),
+        )
+        if (
+            state.get("complete")
+            and state.get("visible")
+            and state.get("in_article_body")
+            and meaningful
+        ):
+            rows.append((index, state))
+    return rows
+
+
 def _upload_substack_image(
     page: Any,
     editor: Any,
@@ -370,6 +396,7 @@ def _upload_substack_image(
     expected_image_index: int,
 ) -> dict[str, Any]:
     before = _editor_image_count(page)
+    meaningful_before = len(_meaningful_editor_image_rows(page))
     editor.click(timeout=6000)
     page.keyboard.press("Control+End")
     toolbar_selector = _click_first_visible(
@@ -423,32 +450,21 @@ def _upload_substack_image(
     deadline = time.monotonic() + 60
     after = _editor_image_count(page)
     image_state: dict[str, Any] = {}
+    meaningful_after = meaningful_before
+    inserted_dom_index: int | None = None
     while time.monotonic() < deadline:
         after = _editor_image_count(page)
-        if after == before + 1:
-            image_state = _editor_image_readback(page.locator(".ProseMirror img, div.ProseMirror img").nth(before))
-            meaningful = _meaningful_image_dimensions(
-                rendered_width=float(image_state.get("rendered_width") or 0),
-                rendered_height=float(image_state.get("rendered_height") or 0),
-                natural_width=float(image_state.get("natural_width") or 0),
-                natural_height=float(image_state.get("natural_height") or 0),
-            )
-            if (
-                image_state.get("complete")
-                and image_state.get("visible")
-                and image_state.get("in_article_body")
-                and meaningful
-                and not _substack_upload_pending(page)
-            ):
-                break
-        elif after > before + 1:
+        meaningful_rows = _meaningful_editor_image_rows(page)
+        meaningful_after = len(meaningful_rows)
+        if meaningful_after == meaningful_before + 1 and not _substack_upload_pending(page):
+            inserted_dom_index, image_state = meaningful_rows[-1]
             break
         time.sleep(0.5)
 
     alt_status = "not_exposed_by_current_editor"
-    if after == before + 1 and alt_text:
+    if meaningful_after == meaningful_before + 1 and alt_text and inserted_dom_index is not None:
         try:
-            last_image = page.locator(".ProseMirror img, div.ProseMirror img").nth(before)
+            last_image = page.locator(".ProseMirror img").nth(inserted_dom_index)
             last_image.click(timeout=3000)
             alt_input, _alt_selector = _first_visible(
                 page,
@@ -469,8 +485,8 @@ def _upload_substack_image(
     while time.monotonic() < saved_deadline and not draft_saved:
         time.sleep(0.4)
         draft_saved = _substack_saved(page)
-    count_exact = after == before + 1
-    intended_position = before == expected_image_index and count_exact
+    count_exact = meaningful_after == meaningful_before + 1
+    intended_position = meaningful_before == expected_image_index and count_exact
     meaningful_dimensions = _meaningful_image_dimensions(
         rendered_width=float(image_state.get("rendered_width") or 0),
         rendered_height=float(image_state.get("rendered_height") or 0),
@@ -502,8 +518,10 @@ def _upload_substack_image(
         "menu_selector": menu_selector,
         "editor_image_count_before": before,
         "editor_image_count_after": after,
+        "meaningful_editor_image_count_before": meaningful_before,
+        "meaningful_editor_image_count_after": meaningful_after,
         "editor_image_count_increment_exactly_one": count_exact,
-        "inserted_image_index": before if count_exact else None,
+        "inserted_image_index": meaningful_before if count_exact else None,
         "intended_marker_position_verified": intended_position,
         "image_readback": image_state,
         "meaningful_dimensions_verified": meaningful_dimensions,
@@ -645,7 +663,81 @@ def _substack_draft_id(url: str) -> str | None:
     return match.group(1) if match else None
 
 
-def _audit_public_substack_article(page: Any, public_url: str, screenshot_path: str | Path | None) -> dict[str, Any]:
+def _public_substack_content_checks(
+    *,
+    visible_text: str,
+    hrefs: Sequence[str],
+    meta_description: str,
+    expected_title: str | None,
+    expected_subtitle: str | None,
+    expected_body_markdown: str | None,
+    expected_image_assets: Sequence[Mapping[str, Any]] | None,
+) -> dict[str, Any]:
+    normalized_visible_with_urls = _normalise_editor_text(visible_text)
+    visible_without_literal_markdown_links = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", visible_text or "")
+    normalized_visible = _normalise_editor_text(visible_without_literal_markdown_links)
+    title_visible = True if not expected_title else _normalise_editor_text(expected_title) in normalized_visible
+    subtitle_visible = True if not expected_subtitle else _normalise_editor_text(expected_subtitle) in normalized_visible
+    anchors: list[str] = []
+    source_urls: list[str] = []
+    if expected_body_markdown:
+        source_urls = re.findall(r"https://[^)\s]+", expected_body_markdown)
+        for kind, value in _split_substack_body(expected_body_markdown):
+            if kind != "text":
+                continue
+            text_only = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", value)
+            for paragraph in re.split(r"\n\s*\n", text_only):
+                normalized = _normalise_editor_text(paragraph)
+                words = normalized.split()
+                if len(words) >= 8 and not normalized.startswith("source "):
+                    anchors.append(" ".join(words[: min(12, len(words))]))
+    body_complete = bool(anchors) and all(anchor in normalized_visible for anchor in anchors)
+    captions = [
+        _normalise_editor_text(str(asset.get("caption") or ""))
+        for asset in expected_image_assets or []
+        if str(asset.get("caption") or "").strip()
+    ]
+    captions_visible = bool(captions) and all(caption in normalized_visible for caption in captions)
+    source_links_visible = bool(source_urls) and all(
+        source_url in hrefs or _normalise_editor_text(source_url) in normalized_visible_with_urls
+        for source_url in source_urls
+    )
+    no_process_language = not bool(_EDITORIAL_PROCESS_TEXT_RE.search(visible_text))
+    content_verified = bool(
+        title_visible
+        and subtitle_visible
+        and body_complete
+        and captions_visible
+        and source_links_visible
+        and no_process_language
+        and meta_description.strip()
+    )
+    return {
+        "title_visible": title_visible,
+        "subtitle_visible": subtitle_visible,
+        "body_complete": body_complete,
+        "body_anchor_count": len(anchors),
+        "captions_visible": captions_visible,
+        "caption_accessibility_fallback_verified": captions_visible,
+        "caption_count_expected": len(captions),
+        "source_links_visible": source_links_visible,
+        "source_url_count_expected": len(source_urls),
+        "editorial_process_language_absent": no_process_language,
+        "public_meta_description_present": bool(meta_description.strip()),
+        "content_readback_verified": content_verified,
+    }
+
+
+def _audit_public_substack_article(
+    page: Any,
+    public_url: str,
+    screenshot_path: str | Path | None,
+    *,
+    expected_title: str | None = None,
+    expected_subtitle: str | None = None,
+    expected_body_markdown: str | None = None,
+    expected_image_assets: Sequence[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
     page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
     time.sleep(4)
     image_rows: list[dict[str, Any]] = []
@@ -696,6 +788,39 @@ def _audit_public_substack_article(page: Any, public_url: str, screenshot_path: 
     image_rows = list({row["src"]: row for row in image_rows}.values())
     tops = sorted(row["top"] for row in image_rows)
     visual_spread = len(tops) >= 3 and all((right - left) >= 240 for left, right in zip(tops, tops[1:]))
+    visible_text = ""
+    for selector in ("article", "[class*='post-content']", "body"):
+        try:
+            visible_text = page.locator(selector).first.inner_text(timeout=5000)
+        except Exception:
+            continue
+        if visible_text:
+            break
+    hrefs: list[str] = []
+    try:
+        hrefs = [str(link.get_attribute("href") or "") for link in page.locator("a[href]").all()]
+    except Exception:
+        pass
+    meta_description = ""
+    for selector, attribute in (
+        ("meta[name='description']", "content"),
+        ("meta[property='og:description']", "content"),
+    ):
+        try:
+            meta_description = str(page.locator(selector).first.get_attribute(attribute) or "").strip()
+        except Exception:
+            continue
+        if meta_description:
+            break
+    content_checks = _public_substack_content_checks(
+        visible_text=visible_text,
+        hrefs=hrefs,
+        meta_description=meta_description,
+        expected_title=expected_title,
+        expected_subtitle=expected_subtitle,
+        expected_body_markdown=expected_body_markdown,
+        expected_image_assets=expected_image_assets,
+    )
     saved_screenshot = None
     if screenshot_path:
         path = Path(screenshot_path)
@@ -707,8 +832,20 @@ def _audit_public_substack_article(page: Any, public_url: str, screenshot_path: 
         "public_image_count": len(image_rows),
         "public_image_urls": [row["src"] for row in image_rows[:3]],
         "public_image_alt_count": sum(1 for row in image_rows if row["alt_present"]),
+        "public_image_alt_or_caption_count": (
+            sum(1 for row in image_rows if row["alt_present"])
+            if any(row["alt_present"] for row in image_rows)
+            else (len(image_rows) if content_checks["caption_accessibility_fallback_verified"] else 0)
+        ),
+        "image_accessibility_mode": (
+            "html_alt"
+            if sum(1 for row in image_rows if row["alt_present"]) == len(image_rows) and image_rows
+            else "visible_caption_fallback_substack_alt_control_not_exposed"
+        ),
         "visual_spread_through_public_body": visual_spread,
         "public_screenshot_path": saved_screenshot,
+        "visible_body_text": visible_text,
+        **content_checks,
     }
 
 
@@ -724,6 +861,76 @@ def readback_public_substack_article_via_edge(
     with canonical_edge_page(cdp_port) as page:
         readback = _audit_public_substack_article(page, public_url, public_screenshot_path)
     return {"status": "SUCCESS", "platform": "substack", "public_url": public_url, "readback": readback}
+
+
+def audit_public_substack_article_via_edge(
+    *,
+    cdp_port: int,
+    public_url: str,
+    expected_title: str,
+    expected_subtitle: str,
+    expected_body_markdown: str,
+    expected_image_assets: Sequence[Mapping[str, Any]],
+    public_screenshot_path: str | Path | None = None,
+) -> dict[str, Any]:
+    """Strictly reconcile an already-public article without opening its editor."""
+    if not _is_public_substack_url(public_url):
+        return {"status": "BLOCKED_INVALID_PUBLIC_SUBSTACK_URL", "platform": "substack"}
+    with canonical_edge_page(cdp_port) as page:
+        readback = _audit_public_substack_article(
+            page,
+            public_url,
+            public_screenshot_path,
+            expected_title=expected_title,
+            expected_subtitle=expected_subtitle,
+            expected_body_markdown=expected_body_markdown,
+            expected_image_assets=expected_image_assets,
+        )
+    verified = bool(
+        readback.get("content_readback_verified")
+        and int(readback.get("public_image_count") or 0) >= 3
+        and int(readback.get("public_image_alt_or_caption_count") or 0) >= 3
+        and readback.get("visual_spread_through_public_body")
+    )
+    return {
+        "status": "SUCCESS" if verified else "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK",
+        "platform": "substack",
+        "public_url": public_url,
+        "readback": readback,
+        "browser_write_performed": False,
+    }
+
+
+def capture_public_destination_screenshot_via_edge(
+    *,
+    cdp_port: int,
+    public_url: str,
+    output_path: str | Path,
+    expected_text: str | None = None,
+) -> dict[str, Any]:
+    """Capture a public destination read-only through the canonical Edge profile."""
+    parsed = urllib.parse.urlparse(public_url)
+    if parsed.scheme != "https" or _PRIVATE_SUBSTACK_PATH_MARKER in parsed.path:
+        return {"status": "BLOCKED_INVALID_PUBLIC_SCREENSHOT_URL", "public_url": public_url}
+    with canonical_edge_page(cdp_port) as page:
+        page.goto(public_url, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(5)
+        try:
+            visible_text = _normalised_visible_text(page.locator("body").inner_text(timeout=5000))
+        except Exception:
+            visible_text = ""
+        target = Path(output_path)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        page.screenshot(path=str(target), full_page=False)
+    expected_visible = True if not expected_text else _normalised_visible_text(expected_text).casefold() in visible_text.casefold()
+    return {
+        "status": "SUCCESS" if target.is_file() and target.stat().st_size > 0 else "FAILED_PUBLIC_SCREENSHOT_CAPTURE",
+        "public_url": public_url,
+        "public_screenshot_path": str(target),
+        "page_domain": parsed.netloc,
+        "expected_text_visible": expected_visible,
+        "browser_write_performed": False,
+    }
 
 
 def publish_substack_article_via_edge(
@@ -853,9 +1060,19 @@ def publish_substack_article_via_edge(
                 public_url = None
         if not _is_public_substack_url(public_url):
             return {"status": "FAILED_SUBSTACK_PUBLIC_URL_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows}
-        readback = _audit_public_substack_article(page, public_url, public_screenshot_path)
+        readback = _audit_public_substack_article(
+            page,
+            public_url,
+            public_screenshot_path,
+            expected_title=title,
+            expected_subtitle=subtitle,
+            expected_body_markdown=body_markdown,
+            expected_image_assets=image_assets,
+        )
         if readback["public_image_count"] < 3 or not readback["visual_spread_through_public_body"]:
             return {"status": "FAILED_SUBSTACK_PUBLIC_VISUAL_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows, "public_url": public_url, "readback": readback}
+        if readback["public_image_alt_or_caption_count"] < 3 or not readback["content_readback_verified"]:
+            return {"status": "FAILED_SUBSTACK_PUBLIC_CONTENT_READBACK", "platform": "substack", "draft_id": draft_id, "editor_body_image_count": editor_image_count, "upload_rows": upload_rows, "public_url": public_url, "readback": readback}
         return {
             "status": "SUCCESS",
             "platform": "substack",
@@ -1045,6 +1262,7 @@ def readback_x_thread_via_edge(
                     "id": reply_id,
                     "public_url": reply_url,
                     "parent_id": reply.get("parent_id"),
+                    "visible_body_text": visible,
                     "text_verified": bool(expected and expected.casefold() in visible.casefold()),
                     "parent_child_verified": parent_visible,
                     "expected_media_local_path": expected_reply_media or None,

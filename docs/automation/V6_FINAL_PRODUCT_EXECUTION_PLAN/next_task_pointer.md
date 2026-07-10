@@ -1,22 +1,13 @@
 # V6 Next Task Pointer
 
-Current completed task: `TASK_CONTENTOPS_HEAVY_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3`
+Current completed task: `TASK_CONTENTOPS_FINAL_TEXT_IMAGE_PLATFORM_LIVE_LOCK_AND_V1_0_RELEASE_V1`
 
-Classification: `PASS_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3`
+Classification: `AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC`
 
-Current evidence: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/eight_platform_live_20260710_recovery1/`
+Current evidence: `docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1/contentops_v1_0_rc_20260711_1/`
 
 ## Next Task
 
-`TASK_CONTENTOPS_V6_RELIABILITY_EVIDENCE_DASHBOARD_AND_VIDEO_AUTH_HANDOFF_V1`
+`TASK_CONTENTOPS_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC`
 
-Required scope:
-
-1. Render editorial/SEO before-after scores, combined deterministic-plus-LLM gate state, review hashes, and process-language findings in `ui/contentops_v5/`.
-2. Render live X/Threads quality failures beside the corrected three-post local plans and media assignments.
-3. Render both accepted LinkedIn activities and their exact in-place correction relationship.
-4. Render Instagram feed-link semantics and the three non-default video capability rows.
-5. Provide non-secret TikTok callback/OAuth and YouTube explicit-mode handoff checklists.
-6. Keep Substack and every current social/community output read-only; do not publish video or start a new run.
-
-After this UI/read-model task, a fresh supported idea may rehearse the corrected full pipeline under separate operator authorization.
+Audit the nine frozen text/image surfaces listed in `operator_manual_audit_packet_v1.json`. Do not publish, edit, reply, delete, regenerate, or tag during the audit. Record operator acceptance or exact per-surface defects. Create the v1.0 tag only in a later task after explicit operator acceptance.

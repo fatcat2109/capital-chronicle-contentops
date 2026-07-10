@@ -56,7 +56,7 @@ def _post_form(url: str, payload: dict[str, Any]) -> tuple[dict[str, Any], int]:
     data = urllib.parse.urlencode(payload).encode("utf-8")
     req = urllib.request.Request(url, data=data, method="POST")
     req.add_header("Content-Type", "application/x-www-form-urlencoded")
-    with urllib.request.urlopen(req, timeout=15) as response:
+    with urllib.request.urlopen(req, timeout=45) as response:
         return json.loads(response.read().decode("utf-8")), len(data)
 
 
@@ -243,6 +243,7 @@ def readback_threads_chain(
                 "public_url": (row or {}).get("permalink"),
                 "parent_root_id": root_id,
                 "parent_child_verified": reply_id in edge_ids,
+                "visible_body_text": text,
                 "text_verified": bool(expected_text and expected_text.casefold() in text.casefold()),
                 "expected_media_local_path": expected_media_path or None,
                 "media_required": bool(expected_media_path),

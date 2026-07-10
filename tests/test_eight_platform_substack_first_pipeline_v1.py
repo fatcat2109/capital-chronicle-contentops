@@ -30,7 +30,9 @@ def test_native_payloads_are_distinct_and_carry_canonical_url():
     assert canonical_url in payloads["x"]["text"]
     assert canonical_url in payloads["linkedin"]["text"]
     assert canonical_url in payloads["discord"]["text"]
+    assert canonical_url in payloads["telegram"]["text"]
     assert canonical_url in payloads["youtube"]["text"]
+    assert payloads["telegram"]["format"] == "channel_photo_with_caption"
     assert payloads["youtube"]["format"] == "community_text_image_post"
     assert payloads["x"]["format"] != payloads["linkedin"]["format"]
     assert payloads["discord"]["text"] != payloads["facebook_page"]["text"]
@@ -86,6 +88,262 @@ def test_sentence_packer_does_not_split_normal_sentences_and_balances_chunks():
     assert all(chunk[-1] in ".!?" for chunk in chunks)
     assert all(len(chunk) <= 145 for chunk in chunks)
     assert min(map(len, chunks)) / max(map(len, chunks)) >= 0.45
+
+
+def test_oil_thread_uses_actual_three_manifest_assets_once():
+    canonical_url = "https://capitalchronicle.substack.com/p/eia-oil-forecast"
+    payloads = build_native_derivative_payloads(
+        article=_article(),
+        selection=_selection(),
+        canonical_url=canonical_url,
+        media_asset_ids=["primary", "recent_price", "multi_year_range"],
+    )
+    for platform in ("x", "threads"):
+        ids = [item for post in payloads[platform]["posts"] for item in post["media_asset_ids"]]
+        assert ids == ["primary", "recent_price", "multi_year_range"]
+        assert payloads[platform]["quality_metrics"]["visual_distribution_pass"] is True
+
+
+def test_x_oil_thread_uses_complete_source_grounded_summaries_without_fake_sentences():
+    canonical_url = "https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume"
+    article = {
+        "title": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume",
+        "subtitle": "The agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.",
+        "social_lede": "EIA expects crude flows to approach pre-conflict levels by year-end.",
+        "social_mechanism_summary": "Reopened Hormuz transit and restored output will test whether inventories rebuild and crude prices keep falling.",
+        "social_policy_summary": "Cheaper gasoline can ease headline inflation without settling Federal Reserve policy.",
+        "social_cross_asset_summary": "Lower oil can help energy importers while pressuring producer revenues.",
+    }
+    payload = build_native_derivative_payloads(
+        article=article,
+        selection=_selection(),
+        canonical_url=canonical_url,
+        media_asset_ids=["primary", "recent_price", "multi_year_range"],
+    )["x"]
+    public_text = "\n".join(post["text"] for post in payload["posts"])
+    assert "shifting the." not in public_text
+    assert "support large energy." not in public_text
+    assert article["social_lede"] in public_text
+    assert article["social_mechanism_summary"] in public_text
+    assert article["social_policy_summary"] in public_text
+    assert article["social_cross_asset_summary"] in public_text
+    assert payload["quality_metrics"]["sentence_boundary_pass"] is True
+    assert payload["quality_metrics"]["hard_character_slicing_used"] is False
+    assert all(len(post["text"]) <= 280 for post in payload["posts"])
+
+
+def test_social_summary_compiler_fails_closed_instead_of_word_slicing():
+    oversized = "A deliberately oversized sentence " + "with unresolved context " * 20 + "."
+    try:
+        pipeline._concise_semantic_sentence(oversized, maximum=80)
+    except ValueError as exc:
+        assert str(exc) == "sentence_complete_semantic_summary_required"
+    else:
+        raise AssertionError("oversized sentence must not be converted into a fake complete sentence")
+
+
+def test_prepare_only_release_candidate_never_calls_publishers(tmp_path: Path, monkeypatch):
+    context = {
+        "article": {**_article(), "canonical_url": "https://capitalchronicle.substack.com/p/eia-oil-forecast", "word_count": 800, "substack_body_markdown_sha256": "d" * 64},
+        "selection": {**_selection(), "topic_hash": "topic", "duplicate_hotspot_decision": {"publish_allowed": True}},
+        "media": {"assets": [
+            {"asset_id": "primary", "sha256": "a" * 64},
+            {"asset_id": "recent_price", "sha256": "b" * 64},
+            {"asset_id": "multi_year_range", "sha256": "c" * 64},
+        ]},
+        "editorial_gate": {"combined_gate": {"classification": "PASS"}},
+    }
+    context_path = tmp_path / "run_context_v1.json"
+    context_path.write_text(json.dumps(context), encoding="utf-8")
+    for name in pipeline._RELEASE_PREPARATION_ARTIFACTS:
+        path = tmp_path / name
+        if path != context_path and name != "native_payloads_rehearsal_v1.json":
+            path.write_text("{}\n", encoding="utf-8")
+    monkeypatch.setattr(pipeline, "browser_doctor", lambda: {"status": "READY_TO_ATTACH", "recommended_cdp_port": 9223})
+    monkeypatch.setattr(
+        pipeline,
+        "_release_account_preflight",
+        lambda _port: {
+            "substack": {"authenticated": True},
+            "x": {"authenticated": True, "destination_identity": "@Capitalnicle"},
+            "linkedin": {"authenticated": True, "destination_identity": "linkedin:jimcc"},
+            "youtube": {"authenticated": True},
+        },
+    )
+    monkeypatch.setattr(
+        pipeline,
+        "_capability_presence",
+        lambda: {name: True for name in ("telegram", "discord", "facebook_page", "instagram_business", "threads")},
+    )
+    monkeypatch.setattr(
+        pipeline,
+        "prepare_substack_first_pipeline",
+        lambda **kwargs: {"classification": "READY_FOR_SUPERVISED_SUBSTACK_BROWSER_ASSIST", "context_path": str(context_path)},
+    )
+    monkeypatch.setattr(pipeline, "publish_substack_article_via_edge", lambda **kwargs: (_ for _ in ()).throw(AssertionError("no write")))
+    packet = pipeline.prepare_text_image_release_candidate(run_id="rc-no-write", output_dir=tmp_path)
+    assert packet["classification"] == "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
+    assert packet["public_write_performed"] is False
+    assert packet["publishing_adapter_called"] is False
+    assert packet["video_or_tiktok_adapter_called"] is False
+    assert pipeline._verify_release_candidate_lock(tmp_path)["status"] == "PASS_RELEASE_CANDIDATE_LOCK"
+
+    (tmp_path / "article_manifest_v1.json").write_text('{"tampered":true}\n', encoding="utf-8")
+    verification = pipeline._verify_release_candidate_lock(tmp_path)
+    assert verification["status"] == "BLOCKED_RELEASE_CANDIDATE_LOCK"
+    assert "locked_artifact_hash_mismatch:article_manifest_v1.json" in verification["blockers"]
+
+
+def test_telegram_and_discord_require_strict_provider_readback(monkeypatch):
+    import live_contentops.discord_live_adapter_v6 as discord_adapter
+    import live_contentops.telegram_live_adapter_v6 as telegram_adapter
+
+    canonical_url = "https://capitalchronicle.substack.com/p/eia-oil-supply"
+    monkeypatch.setattr(pipeline, "load_public_dispatch_hashes", lambda _path: set())
+    monkeypatch.setattr(pipeline, "append_public_dispatch_ledger", lambda **kwargs: None)
+    monkeypatch.setattr(
+        telegram_adapter,
+        "execute_telegram_photo",
+        lambda **kwargs: {
+            "status": "SUCCESS",
+            "id": "77",
+            "response": {"result": {
+                "message_id": 77,
+                "chat": {"username": "CapitalChronicle"},
+                "caption": kwargs["caption"],
+                "photo": [{"file_id": "chart"}],
+            }},
+        },
+    )
+    telegram = pipeline._publish_telegram_photo_verified(
+        run_id="rc-test",
+        topic_hash="topic",
+        text=f"Oil supply analysis {canonical_url}",
+        canonical_url=canonical_url,
+        image_path="C:/chart.png",
+    )
+    assert telegram["status"] == "SUCCESS"
+    assert telegram["readback"]["meaningful_media_visible"] is True
+
+    monkeypatch.setattr(
+        discord_adapter,
+        "execute_discord_post",
+        lambda **kwargs: {
+            "status": "SUCCESS",
+            "id": "88",
+            "response": {
+                "id": "88",
+                "channel_id": "22",
+                "guild_id": "11",
+                "content": kwargs["message"],
+                "embeds": kwargs["embeds"],
+            },
+        },
+    )
+    discord = pipeline._publish_discord_verified(
+        text=f"Oil supply analysis {canonical_url}",
+        canonical_url=canonical_url,
+        image_url="https://example.com/chart.png",
+        title="Oil supply analysis",
+    )
+    assert discord["status"] == "SUCCESS"
+    assert discord["readback"]["rich_preview_behavior"] == "article_chart"
+
+
+def test_operator_audit_gate_requires_all_nine_strict_public_surfaces(tmp_path: Path, monkeypatch):
+    canonical_url = "https://capitalchronicle.substack.com/p/eia-oil-supply"
+    payloads = {
+        platform: {"text": f"{platform} oil supply analysis {canonical_url}"}
+        for platform in pipeline.TEXT_IMAGE_PASS_DESTINATIONS
+        if platform != "substack"
+    }
+    (tmp_path / "native_payloads_v1.json").write_text(json.dumps(payloads), encoding="utf-8")
+    (tmp_path / "idea_selection_v1.json").write_text(json.dumps({"rejected_alternatives": []}), encoding="utf-8")
+
+    def result(platform: str) -> dict:
+        return {
+            "status": "SUCCESS",
+            "id": f"{platform}-id",
+            "public_url": f"https://example.com/{platform}",
+            "destination_identity": f"{platform}-account",
+            "substack_url_included": True,
+            "provider_readback_verified": True,
+            "media_asset_id": "primary",
+            "media_sha256": "a" * 64,
+            "readback": {
+                "status": "SUCCESS",
+                "visible_body_text": payloads.get(platform, {}).get("text"),
+                "substack_url_visible": True,
+                "meaningful_media_visible": True,
+            },
+        }
+
+    results = {platform: result(platform) for platform in pipeline.TEXT_IMAGE_PASS_DESTINATIONS}
+    results["substack"] = {
+        "status": "SUCCESS",
+        "draft_id": "1",
+        "public_url": canonical_url,
+        "readback": {
+            "content_readback_verified": True,
+            "public_image_count": 3,
+            "public_image_alt_count": 3,
+            "visual_spread_through_public_body": True,
+            "visible_body_text": "Complete public oil article",
+        },
+    }
+    x_replies = [
+        {"id": f"x-reply-{index}", "public_url": f"https://example.com/x/reply/{index}", "text": f"X reply {index}"}
+        for index in (1, 2)
+    ]
+    results["x"]["reply_chain"] = x_replies
+    results["x"]["readback"].update({
+        "root_visible_text": payloads["x"]["text"],
+        "reply_chain_complete": True,
+        "complete_article_visual_count": 3,
+        "ordered_replies": [{"visible_body_text": row["text"]} for row in x_replies],
+    })
+    threads_replies = [
+        {"id": f"threads-reply-{index}", "public_url": f"https://example.com/threads/reply/{index}", "text": f"Threads reply {index}"}
+        for index in (1, 2)
+    ]
+    results["threads"]["reply_chain"] = threads_replies
+    results["threads"]["readback"] = {
+        "root": {"visible_body_text": payloads["threads"]["text"], "substack_url_visible": True, "meaningful_media_visible": True},
+        "chain": {
+            "provider_order_verified": True,
+            "complete_article_visual_count": 3,
+            "ordered_replies": [{"visible_body_text": row["text"]} for row in threads_replies],
+        },
+    }
+    results["discord"]["readback"]["rich_preview_behavior"] = "article_chart"
+    evidence = {
+        "run_id": "rc-audit",
+        "classification": "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1",
+        "article": {"title": "EIA Oil Supply", "subtitle": "Supply is recovering.", "word_count": 700, "substack_body_markdown": "Complete article"},
+        "selected_idea": {"topic": "EIA oil supply"},
+        "editorial_gate": {"deterministic_review": {"editorial_score": 95, "seo_score": 100}},
+        "delivery_media_manifest": {"assets": [{
+            "media_asset_id": "primary",
+            "sha256": "a" * 64,
+            "absolute_local_source_path": str(tmp_path / "chart.png"),
+            "source_provenance": {"caption": "WTI chart"},
+        }]},
+        "results": results,
+    }
+    (tmp_path / "run_evidence_v1.json").write_text(json.dumps(evidence), encoding="utf-8")
+
+    def capture(**kwargs):
+        target = Path(kwargs["output_path"])
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(b"png")
+        return {"status": "SUCCESS", "public_url": kwargs["public_url"], "public_screenshot_path": str(target), "browser_write_performed": False}
+
+    monkeypatch.setattr(pipeline, "capture_public_destination_screenshot_via_edge", capture)
+    packet = pipeline.build_operator_manual_audit_packet(output_dir=tmp_path)
+    assert packet["classification"] == "AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC"
+    assert packet["machine_qa"]["status"] == "PASS"
+    assert len(packet["screenshots"]["x"]) == 3
+    assert len(packet["screenshots"]["threads"]) == 3
 
 
 def test_classification_requires_every_expanded_destination_for_pass():

@@ -30,19 +30,19 @@ def test_required_status_progress_files_exist() -> None:
 
 def test_master_plan_contains_v6_loop_without_mojibake_arrows() -> None:
     text = _read(PLAN)
-    assert "V6 North-Star Loop" in text
-    assert "→ AI research and grounding" in text
-    assert "→ canonical Substack long-form article" in text
+    assert "Product North Star" in text
+    assert "headline/CDP intake" in text
+    assert "canonical Substack publication/readback" in text
     loop = text.split("```text", 1)[1].split("```", 1)[0]
-    assert "? AI research" not in loop
-    assert "? canonical" not in loop
+    assert "? LLM semantic" not in loop
+    assert "? canonical Substack" not in loop
 
 
-def test_roadmap_ledger_mentions_manual_publication_lanes() -> None:
+def test_roadmap_ledger_tracks_substack_first_automated_publication_lanes() -> None:
     text = _read(LEDGER).lower()
-    assert "substack manual publication evidence" in text
-    assert "linkedin manual publication evidence" in text
-    assert "complete_fixture_only" in text
+    assert "substack canonical publication/re-entry guard" in text
+    assert "linkedin exact-activity idempotency" in text
+    assert "youtube community default" in text
 
 
 def test_project_progress_ledger_includes_linkedin_and_substack() -> None:

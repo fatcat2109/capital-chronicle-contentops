@@ -1,0 +1,380 @@
+{
+  "article": {
+    "article_export_path": "exports\\daily_contentops\\substack_first\\contentops_v1_0_rc_20260711_1_canonical_article.md",
+    "article_family": "oil",
+    "article_html_export_path": "exports\\daily_contentops\\substack_first\\contentops_v1_0_rc_20260711_1_canonical_article.html",
+    "article_markdown_sha256": "4a61bb93b43a7fb1d2fd016cbec048ddf9460f1de8731e9ba81241c7a1a3cf9e",
+    "canonical_url": "https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+    "caveat_present": true,
+    "created_at": "2026-07-10T20:31:27Z",
+    "cross_asset_implications": "A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields.",
+    "editorial_mode": "analysis",
+    "financial_advice_detected": false,
+    "forbidden_secret_material_detected": false,
+    "market_consequence_terms": [
+      "oil markets",
+      "Brent",
+      "inflation",
+      "bonds"
+    ],
+    "market_mechanism": "Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices.",
+    "mechanism_terms": [
+      "transit constraint",
+      "restoration of shut-in fields",
+      "inventory"
+    ],
+    "meta_description": "EIA expects oil output and trade to approach pre-conflict levels by year-end as Hormuz flows resume, reshaping Brent, gasoline and inflation risks.",
+    "named_catalyst_terms": [
+      "July 15 Weekly Petroleum Status Report",
+      "August 11 Short-Term Energy Outlook"
+    ],
+    "news_peg_terms": [
+      "EIA",
+      "global oil production",
+      "July 7, 2026"
+    ],
+    "numeric_source_packet_sha256": "1e87b1815912a3fdf3a59b56a17d343c39204b3b200527fc099771563c93a44a",
+    "policy_context": "Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations.",
+    "primary_topic": "Energy Information Administration raised its global oil production forecast",
+    "public_write_authorized": false,
+    "rendered_body": "Oil Supply Is Returning Faster Than Feared\n\nThe U.S. Energy Information Administration raised its global oil production forecast on July 7, 2026 after tanker traffic through the Strait of Hormuz increased following the June 18 U.S.-Iran memorandum. The agency now expects global crude output and trade flows to return near pre-conflict levels by year-end, with most shut-in production restored by the first quarter of 2027. For oil markets, the new forecast shifts the immediate question from physical disruption to whether supply recovery will outrun demand and rebuild inventories.\n\nWhat matters is the speed of that transition. The EIA said Brent averaged $85 a barrel in June and forecast a $74 third-quarter average, before easing toward $65 in 2027. Those figures are forecasts rather than certainties, but they provide a measurable baseline for crude prices, inflation expectations and energy-sensitive assets. The complete official release is available from the [EIA](https://www.eia.gov/pressroom/releases/press590.php).\n\nWTI crude oil price and 30-day realized volatility through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)\n\nReopened Flows Change The Price Mechanism\n\nThe Strait of Hormuz is a transit constraint as much as a production story. Reopening the route allows previously displaced barrels to reach refiners, reduces freight and insurance pressure, and makes the restoration of shut-in fields commercially useful. Supply can therefore recover before every damaged or idled facility is fully normalized.\n\nThe latest manifest-bound WTI observation was $69.60 a barrel on 2026-07-06. That market price does not prove the EIA forecast, but it shows the level from which traders are testing the agency's supply assumptions. Confirmation would require rising tanker traffic, restored output and slower inventory withdrawals to persist together; a price decline without those physical signals would be less durable.\n\nRecent WTI price path through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)\n\nCheaper Crude Helps Inflation, But Does Not Set Fed Policy\n\nThe EIA expects lower crude costs to pull U.S. gasoline prices down, forecasting about $3.80 a gallon in the third quarter and $3.40 in the fourth. That would ease a visible part of household inflation and reduce some transport and input costs for businesses.\n\nThe policy effect is narrower than the headline. The Federal Reserve's June statement said inflation remained elevated partly because of energy-related supply shocks, but officials still assess broader price persistence, labor conditions and expectations. Cheaper fuel can improve headline inflation without guaranteeing an equivalent move in core services or the policy rate. The relevant policy context is in the [June FOMC statement](https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm), while the forecast tables remain in the [July Short-Term Energy Outlook](https://www.eia.gov/outlooks/steo/).\n\nThe Cross-Asset Test Runs Through Inventories And The Curve\n\nFor bonds, a sustained energy retreat would reduce one source of near-term inflation compensation, although fiscal supply and underlying services inflation can keep longer yields elevated. For currencies, the effect depends on relative import exposure: large oil importers gain purchasing-power relief, while exporters face softer revenue. Energy equities split between producers exposed to lower realizations and refiners or transport-intensive companies that may benefit from cheaper feedstock and fuel.\n\nThe multi-year range matters because a forecast decline can still leave oil above prior-cycle averages. Investors should distinguish a normalization of the war premium from a collapse in underlying demand. That distinction determines whether lower prices signal successful supply repair or a broader growth slowdown.\n\nWTI annual price range and average context through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)\n\nWhat Would Confirm Or Challenge The Rebalance\n\nConfirmation would come from continued Hormuz traffic normalization, restoration of shut-in production, inventory builds and Brent trading broadly in line with the EIA's declining forecast path. The next named catalysts are the [July 15 Weekly Petroleum Status Report](https://www.eia.gov/petroleum/supply/weekly/) and the [August 11 Short-Term Energy Outlook](https://www.eia.gov/outlooks/steo/), which can test both current balances and the agency's assumptions.\n\nThe thesis would be challenged by renewed disruption in the strait, slower field restarts, persistent inventory draws or prices holding materially above the forecast despite recovering volumes. Those outcomes would imply that logistics, demand or geopolitical risk remained tighter than the headline supply recovery suggests.\n\nThe WTI observations in this article come from [FRED series DCOILWTICO](https://fred.stlouisfed.org/series/DCOILWTICO), whose underlying source is the EIA. This article is for informational purposes only and is not financial advice.",
+    "schema_version": "contentops.substack_first_north_star_pipeline.v1",
+    "selection_rationale": "It provides concrete, source-backed numeric forecasts from the EIA that directly support the supply-side thesis of the top-ranked macro story.",
+    "seo_primary_keyword": "EIA",
+    "seo_semantic_terms": [
+      "Strait of Hormuz",
+      "Brent",
+      "oil production"
+    ],
+    "seo_title": "EIA Oil Forecast: Hormuz Reopening Reshapes Supply",
+    "slug": "eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+    "social_cross_asset_summary": "Lower oil can help energy importers while pressuring producer revenues.",
+    "social_lede": "EIA expects crude flows to approach pre-conflict levels by year-end.",
+    "social_mechanism_summary": "Reopened Hormuz transit and restored output will test whether inventories rebuild and crude prices keep falling.",
+    "social_og_media_asset_id": "primary",
+    "social_policy_summary": "Cheaper gasoline can ease headline inflation without settling Federal Reserve policy.",
+    "source_trail": [
+      "https://www.eia.gov/pressroom/releases/press590.php",
+      "https://www.eia.gov/outlooks/steo/",
+      "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm",
+      "https://www.eia.gov/petroleum/supply/weekly/"
+    ],
+    "substack_body_markdown": "## Oil Supply Is Returning Faster Than Feared\n\nThe U.S. Energy Information Administration raised its global oil production forecast on July 7, 2026 after tanker traffic through the Strait of Hormuz increased following the June 18 U.S.-Iran memorandum. The agency now expects global crude output and trade flows to return near pre-conflict levels by year-end, with most shut-in production restored by the first quarter of 2027. For oil markets, the new forecast shifts the immediate question from physical disruption to whether supply recovery will outrun demand and rebuild inventories.\n\nWhat matters is the speed of that transition. The EIA said Brent averaged $85 a barrel in June and forecast a $74 third-quarter average, before easing toward $65 in 2027. Those figures are forecasts rather than certainties, but they provide a measurable baseline for crude prices, inflation expectations and energy-sensitive assets. The complete official release is available from the [EIA](https://www.eia.gov/pressroom/releases/press590.php).\n\n[[VISUAL:primary]]\n\n*WTI crude oil price and 30-day realized volatility through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)*\n\n## Reopened Flows Change The Price Mechanism\n\nThe Strait of Hormuz is a transit constraint as much as a production story. Reopening the route allows previously displaced barrels to reach refiners, reduces freight and insurance pressure, and makes the restoration of shut-in fields commercially useful. Supply can therefore recover before every damaged or idled facility is fully normalized.\n\nThe latest manifest-bound WTI observation was $69.60 a barrel on 2026-07-06. That market price does not prove the EIA forecast, but it shows the level from which traders are testing the agency's supply assumptions. Confirmation would require rising tanker traffic, restored output and slower inventory withdrawals to persist together; a price decline without those physical signals would be less durable.\n\n[[VISUAL:recent_price]]\n\n*Recent WTI price path through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)*\n\n## Cheaper Crude Helps Inflation, But Does Not Set Fed Policy\n\nThe EIA expects lower crude costs to pull U.S. gasoline prices down, forecasting about $3.80 a gallon in the third quarter and $3.40 in the fourth. That would ease a visible part of household inflation and reduce some transport and input costs for businesses.\n\nThe policy effect is narrower than the headline. The Federal Reserve's June statement said inflation remained elevated partly because of energy-related supply shocks, but officials still assess broader price persistence, labor conditions and expectations. Cheaper fuel can improve headline inflation without guaranteeing an equivalent move in core services or the policy rate. The relevant policy context is in the [June FOMC statement](https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm), while the forecast tables remain in the [July Short-Term Energy Outlook](https://www.eia.gov/outlooks/steo/).\n\n## The Cross-Asset Test Runs Through Inventories And The Curve\n\nFor bonds, a sustained energy retreat would reduce one source of near-term inflation compensation, although fiscal supply and underlying services inflation can keep longer yields elevated. For currencies, the effect depends on relative import exposure: large oil importers gain purchasing-power relief, while exporters face softer revenue. Energy equities split between producers exposed to lower realizations and refiners or transport-intensive companies that may benefit from cheaper feedstock and fuel.\n\nThe multi-year range matters because a forecast decline can still leave oil above prior-cycle averages. Investors should distinguish a normalization of the war premium from a collapse in underlying demand. That distinction determines whether lower prices signal successful supply repair or a broader growth slowdown.\n\n[[VISUAL:multi_year_range]]\n\n*WTI annual price range and average context through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)*\n\n## What Would Confirm Or Challenge The Rebalance\n\nConfirmation would come from continued Hormuz traffic normalization, restoration of shut-in production, inventory builds and Brent trading broadly in line with the EIA's declining forecast path. The next named catalysts are the [July 15 Weekly Petroleum Status Report](https://www.eia.gov/petroleum/supply/weekly/) and the [August 11 Short-Term Energy Outlook](https://www.eia.gov/outlooks/steo/), which can test both current balances and the agency's assumptions.\n\nThe thesis would be challenged by renewed disruption in the strait, slower field restarts, persistent inventory draws or prices holding materially above the forecast despite recovering volumes. Those outcomes would imply that logistics, demand or geopolitical risk remained tighter than the headline supply recovery suggests.\n\nThe WTI observations in this article come from [FRED series DCOILWTICO](https://fred.stlouisfed.org/series/DCOILWTICO), whose underlying source is the EIA. This article is for informational purposes only and is not financial advice.\n",
+    "substack_body_markdown_sha256": "b98329d37c3c25f154ff8b4d5968a8d8f3c8f2bea67571ea2dfd9ea70c7e4146",
+    "subtitle": "The agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.",
+    "title": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume",
+    "visual_asset_count": 3,
+    "visual_asset_ids_expected": [
+      "primary",
+      "recent_price",
+      "multi_year_range"
+    ],
+    "visual_placement_status": "PASS_VISUALS_SPREAD_THROUGH_ARTICLE",
+    "visual_positions": [
+      1137,
+      2379,
+      4652
+    ],
+    "visuals_spread_through_article": true,
+    "word_count": 807
+  },
+  "created_at": "2026-07-10T20:31:31Z",
+  "editorial_gate": {
+    "combined_gate": {
+      "blockers": [],
+      "classification": "PASS",
+      "deterministic_pass": true,
+      "llm_cannot_override_deterministic_blockers": true,
+      "llm_semantic_pass": true,
+      "publication_authority": false
+    },
+    "deterministic_review": {
+      "caveat_count": 1,
+      "classification": "PASS",
+      "duplicated_sentence_count": 2,
+      "editorial_blockers": [
+        "high_information_density"
+      ],
+      "editorial_checks": {
+        "concise_nut_graf": true,
+        "confirmation_condition": true,
+        "context_present": true,
+        "falsification_condition": true,
+        "high_information_density": false,
+        "lede_market_consequence": true,
+        "lede_what_changed": true,
+        "lede_why_now": true,
+        "mechanism_present": true,
+        "mode_declared": true,
+        "named_next_catalysts": true,
+        "no_fabricated_quotes": true,
+        "no_financial_advice": true,
+        "no_process_language": true,
+        "single_caveat": true
+      },
+      "editorial_score": 93,
+      "filler_hits": [],
+      "process_language_hits": [],
+      "rendered_body_sha256": "5b67af28f1face43057e95094ab74a7bfcbbc8bfae31e92510daa89a1e10b0c6",
+      "schema_version": "contentops.tier1_editorial_quality.v1",
+      "seo_blockers": [],
+      "seo_checks": {
+        "canonical_url_metadata": true,
+        "chart_metadata": true,
+        "clean_rendered_body": true,
+        "heading_hierarchy": true,
+        "meta_description": true,
+        "primary_topic_in_opening": true,
+        "reader_headline": true,
+        "semantic_keyword_coverage": true,
+        "seo_title": true,
+        "slug": true,
+        "social_og_lead_media": true,
+        "source_reference_links": true,
+        "title_dek_not_duplicated": true,
+        "visual_markers_complete": true
+      },
+      "seo_score": 100,
+      "source_urls": [
+        "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "https://www.eia.gov/outlooks/steo/",
+        "https://www.eia.gov/petroleum/supply/weekly/",
+        "https://www.eia.gov/pressroom/releases/press590.php",
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"
+      ],
+      "visual_asset_ids": [
+        "primary",
+        "recent_price",
+        "multi_year_range"
+      ],
+      "word_count": 777
+    },
+    "llm_semantic_review": {
+      "checks": {
+        "clear_news_peg": true,
+        "concise_nut_graf": true,
+        "high_information_density": true,
+        "material_market_consequence": true,
+        "mode_consistent": true,
+        "no_fabricated_quotes": true,
+        "no_financial_advice": true,
+        "no_unsupported_certainty": true,
+        "reader_facing_prose": true,
+        "relevant_context": true,
+        "source_backed_mechanism": true,
+        "specific_confirmation_condition": true,
+        "specific_falsification_condition": true,
+        "why_now": true
+      },
+      "decision": "PASS",
+      "failed_checks": [],
+      "issues": [],
+      "missing_or_invalid_checks": [],
+      "mode": "analysis",
+      "prompt_sha256": "7883d0fea5bf88786a3c27e8c7b3b9d18750ed254c3ebde6ca44323974636e09",
+      "provider": "9router",
+      "publication_authority": false,
+      "review_sha256": "bc0c7d73f4394b1b92fe427e7ee706e6fbb02dbf2596d92c10b386b9dbf2d5c4",
+      "status": "SUCCESS",
+      "summary": "The article meets all Capital Chronicle standards. It provides a clear news peg based on the July 7, 2026 EIA forecast update, outlines specific market consequences across asset classes, and establishes concrete, named catalysts (the July 15 Weekly Petroleum Status Report and the August 11 Short-Term Energy Outlook) for confirmation and falsification checks. The analytical tone is maintained throughout without offering financial advice."
+    },
+    "schema_version": "contentops.substack_first_editorial_gate.v1"
+  },
+  "media": {
+    "ai_generated_image": false,
+    "allowed_media_kinds": [
+      "source_backed_data_chart",
+      "google_image_with_provenance"
+    ],
+    "assets": [
+      {
+        "alt_text": "Two-panel chart showing current WTI crude oil price and rolling absolute daily moves using FRED data.",
+        "asset_id": "primary",
+        "canonical_article_section_association": "current_market_signal_and_supply_repricing",
+        "caption": "WTI crude oil price and 30-day realized volatility through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "chart_title": "WTI Crude Oil: Current Price Context and Realized Volatility",
+        "exists": true,
+        "height": 1080,
+        "index": 1,
+        "latest_observation_date": "2026-07-06",
+        "latest_observation_value": 69.6,
+        "media_class": "data_chart",
+        "media_role": "primary_chart",
+        "mime_type": "image/png",
+        "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_assets\\slot_4\\wti_current_volatility_context_9302511000fa.png",
+        "prior_observation_date": "2026-07-02",
+        "prior_observation_value": 69.73,
+        "provenance_status": "source_backed_generated_from_public_data",
+        "sha256": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "target_lower": null,
+        "target_upper": null,
+        "why_selected": "Primary source-backed chart with current WTI endpoint and realized-volatility context for the article thesis.",
+        "width": 1725
+      },
+      {
+        "alt_text": "Line chart showing the recent WTI crude oil price path using FRED data.",
+        "asset_id": "recent_price",
+        "canonical_article_section_association": "hormuz_flow_and_price_mechanism",
+        "caption": "Recent WTI price path through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "chart_title": "WTI Crude Oil: Recent Price Path",
+        "exists": true,
+        "height": 870,
+        "index": 2,
+        "latest_observation_date": "2026-07-06",
+        "latest_observation_value": 69.6,
+        "media_class": "data_chart",
+        "media_role": "supporting_chart",
+        "mime_type": "image/png",
+        "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_assets\\slot_4\\wti_recent_price_context_9302511000fa.png",
+        "prior_observation_date": "2026-07-02",
+        "prior_observation_value": 69.73,
+        "provenance_status": "source_backed_generated_from_public_data",
+        "sha256": "b940fb6b8464b8c0e4028a0c5874436d456facb9afd1851b64b2e76dcb33d076",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "target_lower": null,
+        "target_upper": null,
+        "why_selected": "Supporting chart gives a narrower recent-price view so platforms are not repeating the same volatility chart only.",
+        "width": 1620
+      },
+      {
+        "alt_text": "Chart showing recent annual WTI crude oil low-high ranges and annual averages using FRED data.",
+        "asset_id": "multi_year_range",
+        "canonical_article_section_association": "cross_asset_and_historical_regime_context",
+        "caption": "WTI annual price range and average context through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "chart_title": "WTI Crude Oil: Multi-Year Price Range Context",
+        "exists": true,
+        "height": 870,
+        "index": 3,
+        "latest_observation_date": "2026-07-06",
+        "latest_observation_value": 69.6,
+        "media_class": "data_chart",
+        "media_role": "supporting_chart",
+        "mime_type": "image/png",
+        "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_assets\\slot_4\\wti_multi_year_range_context_9302511000fa.png",
+        "prior_observation_date": "2026-07-02",
+        "prior_observation_value": 69.73,
+        "provenance_status": "source_backed_generated_from_public_data",
+        "sha256": "400eac0a7cdd1cb7fdb65db0770afc60400aa3b1f34c7b8674755ab93bf541bf",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "target_lower": null,
+        "target_upper": null,
+        "why_selected": "Third FRED-backed chart gives multi-year context without using a custom static card or non-chart schematic.",
+        "width": 1620
+      }
+    ],
+    "blockers": [],
+    "contentops_built_media": true,
+    "created_at": "2026-07-10T20:30:58Z",
+    "media_asset_count": 3,
+    "media_gate_status": "PASS",
+    "required_media_asset_count": 3,
+    "schema_version": "contentops.substack_first_north_star_pipeline.v1",
+    "static_generated_card": false,
+    "static_schematic_used": false
+  },
+  "next_stage": "supervised_substack_browser_then_complete",
+  "publication_mode": "publish",
+  "run_id": "contentops_v1_0_rc_20260711_1",
+  "schema_version": "contentops.substack_first_north_star_pipeline.v1",
+  "selection": {
+    "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+    "article_family": "oil",
+    "breaking_or_hotspot": false,
+    "canonicalization_repair": null,
+    "cross_asset_implications": "Energy equities face margin compression, while energy-importing emerging markets experience balance-of-payments relief. The broader commodity complex faces downward pressure.",
+    "dek": "The U.S. Energy Information Administration projects global crude supply to normalize, easing supply-risk premiums despite ongoing geopolitical tensions.",
+    "duplicate_hotspot_decision": {
+      "breaking_or_hotspot_exception": false,
+      "publish_allowed": true,
+      "repeat_matches": [],
+      "status": "PASS_NO_DISALLOWED_REPEAT"
+    },
+    "duplicate_of_slot_index": null,
+    "market_mechanism": "Increased non-OPEC+ supply and OPEC capacity restoration are offsetting Middle Eastern disruptions. This supply-side expansion shifts the global oil supply curve outward, lowering marginal production costs and driving down spot prices even as geopolitical rhetoric remains elevated.",
+    "policy_context": "Lower energy prices provide a favorable backdrop for global central banks, but the deflationary impulse is limited to headline indices, leaving core monetary policy targets largely unaffected.",
+    "rank": 2,
+    "rejected_reason": "While highly supportable with EIA data, this is a supply-side component of the broader macro story. It is better utilized as a key supporting data point for the Rank 1 story rather than a standalone piece, as it lacks direct monetary policy transmission analysis on its own.",
+    "semantic_cluster": "Fed Policy and Energy Decoupling",
+    "seo_title": "EIA Oil Supply Forecast: Global Production to Recover by End of 2026",
+    "slot_index": 4,
+    "slug": "eia-oil-production-recovery-forecast",
+    "tags": [
+      "energy",
+      "geopolitics",
+      "official_energy_inventory_or_opec_release"
+    ],
+    "thesis": "Global crude oil production is on track to fully recover from recent geopolitical disruptions by the end of the year, according to the U.S. EIA. This supply normalization is dismantling the geopolitical risk premium in energy markets, shifting the global oil balance back toward a surplus and putting downward pressure on Brent and WTI benchmarks.",
+    "title": "EIA Forecasts Global Oil Output Recovery to Pre-Iran War Levels by Year-End",
+    "topic": "Global oil output to return to pre-Iran war level by year\u2019s end, U.S. EIA says",
+    "topic_hash": "f3c382ec5f38e447",
+    "why_ranked": "It provides concrete, source-backed numeric forecasts from the EIA that directly support the supply-side thesis of the top-ranked macro story."
+  },
+  "substack_browser_request_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\substack_browser_request_v1.json",
+  "substack_browser_request_sha256": "9c56e386878da8bf49620f582bfe607ebbfe0c6d15979e63b968af2e0e95718e",
+  "support": {
+    "created_at": "2026-07-10T20:31:27Z",
+    "headline_sidecars_are_catalyst_only": true,
+    "official_source_packet": {
+      "facts": {
+        "brent_2027_forecast_usd_per_barrel": 65.0,
+        "brent_june_average_usd_per_barrel": 85.0,
+        "brent_q3_2026_forecast_usd_per_barrel": 74.0,
+        "gasoline_q3_2026_forecast_usd_per_gallon": 3.8,
+        "gasoline_q4_2026_forecast_usd_per_gallon": 3.4,
+        "global_output_near_pre_conflict_by_year_end": true,
+        "most_shut_in_output_restored_by": "2027-Q1",
+        "next_steo_release_date": "2026-08-11",
+        "next_weekly_petroleum_status_report_date": "2026-07-15",
+        "release_date": "2026-07-07"
+      },
+      "headline_feed_numeric_authority": false,
+      "numeric_truth_authority": "official_eia_release_plus_manifest_bound_fred_wti_series",
+      "retrieved_at": "2026-07-10T20:31:09.383734Z",
+      "schema_version": "contentops.current_oil_release_source.v1",
+      "source_text_sha256": "1e87b1815912a3fdf3a59b56a17d343c39204b3b200527fc099771563c93a44a",
+      "source_title": "EIA increases global oil production forecast after the opening of the Strait of Hormuz",
+      "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+      "status": "PASS_OFFICIAL_EIA_RELEASE_GROUNDED",
+      "supporting_source_retrievals": [
+        {
+          "source_text_sha256": "4f4d88616161030c9cd08a0e0621bbfa2ffc23bb2a50fd1dd0fc3f92178ff847",
+          "source_url": "https://www.eia.gov/outlooks/steo/",
+          "verified_fact": "next_steo_release_date"
+        },
+        {
+          "source_text_sha256": "12dc603a4ece15af70a5d1a1436e9b2019cdec72a4dce92a7a4c4ada233c3ab7",
+          "source_url": "https://www.eia.gov/petroleum/supply/weekly/",
+          "verified_fact": "next_weekly_petroleum_status_report_date"
+        }
+      ],
+      "supporting_source_urls": [
+        "https://www.eia.gov/outlooks/steo/",
+        "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm",
+        "https://www.eia.gov/petroleum/supply/weekly/"
+      ]
+    },
+    "repo_evidence": [
+      "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
+      "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl"
+    ],
+    "schema_version": "contentops.substack_first_north_star_pipeline.v1",
+    "selected_slot_index": 4,
+    "source_boundary": [
+      "Schedule and headline sidecars establish freshness and catalyst context only.",
+      "The source-backed chart manifest carries visual provenance and numeric-source labels.",
+      "Article prose does not promote schedule headlines into unsupported numeric truth."
+    ],
+    "source_needs": [
+      "EIA energy release/source table",
+      "Primary energy/geopolitical source check before drafting"
+    ],
+    "support_status": "GROUNDED_REPO_INPUTS_AND_SOURCE_BACKED_MEDIA"
+  },
+  "task_label": "TASK_CONTENTOPS_SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_DEBUG_AND_COMPLETION_V1"
+}

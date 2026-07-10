@@ -1,5 +1,7 @@
 # ContentOps Final Automation Pipeline Readiness Report
 
+Current RC evidence (2026-07-11): the Substack-first nine-surface text/image run `contentops_v1_0_rc_20260711_1` passed machine QA and is awaiting read-only operator audit. TikTok, YouTube video, and Shorts were excluded; no v1.0 tag has been created.
+
 Status: V3 reliability hardening PASS with preserved legacy X/Threads live-quality defects
 
 Canonical browser profile: `A:\Capital Chronicle\operator-browser-profiles\contentops-social-main`

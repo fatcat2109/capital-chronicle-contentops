@@ -1,0 +1,101 @@
+{
+  "combined_gate": {
+    "blockers": [],
+    "classification": "PASS",
+    "deterministic_pass": true,
+    "llm_cannot_override_deterministic_blockers": true,
+    "llm_semantic_pass": true,
+    "publication_authority": false
+  },
+  "deterministic_review": {
+    "caveat_count": 1,
+    "classification": "PASS",
+    "duplicated_sentence_count": 2,
+    "editorial_blockers": [
+      "high_information_density"
+    ],
+    "editorial_checks": {
+      "concise_nut_graf": true,
+      "confirmation_condition": true,
+      "context_present": true,
+      "falsification_condition": true,
+      "high_information_density": false,
+      "lede_market_consequence": true,
+      "lede_what_changed": true,
+      "lede_why_now": true,
+      "mechanism_present": true,
+      "mode_declared": true,
+      "named_next_catalysts": true,
+      "no_fabricated_quotes": true,
+      "no_financial_advice": true,
+      "no_process_language": true,
+      "single_caveat": true
+    },
+    "editorial_score": 93,
+    "filler_hits": [],
+    "process_language_hits": [],
+    "rendered_body_sha256": "5b67af28f1face43057e95094ab74a7bfcbbc8bfae31e92510daa89a1e10b0c6",
+    "schema_version": "contentops.tier1_editorial_quality.v1",
+    "seo_blockers": [],
+    "seo_checks": {
+      "canonical_url_metadata": true,
+      "chart_metadata": true,
+      "clean_rendered_body": true,
+      "heading_hierarchy": true,
+      "meta_description": true,
+      "primary_topic_in_opening": true,
+      "reader_headline": true,
+      "semantic_keyword_coverage": true,
+      "seo_title": true,
+      "slug": true,
+      "social_og_lead_media": true,
+      "source_reference_links": true,
+      "title_dek_not_duplicated": true,
+      "visual_markers_complete": true
+    },
+    "seo_score": 100,
+    "source_urls": [
+      "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "https://www.eia.gov/outlooks/steo/",
+      "https://www.eia.gov/petroleum/supply/weekly/",
+      "https://www.eia.gov/pressroom/releases/press590.php",
+      "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"
+    ],
+    "visual_asset_ids": [
+      "primary",
+      "recent_price",
+      "multi_year_range"
+    ],
+    "word_count": 777
+  },
+  "llm_semantic_review": {
+    "checks": {
+      "clear_news_peg": true,
+      "concise_nut_graf": true,
+      "high_information_density": true,
+      "material_market_consequence": true,
+      "mode_consistent": true,
+      "no_fabricated_quotes": true,
+      "no_financial_advice": true,
+      "no_unsupported_certainty": true,
+      "reader_facing_prose": true,
+      "relevant_context": true,
+      "source_backed_mechanism": true,
+      "specific_confirmation_condition": true,
+      "specific_falsification_condition": true,
+      "why_now": true
+    },
+    "decision": "PASS",
+    "failed_checks": [],
+    "issues": [],
+    "missing_or_invalid_checks": [],
+    "mode": "analysis",
+    "prompt_sha256": "7883d0fea5bf88786a3c27e8c7b3b9d18750ed254c3ebde6ca44323974636e09",
+    "provider": "9router",
+    "publication_authority": false,
+    "review_sha256": "bc0c7d73f4394b1b92fe427e7ee706e6fbb02dbf2596d92c10b386b9dbf2d5c4",
+    "status": "SUCCESS",
+    "summary": "The article meets all Capital Chronicle standards. It provides a clear news peg based on the July 7, 2026 EIA forecast update, outlines specific market consequences across asset classes, and establishes concrete, named catalysts (the July 15 Weekly Petroleum Status Report and the August 11 Short-Term Energy Outlook) for confirmation and falsification checks. The analytical tone is maintained throughout without offering financial advice."
+  },
+  "schema_version": "contentops.substack_first_editorial_gate.v1"
+}

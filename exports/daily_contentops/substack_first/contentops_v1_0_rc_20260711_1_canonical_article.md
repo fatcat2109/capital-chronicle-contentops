@@ -1,0 +1,43 @@
+## Oil Supply Is Returning Faster Than Feared
+
+The U.S. Energy Information Administration raised its global oil production forecast on July 7, 2026 after tanker traffic through the Strait of Hormuz increased following the June 18 U.S.-Iran memorandum. The agency now expects global crude output and trade flows to return near pre-conflict levels by year-end, with most shut-in production restored by the first quarter of 2027. For oil markets, the new forecast shifts the immediate question from physical disruption to whether supply recovery will outrun demand and rebuild inventories.
+
+What matters is the speed of that transition. The EIA said Brent averaged $85 a barrel in June and forecast a $74 third-quarter average, before easing toward $65 in 2027. Those figures are forecasts rather than certainties, but they provide a measurable baseline for crude prices, inflation expectations and energy-sensitive assets. The complete official release is available from the [EIA](https://www.eia.gov/pressroom/releases/press590.php).
+
+![Two-panel chart showing current WTI crude oil price and rolling absolute daily moves using FRED data.](docs\automation\EIGHT_PLATFORM_FULL_PIPELINE_V1\contentops_v1_0_rc_20260711_1\media_assets\slot_4\wti_current_volatility_context_9302511000fa.png)
+
+*WTI crude oil price and 30-day realized volatility through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)*
+
+## Reopened Flows Change The Price Mechanism
+
+The Strait of Hormuz is a transit constraint as much as a production story. Reopening the route allows previously displaced barrels to reach refiners, reduces freight and insurance pressure, and makes the restoration of shut-in fields commercially useful. Supply can therefore recover before every damaged or idled facility is fully normalized.
+
+The latest manifest-bound WTI observation was $69.60 a barrel on 2026-07-06. That market price does not prove the EIA forecast, but it shows the level from which traders are testing the agency's supply assumptions. Confirmation would require rising tanker traffic, restored output and slower inventory withdrawals to persist together; a price decline without those physical signals would be less durable.
+
+![Line chart showing the recent WTI crude oil price path using FRED data.](docs\automation\EIGHT_PLATFORM_FULL_PIPELINE_V1\contentops_v1_0_rc_20260711_1\media_assets\slot_4\wti_recent_price_context_9302511000fa.png)
+
+*Recent WTI price path through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)*
+
+## Cheaper Crude Helps Inflation, But Does Not Set Fed Policy
+
+The EIA expects lower crude costs to pull U.S. gasoline prices down, forecasting about $3.80 a gallon in the third quarter and $3.40 in the fourth. That would ease a visible part of household inflation and reduce some transport and input costs for businesses.
+
+The policy effect is narrower than the headline. The Federal Reserve's June statement said inflation remained elevated partly because of energy-related supply shocks, but officials still assess broader price persistence, labor conditions and expectations. Cheaper fuel can improve headline inflation without guaranteeing an equivalent move in core services or the policy rate. The relevant policy context is in the [June FOMC statement](https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm), while the forecast tables remain in the [July Short-Term Energy Outlook](https://www.eia.gov/outlooks/steo/).
+
+## The Cross-Asset Test Runs Through Inventories And The Curve
+
+For bonds, a sustained energy retreat would reduce one source of near-term inflation compensation, although fiscal supply and underlying services inflation can keep longer yields elevated. For currencies, the effect depends on relative import exposure: large oil importers gain purchasing-power relief, while exporters face softer revenue. Energy equities split between producers exposed to lower realizations and refiners or transport-intensive companies that may benefit from cheaper feedstock and fuel.
+
+The multi-year range matters because a forecast decline can still leave oil above prior-cycle averages. Investors should distinguish a normalization of the war premium from a collapse in underlying demand. That distinction determines whether lower prices signal successful supply repair or a broader growth slowdown.
+
+![Chart showing recent annual WTI crude oil low-high ranges and annual averages using FRED data.](docs\automation\EIGHT_PLATFORM_FULL_PIPELINE_V1\contentops_v1_0_rc_20260711_1\media_assets\slot_4\wti_multi_year_range_context_9302511000fa.png)
+
+*WTI annual price range and average context through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration. [Source](https://fred.stlouisfed.org/series/DCOILWTICO)*
+
+## What Would Confirm Or Challenge The Rebalance
+
+Confirmation would come from continued Hormuz traffic normalization, restoration of shut-in production, inventory builds and Brent trading broadly in line with the EIA's declining forecast path. The next named catalysts are the [July 15 Weekly Petroleum Status Report](https://www.eia.gov/petroleum/supply/weekly/) and the [August 11 Short-Term Energy Outlook](https://www.eia.gov/outlooks/steo/), which can test both current balances and the agency's assumptions.
+
+The thesis would be challenged by renewed disruption in the strait, slower field restarts, persistent inventory draws or prices holding materially above the forecast despite recovering volumes. Those outcomes would imply that logistics, demand or geopolitical risk remained tighter than the headline supply recovery suggests.
+
+The WTI observations in this article come from [FRED series DCOILWTICO](https://fred.stlouisfed.org/series/DCOILWTICO), whose underlying source is the EIA. This article is for informational purposes only and is not financial advice.

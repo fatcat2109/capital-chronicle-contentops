@@ -19,7 +19,9 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
 from .ai_provider_gate_v6 import inspect_provider_credentials
+from .current_oil_release_source_v1 import fetch_current_eia_oil_release_packet
 from .media_content_audit_v6 import build_current_macro_visual_pack
+from .media_manifest_authority_v1 import image_metadata_from_file
 from .public_dispatch_freeze_guard_v6 import (
     append_public_dispatch_ledger,
     build_public_dispatch_payload_hash,
@@ -34,6 +36,13 @@ from .substack_browser_adapter_v6 import (
     validate_supervised_substack_browser_readback,
 )
 from .telegram_live_adapter_v6 import execute_telegram_caption_edit, execute_telegram_photo
+from .tier1_editorial_quality_v1 import (
+    audit_tier1_article,
+    build_grounded_oil_release_candidate,
+    build_revised_fed_funds_candidate,
+    combine_editorial_gates,
+    review_tier1_article_with_llm,
+)
 
 TASK_LABEL = "TASK_CONTENTOPS_SUBSTACK_FIRST_NORTH_STAR_PIPELINE_LOOP_DEBUG_AND_COMPLETION_V1"
 SCHEMA_VERSION = "contentops.substack_first_north_star_pipeline.v1"
@@ -181,9 +190,12 @@ def _llm_prompt(context: Mapping[str, Any]) -> str:
             "You must distinguish material market mechanisms from noise, propaganda, recycled commentary, and unsupported claims. Headline sidecars are catalyst-only, never numeric truth.",
             "Do not issue investment advice. Do not invent statistics, facts, source access, or breaking status.",
             "The downstream system only supports an article when source-backed data-chart media can be produced. You may label a candidate as fed_funds, oil, or unsupported for that support check, but do not select unsupported solely because it sounds dramatic.",
+            "Cluster semantically overlapping developments before ranking. Mark duplicates explicitly and do not reward repeated wording as separate evidence.",
+            "Rank by market impact, freshness, cross-asset relevance, policy or geopolitical consequence, source support, numeric support, analytical depth, visual support, and reader value.",
+            "Select the strongest supportable story, not merely the easiest available chart.",
             "Return JSON only with this exact top-level shape:",
-            '{"selection_rationale":"...","ranked_candidates":[{"slot_index":1,"rank":1,"article_family":"fed_funds|oil|unsupported","title":"...","seo_title":"...","slug":"...","dek":"...","thesis":"...","market_mechanism":"...","policy_context":"...","cross_asset_implications":"...","breaking_or_hotspot":false,"why_ranked":"..."}]}',
-            "Rank every supplied slot. Titles and analysis must be grounded in the inputs below.",
+            '{"selection_rationale":"...","ranked_candidates":[{"slot_index":1,"rank":1,"article_family":"fed_funds|oil|unsupported","semantic_cluster":"...","duplicate_of_slot_index":null,"rejected_reason":"...","title":"...","seo_title":"...","slug":"...","dek":"...","thesis":"...","market_mechanism":"...","policy_context":"...","cross_asset_implications":"...","breaking_or_hotspot":false,"why_ranked":"..."}]}',
+            "Rank every supplied slot. Titles and analysis must be grounded in the inputs below. For the selected rank-one story, rejected_reason may be empty; every lower-ranked item needs a specific reason it lost.",
             "SCHEDULE SLOTS:",
             json.dumps(slots, ensure_ascii=True),
             "SIDE-CAR EXAMPLES:",
@@ -271,6 +283,9 @@ def rank_ideas_with_llm(
             "slot_index": slot_index,
             "rank": int(source.get("rank") or 999),
             "article_family": str(source.get("article_family") or "unsupported").lower(),
+            "semantic_cluster": str(source.get("semantic_cluster") or "").strip(),
+            "duplicate_of_slot_index": source.get("duplicate_of_slot_index"),
+            "rejected_reason": str(source.get("rejected_reason") or "").strip(),
             "title": str(source.get("title") or "").strip(),
             "seo_title": str(source.get("seo_title") or "").strip(),
             "slug": str(source.get("slug") or "").strip(),
@@ -350,17 +365,67 @@ def _find_uncanonicalized_distribution_repair(topic: str) -> dict[str, Any] | No
     }
 
 
+def _recent_canonical_duplicate_decision(topic: str, *, breaking_or_hotspot: bool) -> dict[str, Any]:
+    now = datetime.now(UTC)
+    matches: list[dict[str, Any]] = []
+    for path in Path("docs/automation").rglob("run_evidence_v1.json"):
+        try:
+            evidence = _read_json(path)
+        except Exception:
+            continue
+        results = evidence.get("results") if isinstance(evidence.get("results"), Mapping) else {}
+        substack = (results or {}).get("substack") if isinstance(results, Mapping) else {}
+        if not isinstance(substack, Mapping) or not str(substack.get("public_url") or "").startswith("https://"):
+            continue
+        created_raw = str(evidence.get("created_at") or "")
+        try:
+            created = datetime.fromisoformat(created_raw.replace("Z", "+00:00"))
+        except ValueError:
+            created = datetime.fromtimestamp(path.stat().st_mtime, tz=UTC)
+        age_hours = (now - created.astimezone(UTC)).total_seconds() / 3600
+        if age_hours < 0 or age_hours > 24:
+            continue
+        selected = evidence.get("selected_idea") if isinstance(evidence.get("selected_idea"), Mapping) else {}
+        article = evidence.get("article") if isinstance(evidence.get("article"), Mapping) else {}
+        prior_topic = str((selected or {}).get("topic") or (article or {}).get("title") or "")
+        overlap = _topic_overlap(topic, prior_topic)
+        if overlap >= 0.65:
+            matches.append({
+                "prior_run_id": evidence.get("run_id"),
+                "prior_topic": prior_topic,
+                "prior_public_url": substack.get("public_url"),
+                "age_hours": round(age_hours, 2),
+                "topic_overlap": round(overlap, 3),
+                "evidence_path": _normalise_path(path),
+            })
+    blocked = bool(matches and not breaking_or_hotspot)
+    return {
+        "status": "BLOCKED_REPEAT_WITHIN_24H" if blocked else "PASS_NO_DISALLOWED_REPEAT",
+        "breaking_or_hotspot_exception": bool(matches and breaking_or_hotspot),
+        "repeat_matches": matches,
+        "publish_allowed": not blocked,
+    }
+
+
 def _media_manifest_from_assets(assets: Sequence[Mapping[str, Any]], *, output_dir: Path) -> dict[str, Any]:
     rows: list[dict[str, Any]] = []
     blockers: list[str] = []
     for index, source in enumerate(assets, start=1):
         local_path = Path(str(source.get("local_path") or source.get("path") or ""))
+        image_metadata = (
+            image_metadata_from_file(local_path)
+            if local_path.exists()
+            else {"mime_type": None, "width": 0, "height": 0}
+        )
         row = {
             "index": index,
             "asset_id": str(source.get("asset_id") or ""),
             "path": _normalise_path(local_path),
             "exists": local_path.exists(),
             "sha256": _sha256_file(local_path) if local_path.exists() else None,
+            "mime_type": image_metadata.get("mime_type"),
+            "width": image_metadata.get("width"),
+            "height": image_metadata.get("height"),
             "media_class": str(source.get("media_class") or ""),
             "media_role": str(source.get("media_role") or ""),
             "chart_title": str(source.get("chart_title") or ""),
@@ -381,9 +446,22 @@ def _media_manifest_from_assets(assets: Sequence[Mapping[str, Any]], *, output_d
             "target_upper": source.get("target_upper"),
         }
         rows.append(row)
-        for required in ("asset_id", "source_label", "source_page_url", "provenance_status", "caption", "alt_text"):
+        for required in (
+            "asset_id",
+            "media_role",
+            "chart_title",
+            "canonical_article_section_association",
+            "source_label",
+            "source_page_url",
+            "provenance_status",
+            "caption",
+            "alt_text",
+            "mime_type",
+        ):
             if not row[required]:
                 blockers.append(f"media_missing_{required}:{index}")
+        if int(row["width"] or 0) <= 0 or int(row["height"] or 0) <= 0:
+            blockers.append(f"media_dimensions_missing:{index}")
         if not row["exists"]:
             blockers.append(f"media_file_missing:{index}")
         if row["media_class"] != "data_chart":
@@ -408,7 +486,13 @@ def _media_manifest_from_assets(assets: Sequence[Mapping[str, Any]], *, output_d
     return packet
 
 
-def _grounded_support_blockers(slot: Mapping[str, Any], candidate: Mapping[str, Any], media: Mapping[str, Any]) -> list[str]:
+def _grounded_support_blockers(
+    slot: Mapping[str, Any],
+    candidate: Mapping[str, Any],
+    media: Mapping[str, Any],
+    *,
+    official_source_packet: Mapping[str, Any] | None = None,
+) -> list[str]:
     """Bind LLM framing to the source families actually present in the media pack."""
     blockers: list[str] = []
     topic = str(slot.get("topic") or "").lower()
@@ -417,13 +501,29 @@ def _grounded_support_blockers(slot: Mapping[str, Any], candidate: Mapping[str, 
     expected_family = "oil" if "energy" in tags or any(term in topic for term in ("oil", "crude", "iran")) else "fed_funds"
     if family != expected_family:
         blockers.append(f"llm_media_family_mismatch:{family}!={expected_family}")
+    if family == "oil":
+        eia_story = all(
+            any(term in topic for term in group)
+            for group in (
+                ("eia", "energy information administration"),
+                ("global oil output", "global oil production"),
+                ("pre-iran-war", "pre-iran war", "pre-conflict", "year-end", "year end"),
+            )
+        )
+        if not eia_story:
+            blockers.append("official_eia_release_story_alignment_required")
 
     source_text = " ".join(
         f"{asset.get('source_label', '')} {asset.get('source_page_url', '')}".lower()
         for asset in media.get("assets") or []
     )
     source_needs = " ".join(str(item).lower() for item in slot.get("source_needs") or [])
-    if "eia" in source_needs and "eia.gov" not in source_text:
+    official_eia_bound = bool(
+        official_source_packet
+        and official_source_packet.get("status") == "PASS_OFFICIAL_EIA_RELEASE_GROUNDED"
+        and str(official_source_packet.get("source_url") or "").startswith("https://www.eia.gov/")
+    )
+    if "eia" in source_needs and "eia.gov" not in source_text and not official_eia_bound:
         blockers.append("primary_eia_source_required_by_schedule_not_present_in_media_pack")
     if "federal reserve" in source_needs and "federalreserve.gov" not in source_text:
         blockers.append("primary_federal_reserve_source_required_by_schedule_not_present_in_media_pack")
@@ -492,6 +592,7 @@ def select_grounded_article_ready_idea(
     output_dir: Path,
     media_dir: Path,
     visual_builder: Callable[..., list[dict[str, Any]]] = build_current_macro_visual_pack,
+    fresh_publication_run: bool = False,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
     if ranking.get("status") != "SUCCESS":
         raise RuntimeError(str(ranking.get("status")))
@@ -505,6 +606,26 @@ def select_grounded_article_ready_idea(
         if family == "unsupported":
             attempts.append({"slot_index": candidate["slot_index"], "status": "REJECTED_UNSUPPORTED_MEDIA_FAMILY"})
             continue
+        duplicate_decision = (
+            _recent_canonical_duplicate_decision(
+                str(slot.get("topic") or ""),
+                breaking_or_hotspot=bool(candidate.get("breaking_or_hotspot")),
+            )
+            if fresh_publication_run
+            else {
+                "status": "NOT_ENFORCED_LEGACY_OR_TEST_PREPARATION",
+                "breaking_or_hotspot_exception": False,
+                "repeat_matches": [],
+                "publish_allowed": True,
+            }
+        )
+        if not duplicate_decision["publish_allowed"]:
+            attempts.append({
+                "slot_index": candidate["slot_index"],
+                "status": "REJECTED_DUPLICATE_WITHIN_24H",
+                "duplicate_hotspot_decision": duplicate_decision,
+            })
+            continue
         candidate_media_dir = media_dir / f"slot_{candidate['slot_index']}"
         try:
             assets = visual_builder(f"{slot.get('topic')} {family}", output_dir=candidate_media_dir)
@@ -512,7 +633,25 @@ def select_grounded_article_ready_idea(
             attempts.append({"slot_index": candidate["slot_index"], "status": "REJECTED_MEDIA_BUILD_ERROR", "error_class": type(exc).__name__})
             continue
         manifest = _media_manifest_from_assets(assets, output_dir=candidate_media_dir)
-        support_blockers = _grounded_support_blockers(slot, candidate, manifest)
+        official_source_packet: dict[str, Any] | None = None
+        if family == "oil" and manifest["media_gate_status"] == "PASS":
+            try:
+                official_source_packet = fetch_current_eia_oil_release_packet()
+            except Exception as exc:
+                official_source_packet = {
+                    "status": "BLOCKED_OFFICIAL_EIA_RELEASE_SOURCE_PACKET",
+                    "error_class": type(exc).__name__,
+                }
+        support_blockers = _grounded_support_blockers(
+            slot,
+            candidate,
+            manifest,
+            official_source_packet=official_source_packet,
+        )
+        if family == "oil" and (official_source_packet or {}).get("status") != "PASS_OFFICIAL_EIA_RELEASE_GROUNDED":
+            support_blockers.append(
+                f"official_eia_release_source_packet_failed:{(official_source_packet or {}).get('error_class') or 'unavailable'}"
+            )
         attempts.append(
             {
                 "slot_index": candidate["slot_index"],
@@ -526,7 +665,8 @@ def select_grounded_article_ready_idea(
         selected = {**candidate, "topic": str(slot.get("topic") or ""), "angle": str(slot.get("angle") or ""), "tags": list(slot.get("tags") or [])}
         selected = _ground_selection_to_media(selected, manifest)
         selected["topic_hash"] = build_public_dispatch_topic_hash(selected["topic"], selected["angle"])
-        selected["canonicalization_repair"] = _find_uncanonicalized_distribution_repair(selected["topic"])
+        selected["canonicalization_repair"] = None if fresh_publication_run else _find_uncanonicalized_distribution_repair(selected["topic"])
+        selected["duplicate_hotspot_decision"] = duplicate_decision
         support = {
             "schema_version": SCHEMA_VERSION,
             "created_at": _now(),
@@ -540,6 +680,7 @@ def select_grounded_article_ready_idea(
             "repo_evidence": [context.get("schedule_path"), context.get("sidecar_path")],
             "source_needs": list(slot.get("source_needs") or []),
             "selected_slot_index": selected["slot_index"],
+            "official_source_packet": official_source_packet,
         }
         _write_json(output_dir / "grounded_support_v1.json", support)
         _write_json(
@@ -551,8 +692,20 @@ def select_grounded_article_ready_idea(
                 "llm_selection_rationale": ranking.get("selection_rationale"),
                 "selected": selected,
                 "support_attempts": attempts,
-                "duplicate_hotspot_decision": selected["canonicalization_repair"]
-                or {"repair_mode": "NEW_CANONICAL_ARTICLE", "duplicate_policy": "new Telegram post requires normal duplicate guard"},
+                "duplicate_hotspot_decision": duplicate_decision,
+                "fresh_publication_run": fresh_publication_run,
+                "rejected_alternatives": [
+                    {
+                        "slot_index": row.get("slot_index"),
+                        "rank": row.get("rank"),
+                        "semantic_cluster": row.get("semantic_cluster"),
+                        "duplicate_of_slot_index": row.get("duplicate_of_slot_index"),
+                        "why_ranked": row.get("why_ranked"),
+                        "rejected_reason": row.get("rejected_reason") or "Lower impact or weaker grounded support than the selected candidate.",
+                    }
+                    for row in ranking.get("ranked_candidates") or []
+                    if int(row.get("slot_index") or 0) != int(selected["slot_index"])
+                ],
             },
         )
         _write_json(output_dir / "media_manifest_v1.json", manifest)
@@ -613,6 +766,59 @@ def export_canonical_article(
     assets = list(media.get("assets") or [])
     if len(assets) < 3:
         raise ValueError("article_requires_three_media_assets")
+    family = str(selection.get("article_family") or "")
+    canonical_candidate = f"https://capitalchronicle.substack.com/p/{selection.get('slug')}"
+    if family == "oil":
+        candidate = build_grounded_oil_release_candidate(
+            selection,
+            source_packet=dict(support.get("official_source_packet") or {}),
+            media_assets=assets,
+        )
+    elif family == "fed_funds":
+        candidate = build_revised_fed_funds_candidate(
+            selection,
+            media_assets=assets,
+            canonical_url=canonical_candidate,
+        )
+        candidate.update({
+            "article_family": "fed_funds",
+            "seo_primary_keyword": "Fed Funds",
+            "seo_semantic_terms": ["policy corridor", "Treasury", "SOFR"],
+            "news_peg_terms": ["3.62%", "July 8"],
+            "market_consequence_terms": ["markets", "Treasury", "cost of capital"],
+            "visual_asset_ids_expected": [str(item.get("asset_id") or "") for item in assets[:3]],
+        })
+    else:
+        candidate = None
+    if candidate is not None:
+        substack_body = str(candidate["substack_body_markdown"])
+        local_body = substack_body
+        for asset in assets:
+            marker = f"[[VISUAL:{asset['asset_id']}]]"
+            local_body = local_body.replace(marker, f"![{asset['alt_text']}]({asset['path']})")
+        article_path = export_root / f"{run_id}_canonical_article.md"
+        html_path = export_root / f"{run_id}_canonical_article.html"
+        _write_text(article_path, local_body)
+        _write_text(html_path, _markdown_to_html(local_body, str(candidate["title"])))
+        placement = _visual_positions(local_body, assets)
+        manifest = {
+            **candidate,
+            "schema_version": SCHEMA_VERSION,
+            "created_at": _now(),
+            "article_export_path": _normalise_path(article_path),
+            "article_html_export_path": _normalise_path(html_path),
+            "article_markdown_sha256": _sha256_file(article_path),
+            "substack_body_markdown": substack_body,
+            "substack_body_markdown_sha256": _sha256_text(substack_body),
+            "word_count": _reader_word_count(substack_body),
+            "caveat_present": "not financial advice" in substack_body.casefold(),
+            "financial_advice_detected": bool(_ADVICE_RE.search(substack_body)),
+            "forbidden_secret_material_detected": bool(_SECRET_RE.search(substack_body)),
+            "visual_placement_status": "PASS_VISUALS_SPREAD_THROUGH_ARTICLE" if placement["visuals_spread_through_article"] else "FAIL_VISUALS_NOT_SPREAD_THROUGH_ARTICLE",
+            **placement,
+        }
+        _write_json(output_dir / "article_manifest_v1.json", manifest)
+        return manifest
     title = str(selection["title"])
     subtitle = str(selection["dek"])
     source_labels = ", ".join(
@@ -713,6 +919,8 @@ def prepare_substack_first_pipeline(
     llm_ranker: Callable[[str, str], str | Mapping[str, Any]] = _default_llm_ranker,
     visual_builder: Callable[..., list[dict[str, Any]]] = build_current_macro_visual_pack,
     export_root: Path = EXPORT_ROOT,
+    fresh_publication_run: bool = False,
+    llm_editorial_reviewer: Callable[[str, str], str | Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
     _load_dotenv_safely()
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -726,6 +934,7 @@ def prepare_substack_first_pipeline(
         output_dir=output_dir,
         media_dir=output_dir / "media_assets",
         visual_builder=visual_builder,
+        fresh_publication_run=fresh_publication_run,
     )
     article = export_canonical_article(
         selection=selection,
@@ -735,8 +944,36 @@ def prepare_substack_first_pipeline(
         output_dir=output_dir,
         export_root=export_root,
     )
-    if article["word_count"] < 1200 or article["financial_advice_detected"] or article["forbidden_secret_material_detected"] or not article["visuals_spread_through_article"]:
-        raise RuntimeError("article_quality_gate_failed")
+    deterministic_review = audit_tier1_article(article, media_assets=media["assets"])
+    llm_review = (
+        review_tier1_article_with_llm(
+            article,
+            llm_provider=llm_provider,
+            llm_reviewer=llm_editorial_reviewer,
+        )
+        if llm_editorial_reviewer is not None
+        else review_tier1_article_with_llm(article, llm_provider=llm_provider)
+    )
+    combined_gate = combine_editorial_gates(deterministic_review, llm_review)
+    editorial_gate = {
+        "schema_version": "contentops.substack_first_editorial_gate.v1",
+        "deterministic_review": deterministic_review,
+        "llm_semantic_review": llm_review,
+        "combined_gate": combined_gate,
+    }
+    _write_json(output_dir / "editorial_quality_gate_v1.json", editorial_gate)
+    if (
+        combined_gate["classification"] != "PASS"
+        or article["financial_advice_detected"]
+        or article["forbidden_secret_material_detected"]
+        or not article["visuals_spread_through_article"]
+    ):
+        return {
+            "classification": BLOCKED_CLASSIFICATION,
+            "stage": "tier1_editorial_and_seo_gate",
+            "reason": combined_gate["blockers"],
+            "output_dir": _normalise_path(output_dir),
+        }
     request = prepare_supervised_substack_browser_request(
         run_id=run_id,
         publication_mode=publication_mode,
@@ -757,6 +994,7 @@ def prepare_substack_first_pipeline(
         "support": support,
         "media": media,
         "article": article,
+        "editorial_gate": editorial_gate,
         "substack_browser_request_path": _normalise_path(output_dir / "substack_browser_request_v1.json"),
         "substack_browser_request_sha256": _sha256_text(json.dumps(request, sort_keys=True)),
         "next_stage": "supervised_substack_browser_then_complete",

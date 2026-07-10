@@ -236,6 +236,47 @@ def readback_facebook_post(
     }
 
 
+def find_recent_facebook_post(
+    *,
+    expected_text: str,
+    canonical_url: str,
+    expected_media_local_path: str,
+    page_id: str | None = None,
+    access_token: str | None = None,
+) -> dict[str, Any]:
+    """Reconcile an uncertain photo write before any retry."""
+    page_id = _facebook_page_id(page_id)
+    access_token = _facebook_token(access_token)
+    if not page_id or not access_token:
+        return _validation_failed(["facebook_reconciliation_credentials"])
+    try:
+        feed = _get_json(
+            f"https://graph.facebook.com/{GRAPH_VERSION}/{page_id}/posts",
+            {"fields": "id,message,permalink_url,full_picture,from", "limit": "10", "access_token": access_token},
+        )
+    except urllib.error.HTTPError as error:
+        return _parse_http_error(error, "FAILED_RECONCILIATION")
+    except Exception as error:
+        return {"status": "FAILED_RECONCILIATION", "error_class": type(error).__name__}
+    title_line = next((line.strip() for line in expected_text.splitlines() if line.strip()), expected_text)
+    for row in feed.get("data") or []:
+        message = " ".join(str(row.get("message") or "").split())
+        if title_line.casefold() not in message.casefold() or canonical_url not in message:
+            continue
+        post_id = str(row.get("id") or "")
+        readback = readback_facebook_post(
+            post_id=post_id,
+            expected_text=expected_text,
+            canonical_url=canonical_url,
+            expected_media_local_path=expected_media_local_path,
+            page_id=page_id,
+            access_token=access_token,
+        )
+        if readback.get("status") == "SUCCESS":
+            return readback
+    return {"status": "NOT_FOUND", "platform": "facebook_page"}
+
+
 def execute_facebook_comment(
     post_id: str,
     access_token: str | None = None,

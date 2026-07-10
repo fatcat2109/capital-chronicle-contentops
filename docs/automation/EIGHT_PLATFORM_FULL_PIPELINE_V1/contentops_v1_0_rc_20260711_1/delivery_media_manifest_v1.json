@@ -1,0 +1,107 @@
+{
+  "assets": [
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_assets\\slot_4\\wti_current_volatility_context_9302511000fa.png",
+      "alt_text": "Two-panel chart showing current WTI crude oil price and rolling absolute daily moves using FRED data.",
+      "canonical_article_section_association": "current_market_signal_and_supply_repricing",
+      "chart_title": "WTI Crude Oil: Current Price Context and Realized Volatility",
+      "declared_sha256": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+      "height": 1080,
+      "local_public_hash_continuity": true,
+      "media_asset_id": "primary",
+      "media_role": "primary_chart",
+      "mime_type": "image/png",
+      "public_delivery_sha256": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+      "sha256": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+      "source_provenance": {
+        "caption": "WTI crude oil price and 30-day realized volatility through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "status": "source_backed_generated_from_public_data"
+      },
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/160cd2ef-50c7-496d-b760-e09f09f2a302_1725x1080.png",
+      "width": 1725
+    },
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_assets\\slot_4\\wti_recent_price_context_9302511000fa.png",
+      "alt_text": "Line chart showing the recent WTI crude oil price path using FRED data.",
+      "canonical_article_section_association": "hormuz_flow_and_price_mechanism",
+      "chart_title": "WTI Crude Oil: Recent Price Path",
+      "declared_sha256": "b940fb6b8464b8c0e4028a0c5874436d456facb9afd1851b64b2e76dcb33d076",
+      "height": 870,
+      "local_public_hash_continuity": true,
+      "media_asset_id": "recent_price",
+      "media_role": "supporting_chart",
+      "mime_type": "image/png",
+      "public_delivery_sha256": "b940fb6b8464b8c0e4028a0c5874436d456facb9afd1851b64b2e76dcb33d076",
+      "sha256": "b940fb6b8464b8c0e4028a0c5874436d456facb9afd1851b64b2e76dcb33d076",
+      "source_provenance": {
+        "caption": "Recent WTI price path through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "status": "source_backed_generated_from_public_data"
+      },
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/57b45a1e-914d-47dd-998f-818ee4c1a431_1620x870.png",
+      "width": 1620
+    },
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_assets\\slot_4\\wti_multi_year_range_context_9302511000fa.png",
+      "alt_text": "Chart showing recent annual WTI crude oil low-high ranges and annual averages using FRED data.",
+      "canonical_article_section_association": "cross_asset_and_historical_regime_context",
+      "chart_title": "WTI Crude Oil: Multi-Year Price Range Context",
+      "declared_sha256": "400eac0a7cdd1cb7fdb65db0770afc60400aa3b1f34c7b8674755ab93bf541bf",
+      "height": 870,
+      "local_public_hash_continuity": true,
+      "media_asset_id": "multi_year_range",
+      "media_role": "supporting_chart",
+      "mime_type": "image/png",
+      "public_delivery_sha256": "400eac0a7cdd1cb7fdb65db0770afc60400aa3b1f34c7b8674755ab93bf541bf",
+      "sha256": "400eac0a7cdd1cb7fdb65db0770afc60400aa3b1f34c7b8674755ab93bf541bf",
+      "source_provenance": {
+        "caption": "WTI annual price range and average context through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "status": "source_backed_generated_from_public_data"
+      },
+      "verified_public_delivery_url": "https://substack-post-media.s3.amazonaws.com/public/images/9b28c4bb-a9e3-42b4-b763-7adeffffef38_1620x870.png",
+      "width": 1620
+    }
+  ],
+  "authority": "approved_media_manifest_hash_binding_not_substack_dom_selection",
+  "blockers": [],
+  "minimum_chart_dimensions": {
+    "height": 400,
+    "width": 800
+  },
+  "remote_objects_audited": [
+    {
+      "height": 1080,
+      "mime_type": "image/png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/160cd2ef-50c7-496d-b760-e09f09f2a302_1725x1080.png",
+      "sha256": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!In6F!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F160cd2ef-50c7-496d-b760-e09f09f2a302_1725x1080.png",
+      "width": 1725
+    },
+    {
+      "height": 870,
+      "mime_type": "image/png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/57b45a1e-914d-47dd-998f-818ee4c1a431_1620x870.png",
+      "sha256": "b940fb6b8464b8c0e4028a0c5874436d456facb9afd1851b64b2e76dcb33d076",
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!-q6A!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F57b45a1e-914d-47dd-998f-818ee4c1a431_1620x870.png",
+      "width": 1620
+    },
+    {
+      "height": 870,
+      "mime_type": "image/png",
+      "original_url": "https://substack-post-media.s3.amazonaws.com/public/images/9b28c4bb-a9e3-42b4-b763-7adeffffef38_1620x870.png",
+      "sha256": "400eac0a7cdd1cb7fdb65db0770afc60400aa3b1f34c7b8674755ab93bf541bf",
+      "supplied_url": "https://substackcdn.com/image/fetch/$s_!pZsm!,w_1456,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9b28c4bb-a9e3-42b4-b763-7adeffffef38_1620x870.png",
+      "width": 1620
+    }
+  ],
+  "run_id": "contentops_v1_0_rc_20260711_1",
+  "schema_version": "contentops.delivery_media_manifest.v1",
+  "selected_primary_media_asset_id": "primary",
+  "selected_primary_media_sha256": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+  "status": "PASS"
+}

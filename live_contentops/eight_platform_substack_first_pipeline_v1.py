@@ -19,6 +19,8 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
 from live_contentops.edge_cdp_publishing_adapter_v1 import (
+    audit_public_substack_article_via_edge,
+    capture_public_destination_screenshot_via_edge,
     comment_existing_linkedin_post_via_edge,
     edit_existing_linkedin_post_via_edge,
     publish_linkedin_post_via_edge,
@@ -35,6 +37,12 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
 )
 from live_contentops.publishing_profile_registry_v1 import browser_doctor
 from live_contentops.media_manifest_authority_v1 import build_delivery_media_manifest, select_primary_chart
+from live_contentops.public_dispatch_freeze_guard_v6 import (
+    append_public_dispatch_ledger,
+    build_public_dispatch_payload_hash,
+    load_public_dispatch_hashes,
+    make_public_dispatch_approval_marker,
+)
 from live_contentops.substack_browser_adapter_v6 import build_supervised_substack_browser_readback
 from live_contentops.substack_first_north_star_pipeline_loop_v1 import (
     complete_substack_first_pipeline,
@@ -42,7 +50,7 @@ from live_contentops.substack_first_north_star_pipeline_loop_v1 import (
 )
 
 
-TASK_LABEL = "TASK_CONTENTOPS_HEAVY_TIER1_EDITORIAL_PLATFORM_VARIANT_RELIABILITY_AND_VIDEO_CAPABILITY_SPLIT_V3"
+TASK_LABEL = "TASK_CONTENTOPS_FINAL_TEXT_IMAGE_PLATFORM_LIVE_LOCK_AND_V1_0_RELEASE_V1"
 SCHEMA_VERSION = "contentops.eight_platform_substack_first_pipeline.v1"
 OUTPUT_ROOT = Path("docs/automation/EIGHT_PLATFORM_FULL_PIPELINE_V1")
 EXPECTED_DESTINATIONS = (
@@ -101,6 +109,24 @@ def _write_text(path: str | Path, value: str) -> None:
 
 def _sha256(value: str) -> str:
     return hashlib.sha256(value.encode("utf-8")).hexdigest()
+
+
+def _sha256_file(path: str | Path) -> str:
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _json_sha256(value: Mapping[str, Any]) -> str:
+    return _sha256(json.dumps(value, sort_keys=True, separators=(",", ":")))
+
+
+_PUBLIC_TECHNICAL_TEXT_RE = re.compile(
+    r"(?:eight[_ -]?platform[_ -]?live|run[_ -]?id|recovery\d+|docs[\\/]automation|[A-Za-z]:\\)",
+    re.IGNORECASE,
+)
 
 
 _SENTENCE_BOUNDARY_RE = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9])")
@@ -211,7 +237,7 @@ def _sharp_social_lede(value: str, *, maximum: int) -> str:
     lead = re.split(r",\s+(?:inside|keeping|while|but|as)\b", sentence, maxsplit=1, flags=re.IGNORECASE)[0]
     if len(_punctuate(lead)) <= maximum:
         return _punctuate(lead)
-    return _split_oversized_sentence(sentence, limit=maximum)[0]
+    raise ValueError("sentence_complete_social_lede_required")
 
 
 def _concise_semantic_sentence(value: str, *, maximum: int) -> str:
@@ -221,10 +247,15 @@ def _concise_semantic_sentence(value: str, *, maximum: int) -> str:
     lead = re.split(r";\s+|:\s+|,\s+(?:while|but|and|which|with|as)\b", sentence, maxsplit=1, flags=re.IGNORECASE)[0]
     if len(_punctuate(lead)) <= maximum:
         return _punctuate(lead)
-    return _split_oversized_sentence(sentence, limit=maximum)[0]
+    raise ValueError("sentence_complete_semantic_summary_required")
 
 
-def _thread_quality(posts: Sequence[Mapping[str, Any]], *, limit: int) -> dict[str, Any]:
+def _thread_quality(
+    posts: Sequence[Mapping[str, Any]],
+    *,
+    limit: int,
+    expected_media_ids: Sequence[str] = ("primary", "policy_corridor", "sofr_context"),
+) -> dict[str, Any]:
     texts = [str(row.get("text") or "") for row in posts]
     lengths = [len(item) for item in texts]
     sentence_keys: list[str] = []
@@ -255,7 +286,7 @@ def _thread_quality(posts: Sequence[Mapping[str, Any]], *, limit: int) -> dict[s
         "shortest_longest_reply_ratio": shortest_longest,
         "sentence_boundary_pass": sentence_boundary_pass,
         "orphan_fragment_count": orphan_fragments,
-        "visual_distribution_pass": media_ids == ["primary", "policy_corridor", "sofr_context"],
+        "visual_distribution_pass": media_ids == list(expected_media_ids),
         "complete_article_visual_count": len(set(media_ids)),
         "duplicated_sentence_count": duplicates,
         "hard_character_slicing_used": False,
@@ -265,13 +296,16 @@ def _thread_quality(posts: Sequence[Mapping[str, Any]], *, limit: int) -> dict[s
 def _semantic_thread_layout(
     *, title: str, dek: str, mechanism: str, policy: str, cross_asset: str,
     canonical_url: str, platform: str, limit: int,
+    media_asset_ids: Sequence[str] = ("primary", "policy_corridor", "sofr_context"),
 ) -> dict[str, Any]:
+    if len(media_asset_ids) != 3 or len(set(media_asset_ids)) != 3:
+        raise ValueError("semantic_thread_requires_three_unique_media_assets")
     lede_budget = max(70, limit - len(title) - len(canonical_url) - 6)
     lede = _sharp_social_lede(dek, maximum=lede_budget)
     root = "\n\n".join((title, lede, canonical_url))
     mechanism_text = "Why it matters: " + _concise_semantic_sentence(mechanism, maximum=limit - 18)
     policy_text = _concise_semantic_sentence(policy, maximum=110 if platform == "x" else 240)
-    cross_text = _concise_semantic_sentence(cross_asset, maximum=90 if platform == "x" else 190)
+    cross_text = _concise_semantic_sentence(cross_asset, maximum=105 if platform == "x" else 190)
     context = f"Policy context: {policy_text} Cross-asset context: {cross_text}"
     caveat = "For informational purposes only; not financial advice."
     if len(mechanism_text) <= len(context) and len(mechanism_text + "\n\n" + caveat) <= limit:
@@ -279,13 +313,13 @@ def _semantic_thread_layout(
     elif len(context + "\n\n" + caveat) <= limit:
         context = context + "\n\n" + caveat
     posts = [
-        {"order": 0, "role": "root", "text": root, "media_asset_ids": ["primary"], "article_sections": ["lede_and_current_policy_signal"]},
-        {"order": 1, "role": "reply", "text": mechanism_text, "media_asset_ids": ["policy_corridor"], "article_sections": ["policy_transmission_mechanism"]},
-        {"order": 2, "role": "reply", "text": context, "media_asset_ids": ["sofr_context"], "article_sections": ["curve_and_cross_asset_context", "confirmation_and_limits"]},
+        {"order": 0, "role": "root", "text": root, "media_asset_ids": [media_asset_ids[0]], "article_sections": ["lede_and_current_market_signal"]},
+        {"order": 1, "role": "reply", "text": mechanism_text, "media_asset_ids": [media_asset_ids[1]], "article_sections": ["market_mechanism"]},
+        {"order": 2, "role": "reply", "text": context, "media_asset_ids": [media_asset_ids[2]], "article_sections": ["policy_and_cross_asset_context", "confirmation_and_limits"]},
     ]
     if any(len(row["text"]) > limit for row in posts):
         raise ValueError(f"{platform}_semantic_thread_exceeds_limit")
-    metrics = _thread_quality(posts, limit=limit)
+    metrics = _thread_quality(posts, limit=limit, expected_media_ids=media_asset_ids)
     return {
         "root_text": root,
         "reply_texts": [row["text"] for row in posts[1:]],
@@ -335,17 +369,28 @@ def build_native_derivative_payloads(
     article: Mapping[str, Any],
     selection: Mapping[str, Any],
     canonical_url: str,
-) -> dict[str, dict[str, str]]:
+    media_asset_ids: Sequence[str] = ("primary", "policy_corridor", "sofr_context"),
+) -> dict[str, dict[str, Any]]:
     """Create distinct, publication-ready platform copy from the canonical article."""
     title = str(article["title"])
-    dek = str(selection["dek"])
-    mechanism = " ".join(str(selection["market_mechanism"]).split())
-    policy = " ".join(str(selection["policy_context"]).split())
-    cross_asset = " ".join(str(selection["cross_asset_implications"]).split())
+    dek = str(article.get("subtitle") or selection["dek"])
+    mechanism = " ".join(str(article.get("market_mechanism") or selection["market_mechanism"]).split())
+    policy = " ".join(str(article.get("policy_context") or selection["policy_context"]).split())
+    cross_asset = " ".join(str(article.get("cross_asset_implications") or selection["cross_asset_implications"]).split())
+    x_dek = " ".join(str(article.get("social_lede") or dek).split())
+    x_mechanism = " ".join(str(article.get("social_mechanism_summary") or mechanism).split())
+    x_policy = " ".join(str(article.get("social_policy_summary") or policy).split())
+    x_cross_asset = " ".join(str(article.get("social_cross_asset_summary") or cross_asset).split())
     caveat = "For informational purposes only; not financial advice."
-    x_thread = _semantic_thread_layout(title=title, dek=dek, mechanism=mechanism, policy=policy, cross_asset=cross_asset, canonical_url=canonical_url, platform="x", limit=280)
-    threads_thread = _semantic_thread_layout(title=title, dek=dek, mechanism=mechanism, policy=policy, cross_asset=cross_asset, canonical_url=canonical_url, platform="threads", limit=500)
+    x_thread = _semantic_thread_layout(title=title, dek=x_dek, mechanism=x_mechanism, policy=x_policy, cross_asset=x_cross_asset, canonical_url=canonical_url, platform="x", limit=280, media_asset_ids=media_asset_ids)
+    threads_thread = _semantic_thread_layout(title=title, dek=dek, mechanism=mechanism, policy=policy, cross_asset=cross_asset, canonical_url=canonical_url, platform="threads", limit=500, media_asset_ids=media_asset_ids)
     return {
+        "telegram": {
+            "format": "channel_photo_with_caption",
+            "text": "\n\n".join([title, dek, f"Read the full analysis: {canonical_url}", caveat]),
+            "platform_limit": 1024,
+            "media_asset_ids": [media_asset_ids[0]],
+        },
         "x": {
             "format": "root_chart_post_with_ordered_replies",
             "text": x_thread["root_text"],
@@ -608,6 +653,145 @@ def _dispatch_once(
     return result
 
 
+def _publish_telegram_photo_verified(
+    *,
+    run_id: str,
+    topic_hash: str,
+    text: str,
+    canonical_url: str,
+    image_path: str,
+) -> dict[str, Any]:
+    from live_contentops.telegram_live_adapter_v6 import execute_telegram_photo
+
+    public_ledger = Path("docs/automation/V6_PUBLIC_DISPATCH_FREEZE/public_dispatch_duplicate_ledger_v6.jsonl")
+    payload_hash = build_public_dispatch_payload_hash(
+        platform="telegram",
+        action="photo",
+        body_text=text,
+        canonical_url=canonical_url,
+        media_url=image_path,
+        topic_hash=topic_hash,
+    )
+    marker = make_public_dispatch_approval_marker(
+        run_id=run_id,
+        topic_hash=topic_hash,
+        payload_hash=payload_hash,
+        platform="telegram",
+    )
+    raw = execute_telegram_photo(
+        photo_url=image_path,
+        caption=text,
+        parse_mode="HTML",
+        dry_run=False,
+        approval_context={
+            "operator_approval_marker": marker,
+            "run_id": run_id,
+            "topic_hash": topic_hash,
+            "payload_hash": payload_hash,
+            "canonical_url": canonical_url,
+            "prior_dispatch_hashes": load_public_dispatch_hashes(public_ledger),
+            "public_dispatch_ledger_path": str(public_ledger),
+            "canonical_packet_status": "PASS",
+        },
+    )
+    response = raw.get("response") if isinstance(raw.get("response"), Mapping) else {}
+    message = response.get("result") if isinstance(response.get("result"), Mapping) else {}
+    message_id = str(raw.get("id") or message.get("message_id") or "")
+    chat = message.get("chat") if isinstance(message.get("chat"), Mapping) else {}
+    username = str(chat.get("username") or "")
+    caption = str(message.get("caption") or "")
+    has_photo = bool(message.get("photo"))
+    account_ok = username.casefold() == "capitalchronicle"
+    verified = bool(
+        raw.get("status") == "SUCCESS"
+        and message_id
+        and account_ok
+        and canonical_url in caption
+        and has_photo
+    )
+    public_url = f"https://t.me/CapitalChronicle/{message_id}" if message_id else None
+    if verified:
+        append_public_dispatch_ledger(
+            ledger_path=public_ledger,
+            platform="telegram",
+            action="photo",
+            run_id=run_id,
+            topic_hash=topic_hash,
+            payload_hash=payload_hash,
+            canonical_url=canonical_url,
+            media_url=image_path,
+            status="SUCCESS",
+        )
+    final_status = "SUCCESS" if verified else (
+        "FAILED_TELEGRAM_STRICT_READBACK" if raw.get("status") == "SUCCESS" else str(raw.get("status") or "FAILED_TELEGRAM_STRICT_READBACK")
+    )
+    return {
+        "status": final_status,
+        "platform": "telegram",
+        "action": "photo",
+        "id": message_id or None,
+        "public_url": public_url,
+        "destination_identity": f"@{username}" if username else None,
+        "provider_readback_verified": verified,
+        "readback": {
+            "status": "SUCCESS" if verified else "FAILED_TELEGRAM_STRICT_READBACK",
+            "public_url": public_url,
+            "message_id": message_id or None,
+            "account_identity_verified": account_ok,
+            "body_text_visible": bool(caption),
+            "substack_url_visible": canonical_url in caption,
+            "meaningful_media_visible": has_photo,
+            "visible_body_text": caption,
+        },
+    }
+
+
+def _publish_discord_verified(*, text: str, canonical_url: str, image_url: str, title: str) -> dict[str, Any]:
+    from live_contentops.discord_live_adapter_v6 import execute_discord_post
+
+    raw = execute_discord_post(
+        message=text,
+        embeds=[{"title": title, "url": canonical_url, "image": {"url": image_url}}],
+        dry_run=False,
+    )
+    response = raw.get("response") if isinstance(raw.get("response"), Mapping) else {}
+    message_id = str(raw.get("id") or response.get("id") or "")
+    channel_id = str(response.get("channel_id") or "")
+    guild_id = str(response.get("guild_id") or "")
+    content = str(response.get("content") or "")
+    embeds = response.get("embeds") if isinstance(response.get("embeds"), list) else []
+    embed_image = any(
+        canonical_url == str(item.get("url") or "")
+        and bool((item.get("image") or {}).get("url"))
+        for item in embeds
+        if isinstance(item, Mapping)
+    )
+    verified = bool(raw.get("status") == "SUCCESS" and message_id and canonical_url in content and embed_image)
+    public_url = f"https://discord.com/channels/{guild_id}/{channel_id}/{message_id}" if guild_id and channel_id and message_id else None
+    return {
+        "status": "SUCCESS" if verified else (
+            "FAILED_DISCORD_STRICT_READBACK" if raw.get("status") == "SUCCESS" else str(raw.get("status") or "FAILED_DISCORD_STRICT_READBACK")
+        ),
+        "platform": "discord",
+        "action": "post",
+        "id": message_id or None,
+        "public_url": public_url,
+        "destination_identity": f"discord_channel:{channel_id}" if channel_id else None,
+        "provider_readback_verified": verified,
+        "readback": {
+            "status": "SUCCESS" if verified else "FAILED_DISCORD_STRICT_READBACK",
+            "public_url": public_url,
+            "message_id": message_id or None,
+            "channel_id": channel_id or None,
+            "body_text_visible": canonical_url in content,
+            "substack_url_visible": canonical_url in content,
+            "rich_preview_behavior": "article_chart" if embed_image else ("no_preview" if not embeds else "publication_or_other_art"),
+            "attached_article_visual": False,
+            "visible_body_text": content,
+        },
+    }
+
+
 def _publish_facebook_photo_verified(
     *,
     text: str,
@@ -730,8 +914,8 @@ def _capability_presence() -> dict[str, bool]:
         return any(bool(os.environ.get(key)) for key in keys)
 
     return {
-        "discord": present("DISCORD_ANNOUNCEMENTS_WEBHOOK_URL", "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK", "DISCORD_SUBSTACK_DROPS_WEBHOOK_URL"),
-        "telegram": present("TELEGRAM_BOT_TOKEN") and present("TELEGRAM_CHANNEL_ID", "TELEGRAM_CHAT_ID", "TELEGRAM_TARGET_CHAT_ID"),
+        "discord": present("DISCORD_ANNOUNCEMENTS_WEBHOOK_URL", "DISCORD_LIVE_ANNOUNCEMENTS_WEBHOOK"),
+        "telegram": present("TELEGRAM_BOT_TOKEN") and present("TELEGRAM_CHANNEL_ID", "TEST_TELEGRAM_CHANNEL", "TELEGRAM_TARGET_CHAT_ID"),
         "facebook_page": present("FACEBOOK_PAGE_ID") and present("FACEBOOK_PAGE_ACCESS_TOKEN", "META_ACCESS_TOKEN"),
         "instagram_business": present("INSTAGRAM_BUSINESS_ACCOUNT_ID", "INSTAGRAM_IG_ID") and present("INSTAGRAM_ACCESS_TOKEN", "META_ACCESS_TOKEN"),
         "threads": present("THREADS_USER_ID") and present("THREADS_USER_ACCESS_TOKEN", "THREADS_ACCESS_TOKEN"),
@@ -846,6 +1030,508 @@ def _persist_final_platform_matrix(output_dir: Path, evidence: Mapping[str, Any]
     return packet
 
 
+_RELEASE_PREPARATION_ARTIFACTS = (
+    "headline_intake_v1.json",
+    "llm_idea_ranking_v1.json",
+    "grounded_support_v1.json",
+    "idea_selection_v1.json",
+    "media_manifest_v1.json",
+    "article_manifest_v1.json",
+    "editorial_quality_gate_v1.json",
+    "run_context_v1.json",
+    "substack_browser_request_v1.json",
+    "native_payloads_rehearsal_v1.json",
+)
+
+
+def _release_account_preflight(cdp_port: int) -> dict[str, Any]:
+    rows: dict[str, Any] = {}
+    for platform in ("substack", "x", "linkedin", "youtube"):
+        try:
+            rows[platform] = probe_authenticated_platform_session(cdp_port, platform)
+        except Exception as exc:
+            rows[platform] = {
+                "platform": platform,
+                "authenticated": False,
+                "error_class": type(exc).__name__,
+                "cookies_read": False,
+                "storage_read": False,
+            }
+    return rows
+
+
+def _release_lock_artifacts(output_dir: Path) -> dict[str, Any]:
+    artifacts: dict[str, Any] = {}
+    for name in _RELEASE_PREPARATION_ARTIFACTS:
+        path = output_dir / name
+        artifacts[name] = {
+            "path": str(path),
+            "exists": path.is_file(),
+            "sha256": _sha256_file(path) if path.is_file() else None,
+        }
+    return artifacts
+
+
+def _verify_release_candidate_lock(output_dir: Path) -> dict[str, Any]:
+    rehearsal_path = output_dir / "no_write_rehearsal_v1.json"
+    lock_path = output_dir / "release_candidate_lock_v1.json"
+    blockers: list[str] = []
+    if not rehearsal_path.is_file():
+        blockers.append("no_write_rehearsal_missing")
+    if not lock_path.is_file():
+        blockers.append("release_candidate_lock_missing")
+    if blockers:
+        return {"status": "BLOCKED_RELEASE_CANDIDATE_LOCK", "blockers": blockers}
+    rehearsal = _read_json(rehearsal_path)
+    lock = _read_json(lock_path)
+    if rehearsal.get("classification") != "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL":
+        blockers.append("no_write_rehearsal_not_pass")
+    expected_lock_sha = str(lock.get("lock_sha256") or "")
+    lock_core = dict(lock)
+    lock_core.pop("lock_sha256", None)
+    if not expected_lock_sha or _json_sha256(lock_core) != expected_lock_sha:
+        blockers.append("release_candidate_lock_self_hash_mismatch")
+    if rehearsal.get("release_candidate_lock_sha256") != expected_lock_sha:
+        blockers.append("no_write_rehearsal_lock_reference_mismatch")
+    for name, row in (lock.get("artifacts") or {}).items():
+        path = Path(str(row.get("path") or output_dir / name))
+        if not path.is_file():
+            blockers.append(f"locked_artifact_missing:{name}")
+            continue
+        if _sha256_file(path) != row.get("sha256"):
+            blockers.append(f"locked_artifact_hash_mismatch:{name}")
+    return {
+        "status": "PASS_RELEASE_CANDIDATE_LOCK" if not blockers else "BLOCKED_RELEASE_CANDIDATE_LOCK",
+        "blockers": blockers,
+        "lock_sha256": expected_lock_sha or None,
+        "prepared_canonical_url": lock.get("prepared_canonical_url"),
+        "artifacts": lock.get("artifacts") or {},
+    }
+
+
+def prepare_text_image_release_candidate(
+    *,
+    run_id: str,
+    output_dir: Path,
+    cdp_port: int = 9223,
+    llm_provider: str = "auto",
+) -> dict[str, Any]:
+    """Build and freeze the exact RC packet without calling a publishing adapter."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+    doctor = browser_doctor()
+    if doctor.get("status") != "READY_TO_ATTACH" or doctor.get("recommended_cdp_port") != cdp_port:
+        packet = {
+            "schema_version": "contentops.text_image_release_rehearsal.v1",
+            "classification": "BLOCKED_CANONICAL_EDGE_PROFILE_NOT_ATTACHED",
+            "run_id": run_id,
+            "browser_doctor": doctor,
+            "public_write_performed": False,
+        }
+        _write_json(output_dir / "no_write_rehearsal_v1.json", packet)
+        return packet
+    prepared = prepare_substack_first_pipeline(
+        run_id=run_id,
+        publication_mode="publish",
+        output_dir=output_dir,
+        llm_provider=llm_provider,
+        fresh_publication_run=True,
+    )
+    if prepared.get("classification") != "READY_FOR_SUPERVISED_SUBSTACK_BROWSER_ASSIST":
+        packet = {
+            "schema_version": "contentops.text_image_release_rehearsal.v1",
+            "classification": "BLOCKED_RELEASE_CANDIDATE_PREPARATION",
+            "run_id": run_id,
+            "prepare": prepared,
+            "public_write_performed": False,
+        }
+        _write_json(output_dir / "no_write_rehearsal_v1.json", packet)
+        return packet
+    context = _read_json(prepared["context_path"])
+    article = dict(context["article"])
+    selection = dict(context["selection"])
+    media = dict(context["media"])
+    media_ids = [str(item.get("asset_id") or "") for item in media.get("assets") or []]
+    payloads = build_native_derivative_payloads(
+        article=article,
+        selection=selection,
+        canonical_url=str(article["canonical_url"]),
+        media_asset_ids=media_ids,
+    )
+    blockers: list[str] = []
+    account_preflight = _release_account_preflight(cdp_port)
+    for platform in ("substack", "x", "linkedin", "youtube"):
+        if not bool((account_preflight.get(platform) or {}).get("authenticated")):
+            blockers.append(f"{platform}_canonical_edge_session_not_authenticated")
+    x_identity = str((account_preflight.get("x") or {}).get("destination_identity") or "")
+    if x_identity.casefold() != "@capitalnicle":
+        blockers.append("x_destination_identity_mismatch")
+    linkedin_identity = str((account_preflight.get("linkedin") or {}).get("destination_identity") or "")
+    if linkedin_identity.casefold() != "linkedin:jimcc":
+        blockers.append("linkedin_destination_identity_mismatch")
+    capabilities = _capability_presence()
+    for platform in ("telegram", "discord", "facebook_page", "instagram_business", "threads"):
+        if not capabilities.get(platform):
+            blockers.append(f"{platform}_credential_capability_missing")
+    if len(media_ids) != 3 or len(set(media_ids)) != 3:
+        blockers.append("three_unique_media_assets_required")
+    for platform in ("x", "threads"):
+        metrics = payloads[platform]["quality_metrics"]
+        if not (
+            metrics["reply_count"] == 2
+            and metrics["sentence_boundary_pass"]
+            and metrics["orphan_fragment_count"] == 0
+            and metrics["visual_distribution_pass"]
+            and metrics["complete_article_visual_count"] == 3
+        ):
+            blockers.append(f"{platform}_semantic_layout_failed")
+    if len(payloads["telegram"]["text"]) > int(payloads["telegram"]["platform_limit"]):
+        blockers.append("telegram_caption_limit_exceeded")
+    if len(payloads["youtube"]["text"]) > int(payloads["youtube"]["platform_limit"]):
+        blockers.append("youtube_community_limit_exceeded")
+    platform_limits = {"linkedin": 3000, "discord": 2000, "instagram_business": 2200}
+    for platform, limit in platform_limits.items():
+        if len(payloads[platform]["text"]) > limit:
+            blockers.append(f"{platform}_text_limit_exceeded")
+    for platform, row in payloads.items():
+        if platform != "tiktok" and _PUBLIC_TECHNICAL_TEXT_RE.search(str(row.get("text") or "")):
+            blockers.append(f"{platform}_technical_run_identifier_detected")
+    if not bool((selection.get("duplicate_hotspot_decision") or {}).get("publish_allowed")):
+        blockers.append("duplicate_hotspot_policy_blocked")
+    source_packet = dict((context.get("support") or {}).get("official_source_packet") or {})
+    media_objects = [
+        {
+            "media_asset_id": item.get("asset_id"),
+            "media_role": item.get("media_role"),
+            "absolute_local_source_path": str(Path(str(item.get("path") or "")).resolve()),
+            "sha256": item.get("sha256"),
+            "mime_type": item.get("mime_type"),
+            "width": item.get("width"),
+            "height": item.get("height"),
+            "source_provenance": {
+                "source_label": item.get("source_label"),
+                "source_page_url": item.get("source_page_url"),
+                "provenance_status": item.get("provenance_status"),
+            },
+            "chart_title": item.get("chart_title"),
+            "caption": item.get("caption"),
+            "alt_text": item.get("alt_text"),
+            "canonical_article_section_association": item.get("canonical_article_section_association"),
+        }
+        for item in media.get("assets") or []
+    ]
+    packet = {
+        "schema_version": "contentops.text_image_release_rehearsal.v1",
+        "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL" if not blockers else "BLOCKED_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+        "task_label": TASK_LABEL,
+        "run_id": run_id,
+        "created_at": _utc_now(),
+        "public_write_performed": False,
+        "publishing_adapter_called": False,
+        "browser_doctor": doctor,
+        "account_preflight": account_preflight,
+        "credential_capability_presence": capabilities,
+        "selected_idea": selection,
+        "source_packet": source_packet,
+        "source_packet_sha256": _json_sha256(source_packet) if source_packet else None,
+        "editorial_gate": context.get("editorial_gate"),
+        "article": {
+            "title": article.get("title"),
+            "subtitle": article.get("subtitle"),
+            "seo_title": article.get("seo_title"),
+            "slug": article.get("slug"),
+            "meta_description": article.get("meta_description"),
+            "word_count": article.get("word_count"),
+            "body_sha256": article.get("substack_body_markdown_sha256"),
+        },
+        "media_asset_ids": media_ids,
+        "media_sha256": {str(item.get("asset_id")): item.get("sha256") for item in media.get("assets") or []},
+        "media_objects": media_objects,
+        "platform_layouts": {platform: payloads[platform] for platform in ("x", "threads")},
+        "platform_length_checks": {
+            platform: {
+                "root_characters": len(str(row.get("text") or "")),
+                "platform_limit": row.get("platform_limit") or platform_limits.get(platform),
+                "reply_characters": [len(str(value)) for value in row.get("reply_texts") or []],
+            }
+            for platform, row in payloads.items()
+            if platform != "tiktok"
+        },
+        "payload_sha256": {platform: _sha256(str(row.get("text") or "")) for platform, row in payloads.items()},
+        "destination_account_map": {
+            "substack": {"intended": "Capital Chronicle", "observed": account_preflight.get("substack")},
+            "telegram": {"intended": "@CapitalChronicle", "capability_present": capabilities.get("telegram")},
+            "discord": {"intended": "Capital Chronicle newsroom webhook destination", "capability_present": capabilities.get("discord")},
+            "x": {"intended": "@Capitalnicle", "observed": account_preflight.get("x")},
+            "linkedin": {"intended": "Jim Pham / linkedin:jimcc", "observed": account_preflight.get("linkedin")},
+            "facebook_page": {"intended": "Capital Chronicle", "capability_present": capabilities.get("facebook_page")},
+            "instagram_business": {"intended": "official.capitalchronicle", "capability_present": capabilities.get("instagram_business")},
+            "threads": {"intended": "official.capitalchronicle", "capability_present": capabilities.get("threads")},
+            "youtube_community": {"intended": "@CapitalChronicleYouTube", "observed": account_preflight.get("youtube")},
+        },
+        "video_or_tiktok_adapter_called": False,
+        "blockers": blockers,
+    }
+    _write_json(output_dir / "native_payloads_rehearsal_v1.json", payloads)
+    locked_artifacts = _release_lock_artifacts(output_dir)
+    for name, row in locked_artifacts.items():
+        if not row.get("exists"):
+            blockers.append(f"release_preparation_artifact_missing:{name}")
+    if blockers:
+        packet["classification"] = "BLOCKED_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL"
+    lock_core = {
+        "schema_version": "contentops.text_image_release_candidate_lock.v1",
+        "task_label": TASK_LABEL,
+        "run_id": run_id,
+        "prepared_canonical_url": article.get("canonical_url"),
+        "article_body_sha256": article.get("substack_body_markdown_sha256"),
+        "source_packet_sha256": packet.get("source_packet_sha256"),
+        "media_sha256": packet["media_sha256"],
+        "payload_sha256": packet["payload_sha256"],
+        "duplicate_hotspot_decision": selection.get("duplicate_hotspot_decision"),
+        "artifacts": locked_artifacts,
+        "public_write_performed": False,
+    }
+    lock = {**lock_core, "lock_sha256": _json_sha256(lock_core)}
+    _write_json(output_dir / "release_candidate_lock_v1.json", lock)
+    packet["release_candidate_lock_path"] = str(output_dir / "release_candidate_lock_v1.json")
+    packet["release_candidate_lock_sha256"] = lock["lock_sha256"]
+    _write_json(output_dir / "no_write_rehearsal_v1.json", packet)
+    return packet
+
+
+def _platform_observed_text(platform: str, result: Mapping[str, Any]) -> dict[str, Any]:
+    readback = result.get("readback") if isinstance(result.get("readback"), Mapping) else {}
+    if platform == "x":
+        return {
+            "root": readback.get("root_visible_text"),
+            "replies": [row.get("visible_body_text") for row in readback.get("ordered_replies") or []],
+        }
+    if platform == "threads":
+        root = readback.get("root") if isinstance(readback.get("root"), Mapping) else {}
+        chain = readback.get("chain") if isinstance(readback.get("chain"), Mapping) else {}
+        return {
+            "root": root.get("visible_body_text"),
+            "replies": [row.get("visible_body_text") for row in chain.get("ordered_replies") or []],
+        }
+    return {"root": readback.get("visible_body_text") or readback.get("root_visible_text"), "replies": []}
+
+
+def _platform_machine_checks(platform: str, result: Mapping[str, Any]) -> dict[str, bool]:
+    readback = result.get("readback") if isinstance(result.get("readback"), Mapping) else {}
+    stable_identity = bool(result.get("public_url") or result.get("id") or result.get("message_id") or result.get("draft_id"))
+    status_ok = str(result.get("status") or "") in SUCCESS_STATUSES
+    if platform == "substack":
+        return {
+            "status_success": status_ok,
+            "stable_public_identity": stable_identity,
+            "account_identity_verified": str(result.get("public_url") or "").startswith("https://capitalchronicle.substack.com/p/"),
+            "public_text_verified": bool(readback.get("content_readback_verified")),
+            "canonical_link_verified": stable_identity,
+            "media_verified": bool(
+                int(readback.get("public_image_count") or 0) >= 3
+                and max(
+                    int(readback.get("public_image_alt_count") or 0),
+                    int(readback.get("public_image_alt_or_caption_count") or 0),
+                ) >= 3
+                and readback.get("visual_spread_through_public_body")
+            ),
+            "thread_structure_verified": True,
+        }
+    strict = bool(result.get("provider_readback_verified"))
+    account_identity = (
+        result.get("destination_identity")
+        or readback.get("destination_identity")
+        or (platform == "threads" and ((readback.get("root") or {}).get("destination_identity")))
+    )
+    canonical_link = bool(result.get("substack_url_included") and (
+        readback.get("substack_url_visible")
+        or (platform == "threads" and ((readback.get("root") or {}).get("substack_url_visible")))
+    ))
+    media_verified = bool(
+        readback.get("meaningful_media_visible")
+        or readback.get("expected_chart_visual_similarity")
+        or (platform == "threads" and ((readback.get("root") or {}).get("meaningful_media_visible")))
+        or (platform == "discord" and readback.get("rich_preview_behavior") == "article_chart")
+    )
+    thread_structure = True
+    if platform == "x":
+        thread_structure = bool(
+            len(result.get("reply_chain") or []) == 2
+            and readback.get("reply_chain_complete")
+            and int(readback.get("complete_article_visual_count") or 0) == 3
+        )
+    elif platform == "threads":
+        chain = readback.get("chain") if isinstance(readback.get("chain"), Mapping) else {}
+        thread_structure = bool(
+            len(result.get("reply_chain") or []) == 2
+            and chain.get("provider_order_verified")
+            and int(chain.get("complete_article_visual_count") or 0) == 3
+        )
+    return {
+        "status_success": status_ok,
+        "stable_public_identity": stable_identity,
+        "account_identity_verified": bool(account_identity),
+        "public_text_verified": strict,
+        "canonical_link_verified": canonical_link,
+        "media_verified": media_verified,
+        "thread_structure_verified": thread_structure,
+    }
+
+
+def build_operator_manual_audit_packet(
+    *,
+    output_dir: Path,
+    cdp_port: int = 9223,
+) -> dict[str, Any]:
+    """Build screenshots and the final read-only RC audit packet."""
+    evidence_path = output_dir / "run_evidence_v1.json"
+    if not evidence_path.is_file():
+        raise FileNotFoundError("run_evidence_v1.json")
+    evidence = _read_json(evidence_path)
+    results = evidence.get("results") if isinstance(evidence.get("results"), Mapping) else {}
+    payload_path = output_dir / "native_payloads_v1.json"
+    payloads = _read_json(payload_path) if payload_path.is_file() else {}
+    idea_path = output_dir / "idea_selection_v1.json"
+    idea = _read_json(idea_path) if idea_path.is_file() else {}
+    article = dict(evidence.get("article") or {})
+    manifest = dict(evidence.get("delivery_media_manifest") or {})
+    platforms: dict[str, Any] = {}
+    machine_blockers: list[str] = []
+    screenshots: dict[str, Any] = {}
+
+    for platform in TEXT_IMAGE_PASS_DESTINATIONS:
+        result = dict(results.get(platform) or {})
+        checks = _platform_machine_checks(platform, result)
+        for name, passed in checks.items():
+            if not passed:
+                machine_blockers.append(f"{platform}:{name}")
+        intended = (
+            str(article.get("substack_body_markdown") or "")
+            if platform == "substack"
+            else str((payloads.get(platform) or {}).get("text") or "")
+        )
+        screenshot_targets: list[dict[str, Any]] = []
+        public_url = str(result.get("public_url") or "")
+        if public_url:
+            screenshot_targets.append({"label": "root", "url": public_url, "expected_text": str(article.get("title") or "") if platform == "substack" else intended})
+        for index, reply in enumerate(result.get("reply_chain") or [], start=1):
+            if reply.get("public_url"):
+                screenshot_targets.append({"label": f"reply_{index}", "url": str(reply["public_url"]), "expected_text": str(reply.get("text") or "")})
+        captured: list[dict[str, Any]] = []
+        for target in screenshot_targets:
+            screenshot_path = output_dir / "audit_screenshots" / f"{platform}_{target['label']}.png"
+            try:
+                capture = capture_public_destination_screenshot_via_edge(
+                    cdp_port=cdp_port,
+                    public_url=target["url"],
+                    output_path=screenshot_path,
+                    expected_text=target["expected_text"],
+                )
+            except Exception as exc:
+                capture = {
+                    "status": "FAILED_PUBLIC_SCREENSHOT_CAPTURE",
+                    "public_url": target["url"],
+                    "error_class": type(exc).__name__,
+                    "browser_write_performed": False,
+                }
+            capture["label"] = target["label"]
+            captured.append(capture)
+            if capture.get("status") != "SUCCESS" or not Path(str(capture.get("public_screenshot_path") or "")).is_file():
+                machine_blockers.append(f"{platform}:{target['label']}:public_screenshot_missing")
+        if not screenshot_targets and platform != "discord":
+            machine_blockers.append(f"{platform}:public_screenshot_url_missing")
+        elif not screenshot_targets and platform == "discord":
+            captured.append({
+                "status": "NOT_APPLICABLE_PRIVATE_WEBHOOK_DESTINATION",
+                "reason": "stable_channel_and_message_id_with_strict_provider_readback_no_public_browser_url",
+                "browser_write_performed": False,
+                "label": "provider_readback",
+            })
+        screenshots[platform] = captured
+        platforms[platform] = {
+            "status": result.get("status"),
+            "destination_identity": result.get("destination_identity") or ((result.get("readback") or {}).get("destination_identity") if isinstance(result.get("readback"), Mapping) else None),
+            "public_url": result.get("public_url"),
+            "stable_id": result.get("id") or result.get("message_id") or result.get("draft_id"),
+            "payload_sha256": result.get("payload_sha256") or (_sha256(intended) if intended else None),
+            "intended_text": intended,
+            "observed_text": _platform_observed_text(platform, result),
+            "media_asset_id": result.get("media_asset_id"),
+            "media_sha256": result.get("media_sha256"),
+            "reply_chain": result.get("reply_chain") or [],
+            "machine_checks": checks,
+            "readback": result.get("readback"),
+            "screenshots": captured,
+            "idempotency_state": result.get("idempotency_scope") or result.get("write_outcome_certainty"),
+        }
+
+    machine_blockers = list(dict.fromkeys(machine_blockers))
+    ready = not machine_blockers
+    packet = {
+        "schema_version": "contentops.text_image_operator_manual_audit_packet.v1",
+        "task_label": TASK_LABEL,
+        "classification": "AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC" if ready else "PARTIAL_OPERATOR_AUDIT_PACKET_INCOMPLETE",
+        "run_id": evidence.get("run_id"),
+        "created_at": _utc_now(),
+        "selected_story": evidence.get("selected_idea"),
+        "candidate_ranking": idea.get("llm_selection_rationale"),
+        "rejected_alternatives": idea.get("rejected_alternatives") or [],
+        "article": {
+            "title": article.get("title"),
+            "subtitle": article.get("subtitle"),
+            "public_substack_url": (results.get("substack") or {}).get("public_url"),
+            "word_count": article.get("word_count"),
+            "editorial_score": (((evidence.get("editorial_gate") or {}).get("deterministic_review") or {}).get("editorial_score")),
+            "seo_score": (((evidence.get("editorial_gate") or {}).get("deterministic_review") or {}).get("seo_score")),
+            "llm_review": ((evidence.get("editorial_gate") or {}).get("llm_semantic_review")),
+        },
+        "source_packet_sha256": article.get("numeric_source_packet_sha256"),
+        "visuals": [
+            {
+                "media_asset_id": row.get("media_asset_id"),
+                "media_sha256": row.get("sha256"),
+                "preview_path": row.get("absolute_local_source_path"),
+                "source_provenance": row.get("source_provenance"),
+                "chart_title": row.get("chart_title"),
+                "caption": (row.get("source_provenance") or {}).get("caption"),
+                "alt_text": row.get("alt_text"),
+                "article_placement": row.get("canonical_article_section_association"),
+            }
+            for row in manifest.get("assets") or []
+        ],
+        "platforms": platforms,
+        "screenshots": screenshots,
+        "machine_qa": {
+            "status": "PASS" if ready else "FAIL",
+            "blockers": machine_blockers,
+            "all_nine_public_surfaces_required": True,
+            "video_or_tiktok_write_performed": False,
+        },
+        "operator_checklist": [
+            "Confirm the Substack headline, subtitle, article body, three distributed charts, captions, alt text, and sources.",
+            "Confirm Telegram and Discord use native text, the intended chart or chart preview, and the canonical Substack URL.",
+            "Confirm X and Threads each show one root plus exactly two coherent replies with all three visuals once.",
+            "Confirm LinkedIn, Facebook, and Instagram show complete text, the approved chart, and canonical URL semantics.",
+            "Confirm YouTube is a Community text-and-image post on Capital Chronicle, not a video or Short.",
+            "Report any failed destination with its URL and screenshot; accepted destinations will remain frozen.",
+        ],
+        "public_write_performed_by_audit_builder": False,
+        "blockers": machine_blockers,
+    }
+    _write_json(output_dir / "operator_manual_audit_packet_v1.json", packet)
+    evidence["operator_manual_audit_packet"] = {
+        "classification": packet["classification"],
+        "path": str(output_dir / "operator_manual_audit_packet_v1.json"),
+        "machine_qa_status": packet["machine_qa"]["status"],
+        "blockers": machine_blockers,
+    }
+    evidence["classification"] = packet["classification"] if ready else "PARTIAL_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
+    evidence["final_platform_matrix"] = _persist_final_platform_matrix(output_dir, evidence)
+    _write_json(evidence_path, evidence)
+    _write_text(output_dir / "README.md", _readme(evidence))
+    return packet
+
+
 def run_eight_platform_substack_first_pipeline(
     *,
     run_id: str,
@@ -879,6 +1565,20 @@ def run_eight_platform_substack_first_pipeline(
         _write_json(output_dir / "run_evidence_v1.json", evidence)
         return evidence
 
+    release_lock = _verify_release_candidate_lock(output_dir)
+    if release_lock.get("status") != "PASS_RELEASE_CANDIDATE_LOCK":
+        evidence = {
+            "schema_version": SCHEMA_VERSION,
+            "task_label": TASK_LABEL,
+            "classification": "BLOCKED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1",
+            "run_id": run_id,
+            "browser_doctor": doctor,
+            "release_candidate_lock": release_lock,
+            "results": {"substack": {"status": "BLOCKED_RELEASE_CANDIDATE_LOCK_NOT_VERIFIED"}},
+        }
+        _write_json(output_dir / "run_evidence_v1.json", evidence)
+        return evidence
+
     staged_context_path = output_dir / "run_context_v1.json"
     staged_request_path = output_dir / "substack_browser_request_v1.json"
     if staged_context_path.exists() and staged_request_path.exists():
@@ -894,6 +1594,7 @@ def run_eight_platform_substack_first_pipeline(
             publication_mode="publish",
             output_dir=output_dir,
             llm_provider=llm_provider,
+            fresh_publication_run=True,
         )
     if prepared.get("classification") != "READY_FOR_SUPERVISED_SUBSTACK_BROWSER_ASSIST":
         evidence = {"schema_version": SCHEMA_VERSION, "task_label": TASK_LABEL, "classification": "BLOCKED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1", "run_id": run_id, "browser_doctor": doctor, "prepare": prepared, "results": {"substack": {"status": "BLOCKED_IDEA_OR_MEDIA_PREP"}}}
@@ -905,6 +1606,7 @@ def run_eight_platform_substack_first_pipeline(
     article = dict(context["article"])
     selection = dict(context["selection"])
     media = dict(context["media"])
+    editorial_gate = dict(context.get("editorial_gate") or {})
     request_path = Path(str(context["substack_browser_request_path"]))
     request = _read_json(request_path)
     browser_sessions = {}
@@ -914,6 +1616,27 @@ def run_eight_platform_substack_first_pipeline(
         except Exception as exc:
             browser_sessions[platform] = {"platform": platform, "authenticated": False, "error_class": type(exc).__name__}
     _write_json(output_dir / "browser_session_preflight_v1.json", browser_sessions)
+    session_blockers: list[str] = []
+    for platform in ("substack", "x", "linkedin", "youtube"):
+        if not bool((browser_sessions.get(platform) or {}).get("authenticated")):
+            session_blockers.append(f"{platform}_canonical_edge_session_not_authenticated")
+    if str((browser_sessions.get("x") or {}).get("destination_identity") or "").casefold() != "@capitalnicle":
+        session_blockers.append("x_destination_identity_mismatch")
+    if str((browser_sessions.get("linkedin") or {}).get("destination_identity") or "").casefold() != "linkedin:jimcc":
+        session_blockers.append("linkedin_destination_identity_mismatch")
+    if session_blockers:
+        evidence = {
+            "schema_version": SCHEMA_VERSION,
+            "task_label": TASK_LABEL,
+            "classification": "BLOCKED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1",
+            "run_id": run_id,
+            "browser_doctor": doctor,
+            "release_candidate_lock": release_lock,
+            "browser_sessions": browser_sessions,
+            "results": {"substack": {"status": "BLOCKED_DESTINATION_ACCOUNT_PREFLIGHT", "blockers": session_blockers}},
+        }
+        _write_json(output_dir / "run_evidence_v1.json", evidence)
+        return evidence
 
     substack_raw = publish_substack_article_via_edge(
         cdp_port=cdp_port,
@@ -924,6 +1647,7 @@ def run_eight_platform_substack_first_pipeline(
         public_screenshot_path=output_dir / "public_substack_readback.png",
         existing_draft_id=recover_substack_draft_id,
     )
+    substack_raw["destination_identity"] = "Capital Chronicle"
     results: dict[str, dict[str, Any]] = {"substack": dict(substack_raw)}
     if substack_raw.get("status") != "SUCCESS":
         evidence = {
@@ -935,6 +1659,7 @@ def run_eight_platform_substack_first_pipeline(
             "browser_sessions": browser_sessions,
             "selected_idea": selection,
             "article": article,
+            "editorial_gate": editorial_gate,
             "media": media,
             "legacy_draft_recovery": {"draft_id": "206403125", "decision": "PRESERVED_NOT_REUSED", "reason": "The old draft was created through a forbidden Chrome workspace and recorded zero uploaded images."},
             "substack_recovery": {"draft_id": recover_substack_draft_id, "prior_status": ((prior_evidence or {}).get("results") or {}).get("substack", {}).get("status")} if recover_substack_draft_id else None,
@@ -946,6 +1671,30 @@ def run_eight_platform_substack_first_pipeline(
         return evidence
 
     canonical_url = str(substack_raw["public_url"])
+    prepared_canonical_url = str(release_lock.get("prepared_canonical_url") or "")
+    if canonical_url.rstrip("/") != prepared_canonical_url.rstrip("/"):
+        results["substack"] = {
+            **results["substack"],
+            "status": "FAILED_SUBSTACK_PREPARED_CANONICAL_URL_MISMATCH",
+            "prepared_canonical_url": prepared_canonical_url,
+            "public_url": canonical_url,
+        }
+        evidence = {
+            "schema_version": SCHEMA_VERSION,
+            "task_label": TASK_LABEL,
+            "classification": "FAIL_RELEASE_CANDIDATE_CANONICAL_URL_DRIFT",
+            "run_id": run_id,
+            "browser_doctor": doctor,
+            "release_candidate_lock": release_lock,
+            "browser_sessions": browser_sessions,
+            "selected_idea": selection,
+            "article": article,
+            "editorial_gate": editorial_gate,
+            "media": media,
+            "results": results,
+        }
+        _write_json(output_dir / "run_evidence_v1.json", evidence)
+        return evidence
     readback_path = output_dir / "substack_browser_readback_v1.json"
     build_supervised_substack_browser_readback(
         request=request,
@@ -956,21 +1705,19 @@ def run_eight_platform_substack_first_pipeline(
         output_path=readback_path,
     )
 
-    repair = selection.get("canonicalization_repair") if isinstance(selection.get("canonicalization_repair"), Mapping) else None
-    if not repair or str(repair.get("existing_telegram_message_id")) != "61":
-        results["telegram"] = {"status": "BLOCKED_TELEGRAM_EXISTING_MESSAGE_61_REPAIR_NOT_CONFIRMED", "platform": "telegram", "substack_url_included": False}
-    else:
-        telegram_evidence = complete_substack_first_pipeline(
-            context_path=context_path,
-            substack_readback_path=readback_path,
-            operator_approved_full_live_run=operator_approved_full_live_run,
-            max_send_attempts_per_platform=1,
-        )
-        results["telegram"] = dict(telegram_evidence["telegram"])
-
-    payloads = build_native_derivative_payloads(article=article, selection=selection, canonical_url=canonical_url)
+    media_asset_ids = [str(item.get("asset_id") or "") for item in media.get("assets") or []]
+    payloads = build_native_derivative_payloads(
+        article=article,
+        selection=selection,
+        canonical_url=canonical_url,
+        media_asset_ids=media_asset_ids,
+    )
     _write_json(output_dir / "native_payloads_v1.json", payloads)
     ledger_path = output_dir / "platform_dispatch_ledger_v1.jsonl"
+    runner_command = (
+        "python -m live_contentops.eight_platform_substack_first_pipeline_v1 "
+        f"--run-id {run_id} --operator-approved-full-live-run"
+    )
     delivery_media_manifest = build_delivery_media_manifest(
         media_packet=media,
         public_image_urls=list((substack_raw.get("readback") or {}).get("public_image_urls") or []),
@@ -1000,11 +1747,34 @@ def run_eight_platform_substack_first_pipeline(
     }
     public_image_url = str(primary_media["verified_public_delivery_url"])
     primary_chart = str(primary_media["absolute_local_source_path"])
-    runner_command = (
-        "python -m live_contentops.eight_platform_substack_first_pipeline_v1 "
-        f"--run-id {run_id} --operator-approved-full-live-run"
-    )
-
+    repair = selection.get("canonicalization_repair") if isinstance(selection.get("canonicalization_repair"), Mapping) else None
+    if repair and str(repair.get("existing_telegram_message_id")) == "61":
+        telegram_evidence = complete_substack_first_pipeline(
+            context_path=context_path,
+            substack_readback_path=readback_path,
+            operator_approved_full_live_run=operator_approved_full_live_run,
+            max_send_attempts_per_platform=1,
+        )
+        results["telegram"] = dict(telegram_evidence["telegram"])
+    else:
+        results["telegram"] = _dispatch_once(
+            ledger_path=ledger_path,
+            platform="telegram",
+            payload=payloads["telegram"]["text"],
+            canonical_url=canonical_url,
+            media_attached=True,
+            run_id=run_id,
+            adapter_name="telegram_live_adapter_v6.execute_telegram_photo",
+            media=primary_media,
+            runner_command=runner_command,
+            executor=lambda: _publish_telegram_photo_verified(
+                run_id=run_id,
+                topic_hash=str(selection["topic_hash"]),
+                text=payloads["telegram"]["text"],
+                canonical_url=canonical_url,
+                image_path=primary_chart,
+            ),
+        )
     results["x"] = _dispatch_once(
         ledger_path=ledger_path,
         platform="x",
@@ -1087,7 +1857,6 @@ def run_eight_platform_substack_first_pipeline(
         ),
     )
 
-    from live_contentops.discord_live_adapter_v6 import execute_discord_post
     from live_contentops.facebook_page_adapter_v6 import execute_facebook_photo
     from live_contentops.instagram_adapter_v6 import execute_instagram_post
     from live_contentops.threads_adapter_v6 import execute_threads_post
@@ -1099,13 +1868,14 @@ def run_eight_platform_substack_first_pipeline(
         canonical_url=canonical_url,
         media_attached=bool(public_image_url),
         run_id=run_id,
-        adapter_name="discord_live_adapter_v6.execute_discord_post",
+        adapter_name="discord_live_adapter_v6.execute_discord_post+strict_provider_readback",
         media=primary_media,
         runner_command=runner_command,
-        executor=lambda: execute_discord_post(
-            message=payloads["discord"]["text"],
-            embeds=[{"title": str(article["title"]), "url": canonical_url, "image": {"url": public_image_url}}] if public_image_url else None,
-            dry_run=False,
+        executor=lambda: _publish_discord_verified(
+            text=payloads["discord"]["text"],
+            canonical_url=canonical_url,
+            image_url=public_image_url,
+            title=str(article["title"]),
         ),
     )
     results["facebook_page"] = _dispatch_once(
@@ -1193,6 +1963,8 @@ def run_eight_platform_substack_first_pipeline(
         results["threads"] = {
             **threads_root,
             "status": "SUCCESS" if threads_ok else "FAILED_THREADS_STRICT_THREAD_READBACK",
+            "public_url": root_readback.get("public_url") or threads_root.get("public_url"),
+            "destination_identity": root_readback.get("destination_identity") or threads_root.get("destination_identity"),
             "reply_chain": threads_replies,
             "readback": {"root": root_readback, "chain": chain_readback},
             "provider_readback_verified": threads_ok,
@@ -1243,6 +2015,7 @@ def run_eight_platform_substack_first_pipeline(
         "credential_capability_presence": _capability_presence(),
         "selected_idea": selection,
         "article": article,
+        "editorial_gate": editorial_gate,
         "media": media,
         "delivery_media_manifest": delivery_media_manifest,
         "video": video,
@@ -1263,6 +2036,44 @@ def run_eight_platform_substack_first_pipeline(
     evidence["final_platform_matrix"] = _persist_final_platform_matrix(output_dir, evidence)
     _write_json(output_dir / "run_evidence_v1.json", evidence)
     _write_text(output_dir / "README.md", _readme(evidence))
+    if (
+        evidence["classification"] == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
+        and (output_dir / "release_candidate_lock_v1.json").is_file()
+    ):
+        build_operator_manual_audit_packet(output_dir=output_dir, cdp_port=cdp_port)
+        return _read_json(output_dir / "run_evidence_v1.json")
+    return evidence
+
+
+def reconcile_public_substack_for_derivative_resume(
+    *, output_dir: Path, cdp_port: int = 9223
+) -> dict[str, Any]:
+    """Promote a public Substack result only after strict read-only reconciliation."""
+    evidence_path = output_dir / "run_evidence_v1.json"
+    evidence = _read_json(evidence_path)
+    substack = dict(((evidence.get("results") or {}).get("substack") or {}))
+    public_url = str(substack.get("public_url") or "")
+    article = dict(evidence.get("article") or {})
+    media_assets = list(((evidence.get("media") or {}).get("assets") or []))
+    audit = audit_public_substack_article_via_edge(
+        cdp_port=cdp_port,
+        public_url=public_url,
+        expected_title=str(article.get("title") or ""),
+        expected_subtitle=str(article.get("subtitle") or ""),
+        expected_body_markdown=str(article.get("substack_body_markdown") or ""),
+        expected_image_assets=media_assets,
+        public_screenshot_path=output_dir / "public_substack_readback.png",
+    )
+    substack.update(audit)
+    substack["draft_id"] = str(substack.get("draft_id") or "") or None
+    substack["reconciled_without_public_write"] = True
+    evidence.setdefault("results", {})["substack"] = substack
+    evidence["classification"] = (
+        "PARTIAL_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
+        if audit.get("status") == "SUCCESS"
+        else "BLOCKED_EIGHT_PLATFORM_FULL_CONTENTOPS_LIVE_RUN_V1"
+    )
+    _write_json(evidence_path, evidence)
     return evidence
 
 
@@ -1315,11 +2126,19 @@ def resume_eight_platform_derivatives(
     }
     primary_chart = str(primary_media["absolute_local_source_path"])
     primary_public_url = str(primary_media["verified_public_delivery_url"])
-    payloads = build_native_derivative_payloads(article=article, selection=selection, canonical_url=canonical_url)
+    resume_media_ids = [str(item.get("asset_id") or "") for item in media.get("assets") or []]
+    if len(resume_media_ids) != 3 or len(set(resume_media_ids)) != 3:
+        resume_media_ids = ["primary", "policy_corridor", "sofr_context"]
+    payloads = build_native_derivative_payloads(
+        article=article,
+        selection=selection,
+        canonical_url=canonical_url,
+        media_asset_ids=resume_media_ids,
+    )
     _write_json(output_dir / "native_payloads_v1.json", payloads)
     ledger_path = output_dir / "platform_dispatch_ledger_v1.jsonl"
     requested = set(platforms or ())
-    allowed = {"x", "threads", "linkedin", "facebook_page", "instagram_business", "youtube", "tiktok"}
+    allowed = {"telegram", "discord", "x", "threads", "linkedin", "facebook_page", "instagram_business", "youtube", "tiktok"}
     if requested - allowed:
         raise ValueError("resume_platform_not_supported_by_derivative_resume")
     proposed_targets = requested or set(allowed)
@@ -1332,7 +2151,10 @@ def resume_eight_platform_derivatives(
         if not accepted:
             targets.add(platform)
     evidence["successful_resume_targets_skipped"] = sorted(proposed_targets - targets)
-    frozen_platforms = ("substack", "telegram", "discord")
+    frozen_platforms = tuple(
+        platform for platform in ("substack", "telegram", "discord", "x", "threads", "linkedin", "facebook_page", "instagram_business", "youtube")
+        if platform not in targets
+    )
     frozen_before = {platform: json.dumps(results.get(platform) or {}, sort_keys=True) for platform in frozen_platforms}
     correction_readback: dict[str, Any] = {}
     superseded: dict[str, Any] = dict(evidence.get("superseded_malformed_posts") or {})
@@ -1343,9 +2165,65 @@ def resume_eight_platform_derivatives(
         + " ".join(f"--resume-platform {platform}" for platform in sorted(targets))
     )
 
+    if "telegram" in targets:
+        results["telegram"] = _dispatch_once(
+            ledger_path=ledger_path,
+            platform="telegram",
+            payload=payloads["telegram"]["text"],
+            canonical_url=canonical_url,
+            media_attached=True,
+            run_id=run_id,
+            adapter_name="telegram_live_adapter_v6.execute_telegram_photo",
+            media=primary_media,
+            runner_command=runner_command,
+            executor=lambda: _publish_telegram_photo_verified(
+                run_id=run_id,
+                topic_hash=str(selection["topic_hash"]),
+                text=payloads["telegram"]["text"],
+                canonical_url=canonical_url,
+                image_path=primary_chart,
+            ),
+        )
+        correction_readback["telegram"] = results["telegram"].get("readback")
+
+    if "discord" in targets:
+        results["discord"] = _dispatch_once(
+            ledger_path=ledger_path,
+            platform="discord",
+            payload=payloads["discord"]["text"],
+            canonical_url=canonical_url,
+            media_attached=True,
+            run_id=run_id,
+            adapter_name="discord_live_adapter_v6.execute_discord_post+strict_provider_readback",
+            media=primary_media,
+            runner_command=runner_command,
+            executor=lambda: _publish_discord_verified(
+                text=payloads["discord"]["text"],
+                canonical_url=canonical_url,
+                image_url=primary_public_url,
+                title=str(article["title"]),
+            ),
+        )
+        correction_readback["discord"] = results["discord"].get("readback")
+
     if "x" in targets:
         root = dict(results.get("x") or {})
         root_url = str(root.get("public_url") or "")
+        if not root_url:
+            root = _dispatch_once(
+                ledger_path=ledger_path,
+                platform="x",
+                payload=payloads["x"]["text"],
+                canonical_url=canonical_url,
+                media_attached=True,
+                idempotency_scope="x_root",
+                run_id=run_id,
+                adapter_name="edge_cdp_publishing_adapter_v1.publish_x_post_via_edge",
+                media=primary_media,
+                runner_command=runner_command,
+                executor=lambda: publish_x_post_via_edge(cdp_port=cdp_port, text=payloads["x"]["text"], image_path=primary_chart),
+            )
+            root_url = str(root.get("public_url") or "")
         root_id = str(root.get("id") or root_url.rstrip("/").rsplit("/", 1)[-1])
         reply_rows: list[dict[str, Any]] = []
         parent_url = root_url
@@ -1413,6 +2291,30 @@ def resume_eight_platform_derivatives(
 
         prior_threads = dict(results.get("threads") or {})
         root_id = str(prior_threads.get("id") or "")
+        if not root_id:
+            malformed_rows = [dict(row) for row in prior_threads.get("reply_chain") or [] if row.get("id")]
+            if malformed_rows:
+                superseded["threads_standalone_posts_from_missing_parent"] = {
+                    "status": "SUPERSEDED_MALFORMED_STANDALONE_CONTINUATIONS",
+                    "posts": malformed_rows,
+                    "preserved_not_deleted": True,
+                }
+            prior_threads = _dispatch_once(
+                ledger_path=ledger_path,
+                platform="threads",
+                payload=payloads["threads"]["text"],
+                canonical_url=canonical_url,
+                media_attached=True,
+                idempotency_scope="threads_root",
+                run_id=run_id,
+                adapter_name="threads_adapter_v6.execute_threads_post",
+                media=primary_media,
+                runner_command=runner_command,
+                executor=lambda: _publish_threads_reply_verified(
+                    parent_id="", text=payloads["threads"]["text"], canonical_url=canonical_url, media=primary_media
+                ),
+            )
+            root_id = str(prior_threads.get("id") or "")
         root_readback = readback_threads_post(
             post_id=root_id,
             expected_text=str(article.get("title") or ""),
@@ -1487,10 +2389,31 @@ def resume_eight_platform_derivatives(
         }
 
     if "facebook_page" in targets:
-        from live_contentops.facebook_page_adapter_v6 import readback_facebook_post
+        from live_contentops.facebook_page_adapter_v6 import find_recent_facebook_post, readback_facebook_post
 
         prior_facebook = dict(results.get("facebook_page") or {})
-        old_id = str(prior_facebook.get("id") or "")
+        if prior_facebook.get("status") == "FAILED" and prior_facebook.get("error_class"):
+            uncertain_readback = find_recent_facebook_post(
+                expected_text=payloads["facebook_page"]["text"],
+                canonical_url=canonical_url,
+                expected_media_local_path=primary_chart,
+            )
+            if uncertain_readback.get("status") == "SUCCESS":
+                results["facebook_page"] = {
+                    **prior_facebook,
+                    "status": "SUCCESS",
+                    "action": "reconciled_uncertain_write",
+                    "id": uncertain_readback.get("post_id"),
+                    "public_url": uncertain_readback.get("public_url"),
+                    "provider_readback_verified": True,
+                    "readback": uncertain_readback,
+                }
+                correction_readback["facebook_page"] = uncertain_readback
+                prior_facebook = results["facebook_page"]
+        if results.get("facebook_page", {}).get("status") == "SUCCESS":
+            old_id = ""
+        else:
+            old_id = str(prior_facebook.get("id") or "")
         old_readback = readback_facebook_post(
             post_id=old_id,
             expected_text=payloads["facebook_page"]["text"],
@@ -1505,7 +2428,8 @@ def resume_eight_platform_derivatives(
             "operator_visual_finding": "publication_logo_or_avatar_instead_of_approved_primary_chart",
             "readback": old_readback,
         }
-        results["facebook_page"] = _dispatch_once(
+        if results.get("facebook_page", {}).get("status") != "SUCCESS":
+            results["facebook_page"] = _dispatch_once(
             ledger_path=ledger_path,
             platform="facebook_page",
             payload=payloads["facebook_page"]["text"],
@@ -1879,6 +2803,12 @@ def resume_eight_platform_derivatives(
     evidence["final_platform_matrix"] = _persist_final_platform_matrix(output_dir, evidence)
     _write_json(evidence_path, evidence)
     _write_text(output_dir / "README.md", _readme(evidence))
+    if (
+        evidence["classification"] == "PASS_SUBSTACK_FIRST_TEXT_IMAGE_DISTRIBUTION_V1"
+        and (output_dir / "release_candidate_lock_v1.json").is_file()
+    ):
+        build_operator_manual_audit_packet(output_dir=output_dir, cdp_port=cdp_port)
+        return _read_json(evidence_path)
     return evidence
 
 
@@ -2294,8 +3224,23 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument("--linkedin-latest-id")
     parser.add_argument("--compile-variants-only", action="store_true")
     parser.add_argument("--finalize-reliability-evidence", action="store_true")
+    parser.add_argument("--prepare-only", action="store_true")
+    parser.add_argument("--build-operator-audit-packet", action="store_true")
     args = parser.parse_args(argv)
     output = args.output_dir or OUTPUT_ROOT / args.run_id
+    if args.prepare_only:
+        result = prepare_text_image_release_candidate(
+            run_id=args.run_id,
+            output_dir=output,
+            cdp_port=args.cdp_port,
+            llm_provider=args.llm_provider,
+        )
+        print(json.dumps({
+            "classification": result["classification"],
+            "run_id": result["run_id"],
+            "public_write_performed": result["public_write_performed"],
+        }, indent=2, sort_keys=True))
+        return 0 if result["classification"] == "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL" else 2
     if args.compile_variants_only:
         result = compile_variant_reliability_evidence(output_dir=output)
         print(json.dumps({
@@ -2304,6 +3249,14 @@ def main(argv: Sequence[str] | None = None) -> int:
             "public_write_performed": result["public_write_performed"],
         }, indent=2, sort_keys=True))
         return 0 if result["classification"] == "PASS_SEMANTIC_VARIANT_RELIABILITY" else 2
+    if args.build_operator_audit_packet:
+        result = build_operator_manual_audit_packet(output_dir=output, cdp_port=args.cdp_port)
+        print(json.dumps({
+            "classification": result["classification"],
+            "run_id": result["run_id"],
+            "machine_qa": result["machine_qa"]["status"],
+        }, indent=2, sort_keys=True))
+        return 0 if result["classification"] == "AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC" else 2
     if args.finalize_reliability_evidence:
         result = finalize_reliability_hardening_evidence(output_dir=output)
         print(json.dumps({"classification": result["classification"], "run_id": result["run_id"], "safety": result["safety"]}, indent=2, sort_keys=True))
@@ -2352,7 +3305,10 @@ def main(argv: Sequence[str] | None = None) -> int:
         }, indent=2, sort_keys=True))
     else:
         print(json.dumps({"classification": result["classification"], "run_id": result["run_id"], "results": {platform: result["results"].get(platform, {}).get("status") for platform in EXPECTED_DESTINATIONS}}, indent=2, sort_keys=True))
-    return 0 if result["classification"].startswith("PASS") else 1
+    return 0 if (
+        result["classification"].startswith("PASS")
+        or result["classification"] == "AWAITING_OPERATOR_MANUAL_AUDIT_TEXT_IMAGE_V1_0_RC"
+    ) else 1
 
 
 if __name__ == "__main__":

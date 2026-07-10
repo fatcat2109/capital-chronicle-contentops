@@ -29,6 +29,7 @@ def test_no_forbidden_imports_or_env_vars():
         "instagram_adapter_v6.py",
         "threads_adapter_v6.py",
         "discord_live_adapter_v6.py",
+        "eight_platform_substack_first_pipeline_v1.py",
         "telegram_live_adapter_v6.py",
         "substack_browser_adapter_v6.py",
         "x_browser_adapter_v6.py",
@@ -38,11 +39,16 @@ def test_no_forbidden_imports_or_env_vars():
         "google_image_search_v6.py",
         "platform_native_variant_generator_live_v6.py",
         "live_production_pipeline_runner_v6.py",
+        "fast_one_cycle_automation_v0.py",
         "grounded_search_engine_v6.py",
     }
     urllib_network_allowlist = live_gate_allowlist | {
+        "current_oil_release_source_v1.py",
+        "edge_cdp_publishing_adapter_v1.py",
         "live_readonly_probe_registry.py",
         "media_content_audit_v6.py",
+        "media_manifest_authority_v1.py",
+        "publishing_profile_registry_v1.py",
     }
 
     # Modules allowed to perform env lookups for configuration (excluding generic modules)
@@ -54,6 +60,9 @@ def test_no_forbidden_imports_or_env_vars():
         "operator_recovery_to_explicit_live_scope_gate_source_candidate_v6.py",
         "discord_supervised_live_preflight_v6.py",
         "grounded_news_angle_workbench.py",
+        "publishing_profile_registry_v1.py",
+        "source_chart_short_video_v1.py",
+        "video_platform_capability_matrix_v1.py",
     }
 
     for p in root.rglob("*.py"):

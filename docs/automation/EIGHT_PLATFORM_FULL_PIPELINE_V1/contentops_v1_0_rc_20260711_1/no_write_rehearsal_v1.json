@@ -1,0 +1,680 @@
+{
+  "account_preflight": {
+    "linkedin": {
+      "authenticated": true,
+      "authenticated_ui_selector": "text=Start a post",
+      "cookies_read": false,
+      "destination_identity": "linkedin:jimcc",
+      "dom_dump_persisted": false,
+      "login_control_detected": false,
+      "page_domain": "www.linkedin.com",
+      "platform": "linkedin",
+      "profile_id": "contentops-social-main",
+      "storage_read": false
+    },
+    "substack": {
+      "authenticated": true,
+      "authenticated_ui_selector": "#post-title",
+      "cookies_read": false,
+      "destination_identity": null,
+      "dom_dump_persisted": false,
+      "login_control_detected": false,
+      "page_domain": "capitalchronicle.substack.com",
+      "platform": "substack",
+      "profile_id": "contentops-social-main",
+      "storage_read": false
+    },
+    "x": {
+      "authenticated": true,
+      "authenticated_ui_selector": "[data-testid='tweetTextarea_0']",
+      "cookies_read": false,
+      "destination_identity": "@Capitalnicle",
+      "dom_dump_persisted": false,
+      "login_control_detected": false,
+      "page_domain": "x.com",
+      "platform": "x",
+      "profile_id": "contentops-social-main",
+      "storage_read": false
+    },
+    "youtube": {
+      "authenticated": true,
+      "authenticated_ui_selector": "button[aria-label*='T\u1ea1o']",
+      "cookies_read": false,
+      "destination_identity": null,
+      "dom_dump_persisted": false,
+      "login_control_detected": false,
+      "page_domain": "studio.youtube.com",
+      "platform": "youtube",
+      "profile_id": "contentops-social-main",
+      "storage_read": false
+    }
+  },
+  "article": {
+    "body_sha256": "b98329d37c3c25f154ff8b4d5968a8d8f3c8f2bea67571ea2dfd9ea70c7e4146",
+    "meta_description": "EIA expects oil output and trade to approach pre-conflict levels by year-end as Hormuz flows resume, reshaping Brent, gasoline and inflation risks.",
+    "seo_title": "EIA Oil Forecast: Hormuz Reopening Reshapes Supply",
+    "slug": "eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+    "subtitle": "The agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.",
+    "title": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume",
+    "word_count": 807
+  },
+  "blockers": [],
+  "browser_doctor": {
+    "edge_binary_found": true,
+    "ports": [
+      {
+        "canonical_edge_owner": false,
+        "cdp_port": 9222,
+        "cdp_probe": {
+          "browser_family": "non_edge_browser",
+          "cdp_alive": true,
+          "websocket_available": true
+        },
+        "owner_classes": [
+          "chrome_or_chromium:unknown_profile_blocked",
+          "chrome_or_chromium:unknown_profile_blocked",
+          "chrome_or_chromium:unknown_profile_blocked",
+          "chrome_or_chromium:unknown_profile_blocked",
+          "chrome_or_chromium:unknown_profile_blocked",
+          "chrome_or_chromium:unknown_profile_blocked"
+        ],
+        "owner_count": 6,
+        "status": "blocked_by_noncanonical_owner"
+      },
+      {
+        "canonical_edge_owner": true,
+        "cdp_port": 9223,
+        "cdp_probe": {
+          "browser_family": "microsoft_edge",
+          "cdp_alive": true,
+          "websocket_available": true
+        },
+        "owner_classes": [
+          "microsoft_edge:canonical_contentops_profile",
+          "microsoft_edge:canonical_contentops_profile",
+          "microsoft_edge:canonical_contentops_profile",
+          "microsoft_edge:canonical_contentops_profile",
+          "microsoft_edge:canonical_contentops_profile",
+          "microsoft_edge:canonical_contentops_profile"
+        ],
+        "owner_count": 6,
+        "status": "canonical_edge_owner"
+      }
+    ],
+    "profile_root_exists": true,
+    "recommended_cdp_port": 9223,
+    "registry": {
+      "allowed_cdp_ports": [
+        9222,
+        9223
+      ],
+      "browser_family": "microsoft_edge",
+      "browser_storage_read_allowed": false,
+      "builtin_edge_profile_publishing_allowed": false,
+      "chrome_publishing_allowed": false,
+      "profile_id": "contentops-social-main",
+      "profile_root": "A:\\Capital Chronicle\\operator-browser-profiles\\contentops-social-main",
+      "profile_root_persistable_in_git": false,
+      "schema_version": "contentops.publishing_profile_registry.v1",
+      "temporary_profile_publishing_allowed": false
+    },
+    "safety": {
+      "cookies_read": false,
+      "local_storage_read": false,
+      "raw_command_line_persisted": false,
+      "session_storage_read": false,
+      "tokens_read": false
+    },
+    "schema_version": "contentops.publishing_profile_registry.v1",
+    "status": "READY_TO_ATTACH"
+  },
+  "classification": "PASS_TEXT_IMAGE_RELEASE_CANDIDATE_REHEARSAL",
+  "created_at": "2026-07-10T20:32:04.699510Z",
+  "credential_capability_presence": {
+    "discord": true,
+    "facebook_page": true,
+    "instagram_business": true,
+    "telegram": true,
+    "threads": true,
+    "tiktok": false,
+    "youtube": true
+  },
+  "destination_account_map": {
+    "discord": {
+      "capability_present": true,
+      "intended": "Capital Chronicle newsroom webhook destination"
+    },
+    "facebook_page": {
+      "capability_present": true,
+      "intended": "Capital Chronicle"
+    },
+    "instagram_business": {
+      "capability_present": true,
+      "intended": "official.capitalchronicle"
+    },
+    "linkedin": {
+      "intended": "Jim Pham / linkedin:jimcc",
+      "observed": {
+        "authenticated": true,
+        "authenticated_ui_selector": "text=Start a post",
+        "cookies_read": false,
+        "destination_identity": "linkedin:jimcc",
+        "dom_dump_persisted": false,
+        "login_control_detected": false,
+        "page_domain": "www.linkedin.com",
+        "platform": "linkedin",
+        "profile_id": "contentops-social-main",
+        "storage_read": false
+      }
+    },
+    "substack": {
+      "intended": "Capital Chronicle",
+      "observed": {
+        "authenticated": true,
+        "authenticated_ui_selector": "#post-title",
+        "cookies_read": false,
+        "destination_identity": null,
+        "dom_dump_persisted": false,
+        "login_control_detected": false,
+        "page_domain": "capitalchronicle.substack.com",
+        "platform": "substack",
+        "profile_id": "contentops-social-main",
+        "storage_read": false
+      }
+    },
+    "telegram": {
+      "capability_present": true,
+      "intended": "@CapitalChronicle"
+    },
+    "threads": {
+      "capability_present": true,
+      "intended": "official.capitalchronicle"
+    },
+    "x": {
+      "intended": "@Capitalnicle",
+      "observed": {
+        "authenticated": true,
+        "authenticated_ui_selector": "[data-testid='tweetTextarea_0']",
+        "cookies_read": false,
+        "destination_identity": "@Capitalnicle",
+        "dom_dump_persisted": false,
+        "login_control_detected": false,
+        "page_domain": "x.com",
+        "platform": "x",
+        "profile_id": "contentops-social-main",
+        "storage_read": false
+      }
+    },
+    "youtube_community": {
+      "intended": "@CapitalChronicleYouTube",
+      "observed": {
+        "authenticated": true,
+        "authenticated_ui_selector": "button[aria-label*='T\u1ea1o']",
+        "cookies_read": false,
+        "destination_identity": null,
+        "dom_dump_persisted": false,
+        "login_control_detected": false,
+        "page_domain": "studio.youtube.com",
+        "platform": "youtube",
+        "profile_id": "contentops-social-main",
+        "storage_read": false
+      }
+    }
+  },
+  "editorial_gate": {
+    "combined_gate": {
+      "blockers": [],
+      "classification": "PASS",
+      "deterministic_pass": true,
+      "llm_cannot_override_deterministic_blockers": true,
+      "llm_semantic_pass": true,
+      "publication_authority": false
+    },
+    "deterministic_review": {
+      "caveat_count": 1,
+      "classification": "PASS",
+      "duplicated_sentence_count": 2,
+      "editorial_blockers": [
+        "high_information_density"
+      ],
+      "editorial_checks": {
+        "concise_nut_graf": true,
+        "confirmation_condition": true,
+        "context_present": true,
+        "falsification_condition": true,
+        "high_information_density": false,
+        "lede_market_consequence": true,
+        "lede_what_changed": true,
+        "lede_why_now": true,
+        "mechanism_present": true,
+        "mode_declared": true,
+        "named_next_catalysts": true,
+        "no_fabricated_quotes": true,
+        "no_financial_advice": true,
+        "no_process_language": true,
+        "single_caveat": true
+      },
+      "editorial_score": 93,
+      "filler_hits": [],
+      "process_language_hits": [],
+      "rendered_body_sha256": "5b67af28f1face43057e95094ab74a7bfcbbc8bfae31e92510daa89a1e10b0c6",
+      "schema_version": "contentops.tier1_editorial_quality.v1",
+      "seo_blockers": [],
+      "seo_checks": {
+        "canonical_url_metadata": true,
+        "chart_metadata": true,
+        "clean_rendered_body": true,
+        "heading_hierarchy": true,
+        "meta_description": true,
+        "primary_topic_in_opening": true,
+        "reader_headline": true,
+        "semantic_keyword_coverage": true,
+        "seo_title": true,
+        "slug": true,
+        "social_og_lead_media": true,
+        "source_reference_links": true,
+        "title_dek_not_duplicated": true,
+        "visual_markers_complete": true
+      },
+      "seo_score": 100,
+      "source_urls": [
+        "https://fred.stlouisfed.org/series/DCOILWTICO",
+        "https://www.eia.gov/outlooks/steo/",
+        "https://www.eia.gov/petroleum/supply/weekly/",
+        "https://www.eia.gov/pressroom/releases/press590.php",
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"
+      ],
+      "visual_asset_ids": [
+        "primary",
+        "recent_price",
+        "multi_year_range"
+      ],
+      "word_count": 777
+    },
+    "llm_semantic_review": {
+      "checks": {
+        "clear_news_peg": true,
+        "concise_nut_graf": true,
+        "high_information_density": true,
+        "material_market_consequence": true,
+        "mode_consistent": true,
+        "no_fabricated_quotes": true,
+        "no_financial_advice": true,
+        "no_unsupported_certainty": true,
+        "reader_facing_prose": true,
+        "relevant_context": true,
+        "source_backed_mechanism": true,
+        "specific_confirmation_condition": true,
+        "specific_falsification_condition": true,
+        "why_now": true
+      },
+      "decision": "PASS",
+      "failed_checks": [],
+      "issues": [],
+      "missing_or_invalid_checks": [],
+      "mode": "analysis",
+      "prompt_sha256": "7883d0fea5bf88786a3c27e8c7b3b9d18750ed254c3ebde6ca44323974636e09",
+      "provider": "9router",
+      "publication_authority": false,
+      "review_sha256": "bc0c7d73f4394b1b92fe427e7ee706e6fbb02dbf2596d92c10b386b9dbf2d5c4",
+      "status": "SUCCESS",
+      "summary": "The article meets all Capital Chronicle standards. It provides a clear news peg based on the July 7, 2026 EIA forecast update, outlines specific market consequences across asset classes, and establishes concrete, named catalysts (the July 15 Weekly Petroleum Status Report and the August 11 Short-Term Energy Outlook) for confirmation and falsification checks. The analytical tone is maintained throughout without offering financial advice."
+    },
+    "schema_version": "contentops.substack_first_editorial_gate.v1"
+  },
+  "media_asset_ids": [
+    "primary",
+    "recent_price",
+    "multi_year_range"
+  ],
+  "media_objects": [
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_assets\\slot_4\\wti_current_volatility_context_9302511000fa.png",
+      "alt_text": "Two-panel chart showing current WTI crude oil price and rolling absolute daily moves using FRED data.",
+      "canonical_article_section_association": "current_market_signal_and_supply_repricing",
+      "caption": "WTI crude oil price and 30-day realized volatility through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+      "chart_title": "WTI Crude Oil: Current Price Context and Realized Volatility",
+      "height": 1080,
+      "media_asset_id": "primary",
+      "media_role": "primary_chart",
+      "mime_type": "image/png",
+      "sha256": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+      "source_provenance": {
+        "provenance_status": "source_backed_generated_from_public_data",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO"
+      },
+      "width": 1725
+    },
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_assets\\slot_4\\wti_recent_price_context_9302511000fa.png",
+      "alt_text": "Line chart showing the recent WTI crude oil price path using FRED data.",
+      "canonical_article_section_association": "hormuz_flow_and_price_mechanism",
+      "caption": "Recent WTI price path through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+      "chart_title": "WTI Crude Oil: Recent Price Path",
+      "height": 870,
+      "media_asset_id": "recent_price",
+      "media_role": "supporting_chart",
+      "mime_type": "image/png",
+      "sha256": "b940fb6b8464b8c0e4028a0c5874436d456facb9afd1851b64b2e76dcb33d076",
+      "source_provenance": {
+        "provenance_status": "source_backed_generated_from_public_data",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO"
+      },
+      "width": 1620
+    },
+    {
+      "absolute_local_source_path": "A:\\Capital Chronicle\\tools\\cc-live-contentops-editorial-qa\\docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_assets\\slot_4\\wti_multi_year_range_context_9302511000fa.png",
+      "alt_text": "Chart showing recent annual WTI crude oil low-high ranges and annual averages using FRED data.",
+      "canonical_article_section_association": "cross_asset_and_historical_regime_context",
+      "caption": "WTI annual price range and average context through 2026-07-06. Source: FRED series DCOILWTICO; underlying source: U.S. Energy Information Administration.",
+      "chart_title": "WTI Crude Oil: Multi-Year Price Range Context",
+      "height": 870,
+      "media_asset_id": "multi_year_range",
+      "media_role": "supporting_chart",
+      "mime_type": "image/png",
+      "sha256": "400eac0a7cdd1cb7fdb65db0770afc60400aa3b1f34c7b8674755ab93bf541bf",
+      "source_provenance": {
+        "provenance_status": "source_backed_generated_from_public_data",
+        "source_label": "FRED / U.S. Energy Information Administration",
+        "source_page_url": "https://fred.stlouisfed.org/series/DCOILWTICO"
+      },
+      "width": 1620
+    }
+  ],
+  "media_sha256": {
+    "multi_year_range": "400eac0a7cdd1cb7fdb65db0770afc60400aa3b1f34c7b8674755ab93bf541bf",
+    "primary": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+    "recent_price": "b940fb6b8464b8c0e4028a0c5874436d456facb9afd1851b64b2e76dcb33d076"
+  },
+  "payload_sha256": {
+    "discord": "7ea896fe101d86951caf5f00c573cbd3ecb188075a3ecab8baca826aefdb0941",
+    "facebook_page": "86227241ef9e036f908facb8a5342580056848ab1a039146a979b5d65b4d6e36",
+    "instagram_business": "9f32f1a710d5377b8debd6869555c3f7e007d04a51898cda60ce21d84b09349f",
+    "linkedin": "0128a5eb846241c209e29851cfde8cb909ad47d85953f6512d59a25948f9bb3f",
+    "telegram": "6c9ac5c44256e57641b2f40f2e6656c28d4f18ab12d17f48c40bd9b63c44e66c",
+    "threads": "b7c7de54f624e18483fc950673f04fdfb8e89492c0d65909a75785b25715bcda",
+    "tiktok": "57813d5066e5ef8ac55cbc4480c0b9c60827f6a1fd48507e60c2207e8c13ccf7",
+    "x": "86aa2fa8b330fac9937363b441e8a0a801b0e12f0384ab805e8f6f4e4cba7980",
+    "youtube": "990379038431dc2e19df6f54956ad753d6b05e60d13c50db97e9d83d4c3398e9"
+  },
+  "platform_layouts": {
+    "threads": {
+      "format": "root_chart_post_with_ordered_media_replies",
+      "full_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume\n\nWhy it matters: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices.\n\nFor informational purposes only; not financial advice.\n\nPolicy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. Cross-asset context: A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "semantic_three_post_thread",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "article_sections": [
+            "lede_and_current_market_signal"
+          ],
+          "media_asset_ids": [
+            "primary"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume"
+        },
+        {
+          "article_sections": [
+            "market_mechanism"
+          ],
+          "media_asset_ids": [
+            "recent_price"
+          ],
+          "order": 1,
+          "role": "reply",
+          "text": "Why it matters: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices.\n\nFor informational purposes only; not financial advice."
+        },
+        {
+          "article_sections": [
+            "policy_and_cross_asset_context",
+            "confirmation_and_limits"
+          ],
+          "media_asset_ids": [
+            "multi_year_range"
+          ],
+          "order": 2,
+          "role": "reply",
+          "text": "Policy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. Cross-asset context: A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 3,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.664,
+          0.48,
+          0.758
+        ],
+        "post_character_counts": [
+          332,
+          240,
+          379
+        ],
+        "reply_count": 2,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.633,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Why it matters: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices.\n\nFor informational purposes only; not financial advice.",
+        "Policy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. Cross-asset context: A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields."
+      ],
+      "reserved_costs": {
+        "canonical_url_characters": 105,
+        "media_characters": 0
+      },
+      "root_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+      "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume"
+    },
+    "x": {
+      "format": "root_chart_post_with_ordered_replies",
+      "full_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nEIA expects crude flows to approach pre-conflict levels by year-end.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume\n\nWhy it matters: Reopened Hormuz transit and restored output will test whether inventories rebuild and crude prices keep falling.\n\nFor informational purposes only; not financial advice.\n\nPolicy context: Cheaper gasoline can ease headline inflation without settling Federal Reserve policy. Cross-asset context: Lower oil can help energy importers while pressuring producer revenues.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "semantic_three_post_thread",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "article_sections": [
+            "lede_and_current_market_signal"
+          ],
+          "media_asset_ids": [
+            "primary"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nEIA expects crude flows to approach pre-conflict levels by year-end.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume"
+        },
+        {
+          "article_sections": [
+            "market_mechanism"
+          ],
+          "media_asset_ids": [
+            "recent_price"
+          ],
+          "order": 1,
+          "role": "reply",
+          "text": "Why it matters: Reopened Hormuz transit and restored output will test whether inventories rebuild and crude prices keep falling.\n\nFor informational purposes only; not financial advice."
+        },
+        {
+          "article_sections": [
+            "policy_and_cross_asset_context",
+            "confirmation_and_limits"
+          ],
+          "media_asset_ids": [
+            "multi_year_range"
+          ],
+          "order": 2,
+          "role": "reply",
+          "text": "Policy context: Cheaper gasoline can ease headline inflation without settling Federal Reserve policy. Cross-asset context: Lower oil can help energy importers while pressuring producer revenues."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 3,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.864,
+          0.657,
+          0.693
+        ],
+        "post_character_counts": [
+          242,
+          184,
+          194
+        ],
+        "reply_count": 2,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.76,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Why it matters: Reopened Hormuz transit and restored output will test whether inventories rebuild and crude prices keep falling.\n\nFor informational purposes only; not financial advice.",
+        "Policy context: Cheaper gasoline can ease headline inflation without settling Federal Reserve policy. Cross-asset context: Lower oil can help energy importers while pressuring producer revenues."
+      ],
+      "reserved_costs": {
+        "canonical_url_characters": 105,
+        "media_characters": 0
+      },
+      "root_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nEIA expects crude flows to approach pre-conflict levels by year-end.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+      "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nEIA expects crude flows to approach pre-conflict levels by year-end.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume"
+    }
+  },
+  "platform_length_checks": {
+    "discord": {
+      "platform_limit": 2000,
+      "reply_characters": [],
+      "root_characters": 597
+    },
+    "facebook_page": {
+      "platform_limit": null,
+      "reply_characters": [],
+      "root_characters": 618
+    },
+    "instagram_business": {
+      "platform_limit": 2200,
+      "reply_characters": [],
+      "root_characters": 497
+    },
+    "linkedin": {
+      "platform_limit": 3000,
+      "reply_characters": [],
+      "root_characters": 803
+    },
+    "telegram": {
+      "platform_limit": 1024,
+      "reply_characters": [],
+      "root_characters": 412
+    },
+    "threads": {
+      "platform_limit": 500,
+      "reply_characters": [
+        240,
+        379
+      ],
+      "root_characters": 332
+    },
+    "x": {
+      "platform_limit": 280,
+      "reply_characters": [
+        184,
+        194
+      ],
+      "root_characters": 242
+    },
+    "youtube": {
+      "platform_limit": 1000,
+      "reply_characters": [],
+      "root_characters": 968
+    }
+  },
+  "public_write_performed": false,
+  "publishing_adapter_called": false,
+  "release_candidate_lock_path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\release_candidate_lock_v1.json",
+  "release_candidate_lock_sha256": "1f39bf424afa5de9d9657635652ab99ee8faa0b2b5e3109be4600fa79624c269",
+  "run_id": "contentops_v1_0_rc_20260711_1",
+  "schema_version": "contentops.text_image_release_rehearsal.v1",
+  "selected_idea": {
+    "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+    "article_family": "oil",
+    "breaking_or_hotspot": false,
+    "canonicalization_repair": null,
+    "cross_asset_implications": "Energy equities face margin compression, while energy-importing emerging markets experience balance-of-payments relief. The broader commodity complex faces downward pressure.",
+    "dek": "The U.S. Energy Information Administration projects global crude supply to normalize, easing supply-risk premiums despite ongoing geopolitical tensions.",
+    "duplicate_hotspot_decision": {
+      "breaking_or_hotspot_exception": false,
+      "publish_allowed": true,
+      "repeat_matches": [],
+      "status": "PASS_NO_DISALLOWED_REPEAT"
+    },
+    "duplicate_of_slot_index": null,
+    "market_mechanism": "Increased non-OPEC+ supply and OPEC capacity restoration are offsetting Middle Eastern disruptions. This supply-side expansion shifts the global oil supply curve outward, lowering marginal production costs and driving down spot prices even as geopolitical rhetoric remains elevated.",
+    "policy_context": "Lower energy prices provide a favorable backdrop for global central banks, but the deflationary impulse is limited to headline indices, leaving core monetary policy targets largely unaffected.",
+    "rank": 2,
+    "rejected_reason": "While highly supportable with EIA data, this is a supply-side component of the broader macro story. It is better utilized as a key supporting data point for the Rank 1 story rather than a standalone piece, as it lacks direct monetary policy transmission analysis on its own.",
+    "semantic_cluster": "Fed Policy and Energy Decoupling",
+    "seo_title": "EIA Oil Supply Forecast: Global Production to Recover by End of 2026",
+    "slot_index": 4,
+    "slug": "eia-oil-production-recovery-forecast",
+    "tags": [
+      "energy",
+      "geopolitics",
+      "official_energy_inventory_or_opec_release"
+    ],
+    "thesis": "Global crude oil production is on track to fully recover from recent geopolitical disruptions by the end of the year, according to the U.S. EIA. This supply normalization is dismantling the geopolitical risk premium in energy markets, shifting the global oil balance back toward a surplus and putting downward pressure on Brent and WTI benchmarks.",
+    "title": "EIA Forecasts Global Oil Output Recovery to Pre-Iran War Levels by Year-End",
+    "topic": "Global oil output to return to pre-Iran war level by year\u2019s end, U.S. EIA says",
+    "topic_hash": "f3c382ec5f38e447",
+    "why_ranked": "It provides concrete, source-backed numeric forecasts from the EIA that directly support the supply-side thesis of the top-ranked macro story."
+  },
+  "source_packet": {
+    "facts": {
+      "brent_2027_forecast_usd_per_barrel": 65.0,
+      "brent_june_average_usd_per_barrel": 85.0,
+      "brent_q3_2026_forecast_usd_per_barrel": 74.0,
+      "gasoline_q3_2026_forecast_usd_per_gallon": 3.8,
+      "gasoline_q4_2026_forecast_usd_per_gallon": 3.4,
+      "global_output_near_pre_conflict_by_year_end": true,
+      "most_shut_in_output_restored_by": "2027-Q1",
+      "next_steo_release_date": "2026-08-11",
+      "next_weekly_petroleum_status_report_date": "2026-07-15",
+      "release_date": "2026-07-07"
+    },
+    "headline_feed_numeric_authority": false,
+    "numeric_truth_authority": "official_eia_release_plus_manifest_bound_fred_wti_series",
+    "retrieved_at": "2026-07-10T20:31:09.383734Z",
+    "schema_version": "contentops.current_oil_release_source.v1",
+    "source_text_sha256": "1e87b1815912a3fdf3a59b56a17d343c39204b3b200527fc099771563c93a44a",
+    "source_title": "EIA increases global oil production forecast after the opening of the Strait of Hormuz",
+    "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+    "status": "PASS_OFFICIAL_EIA_RELEASE_GROUNDED",
+    "supporting_source_retrievals": [
+      {
+        "source_text_sha256": "4f4d88616161030c9cd08a0e0621bbfa2ffc23bb2a50fd1dd0fc3f92178ff847",
+        "source_url": "https://www.eia.gov/outlooks/steo/",
+        "verified_fact": "next_steo_release_date"
+      },
+      {
+        "source_text_sha256": "12dc603a4ece15af70a5d1a1436e9b2019cdec72a4dce92a7a4c4ada233c3ab7",
+        "source_url": "https://www.eia.gov/petroleum/supply/weekly/",
+        "verified_fact": "next_weekly_petroleum_status_report_date"
+      }
+    ],
+    "supporting_source_urls": [
+      "https://www.eia.gov/outlooks/steo/",
+      "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm",
+      "https://www.eia.gov/petroleum/supply/weekly/"
+    ]
+  },
+  "source_packet_sha256": "779b5ac8497973b6889fef11ad96f1e65db494970ee6e73c2a70d1f53358d4f2",
+  "task_label": "TASK_CONTENTOPS_FINAL_TEXT_IMAGE_PLATFORM_LIVE_LOCK_AND_V1_0_RELEASE_V1",
+  "video_or_tiktok_adapter_called": false
+}

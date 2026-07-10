@@ -1,0 +1,105 @@
+{
+  "created_at": "2026-07-10T20:31:27Z",
+  "duplicate_hotspot_decision": {
+    "breaking_or_hotspot_exception": false,
+    "publish_allowed": true,
+    "repeat_matches": [],
+    "status": "PASS_NO_DISALLOWED_REPEAT"
+  },
+  "fresh_publication_run": true,
+  "llm_selection_rationale": "The decoupling of crude oil prices and Treasury yields represents a fundamental shift in the Federal Reserve's policy dilemma from headline energy shocks to sticky core inflation. This macro story (Slot 1) is highly supportable using official Fed and EIA data, directly linking to the EIA's projection of global oil output returning to pre-war levels (Slot 4) and the geopolitical catalysts of reinstated Iranian oil sanctions (Slot 5). This cluster provides a deep, cross-asset narrative with clear policy implications and robust visual data support (yield curves vs. Brent crude spot prices), making it the strongest candidate for a market-moving feature. Other slots are rejected as lower priority due to being calendar events, isolated data points, or politically charged working papers lacking immediate market-pricing impact.",
+  "rejected_alternatives": [
+    {
+      "duplicate_of_slot_index": null,
+      "rank": 1,
+      "rejected_reason": "Lower impact or weaker grounded support than the selected candidate.",
+      "semantic_cluster": "Fed Policy and Energy Decoupling",
+      "slot_index": 1,
+      "why_ranked": "This candidate offers the highest analytical depth, linking macroeconomic theory directly to current cross-asset market pricing. It is highly supportable with official Federal Reserve and EIA data charts, and incorporates the geopolitical catalysts from the day's news flow."
+    },
+    {
+      "duplicate_of_slot_index": null,
+      "rank": 3,
+      "rejected_reason": "This is a geopolitical catalyst and diplomatic statement. While it directly impacts oil market sentiment, it represents headline noise/propaganda from Iran's Foreign Ministry rather than a structural shift in market mechanisms, making it subordinate to the EIA's hard supply data.",
+      "semantic_cluster": "Fed Policy and Energy Decoupling",
+      "slot_index": 5,
+      "why_ranked": "It serves as a highly relevant geopolitical catalyst that directly feeds into the global oil supply dynamics analyzed in the top-ranked stories."
+    },
+    {
+      "duplicate_of_slot_index": null,
+      "rank": 4,
+      "rejected_reason": "This is a daily operational data point (Effective Fed Funds Rate at 3.63%) showing zero change. While highly accurate and supportable, it lacks the narrative freshness or analytical depth required for a standalone feature article.",
+      "semantic_cluster": "Fed Policy and Energy Decoupling",
+      "slot_index": 6,
+      "why_ranked": "It is a routine, non-moving daily statistic that serves as a baseline policy anchor rather than a dynamic news story."
+    },
+    {
+      "duplicate_of_slot_index": null,
+      "rank": 5,
+      "rejected_reason": "This candidate relies on a working paper rather than official, finalized policy or consensus data. The claim that immigration caused 30% of home price increases is highly politically sensitive and academically debated, making it unsuitable for a primary market-moving macro story without broader consensus verification.",
+      "semantic_cluster": "Housing and Immigration Policy",
+      "slot_index": 3,
+      "why_ranked": "It is based on a preliminary academic working paper rather than hard, actionable market data or official policy decisions."
+    },
+    {
+      "duplicate_of_slot_index": null,
+      "rank": 6,
+      "rejected_reason": "This is a generic daily calendar listing upcoming events (NATO summit, mortgage applications, wholesale inventories). It is a scheduling tool rather than a cohesive, analytical market story.",
+      "semantic_cluster": "Daily Market Calendar",
+      "slot_index": 2,
+      "why_ranked": "It is a forward-looking calendar of disparate events rather than an analytical, data-driven market story."
+    }
+  ],
+  "schema_version": "contentops.substack_first_north_star_pipeline.v1",
+  "selected": {
+    "angle": "Separate current energy-price evidence from supply-risk narrative and policy pass-through.",
+    "article_family": "oil",
+    "breaking_or_hotspot": false,
+    "canonicalization_repair": null,
+    "cross_asset_implications": "Energy equities face margin compression, while energy-importing emerging markets experience balance-of-payments relief. The broader commodity complex faces downward pressure.",
+    "dek": "The U.S. Energy Information Administration projects global crude supply to normalize, easing supply-risk premiums despite ongoing geopolitical tensions.",
+    "duplicate_hotspot_decision": {
+      "breaking_or_hotspot_exception": false,
+      "publish_allowed": true,
+      "repeat_matches": [],
+      "status": "PASS_NO_DISALLOWED_REPEAT"
+    },
+    "duplicate_of_slot_index": null,
+    "market_mechanism": "Increased non-OPEC+ supply and OPEC capacity restoration are offsetting Middle Eastern disruptions. This supply-side expansion shifts the global oil supply curve outward, lowering marginal production costs and driving down spot prices even as geopolitical rhetoric remains elevated.",
+    "policy_context": "Lower energy prices provide a favorable backdrop for global central banks, but the deflationary impulse is limited to headline indices, leaving core monetary policy targets largely unaffected.",
+    "rank": 2,
+    "rejected_reason": "While highly supportable with EIA data, this is a supply-side component of the broader macro story. It is better utilized as a key supporting data point for the Rank 1 story rather than a standalone piece, as it lacks direct monetary policy transmission analysis on its own.",
+    "semantic_cluster": "Fed Policy and Energy Decoupling",
+    "seo_title": "EIA Oil Supply Forecast: Global Production to Recover by End of 2026",
+    "slot_index": 4,
+    "slug": "eia-oil-production-recovery-forecast",
+    "tags": [
+      "energy",
+      "geopolitics",
+      "official_energy_inventory_or_opec_release"
+    ],
+    "thesis": "Global crude oil production is on track to fully recover from recent geopolitical disruptions by the end of the year, according to the U.S. EIA. This supply normalization is dismantling the geopolitical risk premium in energy markets, shifting the global oil balance back toward a surplus and putting downward pressure on Brent and WTI benchmarks.",
+    "title": "EIA Forecasts Global Oil Output Recovery to Pre-Iran War Levels by Year-End",
+    "topic": "Global oil output to return to pre-Iran war level by year\u2019s end, U.S. EIA says",
+    "topic_hash": "f3c382ec5f38e447",
+    "why_ranked": "It provides concrete, source-backed numeric forecasts from the EIA that directly support the supply-side thesis of the top-ranked macro story."
+  },
+  "selection_method": "live_llm_ranking_then_grounded_media_support_gate",
+  "support_attempts": [
+    {
+      "grounded_support_blockers": [
+        "llm_media_family_mismatch:fed_funds!=oil",
+        "primary_federal_reserve_source_required_by_schedule_not_present_in_media_pack"
+      ],
+      "media_asset_count": 3,
+      "slot_index": 1,
+      "status": "REJECTED_GROUNDED_SUPPORT"
+    },
+    {
+      "grounded_support_blockers": [],
+      "media_asset_count": 3,
+      "slot_index": 4,
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "created_at": "2026-07-10T20:31:27Z",
+  "headline_sidecars_are_catalyst_only": true,
+  "official_source_packet": {
+    "facts": {
+      "brent_2027_forecast_usd_per_barrel": 65.0,
+      "brent_june_average_usd_per_barrel": 85.0,
+      "brent_q3_2026_forecast_usd_per_barrel": 74.0,
+      "gasoline_q3_2026_forecast_usd_per_gallon": 3.8,
+      "gasoline_q4_2026_forecast_usd_per_gallon": 3.4,
+      "global_output_near_pre_conflict_by_year_end": true,
+      "most_shut_in_output_restored_by": "2027-Q1",
+      "next_steo_release_date": "2026-08-11",
+      "next_weekly_petroleum_status_report_date": "2026-07-15",
+      "release_date": "2026-07-07"
+    },
+    "headline_feed_numeric_authority": false,
+    "numeric_truth_authority": "official_eia_release_plus_manifest_bound_fred_wti_series",
+    "retrieved_at": "2026-07-10T20:31:09.383734Z",
+    "schema_version": "contentops.current_oil_release_source.v1",
+    "source_text_sha256": "1e87b1815912a3fdf3a59b56a17d343c39204b3b200527fc099771563c93a44a",
+    "source_title": "EIA increases global oil production forecast after the opening of the Strait of Hormuz",
+    "source_url": "https://www.eia.gov/pressroom/releases/press590.php",
+    "status": "PASS_OFFICIAL_EIA_RELEASE_GROUNDED",
+    "supporting_source_retrievals": [
+      {
+        "source_text_sha256": "4f4d88616161030c9cd08a0e0621bbfa2ffc23bb2a50fd1dd0fc3f92178ff847",
+        "source_url": "https://www.eia.gov/outlooks/steo/",
+        "verified_fact": "next_steo_release_date"
+      },
+      {
+        "source_text_sha256": "12dc603a4ece15af70a5d1a1436e9b2019cdec72a4dce92a7a4c4ada233c3ab7",
+        "source_url": "https://www.eia.gov/petroleum/supply/weekly/",
+        "verified_fact": "next_weekly_petroleum_status_report_date"
+      }
+    ],
+    "supporting_source_urls": [
+      "https://www.eia.gov/outlooks/steo/",
+      "https://fred.stlouisfed.org/series/DCOILWTICO",
+      "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm",
+      "https://www.eia.gov/petroleum/supply/weekly/"
+    ]
+  },
+  "repo_evidence": [
+    "docs\\automation\\V6_DAILY_EDITORIAL_SCHEDULE\\daily_schedule_2026_07_08.json",
+    "headline_ingestion\\data\\intake\\headline_sidecars\\step1_headline_sidecar_2026_07_08.jsonl"
+  ],
+  "schema_version": "contentops.substack_first_north_star_pipeline.v1",
+  "selected_slot_index": 4,
+  "source_boundary": [
+    "Schedule and headline sidecars establish freshness and catalyst context only.",
+    "The source-backed chart manifest carries visual provenance and numeric-source labels.",
+    "Article prose does not promote schedule headlines into unsupported numeric truth."
+  ],
+  "source_needs": [
+    "EIA energy release/source table",
+    "Primary energy/geopolitical source check before drafting"
+  ],
+  "support_status": "GROUNDED_REPO_INPUTS_AND_SOURCE_BACKED_MEDIA"
+}

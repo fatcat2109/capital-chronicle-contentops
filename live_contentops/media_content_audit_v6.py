@@ -58,6 +58,23 @@ def _looks_like_fed_funds_topic(text: str) -> bool:
     return any(term in text for term in terms)
 
 
+def _fed_funds_fixture_scope() -> dict[str, Any]:
+    """Describe the legacy deterministic Fed fixture without granting source authority."""
+    return {
+        "content_authority_scope": "TEMPORARY_CONTENTOPS_FALLBACK_FIXTURE",
+        "future_numeric_source_authority": "FUTURE_CAPITAL_CHRONICLE_DATABASE_AUTHORITY",
+        "contentops_role": "temporary deterministic fallback fixture for dry-run/public-candidate readiness only",
+        "future_required_input": "CC_CONTENT_ARTIFACT_PACKET",
+        "source_truth_boundary": (
+            "ContentOps does not own Fed/FRED/NY Fed/Treasury rates source truth; "
+            "it must consume approved Capital Chronicle artifacts later."
+        ),
+        "no_new_source_family_rule": (
+            "No additional source families should be added directly to ContentOps unless explicitly approved."
+        ),
+    }
+
+
 def _as_of_year(as_of_date: str | None = None) -> int:
     if as_of_date:
         try:
@@ -280,6 +297,7 @@ def render_current_wti_visual_pack(
     out_dir.mkdir(parents=True, exist_ok=True)
     safe = hashlib.sha256(article_title.lower().encode("utf-8")).hexdigest()[:12]
     latest_date, latest_value = points[-1]
+    prior_date, prior_value = points[-2]
     latest_year = latest_date.year
     vol_points = _rolling_abs_change(points)
     price_dir = _recent_direction(points)
@@ -309,6 +327,8 @@ def render_current_wti_visual_pack(
         "asset_id": "primary",
         "media_class": "data_chart",
         "media_role": "primary_chart",
+        "chart_title": "WTI Crude Oil: Current Price Context and Realized Volatility",
+        "canonical_article_section_association": "current_market_signal_and_supply_repricing",
         "url": WTI_FRED_SERIES_URL,
         "source_url": WTI_FRED_SERIES_URL,
         "source_page_url": WTI_FRED_SERIES_URL,
@@ -328,6 +348,9 @@ def render_current_wti_visual_pack(
         "media_subject": "WTI crude oil current price and volatility context",
         "latest_observation_date": latest_date.isoformat(),
         "latest_observation_year": latest_year,
+        "latest_observation_value": latest_value,
+        "prior_observation_date": prior_date.isoformat(),
+        "prior_observation_value": prior_value,
         "time_coverage_end_year": latest_year,
         "recent_direction": vol_dir,
         "recent_price_direction": price_dir,
@@ -355,6 +378,8 @@ def render_current_wti_visual_pack(
         **primary_meta,
         "asset_id": "recent_price",
         "media_role": "supporting_chart",
+        "chart_title": "WTI Crude Oil: Recent Price Path",
+        "canonical_article_section_association": "hormuz_flow_and_price_mechanism",
         "visual_metric": "wti crude oil current recent price path",
         "media_subject": "WTI crude oil recent price path",
         "recent_direction": price_dir,
@@ -390,6 +415,8 @@ def render_current_wti_visual_pack(
         **primary_meta,
         "asset_id": "multi_year_range",
         "media_role": "supporting_chart",
+        "chart_title": "WTI Crude Oil: Multi-Year Price Range Context",
+        "canonical_article_section_association": "cross_asset_and_historical_regime_context",
         "visual_metric": "wti crude oil multi year price range context",
         "media_subject": "WTI crude oil multi-year annual range and average",
         "recent_direction": price_dir,

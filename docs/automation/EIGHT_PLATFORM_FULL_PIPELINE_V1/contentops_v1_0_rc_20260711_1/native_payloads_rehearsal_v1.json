@@ -1,0 +1,182 @@
+{
+  "discord": {
+    "format": "newsroom_embed_with_chart",
+    "text": "**EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume**\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\n**Why it matters:** Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices.\n\nFull analysis: https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume\n\nFor informational purposes only; not financial advice."
+  },
+  "facebook_page": {
+    "format": "page_photo_post",
+    "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\nThe relevant transmission channel is Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices.\n\nRead the full article: https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume\n\nFor informational purposes only; not financial advice."
+  },
+  "instagram_business": {
+    "format": "chart_caption",
+    "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe chart is a checkpoint, not a verdict: A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields.\n\nFull analysis: https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume\n\nFor informational purposes only; not financial advice.\n\n#CapitalChronicle #Macro #Markets"
+  },
+  "linkedin": {
+    "format": "professional_analytical_note_with_chart",
+    "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\nThe mechanism: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices.\n\nThe policy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations.\n\nRead the full Capital Chronicle analysis: https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume\n\nFor informational purposes only; not financial advice."
+  },
+  "telegram": {
+    "format": "channel_photo_with_caption",
+    "media_asset_ids": [
+      "primary"
+    ],
+    "platform_limit": 1024,
+    "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\nRead the full analysis: https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume\n\nFor informational purposes only; not financial advice."
+  },
+  "threads": {
+    "format": "root_chart_post_with_ordered_media_replies",
+    "full_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume\n\nWhy it matters: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices.\n\nFor informational purposes only; not financial advice.\n\nPolicy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. Cross-asset context: A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields.",
+    "hard_truncation_used": false,
+    "overflow_strategy": "semantic_three_post_thread",
+    "platform_limit": 500,
+    "posts": [
+      {
+        "article_sections": [
+          "lede_and_current_market_signal"
+        ],
+        "media_asset_ids": [
+          "primary"
+        ],
+        "order": 0,
+        "role": "root",
+        "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume"
+      },
+      {
+        "article_sections": [
+          "market_mechanism"
+        ],
+        "media_asset_ids": [
+          "recent_price"
+        ],
+        "order": 1,
+        "role": "reply",
+        "text": "Why it matters: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices.\n\nFor informational purposes only; not financial advice."
+      },
+      {
+        "article_sections": [
+          "policy_and_cross_asset_context",
+          "confirmation_and_limits"
+        ],
+        "media_asset_ids": [
+          "multi_year_range"
+        ],
+        "order": 2,
+        "role": "reply",
+        "text": "Policy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. Cross-asset context: A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields."
+      }
+    ],
+    "quality_metrics": {
+      "complete_article_visual_count": 3,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.664,
+        0.48,
+        0.758
+      ],
+      "post_character_counts": [
+        332,
+        240,
+        379
+      ],
+      "reply_count": 2,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 0.633,
+      "visual_distribution_pass": true
+    },
+    "reply_texts": [
+      "Why it matters: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices.\n\nFor informational purposes only; not financial advice.",
+      "Policy context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. Cross-asset context: A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields."
+    ],
+    "reserved_costs": {
+      "canonical_url_characters": 105,
+      "media_characters": 0
+    },
+    "root_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+    "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume"
+  },
+  "tiktok": {
+    "format": "source_chart_sequence_caption",
+    "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume. Three source-backed charts show the signal, the policy mechanism, and the curve context. Full article: https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume. For informational purposes only; not financial advice."
+  },
+  "x": {
+    "format": "root_chart_post_with_ordered_replies",
+    "full_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nEIA expects crude flows to approach pre-conflict levels by year-end.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume\n\nWhy it matters: Reopened Hormuz transit and restored output will test whether inventories rebuild and crude prices keep falling.\n\nFor informational purposes only; not financial advice.\n\nPolicy context: Cheaper gasoline can ease headline inflation without settling Federal Reserve policy. Cross-asset context: Lower oil can help energy importers while pressuring producer revenues.",
+    "hard_truncation_used": false,
+    "overflow_strategy": "semantic_three_post_thread",
+    "platform_limit": 280,
+    "posts": [
+      {
+        "article_sections": [
+          "lede_and_current_market_signal"
+        ],
+        "media_asset_ids": [
+          "primary"
+        ],
+        "order": 0,
+        "role": "root",
+        "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nEIA expects crude flows to approach pre-conflict levels by year-end.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume"
+      },
+      {
+        "article_sections": [
+          "market_mechanism"
+        ],
+        "media_asset_ids": [
+          "recent_price"
+        ],
+        "order": 1,
+        "role": "reply",
+        "text": "Why it matters: Reopened Hormuz transit and restored output will test whether inventories rebuild and crude prices keep falling.\n\nFor informational purposes only; not financial advice."
+      },
+      {
+        "article_sections": [
+          "policy_and_cross_asset_context",
+          "confirmation_and_limits"
+        ],
+        "media_asset_ids": [
+          "multi_year_range"
+        ],
+        "order": 2,
+        "role": "reply",
+        "text": "Policy context: Cheaper gasoline can ease headline inflation without settling Federal Reserve policy. Cross-asset context: Lower oil can help energy importers while pressuring producer revenues."
+      }
+    ],
+    "quality_metrics": {
+      "complete_article_visual_count": 3,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false,
+      "orphan_fragment_count": 0,
+      "per_post_character_utilization": [
+        0.864,
+        0.657,
+        0.693
+      ],
+      "post_character_counts": [
+        242,
+        184,
+        194
+      ],
+      "reply_count": 2,
+      "sentence_boundary_pass": true,
+      "shortest_longest_reply_ratio": 0.76,
+      "visual_distribution_pass": true
+    },
+    "reply_texts": [
+      "Why it matters: Reopened Hormuz transit and restored output will test whether inventories rebuild and crude prices keep falling.\n\nFor informational purposes only; not financial advice.",
+      "Policy context: Cheaper gasoline can ease headline inflation without settling Federal Reserve policy. Cross-asset context: Lower oil can help energy importers while pressuring producer revenues."
+    ],
+    "reserved_costs": {
+      "canonical_url_characters": 105,
+      "media_characters": 0
+    },
+    "root_text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nEIA expects crude flows to approach pre-conflict levels by year-end.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+    "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nEIA expects crude flows to approach pre-conflict levels by year-end.\n\nhttps://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume"
+  },
+  "youtube": {
+    "format": "community_text_image_post",
+    "hard_truncation_used": false,
+    "platform_limit": 1000,
+    "text": "EIA Sees Oil Supply Nearing Pre-War Levels as Hormuz Flows Resume\n\nThe agency expects crude output and trade to recover near pre-conflict levels by year-end, shifting the market test from disruption to inventories and demand.\n\nWhy it matters: Reopened Hormuz transit, restored shut-in production and rebuilding inventories determine whether the supply recovery translates into a durable decline in crude prices.\n\nPolicy and curve context: Lower gasoline prices can ease headline inflation, but Federal Reserve policy still depends on broader price persistence, labor conditions and inflation expectations. A sustained oil retreat can reduce near-term inflation compensation, support large energy importers and pressure producer revenues without guaranteeing lower long-term yields.\n\nRead the full analysis: https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume\n\nFor informational purposes only; not financial advice."
+  }
+}

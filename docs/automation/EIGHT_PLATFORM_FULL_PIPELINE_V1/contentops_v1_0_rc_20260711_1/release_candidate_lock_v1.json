@@ -1,0 +1,84 @@
+{
+  "article_body_sha256": "b98329d37c3c25f154ff8b4d5968a8d8f3c8f2bea67571ea2dfd9ea70c7e4146",
+  "artifacts": {
+    "article_manifest_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\article_manifest_v1.json",
+      "sha256": "eaea86e3a562edac97ee5c8b9bcf5e5bbd2482c270ef00bc19f2f404bfa9a583"
+    },
+    "editorial_quality_gate_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\editorial_quality_gate_v1.json",
+      "sha256": "8f5b9c62610ba19d153dfb5f0f09d566e88843432b80394706880a4d4d2038ee"
+    },
+    "grounded_support_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\grounded_support_v1.json",
+      "sha256": "806712d04d3d1a08aca8058290e78558e11ae66deff6a1fb8782c5befb65767e"
+    },
+    "headline_intake_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\headline_intake_v1.json",
+      "sha256": "d3fa02298dc914ddc8d00bf044af18bfdce970c1ca3005a0eb937b185a7806c0"
+    },
+    "idea_selection_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\idea_selection_v1.json",
+      "sha256": "aa33bea6c506669d5199992c4514cda06023e2dba2bc33286767931d95f2b688"
+    },
+    "llm_idea_ranking_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\llm_idea_ranking_v1.json",
+      "sha256": "bdcf93b36af02c59962d5cb89b2d056c4dffccef5bbabb05ef8cecf29a7e136e"
+    },
+    "media_manifest_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\media_manifest_v1.json",
+      "sha256": "8e1972d2c34b9f9531cbe3ede5ed1dab15d237f1947ac497e71195f5dfdb4707"
+    },
+    "native_payloads_rehearsal_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\native_payloads_rehearsal_v1.json",
+      "sha256": "9a0aa94f27e047aa361a81d872aea00dbc692e4c0cf5915442dedf13d4ba02de"
+    },
+    "run_context_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\run_context_v1.json",
+      "sha256": "45ab6200309915d2e8e1df71c7ffcba3d5d103b640754013a73bb3e78c5a7f94"
+    },
+    "substack_browser_request_v1.json": {
+      "exists": true,
+      "path": "docs\\automation\\EIGHT_PLATFORM_FULL_PIPELINE_V1\\contentops_v1_0_rc_20260711_1\\substack_browser_request_v1.json",
+      "sha256": "9def9edd06ba8e05d12abaa467e8e1896e5bb150afaa32fd8109c148c75cee61"
+    }
+  },
+  "duplicate_hotspot_decision": {
+    "breaking_or_hotspot_exception": false,
+    "publish_allowed": true,
+    "repeat_matches": [],
+    "status": "PASS_NO_DISALLOWED_REPEAT"
+  },
+  "lock_sha256": "1f39bf424afa5de9d9657635652ab99ee8faa0b2b5e3109be4600fa79624c269",
+  "media_sha256": {
+    "multi_year_range": "400eac0a7cdd1cb7fdb65db0770afc60400aa3b1f34c7b8674755ab93bf541bf",
+    "primary": "b91a2cc002b7f3d2d5c51ba3dfffe3e83bae79a7a29611125ade313c9a286a50",
+    "recent_price": "b940fb6b8464b8c0e4028a0c5874436d456facb9afd1851b64b2e76dcb33d076"
+  },
+  "payload_sha256": {
+    "discord": "7ea896fe101d86951caf5f00c573cbd3ecb188075a3ecab8baca826aefdb0941",
+    "facebook_page": "86227241ef9e036f908facb8a5342580056848ab1a039146a979b5d65b4d6e36",
+    "instagram_business": "9f32f1a710d5377b8debd6869555c3f7e007d04a51898cda60ce21d84b09349f",
+    "linkedin": "0128a5eb846241c209e29851cfde8cb909ad47d85953f6512d59a25948f9bb3f",
+    "telegram": "6c9ac5c44256e57641b2f40f2e6656c28d4f18ab12d17f48c40bd9b63c44e66c",
+    "threads": "b7c7de54f624e18483fc950673f04fdfb8e89492c0d65909a75785b25715bcda",
+    "tiktok": "57813d5066e5ef8ac55cbc4480c0b9c60827f6a1fd48507e60c2207e8c13ccf7",
+    "x": "86aa2fa8b330fac9937363b441e8a0a801b0e12f0384ab805e8f6f4e4cba7980",
+    "youtube": "990379038431dc2e19df6f54956ad753d6b05e60d13c50db97e9d83d4c3398e9"
+  },
+  "prepared_canonical_url": "https://capitalchronicle.substack.com/p/eia-sees-oil-supply-nearing-pre-war-levels-as-hormuz-flows-resume",
+  "public_write_performed": false,
+  "run_id": "contentops_v1_0_rc_20260711_1",
+  "schema_version": "contentops.text_image_release_candidate_lock.v1",
+  "source_packet_sha256": "779b5ac8497973b6889fef11ad96f1e65db494970ee6e73c2a70d1f53358d4f2",
+  "task_label": "TASK_CONTENTOPS_FINAL_TEXT_IMAGE_PLATFORM_LIVE_LOCK_AND_V1_0_RELEASE_V1"
+}

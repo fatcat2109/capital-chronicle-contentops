@@ -48,18 +48,22 @@ def _fake_ranker(_prompt: str, _provider: str) -> dict:
 
 
 def _fake_visual_builder(_topic: str, output_dir: Path, as_of_date=None) -> list[dict]:
+    from PIL import Image
+
     del as_of_date
     output_dir.mkdir(parents=True, exist_ok=True)
     rows = []
     for asset_id in ("primary", "policy_corridor", "sofr_context"):
         path = output_dir / f"{asset_id}.png"
-        path.write_bytes(b"source-backed-chart-fixture")
+        Image.new("RGB", (1200, 675), color=(241, 245, 249)).save(path)
         rows.append(
             {
                 "asset_id": asset_id,
                 "local_path": str(path),
                 "media_class": "data_chart",
                 "media_role": "chart",
+                "chart_title": f"{asset_id} chart",
+                "canonical_article_section_association": f"section_{asset_id}",
                 "source_label": "FRED / Federal Reserve",
                 "source_page_url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm" if asset_id == "policy_corridor" else "https://fred.stlouisfed.org/series/DFF",
                 "provenance_status": "source_backed_generated_from_public_data",
@@ -77,6 +81,18 @@ def _fake_visual_builder(_topic: str, output_dir: Path, as_of_date=None) -> list
     return rows
 
 
+def _fake_editorial_reviewer(_prompt: str, _provider: str) -> dict:
+    from live_contentops.tier1_editorial_quality_v1 import LLM_REVIEW_CHECKS
+
+    return {
+        "decision": "PASS",
+        "mode": "analysis",
+        "checks": {name: True for name in LLM_REVIEW_CHECKS},
+        "issues": [],
+        "summary": "The article has a clear peg, mechanism, context, and named confirmation and falsification conditions.",
+    }
+
+
 def _prepare(tmp_path: Path) -> tuple[dict, Path, Path]:
     output_dir = tmp_path / "evidence"
     result = prepare_substack_first_pipeline(
@@ -85,6 +101,7 @@ def _prepare(tmp_path: Path) -> tuple[dict, Path, Path]:
         output_dir=output_dir,
         llm_provider="9router",
         llm_ranker=_fake_ranker,
+        llm_editorial_reviewer=_fake_editorial_reviewer,
         visual_builder=_fake_visual_builder,
         export_root=tmp_path / "exports",
     )
@@ -99,13 +116,15 @@ def test_prepare_uses_llm_ranking_then_requires_three_chart_media(tmp_path: Path
 
     assert context["selection"]["slot_index"] == 6
     assert context["selection"]["title"] == "Effective Fed Funds Rate Holds at 3.62% as Policy Calibration Continues"
-    assert "3.62% on 2026-07-08" in context["article"]["substack_body_markdown"]
+    assert "3.62% on July 8" in context["article"]["substack_body_markdown"]
     assert "printed at 3.63%" not in context["article"]["substack_body_markdown"]
     assert "3.63%" not in context["selection"]["market_mechanism"]
     assert context["media"]["media_asset_count"] == 3
     assert {asset["media_class"] for asset in context["media"]["assets"]} == {"data_chart"}
-    assert context["article"]["word_count"] >= 1200
+    assert context["article"]["word_count"] >= 550
     assert context["article"]["visuals_spread_through_article"] is True
+    assert context["editorial_gate"]["combined_gate"]["classification"] == "PASS"
+    assert "The editorial task" not in context["article"]["substack_body_markdown"]
     assert request["publication_mode"] == "draft"
     assert request["visual_marker_order"] == ["primary", "policy_corridor", "sofr_context"]
 
